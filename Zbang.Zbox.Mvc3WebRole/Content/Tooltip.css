@@ -1,0 +1,129 @@
+﻿.tooltip:hover .callout
+{
+    display: block;
+    z-index: 1;
+}
+
+
+.callout 
+{
+    display: none;
+    position: absolute;
+    top: 24px;
+    left: -12px;
+    min-width: 37px;
+    max-width: 256px;
+    min-height: 13px;
+    line-height: 13px;
+    padding: 9px;
+    color: #fff;
+    background: #473e43; /* Solid color fallback for ie8 */
+    background: rgba(60,52,57,.95);
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #0d0b0c;
+    box-shadow: 3px 3px 3px rgba(60,52,57,.5);
+    
+}
+
+.callout:after {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 17px;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #473e43 transparent;
+}
+
+.more .callout span:last-child:after
+{
+   content:""; /*override dotChar class*/
+}
+
+/* Boxes tooltips */
+.boxViewListWrapper .callout 
+{
+    top: 224px;
+    left: 178px; /*rtl*/
+    min-width: 82px;
+}
+
+/* Boxes tooltips */
+
+
+/* Box tooltips */
+
+/* action buttons tooltips */
+
+.actionBtns .callout
+{
+    min-width: 39px;
+    text-align: center;
+    padding: 6px;
+    top: 35px;
+    left: 12px;
+}
+
+.actionBtns .callout:after
+{
+    border-width: 8px;
+    top: -16px;
+}
+
+.downloadBtn .callout
+{
+    left: -13px;
+    font-size: 13px; /* need this! */
+}
+/* end action buttons tooltips */
+
+/* members tooltip */
+.tooltip:hover .callout1
+{
+    display: block;
+    z-index: 1;
+}
+
+.members .callout
+{
+    display: none;
+    position: absolute;
+    top: 44px;
+    left: -12px; /*rtl*/
+}
+
+.members .callout1
+{
+    display: none;
+    position: absolute;
+    top: 43px;
+    left: -9px; /*rtl*/
+    width: 250px;
+    background-color: #fff;
+    padding: 12px 10px;
+    border: 1px solid #d1cfd0;
+    box-shadow: 3px 3px 3px rgba(44,21,34,0.3); /*rtl*/
+}
+
+.callout1:after {
+    content: "";
+    position: absolute;
+    top: -12px; 
+    left: 15px; /*rtl*/
+    width: 24px;
+    height: 12px;
+    background: url(/Images/tooltip_arrow.png) no-repeat;
+}
+.tooltip .membersAll .details
+{
+    width: 190px;
+}
+/* end members tooltip */
+
+
+/* end Box tooltips */
+
+
+    

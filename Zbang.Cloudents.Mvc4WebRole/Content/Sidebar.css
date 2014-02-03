@@ -1,0 +1,505 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region library sidebar */
+.asideDash {
+    height: 100%;
+    background: #fff;
+    border-right: 1px solid #c2c2c2;
+    /*rtl*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: table;
+}
+
+.asideLib,
+.asideDash {
+    color: #383838;
+    width: 290px;
+    position: fixed;
+    z-index: 5;
+}
+
+.dashTop {
+    background: #f1f1f1;
+    display: inline-block;
+    display: table-row;
+    width: 100%;
+    height: 160px;
+    text-align: center;
+}
+
+.dashTop:hover .uniName {
+    background: #fff;
+}
+
+.uniLogo {
+    border-radius: 5px;
+    display: block;
+    margin-top: 10px;
+}
+
+.uniLogo img {
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.uniName {
+    display: block;
+    width: 270px;
+    margin: 6px auto 0;
+    font-size: 18px;
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    line-height: 54px;
+    height: 54px;
+}
+
+.uniName .uniText {
+    line-height: 1.1;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.productsBtn {
+    padding: 10px 0;
+    width: 100%;
+    color: #383838;
+    text-align: left;
+    /*rtl*/
+    border-top: 1px solid #c2c2c2;
+    position: relative;
+}
+
+.productsBtn.checked .closeProducts {
+    display: block;
+}
+
+.productsBtn:hover {
+    background: #e5e5e5;
+}
+
+.productsBtn:before {
+    content: '';
+    display: inline-block;
+    background: url(/Images/dash13-sprite.png) -301px -1px no-repeat;
+    width: 32px;
+    height: 23px;
+    float: left;
+    /*rtl*/
+    margin: 10px 9px 0 9px;
+}
+
+.productsBtn:after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 10px;
+    background: url(/Images/dash13-sprite.png) -302px -25px no-repeat;
+    position: absolute;
+    right: 10px;
+    /*rtl*/
+    top: 25px;
+}
+
+.closeProducts {
+    display: none;
+    width: 24px;
+    height: 22px;
+    background: #fff;
+    float: right;
+    /*rtl*/
+    margin: -32px -1px 0 0;
+    /*rtl*/
+    border-radius: 5px 0 0 5px;
+    /*rtl*/
+    border: 1px solid #c2c2c2;
+    border-right: 1px solid #fff;
+    /*rtl*/
+    position: relative;
+}
+
+.closeProducts:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 11px;
+    background: url(/Images/common13-sprite.png) -68px -25px no-repeat;
+    margin: 5px 7px;
+}
+
+.productsHeader {
+    font-size: 16px;
+    margin-bottom: -2px;
+}
+
+.dashListsWpr {
+    display: table-row;
+}
+
+.dashLists {
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.dashLists .friendsList {
+    padding: 11px 7px 7px 11px;
+    /*rtl*/
+}
+
+.dashLists .friendItem.friendBtn:first-child {
+    float: none;
+    width: 266px;
+}
+
+.dashLists .friendItem.friendBtn:first-child .inviteFriendBtn {
+    width: 100%;
+}
+
+.dashLists .friendItem.friendBtn:first-child .inviteFriendBtn:before {
+    content: attr(data-dash-inviteto);
+}
+
+.dashLists .friendItem .inviteFriendBtn:before {
+    content: attr(data-dash-invite);
+    display: inline-block;
+}
+
+.updateContent {
+    margin-left: 3px;
+    /*rtl*/
+    display: inline-block;
+    max-width: 180px;
+    color: #676767;
+}
+
+.asideImg.top {
+    vertical-align: top;
+}
+
+.asideList {
+    padding: 0 5px 0 10px;
+    /*rtl*/
+    position: relative;
+}
+
+.asideList .activityItem {
+    margin-bottom: 10px;
+}
+
+.asideList .activityItem:first-child {
+    padding-top: 10px;
+}
+
+.asideList .activityItem:last-child {
+    margin-bottom: 24px;
+}
+
+.asideList.dash > .activityItem {
+    margin: 0 8px 7px 0;
+    /* rtl override the .asideList > .activityItem rule */
+    border-bottom: 1px solid #E7E7E7;
+    padding-bottom: 7px;
+}
+
+.asideList.dash > .activityItem:last-child {
+    margin-bottom: 0;
+}
+
+.asideImgLink {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.asideImgLink ~ .latest {
+    display: inline-block;
+    max-width: 224px;
+    margin: -1px 0 0 4px;
+    /*rtl*/
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    font-size: 11px;
+}
+
+.asideImgLink ~ span {
+    display: inline-block;
+    max-width: 200px;
+    margin-left: 4px;
+    /*rtl*/
+}
+
+.asideImg {
+    vertical-align: top;
+    display: inline-block;
+    border: 1px solid #C2C2C2;
+    border-radius: 3px ;
+}
+
+/*.asideImg ~ .latest {
+                display: inline-block;
+                max-width: 224px;
+                margin: -1px 0 0 4px; /*rtl*/
+/*-ms-word-wrap: break-word;
+                word-wrap: break-word;
+                font-size: 11px;
+        }
+
+
+        .asideImg ~ span {
+                display: inline-block;
+                max-width: 200px;
+                margin-left: 4px; /*rtl*
+        }
+*/
+.latestName {
+    font-size: 15px;
+}
+
+.asideLibDiv {
+    font-size: 32px;
+    color: #e5a13d;
+    margin-bottom: 12px;
+}
+
+.asideLibDiv:before {
+    content: '';
+    display: inline-block;
+    margin-right: 10px;
+    /*rtl*/
+    vertical-align: middle;
+    background: url(/Images/lib_sprite.png) no-repeat;
+    height: 32px;
+}
+
+.asideLib > .files:before {
+    width: 32px;
+    background-position: -1px -1px;
+    margin: 0 10px 0 12px;
+    /*rtl*/
+}
+
+.asideLib > .courses:before {
+    width: 44px;
+    background-position: -78px -1px;
+}
+
+.asideLib > .students {
+    margin-bottom: 40px;
+}
+
+.asideLib > .students:before {
+    width: 43px;
+    height: 27px;
+    background-position: -34px -1px;
+    margin: 0 10px 0 2px;
+    /*rtl*/
+}
+
+.statCategory {
+    font-size: 15px;
+    margin-left: 3px;
+    /*rtl; use this if whitespace in markup span if too big */
+}
+
+.libHeader {
+    margin-bottom: 12px;
+}
+
+.libHeader:before {
+    content: '';
+    display: inline-block;
+    margin-right: 4px;
+    /*rtl*/
+    background: url(/Images/lib_sprite.png) -122px -1px no-repeat;
+    width: 27px;
+    height: 32px;
+}
+
+/*#endregion */
+/*#region Lib Aside */
+.unionName {
+    font-size: 22px;
+    border-bottom: 1px solid #c2c2c2;
+    padding-bottom: 20px;
+    margin: 16px 8px 0 8px;
+}
+
+.unionStats {
+    padding-top: 8px;
+}
+
+.unionStats .files,
+.unionStats .courses,
+.unionStats .students {
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    width: 32%;
+}
+
+.unionStats .stat {
+    display: block;
+    font-size: 14px;
+}
+
+.courses {
+    position: relative;
+}
+
+.courses:before,
+.courses:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 1px;
+    height: 34px;
+    top: 12px;
+    background: #c2c2c2;
+    left: -3px;
+    /*rtl*/
+}
+
+.courses:after {
+    right: -3px;
+    /*rtl*/
+    left: auto;
+}
+
+.libTopWpr {
+    display: table-row;
+}
+
+.libTop {
+    background: #f1f1f1;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 14px;
+    /*&:hover
+        {
+                .unionStats
+                {
+                        padding-top:0;
+                        margin-top: -10px;
+                }
+
+                .changeUni
+                {
+                        display: inline-block;
+                }
+        }*/
+}
+
+.libTop .changeUni {
+    color: #0f9d58;
+    display: none;
+    font-size: 13px;
+    padding: 0 15px;
+    background: #f1f1f1;
+    position: relative;
+    top: -9px;
+}
+
+.unionLinksWpr {
+    display: table-row;
+}
+
+.unionLinks {
+    border-top: 1px solid #c2c2c2;
+    border-bottom: 1px solid #c2c2c2;
+    font-size: 0;
+    /* remove display:inline-block children whitespace */
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    background: #fff;
+}
+
+.outbound:last-child {
+    border: none;
+}
+
+.outbound {
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    border-right: 1px solid #c2c2c2;
+    /*rtl*/
+    display: table-cell;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.outbound:hover {
+    background: #f8f8f8;
+}
+
+.outbound:before {
+    content: '';
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    vertical-align: middle;
+    background: url(/Images/union4-sprite.png) no-repeat;
+}
+
+.u-Website:before {
+    width: 23px;
+    height: 20px;
+    background-position: -1px -1px;
+}
+
+.u-Email:before {
+    width: 25px;
+    height: 19px;
+    background-position: -25px -2px;
+}
+
+.u-Fb:before {
+    background-position: -52px -1px;
+}
+
+.u-Twitter:before {
+    background-position: -74px -1px;
+}
+
+.u-Youtube:before {
+    background-position: -96px -1px;
+}
+
+.libLists {
+    width: 100%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: table-row;
+}
+
+.libLists .libFb,
+.libLists .libTwitter {
+    text-align: center;
+    margin: 5px;
+    border: 1px solid #c2c2c2;
+}
+
+.libLists .libFb {
+    height: 395px;
+}
+
+.libLists .libTwitter {
+    bottom: 0;
+}
+
+/*#endregion */

@@ -1,0 +1,46 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.BoxSetting
+@using Zbang.Zbox.Mvc3WebRole.Views.Box.Resources
+@{
+    var userType = (Zbang.Zbox.Infrastructure.Enums.UserRelationshipType)ViewBag.UserType;
+    
+}
+@*<div class="boxSettings">*@
+    @using (Ajax.BeginForm("Settings", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+    }, new { @class = "boxSettings" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText boxNameInput" })@Html.ValidationMessageFor(m => m.Name)
+
+        <div class="row">
+            @*<label>Notifications:</label>*@
+            @Html.LabelFor(m => m.Notification)
+            @Html.EditorFor(m => m.Notification, "Enum", new { @class = "inputText" })
+            @*<select class="inputText">
+            <option>Off</option>
+            <option selected>On every change</option>
+            <option>Once a day</option>
+            <option>Once a week</option>
+        </select>*@
+        </div>
+
+        <div>
+            @if (userType == Zbang.Zbox.Infrastructure.Enums.UserRelationshipType.Owner)
+            {
+                @Html.LabelFor(m => m.Privacy)
+                @Html.EditorFor(m => m.Privacy, "Enum", new { @class = "inputText" })
+            }
+@* <label>Privacy:</label>
+        <select class="inputText">
+            <option>Private</option>
+            <option selected>Anyone with a URL</option>
+            <option>Members Only</option>
+        </select>*@
+
+            <button type="submit" class="btn1">@SettingsResources.Save</button>
+            <button type="button" class="btn2">@SettingsResources.Cancel</button>
+        </div>
+
+    }
+@*</div>*@

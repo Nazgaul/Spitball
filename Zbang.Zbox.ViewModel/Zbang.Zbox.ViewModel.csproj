@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BC85A7BD-262D-43E0-8D9D-EE76C602BFAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zbang.Zbox.ViewModel</RootNamespace>
+    <AssemblyName>Zbang.Zbox.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTOs\ActivityDtos\ActivityDto.cs" />
+    <Compile Include="DTOs\ActivityDtos\AnnotationDto.cs" />
+    <Compile Include="DTOs\ActivityDtos\BaseActivityDto.cs" />
+    <Compile Include="DTOs\ActivityDtos\CommentDto.cs" />
+    <Compile Include="DTOs\BoxDtos\BoxMetaDto.cs" />
+    <Compile Include="DTOs\BoxDtos\BoxNotificationDto.cs" />
+    <Compile Include="DTOs\BoxDtos\BoxSeoDto.cs" />
+    <Compile Include="DTOs\BoxDtos\BoxToFriendDto.cs" />
+    <Compile Include="DTOs\BoxSettingsDto.cs" />
+    <Compile Include="DTOs\BoxDtos\BoxDto.cs" />
+    <Compile Include="DTOs\Dashboard\DashboardDto.cs" />
+    <Compile Include="DTOs\Dashboard\UniversityDashboardInfoDto.cs" />
+    <Compile Include="DTOs\Dashboard\WallDto.cs" />
+    <Compile Include="DTOs\Emails\BoxDigestDto.cs" />
+    <Compile Include="DTOs\Emails\CommentDigestDto.cs" />
+    <Compile Include="DTOs\Emails\ItemDigestDto.cs" />
+    <Compile Include="DTOs\Emails\MembersDigestDto.cs" />
+    <Compile Include="DTOs\Emails\BadItemDto.cs" />
+    <Compile Include="DTOs\Emails\UserDigestDto.cs" />
+    <Compile Include="DTOs\InviteDto.cs" />
+    <Compile Include="DTOs\ItemDtos\FileDto.cs" />
+    <Compile Include="DTOs\ItemDtos\FileWithDetailDto.cs" />
+    <Compile Include="DTOs\ItemDtos\ItemDto.cs" />
+    <Compile Include="DTOs\ItemDtos\ItemSeoDto.cs" />
+    <Compile Include="DTOs\ItemDtos\ItemToFriendDto.cs" />
+    <Compile Include="DTOs\ItemDtos\ItemWithDetailDto.cs" />
+    <Compile Include="DTOs\ItemDtos\LinkDto.cs" />
+    <Compile Include="DTOs\ItemDtos\LinkWithDetailDto.cs" />
+    <Compile Include="DTOs\ItemRateDto.cs" />
+    <Compile Include="DTOs\Library\NodeBoxesDto.cs" />
+    <Compile Include="DTOs\Library\NodeDto.cs" />
+    <Compile Include="DTOs\Library\UniversityByPrefixDto.cs" />
+    <Compile Include="DTOs\Library\UniversityInfoDto.cs" />
+    <Compile Include="DTOs\Notification\BoxIDDto.cs" />
+    <Compile Include="DTOs\Notification\InviteBoxDataDto.cs" />
+    <Compile Include="DTOs\Notification\UserMailDataDto.cs" />
+    <Compile Include="DTOs\PagedDto.cs" />
+    <Compile Include="DTOs\Qna\AnswerDto.cs" />
+    <Compile Include="DTOs\Qna\AnswerToFriendDto.cs" />
+    <Compile Include="DTOs\Qna\FileDto.cs" />
+    <Compile Include="DTOs\Qna\ItemDto.cs" />
+    <Compile Include="DTOs\Qna\LinkDto.cs" />
+    <Compile Include="DTOs\Qna\QuestionDto.cs" />
+    <Compile Include="DTOs\Qna\QuestionToFriendDto.cs" />
+    <Compile Include="DTOs\Search\ISearchable.cs" />
+    <Compile Include="DTOs\SeoDto.cs" />
+    <Compile Include="DTOs\TabDto.cs" />
+    <Compile Include="DTOs\BoxDto.cs" />
+    <Compile Include="DTOs\ItemDto.cs" />
+    <Compile Include="DTOs\UserDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DTOs\UserDtos\LogInUserDto.cs" />
+    <Compile Include="DTOs\UserDtos\UserDto.cs" />
+    <Compile Include="DTOs\UserDtos\UserAccountDto.cs" />
+    <Compile Include="DTOs\UserDtos\UserInviteDto.cs" />
+    <Compile Include="DTOs\UserDtos\UserMemberDto.cs" />
+    <Compile Include="DTOs\UserDtos\UserToFriendActivity.cs" />
+    <Compile Include="DTOs\UserPublicDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\Boxes\GetBoxesQueryBase.cs" />
+    <Compile Include="Queries\Boxes\GetUserWithFriendQuery.cs" />
+    <Compile Include="Queries\Emails\BaseDigestLastUpdateQuery.cs" />
+    <Compile Include="Queries\Emails\GetBoxesLastUpdateQuery.cs" />
+    <Compile Include="Queries\Emails\GetCommentsLastUpdateQuery.cs" />
+    <Compile Include="Queries\Emails\GetBadItemFlagQuery.cs" />
+    <Compile Include="Queries\Emails\GetItemsLastUpdateQuery.cs" />
+    <Compile Include="Queries\Emails\GetMembersLastUpdateQuery.cs" />
+    <Compile Include="Queries\Emails\GetUserByNotificationQuery.cs" />
+    <Compile Include="Queries\GetInviteDetailQuery.cs" />
+    <Compile Include="Queries\GetInvitesQuery.cs" />
+    <Compile Include="Queries\GetItemCommentsQuery.cs" />
+    <Compile Include="Queries\GetItemQuery.cs" />
+    <Compile Include="Queries\GetBoxCommentsQuery.cs" />
+    <Compile Include="Queries\GetItemRateQuery.cs" />
+    <Compile Include="Queries\GetUserByEmailQuery.cs" />
+    <Compile Include="Queries\GetUserByFacebookQuery.cs" />
+    <Compile Include="Queries\GetUserByMembershipQuery.cs" />
+    <Compile Include="Queries\GetUserMinProfileQuery.cs" />
+    <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />
+    <Compile Include="Queries\Library\GetUniversityByPrefixQuery.cs" />
+    <Compile Include="Queries\Library\GetUniversityDetailQuery.cs" />
+    <Compile Include="Queries\Notification\GetBoxDataForDigestEmailQuery.cs" />
+    <Compile Include="Queries\Notification\GetBoxDataForImmediateEmailQuery.cs" />
+    <Compile Include="Queries\Notification\GetBoxesDigestQuery.cs" />
+    <Compile Include="Queries\Notification\GetBoxInviteDataQuery.cs" />
+    <Compile Include="Queries\Notification\GetBoxSubscribers.cs" />
+    <Compile Include="Queries\Notification\GetUserDigestQuery.cs" />
+    <Compile Include="Queries\QnA\GetBoxQuestionsQuery.cs" />
+    <Compile Include="Queries\QueryBase.cs" />
+    <Compile Include="Queries\QueryPagedBase.cs" />
+    <Compile Include="Queries\GetBoxQuery.cs" />
+    <Compile Include="Queries\GetBoxItemsPagedQuery.cs" />
+    <Compile Include="Queries\GetUserDetailsQuery.cs" />
+    <Compile Include="Queries\GetUserFriendsQuery.cs" />
+    <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
+    <Compile Include="Queries\QueryPrefixBase.cs" />
+    <Compile Include="Queries\Search\SearchBoxQuery.cs" />
+    <Compile Include="Queries\Search\SearchLibraryDashBoardQuery.cs" />
+    <Compile Include="Queries\Search\SearchLibraryQuery.cs" />
+    <Compile Include="Queries\Search\SearchQueryBase.cs" />
+    <Compile Include="Queries\User\GetDashboardQuery.cs" />
+    <Compile Include="SqlQueries\Seo.cs" />
+    <Compile Include="SqlQueries\Sql.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\BoxDto.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\UserDto.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\ItemDto.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\CommentDto.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\BoxesDto.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Emails.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Library.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Tab.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Queries\Box\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\QnA.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

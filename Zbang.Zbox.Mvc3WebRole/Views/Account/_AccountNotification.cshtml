@@ -1,0 +1,23 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.Account.AccountSettings.Notification
+@using Zbang.Zbox.Infrastructure.Enums
+<div class="notifications" id="Notification">
+    <ul class="boxesList" data-bind="template : {name: 'notification-template', foreach:boxes }">
+    </ul>
+</div>
+<script type="text/html" id="notification-template">
+    <li>
+        @*<a href="#" class="boximage"></a>*@
+        <div class="box">
+            <a class="boxName" data-bind="text: name, attr : {href : '@Url.Action("Index", "Box")?boxuid=' +id }"></a>
+            <div>Owner: <span data-bind="text:owner"></span></div>
+        </div>
+        <div class="select">
+            @Html.LabelFor(m => m.NotificationSettings)
+               <select class="inputText" data-bind="value: notification, event: { change: $root.selectChange}">
+                <option value="@NotificationSettings.Off.ToString("g")">@NotificationSettings.Off.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnEveryChange.ToString("g")">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceADay.ToString("g")">@NotificationSettings.OnceADay.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceAWeek.ToString("g")">@NotificationSettings.OnceAWeek.GetEnumDescription()</option>
+            </select>
+        </div>
+</script>

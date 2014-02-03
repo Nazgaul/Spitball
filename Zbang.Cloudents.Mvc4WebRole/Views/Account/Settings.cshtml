@@ -1,0 +1,26 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
+@model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserAccountDto
+
+<div id="account" class="page">
+    <div class="settingsMenu lFloat">
+        <ul id="settingsMenu">
+            <li class="selected boldFont" data-form="Profile">@AccountSettingsResources.ProfileInfo</li>
+            <li data-form="Account">@AccountSettingsResources.AccountSettings</li>
+            <li data-form="Storage">@AccountSettingsResources.Storage</li>
+            <li id="notifcationTab" data-form="Notification">@AccountSettingsResources.Notifications</li>
+        </ul>
+    </div>
+    <div class="settingsContent" id="settingsContent">
+        @{
+            Html.RenderPartial("_AccountProfile", new Profile { Name = Model.Name, Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic });
+            Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language } });
+            Html.RenderPartial("_AccountStorage", new Storage { AllocatedSize = Model.AllocatedSize, UsedSpace = Model.UsedSpace });
+            Html.RenderPartial("_AccountNotification", new Notification());
+        }
+    </div>
+</div>
+
+
+
+

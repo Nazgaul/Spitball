@@ -1,0 +1,18 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+@model Zbang.Zbox.Mvc3WebRole.Models.CreateBox
+<div id="createBoxDialog" title="Create new box" style="display: none;">
+    @using (Html.BeginForm("Create", "Dashboard", FormMethod.Post, new { @class = "type personal ", id = "personal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+
+        @Html.LabelFor(m => m.BoxName, new { @class = "required" })
+        @Html.TextBoxFor(m => m.BoxName, new { @class = "inputText boxName" })
+
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "inputText commentTextarea" })
+        <input type="submit" class="btn1 next"  value="@UploadDialogResources.Create"/>
+        <button type="reset" class="btn2 cancel" id="cancel">@UploadDialogResources.Cancel</button>
+    }
+</div>
+

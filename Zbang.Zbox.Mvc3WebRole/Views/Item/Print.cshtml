@@ -1,0 +1,19 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.ItemView
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Print</title>
+</head>
+<body>
+    @Html.Raw(Model.Preview)
+</body>
+</html>
+
+<script type="text/javascript">
+    window.print();
+</script>

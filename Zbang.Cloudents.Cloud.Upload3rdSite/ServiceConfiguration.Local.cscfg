@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.Upload3rdSite" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="2" osVersion="*" schemaVersion="2013-10.2.2">
+  <Role name="Zbang.Zbox.WorkerRoleDownloadFromSites">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="zboxStorage" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ramy" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEBiF4TA+Q/e5QftdZz5t380wDQYJKoZIhvcNAQEBBQAEggEAA3maWJSV/aqB5uLKIg7R7/jX+mlY3j9c/3cquLbOynETQJ7btQRmfaE5y1pZR+4Yk2e3huEQOhF9a+JZToFmTFSax+mg8uy8mJVwwQqGlj93VWA936gE4g/FBCZyKuBD3G0xhLKjuuBGiKyXsZyC6fE7LxdHqFQ5nMTkziyScDljOGHZvLG2vBacSsNgGx5DOWrlK8fxaigvjmitVCH38VKWD42ZXQr1Yr4vGM5HbFCwmB6RJowWwK21t+OW/rjYjL6hZJPkrSVbA1Adb60JCmRv65+ZR6WPon3qMpWXN5pWn6+jPCIaiFcI0rTTByEre8yRWWuip+aBsVq8CqqoXjArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECC065qoyg/6KgAiL5KjCm5kijQ==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-11-27T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="6FF80A18FA7676CEAE2A821872186F1359F5BE4C" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

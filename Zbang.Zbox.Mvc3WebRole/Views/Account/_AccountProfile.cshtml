@@ -1,0 +1,24 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.Account.AccountSettings.Profile
+@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+
+@using (Ajax.BeginForm("ChangeProfile", null, new AjaxOptions(), new { @class = "profileInfo", id = "Profile" })) 
+{ 
+    
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @class = "inputText" })@Html.ValidationMessageFor(m=>m.Name)
+    <div class="section">
+
+        @Html.LabelFor(m => m.Image)
+        <img id="accountSettingsThumb" width="100" height="100" src="@Model.Image" alt="" />
+        <div class="photoBtns">
+            <button class="btn4" id="uplImage">@AccountSettingsResources.UploadImage</button>
+            @*<button class="btn4">Back to default</button>*@
+        </div>
+    </div>
+    <div class="schoolSection">
+        @Html.LabelFor(m => m.University)
+        @Html.TextBoxFor(m => m.University, new { @class = "inputText", placeholder = @AccountSettingsResources.SelectSchool })
+    </div>
+    <input type="submit" class="btn1" value="@AccountSettingsResources.Save" />
+    <button class="btn2">@AccountSettingsResources.Cancel</button>
+}

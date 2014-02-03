@@ -1,0 +1,13 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Comment.Resources
+
+
+<form class="clearfix QForm" data-bind="submit: addComment">
+    <img class="QAImg lFloat" src="http://placehold.it/32x32" alt="" data-bind="attr: { src: userImg, 'data-img': userImg, 'data-name': userName, 'data-uid': userUid }" width="32" height="32" />
+    <textarea data-id="CommentText" class="QTextarea"></textarea>
+    <button type="submit" class="askBtn rFloat" >Ask</button>
+    <button type="button" class="attachBtn rFloat"></button>
+</form>
+<ol data-section="comments" class="QList" 
+    data-bind="template: { name: 'comment-template', foreach: comments }">
+</ol>

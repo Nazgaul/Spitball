@@ -1,0 +1,65 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.Library.UniversityInfoDto
+@{
+    ViewBag.headerTitle = @SharedResources.SchoolLibrary;
+}
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div id="library" class="page library">
+
+    @{
+        Html.RenderPartial("_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
+        Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
+    }
+    <div class="topBtns lib" id="libraryContent">
+        <img class="schoolImg"  src="@Model.Image" width="40" height="40" />
+        <div id="univeristyName"  class="schoolName">@Model.Name</div>@*data-id="@Model.Uid"*@
+    </div>
+  
+    <div class="sectionHeader" data-bind="visible: isSearch"><q data-bind="text: searchTerm"></q> - <span data-bind="text: courses().length"></span>&nbsp;@SharedResources.Results</div>
+    <div class="listWpr" id="lib_content">
+        <ul class="courseList" >
+             <!-- ko foreach: courses -->
+            <li class="courseItem sprite1a">
+                <a data-navigation="Box"  data-bind="attr: { href: boxUrl }">
+                    <img class="lFloat" data-bind="attr: { src: boxPicture }" width="57" height="70" />
+                    <div class="description">
+                        <div class="courseName elps" data-bind="text: name"></div>
+                        <div class="elps"><span data-bind="text: professor"></span>&nbsp;<span data-bind="text: courseCode"></span></div>
+                        <span data-bind="text: itemCount"></span>&nbsp;@SharedResources.Items
+                        <!--ko if:commentCount>0-->
+                        |&nbsp;<span data-bind="text: commentCount"></span>&nbsp;@SharedResources.Comments
+                        <!--/ko-->
+                    </div>
+                </a>
+            </li>
+            <!-- /ko -->
+            <!-- ko if:boxvisible-->
+            <li>
+                <button type="button" data-modelNav="addAcademicBox" class="libNew">@SharedResources.AddCourse</button>
+            </li>
+             <!-- /ko -->
+        </ul>
+        <ul class="deptList">
+            <!-- ko foreach: department -->
+            <li class="deptItem">
+                <a data-navigation="Library" data-bind="attr: { href: url }">
+                    <span class="deptName boldFont" data-bind="text: name"></span>
+                </a>
+            </li>
+            <!-- /ko -->
+            <!-- ko if:nodevisible-->
+            <li>
+                <button type="button" data-modelNav="addDepartment" class="libNew">@SharedResources.AddDept</button>
+</li>
+            <!-- /ko -->
+        </ul>
+         <!--ko if:emptyState-->
+            <div class="dashLibEmpty">
+                @Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.EmptyLib
+            </div>
+            <!--/ko-->
+        <div data-bind="visible: emptyStateSearch" class="searchEmptyState">
+            @Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.MobileNoResult
+        </div>
+        
+    </div>  
+</div>

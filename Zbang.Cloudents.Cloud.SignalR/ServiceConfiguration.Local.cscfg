@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.SignalR" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2013-10.2.2">
+  <Role name="Zbang.Cloudents.WebAppSignalR">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="WebSiteUrl" value="https://dev.cloudents.com" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="Ramy" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFuc7mwy/neBSLrYxy2bJrYwDQYJKoZIhvcNAQEBBQAEggEAaZrjK0cA/o4xS13kvFHTgfvCJ/R1lbztw1uddIZFPHDIJqi4r2WFjBR05xYGgRK/RQtDLddRXcklaWvBFfb/jQqfzHnmL8xLYaSWsBkMxr/em2JdV1r9J2emsJRNFtnPYIjMUpwICozAspj1zHysVEabf1MBIWSY1kdTGhKFWRenMRxabdgHMIYHcClewBMAWNTaJ+e99zTTeda03V81TC4vCiRRiU7sRsxNslVCmrzDSN4zitxk+DxZq4rHnWV5jdLT/+1SWQYviVkofeUYFpA7QT2PEYDZHprzEgu52BniWEqZN5Wf0ErNq8rkHVHvVAhtQZHS+eudICMFa+yUWzArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECDZU1sFYCliJgAgQxbsblQXeDg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-10-20T23:59:59.0000000+03:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="CloudDents" thumbprint="96A712B131425F45B52CBDA6999E92012386C9EF" thumbprintAlgorithm="sha1" />
+      <Certificate name="MyIntermediateCertCloudDents" thumbprint="C039A3269EE4B8E82D00C53FA797B5A19E836F47" thumbprintAlgorithm="sha1" />
+      <Certificate name="MyRootCertCloudDents" thumbprint="DE28F4A4FFE5B92FA3C503D1A349A7F9962A8212" thumbprintAlgorithm="sha1" />
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="6EF75274625E3CA35A07483398F4883BC9E899F6" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

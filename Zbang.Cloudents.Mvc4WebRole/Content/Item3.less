@@ -1,0 +1,1211 @@
+﻿@import "varsAndMixins";
+
+/*#region layout */
+.itemPage, .boxPage {
+    width: 100%;
+    height: 100%;
+}
+.itemPage {
+    .topBar{
+        padding:0; //override
+        text-align: center;
+    }
+}
+.itemRight, .boxRight {
+    width: 100%;
+    height: 100%;
+    padding-left: 290px; /*rtl*/
+    .boxSizing();
+    text-align: center;
+}
+.itemRight
+{
+    .shareDD{
+        right: 0; /*rtl*/
+    }
+}
+/*#endregion */
+
+/*#region left panel */
+
+.leftPanel {
+    
+    width: 290px;
+    background: #fff;
+    border-right: 1px solid @borderColor; /*rtl*/
+    .boxSizing;
+}
+
+.itemTop{
+    margin: 18px 10px 0;
+    height: 146px;  
+    color: #676767;
+    font-size: 13px; 
+    > .moreFilesThumb  {
+        width:42px;
+        height:42px;
+        line-height: 42px;
+    }
+}
+.itemNameWpr // this is needed to prevent the itemname - which is a table cell - to overflow height with large names. 
+{
+    height: 44px;
+    overflow: hidden;
+}
+.item-name {
+    color: #383838;
+    font-size: 20px;
+    //display:table-cell;
+    overflow: hidden;
+    display: table;
+    padding-left: 5px;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    //line-height: 22px;
+    .itemNameText {
+        //line-height: 1.0;
+        //display: inline-block;
+        display: table-cell;
+        line-height: 22px;
+        width: 220px;
+        height: 42px;
+        overflow: hidden;
+        vertical-align: middle;
+        -ms-word-break: break-word;
+        word-break: break-word;
+
+        &.editable {
+            border: 1px solid @color;
+            .boxSizing;
+            padding: 2px 8px 2px 4px; /*rtl*/
+            height: 28px;
+            margin-bottom: 14px;
+        }
+    }
+}
+
+.itemOwner
+{
+    margin: 6px 0;
+    clear: both; 
+}
+.views:before, .downloads:before{
+    .pseudo;
+    width: 16px;
+    height: 11px;
+    margin-right: 5px; /*rtl*/
+    vertical-align: middle;
+    background: @item-sprite1 -121px -21px no-repeat;
+}
+.downloads:before{
+    width: 13px;
+    height: 14px;
+    background-position: -138px -20px;
+}
+.views{
+    margin-right: 12px; /*rtl*/
+}
+
+.actions{
+    border-top: 1px solid @borderColor;
+    line-height: 40px;
+    height: 40px;
+    display: block;
+    margin-top: 36px;
+    position: relative;
+    .stars, .full, .rateBtn{
+        display: inline-block;
+    }
+    .stars{
+        vertical-align: top;
+        margin: 13px 0 0 0; // override other margin values from box .stars
+    }
+    .full{
+        background-position: -1px -69px;
+    }
+    
+}
+.rateBtn{
+    &.clicked
+    {
+        opacity: 0.5;
+        ~ .bubble
+        {
+            display: block;
+            //visibility: visible;
+            //opacity: 1;
+            .rateList
+            {
+                //max-height:140px;
+                //opacity:1;
+                //visibility: visible;
+            }
+        }
+    }
+}
+.bubble 
+{
+    //visibility: hidden;
+    //opacity: 0;
+    //.transition(all,.5s);
+    display: none;
+    position: absolute;
+    top: 38px;
+    /*left: 10px; /*rtl*/
+    min-width: 158px;
+    .boxSizing;
+    background: #f4f4f4;
+    border: 1px solid @borderColor;
+    border-radius: 5px;
+    z-index: 1;
+    text-align: center;
+
+    &:before 
+    {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -10px;
+        border-style: solid;
+        border-width: 0 10px 9px;
+        border-color: @borderColor transparent;
+        width: 0;
+        z-index: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    &:after 
+    {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -8px;
+        border-style: solid;
+        border-width: 0 9px 8px;
+        border-color: #fff transparent;
+        width: 0;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    &.closing
+    {
+        //height: 34px;
+        //max-height: 34px;
+        //.transition(all, .5s ease 1s);
+        .rateList
+        {
+            //max-height:0;
+            //opacity:0;
+            //visibility: hidden;
+            display: none;
+            //.transition(all, .5s ease 1s);
+        }
+        .star{
+            //display: none;
+            //height:0;
+            //opacity: 0;
+        }
+        .bubbleText
+        {
+            border: none; // override border bottom
+            border-radius: 5px; // override top border radius only
+            &:before
+            {
+                .pseudo;
+                width: 18px;
+                height: 18px;
+                background: @common-sprite -136px -43px no-repeat;
+                vertical-align: middle;
+                margin-right: 4px; /*rtl*/
+            }
+        }
+    }
+
+    .bubbleText
+    {
+        border-bottom: 1px solid @borderColor;
+        background: #fff;
+        border-radius: 5px 5px 0 0;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 20px;
+        .boxSizing;
+    }
+    .rateList
+    {
+        display: inline-block;
+        width: 98px;
+        margin-top: 10px;
+        //.transition(all, .5s);
+        /*height:140px;
+        opacity:1;
+        visibility: visible;*/
+    }
+    .star{
+        margin-bottom: 10px;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        .boxSizing;
+        border-radius: 9px;
+        border: 2px solid transparent;
+        line-height: 15px;
+        text-align: center;
+        cursor: pointer;
+        font-family:serif;
+        font-size: 12px;
+        &:hover:not(.rated)
+        {
+            border: 2px solid @color;
+        }
+        &.rated
+        {
+            background: @common-sprite -138px -44px no-repeat;
+            cursor: default;
+        }
+        &:before
+        {
+            .pseudo;
+            width: 76px;
+            height: 14px;
+            position: absolute;
+            left: 20px; /*rtl*/
+            top: 0;
+            background: @item-sprite1 -2px -285px no-repeat;
+        }
+    }
+    .star4:before{
+        background-position: -2px -301px;
+    }
+    .star3:before{
+        background-position: -2px -317px;
+    }
+    .star2:before{
+        background-position: -2px -333px;
+    }
+    .star1:before{
+        background-position: -2px -349px;
+    }
+}
+
+.itemFlag
+{    
+    &:before
+    {
+        .pseudo;
+        width: 15px;
+        height: 17px;
+        background: @item-sprite1 -70px -2px no-repeat;
+        vertical-align: middle;
+        margin-right: 5px; /*rtl*/
+    }
+    &:hover:before {
+        background-position: -71px -21px;
+    }
+}
+.moreFiles .mfTitle {
+    font-size: 18px;
+    color: #111;
+    margin-top: 28px;
+    padding: 0 0 9px;
+}
+
+.moreFilesList {
+
+    li {
+        padding: 7px 5px 7px 10px; /*rtl*/
+        &.select {
+            background: #e1e1e1;
+        }
+    }
+}
+.moreFilesThumb{
+    background:#6a7a7a;
+    width:32px;
+    height:32px;
+    text-align: center;
+    vertical-align:middle;
+    display: table-cell;
+    color:#fff;
+    font-weight:bold;
+    text-transform:uppercase;
+    font-size:10px;
+    font-family:arial;
+    border-radius:3px;
+    border: 1px solid #C2C2C2;
+    letter-spacing: 1px;
+}
+
+.fourLetterExtension
+{
+    font-size:8px;
+}
+.moreFilesItem:hover, .itemTop, .select {
+    .mFdoc, .mFdocx {
+        background: #4991be;
+    }
+
+    .mFpdf {
+        background: #cd4a4e;
+    }
+
+    .mFjpg {
+        background: #81c048;
+    }
+
+    .mFpng {
+        background: #70777c;
+    }
+
+    .mFtif {
+        background: #9cada5;
+    }
+
+    .mFppt, .mFpptx {
+        background: #ea7147;
+    }
+
+    .mFgif {
+        background: #c7cb47;
+    }
+
+    .mFtxt {
+        background: #abceec;
+    }
+
+    .mFzip, .mFrar {
+        background: #cfcfcf;
+    }
+
+    .mFxls, .mFxlsx {
+        background: #5bba67;
+    }
+
+    .mFbmp {
+        background: #47c7b5;
+    }
+
+    .mFmp3, .mFmp4 {
+        background: #ba4c89;
+    }
+
+    .mFpsd {
+        background: #4870b8;
+    }
+
+    .mFai, .mFeps {
+        background: #dcb447;
+    }
+
+    .mFavi, .mFmov, .mFwmv {
+        background: #e14878;
+    }
+
+    .mFlink {
+        background: #7a9f8d;
+    }
+}
+
+.moreFilesData{
+    display:table-cell;
+    padding-left:5px; /*rtl*/
+    > div {
+        width:230px;
+    }
+}
+
+.moreFilesName {
+    color: #111;
+    width:230px;
+}
+/*#endregion */
+
+/*#region top action buttons and print drop down */
+.itemBack, .boxBack {
+    height: 44px;
+    line-height: 44px;
+    background: #fff;
+    border-bottom: 1px solid #e3e3e3;
+    padding-left: 15px; /*rtl*/
+    font-size: 15px;
+    position: absolute;
+    width: 100%;
+    .boxSizing();
+}
+
+.itemActions
+{
+    position: relative;
+    text-align: center;
+    /*.back{
+        position: absolute;
+        left: 22px;
+    }*/
+    .shareBtn
+    {
+        position: absolute;
+        top: 0; // IE needs this.
+        right: 22px; /*rtl*/
+    }
+    .backWpr{
+        max-width: ~'-webkit-calc(50% - 225px)'; // (100% - middle actions width (380px) + left offset ~70px) / 2
+        max-width: ~'calc(50% - 225px)'; // 50% - 450px/2 = 50% - 225px
+        position: absolute;
+        left: 19px; /*rtl*/
+    }
+}
+.iconTop
+{
+    display: inline-block;
+    cursor: pointer;
+    line-height: 14px;
+    padding: 5px;
+    border: 1px solid transparent; // so that buttons don't move when comments button is pressed 
+    &:before
+    {
+        content: '';
+        display: block;
+        background: @item-sprite1 no-repeat;
+        margin: 0 auto 13px;
+    }
+    &.itemPrint, &.itemDownload, &.shareBtnTxt
+    {
+        margin-top: 1px;
+    }
+}
+.middleActions
+{
+    display: inline-block;
+}
+
+.middleActionList{
+    display: table;
+    table-layout: fixed;
+    margin-top: 12px;
+}
+.middleActionItem{
+    vertical-align: middle;
+    text-align: center;
+    display: table-cell;
+    padding: 0 15px;
+    position: relative;
+}
+.fullscreen{
+    &:before {
+        background-position: 0 -1px;
+        width: 18px;
+        height: 17px;
+    }
+    &:hover:before {
+        background-position: 0 -21px;
+    }
+}
+.shareBtnTxt
+{   
+    &:hover:before
+    {
+        background-position: -183px -19px;
+    }
+    &:before
+    {
+        width: 19px;
+        height: 15px;
+        background: @common-sprite -183px -1px no-repeat;
+    }
+}
+.itemDownload {
+    &:before {
+        width: 14px;
+        height: 15px;
+        background-position: -19px -1px;
+    }
+
+    &:hover:before {
+        background-position: -19px -21px;
+    }
+}
+.itemDelete {
+    &:before {
+        width: 15px;
+        height: 17px;
+        background: @common-sprite -37px -1px no-repeat;
+    }
+
+    &:hover:before {
+        background-position: -37px -21px;
+    }
+}
+.itemPrint, .printDD .iconTxt {
+    &:before {
+        width: 16px;
+        height: 16px;
+        background: @item-sprite1 -34px -1px no-repeat;
+    }
+
+    &:hover:before {
+        background-position: -34px -21px;
+    }
+}
+.printDDWpr
+{
+    position: relative; // this is for FF, because position:relative doesn't work on li (which has display:table)
+}
+.printDD{
+    //left: 0;
+    //right: 0;
+    //margin: auto;
+    left: -85px; /*rtl*/
+    text-align: center;
+    margin-top: 10px;
+    width: 242px;
+    height: 247px;
+    padding-top: 10px;
+    direction: rtl; /*no rtl*/
+    &:before
+    {
+        height: 43px;
+        background: #f5f5f5;
+        border-radius: 3px 3px 0 0;
+    }
+    &:after
+    {
+        .pseudo;
+        width: 107px;
+        height: 57px;
+        background: @item-sprite1 -80px -288px no-repeat;
+        position: absolute;
+        top: 78px;
+        left: 0;right: 0;
+        margin: auto;
+    }
+    
+    
+    .iconTxt{
+        color: @attentionBlue;
+        font-size: 13px;
+        &:before
+         {
+            margin: 0 0 0 6px; // override
+        }
+    }
+    h4{
+        padding-bottom: 20px;
+    }
+    .printTxt2{
+        margin: 75px 0 10px;
+        padding: 0 16px;
+        line-height: 16px;
+    }
+    .btn3{
+        padding: 3px 20px 5px 20px;
+        margin-top: 5px;
+    }
+}
+.printArrow{
+    position: relative;
+    top: -11px;
+    &:before{
+        z-index: -1;
+        left: 0;right: 0;
+        margin: auto;
+        width: 10px;
+        height: 10px;
+        bottom: -8px;
+        background: #f5f5f5;
+    }
+}
+:-webkit-full-screen {
+    overflow: auto;
+    height: 100%;
+
+    img {
+        width: 100%;
+    }
+}
+
+/*#fullView {
+    width: 100%;
+    height: 100%;
+
+    iframe {
+        width:100%;
+        height:100%;
+    }
+}*/
+
+:-moz-full-screen {
+  
+    overflow: auto;
+    img {
+        display:block;
+        margin:0 auto;
+    }  
+}
+
+/*#endregion */
+
+/*#region item content */
+.pageLoader {
+    margin: 21px 0;
+    position:absolute;
+    left:0;
+    right:0;
+
+    &.pageAnim
+    {
+        margin: -5px auto 0 auto;
+        padding-top:20px;
+        padding-bottom:21px;
+        width: 101px;
+        height: 9px;
+        background: url(/Images/loader1.png) no-repeat;
+        -webkit-animation: loader 1.5s steps(3) infinite;
+        -moz-animation: loader 1.5s steps(3) infinite;
+        -ms-animation: loader 1.5s steps(3) infinite;
+        -o-animation: loader 1.5s steps(3) infinite;
+        animation: loader 1.5s steps(3) infinite;
+    }
+}
+
+.itemDisplay {
+    border: 1px solid #d2cbcf;
+    box-shadow: 5px 5px 5px rgba(116, 100, 110, 0.3); /*rtl*/
+    .placement(absolute);
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+
+    &.frameContent {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.previewFailed {
+    //width: 350px;
+    margin: 0 auto 0;
+    padding: 50px; // eliminate scroll
+    text-align: center;
+    color: #383838;
+    &:before {
+        content: '';
+        display: block;
+        width: 127px;
+        height: 152px;
+        background: @item-sprite1 -1px -40px no-repeat;
+        margin: 0 auto 50px;
+    }
+    /*h2{
+        font-size: 22px;
+        white-space:pre-wrap;
+        line-height: 22px;
+    }*/
+
+}
+.previewFailedText
+{
+    font-size: 16px;
+    margin-top: 10px;
+}
+.actionText
+{
+    color: @color;
+    &:hover
+    {
+        text-decoration: underline;
+    }
+}
+ 
+.previewDenied
+{
+    /*h2{
+        font-size: 22px;
+        font-weight: normal;
+    }*/
+    &:before
+    {
+        .pseudo;
+        width: 303px;
+        height: 200px;
+        margin: 50px auto;
+        background: url(/Images/no-preview.png) no-repeat;
+    }
+}
+.previewDeniedBtn
+{
+    font-size: 15px;
+    color: #fff;
+    background: @attentionBlue;
+    border-radius: 3px;
+    padding: 0 25px;
+    height: 32px;
+    line-height: 32px;
+    margin-top: 20px;
+    display: inline-block;
+}
+.mediaLoader {
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    margin: 100px auto 60px;
+    background: url(/Images/loading-media.png) center center no-repeat;
+    .spinner
+    {
+        border-top: 10px solid rgba(56, 56, 56,.75);
+        border-left: 10px solid rgba(56, 56, 56,.75);
+    }
+}
+
+
+.mediaLoading
+{
+    font-size: 15px;
+    text-align: center;
+
+    h2{
+        color: @color;
+        margin-bottom: 5px;
+    }
+}
+.smallLoader
+{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    z-index: 10;
+    .spinner
+    {
+        width: 80px;
+        height: 80px;
+        border-top: 10px solid rgba(56, 56, 56,.75);
+        border-left: 10px solid rgba(56, 56, 56,.75);
+    }
+}
+.pageLoaderImg{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+}
+
+
+/*New Item View*/
+.itemPreview {
+    text-align: center;
+    overflow: auto;// We need this because want inner scroll and not page scroll
+    height: 90%;
+    height: ~"-webkit-calc(100% - 80px)"; 
+    height: ~"calc(100% - 80px)";
+    position: relative; //For iframe*/TODO check if still need this
+    .boxSizing;
+    padding-top: 10px;   
+}
+//used for links
+.iframeContent {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    width: 98%;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+}
+
+.previewWrapper {
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    left: 0; /*rtl*/
+    height: 100%; //used for links
+    .transition(all, .3s);
+
+    &.annotateState {
+        left: ~"calc(400px - 49%)"; /*rtl*/
+    }
+    h2{
+        font-size: 22px;
+        white-space:pre-wrap;
+        line-height: 22px;
+        font-weight: normal;
+    }
+    
+}
+
+.divWrapper {
+    border: 1px solid @borderColor;
+    background: #fff;
+    width: 800px;
+    margin: 0 auto 10px;
+    position: relative;
+    z-index:0;//bug 581
+}
+
+.imageContent {
+    max-width: 800px;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.copyRightWarning {
+    background: #fff;
+    font: 15px Arial;
+    line-height: 15px;
+    color: #878788;
+    //margin: 0 15px;
+    padding: 15px;
+    border-top: 1px solid #858585;
+}
+/*#endregion */
+
+/*#region annotation */
+.commentsToggleCb {
+    display: none;    
+}
+.commentBtn {
+    //line-height: normal;
+    cursor: pointer;
+    &:before {
+        width: 19px;
+        height: 17px;
+        background-position: -51px -1px;
+    }
+
+    &:hover:before {
+        background-position: -51px -21px;
+    }
+}
+
+.commentToggle {
+    width: 18px;
+    height: 17px;
+    background: @comment-sprite -1px -1px no-repeat;
+    position: absolute;
+    z-index: 4;
+    right: 10px; /*rtl*/
+    &:hover {
+        background-position: -20px -1px;
+    }
+}
+
+.commentToggleCk {
+    background-position: -20px -1px;
+}
+.annotationEmpty
+{
+    text-align: center;
+    display: none;
+    h2{
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    &:before
+    {
+        content: '';
+        display: block;
+        width: 144px;
+        height: 90px;
+        margin: 50px auto 25px; 
+        background: @item-sprite1 -1px -194px no-repeat;
+    }
+}
+
+.annotation {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    right: 0;
+}
+
+.newAnnotation {
+    left: 0;
+    top: 10px;
+    right: 0;
+    position: absolute;
+    //cursor: crosshair;
+    cursor: url(/Images/cursor.png) 6 15, auto;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    z-index: 2;
+}
+
+.addAnotation {
+    position: absolute;
+    z-index: 3;
+    left: 806px; /*rtl*/
+    display: none;
+    //max-height: 100px;
+
+    //.btnWpr {
+        //margin-right: 6px; /*rtl*/
+    //}
+
+    button {
+        margin-top: 4px;
+        color: #fff;
+        background: @color;
+        padding: 1px 13px;
+        font-size: 13px;
+    }
+
+    .btnCancel {
+        color: #858585;
+        background: #fff;
+    }
+}
+
+.addAnotation, .readView {
+    width: 288px;
+    border: 1px solid #c2c2c2;
+    border-radius: 3px;
+    background: #fff;
+    padding: 5px;
+
+    img {
+        margin-right: 8px; /*rtl*/
+    }
+
+    .annotateContent {
+        text-align: left; /*rtl*/
+        overflow: hidden;
+        // bug 437
+        textarea {
+            width: 248px;
+            max-height:150px;
+        }
+    }
+
+    //.annotator {
+        //max-width: 80px;
+        //display: inline-block;
+    //}
+
+    .annotator, .inputText, .annnotateAction, .annotationTextWpr {
+        .boxSizing;
+        width: 243px;
+        text-align: left; /*rtl*/
+    }
+
+    .annotator, .annnotateAction {
+        line-height: 32px;
+        background: none;
+    }
+
+    .annnotateAction {
+        color: @color;
+    }
+
+    .inputText {
+        height: 40px;
+        color: #383838;
+
+        &:focus {
+            border: 1px solid #aeaeae;
+        }
+    }
+
+    .annotationTextWpr {
+        margin-top: -6px;
+        //line-height:15px;
+        //height: 64px;
+        overflow: hidden;
+        position: relative;
+        max-height: 5.8em; /* exactly four lines */
+        &.moreState {
+           // height: auto;
+            max-height:none;
+        }
+    }
+}
+
+.annotationText {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+
+.show-more {
+    position: absolute;
+    bottom: 0;
+    left: 0; /*rtl*/
+    z-index: 1;
+    background: #fafafa;
+    width: 100%;
+    color: @color;
+    //display: none;
+    text-align: left; /*rtl*/
+}
+
+
+.annotationList {
+    //display:none;
+    //width: 350px;
+    width: 322px;
+    position: absolute;
+    left: 806px; //show iner scroll /*rtl*/
+    top: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.readView {
+    position: absolute;
+    max-height: 100px;
+    .deleteBtn {
+        display: none;
+        position: absolute;
+        right: 5px; /*rtl*/
+        top: 5px;
+        border: none; //overide deleteBtn class from dashLib
+    }
+    &.moreContinue{
+        max-height:none;
+    }
+
+    .more {
+        color: @color;
+    }
+
+    &.author:hover .deleteBtn {
+        display: block;
+    }
+}
+
+.addAnotationShow {
+    opacity: 0.05;
+}
+/*#endregion */
+
+/*#region fullscreen */
+.itemFulscrn {
+    display: none;
+    text-align: center;
+    height:100%;
+
+    .modal2 {
+        background: rgba(0,0,0,.9);
+    }
+
+    .previewWrapper {
+        z-index: 12;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .previewFailed, .previewDenied h2, .mediaLoading, .mediaLoading h2 {
+        color: #fff;
+    }
+
+    .mediaLoader .spinner, .smallLoader .spinner {
+        border-top-color: #fff;
+        border-left-color: #fff;
+    }
+
+    .divWrapper {
+        border: none;
+        //width: auto;
+        background:transparent;
+    }
+
+    .imageContent {
+        margin: 0;
+        width: auto;
+        max-width: 100%;
+
+        ~ .copyRightWarning, ~ .annotationList, ~ canvas {
+            display: none;
+        }
+
+        &.document {
+            max-width: 900px;
+        }
+    }
+
+    iframe {
+        width: 90vw;
+        height: 97vh;
+        position: fixed;
+        top: 10px;
+        right: 0;
+        left: 0;
+        margin: auto;
+    }
+
+    .youtubeframe {
+        width: 85vw;
+        height: 90vh;
+    }
+
+    .commentToggle {
+        display: none;
+    }
+}
+.itemFulscrn.show{
+    display:block;
+}
+.exitFulscrn{
+    position: fixed;
+    top: 20px;
+    right: 20px; /*rtl*/
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    background: @common-sprite -79px -26px no-repeat;
+    z-index: 6;
+}
+.itemPrev, .itemNext
+{
+    width: 34px;
+    height: 34px;
+    background: @item-sprite1 -128px -35px no-repeat;
+    z-index: 100;
+    //box-shadow: 0 1px 1px 1px rgba(0,0,0,.8);
+    position: fixed;
+    top: 50%;
+    left: 10px; /*rtl*/
+    cursor: pointer;
+
+    &:hover
+    {
+        background-position: -128px -72px;
+    }
+
+    &.disabled{
+        background-position: -128px -35px;
+        opacity:.4;
+    }
+}
+
+.itemNext{
+    right: 20px; /*rtl*/
+    left: auto;
+    .flipH();
+}
+body.fulscrn
+{
+    .itemFulscrn
+    {
+        display: block;
+    }
+    .itemPage
+    {
+        position: fixed;
+        top: @header-height;
+    }
+}
+/*#endregion */
+

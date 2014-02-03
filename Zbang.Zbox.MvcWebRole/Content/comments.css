@@ -1,0 +1,313 @@
+﻿/*
+    This is for the comments (center) section, menu only
+*/
+.pad5
+{
+    padding: 5px;
+}
+.pad8
+{
+    padding: 8px;
+}
+.overflowAuto
+{
+    overflow: auto;
+}
+.overflowHidden
+{
+    overflow: hidden;
+}
+/* ============ COLORS ============== */
+.tViolet
+{
+    color: #62328F;
+}
+.tBlue
+{
+    color: #17A099;
+}
+.tGreen
+{
+    color: #83B641;
+}
+.tGray
+{
+    color: #999999;
+}
+
+/* ============== TEXT ============= */
+.italic
+{
+    font-style: italic;
+}
+/* ======== TOP MENU ========= */
+.comments-top-menu
+{
+    clear: both;
+}
+.comments-top-menu .menu-item
+{
+    display: block;
+    float: left;
+    cursor: pointer;
+    height: 17px;
+}
+.comments-top-menu .menu-item img
+{
+    float: left;
+}
+.comments-top-menu .menu-item span
+{
+    display: block;
+    width: 80px;
+    margin: 1px 0 0 4px;
+    float: left;
+    font-size: 13px;/*14px*/
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.comments-top-menu .menu-item span:hover
+{
+    text-decoration: underline;
+}
+
+/* ======= TOP BUBBLE ======== */
+.btn-container
+{
+    float: right;
+    margin: 8px 1px 1px 0;
+}
+.btn-container a
+{
+    cursor: pointer;
+}
+.bubble
+{
+    width: 80%;
+}
+.bubble .hor-line
+{
+    width: 100%;
+    height: 2px;
+    background: url('/content/Images/commentPanel/add-comment-box-hor-line.png') repeat-x;
+}
+.bubble .contentMain
+{
+    margin: -1px 0 0 0;
+    border-left: 1px solid #B3B3B3;
+    border-right: 1px solid #B3B3B3;
+}
+
+.bubble a.close-top-bubble
+{
+    height: 11px;
+    width: 11px;
+    background: url('/content/Images/list_delete_icon.png') no-repeat;
+    float: right;
+    position: relative;
+    top: 8px;
+    right: 1px;
+    cursor: pointer;
+}
+.bubble:hover a.close-top-bubble
+{
+}
+
+/* ====== ADD NEW COMMENT BUBBLE ====== */
+#newCommentTxt
+{
+    margin: 1px 0 0 0;
+    width: 96%;
+    font-family: Arial, Helvetica;
+    font-size: 13px;
+    border: none;
+    padding: 5px 0 5px 5px; /* to prevent resize of textarea in FF/Chrome/Safari */
+    resize: none;
+    overflow:auto;
+}
+/* ====== ADD LINK BUBBLE ====== */
+.add-link-container
+{
+    width: 100%;
+    height: 40px;
+    background: url('/content/Images/commentPanel/bubble-top-bg.png') repeat-x bottom;
+    border-bottom: 1px solid #E6E6E6;
+}
+.add-link-container input
+{
+    width: 94%;
+    height: 20px; /* 25px minus padding */
+    margin: 7px 0 0 3px;
+    text-indent: 4px;
+    font-family: Arial, Helvetica;
+    font-size: 12px;
+    border: 1px solid #CCCCCC;
+    padding: 5px 0 0 0;
+}
+#newCommentLinkTxt, #newCommentFileTxt
+{
+    height: 60px;
+    width: 90%;
+    border: none;
+    font-family: Arial, Helvetica; /*    font-style: italic;*/ /*    color: #999999;*/
+    font-size: 13px;
+    padding: 5px 0 5px 5px;
+    margin: 0 35px 0 0;
+    resize: none; /* to prevent resize of textarea in FF/Chrome/Safari */
+    overflow-y: auto;
+}
+
+/* ====== ADD FILES BUBBLE ====== */
+#bubble-add-file{ padding:10px;}
+
+#filesCounter
+{
+    float:right !important;
+    clear:both;
+}
+
+.counter{ float:right !important;}
+               
+.add-file-container
+{
+    width: 96%;
+    border-bottom: 1px solid #E6E6E6;
+    background: url('/content/Images/commentPanel/bubble-top-bg.png') repeat-x bottom;
+    overflow: hidden;
+    padding: 4px 0 15px 8px;/* adam was ->   4px 0 0 8px */
+    margin:0 0 0 10px;
+}
+
+#bubble-add-file div.file-counter
+{
+    padding: 6px 0 0 5px;
+    font-size: 12px;
+    
+    text-decoration: none;
+}
+
+#bubble-add-file div.file-counter span.counter, a#AddFiles
+{
+    display: block;
+    float: left;
+}
+#bubble-add-file div.file-counter span.counter
+{
+    padding: 4px 0 0 4px;
+}
+
+
+.add-file-container .file-counter a:hover
+{
+    text-decoration: underline;
+}
+
+
+/* ====== ADD FILES SCROLLER ====== */
+
+li.add-file-thumb
+{
+    height: 66px;
+    display: block;
+    float: left;
+    padding: 0 0 0 4px;
+    margin: 6px 0 0 0;
+}
+
+li.add-file-thumb:hover
+{
+    background: url('/content/Images/add-file-scroll-bg.png') no-repeat;
+}
+
+li.add-file-thumb img
+{
+    height: 42px;
+    max-width: 57px;
+    padding: 3px;
+    margin: 0px auto;
+    display: block;
+}
+
+li.add-file-thumb div.thumb-container
+{
+    margin: 4px 0 0 2px;
+    text-align: center;
+    height: 48px;
+    width: 63px;
+    border: 1px solid #b3b2b3;
+    float: left;
+}
+
+li.add-file-thumb:hover div.thumb-container
+{
+    border: 1px solid #ecf5fb;
+}
+
+li.add-file-thumb span
+{
+    width: 49px;
+    display: block;
+    margin: 11px 0 0 3px;
+    float: left;
+    overflow: hidden;
+}
+
+#add-file-container .simply-scroll-btn
+{
+    top: 15px;/* adam was -> 5px */
+}
+
+li.add-file-thumb a.add-file-scroll-delete
+{
+    background: url('/Content/Images/add-file-scroll-close.png') no-repeat;
+    position: relative;
+    height: 15px;
+    width: 15px;
+    right: 0px;
+    bottom: 6px;
+    background-position: 16px 16px;
+    display: inline-block;
+    overflow: visible;
+    cursor: pointer;
+}
+li.add-file-thumb:hover a.add-file-scroll-delete
+{
+    background-position: 0px 0px;
+}
+
+
+/* ====== REPLY BUBBLE INSIDE CONVERSATION - for Templates.ascx ====== */
+
+textarea.reply-bubble-text
+{
+    margin: 1px 0 0 0;
+    height: 59px;
+    width: 97%;
+    font-family: Arial, Helvetica;
+    font-size: 13px;
+    border: none;
+    padding: 5px 0 5px 5px;
+    resize: none;
+}
+
+.watermarkStyle
+{
+    color: #999999;
+   /* font-style: italic; */
+}
+
+
+.time 
+{
+position:absolute;
+right:13px;
+top:11px;
+    }
+    
+#comments-top .plupload input
+{
+    top:30px !important;
+} 
+    
+.bold{ font-weight:bold;}
+#selectedBoxName{ padding:3px 0 0 0}

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "NotFound";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+
+<div class="notFound">
+    <h2>@ErrorResources.Oops...</h2>
+    <div>@ErrorResources.NotFound</div>
+    <div>@ErrorResources.GoBack&nbsp;<a href="/">@ErrorResources.HomePage</a></div>
+</div>

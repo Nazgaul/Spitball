@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ApiViewModel"
+                   namespace="Zbang.Zbox.ApiViewModel.DTOs">
+  <!--<query name="ApiGetUserFriends">
+    <![CDATA[
+     select friend.Name as Name, friend.Uid as Uid , friend.Image as Image , friend.class as UserType
+     from Friend f join f.MyFriend friend where f.Owner.Id= :UserId and friend.IsEmailVerified = 1
+    ]]>
+  </query>-->
+</hibernate-mapping>

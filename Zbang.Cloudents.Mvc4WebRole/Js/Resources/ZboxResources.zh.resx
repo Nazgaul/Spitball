@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AFewSecAgo" xml:space="preserve">
+    <value>几秒钟前</value>
+  </data>
+  <data name="AMinAgo" xml:space="preserve">
+    <value>一分钟前</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>一小时前</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>b</value>
+  </data>
+  <data name="BoxExists" xml:space="preserve">
+    <value>该主题框已经存在</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CantAddReply" xml:space="preserve">
+    <value>无法新增回复</value>
+  </data>
+  <data name="CantModifyUrl" xml:space="preserve">
+    <value>抱歉，链接地址不可更改</value>
+  </data>
+  <data name="CantUploadDirectory" xml:space="preserve">
+    <value>无法上传文件夹</value>
+  </data>
+  <data name="CantUploadEmptyFile" xml:space="preserve">
+    <value>无法上传大小为 0 的文件… 请从列表中删除</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>变更</value>
+  </data>
+  <data name="ChooseBox" xml:space="preserve">
+    <value>你必须选择一个现有的主题框或创建一个新的主题框</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>点击这里</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="CommentBy" xml:space="preserve">
+    <value>评论者</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="CopyLink" xml:space="preserve">
+    <value>拷贝链接</value>
+  </data>
+  <data name="CouldNotProcess" xml:space="preserve">
+    <value>无法处理你的照片</value>
+  </data>
+  <data name="CourseId" xml:space="preserve">
+    <value>#ID</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>创建新的</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} 天前</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>拒绝</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteBox" xml:space="preserve">
+    <value>删除主题框</value>
+  </data>
+  <data name="DeleteLowercase" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteThisBox" xml:space="preserve">
+    <value>删除该主题框</value>
+  </data>
+  <data name="DeleteThisMember" xml:space="preserve">
+    <value>你确定要删除该会员吗？</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="DontHavePermission" xml:space="preserve">
+    <value>你没有删除的权限</value>
+  </data>
+  <data name="DontHavePermissionDeleteFile" xml:space="preserve">
+    <value>你没有删除文件的权限</value>
+  </data>
+  <data name="DontHavePermissionToDelete" xml:space="preserve">
+    <value>你没有删除权限</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="DragDropFiles" xml:space="preserve">
+    <value>拖放文件到这里进行上传，或</value>
+  </data>
+  <data name="DropDownChoose" xml:space="preserve">
+    <value>请从下拉菜单中进行选择</value>
+  </data>
+  <data name="EmailChanged" xml:space="preserve">
+    <value>你的 Email 地址已变更</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>输入新的 Email 地址：</value>
+  </data>
+  <data name="FieldNeedsNumber" xml:space="preserve">
+    <value>该字段必须包含一个数字</value>
+  </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>该字段为必填项</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>归档</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="FindThisInteresting" xml:space="preserve">
+    <value>你或许会对这个感兴趣</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="Gb" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} 小时前</value>
+  </data>
+  <data name="IncorrectExtension" xml:space="preserve">
+    <value>文件的扩展名错误</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>无效的 Email</value>
+  </data>
+  <data name="InvalidFilename" xml:space="preserve">
+    <value>无效的文件名</value>
+  </data>
+  <data name="Invite" xml:space="preserve">
+    <value>邀请</value>
+  </data>
+  <data name="Invites" xml:space="preserve">
+    <value>邀请</value>
+  </data>
+  <data name="InviteSent" xml:space="preserve">
+    <value>邀请函已发出</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="ItemBy" xml:space="preserve">
+    <value>项目增加人为</value>
+  </data>
+  <data name="ItemExists" xml:space="preserve">
+    <value>该项目已存在</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="JustMe" xml:space="preserve">
+    <value>仅限我</value>
+  </data>
+  <data name="Kb" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>赞</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>请登录</value>
+  </data>
+  <data name="Mb" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>会员</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>会员</value>
+  </data>
+  <data name="MessageSent" xml:space="preserve">
+    <value>信息已发送</value>
+  </data>
+  <data name="MinAgo" xml:space="preserve">
+    <value>{0} 分钟前</value>
+  </data>
+  <data name="MySpace" xml:space="preserve">
+    <value>我的空间</value>
+  </data>
+  <data name="NeedToFollowBox" xml:space="preserve">
+    <value>你需要关注该主题框</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="NoCurrentBoxes" xml:space="preserve">
+    <value>你尚未拥有主题框</value>
+  </data>
+  <data name="NoCurrentInvites" xml:space="preserve">
+    <value>你尚未收到邀请</value>
+  </data>
+  <data name="NoTextEntered" xml:space="preserve">
+    <value>未输入文字</value>
+  </data>
+  <data name="NotHaveRights" xml:space="preserve">
+    <value>你没有权利邀请他人到该主题框</value>
+  </data>
+  <data name="NothingHereYet" xml:space="preserve">
+    <value>这里还什么都没有</value>
+  </data>
+  <data name="NothingToDownload" xml:space="preserve">
+    <value>没有项目可以下载</value>
+  </data>
+  <data name="NotValidUrl" xml:space="preserve">
+    <value>无效的链接格式</value>
+  </data>
+  <data name="OnCourse" xml:space="preserve">
+    <value>课程之上</value>
+  </data>
+  <data name="PleaseSelectFiles" xml:space="preserve">
+    <value>请选择要上传的文件</value>
+  </data>
+  <data name="PreviewNotAvailable" xml:space="preserve">
+    <value>尚未不支持该文件类型的预览</value>
+  </data>
+  <data name="PrivacySettingChanged" xml:space="preserve">
+    <value>隐私设置已变更</value>
+  </data>
+  <data name="ProblemLoadingImage" xml:space="preserve">
+    <value>无法载入图片</value>
+  </data>
+  <data name="ProblemSending" xml:space="preserve">
+    <value>无法发送邀请</value>
+  </data>
+  <data name="ProfessorName" xml:space="preserve">
+    <value>教授名字</value>
+  </data>
+  <data name="PwdChanged" xml:space="preserve">
+    <value>密码已变更</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SchoolLibrary" xml:space="preserve">
+    <value>学校图书馆</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>的结果</value>
+  </data>
+  <data name="SelectFilesToUpload" xml:space="preserve">
+    <value>选择上传文件</value>
+  </data>
+  <data name="SendMsg" xml:space="preserve">
+    <value>发送消息</value>
+  </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>你的设置已保存</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>跳过</value>
+  </data>
+  <data name="SpecifyRecipient" xml:space="preserve">
+    <value>请至少指定一个收件人。</value>
+  </data>
+  <data name="StillUploading" xml:space="preserve">
+    <value>你还在上传文件。你确定要关闭吗？</value>
+  </data>
+  <data name="SureDeleteComment" xml:space="preserve">
+    <value>你确定要删除该评论吗？</value>
+  </data>
+  <data name="SureDeleteItem" xml:space="preserve">
+    <value>你确定要删除该项目吗？</value>
+  </data>
+  <data name="SureDeleteReply" xml:space="preserve">
+    <value>你确定要删除该回复吗？</value>
+  </data>
+  <data name="SureDeleteTab" xml:space="preserve">
+    <value>你确定要删除该标签吗？</value>
+  </data>
+  <data name="SureToDecline0" xml:space="preserve">
+    <value>你确定你没有兴趣关注该主题框 ('{0}')吗?</value>
+  </data>
+  <data name="SureToDelete0" xml:space="preserve">
+    <value>你确定要删除该主题框 ('{0}')吗?</value>
+  </data>
+  <data name="SureToUnfollow0" xml:space="preserve">
+    <value>你确定要取消关注该主题框 ('{0}')吗?</value>
+  </data>
+  <data name="SureYouWant0" xml:space="preserve">
+    <value>你确定你想要 {0} 该主题框 ('{1}')?</value>
+  </data>
+  <data name="SureYouWant0ThisBox" xml:space="preserve">
+    <value>你确定你想要 {0} 该主题框?</value>
+  </data>
+  <data name="SureYouWant" xml:space="preserve">
+    <value>你确定要</value>
+  </data>
+  <data name="SureYouWantToDelete" xml:space="preserve">
+    <value>你确定要删除</value>
+  </data>
+  <data name="TabExists" xml:space="preserve">
+    <value>该标签页已存在</value>
+  </data>
+  <data name="ThisBox" xml:space="preserve">
+    <value>该主题框</value>
+  </data>
+  <data name="ThisIsABox" xml:space="preserve">
+    <value>这是一个主题框</value>
+  </data>
+  <data name="ToCourse" xml:space="preserve">
+    <value>转至课程</value>
+  </data>
+  <data name="ToDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ToUnfollow" xml:space="preserve">
+    <value>取消关注</value>
+  </data>
+  <data name="ToViewContent" xml:space="preserve">
+    <value>为了查看该主题框中的内容</value>
+  </data>
+  <data name="TypeCode" xml:space="preserve">
+    <value>输入 Email 中提供的代码</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>取消关注</value>
+  </data>
+  <data name="UnfollowThisBox" xml:space="preserve">
+    <value>取消关注该主题框</value>
+  </data>
+  <data name="Unlike" xml:space="preserve">
+    <value>踩</value>
+  </data>
+  <data name="UrlCopied" xml:space="preserve">
+    <value>链接已复制至粘贴板</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>最新</value>
+  </data>
+  <data name="WorkingOnPreview" xml:space="preserve">
+    <value>我们正在努力实现所有文件类型的预览，但尚未全部实现\n\n同时，你可以尝试将文件下载到你的计算机上浏览</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="MyCourses" xml:space="preserve">
+    <value>我的课程</value>
+  </data>
+  <data name="TopLevel" xml:space="preserve">
+    <value>顶层</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>回答</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>答案</value>
+  </data>
+  <data name="CoursesFollow" xml:space="preserve">
+    <value>我所关注的课程</value>
+  </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>退出小组</value>
+  </data>
+  <data name="ToDeleteBox" xml:space="preserve">
+    <value>删除该主题框？</value>
+  </data>
+  <data name="ToLeaveGroup" xml:space="preserve">
+    <value>退出该小组？</value>
+  </data>
+</root>

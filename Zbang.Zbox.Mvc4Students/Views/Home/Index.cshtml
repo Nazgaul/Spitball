@@ -1,0 +1,70 @@
+﻿@using Zbang.Zbox.Mvc4Students.Views.Resources
+
+<div class="header">
+    <h1>@HomeResources.Header1</h1>
+</div>
+<div class="content clearfix">
+
+    <div class="rightCol">
+        <div class="titleText">@HomeResources.P0</div>
+        <div class="mainText">@HomeResources.P1</div>
+        <pre class="mainText">@HomeResources.P2</pre>
+        <a class="btn5" href="@ViewBag.Url" onclick="_gaq.push(['_link', @ViewBag.Url]); return false;">@HomeResources.SignUp</a>
+    </div>
+
+    <div class="leftCol">
+        <div class="helpTitle">@HomeResources.HelpText</div>
+        <div class="imgHolder">
+            <div id="Help" class="help1"></div>
+        </div>
+        <ul>
+            <li class="help active">1</li>
+            <li class="help">2</li>
+            <li class="help">3</li>
+            <li class="help">4</li>
+            @*<li class="help">5</li>
+            <li class="help">6</li>*@
+        </ul>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footerText1">@HomeResources.Footer1</div>
+    <a href="http://pl-marketing.info/">@HomeResources.Footer2a</a>
+    <a href="http://pl-marketing.info/node/2">@HomeResources.Footer2b</a>
+    <span>@HomeResources.Footer2c</span>&rlm;
+    <a class="last" href="mailto:academi.aguda@gmail.com">@HomeResources.Footer2d</a>
+</div>
+
+<script type="text/javascript">
+    function swapImages() {
+        var active = $('.help.active');
+        var next = ($('.help.active').next().length) ? $('.help.active').next() : $('.help:first');
+        $('#Help').removeClass().addClass('help' + next.text());
+        active.removeClass('active');
+        next.fadeIn().addClass('active');
+    }
+
+    $(document).ready(function (hovering) {
+        // Run swapImages() function every 10 secs (while user doesn't mouse over image)
+        var interval = setInterval('swapImages()', 10000);
+        $(".imgHolder").hover(
+          function () {
+              clearInterval(interval);
+          },
+          function () {
+              interval = setInterval('swapImages()', 10000);
+          }
+        );
+        $('.help').click(function () {
+            clearInterval(interval);
+            var item = $(this);
+            $('.active').removeClass('active');
+            item.addClass('active');
+            $('#Help').removeClass().addClass('help' + item.text());
+            interval = setInterval('swapImages()', 10000);
+        });
+    });
+
+</script>
+

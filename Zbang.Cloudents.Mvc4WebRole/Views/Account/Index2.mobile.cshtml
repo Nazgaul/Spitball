@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutStatic.mobile.cshtml";
+}
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister
+@using Zbang.Zbox.Infrastructure.Culture
+
+
+<div class="imgBg"></div>
+<div class="sprite logo"></div>
+<div class="text">@LogOnResources.AcademicCloud</div>
+<a href="@Url.ActionHash("Welcome", "register")" class="btn create boldFont">@LogOnResources.CreateNew</a>
+<a href="@Url.ActionHash("Welcome", "connect")" class="btn connect boldFont">@LogOnResources.SignIn</a>
+<div class="lang">
+    <select class="langSelect" id="langSelect">
+        <option value="@Languages.GetLanguageDetailByName(Languages.EnglishName).Culture">@Languages.EnglishName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+    </select>
+</div>
+
+@section scripts {
+    @Html.Script2("General")
+    @Html.Script2("home")
+}
+

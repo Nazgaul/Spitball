@@ -1,0 +1,15 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.Message
+@*<span class="summaryerror"></span>*@
+
+@Html.ValidationSummary()
+<div class="inputText inviteUser">
+    @Html.LabelFor(m => m.Recepients, new { @class = "inputLabel" })
+    <ul id="@(ViewContext.FormContext.FormId)inviteList" class="inviteList">
+    </ul>
+    <input id="@(ViewContext.FormContext.FormId)inviteInput" class="inviteInput" type="text" placeholder="@Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources.UploadDialogResources.UsernameOr" />
+</div>
+<button type="button" id="@(ViewContext.FormContext.FormId)imprtCntct" disabled="disabled" class="addInvite upldSprite"></button>
+
+@Html.TextAreaFor(m => m.Note, new { @class = "inputText inviteMsg", id = ViewContext.FormContext.FormId + "Note" })
+@Html.HiddenFor(m => m.BoxUid)
+@Html.HiddenFor(m => m.ItemUid)

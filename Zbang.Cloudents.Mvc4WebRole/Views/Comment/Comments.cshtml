@@ -1,0 +1,7 @@
+﻿<div id="loading" class="loading CommentListLoading" style="display: none;">
+</div>
+<ul id="CommentList" data-bind="template: { name: cdisplayMode, foreach: comments, afterRender: changeLayoutAfterRender }">
+</ul>
+
+@{Html.RenderAction("CommentTemplate");}
+ 

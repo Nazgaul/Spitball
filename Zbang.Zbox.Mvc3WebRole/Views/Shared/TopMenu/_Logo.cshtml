@@ -1,0 +1,13 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+
+@{
+    var url = "/";
+    if (ViewBag.url != null)
+    {
+        url = ViewBag.url;
+    }
+}
+<a href="@url" class="logoVer">
+    <img src="@Url.CdnContent("/images/Logo2.png")" width="190" height="23" alt="@SharedResources.MultiMiCloud" title="@SharedResources.MultiMiCloud"  />
+    <span class="verTitle">@SharedResources.Beta</span> 
+</a>

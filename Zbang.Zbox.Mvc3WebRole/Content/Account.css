@@ -1,0 +1,161 @@
+﻿.accntTitle
+{
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.accntLabel
+{
+    font-size: 15px;
+    color: #3c3439;
+}
+
+.accntinpt, .accntchckbox
+{
+    margin: 4px 0 12px;
+    width: 275px;
+}
+
+.accntchckbox
+{
+    margin: -4px 0 0 0;
+}
+
+.enterbtn
+{
+    margin: 2px 0 0;
+}
+
+.remeber, .forgotPsd, .termagg
+{
+    font-size: 11px;
+}
+
+    .forgotPsd a, .termagg a
+    {
+        color: #9f722b;
+    }
+
+
+/*Regular log in page*/
+.maintitle
+{
+    font-family: Georgia;
+    font-size: 50px;
+    color: #e5a13d;
+    text-shadow: 0 1px 1px #fff;
+    width: 620px;
+    margin: 41px 0 16px 0;
+    line-height: 48px;
+}
+
+.maintext
+{
+    font-size: 15px;
+    color: #3c3439;
+    width: 560px;
+    margin-bottom: 18px;
+}
+
+.maininfo
+{
+    margin-left: 13px; /*rtl*/
+}
+/*End Regular log in page*/
+/*Bank bb page*/
+.mainImg
+{
+    display: inline-block;
+    width: 591px;
+    height: 373px;
+    background: url('/Images/beit_berl_eng.png') no-repeat; /*rtl*/
+}
+.bankbb pre
+{
+    font-family: Carmela;
+}
+
+/*end Bank bb page*/
+
+/*Daniel in here start*/
+.homeForm
+{
+    position: relative;
+    top: 44px;
+    float: right;
+    margin-right: 12px;
+}
+
+.textOr
+{
+    margin-top: 6px;
+    color: #676767;
+    font-size: 11px;
+}
+
+.textOr:before,
+.textOr:after {
+    content: "";
+    width: 135px;
+    height: 1px;
+    border-bottom: 1px solid #dad8d9;
+    display: inline-block;
+}
+
+.textOr:before
+{
+    margin: 0 2px 2px 0; /*rtl*/
+}
+.textOr:after
+{
+    margin: 0 0 2px 2px; /*rtl*/
+}
+
+.fbLoginBtn
+{
+    padding: 3px 0 3px 4px; /*rtl*/
+    margin: 8px 0 0 73px; /*rtl*/
+    width: 153px;
+    border: 1px solid #E2E2E2;
+    background-color: #F9F6F7;
+}
+
+.fb-login
+{
+    cursor: pointer;
+    display: block;
+    width: 149px; /* rtl-review */
+    height: 22px;
+    background: url(/images/fblogin.jpg) no-repeat; /* rtl-review */
+}
+/*Bottom section*/
+
+
+.eng-flag, .heb-flag
+{
+    vertical-align: text-bottom;
+    cursor: pointer;
+    height: 12px;
+    margin: 0 6px 0 0; /* rtl */
+    display: inline-block;
+    background: url(/images/flags.png) no-repeat top left;
+}
+
+.eng-flag
+{
+    background-position: 0 0;
+    width: 18px;
+    height: 12px;
+    padding: 0 10px 2px 22px; /* rtl */
+}
+
+.heb-flag
+{
+    background-position: 0 -37px;
+    padding: 0 0 2px 22px; /* rtl */
+    width: 17px;
+    height: 12px;
+}
+/* css for fonts */
+
+

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="Box" table="Box" discriminator-value="null">
+    <id name="Id" column="BoxId" type="long">
+      <generator class="native"></generator>
+    </id>
+    <discriminator column="Discriminator" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.BoxType, Zbang.Zbox.Infrastructure" />
+
+    <property name="Name" column="BoxName" not-null="true" length="120"/>
+    <property name="Picture" column="BoxPicture" not-null="false"/>
+    <component name="UserTime" class="UserTimeDetails">
+      <property name="CreationTime" not-null="true" insert="true" update="false" />
+      <property name="UpdateTime"  not-null="true" insert="true"  />
+      <property name="CreatedUser"  not-null="true" insert="true"  update="false"/>
+      <property name="UpdatedUser"  not-null="true" insert="true"/>
+    </component>
+
+    <component name="PrivacySettings" class="PrivacySettings">
+      <property name="PrivacySetting" not-null="true"/>
+      <!--<property name="Password"/>-->
+    </component>
+
+    <!--<property name="Uid" access="readonly"/>-->
+
+    <property name="IsDeleted"/>
+    <!--<property name="Description" length="400" />-->
+    <many-to-one name="Owner" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdBoxes"/>
+
+    <set name="UserBoxRel"  cascade="all-delete-orphan" inverse="true" batch-size="20">
+      <key column="BoxId"/>
+      <one-to-many class="UserBoxRel"/>
+    </set>
+
+    <bag name="Items"  cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="BoxId"/>
+      <one-to-many class="Item"/>
+    </bag>
+
+    <bag name="Comments" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="BoxId" />
+      <one-to-many class="Comment"/>
+    </bag>
+
+    <property name="MembersCount" >
+      <column name="MembersCount" default="0" not-null="true"/>
+    </property>
+    <property name="ItemCount">
+      <column name="ItemCount" default="0" not-null="true"/>
+    </property>
+    <property name="CommentCount">
+      <column name="CommentCount" default="0" not-null="true"/>
+    </property>
+    <!--<set name="Tags" table="BoxTag2" lazy="true" inverse="false"  cascade="save-update">
+      <key column="BoxId"/>
+      <many-to-many column="TagId"
+          class="Tag"/>
+    </set>-->
+
+    <subclass name="AcademicBox" discriminator-value="Academic">
+      <property name="CourseCode"/>
+      <property name="Professor" column="ProfessorName"/>
+      <set name="Library" table="LibraryBox">
+        <key column="BoxId"/>
+        <many-to-many column="LibraryId" foreign-key="BoxesLibraries"
+            class="Library"/>
+      </set>
+    </subclass>
+  </class>
+</hibernate-mapping>

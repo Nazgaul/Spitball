@@ -1,0 +1,34 @@
+﻿<header>My area</header>
+<div>
+    <span class="lFloat">32 Items</span>
+    @*Some sort need to be in here*@
+</div>
+@*    <ul class="userArea">
+        <li class="addBox">
+            <span class="plus">+</span>
+            <span>Add Box</span>
+        </li>
+        <li>
+            <div class="leftPart"></div>
+            <div>
+                <div class="boxTitle">Trip Pictures - Semester 1</div>
+                <div>Nadav Speigelman</div>
+            </div>
+        </li>
+       
+    </ul>*@
+<div class="boxesView clearfix" id="Boxeslistsection">
+    <h4 class="sectiontitle">
+        <span>@Zbang.Zbox.Mvc3WebRole.Views.Dashboard.Resources.IndexResources.Boxes</span>
+        <span data-bind="text: countofboxes"></span>
+    </h4>
+    <ol id="BoxList" class="boxList2 clearfix userArea">
+        <li class="addBox">
+            <span class="plus">+</span>
+            <span>Add Box</span>
+        </li>
+        <!-- ko template : {name: 'boxes-template', foreach:boxes} -->
+        <!-- /ko -->
+    </ol>
+    <span class="seeMore" data-bind="click: moreboxes, visible: moreResultExists"><span>@Zbang.Zbox.Mvc3WebRole.Views.Dashboard.Resources.IndexResources.SeeMore</span>&nbsp;&darr;</span>
+</div>

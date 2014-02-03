@@ -1,0 +1,151 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<%@ Import Namespace="Zbang.Zbox.Infrastructure.Blob" %>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta name="application-name" content="zbox" />
+    <meta name="msapplication-starturl" content="http://zbox.zbang.it/" />
+    <asp:ContentPlaceHolder ID="HeaderContentPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContentPlaceHolder" runat="server" />
+    </title>
+    <style type="text/css">
+        a#fdbk_tab
+        {
+            top: 100% !important;
+        }
+        a.fdbk_tab_right
+        {
+            position: fixed;
+            margin: -295px 0 0 0;
+        }
+    </style>
+    <%if (HttpContext.Current.IsDebuggingEnabled)
+      { %>
+    <link href="<%: Url.Content("~/Content/JQuery/UI/css/smoothness/jquery-ui-1.8.1.custom.css") %>"
+        rel="stylesheet" type="text/css" />
+    <link href="<%: Url.Content("~/Content/JQuery/UI.Layout/css/layout.css") %>" rel="stylesheet"
+        type="text/css" />
+    <link href="<%: Url.Content("~/Content/JQuery/simplyscroll/jquery.simplyscroll-1.0.4.css") %>"
+        rel="stylesheet" type="text/css" />
+    <link href="<%: Url.Content("~/Content/JQuery/SelectBox/jquery.selectbox.css") %>"
+        rel="stylesheet" type="text/css" media="all" />
+    <link href="<%: Url.Content("~/Content/Site.Master.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%: Url.Content("~/Content/Site.InternalDesign.css") %>" rel="stylesheet"
+        type="text/css" />
+    <link href="<%: Url.Content("~/Content/comments.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%: Url.Content("~/Content/JQuery/jcarousel/skin.css") %>" rel="stylesheet"
+        type="text/css" />
+    <!--[if lte IE 8]>
+         <link href="<%: Url.Content("~/Content/ie8only.css") %>" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/jquery-1.6.2.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/jquery-ui-1.8.14.custom.min.js") %>"></script>
+    
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/jquery.jcarousel.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Site.Master.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/jquery.simplyscroll-1.0.4.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/jquery.selectbox-0.6.1.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/plupload/plupload.full.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/jquery.watermark.min.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/ZeroClipboard/ZeroClipboard.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/jquery.ba-bbq.min.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Modernizr.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Zbox/Zbang.Zbox.js") %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/Zbox/ZboxBoxItemAction.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Zbox/Zbox-Box.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Zbox/Zbox-BoxItem.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Zbox/Zbox-Comments.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Zbox/ZboxBoxPrivacySettings.js") %>"></script>
+    <script type="text/javascript" src="<%: Url.Content("~/Scripts/Zbox/ZboxLightBox.js") %>"></script>
+    <%}
+      else
+      { %>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.14/themes/smoothness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <link href="<%: Url.Content(string.Format("~/Content/SyleSheet-{0}.css",Html.CurrentVersion())) %>"
+        rel="stylesheet" type="text/css" />
+    <!--[if lte IE 8]>
+         <link href="<%: Url.Content("~/Content/ie8only.css") %>" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.14/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<%: Url.Content(string.Format("~/Scripts/JavaScript-{0}.js",Html.CurrentVersion())) %>"></script>
+    <%} %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var originalTitle = document.title.split("#")[0];
+            //ie problem with flash.
+            $(document).bind('onpropertychange', function (evt) {
+                if (evt.propertyName === 'title' && document.title !== originalTitle) {
+                    document.title = originalTitle;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+   
+    <div id="main-container" style="width: 100%; height: 100%; position: absolute; overflow: hidden;">
+        <div class="ui-layout-north" id="ui-layout-north">
+            <asp:ContentPlaceHolder ID="NorthPanePlaceHolder" runat="server">
+                <div id="site-header">
+                    <img src="/Content/Images/web_zbox_logo.png" alt="ZBOX" /><span class="style4">v
+                        <%: Html.CurrentVersion()%></span>
+                    <asp:ContentPlaceHolder ID="NorthPanePlaceHolderLeftSide" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="ui-layout-west" id="ui-layout-west">
+            <asp:ContentPlaceHolder ID="WestPanePlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="ui-layout-east" id="ui-layout-east">
+            <asp:ContentPlaceHolder ID="EastPanePlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="ui-layout-center" id="ui-layout-center">
+            <asp:ContentPlaceHolder ID="CenterPanePlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="ui-layout-south gray-border-left" style="z-index: 10;" id="ui-layout-south">
+            <asp:ContentPlaceHolder ID="SouthPanePlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolderDialogs" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript" charset="utf-8">
+        var is_ssl = ("https:" == document.location.protocol);
+        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+        document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        var feedback_widget_options = {};
+
+        feedback_widget_options.display = "overlay";
+        feedback_widget_options.company = "zbang_it";
+        feedback_widget_options.placement = "right";
+        feedback_widget_options.color = "#509BD2";
+        feedback_widget_options.style = "idea";
+
+        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-9850006-3']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    
+</body>
+</html>

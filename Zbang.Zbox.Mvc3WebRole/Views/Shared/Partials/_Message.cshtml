@@ -1,0 +1,18 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+
+<div class="popupWrppr share txtshd1" data-strap="msgdiag">
+    <header class="popupHeader popupGradient">Send a message</header>
+    @using (Ajax.BeginForm("Message", "Share", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnSuccess = "mmc.messageSuccess",
+        //OnBegin = "Share.ValidateShareForm"
+    }, new { id = "fMessage", @class = "popupForm" }))
+    {
+        Html.RenderPartial("_MailPopUp", new Zbang.Zbox.Mvc3WebRole.Models.Message { BoxUid = ViewBag.boxid });
+    
+        <input type="submit" class="btn1 next" value="@UploadDialogResources.Send"/>
+        <input type="button" class="btn2 cancel" value="@UploadDialogResources.Cancel" />
+    }
+    <button class="closeDialog shareSprite"></button>
+</div>

@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Domain.DataAccess;
+using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Repositories;
+
+namespace Zbang.Zbox.Domain.CommandHandlers
+{
+    public class AddAnswerToQuestionCommandHandler : ICommandHandler<AddAnswerToQuestionCommand>
+    {
+        private readonly IUserRepository m_UserRepository;
+        private readonly IBoxRepository m_BoxRepository;
+        private readonly IRepository<Answer> m_AnswerRepository;
+        private readonly IRepository<Question> m_QuestionRepository;
+        private readonly IRepository<Item> m_ItemRepository;
+
+        private const int AmoutOfPointOfAddingAnswer = 10;
+
+        public AddAnswerToQuestionCommandHandler(IUserRepository userRepository, IBoxRepository boxRepository,
+            IRepository<Answer> answerRepository,
+            IRepository<Question> questionRepository,
+            IRepository<Item> itemRepository)
+        {
+            m_UserRepository = userRepository;
+            m_BoxRepository = boxRepository;
+            m_AnswerRepository = answerRepository;
+            m_QuestionRepository = questionRepository;
+            m_ItemRepository = itemRepository;
+        }
+        public void Handle(AddAnswerToQuestionCommand message)
+        {
+            Throw.OnNull(message, "message");
+
+            var user = m_UserRepository.Load(message.UserId);
+            var box = m_BoxRepository.Load(message.BoxId);
+            var question = m_QuestionRepository.Load(message.QuestionId);
+            //Decode the comment to html friendly
+            var text = TextManipulation.EncodeComment(message.Text);
+
+            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId); //user.GetUserType(box.Id);
+            if (userType == UserRelationshipType.None || userType == UserRelationshipType.Invite)
+            {
+                throw new UnauthorizedAccessException("User is not connected to box");
+            }
+            var files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
+            var answer = new Answer(user, text, box, message.Id, question, files);
+            box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
+            user.AddReputation(AmoutOfPointOfAddingAnswer);
+            m_BoxRepository.Save(box);
+            m_AnswerRepository.Save(answer);
+        }
+    }
+}

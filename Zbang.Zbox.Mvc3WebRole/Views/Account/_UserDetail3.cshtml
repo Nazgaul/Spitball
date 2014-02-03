@@ -1,0 +1,13 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserDto
+@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="userBlock">
+        <img src="@Model.Image" width="68" height="68" />
+        <div class="user">
+            <div data-id="@Model.Uid" class="userName elps">@Model.Name</div>
+            @Html.ActionLink(UserDetailResources.AccountSettings, "Settings", "Account") | @Html.ActionLink(UserDetailResources.LogOut, "LogOff", "Account")
+        </div>
+    </div>
+}

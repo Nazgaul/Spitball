@@ -1,0 +1,43 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserDetailDto
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+<div id="settingsPanel" class="settingsPanel lFloat">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="panelTop signedIn">
+            <a class="edit" data-modelNav href="@Url.Action("Settings", "Account")" data-navigation="Account">
+                <img class="lFloat" src="@Model.Image" alt="user image" />
+                <div class="userDetails">
+                    <div id="userName" data-id="@Model.Uid" class="userName elps boldFont">@Model.Name.Split(' ')[0]</div>
+                    <div class="sprite1a email elps">@Model.Email</div>
+                </div>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="panelTop signedOut">
+            <a data-modelNav href="@Url.ActionHash("welcome","account","connect")" class="btn1">@LogOnResources.SignIn</a>
+            <a data-modelNav href="@Url.ActionHash("welcome","account","register")" class="btn2">@LogOnResources.CreateNew</a>
+        </div>
+    }
+    <ul class="settingsList">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li>
+                <a data-modelNav href="@Url.GenerateUrl("Index", "Library")" data-navigation="Library" class="sprite1b panelBtn union elps">
+                    <img src="@Model.LibImage" width="20" height="20" alt="" id="menu_libImg" />@Model.LibName
+                </a>
+            </li>
+        }
+        <li>
+            <a data-modelNav href="@Url.Action("Index", "Dashboard")" data-navigation="Dashboard"
+               data-log="@User.Identity.IsAuthenticated.ToString().ToLower()" class="sprite1b panelBtn mySpace elps">@SharedResources.Dashboard</a>
+        </li>
+        <li><button type="button" data-modelNav="invites" class="sprite1b panelBtn invitesBtn">@SharedResources.Notifications<span id="f_invites" class="numberCircle rFloat"></span></button></li>
+        <li><button type="button" data-modelNav="updates" class="sprite1b panelBtn activityBtn elps">@MobileResources.FriendsActivity</button></li>
+        <li>@Html.ActionLink(Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "sprite1b panelBtn tos elps" })</li>
+    </ul>
+    <a id="logOut" class="logout" href="@Url.Action("LogOff","Account")">@UserDetailResources.LogOut</a>
+</div>
+

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+  <!--<query read-only="true" name="GetDashboardTabs">
+    <![CDATA[
+    select Name as Name, Id as Id from BoxTab where User = :UserId
+    ]]>
+  </query>-->
+  
+  <query read-only="true" name="GetBoxTabs">
+    <![CDATA[
+    select Name as Name, Id as Id from ItemTab where Box.Id = :BoxId
+    ]]>
+  </query>
+</hibernate-mapping>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2013-10.2.2">
+  <WebRole name="Zbang.Cloudents.Mvc4WebRole" vmsize="Small">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+          <Binding name="Endpoint2" endpointName="Endpoint2" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+      <InputEndpoint name="Endpoint2" protocol="https" port="443" certificate="CloudDents" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
+    </Imports>
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" />
+      <Setting name="CdnEndpoint" />
+      <Setting name="ZBox" />
+      <Setting name="otakimUrl" />
+    </ConfigurationSettings>
+    <Startup>
+      <Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" />
+      <Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple" />
+      <Task commandLine="Install.cmd" executionContext="elevated" taskType="background">
+        <Environment>
+          <Variable name="ACTIVATIONKEY" value="5Oi3Kt7Dd2Ck5Zp1On1Us9Jl8Vr5Vz7Vm9Fv0Qk" />
+          <Variable name="ENVIRONMENET" value="'Cloudents Web Role'" />
+        </Environment>
+      </Task>
+    </Startup>
+    
+    <Certificates>
+      <Certificate name="CloudDents" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="MyIntermediateCertCloudDents" storeLocation="LocalMachine" storeName="CA" />
+      <Certificate name="MyRootCertCloudDents" storeLocation="LocalMachine" storeName="Trust" />
+    </Certificates>
+    <LocalResources>
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="100" />
+      <LocalStorage name="DiagnosticStore" sizeInMB="20000" cleanOnRoleRecycle="false" />
+    </LocalResources>
+  </WebRole>
+</ServiceDefinition>

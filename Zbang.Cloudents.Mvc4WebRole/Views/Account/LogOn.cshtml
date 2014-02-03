@@ -1,0 +1,50 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="splitHR"><span class="splitHRText">@LogOnResources.ByEmail</span></div>
+<div class="signIn">
+    
+    @using (Html.BeginForm("LogIn", "Account", new { returnUrl = ViewBag.returnUrl },
+    FormMethod.Post, new { id = "login" })
+   )
+    {
+        Html.RenderAction("AntiForgeryToken", "Home", true);
+    
+       
+        @Html.LabelFor(model => model.Email, new { @class = "accntLabel" })
+        @Html.ValidationMessageFor(model => model.Email, null)
+        @Html.TextBoxFor(model => model.Email, new
+        {
+            @class = "inputText",
+            type = "text",
+            autofocus = "autofocus",
+            tabindex = 1
+        })
+
+        @Html.LabelFor(model => model.Password, new { @class = "accntLabel" })
+        @Html.ValidationMessageFor(model => model.Password, null)
+        @Html.PasswordFor(model => model.Password, new
+        {
+            @class = "inputText",
+            tabindex = 2
+        })
+        <div class="forgot">
+            @LogOnResources.ForgotYourPassword&nbsp;@Html.ActionLink(LogOnResources.Retrieve, "ResetPassword")
+        </div>
+        
+        
+        @Html.CheckBoxFor(m=>m.RememberMe,new { id="RememberMe",@class="checkbox", tabindex="3"})
+       
+        @Html.LabelFor(model => model.RememberMe, new { @class = "cbLabel lFloat" })    
+        
+        <input class="lFloat btn1" tabindex="4" type="submit"  value="@SharedResources.SignIn"  />
+    }
+</div>
+
+
+
+
+
+
+

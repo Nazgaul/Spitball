@@ -1,0 +1,744 @@
+﻿@import "varsAndMixins";
+
+.modal2 /*, div.fadeMeTrans*/
+{
+    filter: alpha(opacity=50);
+    background: rgba(17,17,17,.5);
+    height: 100%;
+    left: 0; /* rtl */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index:11;
+}
+
+.popupForm
+{
+    .field-validation-error, .validation-summary-errors 
+    {
+        margin-left: 15px; /*rtl*/
+    }
+}
+.popupHeader {
+    color: #fff;
+    font-size: 18px;
+    background: #39434a;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 -20px 15px;
+    padding: 0 20px;
+    width: 100%;
+    
+
+    .boxName { //from upload popup
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block; // change that
+        padding-left: 8px; /*rtl*/
+    }
+}
+.popupWrppr
+{
+    position: fixed;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    top: 20%;
+    width: 558px;
+    max-height: 396px;
+    z-index: 12;
+    padding: 0 20px 15px;
+    .boxSizing;
+    background-color: #fff;
+    color: @textColor;
+
+	.animation(fadein);
+
+    .closeDialog
+    {
+        background-color: transparent;
+        width: 11px;
+        height: 11px;
+        background: @common-sprite -79px -25px no-repeat;
+        position: absolute;
+        top: 14px;
+        right: 20px; /*rtl*/
+    }
+    .cancel
+	{
+        margin-left: 10px; /*rtl*/
+	}
+    .btn1, .btn2
+    {
+        margin-top: 15px;
+    }
+    &.upload, &.uploadUrl {
+        width: 610px;
+        max-height: none; // reset max-height
+    }
+
+    &.confirm
+    {
+        min-height: 175px; /* override upload popup*/
+        max-height: 380px;
+        width: 448px;
+    }
+    &.registerNow
+    {
+        width:448px;
+        min-height: 125px;
+    }
+	&.privateBox
+	{
+		width: 600px;
+	}
+    
+    &.flagItem
+    {
+        width: 570px;
+        //height: 358px;
+        li
+        {
+            margin-top: 15px;
+        }
+    }
+    &.requestSent
+    {
+        display: none;
+        .animation(fadein);
+        //min-height: 0; // override poppwrrpr
+        .closeDialog
+        {
+            background-position: -79px -15px;
+        }
+    }
+    &.boxSettings
+    {
+        width: 700px;        
+        max-height:none;
+        padding-bottom:0;
+
+    }
+}
+
+.requestSentDiv
+{
+    font-size: 18px;
+    padding-left:18px; /*rtl*/ // override poppwrrpr
+    width: 374px;
+    white-space: pre-line;
+    &.first
+    {
+        color: @color;
+        font-size: 28px; /*diff rtl*/
+        margin: 20px 0 15px;
+        width: auto;
+    }
+}
+
+.invHeader {
+    + q {
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        padding-left: 8px; /*rtl*/
+    }
+}
+.confirm
+{
+    .popupHeader
+	{
+		margin-bottom: 25px; //bug 147
+	}
+	.message
+	{
+		margin: 20px 0 0 12px; /*rtl*/
+	}
+	.inputText
+	{
+		height: 28px;
+		padding: 0 4px 0 8px; /*rtl*/
+        .boxSizing;
+        width: 100%;
+        margin-bottom: 10px; 
+	}
+	select.inputText
+	{
+		width: 417px;
+		padding: 3px;
+	}
+}
+
+.extraText
+{
+	display: none;
+}
+.privateBox {
+
+    label {
+        font-size: 15px;
+        display: block;
+    }
+    .inputText {
+        margin: 5px 0 25px;
+    }
+
+    .popupHeader {
+        //height: auto; // override height:32px - because need 2 lines here
+        //margin-bottom: 15px;
+    }
+
+    input[type="radio"] {
+        + label:before {
+            margin-top: -3px;
+        }
+    }
+}
+.labelExplain {
+    color: rgba(56,56,56,.75);
+    margin-left: 17px; /*rtl*/
+    &.explain1
+    {
+        margin-bottom: 15px;
+    }
+}
+.join.next
+{
+    right: 120px; /*rtl*/
+}
+
+.inputText.academicDescription
+{
+    height: 50px;
+    max-height: 80px;
+    overflow: auto;
+}
+
+/*#region flag Item */
+
+.flagDialog
+{
+    .btn1.next, .btn2.cancel
+    {
+        margin-top:0; //override default next/cancel btn style
+    }
+    
+    > div
+    {
+        //margin-left: 10px; /*rtl*/
+        color: @color;
+        font-size: 15px;
+    }
+    input[type="text"] 
+    {
+        margin: 8px 0 10px;
+        opacity:0;
+        //width: ~'calc(100% - 18px)';
+    }
+    input[type="text"]::-ms-clear
+    {
+        display:none;
+    }
+    
+}
+
+/*#endregion */
+
+input[type="radio"]
+{
+    display:none;
+    + label 
+    {
+        //color: #111;
+        &:before 
+        {
+            content: '';
+            display:inline-block;
+            width: 13px;
+            height: 13px;
+            background: url(/Images/radioBtn.png) -15px -1px no-repeat;
+            vertical-align: middle;
+            margin: -2px 4px 0 0; /*rtl*/
+        }
+    }
+    
+    &:checked + label:before {
+        content: '';
+        background-position: -1px -1px;
+    }
+    &:checked + label + .inputText {
+        opacity: 1;
+        .transition(opacity, .5s linear);
+    }
+}
+
+/*#region box settings and members */
+
+#dash_showfriends, #box_settings{
+    display:none;
+}
+#box_settings {
+
+}
+.boxSettings
+{
+    .inviteBtn{
+        border: none; //override
+        margin-top: 12px;
+        background: #0371C8;
+        padding: 0px 8px;
+        line-height: 30px;
+        &:after
+        {
+            display: none; //override
+        }
+        &:before
+        {
+            .pseudo;
+            vertical-align: middle;
+            margin-right: 5px; /*rtl*/
+            width: 20px;
+            height: 18px;
+            background: @boxSprite -53px -85px no-repeat;
+        }
+    }
+    .btn1, .btn2
+    {
+        font-size: 13px;
+        margin-top: 18px;
+        &:focus
+        {
+            //TODO: Ask how this should look
+            outline: none;
+            border: 1px dotted #383838;
+            border-radius: 5px;
+        }
+    }
+}
+.popupTopBar{
+    height: 53px;
+    line-height: 53px;
+    background: #F5F5F5;
+    margin: -15px -20px 0;
+    padding: 0 20px;
+
+    position:relative;
+    overflow: hidden; 
+}
+.tabSettings
+{
+    ~ .membersContent
+    {
+        display: none;
+    }
+    ~ .boxSettingsForm{
+        padding-bottom:20px;
+    }
+}
+.tabMembers
+{
+    ~ .boxSettingsForm
+    {
+        display: none;
+        
+    }    
+}
+
+.tabBtn {
+    font-size: 15px;
+    color: #676767;
+    text-transform: capitalize;
+    //width: 85px;
+    //text-align: center;
+    //text-align: left;
+
+    &:first-child {
+        margin-right: 29px; /*rtl*/
+        .tabSettings & 
+        {
+            color: #39434a;
+        }
+    }
+    &:nth-child(2) {
+        .tabMembers & 
+        {
+            color: #39434a;
+        }
+    }   
+}
+
+.tabArrow
+{
+    margin: -53px -20px 1px -20px;
+    border-bottom: 1px solid @borderColor;
+    height: 52px;
+    &:before
+    {
+        .tabMembers & {
+            left: 132px; /*rtl*/ //TODO: Need to find a solution for other languages
+        }
+    }   
+}
+.tabArrow:before{
+    width: 13px;
+    height: 13px;
+    bottom:-9px;
+    left: 38px; /*rtl*/
+    background: #fff;
+    .transition(left, .3s); /*rtl*/
+} 
+.boxSettingsContent
+{
+    display: table;
+    margin-top: 15px;
+    &.private .private, &.academic .academic
+    {
+        display: table-row;
+    }
+}
+.boxSetting
+{
+    display: table-row;
+    .changeImg
+    {
+        width: 74px;
+        height: 24px;
+        color: #fff;
+        position: absolute;
+        left:0; /*rtl*/
+        bottom: 0;
+        background: rgba(57,67,64,.7);
+    }
+    &.private, &.academic
+    {
+        display: none;
+    }
+    &:first-child label
+    {
+        vertical-align: top;
+    }
+    &:last-child
+    {
+        height: 50px;
+        line-height: 50px;
+        white-space: nowrap; //make sure child elements don't wrap to new line (see bug 1141)
+        label
+        {
+            padding-top: 12px;
+        }
+    }
+    label{
+        display: table-cell;
+        padding: 10px 20px 0 0; /*rtl*/
+        text-align: right; /*rtl*/
+    }
+    .ownerName
+    {
+        max-width: none; // override class from Account Settings
+    }
+    .inputText{
+        margin-top: 10px;
+        width: 135px;
+    }
+    
+    .thumbImg{
+        position: relative;
+        width: 74px;
+        height: 94px;
+        overflow: hidden;
+        border: 1px solid #c2c2c2;
+    }
+    .radioBtns
+    {
+        &:before, &:after
+        {
+            .pseudo;
+            width: 660px;
+            height: 1px;
+            left:0; right:0;
+            margin: auto;
+            background: @borderColor;
+            position: absolute;
+        }
+        &:before
+        {
+            margin-top: 12px;
+        }
+    }
+    .editBoxName
+    {
+        width: 560px;
+        font-size: 16px;
+    }
+    .editLecturer{
+        width: 195px;
+    }
+}
+.privacyLabel
+{
+    font-size: 15px;
+}
+
+.membersContent{
+    min-height: 330px;
+    .cbLabel{
+        position: static; // override general
+        margin: 0; // override general
+        height: 36px;
+
+        &:before
+        {
+            border:none;  // override general
+            padding:0;
+            vertical-align: top;
+        }
+    }
+
+    .memberName{
+        display: inline-block;
+        //width: 276px;
+        width: 271px;
+        padding-left: 4px; /*rtl*/
+        vertical-align: top; // to keep the mac happy
+    }
+}
+.membersTop
+{
+    height: 52px;
+    line-height: 52px;
+    border-bottom: 1px solid @borderColor;
+    .searchWpr
+    {
+        display: inline-block;
+        width: 400px;
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid @borderColor;
+        border-radius: 3px;
+        margin-top: 10px;
+        overflow: hidden; // clip content to rounded corners
+    }
+    .cbLabel
+    {
+        line-height: 15px;
+        &:before
+        {
+            margin-top: 0; //override
+        }
+    }
+}
+.membersCount
+{
+    background: #f5f5f5;
+    border-right: 1px solid @borderColor; /*rtl*/
+    display: inline-block;
+    padding: 0 8px;
+    &:before
+    {
+        content: attr(data-count);
+        display: inline-block;
+    }
+}
+.membersSearch
+{
+    padding: 0 5px;
+}
+.membersList{
+    max-height: 450px;
+    //min-height: 265px;
+    overflow: hidden;
+    margin: 0 -13px 0 -5px; /*rtl*/ //Doing this right: for the scrollbars and left: for item hover
+    padding: 0 13px 0 5px; /*rtl*/ //Doing this right: for the scrollbars and left: for item hover
+}
+.memberItem:first-child {
+    padding-top:10px;
+}
+.memberItem {
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    clear: both;
+    padding: 5px 0 5px 5px; /*rtl*/
+    margin: 0 0 3px -5px; /*rtl*/
+    opacity: 1; //for uninvited transition
+    visibility: visible; //for uninvited transition
+
+    &.memberItem .cbLabel:before
+    {
+        margin-top: 11px; //override (added another .memberItem for specificity)
+    }
+
+    &:hover {
+        background: #f9f9f9;
+    }
+
+    .btn1 {
+        margin: 0 0 0 10px; /*rtl*/ // override other props
+        display: none;
+    }
+
+    &.uninvited, &.reinvited {
+        .memberStatus {
+            //opacity: 0; //for uninvited transition
+            //visibility: hidden; //for uninvited transition
+            color: #fff;
+        }
+    }
+    &.reinvited
+    {
+        .reinvite
+        {
+            top:0;
+        }
+    }
+
+    &.uninvited {
+        .transition(all 1s 2s);
+        position: relative;
+        z-index: -1;
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+
+        .friendImg, .memberName, .reinviteUserBtn {
+            opacity: .5;
+        }
+
+        .uninvite {
+            top:0;
+        }
+    }
+
+    /*&.reinvited {
+        .reinvite {
+            top: 0;
+            display: inline-block;
+        }
+    }*/
+}
+.reinviteUserBtn
+{
+    padding: 6px 10px;
+    font-weight: normal;
+}
+
+.reinvite, .uninvite
+{
+    //color: rgba(0,0,0,0);
+    position: absolute;
+    top:35px;
+    left:0;
+    background: #fff;
+    .transition(top .5s);
+    display: inline-block;
+    color: @textColor;
+    &:before
+    {
+        .pseudo;
+        width: 18px;
+        height: 19px;
+        background: @common-sprite -171px -64px no-repeat;
+        vertical-align: middle;
+        margin-right: 5px;
+        //left:0;
+        //position: absolute;
+        //top: 0;
+        //opacity:1;
+    }
+}
+.reinvite:before
+{
+    background-position: -136px -42px;
+}
+
+.memberStatus{
+    vertical-align: top;
+    overflow: hidden;
+    position: relative;  
+    min-width: 97px; 
+    height: 35px;
+    color: @textColor;
+    display: inline-block;
+
+    .transition(color .5s);
+    opacity:1; //for uninvited transition
+    visibility: visible; //for uninvited transition
+}
+
+
+.memberPending ~ .memberActions .btn1{
+    display: inline-block;
+}
+.memberActions{
+    clear: both;
+}
+.messageBtn
+{
+    display:none;
+    
+    margin-left: 26px; /*rtl*/
+    &:before
+    {
+        .pseudo;
+        vertical-align: middle;
+        width: 22px;
+        height: 19px;
+        background: @common-sprite -155px -42px no-repeat;
+        margin-right: 8px; /*rtl*/
+    }
+}
+
+
+.inviteUserBtn, .removeUserBtn
+{
+    width: 36px;
+    height: 31px;
+    border-radius: 3px;
+    display: none;
+    &:hover
+    {
+        border: 1px solid @borderColor;
+    }
+    &:before
+    {
+        .pseudo;
+        width: 24px;
+        height: 17px;
+        background: @common-sprite -154px -24px no-repeat;
+        vertical-align: middle;
+    }
+    .memberItem:hover &
+    {
+        display: inline-block;
+    }
+}
+.removeUserBtn
+{
+    margin-left: 10px; /*rtl*/
+    &:before
+    {
+        width: 16px;
+        height: 20px;
+        background-position: -164px -1px;
+    }
+}
+
+.dashMembers 
+{
+    .memberItem{
+        width: 49%;
+        display: inline-block;
+    }
+    .memberName{
+        width: 212px;
+    }
+}
+/*#endregion */

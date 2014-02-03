@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ApiViewModel"
+                   namespace="Zbang.Zbox.ApiViewModel.DTOs">
+
+  <query name="APIGetBoxItemDtosByBoxId">
+    <![CDATA[
+      select i.Uid as Uid,i.Name as Name, i.DateTimeUser.CreationTime as CreationTime,
+      i.DateTimeUser.UpdateTime as UpdateTime,i.class as discriminator,
+      i.BlobName as BlobName, i.ContentUpdateTime as ContentUpdateTime,
+      GetThumbnailUrl() + i.ThumbnailBlobName as ThumbnailBlobUrl,
+        (select count(*) from Comment c where c.IsDeleted = 0 and c.Item = i) as CommentCount,
+        u.Name as UserName, u.Uid as UserUid, u.Image as UserImage, u.class as UserType
+      from Item i join i.UploaderId u where i.IsDeleted = 0 and i.Box.Id = :BoxId
+    ]]>
+  </query>
+
+  <query name="APIGetBoxItemDtoByItemId">
+    <![CDATA[
+      select i.Uid as Uid,i.Name as Name,  i.DateTimeUser.CreationTime as CreationTime,
+      i.DateTimeUser.UpdateTime as UpdateTime,i.class as discriminator,
+      i.BlobName as BlobName, i.ContentUpdateTime as ContentUpdateTime,
+      GetThumbnailUrl() + i.ThumbnailBlobName as ThumbnailBlobUrl,      
+      (select count(*) from Comment c where c.IsDeleted = 0 and c.Item = i) as CommentCount,
+      u.Name as UserName, u.Uid as UserUid, u.Image as UserImage, u.class as UserType
+       from Item i join i.UploaderId u where i.IsDeleted = 0 and i.Id = :ItemId
+    ]]>
+  </query>
+</hibernate-mapping>

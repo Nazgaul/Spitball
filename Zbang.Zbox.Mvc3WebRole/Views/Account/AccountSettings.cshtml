@@ -1,0 +1,26 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+
+@model Zbang.Zbox.Mvc3WebRole.Models.Account.AccountSettings.AccountSettings
+@{
+   
+    ViewBag.body = "body2lines";
+    ViewBag.MainMenu = true;
+}
+@section MainMenu
+{
+    <p class="recentAct actvBox-on">
+        @AccountSettingsResources.AccountSettings
+    </p>
+}
+<div id="MainContent" class="padding-8" style="margin: 14px 0 0 0">
+    <div class="accountSettingFrm">
+        @{            
+            Html.RenderAction("ChangeProfile", new { Model.ImageUrl, Model.DisplayName, Model.Language, Model.University });
+            Html.RenderAction("ChangeEmail", new { email = Model.Email });
+            Html.RenderAction("ChangePassword");}
+    </div>
+</div>
+@section script{
+    <script type="text/javascript">
+        $(document).ready(function () { Account(); }); </script>
+}

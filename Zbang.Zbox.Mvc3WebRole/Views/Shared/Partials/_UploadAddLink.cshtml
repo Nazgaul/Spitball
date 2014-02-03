@@ -1,0 +1,18 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.AddLink
+@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+
+@using (Ajax.BeginForm("Link", "Upload", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "mmc.addLinkSuccess"
+}, new { @class = "addUrlHolder", id = "fAddLink" }))
+{
+    
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(m => m.BoxId, new { id = "addLinkBox" })
+    @Html.TextBoxFor(m => m.Url, new { placeholder = UploadDialogResources.AddUrl, @class = "inputText addUrl" })
+    <button id="submitUrl" type="submit" class="btn4 rFloat">@UploadDialogResources.Add</button>
+    @Html.ValidationMessageFor(m => m.Url, null, new { @class = "errmsg" })
+    
+}

@@ -1,0 +1,28 @@
+﻿
+
+<header>
+    <img src="http://lorempixel.com/g/72/72" alt="" width="72" height="72" />
+    <span class="heading">Acedemic Bank of the open university</span>
+</header>
+@*<header>Academic Bank of the open university</header>*@
+
+<div>
+    <span class="lFloat">32 Items</span>
+    <button class="rFloat" id="createNode">+ Add item</button>
+    <button class="rFloat" id="createBox">+ Add box</button>
+</div>
+<ul class="libraryList" data-bind="template: { name: 'library-node', foreach: nodes }">
+</ul>
+
+@*put in partial*@
+<div id="createNodeDialog" title="Add new faculty">
+    <form action="@Url.Action("Create","Library")">
+        <input name="Name" id="noneName" type="text" placeholder="Type new faculty" value="" class="inputText" />
+        <button type="submit" class="btn1 next">Create</button>
+        <button type="reset" class="btn2 cancel">Cancel</button>
+
+        <button class="closeDialog shareSprite"></button>
+    </form>
+</div>
+
+@{Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Zbox.Mvc3WebRole.Models.CreateAcademicBox());}

@@ -1,0 +1,12 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Item.Resources
+<div class="itemPopup" id="itempopUp">
+    <div class="cell">
+        <div class="content">
+            <div class="topBar">
+                <span class="print"><a href="@Url.Action("Print", new { BoxUid = Model.BoxUid, ItemUid = Model.Uid })" target="_blank" class="btnPrint">
+                    <span class="itemBtnimage"></span>@IndexResources.Print</a></span>
+                <span id="zoomClose" class="itemBtnimage close"></span>
+            </div>
+        </div>
+    </div>
+</div>

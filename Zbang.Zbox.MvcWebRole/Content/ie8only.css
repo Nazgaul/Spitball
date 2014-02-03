@@ -1,0 +1,47 @@
+﻿.ui-dialog .ui-dialog-content #ShareBoxdivPassword input.password {
+    float: left;
+    margin: 0 0 0 80px;
+}
+.jquery-selectbox .jquery-selectbox-currentItem
+{
+    padding-right:0px !important;
+}
+.jquery-selectbox .jquery-selectbox-currentItem
+{
+    padding: 0px 0px 0px 3px;
+}
+
+/*.ui-dialog-buttonset button:first-child{
+    background: #4092CF;
+    margin: 0 0 0 15px;
+    cursor: pointer;
+    padding: 0px;
+    line-height: 28px;
+    width: 64px;
+    overflow: visible;
+    font-size: 14px !important; 
+    font-weight: bold !important;
+    color: #FFFFFF !important;
+}
+
+.ui-dialog-buttonset button {
+    font-size: 14px ;
+    font-weight: bold ;
+    color: #2D6691 ;
+    background:#ffffff ;
+    
+    background: #4092CF;
+    margin: 0 0 0 15px;
+    cursor: pointer;
+    padding: 0px;
+    line-height: 28px;
+    width: 64px;
+    overflow: visible;
+}*/
+
+/*new box*/
+#dialog-CreateBoxcontent div input#boxName,
+#dialog-CreateBoxcontent div input.password
+{
+    padding:6px 4px 0 4px;
+}

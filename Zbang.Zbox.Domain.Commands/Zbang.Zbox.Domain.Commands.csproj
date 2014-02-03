@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zbang.Zbox.Domain.Commands</RootNamespace>
+    <AssemblyName>Zbang.Zbox.Domain.Commands</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddAnnotationCommand.cs" />
+    <Compile Include="AddAnswerToQuestionCommand.cs" />
+    <Compile Include="AddFileToBoxCommand.cs" />
+    <Compile Include="AddFileToBoxCommandResult.cs" />
+    <Compile Include="AddLinkToBoxCommand.cs" />
+    <Compile Include="AddLinkToBoxCommandResult.cs" />
+    <Compile Include="AddNodeToLibraryCommand.cs" />
+    <Compile Include="AddQuestionCommand.cs" />
+    <Compile Include="AddReplyToAnnotationCommand.cs" />
+    <Compile Include="AssignItemToTabCommand.cs" />
+    <Compile Include="ChangeBoxInfoCommand.cs" />
+    <Compile Include="ChangeBoxPrivacySettingsCommand.cs" />
+    <Compile Include="ChangeBoxPrivacySettingsCommandResult.cs" />
+    <Compile Include="ChangeFileNameCommand.cs" />
+    <Compile Include="ChangeFileNameCommandResult.cs" />
+    <Compile Include="ChangeItemTabNameCommand.cs" />
+    <Compile Include="ChangeNotificationSettingsCommand.cs" />
+    <Compile Include="AddBoxCommentCommand.cs" />
+    <Compile Include="AddBoxCommentCommandResult.cs" />
+    <Compile Include="AddReplyToCommentCommand.cs" />
+    <Compile Include="AddReplyToCommentCommandResult.cs" />
+    <Compile Include="CreateAcademicBoxCommand.cs" />
+    <Compile Include="CreateFacebookUserCommand.cs" />
+    <Compile Include="CreateFacebookUserCommandResult.cs" />
+    <Compile Include="CreateItemTabCommand.cs" />
+    <Compile Include="CreateMembershipUserCommand.cs" />
+    <Compile Include="CreateMembershipUserCommandResult.cs" />
+    <Compile Include="CreateUniversityCommand.cs" />
+    <Compile Include="DeleteAnnotationCommand.cs" />
+    <Compile Include="DeleteAnswerCommand.cs" />
+    <Compile Include="DeleteCommentCommand.cs" />
+    <Compile Include="DeleteFileFromQnACommand.cs" />
+    <Compile Include="DeleteItemTabCommand.cs" />
+    <Compile Include="DeleteNodeFromLibraryCommand.cs" />
+    <Compile Include="DeleteQuestionCommand.cs" />
+    <Compile Include="DeleteUserFromBoxCommand.cs" />
+    <Compile Include="InviteToSystemCommand.cs" />
+    <Compile Include="InviteToSystemFacebookCommand.cs" />
+    <Compile Include="MarkAsAnswerCommand.cs" />
+    <Compile Include="RateAnswerCommand.cs" />
+    <Compile Include="RateItemCommand.cs" />
+    <Compile Include="RenameNodeCommand.cs" />
+    <Compile Include="SendMessageCommand.cs" />
+    <Compile Include="ShareBoxFacebookCommand.cs" />
+    <Compile Include="AddReputationCommand.cs" />
+    <Compile Include="UnfollowBoxCommand.cs" />
+    <Compile Include="UpdateFileCommand.cs" />
+    <Compile Include="UpdateStatisticsCommand.cs" />
+    <Compile Include="UpdateThumbnailCommand.cs" />
+    <Compile Include="UpdateUserFirstTimeStatusCommand.cs" />
+    <Compile Include="UpdateUserUniversityCommand.cs" />
+    <Compile Include="UpdateUserLanguageCommand.cs" />
+    <Compile Include="UpdateUserPasswordCommand.cs" />
+    <Compile Include="UpdateUserCommandResult.cs" />
+    <Compile Include="UpdateUserEmailCommand.cs" />
+    <Compile Include="UpdateUserProfileCommand.cs" />
+    <Compile Include="ShareBoxCommand.cs" />
+    <Compile Include="DeleteItemCommand.cs" />
+    <Compile Include="DeleteBoxCommand.cs" />
+    <Compile Include="CreateUserCommandResult.cs" />
+    <Compile Include="CreateUserCommand.cs" />
+    <Compile Include="CreateBoxCommand.cs" />
+    <Compile Include="CreateBoxCommandResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscribeToSharedBoxCommand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35dc2a36-5e24-4e09-8967-838c6edca465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,158 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Box.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+@model Zbang.Zbox.ViewModel.DTOs.BoxWithDetailDto2
+@{
+    ViewBag.topbar = string.Empty;
+    ViewBag.title = true;
+    ViewBag.lowerbar = true;
+    var membersLabel = Model.Members == 1 ? 1 + " " + IndexResources.Member : Model.Members + " " + IndexResources.Members;
+    ViewBag.image = Model.Image ?? Url.CdnContent("/images/EmptyState/icon_boxplaceholder_01.png");
+
+    ViewBag.metaTitle = Model.Name;
+    ViewBag.metaDescription = IndexResources.MetaDescription;
+}
+@section TopBar{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="/" class="txtshd1 dashboard">@IndexResources.AllBoxes</a>
+    }
+    @{Html.RenderPartial("_UploadContainer");}
+
+}
+@section Title{
+    @if (Model.UserType == UserRelationshipType.Invite || Model.UserType == UserRelationshipType.None)
+    {
+        <div id="FollowBox" class="txtshd1">
+            @IndexResources.WantToKeepUp
+            <button id="bFollowBox" class="btn3 follow-btn">@IndexResources.Follow</button>
+            <button id="bDecline" class="btn4 follow-btn">@IndexResources.NoThanks</button>
+        </div>
+    }
+    <img id="BoxImage" class="boximage" alt="boxImage" src="@ViewBag.image" width="158" height="111" />
+    <div id="boxMetaData" class="boxdata">
+        <h3 id="boxName" class="elps">@Model.Name</h3>
+        <ul class="boxTags txtshd2 clearfix">
+            @* <li>
+                <a href="@boxsettingsUrl" >
+                    <span class="addATag">@IndexResources.AddTag</span>
+                </a>
+            </li>*@
+            @foreach (var tag in Model.Tags)
+            {
+                <li><span class="dotChar"></span>@tag</li>
+            }
+
+        </ul>
+        @if (Model.Tags.Count() == 5)
+        {
+            <span class="more moreTags txtshd2 tooltip">@IndexResources.More
+                <div class="callout">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <span>@tag&nbsp;&lrm;</span>
+                    }
+                </div>
+            </span>
+        }
+        <div class="owner txtshd2" id="boxOwner">
+            @*<a href="@Url.RouteUrl("FriendView", new { FriendUid = Model.OwnerUid })">*@
+            <a href="#">
+                <img src="@Model.OwnerImage" alt="@IndexResources.Owner" height="50" width="50" />
+            </a>
+            <div class="details">
+                <span class="label">@IndexResources.Owner:</span><span class="name">@Model.OwnerName</span>
+                <button class="msg" data-name="@Model.OwnerName" data-uid="@Model.OwnerUid" >@IndexResources.SendMessage</button>
+            </div>
+        </div>
+
+    </div>
+    @if (Model.Members > 0)
+    {
+        <div class="boxMembers clearfix">
+            <h4>@membersLabel</h4>
+            <ul class="members clearfix">
+                @foreach (var item in Model.Subscribers)
+                {
+                    
+                    var pic = Url.CdnContent("/images/usrPic.png");
+                    if (!string.IsNullOrWhiteSpace(item.Image))
+                    {
+                        pic = item.Image;
+                    }
+                    <li class="tooltip">
+                        @*<a href="@Url.RouteUrl("FriendView", new { FriendUid = item.Uid })">*@
+                        <a href="#">
+                            <img src="@pic" class="memberImage" alt="@IndexResources.Owner" height="32" width="32" />
+                        </a>
+                        <div class="callout1 membersAll">
+                            @*<a href="@Url.RouteUrl("FriendView", new { FriendUid = item.Uid })">*@
+                            <a href="#">
+                                <img src="@pic" class="image" alt="" />
+                            </a>
+                            <div class="details">
+                                <div class="name elps">@item.Name</div>
+                                <button data-name="@item.Name" data-uid="@item.Uid" class="msg">@IndexResources.SendMessage</button>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+            @*@if (Model.Members > 8)
+            {
+                *@<h6 class="viewAll"><button type="button" data-strap="members">@IndexResources.ViewAll</button></h6>
+            
+
+        </div>
+    }
+
+}
+@section LowerBar{
+    <div class="boxlowerBar txtshd2">
+        <a href="@Url.Action("DownloadAll", "File", new
+            {
+                BoxUid = ViewBag.boxid
+            })" class="btnDownload"><span class="btnimage"></span>@IndexResources.Download</a>
+
+
+        @*Invite*@
+        @if (User.Identity.IsAuthenticated &&
+            !(Model.PrivacySetting == BoxPrivacySettings.MembersOnly && Model.UserType == UserRelationshipType.Subscribe))
+        {
+            <button data-strap="invite" class="btnInvite"><span class="btnimage"></span>@IndexResources.Invite</button>
+        }
+
+        <button class="btnShare" data-strap="share"><span class="btnimage"></span>@IndexResources.Share</button>
+
+        @*
+        <button class="btnDelete"><span class="btnimage"></span>Delete</button>*@
+        @if (User.Identity.IsAuthenticated &&
+            (Model.UserType == UserRelationshipType.Owner || Model.UserType == UserRelationshipType.Subscribe))
+        {
+            @Ajax.InnerSpanImageLink(IndexResources.Edit, "Settings", "Box", new { BoxUid = ViewBag.boxid }, new { @class = "btnEdit" },
+            new { @class = "btnimage" },
+                 new AjaxOptions
+           {
+               HttpMethod = "Get",
+               InsertionMode = InsertionMode.InsertBefore,
+               UpdateTargetId = "boxMetaData",
+               OnSuccess = "mmc.boxSettings",
+               OnBegin = "mmc.beforeBoxSettings"
+           })
+        }
+
+    </div>
+}
+@{Html.RenderAction("UserPermission", true);}
+<div data-strap="box">
+    @{Html.RenderPartial("_Items");}
+
+    @{Html.RenderPartial("_Activity", Zbang.Zbox.Mvc3WebRole.Views.Comment.Resources.CommentResources.Comments);}
+</div>
+@if (!User.Identity.IsAuthenticated)
+{
+    Html.RenderPartial("_RegisterPopUp");
+}
+@{
+    Html.RenderPartial("_Share");
+    Html.RenderPartial("_Members");
+}

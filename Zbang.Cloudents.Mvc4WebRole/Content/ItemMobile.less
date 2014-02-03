@@ -1,0 +1,131 @@
+﻿@sprite-item: url(/Images/m-item-sprite.png);
+@item-header-height: 40px;
+//@color: #952262;
+@color: #0f9d58;
+body
+{
+    margin:0;
+}
+a {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    &:focus
+    {
+        outline: thin dotted;
+    }
+}
+
+button {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 2 */
+    margin: 0; /* 3 */
+    line-height: normal;
+    text-transform: none;
+    cursor: pointer; /* 3 */
+    -webkit-appearance:none; //this is mine - to cancel the iOS default btn styles
+    background: transparent;
+}
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+body button, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.lFloat{
+    float:left;
+}
+.rFloat{
+    float:right;
+}
+.boxSizing(@prop: border-box) {
+    -moz-box-sizing: @prop;
+    -webkit-box-sizing: @prop;
+    box-sizing: @prop;
+}
+
+body{
+    background: #f4f4f4;
+}
+header
+{
+    width:100%;
+    height: @item-header-height;
+    position: fixed;
+    left:0;
+    top:0;
+    background: #3b3b3b;
+    padding: 0 2%;
+    text-align: center;
+    .boxSizing();
+    
+    button, a{
+        line-height: 40px;
+        &:before
+        {
+            content: '';
+            display: inline-block;
+            background: @sprite-item no-repeat;
+            vertical-align: middle;
+            line-height: 40px;
+            width: 26px;
+        }
+    }
+}
+.btnWpr{
+    display: inline-block;
+    width: 82px;
+    vertical-align: middle;
+}
+.back{
+    &:before
+    {
+        height: 19px;
+    }
+}
+
+.prevBtn:before{
+    height: 26px;
+    background-position: 0 -20px;
+}
+.nextBtn:before{
+    height: 26px;
+    background-position: 0 -46px;
+}
+.downloadBtn{
+    &:before
+    {
+        height: 29px;
+        background-position: 0 -72px;
+    }
+}
+.itemContent
+{
+    margin-top: @item-header-height;
+    text-align: center;
+}
+img
+{
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.previewFailed{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 70px;
+    color: #3b3b3b;
+    q{
+        color: @color;
+    }
+}
+.actionText
+{
+    color: @color;
+}
+

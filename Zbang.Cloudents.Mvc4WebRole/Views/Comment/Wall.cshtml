@@ -1,0 +1,16 @@
+﻿<div id="updates" class="updates popup">
+    <div class="popupWpr">
+        <ul id="updates_wall" class="updatesList" data-bind="foreach: wall" data-itemtext="added an item" data-questiontext="asked a question" data-answertext="answered a question">
+            <li class="updatesItem sprite1a">
+                <a data-navigation="Box" data-bind="attr: { href: boxurl }">
+                    <img class="lFloat" data-bind="attr: { src: userImg }" width="32" height="32" />
+                    <div class="description">
+                        <span data-bind="text: boxName"></span>
+                        <span class="boldFont" data-bind="text: userName"></span>
+                        <span data-bind="text: textAction"></span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

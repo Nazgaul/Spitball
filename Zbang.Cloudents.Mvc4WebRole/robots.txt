@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /error/
+Disallow: /account/
+disallow: /dashboard/
+disallow: /library/
+disallow: /user/
+
+Sitemap: https://www.cloudents.com/sitemap.xml

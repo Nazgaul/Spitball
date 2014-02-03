@@ -1,0 +1,39 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserDto
+@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="userDrpArrow"></div>
+    <div class="userMenuWrapper">
+        <ul class="userMenu">
+            <li>
+                @Html.ActionLink(UserDetailResources.AccountSettings, "Settings", "Account")
+            </li>
+            @*<li>
+                <a href="#">@UserDetailResources.Help</a>
+            </li>*@
+            <li>
+                <a href="javascript:UserVoice.showPopupWidget();">@UserDetailResources.Feedback</a>
+            </li>
+            <li>
+                @Html.ActionLink(UserDetailResources.LogOut, "LogOff", "Account")
+            </li>
+        </ul>
+    </div>
+    <div class="userInfo" id="userDetails">
+        <a href="/">
+            <img src="@Model.Image" alt="user image" width="24" height="24" />
+            <span id="userName" data-id="@Model.Uid" class="userName">@Model.Name.Split(' ')[0]</span>
+        </a>
+    </div>
+}
+else
+{
+
+    //if (ViewBag.DontShowSignUp == null || ViewBag.DontShowSignUp == false)
+    //{
+        <div class="signUp">
+            <a href="@Url.Action("Index", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.AbsoluteUri })">@UserDetailResources.SignIn</a>
+        </div>@*
+    }*@
+}

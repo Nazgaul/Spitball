@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ApiViewModel"
+                   namespace="Zbang.Zbox.ApiViewModel.DTOs">
+  <class name="ApiBoxDto"
+         mutable="false"
+         lazy="false"
+         schema-action="none">
+
+    <id name="Uid">
+      <generator class="assigned"/>
+    </id>
+
+    <property name="Name" not-null="true" column="BoxName"/>
+    <component name="Owner" class="UserDto">
+      <property name="Name" column="UserName"/>
+      <property name="Uid" column="UserUid"/>
+      <property name="Image" column="UserImage"/>
+      <property name="UserType" column="UserType"/>
+    </component>
+    <property name="UpdateTime" />
+    <property name="ItemCount"/>
+    <property name="MemberType"/>
+    <property name="CommentCount"/>
+    <property name="MembersCount"/>
+    
+    <property name="Thumbnail" />
+  </class>
+  <sql-query name="APIGetBoxes">
+    <return alias="referer"
+    class="ApiBoxDto" />
+    <![CDATA[  
+     select b.Uid, b.BoxName,b.PrivacySetting,b.UpdateTime,
+      own.UserName, own.uid as UserUid ,own.userimage ,own.UserType ,ub.usertype as MemberType,
+      
+      (select COUNT(*) from zbox.Item i where i.BoxId = b.BoxId and i.IsDeleted = 0) as ItemCount,
+      (select top(1) zbox.[GetThumbnailUrl]() + ThumbnailBlobName from zbox.Item i where i.BoxId = b.BoxId and i.IsDeleted = 0) as Thumbnail,
+      (select COUNT(*) from zbox.Comment c , zbox.CommentReplies cr where c.BoxId = b.boxid and cr.CommentRepliesId = c.CommentId and cr.IsDeleted = 0) as CommentCount,
+      (select COUNT(*) from zbox.UserBoxRel ub where ub.BoxId = b.BoxId and ub.UserType in (2,3)) as MembersCount
+      
+      from Zbox.box b, Zbox.UserBoxRel ownrel, Zbox.Users own , zbox.UserBoxRel ub
+      where b.BoxId = ownrel.BoxId
+      and b.IsDeleted = 0     
+      and ownrel.UserType= 3      
+      and own.UserId = ownrel.UserId
+      and b.BoxId = ub.BoxId
+      and ub.UserType in (1,2,3)
+      and b.PrivacySetting >  case when ub.userType in ( 2,1 ) then 0 else -1  end
+      and ub.UserId = :UserId        
+    ]]>
+  </sql-query>
+  <sql-query name="APIGetFriendBoxes">
+    <return class="ApiBoxDto"/>
+    <![CDATA[
+     select b.Uid, b.BoxName,b.PrivacySetting,b.UpdateTime,
+    fub.UserType as MemberType, 
+    own.UserName, own.uid as UserUid ,own.userimage ,own.UserType,
+    (select COUNT(*) from zbox.Item i where i.BoxId = b.BoxId and i.IsDeleted = 0) as ItemCount,
+    (select top(1) zbox.[GetThumbnailUrl]() + ThumbnailBlobName from zbox.Item i where i.BoxId = b.BoxId and i.IsDeleted = 0) as Thumbnail ,
+    (select COUNT(*) from zbox.Comment c , zbox.CommentReplies cr where c.BoxId = b.boxid and cr.CommentRepliesId = c.CommentId and cr.IsDeleted = 0) as CommentCount,
+    (select COUNT(*) from zbox.UserBoxRel ub where ub.BoxId = b.BoxId and ub.UserType in (2,3)) as MembersCount
+     from  zbox.UserBoxRel ub, zbox.Friend f , zbox.UserBoxRel fub, zbox.Box b, Zbox.UserBoxRel ownrel, Zbox.Users own
+     where fub.UserId = f.MyFriendId
+     and f.OwnerId = :UserId
+     and f.MyFriendId = :FriendId
+     and ub.UserId = f.OwnerId 
+     and ub.BoxId = fub.BoxId
+     and ub.BoxId = b.BoxId
+     and fub.UserType in (2,3)
+     and b.IsDeleted = 0
+     and b.PrivacySetting != 0    
+     and b.BoxId = ownrel.BoxId
+     and ownrel.UserType= 3      
+     and own.UserId = ownrel.UserId 
+    ]]>
+  </sql-query>
+  <sql-query name="PageAPIGetFriendBoxes">
+    <return class="ApiBoxDto"/>
+    <![CDATA[
+    select t.Uid, t.BoxName,t.PrivacySetting,t.UpdateTime,
+    t.UserType as MemberType,
+    (select COUNT(*) from zbox.Item i where i.BoxId = t.BoxId and i.IsDeleted = 0) as ItemCount,
+    (select top(1) zbox.[GetThumbnailUrl]() + ThumbnailBlobName from zbox.Item i where i.BoxId = t.BoxId and i.IsDeleted = 0) as Thumbnail ,
+    (select COUNT(*) from zbox.Comment c , zbox.CommentReplies cr where c.BoxId = t.boxid and cr.CommentRepliesId = c.CommentId and cr.IsDeleted = 0) as CommentCount,
+    (select COUNT(*) from zbox.UserBoxRel ub where ub.BoxId = t.BoxId and ub.UserType in (2,3)) as MembersCount,
+    own.UserName, own.uid as UserUid ,own.userimage ,own.UserType
+    from (
+    select b.Uid, b.BoxName,b.PrivacySetting,b.UpdateTime,   fub.UserType,b.BoxId
+    from  zbox.UserBoxRel ub, zbox.Friend f , zbox.UserBoxRel fub, zbox.Box b
+    where fub.UserId = f.MyFriendId
+    and f.OwnerId = :UserId
+    and f.MyFriendId = :FriendId
+    and ub.UserId = f.OwnerId
+    and ub.BoxId = fub.BoxId
+    and ub.BoxId = b.BoxId
+    and fub.UserType in (2,3)
+    and b.IsDeleted = 0
+    and b.PrivacySetting != 0
+    union
+    select b.Uid, b.BoxName,b.PrivacySetting,b.UpdateTime,   fub.UserType,b.BoxId
+    from zbox.Friend f , zbox.UserBoxRel fub, zbox.Box b
+    where fub.UserId = f.MyFriendId
+    and f.OwnerId = :UserId
+    and f.MyFriendId = :FriendId
+    and fub.BoxId = b.BoxId
+    and b.IsDeleted = 0
+    and b.PrivacySetting = 3
+
+    ) t,  Zbox.UserBoxRel ownrel, Zbox.Users own
+    where  t.BoxId = ownrel.BoxId
+    and ownrel.UserType= 3
+    and own.UserId = ownrel.UserId
+    ]]>
+  </sql-query>
+</hibernate-mapping>

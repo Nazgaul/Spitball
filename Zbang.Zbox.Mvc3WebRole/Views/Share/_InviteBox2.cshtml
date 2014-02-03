@@ -1,0 +1,42 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Share.Resources
+
+@model Zbang.Zbox.Mvc3WebRole.Models.Invitation
+<div id="InvitePop">
+    @using (Ajax.BeginForm("InviteBox", "Share", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnSuccess = "Share.ShareSuccess",
+        OnBegin = "Share.ValidateShareForm"
+    }, new { id = "formInvite" }))
+    {   
+        <img src="@Url.CdnContent("/images/icon-invite.png")" alt="@ShareResources.Invite" title="@ShareResources.Invite" />
+        <span class="inviteTitle">@ShareResources.InviteMembersTo " <span id="iboxName" class="elps"></span>"
+            @ShareResources.Box</span>
+        <hr class="linePurple" />
+        @Html.ValidationSummary(true)
+        <div class="inviteLbl">
+            @Html.LabelFor(m => m.Recepients)@Html.ValidationMessageFor(m => m.Recepients, null, new { @class = "smallErrMsg", id = "errRecepients" })
+        </div>
+        <div class="recepientsList">
+            <ul id="recipients-List">
+                <li>
+                    <input type="text" id="iRecepients" />
+                </li>
+            </ul>
+            @Html.TextBoxFor(m => m.Recepients, new { @class = "recipientsHidden"})
+            @Html.EditorFor(m => m.BoxUid)
+        </div>
+        <img alt="" src="@Url.CdnContent("/images/addressbook_add_icon.png")" id="importContact" title="@ShareResources.AddressBook"/>
+        <label class="inviteLbl">
+            @ShareResources.IncludePersonal<span class="italic gray99"> @ShareResources.Optional</span>
+        </label>
+        <div class="editor-field">
+            @Html.TextAreaFor(m => m.PersonalNote, new { id = "textAreaPersonalNote" })
+        </div>
+        <input class="rFloat btn1" type="submit" id="InviteSubmit" value="@ShareResources.Send" />
+        <button type="button" class="rFloat btn-cancel btn2" id="InvitePopCancel">@ShareResources.Cancel</button>
+    }
+    
+</div>
+@*<div class="fadeMe" id="fade">
+</div>*@

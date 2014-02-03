@@ -1,0 +1,73 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+<div class="boxItems clearfix" id="box_items">
+    <div class="dropZoneOpacity" id="up_dropZone">
+        <div class="dropZone">
+            <div class="dropMsg boldFont">@DialogResources.DropToUpload</div>
+        </div>
+    </div>
+    <div class="boxItemsHeader">
+
+        <!--ko if:manageTab-->
+        <div class="lFloat boxManage">
+            @MainViewResources.ChooseFiles
+            <button class="btn1" type="button" data-click="manageSave">@MainViewResources.Save</button>
+            <button class="btn2" type="button" data-click="managedecline">@MainViewResources.Cancel</button>
+        </div>
+        <!--/ko-->
+
+    </div>
+
+    <!--ko if:emptyState-->
+    <div class="boxEmpty">
+        <h2>@MainViewResources.BoxEmpty</h2>
+        <br />
+        <div>@IndexResources.Syllabus</div>
+        <div>@IndexResources.LinksTo</div>
+
+        <div class="emptyBoxDrop">
+            <span class="emptyBoxDropText">@DialogResources.DragAndDrop</span>
+            <button data-bind="click: addItem" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
+        </div>
+    </div>
+    <!--/ko-->
+
+
+    <ol id="BoxItemList" class="boxItemList clearfix" data-bind="fadeVisible: loadedAnimation">
+        @*<!--ko ifnot:manageTab-->*@
+        <li class="boxItem boxAddItem" data-bind="visible: !manageTab()">
+            <button type="button" data-click="addItem" class="addBtn addItem">@MainViewResources.AddShare</button>
+        </li>
+        @*<!--/ko-->*@
+        <!--ko foreach:{data:items,afterAdd:edrag}-->
+        <li class="boxItem" data-bind="attr: { id: uid }">
+            <a data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">
+                @*<img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="187" />*@  @* TODO VERSION 14*@
+                <img data-bind="attr: { src: thumbnailUrl }" alt="" width="148" height="187" />
+                <div class="boxName clamp2" data-bind="text: name"></div>
+                <div class="stars">
+                    <div class="full" data-bind="style: { width: rate + 'px' }"></div>
+                </div>
+                <div title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
+            </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="actionBtns">
+                    <a data-bind="attr: { href: download }" target="_blank" title="@IndexResources.Download" class="lFloat downloadBtn"></a>
+                    @*<!--ko if:deleteAllow-->*@
+                    <button type="button" class="lFloat deleteBtn" title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
+                    @*<!--/ko-->*@
+                </div>
+            }
+            <!--ko if:$root.manageTab-->
+            <input class="cbManage" data-bind="attr: { id: 'c_' + uid }, checked: isCheck" type="checkbox">
+            <div></div>
+            @*empty div used for green outline*@
+            <label class="cbLabel" data-bind="attr: { for: 'c_' + uid }"></label>
+            <!--/ko-->
+        </li>
+        <!--/ko-->
+    </ol>
+</div>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="Question">
+    <id name="Id" column="QuestionId">
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="userIdQuestion"/>
+    <property name="Text" not-null="true" length="8000"></property>
+    <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdQuestion"/>
+
+    <component name="DateTimeUser" class="UserTimeDetails">
+      <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
+      <property name="UpdateTime" type="DateTime2"  not-null="true" insert="true"  />
+      <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
+      <property name="UpdatedUser"  not-null="true" insert="true" />
+    </component>
+    <bag name="Items" inverse="false" lazy="true" cascade="none" >
+      <key column="QuestionId" foreign-key="questionIdQuestion" />
+      <one-to-many class="Item"/>
+    </bag>
+   <bag name="Answers" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="QuestionId" foreign-key="questionIdAnswer"/>
+      <one-to-many class="Answer"/>
+    </bag>
+  </class>
+
+  <class name="Answer">
+    <id name="Id" column="AnswerId">
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="userIdAnswer"/>
+    <property name="Text" not-null="true" length="8000"></property>
+    <property name="MarkAnswer" not-null="true"/>
+    <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdAnswer"/>
+    <many-to-one name="Question" class="Question" column="QuestionId" not-null="true" foreign-key="questionIdAnswer"/>
+
+    <component name="DateTimeUser" class="UserTimeDetails">
+      <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
+      <property name="UpdateTime" type="DateTime2"  not-null="true" insert="true"  />
+      <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
+      <property name="UpdatedUser"  not-null="true" insert="true" />
+    </component>
+    <bag name="Items" inverse="false" lazy="true" cascade="none" >
+      <key column="AnswerId" foreign-key="answerIdAnswer" />
+      <one-to-many class="Item"/>
+    </bag>
+    <property name="RatingCount">
+      <column name="RatingCount" default="0" not-null="true"/>
+    </property>
+  </class>
+
+
+  <class name="AnswerRating" table="AnswerRating">
+    <id name="Id" column="AnswerRatingId">
+      <generator class="assigned"></generator>
+    </id>
+
+    <many-to-one name="Answer" lazy="false"  class="Answer" column="AnswerId" not-null="true" foreign-key="AnswerIdAnswerRating" unique-key="likeAnswerRatingUser" />
+    <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdAnswerRating" unique-key="likeAnswerRatingUser"/>
+    <property name="RateUp" column="RateUp" not-null="true"/>
+  </class>
+  
+</hibernate-mapping>

@@ -1,0 +1,66 @@
+﻿<script defer="defer" id="boxes-template" type="text/html">
+
+    <li  class="box" data-bind="attr: { id: uid }">
+        <a data-bind="attr: { href: boxUrl }">
+            <div>
+                <img class="boxImg" data-bind="attr: { src: boxPicture }" alt="" />
+                <ul>
+                    <li class="itemImg" data-bind="text: itemCount"></li>
+                    <li class="memberImg" data-bind="text: membersCount"></li>
+                    <li class="commentImg" data-bind="text: commentCount"></li>
+                </ul>
+                
+            </div>
+            @*<span class="ellipsis boxName">
+                <span data-bind="text: name"></span>
+            </span>*@
+            <span class="boxName" data-bind="text: name"></span>
+        </a>
+    </li>
+
+
+    @*<li class="boxViewListWrapper">
+        <div class="boxViewList">
+            <a data-bind="attr: { href: boxUrl }">
+                <div class="boxName txtshd1 elps" data-bind=" text: name"></div>
+                <div class="boxOwner txtshd1 elps" data-bind=" text: owner"></div>
+                <div class="boxImgContainer">
+                    <!-- ko if: privacySettings === 'private' -->
+                    <span class="boxPrivacyEnabled"></span>
+                    <!-- /ko -->
+                    <img data-bind="attr: { src: boxPicture }" class="boxImage" alt="box image" width="208" height="146" />
+                </div>
+            </a>
+            <!-- ko if: addboxshow() -->
+            <button class="inviteBtn txtshd2" data-bind="text: boxActivity(), click: $root.boxAction"></button>
+            <!-- /ko -->
+
+            <!-- ko if: removeboxshow() -->
+            <button class="archiveBtn txtshd2" data-bind="text: removeBoxTxt(), css: { followBtn: userType() === 'subscribe' }, click: $root.removeBox">
+            </button>
+            <!-- /ko -->
+            <div class="boxHoverProps">
+                <span class="members"></span><span class="count" data-bind="text: membersCount"></span>
+                <span class="items"></span><span class="count" data-bind="text: itemCount"></span>
+                <span class="comments"></span><span class="count" data-bind="text: commentCount"></span>
+            </div>
+        </div>*@
+
+        @*<ul class="boxtags txtshd1">
+            <!-- ko foreach: viewtags -->
+            <li data-bind="text: $data" class="dotChar"></li>
+            <!-- /ko -->
+        </ul>
+        <!-- ko if: popupTags.length > 0 -->
+        <div class="more txtshd1 tooltip">
+            More
+            <div class="callout">
+                <!-- ko foreach: popupTags -->
+                <span class="dotChar" data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->*@
+    @*</li>*@
+</script>
+

@@ -1,0 +1,671 @@
+﻿.style1
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 17px;
+    color: #5a88b4;
+    text-transform: none;
+}
+
+.style2
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px;
+    color: #749dbc;
+    text-transform: none;
+}
+
+.style3
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.style4
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: none;
+}
+
+.style5
+{
+    font-weight: normal;
+    font-style: italic;
+    font-size: 12px;
+    color: #808080;
+    text-transform: none;
+}
+
+.style6
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 16px;
+    color: #00b1a0;
+    text-transform: uppercase;
+}
+
+.style7
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #ffffff;
+    background-color: #4092cf;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+a.style7
+{
+    text-decoration: none;
+}
+
+.style8
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px !important;
+    color: #4d4d4d;
+    text-transform: none;
+}
+
+.style9
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 11px;
+    color: #749dbc;
+    text-transform: none;
+}
+
+.style10
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 16px;
+    color: #b3be35;
+    text-transform: uppercase;
+}
+
+.style11
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 30px;
+    color: #475f71;
+    text-transform: capitalize;
+}
+
+.style11-no-bold
+{
+    font-weight:normal;
+    font-style: normal;
+    font-size: 30px;
+    color: #475f71;
+    text-transform: capitalize;
+}
+
+.style12
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 18px;
+    color: #475f71;
+    text-transform: uppercase;
+}
+
+.style13
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 18px;
+    color: #475f71;
+    text-transform: none;
+}
+
+.style14
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 21px;
+    color: #4092cf;
+    text-transform: uppercase;
+}
+
+.style15
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16px;
+    color: #4092cf;
+    text-transform: uppercase;
+}
+
+.style16
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #4092cf;
+    text-transform: uppercase;
+}
+
+.style17
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #333333;
+    text-transform: capitalize;
+}
+
+.style18
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #000000;
+    text-transform: none;
+}
+
+.style18addFiles
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px;
+    color: #333333;
+    text-transform: none;
+}
+.style19
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 11px;
+    color: #2e2e2e;
+    text-transform: none;
+}
+
+.style20
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 11px;
+    color: #475f71;
+    text-transform: none;
+}
+
+.style21
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #709e32;
+    text-transform: none;
+}
+
+.style22
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    color: #5a88b4;
+    text-transform: uppercase;
+    text-decoration: inherit;
+   
+}
+
+.style23
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px;
+    color: #4092cf !important;
+    text-transform: none;
+}
+
+.underlined{ text-decoration:underline !important;}
+
+.style24
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #4092cf;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.style25
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px;
+    color: #4d4d4d;
+    text-transform: none;
+}
+
+.style26
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 11px;
+    color: #4d4d4d;
+    text-transform: none;
+}
+
+.style27
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: none;
+}
+
+.style28
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #d0705d;
+    text-transform: none;
+}
+
+.style29
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #4092cf;
+    text-transform: capitalize;
+}
+
+.style30{
+    font-weight:normal;
+    font-size:16px;
+    color:#4092CF;
+}
+
+.style31
+{
+    font-weight: bold;
+    font-size: 48px;
+    color: #FFFFFF;
+}
+
+.style32
+{
+    font-size: 13px;
+    font-weight: normal;
+    color: #4D4D4D;
+}
+
+.style33
+{
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #2D6691 !important;
+    background:#ffffff;
+}
+.style33Dialog
+{
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #2D6691 !important;
+    background:#ffffff !important;
+}
+
+
+.style34
+{
+    font-size: 60px;
+    font-weight: normal;
+    color: #4092CF;
+}
+
+.style35
+{
+    font-size: 21px;
+    font-weight: normal;
+    color: #204968;
+}
+
+.style36
+{
+    font-size: 18px;
+    font-weight: bold;
+    color: #204968;
+}
+
+.style37
+{
+    font-size: 17px;
+    font-weight: normal;
+    color: #4D4D4D;
+}
+
+.style38
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: #2D6691;
+}
+
+.style39
+{
+    font-size: 21px;
+    font-weight: bold;
+    color: #204968;
+}
+
+.style40
+{
+    font-size: 16px;
+    font-weight: normal;
+    color: #204968;
+}
+
+.style41
+{
+    font-size: 14px;
+    font-weight: normal;
+    color: #B32424;
+}
+
+.style42
+{
+    font-size: 14px;
+    font-weight: normal;
+    color: #204968;
+}
+
+.style43
+{
+    font-size: 24px;
+    font-weight: normal;
+    color: #4092CF;
+}
+
+.style44
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: #204968;
+}
+
+.style45
+{
+    font-size: 14px !important; 
+    font-weight: bold !important;
+    color: #FFFFFF !important;
+}
+
+.style46
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: #4092CF;
+}
+.style52
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: #475F71;
+    text-transform: uppercase;
+}
+.style55
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.style56 
+{
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.style57
+{
+    font-weight: bold;
+    font-size: 24px;
+    color: #4092CF;
+}
+
+.style58, .style59
+{
+    font-weight: bold;
+    font-size: 14px;
+    color: #4D4D4D;
+}
+.style59
+{
+    font-weight: normal;
+}
+
+.style60
+{
+    font-size: 58px;
+    font-weight: normal;
+    color: #4092cf;
+}
+
+.style61, .style62, .style63
+{
+    font-size: 18px;
+    font-weight: normal;
+    color: #204968;
+}
+
+.style62
+{
+    font-weight: bold;
+}
+
+.style63
+{
+    font-size: 14px;
+}
+.style64 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #475f71;
+    margin: 0 0 54px 0 !important;
+    font-family: Arial, Helvetica;
+}
+.style65 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #4092cf;
+    margin: 0 0 20px 0 !important;
+    font-family: Arial, Helvetica;
+}
+.style66 {
+    font-size: 12px;
+    font-weight: normal;
+    color: #4D4D4D;
+    font-family: Arial, Helvetica;
+}
+.style67 {
+    font-size: 12px;
+    font-weight: normal;
+    color: #4092cf;
+    font-family: Arial, Helvetica;
+    padding:0 0 0 4px;
+}
+
+.style68
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px !important;
+    color: #4d4d4d;
+    text-transform: none;
+    font-family:Arial, Helvetica;
+    text-transform:capitalize;
+    margin:0 0 0 7px;
+}
+.style69
+{
+    font-size: 13px;
+    font-weight: bold;
+/*    color: #5a88b4;*/
+    color: #146EB5;
+    font-family:Arial, Helvetica;
+    text-transform:capitalize;
+}
+
+.style70
+{
+    font-size: 13px;
+    font-weight: normal;
+     color: #146EB5;
+    font-family:Arial, Helvetica;
+}
+
+a.style70Reply
+{
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: none !important;
+    color: #7FB0D7 !important;
+    font-family:Arial, Helvetica;
+}
+
+.style71{
+    font-weight:normal;
+    font-size:16px;
+    color:#FFFFFF;
+}
+.style72
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+.style73
+{
+    font-weight: bold;
+    font-style: normal;
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: capitalize;
+}
+.style74
+{
+    font-size: 14px;
+    font-weight: normal;
+    color: #4d4d4d;
+    font-family:Arial, Helvetica;
+}
+.style75
+{
+    font-size: 14px;
+    font-weight: normal;
+    color: #b3b3b3;
+    font-family:Arial, Helvetica;
+    font-style:italic;
+}
+.style76 
+{
+    max-width:300px;
+    display: inline-block;
+}
+
+.style78
+{
+    display:inline-block;
+    overflow:hidden;
+    max-width:119px;
+    line-height:10px;
+}
+.style79
+{
+    display:inline-block;
+    overflow:hidden;
+    max-width:60px;
+    line-height:10px;
+}
+
+.style80
+{
+   font-size: 18px;
+    font-weight: normal;
+    color: #146eb5;
+    font-family:Arial;
+}
+.style81
+{
+    font-size: 13px;
+    font-weight: normal;
+    color: #204968;
+    font-family:Arial;
+}
+/***************/
+/* TYPOGRAPHY  */
+/***************/
+/* Color */
+.white{color:white;}
+.blue-dark{color:#0e4d80;}
+.black333{color:#333333;}
+.black48{color:#484848;}
+.back4d{color:#4d4d4d;}
+.bluish-dark{color:#17a099;}
+.blue-2{color:#0e4d80;}
+.blue-3{color:#146eb5;}
+.blue-4{color:#4092CF;}
+.blue-5{color:#204968;}
+.green{color:#83b641;}
+.gray{color:#4d4d4e;}
+/* Size */
+a.txt-11, .txt-11{font-size:11px;}
+.txt-12{font-size:12px;}
+.txt-13{font-size:13px;}
+.txt-15{font-size:15px;}
+.txt-18{font-size:18px;}
+.txt-24{ font-size:24px}
+/* Weight */
+.bold{font-weight:bold;}
+.normal{font-weight:normal;}
+/* misc */
+.txt-capitl{text-transform: capitalize;}
+.uppernoDecoration{      
+    text-transform: uppercase;
+    text-decoration: inherit;
+}
+.regularDecoration{
+    text-transform:none;
+}
+a.txt-no-dec{text-decoration:none;}
+.txt-shadow{
+    text-shadow: 0px 1px 0px #333333;
+    /*opacity : 0.3;*/
+    }
+ /* GRADIANTS */
+ .Gradiant2,
+ #dialog-share-Box .Gradiant2
+{
+     background: -moz-linear-gradient(#ecf4fb, #fefeff)  repeat scroll 0 0 transparent; /* FF 3.6+ */
+    background: -ms-linear-gradient(#ecf4fb, #fefeff); /* IE10 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ecf4fb), color-stop(100%, #fefeff)); /* Safari 4+, Chrome 2+ */
+    background: -webkit-linear-gradient(#ecf4fb, #fefeff); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#ecf4fb, #fefeff); /* Opera 11.10 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ecf4fb', endColorstr='#fefeff'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ecf4fb', endColorstr='#edffefeff5fb')"; /* IE8+ */
+    background: linear-gradient(#ecf4fb, #fefeff); /* the standard */ /*   background-image: url(Images/TexBoxNewUser.png);*/
+}
+
+/* Border Colors */
+.border-blue2{border:solid 2px #698499;}

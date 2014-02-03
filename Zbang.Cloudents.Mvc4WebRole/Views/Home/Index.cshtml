@@ -1,0 +1,38 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.UserNav
+@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <div id="Library" class="page">
+        @{Html.RenderAction("MainView", "Library", true);}
+    </div>
+    <div id="Dashboard" class="page">
+        @{Html.RenderPartial("~/Views/Dashboard/_MainView.cshtml");}
+    </div>
+}
+<div id="Box" class="page boxPage">
+    @{Html.RenderPartial("~/Views/Box/_MainView.cshtml");}
+</div>
+<div id="Item" class="page itemPage">
+    @{Html.RenderPartial("~/Views/Item/_MainView.cshtml");}
+</div>
+
+<span id="firstTime" data-libf="@Model.Library.ToString().ToLower()" 
+    data-myf="@Model.Dashboard.ToString().ToLower()" 
+    data-boxf="@Model.Box.ToString().ToLower()" 
+    data-itemf="@Model.Item.ToString().ToLower()"></span>
+@{
+   
+}
+@section templates
+{
+    @{
+        Html.RenderPartial("~/Views/Library/_Template.cshtml");
+        Html.RenderPartial("~/Views/Comment/_Template.cshtml");
+        if (Model.Welcome)
+        {
+            Html.RenderPartial("~/Views/Home/_Welcome.cshtml");
+        }
+    }
+}

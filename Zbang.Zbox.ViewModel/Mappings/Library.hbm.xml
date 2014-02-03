@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" schema="Zbox"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+  <resultset name="LibraryDetails">
+    <return-scalar column="Name" type="string"/>
+    <return-scalar column="Image" type="string"/>
+    <return-scalar column="Id" type="long"/>
+    <return-scalar column="BoxesCount" type="long"/>
+    <return-scalar column="ItemCount" type="long"/>
+    <return-scalar column="MemberCount" type="long"/>
+
+    <return-scalar column="WebSiteUrl" type="string"/>
+    <return-scalar column="MailAddress" type="string"/>
+    <return-scalar column="FacebookUrl" type="string"/>
+    <return-scalar column="TwitterUrl" type="string"/>
+    <return-scalar column="TwitterWidgetId" type="long"/>
+    <return-scalar column="YouTubeUrl" type="string"/>
+    <return-scalar column="LetterUrl" type="string"/>
+  </resultset>
+  <resultset name="LibraryDashboardDetails">
+    <return-scalar column="Name" type="string"/>
+    <return-scalar column="Img" type="string"/>
+    <return-scalar column="AdvertismentUrl" type="string"/>
+  </resultset>
+
+  <resultset name="NodeDto">
+    <return-scalar column="Id" type="Guid"/>
+    <return-scalar column="Name" type="string"/>
+    <!--<return-scalar column="Color" type="string"/>-->
+  </resultset>
+
+  <!--Get list of universities - used in university choose page-->
+  <sql-query name="GetUniversitiesList" read-only="1">
+    <![CDATA[
+    select u.userid as Uid , 
+    coalesce(AliasName,userName) as Name,
+    u.userimage as Image,u.NeedCode as NeedCode,
+    (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
+    from zbox.users u 
+    where u.usertype = 1 
+    and u.Country = :Country
+    and (:prefix IS NULL OR (coalesce(u.AliasName,u.userName) 
+      like '%' + :prefix + '%' or coalesce(u.AliasName,u.userName) like '%' + :prefixHeb + '%'))
+    order by MemberCount desc
+      ]]>
+  </sql-query>
+
+  <!--Lib page-->
+  <sql-query name="GetUniversityDataByUserId" read-only="true" resultset-ref="LibraryDetails">
+    <![CDATA[
+	  select  uu.UserId as Id, uWrap.userName as Name, uWrap.UserImageLarge as Image,
+    uWrap.WebSiteUrl,
+    uWrap.MailAddress,
+    uWrap.FacebookUrl,
+    uWrap.TwitterUrl,
+    uWrap.TwitterWidgetId,
+    uWrap.YouTubeUrl,
+    uWrap.LetterUrl,
+    (select count(*) from zbox.Box b 
+    where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as BoxesCount,
+    (select sum(itemcount) from zbox.Box b 
+    where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
+    (select count(*) from zbox.Users u where u.UniversityId2 in ( uu.UserId , uWrap.userid)) as MemberCount
+    from zbox.Users uu , zbox.users uWrap  
+    where uu.UserId = :UserId
+    and uWrap.UserId = :UniversityWrapper
+    ]]>
+  </sql-query>
+
+  <!--Dash page-->
+  <sql-query name="GetUniversityDataForDashBoardByUniversityId" read-only="true" resultset-ref="LibraryDashboardDetails">
+    <![CDATA[
+      select uWrap.userName as Name, uWrap.UserImageLarge as Img  , uWrap.AdvertismentUrl as AdvertismentUrl
+      from zbox.users uWrap  
+      where uWrap.UserId = :univerSityDbQuery
+    ]]>
+  </sql-query>
+
+  <!--Lib page-->
+  
+
+  <!--Get the parent of a specific node-->
+  <query name="GetParentNode">
+    <![CDATA[
+    select l.Parent.Id as Id, l.Parent.Name as Name
+    from University uu join uu.Libraries l
+    where uu.Id = :UserId
+    and l.Id = :ParentNode
+    ]]>
+  </query>
+
+
+  <!--Get children of root-->
+  <query name="GetLibraryNode" read-only="1">
+    <![CDATA[
+   select l.Id as Id, l.Name as Name
+    from Library l
+    where l.University.Id = :UniversityId
+    and l.Parent.Id IS NULL
+    order by Name
+    ]]>
+  </query>
+
+  <!--Get children of specific node-->
+  <query name="GetLibraryNodeWithId" read-only="1">
+    <![CDATA[
+   select l.Id as Id, l.Name as Name
+    from Library l
+    where l.University.Id = :UniversityId
+    and l.Parent.Id = :ParentNode 
+    order by Name
+    ]]>
+  </query>
+
+
+</hibernate-mapping>

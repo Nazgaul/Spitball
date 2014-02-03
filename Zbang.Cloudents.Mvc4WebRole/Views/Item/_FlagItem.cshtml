@@ -1,0 +1,56 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.FlagBadItem
+@using Zbang.Zbox.Infrastructure.Enums
+
+<div id="flagItemDialog">
+    <div class="popupWrppr confirm flagItem">
+        <header class="popupHeader">@FlagItemResources.ReportItem</header>
+        <button class="closeDialog"></button>
+
+        @using (Html.BeginForm("Create", "Dashboard", FormMethod.Post, new { id = "flagDialog", @class = "flagDialog" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false)
+
+            <div>@FlagItemResources.WhyReport</div>
+            <ul class="flagList">
+                <li>
+
+                    @Html.RadioButtonFor(x => x.BadItem, Zbang.Zbox.Infrastructure.Enums.BadItem.RightViolation, new { id = "flag_radioRight" })
+                    <label for="flag_radioRight">@BadItem.RightViolation.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, Zbang.Zbox.Infrastructure.Enums.BadItem.Spam, new { id = "flag_radioSpan"})
+                    <label for="flag_radioSpan">@BadItem.Spam.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, Zbang.Zbox.Infrastructure.Enums.BadItem.Porn, new { id = "flag_radioPorn" })
+                    <label for="flag_radioPorn">@BadItem.Porn.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, Zbang.Zbox.Infrastructure.Enums.BadItem.Attack, new { id = "flag_radioAttack"})
+                    <label for="flag_radioAttack">@BadItem.Attack.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, Zbang.Zbox.Infrastructure.Enums.BadItem.Hate, new { id = "flag_radioHate"})
+                    <label for="flag_radioHate">@BadItem.Hate.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, Zbang.Zbox.Infrastructure.Enums.BadItem.Other, new { id = "flag_radioOther"})
+                    <label for="flag_radioOther">@BadItem.Other.GetEnumDescription()</label>
+                    @Html.TextBoxFor(x => x.Other, new { @class = "inputText", id="flag_other" })
+                </li>
+            </ul>
+            <input type="submit" class="btn1 next" value="@FlagItemResources.SendReport" />
+            <button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
+        }
+
+    </div>
+    <div class="popupWrppr requestSent flagItem">
+        <button class="closeDialog"></button>
+        <div class="requestSentDiv first">@FlagItemResources.ReportSent</div>
+        <div class="requestSentDiv">@FlagItemResources.ContactYou</div>
+    </div>
+    <div class="modal2"></div>
+</div>

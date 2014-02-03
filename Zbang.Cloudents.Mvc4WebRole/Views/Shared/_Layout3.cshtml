@@ -1,0 +1,142 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+
+@{
+    ViewBag.title = ViewBag.title ?? "Cloudents";
+    ViewBag.fLib = ViewBag.fLib ?? false;
+    ViewBag.fDash = ViewBag.fDash ?? false;
+    ViewBag.fBox = ViewBag.fBox ?? false;
+    ViewBag.fItem = ViewBag.fItem ?? false;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.title</title>
+    <link rel="SHORTCUT ICON" href="@Url.Content("~/favicon.ico")"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8">
+    @*For ipad user scalable fix bug of position fixed - bug 260*@
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+
+    <meta name="title" content="@ViewBag.title" />
+    <meta name="description" content="Join the social studying revolution at Cloudents" />
+    <link rel="image_src" href="~/Images/cloudents.png" />
+
+    <meta property="fb:app_id" content="450314258355338">
+
+    @Html.Css2("newcore3")
+    @Html.CssRtl("newrtl3")
+    @Html.CssCulture("lang")
+
+</head>
+<body>
+    <!--[if IE]>
+    <script>
+        if (!window.document.documentMode || window.document.documentMode < 9) {
+            window.location = "/Error/Unsupported";
+        }
+    </script>
+    <![endif]-->
+    <noscript>
+        <div>
+            Cloudents works best with javascript enabled
+        </div>
+    </noscript>
+    <header class="siteHeader">
+        <nav class="userSection rFloat">
+            <ul class="userNav">
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        Html.RenderPartial("TopMenu/_Actions");
+                    }
+                    Html.RenderAction("GetUserDetail3", "Account", true);
+                }
+            </ul>
+        </nav>
+        <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" data-navigation="Dashboard" 
+            href="@Url.Action("Index", "Dashboard")"></a>@*<span class="middle"></span>*@
+        <form class="dashLibSearch" id="g_search">
+            <input id="g_searchQ" autocomplete="off"
+                type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
+            <button type="submit"></button>
+        </form>
+    </header>
+
+    <div class="bodyContent" id="main">
+        @RenderBody()
+        <div id="fb-root"></div>
+
+        <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()" 
+            data-myf="@ViewBag.fDash.ToString().ToLower()" 
+            data-boxf="@ViewBag.fBox.ToString().ToLower()" 
+            data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
+
+    </div>
+
+    <div id="mLoading" class="loading">
+        <div class="spinner"></div>
+    </div>
+    <div class="uploads" id="uploads">
+        @*collapsed*@
+        <div class="uploadTop" id="uploads_title">
+            <span id="uploadsTT" class="lFloat" data-finish="@DialogResources.UploadedFiles" data-mainTitle="@DialogResources.UploadingFiles" data-minimizeTile="@DialogResources.Uploading"></span>
+            <span id="uploadsTF" class="uploadDetails elps"><q></q></span>
+            <span id="uploadsTP" class="uploadPercent"></span>
+            <div class="uploadBtns">
+                @*<button type="button" class="minimize" id="uploads_minimize"></button>*@
+                <button type="button" class="stopUpload" id="uploads_close"></button>
+            </div>
+
+        </div>
+        <ul class="uploadList" id="uploadList">
+        </ul>
+    </div>
+    @{ 
+        Html.RenderPartial("_Message", new Zbang.Cloudents.Mvc4WebRole.Models.Share.Message());
+
+        if (!User.Identity.IsAuthenticated)
+        {
+            Html.RenderPartial("_RegisterPopUp");
+        }
+    }
+
+    @RenderSection("templates", false)
+    <div id="cssCheck"></div>
+    <script type="text/html" id="userToolTipTempalte">
+        <a data-navigation="User" href="{{url}}"><img class="ttImg" src="{{image}}" width="99" height="99" /></a>
+        <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
+        <div class="ttSchool elps">{{university}}</div>
+        <span class="ttPoints lFloat" data-tt-points="{{score}}">&nbsp;@SharedResources.Points</span>
+        <button type="button" class="btn3 rFloat">@SharedResources.Message</button>
+    </script>
+    <script type="text/html" id="templateUpload">
+        <li class="uploadItem" id="{{id}}">
+            <span class="fileName elps">{{name}}</span>
+            <span class="fileSize">({{size}})</span>
+            <div class="uploadProgress">
+                <button type="button" class="fileCancel rFloat">@DialogResources.Cancel</button>
+                <button type="button" class="fileDone rFloat"></button>
+                <span class="progress rFloat" data-percentage="0"><span class="progressFill"></span></span>
+            </div>
+        </li>
+    </script>
+
+    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
+
+    <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")" ></script>
+    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
+    @Html.Script2("General")
+    @Html.Script2("cd1")
+    @RenderSection("scripts", false)
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <iframe id="fconnect" src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
+    }
+
+</body>
+</html>

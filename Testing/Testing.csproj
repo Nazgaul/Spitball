@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7ACCE531-FF37-41B6-A04B-8BEC2677F59A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Testing</RootNamespace>
+    <AssemblyName>Testing</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.12.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
+      <Project>{9ED04567-B2D0-4040-88A6-1AD752A3D83F}</Project>
+      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
+      <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
+      <Name>Zbang.Zbox.Domain.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
+      <Project>{B4B7F91C-9412-4D6B-93E2-F3B7C4BD9B90}</Project>
+      <Name>Zbang.Zbox.Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.DataAccess\Zbang.Zbox.Domain.DataAccess.csproj">
+      <Project>{C2010FF2-7020-4BE7-8CB8-D43C7F9C4363}</Project>
+      <Name>Zbang.Zbox.Domain.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
+      <Project>{F1AC4D4D-0633-4343-A657-DA275D33466D}</Project>
+      <Name>Zbang.Zbox.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
+      <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
+      <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.File\Zbang.Zbox.Infrastructure.File.csproj">
+      <Project>{9ba4df6c-b4da-40d4-8a33-795f0bed2622}</Project>
+      <Name>Zbang.Zbox.Infrastructure.File</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
+      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Mail\Zbang.Zbox.Infrastructure.Mail.csproj">
+      <Project>{f5e270cf-6b83-4879-9b04-773b87f80b0e}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Mail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Transport\Zbang.Zbox.Infrastructure.Transport.csproj">
+      <Project>{4f5edc5b-31fa-4904-bd11-2cf1790ae234}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Transport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ReadServices\Zbang.Zbox.ReadServices.csproj">
+      <Project>{091bcb44-6764-41ca-a255-c6da6157092b}</Project>
+      <Name>Zbang.Zbox.ReadServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ViewModel\Zbang.Zbox.ViewModel.csproj">
+      <Project>{BC85A7BD-262D-43E0-8D9D-EE76C602BFAF}</Project>
+      <Name>Zbang.Zbox.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Configuration\General.Unity.config">
+      <Link>General.Unity.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

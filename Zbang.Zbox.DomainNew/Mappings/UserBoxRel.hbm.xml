@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="UserBoxRel" table="UserBoxRel">
+    <id name="Id" column="UserBoxRelId" type="long">
+      <generator class="native"></generator>
+    </id>
+
+    <property not-null="true" name="UserRelationshipType" column="UserType" index="iUserBoxRelBoxIdUserType"/>
+    <property not-null="true" name="NotificationSettings"/>
+
+    <property name="UserId" column="UserId" insert="false" update="false" index="iUserBoxRelUserId"  />
+    <property name="BoxId" column="BoxId" insert="false" update="false" index="iUserBoxRelBoxIdUserType"  />
+
+    <many-to-one name="User" class="User" column="UserId" not-null="true"/>
+    <many-to-one name="Box" class="Box" column="BoxId" not-null="true"/>
+
+    <component name="UserTime" class="UserTimeDetails">
+      <property name="CreationTime" insert="true" update="false">
+        <column name="CreationTime" not-null="true" sql-type="datetime2(2)" default="getDate()-100" />
+      </property>
+      <property name="UpdateTime"  insert="true">
+        <column name="UpdateTime" not-null="true" sql-type="datetime2(2)" default="getDate()-100" />
+      </property>
+      <property name="CreatedUser" insert="true"  update="false">
+        <column name="CreatedUser" not-null="true" default="'Sys'"/>
+      </property>
+      <property name="UpdatedUser" insert="true">
+        <column name="UpdatedUser" not-null="true" default="'Sys'"/>
+      </property>
+    </component>
+  </class>
+</hibernate-mapping>

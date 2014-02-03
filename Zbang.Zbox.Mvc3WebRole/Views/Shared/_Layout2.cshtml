@@ -1,0 +1,97 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Mvc3WebRole.App_Start
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@SharedResources.MultiMiCloud</title>
+    <link rel="SHORTCUT ICON" href="@Url.Content("~/favicon.ico")"/>
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8" content="text/html" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <meta name="title" content="@ViewBag.metaTitle" />
+    <meta name="description" content="@ViewBag.metaDescription" />
+    <link rel="image_src" href="@Url.CdnContent("/Images/mmcloud.jpg")"" />
+
+    <meta property="og:site_name" content="MultiMi Cloud" />
+    <meta property="og:image" content="@Url.CdnContent("/Images/mmcloud.jpg")"/>
+    <meta property="og:title" content="@ViewBag.metaTitle"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+
+    @Html.Css2("newcore")
+    @Html.CssRtl("newrtl")
+
+    @RenderSection("Header", false)
+    <!--[if lt IE 9]>
+        <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('section');
+        document.createElement('article');
+        document.createElement('aside');
+        document.createElement('footer');
+        document.createElement('hgroup');
+        </script>
+    <![endif]-->
+</head>
+<body>
+    <header class="mainHeader">
+        <div class="wrap">
+            @{Html.RenderPartial("TopMenu/_Logo");
+              if (User.Identity.IsAuthenticated)
+              {
+                  Html.RenderPartial("TopMenu/_Actions");
+              }
+              Html.RenderAction("GetUserDetail2", "Account", true); 
+              if (User.Identity.IsAuthenticated)
+              {
+                  Html.RenderPartial("TopMenu/_Search");
+              }
+              
+            }
+        </div>
+    </header>
+    @if (ViewBag.topbar != null)
+    {
+        <div class="topbar @ViewBag.topbar clearfix">
+            <div class="wrap">
+                @RenderSection("TopBar", false)
+            </div>
+        </div>
+    }
+    @if (ViewBag.title != null && ViewBag.title)
+    {
+        <div class="title clearfix">
+            <div class="wrap">@RenderSection("Title", false)</div>
+        </div>
+    }
+    @if (ViewBag.lowerbar != null && ViewBag.lowerbar)
+    {
+        <div class="lowerbar clearfix">
+            <div class="wrap">@RenderSection("LowerBar", false)</div>
+        </div>
+    }
+    <div class="page clearfix" id="MainContent">
+        <div class="wrap">
+            @RenderBody()
+        </div>
+    </div>
+    @{
+        
+        Html.RenderPartial("_Footer");
+        @*TODO: this is not good should be ajaxy*@
+        Html.RenderPartial("_UploadDialog");
+        Html.RenderPartial("_Invite");
+        Html.RenderPartial("_Message");
+
+        //Html.RenderPartial("_Confirm");
+    }
+    @Html.Script2("newCode")
+    <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resource/ZboxResources.js")" ></script>
+
+</body>
+</html>

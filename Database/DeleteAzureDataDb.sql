@@ -1,0 +1,12 @@
+delete from [File];
+delete from [Link];
+delete from [BoxComment];
+delete from [Comment];
+delete from dbo.SharedBoxSubscribers;
+delete from dbo.NotificationRules;
+delete from dbo.Invitations;
+delete from [Box];
+delete from dbo.Friend;
+delete from dbo.Storage;
+delete from dbo.aspnet_Membership;
+delete from dbo.aspnet_Users;

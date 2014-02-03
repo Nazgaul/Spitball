@@ -1,0 +1,758 @@
+﻿@import "varsAndMixins";
+
+.userPage{
+    text-align: left; /*rtl*/
+    color: @textColor;
+    &:after
+    {
+        content: '';
+        width: 100%;
+        height: 75px;
+        background: #fff;
+        border-bottom: 1px solid @borderColor;
+        display: block;
+        position: absolute;
+        top: @header-height;
+        z-index: -1;
+    }
+    h1{
+        font-size: 22px;
+        margin-top: 18px; 
+        color: @textColor;
+        position: relative;
+        z-index: 1;
+        overflow: hidden; // establish bfc so as not to cover the floated anchor
+    }
+    h2{
+        font-size: 18px;
+        font-weight: 300;
+    }
+    
+}
+/*#region user page aside */
+.upSidebar{
+    width: 227px;
+    height: 332px;
+    border-radius: 5px;
+    margin: 28px 0 0 21px; /*rtl*/
+    display: inline-block;
+    clear:both;
+}
+/*#region points section */
+.pointsWpr
+{
+    width: 227px;
+    min-height: 53px;
+    border-radius: 5px;
+    margin: 15px 0 25px;
+    .boxSizing;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid @color;
+    text-align: center;
+    &:before
+    {
+        content: '';
+        position: absolute;
+        top:0;
+        left: 0; /*rtl*/
+        width: 100%;
+        height: 53px;
+        background: @color;
+    }
+}
+.emptyPoints
+{
+    padding: 15px 10px;
+    color: #676767;
+    text-align: left; /*rtl*/
+    .semiFont{
+        color: #39434a;
+        margin-bottom: 8px;
+    }
+}
+.pointsList
+{
+    padding-top: 6px;
+    direction:ltr; // for hebrew issue
+}
+.point{
+    width: 28px;
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    border-radius: 3px;
+    color: #39434a;
+    font-size: 26px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(0,0,0,.5);
+    display: inline-block;
+    text-align: center;
+    z-index:1;
+    .boxSizing;
+}
+
+/*#endregion */
+
+/*#region uploads 'tab' */
+
+.upTabContent { 
+    display: none;
+}
+
+.upUploads
+{
+    position: relative; 
+    min-height:400px;  
+    overflow: hidden;
+    h2{
+        border-bottom: 1px solid @borderColor;
+        padding-bottom: 6px;
+        margin-bottom: 6px;
+    }   
+}
+.upTabs {
+    margin-bottom: 12px;  
+    button{
+        font-size: 12px;
+    }
+    button:before {
+        content: attr(data-count);
+        display: inline-block;
+    }
+
+    &.upTab1 {
+        .fileCount {
+            color: @attentionBlue;
+        }
+
+        ~ .filesTab {
+            display: block;
+        }
+    }
+
+    &.upTab2 {
+        .qCount {
+            color: @attentionBlue;
+        }
+
+        ~ .qTab {
+            display: block;
+        }
+    }
+
+    &.upTab3 {
+        .aCount {
+            color: @attentionBlue;
+        }
+
+        ~ .aTab {
+            display: block;
+        }
+    }
+}
+.aTab
+{
+    .qaWpr{
+        position: relative;
+        z-index: 1;
+        &:before
+        {
+            .pseudo;
+            background: #fafafa;
+            height: 43px;
+            width: 227px;
+            z-index: -1;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+}
+.uploadsItem
+{
+    padding: 0 10px 0 64px; /*rtl*/
+    position: relative;
+    margin-top: 11px;
+    height: 67px;
+    .boxName {
+        line-height: 15px;
+        color: #0F9D58;
+        height: 30px;
+        padding: 18px 0 2px;
+    }
+    .stars{
+        display: inline-block;
+        margin: 2px 0 0 0; // override
+        .full{
+            //width: 43px; // TEMPORARY!!
+        }
+        
+    }
+    .views{
+        margin: 0 0 0 12px; /*rtl*/ // override
+        display: inline-block;
+        vertical-align: top;
+        line-height: 14px;
+        color: #676767;
+    }
+    .clamp2:after{
+        background-image: url(/Images/gray_jean80.png);
+    }
+}
+/*.uploadsImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 3px;
+    border: 1px solid @borderColor;
+}*/
+
+
+.emptyTab{
+    text-align: center;
+    color: #676767;
+    display: none;
+    &:before
+    {
+        content: '';
+        display: block;
+        background: @user-sprite no-repeat;
+        margin: 32px auto 14px;
+    }
+    .upTabContent.empty &
+    {
+        display: block;
+    }
+}
+.emptyUploads:before
+{
+    width: 44px;
+    height: 53px;
+    background-position: -6px -42px;
+}
+
+/*#endregion */
+
+/*#region QnA tabs */
+.qaItem
+{
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid @borderColor;
+    &:last-child
+    {
+        margin:0;
+        padding: 0;
+        border: none;
+    }
+    
+}
+.qaBoxname
+    {
+        margin-left: 10px; /*rtl*/
+        max-width: 188px;
+        display: inline-block;
+        padding-top: 8px;
+        color: #39434a;
+    }
+.qaWpr{
+    background: #fff;
+    border: 1px solid @borderColor;
+    border-radius: 5px;
+    padding: 10px 5px 5px 10px; /*rtl*/
+    margin-top: 18px;
+    overflow: hidden; //hide corners
+}
+.qaQuestion
+{
+    border-bottom: 1px solid @borderColor;
+    margin: -10px -5px 0 -10px; /*rtl*/
+    padding: 10px 5px 8px 10px; /*rtl*/
+    background: #fafafa;
+}
+.qLink
+{
+    color: @attentionBlue;
+    padding-top: 6px;
+    &:after
+    {
+        content: '';
+        display: inline-block;
+        margin-left: 5px; /*rtl*/
+        color: @textColor;
+        width: 7px;
+        height: 10px;
+        background: @user-sprite -53px -43px no-repeat;
+        vertical-align: middle;
+    }
+}
+.qAnswerCount
+{
+    color: #676767;
+    display: inline-block;
+    padding: 6px 0 3px;
+    &:before
+    {
+        content: attr(data-up-qacount);
+        display: inline-block;
+    }
+}
+.qaUsername
+{
+    display: inline-block;
+    max-width: 168px;
+    margin: 0 0 11px 8px; /*rtl*/
+    padding-top: 7px;
+    ~ .qaQuestion
+    {
+        //margin-top: -50px; //in answers - give top same background as qustion as well
+        //padding-top: 50px;
+        clear: both;
+        color: #676767;
+    }
+}
+.answeredBy{
+    color: #676767;
+    padding: 5px 0;
+}
+.qaMore{
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    width: 100%;
+    height: 28px;
+    margin: 20px 0 75px;
+    background: rgba(255,255,255,.5);
+    &:hover
+    {
+        color: @attentionBlue;
+        background: #fff;
+    }
+}
+.emptyQuestions:before, .emptyAnswers:before
+{
+    width: 154px;
+    height: 34px;
+    background-position: -5px -3px;
+}
+
+/*#endregion */
+
+/*#endregion */
+/*#region userpage content */
+/*.myPage{
+    .upFriends h2 {
+        //margin-top: 97px;
+    }
+}*/
+
+.upContentWpr
+{
+    width: 1021px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    position: relative;
+}
+.upTop
+{
+    padding-left: 112px; /*rtl*/
+    position: relative;
+    height: 100px;
+    .btn3{
+        padding: 4px 12px;
+        position: absolute;
+        top: 71px;
+        &:before
+        {
+            .pseudo;
+            width: 22px;
+            height: 19px;
+            vertical-align: middle;
+            background: @common-sprite -155px -42px no-repeat;
+            margin-right: 5px; /*rtl*/
+        }
+    }
+    .upEmail{
+        margin-top: 23px;
+        color: #676767;
+    }
+    .iconTxt{
+        margin-top: 12px;
+        &:before
+        {
+            width: 15px;
+            height: 19px;
+            background-position: -52px -20px;
+        }
+        &:hover
+        {
+            color: @attentionBlue;
+        }
+    }
+}
+.upImg
+{
+    position: absolute;
+    top: 0;
+    left: 0; /*rtl*/
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    .boxSizing;
+    
+}
+.upSchool
+{
+    color: #676767;
+    &:hover
+    {
+        color: @attentionBlue;
+    }
+}
+.upContent
+{
+    width: 772px;
+    h2{
+        margin: 28px 0 15px;
+    }
+}
+.upCourses, .upPoints{
+    //padding-top: 70px;
+}
+
+.upSectionWpr {
+    background: #fff;
+    border: 1px solid @borderColor;
+    border-radius: 8px;
+    padding: 15px 12px 0 12px;
+    overflow: hidden; // hide corners
+    position: relative; // for show all
+    .boxSizing;
+
+    &.truncated.truncated {  // repeated truncated class for extra specificity
+        padding-bottom: 38px;
+    }
+
+    h4 {
+        padding-bottom: 4px;
+        border-bottom: 1px solid #e9e9e9;
+        margin-bottom: 17px;
+    }
+    ul {
+        overflow: hidden;
+    }
+
+    .box {
+        margin: 0 0 24px 0; //override
+        &:hover {
+            .btn3{
+                display: block;
+            }
+        }
+    }
+
+    .box:nth-child(3n + 2) {
+        margin-left: 38px;
+        margin-right: 38px;
+    }
+}
+.upShowAll {
+    display: block;
+    width: 100%;
+    height: 38px;
+    line-height: 38px;
+    cursor: pointer;
+    background: #f5f5f5;
+    text-align: center;
+    padding: 0 12px;
+    margin: 0 -12px;
+    border-top: 1px solid @borderColor;
+    .boxSizing(content-box);
+    position: absolute;
+    bottom: 0;
+
+    &:after {
+        .pseudo;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 8px; /*rtl*/
+        background: @common-sprite -103px -49px no-repeat;
+        width: 11px;
+        height: 7px;
+        .flipV;
+    }
+
+    &:before {
+        content: attr(data-up-showall);
+        display: inline-block;
+    }
+    &:hover
+    {
+        background: #ededed;
+        color: #0371c8;
+    }
+}
+.upCb
+{
+    display: none;
+    &:not(:checked)
+    {
+        /*~ .inCommonList
+        {
+            .upFriend:nth-child(n+9)
+            {
+                display: none;
+            }
+        }
+        ~ .inAllFriendList
+        {
+             .upFriend:nth-child(n+9)
+            {
+                display: none;
+            }
+        }
+        ~ .followingList
+        {
+            .box:nth-child(n+7)
+            {
+                display: none;
+            }
+        }
+         ~ .upInviteList
+        {
+            .upInviteItem:nth-child(n+7)
+            {
+                display: none;
+            }
+        }*/
+    }
+    
+    &:checked
+    {
+        ~ label
+        {
+            &:before
+            {
+                content: attr(data-up-showless);
+            }
+            &:after
+            {
+                .flipV(1);
+            }
+        }
+        ~ .upInviteList
+        {
+            //height: 428px;
+        }
+    }
+}
+
+/*.noCommon h4{
+    display: none; // if user has no commpn friends - hide title 
+}*/
+.inCommonList
+{
+    .transition(height .5s);
+    margin-bottom: 8px;
+}
+.inAllFriendList {
+    margin-bottom:20px;
+    .transition(height .5s);
+}
+
+.followingList
+{
+    .transition(height .5s);
+    .btn3{
+        background: #fff;
+        border: 1px solid @attentionBlue;
+        padding: 3px 18px;
+        position: absolute;
+        left: 84px; /*rtl*/
+        bottom: 5px;
+        color: @attentionBlue;
+        display: none;
+        &:hover
+        {
+            background: @attentionBlue;
+            color: #fff;
+        }
+    }
+}
+
+.upFriend
+{
+    display: inline-block;
+    height: 116px;
+    margin-right: 32px; /*rtl*/
+    overflow: hidden;
+    text-align: center;
+    width: 76px;
+    &:nth-child(7n) {
+        margin: 0;
+    }
+}
+.upFriendImg
+{
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    margin-bottom: 6px;
+}
+.friendName{
+    line-height: 15px;
+    height: 36px;
+}
+
+.upInvites{
+    .upSectionWpr {
+        min-height: 167px;
+        padding:0; //override
+    }
+    .inviteFriendBtn.btn3{
+        width: auto; //override
+        padding:0 8px;
+        line-height: 30px;
+        &:before
+        {
+            .pseudo;
+            background: url(/Images/common7-sprite.png) -143px -3px no-repeat;
+            width: 22px;
+            height: 19px;
+            vertical-align: middle;
+            margin-right: 8px; /*rtl*/
+        }
+    }
+    &.empty
+    {
+        //text-align: center;
+        ul, label, input, > .btn3
+        {
+            display: none;
+        }
+        .upSectionWpr
+        {
+            text-align: center;
+        }
+    }
+}
+.upInviteList
+{
+    overflow: hidden; //1)establish new bfc 2) hide top of vertical separator of even items
+    //height: 321px;
+    .transition(height .5s);
+    padding: 15px 12px 0 12px; //moved padding from the Wpr to the list
+}
+.upInviteItem
+{
+    display: inline-block;
+    width: 359px;
+    .boxSizing;
+    padding-left: 91px; /*rtl*/
+    position: relative;
+    margin-bottom: 29px;
+    float: left; /*rtl*/
+    height: 78px;
+    z-index:1;
+    &:hover
+    {
+        &:after
+        {
+            .pseudo;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            z-index: -1;
+            background: #f9f9f9;
+            width: 379px;
+            height: 96px;
+        }
+    }
+    .semiFont
+    {
+        margin: -4px 0 4px; /*diff rtl*/
+    }
+    .upFriendImg
+    {
+        position: absolute;
+        top:0;
+        left:0; /*rtl*/
+    }
+    &.upPending
+    {
+        .inviteStatus
+        {
+            color: #d1294d;
+        }
+        &:hover
+        {
+            .btn1{
+                display: block;
+            }
+            .usrName{
+                max-width: 190px;
+            }
+        }
+    }
+    .btn1{
+        display: none;
+        position: absolute;
+        right: 0; /*rtl*/
+        top: 3px;
+    }
+    &:nth-child(even)
+    {
+        margin-left: 28px; /*rtl*/
+        &:before
+        {
+            content: '';
+            width: 1px;
+            height: 100%;
+            background: @borderColor;
+            position: absolute;
+            left: -17px; /*rtl*/
+            top:-29px;
+            padding-top: 29px;
+        }
+    }
+}
+.inviteStatus
+{
+   color: @borderColor;
+   margin: -4px 0 6px;
+}
+.invitedToWpr
+{
+    width: 190px;
+    height: 36px;
+    .boxSizing;
+    padding: 9px 5px 0 35px; /*rtl*/
+    position: relative;
+    margin-top: 2px;
+    .invitedTo
+    {
+        line-height: 15px;
+    }
+}
+/*.invitedToImg
+{
+    position: absolute;
+    top:0;
+    left:0; 
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+}*/
+.emptyInvites
+{
+    display: none;
+    height: 112px;
+    line-height: 142px; // extra line-height because of upSectionWpr non-uniform top/bottom padding 
+    .upInvites.empty &
+    {
+        display: block;
+    }
+    .btn3{
+        margin-left: 15px; /*rtl*/
+    }
+}
+/*#endregion */
+

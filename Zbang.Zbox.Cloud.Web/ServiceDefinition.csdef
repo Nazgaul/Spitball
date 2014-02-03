@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="Zbang.Zbox.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2012-10.1.8">
+  <WebRole name="Zbang.Zbox.Mvc3WebRole" vmsize="ExtraSmall">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+          <Binding name="Endpoint2" endpointName="Endpoint2" />
+        </Bindings>
+      </Site>
+      <!--Disable site if you want to debug with azure emulator-->
+      <!--<Site name="Web2" physicalDirectory="C:\ProjectsNewSvn\Dev\MyAzureProject\Sites\Zbang.Zbox.WcfRestService">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" hostHeader="api.zbox.zbang.it" />
+        </Bindings>
+      </Site>-->
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+      <InputEndpoint name="Endpoint2" protocol="https" port="443" certificate="SSL" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
+    </Imports>
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" />
+      <Setting name="CdnEndpoint" />
+      <Setting name="BeitBerlAgudatStudentID" />
+      <Setting name="UrlToRedirect" />
+    </ConfigurationSettings>
+    <Startup>
+      <Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" />
+      <Task commandLine="startup\InstallVcreditst.cmd" executionContext="elevated" taskType="simple" />
+    </Startup>
+    <LocalResources>
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="200" />
+    </LocalResources>
+    <Certificates>
+      <Certificate name="SSL" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="MyIntermediateCert" storeLocation="LocalMachine" storeName="CA" />
+      <Certificate name="MyRootCert" storeLocation="LocalMachine" storeName="CA" />
+      <Certificate name="CloudDents" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="MyIntermediateCertCloudDents" storeLocation="LocalMachine" storeName="CA" />
+      <Certificate name="MyRootCertCloudDents" storeLocation="LocalMachine" storeName="Trust" />
+    </Certificates>
+  </WebRole>
+</ServiceDefinition>

@@ -1,0 +1,39 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+
+<div class="popupWrppr share txtshd1" data-strap="shrapp">
+    <header class="popupHeader popupGradient"><span class="sHeader">@SharedResources.Share</span>&nbsp;‎“<span id="sboxName" class="sBoxName elps"></span>”‎</header>
+    <input disabled id="sUrl" class="inputText urlInput" type="text" value="@Request.Url"  />
+    <button class="btn2" id="CopyLink">@SharedResources.Copy
+        <span id="sCopyLink"></span>
+    </button>
+    <ul id="addthisIcons" class="addThis">
+        <li>
+            <a>
+                <span  class="email shareSprite" id="openMail" title="@SharedResources.Email"></span>
+            </a>
+        </li>
+        <li>
+            <a class="addthis_button_facebook">
+                <span class="fb shareSprite" title="@SharedResources.SendToFacebook"></span>
+            </a>
+        </li>
+        <li>
+            <a class="addthis_button_twitter">
+                <span  class="twitter shareSprite" title="@SharedResources.TweetThis"></span>
+            </a>
+        </li>
+    </ul>
+    <div id="separatorV" class="separatorV"></div>
+    @using (Ajax.BeginForm("MailShare", "Share", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnSuccess = "mmc.shareSuccess"
+    }, new { id = "fShare", @class = "popupForm" }))
+    {
+        Html.RenderPartial("_MailPopUp", new Zbang.Zbox.Mvc3WebRole.Models.Message { BoxUid = ViewBag.boxid });
+    
+        <input type="submit" class="btn1 next" value="@UploadDialogResources.Send"/>
+        <input type="button" class="btn2 cancel" value="@UploadDialogResources.Cancel" />
+    }
+    <button class="closeDialog shareSprite"></button>
+</div>

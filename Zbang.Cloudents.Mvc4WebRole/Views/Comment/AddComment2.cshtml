@@ -1,0 +1,9 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.NewComment
+@using Zbang.Cloudents.Mvc4WebRole.Views.Comment.Resources
+
+
+<!-- markup for new css -->
+<form class="clearfix newBoxComment" data-bind="submit: addComment">
+    @Html.TextAreaFor(m => m.CommentText, new { placeholder = @ViewBag.placeHoder, @class = "inputText commentTextarea" })
+    <button class="btn2 rFloat" type="submit" style="display: none;">@CommentResources.Send</button>
+</form>

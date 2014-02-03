@@ -1,0 +1,41 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.UniversityViewModel
+<form action="@Url.Action("Search", "Library")" class="rFloat mainSearch" data-bind="submit: search">
+    <input name="query" class="searchInput required" placeholder="Search the Academic bank" />
+    <button class="flipH" type="submit"></button>
+</form>
+
+<header>
+    <img src="@Model.Image" alt="" width="68" height="68" />
+    <span class="heading">Acedemic Bank of @Model.Name</span>
+</header>
+
+<div class="boxesHeader">
+    
+    <div class="lFloat">
+        <a class="back navigation" data-bind="visible: backvisible,  attr: {href: backUrl}">Back</a> 
+        <span class="header1" data-bind="text: count"></span>
+        <span class="header1" data-bind="text: titleShow"></span>
+    </div>
+
+
+    <span class="rFloat">
+        <button class="plus" data-bind="click: addnode, visible: nodevisible">Add item</button>
+        <button class="plus" data-bind="click: addBox, visible: boxvisible">Add box</button>
+    </span>
+</div>
+<ul class="libraryList" data-bind="template: { name: displayMode, foreach: elements }">
+</ul>
+
+<div id="createNodeDialog" title="Add new faculty">
+    <form action="@Url.Action("Create", "Library")">
+        <input name="Name" id="noneName" type="text" placeholder="Type new faculty" value="" class="inputText required" />
+        <button type="submit" class="btn1 next">Create</button>
+        <button type="reset" class="btn2 cancel">Cancel</button>
+        <button class="closeDialog shareSprite"></button>
+    </form>
+</div>
+
+@{    
+    Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Zbox.Mvc3WebRole.Models.CreateAcademicBox());
+    Html.RenderPartial("~/Views/Library/_Template.cshtml");
+}

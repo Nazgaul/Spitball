@@ -1,0 +1,20 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Box.Resources
+
+<div id="boxMembers" class="popupWrppr membersAll txtshd1">
+    <header class="popupHeader popupGradient">@IndexResources.Members</header>
+    <ul data-bind="template : {name: 'members-template', foreach:members}">
+    </ul>
+    <button class="closeDialog shareSprite"></button>
+</div>
+<script type="text/html" id="members-template">
+    <li>
+        <img class="image" data-bind="attr:{ src: image}" alt="" />​​​​​​​​​​​​​​​
+            <div class="details">
+                <div class="name elps" data-bind="text: name">Ralph Drafffcorn</div>
+                <button class="msg" data-bind="attr:{ 'data-name': name , 'data-uid':id }">@IndexResources.SendMessage</button>
+            </div>
+        <!-- ko ifnot: isOwner -->
+        <span class="delete" data-bind="click: $root.delete"></span>
+        <!-- /ko -->
+    </li>
+</script>

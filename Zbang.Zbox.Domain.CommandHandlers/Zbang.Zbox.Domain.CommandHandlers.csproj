@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9ED04567-B2D0-4040-88A6-1AD752A3D83F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zbang.Zbox.Domain.CommandHandlers</RootNamespace>
+    <AssemblyName>Zbang.Zbox.Domain.CommandHandlers</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.ApplicationServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddAnnotationCommandHandler.cs" />
+    <Compile Include="AddAnswerToQuestionCommandHandler.cs" />
+    <Compile Include="AddFileToBoxCommandHandler.cs" />
+    <Compile Include="AddLinkToBoxCommandHandler.cs" />
+    <Compile Include="AddNodeToLibraryCommandHandler.cs" />
+    <Compile Include="AddQuestionCommandHandler.cs" />
+    <Compile Include="AddReplyToAnnotationCommandHandler.cs" />
+    <Compile Include="AssignItemToTabCommandHandler.cs" />
+    <Compile Include="ChangeBoxInfoCommandHandler.cs" />
+    <Compile Include="ChangeBoxPrivacySettingsCommandHandler.cs" />
+    <Compile Include="ChangeFileNameCommandHandler.cs" />
+    <Compile Include="ChangeItemTabNameCommandHandler.cs" />
+    <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
+    <Compile Include="AddBoxCommentCommandHandler.cs" />
+    <Compile Include="AddReplyToCommentCommandHandler.cs" />
+    <Compile Include="CreateAcademicBoxCommandHandler.cs" />
+    <Compile Include="CreateFacebookUserCommandHandler.cs" />
+    <Compile Include="CreateItemTabCommandHandler.cs" />
+    <Compile Include="CreateMembershipUserCommandHandler.cs" />
+    <Compile Include="CreateUniversityCommandHandler.cs" />
+    <Compile Include="DeleteAnnotationCommandHandler.cs" />
+    <Compile Include="DeleteAnswerCommandHandler.cs" />
+    <Compile Include="DeleteCommentCommandHandler.cs" />
+    <Compile Include="DeleteFileFromQnACommandHandler.cs" />
+    <Compile Include="DeleteItemTabCommandHandler.cs" />
+    <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
+    <Compile Include="DeleteQuestionCommandHandler.cs" />
+    <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
+    <Compile Include="InviteToSystemCommandHandler.cs" />
+    <Compile Include="InviteToSystemFacebookCommandHandler.cs" />
+    <Compile Include="Ioc\RegisterIoc.cs" />
+    <Compile Include="MarkAsAnswerCommandHandler.cs" />
+    <Compile Include="RateAnswerCommandHandler.cs" />
+    <Compile Include="RateItemCommandHandler.cs" />
+    <Compile Include="RenameNodeCommandHandler.cs" />
+    <Compile Include="SendMessageCommandHandler.cs" />
+    <Compile Include="ShareBoxFacebookCommandHandler.cs" />
+    <Compile Include="AddReputationCommandHandler.cs" />
+    <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
+    <Compile Include="ShareBoxCommandHandler.cs" />
+    <Compile Include="DeleteItemCommandHandler.cs" />
+    <Compile Include="DeleteBoxCommandHandler.cs" />
+    <Compile Include="CreateUserCommandHandler.cs" />
+    <Compile Include="CreateBoxCommandHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnfollowBoxCommandHandler.cs" />
+    <Compile Include="UpdateFileCommandHandler.cs" />
+    <Compile Include="UpdateStatisticsCommandHandler.cs" />
+    <Compile Include="UpdateThumbnailCommandHandler.cs" />
+    <Compile Include="UpdateUserFirstTimeStatusCommandHandler.cs" />
+    <Compile Include="UpdateUserUniversityCommandHandler.cs" />
+    <Compile Include="UpdateUserLanguageCommandHandler.cs" />
+    <Compile Include="UpdateUserPasswordCommandHandler.cs" />
+    <Compile Include="UpdateUserEmailCommandHandler.cs" />
+    <Compile Include="UpdateUserProfileCommandHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
+      <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
+      <Name>Zbang.Zbox.Domain.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
+      <Project>{B4B7F91C-9412-4D6B-93E2-F3B7C4BD9B90}</Project>
+      <Name>Zbang.Zbox.Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.DataAccess\Zbang.Zbox.Domain.DataAccess.csproj">
+      <Project>{C2010FF2-7020-4BE7-8CB8-D43C7F9C4363}</Project>
+      <Name>Zbang.Zbox.Domain.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.File\Zbang.Zbox.Infrastructure.File.csproj">
+      <Project>{9ba4df6c-b4da-40d4-8a33-795f0bed2622}</Project>
+      <Name>Zbang.Zbox.Infrastructure.File</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
+      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Transport\Zbang.Zbox.Infrastructure.Transport.csproj">
+      <Project>{4f5edc5b-31fa-4904-bd11-2cf1790ae234}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Transport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

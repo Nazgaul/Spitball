@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Zbang.Zbox.Cloud.WebService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
+  <Role name="Zbang.Zbox.WcfRestService">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <!-- App Fabric Diagnostics -->
+      <!--<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />-->
+      <!-- Azure Storage Account -->
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
+      <!-- App Fabric Storage Account -->
+      <!--<Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />-->
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="Ramy" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFeE4xyigAiqSRqgMSf8fZIwDQYJKoZIhvcNAQEBBQAEggEAe6G2bdR3xl2lQBBd4ZsteMpbGXHcMJWtLRUy2swS2Q7QKY3K8W+VrygkVa1c76ZYBXkd9aNDd1X/Q+7ovIrVZsgk0eSDeb953Aa3/Lhl76+iUKBin56U3HipOxm4OlnbiNfgD2PJwacEsxFnLt7RoO0p2roXV/xnJLoHJAen61IeMA+/M68Zy0lh3E/3f8AIdRUwbUCf7FaIcy8VxIGuR+NZduC689IPUcVT7PL+7lZjWBRnY0uA0hmcYuWUymZJyAi8Li8oEPSb4o5tXK4D6wRmF+DXcDsO4xwBtaKeITOBfdmSkDUh6v87NDbbeir5D6wEXBPE5DgqPpwnLG+81zArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECLPO3umgyXL1gAioGpCjnsZGpQ==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2013-02-14T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="22AB7900B6532317002534C71E26E16395290FE6" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

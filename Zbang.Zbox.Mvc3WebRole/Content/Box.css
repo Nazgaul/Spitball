@@ -1,0 +1,612 @@
+﻿/*sprites*/
+
+.btnimage
+{
+    display: inline-block;
+    background: url('/Images/box_sprite.png') no-repeat;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
+/*top menu section*/
+
+#FollowBox
+{
+    position: absolute;
+    z-index: 9;
+    color: #745220;
+    top: 71px;
+    margin: 0 auto;
+    padding: 6px 2px 3px 3px;
+    font-size: 15px;
+    right: 0;
+    left: 0;
+    height: 31px;
+    width: 400px;
+    border: 1px solid #9F722B;
+    border: 1px solid rgba(159,114,43,.5);
+    background-color: #FDF6ED;
+    box-shadow: 0 3px 3px rgba(116, 82, 32, .5);
+    text-shadow: 0 1px 0 white;
+    text-align: center;
+}
+
+.follow-btn
+{
+    margin: 0 8px 0 4px; /* rtl-review */
+}
+
+
+.dashboard
+{
+    font-weight: bold;
+    color: #4a1432;
+    text-transform: uppercase;
+    background: url('/Images/box_sprite.png') 0 -62px no-repeat; /*rtl*/
+    padding: 0 0 0 26px; /*rtl*/
+    margin: 13px 0 0 0;
+    display: inline-block;
+    height: 18px;
+}
+
+.uploadContainer
+{
+    margin: 6px -2px 0 0;
+    float: right; /*rtl*/
+    /* fix for bug causing button to fall out of the wrap*/
+    display: inline-table;
+}
+
+.boxUploadbtn /*TODO: this is not good. should be one css with boxes upload btn*/
+{
+    width: 169px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid #952262;
+    background: #962263;
+    color: #f5ebf1;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 #4a1432;
+    box-shadow: 2px 2px 2px rgba(103,73,28,.5); /*rtl*/
+    font-size: 13px;
+}
+
+    .boxUploadbtn:hover
+    {
+        background: #ad2871;
+    }
+
+
+    .boxUploadbtn .uploadImg /*rtl*/
+    {
+        background: url('/Images/box_sprite.png') 0 -571px no-repeat;
+        display: inline-block;
+        width: 27px;
+        height: 14px;
+        vertical-align: text-top;
+        margin-top: 1px;
+    }
+
+/*top menu section*/
+
+/*title section*/
+
+.boximage
+{
+    float: left; /*rtl*/
+    box-shadow: 3px 3px 3px rgba(44,21,34,.5); /*rtl*/
+    border: 1px solid #e9e3e7;
+    margin: 0 10px 7px 0; /*rtl*/
+}
+
+.boxdata
+{
+    float: left; /*rtl*/
+    max-width: 465px;
+}
+
+    .boxdata .more
+    {
+        float: none;
+    }
+    .boxdata .owner
+    {
+        display: block;
+    }
+
+.boxTags
+{
+    display: inline-block;
+    max-width: 430px;
+    height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+    .boxTags li
+    {
+        float: left; /*rtl*/
+        color: #74646e;
+        height: 20px;
+        margin-top: 3px;
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .boxTags .more
+    {
+        float: right; /*rtl*/
+    }
+
+.addATag
+{
+    display: inline-block;
+    /*background: url('/Images/box-sprites.png') no-repeat;*/
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #000;
+    font-weight: 700;
+}
+/*.addTag
+{
+    width: 22px;
+    height: 22px;
+    border: 1px solid #E2E0E1;
+    border-radius: 4px;
+    display: inline-block;
+    margin: -3px 8px 0 0; 
+}
+
+    .addTag .btnimage
+    {
+        background-position: 0 -325px;
+        width: 11px;
+        height: 12px;
+        margin: 5px;
+    }*/
+
+.owner
+{
+    margin: 10px 0 0 0;
+    color: #43392b;
+    display: inline-block;
+}
+
+    .owner img
+    {
+        box-shadow: 2px 2px 2px rgba(74,20,50,.5); /*rtl*/
+        vertical-align: bottom;
+    }
+
+    .owner .name
+    {
+        font-weight: bold;
+        font-size: 15px;
+        vertical-align: top;
+    }
+
+    .owner .label
+    {
+        margin: 0 4px;
+        font-size: 15px;
+    }
+
+
+.boxMembers
+{
+    float: right; /*rtl*/
+    /*width: 340px;*/
+    width: 322px;
+}
+
+.members
+{
+    margin: 12px 0;
+}
+
+    .members li
+    {
+        float: left; /*rtl*/
+        margin: 0 10px 0 0; /*rtl*/
+        position: relative;
+    }
+
+        .members li img
+        {
+            width: 32px;
+            height: 32px;
+            box-shadow: 1px 1px 2px rgba(74,20,50,.5); /*rtl*/
+        }
+
+.boxMembers .viewAll
+{
+    float: right; /*rtl*/
+}
+/* members popup*/
+.popupWrppr.membersAll
+{
+    width: 463px;
+    min-height: 426px;
+    top: 170px;
+}
+.membersAll ul, .tagsAll ul
+{
+    margin: 10px 0 15px 15px; /*rtl*/
+    height: 365px;
+    overflow: auto;
+    padding-top: 5px;
+}
+
+.membersAll li
+{
+    display: inline-block;
+    width: 206px;
+    height: 50px;
+    margin-right: 10px; /*rtl*/
+    background-color: #fff;
+    position: relative;
+    border: 1px solid #fff;
+    box-shadow: 3px 3px 3px #fff; /*rtl*/
+}
+.membersAll li:hover
+{
+    border: 1px solid #e9e3e7;
+    box-shadow: 3px 3px 3px rgba(44,21,34,0.3); /*rtl*/
+}
+.membersAll li:nth-child(2n)
+{
+    margin: 0 0 22px 0; /*this also overrides the margin-right of the first li*/
+}
+.membersAll .delete
+{
+    display: none;
+    position: absolute;
+    right: -6px; /*rtl*/
+    top: -4px;
+    background: url('/Images/box_sprite.png') 0 -130px no-repeat;
+    width: 15px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.membersAll li:hover .delete
+{
+    display: block;
+}
+
+.membersAll .image
+{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}
+.membersAll .details
+{
+    width: 145px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 3px 0 0 4px; /*rtl*/
+}
+.membersAll .name
+{
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 1px;
+    color: #43392b;
+}
+.membersAll .msg
+{
+    display: inline-block;
+}
+
+/* end members popup*/
+
+/*tags popup*/
+.popupWrppr.tagsAll
+{
+    min-height: 200px;
+}
+
+.tagsAll ul
+{
+    height: 125px;
+}
+
+.tagsAll li
+{
+    color: #3C3439;
+    border-radius: 4px;
+    background: #D0CACE;
+    display:inline-block;
+    margin: 0 15px 15px 0; /*rtl*/
+    padding: 5px;
+    height: 13px;
+}
+
+/*end tags popup*/
+
+/*#region box settings */
+.boxSettings
+{
+    float: left; /*rtl*/
+    margin-top: -4px;
+}
+    .boxSettings label
+    {
+        text-align: right; /*rtl*/
+        color:#681744;
+        font-weight: bold;
+        width: 90px;
+        display: inline-block;
+    }
+
+    .boxSettings .row
+    {
+        margin-bottom: 15px;
+    }
+
+    .boxSettings .inputText
+    {
+        width: 180px;
+    }
+    .boxSettings .boxNameInput
+    {
+        width: 264px;
+        height: 30px;
+        margin: 0 5px 16px 0; /*rtl*/
+    }
+
+    .boxSettings .btn1, .boxSettings .btn2
+    {
+        height: 24px;
+        vertical-align: middle;
+        /*padding: 3px 10px; override regular btn padding*/
+    }
+    .boxSettings .btn1
+    {
+        margin: 0 12px 0 30px; /*rtl*/
+    }
+
+/*#endregion */
+
+/*End Title*/
+/*Section lower bar*/
+.boxlowerBar
+{
+    color: #3c3439;
+    margin-left: -5px; /*rtl*/
+}
+
+    .boxlowerBar a, .boxlowerBar button
+    {
+        padding: 0 8px;
+    }
+
+        .boxlowerBar a:hover, .boxlowerBar button:hover
+        {
+            background-color: rgb(116,100,110);
+            background-color: rgba(116,100,110, .2);
+        }
+
+.btnDownload, .btnInvite, .btnShare, .btnDelete, .btnEdit
+{
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+}
+
+    .btnDownload .btnimage
+    {
+        background-position: 0 -196px;
+        width: 14px;
+        height: 14px;
+        margin-right: 4px; /*rtl*/
+    }
+
+    .btnInvite .btnimage
+    {
+        background-position: 0 -324px;
+        width: 16px;
+        height: 13px;
+        margin: 0 4px 0 0; /*rtl*/
+    }
+
+.btnShare
+{
+    cursor: pointer;
+    /*padding-left: 8px;*/
+}
+
+    .btnShare .btnimage
+    {
+        background-position: 0 -511px;
+        width: 9px;
+        height: 10px;
+        margin: 0 4px 0 0; /*rtl*/
+    }
+
+.btnEdit, .btnDelete
+{
+    float: right; /*rtl*/
+    background-color: transparent;
+    margin-right: -5px; /*rtl*/
+}
+
+    .btnEdit .btnimage
+    {
+        background-position: 0 -260px;
+        width: 12px;
+        height: 14px;
+        margin-right: 5px; /*rtl*/
+    }
+
+    .btnDelete .btnimage
+    {
+        background-position: 0 -130px;
+        width: 15px;
+        height: 16px;
+        margin-right: 5px; /*rtl*/
+    }
+/*End lower bar*/
+
+/*Page layout*/
+.itemsSection
+{
+    float: left; /*rtl*/
+    width: 627px;
+    margin: 7px 0 0 0; /*we want more margin on this page*/
+}
+
+.activitySection
+{
+    float: right; /*rtl*/
+    width: 331px;
+    margin: 7px 0 0 -10px; /*rtl*/
+}
+
+
+/*Item section*/
+
+#BoxItemList
+{
+    padding: 10px 0 0 0;
+    width: 100%;
+}
+
+.boxItem
+{
+    float: left; /* rtl */
+    width: 190px;
+    height: 172px;
+    position: relative;
+    margin: 0 28px 32px 0; /* rtl */
+    text-align: left; /* rtl */
+}
+
+    .boxItem:nth-child(3n)
+    {
+        margin-right: 0; /*rtl*/
+    }
+
+    .boxItem:hover .actionBtns, .boxItem:hover .boxHoverProps
+    {
+        display: block;
+        z-index: 1;
+    }
+
+    .boxItem img
+    {
+        border: 1px solid #74646E;
+        border: 1px solid rgba(116, 100, 110, .3);
+        padding: 1px;
+        box-shadow: 0 3px 3px rgba(44,21,34,.3);
+    }
+
+    .boxItem .boxName
+    {
+        font-weight: bold;
+        color: #67491C;
+    }
+
+    .boxItem .boxOwner
+    {
+        font-weight: normal;
+        color: #43392B;
+        margin-bottom: 5px;
+    }
+
+    .boxItem .comments
+    {
+        background: url('/Images/box_sprite.png') 0 0 no-repeat;
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        margin-top: 6px;
+        vertical-align: text-bottom;
+    }
+
+    .boxItem .count
+    {
+        padding-left: 2px; /* rtl */
+    }
+
+.actionBtns
+{
+    display: none;
+    position: absolute;
+    top: 43px;
+    right: 4px; /* rtl */
+    border: 1px solid #d4c9d0;
+    border-radius: 4px;
+    background-color: #f9f4f7;
+    cursor: pointer;
+    z-index: 50;
+    max-width: 52px;
+    height: 25px;
+    font-size: 0;
+}
+
+.downloadBtn
+{
+    display: inline-block;
+    width: 24px;
+    height: 25px;
+    margin-top: 3px;
+}
+
+.downloadBtnImg
+{
+    display: inline-block;
+    background: url('/Images/box_sprite.png') 0 -387px no-repeat;
+    width: 14px;
+    height: 13px;
+    position: relative;
+    top: 3px;
+    left: 5px; /* rtl */
+}
+
+.deleteBtn
+{
+    background-color: transparent;
+    display: inline-block;
+    width: 24px;
+    height: 25px;
+    border-left: 1px solid #d4c9d0; /* rtl */
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.deleteBtnImg
+{
+    display: inline-block;
+    background: url('/Images/box_sprite.png') 0 -450px no-repeat;
+    width: 11px;
+    height: 11px;
+    position: relative;
+    top: 2px;
+    left: 0; /* no rtl */
+}
+
+.boxItem .boxHoverProps
+{
+    width: 187px;
+    height: 21px;
+    background: rgb(116,100,110);
+    background: rgba(116,100,110,.85);
+    position: absolute;
+    display: none;
+    top: 153px;
+    color: white;
+    font-size: 11px;
+}
+
+.boxItem .fileSize
+{
+    margin: 0 6px 0 3px; /* rtl */
+}
+
+/* End box Item Section */

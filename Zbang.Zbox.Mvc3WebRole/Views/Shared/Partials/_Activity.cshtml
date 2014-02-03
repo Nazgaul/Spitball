@@ -1,0 +1,12 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Comment.Resources
+@model string
+<div class="activitySection" id="commentsSection" data-strap="comment">
+    <h4 class="sectiontitle">@Model</h4>
+    <form class="clearfix newBoxComment" data-bind="submit: addComment">
+        <textarea id="CommentText" placeholder="@CommentResources.ShareYourThoughts" class="inputText commentTextarea"></textarea>
+        <button class="btn2 rFloat" type="submit" style="display: none;">@CommentResources.Send</button>
+    </form>
+    <ol id="CommentList" class="commentList" data-bind="template: { name: 'comment-template', foreach: comments }">
+    </ol>
+    @{Html.RenderPartial("_CommentTemplate");}
+</div>

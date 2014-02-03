@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="Subscriber" table="SharedBoxSubscribers">
+    <id name="SubscriberId">
+      <generator class="native"/>
+    </id>
+    <property name="permission" />
+    <many-to-one column="BoxId" name="Box" not-null="true"/>
+    <many-to-one name="User" class="User" column="UserId" />
+    
+    <!--<set name="Rule" table="NotificationRules" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="UserId" />
+      <one-to-many class="NotificationRules"/>
+    </set>-->
+    
+    <!--<many-to-one  name="Rule" class="NotificationRules"  cascade="all-delete-orphan"
+       column="NotificationRuleId"
+       unique="true"
+       not-null="false"/>--> 
+  </class>
+ 
+</hibernate-mapping>

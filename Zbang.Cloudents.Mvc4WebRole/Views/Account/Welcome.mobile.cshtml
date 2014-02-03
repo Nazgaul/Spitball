@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutStatic.mobile.cshtml";
+}
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister
+
+<div id="register" class="register0">
+    <div class="content">
+        <div class="title">@MobileResources.CreateAccount</div>
+
+        <div class="viaFB">
+            <span class="facebook"><span class="sprite fbImg"></span>@LogOnResources.FacebookSignUp</span>
+        </div>
+
+        <div class="title2 boldFont">@LogOnResources.ByEmail</div>
+        @{Html.RenderPartial("Register", Model.Register);}
+        <div class="help2">@LogOnResources.AlreadyHave&nbsp;<button type="button" data-modelNav="connect">@LogOnResources.ConnectHere</button></div>
+    </div>
+</div>
+<div id="connect" class="connect0">
+    <div class="content">
+        <div class="title">@LogOnResources.ConnectCloudents</div>
+
+        <div class="viaFB">
+            <span id="fb_log" class="facebook"><span class="sprite fbImg"></span>@LogOnResources.Facebook</span>
+        </div>
+
+        <div class="title2 boldFont">@LogOnResources.ByEmail</div>
+        @{Html.RenderPartial("LogOn", Model.LogOn);}
+        <div class="help">@LogOnResources.ForgotYourPassword&nbsp;<a href="@Url.Action("ResetPassword")">@LogOnResources.Retrieve</a></div>
+        <div class="help2">@LogOnResources.NoAccount&nbsp;<button type="button" data-modelNav="register">@LogOnResources.Create</button></div>
+    </div>
+</div>
+
+
+@section scripts {
+    @Html.Script2("General")
+    @Html.Script2("home")
+}

@@ -1,0 +1,14 @@
+﻿.LogIninput input
+{
+    line-height: 28px;
+}
+
+
+.NewUserinputText input
+{
+    line-height: 34px;
+}
+#txtEmailPassReset
+{
+    padding:6px 0 0 0; height:24px;
+}

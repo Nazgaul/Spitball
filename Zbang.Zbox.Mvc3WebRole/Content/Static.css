@@ -1,0 +1,260 @@
+﻿
+.staticPage
+{
+    width: 634px;
+    margin: 37px auto 15px;
+}
+
+.header
+{
+    font-size: 24px;
+    font-weight: bold;
+    color: #952263;
+}
+
+.subHeader, .subHeaderUnderline
+{
+    font-size: 15px;
+    font-weight: bold;
+    color: #43392b;
+    margin-top: 15px;
+}
+
+
+/*#region error page */
+.membersOnly, .oops
+{
+    color: #3c3439;
+    font-size: 24px;
+}
+
+.membersOnly
+{
+    display: block;
+    /*display: none;*/
+    width: 701px; /*rtl*/
+    margin: 133px auto 0;
+    
+}
+    .membersOnly .content
+    {
+        margin: -9px 0 0 4px; /*rtl*/
+        line-height: 37px;
+    }
+    .membersOnly a
+    {
+        color: #952262;
+        font-weight: bold;
+        
+    }
+
+    .membersOnly .title, .oops .title
+    {
+        color: #681744;
+        font-family: Georgia;
+        font-size: 48px;
+    }
+
+    .membersOnly img
+    {
+        margin: 69px 0 0 226px; /*rtl*/
+    }
+    
+    .goBack .btn1
+    {
+        font-size: 24px;
+        color: #fff;
+        font-weight: normal;
+        margin-left: 7px; /*rtl*/
+        padding: 3px 15px;
+    }
+    .membersOnly .goBack, .oops .goBack
+    {
+        font-size: 15px;
+        margin: 46px 6px 0 0; /*rtl*/
+        float: right; /*rtl*/
+    }
+
+.oops
+{
+    width: 766px; /*rtl*/
+    margin: 133px auto 0;
+}
+
+    .oops pre
+    {
+        font-family: Arial;
+        margin: -5px 0 0 6px; /*rtl*/
+        line-height: 30px;
+    }
+
+    .oops img
+    {
+        margin: 71px 0 0 265px; /*rtl*/
+    }
+    .oops .goBack
+    {
+        margin: 46px 18px 0 0; /*rtl*/
+    }
+
+/*#endregion */
+
+/*#region privacy policy; terms of service */
+
+.policy, .terms
+{
+    direction: ltr; /*no rtl*/
+}
+
+.lastModified
+{
+    font-size: 11px;
+    color: #B1B0B0;
+    margin-bottom: 15px;
+}
+
+.subHeaderUnderline
+{
+    border-bottom: 1px solid #43392b;
+    display: inline-block;
+}
+
+/*#endregion */
+
+/*#region forgot password; email sent; verify password */
+.specialPage
+{
+    width: 530px;
+    margin: 98px auto 0;
+}
+    .specialPage label
+    {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .specialPage p
+    {
+        line-height: 29px;
+        margin-bottom: 25px;
+    }
+
+    .specialPage .inputText
+    {
+        display: inline-block;
+        width: 276px;
+    }
+
+    .specialPage .btn1
+    {
+        display: inline-block;
+        margin-left: 10px; /*rtl*/
+    }
+     .specialPage .link, .specialPage a
+    {
+        color: #9F722B;
+    }
+
+.verifyAccount, .forgotPassword, .emailSent
+{
+    font-family: 'Cookie', cursive;
+    color: #952262;
+    text-shadow: -1px -1px #666, 1px 1px white; /*rtl*/
+
+    position: relative;
+    right: 7px;  /*rtl*/
+    margin-bottom: 20px;
+    font-size: 72px;
+}
+
+/*#endregion */
+
+/*#region About Us */
+.staticPage.aboutUs
+{
+    color: #43392b;
+    width: 739px;
+    margin: 39px auto 15px;
+    padding-left: 45px; /*rtl*/
+    direction: ltr; /*no rtl*/
+}
+
+    .aboutUs .subHeader
+    {
+        color: #745220;
+        margin-top: 5px;
+    }
+    
+    .aboutUs .leftCol
+    {
+        width: 356px;
+        margin-right: 38px; /*rtl*/
+    }
+    .aboutUs p
+    {
+        margin-top: 20px;
+    }
+
+.leftCol div
+{
+    font-size: 15px;
+}
+
+
+.teamList
+{
+    margin-top: 13px;
+}
+
+    .teamList li
+    {
+        float: left; /* rtl */
+        width: 157px;
+        height: 145px;
+        margin: 0 18px 38px 0; /* rtl */
+        text-align: left; /* rtl */
+    }
+    .teamList li:nth-child(2n)
+    {
+        margin-right: 0; /*rtl*/
+    }
+    .teamList li .subHeader
+    {
+        margin-top: 7px;
+    }
+    
+.teamSprite
+{
+    background-image: url(/Images/team-sprite.png);
+    box-shadow: 2px 2px 2px rgba(74, 20, 50, .5); /*rtl*/
+    width: 100px; 
+    height: 100px;
+}
+
+.eidan {
+    background-position: 0 -150px;
+    margin-top: 15px;
+}
+
+.daniel {
+    background-position: 0 0;
+}
+.yaniv {
+    background-position: 0 -750px;
+}
+
+.neta {
+    background-position: 0 -450px;
+}
+.ram {
+    background-position: 0 -600px;
+}
+
+.galit {
+    background-position: 0 -300px;
+}
+
+/*#endregion */
+
+
+

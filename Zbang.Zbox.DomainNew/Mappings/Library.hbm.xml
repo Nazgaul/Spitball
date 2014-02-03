@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="Library">
+    <id name="Id" column="LibraryId">
+      <generator class="assigned"/>
+    </id>
+    <property name="Name" not-null="true"/>
+    <!--<property name="Color" not-null="true" length="10"/>-->
+    <property name="AmountOfNodes" column="AmountOfChildren" not-null="true"/>
+
+    <many-to-one name="Parent" class="Library" column="ParentId" foreign-key="LibraryParent"  />
+    <many-to-one name="University" class="University" column="UserId" not-null="true" foreign-key="LibraryUniversity"/>
+
+    <bag name="Children" cascade="all-delete-orphan" inverse="false" lazy="true" >
+      <key column="ParentId" foreign-key="LibraryParentId"/>
+      <one-to-many class="Library"/>
+    </bag>
+
+    <set name="Boxes" table="LibraryBox">
+      <key column="LibraryId" foreign-key="LibraryBoxes" />
+      <many-to-many column="BoxId" foreign-key="LibraryBoxes2"
+          class="Box"/>
+    </set>
+  
+</class>
+</hibernate-mapping>

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" schema="Zbox"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+  <resultset name="Question">
+    <return-scalar column="Id" type="Guid"/>
+    <return-scalar column="UserName" type="string"/>
+    <return-scalar column="UserImage" type="string"/>
+    <return-scalar column="UserUid" type="long"/>
+    <return-scalar column="Content" type="string"/>
+  </resultset>
+  <resultset name="Answer">
+    <return-scalar column="Id" type="Guid"/>
+    <return-scalar column="UserName" type="string"/>
+    <return-scalar column="UserImage" type="string"/>
+    <return-scalar column="UserId" type="long"/>
+    <return-scalar column="Content" type="string"/>
+    <return-scalar column="QuestionId" type="Guid"/>
+    <return-scalar column="Answer" type="bool"/>
+    <return-scalar column="Rating" type="int"/>
+    <return-scalar column="IRate" type="bool"/>
+    <return-scalar column="CreationTime" type="DateTime"/>
+  </resultset>
+  <resultset name="QnAItems">
+    <return-scalar column="Uid" type="long"/>
+    <return-scalar column="Name" type="string"/>
+    <return-scalar column="OwnerId" type="long"/>
+    <return-scalar column="Thumbnail" type="string"/>
+    <return-scalar column="BoxUid" type="string"/>
+    <return-scalar column="Discriminator" type="string"/>
+    <return-scalar column="QuestionId" type="Guid"/>
+    <return-scalar column="AnswerId" type="Guid"/>
+  </resultset>
+  
+  <sql-query name="GetBoxQuestion" read-only="1" resultset-ref="Question">
+    <![CDATA[
+    SELECT q.[QuestionId] as id
+    ,u.[UserName] as UserName
+	  ,u.UserImage as UserImage
+	  ,u.userid as UserUid
+    ,[Text] as Content
+    FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
+    where q.BoxId = :boxId
+    order by id desc;
+      ]]>
+  </sql-query>
+  <sql-query name="GetBoxAnswers" read-only="1" resultset-ref="Answer">
+    <![CDATA[
+    SELECT a.[AnswerId] as id
+	    ,u.[UserName] as UserName
+      ,u.UserImage as UserImage
+      ,u.userid as UserId
+      ,[Text] as Content
+      ,[QuestionId] as questionId
+      ,MarkAnswer as answer
+      ,a.CreationTime as creationTime
+      ,[RatingCount] as rating
+      ,(select RateUp from zbox.AnswerRating il where a.AnswerId = il.AnswerId and il.ownerid = :userId) as iRate
+      FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
+      where a.boxid = :boxId
+      order by MarkAnswer desc, id;
+    ]]>
+  </sql-query>
+  <sql-query name="GetBoxQnAItem" resultset-ref="QnAItems" read-only="true" >
+    <![CDATA[
+    select
+    i.itemid as Uid,
+    i.Name as Name,
+    i.UserId as OwnerId,
+    i.ThumbnailBlobName as Thumbnail,
+    (select Uid from zbox.Box b where b.BoxId = i.BoxId) as BoxUid,
+    i.Discriminator as Discriminator,
+    i.QuestionId as QuestionId,
+    i.AnswerId as AnswerId
+    from zbox.item i
+    where i.IsDeleted = 0
+    and i.BoxId = :boxId
+    and (QuestionId is not null or AnswerId is not null);
+    ]]>
+  </sql-query>
+</hibernate-mapping>

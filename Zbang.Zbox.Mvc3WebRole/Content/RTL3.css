@@ -1,0 +1,265 @@
+﻿html
+{
+    direction: rtl;
+}
+
+.lFloat
+{
+    float: right; /*rtl*/
+}
+
+.rFloat
+{
+    float: left; /*rtl*/
+}
+
+/*#region FROM UPLOAD.CSS */
+
+.popupWrppr
+{
+    margin: 0 auto;
+    box-shadow: -7px 7px 7px rgba(51,14,34,.25); /*rtl*/
+}
+
+.next
+{
+    left: 94px; /*rtl*/
+    right: auto;
+}
+
+.cancel
+{
+    left: 13px; /*rtl*/
+    right: auto;
+}
+
+/*#endregion */
+
+.popupWrppr.confirm
+{
+    right: 4px; /*rtl*/
+    left: auto;
+}
+
+.confirm .message
+{
+    margin: 20px 12px 0 0; /*rtl*/
+}
+
+.confirm .inputText
+{
+    margin: 10px 10px 10px 0; /*rtl*/
+}
+
+/*#region helper css classes */
+.flipH
+{
+    -moz-transform: scaleX(1); /*rtl*/
+    -webkit-transform: scaleX(1); /*rtl*/
+    -o-transform: scaleX(1); /*rtl*/
+    transform: scaleX(1); /*rtl*/
+}
+
+.ellipsis::before {
+    content: '';
+    float: right;
+}
+
+.ellipsis::after {
+    float: left;
+    right: 100%;
+    left: auto;
+    margin: 0 -3em 0 0;
+    padding: 0 0 0 5px;
+    text-align: left;
+    background: -webkit-gradient(linear, right top, left top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+    background: -moz-linear-gradient(to left, rgba(255, 255, 255, 0), white 50%, white);
+    background: -o-linear-gradient(to left, rgba(255, 255, 255, 0), white 50%, white);
+    background: -ms-linear-gradient(to left, rgba(255, 255, 255, 0), white 50%, white);
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), white 50%, white);
+}
+
+.ellipsis > :first-child {
+    float: left;
+    margin: 0 -5px 0 0;
+}
+
+/*#endregion */
+
+/*#region sidebar */
+aside
+{
+    padding: 0 26px 0 21px; /*rtl*/
+    margin: 0 0 0 12px; /*rtl*/
+}
+
+    aside header:before
+    {
+        margin: 0 0 0 10px; /*rtl*/
+    }
+
+/*#region _UserDetails3 */
+
+.userBlock .user
+{
+    padding: 25px 4px 0 2px; /*rtl*/
+}
+/*#endregion */      
+
+.userAreaBtn
+{
+    text-align: right; /*rtl*/
+}
+    .userAreaBtn:hover .btnArrow
+    {
+        border-color: transparent #e27648 transparent transparent; /*rtl*/
+    }
+
+    .userAreaBtn:active .btnArrow
+    {
+        border-color: transparent #9b3e22 transparent transparent; /*rtl*/
+    }
+
+    .userAreaBtn > span:before
+    {
+        margin: 0 6px 0 12px; /*rtl*/
+    }
+    .userAreaBtn .btnArrow
+    {
+        border-width: 22px 19px 22px 0; /*rtl*/
+        border-color: transparent #dd5629 transparent transparent; /*rtl*/
+        left: -19px; /*rtl*/
+        right: auto;
+    }
+    .userAreaBtn.lib:hover .btnArrow
+    {
+        border-color: transparent #eab465 transparent transparent; /*rtl*/
+    }
+    
+    .userAreaBtn.lib:active .btnArrow
+    {
+        border-color: transparent #9f722b transparent transparent; /*rtl*/
+    }
+
+    .userAreaBtn.lib .btnArrow
+    {
+        border-color: transparent #e5a13e transparent transparent; /*rtl*/
+    }
+
+/*#endregion */       
+
+/*#region mainSearch */
+    
+.mainSearch .searchInput
+{
+    padding: 2px 8px 2px 30px; /*rtl*/
+}
+ 
+.mainSearch button
+{
+    left: 3px; /*rtl*/
+    right: auto;
+}
+
+.mainSearch button:after
+{
+    right: 6px; /*rtl*/
+    left: auto;
+}
+
+/*#endregion */
+
+/*#region body content */
+.bodyContent
+{
+    padding: 20px 9px 0 39px; /*rtl*/
+    box-shadow: -1px 0 15px rgba(0,0,0,0.2); /*rtl*/
+}
+
+/*#region boxesHeader */
+
+.boxesHeader .plus:before
+{
+    margin: 0 0 0 2px; /*rtl*/
+}
+    
+.boxesHeader .sortBy:after
+{
+    margin: 0 3px 0 0; /*rtl*/
+}
+    
+.boxesHeader .back:before
+{
+    margin: 0 0 0 5px; /*rtl*/
+
+    -moz-transform: scaleX(1); /*rtl*/
+    -webkit-transform: scaleX(1); /*rtl*/
+    -o-transform: scaleX(1); /*rtl*/
+    transform: scaleX(1); /*rtl*/
+}
+ 
+/*#endregion */
+    
+.libraryList > li , .myAreaList > li /*li could be libraryItem or box (library/myArea)*/
+{
+    float:right; /*rtl*/
+}
+
+.libraryItem
+{
+    margin: 0 0 17px 18px; /*rtl*/
+}
+
+    .libraryItem .line
+    {
+        right: 2px; /*rtl*/
+        left: auto;
+    }
+
+.box
+{
+    margin: 0 0 15px 18px; /*rtl*/
+}
+ 
+    .box .addBtn:before
+    {
+        margin: 0 0 0 11px; /*rtl*/
+    }
+    .box .boxImg
+    {
+        /*margin: 2px 2px -2px 0; rtl*/
+        right: 2px;
+        left: auto;
+    }
+
+    .box ul
+    {
+        /*padding: 6px 6px 0 0;rtl*/
+        right: 2px;
+        left: auto;
+    }
+
+    .box li
+    {
+        padding: 4px 5px 4px 0; /*rtl*/
+    }
+ 
+    .box li:before
+    {
+        margin: 0 0 0 5px; /*rtl*/
+    }
+
+    .box .actionBtn
+    {
+        right: 62px; /*rtl*/
+        left: auto;
+    }
+    .box .actionBtn:before
+    {
+        margin: 0 0 0 5px; /*rtl*/
+    }
+
+/*#endregion */
+
+/*#endregion */
+

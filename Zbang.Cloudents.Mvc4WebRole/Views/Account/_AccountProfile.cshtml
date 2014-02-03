@@ -1,0 +1,22 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.Profile
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+
+@using (Html.BeginForm("ChangeProfile", "Account", FormMethod.Post, new { @class = "settingsTab selected profileInfo", id = "Profile" }))
+{ 
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @class = "inputText" })@Html.ValidationMessageFor(m => m.Name)
+    <div class="section">
+        @Html.LabelFor(m => m.Image)
+        <img id="accountSettingsThumb" class="profilePhoto" width="100" height="100" src="@Model.Image" alt="" />
+        <a href="#" class="photoBtn" id="uplImage" >@AccountSettingsResources.UploadImage</a>
+    </div>
+    <div class="schoolSection">
+        @Html.LabelFor(m => m.University)
+        <div class="schoolWpr">
+            <img class="imgBorder" width="32" height="32" alt="School logo" src="@Model.UniversityImage" />
+            <div class="propValue">@Model.University</div>
+            <a class="changeUni regFont" href="@Url.Action("Choose","Library")">@AccountSettingsResources.ChangeUni</a>
+        </div>
+    </div>
+    <input type="submit" class="btn1" value="@AccountSettingsResources.Save" />
+}

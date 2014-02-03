@@ -1,0 +1,6 @@
+﻿<%@ Assembly Name="Zbang.Zbox.Domain.Services" %>
+
+<%@ ServiceHost Language="C#" 
+                Debug="true" 
+                Service="Zbang.Zbox.Domain.Services.ZboxService" 
+                Factory="Zbang.Zbox.Infrastructure.ServiceModel.Ioc.UnityServiceHostFactory,Zbang.Zbox.Infrastructure.ServiceModel" %>

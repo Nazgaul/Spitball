@@ -1,0 +1,67 @@
+﻿.searchMenu
+{
+    padding-top: 14px;
+}
+
+    .searchMenu li
+    {
+        float: left;
+    }
+
+.searchTitle
+{
+    color: #676767;
+}
+
+.searchCategory
+{
+    color: #333;
+    display: inline;
+    border-left: 1px solid #c687a9; 
+    border-right: 1px solid #c687a9;
+    padding: 0 15px;
+    cursor:pointer;
+}
+
+.searchCategoryfirst
+{
+    border-left: 0; /* no rtl*/
+    margin-left: -15px; /*rtl*/
+}
+
+.searchCategorysecond
+{
+    border-right: 0; /* no rtl*/
+}
+
+.searchActiveTitle
+{
+    color: #952262;
+    font-weight: 700;
+    height: 30px;
+    position: relative;
+    top: 1px;
+    background: url(/images/searchArrow.jpg) center 17px no-repeat;
+    border-left: 0;
+    border-right: 0;
+}
+
+.searchResult .boxViewListWrapper:nth-child(3n)
+{
+    margin-right: 19px; /*rtl*/
+}
+
+.searchResult .boxViewListWrapper:nth-child(4n)
+{
+    margin-right: 0; /*rtl*/
+}
+
+.searchResult .boxItem:nth-child(3n)
+{
+    margin-right: 28px
+}
+
+.searchResult .boxItem:nth-child(4n)
+{
+    margin-right:0;
+}

@@ -1,0 +1,450 @@
+﻿/* Upload sprite */
+.upldSprite
+{
+    background: url('/Images/upload-sprite.png') no-repeat;
+}
+/* end Upload sprite */
+
+/* Upload header */
+.popupGradient
+{
+    background: #fff;
+    background: -moz-linear-gradient(top, #fff 0, #f5ebf1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#fff), color-stop(100%,#f5ebf1));
+    background: -webkit-linear-gradient(top, #fff 0,#f5ebf1 100%);
+    background: -o-linear-gradient(top, #fff 0,#f5ebf1 100%);
+    background: -ms-linear-gradient(top, #fff 0,#f5ebf1 100%);
+    background: linear-gradient(to bottom, #fff 0,#f5ebf1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f5ebf1',GradientType=0 );
+}
+
+
+.popupWrppr
+{
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    left: 9px; /* no rtl */
+    top: 177px;
+    width: 558px;
+    min-height: 322px;
+    /*max-height: 365px;*/
+    max-height: 396px;
+    z-index: 10;
+    border: 1px solid #681744;
+    background: #f9f9f9;
+    box-shadow: 7px 7px 7px rgba(51,14,34,.25); /*rtl*/
+    color: #3c3439;
+    text-shadow: 0 1px 1px #fff;
+}
+
+.uploadHeader, .popupHeader
+{
+    text-transform: uppercase;
+    border-bottom: 1px solid #d1cdcd;
+    color: #952262;
+    font: bold 24px arial;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+}
+/* end Upload header */
+
+.step2, .step3, .step4
+{
+    text-align: left; /*rtl*/
+    display: none;
+}
+
+.chooseTitle
+{
+    font-size: 15px;
+    margin: 16px 0 15px 12px; /*rtl*/
+}
+
+.selectBox, .newBox
+{
+    width: 204px;
+    height: 141px;
+    display: inline-block;
+    border: 2px solid #bdbdbd;
+    box-shadow: 2px 2px 2px #ddd8dc; /*rtl*/
+    margin-bottom: 30px; /*fix for (chrome) bug 1856 */
+}
+
+.selectBox
+{
+    background-position: 0 -247px;
+    margin-left: 38px; /*rtl*/
+}
+
+.next
+{
+    position: absolute;
+    bottom: 6px;
+    right: 94px; /*rtl*/
+}
+
+.cancel
+{
+    position: absolute;
+    bottom: 6px;
+    right: 13px; /*rtl*/
+}
+
+/*#region step2 */
+.popupWrppr .step2
+{
+    height: 396px;
+}
+
+.newBoxForm
+{
+    margin: 20px 13px 15px 11px; /*rtl*/
+}
+.selectType
+{
+    font-size: 15px;
+}
+
+.sepV
+{
+    border-bottom: 1px solid #cdcdcd;
+    margin: 16px 0 12px;
+    height: 1px;
+}
+
+.step2 .section
+{
+    margin-bottom: 22px;
+}
+
+.step2 label
+{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    color: #681744;
+}
+.step2 .inputText
+{
+    display: block;
+    margin-top: 5px;
+}
+.step2 .commentTextarea
+{
+    height: 62px;
+    resize: none;
+}
+.step2 .label
+{
+    position: absolute;
+    bottom: 10px;
+}
+.step2 .dropDown
+{
+    right: 1px; /*rtl*/
+    top: 2px;
+}
+
+.step2 .type
+{
+    display: none;
+}
+
+.step2 .current /*applied in javascript*/
+{
+    display: block;
+}
+
+.courseName, .courseCode, .professor, .department
+{
+    display: inline-block;
+}
+.courseName .inputText
+{
+    width: 345px;
+}
+.courseCode
+{
+    margin-left: 29px; /*rtl*/
+}
+    .courseCode .inputText
+    {
+        width: 134px;
+    }
+
+.professor .inputText
+{
+    width: 239px;
+}
+.department
+{
+    margin-left: 31px; /*rtl*/
+}
+    .department .inputText
+    {
+        width: 239px;
+    }
+
+
+.two
+{
+    background-position: 0 -650px;
+}
+
+.toggleType
+{
+    background: url(/Images/toggle.png) 0 0 no-repeat; /*rtl*/
+    display: inline-block;
+    width: 156px;
+    height: 28px;
+    margin: -4px 0 0 12px; /*rtl*/
+}
+    .toggleType.toggle /*applied in javascript*/
+    {
+        background-position: 0 -33px; /*rtl*/
+    }
+
+    .toggleType span
+    {
+        color: #681744;
+        display: inline-block;
+        text-align: center;
+        width: 76px;
+        padding: 5px 0;
+        margin-right: -1px; /*rtl*/
+        cursor: pointer;
+    }
+
+    .toggleType .selected /*applied in javascript*/
+    {
+        font-weight: bold;
+        color: #f5ebf1;
+        text-shadow: 0 1px 1px #4a1432;
+        cursor: default;
+    }
+
+.h4Italic
+{
+    text-transform: none;
+    font-style: italic;
+}
+
+/*personal*/
+.personal .commentTextarea
+{
+    height: 132px;
+}
+.personal .boxName
+{
+    width: 522px;
+    margin-bottom: 21px;
+}
+
+/*#endregion */
+
+
+
+/* step 3 */
+.three
+{
+    background-position: 0 -720px;
+}
+
+.chooseTitle .boxName
+{
+    color: #952262;
+}
+
+.dragDropBox
+{
+    border: 1px dashed #c0bebf;
+    color:#3c3439;
+    width: 530px;
+    height: 164px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    line-height: 164px;
+}
+.dragDropTxtE{
+     font-size: 15px;
+    font-weight: bold;
+    color: #745220;
+}
+/* class is added through jquery */
+.dragDropText
+{
+    line-height: normal;
+   
+    text-align: left; /* no rtl*/
+    margin: 11px 0 0 9px; /* no rtl*/
+}
+
+.dragDropButton
+{
+    color: #745220;
+    background-color: #fdf9f3;
+    border: 1px solid #d6c3a5;
+}
+
+.dragDropBox .btn4
+{
+    position: absolute;
+    right: 7px; /*rtl*/
+    bottom: 9px;
+    padding: 3px 4px;
+    line-height: normal;
+}
+
+.dragDropBox ul
+{
+    display: none;
+    height: 120px;
+    border-bottom: 1px dashed #c0bebf;
+    text-align: left; /*rtl*/
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dragDropBox li
+{
+    border-bottom: 1px solid #dcdbdc;
+    padding: 6px 14px 7px 14px; 
+    line-height: normal;
+    position: relative;
+}
+
+    .dragDropBox li .fileName
+    {
+        max-width: 450px;
+        display: inline-block;
+    }
+
+    .dragDropBox li .percent
+    {
+        background-color: #e4d4dd;
+        display: inline-block;
+        width: 0;
+        height: 27px;
+        position: absolute;
+        left:0;
+        top: 1px;
+        z-index: -1;
+    }
+
+.dragDropBox ul > li:last-child
+{
+    border-bottom: 0;
+}
+/* pending displays cancel; finished displays tick btn */
+.pending, .finished
+{
+    float: right; /*rtl*/
+    margin-right: 8px; /*rtl*/
+}
+
+.pending
+{
+    color: #74646e;
+    font-size: 11px;
+    background-color: transparent;
+}
+
+.finished
+{
+    display: none;
+    width: 24px;
+    height: 25px;
+    background-position: 0 -438px;
+    margin: -1px -2px 0 0; /*rtl*/
+}
+
+.addUrlHolder
+{
+    margin: 15px 12px 61px; /* margin bottom to use max height of upldiagWrppr */
+}
+
+.addUrl
+{
+    width: 447px;
+}
+
+/* step4 */
+.inputLabel
+{
+    display:inline-block;
+    padding-top: 5px;
+    vertical-align: top;
+}
+
+.popupWrppr.invite
+{
+    min-height: 360px;
+    max-height: 439px;
+}
+
+.inviteUser
+{
+    margin: 17px 0 18px 12px; /*rtl*/
+    padding: 2px 2px 5px 9px; /*rtl*/
+
+    width: 485px;
+    min-height: 21px;
+    max-height: 100px;
+    height: auto; /*override height of inputText*/
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.addInvite
+{
+    display: inline-block;
+    background-position: 0 -505px;
+    width: 24px;
+    height: 25px;
+    position: absolute;
+    right: 15px; /*rtl*/
+    top: 3px;
+}
+
+.inviteMsg
+{
+    width: 510px;
+    height: 176px;
+    /*min-height: 100px;
+    max-height: 176px;*/
+    margin: 0 0 53px 12px; /*rtl*/
+    padding: 14px 8px 5px 11px; /*rtl*/
+    outline-color: transparent;
+    resize: none;
+}
+
+.inviteInput
+{
+    vertical-align: top;
+    padding-top: 5px;
+    background: transparent;
+    display: inline-block;
+    width: 458px;
+}
+.inviteList
+{
+    display: inline;
+}
+
+    .inviteList li
+    {
+        color: #3C3439;
+        border-radius: 4px;
+        background: #D0CACE;
+        display: inline-block;
+        padding: 3px 6px;
+        height: 13px;
+        margin: 3px 3px 0 0; /*rtl*/
+    }
+
+/* end step4 */

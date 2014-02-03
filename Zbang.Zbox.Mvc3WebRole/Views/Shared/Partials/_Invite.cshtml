@@ -1,0 +1,18 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+
+<div class="popupWrppr invite" data-strap="invitapp">
+    <header class="popupHeader popupGradient"><span class="invHeader">@UploadDialogResources.InviteTo</span>&nbsp;‎“<span id="iboxName" class="iBoxName"></span>”‎‎</header>
+    @using (Ajax.BeginForm("InviteBox", "Share", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnSuccess = "mmc.inviteSuccess",
+        //OnBegin = "Share.ValidateShareForm"
+    }, new { id = "fInvite", @class = "popupForm" }))
+    {
+        Html.RenderPartial("_MailPopUp", new Zbang.Zbox.Mvc3WebRole.Models.Message { BoxUid = ViewBag.boxid }); 
+        <button type="button" class="closeDialog shareSprite"></button>
+        <input type="submit" class="btn1 next" value="@UploadDialogResources.Send"/>
+        <input type="button" id="iCancel" class="btn2 cancel" value="@UploadDialogResources.Cancel" />
+   }
+
+</div>

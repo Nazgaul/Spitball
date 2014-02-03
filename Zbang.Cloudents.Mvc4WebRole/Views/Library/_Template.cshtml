@@ -1,0 +1,46 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<script type="text/html" id="library-node">
+    <li class="libraryItem deptItem">
+        <a class="navigation deptLink" data-navigation="Library" data-bind="attr: { href: url }">
+            <div class="deptNameWpr clamp2">
+                <div class="deptName" data-bind="text: name"></div>
+            </div>
+            @*<span class="courseCount" data-dept-numcourses="3">&nbsp;Courses</span>*@
+        </a>
+        @*<button type="button" data-bind="click: $root.deleteNode" class="removeItem"></button>*@ 
+    </li>
+</script>
+<script type="text/html" id="library-box">
+    <li class="box">
+        <a data-navigation="Box" data-bind="attr: { href: boxUrl, title: name }">
+            <div>
+                <img class="boxImg" data-bind="attr: { src: boxPicture }" alt="" width="77" height="98" />
+                <ul class="boxHoverList">
+                    <li class="hoverItem itemImg" data-bind="text: itemCount"></li>
+                    <li class="hoverItem memberImg" data-bind="text: membersCount"></li>
+                    <li class="hoverItem commentImg" data-bind="text: commentCount"></li>
+                </ul>
+            </div>
+            <div class="boxWpr clamp2">
+                <span class="boxName" data-bind="text: name"></span>
+            </div>
+
+            <div data-bind="text: courseCode" class="courseCode elps"></div>
+            <span data-bind="text: professor" class="courseCode propName elps"></span>
+
+        </a>
+        @*<div class="dropToBox boldFont">Drop files here</div>*@
+        <!--ko if:boxSubscribed()-->
+        <span class="subscriber">@MainViewResources.Following</span>
+        <!-- /ko -->
+        <!--ko if:boxFollow()-->
+        <button class="follow" data-bind="click: subscribe">@MainViewResources.Follow</button>
+        <!--/ko--> 
+        <!-- ko if:boxSubscribed()-->
+        <button type="button" class="removeItem" data-bind="click:$root.unsubscribe"></button>
+        <!--/ko-->
+    </li>
+</script>
+
+

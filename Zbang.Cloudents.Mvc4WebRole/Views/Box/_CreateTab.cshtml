@@ -1,0 +1,14 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.Tabs.CreateBoxItemTab
+<div id="box_createTabDialog" title="@DialogResources.CreateTab" style="display: none;">
+    @using (Html.BeginForm("CreateTab", "Box", FormMethod.Post, new { @class = "type personal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText required", autofocus="autofocus" })
+        <input type="submit" class="btn1 next"  value="@DialogResources.Create"/>
+        <button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
+    }
+</div>

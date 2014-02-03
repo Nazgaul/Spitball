@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" schema="Zbox"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+  <resultset name="PublicUserDto">
+    <return-scalar column="Uid" type="long"/>
+    <return-scalar column="Name" type="string"/>
+    <return-scalar column="Image" type="string"/>
+  </resultset>
+  <resultset name="UserRelationType">
+    <return-scalar column="Type" type="Zbang.Zbox.Infrastructure.Enums.UserRelationshipType,Zbang.Zbox.Infrastructure"/>
+  </resultset>
+ 
+ 
+  <!--Get user data for user detail in all the pages.-->
+  <query name="GetUserData" read-only="1">
+    <![CDATA[
+     select u.id as Uid, u.Name as Name, u.Image as Image,
+     u.FirstTime.Dashboard as FirstTimeDashboard,
+     u.FirstTime.Library as FirstTimeLibrary,
+     u.FirstTime.Item as FirstTimeItem,
+     u.FirstTime.Box as FirstTimeBox, 
+     u.Email as Email,
+     uu.Name as LibName,
+     uu.Image as LibImage
+     from User u left join u.University uu
+     where u.Id = :UserId
+    ]]>
+  </query>
+
+  <!--Used for log in -->
+  <query name="GetUserByMembershipId" read-only="1">
+    <![CDATA[
+    select u.Id as Uid, u.Name as Name, u.Culture as Culture, 
+    u.Image as Image, u.Email as Email,
+    u.FirstTime.Dashboard as FirstTimeDashboard,
+    u.FirstTime.Library as FirstTimeLibrary,
+    u.FirstTime.Item as FirstTimeItem,
+    u.FirstTime.Box as FirstTimeBox, 
+    
+    uu.Id as UniversityWrapperId,
+    uu.Name as LibName,
+    uu.Image as LibImage,
+    coalesce(uu.DataUnversity.Id,uu.Id) as UniversityId
+    from User u left join u.University uu
+    where u.MembershipId= :MembershipUserId
+    ]]>
+  </query>
+  <!--Used for log in -->
+  <query name="GetUserByFacebookId" read-only="1">
+    <![CDATA[
+    select u.Id as Uid, u.Name as Name,u.Culture as Culture, 
+    u.Image as Image, u.Email as Email,
+    u.FirstTime.Dashboard as FirstTimeDashboard,
+    u.FirstTime.Library as FirstTimeLibrary,
+    u.FirstTime.Item as FirstTimeItem,
+    u.FirstTime.Box as FirstTimeBox, 
+    
+    uu.Id as UniversityWrapperId,
+    uu.Name as LibName,
+    uu.Image as LibImage,
+    coalesce(uu.DataUnversity.Id,uu.Id) as UniversityId
+    from User u left join u.University uu
+    where u.FacebookId = :FacebookId
+    and u.IsRegisterUser =1
+    ]]>
+  </query>
+<!--Used for login via email-->
+  <query name="GetUserByEmail" read-only="1">
+    <![CDATA[
+    select u.Id as Uid, u.Name as Name,u.Culture as Culture, 
+    u.Image as Image, u.Email as Email,
+    u.FirstTime.Dashboard as FirstTimeDashboard,
+    u.FirstTime.Library as FirstTimeLibrary,
+    u.FirstTime.Item as FirstTimeItem,
+    u.FirstTime.Box as FirstTimeBox, 
+    
+    uu.Id as UniversityWrapperId,
+    uu.Name as LibName,
+    uu.Image as LibImage,
+    coalesce(uu.DataUnversity.Id,uu.Id) as UniversityId
+    from User u left join u.University uu
+    where u.Email= :Email
+    and (MembershipId is not null or FacebookId is not null)
+    ]]>
+  </query>
+
+ 
+  <sql-query name="GetUserRelationToBox" read-only="1" resultset-ref="UserRelationType">
+    <![CDATA[
+    select top(1) type from (
+     select usertype as type from zbox.UserBoxRel 
+        where boxid = :BoxId and userid = :UserId
+        union
+        select 1 as type from zbox.Message
+        where TypeOfMsg = 2 and RecepientId = :UserId and BoxId = :BoxId
+	    and isActive = 1) t
+	    order by 1 desc
+    ]]>
+  </sql-query>
+
+  <!--<sql-query name="GetUserFriendsEmailByPrefix" read-only="true">
+    <![CDATA[
+    select  u.userid as Uid,u.UserName as Name 
+    from zbox.userboxrel ub 
+    join zbox.box b on ub.boxid  = b.boxid
+    join zbox.userboxrel ub2 on b.boxid = ub2.boxid
+    join zbox.users u on u.userid = ub2.userid
+    where ub.userid = :UserId
+    and b.isdeleted = 0
+    and ub.usertype >1
+    and ub2.usertype > 1
+    and ub2.userid != :UserId
+    group by u.userid ,u.UserName  ,u.UserImage 
+    
+    ]]>
+  </sql-query>-->
+
+  <query name="GetUserPublicData">
+    <![CDATA[
+    select u.id as Uid , u.Name as Name,u.Image as Image
+     from User u where u.Id=:UserId
+    ]]>
+  </query>
+
+  <!--<sql-query name="GetUserFriends" read-only="true" resultset-ref="PublicUserDto">
+    <![CDATA[
+    select  u.userid as Uid,u.UserName as Name ,u.UserImage as Image 
+    from zbox.userboxrel ub 
+    join zbox.box b on ub.boxid  = b.boxid
+    join zbox.userboxrel ub2 on b.boxid = ub2.boxid
+    join zbox.users u on u.userid = ub2.userid
+    where ub.userid = :UserId
+    and b.isdeleted = 0
+    and ub2.userid != :UserId
+    group by u.userid ,u.UserName  ,u.UserImage 
+    order by u.UserName
+    
+    ]]>
+  </sql-query>-->
+
+  <!--<query name="GetUserInvites">
+    <![CDATA[
+    select b.Uid, b.Name, owner.Name,b.Picture
+    from Box b join b.UserBoxRel ub join b.Owner owner
+    where b.IsDeleted = 0
+    and ub.UserRelationshipType = 1
+    and ub.UserId = :UserId
+    ]]>
+  </query>-->
+
+
+  <!--account settings-->
+  <query name="GetUserAccountSettings">
+    <![CDATA[
+    select u.Name as Name,
+    u.ImageLarge as Image, 
+    v.Name as University,
+    v.Image as UniversityPic,
+    u.Email as Email,
+    u.Culture as Language,
+    u.Quota.AllocatedSize as AllocatedSize, u.Quota.UsedSpace as UsedSpace
+    from User u left join u.University v
+    where u.Id = :UserId
+    ]]>
+  </query>
+
+  <!--End Account settings-->
+  
+  <sql-query name="GetLocationByIP">
+    <![CDATA[
+    select country_code2  from zbox.ip_range 
+    where ip_from <= :IP and :IP <= ip_to
+    ]]>
+  </sql-query>
+</hibernate-mapping>

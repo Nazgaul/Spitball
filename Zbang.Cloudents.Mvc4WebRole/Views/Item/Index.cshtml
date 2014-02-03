@@ -1,0 +1,177 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model Zbang.Zbox.ViewModel.DTOs.ItemDtos.ItemWithDetailDto
+<div id="item" class="page itemPage" data-data="@ViewBag.data">
+    <div class="leftPanel lFloat">
+        <div class="itemTop">
+            <div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>
+            <div class="itemNameWpr">
+                <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, click: renameItem, attr: { title: itemName, 'data-name': itemName }"></span></div>
+            </div>
+            <div class="itemOwner calloutTrgr elps" data-bind="text: ownerName, attr: { 'data-img': ownerImage, 'data-name': ownerName, 'data-uid': ownerId }"></div>
+            <span class="lFloat" data-bind="text: update"></span>
+            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: !deleteAllow()">@ItemsResources.Flag</button>
+            <div class="actions">
+                <span title="@SharedResources.Views" class="lFloat views" data-bind="text: numberOfViews"></span>
+                <span title="@ItemsResources.Downloads" id="item_down" class="lFloat downloads"></span>
+                <div id="rateContainer" class="rFloat rateContainer">
+                    <span class="stars">
+                        <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
+                    </span>
+                    <button type="button" id="rateBtn" class="rateBtn">@ItemsResources.Rate</button>
+                    <div id="rateBubble" class="bubble">
+                        <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
+                        <ul class="rateList">
+                            <li id="star5" class="star">5</li>
+                            <li id="star4" class="star star4">4</li>
+                            <li id="star3" class="star star3">3</li>
+                            <li id="star2" class="star star2">2</li>
+                            <li id="star1" class="star star1">1</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h3 class="sectionHeader">@ItemsResources.Additional</h3>
+        <ul id="item_moreFiles" class="moreFilesList" data-bind="foreach: items">
+            <li data-bind="css: { select: select }" class="moreFilesItem">
+                <a data-navigation="item" data-bind="attr: { href: itemUrl }">
+                    <div class="moreFilesThumb" data-bind="text: extension, css: extensionColor"></div>
+                    <div class="moreFilesData">
+                        <div class="elps moreFilesName boldFont" data-bind="text: nameNoType"></div>
+                        <div class="elps" data-bind="text: uploader"></div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="itemRight">
+        <div class="itemActions topBar">
+            <div class="middleActions">
+                <ul class="middleActionList">
+                    <li class="middleActionItem"><button type="button" class="itemDownload iconTop" id="item_DL" data-link="@Url.RouteUrl("ItemDownload")">@ItemsResources.Download</button></li>
+                    <li class="middleActionItem"><button type="button" data-bind="click: fullscreen" class="fullscreen iconTop">@ItemsResources.FullScreen</button></li>
+                    <li class="middleActionItem">
+                        @*<button type="button" class="itemPrint iconTop" id="item_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
+                        <input class="checkbox" type="checkbox" id="itemPrint" data-ddcbox="itemPrint" />
+                        <label for="itemPrint" class="itemPrint iconTop" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</label>
+                        <div class="printDDWpr">
+                            <div class="dropDown printDD" data-dropdown="itemPrint">
+                                <div class="arrow printArrow"></div>
+                                <h4><button type="button" id="item_P" data-link="@Url.Action("Print", "Item")" class="iconTxt">שלח למדפסת שלך</button></h4>
+                                <div class="printTxt">או הדפס באמצעות:</div>
+                                <div class="printTxt2">
+                                    מערכת
+                                    <a href="#">עותקים</a>
+                                    מאפשרת לנהל, לשתף ולהזמין חומרים מודפסים בכל סוגי הגימור,
+                                    <br />
+                                    איכותי מתקדם ובמחיר של 8 אג' לעמוד.
+                                </div>
+                                <button type="button" id="Otakim_P" class="btn3">שלח להדפסה בעותקים</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="middleActionItem">
+                        <input id="commentToggle" type="checkbox" class="commentsToggleCb" />
+                        <label id="commentToggleLabel" data-showcomments="@ItemsResources.ShowComments" data-hidecomments="@ItemsResources.HideComments"
+                               for="commentToggle" class="commentBtn iconTop">
+                            @ItemsResources.Comments
+                        </label>
+                    </li>
+                    <li class="middleActionItem"><button type="button" class="itemDelete iconTop" id="item_Del" data-bind="click: deleteItem,visible:deleteAllow()">@ItemsResources.Delete</button></li>
+
+                </ul>
+            </div>
+
+            <section class="shareBtn rFloat">
+                <input class="checkbox" type="checkbox" id="itemShare" data-ddcbox="itemShare" />
+                <label for="itemShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
+                <div class="dropDown shareDD" data-dropdown="itemShare">
+                    <label class="closeItem rFloat" for="itemShare"></label>
+                    <div class="arrow shareArrow"></div>
+                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
+                    <div class="shareTxt">@SharedResources.ShareUsing</div>
+                    <ul class="shareList">
+                        <li class="shareItem"><button type="button" id="item_FS" class="fbShare">@SharedResources.Facebook</button></li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="shareItem"><button type="button" id="item_msg" class="emailShare">@SharedResources.Email</button></li>
+                        }
+                    </ul>
+                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                    <input type="text" id="item_CL" class="linkShare elps" readonly="readonly" data-bind="value: copyLink" />
+                </div>
+            </section>
+
+            <a class="backWpr elps lFloat" data-navigation="Box" data-bind=" attr: { href: boxurl }">
+                <div>@ItemsResources.Backto</div>
+                <h2 class="semiFont" data-bind="text: boxName"></h2>
+            </a>
+        </div>
+
+        <div class="itemPreview" id="itemPreview">
+            <div class="previewWrapper" id="previewWrapper"></div>
+        </div>
+        <form id="AddAnotation" class="addAnotation">
+            <img class="lFloat" width="32" height="32" alt="" />
+            <div class="annotateContent">
+                <div id="annotator" class="annotator boldFont elps"></div>
+                <textarea class="inputText" name="comment"></textarea>
+                <div class="rFloat btnWpr">
+                    <button type="button" class="btn1 btnCancel">@SharedResources.Cancel</button>
+                    <button type="submit" class="btn1">@SharedResources.Submit</button>
+                </div>
+            </div>
+
+        </form>
+        <div id="annEmptyState" class="annotationEmpty">
+            <h2 class="boldFont">@ItemsResources.AddingComment</h2>
+            <div>@ItemsResources.SimplyClick</div>
+            <div>@ItemsResources.MouseCursor</div>
+            <div>@ItemsResources.OverDoc</div>
+        </div>
+    </div>
+    <script type="text/html" id="anotationTmpl" class="anotationTmpl">
+
+        <div class="readView">
+            @*add class author here if user is author of comment*@
+            <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
+            <div class="annotateContent">
+                <div class="annotator boldFont elps">{{userName}}</div>
+                @*<span class="annotateDate">{{date}}</span>*@
+                <div class="annotationTextWpr">
+                    <div class="annotationText">{{comment}}</div>
+                    <button type="button" class="show-more">... @SharedResources.ContinueReading</button>
+                    @*<div class="show-less">Show less</div>*@
+                </div>
+                @*<input class="annnotateAction" type="button" value="Reply" />*@
+            </div>
+            <button class="deleteBtn" type="button"></button>
+        </div>
+    </script>
+    @*<script type="text/html" id="anotationReplyTmpl">
+            <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
+                <div class="rFloat annotateContent">
+                    <span class="annotator elps">{{userName}}</span>
+                    <span class="annotateDate">{{date}}</span>
+                    <div class="annotationText">{{comment}}</div>
+                </div>
+        </script>*@
+</div>
+<div class="itemFulscrn" id="itemFulscrn">
+    <button type="button" class="exitFulscrn" id="exitFulscrn"></button>
+    <button type="button" class="itemPrev" id="itemPrev" title="Previous document"></button>
+    <button type="button" class="itemNext" id="itemNext" title="Next document"></button>
+    <div class="modal2" id="itemModel"></div>
+</div>
+
+@*@if (Request.IsAjaxRequest())
+    {
+            @Html.Script2("item")
+    }
+    @section scripts {
+        @Html.Script2("item")
+    }*@

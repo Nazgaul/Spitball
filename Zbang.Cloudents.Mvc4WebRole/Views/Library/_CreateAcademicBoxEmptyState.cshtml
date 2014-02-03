@@ -1,0 +1,32 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+
+<div class="emptyLib" data-bind="css: { admin: $('#univeristyName').data('id') === parseInt(cd.userDetail().id, 10) }">
+    <h2 class="semiFont">@MainViewResources.SomethingMissing</h2>
+    <div class="libEmptyWpr">
+        <div class="libEmpty">
+            <h2 class="semiFont">@MainViewResources.FillGap</h2>
+            <h2 class="semiFont">@MainViewResources.CreateCourse</h2>
+            <form data-bind="submit: createAcademicBox">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false)
+                @Html.LabelFor(m => m.CourseName)
+                @Html.ValidationMessageFor(m=>m.CourseName)
+                @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText" })
+
+                @Html.LabelFor(m => m.CourseId)
+                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText" })
+
+                @Html.LabelFor(m => m.Professor)
+                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText" })
+               
+
+                <input type="submit" class="btn1"  value="@DialogResources.Create"/>
+            </form>
+        </div>
+    </div>
+    <div class="erase">
+        @SharedResources.Or&nbsp;<button class="actionText" type="button" data-bind="click: deleteNode">@SharedResources.Delete</button>&nbsp;@MainViewResources.ThisDepartment
+    </div>
+</div>

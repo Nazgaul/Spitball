@@ -1,0 +1,21 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Dashboard.Resources;
+<h4 class="sectiontitle">
+    @IndexResources.Tags
+</h4>
+<div id="TagsSection" class="tagsArea" data-strap="dashboardTags">
+    <div class="inputTag">
+        <input class="tagSearch inputText" type="text" id="tagFiller" placeholder="@IndexResources.TypeTag" />
+    </div>
+    @*tagSearch*@
+    <ol id="tagtree" class="tagsList">
+        <!-- ko template: { name:'tags-user-template', foreach: tags } -->
+        <!-- /ko -->
+        <li class="seeMore" data-bind="click: moreTags, visible: moreResultExists"><span>@IndexResources.SeeMore</span>&nbsp;&darr;</li>
+    </ol>
+</div>
+@*@{Html.RenderAction("Tags", "Global");}*@
+@*<script type="text/javascript">
+    $(function () {
+        new TagsViewModelWrapper();
+    });
+</script>*@

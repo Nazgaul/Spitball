@@ -1,0 +1,22 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.Notification
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+<div class="settingsTab notifications" id="Notification">
+    <ul class="boxesList" data-bind="template : {name: 'notification-template', foreach:boxes }"></ul>
+</div>
+<script type="text/html" id="notification-template">
+    <li>
+        <div class="settingsBox">
+            <a class="elps semiFont" data-bind="text: name, attr : {href : url }"></a>
+            <div>@SharedResources.Owner:&nbsp;<span data-bind="text:owner"></span></div>
+        </div>
+        <div class="select rFloat">
+            @Html.LabelFor(m => m.NotificationSettings)
+               <select class="inputText" data-bind="value: notification, event: { change: $root.selectChange}">
+                <option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</option>
+            </select>
+        </div>
+</script>

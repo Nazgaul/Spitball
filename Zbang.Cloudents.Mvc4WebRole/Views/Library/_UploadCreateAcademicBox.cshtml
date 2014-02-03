@@ -1,0 +1,30 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div id="createAcademicBoxDialog" title="@DialogResources.CreateCourse">
+    @using (Html.BeginForm("CreateBox", "Library", FormMethod.Post, new { @class = "type current", id = "Academic" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="section">
+            <div class="courseName">
+                @*@Html.LabelFor(m => m.CourseName, new { @class = "required" })*@
+                @Html.LabelFor(m => m.CourseName)
+                @Html.ValidationMessageFor(m => m.CourseName)
+                @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", id = "academicBoxName" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.CourseId)
+                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText" })
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="professor">
+                @Html.LabelFor(m => m.Professor)
+                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText" })
+            </div>
+        </div>
+        <input type="submit" class="btn1 next" value="@DialogResources.Create" />
+    }
+</div>

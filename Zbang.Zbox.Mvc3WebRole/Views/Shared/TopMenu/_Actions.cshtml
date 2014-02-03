@@ -1,0 +1,20 @@
+﻿  <!-- ko stopBinding: true -->
+<nav class="headernav" id="headerNav" data-strap="pendingInvites">
+    <a href="javascript:void(0)" class="Upload navLinks" data-strap="upload" data-stage="start">@Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources.SharedResources.PlusUpload</a>
+
+   
+    <a href="javascript:void(0)" class="navLinks newInvites" id="invites">@Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources.SharedResources.Notifications&nbsp;
+        <span class="invitesCounter" data-bind="notvisible: invites().length === 0, text: invites().length">0</span></a>
+    <ul id="invitesList" class="userInvites" data-bind="template : {name: 'invite-list-template', foreach:invites}">
+    </ul>
+    
+</nav>
+<!-- /ko -->
+
+<script type="text/html" defer="defer" id="invite-list-template">
+    <li>
+        <a data-bind="attr:{ href: '@Url.Action("Index", "Box")?boxuid=' + id }">
+            <span class="invboxName" data-bind="text: name"></span>
+            <span class="invboxOwner">@Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources.SharedResources.Owner:&nbsp;<span class="ownerName elps" data-bind="text:owner"></span></span>
+        </a></li>
+</script>

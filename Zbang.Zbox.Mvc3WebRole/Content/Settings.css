@@ -1,0 +1,407 @@
+﻿input[type="radio"] {
+    display:none;
+}
+
+input[type="radio"] + label {
+    display:inline;
+    font-size: 13px;
+}
+
+input[type="radio"] + label:before {
+    content: '';
+    display:inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(/Images/radio.png) -17px 0 no-repeat;
+    vertical-align: middle;
+}
+
+input[type="radio"]:checked + label:before {
+    content: '';
+    background-position: 0 0;
+}
+
+
+.settingsMenu {
+    float: left; /*rtl*/
+    width: 263px;
+    background-color: #e8e4e6;
+    /*min-height: 625px;*/
+    min-height: 658px;
+    margin: -15px 0 -19px -17px; /*rtl*/
+    
+}
+    .settingsMenu .selected
+    {
+        font-weight: bold;
+        color: #952262;
+    }
+    .settingsMenu ul
+    {
+        margin: 25px 0 0 23px; /*rtl*/
+    }
+    .settingsMenu li
+    {
+        font-size: 15px;
+        color: #681744;
+        margin-bottom: 26px;
+        cursor: pointer;
+    }
+    
+.settingsContent {
+    overflow: hidden;
+    padding: 10px 0 0 37px; /*rtl*/
+}
+    .settingsContent label
+    {
+        width: 100px;
+        font-size: 15px;
+        color: #67491c;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .settingsContent .btn1
+    {
+        /*margin: 0 13px 0 -4px; rtl*/
+    }
+
+    .settingsContent .seeMore
+    {
+        float: none;
+    }
+    
+
+/*#region profile info */
+/*.profileInfo
+{
+    display: none;
+}*/
+    .profileInfo .section
+    {
+        margin-top: 32px;
+    }
+    .profileInfo label
+    {
+        width: 122px;
+    }
+
+    .profileInfo .inputText
+    {
+        width: 204px;
+        margin-top: -6px;
+        height: 29px;
+    }
+
+    .profileInfo img
+    {
+        box-shadow: 2px 2px 2px rgba(74, 20, 50, .5); /*rtl*/
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 3px; /*needed in order to view the bottom box-shadow (caused by vertical-align)*/
+    }
+    .profileInfo .photoBtns
+    {
+        display: inline-block;
+        margin-left: 5px; /*rtl*/
+    }
+
+.photoBtns button
+{
+    display: block;
+    margin-bottom: 15px;
+    width: 104px;
+    padding: 3px 5px;
+}
+.schoolSection
+{
+    margin: 34px 0 31px;
+}
+.schoolSection .inputText
+{
+    width: 205px;
+    margin-top: -4px;
+    height: 25px;
+} 
+
+/*#endregion */
+
+/*#region account settings */
+.accountSettings
+{
+    display: none;
+}
+    .accountSettings .section
+    {
+        margin-top: 32px;
+    }
+    
+    .accountSettings .inputText
+    {
+        width: 179px;
+    }
+    .accountSettings .btn4
+    {
+        padding: 3px 10px;
+        margin-top: -2px;
+    }
+.sectionHeader
+{
+    margin: 30px 0 -9px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #67491c;
+}
+
+.sectionPrivacy
+{
+    margin: 27px 0 30px;
+}
+/*#region TEMPORARILY ON HOLD */
+/*.emails
+{
+    display: inline-block;
+    margin-left: -2px; / *rtl* /
+}
+.emailList li
+{
+    margin-bottom: 12px;
+}
+.emailList li:first-child button
+{
+    display: none;
+}
+
+.emailList .seeMore
+{
+    display: inline-block;
+}
+.emailList + .seeMore
+{
+    display: block;
+    margin-left: 5px; / *rtl* /
+}
+.addEmail {
+    display: none;
+    margin-bottom: 3px;
+}
+    .addEmail .seeMore
+    {
+        margin-left: 4px; / *rtl* /
+    }
+    .addEmail .inputText
+    {
+        width: 205px;
+        margin-top: 10px;
+        height: 28px;
+    }
+    .addEmail .btn4
+    {
+        min-width: 53px; / *override default btn rule* /
+        margin-left: 8px; / *rtl* /
+    }*/
+
+
+/*#endregion */
+
+/*#region TEMPORARY design - WILL BE REPLACED BY ABOVE at some point */
+.accountSettings .seeMore
+{
+    display: block;
+    margin-top: 12px;
+}
+
+.accountSettings .btn1
+{
+    margin-top: 30px;
+}
+.changeEmail
+{
+    display: inline-block;
+}
+.newEmail
+{
+    display: none;
+    margin-top: 12px;
+}
+/*.changePwd span
+{
+    display: none;
+}*/
+.changePwd span + input
+{
+    display: block;
+}
+
+
+/*#endregion */
+
+
+.changePwd
+{
+    display: none;
+}
+    .changePwd.show
+    {
+        display: inline-block;
+    }
+
+    .changePwd .inputText
+    {
+        width: 205px;
+        height: 28px;
+        margin: 0 5px 5px 0; /*rtl*/
+    }
+
+    .changePwd input:first-child
+    {
+        display: block;
+        margin: -12px 0 21px; /*override margin for first input*/
+    }
+
+
+/*#endregion */
+
+/*#region manage friends */
+.manageFriends
+{
+    display: none;
+}
+/*#endregion */
+
+/*#region storage */
+.storage
+{
+    display: none;
+}
+
+    .storage .header
+    {
+        font-size: 15px;
+        color: #67491c;
+        margin: 2px 0 11px -1px; /*rtl*/
+    }
+.bar
+{
+    width: 550px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #ebebeb;
+    margin-bottom: 39px;
+}
+    .bar .your
+    {
+        float: left; /*rtl*/
+        width: 215px; /* only for DESIGN*/
+        height: 20px; /* only for DESIGN*/
+        background-color: #dc552a;
+        border-radius: 4px 0 0 4px; /*rtl*/
+    }
+    /*temporarily removed from markup*/
+    /*width and height properties only form design purposes*/
+    /*.bar .shared
+    {
+        float: left; 
+        width: 75px;
+        height: 20px;
+        background-color: #e5a13d;
+    }*/
+.key
+{
+    margin-bottom: 32px;
+}
+    
+.key > span:before
+{
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #dc552a;
+    margin-right: 10px; /*rtl*/
+}
+/*temporarily removed from markup*/
+/*.key .shared:before 
+{
+    content: '';
+    background-color: #e5a13d;
+}*/
+.key .free:before
+{
+    content: '';
+    background-color: #ebebeb;
+}
+
+.key .percent
+{
+    font-weight: bold;
+    margin: 0 27px 0 2px; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region notifications */
+.notifications
+{
+    display: none;
+}
+
+    .notifications .box
+    {
+        display: inline-block;
+        width: 300px;
+        margin: 3px 0 0 5px; /*rtl*/
+    }
+    .notifications .select
+    {
+        display: inline-block;
+        vertical-align: top;
+        margin: -1px 0 0 2px; /*rtl*/
+    }
+    .notifications .boximage
+    {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+        margin: 0; /* override boximage class from box.css*/
+    }
+
+    .notifications .boxName
+    {
+        font-size: 15px;
+        font-weight: bold;
+        color: #745220;
+        max-width: 290px;
+        display: inline-block;
+    }
+    
+    .notifications label
+    {
+        vertical-align: text-top;
+        font-size: 13px;
+        color: #43392b;
+        display: inline;
+    }
+    .notifications input
+    {
+        width: 214px;
+    }
+    .notifications .inputText
+    {
+        width: 180px;
+    }
+.boxesList
+{
+    margin: 6px 0 39px 1px; /*rtl*/
+}
+.boxesList li
+{
+    margin-bottom: 18px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #dfd5da;
+}
+/*#endregion */
+
+
+
+

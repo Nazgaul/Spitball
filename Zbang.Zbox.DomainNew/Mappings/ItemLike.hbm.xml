@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="ItemLike" table="ItemLike">
+    <id name="Id" column="ItemLikeId">
+      <generator class="assigned"></generator>
+    </id>
+
+    <many-to-one name="Item" lazy="false"  class="Item" column="ItemId" not-null="true" foreign-key="itemIdItemLike" unique-key="likeItemUser" />
+    <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdItemLike" unique-key="likeItemUser"/>
+    <property name="Like" column="ILike" not-null="true"/>
+  </class>
+</hibernate-mapping>

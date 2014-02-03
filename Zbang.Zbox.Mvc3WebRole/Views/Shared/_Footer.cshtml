@@ -1,0 +1,16 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Culture
+<footer>
+    <ul class="footer">
+        <li>&copy;@DateTime.UtcNow.Year.ToString()&nbsp;@FooterResources.ZbangIt&nbsp;V @VersionHelper.CurrentVersion()</li>
+        <li><a href="@Url.Action("AboutUs", "Home")">@FooterResources.AboutUs</a></li>
+        <li><a href="@Url.Action("ContactUs", "Home")">@FooterResources.ContactUs</a></li>
+        <li><a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a></li>
+        <li class="removePipe"><a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a></li>
+        @if (ViewBag.Language != null && ViewBag.Language)
+        {
+            <li class="addPipe">@Html.ActionLink(Languages.EnglishName, "ChangeLanguage", new { language = Languages.GetLanguageDetailByName(Languages.EnglishName).Culture, source = ViewBag.source }, new { @class = "eng-flag", title = "English site" })</li>
+            <li class="removePipe">@Html.ActionLink(Languages.HebrewName, "ChangeLanguage", new { language = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture, source = ViewBag.source }, new { @class = "heb-flag", title = "Hebrew site" })</li>
+        }
+    </ul>
+</footer>

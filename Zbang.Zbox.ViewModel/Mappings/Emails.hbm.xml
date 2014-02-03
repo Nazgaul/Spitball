@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" schema="Zbox"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+  <!--New Emails-->
+  <sql-query name="GetUserListByNotificationSettings" read-only="1">
+    <![CDATA[
+      select distinct u.userid as UserId,u.email as Email, u.culture as Culture
+      from zbox.userboxrel ub 
+      join zbox.users u on ub.userid = u.userid
+      join zbox.box b on ub.boxid = b.boxid
+      where notificationSettings = :Notification
+      and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:NotificationTime,b.updateTime)) >0
+    ]]>
+  </sql-query>
+  <sql-query name="GetBoxPossibleUpdateByUser" read-only="1">
+    <![CDATA[
+    select distinct b.boxid as BoxId,b.uid as BoxUid, b.boxname as BoxName
+    from zbox.userboxrel ub 
+    join zbox.box b on ub.boxid = b.boxid
+      where ub.userid = :UserId
+      and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,b.updateTime)) >0
+    ]]>
+  </sql-query>
+ 
+  <sql-query name="GetItemUpdateByBox" read-only="1">
+    <![CDATA[
+    select u.username as UserName, u.userid as UserId, i.itemid as Uid,i.name as Name
+    from zbox.item i inner join zbox.users u on u.userid = i.userid
+    where i.boxid = :BoxId
+    and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,i.creationTime)) >0
+    ]]>
+  </sql-query>
+  <sql-query name="GetCommentUpdateByBox" read-only="1">
+    <![CDATA[
+    select u.userName as UserName, u.userid as UserId
+    from zbox.question q 
+    join Zbox.Users u on q.UserId = u.userid
+    where q.boxid = :BoxId
+    and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,q.creationTime)) >0;
+    ]]>
+  </sql-query>
+  <sql-query name="GetAnswerUpdateByBox" read-only="1">
+    <![CDATA[
+    select u.userName as UserName, u.userid as UserId
+    from zbox.answer a 
+    join Zbox.Users u on a.UserId = u.userid
+    where a.boxid = :BoxId
+    and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,a.creationTime)) >0;
+    ]]>
+  </sql-query>
+  <sql-query name="GetMembersUpdateByBox" read-only="1">
+    <![CDATA[
+    select u.userName as UserName, u.userid as UserId  
+    from zbox.UserBoxRel ub
+    inner join zbox.users u on u.userid = ub.userid
+    where ub.UserType = 2
+    and ub.BoxId = :BoxId
+    and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,ub.[UpdateTime])) > 0
+    ]]>
+  </sql-query>
+  
+  
+  <!--FlagBadItemSection-->
+  <query name="GetBadItemUserDetail" read-only="1">
+    <![CDATA[
+    select u.Name as Name, u.Email as Email
+    from User u 
+    where u.Id = :UserId
+    ]]>
+  </query>
+  <query name="GetBadItemDetail" read-only="1">
+    <![CDATA[
+      select 
+       i.Id as Uid, 
+       i.Name as ItemName,
+       i.Box.Id as BoxId
+       from Item i where i.IsDeleted = 0 and i.Id = :ItemId
+    ]]>
+  </query>
+</hibernate-mapping>

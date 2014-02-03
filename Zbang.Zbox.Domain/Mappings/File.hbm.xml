@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"                         
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="File"
+         table="[File]"
+         lazy="true">
+
+    <id name="FileId">
+      <generator class="native"/>
+    </id>
+
+    <property name="FileName" not-null="true"/>    
+
+    <property name="BlobAddressUri" not-null="false"/>
+
+    <property name="ThumbnailBlobAddressUri" not-null="false"/>
+    
+    <property name="CreationTimeUtc" not-null="false"/>
+
+    <property name="CreationTimeEpochMillis" not-null="false" />
+
+    <property name="BoxId" not-null="false"/>
+
+    <property name="ContentType" not-null="true"/>
+
+    <property name="Length" not-null="true"/>
+
+    <property name="IsDeleted" not-null="true"/>
+
+    <property name="UploaderId" not-null="true"/>
+
+  </class>
+  
+</hibernate-mapping>

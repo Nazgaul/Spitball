@@ -1,0 +1,93 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+<div class="firstTimeDialog">
+    @if (ViewBag.firstTimeDashboard != null && ViewBag.firstTimeDashboard)
+    {
+        <div id="firstTimeMyDialog" style="display: none" data-state="@FirstTime.Dashboard">
+            <div class="ft-msg ft-navigate">
+                <div>@_FirstTimeResources.Navigate</div>
+                <span>@_FirstTimeResources.QuicklyChange</span>
+            </div>
+            <div class="ft-msg ft-newBox">
+                <div>@_FirstTimeResources.NewBox</div>
+                <span>@_FirstTimeResources.CreateBox</span>
+            </div>
+            <div class="ft-footer">
+                <div>@_FirstTimeResources.QuickGuide</div>
+                <span>@_FirstTimeResources.ClickAnywhere</span>
+            </div>
+            <div class="modal2"></div>
+            <div class="modal3"></div>
+        </div>
+    }
+    @if (ViewBag.firstTimeLibrary != null && ViewBag.firstTimeLibrary)
+    {
+        <div id="firstTimeLibDialog" style="display: none" data-state="@FirstTime.Library">
+            <div class="ft-msg ft-navigate">
+                <div>@_FirstTimeResources.Navigate</div>
+                <span>@_FirstTimeResources.QuicklyChange</span>
+            </div>
+            <div class="ft-msg ft-settings">
+                <div>@_FirstTimeResources.Settings</div>
+                <span>@_FirstTimeResources.ManageAccount</span>
+            </div>
+            <div class="ft-msg ft-dept">
+                <div>@_FirstTimeResources.Department</div>
+                <span>@_FirstTimeResources.SelectDept</span>
+            </div>
+            <div class="ft-footer">
+                <div>@_FirstTimeResources.QuickGuide</div>
+                <span>@_FirstTimeResources.ClickAnywhere</span>
+            </div>
+            <div class="modal2"></div>
+            <div class="modal3"></div>
+        </div>
+    }
+    @if (ViewBag.firstTimeBox!= null && ViewBag.firstTimeBox)
+    {
+        <div id="firstTimeBoxDialog" style="display: none" data-state="@FirstTime.Box">
+            <div class="ft-msg ft-navigate">
+                <div>@_FirstTimeResources.Navigate</div>
+                <span>@_FirstTimeResources.QuicklyChange</span>
+            </div>
+            <div class="ft-msg ft-materials">
+                <div>@_FirstTimeResources.AddMaterials</div>
+                <span>@_FirstTimeResources.AddToShare</span>
+            </div>
+            <div class="ft-msg ft-friends">
+                <div>@_FirstTimeResources.Friends</div>
+                <span>@_FirstTimeResources.SeeWho</span>
+            </div>
+            <div class="ft-footer">
+                <div>@_FirstTimeResources.QuickGuide</div>
+                <span>@_FirstTimeResources.ClickAnywhere</span>
+            </div>
+            <div class="modal2"></div>
+            <div class="modal3"></div>
+        </div>
+    }
+    @if (ViewBag.firstTimeItem != null && ViewBag.firstTimeItem)
+    {
+        <div id="firstTimeItemDialog" style="display: none" data-state="@FirstTime.Item">
+            <div class="ft-msg ft-details">
+                <div>@_FirstTimeResources.DetailsActions</div>
+                <span>@_FirstTimeResources.ViewDetails</span>
+            </div>
+            <div class="ft-msg ft-owner">
+                <div>@_FirstTimeResources.Owner</div>
+                <span>@_FirstTimeResources.SeeUploader</span>
+            </div>
+            <div class="ft-msg ft-discussion">
+                <div>@_FirstTimeResources.Discussion</div>
+                <span>@_FirstTimeResources.JoinConversation</span>
+            </div>
+            <div class="ft-footer">
+                <div>@_FirstTimeResources.QuickGuide</div>
+                <span>@_FirstTimeResources.ClickAnywhere</span>
+            </div>
+            <div class="modal2"></div>
+            <div class="modal3"></div>
+        </div>
+    }
+</div>

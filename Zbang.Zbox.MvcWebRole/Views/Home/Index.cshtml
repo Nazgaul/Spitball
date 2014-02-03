@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SubMenu {
+    this is submenu of home
+}
+<h2>Recent Activities</h2>
+
+@Html.ActionLink("My Boxes","Index","Boxes")

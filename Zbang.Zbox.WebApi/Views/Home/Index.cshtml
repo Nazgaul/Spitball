@@ -1,0 +1,45 @@
+﻿@model Zbang.Zbox.WebApi.Models.ApiModel
+
+@{
+    ViewBag.Title = "API Help";
+    Layout = null;
+}
+<html>
+
+<head>
+    <title>Multimi Cloud Api Reference</title>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.accordion.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="body" class="content-wrapper">
+        <h2>MultimiCloud API Help</h2>
+
+        @foreach (var group in Model.GetApis())
+        {
+            <h3>@group.Key</h3>
+
+            <div class="accordion">
+                @foreach (var api in group)
+                {
+                    
+                    <h4><a href="#">@api.HttpMethod @api.RelativePath</a></h4>
+                    <div>
+                        @foreach (var param in api.ParameterDescriptions)
+                        {
+                            
+                            <p>Parameter: <em>@param.Name</em> (@param.Source)</p>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+    <script src="~/Scripts/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-ui-1.8.23.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () { $(".accordion").accordion(); });
+    </script>
+</body>
+</html>

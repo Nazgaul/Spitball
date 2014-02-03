@@ -1,0 +1,24 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+<div id="settings" class="boxSettings popup">
+    <div class="popupWpr">
+        <div class="subTitle topContent"><q data-bind="text: name"></q>&nbsp;@DialogResources.Settings</div>
+
+        <div class="settingsForm">
+            <label for="settings_bname">@DialogResources.BoxName</label>
+            <input id="settings_bname" type="text" class="inputText" data-bind="value:name" />
+
+            <label for="settings_bnotification">@DialogResources.ChooseNotification</label>
+            <select class="inputText" id="settings_bnotification">
+                <option value="@NotificationSettings.Off.ToString("g")">@NotificationSettings.Off.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnEveryChange.ToString("g")">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceADay.ToString("g")">@NotificationSettings.OnceADay.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceAWeek.ToString("g")">@NotificationSettings.OnceAWeek.GetEnumDescription()</option>
+            </select>
+           @* <button data-event="submit" class="btn1 rFloat">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.Save</button>*@
+        </div>
+
+        <button data-bind="click: removeBA, text: removeB" class="unfollow"></button>
+    </div>
+</div>

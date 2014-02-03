@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+  <resultset name="ActivityDto">
+    <return-scalar column="commentId" type="long"/>
+    <return-scalar column="parentId" type="long"/>    
+    <return-scalar column="userName" type="string"/>
+    <return-scalar column="userImg" type="string"/>
+    <return-scalar column="userUid" type="long"/>
+    <return-scalar column="date" type="DateTime"/>
+    <return-scalar column="boxName" type="string"/>
+    <return-scalar column="boxUid" type="string"/>
+    <return-scalar column="itemUid" type="string"/>
+    <return-scalar column="itemName" type="string"/>
+    <return-scalar column="comment" type="string"/>
+    <return-scalar column="discriminator" type="string"/>
+  </resultset>
+  
+  <sql-query name="GetBoxComments" resultset-ref="ActivityDto">
+    <![CDATA[
+    select cr.CommentRepliesId as commentId, cr.ParentId as parentId, 
+    author.UserName as userName, author.UserImage as userImg, author.userid as userUid,
+    cr.CreationTime as date,
+    b.BoxName as boxName, b.Uid as boxUid,
+	  i.ItemId as itemUid,i.Name as itemName,
+	  cr.CommentText as comment, 'Comment'  as  discriminator
+    from 
+    zbox.Box b join zbox.Comment c on b.BoxId = c.BoxId
+    left join zbox.Item i on i.ItemId = c.ItemId
+    join zbox.CommentReplies cr on (cr.CommentRepliesId = c.CommentId or cr.ParentId = c.CommentId ) and cr.IsDeleted = 0
+    join zbox.Users author on author.UserId = cr.AuthorId
+    where b.BoxId = :boxid
+    order by date desc
+    ]]>  
+  </sql-query>
+</hibernate-mapping>

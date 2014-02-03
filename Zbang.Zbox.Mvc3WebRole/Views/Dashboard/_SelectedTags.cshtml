@@ -1,0 +1,10 @@
+﻿<div id="TagSelectedSection" class="tagSelectedSection clearfix" data-strap="selectedTags" data-bind="notvisible: dontshowSection() ">
+    <ul data-bind="template: { name:'tags-selected-user-template', foreach: selectedTags  }">
+    </ul>
+</div>
+@*<script type="text/javascript">
+    $(function () {
+        new SelectedTagsViewModelWrapper();
+    });
+, visible: self.selectedTags().length>0
+</script>*@

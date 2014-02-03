@@ -1,0 +1,22 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+<div id="box_notification" class="boxNotification" title="@DialogResources.Notification">
+    <label>@DialogResources.ChooseNotification</label>
+    <select class="inputText">
+        <option value="@NotificationSettings.Off.ToString("g")">@NotificationSettings.Off.GetEnumDescription()</option>
+        <option value="@NotificationSettings.OnEveryChange.ToString("g")">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
+        <option value="@NotificationSettings.OnceADay.ToString("g")">@NotificationSettings.OnceADay.GetEnumDescription()</option>
+        <option value="@NotificationSettings.OnceAWeek.ToString("g")">@NotificationSettings.OnceAWeek.GetEnumDescription()</option>
+    </select>
+</div>
+ <!--ko if:userType()===3-->
+<div id="box_privacy" class="boxPrivacy" title="@DialogResources.PrivacySettings">
+    <label>@DialogResources.ChangePrivacy</label>
+    <select class="inputText">
+        <option value="@BoxPrivacySettings.AnyoneWithUrl.ToString("g")">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</option>
+        <option selected value="@BoxPrivacySettings.MembersOnly.ToString("g")">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</option>
+    </select>
+</div>
+<!-- /ko -->
+<input type="button" id="boxSettingsSave" class="btn1 rFloat" value="@SharedResources.Save">
+<input type="button" id="boxSettingsCancel" class="btn2 rFloat" value="@SharedResources.Cancel">

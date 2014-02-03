@@ -1,0 +1,265 @@
+﻿/* (generic) comment template */
+
+.commentDelete
+{
+    width: 15px;
+    height: 16px;
+    background: url('/Images/box_sprite.png') no-repeat 0 -130px;
+    margin-top: -5px;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    right: 6px; /*rtl*/
+    top: 10px;
+}
+
+.userImg
+{
+    float: left; /*rtl*/
+    box-shadow: 1px 1px 3px rgba(74, 20, 50, 0.5); /*rtl*/
+    cursor: pointer;
+    margin: 3px 6px 0 14px; /*rtl*/
+}
+
+.commentDetails
+{
+    overflow: hidden; /* create a block formating context*/
+}
+
+.commentH1, .commentH3
+{
+    color: #745220;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.commentList .commentH1
+{
+    margin-left: 2px; /*rtl*/
+}
+
+/*.commentH1:after
+{
+    content: '•';
+    padding: 0 5px;
+}*/
+
+
+.commentTime
+{
+    font-size: 11px;
+    color: #917d5f;
+    line-height: 18px;
+    vertical-align: top;
+}
+
+.commentH2
+{
+    color: #67491c;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.commentH3
+{
+    font-size: 13px;
+    display: block;
+}
+
+.commentH4
+{
+    color: #43392b;
+}
+
+.itemThumb
+{
+    max-width: 127px;
+    height: 92px;
+    border-right: 1px solid #e7e3e5; /*rtl*/
+}
+
+.itemDetails
+{
+    display:inline-block;
+    vertical-align: top;
+    padding: 4px 0 0 4px; /*rtl*/
+}
+.commentText
+{
+    color: #42382a;
+    line-height: 17px;
+    word-wrap: break-word;
+}
+
+.commentItem
+{
+    height: 92px;
+    background-color: #f6f5f6;
+    border: 1px solid #e7e3e5;
+    margin-top: 16px;
+    cursor: pointer;
+    display:block;
+}
+
+.commentAction
+{
+    padding-top: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #681744;
+    margin-right: 7px; /*rtl*/
+}
+/* end (generic) comment template */
+
+/* rules for specific comment templates */
+.wallPosts .wallPost
+{
+    border-bottom: 1px solid #e1d7dc;
+    padding: 6px 4px 4px 0; /*rtl*/
+    margin-right: -15px; /*rtl*/
+}
+
+.wallPost:hover .commentDelete, .comment:hover .commentDelete
+{
+    display: block;
+}
+
+.commentList 
+{
+    margin-left: -4px; /*rtl*/
+}
+    .commentList .userImg
+    {
+        margin: 3px 6px 0 0; /*rtl*/
+    }
+
+    .commentList .commentText
+    {
+        margin: 5px 0 0 2px; /*rtl*/
+    }
+    .commentList .commentAction
+    {
+        margin-right: 3px; /*rtl*/
+    }
+    .commentList .commentTime
+    {
+        line-height: 17px;
+    }
+
+.commentReply
+{
+    border-bottom: 1px solid #e1d7dc;
+    padding: 8px 4px 8px 10px; /*rtl*/
+    background-color: #F6F4F5;
+}
+    li.commentReply .userImg /*used li. for extra specificity (needed)*/
+    {
+        margin: 0 5px 0 0; /*rtl need to set all margin values to override*/
+    }
+
+
+.wallPost .commentH1
+{
+    max-width: 550px;
+    font-size: 15px;    
+}
+
+.wallPost .commentH2
+{
+    max-width: 645px;
+    color: #67491C;
+    margin: -3px 0 5px 0;
+}
+.wallPost .commentH3, .wallPost .commentH4
+{
+    max-width: 500px;
+}
+
+.comment
+{
+    border-bottom: 1px solid #dfd5da;
+    padding: 8px 0 8px 10px; /*rtl*/
+    position: relative;
+}
+
+.comment .commentH1
+{
+    max-width: 220px;
+    font-size: 13px;    
+}
+
+.comment .commentH2
+{
+    max-width: 270px;
+    margin-left: 2px; /*rtl*/
+}
+
+/* end rules for specific comment templates */
+
+
+/* reply template */
+
+.wallPosts .reply .comment
+{
+    padding-left: 32px; /*rtl*/
+    margin-right: -20px; /*rtl*/
+}
+
+.commentList .reply .comment
+{
+    padding-left: 41px; /*rtl*/
+}
+
+.reply .commentText
+{
+    margin-top: 3px;
+}
+
+.commentTextarea
+{
+    padding: 6px 5px 3px 8px; /*rtl*/
+    min-height: 32px;
+    float:left; /*rtl*/
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    outline-color: transparent;
+    max-height: 500px;
+    resize: vertical;
+}
+
+.commentFocused  /* used in CommentsViewModel.js*/
+{
+    min-height: 60px;
+}
+
+
+.textAreaCtrl
+{
+    overflow: auto;
+    padding-left: 4px; /*rtl*/
+}
+
+.commentReply .btn2, .newBoxComment .btn2 
+{
+    margin: 8px 0 0 0;
+}
+
+/* end reply template */
+
+
+
+/* Box add comment */
+.newBoxComment
+{
+    margin-left: 6px; /*rtl*/
+}
+
+.newBoxComment .commentTextarea
+{
+    margin: 16px 0 8px;
+}
+
+/* end Box add comment */

@@ -1,0 +1,88 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.ItemView
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+
+@{
+    ViewBag.topbar = string.Empty;
+    ViewBag.title = true;
+    ViewBag.lowerbar = true;
+
+    ViewBag.metaTitle = Model.Name;
+    ViewBag.metaDescription = IndexResources.MetaDescription;
+}
+
+@*@section TopBar{
+
+    <a id="backToBox" href="@Url.Action("Index", "Box", new { BoxUid = Request.QueryString["BoxUid"] })" class="backTo txtshd2 ">@IndexResources.BackToBox</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="/" class="txtshd2 dashboard">@IndexResources.AllBoxes</a>
+    }
+
+    @{Html.RenderPartial("_UploadContainer");}
+}*@
+
+@section Title{
+    <div class="itemTitle">
+        <h3 id="itemName" data-type="@Model.Type" class="itemH1 elps">@Model.Name</h3>
+        <span class="version">@*Version 1.0*@</span>
+        <div>
+            <span class="itemLabel">@IndexResources.Box:</span>
+            <a class="itemTxt pipe" href="@Url.Action("Index", "Box", new { BoxUid = Request.QueryString["BoxUid"] })" id="boxName">@Model.BoxName</a>
+            <span class="itemLabel">@IndexResources.Updated:</span>
+            <span id="update" class="itemTxt">@Model.UpdateTime.ToString("d.M.yyyy")</span>
+        </div>
+        <div class="seeMore">@*Version History*@&nbsp</div>
+    </div>
+    @* section owner  *@
+    <div class="owner itemOwner txtshd2">
+        <span>
+            @* <a href="@Url.RouteUrl("FriendView", new { FriendUid = Model.OwnerUid })">*@
+            <img id="ownerImg" src="@Model.OwnerImg" alt="@IndexResources.Owner" height="50" width="50" />
+        </span>
+        <div class="details">
+            <span class="label">@IndexResources.Owner:</span><span id="ownerName" data-uid="@Model.OwnerUid" class="name elps">@Model.Owner</span>
+            <button class="msg" data-name="@Model.Owner" data-uid="@Model.OwnerUid">@IndexResources.SendMessage</button>
+        </div>
+    </div>
+
+}
+
+
+@section LowerBar{
+    <div class="boxlowerBar txtshd2">
+
+        <a id="download" href="@Url.Action("Download", new { BoxUid = Model.BoxUid, ItemUid = Model.Uid })" target="_blank" class="btnDownload"><span class="btnimage"></span>@IndexResources.Download</a>
+        <button class="btnShare" data-strap="share"><span class="btnimage"></span>@IndexResources.Share</button>
+	
+        @*<a href="/" class="btnCopy"><span class="itemBtnimage"></span>@IndexResources.Copy</a>
+        <a href="/" class="btnMove"><span class="itemBtnimage"></span>@IndexResources.Move</a>*@
+
+        <button id="delete" disabled="disabled" class="btnDelete"><span class="btnimage"></span>@IndexResources.Delete</button>
+        <button id="edit" class="btnEdit"><span class="btnimage"></span>@IndexResources.Edit</button>
+    </div>
+}
+
+<div class="itemMain clearfix" data-strap="item">
+    <button id="prev" disabled="disabled" class="btnPrev"><span class="itemBtnimage"></span></button>
+    <div class="contentWrap">
+        <div class="imgBtns">
+            <a id="print" href="@Url.Action("Print", new { BoxUid = Model.BoxUid, ItemUid = Model.Uid })" target="_blank" class="btnPrint"><span class="itemBtnimage"></span>@IndexResources.Print</a>
+            <button id="expand" class="expand"><span class="btnExpand itemBtnimage"></span>@IndexResources.ZoomView</button>
+        </div>
+        <div id="content">
+            @Html.Raw(Model.Preview)
+        </div>
+    </div>
+    <button id="next" disabled="disabled" class="btnNext"><span class="itemBtnimage"></span></button>
+</div>
+
+@{Html.RenderPartial("_Activity", @IndexResources.Comments); }
+
+@{Html.RenderAction("UserPermission", "Box", true);
+  if (!User.Identity.IsAuthenticated)
+  {
+      Html.RenderPartial("_RegisterPopUp");
+  }
+  Html.RenderPartial("_Expand");
+  Html.RenderPartial("_Share");
+}

@@ -1,0 +1,1596 @@
+﻿html
+{
+    direction: rtl;
+}
+@font-face
+{
+    font-family: 'Carmela';
+    src: url('/Content/Fonts/carmela.eot');
+    src: url('/Content/Fonts/carmela.eot?#iefix') format('embedded-opentype'), url('/Content/Fonts/carmela.woff') format('woff'), url('/Content/Fonts/carmela.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lFloat
+{
+    float: right; /*rtl*/
+}
+
+.rFloat
+{
+    float: left; /*rtl*/
+}
+
+.dotChar:after
+{
+    content: '·';
+    /*padding: 0 3px 0 1px; rtl*/
+}
+
+.inputText
+{
+    box-shadow: inset -1px 1px 2px #ddd8dc; /*rtl*/
+    padding: 0 8px 0 0; /* rtl */
+}
+
+.wrap
+{
+    padding: 0 10px 0 5px;
+}
+
+.logoVer
+{
+    margin: 13px 0 0 16px; /*rtl*/
+    float: right; /*rtl*/
+}
+
+.headernav
+{
+    float: right; /*rtl*/
+}
+
+    .headernav .navLinks, .signUp a
+    {
+        float: right; /*rtl*/
+    }
+
+    /* TODO Fix this temp code */
+    .headernav .newInvites
+    {
+        padding: 0 8px 0 30px; /*rtl*/
+    }
+
+.invitesCounter
+{
+    /* TODO Fix this temp code */
+    right: 50px; /*rtl*/
+    left: auto;
+}
+
+.userInfo, .signUp
+{
+    float: left; /*rtl*/
+}
+
+.searchContrainer
+{
+    float: left; /*rtl*/
+    margin: 9px 0 0 16px; /*rtl*/
+}
+
+    .searchContrainer input[type="text"]
+    {
+        padding: 4px 8px 5px 0; /*rtl*/
+        border-radius: 0 4px 4px 0; /*rtl*/
+        border-left: 1px solid #c6bec2; /*rtl*/
+        border-right: 0; /*rtl*/
+        float: right; /*rtl*/
+    }
+    .searchContrainer input[type="submit"], .inlineSearch input[type="submit"]
+    {
+        border-right: 1px solid #fff; /*rtl*/
+        border-left: 0;
+        border-radius: 4px 0 0 4px; /*rtl*/
+    }
+
+.userDrpArrow
+{
+    float: left; /*rtl*/
+    margin: 0 5px 0 0; /*rtl*/
+}
+
+.userMenu, .userInvites
+{
+    left: 0; /*rtl*/
+    right: auto;
+}
+
+    .userMenu li a
+    {
+        padding: 0 6px 0 0;
+    }
+
+.userInvites
+{
+    right: 45px; /* different rtl*/
+    left: auto;
+}
+/*End header*/
+
+/*Footer*/
+.footer li:after
+{
+    content: '|';
+    padding: 0 6px 0 3px; /*rtl*/
+}
+
+.footer li.addPipe:before
+{
+    content: '|';
+    padding: 0 3px 0 6px; /*rtl*/
+}
+/*End Footer*/
+
+/*Regular*/
+
+.horizontal
+{
+    border-right: 1px solid #C1BFC0; /*rtl*/
+    border-left: none; /*rtl*/
+}
+
+.horizontalfirst
+{
+    border-right: none; /*rtl*/
+    padding-right: 0; /*rtl*/
+    padding-left: 15px; /*rtl*/
+}
+
+
+/*  AUTO COMPLETE */
+ul.ui-autocomplete li
+{
+    padding: 3px 2px 0 0; /* rtl */
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl
+{
+    border-top-right-radius: 4px; /* rtl */
+    border-top-left-radius: 0; /* rtl */
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr
+{
+    border-top-left-radius: 4px; /* rtl */
+    border-top-right-radius: 0; /* rtl */
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl
+{
+    border-bottom-right-radius: 4px; /* rtl */
+    border-bottom-left-radius: 0; /* rtl */
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br
+{
+    border-bottom-left-radius: 4px; /* rtl */
+    border-bottom-right-radius: 0; /* rtl */
+}
+/*End Autocomplete*/
+
+
+.sectiontitle
+{
+    padding: 0 6px 0 0; /* rtl */
+}
+
+/*pop ups*/
+/* new css */
+.share .inviteMsg
+{
+    margin: 0 12px 61px 14px; /*rtl*/
+}
+.urlInput
+{
+    margin: 24px 11px 0 2px; /*rtl*/
+}
+.share .next, .share .cancel
+{
+    left: 16px; /*rtl*/
+    right: auto;
+}
+.share .next
+{
+    left: 96px; /*rtl*/
+    right: auto;
+}
+.addThis
+{
+    margin: -2px 20px 0 0; /*rtl*/
+}
+
+    .addThis li
+    {
+        margin: 0 0 0 4px; /*rtl*/
+    }
+
+.popupWrppr .closeDialog
+{
+    left: 14px; /*rtl*/
+    right: auto;
+}
+
+/* end new css */
+
+.fadeMe, .fadeMeTrans
+{
+    right: 0; /* rtl */
+    left: auto;
+}
+
+#SharePop, #InvitePop
+{
+    text-align: right; /* rtl-review */
+}
+
+#SharePop
+{
+    padding: 10px 27px 15px 19px; /* rtl-review */
+}
+
+#LinkPopup, #BoxPopup
+{
+    padding: 4px 8px 4px 6px; /* rtl-review */
+    text-align: right; /* rtl-review */
+}
+
+    #LinkPopup input#linkUrl, #BoxPopup input#BoxName
+    {
+        margin: 0 0 0 5px; /* rtl-review */
+        padding: 0 5px 0 0; /* rtl-review */
+    }
+
+#recipients-List > li > input
+{
+    margin: 0 4px 0 0; /* rtl-review */
+}
+
+#recipients-List > li > div
+{
+    padding: 0 4px 0 19px; /* rtl-review */
+}
+
+#InvitePop .btn-cancel
+{
+    margin: 0 0 0 35px; /* rtl-review */
+}
+
+.copyLink
+{
+    right: -1px; /* rtl-review */
+    left: auto;
+}
+
+#InvitePop .recepientsList
+{
+    float: right; /* rtl-review */
+    margin: 0 5px 13px 3px; /* rtl-review */
+}
+
+#SharePop .inputUrl
+{
+    float: right; /* rtl-review */
+    padding: 0 8px 3px 0; /* no rtl-review!! */
+}
+
+.inviteLbl
+{
+    float: right; /* rtl */
+}
+
+#CopyLink
+{
+    margin: 0 1px 0 0; /*rtl*/
+}
+
+#importContact
+{
+    left: 15px; /* rtl */
+    right: auto;
+}
+
+.delete-email img
+{
+    left: 1px; /* rtl-review */
+    right: auto;
+}
+
+/*end pop ups*/
+
+
+/* section comments */
+
+/* (generic) comment template */
+
+.commentDelete
+{
+    left: 6px;
+    right: auto;
+}
+
+.userImg
+{
+    float: right; /*rtl*/
+    box-shadow: -1px 1px 3px rgba(74, 20, 50, 0.5); /*rtl*/
+    margin: 3px 14px 0 6px; /*rtl*/
+}
+
+.commentList .commentH1
+{
+    margin: 0 2px 0 0; /*rtl*/
+}
+
+.itemThumb
+{
+    border-left: 1px solid #e7e3e5; /*rtl*/
+    border-right: 0;
+}
+
+.itemDetails
+{
+    padding: 4px 4px 0 0; /*rtl*/
+}
+
+.commentAction
+{
+    margin: 0 0 0 7px; /*rtl*/
+}
+
+/* end (generic) comment template */
+
+/* rules for specific comment templates */
+.wallPosts .wallPost
+{
+    padding: 6px 0 4px 4px; /*rtl*/
+    margin: 0 0 0 -15px; /*rtl*/
+}
+.wallPost .userImg
+{
+    margin: 3px 14px 0 6px; /*rtl*/
+}
+.commentList 
+{
+    margin: 0 -4px 0 0; /*rtl*/
+}
+    .commentList .userImg
+    {
+        margin: 3px 0 0 6px; /*rtl*/
+    }
+    .commentList .commentText
+    {
+        margin: 5px 2px 0 0; /*rtl*/
+    }
+    .commentList .commentAction
+    {
+        margin: 0 0 0 3px; /*rtl*/
+    }
+
+.commentReply
+{
+    padding: 8px 10px 8px 4px; /*rtl*/
+}
+.comment
+{
+    padding: 8px 10px 8px 0; /*rtl*/
+}
+.comment .commentH2
+{
+    margin: 0 2px 0 0; /*rtl*/
+}
+
+/* end rules for specific comment templates */
+
+
+/* reply template */
+
+.wallPosts .reply .comment
+{
+    padding: 8px 32px 8px 0; /*rtl*/
+    margin: 0 0 0 -20px; /*rtl*/
+}
+
+.commentList .reply .comment
+{
+    padding: 8px 41px 8px 0; /*rtl*/
+}
+
+.commentTextarea
+{
+    padding: 6px 8px 0 5px; /*rtl*/
+    float:right; /*rtl*/
+}
+
+
+.textAreaCtrl
+{
+    padding: 0 4px 0 0; /*rtl*/
+}
+
+/* end reply template */
+
+/* Box add comment */
+.newBoxComment
+{
+    margin: 0 6px 0 0; /*rtl*/
+}
+/* end Box add comment */
+
+/* end comments */
+
+
+/* BOXES */
+
+/*Layout*/
+.mainSection
+{
+    float: right; /*rtl*/
+}
+
+.subSection
+{
+    float: left; /*rtl*/
+}
+.school
+{
+    margin: 20px 14px 40px 0; /*rtl*/
+}
+/*End Layout*/
+/*Upload*/
+.Uploadbtn
+{
+    box-shadow: -2px 2px 2px rgba(103,73,28,.5); /* rtl */
+}
+
+.UploadbtnImg
+{
+    padding: 0 0 0 5px; /* rtl */
+}
+
+/*EndUpload*/
+/*MemberInfo*/
+
+.memberInfo img, .memberDetails
+{
+    float: right; /* rtl */
+}
+
+.memberInfo > img
+{
+    box-shadow: -3px 3px 3px rgba(44, 21, 34, 0.5);
+}
+
+.memberDetails
+{
+    padding-right: 10px; /* rtl */
+    padding-left: 0; /* rtl */
+}
+
+    .memberDetails .category
+    {
+        float: right; /* rtl */
+    }
+/*EndMemeberInfo*/
+/*Boxes Section*/
+
+.boxViewListWrapper /*li*/
+{
+    float: right; /*rtl*/
+    margin: 0 0 6px 19px; /*rtl*/
+}
+
+    .boxViewListWrapper:nth-child(3n)
+    {
+        margin-left: 0;
+    }
+
+
+.liBorder
+{
+    box-shadow: -3px 3px 3px rgba(74,20,50,.25); /*rtl*/
+}
+
+.boxViewList /*div (li)*/
+{
+    margin: 0 -5px 0 19px; /*rtl*/
+    /*padding: 10px 7px 0 0; rtl*/
+    padding: 0 7px 10px 0; /*rtl*/
+}
+
+.boxtags
+{
+    margin: 0 2px 0 0; /*rtl*/
+}
+
+    .boxtags li
+    {
+        float: right; /*rtl*/
+    }
+
+.more
+{
+    float: left; /*rtl*/
+    margin: 0 10px 0 5px; /*rtl*/
+}
+.msg
+{
+    padding: 0 20px 2px 0; /*rtl*/
+    background-position: right center;
+}
+/* end direct message*/
+
+input[type="checkbox"] ~ label:before {
+    content: '';
+    margin: 0 0 0 3px; /*rtl*/
+}
+
+.boxViewList .members
+{
+    margin: 6px 6px 0 2px; /*rtl*/
+}
+
+.boxViewList .items
+{
+    margin: 6px 0 0 2px; /*rtl*/
+}
+
+.boxViewList .comments
+{
+    margin: 6px 0 0 2px; /*rtl*/
+}
+
+.boxViewList .count
+{
+    margin: 0 0 0 12px; /*rtl*/
+}
+
+
+.inviteBtn, .archiveBtn
+{
+    float: right; /*rtl*/
+}
+
+.inviteBtn
+{
+    margin: 0 7px 0 0; /*rtl*/
+    padding: 0 18px 0 0; /*rtl*/
+    background-position: 95% 9px; /*rtl*/
+}
+
+/*.inviteBtnImg
+{
+ 
+}
+*/
+.archiveBtn
+{
+    padding: 0 18px 0 0; /*rtl*/
+    left: 17px; /*rtl*/
+    right: auto;
+}
+.archiveBtn:after
+{
+    content: '';
+    margin: 0 -48px 0 19px; /* different rtl*/
+}
+
+.followBtn.archiveBtn:after /* set from knockout*/
+{
+    margin: 0 -79px 0 55px; /* different rtl*/
+}
+
+.boxImgContainer::after
+{
+    right: 1px; /*rtl*/
+    left: auto;
+}
+
+.boxImgContainer::before
+{
+    right: 3px; /*rtl*/
+    left: auto;
+    box-shadow: -3px 3px 3px rgba(60,52,57,.5); /*rtl*/
+}
+
+/*End boxes section*/
+/*inline Search Section*/
+.inlineSearch
+{
+    padding: 5px 3px 9px 4px; /* rtl */
+}
+
+    .inlineSearch form
+    {
+        padding: 0 8px 0 0; /*rtl*/
+    }
+
+    .inlineSearch input[type=text]
+    {
+        float: right; /* rtl */
+        border-left: 1px solid #c8bfc4;
+        border-right: 0;
+        /*border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;*/
+        border-radius:0 4px 4px 0;
+    }
+
+    .inlineSearch input[type=submit]
+    {
+        background-position: 8px 6px;
+        /*border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;*/
+        border-radius: 4px 0 0 4px;
+    }
+/*End inline search*/
+
+/* external search (from Search.css) */
+
+.searchCategoryfirst
+{
+    margin: 0 0 0 15px; /*rtl*/
+}
+
+.searchResult .boxViewListWrapper:nth-child(3n)
+{
+    margin: 0 0 0 19px; /*rtl*/
+}
+
+.searchResult .boxViewListWrapper:nth-child(4n)
+{
+    margin-left: 0; /*rtl*/
+}
+
+.searchResult .boxItem:nth-child(3n)
+{
+    margin: 0 0 10px 32px;
+}
+
+/*End external search*/
+
+/*Tags*/
+/*.tagsTitle
+{
+    padding-right:6px; 
+    padding-left:0px; 
+}*/
+.tagsArea
+{
+    padding-right: 6px; /* rtl */
+    padding-left: 0; /* rtl */
+}
+
+
+.tagSearch
+{
+    padding: 0 7px 0 3px; /* rtl */
+}
+
+.seeMore
+{
+    float: left; /*rtl*/
+}
+
+/*End Tags*/
+
+/* Selected Tags */
+
+.tagSelectedSection ul li
+{
+    float: right;
+    /* margin-left: 4px; rtl */
+    /*margin-right: 0;  rtl */
+    margin: 0 0 4px 4px; /*rtl*/
+}
+
+.tagNameSelected
+{
+    margin: 0 0 0 6px; /*rtl*/
+}
+
+/* End Selected Tags */
+
+/* Friends */
+
+.friendsTitle
+{
+    padding-right: 6px; /* rtl */
+    padding-left: 0; /* rtl */
+}
+
+.friendImage
+{
+    box-shadow: -1px 1px 3px rgba(74,20,50,0.5); /* rtl */
+}
+
+.friendName
+{
+    margin-right: 4px; /* rtl */
+    margin-left: 0; /* rtl */
+}
+/* End Friends */
+
+
+/* End BOXES */
+
+/* Box.css */
+
+
+/*top menu section*/
+
+#FollowBox
+{
+    padding: 2px 3px 3px 2px; /*rtl */
+    box-shadow: -3px 3px 5px rgba(0, 0, 0, .25); /*rtl */
+}
+
+.follow-btn
+{
+    margin: 2px 4px 0 8px; /* rtl-review */
+}
+
+
+.dashboard
+{
+    padding: 0 26px 0 0; /*rtl*/
+    background-position: 80px -62px;
+}
+
+.uploadContainer
+{
+    float: left; /*rtl*/
+}
+
+.boxUploadbtn
+{
+    box-shadow: -2px 2px 2px rgba(103,73,28,.5); /*rtl*/
+    float: left; /*rtl*/
+}
+
+    .boxUploadbtn .uploadImg /*rtl*/
+    {
+        margin: 0 0 -1px 5px;
+    }
+
+/*top menu section*/
+
+/*title section*/
+
+.boximage
+{
+    float: right; /*rtl*/
+    box-shadow: -3px 3px 3px rgba(44,21,34,.5); /*rtl*/
+    margin: 0 0 7px 10px; /*rtl*/
+}
+
+.boxdata
+{
+    float: right; /*rtl*/
+}
+
+.boxTags li
+{
+    float: right; /*rtl*/
+}
+
+.boxTags .more
+{
+    float: left; /*rtl*/
+}
+
+.addTag
+{
+    margin: -3px 0 0 8px; /*rtl*/
+}
+
+
+
+.owner img
+{
+    box-shadow: -2px 2px 2px rgba(74,20,50,.5); /*rtl*/
+}
+
+.boxMembers
+{
+    float: left; /*rtl*/
+}
+
+.boxlowerBar
+{
+    margin: 0 -5px 0 0; /*rtl*/
+}
+
+.members li
+{
+    float: right; /*rtl*/
+    margin: 0 0 0 10px; /*rtl*/
+}
+
+    .members li img
+    {
+        box-shadow: -1px 1px 2px rgba(74,20,50,.5); /*rtl*/
+    }
+
+.boxMembers .viewAll
+{
+    float: left; /*rtl*/
+}
+
+/* members popup*/
+.membersAll ul, .tagsAll ul
+{
+    margin: 10px 15px 15px 0; /*rtl*/
+}
+
+.membersAll li
+{
+    margin: 0 0 0 10px; /*rtl*/
+    box-shadow: -3px 3px 3px #fff; /*rtl*/
+}
+.membersAll li:hover
+{
+    box-shadow: -3px 3px 3px rgba(44,21,34,0.3); /*rtl*/
+}
+
+.membersAll .delete
+{
+    left: -6px; /*rtl*/
+    right: auto;
+}
+
+.membersAll .details
+{
+    margin: 3px 4px 0 0; /*rtl*/
+}
+.membersAll .send
+{
+    padding: 0 20px 0 0; /*rtl*/
+    background-position: right center;
+}
+
+/* end members popup*/
+/*tags popup*/
+
+.tagsAll li
+{
+    margin: 0 0 15px 15px; /*rtl*/
+}
+
+/*end tags popup*/
+
+/*End Title*/
+
+/* box settings */
+.boxSettings
+{
+    float: right; /*rtl*/
+}
+    .boxSettings label
+    {
+        text-align: left; /*rtl*/
+    }
+    .boxSettings .boxNameInput
+    {
+        width: 264px;
+        height: 30px;
+        margin: 0 0 16px 5px; /*rtl*/
+    }
+    .boxSettings .btn1
+    {
+        margin: 0 30px 0 12px; /*rtl*/
+    }
+ 
+/* end box settings */
+
+
+
+/*Section lower bar*/
+
+.btnDownload .btnimage
+{
+    margin: 0 0 0 4px; /*rtl*/
+}
+
+.btnInvite .btnimage
+{
+    margin: 0 0 0 4px; /*rtl*/
+}
+
+.btnShare .btnimage
+{
+    margin: 0 0 0 4px; /*rtl*/
+}
+
+.btnEdit, .btnDelete
+{
+    float: left; /*rtl*/
+    margin: 0 0 0 -5px; /*rtl*/
+}
+
+    .btnEdit .btnimage, .btnDelete .btnimage
+    {
+        margin: 0 0 0 5px; /*rtl*/
+    }
+
+/*End lower bar*/
+
+/*Page layout*/
+.itemsSection
+{
+    float: right; /*rtl*/
+}
+
+.activitySection
+{
+    float: left; /*rtl*/
+    margin: 7px -10px 0 0; /*rtl*/
+}
+
+
+
+/*Item section*/
+
+.boxItem
+{
+    float: right; /* rtl */
+    margin: 0 0 32px 28px; /*rtl */
+    text-align: right; /* rtl */
+}
+
+    .boxItem:nth-child(3n)
+    {
+        margin-left: 0; /*rtl*/
+        right: auto;
+    }
+
+.actionBtns
+{
+    left: 4px; /* rtl */
+    right: auto;
+}
+
+.deleteBtn
+{
+    border-right: 1px solid #d4c9d0; /* rtl */
+    border-left: 0;
+    border-radius:2px 0 0 2px;
+}
+
+.downloadBtnImg
+{
+    right: 5px; /* rtl */
+    left: auto;
+}
+
+.boxItem .fileSize
+{
+    margin: 0 3px 0 6px; /* rtl */
+}
+
+.boxItem .count
+{
+    padding: 0 6px 0 2px; /* rtl (different) */
+}
+
+/* End box Item Section */
+
+/* End Box.css */
+
+/* Account.css */
+.homeForm
+{
+    float: left;
+}
+
+.errmsg
+{
+    padding: 0 5px 0 0; /*rtl*/
+}
+/*Bank bb page*/
+.bankbb .maintext, .bankbb .maintitle, .bankbb pre
+{
+    font-family: Carmela;
+}
+.bankbb .maintext
+{
+    line-height: 1.2em;
+    margin-top: -6px;
+}
+
+.mainImg
+{
+    background: url('/Images/beit_berl_heb.png') no-repeat; /*rtl*/
+    margin-top: 5px;
+    padding-left: 7px;
+}
+/* end Bank bb page*/
+.maininfo
+{
+    margin: 0 13px 0 0; /*rtl*/
+}
+
+.textOr:before
+{
+    margin: 0 0 2px 2px; /*rtl*/
+}
+.textOr:after
+{
+    margin: 0 2px 2px 0; /*rtl*/
+}
+
+.fbLoginBtn
+{
+    padding: 3px 4px 3px 0; /*rtl*/
+    margin: 8px 110px 0 0; /* rtl different */
+    width: 79px;
+}
+
+.fb-login
+{
+    width: 75px; /* rtl-review */
+    background: url(/images/fblogin-rtl.jpg) no-repeat; /* rtl-review */
+}
+
+.eng-flag, .heb-flag
+{
+    margin: 0; /* rtl (different) */
+}
+
+.eng-flag
+{
+    padding: 0 0 2px 38px; /* rtl (different) */
+}
+
+.heb-flag
+{
+    padding: 0 0 2px 32px; /* rtl (different) */
+}
+
+/* End Account.css */
+
+
+/* Tooltip.css */
+
+.callout
+{
+    /*margin-right: -10px; rtl dif*/
+    left: -19px;
+    box-shadow: -3px 3px 3px rgba(60,52,57,.5);
+}
+
+
+/* Boxes tooltips */
+.boxViewListWrapper .callout
+{
+    left: -8px;
+}
+
+/* Boxes tooltips */
+
+/*.members .callout
+{
+    margin: 0 -10px 0 0; 
+    left: auto; 
+}
+
+    .members .callout:after
+    {
+        content: "";
+        right: 17px;
+    }*/
+
+.actionBtns .callout
+{
+    left: -13px;
+}
+
+.downloadBtn .callout
+{
+    left: 12px;
+}
+/* .downloadOnly class set in knockout to position the download tooltip when only the download btn is visible*/
+.downloadBtn .downloadOnly.callout 
+{
+    left: -13px;
+}
+
+/* members tooltip */
+
+.members .callout
+{
+    right: -12px; /*rtl*/
+    left: auto;
+}
+
+.members .callout1
+{
+    right: -9px; /*rtl*/
+    left: auto;
+    box-shadow: -3px 3px 3px rgba(44,21,34,0.3); /*rtl*/
+}
+
+.callout1:after {
+    content: "";
+    right: 15px; /*rtl*/
+    left: auto;
+}
+
+/* end members tooltip */
+
+/* end Tooltip.css */
+
+/* Item.css */
+
+
+/* section top bar */
+.backTo
+{
+    padding: 0 0 0 19px; /*rtl*/
+}
+
+    .backTo:before
+    {
+        margin: 0 0 0 10px; /*rtl*/
+    }
+/* end section top bar */
+
+/* section title + owner */
+
+.itemTitle .seeMore
+{
+    float: right; /*rtl*/
+    margin: 8px -6px 0 0; /*rtl*/
+}
+
+.editName
+{
+    margin: -6px -3px 0 0; /*rtl*/
+    padding: 0 5px; /* need to set vertical padding to 0 - not sure how it got there */
+}
+
+.itemH2
+{
+    float: right; /*rtl*/
+}
+
+.itemTxt.pipe:after
+{
+    content: '|';
+    padding: 0 6px 0 3px; /*rtl*/
+}
+
+.itemOwner
+{
+    float: left; /*rtl*/
+}
+
+.itemOwner img
+    {
+        margin: 0 0 0 3px; /*rtl*/
+    }
+
+.owner .msg
+{
+    margin: 3px 4px 0 0; /*rtl*/
+}
+
+/* end section title + owner */
+
+
+/* section lower bar */
+
+.btnPrint .itemBtnimage, .btnCopy .itemBtnimage, .btnMove .itemBtnimage
+{
+    margin: -2px 0 0 4px; /*rtl*/
+}
+
+/* end section lower bar */
+
+/* section item content */
+
+.itemMain
+{
+    float: right; /*rtl*/
+    margin: 0 -12px 0 0; /*rtl*/
+    direction: ltr; /*in order to display the nav buttons in correct order*/
+}
+    .itemMain .btnPrint
+    {
+        float: left; /*rtl*/
+        margin:2px 0 0 3px; /*rtl*/
+    }
+
+    .imgBtns .itemBtnimage
+    {
+        margin: -2px 0 0 4px; /*rtl*/
+    }
+
+    .itemMain .content
+    {
+        box-shadow: -5px 5px 5px rgba(116, 100, 110, 0.3); /*rtl*/
+    }
+.imgBtns
+{
+    direction: rtl; /* override the the direction:ltr on .itemMain container*/
+}
+
+
+.btnExpand
+{
+    /*margin: 0 0 0 4px; rtl*/
+}
+
+.expand
+{
+    float: left; /*rtl*/
+    margin: 2px 0 0 20px; /*rtl*/
+}
+.popup .content
+{
+    box-shadow: -5px 5px 5px rgba(0,0,0,0.5); /*rtl*/
+}
+    .popup .topBar
+    {
+        margin: 0 7px 0 9px; /*rtl*/
+    }
+.topBar .print
+{
+    float: right; /*rtl*/
+    margin: 0 7px 0 0; /*rtl*/
+}
+.topBar .close
+{
+    float: left; /*rtl*/
+}
+
+/* end Item.css */
+
+/* upload popup */
+
+.upldiagWrppr
+{
+    box-shadow: -7px 7px 7px rgba(51,14,34,.25); /*rtl*/
+}
+
+.step2, .step3, .step4
+{
+    text-align: right; /*rtl*/
+}
+
+.chooseTitle
+{
+    margin: 16px 12px 15px 0; /*rtl*/
+}
+
+.next
+{
+    left: 94px; /*rtl*/
+    right: auto;
+}
+.cancel
+{
+    left: 13px; /*rtl*/
+    right: auto;
+}
+
+/* step2 */
+.newBoxForm
+{
+    margin: 20px 11px 15px 13px; /*rtl*/
+}
+
+.step2 .dropDown
+{
+    left: 1px; /*rtl*/
+    right: auto;
+}
+.courseCode
+{
+    margin: 0 29px 0 0; /*rtl*/
+}
+
+.department
+{
+    margin: 0 31px 0 0; /*rtl*/
+}
+
+.toggleType
+{
+    background: url(/Images/toggle.png) 0 -33px no-repeat; /*rtl*/
+    margin: -4px 12px 0 0; /*rtl*/
+}
+    .toggleType.toggle /*applied in javascript*/
+    {
+        background-position: 0 0; /*rtl*/
+    }
+ 
+    .toggleType span
+    {
+        margin: 0 0 0 -1px; /*rtl*/
+    }
+
+/* step 3 */
+
+/* class is added through jquery */
+
+.dragDropBox .dragDropButton
+{
+    left: 7px; /*rtl*/
+    right: auto;
+}
+
+.dragDropBox ul
+{
+    text-align: right; /*rtl*/
+}
+
+/* pending displays cancel; finished displays tick btn */
+.pending, .finished
+{
+    float: left; /*rtl*/
+    margin: 0 0 0 8px; /*rtl*/
+}
+.finished
+{
+    margin: -1px 0 0 -2px; /*rtl*/
+}
+
+/* step4 */
+
+.inviteUser
+{
+    margin: 17px 12px 18px 0; /* different rtl*/
+    padding: 2px 9px 5px 2px; /*rtl*/
+}
+
+.addInvite
+{
+    left: 15px; /*rtl*/
+    right: auto;
+}
+
+.inviteMsg
+{
+    margin: 0 12px 53px 0; /*rtl*/
+    padding: 14px 11px 5px 8px; /*rtl*/
+}
+
+.inviteList li
+{
+    margin: 3px 0 0 3px; /*rtl*/
+}
+
+/* end step4 */
+/* end upload popup */
+
+.droidfont
+{
+    font-family: Carmela;
+}
+
+/*#region Static.css */
+
+/* error page */
+.membersOnly
+{
+    width: 506px; /*rtl*/
+}
+.membersOnly .content
+{
+    margin: -9px 4px 0 0; /*rtl*/
+}
+
+.membersOnly img
+{
+    margin: 69px 126px 0 0; /*rtl*/
+}
+    
+.goBack .btn1
+{
+    margin: 0 7px 0 0; /*rtl*/
+}
+.membersOnly .goBack, .oops .goBack
+{
+    margin: 46px 0 0 6px; /*rtl*/
+    float: left; /*rtl*/
+}
+.oops
+{
+    width: 560px; /*rtl*/
+}
+.oops pre
+{
+    margin: -5px 6px 0 0; /*rtl*/
+}
+
+.oops img
+{
+    margin: 117px 98px 0 0; /*rtl*/
+}
+.oops .goBack
+{
+    margin: 46px 0 0 18px; /*rtl*/
+}
+
+/* end error page */
+
+.specialPage .btn1
+{
+    margin: 0 10px 0 0; /*rtl*/
+}
+
+.verifyAccount, .forgotPassword, .emailSent
+{
+    text-shadow: 1px -1px #666, 1px 1px white; /*rtl*/
+    left: 7px;  /*rtl*/
+    right: auto; 
+    font-size: 58px; /* different rtl*/
+}
+
+/*#region About Us */
+.aboutUs .lFloat
+{
+    float: left;
+}
+.aboutUs .rFloat
+{
+    float: right;
+}
+/* TEMPORARILIY DISABLED RTL FOR ABOUTUS
+   (when this is implemented - need to remove above class as well) */
+
+/*.staticPage.aboutUs
+{
+    padding: 0 45px 0 0; 
+} 
+.aboutUs .leftCol
+{
+    margin: 0 0 0 38px; 
+}
+
+.teamList li
+{
+    float: right; 
+    margin: 0 0 38px 18px;
+    text-align: right;
+}
+.teamList li:nth-child(2n)
+{
+    margin: 0 0 38px 0;
+}
+
+.teamSprite
+{
+    box-shadow: -2px 2px 2px rgba(74, 20, 50, .5);
+}*/
+/*#endregion */
+
+/*#endregion */
+
+/*#region Settings.css */
+
+.settingsMenu {
+    float: right; /*rtl*/
+    margin: -15px -17px -19px 0; /*rtl*/
+}
+    .settingsMenu ul
+    {
+        margin: 25px 23px 0 0; /*rtl*/
+    }    
+    
+.settingsContent {
+    padding: 10px 37px 0 0; /*rtl*/
+}
+
+    .settingsContent .btn1
+    {
+        /*margin: 0 -4px 0 13px; rtl*/
+    }
+
+/*#region profile info */
+
+    .profileInfo img
+    {
+        box-shadow: -2px 2px 2px rgba(74, 20, 50, .5); /*rtl*/
+    }
+    .profileInfo .photoBtns
+    {
+        margin: 0 5px 0 0; /*rtl*/
+    }
+
+/*#endregion */
+
+/*#region account settings */
+
+.emails
+{
+    margin: 0 -2px 0 0; /*rtl*/
+}
+
+.emailList + .seeMore
+{
+    margin: 0 5px 0 0; /*rtl*/
+}
+
+.addEmail .seeMore
+{
+    margin: 0 4px 0 0; /*rtl*/
+}
+    
+.addEmail .btn4
+{
+    margin: 0 8px 0 0; /*rtl*/
+}
+
+.changePwd .inputText
+{
+    margin: 0 0 5px 5px; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region manage friends */
+
+/*#endregion */
+
+/*#region storage */
+
+.storage .header
+{
+    margin: 2px -1px 11px 0; /*rtl*/
+}
+
+.bar .your
+{
+    float: right; /*rtl*/
+    border-radius: 0 4px 4px 0; /*rtl*/
+}
+/*temporarily removed from markup*/
+/*.bar .shared
+{
+    float: right; 
+}*/
+
+.key > span:before
+{
+    content: '';
+    margin: 0 0 0 10px; /*rtl*/
+}
+
+.key .percent
+{
+    margin: 0 2px 0 27px; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region notifications */
+
+    .notifications .box
+    {
+        margin: 3px 5px 0 0; /*rtl*/
+    }
+    .notifications .select
+    {
+        margin: -1px 2px 0 0; /*rtl*/
+    }
+.boxesList
+{
+    margin: 6px 1px 39px 0; /*rtl*/
+}
+
+/*#endregion */
+
+/*#endregion */

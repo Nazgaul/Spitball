@@ -1,0 +1,44 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.UniversityViewModel
+
+<div class="dept">
+    <img class="lFloat deptImg"  src="@Model.Image" width="52" height="52" />
+    <div class="deptName">@Model.Name</div>
+</div>
+<div class="deptActions">
+    <button class="search rFloat"></button>
+    <div data-bind="visible: orderByVisible">
+        <button data-bind="click: sortName, css: { selected: orderBy() === 'Name' }">Name</button>
+        <button class="lastGrpBtn" data-bind="click: sortDate, css: { selected: orderBy() === 'LastModified' }">Date</button>
+    </div>  
+</div>
+
+<ul class="courseList" data-bind="foreach: courses">
+    <li>
+         <a data-bind="attr: { href: boxUrl }">
+            <img class="lFloat" data-bind="attr: { src: boxPicture }" width="63" height="80" />
+            <div class="description">
+                <div class="courseName" data-bind="text: name"></div>
+                <div class="elps" data-bind="text: professor"></div>
+                <div class="elps" data-bind="text: courseCode"></div>
+                <div class="elps"></div>
+                <span data-bind="text: itemCount"></span>
+                <span>items | </span>
+                <span data-bind="text: commentCount"></span>
+                <span>Comments</span>
+            </div>
+        </a>
+    </li>
+</ul>
+<ul class="deptList" data-bind="foreach: department">
+    <li>
+        <a data-navigation="Library" data-bind="attr: { href: url }">
+            <span class="line lFloat" data-bind="style: { backgroundColor: color }"></span>
+            <span class="deptName" data-bind="text: name"></span>
+        </a>
+    </li>
+</ul>
+
+
+
+
+

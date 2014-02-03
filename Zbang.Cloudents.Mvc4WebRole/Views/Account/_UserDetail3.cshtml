@@ -1,0 +1,47 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserDetailDto
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@if (User != null && User.Identity.IsAuthenticated)
+{
+    <li class="navItem navUser">
+        <a href="@Model.Url" data-navigation="User">
+            <img id="userImg" src="@Model.Image" class="userImg" alt="user image" width="32" height="32" />
+            <span id="userName" data-id="@Model.Uid" class="userName elps">@Model.Name.Split(' ')[0]</span>
+        </a>
+    </li>
+    <li class="navItem userSettings" id="userDetails" data-menu="user">
+        <div title="@DialogResources.Settings" class="userDrpSettings"></div>
+        <ul class="userMenu">
+            <li class="menuItem">
+                <a class="menuLink" data-navigation="account" href="@Url.Action("Settings","Account")">@UserDetailResources.AccountSettings</a>
+            </li>
+            <li class="menuItem">
+                @Html.ActionLink(UserDetailResources.Feedback, "Help", "Home", null, new { @class = "menuLink" })
+            </li>
+            <li class="menuItem">
+                @Html.ActionLink(FooterResources.AboutUs, "AboutUs", "Home", null, new { @class = "menuLink" })
+            </li>
+            <li class="menuItem">
+                @Html.ActionLink(FooterResources.ContactUs, "ContactUs", "Home", null, new { @class = "menuLink" })
+            </li>
+            <li class="menuItem">
+                @Html.ActionLink(FooterResources.PrivacyPolicy, "Privacy", "Home", null, new { @class = "menuLink" })
+            </li>
+            <li class="menuItem">
+                @Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "menuLink" })
+            </li>
+            <li class="menuItem">
+                <a id="logOut" class="menuLink" href="@Url.Action("LogOff","Account")">@UserDetailResources.LogOut</a>
+            </li>
+        </ul>
+    </li>
+}
+
+else
+{
+    <li class="navItem signUp">
+        <a href="@Url.ActionHash("Welcome","Account", new { universityId = ViewBag.universityId }, "register")" class="btn">@LogOnResources.SignUp</a>
+        <a href="@Url.ActionHash("Welcome", "Account", new { universityId = ViewBag.universityId }, "connect")" class="btn">@SharedResources.SignIn</a>
+    </li>
+}

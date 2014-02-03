@@ -1,0 +1,38 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.CreateAcademicBox
+@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+@*@using (Ajax.BeginForm("CreateAcademic", "Boxes", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "mmc.createBoxSuccess"
+    }
+    , new { @class = "type current", id = "Academic" }))
+{*@
+<div id="createAcademicBoxDialog" title="Create new course" style="display:none;">
+    @using (Html.BeginForm("CreateBox", "Library", FormMethod.Post, new { @class = "type current", id = "Academic" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+        <div class="section">
+            <div class="courseName">
+                @Html.LabelFor(m => m.CourseName, new { @class = "required" })
+                @Html.TextBoxFor(m => m.BoxName, new { @class = "inputText", id = "academicBoxName" })
+            </div>
+            <div class="courseCode">
+                @Html.LabelFor(m => m.CourseId)
+                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText" })
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="professor">
+                @Html.LabelFor(m => m.Professor)
+                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", placeholder = @UploadDialogResources.TypeInstructor })
+            </div>
+        </div>
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "inputText commentTextarea academicDescription", id = "academicDescription" })
+
+        <input type="submit" class="btn1 next"  value="@UploadDialogResources.Create"/>
+        <button type="reset" class="btn2 cancel" id="cancel">@UploadDialogResources.Cancel</button>
+    }
+</div>

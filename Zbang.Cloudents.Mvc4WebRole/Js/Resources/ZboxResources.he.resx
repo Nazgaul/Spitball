@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AFewSecAgo" xml:space="preserve">
+    <value>לפני שניות אחדות</value>
+  </data>
+  <data name="AMinAgo" xml:space="preserve">
+    <value>לפני דקה</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>לפני שעה</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>תשובה</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>תשובות</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value> b</value>
+  </data>
+  <data name="BoxExists" xml:space="preserve">
+    <value>קופסה זו כבר קיימת</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="CantAddReply" xml:space="preserve">
+    <value>לא ניתן לענות</value>
+  </data>
+  <data name="CantModifyUrl" xml:space="preserve">
+    <value>לא ניתן לשנות קישורים</value>
+  </data>
+  <data name="CantUploadDirectory" xml:space="preserve">
+    <value>אינך יכול להעלות ספריה</value>
+  </data>
+  <data name="CantUploadEmptyFile" xml:space="preserve">
+    <value>ניסית להעלות קובץ בגודל 0 בייט, הוא הורד מרשימת הקבצים</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>שנה</value>
+  </data>
+  <data name="ChooseBox" xml:space="preserve">
+    <value>עליך לבחור קופסה קיימת או ליצור קופסה חדשה</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>לחץ כאן</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>תגובה</value>
+  </data>
+  <data name="CommentBy" xml:space="preserve">
+    <value>תגובה מאת</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="CopyLink" xml:space="preserve">
+    <value>העתק קישור</value>
+  </data>
+  <data name="CouldNotProcess" xml:space="preserve">
+    <value>לא ניתן להעלות תמונה זו</value>
+  </data>
+  <data name="CourseId" xml:space="preserve">
+    <value>מס' קורס</value>
+  </data>
+  <data name="CoursesFollow" xml:space="preserve">
+    <value>קורסים שאני חבר בהם</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>צור חדש</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>לפני {0} ימים</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>דחה</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="DeleteBox" xml:space="preserve">
+    <value>מחק קופסה</value>
+  </data>
+  <data name="DeleteLowercase" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="DeleteThisBox" xml:space="preserve">
+    <value>מחק קופסה זו</value>
+  </data>
+  <data name="DeleteThisMember" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את החבר הזה?</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>סיום</value>
+  </data>
+  <data name="DontHavePermission" xml:space="preserve">
+    <value>אין לך הרשאה</value>
+  </data>
+  <data name="DontHavePermissionDeleteFile" xml:space="preserve">
+    <value>אין לך הרשאה למחוק את הקובץ</value>
+  </data>
+  <data name="DontHavePermissionToDelete" xml:space="preserve">
+    <value>אין לך הרשאה למחוק </value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>הורד</value>
+  </data>
+  <data name="DragDropFiles" xml:space="preserve">
+    <value>גרור וזרוק קבצים להעלאה כאן או</value>
+  </data>
+  <data name="DropDownChoose" xml:space="preserve">
+    <value>אנא בחר מהרשימה</value>
+  </data>
+  <data name="EmailChanged" xml:space="preserve">
+    <value>הדוא''ל שלך השתנה</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>הכנס את הדוא''ל החדש</value>
+  </data>
+  <data name="FieldNeedsNumber" xml:space="preserve">
+    <value>שדה זה צריך להכיל מספר</value>
+  </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>חובה למלא שדה זה</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>קובץ</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>קבצים</value>
+  </data>
+  <data name="FindThisInteresting" xml:space="preserve">
+    <value>חשבתי שזה יעניין אותך</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>עקוב</value>
+  </data>
+  <data name="Gb" xml:space="preserve">
+    <value> GB</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>לפני {0} שעות</value>
+  </data>
+  <data name="IncorrectExtension" xml:space="preserve">
+    <value>קובץ עם סיומת לא נכונה</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>כתובת דואר אלקטרוני לא חוקית</value>
+  </data>
+  <data name="InvalidFilename" xml:space="preserve">
+    <value>שם קובץ לא חוקי</value>
+  </data>
+  <data name="Invite" xml:space="preserve">
+    <value>הזמנה</value>
+  </data>
+  <data name="Invites" xml:space="preserve">
+    <value>הזמנות</value>
+  </data>
+  <data name="InviteSent" xml:space="preserve">
+    <value>הזמנה נשלחה</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>פריט</value>
+  </data>
+  <data name="ItemBy" xml:space="preserve">
+    <value>הוספת פריט על ידי</value>
+  </data>
+  <data name="ItemExists" xml:space="preserve">
+    <value>פריט זה כבר קיים</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>פריטים</value>
+  </data>
+  <data name="JustMe" xml:space="preserve">
+    <value>אני בלבד/רק אני</value>
+  </data>
+  <data name="Kb" xml:space="preserve">
+    <value> KB</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>אהבתי</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>יש צורך להתחבר לעשות זאת</value>
+  </data>
+  <data name="Mb" xml:space="preserve">
+    <value> MB</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>חבר</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="MessageSent" xml:space="preserve">
+    <value>הודעה נשלחה</value>
+  </data>
+  <data name="MinAgo" xml:space="preserve">
+    <value>לפני {0} דקות</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>עוד</value>
+  </data>
+  <data name="MyCourses" xml:space="preserve">
+    <value>הקורסים שלי</value>
+  </data>
+  <data name="MySpace" xml:space="preserve">
+    <value>איזור שלי</value>
+  </data>
+  <data name="NeedToFollowBox" xml:space="preserve">
+    <value>אתה צריך לעקוב אחר קופסה זו</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>הבא</value>
+  </data>
+  <data name="NoCurrentBoxes" xml:space="preserve">
+    <value>אין לך קופסאות עכשיות</value>
+  </data>
+  <data name="NoCurrentInvites" xml:space="preserve">
+    <value>אין לך הזמנות עכשיות</value>
+  </data>
+  <data name="NoTextEntered" xml:space="preserve">
+    <value>טקסט לא הוזן</value>
+  </data>
+  <data name="NotHaveRights" xml:space="preserve">
+    <value>אין לך זכויות כדי להזמין אנשים לקופסה זו</value>
+  </data>
+  <data name="NothingHereYet" xml:space="preserve">
+    <value>אין עדיין דבר לתצוגה</value>
+  </data>
+  <data name="NothingToDownload" xml:space="preserve">
+    <value>אין פריטים כאן להורדה</value>
+  </data>
+  <data name="NotValidUrl" xml:space="preserve">
+    <value>הקישור אינו בתבנית חוקית/הקישור אינו חוקי</value>
+  </data>
+  <data name="OnCourse" xml:space="preserve">
+    <value>בקורס</value>
+  </data>
+  <data name="PleaseSelectFiles" xml:space="preserve">
+    <value>בבקשה תבחר קבצים להעלאה</value>
+  </data>
+  <data name="PreviewNotAvailable" xml:space="preserve">
+    <value>תצוגת סוג קובץ שכזה עדיין לא אפשרי/זמין</value>
+  </data>
+  <data name="PrivacySettingChanged" xml:space="preserve">
+    <value>הגדרות קופסה השתנו</value>
+  </data>
+  <data name="ProblemLoadingImage" xml:space="preserve">
+    <value>ישנה בעיה בטעינת התמונה</value>
+  </data>
+  <data name="ProblemSending" xml:space="preserve">
+    <value>הייתה בעיה בשליחת הזמנתך</value>
+  </data>
+  <data name="ProfessorName" xml:space="preserve">
+    <value>שם מרצה</value>
+  </data>
+  <data name="PwdChanged" xml:space="preserve">
+    <value>הסיסמה השתנתה</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="SchoolLibrary" xml:space="preserve">
+    <value>הבנק האקדמי</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>תוצאות חיפוש ל-</value>
+  </data>
+  <data name="SelectFilesToUpload" xml:space="preserve">
+    <value>בחר קבצים להעלאה</value>
+  </data>
+  <data name="SendMsg" xml:space="preserve">
+    <value>שלח הודעה</value>
+  </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>ההגדרות שלך נשמרות</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>דלג</value>
+  </data>
+  <data name="SpecifyRecipient" xml:space="preserve">
+    <value>אנא ציין לפחות נמען אחד.</value>
+  </data>
+  <data name="StillUploading" xml:space="preserve">
+    <value>אתה עדיין מעלה קבצים</value>
+  </data>
+  <data name="SureDeleteComment" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את התגובה?</value>
+  </data>
+  <data name="SureDeleteItem" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את הפריט?</value>
+  </data>
+  <data name="SureDeleteReply" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את המענה?</value>
+  </data>
+  <data name="SureDeleteTab" xml:space="preserve">
+    <value>מחק כרטיסייה זו?</value>
+  </data>
+  <data name="SureToDecline0" xml:space="preserve">
+    <value>האם לדחות את ההזמנה לעקוב אחר הקופסה הזו ('{0}')?</value>
+  </data>
+  <data name="SureToDelete0" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את הקופסה הזו ('{0}')?</value>
+  </data>
+  <data name="SureToUnfollow0" xml:space="preserve">
+    <value>האם לבטל מעקב אחר הקופסה הזו ('{0}')?</value>
+  </data>
+  <data name="SureYouWant0" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך {0} את הקופסה הזו ('{1}')?</value>
+  </data>
+  <data name="SureYouWant0ThisBox" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך ל{0} את הקופסה הזו?</value>
+  </data>
+  <data name="SureYouWantToDelete" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק</value>
+  </data>
+  <data name="TabExists" xml:space="preserve">
+    <value>כרטיסייה זו כבר קיימת</value>
+  </data>
+  <data name="ThisBox" xml:space="preserve">
+    <value>הקופסה הזו</value>
+  </data>
+  <data name="ThisIsABox" xml:space="preserve">
+    <value>זוהי קופסה</value>
+  </data>
+  <data name="ToCourse" xml:space="preserve">
+    <value>לקורס</value>
+  </data>
+  <data name="ToDelete" xml:space="preserve">
+    <value>למחוק</value>
+  </data>
+  <data name="TopLevel" xml:space="preserve">
+    <value>עמוד ראשי</value>
+  </data>
+  <data name="ToUnfollow" xml:space="preserve">
+    <value>לבטל מעקב</value>
+  </data>
+  <data name="ToViewContent" xml:space="preserve">
+    <value>לראות את תוכן הקופסא</value>
+  </data>
+  <data name="TypeCode" xml:space="preserve">
+    <value>הכנס את הקוד שקבלת בדוא''ל</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>בטל מעקב</value>
+  </data>
+  <data name="UnfollowThisBox" xml:space="preserve">
+    <value>בטל מעקב אחר הקופסה הזו</value>
+  </data>
+  <data name="Unlike" xml:space="preserve">
+    <value>לא אהבתי</value>
+  </data>
+  <data name="UrlCopied" xml:space="preserve">
+    <value>קישור הועתק ללוח</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>מה חדש?</value>
+  </data>
+  <data name="WorkingOnPreview" xml:space="preserve">
+    <value>אנחנו עובדים על כך שיהיה ניתן לצפות בתצוגה מקדימה בכל סוגי הקבצים, אבל עדיין לא הגענו לזה \ n \ n בינתיים, נסה להוריד את הקובץ למחשב שלך כדי להציגו</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>אתמול</value>
+  </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>עזוב קבוצה</value>
+  </data>
+  <data name="SureYouWant" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך</value>
+  </data>
+  <data name="ToDeleteBox" xml:space="preserve">
+    <value>למחוק את הקופסה הזו?</value>
+  </data>
+  <data name="ToLeaveGroup" xml:space="preserve">
+    <value>לעזוב את הקבוצה הזו?</value>
+  </data>
+  <data name="LeaveGroup1" xml:space="preserve">
+    <value>עזוב קבוצה</value>
+  </data>
+  <data name="ToDeleteBox1" xml:space="preserve">
+    <value>למחוק את הקופסה הזו?</value>
+  </data>
+  <data name="ToLeaveGroup1" xml:space="preserve">
+    <value>לעזוב את הקבוצה הזו?</value>
+  </data>
+</root>

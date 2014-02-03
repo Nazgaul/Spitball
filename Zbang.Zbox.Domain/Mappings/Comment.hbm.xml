@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="Comment"
+         table="Comment" abstract="true">
+    
+    <id name="Id">
+      <generator class="native"/>
+    </id>
+
+    <property name="CommentText" type="StringClob" not-null="true">
+      <column name="CommentText" sql-type="NTEXT"/>
+    </property>
+
+    <many-to-one name="Author" class="User" column="AuthorId" not-null="true"/>
+
+    <property name="CreationTimeUtc" not-null="true" />
+
+    <property name="CreationTimeEpochMillis" not-null="false" />
+    
+    <set name="Replies" table="Comment" cascade="all-delete-orphan" inverse="false" lazy="true">
+      <key column="ParentId" />
+      <one-to-many class="Comment"/>
+    </set>
+</class>
+
+</hibernate-mapping>

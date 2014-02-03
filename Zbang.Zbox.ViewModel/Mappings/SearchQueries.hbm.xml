@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+ 
+  
+  <sql-query name="SearchLibraryWithPrivate" resultset-ref="BoxDto">
+     <![CDATA[
+       select b.Uid, b.BoxName,
+      ub.UserType, 
+      b.itemcount as ItemCount,
+      b.BoxPicture as BoxPicture,
+	   b.ProfessorName,
+      b.MembersCount as MembersCount,
+      b.commentcount as CommentCount,
+      b.CourseCode,
+     b.Discriminator as BoxType
+      from Zbox.box b, zbox.UserBoxRel ub
+      where 
+      b.IsDeleted = 0   
+      and b.BoxId = ub.BoxId
+      and ub.UserId = :UserId   
+      and b.BoxName like '%' + :SearchText + '%'
+     union
+	   select b.Uid, b.BoxName,
+      (select ub2.UserType from zbox.UserBoxRel ub2 where ub2.userid = :UserId and ub2.boxid = b.BoxId) as UserType,
+      b.itemcount as ItemCount,
+      b.BoxPicture,
+      b.ProfessorName,
+      b.MembersCount as MembersCount,
+      b.commentcount as CommentCount,
+      b.CourseCode,
+      b.Discriminator as BoxType
+      from Zbox.box b
+      where 
+      b.IsDeleted = 0   
+      and b.PrivacySetting =3
+      and b.ownerid = :UniversityId    
+      and (b.BoxName like '%' + :SearchText + '%'
+	    or b.CourseCode like '%' + :SearchText + '%'
+	    or b.ProfessorName like '%' + :SearchText + '%')
+      order by b.BoxName
+      ]]>
+  </sql-query>
+  
+</hibernate-mapping>

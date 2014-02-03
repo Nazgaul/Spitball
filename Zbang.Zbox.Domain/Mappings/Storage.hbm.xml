@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"                         
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="Storage" 
+         table="Storage">
+  
+    <id name="StorageId">
+      <generator class="native"/>
+    </id>
+
+    <property name="UserId" not-null="false"/>
+    
+    <property name="CreationTimeUtc" not-null="false"/>
+
+    <component name="Quota" class="Quota">
+      <property name="TotalSize"/>
+      <property name="UsedSpace"/>
+    </component>
+    
+    <bag name="Boxes" table="[Box]" cascade="all" inverse="false" lazy="true">
+      <key column="StorageId"/>
+      <one-to-many class="Box"/>
+    </bag>
+    
+  </class>
+  
+</hibernate-mapping>

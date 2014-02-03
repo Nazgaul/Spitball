@@ -1,0 +1,42 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.LogOn
+@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+
+<h2 class="txtshd1 accntTitle">@LogOnResources.SignIn</h2>
+@using (Html.BeginForm("LogOn", "Account", new { from = ViewBag.source, returnUrl = ViewBag.returnUrl }, FormMethod.Post)
+   )
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, string.Empty, new { @class = "errmsg" })
+    <div>
+        @Html.LabelFor(model => model.Email, new { @class = "accntLabel txtshd1" }) @Html.ValidationMessageFor(model => model.Email, null, new { @class = "errmsg" })
+    </div>
+    @Html.TextBoxFor(model => model.Email, new { @class = "inputText accntinpt", autofocus = "autofocus" })
+    
+    <div>
+        @Html.LabelFor(model => model.Password, new { @class = "accntLabel txtshd1" }) @Html.ValidationMessageFor(model => model.Password, null, new { @class = "errmsg" })
+    </div>
+    @Html.PasswordFor(model => model.Password, new { @class = "inputText accntinpt" })
+    
+    <div class="accntchckbox clearfix">
+        @*@Html.EditorFor(model => model.RememberMe, "CheckBox")
+        @Html.LabelFor(model => model.RememberMe, new { @class = "remeber txtshd1" })*@
+
+        @Html.CheckBoxFor(model => model.RememberMe, new { @checked = "checked" })
+        @Html.LabelFor(model => model.RememberMe)
+    </div>
+    <div class="accntinpt forgotPsd txtshd1">
+        <span>@LogOnResources.ForgotYourPassword</span>
+        @Html.ActionLink(@LogOnResources.ClickHere, "ForgotPassword", null, new { id = "forgotPsw" })
+    </div>
+    <div class="clearfix enterbtn">
+        <input class="btn3 rFloat" type="submit"  value="@LogOnResources.SignIn"  />
+    </div>
+    <div class="textOr">
+        @LogOnResources.or
+    </div>
+    <div class="forgotPsd txtshd1 clearfix">
+        <a class="switchVisiablityButton rFloat">
+            @LogOnResources.JoinNow</a>
+        <span class="rFloat">@LogOnResources.DontHaveAnAccount&nbsp;</span>
+    </div>
+}

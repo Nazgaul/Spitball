@@ -1,0 +1,120 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.Library.UniversityInfoDto
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+@using System.Threading
+
+<div id="library" class="page union" data-section="Library">
+    <div class="libraryContent" id="libraryContent">
+        <!--ko stopBinding:true-->
+        <aside class="asideDash lFloat">
+            <div class="libTopWpr">
+            <div class="libTop">
+
+                <div class="uniLogo">
+                    <img src="@Model.Image" alt="" width="68" height="68" />
+                </div>
+                <div id="univeristyName" data-id="@Model.Id" class="unionName boldFont">@Model.Name</div>
+                @*<a class="changeUni" href="@Url.Action("Choose", "Library")">@Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources.AccountSettingsResources.ChangeUni</a>*@
+                <div class="unionStats">
+                    <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Files</span></div>
+                    <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@MainViewResources.Courses</span> </div>
+                    <div class="students boldFont">@Model.MemberCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@MainViewResources.Students</span></div>
+                </div>
+            </div>
+            </div>
+            <div class="unionLinksWpr">
+            <div class="unionLinks">
+                @if (!string.IsNullOrEmpty(Model.WebSiteUrl))
+                {
+                    <a target="_blank" href="@Model.WebSiteUrl" class="outbound u-Website"></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.MailAddress))
+                {
+                    <a href="mailto:@Model.MailAddress" class="outbound u-Email"></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.FacebookUrl))
+                {
+                    <a target="_blank" href="@Model.FacebookUrl" class="outbound u-Fb"></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.TwitterUrl))
+                {
+                    <a target="_blank" href="@Model.TwitterUrl" class="outbound u-Twitter"></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.YouTubeUrl))
+                {
+                    <a target="_blank" href="@Model.YouTubeUrl" class="outbound u-Youtube"></a>
+                }
+            </div>
+            </div>
+            <div class="libLists">
+                @if (!string.IsNullOrEmpty(Model.FacebookUrl))
+                {
+                   @* <div class="libFb">
+                        <div class="fb-like-box fbContent"
+                        data-href="@Model.FacebookUrl"
+                        data-width="274" 
+                        data-height="389"
+                        data-show-faces="false" 
+                        data-header="false" 
+                        data-stream="true" 
+                        data-show-border="false">
+                        </div>
+                    </div>*@
+                    
+                    <iframe id="facebookLikeBox" data-href="@Server.UrlEncode(Model.FacebookUrl)"
+                        data-link ="//www.facebook.com/plugins/likebox.php?href={{href}}&amp;width=274&amp;height={{height}}&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false&amp;appId=450314258355338"
+                        
+                        scrolling="no" frameborder="0"
+                        style="border:none; overflow:hidden;"
+                        allowTransparency="true" width="274"></iframe>
+                }
+              @*  @if (Model.TwitterWidgetId.HasValue)
+                {
+                    <div class="libTwitter">
+                        <a class="twitter-timeline twitterContent" width="274" height="286"
+                        data-widget-id="@Model.TwitterWidgetId"></a>
+                    </div>
+                }*@
+            </div>
+        </aside>
+        <!--/ko-->
+        @{
+            var cls = string.IsNullOrEmpty(Model.LetterUrl) ? "" : "featured";
+        }
+        <div class="boxesHeader topBar">
+            <h2 data-bind="visible: !backvisible()" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
+            <a id="lib_Back" class="backWpr elps lFloat" data-navigation="Library" data-bind="visible: backvisible, attr: { href: backUrl }">
+                <h2 id="lib_NodeName" data-bind="text: titleShow"></h2>
+            </a>
+            <button id="lib_NodeRename" class="boxRename" title="@SharedResources.Edit" data-bind="visible: renameNodeVisible"></button>
+        </div>
+        <div class="contentWpr @cls">
+            
+            @if (!string.IsNullOrEmpty(Model.LetterUrl))
+            {
+                <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="290" src="@Model.LetterUrl"></iframe>
+            }
+
+            <ul id="libraryList" class="libraryList clearfix" data-data="@ViewBag.data">
+                <!--ko template:{name:displayMode,foreach:elements}-->
+                <!--/ko-->
+                <li class="libraryItem deptItem addDep" data-bind="visible: nodevisible">
+                    <button class="addBtn" data-bind="click: addnode, style: { height: nodevisible() && boxvisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
+                </li>
+                <li class="libraryItem box addCourse" data-bind="visible: boxvisible">
+                    <button class="addBtn" data-bind="click: addBox">@MainViewResources.AddCourse</button>
+                </li>
+            </ul>
+            <!--ko if:emptyState-->
+            @{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}
+            <!--/ko-->
+        </div>
+
+    </div>
+    @{
+        Html.RenderPartial("_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
+        Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
+    }
+</div>
+@{Html.RenderPartial("_Template");}

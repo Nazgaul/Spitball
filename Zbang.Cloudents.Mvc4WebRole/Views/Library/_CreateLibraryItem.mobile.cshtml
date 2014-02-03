@@ -1,0 +1,12 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem
+
+<div id="addDepartment" class="addDept popup">
+    <div class="popupWpr">
+        <div class="subTitle topContent">@DialogResources.CreateItem</div>
+        <form action="@Url.Action("Create", "Library")" id="cLibNode">
+            @Html.TextBoxFor(m => m.Name, new { @class = "inputText verticalMargins" , autofocus="autofocus"})
+            <input type="submit" class="rFloat btn1" value="@DialogResources.Create" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿div.baloon
+{
+    position: absolute;
+    background-color: #FFFFFF;
+    border: 1px solid #204968;
+    margin: 40px -500px 10px 0px;
+    text-align: right;
+    z-index: 3000;
+    right: 50%;
+    width: 360px;
+    height: 207px;
+    padding: 6px 10px 0px 10px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+
+
+#divBallonButtons
+{
+    position: relative;
+    width: 360px; /*text-align:right;*/
+}
+.BallonButtons
+{
+    
+    float:left;
+}
+
+#btnCancel
+{   
+    
+    width: 74px;
+    height: 23px;
+    margin-top:33px;
+    margin-left:168px;
+}
+
+#btnOk
+{
+    background-color: #4092cf;
+    height: 23px;
+    width: 104px;
+    margin-top:33px;
+ 
+}

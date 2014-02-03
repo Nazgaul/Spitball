@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AFewSecAgo" xml:space="preserve">
+    <value>a few sec. ago</value>
+  </data>
+  <data name="AMinAgo" xml:space="preserve">
+    <value>a min. ago</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>an hour ago</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value> b</value>
+  </data>
+  <data name="Box" xml:space="preserve">
+    <value>BOX</value>
+  </data>
+  <data name="Boxes" xml:space="preserve">
+    <value>BOXES</value>
+  </data>
+  <data name="CantAddReply" xml:space="preserve">
+    <value>Can't add reply</value>
+  </data>
+  <data name="CantUploadDirectory" xml:space="preserve">
+    <value>You can't upload a directory</value>
+  </data>
+  <data name="CantUploadEmptyFile" xml:space="preserve">
+    <value>You can't upload 0 size file...removing it from list</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>click here</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>comment</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>comments</value>
+  </data>
+  <data name="CopyLink" xml:space="preserve">
+    <value>Copy link</value>
+  </data>
+  <data name="CouldNotProcess" xml:space="preserve">
+    <value>Could not process your picture</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>create</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteBox" xml:space="preserve">
+    <value>Delete Box</value>
+  </data>
+  <data name="DeleteLowercase" xml:space="preserve">
+    <value>delete</value>
+  </data>
+  <data name="DeleteThisBox" xml:space="preserve">
+    <value>delete this box</value>
+  </data>
+  <data name="DeleteThisMember" xml:space="preserve">
+    <value>Are you sure you want to delete this member?</value>
+  </data>
+  <data name="DontHavePermission" xml:space="preserve">
+    <value>You don't have permission</value>
+  </data>
+  <data name="DontHavePermissionDeleteFile" xml:space="preserve">
+    <value>You don't have permission to delete a file</value>
+  </data>
+  <data name="DontHavePermissionToDelete" xml:space="preserve">
+    <value>You don't have permission to delete a</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="DragDropFiles" xml:space="preserve">
+    <value>Drag &amp; Drop files here to upload or</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>file</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>files</value>
+  </data>
+  <data name="Gb" xml:space="preserve">
+    <value> GB</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="IdLikeToShare" xml:space="preserve">
+    <value>I'd like to share the “{0}” on MultiMi Cloud with you.\n</value>
+  </data>
+  <data name="IncorrectExtension" xml:space="preserve">
+    <value>file has incorrect extension</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email</value>
+  </data>
+  <data name="InvalidFilename" xml:space="preserve">
+    <value>Invalid file name</value>
+  </data>
+  <data name="InviteSent" xml:space="preserve">
+    <value>Invite sent</value>
+  </data>
+  <data name="JustMe" xml:space="preserve">
+    <value>Just me</value>
+  </data>
+  <data name="Kb" xml:space="preserve">
+    <value> KB</value>
+  </data>
+  <data name="Mb" xml:space="preserve">
+    <value> MB</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>member</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>members</value>
+  </data>
+  <data name="MessageSent" xml:space="preserve">
+    <value>Message sent</value>
+  </data>
+  <data name="MinAgo" xml:space="preserve">
+    <value>{0} min. ago</value>
+  </data>
+  <data name="NeedToFollowBox" xml:space="preserve">
+    <value>You need to follow this box</value>
+  </data>
+  <data name="NoCurrentBoxes" xml:space="preserve">
+    <value>You have no current boxes</value>
+  </data>
+  <data name="NoCurrentInvites" xml:space="preserve">
+    <value>You have no current invites</value>
+  </data>
+  <data name="NoTextEntered" xml:space="preserve">
+    <value>No text entered</value>
+  </data>
+  <data name="NotHaveRights" xml:space="preserve">
+    <value>You do not have rights to invite people to this box</value>
+  </data>
+  <data name="NothingHereYet" xml:space="preserve">
+    <value>Nothing here yet</value>
+  </data>
+  <data name="NotValidUrl" xml:space="preserve">
+    <value>Not a valid url format</value>
+  </data>
+  <data name="PleaseSelectFiles" xml:space="preserve">
+    <value>Please select files to upload</value>
+  </data>
+  <data name="PreviewNotAvailable" xml:space="preserve">
+    <value>The preview of this file type isn't available yet</value>
+  </data>
+  <data name="ProblemLoadingImage" xml:space="preserve">
+    <value>There is a problem with loading the image</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>rename</value>
+  </data>
+  <data name="SelectFilesToUpload" xml:space="preserve">
+    <value>Select files to upload</value>
+  </data>
+  <data name="StillUploading" xml:space="preserve">
+    <value>You are still uploading files</value>
+  </data>
+  <data name="SureDeleteComment" xml:space="preserve">
+    <value>Are you sure you want to delete this comment?</value>
+  </data>
+  <data name="SureDeleteItem" xml:space="preserve">
+    <value>Are you sure you want to delete this Item?</value>
+  </data>
+  <data name="SureDeleteReply" xml:space="preserve">
+    <value>Are you sure you want to delete this reply?</value>
+  </data>
+  <data name="SureDeleteTag0" xml:space="preserve">
+    <value>Are you sure you want to delete the tag '{0}'?</value>
+  </data>
+  <data name="SureYouWant0" xml:space="preserve">
+    <value>Are you sure you want {0} this box ('{1}')?</value>
+  </data>
+  <data name="SureYouWant0ThisBox" xml:space="preserve">
+    <value>Are you sure you want {0} this box?</value>
+  </data>
+  <data name="SureYouWantTo" xml:space="preserve">
+    <value>Are you sure you want to </value>
+  </data>
+  <data name="SureYouWantToDelete" xml:space="preserve">
+    <value>Are you sure you want to delete</value>
+  </data>
+  <data name="TagsSaved" xml:space="preserve">
+    <value>Tags saved</value>
+  </data>
+  <data name="ThisBox" xml:space="preserve">
+    <value> this box</value>
+  </data>
+  <data name="ThisIsABox" xml:space="preserve">
+    <value>This is a box</value>
+  </data>
+  <data name="ToDelete" xml:space="preserve">
+    <value>to delete</value>
+  </data>
+  <data name="ToUnfollow" xml:space="preserve">
+    <value>to unfollow</value>
+  </data>
+  <data name="ToViewContent" xml:space="preserve">
+    <value>To view the content of this box</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Unfollow</value>
+  </data>
+  <data name="UnfollowThisBox" xml:space="preserve">
+    <value>unfollow this box</value>
+  </data>
+  <data name="UrlCopied" xml:space="preserve">
+    <value>URL is copied to clipboard</value>
+  </data>
+  <data name="WorkingOnPreview" xml:space="preserve">
+    <value>We are working on making it possible to preview all file types but haven't gotten to this one yet\n\nMeanwhile, you can try downloading the file to your computer to view</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>yesterday</value>
+  </data>
+  <data name="Invite" xml:space="preserve">
+    <value>INVITE</value>
+  </data>
+  <data name="Invites" xml:space="preserve">
+    <value>INVITES</value>
+  </data>
+  <data name="PrivacySettingChanged" xml:space="preserve">
+    <value>Privacy settings changed</value>
+  </data>
+  <data name="SureToDecline0" xml:space="preserve">
+    <value>Are you sure that you are not interested in following this box ('{0}')?</value>
+  </data>
+  <data name="SureToDelete0" xml:space="preserve">
+    <value>Are you sure you want to delete this box ('{0}')?</value>
+  </data>
+  <data name="SureToUnfollow0" xml:space="preserve">
+    <value>Are you sure you want to unfollow this box ('{0}')?</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>item</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>items</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>follow</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChooseBox" xml:space="preserve">
+    <value>You must choose an existing box or create a new box</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Enter new email</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="TypeCode" xml:space="preserve">
+    <value>Type code received by email</value>
+  </data>
+</root>

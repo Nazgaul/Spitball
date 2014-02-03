@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"                         
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="User" 
+         table="aspnet_Membership">
+  
+    <id name="UserId">
+      <generator class="guid"/>
+    </id>
+    
+    <property name="UserId" not-null="true"/>
+    
+    <property name="Email" column="LoweredEmail" not-null="true"/>
+    
+    <property name="IsEmailVerified" column="IsEmailVerified" not-null="true"/>
+  </class>
+  
+</hibernate-mapping>

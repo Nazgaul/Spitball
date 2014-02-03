@@ -1,0 +1,34 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<aside>
+<div class="textBkg text3">
+    @LogOnResources.IncorrectCredentials
+
+
+    @using (Html.BeginForm("LogIn", "Account", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post,
+    new { @class = "logIn" }
+   ))
+        {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.LabelFor(model => model.Email, new { @class = "accntLabel" }) @Html.ValidationMessageFor(model => model.Email, null)
+
+    @Html.TextBoxFor(model => model.Email, new { @class = "inputText", autofocus = "autofocus", placeholder = @LogOnResources.Email, tabindex=1 })
+    @Html.CheckBoxFor(model => model.RememberMe, new { @checked = "checked" })
+    @Html.LabelFor(model => model.RememberMe, new { @class = "cbLabel" })
+        
+    @Html.LabelFor(model => model.Password, new { @class = "accntLabel" }) @Html.ValidationMessageFor(model => model.Password, null)
+    @Html.PasswordFor(model => model.Password, new { @class = "inputText", placeholder = @LogOnResources.Password ,tabindex=2})
+    @Html.ActionLink(@LogOnResources.ForgotYourPassword, "ForgotPassword", null, new { @class = "forgotPsw" })
+
+    <input class="btn1" type="submit"  value="@LogOnResources.SignIn" tabindex="3" />
+        
+    <div class="newUser">@LogOnResources.NewTo <a href="/Account#register"><span>@LogOnResources.JoinNow2</span></a></div>
+
+}
+
+</div>
+</aside>

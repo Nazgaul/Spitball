@@ -1,0 +1,17 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+  <session-factory>
+    <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
+    <property name="dialect">Zbang.Zbox.Infrastructure.Data.Dialect.ZboxDialect, Zbang.Zbox.Infrastructure.Data</property>
+    <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+    <property name="connection.connection_string_name">ZBox</property>
+    <property name="use_proxy_validator">false</property>
+    <property name="default_schema">Zbox</property>
+    <property name="show_sql">true</property>
+    <property name="hbm2ddl.auto">update</property>
+    <mapping assembly="Zbang.Zbox.Domain" />
+    <mapping assembly="Zbang.Zbox.ViewModel" />
+    <mapping assembly="Zbang.Zbox.ApiViewModel" />
+  </session-factory>
+</hibernate-configuration>

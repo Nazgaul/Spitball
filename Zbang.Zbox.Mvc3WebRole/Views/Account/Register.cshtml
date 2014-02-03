@@ -1,0 +1,60 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+@model Zbang.Zbox.Mvc3WebRole.Models.Register
+
+<h2 class="txtshd1 accntTitle">@LogOnResources.JoinNow</h2>
+@using (Html.BeginForm("Register","Account", new { from = ViewBag.source, returnUrl = ViewBag.returnUrl  },FormMethod.Post
+   ))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, string.Empty, new { @class = "errmsg" })
+    <div>
+        @Html.LabelFor(model => model.NewUserName, new { @class = "accntLabel txtshd1" }) @Html.ValidationMessageFor(model => model.NewUserName, null, new { @class = "errmsg" })
+    </div>
+    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText accntinpt", autofocus = "autofocus" })
+    
+    <div>
+        @Html.LabelFor(model => model.NewEmail, new { @class = "accntLabel txtshd1" }) @Html.ValidationMessageFor(model => model.NewEmail, null, new { @class = "errmsg" })
+    </div>
+    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText accntinpt" })
+    
+    <div>
+        @Html.LabelFor(model => model.Password, new { @class = "accntLabel txtshd1" }) @Html.ValidationMessageFor(model => model.Password, null, new { @class = "errmsg" })
+    </div>
+    @Html.PasswordFor(model => model.Password, new { @class = "inputText accntinpt" })
+    
+    <div>
+        @Html.LabelFor(model => model.ConfirmPassword, new { @class = "accntLabel txtshd1" }) @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "errmsg" })
+    </div>
+    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "inputText accntinpt" })
+
+    <div>
+        @Html.LabelFor(model => model.University, new { @class = "accntLabel txtshd1" })
+    </div>
+    @Html.TextBoxFor(model => model.University, new { @class = "inputText accntinpt" })
+    
+    
+    <div class="clearfix accntchckbox">
+        <span class="termagg">
+            @RegisterResources.IAgree
+            <a target="_blank" href="@Url.Action("TermsOfService", "Home")">@RegisterResources.TermsOfServices</a>&nbsp;
+                @RegisterResources.and&nbsp;
+                <a target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>
+            &nbsp;
+                @RegisterResources.ofZbang
+        </span>
+
+    </div>
+    <div class="enterbtn clearfix">
+        <input class="btn3 rFloat" type="submit"  value="@RegisterResources.SignUp"  />
+    </div>
+    <div class="textOr">
+        @RegisterResources.Or
+    </div>
+    <div class="forgotPsd txtshd1 clearfix">
+        <a class="switchVisiablityButton rFloat">
+            @RegisterResources.SignIn</a>
+        <span class="rFloat">@RegisterResources.AlreadyHaveAnAccount&nbsp;</span>
+    </div>
+
+}
+

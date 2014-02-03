@@ -1,0 +1,439 @@
+﻿@import "varsAndMixins";
+
+/*#region mixins */
+.borderRadius(@prop: 5px)
+{
+    -webkit-border-radius: @prop;
+    border-radius: @prop;
+}
+
+.backgroundSize(@prop)
+{
+    -webkit-background-size: @prop;
+    background-size: @prop;
+}
+/*#endregion */
+
+/*#region homepage image */
+
+// Non Retina + small screens here (TODO need to add ++ NOT RETINA)
+@media only screen  
+and (max-device-width : 719px)
+{     
+    .imgBg {
+        background: url(/Images/m-home-small.jpg) right top no-repeat;
+    } 
+}
+
+// Retina + small screens here
+@media only screen  
+and (max-device-width : 719px)
+and (-webkit-min-device-pixel-ratio: 1.5), 
+    (min-resolution: 1.5dppx),
+    (min-resolution: 144dpi)
+{     
+    .imgBg {
+        background: url(/Images/m-home-small@2x.jpg) right top no-repeat;
+        .backgroundSize(cover);
+    } 
+}
+// Retina + large screens here 
+@media only screen  
+and (min-device-width : 720px)
+and (-webkit-min-device-pixel-ratio: 1.5), 
+    (min-resolution: 1.5dppx),
+    (min-resolution: 144dpi)
+{     
+    .imgBg {
+        background: url(/Images/m-home-bg@2x.jpg) right top no-repeat;
+        .backgroundSize(cover);
+    }
+}
+/*#endregion */
+
+@sprite: url(/Images/m-sprite-home.png);
+@spriteRetina: url(/Images/m-sprite-home@2x.png);
+
+
+/*#region  regular sprites */
+.sprite{
+    background: @sprite no-repeat;
+}
+
+/*#endregion */
+
+/*#region retina image sprites */
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    .sprite {
+        background-image: @spriteRetina;
+        .backgroundSize(286px 50px);
+    }
+}
+/*#endregion */
+  
+body
+{
+    text-align: center;
+}
+
+.imgBg
+{
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    
+    &:before
+    {
+        content: '';
+        display: block;
+        width: 100%;
+        height:100%;
+        background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 54%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(54%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    }    
+}
+.logo
+{
+    background-position: 0 0;
+    width: 272px;
+    height: 48px;
+    display: inline-block;
+    margin-top: 28px;
+}
+.text{
+    font-size: 18px;
+    color: #fff;
+    margin-top: 16px;
+    width: 93%;
+    display: inline-block;
+    //text-shadow: 1px 2px 2px rgba(0,0,0,.4);
+}
+.btn
+{
+    display: block;
+    width: 93%;
+    height: 40px;
+    line-height: 40px;
+    //border-radius: 5px;
+    .borderRadius(5px);
+    font-size: 16px;
+    margin: 0 auto;
+    position: absolute;
+    left:0;
+    right:0;
+}
+.btn1
+{
+    display: block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    .borderRadius(5px);
+    //border-radius: 5px;
+    font-size: 16px;
+    margin: 15px auto 20px;
+    background: @color;
+    color: #fff;
+}
+.create
+{
+    bottom: 117px;
+    background: #fff;
+    color: @color;
+}
+.connect
+{   
+    bottom: 62px;
+    background: @color;
+    color: #fff;
+}
+
+.lang{
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    width: 75px;
+    padding-left: 16px; /*In order to look centered*/
+    overflow:hidden;
+    &:after
+    {
+        .pseudo;
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 4px 4px 0 4px;
+        border-color: #fff transparent transparent transparent;
+        pointer-events: none;
+        position: absolute;
+        top: 8px;
+        right: 6px;
+    }
+}
+.langSelect
+{
+    background: transparent;
+    color: #fff;
+    border:none;
+    outline:none;
+    width: 95px;
+}
+option
+{
+    background: #000;
+    color: #fff;
+    border:none;
+    outline:none;
+}
+.content
+{
+    display:block;   
+    width: 90%;
+    //padding: 0 3.5%;
+    margin: 0 auto 20px;
+    height:100%;
+}
+.viaFB
+{
+    color: #fff;
+    margin: 28px 0 25px;
+    width: 100%;
+}
+.fbImg
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display:inline-block;   
+    width: 13px;
+    height: 25px;
+    //background: url(/Images/mob-logo.png) -273px 0 no-repeat;
+    background-position: -273px 0;
+    left: 16px; /*rtl*/
+    &:after
+    {
+        .pseudo();
+        opacity: .5;
+        width: 1px;
+        background: #fff;
+        height: 30px;
+        left: 24px; /*rtl*/
+        position: relative;
+        top: -3px;
+    }   
+}
+
+.facebook
+{
+    display: block;
+    padding: 8px 8px 8px 50px; /*rtl*/
+    font-size: 17px;
+    text-shadow: none;
+    //border-radius: 5px;
+    .borderRadius(5px);
+    position: relative;
+    text-align: left; /*rtl*/
+    margin: 25px auto;
+    line-height: 25px;    
+    background-color: #3b5998;
+}
+
+.register .inputText,.connect0 .inputText{
+    margin:5px 0 5px 0;
+}
+.connect0, .register0
+{
+    display: none;
+    .boxSizing();
+    width: 100%;
+    height: 100%;
+    background: #fff;
+
+    &:target
+    {
+        display: block;        
+    }
+
+    .title
+    {
+        font-size: 25px;
+        font-weight: bold;
+        color: @color;
+        margin-top: 15px;
+        text-align: center;
+    }
+    .title2
+    {
+        font-size: 15px;
+        color: #111;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+}
+.help, .help2
+{
+    color: #111;   
+    a
+    {
+        color: @color;
+    }
+}
+.help2
+{
+    padding-top: 10px;
+}
+
+.inputText {
+    display: block;
+    width: 100%;
+    //width: 93%;
+    font-size: 15px;
+    color: #464646;
+    border: 1px solid #ddd;
+    /*border-top: none;*/
+    -webkit-box-shadow: 0 1px 1px #fff;
+    box-shadow: 0 1px 1px #fff;
+    padding: 10px 4px 10px 8px; /*rtl*/
+    .boxSizing();
+    -webkit-appearance: none;
+}
+
+.acceptTerms
+{
+    font-size: 11px;
+    display: inline-block;
+}
+.acceptTerms > a
+{
+    color: @color;
+    text-decoration: none;
+}
+
+/*#region validation errors */
+.field-validation-error, .validation-summary-errors {
+    font-size: 12px;
+    color: #dc3500;
+    margin-left: 5px; /*rtl*/
+    text-align: left;
+}
+
+.input-validation-error, .input-validation-error:focus {
+    border: 1px solid #dc3500;
+    outline-color: #dc3500;
+}
+
+.field-validation-error + .inputText
+{
+    border-top: 1px solid #ddd;
+}
+/*#endregion */
+
+
+// LANDSCAPE VIEW
+/*@media only screen 
+and (orientation : landscape) and (min-width : 321px)  { 
+  .btn
+  {
+      position: static;
+      margin-top: 20px;
+  }
+  .lang
+  {
+      position: relative;
+      margin-top: 40px;
+  }
+  .btn, .text, .content
+  {
+      width: 70%;
+  }
+  .imgBg
+  {
+      height: 140%;
+  }
+}*/
+.landscape {
+     .btn
+  {
+      position: static;
+      margin-top: 20px;
+  }
+  .lang
+  {
+      position: relative;
+      margin-top: 40px;
+  }
+  .btn, .text, .content
+  {
+      width: 70%;
+  }
+  .imgBg
+  {
+      height: 140%;
+  }
+}
+// Retina + large screens here + landscape
+@media only screen  
+and (min-device-width : 720px)
+and (-webkit-min-device-pixel-ratio: 1.5), 
+    (min-resolution: 1.5dppx),
+    (min-resolution: 144dpi)
+and (orientation : landscape)
+{
+    .imgBg
+  {
+      height: 110%;
+  }
+}
+
+/*#region 'Static' pages */
+.error, .forgot, .pwdSent, .newPwd
+{
+    padding: 0 5%;
+    display: block;
+    font-size: 15px;
+    color: #111;
+    > h1
+    {
+        //color: #17a099;
+        color: @color;
+        text-align: center;
+        font-size: 24px;
+        margin: 23px 0;
+    }
+    > div
+    {
+        margin-bottom: 23px;
+    }
+    p{
+        margin-bottom: 10px;
+    }
+}
+
+.forgot, .pwdSent, .newPwd
+{
+    .inputText
+    {
+        margin: 2px 0 15px;
+    }   
+    //.btn1{
+        //width: 100%;
+        //padding: 4px 6px;
+        //margin-bottom:10px // for iphone
+    //}
+}
+.forgot{
+    padding-bottom:20px;
+    
+}
+
+/*#endregion */

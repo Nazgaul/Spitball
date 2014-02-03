@@ -1,0 +1,114 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+@model Zbang.Cloudents.Mvc4WebRole.Models.UpdateBoxInfo
+
+
+<div id="box_settings">
+    <div class="popupWrppr boxSettings">
+        <header class="popupHeader"><span id="boxSettingName">Box name here</span></header>
+        <div class="popupTopBar">
+
+            <button data-id="Settings" type="button" class="tabBtn">@DialogResources.Settings</button>
+            <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
+            <a data-navigation="invite" href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })" data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
+            <div class="arrow tabArrow"></div>
+        </div>
+        <form id="boxSettingsForm" class="boxSettingsForm">
+            <div class="boxSettingsContent">
+                <div class="boxSetting">
+                    <label>@SharedResources.Thumbnail:</label>
+                    <div class="thumbImg">
+                        <img alt="" src="" width="74" height="94" />
+                        @*<button class="changeImg" type="button">@SharedResources.Change</button>*@
+                    </div>
+                </div>
+                <div class="boxSetting">
+                    @Html.LabelForWithColon(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "inputText editBoxName", id = "boxSettingsName" })
+
+                </div>
+
+                <div class="boxSetting academic">
+                    @Html.LabelForWithColon(m => m.CourseCode)
+                    @Html.TextBoxFor(m => m.CourseCode, new { @class = "inputText courseNumber", id = "boxSettingsCourse", placeholder = IndexResources.CourseNumber })
+                </div>
+                <div class="boxSetting academic">
+                    @Html.LabelForWithColon(m => m.Professor)
+                    @Html.TextBoxFor(m => m.Professor, new { @class = "inputText editLecturer", id = "boxSettingsProfessor", placeholder = IndexResources.LecturerName })
+                </div>
+
+                <div class="boxSetting private">
+                    <label>@SharedResources.Owner:</label>
+                    <span class="ownerName"></span>
+                </div>
+                <div id="privacySettings" class="boxSetting private">
+                    <label>@MainViewResources.Privacy:</label>
+                    <div>
+                        <input type="radio"
+                               id="privacy_membersOnly"
+                               name="BoxPrivacy"
+                               value="@BoxPrivacySettings.MembersOnly.ToString("g")" />
+                        <label class="privacyLabel" for="privacy_membersOnly">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
+                        <div class="labelExplain">@SharedResources.OnlyPeople</div>
+
+                        <input type="radio"
+                               id="privacy_anyoneWithUrl"
+                               name="BoxPrivacy"
+                               value="@BoxPrivacySettings.AnyoneWithUrl.ToString("g")" />
+
+                        <label class="privacyLabel" for="privacy_anyoneWithUrl">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+                        <div class="labelExplain">@SharedResources.AnyoneWho</div>
+                    </div>
+                </div>
+
+                <div class="boxSetting">
+                    <label>@IndexResources.NotifyMe</label>
+                    <div class="radioBtns">
+                        <input id="noti_OnEveryChange" type="radio" name="Notification" value="@NotificationSettings.OnEveryChange.ToString("g")" /><label for="noti_OnEveryChange">@NotificationSettings.OnEveryChange.GetEnumDescription()</label>
+                        <input id="noti_OnceADay" type="radio" name="Notification" value="@NotificationSettings.OnceADay.ToString("g")" /><label for="noti_OnceADay">@NotificationSettings.OnceADay.GetEnumDescription()</label>
+                        <input id="noti_OnceAWeek" type="radio" name="Notification" value="@NotificationSettings.OnceAWeek.ToString("g")" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
+                        <input id="noti_Off" type="radio" name="Notification" value="@NotificationSettings.Off.ToString("g")" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
+                    </div>
+                </div>
+            </div>
+
+            <input id="boxSettingsSave" type="submit" class="btn1 next" value="@SharedResources.Save" />
+            <button id="boxSettingsCancel" type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
+            <button id="boxSettingsDelete" type="button" class="btn2 rFloat">@SharedResources.Delete</button>
+        </form>
+        <div class="membersContent">
+            <div class="membersTop">
+                <input id="membersSettings" type="checkbox" class="checkbox" />
+                <label for="membersSettings" class="cbLabel">@MainViewResources.All</label>
+                <button type="button" id="mbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
+                <div class="searchWpr rFloat">
+                    <span class="membersCount" data-label="@IndexResources.Members"></span>
+                    <input class="membersSearch" id="membersSearch" type="search" placeholder="@IndexResources.SearchMember" />
+                </div>
+            </div>            
+            <ul class="membersList" id="membersListBox" data-pending="@IndexResources.Pending" data-member="@IndexResources.ActiveMember" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited"></ul>
+        </div>
+        <button id="closeBoxSettings" class="closeDialog"></button>
+    </div>
+    <div class="modal2"></div>
+</div>
+<script type="text/html" id="memberItemTemplate">    
+    <li class="memberItem" id="member{{id}}">
+        <input id="{{identifier}}" type="checkbox" class="checkbox" />
+        <label for="{{identifier}}" class="cbLabel">
+            <a data-navigation="user" href="{{url}}"><img class="friendImg{{tooltipClass}}" alt="" data-uid="{{id}}" src="{{image}}" width="34" height="34" /></a>
+            <span class="memberName elps">{{name}}</span>
+        </label>
+        <span class="memberStatus {{cMemStat}}">
+            {{status}}
+        </span>
+        
+        <span class="rFloat memberActions">
+            <button type="button" title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
+            <button type="button" title="@SharedResources.Remove" class="removeUserBtn"></button>
+            <button type="button" class="reinviteUserBtn btn1">@IndexResources.Reinvite</button>
+        </span>
+    </li>
+</script>

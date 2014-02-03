@@ -1,0 +1,18 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+
+<div class="popupWrppr tagsAll txtshd1" data-strap="tags">
+    <header class="popupHeader">@IndexResources.Tags</header>
+
+    <ul>
+        @foreach (var tag in Model.Tags)
+        {
+            <li>
+                <span class="tagNameSelected">@tag</span>
+                <button class="tagSelectedX"></button>
+            </li>
+        }
+    </ul>
+
+    <button class="closeDialog uploadSprite"></button>
+    
+</div>

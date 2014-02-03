@@ -1,0 +1,29 @@
+﻿@model Zbang.Zbox.Infrastructure.Enums.UserType
+
+<div class="mainSection">
+    @if (ViewBag.IsFriend)
+    {
+        Html.RenderAction("MemberInfo");
+    }
+
+    @{Html.RenderPartial("_Boxes");}
+    @if (!ViewBag.IsFriend)
+    {
+        Html.RenderPartial("_Wall");
+    }
+</div>
+<div class="subSection">
+    <button class="Uploadbtn" data-strap="upload" data-stage="start" @*data-url="@Url.Action("CreateNewBox", "boxes")"*@>
+        <span class="UploadbtnImg"></span>
+        @Zbang.Zbox.Mvc3WebRole.Views.Dashboard.Resources.IndexResources.Upload</button>
+    <div class="school">ל <span>בית ברל</span> <a href="#" class="link">לחץ כאן</a></div>
+    @{Html.RenderPartial("_Tags");}
+    @if (!ViewBag.IsFriend)
+    {
+        Html.RenderPartial("_Friends");
+    }
+</div>
+@{
+    Html.RenderPartial("_Template");
+    Html.RenderPartial("_CommentTemplate");
+}

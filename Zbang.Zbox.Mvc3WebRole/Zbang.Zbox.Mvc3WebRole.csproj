@@ -1,0 +1,1233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E10D206C-6890-4A5B-AA3F-D6D5DAF791A4}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zbang.Zbox.Mvc3WebRole</RootNamespace>
+    <AssemblyName>Zbang.Zbox.Mvc3WebRole</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin, Version=4.78.4724.23863, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AjaxMin.4.78.4724.23869\lib\net40\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="ChilkatDotNet4, Version=9.3.1.0, Culture=neutral, PublicKeyToken=eb5fc1fc52ef09bd, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\Chilkat\ChilkatDotNet4.dll</HintPath>
+    </Reference>
+    <Reference Include="DevTrends.MvcDonutCaching">
+      <HintPath>..\packages\MvcDonutCaching.1.2.1\lib\net40\DevTrends.MvcDonutCaching.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET">
+      <HintPath>..\packages\EcmaScript.Net.1.0.1.0\lib\net20\EcmaScript.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified">
+      <HintPath>..\Bin\YUICompressor\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\AppFabric\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\AppFabric\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v3.5, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\v3.5\Microsoft.Build.Utilities.v3.5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.DistributedCache">
+      <HintPath>..\Bin\AppFabric\Microsoft.Web.DistributedCache.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.1.7.0.0\lib\net35-full\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\AppFabric\Microsoft.WindowsFabric.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Data.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\AppFabric\Microsoft.WindowsFabric.Data.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.621\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SquishIt.Framework, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SquishIt.0.9.1\lib\SquishIt.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.3.0.20105.1\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.2.2.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AzureCdn\CdnUrlExtension.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\IocConfig.cs" />
+    <Compile Include="App_Start\ViewConfig.cs" />
+    <Compile Include="Attributes\AjaxAttribute.cs" />
+    <Compile Include="Attributes\CacheFilterAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Attributes\ZboxHandleErrorAttribute.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BoxController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\GlobalController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\LibraryController.cs" />
+    <Compile Include="Controllers\Resources\AccountControllerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountControllerResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Resources\BoxControllerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoxControllerResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Resources\CommentControllerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommentControllerResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ShareController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Extension\Label.cs" />
+    <Compile Include="Factories\SearchQueryFactory.cs" />
+    <Compile Include="Extension\AjaxImageLink.cs" />
+    <Compile Include="Helpers\CookieHelper.cs" />
+    <Compile Include="Helpers\CustomCacheKeys.cs" />
+    <Compile Include="Helpers\DownloadBoxItem.cs" />
+    <Compile Include="Helpers\ImagePreview.cs" />
+    <Compile Include="Extension\HtmlHelper.cs" />
+    <Compile Include="Mimify\MinifyHtmlCodeGenerator.cs" />
+    <Compile Include="Mimify\MinifyHtmlWebRazorHostFactory.cs" />
+    <Compile Include="Models\Account\AccountSettings\UserLanguage.cs" />
+    <Compile Include="Models\Account\AccountSettings\ChangeMail.cs" />
+    <Compile Include="Models\Account\AccountSettings\Notification.cs" />
+    <Compile Include="Models\Account\AccountSettings\Password.cs" />
+    <Compile Include="Models\Account\AccountSettings\Profile.cs" />
+    <Compile Include="Models\Account\AccountSettings\Storage.cs" />
+    <Compile Include="Models\Account\LogOnRegister.cs" />
+    <Compile Include="Models\Account\Resources\AccountSettingsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountSettingsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\Resources\AccountSettingsResources.he.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountSettingsResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\Resources\ForgotPasswordResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForgotPasswordResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\Resources\ForgotPasswordResources.he.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForgotPasswordResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\Resources\LogOnResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogOnResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\Resources\LogOnResources.he.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogOnResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\Resources\RegisterResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegisterResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\Resources\RegisterResources.he.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegisterResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddLink.cs" />
+    <Compile Include="Models\BoxSetting.cs" />
+    <Compile Include="Models\CreateAcademicBox.cs" />
+    <Compile Include="Models\CreateLibraryItem.cs" />
+    <Compile Include="Models\ItemView.cs" />
+    <Compile Include="Models\NewReply.cs" />
+    <Compile Include="Models\Resources\AddLinkResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddLinkResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\CreateAcademicBoxResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateAcademicBoxResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\CreateBoxResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateBoxResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\BoxSettingResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoxSettingResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\CreateBoxResources.he.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateBoxResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\InvitationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvitationResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\InvitationResources.he.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvitationResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\ValidatePasswordResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidatePasswordResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resources\ValidatePasswordResources.he.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidatePasswordResources.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UniversityViewModel.cs" />
+    <Compile Include="Models\UploadButton.cs" />
+    <Compile Include="Models\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="Extension\ResourceFileResolver.cs" />
+    <Compile Include="Routing\FriendRoute.cs" />
+    <Compile Include="Routing\UserAuthorizeConstraint.cs" />
+    <Compile Include="Extension\ImageLink.cs" />
+    <Compile Include="Helpers\JsonResponse.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\BlobFileStream.cs" />
+    <Compile Include="Helpers\Crypto.cs" />
+    <Compile Include="Attributes\ZboxAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\VersionHelper.cs" />
+    <Compile Include="Models\Account\AccountSettings\AccountSettings.cs" />
+    <Compile Include="Models\Account\ForgotPassword.cs" />
+    <Compile Include="Models\Account\LogOn.cs" />
+    <Compile Include="Models\CreateBox.cs" />
+    <Compile Include="Models\DropDown.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\NewComment.cs" />
+    <Compile Include="Models\Account\Register.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountSettingsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Resources\EmailSentResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailSentResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Resources\ForgotPasswordResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForgotPasswordResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Resources\LogOnResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogOnResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Resources\RegisterResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegisterResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Resources\UserDetailResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDetailResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Resources\VerifyAccountResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VerifyAccountResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Resources\AddTagsContainerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddTagsContainerResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Resources\CreateBoxResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateBoxResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Resources\TemplateResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TemplateResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Box\Resources\BoxDataResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoxDataResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Box\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Box\Resources\MenuActionsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MenuActionsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Box\Resources\SettingsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SettingsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Comment\Resources\CommentResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommentResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Global\Resources\GlobalResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Resources\AboutUsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AboutUsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Resources\ContactUsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactUsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Resources\SearchResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Item\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Item\Resources\ItemsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Global\Resources\RegisterPopupResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegisterPopupResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Resources\ErrorResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Resources\FooterResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FooterResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Resources\SharedResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SharedResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Resources\UploadDialogResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UploadDialogResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Share\Resources\ShareResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShareResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WebRole.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Fonts\Alef-bold.svg" />
+    <Content Include="Content\Fonts\Alef-regular.svg" />
+    <Content Include="Content\Fonts\carmela.svg" />
+    <Content Include="Content\Account.css" />
+    <Content Include="Content\Box.css" />
+    <Content Include="Content\Boxes.css" />
+    <Content Include="Content\Comments.css" />
+    <Content Include="Content\Item.css" />
+    <Content Include="Content\RTL.css" />
+    <Content Include="Content\RTL3.css" />
+    <Content Include="Content\Search.css" />
+    <Content Include="Content\Settings.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Site3.css" />
+    <Content Include="Content\Static.css" />
+    <Content Include="Content\Templates\Boxes.html" />
+    <Content Include="Content\Tooltip.css" />
+    <Content Include="Content\Upload.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="google88a0103480a6bfcf.html" />
+    <Content Include="Images\328.gif" />
+    <Content Include="Images\addressbook_add_icon.png" />
+    <Content Include="Images\beit_berl_eng.png" />
+    <Content Include="Images\beit_berl_heb.png" />
+    <Content Include="Images\boxes-sprite.png" />
+    <Content Include="Images\boxes_sprite.png" />
+    <Content Include="Images\box_sprite.png" />
+    <Content Include="Images\checkbox.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_01.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_02.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_03.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_04.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_05.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_06.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_07.png" />
+    <Content Include="Images\EmptyState\icon_boxplaceholder_08.png" />
+    <Content Include="Images\EmptyState\mybox.png" />
+    <Content Include="Images\fblogin-rtl.jpg" />
+    <Content Include="Images\fblogin.jpg" />
+    <Content Include="Images\flags.png" />
+    <Content Include="Images\homepage_screens.png" />
+    <Content Include="Images\icon-invite.png" />
+    <Content Include="Images\item-sprite.png" />
+    <Content Include="Images\lock.png" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\Logo2.png" />
+    <Content Include="Images\map.jpg" />
+    <Content Include="Images\mmcloud.jpg" />
+    <Content Include="Images\radio.png" />
+    <Content Include="Images\searchArrow.jpg" />
+    <Content Include="Images\sendmsg_icon.png" />
+    <Content Include="Images\share_sprite.png" />
+    <Content Include="Images\site_banner.png" />
+    <Content Include="Images\site_sprite.png" />
+    <Content Include="Images\team-sprite.png" />
+    <Content Include="Images\toggle.png" />
+    <Content Include="Images\tooltip_arrow.png" />
+    <Content Include="Images\trash.png" />
+    <Content Include="Images\upload-sprite.png" />
+    <Content Include="Images\upload_icon_small.png" />
+    <Content Include="Images\usrPic.png" />
+    <Content Include="Js\AjaxWrapper.js" />
+    <Content Include="Js\Bindings.js" />
+    <Content Include="Js\bootstrapper2.js" />
+    <Content Include="Js\Dialog.js" />
+    <Content Include="Js\InviteViewModel2.js" />
+    <Content Include="Js\Library.js" />
+    <Content Include="Js\pubsub.js" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\elasticTextBox.js" />
+    <Content Include="Scripts\elps.js" />
+    <Content Include="Scripts\externalScriptLoader.js" />
+    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ar.resx" />
+    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.he.resx" />
+    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ar.resx" />
+    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.ar.resx" />
+    <EmbeddedResource Include="Js\Resource\ZboxResources.ar.resx">
+      <Generator>JavaScriptResourceCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ar.resx" />
+    <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.he.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountSettingsResources.he.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountSettingsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.ar.resx" />
+    <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.he.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForgotPasswordResources.he.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForgotPasswordResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\LogOnResources.ar.resx" />
+    <EmbeddedResource Include="Models\Account\Resources\LogOnResources.he.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogOnResources.he.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\LogOnResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogOnResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\RegisterResources.ar.resx" />
+    <EmbeddedResource Include="Models\Account\Resources\RegisterResources.he.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterResources.he.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Account\Resources\RegisterResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\AddLinkResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\AddLinkResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddLinkResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\BoxSettingResource.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\BoxSettingResource.he-IL.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Content\Fonts\carmela.eot" />
+    <Content Include="Content\Fonts\carmela.ttf" />
+    <Content Include="Content\Fonts\carmela.woff" />
+    <EmbeddedResource Include="Models\Resources\AddLinkResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Content\Fonts\Alef-bold.eot" />
+    <Content Include="Content\Fonts\Alef-bold.ttf" />
+    <Content Include="Content\Fonts\Alef-bold.woff" />
+    <Content Include="Content\Fonts\Alef-regular.eot" />
+    <Content Include="Content\Fonts\Alef-regular.ttf" />
+    <Content Include="Content\Fonts\Alef-regular.woff" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <None Include="Scripts\jquery-1.8.3.intellisense.js" />
+    <Content Include="Scripts\history.js\amplify.store.js" />
+    <Content Include="Scripts\history.js\history.adapter.dojo.js" />
+    <Content Include="Scripts\history.js\history.adapter.jquery.js" />
+    <Content Include="Scripts\history.js\history.adapter.mootools.js" />
+    <Content Include="Scripts\history.js\history.adapter.prototype.js" />
+    <Content Include="Scripts\history.js\history.adapter.yui.js" />
+    <Content Include="Scripts\history.js\history.adapter.zepto.js" />
+    <Content Include="Scripts\history.js\history.html4.js" />
+    <Content Include="Scripts\history.js\history.js" />
+    <Content Include="Scripts\history.js\json2.js" />
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.23.js" />
+    <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
+    <Content Include="Scripts\jquery.ba-bbq.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\Modernizr.js" />
+    <Content Include="Scripts\ZeroClipboard10.swf" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\json2.min.js" />
+    <Content Include="Scripts\plupload\plupload.browserplus.js" />
+    <Content Include="Scripts\plupload\plupload.flash.js" />
+    <Content Include="Scripts\plupload\plupload.flash.swf" />
+    <Content Include="Scripts\plupload\plupload.full.js" />
+    <Content Include="Scripts\plupload\plupload.gears.js" />
+    <Content Include="Scripts\plupload\plupload.html4.js" />
+    <Content Include="Scripts\plupload\plupload.html5.js" />
+    <Content Include="Scripts\plupload\plupload.js" />
+    <Content Include="Scripts\plupload\plupload.silverlight.js" />
+    <Content Include="Scripts\plupload\plupload.silverlight.xap" />
+    <Content Include="Scripts\jquery.validate.hooks.js" />
+    <Content Include="Js\AccountSettings.js" />
+    <Content Include="Js\bootstrapper.js" />
+    <Content Include="Js\BoxesViewModel.js" />
+    <Content Include="Js\BoxSettings.js" />
+    <Content Include="Js\BoxViewModel.js" />
+    <Content Include="Js\CommentsViewModel.js" />
+    <Content Include="Js\BoxItemsViewModel.js" />
+    <Content Include="Js\FriendViewModel.js" />
+    <Content Include="Js\InlineSearchViewModel.js" />
+    <Content Include="Js\InviteShare.js" />
+    <Content Include="Js\InviteViewModel.js" />
+    <Content Include="Js\ItemViewModel2.js" />
+    <Content Include="Js\Resource\ZboxResources.he.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZboxResources.he.resx</DependentUpon>
+    </Content>
+    <Content Include="Js\Resource\ZboxResources.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZboxResources.resx</DependentUpon>
+    </Content>
+    <Content Include="Js\SearchViewModel.js" />
+    <Content Include="Js\SelectedTagsViewModel.js" />
+    <Content Include="Js\TagsViewModel.js" />
+    <Content Include="Js\Updates.js" />
+    <Content Include="Js\Upload.js" />
+    <Content Include="Js\WallViewModel.js" />
+    <Content Include="Js\Zbox.Logon.js" />
+    <Content Include="Js\Zbox.Boxes.js" />
+    <Content Include="Js\Zbox.js" />
+    <Content Include="Js\Zbox.Resize.js" />
+    <Content Include="Js\Zbox.Security.js" />
+    <Content Include="Js\ZboxAjaxRequest.js" />
+    <Content Include="Scripts\ZeroClipboard.js" />
+    <Content Include="Scripts\ZeroClipboard.swf" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="sitemap.xml" />
+    <Content Include="Js\Resource\Web.config" />
+    <None Include="startup\vcredist_x64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Views\_ViewStart.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\TopMenu\_Actions.cshtml" />
+    <Content Include="Views\Shared\TopMenu\_Logo.cshtml" />
+    <Content Include="Views\Account\_UserDetail2.cshtml" />
+    <Content Include="Views\Box\Index2.cshtml" />
+    <Content Include="Views\Shared\Partials\_Activity.cshtml" />
+    <Content Include="Views\Box\_Template.cshtml" />
+    <Content Include="Views\Comment\AddComment2.cshtml" />
+    <Content Include="Views\Box\UserPermission.cshtml" />
+    <Content Include="Views\Share\_InviteBox2.cshtml" />
+    <Content Include="Views\Item\Index2.cshtml" />
+    <Content Include="Views\Shared\Partials\_CommentTemplate.cshtml" />
+    <Content Include="Views\Shared\Partials\_UploadContainer.cshtml" />
+    <Content Include="Views\Item\_PreviewLink.cshtml" />
+    <Content Include="Views\Item\_PreviewBox.cshtml" />
+    <Content Include="Views\Item\_PreviewImage.cshtml" />
+    <Content Include="Views\Item\_PreviewFailed.cshtml" />
+    <Content Include="Views\Item\Print.cshtml" />
+    <Content Include="Views\Shared\Partials\_RegisterPopUp.cshtml" />
+    <Content Include="Views\Shared\Partials\_UploadDialog.cshtml" />
+    <Content Include="Views\Item\_Expand.cshtml" />
+    <Content Include="Views\Account\Partials\_Main.cshtml" />
+    <Content Include="Views\Account\Partials\_BankBB.cshtml" />
+    <Content Include="Views\Shared\Partials\_UploadCreateBox.cshtml" />
+    <Content Include="Views\Shared\Partials\_UploadAddLink.cshtml" />
+    <Content Include="Views\Shared\Partials\_Invite.cshtml" />
+    <Content Include="Views\Shared\Partials\_MailPopUp.cshtml" />
+    <Content Include="Views\Box\_Members.cshtml" />
+    <Content Include="Views\Box\_Tags.cshtml" />
+    <Content Include="Views\Shared\Partials\_Message.cshtml" />
+    <Content Include="Views\Shared\Partials\_UploadCreateAcademicBox.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
+    <Content Include="Views\Shared\Partials\_Confirm.cshtml" />
+    <Content Include="Views\Box\_Settings2.cshtml" />
+    <Content Include="Views\Account\_AccountProfile.cshtml" />
+    <Content Include="Views\Account\_AccountSettings.cshtml" />
+    <Content Include="Views\Account\_AccountStorage.cshtml" />
+    <Content Include="Views\Account\_AccountNotification.cshtml" />
+    <Content Include="Views\Box\_Items.cshtml" />
+    <Content Include="Views\Shared\_Layout3.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Library\_MainView.cshtml" />
+    <Content Include="Views\Dashboard\_MainView.cshtml" />
+    <Content Include="Views\Library\_Template.cshtml" />
+    <Content Include="Views\Dashboard\_Template.cshtml" />
+    <Content Include="Views\Account\_UserDetail3.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Configuration\General.Unity.config">
+      <Link>General.Unity.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
+      <Project>{9ED04567-B2D0-4040-88A6-1AD752A3D83F}</Project>
+      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
+      <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
+      <Name>Zbang.Zbox.Domain.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
+      <Project>{B4B7F91C-9412-4D6B-93E2-F3B7C4BD9B90}</Project>
+      <Name>Zbang.Zbox.Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
+      <Project>{F1AC4D4D-0633-4343-A657-DA275D33466D}</Project>
+      <Name>Zbang.Zbox.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
+      <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
+      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ReadServices\Zbang.Zbox.ReadServices.csproj">
+      <Project>{091BCB44-6764-41CA-A255-C6DA6157092B}</Project>
+      <Name>Zbang.Zbox.ReadServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ViewModel\Zbang.Zbox.ViewModel.csproj">
+      <Project>{BC85A7BD-262D-43E0-8D9D-EE76C602BFAF}</Project>
+      <Name>Zbang.Zbox.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\TopMenu\_Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\EmailSent.cshtml" />
+    <Content Include="Views\Account\VerifyAccount.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\LogOn.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Comment\Comments.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ContactUs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Footer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\TermsOfService.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Privacy.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\AboutUs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Box\_BoxPermissionByUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Global\_Loading.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="startup\disableTimeout.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_UploadLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cdn\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Global\_Tags.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="startup\InstallVcreditst.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Partials\_Share.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountControllerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.he.resx" />
+    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoxControllerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.he.resx" />
+    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommentControllerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.he.resx" />
+    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateAcademicBoxResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\CreateBoxResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\CreateBoxResources.he.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateBoxResources.he.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\CreateBoxResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateBoxResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\BoxSettingResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoxSettingResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\InvitationResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\InvitationResources.he.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>InvitationResources.he.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\InvitationResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>InvitationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.he.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidatePasswordResources.he.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidatePasswordResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Js\Resource\ZboxResources.he.resx">
+      <Generator>JavaScriptResourceCodeGenerator</Generator>
+      <LastGenOutput>ZboxResources.he.js</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Js\Resource\ZboxResources.resx">
+      <Generator>JavaScriptResourceCodeGenerator</Generator>
+      <LastGenOutput>ZboxResources.js</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.he.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountSettingsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\EmailSentResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\EmailSentResources.he.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\EmailSentResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmailSentResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.he.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForgotPasswordResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\IndexResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\IndexResources.he.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\LogOnResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\LogOnResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\LogOnResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogOnResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\RegisterResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\RegisterResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.he.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserDetailResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>VerifyAccountResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\BoxDataResources.ar.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\IndexResources.ar.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\MenuActionsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\SettingsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\AddTagsContainerResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\AddTagsContainerResources.he.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\AddTagsContainerResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddTagsContainerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\Resources\CreateBoxResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\CreateBoxResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\Resources\CreateBoxResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateBoxResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\Resources\TemplateResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\TemplateResources.he.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\TemplateResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TemplateResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\BoxDataResources.he.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxDataResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoxDataResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\IndexResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\MenuActionsResources.he.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\MenuActionsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MenuActionsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\SettingsResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\SettingsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SettingsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.he.resx" />
+    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommentResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Global\Resources\GlobalResources.ar.resx" />
+    <EmbeddedResource Include="Views\Global\Resources\GlobalResources.he.resx" />
+    <EmbeddedResource Include="Views\Global\Resources\GlobalResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Global\Resources\RegisterPopupResources.ar.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.he.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AboutUsResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.he.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContactUsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Resources\IndexResources.ar.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\IndexResources.he.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Resources\SearchResources.ar.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\SearchResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Resources\SearchResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SearchResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Item\Resources\IndexResources.ar.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\IndexResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Item\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ItemsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Global\Resources\RegisterPopupResources.he.resx" />
+    <EmbeddedResource Include="Views\Global\Resources\RegisterPopupResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterPopupResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.he.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\FooterResources.he.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\FooterResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FooterResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\SharedResources.he.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\SharedResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\UploadDialogResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\UploadDialogResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UploadDialogResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Share\Resources\ShareResources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Share\Resources\ShareResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShareResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>8080</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4654/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+</Project>

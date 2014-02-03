@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="Zbang.Zbox.WcfRestService.Global" Language="C#" %>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+  <resultset name="BoxDto">
+    <return-scalar column="Id" type="long"/>
+    <return-scalar column="BoxName" type="string"/>
+    <return-scalar column="BoxPicture" type="string"/>
+    <!--<return-scalar column="UpdateTime" type="DateTime"/>-->
+    <return-scalar column="UserType" type="Zbang.Zbox.Infrastructure.Enums.UserRelationshipType,Zbang.Zbox.Infrastructure"/>
+    <return-scalar column="ItemCount" type="int"/>
+   
+    <return-scalar column="MembersCount" type="int"/>
+    <return-scalar column="CommentCount" type="int"/>
+    <return-scalar column="CourseCode" type="string"/>
+    <return-scalar column="ProfessorName" type="string"/>
+    <return-scalar column="BoxType" type="Zbang.Zbox.Infrastructure.Enums.BoxType,Zbang.Zbox.Infrastructure"/>
+    <return-scalar column="Universityname" type="string"/>
+  </resultset>
+  <resultset name="DtoCount">
+    <return-scalar column="Count" type="Int32"/>
+  </resultset>
+ 
+  
+  <sql-query name="ZboxGetAcademibBoxesByNode" resultset-ref="BoxDto">
+    <![CDATA[
+    select b.boxid as Id,
+    b.BoxName as BoxName,
+    b.CourseCode as CourseCode,
+    (select ub2.UserType from zbox.UserBoxRel ub2 where ub2.userid = :UserId and ub2.boxid = b.BoxId) as UserType ,
+    b.itemcount as ItemCount,
+    b.MembersCount as MembersCount,
+    b.commentcount as CommentCount,
+    b.BoxPicture as BoxPicture, 
+    b.ProfessorName as ProfessorName,
+    b.Discriminator as boxType,
+    (select universityname from zbox.Users u where b.OwnerId = u.UserId) as Universityname
+    from zbox.LibraryBox l
+    join zbox.box b on b.BoxId = l.BoxId and b.IsDeleted = 0  and b.discriminator = 2
+    where LibraryId = :ParentNode
+    ORDER BY    
+          case WHEN :Sort = 0 Then UpdateTime END desc,
+          case WHEN :Sort = 1 Then BoxName END asc
+    ]]>
+  </sql-query>
+</hibernate-mapping>

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ApiViewModel"
+                   namespace="Zbang.Zbox.ApiViewModel.DTOs">
+
+  <class name="ApiTextDto" abstract="true"
+         mutable="false"
+         lazy="false"
+         schema-action="none">
+
+    <id name="Uid">
+      <generator class="assigned"/>
+    </id>
+    <discriminator column="Discriminator"/>
+    
+    <component name="Owner" class="UserDto">
+      <property name="Name" column="UserName"/>
+      <property name="Uid" column="UserUid"/>
+      <property name="Image" column="UserImage"/>
+      <property name="UserType" column="UserType"/>
+    </component>
+    
+    <property name="CreationTime" not-null="false"/>
+    <property name="UpdateTime" not-null="false"/>
+    <property name="BoxUid" not-null="false"/>
+    <property name="ItemUid" not-null="false"/>
+    <subclass name="ApiCommentDto" discriminator-value="Comment">
+      <property name="CommentText" not-null="true"/>
+      <property name="ParentCommentUid" column="ParentId"/>
+    </subclass>
+    <subclass name="ApiActionDto" discriminator-value="Action">
+      <property name="ActionType" not-null="true"/>
+    </subclass>
+  </class>
+
+  <sql-query name="APIGetBoxComments">
+    <return class="ApiCommentDto"/>
+    <![CDATA[
+      select cr.CommentRepliesId as uId,cr.ParentId,cr.CreationTime, cr.UpdateTime,cr.CommentText,
+   uAuthor.UserName  , uAuthor.UserImage,   uAuthor.Uid as UserUid, uAuthor.UserType,
+       b.Uid as BoxUid,  item.Uid as ItemUid
+        
+    from zbox.Box b ,  zbox.CommentReplies cr,
+    zbox.Users uAuthor,zbox.Comment c
+    left join zbox.Item on Item.ItemId = c.ItemId and Item.IsDeleted = 0
+    where  b.BoxId = :boxid
+  
+    and c.BoxId = b.BoxId 
+    and cr.isDeleted = 0
+    and (cr.CommentRepliesId = c.CommentId or cr.ParentId = c.CommentId)
+    and cr.AuthorId = uAuthor.UserId    
+    ]]>
+  </sql-query>
+  <sql-query name="APIGetItemComments">
+    <return class="ApiCommentDto"/>
+  <![CDATA[
+    select cr.CommentRepliesId as uId,cr.ParentId,cr.CreationTime,cr.UpdateTime,cr.CommentText,
+        uAuthor.UserName  , uAuthor.UserImage,   uAuthor.Uid as UserUid, uAuthor.UserType,
+     b.uid as BoxUid, item.Uid as ItemUid
+    from   zbox.Box b ,  zbox.CommentReplies cr,
+    
+    zbox.Users uAuthor,zbox.Comment c
+    inner join zbox.Item on Item.ItemId = c.ItemId and Item.IsDeleted = 0
+
+    where 
+     b.BoxId = :boxid
+    and c.ItemId = :itemid
+    and c.BoxId = b.BoxId
+    and cr.isDeleted = 0
+    and (cr.CommentRepliesId = c.CommentId or cr.ParentId = c.CommentId)
+    and cr.AuthorId = uAuthor.UserId  ]]>
+  </sql-query>
+  <sql-query name="APIGetRecenetAcitivityAll">
+    <return class="ApiTextDto"/>
+    <![CDATA[
+    select * from     
+ (select a.id as uid, null as ParentId, 'Action' as Discriminator,a.CreationTime,a.UpdateTime,'' as CommentText, a.[type] as actionType, 
+   uDisplay.UserName  , uDisplay.UserImage,   uDisplay.Uid as UserUid, uDisplay.UserType,
+    
+    
+    b.uid as boxuid ,i.uid as itemuid
+    from zbox.[Action] a, zbox.Item i, 
+    zbox.Users u,
+    zbox.Users uDisplay, zbox.Box b, zbox.UserBoxRel ub
+    where a.itemid = i.ItemId
+    and a.userid = uDisplay.UserId
+    and b.BoxId = a.boxid
+    and b.IsDeleted = 0
+    and b.BoxId = ub.BoxId
+    and ub.UserId = u.UserId 
+    and u.UserId = :UserId
+    
+    union all
+    select cr.CommentRepliesId as uId,ParentId,'Comment' as Discriminator,cr.CreationTime, cr.UpdateTime,cr.CommentText, '' as actionType,
+    uAuthor.UserName  , uAuthor.UserImage,   uAuthor.Uid as UserUid, uAuthor.UserType,
+    
+     b.uid as boxuid ,item.uid as ItemuId
+  from [zbox].[Users] u , [zbox].[UserBoxRel] ub, [zbox].[Box] b , [zbox].[CommentReplies] cr,
+  [zbox].[Users] uAuthor,[zbox].[Comment] c
+  left join zbox.Item on Item.ItemId = c.ItemId 
+  where u.UserId = :UserId
+  and ub.UserId = u.UserId
+  and b.IsDeleted = 0
+  and ub.BoxId = b.BoxId
+  and c.BoxId = b.BoxId 
+  and (cr.CommentRepliesId = c.CommentId or cr.ParentId = c.CommentId)
+  and cr.isDeleted = 0
+  and cr.AuthorId = uAuthor.UserId)a
+  ]]>
+  </sql-query>
+</hibernate-mapping>

@@ -1,0 +1,128 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+@{
+    ViewBag.data = ViewBag.data ?? null;
+}
+
+<div id="box" class="page boxPage" data-data="@ViewBag.data" data-bind="delegatedHandler: 'click', css : boxTypeClass">
+    <div class="leftPanel lFloat">
+        <div id="BoxTopWpr" class="boxTopWpr">
+            <div class="boxTop">
+                <img class="lFloat" data-bind="attr: { src: image }" alt="" width="74" height="94" />
+                <div class="boxNameWpr clamp2">
+                    <div class="boxName semiFont" id="box_Name" data-bind="text: name, attr: { title: name, 'data-name': name }"></div>
+                </div>
+                <div class="courseCode elps" id="box_Course" data-bind="text: courseId, visible: boxtype() === 'academic'"></div>
+                <div class="courseCode elps" id="box_Owner" data-bind="text: ownerName, visible: boxtype() === 'box'"></div>
+                <span class="courseCode propName elps" id="box_Prof" data-bind="text: proffer, visible: boxtype() === 'academic'"></span>
+                <button class="boxRename" title="@IndexResources.BoxSettings" id="boxSettings" type="button"></button>
+
+            </div>
+        </div>
+        <div class="boxMembers">
+            <div class="sectionHeader">
+                @IndexResources.Members
+            <button id="showAllMembers" class="showAll rFloat" type="button">@SharedResources.ShowAll</button>
+        </div>
+        <ul class="friendsList">
+            <!--ko foreach:members-->
+            <li class="friendItem">
+                <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg calloutTrgr" alt="" data-bind="attr: { src: image, 'data-uid': id }" width="31" height="31" /></a>
+            </li>
+            <!--/ko-->
+            <li class="friendItem"><a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })" data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="inviteFriendBtn btn3">@IndexResources.Invite</a></li>
+        </ul>
+    </div>
+
+    <div class="boxFolders">
+        <div class="sectionHeader">@IndexResources.Folders</div>
+        <ul class="boxFolderList" id="box_filters">
+            <li class="current boxFolder" data-bind="css: { current: $root.currentTab() == null }">
+                <span class="boxFolderName elps" data-click="switchTab">@MainViewResources.All</span>
+                <span class="tabBorder"></span>
+            </li>
+            <!--ko foreach :{data: tabs ,afterAdd: myDrag}-->
+            <li class="boxFolder" data-click="switchTab" data-bind="css: { current: isSelected }">
+                <span class="boxFolderName elps" data-bind="text: name, attr: { title: name }"></span>
+                <div title="menu" class="editFolder rFloat" data-click="tabMenu" data-bind="visible: isAction">
+                    <ul class="editFolderMenu">
+                        <li>
+                            <button type="button" data-bind="click: $root.tabRename">@MainViewResources.Rename</button>
+                        </li>
+                        <li>
+                            <button type="button" data-bind="click: $root.tabManage">@MainViewResources.Manage</button>
+                        </li>
+                        <li>
+                            <button type="button" data-bind="click: $root.tabDelete">@MainViewResources.Delete</button>
+                        </li>
+                    </ul>
+                </div>
+                <span class="tabBorder"></span>
+            </li>
+
+            <!--/ko-->
+            <li class="createFolder">
+                <span class="createFolderText elps" data-click="addTab">@MainViewResources.CreateTab</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="boxRight">
+    <div class="boxActions topBar">
+        <section class="shareBtn rFloat">
+            <input class="checkbox" type="checkbox" id="boxShare" data-ddcbox="boxShare" />
+            <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
+            <div class="dropDown shareDD" data-dropdown="boxShare">
+                <label class="closeItem rFloat" for="boxShare"></label>
+                <div class="arrow shareArrow"></div>
+                <h4 class="semiFont" data-share-academic="@IndexResources.ShareCourse" data-share-private="@IndexResources.ShareBox"></h4>
+                <div class="shareTxt" data-invite-academic="@IndexResources.InviteCourse" data-invite-private="@IndexResources.InviteBox"></div>
+                <ul class="shareList">
+                    <li class="shareItem"><button type="button" id="box_FS" class="fbShare">@SharedResources.Facebook</button></li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="shareItem"><button type="button" id="box_msg" class="emailShare">@SharedResources.Email</button></li>
+                    }
+                </ul>
+                <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                <input type="text" id="box_CL" class="linkShare elps" value="" readonly="readonly" data-bind="value: copyLink" />
+            </div>
+        </section>
+
+        <a class="backWpr elps lFloat" data-bind="attr: { href: parent().url },visible: backVisible" data-navigation="Dashboard">
+            <div>@ItemsResources.Backto</div>
+            <h2 class="semiFont" data-bind="text: parent().name"></h2>
+        </a>
+    </div>
+
+    @*<!--ko if:follow-->*@
+
+    @*Ram please add class 'show' here when visible:follow is true*@
+    @*Also when user clicks the follow box button need to add the class 'followed' here*@
+    <div id="joinGrpBtn" class="joinGrpWpr joinWprSlide" data-bind="css:follow() ? 'show' : ''">
+        <span class="joinMsg iconTxt">@SharedResources.Member</span>
+        <button type="button" class="joinGrp" data-bind="click: followbox" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
+    </div>
+    @*<!--/ko-->*@
+    <div class="box-content">
+        <!--ko stopBinding:true-->
+        @{Html.RenderPartial("_Items2");}
+        @{Html.RenderPartial("_QnA");}
+        <!--/ko-->
+    </div>
+</div>
+@{
+    Html.RenderPartial("_BoxSettings");
+    Html.RenderPartial("_CreateTab", new Zbang.Cloudents.Mvc4WebRole.Models.Tabs.CreateBoxItemTab());
+}
+</div>
+@{
+    Html.RenderPartial("_UploadDialog");
+    Html.RenderPartial("_UploadAddLink", new Zbang.Cloudents.Mvc4WebRole.Models.AddLink());
+}
+

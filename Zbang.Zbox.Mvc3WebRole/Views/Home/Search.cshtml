@@ -1,0 +1,36 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Home.Resources
+@using Zbang.Zbox.Infrastructure.Enums;
+@{ 
+    ViewBag.topbar = "searchTopBar";
+
+    var searchTitle = string.Format(SearchResources.SearchTitle, ViewBag.query);
+}
+@section TopBar{
+
+    <ul id="ViewData" class="searchMenu">
+        <li class="searchTitle">
+            @searchTitle&nbsp;&nbsp;</li>
+        <li class="searchCategory searchCategoryfirst" data-bind="css:{searchActiveTitle:typeFilter()==='@SearchType.Box'}, click : changeFilter.bind($data,'@SearchType.Box')">@SearchResources.Boxes</li>
+        <li class="searchCategory searchCategorysecond" data-bind="css:{searchActiveTitle:typeFilter()==='@SearchType.Item'}, click : changeFilter.bind($data,'@SearchType.Item')">
+            @SearchResources.Items</li>
+    </ul>
+
+}
+
+
+<div class="searchResult" data-strap="search">
+    <div id="noRes" data-bind="visible: resultFound" style="display: none;">
+        <div class="note1">
+            @SearchResources.WeCoudntFind “@ViewBag.query”
+        </div>
+        <div class="note2">
+            @SearchResources.TryChecking
+        </div>
+    </div>
+    <ul id="searchResults" class="searchResults" data-bind=" template : {foreach:datatoDisplay, name: displayMode}">
+    </ul>
+</div>
+
+@{Html.RenderAction("Template", "Dashboard");}
+@{Html.RenderAction("Template", "Box");}
+

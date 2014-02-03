@@ -1,0 +1,38 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="popupWrppr share txtshd1" data-strap="shrapp">
+    <header class="popupHeader"><span class="sHeader boldFont">@SharedResources.Share</span>&nbsp;‎“<span id="sboxName" class="sBoxName elps"></span>”‎</header>
+    <input disabled id="sUrl" class="inputText" type="text" value="@Request.Url"  />
+    <button class="btn2" id="CopyLink" data-url="@Request.Url">@SharedResources.Copy
+        <span id="sCopyLink"></span>
+    </button>
+    <ul id="addthisIcons" class="addThis">
+        <li>
+            <a>
+                <span  class="email shareSprite" id="openMail" title="@SharedResources.Email"></span>
+            </a>
+        </li>
+        <li>
+            <a class="addthis_button_facebook">
+                <span class="fb shareSprite" title="@SharedResources.SendToFacebook"></span>
+            </a>
+        </li>
+        <li>
+            <a class="addthis_button_twitter">
+                <span  class="twitter shareSprite" title="@SharedResources.TweetThis"></span>
+            </a>
+        </li>
+    </ul>
+    <div id="separatorV" class="separatorV"></div>
+    @using (Ajax.BeginForm("MailShare", "Share", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnSuccess = "mmc.shareSuccess"
+    }, new { id = "fShare", @class = "popupForm" }))
+    {
+        Html.RenderPartial("_MailPopUp", new Zbang.Cloudents.Mvc4WebRole.Models.Message { BoxUid = ViewBag.boxid });
+        <input type="button" class="btn2 cancel" value="@DialogResources.Cancel" />
+        <input type="submit" class="btn1 next" value="@DialogResources.Send"/>
+    }
+    <button class="closeDialog uploadSprite"></button>
+</div>

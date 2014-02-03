@@ -1,0 +1,31 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+
+<button type="button" id="AddFiles" class="boxSprite uploadBtn">@MobileBoxResources.UploadNew</button>
+
+@*<!--ko ifnot:emptyState-->*@
+@*<div class="selectWpr">*@
+<div class="uploadItemsBox">
+    <select id="boxTabs" class="boxHeader">
+        <option selected>@MobileResources.AllItems</option>
+    </select>
+    </div>
+@*</div>*@
+@*<div class="boxHeader">@MobileResources.AllItems</div>*@
+@*<!--/ko-->*@
+
+<!--ko if:emptyState-->
+<div class="boxEmpty boldFont">
+    @MobileBoxResources.ItSeems
+    <button id="AddFilesEmptyState" class="boxSprite uploadBtn regFont">@MobileBoxResources.UploadItem</button>
+</div>
+<!--/ko-->
+<ul class="boxList" data-bind="foreach: {data: items}">
+    <li class="boxItem">
+        <a data-bind="attr: { href: itemUrl }">
+            <div class="thumbWpr"><img data-bind="attr: { src: thumbnailUrl }" class="boxThumb" /></div>
+        </a>
+        <div class="itemName boldFont" data-bind="text: name"></div>
+        <div class="elps" data-bind="text: uploader"></div>
+    </li>
+</ul>

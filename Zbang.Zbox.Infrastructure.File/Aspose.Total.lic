@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<License>
+  <Data>
+    <LicensedTo>Zbang it</LicensedTo>
+    <LicenseType>Developer OEM</LicenseType>
+    <LicenseNote>Limited to 1 developer.</LicenseNote>
+    <OrderID>130530030530</OrderID>
+    <OEM>This is a redistributable license</OEM>
+    <Products>
+      <Product>Aspose.Total</Product>
+    </Products>
+    <EditionType>Enterprise</EditionType>
+    <SerialNumber>7475a5a3-66da-48f1-aa8c-acf25a028f5f</SerialNumber>
+    <SubscriptionExpiry>20140610</SubscriptionExpiry>
+    <LicenseVersion>2.2</LicenseVersion>
+  </Data>
+  <Signature>CnGS1miP5VpRASuxfr+8kInBcvxvomBn/JXfxyAumeStE3lmJ8UwJ20aiQsZCt4VS7FOBlWIk8eSAakgPJ1M1p7i9o0zfjlknrSuMMGIF77zJfqEDB5Sag/vFYs75/N4b6kG21iSLZSHWWNn13QNgaspOYF4+v8VpXVwHp66Cvc=</Signature>
+</License>

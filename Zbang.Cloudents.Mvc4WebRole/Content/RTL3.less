@@ -1,0 +1,1750 @@
+﻿@import "varsAndMixins";
+
+.msg:before {
+    margin: 0 0 0 3px; /*rtl*/
+}
+
+/*#region drag-drop*/
+
+.drop {
+    left: 0; /*rtl*/
+    right: auto;
+}
+/*#endregion*/
+
+/*#endregion */
+
+.inputText {
+    padding: 0 8px 0 4px; /*rtl*/
+}
+
+/*#region Modal.css */
+.modal2 {
+    right: 0; /*rtl*/
+    left: auto;
+}
+
+.popupForm {
+    .field-validation-error, .validation-summary-errors {
+        margin: 0 15px 0 0; /*rtl*/
+    }
+}
+
+.popupWrppr {
+    .closeDialog {
+        left: 20px; /*rtl*/
+        right: auto;
+    }
+
+    .cancel {
+        margin: 18px 10px 0 0; /*rtl*/
+    }
+
+    .btn1, .btn2 {
+        //float: left; /*rtl*/
+    }
+
+    &.addSchool {
+        text-align: right; /*rtl*/
+        .country {
+            margin: 0 10px 0 13px; /*rtl*/
+        }
+    }
+}
+
+.requestSentDiv {
+    padding-right: 18px; /*rtl*/
+    padding-left: 6px; // like regular poppupwrppr
+    &.first {
+        font-size: 32px;
+    }
+}
+
+.invHeader + q, .popupHeader .boxName {
+    padding: 0 8px 0 0; /*rtl*/
+}
+
+.labelExplain {
+    color: rgba(56,56,56,.75);
+    margin: 0 17px 0 0; /*rtl*/
+}
+
+.join.next {
+    left: 165px; /*diff rtl*/
+    right: auto;
+}
+
+.confirm {
+    .message {
+        margin: 20px 12px 0 0; /*rtl*/
+    }
+
+    .inputText {
+        padding: 0 8px 0 4px; /*rtl*/
+    }
+}
+
+/*#region flag Item */
+
+input[type="radio"] {
+    display: none;
+
+    + label {
+        &:before {
+            margin: -2px 0 0 4px; /*rtl*/
+        }
+    }
+}
+/*#endregion */
+
+
+/*#region box settings and members */
+
+.boxSettings {
+    .inviteBtn {
+        &:before {
+            margin: 0 0 0 5px; /*rtl*/
+        }
+    }
+}
+
+
+.tabBtn {
+    &:first-child {
+        margin: 0 0 0 29px; /*rtl*/
+    }
+}
+
+.tabArrow {
+    &:before {
+        right: 32px; //38px; /*rtl*/ //TODO: Need to find a solution for other languages
+        left: auto;
+        .transition(right, .3s); /*rtl*/
+        .tabMembers & {
+            right: 107px; //132px; /*rtl*/ //TODO: Need to find a solution for other languages
+            left: auto;
+        }
+    }
+}
+
+.boxSetting {
+    .changeImg {
+        right: 0; /*rtl*/
+        left: auto;
+    }
+
+    label {
+        padding: 10px 0 0 20px; /*rtl*/
+        text-align: left; /*rtl*/
+    }
+}
+
+.membersContent {
+    .memberName {
+        padding: 0 4px 0 0; /*rtl*/
+    }
+}
+
+.membersCount {
+    border-left: 1px solid @borderColor; /*rtl*/
+    border-right: none;
+}
+
+.membersList {
+    margin: 0 -5px 0 -13px; /*rtl*/ //Doing this right: for the scrollbars and left: for item hover
+    padding: 0 5px 0 13px; 
+}
+
+.memberItem {
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    clear: both;
+    padding: 5px 5px 5px 0; /*rtl*/
+    margin: 0 -5px 3px 0; /*rtl*/
+    .btn1 {
+        margin: 0 10px 0 0; /*rtl*/ // override other props
+    }
+}
+
+.messageBtn {
+    margin: 0 26px 0 0; /*rtl*/
+    &:before {
+        margin: 0 0 0 8px; /*rtl*/
+    }
+}
+
+.reinvited:before, .uninvited:before {
+    margin: 10px 0 0 6px; /*rtl*/
+}
+
+.removeUserBtn {
+    margin: 0 10px 0 0; /*rtl*/
+}
+/*#endregion */
+
+
+
+/*#endregion */
+
+/*#region DashLib.css */
+.hebFlip {
+    .flipH(-1);
+}
+
+.unionHeader {
+    padding: 0 15px 0 0; /*rtl*/
+}
+
+.emptyLib {
+    .libEmpty, .dashEmpty {
+        label {
+            text-align: right; /*rtl*/
+        }
+    }
+}
+
+.emptyDash {
+    right: 0; /*rtl*/
+    left: auto;
+}
+/*#region new department look */
+.deptLink {
+    margin: 0 0 35px 14px; /*rtl*/
+    padding: 2px 15px 6px 9px; /*rtl*/
+    &:before
+    {
+        right:-1px; /*rtl*/
+        left: auto;
+        .flipH;
+    }
+}
+
+.courseCount
+{
+    right: 15px; /*rtl*/
+    left: auto;
+}
+/*#endregion */
+.contentWpr {
+    margin: 0 290px 0 0; /*rtl*/
+    padding: 0 24px 0 10px; /*rtl*/
+    &.featured {
+        .unionFeatured {
+            left: 10px; /*rtl*/
+            right: auto;
+        }
+        .libraryList{
+            padding: 0 0 0 315px; /*rtl*/
+        }
+        .emptyLib
+        {
+            padding: 0 0 0 290px; /*rtl*/
+        }
+    }
+}
+
+.addBtn:before {
+    margin: -3px 0 0 11px; /*rtl*/
+}
+
+.boxHoverList {
+    right: 0;
+    left: auto;
+}
+
+.hoverItem {
+    padding: 4px 5px 4px 0; /*rtl*/
+}
+
+    .hoverItem:before {
+        margin: 0 0 0 5px; /*rtl*/
+    }
+
+.box .boxName, .itemName {
+    //margin: 3px 11px 0 4px; /*rtl*/
+}
+
+.boxWpr {
+    margin: 30px 84px 0 7px; /*rtl*/
+}
+
+.box {
+    float: right; /*rtl*/
+    margin: 0 0 24px 18px; /*rtl*/
+    .boxName {
+        right: 0; /*rtl*/
+        left: auto;
+    }
+
+    .boxImg {
+        right: 0;
+        left: auto;
+        border-left: 1px solid #dedede; /*rtl*/
+        border-right: none;
+    }
+
+    .subscriber {
+        right: 84px; /*rtl*/
+        left: auto;
+
+        &:before {
+            margin: 0 0 0 5px; /*rtl*/
+        }
+    }
+
+    .follow {
+        right: 84px; /*rtl*/
+        left: auto;
+    }
+}
+
+.courseCode {
+    right: 84px; /*rtl*/
+    left: auto;
+}
+
+/*#region boxesHeader */
+.boxesHeader.topBar {
+    right: 0;
+    left: auto;
+    padding: 0 314px 0 45px; /*rtl*/ //(left padding is from topBar class)
+    h2{
+        padding: 8px 0 0 8px; /*rtl*/
+    }
+}
+.back:before {
+    margin: 0 0 0 5px; /*rtl*/
+    .flipH(-1); /*rtl flip*/
+}
+
+.boxTitle {
+    padding: 0 0 0 10px; /*rtl*/
+}
+
+.emptyState {
+    padding: 40px 236px 0 0; /*rtl*/
+}
+/*#endregion */
+
+/*#region library empty state */
+.searchEmpty {
+    padding: 90px 290px 0 0;
+}
+
+.libEmpty {
+    .inputText {
+        //padding-right: 25px; /*rtl*/
+        //padding-left: 4px; // revert to regular inputText padding
+    }
+}
+
+.sCountry {
+    &:after {
+        margin: 0 5px 0 0; /*rtl*/
+    }
+}
+
+/*#endregion */
+
+/*#region AUTO COMPLETE */
+.uniWpr {
+    &:before {
+        right: 6px; /*rtl*/
+        left: auto;
+        .flipH(1); /*rtl*/
+    }
+}
+
+.uniList {
+    text-align: right; /*rtl*/
+    li a {
+        padding: 13px 8px 13px 0; /*rtl*/
+    }
+}
+
+.uniImg {
+    + span {
+        padding: 6px 8px 0 5px; /*rtl*/
+    }
+}
+
+.uniCount {
+
+    &:before {
+        margin: 0 0 0 4px; /*rtl*/
+    }
+}
+
+.newUni {
+    .uniImg:before {
+        margin: 0 8px 0 0; /*rtl*/
+    }
+}
+
+/*#endregion */
+
+/*#endregion */
+
+/*#region Sidebar.css */
+/*#region library sidebar */
+
+.asideLib, .asideDash {
+    //padding: 0 12px 0 24px; /*rtl*/
+}
+
+.asideLibDiv {
+    &:before {
+        margin: 0 0 0 10px; /*rtl*/
+    }
+}
+
+.asideLib > .files:before {
+    margin: 0 12px 0 10px; /*rtl*/
+}
+
+.asideLib > .students:before {
+    margin: 0 2px 0 10px; /*rtl*/
+}
+
+.statCategory {
+    margin: 0 3px 0 0; /*rtl*/
+}
+
+.libHeader:before {
+    margin: 0 0 0 4px; /*rtl*/
+}
+
+.courses {
+    &:before, &:after {
+        right: -3px; /*rtl*/
+        left: auto;
+    }
+
+    &:after {
+        left: -3px; /*rtl*/
+        right: auto;
+    }
+}
+
+.outbound {
+    border-left: 1px solid @borderColor; /*rtl*/
+    border-right: none;
+}
+
+
+
+.asideList {
+    padding: 0 10px 0 5px; /*rtl*/
+
+    &.dash > .activityItem{
+        margin: 0 0 7px 8px; /* rtl  */
+    }
+}
+
+.asideImg ~ span {
+    margin: 0 4px 0 0; /*rtl*/
+}
+
+.asideImg ~ .latest {
+    margin: -1px 4px 0 0; /*rtl*/
+}
+
+/*#endregion */
+
+.asideDash {
+    border-left: 1px solid @borderColor; /*rtl*/
+    border-right: none;
+}
+
+.productsBtn {
+    text-align: right; /*rtl*/
+    &:before {
+        float: right; /*rtl*/
+    }
+
+    &:after {
+        //float: left; /*rtl*/
+        //margin: -25px 0 0 10px; /*rtl*/
+        left: 10px; /*rtl*/
+        right: auto;
+        .flipH();
+    }
+}
+
+.closeProducts {
+    float: left; /*rtl*/
+    margin: -32px 0 0 -1px; /*rtl*/
+    border-radius: 0 5px 5px 0; /*rtl*/
+    border-left: 1px solid #fff; /*rtl*/
+    border-right: 1px solid #c2c2c2;
+}
+.dashLists{
+    .friendsList {
+        padding: 11px 11px 7px 7px; /*rtl*/
+    }
+}
+.updateContent {
+    margin: 0 3px 0 0; /*rtl*/
+}
+
+/*#endregion */
+
+/*#endregion */
+
+/*#region AccountInfo.css */
+
+
+.feedBack, .homeLink {
+    &:before {
+        left: -1px;
+        right: auto;
+    }
+}
+.signUp {
+    margin: 0 0 0 12px; /*rtl*/
+}
+
+.newInvites:after {
+    right: 10px; /*rtl*/
+    left: auto;
+}
+
+.newInvites.noInvites:after {
+    right: 11px; /*rtl*/
+    left: auto;
+}
+
+.invitesCounter {
+    box-shadow: -1px 1px 1px rgba(0,0,0,.5);
+    right: 18px; /* rtl*/
+    left: auto;
+}
+/*#endregion */
+
+/*#region box3.css */
+.shareBtn{
+    .shareItem{
+        padding: 0 6px 0 0; /*rtl*/
+        &:first-child
+        {
+            padding: 0 0 0 6px; /*rtl*/
+        }
+    }
+    .fbShare, .emailShare {
+        &:before
+        {
+            margin: 0 0 0 6px; /*rtl*/
+        }
+    }
+}
+
+.shareDD
+{
+    left: -5px; /*rtl*/
+    right: auto;
+    h4{
+        margin: -2px 0 0 10px; /*rtl*/
+    }
+    .closeItem{
+        left: 15px; /*rtl*/
+        right: auto;
+    }
+    .shareArrow{
+        left: 8px; /*rtl*/
+        right: auto;
+        &:before{
+            left: -12px; /*rtl*/
+            right: auto;
+        }
+    }
+}
+
+.inviteBtn {
+    &:after {
+        margin: 0 8px 0 0; /*rtl*/
+    }
+}
+.joinGrp
+{
+    &:before
+    {
+        right:0; /*rtl*/
+        left: auto;
+    }
+}
+.shareMenu {
+    left: -6px; /*rtl*/
+    right: auto;
+
+    button {
+        text-align: right; /*rtl*/
+    }
+}
+
+.boxTopWpr {
+    &.boxEdit {
+        .courseCode {
+            float: right; /*rtl*/
+        }
+
+        .propName {
+            float: left; /*rtl*/
+        }
+    }
+}
+
+.boxTop {
+    border-right: none;
+    border-left: 1px solid @borderColor;
+
+    .courseCode {
+        right: 93px; /*rtl*/
+        left: auto;
+    }
+
+    .boxRename {
+        left: 8px; /*rtl*/
+        right: auto;
+    }
+
+    .btn2 {
+        margin: 10px 0 0 10px; /*rtl*/
+    }
+}
+
+.boxPrps {
+    padding: 0 15px 0 0; /*rtl*/
+}
+
+.boxNameWpr {
+    margin: 18px 84px 0 0; /*rtl*/
+    .boxName {
+        right: 0; /*rtl*/
+        left: auto;
+    }
+}
+
+/*#region box friends */
+
+.boxMembers {
+    .friendsList {
+        border-left: 1px solid @borderColor; /*rtl*/
+        border-right: none;
+    }
+}
+
+.friendItem {
+    margin: 0 0 6px 6px; /*rtl*/
+}
+
+/*if < 5 items: float friendBtn right.*/
+.friendItem:last-child:nth-child(-n + 5) {
+    float: left; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region box folders */
+.boxMembers,.boxFolders {
+    .sectionHeader {
+        border-right: none;
+        border-left: 1px solid @borderColor;
+        font-size: 17px /*diff rtl*/
+    }
+}
+
+.boxFolder, .createFolder {
+    border-right: none;
+    border-left: 1px solid @borderColor;
+    &.current {
+        font-weight: bold; /*rtl*/
+    }
+    .boxFolderName {
+        &.editable {
+            padding: 8px 8px 0 4px; /*rtl*/
+        }
+    }
+
+    &.current {
+        border-right: none;
+        border-left: none;
+    }
+}
+
+.createFolderText {
+    &:before {
+        margin: 14px 0 0 6px; /*rtl*/
+    }
+}
+
+.editFolder {
+    margin: 0 0 0 14px; /*rtl*/
+    .editFolderMenu {
+        right: -109px; /*rtl*/
+        left: auto;
+    }
+}
+/*#region editFolderMenu */
+.editFolderMenu {
+    button {
+        text-align: right; /*rtl*/
+    }
+}
+/*#endregion */
+/*#endregion */
+/*#region boxItems */
+.boxEmpty {
+    padding: 0 0 0 @rightSideBarWidth; /*rtl*/
+    > h2 {
+        font-weight: normal; /*rtl*/
+    }
+}
+
+.boxItem {
+    float: right; /* rtl */
+    margin: 0 0 32px @min-margin; /*rtl*/
+    text-align: right; /* rtl */
+    .boxName {
+        margin: 0 6px 0 0; /*rtl*/
+    }
+
+    .views {
+        left: 4px; /*rtl*/
+        right: auto;
+    }
+}
+
+.stars {
+    margin: 3px 5px 0 0; /*rtl*/
+    .full {
+        right: 0; /*rtl*/
+        left: auto;
+        .flipH;
+    }
+}
+
+
+.clamp2 {
+    &:after {
+        text-align: left; /*rtl*/
+        left: 0; /*rtl*/
+        right: auto;
+    }
+}
+
+/*#region box media queries */
+@media (max-width: @2box) {
+    .boxItem {
+        margin-left: @min-margin; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(2n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @2box) and (max-width: @3box) {
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 300px)/2 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 300px)/2 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(2n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @3box) and (max-width: @4box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 450px)/2 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 450px)/2 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(3n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @4box) and (max-width: @5box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 600px)/3 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 600px)/3 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(4n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @5box) and (max-width: @6box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 750px)/4 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 750px)/4 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(5n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @6box) and (max-width: @7box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 900px)/5 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 900px)/5 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(6n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @7box) and (max-width: @8box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 1050px)/6 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 1050px)/6 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(7n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @8box) and (max-width: @9box) {
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 1200px)/2 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 1200px)/2 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(8n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @9box) and (max-width: @10box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 1350px)/2 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 1350px)/2 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(9n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @10box) and (max-width: @11box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 1500px)/3 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 1500px)/3 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(10n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @11box) and (max-width: @12box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 1650px)/4 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 1650px)/4 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(11n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+
+@media (min-width: @12box) {
+
+    .boxItem {
+        margin-left: @min-margin; /*rtl CALC FALLBACK*/
+        margin-left: ~"-webkit-calc((100% - 1800px)/6 - 1px)"; /*rtl*/
+        margin-left: ~"calc((100% - 1800px)/6 - 1px)"; /*rtl*/
+        margin-right: 0;
+    }
+
+        .boxItem:nth-child(12n) {
+            margin-left: 0; /*rtl*/
+        }
+}
+/*#endregion */
+
+
+.boxItemList {
+    padding: 0 1px 0 381px; // 1px left padding to prevent border being cut (not sure why) /*rtl*/
+}
+
+
+
+/*.boxItem .boxOwner {
+    margin: 0 6px 0 0;
+}*/
+
+.actionBtns {
+    left: 8px; /*rtl*/
+    right: auto;
+
+    .deleteBtn {
+        border-right: 1px solid @borderColor; /*rtl*/
+        border-left: none;
+    }
+}
+
+
+/*#endregion */
+/*#region manage */
+.cbLabel {
+    right: 6px; /*rtl*/
+    left: auto;
+}
+
+.cbManage:checked ~ .cbLabel:after {
+    right: 1px; /*rtl*/
+    left: auto;
+}
+
+.boxManage {
+    .btn1 {
+        margin: 0 10px 0 5px; /*rtl*/
+    }
+}
+/*#endregion */
+/*#region friend callout */
+.callout {
+    //margin: 0 -5px 0 0; /*rtl*/
+    box-shadow: -3px 3px 3px rgba(70, 70, 70, .5); /*rtl*/
+    text-align: right;
+
+    &:after {
+        right: 15px; /*rtl*/
+        left: auto;
+    }
+
+    > img {
+        margin: 7px 6px 0 0; /*rtl*/
+    }
+
+    > div {
+        right: 50px; /*rtl*/
+        left: auto;
+    }
+
+    > button {
+        right: 50px; /*rtl*/
+        left: auto;
+
+        &:before {
+            margin: 0 0 0 4px; /*rtl*/
+        }
+    }
+}
+/*#endregion */
+/*#endregion */
+
+/*#region QnA.css */
+@import "varsAndMixins";
+/*#region Q&A */
+@import "varsAndMixins";
+
+/*#region Q&A */
+
+.QA {
+    text-align: right; /*rtl*/
+    left: 20px; /*rtl*/
+    right: auto;
+
+    &.changeState {
+        .QWpr {
+            right: -344px; /*rtl*/
+            left: auto;
+        }
+
+        .AWpr {
+            right: 0; /*rtl*/
+            left: auto;
+        }
+    }
+}
+
+.QForm {
+    .QAImg {
+        margin: 3px 8px 0 0; /*rtl*/
+    }
+}
+
+.QWpr {
+    right: 0; /*rtl*/
+    left: auto;
+}
+
+.AWpr {
+    right: 376px; /*rtl*/
+    left: auto;
+}
+
+.QTextarea {
+    padding: 6px 8px 3px 5px; /*rtl*/
+}
+
+.attachedList {
+    padding: 0 50px 3px 8px; /*rtl*/
+}
+
+.attachedItem {
+    padding: 0 6px 0 0; /*rtl*/
+    margin: 3px 0 3px 5px; /*rtl*/
+}
+
+.removeAttach {
+    &:before {
+        right: 0; /*rtl*/
+        left: auto;
+    }
+}
+
+.QEmptyForm {
+    padding: 9px 6px 10px 9px; /*rtl*/
+    .userName {
+        padding: 0 8px 0 0; /*rtl*/
+    }
+
+    .textareaWpr {
+        margin: 0 3px 0 0; /*rtl*/
+    }
+}
+
+.QItem {
+    .askBtn {
+        margin: 2px 0 7px 6px; /*rtl*/
+    }
+}
+
+.QBottom .seeMore {
+    margin: 0 55px 0 0; /*rtl*/
+}
+
+.answerBottom {
+    margin: 5px 55px 5px 0; /*rtl*/
+    > button {
+        padding: 0 0 0 5px; /*rtl*/
+    }
+}
+
+.numAnswers {
+    &:after {
+        left: 0; /*rtl*/
+        right: auto;
+    }
+}
+
+.QTop {
+    padding: 6px 6px 2px 10px; /*rtl*/
+    + div .QAImg, + form .QAImg {
+        margin: 6px 15px 6px 6px; /*rtl*/
+    }
+}
+
+
+.QContent {
+    padding: 6px 6px 6px 0; /*rtl*/
+}
+.AContent{
+    padding: 14px 0 0 10px; /*rtl*/
+}
+.AMore {
+    margin: 4px 44px 8px 0; /*rtl*/
+}
+
+.qaAttach {
+    margin: 0 44px 0 0; /*rtl*/
+}
+
+.qaAttachItem {
+    margin: 12px 0 0 7px; /*rtl*/
+}
+
+.attachActions {
+    right: 0; /*rtl*/
+    left: auto;
+}
+
+.question {
+    .QContent {
+        padding: 0 8px 0 0; /*rtl*/
+    }
+
+    .deleteBtn {
+        left: 5px; /*rtl*/
+        right: auto;
+    }
+}
+
+    .question .userName, .AItem .userName {
+        margin: 0 8px 0 0; /*rtl*/
+    }
+
+.AItem {
+
+    .AContent {
+        padding: 0 44px 0 0; /*rtl*/
+    }
+
+    .deleteBtn {
+        margin: 6px 0 0 7px; /*rtl*/
+    }
+}
+
+.aScore {
+    margin: 0 0 0 5px; /*rtl*/
+}
+
+.markAnswerBtn {
+    right: 9px; /*rtl*/
+    left: auto;
+}
+
+.QAfloatButton {
+    left: 27px; /*rtl*/
+    right: auto;
+}
+/*#endregion */
+
+
+/*#endregion */
+/*#endregion */
+
+/*#region newUpload */
+.source {
+    .btn {
+        float: right; /*rtl*/
+    }
+}
+
+.dropZone {
+    right: 290px; /*rtl*/
+    left: auto;
+}
+
+.dropMsg {
+    right: 50%; /*rtl*/
+    margin: 0 -290px 0 0; /*rtl*/
+}
+
+.uploads {
+    left: 10px; /*rtl*/
+    right: auto;
+}
+
+.uploadBtns, .uploadProgress {
+    left: 10px; /*rtl*/
+    right: auto;
+}
+
+.step3 {
+    text-align: left; /*rtl*/
+}
+
+.dragDropTxtE {
+    font-weight: normal;
+}
+/*#endregion */
+
+/*#region invite */
+.emailUser {
+    padding: 4px 9px 6px 2px; /*rtl*/
+}
+
+.gConnect {
+    left: 5px; /*rtl*/
+    right: auto;
+
+    &:before {
+        margin: -1px 0 0 5px; /*rtl*/
+    }
+}
+
+.emailItem {
+    margin: 0 0 3px 3px; /*rtl*/
+}
+
+.emailMenu {
+    right: 25px; /*rtl*/
+    left: auto;
+}
+
+.eImg {
+    margin: 5px 0 0 10px; /*rtl*/
+}
+
+.eSingleImg {
+    margin:5px 0 0 6px;/*rtl*/
+}
+
+.inviteMsg {
+    padding: 14px 11px 5px 8px; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region invite popup step1 step2 */
+.facebook, .email {
+    padding: 8px 50px 8px 8px; /*rtl*/
+    text-align: right; /*rtl*/
+}
+
+.fbImg, .emailImg {
+    &:after {
+        right: 24px; /*rtl*/
+        left: auto;
+    }
+}
+
+.fbImg {
+    right: 16px; /*rtl*/
+    left: auto;
+}
+
+.emailImg {
+    right: 6px; /*rtl*/
+    left: auto;
+
+    &:after {
+        right: 35px; /*rtl*/
+        left: auto;
+    }
+}
+/*#endregion*/
+/*#endregion */
+/*#region Item3.css */
+
+/*#region layout */
+.itemRight, .boxRight {
+    padding: 0 290px 0 0; /*rtl*/
+}
+.itemRight
+{
+    .shareDD{
+        left: 0; /*rtl*/
+        right: auto;
+    }
+}
+/*#endregion */
+
+/*#region left panel */
+.leftPanel {
+    border-left: 1px solid @borderColor; /*rtl*/
+    border-right: none;
+}
+
+.item-name {
+    padding: 0 5px 0 0; /*rtl*/
+    .itemNameText {
+
+        &.editable {
+            padding: 2px 4px 2px 8px; /*rtl*/
+        }
+    }
+}
+
+.views:before, .downloads:before {
+    margin: 0 0 0 5px; /*rtl*/
+}
+
+.views {
+    margin: 0 0 0 12px; /*rtl*/
+}
+
+.bubble {
+    /*right: 10px;*/ /*rtl*/
+    left: auto;
+    right:auto;
+
+    &.closing {
+        .bubbleText {
+            &:before {
+                margin: 0 0 0 4px; /*rtl*/
+            }
+        }
+    }
+
+    .star {
+        &:before {
+            right: 20px; /*rtl*/
+            left: auto;
+            .flipH;
+        }
+    }
+}
+
+.itemFlag {    
+    &:before {
+        margin: 0 0 0 5px; /*rtl*/
+    }
+}
+
+.moreFilesList {
+    li {
+        padding: 7px 10px 7px 5px; /*rtl*/
+    }
+}
+
+.moreFilesData {
+    padding: 0 5px 0 0; /*rtl*/
+}
+/*#endregion */
+
+/*#region top action buttons */
+
+.itemBack, .boxBack {
+    padding: 0 15px 0 0; /*rtl*/
+}
+
+.itemActions {
+    .shareBtn {
+        left: 22px; /*rtl*/
+        right: auto;
+    }
+    .backWpr{
+        right: 19px; /*rtl*/
+        left: auto;
+    }
+}
+.printDD {
+    right: -85px; /*rtl*/
+    left: auto;
+}
+
+.fullscreen, .commentBtn, .itemDownload, .itemPrint {
+    float: right; /*rtl*/
+}
+/*#endregion */
+
+/*#region item content */
+.itemDisplay {
+    box-shadow: -5px 5px 5px rgba(116, 100, 110, 0.3); /*rtl*/
+}
+/*New Item View*/
+.previewWrapper {
+    right: 0; /*rtl*/
+    left: auto;
+
+    &.annotateState {
+        right: ~"calc(400px - 49%)"; /*rtl*/
+        left: auto;
+    }
+}
+/*#endregion */
+
+/*#region annotation */
+.addAnotation {
+    right: 806px; /*rtl*/
+    left: auto;
+
+    //.btnWpr {
+        // margin: 0 0 0 6px; /*rtl*/
+    //}
+}
+
+.commentToggle {
+    left: 10px; /*rtl*/
+    right: auto;
+}
+
+.addAnotation, .readView {
+
+    img {
+        margin: 0 0 0 8px; /*rtl*/
+    }
+
+    .annotateContent {
+        text-align: right; /*rtl*/
+    }
+
+    .annotator, .inputText, .annnotateAction, .annotationTextWpr {
+        text-align: right; /*rtl*/
+    }
+}
+
+.show-more {
+    right: 0; /*rtl*/
+    left: auto;
+    text-align: right; /*rtl*/
+}
+
+.annotationList {
+    right: 806px; //show iner scroll /*rtl*/
+    left: auto;
+}
+
+.readView {
+    .deleteBtn {
+        left: 5px; /*rtl*/
+        right: auto;
+    }
+}
+/*#endregion */
+
+/*#region fullscreen */
+.exitFulscrn {
+    left: 20px; /*rtl*/
+    right: auto;
+}
+
+.itemPrev, .itemNext {
+    right: 10px; /*rtl*/
+    left: auto;
+    .flipH;
+}
+
+.itemNext {
+    left: 20px; /*rtl*/
+    right: auto;
+    .flipH(1);
+}
+
+/*#endregion */
+
+/*#endregion */
+//in ie there is an issue with input type file
+.plupload {
+    direction: ltr;
+}
+/*#region Settings page */
+.settingsMenu {
+    right: 0; /*rtl*/
+    left: auto;
+}
+
+    .settingsMenu ul {
+        margin: 33px 23px 0 0; /*rtl*/
+    }
+
+.settingsContent {
+    right: 288px; /*rtl*/
+    left: auto;
+    text-align: right; /*rtl*/
+}
+/*#region profile info */
+.profileInfo {
+    .btn1 {
+        margin: 0 0 0 8px; /*take into account +4px because of inline block: 8+4=12*/
+    }
+
+    .profilePhoto {
+        box-shadow: -2px 2px 2px rgba(0, 0, 0, .4); /*rtl*/
+    }
+
+    .photoBtn {
+        margin: 5px 5px 0 0; /*rtl*/
+    }
+}
+.schoolWpr
+{
+    padding: 0 44px 0 0; /*rtl*/
+    .imgBorder
+    {
+        right:0; /*rtl*/
+        left: auto;
+    }
+}
+/*#endregion */
+/*#region account settings */
+.changePwd .inputText {
+    margin: 0 0 5px 5px; /*rtl*/
+}
+/*#endregion */
+/*#region storage */
+.storage {
+    .header {
+        margin: 2px -1px 11px 0; /*rtl*/
+    }
+}
+
+.key > span:before {
+    margin: 0 0 0 10px; /*rtl*/
+}
+
+.key .percent {
+    margin: 0 2px 0 27px; /*rtl*/
+}
+/*#endregion */
+/*#region notifications */
+.notifications .settingsBox {
+    margin: 3px 5px 0 0; /*rtl*/
+}
+
+.notifications label {
+    margin: 0 0 0 6px; /*rtl*/
+}
+
+.boxesList {
+    margin: 6px 1px 39px 0; /*rtl*/
+}
+/*#endregion */
+/*#endregion */
+
+/*#region Invite page */
+
+/*.inviteWpr {
+    h2 {
+        text-align: right; /*rtl
+    }
+}*/
+/*#region aside */
+
+.connectMore {
+    margin-top: 15px;
+    display: none;
+    cursor: pointer;
+    margin: 0 0 0 4px; /*rtl*/
+}
+/*#endregion */
+/*#region invite main content */
+
+.invMain{
+    &.invBox
+    {
+        .invHeaderText{
+            padding: 0 34px 0 0;/*rtl*/
+        }
+        .invHeaderText:before
+        {
+            margin: 0 0 0 4px; /*rtl*/
+        }
+    }
+}
+.invboxImg
+{
+    right:0; /*rtl*/
+    left: auto;
+}
+.inviteSources {
+    margin: 3px 0 0 30px; /*diff rtl*/
+}
+.invContentTop
+{
+    .inputText{
+        left:0; /*rtl*/
+        right: auto;
+    }
+}
+.fbTop {
+    .inputText {
+        left: 0; /*rtl*/
+        right: auto;
+    }
+}
+
+.invItem {
+    &:nth-child(2n + 1) {
+        margin: 20px 0 0 82px; /*rtl*/ //20px top margin from invItem    
+    }
+}
+
+.invName {
+    margin: 0 5px 0 0; /*rtl*/
+}
+
+.invBtn {
+    left: 0; /*rtl*/
+    right: auto;
+
+    .sent {
+        &:before {
+            margin: 0 0 0 5px; /*rtl*/
+        }
+    }
+}
+/*#endregion */
+
+/*#endregion */
+
+/*#region user page */
+.userPage{
+    text-align: right; /*rtl*/
+}
+/*#region user page aside */
+.upSidebar{
+    margin: 28px 21px 0 0; /*rtl*/
+}
+/*#region points section */
+.pointsWpr
+{
+    &:before
+    {
+        right: 0; /*rtl*/
+        left: auto;
+    }
+}
+.emptyPoints
+{
+    text-align: right; /*rtl*/
+}
+/*#endregion */
+
+/*#region uploads 'tab' */
+
+.uploadsItem
+{
+    padding: 0 64px 0 10px; /*rtl*/
+
+    .views{
+        margin: 0 12px 0 0; /*rtl*/ // override
+    }
+}
+/*.uploadsImg {
+    right: 0; 
+    left: auto;
+}*/
+
+/*#endregion */
+
+/*#region QnA tabs */
+.qaBoxname
+{
+    margin: 0 10px 0 0; /*rtl*/
+}
+.qaWpr{
+    padding: 10px 10px 5px 5px; /*rtl*/
+}
+.qaQuestion
+{
+    margin: -10px -10px 0 -5px; /*rtl*/
+    padding: 10px 10px 8px 5px; /*rtl*/
+}
+.qLink
+{
+    &:after
+    {
+        margin: 0 5px 0 0; /*rtl*/
+    }
+}
+
+.qaUsername
+{
+    margin: 0 8px 11px 0; /*rtl*/
+}
+/*#endregion */
+
+/*#endregion */
+
+/*#region userpage content */
+
+.upTop
+{
+    padding: 0 112px 0 0; /*rtl*/
+    .btn3{
+        &:before
+        {
+            margin: 0 0 0 5px; /*rtl*/
+        }
+    }
+}
+.upImg
+{
+    right: 0; /*rtl*/
+    left: auto;
+}
+
+.upShowAll {
+    &:after {
+        margin: 0 8px 0 0; /*rtl*/
+    }
+}
+
+.followingList {
+    .btn3{
+        right: 84px; /*rtl*/
+        left: auto;
+    }
+}
+
+.upFriend
+{
+    margin: 0 0 0 31px; /*diff rtl*/
+}
+
+.upInvites{
+    .inviteFriendBtn.btn3{
+        &:before
+        {
+            margin: 0 0 0 8px; /*rtl*/
+        }
+    }
+}
+
+.upInviteItem
+{
+    padding: 0 91px 0 0; /*rtl*/
+    float: right; /*rtl*/
+    .upFriendImg
+    {
+        right:0; /*rtl*/
+        left: auto;
+    }
+    .semiFont
+    {
+        margin: 0 0 4px; /*diff rtl*/
+    }
+    .btn1{
+        left: 0; /*rtl*/
+        right: auto;
+    }
+    &:nth-child(even)
+    {
+        margin: 0 28px 29px 0; /*rtl*/ // margin bottom defined on the item
+        &:before
+        {
+            right: -17px; /*rtl*/
+            left: auto;
+        }
+    }
+}
+.invitedToWpr
+{
+    padding: 9px 35px 0 5px; /*rtl*/
+}
+/*.invitedToImg
+{
+    right:0; 
+    left: auto;
+}*/
+.emptyInvites
+{
+    .btn3{
+        margin: 0 15px 0 0; /*rtl*/
+    }
+}
+/*#endregion */
+
+/*#endregion */
+

@@ -1,0 +1,16 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+
+<div id="invites" class="invites popup">
+    <div class="popupWpr">
+        <ul class="invitesList" data-bind="foreach: invites">
+            <li class="invitesItem sprite1a">
+                <a data-navigation="Box" data-bind="attr: { href: '/box/' + id }">
+                    <img class="lFloat" data-bind="attr: { src: picture }" width="57" height="70" alt="" />
+                    <div class="description">
+                        <span class="name" data-bind="text: owner"></span>&nbsp;@MobileResources.HasInvited<q data-bind="text: name"></q>
+                    </div>
+                </a>
+            </li>
+        </ul>
+     </div>
+</div>

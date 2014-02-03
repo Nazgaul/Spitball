@@ -1,0 +1,25 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+@using Zbang.Zbox.Mvc3WebRole.Models.Account.AccountSettings
+@model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserAccountDto
+
+<div class="settingsMenu txtshd1">
+    <ul id="settingsMenu">
+        <li class="selected" data-form="Profile">@AccountSettingsResources.ProfileInfo</li>
+        <li data-form="Account">@AccountSettingsResources.AccountSettings</li>
+        @*<li>@AccountSettingsResources.Friends</li>*@
+        <li data-form="Storage">@AccountSettingsResources.Storage</li>
+        <li id="notifcationTab" data-form="Notification">@AccountSettingsResources.Notifications</li>
+    </ul>
+</div>
+<div class="settingsContent txtshd1">
+    @{
+        Html.RenderPartial("_AccountProfile", new Profile { Name = Model.Name, Image = Model.Image, University = Model.University });
+        Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language } });
+        Html.RenderPartial("_AccountStorage", new Storage { AllocatedSize = Model.AllocatedSize, UsedSpace = Model.UsedSpace });
+        Html.RenderPartial("_AccountNotification", new Notification());
+    }
+    @* <input type="button" class="btn1" value="Save">
+    <button class="btn2">Cancel</button>*@
+</div>
+
+

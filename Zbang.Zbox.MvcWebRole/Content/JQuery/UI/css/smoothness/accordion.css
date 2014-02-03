@@ -1,0 +1,50 @@
+﻿/*
+*#########################
+*	ACCORDIAN WIDGET
+*#########################
+*/
+div.basic  {
+	margin:  0;
+	padding: 0;
+	}
+	.basic > a ,
+	.basic > a.selected ,
+	.basic > a.active ,
+	.basic > a:hover {
+		color:			black;
+		/*font-weight:	bold;*/
+		text-transform:	uppercase;
+		text-decoration: none;
+		outline:		none;
+		border-top:		1px solid #FFF;
+		border-bottom:	1px solid #999;
+		cursor:			pointer;
+		display:		block;
+		padding:		5px;
+	}
+	.basic > a {
+		background:		#00a0c6 url("images/tab0.gif");
+	}
+	.basic > a.selected ,
+	.basic > a.active ,
+	.basic > a:hover {
+		background-image: url("images/tab2.gif");
+	}
+	.basic > a.active {
+		color: #00C;
+	}
+	.basic > div {
+		/*background-color: #F6F6F6;*/
+	}
+	.basic > div.scrolling {
+		overflow: auto !important;
+		}
+		.basic > div > p {
+			padding:	0 10px;
+			margin:		1.5ex 0;
+		}
+		.basic > div > ul {
+			margin-top:	1ex;
+		}
+	
+	

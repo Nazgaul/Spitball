@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">    
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/jquery-1.5.1.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/jquery.watermark.min.js") %>"></script>
+    <link href="<%= Url.Content("~/Content/Account/Account.Master.css") %>" rel="stylesheet"
+        type="text/css" />
+</head>
+<body>
+    <div>
+        <asp:ContentPlaceHolder ID="NorthPanePlaceHolder" runat="server">
+            <div class="account-header">
+                <div class="widthStandart">
+                    <div class="ZboxTitle">
+                        <img src="/Content/Account/Images/website_zbox_icon.png" alt="ZBOX" />
+                        <span class="style31">ZBOX</span></div>
+                    <asp:ContentPlaceHolder ID="LogInContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+</body>
+</html>

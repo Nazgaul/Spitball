@@ -1,0 +1,36 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="popupWrppr" data-strap="uploadV2">
+        <header class="popupHeader popupGradient">@UploadDialogResources.Upload</header>
+        <div class="step2">
+            <div class="newBoxForm">
+                <span class="selectType">@UploadDialogResources.SelectType</span>
+                <span class="toggleType">
+                    <span class="selected">@UploadDialogResources.Academic</span>
+                    <span>@UploadDialogResources.Personal</span>
+                </span>
+                <div class="sepV"></div>
+                @{Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Zbox.Mvc3WebRole.Models.CreateAcademicBox());}
+                @{Html.RenderPartial("_UploadCreateBox", new Zbang.Zbox.Mvc3WebRole.Models.CreateBox());}
+                <div class="required label">@UploadDialogResources.RequiredField</div>
+            </div>
+        </div>
+        <div class="step3">
+            <div class="chooseTitle">
+                @UploadDialogResources.ChooseFiles ‎“<span id="upldstep3BoxName" class="boxName"></span>”‎
+            </div>
+            <div class="dragDropBox" id="fileZone">
+                <ul>
+                </ul>
+                <div class="dragDropTxtE" id="DragDropText">@UploadDialogResources.DragAndDrop</div>
+                <button type="button" id="AddFiles" class="btn4">@UploadDialogResources.ChooseFile</button>
+            </div>
+            @{Html.RenderPartial("_UploadAddLink", new Zbang.Zbox.Mvc3WebRole.Models.AddLink());}
+        </div>
+        <button class="closeDialog shareSprite"></button>
+        <input type="button" class="btn1 next" id="uploadNext" value="@UploadDialogResources.Next"/>
+        <button class="btn2 cancel" id="cancel">@UploadDialogResources.Cancel</button>
+    </div>
+}

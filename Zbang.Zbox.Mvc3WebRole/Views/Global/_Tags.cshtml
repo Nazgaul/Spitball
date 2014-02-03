@@ -1,0 +1,8 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Global.Resources
+
+<script defer="defer" type="text/html" id="tags-template">
+    <li>
+        <span class="tagName disable-selection elps" data-bind="text:  $data"></span>
+        <span class="tagImage" title="@GlobalResources.RemoveTag" data-bind="click: $root.deleteTag"/>        
+    </li>
+</script>

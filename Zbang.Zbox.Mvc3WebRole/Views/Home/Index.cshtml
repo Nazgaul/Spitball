@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+<div id="Library" style="display: none;">
+    @{Html.RenderAction("MainView", "Library", true);}
+</div>
+<div id="My" style="display: none">
+    @{Html.RenderPartial("~/Views/Dashboard/_MainView.cshtml");}
+</div>
+
+

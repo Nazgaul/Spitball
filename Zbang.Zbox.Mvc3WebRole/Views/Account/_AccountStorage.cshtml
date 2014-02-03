@@ -1,0 +1,16 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.Account.AccountSettings.Storage 
+@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+
+<div class="storage" id="Storage">
+        <div class="header">@AccountSettingsResources.Space</div>
+        <div class="bar">
+            <span class="your"></span>
+            @*<span class="shared"></span>*@ @*<------ temporarily not used*@
+        </div>
+        <div class="key">
+            <span id="your" class="your" data-used="@Model.Percent">@AccountSettingsResources.InUse<span class="percent">@Model.Percent%</span></span>
+            @*<span class="shared">Shared boxes<span class="percent">10%</span></span> *@ @*<------ temporarily not used*@
+            <span class="free">@AccountSettingsResources.Free<span class="percent">@Model.Free%</span></span>
+        </div>
+        @*<div class="seeMore">Buy more storage</div>*@ @*<------ temporarily not used*@
+    </div>

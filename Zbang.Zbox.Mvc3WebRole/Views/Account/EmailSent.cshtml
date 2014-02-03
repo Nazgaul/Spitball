@@ -1,0 +1,25 @@
+﻿@using Zbang.Zbox.Mvc3WebRole.Views.Account.Resources
+
+@section Header
+{
+    <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+}
+
+@model Zbang.Zbox.Mvc3WebRole.Models.Account.ForgotPassword
+
+<div class="specialPage">
+
+        <div class="emailSent">@EmailSentResources.EmailSent</div>
+        
+        @using (Html.BeginForm("ForgotPassword", "Account"))
+        {
+            @Html.AntiForgeryToken()
+            <p>
+                @EmailSentResources.CheckEmail
+                <input type="hidden" id="Email" name="Email" value="@Model.Email" />
+                <button class="link" type="submit">@EmailSentResources.Resend</button>
+                @EmailSentResources.TheInstructions
+            </p>
+        }
+</div>
+

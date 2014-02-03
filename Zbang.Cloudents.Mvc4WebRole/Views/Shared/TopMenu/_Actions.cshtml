@@ -1,0 +1,23 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<!-- ko stopBinding: true -->
+
+<li class="navItem"><a href="@Url.Action("Index", "Dashboard")" title="@SharedResources.Home" data-navigation="Dashboard" class="homeLink rFloat"></a></li>
+<li class="navItem"><a title="@SharedResources.Help" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a>@*<button type="button" title="@SharedResources.Help" class="feedbacklnk feedBack rFloat"></button>*@</li>
+<li class="navItem headerInvites" id="headerInvites" title="@SharedResources.Notifications">
+    <a href="javascript:void(0)" class="navLinks newInvites noInvites" id="invites">
+        <span id="invitesCounter" class="invitesCounter"></span>
+    </a>
+    <ul id="invitesList" class="userInvites">
+    
+    </ul>
+</li>
+<script type="text/html" id="invitesTemplate">
+        <li id="invite_{{id}}">
+            <a data-navigation="Box" href="{{url}}">
+                <span class="invboxName elps">{{name}}</span>
+                <span class="invboxOwner">@Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.SharedResources.Owner:&nbsp;<span class="ownerName elps"></span>{{owner}}</span>
+            </a>
+        </li>
+</script>
+<!-- /ko -->

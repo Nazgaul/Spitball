@@ -1,0 +1,32 @@
+﻿<div class="rFloat mainSearch">
+    <input name="query" class="searchInput" placeholder="Search the Academic bank" />
+    <button class="flipH" type="submit"></button>
+</div>
+
+<header class="areaHeader">My area</header>
+
+<div class="boxesHeader">
+    <span class="lFloat header1" data-bind="text: countofboxes"></span>
+    <button class="rFloat sortBy">Sort by date</button>
+</div>
+
+<div id="Boxeslistsection">
+    @*<h4 class="sectiontitle">
+        <span>@Zbang.Zbox.Mvc3WebRole.Views.Dashboard.Resources.IndexResources.Boxes</span>
+        <span data-bind="text: countofboxes"></span>
+    </h4>*@
+
+    <ol id="BoxList" class="myAreaList clearfix">
+        <li class="box">
+            <button class="addBtn" data-bind="click: addBox">Add Box</button>
+        </li>
+        <!-- ko template : {name: 'boxes-template', foreach:boxes} -->
+        <!-- /ko -->
+    </ol>
+    <span class="seeMore" data-bind="click: moreboxes, visible: moreResultExists"><span>@Zbang.Zbox.Mvc3WebRole.Views.Dashboard.Resources.IndexResources.SeeMore</span>&nbsp;&darr;</span>
+</div>
+
+@{
+    Html.RenderPartial("_UploadCreateBox", new Zbang.Zbox.Mvc3WebRole.Models.CreateBox());
+    Html.RenderPartial("~/Views/Dashboard/_Template.cshtml");
+}

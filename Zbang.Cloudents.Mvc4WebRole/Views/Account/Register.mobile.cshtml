@@ -1,0 +1,34 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Register
+
+
+@using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+    new { @class = "register", id = "register" }
+   ))
+{
+    @Html.ValidationSummary(true, string.Empty)
+    
+    
+   
+   
+    Html.RenderAction("AntiForgeryToken", "Home", true);
+
+    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", placeholder = @MobileResources.Username })
+    @Html.ValidationMessageFor(m=>m.NewUserName)
+    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", placeholder = @MobileResources.Email, type="email" })
+    @Html.ValidationMessageFor(m=>m.NewEmail)
+     
+    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", placeholder = @MobileResources.VerifyEmail, type="email" })
+     @Html.ValidationMessageFor(m=>m.ConfirmEmail)
+    @Html.PasswordFor(model => model.Password, new { @class = "inputText", placeholder = @MobileResources.Password })
+     @Html.ValidationMessageFor(m=>m.Password)
+    <div class="formBottom">
+        <input class="btn1" type="submit"  value="@MobileResources.SignUp"  />
+        <span class="acceptTerms">
+            @RegisterResources.IAgree
+            <a target="_blank" href="@Url.Action("TermsOfService", "Home")">@MobileResources.Terms</a>&nbsp;@RegisterResources.ofZbang@RegisterResources.And<!--
+            -->&nbsp;<a class="privacy" target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>
+        </span>  
+    </div>
+}
+

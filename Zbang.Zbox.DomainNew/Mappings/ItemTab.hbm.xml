@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="ItemTab" table="ItemTab">
+    <id name="Id" column="ItemTabId">
+      <generator class="assigned"></generator>
+    </id>
+    <property name="Name" column="ItemTabName" not-null="true"/>
+    <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdItemTab"/>
+    <bag name="Items" batch-size="20" cascade="none">
+      <key column="ItemTabId" not-null="false" foreign-key="itemTabItems" />
+      <one-to-many class="Item"/>
+    </bag>
+  </class>
+</hibernate-mapping>

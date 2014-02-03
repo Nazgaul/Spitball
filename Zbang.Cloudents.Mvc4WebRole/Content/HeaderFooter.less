@@ -1,0 +1,157 @@
+﻿@import "varsAndMixins";
+
+/*#region sticky footer */
+html, body {
+    height: 100%;
+}
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    min-width: 1024px;
+    background: url(/Images/gray_jean80.png) repeat;
+}
+
+.header
+{
+    font-size: 24px;
+    font-weight: bold;
+    color: @color;
+}
+.bodyContent
+{
+	//padding-bottom: 0;
+	//overflow: hidden;
+    //min-height: ~"calc(100% - @{header-height})";
+    //padding-top: 44px;
+    //.boxSizing();
+    //width: 100%;
+    //margin-top: -@header-height;
+    padding-top: @header-height;
+    .boxSizing;
+    height: 100%;
+}
+
+/*#endregion */
+
+/*#region header */
+
+.siteHeader {
+
+    height: @header-height;
+    background-color: @color;
+    top: 0;
+    width: 100%;
+    z-index: 11;
+    position: fixed; /*so that I can use z-index*/
+    min-width: 1024px;
+    .siteLogo {
+        display: inline-block;
+        width: 211px;
+        height: 40px;
+        background: @dashboard-sprite -1px -1px no-repeat; /*rtl*/
+        margin: 10px 0 0 30px; /*rtl*/
+    }
+}
+
+.dashLibSearch
+{
+    width: 340px;
+    height: 32px;
+    line-height: 32px;
+    background: #fff;
+    margin-left: 70px; /*rtl*/
+    border-radius: 16px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 9px;
+    position: relative;
+    overflow: hidden; //hide the square edges of the child input
+    button
+    {
+        width: 19px;
+        height: 20px;
+        background: @dashboard-sprite -213px -2px no-repeat;
+        position: absolute;
+        top: 6px;
+        right: 12px; /*rtl*/
+        &:hover
+        {
+            background-position: -232px -2px;
+        }
+    }
+    
+}
+.dashLibSearchInput
+{
+    width: 100%;
+    height: 32px;
+    padding: 0 35px 0 15px; /*rtl*/
+    //border-radius: 16px;
+    .boxSizing;
+
+    
+}
+.dashLibSearchInput::-webkit-input-placeholder{
+    color:@color;
+}
+.dashLibSearchInput::-moz-placeholder{
+    color:@color;
+    opacity:1; // somehow firefox needs that - otherwise the color is not the same
+}
+.dashLibSearchInput:-ms-input-placeholder{
+    color:@color;
+}
+/*#endregion */
+
+/*#region footer */
+footer {
+
+    height: 42px;
+    line-height: 42px;
+    width: 100%;
+    text-align: center;
+}
+
+.footer {
+    margin: 0;
+    li {
+        display: inline;
+        //color: rgba(56,56,56,.50); 
+        color: #383838;
+        opacity: 0.5;   
+        &:hover
+        {
+            //color: #383838;
+            opacity: 1;
+        }
+        &:first-child:hover
+        {
+            opacity: 0.5;
+        }
+    }
+
+    li:after {
+        content: '|';
+        font-size: 10px;
+        padding: 0 3px 0 6px; /*rtl*/
+    }
+    .last:after {
+        content: '';
+    }
+    .removePipe:after{
+        content:'';
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+/*#endregion */
+

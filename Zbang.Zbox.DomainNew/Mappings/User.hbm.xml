@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="User" table="Users" discriminator-value="0" >
+    <id name="Id" column="UserId" type="long">
+      <generator class="native"></generator>
+
+    </id>
+    <discriminator column="UserType" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.UserType, Zbang.Zbox.Infrastructure" />
+
+
+    <property name="Email" column="Email" not-null="true" unique="true"/>
+    <property name="IsRegisterUser" column="IsEmailVerified" not-null="true"/>
+
+    <property name="Name" column="UserName" not-null="false"/>
+    <property name="Culture" column="Culture" not-null="false"/>
+    <property name="Country" length="2" type="string" column="Country" not-null="false"/>
+
+    <component name="UserTime" class="UserTimeDetails">
+      <property name="CreationTime" not-null="true" insert="true" update="false" />
+      <property name="UpdateTime"  not-null="true" insert="true"  />
+      <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
+      <property name="UpdatedUser"  not-null="true" insert="true" />
+    </component>
+    <property name="MembershipId" column="MembershipUserId"  not-null="false"/>
+    <property name="FacebookId" column="FacebookUserId" not-null="false"/>
+    <property name="Image" column="UserImage" not-null="false"/>
+    <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
+
+    <property name="Code" column="UserCode"/>
+    <property name="Reputation" column="UserReputation"/>
+
+
+    <component name="FirstTime" class="UserFirstTime">
+      <property name="Dashboard" not-null="true">
+        <column name="FirstTimeDashboard" default="1"/>
+      </property>
+      <property name="Library" not-null="true" column="FirstTimeLibrary"/>
+      <property name="Item" not-null="true" column="FirstTimeItem"/>
+      <property name="Box" not-null="true" column="FirstTimeBox"/>
+    </component>
+
+    <component name="Quota" class="Quota">
+      <property name="AllocatedSize"/>
+      <property name="UsedSpace"/>
+    </component>
+
+    <many-to-one column="UniversityId2" class="University" name="University" foreign-key="UniversityUser"/>
+
+    <set name="UserBoxRel" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="UserId"/>
+      <one-to-many class="UserBoxRel"/>
+    </set>
+    <set name="Invites" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="RecepientId" foreign-key="MessageRecepientSender"/>
+      <one-to-many class="Invite"/>
+    </set>
+
+    <property name="LastAccessTime" type="DateTime2"  />
+
+
+
+
+
+    <subclass name="University" discriminator-value="1">
+      <property name="AliasName" />
+      <property name="UniversityName"/>
+      
+      <property name="NeedCode" />
+      
+      <property name="WebSiteUrl" />
+      <property name="MailAddress" />
+      <property name="FacebookUrl" />
+      <property name="TwitterUrl" />
+      <property name="TwitterWidgetId" />
+      <property name="YouTubeUrl" />
+      <property name="LetterUrl" />
+      <property name="AdvertismentUrl" />
+        
+      <bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
+        <key column="UserId" foreign-key="UnitveristyLibraries"/>
+        <one-to-many class="Library"/>
+      </bag>
+      <many-to-one column="DataUnversityId" class="University" name="DataUnversity" foreign-key="DataUniversityUniversity" not-null="false" lazy="proxy"></many-to-one>
+    </subclass>
+  </class>
+
+</hibernate-mapping>

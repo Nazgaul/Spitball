@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2013-10.2.2">
+  <Role name="Zbang.Cloudents.Mvc4WebRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ramy" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEDSA9ig4ElWiS6DMZwmkwiwwDQYJKoZIhvcNAQEBBQAEggEAxljenZZYff/WiclNROWuWKFpLRVeUsqA582wfwY64Ua+liF3G6YQZCBLdga+XZIie16OYdP9GauVjlitQ5WL+BpPj7He+oXTLT5HeUFqDcElUwck6WDUyNsDk2TnmnzRnp2G1+90AbSiGlCpvIxcSJeLbc3NYRGT7bV8loscANIeEXGrziaR0slW9/Rg5ONeI7kku+uW3gATUNYA71jH7qIsdKEckrXyDxBtFA7aBf9JTER5PiVuPsRyWQJOx/1oYQ9k0sv9gtfxDcFd/xCaz820wfEaPwcqlj1eMEpALq0lAFj8sBk38y3aft8IdP85h96mNoC8ZnfbVD+GazSPKDArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECPIbX0CHT7wqgAijXM2wtD90RA==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-02-26T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+      <Setting name="CdnEndpoint" value="az414807.vo.msecnd.net" />
+      <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;" />
+      <Setting name="otakimUrl" value="http://www.otakim.co.il/printreferrer.aspx" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />
+      <Certificate name="CloudDents" thumbprint="96A712B131425F45B52CBDA6999E92012386C9EF" thumbprintAlgorithm="sha1" />
+      <Certificate name="MyIntermediateCertCloudDents" thumbprint="C039A3269EE4B8E82D00C53FA797B5A19E836F47" thumbprintAlgorithm="sha1" />
+      <Certificate name="MyRootCertCloudDents" thumbprint="DE28F4A4FFE5B92FA3C503D1A349A7F9962A8212" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

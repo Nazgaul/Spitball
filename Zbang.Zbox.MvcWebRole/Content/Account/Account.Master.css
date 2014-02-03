@@ -1,0 +1,427 @@
+﻿body
+{
+}
+input
+{
+    border: 0px none;
+}
+div.account-header
+{
+    height: 82px;
+    background: url(/Content/Images/login-header-bg.jpg);
+    background-repeat: repeat-x;
+    border-bottom: 3px solid #FFFFFF;
+}
+div.widthStandart
+{
+    width: 922px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+div.account-header *
+{
+    font-weight: inherit;
+    font-family: inherit;
+    font-style: inherit;
+}
+
+div.ZboxTitle
+{
+    padding-top: 20px;
+    float: left;
+    margin-left: 5px;
+    text-align: justify; /*padding-left: 100px;*/
+}
+div.ZboxLogIn
+{
+    float: right;
+    padding-top: 0px;
+    width: 312px;
+    text-align: justify; /*padding-right: 170px; padding-right:10%;*/
+    position: relative;
+}
+
+.ZboxLogInParams
+{
+    float: left;
+    width: 123px;
+}
+.ZboxLogInParams div
+{
+    float: left;
+}
+
+.SmallLogInParams
+{
+    margin-top: 3px;
+}
+.SmallLogInParams input[type='checkbox'], .SmallLogInParams label
+{
+    vertical-align: baseline;
+}
+
+.RoundCorner4px
+{
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+
+.LogIninput
+{
+    height: 28px;
+    width: 120px;
+    border: 1px solid #3375A6;
+    background: url(Images/TextBoxLogIn.jpg);
+    margin-right: 3px;
+    margin-bottom: 2px;
+}
+
+.LogIninput input
+{
+    height: 28px;
+    width: 110px;
+    background: url(Images/TextBoxLogIn.jpg);
+    padding: 0px;
+    margin: 0px 5px 0px 5px;
+}
+
+.LogIninput input.input-validation-error
+{
+  /*  height: 24px;
+    width: 112px;
+  background: url(Images/TextBoxLogIn.jpg);
+    padding: 0px 2px 0 2px;
+    margin: 1px 2px 0 1px;
+    */
+      height: 26px;
+    width: 118px;
+      background: url(Images/TextBoxLogIn.jpg);
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    
+  
+}
+
+input[type="checkbox"]
+{
+    border: 1px solid transparent;
+}
+
+input[type="checkbox"]:focus
+{
+    border: 1px solid #e1991f;
+}
+
+.SubmitLogIn
+{
+    cursor: pointer;
+    height: 30px;
+    width: 65px;
+    background-color: #FFFFFF;
+    border: 1px solid #2D6691;
+}
+
+.SubmitLogIn:hover
+{
+    background-color: #CBE1F2;
+}
+.boxShadow
+{
+    background-color: #F4F4F4; /*border: 1px solid #CCC;     padding: 10px;*/
+    -moz-box-shadow: 2px 2px 1px #000000;
+    -webkit-box-shadow: 2px 2px 1px #000000;
+    box-shadow: 2px 2px 1px #000000;
+}
+
+div.baloon
+{
+    position: absolute;
+    background-color: #FFFFFF;
+    border: 1px solid #204968;
+    margin: 40px 10px 10px 0px;
+    text-align: right;
+    z-index: 3000;
+    width: 360px;
+    height: 207px;
+    padding: 6px 10px 0px 10px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+
+div.baloon div.baloon-arrow
+{
+    position: relative;
+    top: -22px;
+    right: 180px;
+    margin-left: 90%;
+}
+
+div.baloon-arrow
+{
+    background-image: url('/Content/Account/Images/password_point.png');
+    width: 20px;
+    height: 16px;
+}
+.ForgotPassTitle
+{
+    vertical-align: middle;
+}
+.BallonContent
+{
+    text-align: left;
+}
+
+.BallonContentSmallLetter
+{
+    margin-top: 2px;
+}
+.BallonContentBoldLetter
+{
+    margin-top: 15px;
+}
+.BallonButtons
+{
+    display: inline-block;
+}
+#btnCancel
+{
+    border: 1px solid #4092cf;
+    width: 74px;
+    height: 23px;
+    margin-top: 33px;
+    margin-right: 14px;
+}
+
+#btnCancel:hover
+{
+    background-color: #cbe1f2;
+}
+
+#btnOk
+{
+    background-color: #4092cf;
+    height: 23px;
+    width: 132px;
+    margin: 33px 14px 0px 14px 24px;
+}
+
+#btnOk:hover
+{
+    background-color: #306e9b;
+}
+
+
+
+#txtEmailPassReset
+{
+    height: 30px;
+    border: 1px solid #3375a6;
+    width: 315px;
+}
+.MainContentBody
+{
+    background-color: #EEF5FB;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.NorthMainContentBody
+{
+    width: 922px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    overflow: auto;
+}
+
+.SouthContentBodyPadding
+{
+    padding-top: 14px;
+}
+
+.SouthMainContentBody
+{
+    float: left;
+    width: 280px;
+    text-align: left;
+}
+.SouthMainContentBodyLeftIem
+{
+    float: left;
+    width: 300px;
+    text-align: left;
+}
+#left.SouthMainContentBody
+{
+    margin-left: 4px;
+}
+
+#center.SouthMainContentBody
+{
+    width: 252px;
+}
+
+#left.SouthMainContentBody, #center.SouthMainContentBody, .SouthMainContentBodyLeftIem
+{
+    margin-right: 32px;/* asam was 52px  */
+}
+#left.SouthMainContentBody img, #center.SouthMainContentBody img, .SouthMainContentBodyLeftIem img /* added by adam */
+{
+    position:relative;
+    top:5px;
+}
+#center.SouthMainContentBody label
+{
+    margin-left: 5px;
+}
+
+.SouthMainContentBodyPara1
+{
+    padding-left: 25px;
+}
+.SouthMainContentBodyPara2
+{
+    padding-left: 30px;
+}
+.SouthMainContentBodyPara3
+{
+    padding-left: 36px;
+}
+
+.BodyDescription
+{
+    text-align: justify;
+    float: left;
+    width: 554px;
+}
+
+.NewUser
+{
+    float: right; /*width: 3px;*/
+    margin-top: 9px;
+    text-align: left;
+}
+
+.NewUser div.style36
+{
+    margin-bottom: 13px;
+    vertical-align: bottom;
+}
+
+.NewUserinputText
+{
+    width: 315px;
+    border: 1px solid #3375A6;
+    margin-bottom: 8px;
+    height: 36px;
+    text-align: right;
+}
+.NewUserinputText input
+{
+    width: 300px;
+    height: 34px;
+    padding-left: 5px;
+}
+
+.Gradiant
+{
+    background: -moz-linear-gradient(#cbe1f4, #edf5fb); /* FF 3.6+ */
+    background: -ms-linear-gradient(#cbe1f4, #edf5fb); /* IE10 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cbe1f4), color-stop(100%, #edf5fb)); /* Safari 4+, Chrome 2+ */
+    background: -webkit-linear-gradient(#cbe1f4, #edf5fb); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#cbe1f4, #edf5fb); /* Opera 11.10 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cbe1f4', endColorstr='#edf5fb'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#cbe1f4', endColorstr='#edf5fb')"; /* IE8+ */
+    background: linear-gradient(#cbe1f4, #edf5fb); /* the standard */ /*   background-image: url(Images/TexBoxNewUser.png);*/
+}
+.Gradiant2 
+{
+     background: -moz-linear-gradient(#ecf4fb, #fefeff)  repeat scroll 0 0 transparent; /* FF 3.6+ */
+    background: -ms-linear-gradient(#ecf4fb, #fefeff); /* IE10 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ecf4fb), color-stop(100%, #fefeff)); /* Safari 4+, Chrome 2+ */
+    background: -webkit-linear-gradient(#ecf4fb, #fefeff); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#ecf4fb, #fefeff); /* Opera 11.10 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ecf4fb', endColorstr='#fefeff'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ecf4fb', endColorstr='#edffefeff5fb')"; /* IE8+ */
+    background: linear-gradient(#ecf4fb, #fefeff); /* the standard */ /*   background-image: url(Images/TexBoxNewUser.png);*/
+}
+.boxEntry :hover
+{
+    background-color: #d5e8f7;
+}
+
+
+#NewUserSignIn
+{
+    border: 1px solid #cc6633; /*float: right;*/
+    height: 35px;
+    cursor: pointer;
+    width: 91px;
+    background: -moz-linear-gradient(#e29720, #fc6a36); /* FF 3.6+ */
+    background: -ms-linear-gradient(#e29720, #fc6a36); /* IE10 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e29720), color-stop(100%, #fc6a36)); /* Safari 4+, Chrome 2+ */
+    background: -webkit-linear-gradient(#e29720, #fc6a36); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#e29720, #fc6a36); /* Opera 11.10 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e29720', endColorstr='#fc6a36'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#e29720', endColorstr='#fc6a36')"; /* IE8+ */
+    background: linear-gradient(#e29720, #fc6a36); /* the standard */ /*   background-image: url(Images/TexBoxNewUser.png);*/
+}
+#divNewUserSignIn
+{
+    text-align: right;
+}
+
+#ForgotPassword
+{
+    cursor: pointer;
+}
+
+#NewUserSignIn:hover
+{
+    background: -moz-linear-gradient(#fc6a36, #e29720); /* FF 3.6+ */
+    background: -ms-linear-gradient(#fc6a36, #e29720); /* IE10 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fc6a36), color-stop(100%, #e29720)); /* Safari 4+, Chrome 2+ */
+    background: -webkit-linear-gradient(#fc6a36, #e29720); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#fc6a36, #e29720); /* Opera 11.10 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fc6a36', endColorstr='#e29720'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fc6a36', endColorstr='#e29720')"; /* IE8+ */
+    background: linear-gradient(#fc6a36, #e29720); /* the standard */ /*   background-image: url(Images/TexBoxNewUser.png);*/
+}
+body
+{
+    background-color: #EEF5FB;
+}
+.ImageDescription
+{
+    text-align: center;
+    margin-top: 5px;
+}
+
+#roller
+{
+    margin-top: 5px;
+}
+
+#roller img
+{
+    cursor: pointer;
+}
+
+
+.validation-summary-errors
+{
+    height: 20px;
+}
+
+input.input-validation-error
+{
+    float: left;
+    width: 308px;
+    border: 1px solid #B32424;
+}
+
+span#spanCreateBoxMessage{ text-align:left; margin:8px 0 0 0; display:inline-block}

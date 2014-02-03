@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Unsupported";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div class="unsupported">
+    <h2>@ErrorResources.BrowserUnsupported</h2>
+    <span>@ErrorResources.UseOtherBrowser</span>
+
+    <ul class="browsers">
+        <li>
+            <a class="browser ie" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer</a>
+        </li>
+        <li>
+            <a class="browser firefox" href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>
+        </li>
+
+        <li>
+            <a class="browser chrome" href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>          
+        </li>
+    </ul>
+</div>

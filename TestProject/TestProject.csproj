@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2BF1F1A8-3D02-407D-A94E-E8611590D62C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestProject</RootNamespace>
+    <AssemblyName>TestProject</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.LoadTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddBoxCommentCommandHandlerTest.cs" />
+    <Compile Include="AddFileToBoxCommandHandlerTest.cs" />
+    <Compile Include="AddItemCommentCommandHandlerTest.cs" />
+    <Compile Include="AddLinkToBoxCommandHandlerTest.cs" />
+    <Compile Include="AddReplyToCommentCommandHandlerTest.cs" />
+    <Compile Include="AddTagCommandHandlerTest.cs" />
+    <Compile Include="AssignTagsToBoxCommandHandlerTest.cs" />
+    <Compile Include="ChangeBoxFavoriteCommandHandlerTest.cs" />
+    <Compile Include="ChangeBoxNameCommandHandlerTest.cs" />
+    <Compile Include="ChangeBoxPrivacySettingsCommandHandlerTest.cs" />
+    <Compile Include="ChangeFileNameCommandHandlerTest.cs" />
+    <Compile Include="ChangeNotificationSettingsCommandHandlerTest.cs" />
+    <Compile Include="ChangeTagNameCommandHandlerTest.cs" />
+    <Compile Include="CreateBoxCommandHandlerTest.cs" />
+    <Compile Include="CreateFacebookUserCommandHandlerTest.cs" />
+    <Compile Include="CreateMembershipUserCommandHandlerTest.cs" />
+    <Compile Include="CreateUserCommandHandlerTest.cs" />
+    <Compile Include="DeleteBoxCommandHandlerTest.cs" />
+    <Compile Include="DeleteCommentCommandHandlerTest.cs" />
+    <Compile Include="DeleteItemCommandHandlerTest.cs" />
+    <Compile Include="DeleteTagCommandHandlerTest.cs" />
+    <Compile Include="DeleteUserFromBoxCommandHandlerTest.cs" />
+    <Compile Include="HomePageCoded.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegenerateBoxAccessTokenCommandHandlerTest.cs" />
+    <Compile Include="SendMessageToEmailCommandHandlerTest.cs" />
+    <Compile Include="ShareBoxCommandHandlerTest.cs" />
+    <Compile Include="SubscribeToSharedBoxCommandHandlerTest.cs" />
+    <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTest2.cs" />
+    <Compile Include="UpdateThumbnailCommandHandlerTest.cs" />
+    <Compile Include="UpdateUserEmailCommandHandlerTest.cs" />
+    <Compile Include="UpdateUserPasswordCommandHandlerTest.cs" />
+    <Compile Include="UpdateUserProfileCommandHandlerTest.cs" />
+    <Compile Include="VerifyEmailCommandHandlerTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HomePage.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="HomeScreen.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <Shadow Include="Test References\Zbang.Zbox.Domain.CommandHandlers.accessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
+      <Project>{9ED04567-B2D0-4040-88A6-1AD752A3D83F}</Project>
+      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
+      <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
+      <Name>Zbang.Zbox.Domain.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
+      <Project>{B4B7F91C-9412-4D6B-93E2-F3B7C4BD9B90}</Project>
+      <Name>Zbang.Zbox.Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.DataAccess\Zbang.Zbox.Domain.DataAccess.csproj">
+      <Project>{C2010FF2-7020-4BE7-8CB8-D43C7F9C4363}</Project>
+      <Name>Zbang.Zbox.Domain.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3E0F1FBF-60D1-40B2-B649-933142C27CB7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ViewModel\Zbang.Zbox.ViewModel.csproj">
+      <Project>{BC85A7BD-262D-43E0-8D9D-EE76C602BFAF}</Project>
+      <Name>Zbang.Zbox.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,29 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.UserDtos.MemberInfoDto
+@using Zbang.Zbox.Mvc3WebRole.Views.Dashboard.Resources
+@using System.Threading
+
+
+<div class="memberInfo clearfix">
+    <img alt="UserPic" src="@Model.Image" width="100" height="100" />
+    <div class="memberDetails">
+        <h3 title="@Model.Name">@Model.Name</h3>
+        <div>
+            <div class="category horizontal horizontalfirst">
+                <span class="counter">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)</span><span class="categoryname">@IndexResources.Boxes</span>
+            </div>
+            <div class="category horizontal">
+                <span class="counter">@Model.ItemCount.ToString("N0",Thread.CurrentThread.CurrentCulture)</span><span class="categoryname">@IndexResources.Items</span>
+            </div>
+            <div class="category horizontal">
+                <span class="counter">@Model.MemberCount.ToString("N0", Thread.CurrentThread.CurrentCulture)</span><span class="categoryname">@IndexResources.Members</span>
+            </div>
+        </div>
+        <button class="msg" data-name="@Model.Name" data-uid="@Model.Uid">@IndexResources.SendMessage</button>
+    </div>
+    @*THIS IS BEIT BERL ADVERTISMENT - WE need to do something better*@
+    @if (Model.Uid == "TsKl7pMWvQW") 
+    {
+    <div class="lFloat">
+        <img src="/Images/site_banner.png" alt=""/></div>
+    }
+</div>

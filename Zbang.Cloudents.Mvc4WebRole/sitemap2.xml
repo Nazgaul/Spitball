@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>https://www.cloudents.com/</loc>
+  <priority>1.00</priority>
+  <changefreq>daily</changefreq>
+  <image:image>
+     <image:loc>https://www.cloudents.com/images/cloudents.png</image:loc>
+     <image:title>Cloudents</image:title>
+  </image:image>
+  <image:image>
+    <image:loc>https://www.cloudents.com/images/table-bg1.png</image:loc>
+    <image:title>Cloudents</image:title>
+  </image:image>
+  <image:image>
+     <image:loc>https://www.cloudents.com/images/mobileHome.jpg</image:loc>
+     <image:title>Cloudents</image:title>
+  </image:image>
+  <image:image>
+     <image:loc>https://www.cloudents.com/images/mobileHome-rtl.jpg</image:loc>
+     <image:title>Cloudents</image:title>
+  </image:image>  
+</url>
+<url>
+  <loc>https://www.cloudents.com/home/aboutus</loc>
+  <priority>0.95</priority>
+</url>
+<url>
+  <loc>https://www.cloudents.com/home/contactus</loc>
+  <priority>0.95</priority>
+</url>
+<url>
+  <loc>https://www.cloudents.com/home/privacy</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cloudents.com/home/termsofservice</loc>
+  <priority>0.80</priority>
+</url>
+  <url>
+    <loc>
+      https://www.cloudents.com/box/lzodJqaBGSO
+    </loc>
+    <priority>0.70</priority>
+  </url>
+
+</urlset>

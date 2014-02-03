@@ -1,0 +1,31 @@
+﻿<script type="text/html" id="library-node">
+    <li class="libraryItem">
+        <span class="line" data-bind="style: { backgroundColor: color }"></span>
+        <a class="navigation" data-bind="text: name, attr: { href: '/Library?section=' + id + '&name=' + name }"></a>
+    </li>
+</script>
+<script type="text/html" id="library-box">
+    <li  class="box">
+        <a data-bind="attr: { href: boxUrl }">
+            <div>
+                <img class="boxImg" data-bind="attr: { src: boxPicture }" alt="" width="55" height="70" />
+                <ul>
+                    <li class="itemImg" data-bind="text: itemCount"></li>
+                    <li class="memberImg" data-bind="text: membersCount" ></li>
+                    <li class="commentImg" data-bind="text: commentCount"></li>
+                </ul>
+                
+            </div>
+            <span class="ellipsis boxName">
+                <span data-bind="text: name"></span>
+            </span>
+        </a>
+        <!-- ko if: boxSubscribed() -->
+        <span class="actionBtn subscriber">subscribed</span>
+        <!-- /ko -->
+        <!-- ko if: boxFollow() -->
+        <button class="actionBtn follow" data-bind="click: subscribe">Follow</button>
+        <!-- /ko -->
+        @*<button class="actionBtn" data-bind="text: removeBoxTxt(), css: { subscriber: userType() === 'subscribe', follow: userType() !== 'subscribe'}, click: $root.removeBox"></button>*@
+    </li>
+</script>

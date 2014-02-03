@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="University" table="University">
+    <id name="Id" column="UniversityId" type="long">
+      <generator class="native"></generator>
+    </id>
+    <property name="Name" column="UniversityName_Heb" not-null="true"/>
+    <!--One to one assosiation UNIQUE cannot be because we have a null reference-->
+    <many-to-one name="User" class="User"  cascade="save-update" column="PageId" not-null="false"/>
+    <!--unique="true"-->
+  </class>
+</hibernate-mapping> 

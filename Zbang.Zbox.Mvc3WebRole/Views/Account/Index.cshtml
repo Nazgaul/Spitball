@@ -1,0 +1,29 @@
+﻿@model Zbang.Zbox.Mvc3WebRole.Models.Account.LogOnRegister
+@{
+    ViewBag.body = "body";
+    ViewBag.MainMenu = false;
+    ViewBag.Language = true;
+    //Zbang.Zbox.Infrastructure.Enums.AuthSource? source = ViewBag.source;
+
+    var showLogOn = ViewBag.LogOn != null ? "display:block" : "display:none";
+    var hideRegister = ViewBag.LogOn == null ? "display:block" : "display:none";
+}
+
+<div class="homeForm" data-strap="SignUp">
+    <div id="combinedForms1" style="@showLogOn">
+        @*@{Html.RenderPartial("LogOn", new Zbang.Zbox.Mvc3WebRole.Models.LogOn { RememberMe = true });}*@
+        @{Html.RenderPartial("LogOn", Model.LogOn);}
+    </div>
+    <div id="combinedForms2" style="@hideRegister">
+        @*@{Html.RenderPartial("Register", new Zbang.Zbox.Mvc3WebRole.Models.Register());}*@
+        @{Html.RenderPartial("Register", Model.Register);}
+    </div>
+    <div id="fb-root">
+    </div>
+    <div class="fbLoginBtn">
+        <span class="fb-login" onclick="LogOn.facebookCLick()"></span>
+        <span id="fbError" class="smallErrMsg fb-error"></span>
+    </div>
+</div>
+    Html.RenderPartial("Partials/_Main");
+

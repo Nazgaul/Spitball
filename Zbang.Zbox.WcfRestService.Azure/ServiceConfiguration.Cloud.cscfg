@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Zbang.Zbox.WcfRestService.Azure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2013-10.2.2">
+  <Role name="Zbang.Zbox.WebApi">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ramy" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFeE4xyigAiqSRqgMSf8fZIwDQYJKoZIhvcNAQEBBQAEggEAk9idRYgpIJVnC0wh9zmcqEJLb50NwPOauAKOFxPtNL9pA/xBrHGHhT7KRtqB3CvJju3clvXRyNVevMrdz1bhwcTfP6p44AeXZcCTBOVPhsYM/xweEIFfgL+2MRfq8cST4O3d4vMT3nor5Ms0enIVjeVJWZjmofEnXpbs0YAPUAMuRIlOID8bejAnVczScyuKNq4RNVM4/vN+1rjcttes5+QMpTRCWNwfqKnTuWZilCsZeSC2VWIaThJkD/uIzP30jDulS3HynmSc/POUmgKDXxiz2NP3p+rsosJ0LyWyOdivj/CLHClIwLqO2eJTAL6Nq83wZMbkyW8tuzn1Rc5uNjArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECEupSIJPYw95gAhOO1nHQULdPg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2013-02-26T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="22AB7900B6532317002534C71E26E16395290FE6" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

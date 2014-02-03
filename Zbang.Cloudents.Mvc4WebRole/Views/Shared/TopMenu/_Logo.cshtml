@@ -1,0 +1,20 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+
+@{
+    var url = "/";
+    if (ViewBag.url != null)
+    {
+        url = ViewBag.url;
+    }
+}
+<div class="lFloat">
+<a href="@Url.Action("Index","Dashboard")"  class="areaBtn">
+    <span>@SharedResources.MySpace</span>
+</a>
+<a href="@Url.Action("Index","Library")" class="areaBtn lib">
+    <span>@SharedResources.SchoolLibrary</span>
+</a>
+
+</div>
+<a href="@url"><span class="logVer"></span></a>

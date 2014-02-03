@@ -1,0 +1,19 @@
+﻿@model HandleErrorInfo
+@using Zbang.Zbox.Mvc3WebRole.Views.Shared.Resources
+@* Members only message *@
+<div class="membersOnly txtshd1">
+    
+    <div class="title">@ErrorResources.MembersOnly</div>
+    <div class="content">@ErrorResources.ToView</div>
+    <div class="content">@ErrorResources.Please<a>@ErrorResources.SignIn</a>@ErrorResources.TryAgain<a>@ErrorResources.RequestInvite</a></div>
+    <div class="goBack">@ErrorResources.GoBack<a class="btn1">@ErrorResources.HomePage</a></div>
+    <img alt="" src="/Images/lock.png" width="241" height="260" />
+</div>
+
+@* Something went wrong message *@
+@*<div class="oops txtshd1">
+    <div class="title">@ErrorResources.WentWrong</div>
+    <pre>@ErrorResources.PageMoved</pre>
+    <div class="goBack">@ErrorResources.GoBack<a href="/" class="btn1">@ErrorResources.HomePage</a></div>
+    <img alt="" src="@Url.CdnContent("/Images/trash.png")" width="229" height="259" />
+</div>*@

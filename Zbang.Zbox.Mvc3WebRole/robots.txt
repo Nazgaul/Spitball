@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /Box
+Disallow: /Friend/
+Disallow: /Item
+Disallow: /Home/Search

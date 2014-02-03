@@ -1,0 +1,1141 @@
+﻿@import "varsAndMixins";
+
+
+/*#region from normalize 2.1.2  */
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+/**
+ //* 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+
+html {
+    //font-family: sans-serif; /* 1 */
+    -ms-text-size-adjust: 100%; /* 2 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+    //-webkit-font-smoothing:antialiased;
+    //text-rendering: auto;
+    //text-rendering: optimizeSpeed;
+    //text-rendering: optimizeLegibility;
+    //text-rendering: geometricPrecision;
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+
+a:focus {
+    //outline: thin dotted;
+    outline: none;
+    //box-shadow: 0 2px 2px rgba(0,0,0,.2); //TODO: Ask Itsik: how about this for a focus alternative??
+}
+button:focus 
+{
+    outline: none;
+}
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+
+/*a:active,
+a:hover {
+    outline: 0; // TODO - implement this only when necessary
+}*/
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+/**
+ * Improve readability of pre-formatted text in all browsers.
+ */
+
+pre {
+    white-space: pre-wrap;
+}
+
+/**
+ * Set consistent quote types.
+ */
+
+q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+/**
+ * 1. Correct font family not being inherited in all browsers.
+ * 2. Correct font size not being inherited in all browsers.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+    me: for firefox - to prevent the MSShell Dlg font-family 
+ */
+
+form button:focus{
+    outline: thin dotted;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 2 */
+    margin: 0; /* 3 */
+}
+
+//mozilla put border red around the invlid
+textarea:invalid{
+    box-shadow:none;
+}
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+
+button,
+input {
+    line-height: normal;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+
+button,
+select {
+    text-transform: none;
+}
+
+/**
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+    cursor: pointer; /* 3 */
+    -webkit-appearance: none; //this is mine - to cancel the iOS default btn styles
+}
+
+    /**
+ * Re-set default cursor for disabled elements.
+ */
+
+    button[disabled],
+    html input[disabled] {
+        cursor: default;
+    }
+
+/**
+ * 1. Address box sizing set to `content-box` in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box; /* 1 */
+    padding: 0; /* 2 */
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+
+//input[type="search"] {
+//-webkit-appearance: textfield; /* 1 */
+//-moz-box-sizing: content-box;
+//-webkit-box-sizing: content-box; /* 2 */
+//box-sizing: content-box;
+//}
+
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/**
+ * 1. Remove default vertical scrollbar in IE 8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+
+textarea {
+    overflow: auto; /* 1 */
+    vertical-align: top; /* 2 */
+    resize: vertical; //(mine)
+    /* mine remove safari's glow on textarea focus*/
+    &:focus {
+        outline-style: none;
+    }
+}
+
+/*#endregion */
+
+body {
+    
+    font-size: 13px;
+    /*-webkit-backface-visibility: hidden;*/
+    font-family: 'Open Sans', sans-serif; /*rtl*/ //3,4,6,7 //for V. 12.0.
+}
+
+body, h1, h2, h3, h4, h5, h6, ol, ul, input, button, img, p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+noscript > div {
+    border: 1px solid #dc552a;
+    color: #111;
+    padding: 0 6px;
+    font-size: 18px;
+    position: absolute;
+    top: 44px;
+    background: #fff;
+    line-height: 42px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 400px;
+}
+
+header, nav, footer {
+    display: block;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+ul, ol {
+    list-style-type: none;
+}
+
+input[type="button"], input[type="submit"], button {
+    cursor: pointer;
+}
+
+select[disabled="button"], input[type="submit"], button {
+    cursor: pointer;
+}
+
+button /*removed input element*/ {
+    background: transparent;
+}
+
+input, form, select {
+    outline: none;
+}
+
+/* remove the webkit cancel ('x') button on search inputs */
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+/* remove safari's default input search style*/
+input[type="search"] {
+    -webkit-appearance: none;
+}
+
+/*#region placeholder text */
+//.placeholderFade();
+/*#endregion */
+
+/*#region Webkit scoll bar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border: none;
+}
+
+    ::-webkit-scrollbar-track:hover {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(157,153,156,.5);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+/*#endregion */
+
+/*#region checkbox */
+.checkbox {
+    display: none;
+    ~ .cbLabel {
+        display: inline-block;
+        font-size: 13px;
+        margin-top: 5px;
+        &:before {
+            content: '';
+            width: 17px;
+            height: 16px;
+            background: url(/Images/checkbox-sprite1.png) -1px -1px no-repeat;
+            display: inline-block;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 5px; /*rtl*/
+            padding-top: 2px;
+        }
+    }
+    &:checked ~ .cbLabel:before {
+        //content: '';
+        background-position: -19px -1px;
+    }
+}
+/*#endregion */
+
+/*#region validation errors */
+.validation-summary-valid {
+    display:none;
+}
+.field-validation-error, .validation-summary-errors {
+    font-size: 12px;
+    color: #dc3500;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-left: 5px; /*rtl*/
+    // added input. for extra specificity
+    + input.inputText {
+        border: 1px solid #dc3500;
+    }
+}
+
+.input-validation-error, .input-validation-error:focus {
+    border: 1px solid #dc3500;
+    outline-color: #dc3500;
+}
+
+/*#endregion */
+
+/*#region Site buttons */
+.btn1, .btn2 {
+    border-radius: 5px;
+    text-align: center;
+    padding: 1px 10px 3px 10px;
+    min-width: 64px;
+    font-size: 15px;
+    &:disabled, &:disabled:hover {
+        background: #a5a5a5;
+        border: 1px solid #a5a5a5;
+    }
+}
+
+
+.btn1 {
+    background: @color;
+    color: #fff;
+    border: 1px solid @color;
+    
+    &:hover {
+        background: @colorHover;
+    }
+
+    &:active {
+        background: @colorActive;
+    }
+}
+
+
+.btn2 {
+    background: #f8f8f8;
+    border: 1px solid @borderColor;
+    color: @textColor;
+    &:hover {
+        background: @borderColor;
+    }
+
+    &:active {
+        background: darken(@borderColor, 5%);
+    }
+}
+
+    
+
+//.btn3.btn3{ // attentionBtn blue. repeated classname for extra specificity
+.btn3 {
+    color: #fff;
+    background: @attentionBlue;
+    padding: 5px 8px;
+    min-width: 64px;
+    font-size: 13px;
+    border-radius: 5px;
+    &:hover
+    {
+        background: @attentionBlueHover;
+    }
+}
+/*#endregion */
+
+/*#region delete email 'x' */
+.removeItem, .closeItem {
+    position: absolute;
+    right: 5px; /*rtl*/
+    top: 5px;
+    width: 10px;
+    height: 11px;
+    background: @common-sprite -68px -14px no-repeat;
+    display: none;
+
+    &:hover {
+        background-position: -79px -14px;
+    }
+}
+.emailText {
+    display: inline-block;
+    cursor: default;
+    margin-right: 6px; /*rtl*/
+    ~ .removeItem
+    {
+        display: inline-block; //override
+        position: static; //override
+        height: 10px; //override
+        margin-top: 7px;
+        vertical-align: top;
+    }
+}
+/*#endregion */
+
+/*#region loading */
+.loadingGif
+{
+    .absoluteCenter(128px,128px);
+    background: url(/Images/loader3.gif);
+    z-index: 10;
+}
+.loading {
+    .absoluteCenter(120px,120px);
+    z-index: 10;
+    background: url(/Images/loader.png) center center no-repeat;
+}
+.spinner {
+    border: 10px solid transparent;
+    border-top: 10px solid rgba(15, 157, 88,.75);
+    border-left: 10px solid rgba(15, 157, 88,.75);
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    -moz-animation: spin 1.5s infinite linear;
+    -o-animation: spin 1.5s infinite linear;
+    -webkit-animation: spin 1.5s infinite linear;
+    animation: spin 1.5s infinite linear;
+}
+
+.progressLoader {
+    position: relative;
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    margin: 0 .5em;
+    //font-size: 12px;
+    text-indent: 999em;
+    overflow: hidden;
+    -webkit-animation: spin 1s infinite steps(8);
+    -moz-animation: spin 1s infinite steps(8);
+    -o-animation: spin 1s infinite steps(8);
+    animation: spin 1s infinite steps(8);
+    font-size: 3px; //small loader
+    top: 1px; // specific to invite page
+}
+
+.small.progressLoader {
+	font-size: 3px;
+}
+
+.large.progressLoader {
+	font-size: 24px;
+}
+
+.progressLoader:before,
+.progressLoader:after,
+.progressLoader > .progressInner:before,
+.progressLoader > .progressInner:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2.25em; /* (container width - part width)/2  */
+    width: .5em;
+    height: 1.5em;
+    border-radius: .2em;
+    background: #eee;
+    box-shadow: 0 3.5em #eee; /* container height - part height */
+    -webkit-transform-origin: 50% 2.5em; /* container height / 2 */
+    -moz-transform-origin: 50% 2.5em;
+    -ms-transform-origin: 50% 2.5em;
+    -o-transform-origin: 50% 2.5em;
+    transform-origin: 50% 2.5em; /* container height / 2 */
+}
+
+.progressLoader:before {
+	background: #555;
+}
+
+.progressLoader:after {
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background: #777;
+}
+
+.progressLoader > .progressInner:before {
+    -webkit-transform: rotate(-90deg);  
+    -moz-transform: rotate(-905deg);  
+    -o-transform: rotate(-90deg);  
+    -ms-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	background: #999;
+}
+
+.progressLoader > .progressInner:after {
+    -webkit-transform: rotate(-135deg);  
+    -moz-transform: rotate(-135deg);  
+    -o-transform: rotate(-135deg);  
+    -ms-transform: rotate(-135deg);
+	transform: rotate(-135deg);
+	background: #bbb;
+}
+
+/*#endregion */
+
+/*#region AUTO COMPLETE */
+
+ul.ui-autocomplete {
+    text-align: left; /*rtl*/
+    max-height: 120px;
+    border: solid 1px #cfcece;
+    /*display: block!important;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(60, 52, 57, .3);
+    position: absolute;
+
+    li {
+        height: 24px;
+        color: #43392b;
+        cursor: pointer;
+        border-bottom: 1px solid #CFCECE;
+        background: #fff;
+        .transition(background, .2s linear);
+    }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        li:hover, .ui-state-focus {
+            .transition(background, .2s linear);
+            background: #D9D9D9;
+        }
+
+        li a {
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            height: 24px;
+            line-height: 24px;
+            padding: 0 8px;
+            text-overflow: ellipsis;
+            width: 99%;
+        }
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+/*#endregion */
+
+/*#region jquery tooltip*/
+.ui-tooltip {
+    padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+}
+.ui-tooltip-content{
+
+}
+/*#endregion*/
+
+/*#region site header classes */
+.userNav {
+    font-size: 0; // remove the inline-block space from  navItems
+    height: @header-height;
+}
+
+.navItem {
+    display: inline-block;
+    position: relative;
+    font-size: 13px; // return the font-size to items
+}
+.navUser, .userSettings
+{
+    height: @header-height;
+    padding: 0 10px; 
+    cursor: pointer;
+    vertical-align: top;
+    &:hover {
+        background: rgba(103,103,103,.45);
+    }
+}
+.navUser {
+    margin-left: 30px; /*rtl*/
+    .userName {
+        position: relative; /* needed for the width: 100% on the userMenuWrapper*/
+        vertical-align: top;
+        font-size: 15px;
+        max-width: 127px;
+        //min-width: 58px; // this is min to allow for invites list to open without triggerring a horizontal scroll on the page
+        padding: 0 0 0 5px; /*rtl*/
+        display: inline-block;
+        text-align: left; /*rtl*/
+        color: #fff;
+    }
+
+    .userImg {
+        vertical-align: top;
+        margin-top: 9px;
+        border-radius: 3px;
+    }
+}
+.userSettings
+{
+    margin-right: 10px; /*rtl*/
+}
+
+.userDrpSettings {
+    cursor: pointer;
+    height: @header-height;
+    position: relative;
+    padding: 0 8px;
+    display: inline-block;
+
+    &:after {
+        .pseudo;
+        position: absolute;
+        top: 18px;
+        left: 0; /*rtl*/
+        width: 17px;
+        height: 13px;
+        background: @dashboard-sprite -254px -28px no-repeat;
+    }
+}
+
+.userMenuWrapper {
+    width: 100%;
+    position: absolute;
+    right: 0; /*rtl*/
+}
+
+.userMenu, .userInvites {
+    display: none;
+    position: absolute;
+    left: 0; /*rtl*/
+    z-index: 10;
+    top: @header-height;
+    border: 1px solid #959595;
+    border-top: none;
+    background: #fff;
+    box-shadow: 0 3px 3px rgba(116,82,32,.5);
+    .boxSizing;
+}
+
+.userMenu {
+    //width: 100%;
+    width: 160px;
+    right: 0; /*rtl*/
+    left: auto;
+
+    span {
+        color: red;
+        cursor: none;
+    }
+}
+
+.menuItem, .userInvites a {
+    color: @colorActive;
+    display: block;
+}
+
+.menuItem:hover {
+    background: @borderColor;
+}
+.menuLink {
+    width: 100%;
+    display: block;
+    padding: 10px 5px;
+    text-align: left; /*rtl*/
+    .break;
+    line-height: 12px;
+    .boxSizing;
+    color: @textColor;
+}
+
+/*#endregion */
+
+/*#region general helper classes */
+.lFloat {
+    float: left; /*rtl*/
+}
+
+.rFloat {
+    float: right; /*rtl*/
+}
+
+.regFont {
+    font-weight: normal;
+}
+
+.semiFont, .boldFont {
+    font-weight: 600; /*rtl - because Hebrew doesn't support this*/
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+/* When used on inline elements: need to add display:inline-block and width for it to work*/
+.elps  {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.editable {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    height: 25px; // prevents linebreaks even if user pastes formatted text inside
+    border: none;
+    outline: none;
+    cursor: text !important;    
+}
+
+select.inputText {
+    padding: 3px 3px 2px 2px;
+    display: inline-block;
+}
+
+.inputText {
+    background: #fff;
+    padding: 0 4px 0 8px; /*rtl*/
+    height: 28px;
+    color: #464646;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    &:focus
+    {
+        border: 1px solid @textColor;
+    }
+}
+.topBar{
+    position: fixed;          
+    z-index: 4;
+    height: 80px;
+    font-size: 13px;
+    color: #383838;
+    border-bottom: 1px solid @borderColor;
+    text-align: left; /*rtl*/
+    padding: 0 45px 0 19px; /*rtl*/
+    background: #fff;
+    .boxSizing;
+}
+.backWpr{
+    text-align: left; /*rtl*/
+    padding-left: 40px; /*rtl*/
+    margin-top: 22px;
+    position: relative;
+    display: inline-block;
+    line-height: 17px;
+    height: 35px;
+    
+    &:hover:before
+    {
+        background-position: -204px -35px;
+    }
+    &:before
+    {
+        .pseudo;
+        position: absolute;
+        left:0; /*rtl*/
+        width: 35px;
+        height: 35px;
+        background: @common-sprite -204px 0 no-repeat;
+        overflow: hidden;
+        border-radius: 18px;
+    }
+    h2{
+        font-size: 15px;
+    }
+}
+.dropDown {
+    position: absolute;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    box-shadow: 0 2px 9px rgba(0,0,0,.3);
+    visibility: hidden;
+    opacity: 0;
+    .transition(all .4s);
+    .boxSizing;
+    background: #fff;
+    z-index: 7;
+    text-align: left; /*rtl*/
+    //overflow: hidden; //hide rounded-corner overflow
+
+    &:before {
+        .pseudo;
+        width: 100%;
+        position: absolute;
+        left: 0; /*rtl*/
+        top: 0;
+        border-bottom: 1px solid @borderColor;
+    }
+    
+    h4 {
+        font-size: 15px;
+        position: relative;
+    }
+}
+.showOtakim ,.checkbox:checked ~ .dropDown
+{
+    visibility: visible;
+    opacity:1;
+    height: 252px; //Maybe remove this
+}
+
+.arrow {
+    &:before {
+        .pseudo;
+        border: 1px solid @borderColor;
+        border-radius: 3px;
+        position:absolute;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg); 
+        transform: rotate(45deg);
+    }
+}
+.sectionHeader
+{
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #383838;
+    border-top: 1px solid @borderColor;
+    border-bottom: 1px solid @borderColor;
+    //font-weight: normal;
+    font-weight: 600; //semi-bold /*rtl*/
+    background: #f8f8f8;
+    clear: both;
+}
+
+.splitHR{
+    text-align: center;
+    overflow: hidden;
+}
+
+.splitHRText
+{
+    display: inline-block;
+    position: relative;
+    padding: 0 10px;
+    &:before, &:after
+    {
+        content: '';
+        display: block;
+        width: 1000px;
+        position: absolute;
+        top: 0.73em;
+        border-top: 1px solid @borderColor;
+    }
+    &:before
+    {
+        right: 100%;
+    }
+    &:after
+    {
+        left: 100%;
+    }
+}
+.iconTxt:before
+{
+    .pseudo;
+    vertical-align: middle;
+    background: @common-sprite no-repeat; // override for different sprites
+    margin-right: 6px; /*rtl*/
+}
+.showAll {
+    color: @attentionBlue;
+    font-size: 11px;
+    cursor: pointer;
+    line-height: 34px;
+}
+.clamp2 {
+    position: relative;
+    //height: 2.4em; 
+    overflow: hidden;
+
+    &:after {
+        content: '';
+        display: inline-block;
+        text-align: right; /*rtl*/
+        position: absolute;
+        bottom: 0;
+        right: 0; /*rtl*/
+        width: 23px;
+        //height: 15px;
+        height: 18px;
+        //background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+    }
+    &.boxNameWpr:after, &.boxWpr:after
+    {
+        //height: 20px;
+    }
+    &.boxWpr:after
+    {
+        height: 17px;
+    }
+}
+
+@supports (-webkit-line-clamp: 2) {
+    .clamp2 { 
+        height: 2.4em;
+        //max-height:2.4em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical; 
+    }
+    .clamp2:after {
+        display: none !important;
+    }
+
+    .clamp2.deptNameWpr
+    {
+        line-height: 17px;
+        height: 36px;
+    }
+}
+
+.imgBorder{
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    .boxSizing;
+}
+
+//do not display iframe
+#fconnect
+{
+    display: none;
+}
+
+/*#endregion */
+
+/*#region media queries */
+@media  (max-width: 1024px) {
+    //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
+    .siteHeader.siteHeader, .boxPage .leftPanel.leftPanel, .QA.QA, .boxPage .boxActions.boxActions { //repeated classname for extra specificity (this is legal and in spec)
+        position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
+    }
+    .boxPage .leftPanel.leftPanel
+    {
+        height: auto;
+    }
+    .contentWpr.contentWpr {
+        background: url(/Images/gray_jean80.png) repeat #fff;
+
+        &.featured {
+            .unionFeatured {
+                height: ~"-webkit-calc(100% - 25px)";
+                height: ~"calc(100% - 25px)";
+                top: 25px;
+            }
+        }
+    }
+    .libraryContent.libraryContent .contentWpr
+    {
+        padding-top: 25px;
+    }
+
+    .boxPage .boxActions.boxActions, .boxesHeader.boxesHeader.topBar {
+        position: static;
+        width: 100%;
+    }
+    .QA.QA {
+        top: 20px;
+        height: 100vh;
+        margin-top: -160px;
+        padding-top: 160px;
+        .boxSizing;
+        z-index: -1;
+    }
+    .backWpr.backWpr{
+        //padding-top: 10px;
+        //margin: 0;
+    }
+    .box-content.box-content
+    {
+        padding:0;
+    }
+    .joinGrpWpr.joinGrpWpr
+    {
+        padding:0;
+        .transition(none);
+        &.show ~ .box-content .QA {
+            top: 28px;
+        }
+        &.followed
+        {
+            //padding-top: 29px;
+            padding:0;
+            .joinGrp
+            {
+                //top: -20px;
+                //opacity: 0;
+            }
+            ~ .box-content .QA
+            {
+                top: 20px;
+                .transition(all .3s 3s);
+            } 
+        }
+    }
+}
+
+
+/*#endregion */
+/*#region cssCheck*/
+#cssCheck {
+    position:absolute;
+    left : -2000px;
+}
+/*#endregion*/
+
+
+/*#region User tooltip */
+.userTooltip
+{
+    width: 379px;
+    height: 101px;
+    .boxSizing;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 10px 10px 6px 110px; /*rtl*/
+    position: fixed;
+    z-index: 13;
+    background: #fff;    
+    .transition(opacity .5s);
+    opacity:0;
+    visibility: hidden;
+    box-shadow: 0 0 5px rgba(0,0,0,.4);
+    &.showTooltip
+    {
+        visibility: visible;
+        opacity: 1;
+    }
+    .btn3{
+        color: @attentionBlue;
+        background: #fff;
+        border: 1px solid @attentionBlue;
+        padding: 3px 8px;
+        margin-top: 7px;
+        &:hover
+        {
+            background: @attentionBlueHover;
+            color: #fff;
+        }
+    }
+}
+
+.ttImg
+{
+    position: absolute;
+    top:0;
+    left:0; /*rtl*/
+    border-right: 1px solid @borderColor;
+}
+.ttUsername{
+    color:@color;
+    font-size: 16px;
+    max-width: 257px;
+    display: block;
+    &:hover
+    {
+        text-decoration: underline;
+    }
+}
+.ttSchool{
+    color: #39434a;
+    width: 257px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid @borderColor;
+}
+.ttPoints
+{
+    margin-top: 10px;
+    text-transform: lowercase;
+    &:before
+    {
+        content: attr(data-tt-points);
+        display: inline-block;
+    }
+    .userTooltip.hidePoints &
+    {
+        display: none;
+    }
+}
+/*#endregion */

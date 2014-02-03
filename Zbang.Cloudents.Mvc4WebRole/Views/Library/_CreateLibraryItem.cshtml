@@ -1,0 +1,9 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem
+<div id="createNodeDialog" title="@DialogResources.CreateItem">
+    <form action="@Url.Action("Create", "Library")">
+        <input name="Name" id="noneName" type="text" value="" class="inputText required" autofocus="autofocus" />
+        <button type="submit" class="btn1 next">@DialogResources.Create</button>
+        <button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
+    </form>
+</div>

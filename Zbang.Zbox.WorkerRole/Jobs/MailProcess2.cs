@@ -1,0 +1,83 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.WorkerRole.Mail;
+
+namespace Zbang.Zbox.WorkerRole.Jobs
+{
+    class MailProcess2 : IJob
+    {
+        private bool m_KeepRunning;
+        //private readonly IQueueProvider m_QueueProvider;
+        private readonly QueueProcess m_QueueProcess;
+
+        public MailProcess2(IQueueProvider queueProvider)
+        {
+            //m_QueueProvider = queueProvider;
+            m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(5));
+        }
+
+        public void Run()
+        {
+            try
+            {
+                m_KeepRunning = true;
+
+                while (m_KeepRunning)
+                {
+                    Execute();
+                }
+            }
+            catch (Exception ex)
+            {
+                Zbang.Zbox.Infrastructure.Trace.TraceLog.WriteError("On Run MailProcess2", ex);
+                throw;
+            }
+        }
+
+        private void Execute()
+        {
+            m_QueueProcess.RunQueue(new MailQueueNameNew(), msg =>
+            {
+                var msgData = msg.FromMessageProto<BaseMailData>();
+                if (msgData == null)
+                {
+                    TraceLog.WriteInfo("New MailProcess - message is not in the currect format " + msg.Id);
+                    return true;
+                }
+                try
+                {
+                    var mail = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Imail2>(msgData.MailResover);
+                    return mail.Excecute(msgData);
+                }
+                catch (NullReferenceException ex)
+                {
+                    TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
+                    return true;
+                }
+                catch (ArgumentException ex)
+                {
+                    TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
+                    return false;
+                }
+
+
+            }, TimeSpan.FromMinutes(1));
+        }
+
+        public void Stop()
+        {
+            m_KeepRunning = false;
+        }
+    }
+}

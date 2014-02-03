@@ -1,0 +1,168 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<aside class="QA rFloat" id="box_QA" data-bind="visible: state() !== 0">
+
+    <form class="clearfix QForm" data-bind="submit: postQuestion, visible: state() > 1">
+        <div class="textareaWpr">
+            <img data-bind="attr: { src: userImg }" class="QAImg lFloat" alt="" width="32" height="32" />
+            <textarea name="Content" class="QTextarea" data-bind="placeholder: ''" placeholder="@IndexResources.AskStudent"></textarea>
+            <ul class="attachedList"></ul>
+        </div>
+        <div class="rFloat">
+            <button type="button" class="attachBtn" data-upload="QnA"></button>
+            <button type="submit" class="askBtn">@IndexResources.Ask</button>
+        </div>
+    </form>
+    <button id="qa_Back" type="button" data-click="showAllQuestion" data-bind="style: { display: state() > 1 ? 'block' : 'none' }" class="back">@IndexResources.AllQuestions</button>
+
+    <div class="QWpr" data-bind="visible: state() > 1">
+        <div id="Questions" class="questions">
+            <ul class="QList" data-bind="foreach: { data: questionList }">
+                <li class="QItem">
+                    <div class="QTop clearfix " data-click="showAllAnswers" data-bind="css: { hasAttached: files().length }">
+                        <div class="lFloat QTopLeft">
+                            <img class="QAImg calloutTrgr" data-bind="attr: { src: userImg, 'data-uid': userid }" alt="" width="32" height="32" />
+                            <div class="attachBtn"></div>
+                            <div class="numAttached" data-bind="text: files().length"></div>
+                        </div>
+                        <div class="QContent" data-bind="html: content"></div>
+                    </div>
+                    <!-- ko if:answerCount() ===0 -->
+                    <form data-bind="submit: $root.postAnswer">
+                        <img class="QAImg lFloat" data-bind="attr: { src: $root.userImg }" alt="" width="32" height="32" />
+                        <div class="textareaWpr">
+                            <textarea name="Content" placeholder="@IndexResources.HaveAnswer" data-bind="placeholder: ''" class="QTextarea"></textarea>
+                            <ul class="attachedList"></ul>
+                        </div>
+                        <div class="rFloat">
+                            <button type="button" class="attachBtn" data-upload="QnA"></button>
+                            <button type="submit" disabled class="askBtn">@IndexResources.Answer</button>
+                        </div>
+                    </form>
+                    <!-- /ko-->
+                    <div class="QBottom clearfix" data-answer="answer">
+                        <!-- ko with:bestAnswer -->
+                        <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
+                        <div data-bind="html: content" class="AContent"></div>
+                        @* <div class="seeMore" data-bind="click: $root.showAllAnswers">@SharedResources.ContinueReading</div>*@
+                        <ul class="qaAttach" data-bind="foreach: files">
+                            <li class="qaAttachItem">
+                                <img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" />
+                                <div class="attachActions">
+                                    <a class="attachFull" target="_blank" data-bind="attr: { href: itemUrl }" href="#"></a>
+                                    <button class="attachDelete" type="button" data-bind="style: { visibility: isVisible() }"></button>
+                                    <a class="attachDownload" target="_blank" data-bind="attr: { href: download }, style: { visibility: isVisible() }"></a>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- /ko -->
+                        <div class="answerBottom" data-click="showAllAnswers" data-bind="visible: answerCount">
+                            <button type="button" class="numAnswers" data-bind="text: answerLengthText"></button>
+                            <button type="button" data-action="answer">@IndexResources.AddAnswer</button>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="AWpr">
+        <div id="Answers" class="answers">
+            <!-- ko with: selectedQuestion -->
+            <div class="question">
+                <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg , 'data-uid' : userid }" alt="" width="32" height="32" />
+
+                @*Ram: When clicked - add contenteditable to the div*@
+                @*<button class="boxRename" type="button"></button>*@
+                @*<span class="rFloat views">21</span>*@
+                <div class="questionRhs">
+                    <div class="userName boldFont elps" data-bind="text: userName"></div>
+                    <div class="QContent" data-bind="html: content"></div>
+                </div>
+                <button type="button" class="deleteBtn" data-click="deleteQuestion" data-bind="visible: canDelete"></button>
+            </div>
+            <div class="lFloat" data-bind="css: { attachLeft: files().length }">
+                <div class="attachBtn"></div>
+                <div class="numAttached" data-bind="text: files().length"></div>
+            </div>
+            <ul class="qaAttach" data-bind="foreach: files">
+                <li class="qaAttachItem">
+                    <img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" />
+                    <div class="attachActions">
+                        <a title="@IndexResources.ShowAttachment" target="_blank" data-bind="attr: { href: itemUrl }" class="attachFull" href="#"></a>
+                        <button title="@IndexResources.RemoveAttachment" class="attachDelete" type="button" data-bind="style: { visibility: isVisible() }"></button>                                                
+                        <a title="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" data-bind="attr: { href: download }, style: { visibility: isVisible() }"></a>
+                    </div>
+                </li>
+            </ul>            
+            <ul class="AList" data-bind="foreach: answers">
+                <li class="AItem" data-bind="css: { best: isAnswer }">
+                    @*Temporarily Removed vote btn... DO NOT DELETE!*@
+                    @*<div class="bestAnswer splitHR"><span class="splitHRText">@IndexResources.BestAnswer</span></div>*@
+                    <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
+                    <div class="userName boldFont elps" data-bind="text: userName"></div>
+                    @*Temporarily Removed vote btn... DO NOT DELETE!*@
+                    @*<button title="@IndexResources.Useful" class="voteBtn rFloat" type="button" data-bind="click:$root.rateAnswer"></button>
+                        <span class="aScore rFloat" data-bind="text:rating"></span>*@
+                    <button type="button" class="deleteBtn rFloat" data-click="deleteAnswer" data-bind="visible: canDelete"></button>
+                    <div class="AContent" data-bind="html: content"></div>
+                    @*Temporarily Removed vote btn... DO NOT DELETE!*@
+                    @*<button title="@IndexResources.MarkCorrect" type="button" class="markAnswerBtn" data-bind="click: $root.markAnswer, visible: $parent.canMarkAsAnswer"></button>*@
+                    <ul class="qaAttach" data-bind="foreach: files">
+                        <li class="qaAttachItem">
+                            <img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" />
+                            <div class="attachActions">
+                                <a class="attachFull" target="_blank" data-bind="attr: { href: itemUrl }" href="#"></a>
+                                <button class="attachDelete" type="button" data-bind="style: { visibility: isVisible() }"></button>
+                                <a class="attachDownload" target="_blank" data-bind="attr: { href: download }, style: { visibility: isVisible() }"></a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="enterAnswer clearfix">
+                <form data-bind="submit: $root.postAnswer" class="clearfix">
+                    <img class="QAImg lFloat" data-bind="attr: { src: $root.userImg }" alt="" width="32" height="32" />
+                    <div class="textareaWpr">
+                        <textarea name="Content" placeholder="@IndexResources.HaveAnswer" data-bind="placeholder: ''" class="QTextarea"></textarea>
+                        <ul class="attachedList"></ul>
+                    </div>
+                    <div class="rFloat">
+                        <button type="button" class="attachBtn clearfix" data-upload="QnA"></button>
+                        <button type="submit" disabled class="askBtn">@IndexResources.Answer</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /ko -->
+
+        </div>
+    </div>
+
+    <div class="QAContent">
+        <div id="QuestionEmptyState" class="QEmpty" data-bind="if: state() === 1">
+            <div class="qaText1">@IndexResources.NotClear</div>
+            <form class="clearfix QEmptyForm" data-bind="submit: postQuestion">
+                <img data-bind="attr: { src: userImg }" class="QAImg lFloat" alt="" width="32" height="32" />
+                @*<div data-bind="text: userName" class="userName boldFont elps"></div>*@
+                <div class="textareaWpr">
+                    <textarea name="Content" class="QTextarea" data-bind="placeholder: ''" required placeholder="@IndexResources.GoAhead"></textarea>
+                    <ul class="attachedList"></ul>
+                </div>
+                <div class="rFloat">
+                    <button type="button" class="attachBtn" data-upload="QnA"></button>
+                    <button type="submit" class="askBtn" disabled>@IndexResources.Ask</button>
+                </div>
+            </form>
+            <div class="qaText2">@IndexResources.NoQuestions</div>
+        </div>
+    </div>
+    <script type="text/html" id="attachTemplate">
+        <li class="attachedItem">
+            <span class="attachName elps">{{name}}</span>
+            <button class="removeAttach"></button>
+            <input type="hidden" name="files" data-url="{{url}}" value="{{id}}" data-thumb="{{thumbnail}}" data-type="{{type}}" />
+        </li>
+    </script>
+</aside>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.ViewModel"
+                   namespace="Zbang.Zbox.ViewModel.DTOs">
+
+
+  <resultset name="Box">
+    <return-scalar type="string" column="Image"/>
+    <return-scalar type="string" column="Name"/>
+    <return-scalar type="string" column="OwnerName"/>
+    <return-scalar type="string" column="UniCountry"/>
+    <return-scalar type="long" column="OwnerUid"/>
+    <return-scalar type="string" column="CourseId"/>
+    <return-scalar type="string" column="ProfessorName"/>
+    <return-scalar type="Zbang.Zbox.Infrastructure.Enums.BoxType,Zbang.Zbox.Infrastructure" column="BoxType"/>
+    <return-scalar type="long" column="Members"/>
+    <return-scalar type="long" column="Items"/>
+    <return-scalar type="long" column="Comments"/>
+    <return-scalar type="Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings,Zbang.Zbox.Infrastructure" column="PrivacySetting"/>
+  </resultset>
+
+  <resultset name="BoxMembers">
+    <return-scalar type="Zbang.Zbox.Infrastructure.Enums.UserRelationshipType,Zbang.Zbox.Infrastructure" column="UserStatus"/>
+    <return-scalar type="string" column="Image"/>
+    <return-scalar type="string" column="Name"/>
+    <return-scalar type="long" column="Uid"/>
+  </resultset>
+  <resultset name="boxMeta" >
+    <return-scalar type="long" column="Id"/>
+    <return-scalar type="string" column="Image"/>
+    <return-scalar type="string" column="Name"/>
+    <return-scalar type="string" column="UnivtesityName"/>
+  </resultset>
+
+
+
+
+  <query name="GetBoxSettingsDtoById">
+    <![CDATA[
+    select b.Id as Id, b.Name as Name, b.PrivacySettings.PrivacySetting as PrivacySetting,
+    ub.NotificationSettings as NotificationSetting, ub.UserRelationshipType as UserType
+    from Box b join b.UserBoxRel ub
+    where b.Id =:Id
+    and b.IsDeleted = 0  
+    and ub.User.Id =:Userid
+    ]]>
+  </query>
+
+
+  <sql-query name="GetBoxMetaForInvite" read-only="1" resultset-ref="boxMeta">
+    <![CDATA[
+   select b.boxId as Id, b.boxName as Name, b.BoxPicture as Image, u.universityname as UnivtesityName
+    from zbox.Box b join zbox.Users u on b.OwnerId = u.UserId
+    where b.boxId = :BoxId
+    and b.IsDeleted = 0  
+    ]]>
+  </sql-query>
+
+  <!--Box Page-->
+  <sql-query name="GetBox" read-only="1" resultset-ref="Box">
+    <![CDATA[
+    select b.BoxName as Name,
+    b.PrivacySetting as PrivacySetting,
+    b.CourseCode as CourseId,
+    b.ProfessorName as ProfessorName, 
+    case b.Discriminator when 2 then u.universityname
+								                    else u.UserName
+								                    end as OwnerName,
+    u.country as UniCountry,
+    u.userid as OwnerUid,
+    b.Discriminator as BoxType,
+    b.MembersCount as Members,
+    b.ItemCount as Items,
+    b.CommentCount as Comments,
+    b.BoxPicture as Image
+    from zbox.Box b join zbox.Users u on b.OwnerId = u.UserId
+    where  b.boxId = :BoxId
+    and b.IsDeleted = 0  
+    ]]>
+  </sql-query>
+
+
+  <!--Notification screen account settings-->
+  <query name="GetUserBoxesNotification" read-only="1">
+    <![CDATA[
+    select b.Id as Id, b.Name as Name, b.Owner.Name as Owner, ub.NotificationSettings as Notifications, b.class as boxType
+    from Box b join b.UserBoxRel ub
+    where b.IsDeleted = 0
+    and ub.UserId = :UserId
+    ]]>
+  </query>
+
+  <!--box page - used to get box members -->
+  <query name="GetBoxSubscribers" read-only="1">
+    <![CDATA[
+    select u.id as Uid , u.Name as Name,u.Image as Image
+    from UserBoxRel ub join ub.User u 
+    where ub.BoxId=:BoxId 
+    ]]>
+  </query>
+
+  <!--box page - notification pop up-->
+  <query name="GetBoxNotificationByUser" read-only="1">
+    <![CDATA[
+    select ub.NotificationSettings as Notifications from UserBoxRel ub
+    where ub.UserId = :UserId
+    and ub.BoxId = :BoxId
+    ]]>
+  </query>
+
+
+  <!--box page - used to get all the members of the box in pop up-->
+  <sql-query name="GetBoxMembers" read-only="1" resultset-ref="BoxMembers">
+    <![CDATA[
+    select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus
+    from zbox.UserBoxRel ub 
+	    join zbox.users u on ub.UserId =  u.UserId
+    where ub.BoxId=:BoxId
+	  union 
+	  select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , 1 as userStatus
+	  from zbox.Message m
+	  join zbox.users u on u.UserId = m.RecepientId
+	  where m.BoxId = :BoxId
+    and isactive = 1
+    ]]>
+  </sql-query>
+
+  <!--box page - used to get the url to back button-->
+  <sql-query name="GetBoxLibNode" read-only="1" resultset-ref="NodeDto">
+    <![CDATA[
+    select l.LibraryId as Id, l.Name as Name 
+    from zbox.librarybox lb join zbox.library l on lb.LibraryId = l.LibraryId
+    where boxid = :BoxId 
+    ]]>
+  </sql-query>
+</hibernate-mapping>
