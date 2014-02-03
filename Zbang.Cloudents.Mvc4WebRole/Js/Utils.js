@@ -588,6 +588,9 @@
     };
 
     //#region dropdowns
+    $(window).unload(function () {  //firefoxfix
+        $('[data-ddcbox]').prop('checked', false);
+    });
     $('body').on('click', function (e) {
         var $target = $(e.target);
 
@@ -600,11 +603,11 @@
         }
 
         $('[data-ddcbox]').not('[data-ddcbox="' + $target.attr('data-ddcbox') + '"]').prop('checked', false);
-        $('[data-dropdown]').not('[data-dropdown="' + $target.attr('data-ddcbox') + '"]').removeClass('showOtakim');
+        //$('[data-dropdown]').not('[data-dropdown="' + $target.attr('data-ddcbox') + '"]').removeClass('showOtakim');
         
         if ($target.attr('data-ddcbox') === undefined) {
             $('[data-ddcbox]').prop('checked', false);
-            $('.dropDown').removeClass('showOtakim');
+            //$('.dropDown').removeClass('showOtakim');
         }
     });
 

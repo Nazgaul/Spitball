@@ -7,6 +7,8 @@
 }
 .lang {
   padding-left: 0;
+  /*In order to look centered*/
+
   padding-right: 16px;
   /*In order to look centered*/
 
@@ -29,6 +31,8 @@
 }
 .facebook {
   padding: 8px 50px 8px 8px;
+  /*rtl*/
+
   text-align: right;
   /*rtl*/
 
@@ -46,6 +50,8 @@
 .field-validation-error,
 .validation-summary-errors {
   margin-left: auto;
+  /*rtl*/
+
   margin-right: 5px;
   /*rtl*/
 

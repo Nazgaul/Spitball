@@ -57,20 +57,18 @@
                         @*<button type="button" class="itemPrint iconTop" id="item_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
                         <input class="checkbox" type="checkbox" id="itemPrint" data-ddcbox="itemPrint" />
                         <label for="itemPrint" class="itemPrint iconTop" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</label>
-                        <div class="printDDWpr">
-                            <div class="dropDown printDD" data-dropdown="itemPrint">
-                                <div class="arrow printArrow"></div>
-                                <h4><button type="button" id="item_P" data-link="@Url.Action("Print", "Item")" class="iconTxt">שלח למדפסת שלך</button></h4>
-                                <div class="printTxt">או הדפס באמצעות:</div>
-                                <div class="printTxt2">
-                                    מערכת
-                                    <a href="#">עותקים</a>
-                                    מאפשרת לנהל, לשתף ולהזמין חומרים מודפסים בכל סוגי הגימור,
-                                    <br />
-                                    איכותי מתקדם ובמחיר של 8 אג' לעמוד.
-                                </div>
-                                <button type="button" id="Otakim_P" class="btn3">שלח להדפסה בעותקים</button>
+                        <div class="printDD dropDown" data-dropdown="itemPrint">
+                            <div class="arrow printArrow"></div>
+                            <h4><button type="button" id="item_P" data-link="@Url.Action("Print", "Item")" class="iconTxt">שלח למדפסת שלך</button></h4>
+                            <div class="printTxt">או הדפס באמצעות:</div>
+                            <div class="printTxt2">
+                                מערכת
+                                <a href="http://www.otakim.co.il">עותקים</a>
+                                מאפשרת לנהל, לשתף ולהזמין חומרים מודפסים בכל סוגי הגימור,
+                                <br />
+                                איכותי מתקדם ובמחיר של 8 אג' לעמוד.
                             </div>
+                            <button type="button" id="Otakim_P" class="btn3">שלח להדפסה בעותקים</button>
                         </div>
                     </li>
                     <li class="middleActionItem">

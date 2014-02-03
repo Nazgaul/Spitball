@@ -37,15 +37,15 @@ namespace Zbang.Zbox.Domain
         public virtual Answer Answer { get; set; }
         public virtual string ItemContentUrl { get; set; }
 
-        public float Rate { get; internal set; }
+        public virtual float Rate { get; internal set; }
 
         public void IncreaseNumberOfViews()
         {
             NumberOfViews++;
         }
-       
 
-        public void CalcalateRate(int rate, int count)
+
+        public virtual void CalcalateRate(int rate, int count)
         {
             Rate += (rate - Rate) / ++count;
         }

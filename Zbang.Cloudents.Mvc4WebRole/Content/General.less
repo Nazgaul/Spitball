@@ -826,7 +826,10 @@ select.inputText {
     box-shadow: 0 2px 9px rgba(0,0,0,.3);
     visibility: hidden;
     opacity: 0;
+    height:252px;
     .transition(all .4s);
+    //.transition(opacity .4s);
+    //.transition(all .8s);
     .boxSizing;
     background: #fff;
     z-index: 7;
@@ -844,14 +847,13 @@ select.inputText {
     
     h4 {
         font-size: 15px;
-        position: relative;
     }
 }
 .showOtakim ,.checkbox:checked ~ .dropDown
 {
     visibility: visible;
     opacity:1;
-    height: 252px; //Maybe remove this
+    //height: 252px; //Maybe remove this
 }
 
 .arrow {

@@ -30,12 +30,12 @@
             checkAccountStatus();
             registerEvents();
         }
-        function setupInviteToBox(box) {            
+        function setupInviteToBox(box) {
             if (!$.isEmptyObject(box)) {
                 facebookInviteUrl = box.boxUrl;
                 document.querySelector('.invHeaderText span').textContent = box.name;
                 document.querySelector('.invHeaderText').href = box.boxUrl;
-            } else {                
+            } else {
                 facebookInviteUrl = eById('inviteBoxName').href;
             }
 
@@ -55,7 +55,7 @@
         }
 
         function setupInviteToCloudents() {
-            toogleCloudentsFriends(false);            
+            toogleCloudentsFriends(false);
             fbInviteResponse = fbInvite;
             cdgInviteResponse = gInvite;
             facebookInviteUrl = window.location.origin;
@@ -228,7 +228,7 @@
                     return;
                 }
 
-                appendContacts(cloudentsContacts);
+                appendContacts(cloudentsContacts, 'inviteFriendTemplate');
                 return;
             }
             dataContext.getFriends({
@@ -252,7 +252,7 @@
                     }
 
 
-                    appendContacts(cloudentsContacts);
+                    appendContacts(cloudentsContacts, 'inviteFriendTemplate');
 
                     //TODO: change state
                     //changeState();
@@ -291,8 +291,9 @@
         //#endregion
 
         //#region append contacts
-        function appendContacts(contacts) {
-            cd.appendData(listContainer, 'inviteFriendTemplate', contacts, 'beforeend', true);
+        function appendContacts(contacts, templateName) {
+            templateName = templateName || 'inviteFriendOtherCloudents';
+            cd.appendData(listContainer, templateName, contacts, 'beforeend', true);
             loader();
             loading = false;
             loadImages();
@@ -386,7 +387,7 @@
                 var elm = e.target;
                 if (!(elm && elm.classList.contains('invBtn')) || elm.classList.contains('invited')) { //not an invite click or invite already sent
                     return;
-                }                
+                }
                 elm.disabled = true;
                 if (invSources.querySelector('.current.fb')) {
                     facebookInvite(elm);
@@ -499,12 +500,12 @@
             setTimeout(function () {
                 elm.removeChild(pLoader);
                 elm.insertBefore(sent, elm.firstElementChild);
-                
+
             }, 1000);
 
-            setTimeout(function () {                
+            setTimeout(function () {
                 elm.classList.add('invited');
-            }, 1050);            
+            }, 1050);
         }
 
         //#region send invites
@@ -630,7 +631,7 @@
             });
 
             if (foundList.length > 0) {
-                appendContacts(foundList);
+                appendContacts(foundList, currentTabName === 'cloudents' ? 'inviteFriendTemplate' : null);
                 changeState();
             } else {
                 changeState('empty');
@@ -691,7 +692,7 @@
             }
         }
 
-        var consts = {ITEM_MARGIN_LEFT:3,INPUT_MIN_WIDTH:130}
+        var consts = { ITEM_MARGIN_LEFT: 3, INPUT_MIN_WIDTH: 130 }
         function calculateInputWidth() {
             var emailElements = emailsSelectedElement.getElementsByClassName('emailItem'),
                 inputElementWidth, width = $('.inviteEmailListWpr').width(),
@@ -707,7 +708,7 @@
             }
             inputElementWidth = width - calculadtedWidth;
             inviteInput.style.width = (inputElementWidth < consts.INPUT_MIN_WIDTH ? consts.INPUT_MIN_WIDTH : (inputElementWidth - 4 * emailElements.length)) + 'px'; //4 * emailsLenth is because of display-inline-block
-            inviteInput.style.display = 'inline-block';       
+            inviteInput.style.display = 'inline-block';
         }
 
         function editInput(emailItem) {

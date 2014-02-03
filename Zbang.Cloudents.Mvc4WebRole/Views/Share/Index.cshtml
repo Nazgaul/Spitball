@@ -40,9 +40,10 @@
             </div>
 
             <a id="inviteBoxName" data-navigation="Box" data-inv-header="@SharedResources.InviteCloudents" data-invbox-header="@DialogResources.InviteTo"
-               href="@Model.Url" class="invHeaderText"><span>@Model.Name</span>
+               href="@Model.Url" class="invHeaderText">
+                <span>@Model.Name</span>
                 <img id="inviteBoxImage" src="@img" alt="" width="26" height="34" class="invboxImg" />
-                
+
             </a>
 
             <div class="invContentWpr">
@@ -76,7 +77,17 @@
         <a href="{{url}}" data-navigation="user">
             <img alt="{{name}}" class="friendImg calloutTrgr" data-uid="{{id}}" src="{{defaultImage}}" data-src="{{userImage}}" width="34" height="34">
         </a>
-        <span class="invName elps">{{name}}</span>        
+        <span class="invName elps">{{name}}</span>
+        <button data-id="{{id}}" type="button" class="invBtn rFloat">
+            @SharedResources.Invite
+        </button>
+
+    </li>
+</script>
+<script type="text/html" id="inviteFriendOtherCloudents">
+    <li class="invItem lFloat">
+        <img alt="{{name}}" class="friendImg" data-uid="{{id}}" src="{{defaultImage}}" data-src="{{userImage}}" width="34" height="34">
+        <span class="invName elps">{{name}}</span>
         <button data-id="{{id}}" type="button" class="invBtn rFloat">
             @SharedResources.Invite
         </button>

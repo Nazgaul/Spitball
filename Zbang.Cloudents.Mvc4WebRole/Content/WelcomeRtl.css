@@ -1,5 +1,7 @@
 ﻿.welcome > .btnPrev {
   right: 15px;
+  /*rtl*/
+
   left: auto;
   background-position: -37px 0;
   /*rtl*/
@@ -7,6 +9,8 @@
 }
 .welcome > .btnNext {
   left: 15px;
+  /*rtl*/
+
   right: auto;
   background-position: -1px 0;
   /*rtl*/
@@ -26,6 +30,8 @@
 /*step2,3,4*/
 .section1 {
   border-left: 1px solid #e3e3e3;
+  /*rtl*/
+
   border-right: none;
   padding: 11px 6px 34px 41px;
   /*rtl (top & bottom padding for separator)*/
@@ -42,6 +48,8 @@
 .section1:after,
 .section2:after {
   background: url(/Images/firsttime_sprite_heb.png) -172px 0 no-repeat;
+  /*rtl*/
+
   margin: 16px -6px 0 0;
   /*rtl*/
 

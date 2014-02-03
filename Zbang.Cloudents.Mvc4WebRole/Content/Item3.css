@@ -493,6 +493,7 @@
 }
 .middleActions {
   display: inline-block;
+  position: relative;
 }
 .middleActionList {
   display: table;
@@ -504,7 +505,6 @@
   text-align: center;
   display: table-cell;
   padding: 0 15px;
-  position: relative;
 }
 .fullscreen:before {
   background-position: 0 -1px;
@@ -548,61 +548,95 @@
 .printDD .iconTxt:hover:before {
   background-position: -34px -21px;
 }
-.printDDWpr {
-  position: relative;
-}
-.printDD {
-  left: -85px;
-  /*rtl*/
-
+/*.printDDWpr
+{
+    &.dropDown
+    {
+        border: none; //override
+        text-align: center;
+        box-shadow: none;
+        left: -85px;
+        &:before
+        {
+            display: none;  //override
+        }
+    }
+    //position: relative; // this is for FF, because position:relative doesn't work on li (which has display:table)
+}*/
+.printDD.printDD {
   text-align: center;
-  margin-top: 10px;
-  width: 242px;
-  height: 247px;
-  padding-top: 10px;
+  margin-top: 5px;
+  width: 245px;
+  height: 250px;
   direction: rtl;
   /*no rtl*/
 
+  background: #fff;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3);
+  left: 122px;
+  /*diff rtl*/
+
+  top: 66px;
+  /*&:before
+    {
+        height: 43px;
+        background: #f5f5f5;
+        border-radius: 3px 3px 0 0;
+    }*/
+
 }
-.printDD:before {
-  height: 43px;
+.printDD.printDD:before {
+  display: none;
+}
+.printDD.printDD .iconTxt {
+  color: #0371c8;
+  font-size: 13px;
+  width: 100%;
+  position: relative;
+}
+.printDD.printDD .iconTxt:before {
+  margin: 0;
+  position: absolute;
+  right: 53px;
+  /*no rtl yet*/
+
+  top: 2px;
+}
+.printDD.printDD h4 {
+  margin-top: -10px;
+  padding: 10px 0 9px;
   background: #f5f5f5;
+  border-bottom: 1px solid #c2c2c2;
   border-radius: 3px 3px 0 0;
 }
-.printDD:after {
+.printDD.printDD .printTxt {
+  margin-top: 8px;
+}
+.printDD.printDD .printTxt:after {
   content: '';
-  display: inline-block;
   width: 107px;
   height: 57px;
   background: url(/Images/item13-sprite.png) -80px -288px no-repeat;
-  position: absolute;
-  top: 78px;
-  left: 0;
-  right: 0;
-  margin: auto;
+  display: block;
+  margin: 10px auto;
 }
-.printDD .iconTxt {
-  color: #0371c8;
-  font-size: 13px;
-}
-.printDD .iconTxt:before {
-  margin: 0 0 0 6px;
-}
-.printDD h4 {
-  padding-bottom: 20px;
-}
-.printDD .printTxt2 {
-  margin: 75px 0 10px;
+.printDD.printDD .printTxt2 {
+  margin-bottom: 10px;
   padding: 0 16px;
   line-height: 16px;
 }
-.printDD .btn3 {
+.printDD.printDD .btn3 {
   padding: 3px 20px 5px 20px;
   margin-top: 5px;
 }
 .printArrow {
   position: relative;
-  top: -11px;
+  top: -10px;
+  z-index: 1;
+  height: 10px;
+  overflow: hidden;
 }
 .printArrow:before {
   z-index: -1;

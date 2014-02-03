@@ -1543,11 +1543,18 @@ input[type="radio"] + label:before {
 
   left: auto;
 }
-.printDD {
-  right: -85px;
-  /*rtl*/
+.printDD.printDD {
+  left: 53px;
+  /*diff rtl*/
 
-  left: auto;
+  /*.iconTxt{
+        &:before
+        {
+            left: 53px; //rtl
+            right: auto;
+        }
+    }*/
+
 }
 .fullscreen,
 .commentBtn,

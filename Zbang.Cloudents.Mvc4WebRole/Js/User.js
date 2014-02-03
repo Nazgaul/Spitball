@@ -710,14 +710,22 @@
             if (!item) {
                 return;
             }
-            var style = getComputedStyle(item),
-              itemHeight = parseInt(style.getPropertyValue('height'), 10) +
-                parseInt(style.getPropertyValue('margin-top'), 10) +
-                parseInt(style.getPropertyValue('margin-bottom'), 10) +
-                parseInt(style.getPropertyValue('border-top'), 10) +
-                parseInt(style.getPropertyValue('border-bottom'), 10) +
-                parseInt(style.getPropertyValue('padding-top'), 10) +
-                parseInt(style.getPropertyValue('padding-bottom'), 10),
+            var style = getComputedStyle(item);
+            var innerHeight = style.getPropertyValue('height'),
+            marginTop = style.getPropertyValue('margin-top'),
+            marginBottom = style.getPropertyValue('margin-bottom'),
+            borderTop = style.getPropertyValue('border-top'),
+            borderBottom = style.getPropertyValue('border-bottom'),
+            paddingTop = style.getPropertyValue('padding-top'),
+            paddingBottom = style.getPropertyValue('padding-bottom'),
+
+            itemHeight = parseInt(innerHeight !== '' ? innerHeight : '0', 10) +
+                parseInt(marginTop !== '' ? marginTop : '0', 10) +
+                parseInt(marginBottom !== '' ? marginBottom : '0', 10)+
+                parseInt(borderTop !== '' ? borderTop : '0', 10)+
+                parseInt(borderBottom !== '' ? borderBottom : '0', 10)+
+                parseInt(paddingTop !== '' ? paddingTop : '0', 10) +
+                parseInt(paddingBottom !== '' ? paddingBottom : '0', 10),
                 height;
 
             if (itemHeight === 116) {

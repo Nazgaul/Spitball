@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userRate = m_ItemRateRepositoy.GetRateOfUser(message.UserId, message.ItemId);
             var rateCount = m_ItemRateRepositoy.GetRateCount(message.ItemId);
 
-            var item = m_ItemRepository.Load(message.ItemId);
+            var item = m_ItemRepository.Load(message.ItemId); 
 
 
 

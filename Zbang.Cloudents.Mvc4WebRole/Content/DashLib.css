@@ -381,6 +381,7 @@
 /*#region new department look  */
 .deptItem {
   display: inline-block;
+  vertical-align: top;
 }
 .deptLink {
   margin: 0 14px 35px 0;

@@ -554,6 +554,7 @@
   overflow: hidden;
   text-align: center;
   width: 76px;
+  vertical-align: top;
 }
 .upFriend:nth-child(7n) {
   margin: 0;

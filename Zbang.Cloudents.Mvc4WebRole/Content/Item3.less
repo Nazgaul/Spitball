@@ -479,6 +479,7 @@
 .middleActions
 {
     display: inline-block;
+    position: relative;
 }
 
 .middleActionList{
@@ -491,7 +492,6 @@
     text-align: center;
     display: table-cell;
     padding: 0 15px;
-    position: relative;
 }
 .fullscreen{
     &:before {
@@ -549,53 +549,82 @@
         background-position: -34px -21px;
     }
 }
-.printDDWpr
+/*.printDDWpr
 {
-    position: relative; // this is for FF, because position:relative doesn't work on li (which has display:table)
-}
-.printDD{
-    //left: 0;
-    //right: 0;
-    //margin: auto;
-    left: -85px; /*rtl*/
+    &.dropDown
+    {
+        border: none; //override
+        text-align: center;
+        box-shadow: none;
+        left: -85px;
+        &:before
+        {
+            display: none;  //override
+        }
+    }
+    //position: relative; // this is for FF, because position:relative doesn't work on li (which has display:table)
+}*/
+.printDD.printDD{
+
     text-align: center;
-    margin-top: 10px;
-    width: 242px;
-    height: 247px;
-    padding-top: 10px;
+    margin-top: 5px;
+    width: 245px;
+    height: 250px;
     direction: rtl; /*no rtl*/
-    &:before
+
+    background: #fff;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    box-shadow: 0 2px 9px rgba(0,0,0,.3);
+    
+    left: 122px; /*diff rtl*/
+    top: 66px;
+    /*&:before
     {
         height: 43px;
         background: #f5f5f5;
         border-radius: 3px 3px 0 0;
-    }
-    &:after
+    }*/
+    &:before
     {
-        .pseudo;
-        width: 107px;
-        height: 57px;
-        background: @item-sprite1 -80px -288px no-repeat;
-        position: absolute;
-        top: 78px;
-        left: 0;right: 0;
-        margin: auto;
+        display: none;  //override
     }
     
     
     .iconTxt{
         color: @attentionBlue;
         font-size: 13px;
+        width: 100%;
+        position: relative;
         &:before
          {
-            margin: 0 0 0 6px; // override
+            margin: 0; // override
+            position: absolute;
+            right: 53px; /*no rtl yet*/
+            top: 2px;
         }
     }
     h4{
-        padding-bottom: 20px;
+        margin-top: -10px;
+        padding: 10px 0 9px;
+        background: #f5f5f5;
+        border-bottom: 1px solid @borderColor;
+        border-radius: 3px 3px 0 0;
+    }
+    .printTxt{
+        margin-top: 8px;
+        &:after
+        {
+            content: '';
+            width: 107px;
+            height: 57px;
+            background: @item-sprite1 -80px -288px no-repeat;
+            display: block;
+            margin: 10px auto;
+        }
     }
     .printTxt2{
-        margin: 75px 0 10px;
+        margin-bottom: 10px;
         padding: 0 16px;
         line-height: 16px;
     }
@@ -606,7 +635,10 @@
 }
 .printArrow{
     position: relative;
-    top: -11px;
+    top: -10px;
+    z-index: 1;
+    height: 10px;
+    overflow: hidden;
     &:before{
         z-index: -1;
         left: 0;right: 0;

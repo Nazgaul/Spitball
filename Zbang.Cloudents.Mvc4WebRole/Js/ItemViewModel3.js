@@ -114,7 +114,7 @@
             commentShow = false;
             document.getElementById('itemShare').checked = false;
             document.getElementById('itemPrint').checked = false;
-            $('.printDD').removeClass('showOtakim');
+            //$('.printDD').removeClass('showOtakim');
         });
 
         function getItem() {
@@ -372,8 +372,9 @@
                 if (!otakim) {
                     this.checked = false;
                     print();
+                    return;
                 }
-                $('.printDD').addClass('showOtakim');
+                //$('.printDD').addClass('showOtakim');
             });
             $('#item_P').click(function () {
                 print();
