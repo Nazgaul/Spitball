@@ -14,7 +14,7 @@
         renderTemplateSource: function (templateSource, bindingContext, options) {
             console.log(bindingContext);
            // console.log(templateSource);
-           // console.log(bindingContext, options);
+           //// console.log(bindingContext, options);
 
             var
         templateNodesFunc = templateSource['nodes'],
