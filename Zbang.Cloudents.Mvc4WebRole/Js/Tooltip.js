@@ -24,6 +24,7 @@
         tooltip = new TooltipData(tooltipData);
         //clear old tooltips
         $('.userTooltip').remove();
+        //comment
 
         tooltipHTML = document.createElement('div');
         tooltipHTML.className = 'userTooltip';
