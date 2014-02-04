@@ -4,59 +4,38 @@
         return;
     }
 
-    cd.loadModel('libraryChoose', 'LibraryContext', registerKOLibrary);
+    cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
 
-    function registerKOLibrary(token) {
-        var $libraryChoose = $('#libraryChoose');
-        if (!$libraryChoose.length) {
-            return;
-        }
-        ko.applyBindings(new UniversityChooseViewModel(), $libraryChoose[0]);
-    }
+    var eById = document.getElementById.bind(document),
+        libraryChoose = eById('libraryChoose'),
+        uniSelect = eById('uni_search'),
+        uniList = $eById('uniList');
 
     function UniversityChooseViewModel() {
-
-        var self = this,
-            //firstTime = true,
-            $uniSelect = $('#uni_search'),
-         $libraryChoose = $('#libraryChoose'),
-            $uniList = $('#uniList'),
-            page = 0,
-
-            loading = false,
-            havemoreData = true;
-
-        self.list = ko.observableArray([]);
-        self.country = ko.observable($('#sCountry').data('country'));
-
-        var haveUniversity = $libraryChoose.data('haveuniversity');
-        if (!haveUniversity) {
-            $('.siteHeader').find('a').not('#logOut').click(function () {
-                return false;
-            });
-            $('.siteHeader').find('button').attr('disabled', 'disabled');
-        }
-
         function University(data) {
             var that = this;
             data = data || {};
-
             that.name = data.Name;
             that.image = data.Image;
             that.id = data.Uid;
             that.membersCount = data.MemberCount;
             that.nCode = data.NeedCode;
+        }                            
+        
+        var haveUniversity = libraryChoose.getAttribute('data-haveuniversity');
+        if (!haveUniversity) {
+            $('.siteHeader').find('a').not('#logOut').click(function () {
+                return false;
+            });
+            $('.siteHeader').find('button').attr('disabled', 'disabled'); //no buttons ??
         }
 
+      
 
-        //cd.pubsub.subscribe('lib_uni', function (e, data) {
+        
         populateData();
-        //if (firstTime) {
-        //    firstTime = false;
-        registerEvent();
-        //}
-        //});
 
+        registerEvent();        
 
         function populateData() {
 
@@ -68,29 +47,7 @@
             }
 
             loading = true;
-            var term;
-            if (Modernizr.input.placeholder) {
-                term = $uniSelect.val();
-            } else {
-                if ($uniSelect.val() === $uniSelect.attr('placeholder')){
-                    term = '';
-                } else {
-                    term = $uniSelect.val();
-                }
-            }
-            dataContext.university({
-                data: { term: term, page: page, country: self.country() },
-                success: function (data) {
-                    if (page === 0) {
-                        self.list([]);
-                    }
-                    if (!data.length) {
-                        havemoreData = false;
-                    }
-                    generateModel(data);
-                    loading = false;
-                }
-            });
+            
             function generateModel(data, page) {
                 var mappeddata = $.map(data, function (i) { return new University(i); });
                 if (page === 0) {
@@ -299,6 +256,28 @@
 
 
         }
+
+        function get
+            var term;
+            if (Modernizr.input.placeholder) {
+                term = $uniSelect.val();
+            } else {
+                if ($uniSelect.val() === $uniSelect.attr('placeholder')){
+                    term = '';
+                } else {
+                    term = $uniSelect.val();
+                }
+            }
+            dataContext.university({
+                data: { term: term },
+                success: function (data) {
+                    if (!data.length) {
+                        havemoreData = false;
+                    }
+                    generateModel(data);
+                    loading = false;
+                }
+            });
     }
 
 })(cd, jQuery, cd.data, ko, cd.analytics);

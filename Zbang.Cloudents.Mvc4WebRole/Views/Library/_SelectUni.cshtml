@@ -11,7 +11,7 @@
             <input type="text" id="uni_search" class="inputText uniSearch" placeholder="@MainViewResources.SearchSchool" />
         </div>
         <div class="uni_txt">
-            @MainViewResources.SchoolsFrom&nbsp;<span id="sCountry" class="sCountry" data-country="@ViewBag.country" data-bind=" event: { change: $root.countryChange }"></span>
+            @MainViewResources.SchoolsFrom&nbsp;<span id="sCountry" class="sCountry" data-country="@ViewBag.country"></span>
 
             <ul id="countryList" class="countryList">
                 <li data-country="Afghanistan" data-value="AF">Afghanistan</li>
@@ -264,19 +264,8 @@
 
 
         <ul class="uniList" id="uniList">
-            <!--ko foreach:list-->
-            <li>
-                <a data-bind="click: $root.uniSelect">
-                    <img data-bind="attr: { src: image }" class="lFloat uniImg" width="50" height="50" alt="" />
-                    <span class="uniDetails">
-                        <span data-bind="text: name" class="uniName elps boldFont"></span>
-                        <span data-bind="text: membersCount" class="uniCount"></span>
-                    </span>
-                </a>
-            </li>
-            <!--/ko-->
             <li class="newUni">
-                <a data-bind="click: newUni">
+                <a class="newUniA"> @*click*@
                     <span class="lFloat uniImg"></span>
                     <span class="uniName">@MainViewResources.AddSchool</span>
                 </a>
@@ -303,3 +292,15 @@
 <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6013174718407&amp;value=0&amp;currency=USD" /></noscript>
     @Html.Script2("ChooseLib")
 }
+
+<script type="text/html" id="UniversityItemTemplate">
+    <li>
+        <a> @*click uniSelect*@
+            <img src="{{image}}" class="lFloat uniImg" width="50" height="50" alt="" />
+            <span class="uniDetails">
+                <span class="uniName elps boldFont">{{name}}</span>
+                <span class="uniCount">{{membersCount}}</span>
+            </span>
+        </a>
+    </li>
+</script>
