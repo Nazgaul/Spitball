@@ -229,6 +229,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LibraryControllerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1073,6 +1074,7 @@
     <Content Include="Views\Dashboard\_Friends.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
