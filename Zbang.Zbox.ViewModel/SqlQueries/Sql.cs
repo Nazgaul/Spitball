@@ -15,11 +15,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                         from zbox.users u 
                         where u.usertype = 1 
                         and u.Country = @country
-                        and (@prefix IS NULL OR (coalesce(u.AliasName,u.userName) 
-                          like '%' + @prefix + '%' or coalesce(u.AliasName,u.userName) like '%' + @prefixHeb + '%'))
-                        order by MemberCount desc
-                    	OFFSET @FirstResult ROWS
-                        FETCH NEXT @MaxResult ROWS ONLY";
+                        order by MemberCount desc";
         public const string GetWallList = @"select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action, universityname as uniName
                                     from (	 
 	                                       select 

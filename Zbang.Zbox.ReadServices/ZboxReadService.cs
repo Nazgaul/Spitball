@@ -523,7 +523,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query)
         {
-            const int pageNumber = 20;
+            //const int pageNumber = 20;
             using (var conn = await DapperConnection.OpenConnection())
             {
                 var transferLetter = IocFactory.Unity.Resolve<IEnglishToHebrewChars>();
@@ -538,10 +538,6 @@ namespace Zbang.Zbox.ReadServices
                 return await conn.QueryAsync<UniversityByPrefixDto>(Sql.GetUniversitiesList, new
                 {
                     country = query.Country,
-                    prefix = filteredQuery.Replace(' ', '%'),
-                    prefixHeb = hebrewLetters.Replace(' ', '%'),
-                    FirstResult = pageNumber * query.PageNumber,
-                    MaxResult = pageNumber
                 });
             }
         }
