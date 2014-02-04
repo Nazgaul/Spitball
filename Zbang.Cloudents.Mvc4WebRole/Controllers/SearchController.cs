@@ -10,8 +10,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         //
         // GET: /Search/
-        public ActionResult Index()
+        public ActionResult Index(string q)
         {
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView();
+            }
             return View();
         }
 	}
