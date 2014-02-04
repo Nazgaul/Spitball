@@ -1496,8 +1496,12 @@ header
         color: #43392b;
         cursor: pointer;
 		background: #fff;
-        padding: 0 5px;
         border-top: 1px solid #ccc;		
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        padding: 13px 5px 13px 13px; /*rtl*/
+        width: 99%;       
     }
 
    
@@ -1507,14 +1511,6 @@ header
     }
     li:active {
         background: #ebebeb;
-    }
-
-    li a {
-        overflow: hidden;
-        white-space: nowrap;
-        display: inline-block;
-        padding: 13px 0 13px 8px; /*rtl*/
-        width: 99%;       
     }
 }
 .uniImg {

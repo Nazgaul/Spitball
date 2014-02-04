@@ -55,98 +55,17 @@
 
         }
 
-
-        var request2 = true, INPUT_TEXT = 'input[type=text]:first';
-
-
-        function needCodePopUp(universityId) {
-            var $libEnterCode = $('#libEnterCode');
-            if (!$libEnterCode.length && request2) {
-                request2 = false;
-                dataContext.universityEnterCode({
-                    data: { uid: universityId },
-                    success: function (data) {
-                        $libraryChoose.append(data);
-                        registerneedCodePopUpEvent();
-                    }
-                });
-            }
-            else {
-                $libEnterCode.show().find(INPUT_TEXT).focus();
-            }
-
-            function registerneedCodePopUpEvent() {
-                var $libEnterCode = $('#libEnterCode'), codeSubmit = document.getElementById('codeSubmit');
-                $libEnterCode.find('form').submit(function (e) {
-                    e.preventDefault();
-                    var $form = $(this);
-                    if (!$form.valid || $form.valid()) {
-                        cd.pubsub.publish('clear_cache');
-                        dataContext.updateUniversity({
-                            data: $form.serializeArray(),
-                            success: function () {
-                                window.location.href = '/dashboard';
-                            },
-                            error: function (msg) {
-                                cd.displayErrors($form, msg);
-                                //cd.notification(msg);
-                            }
-                        });
-                    }
-                });
-                $('#insertCode').keyup(function () {
-                    if (this.value === '') {
-                        codeSubmit.setAttribute('disabled', 'disabled');
-                        return;
-                    }
-                    codeSubmit.removeAttribute('disabled');
-
-                });
-                $libEnterCode.find('.closeDialog,.cancel').click(function () {
-                    $libEnterCode.hide();
-
-                });
-            }
-        }
         function appendUniversities(data) {
             var mappeddata = $.map(data, function (i) { return new University(i); });
 
             $('#uniList li:not(:last)').remove();
             cd.appendData(uniList, 'universityItemTemplate', mappeddata, 'afterbegin', false);
         }
-
-        function registerPopEvent() {
-            var $addSchoolDialog = $('#addSchoolDialog');
-            $addSchoolDialog.find('.closeDialog,.cancel').click(function () {
-                if ($addSchoolDialog.find('.requestSent').is(':visible')) {
-                    $addSchoolDialog.find('.addSchool').toggle();
-                }
-                cd.resetForm($addSchoolDialog.find('form'));
-                $addSchoolDialog.hide();
-
-            });
-
-            $addSchoolDialog.find('form').submit(function (e) {
-                e.preventDefault();
-                var $form = $(this);
-                if (!$form.valid || $form.valid()) {
-                    dataContext.newUniversity({
-                        data: $form.serializeArray(),
-                        success: function () {
-                            $addSchoolDialog.find('.addSchool').toggle();
-                        },
-                        error: function (msg) {
-                            cd.resetErrors($form);
-                            cd.displayErrors($form, msg);
-                        }
-
-                    });
-                }
-            });
-        }
+      
 
         function registerEvents() {
-            var $countryList = $(countryList);
+            var $countryList = $(countryList),
+                request2 = true, request = true, INPUT_TEXT = 'input[type=text]:first';
 
             cd.menu(sCountry, countryList, function () {
                 var $innerListItem = $('[data-value="' + currentCountryCode + '"]');
@@ -184,7 +103,7 @@
             function selectCountry(e) {
                 var countryCode = e.target.getAttribute('data-value');
 
-                if (currentCountryCode == countryCode) {
+                if (currentCountryCode === countryCode) {
                     return;
                 }
                 var loader = cd.renderLoading($(uniList));
@@ -200,8 +119,7 @@
                     }
                 });
             }
-
-            var request = true, INPUT_TEXT = 'input[type=text]:first';
+            
             function newUniversity(e) {
                 var target = e.target;
                 e.target.disabled = true;
@@ -252,25 +170,28 @@
 
             var userNotSelected = true;
             function selectUniversity(e) {
-                var $uni = $(e.target),
+                var $uni = $(this),
                     id = $uni.attr('data-id'),
-                    name = $uni.find('uniName').textContent,
+                    name = $uni.find('.uniName').text(),
                     nCode = $uni.attr('data-ncode') === 'true' ? true : false;
 
-                analytics.setLibrary(name);
-                //this can only be Netanya for now
-                if (nCode) {
-                    analytics.trackEvent('Library Choose', 'Code', id);
-                    needCodePopUp(id);
-
-                    return;
-                }
                 if (!userNotSelected) {
                     return;
                 }
-
                 userNotSelected = false;
-                var load = cd.renderLoading($(uniList));
+
+                cd.analytics.setLibrary(name);
+
+
+                //this can only be Netanya for now
+                if (nCode) {
+                    cd.analytics.trackEvent('Library Choose', 'Code', id);
+                    needCodePopUp(id);
+                    return;
+                }
+             
+
+                //var load = cd.renderLoading($(uniList));
                 cd.pubsub.publish('clear_cache');
                 dataContext.updateUniversity({
                     data: [{ name: 'UniversityId', value: id }],
@@ -282,11 +203,10 @@
                     },
                     always: function(){
                         userNotSelected = true;
-                        load();
+                        //load();
                     }
                 });
 
-                var request2 = true;
                 function needCodePopUp(universityId) {
                     var $libEnterCode = $('#libEnterCode');
                     if (!$libEnterCode.length && request2) {
@@ -294,7 +214,7 @@
                         dataContext.universityEnterCode({
                             data: { uid: universityId },
                             success: function (data) {
-                                $libraryChoose.append(data);
+                                $(libraryChoose).append(data);
                                 registerneedCodePopUpEvent();
                             }
                         });
@@ -355,7 +275,7 @@
                     return;
                 }
 
-                analytics.trackEvent('Library Choose', 'Search', term);
+                cd.analytics.trackEvent('Library Choose', 'Search', term);
 
                 $('.uniName').not(':last').each(function(){
                     var $parent = $(this).parents('li');

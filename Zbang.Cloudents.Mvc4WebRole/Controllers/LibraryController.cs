@@ -326,8 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
         [OutputCache(Duration = TimeConsts.Minute * 20, VaryByParam = "term;country;page", Location = OutputCacheLocation.Server)]
         public async Task<ActionResult> UniversityList(string term, string country, int page = 0)
-        {
-            System.Threading.Thread.Sleep(15000);
+        {            
             if (string.IsNullOrWhiteSpace(country))
             {
                 country = GetUserCountryByIP();
