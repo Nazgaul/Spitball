@@ -355,6 +355,8 @@
                     return;
                 }
 
+                analytics.trackEvent('Library Choose', 'Search', term);
+
                 $('.uniName').not(':last').each(function(){
                     var $parent = $(this).parents('li');
                     $(this).text().indexOf(term) > -1 ? $parent.show() : $parent.hide();
