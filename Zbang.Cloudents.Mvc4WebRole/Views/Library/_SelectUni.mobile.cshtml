@@ -20,7 +20,7 @@
     @{
         Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity());
     }
-    <div class="selectUni popup" id="libraryChoose" data-data="@Json.Encode(ViewBag.data)">
+    <div class="selectUni popup" id="libraryChoose" data-data="@ViewBag.data">
         <div class="popupWpr">
             <div class="subTitle topContent">@MainViewResources.WelcomeAcademic</div>
 

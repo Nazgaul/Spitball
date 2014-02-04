@@ -118,8 +118,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 haveUniversity = true;
             }
-
-            ViewBag.data = result;
+            JsonNetSerializer serializer = new JsonNetSerializer();
+            ViewBag.data = serializer.Serialize(result);
+             //result;
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
             if (Request.IsAjaxRequest())
@@ -333,7 +334,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetUniversityByPrefixQuery(GetUserId(), page, term, country);
             var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
             //var result = m_ZboxReadService.GetUniversityByPrefix(query);
-            return Json(new JsonResponse(true, result), JsonRequestBehavior.AllowGet);
+            return this.CdJson(new JsonResponse(true, result));
         }
 
 
