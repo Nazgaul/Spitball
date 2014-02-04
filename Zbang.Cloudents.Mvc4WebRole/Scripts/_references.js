@@ -72,3 +72,4 @@
 /// <reference path="../js/resources/zboxresources.ru.js" />
 /// <reference path="../js/resources/zboxresources.zh.js" />
 /// <reference path="jquery.mcustomscrollbar.js" />
+/// <reference path="../js/search.js" />
