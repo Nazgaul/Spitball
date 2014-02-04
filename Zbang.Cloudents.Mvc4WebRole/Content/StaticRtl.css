@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -7,56 +7,46 @@
 .sideBar {
   left: -200px;
   /*rtl*/
-
   right: auto;
   text-align: right;
   /*rtl*/
-
 }
 .sideBar > button {
   left: 12px;
   /*rtl*/
-
   right: auto;
 }
 .sideBar li {
   float: right;
   /*rtl*/
-
 }
 .headerActions.menuOpen {
   margin: 0 0 0 200px;
   /*rtl*/
-
 }
 .headerActions.menuOpen .sideBar {
   left: 0;
   /*rtl*/
-
   right: auto;
 }
 .headerWpr.menuOpen .headerActions {
   margin: 0 0 0 200px;
   /*rtl*/
-
 }
 .headerWpr.menuOpen .sideBar {
   left: 0;
   /*rtl*/
-
   right: auto;
 }
 .headerSettings {
   margin: 0 8px 0 12px;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region forgot password; email sent; verify password */
 .inputText {
   padding: 0 8px 0 4px;
   /* rtl */
-
 }
 .innerContent {
   text-align: right;
@@ -67,46 +57,38 @@
 .firefox {
   padding: 0 30px 0 40px;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region connect and register pages */
 .fbImg {
   right: 16px;
   /*rtl*/
-
   left: auto;
 }
 .fbImg:after {
   right: 24px;
   /*rtl*/
-
   left: auto;
 }
 .connect,
 .create {
   text-align: right;
   /*rtl*/
-
 }
 .facebook {
   padding: 9px 55px 5px 15px;
   /*rtl*/
-
   text-align: right;
   /*rtl*/
-
 }
 .signIn,
 .register {
   text-align: right;
   /*rtl*/
-
 }
 .acceptTerms {
   text-align: right;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region library empty state */
@@ -117,19 +99,16 @@
 .uniWpr .inputText {
   padding: 0 25px 0 0;
   /*rtl*/
-
 }
 .sCountry:after {
   margin: 0 5px 0 0;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region AUTO COMPLETE */
 .uniWpr:before {
   right: 6px;
   /*rtl*/
-
   left: auto;
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
@@ -137,32 +116,24 @@
   -ms-transform: scaleX(1);
   transform: scaleX(1);
   /*rtl*/
-
 }
 .uniList {
   text-align: right;
   /*rtl*/
-
-}
-.uniList li a {
   padding: 13px 8px 13px 0;
   /*rtl*/
-
 }
 .uniDetails {
   padding: 6px 8px 0 5px;
   /*rtl*/
-
 }
 .uniCount:before {
   margin: 0 0 0 4px;
   /*rtl*/
-
 }
 .newUni .uniImg:before {
   margin: 0 8px 0 0;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region popup */
@@ -170,44 +141,36 @@
 .popupForm .validation-summary-errors {
   margin: 0 15px 0 0;
   /*rtl*/
-
 }
 .popupWrppr .cancel {
   margin: 18px 10px 0 0;
   /*rtl*/
-
 }
 .popupWrppr .closeDialog {
   left: 20px;
   /*rtl*/
-
   right: auto;
 }
 .popupWrppr.enterCode form,
 .popupWrppr.enterCode .noCode {
   padding: 0 9px 25px 19px;
   /*rtl*/
-
 }
 .popupWrppr.enterCode .noCode {
   padding: 0 9px 25px 0;
   /*rtl*/
-
 }
 .popupWrppr.enterCode .btn1 {
   margin: 0 8px 0 0;
   /*rtl*/
-
 }
 .popupWrppr.addSchool {
   text-align: right;
   /*rtl*/
-
 }
 .popupWrppr.addSchool .country {
   margin: 0 0 0 13px;
   /*rtl*/
-
 }
 .requestSentDiv {
   padding: 0 18px 0 0;
@@ -218,36 +181,29 @@
 .faq aside {
   margin: 59px 15px 0 0;
   /*rtl*/
-
   padding: 17px 69px 0 8px;
   /*rtl*/
-
 }
 .faq aside:before {
   right: 8px;
   /*rtl*/
-
   left: auto;
 }
 .faq.staticPage {
   text-align: right;
   /*rtl*/
-
 }
 .question {
   padding: 0 16px 0 18px;
   /*rtl*/
-
 }
 .question:after {
   left: 18px;
   /*rtl*/
-
   right: auto;
 }
 .answer {
   padding: 0 16px 0 18px;
   /*rtl*/
-
 }
 /*#endregion */

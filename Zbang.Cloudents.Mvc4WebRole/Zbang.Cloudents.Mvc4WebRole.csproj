@@ -677,13 +677,13 @@
       <DependentUpon>Static.less</DependentUpon>
     </Content>
     <Content Include="Content\Static.min.css">
-      <DependentUpon>Static.less</DependentUpon>
+      <DependentUpon>Static.css</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.min.css">
-      <DependentUpon>StaticRtl.less</DependentUpon>
+      <DependentUpon>StaticRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>

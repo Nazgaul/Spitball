@@ -293,14 +293,12 @@
     @Html.Script2("ChooseLib")
 }
 
-<script type="text/html" id="UniversityItemTemplate">
-    <li>
-        <a> @*click uniSelect*@
+<script type="text/html" id="universityItemTemplate">
+    <li data-id="{{id}}" data-ncode="{{nCode}}">
             <img src="{{image}}" class="lFloat uniImg" width="50" height="50" alt="" />
             <span class="uniDetails">
                 <span class="uniName elps boldFont">{{name}}</span>
                 <span class="uniCount">{{membersCount}}</span>
-            </span>
-        </a>
+            </span>    
     </li>
 </script>
