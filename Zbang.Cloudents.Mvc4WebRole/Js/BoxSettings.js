@@ -88,7 +88,7 @@
             }
         }
 
-        if (boxSettingsData.userType !== 'owner') {
+        if (!boxSettingsData.willDelete) {
             eById('boxSettingsDelete').textContent = ZboxResources.Unfollow;
         }
         else {
@@ -172,7 +172,8 @@
             };
 
             eById('boxSettingsDelete').onclick = function () {
-                if (!confirm(ZboxResources.SureYouWant + boxSettingsData.userType === 'owner' ? ZboxResources.ToDeleteBox : ZboxResources.ToLeaveGroup)) {
+                console.log(boxSettingsData.willDelete)
+                if (!confirm(ZboxResources.SureYouWant + (boxSettingsData.willDelete ? ZboxResources.ToDeleteBox : ZboxResources.ToLeaveGroup))) {
                     return;
                 }
                 var that = this;

@@ -411,7 +411,8 @@
                     boxType: self.boxtype(),
                     userType: self.userType(),
                     image: self.image(),
-                    name: self.name()
+                    name: self.name(),
+                    willDelete: self.userType() === 'owner' || (self.members().length <= 2 && self.noOfComments() === 0 && self.noOfItems() === 0)
                 };
                 if (self.boxtype() === 'academic') {
                     data.professor = self.proffer();
