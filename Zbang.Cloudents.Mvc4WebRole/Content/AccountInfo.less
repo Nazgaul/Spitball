@@ -1,8 +1,18 @@
 ﻿@import "varsAndMixins";
 
+
 .headerRightWpr
 {
     overflow: hidden;
+    .dashLibSearch{
+        display: block;
+        max-width: 550px;
+        width: auto; //override
+    }
+    .userSection
+    {
+        margin-left: @searchMargin; /*rtl*/
+    }
 }
 .userSection {
     line-height: @header-height;

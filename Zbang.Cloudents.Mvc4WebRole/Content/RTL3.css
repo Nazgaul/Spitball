@@ -460,6 +460,10 @@ input[type="radio"] + label:before {
 /*#endregion */
 /*#endregion */
 /*#region AccountInfo.css */
+.headerRightWpr .userSection {
+  margin: 0 70px 0 0;
+  /*rtl*/
+}
 .feedBack:before,
 .homeLink:before {
   left: -1px;

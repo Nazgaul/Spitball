@@ -934,7 +934,9 @@ select.inputText {
   .siteHeader.siteHeader,
   .boxPage .leftPanel.leftPanel,
   .QA.QA,
-  .boxPage .boxActions.boxActions {
+  .boxPage .boxActions.boxActions,
+  .asideLib.asideLib,
+  .asideDash.asideDash {
     position: absolute;
   }
   .boxPage .leftPanel.leftPanel {

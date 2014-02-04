@@ -5,6 +5,15 @@
 .headerRightWpr {
   overflow: hidden;
 }
+.headerRightWpr .dashLibSearch {
+  display: block;
+  max-width: 550px;
+  width: auto;
+}
+.headerRightWpr .userSection {
+  margin-left: 70px;
+  /*rtl*/
+}
 .userSection {
   line-height: 50px;
   height: 50px;
