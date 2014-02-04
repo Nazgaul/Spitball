@@ -46,24 +46,27 @@
         </div>
     </noscript>
     <header class="siteHeader">
-        <nav class="userSection rFloat">
-            <ul class="userNav">
-                @{
-                    if (User.Identity.IsAuthenticated)
-                    {
-                        Html.RenderPartial("TopMenu/_Actions");
+        <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" data-navigation="Dashboard"
+           href="@Url.Action("Index", "Dashboard")"></a>
+        <div class="headerRightWpr">
+            <nav class="userSection rFloat">
+                <ul class="userNav">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            Html.RenderPartial("TopMenu/_Actions");
+                        }
+                        Html.RenderAction("GetUserDetail3", "Account", true);
                     }
-                    Html.RenderAction("GetUserDetail3", "Account", true);
-                }
-            </ul>
-        </nav>
-        <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" data-navigation="Dashboard" 
-            href="@Url.Action("Index", "Dashboard")"></a>@*<span class="middle"></span>*@
-        <form class="dashLibSearch" id="g_search">
-            <input id="g_searchQ" autocomplete="off"
-                type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
-            <button type="submit"></button>
-        </form>
+                </ul>
+            </nav>
+
+            <form class="dashLibSearch" id="g_search">
+                <input id="g_searchQ" autocomplete="off"
+                       type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
+                <button type="submit"></button>
+            </form>
+        </div>
     </header>
 
     <div class="bodyContent" id="main">

@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -161,7 +161,6 @@ header {
   position: fixed;
   right: 6px;
   /*rtl*/
-
   top: 3px;
   width: 37px;
   height: 37px;
@@ -177,7 +176,6 @@ header {
         background-position: -104px -25px;
         margin: 20px 0 0 8px;
     }*/
-
 }
 .searchBtnClose:before {
   content: '';
@@ -274,7 +272,6 @@ header {
 .email {
   font-size: 10px;
   /*margin: -4px 0 4px;*/
-
 }
 .email:after {
   content: '';
@@ -298,11 +295,9 @@ header {
   border-bottom: 1px solid #cdcdcd;
   padding: 0 10px 0 6px;
   /*rtl*/
-
   width: 100%;
   text-align: left;
   /*rtl*/
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -403,7 +398,6 @@ header {
   border: 1px solid #cdcdcd;
   padding: 10px 4px 10px 8px;
   /*rtl*/
-
 }
 .inputText.verticalMargins {
   margin: 2px 0 15px;
@@ -474,7 +468,6 @@ header {
 .popup.selectUni .inputText {
   padding: 10px 4px 10px 25px;
   /*rtl*/
-
 }
 .popup.enterCode {
   display: block;
@@ -679,7 +672,6 @@ header {
   position: absolute;
   right: 10px;
   /*rtl*/
-
   top: 0;
   bottom: 0;
   margin: auto;
@@ -729,7 +721,6 @@ header {
   overflow: hidden;
   padding: 0 30px 0 6px;
   /*rtl*/
-
   vertical-align: top;
 }
 .description {
@@ -819,7 +810,6 @@ header {
         {
             display: inline-block;
         }*/
-
 }
 .inviteBtn {
   margin: 6px 0 0 6px;
@@ -899,7 +889,6 @@ header {
   top: 0;
   left: 0;
   /*rtl*/
-
   width: 100%;
   height: 100%;
   display: block;
@@ -914,7 +903,6 @@ header {
   position: absolute;
   right: 8px;
   /*rtl*/
-
   bottom: 8px;
 }
 .boxContent {
@@ -949,7 +937,6 @@ header {
     {
         display: block;      
     }*/
-
 }
 .boxItems.boxElementvisible,
 .boxComments.boxElementvisible {
@@ -1015,7 +1002,6 @@ header {
   top: 12px;
   right: 0px;
   /*rtl*/
-
 }
 .uploadItemsBox {
   display: block;
@@ -1112,7 +1098,6 @@ header {
   background: #fff;
   padding: 12px 4px 0 8px;
   /*rtl*/
-
   border: 1px solid #ddd;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -1203,7 +1188,6 @@ header {
 .profileImg + div {
   margin-right: 100px;
   /*rtl*/
-
 }
 .profileForm {
   overflow: auto;
@@ -1290,15 +1274,12 @@ header {
 .inviteUser {
   margin: 17px 0 18px 12px;
   /*rtl*/
-
   padding: 2px 2px 5px 9px;
   /*rtl*/
-
   min-height: 21px;
   max-height: 100px;
   height: auto;
   /*override height of inputText*/
-
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
@@ -1312,7 +1293,6 @@ header {
   box-sizing: border-box;
   padding: 4px 4px 4px 8px;
   /*rtl*/
-
 }
 .inviteList {
   display: inline;
@@ -1327,7 +1307,6 @@ header {
   height: 15px;
   margin: 3px 3px 0 0;
   /*rtl*/
-
 }
 #lib_country {
   margin: 10px 0;
@@ -1348,7 +1327,6 @@ header {
   position: absolute;
   margin-left: 6px;
   /*rtl*/
-
   top: 60px;
 }
 .uniList li {
@@ -1370,7 +1348,6 @@ header {
   display: inline-block;
   padding: 13px 0 13px 8px;
   /*rtl*/
-
   width: 99%;
 }
 .uniImg {
@@ -1385,7 +1362,6 @@ header {
   display: block;
   padding: 2px 5px 0 8px;
   /*rtl*/
-
   line-height: 17px;
 }
 .uniName {
@@ -1403,7 +1379,6 @@ header {
   height: 11px;
   margin-right: 4px;
   /*rtl*/
-
   background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
 }
 .newUni .uniImg:before {
@@ -1417,7 +1392,6 @@ header {
   transform: scale(0.64, 0.64);
   margin-left: -1px;
   /*rtl*/
-
 }
 .newUni .uniName {
   font-weight: normal;
@@ -1451,6 +1425,5 @@ header {
   /*&:disabled {
         background: #a5a5a5;
     }*/
-
 }
 /*#endregion */

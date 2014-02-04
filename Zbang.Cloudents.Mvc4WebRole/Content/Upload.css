@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -10,16 +10,13 @@
   border: 2px solid #bdbdbd;
   box-shadow: 2px 2px 2px #ddd8dc;
   /*rtl*/
-
   margin-bottom: 30px;
   /*fix for (chrome) bug 1856 */
-
 }
 .selectBox {
   background-position: 0 -247px;
   margin-left: 38px;
   /*rtl*/
-
 }
 /*#endregion */
 .dragDropBox {
@@ -40,13 +37,11 @@
   display: none;
   text-align: left;
   /*rtl*/
-
   overflow-x: hidden;
   overflow-y: auto;
   height: 160px;
   margin: 38px 0 0 5px;
   /*rtl*/
-
   border-top: 1px solid #c2c2c2;
 }
 .dragDropBox li {
@@ -67,7 +62,6 @@
   position: absolute;
   left: 0;
   /*rtl*/
-
   top: 1px;
   z-index: -1;
 }
@@ -81,7 +75,6 @@
   background-color: transparent;
   margin: 0 3px 0 0;
   /*rtl*/
-
 }
 .finished {
   display: none;
@@ -90,7 +83,6 @@
   background-position: -13px -1px;
   margin: 0 3px 0 0;
   /*rtl*/
-
 }
 /*#region invite popup step1 step2 */
 .step2 {
@@ -110,7 +102,6 @@
   cursor: pointer;
   padding: 8px 8px 8px 50px;
   /*rtl*/
-
   font-size: 18px;
   -webkit-text-shadow: none;
   text-shadow: none;
@@ -118,7 +109,6 @@
   position: relative;
   text-align: left;
   /*rtl*/
-
   margin: 36px auto 0;
   width: 260px;
   line-height: 25px;
@@ -146,7 +136,6 @@
   height: 30px;
   left: 24px;
   /*rtl*/
-
   position: relative;
   top: -3px;
 }
@@ -157,20 +146,17 @@
   background: url(/Images/common13-sprite.png) -130px -1px no-repeat;
   left: 16px;
   /*rtl*/
-
 }
 .emailImg {
   width: 29px;
   height: 22px;
   left: 6px;
   /*rtl*/
-
   background: url(/Images/home-sprite.png) -242px 0 no-repeat;
 }
 .emailImg:after {
   left: 35px;
   /*rtl*/
-
 }
 /*#endregion */
 .chooseFrom {
@@ -209,7 +195,6 @@
   color: #111;
   float: left;
   /*rtl*/
-
   text-align: center;
 }
 .source .btn:hover,
@@ -253,7 +238,6 @@
   top: 89px;
   left: 290px;
   /*rtl*/
-
   z-index: 6;
   display: none;
 }
@@ -264,7 +248,6 @@
   top: 89px;
   left: 290px;
   /*rtl*/
-
   z-index: 5;
   background: rgba(17, 17, 17, 0.7);
   color: #fff;
@@ -279,7 +262,6 @@
   left: 50%;
   margin-left: -290px;
   /*rtl*/
-
   margin-top: -138px;
   pointer-events: none;
 }
@@ -320,7 +302,6 @@
   top: 10px;
   right: 10px;
   /*rtl*/
-
 }
 .uploadTop {
   height: 32px;
@@ -414,14 +395,12 @@ button.fileDone {
 .step3 {
   text-align: left;
   /*rtl*/
-
 }
 .dragDropTxtE {
   font-size: 18px;
   margin: 66px 0 15px;
   font-weight: bold;
   /*rtl*/
-
 }
 .addUrlHolder {
   position: relative;
@@ -447,14 +426,12 @@ button.fileDone {
 .emailUser {
   padding: 4px 2px 6px 9px;
   /*rtl*/
-
   margin-bottom: 6px;
   width: 100%;
   min-height: 32px;
   max-height: 100px;
   height: auto;
   /*override height of inputText*/
-
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
@@ -468,7 +445,6 @@ button.fileDone {
   vertical-align: top;
   margin: 0;
   /*override .inputLabel of Model.css */
-
   display: inline-block;
   color: #383838;
   width: 28px;
@@ -493,7 +469,6 @@ button.fileDone {
   position: absolute;
   right: 5px;
   /*rtl*/
-
 }
 .gConnect:before {
   content: '';
@@ -504,7 +479,6 @@ button.fileDone {
   background: url(/Images/common13-sprite.png) -73px -70px no-repeat;
   margin: -1px 5px 0 0;
   /*rtl*/
-
 }
 .inviteInput {
   vertical-align: top;
@@ -568,7 +542,6 @@ button.fileDone {
   padding: 0 10px;
   margin: 0 3px 3px 0;
   /*rtl*/
-
   background: #ededed;
   height: 24px;
   line-height: 24px;
@@ -600,7 +573,6 @@ button.fileDone {
   top: calc(100% + 5px);
   left: 25px;
   /*rtl*/
-
   display: none;
   overflow: hidden;
 }
@@ -627,7 +599,6 @@ button.fileDone {
   border: 1px solid #c2c2c2;
   margin: 5px 10px 0 0;
   /*rtl*/
-
 }
 .eSingleImg {
   display: inline-block;
@@ -637,7 +608,6 @@ button.fileDone {
   border: 1px solid #c2c2c2;
   margin: 5px 6px 0 0;
   /*rtl*/
-
 }
 .eSingleName {
   display: inline-block;
@@ -655,7 +625,6 @@ button.fileDone {
   min-height: 117px;
   padding: 14px 8px 5px 11px;
   /*rtl*/
-
   outline-color: transparent;
   resize: none;
   -webkit-box-sizing: border-box;
