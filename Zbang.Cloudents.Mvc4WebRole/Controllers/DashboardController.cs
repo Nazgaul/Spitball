@@ -41,7 +41,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [UserNavNWelcome]
         [AjaxCache(TimeConsts.Day)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        [CompressFilter]
+        [CompressFilter(Order = 1)]
+       // [ETag(Order = 2)]
         //[FlushHeader]
         public async Task<ActionResult> Index()
         {
