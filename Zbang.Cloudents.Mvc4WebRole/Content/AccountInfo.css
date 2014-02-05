@@ -1,7 +1,25 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.headerRightWpr {
+  overflow: hidden;
+}
+.headerRightWpr .dashLibSearch {
+  display: block;
+  max-width: 550px;
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+}
+.headerRightWpr .dashLibSearchInput {
+  border-radius: 5px;
+}
+.headerRightWpr .userSection {
+  margin-left: 70px;
+  /*rtl*/
+}
 .userSection {
   line-height: 50px;
   height: 50px;
@@ -35,7 +53,6 @@
   position: absolute;
   right: -1px;
   /*rtl*/
-
   top: 16px;
 }
 .feedBack:after,
@@ -77,7 +94,6 @@
   display: inline-block;
   margin-right: 12px;
   /*rtl*/
-
 }
 .signUp .btn {
   display: inline-block;
@@ -115,7 +131,6 @@
   top: 16px;
   right: 10px;
   /*rtl*/
-
   background: url(/Images/dash13-sprite.png) -240px -46px no-repeat;
   width: 19px;
   height: 18px;
@@ -125,7 +140,6 @@
   opacity: 0.4;
   left: 11px;
   /*rtl*/
-
 }
 .invitesCounter {
   display: none;
@@ -148,7 +162,6 @@
 .userInvites {
   left: 0;
   /*rtl*/
-
   background-color: #f5f5f5;
   width: 184px;
   max-height: 360px;

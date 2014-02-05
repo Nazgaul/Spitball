@@ -22,7 +22,7 @@
 }
 .headerActions.menuOpen {
   margin: 0 0 0 200px;
-  /*rtl*/
+  /*rtl */
 }
 .headerActions.menuOpen .sideBar {
   left: 0;

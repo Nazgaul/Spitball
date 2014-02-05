@@ -1,0 +1,157 @@
+﻿/*<div class="searchDD">
+<h3>Course / Departments</h3>
+<ul class="courseResults">
+    <li class="searchItem">
+        <img class="searchImg imgBorder" width="39" height="49" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+        @*Guy: Add the 'allDetails' class when we have both prof and code values*@
+        <div class="searchDetails allDetails">
+            <div class="searchTitle semiFont"><span class="boldPart">an</span>t</div>
+            <span class="courseProf">Professor Jinks</span>
+            <span class="courseID">12351243</span>
+        </div>
+    </li>
+    <li class="searchItem dpt">
+        <div class="searchDetails">
+            <div class="searchTitle semiFont"><span class="boldPart">a</span>nt</div>
+            <div class="dptDetails">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
+        </div>
+    </li>
+</ul>
+<ul class="itemResults">
+    <li class="searchItem">
+        <img class="searchImg imgBorder" width="39" height="49" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+        <div class="searchDetails">
+            <div class="searchTitle semiFont">eleph<span class="boldPart">an</span>t</div>
+            <div class="boxLoc">Social history of Africa</div>
+        </div>
+    </li>
+</ul>
+<ul class="peopleList">
+    <li class="searchItem">
+        <img class="lFloat imgBorder" src="" alt="" width="33" height="33"  />@*data-bind="attr : { src : qUserImage }"*@
+        <div class="searchTitle semiFont">Daniel David</div>
+    </li>
+</ul>
+<a class="allResults" href="~/search">Show all results for <q>math</q></a>
+</div>*/
+
+@import "varsAndMixins";
+
+.searchDD{
+    margin-top: 5px;
+    border: 1px solid @borderColor;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    h3{
+        background: #f9f9f9;
+        border-top: 1px solid #e3e3e3;
+        border-bottom: 1px solid #e3e3e3;
+        font-weight: normal;
+        padding: 0 16px;
+        font-size: 13px;
+        &:first-of-type
+        {
+            border-top: none;
+        }
+    }
+    .boldPart{
+        background: #cde3f4;
+    }
+    .showAll{
+        text-align: center;
+        font-size: 13px;
+        display: none;
+        background: #f9f9f9;
+        height: 36px;
+        line-height: 36px;
+        border-top: 1px solid #e3e3e3;
+        &:hover
+        {
+            background: #f5f5f5;
+        }
+    }
+    &.allResults
+    {
+        .showAll
+        {
+            display: block;
+        }
+    }
+}
+.searchList 
+{
+    margin: 6px 0;
+}
+.searchItem{
+    padding: 5px 16px;
+    overflow: hidden;
+    &:hover
+    {
+        background: @color;
+        color: #fff;
+        .searchDetail
+        {
+            color: #fff;
+        }
+        .boldPart{
+            background: none;
+            color: #fff;
+        }
+    }
+    > .searchTitle
+    {
+        margin-left: 56px;
+    }
+}
+.searchImg
+{
+    float: left;
+}
+.searchDetails
+{
+    overflow: hidden;
+    padding-left: 15px;
+    line-height: 18px;
+    margin-top: 8px;
+}
+.searchTitle
+{
+    font-size: 15px;
+}
+.boxLoc
+{
+    &:before
+    {
+        content: attr(data-search-in);
+        display: inline-block;
+        margin-right: 4px;
+    }
+}
+.allDetails:after{
+    content: '|';
+    display: inline-block;
+    padding: 0 4px;
+}
+.dpt
+{
+    .searchDetails
+    {
+        margin:0; //override;
+        padding:0; //override;
+        &:before
+        {
+            .pseudo;
+            width: 40px;
+            height: 33px;
+            background: orange;
+            vertical-align: middle;
+            float: left;
+            margin-right: 16px;
+        }
+    }
+}
+.searchDetail
+{
+    color: #676767;
+}

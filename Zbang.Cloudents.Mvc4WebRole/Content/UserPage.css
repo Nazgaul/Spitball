@@ -339,7 +339,7 @@
   width: 22px;
   height: 19px;
   vertical-align: middle;
-  background: url(/Images/common13-sprite.png) -155px -42px no-repeat;
+  background: url(/Images/common14-sprite.png) -155px -42px no-repeat;
   margin-right: 5px;
   /*rtl*/
 }
@@ -436,7 +436,7 @@
   vertical-align: middle;
   margin-left: 8px;
   /*rtl*/
-  background: url(/Images/common13-sprite.png) -103px -49px no-repeat;
+  background: url(/Images/common14-sprite.png) -103px -49px no-repeat;
   width: 11px;
   height: 7px;
   -moz-transform: scaleY(-1);
