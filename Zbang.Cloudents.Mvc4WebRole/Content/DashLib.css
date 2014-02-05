@@ -68,7 +68,7 @@
 .back:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common13-sprite.png) 0 -1px no-repeat;
+  background: url(/Images/common14-sprite.png) 0 -1px no-repeat;
   margin-right: 5px;
   /*rtl*/
   width: 20px;
@@ -97,7 +97,7 @@
   /*rtl*/
 }
 .boxRename {
-  background: url(/Images/common13-sprite.png) -52px -1px no-repeat;
+  background: url(/Images/common14-sprite.png) -52px -1px no-repeat;
   width: 15px;
   height: 15px;
   vertical-align: top;
