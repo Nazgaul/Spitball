@@ -318,8 +318,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
         private static void RegisterJs(string key, params JsFileWithCdn[] jsFiles)
         {
-            var jsBundle = SquishIt.Framework.Bundle.JavaScript();
-            jsBundle.ForceRelease();
+            var jsBundle = SquishIt.Framework.Bundle.JavaScript();            
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))

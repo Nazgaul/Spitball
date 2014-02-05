@@ -30,6 +30,12 @@
   font-size: 18px;
   font-weight: 300;
 }
+.userPage .box {
+  width: 220px;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
 /*#region user page aside */
 .upSidebar {
   width: 227px;
