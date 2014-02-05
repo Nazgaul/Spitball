@@ -1,41 +1,4 @@
-﻿/*<div class="searchDD">
-<h3>Course / Departments</h3>
-<ul class="courseResults">
-    <li class="searchItem">
-        <img class="searchImg imgBorder" width="39" height="49" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-        @*Guy: Add the 'allDetails' class when we have both prof and code values*@
-        <div class="searchDetails allDetails">
-            <div class="searchTitle semiFont"><span class="boldPart">an</span>t</div>
-            <span class="courseProf">Professor Jinks</span>
-            <span class="courseID">12351243</span>
-        </div>
-    </li>
-    <li class="searchItem dpt">
-        <div class="searchDetails">
-            <div class="searchTitle semiFont"><span class="boldPart">a</span>nt</div>
-            <div class="dptDetails">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
-        </div>
-    </li>
-</ul>
-<ul class="itemResults">
-    <li class="searchItem">
-        <img class="searchImg imgBorder" width="39" height="49" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-        <div class="searchDetails">
-            <div class="searchTitle semiFont">eleph<span class="boldPart">an</span>t</div>
-            <div class="boxLoc">Social history of Africa</div>
-        </div>
-    </li>
-</ul>
-<ul class="peopleList">
-    <li class="searchItem">
-        <img class="lFloat imgBorder" src="" alt="" width="33" height="33"  />@*data-bind="attr : { src : qUserImage }"*@
-        <div class="searchTitle semiFont">Daniel David</div>
-    </li>
-</ul>
-<a class="allResults" href="~/search">Show all results for <q>math</q></a>
-</div>*/
-
-@import "varsAndMixins";
+﻿@import "varsAndMixins";
 
 .searchDD{
     margin-top: 5px;
@@ -143,8 +106,9 @@
         {
             .pseudo;
             width: 40px;
-            height: 33px;
-            background: orange;
+            height: 32px;
+            background: @common-sprite -241px -56px no-repeat;
+            //background: orange;
             vertical-align: middle;
             float: left;
             margin-right: 16px;
