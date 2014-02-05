@@ -35,6 +35,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             foreach (var itemId in message.ItemId)
             {
                 var item = m_ItemRepository.Get(itemId.ItemId);// we use get because we need to cast to File and get proxy
+                if (itemId.ItemId == 0)
+                {
+                    continue;
+                }
                 Throw.OnNull(item, "item");
 
                 if (itemId.Action == Infrastructure.Enums.StatisticsAction.View)
