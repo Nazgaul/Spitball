@@ -148,7 +148,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.Items = new StatisticItem[0];
                 }
                 await m_QueueProvider.Value.InsertMessageToTranactionAsync(new StatisticsData4(model.Items.Select(s =>
-                      new StatisticsData4.StatisticItemData { Id = s.Id, Action = (int)s.Action }), GetUserId(false), DateTime.UtcNow));
+                      new StatisticsData4.StatisticItemData { Id = s.Uid, Action = (int)s.Action }), GetUserId(false), DateTime.UtcNow));
 
                 return Json(new JsonResponse(true));
             }
