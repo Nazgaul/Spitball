@@ -3,6 +3,7 @@
 /*#region mixins */
 /*#endregion */
 .searchDD {
+  display: none;
   margin-top: 5px;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
