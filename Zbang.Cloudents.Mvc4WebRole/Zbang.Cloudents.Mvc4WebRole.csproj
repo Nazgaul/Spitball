@@ -526,7 +526,7 @@
       <DependentUpon>AccountInfo.less</DependentUpon>
     </Content>
     <Content Include="Content\AccountInfo.min.css">
-      <DependentUpon>AccountInfo.less</DependentUpon>
+      <DependentUpon>AccountInfo.css</DependentUpon>
     </Content>
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
@@ -538,7 +538,7 @@
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
     <Content Include="Content\Box3.min.css">
-      <DependentUpon>Box3.less</DependentUpon>
+      <DependentUpon>Box3.css</DependentUpon>
     </Content>
     <Content Include="Content\CdMobile.css" />
     <Content Include="Content\CdMobile.min.css" />
@@ -546,7 +546,7 @@
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.min.css">
-      <DependentUpon>DashLib.less</DependentUpon>
+      <DependentUpon>DashLib.css</DependentUpon>
     </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
@@ -576,7 +576,7 @@
       <DependentUpon>Home.less</DependentUpon>
     </Content>
     <Content Include="Content\Home.min.css">
-      <DependentUpon>Home.less</DependentUpon>
+      <DependentUpon>Home.css</DependentUpon>
     </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
@@ -594,7 +594,7 @@
       <DependentUpon>Item3.less</DependentUpon>
     </Content>
     <Content Include="Content\Item3.min.css">
-      <DependentUpon>Item3.less</DependentUpon>
+      <DependentUpon>Item3.css</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
@@ -618,7 +618,7 @@
       <DependentUpon>Mobile.less</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.min.css">
-      <DependentUpon>Mobile.less</DependentUpon>
+      <DependentUpon>Mobile.css</DependentUpon>
     </Content>
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
@@ -630,19 +630,25 @@
       <DependentUpon>Modal.less</DependentUpon>
     </Content>
     <Content Include="Content\Modal.min.css">
-      <DependentUpon>Modal.less</DependentUpon>
+      <DependentUpon>Modal.css</DependentUpon>
     </Content>
     <Content Include="Content\QnA.css">
       <DependentUpon>QnA.less</DependentUpon>
     </Content>
     <Content Include="Content\QnA.min.css">
-      <DependentUpon>QnA.less</DependentUpon>
+      <DependentUpon>QnA.css</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.min.css">
-      <DependentUpon>RTL3.less</DependentUpon>
+      <DependentUpon>RTL3.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Search.css">
+      <DependentUpon>Search.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Search.min.css">
+      <DependentUpon>Search.css</DependentUpon>
     </Content>
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
@@ -666,13 +672,13 @@
       <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.min.css">
-      <DependentUpon>SiteMobile.css</DependentUpon>
+      <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.css">
       <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.min.css">
-      <DependentUpon>SiteMobileRtl.css</DependentUpon>
+      <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
@@ -684,19 +690,19 @@
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.min.css">
-      <DependentUpon>StaticRtl.css</DependentUpon>
+      <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
     <Content Include="Content\Upload.min.css">
-      <DependentUpon>Upload.less</DependentUpon>
+      <DependentUpon>Upload.css</DependentUpon>
     </Content>
     <Content Include="Content\UserPage.css">
       <DependentUpon>UserPage.less</DependentUpon>
     </Content>
     <Content Include="Content\UserPage.min.css">
-      <DependentUpon>UserPage.less</DependentUpon>
+      <DependentUpon>UserPage.css</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
@@ -733,7 +739,7 @@
     <Content Include="Images\code-icon1.png" />
     <Content Include="Images\comment-sprite.png" />
     <Content Include="Images\common13-sprite.png" />
-    <Content Include="Images\common7-sprite.png" />
+    <Content Include="Images\common14-sprite.png" />
     <Content Include="Images\cursor.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
@@ -900,6 +906,7 @@
     <Content Include="Content\ItemMobile.less" />
     <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Content\QnA.less" />
+    <Content Include="Content\Search.less" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\elasticTextBox.js" />

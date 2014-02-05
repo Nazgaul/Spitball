@@ -295,7 +295,9 @@
             getInitData();
             getFriendsData();
             getBoxesData();
-            getInvitesData();
+            if (self.viewSelf()) {
+                getInvitesData();
+            }
             getActivityData();
         });
 
@@ -473,12 +475,8 @@
                     return { commonLength: commonLength, allLength: allLength };
                 }
                 function setHeight(commonLength, allLength) {
-                    setContainerHeight(
-                              document.querySelector('.upFriends .inCommonList'),
-                              '.upFriend', commonLength, consts.FRIENDSINROW);
-                    setContainerHeight(
-                        document.querySelector('.upFriends .inAllFriendList'),
-                            '.upFriend', allLength, consts.FRIENDSINROW);
+                    setContainerHeight(document.querySelector('.upFriends .inCommonList'),'.upFriend', commonLength, consts.FRIENDSINROW);
+                    setContainerHeight(document.querySelector('.upFriends .inAllFriendList'),'.upFriend', allLength, consts.FRIENDSINROW);
                 }
 
 
@@ -708,14 +706,16 @@
 
             var item = list.querySelector(item)
             if (!item) {
+                list.style.height = '0px';
                 return;
             }
+            console.log($(item).outerHeight(true));
             var style = getComputedStyle(item);
             var innerHeight = style.getPropertyValue('height'),
             marginTop = style.getPropertyValue('margin-top'),
             marginBottom = style.getPropertyValue('margin-bottom'),
-            borderTop = style.getPropertyValue('border-top'),
-            borderBottom = style.getPropertyValue('border-bottom'),
+            borderTop = style.getPropertyValue('border-top-width'),
+            borderBottom = style.getPropertyValue('border-bottom-width'),
             paddingTop = style.getPropertyValue('padding-top'),
             paddingBottom = style.getPropertyValue('padding-bottom'),
 
@@ -728,9 +728,9 @@
                 parseInt(paddingBottom !== '' ? paddingBottom : '0', 10),
                 height;
 
-            if (itemHeight === 116) {
-                itemHeight += 4;
-            }
+            //if (itemHeight === 116) {
+            //    itemHeight += 4;
+            //}
             height = Math.ceil(itemsLength / itemsInRow) * itemHeight;
 
             list.style.height = height + 'px';

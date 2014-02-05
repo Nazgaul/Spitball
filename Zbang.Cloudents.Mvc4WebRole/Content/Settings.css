@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -18,7 +18,6 @@
 .settingsMenu ul {
   margin: 33px 0 0 23px;
   /*rtl*/
-
 }
 .settingsMenu li {
   font-size: 15px;
@@ -34,11 +33,9 @@
   top: 80px;
   left: 288px;
   /*rtl*/
-
   width: 670px;
   text-align: left;
   /*rtl*/
-
 }
 .settingsContent label {
   width: 140px;
@@ -67,7 +64,6 @@
 .profileInfo .btn1 {
   margin-right: 8px;
   /*take into account +4px because of inline block: 8+4=12*/
-
 }
 .profileInfo .inputText {
   width: 400px;
@@ -77,18 +73,15 @@
 .profileInfo .profilePhoto {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
   /*rtl*/
-
   display: inline-block;
   vertical-align: top;
   margin-bottom: 3px;
   /*needed in order to view the bottom box-shadow (caused by vertical-align)*/
-
 }
 .profileInfo .photoBtn {
   display: inline-block;
   margin: 5px 0 0 5px;
   /*rtl*/
-
   color: #0f9d58;
 }
 .profileInfo .changeUni {
@@ -109,7 +102,6 @@
 .schoolWpr {
   padding-left: 44px;
   /*rtl*/
-
   position: relative;
   display: inline-block;
 }
@@ -117,7 +109,6 @@
   position: absolute;
   left: 0;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region account settings */
@@ -215,13 +206,11 @@
   height: 28px;
   margin: 0 5px 5px 0;
   /*rtl*/
-
 }
 .changePwd input:first-child {
   display: block;
   margin: -12px 0 21px;
   /*override margin for first input*/
-
 }
 /*#endregion */
 /*#region manage friends */
@@ -241,7 +230,6 @@
   color: #383838;
   margin: 2px 0 11px -1px;
   /*rtl*/
-
 }
 .storage .storageBar {
   width: 550px;
@@ -276,7 +264,6 @@
   background: #0f9d58;
   margin-right: 10px;
   /*rtl*/
-
 }
 /*temporarily removed from markup*/
 /*.key .shared:before 
@@ -291,7 +278,6 @@
 .key .percent {
   margin: 0 27px 0 2px;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region notifications */
@@ -306,7 +292,6 @@
   width: 310px;
   margin: 3px 0 0 5px;
   /*rtl*/
-
 }
 .notifications .select {
   display: inline-block;
@@ -318,7 +303,6 @@
   vertical-align: top;
   margin: 0;
   /* override boximage class from box.css*/
-
 }
 .notifications .semiFont {
   font-size: 15px;
@@ -333,7 +317,6 @@
   display: inline;
   margin-right: 6px;
   /*rtl*/
-
 }
 .notifications input {
   width: 214px;
@@ -344,7 +327,6 @@
 .boxesList {
   margin: 6px 0 39px 1px;
   /*rtl*/
-
 }
 .boxesList li {
   margin-bottom: 18px;

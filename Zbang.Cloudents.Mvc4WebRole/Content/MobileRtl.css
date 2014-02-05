@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -8,10 +8,8 @@
 .lang {
   padding-left: 0;
   /*In order to look centered*/
-
   padding-right: 16px;
   /*In order to look centered*/
-
 }
 .lang:after {
   right: auto;
@@ -21,21 +19,17 @@
   left: auto;
   right: 16px;
   /*rtl*/
-
 }
 .fbImg:after {
   left: auto;
   right: 24px;
   /*rtl*/
-
 }
 .facebook {
   padding: 8px 50px 8px 8px;
   /*rtl*/
-
   text-align: right;
   /*rtl*/
-
 }
 .connect0 .title2,
 .register0 .title2 {
@@ -44,17 +38,14 @@
 .inputText {
   padding: 10px 8px 10px 4px;
   /*rtl*/
-
 }
 /*#region validation errors */
 .field-validation-error,
 .validation-summary-errors {
   margin-left: auto;
   /*rtl*/
-
   margin-right: 5px;
   /*rtl*/
-
   text-align: right;
 }
 /*#endregion */

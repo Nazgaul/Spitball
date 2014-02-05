@@ -1,0 +1,121 @@
+﻿@import "varsAndMixins";
+
+.searchDD{
+    margin-top: 5px;
+    border: 1px solid @borderColor;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    h3{
+        background: #f9f9f9;
+        border-top: 1px solid #e3e3e3;
+        border-bottom: 1px solid #e3e3e3;
+        font-weight: normal;
+        padding: 0 16px;
+        font-size: 13px;
+        &:first-of-type
+        {
+            border-top: none;
+        }
+    }
+    .boldPart{
+        background: #cde3f4;
+    }
+    .showAll{
+        text-align: center;
+        font-size: 13px;
+        display: none;
+        background: #f9f9f9;
+        height: 36px;
+        line-height: 36px;
+        border-top: 1px solid #e3e3e3;
+        &:hover
+        {
+            background: #f5f5f5;
+        }
+    }
+    &.allResults
+    {
+        .showAll
+        {
+            display: block;
+        }
+    }
+}
+.searchList 
+{
+    margin: 6px 0;
+}
+.searchItem{
+    padding: 5px 16px;
+    overflow: hidden;
+    &:hover
+    {
+        background: @color;
+        color: #fff;
+        .searchDetail
+        {
+            color: #fff;
+        }
+        .boldPart{
+            background: none;
+            color: #fff;
+        }
+    }
+    > .searchTitle
+    {
+        margin-left: 56px;
+    }
+}
+.searchImg
+{
+    float: left;
+}
+.searchDetails
+{
+    overflow: hidden;
+    padding-left: 15px;
+    line-height: 18px;
+    margin-top: 8px;
+}
+.searchTitle
+{
+    font-size: 15px;
+}
+.boxLoc
+{
+    &:before
+    {
+        content: attr(data-search-in);
+        display: inline-block;
+        margin-right: 4px;
+    }
+}
+.allDetails:after{
+    content: '|';
+    display: inline-block;
+    padding: 0 4px;
+}
+.dpt
+{
+    .searchDetails
+    {
+        margin:0; //override;
+        padding:0; //override;
+        &:before
+        {
+            .pseudo;
+            width: 40px;
+            height: 32px;
+            background: @common-sprite -241px -56px no-repeat;
+            //background: orange;
+            vertical-align: middle;
+            float: left;
+            margin-right: 16px;
+        }
+    }
+}
+.searchDetail
+{
+    color: #676767;
+}
