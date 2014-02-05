@@ -467,6 +467,7 @@
                             }
 
                             lengths = getFriendsLength(this.checked);
+                            analytics.trackEvent('User Page', 'Friends List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
                             setHeight(lengths.commonLength, lengths.allLength);
 
                         };
@@ -547,6 +548,7 @@
                             }
 
                             lengths = getBoxesLength(this.checked);
+                            analytics.trackEvent('User Page', 'Course List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
 
                             setHeight(lengths.commonLength, lengths.followingLength);
 
@@ -614,6 +616,7 @@
 
 
                             setHeight(getInvitesLength(this.checked));
+                            analytics.trackEvent('User Page', 'Invite List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
 
                         };
                     }
