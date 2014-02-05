@@ -18,8 +18,7 @@
 
     @Html.Css2("home")
     @Html.CssRtl("homeRtl")
-    @Html.CssCulture("lang")
-
+    @Html.CssCulture("lang")  
     <!--[if lt IE 9]>
         <script>
         document.createElement('header');
@@ -36,6 +35,14 @@
 </head>
 @{Response.Flush();}
 <body>
+    <!--[if IE]>
+    <script>
+        if (!window.document.documentMode || window.document.documentMode < 9) {
+            window.location = "/Error/Unsupported";
+        }
+    </script>
+    <![endif]-->
+
     <div class="homeContent">
         @RenderBody()
     </div>
