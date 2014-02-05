@@ -50,6 +50,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 "~/Content/AccountInfo.css",
                 "~/Content/Animations.css",
                 "~/Content/UserPage.css",
+                "~/Content/Search.css",
                 "~/Content/Sidebar.css",
                 "~/Content/Modal.css",
                 "~/Content/QnA.css",

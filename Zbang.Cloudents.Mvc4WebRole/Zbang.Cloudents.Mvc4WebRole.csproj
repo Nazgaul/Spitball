@@ -643,6 +643,12 @@
     <Content Include="Content\RTL3.min.css">
       <DependentUpon>RTL3.css</DependentUpon>
     </Content>
+    <Content Include="Content\Search.css">
+      <DependentUpon>Search.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Search.min.css">
+      <DependentUpon>Search.less</DependentUpon>
+    </Content>
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
@@ -665,25 +671,25 @@
       <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.min.css">
-      <DependentUpon>SiteMobile.css</DependentUpon>
+      <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.css">
       <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.min.css">
-      <DependentUpon>SiteMobileRtl.css</DependentUpon>
+      <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
     </Content>
     <Content Include="Content\Static.min.css">
-      <DependentUpon>Static.css</DependentUpon>
+      <DependentUpon>Static.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.min.css">
-      <DependentUpon>StaticRtl.css</DependentUpon>
+      <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
@@ -732,7 +738,7 @@
     <Content Include="Images\code-icon1.png" />
     <Content Include="Images\comment-sprite.png" />
     <Content Include="Images\common13-sprite.png" />
-    <Content Include="Images\common7-sprite.png" />
+    <Content Include="Images\common14-sprite.png" />
     <Content Include="Images\cursor.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
@@ -899,6 +905,7 @@
     <Content Include="Content\ItemMobile.less" />
     <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Content\QnA.less" />
+	<Content Include="Content\Search.less" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\elasticTextBox.js" />

@@ -65,81 +65,84 @@
                 <input id="g_searchQ" autocomplete="off"
                        type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
                 <button type="submit"></button>
-                <div class="searchDD">
+                @*Guy: please add the class 'allResults' when the show all button needs to appear at the end of the list*@
+                <div class="searchDD allResults">
                     <h3>Course / Departments</h3>
-                    <ul class="courseResults">
-                        <li class="courseItem">
-                            <img class="courseImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="courseDetails allDetails">
-                                <div class="courseTitle semiFont"><span class="boldPart">a</span>nt</div>
-                                <span class="courseProf">Professor Jinks</span>
-                                <span class="courseID">12351243</span>
+                    <ul class="searchList courseResults">
+                        <li class="searchItem">
+                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            @*Guy: Add the 'allDetails' class when we have both prof and code values*@
+                            <div class="searchDetails allDetails">
+                                <div class="searchTitle semiFont"><span class="boldPart">an</span>t</div>
+                                <span class="searchDetail">Professor Jinks</span>
+                                <span class="searchDetail">12351243</span>
                             </div>
                         </li>
-                        <li class="dptItem">
-                            <div class="courseDetails allDetails">
-                                <div class="dptTitle semiFont"><span class="boldPart">a</span>nt</div>
-                                <div class="dptDetails">Department with<span>courses</span></div>
+                        <li class="searchItem dpt">
+                            <div class="searchDetails">
+                                <div class="searchTitle semiFont"><span class="boldPart">a</span>nt</div>
+                                <div class="searchDetail">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
                             </div>
                         </li>
                     </ul>
                     <h3>Materials</h3>
-                    <ul class="itemResults">
-                        <li class="itemResult">
-                            <img class="courseImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="itemDetails">
-                                <div class="itemTitle semiFont"><span class="boldPart">a</span>nt</div>
-                                <div data-search-in="In:">Social history of Africa</div>
+                    <ul class="searchList itemResults">
+                        <li class="searchItem">
+                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <div class="searchDetails">
+                                <div class="searchTitle semiFont">eleph<span class="boldPart">an</span>t</div>
+                                <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
                             </div>
                         </li>
-                        <li class="itemResult">
-                            <img class="courseImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="itemDetails">
-                                <div class="itemTitle semiFont"><span class="boldPart">a</span>nt</div>
-                                <div data-search-in="In:">Social history of Africa</div>
+                        <li class="searchItem">
+                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <div class="searchDetails">
+                                <div class="searchTitle semiFont">eleph<span class="boldPart">an</span>t</div>
+                                <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
                             </div>
                         </li>
                     </ul>
                     <h3>People</h3>
-                    <ul class="peopleList">
-                        <li class="peopleItem">
-                            <img class="peopleImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div>Itsik Bitran</div>
+                    <ul class="searchList peopleList">
+                        <li class="searchItem">
+                            <img class="lFloat imgBorder" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
+                            <div class="searchTitle semiFont">Daniel David</div>
                         </li>
-                        <li class="peopleItem">
-                            <img class="peopleImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div>Daniel David</div>
+                        <li class="searchItem">
+                            <img class="lFloat imgBorder" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
+                            <div class="searchTitle semiFont">Itsik Bitran</div>
                         </li>
                     </ul>
                     <h3>Results from other universities</h3>
-                    <ul class="otherResults">
-                        <li class="otherItem courseItem">
-                            <img class="courseImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="courseDetails allDetails">
-                                <div class="courseTitle semiFont"><span class="boldPart">a</span>nt</div>
-                                <span class="courseProf">Professor Jinks</span>
-                                <span class="courseID">12351243</span>
+                    <ul class="searchList otherResults">
+                        <li class="searchItem">
+                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            @*Guy: Add the 'allDetails' class when we have both prof and code values*@
+                            <div class="searchDetails allDetails">
+                                <div class="searchTitle semiFont"><span class="boldPart">an</span>t</div>
+                                <span class="searchDetail">Professor Jinks</span>
+                                <span class="searchDetail">12351243</span>
                             </div>
                         </li>
-                        <li class="otherItem dptItem">
-                            <div class="courseDetails allDetails">
-                                <div class="dptTitle semiFont"><span class="boldPart">a</span>nt</div>
-                                <div class="dptDetails">Department with<span>courses</span></div>
+                        <li class="searchItem dpt">
+                            <div class="searchDetails">
+                                <div class="searchTitle semiFont"><span class="boldPart">a</span>nt</div>
+                                <div class="searchDetail">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
                             </div>
                         </li>
-                        <li class="otherItem peopleItem">
-                            <img class="peopleImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div>Itsik Bitran</div>
+                        <li class="searchItem">
+                            <img class="lFloat imgBorder" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
+                            <div class="searchTitle semiFont">Daniel David</div>
                         </li>
-                        <li class="itemResult">
-                            <img class="courseImg imgBorder" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" data-src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="itemDetails">
-                                <div class="itemTitle semiFont"><span class="boldPart">a</span>nt</div>
-                                <div data-search-in="In:">Social history of Africa</div>
+                        <li class="searchItem">
+                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <div class="searchDetails">
+                                <div class="searchTitle semiFont">eleph<span class="boldPart">an</span>t</div>
+                                <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
                             </div>
                         </li>
                     </ul>
-                    <a href="~/search">Show all results for <q>math</q></a>
+                    <a class="showAll" href="~/search">Show all results for <q>math</q></a>
                 </div>
             </form>
         </div>
