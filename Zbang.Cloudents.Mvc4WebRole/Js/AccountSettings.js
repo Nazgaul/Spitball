@@ -5,9 +5,7 @@
 
     "use strict";    
     cd.loadModel('account', 'AccountContext', function () {
-        $('[data-navigation]').removeAttr('data-navigation'); // force postback
-        //if (location.pathname.toLowerCase() === '/account/settings') {
-        //$(function () {
+        $('[data-navigation]').removeAttr('data-navigation'); // force postback        
         accountSettingsProfile();
         registerEvents();
         storage();

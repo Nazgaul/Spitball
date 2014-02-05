@@ -258,12 +258,6 @@
             });
         }
 
-
-        self.back = function () {
-            cd.pubsub.publish('nav', '/box/' + boxid);
-        };
-
-
         function isCommentShow() {
             if (document.getElementsByClassName('divWrapper').length) {
                 $('.commentBtn').parent().show();

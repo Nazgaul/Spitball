@@ -44,9 +44,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin, Version=5.7.5124.21494, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+    <Reference Include="AjaxMin, Version=4.97.4951.28478, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxMin.5.7.5124.21499\lib\net40\AjaxMin.dll</HintPath>
+      <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
     <Reference Include="Cobisi.EmailVerify.Net45">
       <HintPath>..\Bin\CobisiEmailVerify\Cobisi.EmailVerify.Net45.dll</HintPath>
@@ -248,6 +248,7 @@
     <Compile Include="Filters\AjaxCacheAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\CompressFilter.cs" />
+    <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\FlushHeaderAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NonAjaxAttribute.cs" />
@@ -915,7 +916,6 @@
     <Content Include="newrelic.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Js\Mobile\MWallViewModel.min.js.map">
       <DependentUpon>MWallViewModel.js</DependentUpon>
     </Content>
@@ -948,15 +948,16 @@
     <Content Include="NewRelicAgent_x64_2.21.84.0.msi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.3.js" />
-    <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4..js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.min.js" />
     <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <None Include="Scripts\jquery.slimscroll.min.js.map">
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
