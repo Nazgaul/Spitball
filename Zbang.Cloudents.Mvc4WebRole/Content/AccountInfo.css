@@ -9,6 +9,7 @@
   display: block;
   max-width: 550px;
   width: auto;
+  height: auto;
 }
 .headerRightWpr .userSection {
   margin-left: 70px;

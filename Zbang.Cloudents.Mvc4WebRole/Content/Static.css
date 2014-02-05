@@ -643,6 +643,12 @@ footer {
   transition: background, 0.2s linear;
   margin: 0 5px;
   border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  padding: 13px 0 13px 8px;
+  /*rtl*/
+  width: 99%;
 }
 .uniList li:last-child {
   border-bottom: none;
@@ -656,14 +662,6 @@ footer {
 }
 .uniList li:active {
   background: #ebebeb;
-}
-.uniList li a {
-  overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-  padding: 13px 0 13px 8px;
-  /*rtl*/
-  width: 99%;
 }
 .uniImg {
   display: inline-block;

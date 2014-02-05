@@ -2,7 +2,7 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*#region header (from _Layout3mobile) */
+/*#region header(from _Layout3mobile) */
 .numberCircle {
   right: auto;
   left: -10px;
@@ -244,7 +244,7 @@
   /*rtl*/
 }
 .uniList li a {
-  padding: 13px 8px 13px 0;
+  padding: 13px 13px 13px 5px;
   /*rtl*/
 }
 .uniImg + span {

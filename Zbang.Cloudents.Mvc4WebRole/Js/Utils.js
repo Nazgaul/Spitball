@@ -196,13 +196,16 @@
         });
     };
     var loaderOn = function () {
-        return getComputedStyle(document.querySelector('.loading'))
-                .getPropertyValue('display') !== 'none';
-            
+        var loader = document.querySelector('.loading');
+        if (!loader) {
+            return false;
+        }
+
+        return getComputedStyle(loader).getPropertyValue('display') !== 'none';            
     };
 
     var renderLoading = function (elem, timeout) {
-        if (loaderOn) {
+        if (loaderOn()) {
             return function () {};
         }
         var $elem, loaderHtml, topLocation, x;

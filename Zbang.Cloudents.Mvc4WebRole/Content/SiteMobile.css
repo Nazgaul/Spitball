@@ -2,7 +2,7 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*#region mixins */
+/*#region mixins  */
 /*#endregion */
 /*#region variables */
 /*#endregion */
@@ -1333,22 +1333,19 @@ header {
   color: #43392b;
   cursor: pointer;
   background: #fff;
-  padding: 0 5px;
   border-top: 1px solid #ccc;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  padding: 13px 5px 13px 13px;
+  /*rtl*/
+  width: 99%;
 }
 .uniList li:hover {
   background: #fafafa;
 }
 .uniList li:active {
   background: #ebebeb;
-}
-.uniList li a {
-  overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-  padding: 13px 0 13px 8px;
-  /*rtl*/
-  width: 99%;
 }
 .uniImg {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);

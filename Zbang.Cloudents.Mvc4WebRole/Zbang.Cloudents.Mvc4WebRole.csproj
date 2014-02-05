@@ -665,25 +665,25 @@
       <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.min.css">
-      <DependentUpon>SiteMobile.less</DependentUpon>
+      <DependentUpon>SiteMobile.css</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.css">
       <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.min.css">
-      <DependentUpon>SiteMobileRtl.less</DependentUpon>
+      <DependentUpon>SiteMobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
     </Content>
     <Content Include="Content\Static.min.css">
-      <DependentUpon>Static.less</DependentUpon>
+      <DependentUpon>Static.css</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.min.css">
-      <DependentUpon>StaticRtl.less</DependentUpon>
+      <DependentUpon>StaticRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
@@ -799,6 +799,7 @@
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\BoxSettings.js" />
+    <Content Include="Js\Search.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\bootstrapper2.js" />

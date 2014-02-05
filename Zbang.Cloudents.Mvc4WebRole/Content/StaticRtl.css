@@ -22,7 +22,7 @@
 }
 .headerActions.menuOpen {
   margin: 0 0 0 200px;
-  /*rtl*/
+  /*rtl */
 }
 .headerActions.menuOpen .sideBar {
   left: 0;
@@ -120,8 +120,6 @@
 .uniList {
   text-align: right;
   /*rtl*/
-}
-.uniList li a {
   padding: 13px 8px 13px 0;
   /*rtl*/
 }

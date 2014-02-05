@@ -702,6 +702,11 @@ footer{
         .transition(background, .2s linear);
         margin: 0 5px;
         border-bottom: 1px solid #ccc;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        padding: 13px 0 13px 8px; /*rtl*/
+        width: 99%;
     }
 
         li:last-child {
@@ -715,14 +720,6 @@ footer{
 
         li:active {
             background: #ebebeb;
-        }
-
-        li a {
-            overflow: hidden;
-            white-space: nowrap;
-            display: inline-block;
-            padding: 13px 0 13px 8px; /*rtl*/
-            width: 99%;
         }
 }
 

@@ -86,7 +86,7 @@
     });
     pubsub.subscribe('nav', function (url) {
         if (url === '/') {
-            url = '/dashboard';
+            url = '/dashboard/';
         }
         document.title = 'Cloudents';
         privateLocation.url = url;
@@ -180,6 +180,11 @@
                 }
                 userContext();
                 break;
+            case 'search':
+                if (!cd.register()) {
+                    location.href = '/account';
+                }
+                searchContext();
             default:
                 break;
         }
@@ -188,6 +193,10 @@
     }
     function userContext(data) {
         pubsub.publish('user');
+    }
+
+    function searchContext(data) {
+        pubsub.publish('search');
     }
 
     function inviteContext(data) {
@@ -356,6 +365,17 @@
                         }
                     });
                     break;
+                case 'search':
+                    dataContext.searchMp({
+                        success: function (html) {
+                            main.insertAdjacentHTML('beforeend', html);
+                            pubsub.publish('SearchContext', null, function () {
+                                searchContext(extData);
+                            });
+                        }
+                    });
+                    break;
+
                 default:
                     //some error 
                     break;
@@ -403,6 +423,9 @@
     });
     pubsub.subscribe('user_load', function () {
         showPage($('#user'));
+    });
+    pubsub.subscribe('search_load', function () {
+        showPage($('#search'));
     });
 
     function showPage(d) {
