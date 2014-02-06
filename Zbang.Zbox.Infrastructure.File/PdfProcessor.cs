@@ -159,7 +159,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 doc.Pages.Accept(textAbsorber);
                 var str = textAbsorber.Text;
                 str = Regex.Replace(str, @"\s+", " ");
-                return str.Substring(0, 400);
+                return str.Substring(0, Math.Min(400, str.Length));
             }
             catch (Exception ex)
             {

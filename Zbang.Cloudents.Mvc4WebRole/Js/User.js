@@ -127,10 +127,7 @@
             return self.userId() === cd.userDetail().nId;
         });
 
-        //self.inviteFriends = function (viewModel, e) {
-        //    pubsub.publish('nav', e.target.getAttribute('data-href'));
-        //};
-
+      
         //#region Boxes Section        
 
         self.commonBoxes = ko.observableArray();
@@ -351,7 +348,8 @@
 
             if (firstTime) {
                 user.removeAttribute('data-firstTime');
-                populateScore(parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10));
+                self.name(eById('upUsername').textContent);
+                populateScore(parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10));                
                 registerEvents();                
                 return;
             }
@@ -376,7 +374,7 @@
                 registerEvents();
             }
 
-            function registerEvents() { //not sure why this is happen twice in line 322 and 343.
+            function registerEvents() { 
                 var sendMessageBtn = eById('upSendMessage'),
                     accountSettingsBtn = eById('upAccountSettings'),
                     userName = eById('upUsername').textContent,
@@ -396,14 +394,15 @@
             }
 
             function populateScore(score) {
-                //if (score === 0 && self.viewSelf()) {
-                //    eById('pointsWpr').classList.add('empty');
-                //    return;
-                //}
+   
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children;
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
                     pointsListChildren[i].textContent = 0;
+                }
+
+                if (!cd.firstLoad){
+                    document.title = self.name() + ' | Cloudents';
                 }
 
                 pubsub.publish('user_load');
@@ -453,7 +452,7 @@
                 result = filterObjects(data.my, data.user, Friend);
                 self.commonFriends(result.common);
                 self.allFriends(result.all);
-                loadImages(eById('upFriendsSection'));
+                cd.loadImages(eById('upFriendsSection'));
                 var lengths = getFriendsLength(false);
                 setHeight(lengths.commonLength, lengths.allLength);
                 registerEvents();
@@ -461,15 +460,15 @@
                 function registerEvents() {
                     if (self.friendsShowAllVisible()) {
                         eById('friendsShow').onchange = function (e) {
-                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {                                
-                                self.maxCommonFriends(self.commonFriends().length);                                
+                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {                                                                                                
+                                self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
-                                loadImages(eById('upFriendsSection'));
+                                cd.loadImages(eById('upFriendsSection'));                                
                             }
 
                             lengths = getFriendsLength(this.checked);
-                            analytics.trackEvent('User Page', 'Friends List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
                             setHeight(lengths.commonLength, lengths.allLength);
+                            analytics.trackEvent('User Page', 'Friends List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
 
                         };
                     }
@@ -514,7 +513,7 @@
                 result = filterBoxes(data);
                 self.commonBoxes(result.common);
                 self.followingBoxes(result.all); 
-                loadImages(eById('upCoursesSection'));
+                cd.loadImages(eById('upCoursesSection'));
                 var lengths = getBoxesLength(false);
                 setHeight(lengths.commonLength, lengths.followingLength);
 
@@ -546,7 +545,7 @@
                             if (self.maxCommonBoxes() < self.commonBoxes().length || self.maxFollowingBoxes() < self.followingBoxes().length) {                     
                                 self.maxCommonBoxes(self.commonBoxes().length);                             
                                 self.maxFollowingBoxes(self.followingBoxes().length);
-                                loadImages(eById('upCoursesSection'));
+                                cd.loadImages(eById('upCoursesSection'));
                             }
 
                             lengths = getBoxesLength(this.checked);
@@ -604,7 +603,7 @@
                 });
 
                 self.invites(map);
-                loadImages(eById('upInvitesSection'));
+                cd.loadImages(eById('upInvitesSection'));
 
                 setHeight(getInvitesLength(false));
                 registerEvents();
@@ -615,7 +614,7 @@
 
                             if (self.maxInvites() < self.invites().length) {                              
                                 self.maxInvites(self.invites().length);
-                                loadImages(eById('upInvitesSection'));
+                                cd.loadImages(eById('upInvitesSection'));
                             }
 
 
@@ -693,27 +692,7 @@
                         $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
                         $('#filesSection').show();
                 }
-            });
-
-            //    // i move the call from the subpub because subpub is not singleton
-            //    var options = document.querySelectorAll('.upUploads input[type=radio]'),
-            //        prev = null;
-            //    for (var i = 0, l = options.length; i < l; i++) {
-            //        options[i].onchange = function (e) {
-            //            switch (this.id) {
-            //                case 'upFiles':
-            //                    getFilesData();
-            //                    break;
-            //                case 'upQuestions':
-            //                    getQuestionsData();
-            //                    break;
-            //                case 'upAnswers':
-            //                    getAnswersData();
-            //                    break;
-            //            }
-            //        };
-            //    }
-
+            });          
         }
 
         function setContainerHeight(list, item, itemsLength, itemsInRow) {
@@ -725,8 +704,7 @@
             if (!item) {
                 list.style.height = '0px';
                 return;
-            }
-            console.log($(item).outerHeight(true));
+            }            
             var style = getComputedStyle(item);
             var innerHeight = style.getPropertyValue('height'),
             marginTop = style.getPropertyValue('margin-top'),
@@ -744,10 +722,7 @@
                 parseInt(paddingTop !== '' ? paddingTop : '0', 10) +
                 parseInt(paddingBottom !== '' ? paddingBottom : '0', 10),
                 height;
-
-            //if (itemHeight === 116) {
-            //    itemHeight += 4;
-            //}
+        
             height = Math.ceil(itemsLength / itemsInRow) * itemHeight;
 
             list.style.height = height + 'px';
@@ -805,18 +780,6 @@
                 })(loader);
                 
             };
-        }
-
-        function loadImages(list) {
-            var elements = $(list).find('[data-src]'),
-                elm;
-            for (var i = 0, l = elements.length; i < l; i++) {
-                elm = elements[i];
-                elm.src = elm.getAttribute('data-src');
-            }
-        }
+        }        
     }
-
-
-
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);

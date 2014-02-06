@@ -3,7 +3,7 @@
         return;
     }
 
-  
+    cd.firstLoad = true;
 
     var privateLocation = {
         title: document.title,
@@ -68,7 +68,6 @@
 
 
         e.preventDefault();
-        document.title = 'Cloudents';
         privateLocation.url = this.pathname;
         if (location.hash) {
             location.hash = '';
@@ -88,7 +87,6 @@
         if (url === '/') {
             url = '/dashboard/';
         }
-        document.title = 'Cloudents';
         privateLocation.url = url;
         // mobile user create box redirect doesnt remove pop up
         if (location.hash) {
@@ -120,6 +118,8 @@
     };
 
     function changeHistoryState() {
+        cd.firstLoad = false;
+
         if (window.history && window.history.pushState) {
             if (privateLocation.url && privateLocation.url.charAt(0) !== '/') {
                 privateLocation.url = '/' + privateLocation.url;
@@ -464,7 +464,8 @@
             if (historyNav.length > 0) {
                 for (var i = historyNav.length - 1; i >= 0; i--) {
                     if (historyNav[i].url.indexOf('dashboard') > -1 ||
-                        historyNav[i].url.indexOf('library') > -1) {
+                        historyNav[i].url.indexOf('library') > -1 ||
+                        historyNav[i].url.indexOf('user') > -1) {
                         if (historyNav[i].url.charAt(0) !== '/') {
                             historyNav[i].url = '/' + historyNav[i].url;
                         }
@@ -482,4 +483,5 @@
     cd.getParameterFromUrl = function (i) {
         return getParameterFromUrl(i);
     };
+
 })(jQuery, cd, cd.pubsub, cd.data, cd.analytics);

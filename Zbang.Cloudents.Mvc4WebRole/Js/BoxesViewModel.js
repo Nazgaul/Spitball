@@ -160,6 +160,9 @@
             var boxes = data;
             
             self.boxes([]);
+            if (!cd.firstLoad){
+                document.title = JsResources.Dashboard + ' | Cloudents';
+            }
             cd.pubsub.publish('dashboard_load');
             if (!boxes.length) {
                 self.loadedAnimation(true);
@@ -179,6 +182,7 @@
             var tt = new TrackTiming('Dashboard', 'Render time of boxes');
             tt.startTime();
             self.boxes(arr);
+            cd.loadImages(document.getElementById('dash_right'));
             tt.endTime();
             tt.send();
             cd.pubsub.publish('boxGroup', arrids);

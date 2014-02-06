@@ -87,7 +87,7 @@
             <li class="box" data-bind="attr: { id: 'dashB' + uid }">
                 <a data-navigation="Box" data-bind="attr: { href: boxUrl, title: name }">
                     <div>
-                        <img class="boxImg" data-bind="attr: { src: boxPicture }" alt="" width="77" height="98" />
+                        <img class="boxImg" data-bind="attr: { 'data-src': boxPicture }" alt="" width="77" height="98" />
                         <ul class="boxHoverList">
                             <li class="hoverItem itemImg" data-bind="text: itemCount"></li>
                             <li class="hoverItem memberImg" data-bind="text: membersCount"></li>

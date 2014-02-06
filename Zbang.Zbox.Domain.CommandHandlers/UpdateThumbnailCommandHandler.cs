@@ -34,8 +34,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 file.ItemContentUrl = command.BlobName;
                 file.Name = Path.GetFileNameWithoutExtension(file.Name) + Path.GetExtension(command.BlobName);
             }
-           
-            
+
+            file.Content = command.FileContent;
             if (string.IsNullOrWhiteSpace(command.ThumbnailUrl))
             {
                  m_ItemRepository.Save(file);
@@ -53,7 +53,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return;
             }
             UpdateThumbail(command, file);
-            file.Content = command.FileContent;
             m_ItemRepository.Save(file);
 
         }
