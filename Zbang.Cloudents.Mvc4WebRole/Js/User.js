@@ -127,10 +127,7 @@
             return self.userId() === cd.userDetail().nId;
         });
 
-        //self.inviteFriends = function (viewModel, e) {
-        //    pubsub.publish('nav', e.target.getAttribute('data-href'));
-        //};
-
+      
         //#region Boxes Section        
 
         self.commonBoxes = ko.observableArray();
@@ -376,7 +373,7 @@
                 registerEvents();
             }
 
-            function registerEvents() { //not sure why this is happen twice in line 322 and 343.
+            function registerEvents() { 
                 var sendMessageBtn = eById('upSendMessage'),
                     accountSettingsBtn = eById('upAccountSettings'),
                     userName = eById('upUsername').textContent,
@@ -396,10 +393,7 @@
             }
 
             function populateScore(score) {
-                //if (score === 0 && self.viewSelf()) {
-                //    eById('pointsWpr').classList.add('empty');
-                //    return;
-                //}
+   
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children;
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
@@ -695,27 +689,7 @@
                         $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
                         $('#filesSection').show();
                 }
-            });
-
-            //    // i move the call from the subpub because subpub is not singleton
-            //    var options = document.querySelectorAll('.upUploads input[type=radio]'),
-            //        prev = null;
-            //    for (var i = 0, l = options.length; i < l; i++) {
-            //        options[i].onchange = function (e) {
-            //            switch (this.id) {
-            //                case 'upFiles':
-            //                    getFilesData();
-            //                    break;
-            //                case 'upQuestions':
-            //                    getQuestionsData();
-            //                    break;
-            //                case 'upAnswers':
-            //                    getAnswersData();
-            //                    break;
-            //            }
-            //        };
-            //    }
-
+            });          
         }
 
         function setContainerHeight(list, item, itemsLength, itemsInRow) {
@@ -814,7 +788,4 @@
             }
         }
     }
-
-
-
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
