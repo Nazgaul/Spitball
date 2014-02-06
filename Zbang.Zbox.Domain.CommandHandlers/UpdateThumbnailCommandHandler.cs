@@ -53,6 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return;
             }
             UpdateThumbail(command, file);
+            file.Content = command.FileContent;
             m_ItemRepository.Save(file);
 
         }
@@ -69,10 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 file.Box.AddPicture(command.ThumbnailUrl);
                 m_BoxRepository.Save(file.Box);
             }
-            if (file.ContentUpdateTime == DateTime.MinValue)
-            {
-                file.UpdateContentUpdateTime();
-            }
+           
 
         }
     }

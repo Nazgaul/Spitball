@@ -11,7 +11,7 @@ using Zbang.Zbox.Infrastructure.File;
 using System.IO;
 using System.Collections.Generic;
 
-namespace Zbang.Zbox.WorkerRole.OneTimeUpdates
+namespace Zbang.Cloudents.OneTimeWorkerRole
 {
     public class UpdateThumbnails : IUpdateThumbnails
     {

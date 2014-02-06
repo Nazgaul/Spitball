@@ -38,7 +38,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             file.ItemContentUrl = message.BlobName;
             file.ThumbnailBlobName = ThumbnailProvider.DefaultFileTypePicture;
-            file.UpdateContentUpdateTime();
            // TriggerGenerateThumbnail(file.ItemContentUrl, file.Id);
 
             m_ItemRepository.Save(file);

@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
 
-            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl);
+            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl,"xxxx");
             var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository);
 
             commandHandle.Handle(someCommand);
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
 
-            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl);
+            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl,"xxx");
             var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository);
 
             commandHandle.Handle(someCommand);

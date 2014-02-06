@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -128,7 +129,11 @@ namespace Zbang.Zbox.Infrastructure.File
                         ImageResizer.ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
                         m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult
+                        {
+                            ThumbnailName = thumbnailBlobAddressUri,
+                            FileTextContent = ExtractDocumentText(word)
+                        });
                     }
                 }
             }
@@ -136,6 +141,21 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 TraceLog.WriteError("PreProcessFile word", ex);
                 return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+            }
+        }
+
+        private string ExtractDocumentText(Document doc)
+        {
+            try
+            {
+                var str = doc.ToString(SaveFormat.Text);
+                str = Regex.Replace(str, @"\s+", " ");
+                return str.Substring(0, 400);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Failed to extract text from doc", ex);
+                return string.Empty;
             }
         }
 
