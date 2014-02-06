@@ -37,8 +37,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 using (var sr = m_BlobProvider.DownloadFile(blobName))
                 {
-                    word = new Document(sr);
                     SetLicense();
+                    word = new Document(sr);
+                   
                 }
 
                 ImageSaveOptions imgOptions = new ImageSaveOptions(SaveFormat.Jpeg);

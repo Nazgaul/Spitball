@@ -47,12 +47,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Profiles" />
     <Folder Include="Zbang.Cloudents.OneTimeWorkerRoleContent\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Zbang.Cloudents.OneTimeWorkerRoleContent\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishProfile Include="Profiles\ZboxOneTimeUpadteProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
