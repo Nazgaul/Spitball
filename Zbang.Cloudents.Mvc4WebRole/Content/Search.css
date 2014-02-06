@@ -8,6 +8,7 @@
   border-radius: 5px;
   background: #fff;
   overflow: hidden;
+  min-height: 88px;
 }
 .searchDD h3 {
   background: #f9f9f9;
@@ -38,6 +39,40 @@
 .searchDD.allResults .showAll {
   display: block;
 }
+.searchDD.noResults {
+  text-align: center;
+}
+.searchDD.noResults .searchList,
+.searchDD.noResults h3,
+.searchDD.noResults .showAll {
+  display: none;
+}
+.emptySearch {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  margin-top: 25px;
+}
+.emptySearch:before {
+  content: '';
+  display: inline-block;
+  background: #c2c2c2;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  margin: -1px 6px 0 0;
+  vertical-align: middle;
+}
+.emptySearch:after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 16px;
+  position: absolute;
+  top: 9px;
+  left: 7px;
+  background: url(/Images/common14-sprite.png) -294px -33px no-repeat;
+}
 .searchList {
   margin: 6px 0;
 }
@@ -58,6 +93,9 @@
 }
 .searchItem > .searchTitle {
   margin-left: 56px;
+}
+.searchItem .userImg {
+  margin-left: 3px;
 }
 .searchImg {
   float: left;

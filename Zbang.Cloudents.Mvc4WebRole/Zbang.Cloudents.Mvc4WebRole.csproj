@@ -660,7 +660,7 @@
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
     <Content Include="Content\Sidebar.min.css">
-      <DependentUpon>Sidebar.less</DependentUpon>
+      <DependentUpon>Sidebar.css</DependentUpon>
     </Content>
     <Content Include="Content\Site3.css">
       <DependentUpon>Site3.less</DependentUpon>
