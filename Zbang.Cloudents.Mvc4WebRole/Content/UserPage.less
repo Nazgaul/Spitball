@@ -432,8 +432,7 @@
     background: #fff;
     border-top: 1px solid @borderColor;
     border-left: 1px solid @borderColor;
-    border-right: 1px solid @borderColor;
-
+    border-right: 1px solid @borderColor;    
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     padding: 15px 12px 0 12px;   
@@ -441,7 +440,8 @@
     .boxSizing;
 
     &.truncated.truncated {  // repeated truncated class for extra specificity
-        padding-bottom: 38px;
+        border-bottom-left-radius:8px;
+        border-bottom-right-radius:8px;
     }
 
     h4 {
@@ -539,7 +539,7 @@
     
     &:checked
     {
-        ~ label
+        + label
         {
             &:before
             {

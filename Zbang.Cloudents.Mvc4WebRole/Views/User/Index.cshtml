@@ -123,14 +123,14 @@
         <div class="upContent">
             <section class="upCourses" data-bind="visible: CoursesSectionVisible()">
                 <h2>@UserResources.CoursesGroups</h2>
-                <div id="upCoursesSection" class="upSectionWpr" @*data-bind="css: { truncated : CoursesShowAllVisible()}"*@>                    
+                <div id="upCoursesSection" class="upSectionWpr" data-bind="css: { truncated : CoursesShowAllVisible()}">
                     <!--ko if:commonBoxesVisible()-->
                     <h4 class="semiFont">@UserResources.InCommon</h4>
                     <ul class="inCommonList clearfix">
                         <!--ko foreach:commonBoxes.slice(0,maxCommonBoxes())-->
                         <li class="box">
                             <a data-bind="attr: { href : url }" data-navigation="box">
-                                <img class="boxImg" alt="" width="74" height="98" src="" data-bind="attr:{ src:image }">
+                                <img class="boxImg" alt="" width="74" height="98" src="" data-bind="attr:{ 'data-src':image }">
                                 <div class="boxWpr clamp2">
                                     <span data-bind="text: name" class="boxName"></span>
                                 </div>
@@ -147,7 +147,7 @@
                         <!--ko foreach:followingBoxes.slice(0,maxFollowingBoxes())-->
                         <li class="box">
                             <a data-bind="attr: { href: url }" data-navigation="box">
-                                <img class="boxImg" alt="" width="74" height="98" src="" data-bind="attr:{ src:image }">
+                                <img class="boxImg" alt="" width="74" height="98" src="" data-bind="attr:{ 'data-src':image }">
                                 <div class="boxWpr clamp2">
                                     <span class="boxName" data-bind="text: name"></span>
                                 </div>
@@ -165,7 +165,7 @@
             <!--/ko-->
             <section data-bind="visible: friendSectionVisible()" class="upFriends">
                 <h2>@SharedResources.Friends</h2>
-                <div id="upFriendsSection" class="upSectionWpr" @*data-bind="css: { truncated : friendsShowAllVisible()}"*@>
+                <div id="upFriendsSection" class="upSectionWpr" data-bind="css: { truncated : friendsShowAllVisible()}">
                    
                     <!--ko if:commonFriendsVisible()-->
                     <!--ko ifnot:viewSelf()-->
@@ -174,7 +174,7 @@
                     <ul class="inCommonList">
                         <!--ko foreach:commonFriends.slice(0,maxCommonFriends())-->
                         <li class="upFriend calloutTrgr" data-bind="attr: { 'data-uid' : id }">
-                            <a data-navigation="user" data-bind="attr : { href : url}"><img class="upFriendImg" data-bind="attr: {src : image}" src="" width="74" height="74" /></a>
+                            <a data-navigation="user" data-bind="attr : { href : url}"><img class="upFriendImg" data-bind="attr: {'data-src' : image}" src="" width="74" height="74" /></a>
                             <div class="friendName clamp2" data-bind="text: name"></div>
                         </li>
                         <!--/ko-->
@@ -187,7 +187,7 @@
                     <ul class="inAllFriendList">
                         <!--ko foreach:allFriends.slice(0,maxAllFriends())-->
                         <li class="upFriend calloutTrgr" data-bind="attr: { 'data-uid' : id }">
-                            <a href="" data-navigation="user" data-bind="attr : { href : url } "><img class="upFriendImg" data-bind="attr: {src : image }" src="" width="74" height="74" /></a>
+                            <a href="" data-navigation="user" data-bind="attr : { href : url } "><img class="upFriendImg" data-bind="attr: {'data-src' : image }" src="" width="74" height="74" /></a>
                             <div class="friendName clamp2" data-bind="text: name"></div>
                         </li>
                         <!--/ko-->
@@ -204,16 +204,16 @@
                 @*<button type="button" class="inviteFriendBtn btn3 rFloat" data-navigation="invite" data-click="inviteFriends" data-href="@Url.Action("Index","Invite")">@SharedResources.InviteFriends</button>*@
                 <a data-navigation="invite" href="@Url.Action("Index", "Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
-                <div id="upInvitesSection" class="upSectionWpr" @*data-bind="css: { truncated : invitesShowAllVisible()}"*@>
+                <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : invitesShowAllVisible()}">
                    
                     <ul id="upInviteList" class="upInviteList" data-up-pending="@SharedResources.Pending" data-up-joined="@SharedResources.ActiveMember">
                         <!--ko foreach:invites.slice(0,maxInvites())-->
                         <li class="upInviteItem" data-bind="css : $root.invitePending(status)">
-                            <img class="upFriendImg" width="74" height="74" data-bind="attr : { src : userImage }" />
+                            <img class="upFriendImg" width="74" height="74" data-bind="attr : { 'data-src' : userImage }" />
                             <div class="usrName semiFont elps" data-bind="text : userName"></div>
                             <div class="inviteStatus" data-bind="text: $root.inviteStatus(status)"></div>
                             <div class="invitedToWpr">
-                                <img class="upImg" alt="" width="28" height="36" data-bind="attr : { src : inviteImage }" />
+                                <img class="upImg" alt="" width="28" height="36" data-bind="attr : { 'data-src' : inviteImage }" />
                                 <div class="invitedTo clamp2" data-bind="text : name"></div>
                             </div>
                             <button type="button" class="btn1" data-bind="visible : inviteType === 'invite'" data-click="reInvite" data-inv-sent="@SharedResources.Sent">@SharedResources.Reinvite</button>
