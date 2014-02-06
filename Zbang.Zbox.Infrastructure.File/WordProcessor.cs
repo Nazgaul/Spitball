@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public WordProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
-
+            SetLicense();
         }
 
         private void SetLicense()
@@ -107,8 +107,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 using (var sr = m_BlobProvider.DownloadFile(blobName))
                 {
-                    word = new Document(sr);
                     SetLicense();
+                    word = new Document(sr);
+
                 }
 
                 ImageSaveOptions imgOptions = new ImageSaveOptions(SaveFormat.Jpeg);
@@ -150,7 +151,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var str = doc.ToString(SaveFormat.Text);
                 str = Regex.Replace(str, @"\s+", " ");
-                return str.Substring(0, 400);
+                return str.Substring(0, Math.Min(400, str.Length));
             }
             catch (Exception ex)
             {

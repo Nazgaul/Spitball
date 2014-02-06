@@ -3,6 +3,15 @@
   <WorkerRole name="Zbang.Cloudents.OneTimeWorkerRole" vmsize="Small">
     <Imports>
       <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
     </Imports>
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" />
+      <Setting name="ZBox" />
+    </ConfigurationSettings>
+    <LocalResources>
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="500" />
+    </LocalResources>
   </WorkerRole>
 </ServiceDefinition>

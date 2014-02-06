@@ -116,8 +116,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 using (var stream = m_BlobProvider.DownloadFile(blobName))
                 {
-                    pptx = new Presentation(stream);
                     SetLicense();
+                    pptx = new Presentation(stream);
+                   
                 }
 
                 using (var img = pptx.Slides[0].GetThumbnail(1, 1))
@@ -186,7 +187,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         }
 
                 var str = Regex.Replace(sb.ToString(), @"\s+", " ");
-                return str.Substring(0, 400);
+                return str.Substring(0, Math.Min(400, str.Length));
             }
             catch (Exception ex)
             {
