@@ -123,11 +123,7 @@
         <div class="upContent">
             <section class="upCourses" data-bind="visible: CoursesSectionVisible()">
                 <h2>@UserResources.CoursesGroups</h2>
-                <div id="upCoursesSection" class="upSectionWpr" data-bind="css: { truncated : CoursesShowAllVisible()}">
-                    <input type="checkbox" class="upCb" id="coursesShow">
-                    <!--ko if:CoursesShowAllVisible()-->
-                    <label id="coursesShowLabel" for="coursesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
-                    <!--/ko-->
+                <div id="upCoursesSection" class="upSectionWpr" @*data-bind="css: { truncated : CoursesShowAllVisible()}"*@>                    
                     <!--ko if:commonBoxesVisible()-->
                     <h4 class="semiFont">@UserResources.InCommon</h4>
                     <ul class="inCommonList clearfix">
@@ -163,13 +159,14 @@
                     <!--/ko-->
                 </div>
             </section>
+            <!--ko if:CoursesShowAllVisible()-->
+            <input type="checkbox" class="upCb" id="coursesShow" />
+            <label id="coursesShowLabel" for="coursesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            <!--/ko-->
             <section data-bind="visible: friendSectionVisible()" class="upFriends">
                 <h2>@SharedResources.Friends</h2>
-                <div id="upFriendsSection" class="upSectionWpr" data-bind="css: { truncated : friendsShowAllVisible()}">
-                    <input type="checkbox" class="upCb" id="friendsShow">
-                    <!--ko if:friendsShowAllVisible()-->
-                    <label id="friendsShowLabel" for="friendsShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
-                    <!--/ko-->
+                <div id="upFriendsSection" class="upSectionWpr" @*data-bind="css: { truncated : friendsShowAllVisible()}"*@>
+                   
                     <!--ko if:commonFriendsVisible()-->
                     <!--ko ifnot:viewSelf()-->
                     <h4 class="semiFont">@UserResources.InCommon</h4>
@@ -199,15 +196,16 @@
                 </div>
 
             </section>
+            <!--ko if:friendsShowAllVisible()-->
+            <input type="checkbox" class="upCb" id="friendsShow">
+            <label id="friendsShowLabel" for="friendsShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            <!--/ko-->
             <section class="upInvites" data-bind="visible: viewSelf(), css : invitesEmpty()">
                 @*<button type="button" class="inviteFriendBtn btn3 rFloat" data-navigation="invite" data-click="inviteFriends" data-href="@Url.Action("Index","Invite")">@SharedResources.InviteFriends</button>*@
                 <a data-navigation="invite" href="@Url.Action("Index", "Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
-                <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : invitesShowAllVisible()}">
-                    <input type="checkbox" class="upCb" id="invitesShow">
-                    <!--ko if:invitesShowAllVisible()-->
-                    <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
-                    <!--/ko-->
+                <div id="upInvitesSection" class="upSectionWpr" @*data-bind="css: { truncated : invitesShowAllVisible()}"*@>
+                   
                     <ul id="upInviteList" class="upInviteList" data-up-pending="@SharedResources.Pending" data-up-joined="@SharedResources.ActiveMember">
                         <!--ko foreach:invites.slice(0,maxInvites())-->
                         <li class="upInviteItem" data-bind="css : $root.invitePending(status)">
@@ -231,6 +229,10 @@
 
                 </div>
             </section>
+            <!--ko if:invitesShowAllVisible()-->
+            <input type="checkbox" class="upCb" id="invitesShow">
+            <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            <!--/ko-->
         </div>
     </div>
 </div>

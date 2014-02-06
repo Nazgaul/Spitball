@@ -152,7 +152,7 @@
                 followingBoxesLength = self.followingBoxes().length,
                 maxFollowingBoxes = self.maxFollowingBoxes();
 
-            return (commonBoxesLength > consts.MINCOMMONBOXESVISIBLE || followingBoxesLength > consts.MINFOLLOWBOXESVISIBLE);
+            return (commonBoxesLength > consts.MINCOMMONBOXESVISIBLE || followingBoxesLength > consts.MINFOLLOWBOXESVISIBLE) && !self.viewSelf();
 
         });
         self.CoursesSectionVisible = ko.computed(function () {
@@ -323,17 +323,27 @@
             $('.upTabContent').hide();
             $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
             $('#filesSection').show();
-            eById('coursesShow').checked = false;
-            eById('friendsShow').checked = false;
-            eById('invitesShow').checked = false;
+            var cB = eById('coursesShow');
+            if (cB){
+                cB.checked = false;
+            }
+            cB = eById('friendsShow');
+
+            if (cB){
+                cB.checked = false;
+            }
+            cB = eById('invitesShow');
+            if (cB){
+                cB.checked = false;
+            }          
             var f = eById('filesCount');
             f.textContent = '' + f.getAttribute('data-label');
 
-            var a = eById('answersCount');
-            a.textContent = '' + a.getAttribute('data-label');
+            f = eById('answersCount');
+            f.textContent = '' + f.getAttribute('data-label');
             
-            var q = eById('questionsCount');
-            q.textContent = '' + q.getAttribute('data-label');
+            f = eById('questionsCount');
+            f.textContent = '' + f.getAttribute('data-label');
         }
 
         function getInitData() {
@@ -457,6 +467,7 @@
                             }
 
                             lengths = getFriendsLength(this.checked);
+                            analytics.trackEvent('User Page', 'Friends List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
                             setHeight(lengths.commonLength, lengths.allLength);
 
                         };
@@ -537,6 +548,7 @@
                             }
 
                             lengths = getBoxesLength(this.checked);
+                            analytics.trackEvent('User Page', 'Course List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
 
                             setHeight(lengths.commonLength, lengths.followingLength);
 
@@ -604,6 +616,7 @@
 
 
                             setHeight(getInvitesLength(this.checked));
+                            analytics.trackEvent('User Page', 'Invite List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
 
                         };
                     }

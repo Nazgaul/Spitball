@@ -28,12 +28,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
     }
     public class StatisticItem
     {
-        public long Id { get; set; }
+        public long Uid { get; set; }
         public Zbang.Zbox.Infrastructure.Enums.StatisticsAction Action { get; set; }
 
         public override string ToString()
         {
-            return string.Format("Uid: {0} Action:{1}", Id, Action);
+            return string.Format("Uid: {0} Action:{1}", Uid, Action);
         }
     }
 }

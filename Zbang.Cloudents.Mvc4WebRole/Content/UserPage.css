@@ -4,7 +4,7 @@
 /*#endregion */
 .userPage {
   text-align: left;
-  /*rtl*/
+  /*rtl l*/
   color: #383838;
 }
 .userPage:after {
@@ -383,10 +383,12 @@
 }
 .upSectionWpr {
   background: #fff;
-  border: 1px solid #c2c2c2;
-  border-radius: 8px;
+  border-top: 1px solid #c2c2c2;
+  border-left: 1px solid #c2c2c2;
+  border-right: 1px solid #c2c2c2;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   padding: 15px 12px 0 12px;
-  overflow: hidden;
   position: relative;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -415,20 +417,15 @@
 }
 .upShowAll {
   display: block;
-  width: 100%;
   height: 38px;
   line-height: 38px;
   cursor: pointer;
   background: #f5f5f5;
   text-align: center;
   padding: 0 12px;
-  margin: 0 -12px;
-  border-top: 1px solid #c2c2c2;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  position: absolute;
-  bottom: 0;
+  border: 1px solid #c2c2c2;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 .upShowAll:after {
   content: '';
@@ -504,10 +501,8 @@
   -moz-transition: height 0.5s;
   -o-transition: height 0.5s;
   transition: height 0.5s;
-  margin-bottom: 8px;
 }
 .inAllFriendList {
-  margin-bottom: 20px;
   -webkit-transition: height 0.5s;
   -moz-transition: height 0.5s;
   -o-transition: height 0.5s;
@@ -543,6 +538,7 @@
   text-align: center;
   width: 76px;
   vertical-align: top;
+  margin-bottom: 20px;
 }
 .upFriend:nth-child(7n) {
   margin: 0;
@@ -555,6 +551,9 @@
 .friendName {
   line-height: 15px;
   height: 36px;
+}
+.upFriends + .upShowAll {
+  margin-top: -20px;
 }
 .upInvites .upSectionWpr {
   min-height: 167px;
