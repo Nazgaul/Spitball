@@ -132,7 +132,6 @@
     <Compile Include="Jobs\ProcessFile.cs" />
     <Compile Include="Jobs\IJob.cs" />
     <Compile Include="Jobs\MailProcess2.cs" />
-    <Compile Include="Jobs\ThumbnailProcess.cs" />
     <Compile Include="Jobs\UpdateDomainProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\ForgotPassword.cs" />

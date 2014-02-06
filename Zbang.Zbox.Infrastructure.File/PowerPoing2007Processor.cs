@@ -1,4 +1,5 @@
 ﻿using Aspose.Slides;
+using Aspose.Slides.Util;
 using ImageResizer;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -138,11 +140,16 @@ namespace Zbang.Zbox.Infrastructure.File
                         ImageResizer.ImageBuilder.Current.Build(img, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
                         m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
+                        var pptContent =  ExtractStringFromPpt(pptx);
                         if (pptx != null)
                         {
                             pptx.Dispose();
                         }
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult
+                        {
+                            ThumbnailName = thumbnailBlobAddressUri,
+                            FileTextContent = pptContent
+                        });
                     }
                 }
             }
@@ -152,6 +159,42 @@ namespace Zbang.Zbox.Infrastructure.File
                 return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
         }
+        private string ExtractStringFromPpt(Presentation ppt)
+        {
+            try
+            {
+                var sb = new StringBuilder();
+                ITextFrame[] textFramesSlideOne = SlideUtil.GetAllTextFrames(ppt, false);
+
+                //Loop through the Array of TextFrames
+                for (int i = 0; i < textFramesSlideOne.Length; i++)
+
+                    //Loop through paragraphs in current TextFrame
+                    foreach (Paragraph para in textFramesSlideOne[i].Paragraphs)
+
+                        //Loop through portions in the current Paragraph
+                        foreach (Portion port in para.Portions)
+                        {
+                            //Display text in the current portion
+                            sb.Append(port.Text);
+
+                            //Display font height of the text
+                            //Console.WriteLine(port.PortionFormat.FontHeight);
+
+                            //Display font name of the text
+                            //Console.WriteLine(port.PortionFormat.LatinFont.FontName);
+                        }
+
+                var str = Regex.Replace(sb.ToString(), @"\s+", " ");
+                return str.Substring(0, 400);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Filed to extract text", ex);
+                return string.Empty;
+            }
+        }
+
         public override string GetDefaultThumbnailPicture()
         {
             return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.PowerPointFileTypePicture;

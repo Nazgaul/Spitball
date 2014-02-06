@@ -66,11 +66,12 @@
                        type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
                 <button type="submit"></button>
                 @*Guy: please add the class 'allResults' when the show all button needs to appear at the end of the list*@
-                <div class="searchDD allResults">
+                @*Guy: please add the class 'noResults' when user query produces no search results*@
+                <div class="searchDD allResults noResults">
                     <h3>Course / Departments</h3>
-                    <ul class="searchList courseResults">
+                    <ul class="searchList">@*courseResults*@
                         <li class="searchItem">
-                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
                             <div class="searchDetails">
                                 <div class="searchTitle semiFont elps"><span class="boldPart">an</span>t</div>
                                 @*Guy: Add the 'allDetails' class to the professor when we have both prof and code values*@
@@ -86,16 +87,16 @@
                         </li>
                     </ul>
                     <h3>Materials</h3>
-                    <ul class="searchList itemResults">
+                    <ul class="searchList">@*itemResults*@
                         <li class="searchItem">
-                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
                             <div class="searchDetails">
                                 <div class="searchTitle semiFont elps">eleph<span class="boldPart">an</span>t</div>
                                 <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
                             </div>
                         </li>
                         <li class="searchItem">
-                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
                             <div class="searchDetails">
                                 <div class="searchTitle semiFont elps">eleph<span class="boldPart">an</span>t</div>
                                 <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
@@ -103,20 +104,20 @@
                         </li>
                     </ul>
                     <h3>People</h3>
-                    <ul class="searchList peopleList">
+                    <ul class="searchList">@*peopleList*@
                         <li class="searchItem">
-                            <img class="lFloat imgBorder" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
+                            <img class="lFloat imgBorder userImg" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
                             <div class="searchTitle semiFont elps">Daniel David</div>
                         </li>
                         <li class="searchItem">
-                            <img class="lFloat imgBorder" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
+                            <img class="lFloat imgBorder userImg" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
                             <div class="searchTitle semiFont elps">Itsik Bitran</div>
                         </li>
                     </ul>
                     <h3>Results from other universities</h3>
-                    <ul class="searchList otherResults">
+                    <ul class="searchList">@*otherResults*@
                         <li class="searchItem">
-                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
                             <div class="searchDetails">
                                 <div class="searchTitle semiFont elps"><span class="boldPart">an</span>t</div>
                                 <span class="searchDetail allDetails">Professor Jinks</span>
@@ -130,11 +131,11 @@
                             </div>
                         </li>
                         <li class="searchItem">
-                            <img class="lFloat imgBorder" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
+                            <img class="lFloat imgBorder userImg" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
                             <div class="searchTitle semiFont elps">Daniel David</div>
                         </li>
                         <li class="searchItem">
-                            <img class="searchImg imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
+                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
                             <div class="searchDetails">
                                 <div class="searchTitle semiFont elps">eleph<span class="boldPart">an</span>t</div>
                                 <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
@@ -142,6 +143,7 @@
                         </li>
                     </ul>
                     <a class="showAll" href="~/search">Show all results for <q>math</q></a>
+                    <div class="emptySearch">No results were found</div>
                 </div>
             </form>
         </div>

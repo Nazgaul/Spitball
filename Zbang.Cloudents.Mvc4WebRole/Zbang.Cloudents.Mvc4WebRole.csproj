@@ -654,13 +654,13 @@
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
     <Content Include="Content\Settings.min.css">
-      <DependentUpon>Settings.less</DependentUpon>
+      <DependentUpon>Settings.css</DependentUpon>
     </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
     <Content Include="Content\Sidebar.min.css">
-      <DependentUpon>Sidebar.less</DependentUpon>
+      <DependentUpon>Sidebar.css</DependentUpon>
     </Content>
     <Content Include="Content\Site3.css">
       <DependentUpon>Site3.less</DependentUpon>

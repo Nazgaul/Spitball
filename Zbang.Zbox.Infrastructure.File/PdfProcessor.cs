@@ -1,10 +1,12 @@
 ﻿using Aspose.Pdf;
 using Aspose.Pdf.Devices;
+using Aspose.Pdf.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -133,7 +135,11 @@ namespace Zbang.Zbox.Infrastructure.File
                             var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
                             m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, ms, "image/jpeg");
 
-                            return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                            return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult
+                            {
+                                ThumbnailName = thumbnailBlobAddressUri,
+                                FileTextContent = ExtractPdfText(pdfDocument)
+                            });
                         }
                     }
                 }
@@ -142,6 +148,23 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 TraceLog.WriteError("PreProcessFile pdf", ex);
                 return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+            }
+        }
+
+        private string ExtractPdfText(Document doc)
+        {
+            try
+            {
+                var textAbsorber = new TextAbsorber();
+                doc.Pages.Accept(textAbsorber);
+                var str = textAbsorber.Text;
+                str = Regex.Replace(str, @"\s+", " ");
+                return str.Substring(0, 400);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("trying to extract pdf text", ex);
+                return string.Empty;
             }
         }
         public override string GetDefaultThumbnailPicture()

@@ -28,10 +28,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class ShareController : BaseController
     {
         private readonly Lazy<IInviteLinkDecrypt> m_InviteLinkDecrypt;
+        private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
 
         public ShareController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            // IShortCodesCache shortToLongCache,
+            Lazy<IShortCodesCache> shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService,
             Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
             : base(zboxWriteService, zboxReadService,
@@ -39,6 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             formsAuthenticationService)
         {
             m_InviteLinkDecrypt = inviteLinkDecrypt;
+            m_ShortCodesCache = shortToLongCache;
         }
 
         [ZboxAuthorize, HttpGet]
@@ -277,8 +279,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return membersOnlyErrorPageRedirect;
                 }
 
-
-                var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxUid = values.BoxId });
+                var boxUid = m_ShortCodesCache.Value.LongToShortCode(values.BoxId);
+                var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxUid = boxUid });
                 return Redirect(urlToRedirect);
             }
             //we are here if user is not register to the system

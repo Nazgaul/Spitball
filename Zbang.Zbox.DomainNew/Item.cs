@@ -89,8 +89,9 @@ namespace Zbang.Zbox.Domain
     {
 
         public virtual string ThumbnailBlobName { get; set; }
-        public virtual DateTime? ContentUpdateTime { get; set; }
         public virtual int NumberOfDownloads { get; private set; }
+
+        public virtual string Content { get; set; }
 
 
         protected File()
@@ -102,12 +103,6 @@ namespace Zbang.Zbox.Domain
         {
 
             ThumbnailBlobName = iThumbnailBlobName;
-            ContentUpdateTime = DateTime.UtcNow;
-        }
-
-        public void UpdateContentUpdateTime()
-        {
-            ContentUpdateTime = DateTime.UtcNow;
         }
 
         public void IncreaseNumberOfDownloads()

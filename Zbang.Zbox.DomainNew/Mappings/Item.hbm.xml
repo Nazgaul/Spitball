@@ -35,8 +35,8 @@
     </subclass>
     <subclass name="File" discriminator-value="File">
       <property name="ThumbnailBlobName"/>
-      <property name="ContentUpdateTime" not-null="false"/>
       <property name="NumberOfDownloads"/>
+      <property name="Content" type="string" length="500" />
     </subclass>
   </class>
 </hibernate-mapping>

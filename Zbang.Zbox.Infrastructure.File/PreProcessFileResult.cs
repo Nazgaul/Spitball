@@ -11,6 +11,8 @@ namespace Zbang.Zbox.Infrastructure.File
         public string BlobName { get; set; }
         public string ThumbnailName { get; set; }
 
+        public string FileTextContent { get; set; }
+
         
     }
 }

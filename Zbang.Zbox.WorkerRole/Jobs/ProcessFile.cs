@@ -48,7 +48,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
         }
 
-        private  void Execute()
+        private void Execute()
         {
             m_QueueProcess.RunQueue(new CacheQueueName(), msg =>
             {
@@ -72,7 +72,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                             return true;
                         }
                         var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
-                        var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName, oldBlobName);
+                        var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName, oldBlobName, retVal.FileTextContent);
                         m_ZboxWriteService.UpdateThumbnailPicture(command);
                     }
                     return true;
