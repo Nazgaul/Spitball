@@ -25,11 +25,12 @@
                 $userMenu.slideUp(slideSpeed);
                 return;
             }
-            e.stopPropagation();
+            //e.stopPropagation();
+            event.stopImmediatePropagation();
             $userMenu.slideDown(slideSpeed);
         });
         $('body').click(function () {
-            $userMenu.slideUp(slideSpeed);
+           $userMenu.slideUp(slideSpeed);
         });
 
         $userMenu.find('[data-navigation="account"]').click(function () {

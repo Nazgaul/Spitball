@@ -395,7 +395,8 @@
   box-sizing: border-box;
 }
 .upSectionWpr.truncated.truncated {
-  padding-bottom: 38px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 .upSectionWpr h4 {
   padding-bottom: 4px;
@@ -483,10 +484,10 @@
             }
         }*/
 }
-.upCb:checked ~ label:before {
+.upCb:checked + label:before {
   content: attr(data-up-showless);
 }
-.upCb:checked ~ label:after {
+.upCb:checked + label:after {
   -moz-transform: scaleY(1);
   -webkit-transform: scaleY(1);
   -o-transform: scaleY(1);
