@@ -397,6 +397,7 @@
 .upSectionWpr.truncated.truncated {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  border-bottom: 1px solid #c2c2c2;
 }
 .upSectionWpr h4 {
   padding-bottom: 4px;

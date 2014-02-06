@@ -123,7 +123,7 @@
         <div class="upContent">
             <section class="upCourses" data-bind="visible: CoursesSectionVisible()">
                 <h2>@UserResources.CoursesGroups</h2>
-                <div id="upCoursesSection" class="upSectionWpr" data-bind="css: { truncated : CoursesShowAllVisible()}">
+                <div id="upCoursesSection" class="upSectionWpr" data-bind="css: { truncated : !CoursesShowAllVisible()}">
                     <!--ko if:commonBoxesVisible()-->
                     <h4 class="semiFont">@UserResources.InCommon</h4>
                     <ul class="inCommonList clearfix">
@@ -165,7 +165,7 @@
             <!--/ko-->
             <section data-bind="visible: friendSectionVisible()" class="upFriends">
                 <h2>@SharedResources.Friends</h2>
-                <div id="upFriendsSection" class="upSectionWpr" data-bind="css: { truncated : friendsShowAllVisible()}">
+                <div id="upFriendsSection" class="upSectionWpr" data-bind="css: { truncated : !friendsShowAllVisible()}">
                    
                     <!--ko if:commonFriendsVisible()-->
                     <!--ko ifnot:viewSelf()-->
@@ -204,7 +204,7 @@
                 @*<button type="button" class="inviteFriendBtn btn3 rFloat" data-navigation="invite" data-click="inviteFriends" data-href="@Url.Action("Index","Invite")">@SharedResources.InviteFriends</button>*@
                 <a data-navigation="invite" href="@Url.Action("Index", "Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
-                <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : invitesShowAllVisible()}">
+                <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : !invitesShowAllVisible()}">
                    
                     <ul id="upInviteList" class="upInviteList" data-up-pending="@SharedResources.Pending" data-up-joined="@SharedResources.ActiveMember">
                         <!--ko foreach:invites.slice(0,maxInvites())-->

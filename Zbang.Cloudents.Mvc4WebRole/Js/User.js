@@ -461,15 +461,17 @@
                 function registerEvents() {
                     if (self.friendsShowAllVisible()) {
                         eById('friendsShow').onchange = function (e) {
-                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {                                
-                                self.maxCommonFriends(self.commonFriends().length);                                
+                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {                                                                
+                                console.time('a');
+                                self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
                                 loadImages(eById('upFriendsSection'));
+                                console.timeEnd('a');
                             }
 
                             lengths = getFriendsLength(this.checked);
-                            analytics.trackEvent('User Page', 'Friends List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
                             setHeight(lengths.commonLength, lengths.allLength);
+                            analytics.trackEvent('User Page', 'Friends List', 'User clicked ' + (this.checked ? 'show more' : 'show less'));
 
                         };
                     }
@@ -725,8 +727,7 @@
             if (!item) {
                 list.style.height = '0px';
                 return;
-            }
-            console.log($(item).outerHeight(true));
+            }            
             var style = getComputedStyle(item);
             var innerHeight = style.getPropertyValue('height'),
             marginTop = style.getPropertyValue('margin-top'),
@@ -744,10 +745,7 @@
                 parseInt(paddingTop !== '' ? paddingTop : '0', 10) +
                 parseInt(paddingBottom !== '' ? paddingBottom : '0', 10),
                 height;
-
-            //if (itemHeight === 116) {
-            //    itemHeight += 4;
-            //}
+        
             height = Math.ceil(itemsLength / itemsInRow) * itemHeight;
 
             list.style.height = height + 'px';
