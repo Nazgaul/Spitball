@@ -833,6 +833,23 @@ select.inputText {
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+.upArrow {
+  position: relative;
+  top: -10px;
+  z-index: 1;
+  height: 10px;
+  overflow: hidden;
+}
+.upArrow:before {
+  z-index: -1;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 10px;
+  height: 10px;
+  bottom: -8px;
+  background: #f5f5f5;
+}
 .sectionHeader {
   height: 34px;
   line-height: 34px;
