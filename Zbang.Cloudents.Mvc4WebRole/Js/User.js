@@ -348,7 +348,8 @@
 
             if (firstTime) {
                 user.removeAttribute('data-firstTime');
-                populateScore(parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10));
+                self.name(eById('upUsername').textContent);
+                populateScore(parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10));                
                 registerEvents();                
                 return;
             }
@@ -398,6 +399,10 @@
                     pointsListChildren = pointsList.children;
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
                     pointsListChildren[i].textContent = 0;
+                }
+
+                if (!cd.firstLoad){
+                    document.title = self.name() + ' | Cloudents';
                 }
 
                 pubsub.publish('user_load');
@@ -455,12 +460,10 @@
                 function registerEvents() {
                     if (self.friendsShowAllVisible()) {
                         eById('friendsShow').onchange = function (e) {
-                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {                                                                
-                                console.time('a');
+                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {                                                                                                
                                 self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
-                                cd.loadImages(eById('upFriendsSection'));
-                                console.timeEnd('a');
+                                cd.loadImages(eById('upFriendsSection'));                                
                             }
 
                             lengths = getFriendsLength(this.checked);

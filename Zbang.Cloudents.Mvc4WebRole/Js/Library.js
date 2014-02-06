@@ -190,6 +190,16 @@
                 else {
                     self.backUrl('/' + libraryConst + '/' + result.parent.id + '/' + result.parent.name);
                 }
+
+                if (!cd.firstLoad) {
+                    var uniName = document.getElementById('univeristyName').textContent
+                    if (self.title()) {
+                        document.title = '{0} | {1} | Cloudents'.format(uniName, self.title());
+                    } else {
+                        document.title = '{0} | Cloudents'.format(uniName);                        
+                    }
+                }
+                
                 cd.pubsub.publish('lib_load');
 
             }

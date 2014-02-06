@@ -146,7 +146,9 @@
                 userType = data.userType;
                 otakim = data.otakim;
                 self.deleteAllow(checkDeleteAllow(data.userType));
-
+                if (!cd.firstLoad) {
+                    document.title = '{0} | {1}.{2} | Cloudents'.format(self.boxName(), self.itemName(), self.extension());
+                }
                 var itemPageLoad = new $.Deferred();
                 defferedArray.push(itemPageLoad);
                 cd.pubsub.publish('item_load', null, function () {

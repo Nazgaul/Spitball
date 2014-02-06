@@ -748,11 +748,12 @@
     };
 
     var loadImages = function (list) {
-        var images = $(list).find('[data-src]:not("[src]")');
+        var images = $(list).find('[data-src]');
         var image;
         for (var i = 0, l = images.length; i < l; i++) {
             image = images[i];
             image.src = image.getAttribute('data-src');
+            image.removeAttribute('data-src');
         }
     };
 

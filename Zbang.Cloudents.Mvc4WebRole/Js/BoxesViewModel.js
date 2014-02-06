@@ -160,6 +160,9 @@
             var boxes = data;
             
             self.boxes([]);
+            if (!cd.firstLoad){
+                document.title = JsResources.Dashboard + ' | Cloudents';
+            }
             cd.pubsub.publish('dashboard_load');
             if (!boxes.length) {
                 self.loadedAnimation(true);

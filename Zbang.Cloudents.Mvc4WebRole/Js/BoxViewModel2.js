@@ -73,11 +73,19 @@
             var that = this;
             var backData = cd.prevLinkData('box');
             if (!backData) {
+                that.name = JsResources.Dashboard;
+                that.url = '/dashboard/';
                 return;
             }
 
             if (backData.url.indexOf('dashboard') > -1) {
                 that.name = JsResources.Dashboard;
+                that.url = backData.url;
+                return;
+            }
+
+            if (backData.url.indexOf('user') > -1) {
+                that.name  = 'User page';
                 that.url = backData.url;
                 return;
             }
@@ -150,6 +158,9 @@
                         return $(this).data('link') + self.boxid;
                     });
 
+                if (!cd.firstLoad) {
+                    document.title = '{0} | {1} | Cloudents'.format(self.name(), self.ownerName());
+                }
                 cd.pubsub.publish('box_load', self.boxid);
                 //cd.pubsub.publish('init_clipboard', $('#box_CL'));
                 cd.pubsub.publish('perm', self.userType());
