@@ -114,9 +114,7 @@
             cd.loadImages(document.getElementById('BoxItemList'));
             tt.endTime();
             tt.send();
-            self.loadedAnimation(true);
-            
-            //cd.loadImages(document.querySelectorAll('.boxItem img')); //we use it like this because we want all images faster than jquery VERSION 14
+            self.loadedAnimation(true);                       
         }      
 
         //#region addItem
@@ -139,7 +137,7 @@
                 self.items.unshift(newItem);
                 cd.pubsub.publish('clear_cache');
                 //self.loadedAnimation(true);
-                //cd.loadImages($('.boxItem img:not("[src]")')) TODO VERSION 14
+                cd.loadImages(document.getElementById('BoxItemList'));
             } catch (e) {
             }
 

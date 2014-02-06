@@ -748,7 +748,7 @@
     };
 
     var loadImages = function (list) {
-        var images = $(list).find('[data-src]');
+        var images = $(list).find('[data-src]:not("[src]")');
         var image;
         for (var i = 0, l = images.length; i < l; i++) {
             image = images[i];
