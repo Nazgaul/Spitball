@@ -757,6 +757,23 @@
         }
     };
 
+    var conversion = {
+        table : {
+            'e': 'ק','r': 'ר','t': 'א','y': 'ט','u': 'ו','i': 'ן','o': 'ם',
+            'p': 'פ','a': 'ש','s': 'ד','d': 'ג','f': 'כ','g': 'ע','h': 'י',
+            'j': 'ח','k': 'ל','l': 'ך',';': 'ף','z': 'ז','x': 'ס','c': 'ב',
+            'v': 'ה','b': 'נ','n': 'מ','m': 'צ',',': 'ת','.': 'ץ'
+        },
+        convert : function (term) {
+            var result = '';
+            for (var i = 0, l = term.length; i < l ; i++) {
+                result += this.table[term[i].toLowerCase()] || term[i];
+            }
+            return result;
+        }
+    };
+
+    cd.conversion = conversion;
     cd.loadImages = loadImages;
     cd.ConvertToDate = ConvertToDate;
     //var eById = document.getElementById.bind(document);
