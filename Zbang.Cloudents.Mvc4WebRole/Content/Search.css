@@ -192,10 +192,21 @@
   content: '(' attr(data-stab-count) ')';
   display: inline-block;
 }
+.sTabs.sTab2 ~ .upArrow:before {
+  left: 127px;
+}
+.sTabs.sTab3 ~ .upArrow:before {
+  left: 237px;
+}
 .sTab1 ~ .sTabContent .sCourses,
 .sTab2 ~ .sTabContent .sMaterials,
 .sTab3 ~ .sTabContent .sMembers {
   display: block;
+}
+.sTab1 button:nth-child(1),
+.sTab2 button:nth-child(2),
+.sTab3 button:nth-child(3) {
+  font-weight: 600;
 }
 .sTabContent {
   border: 1px solid #c2c2c2;
@@ -241,11 +252,22 @@
 .sTabContent .emptySearch {
   display: none;
 }
-.box.sCourseItem {
+.box.sCourseItem,
+.sMembersItem {
   width: 473px;
   display: inline-block;
   float: none;
   margin: 0 0 20px 0;
+}
+.box.sCourseItem:nth-child(odd),
+.sMembersItem:nth-child(odd) {
+  margin: 0 20px 20px 0;
+}
+.box.sCourseItem:hover,
+.sMembersItem:hover {
+  background: #f9f9f9;
+}
+.box.sCourseItem {
   line-height: 18px;
 }
 .box.sCourseItem:nth-child(odd) {
@@ -254,9 +276,6 @@
 .box.sCourseItem .boxImg {
   margin-right: 24px;
   position: static;
-}
-.box.sCourseItem:hover {
-  background: #f9f9f9;
 }
 .sCourseName {
   font-size: 17px;
@@ -273,5 +292,15 @@
   top: 15px;
   font-size: 13px;
   color: #676767;
+}
+.sMembersItem {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 6px;
+}
+.sMemberName {
+  margin: 26px 0 0 104px;
+  font-size: 15px;
 }
 /*#endregion */
