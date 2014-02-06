@@ -179,6 +179,7 @@
             var tt = new TrackTiming('Dashboard', 'Render time of boxes');
             tt.startTime();
             self.boxes(arr);
+            cd.loadImages(document.getElementById('dash_right'));
             tt.endTime();
             tt.send();
             cd.pubsub.publish('boxGroup', arrids);

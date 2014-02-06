@@ -111,6 +111,7 @@
             var tt = new TrackTiming('Box Items', 'Render time of items');
             tt.startTime();
             self.items(mapped);
+            cd.loadImages(document.getElementById('BoxItemList'));
             tt.endTime();
             tt.send();
             self.loadedAnimation(true);

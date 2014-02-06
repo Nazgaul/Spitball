@@ -447,7 +447,7 @@
                 result = filterObjects(data.my, data.user, Friend);
                 self.commonFriends(result.common);
                 self.allFriends(result.all);
-                loadImages(eById('upFriendsSection'));
+                cd.loadImages(eById('upFriendsSection'));
                 var lengths = getFriendsLength(false);
                 setHeight(lengths.commonLength, lengths.allLength);
                 registerEvents();
@@ -459,7 +459,7 @@
                                 console.time('a');
                                 self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
-                                loadImages(eById('upFriendsSection'));
+                                cd.loadImages(eById('upFriendsSection'));
                                 console.timeEnd('a');
                             }
 
@@ -510,7 +510,7 @@
                 result = filterBoxes(data);
                 self.commonBoxes(result.common);
                 self.followingBoxes(result.all); 
-                loadImages(eById('upCoursesSection'));
+                cd.loadImages(eById('upCoursesSection'));
                 var lengths = getBoxesLength(false);
                 setHeight(lengths.commonLength, lengths.followingLength);
 
@@ -542,7 +542,7 @@
                             if (self.maxCommonBoxes() < self.commonBoxes().length || self.maxFollowingBoxes() < self.followingBoxes().length) {                     
                                 self.maxCommonBoxes(self.commonBoxes().length);                             
                                 self.maxFollowingBoxes(self.followingBoxes().length);
-                                loadImages(eById('upCoursesSection'));
+                                cd.loadImages(eById('upCoursesSection'));
                             }
 
                             lengths = getBoxesLength(this.checked);
@@ -600,7 +600,7 @@
                 });
 
                 self.invites(map);
-                loadImages(eById('upInvitesSection'));
+                cd.loadImages(eById('upInvitesSection'));
 
                 setHeight(getInvitesLength(false));
                 registerEvents();
@@ -611,7 +611,7 @@
 
                             if (self.maxInvites() < self.invites().length) {                              
                                 self.maxInvites(self.invites().length);
-                                loadImages(eById('upInvitesSection'));
+                                cd.loadImages(eById('upInvitesSection'));
                             }
 
 
@@ -777,15 +777,6 @@
                 })(loader);
                 
             };
-        }
-
-        function loadImages(list) {
-            var elements = $(list).find('[data-src]'),
-                elm;
-            for (var i = 0, l = elements.length; i < l; i++) {
-                elm = elements[i];
-                elm.src = elm.getAttribute('data-src');
-            }
-        }
+        }        
     }
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);

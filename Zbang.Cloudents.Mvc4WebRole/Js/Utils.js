@@ -747,10 +747,11 @@
         return new Date(parseInt(date.replace("/Date(", "").replace(")/", ""), 10));
     };
 
-    var loadImages = function (items) {
+    var loadImages = function (list) {
+        var images = $(list).find('[data-src]');
         var image;
-        for (var i = 0, l = items.length; i < l; i++) {
-            image = items[i];
+        for (var i = 0, l = images.length; i < l; i++) {
+            image = images[i];
             image.src = image.getAttribute('data-src');
         }
     };
