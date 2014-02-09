@@ -26,7 +26,7 @@
                     <h3 class="sectionHeader friends">@MainViewResources.Friends <button id="showUserFriends" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>@*id="showAllMembers"*@
                     <ul class="friendsList" id="dash_Friend">
                         <li class="friendItem friendBtn" data-action="true">
-                            <a data-navigation="invite" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents" href="@Url.Action("Index", "Invite", new {boxid = "" })" class="inviteFriendBtn btn3"></a>
+                            <a data-navigation="invite" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents" href="@Url.Action("Index", "Invite", new {boxid = "" })?r=dashboard&s=sidebar" class="inviteFriendBtn btn3"></a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +57,7 @@
                 <!--/ko-->
                 <ol id="BoxList" class="myAreaList clearfix" data-data="@ViewBag.Boxes" data-bind="visible: boxvisible">
                     <li class="box" data-bind="visible: boxvisible">
-                        <a class="addBtn browse" href="/library" data-navigation="Library">@SharedResources.BrowseCourses</a>
+                        <a class="addBtn browse" href="@Url.Action("Index","Library")?r=dashboard" data-navigation="Library">@SharedResources.BrowseCourses</a>
                     </li>
                     <!--ko template:{name:'dashBoxTemplate', foreach : academicBoxes}-->
                     <!--/ko-->

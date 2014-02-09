@@ -14,7 +14,7 @@
         that.image = data.image;
         that.university = data.universityName;
         that.score = data.score;
-        that.url = data.url;
+        that.url = data.url + '?r=' + cd.getParameterFromUrl(0) + '&s=tooltip';
     }
 
     function showTooltip(tooltipData, mouseX, mouseY) {

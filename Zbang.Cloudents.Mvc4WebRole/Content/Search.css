@@ -2,6 +2,7 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+/*#region search drop down */
 .searchDD {
   display: none;
   margin-top: 5px;
@@ -134,3 +135,178 @@
 .searchDetail {
   color: #676767;
 }
+/*#endregion */
+/*
+        <section class="sMaterials">
+            <ul class="sMaterialsList">
+                <li class="sMaterialsItem">
+
+                </li>
+            </ul>
+        </section>
+        <section class="sMembers">           
+            <ul class="sMembersList">
+                <li class="sMembersItem">
+
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>*/
+/*#region Search page - 's' prefix stands for 'search' */
+.searchPage {
+  width: 1012px;
+  margin: 0 auto;
+}
+.searchPage:after {
+  left: 0;
+}
+.searchPage h2 {
+  font-size: 22px;
+}
+.searchPage h2:before {
+  content: attr(data-resultcount);
+  display: inline-block;
+}
+.searchPage .upArrow {
+  top: -16px;
+  height: 12px;
+}
+.searchPage .upArrow:before {
+  left: 28px;
+  right: auto;
+  width: 12px;
+  height: 12px;
+  -webkit-transition: left 0.5s;
+  -moz-transition: left 0.5s;
+  -o-transition: left 0.5s;
+  transition: left 0.5s;
+}
+.sTabs {
+  margin: 30px 0 32px;
+}
+.sTabs button:nth-child(2) {
+  margin: 0 25px;
+}
+.sTabs button:after {
+  content: '(' attr(data-stab-count) ')';
+  display: inline-block;
+}
+.sTabs.sTab2 ~ .upArrow:before {
+  left: 127px;
+}
+.sTabs.sTab3 ~ .upArrow:before {
+  left: 237px;
+}
+.sTab1 ~ .sTabContent .sCourses,
+.sTab2 ~ .sTabContent .sMaterials,
+.sTab3 ~ .sTabContent .sMembers {
+  display: block;
+}
+.sTab1 button:nth-child(1),
+.sTab2 button:nth-child(2),
+.sTab3 button:nth-child(3) {
+  font-weight: 600;
+}
+.sTabContent {
+  border: 1px solid #c2c2c2;
+  border-radius: 5px;
+  padding: 20px 20px 0 20px;
+  background: #fff;
+  margin-top: 15px;
+}
+.sTabContent section {
+  display: none;
+}
+.sTabContent .splitHR {
+  margin: 11px 0 31px;
+  font-size: 17px;
+}
+.sTabContent.noResults.noResults {
+  height: 267px;
+  text-align: center;
+}
+.sTabContent.noResults.noResults section {
+  display: none;
+}
+.sTabContent.noResults.noResults .emptySearch {
+  display: inline-block;
+  font-size: 15px;
+}
+.sTabContent.noResults.noResults .emptySearch:before {
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  margin: 38px auto 12px;
+}
+.sTabContent.noResults.noResults .emptySearch:after {
+  width: 32px;
+  height: 37px;
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin: 0 auto;
+  background-position: -283px -51px;
+}
+.sTabContent .emptySearch {
+  display: none;
+}
+.box.sCourseItem,
+.sMembersItem {
+  width: 473px;
+  display: inline-block;
+  float: none;
+  margin: 0 0 20px 0;
+}
+.box.sCourseItem:nth-child(odd),
+.sMembersItem:nth-child(odd) {
+  margin: 0 20px 20px 0;
+}
+.box.sCourseItem:hover,
+.sMembersItem:hover {
+  background: #f9f9f9;
+}
+.box.sCourseItem {
+  line-height: 18px;
+}
+.box.sCourseItem:nth-child(odd) {
+  margin: 0 20px 20px 0;
+}
+.box.sCourseItem .boxImg {
+  margin-right: 24px;
+  position: static;
+}
+.sCourseName {
+  font-size: 17px;
+  color: #0f9d58;
+  margin-top: 36px;
+}
+.sDetail {
+  color: #676767;
+  font-size: 15px;
+}
+.sCourseUni {
+  position: absolute;
+  left: 100px;
+  top: 15px;
+  font-size: 13px;
+  color: #676767;
+}
+.sMembersItem {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 6px;
+}
+.sMemberName {
+  margin: 26px 0 0 104px;
+  font-size: 15px;
+}
+.sMemberName:hover {
+  padding-right: 40px;
+}
+.sMemberName:hover .inviteuserbtn {
+  display: block;
+}
+/*#endregion */

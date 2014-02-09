@@ -7,7 +7,7 @@
         <div class="upTop">
 
             <!--ko if:viewSelf()-->
-            <a id="upAccountSettings" class="rFloat iconTxt" data-navigation="account" href="@Url.Action("Settings","Account")">@UserResources.EditAccount</a>
+            <a id="upAccountSettings" class="rFloat iconTxt" data-navigation="account" href="@Url.Action("Settings","Account")?r=user">@UserResources.EditAccount</a>
             <!--/ko-->
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
             <h1 class="semiFont" id="upUsername">@Model.Name</h1>
@@ -202,7 +202,7 @@
             <!--/ko-->
             <section class="upInvites" data-bind="visible: viewSelf(), css : invitesEmpty()">
                 @*<button type="button" class="inviteFriendBtn btn3 rFloat" data-navigation="invite" data-click="inviteFriends" data-href="@Url.Action("Index","Invite")">@SharedResources.InviteFriends</button>*@
-                <a data-navigation="invite" href="@Url.Action("Index", "Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
+                <a data-navigation="invite" href="@Url.Action("Index", "Invite")?r=user" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
                 <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : !invitesShowAllVisible()}">
                    

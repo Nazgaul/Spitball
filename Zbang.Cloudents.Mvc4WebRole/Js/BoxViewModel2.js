@@ -78,22 +78,30 @@
                 return;
             }
 
-            if (backData.url.indexOf('dashboard') > -1) {
-                that.name = JsResources.Dashboard;
-                that.url = backData.url;
-                return;
-            }
+            var page = backData.url, split;
+            if (page.indexOf('dashboard') > -1 || page.indexOf('user') > -1) {
+                split = 0;
+            } else { //library
+                split = 1;
+            }            
+            that.name = backData.title.split(' | ')[split] //first part of the title
+            that.url = backData.url;
+            //if (backData.url.indexOf('dashboard') > -1) {
+            //    that.name = JsResources.Dashboard;
+            //    that.url = backData.url;
+            //    return;
+            //}
 
-            if (backData.url.indexOf('user') > -1) {
-                that.name  = 'User page';
-                that.url = backData.url;
-                return;
-            }
+            //if (backData.url.indexOf('user') > -1) {
+            //    that.name  = 'User page';
+            //    that.url = backData.url;
+            //    return;
+            //}
 
-            that.id = data.id;
-            that.name = data.name || JsResources.Dashboard;
-            that.url = '/library/' + that.id + '/' + encodeURIComponent(that.name);
-            //that.url = that.id ? '/library/' + that.id + '/' + encodeURIComponent(that.name) + '/' : '/dashboard/';
+            //that.id = data.id;
+            //that.name = data.name || JsResources.Dashboard;
+            //that.url = '/library/' + that.id + '/' + encodeURIComponent(that.name);
+            ////that.url = that.id ? '/library/' + that.id + '/' + encodeURIComponent(that.name) + '/' : '/dashboard/';
         }
         registerEvents();
         cd.pubsub.subscribe('box', function (data) {

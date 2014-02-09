@@ -68,11 +68,11 @@
 
 
         e.preventDefault();
-        privateLocation.url = this.pathname;
+        privateLocation.url = this.pathname + (this.search || '');
         if (location.hash) {
             location.hash = '';
         }
-        changeHistoryState();
+        //changeHistoryState();
         locationChanged(privateLocation.url, $(this).data('d'));
     });
 
@@ -92,7 +92,7 @@
         if (location.hash) {
             location.hash = '';
         }
-        changeHistoryState();
+        //changeHistoryState();
 
 
         locationChanged();
@@ -119,6 +119,8 @@
 
     function changeHistoryState() {
         cd.firstLoad = false;
+
+        privateLocation.title = document.title;
 
         if (window.history && window.history.pushState) {
             if (privateLocation.url && privateLocation.url.charAt(0) !== '/') {
@@ -429,6 +431,10 @@
     });
 
     function showPage(d) {
+
+        changeHistoryState();
+
+
         if (d.is(':visible')) {
             return;
         }

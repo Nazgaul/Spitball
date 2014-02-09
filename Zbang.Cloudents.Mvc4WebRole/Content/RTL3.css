@@ -1538,7 +1538,8 @@ input[type="radio"] + label:before {
 /*#endregion */
 /*#endregion */
 /*#region user page */
-.userPage {
+.userPage,
+.searchPage {
   text-align: right;
   /*rtl*/
 }

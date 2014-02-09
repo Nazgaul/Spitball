@@ -47,6 +47,8 @@ body {
   /*rtl*/
   margin: 10px 0 0 30px;
   /*rtl*/
+  position: relative;
+  z-index: 1;
 }
 .dashLibSearch {
   width: 340px;

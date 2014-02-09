@@ -1,6 +1,5 @@
 ﻿@import "varsAndMixins";
-
-.userPage {
+.userPage, .searchPage {
     text-align: left; /*rtl*/
     color: @textColor;
 
@@ -15,14 +14,15 @@
         top: @header-height;
         z-index: -1;
     }
-
+}
+.userPage {
     h1 {
         font-size: 22px;
         margin-top: 18px;
         color: @textColor;
         position: relative;
         z-index: 1;
-        overflow: hidden; // establish bfc so as not to cover the floated anchor
+        overflow: hidden; //create new bfc so as not to cover the floated anchor
     }
 
     h2 {

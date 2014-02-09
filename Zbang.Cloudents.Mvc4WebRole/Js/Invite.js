@@ -754,6 +754,10 @@
         });
         cd.pubsub.subscribe('invite', function (d) {
             boxid = d.boxid || cd.getParameterFromUrl(1);
+            if (boxid.indexOf('?') > -1) {
+                boxid = '';
+            }
+
             //check if cloudents or box        
             if (boxid === '') {
                 setupInviteToCloudents();

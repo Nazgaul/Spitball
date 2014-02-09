@@ -552,7 +552,7 @@
       <DependentUpon>General.less</DependentUpon>
     </Content>
     <Content Include="Content\General.min.css">
-      <DependentUpon>General.less</DependentUpon>
+      <DependentUpon>General.css</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
@@ -564,7 +564,7 @@
       <DependentUpon>HeaderFooter.less</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooter.min.css">
-      <DependentUpon>HeaderFooter.less</DependentUpon>
+      <DependentUpon>HeaderFooter.css</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooterRtl.css">
       <DependentUpon>HeaderFooterRtl.less</DependentUpon>

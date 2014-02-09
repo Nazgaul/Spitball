@@ -61,7 +61,7 @@
             $('#uniList li:not(:last)').remove();
             cd.appendData(uniList, 'universityItemTemplate', mappeddata, 'afterbegin', false);
         }
-      
+
 
         function registerEvents() {
             var $countryList = $(countryList),
@@ -119,7 +119,7 @@
                     }
                 });
             }
-            
+
             function newUniversity(e) {
                 var target = e.target;
                 e.target.disabled = true;
@@ -189,19 +189,19 @@
                     needCodePopUp(id);
                     return;
                 }
-             
+
 
                 //var load = cd.renderLoading($(uniList));
                 cd.pubsub.publish('clear_cache');
                 dataContext.updateUniversity({
                     data: [{ name: 'UniversityId', value: id }],
                     success: function () {
-                        window.location.href = '/dashboard/';                          
+                        window.location.href = '/dashboard/';
                     },
-                    error: function () {                            
-                        cd.notification('unspecified error');                           
+                    error: function () {
+                        cd.notification('unspecified error');
                     },
-                    always: function(){
+                    always: function () {
                         userNotSelected = true;
                         //load();
                     }
@@ -257,8 +257,9 @@
                     }
                 }
             }
-           
 
+
+            
             function searchUniversity() {
                 var term;
                 if (Modernizr.input.placeholder) {
@@ -277,10 +278,14 @@
 
                 cd.analytics.trackEvent('Library Choose', 'Search', term);
 
-                $('.uniName').not(':last').each(function(){
+                $('.uniName').not(':last').each(function () {
                     var $parent = $(this).parents('li');
-                    $(this).text().indexOf(term) > -1 ? $parent.show() : $parent.hide();
+                    var lowerText = $(this).text().toLowerCase();
+                    var termTrimmed = term.trim();
+                    lowerText.indexOf(termTrimmed.toLowerCase()) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1 ? $parent.show() : $parent.hide();
                 });
+
+
             }
         }
     }

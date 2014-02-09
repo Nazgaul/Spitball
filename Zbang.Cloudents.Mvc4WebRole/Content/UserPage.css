@@ -2,12 +2,14 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.userPage {
+.userPage,
+.searchPage {
   text-align: left;
   /*rtl*/
   color: #383838;
 }
-.userPage:after {
+.userPage:after,
+.searchPage:after {
   content: '';
   width: 100%;
   height: 75px;
