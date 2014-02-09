@@ -16,19 +16,20 @@ using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.Dashboard;
 using Zbang.Zbox.ViewModel.DTOs.Library;
+using Zbang.Zbox.ViewModel.DTOs.Search;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
-using Zbang.Zbox.ViewModel.SqlQueries;
 using Activity = Zbang.Zbox.ViewModel.DTOs.ActivityDtos;
 using Box = Zbang.Zbox.ViewModel.DTOs.BoxDtos;
 using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
 using Item = Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 using Qna = Zbang.Zbox.ViewModel.DTOs.Qna;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
+using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -51,7 +52,7 @@ namespace Zbang.Zbox.ReadServices
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 var retVal = new DashboardDto();
-                using (var grid = conn.QueryMultiple(Sql.UserBoxes + Sql.FriendList + Sql.GetWallList, new { UserId = query.UserId }))
+                using (var grid = conn.QueryMultiple(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList, new { UserId = query.UserId }))
                 {
                     retVal.Boxes = grid.Read<BoxDto>();
                     retVal.Friends = grid.Read<User.UserDto>();
@@ -150,7 +151,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.GetUniversityDataByUserId, new { UserId = query.UserId, UniversityWrapper = query.UniversityWrapperId });
+                var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { UserId = query.UserId, UniversityWrapper = query.UniversityWrapperId });
                 return retVal.FirstOrDefault();
             }
             //using (UnitOfWork.Start())
@@ -444,34 +445,44 @@ namespace Zbang.Zbox.ReadServices
 
 
         /// <summary>
-        /// Performs a search, returning the results grouped by category (SearchBoxItemQuery.Category)
+        /// Performs a search, returning the results grouped by category 
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         #region Search
-        public async Task<IEnumerable<BoxDto>> Search(SearchLibraryDashBoardQuery query)
+        public async Task<SearchDto> Search(GroupSearchQuery query)
         {
-            //using (UnitOfWork.Start())
-            //{
-            //    IQuery searchQuery = UnitOfWork.CurrentSession.GetNamedQuery(query.QueryName);
-
-            //    searchQuery.SetMaxResults(DefaultPageSize);
-            //    searchQuery.SetFirstResult(query.PageNumber * DefaultPageSize);
-            //    searchQuery.SetProperties(query);
-            //    searchQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
-            //    IEnumerable<ISearchable> retval = searchQuery.List<ISearchable>();
-            //    return retval;
-            //}
+            SearchDto retVal = new SearchDto();
             using (var conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<BoxDto>(Sql.SearchLibraryWithPrivate,
-                    new
-                    {
-                        userid = query.UserId,
-                        query = query.SearchText,
-                        universityId = query.UniversityId
-                    });
+
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4}",
+                     Sql.Search.OwnedSubscribedBoxes,
+                     Sql.Search.UniversityBoxes,
+                     Sql.Search.Users,
+                     Sql.Search.Items,
+                     Sql.Search.ItemFromOtherUniversities),
+                     new
+                     {
+                         query = query.Query,
+                         universityId = query.UniversityId,
+                         userId = query.UserId,
+                         MaxResult = query.MaxResult
+                     }))
+                {
+                    var ownedBoxes = grid.Read<SearchBoxes>();
+                    var universityBoxes = grid.Read<SearchBoxes>();
+                    retVal.Users = grid.Read<SearchUsers>();
+                    retVal.Items = grid.Read<SearchItems>();
+
+                    var otherUniversities = grid.Read<SearchItems>();
+
+                    retVal.Boxes = ownedBoxes.Union(universityBoxes).Take(query.MaxResult);
+                    retVal.Items = retVal.Items ?? otherUniversities;
+                        
+                }
             }
+            return retVal;
         }
 
         #endregion
@@ -484,7 +495,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<User.UserDto>(Sql.FriendList, new { UserId = query.UserId });
+                return await conn.QueryAsync<User.UserDto>(Sql.Sql.FriendList, new { UserId = query.UserId });
             }
         }
 
@@ -535,7 +546,7 @@ namespace Zbang.Zbox.ReadServices
                 hebrewLetters = filter.removeWords(hebrewLetters);
                 var filteredQuery = filter.removeWords(query.Prefix);
 
-                return await conn.QueryAsync<UniversityByPrefixDto>(Sql.GetUniversitiesList, new
+                return await conn.QueryAsync<UniversityByPrefixDto>(Sql.Sql.GetUniversitiesList, new
                 {
                     country = query.Country,
                 });
@@ -661,14 +672,14 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<Box.BoxToFriendDto>(Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
+                return await conn.QueryAsync<Box.BoxToFriendDto>(Sql.Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
             }
         }
         public async Task<IEnumerable<Item.ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<Item.ItemToFriendDto>(Sql.UserWithFriendFiles, new { Me = query.UserId, Myfriend = query.FriendId });
+                return await conn.QueryAsync<Item.ItemToFriendDto>(Sql.Sql.UserWithFriendFiles, new { Me = query.UserId, Myfriend = query.FriendId });
             }
         }
 
@@ -676,7 +687,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<Qna.QuestionToFriendDto>(Sql.UserWithFriendQuestion, new { Me = query.UserId, Myfriend = query.FriendId });
+                return await conn.QueryAsync<Qna.QuestionToFriendDto>(Sql.Sql.UserWithFriendQuestion, new { Me = query.UserId, Myfriend = query.FriendId });
             }
         }
 
@@ -684,7 +695,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<Qna.AnswerToFriendDto>(Sql.UserWithFriendAnswer, new { Me = query.UserId, Myfriend = query.FriendId });
+                return await conn.QueryAsync<Qna.AnswerToFriendDto>(Sql.Sql.UserWithFriendAnswer, new { Me = query.UserId, Myfriend = query.FriendId });
             }
         }
 
@@ -692,7 +703,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<User.UserInviteDto>(Sql.UserPersonalInvites, new { Me = query.UserId });
+                return await conn.QueryAsync<User.UserInviteDto>(Sql.Sql.UserPersonalInvites, new { Me = query.UserId });
             }
         }
         public async Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
@@ -700,7 +711,7 @@ namespace Zbang.Zbox.ReadServices
             var retVal = new User.UserToFriendActivity();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(String.Format("{0} {1} {2}", Sql.UserWithFriendFiles, Sql.UserWithFriendQuestion, Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
+                using (var grid = conn.QueryMultiple(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles, Sql.Sql.UserWithFriendQuestion, Sql.Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
                 {
                     retVal.Items = grid.Read<Item.ItemToFriendDto>();
                     retVal.Questions = grid.Read<Qna.QuestionToFriendDto>();
@@ -718,7 +729,7 @@ namespace Zbang.Zbox.ReadServices
             SeoDto retVal = new SeoDto();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(String.Format("{0} {1}", Seo.GetBoxes, Seo.GetItems), new { Userid = long.Parse(Zbang.Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("UniversitySeoId")) }))
+                using (var grid = conn.QueryMultiple(String.Format("{0} {1}", Sql.Seo.GetBoxes, Sql.Seo.GetItems), new { Userid = long.Parse(Zbang.Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("UniversitySeoId")) }))
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
                     retVal.Items = grid.Read<Item.ItemSeoDto>();

@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     [ZboxAuthorize]
-    [NoUniversityAttribute]
+    [NoUniversity]
     public class DashboardController : BaseController
     {
 
@@ -181,82 +181,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region search
         [HttpGet]
-        [ActionName("Search")]
         [NonAjax]
-        [UserNavNWelcome]
-        [CompressFilter]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public async Task<ActionResult> Search(string query)
+        public ActionResult Search(string query)
         {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                return RedirectToAction("Index");
-            }
-            var userid = GetUserId();
-            var userDetail = m_FormsAuthenticationService.GetUserData();
-
-            var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
-            //TODO - Combine to 1 tranaction
-            //var dbquery = new GetDashboardQuery(userid, universityWrapper);
-            //var data = await m_ZboxReadService.GetMyData(dbquery);
-
-
-
-            var dbquery = new GetDashboardQuery(userid, universityWrapper);
-            var taskData = m_ZboxReadService.GetMyData(dbquery);
-
-            var queryboxes = new GetBoxesQuery(userid);
-            var taskBoxes = m_ZboxReadService.GetDashboard(queryboxes);
-
-            await Task.WhenAll(taskData, taskBoxes);
-            var data = taskBoxes.Result;
-            data = AssignUrl(data);
-
-            JsonNetSerializer serializer = new JsonNetSerializer();
-
-            ViewBag.Boxes = serializer.Serialize(data);
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("Index", taskData.Result);
-            }
-            return View("Index", taskData.Result);
-
-
-            // return View("Index", data);
-
+            return RedirectToActionPermanent("Index", "Search", new { q = query });
         }
-        [HttpGet, ActionName("Search")]
-        [Ajax]
-        public async Task<ActionResult> SearchAjax(string query)
-        {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                return this.CdJson(new JsonResponse(false, "need to have query"));
-            }
-
-            var userDetail = m_FormsAuthenticationService.GetUserData();
-
-            if (!userDetail.UniversityId.HasValue)
-            {
-                return this.CdJson(new JsonResponse(false, Zbang.Cloudents.Mvc4WebRole.Controllers.Resources.LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-            }
-
-
-            var searchQuery = new SearchLibraryDashBoardQuery(userDetail.UniversityId.Value, query, 0, GetUserId());
-            // var searchQuery = searchFactory.GetQuery(query, 0, SearchType.Box, GetUserId());
-            var result = await m_ZboxReadService.Search(searchQuery);
-            var searchables = result as IList<BoxDto> ?? result.ToList();
-            var urlBuilder = new UrlBuilder(HttpContext);
-            return this.CdJson(new JsonResponse(true, new
-            {
-                boxes = searchables.Select(s =>
-                {
-                    s.Url = urlBuilder.BuildBoxUrl(s.Id, s.Name, s.UniName);
-                    return s;
-                })
-            }));
-        }
+       
 
         #endregion search
 

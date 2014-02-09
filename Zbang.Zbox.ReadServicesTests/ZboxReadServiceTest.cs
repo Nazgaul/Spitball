@@ -59,7 +59,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void Search_Query_ReturnResult()
         {
-            var query = new SearchLibraryDashBoardQuery(14, "1", 0, 1);
+            var query = new GroupSearchQuery("1", 14, 1);
             try
             {
                 var x = m_ZboxReadService.Search(query).Result;
@@ -100,7 +100,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetLibraryNode_QueryWithNode_ReturnResult()
         {
-            var query = new GetLibraryNodeQuery(14, Guid.Parse("3d49e348-33e2-4281-b763-d981b9bd0000"),1, 0, Infrastructure.Enums.OrderBy.LastModified);
+            var query = new GetLibraryNodeQuery(14, Guid.Parse("3d49e348-33e2-4281-b763-d981b9bd0000"), 1, 0, Infrastructure.Enums.OrderBy.LastModified);
             try
             {
                 m_ZboxReadService.GetLibraryNode(query);
