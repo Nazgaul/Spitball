@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax]
-        public async Task<ActionResult> MinQuery(string q)
+        public async Task<ActionResult> DropDown(string q)
         {
             if (string.IsNullOrWhiteSpace(q))
             {
