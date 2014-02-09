@@ -11,6 +11,7 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -54,7 +55,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var result = await PerformSearch(q, false);
 
-            return this.CdJson(result);
+            return this.CdJson(new JsonResponse(true, result));
 
         }
 
@@ -67,7 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var result = await PerformSearch(q, true);
 
-            return this.CdJson(result);
+            return this.CdJson(new JsonResponse(true, result));
         }
         [NonAction]
         private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool AllResult)
