@@ -61,7 +61,7 @@
             @{
                 var url = Url.Action("Index", "Account");
                 if (User != null && User.Identity.IsAuthenticated) {
-                    url = Url.Action("Index", "Dashboard");
+                    url = Url.Action("Index", "Dashboard") + "?r=siteheader";
                 }
             }
             @*<a href="@url" data-version="@VersionHelper.CurrentVersion()"><span class="middle"></span></a>*@

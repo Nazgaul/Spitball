@@ -8,7 +8,7 @@
     self.itemCount = data.itemCount;
     self.membersCount = data.membersCount;
     self.commentCount = data.commentCount;
-    self.boxUrl = data.url;
+    self.boxUrl = data.url + '?r=dashboard';
     self.userType = ko.observable(data.userType);
     self.courseCode = data.courseCode;
     self.professor = data.professor;
@@ -300,7 +300,7 @@
                     $privateBoxDialog.hide();
                     $('#BoxName').val('');
                     isSubmit = false;
-                    cd.pubsub.publish('nav', box.boxUrl);
+                    cd.pubsub.publish('nav', box.boxUrl + '?r=dashboard');
                 },
                 error: function (msg) {
                     isSubmit = false;

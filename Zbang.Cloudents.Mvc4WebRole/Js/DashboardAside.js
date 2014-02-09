@@ -27,7 +27,7 @@
 
             self.boxid = data.boxId;
             self.boxName = data.boxName;
-            self.boxurl = data.url;
+            self.boxurl = data.url + '?r=dashboard&s=activity'
 
             self.textAction = textActionReolver();
             function textActionReolver() {
@@ -94,7 +94,7 @@
             self.userName = data.name;
             self.userImage = data.image || '/images/user-pic.png';
             self.id = data.uid;
-            self.url = data.url;
+            self.url = data.url + '?r=dashboard&s=friends';
         }
 
 

@@ -26,11 +26,12 @@
             this.name = data.name;
             this.template = 'library-node';
 
-            this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name) + '/';
+            this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name) + '/?r=library';
         }
         function LibraryBox(data) {
             var that = this;
             Box.call(that, data);
+            that.boxUrl = that.boxUrl.substring(0, that.boxUrl.indexOf('?')) + '?r=library'; ///replace dashboard with library
             that.boxFollow = function () {
                 return that.userType() === 'invite' || that.userType() === 'none';
             };
@@ -133,6 +134,15 @@
                 $('#lib_NodeName').addClass('hover');
                 self.title(decodeURIComponent(data.name || ''));
 
+                if (!cd.firstLoad) {
+                    var uniName = document.getElementById('univeristyName').textContent
+                    if (self.title()) {
+                        document.title = '{0} | {1} | Cloudents'.format(uniName, self.title());
+                    } else {
+                        document.title = '{0} | Cloudents'.format(uniName);
+                    }
+                }
+
             });
         });
 
@@ -189,16 +199,7 @@
                 }
                 else {
                     self.backUrl('/' + libraryConst + '/' + result.parent.id + '/' + result.parent.name);
-                }
-
-                if (!cd.firstLoad) {
-                    var uniName = document.getElementById('univeristyName').textContent
-                    if (self.title()) {
-                        document.title = '{0} | {1} | Cloudents'.format(uniName, self.title());
-                    } else {
-                        document.title = '{0} | Cloudents'.format(uniName);                        
-                    }
-                }
+                }           
                 
                 cd.pubsub.publish('lib_load');
 
@@ -212,7 +213,9 @@
                 temp.push(action(data.elem[i]));
             }
             self.elements.push.apply(self.elements, temp);//.valueHasMutated();
-            cd.pubsub.publish('lib_load');
+
+
+            //cd.pubsub.publish('lib_load');
         }
 
         function getLibraryId() {
