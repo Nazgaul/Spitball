@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrWhiteSpace(q))
             {
-                return new EmptyResult();
+                return this.CdJson(new JsonResponse(false,"need query"));
             }
             var result = await PerformSearch(q, false);
 
@@ -64,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrWhiteSpace(q))
             {
-                return new EmptyResult();
+                return this.CdJson(new JsonResponse(false, "need query"));
             }
             var result = await PerformSearch(q, true);
 
