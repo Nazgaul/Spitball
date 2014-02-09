@@ -181,7 +181,8 @@
             //$('#BoxList').append(cd.attachTemplateToData('firstTemplate', ko.utils.unwrapObservable(self.boxes)));
             var tt = new TrackTiming('Dashboard', 'Render time of boxes');
             tt.startTime();
-            self.boxes(arr);
+            console.time('1');
+            self.boxes(arr); console.timeEnd('1');
             cd.loadImages(document.getElementById('dash_right'));
             tt.endTime();
             tt.send();
