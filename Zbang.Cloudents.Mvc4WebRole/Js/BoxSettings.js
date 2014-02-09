@@ -1,5 +1,4 @@
 ﻿(function (cd, dataContext, $, pubsub, ZboxResources, analytics) {
-
     if (window.scriptLoaded.isLoaded('bs')) {
         return;
     }
@@ -31,6 +30,7 @@
         _self.cMemStat = data.sUserStatus === 'Invite' ? 'memberPending' : '';
         _self.identifier = cd.guid();        
         _self.tooltipClass = data.sUserStatus === 'Subscribe' || data.sUserStatus === 'Owner' ? ' calloutTrgr' : ''; //space is needed        
+        _self.url = data.Url + '?r=box&s=members';
     }
 
     var statusData;

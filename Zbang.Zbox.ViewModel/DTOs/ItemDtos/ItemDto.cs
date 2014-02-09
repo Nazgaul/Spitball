@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
-    public abstract class ItemDto : ISearchable
+    public abstract class ItemDto
     {
         protected ItemDto(long id, string name, long ownerId,
          

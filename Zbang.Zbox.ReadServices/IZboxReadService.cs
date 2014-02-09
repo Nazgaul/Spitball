@@ -5,6 +5,7 @@ using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.Dashboard;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.DTOs.Qna;
+using Zbang.Zbox.ViewModel.DTOs.Search;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -41,7 +42,7 @@ namespace Zbang.Zbox.ReadServices
 
         Box.BoxDto GetBox2(GetBoxQuery query);
 
-        Task<IEnumerable<BoxDto>> Search(SearchLibraryDashBoardQuery query);
+        Task<SearchDto> Search(GroupSearchQuery query);
         Task<IEnumerable<User.UserDto>> GetUserFriends(GetUserFriendsQuery query);
 
         User.UserDetailDto GetUserData(GetUserDetailsQuery query);

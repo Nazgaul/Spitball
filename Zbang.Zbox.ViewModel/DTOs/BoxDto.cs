@@ -8,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 namespace Zbang.Zbox.ViewModel.DTOs
 {
     [Serializable]
-    public class BoxDto : ISearchable
+    public class BoxDto 
     {
         //private UserRelationshipType m_UserType;
         //private BoxType m_BoxType;
