@@ -60,7 +60,7 @@
             cdgInviteResponse = gInvite;
             facebookInviteUrl = window.location.origin;
             document.querySelector('.invHeaderText span').textContent = '';
-            document.querySelector('.invHeaderText').href = '/dashboard';
+            document.querySelector('.invHeaderText').href = '/dashboard/';
 
         }
         function setCurrentTab(tabName) {

@@ -33,7 +33,7 @@
                 <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg calloutTrgr" alt="" data-bind="attr: { src: image, 'data-uid': id }" width="31" height="31" /></a>
             </li>
             <!--/ko-->
-            <li class="friendItem"><a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })" data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="inviteFriendBtn btn3">@IndexResources.Invite</a></li>
+            <li class="friendItem"><a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })?r=box&s=sidebar" data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="inviteFriendBtn btn3">@IndexResources.Invite</a></li>
         </ul>
     </div>
 

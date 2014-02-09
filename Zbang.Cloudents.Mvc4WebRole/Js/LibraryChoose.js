@@ -233,7 +233,7 @@
                                 dataContext.updateUniversity({
                                     data: $form.serializeArray(),
                                     success: function () {
-                                        window.location.href = '/dashboard';
+                                        window.location.href = '/dashboard/';
                                     },
                                     error: function (msg) {
                                         cd.displayErrors($form, msg);

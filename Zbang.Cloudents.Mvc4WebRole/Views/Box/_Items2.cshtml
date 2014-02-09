@@ -43,8 +43,7 @@
         @*<!--/ko-->*@
         <!--ko foreach:{data:items,afterAdd:edrag}-->
         <li class="boxItem" data-bind="attr: { id: uid }">
-            <a data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">
-                @*<img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="187" />*@  @* TODO VERSION 14*@
+            <a data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">                
                 <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="187" />
                 <div class="boxName clamp2" data-bind="text: name"></div>
                 <div class="stars">

@@ -11,9 +11,13 @@
     //    ko.applyBindings(new SearchViewModel(), document.getElementById('search'));
     //}
 
-
+    
     function SearchViewModel() {
-        pubsub.publish('search_load');
+
+        pubsub.subscribe('search', function () {
+            pubsub.publish('search_load');
+        });
+        
     }
 
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);

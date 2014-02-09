@@ -188,7 +188,7 @@
                 _self.name = data.name;
                 _self.image = data.image;
                 _self.identifier = cd.guid();
-                _self.url = data.url;
+                _self.url = data.url + '?r=dashboard&s=members';
             }
             document.getElementById('showUserFriends').onclick = function (e) {
                 if (friends.length) {
