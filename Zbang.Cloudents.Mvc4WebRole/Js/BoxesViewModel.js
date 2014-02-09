@@ -25,7 +25,7 @@
         if (box.userType() === 'owner') {
             retVal = true;
         }
-        if (box.membersCount < 2 && !box.commentCount && !box.itemCount) {
+        if (box.membersCount <= 2 && !box.commentCount && !box.itemCount) {
             retVal = true;
         }
         return retVal ? ZboxResources.Delete : ZboxResources.LeaveGroup;
@@ -41,7 +41,7 @@
         if (box.userType() === 'owner') {
             retVal = true;
         }
-        if (box.membersCount < 2 && !box.commentCount && !box.itemCount) {
+        if (box.membersCount <= 2 && !box.commentCount && !box.itemCount) {
             retVal = true;
         }
         return retVal ? ZboxResources.ToDeleteBox : ZboxResources.ToLeaveGroup;

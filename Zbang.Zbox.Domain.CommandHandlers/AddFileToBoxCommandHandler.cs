@@ -59,6 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (type == UserRelationshipType.Invite || type == UserRelationshipType.None)
             {
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
+                box.CalculateMembers();
                 m_UserRepository.Save(user);
             }
 
