@@ -49,7 +49,7 @@
                     return (self.permission() === 'subscribe' || self.permission() === 'owner') && (self.permission() === 'owner' ||
                          that.userid === cd.userDetail().nId);
                 });
-            that.itemUrl = data.url;
+            that.itemUrl = data.url + '?r=box';
         }
 
         var self = this, boxid, current = 0, //countOfItems = 0,

@@ -51,7 +51,7 @@
             that.name = data.name;
             that.image = data.picture || consts.EMPTYBOXPICTURE;
             that.userType = data.userType;
-            that.url = data.url
+            that.url = data.url + '?r=user&s=courselist';
 
             self.followBox = function (box) {
                 dataContext.follow({
@@ -68,7 +68,7 @@
             that.id = data.uid;
             that.name = data.name;
             that.image = data.largeImage;
-            that.url = data.url + 'r=user&s=otheruser'
+            that.url = data.url + '?r=user&s=otheruser'
         }
 
         function Invite(data) {

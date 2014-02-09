@@ -50,7 +50,7 @@
             that.uploader = data.owner;
             that.userid = data.ownerId;
             that.type = data.type;
-            that.itemUrl = data.url;
+            that.itemUrl = data.url + '?r=item&s=items';
             that.select = ko.computed(function () {
                 return that.uid() === self.itemid();
             });
