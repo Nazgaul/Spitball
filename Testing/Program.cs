@@ -67,7 +67,6 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            var x = "heeloo";
             //var s = "https://www.cloudents.com/d/lzodJqaBYHu/pD0nrbAtHSq";
 
             //System.Net.WebClient wb = new WebClient();
@@ -92,21 +91,21 @@ namespace Testing
             //ProtobufSerializer<FileProcessData> y = new ProtobufSerializer<FileProcessData>();
             //var zz = y.SerializeData(new FileProcessData { BlobName = new Uri("http://www.google.com"), ItemId = 1 });
 
-//            using (var conn = DapperConnection.OpenConnection().Result)
-//            {
-//                var sql = @" select u.userid as Uid , 
-//    coalesce(AliasName,userName) as Name,
-//    u.userimage as Image,u.NeedCode as NeedCode,
-//    (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
-//    from zbox.users u 
-//    where u.usertype = 1 
-//    and u.Country = @country
-//    and (@prefix IS NULL OR (coalesce(u.AliasName,u.userName) 
-//      like '%' + @prefix + '%' or coalesce(u.AliasName,u.userName) like '%' + @prefixHeb + '%'))
-//    order by MemberCount desc";
-//                var retVal = conn.Query(sql, new { country = "IL" , prefix = "ר", prefixHeb="ר" });
+            //            using (var conn = DapperConnection.OpenConnection().Result)
+            //            {
+            //                var sql = @" select u.userid as Uid , 
+            //    coalesce(AliasName,userName) as Name,
+            //    u.userimage as Image,u.NeedCode as NeedCode,
+            //    (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
+            //    from zbox.users u 
+            //    where u.usertype = 1 
+            //    and u.Country = @country
+            //    and (@prefix IS NULL OR (coalesce(u.AliasName,u.userName) 
+            //      like '%' + @prefix + '%' or coalesce(u.AliasName,u.userName) like '%' + @prefixHeb + '%'))
+            //    order by MemberCount desc";
+            //                var retVal = conn.Query(sql, new { country = "IL" , prefix = "ר", prefixHeb="ר" });
 
-//            }
+            //            }
 
             //DownloadFromDropBox();
             //TestVerifyAccountKey();
@@ -120,7 +119,8 @@ namespace Testing
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
 
-
+            var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
+            var y = x.GetId();
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;
