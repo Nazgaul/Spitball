@@ -10,6 +10,7 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -27,28 +28,56 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAjax]
         [HttpGet]
         [CompressFilter]
-        public ActionResult Index(string q)
+        public async Task<ActionResult> Index(string q)
         {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            var result = await PerformSearch(q, true);
             if (Request.IsAjaxRequest())
             {
                 return PartialView();
             }
+            JsonNetSerializer serializer = new JsonNetSerializer();
+
+            ViewBag.data = serializer.Serialize(result);
             return View();
         }
 
-        [Ajax]
+        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
         public async Task<ActionResult> DropDown(string q)
         {
             if (string.IsNullOrWhiteSpace(q))
             {
                 return new EmptyResult();
             }
-            var userDetail = m_FormsAuthenticationService.GetUserData();
-            var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId());
-            var result = await m_ZboxReadService.Search(query);
+            var result = await PerformSearch(q, false);
 
             return this.CdJson(result);
 
         }
+
+        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
+        public async Task<ActionResult> Data(string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return new EmptyResult();
+            }
+            var result = await PerformSearch(q, true);
+
+            return this.CdJson(result);
+        }
+        [NonAction]
+        private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool AllResult)
+        {
+            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), AllResult);
+            var result = await m_ZboxReadService.Search(query);
+            return result;
+        }
+
+
     }
 }
