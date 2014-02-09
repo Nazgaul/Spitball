@@ -1759,4 +1759,139 @@ input[type="radio"] {
 /*#endregion */
 
 /*#endregion */
+/*#region Search page and drop down */
+@import "varsAndMixins";
+
+/*#region search drop down */
+
+.emptySearch
+{
+    &:before
+    {
+        margin: -1px 6px 0 0; /*rtl*/
+    }
+    &:after
+    {
+        left: 7px; /*rtl*/
+    }
+}
+.searchItem{
+    > .searchTitle
+    {
+        margin-left: 56px; /*rtl*/
+    }
+    .userImg
+    {
+        margin-left: 3px; /*rtl*/
+    }
+}
+
+.searchDetails
+{
+    padding-left: 15px; /*rtl*/
+}
+.boxLoc
+{
+    &:before
+    {
+        margin-right: 4px; /*rtl*/
+    }
+}
+.dpt
+{
+    .searchDetails
+    {
+        &:before
+        {
+            float: left; /*rtl*/
+            margin-right: 16px; /*rtl*/
+        }
+    }
+}
+/*#endregion */
+
+/*#region Search page - 's' prefix stands for 'search' */
+.searchPage
+{
+    &:after
+    {
+        right:0; /*rtl*/
+        left: auto;
+    }
+    .upArrow{
+        &:before
+        {
+            right: 28px; /*rtl*/
+            left: auto;
+            .transition(right .5s); /*rtl*/
+        }
+    }
+    .views{
+        margin: -2px 16px 0 0; /*rtl*/
+    }
+}
+.sTabs {
+    &.sTab2 {
+        ~ .upArrow:before{
+            right: 127px; /*rtl*/
+            left: auto;
+        }
+    }
+
+    &.sTab3 {
+        ~ .upArrow:before{
+            right: 237px; /*rtl*/
+            left: auto;
+        }
+    }
+}
+
+.box.sCourseItem, .sMembersItem {
+    &:nth-child(odd) {
+        margin: 0 0 20px 20px; /*rtl*/
+    }
+}
+.box.sCourseItem
+{
+    .boxImg
+    {
+        margin: 0 0 0 24px; /*rtl*/
+    }
+}
+.sOtherUni
+{
+    right: 100px; /*rtl*/
+    left: auto;
+}
+.sMembersItem
+{
+    &:hover
+    {
+        padding: 0 0 0 40px; /*rtl*/ //leave room for message icon
+        .inviteUserBtn
+        {
+            left: 10px; /*rtl*/
+            right: auto;
+        }
+    }
+}
+.sMemberName
+{
+    margin: 26px 104px 0 0; /*rtl*/
+}
+.sMaterialsItem{
+    .sOtherUni
+    {
+        right: 136px; /*rtl*/
+        left: auto;
+    }
+}
+.sMaterialImg
+{
+    margin: 0 0 0 26px; /*rtl*/
+}
+/*#endregion */
+
+
+/*#endregion */
 
