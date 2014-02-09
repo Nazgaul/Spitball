@@ -78,10 +78,10 @@
                 return;
             }
 
-            var page = backData.url, split;
+            var page = backData.url,split; //remove the first 
             if (page.indexOf('dashboard') > -1 || page.indexOf('user') > -1) {
                 split = 0;
-            } else { //library
+            } else { //library 
                 split = 1;
             }            
             that.name = backData.title.split(' | ')[split] //first part of the title

@@ -465,15 +465,17 @@
         return location.origin + '/' + privateLocation.url;
     };
     cd.prevLinkData = function (type) {
-
+        var history;
         if (type === 'box') {
             if (historyNav.length > 0) {
                 for (var i = historyNav.length - 1; i >= 0; i--) {
-                    if (historyNav[i].url.indexOf('dashboard') > -1 ||
-                        historyNav[i].url.indexOf('library') > -1 ||
-                        historyNav[i].url.indexOf('user') > -1) {
-                        if (historyNav[i].url.charAt(0) !== '/') {
-                            historyNav[i].url = '/' + historyNav[i].url;
+                    history = historyNav[i];
+                    history.url = history.url.slice(1, history.url.indexOf('/')-1)
+                    if (history.url.indexOf('dashboard') > -1 ||
+                        history.url.indexOf('library') > -1 ||
+                        history.url.indexOf('user') > -1) {
+                        if (history.url.charAt(0) !== '/') {
+                            history.url = '/' + history.url;
                         }
                         return historyNav[i];
                     }

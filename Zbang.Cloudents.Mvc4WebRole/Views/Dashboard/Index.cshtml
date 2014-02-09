@@ -40,10 +40,10 @@
         </aside>
 
 
-        <div class="searchEmpty " data-bind="visible: mptySrchStt, css: { noResults: mptySrchStt }">
+        @*<div class="searchEmpty " data-bind="visible: mptySrchStt, css: { noResults: mptySrchStt }">
             <h2 id="dash_seaEmpy">@Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.NoResult</h2>
             <div class="searchEmptyText">@Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.TryAgain</div>
-        </div>
+        </div>*@
         <div class="contentWpr" id="dash_right" data-bind="fadeVisible: loadedAnimation">
             <section class="unionCourses">
                 <header class="boxesHeader" data-bind="visible: !mptySrchStt(), text: titleShow"></header>
@@ -55,8 +55,8 @@
                     </div>
                 </div>
                 <!--/ko-->
-                <ol id="BoxList" class="myAreaList clearfix" data-data="@ViewBag.Boxes" data-bind="visible: boxvisible">
-                    <li class="box" data-bind="visible: boxvisible">
+                <ol id="BoxList" class="myAreaList clearfix" data-data="@ViewBag.Boxes" @*data-bind="visible: boxvisible"*@>
+                    <li class="box" @*data-bind="visible: boxvisible"*@>
                         <a class="addBtn browse" href="@Url.Action("Index","Library")?r=dashboard" data-navigation="Library">@SharedResources.BrowseCourses</a>
                     </li>
                     <!--ko template:{name:'dashBoxTemplate', foreach : academicBoxes}-->
@@ -65,7 +65,7 @@
 
             </section>
             <section class="groupBoxes">
-                <header class="boxesHeader" data-bind="visible: boxvisible">@IndexResources.MyGroup</header>
+                <header class="boxesHeader" @*data-bind="visible: boxvisible"*@>@IndexResources.MyGroup</header>
                 <!--ko if: emptyState-->
                 <div class="emptyDash">
                     <div class="groupEmpty">
@@ -75,7 +75,7 @@
                 </div>
                 <!--/ko-->
                 <ol class="myAreaList clearfix">
-                    <li class="box" data-bind="visible: boxvisible">
+                    <li class="box" @*data-bind="visible: boxvisible"*@>
                         <button class="addBtn" data-bind="click: addBox">@SharedResources.CreateNew</button>
                     </li>
                     <!--ko template:{name:'dashBoxTemplate', foreach : privateBoxes}-->

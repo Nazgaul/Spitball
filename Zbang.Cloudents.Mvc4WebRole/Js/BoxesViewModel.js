@@ -61,9 +61,9 @@
 
     function BoxesViewModel() {
         var self = this,
-        issearch = false,
-        $privateBoxDialog = $('#privateBoxDialog'),
-        $dash_SearchQuery = $('#g_searchQ');
+        //issearch = false,
+        $privateBoxDialog = $('#privateBoxDialog');
+        //$dash_SearchQuery = $('#g_searchQ');
 
 
         self.loaded = ko.observable(false);
@@ -83,20 +83,20 @@
         });
         self.privateBoxes = ko.computed(function () {
             return ko.utils.arrayFilter(self.boxes(), function (b) {
-                return  b.boxType === 'box' || issearch;
+                return  b.boxType === 'box';// || issearch;
             }
             );
         });
 
 
-        cd.pubsub.subscribe('dash_search', function (data) {
-            //clearBoard();
-            issearch = true;
-            $dash_SearchQuery.val(data.query);
-            search(data);
-        });
+        //cd.pubsub.subscribe('dash_search', function (data) {
+        //    //clearBoard();
+        //    issearch = true;
+        //    $dash_SearchQuery.val(data.query);
+        //    search(data);
+        //});
         cd.pubsub.subscribe('dash_boxes', function () {
-            clearBoardWithSearch();
+            //clearBoardWithSearch();
             boxesList();
         });
 
@@ -105,32 +105,32 @@
         //    self.boxes([]);
         //}
 
-        function clearBoardWithSearch() {
-            //clearBoard();
-            issearch = false;
-            $dash_SearchQuery.val('').trigger('change'); //cant remember why i need trigger - maybe placeholder issue (ie9)
-        }
+        //function clearBoardWithSearch() {
+        //    //clearBoard();
+        //    issearch = false;
+        //    $dash_SearchQuery.val('').trigger('change'); //cant remember why i need trigger - maybe placeholder issue (ie9)
+        //}
 
-        function search(data) {
-            self.loaded(false).loadedAnimation(false);
+        //function search(data) {
+        //    self.loaded(false).loadedAnimation(false);
             
-            var $boxList = $('#BoxList'), initData = $boxList.data('data');
-            if (initData) {
+        //    var $boxList = $('#BoxList'), initData = $boxList.data('data');
+        //    if (initData) {
                 
-                $boxList.removeAttr('data-data').data('data', '');
-                cd.pubsub.publish('dashSideD', { friend: initData.friends, wall: initData.wall });
-            }
-            dataContext.sDashboard({
-                data: data,
-                success: function (result) {
-                    generateModel( result.boxes );
-                },
-                always: function () {
-                    $dash_SearchQuery.next().removeAttr('disabled');
-                    self.loaded(true);
-                }
-            });
-        }
+        //        $boxList.removeAttr('data-data').data('data', '');
+        //        cd.pubsub.publish('dashSideD', { friend: initData.friends, wall: initData.wall });
+        //    }
+        //    dataContext.sDashboard({
+        //        data: data,
+        //        success: function (result) {
+        //            generateModel( result.boxes );
+        //        },
+        //        always: function () {
+        //            $dash_SearchQuery.next().removeAttr('disabled');
+        //            self.loaded(true);
+        //        }
+        //    });
+        //}
         function boxesList() {
             self.loaded(false).loadedAnimation(false);
 
@@ -182,7 +182,8 @@
             var tt = new TrackTiming('Dashboard', 'Render time of boxes');
             tt.startTime();
             console.time('1');
-            self.boxes(arr); console.timeEnd('1');
+            self.boxes(arr);
+            console.timeEnd('1');
             cd.loadImages(document.getElementById('dash_right'));
             tt.endTime();
             tt.send();
@@ -193,7 +194,7 @@
         
 
         self.emptyState = ko.computed(function () {
-            return self.loaded() && !self.boxes().length && !issearch;
+            return self.loaded() && !self.boxes().length;// && !issearch;
         });
         
         
@@ -215,23 +216,24 @@
 
         var emptyText = '';
         self.mptySrchStt = ko.computed(function () {
-            var x = self.loaded() && !self.boxes().length && issearch;
-            if (x) {
-                var $Lib = $('#dash_seaEmpy');
-                if (!emptyText) {
-                    emptyText = $Lib.text();
-                }
-                $Lib.text(emptyText.format($dash_SearchQuery.val()));
-            }
+            var x = self.loaded() && !self.boxes().length;//&& issearch;
+            //if (x) {
+            //    var $Lib = $('#dash_seaEmpy');
+            //    if (!emptyText) {
+            //        emptyText = $Lib.text();
+            //    }
+            //    $Lib.text(emptyText.format($dash_SearchQuery.val()));
+            //}
             return x;
         });
 
-        self.boxvisible = ko.computed(function () {
-            if (self.loaded() && issearch) {
-                return false;
-            }
-            return true;
-        });
+        //self.boxvisible = ko.computed(function () {
+        //    //if (self.loaded() && issearch) {
+        //    if (self.loaded()) {
+        //        return false;
+        //    }
+        //    return true;
+        //});
 
         self.titleShow = ko.computed(
             function () {
@@ -239,9 +241,9 @@
                 if (!loaded) {
                     return '';
                 }
-                if (issearch && self.boxes().length) {
-                    return '\u200F' + self.boxes().length + '\u200F ' + ZboxResources.SearchResults + ' \u200E“' + $dash_SearchQuery.val() + '”\u200E';
-                }
+                //if (issearch && self.boxes().length) {
+                //    return '\u200F' + self.boxes().length + '\u200F ' + ZboxResources.SearchResults + ' \u200E“' + $dash_SearchQuery.val() + '”\u200E';
+                //}
                 return ZboxResources.CoursesFollow;
             });
 
