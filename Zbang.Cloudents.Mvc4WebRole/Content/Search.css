@@ -303,4 +303,10 @@
   margin: 26px 0 0 104px;
   font-size: 15px;
 }
+.sMemberName:hover {
+  padding-right: 40px;
+}
+.sMemberName:hover .inviteuserbtn {
+  display: block;
+}
 /*#endregion */
