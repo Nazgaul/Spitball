@@ -78,7 +78,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBox2(query);
         }
 
-        public Task<IEnumerable<ViewModel.DTOs.BoxDto>> Search(ViewModel.Queries.Search.SearchLibraryDashBoardQuery query)
+        public Task<ViewModel.DTOs.Search.SearchDto> Search(ViewModel.Queries.Search.GroupSearchQuery query)
         {
             return m_ReadService.Search(query);
         }

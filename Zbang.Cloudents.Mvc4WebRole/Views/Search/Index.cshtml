@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="searchPage page" id="search">
-    <div class="sTabs sTab3">
+    <div class="sTabs sTab2">
         <button type="button" data-stab-count="7">Courses&nbsp;</button>
         <button type="button" data-stab-count="63">Materials&nbsp;</button>
         <button type="button" data-stab-count="11">Members&nbsp;</button>
@@ -14,7 +14,7 @@
                 <li class="box sCourseItem">
                     <a data-navigation="Box" href="#" title="">
                         <img class="lFloat boxImg" alt="" width="77" height="98" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
-                        <div class="sCourseName">Art and Crafts for the eccentric</div>
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
                         @*Guy: Add the 'allDetails' class to the professor when we have both prof and code values*@
                         <span class="sDetail allDetails">Dr. Asaf Finkelstein</span>
                         <span class="sDetail">Mr Bean</span>
@@ -23,7 +23,7 @@
                 <li class="box sCourseItem">
                     <a data-navigation="Box" href="#" title="">
                         <img class="lFloat boxImg" alt="" width="77" height="98" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
-                        <div class="sCourseName">Art and Crafts for the eccentric</div>
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
                         <span class="sDetail">Dr. Asaf Finkelstein</span>
                         <span class="sDetail">Mr Bean</span>
                     </a>
@@ -31,7 +31,7 @@
                 <li class="box sCourseItem">
                     <a data-navigation="Box" href="#" title="">
                         <img class="lFloat boxImg" alt="" width="77" height="98" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
-                        <div class="sCourseName">Art and Crafts for the eccentric</div>
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
                         <span class="sDetail">Dr. Asaf Finkelstein</span>
                         <span class="sDetail">Mr Bean</span>
                     </a>
@@ -42,16 +42,16 @@
                 <li class="box sCourseItem">
                     <a data-navigation="Box" href="#" title="">
                         <img class="lFloat boxImg" alt="" width="77" height="98" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
-                        <div class="sCourseUni semiFont">The open university</div>
-                        <div class="sCourseName">Art and Crafts for the eccentric</div>
+                        <div class="sOtherUni semiFont">The open university</div>
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
                         <span class="sDetail">Mr Bean</span>
                     </a>
                 </li>
                 <li class="box sCourseItem">
                     <a data-navigation="Box" href="#" title="">
-                        <div class="sCourseUni semiFont">The open university</div>
+                        <div class="sOtherUni semiFont">The open university</div>
                         <img class="lFloat boxImg" alt="" width="77" height="98" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
-                        <div class="sCourseName">Art and Crafts for the eccentric</div>
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
                         <span class="sDetail">Dr. Asaf Finkelstein</span>
 
                     </a>
@@ -59,8 +59,8 @@
                 <li class="box sCourseItem">
                     <a data-navigation="Box" href="#" title="">
                         <img class="lFloat boxImg" alt="" width="77" height="98" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
-                        <div class="sCourseUni semiFont">The open university</div>
-                        <div class="sCourseName">Art and Crafts for the eccentric</div>
+                        <div class="sOtherUni semiFont">The open university</div>
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
                         <span class="sDetail allDetails">Dr. Asaf Finkelstein</span>
                         <span class="sDetail">Mr Bean</span>
                     </a>
@@ -70,31 +70,64 @@
         <section class="sMaterials">
             <ul class="sMaterialsList">
                 <li class="sMaterialsItem">
-                    tab2
+                    <a class="sMaterialLink" href="#">
+                        <div class="sOtherUni semiFont"></div>
+                        <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
+                        <div class="sSnippet">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie c</div>
+                        <div class="stars">
+                            <div class="full" style="width: 40px;"></div>
+                        </div>
+                        <div title="@SharedResources.Views" class="views">280</div>
+                    </a>
+                </li>
+                <li class="sMaterialsItem">
+                    <a class="sMaterialLink" href="#">
+                        <div class="sOtherUni semiFont">The open university</div>
+                        <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
+                        <div class="sSnippet">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie c</div>
+                        <div class="stars">
+                            <div class="full" style="width: 40px;"></div>
+                        </div>
+                        <div title="@SharedResources.Views" class="views">280</div>
+                    </a>
+                </li>
+                <li class="sMaterialsItem">
+                    <a class="sMaterialLink" href="#">
+                        <div class="sOtherUni semiFont"></div>
+                        <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_1V3.png">
+                        <div class="sTitle">Art and Crafts for the eccentric</div>
+                        <div class="sSnippet">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie c</div>
+                        <div class="stars">
+                            <div class="full" style="width: 40px;"></div>
+                        </div>
+                        <div title="@SharedResources.Views" class="views">280</div>
+                    </a>
                 </li>
             </ul>
         </section>
         <section class="sMembers">
             <ul class="sMembersList">
                 <li class="sMembersItem">
-                    <img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" />
+                    <a href="#"><img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" /></a>
                     <div class="sMemberName elps">Eidan Apelbaum</div>
-                    <button type="button" title="@DialogResources.SendMessage" class="inviteuserbtn"></button>
+                    <button type="button" title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
                 </li>
                 <li class="sMembersItem">
-                    <img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" />
+                    <a href="#"><img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" /></a>
                     <div class="sMemberName elps">Eidan Apelbaum</div>
-                    <button type="button" title="@DialogResources.SendMessage" class="inviteuserbtn"></button>
+                    <button type="button" title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
                 </li>
                 <li class="sMembersItem">
-                    <img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" />
+                    <a href="#"><img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" /></a>
                     <div class="sMemberName elps">Eidan Apelbaum</div>
-                    <button type="button" title="@DialogResources.SendMessage" class="inviteuserbtn"></button>
+                    <button type="button" title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
                 </li>
                 <li class="sMembersItem">
-                    <img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" />
+                    <a href="#"><img class="imgBorder lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/userpic9.jpg" width="74" height="74" /></a>
                     <div class="sMemberName elps">Eidan Apelbaum</div>
-                    <button type="button" title="@DialogResources.SendMessage" class="inviteuserbtn"></button>
+                    <button type="button" title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
                 </li>
             </ul>
         </section>

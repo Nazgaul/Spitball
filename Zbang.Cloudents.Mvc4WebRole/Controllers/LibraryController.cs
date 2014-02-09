@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("library/search/{query}")]
         public ActionResult Search(string query)
         {
-            return RedirectToActionPermanent("Search", "Dashboard", new { query = query });
+            return RedirectToActionPermanent("Index", "Seach", new { q = query });
         }
 
 

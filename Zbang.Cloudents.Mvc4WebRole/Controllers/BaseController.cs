@@ -36,12 +36,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         public BaseController(IZboxWriteService zboxWriteService, IZboxReadService zboxReadService,
-          // IShortCodesCache shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService)
         {
             m_ZboxWriteService = zboxWriteService;
             m_ZboxReadService = zboxReadService;
-           // m_ShortToLongCode = shortToLongCache;
             m_FormsAuthenticationService = formsAuthenticationService;
 
         }
