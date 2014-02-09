@@ -179,39 +179,39 @@
         });
 
         //search
-        var g_searchQ = document.getElementById('g_searchQ'), timer2 = 0;
-        g_searchQ.onclick = function (e) {
-            if (!cd.register()) {
-                cd.unregisterAction(this);
-                return;
-            }
-        };
-        $('#g_search').submit(function (e) {
-            e.preventDefault();
-            this.querySelector('button').disabled = 1;
-            analytics.trackEvent('Search', inputVal);
+        //var g_searchQ = document.getElementById('g_searchQ'), timer2 = 0;
+        //g_searchQ.onclick = function (e) {
+        //    if (!cd.register()) {
+        //        cd.unregisterAction(this);
+        //        return;
+        //    }
+        //};
+        //$('#g_search').submit(function (e) {
+        //    e.preventDefault();
+        //    this.querySelector('button').disabled = 1;
+        //    analytics.trackEvent('Search', inputVal);
             
-            var inputVal = g_searchQ.value;
-            if (!Modernizr.input.placeholder) {
-                if (g_searchQ.value === g_search.getAttribute('placeholder')) {
-                    g_searchQ.value = '';
-                }
-            }
-            clearTimeout(timer2);
-            if (!inputVal) {
-                cd.pubsub.publish('nav', 'dashboard');
-                return;
-            }
+        //    var inputVal = g_searchQ.value;
+        //    if (!Modernizr.input.placeholder) {
+        //        if (g_searchQ.value === g_search.getAttribute('placeholder')) {
+        //            g_searchQ.value = '';
+        //        }
+        //    }
+        //    clearTimeout(timer2);
+        //    if (!inputVal) {
+        //        cd.pubsub.publish('nav', 'dashboard');
+        //        return;
+        //    }
           
-            cd.pubsub.publish('nav', 'dashboard/search/' + encodeURIComponent(inputVal));
-        });
-        $(g_searchQ).keyup(function () {
-            var $this = $(this);
-            clearTimeout(timer2);
-            timer2 = setTimeout(function () {
-                $this.parent('form').submit();
-            }, 300);
-        });
+        //    cd.pubsub.publish('nav', 'dashboard/search/' + encodeURIComponent(inputVal));
+        //});
+        //$(g_searchQ).keyup(function () {
+        //    var $this = $(this);
+        //    clearTimeout(timer2);
+        //    timer2 = setTimeout(function () {
+        //        $this.parent('form').submit();
+        //    }, 300);
+        //});
 
 
         //closeDialog
