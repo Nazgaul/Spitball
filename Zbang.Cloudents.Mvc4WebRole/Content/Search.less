@@ -219,20 +219,28 @@
         display: inline-block;
     }
 
-    
-
     &.sTab2 {
-
+        ~ .upArrow:before{
+            left: 127px;
+        }
     }
 
     &.sTab3 {
-
+        ~ .upArrow:before{
+            left: 237px;
+        }
     }
 }
 .sTab1 ~ .sTabContent .sCourses,
 .sTab2 ~ .sTabContent .sMaterials,
 .sTab3 ~ .sTabContent .sMembers {
     display: block;
+}
+.sTab1 button:nth-child(1),
+.sTab2 button:nth-child(2),
+.sTab3 button:nth-child(3)
+{
+    font-weight: 600; //semiFont
 }
 
 .sTabContent { 
@@ -284,13 +292,22 @@
         display: none;
     }
 }
-
-.box.sCourseItem
-{
+.box.sCourseItem, .sMembersItem {
     width: 473px;
     display: inline-block;
     float: none;
     margin: 0 0 20px 0; // override other
+
+    &:nth-child(odd) {
+        margin: 0 20px 20px 0;
+    }
+    &:hover
+    {
+        background: #f9f9f9;
+    }
+}
+.box.sCourseItem
+{
     line-height: 18px;
     &:nth-child(odd)
     {
@@ -300,10 +317,6 @@
     {
         margin-right: 24px;
         position: static;
-    }
-    &:hover
-    {
-        background: #f9f9f9;
     }
 }
 .sCourseName
@@ -324,5 +337,23 @@
     top: 15px;
     font-size: 13px;
     color: #676767;
+}
+.sMembersItem
+{
+    .boxSizing;
+    padding: 6px;
+}
+.sMemberName
+{
+    margin: 26px 0 0 104px;
+    font-size: 15px;
+    &:hover
+    {
+        padding-right: 40px; //leave room for message icon
+        .inviteuserbtn
+        {
+            display: block;
+        }
+    }    
 }
 /*#endregion */
