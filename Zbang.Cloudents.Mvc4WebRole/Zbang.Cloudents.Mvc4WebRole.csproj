@@ -558,7 +558,7 @@
       <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.min.css">
-      <DependentUpon>GeneralRtl.less</DependentUpon>
+      <DependentUpon>GeneralRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooter.css">
       <DependentUpon>HeaderFooter.less</DependentUpon>

@@ -19,7 +19,9 @@ body {
 .navUser .userName {
   text-align: right;
   /*rtl*/
-  padding: 0 5px 0 0;
+}
+.navUser .userImg {
+  margin: 9px 0 0 5px;
   /*rtl*/
 }
 .userSettings {
