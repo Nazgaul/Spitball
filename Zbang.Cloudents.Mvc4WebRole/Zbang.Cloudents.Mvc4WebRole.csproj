@@ -807,6 +807,7 @@
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\BoxSettings.js" />
     <Content Include="Js\Search.js" />
+    <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\bootstrapper2.js" />

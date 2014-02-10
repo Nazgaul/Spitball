@@ -282,10 +282,14 @@
                     var $parent = $(this).parents('li');
                     var lowerText = $(this).text().toLowerCase();
                     var termTrimmed = term.trim();
-                    lowerText.indexOf(termTrimmed.toLowerCase()) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1 ? $parent.show() : $parent.hide();
+                    var query;
+                    if (currentCountryCode == 'IL') {
+                        query = lowerText.indexOf(termTrimmed.toLowerCase()) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1 ;
+                    } else{
+                        lowerText.indexOf(termTrimmed.toLowerCase()) > -1;
+                    }
+                    query ? $parent.show() : $parent.hide();
                 });
-
-
             }
         }
     }

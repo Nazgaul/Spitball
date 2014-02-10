@@ -16,7 +16,7 @@
         this.converters = data.converters;        
 
     }
-    var dashboard = "/Dashboard/", library = "/Library/", cBOX = "/Box/", share = "/Share/", cAccount = "/Account/", search = '/Search',
+    var dashboard = "/Dashboard/", library = "/Library/", cBOX = "/Box/", share = "/Share/", cAccount = "/Account/", search = '/Search/',
         comment = "/Comment/", cITEM = "/Item/", get = 'get',
     definition = {};
     //#region definition
@@ -32,7 +32,10 @@
 
     definition.dashboard = new definitionobj({ url: dashboard + "BoxList", type: get });
     definition.createBox = new definitionobj({ url: dashboard + "Create" });
-    definition.sDashboard = new definitionobj({ url: dashboard + 'Search', type: get });
+
+    definition.searchDD = new definitionobj({ url: search + 'Dropdown', type: get });
+    definition.searchPage = new definitionobj({ url: search + 'Data', type: get });
+    //definition.sDashboard = new definitionobj({ url: dashboard + 'Search', type: get });
     // definition.sideNode = new definitionobj({ url: dashboard + "Side", type: get });
 
 
