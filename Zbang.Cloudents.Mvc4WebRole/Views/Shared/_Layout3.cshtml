@@ -93,33 +93,9 @@
                         @*peopleList*@
                     </ul>
                     <h3>Results from other universities</h3>
-                    <ul class="searchList">
+                    <ul class="searchList university">
                         @*otherResults*@
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="searchDetails">
-                                <div class="searchTitle semiFont elps"><span class="boldPart">an</span>t</div>
-                                <span class="searchDetail allDetails">Professor Jinks</span>
-                                <span class="searchDetail">12351243</span>
-                            </div>
-                        </li>
-                        <li class="searchItem dpt">
-                            <div class="searchDetails">
-                                <div class="searchTitle semiFont elps"><span class="boldPart">a</span>nt</div>
-                                <div class="searchDetail">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
-                            </div>
-                        </li>
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder userImg" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
-                            <div class="searchTitle semiFont elps">Daniel David</div>
-                        </li>
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="searchDetails">
-                                <div class="searchTitle semiFont elps">eleph<span class="boldPart">an</span>t</div>
-                                <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
-                            </div>
-                        </li>
+                   
                     </ul>
                     <a class="showAll" href="~/search">Show all results for <q>math</q></a>
                     <div class="emptySearch">No results were found</div>
@@ -199,8 +175,8 @@
             <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
             <div class="searchDetails">
                 <div class="searchTitle semiFont elps">{{name}}</div>
-                <span class="searchDetail {{allDetails}}"></span>
-                <span class="searchDetail"></span>
+                <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
+                <span class="searchDetail">{{courseCode}}</span>
             </div>
         </li>
     </script>
