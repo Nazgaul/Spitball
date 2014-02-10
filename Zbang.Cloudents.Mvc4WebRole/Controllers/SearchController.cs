@@ -76,6 +76,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userDetail = m_FormsAuthenticationService.GetUserData();
             var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), AllResult);
             var result = await m_ZboxReadService.Search(query);
+            var urlBuilder = new UrlBuilder(HttpContext);
+            result.Boxes = result.Boxes.Select(s =>
+            {
+                s.Url = urlBuilder.BuildBoxUrl(s.Id, s.Name, s.Universityname);
+                return s;
+            });
+            result.Items = result.Items.Select(s =>
+            {
+                s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                return s;
+            });
+            result.OtherItems = result.OtherItems.Select(s =>
+            {
+                s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                return s;
+            });
+            result.Users = result.Users.Select(s =>
+            {
+                s.Url = urlBuilder.BuildUserUrl(s.Id, s.Name);
+                return s;
+            });
+
             return result;
         }
 

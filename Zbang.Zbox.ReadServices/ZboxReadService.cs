@@ -475,11 +475,9 @@ namespace Zbang.Zbox.ReadServices
                     retVal.Users = grid.Read<SearchUsers>();
                     retVal.Items = grid.Read<SearchItems>();
 
-                    var otherUniversities = grid.Read<SearchItems>();
+                    retVal.OtherItems = grid.Read<SearchItems>();
 
-                    retVal.Boxes = ownedBoxes.Union(universityBoxes).Take(query.MaxResult);
-                    retVal.Items = retVal.Items ?? otherUniversities;
-                        
+                    retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.MaxResult);
                 }
             }
             return retVal;
