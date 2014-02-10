@@ -86,11 +86,12 @@
     padding: 5px 16px;
     overflow: hidden;
     display:block;
+    position: relative;
     &:hover
     {
         background: @color;
         color: #fff;
-        .searchDetail
+        .searchDetail, .otherUni
         {
             color: #fff;
         }
@@ -114,7 +115,7 @@
     overflow: hidden;
     padding-left: 15px; /*rtl*/
     line-height: 18px;
-    margin-top: 8px;
+    margin-top: 14px;
 }
 .searchTitle
 {
@@ -156,9 +157,12 @@
 {
     color: #676767;
 }
-.otherUni:hover
+.otherUni
 {
-    color: #fff;
+    position: absolute;
+    top: 3px;
+    line-height: 13px;
+    left: 71px; /*rtl*/
 }
 /*#endregion */
 
