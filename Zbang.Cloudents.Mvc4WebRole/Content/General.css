@@ -583,24 +583,26 @@ ul.ui-autocomplete li a {
 .navUser {
   margin-left: 30px;
   /*rtl*/
+  line-height: 15px;
 }
 .navUser .userName {
-  position: relative;
-  /* needed for the width: 100% on the userMenuWrapper*/
-  vertical-align: top;
   font-size: 15px;
   max-width: 127px;
-  padding: 0 0 0 5px;
-  /*rtl*/
   display: inline-block;
   text-align: left;
   /*rtl*/
   color: #fff;
+  margin-top: 9px;
 }
 .navUser .userImg {
   vertical-align: top;
-  margin-top: 9px;
+  margin: 9px 5px 0 0;
+  /*rtl*/
   border-radius: 3px;
+}
+.userPts {
+  font-size: 11px;
+  color: #fff;
 }
 .userSettings {
   margin-right: 10px;
@@ -944,6 +946,39 @@ select.inputText {
 }
 #fconnect {
   display: none;
+}
+.ptsPopup {
+  padding: 9px 10px 7px 10px;
+  color: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 53px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 5px;
+  background: #39434a;
+  z-index: 11;
+  width: 224px;
+}
+.ptDigit {
+  font-size: 16px;
+  color: #0371c8;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 16px;
+  height: 24px;
+  border: 1px solid #f0f0f0;
+  border-radius: 3px;
+  background: #fff;
+  margin: 0 1px;
+  vertical-align: middle;
+}
+.ptDigit:first-child {
+  margin-left: 4px;
 }
 /*#endregion */
 /*#region media queries */

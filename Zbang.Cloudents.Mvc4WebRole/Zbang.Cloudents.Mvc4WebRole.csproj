@@ -558,7 +558,7 @@
       <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.min.css">
-      <DependentUpon>GeneralRtl.less</DependentUpon>
+      <DependentUpon>GeneralRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooter.css">
       <DependentUpon>HeaderFooter.less</DependentUpon>
@@ -643,12 +643,6 @@
     </Content>
     <Content Include="Content\RTL3.min.css">
       <DependentUpon>RTL3.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Search.css">
-      <DependentUpon>Search.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Search.min.css">
-      <DependentUpon>Search.css</DependentUpon>
     </Content>
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
