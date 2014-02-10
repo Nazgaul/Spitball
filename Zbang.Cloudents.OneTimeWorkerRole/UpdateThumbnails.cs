@@ -69,7 +69,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                     //var blobName = blob.Uri.Segments[blob.Uri.Segments.Length - 1];
                     try
                     {
-                        //  UpdateThumbnail(blobName);
+                        TraceLog.WriteInfo("processing now " + blobname.Uri);
                         UpdateFile(blobname.Uri);
                     }
                     catch (StorageException)
@@ -109,12 +109,11 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
                 var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName, retVal.FileTextContent);
                 m_ZboxService.UpdateThumbnailPicture(command);
-                //GenerateCopyRights(blobName, processor);
                 //GenerateFileCache(blobName, processor);
             }
         }
 
-        //private void GenerateCopyRights(string blobName, IFileProcessor processor)
+        //private void GenerateCopyRights(string blobName)
         //{
         //    var stream = m_BlobProvider.DownloadFile(blobName);
         //    var retVal = processor.GenerateCopyRight(stream);
@@ -124,29 +123,8 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         //        blob.UploadFromStream(ms);
         //    }
         //}
-        //private void GenerateFileCache(string blobName, IFileProcessor processor)
-        //{
-        //    var blobCacheName = string.Format("{0}V3.pdf", System.IO.Path.GetFileNameWithoutExtension(blobName));
-        //    var stream = m_BlobProvider.DownloadFile(blobName);
-        //    var retVal = processor.ConvertFileToWebSitePreview(stream, 0, 0);
-        //    Compress compressor = new Compress();
-        //    var byteArray = compressor.CompressToGzip(retVal);
 
-        //    m_BlobProvider.UploadFileToCache(blobCacheName, byteArray, "application/pdf", true);
-
-        //}
-
-        //private void UpdateThumbnail(string blobName)
-        //{
-        //    var itemid = m_ZboxReadService.GetItemIdByBlobId(blobName);
-        //    if (itemid == 0)
-        //    {
-        //        throw new System.ArgumentException("cannot be 0", "itemid");
-        //    }
-        //    var thumbnail = m_ThumbnailProvider.GenerateThumbnail(blobName);
-        //    var command = new UpdateThumbnailCommand(itemid, thumbnail, blobName, blobName);
-        //    m_ZboxService.UpdateThumbnailPicture(command);
-        //}
+        
     }
     public interface IUpdateThumbnails
     {

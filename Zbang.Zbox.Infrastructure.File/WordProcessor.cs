@@ -150,7 +150,7 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var str = doc.ToString(SaveFormat.Text);
-                str = Regex.Replace(str, @"\s+", " ");
+                str = Regex.Replace(str, @"\s+", " ").Replace("אזהרה הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.",string.Empty);
                 return str.Substring(0, Math.Min(400, str.Length));
             }
             catch (Exception ex)
