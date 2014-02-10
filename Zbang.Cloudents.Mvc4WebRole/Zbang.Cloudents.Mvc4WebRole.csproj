@@ -532,7 +532,7 @@
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
     <Content Include="Content\Animations.min.css">
-      <DependentUpon>Animations.less</DependentUpon>
+      <DependentUpon>Animations.css</DependentUpon>
     </Content>
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
