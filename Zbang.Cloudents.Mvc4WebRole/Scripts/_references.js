@@ -72,5 +72,6 @@
 /// <reference path="../js/search.js" />
 /// <reference path="jquery-2.1.0.js" />
 /// <reference path="jquery-ui-1.10.4..js" />
-/// <reference path="jquery.mcustomscrollbar.js" />
 /// <reference path="jquery-ui-1.10.4.js" />
+/// <reference path="jquery.mcustomscrollbar.js" />
+/// <reference path="../js/searchdropdown.js" />

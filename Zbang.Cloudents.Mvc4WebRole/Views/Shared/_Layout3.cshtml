@@ -17,7 +17,7 @@
     
      @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
     {
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     }
 
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
@@ -71,55 +71,30 @@
                 <button type="submit"></button>
                 @*Guy: please add the class 'allResults' when the show all button needs to appear at the end of the list*@
                 @*Guy: please add the class 'noResults' when user query produces no search results*@
-                <div class="searchDD allResults noResults">
+                <div class="searchDD allResults">
                     <h3>Course / Departments</h3>
-                    <ul class="searchList">@*courseResults*@
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="searchDetails">
-                                <div class="searchTitle semiFont elps"><span class="boldPart">an</span>t</div>
-                                @*Guy: Add the 'allDetails' class to the professor when we have both prof and code values*@
-                                <span class="searchDetail allDetails">Professor Jinks</span>
-                                <span class="searchDetail">12351243</span>
-                            </div>
-                        </li>
-                        <li class="searchItem dpt">
+                    <ul class="searchList boxes">
+                        @*courseResults*@
+
+                        @*<li class="searchItem dpt">
                             <div class="searchDetails">
                                 <div class="searchTitle semiFont elps"><span class="boldPart">a</span>nt</div>
                                 <div class="searchDetail">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
                             </div>
-                        </li>
+                            </li>*@
                     </ul>
                     <h3>Materials</h3>
-                    <ul class="searchList">@*itemResults*@
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="searchDetails">
-                                <div class="searchTitle semiFont elps">eleph<span class="boldPart">an</span>t</div>
-                                <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
-                            </div>
-                        </li>
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
-                            <div class="searchDetails">
-                                <div class="searchTitle semiFont elps">eleph<span class="boldPart">an</span>t</div>
-                                <div class="boxLoc searchDetail" data-search-in="In:">Social history of Africa</div>
-                            </div>
-                        </li>
+                    <ul class="searchList items">
+                        @*itemResults*@
+
                     </ul>
                     <h3>People</h3>
-                    <ul class="searchList">@*peopleList*@
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder userImg" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
-                            <div class="searchTitle semiFont elps">Daniel David</div>
-                        </li>
-                        <li class="searchItem">
-                            <img class="lFloat imgBorder userImg" src="" alt="" width="33" height="33" />@*data-bind="attr : { src : qUserImage }"*@
-                            <div class="searchTitle semiFont elps">Itsik Bitran</div>
-                        </li>
+                    <ul class="searchList people">
+                        @*peopleList*@
                     </ul>
                     <h3>Results from other universities</h3>
-                    <ul class="searchList">@*otherResults*@
+                    <ul class="searchList">
+                        @*otherResults*@
                         <li class="searchItem">
                             <img class="lFloat imgBorder" width="40" height="50" src="http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S50X50/userpic9.jpg" alt="">
                             <div class="searchDetails">
@@ -167,10 +142,14 @@
     <div id="mLoading" class="loading">
         <div class="spinner"></div>
     </div>
+
+    <div class="ptsPopup">Sweet, you just earned <span class="ptDigit boldFont">3</span><span class="ptDigit boldFont">0</span> pts</div>
+
+
     <div class="uploads" id="uploads">
         @*collapsed*@
         <div class="uploadTop" id="uploads_title">
-            <span id="uploadsTT" class="lFloat" data-finish="@DialogResources.UploadedFiles" data-mainTitle="@DialogResources.UploadingFiles" data-minimizeTile="@DialogResources.Uploading"></span>
+            <span id="uploadsTT" class="lFloat" data-finish="@DialogResources.UploadedFiles" data-maintitle="@DialogResources.UploadingFiles" data-minimizetile="@DialogResources.Uploading"></span>
             <span id="uploadsTF" class="uploadDetails elps"><q></q></span>
             <span id="uploadsTP" class="uploadPercent"></span>
             <div class="uploadBtns">
@@ -179,8 +158,7 @@
             </div>
 
         </div>
-        <ul class="uploadList" id="uploadList">
-        </ul>
+        <ul class="uploadList" id="uploadList"></ul>
     </div>
     @{ 
         Html.RenderPartial("_Message", new Zbang.Cloudents.Mvc4WebRole.Models.Share.Message());
@@ -193,6 +171,9 @@
 
     @RenderSection("templates", false)
     <div id="cssCheck"></div>
+    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
+
+
     <script type="text/html" id="userToolTipTempalte">
         <a data-navigation="User" href="{{url}}"><img class="ttImg" src="{{image}}" width="99" height="99" /></a>
         <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
@@ -212,9 +193,34 @@
         </li>
     </script>
 
-    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
-
-    <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")" ></script>
+    @*@Search*@
+    <script type="text/html" id="boxesSearchTemplate">
+        <li class="searchItem">
+            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
+            <div class="searchDetails">
+                <div class="searchTitle semiFont elps">{{name}}</div>
+                <span class="searchDetail {{allDetails}}"></span>
+                <span class="searchDetail"></span>
+            </div>
+        </li>
+    </script>
+    <script type="text/html" id="itemsSearchTemplate">
+        <li class="searchItem">
+            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
+            <div class="searchDetails">
+                <div class="searchTitle semiFont elps">{{name}}</div>
+                <div class="boxLoc searchDetail" data-search-in="In:">{{boxName}}</div>
+            </div>
+        </li>
+    </script>
+    <script type="text/html" id="peopleSearchTemplate">
+        <li class="searchItem">
+            <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
+            <div class="searchTitle semiFont elps">{{name}}</div>
+        </li>
+    </script>
+    @*@Search*@
+    <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
     @Html.Script2("General")
     @Html.Script2("cd1")

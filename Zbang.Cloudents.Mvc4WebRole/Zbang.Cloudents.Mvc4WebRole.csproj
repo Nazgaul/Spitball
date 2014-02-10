@@ -558,7 +558,7 @@
       <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.min.css">
-      <DependentUpon>GeneralRtl.less</DependentUpon>
+      <DependentUpon>GeneralRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooter.css">
       <DependentUpon>HeaderFooter.less</DependentUpon>
@@ -801,6 +801,7 @@
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\BoxSettings.js" />
     <Content Include="Js\Search.js" />
+    <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\bootstrapper2.js" />
