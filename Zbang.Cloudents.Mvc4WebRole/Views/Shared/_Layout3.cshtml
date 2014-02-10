@@ -13,8 +13,12 @@
 <html>
 <head>
     <title>@ViewBag.title</title>
-    <link rel="SHORTCUT ICON" href="@Url.Content("~/favicon.ico")" />
+    <link rel="SHORTCUT ICON" href="~/favicon.ico"/>
+    
+     @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    {
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    }
 
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta charset="utf-8">
@@ -23,7 +27,7 @@
 
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="Join the social studying revolution at Cloudents" />
-    <link rel="image_src" href="~/Images/cloudents.png" />
+    <link rel="image_src" href="@Url.CdnContent("/Images/cloudents.png")" />
 
     <meta property="fb:app_id" content="450314258355338">
 
@@ -73,10 +77,10 @@
                         @*courseResults*@
 
                         @*<li class="searchItem dpt">
-                                <div class="searchDetails">
-                                    <div class="searchTitle semiFont elps"><span class="boldPart">a</span>nt</div>
-                                    <div class="searchDetail">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
-                                </div>
+                            <div class="searchDetails">
+                                <div class="searchTitle semiFont elps"><span class="boldPart">a</span>nt</div>
+                                <div class="searchDetail">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
+                            </div>
                             </li>*@
                     </ul>
                     <h3>Materials</h3>
@@ -128,10 +132,10 @@
         @RenderBody()
         <div id="fb-root"></div>
 
-        <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
-              data-myf="@ViewBag.fDash.ToString().ToLower()"
-              data-boxf="@ViewBag.fBox.ToString().ToLower()"
-              data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
+        <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()" 
+            data-myf="@ViewBag.fDash.ToString().ToLower()" 
+            data-boxf="@ViewBag.fBox.ToString().ToLower()" 
+            data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
 
     </div>
 
@@ -152,7 +156,7 @@
         </div>
         <ul class="uploadList" id="uploadList"></ul>
     </div>
-    @{
+    @{ 
         Html.RenderPartial("_Message", new Zbang.Cloudents.Mvc4WebRole.Models.Share.Message());
 
         if (!User.Identity.IsAuthenticated)

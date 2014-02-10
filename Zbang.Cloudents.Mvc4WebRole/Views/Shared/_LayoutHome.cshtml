@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
     <title>Cloudents</title>
     <link rel="SHORTCUT ICON" href="~/favicon.ico" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    {
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    }
     <meta name="title" content="Cloudents" />
     <meta name="description" content="Join the social studying revolution at Cloudents" />
     <link rel="image_src" href="~/Images/cloudents.png?v=1" />
@@ -18,7 +21,7 @@
 
     @Html.Css2("home")
     @Html.CssRtl("homeRtl")
-    @Html.CssCulture("lang")  
+    @Html.CssCulture("lang")
     <!--[if lt IE 9]>
         <script>
         document.createElement('header');
@@ -35,14 +38,7 @@
 </head>
 @{Response.Flush();}
 <body>
-    <!--[if IE]>
-    <script>
-        if (!window.document.documentMode || window.document.documentMode < 9) {
-            window.location = "/Error/Unsupported";
-        }
-    </script>
-    <![endif]-->
-
+    @System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName
     <div class="homeContent">
         @RenderBody()
     </div>

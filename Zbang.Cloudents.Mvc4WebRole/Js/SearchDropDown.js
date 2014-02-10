@@ -46,6 +46,9 @@
 
         form.onsubmit = function (e) {
             e.preventDefault();
+            if (!input.value) {
+                return;
+            }
             pubsub.publish('nav', '/search/?q=' + input.value);
         };
 
