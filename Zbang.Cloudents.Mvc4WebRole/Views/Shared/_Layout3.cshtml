@@ -69,7 +69,6 @@
                 <input id="g_searchQ" autocomplete="off"
                        type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
                 <button type="submit"></button>
-                @*Guy: please add the class 'allResults' when the show all button needs to appear at the end of the list*@
                 @*Guy: please add the class 'noResults' when user query produces no search results*@
                 <div class="searchDD allResults">
                     <h3>Course / Departments</h3>
@@ -95,7 +94,7 @@
                     <h3>Results from other universities</h3>
                     <ul class="searchList university">
                         @*otherResults*@
-                   
+
                     </ul>
                     <a class="showAll" href="~/search">Show all results for <q>math</q></a>
                     <div class="emptySearch">No results were found</div>
@@ -108,10 +107,10 @@
         @RenderBody()
         <div id="fb-root"></div>
 
-        <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()" 
-            data-myf="@ViewBag.fDash.ToString().ToLower()" 
-            data-boxf="@ViewBag.fBox.ToString().ToLower()" 
-            data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
+        <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
+              data-myf="@ViewBag.fDash.ToString().ToLower()"
+              data-boxf="@ViewBag.fBox.ToString().ToLower()"
+              data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
 
     </div>
 
@@ -136,7 +135,7 @@
         </div>
         <ul class="uploadList" id="uploadList"></ul>
     </div>
-    @{ 
+    @{
         Html.RenderPartial("_Message", new Zbang.Cloudents.Mvc4WebRole.Models.Share.Message());
 
         if (!User.Identity.IsAuthenticated)
@@ -171,28 +170,35 @@
 
     @*@Search*@
     <script type="text/html" id="boxesSearchTemplate">
-        <li class="searchItem">
-            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-            <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{name}}</div>
-                <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
-                <span class="searchDetail">{{courseCode}}</span>
-            </div>
+        <li>
+            <a href="#" class="searchItem">
+                <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
+                <div class="searchDetails">
+                    <div class="searchTitle semiFont elps">{{name}}</div>
+                    <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
+                    <span class="searchDetail">{{courseCode}}</span>
+                </div>
+            </a>
         </li>
     </script>
     <script type="text/html" id="itemsSearchTemplate">
-        <li class="searchItem">
-            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-            <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{name}}</div>
-                <div class="boxLoc searchDetail" data-search-in="In:">{{boxName}}</div>
-            </div>
+        <li>
+            <a href="#" class="searchItem">
+                <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
+                <div class="rFloat otherUni semiFont">Open University</div>
+                <div class="searchDetails">
+                    <div class="searchTitle semiFont elps">{{name}}</div>
+                    <div class="boxLoc searchDetail" data-search-in="In:">{{boxName}}</div>
+                </div>
+            </a>
         </li>
     </script>
     <script type="text/html" id="peopleSearchTemplate">
-        <li class="searchItem">
-            <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps">{{name}}</div>
+        <li>
+            <a href="#" class="searchItem">
+                <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
+                <div class="searchTitle semiFont elps">{{name}}</div>
+            </a>
         </li>
     </script>
     @*@Search*@
