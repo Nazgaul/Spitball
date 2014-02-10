@@ -2,6 +2,63 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+@-moz-keyframes ptsAppear { 
+from  {
+  opacity: 0;
+  top: 38px;
+}
+to {
+  opacity: 1;
+  top: 53px;
+}
+} 
+@-webkit-keyframes ptsAppear { 
+from  {
+  opacity: 0;
+  top: 38px;
+}
+to {
+  opacity: 1;
+  top: 53px;
+}
+} 
+@-o-keyframes ptsAppear { 
+from  {
+  opacity: 0;
+  top: 38px;
+}
+to {
+  opacity: 1;
+  top: 53px;
+}
+} 
+@-ms-keyframes ptsAppear { 
+from  {
+  opacity: 0;
+  top: 38px;
+}
+to {
+  opacity: 1;
+  top: 53px;
+}
+} 
+@keyframes ptsAppear { 
+from  {
+  opacity: 0;
+  top: 38px;
+}
+to {
+  opacity: 1;
+  top: 53px;
+}
+} 
+.ptsAppear {
+  -moz-animation: ptsAppear ease-in-out 1s 1 normal;
+  -webkit-animation: ptsAppear ease-in-out 1s 1 normal;
+  -o-animation: ptsAppear ease-in-out 1s 1 normal;
+  -ms-animation: ptsAppear ease-in-out 1s 1 normal;
+  animation: ptsAppear ease-in-out 1s 1 normal;
+}
 @-moz-keyframes joinWprSlide { 
 from  {
   padding-top: 29px;
