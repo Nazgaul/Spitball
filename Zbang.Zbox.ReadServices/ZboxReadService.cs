@@ -477,7 +477,7 @@ namespace Zbang.Zbox.ReadServices
 
                     retVal.OtherItems = grid.Read<SearchItems>();
 
-                    retVal.Boxes = ownedBoxes.Union(universityBoxes).Take(query.MaxResult);
+                    retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.MaxResult);
                 }
             }
             return retVal;
