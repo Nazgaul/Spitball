@@ -10,9 +10,10 @@
         dropdown = document.querySelector('.searchDD'),
         consts = {
             MAXITEMS: 6,
-            MINITEMS: 3
+            MINITEMS: 3,
+            BOLDSTRINGLENTH: 30
         },
-        currentValue;
+        currentValue, maxCategoryItems, maxOtherItems;
 
 
 
@@ -22,6 +23,14 @@
         self.name = hightlightSearch(data.name);
         self.boxName = data.boxname;
         self.url = data.url;
+        self.universityName = '';
+    }
+
+    function OtherItem(data) {
+        var that = this;
+        Item.call(that, data);
+        that.universityName = data.universityname;
+
     }
     function Box(data) {
         var self = this;
@@ -59,7 +68,7 @@
                 return;
             }
 
-            if(currentValue === input.value) {
+            if (currentValue === input.value) {
                 return;
             }
             currentValue = input.value;
@@ -80,22 +89,23 @@
     function hightlightSearch(name) {
         var term = input.value,
             reg = new RegExp(term, 'gmi'),
-            m,indeces = [];
+            m, indeces = [];
 
         while (m = reg.exec(name)) {
             indeces.push(m.index);
-        } 
-        
+        }
+
         for (var i = 0, l = indeces.length; i < l; i++) {
-            name = highlight(name, indeces[i], indeces[i] + term.length);
+
+            name = highlight(name, indeces[i] + i * consts.BOLDSTRINGLENTH, indeces[i] + term.length + i * consts.BOLDSTRINGLENTH);
         }
 
         return name;
 
         function highlight(str, start, end) {
             var text = '<span class="boldPart">' + str.substring(start, end) + '</span>';
-            
-          return str.substring(0, start) + text + str.substring(end);
+
+            return str.substring(0, start) + text + str.substring(end);
         }
     }
 
@@ -103,6 +113,7 @@
         dropdown.style.display = 'block';
         var boxes = mapData(Box, data.boxes),
             items = mapData(Item, data.items),
+            otherItems = mapData(OtherItem, data.otherItems),
             users = mapData(Member, data.users),
             boxList = dropdown.querySelector('.searchList.boxes'),
             itemsList = dropdown.querySelector('.searchList.items'),
@@ -110,19 +121,30 @@
             uniList = dropdown.querySelector('.searchList.university'),
             emptyCategories = getEmptyCategories(boxes.length, items.length, users.length);
 
-        
-        appendData(boxList, 'boxesSearchTemplate', boxes);
-        appendData(itemsList, 'itemsSearchTemplate', items);
-        appendData(peopleList, 'peopleSearchTemplate', users);
 
-        var otherItems = [] //to be deleted
-        if (emptyCategories < 2) {
-            appendData(uniList, 'peopleSearchTemplate', otherItems);
+        maxCategoryItems = 0;
+        maxOtherItems = 0;
+        switch (emptyCategories) {
+            case 0:
+                maxCategoryItems = consts.MINITEMS;
+                break;
+            case 3:
+                maxOtherItems = consts.MAXITEMS;
+                break;
+            default:
+                maxCategoryItems = consts.MINITEMS;
+                maxOtherItems = consts.MINITEMS;
+                break;
         }
+        appendData(boxList, 'boxesSearchTemplate', boxes, maxCategoryItems);
+        appendData(itemsList, 'itemsSearchTemplate', items, maxCategoryItems);
+        appendData(peopleList, 'peopleSearchTemplate', users, maxCategoryItems);
+        appendData(uniList, 'itemsSearchTemplate', otherItems, maxOtherItems);
+
 
         function mapData(dataType, arr) {
             if (!arr.length) {
-                return []; // we return empty array to get the search result
+                return []; // we return empty array to calculate the max items length
             }
             return arr.map(function (d) {
                 return new dataType(d);
@@ -140,21 +162,27 @@
             if (uL === 0) {
                 counter++;
             }
+
             return counter;
         }
 
-        function appendData(list, template, data) {
-            list.previousElementSibling.style.display = data.length ? 'block' : 'none';
+        function appendData(list, template, dataItems, maxItems) {
+            
+            if(dataItems.length && maxItems) {
+                list.previousElementSibling.style.display = 'block';
+            } else {
+                list.previousElementSibling.style.display = 'none';
+            }
+            
 
-            if (!data.length) {
+            if (!dataItems.length) {
                 list.innerHTML = '';
                 return;
             }
 
-            if (emptyCategories < 2) {
-                data = data.slice(consts.MINITEMS);
-            }
-            cd.appendData(list, template, data, 'afterbegin', true);
+            dataItems = dataItems.slice(0, maxItems);
+
+            cd.appendData(list, template, dataItems, 'afterbegin', true);
         }
     }
 

@@ -171,7 +171,7 @@
     @*@Search*@
     <script type="text/html" id="boxesSearchTemplate">
         <li>
-            <a href="#" class="searchItem">
+            <a href="{{url}}" class="searchItem">
                 <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
                 <div class="searchDetails">
                     <div class="searchTitle semiFont elps">{{name}}</div>
@@ -183,9 +183,9 @@
     </script>
     <script type="text/html" id="itemsSearchTemplate">
         <li>
-            <a href="#" class="searchItem">
+            <a href="{{url}}" class="searchItem">
                 <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-                <div class="rFloat otherUni semiFont">Open University</div>
+                <div class="rFloat otherUni semiFont">{{universityName}}</div>
                 <div class="searchDetails">
                     <div class="searchTitle semiFont elps">{{name}}</div>
                     <div class="boxLoc searchDetail" data-search-in="In:">{{boxName}}</div>
@@ -195,7 +195,7 @@
     </script>
     <script type="text/html" id="peopleSearchTemplate">
         <li>
-            <a href="#" class="searchItem">
+            <a href="{{url}}" class="searchItem">
                 <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
                 <div class="searchTitle semiFont elps">{{name}}</div>
             </a>
