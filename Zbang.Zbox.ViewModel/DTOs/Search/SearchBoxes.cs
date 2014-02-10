@@ -8,7 +8,19 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
 {
     public class SearchBoxes
     {
-        public string Image { get; set; }
+        private string m_Image;
+
+        public string Image
+        {
+            get { return m_Image; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    m_Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(value);
+                }
+            }
+        }
         public string Name { get; set; }
         public string Proffessor { get; set; }
         public string CourseCode { get; set; }

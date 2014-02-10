@@ -43,7 +43,13 @@ where u.UniversityId2 = @universityId
 and u.username like '%' +@query + '%';";
 
 
-        public const string Items = @"select top(@MaxResult) i.ThumbnailBlobName as image, i.Name as name, i.ItemId as id,b.BoxName as boxname,b.BoxId as boxid ,u2.UniversityName as universityname
+        public const string Items = @"select top(@MaxResult) 
+i.ThumbnailBlobName as image,
+i.Name as name,
+i.ItemId as id,
+i.Discriminator as type,
+b.BoxName as boxname,
+b.BoxId as boxid ,u2.UniversityName as universityname
 from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 join zbox.users u2 on u2.UserId = b.OwnerId
@@ -52,7 +58,13 @@ and b.OwnerId = @universityId
 and b.Discriminator = 2
 and i.Name like '%' +@query + '%';";
 
-        public const string ItemFromOtherUniversities = @"select top(@MaxResult) i.ThumbnailBlobName as image, i.Name as name, i.ItemId as id,b.BoxName,b.BoxId ,u2.UniversityName
+        public const string ItemFromOtherUniversities = @"
+select top(@MaxResult) i.ThumbnailBlobName as image,
+i.Name as name,
+i.ItemId as id,
+i.Discriminator as type,
+b.BoxName as boxname,
+b.BoxId as boxid ,u2.UniversityName as universityname
 from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 join zbox.users u2 on u2.UserId = b.OwnerId
