@@ -27,8 +27,8 @@
         var self = this;
         self.image = data.image;
         self.name = hightlightSearch(data.name);
-        self.proffessor = data.boxName;
-        self.courseCode = data.courseCode;
+        self.proffessor = data.proffessor || '';
+        self.courseCode = data.courseCode || '';
         self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
         self.url = data.url;
     }
@@ -84,6 +84,7 @@
             boxList = dropdown.querySelector('.searchList.boxes'),
             itemsList = dropdown.querySelector('.searchList.items'),
             peopleList = dropdown.querySelector('.searchList.people'),
+            uniList = dropdown.querySelector('.searchList.university'),
             emptyCategories = getEmptyCategories(boxes.length, items.length, users.length);
 
         
@@ -91,6 +92,10 @@
         appendData(itemsList, 'itemsSearchTemplate', items);
         appendData(peopleList, 'peopleSearchTemplate', users);
 
+        var otherItems = [] //to be deleted
+        if (emptyCategories < 2) {
+            appendData(uniList, 'peopleSearchTemplate', otherItems);
+        }
 
         function mapData(dataType, arr) {
             if (!arr.length) {
@@ -119,11 +124,12 @@
             list.previousElementSibling.style.display = data.length ? 'block' : 'none';
 
             if (!data.length) {
+                list.innerHTML = '';
                 return;
             }
 
-            if (emptyCategories === 1) {
-                data = data.slice(consts.MAXITEMS);
+            if (emptyCategories < 2) {
+                data = data.slice(consts.MINITEMS);
             }
             cd.appendData(list, template, data, 'afterbegin', true);
         }
