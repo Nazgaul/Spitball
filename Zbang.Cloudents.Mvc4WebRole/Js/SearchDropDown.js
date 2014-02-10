@@ -53,10 +53,17 @@
         };
 
         var search = cd.debounce(function (e) {
+
+            if (!input.value.length) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
             if(currentValue === input.value) {
                 return;
             }
             currentValue = input.value;
+
             dataContext.searchDD({
                 data: { q: currentValue },
                 success: function (data) {
@@ -71,9 +78,25 @@
     }
 
     function hightlightSearch(name) {
-        var term = input.value;
+        var term = input.value,
+            reg = new RegExp(term, 'gmi'),
+            m,indeces = [];
 
-        return name.replace(term, '<span class="boldPart">' + term + '</span>')
+        while (m = reg.exec(name)) {
+            indeces.push(m.index);
+        } 
+        
+        for (var i = 0, l = indeces.length; i < l; i++) {
+            name = highlight(name, indeces[i], indeces[i] + term.length);
+        }
+
+        return name;
+
+        function highlight(str, start, end) {
+            var text = '<span class="boldPart">' + str.substring(start, end) + '</span>';
+            
+          return str.substring(0, start) + text + str.substring(end);
+        }
     }
 
     function parseData(data) {
