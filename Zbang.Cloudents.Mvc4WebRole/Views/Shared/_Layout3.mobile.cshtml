@@ -9,7 +9,10 @@
     <meta name="description" content="Join the social studying revolution at Cloudents" />
     <meta property="fb:app_id" content="450314258355338">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+     @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    {
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    }
     <link rel="image_src" href="~/Images/cloudents.png" />
     <link rel="apple-touch-icon" sizes="57x57" href="~/Images/cloudents1-57x57.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="~/Images/cloudents1-72x72.png" />
