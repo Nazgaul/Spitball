@@ -136,8 +136,8 @@
             dataContext.changeLanguage({
                 data: { Language: languageElem.val() },
                 success: function () {
-                    cd.pubsub.publish('clear_cache', null, function () {
-                        sessionStorage.clear();
+                    cd.pubsub.publish('clear_cache', null, function () {                        
+                        cd.sessionStorageWrapper.clear();
                         window.location.reload();
                     });
                 }

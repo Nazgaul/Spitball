@@ -19,10 +19,10 @@
             later = now.setHours(now.getHours() + 1);
             data.lastpage = getParameterFromUrl(1);
             data.ttl = later;
-            localStorage.setItem('history', JSON.stringify(data));
+            cd.localStorageWrapper.setItem('history', JSON.stringify(data));
         },
         get: function () {
-            var data = JSON.parse(localStorage.getItem('history')) || { ttl: 0, lastpage: '' };
+            var data = JSON.parse(cd.localStorageWrapper.getItem('history')) || { ttl: 0, lastpage: '' };
             var now = new Date();
             if (data.ttl < now.getTime()) {
                 this.remove();
@@ -39,7 +39,7 @@
             historyNav = data.history;
         },
         remove: function () {
-            localStorage.removeItem('history');
+            cd.localStorageWrapper.removeItem('history');
         }
     }
 
@@ -127,7 +127,9 @@
                 privateLocation.url = '/' + privateLocation.url;
             }
             if (privateLocation.url && privateLocation.url.slice(-1) !== '/') {
-                privateLocation.url = privateLocation.url + '/';
+                if (privateLocation.url.indexOf('?') === -1){
+                    privateLocation.url = privateLocation.url + '/';
+                }
             }
             window.history.pushState(privateLocation.url, '', privateLocation.url);
         }
@@ -219,17 +221,18 @@
         pubsub.publish('accountSettings_load');
     }
     function dashboardContext() {
-        var secondLevel = getParameterFromUrl(1) || '';
-        switch (secondLevel.toLowerCase()) {
-            case 'search':
-                pubsub.publish('dash_search', { query: getParameterFromUrl(2) });
-                break;
+        //var secondLevel = getParameterFromUrl(1) || '';
+        //switch (secondLevel.toLowerCase()) {
+        //    case 'search':
+        //        pubsub.publish('dash_search', { query: getParameterFromUrl(2) });
+        //        break;
 
 
-            default:
-                pubsub.publish('dash_boxes');
-                break;
-        }
+        //    default:
+        //        pubsub.publish('dash_boxes');
+        //        break;
+        //}
+        pubsub.publish('dash_boxes');
     }
     function libraryContext() {
         var secondLevel = getParameterFromUrl(1) || '';
@@ -369,11 +372,15 @@
                     break;
                 case 'search':
                     dataContext.searchMp({
+                        data: { q: secondLvl.replace('?q=', '') },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('SearchContext', null, function () {
                                 searchContext(extData);
                             });
+                        },
+                        error: function (err) {
+                            console.log(err);
                         }
                     });
                     break;
@@ -470,12 +477,14 @@
             if (historyNav.length > 0) {
                 for (var i = historyNav.length - 1; i >= 0; i--) {
                     history = historyNav[i];
-                    history.url = history.url.slice(1, history.url.indexOf('/')-1)
+                    history.url = history.url.slice(1, history.url.indexOf('/') - 1)
                     if (history.url.indexOf('dashboard') > -1 ||
                         history.url.indexOf('library') > -1 ||
                         history.url.indexOf('user') > -1) {
-                        if (history.url.charAt(0) !== '/') {
-                            history.url = '/' + history.url;
+                        if (historyNav[i].url.charAt(0) !== '/') {
+                            //if(history.url.indexOf('?') === -1){
+                            historyNav[i].url = '/' + historyNav[i].url;
+                            //}
                         }
                         return historyNav[i];
                     }
@@ -486,7 +495,7 @@
         return historyNav[historyNav.length - 2];
     };
 
-  
+
 
     cd.getParameterFromUrl = function (i) {
         return getParameterFromUrl(i);
