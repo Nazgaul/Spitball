@@ -54,13 +54,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("box/{boxUid:length(11)}")]
         public ActionResult Index(string boxUid)
         {
-            var boxid = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
-            var query = new GetBoxQuery(boxid, GetUserId(false));
-            var box = m_ZboxReadService.GetBox2(query);
+            try
+            {
+                var boxid = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
+                var query = new GetBoxQuery(boxid, GetUserId(false));
+                var box = m_ZboxReadService.GetBox2(query);
 
-            UrlBuilder builder = new UrlBuilder(HttpContext);
-            var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
-            return RedirectPermanent(url);
+                UrlBuilder builder = new UrlBuilder(HttpContext);
+                var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
+                return RedirectPermanent(url);
+            }
+            catch (BoxAccessDeniedException)
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                }
+                return RedirectToAction("MembersOnly", "Error");
+            }
+            catch (BoxDoesntExistException)
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    return HttpNotFound();
+                }
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         [CacheFilter(Duration = 0)]

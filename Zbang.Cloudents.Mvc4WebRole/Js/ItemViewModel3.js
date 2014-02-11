@@ -186,7 +186,7 @@
             if (!confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?")) {
                 return;
             }
-            sessionStorage.clear();
+            cd.sessionStorageWrapper.clear();
             dataContext.removeItem({
                 data: { itemId: self.itemid(), BoxUid: boxid },
                 success: function () {

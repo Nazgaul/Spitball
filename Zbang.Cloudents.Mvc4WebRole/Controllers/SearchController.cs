@@ -26,7 +26,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //
         // GET: /Search/
         [UserNavNWelcome]
-        [NonAjax]
         [HttpGet]
         [CompressFilter]
         public async Task<ActionResult> Index(string q)

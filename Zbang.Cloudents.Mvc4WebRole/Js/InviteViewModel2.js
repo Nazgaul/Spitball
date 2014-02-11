@@ -18,7 +18,7 @@
         this.id = data.boxUid;
         this.name = data.boxName;
         this.owner = data.boxOwner;
-        this.url = data.url;
+        this.url = data.url + '?r=siteheader&s=invite';
     }
 
 

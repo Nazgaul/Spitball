@@ -7,18 +7,18 @@
     items = [];
 
     pubsub.subscribe('item', function (data) {
-        items = JSON.parse(localStorage.getItem(key)) || [];
+        items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (items.indexOf(data.id) == -1 ) {
             items.push({Uid: data.id, Action: 1});
-            localStorage.setItem(key, JSON.stringify(items));
+            cd.storageWrapper.local.setItem(key, JSON.stringify(items));
         }
 
     });
     pubsub.subscribe('item_Download', function (data) {
-        items = JSON.parse(localStorage.getItem(key)) || [];
+        items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (items.indexOf(data.id) == -1) {
             items.push({ Uid: data.id, Action: 2 });
-            localStorage.setItem(key, JSON.stringify(items));
+            cd.storageWrapper.local.setItem(key, JSON.stringify(items));
         }
     });
 
@@ -26,7 +26,7 @@
     sendData();
 
     function sendData() {
-        var x = JSON.parse(localStorage.getItem(key));
+        var x = JSON.parse(cd.localStorageWrapper.getItem(key));
         //if (x) {
         dataContext.statistics({
             data: { Items: x },
@@ -34,7 +34,7 @@
             error: function () { }
         });
 
-        localStorage.removeItem(key);
+        cd.localStorageWrapper.removeItem(key);
         //}
     }
 

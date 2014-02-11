@@ -12,39 +12,39 @@
     function checkVersion() {
         var key;
         try { // ie9 doesnt throw exception if sessionStorage is empty
-            key = sessionStorage.key(0);
+            key = cd.sessionStorageWrapper.getItem(0);
         } catch (e) {
-            sessionStorage.clear();
+            cd.sessionStorageWrapper.clear();
             return;
         }
-        var stringElement = sessionStorage.getItem(key);
+        var stringElement = cd.sessionStorageWrapper.getItem(key);
         if (!stringElement) {
             return null;
         }
         var obj = JSON.parse(stringElement);
         if (obj.version !== version) {
-            sessionStorage.clear();
+            cd.sessionStorageWrapper.clear();
         }
     }
     var minute = 60000;
     pubsub.subscribe('add_cache', function (args) {
-        var valueToCache = JSON.stringify({ userid: userid, version: version, value: args.value, ttl: new Date().getTime() + args.ttl });
-        sessionStorage.setItem(buildKey(args.key, args.params), valueToCache);
+        var valueToCache = JSON.stringify({ userid: userid, version: version, value: args.value, ttl: new Date().getTime() + args.ttl });        
+        cd.sessionStorageWrapper.setItem(buildKey(args.key, args.params), valueToCache);
     });
     pubsub.subscribe('clear_cache', function () {
-        sessionStorage.clear();
+        cd.sessionStorageWrapper.clear();
     });
     pubsub.subscribe('remove_cache', function (key) {
-        sessionStorage.removeItem(key);
+        cd.sessionStorageWrapper.removeItem(key);
         window.setTimeout(function () {
             var keys = [];
-            for (var i = 0, length = sessionStorage.length; i < length; i++) {
-                var someKey = sessionStorage.key(i);
+            for (var i = 0, length = cd.sessionStorageWrapper.length; i < length; i++) {
+                var someKey = cd.sessionStorageWrapper.key(i);
                 if (someKey.split('_')[0] === key) {
                     keys.push(key);
                 }
                 for (var j = 0; j < keys.length; j++) {
-                    sessionStorage.removeItem(keys[j]);
+                    cd.sessionStorageWrapper.removeItem(keys[j]);
                 }
             }
         }, 1);
@@ -59,13 +59,13 @@
     function getFromCache(key, params) {
         params = params || {};
         key = buildKey(key, params);
-        var stringElement = sessionStorage.getItem(key);// cache[key];
+        var stringElement = cd.sessionStorageWrapper.getItem(key);// cache[key];
         if (!stringElement) {
             return null;
         }
         var obj = JSON.parse(stringElement, cd.isoDateReviver);
         if (obj.userid !== userid) {
-            sessionStorage.clear();
+            cd.sessionStorageWrapper.clear();
             return null;
         }
         if (obj.version !== version) {
@@ -77,7 +77,7 @@
         return obj.value;
     }
     cd.cache = {
-        getFromCache: getFromCache,
+        getFromCache: getFromCache
         // clear: sessionStorage.clear
     };
 

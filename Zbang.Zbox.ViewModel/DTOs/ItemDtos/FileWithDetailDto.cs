@@ -14,10 +14,10 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             string userName,
             string userImage,
             string blob, long userId, int numberOfViews, int numberOfDownloads, float rate, long boxId, string boxName,
-            string country, string uniName)
+            string country, string uniName, string description)
             : base(id, updateTime, name, userName,
                 userImage,
-            userId, numberOfViews, blob, rate, boxId, boxName, country, uniName)
+            userId, numberOfViews, blob, rate, boxId, boxName, country, uniName, description)
         {
             //TODO: this is not good should be logic in dto
             NameWOExtension = Path.GetFileNameWithoutExtension(Name);

@@ -162,6 +162,7 @@
                         error: function () {
                             cd.notification('Something went wrong please try again');
                             $submit.removeAttr('disabled');
+                            window.location.reload(); // if cscf was occure - reloading the page to refresh the token
                         }
                     });
 
@@ -260,8 +261,8 @@
         //});
 
     }
-    sessionStorage.clear();
-    localStorage.removeItem('history');//remove history
+    cd.sessionStorageWrapper.clear();
+    cd.localStorageWrapper.removeItem('history');//remove history
     $.extend($.validator.messages, {
         email: $('#NewEmail').data('valRegex'),
     });

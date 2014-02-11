@@ -149,6 +149,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     BaseControllerResources.Culture = culture;
                     ViewBag.title = string.Format("{0} {1} | {2} | Cloudents", BaseControllerResources.TitlePrefix, item.BoxName, item.Name);
                 }
+                ViewBag.metaDescription = item.Description;
                 item.BoxUrl = urlBuilder.BuildBoxUrl(boxId, item.BoxName, universityName);
                 ViewBag.data = serializer.Serialize(item);
                 //ViewBag.title = item.Name;
