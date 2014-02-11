@@ -201,12 +201,12 @@
             return false;
         }
 
-        return getComputedStyle(loader).getPropertyValue('display') !== 'none';            
+        return getComputedStyle(loader).getPropertyValue('display') !== 'none';
     };
 
     var renderLoading = function (elem, timeout) {
         if (loaderOn()) {
-            return function () {};
+            return function () { };
         }
         var $elem, loaderHtml, topLocation, x;
         timeout = timeout || 2000;
@@ -302,7 +302,101 @@
         }
         element.insertAdjacentHTML(position, html);
 
-    }
+    };
+
+    var sessionStorageWrapper = {
+        enabled: true,
+        getItem: function (key) {
+            if (!this.enabled) {
+                return;
+            }
+            return sessionStorage.getItem(key);
+        },
+        setItem: function (key, value) {
+            if (!this.enabled) {
+                return;
+            }
+            sessionStorage.setItem(key, value);
+        },
+        removeItem: function (key) {
+            if (!this.enabled) {
+                return;
+            }
+            sessionStorage.removeItem(key);
+        },
+        clear: function () {
+            if (!this.enabled) {
+                return;
+            }
+            sessionStorage.clear();
+        },
+        length: function () {
+            if (!this.enabled) {
+                return;
+            }
+            return sessionStorage.length();
+        },
+        key: function (rKey) {
+            if (!this.enabled) {
+                return;
+            }
+            return sessionStorage.getKey(rKey);
+        },
+        check: function () {
+            if (!window.sessionStorage) {
+                this.enabled = false;
+                analytics.trackEvent('Browser', 'Session Storage', 'Session  storage is not supported');
+            }
+        }
+    };
+    sessionStorageWrapper.check();
+
+    var localStorageWrapper = {
+        enabled: true,
+        getItem: function (key) {
+            if (!this.enabled) {
+                return;
+            }
+            return localStorage.getItem(key);
+        },
+        setItem: function (key, value) {
+            if (!this.enabled) {
+                return;
+            }
+            localStorage.setItem(key, value);
+        },
+        removeItem: function (key) {
+            if (!this.enabled) {
+                return;
+            }
+            localStorage.removeItem(key);
+        },
+        clear: function () {
+            if (!this.enabled) {
+                return;
+            }
+            localStorage.clear();
+        },
+        length: function () {
+            if (!this.enabled) {
+                return;
+            }
+            return localStorage.length();
+        },
+        key: function (rKey) {
+            if (!this.enabled) {
+                return;
+            }
+            return localStorage.getKey(rKey);
+        },
+        check: function () {
+            if (!window.sessionStorage) {
+                this.enabled = false;
+                analytics.trackEvent('Browser', 'Local Storage', 'Local storage is not supported');
+            }
+        }
+    };
+    localStorageWrapper.check();
 
     var docCookies = {
         getItem: function (sKey) {
@@ -607,7 +701,7 @@
 
         $('[data-ddcbox]').not('[data-ddcbox="' + $target.attr('data-ddcbox') + '"]').prop('checked', false);
         //$('[data-dropdown]').not('[data-dropdown="' + $target.attr('data-ddcbox') + '"]').removeClass('showOtakim');
-        
+
         if ($target.attr('data-ddcbox') === undefined) {
             $('[data-ddcbox]').prop('checked', false);
             //$('.dropDown').removeClass('showOtakim');
@@ -687,10 +781,10 @@
     var innerScroll = function (elem, height) {
         var direction = $('html').css('direction') === 'ltr' ? 'right' : 'left';
         if (Modernizr.touch) {
-            elem.css({ height: height, overflow: 'auto','-webkit-overflow-scrolling': 'touch' });
+            elem.css({ height: height, overflow: 'auto', '-webkit-overflow-scrolling': 'touch' });
             return;
         }
-        
+
         elem.slimScroll({
             height: height,
             position: direction,
@@ -721,7 +815,7 @@
             name: '',
             id: '',
             nId: -1,
-            url:''
+            url: ''
         };
 
         if (!userData.id) {
@@ -757,7 +851,7 @@
         }
     };
 
-    var debounce = function(func, wait, immediate) {
+    var debounce = function (func, wait, immediate) {
         var timeout;
         return function () {
             var context = this, args = arguments;
@@ -771,13 +865,13 @@
     };
 
     var conversion = {
-        table : {
-            'e': 'ק','r': 'ר','t': 'א','y': 'ט','u': 'ו','i': 'ן','o': 'ם',
-            'p': 'פ','a': 'ש','s': 'ד','d': 'ג','f': 'כ','g': 'ע','h': 'י',
-            'j': 'ח','k': 'ל','l': 'ך',';': 'ף','z': 'ז','x': 'ס','c': 'ב',
-            'v': 'ה','b': 'נ','n': 'מ','m': 'צ',',': 'ת','.': 'ץ'
+        table: {
+            'e': 'ק', 'r': 'ר', 't': 'א', 'y': 'ט', 'u': 'ו', 'i': 'ן', 'o': 'ם',
+            'p': 'פ', 'a': 'ש', 's': 'ד', 'd': 'ג', 'f': 'כ', 'g': 'ע', 'h': 'י',
+            'j': 'ח', 'k': 'ל', 'l': 'ך', ';': 'ף', 'z': 'ז', 'x': 'ס', 'c': 'ב',
+            'v': 'ה', 'b': 'נ', 'n': 'מ', 'm': 'צ', ',': 'ת', '.': 'ץ'
         },
-        convert : function (term) {
+        convert: function (term) {
             var result = '';
             for (var i = 0, l = term.length; i < l ; i++) {
                 result += this.table[term[i].toLowerCase()] || term[i];
@@ -786,6 +880,8 @@
         }
     };
 
+    cd.sessionStorageWrapper = sessionStorageWrapper;
+    cd.localStorageWrapper = localStorageWrapper;
     cd.debounce = debounce;
     cd.conversion = conversion;
     cd.loadImages = loadImages;

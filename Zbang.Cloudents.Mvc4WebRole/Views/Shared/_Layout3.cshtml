@@ -68,35 +68,23 @@
             <form class="dashLibSearch" id="g_search">
                 <input id="g_searchQ" autocomplete="off"
                        type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
-                <button type="submit"></button>
-                @*Guy: please add the class 'noResults' when user query produces no search results*@
+                <button id="searchDropDownBtn" disabled type="submit"></button>
                 <div class="searchDD allResults">
                     <h3>Course / Departments</h3>
-                    <ul class="searchList boxes">
-                        @*courseResults*@
-
-                        @*<li class="searchItem dpt">
-                            <div class="searchDetails">
-                                <div class="searchTitle semiFont elps"><span class="boldPart">a</span>nt</div>
-                                <div class="searchDetail">Department with&nbsp;<span data-search-numcourses="6">courses</span></div>
-                            </div>
-                            </li>*@
+                    <ul class="searchList boxes">                                              
                     </ul>
                     <h3>Materials</h3>
-                    <ul class="searchList items">
-                        @*itemResults*@
+                    <ul class="searchList items">                        
 
                     </ul>
                     <h3>People</h3>
-                    <ul class="searchList people">
-                        @*peopleList*@
+                    <ul class="searchList people">                        
                     </ul>
                     <h3>Results from other universities</h3>
                     <ul class="searchList university">
-                        @*otherResults*@
 
                     </ul>
-                    <a class="showAll" href="~/search">Show all results for <q>math</q></a>
+                    <a class="showAll" href="" data-navigation="search">Show all results for <q></q></a>
                     <div class="emptySearch">No results were found</div>
                 </div>
             </form>
@@ -171,7 +159,7 @@
     @*@Search*@
     <script type="text/html" id="boxesSearchTemplate">
         <li>
-            <a href="{{url}}" class="searchItem">
+            <a href="{{url}}" data-navigation="box" class="searchItem">
                 <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
                 <div class="searchDetails">
                     <div class="searchTitle semiFont elps">{{name}}</div>
@@ -183,7 +171,7 @@
     </script>
     <script type="text/html" id="itemsSearchTemplate">
         <li>
-            <a href="{{url}}" class="searchItem">
+            <a href="{{url}}" data-navigation="item" class="searchItem">
                 <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
                 <div class="rFloat otherUni semiFont">{{universityName}}</div>
                 <div class="searchDetails">
@@ -195,7 +183,7 @@
     </script>
     <script type="text/html" id="peopleSearchTemplate">
         <li>
-            <a href="{{url}}" class="searchItem">
+            <a href="{{url}}" data-navigation="user" class="searchItem">
                 <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
                 <div class="searchTitle semiFont elps">{{name}}</div>
             </a>

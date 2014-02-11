@@ -260,8 +260,8 @@
         //});
 
     }
-    sessionStorage.clear();
-    localStorage.removeItem('history');//remove history
+    cd.sessionStorageWrapper.clear();
+    cd.localStorageWrapper.removeItem('history');//remove history
     $.extend($.validator.messages, {
         email: $('#NewEmail').data('valRegex'),
     });
