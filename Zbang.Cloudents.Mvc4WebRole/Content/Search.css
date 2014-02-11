@@ -84,12 +84,14 @@
   padding: 5px 16px;
   overflow: hidden;
   display: block;
+  position: relative;
 }
 .searchItem:hover {
   background: #0f9d58;
   color: #fff;
 }
-.searchItem:hover .searchDetail {
+.searchItem:hover .searchDetail,
+.searchItem:hover .otherUni {
   color: #fff;
 }
 .searchItem:hover .boldPart {
@@ -109,7 +111,7 @@
   padding-left: 15px;
   /*rtl*/
   line-height: 18px;
-  margin-top: 8px;
+  margin-top: 14px;
 }
 .searchTitle {
   font-size: 15px;
@@ -145,8 +147,12 @@
 .otherUni {
   color: #676767;
 }
-.otherUni:hover {
-  color: #fff;
+.otherUni {
+  position: absolute;
+  top: 3px;
+  line-height: 13px;
+  left: 71px;
+  /*rtl*/
 }
 /*#endregion */
 /*#region Search page - 's' prefix stands for 'search' */

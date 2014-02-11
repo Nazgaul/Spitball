@@ -95,7 +95,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var err = HttpContext.Current.Server.GetLastError();
             var parameters = HttpContext.Current.Request.Params.ToString().Replace("&", "\n");
-            TraceLog.WriteError("Application error - params: " + parameters, err);
+            var url = HttpContext.Current.Request.Url.AbsolutePath;
+            TraceLog.WriteError("Application error - url: " + url + " - params: " + parameters, err);
 
 
             var httpContext = ((MvcApplication)sender).Context;

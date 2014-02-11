@@ -1695,6 +1695,11 @@ input[type="radio"] + label:before {
   padding-left: 15px;
   /*rtl*/
 }
+.otherUni {
+  right: 71px;
+  /*rtl*/
+  left: auto;
+}
 .boxLoc:before {
   margin-right: 4px;
   /*rtl*/

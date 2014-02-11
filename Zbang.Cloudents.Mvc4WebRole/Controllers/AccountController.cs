@@ -171,7 +171,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [ValidateAntiForgeryToken]
-        [RequireHttps]
         public JsonResult LogIn([ModelBinder(typeof(TrimModelBinder))]LogOn model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -201,7 +200,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }
                     catch (UserNotFoundException)
                     {
-                        // m_MembershipService.Value.DeleteUser(model.Email);
                         ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
                     }
                 }
@@ -257,7 +255,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [ValidateAntiForgeryToken]
-        [RequireHttps]
         public async Task<ActionResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId)
         {
 

@@ -3,6 +3,7 @@
 
 @{
     ViewBag.title = ViewBag.title ?? "Cloudents";
+    ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
     ViewBag.fLib = ViewBag.fLib ?? false;
     ViewBag.fDash = ViewBag.fDash ?? false;
     ViewBag.fBox = ViewBag.fBox ?? false;
@@ -26,7 +27,7 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
 
     <meta name="title" content="@ViewBag.title" />
-    <meta name="description" content="Join the social studying revolution at Cloudents" />
+    <meta name="description" content="@ViewBag.metaDescription" />
     <link rel="image_src" href="@Url.CdnContent("/Images/cloudents.png")" />
 
     <meta property="fb:app_id" content="450314258355338">
@@ -71,14 +72,14 @@
                 <button id="searchDropDownBtn" disabled type="submit"></button>
                 <div class="searchDD allResults">
                     <h3>Course / Departments</h3>
-                    <ul class="searchList boxes">                                              
+                    <ul class="searchList boxes">
                     </ul>
                     <h3>Materials</h3>
-                    <ul class="searchList items">                        
+                    <ul class="searchList items">
 
                     </ul>
                     <h3>People</h3>
-                    <ul class="searchList people">                        
+                    <ul class="searchList people">
                     </ul>
                     <h3>Results from other universities</h3>
                     <ul class="searchList university">
@@ -105,7 +106,8 @@
     <div id="mLoading" class="loading">
         <div class="spinner"></div>
     </div>
-
+    @*Guy: Please add the class 'ptsAnim' when necessary, and after 3.5s apply the points counter animation (duration: 1s) on
+           the userPts element (see Account/_UserDetail3) with the addition of the the #points*@
     <div class="ptsPopup">Sweet, you just earned <span class="ptDigit boldFont">3</span><span class="ptDigit boldFont">0</span> pts</div>
 
 
@@ -171,9 +173,9 @@
     </script>
     <script type="text/html" id="itemsSearchTemplate">
         <li>
-            <a href="{{url}}" data-navigation="item" class="searchItem">
+            <a href="#" class="searchItem">
+                <div class="otherUni semiFont">Open University</div>
                 <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-                <div class="rFloat otherUni semiFont">{{universityName}}</div>
                 <div class="searchDetails">
                     <div class="searchTitle semiFont elps">{{name}}</div>
                     <div class="boxLoc searchDetail" data-search-in="In:">{{boxName}}</div>

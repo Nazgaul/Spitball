@@ -162,6 +162,7 @@
                         error: function () {
                             cd.notification('Something went wrong please try again');
                             $submit.removeAttr('disabled');
+                            window.location.reload(); // if cscf was occure - reloading the page to refresh the token
                         }
                     });
 

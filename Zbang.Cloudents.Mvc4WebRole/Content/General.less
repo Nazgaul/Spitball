@@ -627,18 +627,19 @@ ul.ui-autocomplete {
 }
 .navUser {
     margin-left: 30px; /*rtl*/
-    line-height: 15px;
+    line-height: 19px;
     .userName {
         //position: relative; /* needed for the width: 100% on the userMenuWrapper*/
         //vertical-align: top;
         font-size: 15px;
         max-width: 127px;
+        min-width: 40px; // prevents pts from 'falling' on short user names
         //min-width: 58px; // this is min to allow for invites list to open without triggerring a horizontal scroll on the page
         //padding: 0 0 0 5px; /*rtl*/
         display: inline-block;
         text-align: left; /*rtl*/
         color: #fff;
-        margin-top: 9px;
+        margin-top: 8px;
     }
 
     .userImg {
@@ -650,6 +651,7 @@ ul.ui-autocomplete {
 .userPts{
     font-size: 11px;
     color: #fff;
+    line-height: 7px;
 }
 .userSettings
 {
@@ -1009,17 +1011,15 @@ select.inputText {
 
 .ptsPopup
 {
-    padding: 9px 10px 7px 10px;
+    padding: 8px 10px 6px 10px;
     color: #fff;
-    position: absolute;
-    left:0;right:0;
-    top:53px;
-    margin: 0 auto;
+    position: fixed;
     text-align: center;
     border-radius: 5px;
     background: #39434a;
     z-index: 11;
     width: 224px;
+    box-shadow: 0 0 3px rgba(0,0,0,.4);
 }
 
 .ptDigit{
@@ -1033,14 +1033,18 @@ select.inputText {
     border: 1px solid #f0f0f0;
     border-radius: 3px;
     background: #fff;
-    margin: 0 1px;
+    margin: -3px 1px 0 1px;
     vertical-align: middle;
     &:first-child
     {
-        margin-left: 4px;
+        margin-left: 4px; /*rtl*/
     }
 }
-
+.ptsAnim
+{
+    display: block;
+    .animation(ptsAnim, 3.5s, 0, cubic-bezier(.65,.27,.51,.88));
+}
 /*#endregion */
 
 /*#region media queries */
@@ -1140,7 +1144,7 @@ select.inputText {
     .transition(opacity .5s);
     opacity:0;
     visibility: hidden;
-    box-shadow: 0 0 5px rgba(0,0,0,.4);
+    box-shadow: 0 0 3px rgba(0,0,0,.4);
     &.showTooltip
     {
         visibility: visible;

@@ -246,6 +246,7 @@
     <Compile Include="Extensions\VersionHelper.cs" />
     <Compile Include="Filters\AjaxAttribute.cs" />
     <Compile Include="Filters\AjaxCacheAttribute.cs" />
+    <Compile Include="Filters\AntiforgeryHandleErrorAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\CompressFilter.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
