@@ -3,6 +3,7 @@
 
 @{
     ViewBag.title = ViewBag.title ?? "Cloudents";
+    ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
     ViewBag.fLib = ViewBag.fLib ?? false;
     ViewBag.fDash = ViewBag.fDash ?? false;
     ViewBag.fBox = ViewBag.fBox ?? false;
@@ -26,7 +27,7 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
 
     <meta name="title" content="@ViewBag.title" />
-    <meta name="description" content="Join the social studying revolution at Cloudents" />
+    <meta name="description" content="@ViewBag.metaDescription" />
     <link rel="image_src" href="@Url.CdnContent("/Images/cloudents.png")" />
 
     <meta property="fb:app_id" content="450314258355338">

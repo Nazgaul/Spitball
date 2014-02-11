@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public ItemWithDetailDto(long id, DateTime updateTime, string name,
             string userName, string userImage, long userId,
             int numberOfViews, string blob, float rate, long boxId,
-            string boxName, string country, string uniName)
+            string boxName, string country, string uniName, string description)
         {
             Id = id;
             UpdateTime = updateTime;
@@ -26,11 +26,11 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             BoxName = boxName;
             Country = country ?? string.Empty;
             UniName = uniName;
+            Description = description;
 
         }
         public long Id { get; private set; }
         public string Name { get; protected set; }
-        // public string BoxUid { get; private set; }
         public DateTime UpdateTime { get; private set; }
         public string Owner { get; private set; }
         public string OwnerImg { get; private set; }
@@ -54,6 +54,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public string Country { get; set; }
 
         public string UniName { get; set; }
+
+        public string Description { get; set; }
 
         public bool Otakim
         {

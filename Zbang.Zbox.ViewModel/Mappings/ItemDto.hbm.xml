@@ -34,6 +34,7 @@
     <return-scalar column="BoxName" type="string"/>
     <return-scalar column="Country" type="string"/>
     <return-scalar column="UniName" type="string"/>
+    <return-scalar column="Description" type="string"/>
   </resultset>
 
   <!--Used in box page to get item section-->
@@ -81,7 +82,9 @@
     i.boxid as BoxId,
     b.BoxName as BoxName,
     u2.Country as Country, 
-    u2.UniversityName as UniName
+    u2.UniversityName as UniName,
+    SUBSTRING(content,0,197) as Description
+    
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId
     join zbox.box b on b.BoxId=i.BoxId
