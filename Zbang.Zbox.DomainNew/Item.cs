@@ -40,6 +40,7 @@ namespace Zbang.Zbox.Domain
         public virtual string ThumbnailBlobName { get; set; }
 
         public virtual float Rate { get; internal set; }
+        public virtual bool Sponsored { get; set; }
 
         public void IncreaseNumberOfViews()
         {
@@ -77,20 +78,18 @@ namespace Zbang.Zbox.Domain
     public class File : Item
     {
 
-        
+
         public virtual int NumberOfDownloads { get; private set; }
 
         public virtual string Content { get; set; }
 
 
         protected File()
-        {
-        }
+        { }
 
         public File(string iItemName, User iUploaderUser, long iSized, string iBlobName, string iThumbnailBlobName, Box box)
             : base(iItemName, iUploaderUser, iSized, box, iBlobName, iThumbnailBlobName)
-        {
-        }
+        { }
 
         public void IncreaseNumberOfDownloads()
         {

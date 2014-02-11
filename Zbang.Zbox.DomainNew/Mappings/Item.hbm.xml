@@ -33,6 +33,7 @@
     </property>
     <property name="ThumbnailBlobName"/>
     <subclass name="Link" discriminator-value="Link">
+      <property name="Sponsored"/>
     </subclass>
     <subclass name="File" discriminator-value="File">
       

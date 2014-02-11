@@ -4,16 +4,19 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
     public abstract class ItemDto
     {
-        protected ItemDto(long id, string name, long ownerId,
-         
-
-            string tabid, int numOfViews, float rate, string owner, string thumbnail)
+        protected ItemDto(
+            long id,
+            string name,
+            long ownerId,
+            string tabid,
+            int numOfViews,
+            float rate,
+            string thumbnail)
         {
             Id = id;
             Name = name;
            
             OwnerId = ownerId;
-            Owner = owner;
             TabId = tabid;
             NumOfViews = numOfViews;
             Rate = rate;
@@ -24,7 +27,6 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public string Name { get; protected set; }
         public float Rate { get; private set; }
         public long OwnerId { get; private set; }
-        public string Owner { get; private set; }
         public abstract string Type { get; }
         public string TabId { get; private set; }
 

@@ -9,12 +9,12 @@
     <return-scalar column="id" type="long"/>
     <return-scalar column="Name" type="string"/>
     <return-scalar column="OwnerId" type="string"/>
-    <return-scalar column="Owner" type="string"/>
     <return-scalar column="Thumbnail" type="string"/>
     <return-scalar column="Discriminator" type="string"/>
     <return-scalar column="TabId" type="string"/>
     <return-scalar column="NumOfViews" type="int"/>
     <return-scalar column="Rate" type="double"/>
+    <return-scalar column="Sponsored" type="bool" />
   </resultset>
 
 
@@ -43,19 +43,18 @@
     select
     i.itemid as Id,
     i.Name as Name,
-    u.userid as OwnerId,
-    u.UserName as Owner,
+    i.userid as OwnerId,
     i.ThumbnailBlobName as Thumbnail,
     i.Discriminator as Discriminator,
     i.ItemTabId as TabId,
 	  i.NumberOfViews as NumOfViews,
-    i.rate as Rate
-   
-    from zbox.item i join zbox.users u on i.UserId = u.UserId
+    i.rate as Rate,
+    i.sponsored as Sponsored
+    from zbox.item i
     where i.IsDeleted = 0
     and i.BoxId = :BoxId
     and (:TabId is null or i.ItemTabId = :TabId)
-    order by i.itemid desc
+    order by sponsored desc, i.itemid desc
     ]]>
   </sql-query>
 
