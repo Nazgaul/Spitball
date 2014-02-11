@@ -61,9 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var data = taskBoxes.Result;
             data = AssignUrl(data);
             JsonNetSerializer serializer = new JsonNetSerializer();
-
             ViewBag.Boxes = serializer.Serialize(data);
-
 
             if (Request.IsAjaxRequest())
             {
@@ -97,6 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [HttpGet]
+        [CompressFilter(Order = 1)]
         [AjaxCache(TimeConsts.Day)]
         public async Task<ActionResult> BoxList()
         {
@@ -114,26 +113,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false));
             }
         }
-
-        //[Ajax]
-        //[HttpGet]
-        //public ActionResult Side()
-        //{
-        //    var userid = GetUserId();
-        //    try
-        //    {
-        //        var userDetail = m_FormsAuthenticationService.GetUserData();
-        //        var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
-        //        var query = new GetDashboardQuery(userid, universityWrapper);
-        //        var data = m_ZboxReadService.GetMyData(query);
-        //        return Json(new JsonResponse(true, data), JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("BoxList user: {0}", userid), ex);
-        //        return Json(new JsonResponse(false), JsonRequestBehavior.AllowGet);
-        //    }
-        //}
 
         #region CreateBox
 

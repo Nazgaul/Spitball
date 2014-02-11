@@ -84,6 +84,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectPermanent(url);
         }
 
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [UserNavNWelcome]
+        [Route("Item/{BoxUid:length(11)}/{itemid:long:min(0)}")]
+        public ActionResult Index(string boxUid, long itemid)
+        {
+            var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid, ShortCodesType.Box);
+            var query = new GetItemQuery(GetUserId(false), itemid, boxId);
+            var item = m_ZboxReadService.GetItem(query);
+
+            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var url = builder.buildItemUrl(boxId, item.BoxName, itemid, item.Name, item.UniName);
+            return RedirectPermanent(url);
+        }
+
         [ActionName("Index"), Ajax]
         [AjaxCache(TimeConsts.Hour)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

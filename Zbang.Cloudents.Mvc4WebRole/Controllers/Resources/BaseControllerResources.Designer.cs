@@ -61,6 +61,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Study and share your class notes for {0} {1} {2} , online or on your phone through Cloudents..
+        /// </summary>
+        internal static string MetaDescription {
+            get {
+                return ResourceManager.GetString("MetaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By.
+        /// </summary>
+        internal static string MetaDescriptionBy {
+            get {
+                return ResourceManager.GetString("MetaDescriptionBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Study.
         /// </summary>
         internal static string TitlePrefix {
