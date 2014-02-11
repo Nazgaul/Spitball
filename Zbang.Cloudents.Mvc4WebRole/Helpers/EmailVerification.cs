@@ -30,7 +30,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         public async Task<bool> VerifyEmailAsync(string email)
         {
-
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
             try
             {
                 var verificationEmail = new Verification(email);
@@ -40,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On check email", ex);
+                TraceLog.WriteError("On check email email : " + email, ex);
                 return true;
             }
         }
