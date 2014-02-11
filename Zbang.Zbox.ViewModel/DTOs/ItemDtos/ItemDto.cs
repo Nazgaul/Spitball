@@ -7,7 +7,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         protected ItemDto(long id, string name, long ownerId,
          
 
-            string tabid, int numOfViews, float rate, string owner)
+            string tabid, int numOfViews, float rate, string owner, string thumbnail)
         {
             Id = id;
             Name = name;
@@ -17,11 +17,11 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             TabId = tabid;
             NumOfViews = numOfViews;
             Rate = rate;
+            Thumbnail = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(thumbnail);
         }
 
         public long Id { get; private set; }
         public string Name { get; protected set; }
-        public abstract string Thumbnail { get; }
         public float Rate { get; private set; }
         public long OwnerId { get; private set; }
         public string Owner { get; private set; }
@@ -31,5 +31,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public int NumOfViews { get; private set; }
 
         public string Url { get; set; }
+
+        public string Thumbnail { get; private set; }
     }
 }

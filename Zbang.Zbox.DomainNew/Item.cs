@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain
         {
             IsDeleted = false;
         }
-        public Item(string itemName, User uploader, long iSized, Box box, string itemContentUrl)
+        public Item(string itemName, User uploader, long iSized, Box box, string itemContentUrl, string thumbnailBlobName)
             : this()
         {
             DateTimeUser = new UserTimeDetails(uploader.Email);
@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain
             Size = iSized;
             Box = box;
             ItemContentUrl = itemContentUrl;
+            ThumbnailBlobName = thumbnailBlobName;
 
         }
         public virtual long Id { get; protected set; }
@@ -36,6 +37,7 @@ namespace Zbang.Zbox.Domain
         public virtual Question Question { get; set; }
         public virtual Answer Answer { get; set; }
         public virtual string ItemContentUrl { get; set; }
+        public virtual string ThumbnailBlobName { get; set; }
 
         public virtual float Rate { get; internal set; }
 
@@ -59,19 +61,6 @@ namespace Zbang.Zbox.Domain
             }
             Rate -= (prevRate - Rate) / --count;
         }
-
-        //public virtual string Uid
-        //{
-        //    get
-        //    {
-        //        if (Id == 0)
-        //        {
-        //            return null;
-        //        }
-        //        var shortUrlDecoder = Infrastructure.Url.ShortCodesCache.Create();
-        //        return shortUrlDecoder.LongToShortCode(Id, Infrastructure.Url.ShortCodesType.Item);
-        //    }
-        //}
     }
 
     public class Link : Item
@@ -80,15 +69,15 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Link(string itemName, User iUploaderUser, long iSized, Box box, string linkTitle)
-            : base(linkTitle, iUploaderUser, iSized, box, itemName)
+        public Link(string itemName, User iUploaderUser, long iSized, Box box, string linkTitle, string thumbnailBlobName)
+            : base(linkTitle, iUploaderUser, iSized, box, itemName, thumbnailBlobName)
         { }
     }
 
     public class File : Item
     {
 
-        public virtual string ThumbnailBlobName { get; set; }
+        
         public virtual int NumberOfDownloads { get; private set; }
 
         public virtual string Content { get; set; }
@@ -99,10 +88,8 @@ namespace Zbang.Zbox.Domain
         }
 
         public File(string iItemName, User iUploaderUser, long iSized, string iBlobName, string iThumbnailBlobName, Box box)
-            : base(iItemName, iUploaderUser, iSized, box, iBlobName)
+            : base(iItemName, iUploaderUser, iSized, box, iBlobName, iThumbnailBlobName)
         {
-
-            ThumbnailBlobName = iThumbnailBlobName;
         }
 
         public void IncreaseNumberOfDownloads()

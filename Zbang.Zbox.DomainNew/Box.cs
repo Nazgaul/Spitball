@@ -121,14 +121,14 @@ namespace Zbang.Zbox.Domain
             return fileName;
         }
 
-        public Item AddLink(string url, User user, int linkStorageSize, string linkTitle)
+        public Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail)
         {
             var linkExist = Items.Any(s => s.ItemContentUrl == url && !s.IsDeleted);
             if (linkExist)
             {
                 throw new DuplicateNameException("This link already exists in the box");
             }
-            var link = new Link(url, user, linkStorageSize, this, linkTitle);
+            var link = new Link(url, user, linkStorageSize, this, linkTitle, thumbnail);
             return AddItem(link);
         }
 

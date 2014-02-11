@@ -26,7 +26,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             BoxName = boxName;
             Country = country ?? string.Empty;
             UniName = uniName;
-            Description = description;
+            Description = description.Length == 197 ? description + "..." : description;
 
         }
         public long Id { get; private set; }
