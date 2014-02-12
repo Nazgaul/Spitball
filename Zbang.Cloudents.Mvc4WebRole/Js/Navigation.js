@@ -72,8 +72,11 @@
         if (location.hash) {
             location.hash = '';
         }
-        //changeHistoryState();
+        historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
+        changeHistoryState();
         locationChanged(privateLocation.url, $(this).data('d'));
+
+
     });
 
     $(function () {
@@ -81,6 +84,8 @@
         if (location.hash) {
             location.hash = '';
         }
+
+        privateLocation.title = document.title === 'Cloudents' ? 'Dashboard' : document.title;;
         locationChanged();
     });
     pubsub.subscribe('nav', function (url) {
@@ -91,8 +96,11 @@
         // mobile user create box redirect doesnt remove pop up
         if (location.hash) {
             location.hash = '';
+        
         }
-        //changeHistoryState();
+        historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
+        changeHistoryState();
+        
 
 
         locationChanged();
@@ -120,14 +128,12 @@
     function changeHistoryState() {
         cd.firstLoad = false;
 
-        privateLocation.title = document.title;
-
         if (window.history && window.history.pushState) {
             if (privateLocation.url && privateLocation.url.charAt(0) !== '/') {
                 privateLocation.url = '/' + privateLocation.url;
             }
             if (privateLocation.url && privateLocation.url.slice(-1) !== '/') {
-                if (privateLocation.url.indexOf('?') === -1){
+                if (privateLocation.url.indexOf('?') === -1) {
                     privateLocation.url = privateLocation.url + '/';
                 }
             }
@@ -439,9 +445,6 @@
 
     function showPage(d) {
 
-        changeHistoryState();
-
-
         if (d.is(':visible')) {
             return;
         }
@@ -472,27 +475,34 @@
         return location.origin + '/' + privateLocation.url;
     };
     cd.prevLinkData = function (type) {
-        var history;
+        var history,
+            index,
+            current,
+            found = false;
         if (type === 'box') {
             if (historyNav.length > 0) {
-                for (var i = historyNav.length - 1; i >= 0; i--) {
-                    history = historyNav[i];
-                    history.url = history.url.slice(1, history.url.indexOf('/') - 1)
+                for (var i = historyNav.length - 1; i >= 0 && !found; i--) {
+                    history = cd.clone(historyNav[i]);
+                    history.url = history.url.substring(1);
+                    history.url = history.url.slice(0, history.url.indexOf('/'));
                     if (history.url.indexOf('dashboard') > -1 ||
                         history.url.indexOf('library') > -1 ||
                         history.url.indexOf('user') > -1) {
-                        if (historyNav[i].url.charAt(0) !== '/') {
-                            //if(history.url.indexOf('?') === -1){
-                            historyNav[i].url = '/' + historyNav[i].url;
-                            //}
-                        }
-                        return historyNav[i];
+                        index = i;
+                        found = true;
+
                     }
                 }
             }
         }
-
-        return historyNav[historyNav.length - 2];
+        current = index || historyNav.length - 2;
+        if (current < 0) {
+            return;
+        }
+        if (historyNav[current].url.charAt(0) !== '/') {
+            historyNav[current].url = '/' + historyNav[current].url;
+        }
+        return historyNav[current];
     };
 
 
