@@ -50,12 +50,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrWhiteSpace(q))
             {
-                return this.CdJson(new JsonResponse(false,"need query"));
+                return this.CdJson(new JsonResponse(false, "need query"));
             }
             var result = await PerformSearch(q, false);
 
             return this.CdJson(new JsonResponse(true, result));
-
         }
 
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
@@ -76,6 +75,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), AllResult);
             var result = await m_ZboxReadService.Search(query);
             var urlBuilder = new UrlBuilder(HttpContext);
+            AssignUrls(result, urlBuilder);
+
+            return result;
+        }
+        [NonAction]
+        private void AssignUrls(Zbox.ViewModel.DTOs.Search.SearchDto result, UrlBuilder urlBuilder)
+        {
             result.Boxes = result.Boxes.Select(s =>
             {
                 s.Url = urlBuilder.BuildBoxUrl(s.Id, s.Name, s.Universityname);
@@ -96,8 +102,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 s.Url = urlBuilder.BuildUserUrl(s.Id, s.Name);
                 return s;
             });
-
-            return result;
         }
 
 
