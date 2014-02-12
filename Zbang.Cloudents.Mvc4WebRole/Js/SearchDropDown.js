@@ -16,7 +16,7 @@
             MAXITEMS: 6,
             MINITEMS: 3,
             BOLDSTRINGLENTH: 30,
-            REF : '?r=searchdd'
+            REF: '?r=searchdd'
         },
         currentValue, maxCategoryItems, maxOtherItems;
 
@@ -64,7 +64,7 @@
 
             if (!input.value.length) {
                 currentValue = '';
-                hide();
+                hide(true);
                 return;
             }
 
@@ -74,19 +74,14 @@
             if (isLoading) {
                 return;
             }
-            var key = e.keyCode || e.which;
-            if (key === 13) {
-                hide();
-                currentValue = '';
-                input.blur();
-                return;
-            }
-
             currentValue = input.value;
             isLoading = true;
             dataContext.searchDD({
                 data: { q: currentValue },
                 success: function (data) {
+                    if (!input.value.length) { //we need this because of debounce function
+                        return;
+                    }
                     parseData(data);
                 },
                 error: function () {
@@ -116,6 +111,16 @@
         };
 
 
+        showAll.onclick = function (e) {
+            var isSearchPage = cd.getParameterFromUrl(0).toLowerCase() === 'search';
+            if (isSearchPage) {
+                e.preventDefault();
+                pubsub.publish('searchInput', input.value);
+                return;
+            }
+        };
+
+
 
         form.onsubmit = function (e) {
             e.preventDefault();
@@ -127,7 +132,13 @@
             hide();
             cd.historyManager.remove();
 
+            var isSearchPage = cd.getParameterFromUrl(0).toLowerCase() === 'search';
+            if (isSearchPage) {
+                pubsub.publish('searchInput', input.value);
+                return;
+            }
             pubsub.publish('nav', '/search/?q=' + encodeURIComponent(input.value) + '&r=searchdd');
+
         };
 
 
@@ -150,7 +161,10 @@
 
     };
 
-    function hide() {
+    function hide(blur) {
+        if (!blur) {
+            input.blur();
+        }
         dropdown.style.display = 'none';
     };
     function show() {
@@ -259,9 +273,9 @@
             var reg = new RegExp(eTerm, 'gi'),
             m, indeces = [];
 
-            while (m = reg.exec(name)) {                
+            while (m = reg.exec(name)) {
                 indeces.push(m.index);
-            }            
+            }
 
             for (var i = 0, l = indeces.length; i < l; i++) {
                 name = highlight(name, indeces[i] + i * consts.BOLDSTRINGLENTH, indeces[i] + eTerm.length + i * consts.BOLDSTRINGLENTH);

@@ -12,158 +12,195 @@
             tabsContainer = eById('sTabsMenu'), sSearchTerm = eById('sSearchTerm'),
             sTabResults = eById('sTabResults'), sTabCourses = eById('sTabCourses'),
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
-             sCourseList = eById('sCourseList'),sMaterialList = eById('sMaterialsList'),
-            sOtherMaterialList = eById('sOtherMaterialsList'),sMemberList = eById('sMembersList'),
+             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
+            sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
         sTabContent = eById('sTabContent'),
-        searchTerm,
+        searchTerm, cPage = 0;
         consts = {
             COURSES: 'sTab1',
             MATERIALS: 'sTab2',
             MEMBERS: 'sTab3',
-            STABCOUNT:'data-stab-count'
-    }
-
-    function Course(data) {
-        var self = this;
-        self.image = data.image;
-        self.name = data.name;
-        self.proffessor = data.proffessor || '';
-        self.courseCode = data.courseCode || '';
-        self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
-        self.url = data.url + '?r=search&s=courses'
-    }
-
-    function Material(data) {
-        var self = this;
-        self.image = data.image;
-        self.name = data.name;
-        self.boxName = data.boxname;
-        self.url = data.url + '?r=search&s=materials';
-        self.universityName = '&nbsp;';
-        self.content = data.content || '';
-        self.width = 69 / 5 * data.rate || 0;
-        self.views = data.views || '';
-    }
-
-    function Member(data) {
-        var self = this;
-        self.name = data.name;
-        self.image = data.image;
-        self.url = data.url + '?r=search&s=members';
-
-    };
-
-
-    pubsub.subscribe('search', function () {
-
-        getData()
-        registerEvents();
-    });
-
-    function getData() {
-
-        var initData = search.getAttribute('data-data');
-
-        searchTerm = cd.getParameterByName('q');
-
-
-        if (initData) {
-            search.removeAttribute('data-data');
-            parseData(JSON.parse(initData));
-            setCurrentTab(sTabCourses);
-            pubsub.publish('search_load');
-            return;
+            STABCOUNT: 'data-stab-count'
         }
 
+        function Course(data) {
+            var self = this;
+            self.image = data.image;
+            self.name = data.name;
+            self.proffessor = data.proffessor || '';
+            self.courseCode = data.courseCode || '';
+            self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
+            self.url = data.url + '?r=search&s=courses'
+        }
 
-        dataContext.searchPage({
-            data: { q: searchTerm },
-            success: function (data) {
-                data = data || {};
-                parseData(data);
-                setCurrentTab(sTabCourses);
-                pubsub.publish('search_load');
+        function Material(data) {
+            var self = this;
+            self.image = data.image;
+            self.name = data.name;
+            self.boxName = data.boxname;
+            self.url = data.url + '?r=search&s=materials';
+            self.universityName = '&nbsp;';
+            self.content = data.content || '';
+            self.width = 69 / 5 * data.rate || 0;
+            self.views = data.views || '';
+        }
+
+        function Member(data) {
+            var self = this;
+            self.id = data.id;
+            self.name = data.name;
+            self.image = data.image;
+            self.url = data.url + '?r=search&s=members';
+
+        };
+
+
+        pubsub.subscribe('search', function () {
+            getData()
+            registerEvents();
+        });
+
+        pubsub.subscribe('search_clear', function () {
+            clear();
+        });
+
+        function getData(term) {
+            term = term || {}
+            var initData = search.getAttribute('data-data');
+
+            if (term.length) {
+                searchTerm = term;
+            } else {
+                searchTerm = cd.getParameterByName('q');
             }
-        })
 
 
+            if (initData) {
+                search.removeAttribute('data-data');
+                parseData(JSON.parse(initData));
+                if (cPage === 0) {
+                    setCurrentTab(sTabCourses);
+                }
+                pubsub.publish('search_load');
+                return;
+            }
 
-        function parseData(data) {
-            appendData();
+            //var loader = cd.renderLoading($(sTabContent));
+            dataContext.searchPage({
+                data: { q: searchTerm, page: cPage },
+                success: function (data) {
+                    data = data || {};
+                    //loader();
 
-
-            function appendData() {
-                var courses = mapData(Course, data.boxes),
-                    materials = mapData(Material, data.items),
-                    members = mapData(Member, data.users),
-                    otherMaterials = mapData(Material, data.otherItems);
-
-
-                appendList(sCourseList, 'sCourseItemTemplate', courses,true);
-                appendList(sMaterialList, 'sMaterialItemTemplate', materials, true);
-                appendList(sMemberList, 'sMemberItemTemplate', members, true);
-                appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, true);
-
-                setNumbersAndText();
-
-                function mapData(dataType, arr) {
-                    if (!arr.length) {
-                        return []; // we return empty array to calculate the max items length
+                    parseData(data);
+                    if(cPage === 0){
+                        setCurrentTab(sTabCourses);
                     }
-                    return arr.map(function (d) {
-                        return new dataType(d);
-                    });
-                };
-                function setNumbersAndText() {
-                    sSearchTerm.textContent = searchTerm;
-                    
-                    
-                    sTabCourses.setAttribute(consts.STABCOUNT, courses.length > 50 ? courses.length + '+' : courses.length);
-                    sTabMaterials.setAttribute(consts.STABCOUNT, materials.length);
-                    sTabMembers.setAttribute(consts.STABCOUNT, members.length);
+                    pubsub.publish('search_load');
+                }
+            })
 
-                    function parseNumber(e,length) {
-                        var number = parseInt(e.getAttribute(consts.STABCONTENT), 10);
-                        number += length;
-                        if (length === 50) {
-                            number += '+';
+
+
+            function parseData(data) {
+                appendData();
+
+
+                function appendData() {
+                    var courses = mapData(Course, data.boxes),
+                        materials = mapData(Material, data.items),
+                        members = mapData(Member, data.users),
+                        otherMaterials = mapData(Material, data.otherItems),
+                        toWipe = cPage === 0;
+
+                    
+                    appendList(sCourseList, 'sCourseItemTemplate', courses, toWipe);
+                    appendList(sMaterialList, 'sMaterialItemTemplate', materials, toWipe);
+                    appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);
+                    appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
+
+                    setNumbersAndText();
+
+                    function mapData(dataType, arr) {
+                        if (!arr.length) {
+                            return []; // we return empty array to calculate the max items length
                         }
-                    }
-                };               
+                        return arr.map(function (d) {
+                            return new dataType(d);
+                        });
+                    };
+                    function setNumbersAndText() {
+                        sSearchTerm.textContent = searchTerm;
+
+                        parseNumber(sTabCourses, courses.length);
+                        parseNumber(sTabMaterials, materials.length);
+                        parseNumber(sTabMembers, members.length);
+
+                        function parseNumber(e, length) {
+                            var number = parseInt(e.getAttribute(consts.STABCOUNT), 10);
+                            number += length;
+                            if (length === 50) {
+                                number += '+';
+                            }
+                            e.setAttribute(consts.STABCOUNT, number);
+                        }
+                    };
+                };
             };
         };
-    };
 
-    function registerEvents() {
-        //tab switch
-        $(tabsContainer).on('click', 'button', function (e) {
-            setCurrentTab(this);            
-        });
-    };
-
-    function setCurrentTab(elm) {
-        $elm = $(elm);
-        var tabIndex = $elm.index(),
-                list = $('ul[data-list="' + elm.getAttribute('data-type') + '"]');
+        function registerEvents() {
+            //tab switch
+            $(tabsContainer).on('click', 'button', function (e) {
+                setCurrentTab(this);
+            });
 
 
+            //fetch more data
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    cPage++;
+                    getData(searchTerm);
+                }
+            });
 
-        if (list.children().length > 0) {
-            sTabContent.classList.remove('noResults');
-        } else {
-            sTabContent.classList.add('noResults');
+            pubsub.subscribe('searchInput', function (term) {
+                clear();
+                getData(term);
+            });
+        };
+
+        function setCurrentTab(elm) {
+            $elm = $(elm);
+            var tabIndex = $elm.index(),
+                    list = $('ul[data-list="' + elm.getAttribute('data-type') + '"]');
+
+            if (list.children().length > 0) {
+                sTabContent.classList.remove('noResults');
+            } else {
+                sTabContent.classList.add('noResults');
+            }
+
+            $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
+            sTabResults.setAttribute('data-resultcount', elm.getAttribute('data-stab-count'));
+
         }
 
-        $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
-        sTabResults.setAttribute('data-resultcount', elm.getAttribute('data-stab-count'));
+        function appendList(list, template, dataItems, wipe) {
+            cd.appendData(list, template, dataItems, 'beforeend', wipe);
+        }
 
-
-
-    }
-
-    function appendList(list, template, dataItems,wipe) {
-        cd.appendData(list, template, dataItems, 'beforeend', wipe);
-    }
-};
+        function clear() {
+            sTabCourses.setAttribute(consts.STABCOUNT, 0);
+            sTabMaterials.setAttribute(consts.STABCOUNT, 0);
+            sTabMembers.setAttribute(consts.STABCOUNT, 0);
+            sCourseList.innerHTML = '';
+            sMaterialList.innerHTML = '';
+            sMemberList.innerHTML = '';
+            sOtherMaterialList.innerHTML = '';
+            cPage = 0;
+        }
+        
+    };
 
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
