@@ -74,7 +74,9 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         /// <summary>
         /// Used in user page to bring friends
         /// </summary>
-        public const string FriendList = @"select u.userid as Uid,u.UserName as Name ,u.UserImage as Image , u.UserImageLarge as LargeImage, u.UserReputation
+        public const string FriendList = @"select u.userid as Uid,u.UserName as Name ,u.UserImage as Image ,
+                                --u.UserImageLarge as LargeImage,
+                                u.UserReputation
                                 from zbox.userboxrel ub 
                                 join zbox.box b on ub.boxid  = b.boxid
                                 join zbox.userboxrel ub2 on b.boxid = ub2.boxid
