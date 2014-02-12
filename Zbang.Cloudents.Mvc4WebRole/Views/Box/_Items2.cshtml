@@ -35,15 +35,15 @@
     <!--/ko-->
 
 
-    <ol id="BoxItemList" class="boxItemList clearfix" data-bind="fadeVisible: loadedAnimation">
-        @*<!--ko ifnot:manageTab-->*@
-        <li class="boxItem sponsored" data-bind="visible: !manageTab()">
+    <ol id="BoxItemList" class="boxItemList sponsored clearfix" data-bind="fadeVisible: loadedAnimation">
+        <!--ko ifnot:manageTab-->
+        <li class="boxItem" data-bind="visible: !manageTab()">
             <a class="boxLink" data-navigation="Item">Sponsored item here</a>
         </li>
-        @*<!--/ko-->*@
+        <!--/ko-->
         <!--ko foreach:{data:items,afterAdd:edrag}-->
         <li class="boxItem" data-bind="attr: { id: uid }">
-            <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">                
+            <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">
                 <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="187" />
                 <div class="boxName clamp2" data-bind="text: name"></div>
                 <div class="stars">

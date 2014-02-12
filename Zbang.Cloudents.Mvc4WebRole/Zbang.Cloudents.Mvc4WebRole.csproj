@@ -709,7 +709,7 @@
       <DependentUpon>varsAndMixins.less</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.min.css">
-      <DependentUpon>varsAndMixins.less</DependentUpon>
+      <DependentUpon>varsAndMixins.css</DependentUpon>
     </Content>
     <Content Include="Content\Welcome.css">
       <DependentUpon>Welcome.less</DependentUpon>
