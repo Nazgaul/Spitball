@@ -467,7 +467,9 @@ namespace Zbang.Zbox.ReadServices
                          query = query.Query,
                          universityId = query.UniversityId,
                          userId = query.UserId,
-                         MaxResult = query.MaxResult
+                         //MaxResult = query.MaxResult
+                         offsetV = query.Offset,
+                         pageSize = query.PageSize
                      }))
                 {
                     var ownedBoxes = grid.Read<SearchBoxes>();
@@ -477,7 +479,7 @@ namespace Zbang.Zbox.ReadServices
 
                     retVal.OtherItems = grid.Read<SearchItems>();
 
-                    retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.MaxResult);
+                    retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.PageSize);
                 }
             }
             return retVal;

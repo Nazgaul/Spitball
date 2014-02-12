@@ -8,26 +8,28 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class GroupSearchQuery
     {
-        public GroupSearchQuery(string query, long universityId, long userId, bool AllResult = false)
+        public GroupSearchQuery(string query, long universityId, long userId, bool allResult, int page = 0)
         {
             Query = query.Replace(' ', '%');
             UniversityId = universityId;
             UserId = userId;
 
-            if (AllResult)
+            if (allResult)
             {
-                MaxResult = int.MaxValue;
+                PageSize = 50;
             }
             else
             {
-                MaxResult = 6;
+                PageSize = 6;
             }
+            Offset = page * PageSize;
 
         }
 
         public string Query { get; private set; }
         public long UniversityId { get; private set; }
         public long UserId { get; private set; }
-        public int MaxResult { get; private set; }
+        public int Offset { get; private set; }
+        public int PageSize { get; set; }
     }
 }

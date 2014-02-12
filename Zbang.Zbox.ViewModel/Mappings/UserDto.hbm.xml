@@ -14,6 +14,7 @@
  
  
   <!--Get user data for user detail in all the pages.-->
+  <!--TODO:Do we need left join in here-->
   <query name="GetUserData" read-only="1">
     <![CDATA[
      select u.id as Uid, u.Name as Name, u.Image as Image,
@@ -22,6 +23,7 @@
      u.FirstTime.Item as FirstTimeItem,
      u.FirstTime.Box as FirstTimeBox, 
      u.Email as Email,
+     u.Reputation as Score,
      uu.Name as LibName,
      uu.Image as LibImage
      from User u left join u.University uu

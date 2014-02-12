@@ -59,7 +59,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void Search_Query_ReturnResult()
         {
-            var query = new GroupSearchQuery("1", 14, 1);
+            var query = new GroupSearchQuery("1", 14, 1, false);
             try
             {
                 var x = m_ZboxReadService.Search(query).Result;

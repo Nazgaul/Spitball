@@ -34,7 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-            var result = await PerformSearch(q, true);
+            var result = await PerformSearch(q, true, 0);
             if (Request.IsAjaxRequest())
             {
                 return PartialView();
@@ -50,32 +50,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrWhiteSpace(q))
             {
-                return this.CdJson(new JsonResponse(false,"need query"));
+                return this.CdJson(new JsonResponse(false, "need query"));
             }
-            var result = await PerformSearch(q, false);
+            var result = await PerformSearch(q, false, 0);
 
             return this.CdJson(new JsonResponse(true, result));
-
         }
 
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
-        public async Task<ActionResult> Data(string q)
+        public async Task<ActionResult> Data(string q, int page)
         {
             if (string.IsNullOrWhiteSpace(q))
             {
                 return this.CdJson(new JsonResponse(false, "need query"));
             }
-            var result = await PerformSearch(q, true);
+            var result = await PerformSearch(q, true, page);
 
             return this.CdJson(new JsonResponse(true, result));
         }
         [NonAction]
-        private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool AllResult)
+        private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool AllResult, int page)
         {
             var userDetail = m_FormsAuthenticationService.GetUserData();
-            var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), AllResult);
+            var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), AllResult, page);
             var result = await m_ZboxReadService.Search(query);
             var urlBuilder = new UrlBuilder(HttpContext);
+            AssignUrls(result, urlBuilder);
+
+            return result;
+        }
+        [NonAction]
+        private void AssignUrls(Zbox.ViewModel.DTOs.Search.SearchDto result, UrlBuilder urlBuilder)
+        {
             result.Boxes = result.Boxes.Select(s =>
             {
                 s.Url = urlBuilder.BuildBoxUrl(s.Id, s.Name, s.Universityname);
@@ -96,8 +102,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 s.Url = urlBuilder.BuildUserUrl(s.Id, s.Name);
                 return s;
             });
-
-            return result;
         }
 
 

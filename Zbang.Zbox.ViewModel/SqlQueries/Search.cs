@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class Search
     {
-        public const string OwnedSubscribedBoxes = @"select top(@MaxResult) b.BoxPicture as image,
+        public const string OwnedSubscribedBoxes = @"select  b.BoxPicture as image,
  b.BoxName as name,
  b.ProfessorName as proffessor,
  b.CourseCode as courseCode,
@@ -22,9 +22,11 @@ where b.IsDeleted = 0
  and (b.BoxName like '%' + @query + '%'
 	or b.CourseCode like '%' + @query + '%'
 	or b.ProfessorName like '%' + @query + '%')
-order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc;";
+order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc
+offset @offsetV rows
+fetch next @pageSize rows only; ";
 
-        public const string UniversityBoxes = @"select top(@MaxResult) b.BoxPicture as image,
+        public const string UniversityBoxes = @"select b.BoxPicture as image,
  b.BoxName as name,
  b.ProfessorName as proffessor,
  b.CourseCode as courseCode,
@@ -37,20 +39,27 @@ and b.Discriminator = 2
 and (b.BoxName like '%' + @query + '%'
 	or b.CourseCode like '%' + @query + '%'
 	or b.ProfessorName like '%' + @query + '%')
-order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc;";
+order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc
+offset @offsetV rows
+fetch next @pageSize rows only;";
 
-        public const string Users = @"select top(@MaxResult) u.UserImage as image,u.UserName as name, u.UserId as id
+        public const string Users = @"select  u.UserImage as image,u.UserName as name, u.UserId as id
 from zbox.users u
 where u.UniversityId2 = @universityId
 and u.username like '%' +@query + '%'
-order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc;";
+order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc
+offset @offsetV rows
+fetch next @pageSize rows only;";
 
 
-        public const string Items = @"select top(@MaxResult) 
+        public const string Items = @"select 
 i.ThumbnailBlobName as image,
 i.Name as name,
 i.ItemId as id,
 i.Discriminator as type,
+i.Content as content,
+i.Rate as rate,
+i.NumberOfViews as views,
 b.BoxName as boxname,
 b.BoxId as boxid ,u2.UniversityName as universityname
 from zbox.item i
@@ -60,13 +69,18 @@ where i.IsDeleted = 0
 and b.OwnerId = @universityId
 and b.Discriminator = 2
 and i.Name like '%' +@query + '%'
-order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc;";
+order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
+offset @offsetV rows
+fetch next @pageSize rows only;";
 
         public const string ItemFromOtherUniversities = @"
-select top(@MaxResult) i.ThumbnailBlobName as image,
+select i.ThumbnailBlobName as image,
 i.Name as name,
 i.ItemId as id,
 i.Discriminator as type,
+i.Content as content,
+i.Rate as rate,
+i.NumberOfViews as views,
 b.BoxName as boxname,
 b.BoxId as boxid ,u2.UniversityName as universityname
 from zbox.item i
@@ -78,6 +92,8 @@ select userid from zbox.users u where u.NeedCode = 0 and u.UserType = 1
 )
 and b.Discriminator = 2
 and i.Name like '%' +@query + '%'
-order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc;";
+order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
+offset @offsetV rows
+fetch next @pageSize rows only;";
     }
 }

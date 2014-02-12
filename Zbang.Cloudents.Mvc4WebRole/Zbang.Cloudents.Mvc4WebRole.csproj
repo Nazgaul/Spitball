@@ -1169,6 +1169,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BaseControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.resx">
