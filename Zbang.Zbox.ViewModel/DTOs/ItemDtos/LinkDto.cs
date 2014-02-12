@@ -4,23 +4,16 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
     public class LinkDto : ItemDto
     {
-        private string m_Thumbnail;
         public LinkDto(long id, string name, long ownerId,
-             string tabId, int numOfViews, float rate, string owner)
+            string thumbnail,
+             string tabId, int numOfViews, float rate , bool sponsored)
             : base(id, name, ownerId,
-             tabId, numOfViews, rate, owner)
+             tabId, numOfViews, rate, thumbnail)
         {
-            m_Thumbnail = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailLinkUrl();
+            Sponsored = sponsored;
         }
 
-        public override string Thumbnail
-        {
-            get
-            {
-                return m_Thumbnail;
-            }
-
-        }
+        public bool Sponsored { get; private set; }
 
         public override string Type
         {

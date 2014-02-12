@@ -1,7 +1,3 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
 .msg:before {
   margin: 0 0 0 3px;
   /*rtl*/
@@ -938,6 +934,10 @@ input[type="radio"] + label:before {
 /*#endregion */
 /*#endregion */
 /*#region QnA.css */
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 /*#region Q&A */
 /*#region Q&A */
 .QA {

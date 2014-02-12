@@ -654,7 +654,7 @@ textarea:invalid {
   left: 9px;
   /*rtl*/
   top: 45px;
-  background: url(/Images/box-sprite1.png) -57px -47px no-repeat;
+  background: url(/Images/box-sprite14.png) -57px -47px no-repeat;
 }
 .markAnswerBtn:hover {
   background-position: -57px -66px;

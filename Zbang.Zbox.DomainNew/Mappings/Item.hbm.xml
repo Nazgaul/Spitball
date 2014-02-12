@@ -31,10 +31,12 @@
     <property name="Rate" >
       <column name="Rate" sql-type="float"/>
     </property>
+    <property name="ThumbnailBlobName"/>
     <subclass name="Link" discriminator-value="Link">
+      <property name="Sponsored"/>
     </subclass>
     <subclass name="File" discriminator-value="File">
-      <property name="ThumbnailBlobName"/>
+      
       <property name="NumberOfDownloads"/>
       <property name="Content" type="string" length="500" />
     </subclass>

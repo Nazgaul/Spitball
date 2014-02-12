@@ -21,7 +21,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 	                                       select 
 	                                        author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,i.CreationTime as date, 'item' as action,
  case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else ''
+								                    else null
 								                    end as universityname
 
 	                                        from  zbox.UserBoxRel ub 
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 	                                       union all
 	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'question' as action,
  case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else ''
+								                    else null
 								                    end as universityname
 	                                        from  zbox.UserBoxRel ub 
                                            join zbox.Box b on b.BoxId = ub.BoxId and b.IsDeleted = 0
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 	                                        union all 
 	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'answer' as action,
  case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else ''
+								                    else null
 								                    end as universityname
 
 	                                        from  zbox.UserBoxRel ub 
@@ -82,13 +82,11 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                                 where ub.userid = @UserId
                                 and b.isdeleted = 0
                                 and ub2.userid != @UserId
-								and u.UserType <> 1
-
                                 group by u.userid ,u.UserName  ,u.UserImage ,u.UserImageLarge,u.UserReputation
                                 order by u.UserReputation desc;";
 
 
-        public const string UserBoxes = @" select b.boxid as id,
+        public const string UserBoxes = @"select b.boxid as id,
                                 b.BoxName,
                                 b.BoxPicture as BoxPicture,
                                 ub.UserType, 
@@ -100,7 +98,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 								
                                 b.Discriminator as boxType,
 								case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								else ''
+								else null
 								end as universityname
                                   from Zbox.box b join zbox.UserBoxRel ub on b.BoxId = ub.BoxId  
                                   where 

@@ -17,7 +17,7 @@
             <button class="btn2" type="button" data-click="managedecline">@MainViewResources.Cancel</button>
         </div>
         <!--/ko-->
-
+        <button type="button" data-click="addItem" class="iconTxt btn1 lFloat">Upload files</button>
     </div>
 
     <!--ko if:emptyState-->
@@ -37,13 +37,13 @@
 
     <ol id="BoxItemList" class="boxItemList clearfix" data-bind="fadeVisible: loadedAnimation">
         @*<!--ko ifnot:manageTab-->*@
-        <li class="boxItem boxAddItem" data-bind="visible: !manageTab()">
-            <button type="button" data-click="addItem" class="addBtn addItem">@MainViewResources.AddShare</button>
+        <li class="boxItem sponsored" data-bind="visible: !manageTab()">
+            <a class="boxLink" data-navigation="Item">Sponsored item here</a>
         </li>
         @*<!--/ko-->*@
         <!--ko foreach:{data:items,afterAdd:edrag}-->
         <li class="boxItem" data-bind="attr: { id: uid }">
-            <a data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">                
+            <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">                
                 <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="187" />
                 <div class="boxName clamp2" data-bind="text: name"></div>
                 <div class="stars">

@@ -23,6 +23,7 @@ using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.Domain;
 using System.Web.WebPages;
 using Zbang.Zbox.Infrastructure.Culture;
+using System.Text.RegularExpressions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -103,6 +104,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
                     BaseControllerResources.Culture = culture;
                     ViewBag.title = string.Format("{0} {1} | {2} | Cloudents", BaseControllerResources.TitlePrefix, box.Name, box.OwnerName);
+                    ViewBag.metaDescription = Regex.Replace(string.Format(
+                        BaseControllerResources.MetaDescription, box.Name,
+                        string.IsNullOrWhiteSpace(box.CourseId) ? string.Empty : string.Format(", #{0}", box.CourseId),
+                        string.IsNullOrWhiteSpace(box.ProfessorName) ? string.Empty : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, box.ProfessorName)), @"\s+", " ");
                 }
                 else
                 {

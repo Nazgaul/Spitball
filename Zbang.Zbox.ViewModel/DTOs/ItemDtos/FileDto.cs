@@ -8,24 +8,14 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
     public class FileDto : ItemDto
     {
-        private string m_Thumbnail;
 
         public FileDto(long id, string name, long ownerId,
             string thumbnail,
-            string tabId, int numOfViews, float rate, string owner)
+            string tabId, int numOfViews, float rate)
             : base(id, name, ownerId,
-             tabId, numOfViews, rate, owner)
+             tabId, numOfViews, rate, thumbnail)
         {
-            //TODO: this is not good should be logic in dto
-            m_Thumbnail = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(thumbnail);
         }
-
-        public override string Thumbnail
-        {
-            get { return m_Thumbnail; }
-        }
-
-
         public override string Type
         {
             get { return "File"; }
