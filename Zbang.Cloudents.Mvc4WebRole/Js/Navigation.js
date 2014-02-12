@@ -378,7 +378,7 @@
                     break;
                 case 'search':
                     dataContext.searchMp({
-                        data: { q: secondLvl.replace('?q=', '') },
+                        data: { q: cd.getParameterByName('q') },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('SearchContext', null, function () {
