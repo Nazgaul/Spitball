@@ -605,6 +605,7 @@ ul.ui-autocomplete li a {
   font-size: 11px;
   color: #fff;
   line-height: 7px;
+  white-space: nowrap;
 }
 .userSettings {
   margin-right: 10px;

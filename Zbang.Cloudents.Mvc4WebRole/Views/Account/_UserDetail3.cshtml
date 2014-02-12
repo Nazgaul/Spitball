@@ -8,14 +8,14 @@
         <a href="@Model.Url?r=siteheader" data-navigation="User">
             <img id="userImg" src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />
             <div id="userName" data-id="@Model.Uid" class="userName elps">@Model.Name.Split(' ')[0]</div>
-            <div class="userPts">250 pts</div>
+            <div class="userPts">@Model.Score pts</div>
         </a>
     </li>
     <li class="navItem userSettings" id="userDetails" data-menu="user">
         <div title="@DialogResources.Settings" class="userDrpSettings"></div>
         <ul class="userMenu">
             <li class="menuItem">
-                <a class="menuLink" data-navigation="account" href="@Url.Action("Settings","Account")">@UserDetailResources.AccountSettings</a>
+                <a class="menuLink" data-navigation="account" href="@Url.Action("Settings", "Account")">@UserDetailResources.AccountSettings</a>
             </li>
             <li class="menuItem">
                 @Html.ActionLink(UserDetailResources.Feedback, "Help", "Home", null, new { @class = "menuLink" })
@@ -33,7 +33,7 @@
                 @Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "menuLink" })
             </li>
             <li class="menuItem">
-                <a id="logOut" class="menuLink" href="@Url.Action("LogOff","Account")">@UserDetailResources.LogOut</a>
+                <a id="logOut" class="menuLink" href="@Url.Action("LogOff", "Account")">@UserDetailResources.LogOut</a>
             </li>
         </ul>
     </li>
@@ -42,7 +42,7 @@
 else
 {
     <li class="navItem signUp">
-        <a href="@Url.ActionHash("Welcome","Account", new { universityId = ViewBag.universityId }, "register")" class="btn">@LogOnResources.SignUp</a>
+        <a href="@Url.ActionHash("Welcome", "Account", new { universityId = ViewBag.universityId }, "register")" class="btn">@LogOnResources.SignUp</a>
         <a href="@Url.ActionHash("Welcome", "Account", new { universityId = ViewBag.universityId }, "connect")" class="btn">@SharedResources.SignIn</a>
     </li>
 }

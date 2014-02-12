@@ -4,7 +4,7 @@
     public class UserDto
     {
         public string Image { get; set; }
-        public string LargeImage { get; set; }
+        //public string LargeImage { get; set; }
         public string Name { get; set; }
         public long Uid { get; set; }
 
@@ -45,11 +45,15 @@
             Image = t.Image;
             Name = t.Name;
             Uid = t.Uid;
+            Score = t.Score;
+
         }
         public bool FirstTimeDashboard { get; set; }
         public bool FirstTimeLibrary { get; set; }
         public bool FirstTimeItem { get; set; }
         public bool FirstTimeBox { get; set; }
+
+        public int Score { get; set; }
 
         // for Mobile
         public string Email { get; set; }
