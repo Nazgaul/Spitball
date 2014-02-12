@@ -11,10 +11,12 @@
         showAll = document.querySelector('.dashLibSearch .showAll'),
         showAllText = showAll.querySelector('q'),
         searchDropdownBtn = eById('searchDropDownBtn'),
+        isLoading = false,
         consts = {
             MAXITEMS: 6,
             MINITEMS: 3,
-            BOLDSTRINGLENTH: 30
+            BOLDSTRINGLENTH: 30,
+            REF : '?r=searchdd'
         },
         currentValue, maxCategoryItems, maxOtherItems;
 
@@ -25,7 +27,7 @@
         self.image = data.image;
         self.name = hightlightSearch(data.name);
         self.boxName = data.boxname;
-        self.url = data.url + '?r=searchdd';;
+        self.url = data.url + consts.REF;
         self.universityName = '';
     }
 
@@ -42,13 +44,13 @@
         self.proffessor = data.proffessor ? hightlightSearch(data.proffessor) : '';
         self.courseCode = data.courseCode ? hightlightSearch(data.courseCode) : '';
         self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
-        self.url = data.url + '?r=searchdd';
+        self.url = data.url + consts.REF;
     }
     function Member(data) {
         var self = this;
         self.image = data.image;
         self.name = hightlightSearch(data.name);
-        self.url = data.url + '?r=searchdd';
+        self.url = data.url + consts.REF;
     }
 
     registerEvents();
@@ -62,26 +64,57 @@
 
             if (!input.value.length) {
                 currentValue = '';
-                dropdown.style.display = 'none';
+                hide();
                 return;
             }
 
             if (currentValue === input.value) {
                 return;
             }
-            currentValue = input.value;
+            if (isLoading) {
+                return;
+            }
+            var key = e.keyCode || e.which;
+            if (key === 13) {
+                hide();
+                currentValue = '';
+                input.blur();
+                return;
+            }
 
+            currentValue = input.value;
+            isLoading = true;
             dataContext.searchDD({
                 data: { q: currentValue },
                 success: function (data) {
                     parseData(data);
                 },
                 error: function () {
+                },
+                always: function () {
+                    isLoading = false;
                 }
             });
         }, 100);
 
         input.onkeyup = search;
+
+        dropdown.onmouseover = function (e) {
+            this.classList.add('hover');
+        };
+        dropdown.onmouseout = function (e) {
+            this.classList.remove('hover');
+        };
+        dropdown.onclick = function (e) {
+            if (e.target.nodeName === 'H3') {
+                input.focus();
+                return;
+            }
+            input.value = currentValue = '';
+            cd.historyManager.remove();
+            hide();
+        };
+
 
 
         form.onsubmit = function (e) {
@@ -90,39 +123,40 @@
                 return;
             }
             currentValue = '';
-            input.value = '';
-            dropdown.style.display = 'none';
+
+            hide();
             cd.historyManager.remove();
-            pubsub.publish('nav', '/search/?q=' + input.value);
+
+            pubsub.publish('nav', '/search/?q=' + encodeURIComponent(input.value) + '&r=searchdd');
         };
 
 
 
-        input.onclick = function (e) {
+        input.onfocus = function (e) {
             e.stopPropagation();
             if (input.value.length > 0) {
-                dropdown.style.display = 'block';
+                show();
             }
-            
+
         };
 
-        $('body').on('click', function (e) {
-            dropdown.style.display = 'none';
-        });
-
-        $(dropdown).on('click', 'a', function () {
-            if (!this.classList.contains('showAll')) {
-                input.value = '';
+        input.onfocusout = function (e) {
+            if (dropdown.classList.contains('hover')) {
+                return;
             }
-            
-            cd.historyManager.remove();
-        })
-        .on('click', 'h3', function (e) {
-            e.stopPropagation();
-        });
-    }
+            hide();
+        };
 
 
+    };
+
+    function hide() {
+        dropdown.style.display = 'none';
+    };
+    function show() {
+        dropdown.style.display = 'block';
+
+    };
 
     function parseData(data) {
 
@@ -138,7 +172,8 @@
             emptyOtherItems = (otherItems.length === 0);
 
         dropdown.classList.remove('noResults');
-        dropdown.style.display = 'block';
+
+        show();
 
         if (emptyCategories === 3 && emptyOtherItems) {
             dropdown.classList.add('noResults');
@@ -147,7 +182,7 @@
         }
 
         searchDropdownBtn.disabled = false;
-        showAll.href = '/search/?q=' + input.value;
+        showAll.href = '/search/?q=' + encodeURIComponent(input.value) + '&r=searchdd';
         showAllText.textContent = input.value;
 
         maxCategoryItems = 0;
@@ -169,7 +204,7 @@
                 maxCategoryItems = consts.MINITEMS;
                 maxOtherItems = consts.MINITEMS;
                 break;
-        }
+        };
 
 
         appendData(boxList, 'boxesSearchTemplate', boxes, maxCategoryItems);
@@ -185,7 +220,7 @@
             return arr.map(function (d) {
                 return new dataType(d);
             });
-        }
+        };
 
         function appendData(list, template, dataItems, maxItems) {
 
@@ -203,10 +238,16 @@
             dataItems = dataItems.slice(0, maxItems);
 
             cd.appendData(list, template, dataItems, 'afterbegin', true);
-        }
-    }
+        };
+    };
     function hightlightSearch(name) {
         var term = input.value.trim();
+
+        term = term.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+
+        if (!term) {
+            return;
+        }
 
         multiSearch(term);
 
@@ -215,17 +256,17 @@
         }
 
         function multiSearch(eTerm) {
-            var reg = new RegExp(eTerm, 'gmi'),
+            var reg = new RegExp(eTerm, 'gi'),
             m, indeces = [];
 
-            while (m = reg.exec(name)) {
+            while (m = reg.exec(name)) {                
                 indeces.push(m.index);
-            }
+            }            
 
             for (var i = 0, l = indeces.length; i < l; i++) {
                 name = highlight(name, indeces[i] + i * consts.BOLDSTRINGLENTH, indeces[i] + eTerm.length + i * consts.BOLDSTRINGLENTH);
             }
-        }
+        };
 
         return name;
 
@@ -233,6 +274,6 @@
             var text = '<span class="boldPart">' + str.substring(start, end) + '</span>';
 
             return str.substring(0, start) + text + str.substring(end);
-        }
-    }
+        };
+    };
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
