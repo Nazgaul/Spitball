@@ -11,7 +11,7 @@
         showAll = document.querySelector('.dashLibSearch .showAll'),
         showAllText = showAll.querySelector('q'),
         searchDropdownBtn = eById('searchDropDownBtn'),
-        isLoading = false,
+        isLoading = false, formSubmitted = false,
         consts = {
             MAXITEMS: 6,
             MINITEMS: 3,
@@ -74,6 +74,12 @@
             if (isLoading) {
                 return;
             }
+
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+
+                input.focusout();
+            }
             currentValue = input.value;
             isLoading = true;
             dataContext.searchDD({
@@ -88,6 +94,7 @@
                 },
                 always: function () {
                     isLoading = false;
+                    formSubmitted = false;
                 }
             });
         }, 100);
@@ -131,7 +138,7 @@
 
             hide();
             cd.historyManager.remove();
-
+            formSubmitted = true;
             var isSearchPage = cd.getParameterFromUrl(0).toLowerCase() === 'search';
             if (isSearchPage) {
                 pubsub.publish('searchInput', input.value);
@@ -158,6 +165,9 @@
             hide();
         };
 
+        pubsub.subscribe('searchclear', function () {
+            input.value = '';
+        });
 
     };
 
@@ -168,7 +178,9 @@
         dropdown.style.display = 'none';
     };
     function show() {
-        dropdown.style.display = 'block';
+        if (!formSubmitted) {
+            dropdown.style.display = 'block';
+        }
 
     };
 
@@ -184,6 +196,7 @@
             uniList = dropdown.querySelector('.searchList.university'),
             emptyCategories = (boxes.length === 0) + (items.length === 0) + (users.length === 0),
             emptyOtherItems = (otherItems.length === 0);
+
 
         dropdown.classList.remove('noResults');
 

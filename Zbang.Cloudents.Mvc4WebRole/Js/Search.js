@@ -30,7 +30,7 @@
             self.proffessor = data.proffessor || '';
             self.courseCode = data.courseCode || '';
             self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
-            self.url = data.url + '?r=search&s=courses'
+            self.url = encodeURIComponent(data.url) + '?r=search&s=courses'
         }
 
         function Material(data) {
@@ -38,11 +38,11 @@
             self.image = data.image;
             self.name = data.name;
             self.boxName = data.boxname;
-            self.url = data.url + '?r=search&s=materials';
+            self.url = encodeURIComponent(data.url) + '?r=search&s=materials';
             self.universityName = '&nbsp;';
             self.content = data.content || '';
             self.width = 69 / 5 * data.rate || 0;
-            self.views = data.views || '';
+            self.views = data.views || '0';
         }
 
         function Member(data) {
@@ -50,7 +50,7 @@
             self.id = data.id;
             self.name = data.name;
             self.image = data.image;
-            self.url = data.url + '?r=search&s=members';
+            self.url = encodeURIComponent(data.url) + '?r=search&s=members';
 
         };
 
@@ -60,7 +60,7 @@
             registerEvents();
         });
 
-        pubsub.subscribe('search_clear', function () {
+        pubsub.subscribe('searchclear', function () {
             clear();
         });
 
