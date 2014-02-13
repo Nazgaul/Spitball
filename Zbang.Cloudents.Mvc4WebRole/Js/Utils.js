@@ -769,6 +769,7 @@
             if (response) {
                 $('[data-ddcbox]').each(function (i, e) { e.checked = false }); // close all popups
                 analytics.trackSocial(url, 'share');
+                cd.pubsub.publish('addPoints', 'shareFb');
             }
         });
         //var sharer = "https://www.facebook.com/sharer/sharer.php?u=",

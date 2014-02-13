@@ -391,6 +391,8 @@
         $uploads.show();
     }
     function fileUploaded(id) {
+        cd.pubsub.publish('addPoints', 'itemUpload');
+
         var elem = $('#' + id).attr('data-done', 1);
         generatePreviewBaseOnState();
         elem.find('.fileDone').show();
