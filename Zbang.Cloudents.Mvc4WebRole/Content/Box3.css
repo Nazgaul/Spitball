@@ -717,6 +717,10 @@
   min-width: 316px;
   padding: 0 381px 0 1px;
 }
+.boxItemList.sponsored .boxName {
+  font-size: 15px;
+  line-height: 30px;
+}
 .boxItems {
   margin: 20px 20px 0 20px;
 }

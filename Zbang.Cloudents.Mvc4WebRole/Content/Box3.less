@@ -763,6 +763,13 @@
 .boxItemList {
     min-width: (@box-width * 2 + @min-margin);
     padding: 0 381px 0 1px; // 1px left padding to prevent border being cut (not sure why) /*rtl*/
+    &.sponsored
+    {
+        .boxName{
+            font-size: 15px;
+            line-height: 30px;
+        }
+    }
 }
 
 .boxItems {
