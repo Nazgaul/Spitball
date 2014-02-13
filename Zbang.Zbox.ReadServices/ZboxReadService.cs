@@ -456,12 +456,13 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnection())
             {
 
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4}",
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3}",
                      Sql.Search.OwnedSubscribedBoxes,
                      Sql.Search.UniversityBoxes,
                      Sql.Search.Users,
-                     Sql.Search.Items,
-                     Sql.Search.ItemFromOtherUniversities),
+                     Sql.Search.Items
+                     //Sql.Search.ItemFromOtherUniversities
+                     ),
                      new
                      {
                          query = query.Query,
@@ -477,9 +478,22 @@ namespace Zbang.Zbox.ReadServices
                     retVal.Users = grid.Read<SearchUsers>();
                     retVal.Items = grid.Read<SearchItems>();
 
-                    retVal.OtherItems = grid.Read<SearchItems>();
+                    //retVal.OtherItems = grid.Read<SearchItems>();
 
                     retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.PageSize);
+                }
+                if (retVal.Items.Count() == 0)
+                {
+                    retVal.OtherItems = await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,
+                        new
+                     {
+                         query = query.Query,
+                         universityId = query.UniversityId,
+                         userId = query.UserId,
+                         //MaxResult = query.MaxResult
+                         offsetV = query.Offset,
+                         pageSize = query.PageSize
+                     });
                 }
             }
             return retVal;
