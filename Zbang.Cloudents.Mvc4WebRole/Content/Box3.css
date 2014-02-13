@@ -801,11 +801,13 @@
   bottom: 3px;
   margin: 0;
 }
+ 
 .boxItemList {
   display: block;
   margin: 0 auto;
   min-width: 316px;
 }
+ 
 .boxItem {
   height: 248px;
   width: 148px;
@@ -813,22 +815,43 @@
   /*rtl*/
 }
 @media (max-width: 1036px) {
-  .boxItem:nth-child(2n) {
+   
+.boxItemList.sponsored  
+.boxItem {
+    margin: 0;
+  }
+   
+.boxItem:nth-child(2n) {
     margin-right: 0;
     /*rtl*/
   }
 }
 @media (min-width: 2717px) {
-  .boxItemList {
+   
+.boxItemList {
     width: 1996px;
   }
-  .boxItem:nth-child(12n) {
+   
+.boxItem:nth-child(12n) {
     margin-right: 0;
     /*rtl*/
   }
 }
 @media (min-width: 1037px) and (max-width: 1204px) {
-  .boxItem {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(2n) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(2n + 1) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 296px)/ 1 - 1px);
@@ -836,13 +859,22 @@
     margin-right: calc((100% - 296px)/ 1 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(2n) {
+}
+@media (min-width: 1205px) and (max-width: 1372px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(3n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 1205px) and (max-width: 1372px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(3n + 2) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 444px)/ 2 - 1px);
@@ -850,13 +882,22 @@
     margin-right: calc((100% - 444px)/ 2 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(3n) {
+}
+@media (min-width: 1373px) and (max-width: 1540px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(4n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 1373px) and (max-width: 1540px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(4n + 3) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 592px)/ 3 - 1px);
@@ -864,13 +905,22 @@
     margin-right: calc((100% - 592px)/ 3 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(4n) {
+}
+@media (min-width: 1541px) and (max-width: 1708px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(5n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 1541px) and (max-width: 1708px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(5n + 4) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 740px)/ 4 - 1px);
@@ -878,13 +928,22 @@
     margin-right: calc((100% - 740px)/ 4 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(5n) {
+}
+@media (min-width: 1709px) and (max-width: 1876px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(6n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 1709px) and (max-width: 1876px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(6n + 5) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 888px)/ 5 - 1px);
@@ -892,13 +951,22 @@
     margin-right: calc((100% - 888px)/ 5 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(6n) {
+}
+@media (min-width: 1877px) and (max-width: 2044px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(7n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 1877px) and (max-width: 2044px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(7n + 6) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 1036px)/ 6 - 1px);
@@ -906,13 +974,22 @@
     margin-right: calc((100% - 1036px)/ 6 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(7n) {
+}
+@media (min-width: 2045px) and (max-width: 2212px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(8n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 2045px) and (max-width: 2212px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(8n + 7) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 1184px)/ 7 - 1px);
@@ -920,13 +997,22 @@
     margin-right: calc((100% - 1184px)/ 7 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(8n) {
+}
+@media (min-width: 2213px) and (max-width: 2380px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(9n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 2213px) and (max-width: 2380px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(9n + 8) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 1332px)/ 8 - 1px);
@@ -934,13 +1020,22 @@
     margin-right: calc((100% - 1332px)/ 8 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(9n) {
+}
+@media (min-width: 2381px) and (max-width: 2548px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(10n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 2381px) and (max-width: 2548px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(10n + 9) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 1480px)/ 9 - 1px);
@@ -948,22 +1043,27 @@
     margin-right: calc((100% - 1480px)/ 9 - 1px);
     /*rtl*/
   }
-  .boxItem:nth-child(10n) {
+}
+@media (min-width: 2549px) and (max-width: 2716px) {
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(11n) {
     margin-right: 0;
     /*rtl*/
   }
-}
-@media (min-width: 2549px) and (max-width: 2716px) {
-  .boxItem {
+   
+.boxItemList.sponsored  
+.boxItem:nth-child(11n + 10) {
+    margin-right: 0;
+    /*rtl*/
+  }
+   
+.boxItem {
     margin-right: 20px;
     /*rtl*/
     margin-right: -webkit-calc((100% - 1628px)/ 10 - 1px);
     /*rtl*/
     margin-right: calc((100% - 1628px)/ 10 - 1px);
-    /*rtl*/
-  }
-  .boxItem:nth-child(11n) {
-    margin-right: 0;
     /*rtl*/
   }
 }
