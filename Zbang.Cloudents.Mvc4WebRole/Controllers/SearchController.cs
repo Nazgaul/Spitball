@@ -35,13 +35,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
             var result = await PerformSearch(q, true, 0);
+            JsonNetSerializer serializer = new JsonNetSerializer();
+            ViewBag.data = serializer.Serialize(result);
             if (Request.IsAjaxRequest())
             {
                 return PartialView();
             }
-            JsonNetSerializer serializer = new JsonNetSerializer();
-
-            ViewBag.data = serializer.Serialize(result);
+          
             return View();
         }
 

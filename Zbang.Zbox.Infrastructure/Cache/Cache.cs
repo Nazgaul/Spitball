@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version + ConfigurationManager.AppSettings[AppKey];
                 if (IsAppFabricCache())
                 {
-                    var v = new DataCacheFactoryConfiguration();
+                   // var v = new DataCacheFactoryConfiguration();
                     Microsoft.ApplicationServer.Caching.DataCacheFactory x = new DataCacheFactory(new DataCacheFactoryConfiguration()
                     {
                         RequestTimeout = TimeSpan.FromSeconds(20),
