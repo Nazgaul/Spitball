@@ -7,38 +7,52 @@
     var eById = document.getElementById.bind(document),
         pointBox = eById('ptsPopup'),
         usrPoints = eById('userPts'),
+        animations = [],
         pointsTable = {
             answer: 10,
             question: 5,
             itemUpload: 10,
             shareFb: 5
         };
+   
 
 
     pubsub.subscribe('addPoints', function (type) {
         var points = pointsTable[type];
+        
         if (!points) {
             return;
         }
-
-        appendDigits(points);
-        applyAnimation();
-        
-        
+        animations.push(points);
+        if (animations.length > 1) {
+            return;
+        }
+        startAnimation(points);
     });
 
-    
+    function startAnimation(points) {
+        appendDigits(points);
+        applyAnimation(points);
+    }
+
     function appendDigits(points) {
 
-        var strPoints = points.toString();
+        var strPoints = points.toString(),
+            resultHtml = '';
 
+        for (var i = 0, l = strPoints.length; i < l; i++) {
+            resultHtml += getDigit(strPoints[i]);
+        }
+
+        pointBox.innerHTML = '';
+        pointBox.insertAdjacentHTML('beforeend', resultHtml);
 
         function getDigit(value) {
             return '<span class="ptDigit boldFont">' + value + '</span>';
         }
     }
 
-    function applyAnimation(points) {
+    function applyAnimation(points) {        
         pointBox.classList.add('ptsAnim');
 
         setTimeout(function () {
@@ -46,6 +60,8 @@
         }, 3500);
 
         setTimeout(changeScore, 4500);
+
+        setTimeout(checkForNextAnimation, 5500);
 
         function changeScore() {
             var currentScore = parseInt(usrPoints.textContent,10);
@@ -55,10 +71,20 @@
                 if (!score) {
                     return;
                 }
-                usrPoints.textContent = score;
+                usrPoints.textContent = score;        
             });
+
+            
+        }
+    }
+
+    function checkForNextAnimation() {
+        animations.shift();
+
+        if (animations.length > 0) {
+            startAnimation(animations[0]);
         }
     }
     
 
-})(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
+})(cd, cd.pubsub);
