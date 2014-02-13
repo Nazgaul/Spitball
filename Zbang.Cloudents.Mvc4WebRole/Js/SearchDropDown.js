@@ -144,7 +144,7 @@
                 pubsub.publish('searchInput', input.value);
                 return;
             }
-            pubsub.publish('nav', '/search/?q=' + encodeURIComponent(input.value) + '&r=searchdd');
+            pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
 
         };
 
@@ -152,6 +152,7 @@
 
         input.onfocus = function (e) {
             e.stopPropagation();
+            formSubmitted = false;
             if (input.value.length > 0) {
                 show();
             }
@@ -209,7 +210,7 @@
         }
 
         searchDropdownBtn.disabled = false;
-        showAll.href = '/search/?q=' + encodeURIComponent(input.value) + '&r=searchdd';
+        showAll.href = '/search/?q=' + input.value + '&r=searchdd';
         showAllText.textContent = input.value;
 
         maxCategoryItems = 0;

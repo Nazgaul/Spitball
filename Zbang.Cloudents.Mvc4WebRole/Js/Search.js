@@ -30,7 +30,7 @@
             self.proffessor = data.proffessor || '';
             self.courseCode = data.courseCode || '';
             self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
-            self.url = encodeURIComponent(data.url) + '?r=search&s=courses'
+            self.url = data.url + '?r=search&s=courses'
         }
 
         function Material(data) {
@@ -38,7 +38,7 @@
             self.image = data.image;
             self.name = data.name;
             self.boxName = data.boxname;
-            self.url = encodeURIComponent(data.url) + '?r=search&s=materials';
+            self.url = data.url + '?r=search&s=materials';
             self.universityName = '&nbsp;';
             self.content = data.content || '';
             self.width = 69 / 5 * data.rate || 0;
@@ -50,7 +50,7 @@
             self.id = data.id;
             self.name = data.name;
             self.image = data.image;
-            self.url = encodeURIComponent(data.url) + '?r=search&s=members';
+            self.url = data.url + '?r=search&s=members';
 
         };
 
@@ -85,18 +85,20 @@
                 return;
             }
 
-            var loader = renderLoad(sTabContent);
+            var loader = renderLoad(sTabContent, cPage > 0);
+            $(sTabContent).hide();
             dataContext.searchPage({
                 data: { q: searchTerm, page: cPage },
                 success: function (data) {
                     data = data || {};
-                    loader();
-
                     parseData(data);
-                    if(cPage === 0){
+                    if (cPage === 0) {
                         setCurrentTab(sTabCourses);
                     }
-                    pubsub.publish('search_load');
+                    $(sTabContent).show();
+                },
+                always: function () {
+                    loader();
                 }
             })
 
@@ -113,7 +115,7 @@
                         otherMaterials = mapData(Material, data.otherItems),
                         toWipe = cPage === 0;
 
-                    
+
                     appendList(sCourseList, 'sCourseItemTemplate', courses, toWipe);
                     appendList(sMaterialList, 'sMaterialItemTemplate', materials, toWipe);
                     appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);
@@ -164,6 +166,15 @@
                 }
             });
 
+            $(sTabContent).on('click', '.inviteUserBtn', function (e) {                
+                    nameElement = this.previousElementSibling,
+                    name = nameElement.textContent,
+                    imgElement = nameElement.previousElementSibling.querySelector('img'),
+                    image = imgElement.src,
+                    id = imgElement.getAttribute('data-uid');
+
+                cd.pubsub.publish('message', { id: '', data: [{ name: name, id: id, userImage: image }] });
+                });            
             pubsub.subscribe('searchInput', function (term) {
                 clear();
                 getData(term);
@@ -201,24 +212,34 @@
             cPage = 0;
             sTabContent.classList.remove('noResults');
         }
-        function renderLoad(element) {            
-            var cssLoader = '<div class="smallLoader upLoader"><div class="spinner"></div>',
-            imgLoader = '<img class="pageLoaderImg upLoader" src="/images/loader2.gif" />',
-            loader;
+        function renderLoad(element, moreContent) {
+            var cssLoader, imgLoader, loader;
 
-            if (Modernizr.cssanimations) {
-                element.insertAdjacentHTML('beforeend', cssLoader);
+            if (!moreContent) {
+                cssLoader = '<div class="smallLoader upLoader"><div class="spinner"></div>';
+                imgLoader = '<img class="pageLoaderImg upLoader" src="/images/loader2.gif" />';
             } else {
-                element.insertAdjacentHTML('beforeend', imgLoader);
+                cssLoader = '<div class="pageLoader pageAnim"></div>';
+                imgLoader = '<img class="pageLoaderImg pageAnim" src="/images/loader1.gif" />';
             }
 
-            loader = element.querySelector('.upLoader');
 
-            return function () {        
-                    element.removeChild(loader);
+
+            if (Modernizr.cssanimations) {
+                element.insertAdjacentHTML('afterend', cssLoader);
+            } else {
+                element.insertAdjacentHTML('afterend', imgLoader);
+            }
+
+            loader = element.parentElement.querySelector('.upLoader') || element.parentElement.querySelector('.pageAnim');
+
+            return function () {
+                if ($(loader).parents('.sTabContent')){
+                    element.parentElement.removeChild(loader);
+                }
             };
         }
-        
+
     };
 
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
