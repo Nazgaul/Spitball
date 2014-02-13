@@ -240,6 +240,9 @@
   padding: 20px 20px 0 20px;
   background: #fff;
   margin-top: 15px;
+  margin-bottom: 60px;
+  position: relative;
+  min-height: 200px;
 }
 .sTabContent section {
   display: none;
@@ -274,6 +277,9 @@
   top: 50px;
   margin: 0 auto;
   background-position: -283px -51px;
+}
+.sTabContent.sLoading.sLoading .emptySearch {
+  display: none;
 }
 .sTabContent .emptySearch {
   display: none;

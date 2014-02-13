@@ -12,16 +12,16 @@
             tabsContainer = eById('sTabsMenu'), sSearchTerm = eById('sSearchTerm'),
             sTabResults = eById('sTabResults'), sTabCourses = eById('sTabCourses'),
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
-             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
+            sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-        sTabContent = eById('sTabContent'),
-        searchTerm, cPage = 0;
-        consts = {
-            COURSES: 'sTab1',
-            MATERIALS: 'sTab2',
-            MEMBERS: 'sTab3',
-            STABCOUNT: 'data-stab-count'
-        }
+            sTabContent = eById('sTabContent'), isLoading = false,
+            searchTerm, cPage = 0;
+            consts = {
+                COURSES: 'sTab1',
+                MATERIALS: 'sTab2',
+                MEMBERS: 'sTab3',
+                STABCOUNT: 'data-stab-count'
+            }
 
         function Course(data) {
             var self = this;
@@ -86,11 +86,18 @@
             }
 
 
-            var isFirstPage = cPage === 0;           
-            var loader = renderLoad(sTabContent,!isFirstPage);
-            if (isFirstPage){
-                $(sTabContent).hide();
+            var isFirstPage = cPage === 0;
+            var loader = renderLoad(sTabContent, !isFirstPage);
+            if (isFirstPage) {
+                sTabContent.classList.add('sLoading');
+
             }
+            if (isLoading) {
+                return;
+            }
+            isLoading = true;
+            sSearchTerm.textContent = searchTerm;
+            sTabResults.classList.add('searching');
             dataContext.searchPage({
                 data: { q: searchTerm, page: cPage },
                 success: function (data) {
@@ -99,10 +106,12 @@
                     if (cPage === 0) {
                         setCurrentTab(sTabCourses);
                     }
-                    $(sTabContent).show();
                 },
                 always: function () {
                     loader();
+                    isLoading = false;
+                    sTabContent.classList.remove('sLoading');
+                    sTabResults.classList.remove('searching');
                 }
             })
 
@@ -171,15 +180,15 @@
                 }
             });
 
-            $(sTabContent).on('click', '.inviteUserBtn', function (e) {                
-                    nameElement = this.previousElementSibling,
-                    name = nameElement.textContent,
-                    imgElement = nameElement.previousElementSibling.querySelector('img'),
-                    image = imgElement.src,
-                    id = imgElement.getAttribute('data-uid');
+            $(sTabContent).on('click', '.inviteUserBtn', function (e) {
+                nameElement = this.previousElementSibling,
+                name = nameElement.textContent,
+                imgElement = nameElement.previousElementSibling.querySelector('img'),
+                image = imgElement.src,
+                id = imgElement.getAttribute('data-uid');
 
                 cd.pubsub.publish('message', { id: '', data: [{ name: name, id: id, userImage: image }] });
-                });            
+            });
             pubsub.subscribe('searchInput', function (term) {
                 clear();
                 getData(term);
@@ -231,16 +240,16 @@
 
 
             if (Modernizr.cssanimations) {
-                element.insertAdjacentHTML('afterend', cssLoader);
+                element.insertAdjacentHTML('beforeend', cssLoader);
             } else {
-                element.insertAdjacentHTML('afterend', imgLoader);
+                element.insertAdjacentHTML('beforeend', imgLoader);
             }
 
-            loader = element.parentElement.querySelector('.upLoader') || element.parentElement.querySelector('.pageAnim');
+            loader = element.querySelector('.upLoader') || element.querySelector('.pageAnim');
 
             return function () {
-                if ($(loader).parents('.sTabContent')){
-                    element.parentElement.removeChild(loader);
+                if ($(loader).parents('.sTabContent')) {
+                    element.removeChild(loader);
                 }
             };
         }
