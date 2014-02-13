@@ -85,8 +85,12 @@
                 return;
             }
 
-            var loader = renderLoad(sTabContent, cPage > 0);
-            $(sTabContent).hide();
+
+            var isFirstPage = cPage === 0;           
+            var loader = renderLoad(sTabContent,!isFirstPage);
+            if (isFirstPage){
+                $(sTabContent).hide();
+            }
             dataContext.searchPage({
                 data: { q: searchTerm, page: cPage },
                 success: function (data) {
@@ -122,6 +126,7 @@
                     appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
 
                     setNumbersAndText();
+                    pubsub.publish('search_load');
 
                     function mapData(dataType, arr) {
                         if (!arr.length) {
