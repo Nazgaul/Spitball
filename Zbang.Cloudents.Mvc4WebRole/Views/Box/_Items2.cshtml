@@ -17,7 +17,10 @@
             <button class="btn2" type="button" data-click="managedecline">@MainViewResources.Cancel</button>
         </div>
         <!--/ko-->
-        <button type="button" data-click="addItem" class="iconTxt btn1 lFloat">Upload files</button>
+        <!--ko ifnot:manageTab-->
+            <button type="button" data-click="addItem" class="iconTxt btn1 lFloat">Upload files</button>
+        <!--/ko-->
+        
     </div>
 
     <!--ko if:emptyState-->
@@ -36,15 +39,19 @@
 
 
     <ol id="BoxItemList" class="boxItemList clearfix" data-bind="fadeVisible: loadedAnimation">
-        <!--ko ifnot:manageTab-->
-       @* <li class="boxItem" data-bind="visible: !manageTab()">
-            <a class="boxLink" data-navigation="Item">Sponsored item here</a>
-        </li>*@
-        <!--/ko-->
+        
         <!--ko foreach:{data:items,afterAdd:edrag}-->
         <li class="boxItem" data-bind="attr: { id: uid }">
             <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">
-                <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="187" />
+                @*Guy: sponsored width="479" height="188" and background img instead of source style="background-image:url(http://lorempixel.com/479/188/animals/)"*@
+                <!--ko if:sponsored-->
+                <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="148" height="188" />
+                <!--/ko-->
+                <!--ko ifnot: sponsored-->
+                <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="188" />
+                <!--/ko-->
+                
+
                 <div class="boxName clamp2" data-bind="text: name"></div>
                 <div class="stars">
                     <div class="full" data-bind="style: { width: rate + 'px' }"></div>

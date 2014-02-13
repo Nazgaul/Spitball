@@ -213,6 +213,7 @@ footer {
   color: #43392d;
   font-size: 16px;
   font-weight: bold;
+  margin: 5px 0 -10px;
 }
 .staticPage p {
   margin: 1em 0;

@@ -250,9 +250,17 @@
   @media (max-width: @layout-min-width) {
 
     @{list}.sponsored @{item} {
-        margin:0;
+        &:first-child
+        {
+            margin:0 0 32px 0;
+            width: 2*@item-width + @min-margin;
+        }
+        &:nth-child(odd)
+        {
+            margin-right: 0; /*rtl*/
+        }
     }
-    @{item}:nth-child(@{min-cols}n) {
+    @{list}:not(.sponsored) @{item} {
         margin-right: 0; /*rtl*/
     }
   }
@@ -273,6 +281,7 @@
   @media (min-width: @layout-width) and (max-width: @next-layout-width)  {
     @allboxes-width:  @item-width * @iteration; 
     @num-margins: @iteration - 1;
+    @sponsored-width: @item-width * 2;
 
     @{list}:not(.sponsored) @{item} {
         &:nth-child(@{iteration}n) {
@@ -280,6 +289,10 @@
         }
     }
     @{list}.sponsored @{item} {
+        &:first-child
+        {
+            width: ~"calc((100% - @{allboxes-width})/ @{num-margins} - 1px + @{sponsored-width})";  /*rtl*/
+        }
         &:nth-child(@{iteration}n + @{num-margins}) {
             margin-right: 0; /*rtl*/
         }
@@ -293,4 +306,90 @@
   }
   .loopingClass(@next-layout-width + 1px, @next-layout-width + @item-with-margin, @iteration + 1);
 }
+
+.box-layout-rtl(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
+{
+  @item-with-margin: (@item-width + @min-margin);
+  @layout-margins: (@layout-left-margin + @layout-right-margin);
+  @layout-width: (@min-cols * @item-with-margin - @min-margin + @layout-margins);
+  @next-layout-width: (@layout-width + @item-with-margin - 1px);
+  @list-max-width: (@max-cols * @item-with-margin - @min-margin);
+  @layout-max-width: (@max-cols * @item-with-margin - @min-margin + @layout-margins);
+  @layout-min-width: (@min-cols * @item-with-margin - @min-margin + @layout-margins - 1px);
+  @container-min-width: (@min-cols * @item-with-margin - @min-margin);
+
+  @list: ~" `'\n'`.@{list-selector}";
+  @item: ~" `'\n'`.@{item-selector}";
+  @{list} {
+    display: block;
+    margin: 0 auto;
+    min-width: @container-min-width;
+  }
+
+  @{item} {
+    height: @item-height;
+    width: @item-width;
+    margin: 0 0 32px @min-margin; /*rtl*/
+  }
+
+  @media (max-width: @layout-min-width) {
+
+    @{list}.sponsored @{item} {
+        &:first-child
+        {
+            margin:0 0 32px 0;
+            width: 2*@item-width + @min-margin;
+        }
+        &:nth-child(odd)
+        {
+            margin-left: 0; /*rtl*/
+        }
+    }
+    @{list}:not(.sponsored) @{item} {
+        margin-left: 0; /*rtl*/
+    }
+  }
+
+  @media (min-width: @layout-max-width) {
+    @{list} {
+        width: @list-max-width;
+    }
+    @{item}:nth-child(@{max-cols}n) {
+        margin-left: 0; /*rtl*/
+    }
+  }
+  
+  .loopingClass-rtl (@layout-width, @next-layout-width, @min-cols);
+}
+
+.loopingClass-rtl (@layout-width, @next-layout-width, @iteration) when (@layout-width < @layout-max-width) {
+  @media (min-width: @layout-width) and (max-width: @next-layout-width)  {
+    @allboxes-width:  @item-width * @iteration; 
+    @num-margins: @iteration - 1;
+    @sponsored-width: @item-width * 2;
+
+    @{list}:not(.sponsored) @{item} {
+        &:nth-child(@{iteration}n) {
+            margin-left: 0; /*rtl*/
+        }
+    }
+    @{list}.sponsored @{item} {
+        &:first-child
+        {
+            width: ~"calc((100% - @{allboxes-width})/ @{num-margins} - 1px + @{sponsored-width})";  /*rtl*/
+        }
+        &:nth-child(@{iteration}n + @{num-margins}) {
+            margin-left: 0; /*rtl*/
+        }
+    }   
+
+    @{item} {
+        margin: 0 0 32px @min-margin;  /*rtl*/
+        margin: 0 0 32px ~"-webkit-calc((100% - @{allboxes-width})/ @{num-margins} - 1px)";  /*rtl*/
+        margin: 0 0 32px ~"calc((100% - @{allboxes-width})/ @{num-margins} - 1px)";  /*rtl*/
+    }
+  }
+  .loopingClass-rtl(@next-layout-width + 1px, @next-layout-width + @item-with-margin, @iteration + 1);
+}
+
 
