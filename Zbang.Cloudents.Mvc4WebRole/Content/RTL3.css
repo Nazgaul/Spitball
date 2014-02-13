@@ -657,6 +657,10 @@ input[type="radio"] + label:before {
   font-weight: normal;
   /*rtl*/
 }
+.boxItemsHeader {
+  margin: -28px 0 0 386px;
+  /*rtl*/
+}
 .boxItem {
   float: right;
   /* rtl */
