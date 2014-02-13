@@ -80,6 +80,7 @@
 
                 input.focusout();
             }
+           
             currentValue = input.value;
             isLoading = true;
             dataContext.searchDD({
@@ -163,7 +164,7 @@
             if (dropdown.classList.contains('hover')) {
                 return;
             }
-            hide();
+            hide();          
         };
 
         pubsub.subscribe('searchclear', function () {
@@ -180,7 +181,9 @@
     };
     function show() {
         if (!formSubmitted) {
-            dropdown.style.display = 'block';
+            if (document.activeElement === input) {
+                dropdown.style.display = 'block';
+            }
         }
 
     };

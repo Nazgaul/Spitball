@@ -56,6 +56,7 @@
 
 
         pubsub.subscribe('search', function () {
+            var currentPage = cd.getParameterFromUrl(1)
             getData()
             registerEvents();
         });
