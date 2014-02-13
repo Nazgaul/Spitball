@@ -27,7 +27,6 @@
             }
             if (that.type === 'Link') {
                 that.thumbnailUrl = data.thumbnail;
-
             }
             that.download = "/d/" + boxid + "/" + that.uid;
             that.tabId = ko.observable(data.tabId);
@@ -50,6 +49,10 @@
                          that.userid === cd.userDetail().nId);
                 });
             that.itemUrl = data.url + '?r=box';
+            that.sponsored = data.sponsored;
+            if (data.sponsored) {
+                document.getElementById('BoxItemList').classList.add('sponsored');
+            }
         }
 
         var self = this, boxid, current = 0, //countOfItems = 0,
