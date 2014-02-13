@@ -281,6 +281,9 @@
 .sTabContent.sLoading.sLoading .emptySearch {
   display: none;
 }
+.sTabContent.sLoading.sLoading .splitHR {
+  display: none;
+}
 .sTabContent .emptySearch {
   display: none;
 }
