@@ -779,15 +779,15 @@
         padding: 4px 15px;
         &:before
         {
-
+            width: 14px;
+            height: 13px;
+            background: @boxSprite -54px -106px no-repeat;
         }
     }
 }
 
 .boxItem {
     float: left; /* rtl */
-    //width: 148px;
-    //height: 248px;
     background: #fff;
     text-align: left; /* rtl */
     border: 1px solid @borderColor;
@@ -815,7 +815,6 @@
     }
 
     .boxName {
-        //max-width: 136px; - //not necessary
         margin-left: 6px; /*rtl*/
         overflow: hidden;
         line-height: 15px;
@@ -833,7 +832,7 @@
     }
 }
 
-//.box-layout(@item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
+//.box-layout(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
 .box-layout(boxItemList,boxItem,148px,248px,2,12,20px,310px,411px);
 .stars {
     width: 69px;
