@@ -801,9 +801,6 @@
   bottom: 3px;
   margin: 0;
 }
-.wrapper {
-  margin: 0 421px 0 290px;
-}
 .boxItemList {
   display: block;
   margin: 0 auto;
@@ -815,13 +812,13 @@
   margin: 0 20px 32px 0;
   /*rtl*/
 }
-@media (max-width: 1027px) {
+@media (max-width: 1036px) {
   .boxItem:nth-child(2n) {
     margin-right: 0;
     /*rtl*/
   }
 }
-@media (min-width: 2707px) {
+@media (min-width: 2717px) {
   .boxItemList {
     width: 1996px;
   }
@@ -830,7 +827,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1027px) and (max-width: 1195px) {
+@media (min-width: 1037px) and (max-width: 1204px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -844,7 +841,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1195px) and (max-width: 1363px) {
+@media (min-width: 1205px) and (max-width: 1372px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -858,7 +855,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1363px) and (max-width: 1531px) {
+@media (min-width: 1373px) and (max-width: 1540px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -872,7 +869,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1531px) and (max-width: 1699px) {
+@media (min-width: 1541px) and (max-width: 1708px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -886,7 +883,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1699px) and (max-width: 1867px) {
+@media (min-width: 1709px) and (max-width: 1876px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -900,7 +897,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1867px) and (max-width: 2035px) {
+@media (min-width: 1877px) and (max-width: 2044px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -914,7 +911,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2035px) and (max-width: 2203px) {
+@media (min-width: 2045px) and (max-width: 2212px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -928,7 +925,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2203px) and (max-width: 2371px) {
+@media (min-width: 2213px) and (max-width: 2380px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -942,7 +939,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2371px) and (max-width: 2539px) {
+@media (min-width: 2381px) and (max-width: 2548px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/
@@ -956,7 +953,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2539px) and (max-width: 2707px) {
+@media (min-width: 2549px) and (max-width: 2716px) {
   .boxItem {
     margin-right: 20px;
     /*rtl*/

@@ -6,7 +6,7 @@
         <button id="sTabMembers" type="button" data-type="members" data-stab-count="0">Members&nbsp;</button>
     </div>
     <div class="arrow upArrow"></div>
-    <h2 id="sTabResults"class="semiFont" data-resultcount="0">&nbsp;results for <q id="sSearchTerm"></q></h2>
+    <h2 id="sTabResults"class="semiFont" data-resultcount="0"><span class="sLoaded">&nbsp;results for </span><span class="searching">Searching for </span><q id="sSearchTerm"></q></h2>
     @*Guy: please add the class 'noResults' when user query produces no search results*@
     <div id="sTabContent" class="sTabContent">
         <section class="sCourses">
@@ -39,11 +39,11 @@
 
 <script type="text/html" id="sMaterialItemTemplate">
 
-    <li class="sMaterialsItem">
+    <li class="sMaterialsItem clearfix">
         <a class="sMaterialLink" data-navigation="item" href="{{url}}">
             <div class="sOtherUni semiFont">{{universityName}}</div>
             <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" src="{{image}}">
-            <div class="sTitle">{{name}}</div>
+            <div class="sTitle elps">{{name}}</div>
             <div class="sSnippet">{{content}}</div>
             <div class="stars">
                 <div class="full" style="width:{{width}}px;"></div>

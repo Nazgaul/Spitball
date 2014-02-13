@@ -105,7 +105,6 @@
                     if (cPage === 0) {
                         setCurrentTab(sTabCourses);
                     }
-                    //$(sTabContent).show();
                 },
                 always: function () {
                     loader();

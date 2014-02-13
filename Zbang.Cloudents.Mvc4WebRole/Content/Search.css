@@ -362,7 +362,7 @@
   top: 0;
 }
 .sMaterialLink {
-  display: inline-block;
+  display: block;
 }
 .sMaterialImg {
   margin-right: 26px;
