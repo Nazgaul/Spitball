@@ -1021,6 +1021,18 @@ select.inputText {
     z-index: 11;
     width: 224px;
     box-shadow: 0 0 3px rgba(0,0,0,.4);
+    &:before
+    {
+        content: attr(data-pts-before);
+        display: inline-block;
+        margin-right: 4px;
+    }
+    &:after
+    {
+        content: attr(data-pts-after);
+        display: inline-block;
+        margin-left: 4px;
+    }
 }
 
 .ptDigit{
