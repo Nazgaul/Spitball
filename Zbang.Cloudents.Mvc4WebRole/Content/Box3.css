@@ -732,6 +732,11 @@
 .boxItemsHeader .iconTxt {
   padding: 4px 15px;
 }
+.boxItemsHeader .iconTxt:before {
+  width: 14px;
+  height: 13px;
+  background: url(/Images/box-sprite14.png) -54px -106px no-repeat;
+}
 .boxItem {
   float: left;
   /* rtl */
