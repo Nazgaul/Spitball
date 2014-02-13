@@ -7,7 +7,6 @@
     </div>
     <div class="arrow upArrow"></div>
     <h2 id="sTabResults"class="semiFont" data-resultcount="0"><span class="sLoaded">&nbsp;results for </span><span class="searching">Searching for </span><q id="sSearchTerm"></q></h2>
-    @*Guy: please add the class 'noResults' when user query produces no search results*@
     <div id="sTabContent" class="sTabContent">
         <section class="sCourses">
             <ul id="sCourseList" class="sCourseList" data-list="courses"></ul>
@@ -30,7 +29,6 @@
         <a data-navigation="box" href="{{url}}" title="{{name}}">
             <img class="lFloat boxImg" alt="" width="77" height="98" src="{{image}}">
             <div class="sTitle">{{name}}</div>
-            @*Guy: Add the 'allDetails' class to the professor when we have both prof and code values*@
             <span class="sDetail {{allDetails}}">{{proffessor}}</span>
             <span class="sDetail">{{courseCode}}</span>
         </a>

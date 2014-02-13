@@ -96,7 +96,8 @@
                 return;
             }
             isLoading = true;
-            sSearchTerm.textContent = "Searching for " + searchTerm;
+            sSearchTerm.textContent = searchTerm;
+            sTabResults.classList.add('searching');
             dataContext.searchPage({
                 data: { q: searchTerm, page: cPage },
                 success: function (data) {
@@ -110,6 +111,7 @@
                     loader();
                     isLoading = false;
                     sTabContent.classList.remove('sLoading');
+                    sTabResults.classList.remove('searching');
                 }
             })
 
