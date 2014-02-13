@@ -37,9 +37,9 @@
 
     <ol id="BoxItemList" class="boxItemList sponsored clearfix" data-bind="fadeVisible: loadedAnimation">
         <!--ko ifnot:manageTab-->
-        <li class="boxItem" data-bind="visible: !manageTab()">
+       @* <li class="boxItem" data-bind="visible: !manageTab()">
             <a class="boxLink" data-navigation="Item">Sponsored item here</a>
-        </li>
+        </li>*@
         <!--/ko-->
         <!--ko foreach:{data:items,afterAdd:edrag}-->
         <li class="boxItem" data-bind="attr: { id: uid }">
