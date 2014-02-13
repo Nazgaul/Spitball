@@ -3,7 +3,7 @@
         return;
     }
 
-    cd.firstLoad = true;
+    cd.firstLoad = true, waitingForPageLoad = true;
 
     var privateLocation = {
         title: document.title,
@@ -411,6 +411,8 @@
             });
 
             $('[data-btn]').removeClass('active');
+
+            waitingForPageLoad = true;
         }
 
         pubsub.publish('clearTooltip');
@@ -446,6 +448,9 @@
     function showPage(d) {
 
         if (d.is(':visible')) {
+            return;
+        }
+        if (!waitingForPageLoad) {
             return;
         }
 

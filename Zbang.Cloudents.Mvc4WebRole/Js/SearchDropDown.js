@@ -242,6 +242,9 @@
 
 
         function mapData(dataType, arr) {
+            if (!arr) {
+                return [];
+            }
             if (!arr.length) {
                 return []; // we return empty array to calculate the max items length
             }
