@@ -248,7 +248,10 @@
     border-radius: 5px;
     padding: 20px 20px 0 20px;
     background: #fff;
-    margin-top: 15px;
+    margin-top: 15px;    
+    margin-bottom:60px;
+    position: relative;
+    min-height: 200px;
     section{
         display: none;
     }
@@ -256,7 +259,7 @@
     {
         margin: 11px 0 31px;
         font-size: 17px;
-    }
+    }   
     &.noResults.noResults
     {
         height: 267px;
@@ -285,6 +288,11 @@
                 margin: 0 auto;
                 background-position: -283px -51px;
             }
+        }
+    }
+    &.sLoading.sLoading {
+        .emptySearch {
+            display:none;
         }
     }
     .emptySearch
