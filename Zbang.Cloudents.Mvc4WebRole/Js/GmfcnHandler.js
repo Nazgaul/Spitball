@@ -57,11 +57,10 @@
 
         setTimeout(function () {
             pointBox.classList.remove('ptsAnim');
+            changeScore();
         }, 3500);
-
-        setTimeout(changeScore, 4500);
-
-        setTimeout(checkForNextAnimation, 5500);
+        
+        setTimeout(checkForNextAnimation, 3550);
 
         function changeScore() {
             var currentScore = parseInt(usrPoints.textContent,10);
