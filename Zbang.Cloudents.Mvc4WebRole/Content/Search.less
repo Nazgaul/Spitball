@@ -177,11 +177,27 @@
     }
     h2{
         font-size: 22px;
-        &:before
+        &:not(.searching)
         {
-            content: attr(data-resultcount);
-            display: inline-block;
+            .sResult + .sResult
+            {
+                display: none;
+            }
+            &:before
+            {
+                content: attr(data-resultcount);
+                display: inline-block;
+            }
+            
         }
+        &.searching
+        {
+            .sResult:first-child
+            {
+                display: none;
+            }
+        }
+
     }
     .upArrow{
         top: -16px;

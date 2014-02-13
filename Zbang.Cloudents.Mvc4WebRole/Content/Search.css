@@ -167,9 +167,15 @@
 .searchPage h2 {
   font-size: 22px;
 }
-.searchPage h2:before {
+.searchPage h2:not(.searching) .sResult + .sResult {
+  display: none;
+}
+.searchPage h2:not(.searching):before {
   content: attr(data-resultcount);
   display: inline-block;
+}
+.searchPage h2.searching .sResult:first-child {
+  display: none;
 }
 .searchPage .upArrow {
   top: -16px;
