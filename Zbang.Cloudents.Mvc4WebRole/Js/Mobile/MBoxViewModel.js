@@ -141,8 +141,8 @@
             }
             for (var j = 0, length2 = tabs.length; j < length2; j++) {
                 var opt = document.createElement("option");
-                opt.value = tabs[j].Id;
-                opt.text = tabs[j].Name;
+                opt.value = tabs[j].id;
+                opt.text = tabs[j].name;
 
                 tabSelect.add(opt);
             }

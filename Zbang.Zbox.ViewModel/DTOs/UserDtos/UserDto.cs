@@ -4,7 +4,7 @@
     public class UserDto
     {
         public string Image { get; set; }
-        //public string LargeImage { get; set; }
+        public string LargeImage { get; set; }
         public string Name { get; set; }
         public long Uid { get; set; }
 
