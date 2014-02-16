@@ -717,6 +717,10 @@
   min-width: 316px;
   padding: 0 381px 0 1px;
 }
+.boxItemList.sponsored .boxName {
+  font-size: 15px;
+  line-height: 30px;
+}
 .boxItems {
   margin: 20px 20px 0 20px;
 }
@@ -724,6 +728,7 @@
   overflow: hidden;
   height: 68px;
   margin: -28px 386px 0 0;
+  /*rtl*/
   padding-top: 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -734,7 +739,7 @@
 }
 .boxItemsHeader .iconTxt:before {
   width: 14px;
-  height: 13px;
+  height: 16px;
   background: url(/Images/box-sprite14.png) -54px -106px no-repeat;
 }
 .boxItem {

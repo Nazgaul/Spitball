@@ -82,26 +82,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private void AssignUrls(Zbox.ViewModel.DTOs.Search.SearchDto result, UrlBuilder urlBuilder)
         {
-            result.Boxes = result.Boxes.Select(s =>
+            if (result.Boxes != null)
             {
-                s.Url = urlBuilder.BuildBoxUrl(s.Id, s.Name, s.Universityname);
-                return s;
-            });
-            result.Items = result.Items.Select(s =>
+                result.Boxes = result.Boxes.Select(s =>
+                {
+                    s.Url = urlBuilder.BuildBoxUrl(s.Id, s.Name, s.Universityname);
+                    return s;
+                });
+            }
+            if (result.Items != null)
             {
-                s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
-                return s;
-            });
-            result.OtherItems = result.OtherItems.Select(s =>
+                result.Items = result.Items.Select(s =>
+                {
+                    s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                    return s;
+                });
+            }
+            if (result.OtherItems != null)
             {
-                s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
-                return s;
-            });
-            result.Users = result.Users.Select(s =>
+                result.OtherItems = result.OtherItems.Select(s =>
+                {
+                    s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                    return s;
+                });
+            }
+            if (result.Users != null)
             {
-                s.Url = urlBuilder.BuildUserUrl(s.Id, s.Name);
-                return s;
-            });
+                result.Users = result.Users.Select(s =>
+                {
+                    s.Url = urlBuilder.BuildUserUrl(s.Id, s.Name);
+                    return s;
+                });
+            }
         }
 
 
