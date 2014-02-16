@@ -28,6 +28,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
     public class UserController : BaseController
     {
+        private const int AdminReputation = 1000000;
         private readonly Lazy<IZboxCacheReadService> m_ZboxCacheService;
         public UserController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
@@ -48,8 +49,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             
             var id = userId.HasValue ? userId.Value : GetUserId();
-            var model = await GetUserProfile(id);
 
+            var userDetail = m_FormsAuthenticationService.GetUserData();
+            
+            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+
+            ViewBag.Admin = false; 
+            var model = await GetUserProfile(id);
+            if (userDetail.Score > AdminReputation)
+            {
+                ViewBag.Admin = true;
+            }
             if (userId.HasValue)
             {
                 if (UrlBuilder.NameToQueryString(model.Name) != userName)
@@ -125,6 +135,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("GetUserFriends user {0}", User.Identity.Name), ex);
                 return this.CdJson(new JsonResponse(false, "Problem with get user friends"));
             }
+        }
+
+        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
+        public ActionResult AdminFriends()
+        {
+            return this.CdJson(new JsonResponse(true));
         }
 
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]

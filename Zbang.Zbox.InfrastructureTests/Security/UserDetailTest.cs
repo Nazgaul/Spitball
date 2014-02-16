@@ -27,12 +27,13 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             //var uid = "xxx";
             var universityId = 4;
             var universityDataId = 3;
+            var scrore = 5;
 
-            UserDetail userDetail = new UserDetail(language, universityId, universityDataId);
+            UserDetail userDetail = new UserDetail(language, scrore, universityId, universityDataId);
 
             var result = UserDetail.Serialize(userDetail);
 
-            var expectedResult = language + "@" + universityId + "@" + universityDataId;
+            var expectedResult = language + "@" + scrore + "@" + universityId + "@" + universityDataId;
             var thesame = result == expectedResult;
             Assert.IsTrue(thesame, "should be the same");
         }
@@ -54,11 +55,12 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             //var uid = "xxx";
             var universityId = 4;
             var universityDataId = 3;
+            var score = 5;
 
-            var data = language + "@" + universityId + "@" + universityDataId;
+            var data = language + "@" + score + "@" + universityId + "@" + universityDataId;
 
             var userDetail = UserDetail.Deserialize(data);
-            UserDetail userExpectedResult = new UserDetail(language, universityId, universityDataId);
+            UserDetail userExpectedResult = new UserDetail(language, score, universityId, universityDataId);
 
             //Assert.AreEqual(userExpectedResult.Name, userDetail.Name, "Name should be the same");
             Assert.AreEqual(userExpectedResult.UniversityId, userDetail.UniversityId, "university should be the same");
