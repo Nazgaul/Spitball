@@ -88,7 +88,10 @@ join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 join zbox.users u2 on u2.UserId = b.OwnerId
 where i.IsDeleted = 0
 and b.OwnerId in (
-select userid from zbox.users u where u.NeedCode = 0 and u.UserType = 1 
+select userid from 
+zbox.users u 
+where u.NeedCode = 0 and u.UserType = 1 
+and u.country = (select country from zbox.users where userid = @universityId)
 )
 and b.Discriminator = 2
 and i.Name like '%' +@query + '%'
