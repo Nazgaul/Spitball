@@ -73,11 +73,14 @@ body
 .backWpr {
     text-align: right; /*rtl*/
     padding: 0 40px 0 0; /*rtl*/
-    &:before
-    {
+    &:before {
         .flipH;
         right: 0; /*rtl*/
         left: auto;
+    }
+
+    &.noArrow {
+        padding-right:0;
     }
 }
 .dropDown{

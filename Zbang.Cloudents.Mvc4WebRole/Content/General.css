@@ -788,6 +788,12 @@ select.inputText {
 .backWpr h2 {
   font-size: 15px;
 }
+.backWpr.noArrow {
+  padding-left: 0;
+}
+.backWpr.noArrow:before {
+  display: none;
+}
 .dropDown {
   position: absolute;
   border: 1px solid #c2c2c2;

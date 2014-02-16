@@ -84,7 +84,7 @@
         }
         <div class="boxesHeader topBar">
             <h2 data-bind="visible: !backvisible()" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
-            <a id="lib_Back" class="backWpr elps lFloat" data-navigation="Library" data-bind="visible: backvisible, attr: { href: backUrl }">
+            <a id="lib_Back" class="backWpr elps lFloat" data-navigation="Library" data-bind="visible: backvisible(), attr: { href: backUrl },css: { noArrow: arrowVisible}">
                 <h2 id="lib_NodeName" data-bind="text: titleShow"></h2>
             </a>
             <button id="lib_NodeRename" class="boxRename" title="@SharedResources.Edit" data-bind="visible: renameNodeVisible"></button>

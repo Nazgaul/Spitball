@@ -95,6 +95,9 @@ body {
   /*rtl*/
   left: auto;
 }
+.backWpr.noArrow {
+  padding-right: 0;
+}
 .dropDown {
   text-align: right;
   /*rtl*/

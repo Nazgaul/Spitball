@@ -827,7 +827,14 @@ select.inputText {
     h2{
         font-size: 15px;
     }
+    &.noArrow{
+        padding-left:0;
+        &:before {
+            display:none;
+        }   
+    }
 }
+
 .dropDown {
     position: absolute;
     border: 1px solid @borderColor;

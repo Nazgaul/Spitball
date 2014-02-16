@@ -99,8 +99,11 @@
             if (!self.loaded()) {
                 return false;
             }
+
             return getLibraryId();
         }, self);
+
+        self.arrowVisible = ko.observable();
 
         self.backUrl = ko.observable();
 
@@ -196,6 +199,7 @@
                 }
                 if (!result.parent) {
                     self.backUrl('/' + libraryConst);
+                    self.arrowVisible(getLibraryId() === true);
                 }
                 else {
                     self.backUrl('/' + libraryConst + '/' + result.parent.id + '/' + result.parent.name);

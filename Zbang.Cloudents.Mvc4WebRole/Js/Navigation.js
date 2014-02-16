@@ -5,6 +5,7 @@
 
     cd.firstLoad = true, waitingForPageLoad = true;
 
+
     var privateLocation = {
         title: document.title,
         url: location.pathname.replace(/[\/\/]+/, '/')
@@ -34,9 +35,13 @@
                 this.remove();
                 historyNav = [cd.clone(privateLocation)];
                 return;
-            }
-
+            }            
             historyNav = data.history;
+            var lastPage = historyNav.pop();
+            privateLocation.url = lastPage.url = lastPage.url.split('?')[0];
+            history.replaceState(privateLocation.url, '', privateLocation.url);
+            historyNav.push(lastPage);
+            
         },
         remove: function () {
             cd.localStorageWrapper.removeItem('history');
@@ -139,7 +144,13 @@
             }
             window.history.pushState(privateLocation.url, '', privateLocation.url);
         }
-        historyNav.push(cd.clone(privateLocation));
+        var clonedLocation = cd.clone(privateLocation);
+        if (clonedLocation.url.lastIndexOf('?') > -1) {
+            clonedLocation.url= clonedLocation.url.split('?')[0];
+        }
+        
+        historyNav.push(clonedLocation);
+
 
         //save history to local storage
         cd.historyManager.save();
@@ -251,13 +262,15 @@
                 break;
 
             default:
-                pubsub.publish('lib_nodes', { id: secondLevel, name: getParameterFromUrl(2) });
+                pubsub.publish('lib_nodes', { id: secondLevel, name: getParameterFromUrl(2)  });
                 break;
         }
     }
 
     function getParameterFromUrl(index) {
         privateLocation.url = removeStartingSlash(privateLocation.url);
+        privateLocation.url = privateLocation.url.split('?')[0];
+
         var pathArray = privateLocation.url.split('/');
         if (pathArray[index]) {
             return decodeURIComponent(pathArray[index]);
