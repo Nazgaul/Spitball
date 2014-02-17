@@ -1,4 +1,5 @@
 ﻿@import "varsAndMixins";
+
 .userPage, .searchPage {
     text-align: left; /*rtl*/
     color: @textColor;
@@ -15,6 +16,7 @@
         z-index: -1;
     }
 }
+
 .userPage {
     h1 {
         font-size: 22px;
@@ -38,17 +40,16 @@
     }
 }
 /*#region user page aside */
-.upSidebar{
+.upSidebar {
     width: 227px;
     height: 332px;
     border-radius: 5px;
     margin: 28px 0 0 21px; /*rtl*/
     display: inline-block;
-    clear:both;
+    clear: both;
 }
 /*#region points section */
-.pointsWpr
-{
+.pointsWpr {
     width: 227px;
     min-height: 53px;
     border-radius: 5px;
@@ -58,33 +59,34 @@
     position: relative;
     border: 1px solid @color;
     text-align: center;
-    &:before
-    {
+
+    &:before {
         content: '';
         position: absolute;
-        top:0;
+        top: 0;
         left: 0; /*rtl*/
         width: 100%;
         height: 53px;
         background: @color;
     }
 }
-.emptyPoints
-{
+
+.emptyPoints {
     padding: 15px 10px;
     color: #676767;
     text-align: left; /*rtl*/
-    .semiFont{
+    .semiFont {
         color: #39434a;
         margin-bottom: 8px;
     }
 }
-.pointsList
-{
+
+.pointsList {
     padding-top: 6px;
-    direction:ltr; // for hebrew issue
+    direction: ltr; // for hebrew issue
 }
-.point{
+
+.point {
     width: 28px;
     height: 40px;
     line-height: 40px;
@@ -97,7 +99,7 @@
     box-shadow: 0 1px 0 rgba(0,0,0,.5);
     display: inline-block;
     text-align: center;
-    z-index:1;
+    z-index: 1;
     .boxSizing;
 }
 
@@ -105,30 +107,33 @@
 
 /*#region uploads 'tab' */
 
-.upTabContent { 
+.upTabContent {
     display: none;
 }
 
-.upUploads
-{
-    position: relative; 
-    min-height:400px;  
+.upUploads {
+    position: relative;
+    min-height: 400px;
     overflow: hidden;
-    h2{
+
+    h2 {
         border-bottom: 1px solid @borderColor;
         padding-bottom: 6px;
         margin-bottom: 6px;
-    }   
+    }
 }
+
 .upTabs {
-    margin-bottom: 12px;  
-    button{
+    margin-bottom: 12px;
+
+    button {
         font-size: 12px;
     }
-    button:before {
-        content: attr(data-count);
-        display: inline-block;
-    }
+
+        button:before {
+            content: attr(data-count);
+            display: inline-block;
+        }
 
     &.upTab1 {
         .fileCount {
@@ -160,13 +165,13 @@
         }
     }
 }
-.aTab
-{
-    .qaWpr{
+
+.aTab {
+    .qaWpr {
         position: relative;
         z-index: 1;
-        &:before
-        {
+
+        &:before {
             .pseudo;
             background: #fafafa;
             height: 43px;
@@ -178,34 +183,37 @@
         }
     }
 }
-.uploadsItem
-{
+
+.uploadsItem {
     padding: 0 10px 0 64px; /*rtl*/
     position: relative;
     margin-top: 11px;
     height: 67px;
+
     .boxName {
         line-height: 15px;
         color: #0F9D58;
         height: 30px;
         padding: 18px 0 2px;
     }
-    .stars{
+
+    .stars {
         display: inline-block;
         margin: 2px 0 0 0; // override
-        .full{
+        .full {
             //width: 43px; // TEMPORARY!!
         }
-        
     }
-    .views{
+
+    .views {
         margin: 0 0 0 12px; /*rtl*/ // override
         display: inline-block;
         vertical-align: top;
         line-height: 14px;
         color: #676767;
     }
-    .clamp2:after{
+
+    .clamp2:after {
         background-image: url(/Images/gray_jean80.png);
     }
 }
@@ -218,24 +226,24 @@
 }*/
 
 
-.emptyTab{
+.emptyTab {
     text-align: center;
     color: #676767;
     display: none;
-    &:before
-    {
+
+    &:before {
         content: '';
         display: block;
         background: @user-sprite no-repeat;
         margin: 32px auto 14px;
     }
-    .upTabContent.empty &
-    {
+
+    .upTabContent.empty & {
         display: block;
     }
 }
-.emptyUploads:before
-{
+
+.emptyUploads:before {
     width: 44px;
     height: 53px;
     background-position: -6px -42px;
@@ -244,28 +252,27 @@
 /*#endregion */
 
 /*#region QnA tabs */
-.qaItem
-{
+.qaItem {
     padding-bottom: 14px;
     margin-bottom: 14px;
     border-bottom: 1px solid @borderColor;
-    &:last-child
-    {
-        margin:0;
+
+    &:last-child {
+        margin: 0;
         padding: 0;
         border: none;
     }
-    
 }
-.qaBoxname
-    {
-        margin-left: 10px; /*rtl*/
-        max-width: 188px;
-        display: inline-block;
-        padding-top: 8px;
-        color: #39434a;
-    }
-.qaWpr{
+
+.qaBoxname {
+    margin-left: 10px; /*rtl*/
+    max-width: 188px;
+    display: inline-block;
+    padding-top: 8px;
+    color: #39434a;
+}
+
+.qaWpr {
     background: #fff;
     border: 1px solid @borderColor;
     border-radius: 5px;
@@ -273,19 +280,19 @@
     margin-top: 18px;
     overflow: hidden; //hide corners
 }
-.qaQuestion
-{
+
+.qaQuestion {
     border-bottom: 1px solid @borderColor;
     margin: -10px -5px 0 -10px; /*rtl*/
     padding: 10px 5px 8px 10px; /*rtl*/
     background: #fafafa;
 }
-.qLink
-{
+
+.qLink {
     color: @attentionBlue;
     padding-top: 6px;
-    &:after
-    {
+
+    &:after {
         content: '';
         display: inline-block;
         margin-left: 5px; /*rtl*/
@@ -296,50 +303,52 @@
         vertical-align: middle;
     }
 }
-.qAnswerCount
-{
+
+.qAnswerCount {
     color: #676767;
     display: inline-block;
     padding: 6px 0 3px;
-    &:before
-    {
+
+    &:before {
         content: attr(data-up-qacount);
         display: inline-block;
     }
 }
-.qaUsername
-{
+
+.qaUsername {
     display: inline-block;
     max-width: 168px;
     margin: 0 0 11px 8px; /*rtl*/
     padding-top: 7px;
-    ~ .qaQuestion
-    {
+
+    ~ .qaQuestion {
         //margin-top: -50px; //in answers - give top same background as qustion as well
         //padding-top: 50px;
         clear: both;
         color: #676767;
     }
 }
-.answeredBy{
+
+.answeredBy {
     color: #676767;
     padding: 5px 0;
 }
-.qaMore{
+
+.qaMore {
     border: 1px solid @borderColor;
     border-radius: 3px;
     width: 100%;
     height: 28px;
     margin: 20px 0 75px;
     background: rgba(255,255,255,.5);
-    &:hover
-    {
+
+    &:hover {
         color: @attentionBlue;
         background: #fff;
     }
 }
-.emptyQuestions:before, .emptyAnswers:before
-{
+
+.emptyQuestions:before, .emptyAnswers:before {
     width: 154px;
     height: 34px;
     background-position: -5px -3px;
@@ -355,24 +364,24 @@
     }
 }*/
 
-.upContentWpr
-{
+.upContentWpr {
     width: 1021px;
     margin: 0 auto;
     padding-bottom: 20px;
     position: relative;
 }
-.upTop
-{
+
+.upTop {
     padding-left: 112px; /*rtl*/
     position: relative;
     height: 100px;
-    .btn3{
+
+    .btn3 {
         padding: 4px 12px;
         position: absolute;
         top: 71px;
-        &:before
-        {
+
+        &:before {
             .pseudo;
             width: 22px;
             height: 19px;
@@ -381,50 +390,53 @@
             margin-right: 5px; /*rtl*/
         }
     }
-    .upEmail{
+
+    .upEmail {
         margin-top: 23px;
         color: #676767;
     }
-    .iconTxt{
+
+    .iconTxt {
         margin-top: 12px;
-        &:before
-        {
+
+        &:before {
             width: 15px;
             height: 19px;
             background-position: -52px -20px;
         }
-        &:hover
-        {
+
+        &:hover {
             color: @attentionBlue;
         }
     }
 }
-.upImg
-{
+
+.upImg {
     position: absolute;
     top: 0;
     left: 0; /*rtl*/
     border: 1px solid @borderColor;
     border-radius: 3px;
     .boxSizing;
-    
 }
-.upSchool
-{
+
+.upSchool {
     color: #676767;
-    &:hover
-    {
+
+    &:hover {
         color: @attentionBlue;
     }
 }
-.upContent
-{
+
+.upContent {
     width: 772px;
-    h2{
+
+    h2 {
         margin: 28px 0 15px;
     }
 }
-.upCourses, .upPoints{
+
+.upCourses, .upPoints {
     //padding-top: 70px;
 }
 
@@ -432,17 +444,17 @@
     background: #fff;
     border-top: 1px solid @borderColor;
     border-left: 1px solid @borderColor;
-    border-right: 1px solid @borderColor;    
+    border-right: 1px solid @borderColor;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    padding: 15px 12px 0 12px;   
+    padding: 15px 12px 0 12px;
     position: relative; // for show all
     .boxSizing;
 
-    &.truncated.truncated {  // repeated truncated class for extra specificity
-        border-bottom-left-radius:8px;
-        border-bottom-right-radius:8px;
-        border-bottom:1px solid @borderColor;
+    &.truncated.truncated { // repeated truncated class for extra specificity
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom: 1px solid @borderColor;
     }
 
     h4 {
@@ -450,6 +462,7 @@
         border-bottom: 1px solid #e9e9e9;
         margin-bottom: 17px;
     }
+
     ul {
         overflow: hidden;
     }
@@ -457,17 +470,18 @@
     .box {
         margin: 0 0 24px 0; //override
         &:hover {
-            .btn3{
+            .btn3 {
                 display: block;
             }
         }
     }
 
-    .box:nth-child(3n + 2) {
-        margin-left: 38px;
-        margin-right: 38px;
-    }
+        .box:nth-child(3n + 2) {
+            margin-left: 38px;
+            margin-right: 38px;
+        }
 }
+
 .upShowAll {
     display: block;
     height: 38px;
@@ -475,11 +489,11 @@
     cursor: pointer;
     background: #f5f5f5;
     text-align: center;
-    padding: 0 12px;    
-    border: 1px solid @borderColor;    
-    border-bottom-left-radius:8px;    
-    border-bottom-right-radius:8px;
-   
+    padding: 0 12px;
+    border: 1px solid @borderColor;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
 
 
     &:after {
@@ -497,17 +511,17 @@
         content: attr(data-up-showall);
         display: inline-block;
     }
-    &:hover
-    {
+
+    &:hover {
         background: #ededed;
         color: #0371c8;
     }
 }
-.upCb
-{
+
+.upCb {
     display: none;
-    &:not(:checked)
-    {
+
+    &:not(:checked) {
         /*~ .inCommonList
         {
             .upFriend:nth-child(n+9)
@@ -537,22 +551,19 @@
             }
         }*/
     }
-    
-    &:checked
-    {
-        + label
-        {
-            &:before
-            {
+
+    &:checked {
+        + label {
+            &:before {
                 content: attr(data-up-showless);
             }
-            &:after
-            {
+
+            &:after {
                 .flipV(1);
             }
         }
-        ~ .upInviteList
-        {
+
+        ~ .upInviteList {
             //height: 428px;
         }
     }
@@ -565,14 +576,14 @@
     .transition(height .5s);
 }
 
-.inAllFriendList {    
+.inAllFriendList {
     .transition(height .5s);
 }
 
-.followingList
-{
+.followingList {
     .transition(height .5s);
-    .btn3{
+
+    .btn3 {
         background: #fff;
         border: 1px solid @attentionBlue;
         padding: 3px 18px;
@@ -581,16 +592,15 @@
         bottom: 5px;
         color: @attentionBlue;
         display: none;
-        &:hover
-        {
+
+        &:hover {
             background: @attentionBlue;
             color: #fff;
         }
     }
 }
 
-.upFriend
-{
+.upFriend {
     display: inline-block;
     height: 116px;
     margin-right: 32px; /*rtl*/
@@ -598,66 +608,69 @@
     text-align: center;
     width: 76px;
     vertical-align: top; // to make Safari happy
-    margin-bottom:20px;
+    margin-bottom: 20px;
+
     &:nth-child(7n) {
         margin: 0;
     }
 }
-.upFriendImg
-{
+
+.upFriendImg {
     border: 1px solid @borderColor;
     border-radius: 3px;
     margin-bottom: 6px;
 }
-.friendName{
+
+.friendName {
     line-height: 15px;
     height: 36px;
 }
 
 .upFriends + .upShowAll {
-    margin-top:-20px;
+    margin-top: -20px;
 }
-.upInvites{
+
+.upInvites {
     .upSectionWpr {
         min-height: 167px;
-        padding:0; //override
+        padding: 0; //override
     }
-    .inviteFriendBtn.btn3{
+
+    .inviteFriendBtn.btn3 {
         width: auto; //override
-        padding:0 8px;
+        padding: 0 8px;
         line-height: 30px;
-        &:before
-        {
+
+        &:before {
             .pseudo;
-            background: url(/Images/common14-sprite.png) -143px -3px no-repeat;
+            background: @common-sprite -143px -3px no-repeat;
             width: 22px;
             height: 19px;
             vertical-align: middle;
             margin-right: 8px; /*rtl*/
         }
     }
-    &.empty
-    {
+
+    &.empty {
         //text-align: center;
-        ul, label, input, > .btn3
-        {
+        ul, label, input, > .btn3 {
             display: none;
         }
-        .upSectionWpr
-        {
+
+        .upSectionWpr {
             text-align: center;
         }
     }
 }
-.upInviteList
-{
+
+.upInviteList {
     overflow: hidden; //1)establish new bfc 2) hide top of vertical separator of even items
     //height: 321px;
     .transition(height .5s);
     padding: 15px 12px 0 12px; //moved padding from the Wpr to the list
 }
-.upInviteItem
-{
+
+.upInviteItem {
     display: inline-block;
     width: 359px;
     .boxSizing;
@@ -666,11 +679,10 @@
     margin-bottom: 29px;
     float: left; /*rtl*/
     height: 78px;
-    z-index:1;
-    &:hover
-    {
-        &:after
-        {
+    z-index: 1;
+
+    &:hover {
+        &:after {
             .pseudo;
             position: absolute;
             top: -10px;
@@ -681,69 +693,69 @@
             height: 96px;
         }
     }
-    .semiFont
-    {
+
+    .semiFont {
         margin: -4px 0 4px; /*diff rtl*/
     }
-    .upFriendImg
-    {
+
+    .upFriendImg {
         position: absolute;
-        top:0;
-        left:0; /*rtl*/
+        top: 0;
+        left: 0; /*rtl*/
     }
-    &.upPending
-    {
-        .inviteStatus
-        {
+
+    &.upPending {
+        .inviteStatus {
             color: #d1294d;
         }
-        &:hover
-        {
-            .btn1{
+
+        &:hover {
+            .btn1 {
                 display: block;
             }
-            .usrName{
+
+            .usrName {
                 max-width: 190px;
             }
         }
     }
-    .btn1{
+
+    .btn1 {
         display: none;
         position: absolute;
         right: 0; /*rtl*/
         top: 3px;
     }
-    &:nth-child(even)
-    {
+
+    &:nth-child(even) {
         margin-left: 28px; /*rtl*/
-        &:before
-        {
+        &:before {
             content: '';
             width: 1px;
             height: 100%;
             background: @borderColor;
             position: absolute;
             left: -17px; /*rtl*/
-            top:-29px;
+            top: -29px;
             padding-top: 29px;
         }
     }
 }
-.inviteStatus
-{
-   color: @borderColor;
-   margin: -4px 0 6px;
+
+.inviteStatus {
+    color: @borderColor;
+    margin: -4px 0 6px;
 }
-.invitedToWpr
-{
+
+.invitedToWpr {
     width: 190px;
     height: 36px;
     .boxSizing;
     padding: 9px 5px 0 35px; /*rtl*/
     position: relative;
     margin-top: 2px;
-    .invitedTo
-    {
+
+    .invitedTo {
         line-height: 15px;
     }
 }
@@ -755,18 +767,48 @@
     border: 1px solid @borderColor;
     border-radius: 3px;
 }*/
-.emptyInvites
-{
+.emptyInvites {
     display: none;
     height: 112px;
-    line-height: 142px; // extra line-height because of upSectionWpr non-uniform top/bottom padding 
-    .upInvites.empty &
-    {
+    line-height: 142px; // extra line-height because of upSectionWpr non-uniform top/bottom padding
+    .upInvites.empty & {
         display: block;
     }
-    .btn3{
+
+    .btn3 {
         margin-left: 15px; /*rtl*/
     }
 }
 /*#endregion */
 
+/*#region union*/
+/*.upMemberFilterContainer {
+    .upMbrFilterList {
+        display: none;
+    }
+}
+
+.upUniMessageCbx {
+    &:checked {
+        ~ .upMbrFilterList {
+            display: block;
+        }
+    }
+}
+
+.upListHeaders {
+    width: 100%;
+    display: table;
+    background-color:#f5f5f5;
+    border-top:1px solid @borderColor;
+    border-bottom:1px solid @borderColor;
+    font-size:13px;
+    color:@textColor;
+    padding-left:50px;
+    .upHeader {
+        display: table-cell;
+    }
+}*/
+
+
+/*#endregion*/
