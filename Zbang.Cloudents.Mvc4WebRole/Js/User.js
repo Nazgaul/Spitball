@@ -530,11 +530,23 @@
                             query ? $parent.show() : $parent.hide();
 
                         });
+
+
                     };
                     
                    membersList.onscroll = function () {
 
-                    };
+                   };
+
+                   memberList.on('mouseover', '.upMemberBoxes', function (e) {
+                       var member = ko.dataFor(this.parentElement);
+                       dataContext.getUpMemberBoxes({
+                           success: function () {
+
+                           }
+                       });
+
+                   });
                 }
                 function setScroll() {
                     var $scrollElem = $('#upMembersList'),
@@ -551,6 +563,7 @@
                     //scrollRail.style[scrollDirection] = '-12px';                        
                 }
 
+               
             }
 
         }
