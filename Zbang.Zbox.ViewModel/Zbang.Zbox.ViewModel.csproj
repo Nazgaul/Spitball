@@ -117,6 +117,7 @@
     <Compile Include="DTOs\UserDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DTOs\UserDtos\AdminUserDto.cs" />
     <Compile Include="DTOs\UserDtos\LogInUserDto.cs" />
     <Compile Include="DTOs\UserDtos\UserDto.cs" />
     <Compile Include="DTOs\UserDtos\UserAccountDto.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Queries\GetUserByFacebookQuery.cs" />
     <Compile Include="Queries\GetUserByMembershipQuery.cs" />
     <Compile Include="Queries\GetUserMinProfileQuery.cs" />
+    <Compile Include="Queries\Library\GetAdminUsersQuery.cs" />
     <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />
     <Compile Include="Queries\Library\GetUniversityByPrefixQuery.cs" />
     <Compile Include="Queries\Library\GetUniversityDetailQuery.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Queries\Search\SearchLibraryDashBoardQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
+    <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Search.cs" />
     <Compile Include="SqlQueries\Seo.cs" />
     <Compile Include="SqlQueries\Sql.cs" />

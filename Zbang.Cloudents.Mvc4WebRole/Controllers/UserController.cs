@@ -19,6 +19,7 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using System.Collections.Generic;
 using Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Library;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -47,14 +48,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [CompressFilter]
         public async Task<ActionResult> Index(long? userId, string userName)
         {
-            
+
             var id = userId.HasValue ? userId.Value : GetUserId();
 
             var userDetail = m_FormsAuthenticationService.GetUserData();
-            
+
             var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
-            ViewBag.Admin = false; 
+            ViewBag.Admin = false;
             var model = await GetUserProfile(id);
             if (userDetail.Score > AdminReputation)
             {
@@ -138,9 +139,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
-        public ActionResult AdminFriends()
+        public async Task<ActionResult> AdminFriends()
         {
-            return this.CdJson(new JsonResponse(true));
+            var query = new GetAdminUsersQuery(GetUserId());
+            var result = await m_ZboxReadService.GetUniversityUsers(query);
+            return this.CdJson(new JsonResponse(true, result));
         }
 
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]

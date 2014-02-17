@@ -79,5 +79,7 @@ namespace Zbang.Zbox.ReadServices
         Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
 
         Task<SeoDto> GetSeoBoxesAndItems();
+
+        Task<IEnumerable<Zbang.Zbox.ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
     }
 }
