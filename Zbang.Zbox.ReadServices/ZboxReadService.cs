@@ -461,7 +461,7 @@ namespace Zbang.Zbox.ReadServices
                      Sql.Search.UniversityBoxes,
                      Sql.Search.Users,
                      Sql.Search.Items
-                     //Sql.Search.ItemFromOtherUniversities
+                    //Sql.Search.ItemFromOtherUniversities
                      ),
                      new
                      {
@@ -737,7 +737,7 @@ namespace Zbang.Zbox.ReadServices
 
         #endregion
 
-        #region Seto
+        #region Seo
         public async Task<SeoDto> GetSeoBoxesAndItems()
         {
             SeoDto retVal = new SeoDto();
@@ -753,5 +753,18 @@ namespace Zbang.Zbox.ReadServices
         }
         #endregion
 
+        #region Admin
+        public async Task<IEnumerable<Zbang.Zbox.ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
+        {
+            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            {
+                return await conn.QueryAsync<Zbang.Zbox.ViewModel.DTOs.UserDtos.AdminUserDto>(Sql.Admin.UsersInUniversity,
+                    new
+                    {
+                        universityId = query.UniversityId
+                    });
+            }
+        }
+        #endregion
     }
 }

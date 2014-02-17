@@ -208,5 +208,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetSeoBoxesAndItems();
         }
+
+
+        public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(ViewModel.Queries.Library.GetAdminUsersQuery query)
+        {
+            return m_ReadService.GetUniversityUsers(query);
+        }
     }
 }
