@@ -141,7 +141,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
         public async Task<ActionResult> AdminFriends()
         {
-            var query = new GetAdminUsersQuery(GetUserId());
+            var userDetail = m_FormsAuthenticationService.GetUserData();
+
+            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+            var query = new GetAdminUsersQuery(universityId);
             var result = await m_ZboxReadService.GetUniversityUsers(query);
             return this.CdJson(new JsonResponse(true, result));
         }
