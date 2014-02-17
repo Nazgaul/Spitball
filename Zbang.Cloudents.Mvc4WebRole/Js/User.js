@@ -35,7 +35,7 @@
             EMPTY: 'empty',
             UPINVITELIST: 'upInviteList',
             DATALABEL: 'data-label',
-            ADMINSCORE : 1000000
+            ADMINSCORE: 1000000
         };
         //#region Models
         function Profile(data) {
@@ -79,7 +79,7 @@
             that.name = data.name;
             that.image = data.image;
             that.department = data.department;
-            that.joinedDate = data.joindDate;
+            that.joinedDate = data.joinedDate;
         }
 
         function Invite(data) {
@@ -139,7 +139,7 @@
             return self.userId() === cd.userDetail().nId;
         });
 
-      
+
         //#region Boxes Section        
 
         self.commonBoxes = ko.observableArray();
@@ -197,13 +197,16 @@
         });
 
         //#endregion
-        
+
         //#region Members Section
         self.members = ko.observableArray();
-                     
-        
+
+        self.membersLength = ko.computed(function (e) {
+            return self.members().length + ' ' + document.querySelector('.membersCount').getAttribute(consts.DATALABEL);
+        });
+
         self.membersSectionVisible = ko.computed(function () {
-            return self.members().length;
+            return self.score() >= consts.ADMINSCORE;
         });
 
         //#endregion
@@ -314,12 +317,12 @@
             self.userId(parseInt(cd.getParameterFromUrl(1), 10) || cd.userDetail().nId);
             getInitData();
 
-            if (self.score() >= consts.ADMINSCORE) { 
+            if (self.score() >= consts.ADMINSCORE) {
                 getMembersData();
             } else {
                 getFriendsData();
             }
-            
+
             getBoxesData();
             if (self.viewSelf()) {
                 getInvitesData();
@@ -350,43 +353,51 @@
             $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
             $('#filesSection').show();
             var cB = eById('coursesShow');
-            if (cB){
+            if (cB) {
                 cB.checked = false;
             }
             cB = eById('friendsShow');
 
-            if (cB){
+            if (cB) {
                 cB.checked = false;
             }
             cB = eById('invitesShow');
-            if (cB){
+            if (cB) {
                 cB.checked = false;
-            }          
+            }
             var f = eById('filesCount');
             f.textContent = '' + f.getAttribute(consts.DATALABEL);
 
             f = eById('answersCount');
             f.textContent = '' + f.getAttribute(consts.DATALABEL);
-            
+
             f = eById('questionsCount');
             f.textContent = '' + f.getAttribute(consts.DATALABEL);
         }
 
         function getInitData() {
-            var user = document.getElementById('user'), firstTime = user.getAttribute('data-firstTime');
+            var user = document.getElementById('user'), firstTime = user.getAttribute('data-firstTime'), userScore;
 
             if (firstTime) {
                 user.removeAttribute('data-firstTime');
                 self.name(eById('upUsername').textContent);
-                populateScore(parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10));                
-                registerEvents();                
+                userScore = parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10);
+                if (userScore < consts.ADMINSCORE) {
+                    populateScore(userScore);
+                }
+                self.score(userScore);
+
+                pubsub.publish('clearTooltip');
+                pubsub.publish('user_load');
+
+                registerEvents();
                 return;
             }
 
             dataContext.minProfile({
                 data: { userId: self.userId() },
                 success: function (data) {
-                    populateProfile(data);                    
+                    populateProfile(data);
                 }
             });
 
@@ -399,11 +410,18 @@
                 eById('upUsername').textContent = profile.name;
                 eById('upUserImg').src = profile.image;
                 eById('upUserSchool').textContent = profile.universityName;
-                populateScore(profile.score);
+                if (profile.score < consts.ADMINSCORE) {
+                    populateScore(profile.score);
+                }
+                self.score(profile.score);
+
+                pubsub.publish('clearTooltip');
+                pubsub.publish('user_load');
+
                 registerEvents();
             }
 
-            function registerEvents() { 
+            function registerEvents() {
                 var sendMessageBtn = eById('upSendMessage'),
                     accountSettingsBtn = eById('upAccountSettings'),
                     userName = eById('upUsername').textContent,
@@ -423,8 +441,7 @@
             }
 
             function populateScore(score) {
-                
-                self.score(score);
+
 
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children;
@@ -432,11 +449,9 @@
                     pointsListChildren[i].textContent = 0;
                 }
 
-                if (!cd.firstLoad){
+                if (!cd.firstLoad) {
                     document.title = self.name() + ' | Cloudents';
                 }
-                pubsub.publish('clearTooltip');
-                pubsub.publish('user_load');
 
                 var numAnim = new countUp(0, score, 2);
 
@@ -460,7 +475,60 @@
         }
 
         function getMembersData() {
-            var loader = renderLoad(eById('upFriendsSection'));
+            //   var loader = renderLoad(eById('upMembersSection'));
+            dataContext.getUpMembers({
+                success: function (data) {
+                    populateMembers(data);
+                },
+                always: function () {
+                    //         loader();
+                }
+            });
+
+            function populateMembers(data) {
+                data = data || {};
+                data = [new Member({ name: 'gasdasd', image: 'https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg', uid: 123, department: 'asdfasdfsdf', joinedDate: '10/10/2013' })];
+                data.push(new Member({ name: 'asdsadg', image: 'https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg', uid: 12, department: 'asdfasdf', joinedDate: '10/10/2013' }));
+                data.push(new Member({ name: 'asdsa asdsadg', image: 'https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg', uid: 1, department: 'asghhmhyjtyjdfasdf', joinedDate: '10/10/2013' }));
+                var map = data.map(function (member) {
+                    return new Member(member);
+                });
+                self.members(data);
+
+                registerEvents();
+
+                function registerEvents() {
+                    eById('upMembersSearch').onkeyup = function (e) {
+                        var input = eById('upMembersSearch'),
+                            term;
+
+                        if (Modernizr.input.placeholder) {
+                            term = input.value.toLowerCase().trim();
+                        } else {
+                            if (input.value === input.getAttribute('placeholder')) {
+                                term = '';
+                            } else {
+                                term = input.value.toLowerCase().trim();
+                            }
+                        }
+                        if (term === '') {
+                            $('.upMemberName').parents('li').show()
+                            return;
+                        }
+
+
+                        $('.upMemberName').each(function () {
+                            var $parent = $(this).parents('li'),
+                                name = this.textContent.toLowerCase(),
+                                query = name.indexOf(term) > -1;
+
+                            query ? $parent.show() : $parent.hide();
+
+                        });
+                    }
+                }
+            }
+
         }
 
         function getFriendsData() {
@@ -494,10 +562,10 @@
                 function registerEvents() {
                     if (self.friendsShowAllVisible()) {
                         eById('friendsShow').onchange = function (e) {
-                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {                                                                                                
+                            if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {
                                 self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
-                                cd.loadImages(eById('upFriendsSection'));                                
+                                cd.loadImages(eById('upFriendsSection'));
                             }
 
                             lengths = getFriendsLength(this.checked);
@@ -520,8 +588,8 @@
                     return { commonLength: commonLength, allLength: allLength };
                 }
                 function setHeight(commonLength, allLength) {
-                    setContainerHeight(document.querySelector('.upFriends .inCommonList'),'.upFriend', commonLength, consts.FRIENDSINROW);
-                    setContainerHeight(document.querySelector('.upFriends .inAllFriendList'),'.upFriend', allLength, consts.FRIENDSINROW);
+                    setContainerHeight(document.querySelector('.upFriends .inCommonList'), '.upFriend', commonLength, consts.FRIENDSINROW);
+                    setContainerHeight(document.querySelector('.upFriends .inAllFriendList'), '.upFriend', allLength, consts.FRIENDSINROW);
                 }
 
 
@@ -546,7 +614,7 @@
 
                 result = filterBoxes(data);
                 self.commonBoxes(result.common);
-                self.followingBoxes(result.all); 
+                self.followingBoxes(result.all);
                 cd.loadImages(eById('upCoursesSection'));
                 var lengths = getBoxesLength(false);
                 setHeight(lengths.commonLength, lengths.followingLength);
@@ -576,8 +644,8 @@
                     if (self.CoursesShowAllVisible()) {
                         eById('coursesShow').onchange = function (e) {
 
-                            if (self.maxCommonBoxes() < self.commonBoxes().length || self.maxFollowingBoxes() < self.followingBoxes().length) {                     
-                                self.maxCommonBoxes(self.commonBoxes().length);                             
+                            if (self.maxCommonBoxes() < self.commonBoxes().length || self.maxFollowingBoxes() < self.followingBoxes().length) {
+                                self.maxCommonBoxes(self.commonBoxes().length);
                                 self.maxFollowingBoxes(self.followingBoxes().length);
                                 cd.loadImages(eById('upCoursesSection'));
                             }
@@ -646,7 +714,7 @@
                     if (self.invitesShowAllVisible()) {
                         eById('invitesShow').onchange = function (e) {
 
-                            if (self.maxInvites() < self.invites().length) {                              
+                            if (self.maxInvites() < self.invites().length) {
                                 self.maxInvites(self.invites().length);
                                 cd.loadImages(eById('upInvitesSection'));
                             }
@@ -726,7 +794,7 @@
                         $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
                         $('#filesSection').show();
                 }
-            });          
+            });
         }
 
         function setContainerHeight(list, item, itemsLength, itemsInRow) {
@@ -738,7 +806,7 @@
             if (!item) {
                 list.style.height = '0px';
                 return;
-            }            
+            }
             var style = getComputedStyle(item);
             var innerHeight = style.getPropertyValue('height'),
             marginTop = style.getPropertyValue('margin-top'),
@@ -750,13 +818,13 @@
 
             itemHeight = parseInt(innerHeight !== '' ? innerHeight : '0', 10) +
                 parseInt(marginTop !== '' ? marginTop : '0', 10) +
-                parseInt(marginBottom !== '' ? marginBottom : '0', 10)+
-                parseInt(borderTop !== '' ? borderTop : '0', 10)+
-                parseInt(borderBottom !== '' ? borderBottom : '0', 10)+
+                parseInt(marginBottom !== '' ? marginBottom : '0', 10) +
+                parseInt(borderTop !== '' ? borderTop : '0', 10) +
+                parseInt(borderBottom !== '' ? borderBottom : '0', 10) +
                 parseInt(paddingTop !== '' ? paddingTop : '0', 10) +
                 parseInt(paddingBottom !== '' ? paddingBottom : '0', 10),
                 height;
-        
+
             height = Math.ceil(itemsLength / itemsInRow) * itemHeight;
 
             list.style.height = height + 'px';
@@ -812,8 +880,8 @@
                     var index = loaders.indexOf(element);
                     loaders.splice(index, 1);
                 })(loader);
-                
+
             };
-        }        
+        }
     }
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);

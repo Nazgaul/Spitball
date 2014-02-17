@@ -17,7 +17,7 @@
             <!--/ko-->
         </div>
         <aside class="upSidebar rFloat">
-            <section class="upPoints">
+            <section class="upPoints" data-bind="visible: !membersSectionVisible()">
                 <h2>@SharedResources.Points</h2>
                 <div class="pointsWpr" id="pointsWpr">
                     <ul class="pointsList" id="pointsList" data-score="@Model.Score">
@@ -248,7 +248,7 @@
                         <label for="upMemberSettings" class="cbLabel">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.All</label>
                         <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                         <div class="searchWpr rFloat">
-                            <span class="membersCount" data-label="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.Members">25</span>
+                            <span class="membersCount" data-label="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.Members" data-bind="text: membersLength() "></span>
                             <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
                         </div>
                     </div>
@@ -278,10 +278,10 @@
                         <!--ko foreach:members-->
                         <li>
                             <input type="checkbox" class="checkbox" />
-                            <img src="" alt="" title="" data-bind="attr: { src: image }" />
-                            <span data-bind="text: name"></span>
-                            <span data-bind="text: department">Some Department</span>
-                            <span data-bind="text: joinedDate">2/5/2013</span>
+                            <img src="" alt="" title="" data-bind="attr: { 'data-src': image }" />
+                            <span class="upMemberName"  data-bind="text: name"></span>
+                            <span data-bind="text: department"></span>
+                            <span data-bind="text: joinedDate"></span>
                             <button>Option</button>
                         </li>
                         <!--/ko-->
