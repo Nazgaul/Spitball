@@ -40,7 +40,7 @@
     u.FirstTime.Library as FirstTimeLibrary,
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
-    
+    u.Reputation as Score,
     uu.Id as UniversityWrapperId,
     uu.Name as LibName,
     uu.Image as LibImage,
@@ -58,7 +58,7 @@
     u.FirstTime.Library as FirstTimeLibrary,
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
-    
+    u.Reputation as Score,
     uu.Id as UniversityWrapperId,
     uu.Name as LibName,
     uu.Image as LibImage,
@@ -77,7 +77,7 @@
     u.FirstTime.Library as FirstTimeLibrary,
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
-    
+    u.Reputation as Score,
     uu.Id as UniversityWrapperId,
     uu.Name as LibName,
     uu.Image as LibImage,

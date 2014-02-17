@@ -120,6 +120,12 @@
 
             </section>
         </aside>
+
+        @if (ViewBag.Admin)
+        {
+            <div> hey im feeling so dirty you are looking so clean</div>
+        }
+
         <div class="upContent">
             <section class="upCourses" data-bind="visible: CoursesSectionVisible()">
                 <h2>@UserResources.CoursesGroups</h2>
