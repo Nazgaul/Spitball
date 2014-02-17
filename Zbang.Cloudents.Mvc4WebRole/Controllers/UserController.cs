@@ -138,16 +138,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
-        public async Task<ActionResult> AdminFriends()
-        {
-            var userDetail = m_FormsAuthenticationService.GetUserData();
-
-            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
-            var query = new GetAdminUsersQuery(universityId);
-            var result = await m_ZboxReadService.GetUniversityUsers(query);
-            return this.CdJson(new JsonResponse(true, result));
-        }
+       
 
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
         public async Task<ActionResult> Boxes(long userId)
@@ -170,6 +161,52 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false));
             }
         }
+
+        #region Admin
+        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
+        public async Task<ActionResult> AdminBoxes(long userId)
+        {
+            try
+            {
+                var userDetail = m_FormsAuthenticationService.GetUserData();
+                if (userDetail.Score < AdminReputation)
+                {
+                    return this.CdJson(new JsonResponse(false));
+                }
+                var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+                var query = new GetUserWithFriendQuery(universityId, userId);
+                var model = await m_ZboxReadService.GetUserWithFriendBoxes(query);
+                var urlBuilder = new UrlBuilder(HttpContext);
+                foreach (var item in model)
+                {
+                    item.Url = urlBuilder.BuildBoxUrl(item.Id, item.Name, item.Universityname);
+                }
+
+                return this.CdJson(new JsonResponse(true, model));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, userId), ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
+        public async Task<ActionResult> AdminFriends()
+        {
+            var userDetail = m_FormsAuthenticationService.GetUserData();
+            if (userDetail.Score < AdminReputation)
+            {
+                return this.CdJson(new JsonResponse(false));
+            }
+
+            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+            var query = new GetAdminUsersQuery(universityId);
+            var result = await m_ZboxReadService.GetUniversityUsers(query);
+            return this.CdJson(new JsonResponse(true, result));
+        }
+        #endregion
+
+
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
         public async Task<ActionResult> OwnedInvites()
         {
