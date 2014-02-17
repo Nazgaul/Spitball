@@ -274,14 +274,14 @@
                         <span>Join Date</span>
                         <span>Options</span>
                     </div>
-                    <ul id="upMembersList" style="overflow:hidden;height:500px;">
-                        <!--ko foreach:members-->
+                    <ul id="upMembersList" style="overflow:scroll;height:500px;">
+                        <!--ko foreach:displayMembers-->
                         <li>
                             <input type="checkbox" class="checkbox" />
                             <img width="34" height="34" src="" alt="" title="" data-bind="attr: { 'data-src': image }" />
                             <span class="upMemberName" data-bind="text: name"></span>
                             <span data-bind="text: department"></span>
-                            <span data-bind="text: joinedDate"></span>
+                            <span data-bind="text: joinDate"></span>
                             <button>Option</button>
                         </li>
                         <!--/ko-->

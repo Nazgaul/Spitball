@@ -76,11 +76,12 @@
 
         function Member(data) {
             var that = this;
-            that.id = data.uid;
+            that.id = data.id;
             that.name = data.name;
             that.image = data.image;
             that.department = data.department;
-            that.joinedDate = data.joinedDate;
+            that.joinDate = data.joinDate.toLocaleDateString();
+            that.checked = false;
         }
 
         function Invite(data) {
@@ -491,15 +492,15 @@
             });
 
             function populateMembers(data) {
-                data = data || {};                
+                data = data || {};
                 var map = data.map(function (member) {
                     return new Member(member);
                 });
                 self.members(map);
+                self.displayMembers(map.slice(0, 50));
 
 
                 cd.loadImages(membersList);
-                setScroll();
                 registerEvents();
 
                 function registerEvents() {
@@ -533,37 +534,28 @@
 
 
                     };
-                    
-                   membersList.onscroll = function () {
 
-                   };
+                    membersList.onscroll = function (e) {
+                        var count;
+                        if (membersList.offsetHeight + membersList.scrollTop >= membersList.scrollHeight) {                            
+                            count = self.displayMembers().length;
+                            self.displayMembers.push.apply(self.displayMembers, self.members().slice(count, count + consts.MAXMEMBERS));
+                            cd.loadImages(membersList);
+                        }
+                    };
 
-                   memberList.on('mouseover', '.upMemberBoxes', function (e) {
-                       var member = ko.dataFor(this.parentElement);
-                       dataContext.getUpMemberBoxes({
-                           success: function () {
+                    $(membersList).on('mouseover', 'button', function (e) {
+                        var member = ko.dataFor(this.parentElement);
+                        dataContext.getUpMemberBoxes({
+                            data: { userId: member.id },
+                            success: function (data) {
+                                alert(data);
+                            }
+                        });
 
-                           }
-                       });
-
-                   });
-                }
-                function setScroll() {
-                    var $scrollElem = $('#upMembersList'),
-                       height = $scrollElem.height();
-                    cd.innerScroll($scrollElem, height);
-
-                    var scrollDirection = window.getComputedStyle(document.getElementsByTagName('html')[0], null).getPropertyValue('direction') == 'ltr' ? 'right' : 'left',//rtl
-                        scrollBar = document.querySelector('.upMembers .slimScrollBar'),
-                        scrollDiv = document.querySelector('.upMembers .slimScrollDiv'),
-                        scrollRail = document.querySelector('.upMembers .slimScrollRail');
-
-                    scrollDiv.style.overflow = 'visible';
-                    //scrollBar.style[scrollDirection] = '-12px';
-                    //scrollRail.style[scrollDirection] = '-12px';                        
+                    });
                 }
 
-               
             }
 
         }
