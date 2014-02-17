@@ -35,7 +35,8 @@
             EMPTY: 'empty',
             UPINVITELIST: 'upInviteList',
             DATALABEL: 'data-label',
-            ADMINSCORE: 1000000
+            ADMINSCORE: 1000000,
+            MAXMEMBERS: 50
         };
         //#region Models
         function Profile(data) {
@@ -201,6 +202,9 @@
         //#region Members Section
         self.members = ko.observableArray();
 
+        self.displayMembers = ko.observableArray();
+
+        self.maxDisplayMembers = ko.observable(consts.MAXMEMBERS);
         self.membersLength = ko.computed(function (e) {
             return self.members().length + ' ' + document.querySelector('.membersCount').getAttribute(consts.DATALABEL);
         });
@@ -475,6 +479,7 @@
         }
 
         function getMembersData() {
+            var membersList = eById('upMembersList');
             //   var loader = renderLoad(eById('upMembersSection'));
             dataContext.getUpMembers({
                 success: function (data) {
@@ -486,15 +491,15 @@
             });
 
             function populateMembers(data) {
-                data = data || {};
-                data = [new Member({ name: 'gasdasd', image: 'https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg', uid: 123, department: 'asdfasdfsdf', joinedDate: '10/10/2013' })];
-                data.push(new Member({ name: 'asdsadg', image: 'https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg', uid: 12, department: 'asdfasdf', joinedDate: '10/10/2013' }));
-                data.push(new Member({ name: 'asdsa asdsadg', image: 'https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg', uid: 1, department: 'asghhmhyjtyjdfasdf', joinedDate: '10/10/2013' }));
+                data = data || {};                
                 var map = data.map(function (member) {
                     return new Member(member);
                 });
-                self.members(data);
+                self.members(map);
 
+
+                cd.loadImages(membersList);
+                setScroll();
                 registerEvents();
 
                 function registerEvents() {
@@ -525,8 +530,27 @@
                             query ? $parent.show() : $parent.hide();
 
                         });
-                    }
+                    };
+                    
+                   membersList.onscroll = function () {
+
+                    };
                 }
+                function setScroll() {
+                    var $scrollElem = $('#upMembersList'),
+                       height = $scrollElem.height();
+                    cd.innerScroll($scrollElem, height);
+
+                    var scrollDirection = window.getComputedStyle(document.getElementsByTagName('html')[0], null).getPropertyValue('direction') == 'ltr' ? 'right' : 'left',//rtl
+                        scrollBar = document.querySelector('.upMembers .slimScrollBar'),
+                        scrollDiv = document.querySelector('.upMembers .slimScrollDiv'),
+                        scrollRail = document.querySelector('.upMembers .slimScrollRail');
+
+                    scrollDiv.style.overflow = 'visible';
+                    //scrollBar.style[scrollDirection] = '-12px';
+                    //scrollRail.style[scrollDirection] = '-12px';                        
+                }
+
             }
 
         }
