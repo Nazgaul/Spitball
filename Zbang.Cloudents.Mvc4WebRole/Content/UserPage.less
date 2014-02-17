@@ -358,11 +358,6 @@
 
 /*#endregion */
 /*#region userpage content */
-/*.myPage{
-    .upFriends h2 {
-        //margin-top: 97px;
-    }
-}*/
 
 .upContentWpr {
     width: 1021px;
@@ -809,6 +804,90 @@
         display: table-cell;
     }
 }*/
-
+.upMembers
+{
+    //width: 100%;
+    margin-top: 27px;
+    
+    .membersContent
+    {
+        min-height: 275px;
+        max-height: 410px;
+        border: 1px solid @borderColor;
+        border-radius: 8px;
+        margin-top: 10px;
+        background: #fff;
+    }
+    .membersTop
+    {
+        padding: 0 10px;
+        .boxSizing;
+        border-radius: 8px 8px 0 0;
+    }
+}
+.memberTopRow
+{
+    line-height: 28px;
+    border-bottom: 1px solid @borderColor;
+    background: #f5f5f5;
+    .deptCol
+    {
+        cursor: pointer;
+        &:after
+        {
+            .pseudo;
+            margin-left: 4px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 5px 0 5px;
+            border-color: #37444c transparent transparent transparent;
+        }
+        &:hover
+        {
+            color: red;
+            &:after
+            {
+                border-color: red transparent transparent transparent;
+            }
+        }
+    }
+    .memberCol
+    {
+        padding-left: 36px;
+    }
+}
+.memberCol, .deptCol, .dateCol, .courseCol{
+    display: inline-block;
+    .boxSizing;
+}
+.memberCol
+{
+    width: 304px;
+}
+.deptCol
+{
+    width: 510px;
+    padding: 0 30px;
+    vertical-align: top;
+}
+.dateCol
+{
+    width: 120px;
+}
+.courseCol
+{
+    width: 75px;
+}
+.deptPopup
+{
+    display: none;
+}
+#upMembersList {
+    //overflow: hidden; //override js
+    //width: auto; //override js
+    height: 287px!important; //override js
+    padding: 0 10px;
+}
 
 /*#endregion*/

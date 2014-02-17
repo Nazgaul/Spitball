@@ -16,6 +16,67 @@
             <button id="upSendMessage" type="button" class="btn3">@SharedResources.Message</button>
             <!--/ko-->
         </div>
+
+        <section class="upMembers" data-bind="visible: membersSectionVisible()">
+            <h2>University members</h2>
+            <div class="membersContent">
+                <div class="membersTop">
+                    <input id="upMemberSettings" type="checkbox" class="checkbox" />
+                    <label for="upMemberSettings" class="cbLabel">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.All</label>
+                    <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
+                    <div class="searchWpr rFloat">
+                        <span class="membersCount" data-label="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.Members" data-bind="text: membersLength() "></span>
+                        <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
+                    </div>
+                </div>
+                <div class="memberTopRow">
+                        <span class="memberCol">Name</span>
+                        <input type="checkbox" class="checkbox" id="cbDept" />
+                        <label for="cbDept" class="deptCol">Department</label>
+                        <div class="deptPopup">
+                            <ul>
+                                <li>
+                                    <input type="checkbox" class="checkbox" />
+                                    <label class="cbLabel" for="filter_1">test 1</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="checkbox" />
+                                    <label class="cbLabel" for="filter_2">test 2</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="checkbox" />
+                                    <label class="cbLabel" for="filter_3">test 3</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="dateCol">Join Date</span>
+                        <span class="courseCol">Courses</span>
+                    </div>
+                <ul id="upMembersList">
+                    <!--ko foreach:members-->
+
+                    @*<input id="{{identifier}}" type="checkbox" class="checkbox" />
+                    <label for="{{identifier}}" class="cbLabel">
+                        <a data-navigation="user" href="{{url}}"><img class="friendImg{{tooltipClass}}" alt="" data-uid="{{id}}" src="{{image}}" width="34" height="34" /></a>
+                        <span class="memberName elps">{{name}}</span>
+                    </label>*@
+
+                    <li class="memberItem">
+                        <input type="checkbox" class="checkbox" />
+                        <label for="" class="cbLabel memberCol">
+                            <img class="friendImg" alt="" data-bind="attr: { 'data-src': image }" width="34" height="34" />
+                            <span class="" data-bind="text: name"></span>
+                        </label>
+                            
+                        <span class="deptCol" data-bind="text: department"></span>
+                        <span class="dateCol" data-bind="text: joinedDate"></span>
+                        <button class="courseCol"></button>
+                    </li>
+                    <!--/ko-->
+                </ul>
+            </div>
+    </section>
+
         <aside class="upSidebar rFloat">
             <section class="upPoints" data-bind="visible: !membersSectionVisible()">
                 <h2>@SharedResources.Points</h2>
@@ -121,11 +182,6 @@
             </section>
         </aside>
 
-        @if (ViewBag.Admin)
-        {
-            <div> hey im feeling so dirty you are looking so clean</div>
-        }
-
         <div class="upContent">
             <section class="upCourses" data-bind="visible: CoursesSectionVisible()">
                 <h2>@UserResources.CoursesGroups</h2>
@@ -206,6 +262,7 @@
             <input type="checkbox" class="upCb" id="friendsShow">
             <label id="friendsShowLabel" for="friendsShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
             <!--/ko-->
+
             <section class="upInvites" data-bind="visible: viewSelf(), css : invitesEmpty()">
                 @*<button type="button" class="inviteFriendBtn btn3 rFloat" data-navigation="invite" data-click="inviteFriends" data-href="@Url.Action("Index","Invite")">@SharedResources.InviteFriends</button>*@
                 <a data-navigation="invite" href="@Url.Action("Index", "Invite")?r=user" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
@@ -239,57 +296,6 @@
             <input type="checkbox" class="upCb" id="invitesShow">
             <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
             <!--/ko-->
-
-
-            <section class="upMembers" data-bind="visible: membersSectionVisible()" style="position:absolute;top:167px;left:0;z-index:100;width:800px;background-color:#fff;height:525px;">
-                <div class="membersContent">
-                    <div class="membersTop">
-                        <input id="upMemberSettings" type="checkbox" class="checkbox" />
-                        <label for="upMemberSettings" class="cbLabel">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.All</label>
-                        <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
-                        <div class="searchWpr rFloat">
-                            <span class="membersCount" data-label="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.Members" data-bind="text: membersLength() "></span>
-                            <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
-                        </div>
-                    </div>
-                    <div>
-                        <span>Name</span>
-                        <span>Department</span>
-                        <div style="display:none;">
-                            <ul>
-                                <li>
-                                    <input type="checkbox" class="checkbox" />
-                                    <label class="cbLabel" for="filter_1">test 1</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" class="checkbox" />
-                                    <label class="cbLabel" for="filter_2">test 2</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" class="checkbox" />
-                                    <label class="cbLabel" for="filter_3">test 3</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <span>Join Date</span>
-                        <span>Options</span>
-                    </div>
-                    <ul id="upMembersList" style="overflow:hidden;height:500px;">
-                        <!--ko foreach:members-->
-                        <li>
-                            <input type="checkbox" class="checkbox" />
-                            <img width="34" height="34" src="" alt="" title="" data-bind="attr: { 'data-src': image }" />
-                            <span class="upMemberName" data-bind="text: name"></span>
-                            <span data-bind="text: department"></span>
-                            <span data-bind="text: joinedDate"></span>
-                            <button>Option</button>
-                        </li>
-                        <!--/ko-->
-                    </ul>
-                </div>
-
-            </section>
-
         </div>
     </div>
 </div>
