@@ -45,7 +45,7 @@
 
             <section class="upUploads">
                 <h2>@SharedResources.Activity</h2>
-                @*Guy: please add class upTab1/uptab2/upTab3 to the upTabs element according to which tab is clicked*@  
+                @*Guy: please add class upTab1/uptab2/upTab3 to the upTabs element according to which tab is clicked*@
                 <div class="upTabs upTab1">
                     <button type="button" id="filesCount" class="fileCount" data-label="@SharedResources.Files |"></button>
                     <button type="button" id="questionsCount" class="qCount" data-label="@SharedResources.Questions |"></button>
@@ -108,7 +108,7 @@
                                 <a class="qLink rFloat" href="" data-navigation="box" data-bind="attr : { href : url }">@UserResources.GotoQuestion</a>
                                 <span class="qAnswerCount" data-bind="attr : { 'data-up-qacount' : answersCount}">&nbsp;@SharedResources.Answers</span>
                             </div>
-                        </li>                 
+                        </li>
                         <!--/ko-->
                     </ul>
                     <!--ko if:answersShowMoreVisible()-->
@@ -166,7 +166,7 @@
             <section data-bind="visible: friendSectionVisible()" class="upFriends">
                 <h2>@SharedResources.Friends</h2>
                 <div id="upFriendsSection" class="upSectionWpr" data-bind="css: { truncated : !friendsShowAllVisible()}">
-                   
+
                     <!--ko if:commonFriendsVisible()-->
                     <!--ko ifnot:viewSelf()-->
                     <h4 class="semiFont">@UserResources.InCommon</h4>
@@ -205,7 +205,7 @@
                 <a data-navigation="invite" href="@Url.Action("Index", "Invite")?r=user" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
                 <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : !invitesShowAllVisible()}">
-                   
+
                     <ul id="upInviteList" class="upInviteList" data-up-pending="@SharedResources.Pending" data-up-joined="@SharedResources.ActiveMember">
                         <!--ko foreach:invites.slice(0,maxInvites())-->
                         <li class="upInviteItem" data-bind="css : $root.invitePending(status)">
@@ -233,6 +233,57 @@
             <input type="checkbox" class="upCb" id="invitesShow">
             <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
             <!--/ko-->
+
+
+            <section class="upMembers" data-bind="visible: membersSectionVisible()" style="position:absolute;top:167px;left:0;z-index:100;width:800px;background-color:#fff;height:525px;">
+                <div class="membersContent">
+                    <div class="membersTop">
+                        <input id="upMemberSettings" type="checkbox" class="checkbox" />
+                        <label for="upMemberSettings" class="cbLabel">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.All</label>
+                        <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
+                        <div class="searchWpr rFloat">
+                            <span class="membersCount" data-label="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.Members">25</span>
+                            <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
+                        </div>
+                    </div>
+                    <div>
+                        <span>Name</span>
+                        <span>Department</span>
+                        <div style="display:none;">
+                            <ul>
+                                <li>
+                                    <input type="checkbox" class="checkbox" />
+                                    <label class="cbLabel" for="filter_1">test 1</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="checkbox" />
+                                    <label class="cbLabel" for="filter_2">test 2</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="checkbox" />
+                                    <label class="cbLabel" for="filter_3">test 3</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <span>Join Date</span>
+                        <span>Options</span>
+                    </div>
+                    <ul>
+                        <!--ko foreach:members-->
+                        <li>
+                            <input type="checkbox" class="checkbox" />
+                            <img src="" alt="" title="" data-bind="attr: { src: image }" />
+                            <span data-bind="text: name"></span>
+                            <span data-bind="text: department">Some Department</span>
+                            <span data-bind="text: joinedDate">2/5/2013</span>
+                            <button>Option</button>
+                        </li>
+                        <!--/ko-->
+                    </ul>
+                </div>
+
+            </section>
+
         </div>
     </div>
 </div>

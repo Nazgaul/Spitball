@@ -741,6 +741,7 @@
     <Content Include="Images\comment-sprite.png" />
     <Content Include="Images\common13-sprite.png" />
     <Content Include="Images\common14-sprite.png" />
+    <Content Include="Images\common15-sprite.png" />
     <Content Include="Images\cursor.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />

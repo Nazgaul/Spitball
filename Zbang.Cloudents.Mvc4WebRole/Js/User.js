@@ -33,7 +33,9 @@
             FRIENDSINROW: 7,
             EMPTYBOXPICTURE: '/images/emptyState/my_default3.png',
             EMPTY: 'empty',
-            UPINVITELIST: 'upInviteList'
+            UPINVITELIST: 'upInviteList',
+            DATALABEL: 'data-label',
+            ADMINSCORE : 1000000
         };
         //#region Models
         function Profile(data) {
@@ -69,6 +71,15 @@
             that.name = data.name;
             that.image = data.largeImage;
             that.url = data.url + '?r=user&s=otheruser'
+        }
+
+        function Member(data) {
+            var that = this;
+            that.id = data.uid;
+            that.name = data.name;
+            that.image = data.image;
+            that.department = data.department;
+            that.joinedDate = data.joindDate;
         }
 
         function Invite(data) {
@@ -122,6 +133,7 @@
 
         self.name = ko.observable();
         self.userId = ko.observable();
+        self.score = ko.observable();
 
         self.viewSelf = ko.computed(function () {
             return self.userId() === cd.userDetail().nId;
@@ -168,6 +180,7 @@
         self.allFriendsVisible = ko.computed(function () {
             return self.allFriends().length > 0;
         });
+
         self.commonFriendsVisible = ko.computed(function () {
             return self.commonFriends().length > 0;
         });
@@ -177,10 +190,20 @@
                 allFriendsLength = self.allFriends().length,
                 maxAllFriends = self.maxAllFriends();
 
-            return (commonFriendsLength > consts.MINCOMMONFRIENDSVISIBLE || allFriendsLength > consts.MINALLFRIENDSVISIBLE);
+            return (commonFriendsLength > consts.MINCOMMONFRIENDSVISIBLE || allFriendsLength > consts.MINALLFRIENDSVISIBLE) && self.score() < consts.ADMINSCORE;
         });
         self.friendSectionVisible = ko.computed(function () {
-            return self.allFriendsVisible() || self.commonFriendsVisible();
+            return (self.allFriendsVisible() || self.commonFriendsVisible()) && self.score() < consts.ADMINSCORE;
+        });
+
+        //#endregion
+        
+        //#region Members Section
+        self.members = ko.observableArray();
+                     
+        
+        self.membersSectionVisible = ko.computed(function () {
+            return self.members().length;
         });
 
         //#endregion
@@ -290,7 +313,13 @@
             clear();
             self.userId(parseInt(cd.getParameterFromUrl(1), 10) || cd.userDetail().nId);
             getInitData();
-            getFriendsData();
+
+            if (self.score() >= consts.ADMINSCORE) { 
+                getMembersData();
+            } else {
+                getFriendsData();
+            }
+            
             getBoxesData();
             if (self.viewSelf()) {
                 getInvitesData();
@@ -334,13 +363,13 @@
                 cB.checked = false;
             }          
             var f = eById('filesCount');
-            f.textContent = '' + f.getAttribute('data-label');
+            f.textContent = '' + f.getAttribute(consts.DATALABEL);
 
             f = eById('answersCount');
-            f.textContent = '' + f.getAttribute('data-label');
+            f.textContent = '' + f.getAttribute(consts.DATALABEL);
             
             f = eById('questionsCount');
-            f.textContent = '' + f.getAttribute('data-label');
+            f.textContent = '' + f.getAttribute(consts.DATALABEL);
         }
 
         function getInitData() {
@@ -394,7 +423,9 @@
             }
 
             function populateScore(score) {
-   
+                
+                self.score(score);
+
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children;
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
@@ -404,9 +435,8 @@
                 if (!cd.firstLoad){
                     document.title = self.name() + ' | Cloudents';
                 }
-
-                pubsub.publish('user_load');
                 pubsub.publish('clearTooltip');
+                pubsub.publish('user_load');
 
                 var numAnim = new countUp(0, score, 2);
 
@@ -427,6 +457,10 @@
 
 
             }
+        }
+
+        function getMembersData() {
+            var loader = renderLoad(eById('upFriendsSection'));
         }
 
         function getFriendsData() {
@@ -671,7 +705,7 @@
 
                 self[array](map);
                 var element = eById(countId);
-                element.textContent = data.length + ' ' + element.getAttribute('data-label');
+                element.textContent = data.length + ' ' + element.getAttribute(consts.DATALABEL);
             }
 
 
