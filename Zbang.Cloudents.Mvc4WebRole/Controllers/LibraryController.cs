@@ -398,5 +398,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
             return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
         }
+
+        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
+        public async Task<ActionResult> Departments(long universityId)
+        {
+            var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
+            return this.CdJson(new JsonResponse(true, retVal));
+        }
     }
 }
