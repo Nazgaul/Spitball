@@ -347,6 +347,9 @@
 
             .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
 
+
+            eById('upMemberSettings').checked = false;
+
             $('.upMemberBoxes').hide();
             $('.upTabContent').hide();
             $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
@@ -405,7 +408,9 @@
             function populateProfile(data) {
                 data = data || {};
                 var profile = new Profile(data);
-
+                if (!cd.firstLoad) {
+                    document.title = profile.name + ' | Cloudents';
+                }
                 self.name(profile.name);
 
                 eById('upUsername').textContent = profile.name;
@@ -446,11 +451,7 @@
                     pointsListChildren = pointsList.children;
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
                     pointsListChildren[i].textContent = 0;
-                }
-
-                if (!cd.firstLoad) {
-                    document.title = self.name() + ' | Cloudents';
-                }
+                }            
 
                 var numAnim = new countUp(0, score, 2);
 

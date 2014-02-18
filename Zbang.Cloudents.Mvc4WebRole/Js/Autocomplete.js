@@ -9,7 +9,7 @@
     var sInputElement = 'sInputElement', sOutputElement = 'sOutputElement', sSelectedList = 'sSelectedList', eImg = 'eImg', eAddress = 'eAddress', eName = 'eName',
     beforeEnd = 'beforeend', emailMenuItemTemplate = 'emailMenuItemTemplate', emailSelectedItemTemplate = 'emailSelectedItemTemplate', afterBegin = 'afterbegin',
     contactsToDisplay = 'contactsToDisplay', sEmailSelectedList = 'sEmailSelectedList', maxWidth = 'maxWidth', dataSet = 'dataSet', contactsFound = 'contactsFound',
-    settings = {}, maxMembers = 300;
+    settings = {}, maxMembers = 300,
     eById = document.getElementById.bind(document),
     Consts = { DEFAULT_INPUT_MAXWIDTH: 390, DEFAULT_ITEMS_LENGTH: 7,DEFAULT_INPUT_MININPUT:113,ITEM_MARGIN_LEFT:3},
     methods = {
