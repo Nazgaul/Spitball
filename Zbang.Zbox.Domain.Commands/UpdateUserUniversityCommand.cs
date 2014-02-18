@@ -3,11 +3,12 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class UpdateUserUniversityCommand : ICommand
     {
-        public UpdateUserUniversityCommand(long universityId, long userId, string code = null)
+        public UpdateUserUniversityCommand(long universityId, long userId, long? departmentId, string code = null)
         {
             UniversityId = universityId;
             UserId = userId;
             Code = code;
+            DepartmentId = departmentId.GetValueOrDefault();
         }
 
         public long UniversityId { get; set; }
@@ -16,5 +17,7 @@ namespace Zbang.Zbox.Domain.Commands
         public string Code { get; private set; }
 
         public long? UniversityWrapperId { get; set; }
+
+        public long DepartmentId { get; set; }
     }
 }

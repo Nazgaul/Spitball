@@ -5,6 +5,7 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Profile;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -12,11 +13,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IUniversityRepository m_UniversityRepository;
+        private readonly IRepository<Department> m_DepartmentRepository;
 
-        public UpdateUserUniversityCommandHandler(IUserRepository userRepository, IUniversityRepository universityRepository)
+        public UpdateUserUniversityCommandHandler(IUserRepository userRepository,
+            IUniversityRepository universityRepository,
+            IRepository<Department> departmentRepository)
         {
             m_UserRepository = userRepository;
             m_UniversityRepository = universityRepository;
+            m_DepartmentRepository = departmentRepository;
         }
         public void Handle(UpdateUserUniversityCommand message)
         {
@@ -25,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Throw.OnNull(university, "University");
 
 
-
+            Department deparment = m_DepartmentRepository.Load(message.DepartmentId);
             User user = m_UserRepository.Get(message.UserId);
             Throw.OnNull(user, "user");
 
@@ -41,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 message.UniversityId = university.DataUnversity.Id;
                 message.UniversityWrapperId = university.Id;
             }
-            user.UpdateUserUniversity(university, userCode);
+            user.UpdateUserUniversity(university, userCode, deparment);
 
             m_UserRepository.Save(user);
         }
@@ -73,7 +78,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var isValid = sumOfDigits % 13 == 0;
             if (isValid)
             {
-              //  return m_UserRepository.IsNotUsedCode(p, userId);
+                //  return m_UserRepository.IsNotUsedCode(p, userId);
             }
             return isValid;
         }

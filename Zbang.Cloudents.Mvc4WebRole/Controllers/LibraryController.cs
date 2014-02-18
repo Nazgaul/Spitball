@@ -120,7 +120,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             JsonNetSerializer serializer = new JsonNetSerializer();
             ViewBag.data = serializer.Serialize(result);
-             //result;
+            //result;
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
             if (Request.IsAjaxRequest())
@@ -326,7 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
         [OutputCache(Duration = TimeConsts.Minute * 20, VaryByParam = "term;country;page", Location = OutputCacheLocation.Server)]
         public async Task<ActionResult> UniversityList(string term, string country, int page = 0)
-        {            
+        {
             if (string.IsNullOrWhiteSpace(country))
             {
                 country = GetUserCountryByIP();
@@ -388,12 +388,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n072-2220692.";
                     break;
             }
-
-
-
-
             ViewBag.userName = userData.Name;
             return PartialView(new Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University() { UniversityId = uid });
+        }
+
+        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
+        public async Task<ActionResult> SelectDepartment(long universityId)
+        {
+            var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
+            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
         }
     }
 }

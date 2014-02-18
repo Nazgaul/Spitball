@@ -18,7 +18,7 @@ namespace Zbang.Zbox.DomainTests
         [TestMethod]
         public void UpdateUserUniversity_NullUniversity_ThrowException()
         {
-            m_SomeUser.UpdateUserUniversity(null, string.Empty);
+            m_SomeUser.UpdateUserUniversity(null, string.Empty, null);
             Assert.AreEqual(m_SomeUser.University, null);
             // Assert.AreEqual(m_SomeUser.UniversityAlias, null);
         }
@@ -29,7 +29,7 @@ namespace Zbang.Zbox.DomainTests
         {
             long someBoxId = 1;
             var someOtherUser = new User("some email2", "some user name2", " some small image2", "some largeImage2");
-            var someBox = new Box("some box", someOtherUser,Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someBox = new Box("some box", someOtherUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
 
             var someUserBoxRel = new UserBoxRel(m_SomeUser, someBox, Infrastructure.Enums.UserRelationshipType.Invite);

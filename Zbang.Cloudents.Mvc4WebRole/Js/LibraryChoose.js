@@ -194,9 +194,18 @@
                 //var load = cd.renderLoading($(uniList));
                 cd.pubsub.publish('clear_cache');
                 dataContext.updateUniversity({
-                    data: [{ name: 'UniversityId', value: id }],
-                    success: function () {
-                        window.location.href = '/dashboard/';
+                    data: [
+                        { name: 'UniversityId', value: id },
+                        { name: 'DepartmentId', value: $('#year').val() },
+                    ],
+                    success: function (d) {
+                        if (d.redirect) {
+                            window.location.href = d.redirect;
+                        }
+                        if (d.html) {
+                            $(libraryChoose).append(d.html);
+                        }
+
                     },
                     error: function () {
                         cd.notification('unspecified error');
@@ -259,7 +268,7 @@
             }
 
 
-            
+
             function searchUniversity() {
                 var term;
                 if (Modernizr.input.placeholder) {
@@ -284,13 +293,37 @@
                     var termTrimmed = term.trim();
                     var query;
                     if (currentCountryCode == 'IL') {
-                        query = lowerText.indexOf(termTrimmed.toLowerCase()) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1 ;
-                    } else{
+                        query = lowerText.indexOf(termTrimmed.toLowerCase()) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1;
+                    } else {
                         lowerText.indexOf(termTrimmed.toLowerCase()) > -1;
                     }
                     query ? $parent.show() : $parent.hide();
                 });
             }
+
+
+            //#region department
+            $(document).on('change', '#department', function () {
+                var $year = $('#year');
+                $year.val('-1').trigger('change');
+                $year.find('option').not(':first').hide().filter('[data-department= ' + $(this).val() + ']').show();
+            })
+           .on('change', '#year', function () {
+               if ($(this).val() === '-1') {
+                   $('#depSubmit').attr('disabled', 'disabled');
+               }
+               else {
+                   $('#depSubmit').removeAttr('disabled');
+               }
+
+           })
+            .on('click', '.closeDialog', function () {
+                $(this).parents('[data-popup]').remove();
+            })
+            .on('click','#depSubmit',function(e) {
+                selectUniversity(e);
+            });
+            //#endregion
         }
     }
 

@@ -12,5 +12,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         //[Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "CodeIncorrect")]
         [Display(ResourceType = typeof(AccountSettingsResources), Name = "IHaveCode")]
         public string Code { get; set; }
+
+
+        public long? DepartmentId { get; set; }
     }
 }

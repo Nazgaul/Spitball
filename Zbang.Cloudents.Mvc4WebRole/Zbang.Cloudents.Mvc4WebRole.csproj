@@ -1088,6 +1088,7 @@
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Library\SelectDepartment.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

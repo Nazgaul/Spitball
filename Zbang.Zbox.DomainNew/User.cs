@@ -53,6 +53,8 @@ namespace Zbang.Zbox.Domain
         public virtual UserFirstTime FirstTime { get; set; }
         public virtual int Reputation { get; set; }
 
+        public virtual Department Department { get; set; }
+
 
         public void RemoveInviteState(Box box)
         {
@@ -110,12 +112,12 @@ namespace Zbang.Zbox.Domain
             Culture = culture;
         }
 
-        public void UpdateUserUniversity(University university, string userCode)
+        public void UpdateUserUniversity(University university, string userCode, Department department)
         {
             University = university;
             this.Code = userCode;
+            this.Department = department;
 
-            //UniversityAlias = university == null ? null : university.UniversityAlias;
         }
 
         #region firstTime

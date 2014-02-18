@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="Department" table="Department" >
+    <id name="Id" column="Id" type="long">
+      <generator class="native"></generator>
+    </id>
+    <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityUser"/>
+
+    <property name="Name" />
+    <property name="Year" />
+  </class>
+</hibernate-mapping>

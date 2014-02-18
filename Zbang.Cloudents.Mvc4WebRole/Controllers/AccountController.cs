@@ -390,11 +390,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new UpdateUserProfileCommand(id, model.Name, profilePics.Image,
                     profilePics.LargeImage);
                 m_ZboxWriteService.UpdateUserProfile(command);
-
-                //m_FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
-                //m_FormsAuthenticationService.ChangeNameAndEmail(command.UniversityId);
-
-
                 return Json(new JsonResponse(true));
             }
             catch (UserNotFoundException)
@@ -403,27 +398,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [HttpPost, Ajax, ZboxAuthorize]
-
-        public JsonResult UpdateUniversity(University model)
+        public async Task<ActionResult> UpdateUniversity(University model)
         {
+            if (!model.DepartmentId.HasValue || model.DepartmentId.Value <= 0)
+            {
+                var retVal = await m_ZboxReadService.GetDepartmentList(model.UniversityId);
+                if (retVal.Count() != 0)
+                {
+                    return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
+                }
+            }
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+                return this.CdJson(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
 
             try
             {
                 var id = GetUserId();
-                //var universityId = m_ShortToLongCode.ShortCodeToLong(model.UniversityId, ShortCodesType.User);
-                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.Code);
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code);
                 m_ZboxWriteService.UpdateUserUniversity(command);
                 m_FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
-                return Json(new JsonResponse(true));
+                return this.CdJson(new JsonResponse(true, new { redirect = Url.Action("Index", "Dashboard") }));
             }
             catch (ArgumentException)
             {
                 ModelState.AddModelError("Code", Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
 
             }
         }
