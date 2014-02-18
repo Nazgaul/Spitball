@@ -41,13 +41,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected void AddReputation(User user)
         {
-           var invite =  m_InviteToCloudentsRepository.GetInviteToCloudents(user);
-           if (invite == null)
-           {
-               return;
-           }
-           invite.Sender.AddReputation(InviteToCloudentsReputation);
-           m_UserRepository.Save(invite.Sender);
+            var invite = m_InviteToCloudentsRepository.GetInviteToCloudents(user);
+            if (invite == null)
+            {
+                return;
+            }
+            invite.Sender.AddReputation(InviteToCloudentsReputation);
+            m_UserRepository.Save(invite.Sender);
         }
 
 
@@ -72,10 +72,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 result.UniversityId = university.Id;
             }
-            user.UpdateUserUniversity(university, string.Empty);
+            user.UpdateUserUniversity(university, string.Empty, null);
         }
-       
 
-        
+
+
     }
 }

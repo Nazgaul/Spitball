@@ -321,7 +321,7 @@
                 $(this).parents('[data-popup]').remove();
             })
             .on('click','#depSubmit',function(e) {
-              //  selectUniversity(e);
+                selectUniversity(e);
             });
             //#endregion
         }

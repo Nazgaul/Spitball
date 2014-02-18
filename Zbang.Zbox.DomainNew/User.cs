@@ -112,12 +112,12 @@ namespace Zbang.Zbox.Domain
             Culture = culture;
         }
 
-        public void UpdateUserUniversity(University university, string userCode)
+        public void UpdateUserUniversity(University university, string userCode, Department department)
         {
             University = university;
             this.Code = userCode;
+            this.Department = department;
 
-            //UniversityAlias = university == null ? null : university.UniversityAlias;
         }
 
         #region firstTime
