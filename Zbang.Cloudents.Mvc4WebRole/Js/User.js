@@ -381,11 +381,15 @@
             var user = document.getElementById('user'), firstTime = user.getAttribute('data-firstTime'), userScore;
 
             if (firstTime) {
+                var username = eById('upUsername').textContent;
                 user.removeAttribute('data-firstTime');
-                self.name(eById('upUsername').textContent);
+                self.name(username);
                 userScore = parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10);
                 if (userScore < consts.ADMINSCORE) {
                     populateScore(userScore);
+                }
+                if (!cd.firstLoad) {
+                    document.title = username + ' | Cloudents';
                 }
                 self.score(userScore);
 

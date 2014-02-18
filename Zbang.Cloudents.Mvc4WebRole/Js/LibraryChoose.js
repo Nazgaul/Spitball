@@ -168,12 +168,16 @@
                 }
             }
 
-            var userNotSelected = true;
+            var userNotSelected = true,
+                universityId;
             function selectUniversity(e) {
                 var $uni = $(this),
-                    id = $uni.attr('data-id'),
                     name = $uni.find('.uniName').text(),
                     nCode = $uni.attr('data-ncode') === 'true' ? true : false;
+
+                if ($uni.length > 0) {
+                    universityId = $uni.attr('data-id');
+                }
 
                 if (!userNotSelected) {
                     return;
@@ -195,7 +199,7 @@
                 cd.pubsub.publish('clear_cache');
                 dataContext.updateUniversity({
                     data: [
-                        { name: 'UniversityId', value: id },
+                        { name: 'UniversityId', value: universityId },
                         { name: 'DepartmentId', value: $('#year').val() },
                     ],
                     success: function (d) {
@@ -320,7 +324,7 @@
             .on('click', '.closeDialog', function () {
                 $(this).parents('[data-popup]').remove();
             })
-            .on('click','#depSubmit',function(e) {
+            .on('click', '#depSubmit', function (e) {
                 selectUniversity(e);
             });
             //#endregion

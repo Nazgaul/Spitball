@@ -26,7 +26,7 @@
                 return;
             }
             //e.stopPropagation();
-            event.stopImmediatePropagation();
+            e.stopImmediatePropagation();
             $userMenu.slideDown(slideSpeed);
         });
         $('body').click(function () {
