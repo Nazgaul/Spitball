@@ -77,11 +77,17 @@
         function Member(data) {
             var that = this;
             that.id = data.id;
+            that.inputId = 'member' + that.id;
             that.name = data.name;
             that.image = data.image;
             that.department = data.department;
             that.joinDate = data.joinDate.toLocaleDateString();
-            that.checked = false;
+            that.selected = ko.observable(false);
+
+            that.toggleSelected = function (member) {
+                var isOn = that.selected();
+                that.selected(!isOn);
+            };
         }
 
         function Invite(data) {
@@ -204,12 +210,11 @@
         self.members = ko.observableArray();
 
         self.displayMembers = ko.observableArray();
-
-        self.maxDisplayMembers = ko.observable(consts.MAXMEMBERS);
+        self.searchResultMembers = ko.observableArray();
         self.membersLength = ko.computed(function (e) {
-            return self.members().length + ' ' + document.querySelector('.membersCount').getAttribute(consts.DATALABEL);
+            return self.members().length + ' ' + 'members';
         });
-
+        var searchInProgress = false;
         self.membersSectionVisible = ko.computed(function () {
             return self.score() >= consts.ADMINSCORE;
         });
@@ -321,18 +326,6 @@
             clear();
             self.userId(parseInt(cd.getParameterFromUrl(1), 10) || cd.userDetail().nId);
             getInitData();
-
-            if (self.score() >= consts.ADMINSCORE) {
-                getMembersData();
-            } else {
-                getFriendsData();
-            }
-
-            getBoxesData();
-            if (self.viewSelf()) {
-                getInvitesData();
-            }
-            getActivityData();
         });
 
         pubsub.subscribe('userclear', function (data) {
@@ -354,6 +347,7 @@
 
             .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
 
+            $('.upMemberBoxes').hide();
             $('.upTabContent').hide();
             $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
             $('#filesSection').show();
@@ -394,7 +388,7 @@
 
                 pubsub.publish('clearTooltip');
                 pubsub.publish('user_load');
-
+                getOtherData();
                 registerEvents();
                 return;
             }
@@ -403,6 +397,8 @@
                 data: { userId: self.userId() },
                 success: function (data) {
                     populateProfile(data);
+                    getOtherData();
+                    registerEvents();
                 }
             });
 
@@ -422,8 +418,6 @@
 
                 pubsub.publish('clearTooltip');
                 pubsub.publish('user_load');
-
-                registerEvents();
             }
 
             function registerEvents() {
@@ -479,8 +473,23 @@
             }
         }
 
+        function getOtherData() {
+            if (self.score() < consts.ADMINSCORE) {
+                getFriendsData();
+            } else {
+                getMembersData();
+            }
+
+            getBoxesData();
+            if (self.viewSelf()) {
+                getInvitesData();
+            }
+            getActivityData();
+        }
+
         function getMembersData() {
-            var membersList = eById('upMembersList');
+            var membersList = eById('upMembersList'),
+                memberBoxList = eById('upMemberBoxList')
             //   var loader = renderLoad(eById('upMembersSection'));
             dataContext.getUpMembers({
                 success: function (data) {
@@ -497,6 +506,10 @@
                     return new Member(member);
                 });
                 self.members(map);
+
+                self.members.sort(function (left, right) {
+                    return cd.sortMembersByName(left.name, right.name);
+                })
                 self.displayMembers(map.slice(0, 50));
 
 
@@ -504,9 +517,14 @@
                 registerEvents();
 
                 function registerEvents() {
+
                     eById('upMembersSearch').onkeyup = function (e) {
                         var input = eById('upMembersSearch'),
                             term;
+
+                        self.displayMembers([]);
+                        $(membersList).scrollTop(0);
+
 
                         if (Modernizr.input.placeholder) {
                             term = input.value.toLowerCase().trim();
@@ -518,46 +536,147 @@
                             }
                         }
                         if (term === '') {
-                            $('.upMemberName').parents('li').show()
+                            searchInProgress = false;
+                            self.displayMembers(self.members().slice(0, 50));
+                            cd.loadImages(membersList);
                             return;
                         }
 
 
-                        $('.upMemberName').each(function () {
-                            var $parent = $(this).parents('li'),
-                                name = this.textContent.toLowerCase(),
-                                query = name.indexOf(term) > -1;
-
-                            query ? $parent.show() : $parent.hide();
-
+                        self.searchResultMembers([]);
+                        searchInProgress = true;
+                        var name;
+                        for (var i = 0, l = self.members().length; i < l; i++) {
+                            name = self.members()[i].name.toLowerCase();
+                            if (name.indexOf(term) > -1) {
+                                self.searchResultMembers.push(self.members()[i]);
+                            }
+                        }
+                        self.searchResultMembers.sort(function (left, right) {
+                            return cd.sortMembersByName(left.name, right.name, term);
                         });
 
+                        self.displayMembers.push.apply(self.displayMembers, self.searchResultMembers.slice(0, 50));
 
+
+                        cd.loadImages(membersList);
                     };
 
+                    var sTimeout, cTimeout; // for disable popup hide when user move to popup
+
                     membersList.onscroll = function (e) {
-                        var count;
-                        if (membersList.offsetHeight + membersList.scrollTop >= membersList.scrollHeight) {                            
+                        if (sTimeout) {
+                            clearTimeout(sTimeout);
+                        }
+                        hideBoxesPopup();
+                        var count, list;
+                        if (membersList.offsetHeight + membersList.scrollTop >= membersList.scrollHeight) {
+                            list = searchInProgress ? self.searchResultMembers() : self.members();
                             count = self.displayMembers().length;
-                            self.displayMembers.push.apply(self.displayMembers, self.members().slice(count, count + consts.MAXMEMBERS));
+                            self.displayMembers.push.apply(self.displayMembers, list.slice(count, count + consts.MAXMEMBERS));
                             cd.loadImages(membersList);
                         }
                     };
 
-                    $(membersList).on('mouseover', 'button', function (e) {
-                        var member = ko.dataFor(this.parentElement);
+                    $(membersList).off('mouseover').on('mouseover', 'button', function (e) {
+                        var parent = this.parentElement;
+                        while (parent.nodeName !== 'LI') {
+                            parent = parent.parentElement;
+                        }
+                        var member = ko.dataFor(parent);
                         dataContext.getUpMemberBoxes({
                             data: { userId: member.id },
                             success: function (data) {
-                                alert(data);
+                                data = data || {};
+                                if (!data.length) {
+                                    data = [{ name: 'No Courses selected' }];
+                                }
+                                sTimeout = setTimeout(function () {
+                                    showMemberBoxList(e.target, data);
+                                }, 250);
+
                             }
                         });
+                    }).off('mouseleave').on('mouseleave', 'button', function (e) {
+                        if (sTimeout) {
+                            clearTimeout(sTimeout);
+                        }
+                        cTimeout = setTimeout(function () {
+                            hideBoxesPopup();
+                        }, 500);
+                    });
 
+                    $('.upMemberBoxes').off('mouseover').on('mouseover', function (e) {
+                        if (cTimeout) {
+                            clearTimeout(cTimeout);
+                        }
+                    })
+                    .off('mouseleave').on('mouseleave', function (e) {
+                        if (sTimeout) {
+                            clearTimeout(sTimeout);
+                        }
+                        hideBoxesPopup();
                     });
                 }
 
+
+                eById('upMemberSettings').onchange = function (e) {
+                    var that = this;
+                    ko.utils.arrayForEach(self.members(), function (member) {
+                        member.selected(that.checked);
+                    });
+
+                    toggleMessageBtn(that.checked);
+                };
+
+                $(membersList).find('.checkbox').change(function () {
+                    if ($(membersList).find('.checkbox:checked').length > 0) {
+                        toggleMessageBtn(true);
+                        return;
+                    }
+
+                    toggleMessageBtn(false);
+                });
+
+                eById('upMbrSetingsSndMsg').onclick = function () {
+                    var selected = [], allCbox = eById('upMemberSettings');
+                    if (allCbox.checked) {
+                        var arr = searchInProgress ? self.searchResultMembers() : self.members();
+                        pubsub.publish('message', { id: '', data: arr });
+                        return;
+                    }
+                    var checkboxes = membersList.querySelectorAll('input:checked');
+                    for (var i = 0, l = checkboxes.length; i < l; i++) {
+                        selected.push(ko.dataFor(checkboxes[i]));
+                    }
+                    pubsub.publish('message', { id: '', data: selected });
+
+                };
             }
 
+            function showMemberBoxList(target, boxes) {
+                var parent = memberBoxList.parentElement;
+                cd.appendData(memberBoxList, 'upMemberBoxItemTemplate', boxes, 'beforeend', true);
+                parent.style.display = 'block';
+                var pos = calculatePopupPosition();
+                parent.style.left = pos.x + 'px';
+                parent.style.top = pos.y + 'px';
+
+                function calculatePopupPosition() {
+                    return {
+                        x: target.offsetLeft + target.offsetWidth / 2 - parent.offsetWidth / 2 + membersList.scrollLeft
+                        ,// - left,
+                        y: target.offsetTop - parent.offsetHeight - 5 - membersList.scrollTop //10=margin
+                    }
+                }
+            }
+            function hideBoxesPopup() {
+                memberBoxList.parentElement.style.display = 'none';
+            }
+
+            function toggleMessageBtn(isOn) {
+                eById('upMbrSetingsSndMsg').style.display = isOn ? 'inline-block' : 'none';
+            }
         }
 
         function getFriendsData() {

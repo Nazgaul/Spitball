@@ -39,7 +39,9 @@
             historyNav = data.history;
             var lastPage = historyNav.pop();
             privateLocation.url = lastPage.url = lastPage.url.split('?')[0];
-            history.replaceState(privateLocation.url, '', privateLocation.url);
+            if (window.history.replaceState){
+                history.replaceState(privateLocation.url, '', privateLocation.url);
+            }
             historyNav.push(lastPage);
             
         },

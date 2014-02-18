@@ -45,7 +45,7 @@
             <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">
                 @*Guy: sponsored width="479" height="188" and background img instead of source style="background-image:url(http://lorempixel.com/479/188/animals/)"*@
                 <!--ko if:sponsored-->
-                <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="148" height="188" />
+                <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="479" height="188" />
                 <!--/ko-->
                 <!--ko ifnot: sponsored-->
                 <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="188" />
