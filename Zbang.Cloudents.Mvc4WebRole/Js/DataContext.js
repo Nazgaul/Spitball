@@ -141,7 +141,8 @@
     definition.minProfile = new definitionobj({ url: '/User/MinProfile', type: get });
 
     definition.getUserpageBoxes = new definitionobj({ url: '/User/Boxes', type: get });
-    definition.getUpMembers = new definitionobj({ url: '/User/AdminFriends' , type : get});
+    definition.getUpMembers = new definitionobj({ url: '/User/AdminFriends', type: get });
+    definition.getUpMemberBoxes = new definitionobj({ url: '/User/AdminBoxes', type: get });
     definition.getUserPageActivity = new definitionobj({ url: '/User/Activity', type: get });
     definition.getUserPageInvites = new definitionobj({ url: '/User/OwnedInvites', type: get });
 

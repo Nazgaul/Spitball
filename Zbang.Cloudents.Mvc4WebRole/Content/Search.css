@@ -75,7 +75,7 @@
   top: 9px;
   left: 7px;
   /*rtl*/
-  background: url(/Images/common14-sprite.png) -294px -33px no-repeat;
+  background: url(/Images/common15-sprite.png) -294px -33px no-repeat;
 }
 .searchList {
   margin: 6px 0;
@@ -136,7 +136,7 @@
   display: inline-block;
   width: 40px;
   height: 32px;
-  background: url(/Images/common14-sprite.png) -241px -56px no-repeat;
+  background: url(/Images/common15-sprite.png) -241px -56px no-repeat;
   vertical-align: middle;
   float: left;
   /*rtl*/
