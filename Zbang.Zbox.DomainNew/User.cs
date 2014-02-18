@@ -53,6 +53,8 @@ namespace Zbang.Zbox.Domain
         public virtual UserFirstTime FirstTime { get; set; }
         public virtual int Reputation { get; set; }
 
+        public virtual Department Department { get; set; }
+
 
         public void RemoveInviteState(Box box)
         {

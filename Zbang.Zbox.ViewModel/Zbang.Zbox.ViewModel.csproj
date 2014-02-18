@@ -91,6 +91,7 @@
     <Compile Include="DTOs\ItemDtos\LinkDto.cs" />
     <Compile Include="DTOs\ItemDtos\LinkWithDetailDto.cs" />
     <Compile Include="DTOs\ItemRateDto.cs" />
+    <Compile Include="DTOs\Library\DepartmentDto.cs" />
     <Compile Include="DTOs\Library\NodeBoxesDto.cs" />
     <Compile Include="DTOs\Library\NodeDto.cs" />
     <Compile Include="DTOs\Library\UniversityByPrefixDto.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
     <Compile Include="SqlQueries\Admin.cs" />
+    <Compile Include="SqlQueries\LibraryChoose.cs" />
     <Compile Include="SqlQueries\Search.cs" />
     <Compile Include="SqlQueries\Seo.cs" />
     <Compile Include="SqlQueries\Sql.cs" />

@@ -214,5 +214,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUniversityUsers(query);
         }
+
+
+        public Task<IEnumerable<ViewModel.DTOs.Library.DepartmentDto>> GetDepartmentList(long universityId)
+        {
+            return m_ReadService.GetDepartmentList(universityId);
+        }
     }
 }

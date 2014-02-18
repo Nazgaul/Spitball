@@ -567,6 +567,17 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                return await conn.QueryAsync<DepartmentDto>(Sql.LibraryChoose.GetDepartments, new
+                {
+                    universityId = universityId
+                });
+            }
+        }
+
 
         /// <summary>
         /// Get user data for user detail in all the pages.

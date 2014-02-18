@@ -81,5 +81,7 @@ namespace Zbang.Zbox.ReadServices
         Task<SeoDto> GetSeoBoxesAndItems();
 
         Task<IEnumerable<Zbang.Zbox.ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
+
+        Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId);
     }
 }

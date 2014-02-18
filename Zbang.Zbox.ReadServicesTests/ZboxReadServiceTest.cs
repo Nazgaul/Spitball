@@ -444,10 +444,10 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUniversityUsers_Query_ReturnResult()
         {
-            var query = new GetInvitesQuery(4);
+            var query = new GetAdminUsersQuery(14);
             try
             {
-                var x = m_ZboxReadService.GetUserPersonalInvites(query).Result;
+                var x = m_ZboxReadService.GetUniversityUsers(query).Result;
             }
             catch (Exception ex)
             {
