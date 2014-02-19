@@ -11,7 +11,7 @@
     contactsToDisplay = 'contactsToDisplay', sEmailSelectedList = 'sEmailSelectedList', maxWidth = 'maxWidth', dataSet = 'dataSet', contactsFound = 'contactsFound',
     settings = {}, maxMembers = 300,
     eById = document.getElementById.bind(document),
-    Consts = { DEFAULT_INPUT_MAXWIDTH: 390, DEFAULT_ITEMS_LENGTH: 7,DEFAULT_INPUT_MININPUT:113,ITEM_MARGIN_LEFT:3},
+    Consts = { DEFAULT_INPUT_MAXWIDTH: 390, DEFAULT_ITEMS_LENGTH: 7, DEFAULT_INPUT_MININPUT: 113, ITEM_MARGIN_LEFT: 3 },
     methods = {
         init: function (options) {
             settings[sInputElement] = eById(options[sInputElement]);
@@ -21,7 +21,7 @@
             settings[sEmailSelectedList] = [];
             settings[dataSet] = [];
             settings[contactsFound] = [];
-            settings[maxWidth] = options[maxWidth] || Consts.DEFAULT_INPUT_MAXWIDTH;            
+            settings[maxWidth] = options[maxWidth] || Consts.DEFAULT_INPUT_MAXWIDTH;
             var inputElement = settings[sInputElement], outputElement = settings[sOutputElement];
             inputElement.onkeydown = privateMethods.inputKeydownListener;
             inputElement.onkeyup = privateMethods.inputKeyupListener;
@@ -29,7 +29,7 @@
                 eById('mNote').onfocusin = function () {
                     outputElement.style.display = 'none';
                 };
-            }            
+            }
         },
         setWidth: function (width) {
             settings[maxWidth] = width;
@@ -41,20 +41,22 @@
             var emailUserWpr = document.getElementsByClassName('emailUserWpr')[0],
                 singleEmailUserWpr = document.getElementsByClassName('singleEmailUserWpr')[0];
 
-            if (data.length >= maxMembers) {
-
-            }
             if (data.length === 1) { //message from tooltip or user page
                 cd.appendData(singleEmailUserWpr, 'singleUserEmailTemplate', data, 'afterbegin', true);
                 singleEmailUserWpr.style.display = 'block';
                 emailUserWpr.style.display = 'none';
-                document.querySelector('.invite .popupHeader').textContent = JsResources.SendDirect;
+                document.querySelector('.invite .popupHeader').textContent = JsResources.SendDirect;                
                 return;
             }
 
-            for (var i = 0, l = data.length; i < l; i++) {
-                privateMethods.addEmail({ id: data[i].id, display: data[i].name }, true);
-            }
+            if (data.length > maxMembers) {
+                privateMethods.addEmailList(data);
+
+            } else {
+                for (var i = 0, l = data.length; i < l; i++) {
+                    privateMethods.addEmail({ id: data[i].id, display: data[i].name }, true);
+                }
+            }            
         },
         attemptValidate: function () {
             var inputElementValue = settings[sInputElement].value, contact,
@@ -64,18 +66,19 @@
 
                 contact = privateMethods.findContact(selectedList[i].textContent, settings[dataSet]);
                 if (contact) {
-                    privateMethods.addEmail({ id: contact.id, display: contact.name }, true);
+                    privateMethods.addEmail({ id: contact.id, name: contact.name }, true);
                 }
 
                 selectedList[i].parentElement.removeChild(selectedList[i]);
             }
 
             if (inputElementValue.length > 0 && cd.validateEmail(inputElementValue)) {
-                privateMethods.addEmail({ id: inputElementValue, display: inputElementValue }, true);
+                privateMethods.addEmail({ id: inputElementValue, name: inputElementValue }, true);
             }
         },
 
         clear: function () {
+            settings[sOutputElement].style.display = 'none';
             document.getElementsByClassName('emailUserWpr')[0].style.display = 'block';
             document.getElementsByClassName('singleEmailUserWpr')[0].style.display = 'none';
             document.querySelector('.invite .popupHeader').textContent = JsResources.ShareBy;
@@ -84,7 +87,7 @@
             settings[contactsFound] = [];
             settings[sEmailSelectedList] = [];
             settings[sInputElement].value = '';
-            settings[sOutputElement].style.display = 'none';
+
         }
     };
     var privateMethods = {
@@ -116,9 +119,9 @@
                 if (inputValue.length > 0) {
                     contact = privateMethods.findContact(inputValue, contacts);
                     if (contact) {
-                        privateMethods.addEmail({ id: contact.id, display: contact.name }, true);
+                        privateMethods.addEmail({ id: contact.id, name: contact.name }, true);
                     } else {
-                        privateMethods.addEmail({ id: inputValue, display: inputValue }, cd.validateEmail(inputValue));
+                        privateMethods.addEmail({ id: inputValue, name: inputValue }, cd.validateEmail(inputValue));
                     }
                 }
             } else {
@@ -148,7 +151,7 @@
 
             var display = listItem.getElementsByClassName(eName)[0].textContent, id = listItem.getElementsByClassName(eAddress)[0].textContent;
 
-            privateMethods.addEmail({ id: id, display: display }, true);
+            privateMethods.addEmail({ id: id, name: display }, true);
         },
         appendContacts: function (contacts) {
 
@@ -176,7 +179,7 @@
                 return;
             }
 
-            cd.appendData(selectedList, emailSelectedItemTemplate, { id: item.id, display: item.display }, beforeEnd, false);
+            cd.appendData(selectedList, emailSelectedItemTemplate, { id: item.id, name: item.name }, beforeEnd, false);
 
             if (valid) {
                 emailSelectedList.push(item.id);
@@ -198,6 +201,19 @@
             } else {
                 inputElement.focus();
             }
+
+            privateMethods.calculateInputWidth();
+
+        },
+        addEmailList: function (data) {
+            var selectedList = settings[sSelectedList],
+                guid = cd.guid().slice(0, 5),
+                ids = data.map(function (item) {
+                    return item.id;
+                });
+            var object = { name: data.length + ' members', ids: ids, guid: guid };
+            cd.appendData(selectedList, 'multiUserEmailTemplate', object, beforeEnd, false);
+            selectedList.onclick = privateMethods.removeEditEmailClick;
 
             privateMethods.calculateInputWidth();
 
@@ -224,18 +240,18 @@
             inputElement.focus();
         },
         calculateInputWidth: function () {
-            var inputElement = settings[sInputElement], selectedList = settings[sSelectedList], emails = selectedList.getElementsByClassName('emailItem'), width = parseInt(settings[sSelectedList].parentElement.style.width,10),
+            var inputElement = settings[sInputElement], selectedList = settings[sSelectedList], emails = selectedList.getElementsByClassName('emailItem'), width = parseInt(settings[sSelectedList].parentElement.style.width, 10),
                 calculadtedWidth = 0, container = inputElement.parentElement;
             inputElement.style.display = 'none';
             for (var i = 0, l = emails.length; i < l; i++) {
                 var bottom = (container.offsetHeight + container.offsetTop) - (emails[i].offsetTop + emails[i].offsetHeight),
-                    marginBottom = parseInt(window.getComputedStyle(emails[i],null).getPropertyValue('margin-bottom'),10);
+                    marginBottom = parseInt(window.getComputedStyle(emails[i], null).getPropertyValue('margin-bottom'), 10);
                 if (bottom === marginBottom) {
                     calculadtedWidth += (emails[i].offsetWidth + Consts.ITEM_MARGIN_LEFT);
                 }
             }
             var inputElementWidth = width - calculadtedWidth;
-            inputElement.style.width = (inputElementWidth < Consts.DEFAULT_INPUT_MININPUT ? Consts.DEFAULT_INPUT_MININPUT  : (inputElementWidth-4*emails.length)) + 'px';
+            inputElement.style.width = (inputElementWidth < Consts.DEFAULT_INPUT_MININPUT ? Consts.DEFAULT_INPUT_MININPUT : (inputElementWidth - 4 * emails.length)) + 'px';
             inputElement.style.display = 'inline-block';
         },
         removeEmail: function (emailItem) {
@@ -337,7 +353,7 @@
             } else {
                 newWidth = settings[maxWidth] - toLabelWidth - 5;//5 is position:right of gconnect;
             }
-               
+
             settings[sSelectedList].parentElement.style.width = newWidth + 'px';
             privateMethods.calculateInputWidth();
         }

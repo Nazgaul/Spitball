@@ -13,17 +13,16 @@
                     <ul class="emailList" id="emailList"></ul>
                     <input class="inviteInput" id="messageInput"
                            type="text" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.DialogResources.UsernameOr" />
-                </div>            
-                <button type="button" class="gConnect">@SharedResources.Connect</button>    
-            </div>            
-            <ul class="emailMenu" id="emailMenu">
-             </ul>
+                </div>
+                <button type="button" class="gConnect">@SharedResources.Connect</button>
+            </div>
+            <ul class="emailMenu" id="emailMenu"></ul>
         </div>
         <div style="display:none;" class="singleEmailUserWpr">
 
 
         </div>
-        @Html.TextAreaFor(m => m.Note, new { @class = "inputText inviteMsg", id = "mNote", placeholder = SharedResources.WriteMessage })        
+        @Html.TextAreaFor(m => m.Note, new { @class = "inputText inviteMsg", id = "mNote", placeholder = SharedResources.WriteMessage })
         <input type="submit" class="btn1 next" value="@DialogResources.Send" />
         <input type="reset" class="btn2 cancel" value="@DialogResources.Cancel" />
     }
@@ -42,10 +41,14 @@
 
 <script type="text/html" id="singleUserEmailTemplate">
     <img class="eSingleImg" src="{{userImage}}" alt="{{name}}" />
-        <div class="eSingleName">{{name}}</div>
+    <div class="eSingleName">{{name}}</div>
     <input type="hidden" name="Recepients" value="{{id}}" />
 </script>
 
 <script type="text/html" id="emailSelectedItemTemplate">
-    <li class="emailItem" data-id="{{id}}"><span class="emailText">{{display}}</span><button type="button" class="removeItem"></button><input type="hidden" name="Recepients" value="{{id}}" /></li>
+    <li class="emailItem" data-id="{{id}}"><span class="emailText">{{name}}</span><button type="button" class="removeItem"></button><input type="hidden" name="Recepients" value="{{id}}" /></li>
+</script>
+
+<script type="text/html" id="multiUserEmailTemplate">
+    <li class="emailItem" data-guid="{{guid}}"><span class="emailText">{{name}}</span><button type="button" class="removeItem"></button><input type="hidden" name="Recepients" value="{{ids}}" data-guid="{{guid}}" /></li>
 </script>

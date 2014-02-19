@@ -469,11 +469,20 @@
     //}
 
 
-    var dateToShow = function (date) {
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-        return day + "." + month + "." + year;
+    var dateToShow = function (date,delimeter,twoDigitsYear) {
+        var day = date.getDate(),
+            month = date.getMonth() + 1,
+            year = date.getFullYear().toString();//we use to string so we can use substring
+        if (twoDigitsYear) {
+            year = year.substr(2, 2);
+        }
+        if (day< 10) {
+            day = '0' + day;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+        return day + delimeter + month + delimeter + year;
     };
 
     var register = function () {

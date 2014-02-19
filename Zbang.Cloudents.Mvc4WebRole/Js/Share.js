@@ -14,8 +14,20 @@
             }
             var input = form.find('input[type="submit"]').attr('disabled', 'disabled');
 
+            var tempArray = [];
             if (!form.valid || form.valid()) {
                 var fdata = form.serializeArray();
+                for (var i = 0, l = fdata.length - 1; i < l; i++) {
+                    if (fdata[i].value.indexOf(',') > -1) {
+                        tempArray = fdata[i].value.split(',');
+                        fdata.splice(i, 1);
+                        l--;
+                    }
+                }
+                for (var i = 0, l = tempArray.length; i < l; i++) {
+                    fdata.push({ name: 'Recepients', value: tempArray[i] });
+                }
+
                 dataContext.message({
                     data: fdata,
                     success: function (itemData) {
@@ -49,7 +61,7 @@
         fromPopup.data = d.data;
         openMessagePopup(d);
     }
-   
+
     cd.pubsub.subscribe('gAuthSuccess', function () {
         if (firstTime) {
             return;
@@ -86,18 +98,19 @@
             if (d.data) {
                 if (d.data.length !== 1) {// not loading google when sending a message to a single contact
                     cd.google.register(true);
-                } 
+                }
             } else {
                 cd.google.register(true);
             }
         }
 
-        messageDialog.dialog('show');
-        document.getElementById('messageInput').blur();
-        cd.autocomplete2('setWidth', $('.emailUserWpr .emailUser').width());
         if (d.data) {
             cd.autocomplete2('addEmailsToList', d.data);
         }
+
+        messageDialog.dialog('show');
+        document.getElementById('messageInput').blur();
+        cd.autocomplete2('setWidth', $('.emailUserWpr .emailUser').width());
 
 
     }
