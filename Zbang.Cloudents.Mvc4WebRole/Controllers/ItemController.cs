@@ -31,7 +31,7 @@ using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
-    [NoUniversityAttribute]
+    [NoUniversity]
     public class ItemController : BaseController
     {
         private readonly IBlobProvider m_BlobProvider;

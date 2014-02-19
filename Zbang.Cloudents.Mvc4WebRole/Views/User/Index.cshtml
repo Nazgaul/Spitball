@@ -38,7 +38,7 @@
                             <!--ko foreach:departments-->
                             <li>
                                 <input type="checkbox" class="checkbox" data-bind="attr: { id: 'dep_' + id},checked: selected" />
-                                <label class="cbLabel" data-bind="attr: { for: 'dep_' + id},text:name"></label>
+                                <label class="cbLabel" data-bind="attr: { for: 'dep_' + id},text:fullname"></label>
                             </li>
                             <!--/ko-->
                         </ul>
@@ -47,7 +47,7 @@
                     <span class="courseCol">Courses</span>
                 </div>
                 <ul id="upMembersList" class="upMembersList">
-                    <!--ko foreach:displayMembers-->
+                    <!--ko foreach:displayMembersFilter-->
                     <li class="memberItem">
                         <input type="checkbox" class="checkbox" data-bind="checked: selected,attr: {id : inputId}" />
                         <label for="" class="cbLabel memberCol" data-bind="attr: {for: inputId}">
