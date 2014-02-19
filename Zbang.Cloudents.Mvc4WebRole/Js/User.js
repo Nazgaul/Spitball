@@ -531,7 +531,6 @@
                 }
             }).done(function () {
                 dataContext.depList({
-                    data: { universityId: 920 },
                     success: function (data) {
                         var map = data.map(function (dep) {
                             return new Department(dep);

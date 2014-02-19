@@ -772,12 +772,14 @@
   border-radius: 8px 8px 0 0;
 }
 .upMembers .memberItem {
-  padding: 5px 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 0;
   height: 46px;
+}
+.upMembers .memberItem:first-child {
+  padding-top: 5px;
+  margin-top: 10px;
 }
 .memberTopRow {
   line-height: 28px;
@@ -795,13 +797,13 @@
   height: 0;
   border-style: solid;
   border-width: 7px 5px 0 5px;
-  border-color: #37444c transparent transparent transparent;
+  border-color: #676767 transparent transparent transparent;
 }
 .memberTopRow .deptCol:hover {
-  color: red;
+  color: #39434a;
 }
 .memberTopRow .deptCol:hover:after {
-  border-color: red transparent transparent transparent;
+  border-color: #39434a transparent transparent transparent;
 }
 .memberTopRow .memberCol {
   padding-left: 36px;
@@ -818,6 +820,7 @@
 }
 .memberCol {
   width: 304px;
+  padding-left: 8px;
 }
 .deptCol {
   width: 510px;
@@ -827,6 +830,10 @@
 .dateCol {
   width: 120px;
 }
+.courseCol {
+  width: 60px;
+  text-align: center;
+}
 .courseCol .courseList:before {
   content: '';
   display: inline-block;
@@ -834,29 +841,91 @@
   height: 10px;
   background: url(/Images/common15-sprite.png) -102px -88px no-repeat;
 }
-.courseCol .courseList:before:hover {
+.courseCol .courseList:hover:before {
   background: url(/Images/common15-sprite.png) -102px -102px no-repeat;
 }
 .deptPopup {
   display: none;
   position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 200px;
-  height: 250px;
+  top: 77px;
+  left: 336px;
+  width: 279px;
+  height: 241px;
   overflow: auto;
-  background-color: #fff;
+  background: #fff;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+}
+.deptPopup .cbLabel.cbLabel {
+  padding: 0 5px 0 37px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  height: auto;
+}
+.deptPopup .cbLabel.cbLabel:before {
+  position: absolute;
+  left: 10px;
+  top: 11px;
+  height: 18px;
+}
+.deptPopup li {
+  height: 38px;
+  border-bottom: 1px solid #c2c2c2;
+  width: 100%;
+  line-height: 16px;
+  overflow: hidden;
+  position: relative;
+}
+.deptPopup li:hover {
+  background: #f9f9f9;
+}
+.deptPopup li:last-child {
+  border: none;
+}
+.deptPopup li:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em;
 }
 .upMemberBoxes {
   width: 240px;
   max-height: 247px;
-  background-color: #fff;
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   overflow: hidden;
   z-index: 7;
   display: none;
   position: absolute;
+}
+.upMemberBoxes:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 115px;
+  border-style: solid;
+  border-width: 10px 12px 0;
+  border-color: #c2c2c2 transparent;
+  display: block;
+  width: 0;
+  z-index: 0;
+}
+.upMemberBoxes:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 115px;
+  border-style: solid;
+  border-width: 10px 12px 0;
+  border-color: #fff transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
 }
 .upMemberBoxesTitle {
   padding-left: 10px;
@@ -883,7 +952,6 @@
 }
 .upMembersList {
   height: 287px;
-  padding: 0 10px;
   overflow: auto;
 }
 .upMemberName {
