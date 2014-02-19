@@ -68,15 +68,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "universityId", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang + ";"
-            + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour, Order = 2)]
+        //[DonutOutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
+        //    + CustomCacheKeys.Lang + ";"
+        //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour, Order = 2)]
         [CompressFilter(Order = 1)]
-        public ActionResult Index(long? universityId)
+        [Route("Account/{lang?}")]
+        public ActionResult Index(long? universityId, string lang)
         {
+
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
+            }
+            if (!string.IsNullOrEmpty(lang))
+            {
+                ChangeThreadLanguage(lang);
             }
             ViewBag.universityId = universityId;
             return View("Index2");
