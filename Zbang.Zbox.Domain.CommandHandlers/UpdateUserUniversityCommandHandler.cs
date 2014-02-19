@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Throw.OnNull(university, "University");
 
 
-            Department deparment = m_DepartmentRepository.Load(message.DepartmentId);
+            Department deparment = m_DepartmentRepository.Get(message.DepartmentId); // load cause error if its empty
             User user = m_UserRepository.Get(message.UserId);
             Throw.OnNull(user, "user");
 

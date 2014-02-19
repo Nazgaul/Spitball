@@ -407,13 +407,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
         {
-            if (!model.DepartmentId.HasValue || model.DepartmentId.Value <= 0)
+            var retVal = await m_ZboxReadService.GetDepartmentList(model.UniversityId);
+            if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
             {
-                var retVal = await m_ZboxReadService.GetDepartmentList(model.UniversityId);
-                if (retVal.Count() != 0)
-                {
-                    return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
-                }
+                return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
             }
             if (!ModelState.IsValid)
             {
