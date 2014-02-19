@@ -626,7 +626,7 @@
                         }
                     };
 
-                    $(membersList).off('mouseover').on('mouseover', 'button', function (e) {
+                    $(membersList).off('mouseover').on('mouseover', '.courseList', function (e) {
                         var parent = this.parentElement;
 
                         while (parent.nodeName !== 'LI') {
@@ -658,7 +658,7 @@
                                 loading = false;
                             }
                         });
-                    }).off('mouseleave').on('mouseleave', 'button', function (e) {
+                    }).off('mouseleave').on('mouseleave', '.courseList', function (e) {
                         if (sTimeout) {
                             clearTimeout(sTimeout);
                         }

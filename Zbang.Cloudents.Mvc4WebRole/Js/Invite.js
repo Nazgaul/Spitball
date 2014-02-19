@@ -58,7 +58,7 @@
             toogleCloudentsFriends(false);
             fbInviteResponse = fbInvite;
             cdgInviteResponse = gInvite;
-            facebookInviteUrl = window.location.origin;
+            facebookInviteUrl = window.location.origin + '/account/' + $('html').data('culture');
             document.querySelector('.invHeaderText span').textContent = '';
             document.querySelector('.invHeaderText').href = '/dashboard/';
 
