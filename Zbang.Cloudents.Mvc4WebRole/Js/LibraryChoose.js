@@ -299,7 +299,7 @@
                     if (currentCountryCode == 'IL') {
                         query = lowerText.indexOf(termTrimmed.toLowerCase()) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1;
                     } else {
-                        lowerText.indexOf(termTrimmed.toLowerCase()) > -1;
+                        query = lowerText.indexOf(termTrimmed.toLowerCase()) > -1;
                     }
                     query ? $parent.show() : $parent.hide();
                 });
