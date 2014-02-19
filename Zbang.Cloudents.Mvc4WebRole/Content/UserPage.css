@@ -734,6 +734,7 @@
   border-radius: 8px;
   margin-top: 10px;
   background: #fff;
+  position: relative;
 }
 .upMembers .membersTop {
   padding: 0 10px;
@@ -803,7 +804,7 @@
 }
 .upMemberBoxes {
   width: 240px;
-  height: 247px;
+  max-height: 247px;
   background-color: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
@@ -821,7 +822,7 @@
 }
 .upMemberBoxList {
   overflow: auto;
-  height: 215px;
+  max-height: 215px;
 }
 .upMemberBoxList li {
   height: 30px;
@@ -839,5 +840,6 @@
   height: 287px;
   padding: 0 10px;
   overflow: auto;
+  /*position:relative;*/
 }
 /*#endregion*/

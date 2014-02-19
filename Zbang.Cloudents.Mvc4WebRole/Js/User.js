@@ -81,13 +81,8 @@
             that.name = data.name;
             that.image = data.image;
             that.department = data.department;
-            that.joinDate = data.joinDate.toLocaleDateString();
-            that.selected = ko.observable(false);
-
-            that.toggleSelected = function (member) {
-                var isOn = that.selected();
-                that.selected(!isOn);
-            };
+            that.joinDate = cd.dateToShow(data.joinDate,'/',true);
+            that.selected = ko.observable(false);           
         }
 
         function Invite(data) {
@@ -218,7 +213,6 @@
         self.membersSectionVisible = ko.computed(function () {
             return self.score() >= consts.ADMINSCORE;
         });
-
         //#endregion
 
         //#region Invites
@@ -455,7 +449,7 @@
                     pointsListChildren = pointsList.children;
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
                     pointsListChildren[i].textContent = 0;
-                }            
+                }
 
                 var numAnim = new countUp(0, score, 2);
 
@@ -522,6 +516,7 @@
                 registerEvents();
 
                 function registerEvents() {
+                    var loader;
 
                     eById('upMembersSearch').onkeyup = function (e) {
                         var input = eById('upMembersSearch'),
@@ -567,7 +562,7 @@
                         cd.loadImages(membersList);
                     };
 
-                    var sTimeout, cTimeout; // for disable popup hide when user move to popup
+                    var sTimeout, cTimeout,currentItem,loading=false; // for disable popup hide when user move to popup
 
                     membersList.onscroll = function (e) {
                         if (sTimeout) {
@@ -576,6 +571,8 @@
                         hideBoxesPopup();
                         var count, list;
                         if (membersList.offsetHeight + membersList.scrollTop >= membersList.scrollHeight) {
+                            e.preventDefault();
+                            e.stopPropagation();
                             list = searchInProgress ? self.searchResultMembers() : self.members();
                             count = self.displayMembers().length;
                             self.displayMembers.push.apply(self.displayMembers, list.slice(count, count + consts.MAXMEMBERS));
@@ -585,14 +582,24 @@
 
                     $(membersList).off('mouseover').on('mouseover', 'button', function (e) {
                         var parent = this.parentElement;
+
                         while (parent.nodeName !== 'LI') {
                             parent = parent.parentElement;
                         }
+                        currentItem = parent;
+
+                        if (loading) {
+                            return;
+                        }
+                        loading = true;
                         var member = ko.dataFor(parent);
                         dataContext.getUpMemberBoxes({
                             data: { userId: member.id },
                             success: function (data) {
                                 data = data || {};
+                                if (currentItem !== parent) {
+                                    return;
+                                }
                                 if (!data.length) {
                                     data = [{ name: 'No Courses selected' }];
                                 }
@@ -600,6 +607,9 @@
                                     showMemberBoxList(e.target, data);
                                 }, 250);
 
+                            },
+                            always: function () {
+                                loading = false;
                             }
                         });
                     }).off('mouseleave').on('mouseleave', 'button', function (e) {
@@ -608,7 +618,7 @@
                         }
                         cTimeout = setTimeout(function () {
                             hideBoxesPopup();
-                        }, 500);
+                        }, 250);
                     });
 
                     $('.upMemberBoxes').off('mouseover').on('mouseover', function (e) {
@@ -622,45 +632,51 @@
                         }
                         hideBoxesPopup();
                     });
-                }
 
+                    eById('upMemberSettings').onchange = function (e) {
+                        var that = this;
+                        ko.utils.arrayForEach(self.members(), function (member) {
+                            member.selected(that.checked);
+                        });
 
-                eById('upMemberSettings').onchange = function (e) {
-                    var that = this;
-                    ko.utils.arrayForEach(self.members(), function (member) {
-                        member.selected(that.checked);
+                        toggleMessageBtn(that.checked);
+                    };
+
+                    $(membersList).find('.checkbox').change(function () {
+                        if ($(membersList).find('.checkbox:checked').length > 0) {
+                            toggleMessageBtn(true);
+                            return;
+                        }
+
+                        toggleMessageBtn(false);
                     });
 
-                    toggleMessageBtn(that.checked);
-                };
+                    eById('upMbrSetingsSndMsg').onclick = function () {
+                        var selected = [], allCbox = eById('upMemberSettings');
+                        loader = renderLoad(eById('upMembersList'));
+                        if (allCbox.checked) {
+                            var arr = searchInProgress ? self.searchResultMembers() : self.members();
+                            setTimeout(function () {
+                                pubsub.publish('message', { id: '', data: arr });
+                            }, 10);
+                            return;
+                        }
+                        var checkboxes = membersList.querySelectorAll('input:checked');
+                        for (var i = 0, l = checkboxes.length; i < l; i++) {
+                            selected.push(ko.dataFor(checkboxes[i]));
+                        }
+                        setTimeout(function () {
+                            pubsub.publish('message', { id: '', data: selected });
+                        }, 10);
 
-                $(membersList).find('.checkbox').change(function () {
-                    if ($(membersList).find('.checkbox:checked').length > 0) {
-                        toggleMessageBtn(true);
-                        return;
-                    }
 
-                    toggleMessageBtn(false);
-                });
-
-                eById('upMbrSetingsSndMsg').onclick = function () {
-                    var selected = [], allCbox = eById('upMemberSettings');
-                    if (allCbox.checked) {
-                        var arr = searchInProgress ? self.searchResultMembers() : self.members();
-                        pubsub.publish('message', { id: '', data: arr });
-                        return;
-                    }
-                    var checkboxes = membersList.querySelectorAll('input:checked');
-                    for (var i = 0, l = checkboxes.length; i < l; i++) {
-                        selected.push(ko.dataFor(checkboxes[i]));
-                    }
-                    pubsub.publish('message', { id: '', data: selected });
-
-                };
+                    };
+                }
             }
 
             function showMemberBoxList(target, boxes) {
-                var parent = memberBoxList.parentElement;
+                var parent = memberBoxList.parentElement,
+                    pos;
                 cd.appendData(memberBoxList, 'upMemberBoxItemTemplate', boxes, 'beforeend', true);
                 parent.style.display = 'block';
                 var pos = calculatePopupPosition();
@@ -671,7 +687,7 @@
                     return {
                         x: target.offsetLeft + target.offsetWidth / 2 - parent.offsetWidth / 2 + membersList.scrollLeft
                         ,// - left,
-                        y: target.offsetTop - parent.offsetHeight - 5 - membersList.scrollTop //10=margin
+                        y: target.offsetTop - target.offsetHeight - parent.offsetHeight - 5 - membersList.scrollTop //10=margin
                     }
                 }
             }

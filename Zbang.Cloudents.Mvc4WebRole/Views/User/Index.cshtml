@@ -57,7 +57,7 @@
                     <li class="memberItem">
                         <input type="checkbox" class="checkbox" data-bind="checked: selected,attr: {id : inputId}" />
                         <label for="" class="cbLabel memberCol" data-bind="attr: {for: inputId}">
-                            <img class="friendImg" alt="" data-bind="attr: { 'data-src': image }" width="34" height="34" />
+                            <img class="friendImg calloutTrgr" alt="" data-bind="attr: { 'data-src': image,'data-uid' : id }" width="34" height="34" />
                             <span class="upMemberName" data-bind="text: name"></span>
                         </label>
 
@@ -66,7 +66,12 @@
                         <button class="courseCol"><span class="courseList"></span></button>
                     </li>
                     <!--/ko-->
+                    <li class="upMemberBoxes">
+                        <div class="upMemberBoxesTitle semiFont">Courses List</div>
+                        <ul class="upMemberBoxList" id="upMemberBoxList"></ul>
+                    </li>
                 </ul>
+               
             </div>
         </section>
 
@@ -292,11 +297,7 @@
 
         </div>
 
-        <div class="upMemberBoxes">
-            <div class="upMemberBoxesTitle semiFont">Courses List</div>
-            <ul class="upMemberBoxList" id="upMemberBoxList">
-            </ul>
-        </div>
+    
     </div>
 </div>
 
