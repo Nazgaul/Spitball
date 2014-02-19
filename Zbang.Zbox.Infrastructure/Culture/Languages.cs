@@ -37,14 +37,14 @@ namespace Zbang.Zbox.Infrastructure.Culture
         {
             switch (countryPrefix.ToLower())
             {
-                case "il" :
+                case "il":
                     return new CultureInfo("he-IL");
                 default:
                     return new CultureInfo("en-US");
             }
 
         }
-       
+
 
         public static bool CheckIfLanguageIsSupported(string culture)
         {
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 return false;
             }
-            return SupportedCultures.Any(s => s.Culture.StartsWith(culture));
+            return SupportedCultures.Any(s => s.Culture.ToLower().StartsWith(culture.ToLower()));
         }
 
 

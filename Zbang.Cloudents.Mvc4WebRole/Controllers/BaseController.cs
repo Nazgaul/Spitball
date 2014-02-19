@@ -107,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
 
-        
+
 
         protected long GetUserId(bool isAuthorize = true)
         {
@@ -139,6 +139,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         ChangeThreadLanguage(userData.Language);
                         return;
                     }
+                }
+                if (Request.QueryString["lang"] != null)
+                {
+                    ChangeThreadLanguage(Request.QueryString["lang"]);
+                    return;
                 }
                 if (HttpContext.Request.Cookies["lang"] != null)
                 {
@@ -178,9 +183,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 try
                 {
                     CultureInfo cultureInfo = new CultureInfo(language);
-                    //CultureInfo.DefaultThreadCurrentCulture
-                    Thread.CurrentThread.CurrentUICulture = cultureInfo;
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+                    CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+                    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+                    //Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                    //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
                 }
                 catch (CultureNotFoundException)
                 {

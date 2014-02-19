@@ -400,8 +400,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
-        public async Task<ActionResult> Departments(long universityId)
+        public async Task<ActionResult> Departments()
         {
+            var userDetail = m_FormsAuthenticationService.GetUserData();
+            if (userDetail.Score < UserController.AdminReputation)
+            {
+                return this.CdJson(new JsonResponse(false));
+            }
+            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+
             var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
             return this.CdJson(new JsonResponse(true, retVal));
         }
