@@ -824,6 +824,12 @@
         .boxSizing;
         border-radius: 8px 8px 0 0;
     }
+    .memberItem{
+        padding: 5px 10px;
+        .boxSizing;
+        margin: 0;
+        height: 46px;
+    }
 }
 
 .memberTopRow {
@@ -860,6 +866,7 @@
 
 .memberCol, .deptCol, .dateCol, .courseCol {
     display: inline-block;
+    vertical-align: top;
     .boxSizing;
 }
 
@@ -878,10 +885,10 @@
 }
 
 .courseCol {
-    .courseList {
+    .courseList:before {
+        .pseudo;
         width: 16px;
         height: 10px;
-        display: block;
         background: @common-sprite -102px -88px no-repeat;
 
         &:hover {
@@ -892,6 +899,14 @@
 
 .deptPopup {
     display: none;
+
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:200px;
+    height:250px;
+    overflow:auto;
+    background-color:#fff;
 }
 
 .upMemberBoxes {
@@ -911,6 +926,10 @@
     height: 30px;
     line-height: 30px;
     border-bottom: 1px solid #e0e0e0;
+
+    background: #f5f5f5;
+    font-size: 13px;
+    color: @textColor;
 }
 
 .upMemberBoxList {
@@ -925,28 +944,13 @@
     }
 }
 
-.upMemberBoxesTitle {
-    background-color: #f5f5f5;
-    font-size: 13px;
-    color: @textColor;
-}
-
-.deptPopup{
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:200px;
-    height:250px;
-    overflow:auto;
-    background-color:#fff;
-}
-#upMembersList {
-    //overflow: hidden; //override js
-    //width: auto; //override js
+.upMembersList {
     height: 287px;
     padding: 0 10px;
     overflow:auto;
-    /*position:relative;*/
 }
-
+.upMemberName
+{
+    vertical-align: top;
+}
 /*#endregion*/

@@ -46,7 +46,7 @@
                     <span class="dateCol">Join Date</span>
                     <span class="courseCol">Courses</span>
                 </div>
-                <ul id="upMembersList">
+                <ul id="upMembersList" class="upMembersList">
                     <!--ko foreach:displayMembersFilter-->
                     <li class="memberItem">
                         <input type="checkbox" class="checkbox" data-bind="checked: selected,attr: {id : inputId}" />
@@ -57,7 +57,7 @@
 
                         <span class="deptCol" data-bind="text: department"></span>
                         <span class="dateCol" data-bind="text: joinDate"></span>
-                        <button class="courseCol"><span class="courseList"></span></button>
+                        <span class="courseCol"><span class="courseList"></span></span>
                     </li>
                     <!--/ko-->
                     <li class="upMemberBoxes">
