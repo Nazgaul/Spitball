@@ -119,7 +119,8 @@
         }
         catch (err) {
             console.log(err.message);
-        }        //using to put pop up dialog to with css target
+        }
+        //using to put pop up dialog to with css target
         var hash = location.hash.toLowerCase();
         if (hash.charAt(0) === '#') {
             hash = hash.substr(1);
