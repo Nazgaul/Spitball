@@ -51,6 +51,7 @@
     definition.universityPopUp = new definitionobj({ url: library + "NewUniversity", type: get });
     definition.universityEnterCode = new definitionobj({ url: library + "InsertCode", type: get });
     definition.newUniversity = new definitionobj({ url: library + "UniversityRequest" });
+    definition.depList = new definitionobj({ url: library + "Departments",type:get });
 
     definition.createDepartment = new definitionobj({ url: library + "Create"});
     definition.createAcademicBox = new definitionobj({ url: library + "CreateBox" });

@@ -21,7 +21,7 @@
             <h2>University members</h2>
             <div class="membersContent">
                 <div class="membersTop">
-                    <input id="upMemberSettings" type="checkbox" class="checkbox"  data-click="unSelected"/>
+                    <input id="upMemberSettings" type="checkbox" class="checkbox" data-click="unSelected" />
                     <label for="upMemberSettings" class="cbLabel">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.All</label>
                     <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                     <div class="searchWpr rFloat">
@@ -33,20 +33,14 @@
                     <span class="memberCol">Name</span>
                     <input type="checkbox" class="checkbox" id="cbDept" />
                     <label for="cbDept" class="deptCol">Department</label>
-                    <div class="deptPopup">
+                    <div id="deptPopup" class="deptPopup">
                         <ul>
+                            <!--ko foreach:departments-->
                             <li>
-                                <input type="checkbox" class="checkbox" />
-                                <label class="cbLabel" for="filter_1">test 1</label>
+                                <input type="checkbox" class="checkbox" data-bind="attr: { id: 'dep_' + id},checked: selected" />
+                                <label class="cbLabel" data-bind="attr: { for: 'dep_' + id},text:name"></label>
                             </li>
-                            <li>
-                                <input type="checkbox" class="checkbox" />
-                                <label class="cbLabel" for="filter_2">test 2</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checkbox" />
-                                <label class="cbLabel" for="filter_3">test 3</label>
-                            </li>
+                            <!--/ko-->
                         </ul>
                     </div>
                     <span class="dateCol">Join Date</span>
@@ -71,7 +65,7 @@
                         <ul class="upMemberBoxList" id="upMemberBoxList"></ul>
                     </li>
                 </ul>
-               
+
             </div>
         </section>
 
@@ -297,7 +291,7 @@
 
         </div>
 
-    
+
     </div>
 </div>
 

@@ -81,8 +81,18 @@
             that.name = data.name;
             that.image = data.image;
             that.department = data.department;
-            that.joinDate = cd.dateToShow(data.joinDate,'/',true);
-            that.selected = ko.observable(false);           
+            that.joinDate = cd.dateToShow(data.joinDate, '/', true);
+            that.selected = ko.observable(false);
+        }
+        function Department(data) {
+            var that = this;
+            that.id = data.id;
+            that.name = data.name;
+            that.year = data.year;
+            that.fullname = ko.computed(function () {
+                return that.name + ' ' + that.year;
+            });
+            that.selected = ko.observable(false);
         }
 
         function Invite(data) {
@@ -202,16 +212,34 @@
         //#endregion
 
         //#region Members Section
+        var searchInProgress = false;
+
         self.members = ko.observableArray();
 
-        self.displayMembers = ko.observableArray();
         self.searchResultMembers = ko.observableArray();
+
+        self.departments = ko.observableArray();
+
+        self.displayMembers = ko.observableArray();
+
         self.membersLength = ko.computed(function (e) {
             return self.members().length + ' ' + 'members';
         });
-        var searchInProgress = false;
         self.membersSectionVisible = ko.computed(function () {
             return self.score() >= consts.ADMINSCORE;
+        });
+
+        self.displayMembersFilter = ko.computed(function () {
+            var selected = self.departments().map(function (d) {
+                if (!d.selected()) {
+                    return d.fullname();
+                }
+            });
+            return ko.utils.arrayFilter(self.displayMembers(), function (m) {
+
+
+                return selected.indexOf(m.department) > -1;
+            });
         });
         //#endregion
 
@@ -489,15 +517,26 @@
         function getMembersData() {
             var membersList = eById('upMembersList'),
                 memberBoxList = eById('upMemberBoxList')
-            //   var loader = renderLoad(eById('upMembersSection'));
+            var loader = renderLoad(eById('upMembersList'));
             dataContext.getUpMembers({
                 success: function (data) {
                     populateMembers(data);
-                },
-                always: function () {
-                    //         loader();
                 }
+            }).done(function () {
+                dataContext.depList({
+                    data: { universityId: 920 },
+                    success: function (data) {
+                        var map = data.map(function (dep) {
+                            return new Department(dep);
+                        });
+                        self.departments(map);
+                    },
+                    always: function () {
+                        loader();
+                    }
+                });
             });
+
 
             function populateMembers(data) {
                 data = data || {};
@@ -562,7 +601,7 @@
                         cd.loadImages(membersList);
                     };
 
-                    var sTimeout, cTimeout,currentItem,loading=false; // for disable popup hide when user move to popup
+                    var sTimeout, cTimeout, currentItem, loading = false; // for disable popup hide when user move to popup
 
                     membersList.onscroll = function (e) {
                         if (sTimeout) {
@@ -670,6 +709,10 @@
                         }, 10);
 
 
+                    };
+
+                    document.getElementsByClassName('deptCol')[0].onclick = function () {
+                        $('#deptPopup').toggle();
                     };
                 }
             }
