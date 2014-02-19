@@ -189,8 +189,8 @@
 
                 //this can only be Netanya for now
                 if (nCode) {
-                    cd.analytics.trackEvent('Library Choose', 'Code', id);
-                    needCodePopUp(id);
+                    cd.analytics.trackEvent('Library Choose', 'Code', universityId);
+                    needCodePopUp(universityId);
                     return;
                 }
 
