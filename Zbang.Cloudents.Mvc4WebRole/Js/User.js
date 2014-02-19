@@ -230,11 +230,18 @@
         });
 
         self.displayMembersFilter = ko.computed(function () {
-            var selected = self.departments().map(function (d) {
-                if (!d.selected()) {
-                    return d.fullname();
+            var selected = [],current;
+            for (var i = 0, l = self.departments().length; i < l; i++) {
+                current = self.departments()[i];
+                if (current.selected()) {
+                    selected.push(current.fullname());
                 }
-            });
+
+            }            
+            if (!selected.length) {
+                return self.displayMembers();
+            }
+
             return ko.utils.arrayFilter(self.displayMembers(), function (m) {
 
 
