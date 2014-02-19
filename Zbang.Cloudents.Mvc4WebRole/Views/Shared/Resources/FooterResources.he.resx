@@ -123,6 +123,9 @@
   <data name="ContactUs" xml:space="preserve">
     <value>צור קשר</value>
   </data>
+  <data name="ogTitle" xml:space="preserve">
+    <value>וואיי איזה שרות של אגודת הסטודנטים. יש שם הכול שחזורים, סיכומים של סטודנטים מצטיינים,מאמרים.</value>
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>מדיניות פרטיות</value>
   </data>
