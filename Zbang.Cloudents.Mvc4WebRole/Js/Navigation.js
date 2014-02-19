@@ -118,7 +118,7 @@
             window.scrollTo(0, 1);
         }
         catch (err) {
-            console.log(err);
+            console.log(err.message);
         }        //using to put pop up dialog to with css target
         var hash = location.hash.toLowerCase();
         if (hash.charAt(0) === '#') {
@@ -486,7 +486,7 @@
             window.scrollTo(0, 0);
         }
         catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
         
         pubsub.publish(d[0].id.toLowerCase() + '_show');
