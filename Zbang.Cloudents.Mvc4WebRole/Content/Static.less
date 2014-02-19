@@ -801,8 +801,7 @@ footer{
     }
 }
 
-.popupWrppr
-{
+.popupWrppr {
     position: fixed;
     margin: 0 auto;
     right: 0;
@@ -814,15 +813,14 @@ footer{
     padding: 0 20px 18px;
     .boxSizing;
     color: @textColor;
-    .cancel
-	{
+
+    .cancel {
         margin-left: 10px; /*rtl*/
-	}
+    }
 
-	.animation(fadein);
+    .animation(fadein);
 
-    .closeDialog
-    {
+    .closeDialog {
         background-color: transparent;
         width: 11px;
         height: 11px;
@@ -831,128 +829,152 @@ footer{
         top: 14px;
         right: 20px; /*rtl*/
     }
-    .btn1, .btn2
-    {
+
+    .btn1, .btn2 {
         margin-top: 18px;
         //float: right; /*rtl*/
     }
-    .inputText
-    {
+
+    .inputText {
         height: 28px;
-		padding: 0 4px 0 8px; /*rtl*/
+        padding: 0 4px 0 8px; /*rtl*/
         .boxSizing;
         width: 100%;
     }
-    &.enterCode
-    {
+
+    &.enterCode {
         font-size: 13px;
         background: #faf9fa;
-        direction: rtl;// <-- <-- remove this when English is available
+        direction: rtl; // <-- <-- remove this when English is available
         padding: 0; //override other properties
-        text-align:right;
-        .popupHeader
-        {
+        text-align: right;
+
+        .popupHeader {
             .boxSizing;
             margin: 0 0 15px; //override other properties
         }
-        .closeDialog
-        {
+
+        .closeDialog {
             left: 20px; // <-- <-- remove this when English is available
             right: auto;
         }
-        .lFloat
-        {
+
+        .lFloat {
             float: left; // <-- <-- remove this when English is available
         }
-        .inputText
-        {
+
+        .inputText {
             width: 268px;
         }
-        label{
+
+        label {
             display: block;
             margin: 17px 0 0 0; //overide left margin
         }
-        form, .noCode{
+
+        form, .noCode {
             //padding: 0 19px 25px 9px; /*rtl*/// <-- use this when English is available
             padding: 0 9px 25px 19px;
             border-bottom: 1px solid #c7c7c7;
         }
-        .noCode
-        {
+
+        .noCode {
             clear: both;
             padding: 0 9px 25px 0;
             background: #e8e8e8;
             //padding: 0 0 25px 9px; /*rtl*//<-- use this when English is available
-            .boldFont
-            {
+            .boldFont {
                 font-size: 20px;
                 padding: 15px 0;
             }
-            span.boldFont
-            {
+
+            span.boldFont {
                 font-size: 16px;
-                padding:0; //override above padding
+                padding: 0; //override above padding
             }
         }
-        .btn1
-        {
+
+        .btn1 {
             width: 110px;
             //margin-left: 8px; /*rtl*/<-- use this when English is available
             margin: 0 8px 0 0; /*rtl*/
         }
-        .mailTo
-        {
+
+        .mailTo {
             color: @color;
             text-decoration: underline;
         }
     }
-    &.addSchool
-    {
-        text-align: left; /*rtl*/
 
-        label
-        {
+    &.addSchool {
+        text-align: left; /*rtl*/
+        label {
             color: @color;
             font-size: 15px;
             display: inline-block;
         }
-        .inputText
-        {
+
+        .inputText {
             display: block;
-            &.schoolName
-            {
+
+            &.schoolName {
                 margin-bottom: 10px;
             }
         }
 
-        .country
-        {
+        .country {
             width: 261px;
             margin-right: 13px; /*rtl*/
         }
-        .schoolType
-        {
+
+        .schoolType {
             width: 230px;
-        }       
-        select
-        {
+        }
+
+        select {
             padding: 3px;
             font-size: 13px;
         }
     }
 
-    &.requestSent
-    {
+    &.requestSent {
         display: none;
         min-height: 0; // override poppwrrpr
-        
         .animation(fadein);
 
-        .closeDialog
-        {
+        .closeDialog {
             background-position: -79px -15px;
         }
     }
+    /*#region departmentChoose*/
+    &.departmentChoose {
+        width: 700px;
+
+        label {
+            display: block;
+            font-size: 15px;
+            color: #383838;
+            margin-bottom:8px;
+        }
+        select {
+            display: block;
+            font-size: 13px;
+            color:#383838;
+            width:50%;
+            padding: 3px 3px 5px 2px;
+            box-sizing: border-box;
+        }
+
+        #department{
+            width:100%;
+            margin-bottom:15px;
+        }
+        input {
+            font-size:13px;
+        }
+        
+    }
+    /*#endregion*/
 }
 
 .requestSentDiv

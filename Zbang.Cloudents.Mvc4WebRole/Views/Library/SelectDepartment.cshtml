@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Zbang.Zbox.ViewModel.DTOs.Library.DepartmentDto>
-<div data-popup="" title="">
-    <div class="popupWrppr">
-        <header class="popupHeader">bla bla bla bla</header>
+<div data-popup=""  >
+    <div class="popupWrppr departmentChoose" >
+        <header class="popupHeader">Воронежский институт высоких технологий</header>
         <button type="button" class="closeDialog"></button>
     
-        <label for="department">some jibrish</label>
+        <label for="department">Ваш раздел</label>
        
         <select id="department">
-            <option selected="selected">Please select</option>
+            <option class="placeholder" selected="selected">выберите раздел</option>
             @foreach (var item in Model.Select(s=>s.Name).Distinct())
             {
                 <option value="@item">@item</option>
@@ -17,10 +17,10 @@
 
         
         <label for="year">
-            adjoajsdlk
+            период обучения
         </label>
         <select id="year">
-            <option value="-1" selected="selected">Please select</option>
+            <option class="placeholder" value="-1" selected="selected">выберите период обучения</option>
           @foreach (var item in Model)
           {
               <option style="display:none;" value="@item.Id" data-department="@item.Name">@item.Year</option>

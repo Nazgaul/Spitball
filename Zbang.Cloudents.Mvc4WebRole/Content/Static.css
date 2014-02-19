@@ -49,6 +49,7 @@ footer {
   top: 0;
   right: -200px;
   /*rtl*/
+
   width: 200px;
   height: 100%;
   padding: 17px 12px 16px 12px;
@@ -58,6 +59,7 @@ footer {
   transition: all, 0.5s;
   text-align: left;
   /*rtl*/
+
   font-size: 14px;
   color: #fff;
   -webkit-box-sizing: border-box;
@@ -69,6 +71,7 @@ footer {
   top: 19px;
   right: 12px;
   /*rtl*/
+
   width: 10px;
   height: 10px;
   background: url(/Images/common15-sprite.png) -68px -15px no-repeat;
@@ -78,6 +81,7 @@ footer {
   display: inline-block;
   float: left;
   /*rtl*/
+
   clear: both;
   opacity: 0.35;
   margin-bottom: 10px;
@@ -129,15 +133,18 @@ footer {
 .headerWpr.menuOpen .headerActions {
   margin-right: 200px;
   /*rtl*/
+
 }
 .headerWpr.menuOpen .sideBar {
   right: 0;
   /*rtl*/
+
 }
 .headerSettings {
   display: inline-block;
   margin: 0 12px 0 8px;
   /*rtl*/
+
   width: 17px;
   height: 13px;
   background: url(/Images/dash13-sprite.png) -254px -28px no-repeat;
@@ -234,9 +241,11 @@ footer {
 .contactUs {
   direction: ltr;
   /*no rtl*/
+
   width: 645px;
   text-align: left;
   /*no rtl*/
+
 }
 .lastModified {
   font-size: 11px;
@@ -254,6 +263,7 @@ footer {
   background-color: #fff;
   padding: 0 4px 0 8px;
   /* rtl */
+
   height: 28px;
   color: #464646;
   border: 1px solid #c2c2c2;
@@ -269,6 +279,7 @@ footer {
   display: inline-block;
   text-align: left;
   /*rtl*/
+
 }
 .innerContent > .boldFont {
   margin-top: 40px;
@@ -343,6 +354,7 @@ footer {
 .firefox {
   padding: 0 40px 0 30px;
   /*rtl*/
+
 }
 .firefox:before {
   width: 66px;
@@ -398,6 +410,7 @@ footer {
   margin-top: 15px;
   text-align: left;
   /*rtl*/
+
   width: 290px;
   margin: 13px auto 0;
   font-size: 13px;
@@ -427,11 +440,13 @@ footer {
   cursor: pointer;
   padding: 5px 15px 9px 55px;
   /*rtl*/
+
   font-size: 17px;
   border-radius: 5px;
   position: relative;
   text-align: left;
   /*rtl*/
+
   display: inline-block;
   line-height: 25px;
   background: #3b5998;
@@ -453,6 +468,7 @@ footer {
   background: url(/Images/common15-sprite.png) -130px -1px no-repeat;
   left: 16px;
   /*rtl*/
+
 }
 .fbImg:after {
   content: '';
@@ -463,6 +479,7 @@ footer {
   height: 30px;
   left: 24px;
   /*rtl*/
+
   position: relative;
   top: -3px;
 }
@@ -470,6 +487,7 @@ footer {
 .register {
   text-align: left;
   /*rtl*/
+
   display: inline-block;
   width: 290px;
 }
@@ -510,6 +528,7 @@ footer {
   display: inline-block;
   text-align: left;
   /*rtl*/
+
   line-height: 15px;
 }
 .acceptTerms > a {
@@ -549,6 +568,7 @@ footer {
   font-size: 18px;
   padding-left: 25px;
   /*rtl*/
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -577,6 +597,7 @@ footer {
   border-color: #0f9d58 transparent transparent transparent;
   margin-left: 5px;
   /*rtl*/
+
   vertical-align: middle;
 }
 .countryList {
@@ -585,6 +606,7 @@ footer {
   display: none;
   z-index: 2;
   /*display: none;*/
+
   border: 1px solid #ddd;
   background: #fff;
 }
@@ -614,6 +636,7 @@ footer {
   position: absolute;
   left: 6px;
   /*rtl*/
+
   top: 22px;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -621,10 +644,12 @@ footer {
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
   /*rtl*/
+
 }
 .uniList {
   text-align: left;
   /*rtl*/
+
   max-height: 500px;
   width: 458px;
   margin: 20px 0 0 0;
@@ -649,6 +674,7 @@ footer {
   display: inline-block;
   padding: 13px 0 13px 8px;
   /*rtl*/
+
   width: 99%;
 }
 .uniList li:last-child {
@@ -676,6 +702,7 @@ footer {
   display: block;
   padding: 6px 5px 0 8px;
   /*rtl*/
+
   line-height: 19px;
 }
 .uniName {
@@ -693,6 +720,7 @@ footer {
   height: 11px;
   margin-right: 4px;
   /*rtl*/
+
   background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
 }
 .newUni .uniImg:before {
@@ -704,6 +732,7 @@ footer {
   background: url(/Images/misc-sprite.png) -16px -1px no-repeat;
   margin-left: 8px;
   /*rtl*/
+
 }
 .newUni .uniName,
 .newUni .uniImg {
@@ -732,6 +761,7 @@ footer {
 .popupForm .validation-summary-errors {
   margin-left: 15px;
   /*rtl*/
+
 }
 .popupWrppr {
   position: fixed;
@@ -751,10 +781,15 @@ footer {
   -moz-animation: fadein 0.5s 0 ease;
   -o-animation: fadein 0.5s 0 ease;
   animation: fadein 0.5s 0 ease;
+  /*#region departmentChoose*/
+
+  /*#endregion*/
+
 }
 .popupWrppr .cancel {
   margin-left: 10px;
   /*rtl*/
+
 }
 .popupWrppr .closeDialog {
   background-color: transparent;
@@ -765,6 +800,7 @@ footer {
   top: 14px;
   right: 20px;
   /*rtl*/
+
 }
 .popupWrppr .btn1,
 .popupWrppr .btn2 {
@@ -774,6 +810,7 @@ footer {
   height: 28px;
   padding: 0 4px 0 8px;
   /*rtl*/
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -828,6 +865,7 @@ footer {
   width: 110px;
   margin: 0 8px 0 0;
   /*rtl*/
+
 }
 .popupWrppr.enterCode .mailTo {
   color: #0f9d58;
@@ -836,6 +874,7 @@ footer {
 .popupWrppr.addSchool {
   text-align: left;
   /*rtl*/
+
 }
 .popupWrppr.addSchool label {
   color: #0f9d58;
@@ -852,6 +891,7 @@ footer {
   width: 261px;
   margin-right: 13px;
   /*rtl*/
+
 }
 .popupWrppr.addSchool .schoolType {
   width: 230px;
@@ -871,6 +911,30 @@ footer {
 .popupWrppr.requestSent .closeDialog {
   background-position: -79px -15px;
 }
+.popupWrppr.departmentChoose {
+  width: 700px;
+}
+.popupWrppr.departmentChoose label {
+  display: block;
+  font-size: 15px;
+  color: #383838;
+  margin-bottom: 8px;
+}
+.popupWrppr.departmentChoose select {
+  display: block;
+  font-size: 13px;
+  color: #383838;
+  width: 50%;
+  padding: 3px 3px 5px 2px;
+  box-sizing: border-box;
+}
+.popupWrppr.departmentChoose #department {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.popupWrppr.departmentChoose input {
+  font-size: 13px;
+}
 .requestSentDiv {
   font-size: 18px;
   padding-left: 18px;
@@ -882,6 +946,7 @@ footer {
   color: #0f9d58;
   font-size: 28px;
   /*diff rtl*/
+
   margin: 20px 0 15px;
   width: auto;
 }
@@ -926,9 +991,11 @@ footer {
   border-radius: 5px;
   margin: 59px 0 0 15px;
   /*rtl*/
+
   display: inline-block;
   padding: 17px 8px 0 69px;
   /*rtl*/
+
   background: #fff;
   position: relative;
   font-size: 15px;
@@ -943,12 +1010,14 @@ footer {
   position: absolute;
   left: 8px;
   /*rtl*/
+
   top: 7px;
 }
 .faq.staticPage {
   margin-top: -65px;
   text-align: left;
   /*rtl*/
+
   color: #383838;
   background: url(/Images/gray_jean80.png) repeat;
 }
@@ -999,6 +1068,7 @@ footer {
   font-size: 15px;
   padding: 0 18px 0 16px;
   /*rtl*/
+
   position: relative;
   color: #0371c8;
   cursor: pointer;
@@ -1014,12 +1084,14 @@ footer {
   position: absolute;
   right: 18px;
   /*rtl*/
+
   top: 25px;
   background: url(/Images/common15-sprite.png) -119px -49px no-repeat;
 }
 .answer {
   padding: 0 18px 0 16px;
   /*rtl*/
+
   max-height: 0;
   overflow: hidden;
   -webkit-transition: all 0.4s;
