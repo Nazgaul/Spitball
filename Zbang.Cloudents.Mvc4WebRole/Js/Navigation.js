@@ -114,8 +114,12 @@
     });
 
     window.onhashchange = function (e) {
-        window.scrollTo(0, 1);
-        //using to put pop up dialog to with css target
+        try {
+            window.scrollTo(0, 1);
+        }
+        catch (err) {
+            console.log(err);
+        }        //using to put pop up dialog to with css target
         var hash = location.hash.toLowerCase();
         if (hash.charAt(0) === '#') {
             hash = hash.substr(1);
@@ -478,7 +482,13 @@
         document.getElementById('mLoading').style.display = 'none';
         //$('#mLoading').hide();
 
-        window.scrollTo(0, 0);
+        try {
+            window.scrollTo(0, 0);
+        }
+        catch (err) {
+            console.log(err);
+        }
+        
         pubsub.publish(d[0].id.toLowerCase() + '_show');
     }
 
