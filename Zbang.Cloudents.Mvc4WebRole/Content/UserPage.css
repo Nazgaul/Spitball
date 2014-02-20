@@ -902,30 +902,33 @@
   z-index: 7;
   display: none;
   position: absolute;
-}
-.upMemberBoxes:before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 115px;
-  border-style: solid;
-  border-width: 10px 12px 0;
-  border-color: #c2c2c2 transparent;
-  display: block;
-  width: 0;
-  z-index: 0;
-}
-.upMemberBoxes:after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 115px;
-  border-style: solid;
-  border-width: 10px 12px 0;
-  border-color: #fff transparent;
-  display: block;
-  width: 0;
-  z-index: 1;
+  /*&:before
+    {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 115px;
+        border-style: solid;
+        border-width: 10px 12px 0;
+        border-color: @borderColor transparent;
+        display: block;
+        width: 0;
+        z-index: 0;
+    }
+    &:after
+    {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 115px;
+        border-style: solid;
+        border-width: 10px 12px 0;
+        border-color: #fff transparent;
+        display: block;
+        width: 0;
+        z-index: 1;
+    }*/
+
 }
 .upMemberBoxesTitle {
   padding-left: 10px;
