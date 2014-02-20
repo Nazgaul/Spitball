@@ -178,9 +178,11 @@
 
             //fetch more data
             $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    cPage++;
-                    getData(searchTerm);
+                if ($('#search').is(':visible')) {
+                    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                        cPage++;
+                        getData(searchTerm);
+                    }
                 }
             });
 

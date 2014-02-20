@@ -49,7 +49,7 @@
                          that.userid === cd.userDetail().nId);
                 });
             that.itemUrl = data.url + '?r=box';
-            that.sponsored = data.sponsored;
+            that.sponsored = data.sponsored || false;
             if (data.sponsored) {
                 document.getElementById('BoxItemList').classList.add('sponsored');
             }
@@ -111,6 +111,7 @@
             for (var i = 0, l = data.length; i < l; i++) {
                 mapped.push(new Item(data[i]));
             }
+            mapped.sort(sort);
             var tt = new TrackTiming('Box Items', 'Render time of items');
             tt.startTime();
             self.items(mapped);
@@ -118,7 +119,22 @@
             tt.endTime();
             tt.send();
             self.loadedAnimation(true);                       
-        }      
+        }
+
+        function sort(a, b) {
+            if (a.sponsored) {
+                return -1;
+            }
+            if (b.sponsored) {
+                return 1;
+            }
+            if (a.uid < b.uid) {
+                return 1
+            } else {
+                return -1;
+            }
+            return 0;
+        }
 
         //#region addItem
         self.addItem = function () {
@@ -138,6 +154,7 @@
                     return;
                 }
                 self.items.unshift(newItem);
+                self.items.sort(sort);
                 cd.pubsub.publish('clear_cache');
                 //self.loadedAnimation(true);
                 cd.loadImages(document.getElementById('BoxItemList'));
