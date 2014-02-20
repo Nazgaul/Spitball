@@ -825,10 +825,14 @@
         border-radius: 8px 8px 0 0;
     }
     .memberItem{
-        padding: 5px 10px;
+        //padding: 5px 0; //override
         .boxSizing;
-        margin: 0;
         height: 46px;
+        &:first-child
+        {
+            padding-top: 5px;
+            margin-top: 10px;
+        }
     }
 }
 
@@ -847,14 +851,14 @@
             height: 0;
             border-style: solid;
             border-width: 7px 5px 0 5px;
-            border-color: #37444c transparent transparent transparent;
+            border-color: #676767 transparent transparent transparent;
         }
 
         &:hover {
-            color: red;
+            color: #39434a;
 
             &:after {
-                border-color: red transparent transparent transparent;
+                border-color: #39434a transparent transparent transparent;
             }
         }
     }
@@ -872,6 +876,7 @@
 
 .memberCol {
     width: 304px;
+    padding-left: 8px;
 }
 
 .deptCol {
@@ -885,13 +890,18 @@
 }
 
 .courseCol {
-    .courseList:before {
-        .pseudo;
-        width: 16px;
-        height: 10px;
-        background: @common-sprite -102px -88px no-repeat;
-
-        &:hover {
+    width: 60px;
+    text-align: center;
+    .courseList {
+        &:before
+        {
+            .pseudo;
+            width: 16px;
+            height: 10px;
+            background: @common-sprite -102px -88px no-repeat;
+        }
+        
+        &:hover:before{
             background: @common-sprite -102px -102px no-repeat;
         }
     }
@@ -900,25 +910,91 @@
 .deptPopup {
     display: none;
 
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:200px;
-    height:250px;
-    overflow:auto;
-    background-color:#fff;
+    position: absolute;
+    top: 77px;
+    left: 336px;
+    width: 279px;
+    height: 241px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    .cbLabel.cbLabel {
+        padding: 0 5px 0 37px;
+        .boxSizing;
+        display: inline-block;
+        vertical-align: middle;
+        height: auto; //override;
+        &:before
+        {
+            position: absolute;
+            left: 10px;
+            top: 11px;
+            height: 18px;
+        }       
+    }
+    li{
+        height: 38px;
+        border-bottom: 1px solid @borderColor;
+        width: 100%;
+        line-height: 16px;
+        overflow: hidden;
+        position: relative;
+        &:hover
+        {
+            background: #f9f9f9;
+        }
+        &:last-child
+        {
+            border: none;
+        }
+        &:before
+        {
+            .pseudo;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -0.25em;
+        }
+    }
+
 }
 
 .upMemberBoxes {
     width: 240px;
     max-height: 247px;
-    background-color: #fff;
+    background: #fff;
     border: 1px solid @borderColor;
     border-radius: 5px;
     overflow: hidden;
     z-index: 7;
     display: none;
     position: absolute;
+    &:before
+    {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 115px;
+        border-style: solid;
+        border-width: 10px 12px 0;
+        border-color: @borderColor transparent;
+        display: block;
+        width: 0;
+        z-index: 0;
+    }
+    &:after
+    {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 115px;
+        border-style: solid;
+        border-width: 10px 12px 0;
+        border-color: #fff transparent;
+        display: block;
+        width: 0;
+        z-index: 1;
+    }
 }
 
 .upMemberBoxesTitle {
@@ -946,7 +1022,7 @@
 
 .upMembersList {
     height: 287px;
-    padding: 0 10px;
+    //padding: 0 10px;
     overflow:auto;
 }
 .upMemberName
