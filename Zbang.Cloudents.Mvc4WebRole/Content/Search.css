@@ -208,13 +208,16 @@
 }
 .sTabs {
   margin: 30px 0 32px;
+  /*button:after {
+        content: '(' attr(data-stab-count) ')';
+        display: inline-block;
+    }*/
 }
 .sTabs button:nth-child(2) {
   margin: 0 25px;
 }
-.sTabs button:after {
-  content: '(' attr(data-stab-count) ')';
-  display: inline-block;
+.sTabs button {
+  text-transform: capitalize;
 }
 .sTabs.sTab2 ~ .upArrow:before {
   left: 127px;

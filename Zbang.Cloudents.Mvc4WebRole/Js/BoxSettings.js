@@ -185,7 +185,7 @@
                     success: function () {
                         changeViewBoxSettings(false, true);
                         that.removeAttribute(CDISABLED);
-                        cd.storageWrapper.session.clear();
+                        cd.sessionStorageWrapper.clear();
                         cd.pubsub.publish('nav', '/');
 
                     }

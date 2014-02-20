@@ -79,7 +79,7 @@
             }
 
             var page = backData.url,split; //remove the first 
-            if (page.indexOf('dashboard') > -1 || page.indexOf('user') > -1) {
+            if (page.indexOf('dashboard') > -1 || page.indexOf('user') > -1 || page.indexOf('search') > -1) {
                 split = 0;
             } else { //library 
                 split = 1;
@@ -167,7 +167,7 @@
                     });
 
                 if (!cd.firstLoad) {
-                    document.title = '{0} | {1} | Cloudents'.format(self.name(), self.ownerName());
+                    cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
                 }
                 cd.pubsub.publish('box_load', self.boxid);
                 //cd.pubsub.publish('init_clipboard', $('#box_CL'));
