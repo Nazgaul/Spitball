@@ -135,8 +135,8 @@
             if (privateLocation.url === removeStartingSlash(location.pathname)) {
                 return;
             }
-            if (historyNav[historyNav.length - 2].url){
-                pubsub.publish('nav', historyNav[historyNav.length-2].url);
+            if (historyNav[historyNav.length - 2].url) {
+                pubsub.publish('nav', historyNav[historyNav.length - 2].url);
             }
         }
     };
@@ -532,15 +532,23 @@
                     }
                 }
             }
+
+            current = index || historyNav.length - 2;
+            if (current < 0) {
+                return;
+            }
+            if (historyNav[current].url.charAt(0) !== '/') {
+                historyNav[current].url = '/' + historyNav[current].url;
+            }
+            return historyNav[current];
         }
-        current = index || historyNav.length - 2;
-        if (current < 0) {
-            return;
+        if (type === 'item') {
+            if (historyNav[historyNav.length - 2].url.indexOf('search') > -1) {
+                return historyNav[historyNav.length - 2];
+            }
+
+            return false;
         }
-        if (historyNav[current].url.charAt(0) !== '/') {
-            historyNav[current].url = '/' + historyNav[current].url;
-        }
-        return historyNav[current];
     };
 
 

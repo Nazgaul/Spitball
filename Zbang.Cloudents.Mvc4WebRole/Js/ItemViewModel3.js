@@ -208,8 +208,7 @@
             .ownerId(data.ownerUid)
             .uniName(data.uniName)
             .update(cd.dateToShow(data.updateTime))
-            .itemName(data.nameWOExtension || data.name)
-            .boxurl(data.boxUrl).boxName(data.boxName)
+            .itemName(data.nameWOExtension || data.name)            
             .numberOfViews(data.numberOfViews || 1);
             blobName = data.blob;
             itemType = data.type;
@@ -225,6 +224,14 @@
             $.data($('#rateContainer')[0], 'fetchrate', true);
             //cd.pubsub.publish('init_clipboard', $('#item_CL'));
 
+            //back button
+            var prevData = cd.prevLinkData('item');
+            if (prevData) {
+                self.boxurl(prevData.url)
+                    .boxName(prevData.title.split(' | ')[0]); //takes search from Search | * | Cloudents
+            } else {
+                self.boxurl(data.boxUrl).boxName(data.boxName)
+            }
         }
         function checkDeleteAllow(userType) {
             if (userType < 2) {

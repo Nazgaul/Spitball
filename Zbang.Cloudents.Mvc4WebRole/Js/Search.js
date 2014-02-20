@@ -14,14 +14,14 @@
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-            sTabContent = eById('sTabContent'), isLoading = false,
+            sTabContent = eById('sTabContent'), isLoading = false,gSearch = eById('g_searchQ'),
             searchTerm, cPage = 0, currentTab = sTabCourses;
-            consts = {
-                COURSES: 'sTab1',
-                MATERIALS: 'sTab2',
-                MEMBERS: 'sTab3',
-                STABCOUNT: 'data-stab-count'
-            }
+        consts = {
+            COURSES: 'sTab1',
+            MATERIALS: 'sTab2',
+            MEMBERS: 'sTab3',
+            STABCOUNT: 'data-stab-count'
+        }
 
         function Course(data) {
             var self = this;
@@ -57,24 +57,34 @@
 
         pubsub.subscribe('search', function () {
             var currentPage = cd.getParameterFromUrl(0);
+         
             getData()
             registerEvents();
         });
 
         pubsub.subscribe('searchclear', function () {
-            clear();
+            clear(true);
         });
 
         function getData(term) {
             term = term || {}
             var initData = search.getAttribute('data-data');
 
+            if (searchTerm !== cd.getParameterByName('q')) {
+                clear(true);
+            }
+
             if (term.length) {
                 searchTerm = term;
             } else {
                 searchTerm = cd.getParameterByName('q');
             }
+            if (!cd.firstLoad) {
+                cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
+            }
+          
 
+ 
             if (initData) {
                 search.removeAttribute('data-data');
                 parseData(JSON.parse(initData));
@@ -84,9 +94,7 @@
                 pubsub.publish('search_load');
                 return;
             }
-            if (!cd.firstLoad) {
-                cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
-            }
+        
 
 
             var isFirstPage = cPage === 0;
@@ -98,6 +106,7 @@
             if (isLoading) {
                 return;
             }
+            
             isLoading = true;
             sSearchTerm.textContent = searchTerm;
             sTabResults.classList.add('searching');
@@ -107,20 +116,25 @@
                     data = data || {};
                     parseData(data);
                     if (cPage === 0) {
-                        setCurrentTab(sTabCourses);
+                        setCurrentTab(currentTab);
                     }
                 },
                 always: function () {
                     loader();
                     isLoading = false;
                     sTabContent.classList.remove('sLoading');
-                    sTabResults.classList.remove('searching');
+                    sTabResults.classList.remove('searching');            
                 }
             })
 
 
 
             function parseData(data) {
+
+                if (gSearch.value === '') {
+                    gSearch.value = searchTerm;
+                }
+
                 appendData();
 
 
@@ -130,7 +144,7 @@
                         members = mapData(Member, data.users),
                         otherMaterials = mapData(Material, data.otherItems),
                         otherMaterialsSplit = document.querySelector('.splitHR');
-                        toWipe = cPage === 0;
+                    toWipe = cPage === 0;
 
 
                     appendList(sCourseList, 'sCourseItemTemplate', courses, toWipe);
@@ -138,14 +152,14 @@
                     appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);
                     if (otherMaterials.length > 0) {
                         otherMaterialsSplit.style.display = 'block';
-                    appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
+                        appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
                     } else {
                         otherMaterialsSplit.style.display = 'none';
                     }
 
                     setNumbersAndText();
                     var length = parseNumber(currentTab);
-                    sTabResults.setAttribute('data-resultcount', length % 50 === 0 ? length + '+' : length);
+                    sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
                     pubsub.publish('search_load');
 
                     function mapData(dataType, arr) {
@@ -189,27 +203,18 @@
         function registerEvents() {
             //tab switch
             $(tabsContainer).on('click', 'button', function (e) {
+                if (isLoading) {
+                    return;
+                }
                 setCurrentTab(this);
                 var length = parseNumber(this);
-                sTabResults.setAttribute('data-resultcount', length % 50 === 0 ? length + '+' : length);
+                sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
             });
 
 
             //fetch more data
-            $(window).scroll(function () {
-                if ($('#search').is(':visible')) {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    var length = parseNumber(currentTab);
+            $(window).scroll(scrollEvent);
 
-                    if (length % 50 !== 0) {
-                        return;
-                    }
-                    cPage++;
-                    getData(searchTerm);
-
-                }
-                }
-            });
 
             $(sTabContent).on('click', '.inviteUserBtn', function (e) {
                 nameElement = this.previousElementSibling,
@@ -245,16 +250,20 @@
             cd.appendData(list, template, dataItems, 'beforeend', wipe);
         }
 
-        function clear() {
-            sTabCourses.textContent = 0;
-            sTabMaterials.textContent = 0;
-            sTabMembers.textContent = 0;
+        function clear(clearPage) {
+            sTabCourses.textContent = 'Courses (0)';
+            sTabMaterials.textContent = 'Materials (0)';
+            sTabMembers.textContent = 'Members (0)';
             sCourseList.innerHTML = '';
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
             sOtherMaterialList.innerHTML = '';
-            cPage = 0;
+            if (clearPage) {
+                cPage = 0;
+            }
             sTabContent.classList.remove('noResults');
+            $(window).off('scroll', scrollEvent);
+
         }
         function renderLoad(element, moreContent) {
             var cssLoader, imgLoader, loader;
@@ -274,11 +283,11 @@
             } else {
                 element.insertAdjacentHTML('beforeend', imgLoader);
             }
-            try { //show loader
-                window.scrollTo(0, document.body.scrollHeight);
-            } catch (err) {
-                console.log(err.message);
-            }
+            //try { //show loader
+            //    //window.scrollTo(0, document.body.scrollHeight);
+            //} catch (err) {
+            //    console.log(err.message);
+            //}
 
             $upLoader = $('.upLoader');
             $pageAnim = $('.pageAnim');
@@ -297,8 +306,28 @@
                 return parseInt(number[1]);
             } else {
                 return 0;
-                }
+            }
         }
+        function scrollEvent() {
+            if ($('#search').is(':visible')) {
+                if (isLoading) {
+                    return;
+                }
+
+                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    var length = parseNumber(currentTab);
+
+                    if (length % 50 !== 0) {
+                        return;
+                    }
+                    cPage++;
+                    console.log(cPage);
+                    getData(searchTerm);
+
+                }
+            }
+        };
+
 
     };
 

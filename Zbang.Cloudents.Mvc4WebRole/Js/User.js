@@ -27,18 +27,8 @@
             DATALABEL: 'data-label',
             ADMINSCORE: 1000000,
             MAXMEMBERS: 50
-        },
-        upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
-        courseShow = eById('coursesShow'), friendsShow = eById('friendsShow'),
-        invitesShow = eById('invitesShow'), filesCount = eById('filesCount'),
-        answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
-        upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
-        upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
-        memberBoxList = eById('upMemberBoxList'), upMemberSearch = eById('upMembersSearch'),
-        upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
-        upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
-        upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
-        answersSection = eById('answersSection'), filesSection = eById('filesSection');
+        };
+   
 
 
     cd.loadModel('user', 'UserContext', registerKOUser);
@@ -49,6 +39,18 @@
 
 
     function UserViewModel() {
+       var upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
+           courseShow = eById('coursesShow'), friendsShow = eById('friendsShow'),
+           invitesShow = eById('invitesShow'), filesCount = eById('filesCount'),
+           answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
+           upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
+           upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
+           memberBoxList = eById('upMemberBoxList'), upMemberSearch = eById('upMembersSearch'),
+           upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
+           upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
+           upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
+           answersSection = eById('answersSection'), filesSection = eById('filesSection');
+
         var self = this;
 
         //#region Models
@@ -365,12 +367,13 @@
         //#endregion 
 
         pubsub.subscribe('user', function (data) {
-            clear();
+            
             self.userId(parseInt(cd.getParameterFromUrl(1), 10) || cd.userDetail().nId);
             getInitData();
         });
 
         pubsub.subscribe('userclear', function (data) {
+            clear();
         });
 
         function clear() {
@@ -431,7 +434,9 @@
             var user = document.getElementById('user'), firstTime = user.getAttribute('data-firstTime'), userScore;
 
             if (firstTime) {
-                var username = upUsername.textContent;
+                if (upUsername) {
+                    var username = upUsername.textContent;
+                }
                 user.removeAttribute('data-firstTime');
                 self.name(username);
                 userScore = parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10);
