@@ -3,18 +3,8 @@
         return;
     }
 
-    var eById = document.getElementById.bind(document);
-
-    cd.loadModel('user', 'UserContext', registerKOUser);
-
-    function registerKOUser() {
-        ko.applyBindings(new UserViewModel(), document.getElementById('user'));
-    }
-
-
-    function UserViewModel() {
-        var self = this;
-        var consts = {
+    var eById = document.getElementById.bind(document),
+        consts = {
             MAXFILES: 8,
             SHOWMOREFILES: 8,
             MAXQUESTIONS: 3,
@@ -37,7 +27,30 @@
             DATALABEL: 'data-label',
             ADMINSCORE: 1000000,
             MAXMEMBERS: 50
-        };
+        },
+        upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
+        courseShow = eById('coursesShow'), friendsShow = eById('friendsShow'),
+        invitesShow = eById('invitesShow'), filesCount = eById('filesCount'),
+        answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
+        upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
+        upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
+        memberBoxList = eById('upMemberBoxList'), upMemberSearch = eById('upMembersSearch'),
+        upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
+        upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
+        upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
+        answersSection = eById('answersSection'), filesSection = eById('filesSection');
+
+
+    cd.loadModel('user', 'UserContext', registerKOUser);
+
+    function registerKOUser() {
+        ko.applyBindings(new UserViewModel(), document.getElementById('user'));
+    }
+
+
+    function UserViewModel() {
+        var self = this;
+
         //#region Models
         function Profile(data) {
             var that = this;
@@ -230,14 +243,14 @@
         });
 
         self.displayMembersFilter = ko.computed(function () {
-            var selected = [],current;
+            var selected = [], current;
             for (var i = 0, l = self.departments().length; i < l; i++) {
                 current = self.departments()[i];
                 if (current.selected()) {
                     selected.push(current.fullname());
                 }
 
-            }            
+            }
             if (!selected.length) {
                 return self.displayMembers();
             }
@@ -265,7 +278,7 @@
         };
 
         self.inviteStatus = function (status) {
-            var dataItem = eById(consts.UPINVITELIST);
+            var dataItem = upInviteList;
             if (status === "Pending") {
                 return dataItem.getAttribute('data-up-pending');
             } else {
@@ -377,32 +390,32 @@
             .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
 
 
-            eById('upMemberSettings').checked = false;
+            upMemberSettings.checked = false;
 
             $('.upMemberBoxes').hide();
             $('.upTabContent').hide();
             $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
             $('#filesSection').show();
-            var cB = eById('coursesShow');
+            var cB = courseShow;
             if (cB) {
                 cB.checked = false;
             }
-            cB = eById('friendsShow');
+            cB = friendsShow;
 
             if (cB) {
                 cB.checked = false;
             }
-            cB = eById('invitesShow');
+            cB = invitesShow;
             if (cB) {
                 cB.checked = false;
             }
-            var f = eById('filesCount');
+            var f = filesCount
             f.textContent = '' + f.getAttribute(consts.DATALABEL);
 
-            f = eById('answersCount');
+            f = answersCount;
             f.textContent = '' + f.getAttribute(consts.DATALABEL);
 
-            f = eById('questionsCount');
+            f = questionsCount;
             f.textContent = '' + f.getAttribute(consts.DATALABEL);
         }
 
@@ -410,7 +423,7 @@
             var user = document.getElementById('user'), firstTime = user.getAttribute('data-firstTime'), userScore;
 
             if (firstTime) {
-                var username = eById('upUsername').textContent;
+                var username = upUsername.textContent;
                 user.removeAttribute('data-firstTime');
                 self.name(username);
                 userScore = parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10);
@@ -446,9 +459,9 @@
                 }
                 self.name(profile.name);
 
-                eById('upUsername').textContent = profile.name;
-                eById('upUserImg').src = profile.image;
-                eById('upUserSchool').textContent = profile.universityName;
+                upUsername.textContent = profile.name;
+                upUserImg.src = profile.image;
+                upUserSchool.textContent = profile.universityName;
                 if (profile.score < consts.ADMINSCORE) {
                     populateScore(profile.score);
                 }
@@ -461,8 +474,8 @@
             function registerEvents() {
                 var sendMessageBtn = eById('upSendMessage'),
                     accountSettingsBtn = eById('upAccountSettings'),
-                    userName = eById('upUsername').textContent,
-                    userImage = eById('upUserImg').src;
+                    userName = upUsername.textContent,
+                    userImage = upUserImg.src;
 
                 if (self.viewSelf()) {
                     accountSettingsBtn.onclick = function () {
@@ -522,9 +535,7 @@
         }
 
         function getMembersData() {
-            var membersList = eById('upMembersList'),
-                memberBoxList = eById('upMemberBoxList')
-            var loader = renderLoad(eById('upMembersList'));
+            var loader = renderLoad(membersList);
             dataContext.getUpMembers({
                 success: function (data) {
                     populateMembers(data);
@@ -563,7 +574,7 @@
                 function registerEvents() {
                     var loader;
 
-                    eById('upMembersSearch').onkeyup = function (e) {
+                    upMemberSearch.onkeyup = function (e) {
                         var input = eById('upMembersSearch'),
                             term;
 
@@ -678,7 +689,7 @@
                         hideBoxesPopup();
                     });
 
-                    eById('upMemberSettings').onchange = function (e) {
+                    upMemberSettings.onchange = function (e) {
                         var that = this;
                         ko.utils.arrayForEach(self.members(), function (member) {
                             member.selected(that.checked);
@@ -696,9 +707,9 @@
                         toggleMessageBtn(false);
                     });
 
-                    eById('upMbrSetingsSndMsg').onclick = function () {
-                        var selected = [], allCbox = eById('upMemberSettings');
-                        loader = renderLoad(eById('upMembersList'));
+                    upMbrSetingsSndMsg.onclick = function () {
+                        var selected = [], allCbox = upMemberSettings;
+                        
                         if (allCbox.checked) {
                             var arr = searchInProgress ? self.searchResultMembers() : self.members();
                             setTimeout(function () {
@@ -718,7 +729,7 @@
                     };
 
                     document.getElementsByClassName('deptCol')[0].onclick = function () {
-                        $('#deptPopup').toggle();
+                        $(deptPopup).toggle();
                     };
                 }
             }
@@ -745,12 +756,12 @@
             }
 
             function toggleMessageBtn(isOn) {
-                eById('upMbrSetingsSndMsg').style.display = isOn ? 'inline-block' : 'none';
+                upMbrSetingsSndMsg.style.display = isOn ? 'inline-block' : 'none';
             }
         }
 
         function getFriendsData() {
-            var loader = renderLoad(eById('upFriendsSection'));
+            var loader = renderLoad(upFriendsSection);
             dataContext.getFriends({
                 data: { userId: self.userId() },
                 success: function (data) {
@@ -772,18 +783,18 @@
                 result = filterObjects(data.my, data.user, Friend);
                 self.commonFriends(result.common);
                 self.allFriends(result.all);
-                cd.loadImages(eById('upFriendsSection'));
+                cd.loadImages(upFriendsSection);
                 var lengths = getFriendsLength(false);
                 setHeight(lengths.commonLength, lengths.allLength);
                 registerEvents();
 
                 function registerEvents() {
                     if (self.friendsShowAllVisible()) {
-                        eById('friendsShow').onchange = function (e) {
+                        friendsShow.onchange = function (e) {
                             if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {
                                 self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
-                                cd.loadImages(eById('upFriendsSection'));
+                                cd.loadImages(upFriendsSection);
                             }
 
                             lengths = getFriendsLength(this.checked);
@@ -815,7 +826,7 @@
         }
 
         function getBoxesData() {
-            var loader = renderLoad(eById('upCoursesSection'));
+            var loader = renderLoad(upCoursesSection);
             dataContext.getUserpageBoxes({
                 data: { userId: self.userId() },
                 success: function (data) {
@@ -833,7 +844,7 @@
                 result = filterBoxes(data);
                 self.commonBoxes(result.common);
                 self.followingBoxes(result.all);
-                cd.loadImages(eById('upCoursesSection'));
+                cd.loadImages(upCoursesSection);
                 var lengths = getBoxesLength(false);
                 setHeight(lengths.commonLength, lengths.followingLength);
 
@@ -860,12 +871,12 @@
 
                 function registerEvents() {
                     if (self.CoursesShowAllVisible()) {
-                        eById('coursesShow').onchange = function (e) {
+                        courseShow.onchange = function (e) {
 
                             if (self.maxCommonBoxes() < self.commonBoxes().length || self.maxFollowingBoxes() < self.followingBoxes().length) {
                                 self.maxCommonBoxes(self.commonBoxes().length);
                                 self.maxFollowingBoxes(self.followingBoxes().length);
-                                cd.loadImages(eById('upCoursesSection'));
+                                cd.loadImages(upCoursesSection);
                             }
 
                             lengths = getBoxesLength(this.checked);
@@ -905,7 +916,7 @@
         }
 
         function getInvitesData() {
-            var loader = renderLoad(eById('upInvitesSection'));
+            var loader = renderLoad(upInvitesSection);
             dataContext.getUserPageInvites({
                 success: function (data) {
                     self.invitesLoaded(true);
@@ -923,18 +934,18 @@
                 });
 
                 self.invites(map);
-                cd.loadImages(eById('upInvitesSection'));
+                cd.loadImages(upInvitesSection);
 
                 setHeight(getInvitesLength(false));
                 registerEvents();
 
                 function registerEvents() {
                     if (self.invitesShowAllVisible()) {
-                        eById('invitesShow').onchange = function (e) {
+                        invitesShow.onchange = function (e) {
 
                             if (self.maxInvites() < self.invites().length) {
                                 self.maxInvites(self.invites().length);
-                                cd.loadImages(eById('upInvitesSection'));
+                                cd.loadImages(upInvitesSection);
                             }
 
 
@@ -955,9 +966,7 @@
                 }
 
                 function setHeight(invitesLength) {
-                    setContainerHeight(
-                        eById(consts.UPINVITELIST),
-                            '.upInviteItem', invitesLength, consts.INVITESINROW);
+                    setContainerHeight(upInviteList, '.upInviteItem', invitesLength, consts.INVITESINROW);
                 }
 
             }
@@ -1002,15 +1011,15 @@
                 switch (this.id) {
                     case 'questionsCount':
                         $(consts.UPTABS).removeClass(consts.CUPTAB + '1 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '2')
-                        $('#questionsSection').show();
+                        $(questionsSection).show();
                         break;
                     case 'answersCount':
                         $(consts.UPTABS).removeClass(consts.CUPTAB + '1 ' + consts.CUPTAB + '2').addClass(consts.CUPTAB + '3')
-                        $('#answersSection').show();
+                        $(answersSection).show();
                         break;
                     default:
                         $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
-                        $('#filesSection').show();
+                        $(filesSection).show();
                 }
             });
         }

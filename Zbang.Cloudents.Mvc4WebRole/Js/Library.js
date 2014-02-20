@@ -156,7 +156,12 @@
         }
 
         function clearBoard() {
-            window.scrollTo(0, 0);
+            try {
+                window.scrollTo(0, 0);
+            }
+            catch(err) {
+                console.log(err.messsage);
+            }
             self.elements([]);
             $('#lib_NodeName').show().next('input').remove();
             paggingNeed = true;
