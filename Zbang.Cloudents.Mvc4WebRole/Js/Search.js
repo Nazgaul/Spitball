@@ -15,13 +15,13 @@
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
             sTabContent = eById('sTabContent'), isLoading = false,
-            searchTerm, cPage = 0;
-            consts = {
-                COURSES: 'sTab1',
-                MATERIALS: 'sTab2',
-                MEMBERS: 'sTab3',
-                STABCOUNT: 'data-stab-count'
-            }
+            searchTerm, cPage = 0, currentTab = sTabCourses;
+        consts = {
+            COURSES: 'sTab1',
+            MATERIALS: 'sTab2',
+            MEMBERS: 'sTab3',
+            STABCOUNT: 'data-stab-count'
+        }
 
         function Course(data) {
             var self = this;
@@ -56,7 +56,7 @@
 
 
         pubsub.subscribe('search', function () {
-            var currentPage = cd.getParameterFromUrl(1)
+            var currentPage = cd.getParameterFromUrl(0);
             getData()
             registerEvents();
         });
@@ -75,7 +75,6 @@
                 searchTerm = cd.getParameterByName('q');
             }
 
-
             if (initData) {
                 search.removeAttribute('data-data');
                 parseData(JSON.parse(initData));
@@ -84,6 +83,9 @@
                 }
                 pubsub.publish('search_load');
                 return;
+            }
+            if (!cd.firstLoad) {
+                cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
             }
 
 
@@ -127,15 +129,23 @@
                         materials = mapData(Material, data.items),
                         members = mapData(Member, data.users),
                         otherMaterials = mapData(Material, data.otherItems),
+                        otherMaterialsSplit = document.querySelector('.splitHR');
                         toWipe = cPage === 0;
 
 
                     appendList(sCourseList, 'sCourseItemTemplate', courses, toWipe);
                     appendList(sMaterialList, 'sMaterialItemTemplate', materials, toWipe);
                     appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);
-                    appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
+                    if (otherMaterials.length > 0) {
+                        otherMaterialsSplit.style.display = 'block';
+                        appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
+                    } else {
+                        otherMaterialsSplit.style.display = 'none';
+                    }
 
                     setNumbersAndText();
+                    var length = parseNumber(currentTab);
+                    sTabResults.setAttribute('data-resultcount', length % 50 === 0 ? length + '+' : length);
                     pubsub.publish('search_load');
 
                     function mapData(dataType, arr) {
@@ -150,19 +160,26 @@
                         });
                     };
                     function setNumbersAndText() {
+                        var length;
+
                         sSearchTerm.textContent = searchTerm;
 
-                        parseNumber(sTabCourses, courses.length);
-                        parseNumber(sTabMaterials, materials.length);
-                        parseNumber(sTabMembers, members.length);
 
-                        function parseNumber(e, length) {
-                            var number = parseInt(e.getAttribute(consts.STABCOUNT), 10);
-                            number += length;
+                        length = parseNumber(sTabCourses);
+                        applyText(sTabCourses, length, courses.length);
+
+                        length = parseNumber(sTabMaterials, materials.length);
+                        applyText(sTabMaterials, length, materials.length);
+
+                        length = parseNumber(sTabMembers, members.length);
+                        applyText(sTabMembers, length, members.length);
+
+                        function applyText(elm, currentLength, length) {
+                            currentLength += length;
                             if (length === 50) {
-                                number += '+';
+                                currentLength += '+';
                             }
-                            e.setAttribute(consts.STABCOUNT, number);
+                            elm.textContent = elm.getAttribute('data-type') + ' (' + currentLength + ')';
                         }
                     };
                 };
@@ -173,14 +190,22 @@
             //tab switch
             $(tabsContainer).on('click', 'button', function (e) {
                 setCurrentTab(this);
+                var length = parseNumber(this);
+                sTabResults.setAttribute('data-resultcount', length % 50 === 0 ? length + '+' : length);
             });
 
 
             //fetch more data
             $(window).scroll(function () {
                 if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    var length = parseNumber(currentTab);
+
+                    if (length % 50 !== 0) {
+                        return;
+                    }
                     cPage++;
                     getData(searchTerm);
+
                 }
             });
 
@@ -211,8 +236,7 @@
             }
 
             $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
-            sTabResults.setAttribute('data-resultcount', elm.getAttribute('data-stab-count'));
-
+            currentTab = $elm[0];
         }
 
         function appendList(list, template, dataItems, wipe) {
@@ -220,9 +244,9 @@
         }
 
         function clear() {
-            sTabCourses.setAttribute(consts.STABCOUNT, 0);
-            sTabMaterials.setAttribute(consts.STABCOUNT, 0);
-            sTabMembers.setAttribute(consts.STABCOUNT, 0);
+            sTabCourses.textContent = 0;
+            sTabMaterials.textContent = 0;
+            sTabMembers.textContent = 0;
             sCourseList.innerHTML = '';
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
@@ -248,14 +272,30 @@
             } else {
                 element.insertAdjacentHTML('beforeend', imgLoader);
             }
+            try { //show loader
+                window.scrollTo(0, document.body.scrollHeight);
+            } catch (err) {
+                console.log(err.message);
+            }
 
-            loader = element.querySelector('.upLoader') || element.querySelector('.pageAnim');
+            $upLoader = $('.upLoader');
+            $pageAnim = $('.pageAnim');
 
             return function () {
-                if ($(loader).parents('.sTabContent')) {
-                    element.removeChild(loader);
-                }
+                //if ($(loader).parents('.sTabContent')) {
+                $upLoader.remove();
+                $pageAnim.remove();
+                //}
             };
+        }
+        function parseNumber(e) {
+
+            var number = e.textContent.match(/\(([^)]+)\)/);
+            if (number) {
+                return parseInt(number[1]);
+            } else {
+                return 0;
+            }
         }
 
     };

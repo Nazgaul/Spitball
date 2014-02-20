@@ -230,11 +230,13 @@
     {
         margin: 0 25px;
     }  
-    button:after {
+    /*button:after {
         content: '(' attr(data-stab-count) ')';
         display: inline-block;
+    }*/
+    button {
+        text-transform:capitalize;
     }
-
     &.sTab2 {
         ~ .upArrow:before{
             left: 127px; /*rtl*/

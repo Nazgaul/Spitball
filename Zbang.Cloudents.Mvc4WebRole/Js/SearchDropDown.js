@@ -140,11 +140,11 @@
             hide();
             cd.historyManager.remove();
             formSubmitted = true;
-            var isSearchPage = cd.getParameterFromUrl(0).toLowerCase() === 'search';
-            if (isSearchPage) {
-                pubsub.publish('searchInput', input.value);
-                return;
-            }
+            //var isSearchPage = cd.getParameterFromUrl(0).toLowerCase() === 'search';
+            //if (isSearchPage) {
+                //pubsub.publish('searchInput', input.value);
+                //return;
+            //}
             pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
 
         };

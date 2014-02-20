@@ -10,7 +10,7 @@
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (items.indexOf(data.id) == -1 ) {
             items.push({Uid: data.id, Action: 1});
-            cd.storageWrapper.local.setItem(key, JSON.stringify(items));
+            cd.localStorageWrapper.setItem(key, JSON.stringify(items));
         }
 
     });
@@ -18,7 +18,8 @@
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (items.indexOf(data.id) == -1) {
             items.push({ Uid: data.id, Action: 2 });
-            cd.storageWrapper.local.setItem(key, JSON.stringify(items));
+            cd.localStorageWrapper.setItem(key, JSON.stringify(items));
+            
         }
     });
 

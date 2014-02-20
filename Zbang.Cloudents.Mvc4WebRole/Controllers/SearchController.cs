@@ -60,6 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
         public async Task<ActionResult> Data(string q, int page)
         {
+            System.Threading.Thread.Sleep(10000);
             if (string.IsNullOrWhiteSpace(q))
             {
                 return this.CdJson(new JsonResponse(false, "need query"));

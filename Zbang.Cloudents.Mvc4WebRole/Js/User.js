@@ -390,7 +390,9 @@
             .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
 
 
-            upMemberSettings.checked = false;
+            if (upMemberSettings) {
+                upMemberSettings.checked = false;
+            }
 
             $('.upMemberBoxes').hide();
             $('.upTabContent').hide();
@@ -409,14 +411,20 @@
             if (cB) {
                 cB.checked = false;
             }
-            var f = filesCount
-            f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            var f = filesCount;
+            if (f) {
+                f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            }
 
             f = answersCount;
-            f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            if (f) {
+                f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            }
 
             f = questionsCount;
-            f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            if (f) {
+                f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            }
         }
 
         function getInitData() {
@@ -431,7 +439,7 @@
                     populateScore(userScore);
                 }
                 if (!cd.firstLoad) {
-                    document.title = username + ' | Cloudents';
+                    cd.setTitle(username + ' | Cloudents');
                 }
                 self.score(userScore);
 
@@ -455,7 +463,7 @@
                 data = data || {};
                 var profile = new Profile(data);
                 if (!cd.firstLoad) {
-                    document.title = profile.name + ' | Cloudents';
+                    cd.setTitle(profile.name + ' | Cloudents');
                 }
                 self.name(profile.name);
 
@@ -709,7 +717,7 @@
 
                     upMbrSetingsSndMsg.onclick = function () {
                         var selected = [], allCbox = upMemberSettings;
-                        
+
                         if (allCbox.checked) {
                             var arr = searchInProgress ? self.searchResultMembers() : self.members();
                             setTimeout(function () {
