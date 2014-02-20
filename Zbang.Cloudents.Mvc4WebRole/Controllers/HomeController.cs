@@ -273,7 +273,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 nodes.Add(new SitemapNode(urlBuilder.BuildBoxUrl(box.Id, box.Name, box.UniversityName), requestContext));
             }
-            foreach (var item in seoItems.Items)
+            foreach (var item in seoItems.Items.Take(40000))
             {
                 nodes.Add(new SitemapNode(urlBuilder.buildItemUrl(item.BoxId, item.BoxName, item.Id, item.Name, item.UniversityName), requestContext));
             }

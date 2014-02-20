@@ -54,7 +54,7 @@
     where i.IsDeleted = 0
     and i.BoxId = :BoxId
     and (:TabId is null or i.ItemTabId = :TabId)
-    order by sponsored desc, i.itemid desc
+    order by i.itemid desc
     ]]>
   </sql-query>
 

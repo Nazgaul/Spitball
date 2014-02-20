@@ -16,17 +16,18 @@
 
 
     function UniversityChooseViewModel() {
-
+        "use strict";
         var currentCountryCode = sCountry.getAttribute('data-country');
 
 
         function University(data) {
             var that = this;
             data = data || {};
+            that.country = data.country;
+            that.membersCount = data.memberCount;
             that.name = data.name;
             that.image = data.image;
             that.id = data.uid;
-            that.membersCount = data.memberCount;
             that.nCode = data.needCode;
         }
 
@@ -37,29 +38,43 @@
             });
             $('.siteHeader').find('button').attr('disabled', 'disabled'); //no buttons ??
         }
-
+        var universities = [];
         populateData();
 
         registerEvents();
 
+        
+
         function populateData() {
 
-            var initData = JSON.parse(libraryChoose.getAttribute('data-data'));
-            if (initData) {
-                appendUniversities(initData);
-                sCountry.textContent = $(countryList).find('li[data-value="' + currentCountryCode + '"]').text();
-                libraryChoose.removeAttribute('data-data');
-                return;
-            }
-
-
+            universities = JSON.parse(libraryChoose.getAttribute('data-data'));
+            appendUniversities(universities);
+            sCountry.textContent = $(countryList).find('li[data-value="' + currentCountryCode + '"]').text();
+            libraryChoose.removeAttribute('data-data');
         }
+       
 
         function appendUniversities(data) {
             var mappeddata = $.map(data, function (i) { return new University(i); });
-
+            mappeddata.sort(sortArray);
             $('#uniList li:not(:last)').remove();
             cd.appendData(uniList, 'universityItemTemplate', mappeddata, 'afterbegin', false);
+        }
+
+        function sortArray(a, b) {
+            if (a.country === currentCountryCode && b.country !== currentCountryCode) {
+                return -1;
+            }
+            if (a.country !== currentCountryCode && b.country === currentCountryCode) {
+                return 1;
+            }
+            if (a.membersCount > b.membersCount) {
+                return -1;
+            }
+            if (a.membersCount < b.membersCount) {
+                return 1;
+            }
+            return 0;
         }
 
 
@@ -73,12 +88,6 @@
             });
             $countryList.on('click', 'li', selectCountry);
 
-            //.on('focus', 'li', function () {
-            //    $(this).addClass('focus');
-            //})
-            //.on('blur', 'li', function () {
-            //    $(this).removeClass('focus');
-            //});
             $(uniList).on('click', 'li:not(:last)', selectUniversity);
             $('.newUni').click(newUniversity);
 
@@ -106,18 +115,17 @@
                 if (currentCountryCode === countryCode) {
                     return;
                 }
-                var loader = cd.renderLoading($(uniList));
                 currentCountryCode = countryCode;
 
                 sCountry.textContent = e.target.textContent;
-
-                dataContext.university({
-                    data: { country: countryCode },
-                    success: function (data) {
-                        appendUniversities(data);
-                        loader();
-                    }
-                });
+                appendUniversities(universities);
+                //dataContext.university({
+                //    data: { country: countryCode },
+                //    success: function (data) {
+                //        appendUniversities(data);
+                //        loader();
+                //    }
+                //});
             }
 
             function newUniversity(e) {
@@ -285,10 +293,11 @@
                     }
                 }
                 if (term === '') {
-                    $('.uniName').not(':last').parents('li').show()
+                    $('#uniList').hide();
+                    // $('.uniName').not(':last').parents('li').show()
                     return;
                 }
-
+                $('#uniList').show();
                 cd.analytics.trackEvent('Library Choose', 'Search', term);
 
                 $('.uniName').not(':last').each(function () {

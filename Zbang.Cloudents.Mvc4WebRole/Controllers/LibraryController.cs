@@ -109,7 +109,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var country = GetUserCountryByIP();
 
-            var query = new GetUniversityByPrefixQuery(GetUserId(), 0, string.Empty, country);
+            var query = new GetUniversityByPrefixQuery();
             var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
 
             var haveUniversity = false;
@@ -119,7 +119,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 haveUniversity = true;
             }
             JsonNetSerializer serializer = new JsonNetSerializer();
-            ViewBag.data = serializer.Serialize(result);
+            ViewBag.data = serializer.Serialize(result.OrderByDescending(o => o.MemberCount));
             //result;
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
@@ -320,22 +320,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        [Ajax]
-        [ActionName("University")]
-        [AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
-        [OutputCache(Duration = TimeConsts.Minute * 20, VaryByParam = "term;country;page", Location = OutputCacheLocation.Server)]
-        public async Task<ActionResult> UniversityList(string term, string country, int page = 0)
-        {
-            if (string.IsNullOrWhiteSpace(country))
-            {
-                country = GetUserCountryByIP();
-            }
-            var query = new GetUniversityByPrefixQuery(GetUserId(), page, term, country);
-            var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
-            //var result = m_ZboxReadService.GetUniversityByPrefix(query);
-            return this.CdJson(new JsonResponse(true, result));
-        }
+        //[HttpGet]
+        //[Ajax]
+        //[ActionName("University")]
+        //[AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
+        //[OutputCache(Duration = TimeConsts.Minute * 20, VaryByParam = "term;country;page", Location = OutputCacheLocation.Server)]
+        //public async Task<ActionResult> UniversityList(string term, string country, int page = 0)
+        //{
+        //    if (string.IsNullOrWhiteSpace(country))
+        //    {
+        //        country = GetUserCountryByIP();
+        //    }
+        //    var query = new GetUniversityByPrefixQuery(GetUserId(), page, term, country);
+        //    var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
+        //    //var result = m_ZboxReadService.GetUniversityByPrefix(query);
+        //    return this.CdJson(new JsonResponse(true, result));
+        //}
 
 
 

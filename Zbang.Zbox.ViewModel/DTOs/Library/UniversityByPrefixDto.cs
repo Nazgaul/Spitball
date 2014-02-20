@@ -13,5 +13,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Library
 
         public bool NeedCode { get; private set; }
         public long MemberCount { get; private set; }
+
+        public string Country { get; set; }
     }
 }

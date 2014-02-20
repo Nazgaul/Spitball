@@ -16,12 +16,12 @@
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
             sTabContent = eById('sTabContent'), isLoading = false,
             searchTerm, cPage = 0, currentTab = sTabCourses;
-        consts = {
-            COURSES: 'sTab1',
-            MATERIALS: 'sTab2',
-            MEMBERS: 'sTab3',
-            STABCOUNT: 'data-stab-count'
-        }
+            consts = {
+                COURSES: 'sTab1',
+                MATERIALS: 'sTab2',
+                MEMBERS: 'sTab3',
+                STABCOUNT: 'data-stab-count'
+            }
 
         function Course(data) {
             var self = this;
@@ -138,7 +138,7 @@
                     appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);
                     if (otherMaterials.length > 0) {
                         otherMaterialsSplit.style.display = 'block';
-                        appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
+                    appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
                     } else {
                         otherMaterialsSplit.style.display = 'none';
                     }
@@ -197,6 +197,7 @@
 
             //fetch more data
             $(window).scroll(function () {
+                if ($('#search').is(':visible')) {
                 if ($(window).scrollTop() + $(window).height() == $(document).height()) {
                     var length = parseNumber(currentTab);
 
@@ -206,6 +207,7 @@
                     cPage++;
                     getData(searchTerm);
 
+                }
                 }
             });
 
@@ -295,7 +297,7 @@
                 return parseInt(number[1]);
             } else {
                 return 0;
-            }
+                }
         }
 
     };

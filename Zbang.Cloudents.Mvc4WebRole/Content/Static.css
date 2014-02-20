@@ -658,6 +658,7 @@ footer {
   overflow-y: auto;
   background: #fff;
   box-shadow: 0 1px 1px rgba(17, 17, 17, 0.5);
+  display: none;
 }
 .uniList li {
   color: #43392b;
@@ -913,6 +914,7 @@ footer {
 }
 .popupWrppr.departmentChoose {
   width: 700px;
+  z-index: 12;
 }
 .popupWrppr.departmentChoose label {
   display: block;
@@ -934,6 +936,9 @@ footer {
 }
 .popupWrppr.departmentChoose input {
   font-size: 13px;
+}
+.popupWrppr.departmentChoose .modal2 {
+  z-index: 11;
 }
 .requestSentDiv {
   font-size: 18px;

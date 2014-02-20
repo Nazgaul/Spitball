@@ -190,21 +190,24 @@
     0% {
         opacity:0;
         top: 38px;
-        left: ~'calc(50% - 112px)';
+        left: ~'-webkit-calc(50% - 112px)'; /*rtl*/
+        left: ~'calc(50% - 112px)'; /*rtl*/
         .scale(1);
     }
 
     19%, 90% {
         opacity:1;
         top: 53px;
-        left: ~'calc(50% - 112px)';
+        left: ~'-webkit-calc(50% - 112px)'; /*rtl*/
+        left: ~'calc(50% - 112px)'; /*rtl*/
         .scale(1);
     }
 
     100% {
         opacity:0;
         top: 38px;
-        left: ~'calc(100% - 200px)';
+        left: ~'-webkit-calc(100% - 200px)'; /*rtl*/
+        left: ~'calc(100% - 200px)'; /*rtl*/
         .scale(.6);
     }
 }

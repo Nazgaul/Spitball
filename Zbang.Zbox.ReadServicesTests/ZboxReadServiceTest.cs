@@ -269,7 +269,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUniversityListByPrefix_Query_ReturnResult()
         {
-            var query = new GetUniversityByPrefixQuery(1, 1, phrase, "il");
+            var query = new GetUniversityByPrefixQuery();
             try
             {
                 var x = m_ZboxReadService.GetUniversityListByPrefix(query).Result;

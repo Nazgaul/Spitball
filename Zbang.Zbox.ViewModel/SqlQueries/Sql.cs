@@ -10,11 +10,11 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
     {
         public const string GetUniversitiesList = @" select u.userid as Uid , 
                         coalesce(AliasName,userName) as Name,
-                        u.userimage as Image,u.NeedCode as NeedCode,
+                        u.userimage as Image,u.NeedCode as NeedCode, u.Country as Country,
                         (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
                         from zbox.users u 
                         where u.usertype = 1 
-                        and u.Country = @country
+                        --and u.Country = @country
                         order by MemberCount desc";
         public const string GetWallList = @"select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action, universityname as uniName
                                     from (	 
