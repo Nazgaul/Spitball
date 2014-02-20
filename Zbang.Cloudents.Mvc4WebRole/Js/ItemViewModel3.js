@@ -399,6 +399,7 @@
                     mywindow.close();
                 };
                 trackEvent('Print');
+                $('#itemPrint').prop('checked', false)
             }
             $('#Otakim_P').click(function () {
                 if (!cd.register()) {

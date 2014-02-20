@@ -12,7 +12,7 @@
     @Html.ValidationMessageFor(model => model.NewUserName, null)
     @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", autofocus = "autofocus", tabindex = 10 })
 
-    @Html.LabelFor(model => model.NewEmail, new { @class = "accntLabel" }) <small class="small">@RegisterResources.WillBeLogin</small>
+    @Html.LabelFor(model => model.NewEmail, new { @class = "accntLabel" })<text>&nbsp;</text><small class="small">@RegisterResources.WillBeLogin</small>
     @Html.ValidationMessageFor(model => model.NewEmail, null)
     @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 11 })
 
