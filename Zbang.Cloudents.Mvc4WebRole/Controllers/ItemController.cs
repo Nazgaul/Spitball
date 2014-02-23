@@ -286,7 +286,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new ChangeFileNameCommand(itemId, newFileName, userId);
                 var result = m_ZboxWriteService.ChangeFileName(command);
-                return Json(new JsonResponse(true, Path.GetFileNameWithoutExtension(result.File.Name)));
+                var urlBuilder = new UrlBuilder(HttpContext);
+                return Json(new JsonResponse(true, new
+                {
+                    name = Path.GetFileNameWithoutExtension(result.File.Name),
+                    queryString = UrlBuilder.NameToQueryString(result.File.Name)
+                }));
             }
 
             catch (UnauthorizedAccessException)
