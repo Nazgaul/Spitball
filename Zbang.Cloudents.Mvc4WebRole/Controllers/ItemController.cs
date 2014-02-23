@@ -333,7 +333,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (otakim)
                 {
-                    var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(filedto.Blob, 60);
+                    var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);
                     var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name, Zbang.Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
                     return Redirect(url);
                 }

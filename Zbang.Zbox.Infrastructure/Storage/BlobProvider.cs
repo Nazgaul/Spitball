@@ -146,13 +146,10 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
 
 
-        public string GenerateSharedAccressReadPermissionInStorage(string blobName, double experationTimeInMinutes)
+        public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes)
         {
-            Uri u;
-            if (Uri.TryCreate(blobName, UriKind.RelativeOrAbsolute, out u))
-            {
-                blobName = u.Segments[u.Segments.Length - 1];
-            }
+            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            
             
             var blob = GetFile(blobName);
             //try

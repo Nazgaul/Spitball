@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 return new PreviewResult { ViewName = "MediaLoading" };
                 //return new PreviewResult(ContentNotReady);
             }
-            var url = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobName, 600);
+            var url = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 600);
             return new PreviewResult(string.Format(ContentFormat, url));
 
         }
