@@ -543,10 +543,14 @@
             return historyNav[current];
         }
         if (type === 'item') {
-            if (historyNav[historyNav.length - 2].url.indexOf('search') > -1) {
-                return historyNav[historyNav.length - 2];
-            }
+            var backItem = historyNav[historyNav.length - 2];
+            if (backItem) {
+                if (backItem.url.indexOf('search') > -1) {
+                    return backItem;
+                }
 
+                return false;
+            }
             return false;
         }
     };

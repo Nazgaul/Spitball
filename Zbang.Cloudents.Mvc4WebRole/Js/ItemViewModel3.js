@@ -193,7 +193,7 @@
                     cd.pubsub.publish('nav', self.boxurl());
                 }
             });
-           
+
         }
         function changeLayout(data) {
 
@@ -208,7 +208,7 @@
             .ownerId(data.ownerUid)
             .uniName(data.uniName)
             .update(cd.dateToShow(data.updateTime))
-            .itemName(data.nameWOExtension || data.name)            
+            .itemName(data.nameWOExtension || data.name)
             .numberOfViews(data.numberOfViews || 1);
             blobName = data.blob;
             itemType = data.type;
@@ -328,10 +328,14 @@
                     dataContext.renameItem({
                         data: { newFileName: fileName, ItemId: self.itemid() },
                         success: function (data) {
-                            self.itemName(data);
-                            self.copyLink(data);
+                            self.itemName(data.queryString);
+                            var location = self.copyLink().substring(0, self.copyLink().length - 1),
+                    location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
+                            self.copyLink(location);
                             if (window.history) {
-                                window.history.replaceState(data, '', data);
+                                cd.historyManager.remove();
+
+                                window.history.replaceState(location, '', location);
                             }
                             d.finish();
                         },

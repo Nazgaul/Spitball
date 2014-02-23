@@ -124,7 +124,8 @@
                 dataContext.updateBoxInfo({
                     data: data,
                     success: function (data) {
-                        pubsub.publish('updateBoxUrl', data);
+                        pubsub.publish('updateBoxUrl', data.queryString);
+                        
                     }
                     //error: function (e) {
                     //    cd.displayErrors(self, e);
