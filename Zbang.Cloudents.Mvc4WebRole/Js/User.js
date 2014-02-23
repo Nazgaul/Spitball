@@ -503,7 +503,6 @@
             }
 
             function populateScore(score) {
-)
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children,
                     statusPoints = eById('userPts').textContent;

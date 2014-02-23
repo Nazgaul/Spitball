@@ -69,6 +69,7 @@
 
             if (!input.value.length) {
                 currentValue = '';
+                lastInput = '';
                 hide(true);
                 return;
             }
@@ -119,7 +120,7 @@
                 input.focus();
                 return;
             }
-            input.value = currentValue = '';
+            input.value = currentValue = lastInput = '';
             cd.historyManager.remove();
             hide();
         };
@@ -174,6 +175,7 @@
 
         pubsub.subscribe('searchclear', function () {
             input.value = '';
+            lastInput = '';
         });
 
     };
