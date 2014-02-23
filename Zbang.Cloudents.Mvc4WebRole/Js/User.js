@@ -39,16 +39,16 @@
 
 
     function UserViewModel() {
-       var upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
-            filesCount = eById('filesCount'),
-           answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
-           upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
-           upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
-           memberBoxList = eById('upMemberBoxList'), upMemberSearch = eById('upMembersSearch'),
-           upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
-           upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
-           upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
-           answersSection = eById('answersSection'), filesSection = eById('filesSection');
+        var upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
+             filesCount = eById('filesCount'),
+            answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
+            upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
+            upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
+            memberBoxList = eById('upMemberBoxList'), upMemberSearch = eById('upMembersSearch'),
+            upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
+            upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
+            upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
+            answersSection = eById('answersSection'), filesSection = eById('filesSection');
 
         var self = this;
 
@@ -366,7 +366,7 @@
         //#endregion 
 
         pubsub.subscribe('user', function (data) {
-            
+            clear();
             self.userId(parseInt(cd.getParameterFromUrl(1), 10) || cd.userDetail().nId);
             getInitData();
         });
@@ -503,10 +503,14 @@
             }
 
             function populateScore(score) {
-
-
+)
                 var pointsList = eById('pointsList'),
-                    pointsListChildren = pointsList.children;
+                    pointsListChildren = pointsList.children,
+                    statusPoints = eById('userPts').textContent;
+                if (statusPoints > score){
+                    score=statusPoints;
+                }
+
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
                     pointsListChildren[i].textContent = 0;
                 }
@@ -842,7 +846,7 @@
         }
 
         function getBoxesData() {            
-                loader = renderLoad(upCoursesSection);
+            loader = renderLoad(upCoursesSection);
             dataContext.getUserpageBoxes({
                 data: { userId: self.userId() },
                 success: function (data) {
