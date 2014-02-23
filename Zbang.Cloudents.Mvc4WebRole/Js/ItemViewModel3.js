@@ -56,7 +56,7 @@
             });
             that.nameNoType = ko.computed(function () {
                 var name = that.name;
-                return data.type === 'File' ? name.substring(0, name.indexOf('.')) : name;
+                return data.type === 'File' ? name.substring(0, name.lastIndexOf('.')) : name;
             });
             that.extension = getExtension(that.name, that.type);
             that.extensionColor = getExtensionColor(that.name, that.type);
