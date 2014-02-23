@@ -257,8 +257,6 @@
             }
 
             return ko.utils.arrayFilter(self.displayMembers(), function (m) {
-
-
                 return selected.indexOf(m.department) > -1;
             });
         });
