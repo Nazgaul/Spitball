@@ -240,7 +240,7 @@
             return self.members().length + ' ' + 'members';
         });
         self.membersSectionVisible = ko.computed(function () {
-            return self.score() >= consts.ADMINSCORE;
+            return self.score() >= consts.ADMINSCORE && self.viewSelf();
         });
 
         self.displayMembersFilter = ko.computed(function () {
