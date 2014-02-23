@@ -27,9 +27,9 @@
         function Course(data) {
             var self = this;
             self.image = data.image;
-            self.name = data.name;
-            self.proffessor = data.proffessor || '';
-            self.courseCode = data.courseCode || '';
+            self.name = cd.highlightSearch(searchTerm, data.name);
+            self.proffessor = cd.highlightSearch(searchTerm, data.proffessor) || '';
+            self.courseCode = cd.highlightSearch(searchTerm, data.courseCode) || '';
             self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
             self.url = data.url + '?r=search&s=courses'
         }
@@ -37,11 +37,11 @@
         function Material(data) {
             var self = this;
             self.image = data.image;
-            self.name = data.name;
+            self.name = cd.highlightSearch(searchTerm, data.name);
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
             self.universityName = data.universityname;
-            self.content = data.content || '';
+            self.content = cd.highlightSearch(searchTerm,data.content) || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
         }
@@ -49,7 +49,7 @@
         function Member(data) {
             var self = this;
             self.id = data.id;
-            self.name = data.name;
+            self.name = cd.highlightSearch(searchTerm, data.name);
             self.image = data.image;
             self.url = data.url + '?r=search&s=members';
 
@@ -329,7 +329,7 @@
             }
         };
 
-
+   
     };
 
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
