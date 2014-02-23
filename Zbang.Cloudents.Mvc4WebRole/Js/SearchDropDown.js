@@ -44,7 +44,7 @@
     }
     function Box(data) {
         var self = this;
-        self.image = data.image;
+        self.image = data.image || '/images/emptyState/my_default3.png';
         self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
         self.proffessor = cd.highlightSearch(input.value, data.proffessor) || data.proffessor || '';
         self.courseCode = cd.highlightSearch(input.value, data.courseCode) || data.courseCode || '';
