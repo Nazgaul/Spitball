@@ -123,6 +123,9 @@
   <data name="ContactUs" xml:space="preserve">
     <value>Свяжитесь с нами</value>
   </data>
+  <data name="ogTitle" xml:space="preserve">
+    <value>Проверьте Cloudents! Отличная академическая служба для нашей курсовой работы.</value>
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Политика конфиденциальности</value>
   </data>
