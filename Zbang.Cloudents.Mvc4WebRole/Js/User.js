@@ -40,8 +40,7 @@
 
     function UserViewModel() {
        var upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
-           courseShow = eById('coursesShow'), friendsShow = eById('friendsShow'),
-           invitesShow = eById('invitesShow'), filesCount = eById('filesCount'),
+            filesCount = eById('filesCount'),
            answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
            upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
            upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
@@ -401,16 +400,16 @@
             $('.upTabContent').hide();
             $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
             $('#filesSection').show();
-            var cB = courseShow;
+            var cB = eById('coursesShow');
             if (cB) {
                 cB.checked = false;
             }
-            cB = friendsShow;
+            cB = eById('friendsShow');
 
             if (cB) {
                 cB.checked = false;
             }
-            cB = invitesShow;
+            cB = eById('invitesShow');
             if (cB) {
                 cB.checked = false;
             }
@@ -777,7 +776,7 @@
             }
         }
 
-        function getFriendsData() {
+        function getFriendsData() {            
             var loader = renderLoad(upFriendsSection);
             dataContext.getFriends({
                 data: { userId: self.userId() },
@@ -807,7 +806,7 @@
 
                 function registerEvents() {
                     if (self.friendsShowAllVisible()) {
-                        friendsShow.onchange = function (e) {
+                        eById('friendsShow').onchange = function (e) {
                             if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {
                                 self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
@@ -842,8 +841,8 @@
             }
         }
 
-        function getBoxesData() {
-            var loader = renderLoad(upCoursesSection);
+        function getBoxesData() {            
+                loader = renderLoad(upCoursesSection);
             dataContext.getUserpageBoxes({
                 data: { userId: self.userId() },
                 success: function (data) {
@@ -888,7 +887,7 @@
 
                 function registerEvents() {
                     if (self.CoursesShowAllVisible()) {
-                        courseShow.onchange = function (e) {
+                        eById('coursesShow').onchange = function (e) {
 
                             if (self.maxCommonBoxes() < self.commonBoxes().length || self.maxFollowingBoxes() < self.followingBoxes().length) {
                                 self.maxCommonBoxes(self.commonBoxes().length);
@@ -932,7 +931,7 @@
 
         }
 
-        function getInvitesData() {
+        function getInvitesData() {            
             var loader = renderLoad(upInvitesSection);
             dataContext.getUserPageInvites({
                 success: function (data) {
@@ -958,7 +957,7 @@
 
                 function registerEvents() {
                     if (self.invitesShowAllVisible()) {
-                        invitesShow.onchange = function (e) {
+                        eById('invitesShow').onchange = function (e) {
 
                             if (self.maxInvites() < self.invites().length) {
                                 self.maxInvites(self.invites().length);
