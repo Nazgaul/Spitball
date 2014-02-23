@@ -54,9 +54,10 @@
 
             } else {
                 for (var i = 0, l = data.length; i < l; i++) {
-                    privateMethods.addEmail({ id: data[i].id, display: data[i].name }, true);
+                    privateMethods.addEmail({ id: data[i].id, name: data[i].name}, true);
                 }
-            }            
+            }
+            privateMethods.calculateInputWidth();
         },
         attemptValidate: function () {
             var inputElementValue = settings[sInputElement].value, contact,
@@ -202,7 +203,7 @@
                 inputElement.focus();
             }
 
-            privateMethods.calculateInputWidth();
+            //privateMethods.calculateInputWidth();
 
         },
         addEmailList: function (data) {
@@ -215,7 +216,7 @@
             cd.appendData(selectedList, 'multiUserEmailTemplate', object, beforeEnd, false);
             selectedList.onclick = privateMethods.removeEditEmailClick;
 
-            privateMethods.calculateInputWidth();
+            //privateMethods.calculateInputWidth();
 
         },
         findContact: function (input, output) {
