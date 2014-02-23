@@ -269,8 +269,10 @@
 
             if (dataItems.length && maxItems) {
                 list.previousElementSibling.style.display = 'block';
+                list.style.display = 'block';
             } else {
                 list.previousElementSibling.style.display = 'none';
+                list.style.display = 'none';
             }
 
             if (!dataItems.length) {
