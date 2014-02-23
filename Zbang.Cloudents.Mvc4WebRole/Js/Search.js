@@ -15,6 +15,7 @@
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
             sTabContent = eById('sTabContent'), isLoading = false, gSearch = eById('g_searchQ'),
+            otherMaterialsSplit = document.querySelector('.splitHR'),
             searchTerm, cPage = 0, currentTab = sTabCourses;
         consts = {
             COURSES: 'sTab1',
@@ -39,7 +40,7 @@
             self.name = data.name;
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
-            self.universityName = '&nbsp;';
+            self.universityName = data.universityname;
             self.content = data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
@@ -69,11 +70,7 @@
         function getData(term) {
             term = term || {}
             var initData = search.getAttribute('data-data');
-
-            if (searchTerm !== cd.getParameterByName('q')) {
-                clear(true);
-            }
-
+            
             if (term.length) {
                 searchTerm = term;
             } else {
@@ -98,15 +95,16 @@
 
 
             var isFirstPage = cPage === 0;
-            var loader = renderLoad(sTabContent, !isFirstPage);
-            if (isFirstPage) {
-                sTabContent.classList.add('sLoading');
-
-            }
+            
             if (isLoading) {
                 return;
             }
-
+            if (isFirstPage) {
+                clear(true);
+                sTabContent.classList.add('sLoading');
+            }
+            var loader = renderLoad(sTabContent, !isFirstPage);
+                        
             isLoading = true;
             sSearchTerm.textContent = searchTerm;
             sTabResults.classList.add('searching');
@@ -115,8 +113,9 @@
                 success: function (data) {
                     data = data || {};
                     parseData(data);
-                    if (cPage === 0) {
+                    if (isFirstPage) {
                         setCurrentTab(currentTab);
+                        return;
                     }
                 },
                 always: function () {
@@ -142,8 +141,8 @@
                     var courses = mapData(Course, data.boxes),
                         materials = mapData(Material, data.items),
                         members = mapData(Member, data.users),
-                        otherMaterials = mapData(Material, data.otherItems),
-                        otherMaterialsSplit = document.querySelector('.splitHR');
+                        otherMaterials = mapData(Material, data.otherItems);
+
                     toWipe = cPage === 0;
 
 
@@ -260,6 +259,7 @@
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
             sOtherMaterialList.innerHTML = '';
+            otherMaterialsSplit.style.display = 'none';
             if (clearPage) {
                 cPage = 0;
             }
@@ -311,7 +311,7 @@
             }
         }
         function scrollEvent() {
-            if ($('#search').is(':visible')) {
+            if ($(search).is(':visible')) {
                 if (isLoading) {
                     return;
                 }
@@ -322,8 +322,7 @@
                     if (length % 50 !== 0) {
                         return;
                     }
-                    cPage++;
-                    console.log(cPage);
+                    cPage++;                    
                     getData(searchTerm);
 
                 }
