@@ -26,7 +26,7 @@
 
         function Course(data) {
             var self = this;
-            self.image = data.image;
+            self.image = data.image || '/images/emptyState/my_default3.png';
             self.name = cd.highlightSearch(searchTerm, data.name) || data.name || '';
             self.proffessor = cd.highlightSearch(searchTerm, data.proffessor) || data.proffessor || '';
             self.courseCode = cd.highlightSearch(searchTerm, data.courseCode) || data.courseCode || '';
