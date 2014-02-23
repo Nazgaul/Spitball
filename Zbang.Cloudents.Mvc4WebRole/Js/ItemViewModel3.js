@@ -830,7 +830,7 @@
                         return;
                     }
                     var fdata = $form.serializeArray();
-                    fdata.push({ name: 'ItemUid', value: self.itemid() });
+                    fdata.push({ name: 'ItemId', value: self.itemid() });
                     dataContext.badItemRequest({
                         data: fdata,
                         success: function () {

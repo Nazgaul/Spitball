@@ -73,8 +73,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
         {
-           var blob =  base.GetBlobNameFromUri(blobUri);
-           var publicUrl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blob, 20);
+           var publicUrl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 20);
            return Task.FromResult<PreviewResult>(new PreviewResult(String.Format(ContentFormat, publicUrl)));
 
         }

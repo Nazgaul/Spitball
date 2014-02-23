@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hey, you should check out Cloudents! It&apos;s a great academic service for class notes, exams and studying together on our coursework..
+        ///   Looks up a localized string similar to Check out Cloudents! A great academic service for class notes, exams and doing our coursework....
         /// </summary>
         public static string ogTitle {
             get {

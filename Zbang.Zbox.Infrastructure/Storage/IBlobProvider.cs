@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData);
         Task<IDictionary<string, string>> FetechBlobMetaDataAsync(string blobName);
 
-        string GenerateSharedAccressReadPermissionInStorage(string blobName, double experationTimeInMinutes);
+        string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes);
 
 
         Task<Stream> GetFAQQeustion();

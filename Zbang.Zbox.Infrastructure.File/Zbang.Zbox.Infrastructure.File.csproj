@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioProcessor.cs" />
     <Compile Include="ContentProcessor.cs" />
     <Compile Include="ExcelProcessor.cs" />
     <Compile Include="HtmlProcessor.cs" />
