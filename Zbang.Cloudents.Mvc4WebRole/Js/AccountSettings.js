@@ -1,9 +1,8 @@
 ﻿(function (dataContext, $, ko, cd, ZboxResources, plupload, analytics) {
+    "use strict";
     if (window.scriptLoaded.isLoaded('as')) {
         return;
-    }
-
-    "use strict";    
+    }    
     cd.loadModel('account', 'AccountContext', function () {
         $('[data-navigation]').removeAttr('data-navigation'); // force postback        
         accountSettingsProfile();
@@ -11,7 +10,7 @@
         storage();
         notification();
         accountSettings();
-
+        document.title = "Account settings | Cloudents"
         //});
         cd.pubsub.subscribe('accountSettings_load', function () {
             //changetab();
