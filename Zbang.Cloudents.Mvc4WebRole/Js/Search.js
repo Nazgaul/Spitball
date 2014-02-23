@@ -27,9 +27,9 @@
         function Course(data) {
             var self = this;
             self.image = data.image;
-            self.name = cd.highlightSearch(searchTerm, data.name);
-            self.proffessor = cd.highlightSearch(searchTerm, data.proffessor) || '';
-            self.courseCode = cd.highlightSearch(searchTerm, data.courseCode) || '';
+            self.name = cd.highlightSearch(searchTerm, data.name) || data.name || '';
+            self.proffessor = cd.highlightSearch(searchTerm, data.proffessor) || data.proffessor || '';
+            self.courseCode = cd.highlightSearch(searchTerm, data.courseCode) || data.courseCode || '';
             self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
             self.url = data.url + '?r=search&s=courses'
         }
@@ -41,7 +41,7 @@
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
             self.universityName = data.universityname;
-            self.content = cd.highlightSearch(searchTerm,data.content) || '';
+            self.content = cd.highlightSearch(searchTerm, data.content) || data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
         }
@@ -49,7 +49,7 @@
         function Member(data) {
             var self = this;
             self.id = data.id;
-            self.name = cd.highlightSearch(searchTerm, data.name);
+            self.name = cd.highlightSearch(searchTerm, data.name) || data.name || '';
             self.image = data.image;
             self.url = data.url + '?r=search&s=members';
 
@@ -70,7 +70,7 @@
         function getData(term) {
             term = term || {}
             var initData = search.getAttribute('data-data');
-            
+
             if (term.length) {
                 searchTerm = term;
             } else {
@@ -95,7 +95,7 @@
 
 
             var isFirstPage = cPage === 0;
-            
+
             if (isLoading) {
                 return;
             }
@@ -104,7 +104,7 @@
                 sTabContent.classList.add('sLoading');
             }
             var loader = renderLoad(sTabContent, !isFirstPage);
-                        
+
             isLoading = true;
             sSearchTerm.textContent = searchTerm;
             sTabResults.classList.add('searching');
@@ -322,14 +322,14 @@
                     if (length % 50 !== 0) {
                         return;
                     }
-                    cPage++;                    
+                    cPage++;
                     getData(searchTerm);
 
                 }
             }
         };
 
-   
+
     };
 
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);

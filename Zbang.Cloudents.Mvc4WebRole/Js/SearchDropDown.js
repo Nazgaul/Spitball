@@ -30,7 +30,7 @@
     function Item(data) {
         var self = this;
         self.image = data.image;
-        self.name = cd.highlightSearch(input.value, data.name);
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
         self.boxName = data.boxname;
         self.url = data.url + consts.REF;
         self.universityName = '';
@@ -45,16 +45,16 @@
     function Box(data) {
         var self = this;
         self.image = data.image;
-        self.name = hightlightSearch(data.name);
-        self.proffessor = cd.highlightSearch(input.value, data.proffessor) || '';
-        self.courseCode = cd.highlightSearch(input.value, data.courseCode) || '';
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
+        self.proffessor = cd.highlightSearch(input.value, data.proffessor) || data.proffessor || '';
+        self.courseCode = cd.highlightSearch(input.value, data.courseCode) || data.courseCode || '';
         self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
         self.url = data.url + consts.REF;
     }
     function Member(data) {
         var self = this;
         self.image = data.image;
-        self.name = cd.highlightSearch(input.value, data.name);
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
         self.url = data.url + consts.REF;
     }
 
