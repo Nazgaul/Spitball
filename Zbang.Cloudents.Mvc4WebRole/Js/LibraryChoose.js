@@ -17,7 +17,7 @@
 
     function UniversityChooseViewModel() {
         "use strict";
-        var currentCountryCode = sCountry.getAttribute('data-country');
+        var currentCountryCode = libraryChoose.getAttribute('data-country');
 
 
         function University(data) {
@@ -49,7 +49,7 @@
 
             universities = JSON.parse(libraryChoose.getAttribute('data-data'));
             appendUniversities(universities);
-            sCountry.textContent = $(countryList).find('li[data-value="' + currentCountryCode + '"]').text();
+            //sCountry.textContent = $(countryList).find('li[data-value="' + currentCountryCode + '"]').text();
             libraryChoose.removeAttribute('data-data');
         }
        
@@ -79,54 +79,54 @@
 
 
         function registerEvents() {
-            var $countryList = $(countryList),
-                request2 = true, request = true, INPUT_TEXT = 'input[type=text]:first';
+            //var $countryList = $(countryList),
+              var  request2 = true, request = true, INPUT_TEXT = 'input[type=text]:first';
 
-            cd.menu(sCountry, countryList, function () {
-                var $innerListItem = $('[data-value="' + currentCountryCode + '"]');
-                scrollToElement($innerListItem);
-            });
-            $countryList.on('click', 'li', selectCountry);
+            //cd.menu(sCountry, countryList, function () {
+            //    var $innerListItem = $('[data-value="' + currentCountryCode + '"]');
+            //    scrollToElement($innerListItem);
+            //});
+            //$countryList.on('click', 'li', selectCountry);
 
             $(uniList).on('click', 'li:not(:last)', selectUniversity);
             $('.newUni').click(newUniversity);
 
             $(uniSearch).keyup(searchUniversity);
 
-            $(document).keydown(function (e) {
-                if (!$countryList.is(':visible')) {
-                    return;
-                }
+            //$(document).keydown(function (e) {
+            //    //if (!$countryList.is(':visible')) {
+            //    //    return;
+            //    //}
 
-                var s = String.fromCharCode(e.keyCode);
-                if (/[a-zA-Z]/.test(s))
-                    scrollToElement($countryList.find('li:startsWith("' + s + '")').first().focus());
-            });
+            //    //var s = String.fromCharCode(e.keyCode);
+            //    //if (/[a-zA-Z]/.test(s))
+            //    //    scrollToElement($countryList.find('li:startsWith("' + s + '")').first().focus());
+            //});
 
 
-            function scrollToElement(elem) {
-                $countryList.scrollTop($countryList.scrollTop() + elem.position().top - $countryList.height()
-                     - 45);//45 is the margin between the input and the list + the list item size
-            }
+            //function scrollToElement(elem) {
+            //    $countryList.scrollTop($countryList.scrollTop() + elem.position().top - $countryList.height()
+            //         - 45);//45 is the margin between the input and the list + the list item size
+            //}
 
-            function selectCountry(e) {
-                var countryCode = e.target.getAttribute('data-value');
+            //function selectCountry(e) {
+            //    var countryCode = e.target.getAttribute('data-value');
 
-                if (currentCountryCode === countryCode) {
-                    return;
-                }
-                currentCountryCode = countryCode;
+            //    if (currentCountryCode === countryCode) {
+            //        return;
+            //    }
+            //    currentCountryCode = countryCode;
 
-                sCountry.textContent = e.target.textContent;
-                appendUniversities(universities);
-                //dataContext.university({
-                //    data: { country: countryCode },
-                //    success: function (data) {
-                //        appendUniversities(data);
-                //        loader();
-                //    }
-                //});
-            }
+            //    sCountry.textContent = e.target.textContent;
+            //    appendUniversities(universities);
+            //    //dataContext.university({
+            //    //    data: { country: countryCode },
+            //    //    success: function (data) {
+            //    //        appendUniversities(data);
+            //    //        loader();
+            //    //    }
+            //    //});
+            //}
 
             function newUniversity(e) {
                 var target = e.target;
@@ -138,11 +138,14 @@
                         success: function (data) {
                             $(libraryChoose).append(data).find(INPUT_TEXT).focus();
                             registerPopEvent();
+                            eById('Name').value = uniSearch.value;
+
                         }
                     });
                 }
                 else {
                     $addSchoolDialog.show().find(INPUT_TEXT).focus();
+                    eById('Name').value = uniSearch.value;
                 }
 
                 function registerPopEvent() {

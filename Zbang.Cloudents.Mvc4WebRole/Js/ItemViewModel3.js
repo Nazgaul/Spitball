@@ -475,6 +475,10 @@
                 }
             });
             function prevItem() {
+                if (document.body.className.indexOf('fulscrn') === -1) {
+                    return;
+                }
+
                 trackEvent('fullscreenPrev');
                 $('#itemNext').removeClass(cDISABLED).removeAttr(cDISABLED);
                 var $item = $('.select').prev('li');
@@ -485,6 +489,10 @@
             }
 
             function nextItem() {
+                if (document.body.className.indexOf('fulscrn') === -1) {
+                    return;
+                }
+
                 trackEvent('fullscreenNext');
                 $('#itemPrev').removeClass(cDISABLED).removeAttr(cDISABLED);
 

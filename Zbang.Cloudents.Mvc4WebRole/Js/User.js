@@ -724,7 +724,7 @@
                         var selected = [], allCbox = upMemberSettings;
 
                         if (allCbox.checked) {
-                            var arr = searchInProgress ? self.searchResultMembers() : self.members();
+                            var arr = searchInProgress ? self.searchResultMembers() : self.members();                            
                             setTimeout(function () {
                                 pubsub.publish('message', { id: '', data: arr });
                             }, 10);
@@ -734,9 +734,13 @@
                         for (var i = 0, l = checkboxes.length; i < l; i++) {
                             selected.push(ko.dataFor(checkboxes[i]));
                         }
-                        setTimeout(function () {
+                        if (selected.length === 1) {
+                            pubsub.publish('message', { id: '', data: [{ id: selected[0].id, name: selected[0].name, userImage: selected[0].image }] });
+                        } else {
+                            //setTimeout(function () {
                             pubsub.publish('message', { id: '', data: selected });
-                        }, 10);
+                            //}, 10);
+                        }
 
 
                     };
