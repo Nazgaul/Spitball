@@ -14,7 +14,7 @@
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-            sTabContent = eById('sTabContent'), isLoading = false,gSearch = eById('g_searchQ'),
+            sTabContent = eById('sTabContent'), isLoading = false, gSearch = eById('g_searchQ'),
             searchTerm, cPage = 0, currentTab = sTabCourses;
         consts = {
             COURSES: 'sTab1',
@@ -57,7 +57,7 @@
 
         pubsub.subscribe('search', function () {
             var currentPage = cd.getParameterFromUrl(0);
-         
+
             getData()
             registerEvents();
         });
@@ -82,9 +82,9 @@
             if (!cd.firstLoad) {
                 cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
             }
-          
 
- 
+
+
             if (initData) {
                 search.removeAttribute('data-data');
                 parseData(JSON.parse(initData));
@@ -94,7 +94,7 @@
                 pubsub.publish('search_load');
                 return;
             }
-        
+
 
 
             var isFirstPage = cPage === 0;
@@ -106,7 +106,7 @@
             if (isLoading) {
                 return;
             }
-            
+
             isLoading = true;
             sSearchTerm.textContent = searchTerm;
             sTabResults.classList.add('searching');
@@ -123,7 +123,7 @@
                     loader();
                     isLoading = false;
                     sTabContent.classList.remove('sLoading');
-                    sTabResults.classList.remove('searching');            
+                    sTabResults.classList.remove('searching');
                 }
             })
 
@@ -182,10 +182,10 @@
                         length = parseNumber(sTabCourses);
                         applyText(sTabCourses, length, courses.length);
 
-                        length = parseNumber(sTabMaterials, materials.length);
-                        applyText(sTabMaterials, length, materials.length);
+                        length = parseNumber(sTabMaterials);
+                        applyText(sTabMaterials, length, materials.length + otherMaterials.length);
 
-                        length = parseNumber(sTabMembers, members.length);
+                        length = parseNumber(sTabMembers);
                         applyText(sTabMembers, length, members.length);
 
                         function applyText(elm, currentLength, length) {
@@ -234,13 +234,15 @@
         function setCurrentTab(elm) {
             $elm = $(elm);
             var tabIndex = $elm.index(),
-                    list = $('ul[data-list="' + elm.getAttribute('data-type') + '"]');
+                    list = $('[data-list="' + elm.getAttribute('data-type') + '"]').find('li');
 
-            if (list.children().length > 0) {
+            if (list.length > 0) {
                 sTabContent.classList.remove('noResults');
             } else {
                 sTabContent.classList.add('noResults');
             }
+
+
 
             $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
             currentTab = $elm[0];
