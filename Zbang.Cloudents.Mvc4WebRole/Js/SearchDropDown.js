@@ -30,7 +30,7 @@
     function Item(data) {
         var self = this;
         self.image = data.image;
-        self.name = hightlightSearch(data.name);
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
         self.boxName = data.boxname;
         self.url = data.url + consts.REF;
         self.universityName = '';
@@ -45,16 +45,16 @@
     function Box(data) {
         var self = this;
         self.image = data.image;
-        self.name = hightlightSearch(data.name);
-        self.proffessor = data.proffessor ? hightlightSearch(data.proffessor) : '';
-        self.courseCode = data.courseCode ? hightlightSearch(data.courseCode) : '';
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
+        self.proffessor = cd.highlightSearch(input.value, data.proffessor) || data.proffessor || '';
+        self.courseCode = cd.highlightSearch(input.value, data.courseCode) || data.courseCode || '';
         self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
         self.url = data.url + consts.REF;
     }
     function Member(data) {
         var self = this;
         self.image = data.image;
-        self.name = hightlightSearch(data.name);
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
         self.url = data.url + consts.REF;
     }
 
@@ -91,6 +91,7 @@
             dataContext.searchDD({
                 data: { q: currentValue },
                 success: function (data) {
+                    data = data || {};
                     if (!input.value.length) { //we need this because of debounce function
                         return;
                     }
@@ -211,7 +212,7 @@
 
 
         dropdown.classList.remove('noResults');
-        
+
 
         if (emptyCategories === 3 && emptyOtherItems) {
             dropdown.classList.add('noResults');
@@ -280,42 +281,6 @@
             dataItems = dataItems.slice(0, maxItems);
 
             cd.appendData(list, template, dataItems, 'afterbegin', true);
-        };
-    };
-    function hightlightSearch(name) {
-        var term = input.value.trim();
-
-        term = term.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-
-        if (!term) {
-            return;
-        }
-
-        multiSearch(term);
-
-        if (term.indexOf(' ') > -1) {
-            multiSearch(term.replace(/ /g, ''));
-        }
-
-        function multiSearch(eTerm) {
-            var reg = new RegExp(eTerm, 'gi'),
-            m, indeces = [];
-
-            while (m = reg.exec(name)) {
-                indeces.push(m.index);
-            }
-
-            for (var i = 0, l = indeces.length; i < l; i++) {
-                name = highlight(name, indeces[i] + i * consts.BOLDSTRINGLENTH, indeces[i] + eTerm.length + i * consts.BOLDSTRINGLENTH);
-            }
-        };
-
-        return name;
-
-        function highlight(str, start, end) {
-            var text = '<span class="boldPart">' + str.substring(start, end) + '</span>';
-
-            return str.substring(0, start) + text + str.substring(end);
         };
     };
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
