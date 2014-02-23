@@ -11,9 +11,9 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 
         public FileDto(long id, string name, long ownerId,
             string thumbnail,
-            string tabId, int numOfViews, float rate)
+            string tabId, int numOfViews, float rate, string owner)
             : base(id, name, ownerId,
-             tabId, numOfViews, rate, thumbnail)
+             tabId, numOfViews, rate, thumbnail, owner)
         {
         }
         public override string Type

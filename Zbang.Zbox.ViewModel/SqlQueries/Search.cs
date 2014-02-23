@@ -43,7 +43,7 @@ order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, l
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
-        public const string Users = @"select  u.UserImage as image,u.UserName as name, u.UserId as id
+        public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id
 from zbox.users u
 where u.UniversityId2 = @universityId
 and u.username like '%' +@query + '%'
