@@ -9,9 +9,14 @@
         input = eById('g_searchQ'),
         dropdown = document.querySelector('.searchDD'),
         showAll = document.querySelector('.dashLibSearch .showAll'),
+        boxList = dropdown.querySelector('.searchList.boxes'),
+        itemsList = dropdown.querySelector('.searchList.items'),
+        peopleList = dropdown.querySelector('.searchList.people'),
+        uniList = dropdown.querySelector('.searchList.university'),
         showAllText = showAll.querySelector('q'),
         searchDropdownBtn = eById('searchDropDownBtn'),
         isLoading = false, formSubmitted = false,
+        lastInput,
         consts = {
             MAXITEMS: 6,
             MINITEMS: 3,
@@ -80,7 +85,7 @@
 
                 input.focusout();
             }
-           
+
             currentValue = input.value;
             isLoading = true;
             dataContext.searchDD({
@@ -135,16 +140,15 @@
             if (!input.value) {
                 return;
             }
+            if (lastInput === input.value) {
+                return;
+            }
+            lastInput = input.value;
             currentValue = '';
 
             hide();
             cd.historyManager.remove();
             formSubmitted = true;
-            //var isSearchPage = cd.getParameterFromUrl(0).toLowerCase() === 'search';
-            //if (isSearchPage) {
-                //pubsub.publish('searchInput', input.value);
-                //return;
-            //}
             pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
 
         };
@@ -164,7 +168,7 @@
             if (dropdown.classList.contains('hover')) {
                 return;
             }
-            hide();          
+            hide();
         };
 
         pubsub.subscribe('searchclear', function () {
@@ -172,6 +176,11 @@
         });
 
     };
+
+    function itemsExists() {
+        return boxList.children.length > 0 || itemsList.children.length > 0 || peopleList.children.length > 0 || uniList.children.length > 0;
+    }
+
 
     function hide(blur) {
         if (!blur) {
@@ -182,7 +191,10 @@
     function show() {
         if (!formSubmitted) {
             if (document.activeElement === input) {
-                dropdown.style.display = 'block';
+                if (itemsExists()) {
+                    dropdown.style.display = 'block';
+                }
+
             }
         }
 
@@ -194,17 +206,12 @@
             items = mapData(Item, data.items),
             otherItems = mapData(OtherItem, data.otherItems),
             users = mapData(Member, data.users),
-            boxList = dropdown.querySelector('.searchList.boxes'),
-            itemsList = dropdown.querySelector('.searchList.items'),
-            peopleList = dropdown.querySelector('.searchList.people'),
-            uniList = dropdown.querySelector('.searchList.university'),
             emptyCategories = (boxes.length === 0) + (items.length === 0) + (users.length === 0),
             emptyOtherItems = (otherItems.length === 0);
 
 
         dropdown.classList.remove('noResults');
-
-        show();
+        
 
         if (emptyCategories === 3 && emptyOtherItems) {
             dropdown.classList.add('noResults');
@@ -243,6 +250,7 @@
         appendData(peopleList, 'peopleSearchTemplate', users, maxCategoryItems);
         appendData(uniList, 'itemsSearchTemplate', otherItems, maxOtherItems);
 
+        show();
 
         function mapData(dataType, arr) {
             if (!arr) {

@@ -14,7 +14,8 @@
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-            sTabContent = eById('sTabContent'), isLoading = false,gSearch = eById('g_searchQ'),
+            sTabContent = eById('sTabContent'), isLoading = false, gSearch = eById('g_searchQ'),
+            otherMaterialsSplit = document.querySelector('.splitHR'),
             searchTerm, cPage = 0, currentTab = sTabCourses;
         consts = {
             COURSES: 'sTab1',
@@ -39,7 +40,7 @@
             self.name = data.name;
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
-            self.universityName = '&nbsp;';
+            self.universityName = data.universityname;
             self.content = data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
@@ -57,7 +58,7 @@
 
         pubsub.subscribe('search', function () {
             var currentPage = cd.getParameterFromUrl(0);
-         
+
             getData()
             registerEvents();
         });
@@ -69,11 +70,7 @@
         function getData(term) {
             term = term || {}
             var initData = search.getAttribute('data-data');
-
-            if (searchTerm !== cd.getParameterByName('q')) {
-                clear(true);
-            }
-
+            
             if (term.length) {
                 searchTerm = term;
             } else {
@@ -82,9 +79,9 @@
             if (!cd.firstLoad) {
                 cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
             }
-          
 
- 
+
+
             if (initData) {
                 search.removeAttribute('data-data');
                 parseData(JSON.parse(initData));
@@ -94,19 +91,20 @@
                 pubsub.publish('search_load');
                 return;
             }
-        
+
 
 
             var isFirstPage = cPage === 0;
-            var loader = renderLoad(sTabContent, !isFirstPage);
-            if (isFirstPage) {
-                sTabContent.classList.add('sLoading');
-
-            }
+            
             if (isLoading) {
                 return;
             }
-            
+            if (isFirstPage) {
+                clear(true);
+                sTabContent.classList.add('sLoading');
+            }
+            var loader = renderLoad(sTabContent, !isFirstPage);
+                        
             isLoading = true;
             sSearchTerm.textContent = searchTerm;
             sTabResults.classList.add('searching');
@@ -115,15 +113,16 @@
                 success: function (data) {
                     data = data || {};
                     parseData(data);
-                    if (cPage === 0) {
+                    if (isFirstPage) {
                         setCurrentTab(currentTab);
+                        return;
                     }
                 },
                 always: function () {
                     loader();
                     isLoading = false;
                     sTabContent.classList.remove('sLoading');
-                    sTabResults.classList.remove('searching');            
+                    sTabResults.classList.remove('searching');
                 }
             })
 
@@ -142,8 +141,8 @@
                     var courses = mapData(Course, data.boxes),
                         materials = mapData(Material, data.items),
                         members = mapData(Member, data.users),
-                        otherMaterials = mapData(Material, data.otherItems),
-                        otherMaterialsSplit = document.querySelector('.splitHR');
+                        otherMaterials = mapData(Material, data.otherItems);
+
                     toWipe = cPage === 0;
 
 
@@ -182,10 +181,10 @@
                         length = parseNumber(sTabCourses);
                         applyText(sTabCourses, length, courses.length);
 
-                        length = parseNumber(sTabMaterials, materials.length);
-                        applyText(sTabMaterials, length, materials.length);
+                        length = parseNumber(sTabMaterials);
+                        applyText(sTabMaterials, length, materials.length + otherMaterials.length);
 
-                        length = parseNumber(sTabMembers, members.length);
+                        length = parseNumber(sTabMembers);
                         applyText(sTabMembers, length, members.length);
 
                         function applyText(elm, currentLength, length) {
@@ -234,13 +233,15 @@
         function setCurrentTab(elm) {
             $elm = $(elm);
             var tabIndex = $elm.index(),
-                    list = $('ul[data-list="' + elm.getAttribute('data-type') + '"]');
+                    list = $('[data-list="' + elm.getAttribute('data-type') + '"]').find('li');
 
-            if (list.children().length > 0) {
+            if (list.length > 0) {
                 sTabContent.classList.remove('noResults');
             } else {
                 sTabContent.classList.add('noResults');
             }
+
+
 
             $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
             currentTab = $elm[0];
@@ -258,6 +259,7 @@
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
             sOtherMaterialList.innerHTML = '';
+            otherMaterialsSplit.style.display = 'none';
             if (clearPage) {
                 cPage = 0;
             }
@@ -309,7 +311,7 @@
             }
         }
         function scrollEvent() {
-            if ($('#search').is(':visible')) {
+            if ($(search).is(':visible')) {
                 if (isLoading) {
                     return;
                 }
@@ -320,8 +322,7 @@
                     if (length % 50 !== 0) {
                         return;
                     }
-                    cPage++;
-                    console.log(cPage);
+                    cPage++;                    
                     getData(searchTerm);
 
                 }
