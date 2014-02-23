@@ -123,9 +123,9 @@
                 //submitBtn.setAttribute(CDISABLED, CDISABLED);
                 dataContext.updateBoxInfo({
                     data: data,
-                    //success: function (v) {
-                       
-                    //},
+                    success: function (data) {
+                        pubsub.publish('updateBoxUrl', data);
+                    }
                     //error: function (e) {
                     //    cd.displayErrors(self, e);
                     //},

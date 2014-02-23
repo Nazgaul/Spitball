@@ -78,12 +78,12 @@
                 return;
             }
 
-            var page = backData.url,split; //remove the first 
+            var page = backData.url, split; //remove the first 
             if (page.indexOf('dashboard') > -1 || page.indexOf('user') > -1 || page.indexOf('search') > -1) {
                 split = 0;
             } else { //library 
                 split = 1;
-            }            
+            }
             that.name = backData.title.split(' | ')[split] //first part of the title
             that.url = backData.url;
             //if (backData.url.indexOf('dashboard') > -1) {
@@ -451,8 +451,15 @@
                 if (d.privacy) {
                     self.privacySetting(d.privacy);
                 }
+                
             });
 
+            cd.pubsub.subscribe('updateBoxUrl', function (location) {                
+                self.copyLink(location);
+                if (window.history) {
+                    window.history.replaceState(location, '', location);
+                }
+            });
             cd.pubsub.subscribe('addItem', function () {
                 if (self.boxid === '') {
                     return;

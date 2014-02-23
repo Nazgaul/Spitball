@@ -329,7 +329,10 @@
                         data: { newFileName: fileName, ItemId: self.itemid() },
                         success: function (data) {
                             self.itemName(data);
-
+                            self.copyLink(data);
+                            if (window.history) {
+                                window.history.replaceState(data, '', data);
+                            }
                             d.finish();
                         },
                         error: function (msg) {
@@ -412,7 +415,7 @@
             })
 
             document.getElementById('item_FS').addEventListener('click', function () {
-                cd.shareFb(cd.location(), //url
+                cd.shareFb(self.copyLink(), //url
                     self.itemName() + '.' + self.extension(), //title
                     self.uniName() ? self.boxName() + ' - ' + self.uniName() : self.boxName(), //caption
                     JsResources.IShared + ' {0}.{1} '.format(self.itemName(), self.extension()) + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
@@ -428,7 +431,7 @@
 
             $('#item_msg').click(function () {
                 cd.pubsub.publish('message',
-                    { text: ZboxResources.FindThisInteresting + '\n\u200e“' + self.itemName() + '” - ' + cd.location() }
+                    { text: ZboxResources.FindThisInteresting + '\n\u200e“' + self.itemName() + '” - ' + self.copyLink() }
                     );
             });
 
