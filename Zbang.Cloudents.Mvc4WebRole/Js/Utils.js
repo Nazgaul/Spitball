@@ -472,7 +472,8 @@
     var dateToShow = function (date,delimeter,twoDigitsYear) {
         var day = date.getDate(),
             month = date.getMonth() + 1,
-            year = date.getFullYear().toString();//we use to string so we can use substring
+            year = date.getFullYear().toString(),//we use to string so we can use substring
+            delimeter = delimeter || '/';
         if (twoDigitsYear) {
             year = year.substr(2, 2);
         }
