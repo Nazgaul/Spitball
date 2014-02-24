@@ -41,7 +41,7 @@
             self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART);
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
-            self.universityName = data.universityname;
+            self.universityName = data.uniName || '';
             self.content = cd.highlightSearch(searchTerm, data.content, consts.BOLDPART) || data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
