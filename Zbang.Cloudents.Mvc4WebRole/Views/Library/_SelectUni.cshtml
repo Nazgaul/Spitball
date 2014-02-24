@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
     ViewBag.data = ViewBag.data ?? null;
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
@@ -15,7 +16,7 @@
             <li class="emptySearch">No results were found</li>
             <li class="newUni">
                 <span>Can't find your school?</span>
-                <a href="#" class="createUni">create new</a>
+                <a href="#" class="createUni">@SharedResources.CreateNew</a>
             </li>
 
         </ul>

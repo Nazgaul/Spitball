@@ -123,9 +123,6 @@
   <data name="AddShare" xml:space="preserve">
     <value>إضافة الملفات ومشاركتها مع الاعضاء </value>
   </data>
-  <data name="All" xml:space="preserve">
-    <value>الكل </value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>ألديك,
 مستند للمشاركة ؟</value>

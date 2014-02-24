@@ -138,9 +138,6 @@
   <data name="CourseName" xml:space="preserve">
     <value>שם קורס</value>
   </data>
-  <data name="Courses" xml:space="preserve">
-    <value>קורסים</value>
-  </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>צור קורס חדש</value>
   </data>

@@ -367,4 +367,19 @@
   <data name="Dashboard" xml:space="preserve">
     <value>我的空间</value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>课程</value>
+  </data>
+  <data name="ResultsFor" xml:space="preserve">
+    <value>的结果</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>会员</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>系</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>所有</value>
+  </data>
 </root>

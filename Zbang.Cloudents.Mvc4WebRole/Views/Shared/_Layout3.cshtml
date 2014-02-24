@@ -71,22 +71,22 @@
                        type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
                 <button id="searchDropDownBtn" disabled type="submit"></button>
                 <div class="searchDD allResults">
-                    <h3>Courses</h3>
+                    <h3>@SharedResources.Courses</h3>
                     <ul class="searchList boxes">
                     </ul>
-                    <h3>Materials</h3>
+                    <h3>@SharedResources.Materials</h3>
                     <ul class="searchList items">
 
                     </ul>
-                    <h3>People</h3>
+                    <h3>@SharedResources.People</h3>
                     <ul class="searchList people">
                     </ul>
-                    <h3>Results from other universities</h3>
+                    <h3>@SharedResources.ResultsOther</h3>
                     <ul class="searchList university">
 
                     </ul>
-                    <a class="showAll" href="" data-navigation="search">Show all results for <q></q></a>
-                    <div class="emptySearch">No results were found</div>
+                    <a class="showAll" href="" data-navigation="search">@SharedResources.AllResults&nbsp;<q></q></a>
+                    <div class="emptySearch">@SharedResources.NoResults</div>
                 </div>
             </form>
         </div>
@@ -108,7 +108,7 @@
     </div>
     @*Guy: Please add the class 'ptsAnim' when necessary, and after 3.5s apply the points counter animation (duration: 1s) on
            the userPts element (see Account/_UserDetail3) with the addition of the the #points*@
-    <div class="ptsPopup" id="ptsPopup" data-pts-before="Sweet, you just earned" data-pts-after="pts"></div>
+    <div class="ptsPopup" id="ptsPopup" data-pts-before="@SharedResources.SweetPoints" data-pts-after="@SharedResources.Pts"></div>
 
 
     <div class="uploads" id="uploads">

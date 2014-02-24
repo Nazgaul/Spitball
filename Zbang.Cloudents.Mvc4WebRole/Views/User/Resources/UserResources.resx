@@ -123,6 +123,9 @@
   <data name="CoursesGroups" xml:space="preserve">
     <value>Courses / Groups</value>
   </data>
+  <data name="CoursesList" xml:space="preserve">
+    <value>Courses List</value>
+  </data>
   <data name="EarnBy" xml:space="preserve">
     <value>Earn points by:</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="InCommon" xml:space="preserve">
     <value>In common</value>
+  </data>
+  <data name="JoinDate" xml:space="preserve">
+    <value>Join date</value>
   </data>
   <data name="NoAnswers" xml:space="preserve">
     <value>No answers to show</value>

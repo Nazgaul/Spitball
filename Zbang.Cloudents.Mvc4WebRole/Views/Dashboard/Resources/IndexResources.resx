@@ -172,6 +172,9 @@ interest with the:</value>
   <data name="Members" xml:space="preserve">
     <value>Members</value>
   </data>
+  <data name="MyFriends" xml:space="preserve">
+    <value>My friends</value>
+  </data>
   <data name="MyGroup" xml:space="preserve">
     <value>My Group Boxes</value>
   </data>

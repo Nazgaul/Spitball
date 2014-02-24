@@ -123,9 +123,6 @@
   <data name="CourseName" xml:space="preserve">
     <value>课程名称</value>
   </data>
-  <data name="Department" xml:space="preserve">
-    <value>系</value>
-  </data>
   <data name="Instructor" xml:space="preserve">
     <value>讲师</value>
   </data>

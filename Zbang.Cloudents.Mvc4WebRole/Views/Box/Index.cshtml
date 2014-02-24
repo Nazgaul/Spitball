@@ -24,7 +24,7 @@
         </div>
         <div class="boxMembers">
             <div class="sectionHeader">
-                @IndexResources.Members
+                @SharedResources.Members
             <button id="showAllMembers" class="showAll rFloat" type="button">@SharedResources.ShowAll</button>
         </div>
         <ul class="friendsList">
@@ -41,7 +41,7 @@
         <div class="sectionHeader">@IndexResources.Folders</div>
         <ul class="boxFolderList" id="box_filters">
             <li class="current boxFolder" data-bind="css: { current: $root.currentTab() == null }">
-                <span class="boxFolderName elps" data-click="switchTab">@MainViewResources.All</span>
+                <span class="boxFolderName elps" data-click="switchTab">@SharedResources.All</span>
                 <span class="tabBorder"></span>
             </li>
             <!--ko foreach :{data: tabs ,afterAdd: myDrag}-->
@@ -104,7 +104,7 @@
 
     @*Ram please add class 'show' here when visible:follow is true*@
     @*Also when user clicks the follow box button need to add the class 'followed' here*@
-    <div id="joinGrpBtn" class="joinGrpWpr joinWprSlide" data-bind="css:follow() ? 'show' : ''">
+    <div id="joinGrpBtn" class="joinGrpWpr joinWprSlide">
         <span class="joinMsg iconTxt">@SharedResources.Member</span>
         <button type="button" class="joinGrp" data-bind="click: followbox" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
     </div>

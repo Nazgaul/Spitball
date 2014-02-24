@@ -405,4 +405,19 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Мое место</value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>курсы</value>
+  </data>
+  <data name="ResultsFor" xml:space="preserve">
+    <value>результаты для</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>участники</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Отдел</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
 </root>
