@@ -61,7 +61,8 @@ i.Content as content,
 i.Rate as rate,
 i.NumberOfViews as views,
 b.BoxName as boxname,
-b.BoxId as boxid ,u2.UniversityName as universityname
+b.BoxId as boxid ,u2.UniversityName as universityname,
+'' as uniName
 from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 join zbox.users u2 on u2.UserId = b.OwnerId
@@ -82,7 +83,8 @@ i.Content as content,
 i.Rate as rate,
 i.NumberOfViews as views,
 b.BoxName as boxname,
-b.BoxId as boxid ,u2.UniversityName as universityname
+b.BoxId as boxid ,u2.UniversityName as universityname,
+coalesce(AliasName,userName) as uniName
 from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 join zbox.users u2 on u2.UserId = b.OwnerId
