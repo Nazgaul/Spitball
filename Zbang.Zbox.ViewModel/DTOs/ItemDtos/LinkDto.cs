@@ -6,9 +6,9 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
     {
         public LinkDto(long id, string name, long ownerId,
             string thumbnail,
-             string tabId, int numOfViews, float rate , bool sponsored)
+             string tabId, int numOfViews, float rate, bool sponsored, string owner)
             : base(id, name, ownerId,
-             tabId, numOfViews, rate, thumbnail)
+             tabId, numOfViews, rate, thumbnail, owner)
         {
             Sponsored = sponsored;
         }

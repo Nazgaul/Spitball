@@ -27,18 +27,8 @@
             DATALABEL: 'data-label',
             ADMINSCORE: 1000000,
             MAXMEMBERS: 50
-        },
-        upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
-        courseShow = eById('coursesShow'), friendsShow = eById('friendsShow'),
-        invitesShow = eById('invitesShow'), filesCount = eById('filesCount'),
-        answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
-        upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
-        upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
-        memberBoxList = eById('upMemberBoxList'), upMemberSearch = eById('upMembersSearch'),
-        upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
-        upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
-        upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
-        answersSection = eById('answersSection'), filesSection = eById('filesSection');
+        };
+   
 
 
     cd.loadModel('user', 'UserContext', registerKOUser);
@@ -49,6 +39,17 @@
 
 
     function UserViewModel() {
+        var upInviteList = eById(consts.UPINVITELIST), upMemberSettings = eById('upMemberSettings'),
+             filesCount = eById('filesCount'),
+            answersCount = eById('answersCount'), questionsCount = eById('questionsCount'),
+            upUsername = eById('upUsername'), upUserImg = eById('upUserImg'),
+            upUserSchool = eById('upUserSchool'), membersList = eById('upMembersList'),
+            memberBoxList = eById('upMemberBoxList'), upMemberSearch = eById('upMembersSearch'),
+            upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
+            upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
+            upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
+            answersSection = eById('answersSection'), filesSection = eById('filesSection');
+
         var self = this;
 
         //#region Models
@@ -239,7 +240,7 @@
             return self.members().length + ' ' + 'members';
         });
         self.membersSectionVisible = ko.computed(function () {
-            return self.score() >= consts.ADMINSCORE;
+            return self.score() >= consts.ADMINSCORE && self.viewSelf();
         });
 
         self.displayMembersFilter = ko.computed(function () {
@@ -256,8 +257,6 @@
             }
 
             return ko.utils.arrayFilter(self.displayMembers(), function (m) {
-
-
                 return selected.indexOf(m.department) > -1;
             });
         });
@@ -371,6 +370,7 @@
         });
 
         pubsub.subscribe('userclear', function (data) {
+            clear();
         });
 
         function clear() {
@@ -390,40 +390,50 @@
             .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
 
 
-            upMemberSettings.checked = false;
+            if (upMemberSettings) {
+                upMemberSettings.checked = false;
+            }
 
             $('.upMemberBoxes').hide();
             $('.upTabContent').hide();
             $(consts.UPTABS).removeClass(consts.CUPTAB + '2 ' + consts.CUPTAB + '3').addClass(consts.CUPTAB + '1')
             $('#filesSection').show();
-            var cB = courseShow;
+            var cB = eById('coursesShow');
             if (cB) {
                 cB.checked = false;
             }
-            cB = friendsShow;
+            cB = eById('friendsShow');
 
             if (cB) {
                 cB.checked = false;
             }
-            cB = invitesShow;
+            cB = eById('invitesShow');
             if (cB) {
                 cB.checked = false;
             }
-            var f = filesCount
-            f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            var f = filesCount;
+            if (f) {
+                f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            }
 
             f = answersCount;
-            f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            if (f) {
+                f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            }
 
             f = questionsCount;
-            f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            if (f) {
+                f.textContent = '' + f.getAttribute(consts.DATALABEL);
+            }
         }
 
         function getInitData() {
             var user = document.getElementById('user'), firstTime = user.getAttribute('data-firstTime'), userScore;
 
             if (firstTime) {
-                var username = upUsername.textContent;
+                if (upUsername) {
+                    var username = upUsername.textContent;
+                }
                 user.removeAttribute('data-firstTime');
                 self.name(username);
                 userScore = parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10);
@@ -431,7 +441,7 @@
                     populateScore(userScore);
                 }
                 if (!cd.firstLoad) {
-                    document.title = username + ' | Cloudents';
+                    cd.setTitle(username + ' | Cloudents');
                 }
                 self.score(userScore);
 
@@ -455,7 +465,7 @@
                 data = data || {};
                 var profile = new Profile(data);
                 if (!cd.firstLoad) {
-                    document.title = profile.name + ' | Cloudents';
+                    cd.setTitle(profile.name + ' | Cloudents');
                 }
                 self.name(profile.name);
 
@@ -491,10 +501,13 @@
             }
 
             function populateScore(score) {
-
-
                 var pointsList = eById('pointsList'),
-                    pointsListChildren = pointsList.children;
+                    pointsListChildren = pointsList.children,
+                    statusPoints = eById('userPts').textContent;
+                if (statusPoints > score){
+                    score=statusPoints;
+                }
+
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
                     pointsListChildren[i].textContent = 0;
                 }
@@ -709,9 +722,9 @@
 
                     upMbrSetingsSndMsg.onclick = function () {
                         var selected = [], allCbox = upMemberSettings;
-                        
+
                         if (allCbox.checked) {
-                            var arr = searchInProgress ? self.searchResultMembers() : self.members();
+                            var arr = searchInProgress ? self.searchResultMembers() : self.members();                            
                             setTimeout(function () {
                                 pubsub.publish('message', { id: '', data: arr });
                             }, 10);
@@ -721,9 +734,13 @@
                         for (var i = 0, l = checkboxes.length; i < l; i++) {
                             selected.push(ko.dataFor(checkboxes[i]));
                         }
-                        setTimeout(function () {
+                        if (selected.length === 1) {
+                            pubsub.publish('message', { id: '', data: [{ id: selected[0].id, name: selected[0].name, userImage: selected[0].image }] });
+                        } else {
+                            //setTimeout(function () {
                             pubsub.publish('message', { id: '', data: selected });
-                        }, 10);
+                            //}, 10);
+                        }
 
 
                     };
@@ -760,7 +777,7 @@
             }
         }
 
-        function getFriendsData() {
+        function getFriendsData() {            
             var loader = renderLoad(upFriendsSection);
             dataContext.getFriends({
                 data: { userId: self.userId() },
@@ -790,7 +807,7 @@
 
                 function registerEvents() {
                     if (self.friendsShowAllVisible()) {
-                        friendsShow.onchange = function (e) {
+                        eById('friendsShow').onchange = function (e) {
                             if (self.maxCommonFriends() < self.commonFriends().length || self.maxAllFriends() < self.allFriends().length) {
                                 self.maxCommonFriends(self.commonFriends().length);
                                 self.maxAllFriends(self.allFriends().length);
@@ -825,8 +842,8 @@
             }
         }
 
-        function getBoxesData() {
-            var loader = renderLoad(upCoursesSection);
+        function getBoxesData() {            
+            loader = renderLoad(upCoursesSection);
             dataContext.getUserpageBoxes({
                 data: { userId: self.userId() },
                 success: function (data) {
@@ -871,7 +888,7 @@
 
                 function registerEvents() {
                     if (self.CoursesShowAllVisible()) {
-                        courseShow.onchange = function (e) {
+                        eById('coursesShow').onchange = function (e) {
 
                             if (self.maxCommonBoxes() < self.commonBoxes().length || self.maxFollowingBoxes() < self.followingBoxes().length) {
                                 self.maxCommonBoxes(self.commonBoxes().length);
@@ -915,7 +932,7 @@
 
         }
 
-        function getInvitesData() {
+        function getInvitesData() {            
             var loader = renderLoad(upInvitesSection);
             dataContext.getUserPageInvites({
                 success: function (data) {
@@ -941,7 +958,7 @@
 
                 function registerEvents() {
                     if (self.invitesShowAllVisible()) {
-                        invitesShow.onchange = function (e) {
+                        eById('invitesShow').onchange = function (e) {
 
                             if (self.maxInvites() < self.invites().length) {
                                 self.maxInvites(self.invites().length);

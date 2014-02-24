@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -382,9 +382,10 @@
 }
 .upSchool {
   color: #676767;
-}
-.upSchool:hover {
-  color: #0371c8;
+  /*&:hover {
+        color: @attentionBlue;
+    }*/
+
 }
 .upContent {
   width: 772px;

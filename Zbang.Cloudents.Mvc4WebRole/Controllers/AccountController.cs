@@ -248,7 +248,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         public async Task<JsonResult> CheckEmail(Register model)
         {
-            //EmailVerification test = new EmailVerification();
             try
             {
                 var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);

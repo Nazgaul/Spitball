@@ -469,14 +469,15 @@
     //}
 
 
-    var dateToShow = function (date,delimeter,twoDigitsYear) {
+    var dateToShow = function (date, delimeter, twoDigitsYear) {
         var day = date.getDate(),
             month = date.getMonth() + 1,
-            year = date.getFullYear().toString();//we use to string so we can use substring
+            year = date.getFullYear().toString(),//we use to string so we can use substring
+            delimeter = delimeter || '/';
         if (twoDigitsYear) {
             year = year.substr(2, 2);
         }
-        if (day< 10) {
+        if (day < 10) {
             day = '0' + day;
         }
         if (month < 10) {
@@ -788,6 +789,50 @@
         //analytics.trackSocial(url, 'share');
     };
 
+    var highlightSearch = function (term, name,className) {
+        var className = className || 'boldPart',
+            firstPart = '<span class="' + className + '">',
+            lastPart = '</span>',
+            boldStringLength = firstPart.length + lastPart.length,
+            
+        term = term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+
+        if (!name) {
+            return false;
+        }
+        if (!term) {
+            return name;
+        }
+
+        multiSearch(term);
+
+        if (term.indexOf(' ') > -1) {
+            multiSearch(term.replace(/ /g, ''));
+        }
+
+        function multiSearch(eTerm) {
+            var reg = new RegExp(eTerm, 'gi'),
+            m, indeces = [];
+
+            while (m = reg.exec(name)) {
+                indeces.push(m.index);
+            }
+
+            for (var i = 0, l = indeces.length; i < l; i++) {
+                name = highlight(name, indeces[i] + i * boldStringLength, indeces[i] + eTerm.length + i * boldStringLength);
+            }
+        };
+
+        return name;
+
+        function highlight(str, start, end) {
+            var text = firstPart + str.substring(start, end) + lastPart;
+
+            return str.substring(0, start) + text + str.substring(end);
+        };
+    };
+
+
     var innerScroll = function (elem, height) {
         var direction = $('html').css('direction') === 'ltr' ? 'right' : 'left';
         if (Modernizr.touch) {
@@ -890,6 +935,7 @@
         }
     };
 
+    cd.highlightSearch = highlightSearch;
     cd.sessionStorageWrapper = sessionStorageWrapper;
     cd.localStorageWrapper = localStorageWrapper;
     cd.debounce = debounce;

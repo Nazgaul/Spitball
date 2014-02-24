@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -623,7 +623,7 @@
   display: inline-block;
   width: 11px;
   height: 11px;
-  background: url(/Images/box-sprite14.png) -58px 0 no-repeat;
+  background: url(/Images/box-sprite14.png?v=1) -58px 0 no-repeat;
   vertical-align: top;
   margin: 14px 6px 0 0;
   /*rtl*/
@@ -733,7 +733,7 @@
   margin: 0 auto 16px;
   width: 50px;
   height: 43px;
-  background: url(/Images/box-sprite14.png) 0 -56px no-repeat;
+  background: url(/Images/box-sprite14.png?v=1) 0 -56px no-repeat;
 }
 .boxEmpty .uploadFilesBtn {
   display: block;
@@ -771,7 +771,7 @@
 .boxItemsHeader .iconTxt:before {
   width: 14px;
   height: 16px;
-  background: url(/Images/box-sprite14.png) -54px -106px no-repeat;
+  background: url(/Images/box-sprite14.png?v=1) -54px -106px no-repeat;
 }
 .boxItem {
   float: left;
@@ -824,9 +824,6 @@
 
   bottom: 3px;
   margin: 0;
-}
-.boxItem:hover .actionBtns {
-  display: block;
 }
 .boxItemList {
   display: block;
@@ -1215,7 +1212,7 @@
   margin: -8px auto 33px;
   width: 56px;
   height: 55px;
-  background: url(/Images/box-sprite14.png) 0 0 no-repeat;
+  background: url(/Images/box-sprite14.png?v=1) 0 0 no-repeat;
 }
 .actionBtns {
   display: none;
@@ -1250,7 +1247,7 @@
   display: inline-block;
   width: 14px;
   height: 16px;
-  background: url(/Images/box-sprite14.png) -57px -12px no-repeat;
+  background: url(/Images/box-sprite14.png?v=1) -57px -12px no-repeat;
 }
 .downloadBtn:hover:before {
   background-position: -57px -29px;

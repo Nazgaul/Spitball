@@ -18,7 +18,7 @@
             data.history = historyNav;
             var now = new Date();
             later = now.setHours(now.getHours() + 1);
-            data.lastpage = getParameterFromUrl(1);
+            data.lastpage = getParameterFromUrl(0);
             data.ttl = later;
             cd.localStorageWrapper.setItem('history', JSON.stringify(data));
         },
@@ -31,19 +31,21 @@
                 return;
             }
 
-            if (data.lastpage !== getParameterFromUrl(1)) {
+            if (data.lastpage !== getParameterFromUrl(0)) {
                 this.remove();
                 historyNav = [cd.clone(privateLocation)];
                 return;
-            }            
+            }
             historyNav = data.history;
             var lastPage = historyNav.pop();
-            privateLocation.url = lastPage.url = lastPage.url.split('?')[0];
-            if (window.history.replaceState){
-                history.replaceState(privateLocation.url, '', privateLocation.url);
+            if (privateLocation.url.indexOf('search') === -1) {
+                privateLocation.url = lastPage.url = lastPage.url.split('?')[0];
+            }
+            if (window.history.replaceState) {
+                history.replaceState(lastPage.url, '', lastPage.url);
             }
             historyNav.push(lastPage);
-            
+
         },
         remove: function () {
             cd.localStorageWrapper.removeItem('history');
@@ -79,7 +81,7 @@
         if (location.hash) {
             location.hash = '';
         }
-        historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
+        //historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
         changeHistoryState();
         locationChanged(privateLocation.url, $(this).data('d'));
 
@@ -92,7 +94,7 @@
             location.hash = '';
         }
 
-        privateLocation.title = document.title === 'Cloudents' ? 'Dashboard' : document.title;;
+        //privateLocation.title = document.title === 'Cloudents' ? 'Dashboard' : document.title;;
         locationChanged();
     });
     pubsub.subscribe('nav', function (url) {
@@ -103,11 +105,11 @@
         // mobile user create box redirect doesnt remove pop up
         if (location.hash) {
             location.hash = '';
-        
+
         }
-        historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
+        //historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
         changeHistoryState();
-        
+
 
 
         locationChanged();
@@ -133,7 +135,9 @@
             if (privateLocation.url === removeStartingSlash(location.pathname)) {
                 return;
             }
-            pubsub.publish('nav', location.pathname);
+            if (historyNav[historyNav.length - 2].url) {
+                pubsub.publish('nav', historyNav[historyNav.length - 2].url);
+            }
         }
     };
 
@@ -153,9 +157,11 @@
         }
         var clonedLocation = cd.clone(privateLocation);
         if (clonedLocation.url.lastIndexOf('?') > -1) {
-            clonedLocation.url= clonedLocation.url.split('?')[0];
+            if (clonedLocation.url.indexOf('search') === -1) {// we want to keep query string for search page
+                clonedLocation.url = clonedLocation.url.split('?')[0];
+            }
         }
-        
+
         historyNav.push(clonedLocation);
 
 
@@ -269,7 +275,7 @@
                 break;
 
             default:
-                pubsub.publish('lib_nodes', { id: secondLevel, name: getParameterFromUrl(2)  });
+                pubsub.publish('lib_nodes', { id: secondLevel, name: getParameterFromUrl(2) });
                 break;
         }
     }
@@ -489,7 +495,7 @@
         catch (err) {
             console.log(err.message);
         }
-        
+
         pubsub.publish(d[0].id.toLowerCase() + '_show');
     }
 
@@ -518,6 +524,7 @@
                     history.url = history.url.slice(0, history.url.indexOf('/'));
                     if (history.url.indexOf('dashboard') > -1 ||
                         history.url.indexOf('library') > -1 ||
+                        history.url.indexOf('search') > -1 ||
                         history.url.indexOf('user') > -1) {
                         index = i;
                         found = true;
@@ -525,15 +532,27 @@
                     }
                 }
             }
+
+            current = index || historyNav.length - 2;
+            if (current < 0) {
+                return;
+            }
+            if (historyNav[current].url.charAt(0) !== '/') {
+                historyNav[current].url = '/' + historyNav[current].url;
+            }
+            return historyNav[current];
         }
-        current = index || historyNav.length - 2;
-        if (current < 0) {
-            return;
+        if (type === 'item') {
+            var backItem = historyNav[historyNav.length - 2];
+            if (backItem) {
+                if (backItem.url.indexOf('search') > -1) {
+                    return backItem;
+                }
+
+                return false;
+            }
+            return false;
         }
-        if (historyNav[current].url.charAt(0) !== '/') {
-            historyNav[current].url = '/' + historyNav[current].url;
-        }
-        return historyNav[current];
     };
 
 
@@ -541,5 +560,10 @@
     cd.getParameterFromUrl = function (i) {
         return getParameterFromUrl(i);
     };
+
+    cd.setTitle = function (title) {
+        historyNav[historyNav.length - 1].title = title;
+        document.title = title;
+    }
 
 })(jQuery, cd, cd.pubsub, cd.data, cd.analytics);

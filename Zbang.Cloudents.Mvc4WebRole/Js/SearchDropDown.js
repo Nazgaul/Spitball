@@ -9,9 +9,14 @@
         input = eById('g_searchQ'),
         dropdown = document.querySelector('.searchDD'),
         showAll = document.querySelector('.dashLibSearch .showAll'),
+        boxList = dropdown.querySelector('.searchList.boxes'),
+        itemsList = dropdown.querySelector('.searchList.items'),
+        peopleList = dropdown.querySelector('.searchList.people'),
+        uniList = dropdown.querySelector('.searchList.university'),
         showAllText = showAll.querySelector('q'),
         searchDropdownBtn = eById('searchDropDownBtn'),
         isLoading = false, formSubmitted = false,
+        lastInput,
         consts = {
             MAXITEMS: 6,
             MINITEMS: 3,
@@ -25,7 +30,7 @@
     function Item(data) {
         var self = this;
         self.image = data.image;
-        self.name = hightlightSearch(data.name);
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
         self.boxName = data.boxname;
         self.url = data.url + consts.REF;
         self.universityName = '';
@@ -39,17 +44,17 @@
     }
     function Box(data) {
         var self = this;
-        self.image = data.image;
-        self.name = hightlightSearch(data.name);
-        self.proffessor = data.proffessor ? hightlightSearch(data.proffessor) : '';
-        self.courseCode = data.courseCode ? hightlightSearch(data.courseCode) : '';
+        self.image = data.image || '/images/emptyState/my_default3.png';
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
+        self.proffessor = cd.highlightSearch(input.value, data.proffessor) || data.proffessor || '';
+        self.courseCode = cd.highlightSearch(input.value, data.courseCode) || data.courseCode || '';
         self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
         self.url = data.url + consts.REF;
     }
     function Member(data) {
         var self = this;
         self.image = data.image;
-        self.name = hightlightSearch(data.name);
+        self.name = cd.highlightSearch(input.value, data.name) || data.name || '';
         self.url = data.url + consts.REF;
     }
 
@@ -64,6 +69,7 @@
 
             if (!input.value.length) {
                 currentValue = '';
+                lastInput = '';
                 hide(true);
                 return;
             }
@@ -80,12 +86,13 @@
 
                 input.focusout();
             }
-           
+
             currentValue = input.value;
             isLoading = true;
             dataContext.searchDD({
                 data: { q: currentValue },
                 success: function (data) {
+                    data = data || {};
                     if (!input.value.length) { //we need this because of debounce function
                         return;
                     }
@@ -113,7 +120,7 @@
                 input.focus();
                 return;
             }
-            input.value = currentValue = '';
+            input.value = currentValue = lastInput = '';
             cd.historyManager.remove();
             hide();
         };
@@ -135,16 +142,15 @@
             if (!input.value) {
                 return;
             }
+            if (lastInput === input.value) {
+                return;
+            }
+            lastInput = input.value;
             currentValue = '';
 
             hide();
             cd.historyManager.remove();
             formSubmitted = true;
-            var isSearchPage = cd.getParameterFromUrl(0).toLowerCase() === 'search';
-            if (isSearchPage) {
-                pubsub.publish('searchInput', input.value);
-                return;
-            }
             pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
 
         };
@@ -164,14 +170,20 @@
             if (dropdown.classList.contains('hover')) {
                 return;
             }
-            hide();          
+            hide();
         };
 
         pubsub.subscribe('searchclear', function () {
             input.value = '';
+            lastInput = '';
         });
 
     };
+
+    function itemsExists() {
+        return boxList.children.length > 0 || itemsList.children.length > 0 || peopleList.children.length > 0 || uniList.children.length > 0;
+    }
+
 
     function hide(blur) {
         if (!blur) {
@@ -182,7 +194,10 @@
     function show() {
         if (!formSubmitted) {
             if (document.activeElement === input) {
-                dropdown.style.display = 'block';
+                if (itemsExists()) {
+                    dropdown.style.display = 'block';
+                }
+
             }
         }
 
@@ -194,17 +209,12 @@
             items = mapData(Item, data.items),
             otherItems = mapData(OtherItem, data.otherItems),
             users = mapData(Member, data.users),
-            boxList = dropdown.querySelector('.searchList.boxes'),
-            itemsList = dropdown.querySelector('.searchList.items'),
-            peopleList = dropdown.querySelector('.searchList.people'),
-            uniList = dropdown.querySelector('.searchList.university'),
             emptyCategories = (boxes.length === 0) + (items.length === 0) + (users.length === 0),
             emptyOtherItems = (otherItems.length === 0);
 
 
         dropdown.classList.remove('noResults');
 
-        show();
 
         if (emptyCategories === 3 && emptyOtherItems) {
             dropdown.classList.add('noResults');
@@ -243,6 +253,7 @@
         appendData(peopleList, 'peopleSearchTemplate', users, maxCategoryItems);
         appendData(uniList, 'itemsSearchTemplate', otherItems, maxOtherItems);
 
+        show();
 
         function mapData(dataType, arr) {
             if (!arr) {
@@ -260,8 +271,10 @@
 
             if (dataItems.length && maxItems) {
                 list.previousElementSibling.style.display = 'block';
+                list.style.display = 'block';
             } else {
                 list.previousElementSibling.style.display = 'none';
+                list.style.display = 'none';
             }
 
             if (!dataItems.length) {
@@ -272,42 +285,6 @@
             dataItems = dataItems.slice(0, maxItems);
 
             cd.appendData(list, template, dataItems, 'afterbegin', true);
-        };
-    };
-    function hightlightSearch(name) {
-        var term = input.value.trim();
-
-        term = term.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-
-        if (!term) {
-            return;
-        }
-
-        multiSearch(term);
-
-        if (term.indexOf(' ') > -1) {
-            multiSearch(term.replace(/ /g, ''));
-        }
-
-        function multiSearch(eTerm) {
-            var reg = new RegExp(eTerm, 'gi'),
-            m, indeces = [];
-
-            while (m = reg.exec(name)) {
-                indeces.push(m.index);
-            }
-
-            for (var i = 0, l = indeces.length; i < l; i++) {
-                name = highlight(name, indeces[i] + i * consts.BOLDSTRINGLENTH, indeces[i] + eTerm.length + i * consts.BOLDSTRINGLENTH);
-            }
-        };
-
-        return name;
-
-        function highlight(str, start, end) {
-            var text = '<span class="boldPart">' + str.substring(start, end) + '</span>';
-
-            return str.substring(0, start) + text + str.substring(end);
         };
     };
 })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);

@@ -286,7 +286,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new ChangeFileNameCommand(itemId, newFileName, userId);
                 var result = m_ZboxWriteService.ChangeFileName(command);
-                return Json(new JsonResponse(true, Path.GetFileNameWithoutExtension(result.File.Name)));
+                var urlBuilder = new UrlBuilder(HttpContext);
+                return Json(new JsonResponse(true, new
+                {
+                    name = Path.GetFileNameWithoutExtension(result.File.Name),
+                    queryString = UrlBuilder.NameToQueryString(result.File.Name)
+                }));
             }
 
             catch (UnauthorizedAccessException)
@@ -333,7 +338,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (otakim)
                 {
-                    var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(filedto.Blob, 60);
+                    var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);
                     var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name, Zbang.Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
                     return Redirect(url);
                 }

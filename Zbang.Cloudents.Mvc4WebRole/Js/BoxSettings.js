@@ -112,25 +112,27 @@
                 e.preventDefault();
                 var data = $(this).serializeArray();
                 data.push({ name: 'BoxUid', value: boxSettingsData.boxUid });
-                submitBtn.setAttribute(CDISABLED, CDISABLED);
+                changeViewBoxSettings(false, true);
+
+                pubsub.publish('updateBoxInfo', {
+                    name: eById('boxSettingsName').value,
+                    courseId: eById('boxSettingsCourse').value,
+                    professor: eById('boxSettingsProfessor').value,
+                    privacy: $(self).find('input[name="BoxPrivacy"]:checked').val()
+                });
+                //submitBtn.setAttribute(CDISABLED, CDISABLED);
                 dataContext.updateBoxInfo({
                     data: data,
-                    success: function (v) {
-                        changeViewBoxSettings(false, true);
-
-                        pubsub.publish('updateBoxInfo', {
-                            name: eById('boxSettingsName').value,
-                            courseId: eById('boxSettingsCourse').value,
-                            professor: eById('boxSettingsProfessor').value,
-                            privacy: $(self).find('input[name="BoxPrivacy"]:checked').val()
-                        });
-                    },
-                    error: function (e) {
-                        cd.displayErrors(self, e);
-                    },
-                    always: function () {
-                        submitBtn.removeAttribute(CDISABLED);
+                    success: function (data) {
+                        pubsub.publish('updateBoxUrl', data.queryString);
+                        
                     }
+                    //error: function (e) {
+                    //    cd.displayErrors(self, e);
+                    //},
+                    //always: function () {
+                    //    submitBtn.removeAttribute(CDISABLED);
+                    //}
                 });
             };
 
@@ -184,7 +186,7 @@
                     success: function () {
                         changeViewBoxSettings(false, true);
                         that.removeAttribute(CDISABLED);
-                        cd.storageWrapper.session.clear();
+                        cd.sessionStorageWrapper.clear();
                         cd.pubsub.publish('nav', '/');
 
                     }

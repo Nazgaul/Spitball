@@ -78,12 +78,12 @@
                 return;
             }
 
-            var page = backData.url,split; //remove the first 
-            if (page.indexOf('dashboard') > -1 || page.indexOf('user') > -1) {
+            var page = backData.url, split; //remove the first 
+            if (page.indexOf('dashboard') > -1 || page.indexOf('user') > -1 || page.indexOf('search') > -1) {
                 split = 0;
             } else { //library 
                 split = 1;
-            }            
+            }
             that.name = backData.title.split(' | ')[split] //first part of the title
             that.url = backData.url;
             //if (backData.url.indexOf('dashboard') > -1) {
@@ -167,7 +167,7 @@
                     });
 
                 if (!cd.firstLoad) {
-                    document.title = '{0} | {1} | Cloudents'.format(self.name(), self.ownerName());
+                    cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
                 }
                 cd.pubsub.publish('box_load', self.boxid);
                 //cd.pubsub.publish('init_clipboard', $('#box_CL'));
@@ -451,8 +451,19 @@
                 if (d.privacy) {
                     self.privacySetting(d.privacy);
                 }
+                
             });
 
+            cd.pubsub.subscribe('updateBoxUrl', function (boxName) {
+                var location = self.copyLink().substring(0, self.copyLink().length - 1),
+                    location = location.substring(0, location.lastIndexOf('/') + 1) + boxName + '/';
+                self.copyLink(location);
+                if (window.history) {
+                    cd.historyManager.remove();
+
+                    window.history.replaceState(location, '', location);
+                }
+            });
             cd.pubsub.subscribe('addItem', function () {
                 if (self.boxid === '') {
                     return;

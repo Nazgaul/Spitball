@@ -123,6 +123,9 @@
   <data name="ContactUs" xml:space="preserve">
     <value>للاتصال </value>
   </data>
+  <data name="ogTitle" xml:space="preserve">
+    <value>تحقق من Cloudents! خدمة كبيرة لأكاديمية الملاحظات الطبقة، والقيام الامتحانات الدراسية لدينا</value>
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>مزايا الخصوصية </value>
   </data>

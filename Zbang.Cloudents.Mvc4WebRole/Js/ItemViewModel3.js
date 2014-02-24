@@ -56,7 +56,7 @@
             });
             that.nameNoType = ko.computed(function () {
                 var name = that.name;
-                return data.type === 'File' ? name.substring(0, name.indexOf('.')) : name;
+                return data.type === 'File' ? name.substring(0, name.lastIndexOf('.')) : name;
             });
             that.extension = getExtension(that.name, that.type);
             that.extensionColor = getExtensionColor(that.name, that.type);
@@ -147,7 +147,7 @@
                 otakim = data.otakim;
                 self.deleteAllow(checkDeleteAllow(data.userType));
                 if (!cd.firstLoad) {
-                    document.title = '{0} | {1}.{2} | Cloudents'.format(self.boxName(), self.itemName(), self.extension());
+                    cd.setTitle('{0} | {1}.{2} | Cloudents'.format(self.boxName(), self.itemName(), self.extension()));
                 }
                 var itemPageLoad = new $.Deferred();
                 defferedArray.push(itemPageLoad);
@@ -193,7 +193,7 @@
                     cd.pubsub.publish('nav', self.boxurl());
                 }
             });
-           
+
         }
         function changeLayout(data) {
 
@@ -209,7 +209,6 @@
             .uniName(data.uniName)
             .update(cd.dateToShow(data.updateTime))
             .itemName(data.nameWOExtension || data.name)
-            .boxurl(data.boxUrl).boxName(data.boxName)
             .numberOfViews(data.numberOfViews || 1);
             blobName = data.blob;
             itemType = data.type;
@@ -225,6 +224,14 @@
             $.data($('#rateContainer')[0], 'fetchrate', true);
             //cd.pubsub.publish('init_clipboard', $('#item_CL'));
 
+            //back button
+            var prevData = cd.prevLinkData('item');
+            if (prevData) {
+                self.boxurl(prevData.url)
+                    .boxName(prevData.title.split(' | ')[0]); //takes search from Search | * | Cloudents
+            } else {
+                self.boxurl(data.boxUrl).boxName(data.boxName)
+            }
         }
         function checkDeleteAllow(userType) {
             if (userType < 2) {
@@ -321,8 +328,15 @@
                     dataContext.renameItem({
                         data: { newFileName: fileName, ItemId: self.itemid() },
                         success: function (data) {
-                            self.itemName(data);
+                            self.itemName(data.queryString);
+                            var location = self.copyLink().substring(0, self.copyLink().length - 1),
+                    location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
+                            self.copyLink(location);
+                            if (window.history) {
+                                cd.historyManager.remove();
 
+                                window.history.replaceState(location, '', location);
+                            }
                             d.finish();
                         },
                         error: function (msg) {
@@ -392,6 +406,7 @@
                     mywindow.close();
                 };
                 trackEvent('Print');
+                $('#itemPrint').prop('checked', false)
             }
             $('#Otakim_P').click(function () {
                 if (!cd.register()) {
@@ -404,7 +419,7 @@
             })
 
             document.getElementById('item_FS').addEventListener('click', function () {
-                cd.shareFb(cd.location(), //url
+                cd.shareFb(self.copyLink(), //url
                     self.itemName() + '.' + self.extension(), //title
                     self.uniName() ? self.boxName() + ' - ' + self.uniName() : self.boxName(), //caption
                     JsResources.IShared + ' {0}.{1} '.format(self.itemName(), self.extension()) + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
@@ -420,7 +435,7 @@
 
             $('#item_msg').click(function () {
                 cd.pubsub.publish('message',
-                    { text: ZboxResources.FindThisInteresting + '\n\u200e“' + self.itemName() + '” - ' + cd.location() }
+                    { text: ZboxResources.FindThisInteresting + '\n\u200e“' + self.itemName() + '” - ' + self.copyLink() }
                     );
             });
 
@@ -467,6 +482,10 @@
                 }
             });
             function prevItem() {
+                if (document.body.className.indexOf('fulscrn') === -1) {
+                    return;
+                }
+
                 trackEvent('fullscreenPrev');
                 $('#itemNext').removeClass(cDISABLED).removeAttr(cDISABLED);
                 var $item = $('.select').prev('li');
@@ -477,6 +496,10 @@
             }
 
             function nextItem() {
+                if (document.body.className.indexOf('fulscrn') === -1) {
+                    return;
+                }
+
                 trackEvent('fullscreenNext');
                 $('#itemPrev').removeClass(cDISABLED).removeAttr(cDISABLED);
 
@@ -814,7 +837,7 @@
                         return;
                     }
                     var fdata = $form.serializeArray();
-                    fdata.push({ name: 'ItemUid', value: self.itemid() });
+                    fdata.push({ name: 'ItemId', value: self.itemid() });
                     dataContext.badItemRequest({
                         data: fdata,
                         success: function () {

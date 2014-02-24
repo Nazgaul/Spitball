@@ -598,12 +598,12 @@ footer{
     font-size: 18px;
     width: 460px;
     margin: 70px auto 0; 
-    text-align: left; /*rtl*/ 
+    text-align: left; /*rtl*/  
     &.libraryChoose
-    {
+{
         width: 666px;
         margin-top: 170px;
-    } 
+}
 }
 
 
@@ -679,16 +679,16 @@ footer{
         {
             .transition(background .2s);
             background: #fafafa;
-        }
+    }
 
         &:active {
             background: #ebebeb;
         }
-    } 
+        }
     .emptySearch:after
     {
         top:6px;
-    } 
+        }
 }
 
 .uniImg {
@@ -723,7 +723,7 @@ footer{
 }
 .newUni.newUni {
     font-size: 13px;
-    height: 34px;
+        height: 34px;
     color: @textColor;
     background: #f5f5f5;
     border-top: 1px solid @borderColor;
@@ -736,7 +736,7 @@ footer{
         &:hover
         {
             text-decoration: underline;
-        }
+    }
     }
 }
 
@@ -913,7 +913,7 @@ footer{
     /*#region departmentChoose*/
     &.departmentChoose {
         width: 700px;
-
+        z-index:12;
         label {
             display: block;
             font-size: 15px;
@@ -935,6 +935,9 @@ footer{
         }
         input {
             font-size:13px;
+        }
+        .modal2 {
+            z-index:11;
         }
         
     }

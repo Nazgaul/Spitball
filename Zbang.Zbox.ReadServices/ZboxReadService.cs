@@ -551,19 +551,20 @@ namespace Zbang.Zbox.ReadServices
             //const int pageNumber = 20;
             using (var conn = await DapperConnection.OpenConnection())
             {
-                var transferLetter = IocFactory.Unity.Resolve<IEnglishToHebrewChars>();
-                var stemmer = IocFactory.Unity.Resolve<IHebrewStemmer>();
-                var filter = IocFactory.Unity.Resolve<IFilterWords>();
+                //var transferLetter = IocFactory.Unity.Resolve<IEnglishToHebrewChars>();
+                //var stemmer = IocFactory.Unity.Resolve<IHebrewStemmer>();
+                //var filter = IocFactory.Unity.Resolve<IFilterWords>();
 
-                var hebrewLetters = stemmer.StemAHebrewWord(transferLetter.TransferEnglishCharsToHebrew(query.Prefix));
-                //var hebrewLetters = transferLetter.TransferEnglishCharsToHebrew(query.Prefix);
-                hebrewLetters = filter.removeWords(hebrewLetters);
-                var filteredQuery = filter.removeWords(query.Prefix);
+                //var hebrewLetters = stemmer.StemAHebrewWord(transferLetter.TransferEnglishCharsToHebrew(query.Prefix));
+                ////var hebrewLetters = transferLetter.TransferEnglishCharsToHebrew(query.Prefix);
+                //hebrewLetters = filter.removeWords(hebrewLetters);
+                //var filteredQuery = filter.removeWords(query.Prefix);
 
-                return await conn.QueryAsync<UniversityByPrefixDto>(Sql.Sql.GetUniversitiesList, new
-                {
-                    country = query.Country,
-                });
+                return await conn.QueryAsync<UniversityByPrefixDto>(Sql.Sql.GetUniversitiesList);
+                //    , new
+                //{
+                //    country = query.Country,
+                //});
             }
         }
 
@@ -754,7 +755,7 @@ namespace Zbang.Zbox.ReadServices
             SeoDto retVal = new SeoDto();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(String.Format("{0} {1}", Sql.Seo.GetBoxes, Sql.Seo.GetItems), new { Userid = long.Parse(Zbang.Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("UniversitySeoId")) }))
+                using (var grid = conn.QueryMultiple(String.Format("{0} {1}", Sql.Seo.GetBoxes, Sql.Seo.GetItems)))
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
                     retVal.Items = grid.Read<Item.ItemSeoDto>();

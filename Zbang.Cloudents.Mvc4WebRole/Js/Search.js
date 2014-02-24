@@ -14,21 +14,23 @@
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-            sTabContent = eById('sTabContent'), isLoading = false,
-            searchTerm, cPage = 0;
-            consts = {
-                COURSES: 'sTab1',
-                MATERIALS: 'sTab2',
-                MEMBERS: 'sTab3',
-                STABCOUNT: 'data-stab-count'
-            }
+            sTabContent = eById('sTabContent'), isLoading = false, gSearch = eById('g_searchQ'),
+            otherMaterialsSplit = document.querySelector('.splitHR'),
+            searchTerm, cPage = 0, currentTab = sTabCourses;
+        consts = {
+            COURSES: 'sTab1',
+            MATERIALS: 'sTab2',
+            MEMBERS: 'sTab3',
+            STABCOUNT: 'data-stab-count',
+            BOLDPART: 'sHighlight'
+        }
 
         function Course(data) {
             var self = this;
-            self.image = data.image;
-            self.name = data.name;
-            self.proffessor = data.proffessor || '';
-            self.courseCode = data.courseCode || '';
+            self.image = data.image || '/images/emptyState/my_default3.png';
+            self.name = cd.highlightSearch(searchTerm, data.name,consts.BOLDPART) || data.name || '';
+            self.proffessor = cd.highlightSearch(searchTerm, data.proffessor, consts.BOLDPART) || data.proffessor || '';
+            self.courseCode = cd.highlightSearch(searchTerm, data.courseCode, consts.BOLDPART) || data.courseCode || '';
             self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
             self.url = data.url + '?r=search&s=courses'
         }
@@ -36,11 +38,11 @@
         function Material(data) {
             var self = this;
             self.image = data.image;
-            self.name = data.name;
+            self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART);
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
-            self.universityName = '&nbsp;';
-            self.content = data.content || '';
+            self.universityName = data.universityname;
+            self.content = cd.highlightSearch(searchTerm, data.content, consts.BOLDPART) || data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
         }
@@ -48,7 +50,7 @@
         function Member(data) {
             var self = this;
             self.id = data.id;
-            self.name = data.name;
+            self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART) || data.name || '';
             self.image = data.image;
             self.url = data.url + '?r=search&s=members';
 
@@ -56,13 +58,14 @@
 
 
         pubsub.subscribe('search', function () {
-            var currentPage = cd.getParameterFromUrl(1)
+            var currentPage = cd.getParameterFromUrl(0);
+
             getData()
             registerEvents();
         });
 
         pubsub.subscribe('searchclear', function () {
-            clear();
+            clear(true);
         });
 
         function getData(term) {
@@ -74,6 +77,10 @@
             } else {
                 searchTerm = cd.getParameterByName('q');
             }
+            if (!cd.firstLoad) {
+                cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
+            }
+
 
 
             if (initData) {
@@ -87,15 +94,18 @@
             }
 
 
-            var isFirstPage = cPage === 0;
-            var loader = renderLoad(sTabContent, !isFirstPage);
-            if (isFirstPage) {
-                sTabContent.classList.add('sLoading');
 
-            }
+            var isFirstPage = cPage === 0;
+
             if (isLoading) {
                 return;
             }
+            if (isFirstPage) {
+                clear(true);
+                sTabContent.classList.add('sLoading');
+            }
+            var loader = renderLoad(sTabContent, !isFirstPage);
+
             isLoading = true;
             sSearchTerm.textContent = searchTerm;
             sTabResults.classList.add('searching');
@@ -104,8 +114,9 @@
                 success: function (data) {
                     data = data || {};
                     parseData(data);
-                    if (cPage === 0) {
-                        setCurrentTab(sTabCourses);
+                    if (isFirstPage) {
+                        setCurrentTab(currentTab);
+                        return;
                     }
                 },
                 always: function () {
@@ -119,6 +130,11 @@
 
 
             function parseData(data) {
+
+                if (gSearch.value === '') {
+                    gSearch.value = searchTerm;
+                }
+
                 appendData();
 
 
@@ -126,16 +142,24 @@
                     var courses = mapData(Course, data.boxes),
                         materials = mapData(Material, data.items),
                         members = mapData(Member, data.users),
-                        otherMaterials = mapData(Material, data.otherItems),
-                        toWipe = cPage === 0;
+                        otherMaterials = mapData(Material, data.otherItems);
+
+                    toWipe = cPage === 0;
 
 
                     appendList(sCourseList, 'sCourseItemTemplate', courses, toWipe);
                     appendList(sMaterialList, 'sMaterialItemTemplate', materials, toWipe);
                     appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);
-                    appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
+                    if (otherMaterials.length > 0) {
+                        otherMaterialsSplit.style.display = 'block';
+                        appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
+                    } else {
+                        otherMaterialsSplit.style.display = 'none';
+                    }
 
                     setNumbersAndText();
+                    var length = parseNumber(currentTab);
+                    sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
                     pubsub.publish('search_load');
 
                     function mapData(dataType, arr) {
@@ -150,19 +174,26 @@
                         });
                     };
                     function setNumbersAndText() {
+                        var length;
+
                         sSearchTerm.textContent = searchTerm;
 
-                        parseNumber(sTabCourses, courses.length);
-                        parseNumber(sTabMaterials, materials.length);
-                        parseNumber(sTabMembers, members.length);
 
-                        function parseNumber(e, length) {
-                            var number = parseInt(e.getAttribute(consts.STABCOUNT), 10);
-                            number += length;
+                        length = parseNumber(sTabCourses);
+                        applyText(sTabCourses, length, courses.length);
+
+                        length = parseNumber(sTabMaterials);
+                        applyText(sTabMaterials, length, materials.length + otherMaterials.length);
+
+                        length = parseNumber(sTabMembers);
+                        applyText(sTabMembers, length, members.length);
+
+                        function applyText(elm, currentLength, length) {
+                            currentLength += length;
                             if (length === 50) {
-                                number += '+';
+                                currentLength += '+';
                             }
-                            e.setAttribute(consts.STABCOUNT, number);
+                            elm.textContent = elm.getAttribute('data-type') + ' (' + currentLength + ')';
                         }
                     };
                 };
@@ -172,17 +203,18 @@
         function registerEvents() {
             //tab switch
             $(tabsContainer).on('click', 'button', function (e) {
+                if (isLoading) {
+                    return;
+                }
                 setCurrentTab(this);
+                var length = parseNumber(this);
+                sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
             });
 
 
             //fetch more data
-            $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    cPage++;
-                    getData(searchTerm);
-                }
-            });
+            $(window).scroll(scrollEvent);
+
 
             $(sTabContent).on('click', '.inviteUserBtn', function (e) {
                 nameElement = this.previousElementSibling,
@@ -202,33 +234,39 @@
         function setCurrentTab(elm) {
             $elm = $(elm);
             var tabIndex = $elm.index(),
-                    list = $('ul[data-list="' + elm.getAttribute('data-type') + '"]');
+                    list = $('[data-list="' + elm.getAttribute('data-type') + '"]').find('li');
 
-            if (list.children().length > 0) {
+            if (list.length > 0) {
                 sTabContent.classList.remove('noResults');
             } else {
                 sTabContent.classList.add('noResults');
             }
 
-            $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
-            sTabResults.setAttribute('data-resultcount', elm.getAttribute('data-stab-count'));
 
+
+            $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
+            currentTab = $elm[0];
         }
 
         function appendList(list, template, dataItems, wipe) {
             cd.appendData(list, template, dataItems, 'beforeend', wipe);
         }
 
-        function clear() {
-            sTabCourses.setAttribute(consts.STABCOUNT, 0);
-            sTabMaterials.setAttribute(consts.STABCOUNT, 0);
-            sTabMembers.setAttribute(consts.STABCOUNT, 0);
+        function clear(clearPage) {
+            sTabCourses.textContent = 'Courses (0)';
+            sTabMaterials.textContent = 'Materials (0)';
+            sTabMembers.textContent = 'Members (0)';
             sCourseList.innerHTML = '';
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
             sOtherMaterialList.innerHTML = '';
-            cPage = 0;
+            otherMaterialsSplit.style.display = 'none';
+            if (clearPage) {
+                cPage = 0;
+            }
             sTabContent.classList.remove('noResults');
+            $(window).off('scroll', scrollEvent);
+
         }
         function renderLoad(element, moreContent) {
             var cssLoader, imgLoader, loader;
@@ -248,15 +286,50 @@
             } else {
                 element.insertAdjacentHTML('beforeend', imgLoader);
             }
+            //try { //show loader
+            //    //window.scrollTo(0, document.body.scrollHeight);
+            //} catch (err) {
+            //    console.log(err.message);
+            //}
 
-            loader = element.querySelector('.upLoader') || element.querySelector('.pageAnim');
+            $upLoader = $('.upLoader');
+            $pageAnim = $('.pageAnim');
 
             return function () {
-                if ($(loader).parents('.sTabContent')) {
-                    element.removeChild(loader);
-                }
+                //if ($(loader).parents('.sTabContent')) {
+                $upLoader.remove();
+                $pageAnim.remove();
+                //}
             };
         }
+        function parseNumber(e) {
+
+            var number = e.textContent.match(/\(([^)]+)\)/);
+            if (number) {
+                return parseInt(number[1]);
+            } else {
+                return 0;
+            }
+        }
+        function scrollEvent() {
+            if ($(search).is(':visible')) {
+                if (isLoading) {
+                    return;
+                }
+
+                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    var length = parseNumber(currentTab);
+
+                    if (length % 50 !== 0) {
+                        return;
+                    }
+                    cPage++;
+                    getData(searchTerm);
+
+                }
+            }
+        };
+
 
     };
 
