@@ -75,7 +75,7 @@
             if (term.length) {
                 searchTerm = term;
             } else {
-                searchTerm = cd.getParameterByName('q');
+                searchTerm = gSearch.value || cd.getParameterByName('q');
             }
             if (!cd.firstLoad) {
                 cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
