@@ -225,13 +225,13 @@
             //cd.pubsub.publish('init_clipboard', $('#item_CL'));
 
             //back button
-            var prevData = cd.prevLinkData('item');
-            if (prevData) {
-                self.boxurl(prevData.url)
-                    .boxName(prevData.title.split(' | ')[0]); //takes search from Search | * | Cloudents
-            } else {
-                self.boxurl(data.boxUrl).boxName(data.boxName)
-            }
+            //var prevData = cd.prevLinkData('item');
+            //if (prevData) {
+            //self.boxurl(prevData.url)
+            //.boxName(prevData.title.split(' | ')[0]); //takes search from Search | * | Cloudents
+            //} else {
+            self.boxurl(data.boxUrl).boxName(data.boxName)
+            //}
         }
         function checkDeleteAllow(userType) {
             if (userType < 2) {
@@ -1097,7 +1097,7 @@
                 var readView = $(this).parents('.readView'),
                 annotation = findAnnotationObjById(readView.data('id'));
                 readView.addClass('moreContinue').find('.annotationTextWpr').addClass('moreState');
-                
+
                 $('.show-more').hide();
                 //readView.find('.show-less').show();
                 //readView.find('.annotationText').trigger('destroy.dot').empty().text(annotation.comment);

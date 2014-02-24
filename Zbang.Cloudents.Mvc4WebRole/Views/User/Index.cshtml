@@ -19,7 +19,7 @@
 
         <section class="upMembers" data-bind="visible: membersSectionVisible()">
             <h2>University members</h2>
-            <div class="membersContent">
+            <div class="membersContent" data-bind="css: { noResults : membersLoaded() && !displayMembersFilter().length} ">
                 <div class="membersTop">
                     <input id="upMemberSettings" type="checkbox" class="checkbox" data-click="unSelected" />
                     <label for="upMemberSettings" class="cbLabel">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.All</label>
@@ -66,7 +66,7 @@
                         <div class="arrow downArrow"></div>
                     </li>
                 </ul>
-
+                <div class="emptySearch">No results were found</div>
             </div>
         </section>
 
