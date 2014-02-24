@@ -2175,6 +2175,11 @@ input[type="radio"] + label:before {
 
   left: auto;
 }
+.searchPage .upArrow {
+  top: -14px;
+  /*rtl (font issue)*/
+
+}
 .searchPage .upArrow:before {
   right: 28px;
   /*rtl*/

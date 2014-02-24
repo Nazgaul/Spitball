@@ -1,25 +1,25 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="searchPage page" id="search" data-data="@ViewBag.data">
     <div id="sTabsMenu" class="sTabs sTab1">
-        <button id="sTabCourses" type="button" data-type="courses" data-stab-count="0">Courses&nbsp;</button>
-        <button id="sTabMaterials" type="button" data-type="materials" data-stab-count="0">Materials&nbsp;</button>
-        <button id="sTabMembers" type="button" data-type="members" data-stab-count="0">Members&nbsp;</button>
+        <button id="sTabCourses" type="button" data-type="@SharedResources.Courses" data-stab-count="0"></button>
+        <button id="sTabMaterials" type="button" data-type="@SharedResources.Materials" data-stab-count="0"></button>
+        <button id="sTabMembers" type="button" data-type="@SharedResources.Members" data-stab-count="0"></button>
     </div>
     <div class="arrow upArrow"></div>
-    <h2 id="sTabResults" class="semiFont" data-resultcount="0"><span class="sResult">&nbsp;results for </span><span class="sResult">Searching for </span><q id="sSearchTerm"></q></h2>
+    <h2 id="sTabResults" class="semiFont" data-resultcount="0"><span class="sResult">&nbsp;@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q id="sSearchTerm"></q></h2>
     <div id="sTabContent" class="sTabContent">
         <section class="sCourses" data-list="courses">
             <ul id="sCourseList" class="sCourseList"></ul>
         </section>
         <section class="sMaterials" data-list="materials">
             <ul id="sMaterialsList" class="sMaterialsList"></ul>
-            <div class="splitHR"><span class="splitHRText">Results from other universities</span></div>
+            <div class="splitHR"><span class="splitHRText">@SharedResources.ResultsOther</span></div>
             <ul id="sOtherMaterialsList" class="sMaterialsList" data-list="materials"></ul>
         </section>
         <section class="sMembers" data-list="members">
             <ul id="sMembersList" class="sMembersList"></ul>
         </section>
-        <div class="emptySearch">No results were found</div>
+        <div class="emptySearch">@SharedResources.NoResults</div>
     </div>
 </div>
 

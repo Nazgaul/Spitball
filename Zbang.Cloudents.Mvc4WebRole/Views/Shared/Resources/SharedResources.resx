@@ -406,4 +406,43 @@ To help you get started tell us where you study</value>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="ResultsFor" xml:space="preserve">
+    <value>results for</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>No results were found</value>
+  </data>
+  <data name="ResultsOther" xml:space="preserve">
+    <value>Results from other universities</value>
+  </data>
+  <data name="SearchingFor" xml:space="preserve">
+    <value>Searching for</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>members</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllResults" xml:space="preserve">
+    <value>Show all results for</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="Pts" xml:space="preserve">
+    <value>pts</value>
+  </data>
+  <data name="SweetPoints" xml:space="preserve">
+    <value>Sweet, you just earned</value>
+  </data>
 </root>

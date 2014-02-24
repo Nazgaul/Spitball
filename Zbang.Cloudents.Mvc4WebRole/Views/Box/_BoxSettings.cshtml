@@ -11,7 +11,7 @@
         <div class="popupTopBar">
 
             <button data-id="Settings" type="button" class="tabBtn">@DialogResources.Settings</button>
-            <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
+            <button data-id="Members" type="button" class="tabBtn">@SharedResources.Members</button>
             <a data-navigation="invite" href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })?r=box&s=members" data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
             <div class="arrow tabArrow"></div>
         </div>
@@ -81,10 +81,10 @@
         <div class="membersContent">
             <div class="membersTop">
                 <input id="membersSettings" type="checkbox" class="checkbox" />
-                <label for="membersSettings" class="cbLabel">@MainViewResources.All</label>
+                <label for="membersSettings" class="cbLabel">@SharedResources.All</label>
                 <button type="button" id="mbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                 <div class="searchWpr rFloat">
-                    <span class="membersCount" data-label="@IndexResources.Members"></span>
+                    <span class="membersCount" data-label="@SharedResources.Members"></span>
                     <input class="membersSearch" id="membersSearch" type="search" placeholder="@IndexResources.SearchMember" />
                 </div>
             </div>            

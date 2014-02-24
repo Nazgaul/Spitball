@@ -409,4 +409,19 @@
   <data name="Dashboard1" xml:space="preserve">
     <value>منطقتي </value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>مساقات</value>
+  </data>
+  <data name="ResultsFor" xml:space="preserve">
+    <value>النتائج المتعلقة</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>اعضاء </value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>القسم</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>الكل </value>
+  </data>
 </root>

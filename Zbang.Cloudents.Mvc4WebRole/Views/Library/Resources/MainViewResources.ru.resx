@@ -138,9 +138,6 @@
   <data name="CourseName" xml:space="preserve">
     <value>Название курса</value>
   </data>
-  <data name="Courses" xml:space="preserve">
-    <value>курсы</value>
-  </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>Создать новый курс</value>
   </data>

@@ -22,17 +22,17 @@
             <div class="membersContent" data-bind="css: { noResults : membersLoaded() && !displayMembersFilter().length} ">
                 <div class="membersTop">
                     <input id="upMemberSettings" type="checkbox" class="checkbox" data-click="unSelected" />
-                    <label for="upMemberSettings" class="cbLabel">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.MainViewResources.All</label>
+                    <label for="upMemberSettings" class="cbLabel">@SharedResources.All</label>
                     <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                     <div class="searchWpr rFloat">
-                        <span class="membersCount" data-label="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.Members" data-bind="text: membersLength() "></span>
+                        <span class="membersCount" data-label="@SharedResources.Members" data-bind="text: membersLength() "></span>
                         <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
                     </div>
                 </div>
                 <div class="memberTopRow">
-                    <span class="memberCol">Name</span>
+                    <span class="memberCol">@SharedResources.Name</span>
                     <input type="checkbox" class="checkbox" id="cbDept" />
-                    <label for="cbDept" class="deptCol">Department</label>
+                    <label for="cbDept" class="deptCol">@SharedResources.Department</label>
                     <div id="deptPopup" class="deptPopup">
                         <ul>
                             <!--ko foreach:departments-->
@@ -43,8 +43,8 @@
                             <!--/ko-->
                         </ul>
                     </div>
-                    <span class="dateCol">Join Date</span>
-                    <span class="courseCol">Courses</span>
+                    <span class="dateCol">@UserResources.JoinDate</span>
+                    <span class="courseCol">@SharedResources.Courses</span>
                 </div>
                 <ul id="upMembersList" class="upMembersList">
                     <!--ko foreach:displayMembersFilter-->
@@ -61,7 +61,7 @@
                     </li>
                     <!--/ko-->
                     <li class="upMemberBoxes">
-                        <div class="upMemberBoxesTitle semiFont">Courses List</div>
+                        <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
                         <ul class="upMemberBoxList" id="upMemberBoxList"></ul>
                         <div class="arrow downArrow"></div>
                     </li>

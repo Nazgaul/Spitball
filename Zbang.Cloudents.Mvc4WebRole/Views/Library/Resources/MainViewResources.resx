@@ -138,9 +138,6 @@
   <data name="CourseName" xml:space="preserve">
     <value>Course Name</value>
   </data>
-  <data name="Courses" xml:space="preserve">
-    <value>courses</value>
-  </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>Create a new course</value>
   </data>
@@ -196,5 +193,8 @@
   </data>
   <data name="SchoolsFrom" xml:space="preserve">
     <value>Schools from</value>
+  </data>
+  <data name="CantFind" xml:space="preserve">
+    <value>Can't find your school?</value>
   </data>
 </root>

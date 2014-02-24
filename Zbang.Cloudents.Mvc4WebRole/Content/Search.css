@@ -161,6 +161,8 @@
 }
 .searchPage .upArrow {
   top: -16px;
+  /*rtl (font issue)*/
+
   height: 12px;
 }
 .searchPage .upArrow:before {

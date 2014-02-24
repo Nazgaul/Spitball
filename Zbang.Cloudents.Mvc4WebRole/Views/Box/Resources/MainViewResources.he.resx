@@ -123,9 +123,6 @@
   <data name="AddShare" xml:space="preserve">
     <value>הוסף קבצים ושתף עם חברים</value>
   </data>
-  <data name="All" xml:space="preserve">
-    <value>הכל</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>ריק כאן, לעת עתה.
 תהיה הראשון לשתף חומרי לימוד.</value>

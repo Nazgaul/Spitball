@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
     ViewBag.data = ViewBag.data ?? null;
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
@@ -12,10 +13,10 @@
         </div>
         @*Guy: If no results please add noResults class on the list*@
         <ul class="uniList" id="uniList">
-            <li class="emptySearch">No results were found</li>
+            <li class="emptySearch">@SharedResources.NoResults</li>
             <li class="newUni">
-                <span>Can't find your school?</span>
-                <a href="#" class="createUni">create new</a>
+                <span>@MainViewResources.CantFind</span>
+                <a href="#" class="createUni">@SharedResources.CreateNew</a>
             </li>
 
         </ul>

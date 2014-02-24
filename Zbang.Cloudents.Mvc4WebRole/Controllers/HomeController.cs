@@ -41,13 +41,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public HomeController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            // IShortCodesCache shortToLongCache,
             Lazy<IQueueProvider> queueProvider,
             Lazy<IBlobProvider> blobProvider,
             Lazy<ICache> cacheProvider,
             IFormsAuthenticationService formsAuthenticationService)
             : base(zboxWriteService, zboxReadService,
-                // shortToLongCache, 
             formsAuthenticationService)
         {
             m_QueueProvider = queueProvider;

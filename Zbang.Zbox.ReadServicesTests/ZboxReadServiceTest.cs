@@ -71,6 +71,20 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
+        public void OtherUniversities_Query_ReturnResult()
+        {
+            var query = new GroupSearchQuery("1", 14, 1, false);
+            try
+            {
+                var x = m_ZboxReadService.OtherUniversities(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
         public void GetMyData_Query_ReturnResult()
         {
             var query = new GetDashboardQuery(1, 1);
