@@ -41,7 +41,7 @@
             self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART);
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
-            self.universityName = data.universityname;
+            self.universityName = data.uniName || '';
             self.content = cd.highlightSearch(searchTerm, data.content, consts.BOLDPART) || data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
@@ -75,7 +75,7 @@
             if (term.length) {
                 searchTerm = term;
             } else {
-                searchTerm = cd.getParameterByName('q');
+                searchTerm = gSearch.value || cd.getParameterByName('q');
             }
             if (!cd.firstLoad) {
                 cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
@@ -133,6 +133,7 @@
 
                 if (gSearch.value === '') {
                     gSearch.value = searchTerm;
+                    pubsub.publish('sInputChanged');
                 }
 
                 appendData();
@@ -253,9 +254,9 @@
         }
 
         function clear(clearPage) {
-            sTabCourses.textContent = 'Courses (0)';
-            sTabMaterials.textContent = 'Materials (0)';
-            sTabMembers.textContent = 'Members (0)';
+            sTabCourses.textContent = sTabCourses.getAttribute('data-type') + ' (0)';
+            sTabMaterials.textContent = sTabMaterials.getAttribute('data-type') + ' (0)';
+            sTabMembers.textContent = sTabMembers.getAttribute('data-type') + ' (0)';
             sCourseList.innerHTML = '';
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';

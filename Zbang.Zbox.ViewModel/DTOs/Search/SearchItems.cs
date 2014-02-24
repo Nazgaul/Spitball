@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
 {
     public class SearchItems
     {
-        public SearchItems(string image, string name, long id, string type, string content, double rate, int views, string boxName, long boxid, string universityName)
+        public SearchItems(string image, string name, long id, string type, string content, double rate, int views, string boxName, long boxid, string universityName, string uniName)
         {
             Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(image);
             Name = name;
@@ -19,6 +19,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
             Content = content;
             Rate = rate;
             Views = views;
+            UniName = uniName;
         }
         public string Image { get; set; }
         public string Name { get; set; }
@@ -32,5 +33,6 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
         public string Universityname { get; set; }
 
         public string Url { get; set; }
+        public string UniName { get; set; }
     }
 }

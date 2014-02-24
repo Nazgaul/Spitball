@@ -437,7 +437,7 @@
                 user.removeAttribute('data-firstTime');
                 self.name(username);
                 userScore = parseInt(document.getElementById('pointsList').getAttribute('data-score'), 10);
-                if (userScore < consts.ADMINSCORE) {
+                if (!self.membersSectionVisible()) {
                     populateScore(userScore);
                 }
                 if (!cd.firstLoad) {

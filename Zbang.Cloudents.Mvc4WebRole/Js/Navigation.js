@@ -290,6 +290,7 @@
         }
         return '';
     }
+
     function removeStartingSlash(param) {
         if (param.charAt(0) === '/') {
             return param.substr(1);
@@ -404,7 +405,7 @@
                     break;
                 case 'search':
                     dataContext.searchMp({
-                        data: { q: cd.getParameterByName('q') },
+                        data: { q: cd.getParameterByNameFromString('q',historyNav[historyNav.length-1].url) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('SearchContext', null, function () {

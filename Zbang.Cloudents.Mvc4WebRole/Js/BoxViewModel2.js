@@ -110,7 +110,6 @@
             getBox();
         });
 
-
         function getBox() {
             var $box = $('#box'), initData = $box.data('data');
 
@@ -170,6 +169,13 @@
                     cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
                 }
                 cd.pubsub.publish('box_load', self.boxid);
+
+                setTimeout(function () {
+                    if (self.follow()) {
+                        document.getElementById('joinGrpBtn').classList.add('show');
+                    }
+                }, 750);
+
                 //cd.pubsub.publish('init_clipboard', $('#box_CL'));
                 cd.pubsub.publish('perm', self.userType());
             }
@@ -196,7 +202,6 @@
                 cd.pubsub.publish('dinvite', self.boxid);
             }, 3300);
             analytics.trackEvent('Follow', 'Join group', 'Clicking on join group button, on the box level');
-            document.getElementById('joinGrpBtn')
             dataContext.follow({
                 data: { BoxUid: self.boxid }
             });
@@ -451,7 +456,7 @@
                 if (d.privacy) {
                     self.privacySetting(d.privacy);
                 }
-                
+
             });
 
             cd.pubsub.subscribe('updateBoxUrl', function (boxName) {

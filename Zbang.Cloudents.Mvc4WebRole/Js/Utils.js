@@ -181,7 +181,18 @@
         }
     };
 
-
+    var getParameterByNameFromString = function (param,text) {
+        param = param.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regexS = "[\\?&]" + param + "=([^&#]*)";
+        var regex = new RegExp(regexS, 'i');
+        var results = regex.exec(text);        
+        if (results === null) {
+            return "";
+        }
+        else {
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    };
 
     var registerScroll = function (action, elemPageVisisble) {
         if (!$.isFunction(action)) {
@@ -958,6 +969,7 @@
     cd.autocomplete = autocomplete;
     cd.escapeHtmlChars = escapeHtmlChars;
     cd.getParameterByName = getParameterByName;
+    cd.getParameterByNameFromString = getParameterByNameFromString;
     cd.registerScroll = registerScroll;
     cd.renderLoading = renderLoading;
 
