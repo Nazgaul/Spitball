@@ -5,26 +5,20 @@
 }
 
 <div id="library" class="page" >
-    <div class="libEmpty" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity">
+    <div class="libEmpty libraryChoose" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country">
         <div class="libEmptyTitle">@MainViewResources.WelcomeAcademic</div>
         <div class="uniWpr">
             <input type="text" id="uni_search" class="inputText uniSearch" placeholder="Search for your school" autocomplete="off" />
         </div>
-        <div class="uni_txt">
-            @MainViewResources.SchoolsFrom&nbsp;<span id="sCountry" class="sCountry" data-country="@ViewBag.country"></span>
-
+        @*Guy: If no results please add noResults class on the list*@
         <ul class="uniList" id="uniList">
             <li class="emptySearch">No results were found</li>
             <li class="newUni">
-                <a class="newUniA"> @*click*@
-                    <span class="lFloat uniImg"></span>
-                    <span class="uniName">@MainViewResources.AddSchool</span>
-                </a>*@
                 <span>Can't find your school?</span>
                 <a href="#" class="createUni">create new</a>
             </li>
-        </ul>
 
+        </ul>
     </div>
 </div>
 @section scripts

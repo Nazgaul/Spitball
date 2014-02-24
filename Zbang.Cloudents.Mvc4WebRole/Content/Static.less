@@ -600,10 +600,10 @@ footer{
     margin: 70px auto 0; 
     text-align: left; /*rtl*/  
     &.libraryChoose
-{
-        width: 666px;
-        margin-top: 170px;
-}
+    {
+            width: 666px;
+            margin-top: 170px;
+    }
 }
 
 
@@ -613,10 +613,10 @@ footer{
     text-align: center;
 }
 
-.uni_txt {
+/*.uni_txt {
     font-size: 15px;
     color: @textColor;
-}
+}*/
 
 /*#endregion */
 
@@ -652,6 +652,7 @@ footer{
 }
 
 .uniList {
+    display: none;
     text-align: left; /*rtl*/
     max-height: 500px;
     width: 100%;
@@ -673,22 +674,21 @@ footer{
         .transition(background, .2s linear);
         color: #43392b;
         cursor: pointer;
-        margin: 0 5px;
         padding: 13px 0 13px 8px; /*rtl*/
         &:hover
         {
             .transition(background .2s);
             background: #fafafa;
-    }
+        }
 
         &:active {
             background: #ebebeb;
         }
-        }
+    }
     .emptySearch:after
     {
         top:6px;
-        }
+    }
 }
 
 .uniImg {
@@ -729,6 +729,7 @@ footer{
     border-top: 1px solid @borderColor;
     text-align: center;
     padding-top: 7px;
+    margin-top: -5px;
     .boxSizing;
     .createUni
     {
@@ -736,7 +737,7 @@ footer{
         &:hover
         {
             text-decoration: underline;
-    }
+        }
     }
 }
 
