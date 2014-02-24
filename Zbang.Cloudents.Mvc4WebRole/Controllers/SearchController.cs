@@ -117,5 +117,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        public async Task<ActionResult> OtherUniversities(string q, int page)
+        {
+            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), true, page);
+            var result = await m_ZboxReadService.OtherUniversities(query);
+            var urlBuilder = new UrlBuilder(HttpContext);
+
+
+            result = result.Select(s =>
+            {
+                s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                return s;
+            });
+            return this.CdJson(new JsonResponse(true, result));
+        }
+
     }
 }

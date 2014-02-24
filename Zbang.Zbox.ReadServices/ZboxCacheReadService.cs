@@ -220,5 +220,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetDepartmentList(universityId);
         }
+
+
+        public Task<IEnumerable<ViewModel.DTOs.Search.SearchItems>> OtherUniversities(ViewModel.Queries.Search.GroupSearchQuery query)
+        {
+            return m_ReadService.OtherUniversities(query);
+        }
     }
 }

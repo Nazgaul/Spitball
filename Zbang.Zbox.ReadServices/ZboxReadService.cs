@@ -461,14 +461,12 @@ namespace Zbang.Zbox.ReadServices
                      Sql.Search.UniversityBoxes,
                      Sql.Search.Users,
                      Sql.Search.Items
-                    //Sql.Search.ItemFromOtherUniversities
                      ),
                      new
                      {
                          query = query.Query,
                          universityId = query.UniversityId,
                          userId = query.UserId,
-                         //MaxResult = query.MaxResult
                          offsetV = query.Offset,
                          pageSize = query.PageSize
                      }))
@@ -478,7 +476,6 @@ namespace Zbang.Zbox.ReadServices
                     retVal.Users = grid.Read<SearchUsers>();
                     retVal.Items = grid.Read<SearchItems>();
 
-                    //retVal.OtherItems = grid.Read<SearchItems>();
 
                     retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.PageSize);
                 }
@@ -490,13 +487,28 @@ namespace Zbang.Zbox.ReadServices
                          query = query.Query,
                          universityId = query.UniversityId,
                          userId = query.UserId,
-                         //MaxResult = query.MaxResult
                          offsetV = query.Offset,
                          pageSize = query.PageSize
                      });
                 }
             }
             return retVal;
+        }
+
+        public async Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                return await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,
+                       new
+                       {
+                           query = query.Query,
+                           universityId = query.UniversityId,
+                           userId = query.UserId,
+                           offsetV = query.Offset,
+                           pageSize = query.PageSize
+                       });
+            }
         }
 
         #endregion
