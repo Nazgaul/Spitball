@@ -21,15 +21,16 @@
             COURSES: 'sTab1',
             MATERIALS: 'sTab2',
             MEMBERS: 'sTab3',
-            STABCOUNT: 'data-stab-count'
+            STABCOUNT: 'data-stab-count',
+            BOLDPART: 'sHighlight'
         }
 
         function Course(data) {
             var self = this;
             self.image = data.image || '/images/emptyState/my_default3.png';
-            self.name = cd.highlightSearch(searchTerm, data.name) || data.name || '';
-            self.proffessor = cd.highlightSearch(searchTerm, data.proffessor) || data.proffessor || '';
-            self.courseCode = cd.highlightSearch(searchTerm, data.courseCode) || data.courseCode || '';
+            self.name = cd.highlightSearch(searchTerm, data.name,consts.BOLDPART) || data.name || '';
+            self.proffessor = cd.highlightSearch(searchTerm, data.proffessor, consts.BOLDPART) || data.proffessor || '';
+            self.courseCode = cd.highlightSearch(searchTerm, data.courseCode, consts.BOLDPART) || data.courseCode || '';
             self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
             self.url = data.url + '?r=search&s=courses'
         }
@@ -37,11 +38,11 @@
         function Material(data) {
             var self = this;
             self.image = data.image;
-            self.name = cd.highlightSearch(searchTerm, data.name);
+            self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART);
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
             self.universityName = data.universityname;
-            self.content = cd.highlightSearch(searchTerm, data.content) || data.content || '';
+            self.content = cd.highlightSearch(searchTerm, data.content, consts.BOLDPART) || data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
         }
@@ -49,7 +50,7 @@
         function Member(data) {
             var self = this;
             self.id = data.id;
-            self.name = cd.highlightSearch(searchTerm, data.name) || data.name || '';
+            self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART) || data.name || '';
             self.image = data.image;
             self.url = data.url + '?r=search&s=members';
 
