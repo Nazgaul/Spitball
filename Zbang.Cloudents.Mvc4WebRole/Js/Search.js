@@ -133,6 +133,7 @@
 
                 if (gSearch.value === '') {
                     gSearch.value = searchTerm;
+                    pubsub.publish('sInputChanged');
                 }
 
                 appendData();
