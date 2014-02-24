@@ -217,10 +217,10 @@
                 allFriendsLength = self.allFriends().length,
                 maxAllFriends = self.maxAllFriends();
 
-            return (commonFriendsLength > consts.MINCOMMONFRIENDSVISIBLE || allFriendsLength > consts.MINALLFRIENDSVISIBLE) && self.score() < consts.ADMINSCORE;
+            return (commonFriendsLength > consts.MINCOMMONFRIENDSVISIBLE || allFriendsLength > consts.MINALLFRIENDSVISIBLE) && !self.membersSectionVisible();
         });
         self.friendSectionVisible = ko.computed(function () {
-            return (self.allFriendsVisible() || self.commonFriendsVisible()) && self.score() < consts.ADMINSCORE;
+            return (self.allFriendsVisible() || self.commonFriendsVisible()) && !self.membersSectionVisible();
         });
 
         //#endregion
@@ -534,7 +534,7 @@
         }
 
         function getOtherData() {
-            if (self.score() < consts.ADMINSCORE) {
+            if (!self.membersSectionVisible()) {
                 getFriendsData();
             } else {
                 getMembersData();
@@ -711,7 +711,7 @@
                         toggleMessageBtn(that.checked);
                     };
 
-                    $(membersList).find('.checkbox').change(function () {
+                    $(membersList).on('change','.checkbox',function () {
                         if ($(membersList).find('.checkbox:checked').length > 0) {
                             toggleMessageBtn(true);
                             return;
