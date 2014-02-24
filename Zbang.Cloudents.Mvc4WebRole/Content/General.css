@@ -922,6 +922,45 @@ select.inputText {
   background: #f8f8f8;
   clear: both;
 }
+.noResults {
+  text-align: center!important;
+  background: #fff!important;
+}
+.noResults .emptySearch {
+  display: inline-block !important;
+}
+.emptySearch {
+  display: none!important;
+  position: relative;
+  text-align: center;
+  margin-top: 43px;
+  height: 67px;
+  font-size: 13px;
+}
+.emptySearch:before {
+  content: '';
+  display: inline-block;
+  background: #c2c2c2;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  margin: -1px 6px 0 0;
+  /*rtl*/
+
+  vertical-align: middle;
+}
+.emptySearch:after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 16px;
+  position: absolute;
+  top: 9px;
+  left: 7px;
+  /*rtl*/
+
+  background: url(/Images/common15-sprite.png) -294px -33px no-repeat;
+}
 .splitHR {
   text-align: center;
   overflow: hidden;

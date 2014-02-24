@@ -111,44 +111,37 @@
     padding: 0 25px 0 0; /*rtl*/
 }
 
-.sCountry
-{
-    &:after
-    {
-        margin: 0 5px 0 0; /*rtl*/
-    }
-}
 /*#endregion */
 
 /*#region AUTO COMPLETE */
 .uniWpr
 {
-    &:before
+    &:after
     {
-        right: 6px; /*rtl*/
-        left: auto;
-        .flipH(1); /*rtl*/
+        left: 9px; /*rtl*/
+        right: auto;
+        .flipH(-1); /*rtl*/
+    }
+    .inputText 
+    {
+        padding: 0 10px 0 30px; /*rtl*/
     }
 }
 
 .uniList {
-    text-align: right; /*rtl*/
-    padding: 13px 8px 13px 0; /*rtl*/
-    
+    text-align: right; /*rtl*/   
+    .schoolItem {
+        padding: 13px 8px 13px 0; /*rtl*/
+    }  
 }
 
-.uniDetails {
+.uniDetails{
     padding: 6px 8px 0 5px; /*rtl*/
 }
 
 .uniCount {
     &:before {
         margin: 0 0 0 4px; /*rtl*/
-    }
-}
-.newUni {
-    .uniImg:before {
-        margin: 0 8px 0 0; /*rtl*/
     }
 }
 /*#endregion */

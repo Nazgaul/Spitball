@@ -5,270 +5,23 @@
 }
 
 <div id="library" class="page" >
-    <div class="libEmpty" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country">
+    <div class="libEmpty" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity">
         <div class="libEmptyTitle">@MainViewResources.WelcomeAcademic</div>
         <div class="uniWpr">
-            <input type="text" id="uni_search" class="inputText uniSearch" placeholder="@MainViewResources.SearchSchool" autocomplete="off" />
+            <input type="text" id="uni_search" class="inputText uniSearch" placeholder="Search for your school" autocomplete="off" />
         </div>
-        @*       <div class="uni_txt">
-                @MainViewResources.SchoolsFrom&nbsp;<span id="sCountry" class="sCountry" data-country="@ViewBag.country"></span>
+        <div class="uni_txt">
+            @MainViewResources.SchoolsFrom&nbsp;<span id="sCountry" class="sCountry" data-country="@ViewBag.country"></span>
 
-                @*<ul id="countryList" class="countryList">
-                    <li data-country="Afghanistan" data-value="AF">Afghanistan</li>
-                    <li data-value="AL">Albania</li>
-                    <li data-value="DZ">Algeria</li>
-                    <li data-value="AS">American Samoa</li>
-                    <li data-value="AD">Andorra</li>
-                    <li data-value="AG">Angola</li>
-                    <li data-value="AI">Anguilla</li>
-                    <li data-value="AG">Antigua &amp; Barbuda</li>
-                    <li data-value="AR">Argentina</li>
-                    <li data-value="AA">Armenia</li>
-                    <li data-value="AW">Aruba</li>
-                    <li data-value="AU">Australia</li>
-                    <li data-value="AT">Austria</li>
-                    <li data-value="AZ">Azerbaijan</li>
-                    <li data-value="BS">Bahamas</li>
-                    <li data-value="BH">Bahrain</li>
-                    <li data-value="BD">Bangladesh</li>
-                    <li data-value="BB">Barbados</li>
-                    <li data-value="BY">Belarus</li>
-                    <li data-value="BE">Belgium</li>
-                    <li data-value="BZ">Belize</li>
-                    <li data-value="BJ">Benin</li>
-                    <li data-value="BM">Bermuda</li>
-                    <li data-value="BT">Bhutan</li>
-                    <li data-value="BO">Bolivia</li>
-                    <li data-value="BL">Bonaire</li>
-                    <li data-value="BA">Bosnia &amp; Herzegovina</li>
-                    <li data-value="BW">Botswana</li>
-                    <li data-value="BR">Brazil</li>
-                    <li data-value="BC">British Indian Ocean Ter</li>
-                    <li data-value="BN">Brunei</li>
-                    <li data-value="BG">Bulgaria</li>
-                    <li data-value="BF">Burkina Faso</li>
-                    <li data-value="BI">Burundi</li>
-                    <li data-value="KH">Cambodia</li>
-                    <li data-value="CM">Cameroon</li>
-                    <li data-value="CA">Canada</li>
-                    <li data-value="IC">Canary Islands</li>
-                    <li data-value="CV">Cape Verde</li>
-                    <li data-value="KY">Cayman Islands</li>
-                    <li data-value="CF">Central African Republic</li>
-                    <li data-value="TD">Chad</li>
-                    <li data-value="CD">Channel Islands</li>
-                    <li data-value="CL">Chile</li>
-                    <li data-value="CN">China</li>
-                    <li data-value="CI">Christmas Island</li>
-                    <li data-value="CS">Cocos Island</li>
-                    <li data-value="CO">Colombia</li>
-                    <li data-value="CC">Comoros</li>
-                    <li data-value="CG">Congo</li>
-                    <li data-value="CK">Cook Islands</li>
-                    <li data-value="CR">Costa Rica</li>
-                    <li data-value="CT">Cote D'Ivoire</li>
-                    <li data-value="HR">Croatia</li>
-                    <li data-value="CU">Cuba</li>
-                    <li data-value="CB">Curacao</li>
-                    <li data-value="CY">Cyprus</li>
-                    <li data-value="CZ">Czech Republic</li>
-                    <li data-value="DK">Denmark</li>
-                    <li data-value="DJ">Djibouti</li>
-                    <li data-value="DM">Dominica</li>
-                    <li data-value="DO">Dominican Republic</li>
-                    <li data-value="TM">East Timor</li>
-                    <li data-value="EC">Ecuador</li>
-                    <li data-value="EG">Egypt</li>
-                    <li data-value="SV">El Salvador</li>
-                    <li data-value="GQ">Equatorial Guinea</li>
-                    <li data-value="ER">Eritrea</li>
-                    <li data-value="EE">Estonia</li>
-                    <li data-value="ET">Ethiopia</li>
-                    <li data-value="FA">Falkland Islands</li>
-                    <li data-value="FO">Faroe Islands</li>
-                    <li data-value="FJ">Fiji</li>
-                    <li data-value="FI">Finland</li>
-                    <li data-value="FR">France</li>
-                    <li data-value="GF">French Guiana</li>
-                    <li data-value="PF">French Polynesia</li>
-                    <li data-value="FS">French Southern Ter</li>
-                    <li data-value="GA">Gabon</li>
-                    <li data-value="GM">Gambia</li>
-                    <li data-value="GE">Georgia</li>
-                    <li data-value="DE">Germany</li>
-                    <li data-value="GH">Ghana</li>
-                    <li data-value="GI">Gibraltar</li>
-                    <li data-value="GR">Greece</li>
-                    <li data-value="GL">Greenland</li>
-                    <li data-value="GD">Grenada</li>
-                    <li data-value="GP">Guadeloupe</li>
-                    <li data-value="GU">Guam</li>
-                    <li data-value="GT">Guatemala</li>
-                    <li data-value="GN">Guinea</li>
-                    <li data-value="GY">Guyana</li>
-                    <li data-value="HT">Haiti</li>
-                    <li data-value="HW">Hawaii</li>
-                    <li data-value="HN">Honduras</li>
-                    <li data-value="HK">Hong Kong</li>
-                    <li data-value="HU">Hungary</li>
-                    <li data-value="IS">Iceland</li>
-                    <li data-value="IN">India</li>
-                    <li data-value="ID">Indonesia</li>
-                    <li data-value="IA">Iran</li>
-                    <li data-value="IQ">Iraq</li>
-                    <li data-value="IR">Ireland</li>
-                    <li data-value="IM">Isle of Man</li>
-                    <li data-value="IL">Israel</li>
-                    <li data-value="IT">Italy</li>
-                    <li data-value="JM">Jamaica</li>
-                    <li data-value="JP">Japan</li>
-                    <li data-value="JO">Jordan</li>
-                    <li data-value="KZ">Kazakhstan</li>
-                    <li data-value="KE">Kenya</li>
-                    <li data-value="KI">Kiribati</li>
-                    <li data-value="NK">Korea North</li>
-                    <li data-value="KS">Korea South</li>
-                    <li data-value="KW">Kuwait</li>
-                    <li data-value="KG">Kyrgyzstan</li>
-                    <li data-value="LA">Laos</li>
-                    <li data-value="LV">Latvia</li>
-                    <li data-value="LB">Lebanon</li>
-                    <li data-value="LS">Lesotho</li>
-                    <li data-value="LR">Liberia</li>
-                    <li data-value="LY">Libya</li>
-                    <li data-value="LI">Liechtenstein</li>
-                    <li data-value="LT">Lithuania</li>
-                    <li data-value="LU">Luxembourg</li>
-                    <li data-value="MO">Macau</li>
-                    <li data-value="MK">Macedonia</li>
-                    <li data-value="MG">Madagascar</li>
-                    <li data-value="MY">Malaysia</li>
-                    <li data-value="MW">Malawi</li>
-                    <li data-value="MV">Maldives</li>
-                    <li data-value="ML">Mali</li>
-                    <li data-value="MT">Malta</li>
-                    <li data-value="MH">Marshall Islands</li>
-                    <li data-value="MQ">Martinique</li>
-                    <li data-value="MR">Mauritania</li>
-                    <li data-value="MU">Mauritius</li>
-                    <li data-value="ME">Mayotte</li>
-                    <li data-value="MX">Mexico</li>
-                    <li data-value="MI">Midway Islands</li>
-                    <li data-value="MD">Moldova</li>
-                    <li data-value="MC">Monaco</li>
-                    <li data-value="MN">Mongolia</li>
-                    <li data-value="MS">Montserrat</li>
-                    <li data-value="MA">Morocco</li>
-                    <li data-value="MZ">Mozambique</li>
-                    <li data-value="MM">Myanmar</li>
-                    <li data-value="NA">Nambia</li>
-                    <li data-value="NU">Nauru</li>
-                    <li data-value="NP">Nepal</li>
-                    <li data-value="AN">Netherland Antilles</li>
-                    <li data-value="NL">Netherlands</li>
-                    <li data-value="NV">Nevis</li>
-                    <li data-value="NC">New Caledonia</li>
-                    <li data-value="NZ">New Zealand</li>
-                    <li data-value="NI">Nicaragua</li>
-                    <li data-value="NE">Niger</li>
-                    <li data-value="NG">Nigeria</li>
-                    <li data-value="NW">Niue</li>
-                    <li data-value="NF">Norfolk Island</li>
-                    <li data-value="NO">Norway</li>
-                    <li data-value="OM">Oman</li>
-                    <li data-value="PK">Pakistan</li>
-                    <li data-value="PW">Palau Island</li>
-                    <li data-value="PS">Palestine</li>
-                    <li data-value="PA">Panama</li>
-                    <li data-value="PG">Papua New Guinea</li>
-                    <li data-value="PY">Paraguay</li>
-                    <li data-value="PE">Peru</li>
-                    <li data-value="PH">Philippines</li>
-                    <li data-value="PO">Pitcairn Island</li>
-                    <li data-value="PL">Poland</li>
-                    <li data-value="PT">Portugal</li>
-                    <li data-value="PR">Puerto Rico</li>
-                    <li data-value="QA">Qatar</li>
-                    <li data-value="ME">Republic of Montenegro</li>
-                    <li data-value="RS">Republic of Serbia</li>
-                    <li data-value="RE">Reunion</li>
-                    <li data-value="RO">Romania</li>
-                    <li data-value="RU">Russia</li>
-                    <li data-value="RW">Rwanda</li>
-                    <li data-value="NT">St Barthelemy</li>
-                    <li data-value="EU">St Eustatius</li>
-                    <li data-value="HE">St Helena</li>
-                    <li data-value="KN">St Kitts-Nevis</li>
-                    <li data-value="LC">St Lucia</li>
-                    <li data-value="MB">St Maarten</li>
-                    <li data-value="PM">St Pierre &amp; Miquelon</li>
-                    <li data-value="VC">St Vincent &amp; Grenadines</li>
-                    <li data-value="SP">Saipan</li>
-                    <li data-value="SO">Samoa</li>
-                    <li data-value="AS">Samoa American</li>
-                    <li data-value="SM">San Marino</li>
-                    <li data-value="ST">Sao Tome &amp; Principe</li>
-                    <li data-value="SA">Saudi Arabia</li>
-                    <li data-value="SN">Senegal</li>
-                    <li data-value="SC">Seychelles</li>
-                    <li data-value="SL">Sierra Leone</li>
-                    <li data-value="SG">Singapore</li>
-                    <li data-value="SK">Slovakia</li>
-                    <li data-value="SI">Slovenia</li>
-                    <li data-value="SB">Solomon Islands</li>
-                    <li data-value="OI">Somalia</li>
-                    <li data-value="ZA">South Africa</li>
-                    <li data-value="ES">Spain</li>
-                    <li data-value="LK">Sri Lanka</li>
-                    <li data-value="SD">Sudan</li>
-                    <li data-value="SR">Suriname</li>
-                    <li data-value="SZ">Swaziland</li>
-                    <li data-value="SE">Sweden</li>
-                    <li data-value="CH">Switzerland</li>
-                    <li data-value="SY">Syria</li>
-                    <li data-value="TA">Tahiti</li>
-                    <li data-value="TW">Taiwan</li>
-                    <li data-value="TJ">Tajikistan</li>
-                    <li data-value="TZ">Tanzania</li>
-                    <li data-value="TH">Thailand</li>
-                    <li data-value="TG">Togo</li>
-                    <li data-value="TK">Tokelau</li>
-                    <li data-value="TO">Tonga</li>
-                    <li data-value="TT">Trinidad &amp; Tobago</li>
-                    <li data-value="TN">Tunisia</li>
-                    <li data-value="TR">Turkey</li>
-                    <li data-value="TU">Turkmenistan</li>
-                    <li data-value="TC">Turks &amp; Caicos Is</li>
-                    <li data-value="TV">Tuvalu</li>
-                    <li data-value="UG">Uganda</li>
-                    <li data-value="UA">Ukraine</li>
-                    <li data-value="AE">United Arab Emirates</li>
-                    <li data-value="GB">United Kingdom</li>
-                    <li data-value="US">United States of America</li>
-                    <li data-value="UY">Uruguay</li>
-                    <li data-value="UZ">Uzbekistan</li>
-                    <li data-value="VU">Vanuatu</li>
-                    <li data-value="VS">Vatican City State</li>
-                    <li data-value="VE">Venezuela</li>
-                    <li data-value="VN">Vietnam</li>
-                    <li data-value="VB">Virgin Islands (Brit)</li>
-                    <li data-value="VA">Virgin Islands (USA)</li>
-                    <li data-value="WK">Wake Island</li>
-                    <li data-value="WF">Wallis &amp; Futana Is</li>
-                    <li data-value="YE">Yemen</li>
-                    <li data-value="ZR">Zaire</li>
-                    <li data-value="ZM">Zambia</li>
-                    <li data-value="ZW">Zimbabwe</li>
-                </ul>
-            </div>
-
-        *@
         <ul class="uniList" id="uniList">
+            <li class="emptySearch">No results were found</li>
             <li class="newUni">
-                <a class="newUniA">
+                <a class="newUniA"> @*click*@
                     <span class="lFloat uniImg"></span>
                     <span class="uniName">@MainViewResources.AddSchool</span>
-                </a>
+                </a>*@
+                <span>Can't find your school?</span>
+                <a href="#" class="createUni">create new</a>
             </li>
         </ul>
 
@@ -294,7 +47,7 @@
 }
 
 <script type="text/html" id="universityItemTemplate">
-    <li data-id="{{id}}" data-ncode="{{nCode}}">
+    <li class="schoolItem" data-id="{{id}}" data-ncode="{{nCode}}">
             <img src="{{image}}" class="lFloat uniImg" width="50" height="50" alt="" />
             <span class="uniDetails">
                 <span class="uniName elps boldFont">{{name}}</span>

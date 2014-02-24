@@ -921,7 +921,46 @@ select.inputText {
     background: #f8f8f8;
     clear: both;
 }
+.noResults 
+{
+    text-align: center!important;
+    background: #fff!important;
+    .emptySearch {
+        display: inline-block!important;
+    }
+}
 
+.emptySearch
+{
+    display: none!important;
+    position: relative;
+    text-align: center;
+    //margin-top: 38px;
+    //height: 72px;
+    margin-top: 43px;
+    height: 67px;
+    font-size: 13px;
+    &:before
+    {
+        .pseudo;
+        background: @borderColor;
+        width: 28px;
+        height: 28px;
+        border-radius: 14px;
+        margin: -1px 6px 0 0; /*rtl*/
+        vertical-align: middle;
+    }
+    &:after
+    {
+        .pseudo;
+        width: 14px;
+        height: 16px;
+        position: absolute;
+        top: 9px;
+        left: 7px; /*rtl*/
+        background: @common-sprite -294px -33px no-repeat;
+    }
+}
 .splitHR{
     text-align: center;
     overflow: hidden;
