@@ -45,39 +45,13 @@
         {
             display: none !important;
         }
-        .emptySearch
+        /*.emptySearch
         {
             display: inline-block;
-        }
+        }*/
     }
 }
-.emptySearch
-{
-    display: none;
-    position: relative;
-    text-align: center;
-    margin-top: 25px;
-    &:before
-    {
-        .pseudo;
-        background: @borderColor;
-        width: 28px;
-        height: 28px;
-        border-radius: 14px;
-        margin: -1px 6px 0 0; /*rtl*/
-        vertical-align: middle;
-    }
-    &:after
-    {
-        .pseudo;
-        width: 14px;
-        height: 16px;
-        position: absolute;
-        top: 9px;
-        left: 7px; /*rtl*/
-        background: @common-sprite -294px -33px no-repeat;
-    }
-}
+
 .searchList 
 {
     margin: 6px 0;
@@ -287,7 +261,7 @@
         }
         .emptySearch
         {
-            display: inline-block;
+            //display: inline-block;
             font-size: 15px;
             &:before
             {
@@ -316,10 +290,10 @@
             display:none;
         }
     }
-    .emptySearch
+    /*.emptySearch
     {
         display: none;
-    }
+    }*/
 }
 .box.sCourseItem, .sMembersItem {
     width: 473px;
@@ -395,6 +369,7 @@
     .sTitle
     {
         margin-top: 18px;
+        padding-top: 23px;
     }
     &:last-child
     {
@@ -418,5 +393,9 @@
 }
 .sSnippet{
     margin: 8px 0 15px;
+}
+
+.sHighlight {
+    background-color:#cde3f4;
 }
 /*#endregion */

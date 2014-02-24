@@ -789,8 +789,12 @@
         //analytics.trackSocial(url, 'share');
     };
 
-    var highlightSearch = function (term, name) {
-        var boldStringLength = 30;
+    var highlightSearch = function (term, name,className) {
+        var className = className || 'boldPart',
+            firstPart = '<span class="' + className + '">',
+            lastPart = '</span>',
+            boldStringLength = firstPart.length + lastPart.length,
+            
         term = term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 
         if (!name) {
@@ -822,7 +826,7 @@
         return name;
 
         function highlight(str, start, end) {
-            var text = '<span class="boldPart">' + str.substring(start, end) + '</span>';
+            var text = firstPart + str.substring(start, end) + lastPart;
 
             return str.substring(0, start) + text + str.substring(end);
         };

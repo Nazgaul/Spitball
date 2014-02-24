@@ -132,6 +132,16 @@ body {
   /*diff rtl*/
 
 }
+.emptySearch:before {
+  margin: -1px 6px 0 0;
+  /*rtl*/
+
+}
+.emptySearch:after {
+  left: 7px;
+  /*rtl*/
+
+}
 .iconTxt:before {
   margin: 0 0 0 6px;
   /*rtl*/
