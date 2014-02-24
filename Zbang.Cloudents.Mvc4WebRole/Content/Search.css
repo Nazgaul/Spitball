@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -40,42 +40,16 @@
 }
 .searchDD.noResults {
   text-align: center;
+  /*.emptySearch
+        {
+            display: inline-block;
+        }*/
+
 }
 .searchDD.noResults .searchList,
 .searchDD.noResults h3,
 .searchDD.noResults .showAll {
   display: none !important;
-}
-.searchDD.noResults .emptySearch {
-  display: inline-block;
-}
-.emptySearch {
-  display: none;
-  position: relative;
-  text-align: center;
-  margin-top: 25px;
-}
-.emptySearch:before {
-  content: '';
-  display: inline-block;
-  background: #c2c2c2;
-  width: 28px;
-  height: 28px;
-  border-radius: 14px;
-  margin: -1px 6px 0 0;
-  /*rtl*/
-  vertical-align: middle;
-}
-.emptySearch:after {
-  content: '';
-  display: inline-block;
-  width: 14px;
-  height: 16px;
-  position: absolute;
-  top: 9px;
-  left: 7px;
-  /*rtl*/
-  background: url(/Images/common15-sprite.png) -294px -33px no-repeat;
 }
 .searchList {
   margin: 6px 0;
@@ -101,15 +75,18 @@
 .searchItem > .searchTitle {
   margin-left: 56px;
   /*rtl*/
+
 }
 .searchItem .userImg {
   margin-left: 3px;
   /*rtl*/
+
 }
 .searchDetails {
   overflow: hidden;
   padding-left: 15px;
   /*rtl*/
+
   line-height: 19px;
   margin-top: 14px;
 }
@@ -121,6 +98,7 @@
   display: inline-block;
   margin-right: 4px;
   /*rtl*/
+
 }
 .allDetails:after {
   content: '|';
@@ -140,8 +118,10 @@
   vertical-align: middle;
   float: left;
   /*rtl*/
+
   margin-right: 16px;
   /*rtl*/
+
 }
 .searchDetail,
 .otherUni {
@@ -153,6 +133,7 @@
   line-height: 13px;
   left: 71px;
   /*rtl*/
+
 }
 /*#endregion */
 /*#region Search page - 's' prefix stands for 'search' */
@@ -163,6 +144,7 @@
 .searchPage:after {
   left: 0;
   /*rtl*/
+
 }
 .searchPage h2 {
   font-size: 22px;
@@ -184,6 +166,7 @@
 .searchPage .upArrow:before {
   left: 28px;
   /*rtl*/
+
   right: auto;
   width: 12px;
   height: 12px;
@@ -192,6 +175,7 @@
   -o-transition: left 0.5s;
   transition: left 0.5s;
   /*rtl*/
+
 }
 .searchPage .boldPart {
   background: #cde3f4;
@@ -204,6 +188,7 @@
 .searchPage .views {
   margin: -2px 0 0 16px;
   /*rtl*/
+
   vertical-align: top;
 }
 .sTabs {
@@ -219,10 +204,12 @@
 .sTabs.sTab2 ~ .upArrow:before {
   left: 127px;
   /*rtl*/
+
 }
 .sTabs.sTab3 ~ .upArrow:before {
   left: 237px;
   /*rtl*/
+
 }
 .sTab1 ~ .sTabContent .sCourses,
 .sTab2 ~ .sTabContent .sMaterials,
@@ -243,6 +230,11 @@
   margin-bottom: 60px;
   position: relative;
   min-height: 200px;
+  /*.emptySearch
+    {
+        display: none;
+    }*/
+
 }
 .sTabContent section {
   display: none;
@@ -259,7 +251,6 @@
   display: none;
 }
 .sTabContent.noResults.noResults .emptySearch {
-  display: inline-block;
   font-size: 15px;
 }
 .sTabContent.noResults.noResults .emptySearch:before {
@@ -284,9 +275,6 @@
 .sTabContent.sLoading.sLoading .splitHR {
   display: none;
 }
-.sTabContent .emptySearch {
-  display: none;
-}
 .box.sCourseItem,
 .sMembersItem {
   width: 473px;
@@ -298,6 +286,7 @@
 .sMembersItem:nth-child(odd) {
   margin: 0 20px 20px 0;
   /*rtl*/
+
 }
 .box.sCourseItem:hover,
 .sMembersItem:hover {
@@ -309,6 +298,7 @@
 .box.sCourseItem .boxImg {
   margin-right: 24px;
   /*rtl*/
+
   position: static;
 }
 .sTitle {
@@ -324,6 +314,7 @@
   position: absolute;
   left: 100px;
   /*rtl*/
+
   top: 15px;
   font-size: 13px;
   color: #676767;
@@ -344,11 +335,13 @@
   position: absolute;
   right: 10px;
   /*rtl*/
+
   top: 25px;
 }
 .sMemberName {
   margin: 26px 0 0 104px;
   /*rtl*/
+
   font-size: 15px;
 }
 .sMaterialsItem {
@@ -368,6 +361,7 @@
 .sMaterialsItem .sOtherUni {
   left: 136px;
   /*rtl*/
+
   top: 0;
 }
 .sMaterialLink {
@@ -376,6 +370,7 @@
 .sMaterialImg {
   margin-right: 26px;
   /*rtl*/
+
 }
 .sSnippet {
   margin: 8px 0 15px;
