@@ -303,7 +303,7 @@
                 $('#uniList').show();
                 cd.analytics.trackEvent('Library Choose', 'Search', term);
 
-                $('.uniName').not(':last').each(function () {
+                $('.uniName').each(function () {
                     var $parent = $(this).parents('li');
                     var lowerText = $(this).text().toLowerCase();
                     var termTrimmed = term.trim();
@@ -315,6 +315,7 @@
                     }
                     query ? $parent.show() : $parent.hide();
                 });
+                $('.schoolItem:visible').length === 0 ? $('.emptySearch').parent().addClass('noResults') : $('.emptySearch').parent().removeClass('noResults');
             }
 
 
