@@ -254,9 +254,9 @@
         }
 
         function clear(clearPage) {
-            sTabCourses.textContent = 'Courses (0)';
-            sTabMaterials.textContent = 'Materials (0)';
-            sTabMembers.textContent = 'Members (0)';
+            sTabCourses.textContent = sTabCourses.getAttribute('data-type') + ' (0)';
+            sTabMaterials.textContent = sTabMaterials.getAttribute('data-type') + ' (0)';
+            sTabMembers.textContent = sTabMembers.getAttribute('data-type') + ' (0)';
             sCourseList.innerHTML = '';
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
