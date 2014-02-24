@@ -123,9 +123,6 @@
   <data name="CourseName" xml:space="preserve">
     <value>اسم المساق</value>
   </data>
-  <data name="Department" xml:space="preserve">
-    <value>القسم</value>
-  </data>
   <data name="Instructor" xml:space="preserve">
     <value>محاضر</value>
   </data>

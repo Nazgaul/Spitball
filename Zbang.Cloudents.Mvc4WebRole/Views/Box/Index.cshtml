@@ -24,7 +24,7 @@
         </div>
         <div class="boxMembers">
             <div class="sectionHeader">
-                @IndexResources.Members
+                @SharedResources.Members
             <button id="showAllMembers" class="showAll rFloat" type="button">@SharedResources.ShowAll</button>
         </div>
         <ul class="friendsList">
@@ -41,7 +41,7 @@
         <div class="sectionHeader">@IndexResources.Folders</div>
         <ul class="boxFolderList" id="box_filters">
             <li class="current boxFolder" data-bind="css: { current: $root.currentTab() == null }">
-                <span class="boxFolderName elps" data-click="switchTab">@MainViewResources.All</span>
+                <span class="boxFolderName elps" data-click="switchTab">@SharedResources.All</span>
                 <span class="tabBorder"></span>
             </li>
             <!--ko foreach :{data: tabs ,afterAdd: myDrag}-->

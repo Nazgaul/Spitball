@@ -123,9 +123,6 @@
   <data name="AddShare" xml:space="preserve">
     <value>添加文件并分享给朋友们</value>
   </data>
-  <data name="All" xml:space="preserve">
-    <value>所有</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>这里有点冷，
 有没有什么可以与大家分享的呢？</value>

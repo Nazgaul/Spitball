@@ -123,9 +123,6 @@
   <data name="AddShare" xml:space="preserve">
     <value>Add files and share them with your friends</value>
   </data>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>Nothing to see here, yet.
 Be the first to upload study material...</value>

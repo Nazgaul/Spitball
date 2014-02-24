@@ -1,6 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="box_showMembers" title="@IndexResources.Members" class="members" style="display: none;">
+<div id="box_showMembers" title="@SharedResources.Members" class="members" style="display: none;">
     <ul data-bind="foreach: membersAll" class="membersAll">
         <li>
             <img class="image" data-bind="attr: { src: image, 'data-img': image, 'data-name': name, 'data-uid': id }" alt="" />​​​​​​​​​​​​​​​

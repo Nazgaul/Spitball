@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div id="dash_showfriends" class="dashMembers">
     <div class="popupWrppr boxSettings">
-        <header class="popupHeader"><span id="friendsPopupName">My friends</span></header>
+        <header class="popupHeader"><span id="friendsPopupName">@IndexResources.MyFriends</span></header>
         <div class="popupTopBar">
 
             <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
@@ -12,7 +12,7 @@
         <div class="membersContent">
             <div class="membersTop">
                 <input id="friendsSettings" type="checkbox" class="checkbox" />
-                <label for="friendsSettings" class="cbLabel">@MainViewResources.All</label>
+                <label for="friendsSettings" class="cbLabel">@SharedResources.All</label>
                 <button type="button" id="frndPopSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                 <div class="searchWpr rFloat">
                     <span class="membersCount">&nbsp;@IndexResources.Members</span> @*Guy: fill the data-count attribute*@

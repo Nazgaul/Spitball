@@ -123,9 +123,6 @@
   <data name="AddShare" xml:space="preserve">
     <value>Добавить файлы и поделиться ими с друзьями</value>
   </data>
-  <data name="All" xml:space="preserve">
-    <value>Все</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>Здесь одиноко,
 у вас есть, чем поделиться?</value>

@@ -406,4 +406,19 @@
   <data name="WriteMessage" xml:space="preserve">
     <value>כתוב הודעה ...</value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>קורסים</value>
+  </data>
+  <data name="ResultsFor" xml:space="preserve">
+    <value>תוצאות חיפוש ל-</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>מחלקה</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>הכל</value>
+  </data>
 </root>

@@ -123,9 +123,6 @@
   <data name="CourseName" xml:space="preserve">
     <value>שם קורס</value>
   </data>
-  <data name="Department" xml:space="preserve">
-    <value>מחלקה</value>
-  </data>
   <data name="Instructor" xml:space="preserve">
     <value>מרצה</value>
   </data>

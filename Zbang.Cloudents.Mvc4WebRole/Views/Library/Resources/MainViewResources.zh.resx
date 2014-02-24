@@ -135,9 +135,6 @@
   <data name="CourseName" xml:space="preserve">
     <value>课程名称</value>
   </data>
-  <data name="Courses" xml:space="preserve">
-    <value>课程</value>
-  </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>创建新课程</value>
   </data>
