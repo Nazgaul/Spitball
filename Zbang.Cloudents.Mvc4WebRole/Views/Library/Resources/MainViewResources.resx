@@ -194,4 +194,7 @@
   <data name="SchoolsFrom" xml:space="preserve">
     <value>Schools from</value>
   </data>
+  <data name="CantFind" xml:space="preserve">
+    <value>Can't find your school?</value>
+  </data>
 </root>

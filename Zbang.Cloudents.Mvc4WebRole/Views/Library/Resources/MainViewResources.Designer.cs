@@ -106,6 +106,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t find your school?.
+        /// </summary>
+        public static string CantFind {
+            get {
+                return ResourceManager.GetString("CantFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Course code.
         /// </summary>
         public static string CourseCode {
