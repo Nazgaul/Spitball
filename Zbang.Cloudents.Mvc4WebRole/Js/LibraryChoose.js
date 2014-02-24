@@ -57,7 +57,7 @@
         function appendUniversities(data) {
             var mappeddata = $.map(data, function (i) { return new University(i); });
             mappeddata.sort(sortArray);
-            $('#uniList li:not(:last)').remove();
+            $('#uniList li:not(:nth-last-child(-n+2))').remove();
             cd.appendData(uniList, 'universityItemTemplate', mappeddata, 'afterbegin', false);
         }
 

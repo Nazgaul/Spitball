@@ -1097,7 +1097,7 @@
                 var readView = $(this).parents('.readView'),
                 annotation = findAnnotationObjById(readView.data('id'));
                 readView.addClass('moreContinue').find('.annotationTextWpr').addClass('moreState');
-
+                
                 $('.show-more').hide();
                 //readView.find('.show-less').show();
                 //readView.find('.annotationText').trigger('destroy.dot').empty().text(annotation.comment);
