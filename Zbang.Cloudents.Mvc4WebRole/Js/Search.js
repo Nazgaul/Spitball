@@ -157,6 +157,7 @@
 
                     if (materials.length < 50) {                        
                         materialsLoaded = true;
+                        sOtherMaterialsBtn.style.display = 'block';
                     }
                     pubsub.publish('search_load');
 
@@ -317,7 +318,9 @@
                 cPage = cOtherPage = 0;
             }
             otherMaterialsSplit.style.display = 'none';
-            sOtherMaterialsBtn.style.display = 'block';
+
+            isLoading = isOtherLoading = materialsLoaded = otherUnisScroll = false;
+            otherDataAvailable = true;
             sTabContent.classList.remove('noResults');
             $(window).off('scroll', scrollEvent);
 
