@@ -243,7 +243,10 @@
             return self.score() >= consts.ADMINSCORE && self.viewSelf();
         });
 
+        self.membersLoaded = ko.observable(false);
+
         self.displayMembersFilter = ko.computed(function () {
+            
             var selected = [], current;
             for (var i = 0, l = self.departments().length; i < l; i++) {
                 current = self.departments()[i];
@@ -386,7 +389,7 @@
             .maxFiles(consts.MAXFILES)
             .maxQuestions(consts.MAXQUESTIONS)
             .maxAnswers(consts.MAXANSWERS)
-
+            .membersLoaded(false)
             .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
 
 
@@ -563,6 +566,7 @@
                     },
                     always: function () {
                         loader();
+                        self.membersLoaded(true);
                     }
                 });
             });
