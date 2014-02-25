@@ -413,8 +413,9 @@
                     cd.unregisterAction(this);
                     return;
                 }
+                $('[data-ddcbox]').prop('checked', false).css('visibility', 'hidden');                
                 var url = '/item/print/' + '?boxId=' + boxid + '&itemId=' + self.itemid() + '&otakim=true';
-                var mywindow = window.open(url, '_blank');
+                setTimeout(function () { var mywindow = window.open(url, '_blank'); }, 400)
                 trackEvent('Print otakim');
             })
 
