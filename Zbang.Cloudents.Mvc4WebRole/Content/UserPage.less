@@ -776,38 +776,9 @@
 /*#endregion */
 
 /*#region union*/
-/*.upMemberFilterContainer {
-    .upMbrFilterList {
-        display: none;
-    }
-}
 
-.upUniMessageCbx {
-    &:checked {
-        ~ .upMbrFilterList {
-            display: block;
-        }
-    }
-}
-
-.upListHeaders {
-    width: 100%;
-    display: table;
-    background-color:#f5f5f5;
-    border-top:1px solid @borderColor;
-    border-bottom:1px solid @borderColor;
-    font-size:13px;
-    color:@textColor;
-    padding-left:50px;
-    .upHeader {
-        display: table-cell;
-    }
-}*/
 .upMembers {
-    //width: 100%;
     margin-top: 27px;
-
-
     .membersContent {
         min-height: 275px;
         max-height: 410px;
@@ -820,7 +791,7 @@
         .emptySearch {
             position:absolute;
             top:168px;
-            left:426px;
+            left:426px; /*rtl*/
         }
     }
 
@@ -828,11 +799,10 @@
         padding: 0 10px;
         .boxSizing;
         border-radius: 8px 8px 0 0;
-        text-align:left;
+        text-align:left; /*rtl*/
     }
 
     .memberItem {
-        //padding: 5px 0; //override
         .boxSizing;
         height: 46px;
 
@@ -844,7 +814,7 @@
 }
 
 .memberTopRow {
-    text-align:left;
+    text-align:left; /*rtl*/
     line-height: 28px;
     border-bottom: 1px solid @borderColor;
     background: #f5f5f5;
@@ -854,7 +824,7 @@
 
         &:after {
             .pseudo;
-            margin-left: 4px;
+            margin-left: 4px; /*rtl*/
             width: 0;
             height: 0;
             border-style: solid;
@@ -872,7 +842,7 @@
     }
 
     .memberCol {
-        padding-left: 36px;
+        padding-left: 36px; /*rtl*/
     }
 }
 
@@ -884,7 +854,7 @@
 
 .memberCol {
     width: 304px;
-    padding-left: 8px;
+    padding-left: 8px; /*rtl*/
 }
 
 .deptCol {
@@ -920,7 +890,7 @@
     z-index: 1;
     position: absolute;
     top: 77px;
-    left: 336px;
+    left: 336px; /*rtl*/
     width: 279px;
     height: 241px;
     overflow: auto;
@@ -929,14 +899,14 @@
     border-radius: 3px;
 
     .cbLabel.cbLabel {
-        padding: 0 5px 0 37px;
+        padding: 0 5px 0 37px; /*rtl*/
         .boxSizing;
         display: inline-block;
         vertical-align: middle;
         height: auto; //override;
         &:before {
             position: absolute;
-            left: 10px;
+            left: 10px; /*rtl*/
             top: 11px;
             height: 18px;
         }
@@ -962,7 +932,7 @@
             .pseudo;
             height: 100%;
             vertical-align: middle;
-            margin-right: -0.25em;
+            margin-right: -0.25em; /*rtl*/
         }
     }
 }
@@ -1035,5 +1005,7 @@
 
 .upMemberName {
     vertical-align: top;
+    max-width: 230px;   
+    display: inline-block;
 }
 /*#endregion*/

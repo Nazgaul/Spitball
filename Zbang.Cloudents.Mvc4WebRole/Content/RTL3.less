@@ -1577,9 +1577,73 @@ input[type="radio"] {
         margin: 0 15px 0 0; /*rtl*/
     }
 }
+
+
+/*#region union*/
+
+.upMembers {
+    .membersContent {
+        .emptySearch {
+            right:426px; /*rtl*/
+            left: auto;
+        }
+    }
+
+    .membersTop {
+        text-align:right; /*rtl*/
+    }
+}
+
+.memberTopRow {
+    text-align:right; /*rtl*/
+    .deptCol {
+        &:after {
+            .pseudo;
+            margin: 0 4px 0 0; /*rtl*/
+        }
+    }
+
+    .memberCol {
+        padding: 0 36px 0 0; /*rtl*/
+    }
+}
+.memberCol {
+    padding: 0 8px 0 0; /*rtl*/
+}
+
+
+.deptPopup {
+    right: 336px; /*rtl*/
+    left: auto;
+    .cbLabel.cbLabel {
+        padding: 0 37px 0 5px; /*rtl*/
+        &:before {
+            right: 10px; /*rtl*/
+            left: auto;
+        }
+    }
+
+    li {
+        margin: 0 0 0 -0.25em; /*rtl*/
+    }
+}
+
+.upMemberBoxesTitle {
+    padding: 0 10px 0 0; /*rtl*/
+}
+
+.upMemberBoxList {
+    li {
+        padding: 0 10px 0 0; /*rtl*/
+    }
+}
+
+/*#endregion*/
+
 /*#endregion */
 
 /*#endregion */
+
 /*#region Search page and drop down */
 
 /*#region search drop down */
@@ -1587,17 +1651,17 @@ input[type="radio"] {
 .searchItem{
     > .searchTitle
     {
-        margin-left: 56px; /*rtl*/
+        margin: 0 56px 0 0; /*rtl*/
     }
     .userImg
     {
-        margin-left: 3px; /*rtl*/
+        margin: 0 3px 0 0; /*rtl*/
     }
 }
 
 .searchDetails
 {
-    padding-left: 15px; /*rtl*/
+    padding: 0 15px 0 0; /*rtl*/
 }
 .otherUni
 {
@@ -1608,7 +1672,7 @@ input[type="radio"] {
 {
     &:before
     {
-        margin-right: 4px; /*rtl*/
+        margin: 0 0 0 4px; /*rtl*/
     }
 }
 .dpt
@@ -1617,8 +1681,8 @@ input[type="radio"] {
     {
         &:before
         {
-            float: left; /*rtl*/
-            margin-right: 16px; /*rtl*/
+            float: right; /*rtl*/
+            margin: 0 0 0 16px; /*rtl*/
         }
     }
 }

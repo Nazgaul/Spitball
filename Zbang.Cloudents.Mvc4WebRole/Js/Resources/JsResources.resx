@@ -132,6 +132,9 @@
   <data name="IShared" xml:space="preserve">
     <value>I shared</value>
   </data>
+  <data name="NoSelected" xml:space="preserve">
+    <value>No courses selected</value>
+  </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>on Cloudents</value>
   </data>

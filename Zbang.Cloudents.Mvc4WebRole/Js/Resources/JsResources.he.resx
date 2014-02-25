@@ -135,6 +135,9 @@
   <data name="IShared" xml:space="preserve">
     <value>שיתפתי</value>
   </data>
+  <data name="NoSelected" xml:space="preserve">
+    <value>No courses selected</value>
+  </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>ב Cloudents</value>
   </data>

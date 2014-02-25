@@ -177,4 +177,7 @@
   <data name="PointsTxt8" xml:space="preserve">
     <value>5 pts for sharing on FB</value>
   </data>
+  <data name="UniMembers" xml:space="preserve">
+    <value>University members</value>
+  </data>
 </root>

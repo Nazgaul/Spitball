@@ -239,5 +239,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
                 return ResourceManager.GetString("PointsTxt8", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to University members.
+        /// </summary>
+        public static string UniMembers {
+            get {
+                return ResourceManager.GetString("UniMembers", resourceCulture);
+            }
+        }
     }
 }

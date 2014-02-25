@@ -237,7 +237,7 @@
         self.displayMembers = ko.observableArray();
 
         self.membersLength = ko.computed(function (e) {
-            return self.members().length + ' ' + 'members';
+            return self.members().length + ' ' + ZboxResources.Members;
         });
         self.membersSectionVisible = ko.computed(function () {
             return self.score() >= consts.ADMINSCORE && self.viewSelf();
@@ -674,7 +674,7 @@
                                     return;
                                 }
                                 if (!data.length) {
-                                    data = [{ name: 'No Courses selected' }];
+                                    data = [{ name: JsResources.NoSelected }];
                                 }
                                 sTimeout = setTimeout(function () {
                                     showMemberBoxList(e.target, data);
