@@ -299,9 +299,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult Facebook(long postId)
+        public ActionResult Facebook(string postId)
         {
-            if (postId < 0)
+            if (string.IsNullOrWhiteSpace(postId))
             {
                 return Json(new JsonResponse(false));
             }
