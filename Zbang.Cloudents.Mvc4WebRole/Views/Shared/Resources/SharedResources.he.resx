@@ -421,4 +421,7 @@
   <data name="All" xml:space="preserve">
     <value>הכל</value>
   </data>
+  <data name="Departments" xml:space="preserve">
+    <value>מחלקות</value>
+  </data>
 </root>

@@ -348,7 +348,7 @@
   width: 22px;
   height: 19px;
   vertical-align: middle;
-  background: url(/Images/common15-sprite.png) -155px -42px no-repeat;
+  background: url(/Images/common14-sprite.png) -155px -42px no-repeat;
   margin-right: 5px;
   /*rtl*/
 
@@ -448,14 +448,9 @@
   margin-left: 8px;
   /*rtl*/
 
-  background: url(/Images/common15-sprite.png) -103px -49px no-repeat;
-  width: 11px;
+  background: url(/Images/common14-sprite.png) -98px -49px no-repeat;
+  width: 9px;
   height: 7px;
-  -moz-transform: scaleY(-1);
-  -webkit-transform: scaleY(-1);
-  -o-transform: scaleY(-1);
-  -ms-transform: scaleY(-1);
-  transform: scaleY(-1);
 }
 .upShowAll:before {
   content: attr(data-up-showall);
@@ -503,11 +498,11 @@
   content: attr(data-up-showless);
 }
 .upCb:checked + label:after {
-  -moz-transform: scaleY(1);
-  -webkit-transform: scaleY(1);
-  -o-transform: scaleY(1);
-  -ms-transform: scaleY(1);
-  transform: scaleY(1);
+  -moz-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -ms-transform: scaleY(-1);
+  transform: scaleY(-1);
 }
 /*.noCommon h4{
     display: none; // if user has no commpn friends - hide title 
@@ -585,7 +580,7 @@
 .upInvites .inviteFriendBtn.btn3:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common15-sprite.png) -143px -3px no-repeat;
+  background: url(/Images/common14-sprite.png) -143px -3px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -832,10 +827,10 @@
   display: inline-block;
   width: 16px;
   height: 10px;
-  background: url(/Images/common15-sprite.png) -102px -88px no-repeat;
+  background: url(/Images/common14-sprite.png) -102px -88px no-repeat;
 }
 .courseCol .courseList:hover:before {
-  background: url(/Images/common15-sprite.png) -102px -102px no-repeat;
+  background: url(/Images/common14-sprite.png) -102px -102px no-repeat;
 }
 .deptPopup {
   display: none;
