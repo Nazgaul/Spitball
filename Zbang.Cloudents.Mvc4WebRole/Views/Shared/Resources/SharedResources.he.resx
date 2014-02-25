@@ -383,7 +383,7 @@
     <value>הצג פחות</value>
   </data>
   <data name="ShowMore" xml:space="preserve">
-    <value>הצג הכל</value>
+    <value>הצג עוד</value>
   </data>
   <data name="StayUpdated" xml:space="preserve">
     <value>השאר מעודכן</value>
@@ -420,5 +420,8 @@
   </data>
   <data name="All" xml:space="preserve">
     <value>הכל</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>מחלקות</value>
   </data>
 </root>

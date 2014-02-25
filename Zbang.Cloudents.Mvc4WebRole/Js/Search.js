@@ -14,8 +14,9 @@
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-            sTabContent = eById('sTabContent'), isLoading = false, gSearch = eById('g_searchQ'), materialsLoaded = false,
-            otherMaterialsSplit = document.querySelector('.splitHR'), sOtherMaterialsBtn = eById('sOtherMaterialsBtn'), otherDataAvailable = true,
+            sTabContent = eById('sTabContent'), isLoading = false, isOtherLoading = false,
+            gSearch = eById('g_searchQ'), materialsLoaded = false, otherDataAvailable = true,
+            otherMaterialsSplit = document.querySelector('.splitHR'), sOtherMaterialsBtn = eById('sOtherMaterialsBtn'), otherUnisScroll = false,
             searchTerm, cPage = 0, cOtherPage = 0, currentTab = sTabCourses;
         consts = {
             COURSES: 'sTab1',
@@ -177,10 +178,10 @@
 
                         function applyText(elm, currentLength, length) {
                             var type = elm.getAttribute('data-type');
-                            if (!length) {                                
-                                elm.textContent = type + ' (0)';
-                                return;
-                            }
+                            //if (!currentLength) {
+                            //    elm.textContent = type + ' (0)';
+                            //    return;
+                            //}
                             currentLength += length;
                             if (length === 50) {
                                 currentLength += '+';
@@ -194,6 +195,12 @@
 
         function getDataOtherUnis() {
             sOtherMaterialsBtn.disabled = true;
+            var loader = renderLoad(sTabContent, false);
+            if (isOtherLoading) {
+                return;
+            }
+            isOtherLoading = true;
+
             dataContext.searchOtherUnis({
                 data: { q: searchTerm, page : cOtherPage },
                 success: function (data) {
@@ -202,6 +209,8 @@
                 },
                 always: function () {
                     sOtherMaterialsBtn.disabled = false;
+                    isOtherLoading = false;
+                    loader();
                 }
             });
 
@@ -256,7 +265,11 @@
                 getData(term);
             });
 
-            sOtherMaterialsBtn.onclick = getDataOtherUnis;
+            sOtherMaterialsBtn.onclick = function () {
+                otherUnisScroll = true;
+                getDataOtherUnis();
+
+            }
         };
 
         function setCurrentTab(elm) {
@@ -361,17 +374,17 @@
                 if ($(window).scrollTop() + $(window).height() == $(document).height()) {
                     var length = parseNumber(currentTab);
 
+                    if (materialsLoaded && otherUnisScroll && otherDataAvailable) {
+                        cOtherPage++;
+                        getDataOtherUnis();
+                    }
+
                     if (length % 50 !== 0) {
-                        if (currentTab.id !== 'sTabMaterials') {
                             return;
-                        }
                     }
                     cPage++;
                     getData(searchTerm);
-                    if (materialsLoaded && otherDataAvailable) {
-                        getDataOtherUnis();
-                        cOtherPage++;
-                    }
+                 
 
                 }
             }

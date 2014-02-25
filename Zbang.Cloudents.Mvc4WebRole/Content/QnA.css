@@ -9,10 +9,12 @@
   color: #383838;
   text-align: left;
   /*rtl*/
+
   position: fixed;
   top: 158px;
   right: 20px;
   /*rtl*/
+
   height: 100%;
   z-index: 1;
   background: url(/Images/gray_jean80.png) repeat #ffffff;
@@ -20,12 +22,14 @@
 .QA.changeState .QWpr {
   left: -344px;
   /*rtl*/
+
   z-index: 0;
   opacity: 0;
 }
 .QA.changeState .AWpr {
   left: 0;
   /*rtl*/
+
   z-index: 2;
 }
 .QA.changeState .QForm {
@@ -90,12 +94,14 @@
 .QForm .QAImg {
   margin: 3px 0 0 8px;
   /*rtl*/
+
 }
 .QWpr {
   display: inline-block;
   position: absolute;
   left: 0;
   /*rtl*/
+
   margin-top: 6px;
   -webkit-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
   -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
@@ -146,6 +152,7 @@ textarea:invalid {
 .QTextarea {
   padding: 6px 5px 3px 8px;
   /*rtl*/
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -168,6 +175,7 @@ textarea:invalid {
 .attachedList {
   padding: 0 8px 3px 50px;
   /*rtl*/
+
 }
 .attachedItem {
   background: #f0f0f0;
@@ -175,9 +183,11 @@ textarea:invalid {
   border: 1px solid #c2c2c2;
   padding-left: 6px;
   /*rtl*/
+
   display: inline-block;
   margin: 3px 5px 3px 0;
   /*rtl*/
+
 }
 .attachName {
   display: inline-block;
@@ -199,12 +209,13 @@ textarea:invalid {
   position: absolute;
   left: 0;
   /*rtl*/
+
   top: 0;
 }
 .removeAttach:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common15-sprite.png) -68px -15px no-repeat;
+  background: url(/Images/common14-sprite.png) -68px -15px no-repeat;
   width: 10px;
   height: 10px;
   vertical-align: top;
@@ -255,6 +266,7 @@ textarea:invalid {
   margin: 20px 6px 0 6px;
   padding: 9px 9px 10px 6px;
   /*rtl*/
+
   background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
@@ -274,6 +286,7 @@ textarea:invalid {
   line-height: 32px;
   padding-left: 8px;
   /*rtl*/
+
 }
 .QEmptyForm .QTextarea {
   min-height: 29px;
@@ -285,6 +298,7 @@ textarea:invalid {
 .QEmptyForm .textareaWpr {
   margin-left: 3px;
   /*rtl*/
+
 }
 .QList {
   width: 354px;
@@ -313,6 +327,7 @@ textarea:invalid {
 .QItem .askBtn {
   margin: 2px 6px 7px 0;
   /*rtl*/
+
 }
 .QItem .attachBtn {
   margin-top: 7px;
@@ -334,16 +349,19 @@ textarea:invalid {
   clear: both;
   margin-left: 55px;
   /*rtl*/
+
   cursor: pointer;
 }
 .answerBottom {
   margin: 5px 0 5px 55px;
   /*rtl*/
+
 }
 .answerBottom > button {
   color: #66a1cf;
   padding-right: 5px;
   /*rtl*/
+
 }
 .numAnswers {
   position: relative;
@@ -355,6 +373,7 @@ textarea:invalid {
   top: 4px;
   right: 0;
   /*rtl*/
+
   width: 1px;
   height: 10px;
   background: #676767;
@@ -363,6 +382,7 @@ textarea:invalid {
   border-bottom: 1px solid #c2c2c2;
   padding: 6px 10px 2px 6px;
   /*rtl*/
+
   position: relative;
   background: #fafafa;
   cursor: pointer;
@@ -371,6 +391,7 @@ textarea:invalid {
 .QTop + form .QAImg {
   margin: 6px 6px 6px 15px;
   /*rtl*/
+
 }
 .QTop.hasAttached {
   padding-bottom: 4px;
@@ -398,6 +419,7 @@ textarea:invalid {
 .QContent {
   padding: 6px 0 6px 6px;
   /*rtl*/
+
   color: #383838;
   display: block;
   overflow: hidden;
@@ -405,6 +427,7 @@ textarea:invalid {
   -ms-word-wrap: break-word;
   word-wrap: break-word;
   /* or "normal" */
+
   overflow-wrap: break-word;
   line-height: 17px;
 }
@@ -426,12 +449,14 @@ textarea:invalid {
   overflow: hidden;
   padding: 14px 10px 0 0;
   /*rtl*/
+
   line-height: 15px;
 }
 .AMore {
   color: #4f92c8;
   margin: 4px 0 8px 44px;
   /*rtl*/
+
   display: block;
 }
 .AMore:hover {
@@ -461,11 +486,13 @@ textarea:invalid {
   overflow-x: auto;
   margin-left: 44px;
   /*rtl*/
+
 }
 .qaAttachItem {
   border: 1px solid #c2c2c2;
   margin: 12px 7px 0 0;
   /*rtl*/
+
   display: inline-block;
   height: 125px;
   position: relative;
@@ -482,6 +509,7 @@ textarea:invalid {
   position: absolute;
   left: 0;
   /*rtl*/
+
   bottom: -25px;
   visibility: hidden;
   -webkit-transition: all 0.1s;
@@ -544,6 +572,7 @@ textarea:invalid {
   /*&:hover {
             text-decoration: none;
         }*/
+
 }
 .question .views {
   padding-top: 5px;
@@ -554,6 +583,7 @@ textarea:invalid {
   top: 9px;
   right: 5px;
   /*rtl*/
+
 }
 .question .userName,
 .AItem .userName {
@@ -561,6 +591,7 @@ textarea:invalid {
   display: inline-block;
   margin-left: 8px;
   /*rtl*/
+
   line-height: 32px;
 }
 .AList {
@@ -601,6 +632,7 @@ textarea:invalid {
 .AItem .deleteBtn {
   margin: 6px 7px 0 0;
   /*rtl*/
+
 }
 .question:hover .deleteBtn,
 .AItem:hover .deleteBtn {
@@ -644,6 +676,7 @@ textarea:invalid {
 .aScore {
   margin-right: 5px;
   /*rtl*/
+
   line-height: 32px;
 }
 .markAnswerBtn {
@@ -653,8 +686,9 @@ textarea:invalid {
   position: absolute;
   left: 9px;
   /*rtl*/
+
   top: 45px;
-  background: url(/Images/box-sprite14.png) -57px -47px no-repeat;
+  background: url(/Images/box-sprite14.png?v=1) -57px -47px no-repeat;
 }
 .markAnswerBtn:hover {
   background-position: -57px -66px;
@@ -682,6 +716,7 @@ textarea:invalid {
   bottom: -6px;
   right: 27px;
   /*rtl*/
+
   width: 340px;
 }
 /*#endregion */

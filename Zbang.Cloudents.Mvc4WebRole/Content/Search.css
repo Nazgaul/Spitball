@@ -109,7 +109,7 @@
   display: inline-block;
   width: 40px;
   height: 32px;
-  background: url(/Images/common15-sprite.png) -241px -56px no-repeat;
+  background: url(/Images/common14-sprite.png) -241px -56px no-repeat;
   vertical-align: middle;
   float: left;
   /*rtl*/
@@ -361,5 +361,18 @@
 }
 .sHighlight {
   background-color: #cde3f4;
+}
+.sOtherMaterialsBtn {
+  color: #383838;
+  text-align: center;
+  display: block;
+  width: 100%;
+  height: 40px;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+}
+.sOtherMaterialsBtn:hover {
+  border: 1px solid #c2c2c2;
+  color: #0371c8;
 }
 /*#endregion */

@@ -176,7 +176,7 @@
         </aside>
 
         <div class="upContent">
-            <section class="upCourses" data-bind="visible: CoursesSectionVisible()">
+            <section class="upCourses" data-bind="visible: CoursesSectionVisible() , css: { noCourses : emptyBoxes()}">
                 <h2>@UserResources.CoursesGroups</h2>
                 <div id="upCoursesSection" class="upSectionWpr" data-bind="css: { truncated : !CoursesShowAllVisible()}">
                     <!--ko if:commonBoxesVisible()-->
@@ -212,6 +212,7 @@
                         <!--/ko-->
                     </ul>
                     <!--/ko-->
+                    <div class="coursesEmpty">Currently not following any courses</div>
                 </div>
             </section>
             <!--ko if:CoursesShowAllVisible()-->
