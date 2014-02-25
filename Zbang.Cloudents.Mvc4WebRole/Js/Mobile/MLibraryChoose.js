@@ -6,7 +6,7 @@
     }
 
     var elem = document.getElementById('libraryChoose');
-    cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
+    //cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
 
     //function registerKOLibrary(token) {
     //    var $libraryChoose = $('#libraryChoose');
