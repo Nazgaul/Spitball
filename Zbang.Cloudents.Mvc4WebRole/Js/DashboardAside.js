@@ -305,7 +305,9 @@
                 if (maxHeight >= height) {//+1 fix because of different calculations
                     $scrollElem.height(height);
                     cd.innerScroll($scrollElem, height);
-
+                    if (Modernizr.touch) {
+                        return;//no need to continue for touch devices
+                    }
                     var scrollDirection = window.getComputedStyle(document.getElementsByTagName('html')[0], null).getPropertyValue('direction') == 'ltr' ? 'right' : 'left',//rtl
                         scrollBar = document.querySelector('.membersContent .slimScrollBar'),
                         scrollDiv = document.querySelector('.membersContent .slimScrollDiv'),
