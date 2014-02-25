@@ -440,21 +440,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         return Json(new JsonResponse(true, new { preview = retVal.Content.First() }), JsonRequestBehavior.AllowGet);
                     }
-                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3))/*, identifier = identifier*/ }), JsonRequestBehavior.AllowGet);
-                    //                    PartialView("_Preview" + retVal.ViewName, retVal.Content.Take(3));
+                    if (retVal.Content.Count() == 0)
+                    {
+                        return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
+                    }
+                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }), JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
-                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid }))/*, identifier = identifier*/ }), JsonRequestBehavior.AllowGet);
+                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
 
-                    //return PartialView("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemUid = uid }));
                 }
-
             }
-            return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid }))/*, identifier = identifier*/ }), JsonRequestBehavior.AllowGet);
-
-            // return PartialView("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemUid = uid }));
+            return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
         }
         #endregion
 

@@ -190,10 +190,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult SubscribeToBox(long boxUid)
         {
             var userid = GetUserId();
-            var command = new SubscribeToSharedBoxCommand(userid, boxUid);
-            m_ZboxWriteService.SubscribeToSharedBox(command);
-            //RemoveInvitesFromSession();
-            return Json(new JsonResponse(true));
+            try
+            {
+
+                var command = new SubscribeToSharedBoxCommand(userid, boxUid);
+                m_ZboxWriteService.SubscribeToSharedBox(command);
+                return Json(new JsonResponse(true));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxUid), ex);
+                return Json(new JsonResponse(false));
+            }
 
         }
 
@@ -226,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return  this.CdJson(new JsonResponse(true, new string[0]));
+                return this.CdJson(new JsonResponse(true, new string[0]));
             }
             var userid = GetUserId();
             try
@@ -244,7 +252,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("Share Invites userid " + userid, ex);
-                return  this.CdJson(new JsonResponse(true, new string[0]));
+                return this.CdJson(new JsonResponse(true, new string[0]));
             }
         }
 
