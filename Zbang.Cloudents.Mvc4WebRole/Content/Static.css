@@ -719,7 +719,7 @@ footer {
   right: 0;
   top: 0;
   position: fixed;
-  z-index: 5;
+  z-index: 12;
 }
 .popupForm .field-validation-error,
 .popupForm .validation-summary-errors {
@@ -841,7 +841,8 @@ footer {
 
 }
 .popupWrppr.addSchool label {
-  color: #0f9d58;
+  color: #383838;
+  margin-bottom: 4px;
   font-size: 15px;
   display: inline-block;
 }
