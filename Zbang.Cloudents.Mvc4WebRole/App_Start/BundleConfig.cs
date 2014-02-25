@@ -100,6 +100,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/DataContext.js"),
                 new JsFileWithCdn("~/Js/LibraryChoose.js"));
 
+            RegisterJs("MChooseLib",
+                  new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
+                new JsFileWithCdn("~/Js/Cache.js"),
+                new JsFileWithCdn("~/Js/DataContext.js"),
+                new JsFileWithCdn("~/Mobile/MLibraryChoose.js"));
+
 
             RegisterJs("General",
                    new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js"),
@@ -258,7 +264,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/Mobile/MWallViewModel.js"),
                 //library
                 new JsFileWithCdn("~/Js/Mobile/MLibrary.js"),
-                new JsFileWithCdn("/Js/Mobile/MLibraryChoose.js"),
+                //new JsFileWithCdn("/Js/Mobile/MLibraryChoose.js"),
                 //dashboard
                 new JsFileWithCdn("~/Js/Mobile/MBoxesViewModel.js"),
 
