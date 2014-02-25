@@ -1,4 +1,4 @@
-﻿(function (cd, $, analytics) {
+﻿(function (cd, $, analytics,dataContext) {
 
     if (window.scriptLoaded.isLoaded('u')) {
         return;
@@ -787,10 +787,14 @@
             picture: location.origin + (picture || '/images/cloudents-share-FB.png'),
             display: 'popup'
         }, function (response) {
-            if (response) {
+            if (response && response.post_id) {
                 $('[data-ddcbox]').each(function (i, e) { e.checked = false }); // close all popups
                 analytics.trackSocial(url, 'share');
                 cd.pubsub.publish('addPoints', 'shareFb');
+                var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
+                cd.data.fbRep({
+                    data: { postId: postId }
+                });
             }
         });
         //var sharer = "https://www.facebook.com/sharer/sharer.php?u=",
@@ -1153,4 +1157,4 @@
     //    }
     //});
 
-})(window.cd = window.cd || {}, jQuery, cd.analytics);
+})(window.cd = window.cd || {}, jQuery, cd.analytics,cd.data);
