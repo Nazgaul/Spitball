@@ -250,8 +250,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = m_IdGenerator.Value.GetId();
-                //var id = Guid.NewGuid();
-                //var color = GenerateNodeColor();
                 var command = new AddNodeToLibraryCommand(model.Name, id, userDetail.UniversityId.Value, model.ParentId);
                 m_ZboxWriteService.AddNodeToLibrary(command);
                 var result = new NodeDto { Id = id, Name = model.Name };
