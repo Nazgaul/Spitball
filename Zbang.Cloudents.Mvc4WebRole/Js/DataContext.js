@@ -35,6 +35,7 @@
 
     definition.searchDD = new definitionobj({ url: search + 'Dropdown', type: get });
     definition.searchPage = new definitionobj({ url: search + 'Data', type: get });
+    definition.searchOtherUnis = new definitionobj({ url: search + 'OtherUniversities', type: get });
     //definition.sDashboard = new definitionobj({ url: dashboard + 'Search', type: get });
     // definition.sideNode = new definitionobj({ url: dashboard + "Side", type: get });
 
@@ -44,7 +45,7 @@
     //test
     definition.fbBoxInvite = new definitionobj({ url: share + 'InviteBoxFacebook', isJson: true });
     definition.fbInvite = new definitionobj({ url: share + 'InviteFacebook', isJson: true });
-
+    definition.fbRep = new definitionobj({ url: share + 'Facebook'});
 
     definition.library = new definitionobj({ url: library + "Nodes", type: get });
     definition.university = new definitionobj({ url: library + "University", type: get });

@@ -150,12 +150,8 @@
             hide();
             cd.historyManager.remove();
             formSubmitted = true;
-            //if (Modernizr.cssanimations) {
-                pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
-            //} else {
-                //window.location.href = '/search/?q=' + input.value + '&r=searchdd';
-            //}
-
+            pubsub.publish('searchclear');
+             pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
         };
 
 

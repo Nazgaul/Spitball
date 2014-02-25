@@ -14,9 +14,9 @@
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-            sTabContent = eById('sTabContent'), isLoading = false, gSearch = eById('g_searchQ'),
-            otherMaterialsSplit = document.querySelector('.splitHR'),
-            searchTerm, cPage = 0, currentTab = sTabCourses;
+            sTabContent = eById('sTabContent'), isLoading = false, gSearch = eById('g_searchQ'), materialsLoaded = false,
+            otherMaterialsSplit = document.querySelector('.splitHR'), sOtherMaterialsBtn = eById('sOtherMaterialsBtn'), otherDataAvailable = true,
+            searchTerm, cPage = 0, cOtherPage = 0, currentTab = sTabCourses;
         consts = {
             COURSES: 'sTab1',
             MATERIALS: 'sTab2',
@@ -143,37 +143,23 @@
                     var courses = mapData(Course, data.boxes),
                         materials = mapData(Material, data.items),
                         members = mapData(Member, data.users),
-                        otherMaterials = mapData(Material, data.otherItems);
-
-                    toWipe = cPage === 0;
+                        toWipe = cPage === 0, length;
 
 
                     appendList(sCourseList, 'sCourseItemTemplate', courses, toWipe);
                     appendList(sMaterialList, 'sMaterialItemTemplate', materials, toWipe);
-                    appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);
-                    if (otherMaterials.length > 0) {
-                        otherMaterialsSplit.style.display = 'block';
-                        appendList(sOtherMaterialList, 'sMaterialItemTemplate', otherMaterials, toWipe);
-                    } else {
-                        otherMaterialsSplit.style.display = 'none';
-                    }
+                    appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);                    
 
                     setNumbersAndText();
-                    var length = parseNumber(currentTab);
+                    length = parseNumber(currentTab);
                     sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
+
+                    if (materials.length < 50) {                        
+                        materialsLoaded = true;
+                    }
                     pubsub.publish('search_load');
 
-                    function mapData(dataType, arr) {
-                        if (!arr) {
-                            return [];
-                        }
-                        if (!arr.length) {
-                            return []; // we return empty array to calculate the max items length
-                        }
-                        return arr.map(function (d) {
-                            return new dataType(d);
-                        });
-                    };
+                   
                     function setNumbersAndText() {
                         var length;
 
@@ -184,23 +170,62 @@
                         applyText(sTabCourses, length, courses.length);
 
                         length = parseNumber(sTabMaterials);
-                        applyText(sTabMaterials, length, materials.length + otherMaterials.length);
+                        applyText(sTabMaterials, length, materials.length);
 
                         length = parseNumber(sTabMembers);
                         applyText(sTabMembers, length, members.length);
 
                         function applyText(elm, currentLength, length) {
+                            var type = elm.getAttribute('data-type');
+                            if (!length) {                                
+                                elm.textContent = type + ' (0)';
+                                return;
+                            }
                             currentLength += length;
                             if (length === 50) {
                                 currentLength += '+';
                             }
-                            elm.textContent = elm.getAttribute('data-type') + ' (' + currentLength + ')';
+                            elm.textContent = type + ' (' + currentLength + ')';
                         }
                     };
                 };
             };
         };
 
+        function getDataOtherUnis() {
+            sOtherMaterialsBtn.disabled = true;
+            dataContext.searchOtherUnis({
+                data: { q: searchTerm, page : cOtherPage },
+                success: function (data) {
+                    data = data || {};                    
+                    parseData(data);
+                },
+                always: function () {
+                    sOtherMaterialsBtn.disabled = false;
+                }
+            });
+
+            function parseData(data) {
+
+                sOtherMaterialsBtn.style.display = 'none';
+
+                if (!data.length) {
+                    otherDataAvailable = false;
+                    return;
+                }
+                if (data.length < 50) {
+                    otherDataAvailable = false;
+                }
+                
+                otherMaterialsSplit.style.display = 'block';
+
+                var materials = mapData(Material, data);
+                
+                var toWipe = cOtherPage === 0;
+
+                appendList(sOtherMaterialList, 'sMaterialItemTemplate', materials, toWipe);
+            }
+        }
         function registerEvents() {
             //tab switch
             $(tabsContainer).on('click', 'button', function (e) {
@@ -227,17 +252,19 @@
                 cd.pubsub.publish('message', { id: '', data: [{ name: name, id: id, userImage: image }] });
             });
             pubsub.subscribe('searchInput', function (term) {
-                clear();
+                clear(true);
                 getData(term);
             });
+
+            sOtherMaterialsBtn.onclick = getDataOtherUnis;
         };
 
         function setCurrentTab(elm) {
             $elm = $(elm);
             var tabIndex = $elm.index(),
-                    list = $('[data-list="' + elm.getAttribute('data-type') + '"]').find('li');
+                $list = $('[data-list="' + elm.getAttribute('data-type') + '"]').find('li');
 
-            if (list.length > 0) {
+            if ($list.length > 0) {
                 sTabContent.classList.remove('noResults');
             } else {
                 sTabContent.classList.add('noResults');
@@ -248,6 +275,18 @@
             $elm.parent().attr('class', 'sTabs').addClass('sTab' + (tabIndex + 1));
             currentTab = $elm[0];
         }
+
+        function mapData(dataType, arr) {
+            if (!arr) {
+                return [];
+            }
+            if (!arr.length) {
+                return []; // we return empty array to calculate the max items length
+            }
+            return arr.map(function (d) {
+                return new dataType(d);
+            });
+        };
 
         function appendList(list, template, dataItems, wipe) {
             cd.appendData(list, template, dataItems, 'beforeend', wipe);
@@ -261,10 +300,11 @@
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
             sOtherMaterialList.innerHTML = '';
-            otherMaterialsSplit.style.display = 'none';
             if (clearPage) {
-                cPage = 0;
+                cPage = cOtherPage = 0;
             }
+            otherMaterialsSplit.style.display = 'none';
+            sOtherMaterialsBtn.style.display = 'block';
             sTabContent.classList.remove('noResults');
             $(window).off('scroll', scrollEvent);
 
@@ -322,10 +362,16 @@
                     var length = parseNumber(currentTab);
 
                     if (length % 50 !== 0) {
-                        return;
+                        if (currentTab.id !== 'sTabMaterials') {
+                            return;
+                        }
                     }
                     cPage++;
                     getData(searchTerm);
+                    if (materialsLoaded && otherDataAvailable) {
+                        getDataOtherUnis();
+                        cOtherPage++;
+                    }
 
                 }
             }

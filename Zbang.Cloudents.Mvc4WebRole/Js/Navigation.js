@@ -515,7 +515,6 @@
     cd.prevLinkData = function (type) {
         var history,
             index,
-            current,
             found = false;
         if (type === 'box') {
             if (historyNav.length > 0) {
@@ -532,16 +531,15 @@
 
                     }
                 }
-            }
-
-            current = index || historyNav.length - 2;
-            if (current < 0) {
+            }            
+            if (!found) {
                 return;
             }
-            if (historyNav[current].url.charAt(0) !== '/') {
-                historyNav[current].url = '/' + historyNav[current].url;
+
+            if (historyNav[index].url.charAt(0) !== '/') {
+                historyNav[index].url = '/' + historyNav[index].url;
             }
-            return historyNav[current];
+            return historyNav[index];
         }
         if (type === 'item') {
             var backItem = historyNav[historyNav.length - 2];

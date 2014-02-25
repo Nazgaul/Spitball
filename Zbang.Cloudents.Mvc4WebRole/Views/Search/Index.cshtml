@@ -8,15 +8,16 @@
     <div class="arrow upArrow"></div>
     <h2 id="sTabResults" class="semiFont" data-resultcount="0"><span class="sResult">&nbsp;@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q id="sSearchTerm"></q></h2>
     <div id="sTabContent" class="sTabContent">
-        <section class="sCourses" data-list="courses">
+        <section class="sCourses" data-list="@SharedResources.Courses">
             <ul id="sCourseList" class="sCourseList"></ul>
         </section>
-        <section class="sMaterials" data-list="materials">
+        <section class="sMaterials" data-list="@SharedResources.Materials">
             <ul id="sMaterialsList" class="sMaterialsList"></ul>
             <div class="splitHR"><span class="splitHRText">@SharedResources.ResultsOther</span></div>
-            <ul id="sOtherMaterialsList" class="sMaterialsList" data-list="materials"></ul>
+            <ul id="sOtherMaterialsList" class="sMaterialsList" data-list="@SharedResources.Materials"></ul>
+            <div id="sOtherMaterialsBtn" class="sOtherMaterialsBtn">Show results from other universities</div>
         </section>
-        <section class="sMembers" data-list="members">
+        <section class="sMembers" data-list="@SharedResources.Members">
             <ul id="sMembersList" class="sMembersList"></ul>
         </section>
         <div class="emptySearch">@SharedResources.NoResults</div>
