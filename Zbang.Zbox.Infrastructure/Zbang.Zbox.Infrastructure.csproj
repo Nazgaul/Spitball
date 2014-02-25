@@ -155,6 +155,7 @@
     <Compile Include="Enums\ImageSize.cs" />
     <Compile Include="Enums\LogInStatus.cs" />
     <Compile Include="Enums\MessageType.cs" />
+    <Compile Include="Enums\ReputationAction.cs" />
     <Compile Include="Enums\Resources\EnumResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -30,10 +30,16 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
 
 
 
+        public static Guid GetGuid()
+        {
+           GuidCombGenerator CombGenerator = new GuidCombGenerator();
+           return (Guid)CombGenerator.Generate(null, null);
+        }
+
+
         public Guid GetId()
         {
-            GuidCombGenerator CombGenerator = new GuidCombGenerator();
-           return (Guid)CombGenerator.Generate(null, null);
+            return IdGenerator.GetGuid();
         }
     }
 }

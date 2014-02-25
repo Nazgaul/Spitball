@@ -10,21 +10,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public abstract class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, CreateUserCommandResult>
     {
-        const int InviteToCloudentsReputation = 20;
+
         protected readonly IUserRepository m_UserRepository;
         protected readonly IQueueProvider m_QueueRepository;
         protected readonly IUniversityRepository m_UniversityRepository;
         protected readonly IInviteToCloudentsRepository m_InviteToCloudentsRepository;
+        protected readonly IRepository<Reputation> m_ReputationRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IUniversityRepository universityRepository,
-            IInviteToCloudentsRepository inviteToCloudentsRepository)
+            IInviteToCloudentsRepository inviteToCloudentsRepository,
+            IRepository<Reputation> reputationRepository)
         {
             m_UserRepository = userRepository;
             m_QueueRepository = queueRepository;
             m_UniversityRepository = universityRepository;
             m_InviteToCloudentsRepository = inviteToCloudentsRepository;
+            m_ReputationRepository = reputationRepository;
         }
 
         public virtual CreateUserCommandResult Execute(CreateUserCommand command)
@@ -46,7 +49,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 return;
             }
-            invite.Sender.AddReputation(InviteToCloudentsReputation);
+            var reputation = invite.Sender.AddReputation(Zbang.Zbox.Infrastructure.Enums.ReputationAction.Invite);
+            m_ReputationRepository.Save(reputation);
             m_UserRepository.Save(invite.Sender);
         }
 

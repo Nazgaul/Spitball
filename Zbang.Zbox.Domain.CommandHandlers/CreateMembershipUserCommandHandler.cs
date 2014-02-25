@@ -16,8 +16,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IProfilePictureProvider profileProvider,
             IUniversityRepository universityRepository,
             IQueueProvider queueRepository,
-            IInviteToCloudentsRepository inviteToCloudentsRepository)
-            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository)
+            IInviteToCloudentsRepository inviteToCloudentsRepository,
+            IRepository<Reputation> reputationRepository)
+            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository)
         {
             m_ProfileProvider = profileProvider;
         }
