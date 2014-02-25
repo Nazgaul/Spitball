@@ -445,4 +445,7 @@ To help you get started tell us where you study</value>
   <data name="SweetPoints" xml:space="preserve">
     <value>Sweet, you just earned</value>
   </data>
+  <data name="In" xml:space="preserve">
+    <value>In:</value>
+  </data>
 </root>

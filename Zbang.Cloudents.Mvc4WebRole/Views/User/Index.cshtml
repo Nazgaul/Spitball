@@ -18,7 +18,7 @@
         </div>
 
         <section class="upMembers" data-bind="visible: membersSectionVisible()">
-            <h2>University members</h2>
+            <h2>@UserResources.UniMembers</h2>
             <div class="membersContent" data-bind="css: { noResults : membersLoaded() && !displayMembersFilter().length} ">
                 <div class="membersTop">
                     <input id="upMemberSettings" type="checkbox" class="checkbox" data-click="unSelected" />
@@ -52,10 +52,10 @@
                         <input type="checkbox" class="checkbox" data-bind="checked: selected,attr: {id : inputId}" />
                         <label for="" class="cbLabel memberCol" data-bind="attr: {for: inputId}">
                             <img class="friendImg calloutTrgr" alt="" data-bind="attr: { 'src': image,'data-uid' : id }" width="34" height="34" />
-                            <span class="upMemberName" data-bind="text: name"></span>
+                            <span class="upMemberName elps" data-bind="text: name"></span>
                         </label>
 
-                        <span class="deptCol" data-bind="text: department"></span>
+                        <span class="deptCol elps" data-bind="text: department"></span>
                         <span class="dateCol" data-bind="text: joinDate"></span>
                         <span class="courseCol"><span class="courseList"></span></span>
                     </li>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="Reputation" table="Reputation" >
+    <id name="Id" column="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <many-to-one column="UserId" class="User" name="User" foreign-key="ReputationUser"/>
+
+    <property name="CreationTime" type="DateTime2" not-null="true" />
+    <property name="Action" />
+    <property name="Score"/>
+  </class>
+</hibernate-mapping>

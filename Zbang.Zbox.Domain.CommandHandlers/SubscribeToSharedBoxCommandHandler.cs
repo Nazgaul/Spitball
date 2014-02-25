@@ -15,18 +15,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IInviteRepository m_InviteRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
 
-        const int SubscribeToShareBoxReputation = 5;
 
         public SubscribeToSharedBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository,
             IQueueProvider queueProvider,
-            IInviteRepository inviteRepository)
+            IInviteRepository inviteRepository,
+            IRepository<Reputation> reputationRepository)
         {
 
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
             m_InviteRepository = inviteRepository;
+            m_ReputationRepository = reputationRepository;
 
         }
 
@@ -41,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 var invite = m_InviteRepository.GetCurrentInvite(user, box);
-                invite.Sender.AddReputation(SubscribeToShareBoxReputation);
+                m_ReputationRepository.Save(invite.Sender.AddReputation(ReputationAction.InviteToBox));
 
                 isSubscribed = true;
                 m_UserRepository.Save(user);

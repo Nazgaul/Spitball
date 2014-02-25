@@ -19,18 +19,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Question> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
 
-        private const int AmoutOfPointOfAddingQuestion = 5;
+
 
         public AddQuestionCommandHandler(IUserRepository userRepository,
             IBoxRepository boxRepository,
             IRepository<Question> questionRepository
-            , IRepository<Item> itemRepository)
+            , IRepository<Item> itemRepository,
+            IRepository<Reputation> reputationRepository)
         {
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_QuestionRepository = questionRepository;
             m_ItemRepository = itemRepository;
+            m_ReputationRepository = reputationRepository;
         }
         public void Handle(AddQuestionCommand message)
         {
@@ -51,8 +54,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var question = new Question(user, text, box, message.Id, files);
             m_QuestionRepository.Save(question);
 
-            user.AddReputation(AmoutOfPointOfAddingQuestion);
-
+            var reputation = user.AddReputation(ReputationAction.AddQuestion);
+            m_ReputationRepository.Save(reputation);
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
             //box.UserTime.UpdateUserTime(user.Email);
             m_BoxRepository.Save(box);

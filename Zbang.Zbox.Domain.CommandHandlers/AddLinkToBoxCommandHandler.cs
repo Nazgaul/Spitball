@@ -14,24 +14,26 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class AddLinkToBoxCommandHandler : ICommandHandler<AddLinkToBoxCommand, AddLinkToBoxCommandResult>
     {
         private const int LinkStorageSize = 1;
-        private const int UploadReputationRate = 10;
 
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
 
 
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
             IRepository<Item> itemRepository,
-            IItemTabRepository itemTabRepository)
+            IItemTabRepository itemTabRepository,
+            IRepository<Reputation> reputationRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
             m_ItemRepository = itemRepository;
             m_ItemTabRepository = itemTabRepository;
+            m_ReputationRepository = reputationRepository;
         }
 
         public AddLinkToBoxCommandResult Execute(AddLinkToBoxCommand command)
@@ -57,13 +59,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //Add link to Box 
             var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, ThumbnailProvider.LinkTypePicture);
 
-            user.AddReputation(UploadReputationRate);
+            m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddItem));
             m_ItemRepository.Save(link, true);
             box.UserTime.UpdateUserTime(user.Name);
             m_BoxRepository.Save(box, true);
 
             AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
-           
+
 
             return new AddLinkToBoxCommandResult(link);
 

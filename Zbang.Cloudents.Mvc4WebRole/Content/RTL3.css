@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2129,22 +2129,89 @@ input[type="radio"] + label:before {
   /*rtl*/
 
 }
+/*#region union*/
+.upMembers .membersContent .emptySearch {
+  right: 426px;
+  /*rtl*/
+
+  left: auto;
+}
+.upMembers .membersTop {
+  text-align: right;
+  /*rtl*/
+
+}
+.memberTopRow {
+  text-align: right;
+  /*rtl*/
+
+}
+.memberTopRow .deptCol:after {
+  content: '';
+  display: inline-block;
+  margin: 0 4px 0 0;
+  /*rtl*/
+
+}
+.memberTopRow .memberCol {
+  padding: 0 36px 0 0;
+  /*rtl*/
+
+}
+.memberCol {
+  padding: 0 8px 0 0;
+  /*rtl*/
+
+}
+.deptPopup {
+  right: 336px;
+  /*rtl*/
+
+  left: auto;
+}
+.deptPopup .cbLabel.cbLabel {
+  padding: 0 37px 0 5px;
+  /*rtl*/
+
+}
+.deptPopup .cbLabel.cbLabel:before {
+  right: 10px;
+  /*rtl*/
+
+  left: auto;
+}
+.deptPopup li {
+  margin: 0 0 0 -0.25em;
+  /*rtl*/
+
+}
+.upMemberBoxesTitle {
+  padding: 0 10px 0 0;
+  /*rtl*/
+
+}
+.upMemberBoxList li {
+  padding: 0 10px 0 0;
+  /*rtl*/
+
+}
+/*#endregion*/
 /*#endregion */
 /*#endregion */
 /*#region Search page and drop down */
 /*#region search drop down */
 .searchItem > .searchTitle {
-  margin-left: 56px;
+  margin: 0 56px 0 0;
   /*rtl*/
 
 }
 .searchItem .userImg {
-  margin-left: 3px;
+  margin: 0 3px 0 0;
   /*rtl*/
 
 }
 .searchDetails {
-  padding-left: 15px;
+  padding: 0 15px 0 0;
   /*rtl*/
 
 }
@@ -2155,15 +2222,15 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .boxLoc:before {
-  margin-right: 4px;
+  margin: 0 0 0 4px;
   /*rtl*/
 
 }
 .dpt .searchDetails:before {
-  float: left;
+  float: right;
   /*rtl*/
 
-  margin-right: 16px;
+  margin: 0 0 0 16px;
   /*rtl*/
 
 }

@@ -19,14 +19,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IBlobProvider m_BlobProvider;
         private readonly IQueueProvider m_QueueProvider;
-        //private readonly IActionRepository m_ActionRepository;
         private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
+
 
         public DeleteItemCommandHandler(IQueueProvider queueProvider,
             IRepository<Box> boxRepository, IBlobProvider blobProvider,
-            IUserRepository userRepository, 
-            //IActionRepository actionRepository,
-            IRepository<Item> itemRepository)
+            IUserRepository userRepository,
+            IRepository<Item> itemRepository,
+            IRepository<Reputation> reputationRepository)
         {
 
             m_BoxRepository = boxRepository;
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
+            m_ReputationRepository = reputationRepository;
         }
 
         public void Handle(DeleteItemCommand command)
@@ -80,8 +82,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var uploaderFile = item.Uploader;
             uploaderFile.Quota.UsedSpace = m_UserRepository.GetItemsByUser(uploaderFile.Id).Sum(s => s.Size);
-            uploaderFile.AddReputation(-5);
-
+            var reputation = uploaderFile.AddReputation(ReputationAction.DeleteItem);
+            m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             m_UserRepository.Save(uploaderFile);
         }
