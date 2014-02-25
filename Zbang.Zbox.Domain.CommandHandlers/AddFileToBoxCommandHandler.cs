@@ -22,17 +22,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
-        private const int UploadReputationRate = 10;
+
 
 
         public AddFileToBoxCommandHandler(IQueueProvider queueProvider,
             IBoxRepository boxRepository, IUserRepository userRepository,
             IRepository<Item> itemRepository,
             IItemTabRepository itemTabRepository,
-            IFileProcessorFactory fileProcessorFactory
+            IFileProcessorFactory fileProcessorFactory,
+            IRepository<Reputation> reputationRepository
             )
         {
             m_BoxRepository = boxRepository;
@@ -41,6 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_ItemTabRepository = itemTabRepository;
             m_FileProcessorFactory = fileProcessorFactory;
+            m_ReputationRepository = reputationRepository;
         }
 
         public AddFileToBoxCommandResult Execute(AddFileToBoxCommand command)
@@ -63,7 +66,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UserRepository.Save(user);
             }
 
-            
+
             var processor = m_FileProcessorFactory.GetProcessor(new Uri(BlobProvider.GetBlobUrl(command.BlobAddressName)));
             string thumbnailImgLink = ThumbnailProvider.DefaultFileTypePicture;
             if (processor != null)
@@ -83,7 +86,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box, true);
 
             user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id).Sum(s => s.Size);
-            user.AddReputation(UploadReputationRate);
+            m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddItem));
             m_UserRepository.Save(user);
 
 

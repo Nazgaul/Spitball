@@ -4,6 +4,7 @@ using System.Linq;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
@@ -61,9 +62,12 @@ namespace Zbang.Zbox.Domain
             Invites.Where(w => w.Box == box).ToList().ForEach(f => f.IsActive = false);
         }
 
-        public void AddReputation(int AmountToAdd)
+        public Reputation AddReputation(ReputationAction action)
         {
-            Reputation += AmountToAdd;
+            var reputation = new Reputation(IdGenerator.GetGuid(), this, action);
+            
+            Reputation += reputation.Score;
+            return reputation;
         }
 
         public void ChangeUserRelationShipToBoxType(Box box, UserRelationshipType newUserType)

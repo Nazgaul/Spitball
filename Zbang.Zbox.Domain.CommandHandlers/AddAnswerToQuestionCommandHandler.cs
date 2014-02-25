@@ -20,19 +20,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Answer> m_AnswerRepository;
         private readonly IRepository<Question> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
 
-        private const int AmoutOfPointOfAddingAnswer = 10;
+
 
         public AddAnswerToQuestionCommandHandler(IUserRepository userRepository, IBoxRepository boxRepository,
             IRepository<Answer> answerRepository,
             IRepository<Question> questionRepository,
-            IRepository<Item> itemRepository)
+            IRepository<Item> itemRepository,
+            IRepository<Reputation> reputationRepository)
         {
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_AnswerRepository = answerRepository;
             m_QuestionRepository = questionRepository;
             m_ItemRepository = itemRepository;
+            m_ReputationRepository = reputationRepository;
         }
         public void Handle(AddAnswerToQuestionCommand message)
         {
@@ -52,7 +55,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             var answer = new Answer(user, text, box, message.Id, question, files);
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
-            user.AddReputation(AmoutOfPointOfAddingAnswer);
+            var reputation = user.AddReputation(ReputationAction.AddAnswer);
+            m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             m_AnswerRepository.Save(answer);
         }

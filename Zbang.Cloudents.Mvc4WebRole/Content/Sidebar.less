@@ -56,7 +56,7 @@
     .uniText {
         line-height: 1.1;
         display: inline-block;
-        vertical-align: middle;
+        //vertical-align: middle; bug 1424
     }
 }
 
@@ -68,7 +68,8 @@
     text-align: left; /*rtl*/
     border-top: 1px solid #c2c2c2;
     position: relative; //for the arrow and X btns
-    &.checked .closeProducts // checked class added in js {
+    // checked class added in js
+    &.checked .closeProducts  {
         display: block;
     }
 
@@ -139,8 +140,8 @@
     }
 
     .friendItem {
-
-        &.friendBtn:first-child //if there are no friends - just the invite btn... {
+        //if there are no friends - just the invite btn...
+        &.friendBtn:first-child  {
             float: none;
             width: 266px;
 
