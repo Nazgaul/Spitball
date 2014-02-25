@@ -6,7 +6,6 @@
 .searchPage {
   text-align: left;
   /*rtl*/
-
   color: #383838;
 }
 .userPage:after,
@@ -46,7 +45,6 @@
   border-radius: 5px;
   margin: 28px 0 0 21px;
   /*rtl*/
-
   display: inline-block;
   clear: both;
 }
@@ -70,7 +68,6 @@
   top: 0;
   left: 0;
   /*rtl*/
-
   width: 100%;
   height: 53px;
   background: #0f9d58;
@@ -80,7 +77,6 @@
   color: #676767;
   text-align: left;
   /*rtl*/
-
 }
 .emptyPoints .semiFont {
   color: #39434a;
@@ -169,7 +165,6 @@
 .uploadsItem {
   padding: 0 10px 0 64px;
   /*rtl*/
-
   position: relative;
   margin-top: 11px;
   height: 67px;
@@ -236,7 +231,6 @@
 .qaBoxname {
   margin-left: 10px;
   /*rtl*/
-
   max-width: 188px;
   display: inline-block;
   padding-top: 8px;
@@ -248,7 +242,6 @@
   border-radius: 5px;
   padding: 10px 5px 5px 10px;
   /*rtl*/
-
   margin-top: 18px;
   overflow: hidden;
 }
@@ -256,10 +249,8 @@
   border-bottom: 1px solid #c2c2c2;
   margin: -10px -5px 0 -10px;
   /*rtl*/
-
   padding: 10px 5px 8px 10px;
   /*rtl*/
-
   background: #fafafa;
 }
 .qLink {
@@ -271,7 +262,6 @@
   display: inline-block;
   margin-left: 5px;
   /*rtl*/
-
   color: #383838;
   width: 7px;
   height: 10px;
@@ -292,7 +282,6 @@
   max-width: 168px;
   margin: 0 0 11px 8px;
   /*rtl*/
-
   padding-top: 7px;
 }
 .qaUsername ~ .qaQuestion {
@@ -333,7 +322,6 @@
 .upTop {
   padding-left: 112px;
   /*rtl*/
-
   position: relative;
   height: 100px;
 }
@@ -351,7 +339,6 @@
   background: url(/Images/common14-sprite.png) -155px -42px no-repeat;
   margin-right: 5px;
   /*rtl*/
-
 }
 .upTop .upEmail {
   margin-top: 23px;
@@ -373,7 +360,6 @@
   top: 0;
   left: 0;
   /*rtl*/
-
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   -webkit-box-sizing: border-box;
@@ -385,13 +371,24 @@
   /*&:hover {
         color: @attentionBlue;
     }*/
-
 }
 .upContent {
   width: 772px;
 }
 .upContent h2 {
   margin: 28px 0 15px;
+}
+.upCourses .coursesEmpty {
+  display: none;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+  font-size: 15px;
+  color: #676767;
+  margin-bottom: 15px;
+}
+.upCourses.noCourses .coursesEmpty {
+  display: block;
 }
 .upSectionWpr {
   background: #fff;
@@ -447,7 +444,6 @@
   vertical-align: middle;
   margin-left: 8px;
   /*rtl*/
-
   background: url(/Images/common14-sprite.png) -98px -49px no-repeat;
   width: 9px;
   height: 7px;
@@ -492,7 +488,6 @@
                 display: none;
             }
         }*/
-
 }
 .upCb:checked + label:before {
   content: attr(data-up-showless);
@@ -532,7 +527,6 @@
   position: absolute;
   left: 84px;
   /*rtl*/
-
   bottom: 5px;
   color: #0371c8;
   display: none;
@@ -546,7 +540,6 @@
   height: 116px;
   margin-right: 32px;
   /*rtl*/
-
   overflow: hidden;
   text-align: center;
   width: 76px;
@@ -586,7 +579,6 @@
   vertical-align: middle;
   margin-right: 8px;
   /*rtl*/
-
 }
 .upInvites.empty ul,
 .upInvites.empty label,
@@ -613,12 +605,10 @@
   box-sizing: border-box;
   padding-left: 91px;
   /*rtl*/
-
   position: relative;
   margin-bottom: 29px;
   float: left;
   /*rtl*/
-
   height: 78px;
   z-index: 1;
 }
@@ -636,14 +626,12 @@
 .upInviteItem .semiFont {
   margin: -4px 0 4px;
   /*diff rtl*/
-
 }
 .upInviteItem .upFriendImg {
   position: absolute;
   top: 0;
   left: 0;
   /*rtl*/
-
 }
 .upInviteItem.upPending .inviteStatus {
   color: #d1294d;
@@ -659,13 +647,11 @@
   position: absolute;
   right: 0;
   /*rtl*/
-
   top: 3px;
 }
 .upInviteItem:nth-child(even) {
   margin-left: 28px;
   /*rtl*/
-
 }
 .upInviteItem:nth-child(even):before {
   content: '';
@@ -675,7 +661,6 @@
   position: absolute;
   left: -17px;
   /*rtl*/
-
   top: -29px;
   padding-top: 29px;
 }
@@ -691,7 +676,6 @@
   box-sizing: border-box;
   padding: 9px 5px 0 35px;
   /*rtl*/
-
   position: relative;
   margin-top: 2px;
 }
@@ -717,7 +701,6 @@
 .emptyInvites .btn3 {
   margin-left: 15px;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region union*/
@@ -738,7 +721,6 @@
   top: 168px;
   left: 426px;
   /*rtl*/
-
 }
 .upMembers .membersTop {
   padding: 0 10px;
@@ -748,7 +730,6 @@
   border-radius: 8px 8px 0 0;
   text-align: left;
   /*rtl*/
-
 }
 .upMembers .memberItem {
   -webkit-box-sizing: border-box;
@@ -763,7 +744,6 @@
 .memberTopRow {
   text-align: left;
   /*rtl*/
-
   line-height: 28px;
   border-bottom: 1px solid #c2c2c2;
   background: #f5f5f5;
@@ -776,7 +756,6 @@
   display: inline-block;
   margin-left: 4px;
   /*rtl*/
-
   width: 0;
   height: 0;
   border-style: solid;
@@ -792,7 +771,6 @@
 .memberTopRow .memberCol {
   padding-left: 36px;
   /*rtl*/
-
 }
 .memberCol,
 .deptCol,
@@ -808,7 +786,6 @@
   width: 304px;
   padding-left: 8px;
   /*rtl*/
-
 }
 .deptCol {
   width: 510px;
@@ -839,7 +816,6 @@
   top: 77px;
   left: 336px;
   /*rtl*/
-
   width: 279px;
   height: 241px;
   overflow: auto;
@@ -850,7 +826,6 @@
 .deptPopup .cbLabel.cbLabel {
   padding: 0 5px 0 37px;
   /*rtl*/
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -862,7 +837,6 @@
   position: absolute;
   left: 10px;
   /*rtl*/
-
   top: 11px;
   height: 18px;
 }
@@ -887,7 +861,6 @@
   vertical-align: middle;
   margin-right: -0.25em;
   /*rtl*/
-
 }
 .upMemberBoxes {
   width: 240px;
@@ -925,12 +898,10 @@
         width: 0;
         z-index: 1;
     }*/
-
 }
 .upMemberBoxesTitle {
   padding-left: 10px;
   /*rtl*/
-
   height: 30px;
   line-height: 30px;
   border-bottom: 1px solid #e0e0e0;
@@ -946,7 +917,6 @@
   height: 30px;
   padding-left: 10px;
   /*rtl*/
-
   border-bottom: 1px solid #e0e0e0;
   line-height: 30px;
 }

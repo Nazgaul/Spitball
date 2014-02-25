@@ -174,7 +174,7 @@
 
         self.maxFollowingBoxes = ko.observable(consts.MINFOLLOWBOXESVISIBLE);
         self.maxCommonBoxes = ko.observable(consts.MINCOMMONBOXESVISIBLE);
-
+      
         self.followingBoxesVisible = ko.computed(function () {
             return self.followingBoxes().length > 0;
         });
@@ -182,6 +182,11 @@
         self.commonBoxesVisible = ko.computed(function () {
             return self.commonBoxes().length > 0;
         });
+
+        self.emptyBoxes = ko.computed(function () {
+            return !(self.followingBoxesVisible() || !self.commonBoxes());
+        });
+
         self.CoursesShowAllVisible = ko.computed(function () {
             var commonBoxesLength = self.commonBoxes().length,
                 maxCommonLength = self.maxCommonBoxes(),
@@ -192,7 +197,7 @@
 
         });
         self.CoursesSectionVisible = ko.computed(function () {
-            return (self.commonBoxesVisible() || self.followingBoxesVisible()) && !self.viewSelf();
+            return !self.viewSelf();
         });
 
         //#endregion 
