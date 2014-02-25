@@ -755,7 +755,7 @@ footer{
     right:0;
     top: 0;   
     position: fixed;
-    z-index:5;
+    z-index:12;
 }
 
 .popupForm
@@ -875,7 +875,8 @@ footer{
     &.addSchool {
         text-align: left; /*rtl*/
         label {
-            color: @color;
+            color: @textColor;
+            margin-bottom: 4px;
             font-size: 15px;
             display: inline-block;
         }
@@ -1078,6 +1079,7 @@ footer{
                 padding-top: 25px; //override
                 padding-bottom: 30px; //override
                 border-top: 1px solid @borderColor;
+                max-height: 300px;
             }
         }
     }

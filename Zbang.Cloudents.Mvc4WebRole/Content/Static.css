@@ -74,7 +74,7 @@ footer {
 
   width: 10px;
   height: 10px;
-  background: url(/Images/common15-sprite.png) -68px -15px no-repeat;
+  background: url(/Images/common14-sprite.png) -68px -15px no-repeat;
 }
 .sideBar li {
   line-height: 15px;
@@ -465,7 +465,7 @@ footer {
   display: inline-block;
   width: 11px;
   height: 22px;
-  background: url(/Images/common15-sprite.png) -130px -1px no-repeat;
+  background: url(/Images/common14-sprite.png) -130px -1px no-repeat;
   left: 16px;
   /*rtl*/
 
@@ -719,7 +719,7 @@ footer {
   right: 0;
   top: 0;
   position: fixed;
-  z-index: 5;
+  z-index: 12;
 }
 .popupForm .field-validation-error,
 .popupForm .validation-summary-errors {
@@ -759,7 +759,7 @@ footer {
   background-color: transparent;
   width: 11px;
   height: 11px;
-  background: url(/Images/common15-sprite.png) -79px -25px no-repeat;
+  background: url(/Images/common14-sprite.png) -79px -25px no-repeat;
   position: absolute;
   top: 14px;
   right: 20px;
@@ -841,7 +841,8 @@ footer {
 
 }
 .popupWrppr.addSchool label {
-  color: #0f9d58;
+  color: #383838;
+  margin-bottom: 4px;
   font-size: 15px;
   display: inline-block;
 }
@@ -975,7 +976,7 @@ footer {
   display: inline-block;
   width: 53px;
   height: 53px;
-  background: url(/Images/common15-sprite.png) -239px -1px no-repeat;
+  background: url(/Images/common14-sprite.png) -239px -1px no-repeat;
   position: absolute;
   left: 8px;
   /*rtl*/
@@ -1030,6 +1031,7 @@ footer {
   padding-top: 25px;
   padding-bottom: 30px;
   border-top: 1px solid #c2c2c2;
+  max-height: 300px;
 }
 .question {
   line-height: 52px;
@@ -1054,7 +1056,7 @@ footer {
   /*rtl*/
 
   top: 25px;
-  background: url(/Images/common15-sprite.png) -119px -49px no-repeat;
+  background: url(/Images/common14-sprite.png) -119px -49px no-repeat;
 }
 .answer {
   padding: 0 18px 0 16px;
