@@ -13,13 +13,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> m_QuestionRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IBoxRepository m_BoxRepository;
 
 
-        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IBoxRepository boxRepository)
+        public DeleteQuestionCommandHandler(
+            IRepository<Question> questionRepository,
+            IBoxRepository boxRepository,
+            IRepository<Reputation> reputationRepository)
         {
             m_QuestionRepository = questionRepository;
             m_BoxRepository = boxRepository;
+            m_ReputationRepository = reputationRepository;
         }
         public void Handle(DeleteQuestionCommand message)
         {
@@ -32,7 +37,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var substract = question.AnswersReadOnly.Count + 1;
 
+            foreach (var item in question.AnswersReadOnly)
+            {
+                m_ReputationRepository.Save(item.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteAnswer));
+            }
+
+            m_ReputationRepository.Save(question.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteQuestion));
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) - substract);
+
             m_BoxRepository.Save(box);
 
             m_QuestionRepository.Delete(question);
