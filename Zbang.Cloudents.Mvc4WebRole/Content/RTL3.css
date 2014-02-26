@@ -1379,6 +1379,10 @@ input[type="radio"] + label:before {
   padding: 2px 4px 2px 8px;
   /*rtl*/
 }
+.itemTop .itemRename {
+  left: 0;
+  right: auto;
+}
 .views:before,
 .downloads:before {
   margin: 0 0 0 5px;
@@ -1770,6 +1774,10 @@ input[type="radio"] + label:before {
   right: 0;
   /*rtl*/
   left: auto;
+}
+.upSectionWpr {
+  padding: 15px 14px 0 12px;
+  /*rtl*/
 }
 .upShowAll:after {
   margin: 0 8px 0 0;

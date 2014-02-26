@@ -444,4 +444,10 @@
   <data name="SweetPoints" xml:space="preserve">
     <value>Sweet, вы только что заработали</value>
   </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Отделы</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Ничего не найдено</value>
+  </data>
 </root>

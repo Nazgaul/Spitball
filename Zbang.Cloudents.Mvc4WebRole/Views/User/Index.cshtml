@@ -17,6 +17,8 @@
             <!--/ko-->
         </div>
 
+        @if (ViewBag.Admin)
+        { 
         <section class="upMembers" data-bind="visible: membersSectionVisible()">
             <h2>@UserResources.UniMembers</h2>
             <div class="membersContent" data-bind="css: { noResults : membersLoaded() && !displayMembersFilter().length} ">
@@ -66,10 +68,10 @@
                         <div class="arrow downArrow"></div>
                     </li>
                 </ul>
-                <div class="emptySearch emptySearchAdmin">No results were found</div>
+                <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>
             </div>
         </section>
-
+        }
         <aside class="upSidebar rFloat">
             <section class="upPoints" data-bind="visible: !membersSectionVisible()">
                 <h2>@SharedResources.Points</h2>
@@ -231,7 +233,7 @@
                         <!--ko foreach:commonFriends.slice(0,maxCommonFriends())-->
                         <li class="upFriend calloutTrgr" data-bind="attr: { 'data-uid' : id }">
                             <a data-navigation="user" data-bind="attr : { href : url}"><img class="upFriendImg" data-bind="attr: {'data-src' : image}" src="" width="74" height="74" /></a>
-                            <div class="friendName clamp2" data-bind="text: name"></div>
+                            <div class="friendName" data-bind="text: name"></div>
                         </li>
                         <!--/ko-->
                     </ul>
@@ -244,7 +246,7 @@
                         <!--ko foreach:allFriends.slice(0,maxAllFriends())-->
                         <li class="upFriend calloutTrgr" data-bind="attr: { 'data-uid' : id }">
                             <a href="" data-navigation="user" data-bind="attr : { href : url } "><img class="upFriendImg" data-bind="attr: {'data-src' : image }" src="" width="74" height="74" /></a>
-                            <div class="friendName clamp2" data-bind="text: name"></div>
+                            <div class="friendName" data-bind="text: name"></div>
                         </li>
                         <!--/ko-->
                     </ul>
@@ -280,7 +282,7 @@
                     </ul>
 
                     <div class="emptyInvites">
-                        @*<span>@UserResources.FindFriends</span>*@
+                        <span>@UserResources.FindFriends</span>
                         <a data-navigation="invite" href="@Url.Action("Index", "Invite")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
                     </div>
 

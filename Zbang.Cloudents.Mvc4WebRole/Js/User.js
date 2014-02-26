@@ -48,7 +48,8 @@
             upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
             upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
             upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
-            answersSection = eById('answersSection'), filesSection = eById('filesSection');
+            answersSection = eById('answersSection'), filesSection = eById('filesSection'),
+            membersBoxListArrow = document.querySelector('.arrow.downArrow');
 
         var self = this;
 
@@ -767,6 +768,7 @@
                 var parent = memberBoxList.parentElement,
                     pos;
                 cd.appendData(memberBoxList, 'upMemberBoxItemTemplate', boxes, 'beforeend', true);
+                membersBoxListArrow.style.bottom = boxes.length > 7 ? '-1px' : '-12px';
                 parent.style.display = 'block';
                 var pos = calculatePopupPosition();
                 parent.style.left = pos.x + 'px';

@@ -314,7 +314,7 @@
   position: relative;
 }
 .sMembersItem:hover {
-  padding-right: 40px;
+  padding: 6px 40px 6px 6px;
   /*rtl*/
 }
 .sMembersItem:hover .inviteUserBtn {

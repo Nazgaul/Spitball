@@ -448,4 +448,7 @@
   <data name="SweetPoints" xml:space="preserve">
     <value>מגניב, קיבלת </value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>לא נמצאו תוצאות</value>
+  </data>
 </root>

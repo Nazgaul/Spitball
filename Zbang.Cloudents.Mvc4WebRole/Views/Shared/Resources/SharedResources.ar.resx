@@ -448,4 +448,10 @@
   <data name="SweetPoints" xml:space="preserve">
     <value>جميل، لقد كسبت للتو</value>
   </data>
+  <data name="Departments" xml:space="preserve">
+    <value>الإدارات</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>لا توجد نتائج</value>
+  </data>
 </root>
