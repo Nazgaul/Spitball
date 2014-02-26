@@ -51,10 +51,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var id = userId.HasValue ? userId.Value : GetUserId();
             ViewBag.Admin = false;
+
             var model = await GetUserProfile(id);
-            if (model.Score > AdminReputation)
+
+            if (id != GetUserId())
             {
-                ViewBag.Admin = true;
+                var userProfile = await GetUserProfile(GetUserId());
+                if (userProfile.Score > AdminReputation)
+                {
+                    ViewBag.Admin = true;
+                }
+            }
+            else
+            {
+                if (model.Score > AdminReputation)
+                {
+                    ViewBag.Admin = true;
+                }
             }
             if (userId.HasValue)
             {
@@ -133,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-       
+
 
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
         public async Task<ActionResult> Boxes(long userId)

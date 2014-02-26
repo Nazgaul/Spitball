@@ -932,6 +932,9 @@ select.inputText {
   /*rtl*/
   background: url(/Images/common14-sprite.png?v=1) -294px -33px no-repeat;
 }
+.emptySearchAdmin:after {
+  top: 5px;
+}
 .splitHR {
   text-align: center;
   overflow: hidden;
