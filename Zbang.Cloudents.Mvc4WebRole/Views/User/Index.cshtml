@@ -66,7 +66,7 @@
                         <div class="arrow downArrow"></div>
                     </li>
                 </ul>
-                <div class="emptySearch">No results were found</div>
+                <div class="emptySearch">@SharedResources.NoResults</div>
             </div>
         </section>
 
@@ -231,7 +231,7 @@
                         <!--ko foreach:commonFriends.slice(0,maxCommonFriends())-->
                         <li class="upFriend calloutTrgr" data-bind="attr: { 'data-uid' : id }">
                             <a data-navigation="user" data-bind="attr : { href : url}"><img class="upFriendImg" data-bind="attr: {'data-src' : image}" src="" width="74" height="74" /></a>
-                            <div class="friendName clamp2" data-bind="text: name"></div>
+                            <div class="friendName" data-bind="text: name"></div>
                         </li>
                         <!--/ko-->
                     </ul>
@@ -244,7 +244,7 @@
                         <!--ko foreach:allFriends.slice(0,maxAllFriends())-->
                         <li class="upFriend calloutTrgr" data-bind="attr: { 'data-uid' : id }">
                             <a href="" data-navigation="user" data-bind="attr : { href : url } "><img class="upFriendImg" data-bind="attr: {'data-src' : image }" src="" width="74" height="74" /></a>
-                            <div class="friendName clamp2" data-bind="text: name"></div>
+                            <div class="friendName" data-bind="text: name"></div>
                         </li>
                         <!--/ko-->
                     </ul>

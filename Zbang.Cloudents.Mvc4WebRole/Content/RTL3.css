@@ -1771,6 +1771,10 @@ input[type="radio"] + label:before {
   /*rtl*/
   left: auto;
 }
+.upSectionWpr {
+  padding: 15px 14px 0 12px;
+  /*rtl*/
+}
 .upShowAll:after {
   margin: 0 8px 0 0;
   /*rtl*/
