@@ -17,6 +17,8 @@
             <!--/ko-->
         </div>
 
+        @if (ViewBag.Admin)
+        { 
         <section class="upMembers" data-bind="visible: membersSectionVisible()">
             <h2>@UserResources.UniMembers</h2>
             <div class="membersContent" data-bind="css: { noResults : membersLoaded() && !displayMembersFilter().length} ">
@@ -69,7 +71,7 @@
                 <div class="emptySearch">No results were found</div>
             </div>
         </section>
-
+        }
         <aside class="upSidebar rFloat">
             <section class="upPoints" data-bind="visible: !membersSectionVisible()">
                 <h2>@SharedResources.Points</h2>

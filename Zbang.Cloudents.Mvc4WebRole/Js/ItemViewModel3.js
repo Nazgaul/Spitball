@@ -45,7 +45,7 @@
         function Item(data) {
             var that = this;
             data = data || {};
-            that.name = data.name;
+            that.name = ko.observable(data.name);
             that.uid = ko.observable(data.id);
             that.uploader = data.owner;
             that.userid = data.ownerId;
@@ -56,10 +56,10 @@
             });
             that.nameNoType = ko.computed(function () {
                 var name = that.name;
-                return data.type === 'File' ? name.substring(0, name.lastIndexOf('.')) : name;
+                return data.type === 'File' ? name().substring(0, name().lastIndexOf('.')) : name();
             });
-            that.extension = getExtension(that.name, that.type);
-            that.extensionColor = getExtensionColor(that.name, that.type);
+            that.extension = getExtension(that.name(), that.type);
+            that.extensionColor = getExtensionColor(that.name(), that.type);
         }
         function getExtensionColor(filename, type) {
             var prefix = 'mF';
@@ -313,45 +313,6 @@
                 $arrow.addClass(cDISABLED).attr(cDISABLED, cDISABLED);
             }
         };
-        self.renameItem = function (m, e) {
-            if (!cd.register()) {
-                cd.pubsub.publish('register');
-                return;
-            }
-            var d = cd.contentEditableFunc(e.target, checknewFileName);
-
-
-            function checknewFileName(fileName) {
-
-                var fileCheck = new RegExp("^[^\\\./:\*\?\"<>\|]{1}[^\\/:\*\?\"<>\|]{0,254}$", "i");
-                if (fileCheck.test(fileName)) {
-                    dataContext.renameItem({
-                        data: { newFileName: fileName, ItemId: self.itemid() },
-                        success: function (data) {
-                            self.itemName(data.queryString);
-                            var location = self.copyLink().substring(0, self.copyLink().length - 1),
-                    location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
-                            self.copyLink(location);
-                            if (window.history) {
-                                cd.historyManager.remove();
-
-                                window.history.replaceState(location, '', location);
-                            }
-                            d.finish();
-                        },
-                        error: function (msg) {
-                            cd.notification(msg);
-
-                        }
-                    });
-                }
-                else {
-                    cd.notification(ZboxResources.InvalidFilename);
-                }
-            }
-        };
-
-        var processLike = false;
 
         function trackEvent(action, label) {
             analytics.trackEvent('Item', action, label);
@@ -413,7 +374,7 @@
                     cd.unregisterAction(this);
                     return;
                 }
-                $('[data-ddcbox]').prop('checked', false).css('visibility', 'hidden');                
+                $('[data-ddcbox]').prop('checked', false).css('visibility', 'hidden');
                 var url = '/item/print/' + '?boxId=' + boxid + '&itemId=' + self.itemid() + '&otakim=true';
                 setTimeout(function () { var mywindow = window.open(url, '_blank'); }, 400)
                 trackEvent('Print otakim');
@@ -455,6 +416,75 @@
 
             cd.pubsub.subscribe('item_show', function () {
                 defferedItemShow.resolve();
+            });
+
+            //settings
+            var $itemNameElemnt = $('#itemName');
+            $('#itemSettings').click(function () {
+                if (!cd.register()) {
+                    cd.pubsub.publish('register');
+                    return;
+                }                
+                $('#item_rename').show();
+                $itemNameElemnt.val(self.itemName()).focus();
+            });
+
+            $('#itemRenameSave').click(function (e) {
+                e.preventDefault();
+                var fileName = $itemNameElemnt.val();
+                var oldFilename = self.itemName();
+
+                if (checknewFileName()) {
+                    saveFileName();
+                } else {
+                    cd.notification(ZboxResources.InvalidFilename);
+                    setTimeout(function () {
+                        $itemNameElemnt.focus();
+                    }, 50);
+                }
+
+
+                function checknewFileName() {
+                    var fileCheck = new RegExp("^[^\\\./:\*\?\"<>\|]{1}[^\\/:\*\?\"<>\|]{0,254}$", "i");
+                    return fileCheck.test(fileName);
+                }
+
+                function saveFileName() {
+                    $('#item_rename').hide();
+
+                    dataContext.renameItem({
+                        data: { newFileName: fileName, ItemId: self.itemid() },
+                        success: function (data) {
+                            var nameNoExtenstion = data.queryString.slice(0,data.queryString.lastIndexOf('.'));
+                            self.itemName(nameNoExtenstion);
+                            var listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
+                                listItem = ko.dataFor(listItemElement[0]);
+
+                            listItem.name(data.queryString);
+
+                            var location = self.copyLink().substring(0, self.copyLink().length - 1),
+                                location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
+
+                            self.copyLink(location);
+                            fixHistory(location)
+                            $itemNameElemnt.val('');
+                        },
+                        error: function (msg) {
+                            cd.notification(msg);
+
+                        }
+                    });
+                }
+                function fixHistory(location) {
+                    if (window.history) {
+                        cd.historyManager.remove();
+                        window.history.replaceState(location, '', location);
+                    }
+                }
+            });
+
+            $('#itemRenameCancel').click(function () {
+                $('#item_rename').hide();
             });
 
             //fullscreen
