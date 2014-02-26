@@ -29,7 +29,7 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var universityDataId = 3;
             var scrore = 5;
 
-            UserDetail userDetail = new UserDetail(language, scrore, universityId, universityDataId);
+            UserDetail userDetail = new UserDetail(language, universityId, universityDataId);
 
             var result = UserDetail.Serialize(userDetail);
 
@@ -60,7 +60,7 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var data = language + "@" + score + "@" + universityId + "@" + universityDataId;
 
             var userDetail = UserDetail.Deserialize(data);
-            UserDetail userExpectedResult = new UserDetail(language, score, universityId, universityDataId);
+            UserDetail userExpectedResult = new UserDetail(language, universityId, universityDataId);
 
             //Assert.AreEqual(userExpectedResult.Name, userDetail.Name, "Name should be the same");
             Assert.AreEqual(userExpectedResult.UniversityId, userDetail.UniversityId, "university should be the same");

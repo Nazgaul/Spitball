@@ -156,7 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
                 m_FormsAuthenticationService.SignIn(user.Uid, false, new UserDetail(
-                    user.Culture, user.Score,
+                    user.Culture,
                     user.UniversityId,
                     user.UniversityWrapperId));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
@@ -200,7 +200,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         m_FormsAuthenticationService.SignIn(result.Uid, model.RememberMe,
                             new UserDetail(
                                 result.Culture,
-                                result.Score,
                                 result.UniversityId,
                                 result.UniversityWrapperId));
                         TempData[UserProfile.UserDetail] = new UserDetailDto(result);
@@ -288,9 +287,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     m_FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
-
                             result.User.Culture,
-                            result.User.Reputation,
                             result.UniversityId, result.UniversityWrapperId));
                     return Json(new JsonResponse(true, Url.Action("Index", "Dashboard")));
 
@@ -631,7 +628,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_FormsAuthenticationService.SignIn(result.Uid, false,
                 new UserDetail(
                     result.Culture,
-                    result.Score,
                     result.UniversityId,
                     result.UniversityWrapperId));
 

@@ -369,7 +369,7 @@ input[type="search"] {
   top: 5px;
   width: 10px;
   height: 11px;
-  background: url(/Images/common14-sprite.png) -68px -14px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -68px -14px no-repeat;
   display: none;
 }
 .removeItem:hover,
@@ -784,7 +784,7 @@ select.inputText {
   /*rtl*/
   width: 35px;
   height: 35px;
-  background: url(/Images/common14-sprite.png) -204px 0 no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -204px 0 no-repeat;
   overflow: hidden;
   border-radius: 18px;
 }
@@ -881,7 +881,7 @@ select.inputText {
   display: inline-block;
   width: 9px;
   height: 7px;
-  background: url(/Images/common14-sprite.png) -98px -49px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -98px -49px no-repeat;
 }
 .sectionHeader {
   height: 34px;
@@ -930,7 +930,7 @@ select.inputText {
   top: 9px;
   left: 7px;
   /*rtl*/
-  background: url(/Images/common14-sprite.png) -294px -33px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -294px -33px no-repeat;
 }
 .splitHR {
   text-align: center;
@@ -960,7 +960,7 @@ select.inputText {
   content: '';
   display: inline-block;
   vertical-align: middle;
-  background: url(/Images/common14-sprite.png) no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) no-repeat;
   margin-right: 6px;
   /*rtl*/
 }

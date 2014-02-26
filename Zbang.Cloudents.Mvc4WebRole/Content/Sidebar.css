@@ -122,7 +122,7 @@
   display: inline-block;
   width: 10px;
   height: 11px;
-  background: url(/Images/common14-sprite.png) -68px -25px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -68px -25px no-repeat;
   margin: 5px 7px;
 }
 .productsHeader {
