@@ -112,8 +112,8 @@
             $('#commentToggle').prop('checked', false).trigger('change');
             //cd.pubsub.publish('destroy_clipboard', $('#item_CL'));
             commentShow = false;
-            document.getElementById('itemShare').checked = false;
-            document.getElementById('itemPrint').checked = false;
+            $('#itemShare').prop('checked', false);
+            $('#itemPrint').prop('checked', false);
             //$('.printDD').removeClass('showOtakim');
         });
 

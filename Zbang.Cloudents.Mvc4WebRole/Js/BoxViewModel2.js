@@ -595,7 +595,7 @@
             document.getElementById('joinGrpBtn').classList.remove('followed');
             //cd.pubsub.publish('destroy_clipboard', $('#box_CL'));
             self.currentTab(null);
-            document.getElementById('boxShare').checked = false;
+            $('#boxShare').prop('checked', false);
             document.getElementById('BoxItemList').classList.remove('sponsored');
         });
         //#endregion
