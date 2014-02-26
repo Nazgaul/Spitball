@@ -481,7 +481,7 @@
                 upUsername.textContent = profile.name;
                 upUserImg.src = profile.image;
                 upUserSchool.textContent = profile.universityName;
-                if (profile.score < consts.ADMINSCORE) {
+                if (!self.membersSectionVisible()) {
                     populateScore(profile.score);
                 }
                 self.score(profile.score);
