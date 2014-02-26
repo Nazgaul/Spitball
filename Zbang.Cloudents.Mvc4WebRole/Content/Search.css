@@ -306,6 +306,16 @@
   font-size: 13px;
   color: #676767;
 }
+.sOtherUni :before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 11px;
+  margin-right: 5px;
+  /*rtl*/
+  vertical-align: middle;
+  background: url(/Images/item13-sprite.png) -121px -21px no-repeat;
+}
 .sMembersItem {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -372,7 +382,9 @@
   width: 100%;
   height: 40px;
   background-color: #f9f9f9;
+  border: 1px solid #dedede;
   border-radius: 3px;
+  margin-bottom: 20px;
 }
 .sOtherMaterialsBtn:hover {
   border: 1px solid #c2c2c2;

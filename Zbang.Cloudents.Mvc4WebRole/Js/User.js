@@ -1114,6 +1114,9 @@
 
         var loaders = [];
         function renderLoad(e) {
+            if (e) {
+                return;
+            }
             var element = e;
             if (loaders.indexOf(element) > -1) {
                 return function () { };

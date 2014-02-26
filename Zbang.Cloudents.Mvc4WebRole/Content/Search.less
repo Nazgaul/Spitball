@@ -333,6 +333,16 @@
 }
 .sOtherUni
 {
+    :before {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 11px;
+        margin-right: 5px;
+        /*rtl*/
+        vertical-align: middle;
+        background: url(/Images/item13-sprite.png) -121px -21px no-repeat;
+    }
     position: absolute;
     left: 100px; /*rtl*/
     top: 15px;
@@ -411,7 +421,9 @@
     width: 100%;
     height: 40px;
     background-color: #f9f9f9;
+    border: 1px solid #dedede;
     border-radius: 3px;
+    margin-bottom:20px;
     &:hover {
         border: 1px solid #c2c2c2;
         color: #0371c8;
