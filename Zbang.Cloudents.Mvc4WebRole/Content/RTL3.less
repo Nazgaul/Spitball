@@ -1517,7 +1517,9 @@ input[type="radio"] {
     right: 0; /*rtl*/
     left: auto;
 }
-
+.upSectionWpr {
+    padding: 15px 14px 0 12px; /*rtl*/
+}
 .upShowAll {
     &:after {
         margin: 0 8px 0 0; /*rtl*/
@@ -1710,7 +1712,7 @@ input[type="radio"] {
         top: -14px; /*rtl (font issue)*/
         &:before
         {
-            right: 28px; /*rtl*/
+            right: 15px; /* diff rtl*/
             left: auto;
             .transition(right .5s); /*rtl*/
         }
@@ -1722,14 +1724,14 @@ input[type="radio"] {
 .sTabs {
     &.sTab2 {
         ~ .upArrow:before{
-            right: 127px; /*rtl*/
+            right: 98px; /* diff rtl*/
             left: auto;
         }
     }
 
     &.sTab3 {
         ~ .upArrow:before{
-            right: 237px; /*rtl*/
+            right: 182px; /* diff rtl*/
             left: auto;
         }
     }
@@ -1756,7 +1758,7 @@ input[type="radio"] {
 {
     &:hover
     {
-        padding: 0 0 0 40px; /*rtl*/ //leave room for message icon
+        padding: 6px 6px 6px 40px; /*rtl*/ //leave room for message icon
         .inviteUserBtn
         {
             left: 10px; /*rtl*/

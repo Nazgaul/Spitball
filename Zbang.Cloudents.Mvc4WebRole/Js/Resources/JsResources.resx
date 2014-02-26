@@ -133,7 +133,7 @@
     <value>I shared</value>
   </data>
   <data name="NoSelected" xml:space="preserve">
-    <value>No courses selected</value>
+    <value>Member did not join any courses</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>on Cloudents</value>

@@ -1775,6 +1775,10 @@ input[type="radio"] + label:before {
   /*rtl*/
   left: auto;
 }
+.upSectionWpr {
+  padding: 15px 14px 0 12px;
+  /*rtl*/
+}
 .upShowAll:after {
   margin: 0 8px 0 0;
   /*rtl*/
@@ -1932,8 +1936,8 @@ input[type="radio"] + label:before {
   /*rtl (font issue)*/
 }
 .searchPage .upArrow:before {
-  right: 28px;
-  /*rtl*/
+  right: 15px;
+  /* diff rtl*/
   left: auto;
   -webkit-transition: right 0.5s;
   -moz-transition: right 0.5s;
@@ -1946,13 +1950,13 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .sTabs.sTab2 ~ .upArrow:before {
-  right: 127px;
-  /*rtl*/
+  right: 98px;
+  /* diff rtl*/
   left: auto;
 }
 .sTabs.sTab3 ~ .upArrow:before {
-  right: 237px;
-  /*rtl*/
+  right: 182px;
+  /* diff rtl*/
   left: auto;
 }
 .box.sCourseItem:nth-child(odd),
@@ -1970,7 +1974,7 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .sMembersItem:hover {
-  padding: 0 0 0 40px;
+  padding: 6px 6px 6px 40px;
   /*rtl*/
 }
 .sMembersItem:hover .inviteUserBtn {
