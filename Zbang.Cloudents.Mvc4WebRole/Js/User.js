@@ -731,6 +731,7 @@
                         toggleMessageBtn(false);
                     });
 
+                    
                     upMbrSetingsSndMsg.onclick = function () {
                         var selected = [], allCbox = upMemberSettings;
 
@@ -775,7 +776,7 @@
                     return {
                         x: target.offsetLeft + target.offsetWidth / 2 - parent.offsetWidth / 2 + membersList.scrollLeft
                         ,// - left,
-                        y: target.offsetTop - target.offsetHeight - parent.offsetHeight - 5 - membersList.scrollTop //10=margin
+                        y: target.offsetTop - target.offsetHeight - parent.offsetHeight + 3 - membersList.scrollTop //8=margin fix
                     }
                 }
             }

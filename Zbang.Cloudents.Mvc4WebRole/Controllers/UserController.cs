@@ -50,14 +50,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var id = userId.HasValue ? userId.Value : GetUserId();
-
-            var userDetail = m_FormsAuthenticationService.GetUserData();
-
-            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
-
             ViewBag.Admin = false;
             var model = await GetUserProfile(id);
-            if (userDetail.Score > AdminReputation)
+            if (model.Score > AdminReputation)
             {
                 ViewBag.Admin = true;
             }
@@ -169,7 +164,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var userDetail = m_FormsAuthenticationService.GetUserData();
-                if (userDetail.Score < AdminReputation)
+
+                var usermodel = await GetUserProfile(GetUserId());
+                if (usermodel.Score < AdminReputation)
                 {
                     return this.CdJson(new JsonResponse(false));
                 }
@@ -194,7 +191,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> AdminFriends()
         {
             var userDetail = m_FormsAuthenticationService.GetUserData();
-            if (userDetail.Score < AdminReputation)
+
+            var userModel = await GetUserProfile(GetUserId());
+            if (userModel.Score < AdminReputation)
             {
                 return this.CdJson(new JsonResponse(false));
             }

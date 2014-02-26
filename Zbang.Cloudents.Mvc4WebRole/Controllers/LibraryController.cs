@@ -24,6 +24,7 @@ using Zbang.Zbox.ViewModel.Queries.Library;
 using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using System.Collections.Generic;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -400,11 +401,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
         public async Task<ActionResult> Departments()
         {
-            var userDetail = m_FormsAuthenticationService.GetUserData();
-            if (userDetail.Score < UserController.AdminReputation)
+
+            var query = new GetUserMinProfileQuery(GetUserId());
+            var result = await m_ZboxCacheReadService.Value.GetUserMinProfile(query);
+
+
+            if (result.Score < UserController.AdminReputation)
             {
                 return this.CdJson(new JsonResponse(false));
             }
+            var userDetail = m_FormsAuthenticationService.GetUserData();
             var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
             var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
