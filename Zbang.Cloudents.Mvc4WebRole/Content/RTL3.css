@@ -2299,7 +2299,7 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .sMembersItem:hover {
-  padding: 0 0 0 40px;
+  padding: 6px 6px 6px 40px;
   /*rtl*/
 }
 .sMembersItem:hover .inviteUserBtn {
