@@ -6,16 +6,8 @@
     }
 
     var elem = document.getElementById('libraryChoose');
-    //cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
-
-    //function registerKOLibrary(token) {
-    //    var $libraryChoose = $('#libraryChoose');
-    //    if (!$libraryChoose.length) {
-    //        return;
-    //    }
-    //    ko.applyBindings(new UniversityChooseViewModel(), $libraryChoose[0]);
-    //}
-
+    cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
+   
     function UniversityChooseViewModel() {
         var $libraryChoose = $('#libraryChoose'),
             $uniList = $('#uniList'),
