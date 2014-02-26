@@ -21,7 +21,7 @@
 
         self.image = ko.observable(); //use
         self.ownerName = ko.observable();
-        self.ownerId = '';
+        self.ownerId = ko.observable();
         self.boxtype = ko.observable();
         self.courseId = ko.observable();//use
         self.proffer = ko.observable();//use
@@ -129,7 +129,7 @@
 
             function populateData(result) {
                 var mapped = $.map(result.subscribers, function (d) { return new Member(d); });
-                self.ownerId = result.ownerUid;
+                self.ownerId(result.ownerUid);
                 self.image(result.image || '/images/emptyState/my_default3.png')
                 .name(result.name)
                 .ownerName(result.ownerName)
@@ -582,7 +582,7 @@
             self.name('');
             self.image('');
             self.ownerName('');
-            self.ownerId = '';
+            self.ownerId('');
             self.boxtype('');
             self.courseId('');
             self.proffer('');

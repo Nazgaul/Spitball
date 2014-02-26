@@ -8,7 +8,9 @@
             <div class="itemNameWpr">
                 <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, click: renameItem, attr: { title: itemName, 'data-name': itemName }"></span></div>
             </div>
-            <div class="itemOwner calloutTrgr elps" data-bind="text: ownerName, attr: { 'data-img': ownerImage, 'data-name': ownerName, 'data-uid': ownerId }"></div>
+            <div class="itemOwner">
+                <span class="calloutTrgr elps" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></span>
+            </div>
             <span class="lFloat" data-bind="text: update"></span>
             <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: !deleteAllow()">@ItemsResources.Flag</button>
             <div class="actions">
