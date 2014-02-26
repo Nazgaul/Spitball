@@ -17,7 +17,7 @@
                 <div id="univeristyName" data-id="@Model.Id" class="unionName boldFont">@Model.Name</div>
                 @*<a class="changeUni" href="@Url.Action("Choose", "Library")">@Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources.AccountSettingsResources.ChangeUni</a>*@
                 <div class="unionStats">
-                    <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Files</span></div>
+                    <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
                     <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
                     <div class="students boldFont">@Model.MemberCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@MainViewResources.Students</span></div>
                 </div>
