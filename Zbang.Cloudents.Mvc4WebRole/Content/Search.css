@@ -156,7 +156,7 @@
   height: 12px;
 }
 .searchPage .upArrow:before {
-  left: 28px;
+  left: 19px;
   /*rtl*/
   right: auto;
   width: 12px;
@@ -194,11 +194,11 @@
   text-transform: capitalize;
 }
 .sTabs.sTab2 ~ .upArrow:before {
-  left: 127px;
+  left: 98px;
   /*rtl*/
 }
 .sTabs.sTab3 ~ .upArrow:before {
-  left: 237px;
+  left: 183px;
   /*rtl*/
 }
 .sTab1 ~ .sTabContent .sCourses,

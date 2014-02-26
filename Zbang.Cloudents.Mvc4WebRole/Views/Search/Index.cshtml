@@ -1,12 +1,12 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="searchPage page" id="search" data-data="@ViewBag.data">
     <div id="sTabsMenu" class="sTabs sTab1">
-        <button id="sTabCourses" type="button" data-type="@SharedResources.Courses" data-stab-count="0"></button>
-        <button id="sTabMaterials" type="button" data-type="@SharedResources.Materials" data-stab-count="0"></button>
-        <button id="sTabMembers" type="button" data-type="@SharedResources.Members" data-stab-count="0"></button>
+        <button id="sTabCourses" type="button">@SharedResources.Courses</button>
+        <button id="sTabMaterials" type="button">@SharedResources.Materials</button>
+        <button id="sTabMembers" type="button">@SharedResources.Members</button>
     </div>
     <div class="arrow upArrow"></div>
-    <h2 id="sTabResults" class="semiFont" data-resultcount="0"><span class="sResult">&nbsp;@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q id="sSearchTerm"></q></h2>
+    <h2 id="sTabResults" class="semiFont"><span class="sResult">@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q id="sSearchTerm"></q></h2>
     <div id="sTabContent" class="sTabContent">
         <section class="sCourses" data-list="@SharedResources.Courses">
             <ul id="sCourseList" class="sCourseList"></ul>

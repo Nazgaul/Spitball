@@ -396,8 +396,8 @@
             .maxQuestions(consts.MAXQUESTIONS)
             .maxAnswers(consts.MAXANSWERS)
             .membersLoaded(false)
-            .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
-
+            .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([])
+            .members([]).searchResultMembers([]).departments([]).displayMembers([]);
 
             if (upMemberSettings) {
                 upMemberSettings.checked = false;
@@ -434,8 +434,6 @@
             if (f) {
                 f.textContent = '' + f.getAttribute(consts.DATALABEL);
             }
-
-
         }
 
         function getInitData() {
@@ -1114,7 +1112,7 @@
 
         var loaders = [];
         function renderLoad(e) {
-            if (e) {
+            if (!e) {
                 return function () { };
             }
             var element = e;
