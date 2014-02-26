@@ -395,11 +395,9 @@
 }
 .upSectionWpr {
   background: #fff;
-  border-top: 1px solid #c2c2c2;
-  border-left: 1px solid #c2c2c2;
-  border-right: 1px solid #c2c2c2;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border: 1px solid #c2c2c2;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
   padding: 15px 12px 0 12px;
   position: relative;
   -webkit-box-sizing: border-box;
@@ -407,8 +405,7 @@
   box-sizing: border-box;
 }
 .upSectionWpr.truncated.truncated {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 0 0 8px 8px;
   border-bottom: 1px solid #c2c2c2;
 }
 .upSectionWpr h4 {
@@ -438,8 +435,7 @@
   text-align: center;
   padding: 0 12px;
   border: 1px solid #c2c2c2;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 0 0 8px 8px;
 }
 .upShowAll:after {
   content: '';
@@ -949,6 +945,9 @@
 
   border-bottom: 1px solid #e0e0e0;
   line-height: 30px;
+}
+.upMemberBoxList li:last-child {
+  border: none;
 }
 .upMembersList {
   height: 287px;

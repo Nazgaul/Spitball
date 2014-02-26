@@ -436,18 +436,17 @@
 
 .upSectionWpr {
     background: #fff;
-    border-top: 1px solid @borderColor;
-    border-left: 1px solid @borderColor;
-    border-right: 1px solid @borderColor;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border: 1px solid @borderColor;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
     padding: 15px 12px 0 12px;
     position: relative; // for show all
     .boxSizing;
 
     &.truncated.truncated { // repeated truncated class for extra specificity
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
+        //border-bottom-left-radius: 8px;
+        //border-bottom-right-radius: 8px;
+        border-radius: 0 0 8px 8px;
         border-bottom: 1px solid @borderColor;
     }
 
@@ -468,12 +467,11 @@
                 display: block;
             }
         }
-    }
-
-        .box:nth-child(3n + 2) {
+        &:nth-child(3n + 2) {
             margin-left: 38px;
             margin-right: 38px;
         }
+    }     
 }
 
 .upShowAll {
@@ -485,20 +483,15 @@
     text-align: center;
     padding: 0 12px;
     border: 1px solid @borderColor;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-
-
+    border-radius: 0 0 8px 8px;
 
     &:after {
         .pseudo;
-        display: inline-block;
         vertical-align: middle;
         margin-left: 8px; /*rtl*/
         background: @common-sprite -98px -49px no-repeat;
         width: 9px;
         height: 7px;
-        //.flipV;
     }
 
     &:before {
@@ -994,6 +987,10 @@
         padding-left: 10px; /*rtl*/
         border-bottom: 1px solid #e0e0e0;
         line-height: 30px;
+        &:last-child
+        {
+            border: none;
+        }
     }
 }
 
