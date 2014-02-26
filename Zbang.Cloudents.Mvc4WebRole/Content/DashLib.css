@@ -663,11 +663,15 @@
   font-size: 18px;
   color: #bcbcbc;
   /*background: transparent;*/
+  width: 222px;
 }
 .libraryItem.addDep:hover,
 .libraryItem.addCourse:hover,
 .libraryList > .libraryItem + .box:hover {
   color: #0f9d58;
+}
+.libraryItem.addDep {
+  width: 244px;
 }
 .libraryItem.addCourse {
   margin: 0;
