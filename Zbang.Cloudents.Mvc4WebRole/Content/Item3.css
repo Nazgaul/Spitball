@@ -194,7 +194,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  background: url(/Images/common14-sprite.png) -136px -43px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -136px -43px no-repeat;
   vertical-align: middle;
   margin-right: 4px;
   /*rtl*/
@@ -240,7 +240,7 @@
   border: 2px solid #0f9d58;
 }
 .bubble .star.rated {
-  background: url(/Images/common14-sprite.png) -138px -44px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -138px -44px no-repeat;
   cursor: default;
 }
 .bubble .star:before {
@@ -520,7 +520,7 @@
 .shareBtnTxt:before {
   width: 19px;
   height: 15px;
-  background: url(/Images/common14-sprite.png) -183px -1px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -183px -1px no-repeat;
 }
 .itemDownload:before {
   width: 14px;
@@ -533,7 +533,7 @@
 .itemDelete:before {
   width: 15px;
   height: 17px;
-  background: url(/Images/common14-sprite.png) -37px -1px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -37px -1px no-repeat;
 }
 .itemDelete:hover:before {
   background-position: -37px -21px;
@@ -1131,7 +1131,7 @@
   width: 10px;
   height: 10px;
   cursor: pointer;
-  background: url(/Images/common14-sprite.png) -79px -26px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -79px -26px no-repeat;
   z-index: 13;
 }
 .itemPrev,

@@ -54,7 +54,7 @@
   display: inline-block;
   width: 11px;
   height: 22px;
-  background: url(/Images/common14-sprite.png) -130px -1px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -130px -1px no-repeat;
   vertical-align: middle;
   margin-right: 6px;
   /*rtl*/
@@ -169,7 +169,7 @@
 .inviteBtn:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common14-sprite.png) -90px -1px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -90px -1px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -397,7 +397,7 @@
   /*rtl*/
 
   margin: 0;
-  background: url(/Images/common14-sprite.png) -72px -42px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -72px -42px no-repeat;
   width: 23px;
   height: 23px;
 }
@@ -1183,7 +1183,7 @@
   width: 69px;
   height: 14px;
   position: relative;
-  background: url(/Images/common14-sprite.png) -1px -41px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -1px -41px no-repeat;
   margin: 3px 0 0 5px;
   /*rtl*/
 
@@ -1196,7 +1196,7 @@
   /*rtl*/
 
   height: 12px;
-  background: url(/Images/common14-sprite.png) -1px -55px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -1px -55px no-repeat;
 }
 .addBtn.addItem {
   display: inline-block;
@@ -1260,7 +1260,7 @@
   display: inline-block;
   width: 15px;
   height: 17px;
-  background: url(/Images/common14-sprite.png) -37px -1px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -37px -1px no-repeat;
 }
 .deleteBtn:hover:before {
   background-position: -37px -21px;
