@@ -333,16 +333,6 @@
 }
 .sOtherUni
 {
-    :before {
-        content: '';
-        display: inline-block;
-        width: 16px;
-        height: 11px;
-        margin-right: 5px;
-        /*rtl*/
-        vertical-align: middle;
-        background: url(/Images/item13-sprite.png) -121px -21px no-repeat;
-    }
     position: absolute;
     left: 100px; /*rtl*/
     top: 15px;
@@ -393,8 +383,21 @@
     }
     .sOtherUni
     {
-        left: 136px; /*rtl*/
-        top: 0;
+        &.dot {
+            left: 136px; /*rtl*/
+            top: 0;
+            &:before {
+            content: '';
+            display: inline-block;
+            border-radius: 50%;
+            width: 6px;
+            height: 6px;
+            background-color: #0f9d58;
+            margin-right: 3px;
+            margin-bottom: 1px;
+            }
+        }
+        
     }
 }
 .sMaterialLink
