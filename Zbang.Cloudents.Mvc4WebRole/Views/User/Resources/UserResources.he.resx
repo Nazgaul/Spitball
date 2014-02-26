@@ -123,6 +123,9 @@
   <data name="CoursesGroups" xml:space="preserve">
     <value>קורסים וקבוצות</value>
   </data>
+  <data name="CoursesList" xml:space="preserve">
+    <value>רשימת קורסים</value>
+  </data>
   <data name="EarnBy" xml:space="preserve">
     <value>צבור נקודות על ידי:</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="InCommon" xml:space="preserve">
     <value>במשותף</value>
+  </data>
+  <data name="JoinDate" xml:space="preserve">
+    <value>תאריך הצטרפות</value>
   </data>
   <data name="NoAnswers" xml:space="preserve">
     <value>אין תשובות להצגה</value>
@@ -170,5 +176,8 @@
   </data>
   <data name="PointsTxt8" xml:space="preserve">
     <value>5 נק' על שיתוף בפייסבוק</value>
+  </data>
+  <data name="UniMembers" xml:space="preserve">
+    <value>רשומים</value>
   </data>
 </root>

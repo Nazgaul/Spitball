@@ -57,8 +57,6 @@
 .uniName .uniText {
   line-height: 1.1;
   display: inline-block;
-  vertical-align: middle;
-  margin-top: -3px;
 }
 .productsBtn {
   padding: 10px 0;

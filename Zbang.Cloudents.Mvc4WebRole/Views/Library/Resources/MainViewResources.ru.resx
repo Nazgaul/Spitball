@@ -189,4 +189,10 @@
   <data name="SchoolsFrom" xml:space="preserve">
     <value>Учереждение из</value>
   </data>
+  <data name="CantFind" xml:space="preserve">
+    <value>Не можете найти свою школу?</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Искать вашу школу</value>
+  </data>
 </root>

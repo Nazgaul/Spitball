@@ -420,4 +420,28 @@
   <data name="All" xml:space="preserve">
     <value>Все</value>
   </data>
+  <data name="AllResults" xml:space="preserve">
+    <value>Показать все результаты для</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>В:</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Материалы</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Люди</value>
+  </data>
+  <data name="Pts" xml:space="preserve">
+    <value>очки</value>
+  </data>
+  <data name="ResultsOther" xml:space="preserve">
+    <value>Результаты из других университетов</value>
+  </data>
+  <data name="SearchingFor" xml:space="preserve">
+    <value>Выполняется поиск</value>
+  </data>
+  <data name="SweetPoints" xml:space="preserve">
+    <value>Sweet, вы только что заработали</value>
+  </data>
 </root>

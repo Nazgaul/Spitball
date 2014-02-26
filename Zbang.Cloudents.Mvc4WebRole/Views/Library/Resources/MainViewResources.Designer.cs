@@ -142,15 +142,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting this course will delete all its content including files and Q&amp;A. Are you sure you would like to delete this course?.
-        /// </summary>
-        public static string DeleteCourse {
-            get {
-                return ResourceManager.GetString("DeleteCourse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No departments or courses have been added yet.
         ///
         ///                Be the first to create them..

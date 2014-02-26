@@ -136,7 +136,7 @@
     <value>שיתפתי</value>
   </data>
   <data name="NoSelected" xml:space="preserve">
-    <value>No courses selected</value>
+    <value>משתמש לא בחר קורסים</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>ב Cloudents</value>

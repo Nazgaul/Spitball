@@ -297,4 +297,7 @@
   <data name="ShareCourse" xml:space="preserve">
     <value>Поделиться этим курсом</value>
   </data>
+  <data name="MyFriends" xml:space="preserve">
+    <value>Мои друзья</value>
+  </data>
 </root>

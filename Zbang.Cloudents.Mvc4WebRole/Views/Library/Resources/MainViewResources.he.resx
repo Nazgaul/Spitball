@@ -189,4 +189,10 @@
   <data name="SchoolsFrom" xml:space="preserve">
     <value>מוסדות לימוד מ</value>
   </data>
+  <data name="CantFind" xml:space="preserve">
+    <value>לא נמצא מוסד הלימודים שלך</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>הקלד את מוסד הלימודים שלך </value>
+  </data>
 </root>

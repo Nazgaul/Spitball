@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No courses selected.
+        ///   Looks up a localized string similar to Member did not join any courses.
         /// </summary>
         public static string NoSelected {
             get {

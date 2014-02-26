@@ -16,7 +16,7 @@
                     <div class="boxName semiFont" id="box_Name" data-bind="text: name, attr: { title: name, 'data-name': name }"></div>
                 </div>
                 <div class="courseCode elps" id="box_Course" data-bind="text: courseId, visible: boxtype() === 'academic'"></div>
-                <div class="courseCode elps" id="box_Owner" data-bind="text: ownerName, visible: boxtype() === 'box'"></div>
+                <div class="courseCode elps calloutTrgr" id="box_Owner" data-bind="text: ownerName, visible: boxtype() === 'box',attr: { 'data-uid' : ownerId }"></div>
                 <span class="courseCode propName elps" id="box_Prof" data-bind="text: proffer, visible: boxtype() === 'academic'"></span>
                 <button class="boxRename" title="@IndexResources.BoxSettings" id="boxSettings" type="button"></button>
 
