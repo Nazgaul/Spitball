@@ -47,6 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index()
         {
             var userid = GetUserId();
+            
             var userDetail = m_FormsAuthenticationService.GetUserData();
 
             var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;

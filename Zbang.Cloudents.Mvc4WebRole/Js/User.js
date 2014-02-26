@@ -28,7 +28,7 @@
             ADMINSCORE: 1000000,
             MAXMEMBERS: 50
         };
-   
+
 
 
     cd.loadModel('user', 'UserContext', registerKOUser);
@@ -182,6 +182,11 @@
         self.commonBoxesVisible = ko.computed(function () {
             return self.commonBoxes().length > 0;
         });
+
+        self.emptyBoxes = ko.computed(function () {
+            return !(self.followingBoxesVisible() || !self.commonBoxes());
+        });
+
         self.CoursesShowAllVisible = ko.computed(function () {
             var commonBoxesLength = self.commonBoxes().length,
                 maxCommonLength = self.maxCommonBoxes(),
@@ -192,7 +197,7 @@
 
         });
         self.CoursesSectionVisible = ko.computed(function () {
-            return (self.commonBoxesVisible() || self.followingBoxesVisible()) && !self.viewSelf();
+            return !self.viewSelf();
         });
 
         //#endregion 
@@ -246,7 +251,7 @@
         self.membersLoaded = ko.observable(false);
 
         self.displayMembersFilter = ko.computed(function () {
-            
+
             var selected = [], current;
             for (var i = 0, l = self.departments().length; i < l; i++) {
                 current = self.departments()[i];
@@ -428,6 +433,8 @@
             if (f) {
                 f.textContent = '' + f.getAttribute(consts.DATALABEL);
             }
+
+
         }
 
         function getInitData() {
@@ -507,8 +514,8 @@
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children,
                     statusPoints = eById('userPts').textContent;
-                if (statusPoints > score){
-                    score=statusPoints;
+                if (statusPoints > score) {
+                    score = statusPoints;
                 }
 
                 for (var i = 0, c = 0, l = pointsListChildren.length; i < l ; i++) {
@@ -715,7 +722,7 @@
                         toggleMessageBtn(that.checked);
                     };
 
-                    $(membersList).on('change','.checkbox',function () {
+                    $(membersList).on('change', '.checkbox', function () {
                         if ($(membersList).find('.checkbox:checked').length > 0) {
                             toggleMessageBtn(true);
                             return;
@@ -728,7 +735,7 @@
                         var selected = [], allCbox = upMemberSettings;
 
                         if (allCbox.checked) {
-                            var arr = searchInProgress ? self.searchResultMembers() : self.members();                            
+                            var arr = searchInProgress ? self.searchResultMembers() : self.members();
                             setTimeout(function () {
                                 pubsub.publish('message', { id: '', data: arr });
                             }, 10);
@@ -781,7 +788,7 @@
             }
         }
 
-        function getFriendsData() {            
+        function getFriendsData() {
             var loader = renderLoad(upFriendsSection);
             dataContext.getFriends({
                 data: { userId: self.userId() },
@@ -846,7 +853,7 @@
             }
         }
 
-        function getBoxesData() {            
+        function getBoxesData() {
             loader = renderLoad(upCoursesSection);
             dataContext.getUserpageBoxes({
                 data: { userId: self.userId() },
@@ -936,7 +943,7 @@
 
         }
 
-        function getInvitesData() {            
+        function getInvitesData() {
             var loader = renderLoad(upInvitesSection);
             dataContext.getUserPageInvites({
                 success: function (data) {

@@ -14,7 +14,7 @@
             sTabMaterials = eById('sTabMaterials'), sTabMembers = eById('sTabMembers'),
             sCourseList = eById('sCourseList'), sMaterialList = eById('sMaterialsList'),
             sOtherMaterialList = eById('sOtherMaterialsList'), sMemberList = eById('sMembersList'),
-            sTabContent = eById('sTabContent'), isLoading = false, isOtherLoading = false,
+            sTabContent = eById('sTabContent'), isLoading = false, isOtherLoading = false, isFirstPage,
             gSearch = eById('g_searchQ'), materialsLoaded = false, otherDataAvailable = true,
             otherMaterialsSplit = document.querySelector('.splitHR'), sOtherMaterialsBtn = eById('sOtherMaterialsBtn'), otherUnisScroll = false,
             searchTerm, cPage = 0, cOtherPage = 0, currentTab = sTabCourses;
@@ -82,12 +82,12 @@
                 cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
             }
 
-
+            isFirstPage = cPage === 0;
 
             if (initData) {
                 search.removeAttribute('data-data');
                 parseData(JSON.parse(initData));
-                if (cPage === 0) {
+                if (isFirstPage) {
                     setCurrentTab(sTabCourses);
                 }
                 pubsub.publish('search_load');
@@ -96,7 +96,7 @@
 
 
 
-            var isFirstPage = cPage === 0;
+            isFirstPage = cPage === 0;
 
             if (isLoading) {
                 return;
@@ -157,6 +157,11 @@
 
                     if (materials.length < 50) {                        
                         materialsLoaded = true;
+                        if (isFirstPage) {
+                            getDataOtherUnis();
+                            sOtherMaterialsBtn.style.display = 'block';
+                        }
+                        
                     }
                     pubsub.publish('search_load');
 
@@ -317,7 +322,9 @@
                 cPage = cOtherPage = 0;
             }
             otherMaterialsSplit.style.display = 'none';
-            sOtherMaterialsBtn.style.display = 'block';
+
+            isLoading = isOtherLoading = materialsLoaded = otherUnisScroll = false;
+            otherDataAvailable = true;
             sTabContent.classList.remove('noResults');
             $(window).off('scroll', scrollEvent);
 
