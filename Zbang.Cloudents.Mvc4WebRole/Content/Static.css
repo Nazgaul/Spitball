@@ -1025,7 +1025,11 @@ footer {
   opacity: 0;
 }
 .faqItem input[type=checkbox]:checked ~ .question:after {
-  background-position: -103px -49px;
+  -moz-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -ms-transform: scaleY(-1);
+  transform: scaleY(-1);
 }
 .faqItem input[type=checkbox]:checked ~ .answer {
   padding-top: 25px;
@@ -1049,14 +1053,14 @@ footer {
 }
 .question:after {
   content: '';
-  width: 11px;
+  width: 9px;
   height: 7px;
   position: absolute;
   right: 18px;
   /*rtl*/
 
   top: 25px;
-  background: url(/Images/common14-sprite.png) -119px -49px no-repeat;
+  background: url(/Images/common14-sprite.png) -98px -49px no-repeat;
 }
 .answer {
   padding: 0 18px 0 16px;
