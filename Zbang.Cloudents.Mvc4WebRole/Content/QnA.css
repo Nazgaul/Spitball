@@ -11,7 +11,7 @@
   /*rtl*/
 
   position: fixed;
-  top: 158px;
+  top: 150px;
   right: 20px;
   /*rtl*/
 
@@ -58,6 +58,11 @@
   -moz-transition: all, 0.5s ease 0s;
   -o-transition: all, 0.5s ease 0s;
   transition: all, 0.5s ease 0s;
+  /*-webkit-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+                -moz-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+                -o-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+                transition: visibility .5s ease 0s,opacity .5s ease 0s;*/
+
 }
 .QA.flipTransition .QItem {
   -webkit-transition: all, 0.2s ease 1s;
@@ -74,6 +79,11 @@
   -moz-transition: all, 0.5s ease 1.3s;
   -o-transition: all, 0.5s ease 1.3s;
   transition: all, 0.5s ease 1.3s;
+  /*-moz-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;
+        -o-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s; 
+        -webkit-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;
+        transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;*/
+
 }
 .QForm {
   -webkit-transition: all, 0.5s ease 1.3s;

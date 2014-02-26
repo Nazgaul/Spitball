@@ -135,14 +135,13 @@
     <script type="text/html" id="anotationTmpl" class="anotationTmpl">
 
         <div class="readView">
-            @*add class author here if user is author of comment*@
             <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
             <div class="annotateContent">
                 <div class="annotator boldFont elps">{{userName}}</div>
                 @*<span class="annotateDate">{{date}}</span>*@
                 <div class="annotationTextWpr">
                     <div class="annotationText">{{comment}}</div>
-                    <button type="button" class="show-more">... @SharedResources.ContinueReading</button>
+                    <button type="button" class="show-more">@SharedResources.ContinueReading ...</button>
                     @*<div class="show-less">Show less</div>*@
                 </div>
                 @*<input class="annnotateAction" type="button" value="Reply" />*@

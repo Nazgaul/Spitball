@@ -12,18 +12,15 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public UserDetail(
             string language,
-            int score,
             long? universityId,
             long? universityWrapperId)
         {
             Language = language;
-            Score = score;
             UniversityId = universityId;
             UniversityWrapperId = universityWrapperId;
 
         }
         public string Language { get; set; }
-        public int Score { get; set; }
         public long? UniversityId { get; set; }
         public long? UniversityWrapperId { get; set; }
 
@@ -33,41 +30,37 @@ namespace Zbang.Zbox.Infrastructure.Security
             {
                 return string.Empty;
             }
-            return string.Format("{1}{0}{4}{0}{2}{0}{3}",
+            return string.Format("{1}{0}{2}{0}{3}",
                 Delimiter,
                 user.Language,
                 user.UniversityId,
-                user.UniversityWrapperId,
-                user.Score);
+                user.UniversityWrapperId);
         }
 
         public static UserDetail Deserialize(string data)
         {
             var array = data.Split(new[] { Delimiter }, StringSplitOptions.None);
-            if (array.Length != 4)
+            if (array.Length != 3)
             {
                 return null;
             }
             string language = array[0];
-            int score;
-            int.TryParse(array[1], out score);
-
             long? universityId = null;
             long? universityWrapperId = null;
             long temp = -1;
 
-            if (long.TryParse(array[2], out temp))
+            if (long.TryParse(array[1], out temp))
             {
                 universityId = temp;
             }
-            if (long.TryParse(array[3], out temp))
+            if (long.TryParse(array[2], out temp))
             {
                 universityWrapperId = temp;
             }
 
 
             return new UserDetail(
-                language, score,
+                language,
                 universityId, universityWrapperId);
         }
     }
