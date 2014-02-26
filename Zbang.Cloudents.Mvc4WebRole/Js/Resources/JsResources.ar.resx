@@ -121,7 +121,7 @@
     <value>تعتبر Cloudents هي منصة الدراسة الاجتماعية المجانية الأكثر تقدما عبر الإنترنت والهاتف الجوال. انضم إلى ثورة الدراسة الاجتماعية من خلال Cloudents الآن.</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
-    <value>منطقتي </value>
+    <value>لوحة التحكم</value>
   </data>
   <data name="DeleteCourse" xml:space="preserve">
     <value>حذف هذه الدورة سوف يؤدي إلى حذف كافة محتوياتها بما فيها الملفات والأسئلة الشائعة وإجاباتها. هل أنت متأكد من أنك تريد حذف هذه الدورة؟</value>
@@ -131,6 +131,9 @@
   </data>
   <data name="IShared" xml:space="preserve">
     <value>أنا شاركت</value>
+  </data>
+  <data name="NoSelected" xml:space="preserve">
+    <value>لا توجد مقررات مختارة</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>على Cloudents</value>

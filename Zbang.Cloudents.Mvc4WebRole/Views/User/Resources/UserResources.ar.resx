@@ -123,6 +123,9 @@
   <data name="CoursesGroups" xml:space="preserve">
     <value>المسارات الدراسية / المجموعات</value>
   </data>
+  <data name="CoursesList" xml:space="preserve">
+    <value>قائمة المقررات</value>
+  </data>
   <data name="EarnBy" xml:space="preserve">
     <value>اكسب نقاط من خلال:</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="InCommon" xml:space="preserve">
     <value>مشترك</value>
+  </data>
+  <data name="JoinDate" xml:space="preserve">
+    <value>تاريخ التسجيل</value>
   </data>
   <data name="NoAnswers" xml:space="preserve">
     <value>لا توجد إجابات للعرض</value>
@@ -170,5 +176,8 @@
   </data>
   <data name="PointsTxt8" xml:space="preserve">
     <value>5 نقاط للمشاركة على الفيس بوك</value>
+  </data>
+  <data name="UniMembers" xml:space="preserve">
+    <value>أعضاء الجامعة</value>
   </data>
 </root>

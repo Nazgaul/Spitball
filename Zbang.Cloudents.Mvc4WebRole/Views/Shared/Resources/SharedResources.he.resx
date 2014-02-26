@@ -424,4 +424,28 @@
   <data name="Departments" xml:space="preserve">
     <value>מחלקות</value>
   </data>
+  <data name="AllResults" xml:space="preserve">
+    <value>הראה את כל תוצאות החיפוש עבור</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>ב:</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>אנשים</value>
+  </data>
+  <data name="Pts" xml:space="preserve">
+    <value>נק'</value>
+  </data>
+  <data name="ResultsOther" xml:space="preserve">
+    <value>תוצאות ממוסדות אחרים</value>
+  </data>
+  <data name="SearchingFor" xml:space="preserve">
+    <value>מחפש</value>
+  </data>
+  <data name="SweetPoints" xml:space="preserve">
+    <value>מגניב, קיבלת </value>
+  </data>
 </root>

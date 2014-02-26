@@ -192,4 +192,10 @@
   <data name="WelcomeAcademic" xml:space="preserve">
     <value>اختر مدرسنتك</value>
   </data>
+  <data name="CantFind" xml:space="preserve">
+    <value>هل يمكنك العثور على مدرستك؟</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>البحث عن مدرستك</value>
+  </data>
 </root>

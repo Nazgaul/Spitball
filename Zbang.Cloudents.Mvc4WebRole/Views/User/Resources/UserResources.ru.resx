@@ -123,6 +123,9 @@
   <data name="CoursesGroups" xml:space="preserve">
     <value>Курсы / Группы</value>
   </data>
+  <data name="CoursesList" xml:space="preserve">
+    <value>Список курсов</value>
+  </data>
   <data name="EarnBy" xml:space="preserve">
     <value>Зарабатывайте очки:</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="InCommon" xml:space="preserve">
     <value>совместно</value>
+  </data>
+  <data name="JoinDate" xml:space="preserve">
+    <value>Дата присоединения</value>
   </data>
   <data name="NoAnswers" xml:space="preserve">
     <value>Нет ответов показать</value>
@@ -171,5 +177,8 @@
   </data>
   <data name="PointsTxt8" xml:space="preserve">
     <value>5 очков за предоставление доступа через Facebook</value>
+  </data>
+  <data name="UniMembers" xml:space="preserve">
+    <value>Участники университета</value>
   </data>
 </root>

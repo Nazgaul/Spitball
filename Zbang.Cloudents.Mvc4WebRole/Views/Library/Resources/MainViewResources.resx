@@ -141,9 +141,6 @@
   <data name="CreateCourse" xml:space="preserve">
     <value>Create a new course</value>
   </data>
-  <data name="DeleteCourse" xml:space="preserve">
-    <value>Deleting this course will delete all its content including files and Q&amp;A. Are you sure you would like to delete this course?</value>
-  </data>
   <data name="EmptyLib" xml:space="preserve">
     <value>No departments or courses have been added yet.
 

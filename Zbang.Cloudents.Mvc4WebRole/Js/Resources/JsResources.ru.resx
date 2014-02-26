@@ -132,6 +132,9 @@
   <data name="IShared" xml:space="preserve">
     <value>Я поделился</value>
   </data>
+  <data name="NoSelected" xml:space="preserve">
+    <value>участник не выбрал курсы</value>
+  </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>на Cloudents</value>
   </data>

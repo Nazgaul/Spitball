@@ -2253,8 +2253,8 @@ input[type="radio"] + label:before {
 
 }
 .searchPage .upArrow:before {
-  right: 28px;
-  /*rtl*/
+  right: 15px;
+  /* diff rtl*/
 
   left: auto;
   -webkit-transition: right 0.5s;
@@ -2270,14 +2270,14 @@ input[type="radio"] + label:before {
 
 }
 .sTabs.sTab2 ~ .upArrow:before {
-  right: 127px;
-  /*rtl*/
+  right: 98px;
+  /* diff rtl*/
 
   left: auto;
 }
 .sTabs.sTab3 ~ .upArrow:before {
-  right: 237px;
-  /*rtl*/
+  right: 182px;
+  /* diff rtl*/
 
   left: auto;
 }

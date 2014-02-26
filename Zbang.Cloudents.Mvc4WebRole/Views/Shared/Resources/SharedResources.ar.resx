@@ -404,7 +404,7 @@
     <value>كتابة رسالة ...</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
-    <value>منطقتي </value>
+    <value>لوحة التحكم</value>
   </data>
   <data name="Dashboard1" xml:space="preserve">
     <value>منطقتي </value>
@@ -423,5 +423,29 @@
   </data>
   <data name="All" xml:space="preserve">
     <value>الكل </value>
+  </data>
+  <data name="AllResults" xml:space="preserve">
+    <value>عرض كل النتائج عن</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>في:</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>المواد</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>الأشخاص</value>
+  </data>
+  <data name="Pts" xml:space="preserve">
+    <value>نقاط</value>
+  </data>
+  <data name="ResultsOther" xml:space="preserve">
+    <value>نتائج من جامعات أخرى</value>
+  </data>
+  <data name="SearchingFor" xml:space="preserve">
+    <value>البحث عن</value>
+  </data>
+  <data name="SweetPoints" xml:space="preserve">
+    <value>جميل، لقد كسبت للتو</value>
   </data>
 </root>
