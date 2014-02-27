@@ -36,15 +36,32 @@
     .boxSizing;
 }
 
+.itemRenameBtn{
+     display: none;
+    position: absolute;
+    top: 0px;
+    right: 0px; /*rtl*/
+    margin: 0;
+    background: url(/Images/common14-sprite.png?v=1) -72px -42px no-repeat;
+    width: 23px;
+    height: 23px;
+}
+
 .itemTop{
     margin: 18px 10px 0;
     height: 146px;  
     color: #676767;
     font-size: 13px; 
+    position:relative;
     > .moreFilesThumb  {
         width:42px;
         height:42px;
         line-height: 42px;
+    }
+    &:hover {
+        .itemRenameBtn {
+            display:block;
+        }
     }
 }
 .itemNameWpr // this is needed to prevent the itemname - which is a table cell - to overflow height with large names. 

@@ -156,7 +156,7 @@
   height: 12px;
 }
 .searchPage .upArrow:before {
-  left: 28px;
+  left: 19px;
   /*rtl*/
   right: auto;
   width: 12px;
@@ -194,11 +194,11 @@
   text-transform: capitalize;
 }
 .sTabs.sTab2 ~ .upArrow:before {
-  left: 127px;
+  left: 98px;
   /*rtl*/
 }
 .sTabs.sTab3 ~ .upArrow:before {
-  left: 237px;
+  left: 183px;
   /*rtl*/
 }
 .sTab1 ~ .sTabContent .sCourses,
@@ -347,10 +347,20 @@
   border: none;
   padding: 0;
 }
-.sMaterialsItem .sOtherUni {
+.sMaterialsItem .sOtherUni.dot {
   left: 136px;
   /*rtl*/
   top: 0;
+}
+.sMaterialsItem .sOtherUni.dot:before {
+  content: '';
+  display: inline-block;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  background-color: #0f9d58;
+  margin-right: 3px;
+  margin-bottom: 1px;
 }
 .sMaterialLink {
   display: block;
@@ -372,7 +382,9 @@
   width: 100%;
   height: 40px;
   background-color: #f9f9f9;
+  border: 1px solid #dedede;
   border-radius: 3px;
+  margin-bottom: 20px;
 }
 .sOtherMaterialsBtn:hover {
   border: 1px solid #c2c2c2;

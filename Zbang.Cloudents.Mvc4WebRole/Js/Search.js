@@ -43,6 +43,7 @@
             self.boxName = data.boxname;
             self.url = data.url + '?r=search&s=materials';
             self.universityName = data.uniName || '';
+            self.dotted = data.uniName ? 'dot' : '';
             self.content = cd.highlightSearch(searchTerm, data.content, consts.BOLDPART) || data.content || '';
             self.width = 69 / 5 * data.rate || 0;
             self.views = data.views || '0';
@@ -151,9 +152,11 @@
                     appendList(sMaterialList, 'sMaterialItemTemplate', materials, toWipe);
                     appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);                    
 
-                    setNumbersAndText();
-                    length = parseNumber(currentTab);
-                    sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
+                    //setNumbersAndText();
+                    //length = parseNumber(currentTab);
+                    //sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
+
+                    sSearchTerm.textContent = searchTerm;
 
                     if (materials.length < 50) {                        
                         materialsLoaded = true;
@@ -166,34 +169,34 @@
                     pubsub.publish('search_load');
 
                    
-                    function setNumbersAndText() {
-                        var length;
+                    //function setNumbersAndText() {
+                    //    var length;
 
-                        sSearchTerm.textContent = searchTerm;
+                    //    sSearchTerm.textContent = searchTerm;
 
 
-                        length = parseNumber(sTabCourses);
-                        applyText(sTabCourses, length, courses.length);
+                    //    length = parseNumber(sTabCourses);
+                    //    applyText(sTabCourses, length, courses.length);
 
-                        length = parseNumber(sTabMaterials);
-                        applyText(sTabMaterials, length, materials.length);
+                    //    length = parseNumber(sTabMaterials);
+                    //    applyText(sTabMaterials, length, materials.length);
 
-                        length = parseNumber(sTabMembers);
-                        applyText(sTabMembers, length, members.length);
+                    //    length = parseNumber(sTabMembers);
+                    //    applyText(sTabMembers, length, members.length);
 
-                        function applyText(elm, currentLength, length) {
-                            var type = elm.getAttribute('data-type');
-                            //if (!currentLength) {
-                            //    elm.textContent = type + ' (0)';
-                            //    return;
-                            //}
-                            currentLength += length;
-                            if (length === 50) {
-                                currentLength += '+';
-                            }
-                            elm.textContent = type + ' (' + currentLength + ')';
-                        }
-                    };
+                    //    function applyText(elm, currentLength, length) {
+                    //        var type = elm.getAttribute('data-type');
+                    //        //if (!currentLength) {
+                    //        //    elm.textContent = type + ' (0)';
+                    //        //    return;
+                    //        //}
+                    //        currentLength += length;
+                    //        if (length === 50) {
+                    //            currentLength += '+';
+                    //        }
+                    //        elm.textContent = type + ' (' + currentLength + ')';
+                    //    }
+                    //};
                 };
             };
         };
@@ -247,8 +250,8 @@
                     return;
                 }
                 setCurrentTab(this);
-                var length = parseNumber(this);
-                sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
+                //var length = parseNumber(this);
+                //sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
             });
 
 
@@ -280,7 +283,7 @@
         function setCurrentTab(elm) {
             $elm = $(elm);
             var tabIndex = $elm.index(),
-                $list = $('[data-list="' + elm.getAttribute('data-type') + '"]').find('li');
+                $list = $('[data-list="' + elm.textContent + '"]').find('li');
 
             if ($list.length > 0) {
                 sTabContent.classList.remove('noResults');
@@ -311,9 +314,9 @@
         }
 
         function clear(clearPage) {
-            sTabCourses.textContent = sTabCourses.getAttribute('data-type') + ' (0)';
-            sTabMaterials.textContent = sTabMaterials.getAttribute('data-type') + ' (0)';
-            sTabMembers.textContent = sTabMembers.getAttribute('data-type') + ' (0)';
+            //sTabCourses.textContent = sTabCourses.getAttribute('data-type') + ' (0)';
+            //sTabMaterials.textContent = sTabMaterials.getAttribute('data-type') + ' (0)';
+            //sTabMembers.textContent = sTabMembers.getAttribute('data-type') + ' (0)';
             sCourseList.innerHTML = '';
             sMaterialList.innerHTML = '';
             sMemberList.innerHTML = '';
@@ -331,6 +334,10 @@
         }
         function renderLoad(element, moreContent) {
             var cssLoader, imgLoader, loader;
+
+            if (!element) {
+                return function () { };
+            }
 
             if (!moreContent) {
                 cssLoader = '<div class="smallLoader upLoader"><div class="spinner"></div>';

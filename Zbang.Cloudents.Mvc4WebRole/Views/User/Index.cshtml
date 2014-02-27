@@ -17,6 +17,8 @@
             <!--/ko-->
         </div>
 
+        @if (ViewBag.Admin)
+        { 
         <section class="upMembers" data-bind="visible: membersSectionVisible()">
             <h2>@UserResources.UniMembers</h2>
             <div class="membersContent" data-bind="css: { noResults : membersLoaded() && !displayMembersFilter().length} ">
@@ -66,10 +68,10 @@
                         <div class="arrow downArrow"></div>
                     </li>
                 </ul>
-                <div class="emptySearch">@SharedResources.NoResults</div>
+                <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>
             </div>
         </section>
-
+        }
         <aside class="upSidebar rFloat">
             <section class="upPoints" data-bind="visible: !membersSectionVisible()">
                 <h2>@SharedResources.Points</h2>
@@ -101,8 +103,8 @@
                 <h2>@SharedResources.Activity</h2>
                 @*Guy: please add class upTab1/uptab2/upTab3 to the upTabs element according to which tab is clicked*@
                 <div class="upTabs upTab1">
-                    <button type="button" id="filesCount" class="fileCount" data-label="@SharedResources.Files |"></button>
-                    <button type="button" id="questionsCount" class="qCount" data-label="@SharedResources.Questions |"></button>
+                    <button type="button" id="filesCount" class="fileCount" data-label="@SharedResources.Files"></button><span> | </span>
+                    <button type="button" id="questionsCount" class="qCount" data-label="@SharedResources.Questions"></button><span> | </span>
                     <button type="button" id="answersCount" class="aCount" data-label="@SharedResources.Answers"></button>
                 </div>
 

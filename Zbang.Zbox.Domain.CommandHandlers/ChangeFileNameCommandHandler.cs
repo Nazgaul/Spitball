@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = m_ItemRepository.Get(command.FileId);
 
             var fileNameExtension = Path.GetExtension(item.Name);
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(command.NewFileName.RemoveEndOfString(Item.NameLength));
+            var fileNameWithoutExtension = command.NewFileName.RemoveEndOfString(Item.NameLength);
             if (fileNameWithoutExtension == Path.GetFileNameWithoutExtension(item.Name))
             {
                 return new ChangeFileNameCommandResult(item);

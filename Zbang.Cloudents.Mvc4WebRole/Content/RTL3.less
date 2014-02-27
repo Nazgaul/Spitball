@@ -1104,6 +1104,13 @@ input[type="radio"] {
     }
 }
 
+.itemTop {
+    .itemRename {
+        left:0;
+        right:auto;
+    }
+}
+
 .views:before, .downloads:before {
     margin: 0 0 0 5px; /*rtl*/
 }
@@ -1705,7 +1712,7 @@ input[type="radio"] {
         top: -14px; /*rtl (font issue)*/
         &:before
         {
-            right: 15px; /* diff rtl*/
+            right: 10px; /* diff rtl*/
             left: auto;
             .transition(right .5s); /*rtl*/
         }
@@ -1717,14 +1724,14 @@ input[type="radio"] {
 .sTabs {
     &.sTab2 {
         ~ .upArrow:before{
-            right: 98px; /* diff rtl*/
+            right: 75px; /* diff rtl*/
             left: auto;
         }
     }
 
     &.sTab3 {
         ~ .upArrow:before{
-            right: 182px; /* diff rtl*/
+            right: 142px; /* diff rtl*/
             left: auto;
         }
     }

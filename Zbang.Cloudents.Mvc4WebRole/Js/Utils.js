@@ -778,7 +778,7 @@
 
     var shareFb = function (url, name, caption, description, picture) {
         url = url || cd.location();
-        FB.ui({
+        FB.ui({ 
             method: 'feed',
             link: url,
             name: name,

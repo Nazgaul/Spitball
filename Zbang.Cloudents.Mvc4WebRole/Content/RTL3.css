@@ -1379,6 +1379,10 @@ input[type="radio"] + label:before {
   padding: 2px 4px 2px 8px;
   /*rtl*/
 }
+.itemTop .itemRename {
+  left: 0;
+  right: auto;
+}
 .views:before,
 .downloads:before {
   margin: 0 0 0 5px;
@@ -1932,7 +1936,7 @@ input[type="radio"] + label:before {
   /*rtl (font issue)*/
 }
 .searchPage .upArrow:before {
-  right: 15px;
+  right: 10px;
   /* diff rtl*/
   left: auto;
   -webkit-transition: right 0.5s;
@@ -1946,12 +1950,12 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .sTabs.sTab2 ~ .upArrow:before {
-  right: 98px;
+  right: 75px;
   /* diff rtl*/
   left: auto;
 }
 .sTabs.sTab3 ~ .upArrow:before {
-  right: 182px;
+  right: 142px;
   /* diff rtl*/
   left: auto;
 }

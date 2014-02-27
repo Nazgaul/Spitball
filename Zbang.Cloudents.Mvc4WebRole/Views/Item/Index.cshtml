@@ -6,7 +6,7 @@
         <div class="itemTop">
             <div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>
             <div class="itemNameWpr">
-                <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, click: renameItem, attr: { title: itemName, 'data-name': itemName }"></span></div>
+                <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { title: itemName, 'data-name': itemName }"></span></div>
             </div>
             <div class="itemOwner">
                 <span class="calloutTrgr elps" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></span>
@@ -34,6 +34,7 @@
                 </div>
 
             </div>
+            <button class="itemRenameBtn" title="Item settings" id="itemSettings" type="button"></button>
         </div>
 
         <h3 class="sectionHeader">@ItemsResources.Additional</h3>
@@ -160,6 +161,9 @@
                 </div>
         </script>*@
 </div>
+
+@{Html.RenderPartial("Rename");}
+
 <div class="itemFulscrn" id="itemFulscrn">
     <button type="button" class="exitFulscrn" id="exitFulscrn"></button>
     <button type="button" class="itemPrev" id="itemPrev" title="Previous document"></button>

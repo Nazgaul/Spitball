@@ -48,7 +48,8 @@
             upMbrSetingsSndMsg = eById('upMbrSetingsSndMsg'), deptPopup = eById('deptPopup'),
             upFriendsSection = eById('upFriendsSection'), upCoursesSection = eById('upCoursesSection'),
             upInvitesSection = eById('upInvitesSection'), questionsSection = eById('questionsSection'),
-            answersSection = eById('answersSection'), filesSection = eById('filesSection');
+            answersSection = eById('answersSection'), filesSection = eById('filesSection'),
+            membersBoxListArrow = document.querySelector('.arrow.downArrow');
 
         var self = this;
 
@@ -395,8 +396,8 @@
             .maxQuestions(consts.MAXQUESTIONS)
             .maxAnswers(consts.MAXANSWERS)
             .membersLoaded(false)
-            .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
-
+            .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([])
+            .members([]).searchResultMembers([]).departments([]).displayMembers([]);
 
             if (upMemberSettings) {
                 upMemberSettings.checked = false;
@@ -433,8 +434,6 @@
             if (f) {
                 f.textContent = '' + f.getAttribute(consts.DATALABEL);
             }
-
-
         }
 
         function getInitData() {
@@ -482,7 +481,7 @@
                 upUsername.textContent = profile.name;
                 upUserImg.src = profile.image;
                 upUserSchool.textContent = profile.universityName;
-                if (profile.score < consts.ADMINSCORE) {
+                if (!self.membersSectionVisible()) {
                     populateScore(profile.score);
                 }
                 self.score(profile.score);
@@ -767,6 +766,7 @@
                 var parent = memberBoxList.parentElement,
                     pos;
                 cd.appendData(memberBoxList, 'upMemberBoxItemTemplate', boxes, 'beforeend', true);
+                membersBoxListArrow.style.bottom = boxes.length > 7 ? '-1px' : '-12px';
                 parent.style.display = 'block';
                 var pos = calculatePopupPosition();
                 parent.style.left = pos.x + 'px';
@@ -1112,6 +1112,9 @@
 
         var loaders = [];
         function renderLoad(e) {
+            if (!e) {
+                return function () { };
+            }
             var element = e;
             if (loaders.indexOf(element) > -1) {
                 return function () { };

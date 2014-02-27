@@ -68,6 +68,7 @@
             if (!input.value.length) {
                 currentValue = '';
                 lastInput = '';
+                searchDropdownBtn.disabled = true;
                 hide(true);
                 return;
             }
@@ -104,7 +105,7 @@
                     formSubmitted = false;
                 }
             });
-        }, 100);
+        }, 150);
 
         input.onkeyup = search;
 
@@ -183,11 +184,6 @@
 
     };
 
-    function itemsExists() {
-        return boxList.children.length > 0 || itemsList.children.length > 0 || peopleList.children.length > 0 || uniList.children.length > 0;
-    }
-
-
     function hide(blur) {
         if (!blur) {
             input.blur();
@@ -220,10 +216,10 @@
         if (emptyCategories === 3 && emptyOtherItems) {
             dropdown.classList.add('noResults');
             searchDropdownBtn.disabled = true;
-            return;
+        } else {
+            searchDropdownBtn.disabled = false;
         }
 
-        searchDropdownBtn.disabled = false;
         showAll.href = '/search/?q=' + input.value + '&r=searchdd';
         showAllText.textContent = input.value;
 

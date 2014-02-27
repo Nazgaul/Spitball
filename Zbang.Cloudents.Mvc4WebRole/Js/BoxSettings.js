@@ -81,7 +81,7 @@
                 if (!privacySettings.innerHTML) {
                     eById('privacySettings').insertAdjacentHTML('afterbegin', privacySettingsContent);
                 }
-                eById('privacy_' + boxSettingsData.privacy).checked = true;
+                $('#privacy_' + boxSettingsData.privacy).prop('checked', true);
             }
             else {
                 privacySettings.innerHTML = '';
@@ -97,7 +97,7 @@
         dataContext.getNotification({
             data: { boxUid: boxSettingsData.boxUid },
             success: function (data) {
-                eById('noti_' + data).checked = true;
+                $('#noti_' + data).prop('checked', true);           
                 boxSettingsData.notify = data;
             }
         });
