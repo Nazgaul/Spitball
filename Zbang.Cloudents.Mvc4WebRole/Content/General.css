@@ -1151,6 +1151,9 @@ select.inputText {
   .printDD.printDD .printTxt2 {
     padding: 0;
   }
+  .modal2.modal2 {
+    position: absolute;
+  }
 }
 /*#endregion */
 /*#region cssCheck*/
