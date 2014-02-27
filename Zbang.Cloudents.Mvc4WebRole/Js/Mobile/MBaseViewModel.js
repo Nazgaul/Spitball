@@ -3,51 +3,52 @@
         return;
     }
 
-    var searchAvaible = false, timer = 0, currentPage = '', $seachInput = $('#seachInput');
+    //var searchAvaible = false, timer = 0, currentPage = '', $seachInput = $('#seachInput');
+    var currentPage = '';
     //window.scrollTo(0, 1);
 
-    $('#searchMenu').click(function (e) {
-        if (!searchAvaible) {
-            e.preventDefault();
-            return;
-        }
-    });
-    var el = document.getElementById('search');
-    el.addEventListener('transitionend', focusOnElement, false);
-    el.addEventListener('webkitTransitionEnd', focusOnElement, false);
-    function focusOnElement() {
-        $seachInput.focus();
-    }
-    $('#searchClose').click(function () {
-        $seachInput.val('');
-        cd.pubsub.publish('close_search_' + currentPage);
-    });
+    //$('#searchMenu').click(function (e) {
+    //    if (!searchAvaible) {
+    //        e.preventDefault();
+    //        return;
+    //    }
+    //});
+    //var el = document.getElementById('search');
+    //el.addEventListener('transitionend', focusOnElement, false);
+    //el.addEventListener('webkitTransitionEnd', focusOnElement, false);
+    //function focusOnElement() {
+    //    $seachInput.focus();
+    //}
+    //$('#searchClose').click(function () {
+    //    $seachInput.val('');
+    //    cd.pubsub.publish('close_search_' + currentPage);
+    //});
 
-    $seachInput.keyup(function (e) {
-        var $this = $(this);
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-            if ($.trim($this.val()) === '') {
-                return;
-            }
-            cd.pubsub.publish('trig_search_' + currentPage, $this.val());
-        }, 600);
-    });
-    pubsub.subscribe('dash_boxes', function () {
-        searchAvaible = true;
-        currentPage = 'boxes';
-    });
-    pubsub.subscribe('dash_search', function (data) {
-        searchAvaible = true;
-        $seachInput.val(data.query);
-        //location.hash = 'search';
-        currentPage = 'boxes';
-    });
-    pubsub.subscribe('lib_nodes', function (data) {
-        searchAvaible = true;
-        currentPage = 'library';
+    //$seachInput.keyup(function (e) {
+    //    var $this = $(this);
+    //    clearTimeout(timer);
+    //    timer = setTimeout(function () {
+    //        if ($.trim($this.val()) === '') {
+    //            return;
+    //        }
+    //        cd.pubsub.publish('trig_search_' + currentPage, $this.val());
+    //    }, 600);
+    //});
+    //pubsub.subscribe('dash_boxes', function () {
+    //    searchAvaible = true;
+    //    currentPage = 'boxes';
+    //});
+    //pubsub.subscribe('dash_search', function (data) {
+    //    searchAvaible = true;
+    //    $seachInput.val(data.query);
+    //    //location.hash = 'search';
+    //    currentPage = 'boxes';
+    //});
+    //pubsub.subscribe('lib_nodes', function (data) {
+    //    searchAvaible = true;
+    //    currentPage = 'library';
 
-    });
+    //});
 
     //pubsub.subscribe('lib_uni', function () {
 
@@ -55,16 +56,16 @@
     //pubsub.subscribe('lib_load', function (data) {
 
     //});
-    pubsub.subscribe('lib_search', function (data) {
-        searchAvaible = true;
-        $seachInput.val(data.query);
-        //location.hash = 'search';
-        currentPage = 'library';
-    });
+    //pubsub.subscribe('lib_search', function (data) {
+    //    searchAvaible = true;
+    //    $seachInput.val(data.query);
+    //    //location.hash = 'search';
+    //    currentPage = 'library';
+    //});
 
-    pubsub.subscribe('box_load', function (data) {
-        searchAvaible = false;
-    });
+    //pubsub.subscribe('box_load', function (data) {
+    //    searchAvaible = false;
+    //});
     //pubsub.subscribe('item_load', function (data) {
     //});
 
