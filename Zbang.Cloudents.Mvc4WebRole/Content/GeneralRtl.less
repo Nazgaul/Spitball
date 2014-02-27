@@ -118,23 +118,16 @@ body
     right: ~'-webkit-calc(50% - 112px)'; /*rtl*/
     right: ~'calc(50% - 112px)'; /*rtl*/
     left: auto;
-
     &:before
     {
-        margin: 0 0 0 4px; /*rtl*/
+        margin: 0 0 0 4px; /* diff rtl*/
     }
     &:after
     {
-        margin: 0 4px 0 0; /*rtl*/
+        margin: 0; /* diff rtl*/
     }
 }
 
-.ptDigit{
-    &:first-child
-    {
-        margin: 0 4px 0 0; /*rtl*/
-    }
-}
 /*#region checkbox */
 .checkbox {
     ~ .cbLabel {

@@ -32,7 +32,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = question.Box;
 
 
-            if (question.User.Id != message.UserId || box.Owner.Id != message.UserId)
+            bool isAuthorize = question.User.Id != message.UserId || box.Owner.Id != message.UserId;
+            if (!isAuthorize)
             {
                 throw new UnauthorizedAccessException("User didnt ask the question");
             }

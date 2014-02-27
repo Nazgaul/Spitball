@@ -4,7 +4,7 @@
 
     if (window.scriptLoaded.isLoaded('bts')) {
         return;
-    } 
+    }
 
     $(function () {
         cd.putPlaceHolder();
@@ -15,7 +15,7 @@
         //$('#logOut').click(function (e) {
         //});
 
-        
+
         //drop downs
         var slideSpeed = 150;
         var $userMenu = $('ul.userMenu');
@@ -30,7 +30,7 @@
             $userMenu.slideDown(slideSpeed);
         });
         $('body').click(function () {
-           $userMenu.slideUp(slideSpeed);
+            $userMenu.slideUp(slideSpeed);
         });
 
         $userMenu.find('[data-navigation="account"]').click(function () {
@@ -127,8 +127,8 @@
         //        moviePath: "/Scripts/ZeroClipboard.swf",
         //        useNoCache: false
         //    });
-           
-                
+
+
         //    var elements = document.querySelectorAll('.copylk');
         //    for (var i = 0; i < elements.length; i++) {
         //        elements[i].setAttribute('init', 'true');
@@ -161,7 +161,7 @@
         //}
 
 
-     
+
         //tooltip
         //.on('mouseenter', '.tooltip', function () {
         //    timerTooltip = window.setTimeout(function () {
@@ -190,7 +190,7 @@
         //    e.preventDefault();
         //    this.querySelector('button').disabled = 1;
         //    analytics.trackEvent('Search', inputVal);
-            
+
         //    var inputVal = g_searchQ.value;
         //    if (!Modernizr.input.placeholder) {
         //        if (g_searchQ.value === g_search.getAttribute('placeholder')) {
@@ -202,7 +202,7 @@
         //        cd.pubsub.publish('nav', 'dashboard');
         //        return;
         //    }
-          
+
         //    cd.pubsub.publish('nav', 'dashboard/search/' + encodeURIComponent(inputVal));
         //});
         //$(g_searchQ).keyup(function () {
@@ -232,7 +232,11 @@
         })
         //textarea elastic
         .on('focus', 'textarea', function () {
+            if ($(this).val() === $(this).attr('placeholder')) {
+                $(this).val(''); //ie issue with elastic
+            }
             $(this).elastic();
+
         });
     })();
 
@@ -246,7 +250,7 @@
         submitCallBack: function () {
             location.href = '/account';
         }
-    });   
+    });
 
-    
+
 })(cd, cd.analytics, ZboxResources);

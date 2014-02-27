@@ -44,8 +44,9 @@
             resultHtml += getDigit(strPoints[i]);
         }
 
-        pointBox.innerHTML = '';
-        pointBox.insertAdjacentHTML('beforeend', resultHtml);
+        var child = pointBox.firstElementChild;
+        child.innerHTML = '';
+        child.insertAdjacentHTML('beforeend', resultHtml);
 
         function getDigit(value) {
             return '<span class="ptDigit boldFont">' + value + '</span>';
