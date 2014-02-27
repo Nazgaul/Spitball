@@ -8,9 +8,9 @@
         ko.applyBindings(new QnAViewModel(), document.getElementById('box_QA'));
 
     });
-    var permission = 'none';
 
     function QnAViewModel() {
+
 
         function Question(data) {
             var _that = this;
@@ -55,7 +55,9 @@
             });
 
             _that.canMarkAsAnswer = _that.userid === cd.userDetail.nId;
-            _that.canDelete = _that.userid === cd.userDetail().nId;
+            _that.canDelete = ko.computed(function () {
+                return _that.userid === cd.userDetail().nId || self.isOwner();
+            });
             data.files = data.files || [];
             _that.files = ko.observableArray($.map(data.files, function (i) { return new File(i); }));
 
@@ -104,7 +106,9 @@
             _that.isAnswer = ko.observable(data.answer);
             data.files = data.files || [];
             _that.files = ko.observableArray($.map(data.files, function (i) { return new File(i); }));
-            _that.canDelete = _that.userId === cd.userDetail().nId;
+            _that.canDelete = ko.computed(function () {
+                return _that.userId === cd.userDetail().nId || self.isOwner();
+            });
         }
         function File(data) {
             var _that = this;
@@ -117,7 +121,7 @@
                 return data.ownerId === cd.userDetail().nId;
             });
             _that.isVisible = ko.computed(function () {
-                return data.ownerId === cd.userDetail().nId ? 'visible' : 'hidden';
+                return data.ownerId === cd.userDetail().nId || self.isOwner() ? 'visible' : 'hidden';
             });
 
             _that.download = "/d/" + boxid + "/" + _that.id;
@@ -128,6 +132,10 @@
 
 
         var self = this, boxid = '';
+        self.permission = ko.observable('none');
+        self.isOwner = ko.computed(function() {
+            return self.permission().toLowerCase() === 'owner';
+        });
 
         var state = {
             none: 0,
@@ -136,7 +144,7 @@
             answers: 3
         };
         cd.pubsub.subscribe('perm', function (d) {
-            permission = d;
+            self.permission(d);
         });
 
         self.state = ko.observable(state.none);
@@ -189,7 +197,7 @@
             self.state(state.none);
             self.questionList([]);
             self.showAllQuestion();
-            permission = 'none';
+            self.permission('none');
 
             var forms = $('#box_QA').find('form');
             for (var i = 0; i < forms.length; i++) {
@@ -243,7 +251,7 @@
                 cd.unregisterAction();
                 return;
             }
-            if (permission === 'none' || permission === 'invite') {
+            if (self.permission() === 'none' || self.permission() === 'invite') {
                 cd.notification(ZboxResources.NeedToFollowBox);
                 return;
             }
@@ -316,7 +324,7 @@
                 cd.unregisterAction();
                 return;
             }
-            if (permission === 'none' || permission === 'invite') {
+            if (self.permission() === 'none' || self.permission() === 'invite') {
                 cd.notification(ZboxResources.NeedToFollowBox);
                 return;
             }
@@ -573,7 +581,8 @@
                     cd.unregisterAction();
                     return;
                 }
-                if (permission === 'none' || permission === 'invite') {
+
+                if (self.permission() === 'none' || self.permission() === 'invite') {
                     $(this).blur();
                     cd.notification(ZboxResources.NeedToFollowBox);
                     return;
@@ -609,7 +618,7 @@
                     $this.parents('form').find('button').attr('disabled', 'disabled');
                 }
             }
-        }
+        }        
     }
 
 
