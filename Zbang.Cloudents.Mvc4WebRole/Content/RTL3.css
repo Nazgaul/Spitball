@@ -1868,7 +1868,7 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .memberCol {
-  padding: 0 8px 0 0;
+  padding: 0 10px 0 0;
   /*rtl*/
 }
 .deptPopup {
@@ -1898,6 +1898,10 @@ input[type="radio"] + label:before {
   /*for chrome*/
 }
 .upMemberBoxList li {
+  padding: 0 10px 0 0;
+  /*rtl*/
+}
+.upMemberName {
   padding: 0 10px 0 0;
   /*rtl*/
 }
