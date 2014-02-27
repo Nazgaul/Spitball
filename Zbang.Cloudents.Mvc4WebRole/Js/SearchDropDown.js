@@ -96,6 +96,10 @@
                     if (!input.value.length) { //we need this because of debounce function
                         return;
                     }
+                    if (currentValue !== input.value) {
+                        search();
+                        return;
+                    }
                     parseData(data);
                 },
                 error: function () {
