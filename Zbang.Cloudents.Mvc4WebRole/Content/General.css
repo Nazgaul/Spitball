@@ -1048,6 +1048,8 @@ select.inputText {
 .ptsPopup:after {
   content: attr(data-pts-after);
   display: inline-block;
+  margin-left: 4px;
+  /*rtl*/
 }
 .digitWpr {
   direction: ltr;

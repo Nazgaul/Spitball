@@ -198,7 +198,7 @@
     <value>Оценит</value>
   </data>
   <data name="RateItem" xml:space="preserve">
-    <value>Оценить этот элемент</value>
+    <value>Оценка элемента</value>
   </data>
   <data name="SecurityReasons" xml:space="preserve">
     <value>По соображениям безопасности эту ссылку невозможно открыть в Cloudents</value>
