@@ -580,7 +580,7 @@
   background: none;
   margin: 0;
 }
-.unionCourses .courseCode {
+.courseCode {
   color: #676767;
   font-size: 13px;
   width: 133px;
@@ -589,7 +589,7 @@
   /*rtl*/
   top: 65px;
 }
-.unionCourses .propName {
+.propName {
   top: 80px;
 }
 .libraryList > .box:hover .courseCode {

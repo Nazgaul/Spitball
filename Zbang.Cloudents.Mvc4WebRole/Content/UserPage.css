@@ -871,32 +871,6 @@
   border-radius: 5px;
   display: none;
   position: absolute;
-  /*&:before
-    {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 115px;
-        border-style: solid;
-        border-width: 10px 12px 0;
-        border-color: @borderColor transparent;
-        display: block;
-        width: 0;
-        z-index: 0;
-    }
-    &:after
-    {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 115px;
-        border-style: solid;
-        border-width: 10px 12px 0;
-        border-color: #fff transparent;
-        display: block;
-        width: 0;
-        z-index: 1;
-    }*/
 }
 .upMemberBoxesTitle {
   padding-left: 10px;
