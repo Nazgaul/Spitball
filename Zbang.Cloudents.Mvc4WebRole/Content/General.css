@@ -610,6 +610,10 @@ ul.ui-autocomplete li a {
   margin-left: 36px;
   /*rtl*/
 }
+.userPts:after {
+  display: inline-block;
+  content: attr(data-points);
+}
 .userSettings {
   margin-right: 10px;
   /*rtl*/
@@ -1138,6 +1142,11 @@ select.inputText {
     -moz-transition: all 0.3s 3s;
     -o-transition: all 0.3s 3s;
     transition: all 0.3s 3s;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .printDD.printDD .printTxt2 {
+    padding: 0;
   }
 }
 /*#endregion */
