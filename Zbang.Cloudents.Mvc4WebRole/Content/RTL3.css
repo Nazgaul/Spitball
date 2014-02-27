@@ -282,7 +282,7 @@ input[type="radio"] + label:before {
   /*rtl*/
   left: auto;
 }
-.unionCourses .courseCode {
+.courseCode {
   right: 84px;
   /*rtl*/
   left: auto;
