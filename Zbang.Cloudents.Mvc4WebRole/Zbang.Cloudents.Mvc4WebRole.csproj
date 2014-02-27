@@ -673,7 +673,7 @@
       <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.min.css">
-      <DependentUpon>SiteMobile.less</DependentUpon>
+      <DependentUpon>SiteMobile.css</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.css">
       <DependentUpon>SiteMobileRtl.less</DependentUpon>
