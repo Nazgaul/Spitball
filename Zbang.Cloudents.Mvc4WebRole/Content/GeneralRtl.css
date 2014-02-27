@@ -15,63 +15,54 @@ body {
 .navUser {
   margin: 0 30px 0 0;
   /*rtl*/
-
 }
 .navUser .userName {
   text-align: right;
   /*rtl*/
-
-}
-.navUser .userImg {
-  margin: 9px 0 0 5px;
+  margin: 8px 36px 0 0;
   /*rtl*/
-
+}
+.userPts {
+  margin: 0 36px 0 0;
+  /*rtl*/
 }
 .userSettings {
   margin: 0 0 0 10px;
   /*rtl*/
-
 }
 .userDrpSettings:after {
   right: 0;
   /*rtl*/
-
   left: auto;
 }
 .userMenuWrapper {
   left: 0;
   /*rtl*/
-
   right: auto;
 }
 .userMenu,
 .userInvites {
   right: 0;
   /*rtl*/
-
   left: auto;
 }
 .userMenu {
   left: 0;
   /*rtl*/
-
   right: auto;
 }
 .menuLink {
   text-align: right;
   /*rtl*/
-
 }
 /*#endregion */
 .lFloat {
   float: right;
   /*rtl*/
-
 }
 .rFloat {
   float: left;
   /*rtl*/
-
 }
 .semiFont {
   font-weight: normal;
@@ -79,28 +70,22 @@ body {
 .boldFont {
   font-weight: bold;
   /*rtl (In english semi-bold font-weight is used)*/
-
 }
 .inputText {
   padding: 0 8px 0 4px;
   /* rtl */
-
 }
 .topBar {
   text-align: right;
   /*rtl*/
-
   padding: 0 19px 0 45px;
   /*rtl*/
-
 }
 .backWpr {
   text-align: right;
   /*rtl*/
-
   padding: 0 40px 0 0;
   /*rtl*/
-
 }
 .backWpr:before {
   -moz-transform: scaleX(-1);
@@ -110,7 +95,6 @@ body {
   transform: scaleX(-1);
   right: 0;
   /*rtl*/
-
   left: auto;
 }
 .backWpr.noArrow {
@@ -119,58 +103,47 @@ body {
 .dropDown {
   text-align: right;
   /*rtl*/
-
 }
 .dropDown:before {
   right: 0;
   /*rtl*/
-
   left: auto;
 }
 .sectionHeader {
   font-weight: normal;
   /*diff rtl*/
-
 }
 .emptySearch:before {
   margin: -1px 0 0 6px;
   /*rtl*/
-
 }
 .emptySearch:after {
   right: 7px;
   /*rtl*/
-
   left: auto;
 }
 .iconTxt:before {
   margin: 0 0 0 6px;
   /*rtl*/
-
 }
 .ptsPopup {
   right: -webkit-calc(50% - 112px);
   /*rtl*/
-
   right: calc(50% - 112px);
   /*rtl*/
-
   left: auto;
 }
 .ptsPopup:before {
   margin: 0 0 0 4px;
   /*rtl*/
-
 }
 .ptsPopup:after {
   margin: 0 4px 0 0;
   /*rtl*/
-
 }
 .ptDigit:first-child {
   margin: 0 4px 0 0;
   /*rtl*/
-
 }
 /*#region checkbox */
 .checkbox ~ .cbLabel:before {
@@ -182,31 +155,26 @@ body {
 .validation-summary-errors {
   margin: 0 5px 0 0;
   /*rtl*/
-
 }
 /*#endregion */
 .removeItem,
 .closeItem {
   left: 5px;
   /*rtl*/
-
   right: auto;
 }
 .emailText {
   margin: 0 0 0 6px;
   /*rtl*/
-
 }
 /*#region AUTO COMPLETE */
 ul.ui-autocomplete {
   text-align: right;
   /*rtl*/
-
 }
 #Library .ui-autocomplete .btn1 {
   left: 10px;
   /*rtl*/
-
   right: auto;
 }
 /*#endregion */
@@ -214,12 +182,10 @@ ul.ui-autocomplete {
 .userTooltip {
   padding: 17px 110px 6px 10px;
   /*rtl*/
-
 }
 .ttImg {
   right: 0;
   /*rtl*/
-
   left: auto;
 }
 /*#endregion */

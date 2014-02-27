@@ -628,6 +628,7 @@ ul.ui-autocomplete {
 .navUser {
     margin-left: 30px; /*rtl*/
     line-height: 19px;
+    position: relative;
     .userName {
         //position: relative; /* needed for the width: 100% on the userMenuWrapper*/
         //vertical-align: top;
@@ -639,20 +640,22 @@ ul.ui-autocomplete {
         display: inline-block;
         text-align: left; /*rtl*/
         color: #fff;
-        margin-top: 8px;
+        margin: 8px 0 0 36px; /*rtl*/
     }
 
     .userImg {
         vertical-align: top;
-        margin: 9px 5px 0 0; /*rtl*/
+        margin-top: 9px;
         border-radius: 3px;
+        position: absolute;
     }
 }
+
 .userPts{
     font-size: 11px;
     color: #fff;
     line-height: 7px;
-    white-space: nowrap;
+    margin-left: 36px; /*rtl*/
 }
 .userSettings
 {

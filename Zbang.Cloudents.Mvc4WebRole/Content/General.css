@@ -584,6 +584,7 @@ ul.ui-autocomplete li a {
   margin-left: 30px;
   /*rtl*/
   line-height: 19px;
+  position: relative;
 }
 .navUser .userName {
   font-size: 15px;
@@ -593,19 +594,21 @@ ul.ui-autocomplete li a {
   text-align: left;
   /*rtl*/
   color: #fff;
-  margin-top: 8px;
+  margin: 8px 0 0 36px;
+  /*rtl*/
 }
 .navUser .userImg {
   vertical-align: top;
-  margin: 9px 5px 0 0;
-  /*rtl*/
+  margin-top: 9px;
   border-radius: 3px;
+  position: absolute;
 }
 .userPts {
   font-size: 11px;
   color: #fff;
   line-height: 7px;
-  white-space: nowrap;
+  margin-left: 36px;
+  /*rtl*/
 }
 .userSettings {
   margin-right: 10px;
