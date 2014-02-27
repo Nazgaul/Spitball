@@ -766,7 +766,7 @@
                 var parent = memberBoxList.parentElement,
                     pos;
                 cd.appendData(memberBoxList, 'upMemberBoxItemTemplate', boxes, 'beforeend', true);
-                membersBoxListArrow.style.bottom = boxes.length > 7 ? '-1px' : '-12px';
+                membersBoxListArrow.style.bottom = boxes.length >= 7 ? '-1px' : '-12px';
                 parent.style.display = 'block';
                 var pos = calculatePopupPosition();
                 parent.style.left = pos.x + 'px';
