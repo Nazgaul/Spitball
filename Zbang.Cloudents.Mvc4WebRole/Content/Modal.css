@@ -106,6 +106,7 @@
   -moz-animation: fadein 0.5s 0 ease;
   -o-animation: fadein 0.5s 0 ease;
   animation: fadein 0.5s 0 ease;
+  position: absolute;
 }
 .popupWrppr.requestSent .closeDialog {
   background-position: -79px -15px;
