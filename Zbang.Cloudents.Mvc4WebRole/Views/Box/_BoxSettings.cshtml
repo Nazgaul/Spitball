@@ -49,14 +49,14 @@
                         <input type="radio"
                                id="privacy_membersOnly"
                                name="BoxPrivacy"
-                               value="@BoxPrivacySettings.MembersOnly.ToString("g")" />
+                               value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()" />
                         <label class="privacyLabel" for="privacy_membersOnly">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
                         <div class="labelExplain">@SharedResources.OnlyPeople</div>
 
                         <input type="radio"
                                id="privacy_anyoneWithUrl"
                                name="BoxPrivacy"
-                               value="@BoxPrivacySettings.AnyoneWithUrl.ToString("g")" />
+                               value="@BoxPrivacySettings.AnyoneWithUrl.GetStringValueLowerCase()" />
 
                         <label class="privacyLabel" for="privacy_anyoneWithUrl">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
                         <div class="labelExplain">@SharedResources.AnyoneWho</div>
@@ -66,10 +66,10 @@
                 <div class="boxSetting">
                     <label>@IndexResources.NotifyMe</label>
                     <div class="radioBtns">
-                        <input id="noti_OnEveryChange" type="radio" name="Notification" value="@NotificationSettings.OnEveryChange.ToString("g")" /><label for="noti_OnEveryChange">@NotificationSettings.OnEveryChange.GetEnumDescription()</label>
-                        <input id="noti_OnceADay" type="radio" name="Notification" value="@NotificationSettings.OnceADay.ToString("g")" /><label for="noti_OnceADay">@NotificationSettings.OnceADay.GetEnumDescription()</label>
-                        <input id="noti_OnceAWeek" type="radio" name="Notification" value="@NotificationSettings.OnceAWeek.ToString("g")" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
-                        <input id="noti_Off" type="radio" name="Notification" value="@NotificationSettings.Off.ToString("g")" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
+                        <input id="noti_OnEveryChange" type="radio" name="Notification" value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()" /><label for="noti_OnEveryChange">@NotificationSettings.OnEveryChange.GetEnumDescription()</label>
+                        <input id="noti_OnceADay" type="radio" name="Notification" value="@NotificationSettings.OnceADay.GetStringValueLowerCase()" /><label for="noti_OnceADay">@NotificationSettings.OnceADay.GetEnumDescription()</label>
+                        <input id="noti_OnceAWeek" type="radio" name="Notification" value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
+                        <input id="noti_Off" type="radio" name="Notification" value="@NotificationSettings.Off.GetStringValueLowerCase()" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
                     </div>
                 </div>
             </div>

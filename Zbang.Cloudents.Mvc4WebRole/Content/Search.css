@@ -26,6 +26,8 @@
 }
 .searchDD .boldPart {
   background: #cde3f4;
+  display: inline-block;
+  padding-bottom: 4px;
 }
 .searchDD .showAll {
   text-align: center;
@@ -90,6 +92,7 @@
 }
 .searchTitle {
   font-size: 15px;
+  line-height: 16px;
 }
 .boxLoc:before {
   content: attr(data-search-in);
@@ -295,6 +298,7 @@
   font-size: 17px;
   color: #0f9d58;
   margin-top: 36px;
+  line-height: 18px;
 }
 .sDetail {
   color: #676767;
@@ -376,6 +380,8 @@
 }
 .sHighlight {
   background-color: #cde3f4;
+  display: inline-block;
+  padding-bottom: 4px;
 }
 .sOtherMaterialsBtn {
   color: #383838;
