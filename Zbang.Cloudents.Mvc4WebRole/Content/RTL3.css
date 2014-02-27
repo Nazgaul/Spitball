@@ -1888,6 +1888,10 @@ input[type="radio"] + label:before {
   padding: 0 10px 0 0;
   /*rtl*/
 }
+.upMemberBoxList {
+  overflow-x: hidden;
+  /*for chrome*/
+}
 .upMemberBoxList li {
   padding: 0 10px 0 0;
   /*rtl*/
