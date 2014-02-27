@@ -465,11 +465,10 @@ input[type="radio"]:checked + label + .inputText {
   /*rtl*/
   display: inline-block;
   padding: 0 8px;
-  /*&:before
-    {
-        content: attr(data-count);
-        display: inline-block;
-    }*/
+}
+.membersCount:before {
+  content: attr(data-count);
+  display: inline-block;
 }
 .membersSearch {
   padding: 0 5px;

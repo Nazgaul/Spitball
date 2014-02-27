@@ -610,6 +610,10 @@ ul.ui-autocomplete li a {
   margin-left: 36px;
   /*rtl*/
 }
+.userPts:after {
+  display: inline-block;
+  content: attr(data-points);
+}
 .userSettings {
   margin-right: 10px;
   /*rtl*/
@@ -1035,7 +1039,7 @@ select.inputText {
   left: -webkit-calc(50% - 112px);
   /*rtl*/
   left: calc(50% - 112px);
-  /*rtl*/
+  /*rtl */
 }
 .ptsPopup:before {
   content: attr(data-pts-before);

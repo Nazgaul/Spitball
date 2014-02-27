@@ -652,6 +652,10 @@ ul.ui-autocomplete {
     color: #fff;
     line-height: 7px;
     margin-left: 36px; /*rtl*/
+    &:after{
+        display:inline-block;
+        content:attr(data-points);
+    }
 }
 .userSettings
 {
@@ -1094,7 +1098,7 @@ select.inputText {
     width: 224px;
     box-shadow: 0 0 3px rgba(0,0,0,.4);
     left: ~'-webkit-calc(50% - 112px)'; /*rtl*/
-    left: ~'calc(50% - 112px)'; /*rtl*/
+    left: ~'calc(50% - 112px)'; /*rtl */
 
     &:before
     {

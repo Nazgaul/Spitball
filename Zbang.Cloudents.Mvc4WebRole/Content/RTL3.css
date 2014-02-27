@@ -1379,6 +1379,11 @@ input[type="radio"] + label:before {
   padding: 2px 4px 2px 8px;
   /*rtl*/
 }
+.itemRenameBtn {
+  left: 0;
+  /*rtl*/
+  right: auto;
+}
 .itemTop .itemRename {
   left: 0;
   right: auto;
