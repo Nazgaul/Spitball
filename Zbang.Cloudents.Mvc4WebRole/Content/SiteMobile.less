@@ -1400,7 +1400,7 @@ header
 {
     width: @inlineLabelWidth;
 }*/
-.emailNew, .changePwd
+.emailNew
 {
     display: none;
     overflow: auto;
@@ -1416,6 +1416,24 @@ header
     .btn1
     {
         width: 80px;
+    }
+}
+.changePwd
+{
+    display: none;
+    overflow: auto;
+    margin-top: 10px;
+    &.selected
+    {
+        display: block;
+        + a
+        {
+            display: none;
+        }
+    }
+    .btn1
+    {
+        width: 149px;
     }
 }
 /*.changePwd + .changeProp

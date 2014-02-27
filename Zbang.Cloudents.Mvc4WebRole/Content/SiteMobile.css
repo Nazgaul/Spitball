@@ -1227,23 +1227,33 @@ header {
 {
     width: @inlineLabelWidth;
 }*/
-.emailNew,
+.emailNew {
+  display: none;
+  overflow: auto;
+  margin-top: 10px;
+}
+.emailNew.selected {
+  display: block;
+}
+.emailNew.selected + a {
+  display: none;
+}
+.emailNew .btn1 {
+  width: 80px;
+}
 .changePwd {
   display: none;
   overflow: auto;
   margin-top: 10px;
 }
-.emailNew.selected,
 .changePwd.selected {
   display: block;
 }
-.emailNew.selected + a,
 .changePwd.selected + a {
   display: none;
 }
-.emailNew .btn1,
 .changePwd .btn1 {
-  width: 80px;
+  width: 149px;
 }
 /*.changePwd + .changeProp
 {
