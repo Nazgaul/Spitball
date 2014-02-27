@@ -1100,16 +1100,20 @@ select.inputText {
     {
         content: attr(data-pts-before);
         display: inline-block;
-        margin-right: 4px; /*rtl*/
+        //margin-right: 4px; /*rtl*/
     }
     &:after
     {
         content: attr(data-pts-after);
         display: inline-block;
-        margin-left: 4px; /*rtl*/
+        //margin-left: 4px; /*rtl*/
     }
 }
-
+.digitWpr
+{
+    direction: ltr;
+    display: inline-block;
+}
 .ptDigit{
     font-size: 16px;
     color: @attentionBlue;
@@ -1118,6 +1122,7 @@ select.inputText {
     display: inline-block;
     width: 16px;
     height: 24px;
+    line-height: 23px;
     border: 1px solid #f0f0f0;
     border-radius: 3px;
     background: #fff;
@@ -1125,7 +1130,7 @@ select.inputText {
     vertical-align: middle;
     &:first-child
     {
-        margin-left: 4px; /*rtl*/
+        margin-left: 4px; /* no rtl !!*/
     }
 }
 .ptsAnim {
