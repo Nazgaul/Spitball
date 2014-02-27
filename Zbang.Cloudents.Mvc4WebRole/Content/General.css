@@ -610,6 +610,10 @@ ul.ui-autocomplete li a {
   margin-left: 36px;
   /*rtl*/
 }
+.userPts:after {
+  display: inline-block;
+  content: attr(data-points);
+}
 .userSettings {
   margin-right: 10px;
   /*rtl*/
