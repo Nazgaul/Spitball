@@ -396,8 +396,8 @@
             .maxQuestions(consts.MAXQUESTIONS)
             .maxAnswers(consts.MAXANSWERS)
             .membersLoaded(false)
-            .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([]);
-
+            .files([]).answers([]).questions([]).commonBoxes([]).followingBoxes([]).commonFriends([]).allFriends([]).invites([])
+            .members([]).searchResultMembers([]).departments([]).displayMembers([]);
 
             if (upMemberSettings) {
                 upMemberSettings.checked = false;
@@ -434,8 +434,6 @@
             if (f) {
                 f.textContent = '' + f.getAttribute(consts.DATALABEL);
             }
-
-
         }
 
         function getInitData() {
@@ -483,7 +481,7 @@
                 upUsername.textContent = profile.name;
                 upUserImg.src = profile.image;
                 upUserSchool.textContent = profile.universityName;
-                if (profile.score < consts.ADMINSCORE) {
+                if (!self.membersSectionVisible()) {
                     populateScore(profile.score);
                 }
                 self.score(profile.score);
@@ -1114,6 +1112,9 @@
 
         var loaders = [];
         function renderLoad(e) {
+            if (!e) {
+                return function () { };
+            }
             var element = e;
             if (loaders.indexOf(element) > -1) {
                 return function () { };

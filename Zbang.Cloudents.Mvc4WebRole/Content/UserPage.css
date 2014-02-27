@@ -123,26 +123,30 @@
   margin-bottom: 12px;
 }
 .upTabs button {
+  color: #0371c8;
   font-size: 12px;
+}
+.upTabs span {
+  color: #383838;
 }
 .upTabs button:before {
   content: attr(data-count);
   display: inline-block;
 }
 .upTabs.upTab1 .fileCount {
-  color: #0371c8;
+  color: #383838;
 }
 .upTabs.upTab1 ~ .filesTab {
   display: block;
 }
 .upTabs.upTab2 .qCount {
-  color: #0371c8;
+  color: #383838;
 }
 .upTabs.upTab2 ~ .qTab {
   display: block;
 }
 .upTabs.upTab3 .aCount {
-  color: #0371c8;
+  color: #383838;
 }
 .upTabs.upTab3 ~ .aTab {
   display: block;

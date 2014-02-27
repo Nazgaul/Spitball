@@ -127,17 +127,22 @@
     margin-bottom: 12px;
 
     button {
+        color:@attentionBlue;
         font-size: 12px;
     }
 
-        button:before {
-            content: attr(data-count);
-            display: inline-block;
-        }
+    span{
+        color: @textColor;
+    }
+
+    button:before {
+        content: attr(data-count);
+        display: inline-block;
+    }
 
     &.upTab1 {
         .fileCount {
-            color: @attentionBlue;
+            color: @textColor;
         }
 
         ~ .filesTab {
@@ -147,7 +152,7 @@
 
     &.upTab2 {
         .qCount {
-            color: @attentionBlue;
+            color: @textColor;
         }
 
         ~ .qTab {
@@ -157,7 +162,7 @@
 
     &.upTab3 {
         .aCount {
-            color: @attentionBlue;
+            color: @textColor;
         }
 
         ~ .aTab {
