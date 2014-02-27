@@ -227,8 +227,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             RegisterJs("mobile",
                   new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js"),
                                     //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
-                new JsFileWithCdn("~/Scripts/jquery.validate.min.js",
-                                    "//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
+                new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
+                                    //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"),
 
