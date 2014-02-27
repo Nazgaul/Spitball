@@ -29,11 +29,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(DeleteQuestionCommand message)
         {
             var question = m_QuestionRepository.Load(message.QuestionId);
-            if (question.User.Id != message.UserId)
+            var box = question.Box;
+
+
+            if (question.User.Id != message.UserId || box.Owner.Id != message.UserId)
             {
                 throw new UnauthorizedAccessException("User didnt ask the question");
             }
-            var box = question.Box;
+
 
             var substract = question.AnswersReadOnly.Count + 1;
 

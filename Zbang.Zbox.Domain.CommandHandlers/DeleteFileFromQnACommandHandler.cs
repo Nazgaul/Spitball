@@ -19,8 +19,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(DeleteFileFromQnACommand message)
         {
             var item = m_ItemRepository.Load(message.ItemId);
-
-            if (item.Uploader.Id != message.UserId)
+            var box = item.Box;
+            if (item.Uploader.Id != message.UserId || box.Owner.Id != message.UserId)
             {
                 throw new UnauthorizedAccessException("User is unauthorized to unlink file");
             }

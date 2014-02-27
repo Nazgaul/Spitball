@@ -28,11 +28,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(DeleteAnswerCommand message)
         {
             var answer = m_AnswerRepository.Load(message.AnswerId);
-            if (answer.User.Id != message.UserId)
+            var box = answer.Box;
+            if (answer.User.Id != message.UserId || box.Owner.Id != message.UserId)
             {
                 throw new UnauthorizedAccessException("User didnt ask the question");
             }
-            var box = answer.Box;
+           
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) - 1);
 
             m_ReputationRepository.Save(answer.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteAnswer));
