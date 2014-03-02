@@ -513,7 +513,7 @@
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children,
                     statusPoints = eById('userPts').textContent;
-                if (statusPoints > score) {
+                if (self.viewSelf() && statusPoints > score) {
                     score = statusPoints;
                 }
 
