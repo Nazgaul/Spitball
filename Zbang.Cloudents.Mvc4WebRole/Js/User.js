@@ -774,8 +774,7 @@
 
                 function calculatePopupPosition() {
                     return {
-                        x: target.offsetLeft + target.offsetWidth / 2 - parent.offsetWidth / 2 + membersList.scrollLeft
-                        ,// - left,
+                        x: target.offsetLeft + target.offsetWidth / 2 - parent.offsetWidth / 2, //+ membersList.scrollLeft                        
                         y: target.offsetTop - target.offsetHeight - parent.offsetHeight + 3 - membersList.scrollTop //8=margin fix
                     }
                 }

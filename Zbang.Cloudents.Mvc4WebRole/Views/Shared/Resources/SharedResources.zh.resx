@@ -382,4 +382,7 @@
   <data name="All" xml:space="preserve">
     <value>所有</value>
   </data>
+  <data name="Rename" xml:space="preserve">
+    <value>重命名</value>
+  </data>
 </root>

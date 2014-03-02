@@ -34,6 +34,9 @@
                 <div class="memberTopRow">
                     <span class="memberCol">@SharedResources.Name</span>
                     <input type="checkbox" class="checkbox" id="cbDept" />
+                  
+                    <span class="dateCol">@UserResources.JoinDate</span>
+                    <span class="courseCol">@SharedResources.Courses</span>
                     <label for="cbDept" class="deptCol">@SharedResources.Department</label>
                     <div id="deptPopup" class="deptPopup">
                         <ul>
@@ -45,8 +48,6 @@
                             <!--/ko-->
                         </ul>
                     </div>
-                    <span class="dateCol">@UserResources.JoinDate</span>
-                    <span class="courseCol">@SharedResources.Courses</span>
                 </div>
                 <ul id="upMembersList" class="upMembersList">
                     <!--ko foreach:displayMembersFilter-->
@@ -57,9 +58,10 @@
                             <span class="upMemberName elps" data-bind="text: name"></span>
                         </label>
 
-                        <span class="deptCol elps" data-bind="text: department"></span>
                         <span class="dateCol" data-bind="text: joinDate"></span>
                         <span class="courseCol"><span class="courseList"></span></span>
+                        <span class="deptCol elps" data-bind="text: department"></span>
+
                     </li>
                     <!--/ko-->
                     <li class="upMemberBoxes">

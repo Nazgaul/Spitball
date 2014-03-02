@@ -450,4 +450,7 @@
   <data name="NoResults" xml:space="preserve">
     <value>Ничего не найдено</value>
   </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
 </root>

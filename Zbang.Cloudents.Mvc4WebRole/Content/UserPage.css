@@ -815,7 +815,7 @@
   z-index: 1;
   position: absolute;
   top: 77px;
-  left: 336px;
+  left: 514px;
   /*rtl*/
   width: 279px;
   height: 241px;
@@ -899,7 +899,8 @@
 }
 .upMembersList {
   height: 287px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .upMemberName {
   vertical-align: top;
