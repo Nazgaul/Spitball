@@ -186,6 +186,10 @@
 }
 .joinGrpWpr.show {
   display: block;
+  -moz-animation: joinWprSlide 1s ease-in;
+  -o-animation: joinWprSlide 1s ease-in;
+  -webkit-animation: joinWprSlide 1s ease-in;
+  animation: joinWprSlide 1s ease-in;
 }
 .joinGrpWpr.show ~ .box-content {
   padding-top: 8px;
