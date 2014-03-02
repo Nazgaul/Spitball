@@ -18,28 +18,37 @@
             data.history = historyNav;
             var now = new Date();
             later = now.setHours(now.getHours() + 1);
-            data.lastpage = getParameterFromUrl(0);
+            data.lastpage = window.location.pathname.split('?')[0]; //remove querystring
             data.ttl = later;
             cd.localStorageWrapper.setItem('history', JSON.stringify(data));
         },
         get: function () {
             var data = JSON.parse(cd.localStorageWrapper.getItem('history')) || { ttl: 0, lastpage: '' };
             var now = new Date();
+            privateLocation.url = this.removeQueryString(privateLocation.url);
             if (data.ttl < now.getTime()) {
+                this.remove();                
+                historyNav = [cd.clone(privateLocation)];                
+                history.replaceState(privateLocation.url, '', privateLocation.url);
+                return;
+            }
+
+            if (data.lastpage !== window.location.pathname.split('?')[0]) { //remove querystring) {
                 this.remove();
                 historyNav = [cd.clone(privateLocation)];
                 return;
             }
 
-            if (data.lastpage !== getParameterFromUrl(0)) {
-                this.remove();
-                historyNav = [cd.clone(privateLocation)];
+            if (!data.history) {
                 return;
             }
+
             historyNav = data.history;
+            
             var lastPage = historyNav.pop();
+            lastPage.url = this.removeQueryString(lastPage.url);
             if (privateLocation.url.indexOf('search') === -1) {
-                privateLocation.url = lastPage.url = lastPage.url.split('?')[0];
+                privateLocation.url = lastPage.url;
             }
             if (window.history.replaceState) {
                 history.replaceState(lastPage.url, '', lastPage.url);
@@ -49,6 +58,13 @@
         },
         remove: function () {
             cd.localStorageWrapper.removeItem('history');
+        },
+        removeQueryString: function (path) {
+            if (path.indexOf('?') === -1) {
+                return path;
+            }
+
+            return path.split('?')[0];
         }
     }
 
@@ -405,7 +421,7 @@
                     break;
                 case 'search':
                     dataContext.searchMp({
-                        data: { q: cd.getParameterByNameFromString('q',historyNav[historyNav.length-1].url) },
+                        data: { q: cd.getParameterByNameFromString('q', historyNav[historyNav.length - 1].url) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('SearchContext', null, function () {
@@ -531,7 +547,7 @@
 
                     }
                 }
-            }            
+            }
             if (!found) {
                 return;
             }
