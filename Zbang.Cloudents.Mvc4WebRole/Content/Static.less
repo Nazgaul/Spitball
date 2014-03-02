@@ -4,6 +4,7 @@
 html {
   height: 100%;
 }
+
 body {
   margin: 0;
   background: #fafafa;
@@ -17,7 +18,7 @@ body {
   color: @color;
 }
 
-.wrap{ 
+.wrap {
     min-height: 100%; //sticky footer
     min-height: ~"-webkit-calc(100% + 50px)";
     min-height: ~"calc(100% + 50px)";
@@ -25,6 +26,7 @@ body {
     margin: -@header-height 0 -@footer-height;
     padding: @header-height 0 @footer-height;
 }
+
 .staticContent {
     margin: 115px auto 0;
     //overflow:auto; //sticky footer
@@ -32,12 +34,12 @@ body {
     text-align: center; //needed especially for error page
 }
 
-footer{
+footer {
     position: relative; //sticky footer
 	margin-top: -@footer-height - 2px; //sticky footer
 	height: @footer-height; //sticky footer
-	clear:both; //sticky footer
-    line-height:23px;
+    clear: both; //sticky footer
+    line-height: 23px;
 }
 
 /*#endregion */
@@ -79,11 +81,13 @@ footer{
         &:hover {
             opacity: 1;
         }
+
         &.currentItem {
-            opacity:1;
+            opacity: 1;
         }
     }
-    .last{
+
+    .last {
         margin-bottom: 30px;
     }
 }
@@ -125,16 +129,14 @@ footer{
     }
 
     
-    .signUp
-    {
+    .signUp {
         //float: left; /*rtl*/ //override rFloat on the signUp class in static pages
     }
 }
 
-.headerWpr{
+.headerWpr {
     &.menuOpen {
-        .headerActions
-        {
+        .headerActions {
             margin-right: 200px; /*rtl*/
         }
         
@@ -160,14 +162,13 @@ footer{
 
 /*#region error pages */
 
-.membersOnly
-{
+.membersOnly {
     text-align: center; 
     font-size: 15px;
     color: @textColor;
     display: inline-block;
-    &:before
-    {
+
+    &:before {
         content: '';
         display: block;
         width: 304px;
@@ -175,12 +176,14 @@ footer{
         margin: 50px auto 25px;
         background: url(/Images/members-only.png) no-repeat;
     }
-    h2{
+
+    h2 {
         color: @color;
         font-size: 22px;
         font-weight: normal;
     }
-    a{
+
+    a {
         color: #fff;
         border-radius: 3px;
         padding: 0 25px;
@@ -193,12 +196,12 @@ footer{
 }
 
 
-.notFound{
+.notFound {
     text-align: center;
     margin-top: -25px;
     font-size: 15px;
-    &:before
-    {
+
+    &:before {
         content: '';
         display: block;
         width: 185px;
@@ -206,13 +209,15 @@ footer{
         margin: 25px auto;
         background: url(/Images/404.png) no-repeat;
     }
-    h2{
+
+    h2 {
         color: @color;
         font-size: 22px;
         margin-bottom: 15px;
         font-weight: normal;
     }
-    a{
+
+    a {
         color: @color;
     }
 }
@@ -220,52 +225,53 @@ footer{
 /*#endregion */
 
 /*#region about us, contact us, privacy policy; terms of service */
-.staticPage
-{
+.staticPage {
     color: #000;
     margin: 0 auto;
-    h1{
+
+    h1 {
         color: @color;
         font-size: 24px;
         margin-bottom: 15px;
         font-weight: normal;
     }
-    h3{
+
+    h3 {
         color: #43392d;
         font-size: 16px;
         font-weight: bold;
         margin: 5px 0 -10px;
     }
-    p{
+
+    p {
         margin: 1em 0;
     }
-    a{
+
+    a {
         color: @color;
     }  
 }
-.subHeader, .subHeaderUnderline
-{
+
+.subHeader, .subHeaderUnderline {
     font-size: 15px;
     font-weight: bold;
     color: #43392b;
     margin-top: 15px;
 }
-.policy, .terms, .aboutUs, .contactUs
-{
+
+.policy, .terms, .aboutUs, .contactUs {
     direction: ltr; /*no rtl*/
     width: 645px;
     text-align: left; /*no rtl*/
 }
 
-.lastModified
-{
+.lastModified {
     font-size: 11px;
     color: #B1B0B0;
     margin-bottom: 15px;
 }
 
-.subHeaderUnderline
-{
+.subHeaderUnderline {
     border-bottom: 1px solid #43392b;
     display: inline-block;
     margin-bottom: 1em;
@@ -282,61 +288,56 @@ footer{
     border: 1px solid @borderColor;
 }
 
-.staticTitle
-{
+.staticTitle {
     color: @color;
     margin-top: 70px;
     font-size: 32px;
     text-align: center;
 }
 
-.innerContent
-{
-    width:460px;
+.innerContent {
+    width: 460px;
     display: inline-block;
     text-align: left; /*rtl*/
-    > .boldFont
-    {
+    > .boldFont {
         margin-top: 40px;
     }
-    .linkBtn
-    {
+
+    .linkBtn {
         color: @color;
     }  
 }
-.forgotPwd, .emailSent, .newPwd
-{
+
+.forgotPwd, .emailSent, .newPwd {
     text-align: center;
-    .inputText
-    {
+
+    .inputText {
         width: 290px;
         display: block;
         margin-bottom: 18px;
     }
-    .staticWpr
-    {
+
+    .staticWpr {
         display: inline-block;
         padding: 33px;
     }
-    
 }
 
-.firstP
-{
+.firstP {
     margin-bottom: 15px;
 }
-.lastP
-{
+
+.lastP {
     margin-bottom: 40px;
 }
 /*#endregion */
 
 /*#region unsupported page */
 
-.unsupported
-{
+.unsupported {
 	text-align: center;
-    h2{
+
+    h2 {
         font-size: 22px;
         font-weight: normal;
         color: @color;
@@ -346,52 +347,49 @@ footer{
         white-space: pre-wrap;
     }
 
-    > span
-    {
+    > span {
         font-size: 15px;
         margin-bottom: 40px;
 		display: inline-block;
         white-space: pre-wrap;
     }
-	li
-	{
+
+    li {
 		display: inline-block;
 	}
 }
-.browser
-{
+
+.browser {
     display: inline-block;
-    &:before
-    {
+
+    &:before {
         content: '';
         display: block;
         margin: 0 auto 15px;
         background: url(/Images/browsers-sprite.png) no-repeat;
     }
-    &:hover
-    {
+
+    &:hover {
         opacity: 0.85;
     }
 }
 
-.chrome:before
-{
+.chrome:before {
     width: 68px;
 	height: 67px;
 	background-position: -148px -3px;
 }
-.firefox{
+
+.firefox {
     padding: 0 40px 0 30px; /*rtl*/
-    &:before
-    {
+    &:before {
         width: 66px;
 		height: 67px;
 		background-position: -78px -3px;
     }
 }
 	
-.ie:before
-{
+.ie:before {
 	width: 75px;
 	height: 72px;
 	background-position: -1px -1px;
@@ -399,21 +397,20 @@ footer{
 /*#endregion */
 
 /*#region connect and register pages */
-.enter{
-    .staticWpr
-    {
+.enter {
+    .staticWpr {
         width: 425px;
         padding: 40px 0 13px;
     }
 }
-.enterTitle
-{
+
+.enterTitle {
     font-size: 32px;
     color: @textColor;
     text-align: center;
 }
-.staticWpr
-{
+
+.staticWpr {
     margin: 20px auto;
     text-align: center;
     font-size: 15px;
@@ -424,8 +421,7 @@ footer{
     padding: 40px 0;
 }
 
-.enterForm
-{
+.enterForm {
     margin: 0 auto;
     color: @textColor;
 
@@ -433,38 +429,39 @@ footer{
         font-size: 15px;
         color: #CF432D;
     }
-    .validation-summary-errors
-    {
+
+    .validation-summary-errors {
         margin: 0 0 16px 0; //override default left margin
     }
-    .small{
+
+    .small {
         font-size: 10px;
     }
-    .splitHR
-    {
+
+    .splitHR {
         width: 290px;
         margin: 0 auto 20px;
     }
 }
-.connect, .create
-{
+
+.connect, .create {
     margin-top: 15px;
     text-align: left; /*rtl*/
     width: 290px;
     margin: 13px auto 0;
     font-size: 13px;
     color: #676767;
-    a{
+
+    a {
         color: @color;
     }
 }
 
-.hr
-{
+.hr {
     margin: 0 auto;
 }
-.formHeader
-{
+
+.formHeader {
     font-size: 15px;
     padding: 8px;
     background: #fff;
@@ -473,13 +470,11 @@ footer{
     top: -19px;
 }
 
-.enterConnect,.enterRegister
-{
+.enterConnect, .enterRegister {
     display: none;  
 }
 
-.facebook
-{
+.facebook {
     margin-bottom: 25px;
     cursor: pointer;
     padding: 5px 15px 9px 55px; /*rtl*/
@@ -497,19 +492,17 @@ footer{
 }
 
 
-.fbImg
-{
+.fbImg {
     position: absolute;
     top: 0;
     bottom: 0;
     margin: auto;
-    display:inline-block;   
+    display: inline-block;
     width: 11px;
     height: 22px;
     background: @common-sprite -130px -1px no-repeat;
     left: 16px; /*rtl*/
-    &:after
-    {
+    &:after {
         .pseudo();
         opacity: .5;
         width: 1px;
@@ -521,20 +514,19 @@ footer{
     }   
 }
 
-.signIn, .register
-{
+.signIn, .register {
     text-align: left; /*rtl*/
     display: inline-block;
     width: 290px;
-    .inputText
-    {
+
+    .inputText {
         display: block;
         width: 100%;
         margin-bottom: 20px;
         .boxSizing;
     }
-    .btn1
-    {
+
+    .btn1 {
         margin-top: 20px;
         width: 100%;
         height: 40px;
@@ -548,11 +540,10 @@ footer{
     line-height: 13px;
 }
 
-.forgot
-{
+.forgot {
     font-size: 15px;
-    a
-    {
+
+    a {
         color: @color;
     }
 }
@@ -576,14 +567,14 @@ footer{
 /*#endregion */
 
 /*#region btns */
-.btn1, .btn2{
+.btn1, .btn2 {
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     min-width: 64px;
     font-size: 16px;
-    &:disabled
-    {
+
+    &:disabled {
         background: @borderColor;
         border: 1px solid @borderColor;
         color: #464646;
@@ -599,8 +590,7 @@ footer{
     width: 460px;
     margin: 70px auto 0; 
     text-align: left; /*rtl*/  
-    &.libraryChoose
-    {
+    &.libraryChoose {
             width: 666px;
             margin-top: 170px;
     }
@@ -621,12 +611,11 @@ footer{
 /*#endregion */
 
 /*#region AUTO COMPLETE */
-.uniWpr
-{
+.uniWpr {
     position: relative;
     margin: 32px 0 8px;
-    &:after
-    {
+
+    &:after {
         .pseudo();
         width: 18px;
         height: 20px;
@@ -639,11 +628,9 @@ footer{
     {
         background-position: -233px -2px;
     }*/
-    .inputText 
-    {
+    .inputText {
         width: 100%;
         height: 35px;
-        
         border: 1px solid @borderColor;
         font-size: 17px;
         padding: 0 30px 0 10px; /*rtl*/
@@ -653,7 +640,7 @@ footer{
 
 .uniList {
     display: none;
-    text-align: left; /*rtl*/
+    text-align: left; /*rtl */
     max-height: 500px;
     width: 100%;
     border: 1px solid @borderColor;
@@ -665,12 +652,12 @@ footer{
     //background: #f5f5f5;
     background: #fff;
     .boxSizing;
+
     .schoolItem {
         //overflow: hidden;
         white-space: nowrap;
         display: inline-block;
         width: 100%;
-
         background: #fff;
         .transition(background, .2s linear);
         color: #43392b;
@@ -686,9 +673,9 @@ footer{
             background: #ebebeb;
         }
     }
-    .emptySearch:after
-    {
-        top:6px;
+
+    .emptySearch:after {
+        top: 6px;
     }
 }
 
@@ -697,14 +684,16 @@ footer{
     width: 50px;
     height: 50px;
     border: 1px solid #C2C2C2;
-    border-radius: 3px ;
+    border-radius: 3px;
 }
-.uniDetails{
+
+.uniDetails {
     overflow: hidden;
     display: block;
     padding: 6px 5px 0 8px; /*rtl*/
     line-height: 20px;
 }
+
 .uniName {
     color: @textColor;
     font-size: 15px;
@@ -722,6 +711,7 @@ footer{
         background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
     }
 }
+
 .newUni.newUni {
     font-size: 13px;
         height: 34px;
@@ -732,11 +722,11 @@ footer{
     padding-top: 7px;
     margin-top: -5px;
     .boxSizing;
-    .createUni
-    {
+
+    .createUni {
         color: #676767;
-        &:hover
-        {
+
+        &:hover {
             text-decoration: underline;
         }
     }
@@ -745,24 +735,21 @@ footer{
 /*#endregion */
 
 /*#region popup */
-.modal2 /*, div.fadeMeTrans*/
-{
+.modal2 /*, div.fadeMeTrans*/ {
     filter: alpha(opacity=50);
     background: #111;
     background: rgba(17,17,17,.5);
     width: 100%;
     height: 100%;
     left: 0;
-    right:0;
+    right: 0;
     top: 0;   
     position: fixed;
-    z-index:12;
+    z-index: 12;
 }
 
-.popupForm
-{
-    .field-validation-error, .validation-summary-errors 
-    {
+.popupForm {
+    .field-validation-error, .validation-summary-errors {
         margin-left: 15px; /*rtl*/
     }
 }
@@ -922,50 +909,50 @@ footer{
             display: block;
             font-size: 15px;
             color: #383838;
-            margin-bottom:8px;
+            margin-bottom: 8px;
         }
+
         select {
             display: block;
             font-size: 13px;
-            color:#383838;
-            width:50%;
+            color: #383838;
+            width: 50%;
             padding: 3px 3px 5px 2px;
             .boxSizing;
         }
 
-        #department{
-            width:100%;
-            margin-bottom:15px;
+        #department {
+            width: 100%;
+            margin-bottom: 15px;
         }
+
         input {
-            font-size:13px;
+            font-size: 13px;
         }
+
         .modal2 {
-            z-index:11;
+            z-index: 11;
         }
-        
     }
-   
     /*#endregion*/
 }
 
-.requestSentDiv
-{
+.requestSentDiv {
     font-size: 18px;
     //color: #111;
-    padding-left:18px; /*rtl*/ // override poppwrrpr
+    padding-left: 18px; /*rtl*/ // override poppwrrpr
     width: 374px;
     white-space: pre-line;
-    &.first
-    {
+
+    &.first {
         color: @color;
         font-size: 28px; /*diff rtl*/
         margin: 20px 0 15px;
         width: auto;
     }
 }
-.popupHeader
-{
+
+.popupHeader {
     color: #fff;
     font-size: 18px;
     background: #39434a;
@@ -979,9 +966,8 @@ footer{
 /*#endregion */
 
 /*#region faq */
-.faq{
-    &:after
-    {
+.faq {
+    &:after {
         content: '';
         width: 100%;
         height: 113px;
@@ -991,7 +977,8 @@ footer{
         position: absolute;
         top: @header-height;
     }
-    h1{
+
+    h1 {
         font-size: 22px;
         height: 113px;
         line-height: 113px;
@@ -1000,7 +987,8 @@ footer{
         z-index: 1;
         margin-bottom: 28px;
     }
-    aside{
+
+    aside {
         width: 268px;
         height: 70px;
         .boxSizing;
@@ -1013,8 +1001,8 @@ footer{
         position: relative;
         font-size: 15px;
         line-height: 17px;
-        &:before
-        {
+
+        &:before {
             .pseudo;
             width: 53px;
             height: 53px;
@@ -1024,34 +1012,33 @@ footer{
             top: 7px;
         }
     }
-    &.staticPage
-    {
+
+    &.staticPage {
         margin-top: -65px;
         text-align: left; /*rtl*/
         color: @textColor;
         background: url(/Images/gray_jean80.png) repeat;
     }
-    .contactLink
-    {
+
+    .contactLink {
         color: @attentionBlue;
-        &:hover
-        {
+
+        &:hover {
             text-decoration: underline;
         }
     }
 }
 
-.faqContentWpr
-{
+.faqContentWpr {
     width: 945px;
     margin: 0 auto;
     padding-bottom: 80px;
 }
 
-.faqContent
-{
+.faqContent {
     width: 657px;
-    h2{
+
+    h2 {
         font-size: 20px;
         margin: 40px 0 20px;
     }
@@ -1064,6 +1051,7 @@ footer{
     border-radius: 5px;
     margin-bottom: 5px;
     background: #fff;
+
     input[type=checkbox] {
         position: absolute;
         top: 0;
@@ -1077,18 +1065,17 @@ footer{
                 //background-position: -103px -49px;
                 .flipV;
             }
-            ~ .answer
-            {
+            /*~ .answer {
                 padding-top: 25px; //override
                 padding-bottom: 30px; //override
                 border-top: 1px solid @borderColor;
-                max-height: 300px;
-            }
+                /*max-height: 300px;
+            }*/
         }
     }
 }
 
-.question{
+.question {
     line-height: 52px;
     font-size: 15px;
     padding: 0 18px 0 16px; /*rtl*/
@@ -1096,12 +1083,12 @@ footer{
     color: @attentionBlue;
     cursor: pointer;
     display: block;
-    &:hover
-    {
+
+    &:hover {
         color: @textColor;
     }
-    &:after
-    {
+
+    &:after {
         content: '';
         width: 9px;
         height: 7px;
@@ -1111,10 +1098,15 @@ footer{
         background: @common-sprite -98px -49px no-repeat;
     }
 }
-.answer{
+
+.answer {
     padding: 0 18px 0 16px; /*rtl*/
-    max-height:0;
-    overflow: hidden;
-   .transition(all 0.4s);
+    display: none;
+    padding-top: 25px; //override
+    padding-bottom: 30px; //override
+    border-top: 1px solid @borderColor;
+    /*max-height:0;*/
+    /*overflow: hidden;*/
+    /*.transition(all 0.4s);*/
 }
 /*#endregion */

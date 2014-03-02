@@ -38,5 +38,13 @@
 </div>
 @section scripts {
     @Html.Script2("faq")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.question').click(function () {
+                $(this).next().slideToggle({ duration: 400 });
+            });
+        });
+
+    </script>
 }
 
