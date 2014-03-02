@@ -138,4 +138,7 @@
   <data name="ZbangIt" xml:space="preserve">
     <value>Zbang.it</value>
   </data>
+  <data name="ogDescription" xml:space="preserve">
+    <value>Join the social studying revolution at Cloudents</value>
+  </data>
 </root>
