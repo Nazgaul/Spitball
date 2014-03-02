@@ -2,20 +2,20 @@
 
 /*#region sticky footer */
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    background: #fafafa;
-    height: 100%;
-    color: @textColor;
+  margin: 0;
+  background: #fafafa;
+  height: 100%;
+  color: @textColor;
 }
 
 .header {
-    font-size: 24px;
-    font-weight: bold;
-    color: @color;
+  font-size: 24px;
+  font-weight: bold;
+  color: @color;
 }
 
 .wrap {
@@ -30,14 +30,14 @@ body {
 .staticContent {
     margin: 115px auto 0;
     //overflow:auto; //sticky footer
-    padding-bottom: @footer-height; //sticky footer
+	padding-bottom: @footer-height; //sticky footer
     text-align: center; //needed especially for error page
 }
 
 footer {
     position: relative; //sticky footer
-    margin-top: -@footer-height - 2px; //sticky footer
-    height: @footer-height; //sticky footer
+	margin-top: -@footer-height - 2px; //sticky footer
+	height: @footer-height; //sticky footer
     clear: both; //sticky footer
     line-height: 23px;
 }
@@ -128,7 +128,7 @@ footer {
         }
     }
 
-
+    
     .signUp {
         //float: left; /*rtl*/ //override rFloat on the signUp class in static pages
     }
@@ -139,7 +139,7 @@ footer {
         .headerActions {
             margin-right: 200px; /*rtl*/
         }
-
+        
         .sideBar {
             right: 0; /*rtl*/
         }
@@ -163,7 +163,7 @@ footer {
 /*#region error pages */
 
 .membersOnly {
-    text-align: center;
+    text-align: center; 
     font-size: 15px;
     color: @textColor;
     display: inline-block;
@@ -249,7 +249,7 @@ footer {
 
     a {
         color: @color;
-    }
+    }  
 }
 
 .subHeader, .subHeaderUnderline {
@@ -305,7 +305,7 @@ footer {
 
     .linkBtn {
         color: @color;
-    }
+    }  
 }
 
 .forgotPwd, .emailSent, .newPwd {
@@ -335,28 +335,28 @@ footer {
 /*#region unsupported page */
 
 .unsupported {
-    text-align: center;
+	text-align: center;
 
     h2 {
         font-size: 22px;
         font-weight: normal;
         color: @color;
         margin-bottom: 24px;
-        line-height: 25px;
-        display: block;
+	    line-height: 25px;
+	    display: block;
         white-space: pre-wrap;
     }
 
     > span {
         font-size: 15px;
         margin-bottom: 40px;
-        display: inline-block;
+		display: inline-block;
         white-space: pre-wrap;
     }
 
     li {
-        display: inline-block;
-    }
+		display: inline-block;
+	}
 }
 
 .browser {
@@ -376,23 +376,23 @@ footer {
 
 .chrome:before {
     width: 68px;
-    height: 67px;
-    background-position: -148px -3px;
+	height: 67px;
+	background-position: -148px -3px;
 }
 
 .firefox {
     padding: 0 40px 0 30px; /*rtl*/
     &:before {
         width: 66px;
-        height: 67px;
-        background-position: -78px -3px;
+		height: 67px;
+		background-position: -78px -3px;
     }
 }
-
+	
 .ie:before {
-    width: 75px;
-    height: 72px;
-    background-position: -1px -1px;
+	width: 75px;
+	height: 72px;
+	background-position: -1px -1px;
 }
 /*#endregion */
 
@@ -471,7 +471,7 @@ footer {
 }
 
 .enterConnect, .enterRegister {
-    display: none;
+    display: none;  
 }
 
 .facebook {
@@ -483,7 +483,7 @@ footer {
     position: relative;
     text-align: left; /*rtl*/
     display: inline-block;
-    line-height: 25px;
+    line-height: 25px;    
     background: #3b5998;
     min-width: 290px;
     .boxSizing;
@@ -511,7 +511,7 @@ footer {
         left: 24px; /*rtl*/
         position: relative;
         top: -3px;
-    }
+    }   
 }
 
 .signIn, .register {
@@ -588,11 +588,11 @@ footer {
     color: @textColor;
     font-size: 18px;
     width: 460px;
-    margin: 70px auto 0;
-    text-align: left; /*rtl*/
+    margin: 70px auto 0; 
+    text-align: left; /*rtl*/  
     &.libraryChoose {
-        width: 666px;
-        margin-top: 170px;
+            width: 666px;
+            margin-top: 170px;
     }
 }
 
@@ -640,7 +640,7 @@ footer {
 
 .uniList {
     display: none;
-    text-align: left; /*rtl*/
+    text-align: left; /*rtl */
     max-height: 500px;
     width: 100%;
     border: 1px solid @borderColor;
@@ -654,7 +654,7 @@ footer {
     .boxSizing;
 
     .schoolItem {
-        overflow: hidden;
+        //overflow: hidden;
         white-space: nowrap;
         display: inline-block;
         width: 100%;
@@ -662,8 +662,9 @@ footer {
         .transition(background, .2s linear);
         color: #43392b;
         cursor: pointer;
-        padding: 13px 0 13px 8px; /*rtl*/
-        &:hover {
+        padding: 10px 0 10px 8px; /*rtl*/
+        &:hover
+        {
             .transition(background .2s);
             background: #fafafa;
         }
@@ -696,7 +697,7 @@ footer {
 .uniName {
     color: @textColor;
     font-size: 15px;
-    display: block;
+    display: block;  
 }
 
 .uniCount {
@@ -713,7 +714,7 @@ footer {
 
 .newUni.newUni {
     font-size: 13px;
-    height: 34px;
+        height: 34px;
     color: @textColor;
     background: #f5f5f5;
     border-top: 1px solid @borderColor;
@@ -742,7 +743,7 @@ footer {
     height: 100%;
     left: 0;
     right: 0;
-    top: 0;
+    top: 0;   
     position: fixed;
     z-index: 12;
 }
