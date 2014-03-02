@@ -79,6 +79,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Join the social studying revolution at Cloudents.
+        /// </summary>
+        public static string ogDescription {
+            get {
+                return ResourceManager.GetString("ogDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check out Cloudents! A great academic service for class notes, exams and doing our coursework..
         /// </summary>
         public static string ogTitle {
