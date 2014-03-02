@@ -604,7 +604,6 @@ footer {
   box-sizing: border-box;
 }
 .uniList .schoolItem {
-  overflow: hidden;
   white-space: nowrap;
   display: inline-block;
   width: 100%;
@@ -615,7 +614,7 @@ footer {
   transition: background, 0.2s linear;
   color: #43392b;
   cursor: pointer;
-  padding: 13px 0 13px 8px;
+  padding: 10px 0 10px 8px;
   /*rtl*/
 }
 .uniList .schoolItem:hover {
