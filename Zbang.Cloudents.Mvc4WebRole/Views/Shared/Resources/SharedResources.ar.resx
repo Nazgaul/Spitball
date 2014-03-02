@@ -454,4 +454,7 @@
   <data name="NoResults" xml:space="preserve">
     <value>لا توجد نتائج</value>
   </data>
+  <data name="Rename" xml:space="preserve">
+    <value>تغيير الاسم</value>
+  </data>
 </root>

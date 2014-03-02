@@ -451,4 +451,7 @@
   <data name="NoResults" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>
   </data>
+  <data name="Rename" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
 </root>

@@ -119,15 +119,14 @@
 .popupWrppr.itemRename {
   color: #383838;
 }
-.popupWrppr.itemRename label {
-  font-size: 13px;
-  display: block;
-}
 .popupWrppr.itemRename .inputText {
-  padding: 0;
+  padding: 0 8px;
   width: 100%;
-  margin-bottom: 15px;
+  margin: 15px 0;
   font-size: 16px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .requestSentDiv {
   font-size: 18px;
