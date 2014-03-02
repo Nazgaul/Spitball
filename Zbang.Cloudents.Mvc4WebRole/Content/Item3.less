@@ -468,10 +468,11 @@
         right: 22px; /*rtl*/
     }
     .backWpr{
-        max-width: ~'-webkit-calc(50% - 225px)'; // (100% - middle actions width (380px) + left offset ~70px) / 2
-        max-width: ~'calc(50% - 225px)'; // 50% - 450px/2 = 50% - 225px
+        //max-width: ~'-webkit-calc(50% - 225px)'; // (100% - middle actions width (380px) + left offset ~70px) / 2
+        //max-width: ~'calc(50% - 225px)'; // 50% - 450px/2 = 50% - 225px
         position: absolute;
         left: 19px; /*rtl*/
+        max-width: 20%;
     }
 }
 .iconTop
@@ -497,12 +498,14 @@
 {
     display: inline-block;
     position: relative;
+    max-width: 50%;
 }
 
 .middleActionList{
     display: table;
     table-layout: fixed;
     margin-top: 12px;
+    //white-space: nowrap; //with this in place the max-width on the middleActions gets ignored
 }
 .middleActionItem{
     vertical-align: middle;
