@@ -34,17 +34,17 @@
     function confirmDeleteOrUnfollow(box) {
         /// <summary></summary>
         /// <param name="box" type="Box"></param>
-        var retVal = false;
+        var retVal = 0;
         if (box.userType() === 'none') {
             return;
         }
         if (box.userType() === 'owner') {
-            retVal = true;
+            return ZboxResources.ToDeleteBox;
         }
         if (box.membersCount <= 2 && !box.commentCount && !box.itemCount) {
-            retVal = true;
+            return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
         }
-        return retVal ? ZboxResources.ToDeleteBox : ZboxResources.ToLeaveGroup;
+        return ZboxResources.ToLeaveGroup;
     }
 }
 

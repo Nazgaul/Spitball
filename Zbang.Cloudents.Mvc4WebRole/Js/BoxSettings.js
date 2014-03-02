@@ -28,7 +28,7 @@
         _self.image = data.Image || '/Images/EmptyState/user-pic.png';
         _self.status = parseStatus(data.sUserStatus);
         _self.cMemStat = data.sUserStatus === 'Invite' ? 'memberPending' : '';
-        _self.identifier = cd.guid();        
+        _self.identifier = cd.guid();
         _self.tooltipClass = data.sUserStatus === 'Subscribe' || data.sUserStatus === 'Owner' ? ' calloutTrgr' : ''; //space is needed        
         _self.url = data.Url + '?r=box&s=members';
     }
@@ -88,7 +88,7 @@
             }
         }
 
-        if (!boxSettingsData.willDelete) {
+        if (!boxSettingsData.willDelete()) {
             eById('boxSettingsDelete').textContent = ZboxResources.Unfollow;
         }
         else {
@@ -97,7 +97,7 @@
         dataContext.getNotification({
             data: { boxUid: boxSettingsData.boxUid },
             success: function (data) {
-                $('#noti_' + data).prop('checked', true);           
+                $('#noti_' + data).prop('checked', true);
                 boxSettingsData.notify = data;
             }
         });
@@ -125,7 +125,7 @@
                     data: data,
                     success: function (data) {
                         pubsub.publish('updateBoxUrl', data.queryString);
-                        
+
                     }
                     //error: function (e) {
                     //    cd.displayErrors(self, e);
@@ -151,7 +151,7 @@
                     selectedObj.professor = eById('boxSettingsProfessor').value;
                 }
                 for (var input in selectedObj) {
-                    if (selectedObj[input] === ""){
+                    if (selectedObj[input] === "") {
                         selectedObj[input] = undefined;
                     }
 
@@ -174,8 +174,18 @@
             };
 
             eById('boxSettingsDelete').onclick = function () {
-                console.log(boxSettingsData.willDelete)
-                if (!confirm(ZboxResources.SureYouWant + (boxSettingsData.willDelete ? ZboxResources.ToDeleteBox : ZboxResources.ToLeaveGroup))) {
+                var sentence = '';
+                switch (boxSettingsData.willDelete()) {
+                    case 1:
+                        sentence = ZboxResources.SureYouWant + ZboxResources.ToDeleteBox;
+                        break;
+                    case 2:
+                        sentence = 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
+                        break;
+                    default:
+                        sentence = ZboxResources.SureYouWant + ZboxResources.ToLeaveGroup;
+                }
+                if (!confirm(sentence)) {
                     return;
                 }
                 var that = this;
@@ -206,8 +216,8 @@
         dataContext.boxMembers({
             data: { BoxUid: boxid },
             success: function (data) {
-                membersQuery = data           
-                members = [];                
+                membersQuery = data
+                members = [];
                 var membersCount = boxSettings.querySelector('.membersCount');
                 membersCount.textContent = membersQuery.length + ' ' + membersCount.getAttribute('data-label');
                 for (var i = 0, l = membersQuery.length; i < l; i++) {
@@ -507,11 +517,11 @@
         if (boxSettings.querySelector('.slimScrollDiv')) {
             $scrollElem.slimScroll({ 'destroy': '' });
         }
-       
+
         if (!topBar.classList.contains('tabMembers')) {
             return;
         }
-      
+
 
 
         var popupHeight = $popup.outerHeight(),

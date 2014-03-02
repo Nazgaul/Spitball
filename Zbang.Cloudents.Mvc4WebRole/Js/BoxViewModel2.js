@@ -436,8 +436,16 @@
                     userType: self.userType(),
                     image: self.image(),
                     name: self.name(),
-                    willDelete: self.userType() === 'owner' || (self.members().length <= 2 && self.noOfComments() === 0 && self.noOfItems() === 0)
-                };
+                    willDelete: function () {
+                        if (self.userType() === 'owner') {
+                            return 1;
+                        }
+                        if (self.members().length <= 2 && self.noOfComments() === 0 && self.noOfItems() === 0) {
+                            return 2;
+                        }
+                        return 0;
+                    }
+                }
                 if (self.boxtype() === 'academic') {
                     data.professor = self.proffer();
                     data.courseNumber = self.courseId();
