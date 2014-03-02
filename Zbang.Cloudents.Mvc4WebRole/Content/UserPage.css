@@ -612,6 +612,19 @@
   /*rtl*/
   height: 78px;
   z-index: 1;
+  /*&:nth-child(even) {
+        margin-left: 28px; /*rtl
+        &:before {
+            content: '';
+            width: 1px;
+            height: 100%;
+            background: @borderColor;
+            position: absolute;
+            left: -17px; /*rtl
+            top: -29px;
+            padding-top: 29px;
+        }
+    }*/
 }
 .upInviteItem:hover:after {
   content: '';
@@ -649,21 +662,6 @@
   right: 0;
   /*rtl*/
   top: 3px;
-}
-.upInviteItem:nth-child(even) {
-  margin-left: 28px;
-  /*rtl*/
-}
-.upInviteItem:nth-child(even):before {
-  content: '';
-  width: 1px;
-  height: 100%;
-  background: #c2c2c2;
-  position: absolute;
-  left: -17px;
-  /*rtl*/
-  top: -29px;
-  padding-top: 29px;
 }
 .inviteStatus {
   color: #c2c2c2;

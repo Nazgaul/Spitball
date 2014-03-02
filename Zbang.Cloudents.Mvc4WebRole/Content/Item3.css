@@ -41,7 +41,7 @@
 .itemRenameBtn {
   display: none;
   position: absolute;
-  top: 0px;
+  top: -12px;
   right: 0px;
   /*rtl*/
   margin: 0;
@@ -465,11 +465,10 @@
   /*rtl*/
 }
 .itemActions .backWpr {
-  max-width: -webkit-calc(50% - 225px);
-  max-width: calc(50% - 225px);
   position: absolute;
   left: 19px;
   /*rtl*/
+  max-width: 20%;
 }
 .iconTop {
   display: inline-block;
@@ -492,6 +491,7 @@
 .middleActions {
   display: inline-block;
   position: relative;
+  max-width: 50%;
 }
 .middleActionList {
   display: table;

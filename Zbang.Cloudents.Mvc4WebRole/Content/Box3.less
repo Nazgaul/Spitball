@@ -196,15 +196,18 @@
 
     &.show {
         display: block;
-
+        -moz-animation: joinWprSlide 1s ease-in;
+        -o-animation: joinWprSlide 1s ease-in;
+        -webkit-animation: joinWprSlide 1s ease-in;
+        animation: joinWprSlide 1s ease-in;
         ~ .box-content {
             padding-top: 8px;
-        }
-
-            ~ .box-content .QA {
+            .QA{
                 top: 209px;
             }
+        }
     }
+
 
     &.followed {
         padding-top: 29px;

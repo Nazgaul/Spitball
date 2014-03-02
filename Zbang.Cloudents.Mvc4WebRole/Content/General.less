@@ -812,7 +812,7 @@ select.inputText {
     margin-top: 22px;
     position: relative;
     display: inline-block;
-    line-height: 17px;
+    line-height: 16px;
     height: 35px;
     
     &:hover:before
@@ -832,6 +832,7 @@ select.inputText {
     }
     h2{
         font-size: 15px;
+        height: 18px;
     }
     &.noArrow{
         padding-left:0;
@@ -1148,7 +1149,7 @@ select.inputText {
 /*#region media queries */
 @media  (max-width: 1024px) {
     //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
-    .siteHeader.siteHeader, .boxPage .leftPanel.leftPanel, .QA.QA, .boxPage .boxActions.boxActions, .asideLib.asideLib, .asideDash.asideDash { //repeated classname for extra specificity (this is legal and in spec)
+    .siteHeader.siteHeader, .boxPage .leftPanel.leftPanel, .QA.QA, .boxPage .boxActions.boxActions, .asideLib.asideLib, .asideDash.asideDash, .settingsMenu.settingsMenu { //repeated classname for extra specificity (this is legal and in spec)
         position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
     }
     .boxPage .leftPanel.leftPanel

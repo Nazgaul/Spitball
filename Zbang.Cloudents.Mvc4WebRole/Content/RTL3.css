@@ -9,7 +9,7 @@
 /*#region drag-drop*/
 .drop {
   left: 0;
-  /*rtl*/
+  /*rtl */
   right: auto;
 }
 /*#endregion*/
@@ -452,6 +452,12 @@ input[type="radio"] + label:before {
 /*#endregion */
 /*#endregion */
 /*#region AccountInfo.css */
+.headerRightWpr {
+  padding: 0 241px 0 0;
+  /*rtl*/
+  margin: 0 -241px 0 0;
+  /*rtl*/
+}
 .headerRightWpr .userSection {
   margin: 0 70px 0 0;
   /*rtl*/
@@ -698,8 +704,14 @@ input[type="radio"] + label:before {
   }
    
 .boxItemList:not(.sponsored)  
-.boxItem {
-    margin-left: 0;
+.boxItem:nth-child(odd) {
+    margin: 0 0 20px 10px;
+    /*rtl*/
+  }
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(even) {
+    margin: 0 0 20px 0;
     /*rtl*/
   }
 }
@@ -1806,6 +1818,15 @@ input[type="radio"] + label:before {
   /*rtl*/
   float: right;
   /*rtl*/
+  /*&:nth-child(even)
+    {
+        margin: 0 28px 29px 0; /*rtl // margin bottom defined on the item
+        &:before
+        {
+            right: -17px; /*rtl
+            left: auto;
+        }
+    }*/
 }
 .upInviteItem .upFriendImg {
   right: 0;
@@ -1820,15 +1841,6 @@ input[type="radio"] + label:before {
   left: 0;
   /*rtl*/
   right: auto;
-}
-.upInviteItem:nth-child(even) {
-  margin: 0 28px 29px 0;
-  /*rtl*/
-}
-.upInviteItem:nth-child(even):before {
-  right: -17px;
-  /*rtl*/
-  left: auto;
 }
 .invitedToWpr {
   padding: 9px 35px 0 5px;

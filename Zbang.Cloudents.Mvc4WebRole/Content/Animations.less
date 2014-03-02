@@ -1,39 +1,5 @@
 ﻿@import "varsAndMixins";
 
-.keyframes (@name, @from1, @to1, @from2, @to2, @vendor:"", @bind:"") {
-  @keyf: ~"@{bind}@@{vendor}keyframes @{name} { `'\n'`from ";
-  @{keyf} {
-      .from(@name,@from1,@from2);
-        }
-      to {
-        .to(@name,@to1,@to2);
-      }
-}
-.animation-keyframes(@name, @from1, @to1, @from2, @to2, @anim-selector, @func, @duration, @iteration-count, @direction) {
-  @bind: "} `'\n'`";
-  .keyframes (@name, @from1, @to1, @from2, @to2, "-moz-");
-  .keyframes (@name, @from1, @to1, @from2, @to2, "-webkit-", @bind);
-  .keyframes (@name, @from1, @to1, @from2, @to2, "-o-", @bind);
-  .keyframes (@name, @from1, @to1, @from2, @to2, "-ms-", @bind);
-  .keyframes (@name, @from1, @to1, @from2, @to2, "", @bind);
-  @anim: ~"} `'\n'`.@{anim-selector}";
-  @{anim} {
-    -moz-animation: @name @func @duration @iteration-count @direction;
-    -webkit-animation: @name @func @duration @iteration-count @direction;
-    -o-animation: @name @func @duration @iteration-count @direction;
-    -ms-animation: @name @func @duration @iteration-count @direction;
-    animation: @name @func @duration @iteration-count @direction;
-  }
-}
-
-.animation-keyframes (joinWprSlide, 29px, 80px,0,0, joinWprSlide, ease-in, .6s, 1, normal);
-.from (joinWprSlide, @val, @val2) {
-  padding-top: @val;
-}
-.to (joinWprSlide, @val, @val2) {
-  padding-top: @val;
-}
-
 @-webkit-keyframes slidein {.mixi-frames;}
 @-moz-keyframes slidein {.mixi-frames;}
 @-ms-keyframes slidein {.mixi-frames;}
@@ -218,6 +184,16 @@
 @-o-keyframes ptsAnim {.mixi-frames6;}
 @keyframes ptsAnim {.mixi-frames6;}
 
+
+.mixi-frames7 () {
+	from {padding-top: 29px;}
+	to {padding-top: 80px;}
+}
+@-webkit-keyframes joinWprSlide {.mixi-frames7;}
+@-moz-keyframes joinWprSlide {.mixi-frames7;}
+@-ms-keyframes joinWprSlide {.mixi-frames7;}
+@-o-keyframes joinWprSlide {.mixi-frames7;}
+@keyframes joinWprSlide {.mixi-frames7;}
 
 
 

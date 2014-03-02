@@ -38,5 +38,21 @@
 </div>
 @section scripts {
     @Html.Script2("faq")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $answers = $('.answer'),
+                $answer,$answerCopy,height;
+            for (var i = 0,l=$answers.length; i < l; i++) {
+                $answer = $($answers[i]);
+                $answerCopy = $answer.clone();
+                $answerCopy.css({ position: "absoulte", visibility: "hidden", display: "block", overflow: "visible",'max-height':'none'});
+                $('body').append($answerCopy);
+                height = $answerCopy.outerHeight()
+                $answerCopy.remove():
+                $answer.height(height);
+            }
+        });
+
+    </script>
 }
 

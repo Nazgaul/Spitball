@@ -70,7 +70,7 @@
         }
 
         cd.pubsub.subscribe('box', function (data) {
-            self.boxid(data.id);
+            self.boxid(parseInt(data.id, 10));
             if (boxloadFirstTime) {
                 boxloadFirstTime = false;
                 //registerEvents();

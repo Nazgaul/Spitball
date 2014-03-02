@@ -100,11 +100,8 @@
         </a>
     </div>
 
-    @*<!--ko if:follow-->*@
-
-    @*Ram please add class 'show' here when visible:follow is true*@
-    @*Also when user clicks the follow box button need to add the class 'followed' here*@
-    <div id="joinGrpBtn" class="joinGrpWpr joinWprSlide">
+    @*<!--ko if:follow-->*@    
+    <div id="joinGrpBtn" class="joinGrpWpr">
         <span class="joinMsg iconTxt">@SharedResources.Member</span>
         <button type="button" class="joinGrp" data-bind="click: followbox" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
     </div>
