@@ -27,8 +27,10 @@
                     <label for="upMemberSettings" class="cbLabel">@SharedResources.All</label>
                     <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                     <div class="searchWpr rFloat">
-                        <span class="membersCount" data-label="@SharedResources.Members" data-bind="text: membersLength() "></span>
-                        <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
+                        <span class="membersCount lFloat" data-label="@SharedResources.Members" data-bind="text: membersLength() "></span>
+                        <div class="inputWpr">
+                            <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
+                        </div>
                     </div>
                 </div>
                 <div class="memberTopRow">
@@ -64,10 +66,12 @@
 
                     </li>
                     <!--/ko-->
-                    <li class="upMemberBoxes">
-                        <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
-                        <ul class="upMemberBoxList" id="upMemberBoxList"></ul>
-                        <div class="arrow downArrow"></div>
+                    <li class="upMemberBoxesWpr">
+                        <div class="upMemberBoxes">
+                            <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
+                            <ul class="upMemberBoxList" id="upMemberBoxList"></ul>
+                            <div class="arrow downArrow"></div>
+                        </div>
                     </li>
                 </ul>
                 <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>

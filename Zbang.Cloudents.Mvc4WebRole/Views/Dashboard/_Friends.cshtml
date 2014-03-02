@@ -15,8 +15,10 @@
                 <label for="friendsSettings" class="cbLabel">@SharedResources.All</label>
                 <button type="button" id="frndPopSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                 <div class="searchWpr rFloat">
-                    <span class="membersCount">&nbsp;@IndexResources.Members</span> @*Guy: fill the data-count attribute*@
-                    <input class="membersSearch" id="friendsSearch" type="search" placeholder="@IndexResources.SearchMember" />
+                    <span class="membersCount lFloat">&nbsp;@IndexResources.Members</span> @*Guy: fill the data-count attribute*@
+                    <div class="inputWpr">
+                        <input class="membersSearch" id="friendsSearch" type="search" placeholder="@IndexResources.SearchMember" />
+                    </div>
                 </div>
             </div>
             <ul class="membersList" id="membersListDashboard" data-pending="@IndexResources.Pending" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited" data-member="@IndexResources.ActiveMember"></ul>

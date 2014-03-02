@@ -440,7 +440,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         return Json(new JsonResponse(true, new { preview = retVal.Content.First() }), JsonRequestBehavior.AllowGet);
                     }
-                    if (retVal.Content.Count() == 0)
+                    if (retVal.Content.Count() == 0 && imageNumber == 0) // this is happen due failed preview at the start
                     {
                         return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
                     }
