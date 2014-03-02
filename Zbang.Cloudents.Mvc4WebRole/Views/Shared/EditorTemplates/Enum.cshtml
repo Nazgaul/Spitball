@@ -10,6 +10,6 @@
                {
         Selected = (Model.ToString() == enumVal),
         Text = m.GetEnumDescription(),
-        Value = m.ToString("g")// Convert.ToInt32(m).ToString(CultureInfo.InvariantCulture)
+        Value = m.GetStringValue()// Convert.ToInt32(m).ToString(CultureInfo.InvariantCulture)
     };
 }), new { Data_bind=ViewData["Data_bind"] , @class=ViewData["class"]})
