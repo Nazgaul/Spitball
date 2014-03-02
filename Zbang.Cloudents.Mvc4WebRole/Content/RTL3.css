@@ -9,7 +9,7 @@
 /*#region drag-drop*/
 .drop {
   left: 0;
-  /*rtl*/
+  /*rtl */
   right: auto;
 }
 /*#endregion*/
@@ -1818,6 +1818,15 @@ input[type="radio"] + label:before {
   /*rtl*/
   float: right;
   /*rtl*/
+  /*&:nth-child(even)
+    {
+        margin: 0 28px 29px 0; /*rtl // margin bottom defined on the item
+        &:before
+        {
+            right: -17px; /*rtl
+            left: auto;
+        }
+    }*/
 }
 .upInviteItem .upFriendImg {
   right: 0;
@@ -1832,15 +1841,6 @@ input[type="radio"] + label:before {
   left: 0;
   /*rtl*/
   right: auto;
-}
-.upInviteItem:nth-child(even) {
-  margin: 0 28px 29px 0;
-  /*rtl*/
-}
-.upInviteItem:nth-child(even):before {
-  right: -17px;
-  /*rtl*/
-  left: auto;
 }
 .invitedToWpr {
   padding: 9px 35px 0 5px;

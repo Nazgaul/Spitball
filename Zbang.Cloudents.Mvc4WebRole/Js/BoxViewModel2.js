@@ -601,6 +601,7 @@
             self.userType('none'),
             self.tabs([]);
             document.getElementById('joinGrpBtn').classList.remove('followed');
+            document.getElementById('joinGrpBtn').classList.remove('show');
             //cd.pubsub.publish('destroy_clipboard', $('#box_CL'));
             self.currentTab(null);
             $('#boxShare').prop('checked', false);

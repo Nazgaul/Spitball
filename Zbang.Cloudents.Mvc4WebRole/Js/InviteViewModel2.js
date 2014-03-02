@@ -14,11 +14,12 @@
     var invitesList = document.getElementById('invitesList');
     var headerInvites = document.getElementById('headerInvites');
     
-    function Invite(data) {      
-        this.id = data.boxUid;
-        this.name = data.boxName;
-        this.owner = data.boxOwner;
-        this.url = data.url + '?r=siteheader&s=invite';
+    function Invite(data) {
+        var that = this;
+        that.id = data.boxUid;
+        that.name = data.boxName;
+        that.owner = data.boxOwner;
+        that.url = data.url + '?r=siteheader&s=invite';
     }
 
 

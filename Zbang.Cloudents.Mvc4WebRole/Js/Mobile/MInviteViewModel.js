@@ -11,6 +11,7 @@
             that.name = data.boxName;
             that.owner = data.boxOwner;
             that.picture = data.image || '/images/EmptyState/my_default3.png';
+            that.url = data.url;
         }
         var self = this;
         self.invites = ko.observableArray([]);
