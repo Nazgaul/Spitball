@@ -470,6 +470,12 @@ input[type="radio"]:checked + label + .inputText {
   content: attr(data-count);
   display: inline-block;
 }
+.inputWpr {
+  overflow: hidden;
+}
+.inputWpr .membersSearch {
+  width: 100%;
+}
 .membersSearch {
   padding: 0 5px;
 }

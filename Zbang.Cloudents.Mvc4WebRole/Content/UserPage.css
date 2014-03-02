@@ -789,12 +789,13 @@
   /*rtl*/
 }
 .deptCol {
-  width: 510px;
+  width: 474px;
   padding: 0 30px;
   vertical-align: top;
 }
 .dateCol {
-  width: 110px;
+  width: 164px;
+  padding: 0 15px;
 }
 .courseCol {
   width: 60px;
