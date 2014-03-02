@@ -41,7 +41,7 @@
 .itemRenameBtn {
   display: none;
   position: absolute;
-  top: 0px;
+  top: -12px;
   right: 0px;
   /*rtl*/
   margin: 0;
