@@ -185,7 +185,7 @@
         });
 
         self.emptyBoxes = ko.computed(function () {
-            return !(self.followingBoxesVisible() || !self.commonBoxes());
+            return !(self.followingBoxesVisible() || self.commonBoxesVisible());
         });
 
         self.CoursesShowAllVisible = ko.computed(function () {
