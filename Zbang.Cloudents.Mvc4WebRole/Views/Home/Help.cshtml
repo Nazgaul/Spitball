@@ -49,7 +49,7 @@
                 $('body').append($answerCopy);
                 height = $answerCopy.outerHeight()
                 $answerCopy.remove();
-                $answer.height(height);
+                $answer.css('max-height',height);
             }
         });
 
