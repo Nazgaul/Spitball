@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.ViewModel.DTOs.Qna
-{
+{ 
     public class QuestionDto
     {
         public QuestionDto()
