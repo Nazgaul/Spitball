@@ -452,6 +452,12 @@ input[type="radio"] + label:before {
 /*#endregion */
 /*#endregion */
 /*#region AccountInfo.css */
+.headerRightWpr {
+  padding: 0 241px 0 0;
+  /*rtl*/
+  margin: 0 -241px 0 0;
+  /*rtl*/
+}
 .headerRightWpr .userSection {
   margin: 0 70px 0 0;
   /*rtl*/
@@ -698,8 +704,14 @@ input[type="radio"] + label:before {
   }
    
 .boxItemList:not(.sponsored)  
-.boxItem {
-    margin-left: 0;
+.boxItem:nth-child(odd) {
+    margin: 0 0 20px 10px;
+    /*rtl*/
+  }
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(even) {
+    margin: 0 0 20px 0;
     /*rtl*/
   }
 }

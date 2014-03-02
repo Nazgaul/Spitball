@@ -1091,7 +1091,8 @@ select.inputText {
   .QA.QA,
   .boxPage .boxActions.boxActions,
   .asideLib.asideLib,
-  .asideDash.asideDash {
+  .asideDash.asideDash,
+  .settingsMenu.settingsMenu {
     position: absolute;
   }
   .boxPage .leftPanel.leftPanel {
