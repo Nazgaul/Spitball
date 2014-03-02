@@ -824,7 +824,13 @@
   }
    
 .boxItemList:not(.sponsored)  
-.boxItem {
+.boxItem:nth-child(odd) {
+    margin-right: 10px;
+    /*rtl*/
+  }
+   
+.boxItemList:not(.sponsored)  
+.boxItem:nth-child(even) {
     margin-right: 0;
     /*rtl*/
   }

@@ -152,7 +152,7 @@
     <value>Отметить элемент</value>
   </data>
   <data name="FullScreen" xml:space="preserve">
-    <value>Просмотр во весь экран</value>
+    <value>Полный экран</value>
   </data>
   <data name="HideComments" xml:space="preserve">
     <value>Скрыть комментарии</value>
