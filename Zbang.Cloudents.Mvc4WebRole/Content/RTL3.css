@@ -29,11 +29,6 @@
   margin: 0 15px 0 0;
   /*rtl*/
 }
-.popupWrppr .closeDialog {
-  left: 20px;
-  /*rtl*/
-  right: auto;
-}
 .popupWrppr .cancel {
   margin: 18px 10px 0 0;
   /*rtl*/

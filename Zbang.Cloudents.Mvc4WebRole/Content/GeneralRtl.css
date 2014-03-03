@@ -56,6 +56,74 @@ body {
   /*rtl*/
 }
 /*#endregion */
+/*#region popup */
+.popupForm .field-validation-error,
+.popupForm .validation-summary-errors {
+  margin: 0 15px 0 0;
+  /*rtl*/
+}
+.popupWrppr .cancel {
+  margin: 18px 10px 0 0;
+  /*rtl*/
+}
+.popupWrppr .closeDialog {
+  left: 12px;
+  /*rtl*/
+  right: auto;
+}
+.popupWrppr.enterCode form,
+.popupWrppr.enterCode .noCode {
+  padding: 0 9px 25px 19px;
+  /*rtl*/
+}
+.popupWrppr.enterCode .noCode {
+  padding: 0 9px 25px 0;
+  /*rtl*/
+}
+.popupWrppr.enterCode .btn1 {
+  margin: 0 8px 0 0;
+  /*rtl*/
+}
+.popupWrppr.addSchool {
+  text-align: right;
+  /*rtl*/
+}
+.popupWrppr.addSchool .country {
+  margin: 0 0 0 13px;
+  /*rtl*/
+}
+.requestSentDiv {
+  padding: 0 18px 0 0;
+  /*rtl*/
+}
+/*#endregion */
+/*#region connect and register pages */
+.fbImg {
+  right: 16px;
+  /*rtl*/
+  left: auto;
+}
+.fbImg:after {
+  right: 24px;
+  /*rtl*/
+  left: auto;
+}
+.facebook {
+  padding: 9px 55px 5px 15px;
+  /*rtl*/
+  text-align: right;
+  /*rtl*/
+}
+.signIn,
+.register {
+  text-align: right;
+  /*rtl*/
+}
+.acceptTerms {
+  text-align: right;
+  /*rtl*/
+}
+/*#endregion */
 .lFloat {
   float: right;
   /*rtl*/

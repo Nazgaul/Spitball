@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Account.Register
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
     new { @class = "register", id = "register" }
@@ -8,22 +9,18 @@
     @Html.ValidationSummary(true)
     Html.RenderAction("AntiForgeryToken", "Home", true);
 
-    @Html.LabelFor(model => model.NewUserName, new { @class = "accntLabel" })
     @Html.ValidationMessageFor(model => model.NewUserName, null)
-    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", autofocus = "autofocus", tabindex = 10 })
+    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", autofocus = "autofocus", tabindex = 10, @placeholder= "Username" })
 
-    @Html.LabelFor(model => model.NewEmail, new { @class = "accntLabel" })<text>&nbsp;</text><small class="small">@RegisterResources.WillBeLogin</small>
     @Html.ValidationMessageFor(model => model.NewEmail, null)
-    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 11 })
+    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 11, @placeholder= SharedResources.Email })
 
-     
-    @Html.LabelFor(model => model.ConfirmEmail, new { @class = "accntLabel" }) 
     @Html.ValidationMessageFor(model => model.ConfirmEmail, null)
-    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 12 })
+    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 12, @placeholder= "Verify Email" })
 
-    @Html.LabelFor(model => model.Password, new { @class = "accntLabel" }) 
+    
     @Html.ValidationMessageFor(model => model.Password, null)
-    @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 13 })
+    @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 13, @placeholder= LogOnResources.Password })
    
     <div class="formBottom">
         <span class="acceptTerms">
@@ -34,4 +31,11 @@
         <input class="btn1 lFloat" type="submit" tabindex=15 value="@LogOnResources.SignUp"  />
     </div>
 }
+
+@*old
+
+@Html.LabelFor(model => model.NewEmail, new { @class = "accntLabel" })<text>&nbsp;</text><small class="small">@RegisterResources.WillBeLogin</small>
+@Html.LabelFor(model => model.ConfirmEmail, new { @class = "accntLabel" }) 
+@Html.LabelFor(model => model.Password, new { @class = "accntLabel" }) *@
+
 

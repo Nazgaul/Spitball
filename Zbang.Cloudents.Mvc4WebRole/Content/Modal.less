@@ -42,30 +42,10 @@
 }
 .popupWrppr
 {
-    position: fixed;
-    margin: 0 auto;
-    right: 0;
-    left: 0;
-    top: 20%;
-    width: 558px;
     max-height: 396px;
-    z-index: 13;
-    padding: 0 20px 15px;
-    .boxSizing;
-    background-color: #fff;
-    color: @textColor;
-
-	.animation(fadein);
-
     .closeDialog
     {
-        background-color: transparent;
-        width: 11px;
-        height: 11px;
-        background: @common-sprite -79px -25px no-repeat;
-        position: absolute;
-        top: 14px;
-        right: 20px; /*rtl*/
+        background-position: -79px -25px;
     }
     .cancel
 	{
