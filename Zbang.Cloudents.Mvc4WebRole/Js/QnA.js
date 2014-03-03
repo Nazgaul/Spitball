@@ -20,6 +20,7 @@
             _that.userImg = data.userImage;
             _that.userid = data.userUid;
             _that.content = data.content.replace(/\n/g, '<br/>');
+            _that.createTime = data.creationTime ? cd.parseActionTime(data.creationTime) : 'Yesteraday';
             data.Answers = data.answers || [];
             _that.answers = ko.observableArray($.map(data.answers, function (i) { return new Answer(i); }));
             _that.answerCount = ko.computed(function () {
@@ -104,6 +105,7 @@
             _that.rating = ko.observable(data.rating);
             _that.irate = data.iRate;
             _that.isAnswer = ko.observable(data.answer);
+            _that.createTime = cd.parseActionTime(data.creationTime);
             data.files = data.files || [];
             _that.files = ko.observableArray($.map(data.files, function (i) { return new File(i); }));
             _that.canDelete = ko.computed(function () {
