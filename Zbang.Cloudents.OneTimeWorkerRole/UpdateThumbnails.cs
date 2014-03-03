@@ -91,6 +91,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
         private void UpdateFile(Uri blobUri)
         {
+            //TEST
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor != null)
