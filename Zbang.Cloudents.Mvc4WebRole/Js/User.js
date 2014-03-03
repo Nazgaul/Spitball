@@ -185,7 +185,7 @@
         });
 
         self.emptyBoxes = ko.computed(function () {
-            return !(self.followingBoxesVisible() || !self.commonBoxes());
+            return !(self.followingBoxesVisible() || self.commonBoxesVisible());
         });
 
         self.CoursesShowAllVisible = ko.computed(function () {
@@ -513,7 +513,7 @@
                 var pointsList = eById('pointsList'),
                     pointsListChildren = pointsList.children,
                     statusPoints = eById('userPts').textContent;
-                if (statusPoints > score) {
+                if (self.viewSelf() && statusPoints > score) {
                     score = statusPoints;
                 }
 

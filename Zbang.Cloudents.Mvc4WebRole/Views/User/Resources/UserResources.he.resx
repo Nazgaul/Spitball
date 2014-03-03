@@ -133,7 +133,7 @@
     <value>עדכן חשבון</value>
   </data>
   <data name="FindFriends" xml:space="preserve">
-    <value>מצא חברים </value>
+    <value />
   </data>
   <data name="GotoQuestion" xml:space="preserve">
     <value>עבור לשאלה</value>
