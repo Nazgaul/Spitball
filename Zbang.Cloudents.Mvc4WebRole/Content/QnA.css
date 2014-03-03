@@ -282,6 +282,7 @@ textarea:invalid {
   line-height: 32px;
   padding-left: 8px;
   /*rtl*/
+  display: inline-block;
 }
 .QEmptyForm .QTextarea {
   min-height: 29px;
@@ -336,6 +337,14 @@ textarea:invalid {
 }
 .QItem.selected .QBottom {
   background: #fafafa;
+}
+.QItem .userName {
+  display: inline-block;
+  margin-left: 10px;
+  /*rtl*/
+}
+.QItem .AUsername {
+  display: inline-block;
 }
 .QBottom .seeMore {
   color: #66a1cf;
@@ -691,5 +700,14 @@ textarea:invalid {
   right: 27px;
   /*rtl*/
   width: 340px;
+}
+.QACreateTime {
+  font-size: 11px;
+  color: #676767;
+  display: inline-block;
+  line-height: 32px;
+  height: 32px;
+  margin-left: 5px;
+  /*rtl*/
 }
 /*#endregion */
