@@ -50,10 +50,9 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
             if (Object.ReferenceEquals(obj, null)) return 0;
 
             //Get hash code for the Name field if it is not null. 
-            int hashProductName = obj.Id == null ? 0 : obj.Id.GetHashCode();
 
             //Calculate the hash code for the product. 
-            return hashProductName;
+            return obj.Id.GetHashCode();;
         }
     }
 

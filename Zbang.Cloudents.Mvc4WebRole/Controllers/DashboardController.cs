@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using DevTrends.MvcDonutCaching;
+﻿using DevTrends.MvcDonutCaching;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -11,17 +12,11 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
-using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.User;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using System.Web.WebPages;
-using System.Threading.Tasks;
-using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
