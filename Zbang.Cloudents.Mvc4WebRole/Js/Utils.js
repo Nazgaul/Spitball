@@ -1,4 +1,4 @@
-﻿(function (cd, $, analytics,dataContext) {
+﻿(function (cd, $, analytics, dataContext) {
 
     if (window.scriptLoaded.isLoaded('u')) {
         return;
@@ -98,6 +98,63 @@
         }
 
     };
+
+    var parseActionTime = function (date) {
+        var oneDay = 24 * 60 * 60 * 1000, // hours*minutes*seconds*milliseconds                                         
+            today = new Date(),
+            dateDifference = calculateDayDifference(),
+            months = ["January", "February", "March", "April",
+                      "May", "June", "July", "August",
+                      "September", "October", "November", "December"];
+
+        switch (dateDifference) {
+            case 0:
+                var timeObj = calculateSecondsDifferece();
+                if (timeObj.hours > 1) {
+                    return Math.round(timeObj.hours) + ' hours ago';
+                }
+                if (timeObj.minutes > 1) {
+                    return Math.round(timeObj.minutes) + ' minutes ago';
+                }
+
+                return Math.round(timeObj.seconds) + ' seconds ago';
+                break;
+            case 1:
+                return 'Yesterday';
+                break;
+
+            default:
+                var dateMonth = date.getMonth() + 1,
+                    todayMonth = today.getMonth() + 1;
+
+                if (dateMonth < todayMonth) {
+                    return date.getDate() + ' ' + months[dateMonth];
+                } else if (dateMonth > todayMonth) {
+                    return date.getDate() + ' ' + months[dateMonth] + ', ' + date.getFullYear();
+                } else {
+                    return dateDifference + ' days ago';
+                }                                       
+
+                break;
+        }
+
+        function calculateDayDifference() {
+            return diffDays = Math.round(Math.abs((date.getTime() - today.getTime()) / (oneDay)));
+        }
+        function calculateSecondsDifferece() {
+            var time1 = date.getTime(),
+                time2 = today.getTime();
+
+            var timeDifference = time2 - time1;
+            return {
+                seconds: (timeDifference / 1000) % 60,
+                minutes: (timeDifference / (1000 * 60)) % 60,
+                hours: (timeDifference / (1000 * 60 * 60)) % 24
+            }
+
+        }
+    }
+
     var resetErrors = function (form) {
         var $form = $(form);
 
@@ -181,11 +238,11 @@
         }
     };
 
-    var getParameterByNameFromString = function (param,text) {
+    var getParameterByNameFromString = function (param, text) {
         param = param.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
         var regexS = "[\\?&]" + param + "=([^&#]*)";
         var regex = new RegExp(regexS, 'i');
-        var results = regex.exec(text);        
+        var results = regex.exec(text);
         if (results === null) {
             return "";
         }
@@ -778,7 +835,7 @@
 
     var shareFb = function (url, name, caption, description, picture) {
         url = url || cd.location();
-        FB.ui({ 
+        FB.ui({
             method: 'feed',
             link: url,
             name: name,
@@ -804,12 +861,12 @@
         //analytics.trackSocial(url, 'share');
     };
 
-    var highlightSearch = function (term, name,className) {
+    var highlightSearch = function (term, name, className) {
         var className = className || 'boldPart',
             firstPart = '<span class="' + className + '">',
             lastPart = '</span>',
             boldStringLength = firstPart.length + lastPart.length,
-            
+
         term = term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 
         if (!name) {
@@ -949,7 +1006,7 @@
             return result;
         }
     };
-
+    cd.parseActionTime = parseActionTime;
     cd.highlightSearch = highlightSearch;
     cd.sessionStorageWrapper = sessionStorageWrapper;
     cd.localStorageWrapper = localStorageWrapper;
@@ -1157,4 +1214,4 @@
     //    }
     //});
 
-})(window.cd = window.cd || {}, jQuery, cd.analytics,cd.data);
+})(window.cd = window.cd || {}, jQuery, cd.analytics, cd.data);

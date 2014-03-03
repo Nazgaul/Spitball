@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Queries;
-using System.Web.Routing;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.Infrastructure.Url;
-using Zbang.Zbox.Infrastructure.Security;
-using Zbang.Zbox.ViewModel.DTOs.UserDtos;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Cloudents.Mvc4WebRole.Models.Share;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Url;
+using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {

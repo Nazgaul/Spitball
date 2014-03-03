@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Security;
-using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers

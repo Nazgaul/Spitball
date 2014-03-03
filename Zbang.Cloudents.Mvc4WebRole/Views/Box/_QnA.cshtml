@@ -26,6 +26,7 @@
                             <div class="attachBtn"></div>
                             <div class="numAttached" data-bind="text: files().length"></div>
                         </div>
+                        <div class="userName boldFont elps" data-bind="text: userName">itsik bitran</div><span class="QACreateTime" data-bind="text: createTime"></span>
                         <div class="QContent" data-bind="html: content"></div>
                     </div>
                     <!-- ko if:answerCount() ===0 -->
@@ -44,6 +45,7 @@
                     <div class="QBottom clearfix" data-answer="answer">
                         <!-- ko with:bestAnswer -->
                         <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
+                        <div class="AUsername" data-bind="text: userName"></div><span class="QACreateTime" data-bind="text: createTime"></span>
                         <div data-bind="html: content" class="AContent"></div>
                         @* <div class="seeMore" data-bind="click: $root.showAllAnswers">@SharedResources.ContinueReading</div>*@
                         <ul class="qaAttach" data-bind="foreach: files">
@@ -78,11 +80,11 @@
                 @*<button class="boxRename" type="button"></button>*@
                 @*<span class="rFloat views">21</span>*@
                 <div class="questionRhs">
-                    <div class="userName boldFont elps" data-bind="text: userName"></div>
+                    <div class="userName boldFont elps" data-bind="text: userName"></div><span class="QACreateTime" data-bind="text: createTime"></span>
                     <div class="QContent" data-bind="html: content"></div>
                 </div>
                 <button type="button" class="deleteBtn" data-click="deleteQuestion" data-bind="visible: canDelete"></button>
-            </div>
+            </div>            
             <div class="lFloat" data-bind="css: { attachLeft: files().length }">
                 <div class="attachBtn"></div>
                 <div class="numAttached" data-bind="text: files().length"></div>
@@ -102,7 +104,7 @@
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<div class="bestAnswer splitHR"><span class="splitHRText">@IndexResources.BestAnswer</span></div>*@
                     <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
-                    <div class="userName boldFont elps" data-bind="text: userName"></div>
+                    <div class="userName boldFont elps" data-bind="text: userName"></div><span class="ACreateTime" data-bind="text: createTime"></span>
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<button title="@IndexResources.Useful" class="voteBtn rFloat" type="button" data-bind="click:$root.rateAnswer"></button>
                         <span class="aScore rFloat" data-bind="text:rating"></span>*@

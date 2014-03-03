@@ -11,11 +11,8 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Security;
-using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
