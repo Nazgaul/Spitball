@@ -28,8 +28,10 @@
             privateLocation.url = this.removeQueryString(privateLocation.url);
             if (data.ttl < now.getTime()) {
                 this.remove();                
-                historyNav = [cd.clone(privateLocation)];                
-                history.replaceState(privateLocation.url, '', privateLocation.url);
+                historyNav = [cd.clone(privateLocation)];
+                if (history.replaceState) {
+                    history.replaceState(privateLocation.url, '', privateLocation.url);
+                }
                 return;
             }
 
