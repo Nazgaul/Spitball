@@ -99,7 +99,12 @@
 
     };
 
+    //#region Dates in the system    
     var parseActionTime = function (date) {
+        if (!date) {
+            return;
+        }
+
         var oneDay = 24 * 60 * 60 * 1000, // hours*minutes*seconds*milliseconds                                         
             today = new Date(),
             dateDifference = calculateDayDifference(),
@@ -110,14 +115,14 @@
         switch (dateDifference) {
             case 0:
                 var timeObj = calculateSecondsDifferece();
-                if (timeObj.hours > 1) {
+                if (timeObj.hours >= 1) {
                     return Math.round(timeObj.hours) + ' hours ago';
                 }
-                if (timeObj.minutes > 1) {
+                if (timeObj.minutes >= 1) {
                     return Math.round(timeObj.minutes) + ' minutes ago';
                 }
 
-                return Math.round(timeObj.seconds) + ' seconds ago';
+                return 'Just now';
                 break;
             case 1:
                 return 'Yesterday';
@@ -134,7 +139,6 @@
                 } else {
                     return dateDifference + ' days ago';
                 }                                       
-
                 break;
         }
 
@@ -154,7 +158,38 @@
 
         }
     }
+    var target = document.querySelector('#main');
+    
+    if (target) {
+        // create an observer instance
+        var observer = new MutationObserver(function (mutations) {
+            var text;
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'data-time') {                                
+                    text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));                
+                    mutation.target.textContent = text;
+                }
+            });    
+        });
+ 
+        // configuration of the observer:
+        var config = { attributes: true, childList: true ,subtree:true};
+ 
+        // pass in the target node, as well as the observer options
+        observer.observe(target, config);
+    }
+    function updateTimeActions() {
+        var $timedObjects = $('[data-time]'),
+        $time,text;
+        for (var i = 0, l = $timedObjects.length; i < l; i++) {
+            $time = $($timedObjects[i]);
+            text = parseActionTime(new Date($time.data('time')));
+            $time.text(text);
 
+        }
+    }    
+    setInterval(updateTimeActions, 60000);
+    //#endregion
     var resetErrors = function (form) {
         var $form = $(form);
 
@@ -1006,6 +1041,7 @@
             return result;
         }
     };
+    cd.updateTimeActions = updateTimeActions;
     cd.parseActionTime = parseActionTime;
     cd.highlightSearch = highlightSearch;
     cd.sessionStorageWrapper = sessionStorageWrapper;

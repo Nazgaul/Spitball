@@ -134,6 +134,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.min.js"),
                 //new JsFileWithCdn("~/Scripts/jquery.mousewheel.js"),
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
+                new JsFileWithCdn("~/Scripts/mutationobserver.min.js"),
+                
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
