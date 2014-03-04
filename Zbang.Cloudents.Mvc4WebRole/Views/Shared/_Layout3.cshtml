@@ -135,7 +135,7 @@
     }
     @if (!User.Identity.IsAuthenticated)
     {
-        Html.RenderPartial("_Welcome", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister());
+        Html.RenderPartial("_Welcome");
     }
     @RenderSection("templates", false)
     <div id="cssCheck"></div>
