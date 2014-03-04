@@ -910,12 +910,6 @@ ul.ui-autocomplete li a {
 .welcomeModal .modal2 {
   display: none;
 }
-/*.enter {
-    .staticWpr {
-        width: 425px;
-        padding: 40px 0 13px;
-    }
-}*/
 .enterTitle {
   font-size: 24px;
   color: #383838;
@@ -960,9 +954,6 @@ ul.ui-autocomplete li a {
   color: #d1294d;
   margin: 0 0 3px 0;
   display: inline-block;
-}
-.enterForm .validation-summary-errors {
-  margin: 0 0 16px 0;
 }
 .enterForm .small {
   font-size: 10px;
