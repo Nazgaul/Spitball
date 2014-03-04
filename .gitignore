@@ -39,7 +39,6 @@ x64/
 *.vssscc
 .builds
 *.min.css
-*.config
 
 # Visual C++ cache files
 ipch/
