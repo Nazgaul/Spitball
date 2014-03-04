@@ -240,17 +240,17 @@
         });
     })();
 
-    //regPopup
+    ////regPopup
 
 
-    cd.pubsub.subscribe('register', function () {
-        registerpopup.dialog('show');
-    });
-    var registerpopup = $('#regPopup').dialog({
-        submitCallBack: function () {
-            location.href = '/account';
-        }
-    });
+    //cd.pubsub.subscribe('register', function () {
+    //    registerpopup.dialog('show');
+    //});
+    //var registerpopup = $('#regPopup').dialog({
+    //    submitCallBack: function () {
+    //        location.href = '/account';
+    //    }
+    //});
 
 
 })(cd, cd.analytics, ZboxResources);

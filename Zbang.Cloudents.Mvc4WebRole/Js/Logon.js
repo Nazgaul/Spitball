@@ -2,20 +2,14 @@
 (function (cd, $) {
     "use strict";
 
-    if (window.scriptLoaded.isLoaded('l')) {
+    if (window.scriptLoaded.isLoaded('log')) {
         return;
     }
     var eById = document.getElementById.bind(document),
         registerPopup = eById('register'), registerForm = eById('registerForm'),
+        showPopup = eById('showRegisterPopup'), cancelPopup = eById('cancelRegisterPopup'), regPopup = eById('regPopup'),
         connectPopup = eById('connect'), connectForm = eById('login');
-
-
-    //cd.putPlaceHolder();
-
-    //$('.sideBarSignupBtn').click(function () {
-    //    cd.analytics.trackEvent('Homepage', 'Sidebar signup', 'Clicking on signup in the sidebar');
-    //});
-
+    
     //#region Show and Hide popups
     $(document).on('click', '.addConnect', function () {
         resetPopupView();
@@ -28,9 +22,21 @@
 
     $('[data-closelogin]').click(resetPopupView);
 
+    cd.pubsub.subscribe('register', function () {
+        regPopup.style.display = 'block';
+    });
+
+    $(cancelPopup).click(function () {
+        regPopup.style.display = 'none';
+    });
+
+
     function resetPopupView() {
         registerPopup.classList.remove('register');
         connectPopup.classList.remove('connect');
+        if (regPopup) {
+            regPopup.style.display = 'none';
+        }
     }
     //#endregion
 
@@ -55,6 +61,7 @@
                 }
                 cd.resetErrors($form);
                 cd.displayErrors($form, data.Payload);
+                $submit.removeAttr('disabled');
             },
             error: function () {
                 $submit.removeAttr('disabled');
@@ -85,6 +92,8 @@
                 }
                 cd.resetErrors($form);
                 cd.displayErrors($form, data.Payload);
+                $submit.removeAttr('disabled');
+
             },
             error: function () {
                 $submit.removeAttr('disabled');
