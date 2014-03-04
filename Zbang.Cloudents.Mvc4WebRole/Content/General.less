@@ -961,17 +961,19 @@ ul.ui-autocomplete {
 /*#endregion */
 
 /*#region connect and register pages */
-.enter {
-    .staticWpr {
-        width: 425px;
-        padding: 40px 0 13px;
+.welcomeModal
+{
+    .modal2
+    {
+        display: none;
     }
 }
 
 .enterTitle {
-    font-size: 32px;
+    font-size: 24px;
     color: @textColor;
     text-align: center;
+    margin-bottom: 23px;
 }
 
 .staticWpr {
@@ -983,20 +985,22 @@ ul.ui-autocomplete {
     border-radius: 5px;
     //.animation(fadein,.5s);
     padding: 40px 0;
-    display: none;
     &.popupWrppr
     {
         .boxSizing;
         width: 430px;
-        //height: 430px;
         margin:0 auto; //override;
         padding: 20px 50px; //override;
-        
-    }
-    + .staticWpr  //TEMP
-    {
-        display: block;
-        //display: none;
+        background: #f5f5f5; //override
+        display: none;
+        &:target
+        {
+            display: block;
+            ~ .modal2
+            {
+                display: block;
+            }
+        }       
     }
     .facebook {
         width: 100%;
@@ -1008,12 +1012,10 @@ ul.ui-autocomplete {
     color: @textColor;
 
     .field-validation-error, .validation-summary-errors {
-        font-size: 15px;
-        color: #CF432D;
-    }
-
-    .validation-summary-errors {
-        margin: 0 0 16px 0; //override default left margin
+        font-size: 13px;
+        color: #d1294d;
+        margin: 0 0 3px 0; //override
+        display:inline-block;
     }
 
     .small {
@@ -1022,7 +1024,7 @@ ul.ui-autocomplete {
 
     .splitHR {
         width: 100%;
-        margin: 5px auto 15px;
+        margin: 15px auto;
     }
     .cbLabel
     {
@@ -1061,7 +1063,6 @@ ul.ui-autocomplete {
 }
 
 .facebook {
-    margin-bottom: 25px;
     cursor: pointer;
     padding: 5px 15px 9px 55px; /*rtl*/
     font-size: 17px;
@@ -1076,7 +1077,6 @@ ul.ui-autocomplete {
     z-index: 1;
     color: #fff;
 }
-
 
 .fbImg {
     position: absolute;
@@ -1120,6 +1120,16 @@ ul.ui-autocomplete {
     }
 }
 
+.register{
+    .inputText
+    {
+        margin: 30px 0 0 0; //override
+    }
+    .field-validation-error, .validation-summary-errors {
+        position: absolute;
+        margin: 10px 0 0 0; //override
+    }
+}
 .accntLabel {
     font-size: 15px;
     margin-bottom: 2px;

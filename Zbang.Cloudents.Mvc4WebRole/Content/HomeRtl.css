@@ -68,27 +68,8 @@ aside li {
   margin: 6px 4px 0 12px;
   /*rtl*/
 }
-.fbImg {
-  right: 16px;
-  /*rtl*/
-  left: auto;
-}
-.fbImg:after {
-  right: 24px;
-  /*rtl*/
-  left: auto;
-}
-.facebook,
 .email {
   text-align: right;
-  /*rtl*/
-}
-.email {
-  padding: 5px 15px;
-  /*rtl*/
-}
-.facebook {
-  padding: 5px 55px 5px 15px;
   /*rtl*/
 }
 /*.emailImg

@@ -2,26 +2,27 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister
 
-    
-<div class="staticWpr popupWrppr" id="connect">
-    <div class="enterTitle">@SharedResources.SignIn</div>
-    <div id="fb_log" class="facebook"><span class="fbImg"></span>@LogOnResources.Facebook</div>            
-    <div class="enterForm">
+<div class="welcomeModal">  
+    <div class="staticWpr popupWrppr" id="connect">
+        <div class="enterTitle">@SharedResources.SignIn</div>
+        <div id="fb_log" class="facebook"><span class="fbImg"></span>@LogOnResources.Facebook</div>            
+        <div class="enterForm">
         @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
+        </div>
+        <div class="create">@LogOnResources.NoAccount&nbsp;<a href="#register">@LogOnResources.CreateNew</a></div>
+        @*<button class="closeDialog" data-closeDiag="close"></button>*@
+        <a class="closeDialog" href="~/"></a>
     </div>
-    <div class="create">@LogOnResources.NoAccount&nbsp;<a href="@Url.ActionHash("Welcome", "register")">@LogOnResources.CreateNew</a></div>
-    <button class="closeDialog" data-closeDiag="close"></button>
-</div>
-
-    
-<div class="staticWpr popupWrppr"  id="register" >
-    <div class="enterTitle">Create an account</div>@*@LogOnResources.SignUp*@
-    <div class="facebook"><span class="fbImg"></span>@LogOnResources.FacebookSignUp</div>
-    <div class="enterForm" id="joinForm">
+   
+    <div class="staticWpr popupWrppr"  id="register" >
+        <div class="enterTitle">Create an account</div>@*@LogOnResources.SignUp*@
+        <div class="facebook"><span class="fbImg"></span>@LogOnResources.FacebookSignUp</div>
+        <div class="enterForm" id="joinForm">
         @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register());}
+        </div>
+        <div class="connect">@LogOnResources.AlreadyHave&nbsp;<a href="#connect">@SharedResources.SignIn</a></div>
+        @*<button class="closeDialog" data-closeDiag="close"></button>*@
+        <a class="closeDialog" href="~/"></a>
     </div>
-    <div class="connect">@LogOnResources.AlreadyHave&nbsp;<a href="@Url.ActionHash("Welcome", "connect")">@SharedResources.SignIn</a></div>
-    <button class="closeDialog" data-closeDiag="close"></button>
-</div>
-
-<div class="modal2"></div>
+    <div class="modal2"></div>
+ </div> 
