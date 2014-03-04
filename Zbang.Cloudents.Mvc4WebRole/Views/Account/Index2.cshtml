@@ -9,7 +9,7 @@
     <div class="headerWpr">
         <div class="logo lFloat"></div>
         <div class="headerActions rFloat">
-            <a id="homeLogin" href="@Url.ActionHash("Welcome", "Account", new { universityId = ViewBag.universityId }, "connect")" class="btn">@SharedResources.SignIn</a>
+            <a id="homeLogin" href="#connect" class="btn">@SharedResources.SignIn</a>
             <button type="button" class="headerSettings"></button>
         </div>
     </div>
@@ -17,8 +17,8 @@
         <h1>@HomeResources.SocialStudy</h1>
         <h3>@HomeResources.StudyPlatform</h3>
         <div class="facebook"><span class="fbImg"></span>@HomeResources.FacebookSignUp</div>
-        <a id="homeRegister" href="@Url.ActionHash("Welcome","Account", new { universityId = ViewBag.universityId }, "register")" class="email">@HomeResources.EmailSignUp</a>
-        <div class="signinText">@LogOnResources.AlreadyHave&nbsp;<a href="@Url.ActionHash("Welcome", "Account", new { universityId = ViewBag.universityId }, "connect")" class="loginLink">@SharedResources.SignIn</a></div>
+        <a id="homeRegister" href="#register" class="email">@HomeResources.EmailSignUp</a>
+        <div class="signinText">@LogOnResources.AlreadyHave&nbsp;<a href="#connect" class="loginLink">@SharedResources.SignIn</a></div>
     </div>
 
     

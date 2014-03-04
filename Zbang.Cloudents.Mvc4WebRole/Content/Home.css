@@ -54,28 +54,20 @@ body :-ms-input-placeholder {
   z-index: -2;
   background: #fcfcfc;
   /* Old browsers */
-
   background: -moz-linear-gradient(top, #fcfcfc 12%, #cbc8c2 95%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(12%, #fcfcfc), color-stop(95%, #cbc8c2));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, #fcfcfc 12%, #cbc8c2 95%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, #fcfcfc 12%, #cbc8c2 95%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, #fcfcfc 12%, #cbc8c2 95%);
   /* IE10+ */
-
   background: linear-gradient(to bottom, #fcfcfc 12%, #cbc8c2 95%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#cbc8c2', GradientType=0);
   /* IE6-9 */
-
 }
 .topImg > .btn {
   color: #fff;
@@ -85,13 +77,11 @@ body :-ms-input-placeholder {
   line-height: 42px;
   padding: 0 35px 0 20px;
   /*rtl*/
-
   display: inline-block;
   font-size: 16px;
   position: relative;
   text-transform: uppercase;
   /*rtl (remove uppercase)*/
-
   min-width: 320px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -104,7 +94,6 @@ body :-ms-input-placeholder {
   position: absolute;
   right: 15px;
   /*rtl*/
-
   top: 15px;
   background: url(/Images/hp14-sprite.png) -949px -244px no-repeat;
   width: 11px;
@@ -120,13 +109,31 @@ body :-ms-input-placeholder {
 .headerWpr.menuOpen ~ aside {
   right: 0;
   /*rtl*/
-
 }
 .headingTexts {
   position: absolute;
   left: 0;
   right: 0;
   top: 98px;
+}
+.headingTexts .facebook {
+  font-size: 15px;
+  margin: 25px 2px 8px;
+}
+.email {
+  color: #676767;
+  background: #fff;
+  border: 1px solid #c2c2c2;
+  padding: 4px 15px 8px 15px;
+  cursor: pointer;
+  margin: 25px 2px 8px;
+  font-size: 15px;
+  border-radius: 5px;
+  position: relative;
+  text-align: left;
+  /*rtl*/
+  display: inline-block;
+  line-height: 25px;
 }
 .homeContent {
   text-align: center;
@@ -153,13 +160,11 @@ body :-ms-input-placeholder {
   display: block;
   text-align: left;
   /*rtl*/
-
 }
 .homeContent .sectionText {
   display: block;
   text-align: left;
   /*rtl*/
-
   white-space: pre-wrap;
 }
 .homeContent .sectionWpr {
@@ -175,7 +180,6 @@ body :-ms-input-placeholder {
   background: url(/Images/hp14-sprite.png) -172px -1px no-repeat;
   float: right;
   /*rtl*/
-
   margin-top: 35px;
 }
 .logo {
@@ -192,7 +196,6 @@ aside {
   top: 0;
   right: -200px;
   /*rtl*/
-
   width: 200px;
   height: 100%;
   padding: 17px 12px 16px 12px;
@@ -202,7 +205,6 @@ aside {
   transition: all, 0.5s;
   text-align: left;
   /*rtl*/
-
   font-size: 14px;
   color: #fff;
   -webkit-box-sizing: border-box;
@@ -214,7 +216,6 @@ aside > button {
   top: 19px;
   right: 12px;
   /*rtl*/
-
   width: 10px;
   height: 10px;
   background: url(/Images/common14-sprite.png?v=1) -68px -15px no-repeat;
@@ -224,7 +225,6 @@ aside li {
   display: inline-block;
   float: left;
   /*rtl*/
-
   clear: both;
   opacity: 0.35;
   margin-bottom: 10px;
@@ -247,10 +247,8 @@ aside .last {
   /*rtl*/
   right: -webkit-calc(50% - 512px);
   /*rtl*/
-
   right: calc(50% - 512px);
   /*rtl*/
-
   -webkit-transition: all, 0.5s;
   -moz-transition: all, 0.5s;
   -o-transition: all, 0.5s;
@@ -277,7 +275,6 @@ aside .last {
   display: inline-block;
   margin: 6px 12px 0 4px;
   /*rtl*/
-
   width: 17px;
   height: 13px;
   background: url(/Images/common14-sprite.png?v=1) -112px -1px no-repeat;
@@ -289,62 +286,6 @@ aside .last {
 .signupText {
   padding: 166px 0 15px;
   font-size: 16px;
-}
-.fbImg {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  display: inline-block;
-  width: 11px;
-  height: 22px;
-  background: url(/Images/common14-sprite.png?v=1) -130px -1px no-repeat;
-  left: 16px;
-  /*rtl*/
-
-}
-.fbImg:after {
-  content: '';
-  display: inline-block;
-  opacity: .5;
-  width: 1px;
-  background: #fff;
-  height: 28px;
-  left: 24px;
-  /*rtl*/
-
-  position: relative;
-  top: -3px;
-}
-.facebook,
-.email {
-  margin: 25px 2px 8px;
-  cursor: pointer;
-  font-size: 15px;
-  border-radius: 5px;
-  position: relative;
-  text-align: left;
-  /*rtl*/
-
-  display: inline-block;
-  line-height: 25px;
-  background: #3b5998;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.facebook {
-  z-index: 1;
-  color: #fff;
-  padding: 5px 15px 9px 55px;
-  /*rtl*/
-
-}
-.email {
-  color: #676767;
-  background: #fff;
-  border: 1px solid #c2c2c2;
-  padding: 4px 15px 8px 15px;
 }
 .signinText {
   color: #676767;
@@ -410,7 +351,6 @@ aside .last {
   position: absolute;
   right: -7px;
   /*rtl*/
-
   top: 3px;
   width: 1px;
   height: 10px;
@@ -426,10 +366,8 @@ aside .last {
   height: 240px;
   float: left;
   /*rtl*/
-
   margin-right: 150px;
   /*rtl*/
-
 }
 .watch .sectionWpr:before {
   background-position: -718px 0;
@@ -437,7 +375,6 @@ aside .last {
   height: 240px;
   margin: 35px 25px 0 0;
   /*rtl*/
-
 }
 section.unions {
   position: relative;
@@ -508,10 +445,8 @@ section.unions .btn:hover {
   line-height: 166px;
   float: left;
   /*rtl*/
-
   border-right: 1px solid #fff;
   /*rtl*/
-
   color: #fff;
   /*&:hover
     {
@@ -527,7 +462,6 @@ section.unions .btn:hover {
             display: none;
         }
     }*/
-
 }
 .union.row1 {
   border-bottom: 1px solid #fff;
@@ -535,7 +469,6 @@ section.unions .btn:hover {
 .union.last {
   border-right: none;
   /*rtl*/
-
 }
 .union:before {
   content: '';
@@ -644,7 +577,6 @@ section.unions .btn:hover {
   text-align: center;
   border-right: 1px solid #798085;
   /*rtl*/
-
   display: table-cell;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -679,7 +611,6 @@ footer {
   font-size: 10px;
   padding: 0 3px 0 6px;
   /*rtl*/
-
 }
 .footer .last:after {
   content: '';
@@ -715,7 +646,6 @@ footer {
   .headerWpr.menuOpen .headerActions {
     right: 200px;
     /*rtl*/
-  
   }
 }
 /*#endregion */

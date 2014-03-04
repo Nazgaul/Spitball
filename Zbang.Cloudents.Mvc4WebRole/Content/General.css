@@ -907,14 +907,20 @@ ul.ui-autocomplete li a {
 }
 /*#endregion */
 /*#region connect and register pages */
-.enter .staticWpr {
-  width: 425px;
-  padding: 40px 0 13px;
+.welcomeModal .modal2 {
+  display: none;
 }
+/*.enter {
+    .staticWpr {
+        width: 425px;
+        padding: 40px 0 13px;
+    }
+}*/
 .enterTitle {
-  font-size: 32px;
+  font-size: 24px;
   color: #383838;
   text-align: center;
+  margin-bottom: 23px;
 }
 .staticWpr {
   margin: 20px auto;
@@ -924,7 +930,6 @@ ul.ui-autocomplete li a {
   background: #fff;
   border-radius: 5px;
   padding: 40px 0;
-  display: none;
 }
 .staticWpr.popupWrppr {
   -webkit-box-sizing: border-box;
@@ -933,8 +938,13 @@ ul.ui-autocomplete li a {
   width: 430px;
   margin: 0 auto;
   padding: 20px 50px;
+  background: #f5f5f5;
+  display: none;
 }
-.staticWpr + .staticWpr {
+.staticWpr.popupWrppr:target {
+  display: block;
+}
+.staticWpr.popupWrppr:target ~ .modal2 {
   display: block;
 }
 .staticWpr .facebook {
@@ -946,8 +956,10 @@ ul.ui-autocomplete li a {
 }
 .enterForm .field-validation-error,
 .enterForm .validation-summary-errors {
-  font-size: 15px;
-  color: #CF432D;
+  font-size: 13px;
+  color: #d1294d;
+  margin: 0 0 3px 0;
+  display: inline-block;
 }
 .enterForm .validation-summary-errors {
   margin: 0 0 16px 0;
@@ -957,7 +969,7 @@ ul.ui-autocomplete li a {
 }
 .enterForm .splitHR {
   width: 100%;
-  margin: 5px auto 15px;
+  margin: 15px auto;
 }
 .enterForm .cbLabel {
   font-size: 15px;
@@ -991,7 +1003,6 @@ ul.ui-autocomplete li a {
   display: none;
 }
 .facebook {
-  margin-bottom: 25px;
   cursor: pointer;
   padding: 5px 15px 9px 55px;
   /*rtl*/
@@ -1056,6 +1067,14 @@ ul.ui-autocomplete li a {
   margin-top: 20px;
   width: 100%;
   height: 40px;
+}
+.register .inputText {
+  margin: 30px 0 0 0;
+}
+.register .field-validation-error,
+.register .validation-summary-errors {
+  position: absolute;
+  margin: 10px 0 0 0;
 }
 .accntLabel {
   font-size: 15px;
