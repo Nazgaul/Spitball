@@ -5,11 +5,18 @@
     if (window.scriptLoaded.isLoaded('l')) {
         return;
     }
-    var eById = document.getElementById.bind(document);
+    var eById = document.getElementById.bind(document),
+        registerPopup = eById('register'), registerForm = eById('registerForm'),
+        connectPopup = eById('connect'), connectForm = eById('login');
 
-    var registerPopup = eById('register'),
-        connectPopup = eById('connect');
 
+    //cd.putPlaceHolder();
+
+    //$('.sideBarSignupBtn').click(function () {
+    //    cd.analytics.trackEvent('Homepage', 'Sidebar signup', 'Clicking on signup in the sidebar');
+    //});
+
+    //#region Show and Hide popups
     $(document).on('click', '.addConnect', function () {
         resetPopupView();
         connectPopup.classList.add('connect');
@@ -25,49 +32,66 @@
         registerPopup.classList.remove('register');
         connectPopup.classList.remove('connect');
     }
+    //#endregion
 
-    function registerEvents() {
-        //cd.putPlaceHolder();
 
-        $('.sideBarSignupBtn').click(function () {
-            cd.analytics.trackEvent('Homepage', 'Sidebar signup', 'Clicking on signup in the sidebar');
-        });
-
-        function logInRegisterEvents() {
-            $('form').submit(function (e) {
-                e.preventDefault();
-                var $form = $(this), $submit = $form.find(':submit');
-                if (!$form.valid || $form.valid()) {
-                    var d = $form.serializeArray();
-                    d.push({ name: 'universityId', value: cd.getParameterByName('universityId') });
-                    $submit.attr('disabled', 'disabled');
-                    $.ajax({
-                        url: $form.prop('action'),
-                        data: d,
-                        type: 'POST',
-                        success: function (data) {
-                            if (data.Success) {
-                                window.location.href = data.Payload || "/";
-                                return;
-                            }
-                            cd.resetErrors($form);
-                            cd.displayErrors($form, data.Payload);
-                            $submit.removeAttr('disabled');
-                        },
-                        error: function () {
-                            cd.notification('Something went wrong please try again');
-                            $submit.removeAttr('disabled');
-                            window.location.reload(); // if cscf was occure - reloading the page to refresh the token
-                        }
-                    });
-
-                }
-            });
-
+    $(connectForm).submit(function (e) {
+        e.preventDefault();
+        var $form = $(this), $submit = $form.find(':submit');
+        if (!(!$form.valid || $form.valid())) {
+            return;
         }
 
+        var d = $form.serializeArray();
+        $submit.attr('disabled', 'disabled');
+        $.ajax({
+            url: $form.prop('action'),
+            data: d,
+            type: 'POST',
+            success: function (data) {
+                if (data.Success) {
+                    window.location.reload();
+                    return;
+                }
+                cd.resetErrors($form);
+                cd.displayErrors($form, data.Payload);
+            },
+            error: function () {
+                $submit.removeAttr('disabled');
+                cd.notification('Something went wrong please try again');
+            }
+        });
+    });
 
-    }
+    $(registerForm).submit(function (e) {
+        e.preventDefault();
+
+        var $form = $(this), $submit = $form.find(':submit');
+        if (!(!$form.valid || $form.valid())) {
+            return;
+        }
+
+        var d = $form.serializeArray();
+        d.push({ name: 'universityId', value: cd.getParameterByName('universityId') });
+        $submit.attr('disabled', 'disabled');
+        $.ajax({
+            url: $form.prop('action'),
+            data: d,
+            type: 'POST',
+            success: function (data) {
+                if (data.Success) {
+                    window.location.reload();
+                    return;
+                }
+                cd.resetErrors($form);
+                cd.displayErrors($form, data.Payload);
+            },
+            error: function () {
+                $submit.removeAttr('disabled');
+                cd.notification('Something went wrong please try again');
+            }
+        });
+    });
 
     function logInFacebook(accessToken) {
         var facebookText = {
@@ -106,7 +130,7 @@
                 }
                 else {
                     location.href = obj.url;
-                }                
+                }
             },
             error: function (msg) {
                 $('div.loading').hide();
@@ -114,7 +138,7 @@
             }
         });
     }
-    registerEvents();
+
     var fbElement = $('.facebook');
     if (fbElement.length) {
         fbElement.click(function () {
@@ -137,7 +161,7 @@
 
             }, { scope: 'email,publish_stream' });
         });
-        cd.loader.registerFacebook();      
+        cd.loader.registerFacebook();
 
     }
 

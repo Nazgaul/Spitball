@@ -138,38 +138,38 @@
 
 
 
-        function logInRegisterEvents() {
-            $('form').submit(function (e) {
-                e.preventDefault();
-                var $form = $(this), $submit = $form.find(':submit');
-                if (!$form.valid || $form.valid()) {
-                    var d = $form.serializeArray();
-                    d.push({ name: 'universityId', value: cd.getParameterByName('universityId') });
-                    $submit.attr('disabled', 'disabled');
-                    $.ajax({
-                        url: $form.prop('action'),
-                        data: d,
-                        type: 'POST',
-                        success: function (data) {
-                            if (data.Success) {
-                                window.location.href = data.Payload || "/";
-                                return;
-                            }
-                            cd.resetErrors($form);
-                            cd.displayErrors($form, data.Payload);
-                            $submit.removeAttr('disabled');
-                        },
-                        error: function () {
-                            cd.notification('Something went wrong please try again');
-                            $submit.removeAttr('disabled');
-                            window.location.reload(); // if cscf was occure - reloading the page to refresh the token
-                        }
-                    });
+        //function logInRegisterEvents() {
+        //    $('form').submit(function (e) {
+        //        e.preventDefault();
+        //        var $form = $(this), $submit = $form.find(':submit');
+        //        if (!$form.valid || $form.valid()) {
+        //            var d = $form.serializeArray();
+        //            d.push({ name: 'universityId', value: cd.getParameterByName('universityId') });
+        //            $submit.attr('disabled', 'disabled');
+        //            $.ajax({
+        //                url: $form.prop('action'),
+        //                data: d,
+        //                type: 'POST',
+        //                success: function (data) {
+        //                    if (data.Success) {
+        //                        window.location.href = data.Payload || "/";
+        //                        return;
+        //                    }
+        //                    cd.resetErrors($form);
+        //                    cd.displayErrors($form, data.Payload);
+        //                    $submit.removeAttr('disabled');
+        //                },
+        //                error: function () {
+        //                    cd.notification('Something went wrong please try again');
+        //                    $submit.removeAttr('disabled');
+        //                    window.location.reload(); // if cscf was occure - reloading the page to refresh the token
+        //                }
+        //            });
 
-                }
-            });
+        //        }
+        //    });
 
-        }
+        //}
 
 
     }
