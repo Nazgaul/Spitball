@@ -9,6 +9,7 @@
     <return-scalar column="UserImage" type="string"/>
     <return-scalar column="UserUid" type="long"/>
     <return-scalar column="Content" type="string"/>
+    <return-scalar column="CreationTime" type="DateTime"/>
   </resultset>
   <resultset name="Answer">
     <return-scalar column="Id" type="Guid"/>
@@ -40,6 +41,7 @@
 	  ,u.UserImage as UserImage
 	  ,u.userid as UserUid
     ,[Text] as Content
+    ,q.CreationTime as creationTime
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = :boxId
     order by id desc;

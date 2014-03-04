@@ -26,5 +26,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
         public List<ItemDto> Files { get; set; }
 
         public string Url { get; set; }
+
+        public DateTime CreationTime { get; set; }
     }
 }
