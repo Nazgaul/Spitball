@@ -1032,12 +1032,10 @@
     <Content Include="Views\Account\Index2.mobile.cshtml" />
     <Content Include="Views\Account\Register.mobile.cshtml" />
     <Content Include="Views\Account\LogOn.mobile.cshtml" />
-    <Content Include="Views\Home\_Welcome.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
-    <Content Include="Views\Account\Welcome.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>

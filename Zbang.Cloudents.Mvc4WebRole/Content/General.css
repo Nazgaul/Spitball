@@ -740,7 +740,7 @@ ul.ui-autocomplete li a {
   background-color: transparent;
   width: 11px;
   height: 11px;
-  background: url(/Images/common14-sprite.png?v=1) -68px -15px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) no-repeat;
   position: absolute;
   top: 12px;
   right: 12px;
@@ -935,6 +935,9 @@ ul.ui-autocomplete li a {
 .staticWpr.popupWrppr ~ .modal2 {
   display: none;
 }
+.staticWpr.popupWrppr .closeDialog {
+  background-position: -68px -15px;
+}
 .staticWpr .facebook {
   width: 100%;
 }
@@ -967,6 +970,10 @@ ul.ui-autocomplete li a {
 .enterForm .cbLabel {
   font-size: 15px;
   margin: 0;
+  position: static;
+}
+.enterForm .cbLabel:before {
+  border: none;
 }
 .connect,
 .create {
@@ -976,8 +983,8 @@ ul.ui-autocomplete li a {
   font-size: 13px;
   color: #676767;
 }
-.connect a,
-.create a {
+.connect button,
+.create button {
   color: #0f9d58;
 }
 .hr {

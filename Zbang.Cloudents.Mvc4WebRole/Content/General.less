@@ -773,7 +773,7 @@ ul.ui-autocomplete {
         background-color: transparent;
         width: 11px;
         height: 11px;
-        background: @common-sprite -68px -15px no-repeat;
+        background: @common-sprite no-repeat;
         position: absolute;
         top: 12px;
         right: 12px; /*rtl*/
@@ -989,7 +989,10 @@ ul.ui-autocomplete {
         ~ .modal2
         {
             display: none;
-        }   
+        } 
+        .closeDialog {
+            background-position: -68px -15px;
+        }  
     }
     
     .facebook {
@@ -1028,6 +1031,11 @@ ul.ui-autocomplete {
     {
         font-size: 15px;
         margin:0;
+        position: static; //override
+        &:before
+        {
+            border: none;
+        }
     }
 }
 
@@ -1038,7 +1046,7 @@ ul.ui-autocomplete {
     font-size: 13px;
     color: #676767;
 
-    a {
+    button {
         color: @color;
     }
 }

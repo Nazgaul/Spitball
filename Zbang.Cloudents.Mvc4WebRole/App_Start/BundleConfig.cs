@@ -70,8 +70,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 "~/Content/Animations.css",
                 "~/Content/Static.css");
 
-            RegisterCss("welcome", "~/Content/Welcome.css");
-            RegisterCss("welcomeRtl", "~/Content/WelcomeRtl.css");
+            //RegisterCss("welcome", "~/Content/Welcome.css");
+            //RegisterCss("welcomeRtl", "~/Content/WelcomeRtl.css");
 
 
 
