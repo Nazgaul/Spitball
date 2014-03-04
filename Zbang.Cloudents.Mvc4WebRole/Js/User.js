@@ -382,6 +382,7 @@
             clear();
         });
 
+        setInterval(function () { }, 60000);
         function clear() {
             pubsub.publish('clearTooltip');
 

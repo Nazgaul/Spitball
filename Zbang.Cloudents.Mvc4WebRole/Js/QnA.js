@@ -20,7 +20,7 @@
             _that.userImg = data.userImage;
             _that.userid = data.userUid;
             _that.content = data.content.replace(/\n/g, '<br/>');
-            _that.createTime = data.creationTime ? cd.parseActionTime(data.creationTime) : 'Yesteraday';
+            _that.createTime = data.creationTime || new Date();
             data.Answers = data.answers || [];
             _that.answers = ko.observableArray($.map(data.answers, function (i) { return new Answer(i); }));
             _that.answerCount = ko.computed(function () {
@@ -72,7 +72,7 @@
                 if (right.isAnswer()) {
                     return 1;
                 }
-                if (left.date > right.date) {
+                if (left.createTime > right.createTime) {
                     return 1;
                 }
                 return -1;
@@ -99,13 +99,12 @@
             _that.userName = data.userName;
             _that.userImg = data.userImage;
             _that.userId = data.userId;
-
-            _that.date = data.creationTime;
+            
             _that.content = data.content.replace(/\n/g, '<br/>');
             _that.rating = ko.observable(data.rating);
             _that.irate = data.iRate;
             _that.isAnswer = ko.observable(data.answer);
-            _that.createTime = cd.parseActionTime(data.creationTime);
+            _that.createTime = data.creationTime;
             data.files = data.files || [];
             _that.files = ko.observableArray($.map(data.files, function (i) { return new File(i); }));
             _that.canDelete = ko.computed(function () {
@@ -459,7 +458,7 @@
                         return;
                     }
                     self.questionList($.map(data, function (i) { return new Question(i); }));
-
+                    //cd.updateTimeActions();
                     self.state(state.question);
                 }
             });
