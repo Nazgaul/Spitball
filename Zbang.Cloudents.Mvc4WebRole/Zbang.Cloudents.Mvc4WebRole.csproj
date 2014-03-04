@@ -981,7 +981,7 @@
     <Content Include="Scripts\knockout-delegatedEvents.js" />
     <Content Include="Scripts\knockout-delegatedEvents.min.js" />
     <Content Include="Scripts\Modernizr.js" />
-    <Content Include="Scripts\mutationobserver.min.js" />
+    <Content Include="Scripts\MutationObserver.js" />
     <Content Include="Scripts\plupload\plupload.browserplus.js" />
     <Content Include="Scripts\plupload\plupload.flash.js" />
     <Content Include="Scripts\plupload\plupload.flash.swf" />

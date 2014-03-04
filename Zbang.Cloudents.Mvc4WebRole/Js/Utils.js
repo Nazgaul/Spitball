@@ -100,6 +100,8 @@
     };
 
     //#region Dates in the system    
+    var actionTimeInterval;
+
     var parseActionTime = function (date) {
         if (!date) {
             return;
@@ -164,20 +166,25 @@
         // create an observer instance
         var observer = new MutationObserver(function (mutations) {
             var text;
-            mutations.forEach(function(mutation) {
-                if (mutation.attributeName === 'data-time') {                                
-                    text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));                
+            if (actionTimeInterval) {
+                clearInterval(actionTimeInterval);
+            }
+            mutations.forEach(function (mutation) {
+                if (mutation.attributeName === 'data-time') {
+                    text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
                     mutation.target.textContent = text;
                 }
-            });    
+            });
+            actionTimeInterval = setInterval(updateTimeActions, 60000);
         });
- 
+
         // configuration of the observer:
-        var config = { attributes: true, childList: true ,subtree:true};
- 
+        var config = { attributes: true, childList: true, subtree: true };
+
         // pass in the target node, as well as the observer options
         observer.observe(target, config);
     }
+        
     function updateTimeActions() {
         var $timedObjects = $('[data-time]'),
         $time,text;
@@ -188,7 +195,7 @@
 
         }
     }    
-    setInterval(updateTimeActions, 60000);
+    actionTimeInterval = setInterval(updateTimeActions, 60000);
     //#endregion
     var resetErrors = function (form) {
         var $form = $(form);
