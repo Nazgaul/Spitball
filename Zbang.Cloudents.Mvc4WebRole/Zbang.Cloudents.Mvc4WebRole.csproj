@@ -883,7 +883,7 @@
     <Content Include="Js\User.js" />
     <Content Include="Js\Utils.js" />
     <Content Include="Js\Welcome.js" />
-    <Content Include="Js\Zbox.Logon.js" />
+    <Content Include="Js\Logon.js" />
     <Content Include="Content\AccountInfo.less" />
     <Content Include="Content\General.less" />
     <Content Include="Content\Box3.less" />

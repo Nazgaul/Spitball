@@ -44,7 +44,7 @@
 else
 {
     <li class="navItem signUp">
-        <a href="@Url.ActionHash("Welcome", "Account", new { universityId = ViewBag.universityId }, "register")" class="btn">@LogOnResources.SignUp</a>
-        <a href="@Url.ActionHash("Welcome", "Account", new { universityId = ViewBag.universityId }, "connect")" class="btn">@SharedResources.SignIn</a>
+        <button class="btn addRegister" data-university="ViewBag.universityId">@LogOnResources.SignUp</button>        
+        <button class="btn addConnect" data-university="ViewBag.universityId">@SharedResources.SignIn</button>
     </li>
 }
