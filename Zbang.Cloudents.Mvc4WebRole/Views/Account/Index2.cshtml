@@ -9,7 +9,8 @@
     <div class="headerWpr">
         <div class="logo lFloat"></div>
         <div class="headerActions rFloat">
-            <a id="homeLogin" href="#connect" class="btn">@SharedResources.SignIn</a>
+            @*Guy: add class connect to #connect*@
+            <button type="button" id="homeLogin" class="btn addConnect">@SharedResources.SignIn</button>
             <button type="button" class="headerSettings"></button>
         </div>
     </div>
@@ -17,8 +18,10 @@
         <h1>@HomeResources.SocialStudy</h1>
         <h3>@HomeResources.StudyPlatform</h3>
         <div class="facebook"><span class="fbImg"></span>@HomeResources.FacebookSignUp</div>
-        <a id="homeRegister" href="#register" class="email">@HomeResources.EmailSignUp</a>
-        <div class="signinText">@LogOnResources.AlreadyHave&nbsp;<a href="#connect" class="loginLink">@SharedResources.SignIn</a></div>
+        <button type="button" id="homeRegister" class="email addRegister">@HomeResources.EmailSignUp</button>
+        <div class="signinText">@LogOnResources.AlreadyHave
+            <button class="addConnect loginLink" type="button">@SharedResources.SignIn</button>
+        </div>
     </div>
 
     

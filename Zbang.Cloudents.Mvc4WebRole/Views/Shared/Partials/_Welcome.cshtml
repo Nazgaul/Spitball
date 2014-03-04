@@ -2,27 +2,28 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister
 
-<div class="welcomeModal">  
-    <div class="staticWpr popupWrppr" id="connect">
-        <div class="enterTitle">@SharedResources.SignIn</div>
-        <div id="fb_log" class="facebook"><span class="fbImg"></span>@LogOnResources.Facebook</div>            
-        <div class="enterForm">
-        @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
-        </div>
-        <div class="create">@LogOnResources.NoAccount&nbsp;<a href="#register">@LogOnResources.CreateNew</a></div>
-        @*<button class="closeDialog" data-closeDiag="close"></button>*@
-        <a class="closeDialog" href="~/"></a>
+@*Guy: 1) On .addConnect click add class connect to element #connect and remove class register from element #register
+2) On .addRegister click add class register to element #register and remove class connect from element #connect
+3) Make sure closeDialog closes the popup (you probably need to remove above connect and register classes)
+4) Thanks :)*@
+
+<div class="staticWpr popupWrppr" id="connect">
+    <div class="enterTitle">@SharedResources.SignIn</div>
+    <div id="fb_log" class="facebook"><span class="fbImg"></span>@LogOnResources.Facebook</div>            
+    <div class="enterForm">
+    @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
     </div>
+    <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
+    <button class="closeDialog" data-closeDiag="close"></button>
+</div>
    
-    <div class="staticWpr popupWrppr"  id="register" >
-        <div class="enterTitle">Create an account</div>@*@LogOnResources.SignUp*@
-        <div class="facebook"><span class="fbImg"></span>@LogOnResources.FacebookSignUp</div>
-        <div class="enterForm" id="joinForm">
-        @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register());}
-        </div>
-        <div class="connect">@LogOnResources.AlreadyHave&nbsp;<a href="#connect">@SharedResources.SignIn</a></div>
-        @*<button class="closeDialog" data-closeDiag="close"></button>*@
-        <a class="closeDialog" href="~/"></a>
+<div class="staticWpr popupWrppr"  id="register" >
+    <div class="enterTitle">Create an account</div>
+    <div class="facebook"><span class="fbImg"></span>@LogOnResources.FacebookSignUp</div>
+    <div class="enterForm" id="joinForm">
+    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register());}
     </div>
-    <div class="modal2"></div>
- </div> 
+    <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
+    <button class="closeDialog" data-closeDiag="close"></button>
+</div>
+<div class="modal2"></div>

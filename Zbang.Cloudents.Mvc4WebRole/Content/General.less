@@ -961,13 +961,6 @@ ul.ui-autocomplete {
 /*#endregion */
 
 /*#region connect and register pages */
-.welcomeModal
-{
-    .modal2
-    {
-        display: none;
-    }
-}
 
 .enterTitle {
     font-size: 24px;
@@ -992,18 +985,23 @@ ul.ui-autocomplete {
         margin:0 auto; //override;
         padding: 20px 50px; //override;
         background: #f5f5f5; //override
-        display: none;
-        &:target
+        display: none;  
+        ~ .modal2
         {
-            display: block;
-            ~ .modal2
-            {
-                display: block;
-            }
-        }       
+            display: none;
+        }   
     }
+    
     .facebook {
         width: 100%;
+    }
+    &.connect, &.register
+    {
+        display: block;
+        ~ .modal2
+        {
+            display: block;
+        }
     }
 }
 
