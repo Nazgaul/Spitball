@@ -84,80 +84,79 @@
   margin: 0 3px 0 0;
   /*rtl*/
 }
-/*#region invite popup step1 step2 */
-.step2 {
-  display: none;
+/*#region invite popup step1 step2 - HISTORIC */
+/*.step2
+{
+    display: none;
 }
-.inviteHeader {
-  text-align: center;
-  font-size: 15px;
+.inviteHeader
+{
+    text-align: center;
+    font-size: 15px;
 }
-.inviteVia {
-  font-size: 16px;
-  color: #fff;
-  margin: 15px auto 11px;
+.inviteVia
+{
+    font-size: 16px;
+    color: #fff;
+    margin: 15px auto 11px;  
 }
-.facebook,
-.email {
-  cursor: pointer;
-  padding: 8px 8px 8px 50px;
-  /*rtl*/
-  font-size: 18px;
-  -webkit-text-shadow: none;
-  text-shadow: none;
-  border-radius: 5px;
-  position: relative;
-  text-align: left;
-  /*rtl*/
-  margin: 36px auto 0;
-  width: 260px;
-  line-height: 25px;
+
+.facebook, .email {
+    cursor: pointer;
+    padding: 8px 8px 8px 50px;
+    font-size: 18px;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+    border-radius: 5px;
+    position: relative;
+    text-align: left; 
+    margin: 36px auto 0;
+    width: 260px;
+    line-height: 25px;
 }
-.facebook {
-  background-color: #3b5998;
+   
+.email
+{
+    background-color: @color;
 }
-.email {
-  background-color: #0f9d58;
+.fbImg, .emailImg
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    &:after
+    {
+        .pseudo();
+        opacity: .5;
+        width: 1px;
+        background: #fff;
+        height: 30px;
+        left: 24px; 
+        position: relative;
+        top: -3px;
+    }   
 }
-.fbImg,
-.emailImg {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+.fbImg
+{
+    display:inline-block;   
+    width: 11px;
+    height: 22px;
+    background: @common-sprite -130px -1px no-repeat;
+    left: 16px; 
 }
-.fbImg:after,
-.emailImg:after {
-  content: '';
-  display: inline-block;
-  opacity: .5;
-  width: 1px;
-  background: #fff;
-  height: 30px;
-  left: 24px;
-  /*rtl*/
-  position: relative;
-  top: -3px;
-}
-.fbImg {
-  display: inline-block;
-  width: 11px;
-  height: 22px;
-  background: url(/Images/common14-sprite.png?v=1) -130px -1px no-repeat;
-  left: 16px;
-  /*rtl*/
-}
-.emailImg {
-  width: 29px;
-  height: 22px;
-  left: 6px;
-  /*rtl*/
-  background: url(/Images/home-sprite.png) -242px 0 no-repeat;
-}
-.emailImg:after {
-  left: 35px;
-  /*rtl*/
-}
+.emailImg
+{
+    width: 29px;
+    height: 22px;
+    left: 6px; 
+    background: @home-sprite -242px 0 no-repeat;
+    &:after
+    {
+        left: 35px; 
+    }
+    
+}*/
 /*#endregion */
 .chooseFrom {
   border-top: 1px solid #c7c7c7;

@@ -1328,35 +1328,33 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 /*#endregion */
-/*#region invite popup step1 step2 */
-.facebook,
-.email {
-  padding: 8px 50px 8px 8px;
-  /*rtl*/
-  text-align: right;
-  /*rtl*/
+/*#region invite popup step1 step2 - HISTORIC */
+/*.facebook, .email {
+    padding: 8px 50px 8px 8px;
+    text-align: right;
 }
-.fbImg:after,
-.emailImg:after {
-  right: 24px;
-  /*rtl*/
-  left: auto;
+
+.fbImg, .emailImg {
+    &:after {
+        right: 24px;
+        left: auto;
+    }
 }
+
 .fbImg {
-  right: 16px;
-  /*rtl*/
-  left: auto;
+    right: 16px;
+    left: auto;
 }
+
 .emailImg {
-  right: 6px;
-  /*rtl*/
-  left: auto;
-}
-.emailImg:after {
-  right: 35px;
-  /*rtl*/
-  left: auto;
-}
+    right: 6px;
+    left: auto;
+
+    &:after {
+        right: 35px;
+        left: auto;
+    }
+}*/
 /*#endregion*/
 /*#endregion */
 /*#region Item3.css */
