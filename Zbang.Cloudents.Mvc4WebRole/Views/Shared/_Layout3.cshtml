@@ -14,11 +14,11 @@
 <html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name">
 <head>
     <title>@ViewBag.title</title>
-    <link rel="SHORTCUT ICON" href="~/favicon.ico"/>
-    
-     @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    <link rel="SHORTCUT ICON" href="~/favicon.ico" />
+
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
     {
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     }
 
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
@@ -76,14 +76,12 @@
                     </ul>
                     <h3>@SharedResources.Materials</h3>
                     <ul class="searchList items">
-
                     </ul>
                     <h3>@SharedResources.People</h3>
                     <ul class="searchList people">
                     </ul>
                     <h3>@SharedResources.ResultsOther</h3>
                     <ul class="searchList university">
-
                     </ul>
                     <a class="showAll" data-navigation="search">@SharedResources.AllResults&nbsp;<q></q></a>
                     <div class="emptySearch">@SharedResources.NoResults</div>
@@ -108,7 +106,9 @@
     </div>
     @*Guy: Please add the class 'ptsAnim' when necessary, and after 3.5s apply the points counter animation (duration: 1s) on
            the userPts element (see Account/_UserDetail3) with the addition of the the #points*@
-    <div class="ptsPopup" id="ptsPopup" data-pts-before="@SharedResources.SweetPoints" data-pts-after="@SharedResources.Pts"><div class="digitWpr"></div></div>
+    <div class="ptsPopup" id="ptsPopup" data-pts-before="@SharedResources.SweetPoints" data-pts-after="@SharedResources.Pts">
+        <div class="digitWpr"></div>
+    </div>
 
 
     <div class="uploads" id="uploads">
@@ -133,15 +133,18 @@
             Html.RenderPartial("_RegisterPopUp");
         }
     }
-    @{Html.RenderPartial("_Welcome");}
-
+    @if (!User.Identity.IsAuthenticated)
+    {
+        Html.RenderPartial("_Welcome", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister());
+    }
     @RenderSection("templates", false)
     <div id="cssCheck"></div>
     <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
 
 
     <script type="text/html" id="userToolTipTempalte">
-        <a data-navigation="User" href="{{url}}"><img class="ttImg" src="{{image}}" width="99" height="99" /></a>
+        <a data-navigation="User" href="{{url}}">
+            <img class="ttImg" src="{{image}}" width="99" height="99" /></a>
         <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
         <div class="ttSchool elps">{{university}}</div>
         <span class="ttPoints lFloat" data-tt-points="{{score}}">&nbsp;@SharedResources.Points</span>
