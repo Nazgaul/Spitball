@@ -13,6 +13,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             int numOfViews,
             float rate,
             string thumbnail,
+            bool sponsored,
             string owner)
         {
             Id = id;
@@ -24,6 +25,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             Rate = rate;
             Thumbnail = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(thumbnail);
             Owner = owner;
+            Sponsored = sponsored;
         }
 
         public long Id { get; private set; }
@@ -39,5 +41,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public string Url { get; set; }
 
         public string Thumbnail { get; private set; }
+
+
+        public bool Sponsored { get; private set; }
     }
 }

@@ -8,12 +8,12 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             string thumbnail,
              string tabId, int numOfViews, float rate, bool sponsored, string owner)
             : base(id, name, ownerId,
-             tabId, numOfViews, rate, thumbnail, owner)
+             tabId, numOfViews, rate, thumbnail,sponsored, owner)
         {
-            Sponsored = sponsored;
+            
         }
 
-        public bool Sponsored { get; private set; }
+        
 
         public override string Type
         {
