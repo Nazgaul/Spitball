@@ -10,28 +10,27 @@
    )
     {
         Html.RenderAction("AntiForgeryToken", "Home", true);
-    
-       
-        @Html.LabelFor(model => model.Email, new { @class = "accntLabel" })
+
         @Html.ValidationMessageFor(model => model.Email, null)
         @Html.TextBoxFor(model => model.Email, new
         {
             @class = "inputText",
             type = "text",
             autofocus = "autofocus",
-            tabindex = 1
+            tabindex = 1,
+            placeholder = @SharedResources.EmailAddress
         })
 
-        @Html.LabelFor(model => model.Password, new { @class = "accntLabel" })
         @Html.ValidationMessageFor(model => model.Password, null)
         @Html.PasswordFor(model => model.Password, new
         {
             @class = "inputText",
-            tabindex = 2
+            tabindex = 2,
+            placeholder = @LogOnResources.Password
         })
-        <div class="forgot">
-            @LogOnResources.ForgotYourPassword&nbsp;@Html.ActionLink(LogOnResources.Retrieve, "ResetPassword")
-        </div>
+
+        @Html.ActionLink(@LogOnResources.ForgotYourPassword, "ResetPassword", null, new { @class = "forgot rFloat" })
+
         
         
         @Html.CheckBoxFor(m=>m.RememberMe,new { id="RememberMe",@class="checkbox", tabindex="3"})

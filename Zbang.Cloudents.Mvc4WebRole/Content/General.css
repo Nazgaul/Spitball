@@ -693,6 +693,396 @@ ul.ui-autocomplete li a {
   color: #383838;
 }
 /*#endregion */
+/*#region popup */
+.modal2 {
+  filter: alpha(opacity=50);
+  background: #111;
+  background: rgba(17, 17, 17, 0.5);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  z-index: 12;
+}
+.popupForm .field-validation-error,
+.popupForm .validation-summary-errors {
+  margin-left: 15px;
+  /*rtl*/
+}
+.popupWrppr {
+  position: fixed;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+  top: 20%;
+  width: 558px;
+  z-index: 13;
+  background-color: #fff;
+  padding: 0 20px 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #383838;
+  -webkit-animation: fadein 0.5s 0 ease;
+  -moz-animation: fadein 0.5s 0 ease;
+  -o-animation: fadein 0.5s 0 ease;
+  animation: fadein 0.5s 0 ease;
+  /*#region departmentChoose*/
+  /*#endregion*/
+}
+.popupWrppr .cancel {
+  margin-left: 10px;
+  /*rtl*/
+}
+.popupWrppr .closeDialog {
+  background-color: transparent;
+  width: 11px;
+  height: 11px;
+  background: url(/Images/common14-sprite.png?v=1) -68px -15px no-repeat;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  /*rtl*/
+}
+.popupWrppr .btn1,
+.popupWrppr .btn2 {
+  margin-top: 18px;
+}
+.popupWrppr .inputText {
+  height: 28px;
+  padding: 0 4px 0 8px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}
+.popupWrppr.enterCode {
+  font-size: 13px;
+  background: #faf9fa;
+  direction: rtl;
+  padding: 0;
+  text-align: right;
+}
+.popupWrppr.enterCode .popupHeader {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 0 15px;
+}
+.popupWrppr.enterCode .closeDialog {
+  left: 20px;
+  right: auto;
+}
+.popupWrppr.enterCode .lFloat {
+  float: left;
+}
+.popupWrppr.enterCode .inputText {
+  width: 268px;
+}
+.popupWrppr.enterCode label {
+  display: block;
+  margin: 17px 0 0 0;
+}
+.popupWrppr.enterCode form,
+.popupWrppr.enterCode .noCode {
+  padding: 0 9px 25px 19px;
+  border-bottom: 1px solid #c7c7c7;
+}
+.popupWrppr.enterCode .noCode {
+  clear: both;
+  padding: 0 9px 25px 0;
+  background: #e8e8e8;
+}
+.popupWrppr.enterCode .noCode .boldFont {
+  font-size: 20px;
+  padding: 15px 0;
+}
+.popupWrppr.enterCode .noCode span.boldFont {
+  font-size: 16px;
+  padding: 0;
+}
+.popupWrppr.enterCode .btn1 {
+  width: 110px;
+  margin: 0 8px 0 0;
+  /*rtl*/
+}
+.popupWrppr.enterCode .mailTo {
+  color: #0f9d58;
+  text-decoration: underline;
+}
+.popupWrppr.addSchool {
+  text-align: left;
+  /*rtl*/
+}
+.popupWrppr.addSchool label {
+  color: #383838;
+  margin-bottom: 4px;
+  font-size: 15px;
+  display: inline-block;
+}
+.popupWrppr.addSchool .inputText {
+  display: block;
+}
+.popupWrppr.addSchool .inputText.schoolName {
+  margin-bottom: 10px;
+}
+.popupWrppr.addSchool .country {
+  width: 261px;
+  margin-right: 13px;
+  /*rtl*/
+}
+.popupWrppr.addSchool .schoolType {
+  width: 230px;
+}
+.popupWrppr.addSchool select {
+  padding: 3px;
+  font-size: 13px;
+}
+.popupWrppr.requestSent {
+  display: none;
+  min-height: 0;
+  -webkit-animation: fadein 0.5s 0 ease;
+  -moz-animation: fadein 0.5s 0 ease;
+  -o-animation: fadein 0.5s 0 ease;
+  animation: fadein 0.5s 0 ease;
+}
+.popupWrppr.requestSent .closeDialog {
+  background-position: -79px -15px;
+}
+.popupWrppr.departmentChoose {
+  width: 700px;
+}
+.popupWrppr.departmentChoose label {
+  display: block;
+  font-size: 15px;
+  color: #383838;
+  margin-bottom: 8px;
+}
+.popupWrppr.departmentChoose select {
+  display: block;
+  font-size: 13px;
+  color: #383838;
+  width: 50%;
+  padding: 3px 3px 5px 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.popupWrppr.departmentChoose #department {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.popupWrppr.departmentChoose input {
+  font-size: 13px;
+}
+.popupWrppr.departmentChoose .modal2 {
+  z-index: 11;
+}
+.requestSentDiv {
+  font-size: 18px;
+  padding-left: 18px;
+  /*rtl*/
+  width: 374px;
+  white-space: pre-line;
+}
+.requestSentDiv.first {
+  color: #0f9d58;
+  font-size: 28px;
+  /*diff rtl*/
+  margin: 20px 0 15px;
+  width: auto;
+}
+.popupHeader {
+  color: #fff;
+  font-size: 18px;
+  background: #39434a;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 -20px 15px;
+  padding: 0 20px;
+  width: 100%;
+}
+/*#endregion */
+/*#region connect and register pages */
+.enter .staticWpr {
+  width: 425px;
+  padding: 40px 0 13px;
+}
+.enterTitle {
+  font-size: 32px;
+  color: #383838;
+  text-align: center;
+}
+.staticWpr {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 15px;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  border-radius: 5px;
+  padding: 40px 0;
+  display: none;
+}
+.staticWpr.popupWrppr {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 430px;
+  margin: 0 auto;
+  padding: 20px 50px;
+}
+.staticWpr + .staticWpr {
+  display: block;
+}
+.staticWpr .facebook {
+  width: 100%;
+}
+.enterForm {
+  margin: 0 auto;
+  color: #383838;
+}
+.enterForm .field-validation-error,
+.enterForm .validation-summary-errors {
+  font-size: 15px;
+  color: #CF432D;
+}
+.enterForm .validation-summary-errors {
+  margin: 0 0 16px 0;
+}
+.enterForm .small {
+  font-size: 10px;
+}
+.enterForm .splitHR {
+  width: 100%;
+  margin: 5px auto 15px;
+}
+.enterForm .cbLabel {
+  font-size: 15px;
+  margin: 0;
+}
+.connect,
+.create {
+  text-align: center;
+  width: 100%;
+  margin: 13px auto 0;
+  font-size: 13px;
+  color: #676767;
+}
+.connect a,
+.create a {
+  color: #0f9d58;
+}
+.hr {
+  margin: 0 auto;
+}
+.formHeader {
+  font-size: 15px;
+  padding: 8px;
+  background: #fff;
+  display: inline-block;
+  position: relative;
+  top: -19px;
+}
+.enterConnect,
+.enterRegister {
+  display: none;
+}
+.facebook {
+  margin-bottom: 25px;
+  cursor: pointer;
+  padding: 5px 15px 9px 55px;
+  /*rtl*/
+  font-size: 17px;
+  border-radius: 5px;
+  position: relative;
+  text-align: left;
+  /*rtl*/
+  display: inline-block;
+  line-height: 25px;
+  background: #3b5998;
+  min-width: 290px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 1;
+  color: #fff;
+}
+.fbImg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: inline-block;
+  width: 11px;
+  height: 22px;
+  background: url(/Images/common14-sprite.png?v=1) -130px -1px no-repeat;
+  left: 16px;
+  /*rtl*/
+}
+.fbImg:after {
+  content: '';
+  display: inline-block;
+  opacity: .5;
+  width: 1px;
+  background: #fff;
+  height: 30px;
+  left: 24px;
+  /*rtl*/
+  position: relative;
+  top: -3px;
+}
+.signIn,
+.register {
+  text-align: left;
+  /*rtl*/
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 6px;
+}
+.signIn .inputText,
+.register .inputText {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.signIn .btn1,
+.register .btn1 {
+  margin-top: 20px;
+  width: 100%;
+  height: 40px;
+}
+.accntLabel {
+  font-size: 15px;
+  margin-bottom: 2px;
+  display: inline-block;
+  line-height: 13px;
+}
+.forgot {
+  font-size: 15px;
+  color: #0f9d58;
+}
+.formBottom {
+  font-size: 13px;
+  padding-bottom: 15px;
+  line-height: 14px;
+  margin-top: 12px;
+}
+.acceptTerms {
+  display: inline-block;
+  text-align: left;
+  /*rtl*/
+  line-height: 15px;
+}
+.acceptTerms > a {
+  color: #676767;
+}
+/*#endregion */
 /*#region general helper classes */
 .lFloat {
   float: left;

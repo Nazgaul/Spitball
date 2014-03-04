@@ -39,34 +39,10 @@
   /*rtl*/
 }
 .popupWrppr {
-  position: fixed;
-  margin: 0 auto;
-  right: 0;
-  left: 0;
-  top: 20%;
-  width: 558px;
   max-height: 396px;
-  z-index: 13;
-  padding: 0 20px 15px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  background-color: #fff;
-  color: #383838;
-  -webkit-animation: fadein 0.5s 0 ease;
-  -moz-animation: fadein 0.5s 0 ease;
-  -o-animation: fadein 0.5s 0 ease;
-  animation: fadein 0.5s 0 ease;
 }
 .popupWrppr .closeDialog {
-  background-color: transparent;
-  width: 11px;
-  height: 11px;
-  background: url(/Images/common14-sprite.png?v=1) -79px -25px no-repeat;
-  position: absolute;
-  top: 14px;
-  right: 20px;
-  /*rtl*/
+  background-position: -79px -25px;
 }
 .popupWrppr .cancel {
   margin-left: 10px;

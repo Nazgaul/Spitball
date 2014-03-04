@@ -51,6 +51,94 @@ body
 
 /*#endregion */
 
+/*#region popup */
+
+.popupForm
+{
+    .field-validation-error, .validation-summary-errors 
+    {
+        margin: 0 15px 0 0; /*rtl*/
+    }
+}
+
+.popupWrppr
+{
+    .cancel
+	{
+        margin: 18px 10px 0 0; /*rtl*/
+	}
+
+    .closeDialog
+    {
+        left: 12px; /*rtl*/
+        right: auto;
+    }
+    .btn1, .btn2
+    {
+        //float: left; /*rtl*/
+    }
+
+    &.enterCode
+    {       
+        form, .noCode{
+            padding: 0 9px 25px 19px; /*rtl*/
+        }
+        .noCode
+        {
+            padding: 0 9px 25px 0; /*rtl*/
+        }
+        .btn1
+        {
+            margin: 0 8px 0 0; /*rtl*/
+        }
+    }
+    &.addSchool
+    {
+        text-align: right; /*rtl*/
+        .country
+        {
+            margin: 0 0 0 13px; /*rtl*/
+        }
+    }
+}
+
+.requestSentDiv
+{
+    padding: 0 18px 0 0; /*rtl*/ // override poppwrrpr
+}
+
+/*#endregion */
+
+/*#region connect and register pages */
+
+.fbImg
+{
+    right: 16px; /*rtl*/
+    left: auto;
+    &:after
+    {
+        right: 24px; /*rtl*/
+        left: auto;
+    }   
+}
+
+.facebook
+{
+    padding: 9px 55px 5px 15px; /*rtl*/
+    text-align: right; /*rtl*/
+}
+.signIn, .register
+{
+    text-align: right; /*rtl*/
+}
+
+.acceptTerms {
+    text-align: right; /*rtl*/
+}
+
+/*#endregion */
+
+
 .lFloat {
     float: right; /*rtl*/
 }

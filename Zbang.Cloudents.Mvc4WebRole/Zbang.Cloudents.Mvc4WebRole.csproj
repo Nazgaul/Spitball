@@ -1093,6 +1093,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Library\SelectDepartment.cshtml" />
     <Content Include="Views\Item\Rename.cshtml" />
+    <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1628,10 +1629,10 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\LogOn.cshtml" />
+    <Content Include="Views\Shared\Partials\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Shared\Partials\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Settings.cshtml" />
