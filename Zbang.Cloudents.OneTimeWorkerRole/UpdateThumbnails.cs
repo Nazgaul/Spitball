@@ -21,16 +21,18 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private IZboxWriteService m_ZboxService;
         private IZboxReadService m_ZboxReadService;
+        private readonly IZboxReadServiceWorkerRole m_ZboxReadServiceWorkerRole;
 
         public UpdateThumbnails(IBlobProvider blobProvider, IThumbnailProvider thumbnailProvider, IFileProcessorFactory fileProcessorFactory,
-            IZboxWriteService zboxService, IZboxReadService zboxReadService)
+            IZboxWriteService zboxService, IZboxReadService zboxReadService,
+            IZboxReadServiceWorkerRole zboxReadServiceWorkerRole)
         {
             m_ThumbnailProvider = thumbnailProvider;
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
-            // m_FileContertFactory = fileConvertFacotry;
             m_ZboxReadService = zboxReadService;
             m_ZboxService = zboxService;
+            m_ZboxReadServiceWorkerRole = zboxReadServiceWorkerRole;
         }
 
         public void UpdateThumbnailPicture()
@@ -61,23 +63,24 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //    "6021e84d-822f-4c8a-85f7-baa5c69cfc6c.ppt",
                 //    "f00ef42c-f8c5-4888-888f-d0a61f1d1263.pdf"
                 //};
-                foreach (var blobname in fileContainer.ListBlobs(null, true, BlobListingDetails.All))
+                var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
+                foreach (var blobname in blobs)
                 {
 
-                    //var blob = fileContainer.GetBlockBlobReference();
+                    var blob = fileContainer.GetBlockBlobReference(blobname);
                     // Guid fileName = Guid.Empty;
                     //var blobName = blob.Uri.Segments[blob.Uri.Segments.Length - 1];
                     try
                     {
-                        TraceLog.WriteInfo("processing now " + blobname.Uri);
-                        UpdateFile(blobname.Uri);
+                        TraceLog.WriteInfo("processing now " + blob.Uri);
+                        UpdateFile(blob.Uri);
                     }
                     catch (StorageException)
                     {
                     }
                     catch (Exception ex)
                     {
-                        TraceLog.WriteError("UpdateThumbnailPicture blob:" + blobname.Uri, ex);
+                        TraceLog.WriteError("UpdateThumbnailPicture blob:" + blob.Uri, ex);
                     }
                 }
             }
@@ -125,7 +128,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         //    }
         //}
 
-        
+
     }
     public interface IUpdateThumbnails
     {

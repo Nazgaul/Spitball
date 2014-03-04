@@ -1,8 +1,11 @@
-﻿using NHibernate;
+﻿using Dapper;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.ViewModel.DTOs.Emails;
 using Zbang.Zbox.ViewModel.Queries.Emails;
@@ -106,6 +109,33 @@ namespace Zbang.Zbox.ReadServices
                 retVal.BoxUid = itemVal.BoxUid;
                 retVal.Uid = itemVal.Uid;
                 return retVal;
+            }
+        }
+
+        public async Task<IEnumerable<string>> GetMissingThumbnailBlobs()
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+              return await conn.QueryAsync<string>(@"select blobname from zbox.item where thumbnailblobname in 
+('filev2.jpg',
+'filev3.jpg',
+'filev4.jpg',
+'imagev1.jpg',
+'imagev4.jpg',
+'linkv2.jpg',
+'musicv1.jpg',
+'pdfv1.jpg',
+'pdfv4.jpg',
+'powerpointv1.jpg',
+'powerv4.jpg',
+'soundv4.jpg',
+'videov1.jpg',
+'videov4.jpg',
+'wordv1.jpg',
+'wordv4.jpg',
+'excelv1.jpg',
+'excelv4.jpg')
+and  isdeleted = 0");                
             }
         }
     }

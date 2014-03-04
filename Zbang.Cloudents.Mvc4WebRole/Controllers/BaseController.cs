@@ -118,7 +118,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return userId;
         }
-
+        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
+        {
+            return base.BeginExecuteCore(callback, state);
+        }
         #region Language
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {

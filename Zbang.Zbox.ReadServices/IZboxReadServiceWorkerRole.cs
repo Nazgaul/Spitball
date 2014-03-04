@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Zbang.Zbox.ViewModel.DTOs.Emails;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 
@@ -17,5 +18,7 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<MembersDigestDto> GetNewMembersLastUpdates(GetMembersLastUpdateQuery query);
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
+
+        Task<IEnumerable<string>> GetMissingThumbnailBlobs();
     }
 }

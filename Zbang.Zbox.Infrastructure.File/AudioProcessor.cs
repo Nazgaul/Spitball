@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.DefaultFileTypePicture;
+            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.SoundFileTypePicture;
         }
 
         public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)

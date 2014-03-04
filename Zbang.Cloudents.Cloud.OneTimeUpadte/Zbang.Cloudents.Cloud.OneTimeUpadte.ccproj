@@ -12,6 +12,8 @@
     <AssemblyName>Zbang.Cloudents.Cloud.OneTimeUpadte</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
     <Name>Zbang.Cloudents.Cloud.OneTimeUpadte</Name>
+    <UseWebProjectPorts>False</UseWebProjectPorts>
+    <PackageEnableRemoteDebugger>False</PackageEnableRemoteDebugger>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

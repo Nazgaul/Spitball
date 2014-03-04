@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return m_PreviewDimenstion[key];
         }
 
-        public static readonly string[] imageExtenstions = { ".jpg", ".gif", ".png", ".jpeg" };
+        public static readonly string[] imageExtenstions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
 
         public override bool CanProcessFile(Uri blobName)
         {

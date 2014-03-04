@@ -63,11 +63,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
         //donut output cache doesnt support route
-        [OutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
+        [DonutOutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang + ";"
-            + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour, Location = System.Web.UI.OutputCacheLocation.Server, Order = 2)]
-        [CompressFilter(Order = 1)]
-        [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}")]
+            + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour, Location = System.Web.UI.OutputCacheLocation.Server, Order = 3)]
+        [CompressFilter(Order = 2)]
+        [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}", Order = 1)]
         public ActionResult Index(long? universityId, string lang)
         {
 
