@@ -13,7 +13,7 @@
     @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
     </div>
     <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
-    <button class="closeDialog" data-closeDiag="close"></button>
+    <button class="closeDialog" data-closelogin="close"></button>
 </div>
    
 <div class="staticWpr popupWrppr"  id="register" >
@@ -23,6 +23,6 @@
     @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register());}
     </div>
     <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
-    <button class="closeDialog" data-closeDiag="close"></button>
+    <button class="closeDialog" data-closelogin="close"></button>
 </div>
 <div class="modal2"></div>

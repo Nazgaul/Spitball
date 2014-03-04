@@ -92,8 +92,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             RegisterCss("itemMobileRtl", "~/Content/ItemMobileRtl.css");
             #endregion
             RegisterJs("home",
-                new JsFileWithCdn("~/Js/Zbox.Logon.js")
-            );
+                new JsFileWithCdn("~/Js/Logon.js"),
+                new JsFileWithCdn("~/Js/Welcome.js"));
+
             RegisterJs("ChooseLib",
                   new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Js/Cache.js"),
@@ -129,7 +130,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             #region layout3
             RegisterJs("cd1",
                 new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
-
                 new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
                 new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
@@ -144,6 +144,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
                 //new JsFileWithCdn("~/Scripts/plupload/plupload.silverlight.js"),
                 // new JsFileWithCdn("~/Scripts/ZeroClipboard.js"),
+                new JsFileWithCdn("~/Js/Logon.js"),
                 new JsFileWithCdn("~/Js/Cache.js"),
                 new JsFileWithCdn("~/Js/DataContext.js"),
                 new JsFileWithCdn("~/Js/Dialog.js"), //dialog message
@@ -213,9 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             //    new JsFileWithCdn("~/Js/Invite.js"),
             RegisterJs("item",
                 //new JsFileWithCdn("~/Scripts/jquery.dotdotdot.min.js"),
-                new JsFileWithCdn("~/Js/ItemViewModel3.js"));
-
-            RegisterJs("welcome", new JsFileWithCdn("~/Js/Welcome.js"));
+                new JsFileWithCdn("~/Js/ItemViewModel3.js"));            
             #endregion layout3
 
 
