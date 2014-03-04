@@ -89,13 +89,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 "~/Content/SiteMobileRtl.css");
 
             RegisterCss("itemMobile", "~/Content/ItemMobile.css");
-            RegisterCss("itemMobileRtl", "~/Content/ItemMobileRtl.css"); 
+            RegisterCss("itemMobileRtl", "~/Content/ItemMobileRtl.css");
             #endregion
             RegisterJs("home",
                 new JsFileWithCdn("~/Js/Zbox.Logon.js")
             );
             RegisterJs("ChooseLib",
-                  new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),                
+                  new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Js/Cache.js"),
                 new JsFileWithCdn("~/Js/DataContext.js"),
                 new JsFileWithCdn("~/Js/LibraryChoose.js"));
@@ -106,13 +106,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
             RegisterJs("General",
                    new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js"),
-                                    //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
+                //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
-                                    //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
+                //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),// the script is too small
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"), // the script is too small
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
+
                 new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
+                new JsFileWithCdn("~/Scripts/MutationObserver.js"),
+
                 new JsFileWithCdn("~/Js/Utils.js"),
                 new JsFileWithCdn("~/Js/pubsub.js"),
 
@@ -134,14 +137,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.min.js"),
                 //new JsFileWithCdn("~/Scripts/jquery.mousewheel.js"),
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
-                new JsFileWithCdn("~/Scripts/mutationobserver.min.js"),
-                
+
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
                 //new JsFileWithCdn("~/Scripts/plupload/plupload.silverlight.js"),
-               // new JsFileWithCdn("~/Scripts/ZeroClipboard.js"),
+                // new JsFileWithCdn("~/Scripts/ZeroClipboard.js"),
                 new JsFileWithCdn("~/Js/Cache.js"),
                 new JsFileWithCdn("~/Js/DataContext.js"),
                 new JsFileWithCdn("~/Js/Dialog.js"), //dialog message
@@ -150,7 +152,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
 
               //  new JsFileWithCdn("~/Js/pubsub.js"),
-       
+
                 new JsFileWithCdn("~/Js/bootstrapper2.js"),
                 new JsFileWithCdn("~/Js/Navigation.js"),
                 new JsFileWithCdn("~/Js/Statistics.js"),
@@ -184,7 +186,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
                 //Social
                 new JsFileWithCdn("~/Js/SocialConnect.js"),
-                
+
                 //User Page
                 new JsFileWithCdn("~/Scripts/CountUp.js"),
                 new JsFileWithCdn("~/Js/User.js"),
@@ -194,8 +196,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/Search.js")
                 );
 
-                
-            
+
+
             //RegisterJs("dashboard",
             //    new JsFileWithCdn("~/Js/BoxesViewModel.js"),
             //    new JsFileWithCdn("~/Js/DashboardAside.js"));
@@ -219,7 +221,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
             #region mobile
             RegisterJs("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js"),
-                                    //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
+                //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                                     new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
                                     new JsFileWithCdn("~/Js/Utils.js"),
                                     new JsFileWithCdn("~/Js/pubsub.js"),
@@ -228,9 +230,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                                     new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
             RegisterJs("mobile",
                   new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js"),
-                                    //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
+                //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
-                                    //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
+                //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"),
 
@@ -326,7 +328,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
         private static void RegisterJs(string key, params JsFileWithCdn[] jsFiles)
         {
-            var jsBundle = SquishIt.Framework.Bundle.JavaScript();            
+            var jsBundle = SquishIt.Framework.Bundle.JavaScript();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
