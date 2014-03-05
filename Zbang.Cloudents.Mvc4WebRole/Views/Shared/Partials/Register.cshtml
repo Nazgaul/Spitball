@@ -10,7 +10,7 @@
     Html.RenderAction("AntiForgeryToken", "Home", true);
 
     @Html.ValidationMessageFor(model => model.NewUserName, null)
-    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", autofocus = "autofocus", tabindex = 10, @placeholder= "Username" })
+    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", @*autofocus = "autofocus",*@ tabindex = 10, @placeholder= "Username" })
 
     @Html.ValidationMessageFor(model => model.NewEmail, null)
     @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 11, @placeholder= SharedResources.Email })
