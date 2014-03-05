@@ -171,10 +171,15 @@
     <div class="modal2" id="itemModel"></div>
 </div>
 
-@*@if (Request.IsAjaxRequest())
-    {
+<script type="text/html" id="rateItemPopup">
+    <div> Rate this item:</div>
+    <div><span>* </span><span>* </span><span>* </span><span>* </span><span>* </span></div>
+</script>
+
+    @*@if (Request.IsAjaxRequest())
+        {
+                @Html.Script2("item")
+        }
+        @section scripts {
             @Html.Script2("item")
-    }
-    @section scripts {
-        @Html.Script2("item")
-    }*@
+        }*@

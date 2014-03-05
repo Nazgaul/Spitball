@@ -159,7 +159,9 @@
                 loaded = true;
                 defferedArray.push(getAnnotation());
                 defferedArray.push(getPreview());
+                setTimeout(function () {
 
+                },1000*60*5);//5 minutes
 
                 cd.pubsub.publish('perm', data.userType);
             }
@@ -1419,6 +1421,14 @@
                 ctx.clearRect(0, 0, canvases[i].width, canvases[i].height);
             }
             processAnnotationComments(isShowComment);
+        }
+
+        function showRatePopup() {
+            var html = document.getElementById('rateItemPopup').innerHTML;
+
+
+            function registerEvents() {
+            }
         }
     }
 })(jQuery, window.cd.data, window.ko, window.cd, window.ZboxResources, window.cd.analytics, Modernizr);
