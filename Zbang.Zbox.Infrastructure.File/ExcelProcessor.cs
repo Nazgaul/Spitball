@@ -15,6 +15,8 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class ExcelProcessor : FileProcessor
     {
+
+        const string CacheVersion = "V5";
         public ExcelProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -55,20 +57,31 @@ namespace Zbang.Zbox.Infrastructure.File
 
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
+            var tasks = new List<Task>();
 
             Aspose.Cells.Rendering.ImageOrPrintOptions imgOptions = new Aspose.Cells.Rendering.ImageOrPrintOptions();
             imgOptions.ImageFormat = System.Drawing.Imaging.ImageFormat.Jpeg;
             imgOptions.OnePagePerSheet = false;
 
+            var meta = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
             for (int pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
+                string value;
+                var metaDataKey = CacheVersion + pageIndex;
                 var cacheblobName = CreateCacheFileName(blobName, pageIndex);
-                var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-                if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
+
+                if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+                    blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString();// DateTime.UtcNow.ToString();
                     continue;
                 }
+                //var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
+                //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
+                //{
+                //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+                //    continue;
+                //}
                 try
                 {
 
@@ -88,6 +101,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         var gzipSr = compressor.CompressToGzip(ms);
 
                         parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
+                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString());
 
                     }
                 }
@@ -96,7 +110,10 @@ namespace Zbang.Zbox.Infrastructure.File
                     break;
                 }
             }
-            await Task.WhenAll(parallelTask);
+            var t = m_BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            tasks.AddRange(parallelTask);
+            tasks.Add(t);
+            await Task.WhenAll(tasks);
             blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
 
             return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
@@ -104,7 +121,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected string CreateCacheFileName(string blobName, int index)
         {
-            return string.Format("{0}V5_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index);
+            return string.Format("{0}{3}_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, CacheVersion);
         }
        
 

@@ -58,17 +58,9 @@ namespace Zbang.Zbox.Infrastructure.File
                 settings.Mode = FitMode.Max;
                 using (var outPutStream = ProcessFile(stream, imageDimentions.Width, imageDimentions.Height, settings))
                 {
-                    //stream.Seek(0, SeekOrigin.Begin);
-
-
-
-                    //using (var ms = new MemoryStream())
-                    //{
-                    //    ImageResizer.ImageBuilder.Current.Build(stream, ms, settings);
                     var cacheName = await m_BlobProvider.UploadFileToCacheAsync(cacheFileName, outPutStream, "image/jpg");
                     blobsNamesInCache.Add(cacheName);
                 }
-                //}
             }
             return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
         }

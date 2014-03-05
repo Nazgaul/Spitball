@@ -120,6 +120,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
+             //   System.Convert.ToBase64String(
                 blob.Metadata.Add(item.Key, item.Value);
             }
             return blob.SetMetadataAsync();
@@ -141,6 +142,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
                     return null;
                 }
             }
+            return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
+        }
+
+        public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double experationTimeInMinutes)
+        {
+            var blob = CacheFile(blobName);
             return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 

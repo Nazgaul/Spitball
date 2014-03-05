@@ -62,5 +62,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
 
         Task<Stream> GetFAQQeustion();
+
+        string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double experationTimeInMinutes);
     }
 }
