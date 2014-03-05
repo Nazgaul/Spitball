@@ -705,9 +705,12 @@ textarea:invalid {
   font-size: 11px;
   color: #676767;
   display: inline-block;
-  line-height: 32px;
-  height: 32px;
+  vertical-align: top;
+  margin-top: 2px;
   margin-left: 5px;
   /*rtl*/
+}
+.QACreateTime.innerSection {
+  margin-top: 9px;
 }
 /*#endregion */
