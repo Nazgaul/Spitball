@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class WordProcessor : FileProcessor, IContentProcessor
     {
+        const string VersionCache = "V4";
         public WordProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -41,21 +42,25 @@ namespace Zbang.Zbox.Infrastructure.File
                     return new Document(sr);
                 }
             });
-
+            var meta = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
 
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
+            var tasks = new List<Task>();
 
             ImageSaveOptions imgOptions = new ImageSaveOptions(SaveFormat.Jpeg);
             imgOptions.JpegQuality = 80;
 
             for (int pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
+                string value;
                 var cacheblobName = CreateCacheFileName(blobName, pageIndex);
-                var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-                if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
+
+                var metaDataKey = VersionCache + pageIndex;
+                if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+                    blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString();// DateTime.UtcNow.ToString();
                     continue;
                 }
                 imgOptions.PageIndex = pageIndex;
@@ -67,6 +72,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         Compress compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
                         parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
+                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString());
                     }
                 }
                 catch (ArgumentOutOfRangeException)
@@ -75,15 +81,19 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
 
             }
-            await Task.WhenAll(parallelTask);
+            var t = m_BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            tasks.AddRange(parallelTask);
+            tasks.Add(t);
+            await Task.WhenAll(tasks);
             blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
 
             return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
         }
         protected string CreateCacheFileName(string blobName, int index)
         {
-            return string.Format("{0}V4_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index);
+            return string.Format("{0}{3}_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, VersionCache);
         }
+
 
 
 

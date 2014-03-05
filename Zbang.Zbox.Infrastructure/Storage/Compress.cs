@@ -12,27 +12,31 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         public byte[] CompressToGzip(byte[] stream)
         {
-            var ms = new MemoryStream();
-            using (GZipStream gz = new System.IO.Compression.GZipStream(ms, CompressionMode.Compress))
+            using (var ms = new MemoryStream())
             {
-                gz.Write(stream, 0, stream.Length);
+                using (GZipStream gz = new System.IO.Compression.GZipStream(ms, CompressionMode.Compress))
+                {
+                    gz.Write(stream, 0, stream.Length);
+                }
+                return ms.ToArray();
             }
-            return ms.ToArray();
 
         }
         public byte[] CompressToGzip(Stream stream)
         {
             stream.Seek(0, SeekOrigin.Begin);
-            var ms = new MemoryStream();
-            using (GZipStream gz = new System.IO.Compression.GZipStream(ms, CompressionMode.Compress))
+            using (var ms = new MemoryStream())
             {
-                stream.CopyTo(gz);
-                //gz.Write(stream, 0, stream.Length);
-                //stream.CopyTo(gz);
+                using (GZipStream gz = new System.IO.Compression.GZipStream(ms, CompressionMode.Compress))
+                {
+                    stream.CopyTo(gz);
+                    //gz.Write(stream, 0, stream.Length);
+                    //stream.CopyTo(gz);
 
+                }
+
+                return ms.ToArray();
             }
-
-            return ms.ToArray();
         }
 
         public byte[] DecompressFromGzip(byte[] byteArray)
