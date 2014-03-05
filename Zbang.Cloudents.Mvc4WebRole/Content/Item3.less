@@ -11,6 +11,51 @@
         text-align: center;
     }
 }
+
+.ratePopup{
+    width: 280px;
+    height: 38px;
+    font-size: 15px;
+    color: #fff;
+    .boxSizing;
+    border-radius: 0 0 3px 3px;
+    padding: 10px 30px;
+    background: @attentionBlue;
+    position: absolute;
+    left:50%;
+    top: 91px;
+    z-index:4; // above itemPreview but below topBar
+    .transition(top 1s);
+    &.show
+    {
+        top: 129px;
+    }
+    .rateTxt{
+        line-height: 16px;
+    }
+    .starsWpr{
+        position: relative;
+        direction: rtl;
+        margin-left: 10px;
+        font-size:0; //remove inline-block white-space
+    }
+    .star{
+        width: 20px;
+        height: 15px;
+        background: @common-sprite -2px -86px;
+        display: inline-block;
+        &:hover
+        {
+            background-position: -2px -103px;
+            ~ .star
+            {
+                background-position: -2px -103px;
+            }
+        }
+    }
+}
+
+
 .itemRight, .boxRight {
     width: 100%;
     height: 100%;
@@ -167,7 +212,8 @@
 .rateContainer{
     position: relative;
 }
-.bubble 
+    
+.bubble
 {
     //visibility: hidden;
     //opacity: 0;
@@ -252,13 +298,10 @@
         width: 14px;
         height: 14px;
         padding: 2px;
-        //border: none;
         border-radius: 50%;
-        //border: 2px solid transparent;
         line-height: 15px;
         text-align: center;
         cursor: pointer;
-        //font-family:serif;
         font-size: 12px;
         &:hover:not(.rated)
         {
@@ -292,19 +335,15 @@
         }
     }
     .star4:after{
-        //background-position: -2px -301px;
         width: 76px;
     }
     .star3:after{
-        //background-position: -2px -317px;
         width: 56px;
     }
     .star2:after{
-        //background-position: -2px -333px;
         width: 36px;
     }
     .star1:after{
-        //background-position: -2px -349px;
         width: 16px;
     }
 }

@@ -12,6 +12,50 @@
   padding: 0;
   text-align: center;
 }
+.ratePopup {
+  width: 280px;
+  height: 38px;
+  font-size: 15px;
+  color: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 0 0 3px 3px;
+  padding: 10px 30px;
+  background: #0371c8;
+  position: absolute;
+  left: 50%;
+  top: 91px;
+  z-index: 4;
+  -webkit-transition: top 1s;
+  -moz-transition: top 1s;
+  -o-transition: top 1s;
+  transition: top 1s;
+}
+.ratePopup.show {
+  top: 129px;
+}
+.ratePopup .rateTxt {
+  line-height: 16px;
+}
+.ratePopup .starsWpr {
+  position: relative;
+  direction: rtl;
+  margin-left: 10px;
+  font-size: 0;
+}
+.ratePopup .star {
+  width: 20px;
+  height: 15px;
+  background: url(/Images/common14-sprite.png?v=1) -2px -86px;
+  display: inline-block;
+}
+.ratePopup .star:hover {
+  background-position: -2px -103px;
+}
+.ratePopup .star:hover ~ .star {
+  background-position: -2px -103px;
+}
 .itemRight,
 .boxRight {
   width: 100%;
