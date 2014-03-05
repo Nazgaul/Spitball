@@ -1328,34 +1328,6 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 /*#endregion */
-/*#region invite popup step1 step2 - HISTORIC */
-/*.facebook, .email {
-    padding: 8px 50px 8px 8px;
-    text-align: right;
-}
-
-.fbImg, .emailImg {
-    &:after {
-        right: 24px;
-        left: auto;
-    }
-}
-
-.fbImg {
-    right: 16px;
-    left: auto;
-}
-
-.emailImg {
-    right: 6px;
-    left: auto;
-
-    &:after {
-        right: 35px;
-        left: auto;
-    }
-}*/
-/*#endregion*/
 /*#endregion */
 /*#region Item3.css */
 /*#region layout */
@@ -1403,17 +1375,17 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .bubble {
-  /*right: 10px;*/
+  right: -31px;
   /*rtl*/
   left: auto;
-  right: auto;
 }
 .bubble.closing .bubbleText:before {
   margin: 0 0 0 4px;
   /*rtl*/
 }
-.bubble .star:before {
-  right: 20px;
+.bubble .star:before,
+.bubble .star:after {
+  right: 25px;
   /*rtl*/
   left: auto;
   -moz-transform: scaleX(-1);

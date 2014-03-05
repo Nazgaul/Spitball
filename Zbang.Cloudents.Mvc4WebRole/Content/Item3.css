@@ -135,11 +135,15 @@
   display: inline-block;
 }
 .actions .stars {
+  width: 96px;
   vertical-align: top;
   margin: 13px 0 0 0;
+  height: 15px;
+  background-position: -2px -86px;
 }
 .actions .full {
-  background-position: -1px -69px;
+  height: 15px;
+  background-position: -2px -103px;
 }
 .rateBtn.clicked {
   opacity: 0.5;
@@ -147,11 +151,15 @@
 .rateBtn.clicked ~ .bubble {
   display: block;
 }
+.rateContainer {
+  position: relative;
+}
 .bubble {
   display: none;
   position: absolute;
   top: 38px;
-  /*left: 10px; /*rtl*/
+  left: -31px;
+  /*rtl*/
   min-width: 158px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -159,36 +167,15 @@
   background: #f4f4f4;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
-  z-index: 1;
+  z-index: 11;
   text-align: center;
 }
-.bubble:before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: -10px;
-  border-style: solid;
-  border-width: 0 10px 9px;
-  border-color: #c2c2c2 transparent;
-  width: 0;
-  z-index: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+.bubble .upArrow {
+  margin-bottom: -10px;
 }
-.bubble:after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: -8px;
-  border-style: solid;
-  border-width: 0 9px 8px;
-  border-color: #fff transparent;
-  width: 0;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  margin: auto;
+.bubble .upArrow:before {
+  bottom: -6px;
+  background: #fff;
 }
 .bubble.closing .rateList {
   display: none;
@@ -205,7 +192,6 @@
   background: url(/Images/common14-sprite.png?v=1) -136px -43px no-repeat;
   vertical-align: middle;
   margin-right: 4px;
-  /*rtl*/
 }
 .bubble .bubbleText {
   border-bottom: 1px solid #c2c2c2;
@@ -220,7 +206,7 @@
 }
 .bubble .rateList {
   display: inline-block;
-  width: 98px;
+  width: 124px;
   margin-top: 10px;
   /*height:140px;
         opacity:1;
@@ -229,48 +215,56 @@
 .bubble .star {
   margin-bottom: 10px;
   position: relative;
-  width: 18px;
-  height: 18px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 9px;
-  border: 2px solid transparent;
+  width: 14px;
+  height: 14px;
+  padding: 2px;
+  border-radius: 50%;
   line-height: 15px;
   text-align: center;
   cursor: pointer;
-  font-family: serif;
   font-size: 12px;
 }
 .bubble .star:hover:not(.rated) {
-  border: 2px solid #0f9d58;
+  color: #fff;
+  background: #0371c8;
 }
 .bubble .star.rated {
-  background: url(/Images/common14-sprite.png?v=1) -138px -44px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -136px -43px no-repeat;
   cursor: default;
 }
 .bubble .star:before {
   content: '';
   display: inline-block;
-  width: 76px;
-  height: 14px;
+  width: 96px;
+  height: 15px;
   position: absolute;
-  left: 20px;
+  left: 25px;
   /*rtl*/
   top: 0;
-  background: url(/Images/item13-sprite.png) -2px -285px no-repeat;
+  background: url(/Images/common14-sprite.png?v=1) -2px -86px no-repeat;
 }
-.bubble .star4:before {
-  background-position: -2px -301px;
+.bubble .star:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 25px;
+  /*rtl*/
+  width: 96px;
+  height: 15px;
+  background: url(/Images/common14-sprite.png?v=1) -2px -103px no-repeat;
 }
-.bubble .star3:before {
-  background-position: -2px -317px;
+.bubble .star4:after {
+  width: 76px;
 }
-.bubble .star2:before {
-  background-position: -2px -333px;
+.bubble .star3:after {
+  width: 56px;
 }
-.bubble .star1:before {
-  background-position: -2px -349px;
+.bubble .star2:after {
+  width: 36px;
+}
+.bubble .star1:after {
+  width: 16px;
 }
 .itemFlag:before {
   content: '';

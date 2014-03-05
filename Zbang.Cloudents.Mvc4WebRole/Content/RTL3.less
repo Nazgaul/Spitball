@@ -1042,34 +1042,6 @@ input[type="radio"] {
 
 /*#endregion */
 
-/*#region invite popup step1 step2 - HISTORIC */
-/*.facebook, .email {
-    padding: 8px 50px 8px 8px;
-    text-align: right;
-}
-
-.fbImg, .emailImg {
-    &:after {
-        right: 24px;
-        left: auto;
-    }
-}
-
-.fbImg {
-    right: 16px;
-    left: auto;
-}
-
-.emailImg {
-    right: 6px;
-    left: auto;
-
-    &:after {
-        right: 35px;
-        left: auto;
-    }
-}*/
-/*#endregion*/
 /*#endregion */
 /*#region Item3.css */
 
@@ -1123,9 +1095,10 @@ input[type="radio"] {
 }
 
 .bubble {
-    /*right: 10px;*/ /*rtl*/
+    right: -31px; /*rtl*/
     left: auto;
-    right:auto;
+    //left: auto;
+    //right:auto;
 
     &.closing {
         .bubbleText {
@@ -1136,8 +1109,8 @@ input[type="radio"] {
     }
 
     .star {
-        &:before {
-            right: 20px; /*rtl*/
+        &:before, &:after {
+            right: 25px; /*rtl*/
             left: auto;
             .flipH;
         }
