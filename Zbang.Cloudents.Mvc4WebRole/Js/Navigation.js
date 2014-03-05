@@ -8,7 +8,7 @@
 
     var privateLocation = {
         title: document.title,
-        url: location.pathname.replace(/[\/\/]+/, '/')
+        url: location.pathname.replace(/[\/\/]+/, '/') + location.search
     },
     historyNav;
     cd.historyManager = {
@@ -18,7 +18,7 @@
             data.history = historyNav;
             var now = new Date();
             later = now.setHours(now.getHours() + 1);
-            data.lastpage = window.location.pathname.split('?')[0]; //remove querystring
+            data.lastpage = location.pathname + location.search; //remove querystring
             data.ttl = later;
             cd.localStorageWrapper.setItem('history', JSON.stringify(data));
         },
@@ -35,7 +35,7 @@
                 return;
             }
 
-            if (data.lastpage !== window.location.pathname.split('?')[0]) { //remove querystring) {
+            if (data.lastpage !== location.pathname + location.search) { //remove querystring) {
                 this.remove();
                 historyNav = [cd.clone(privateLocation)];
                 return;
@@ -48,10 +48,12 @@
             historyNav = data.history;
             
             var lastPage = historyNav.pop();
-            lastPage.url = this.removeQueryString(lastPage.url);
             if (privateLocation.url.indexOf('search') === -1) {
                 privateLocation.url = lastPage.url;
+            } else {
+                privateLocation.url = this.removeQueryString(lastPage.url);
             }
+
             if (window.history.replaceState) {
                 history.replaceState(lastPage.url, '', lastPage.url);
             }

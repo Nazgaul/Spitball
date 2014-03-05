@@ -140,7 +140,7 @@
                     return date.getDate() + ' ' + months[dateMonth] + ', ' + date.getFullYear();
                 } else {
                     return dateDifference + ' days ago';
-                }                                       
+                }
                 break;
         }
 
@@ -161,7 +161,7 @@
         }
     }
     var target = document.querySelector('#main');
-    
+
     if (target) {
         // create an observer instance
         var observer = new MutationObserver(function (mutations) {
@@ -184,17 +184,17 @@
         // pass in the target node, as well as the observer options
         observer.observe(target, config);
     }
-        
+
     function updateTimeActions() {
         var $timedObjects = $('[data-time]'),
-        $time,text;
+        $time, text;
         for (var i = 0, l = $timedObjects.length; i < l; i++) {
             $time = $($timedObjects[i]);
             text = parseActionTime(new Date($time.data('time')));
             $time.text(text);
 
         }
-    }    
+    }
     actionTimeInterval = setInterval(updateTimeActions, 60000);
     //#endregion
     var resetErrors = function (form) {
@@ -907,9 +907,7 @@
         var className = className || 'boldPart',
             firstPart = '<span class="' + className + '">',
             lastPart = '</span>',
-            boldStringLength = firstPart.length + lastPart.length,
-
-        term = term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            boldStringLength = firstPart.length + lastPart.length;
 
         if (!name) {
             return false;
@@ -917,12 +915,19 @@
         if (!term) {
             return name;
         }
+        term = term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+        name = escapeHtmlChars(name);
+
 
         multiSearch(term);
 
         if (term.indexOf(' ') > -1) {
             multiSearch(term.replace(/ /g, ''));
         }
+
+
+
+        return name;
 
         function multiSearch(eTerm) {
             var reg = new RegExp(eTerm, 'gi'),
@@ -936,8 +941,6 @@
                 name = highlight(name, indeces[i] + i * boldStringLength, indeces[i] + eTerm.length + i * boldStringLength);
             }
         };
-
-        return name;
 
         function highlight(str, start, end) {
             var text = firstPart + str.substring(start, end) + lastPart;

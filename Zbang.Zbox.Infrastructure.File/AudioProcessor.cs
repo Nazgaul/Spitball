@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
         public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override string GetDefaultThumbnailPicture()
