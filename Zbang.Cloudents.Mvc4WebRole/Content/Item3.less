@@ -134,11 +134,15 @@
         display: inline-block;
     }
     .stars{
+        width: 96px;
         vertical-align: top;
         margin: 13px 0 0 0; // override other margin values from box .stars
+        height: 15px;
+        background-position: -2px -86px;
     }
     .full{
-        background-position: -1px -69px;
+        height: 15px;
+        background-position: -2px -103px;
     }
     
 }
@@ -160,6 +164,9 @@
         }
     }
 }
+.rateContainer{
+    position: relative;
+}
 .bubble 
 {
     //visibility: hidden;
@@ -168,44 +175,22 @@
     display: none;
     position: absolute;
     top: 38px;
-    /*left: 10px; /*rtl*/
+    left: -31px; /*rtl*/ //TODO CHECK THIS FOR RUSSIAN
+    //left: 10px; //rtl
     min-width: 158px;
     .boxSizing;
     background: #f4f4f4;
     border: 1px solid @borderColor;
     border-radius: 5px;
-    z-index: 1;
+    z-index: 11; // must be higher than the left panels' scroll bar (10)
     text-align: center;
 
-    &:before 
-    {
-        content: '';
-        display: block;
-        position: absolute;
-        top: -10px;
-        border-style: solid;
-        border-width: 0 10px 9px;
-        border-color: @borderColor transparent;
-        width: 0;
-        z-index: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-    }
-    &:after 
-    {
-        content: '';
-        display: block;
-        position: absolute;
-        top: -8px;
-        border-style: solid;
-        border-width: 0 9px 8px;
-        border-color: #fff transparent;
-        width: 0;
-        z-index: 1;
-        left: 0;
-        right: 0;
-        margin: auto;
+    .upArrow{
+        margin-bottom: -10px;
+        &:before{
+            bottom: -6px;
+            background: #fff;
+        }
     }
     &.closing
     {
@@ -236,7 +221,7 @@
                 height: 18px;
                 background: @common-sprite -136px -43px no-repeat;
                 vertical-align: middle;
-                margin-right: 4px; /*rtl*/
+                margin-right: 4px; //rtl
             }
         }
     }
@@ -254,7 +239,7 @@
     .rateList
     {
         display: inline-block;
-        width: 98px;
+        width: 124px;
         margin-top: 10px;
         //.transition(all, .5s);
         /*height:140px;
@@ -264,47 +249,63 @@
     .star{
         margin-bottom: 10px;
         position: relative;
-        width: 18px;
-        height: 18px;
-        .boxSizing;
-        border-radius: 9px;
-        border: 2px solid transparent;
+        width: 14px;
+        height: 14px;
+        padding: 2px;
+        //border: none;
+        border-radius: 50%;
+        //border: 2px solid transparent;
         line-height: 15px;
         text-align: center;
         cursor: pointer;
-        font-family:serif;
+        //font-family:serif;
         font-size: 12px;
         &:hover:not(.rated)
         {
-            border: 2px solid @color;
+            //border: 2px solid @color;
+            color: #fff;
+            background: @attentionBlue;
         }
         &.rated
         {
-            background: @common-sprite -138px -44px no-repeat;
+            background: @common-sprite -136px -43px no-repeat;
             cursor: default;
         }
         &:before
         {
             .pseudo;
-            width: 76px;
-            height: 14px;
+            width: 96px;
+            height: 15px;
             position: absolute;
-            left: 20px; /*rtl*/
+            left: 25px; /*rtl*/
             top: 0;
-            background: @item-sprite1 -2px -285px no-repeat;
+            background: @common-sprite -2px -86px no-repeat;
+        }
+        &:after {
+            .pseudo;
+            position: absolute;
+            top: 0;
+            left: 25px; /*rtl*/
+            width: 96px;
+            height: 15px;
+            background: @common-sprite -2px -103px no-repeat;
         }
     }
-    .star4:before{
-        background-position: -2px -301px;
+    .star4:after{
+        //background-position: -2px -301px;
+        width: 76px;
     }
-    .star3:before{
-        background-position: -2px -317px;
+    .star3:after{
+        //background-position: -2px -317px;
+        width: 56px;
     }
-    .star2:before{
-        background-position: -2px -333px;
+    .star2:after{
+        //background-position: -2px -333px;
+        width: 36px;
     }
-    .star1:before{
-        background-position: -2px -349px;
+    .star1:after{
+        //background-position: -2px -349px;
+        width: 16px;
     }
 }
 

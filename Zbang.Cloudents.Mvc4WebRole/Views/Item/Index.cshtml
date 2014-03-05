@@ -20,9 +20,11 @@
                     <span class="stars">
                         <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
                     </span>
-                    <button type="button" id="rateBtn" class="rateBtn">@ItemsResources.Rate</button>
+                    <button type="button" id="rateBtn" class="rateBtn"></button>
                     <div id="rateBubble" class="bubble">
+                        <div class="arrow upArrow"></div>
                         <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
+                        
                         <ul class="rateList">
                             <li id="star5" class="star">5</li>
                             <li id="star4" class="star star4">4</li>
