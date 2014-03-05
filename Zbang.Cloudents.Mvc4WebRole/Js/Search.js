@@ -370,9 +370,26 @@
                 //}
             };
         }
-        function parseNumber(e) {
+        function isShowMoreAvailable(e) {
+            var contentElement;
+            switch (e) {
+                case sTabCourses:
+                     return sCourseList.children.length % 50 === 0                   
+                case sTabMaterials:
+                    if (!materialsLoaded) {
+                        return sOtherMaterialList.children.length % 50 === 0
+                    }
+                    
+                    return sMaterialList.children.length % 50 === 0
 
-            var number = e.textContent.match(/\(([^)]+)\)/);
+                case sTabMembers:
+                    return sMemberList.children.length % 50 === 0
+                   
+                default:
+                    return false;
+                    break;
+            }
+
             if (number) {
                 return parseInt(number[1]);
             } else {
@@ -386,14 +403,14 @@
                 }
 
                 if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    var length = parseNumber(currentTab);
+                    var showMoreAvailable = isShowMoreAvailable(currentTab);
 
                     if (materialsLoaded && otherUnisScroll && otherDataAvailable) {
                         cOtherPage++;
                         getDataOtherUnis();
                     }
 
-                    if (length % 50 !== 0) {
+                    if (!showMoreAvailable) {
                             return;
                     }
                     cPage++;

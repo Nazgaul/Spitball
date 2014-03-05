@@ -80,7 +80,7 @@
                 return;
             }
 
-            if (e)  {//page was refreshed
+            if (e) {//page was refreshed
                 var keyCode = e.keyCode || e.which;
                 if (keyCode === 13) {
                     input.focusout();
@@ -89,6 +89,7 @@
 
             currentValue = input.value;
             isLoading = true;
+            analytics.trackEvent('Search', 'User input', 'User searched for ' + currentValue);
             dataContext.searchDD({
                 data: { q: currentValue },
                 success: function (data) {
@@ -156,7 +157,7 @@
             cd.historyManager.remove();
             formSubmitted = true;
             pubsub.publish('searchclear');
-             pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
+            pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
         };
 
 
