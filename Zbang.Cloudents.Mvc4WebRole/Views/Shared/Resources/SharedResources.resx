@@ -454,4 +454,7 @@ To help you get started tell us where you study</value>
   <data name="Rename" xml:space="preserve">
     <value>Rename</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
 </root>

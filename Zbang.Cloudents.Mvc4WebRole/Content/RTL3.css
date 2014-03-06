@@ -653,6 +653,65 @@ input[type="radio"] + label:before {
 .boxItemsHeader {
   margin: -28px 0 0 386px;
   /*rtl*/
+  position: relative;
+  /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
+}
+.listViewBtn,
+.thumbViewBtn {
+  border-radius: 0 3px 3px 0;
+  /*rtl*/
+}
+.listViewBtn {
+  float: none;
+  /* no ltr - fix for listViewBtn in RTL */
+  position: absolute;
+  /* no ltr - fix for listViewBtn in RTL */
+  left: 34px;
+  /* no ltr - fix for listViewBtn in RTL */
+}
+.thumbViewBtn {
+  border-right: none;
+  /*rtl*/
+  border-radius: 3px 0 0 3px;
+  /*rtl*/
+}
+.listItem {
+  padding: 14px 138px 14px 0;
+  /*rtl*/
+  text-align: right;
+  /*rtl*/
+}
+.listItem .actionBtns {
+  left: 0;
+  /*rtl*/
+  right: auto;
+}
+.listItem .imgBorder {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.listItem .tag {
+  padding: 1px 8px 2px 12px;
+  /*rtl*/
+  border-radius: 0 3px 3px 3px;
+  /*rtl*/
+  margin: 0 11px 0 0;
+  /*rtl*/
+}
+.listItem .tag:before {
+  left: 0;
+  /*rtl*/
+  right: auto;
+  border-width: 0 0 7px 8px;
+  /*rtl*/
+  border-color: #f1f1f1 #0e8249 #0e8249 #f1f1f1;
+  /*rtl*/
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 1px 1px 1px rgba(0, 0, 0, 0.2);
+  /*rtl*/
+}
+.listItem .views {
+  margin: 0 20px 0 0;
 }
 .boxItem {
   float: right;
