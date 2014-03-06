@@ -13,7 +13,12 @@
   text-align: center;
 }
 .ratePopup {
-  width: 280px;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   height: 38px;
   font-size: 15px;
   color: #fff;
@@ -25,6 +30,7 @@
   background: #0371c8;
   position: absolute;
   left: 50%;
+  /*rtl*/
   top: 91px;
   z-index: 4;
   -webkit-transition: top 1s;
@@ -41,7 +47,9 @@
 .ratePopup .starsWpr {
   position: relative;
   direction: rtl;
+  /*rtl*/
   margin-left: 10px;
+  /*rtl*/
   font-size: 0;
 }
 .ratePopup .star {

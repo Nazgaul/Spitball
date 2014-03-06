@@ -454,4 +454,7 @@
   <data name="Rename" xml:space="preserve">
     <value>שנה שם</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>חדש</value>
+  </data>
 </root>

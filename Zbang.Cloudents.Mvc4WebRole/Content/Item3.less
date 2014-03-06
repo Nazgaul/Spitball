@@ -13,7 +13,7 @@
 }
 
 .ratePopup{
-    width: 280px;
+    .flexAlignH;
     height: 38px;
     font-size: 15px;
     color: #fff;
@@ -22,7 +22,7 @@
     padding: 10px 30px;
     background: @attentionBlue;
     position: absolute;
-    left:50%;
+    left:50%; /*rtl*/
     top: 91px;
     z-index:4; // above itemPreview but below topBar
     .transition(top 1s);
@@ -35,8 +35,8 @@
     }
     .starsWpr{
         position: relative;
-        direction: rtl;
-        margin-left: 10px;
+        direction: rtl; /*rtl*/
+        margin-left: 10px; /*rtl*/
         font-size:0; //remove inline-block white-space
     }
     .star{

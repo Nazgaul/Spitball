@@ -18,7 +18,8 @@
         </div>
         <!--/ko-->
         <button type="button" data-click="addItem" class="iconTxt btn1 lFloat" data-bind="visible: !manageTab() && !emptyState()">@DialogResources.UploadFiles</button>
-
+        <button type="button" class="listViewBtn rFloat currentState"></button>
+        <button type="button" class="thumbViewBtn rFloat"></button>
     </div>
 
     <!--ko if:emptyState-->
@@ -73,5 +74,41 @@
             <!--/ko-->
         </li>
         <!--/ko-->
+
+        <!--ko foreach:{data:items,afterAdd:edrag}-->
+        <li class="listItem" data-bind="attr: { id: uid }">
+            <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl, title: name }">
+                @*Guy: sponsored width="479" height="188" and background img instead of source style="background-image:url(http://lorempixel.com/479/188/animals/)"*@
+                <!--ko if:sponsored-->
+                <img class="imgBorder" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }" alt="" width="112" height="143" />
+                <!--/ko-->
+                <!--ko ifnot: sponsored-->
+                <img class="imgBorder" data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="112" height="143" />
+                <!--/ko-->
+
+                <div class="boxName semiFont elps" data-bind="text: name"></div>
+                <span class="tag">@SharedResources.New</span>
+
+                <p class="itemContent">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pulvinar rhoncus risus, vel ornare lacus sagittis sit amet. Duis vel sem magna. Proin pulvinar velit eleifend ligula ultrices vestibulum. Nunc posuere dolor eu mauris feugiat dignissim.
+                </p>
+                <div class="stars">
+                    <div class="full" data-bind="style: { width: rate + 'px' }"></div>
+                </div>
+                <div title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
+            </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="actionBtns">
+                    <a data-bind="attr: { href: download }" target="_blank" title="@IndexResources.Download" class="lFloat downloadBtn"></a>
+                    @*<!--ko if:deleteAllow-->*@
+                    <button type="button" class="lFloat deleteBtn" title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
+                    @*<!--/ko-->*@
+                </div>
+            }
+        </li>
+        <!--/ko-->
+
+
     </ol>
 </div>
