@@ -1330,6 +1330,17 @@ input[type="radio"] + label:before {
 /*#endregion */
 /*#endregion */
 /*#region Item3.css */
+.ratePopup {
+  right: 50%;
+  /*rtl*/
+  left: auto;
+}
+.ratePopup .starsWpr {
+  direction: ltr;
+  /*rtl*/
+  margin: 0 10px 0 0;
+  /*rtl*/
+}
 /*#region layout */
 .itemRight,
 .boxRight {
