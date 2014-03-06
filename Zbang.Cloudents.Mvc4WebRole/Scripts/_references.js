@@ -77,3 +77,4 @@
 /// <reference path="../js/logon.js" />
 /// <reference path="jquery-ui-1.10.4.js" />
 /// <reference path="jquery.mcustomscrollbar.js" />
+/// <reference path="../js/itemviewmodel4.js" />

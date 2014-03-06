@@ -171,12 +171,10 @@
 
         //resize
         var timer = 0;
-        $(window).resize(function () {
-            clearTimeout(timer);
-            timer = window.setTimeout(function () {
-                cd.pubsub.publish('windowChanged');
-            }, 50);
-        });
+        var resizeFunc = cd.debounce(function () {
+            cd.pubsub.publish('windowChanged');
+        },50);
+        $(window).resize(resizeFunc);
 
         //search
         //var g_searchQ = document.getElementById('g_searchQ'), timer2 = 0;

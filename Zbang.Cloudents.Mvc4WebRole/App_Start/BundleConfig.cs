@@ -180,7 +180,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 //account settings
                 new JsFileWithCdn("~/Js/AccountSettings.js"),
 
-                new JsFileWithCdn("~/Js/ItemViewModel3.js"),
+                //item
+                new JsFileWithCdn("~/Js/ItemViewModel4.js"),
 
                 //signalR
                 new JsFileWithCdn("~/Js/RT.js"),

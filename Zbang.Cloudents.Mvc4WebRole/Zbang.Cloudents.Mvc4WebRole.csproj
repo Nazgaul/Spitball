@@ -813,6 +813,7 @@
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\BoxSettings.js" />
     <Content Include="Js\GmfcnHandler.js" />
+    <Content Include="Js\ItemViewModel4.js" />
     <Content Include="Js\Search.js" />
     <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\Share.js" />

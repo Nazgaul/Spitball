@@ -280,6 +280,7 @@
         }
     };
 
+
     var getParameterByNameFromString = function (param, text) {
         param = param.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
         var regexS = "[\\?&]" + param + "=([^&#]*)";
@@ -320,20 +321,19 @@
         }
         var $elem, loaderHtml, topLocation, x;
         timeout = timeout || 2000;
-        //, position= $elem.css('position');
-        if (Modernizr.cssanimations) {
-            loaderHtml = '<div class="loading"><div class="spinner"></div></div>';
-            $elem = $(elem);
-            x = $(loaderHtml).css({ top: topLocation });
+        $elem = $(elem);
+        $elem.css('position', 'relative');
+        topLocation = $elem.css('position') === 'relative' ? 20 : $elem.position().top + 20;
 
+        if (Modernizr.cssanimations) {
+            loaderHtml = '<div class="loading"><div class="spinner"></div></div>';        
+            x = $(loaderHtml).css({ top: topLocation });
         }
         else {
             loaderHtml = '<div class="loadingGif"></div>';
-            x = $(loaderHtml);
-            $elem = $(elem);
+            x = $(loaderHtml);            
         }
-        $elem.css('position', 'relative');
-        topLocation = $elem.css('position') === 'relative' ? 20 : $elem.position().top + 20;
+    
         //var leftLocation = $elem.position().left + $elem.outerWidth(true) / 2;
 
         var handle = window.setTimeout(function () {
@@ -606,8 +606,17 @@
         $(elem).blur();
     };
 
-    var deleteAllow = function (permission, userId) {
-        return (permission === 'subscribe' || permission === 'owner') && (permission === 'owner' || userId === cd.userDetail().id);
+    var deleteAllow = function (userType, ownerId) {
+        if (userType === 'none' || userType === 'invite' ) { //user is unsubscribed
+            return false;
+        }
+
+        //check if user is owner of the file or box owner
+        if (userType === 'owner' || ownerId === cd.userDetail().nId) {
+            return true;
+        }
+
+        return false;
     };
     var elementToInputwithoutFunc = function (elem) {
 

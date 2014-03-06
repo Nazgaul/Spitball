@@ -12,7 +12,7 @@
                 <span class="calloutTrgr elps" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></span>
             </div>
             <span class="lFloat" data-bind="text: update"></span>
-            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: !deleteAllow()">@ItemsResources.Flag</button>
+            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>
             <div class="actions">
                 <span title="@SharedResources.Views" class="lFloat views" data-bind="text: numberOfViews"></span>
                 <span title="@ItemsResources.Downloads" id="item_down" class="lFloat downloads"></span>
@@ -53,7 +53,7 @@
         </ul>
     </div>
     <div class="itemRight">
-        <div class="ratePopup">
+        <div id="ratePopup" class="ratePopup">
             <span class="lFloat rateTxt">Rate this item</span>
             <span class="starsWpr lFloat">
                 <span class="star"></span>
