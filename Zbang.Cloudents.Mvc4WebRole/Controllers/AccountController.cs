@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IFacebookAuthenticationService> m_FacebookService;
         private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
-        private readonly Lazy<IEmailVerfication> m_EmailVerification;
+       // private readonly Lazy<IEmailVerfication> m_EmailVerification;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
 
@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             IFormsAuthenticationService formsAuthenticationService,
             Lazy<IUserProfile> userProfile,
             Lazy<IQueueProvider> queueProvider,
-            Lazy<IEmailVerfication> emailVerification,
+            //Lazy<IEmailVerfication> emailVerification,
             Lazy<IEncryptObject> encryptObject)
             : base(zboxWriteService, zboxReadService,
             formsAuthenticationService)
@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_FacebookService = facebookService;
             m_UserProfile = userProfile;
             m_QueueProvider = queueProvider;
-            m_EmailVerification = emailVerification;
+            //m_EmailVerification = emailVerification;
             m_EncryptObject = encryptObject;
         }
 
@@ -69,9 +69,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
         //donut output cache doesnt support route
-        [OutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang + ";"
-            + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour, Location = System.Web.UI.OutputCacheLocation.Server, Order = 2)]
+        //[OutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
+        //    + CustomCacheKeys.Lang + ";"
+        //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour, Location = System.Web.UI.OutputCacheLocation.Server, Order = 2)]
         [CompressFilter(Order = 1)]
         [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}")]
         public ActionResult Index(long? universityId, string lang)
@@ -245,11 +245,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [Ajax]
-        public async Task<JsonResult> CheckEmail(Register model)
+        public JsonResult CheckEmail(Register model)
         {
             try
             {
-                var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
+              //  var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
                 return Json(true);
             }
             catch (Exception ex)
@@ -262,19 +262,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId)
+        public ActionResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId)
         {
 
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponse(false, base.GetModelStateErrors()));
             }
-            var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
-            if (!retVal)
-            {
-                ModelState.AddModelError("NewEmail", Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources.RegisterResources.EmailNotValid);
-                return Json(new JsonResponse(false, base.GetModelStateErrors()));
-            }
+            //var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
+            //if (!retVal)
+            //{
+            //    ModelState.AddModelError("NewEmail", Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources.RegisterResources.EmailNotValid);
+            //    return Json(new JsonResponse(false, base.GetModelStateErrors()));
+            //}
             var userid = Guid.NewGuid().ToString();
             try
             {

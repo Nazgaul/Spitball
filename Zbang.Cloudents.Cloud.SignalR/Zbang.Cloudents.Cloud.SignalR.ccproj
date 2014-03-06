@@ -12,6 +12,7 @@
     <AssemblyName>Zbang.Cloudents.Cloud.SignalR</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
     <Name>Zbang.Cloudents.Cloud.SignalR</Name>
+    <PackageEnableRemoteDebugger>False</PackageEnableRemoteDebugger>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
