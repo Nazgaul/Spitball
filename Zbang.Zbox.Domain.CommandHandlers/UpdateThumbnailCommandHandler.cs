@@ -41,13 +41,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                  m_ItemRepository.Save(file);
                 return;
             }
-            if (file.ThumbnailBlobName == Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.DefaultFileTypePicture)
-            {
-                UpdateThumbail(command, file);
-                m_ItemRepository.Save(file);
-                return;
-            }
-            if (file.ThumbnailBlobName.ToUpper().Contains("V3"))
+            //if (file.ThumbnailBlobName == Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.DefaultFileTypePicture)
+            //{
+            //    UpdateThumbail(command, file);
+            //    m_ItemRepository.Save(file);
+            //    return;
+            //}
+            if (file.ThumbnailBlobName.ToUpper().Contains("THUMBNAIL"))
             {
                 m_ItemRepository.Save(file);
                 return;

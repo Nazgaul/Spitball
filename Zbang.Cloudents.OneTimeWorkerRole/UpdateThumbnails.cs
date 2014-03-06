@@ -50,19 +50,12 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
 
-                //var blobNames = new List<string>() {
-                //    "70e2ab7d-76d8-4a3a-883a-c960c78762ad.pdf",
-                //    "53eb3735-8ca0-4cc3-a799-bb1bf78ca91d.docx",
-                //    "591d37d1-3c41-4f14-b612-61fca302a2ec.pptx",
-                //    "3f7abc3b-7fe6-47aa-86ec-9a1ed7b40459.doc",
-                //    "a09eaeba-6ab5-4e04-9846-85369f080ccd.xls",
-                //    "98576ac7-3c15-40f5-93a8-b232a7c25659.xls",
-                //    "b0f17be0-400e-4527-99e5-d7638317f605.tiff",
-                //    "4f07a612-2277-4140-90b5-4b34bbc5a65b.ppt",
-                //    "a5e8364d-eaa3-4328-b812-e4630c4ae01c.mov",
-                //    "6021e84d-822f-4c8a-85f7-baa5c69cfc6c.ppt",
-                //    "f00ef42c-f8c5-4888-888f-d0a61f1d1263.pdf"
-                //};
+//                var blobNames = new List<string>() {
+//                    "c90554cb-ede9-4aa7-85a6-1c5c64b2bbd8.docx",
+//"9c6c899d-98ca-4d2b-b04f-33759d4ad461.docx",
+//"00de9064-97d8-45dd-a800-d78f0024ccd3.docx",
+//"6b77e41a-2f57-46f3-8f48-c3a19c27f305.docx"
+//                };
                 var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
                 foreach (var blobname in blobs)
                 {
@@ -102,18 +95,17 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var t = processor.PreProcessFile(blobUri);
                 t.Wait();
                 var retVal = t.Result;
-
+                if (retVal == null)
+                {
+                    return;
+                }
                 var itemid = m_ZboxReadService.GetItemIdByBlobId(blobName);
                 if (itemid == 0)
                 {
                     throw new System.ArgumentException("cannot be 0", "itemid");
                 }
-
-
-
                 var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName, retVal.FileTextContent);
                 m_ZboxService.UpdateThumbnailPicture(command);
-                //GenerateFileCache(blobName, processor);
             }
         }
 
