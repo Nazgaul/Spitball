@@ -61,7 +61,14 @@
         self.permission = ko.observable('none');
         self.loaded = ko.observable(false);
         self.loadedAnimation = ko.observable(false);
+        
 
+        self.currentView = ko.observable('BoxItemsThumbViewTemplate');
+
+        self.viewMode = function () {
+            return self.currentView();
+        }
+            
         cd.pubsub.subscribe('perm', function (d) {
             self.permission(d);
         });
@@ -266,6 +273,17 @@
             }
             return true;
         };
+
+        $('.boxItemsViewToggle').click(function (e) {
+            var type = e.target.getAttribute('data-template');
+            if (self.currentView() === type) {
+                return;
+            }
+
+            $('.boxItemsViewToggle').removeClass('currentState');
+            e.target.classList.add('currentState');           
+            self.currentView(type);
+        });
         //Analytics
         $('#BoxItemList').on('click', 'a.downloadBtn', function (e) {
             var data = ko.dataFor(e.target);

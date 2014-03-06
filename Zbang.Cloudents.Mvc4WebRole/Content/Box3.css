@@ -858,7 +858,6 @@
   margin: 0 0 0 20px;
 }
 .boxItem {
-  display: none;
   float: left;
   /* rtl */
   background: #fff;
