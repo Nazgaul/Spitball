@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             {
                 authCookie.Expires = ticket.Expiration;
             }
-            HttpContext.Current.Response.Cookies.Add(authCookie);
+            HttpContext.Current.Response.Cookies.Set(authCookie);
         }
 
 
