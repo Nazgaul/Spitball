@@ -210,4 +210,7 @@
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
 </root>
