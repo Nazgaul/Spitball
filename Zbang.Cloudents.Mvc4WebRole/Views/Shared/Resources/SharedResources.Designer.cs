@@ -979,6 +979,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sweet, Thanks.
+        /// </summary>
+        public static string SweetThanks {
+            get {
+                return ResourceManager.GetString("SweetThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hi {0},
         ///To help you get started tell us where you study.
         /// </summary>
