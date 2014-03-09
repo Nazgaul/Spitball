@@ -289,6 +289,20 @@ textarea:invalid {
   min-height: 29px;
   width: 298px;
 }
+.QEmptyForm .QTextarea::-webkit-input-placeholder {
+  color: #0371c8;
+}
+.QEmptyForm .QTextarea:-moz-placeholder {
+  color: #0371c8;
+  opacity: 1;
+}
+.QEmptyForm .QTextarea::-moz-placeholder {
+  color: #0371c8;
+  opacity: 1;
+}
+.QEmptyForm .QTextarea:-ms-input-placeholder {
+  color: #0371c8;
+}
 .QEmptyForm .askBtn {
   margin-bottom: 0;
 }
@@ -365,9 +379,9 @@ textarea:invalid {
   margin-top: 15px;
 }
 .answerBottom {
-  margin-top: -10px;
   border-bottom: 1px solid #c2c2c2;
-  padding: 4px 13px;
+  padding: 4px 3px;
+  margin: -10px 15px 0 15px;
 }
 .answerBottom > button {
   color: #66a1cf;
@@ -378,15 +392,13 @@ textarea:invalid {
   position: relative;
 }
 .numAnswers:after {
-  content: '';
+  content: '|';
   display: inline-block;
-  position: absolute;
-  top: 4px;
-  right: 0;
-  /*rtl*/
   width: 1px;
-  height: 10px;
-  background: #676767;
+  height: 12px;
+  color: #676767;
+  margin: 0 2px 0 3px;
+  /*rtl*/
 }
 .QTop {
   border-bottom: 1px solid #c2c2c2;

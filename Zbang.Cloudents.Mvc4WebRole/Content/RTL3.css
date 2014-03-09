@@ -1239,9 +1239,8 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .numAnswers:after {
-  left: 0;
+  margin: 0 3px 0 2px;
   /*rtl*/
-  right: auto;
 }
 .QTop {
   padding: 6px 6px 2px 10px;

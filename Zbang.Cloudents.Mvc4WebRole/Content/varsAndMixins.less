@@ -162,6 +162,29 @@
 	-o-animation:     @name @duration @delay @ease;
 	animation:     @name @duration @delay @ease;
 }
+
+
+.placeholderColor(@pColor) {
+    &::-webkit-input-placeholder {
+        color: @pColor;
+    }
+
+    &:-moz-placeholder {
+        color: @pColor;
+        opacity: 1; // somehow firefox needs that - otherwise the color is not the same
+    }
+
+    &::-moz-placeholder {
+        color: @pColor;
+        opacity: 1; // somehow firefox needs that - otherwise the color is not the same
+    }
+
+    &:-ms-input-placeholder {
+        color: @pColor; //dfdsh
+    }
+}
+
+
 // maybe we need to remove this
 .placeholderFade(@duration: .5s)
 {
