@@ -58,8 +58,8 @@
                                 <img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" />
                                 <div class="attachActions">
                                     <a class="attachFull" target="_blank" data-bind="attr: { href: itemUrl }" href="#"></a>
-                                    <button class="attachDelete" type="button" data-bind="style: { visibility: isVisible() }"></button>
-                                    <a class="attachDownload" target="_blank" data-bind="attr: { href: download }, style: { visibility: isVisible() }"></a>
+                                    <button class="attachDelete" type="button" data-bind="visible: isVisible()" }"></button>
+                                    <a class="attachDownload" data-bind="attr: { href: download }"></a>
                                 </div>
                             </li>
                         </ul>
