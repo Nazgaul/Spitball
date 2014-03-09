@@ -18,8 +18,8 @@
         </div>
         <!--/ko-->
         <button type="button" data-click="addItem" class="iconTxt btn1 lFloat" data-bind="visible: !manageTab() && !emptyState()">@DialogResources.UploadFiles</button>
-        <button type="button" class="listViewBtn rFloat boxItemsViewToggle" data-template="BoxItemsListViewTempalte"></button>
-        <button type="button" class="thumbViewBtn rFloat boxItemsViewToggle currentState" data-template="BoxItemsThumbViewTemplate"></button>
+        <button id="listViewBtn" type="button" class="listViewBtn rFloat boxItemsViewToggle" data-template="BoxItemsListViewTempalte"></button>
+        <button id="thumbViewBtn" type="button" class="thumbViewBtn rFloat boxItemsViewToggle currentState" data-template="BoxItemsThumbViewTemplate"></button>
     </div>
 
     <!--ko if:emptyState-->

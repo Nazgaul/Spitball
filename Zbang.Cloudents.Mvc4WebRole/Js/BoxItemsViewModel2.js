@@ -242,7 +242,10 @@
             current = 0;
             tab = null;
             self.manageTab(d.id);
+            setView('BoxItemsThumbViewTemplate', document.getElementById('thumbViewBtn'));
             getItems();
+
+
         });
 
         self.manageSave = function () {
@@ -277,14 +280,7 @@
 
         $('.boxItemsViewToggle').click(function (e) {
             var type = e.target.getAttribute('data-template');
-            if (self.currentView() === type) {
-                return;
-            }
-
-            $('.boxItemsViewToggle').removeClass('currentState');
-            e.target.classList.add('currentState');           
-            self.currentView(type);
-            cd.loadImages(document.getElementById('BoxItemList'));
+            setView(type,e.target);
         });
         //Analytics
         $('#BoxItemList').on('click', 'a.downloadBtn', function (e) {
@@ -292,5 +288,17 @@
             cd.pubsub.publish('item_Download', { id: data.uid });
             analytics.trackEvent('Box', 'Download', 'The number of downloads made on box view');
         });
+
+        function setView(view,element) {
+            if (self.currentView() === view) {
+                return;
+            }
+
+            $('.boxItemsViewToggle').removeClass('currentState');
+            
+            element.classList.add('currentState');
+            self.currentView(view);
+            cd.loadImages(document.getElementById('BoxItemList'));
+        }
     }
 })(jQuery, cd.data, ko, cd, ZboxResources, cd.analytics);
