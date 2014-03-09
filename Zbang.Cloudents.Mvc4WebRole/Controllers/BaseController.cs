@@ -183,8 +183,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 try
                 {
                     CultureInfo cultureInfo = new CultureInfo(language);
-                    CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-                    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+                    //CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+                    //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
                 }
