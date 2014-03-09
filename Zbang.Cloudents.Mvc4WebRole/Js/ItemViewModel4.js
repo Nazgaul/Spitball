@@ -42,8 +42,7 @@
         isLtr = $('html').css('direction') === 'ltr', itemType, userType, blobName, annotationList = [],
         boxid, ownerid, otakim, commentShow = false, defferedArray = [], defferedItemShow = new $.Deferred(),
         flagRequest = true, flagPopupEvents = true, firstTime = true, rateMenuOpen = false, choosedRate = false, initialRate = 0, loaded = true,
-        $bubbleText = $rateBubble.find('.bubbleText'), ratePopupTimeout;
-
+        $bubbleText = $rateBubble.find('.bubbleText'), ratePopupTimeout, ratedItems;
 
 
         //#endregion
@@ -325,6 +324,29 @@
                     itemPageLoad.resolve();
                 });
 
+                loaded = true;
+                defferedArray.push(getAnnotation());
+                defferedArray.push(getPreview());
+
+                $.data($rateContainer[0], consts.fetchRate, true);
+
+                cd.pubsub.publish(consts.perm, data.userType);
+
+                if ($rated.length) {
+                    $rated.toggleClass(consts.rated).text(5 - $rated.index());
+                }
+
+                if (!ratedItems) {
+                    ratedItems = JSON.parse(cd.localStorageWrapper.getItem('ratedItems'));
+                    if (!ratedItems) {
+                        ratedItems = {};
+                        ratedItems[cd.userDetail().nId] = [];
+                    }
+                }
+                if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
+                    return;
+                }
+
                 ratePopupTimeout = setTimeout(function () {
                     $ratePopup.addClass('show');
 
@@ -337,24 +359,14 @@
 
                         self.rate(fakeRate);
                         setItemRate(currentRate);
+                        ratedItems[cd.userDetail().nId].push(self.itemid());
+                        cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
                         setTimeout(function () {
                             $ratePopup.removeClass('show');
                         }, 500);
                     });
 
                 }, 5000);//5 seocnds
-
-                loaded = true;
-                defferedArray.push(getAnnotation());
-                defferedArray.push(getPreview());
-
-                $.data($rateContainer[0], consts.fetchRate, true);
-
-                if ($rated.length) {
-                    $rated.toggleClass(consts.rated).text(5 - $rated.index());
-                }
-
-                cd.pubsub.publish(consts.perm, data.userType);
 
                 function fillVariables() {
                     ownerid = data.ownerUid;
@@ -589,7 +601,7 @@
             $itemShare.prop(consts.checked, false);
             $itemPrint.prop(consts.checked, false);
             commentShow = false;
-            $ratePopup.removeClass('show');
+            $ratePopup.removeClass('show');            
             clearTimeout(ratePopupTimeout);
         });
         //#endregion
@@ -815,7 +827,7 @@
                 $rateContainer.click(function (e) {
                     trackEvent('Rate item menu opend', 'User opened the rate menu');
                     e.stopPropagation();
-                    
+
                     if (!cd.register()) {
                         cd.unregisterAction(this);
                         return;
@@ -835,7 +847,7 @@
                     $bubbleText.text($bubbleText.attr('data-step1'));
                 });
 
-                $rateContainer.on('click', '.star', function (e) {                                        
+                $rateContainer.on('click', '.star', function (e) {
                     e.stopPropagation();
                     var startWidth = $('.stars .full').width()
 
@@ -853,13 +865,13 @@
                     }
                     choosedRate = true;
 
-                    self.rate(calculateFakeRate(startWidth,currentRate));
+                    self.rate(calculateFakeRate(startWidth, currentRate));
 
                     trackEvent('Rate', 'User rated an item with ' + currentRate + ' stars');
 
                     toggleStarClass($rateBubble, $rated, consts.rated, currentRate);
 
-                    
+
 
                     initialRate = currentRate;
                     startWidth = self.rate();
@@ -874,7 +886,7 @@
                         rateMenuOpen = choosedRate = false;
                     }, 2000);
                 });
-                
+
                 $body.click(function () {
                     if (choosedRate) {
                         return;
@@ -937,7 +949,7 @@
                 cd.unregisterAction(this);
                 return;
             }
-           
+
             var url = '/item/print/' + '?boxId=' + boxid + '&itemId=' + self.itemid();
             var mywindow = window.open(url, '_blank');
             mywindow.onload = function () {

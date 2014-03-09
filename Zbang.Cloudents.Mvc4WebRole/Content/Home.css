@@ -214,6 +214,7 @@ aside li {
   clear: both;
   opacity: 0.35;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 aside li:hover {
   opacity: 1;
