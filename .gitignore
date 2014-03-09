@@ -1,8 +1,8 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
-**/cdn/Images
-**/cdn/Content
+**/cdn/Images/
+**/cdn/Content/
 
 # mstest test results
 TestResults

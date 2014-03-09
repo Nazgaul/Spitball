@@ -9,8 +9,8 @@
 <body>
     <form id="form1" runat="server">
     </form>
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <script src="Scripts/jquery.signalR-2.0.1.min.js"></script>
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.0.2.min.js"></script>
     <script src="Scripts/Connect.min.js"></script>
 </body>
 </html>
