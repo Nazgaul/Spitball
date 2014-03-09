@@ -29,6 +29,7 @@
                 that.thumbnailUrl = data.thumbnail;
             }
             that.download = "/d/" + boxid + "/" + that.uid;
+            that.description = data.description;
             that.tabId = ko.observable(data.tabId);
             that.isCheck = ko.computed({
                 read: function () {
@@ -283,6 +284,7 @@
             $('.boxItemsViewToggle').removeClass('currentState');
             e.target.classList.add('currentState');           
             self.currentView(type);
+            cd.loadImages(document.getElementById('BoxItemList'));
         });
         //Analytics
         $('#BoxItemList').on('click', 'a.downloadBtn', function (e) {
