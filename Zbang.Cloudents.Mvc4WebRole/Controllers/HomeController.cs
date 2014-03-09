@@ -197,7 +197,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 root.Add(
                 new XElement(xmlns + "url",
-                    new XElement(xmlns + "loc", Uri.EscapeUriString(node.Url)),
+                    new XElement(xmlns + "loc", node.Url),
                     node.Priority == null ? null : new XElement(xmlns + "priority", node.Priority.Value.ToString("F1", CultureInfo.InvariantCulture)),
                     node.LastModified == null ? null : new XElement(xmlns + "lastmod", node.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz")),
                     node.Frequency == null ? null : new XElement(xmlns + "changefreq", node.Frequency.Value.ToString().ToLowerInvariant())
