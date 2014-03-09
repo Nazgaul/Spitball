@@ -43,9 +43,14 @@
                     </form>
                     <!-- /ko-->
                     <div class="QBottom clearfix" data-answer="answer">
+                        <div class="arrow upArrow"  data-bind="visible: answerCount"></div>
+                        <div class="answerBottom" data-click="showAllAnswers" data-bind="visible: answerCount">
+                            <button type="button" class="numAnswers" data-bind="text: answerLengthText"></button>
+                            <button type="button" data-action="answer">@IndexResources.AddAnswer</button>
+                        </div>
                         <!-- ko with:bestAnswer -->
                         <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
-                        <div class="AUsername" data-bind="text: userName"></div><span class="QACreateTime" data-bind="attr: { 'data-time': createTime}"></span>
+                        <div class="AUsername semiFont" data-bind="text: userName"></div><span class="QACreateTime" data-bind="attr: { 'data-time': createTime}"></span>
                         <div data-bind="html: content" class="AContent"></div>
                         @* <div class="seeMore" data-bind="click: $root.showAllAnswers">@SharedResources.ContinueReading</div>*@
                         <ul class="qaAttach" data-bind="foreach: files">
@@ -59,13 +64,8 @@
                             </li>
                         </ul>
                         <!-- /ko -->
-                        <div class="answerBottom" data-click="showAllAnswers" data-bind="visible: answerCount">
-                            <button type="button" class="numAnswers" data-bind="text: answerLengthText"></button>
-                            <button type="button" data-action="answer">@IndexResources.AddAnswer</button>
-                        </div>
                     </div>
                 </li>
-
             </ul>
         </div>
     </div>

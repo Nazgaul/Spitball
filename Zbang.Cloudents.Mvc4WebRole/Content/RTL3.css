@@ -1226,12 +1226,12 @@ input[type="radio"] + label:before {
   margin: 2px 0 7px 6px;
   /*rtl*/
 }
-.QBottom .seeMore {
-  margin: 0 55px 0 0;
+.QItem .userName {
+  margin: 7px 10px 0 0;
   /*rtl*/
 }
-.answerBottom {
-  margin: 5px 55px 5px 0;
+.QBottom .seeMore {
+  margin: 0 55px 0 0;
   /*rtl*/
 }
 .answerBottom > button {
@@ -1253,11 +1253,11 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .QContent {
-  padding: 6px 6px 6px 0;
+  padding: 0 10px 10px 0;
   /*rtl*/
 }
 .AContent {
-  padding: 14px 0 0 10px;
+  padding: 7px 0 7px 10px;
   /*rtl*/
 }
 .AMore {
@@ -1312,6 +1312,10 @@ input[type="radio"] + label:before {
   left: 27px;
   /*rtl*/
   right: auto;
+}
+.QACreateTime {
+  margin: 9px 5px 0 0;
+  /*rtl*/
 }
 /*#endregion */
 /*#endregion */

@@ -753,7 +753,7 @@
   border: 1px solid #c2c2c2;
   border-radius: 0 3px 3px 0;
   /*rtl*/
-  background: #e7e7e7;
+  background: #fff;
   box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.11);
 }
 .listViewBtn:before,
@@ -766,7 +766,7 @@
 }
 .listViewBtn.currentState,
 .thumbViewBtn.currentState {
-  background: #fff;
+  background: #e7e7e7;
 }
 .thumbViewBtn {
   border-right: none;
