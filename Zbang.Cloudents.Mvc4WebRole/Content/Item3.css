@@ -33,21 +33,28 @@
   /*rtl*/
   top: 91px;
   z-index: 4;
-  -webkit-transition: top 1s;
-  -moz-transition: top 1s;
-  -o-transition: top 1s;
-  transition: top 1s;
+  -webkit-transition: top 1s 2s;
+  -moz-transition: top 1s 2s;
+  -o-transition: top 1s 2s;
+  transition: top 1s 2s;
 }
 .ratePopup.show {
   top: 129px;
 }
+.ratePopup.show .rateWpr {
+  top: 0;
+}
 .ratePopup .rateTxt {
   line-height: 16px;
 }
+.ratePopup .rateTxt2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 .ratePopup .starsWpr {
   position: relative;
-  direction: rtl;
-  /*rtl*/
   margin-left: 10px;
   /*rtl*/
   font-size: 0;
@@ -57,12 +64,26 @@
   height: 15px;
   background: url(/Images/common14-sprite.png?v=1) -2px -86px;
   display: inline-block;
+  float: right;
+  /*rtl*/
 }
 .ratePopup .star:hover {
   background-position: -2px -103px;
 }
 .ratePopup .star:hover ~ .star {
   background-position: -2px -103px;
+}
+.rateWpr {
+  border-radius: 0 0 3px 3px;
+  padding: 10px 30px;
+  background: #0371c8;
+  margin: -10px -30px;
+  position: relative;
+  top: -25px;
+  -webkit-transition: top 1s;
+  -moz-transition: top 1s;
+  -o-transition: top 1s;
+  transition: top 1s;
 }
 .itemRight,
 .boxRight {

@@ -25,17 +25,26 @@
     left:50%; /*rtl*/
     top: 91px;
     z-index:4; // above itemPreview but below topBar
-    .transition(top 1s);
+    .transition(top 1s 2s);
     &.show
     {
         top: 129px;
+        .rateWpr{
+            top:0;
+        }
     }
     .rateTxt{
         line-height: 16px;
     }
+    .rateTxt2
+    {
+        position: absolute;
+        left:0;
+        right:0;
+        margin: auto;
+    }
     .starsWpr{
         position: relative;
-        direction: rtl; /*rtl*/
         margin-left: 10px; /*rtl*/
         font-size:0; //remove inline-block white-space
     }
@@ -44,6 +53,7 @@
         height: 15px;
         background: @common-sprite -2px -86px;
         display: inline-block;
+        float: right; /*rtl*/
         &:hover
         {
             background-position: -2px -103px;
@@ -54,7 +64,15 @@
         }
     }
 }
-
+.rateWpr{
+    border-radius: 0 0 3px 3px;
+    padding: 10px 30px;
+    background: @attentionBlue;
+    margin: -10px -30px;
+    position: relative;
+    top: -25px;
+    .transition(top 1s);
+}
 
 .itemRight, .boxRight {
     width: 100%;

@@ -1395,9 +1395,11 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .ratePopup .starsWpr {
-  direction: ltr;
-  /*rtl*/
   margin: 0 10px 0 0;
+  /*rtl*/
+}
+.ratePopup .star {
+  float: left;
   /*rtl*/
 }
 /*#region layout */
