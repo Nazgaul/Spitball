@@ -94,8 +94,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
         //    + CustomCacheKeys.Lang + ";"
         //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour)]
-        [CacheFilter(Duration = 0)]
-        [CompressFilter]
+        //[CacheFilter(Duration = 0)]
+        //[CompressFilter]
         public ActionResult Welcome(string universityId)
         {
             if (User.Identity.IsAuthenticated)

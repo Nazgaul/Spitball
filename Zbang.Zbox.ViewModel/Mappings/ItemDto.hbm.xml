@@ -16,6 +16,7 @@
     <return-scalar column="NumOfViews" type="int"/>
     <return-scalar column="Rate" type="double"/>
     <return-scalar column="Sponsored" type="bool" />
+    <return-scalar column="Description" type="string"/>
   </resultset>
 
 
@@ -51,7 +52,8 @@
     i.ItemTabId as TabId,
 	  i.NumberOfViews as NumOfViews,
     i.rate as Rate,
-    i.sponsored as Sponsored
+    i.sponsored as Sponsored,
+    i.content as Description
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = :BoxId
@@ -72,7 +74,9 @@
   <!--Used for item page-->
   <sql-query name="GetItem" resultset-ref="ItemWithDetailDto">
     <![CDATA[
-    select i.itemid as id, i.UpdateTime as updateTime,i.Name as name,i.BlobName as blob,
+    select i.itemid as id, i.UpdateTime as updateTime,
+    i.Name as name,
+    i.BlobName as blob,
     i.Discriminator +'WithDetail' as Discriminator,
     u.UserName as userName, 
     u.userid as userId,
