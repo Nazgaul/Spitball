@@ -50,7 +50,7 @@
                         </div>
                         <!-- ko with:bestAnswer -->
                         <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
-                        <div class="AUsername semiFont" data-bind="text: userName"></div><span class="QACreateTime" data-bind="attr: { 'data-time': createTime}"></span>
+                        <div class="AUsername semiFont elps" data-bind="text: userName"></div><span class="QACreateTime" data-bind="attr: { 'data-time': createTime}"></span>
                         <div data-bind="html: content" class="AContent"></div>
                         @* <div class="seeMore" data-bind="click: $root.showAllAnswers">@SharedResources.ContinueReading</div>*@
                         <ul class="qaAttach" data-bind="foreach: files">
