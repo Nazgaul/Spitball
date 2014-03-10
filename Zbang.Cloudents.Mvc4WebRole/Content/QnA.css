@@ -537,6 +537,7 @@ textarea:invalid {
   height: 17px;
   background: url(/Images/QnA-sprite.png) -2px -2px no-repeat;
   vertical-align: middle;
+  margin: -2px 3px 0 3px;
 }
 .attachFull:hover {
   background-position: -2px -21px;
@@ -546,7 +547,7 @@ textarea:invalid {
   width: 13px;
   height: 16px;
   background: url(/Images/QnA-sprite.png) -22px -2px no-repeat;
-  margin: -1px 9px 0 9px;
+  margin: -3px 3px 0 3px;
   vertical-align: middle;
 }
 .attachDelete:hover {
@@ -558,6 +559,7 @@ textarea:invalid {
   height: 15px;
   background: url(/Images/QnA-sprite.png) -38px -3px no-repeat;
   vertical-align: middle;
+  margin: -2px 3px 0 3px;
 }
 .attachDownload:hover {
   background-position: -38px -22px;

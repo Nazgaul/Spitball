@@ -55,9 +55,9 @@
                         @* <div class="seeMore" data-bind="click: $root.showAllAnswers">@SharedResources.ContinueReading</div>*@
                         <ul class="qaAttach" data-bind="foreach: files">
                             <li class="qaAttachItem">
-                                <img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" />
+                                <a data-bind="attr: { href: itemUrl }" href="#"><img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" /></a>
                                 <div class="attachActions">
-                                    <a class="attachFull" target="_blank" data-bind="attr: { href: itemUrl }" href="#"></a>
+                                    <a class="attachFull" data-bind="attr: { href: itemUrl }" href="#"></a>
                                     <button class="attachDelete" type="button" data-bind="visible: isVisible()" }"></button>
                                     <a class="attachDownload" data-bind="attr: { href: download }"></a>
                                 </div>
@@ -91,10 +91,10 @@
             </div>
             <ul class="qaAttach" data-bind="foreach: files">
                 <li class="qaAttachItem">
-                    <img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" />
+                    <a data-bind="attr: { href: itemUrl }" href="#"><img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" /></a>
                     <div class="attachActions">
-                        <a title="@IndexResources.ShowAttachment" target="_blank" data-bind="attr: { href: itemUrl }" class="attachFull" href="#"></a>
-                        <button title="@IndexResources.RemoveAttachment" class="attachDelete" type="button" data-bind="style: { visibility: isVisible() }"></button>                                                
+                        <a title="@IndexResources.ShowAttachment" data-bind="attr: { href: itemUrl }" class="attachFull" href="#"></a>
+                        <button title="@IndexResources.RemoveAttachment" class="attachDelete" type="button" data-bind="visible: isVisible()"></button>                                                
                         <a title="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" data-bind="attr: { href: download }, style: { visibility: isVisible() }"></a>
                     </div>
                 </li>
@@ -114,10 +114,10 @@
                     @*<button title="@IndexResources.MarkCorrect" type="button" class="markAnswerBtn" data-bind="click: $root.markAnswer, visible: $parent.canMarkAsAnswer"></button>*@
                     <ul class="qaAttach" data-bind="foreach: files">
                         <li class="qaAttachItem">
-                            <img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" />
+                            <a data-bind="attr: { href: itemUrl }" href="#"><img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" /></a>
                             <div class="attachActions">
-                                <a class="attachFull" target="_blank" data-bind="attr: { href: itemUrl }" href="#"></a>
-                                <button class="attachDelete" type="button" data-bind="style: { visibility: isVisible() }"></button>
+                                <a class="attachFull" data-bind="attr: { href: itemUrl }" href="#"></a>
+                                <button class="attachDelete" type="button" data-bind="visible: isVisible()"></button>
                                 <a class="attachDownload" target="_blank" data-bind="attr: { href: download }, style: { visibility: isVisible() }"></a>
                             </div>
                         </li>
