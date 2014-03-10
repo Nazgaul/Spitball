@@ -55,48 +55,48 @@ namespace Zbang.Zbox.Infrastructure.Transport
     //    }
     //}
 
-    [ProtoContract]
-    public class StatisticsData3 : DomainProcess
-    {
+    //[ProtoContract]
+    //public class StatisticsData3 : DomainProcess
+    //{
 
-        protected StatisticsData3()
-        {
-            ItemsUids = new List<StatisticItemData>();
-        }
-        public StatisticsData3(IEnumerable<StatisticItemData> itemUids, long userId, DateTime statTime)
-            : this()
-        {
-            ItemsUids = itemUids;
-            UserId = userId;
-            StatTime = statTime;
-        }
-
-
-        [ProtoMember(3)]
-        public IEnumerable<StatisticItemData> ItemsUids { get; private set; }
-        [ProtoMember(4)]
-        public long UserId { get; private set; }
-        [ProtoMember(5)]
-        public DateTime StatTime { get; private set; }
+    //    protected StatisticsData3()
+    //    {
+    //        ItemsUids = new List<StatisticItemData>();
+    //    }
+    //    public StatisticsData3(IEnumerable<StatisticItemData> itemUids, long userId, DateTime statTime)
+    //        : this()
+    //    {
+    //        ItemsUids = itemUids;
+    //        UserId = userId;
+    //        StatTime = statTime;
+    //    }
 
 
-        public override string ProcessResolver
-        {
-            get { return DomainProcess.StatisticsResolver; }
-        }
+    //    [ProtoMember(3)]
+    //    public IEnumerable<StatisticItemData> ItemsUids { get; private set; }
+    //    [ProtoMember(4)]
+    //    public long UserId { get; private set; }
+    //    [ProtoMember(5)]
+    //    public DateTime StatTime { get; private set; }
 
-        [ProtoContract]
-        public class StatisticItemData
-        {
-            [ProtoMember(1)]
-            public string Uid { get; set; }
-            [ProtoMember(2)]
-            public int Action { get; set; }
 
-            [ProtoMember(3)]
-            public long Id { get; set; }
-        }
-    }
+    //    public override string ProcessResolver
+    //    {
+    //        get { return DomainProcess.StatisticsResolver; }
+    //    }
+
+    //    [ProtoContract]
+    //    public class StatisticItemData
+    //    {
+    //        [ProtoMember(1)]
+    //        public string Uid { get; set; }
+    //        [ProtoMember(2)]
+    //        public int Action { get; set; }
+
+    //        [ProtoMember(3)]
+    //        public long Id { get; set; }
+    //    }
+    //}
 
     [ProtoContract]
     public class StatisticsData4 : DomainProcess

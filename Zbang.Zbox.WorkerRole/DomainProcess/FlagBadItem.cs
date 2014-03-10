@@ -29,8 +29,6 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         {
             var parameters = data as BadItemData;
             Throw.OnNull(parameters, "parameters");
-
-            //string.Format(UrlConsts.ItemUrl, box.BoxUid, s.Uid)
             m_TableProvider.InsertUserRequestAsync(
                 new Zbox.Infrastructure.Storage.Entities.FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
 

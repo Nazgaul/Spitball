@@ -162,16 +162,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void UpdateFile(UpdateFileCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
-
-
         public AddLinkToBoxCommandResult AddLinkToBox(AddLinkToBoxCommand command)
         {
             using (UnitOfWork.Start())
@@ -585,6 +575,15 @@ namespace Zbang.Zbox.Domain.Services
 
 
         public void AddReputation(AddReputationCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+        public void AddNewUpdate(AddNewUpadtesCommand command)
         {
             using (UnitOfWork.Start())
             {
