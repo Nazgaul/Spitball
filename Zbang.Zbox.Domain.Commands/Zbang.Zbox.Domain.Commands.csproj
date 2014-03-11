@@ -68,6 +68,7 @@
     <Compile Include="AddFileToBoxCommandResult.cs" />
     <Compile Include="AddLinkToBoxCommand.cs" />
     <Compile Include="AddLinkToBoxCommandResult.cs" />
+    <Compile Include="AddNewUpadtesCommand.cs" />
     <Compile Include="AddNodeToLibraryCommand.cs" />
     <Compile Include="AddQuestionCommand.cs" />
     <Compile Include="AddReplyToAnnotationCommand.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="ShareBoxFacebookCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />
     <Compile Include="UnfollowBoxCommand.cs" />
-    <Compile Include="UpdateFileCommand.cs" />
     <Compile Include="UpdateStatisticsCommand.cs" />
     <Compile Include="UpdateThumbnailCommand.cs" />
     <Compile Include="UpdateUserFirstTimeStatusCommand.cs" />
@@ -159,9 +159,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

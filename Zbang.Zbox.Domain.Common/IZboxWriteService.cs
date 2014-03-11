@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Domain.Common
 
         AddFileToBoxCommandResult AddFileToBox(AddFileToBoxCommand command);
         AddLinkToBoxCommandResult AddLinkToBox(AddLinkToBoxCommand command);
-        void UpdateFile(UpdateFileCommand command);
         AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
         AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
 
@@ -47,6 +46,7 @@ namespace Zbang.Zbox.Domain.Common
 
         #region ZboxWorkerRoleService
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);
+        void AddNewUpdate(AddNewUpadtesCommand command);
         #endregion
 
 

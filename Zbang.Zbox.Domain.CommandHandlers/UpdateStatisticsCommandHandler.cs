@@ -7,6 +7,7 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -35,11 +36,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             foreach (var itemId in message.ItemId)
             {
                 var item = m_ItemRepository.Get(itemId.ItemId);// we use get because we need to cast to File and get proxy
-                if (itemId.ItemId == 0)
+                if (item == null)
                 {
+                    TraceLog.WriteInfo("itemId is null " + itemId);
                     continue;
                 }
-                Throw.OnNull(item, "item");
+                if (itemId.ItemId == 0)
+                {
+                    TraceLog.WriteInfo("itemId is 0 " + itemId);
+                    continue;
+                }
+                
 
                 if (itemId.Action == Infrastructure.Enums.StatisticsAction.View)
                 {

@@ -37,7 +37,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<AddBoxCommentCommand, AddBoxCommentCommandResult>), typeof(AddBoxCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<AddReplyToCommentCommand, AddReplyToCommentCommandResult>), typeof(AddReplyToCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteCommentCommand>), typeof(DeleteCommentCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<UpdateFileCommand>), typeof(UpdateFileCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserLanguageCommand>), typeof(UpdateUserLanguageCommandHandler));
 
             ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>), typeof(AddNodeToLibraryCommandHandler));
@@ -90,6 +89,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
 
             ioc.RegisterType(typeof(ICommandHandler<AddReputationCommand>), typeof(AddReputationCommandHandler));
+
+            //updates
+            ioc.RegisterType(typeof(ICommandHandler<AddNewUpadtesCommand>), typeof(AddNewUpadtesCommandHandler));
             
         }
     }

@@ -93,7 +93,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             AddItemToTab(command.TabId, item);
 
             TriggerCacheDocument(command.BlobAddressName, item.Id);
-
+            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, item.Id));
             var result = new AddFileToBoxCommandResult(item);
 
             return result;

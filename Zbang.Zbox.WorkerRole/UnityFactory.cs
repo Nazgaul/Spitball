@@ -67,6 +67,7 @@ namespace Zbang.Zbox.WorkerRole
             //Unity.RegisterType<IDomainProcess, AddFriend>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.AddAFriendResolver);
             Unity.RegisterType<IDomainProcess, Statistics>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.StatisticsResolver);
             Unity.RegisterType<IDomainProcess, FlagBadItem>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.BadItemResolver);
+            Unity.RegisterType<IDomainProcess, UpdatesProcess>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.UpdateResolver);
 
 
             Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
