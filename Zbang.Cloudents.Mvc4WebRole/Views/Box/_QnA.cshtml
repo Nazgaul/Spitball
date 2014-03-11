@@ -21,6 +21,7 @@
             <ul class="QList" data-bind="foreach: { data: questionList }">
                 <li class="QItem">
                     <div class="QTop clearfix " data-click="showAllAnswers" data-bind="css: { hasAttached: files().length }">
+                        <span class="tag">@SharedResources.New</span>
                         <div class="lFloat QTopLeft">
                             <img class="QAImg calloutTrgr" data-bind="attr: { src: userImg, 'data-uid': userid }" alt="" width="32" height="32" />
                             <div class="attachBtn"></div>

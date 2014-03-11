@@ -349,6 +349,19 @@ textarea:invalid {
   margin-top: 7px;
   vertical-align: top;
 }
+.QItem .tag {
+  position: absolute;
+  right: -3px;
+  top: 11px;
+  color: #F0F8FF;
+  z-index: 1;
+  padding: 1px 6px 2px 6px;
+}
+.QItem .tag:after {
+  width: 4px;
+  height: 22px;
+  background-position: -25px -119px;
+}
 .QItem.selected {
   border: 1px solid #c2c2c2;
   border-radius: 3px;
