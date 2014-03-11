@@ -812,13 +812,13 @@
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\BoxSettings.js" />
+    <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\GmfcnHandler.js" />
     <Content Include="Js\ItemViewModel4.js" />
     <Content Include="Js\Search.js" />
     <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
-    <Content Include="Js\bootstrapper2.js" />
     <Content Include="Js\BoxesViewModel.js" />
     <Content Include="Js\BoxItemsViewModel2.js" />
     <Content Include="Js\BoxViewModel2.js" />
@@ -833,7 +833,6 @@
     <Content Include="Js\externalScriptsInitializer.js" />
     <Content Include="Js\Invite.js" />
     <Content Include="Js\InviteViewModel2.js" />
-    <Content Include="Js\ItemViewModel3.js" />
     <Content Include="Js\Library.js" />
     <Content Include="Js\LibraryChoose.js" />
     <Content Include="Js\Mobile\MAccountSettings.js" />

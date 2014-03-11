@@ -2,9 +2,9 @@
 
 <!-- ko stopBinding: true -->
 
-<li class="navItem"><a href="@Url.Action("Index", "Dashboard")" title="@SharedResources.Home" data-navigation="Dashboard" class="homeLink rFloat"></a></li>
-<li class="navItem"><a title="@SharedResources.Help" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a>@*<button type="button" title="@SharedResources.Help" class="feedbacklnk feedBack rFloat"></button>*@</li>
-<li class="navItem headerInvites" id="headerInvites" title="@SharedResources.Notifications">
+<li class="navItem"><a href="@Url.Action("Index", "Dashboard")" data-title="@SharedResources.Home" data-navigation="Dashboard" class="homeLink rFloat"></a></li>
+<li class="navItem"><a data-title="@SharedResources.Help" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a>@*<button type="button" title="@SharedResources.Help" class="feedbacklnk feedBack rFloat"></button>*@</li>
+<li class="navItem headerInvites" id="headerInvites" data-title="@SharedResources.Notifications">
     <a href="javascript:void(0)" class="navLinks newInvites noInvites" id="invites">
         <span id="invitesCounter" class="invitesCounter"></span>
     </a>

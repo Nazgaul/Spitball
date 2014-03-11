@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Enums
-<div id="box_notification" class="boxNotification" title="@DialogResources.Notification">
+<div id="box_notification" class="boxNotification" data-title="@DialogResources.Notification">
     <label>@DialogResources.ChooseNotification</label>
     <select class="inputText">
         <option value="@NotificationSettings.Off.GetEnumDescription()">@NotificationSettings.Off.GetEnumDescription()</option>
@@ -10,7 +10,7 @@
     </select>
 </div>
  <!--ko if:userType()===3-->
-<div id="box_privacy" class="boxPrivacy" title="@DialogResources.PrivacySettings">
+<div id="box_privacy" class="boxPrivacy" data-title="@DialogResources.PrivacySettings">
     <label>@DialogResources.ChangePrivacy</label>
     <select class="inputText">
         <option value="@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</option>

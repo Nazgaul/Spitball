@@ -6,7 +6,7 @@
         <div class="itemTop">
             <div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>
             <div class="itemNameWpr">
-                <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { title: itemName, 'data-name': itemName }"></span></div>
+                <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'data-title': itemName, 'data-name': itemName }"></span></div>
             </div>
             <div class="itemOwner">
                 <span class="calloutTrgr elps" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></span>
@@ -14,8 +14,8 @@
             <span class="lFloat" data-bind="text: update"></span>
             <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>
             <div class="actions">
-                <span title="@SharedResources.Views" class="lFloat views" data-bind="text: numberOfViews"></span>
-                <span title="@ItemsResources.Downloads" id="item_down" class="lFloat downloads"></span>
+                <span data-title="@SharedResources.Views" class="lFloat views" data-bind="text: numberOfViews"></span>
+                <span data-title="@ItemsResources.Downloads" id="item_down" class="lFloat downloads"></span>
                 <div id="rateContainer" class="rFloat rateContainer">
                     <span class="stars">
                         <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
@@ -36,7 +36,7 @@
                 </div>
 
             </div>
-            <button class="itemRenameBtn" title="@SharedResources.Rename" id="itemSettings" type="button"></button>
+            <button class="itemRenameBtn" data-title="@SharedResources.Rename" id="itemSettings" type="button"></button>
         </div>
 
         <h3 class="sectionHeader">@ItemsResources.Additional</h3>
@@ -181,8 +181,8 @@
 
 <div class="itemFulscrn" id="itemFulscrn">
     <button type="button" class="exitFulscrn" id="exitFulscrn"></button>
-    <button type="button" class="itemPrev" id="itemPrev" title="Previous document"></button>
-    <button type="button" class="itemNext" id="itemNext" title="Next document"></button>
+    <button type="button" class="itemPrev" id="itemPrev" data-title="Previous document"></button>
+    <button type="button" class="itemNext" id="itemNext" data-title="Next document"></button>
     <div class="modal2" id="itemModel"></div>
 </div>
 
