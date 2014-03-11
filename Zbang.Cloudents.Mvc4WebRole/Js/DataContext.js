@@ -3,7 +3,7 @@
         return;
     }
     //this is data definision
-    function definitionobj(data) {        
+    function definitionobj(data) {
         //data.comet = data.comet || false;
 
         this.url = data.url.slice(-1) === '/' ? data.url : data.url + '/';
@@ -12,8 +12,8 @@
         if (!$.isArray(data.cacheExpire)) {
             data.cacheExpire = [data.cacheExpire];
         }
-        this.comet = data.comet;        
-        this.converters = data.converters;        
+        this.comet = data.comet;
+        this.converters = data.converters;
 
     }
     var dashboard = "/Dashboard/", library = "/Library/", cBOX = "/Box/", share = "/Share/", cAccount = "/Account/", search = '/Search/',
@@ -28,7 +28,7 @@
     definition.inviteMp = new definitionobj({ url: '/invite', type: get });
     definition.userMp = new definitionobj({ url: '/user', type: get });
     definition.accountMp = new definitionobj({ url: cAccount + "Settings", type: get });
-    definition.searchMp = new definitionobj({ url: search ,type: get });
+    definition.searchMp = new definitionobj({ url: search, type: get });
 
     definition.dashboard = new definitionobj({ url: dashboard + "BoxList", type: get });
     definition.createBox = new definitionobj({ url: dashboard + "Create" });
@@ -45,21 +45,21 @@
     //test
     definition.fbBoxInvite = new definitionobj({ url: share + 'InviteBoxFacebook', isJson: true });
     definition.fbInvite = new definitionobj({ url: share + 'InviteFacebook', isJson: true });
-    definition.fbRep = new definitionobj({ url: share + 'Facebook'});
+    definition.fbRep = new definitionobj({ url: share + 'Facebook' });
 
     definition.library = new definitionobj({ url: library + "Nodes", type: get });
     definition.university = new definitionobj({ url: library + "University", type: get });
     definition.universityPopUp = new definitionobj({ url: library + "NewUniversity", type: get });
     definition.universityEnterCode = new definitionobj({ url: library + "InsertCode", type: get });
     definition.newUniversity = new definitionobj({ url: library + "UniversityRequest" });
-    definition.depList = new definitionobj({ url: library + "Departments",type:get });
+    definition.depList = new definitionobj({ url: library + "Departments", type: get });
 
-    definition.createDepartment = new definitionobj({ url: library + "Create"});
+    definition.createDepartment = new definitionobj({ url: library + "Create" });
     definition.createAcademicBox = new definitionobj({ url: library + "CreateBox" });
-    definition.deleteNode = new definitionobj({ url: library + "DeleteNode"});
-    definition.renameNode = new definitionobj({ url: library + "RenameNode"});
+    definition.deleteNode = new definitionobj({ url: library + "DeleteNode" });
+    definition.renameNode = new definitionobj({ url: library + "RenameNode" });
 
-    definition.subscribeBox = new definitionobj({ url: share + "SubscribeToBox"});
+    definition.subscribeBox = new definitionobj({ url: share + "SubscribeToBox" });
 
     definition.updateUniversity = new definitionobj({ url: cAccount + "UpdateUniversity" });
 
@@ -130,7 +130,7 @@
                 return JSON.parse(d, cd.isoDateReviver);
             }
         }
-    } );
+    });
     definition.markAnswer = new definitionobj({ url: "/QnA/MarkAnswer" });
     definition.rateQuestion = new definitionobj({ url: "/QnA/RateQuestion" });
     definition.removefileQnA = new definitionobj({ url: "/QnA/RemoveFile" });
@@ -151,6 +151,9 @@
         }
     });
 
+
+    definition.newUpdates = new definitionobj({ url: '/User/Updates', type: get });
+    definition.deleteUpdates = new definitionobj({ url: '/Box/DeleteUpdates', type: get });
 
     definition.getUpMemberBoxes = new definitionobj({ url: '/User/AdminBoxes', type: get });
     definition.getUserPageActivity = new definitionobj({ url: '/User/Activity', type: get });

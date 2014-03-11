@@ -54,6 +54,7 @@
             if (data.sponsored) {
                 document.getElementById('BoxItemList').classList.add('sponsored');
             }
+            that.isNew = cd.newUpdates.isNew('items', boxid, that.id);
         }
 
         var self = this, boxid, current = 0, //countOfItems = 0,

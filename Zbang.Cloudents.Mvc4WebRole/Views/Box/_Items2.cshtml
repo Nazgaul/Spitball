@@ -52,7 +52,7 @@
             <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="188" />
             <!--/ko-->
 
-            <span class="tag">@SharedResources.New</span>
+            <span class="tag" data-bind="visible : isNew">@SharedResources.New</span>
             <div class="boxName clamp2" data-bind="text: name"></div>
             <div class="stars">
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
@@ -89,7 +89,7 @@
             <!--/ko-->
 
             <div class="boxName semiFont elps" data-bind="text: name"></div>
-            <span class="tag">@SharedResources.New</span>
+            <span class="tag" data-bind="visible : isNew">@SharedResources.New</span>
 
             <p class="itemContent" data-bind="text: description">                
             </p>

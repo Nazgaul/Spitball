@@ -136,7 +136,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
                 //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.min.js"),
                 //new JsFileWithCdn("~/Scripts/jquery.mousewheel.js"),
-                new JsFileWithCdn("~/Js/GenericEvents.js"),
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
 
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
@@ -148,6 +147,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/Logon.js"),
                 new JsFileWithCdn("~/Js/Cache.js"),
                 new JsFileWithCdn("~/Js/DataContext.js"),
+                new JsFileWithCdn("~/Js/GenericEvents.js"),
+
                 new JsFileWithCdn("~/Js/Dialog.js"), //dialog message
                 new JsFileWithCdn("~/Js/Autocomplete.js"), //dialog message
                 new JsFileWithCdn("~/Js/Tooltip.js"), //dialog message
@@ -216,7 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             //    new JsFileWithCdn("~/Js/Invite.js"),
             RegisterJs("item",
                 //new JsFileWithCdn("~/Scripts/jquery.dotdotdot.min.js"),
-                new JsFileWithCdn("~/Js/ItemViewModel3.js"));            
+                new JsFileWithCdn("~/Js/ItemViewModel4.js"));
             #endregion layout3
 
 

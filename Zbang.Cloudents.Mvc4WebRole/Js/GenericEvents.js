@@ -1,4 +1,4 @@
-﻿(function (cd, analytics) {
+﻿(function (cd, analytics, dataContext) {
     "use strict";
     if (window.scriptLoaded.isLoaded('events')) {
         return;
@@ -238,8 +238,7 @@
 
     //#endregion 
 
-
-    //##region title tooltip    
+    //#region title tooltip    
 
     $(document).hoverIntent({
         over: showTooltipTitle,
@@ -253,7 +252,7 @@
         var $element = $(this),
             tooltipTitle = $element.attr('data-title'),
             $html = $(cd.attachTemplateToData('titleToolTipTempalte', { title: tooltipTitle })),
-            $arrow = $html.find('.tooltipArrow'),arrowMargin = 15,
+            $arrow = $html.find('.tooltipArrow'), arrowMargin = 15,
             pos;
 
 
@@ -267,24 +266,126 @@
                 tooltipWidth = $html.outerWidth(), triggerWidth = $element.outerWidth(),
                 middle = tooltipWidth / 2 - triggerWidth / 2;
 
-                if (tooltipWidth > elemPos.left) {
-                    positionX = elemPos.left;
-                    $arrow.css('left', arrowMargin + 'px');
-                } else if (screenWidth - elemPos.left < tooltipWidth) {
-                    positionX = elemPos.left - tooltipWidth + triggerWidth;
-                    $arrow.css('left', tooltipWidth - triggerWidth - arrowMargin + 'px');
-                } else {
-                    $arrow.css('left', middle + 'px');
-                    positionX = elemPos.left - middle;
-                    
-                }
-                return { x: positionX - $(window).scrollLeft(), y: elemPos.top - $(window).scrollTop() };
+            if (tooltipWidth > elemPos.left) {
+                positionX = elemPos.left;
+                $arrow.css('left', arrowMargin + 'px');
+            } else if (screenWidth - elemPos.left < tooltipWidth) {
+                positionX = elemPos.left - tooltipWidth + triggerWidth;
+                $arrow.css('left', tooltipWidth - triggerWidth - arrowMargin + 'px');
+            } else {
+                $arrow.css('left', middle + 'px');
+                positionX = elemPos.left - middle;
 
-            
+            }
+            return { x: positionX - $(window).scrollLeft(), y: elemPos.top - $(window).scrollTop() };
+
+
         }
     }
 
     function hideTooltipTitle() {
         $('.titleTooltip').remove();
     }
-})(cd, cd.analytics);
+
+    //#endregion
+
+    //#region new to the user
+    (function () {
+        var updates,
+            userId = cd.userDetail().nId;
+
+        cd.newUpdates = {};
+        getData();
+
+
+        //get data for type
+        function isNew(type, boxId, id) {                
+            if (!updates) {
+                return false;
+            }
+
+            if (new Date().getTime() - updates[userId].ttl > cd.OneDay) {
+                return false;
+            }
+
+            return updates[userId][boxId][type].indexOf(id) > -1;
+        }
+
+        function getNumberOfUpdates(boxId) {
+            if (!updates) {
+                return false;
+            }
+
+            if (new Date().getTime() - updates[userId].ttl > cd.OneDay) {
+                return false;
+            }
+
+            var i = updates[userId][boxId].items.length,
+                q = updates[userId][boxId].questions.length,
+                a = updates[userId][boxId].answers.length;
+
+            return i + a + q;
+        }
+        
+        function deleteUpdates(boxId) {
+
+            dataContext.deleteUpdates({
+                data: { boxId: boxId }
+            });
+
+        }
+
+        function getData() {
+            dataContext.newUpdates({
+                success: function (data) {
+                    data = data || [];
+                    if (!data.length) { //no updates
+                        return
+                    }
+                    parseData(data);
+                }
+            });
+
+            function parseData(data) {
+                updates = {};                
+                updates[userId] = {};
+
+                var currentUpdate;
+                for (var i = 0, l = data.length; i < l; i++) {
+                    currentUpdate = data[i];
+
+                    if (!updates[cd.userDetail().nId][currentUpdate.boxId]) {
+                        updates[userId][currentUpdate.boxId] = {};
+                        updates[userId][currentUpdate.boxId].items = [];
+                        updates[userId][currentUpdate.boxId].questions = [];
+                        updates[userId][currentUpdate.boxId].answers = [];
+                    }
+
+                    insertUpdate();
+                }
+
+                updates[userId].ttl = new Date().getTime();
+
+                function insertUpdate() {
+                    if (currentUpdate.itemId) {
+                        updates[userId][currentUpdate.boxId].items.push(currentUpdate.itemId);
+                    } else if (currentUpdate.questionId) {
+                        updates[userId][currentUpdate.boxId].questions.push(currentUpdate.questionId);
+                    } else if (currentUpdate.answerId) {
+                        updates[userId][currentUpdate.boxId].answers.push(currentUpdate.answerId);
+                    } else {
+                        //no update error?
+                    }
+                }
+
+            }
+        }
+        cd.newUpdates.isNew = isNew;
+        cd.newUpdates.numOfUpdates = getNumberOfUpdates;
+        cd.newUpdates.delete = deleteUpdates;
+
+    })();
+
+
+    //#endregion
+})(cd, cd.analytics, cd.data);
