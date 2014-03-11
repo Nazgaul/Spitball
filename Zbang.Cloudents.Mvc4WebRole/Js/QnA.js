@@ -89,6 +89,7 @@
                     }
                 });
             };
+            _that.isNew = ko.observable(false);
 
         }
         function Answer(data) {
@@ -110,6 +111,8 @@
             _that.canDelete = ko.computed(function () {
                 return _that.userId === cd.userDetail().nId || self.isOwner();
             });
+            _that.isNew = ko.observable(false);
+
         }
         function File(data) {
             var _that = this;
@@ -193,7 +196,31 @@
         cd.pubsub.subscribe('box', function (data) {
             boxid = data.id;
             getQuestions();
+            cd.pubsub.publish('getUpdates');
         });
+
+        cd.pubsub.subscribe('updates', function (updates) {
+            var userId = cd.userDetail().nId,
+                box = updates[userId][boxid],
+                questions, question;
+
+            if (!box) {
+                return;
+            }
+
+            questions = updates[userId][boxid].questions;
+
+            if (!questions) {
+                return;
+            }
+
+            for (var i = 0, l = self.questionList().length; i < l; i++) {
+                question = self.questionList()[i];
+                question.isNew(questions.indexOf(question.id) > -1);
+            }
+
+        });
+
         cd.pubsub.subscribe('boxclear', function () {
             self.state(state.none);
             self.questionList([]);
@@ -261,7 +288,7 @@
             data.push({ name: 'BoxUid', value: boxid });
             $f.find('button').attr('disabled', 'disabled');
             analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
-            cd.pubsub.publish('addPoints', 'question');
+            cd.pubsub.publish('addPnts', 'question');
             dataContext.addQuestion({
                 data: data,
                 success: function (d) {

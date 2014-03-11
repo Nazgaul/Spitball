@@ -13,7 +13,7 @@
     self.courseCode = data.courseCode;
     self.professor = data.professor;
     self.boxType = data.boxType;
-
+    self.numOfUpdates = ko.observable(0);
     self.removeBoxTitle = isDeleteOrUnfollow(self);
     function isDeleteOrUnfollow(box) {
         /// <summary></summary>
@@ -95,11 +95,41 @@
         //    $dash_SearchQuery.val(data.query);
         //    search(data);
         //});
+        cd.pubsub.subscribe('updates', function (updates) {
+            var userId = cd.userDetail().nId,
+                boxesUpdate = updates[userId],
+                box;
+            if (!boxesUpdate) {
+                return;
+            }
+            for (var i = 0, l = self.boxes().length; i < l; i++) {
+                box = self.boxes()[i];
+                if (!boxesUpdate[box.uid]) {
+                    continue;
+                }
+                box.numOfUpdates(calcUpdates(box.uid));
+            }
+
+
+
+            function calcUpdates(boxId) {
+                var i = updates[userId][boxId].items.length,
+                    q = updates[userId][boxId].questions.length,
+                    a = updates[userId][boxId].answers.length;
+
+                return i + a + q;
+            }
+
+
+
+        });
+
         cd.pubsub.subscribe('dash_boxes', function () {
             //clearBoardWithSearch();
             boxesList();
         });
 
+ 
 
         //function clearBoard() {
         //    self.boxes([]);
@@ -138,7 +168,7 @@
             if (initData) {
                 $boxList.removeAttr('data-data').data('data', '');
                 generateModel(initData.boxes);
-                cd.pubsub.publish('dashSideD', { friend: initData.friends, wall: initData.wall });
+                cd.pubsub.publish('dashSideD', { friend: initData.friends, wall: initData.wall });                
                 self.loaded(true);
                 return;
             }
@@ -158,7 +188,8 @@
 
         function generateModel(data) {
             var boxes = data;
-            
+            cd.pubsub.publish('getUpdates');
+
             self.boxes([]);
             if (!cd.firstLoad){
                 cd.setTitle(JsResources.Dashboard + ' | Cloudents');

@@ -5,7 +5,8 @@
     }
     var $window = $(window),
         $document = $(document),
-        $body = $('body')
+        $body = $('body'),
+        $html = $('html');
 
     //#region dropdowns
     $window.unload(function () {  //firefoxfix
@@ -289,14 +290,31 @@
 
     //#endregion
 
+    //#region scrolling effect
+    $document.on("scroll", function () {
+        
+        if ($window.scrollTop() > 0) {
+            $html.addClass('scrolling');
+            
+        } else {
+            $html.removeClass('scrolling');
+            
+        }
+    });    
+
+    
+    //#endregion scrolling
+
     //#region new to the user
     (function () {
         var updates,
             userId = cd.userDetail().nId;
 
-        cd.newUpdates = {};
-        getData();
+        cd.pubsub.subscribe('getUpdates', function () {
+            getData();
+        });
 
+        cd.newUpdates = {};
 
         //get data for type
         function isNew(type, boxId, id) {                
@@ -305,6 +323,10 @@
             }
 
             if (new Date().getTime() - updates[userId].ttl > cd.OneDay) {
+                return false;
+            }
+
+            if (!updates[userId][boxId]) {
                 return false;
             }
 
@@ -319,12 +341,11 @@
             if (new Date().getTime() - updates[userId].ttl > cd.OneDay) {
                 return false;
             }
+            if (!updates[userId][boxId]) {
+                return 0;
+            }
 
-            var i = updates[userId][boxId].items.length,
-                q = updates[userId][boxId].questions.length,
-                a = updates[userId][boxId].answers.length;
-
-            return i + a + q;
+          
         }
         
         function deleteUpdates(boxId) {
@@ -336,6 +357,11 @@
         }
 
         function getData() {
+            if (updates) {
+                cd.pubsub.publish('updates', updates)
+                return;
+            }
+
             dataContext.newUpdates({
                 success: function (data) {
                     data = data || [];
@@ -343,6 +369,7 @@
                         return
                     }
                     parseData(data);
+                    cd.pubsub.publish('updates', updates)
                 }
             });
 
