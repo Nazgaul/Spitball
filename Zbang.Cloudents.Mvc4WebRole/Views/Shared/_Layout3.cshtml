@@ -159,7 +159,7 @@
         </li>
     </script>
     <script type="text/html" id="titleToolTipTempalte">
-        <div class="titleTooltip" style="display:inline-block;position:absolute;background-color:#39434a;color:#fff;border-radius:2px;height:22px;padding:0 12px;line-height:22px;min-width:10px;z-index:20">
+        <div class="titleTooltip" style="display:inline-block;position:absolute;background-color:#39434a;color:#fff;border-radius:2px;height:22px;padding:0 12px;line-height:22px;min-width:10px;z-index:120">
             <div style="position:relative">
                 <div class="tooltipArrow" style="position:absolute;top:-5px;-webkit-transform:rotate(45deg);background-color:#39434a;width:9px;height:9px;"></div>
                 <div class="toolTipContent">{{title}}</div>
@@ -200,6 +200,30 @@
             </a>
         </li>
     </script>
+    <div style="position:absolute;z-index:1000;background-color:#fff;width:200px;height:100px;display:none;" id="genericTooltipGuide" >
+        <div class="stepTip" data-step="0" style="display=none;">
+            <div class="titleTip">text number 1</div>
+            <div class="textTip">this is some first text</div>
+            <button class="nextStep">next</button>
+            <button class="closeTip">close</button>
+        </div>
+        <div class="stepTip" data-step="1" style="display=none;">
+            <div class="titleTip">text number 2</div>
+            <div class="textTip">this is some second text</div>
+            <button class="prevStep">prev</button>
+            <button class="nextStep">next</button>
+            <button class="closeTip">close</button>
+        </div>
+        <div class="stepTip" data-step="2" style="display=none;">
+            <div class="titleTip">text number 3</div>
+            <div class="textTip">this is some third text</div>
+            <button class="prevStep">prev</button>
+            <button class="doneStep">done</button>
+            <button class="closeTip">close</button>
+        </div>
+
+
+    </div>
     @*@Search*@
     <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>

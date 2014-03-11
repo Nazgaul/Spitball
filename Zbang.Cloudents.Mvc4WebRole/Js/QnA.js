@@ -510,6 +510,16 @@
             //$('#Questions').slimScroll().bind('slimscrolling', function (e, position) {
             //    pos = position;
             //});
+
+            $('#box_QA').on('click','.attachDownload',function (e) {
+                if (!cd.register()) {
+                    e.preventDefault();
+                    cd.pubsub.publish('register');
+                    return;
+                }
+            });
+
+
             var animationEvents = ['webkitTransitionEnd', 'transitionend', 'MSTransitionEnd'];
 
             $('.QForm').bind(animationEvents.join(' '), function (e) {

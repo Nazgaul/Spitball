@@ -248,43 +248,43 @@
         timeout: 100,
         interval: 500
     });
-    //$document.on('mouseenter', '[data-title]', function (e) {
-    //    e.preventDefault();
-    //    e.stopPropagation();
+
     function showTooltipTitle(e) {
         var $element = $(this),
             tooltipTitle = $element.attr('data-title'),
             $html = $(cd.attachTemplateToData('titleToolTipTempalte', { title: tooltipTitle })),
-            $arrow = $html.find('.tooltipArrow'),
+            $arrow = $html.find('.tooltipArrow'),arrowMargin = 15,
             pos;
+
 
         $body.append($html);
         pos = calcualtePosition();
         $html.css('top', pos.y + this.offsetHeight).css('left', pos.x);
-        $arrow.css('left', $html.width() / 2 - $arrow.width() / 2)
 
         function calcualtePosition() {
             var elemPos = cd.getElementPosition($element[0]),
                 screenWidth = $('html').width(), screenHeight = $('html').height(), positionX,
-                tooltipWidth = $html.outerWidth(),triggerWidth = $element.outerWidth();
+                tooltipWidth = $html.outerWidth(), triggerWidth = $element.outerWidth(),
+                middle = tooltipWidth / 2 - triggerWidth / 2;
 
                 if (tooltipWidth > elemPos.left) {
                     positionX = elemPos.left;
+                    $arrow.css('left', arrowMargin + 'px');
                 } else if (screenWidth - elemPos.left < tooltipWidth) {
                     positionX = elemPos.left - tooltipWidth + triggerWidth;
+                    $arrow.css('left', tooltipWidth - triggerWidth - arrowMargin + 'px');
                 } else {
-                    positionX = elemPos.left - (tooltipWidth / 2 - triggerWidth / 2);
+                    $arrow.css('left', middle + 'px');
+                    positionX = elemPos.left - middle;
                     
                 }
-            return { x: positionX - $(window).scrollLeft(), y: elemPos.top - $(window).scrollTop() };
+                return { x: positionX - $(window).scrollLeft(), y: elemPos.top - $(window).scrollTop() };
+
+            
         }
     }
 
     function hideTooltipTitle() {
         $('.titleTooltip').remove();
     }
-    //})
-    //.mouseout(function (e) {
-    //    $('.titleTooltip').remove();
-    //});
 })(cd, cd.analytics);

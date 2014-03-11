@@ -938,6 +938,9 @@ ul.ui-autocomplete li a {
 .staticWpr.popupWrppr .closeDialog {
   background-position: -68px -15px;
 }
+.staticWpr.register {
+  max-height: none;
+}
 .staticWpr .facebook {
   width: 100%;
 }

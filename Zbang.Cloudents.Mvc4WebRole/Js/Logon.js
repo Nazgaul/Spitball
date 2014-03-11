@@ -23,7 +23,9 @@
     $('[data-closelogin]').click(resetPopupView);
 
     cd.pubsub.subscribe('register', function () {
-        regPopup.style.display = 'block';
+        resetPopupView();
+        registerPopup.classList.add('register');
+
     });
 
     $(cancelPopup).click(function () {
