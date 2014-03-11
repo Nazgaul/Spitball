@@ -3,6 +3,7 @@
 [Oo]bj/
 **/cdn/Images/
 **/cdn/Content/
+**.min.css
 
 # mstest test results
 TestResults
@@ -38,7 +39,7 @@ x64/
 *.vspscc
 *.vssscc
 .builds
-*.min.css
+
 
 # Visual C++ cache files
 ipch/
