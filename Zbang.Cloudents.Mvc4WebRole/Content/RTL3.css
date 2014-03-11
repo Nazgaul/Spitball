@@ -655,8 +655,6 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .boxItemsHeader {
-  margin: -28px 0 0 386px;
-  /*rtl*/
   position: relative;
   /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
 }
@@ -1097,9 +1095,6 @@ input[type="radio"] + label:before {
 }
 /*#region box media queries */
 /*#endregion */
-.boxItemList {
-  padding: 0 1px 0 381px;
-}
 /*.boxItem .boxOwner {
     margin: 0 6px 0 0;
 }*/

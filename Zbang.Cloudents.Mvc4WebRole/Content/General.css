@@ -1536,50 +1536,55 @@ select.inputText {
   }
   .boxPage .boxActions.boxActions,
   .boxesHeader.boxesHeader.topBar {
-    position: static;
+    z-index: 1;
+    position: relative;
+    top: 0;
     width: 100%;
   }
   .QA.QA {
-    top: 20px;
+    margin-top: -139px;
     height: 100vh;
-    margin-top: -160px;
-    padding-top: 160px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    z-index: -1;
   }
   .box-content.box-content {
     padding: 0;
   }
-  .joinGrpWpr.joinGrpWpr ~ .box-content .QA {
-    top: 20px;
-  }
   .joinGrpWpr.joinGrpWpr .joinGrpBtn {
     padding: 0;
-    margin-top: -51px;
+    margin: 0;
+    top: -51px;
   }
   .joinGrpWpr.joinGrpWpr:after {
     height: 0;
+  }
+  .joinGrpWpr.joinGrpWpr.show {
+    z-index: 0;
   }
   .joinGrpWpr.joinGrpWpr.show:after {
     height: 51px;
   }
   .joinGrpWpr.joinGrpWpr.show .joinGrpBtn {
     margin: 0;
+    -moz-animation: joinWprNarrowSlide 1s ease-in;
+    -o-animation: joinWprNarrowSlide 1s ease-in;
+    -webkit-animation: joinWprNarrowSlide 1s ease-in;
+    animation: joinWprNarrowSlide 1s ease-in;
+    top: 0;
   }
   .joinGrpWpr.joinGrpWpr.show ~ .box-content .QA {
-    top: 20px;
+    top: 158px;
+  }
+  .joinGrpWpr.joinGrpWpr.followed {
+    padding: 0;
   }
   .joinGrpWpr.joinGrpWpr.followed:after {
     height: 0;
   }
-  .joinGrpWpr.joinGrpWpr.followed ~ .box-content .QA {
-    top: 20px;
-    -webkit-transition: all 0.3s 3s;
-    -moz-transition: all 0.3s 3s;
-    -o-transition: all 0.3s 3s;
-    transition: all 0.3s 3s;
+  .joinGrpWpr.joinGrpWpr.followed .joinGrpBtn {
+    padding-top: 0;
+  }
+  .joinGrpWpr.joinGrpWpr.followed .joinGrp {
+    top: -20px;
+    opacity: 0;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {

@@ -587,3 +587,43 @@
     padding-top: 80px;
   }
 }
+@-webkit-keyframes joinWprNarrowSlide {
+  from {
+    top: -51px;
+  }
+  to {
+    top: 0;
+  }
+}
+@-moz-keyframes joinWprNarrowSlide {
+  from {
+    top: -51px;
+  }
+  to {
+    top: 0;
+  }
+}
+@-ms-keyframes joinWprNarrowSlide {
+  from {
+    top: -51px;
+  }
+  to {
+    top: 0;
+  }
+}
+@-o-keyframes joinWprNarrowSlide {
+  from {
+    top: -51px;
+  }
+  to {
+    top: 0;
+  }
+}
+@keyframes joinWprNarrowSlide {
+  from {
+    top: -51px;
+  }
+  to {
+    top: 0;
+  }
+}
