@@ -483,7 +483,6 @@
   box-sizing: border-box;
   margin: 0 18px 24px 0;
   /*rtl*/
-  overflow: hidden;
   width: 222px;
 }
 .box:hover {
@@ -580,6 +579,22 @@
   background: none;
   margin: 0;
 }
+.boxNotify {
+  min-width: 10px;
+  height: 10px;
+  background: #d1294d;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: -10px;
+  color: #fff;
+  box-shadow: 1px 1px 3px rgba(57, 0, 12, 0.5);
+  font-size: 13px;
+  text-align: center;
+  padding: 5px;
+  line-height: 10px;
+}
 .courseCode {
   color: #676767;
   font-size: 13px;
@@ -602,7 +617,7 @@
   color: #fff;
   opacity: 0;
   width: 76px;
-  height: 98px;
+  height: 96px;
   position: absolute;
   top: 0;
   left: 0;

@@ -1234,6 +1234,10 @@ input[type="radio"] + label:before {
   margin: 7px 10px 0 0;
   /*rtl*/
 }
+.tag {
+  left: -3px;
+  right: auto;
+}
 .QBottom .seeMore {
   margin: 0 55px 0 0;
   /*rtl*/
