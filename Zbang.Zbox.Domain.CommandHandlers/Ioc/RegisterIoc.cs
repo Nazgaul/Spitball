@@ -91,7 +91,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<AddReputationCommand>), typeof(AddReputationCommandHandler));
 
             //updates
-            ioc.RegisterType(typeof(ICommandHandler<AddNewUpadtesCommand>), typeof(AddNewUpadtesCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<AddNewUpdatesCommand>), typeof(AddNewUpdatesCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteUpdatesCommand>), typeof(DeleteUpdatesCommandHandler));
             
         }

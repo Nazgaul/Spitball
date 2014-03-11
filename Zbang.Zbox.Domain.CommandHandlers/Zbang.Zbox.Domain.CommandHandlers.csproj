@@ -60,7 +60,7 @@
     <Compile Include="AddAnswerToQuestionCommandHandler.cs" />
     <Compile Include="AddFileToBoxCommandHandler.cs" />
     <Compile Include="AddLinkToBoxCommandHandler.cs" />
-    <Compile Include="AddNewUpadtesCommandHandler.cs" />
+    <Compile Include="AddNewUpdatesCommandHandler.cs" />
     <Compile Include="AddNodeToLibraryCommandHandler.cs" />
     <Compile Include="AddQuestionCommandHandler.cs" />
     <Compile Include="AddReplyToAnnotationCommandHandler.cs" />
