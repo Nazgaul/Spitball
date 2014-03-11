@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Infrastructure.CommandHandlers
 {
@@ -13,5 +14,7 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
             where TCommandResult : ICommandResult;
 
         void Send<TCommand>(TCommand command) where TCommand : ICommand;
+
+        Task SendAsync<TCommand>(TCommand command) where TCommand : Commands.ICommand;
     }
 }

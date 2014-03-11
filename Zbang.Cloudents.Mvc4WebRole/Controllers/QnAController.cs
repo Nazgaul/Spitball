@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -47,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [Ajax, HttpPost]
-        public JsonResult AddAnswer(Answer model)
+        public async Task<JsonResult> AddAnswer(Answer model)
         {
             if (!ModelState.IsValid)
             {
@@ -55,7 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var answerId = m_IdGenerator.Value.GetId();
             var command = new AddAnswerToQuestionCommand(GetUserId(), model.BoxUid, model.Content, answerId, model.QuestionId, model.Files);
-            m_ZboxWriteService.AddAnswer(command);
+            await m_ZboxWriteService.AddAnswer(command);
             return Json(new JsonResponse(true, answerId));
         }
         [ZboxAuthorize]

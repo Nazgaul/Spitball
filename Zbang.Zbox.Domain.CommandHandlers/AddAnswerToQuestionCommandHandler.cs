@@ -15,7 +15,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddAnswerToQuestionCommandHandler : ICommandHandler<AddAnswerToQuestionCommand>
+    public class AddAnswerToQuestionCommandHandler : ICommandHandlerAsync<AddAnswerToQuestionCommand>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
         }
-        public void Handle(AddAnswerToQuestionCommand message)
+        public async Task HandleAsync(AddAnswerToQuestionCommand message)
         {
             Throw.OnNull(message, "message");
 
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
 
-            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, null, null, answer.Id));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, null, answer.Id));
             m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             m_AnswerRepository.Save(answer);
