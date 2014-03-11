@@ -938,6 +938,9 @@ ul.ui-autocomplete li a {
 .staticWpr.popupWrppr .closeDialog {
   background-position: -68px -15px;
 }
+.staticWpr.register {
+  max-height: none;
+}
 .staticWpr .facebook {
   width: 100%;
 }
@@ -1327,14 +1330,14 @@ select.inputText {
   clear: both;
 }
 .noResults {
-  text-align: center!important;
-  background: #fff!important;
+  text-align: center !important;
+  background: #fff !important;
 }
 .noResults .emptySearch {
   display: inline-block !important;
 }
 .emptySearch {
-  display: none!important;
+  display: none !important;
   position: relative;
   text-align: center;
   margin-top: 43px;

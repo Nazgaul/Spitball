@@ -36,8 +36,8 @@ a:focus {
     outline: none;
     //box-shadow: 0 2px 2px rgba(0,0,0,.2); //TODO: Ask Itsik: how about this for a focus alternative??
 }
-button:focus 
-{
+
+button:focus {
     outline: none;
 }
 
@@ -81,7 +81,7 @@ q {
     me: for firefox - to prevent the MSShell Dlg font-family 
  */
 
-form button:focus{
+form button:focus {
     outline: thin dotted;
 }
 
@@ -94,10 +94,10 @@ textarea {
     margin: 0; /* 3 */
 }
 
-//mozilla put border red around the invlid
-textarea:invalid{
-    box-shadow:none;
-}
+    //mozilla put border red around the invlid
+    textarea:invalid {
+        box-shadow: none;
+    }
 
 /**
  * Address Firefox 4+ setting `line-height` on `input` using `!important` in
@@ -205,7 +205,6 @@ textarea {
 /*#endregion */
 
 body {
-    
     font-size: 13px;
     /*-webkit-backface-visibility: hidden;*/
     font-family: 'Open Sans', sans-serif; /*rtl*/ //3,4,6,7 //for V. 12.0.
@@ -264,14 +263,14 @@ input, form, select {
     outline: none;
 }
 
-/* remove the webkit cancel ('x') button on search inputs */
-input[type="search"]::-webkit-search-cancel-button {
-    display: none;
-}
-/* remove safari's default input search style*/
-input[type="search"] {
-    -webkit-appearance: none;
-}
+    /* remove the webkit cancel ('x') button on search inputs */
+    input[type="search"]::-webkit-search-cancel-button {
+        display: none;
+    }
+    /* remove safari's default input search style*/
+    input[type="search"] {
+        -webkit-appearance: none;
+    }
 
 /*#region placeholder text */
 //.placeholderFade();
@@ -302,10 +301,12 @@ input[type="search"] {
 /*#region checkbox */
 .checkbox {
     display: none;
+
     ~ .cbLabel {
         display: inline-block;
         font-size: 13px;
         margin-top: 5px;
+
         &:before {
             content: '';
             width: 17px;
@@ -318,6 +319,7 @@ input[type="search"] {
             padding-top: 2px;
         }
     }
+
     &:checked ~ .cbLabel:before {
         //content: '';
         background-position: -19px -1px;
@@ -327,8 +329,9 @@ input[type="search"] {
 
 /*#region validation errors */
 .validation-summary-valid {
-    display:none;
+    display: none;
 }
+
 .field-validation-error, .validation-summary-errors {
     font-size: 12px;
     color: #dc3500;
@@ -357,6 +360,7 @@ input[type="search"] {
     padding: 1px 10px 3px 10px;
     min-width: 64px;
     font-size: 15px;
+
     &:disabled, &:disabled:hover {
         background: #a5a5a5;
         border: 1px solid #a5a5a5;
@@ -368,7 +372,7 @@ input[type="search"] {
     background: @color;
     color: #fff;
     border: 1px solid @color;
-    
+
     &:hover {
         background: @colorHover;
     }
@@ -383,6 +387,7 @@ input[type="search"] {
     background: #f8f8f8;
     border: 1px solid @borderColor;
     color: @textColor;
+
     &:hover {
         background: @borderColor;
     }
@@ -392,7 +397,7 @@ input[type="search"] {
     }
 }
 
-    
+
 
 //.btn3.btn3{ // attentionBtn blue. repeated classname for extra specificity
 .btn3 {
@@ -402,8 +407,8 @@ input[type="search"] {
     min-width: 64px;
     font-size: 13px;
     border-radius: 5px;
-    &:hover
-    {
+
+    &:hover {
         background: @attentionBlueHover;
     }
 }
@@ -423,12 +428,12 @@ input[type="search"] {
         background-position: -79px -14px;
     }
 }
+
 .emailText {
     display: inline-block;
     cursor: default;
     margin-right: 6px; /*rtl*/
-    ~ .removeItem
-    {
+    ~ .removeItem {
         display: inline-block; //override
         position: static; //override
         height: 10px; //override
@@ -439,17 +444,18 @@ input[type="search"] {
 /*#endregion */
 
 /*#region loading */
-.loadingGif
-{
+.loadingGif {
     .absoluteCenter(128px,128px);
     background: url(/Images/loader3.gif);
     z-index: 10;
 }
+
 .loading {
     .absoluteCenter(120px,120px);
     z-index: 10;
     background: url(/Images/loader.png) center center no-repeat;
 }
+
 .spinner {
     border: 10px solid transparent;
     border-top: 10px solid rgba(15, 157, 88,.75);
@@ -482,11 +488,11 @@ input[type="search"] {
 }
 
 .small.progressLoader {
-	font-size: 3px;
+    font-size: 3px;
 }
 
 .large.progressLoader {
-	font-size: 24px;
+    font-size: 24px;
 }
 
 .progressLoader:before,
@@ -510,7 +516,7 @@ input[type="search"] {
 }
 
 .progressLoader:before {
-	background: #555;
+    background: #555;
 }
 
 .progressLoader:after {
@@ -523,21 +529,21 @@ input[type="search"] {
 }
 
 .progressLoader > .progressInner:before {
-    -webkit-transform: rotate(-90deg);  
-    -moz-transform: rotate(-905deg);  
-    -o-transform: rotate(-90deg);  
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-905deg);
+    -o-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
-	transform: rotate(-90deg);
-	background: #999;
+    transform: rotate(-90deg);
+    background: #999;
 }
 
 .progressLoader > .progressInner:after {
-    -webkit-transform: rotate(-135deg);  
-    -moz-transform: rotate(-135deg);  
-    -o-transform: rotate(-135deg);  
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
     -ms-transform: rotate(-135deg);
-	transform: rotate(-135deg);
-	background: #bbb;
+    transform: rotate(-135deg);
+    background: #bbb;
 }
 
 /*#endregion */
@@ -593,14 +599,14 @@ ul.ui-autocomplete {
 /*#region jquery tooltip*/
 .ui-tooltip {
     padding: 8px;
-	position: absolute;
-	z-index: 9999;
-	max-width: 300px;
-	-webkit-box-shadow: 0 0 5px #aaa;
-	box-shadow: 0 0 5px #aaa;
+    position: absolute;
+    z-index: 9999;
+    max-width: 300px;
+    -webkit-box-shadow: 0 0 5px #aaa;
+    box-shadow: 0 0 5px #aaa;
 }
-.ui-tooltip-content{
 
+.ui-tooltip-content {
 }
 /*#endregion*/
 
@@ -615,20 +621,23 @@ ul.ui-autocomplete {
     position: relative;
     font-size: 13px; // return the font-size to items
 }
-.navUser, .userSettings
-{
+
+.navUser, .userSettings {
     height: @header-height;
-    padding: 0 10px; 
+    padding: 0 10px;
     cursor: pointer;
     vertical-align: top;
+
     &:hover {
         background: rgba(103,103,103,.45);
     }
 }
+
 .navUser {
     margin-left: 30px; /*rtl*/
     line-height: 19px;
     position: relative;
+
     .userName {
         font-size: 15px;
         max-width: 127px;
@@ -647,18 +656,18 @@ ul.ui-autocomplete {
     }
 }
 
-.userPts{
+.userPts {
     font-size: 11px;
     color: #fff;
     line-height: 7px;
     margin-left: 36px; /*rtl*/
-    &:after{
-        display:inline-block;
-        content:attr(data-points);
+    &:after {
+        display: inline-block;
+        content: attr(data-points);
     }
 }
-.userSettings
-{
+
+.userSettings {
     margin-right: 10px; /*rtl*/
 }
 
@@ -716,9 +725,10 @@ ul.ui-autocomplete {
     display: block;
 }
 
-.menuItem:hover {
-    background: @borderColor;
-}
+    .menuItem:hover {
+        background: @borderColor;
+    }
+
 .menuLink {
     width: 100%;
     display: block;
@@ -765,6 +775,7 @@ ul.ui-autocomplete {
     .boxSizing;
     color: @textColor;
     .animation(fadein);
+
     .cancel {
         margin-left: 10px; /*rtl*/
     }
@@ -978,31 +989,36 @@ ul.ui-autocomplete {
     border-radius: 5px;
     //.animation(fadein,.5s);
     padding: 40px 0;
-    &.popupWrppr
-    {
+
+    &.popupWrppr {
         .boxSizing;
         width: 430px;
-        margin:0 auto; //override;
+        margin: 0 auto; //override;
         padding: 20px 50px; //override;
         background: #f5f5f5; //override
-        display: none;  
-        ~ .modal2
-        {
+        display: none;
+
+        ~ .modal2 {
             display: none;
-        } 
+        }
+
         .closeDialog {
             background-position: -68px -15px;
-        }  
+        }
     }
-    
+
+    &.register {
+        max-height: none;
+    }
+
     .facebook {
         width: 100%;
     }
-    &.connect, &.register
-    {
+
+    &.connect, &.register {
         display: block;
-        ~ .modal2
-        {
+
+        ~ .modal2 {
             display: block;
         }
     }
@@ -1016,7 +1032,7 @@ ul.ui-autocomplete {
         font-size: 13px;
         color: #d1294d;
         margin: 0 0 3px 0; //override
-        display:inline-block;
+        display: inline-block;
     }
 
     .small {
@@ -1027,13 +1043,12 @@ ul.ui-autocomplete {
         width: 100%;
         margin: 15px auto;
     }
-    .cbLabel
-    {
+
+    .cbLabel {
         font-size: 15px;
-        margin:0;
+        margin: 0;
         position: static; //override
-        &:before
-        {
+        &:before {
             border: none;
         }
     }
@@ -1126,16 +1141,17 @@ ul.ui-autocomplete {
     }
 }
 
-.register{
-    .inputText
-    {
+.register {
+    .inputText {
         margin: 30px 0 0 0; //override
     }
+
     .field-validation-error, .validation-summary-errors {
         position: absolute;
         margin: 10px 0 0 0; //override
     }
 }
+
 .accntLabel {
     font-size: 15px;
     margin-bottom: 2px;
@@ -1159,8 +1175,8 @@ ul.ui-autocomplete {
     display: inline-block;
     text-align: left; /*rtl*/
     line-height: 15px;
-    > a
-    {
+
+    > a {
         color: #676767;
     }
 }
@@ -1178,8 +1194,9 @@ ul.ui-autocomplete {
 .regFont {
     font-weight: normal;
 }
+
 .semiLight {
-    font-weight:200;
+    font-weight: 200;
 }
 
 .semiFont, .boldFont {
@@ -1194,13 +1211,14 @@ ul.ui-autocomplete {
     visibility: hidden;
 }
 /* When used on inline elements: need to add display:inline-block and width for it to work*/
-.elps  {
+.elps {
     overflow: hidden;
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .editable {
     white-space: nowrap;
     width: 100%;
@@ -1208,7 +1226,7 @@ ul.ui-autocomplete {
     height: 25px; // prevents linebreaks even if user pastes formatted text inside
     border: none;
     outline: none;
-    cursor: text !important;    
+    cursor: text !important;
 }
 
 select.inputText {
@@ -1223,13 +1241,14 @@ select.inputText {
     color: #464646;
     border: 1px solid @borderColor;
     border-radius: 3px;
-    &:focus
-    {
+
+    &:focus {
         border: 1px solid @textColor;
     }
 }
-.topBar{
-    position: fixed;          
+
+.topBar {
+    position: fixed;
     z-index: 4;
     height: 80px;
     font-size: 13px;
@@ -1240,13 +1259,13 @@ select.inputText {
     background: #fff;
     .boxSizing;
 }
-.scrolling
-{
-    .barShadow{
+
+.scrolling {
+    .barShadow {
         box-shadow: 0 3px 7px rgba(0,0,0,.15);
     }
-    #dash_right:before
-    {
+
+    #dash_right:before {
         content: '';
         display: block;
         position: fixed;
@@ -1257,7 +1276,8 @@ select.inputText {
         z-index: 1;
     }
 }
-.backWpr{
+
+.backWpr {
     text-align: left; /*rtl*/
     padding-left: 40px; /*rtl*/
     margin-top: 22px;
@@ -1265,31 +1285,33 @@ select.inputText {
     display: inline-block;
     line-height: 16px;
     height: 35px;
-    
-    &:hover:before
-    {
+
+    &:hover:before {
         background-position: -204px -35px;
     }
-    &:before
-    {
+
+    &:before {
         .pseudo;
         position: absolute;
-        left:0; /*rtl*/
+        left: 0; /*rtl*/
         width: 35px;
         height: 35px;
         background: @common-sprite -204px 0 no-repeat;
         overflow: hidden;
         border-radius: 18px;
     }
-    h2{
+
+    h2 {
         font-size: 15px;
         height: 18px;
     }
-    &.noArrow{
-        padding-left:0;
+
+    &.noArrow {
+        padding-left: 0;
+
         &:before {
-            display:none;
-        }   
+            display: none;
+        }
     }
 }
 
@@ -1300,7 +1322,7 @@ select.inputText {
     box-shadow: 0 2px 9px rgba(0,0,0,.3);
     visibility: hidden;
     opacity: 0;
-    height:252px;
+    height: 252px;
     .transition(all .4s);
     //.transition(opacity .4s);
     //.transition(all .8s);
@@ -1309,7 +1331,6 @@ select.inputText {
     z-index: 7;
     text-align: left; /*rtl*/
     //overflow: hidden; //hide rounded-corner overflow
-
     &:before {
         .pseudo;
         width: 100%;
@@ -1318,15 +1339,15 @@ select.inputText {
         top: 0;
         border-bottom: 1px solid @borderColor;
     }
-    
+
     h4 {
         font-size: 15px;
     }
 }
-.showOtakim ,.checkbox:checked ~ .dropDown
-{
+
+.showOtakim, .checkbox:checked ~ .dropDown {
     visibility: visible;
-    opacity:1;
+    opacity: 1;
     //height: 252px; //Maybe remove this
 }
 
@@ -1335,11 +1356,11 @@ select.inputText {
         .pseudo;
         border: 1px solid @borderColor;
         border-radius: 3px;
-        position:absolute;
+        position: absolute;
         -webkit-transform: rotate(45deg);
         -moz-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
-        -o-transform: rotate(45deg); 
+        -o-transform: rotate(45deg);
         transform: rotate(45deg);
     }
 }
@@ -1350,9 +1371,11 @@ select.inputText {
     z-index: 1;
     height: 10px;
     overflow: hidden;
-    &:before{
+
+    &:before {
         z-index: -1;
-        left: 0;right: 0;
+        left: 0;
+        right: 0;
         margin: auto;
         width: 10px;
         height: 10px;
@@ -1360,26 +1383,27 @@ select.inputText {
         background: #f5f5f5;
     }
 }
-.downArrow
-{
+
+.downArrow {
     top: auto;
     height: 12px;
     bottom: -1px;
-    z-index:8;
-    &:before
-    {
-       bottom: 6px;
-       background: #fff;
+    z-index: 8;
+
+    &:before {
+        bottom: 6px;
+        background: #fff;
     }
 }
-.moreArrow:after{  // ^ and v
+
+.moreArrow:after { // ^ and v
     .pseudo;
     width: 9px;
     height: 7px;
     background: @common-sprite -98px -49px no-repeat;
 }
-.sectionHeader
-{
+
+.sectionHeader {
     height: 34px;
     line-height: 34px;
     font-size: 14px;
@@ -1392,18 +1416,18 @@ select.inputText {
     background: #f8f8f8;
     clear: both;
 }
-.noResults 
-{
-    text-align: center!important;
-    background: #fff!important;
+
+.noResults {
+    text-align: center !important;
+    background: #fff !important;
+
     .emptySearch {
-        display: inline-block!important;
+        display: inline-block !important;
     }
 }
 
-.emptySearch
-{
-    display: none!important;
+.emptySearch {
+    display: none !important;
     position: relative;
     text-align: center;
     //margin-top: 38px;
@@ -1411,8 +1435,8 @@ select.inputText {
     margin-top: 43px;
     height: 67px;
     font-size: 13px;
-    &:before
-    {
+
+    &:before {
         .pseudo;
         background: @borderColor;
         width: 28px;
@@ -1421,8 +1445,8 @@ select.inputText {
         margin: -1px 6px 0 0; /*rtl*/
         vertical-align: middle;
     }
-    &:after
-    {
+
+    &:after {
         .pseudo;
         width: 14px;
         height: 16px;
@@ -1432,23 +1456,24 @@ select.inputText {
         background: @common-sprite -294px -33px no-repeat;
     }
 }
+
 .emptySearchAdmin {
     &:after {
         top: 5px;
     }
 }
-.splitHR{
+
+.splitHR {
     text-align: center;
     overflow: hidden;
 }
 
-.splitHRText
-{
+.splitHRText {
     display: inline-block;
     position: relative;
     padding: 0 10px;
-    &:before, &:after
-    {
+
+    &:before, &:after {
         content: '';
         display: block;
         width: 1000px;
@@ -1456,31 +1481,33 @@ select.inputText {
         top: 0.73em;
         border-top: 1px solid @borderColor;
     }
-    &:before
-    {
+
+    &:before {
         right: 100%;
     }
-    &:after
-    {
+
+    &:after {
         left: 100%;
     }
 }
-.iconTxt:before
-{
+
+.iconTxt:before {
     .pseudo;
     vertical-align: middle;
     background: @common-sprite no-repeat; // override for different sprites
     margin-right: 6px; /*rtl*/
 }
+
 .showAll {
     color: @attentionBlue;
     font-size: 11px;
     cursor: pointer;
     line-height: 34px;
 }
+
 .clamp2 {
     position: relative;
-    //height: 2.4em; 
+    //height: 2.4em;
     overflow: hidden;
 
     &:after {
@@ -1496,49 +1523,49 @@ select.inputText {
         //background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
         background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
     }
-    &.boxNameWpr:after, &.boxWpr:after
-    {
+
+    &.boxNameWpr:after, &.boxWpr:after {
         //height: 20px;
     }
-    &.boxWpr:after
-    {
+
+    &.boxWpr:after {
         height: 17px;
     }
 }
 
-@supports (-webkit-line-clamp: 2) {
-    .clamp2 { 
+@supports
+
+(-webkit-line-clamp: 2) {
+    .clamp2 {
         height: 2.4em;
         //max-height:2.4em;
         display: -webkit-box;
         -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical; 
-    }
-    .clamp2:after {
-        display: none !important;
+        -webkit-box-orient: vertical;
     }
 
-    .clamp2.deptNameWpr
-    {
-        line-height: 17px;
-        height: 36px;
-    }
+        .clamp2:after {
+            display: none !important;
+        }
+
+        .clamp2.deptNameWpr {
+            line-height: 17px;
+            height: 36px;
+        }
 }
 
-.imgBorder{
+.imgBorder {
     border: 1px solid @borderColor;
     border-radius: 3px;
     .boxSizing;
 }
 
 //do not display iframe
-#fconnect
-{
+#fconnect {
     display: none;
 }
 
-.ptsPopup
-{
+.ptsPopup {
     padding: 8px 10px 6px 10px;
     color: #fff;
     position: fixed;
@@ -1546,30 +1573,29 @@ select.inputText {
     border-radius: 5px;
     background: #39434a;
     z-index: 11;
-    display:none;
+    display: none;
     width: 224px;
     box-shadow: 0 0 3px rgba(0,0,0,.4);
     left: ~'-webkit-calc(50% - 112px)'; /*rtl*/
     left: ~'calc(50% - 112px)'; /*rtl */
-
-    &:before
-    {
+    &:before {
         content: attr(data-pts-before);
         display: inline-block;
     }
-    &:after
-    {
+
+    &:after {
         content: attr(data-pts-after);
         display: inline-block;
         margin-left: 4px; /*rtl*/
     }
 }
-.digitWpr
-{
+
+.digitWpr {
     direction: ltr;
     display: inline-block;
 }
-.ptDigit{
+
+.ptDigit {
     font-size: 16px;
     color: @attentionBlue;
     text-align: center;
@@ -1583,11 +1609,12 @@ select.inputText {
     background: #fff;
     margin: -3px 1px 0 1px;
     vertical-align: middle;
-    &:first-child
-    {
+
+    &:first-child {
         margin-left: 4px; /* no rtl !!*/
     }
 }
+
 .ptsAnim {
     display: block;
     -moz-animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
@@ -1601,24 +1628,25 @@ select.inputText {
 
 //When viewport width becomes < 1024px we convert all of the fixed elments to absolute.
 //This is in order to maintain the ability to scroll horizontally to the RHS of the top bar.
-// Facebook does this too. 
+// Facebook does this too.
 
-@media  (max-width: 1024px) {
+@media (max-width: 1024px) {
     //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
-    .siteHeader.siteHeader, 
-    .boxPage .leftPanel.leftPanel, 
-    .QA.QA, 
-    .boxPage .boxActions.boxActions, 
-    .asideLib.asideLib, 
-    .asideDash.asideDash, 
-    .settingsMenu.settingsMenu, 
+    .siteHeader.siteHeader,
+    .boxPage .leftPanel.leftPanel,
+    .QA.QA,
+    .boxPage .boxActions.boxActions,
+    .asideLib.asideLib,
+    .asideDash.asideDash,
+    .settingsMenu.settingsMenu,
     .joinGrpBtn.joinGrpBtn { //repeated classname for extra specificity (this is legal and in spec)
         position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
     }
-    .boxPage .leftPanel.leftPanel
-    {
+
+    .boxPage .leftPanel.leftPanel {
         height: auto;
     }
+
     .contentWpr.contentWpr {
         background: url(/Images/gray_jean80.png) repeat #fff;
 
@@ -1630,30 +1658,33 @@ select.inputText {
             }
         }
     }
-    .libraryContent.libraryContent .contentWpr
-    {
+
+    .libraryContent.libraryContent .contentWpr {
         padding-top: 25px;
     }
 
     .boxPage .boxActions.boxActions, .boxesHeader.boxesHeader.topBar {
         //position: static;
         z-index: 1;
-        position: relative;// in order to enable z-index - to appear over the join btn
-        top:0;
+        position: relative; // in order to enable z-index - to appear over the join btn
+        top: 0;
         width: 100%;
     }
+
     .QA.QA {
         margin-top: -139px;
         height: 100vh;
     }
-    .backWpr.backWpr{
+
+    .backWpr.backWpr {
         //padding-top: 10px;
         //margin: 0;
     }
-    .box-content.box-content
-    {
-        padding:0;
+
+    .box-content.box-content {
+        padding: 0;
     }
+
     .joinGrpWpr.joinGrpWpr {
         .joinGrpBtn {
             padding: 0;
@@ -1666,7 +1697,7 @@ select.inputText {
         }
 
         &.show {
-            z-index:0; //override
+            z-index: 0; //override
             &:after {
                 height: 51px;
             }
@@ -1686,14 +1717,16 @@ select.inputText {
         }
 
         &.followed {
-            padding:0;
+            padding: 0;
+
             &:after {
                 height: 0;
             }
-            .joinGrpBtn
-            {
+
+            .joinGrpBtn {
                 top: -51px;
             }
+
             .joinGrp {
                 top: -20px;
                 opacity: 0;
@@ -1703,29 +1736,26 @@ select.inputText {
 }
 
 // IPAD - SPECIFIC CODE
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px)  { 
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     .printDD.printDD .printTxt2 {
-        padding:0;
+        padding: 0;
     }
-    .modal2.modal2
-    {
-        position:absolute;
+
+    .modal2.modal2 {
+        position: absolute;
     }
-} 
+}
 /*#endregion */
 /*#region cssCheck*/
 #cssCheck {
-    position:absolute;
-    left : -2000px;
+    position: absolute;
+    left: -2000px;
 }
 /*#endregion*/
 
 
 /*#region User tooltip */
-.userTooltip
-{
+.userTooltip {
     width: 379px;
     height: 101px;
     .boxSizing;
@@ -1735,64 +1765,66 @@ and (max-device-width : 1024px)  {
     padding: 10px 10px 6px 110px; /*rtl*/
     position: fixed;
     z-index: 13;
-    background: #fff;    
+    background: #fff;
     .transition(opacity .5s);
-    opacity:0;
+    opacity: 0;
     visibility: hidden;
     box-shadow: 0 0 3px rgba(0,0,0,.4);
-    &.showTooltip
-    {
+
+    &.showTooltip {
         visibility: visible;
         opacity: 1;
     }
-    .btn3{
+
+    .btn3 {
         color: @attentionBlue;
         background: #fff;
         border: 1px solid @attentionBlue;
         padding: 3px 8px;
         margin-top: 7px;
-        &:hover
-        {
+
+        &:hover {
             background: @attentionBlueHover;
             color: #fff;
         }
     }
 }
 
-.ttImg
-{
+.ttImg {
     position: absolute;
-    top:0;
-    left:0; /*rtl*/
+    top: 0;
+    left: 0; /*rtl*/
     border-right: 1px solid @borderColor;
 }
-.ttUsername{
-    color:@color;
+
+.ttUsername {
+    color: @color;
     font-size: 16px;
     max-width: 257px;
     display: block;
-    &:hover
-    {
+
+    &:hover {
         text-decoration: underline;
     }
 }
-.ttSchool{
+
+.ttSchool {
     color: #39434a;
     width: 257px;
     padding-bottom: 8px;
     border-bottom: 1px solid @borderColor;
 }
-.ttPoints
-{
+
+.ttPoints {
     margin-top: 10px;
     text-transform: lowercase;
-    &:before
-    {
+
+    &:before {
         content: attr(data-tt-points);
         display: inline-block;
     }
-    .userTooltip.hidePoints &
-    {
+
+    .userTooltip.hidePoints & {
         display: none;
     }
 }

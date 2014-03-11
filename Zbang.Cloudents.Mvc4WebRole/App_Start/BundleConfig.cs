@@ -153,8 +153,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/Tooltip.js"), //dialog message
 
 
-              //  new JsFileWithCdn("~/Js/pubsub.js"),
-
+               new JsFileWithCdn("~/Js/TooltipGuide.js"),
+                
                 //new JsFileWithCdn("~/Js/bootstrapper2.js"),
                 new JsFileWithCdn("~/Js/Navigation.js"),
                 new JsFileWithCdn("~/Js/Statistics.js"),

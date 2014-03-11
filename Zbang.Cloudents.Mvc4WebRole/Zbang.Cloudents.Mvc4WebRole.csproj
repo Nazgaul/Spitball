@@ -879,6 +879,7 @@
     <Content Include="Js\RT.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
+    <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Upload2.js" />
     <Content Include="Js\User.js" />
     <Content Include="Js\Utils.js" />
