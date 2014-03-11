@@ -859,7 +859,50 @@
         background-position: -31px -123px;
     }
 }
-
+.tag {
+    position: relative;
+    color: #FFF;
+    //background: #0F9D58;
+    overflow: hidden;
+    display: inline-block;
+    padding: 1px 12px 2px 6px; /*rtl*/
+    border-radius: 3px 0 3px 3px; /*rtl*/
+    margin-left: 11px; /*rtl*/
+    /*&:before {
+        .pseudo;
+        position: absolute;
+        top: 0;
+        right: 0; //rtl
+        border-width: 0 8px 7px 0; //rtl
+        border-style: solid;
+        border-color: #f1f1f1 #f1f1f1 #0e8249 #0e8249; //rtl
+        background: #0e8249;
+        display: block;
+        width: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2); //rtl
+    }*/
+    &:before
+    {
+        content: '';
+        position: absolute;
+        display: block;
+        background: @color;
+        width: 38px;
+        left: 0; //rtl
+        z-index: -1;
+        height: 18px;
+        border-radius: 3px 0 0 3px; //rtl
+    }
+    &:after
+    {
+        .pseudo;
+        width: 9px;
+        height: 18px;
+        background: @boxSprite -8px -119px no-repeat;
+        position: absolute;
+        right: 0; //rtl
+    }
+}
 .listItem{
     padding: 14px 0 14px 138px; /*rtl*/
     position: relative;
@@ -888,29 +931,7 @@
         max-width: ~'-webkit-calc(100% - 70px)';
         max-width: ~'calc(100% - 70px)';
     }
-    .tag {
-        position: relative;
-        color: #FFF;
-        background: #0F9D58;
-        overflow: hidden;
-        display: inline-block;
-        padding: 1px 12px 2px 8px; /*rtl*/
-        border-radius: 3px 0 3px 3px; /*rtl*/
-        margin-left: 11px; /*rtl*/
-        &:before {
-            .pseudo;
-            position: absolute;
-            top: 0;
-            right: 0; /*rtl*/
-            border-width: 0 8px 7px 0; /*rtl*/
-            border-style: solid;
-            border-color: #f1f1f1 #f1f1f1 #0e8249 #0e8249; /*rtl*/
-            background: #0e8249;
-            display: block;
-            width: 0;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2); /*rtl*/
-        }
-    }
+    
     .itemContent
     {
         max-height: 71px;
@@ -958,7 +979,7 @@
         background-size: cover;
         background-repeat: no-repeat;
     }
-
+    
     .boxName {
         margin-left: 6px; /*rtl*/
         overflow: hidden;
@@ -974,6 +995,13 @@
         bottom: 3px;
         margin: 0; // override .views class
         // before img from .views class.
+    }
+    .tag{
+        position: absolute;
+        left: -6px;
+        top: 165px;
+        color: #F0F8FF;
+        z-index: 1;
     }
 }
 

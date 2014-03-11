@@ -694,23 +694,28 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .listItem .tag {
-  padding: 1px 8px 2px 12px;
+  padding: 1px 6px 2px 12px;
   /*rtl*/
   border-radius: 0 3px 3px 3px;
   /*rtl*/
   margin: 0 11px 0 0;
   /*rtl*/
+  /*&:before {
+            left: 0; //rtl
+            right: auto;
+            border-width: 0 0 7px 8px; //rtl
+            border-color: #f1f1f1 #0e8249 #0e8249 #f1f1f1; //rtl
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 1px 1px 1px rgba(0, 0, 0, 0.2); //rtl
+        }*/
 }
 .listItem .tag:before {
+  right: 0;
+  left: auto;
+  border-radius: 0 3px 3px 0;
+}
+.listItem .tag:after {
   left: 0;
-  /*rtl*/
   right: auto;
-  border-width: 0 0 7px 8px;
-  /*rtl*/
-  border-color: #f1f1f1 #0e8249 #0e8249 #f1f1f1;
-  /*rtl*/
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 1px 1px 1px rgba(0, 0, 0, 0.2);
-  /*rtl*/
 }
 .listItem .views {
   margin: 0 20px 0 0;
