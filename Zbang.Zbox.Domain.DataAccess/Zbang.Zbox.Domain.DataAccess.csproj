@@ -86,6 +86,7 @@
     <Compile Include="IUniversityRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IUpdatesRepository.cs" />
     <Compile Include="IUserBoxRelRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="UniversityRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UpdatesRepository.cs" />
     <Compile Include="UserBoxRelRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
@@ -139,7 +141,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
