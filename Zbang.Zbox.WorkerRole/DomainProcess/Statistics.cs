@@ -25,28 +25,6 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         }
         public bool Excecute(Infrastructure.Transport.DomainProcess data)
         {
-            //this is obselete
-            //var parameters = data as StatisticsData;
-            //if (parameters != null)
-            //{
-            //    var command = new UpdateStatisticsCommand(parameters.ItemsUids.Select(s => new Zbang.Zbox.Domain.Commands.UpdateStatisticsCommand.StatisticItemData { ItemId = m_ShortToLongCode.ShortCodeToLong(s, ShortCodesType.Item), Action = StatisticsAction.View }), 1, DateTime.UtcNow);
-            //    m_ZboxWriteService.Statistics(command);
-            //}
-            //this will be  obselete on v 12
-            //var parameters2 = data as StatisticsData2;
-            //if (parameters2 != null)
-            //{
-            //    var command = new UpdateStatisticsCommand(parameters2.ItemsUids.Select(s => new Zbang.Zbox.Domain.Commands.UpdateStatisticsCommand.StatisticItemData { ItemId = m_ShortToLongCode.ShortCodeToLong(s.Uid, ShortCodesType.Item), Action = (StatisticsAction)s.Action }), 1, DateTime.UtcNow);
-            //    m_ZboxWriteService.Statistics(command);
-            //}
-
-            var parameters3 = data as StatisticsData3;
-            if (parameters3 != null)
-            {
-                var command = new UpdateStatisticsCommand(parameters3.ItemsUids.Select(s => new Zbang.Zbox.Domain.Commands.UpdateStatisticsCommand.StatisticItemData { ItemId = m_ShortToLongCode.ShortCodeToLong(s.Uid, ShortCodesType.Item), Action = (StatisticsAction)s.Action }), parameters3.UserId, parameters3.StatTime);
-                m_ZboxWriteService.Statistics(command);
-            }
-
             var parameters4 = data as StatisticsData4;
             if (parameters4 != null)
             {

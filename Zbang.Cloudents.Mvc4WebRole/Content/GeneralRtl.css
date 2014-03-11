@@ -149,6 +149,10 @@ body {
   padding: 0 19px 0 45px;
   /*rtl*/
 }
+.scrolling #dash_right:before {
+  margin: -10px -24px 0 0;
+  /*rtl*/
+}
 .backWpr {
   text-align: right;
   /*rtl*/

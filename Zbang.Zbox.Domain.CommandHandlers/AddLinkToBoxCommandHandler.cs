@@ -7,6 +7,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -66,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
 
-
+            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, link.Id));
             return new AddLinkToBoxCommandResult(link);
 
 
@@ -101,12 +102,5 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             return u;
         }
-
-        //private void TriggerNotification(Box box, User user, Item item)
-        //{
-
-        //    var queueMailData = new AddItemMail(box.Id, user.Id, item.Id);
-        //    m_QueueProvider.InsertMessageToMail(queueMailData);
-        //}
     }
 }

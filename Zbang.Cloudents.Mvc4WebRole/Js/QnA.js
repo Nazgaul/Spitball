@@ -122,7 +122,7 @@
                 return data.ownerId === cd.userDetail().nId;
             });
             _that.isVisible = ko.computed(function () {
-                return data.ownerId === cd.userDetail().nId || self.isOwner() ? 'visible' : 'hidden';
+                return data.ownerId === cd.userDetail().nId || self.isOwner();
             });
 
             _that.download = "/d/" + boxid + "/" + _that.id;

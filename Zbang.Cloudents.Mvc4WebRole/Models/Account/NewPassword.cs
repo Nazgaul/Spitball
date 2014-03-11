@@ -10,6 +10,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
     public class NewPassword
     {
         [Required(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "PwdAtLeast6Chars")]
+        [ValidatePasswordLength(ErrorMessageResourceName = "PwdAtLeast6Chars", ErrorMessageResourceType = typeof(LogOnResources))]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(LogOnResources), Name = "Password")]
         public string Password { get; set; }

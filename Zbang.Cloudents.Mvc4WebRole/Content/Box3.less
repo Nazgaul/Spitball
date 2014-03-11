@@ -183,35 +183,53 @@
         background-position: -90px -21px;
     }
 }
-
-.joinGrpWpr {
-    width: 100%;
-    height: 51px;
-    background: rgba(57,67,74,.12);
-    text-align: center;
-    padding-top: 80px;
-    display: none;
+.joinGrpWpr
+{
     position: relative;
-    .transition(all .3s 3s);
-
-    &.show {
+    z-index: 1;
+    height: 0; // When it is not shown - hide the effect of the after pseudo elemnt
+    &:after
+    {
+        content: '';
         display: block;
-        -moz-animation: joinWprSlide 1s ease-in;
-        -o-animation: joinWprSlide 1s ease-in;
-        -webkit-animation: joinWprSlide 1s ease-in;
-        animation: joinWprSlide 1s ease-in;
+        height:80px;
+        .transition(height 1s ease-in);
+    }
+    &.show {
+        height: auto; // Override height:0;
+        &:after
+        {
+            height:131px;
+        }
+        .joinGrpBtn
+        {
+            display: block;
+            -moz-animation: joinWprSlide 1s ease-in;
+            -o-animation: joinWprSlide 1s ease-in;
+            -webkit-animation: joinWprSlide 1s ease-in;
+            animation: joinWprSlide 1s ease-in;
+            margin-left: -150px; /*rtl*/ //Necessary to hAlign the btn.TODO:why? 
+        }
+        
         ~ .box-content {
             padding-top: 8px;
             .QA{
-                top: 209px;
+                top: 200px;
             }
         }
     }
 
-
     &.followed {
-        padding-top: 29px;
-
+        &:after
+        {
+            .transition(all .3s 3s);
+            height: 80px;
+        }
+        .joinGrpBtn
+        {
+            padding-top: 29px;
+        }
+        
         .joinGrp {
             top: -10px;
             margin-top: -6px;
@@ -228,10 +246,21 @@
         }
 
         ~ .box-content .QA {
-            top: 158px;
+            top: 150px;
             .transition(all .3s 3s);
         }
     }
+    
+}
+.joinGrpBtn {
+    width: 100%;
+    height: 51px;
+    background: rgba(57,67,74,.12);
+    text-align: center;
+    padding-top: 80px;
+    display: none;
+    position: fixed;
+    .transition(all .3s 3s);
 }
 
 .joinGrp, .joinGrp:before {
@@ -802,7 +831,7 @@
     height: 29px;
     border: 1px solid @borderColor;
     border-radius: 0 3px 3px 0; /*rtl*/
-    background: #e7e7e7;
+    background: #fff;
     box-shadow: inset 0 0 7px rgba(0,0,0,.11);
     &:before
     {
@@ -813,7 +842,7 @@
     }
     &.currentState
     {
-        background: #fff;
+        background: #e7e7e7;
     }
 }
 .thumbViewBtn

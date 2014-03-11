@@ -10,6 +10,8 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -20,6 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Question> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IQueueProvider m_QueueProvider;
 
 
 
@@ -27,13 +30,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IBoxRepository boxRepository,
             IRepository<Question> questionRepository
             , IRepository<Item> itemRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Reputation> reputationRepository,
+            IQueueProvider queueProvider)
         {
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_QuestionRepository = questionRepository;
             m_ItemRepository = itemRepository;
             m_ReputationRepository = reputationRepository;
+            m_QueueProvider = queueProvider;
         }
         public void Handle(AddQuestionCommand message)
         {
@@ -57,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reputation = user.AddReputation(ReputationAction.AddQuestion);
             m_ReputationRepository.Save(reputation);
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
-            //box.UserTime.UpdateUserTime(user.Email);
+            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, null, question.Id, null));
             m_BoxRepository.Save(box);
 
         }

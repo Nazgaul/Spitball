@@ -1240,6 +1240,23 @@ select.inputText {
     background: #fff;
     .boxSizing;
 }
+.scrolling
+{
+    .barShadow{
+        box-shadow: 0 3px 7px rgba(0,0,0,.15);
+    }
+    #dash_right:before
+    {
+        content: '';
+        display: block;
+        position: fixed;
+        height: 10px;
+        width: 100%;
+        margin: -10px 0 0 -24px; /*rtl*/
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+}
 .backWpr{
     text-align: left; /*rtl*/
     padding-left: 40px; /*rtl*/
@@ -1581,9 +1598,21 @@ select.inputText {
 /*#endregion */
 
 /*#region media queries */
+
+//When viewport width becomes < 1024px we convert all of the fixed elments to absolute.
+//This is in order to maintain the ability to scroll horizontally to the RHS of the top bar.
+// Facebook does this too. 
+
 @media  (max-width: 1024px) {
     //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
-    .siteHeader.siteHeader, .boxPage .leftPanel.leftPanel, .QA.QA, .boxPage .boxActions.boxActions, .asideLib.asideLib, .asideDash.asideDash, .settingsMenu.settingsMenu { //repeated classname for extra specificity (this is legal and in spec)
+    .siteHeader.siteHeader, 
+    .boxPage .leftPanel.leftPanel, 
+    .QA.QA, 
+    .boxPage .boxActions.boxActions, 
+    .asideLib.asideLib, 
+    .asideDash.asideDash, 
+    .settingsMenu.settingsMenu, 
+    .joinGrpBtn.joinGrpBtn { //repeated classname for extra specificity (this is legal and in spec)
         position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
     }
     .boxPage .leftPanel.leftPanel
@@ -1628,15 +1657,42 @@ select.inputText {
     }
     .joinGrpWpr.joinGrpWpr
     {
-        padding:0;
-        .transition(none);
-        &.show ~ .box-content .QA {
-            top: 28px;
+        //padding:0;
+        //.transition(none);
+        //z-index: -1;
+        ~ .box-content .QA  {
+            top: 20px;
+        }
+        .joinGrpBtn {
+             padding:0;
+             margin-top: -51px;
+            //.transition(none);
+        }
+        &:after
+        {
+            height:0;
+        }
+        &.show {
+            &:after
+            {
+                height: 51px;
+            }
+            .joinGrpBtn {
+                margin: 0;
+            }
+            ~ .box-content .QA  {
+                top: 20px;
+                //.transition(all .3s 3s);
+            }
         }
         &.followed
         {
             //padding-top: 29px;
-            padding:0;
+            //padding:0;
+            &:after
+            {
+                height:0;
+            }
             .joinGrp
             {
                 //top: -20px;

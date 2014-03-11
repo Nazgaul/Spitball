@@ -10,6 +10,8 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -21,6 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Question> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IQueueProvider m_QueueProvider;
 
 
 
@@ -28,7 +31,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Answer> answerRepository,
             IRepository<Question> questionRepository,
             IRepository<Item> itemRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Reputation> reputationRepository,
+            IQueueProvider queueProvider)
         {
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
@@ -36,6 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QuestionRepository = questionRepository;
             m_ItemRepository = itemRepository;
             m_ReputationRepository = reputationRepository;
+            m_QueueProvider = queueProvider;
         }
         public void Handle(AddAnswerToQuestionCommand message)
         {
@@ -56,6 +61,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var answer = new Answer(user, text, box, message.Id, question, files);
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
+
+            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, null, null, answer.Id));
             m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             m_AnswerRepository.Save(answer);

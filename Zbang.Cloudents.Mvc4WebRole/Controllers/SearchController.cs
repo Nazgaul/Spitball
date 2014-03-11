@@ -116,6 +116,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public async Task<ActionResult> OtherUniversities(string q, int page)
         {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return this.CdJson(new JsonResponse(false, "need query"));
+            }
             var userDetail = m_FormsAuthenticationService.GetUserData();
             var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), true, page);
             var result = await m_ZboxReadService.OtherUniversities(query);
