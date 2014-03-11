@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Infrastructure.CommandHandlers
 {
@@ -13,4 +14,11 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
     {
         void Handle(TCommand message);
     }
+
+    public interface ICommandHandlerAsync<TCommand> where TCommand : ICommand
+    {
+        Task HandleAsync(TCommand message);
+    }
+
+   
 }

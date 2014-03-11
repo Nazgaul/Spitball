@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -25,14 +26,14 @@ namespace Zbang.Zbox.Domain.Services
             { }
         }
 
-        
+
 
         public void Dbi()
         {
             using (UnitOfWork.Start())
             {
-               
-               var boxRepository = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IBoxRepository>();
+
+                var boxRepository = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IBoxRepository>();
                 //members count
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
@@ -504,12 +505,13 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void AddAnswer(AddAnswerToQuestionCommand command)
+        public async Task AddAnswer(AddAnswerToQuestionCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
+                
             }
         }
         public void MarkCorrectAnswer(MarkAsAnswerCommand command)
@@ -553,7 +555,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        
+
         #endregion
 
         /// <summary>

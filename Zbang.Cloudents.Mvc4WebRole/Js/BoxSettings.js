@@ -25,7 +25,7 @@
         var _self = this;
         _self.id = data.Uid;
         _self.name = data.Name;
-        _self.image = data.Image || '/Images/EmptyState/user-pic.png';
+        _self.image = data.Image || $('body').data('pic');
         _self.status = parseStatus(data.sUserStatus);
         _self.cMemStat = data.sUserStatus === 'Invite' ? 'memberPending' : '';
         _self.identifier = cd.guid();

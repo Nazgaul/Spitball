@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Domain.Commands;
+﻿using System.Threading.Tasks;
+using Zbang.Zbox.Domain.Commands;
 
 namespace Zbang.Zbox.Domain.Common
 {
@@ -71,7 +72,7 @@ namespace Zbang.Zbox.Domain.Common
 
         #region QnA
         void AddQuestion(AddQuestionCommand command);
-        void AddAnswer(AddAnswerToQuestionCommand command);
+        Task AddAnswer(AddAnswerToQuestionCommand command);
         void MarkCorrectAnswer(MarkAsAnswerCommand command);
         void RateAnswer(RateAnswerCommand command);
         void DeleteFileFromQnA(DeleteFileFromQnACommand command);
