@@ -72,7 +72,7 @@
 </div>
 
 <div class="boxRight">
-    <div class="boxActions topBar">
+    <div class="boxActions topBar barShadow">
         <section class="shareBtn rFloat">
             <input class="checkbox" type="checkbox" id="boxShare" data-ddcbox="boxShare" />
             <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
@@ -101,9 +101,11 @@
     </div>
 
     @*<!--ko if:follow-->*@    
-    <div id="joinGrpBtn" class="joinGrpWpr">
-        <span class="joinMsg iconTxt">@SharedResources.Member</span>
-        <button type="button" class="joinGrp" data-bind="click: followbox" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
+    <div id="joinGrpWpr" class="joinGrpWpr">
+        <div class="joinGrpBtn">
+            <span class="joinMsg iconTxt">@SharedResources.Member</span>
+            <button type="button" class="joinGrp" data-bind="click: followbox" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
+        </div>
     </div>
     @*<!--/ko-->*@
     <div class="box-content">

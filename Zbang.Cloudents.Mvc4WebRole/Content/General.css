@@ -1178,6 +1178,20 @@ select.inputText {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.scrolling .barShadow {
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+}
+.scrolling #dash_right:before {
+  content: '';
+  display: block;
+  position: fixed;
+  height: 10px;
+  width: 100%;
+  margin: -10px 0 0 -24px;
+  /*rtl*/
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
 .backWpr {
   text-align: left;
   /*rtl*/
@@ -1502,7 +1516,8 @@ select.inputText {
   .boxPage .boxActions.boxActions,
   .asideLib.asideLib,
   .asideDash.asideDash,
-  .settingsMenu.settingsMenu {
+  .settingsMenu.settingsMenu,
+  .joinGrpBtn.joinGrpBtn {
     position: absolute;
   }
   .boxPage .leftPanel.leftPanel {
@@ -1537,18 +1552,27 @@ select.inputText {
   .box-content.box-content {
     padding: 0;
   }
-  .joinGrpWpr.joinGrpWpr {
+  .joinGrpWpr.joinGrpWpr ~ .box-content .QA {
+    top: 20px;
+  }
+  .joinGrpWpr.joinGrpWpr .joinGrpBtn {
     padding: 0;
-    -webkit-transition: none;
-    -moz-transition: none;
-    -o-transition: none;
-    transition: none;
+    margin-top: -51px;
+  }
+  .joinGrpWpr.joinGrpWpr:after {
+    height: 0;
+  }
+  .joinGrpWpr.joinGrpWpr.show:after {
+    height: 51px;
+  }
+  .joinGrpWpr.joinGrpWpr.show .joinGrpBtn {
+    margin: 0;
   }
   .joinGrpWpr.joinGrpWpr.show ~ .box-content .QA {
-    top: 28px;
+    top: 20px;
   }
-  .joinGrpWpr.joinGrpWpr.followed {
-    padding: 0;
+  .joinGrpWpr.joinGrpWpr.followed:after {
+    height: 0;
   }
   .joinGrpWpr.joinGrpWpr.followed ~ .box-content .QA {
     top: 20px;

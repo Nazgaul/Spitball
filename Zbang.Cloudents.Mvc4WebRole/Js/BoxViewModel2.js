@@ -172,7 +172,7 @@
 
                 setTimeout(function () {
                     if (self.follow()) {
-                        document.getElementById('joinGrpBtn').classList.add('show');
+                        document.getElementById('joinGrpWpr').classList.add('show');
                     }
                 }, 750);
 
@@ -189,7 +189,7 @@
 
         //#region followbox
         self.followbox = function () {
-            document.getElementById('joinGrpBtn').classList.add('followed');
+            document.getElementById('joinGrpWpr').classList.add('followed');
             setTimeout(function () {
                 addMember(new Member({
                     name: cd.userDetail().name,
@@ -197,7 +197,7 @@
                     uid: cd.userDetail().id
                 }));
                 self.userType('subscribe');
-                document.getElementById('joinGrpBtn').classList.remove('show');
+                document.getElementById('joinGrpWpr').classList.remove('show');
                 cd.pubsub.publish('perm', self.userType());
                 cd.pubsub.publish('dinvite', self.boxid);
             }, 3300);
@@ -491,7 +491,7 @@
                     uid: cd.userDetail().id
                 }));
                 self.userType('subscribe');
-                document.getElementById('joinGrpBtn').classList.remove('show');
+                document.getElementById('joinGrpWpr').classList.remove('show');
                 cd.pubsub.publish('perm', self.userType());
                 cd.pubsub.publish('dinvite', self.boxid);
             });
@@ -600,8 +600,8 @@
             self.noOfComments = ko.observable(5);
             self.userType('none'),
             self.tabs([]);
-            document.getElementById('joinGrpBtn').classList.remove('followed');
-            document.getElementById('joinGrpBtn').classList.remove('show');
+            document.getElementById('joinGrpWpr').classList.remove('followed');
+            document.getElementById('joinGrpWpr').classList.remove('show');
             //cd.pubsub.publish('destroy_clipboard', $('#box_CL'));
             self.currentTab(null);
             $('#boxShare').prop('checked', false);

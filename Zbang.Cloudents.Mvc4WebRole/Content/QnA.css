@@ -10,6 +10,10 @@
   text-align: left;
   /*rtl*/
   position: fixed;
+  -webkit-transition: top 1s ease-in;
+  -moz-transition: top 1s ease-in;
+  -o-transition: top 1s ease-in;
+  transition: top 1s ease-in;
   top: 150px;
   right: 20px;
   /*rtl*/
