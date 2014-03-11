@@ -174,6 +174,7 @@
                     text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
                     mutation.target.textContent = text;
                 }
+                
             });
             actionTimeInterval = setInterval(updateTimeActions, 60000);
         });
@@ -801,9 +802,7 @@
             });
         });
 
-        //HTMLInputElement.prototype.placeholder2 = function () {
-        //    this.getAttribute('placeholder');
-        //}
+  
         Object.defineProperty(window.HTMLInputElement.prototype, 'placeholder', {
             get: function () {
                 return this.getAttribute('placeholder');
@@ -813,33 +812,7 @@
 
     };
 
-    //#region dropdowns
-    $(window).unload(function () {  //firefoxfix
-        $('[data-ddcbox]').prop('checked', false);
-    });
-    $('body').on('click', function (e) {
-        var $target = $(e.target);
-
-        if (e.target.nodeName === "LABEL") {
-            return;
-        }
-
-        if ($target.attr('data-dropdown') || $target.parents('[data-dropdown]').length > 0) {
-            return;
-        }
-
-        $('[data-ddcbox]').not('[data-ddcbox="' + $target.attr('data-ddcbox') + '"]').prop('checked', false);
-        //$('[data-dropdown]').not('[data-dropdown="' + $target.attr('data-ddcbox') + '"]').removeClass('showOtakim');
-
-        if ($target.attr('data-ddcbox') === undefined) {
-            $('[data-ddcbox]').prop('checked', false);
-            //$('.dropDown').removeClass('showOtakim');
-        }
-    });
-
-
-
-    //#endregion
+    
 
     //var elemList = [];
     cd.menu = function (elem, menu, menuShow, menuClosed) {
@@ -883,6 +856,17 @@
             document.title = 'Cloudents';
         }
     };
+
+    var getElementPosition = function (e) {
+        o = e;
+        var l =o.offsetLeft; var t = o.offsetTop;
+        while (o=o.offsetParent)
+            l += o.offsetLeft;
+        o = e;
+        while (o=o.offsetParent)
+            t += o.offsetTop;
+        return { left: l, top: t };
+    }
 
     var shareFb = function (url, name, caption, description, picture) {
         url = url || cd.location();
@@ -1063,6 +1047,7 @@
     cd.updateTimeActions = updateTimeActions;
     cd.parseActionTime = parseActionTime;
     cd.highlightSearch = highlightSearch;
+    cd.getElementPosition = getElementPosition;
     cd.sessionStorageWrapper = sessionStorageWrapper;
     cd.localStorageWrapper = localStorageWrapper;
     cd.debounce = debounce;

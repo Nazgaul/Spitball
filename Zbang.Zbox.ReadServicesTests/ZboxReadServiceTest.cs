@@ -468,5 +468,18 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
+        [TestMethod]
+        public void GetUpdates_Query_ReturnResult()
+        {
+            var query = new QueryBase(18);
+            try
+            {
+                var x = m_ZboxReadService.GetUpdates(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
     }
 }

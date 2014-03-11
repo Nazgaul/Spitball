@@ -115,6 +115,7 @@
     <Compile Include="DTOs\TabDto.cs" />
     <Compile Include="DTOs\BoxDto.cs" />
     <Compile Include="DTOs\ItemDto.cs" />
+    <Compile Include="DTOs\UpdatesDto.cs" />
     <Compile Include="DTOs\UserDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -174,6 +175,7 @@
     <Compile Include="SqlQueries\Search.cs" />
     <Compile Include="SqlQueries\Seo.cs" />
     <Compile Include="SqlQueries\Sql.cs" />
+    <Compile Include="SqlQueries\Updates.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\BoxDto.hbm.xml">

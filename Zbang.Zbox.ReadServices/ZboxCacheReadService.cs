@@ -226,5 +226,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.OtherUniversities(query);
         }
+
+
+        public Task<IEnumerable<ViewModel.DTOs.UpdatesDto>> GetUpdates(QueryBase query)
+        {
+            return m_ReadService.GetUpdates(query);
+        }
     }
 }

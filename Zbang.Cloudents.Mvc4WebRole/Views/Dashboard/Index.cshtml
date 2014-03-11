@@ -85,7 +85,7 @@
         </div>
         <script type="text/html" id="dashBoxTemplate">
             <li class="box" data-bind="attr: { id: 'dashB' + uid }">
-                <a data-navigation="Box" data-bind="attr: { href: boxUrl, title: name }">
+                <a data-navigation="Box" data-bind="attr: { href: boxUrl, 'data-title': name }">
                     <div>
                         <img class="boxImg" data-bind="attr: { 'data-src': boxPicture }" alt="" width="77" height="98" />
                         <ul class="boxHoverList">
@@ -100,7 +100,7 @@
                     <span data-bind="text: courseCode" class="courseCode elps"></span>
                     <span data-bind="text: professor" class="courseCode propName elps"></span>
                 </a>
-                <button type="button" class="removeItem" data-bind="visible: userType() !== 'none', click: $root.removeBox, attr: { title: removeBoxTitle }"></button>
+                <button type="button" class="removeItem" data-bind="visible: userType() !== 'none', click: $root.removeBox, attr: { 'data-title': removeBoxTitle }"></button>
                 @*<div class="dropToBox boldFont">Drop files here</div>*@
             </li>
         </script>

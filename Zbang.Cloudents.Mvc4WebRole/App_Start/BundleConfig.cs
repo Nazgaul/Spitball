@@ -125,7 +125,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
                 );
             RegisterJs("faq", new JsFileWithCdn("~/Js/externalScriptsInitializer.js"));
-
+                
 
             #region layout3
             RegisterJs("cd1",
@@ -136,6 +136,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
                 //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.min.js"),
                 //new JsFileWithCdn("~/Scripts/jquery.mousewheel.js"),
+                new JsFileWithCdn("~/Js/GenericEvents.js"),
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
 
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
@@ -154,7 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
               //  new JsFileWithCdn("~/Js/pubsub.js"),
 
-                new JsFileWithCdn("~/Js/bootstrapper2.js"),
+                //new JsFileWithCdn("~/Js/bootstrapper2.js"),
                 new JsFileWithCdn("~/Js/Navigation.js"),
                 new JsFileWithCdn("~/Js/Statistics.js"),
 
