@@ -3,7 +3,7 @@
 [Oo]bj/
 **/cdn/Images/
 **/cdn/Content/
-.min.css
+*.min.css
 
 # mstest test results
 TestResults
