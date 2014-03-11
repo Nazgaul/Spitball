@@ -723,6 +723,11 @@ input[type="radio"] + label:before {
 .listItem .tag:after {
   left: 0;
   right: auto;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 .listItem .views {
   margin: 0 20px 0 0;
