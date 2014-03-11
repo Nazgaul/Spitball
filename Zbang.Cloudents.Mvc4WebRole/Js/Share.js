@@ -125,7 +125,7 @@
                 var list = [];
                 for (var i = 0, l = friends.length; i < l; i++) {
                     var friend = friends[i];
-                    list.push({ name: friend.name, userImage: friend.image, defaultImage: '/images/emptystate/user-pic.png', id: friend.uid });
+                    list.push({ name: friend.name, userImage: friend.image, defaultImage: $('body').data('pic'), id: friend.uid });
                 }
 
                 cd.autocomplete2('insertData', list);
