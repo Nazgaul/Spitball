@@ -705,6 +705,15 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+
+        public async Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                return await conn.QueryAsync<UpdatesDto>(Sql.Updates.GetUserUpdates, new { userid = query.UserId });
+            }
+        }
+
         #region UserPage
         public async Task<IEnumerable<Box.BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
         {

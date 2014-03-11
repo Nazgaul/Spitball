@@ -287,5 +287,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
+        public async Task<ActionResult> Updates()
+        {
+            var model = await m_ZboxReadService.GetUpdates(new QueryBase(GetUserId()));
+            return this.CdJson(new JsonResponse(true, model));
+        }
     }
 }

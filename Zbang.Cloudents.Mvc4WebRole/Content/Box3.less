@@ -209,6 +209,7 @@
             -webkit-animation: joinWprSlide 1s ease-in;
             animation: joinWprSlide 1s ease-in;
             margin-left: -150px; /*rtl*/ //Necessary to hAlign the btn.TODO:why? 
+            top:51px;
         }
         
         ~ .box-content {
@@ -227,7 +228,7 @@
         }
         .joinGrpBtn
         {
-            padding-top: 29px;
+            top: 0;
         }
         
         .joinGrp {
@@ -260,7 +261,7 @@
     padding-top: 80px;
     display: none;
     position: fixed;
-    .transition(all .3s 3s);
+    .transition(top .3s 3s);
 }
 
 .joinGrp, .joinGrp:before {
@@ -794,7 +795,7 @@
 
 .boxItemList {
     min-width: (@box-width * 2 + @min-margin);
-    padding: 0 381px 0 1px; // 1px left padding to prevent border being cut (not sure why) /*rtl*/
+    //padding: 0 381px 0 1px; // 1px left padding to prevent border being cut (not sure why) /*rtl*/
     &.sponsored
     {
         .boxName{
@@ -806,12 +807,15 @@
 
 .boxItems {
     margin: 20px 20px 0 20px;
+    width: ~'-webkit-calc(100% - 416px)';
+    width: ~'calc(100% - 416px)';
 }
 
 .boxItemsHeader {
-    overflow: hidden; //TODO: Why this?
+    //overflow: hidden; //TODO: Why this?
     height: 68px;
-    margin: -28px 386px 0 0; /*rtl*/
+    //margin: -28px 386px 0 0; /*rtl*/
+    margin-top: -28px;
     padding-top: 20px;
     .boxSizing;
     .iconTxt{

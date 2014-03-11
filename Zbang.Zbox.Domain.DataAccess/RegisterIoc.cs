@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<IItemRateRepository, ItemRateRepository>();
             ioc.RegisterType<IInviteRepository, InviteRepository>();
             ioc.RegisterType<IInviteToCloudentsRepository, InviteToCloudentsRepository>();
+            ioc.RegisterType<IUpdatesRepository, UpdatesRepository>();
 
         }
     }

@@ -1636,16 +1636,15 @@ select.inputText {
     }
 
     .boxPage .boxActions.boxActions, .boxesHeader.boxesHeader.topBar {
-        position: static;
+        //position: static;
+        z-index: 1;
+        position: relative;// in order to enable z-index - to appear over the join btn
+        top:0;
         width: 100%;
     }
     .QA.QA {
-        top: 20px;
+        margin-top: -139px;
         height: 100vh;
-        margin-top: -160px;
-        padding-top: 160px;
-        .boxSizing;
-        z-index: -1;
     }
     .backWpr.backWpr{
         //padding-top: 10px;
@@ -1655,54 +1654,50 @@ select.inputText {
     {
         padding:0;
     }
-    .joinGrpWpr.joinGrpWpr
-    {
-        //padding:0;
-        //.transition(none);
-        //z-index: -1;
-        ~ .box-content .QA  {
-            top: 20px;
-        }
+    .joinGrpWpr.joinGrpWpr {
         .joinGrpBtn {
-             padding:0;
-             margin-top: -51px;
-            //.transition(none);
+            padding: 0;
+            margin: 0;
+            top: -51px;
         }
-        &:after
-        {
-            height:0;
+
+        &:after {
+            height: 0;
         }
+
         &.show {
-            &:after
-            {
+            z-index:0; //override
+            &:after {
                 height: 51px;
             }
+
             .joinGrpBtn {
                 margin: 0;
+                -moz-animation: joinWprNarrowSlide 1s ease-in;
+                -o-animation: joinWprNarrowSlide 1s ease-in;
+                -webkit-animation: joinWprNarrowSlide 1s ease-in;
+                animation: joinWprNarrowSlide 1s ease-in;
+                top: 0;
             }
-            ~ .box-content .QA  {
-                top: 20px;
-                //.transition(all .3s 3s);
+
+            ~ .box-content .QA {
+                top: 158px;
             }
         }
-        &.followed
-        {
-            //padding-top: 29px;
-            //padding:0;
-            &:after
-            {
-                height:0;
+
+        &.followed {
+            padding:0;
+            &:after {
+                height: 0;
             }
-            .joinGrp
+            .joinGrpBtn
             {
-                //top: -20px;
-                //opacity: 0;
+                top: -51px;
             }
-            ~ .box-content .QA
-            {
-                top: 20px;
-                .transition(all .3s 3s);
-            } 
+            .joinGrp {
+                top: -20px;
+                opacity: 0;
+            }
         }
     }
 }

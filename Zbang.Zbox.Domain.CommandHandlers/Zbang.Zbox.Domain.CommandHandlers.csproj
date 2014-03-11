@@ -84,6 +84,7 @@
     <Compile Include="DeleteItemTabCommandHandler.cs" />
     <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
     <Compile Include="DeleteQuestionCommandHandler.cs" />
+    <Compile Include="DeleteUpdatesCommandHandler.cs" />
     <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
     <Compile Include="InviteToSystemCommandHandler.cs" />
     <Compile Include="InviteToSystemFacebookCommandHandler.cs" />
