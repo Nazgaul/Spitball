@@ -244,10 +244,10 @@
   padding-top: 80px;
   display: none;
   position: fixed;
-  -webkit-transition: all 0.3s 3s;
-  -moz-transition: all 0.3s 3s;
-  -o-transition: all 0.3s 3s;
-  transition: all 0.3s 3s;
+  -webkit-transition: top 0.3s 3s;
+  -moz-transition: top 0.3s 3s;
+  -o-transition: top 0.3s 3s;
+  transition: top 0.3s 3s;
 }
 .joinGrp,
 .joinGrp:before {
@@ -748,7 +748,6 @@
 }
 .boxItemList {
   min-width: 316px;
-  padding: 0 381px 0 1px;
 }
 .boxItemList.sponsored .boxName {
   font-size: 15px;
@@ -756,12 +755,12 @@
 }
 .boxItems {
   margin: 20px 20px 0 20px;
+  width: -webkit-calc(100% - 416px);
+  width: calc(100% - 416px);
 }
 .boxItemsHeader {
-  overflow: hidden;
   height: 68px;
-  margin: -28px 386px 0 0;
-  /*rtl*/
+  margin-top: -28px;
   padding-top: 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
