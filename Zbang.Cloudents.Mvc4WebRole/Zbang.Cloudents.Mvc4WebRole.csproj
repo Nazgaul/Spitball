@@ -545,8 +545,6 @@
     <Content Include="Content\Box3.min.css">
       <DependentUpon>Box3.css</DependentUpon>
     </Content>
-    <Content Include="Content\CdMobile.css" />
-    <Content Include="Content\CdMobile.min.css" />
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
