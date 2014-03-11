@@ -199,6 +199,7 @@
   animation: joinWprSlide 1s ease-in;
   margin-left: -150px;
   /*rtl*/
+  top: 51px;
 }
 .joinGrpWpr.show ~ .box-content {
   padding-top: 8px;
@@ -214,7 +215,7 @@
   height: 80px;
 }
 .joinGrpWpr.followed .joinGrpBtn {
-  padding-top: 29px;
+  top: 0;
 }
 .joinGrpWpr.followed .joinGrp {
   top: -10px;

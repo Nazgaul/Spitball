@@ -1580,7 +1580,7 @@ select.inputText {
     height: 0;
   }
   .joinGrpWpr.joinGrpWpr.followed .joinGrpBtn {
-    padding-top: 0;
+    top: -51px;
   }
   .joinGrpWpr.joinGrpWpr.followed .joinGrp {
     top: -20px;
