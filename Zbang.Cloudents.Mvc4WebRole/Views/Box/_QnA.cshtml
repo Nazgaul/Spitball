@@ -93,8 +93,8 @@
                 <li class="qaAttachItem">
                     <a data-bind="attr: { href: itemUrl }" href="#"><img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" /></a>
                     <div class="attachActions">
-                        <a title="@IndexResources.ShowAttachment" data-bind="attr: { href: itemUrl }" class="attachFull" href="#"></a>
-                        <button title="@IndexResources.RemoveAttachment" class="attachDelete" type="button" data-bind="visible: isVisible()"></button>                                                
+                        <a data-title="@IndexResources.ShowAttachment" data-bind="attr: { href: itemUrl }" class="attachFull" href="#"></a>
+                        <button data-title="@IndexResources.RemoveAttachment" class="attachDelete" type="button" data-bind="visible: isVisible()"></button>                                                
                         <a data-title="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" data-bind="attr: { href: download }, style: { visibility: isVisible() }"></a>
                     </div>
                 </li>
