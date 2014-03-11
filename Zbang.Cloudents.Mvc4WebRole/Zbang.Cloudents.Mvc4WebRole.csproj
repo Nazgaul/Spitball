@@ -549,13 +549,13 @@
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.min.css">
-      <DependentUpon>DashLib.css</DependentUpon>
+      <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
     <Content Include="Content\General.min.css">
-      <DependentUpon>General.css</DependentUpon>
+      <DependentUpon>General.less</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
@@ -639,7 +639,7 @@
       <DependentUpon>QnA.less</DependentUpon>
     </Content>
     <Content Include="Content\QnA.min.css">
-      <DependentUpon>QnA.css</DependentUpon>
+      <DependentUpon>QnA.less</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>

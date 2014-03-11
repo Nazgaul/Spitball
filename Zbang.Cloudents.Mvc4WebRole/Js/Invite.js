@@ -239,7 +239,7 @@
 
                     for (var i = 0, l = friends.length; i < l; i++) {
                         var friend = friends[i];
-                        cloudentsContacts.push({ name: friend.name, userImage: friend.image, defaultImage: '/images/emptystate/user-pic.png', id: friend.uid, delay: i * 200, url: friend.url });
+                        cloudentsContacts.push({ name: friend.name, userImage: friend.image, defaultImage: $('body').data('pic'), id: friend.uid, delay: i * 200, url: friend.url });
                     }
 
                     cloudentsContacts.sort(function (a, b) {

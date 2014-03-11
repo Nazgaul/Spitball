@@ -3,7 +3,7 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <class name="Updates" table="NewUpadtes">
+  <class name="Updates" table="NewUpdates">
     <id name="Id">
       <generator class="guid.comb"/>
     </id>

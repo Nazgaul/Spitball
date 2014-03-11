@@ -986,7 +986,7 @@
         if (!userData.id) {
             var userName = document.getElementById('userName');
             var userImg = document.getElementById('userImg');
-            userData.img = userImg ? userImg.getAttribute('src') : '/images/emptystate/user-pic.png';
+            userData.img = userImg ? userImg.getAttribute('src') : $('body').data('pic');
             if (userName) {
                 userData.name = userName.textContent;
                 userData.id = userName.getAttribute('data-id'); //TODO: need to because number

@@ -583,7 +583,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void AddNewUpdate(AddNewUpadtesCommand command)
+        public void AddNewUpdate(AddNewUpdatesCommand command)
         {
             using (UnitOfWork.Start())
             {

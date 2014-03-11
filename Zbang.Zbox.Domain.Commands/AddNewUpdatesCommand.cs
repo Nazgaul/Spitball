@@ -7,9 +7,9 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddNewUpadtesCommand : ICommand
+    public class AddNewUpdatesCommand : ICommand
     {
-        public AddNewUpadtesCommand(long boxId, long userId, Guid? questionId, Guid? answerId, long? itemId)
+        public AddNewUpdatesCommand(long boxId, long userId, Guid? questionId, Guid? answerId, long? itemId)
         {
             BoxId = boxId;
             UserId = userId;
