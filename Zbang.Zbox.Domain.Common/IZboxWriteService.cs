@@ -80,6 +80,7 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         void AddReputation(AddReputationCommand command);
+        void DeleteUpdates(DeleteUpdatesCommand command);
        
     }
 }
