@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.Common
 
         #region ZboxWorkerRoleService
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);
-        void AddNewUpdate(AddNewUpadtesCommand command);
+        void AddNewUpdate(AddNewUpdatesCommand command);
         #endregion
 
 

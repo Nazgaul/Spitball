@@ -23,7 +23,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             var parameters = data as UpdateData;
             if (parameters != null)
             {
-                m_ZboxWriteService.AddNewUpdate(new Domain.Commands.AddNewUpadtesCommand(
+                m_ZboxWriteService.AddNewUpdate(new Domain.Commands.AddNewUpdatesCommand(
                     parameters.BoxId,
                     parameters.UserWhoMadeActionId,
                     parameters.QuestionId,

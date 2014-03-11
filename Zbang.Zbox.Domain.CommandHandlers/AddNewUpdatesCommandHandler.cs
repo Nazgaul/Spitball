@@ -10,14 +10,14 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddNewUpadtesCommandHandler : ICommandHandler<AddNewUpadtesCommand>
+    public class AddNewUpdatesCommandHandler : ICommandHandler<AddNewUpdatesCommand>
     {
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Answer> m_AnswerRepository;
         private readonly IRepository<Question> m_QuestionRepository;
         private readonly IRepository<Updates> m_UpdatesRepository;
-        public AddNewUpadtesCommandHandler(
+        public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
             IRepository<Item> itemRepository,
             IRepository<Answer> answerRepository,
@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UpdatesRepository = updatesRepository;
 
         }
-        public void Handle(AddNewUpadtesCommand message)
+        public void Handle(AddNewUpdatesCommand message)
         {
             var box = m_BoxRepository.Load(message.BoxId);
             foreach (var userBoxRel in box.UserBoxRel.Where(w => w.User.Id != message.UserId))
