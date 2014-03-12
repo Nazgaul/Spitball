@@ -7,7 +7,6 @@
     var eById = document.getElementById.bind(document),
         pointBox = eById('ptsPopup'),
         usrPoints = eById('userPts'),
-        animations = [],
         pointsTable = {
             answer: 10,
             question: 5,
@@ -17,16 +16,17 @@
    
 
 
-    pubsub.subscribe('addPoints', function (type) {
-        var points = pointsTable[type];
+    pubsub.subscribe('addPoints', function (data) {
+        var points = pointsTable[data.type];
         
         if (!points) {
             return;
         }
-        animations.push(points);
-        if (animations.length > 1) {
-            return;
+
+        if (data.type === 'itemUpload') {
+            points *= data.amount;
         }
+      
         startAnimation(points);
     });
 
@@ -61,8 +61,6 @@
             changeScore();
         }, 3500);
         
-        setTimeout(checkForNextAnimation, 3550);
-
         function changeScore() {
             var currentScore = parseInt(usrPoints.textContent,10);
             var numAnim = new countUp(currentScore, currentScore+points, 1);
@@ -77,14 +75,4 @@
             
         }
     }
-
-    function checkForNextAnimation() {
-        animations.shift();
-
-        if (animations.length > 0) {
-            startAnimation(animations[0]);
-        }
-    }
-    
-
 })(cd, cd.pubsub);

@@ -277,7 +277,17 @@
                 positionX = elemPos.left - middle;
 
             }
-            return { x: positionX - $(window).scrollLeft(), y: elemPos.top - $(window).scrollTop() };
+
+            //scroll fix
+            var scrollTop = 0;
+            if ($element.parents('.siteHeader').length > 0 ||
+                $element.parents('.boxTop').length > 0) {
+
+                scrollTop = $window.scrollTop();
+            }
+            //
+
+            return { x: positionX - $window.scrollLeft(), y: elemPos.top + scrollTop };
 
 
         }

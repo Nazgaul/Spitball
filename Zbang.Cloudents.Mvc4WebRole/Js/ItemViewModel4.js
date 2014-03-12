@@ -912,7 +912,8 @@
 
         //#region utilities
         function getExtension(fileName, type) {
-            if (type.toLowerCase === consts.link) {
+            console.log(type);
+            if (type.toLowerCase() === consts.link) {
                 return consts.www;
             }
 
