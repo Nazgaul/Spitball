@@ -23,14 +23,14 @@
 
     function Member(data) {
         var _self = this;
-        _self.id = data.Uid;
-        _self.name = data.Name;
-        _self.image = data.Image || $('body').data('pic');
+        _self.id = data.uid;
+        _self.name = data.name;
+        _self.image = data.image || $('body').data('pic');
         _self.status = parseStatus(data.sUserStatus);
         _self.cMemStat = data.sUserStatus === 'Invite' ? 'memberPending' : '';
         _self.identifier = cd.guid();
         _self.tooltipClass = data.sUserStatus === 'Subscribe' || data.sUserStatus === 'Owner' ? ' calloutTrgr' : ''; //space is needed        
-        _self.url = data.Url + '?r=box&s=members';
+        _self.url = data.url + '?r=box&s=members';
     }
 
     var statusData;
