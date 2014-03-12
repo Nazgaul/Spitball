@@ -94,6 +94,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             RegisterJs("home",
                 new JsFileWithCdn("~/Js/Logon.js"),
                 new JsFileWithCdn("~/Js/Welcome.js"));
+            RegisterJs("homeMobile",
+                new JsFileWithCdn("~/Js/Mobile/Logon.js"),
+                new JsFileWithCdn("~/Js/Mobile/Welcome.js"));
 
             RegisterJs("ChooseLib",
                   new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
