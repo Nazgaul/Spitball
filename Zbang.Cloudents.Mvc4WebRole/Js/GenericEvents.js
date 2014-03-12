@@ -285,7 +285,7 @@
     }
 
     function hideTooltipTitle() {
-        //$('.titleTooltip').remove();
+        $('.titleTooltip').remove();
     }
 
     //#endregion

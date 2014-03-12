@@ -1829,4 +1829,40 @@ select.inputText {
         display: none;
     }
 }
+.titleTooltip{
+
+    display: inline-block;
+    position: absolute;
+    background: #39434A;
+    color: #FFF;
+    border-radius: 2px;
+    //height: 22px;
+    max-height: 200px;
+    padding: 0px 12px;
+    line-height: 22px;
+    min-width: 10px;
+    max-width: 200px;
+    z-index: 12;
+}
+
+.toolTipContent {
+    position: relative;
+
+    &:before {
+        .pseudo;
+        position: absolute;
+        top: -4px;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background :#39434a;
+        width:9px;
+        height:9px;
+        left:0;right:0;
+        margin: auto;
+    }
+}
+
 /*#endregion */
