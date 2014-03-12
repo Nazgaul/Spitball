@@ -153,7 +153,7 @@
 
 
     definition.newUpdates = new definitionobj({ url: '/User/Updates', type: get });
-    definition.deleteUpdates = new definitionobj({ url: '/Box/DeleteUpdates', type: get });
+    definition.deleteUpdates = new definitionobj({ url: '/Box/DeleteUpdates'});
 
     definition.getUpMemberBoxes = new definitionobj({ url: '/User/AdminBoxes', type: get });
     definition.getUserPageActivity = new definitionobj({ url: '/User/Activity', type: get });

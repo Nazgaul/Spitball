@@ -165,6 +165,9 @@
             analytics.trackEvent('Answer', 'Click on answer', 'The number of clicks on show answer');
             $(e.target).parents('.QItem').addClass('selected');
 
+            q.isNew(false);
+            cd.newUpdates.deleteUpdate('questions', boxid, q.id);
+
             $('#Answers').show();
 
             $('.QA').addClass('changeState');

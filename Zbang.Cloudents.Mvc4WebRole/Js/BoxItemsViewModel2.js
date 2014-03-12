@@ -257,9 +257,7 @@
             }
 
         };
-        //#endregion
-
-
+        //#endregion         
 
         //#region manage tab
         self.manageTab = ko.observable('');
@@ -301,6 +299,10 @@
                 item.isCheck(!item.isCheck());
                 return false;
             }
+
+            //remove the new tag
+            item.isNew(false);
+            cd.newUpdates.deleteUpdate('items',boxid,item.uid);
             return true;
         };
 

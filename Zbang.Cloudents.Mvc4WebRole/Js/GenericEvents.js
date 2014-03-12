@@ -292,22 +292,22 @@
 
     //#region scrolling effect
     $document.on("scroll", function () {
-        
+
         if ($window.scrollTop() > 0) {
             $html.addClass('scrolling');
-            
+
         } else {
             $html.removeClass('scrolling');
-            
-        }
-    });    
 
-    
+        }
+    });
+
+
     //#endregion scrolling
 
     //#region new to the user
     (function () {
-        var updates,
+        var updates, updating = false,
             userId = cd.userDetail().nId;
 
         cd.pubsub.subscribe('getUpdates', function () {
@@ -316,8 +316,16 @@
 
         cd.newUpdates = {};
 
+        function deleteUpdate(type, boxId, id) {
+            if (!updates) {
+                return;
+            }
+            var updateIndex = updates[userId][boxId][type].indexOf(id);
+            updates[userId][boxId][type].splice(updateIndex, 1);
+        }
+
         //get data for type
-        function isNew(type, boxId, id) {                
+        function isNew(type, boxId, id) {
             if (!updates) {
                 return false;
             }
@@ -345,9 +353,9 @@
                 return 0;
             }
 
-          
+
         }
-        
+
         function deleteUpdates(boxId) {
 
             dataContext.deleteUpdates({
@@ -362,6 +370,10 @@
                 return;
             }
 
+            if (updating) {
+                return;
+            }
+            updating = true;
             dataContext.newUpdates({
                 success: function (data) {
                     data = data || [];
@@ -374,7 +386,7 @@
             });
 
             function parseData(data) {
-                updates = {};                
+                updates = {};
                 updates[userId] = {};
 
                 var currentUpdate;
@@ -409,7 +421,8 @@
         }
         cd.newUpdates.isNew = isNew;
         cd.newUpdates.numOfUpdates = getNumberOfUpdates;
-        cd.newUpdates.delete = deleteUpdates;
+        cd.newUpdates.deleteAll = deleteUpdates;
+        cd.newUpdates.deleteUpdate = deleteUpdate;
 
     })();
 
