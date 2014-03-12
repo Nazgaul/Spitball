@@ -44,6 +44,10 @@
 
 <script type="text/html" id="BoxItemsThumbViewTemplate">
     <li class="boxItem" data-bind="attr: { id: uid }">
+        <div class="boxItemtt">
+
+            <div class="arrow downArrow"></div>
+        </div>
         <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
             <!--ko if:sponsored-->
             <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="479" height="188" />
