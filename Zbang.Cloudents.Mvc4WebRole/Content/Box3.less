@@ -1003,6 +1003,35 @@
         color: #F0F8FF;
         z-index: 1;
     }
+    &:hover
+    {
+        .boxItemTt
+        {
+            display: block;
+        }
+    }
+    .boxItemTt
+    {
+        position: absolute;
+        border: 1px solid #c2c2c2;
+        box-shadow: 0 3px 7px rgba(0,0,0,.15);
+        padding: 18px 20px 10px 20px;
+        width: 276px;
+        height: 183px;
+        .boxSizing;
+        bottom: 100%;
+        display: none;
+        z-index: 11;
+        background: #fff;
+        border-radius: 5px;
+        left: -66px;
+        margin-bottom: 8px;
+        .downArrow{
+            top: 100%;
+            bottom: auto;
+            margin-top: 10px;
+        }
+    }
 }
 
 //.box-layout(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
