@@ -31,7 +31,6 @@
   position: absolute;
   left: 50%;
   /*rtl*/
-
   top: 91px;
   z-index: 4;
   -webkit-transition: top 1s 2s;
@@ -58,7 +57,6 @@
   position: relative;
   margin-left: 10px;
   /*rtl*/
-
   font-size: 0;
 }
 .ratePopup .star {
@@ -68,13 +66,18 @@
   display: inline-block;
   float: right;
   /*rtl*/
-
 }
 .ratePopup .star:hover {
   background-position: -2px -103px;
 }
 .ratePopup .star:hover ~ .star {
   background-position: -2px -103px;
+}
+.ratePopup .closeDialog {
+  background-position: -68px -14px;
+  right: 5px;
+  /*rtl*/
+  top: 5px;
 }
 .rateWpr {
   border-radius: 0 0 3px 3px;
@@ -94,7 +97,6 @@
   height: 100%;
   padding-left: 290px;
   /*rtl*/
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -103,7 +105,6 @@
 .itemRight .shareDD {
   right: 0;
   /*rtl*/
-
 }
 /*#endregion */
 /*#region left panel */
@@ -112,7 +113,6 @@
   background: #fff;
   border-right: 1px solid #c2c2c2;
   /*rtl*/
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -123,7 +123,6 @@
   top: -12px;
   right: 0px;
   /*rtl*/
-
   margin: 0;
   background: url(/Images/common14-sprite.png?v=1) -72px -42px no-repeat;
   width: 23px;
@@ -174,7 +173,6 @@
   box-sizing: border-box;
   padding: 2px 8px 2px 4px;
   /*rtl*/
-
   height: 28px;
   margin-bottom: 14px;
 }
@@ -190,7 +188,6 @@
   height: 11px;
   margin-right: 5px;
   /*rtl*/
-
   vertical-align: middle;
   background: url(/Images/item13-sprite.png) -121px -21px no-repeat;
 }
@@ -202,7 +199,6 @@
 .views {
   margin-right: 12px;
   /*rtl*/
-
 }
 .actions {
   border-top: 1px solid #c2c2c2;
@@ -294,7 +290,6 @@
   /*height:140px;
         opacity:1;
         visibility: visible;*/
-
 }
 .bubble .star {
   margin-bottom: 10px;
@@ -324,7 +319,6 @@
   position: absolute;
   left: 25px;
   /*rtl*/
-
   top: 0;
   background: url(/Images/common14-sprite.png?v=1) -2px -86px no-repeat;
 }
@@ -335,7 +329,6 @@
   top: 0;
   left: 25px;
   /*rtl*/
-
   width: 96px;
   height: 15px;
   background: url(/Images/common14-sprite.png?v=1) -2px -103px no-repeat;
@@ -361,7 +354,6 @@
   vertical-align: middle;
   margin-right: 5px;
   /*rtl*/
-
 }
 .itemFlag:hover:before {
   background-position: -71px -21px;
@@ -375,7 +367,6 @@
 .moreFilesList li {
   padding: 7px 5px 7px 10px;
   /*rtl*/
-
 }
 .moreFilesList li.select {
   background: #e1e1e1;
@@ -507,7 +498,6 @@
   display: table-cell;
   padding-left: 5px;
   /*rtl*/
-
 }
 .moreFilesData > div {
   width: 230px;
@@ -526,7 +516,6 @@
   border-bottom: 1px solid #e3e3e3;
   padding-left: 15px;
   /*rtl*/
-
   font-size: 15px;
   position: absolute;
   width: 100%;
@@ -541,20 +530,17 @@
         position: absolute;
         left: 22px;
     }*/
-
 }
 .itemActions .shareBtn {
   position: absolute;
   top: 0;
   right: 22px;
   /*rtl*/
-
 }
 .itemActions .backWpr {
   position: absolute;
   left: 19px;
   /*rtl*/
-
   max-width: 20%;
 }
 .iconTop {
@@ -640,14 +626,12 @@
   height: 250px;
   direction: rtl;
   /*no rtl*/
-
   background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3);
   left: 122px;
   /*diff rtl*/
-
   top: 66px;
   /*&:before
     {
@@ -655,7 +639,6 @@
         background: #f5f5f5;
         border-radius: 3px 3px 0 0;
     }*/
-
 }
 .printDD.printDD:before {
   display: none;
@@ -671,7 +654,6 @@
   position: absolute;
   right: 53px;
   /*no rtl yet*/
-
   top: 2px;
 }
 .printDD.printDD h4 {
@@ -749,7 +731,6 @@
   border: 1px solid #d2cbcf;
   box-shadow: 5px 5px 5px rgba(116, 100, 110, 0.3);
   /*rtl*/
-
   position: absolute;
   top: 0;
   right: 0;
@@ -773,7 +754,6 @@
         white-space:pre-wrap;
         line-height: 22px;
     }*/
-
 }
 .previewFailed:before {
   content: '';
@@ -798,7 +778,6 @@
         font-size: 22px;
         font-weight: normal;
     }*/
-
 }
 .previewDenied:before {
   content: '';
@@ -892,7 +871,6 @@
   position: relative;
   left: 0;
   /*rtl*/
-
   height: 100%;
   -webkit-transition: all, 0.3s;
   -moz-transition: all, 0.3s;
@@ -902,7 +880,6 @@
 .previewWrapper.annotateState {
   left: calc(400px - 49%);
   /*rtl*/
-
 }
 .previewWrapper h2 {
   font-size: 22px;
@@ -955,7 +932,6 @@
   z-index: 4;
   right: 10px;
   /*rtl*/
-
 }
 .commentToggle:hover {
   background-position: -20px -1px;
@@ -1002,7 +978,6 @@
   z-index: 3;
   left: 806px;
   /*rtl*/
-
   display: none;
 }
 .addAnotation button {
@@ -1028,13 +1003,11 @@
 .readView img {
   margin-right: 8px;
   /*rtl*/
-
 }
 .addAnotation .annotateContent,
 .readView .annotateContent {
   text-align: left;
   /*rtl*/
-
   overflow: hidden;
 }
 .addAnotation .annotateContent textarea,
@@ -1056,7 +1029,6 @@
   width: 243px;
   text-align: left;
   /*rtl*/
-
 }
 .addAnotation .annotator,
 .readView .annotator,
@@ -1085,7 +1057,6 @@
   position: relative;
   max-height: 5.8em;
   /* exactly four lines */
-
 }
 .addAnotation .annotationTextWpr.moreState,
 .readView .annotationTextWpr.moreState {
@@ -1102,13 +1073,11 @@
   bottom: 0;
   left: 0;
   /*rtl*/
-
   z-index: 1;
   width: 100%;
   color: #0f9d58;
   text-align: left;
   /*rtl*/
-
   background: white;
 }
 .annotationList {
@@ -1128,7 +1097,6 @@
   position: absolute;
   right: 5px;
   /*rtl*/
-
   top: 5px;
   border: none;
 }
@@ -1212,7 +1180,6 @@
   top: 20px;
   right: 20px;
   /*rtl*/
-
   width: 10px;
   height: 10px;
   cursor: pointer;
@@ -1229,7 +1196,6 @@
   top: 50%;
   left: 10px;
   /*rtl*/
-
   cursor: pointer;
 }
 .itemPrev:hover,
@@ -1244,7 +1210,6 @@
 .itemNext {
   right: 20px;
   /*rtl*/
-
   left: auto;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
