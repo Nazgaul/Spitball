@@ -173,7 +173,7 @@
     <Content Include="MailTemplate\InviteCourse.html" />
     <Content Include="MailTemplate\InviteCourseHe.html" />
     <Content Include="MailTemplate\PersonalMsg.html" />
-    <Content Include="MailTemplate\PersonalMsgHe.html" />
+    <Content Include="MailTemplate\PersonalMsgHe.html"  />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
