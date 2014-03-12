@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name,
                 ticket.IssueDate, ticket.Expiration, rememberMe, UserDetail.Serialize(userDetail));
             authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+            
             if (ticket.IsPersistent)
             {
                 authCookie.Expires = ticket.Expiration;

@@ -472,9 +472,9 @@
 
             height = $popup.find('.popupWrppr').height() - margin;
 
-        if (maxHeight >= height) {//+1 fix because of different calculations
+        if (maxHeight >= height) {
             $scrollElem.height(height);
-            cd.innerScroll($scrollElem, height);
+            cd.innerScroll($scrollElem, height+10);
             if (Modernizr.touch) {
                 return;//no need to continue for touch devices
             }

@@ -7,46 +7,56 @@
 .sideBar {
   left: -200px;
   /*rtl*/
+
   right: auto;
   text-align: right;
   /*rtl*/
+
 }
 .sideBar > button {
   left: 12px;
   /*rtl*/
+
   right: auto;
 }
 .sideBar li {
   float: right;
   /*rtl*/
+
 }
 .headerActions.menuOpen {
   margin: 0 0 0 200px;
   /*rtl */
+
 }
 .headerActions.menuOpen .sideBar {
   left: 0;
   /*rtl*/
+
   right: auto;
 }
 .headerWpr.menuOpen .headerActions {
   margin: 0 0 0 200px;
   /*rtl*/
+
 }
 .headerWpr.menuOpen .sideBar {
   left: 0;
   /*rtl*/
+
   right: auto;
 }
 .headerSettings {
   margin: 0 8px 0 12px;
   /*rtl*/
+
 }
 /*#endregion */
 /*#region forgot password; email sent; verify password */
 .inputText {
   padding: 0 8px 0 4px;
   /* rtl */
+
 }
 .innerContent {
   text-align: right;
@@ -57,6 +67,7 @@
 .firefox {
   padding: 0 30px 0 40px;
   /*rtl*/
+
 }
 /*#endregion */
 /*#region library empty state */
@@ -67,12 +78,14 @@
 .uniWpr .inputText {
   padding: 0 25px 0 0;
   /*rtl*/
+
 }
 /*#endregion */
 /*#region AUTO COMPLETE */
 .uniWpr:after {
   left: 9px;
   /*rtl*/
+
   right: auto;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -80,10 +93,12 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
   /*rtl*/
+
 }
 .uniWpr .inputText {
   padding: 0 10px 0 30px;
   /*rtl*/
+
 }
 .uniList {
   text-align: right;
@@ -92,43 +107,53 @@
 .uniList .schoolItem {
   padding: 13px 8px 13px 0;
   /*rtl*/
+
 }
 .uniDetails {
   padding: 6px 8px 0 5px;
   /*rtl*/
+
 }
 .uniCount:before {
   margin: 0 0 0 4px;
   /*rtl*/
+
 }
 /*#endregion */
 /*#region faq */
 .faq aside {
   margin: 59px 15px 0 0;
   /*rtl*/
+
   padding: 17px 69px 0 8px;
   /*rtl*/
+
 }
 .faq aside:before {
   right: 8px;
   /*rtl*/
+
   left: auto;
 }
 .faq.staticPage {
   text-align: right;
   /*rtl*/
+
 }
 .question {
   padding: 0 16px 0 18px;
   /*rtl*/
+
 }
 .question:after {
   left: 18px;
   /*rtl*/
+
   right: auto;
 }
 .answer {
   padding: 0 16px 0 18px;
   /*rtl*/
+
 }
 /*#endregion */

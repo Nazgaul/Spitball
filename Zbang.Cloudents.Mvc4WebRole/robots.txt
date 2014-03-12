@@ -3,5 +3,6 @@ Disallow: /error/
 disallow: /dashboard/
 disallow: /library/
 disallow: /user/
+disallow: /invite/
 
 Sitemap: https://www.cloudents.com/sitemap.xml

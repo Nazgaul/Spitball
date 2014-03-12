@@ -241,7 +241,6 @@
     <Compile Include="Extensions\ControllerExtension.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
     <Compile Include="Extensions\LabelExtensions.cs" />
-    <Compile Include="Extensions\RouteUidConstraint.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\ImageLink.cs" />
@@ -531,13 +530,13 @@
       <DependentUpon>AccountInfo.less</DependentUpon>
     </Content>
     <Content Include="Content\AccountInfo.min.css">
-      <DependentUpon>AccountInfo.css</DependentUpon>
+      <DependentUpon>AccountInfo.less</DependentUpon>
     </Content>
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
     <Content Include="Content\Animations.min.css">
-      <DependentUpon>Animations.css</DependentUpon>
+      <DependentUpon>Animations.less</DependentUpon>
     </Content>
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
@@ -549,85 +548,85 @@
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.min.css">
-      <DependentUpon>DashLib.less</DependentUpon>
+      <DependentUpon>DashLib.css</DependentUpon>
     </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
     <Content Include="Content\General.min.css">
-      <DependentUpon>General.less</DependentUpon>
+      <DependentUpon>General.css</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.min.css">
-      <DependentUpon>GeneralRtl.css</DependentUpon>
+      <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooter.css">
       <DependentUpon>HeaderFooter.less</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooter.min.css">
-      <DependentUpon>HeaderFooter.css</DependentUpon>
+      <DependentUpon>HeaderFooter.less</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooterRtl.css">
       <DependentUpon>HeaderFooterRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooterRtl.min.css">
-      <DependentUpon>HeaderFooterRtl.less</DependentUpon>
+      <DependentUpon>HeaderFooterRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
     <Content Include="Content\Home.min.css">
-      <DependentUpon>Home.css</DependentUpon>
+      <DependentUpon>Home.less</DependentUpon>
     </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\HomeRtl.min.css">
-      <DependentUpon>HomeRtl.less</DependentUpon>
+      <DependentUpon>HomeRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Invite.css">
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
     <Content Include="Content\Invite.min.css">
-      <DependentUpon>Invite.less</DependentUpon>
+      <DependentUpon>Invite.css</DependentUpon>
     </Content>
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>
     </Content>
     <Content Include="Content\Item3.min.css">
-      <DependentUpon>Item3.css</DependentUpon>
+      <DependentUpon>Item3.less</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobile.min.css">
-      <DependentUpon>ItemMobile.less</DependentUpon>
+      <DependentUpon>ItemMobile.css</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.css">
       <DependentUpon>ItemMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.min.css">
-      <DependentUpon>ItemMobileRtl.less</DependentUpon>
+      <DependentUpon>ItemMobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
     <Content Include="Content\lang.ru-RU.min.css">
-      <DependentUpon>lang.ru-RU.less</DependentUpon>
+      <DependentUpon>lang.ru-RU.css</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.min.css">
-      <DependentUpon>Mobile.css</DependentUpon>
+      <DependentUpon>Mobile.less</DependentUpon>
     </Content>
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\MobileRtl.min.css">
-      <DependentUpon>MobileRtl.less</DependentUpon>
+      <DependentUpon>MobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
@@ -639,7 +638,7 @@
       <DependentUpon>QnA.less</DependentUpon>
     </Content>
     <Content Include="Content\QnA.min.css">
-      <DependentUpon>QnA.less</DependentUpon>
+      <DependentUpon>QnA.css</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
@@ -651,79 +650,79 @@
       <DependentUpon>Search.less</DependentUpon>
     </Content>
     <Content Include="Content\Search.min.css">
-      <DependentUpon>Search.css</DependentUpon>
+      <DependentUpon>Search.less</DependentUpon>
     </Content>
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
     <Content Include="Content\Settings.min.css">
-      <DependentUpon>Settings.css</DependentUpon>
+      <DependentUpon>Settings.less</DependentUpon>
     </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
     <Content Include="Content\Sidebar.min.css">
-      <DependentUpon>Sidebar.css</DependentUpon>
+      <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
     <Content Include="Content\Site3.css">
       <DependentUpon>Site3.less</DependentUpon>
     </Content>
     <Content Include="Content\Site3.min.css">
-      <DependentUpon>Site3.less</DependentUpon>
+      <DependentUpon>Site3.css</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.css">
       <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.min.css">
-      <DependentUpon>SiteMobile.css</DependentUpon>
+      <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.css">
       <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.min.css">
-      <DependentUpon>SiteMobileRtl.less</DependentUpon>
+      <DependentUpon>SiteMobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
     </Content>
     <Content Include="Content\Static.min.css">
-      <DependentUpon>Static.css</DependentUpon>
+      <DependentUpon>Static.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.min.css">
-      <DependentUpon>StaticRtl.less</DependentUpon>
+      <DependentUpon>StaticRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
     <Content Include="Content\Upload.min.css">
-      <DependentUpon>Upload.css</DependentUpon>
+      <DependentUpon>Upload.less</DependentUpon>
     </Content>
     <Content Include="Content\UserPage.css">
       <DependentUpon>UserPage.less</DependentUpon>
     </Content>
     <Content Include="Content\UserPage.min.css">
-      <DependentUpon>UserPage.css</DependentUpon>
+      <DependentUpon>UserPage.less</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.min.css">
-      <DependentUpon>varsAndMixins.css</DependentUpon>
+      <DependentUpon>varsAndMixins.less</DependentUpon>
     </Content>
     <Content Include="Content\Welcome.css">
       <DependentUpon>Welcome.less</DependentUpon>
     </Content>
     <Content Include="Content\Welcome.min.css">
-      <DependentUpon>Welcome.less</DependentUpon>
+      <DependentUpon>Welcome.css</DependentUpon>
     </Content>
     <Content Include="Content\WelcomeRtl.css">
       <DependentUpon>WelcomeRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\WelcomeRtl.min.css">
-      <DependentUpon>WelcomeRtl.less</DependentUpon>
+      <DependentUpon>WelcomeRtl.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

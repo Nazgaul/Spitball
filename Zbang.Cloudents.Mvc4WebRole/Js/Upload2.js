@@ -385,13 +385,29 @@
 
     }
 
-    function addItemToUploadList(html) {
+    
+    function addItemToUploadList(html) {       
         $('#uploadList').append(html);
         generatePreviewBaseOnState();
         $uploads.show();
     }
+
+    var timer, filesIgnored = 0;
     function fileUploaded(id) {
-        cd.pubsub.publish('addPoints', 'itemUpload');
+        if (!timer) {
+            timer = setInterval(function () {
+                var $uploadList = $('#uploadList'),
+                    files = filesUploaded = $uploadList.children().length,
+                    filesUploaded = $uploadList.find('[data-done]').length;
+
+                if (files === filesUploaded) {
+                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files - filesIgnored });
+                    filesIgnored = files;
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }, 100);
+        }
 
         var elem = $('#' + id).attr('data-done', 1);
         generatePreviewBaseOnState();
@@ -512,6 +528,7 @@
     });
     $('#uploads_close').click(function () {
         $uploads.hide();
+        filesIgnored = 0;
         $('#uploadList').empty();
         $(this).hide();
     });

@@ -253,7 +253,7 @@
         var $element = $(this),
             tooltipTitle = $element.attr('data-title'),
             $html = $(cd.attachTemplateToData('titleToolTipTempalte', { title: tooltipTitle })),
-            $arrow = $html.find('.tooltipArrow'), arrowMargin = 15,
+            $arrow = $html.find('.ttArrow'), arrowMargin = 15,
             pos;
 
 
@@ -269,20 +269,33 @@
 
             if (tooltipWidth > elemPos.left) {
                 positionX = elemPos.left;
-                $arrow.css('left', arrowMargin + 'px');
+                $arrow.css({ 'left': arrowMargin + 'px' ,right:'auto'});
             } else if (screenWidth - elemPos.left < tooltipWidth) {
                 positionX = elemPos.left - tooltipWidth + triggerWidth;
-                $arrow.css('left', tooltipWidth - triggerWidth - arrowMargin + 'px');
-            } else {
-                $arrow.css('left', middle + 'px');
+                $arrow.css({right: arrowMargin + 'px',left:'auto'});
+            } else {                
                 positionX = elemPos.left - middle;
 
             }
-            return { x: positionX - $(window).scrollLeft(), y: elemPos.top - $(window).scrollTop() };
+
+            //scroll fix
+            var scrollTop = 0;
+            if ($element.parents('.siteHeader').length > 0 ||
+                $element.parents('.boxTop').length > 0) {
+
+                scrollTop = $window.scrollTop();
+            }
+            //
+
+            return { x: positionX - $window.scrollLeft(), y: elemPos.top + scrollTop };
 
 
         }
     }
+
+    cd.pubsub.subscribe('clearTooltip', function () {
+        hideTooltipTitle();
+    });
 
     function hideTooltipTitle() {
         $('.titleTooltip').remove();
