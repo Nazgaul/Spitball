@@ -549,13 +549,13 @@
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.min.css">
-      <DependentUpon>DashLib.less</DependentUpon>
+      <DependentUpon>DashLib.css</DependentUpon>
     </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
     <Content Include="Content\General.min.css">
-      <DependentUpon>General.less</DependentUpon>
+      <DependentUpon>General.css</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
@@ -573,7 +573,7 @@
       <DependentUpon>HeaderFooterRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\HeaderFooterRtl.min.css">
-      <DependentUpon>HeaderFooterRtl.less</DependentUpon>
+      <DependentUpon>HeaderFooterRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
@@ -585,13 +585,13 @@
       <DependentUpon>HomeRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\HomeRtl.min.css">
-      <DependentUpon>HomeRtl.less</DependentUpon>
+      <DependentUpon>HomeRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Invite.css">
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
     <Content Include="Content\Invite.min.css">
-      <DependentUpon>Invite.less</DependentUpon>
+      <DependentUpon>Invite.css</DependentUpon>
     </Content>
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>
@@ -603,19 +603,19 @@
       <DependentUpon>ItemMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobile.min.css">
-      <DependentUpon>ItemMobile.less</DependentUpon>
+      <DependentUpon>ItemMobile.css</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.css">
       <DependentUpon>ItemMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.min.css">
-      <DependentUpon>ItemMobileRtl.less</DependentUpon>
+      <DependentUpon>ItemMobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
     <Content Include="Content\lang.ru-RU.min.css">
-      <DependentUpon>lang.ru-RU.less</DependentUpon>
+      <DependentUpon>lang.ru-RU.css</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
@@ -627,7 +627,7 @@
       <DependentUpon>MobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\MobileRtl.min.css">
-      <DependentUpon>MobileRtl.less</DependentUpon>
+      <DependentUpon>MobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
@@ -639,7 +639,7 @@
       <DependentUpon>QnA.less</DependentUpon>
     </Content>
     <Content Include="Content\QnA.min.css">
-      <DependentUpon>QnA.less</DependentUpon>
+      <DependentUpon>QnA.css</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
@@ -669,7 +669,7 @@
       <DependentUpon>Site3.less</DependentUpon>
     </Content>
     <Content Include="Content\Site3.min.css">
-      <DependentUpon>Site3.less</DependentUpon>
+      <DependentUpon>Site3.css</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.css">
       <DependentUpon>SiteMobile.less</DependentUpon>
@@ -681,7 +681,7 @@
       <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.min.css">
-      <DependentUpon>SiteMobileRtl.less</DependentUpon>
+      <DependentUpon>SiteMobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
@@ -693,7 +693,7 @@
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.min.css">
-      <DependentUpon>StaticRtl.less</DependentUpon>
+      <DependentUpon>StaticRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
@@ -717,13 +717,13 @@
       <DependentUpon>Welcome.less</DependentUpon>
     </Content>
     <Content Include="Content\Welcome.min.css">
-      <DependentUpon>Welcome.less</DependentUpon>
+      <DependentUpon>Welcome.css</DependentUpon>
     </Content>
     <Content Include="Content\WelcomeRtl.css">
       <DependentUpon>WelcomeRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\WelcomeRtl.min.css">
-      <DependentUpon>WelcomeRtl.less</DependentUpon>
+      <DependentUpon>WelcomeRtl.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
