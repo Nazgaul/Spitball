@@ -1692,9 +1692,7 @@ select.inputText {
 .toolTipContent {
   position: relative;
 }
-.toolTipContent:before {
-  content: '';
-  display: inline-block;
+.toolTipContent .ttArrow {
   position: absolute;
   top: -4px;
   -moz-transform: rotate(45deg);
