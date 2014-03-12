@@ -86,7 +86,9 @@
         <script type="text/html" id="dashBoxTemplate">
             <li class="box" data-bind="attr: { id: 'dashB' + uid }">
                 <a data-navigation="Box" data-bind="attr: { href: boxUrl, 'data-title': name }">
-                    <div class="boxNotify">3</div>
+                    <!--ko if: numOfUpdates() > 0-->
+                    <div class="boxNotify" data-bind="text:numOfUpdates"></div>
+                    <!--/ko-->
                     <div>
                         <img class="boxImg" data-bind="attr: { 'data-src': boxPicture }" alt="" width="77" height="98" />
                         <ul class="boxHoverList">

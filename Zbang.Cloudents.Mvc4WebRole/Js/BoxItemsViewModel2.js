@@ -22,6 +22,7 @@
             that.type = data.type;
             that.numOfViews = data.numOfViews;
             that.rate = 69 / 5 * data.rate;
+            that.isNew = ko.observable(false);
             if (that.type === 'File') {
                 that.thumbnailUrl = data.thumbnail;
             }
@@ -54,7 +55,7 @@
             if (data.sponsored) {
                 document.getElementById('BoxItemList').classList.add('sponsored');
             }
-            that.isNew = cd.newUpdates.isNew('items', boxid, that.id);
+ 
         }
 
         var self = this, boxid, current = 0, //countOfItems = 0,
@@ -107,12 +108,34 @@
                 },
                 success: function (result) {
                     generateModel(result.dto);
+                    cd.pubsub.publish('getUpdates');
                 },
                 always: function () {
                     self.loaded(true);
                 }
             });
         }
+        cd.pubsub.subscribe('updates', function (updates) {
+            var userId = cd.userDetail().nId,
+                box = updates[userId][boxid],
+                items, item;
+
+            if (!box) {
+                return;
+            }
+
+            items = updates[userId][boxid].items;
+
+            if (!items) {
+                return;
+            }
+
+            for (var i = 0, l = self.items().length; i < l; i++) {
+                item = self.items()[i];
+                item.isNew(items.indexOf(item.uid) > -1);
+            }
+
+        });
 
         function generateModel(data) {
 
@@ -123,7 +146,7 @@
             mapped.sort(sort);
             var tt = new TrackTiming('Box Items', 'Render time of items');
             tt.startTime();
-            self.items(mapped);
+            self.items(mapped);            
             cd.loadImages(document.getElementById('BoxItemList'));
             tt.endTime();
             tt.send();
@@ -172,6 +195,8 @@
 
 
         });
+
+      
         cd.pubsub.subscribe('addedItem', function (d) {
             if (d.boxid === boxid) {
                 cd.pubsub.publish('addItem', d.item);

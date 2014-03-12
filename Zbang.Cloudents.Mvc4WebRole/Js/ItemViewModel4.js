@@ -649,6 +649,14 @@
                     clearTimeout(ratePopupTimeout);
                     trackEvent('move to a different item');
                 });
+                $itemPreview.on("scroll", '', function () {
+                    if ($itemPreview.scrollTop() > 0) {
+                        $('html').addClass('scrolling');
+                    } else {
+                        $('html').removeClass('scrolling');
+                    }
+                });
+
             }
             function printEvents() {
                 $itemPrint.change(function (e) {

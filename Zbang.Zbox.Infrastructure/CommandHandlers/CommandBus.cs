@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Ioc;
+﻿using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Infrastructure.CommandHandlers
 {
@@ -26,6 +27,11 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
         public void Send<TCommand>(TCommand command) where TCommand : Commands.ICommand
         {
             m_Container.Resolve<ICommandHandler<TCommand>>().Handle(command);
+        }
+
+        public Task SendAsync<TCommand>(TCommand command) where TCommand : Commands.ICommand
+        {
+            return m_Container.Resolve<ICommandHandlerAsync<TCommand>>().HandleAsync(command);
         }
     }
 }
