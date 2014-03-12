@@ -96,6 +96,7 @@
     select u.id as Uid , u.Name as Name,u.Image as Image
     from UserBoxRel ub join ub.User u 
     where ub.BoxId=:BoxId 
+    order by u.Image 
     ]]>
   </query>
 

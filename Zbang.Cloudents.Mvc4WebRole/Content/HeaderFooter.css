@@ -38,6 +38,7 @@ body {
   z-index: 11;
   position: fixed;
   /*so that I can use z-index*/
+
   min-width: 1024px;
 }
 .siteHeader .siteLogo {
@@ -46,8 +47,10 @@ body {
   height: 40px;
   background: url(/Images/dash13-sprite.png) -1px -1px no-repeat;
   /*rtl*/
+
   margin: 10px 0 0 30px;
   /*rtl*/
+
   position: relative;
   z-index: 1;
 }
@@ -58,6 +61,7 @@ body {
   background: #fff;
   margin-left: 70px;
   /*rtl*/
+
   border-radius: 5px;
   display: inline-block;
   vertical-align: top;
@@ -74,6 +78,7 @@ body {
   top: 6px;
   right: 12px;
   /*rtl*/
+
 }
 .dashLibSearch button:hover {
   background-position: -232px -2px;
@@ -86,6 +91,7 @@ body {
   height: 32px;
   padding: 0 35px 0 15px;
   /*rtl*/
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -128,6 +134,7 @@ footer {
   font-size: 10px;
   padding: 0 3px 0 6px;
   /*rtl*/
+
 }
 .footer .last:after {
   content: '';

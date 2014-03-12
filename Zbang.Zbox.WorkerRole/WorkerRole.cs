@@ -31,9 +31,6 @@ namespace Zbang.Zbox.WorkerRole
 #if DEBUG
                 log4net.Config.XmlConfigurator.Configure();
 #endif
-                //var cacheObj = unity.Resolve<Zbang.Zbox.Infrastructure.Cache.ICache>();
-                //ShortCodesCache.Init(cacheObj);
-
                 m_Tasks = new List<Task>();
                 m_Jobs = CreateJobProcessors();
             }
@@ -45,30 +42,22 @@ namespace Zbang.Zbox.WorkerRole
 
         private IEnumerable<IJob> CreateJobProcessors()
         {
-            
+
             return new[]
                        {
-                           //m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
-                           //m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnEveryChange)),
-                           //m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceAWeek)),
-                           //////m_Unity.Resolve<IJob>(UnityFactory.DeleteCahceBlobContainer),
-                           //m_Unity.Resolve<IJob>(UnityFactory.GenerateDocumentCache),
-                           //m_Unity.Resolve<IJob>(UnityFactory.AddFiles),
-                           m_Unity.Resolve<IJob>(UnityFactory.Transaction)
-                           //m_Unity.Resolve<IJob>(UnityFactory.Dbi),
-                           //m_Unity.Unity.Resolve<IJob>(UnityFactory.MailProcess2)
+                           m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
+                           m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnEveryChange)),
+                           m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceAWeek)),
+                           ////m_Unity.Resolve<IJob>(UnityFactory.DeleteCahceBlobContainer),
+                           m_Unity.Resolve<IJob>(UnityFactory.GenerateDocumentCache),
+                           m_Unity.Resolve<IJob>(UnityFactory.AddFiles),
+                           m_Unity.Resolve<IJob>(UnityFactory.Transaction),
+                           m_Unity.Resolve<IJob>(UnityFactory.Dbi),
+                           m_Unity.Unity.Resolve<IJob>(UnityFactory.MailProcess2)
                        };
         }
         public override void Run()
         {
-            //next time will put a seperate worker role to do that
-            //TraceLog.WriteError("starting to update thumnails");
-            //var updateThumbnail = m_Unity.Resolve<IUpdateThumbnails>();
-            //updateThumbnail.UpdateThumbnailPicture();
-
-            //TraceLog.WriteError("finish update thumbnail");
-
-
 
             try
             {
@@ -124,7 +113,6 @@ namespace Zbang.Zbox.WorkerRole
 
             // For information on handling configuration changes
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
-            //ConfigureDiagnostics();
 
             return base.OnStart();
         }
@@ -155,46 +143,6 @@ namespace Zbang.Zbox.WorkerRole
 
             base.OnStop();
         }
-
-        private void ConfigureDiagnostics()
-        {
-            //TimeSpan scheduledTransferPeriod = TimeSpan.FromMinutes(5);
-            //TimeSpan sampleRate = TimeSpan.FromSeconds(30);
-
-            DiagnosticMonitorConfiguration diagnosticMonitorConfiguration = DiagnosticMonitor.GetDefaultInitialConfiguration();
-            diagnosticMonitorConfiguration.ConfigurationChangePollInterval = TimeSpan.FromMinutes(5);
-
-            //Windows Event Logs
-            diagnosticMonitorConfiguration.WindowsEventLog.DataSources.Add("System!*");
-            diagnosticMonitorConfiguration.WindowsEventLog.DataSources.Add("Application!*");
-            diagnosticMonitorConfiguration.WindowsEventLog.DataSources.Add("UserData!*");
-            diagnosticMonitorConfiguration.WindowsEventLog.ScheduledTransferLogLevelFilter = LogLevel.Verbose;
-
-
-
-            //Azure Application Logs
-            diagnosticMonitorConfiguration.Logs.ScheduledTransferLogLevelFilter = LogLevel.Verbose;
-            diagnosticMonitorConfiguration.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(5);
-            //diagnosticMonitorConfiguration.Logs.BufferQuotaInMB = 5;
-
-            var counters = new List<string> 
-            {
-                @"\Processor(_Total)\% Processor Time",
-                @"\Memory\Available MBytes"
-            };
-            diagnosticMonitorConfiguration.PerformanceCounters.ScheduledTransferPeriod = TimeSpan.FromMinutes(5);
-            counters.ForEach(counter => diagnosticMonitorConfiguration.PerformanceCounters.DataSources.Add(
-                new PerformanceCounterConfiguration
-                {
-                    CounterSpecifier = counter,
-                    SampleRate = TimeSpan.FromMinutes(1)
-                })
-            );
-
-            DiagnosticMonitor.Start("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString", diagnosticMonitorConfiguration);
-
-        }
-
 
         private static void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
         {
