@@ -18,13 +18,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(inviteParams, "inviteParams");
 
             message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteBox");
+            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
             //message.Text = textBody;
             message.Subject = Subject;
-            message.AddSubVal("{INVITOR}", new List<string> { inviteParams.Invitor });
-            message.AddSubVal("{BOX NAME}", new List<string> { inviteParams.BoxName });
-            message.AddSubVal("{PERSONAL_MSG}", new List<string> { string.Empty });
-            message.AddSubVal("{BoxUrl}", new List<string> { inviteParams.BoxUrl });
+            message.Html = message.Html.Replace("{INVITOR}", inviteParams.Invitor );
+            message.Html = message.Html.Replace("{BOXNAME}",  inviteParams.BoxName );
+            message.Html = message.Html.Replace("{BoxUrl}",  inviteParams.BoxUrl );
+            message.Html = message.Html.Replace("{ImgUrl}", inviteParams.InvitorImage);
         }
     }
 }

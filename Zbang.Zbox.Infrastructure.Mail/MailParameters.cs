@@ -18,8 +18,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
         internal const string UpdateResolver = "Update";
         internal const string ChangeEmailResolver = "ChangeEmail";
         internal const string FlagBadItemResolver = "FlagBadItem";
+
+        internal const string DefaultEmail = "no-reply@cloudents.com";
+        internal const string DefaultSenderName = "Cloudents";
         public MailParameters(CultureInfo culture)
-            : this(culture, "no-reply@cloudents.com", "Cloudents")
+            : this(culture, DefaultEmail, DefaultSenderName)
         {
 
         }
@@ -113,16 +116,18 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
     public class InviteMailParams : MailParameters
     {
-        public InviteMailParams(string invitor, string boxname, string boxurl, CultureInfo culture)
+        public InviteMailParams(string invitor, string boxname, string boxurl,string invitorImage, CultureInfo culture)
             : base(culture)
         {
             Invitor = invitor;
             BoxName = boxname;
             BoxUrl = boxurl;
+            InvitorImage = invitorImage;
         }
         public string Invitor { get; private set; }
         public string BoxName { get; private set; }
         public string BoxUrl { get; private set; }
+        public string InvitorImage { get; set; }
         public override string MailResover
         {
             get { return MailParameters.InviteResolver; }
@@ -132,13 +137,21 @@ namespace Zbang.Zbox.Infrastructure.Mail
     public class MessageMailParams : MailParameters
     {
         public MessageMailParams(string message, string senderUserName, CultureInfo culture)
-            : base(culture)
+            : base(culture, DefaultEmail, senderUserName)
         {
             Message = message;
-            SenderUserName = senderUserName;
+            //SenderUserName = senderUserName;
+        }
+        public MessageMailParams(string message, string senderUserName, CultureInfo culture, string senderEmail, string senderImage)
+            : base(culture, senderEmail, senderUserName)
+        {
+            Message = message;
+            SenderImage = senderImage;
         }
         public string Message { get; private set; }
-        public string SenderUserName { get; private set; }
+        //public string SenderUserName { get; private set; }
+        public string SenderImage { get; private set; }
+        //public string SenderEmail { get; private set; }
         public override string MailResover
         {
             get { return MessageResolver; }
