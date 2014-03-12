@@ -877,7 +877,7 @@
 
                     trackEvent('Rate', 'User rated an item with ' + currentRate + ' stars');
 
-                    toggleStarClass($rateBubble, $rated, consts.rated, currentRate);
+                    toggleStarClass($rated,currentRate);
 
 
 
@@ -976,8 +976,8 @@
                     var rate = data.Rate >= 0 ? data.Rate : 0;
                     initialRate = rate;
                     $.data($rateContainer[0], consts.fetchRate, false);
-                    var $rated = $bubble.find('.' + rated);
-                    toggleStarClass($bubble, $rated, rated, rate);
+                    var $rated = $rateBubble.find('.' + consts.rated);
+                    toggleStarClass($rated,rate);
                 }
             });
         }
@@ -1006,13 +1006,13 @@
 
         }
 
-        function toggleStarClass($bubble, $rated, rated, rate) {
+        function toggleStarClass($rated, rate) {
             if (rate === 0)
                 return;
             if ($rated.length) {
-                $rated.toggleClass(rated).text(5 - $rated.index());
+                $rated.toggleClass(consts.rated).text(5 - $rated.index());
             }
-            $('#star' + rate).toggleClass(rated).text('');
+            $('#star' + rate).toggleClass(consts.rated).text('');
         }
         //#endregion
 

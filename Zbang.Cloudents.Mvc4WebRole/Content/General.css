@@ -1683,7 +1683,6 @@ select.inputText {
   color: #FFF;
   border-radius: 2px;
   max-height: 200px;
-  padding: 0px 12px;
   line-height: 22px;
   min-width: 10px;
   max-width: 200px;
@@ -1691,6 +1690,7 @@ select.inputText {
 }
 .toolTipContent {
   position: relative;
+  padding: 0px 12px;
 }
 .toolTipContent .ttArrow {
   position: absolute;
