@@ -632,7 +632,7 @@
       <DependentUpon>Modal.less</DependentUpon>
     </Content>
     <Content Include="Content\Modal.min.css">
-      <DependentUpon>Modal.less</DependentUpon>
+      <DependentUpon>Modal.css</DependentUpon>
     </Content>
     <Content Include="Content\QnA.css">
       <DependentUpon>QnA.less</DependentUpon>
