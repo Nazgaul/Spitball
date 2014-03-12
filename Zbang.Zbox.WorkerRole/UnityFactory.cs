@@ -4,7 +4,6 @@ using Zbang.Zbox.WorkerRole.DomainProcess;
 using Zbang.Zbox.WorkerRole.Jobs;
 using Zbang.Zbox.WorkerRole.Mail;
 using Zbang.Zbox.WorkerRole.OneTimeUpdates;
-//using Zbang.Zbox.WorkerRole.OneTimeUpdates;
 
 namespace Zbang.Zbox.WorkerRole
 {
@@ -49,7 +48,6 @@ namespace Zbang.Zbox.WorkerRole
         {
             Unity.RegisterType<IJob, DeleteCacheBlobContainer>(DeleteCahceBlobContainer);
             Unity.RegisterType<IJob, ProcessFile>(GenerateDocumentCache);
-            //Unity.RegisterType<IJob, ThumbnailProcess>(ThumbnailProcess);
             Unity.RegisterType<IJob, DigestEmail2>(DigestEmail2);
             Unity.RegisterType<IJob, UpdateDataBase>(Dbi);
             Unity.RegisterType<IJob, UpdateDomainProcess>(Transaction);
