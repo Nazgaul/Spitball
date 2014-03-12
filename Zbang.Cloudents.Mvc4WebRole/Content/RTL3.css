@@ -702,6 +702,8 @@ input[type="radio"] + label:before {
 .tag:before {
   right: 0;
   left: auto;
+  width: 33px;
+  /*diff rtl*/
   border-radius: 0 3px 3px 0;
 }
 .tag:after {
@@ -748,6 +750,11 @@ input[type="radio"] + label:before {
   left: 4px;
   /*rtl*/
   right: auto;
+}
+.boxItem .tag {
+  right: -6px;
+  /*rtl*/
+  left: auto;
 }
  
 .boxItemList {
@@ -1246,7 +1253,7 @@ input[type="radio"] + label:before {
   margin: 7px 10px 0 0;
   /*rtl*/
 }
-.tag {
+.QItem .tag {
   left: -3px;
   right: auto;
 }

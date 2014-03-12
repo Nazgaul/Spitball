@@ -736,6 +736,7 @@ input[type="radio"] {
     {
         right: 0; //rtl
         left: auto;
+        width: 33px; /*diff rtl*/
         border-radius: 0 3px 3px 0; //rtl
     }
     &:after
@@ -762,9 +763,6 @@ input[type="radio"] {
     }
 }
 
-
-
-
 .boxItem {
     float: right; /* rtl */
     margin: 0 0 32px @min-margin; /*rtl*/
@@ -776,6 +774,10 @@ input[type="radio"] {
     .views {
         left: 4px; /*rtl*/
         right: auto;
+    }
+    .tag{
+        right: -6px; /*rtl*/
+        left: auto;
     }
 }
 .box-layout-rtl(boxItemList,boxItem,148px,248px,2,12,20px,310px,411px);
@@ -951,11 +953,12 @@ input[type="radio"] {
     .userName {
         margin:7px 10px 0 0; /*rtl*/
     }
+    .tag {
+        left: -3px; //rtl
+        right: auto;
+    }
 }
-.tag {
-    left: -3px; //rtl
-    right: auto;
-}
+
 .QBottom .seeMore {
     margin: 0 55px 0 0; /*rtl*/
 }
