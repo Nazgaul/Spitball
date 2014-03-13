@@ -17,15 +17,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Answer> m_AnswerRepository;
         private readonly IRepository<Question> m_QuestionRepository;
         private readonly IRepository<Updates> m_UpdatesRepository;
-        private readonly IRepository<ItemComment> m_ItemCommentRepository;
 
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
             IRepository<Item> itemRepository,
             IRepository<Answer> answerRepository,
             IRepository<Question> questionRepository,
-            IRepository<Updates> updatesRepository,
-            IRepository<ItemComment> itemCommentRepository
+            IRepository<Updates> updatesRepository
              )
         {
             m_BoxRepository = boxRepository;
@@ -33,7 +31,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AnswerRepository = answerRepository;
             m_QuestionRepository = questionRepository;
             m_UpdatesRepository = updatesRepository;
-            m_ItemCommentRepository = itemCommentRepository;
 
         }
         public void Handle(AddNewUpdatesCommand message)
@@ -45,20 +42,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var newUpdate = new Updates(userBoxRel.User, box,
                     GetQuestion(message.QuestionId),
                     GetAnswer(message.AnswerId),
-                    GetItem(message.ItemId),
-                    GetAnnotation(message.AnnotationId));
+                    GetItem(message.ItemId)
+                   );
                 m_UpdatesRepository.Save(newUpdate);
             }
 
         }
-        private ItemComment GetAnnotation(long? annotationId)
-        {
-            if (!annotationId.HasValue)
-            {
-                return null;
-            }
-            return m_ItemCommentRepository.Load(annotationId.Value);
-        }
+       
 
         private Item GetItem(long? itemId)
         {

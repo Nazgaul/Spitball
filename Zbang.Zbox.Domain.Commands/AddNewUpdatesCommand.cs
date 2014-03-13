@@ -9,14 +9,13 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class AddNewUpdatesCommand : ICommand
     {
-        public AddNewUpdatesCommand(long boxId, long userId, Guid? questionId, Guid? answerId, long? itemId, long? annotationId)
+        public AddNewUpdatesCommand(long boxId, long userId, Guid? questionId, Guid? answerId, long? itemId)
         {
             BoxId = boxId;
             UserId = userId;
             QuestionId = questionId;
             AnswerId = answerId;
             ItemId = itemId;
-            AnnotationId = annotationId;
         }
         public long BoxId { get; set; }
 
@@ -25,6 +24,5 @@ namespace Zbang.Zbox.Domain.Commands
         public Guid? QuestionId { get; set; }
         public Guid? AnswerId { get; set; }
         public long? ItemId { get; set; }
-        public long? AnnotationId { get; set; }
     }
 }
