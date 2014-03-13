@@ -54,18 +54,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     m_UserRepository.Save(recepientUser);
 
 
-                   // TriggerSendMail(command.PersonalNote, recepient, sender.Name, Zbang.Zbox.Infrastructure.Culture.Languages.GetDefaultSystemCulture().Culture);
+                    // TriggerSendMail(command.PersonalNote, recepient, sender.Name, Zbang.Zbox.Infrastructure.Culture.Languages.GetDefaultSystemCulture().Culture);
                     //continue;
                 }
                 var message = new Message(m_IdGenerator.GetId(), sender, recepientUser, command.PersonalNote);
                 m_MessageRepository.Save(message);
-                TriggerSendMail(command.PersonalNote, recepientUser.Email, sender.Name, recepientUser.Culture);
+                TriggerSendMail(command.PersonalNote, recepientUser.Email, sender.Name, recepientUser.Culture, sender.Image, sender.Email);
             }
         }
 
-        private void TriggerSendMail(string personalNote, string email, string senderUserName, string culture)
+        private void TriggerSendMail(string personalNote, string email, string senderUserName, string culture, string senderImage, string senderEmail)
         {
-            m_QueueProvider.InsertMessageToMailNew(new MessageMailData(personalNote, email, senderUserName, culture));
+            m_QueueProvider.InsertMessageToMailNew(new MessageMailData2(personalNote, email, senderUserName, senderImage, senderEmail, culture));
         }
 
 

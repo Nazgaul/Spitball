@@ -19,10 +19,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(messageParams, "messageParams");
 
             message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.NewMsg");
+            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.PersonalMsg");
             //message.Text = textBody;
-            message.Subject = string.Format(Subject, messageParams.SenderUserName);
+            message.Subject = string.Format(Subject, messageParams.SenderName);
             message.Html = message.Html.Replace("{USER_MSG}", messageParams.Message);
+            message.Html = message.Html.Replace("{MSG_AUTHOR}", messageParams.SenderName);
+            message.Html = message.Html.Replace("{ImgUrl}", messageParams.SenderImage);
+            //{MSG_AUTHOR}
+            //{ImgUrl}
             
         }
     }
