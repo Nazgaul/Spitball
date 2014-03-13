@@ -22,7 +22,7 @@
             that.type = data.type;
             that.numOfViews = data.numOfViews;
             that.rate = 69 / 5 * data.rate;
-            that.isNew = ko.observable(false);
+            that.isNew = ko.observable(data.isNew || false);
             if (that.type === 'File') {
                 that.thumbnailUrl = data.thumbnail;
             }
@@ -92,7 +92,7 @@
 
         });
         cd.pubsub.subscribe('boxclear', function () {
-            self.manageTab('');
+            self.manageTab('');            
             self.loaded(false).loadedAnimation(false).items([]);
         });
 
@@ -109,22 +109,22 @@
                 success: function (result) {
                     generateModel(result.dto);
                     cd.pubsub.publish('getUpdates');
+                    cd.newUpdates.deleteAll(boxid);                    
                 },
                 always: function () {
                     self.loaded(true);
                 }
             });
         }
-        cd.pubsub.subscribe('updates', function (updates) {
-            var userId = cd.userDetail().nId,
-                box = updates[userId][boxid],
+        cd.pubsub.subscribe('updates', function (updates) {            
+            var box = updates[boxid],
                 items, item;
 
             if (!box) {
                 return;
             }
 
-            items = updates[userId][boxid].items;
+            items = box.items;
 
             if (!items) {
                 return;
@@ -138,7 +138,6 @@
         });
 
         function generateModel(data) {
-
             var mapped = [];
             for (var i = 0, l = data.length; i < l; i++) {
                 mapped.push(new Item(data[i]));
@@ -199,8 +198,10 @@
       
         cd.pubsub.subscribe('addedItem', function (d) {
             if (d.boxid === boxid) {
-                cd.pubsub.publish('addItem', d.item);
-            }            
+                d.item.isNew = true;
+                cd.pubsub.publish('addItem', d.item);                
+            }
+            cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });            
         });
         //#endregion
 
@@ -301,8 +302,10 @@
             }
 
             //remove the new tag
-            item.isNew(false);
-            cd.newUpdates.deleteUpdate('items',boxid,item.uid);
+            if (item.isNew()) {
+                item.isNew(false);
+                cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });
+            }
             return true;
         };
 

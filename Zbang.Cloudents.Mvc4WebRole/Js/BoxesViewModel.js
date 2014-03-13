@@ -83,28 +83,17 @@
         });
         self.privateBoxes = ko.computed(function () {
             return ko.utils.arrayFilter(self.boxes(), function (b) {
-                return  b.boxType === 'box';// || issearch;
+                return b.boxType === 'box';// || issearch;
             }
             );
         });
-
-
-        //cd.pubsub.subscribe('dash_search', function (data) {
-        //    //clearBoard();
-        //    issearch = true;
-        //    $dash_SearchQuery.val(data.query);
-        //    search(data);
-        //});
+      
         cd.pubsub.subscribe('updates', function (updates) {
-            var userId = cd.userDetail().nId,
-                boxesUpdate = updates[userId],
-                box;
-            if (!boxesUpdate) {
-                return;
-            }
+            var box;
+
             for (var i = 0, l = self.boxes().length; i < l; i++) {
                 box = self.boxes()[i];
-                if (!boxesUpdate[box.uid]) {
+                if (!updates[box.uid]) {
                     continue;
                 }
                 box.numOfUpdates(calcUpdates(box.uid));
@@ -113,14 +102,20 @@
 
 
             function calcUpdates(boxId) {
-                var i = updates[userId][boxId].items.length,
-                    q = updates[userId][boxId].questions.length,
-                    a = updates[userId][boxId].answers.length;
+                var i = updates[boxId].items.length,
+                    q = updates[boxId].questions.length,
+                    a = updates[boxId].answers.length,
+                    annoList = updates[boxId].annotations,
+                    annotations = 0;
 
-                return i + a + q;
+                for (item in annoList) {
+                    if (annoList.hasOwnProperty(item)) {
+                        annotations += annoList[item].length;
+                    }
+                }
+                return i + a + q + annotations;
+
             }
-
-
 
         });
 
@@ -129,7 +124,21 @@
             boxesList();
         });
 
- 
+        cd.pubsub.subscribe('addedItem', function (d) {
+            cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });
+            cd.pubsub.publish('getUpdates');   
+        });
+
+        cd.pubsub.subscribe('addQuestion', function (newquestionobj) {
+            cd.newUpdates.addUpdate({ questionId: newquestionobj.question.id, boxId: newquestionobj.boxid });
+            cd.pubsub.publish('getUpdates');
+            
+        });
+
+        cd.pubsub.subscribe('addAnswer', function (newAnswerObj) {
+            cd.newUpdates.addUpdate({ answerId: newAnswerObj.answer.id, boxId: newAnswerObj.box });
+            cd.pubsub.publish('getUpdates');
+        });
 
         //function clearBoard() {
         //    self.boxes([]);
@@ -143,10 +152,10 @@
 
         //function search(data) {
         //    self.loaded(false).loadedAnimation(false);
-            
+
         //    var $boxList = $('#BoxList'), initData = $boxList.data('data');
         //    if (initData) {
-                
+
         //        $boxList.removeAttr('data-data').data('data', '');
         //        cd.pubsub.publish('dashSideD', { friend: initData.friends, wall: initData.wall });
         //    }
@@ -168,7 +177,7 @@
             if (initData) {
                 $boxList.removeAttr('data-data').data('data', '');
                 generateModel(initData.boxes);
-                cd.pubsub.publish('dashSideD', { friend: initData.friends, wall: initData.wall });                
+                cd.pubsub.publish('dashSideD', { friend: initData.friends, wall: initData.wall });
                 self.loaded(true);
                 return;
             }
@@ -191,7 +200,7 @@
             cd.pubsub.publish('getUpdates');
 
             self.boxes([]);
-            if (!cd.firstLoad){
+            if (!cd.firstLoad) {
                 cd.setTitle(JsResources.Dashboard + ' | Cloudents');
             }
             cd.pubsub.publish('dashboard_load');
@@ -211,7 +220,7 @@
             }
             //$('#BoxList').append(cd.attachTemplateToData('firstTemplate', ko.utils.unwrapObservable(self.boxes)));
             var tt = new TrackTiming('Dashboard', 'Render time of boxes');
-            tt.startTime();            
+            tt.startTime();
             self.boxes(arr);
             cd.loadImages(document.getElementById('dash_right'));
             tt.endTime();
@@ -220,20 +229,20 @@
             self.loadedAnimation(true);
         }
 
-        
+
 
         self.emptyState = ko.computed(function () {
             return self.loaded() && !self.boxes().length;// && !issearch;
         });
-        
-        
+
+
         self.removeBox = function (box) {
             /// <summary></summary>
             /// <param name="box" type="Box"></param>
 
             //if (!confirm(ZboxResources.SureYouWant0ThisBox.format(box.removeBoxTitle))) {
-            if (!confirm(ZboxResources.SureYouWant +  ' ' + box.removeBoxConfirm)) {
-                
+            if (!confirm(ZboxResources.SureYouWant + ' ' + box.removeBoxConfirm)) {
+
                 return;
             }
             analytics.trackEvent('Follow', 'Unfollow', 'Clicking on the  box "x" mark on dashboard level');
