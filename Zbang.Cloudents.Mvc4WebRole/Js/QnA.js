@@ -165,11 +165,16 @@
             analytics.trackEvent('Answer', 'Click on answer', 'The number of clicks on show answer');
             $(e.target).parents('.QItem').addClass('selected');
 
-            q.isNew(false);
-            cd.newUpdates.deleteUpdate({ type: 'questions', boxId: boxid, id: q.id });
+            if (q.isNew()) {
+                q.isNew(false);
+                cd.newUpdates.deleteUpdate({ type: 'questions', boxId: boxid, id: q.id });
+            }
+
             for (var i = 0, l = q.answers().length; i < l; i++) {
                 var answer = q.answers()[i];
-                cd.newUpdates.deleteUpdate({type:'answers', boxId:boxid, id:answer.id});
+                if (answer.isNew()){
+                    cd.newUpdates.deleteUpdate({ type: 'answers', boxId: boxid, id: answer.id });
+                }
             }
 
 
@@ -209,7 +214,7 @@
 
         cd.pubsub.subscribe('updates', function (updates) {
             var box = updates[boxid],
-                questions, question, answers,answer;
+                questions, question, answers, answer;
 
             if (!box) {
                 return;
@@ -249,13 +254,13 @@
             var newquestion;
             if (boxid === newquestionobj.boxid) {
                 newquestionobj.question.isNew = true;
-                newquestion  = new Question(newquestionobj.question);
-                self.questionList.unshift(newquestion);                
+                newquestion = new Question(newquestionobj.question);
+                self.questionList.unshift(newquestion);
             }
             cd.newUpdates.addUpdate({ questionId: newquestionobj.question.id, boxId: newquestionobj.boxid });
         });
         cd.pubsub.subscribe('addAnswer', function (newAnswerObj) {
-            var questionId = newAnswerObj.questionid,newAnswer ;
+            var questionId = newAnswerObj.questionid, newAnswer;
             var question = ko.utils.arrayFirst(self.questionList(), function (q) {
                 return q.id === questionId;
             });
@@ -263,7 +268,7 @@
                 newAnswerObj.answer.isNew = true;
                 newAnswer = new Answer(newAnswerObj.answer);
                 question.answers.push(newAnswer);
-                
+
             }
             cd.newUpdates.addUpdate({ answerId: newAnswerObj.answer.id, boxId: box });
             // self.postAnswer
