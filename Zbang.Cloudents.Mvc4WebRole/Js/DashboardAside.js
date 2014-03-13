@@ -179,7 +179,7 @@
         (function () {
             var dashShowFriends = document.getElementById('dash_showfriends'),
                 membersList = dashShowFriends.getElementsByClassName('membersList')[0],
-                sendAMsgBtm = document.getElementById('frndPopSndMsg'),
+                //sendAMsgBtm = document.getElementById('frndPopSndMsg'),
                 friends = [], MINHEIGHT = 420, MAXHEIGHT = 600;
 
             function Friend(data) {
@@ -187,7 +187,7 @@
                 _self.id = data.uid;
                 _self.name = data.name;
                 _self.image = data.image;
-                _self.identifier = cd.guid();
+                //_self.identifier = cd.guid();
                 _self.url = data.url + '?r=dashboard&s=members';
             }
             document.getElementById('showUserFriends').onclick = function (e) {
@@ -216,51 +216,51 @@
             };
 
 
-            $(membersList).on('change', '.checkbox', function (e) {
-                var checkboxes = dashShowFriends.querySelectorAll('.memberItem input:checked');
-                if (checkboxes.length) {
-                    sendAMsgBtm.style.display = 'inline-block';
-                    return;
-                }
-                sendAMsgBtm.style.display = 'none';
+            //$(membersList).on('change', '.checkbox', function (e) {
+            //    var checkboxes = dashShowFriends.querySelectorAll('.memberItem input:checked');
+            //    if (checkboxes.length) {
+            //        sendAMsgBtm.style.display = 'inline-block';
+            //        return;
+            //    }
+            //    sendAMsgBtm.style.display = 'none';
 
 
-            });
+            //});
 
 
             $(membersList).on('click', '.inviteUserBtn', function (e) {
 
-                var guid = getListItem(e.target).firstElementChild.id,
-                friend = $.data(document.getElementById(guid));
+                var id = getListItem(e.target).id,
+                friend = $.data(document.getElementById(id));
                 triggerMessagePopup([{ id: friend.id, name: friend.name, userImage:friend.image }]);
 
             });
 
 
-            document.getElementById('friendsSettings').addEventListener('change', function () {
-                var checkboxes = membersList.getElementsByClassName('checkbox'),
-                    state = this.checked;
-                for (var i = 0, l = checkboxes.length; i < l; i++) {
-                    checkboxes[i].checked = state;
-                }
+            //document.getElementById('friendsSettings').addEventListener('change', function () {
+            //    var checkboxes = membersList.getElementsByClassName('checkbox'),
+            //        state = this.checked;
+            //    for (var i = 0, l = checkboxes.length; i < l; i++) {
+            //        checkboxes[i].checked = state;
+            //    }
 
-                $(checkboxes).trigger('change');
-            }, true);
+            //    $(checkboxes).trigger('change');
+            //}, true);
 
-            sendAMsgBtm.onclick = function () {
-                var checkboxes = membersList.querySelectorAll('.memberItem input:checked'), memberItem,
-                    selectedMembers = [];
-                if (!checkboxes.length) {
-                    return;
-                }
-                for (var i = 0, l = checkboxes.length; i < l; i++) {
-                    memberItem = $.data(document.getElementById(checkboxes[i].id));
-                    selectedMembers.push({ id: memberItem.id, name: memberItem.name, userImage:memberItem.image });
+            //sendAMsgBtm.onclick = function () {
+            //    var checkboxes = membersList.querySelectorAll('.memberItem input:checked'), memberItem,
+            //        selectedMembers = [];
+            //    if (!checkboxes.length) {
+            //        return;
+            //    }
+            //    for (var i = 0, l = checkboxes.length; i < l; i++) {
+            //        memberItem = $.data(document.getElementById(checkboxes[i].id));
+            //        selectedMembers.push({ id: memberItem.id, name: memberItem.name, userImage:memberItem.image });
 
-                }
+            //    }
 
-                triggerMessagePopup(selectedMembers);
-            }
+            //    triggerMessagePopup(selectedMembers);
+            //}
 
             document.getElementById('friendsSearch').onkeyup = function () {
                 searchMembers(this.value);
@@ -274,7 +274,7 @@
                 calculatePopupHeight();
                 setScroll();
                 for (var i = 0, l = friendsToShow.length; i < l; i++) {
-                    $.data(document.getElementById(friendsToShow[i].identifier), friendsToShow[i]);
+                    $.data(document.getElementById('dashfriend' + friendsToShow[i].id), friendsToShow[i]);
                 }
             }
 
@@ -385,17 +385,17 @@
                 if (!isShow) {
                     //clear all
                     dashShowFriends.style.display = 'none';
-                    document.getElementById('friendsSettings').style.display = 'none'
-                    document.getElementById('frndPopSndMsg').style.display = 'none';
+                    //document.getElementById('friendsSettings').style.display = 'none'
+                    //document.getElementById('frndPopSndMsg').style.display = 'none';
 
                     if (clearInput) {
                         document.getElementById('friendsSearch').value = '';
                     }
 
-                    var checkboxes = dashShowFriends.querySelectorAll('input:checked');
-                    for (var i = 0, l = checkboxes.length ; i < l; i++) {
-                        checkboxes[i].checked = false;
-                    }
+                    //var checkboxes = dashShowFriends.querySelectorAll('input:checked');
+                    //for (var i = 0, l = checkboxes.length ; i < l; i++) {
+                    //    checkboxes[i].checked = false;
+                    //}
                     return;
                 }
 

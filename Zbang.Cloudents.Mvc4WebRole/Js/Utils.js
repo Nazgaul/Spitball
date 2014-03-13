@@ -882,7 +882,7 @@
             if (response && response.post_id) {
                 $('[data-ddcbox]').each(function (i, e) { e.checked = false }); // close all popups
                 analytics.trackSocial(url, 'share');
-                cd.pubsub.publish('addPoints', 'shareFb');
+                cd.pubsub.publish('addPoints', { type: 'shareFb' });
                 var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
                 cd.data.fbRep({
                     data: { postId: postId }

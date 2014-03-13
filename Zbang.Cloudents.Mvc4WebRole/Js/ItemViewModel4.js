@@ -483,7 +483,7 @@
                         return;
                     }
 
-
+                    $ratePopup.show();
                     ratePopupTimeout = setTimeout(function () {
                         $ratePopup.addClass('show');
 
@@ -617,7 +617,7 @@
             $itemShare.prop(consts.checked, false);
             $itemPrint.prop(consts.checked, false);
             commentShow = false;
-            $ratePopup.removeClass('show');            
+            $ratePopup.hide();
             clearTimeout(ratePopupTimeout);
         });
         //#endregion
@@ -661,7 +661,9 @@
                         e.preventDefault();
                         return false;
                     }
-                    $ratePopup.removeClass('show');
+                    if ($ratePopup.hasClass('show')) {
+                        $ratePopup.removeClass('show').hide();
+                    }
                     clearTimeout(ratePopupTimeout);
                     trackEvent('move to a different item');
                 });
@@ -927,8 +929,7 @@
         //#endregion 
 
         //#region utilities
-        function getExtension(fileName, type) {
-            console.log(type);
+        function getExtension(fileName, type) {            
             if (type.toLowerCase() === consts.link) {
                 return consts.www;
             }

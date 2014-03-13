@@ -288,8 +288,6 @@
             //
 
             return { x: positionX - $window.scrollLeft(), y: elemPos.top + scrollTop };
-
-
         }
     }
 
@@ -303,9 +301,14 @@
 
     //#endregion
 
-    //#region scrolling effect
+    //#region scroll
     $document.on("scroll", function () {
+        //#region tooltips 
+        cd.pubsub.publish('clearTooltip');
 
+        //#endregion
+
+        //#region scroll effect
         if ($window.scrollTop() > 0) {
             $html.addClass('scrolling');
 
@@ -313,6 +316,9 @@
             $html.removeClass('scrolling');
 
         }
+        //#endregion
+
+      
     });
 
 
