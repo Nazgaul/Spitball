@@ -811,9 +811,7 @@
 }
 
 .boxItemsHeader {
-    //overflow: hidden; //TODO: Why this?
     height: 68px;
-    //margin: -28px 386px 0 0; /*rtl*/
     margin-top: -28px;
     padding-top: 20px;
     .boxSizing;
@@ -1010,28 +1008,120 @@
         }
     }   
 }
-.boxItemTt
-{
+/*#region box item tool tips */
+.boxItemTt {
     position: absolute;
     border: 1px solid #c2c2c2;
     box-shadow: 0 3px 7px rgba(0,0,0,.15);
-    padding: 18px 20px 10px 20px;
+    padding: 10px 0;
     width: 276px;
     height: 183px;
     .boxSizing;
     bottom: 100%;
     display: none;
     z-index: 11;
-    background: #f5f5f5;
+    background: #fff;
     border-radius: 5px;
-    left: -66px;
+    left: -66px; /*rtl*/
     margin-bottom: 8px;
-    .downArrow{
+
+    .downArrow {
         top: 100%;
         bottom: auto;
         margin-top: 10px;
     }
+    &.noPreview
+    {
+        height: auto;
+        background: #f5f5f5;
+        .downArrow {
+            top: 85px; /* diff rtl*/
+            &:before {
+                background: #f5f5f5;
+            }
+        }
+        .ttPreview
+        {
+            display: none;
+        }
+    }
+    .ttTop{
+        padding: 0 20px;
+        background: #F5F5F5;
+        margin-top: -32px;
+        padding-top: 32px;
+        border-radius: 5px 5px 0 0;
+        padding-bottom: 17px;
+        > .ttDetail
+        {
+            width: auto; //override
+            margin-top: -10px;
+            position: relative;
+            &:before
+            {
+                content: attr(data-numdownload);
+                display: inline-block;
+                margin: 0 4px 0 20px; /*rtl*/
+
+            }
+            &:last-child:before
+            {
+                content: attr(data-numcommment);
+                margin: 0 4px 0 24px; /*rtl*/
+            }
+            &:after
+            {
+                .pseudo;
+                position: absolute;
+                left:0; /*rtl*/
+                top:2px;
+                width: 14px;
+                height: 15px;
+                background: @item-sprite1 -19px -21px no-repeat;
+            }
+            &:last-child:after
+            {
+                width: 18px;
+                height: 17px;
+                background-position: -51px -21px;
+            } 
+        }
+    }
+    .moreFilesThumb {
+        display: inline-block;
+        position: relative;
+        top: -23px;
+    }
+
+    .detailsWpr {
+        display: inline-block;
+        position: relative;
+        top: -13px;
+        left: 11px; /*rtl*/
+        width: 196px;
+    }
+    
+    .ttDetail {
+        width: 75px;
+        color: #9c9c9c;
+    }
+
+    .ttLink {
+        display: block;
+        &:hover {
+            color: @attentionBlue;
+        }
+    }
+    .ttPreview
+    {
+        border-top: 1px solid @borderColor;
+        padding: 10px 20px;
+        clear: both;
+        max-height: 46px; /* diff rtl*/
+        overflow: hidden;
+    }
 }
+/*#endregion */ 
 
 //.box-layout(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
 .box-layout(boxItemList,boxItem,148px,248px,2,12,20px,310px,411px);

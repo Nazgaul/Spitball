@@ -110,12 +110,17 @@
 }
 
 .AWpr {
-    width: 354px;
-    margin: 6px 6px 0 6px;
+    //width: 354px;
+    //margin: 6px 6px 0 6px;
+    margin: 6px 0px 0 0;
+    width: 363px;
     position: absolute; // I intentionally do not set top here
     left: 376px;
     z-index: 10;
     .transition(all, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900) .2s);
+    .qaAttach {
+        width: 303px;
+    }
 }
 
 textarea:invalid {
@@ -610,7 +615,8 @@ textarea:invalid {
     border: 1px solid @borderColor;
     border-radius: 3px;
     background: #fff;
-    padding: 6px 6px 10px 6px;
+    padding: 6px 6px 0 6px;
+    margin: 0 14px;
     position: relative; //for the delete btn
     .questionRhs {
         overflow: hidden; // new bfc
