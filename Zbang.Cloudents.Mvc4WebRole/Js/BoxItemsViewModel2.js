@@ -212,7 +212,7 @@
 
         //#region remove item
         self.removeItem = function (item) {
-            if (!cd.deleteAllow(self.permission(), item.userid.toString())) { //userid is an int we need a string
+            if (!cd.deleteAllow(self.permission(), item.userid)) { //userid is an int we need a string
                 cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + item.type);
                 return false;
             }
