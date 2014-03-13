@@ -1001,16 +1001,34 @@
   border-radius: 5px 5px 0 0;
   padding-bottom: 17px;
 }
-.boxItemTt .ttTop .iconTxt {
+.boxItemTt .ttTop > .ttDetail {
   width: auto;
   margin-top: -10px;
+  position: relative;
 }
-.boxItemTt .ttTop .iconTxt:before {
+.boxItemTt .ttTop > .ttDetail:before {
+  content: attr(data-numdownload);
+  display: inline-block;
+  margin: 0 4px 0 20px;
+  /*rtl*/
+}
+.boxItemTt .ttTop > .ttDetail:last-child:before {
+  content: attr(data-numcommment);
+  margin: 0 4px 0 24px;
+  /*rtl*/
+}
+.boxItemTt .ttTop > .ttDetail:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  /*rtl*/
+  top: 2px;
   width: 14px;
   height: 15px;
   background: url(/Images/item13-sprite.png) -19px -21px no-repeat;
 }
-.boxItemTt .ttTop .iconTxt:last-child:before {
+.boxItemTt .ttTop > .ttDetail:last-child:after {
   width: 18px;
   height: 17px;
   background-position: -51px -21px;

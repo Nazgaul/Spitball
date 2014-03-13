@@ -765,6 +765,19 @@ input[type="radio"] + label:before {
 .boxItemTt.noPreview .ttPreview {
   display: none;
 }
+.boxItemTt .ttTop > .ttDetail:before {
+  margin: 0 20px 0 4px;
+  /*rtl*/
+}
+.boxItemTt .ttTop > .ttDetail:last-child:before {
+  margin: 0 24px 0 4px;
+  /*rtl*/
+}
+.boxItemTt .ttTop > .ttDetail:after {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
 .boxItemTt .detailsWpr {
   right: 11px;
   /*rtl*/

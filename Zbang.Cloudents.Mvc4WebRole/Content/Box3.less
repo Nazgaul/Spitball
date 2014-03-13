@@ -1052,22 +1052,39 @@
         padding-top: 32px;
         border-radius: 5px 5px 0 0;
         padding-bottom: 17px;
-        .iconTxt
+        > .ttDetail
         {
             width: auto; //override
             margin-top: -10px;
+            position: relative;
             &:before
             {
+                content: attr(data-numdownload);
+                display: inline-block;
+                margin: 0 4px 0 20px; /*rtl*/
+
+            }
+            &:last-child:before
+            {
+                content: attr(data-numcommment);
+                margin: 0 4px 0 24px; /*rtl*/
+            }
+            &:after
+            {
+                .pseudo;
+                position: absolute;
+                left:0; /*rtl*/
+                top:2px;
                 width: 14px;
                 height: 15px;
                 background: @item-sprite1 -19px -21px no-repeat;
             }
-            &:last-child:before
+            &:last-child:after
             {
                 width: 18px;
                 height: 17px;
                 background-position: -51px -21px;
-            }
+            } 
         }
     }
     .moreFilesThumb {
