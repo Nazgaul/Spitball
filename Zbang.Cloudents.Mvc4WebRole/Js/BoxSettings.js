@@ -28,7 +28,7 @@
         _self.image = data.image || $('body').data('pic');
         _self.status = parseStatus(data.sUserStatus);
         _self.cMemStat = data.sUserStatus === 'Invite' ? 'memberPending' : '';
-        _self.identifier = cd.guid();
+        //_self.identifier = cd.guid();
         _self.tooltipClass = data.sUserStatus === 'Subscribe' || data.sUserStatus === 'Owner' ? ' calloutTrgr' : ''; //space is needed        
         _self.url = data.url + '?r=box&s=members';
     }
@@ -264,7 +264,7 @@
                 $(membersList).find('.removeUserBtn').remove(); //only owner can remove users
             }
             for (var i = 0, l = memberToShow.length; i < l; i++) {
-                $.data(eById(memberToShow[i].identifier), memberToShow[i]);
+                $.data(eById('boxmember' + memberToShow[i].id), memberToShow[i]);
             }
         }
 
@@ -346,42 +346,42 @@
 
 
         function registerEvents() {
-            var sendAMsgBtm = eById('mbrSetingsSndMsg');
-            eById('membersSettings').addEventListener('change', function () {
-                var checkboxes = boxSettings.getElementsByClassName('checkbox'),
-                    state = this.checked;
-                for (var i = 0, l = checkboxes.length; i < l; i++) {
-                    checkboxes[i].checked = state;
-                }
-                if (state) {
-                    $(checkboxes).trigger('change');
-                }
-            }, true);
+            //var sendAMsgBtm = eById('mbrSetingsSndMsg');
+            //eById('membersSettings').addEventListener('change', function () {
+            //    var checkboxes = boxSettings.getElementsByClassName('checkbox'),
+            //        state = this.checked;
+            //    for (var i = 0, l = checkboxes.length; i < l; i++) {
+            //        checkboxes[i].checked = state;
+            //    }
+            //    if (state) {
+            //        $(checkboxes).trigger('change');
+            //    }
+            //}, true);
 
-            $(boxSettings).on('change', '.checkbox', function (e) {
-                var checkboxes = boxSettings.querySelectorAll('.memberItem input:checked');
-                if (checkboxes.length) {
-                    sendAMsgBtm.style.display = 'inline-block';
-                    return;
-                }
-                sendAMsgBtm.style.display = 'none';
+            //$(boxSettings).on('change', '.checkbox', function (e) {
+            //    var checkboxes = boxSettings.querySelectorAll('.memberItem input:checked');
+            //    if (checkboxes.length) {
+            //        sendAMsgBtm.style.display = 'inline-block';
+            //        return;
+            //    }
+            //    sendAMsgBtm.style.display = 'none';
 
-            });
+            //});
 
-            sendAMsgBtm.onclick = function () {
-                var checkboxes = boxSettings.querySelectorAll('.memberItem input:checked'), memberItem,
-                    selectedMembers = [];
-                if (!checkboxes.length) {
-                    return;
-                }
-                for (var i = 0, l = checkboxes.length; i < l; i++) {
-                    memberItem = $.data(eById(checkboxes[i].id));
-                    selectedMembers.push({ id: memberItem.id, name: memberItem.name, userImage: memberItem.image });
+            //sendAMsgBtm.onclick = function () {
+            //    var checkboxes = boxSettings.querySelectorAll('.memberItem input:checked'), memberItem,
+            //        selectedMembers = [];
+            //    if (!checkboxes.length) {
+            //        return;
+            //    }
+            //    for (var i = 0, l = checkboxes.length; i < l; i++) {
+            //        memberItem = $.data(eById(checkboxes[i].id));
+            //        selectedMembers.push({ id: memberItem.id, name: memberItem.name, userImage: memberItem.image });
 
-                }
-                inviteMembers(selectedMembers);
+            //    }
+            //    inviteMembers(selectedMembers);
 
-            };
+            //};
 
             eById('membersSearch').onkeyup = function () {
                 searchMembers(this.value);
@@ -398,8 +398,8 @@
                     return;
                 }
 
-                guid = getListItem(e.target).firstElementChild.id;
-                member = $.data(eById(guid));
+                id = getListItem(e.target).id;
+                member = $.data(eById(id));
                 var classList = e.target.classList;
 
                 if (classList.contains('inviteUserBtn')) {
@@ -416,11 +416,11 @@
     }
 
     function clearSettings(clearInput) {
-        var checkboxes = document.getElementsByClassName('checkbox');
-        for (var i = 0, l = checkboxes.length; i < l; i++) {
-            checkboxes[i].checked = false;
-        }
-        eById('mbrSetingsSndMsg').style.display = 'none';
+        //var checkboxes = document.getElementsByClassName('checkbox');
+        //for (var i = 0, l = checkboxes.length; i < l; i++) {
+        //    checkboxes[i].checked = false;
+        //}
+        //eById('mbrSetingsSndMsg').style.display = 'none';
 
         if (clearInput) {
             eById('membersSearch').value = '';

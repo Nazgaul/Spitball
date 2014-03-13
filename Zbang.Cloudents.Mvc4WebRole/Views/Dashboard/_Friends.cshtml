@@ -11,8 +11,8 @@
         </div>
         <div class="membersContent">
             <div class="membersTop">
-                <input id="friendsSettings" type="checkbox" class="checkbox" />
-                <label for="friendsSettings" class="cbLabel">@SharedResources.All</label>
+                @*<input id="friendsSettings" type="checkbox" class="checkbox" />
+                <label for="friendsSettings" class="cbLabel">@SharedResources.All</label>*@
                 <button type="button" id="frndPopSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                 <div class="searchWpr rFloat">
                     <span class="membersCount lFloat">&nbsp;@IndexResources.Members</span> @*Guy: fill the data-count attribute*@
@@ -28,14 +28,14 @@
     <div class="modal2"></div>
 </div>
 <script type="text/html" id="friendItemTemplate">
-    <li class="memberItem" id="friend_{{id}}">
-        <input id="{{identifier}}" type="checkbox" class="checkbox" />
-        <label for="{{identifier}}" class="cbLabel">
+    <li class="memberItem" id="dashfriend{{id}}">
+        @*<input id="{{identifier}}" type="checkbox" class="checkbox" />
+        <label for="{{identifier}}" class="cbLabel">*@
             <a href="{{url}}" data-navigation="user">
                 <img class="friendImg calloutTrgr" data-uid="{{id}}" alt="" src="{{image}}" width="34" height="34" />
             </a>
             <span class="memberName elps">{{name}}</span>
-        </label>
+    @*    </label>*@
         <span class="rFloat memberActions">
             <button type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
         </span>
