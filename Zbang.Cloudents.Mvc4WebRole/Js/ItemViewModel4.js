@@ -250,6 +250,15 @@
         //#region Get item data
         cd.pubsub.subscribe(consts.item, function (data) {
             self.itemid(parseInt(data.id, 10));
+
+            if (!ratedItems) {
+                ratedItems = JSON.parse(cd.localStorageWrapper.getItem('ratedItems'));
+                if (!ratedItems) {
+                    ratedItems = {};
+                    ratedItems[cd.userDetail().nId] = [];
+                }
+            }
+
             if (boxid !== data.boxid) {
                 boxid = data.boxid;
                 initialItems();
@@ -336,38 +345,8 @@
                     $rated.toggleClass(consts.rated).text(5 - $rated.index());
                 }
 
-                if (!ratedItems) {
-                    ratedItems = JSON.parse(cd.localStorageWrapper.getItem('ratedItems'));
-                    if (!ratedItems) {
-                        ratedItems = {};
-                        ratedItems[cd.userDetail().nId] = [];
-                    }
-                }
-                if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
-                    return;
-                }
-
-                ratePopupTimeout = setTimeout(function () {
-                    $ratePopup.addClass('show');
-
-                    $ratePopup.one('click', '.star', function () {
-                        var $this = $(this),
-                            startWidth = $('.stars .full').width(),
-                            itemRate = getItemRate(),
-                            currentRate = 5 - $this.index(),
-                            fakeRate = calculateFakeRate(startWidth, currentRate);
-
-                        self.rate(fakeRate);
-                        setItemRate(currentRate);
-                        ratedItems[cd.userDetail().nId].push(self.itemid());
-                        cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
-                        setTimeout(function () {
-                            $ratePopup.removeClass('show');
-                        }, 500);
-                    });
-
-                }, 5000);//5 seocnds
-
+                
+       
                 function fillVariables() {
                     ownerid = data.ownerUid;
                     userType = data.userType;
@@ -497,6 +476,43 @@
 
                         defferedArray.push(y);
                     });
+
+                    //rateitempopup
+
+                    if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
+                        return;
+                    }
+
+
+                    ratePopupTimeout = setTimeout(function () {
+                        $ratePopup.addClass('show');
+
+                        $ratePopup.one('click', '.star', function () {
+                            var $this = $(this),
+                                startWidth = $('.stars .full').width(),
+                                itemRate = getItemRate(),
+                                currentRate = 5 - $this.index(),
+                                fakeRate = calculateFakeRate(startWidth, currentRate);
+
+                            self.rate(fakeRate);
+                            setItemRate(currentRate);
+                            ratedItems[cd.userDetail().nId].push(self.itemid());
+                            cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                            setTimeout(function () {
+                                $ratePopup.removeClass('show');
+                            }, 500);
+
+                        });
+                        $ratePopup.one('click', '.closeDialog', function (e) {
+                            $ratePopup.remove();
+                            ratedItems[cd.userDetail().nId].push(self.itemid());
+                            cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+
+                        });
+
+                    }, 5000);//5 seocnds
+                    //
+
                     function initializeCanvas(e) {
                         var imgElement = e.target;
                         imgElement.removeAttribute('data-new');

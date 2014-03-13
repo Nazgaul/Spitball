@@ -21,11 +21,12 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             var parameters = data as InviteMailData;
             Throw.OnNull(parameters, "InviteMailData");
-
+            var userImage = parameters.InvitoryImage?? "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg";
             m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
                 new InviteMailParams(parameters.InvitorName,
                 parameters.BoxName,
                 parameters.BoxUrl,
+                userImage,
                new CultureInfo(parameters.Culture)));
 
             return true;

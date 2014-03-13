@@ -50,7 +50,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
 
             var sendGridMail = SendGridMail.SendGrid.GetInstance();
-            //sendGridMail.From = new MailAddress("itsik@cloudents.com", "Itsik Bitran");
             sendGridMail.From = new MailAddress(parameters.SenderEmail, parameters.SenderName);
             var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
             sendGridMail.EnableClickTracking();
