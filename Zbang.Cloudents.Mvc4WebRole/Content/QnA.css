@@ -119,8 +119,8 @@
   width: 365px;
 }
 .AWpr {
-  width: 354px;
-  margin: 6px 6px 0 6px;
+  margin: 6px 0px 0 0;
+  width: 363px;
   position: absolute;
   left: 376px;
   z-index: 10;
@@ -128,6 +128,9 @@
   -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
   -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
   transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
+}
+.AWpr .qaAttach {
+  width: 303px;
 }
 textarea:invalid {
   box-shadow: none;
@@ -594,7 +597,8 @@ textarea:invalid {
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   background: #fff;
-  padding: 6px 6px 10px 6px;
+  padding: 6px 6px 0 6px;
+  margin: 0 14px;
   position: relative;
 }
 .question .questionRhs {

@@ -47,10 +47,24 @@
 
 <script type="text/html" id="BoxItemsThumbViewTemplate">
     <li class="boxItem" data-bind="attr: { id: uid }">
-        <div class="boxItemTt">
-            <div class="moreFilesThumb mFjpg">jpg</div>
-
+        <div class="boxItemTt preview">
             <div class="arrow downArrow"></div>
+            <div class="moreFilesThumb mFjpg">jpg</div>
+            <div class="detailsWpr">
+                <div class="lFloat ttDetail">Owner</div>
+                <a href="#" class="ttLink elps">Amir Shalev</a>
+
+                <div class="lFloat ttDetail">Uploaded</div>
+                <div class="">05/01/2014</div>
+            </div>
+            <div class="lFloat">6 Downloads</div>
+            <div class="rFloat">30 Comments</div>
+            <div class="itemPreview">
+
+            </div>
+            
+
+            
         </div>
         <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
             <!--ko if:sponsored-->
