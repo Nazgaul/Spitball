@@ -758,6 +758,9 @@
                     };
 
                     document.getElementsByClassName('deptCol')[0].onclick = function () {
+                        if (!self.departments().length) {
+                            return;
+                        }
                         $(deptPopup).toggle();
                     };
                 }
