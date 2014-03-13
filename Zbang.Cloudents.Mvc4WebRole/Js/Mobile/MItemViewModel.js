@@ -8,8 +8,8 @@
             return this.replace(/^\s+|\s+$/g, '');
         };
     }
-    var boxid = location.pathname.split('/')[3],
-        itemid = location.pathname.split('/')[5],
+    var boxid = parseInt(location.pathname.split('/')[3],10),
+        itemid = parseInt(location.pathname.split('/')[5],10),
         itemsinBox = [],
         index = 0,
         blobName = '',
@@ -62,7 +62,15 @@
     downloadItem.onclick = function () {
         downloadItem.setAttribute('href', '/d/' +  boxid + '/' + itemid);
     };
+
+    var lastScrollLeft = 0;
     window.onscroll = function () {
+        var documentScrollLeft = document.body.scrollLeft;
+        if (lastScrollLeft != documentScrollLeft) {        
+            lastScrollLeft = documentScrollLeft;
+            return;
+        }
+
         if (document.body.scrollTop >= document.body.clientHeight - window.innerHeight - 50) {
             getPreview();
 
@@ -71,7 +79,11 @@
     function resetView() {
         itemContext.innerHTML = '';
     }
-    
+    window.addEventListener("orientationchange", function () {
+        var iframe = document.querySelector('.youtubeframe');        
+        iframe.height = window.innerHeight - 50;
+        iframe.width = window.innerWidth;
+    }, false);
 
     function getItem() {
         dataContext.getItem({
@@ -96,7 +108,12 @@
                     if (retVal.preview.trim()) {
                         loaded = true;
                     }
-                    itemContext.insertAdjacentHTML('beforeend', retVal.preview);
+                    
+                    var $preview = $(retVal.preview);
+                    $preview[0].width = window.innerWidth;
+                    $preview[0].height = window.innerHeight - 50;                    
+                                        
+                    itemContext.insertAdjacentHTML('beforeend', $preview[0].outerHTML);
                     //itemContext.innerHTML += retVal;
                     //self.preview(self.preview() + retVal);
                     //loader();

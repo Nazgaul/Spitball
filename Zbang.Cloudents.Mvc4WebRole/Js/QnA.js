@@ -291,7 +291,7 @@
             data.push({ name: 'BoxUid', value: boxid });
             $f.find('button').attr('disabled', 'disabled');
             analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
-            cd.pubsub.publish('addPnts', 'question');
+            cd.pubsub.publish('addPoints', { type: 'question' });
             dataContext.addQuestion({
                 data: data,
                 success: function (d) {
@@ -367,7 +367,7 @@
             data.push({ name: 'QuestionId', value: question.id });
             $f.find('button').attr('disabled', 'disabled');
             $f.find('textarea').css('height', '');
-            cd.pubsub.publish('addPoints', 'answer');
+            cd.pubsub.publish('addPoints', { type: 'answer' });
             dataContext.addAnswer({
                 data: data,
                 success: function (d) {

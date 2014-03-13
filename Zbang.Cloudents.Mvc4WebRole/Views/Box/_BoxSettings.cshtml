@@ -80,9 +80,9 @@
         </form>
         <div class="membersContent">
             <div class="membersTop">
-                <input id="membersSettings" type="checkbox" class="checkbox" />
-                <label for="membersSettings" class="cbLabel">@SharedResources.All</label>
-                <button type="button" id="mbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
+                @*<input id="membersSettings" type="checkbox" class="checkbox" />
+                <label for="membersSettings" class="cbLabel">@SharedResources.All</label>*@
+                @*<button type="button" id="mbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>*@
                 <div class="searchWpr rFloat">
                     <span class="membersCount lFloat" data-label="@SharedResources.Members"></span>
                     <div class="inputWpr">
@@ -97,12 +97,12 @@
     <div class="modal2"></div>
 </div>
 <script type="text/html" id="memberItemTemplate">    
-    <li class="memberItem" id="member{{id}}">
-        <input id="{{identifier}}" type="checkbox" class="checkbox" />
-        <label for="{{identifier}}" class="cbLabel">
+    <li class="memberItem" id="boxmember{{id}}">
+        @*<input id="{{identifier}}" type="checkbox" class="checkbox" />
+        <label for="{{identifier}}" class="cbLabel">*@
             <a data-navigation="user" href="{{url}}"><img class="friendImg{{tooltipClass}}" alt="" data-uid="{{id}}" src="{{image}}" width="34" height="34" /></a>
             <span class="memberName elps">{{name}}</span>
-        </label>
+        @*</label>*@
         <span class="memberStatus {{cMemStat}}">
             {{status}}
         </span>

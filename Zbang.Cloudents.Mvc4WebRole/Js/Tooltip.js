@@ -153,8 +153,7 @@
         }
         removeTooltip();
         cd.pubsub.publish('message', { id: '', data: [{ name: tooltip.name, id: tooltip.id, userImage: tooltip.image }] });
-    })
-    .on('scroll', removeTooltip)
+    })    
     .on('touchend', '.calloutTrgr', function (e) {
         var event = e.originalEvent;
         e.preventDefault();
