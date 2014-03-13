@@ -10,6 +10,8 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -18,11 +20,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
-        public AddAnnotationCommandHandler(IUserRepository userRepository, IRepository<Item> itemRepository, IRepository<ItemComment> itemCommentRepository)
+        private readonly IQueueProvider m_QueueProvider;
+
+        public AddAnnotationCommandHandler(IUserRepository userRepository, IRepository<Item> itemRepository,
+            IRepository<ItemComment> itemCommentRepository,
+            IQueueProvider queueProvider)
         {
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
             m_ItemCommentRepository = itemCommentRepository;
+            m_QueueProvider = queueProvider;
         }
         public void Handle(AddAnnotationCommand message)
         {
@@ -47,6 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var text = TextManipulation.EncodeText(message.Comment);
             ItemComment comment = new ItemComment(user, item, message.ImageId, text, message.X, message.Y, message.Width, message.Height);
+            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, item.Box.Id, item.Id, null, null, comment.Id));
             m_ItemCommentRepository.Save(comment);
 
             message.AnnotationId = comment.Id;

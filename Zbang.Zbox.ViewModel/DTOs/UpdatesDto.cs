@@ -12,5 +12,6 @@ namespace Zbang.Zbox.ViewModel.DTOs
         public Guid? QuestionId { get; set; }
         public Guid? AnswerId { get; set; }
         public long? ItemId { get; set; }
+        public long? ItemCommentId { get; set; }
     }
 }

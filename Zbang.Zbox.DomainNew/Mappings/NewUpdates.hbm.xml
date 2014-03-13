@@ -13,6 +13,7 @@
     <many-to-one name="Question" class="Question" column="QuestionId" not-null="false" foreign-key="NewUpdatesQuestion"/>
     <many-to-one name="Answer" class="Answer" column="AnswerId" not-null="false" foreign-key="NewUpdatesAnswer"/>
     <many-to-one name="Item" class="Item" column="ItemId" not-null="false" foreign-key="NewUpdatesItem"/>
+    <many-to-one name="Annotation" class="ItemComment" column="ItemCommentId" not-null="false" foreign-key="NewUpdatesAnnotation"/>
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
   </class>
 </hibernate-mapping>
