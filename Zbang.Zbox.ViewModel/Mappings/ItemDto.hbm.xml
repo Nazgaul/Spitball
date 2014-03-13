@@ -17,6 +17,8 @@
     <return-scalar column="Rate" type="double"/>
     <return-scalar column="Sponsored" type="bool" />
     <return-scalar column="Description" type="string"/>
+    <return-scalar column="BlobName" type="string"/>
+
   </resultset>
 
 
@@ -53,7 +55,8 @@
 	  i.NumberOfViews as NumOfViews,
     i.rate as Rate,
     i.sponsored as Sponsored,
-    i.content as Description
+    i.content as Description,
+    i.BlobName as BlobName
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = :BoxId

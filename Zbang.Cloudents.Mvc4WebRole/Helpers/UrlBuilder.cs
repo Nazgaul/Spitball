@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
         }
 
-        public string buildItemUrl(long boxid, string boxName, long itemId, string itemName, string universityName = "my")
+        public string buildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName = "my")
         {
             if (string.IsNullOrEmpty(universityName))
             {
@@ -121,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return _urlHelper.RouteUrl("Item", new
             {
                 universityName = UrlBuilder.NameToQueryString(universityName),
-                boxId = boxid,
+                boxId = boxId,
                 boxName = UrlBuilder.NameToQueryString(boxName),
                 itemid = itemId,
                 itemName = UrlBuilder.NameToQueryString(itemName)
@@ -134,6 +134,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 userId = userid,
                 userName = UrlBuilder.NameToQueryString(userName)
+            });
+        }
+
+        public string BuildDownloadUrl(long boxId, long itemId)
+        {
+            return _urlHelper.RouteUrl("ItemDownload", new
+            {
+                BoxUid = boxId,
+                itemId = itemId
             });
         }
     }

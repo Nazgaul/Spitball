@@ -40,10 +40,12 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public int NumOfViews { get; private set; }
 
         public string Url { get; set; }
+        public string DownloadUrl { get; set; }
 
         public string Thumbnail { get; private set; }
 
         public string Description { get; private set; }
         public bool Sponsored { get; private set; }
+        
     }
 }
