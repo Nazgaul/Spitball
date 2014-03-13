@@ -208,6 +208,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 foreach (var item in result.Dto)
                 {
                     item.Url = urlBuilder.buildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
+                    item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
                 }
 
                 return this.CdJson(new JsonResponse(true, result));
