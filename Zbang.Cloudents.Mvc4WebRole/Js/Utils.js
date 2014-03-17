@@ -110,24 +110,25 @@
         var oneDay = 24 * 60 * 60 * 1000, // hours*minutes*seconds*milliseconds                                         
             today = new Date(),
             dateDifference = calculateDayDifference(),
-            months = ["January", "February", "March", "April",
-                      "May", "June", "July", "August",
-                      "September", "October", "November", "December"];
+            months = [JsResources.January, JsResources.February, JsResources.March, JsResources.April,
+                      JsResources.May, JsResources.June, JsResources.July, JsResources.August,
+                      JsResources.September, JsResources.October, JsResources.November, JsResources.December];
 
         switch (dateDifference) {
             case 0:
                 var timeObj = calculateSecondsDifferece();
                 if (timeObj.hours >= 1) {
-                    return Math.round(timeObj.hours) + ' hours ago';
+                    
+                    return ZboxResources.HoursAgo.format(Math.round(timeObj.hours));
                 }
                 if (timeObj.minutes >= 1) {
-                    return Math.round(timeObj.minutes) + ' minutes ago';
+                    return ZboxResources.MinAgo.format(Math.round(timeObj.minutes));
                 }
 
-                return 'Just now';
+                return JsResources.JustNow;
                 break;
             case 1:
-                return 'Yesterday';
+                return ZboxResources.Yesterday;
                 break;
 
             default:
@@ -139,7 +140,7 @@
                 } else if (dateMonth > todayMonth) {
                     return date.getDate() + ' ' + months[dateMonth] + ', ' + date.getFullYear();
                 } else {
-                    return dateDifference + ' days ago';
+                    return ZboxResources.DaysAgo.format(dateDifference);
                 }
                 break;
         }
