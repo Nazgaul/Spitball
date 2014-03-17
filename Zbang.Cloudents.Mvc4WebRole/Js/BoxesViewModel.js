@@ -124,22 +124,24 @@
             boxesList();
         });
 
-        cd.pubsub.subscribe('addedItem', function (d) {
-            cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });
-            cd.pubsub.publish('getUpdates');   
-        });
+        if (cd.register()) {
+            cd.pubsub.subscribe('addedItem', function (d) {
+                cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });
+                cd.pubsub.publish('getUpdates');
+            });
 
-        cd.pubsub.subscribe('addQuestion', function (newquestionobj) {
-            cd.newUpdates.addUpdate({ questionId: newquestionobj.question.id, boxId: newquestionobj.boxid });
-            cd.pubsub.publish('getUpdates');
-            
-        });
+            cd.pubsub.subscribe('addQuestion', function (newquestionobj) {
+                cd.newUpdates.addUpdate({ questionId: newquestionobj.question.id, boxId: newquestionobj.boxid });
+                cd.pubsub.publish('getUpdates');
 
-        cd.pubsub.subscribe('addAnswer', function (newAnswerObj) {
-            cd.newUpdates.addUpdate({ answerId: newAnswerObj.answer.id, boxId: newAnswerObj.box });
-            cd.pubsub.publish('getUpdates');
-        });
+            });
 
+            cd.pubsub.subscribe('addAnswer', function (newAnswerObj) {
+                cd.newUpdates.addUpdate({ answerId: newAnswerObj.answer.id, boxId: newAnswerObj.box });
+                cd.pubsub.publish('getUpdates');
+            });
+
+        }
         //function clearBoard() {
         //    self.boxes([]);
         //}
@@ -197,7 +199,10 @@
 
         function generateModel(data) {
             var boxes = data;
-            cd.pubsub.publish('getUpdates');
+            if (cd.register()) {
+                cd.pubsub.publish('getUpdates');
+            }
+            
 
             self.boxes([]);
             if (!cd.firstLoad) {

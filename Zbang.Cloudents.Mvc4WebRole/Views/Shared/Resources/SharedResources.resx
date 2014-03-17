@@ -460,4 +460,7 @@ To help you get started tell us where you study</value>
   <data name="SweetThanks" xml:space="preserve">
     <value>Sweet, Thanks</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

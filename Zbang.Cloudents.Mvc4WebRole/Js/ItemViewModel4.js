@@ -36,7 +36,7 @@
                         $otakimP = $('#Otakim_P'), $itemFS = $('#item_FS'), $itemCL = $('#item_CL'), $itemSettings = $('#itemSettings'),
                         $itemRenameSave = $('#itemRenameSave'), $itemName = $('#itemName'), $itemRename = $('#item_rename'),
                         $itemRenameCancel = $('#itemRenameCancel'), $rateBubble = $('#rateBubble'), $rateBtn = $('#rateBtn'),
-                        $ratePopup = $('#ratePopup'),
+                        $ratePopup = $('#ratePopup'), $commentsNumber = $('.commentsNumber'),
 
         //data
         isLtr = $('html').css('direction') === 'ltr', itemType, userType, blobName, annotationList = [],
@@ -58,6 +58,7 @@
         self.boxName = ko.observable();
         self.copyLink = ko.observable();
         self.download = ko.observable();
+        self.numberOfDownloads = ko.observable();
         self.numberOfViews = ko.observable();
         self.deleteAllow = ko.observable();
         self.flagAllow = ko.observable();
@@ -251,11 +252,15 @@
         cd.pubsub.subscribe(consts.item, function (data) {
             self.itemid(parseInt(data.id, 10));
 
-            if (!ratedItems) {
-                ratedItems = JSON.parse(cd.localStorageWrapper.getItem('ratedItems'));
+            if (cd.register()) {
                 if (!ratedItems) {
-                    ratedItems = {};
-                    ratedItems[cd.userDetail().nId] = [];
+                    ratedItems = JSON.parse(cd.localStorageWrapper.getItem('ratedItems'));
+                    if (!ratedItems) {
+                        ratedItems = {};
+                    }
+                    if (!ratedItems[cd.userDetail().nId]) {
+                        ratedItems[cd.userDetail().nId] = [];
+                    }
                 }
             }
 
@@ -360,6 +365,7 @@
                     .uniName(data.uniName)
                     .update(cd.dateToShow(data.updateTime))
                     .itemName(data.nameWOExtension || data.name)
+                    .numberOfDownloads(data.nDownloads)
                     .numberOfViews(data.numberOfViews || 1)
                     .extension(getExtension(data.name, data.type))
                     .extensionColor(getExtensionColor(data.name, data.type))
@@ -396,6 +402,8 @@
                     for (var i = 0; i < retVal.length; i++) {
                         annotationList.push(new AnnotationObj(retVal[i]));
                     }
+                    $commentsNumber.text(annotationList.length);
+
                 }
             });
         }
@@ -479,15 +487,25 @@
 
                     //rateitempopup
 
-                    if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
-                        return;
+               
+                    if (ratedItems && ratedItems[cd.userDetail().nId]) {
+                        if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
+                            return;
+                        }
                     }
 
                     $ratePopup.show();
                     ratePopupTimeout = setTimeout(function () {
                         $ratePopup.addClass('show');
 
-                        $ratePopup.one('click', '.star', function () {
+                        if (!cd.register()) {
+                            $ratePopup.one('click', '.star', function () {
+                                cd.unregisterAction(this);
+                            });
+                            return;
+                        }
+
+                        $ratePopup.one('click', '.star', function () {                          
                             var $this = $(this),
                                 startWidth = $('.stars .full').width(),
                                 itemRate = getItemRate(),
@@ -665,6 +683,10 @@
                         $ratePopup.removeClass('show').hide();
                     }
                     clearTimeout(ratePopupTimeout);
+
+                    $commentToggle.prop('checked', false).trigger('change');
+
+
                     trackEvent('move to a different item');
                 });
                 $itemPreview.on("scroll", '', function () {
@@ -708,7 +730,7 @@
                     }
                     var url = '/d/' + boxid + '/' + self.itemid();
                     window.open(url);
-                    trackEvent('Download', 'The number of downloads made on iten view');
+                    trackEvent('Download', 'The number of downloads made on item view');
                     cd.pubsub.publish('item_Download', { id: self.itemid() });
                 });
 
@@ -1158,6 +1180,7 @@
                         }));
                         clearAddAnnotation();
                         reProcessAnnotation(commentShow);
+                        $commentsNumber.text(annotationList.length);
                     },
                     error: function (msg) {
                         msg = msg || {};
@@ -1314,6 +1337,7 @@
                 }
 
             });
+
             $commentToggle.change(function () {
                 commentShow = this.checked;
                 var label = $(this).next()[0];

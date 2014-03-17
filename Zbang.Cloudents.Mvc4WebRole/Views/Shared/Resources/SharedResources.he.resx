@@ -457,4 +457,7 @@
   <data name="New" xml:space="preserve">
     <value>חדש</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>שם משתמש</value>
+  </data>
 </root>

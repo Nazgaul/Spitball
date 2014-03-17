@@ -108,8 +108,10 @@
                 },
                 success: function (result) {
                     generateModel(result.dto);
-                    cd.pubsub.publish('getUpdates');
-                    cd.newUpdates.deleteAll(boxid);                    
+                    if (cd.register()) {
+                        cd.pubsub.publish('getUpdates');
+                        cd.newUpdates.deleteAll(boxid);
+                    }
                 },
                 always: function () {
                     self.loaded(true);

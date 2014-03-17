@@ -147,4 +147,7 @@
   <data name="WillBeLogin" xml:space="preserve">
     <value>(זה יהיה הדוא"ל איתו תתחבר)</value>
   </data>
+  <data name="VerifyEmail" xml:space="preserve">
+    <value>הזן שוב כתובת דוא"ל</value>
+  </data>
 </root>
