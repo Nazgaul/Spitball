@@ -40,9 +40,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Throw.OnNull(message.Comment, "comment", false);
 
 
-            var user = m_UserRepository.Get(message.UserId);
+            var user = m_UserRepository.Load(message.UserId);
             Throw.OnNull(user, "user");
-            var item = m_ItemRepository.Get(message.ItemId);
+            var item = m_ItemRepository.Load(message.ItemId);
             Throw.OnNull(item, "item");
 
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, item.Box.Id); //user.GetUserType(box.Id);
@@ -52,8 +52,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var text = TextManipulation.EncodeText(message.Comment);
             ItemComment comment = new ItemComment(user, item, message.ImageId, text, message.X, message.Y, message.Width, message.Height);
+            item.IncreaseNumberOfComments();
             m_ItemCommentRepository.Save(comment);
-
+            m_ItemRepository.Save(item);
             message.AnnotationId = comment.Id;
         }
     }

@@ -224,7 +224,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         [AjaxCache(TimeToCache = 0)]
-        public async Task<ActionResult> Notifications()
+        public async Task<ActionResult> Notifications(int page = 0)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -233,7 +233,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = GetUserId();
             try
             {
-                var query = new GetInvitesQuery(userid);
+                var query = new GetInvitesQuery(userid, page);
                 var invites = await m_ZboxReadService.GetInvites(query);
 
                 var urlBuilder = new UrlBuilder(HttpContext);

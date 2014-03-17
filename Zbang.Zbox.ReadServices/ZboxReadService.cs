@@ -193,7 +193,8 @@ boxOwner.UniversityName  as Universityname
 								left join zbox.users boxOwner on boxOwner.UserId = b.OwnerId
 	                            where TypeOfMsg in (2,1)
                                 and (isActive = 1 or IsActive is null)
-	                            and m.RecepientId = @UserId;
+	                            and m.RecepientId = @UserId
+                                order by m.MessageId desc;
 ";
 
                 return await conn.QueryAsync<InviteDto>(dbQeury, new { UserId = query.UserId });
