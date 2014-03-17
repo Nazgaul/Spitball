@@ -18,7 +18,7 @@
     @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", placeholder = @MobileResources.Email, type="email" })
     @Html.ValidationMessageFor(m=>m.NewEmail)
      
-    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", placeholder = @MobileResources.VerifyEmail, type="email" })
+    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", placeholder = @RegisterResources.VerifyEmail, type="email" })
      @Html.ValidationMessageFor(m=>m.ConfirmEmail)
     @Html.PasswordFor(model => model.Password, new { @class = "inputText", placeholder = @MobileResources.Password })
      @Html.ValidationMessageFor(m=>m.Password)

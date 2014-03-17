@@ -147,4 +147,7 @@
   <data name="WillBeLogin" xml:space="preserve">
     <value>(This will be your login)</value>
   </data>
+  <data name="VerifyEmail" xml:space="preserve">
+    <value>Verify email</value>
+  </data>
 </root>

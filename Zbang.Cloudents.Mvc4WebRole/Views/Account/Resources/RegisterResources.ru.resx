@@ -147,4 +147,7 @@
   <data name="WillBeLogin" xml:space="preserve">
     <value>(Это будет ваш вход в систему)</value>
   </data>
+  <data name="VerifyEmail" xml:space="preserve">
+    <value>Подтвердить адрес электронной почты</value>
+  </data>
 </root>
