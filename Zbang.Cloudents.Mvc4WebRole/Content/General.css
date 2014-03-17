@@ -1079,6 +1079,9 @@ ul.ui-autocomplete li a {
   position: absolute;
   margin: 10px 0 0 0;
 }
+.register span.field-validation-error:last-of-type {
+  position: static;
+}
 .accntLabel {
   font-size: 15px;
   margin-bottom: 2px;

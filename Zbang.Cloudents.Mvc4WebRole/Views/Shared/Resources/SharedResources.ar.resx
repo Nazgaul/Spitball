@@ -457,4 +457,7 @@
   <data name="Rename" xml:space="preserve">
     <value>تغيير الاسم</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
 </root>

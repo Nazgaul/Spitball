@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.Account.Register
 
 
@@ -13,7 +14,7 @@
    
     Html.RenderAction("AntiForgeryToken", "Home", true);
 
-    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", placeholder = @MobileResources.Username })
+    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", placeholder = @SharedResources.Username })
     @Html.ValidationMessageFor(m=>m.NewUserName)
     @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", placeholder = @MobileResources.Email, type="email" })
     @Html.ValidationMessageFor(m=>m.NewEmail)
