@@ -164,7 +164,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/Statistics.js"),
 
                 //header
-                new JsFileWithCdn("~/Js/InviteViewModel2.js"),
+                //new JsFileWithCdn("~/Js/InviteViewModel2.js"),
+                new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
 
                 //dashboard page
                 new JsFileWithCdn("~/Js/BoxesViewModel.js"),
