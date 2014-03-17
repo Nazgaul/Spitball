@@ -89,7 +89,7 @@
                     }
                 });
             };
-            _that.isNew = ko.observable(false);
+            _that.isNew = ko.observable(data.isNew || false);
 
         }
         function Answer(data) {
@@ -100,7 +100,7 @@
             _that.userName = data.userName;
             _that.userImg = data.userImage;
             _that.userId = data.userId;
-            
+
             _that.content = data.content.replace(/\n/g, '<br/>');
             _that.rating = ko.observable(data.rating);
             _that.irate = data.iRate;
@@ -111,7 +111,7 @@
             _that.canDelete = ko.computed(function () {
                 return _that.userId === cd.userDetail().nId || self.isOwner();
             });
-            _that.isNew = ko.observable(false);
+            _that.isNew = ko.observable(data.isNew || false);
 
         }
         function File(data) {
@@ -137,7 +137,7 @@
 
         var self = this, boxid = '';
         self.permission = ko.observable('none');
-        self.isOwner = ko.computed(function() {
+        self.isOwner = ko.computed(function () {
             return self.permission().toLowerCase() === 'owner';
         });
 
@@ -165,8 +165,18 @@
             analytics.trackEvent('Answer', 'Click on answer', 'The number of clicks on show answer');
             $(e.target).parents('.QItem').addClass('selected');
 
-            q.isNew(false);
-            cd.newUpdates.deleteUpdate('questions', boxid, q.id);
+            if (q.isNew()) {
+                q.isNew(false);
+                cd.newUpdates.deleteUpdate({ type: 'questions', boxId: boxid, id: q.id });
+            }
+
+            for (var i = 0, l = q.answers().length; i < l; i++) {
+                var answer = q.answers()[i];
+                if (answer.isNew()){
+                    cd.newUpdates.deleteUpdate({ type: 'answers', boxId: boxid, id: answer.id });
+                }
+            }
+
 
             $('#Answers').show();
 
@@ -203,23 +213,25 @@
         });
 
         cd.pubsub.subscribe('updates', function (updates) {
-            var userId = cd.userDetail().nId,
-                box = updates[userId][boxid],
-                questions, question;
+            var box = updates[boxid],
+                questions, question, answers, answer;
 
             if (!box) {
                 return;
             }
 
-            questions = updates[userId][boxid].questions;
+            questions = box.questions;
+            answers = box.answers;
 
-            if (!questions) {
-                return;
-            }
 
             for (var i = 0, l = self.questionList().length; i < l; i++) {
                 question = self.questionList()[i];
                 question.isNew(questions.indexOf(question.id) > -1);
+
+                for (var j = 0, le = question.answers().length; j < le; j++) {
+                    answer = question.answers()[j];
+                    answer.isNew(box.answers.indexOf(answer.id) > -1);
+                }
             }
 
         });
@@ -239,20 +251,26 @@
         });
 
         cd.pubsub.subscribe('addQuestion', function (newquestionobj) {
+            var newquestion;
             if (boxid === newquestionobj.boxid) {
-                var newquestion = new Question(newquestionobj.question);
+                newquestionobj.question.isNew = true;
+                newquestion = new Question(newquestionobj.question);
                 self.questionList.unshift(newquestion);
             }
+            cd.newUpdates.addUpdate({ questionId: newquestionobj.question.id, boxId: newquestionobj.boxid });
         });
         cd.pubsub.subscribe('addAnswer', function (newAnswerObj) {
-            var questionId = newAnswerObj.questionid;
+            var questionId = newAnswerObj.questionid, newAnswer;
             var question = ko.utils.arrayFirst(self.questionList(), function (q) {
                 return q.id === questionId;
             });
             if (question) {
-                var newAnswer = new Answer(newAnswerObj.answer);
+                newAnswerObj.answer.isNew = true;
+                newAnswer = new Answer(newAnswerObj.answer);
                 question.answers.push(newAnswer);
+
             }
+            cd.newUpdates.addUpdate({ answerId: newAnswerObj.answer.id, boxId: box });
             // self.postAnswer
         });
 
@@ -376,7 +394,7 @@
                         userId: cd.userDetail().nId,
                         userName: cd.userDetail().name,
                         userImage: cd.userDetail().img,
-                        userUrl : cd.userDetail().url,
+                        userUrl: cd.userDetail().url,
                         content: extractUrls($.trim(textArea.val())),
                         rating: 0,
                         creationTime: new Date(),
@@ -541,7 +559,7 @@
             //    pos = position;
             //});
 
-            $('#box_QA').on('click','.attachDownload',function (e) {
+            $('#box_QA').on('click', '.attachDownload', function (e) {
                 if (!cd.register()) {
                     e.preventDefault();
                     cd.pubsub.publish('register');
@@ -659,7 +677,7 @@
                     $this.parents('form').find('button').attr('disabled', 'disabled');
                 }
             }
-        }        
+        }
     }
 
 

@@ -169,7 +169,6 @@
                     cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
                 }
 
-                cd.newUpdates.deleteAll(self.boxid);
                 cd.pubsub.publish('box_load', self.boxid);
 
                 setTimeout(function () {
@@ -551,6 +550,10 @@
                 cd.pubsub.publish('message',
                     { text: ZboxResources.FindThisInteresting + '\n\u200e"' + self.name() + '" - ' + cd.location() }
                     );
+            });
+
+            $('.boxActions').find('.backWpr').click(function () {
+                cd.newUpdates.deleteLocalUpdates(self.boxid);
             });
 
             //cd.menu($('#box_CL'),$('#boxShareMenu'), function () {

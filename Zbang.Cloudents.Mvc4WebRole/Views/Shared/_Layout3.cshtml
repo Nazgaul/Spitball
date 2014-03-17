@@ -123,15 +123,10 @@
     </div>
     @{
         Html.RenderPartial("_Message", new Zbang.Cloudents.Mvc4WebRole.Models.Share.Message());
-
         if (!User.Identity.IsAuthenticated)
         {
-            Html.RenderPartial("_RegisterPopUp");
+            Html.RenderPartial("_Welcome");
         }
-    }
-    @if (!User.Identity.IsAuthenticated)
-    {
-        Html.RenderPartial("_Welcome");
     }
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
@@ -161,8 +156,9 @@
     </script>
     <script type="text/html" id="titleToolTipTempalte">
         <div class="titleTooltip">
-            <div style="position:relative">
-                <div class="toolTipContent">{{title}}<div class="ttArrow"></div></div>
+            <div style="position: relative">
+                <div class="toolTipContent">{{title}}<div class="ttArrow"></div>
+                </div>
             </div>
         </div>
 
@@ -200,7 +196,7 @@
             </a>
         </li>
     </script>
-    <div style="position:absolute;z-index:1000;background-color:#fff;width:200px;height:100px;display:none;" id="genericTooltipGuide" >
+    <div style="position: absolute; z-index: 1000; background-color: #fff; width: 200px; height: 100px; display: none;" id="genericTooltipGuide">
         <div class="stepTip" data-step="0" style="display=none;">
             <div class="titleTip">text number 1</div>
             <div class="textTip">this is some first text</div>

@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class Updates
     {
-        public const string GetUserUpdates = @"select BoxId,QuestionId,AnswerId,ItemId,ItemCommentId from zbox.NewUpdates
+        public const string GetUserUpdates = @"select BoxId,QuestionId,AnswerId,ItemId,ItemCommentId as AnnotationId from zbox.NewUpdates
 where UserId = @userid";
     }
 }

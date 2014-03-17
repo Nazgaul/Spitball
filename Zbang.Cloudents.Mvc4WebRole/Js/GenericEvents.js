@@ -32,17 +32,6 @@
         }
     });
 
-
-
-    //#endregion
-
-    //#region window resize 
-    var resizeFunc = cd.debounce(function () {
-        cd.pubsub.publish('windowChanged');
-    }, 50);
-    $window.resize(resizeFunc);
-    //#endregion
-
     //#region dropdown
     var slideSpeed = 150;
     var $userMenu = $('ul.userMenu');
@@ -64,6 +53,17 @@
         analytics.trackEvent('User Menu', 'Settings', 'User clicked settings on the user menu');
     });
     //#endregion
+    //#endregion
+
+
+    //#region window resize 
+    var resizeFunc = cd.debounce(function () {
+        cd.pubsub.publish('windowChanged');
+    }, 50);
+    $window.resize(resizeFunc);
+    //#endregion
+
+
 
     //#region close dialog
     $document.on('click', '[data-closeDiag]', function () {
@@ -141,7 +141,7 @@
     });
     //#endregion
 
-    //#region mouse stop
+    //#region hover intent
     (function ($) {
         $.fn.hoverIntent = function (handlerIn, handlerOut, selector) {
 
@@ -269,11 +269,11 @@
 
             if (tooltipWidth > elemPos.left) {
                 positionX = elemPos.left;
-                $arrow.css({ 'left': arrowMargin + 'px' ,right:'auto'});
+                $arrow.css({ 'left': arrowMargin + 'px', right: 'auto' });
             } else if (screenWidth - elemPos.left < tooltipWidth) {
                 positionX = elemPos.left - tooltipWidth + triggerWidth;
-                $arrow.css({right: arrowMargin + 'px',left:'auto'});
-            } else {                
+                $arrow.css({ right: arrowMargin + 'px', left: 'auto' });
+            } else {
                 positionX = elemPos.left - middle;
 
             }
@@ -318,7 +318,7 @@
         }
         //#endregion
 
-      
+
     });
 
 
@@ -334,47 +334,30 @@
         });
 
         cd.newUpdates = {};
-
-        function deleteUpdate(type, boxId, id) {
+     
+        function deleteUpdate(update) {
             if (!updates) {
                 return;
             }
-            var updateIndex = updates[userId][boxId][type].indexOf(id);
-            updates[userId][boxId][type].splice(updateIndex, 1);
+            var updateIndex;
+
+            update.boxId = parseInt(update.boxId, 10);
+
+            if (update.annotationId) {
+                update.itemId = parseInt(update.itemId, 10);
+                var annotations = updateIndex = updates[userId][update.boxId].annotations;
+                updateIndex = annotations[update.itemId].indexOf(update.annotationId);
+                annotations[update.itemId].splice(updateIndex, 1);
+                return;
+            }
+
+            if (update.itemId) {
+                update.id = parseInt(update.id, 10);
+            }
+            updateIndex = updates[userId][update.boxId][update.type].indexOf(update.id);
+            updates[userId][update.boxId][update.type].splice(updateIndex, 1);
         }
-
-        //get data for type
-        function isNew(type, boxId, id) {
-            if (!updates) {
-                return false;
-            }
-
-            if (new Date().getTime() - updates[userId].ttl > cd.OneDay) {
-                return false;
-            }
-
-            if (!updates[userId][boxId]) {
-                return false;
-            }
-
-            return updates[userId][boxId][type].indexOf(id) > -1;
-        }
-
-        function getNumberOfUpdates(boxId) {
-            if (!updates) {
-                return false;
-            }
-
-            if (new Date().getTime() - updates[userId].ttl > cd.OneDay) {
-                return false;
-            }
-            if (!updates[userId][boxId]) {
-                return 0;
-            }
-
-
-        }
-
+           
         function deleteUpdates(boxId) {
 
             dataContext.deleteUpdates({
@@ -383,9 +366,21 @@
 
         }
 
+        function deleteLocalUpdates(boxId) {
+            boxId = parseInt(boxId, 10);
+            if (updates[userId][boxId]) {
+                updates[userId][boxId] = null;
+            }            
+        }
+
         function getData() {
-            if (updates) {
-                cd.pubsub.publish('updates', updates)
+            if (updates && updates[userId]) {
+                if (new Date().getTime() - updates[userId].ttl > cd.OneDay) {
+                    updates = null;
+                    getData();
+                    return;
+                }
+                cd.pubsub.publish('updates', updates[userId])
                 return;
             }
 
@@ -395,12 +390,9 @@
             updating = true;
             dataContext.newUpdates({
                 success: function (data) {
-                    data = data || [];
-                    if (!data.length) { //no updates
-                        return
-                    }
+                    data = data || [];                  
                     parseData(data);
-                    cd.pubsub.publish('updates', updates)
+                    cd.pubsub.publish('updates', updates[userId])
                 }
             });
 
@@ -408,41 +400,69 @@
                 updates = {};
                 updates[userId] = {};
 
+                if (!data.length) { //no updates
+                    return;
+                }
+
                 var currentUpdate;
                 for (var i = 0, l = data.length; i < l; i++) {
                     currentUpdate = data[i];
 
-                    if (!updates[cd.userDetail().nId][currentUpdate.boxId]) {
-                        updates[userId][currentUpdate.boxId] = {};
-                        updates[userId][currentUpdate.boxId].items = [];
-                        updates[userId][currentUpdate.boxId].questions = [];
-                        updates[userId][currentUpdate.boxId].answers = [];
-                    }
-
-                    insertUpdate();
+                   
+                    addUpdate(currentUpdate)
                 }
 
                 updates[userId].ttl = new Date().getTime();
 
-                function insertUpdate() {
-                    if (currentUpdate.itemId) {
-                        updates[userId][currentUpdate.boxId].items.push(currentUpdate.itemId);
-                    } else if (currentUpdate.questionId) {
-                        updates[userId][currentUpdate.boxId].questions.push(currentUpdate.questionId);
-                    } else if (currentUpdate.answerId) {
-                        updates[userId][currentUpdate.boxId].answers.push(currentUpdate.answerId);
-                    } else {
-                        //no update error?
-                    }
-                }
-
+                
             }
         }
-        cd.newUpdates.isNew = isNew;
-        cd.newUpdates.numOfUpdates = getNumberOfUpdates;
-        cd.newUpdates.deleteAll = deleteUpdates;
-        cd.newUpdates.deleteUpdate = deleteUpdate;
+        function addUpdate(update) {
+            if (!updates) {
+                return;
+            }
+            update.boxId = parseInt(update.boxId, 10);
 
+            if (!updates[cd.userDetail().nId][update.boxId]) {
+                updates[userId][update.boxId] = {};
+                updates[userId][update.boxId].items = [];
+                updates[userId][update.boxId].questions = [];
+                updates[userId][update.boxId].answers = [];
+                updates[userId][update.boxId].annotations = {};
+            }
+
+
+            if (update.itemId) {
+                if (updates[userId][update.boxId].items.indexOf(update.Id) === -1) {
+                    updates[userId][update.boxId].items.push(parseInt(update.itemId, 10));
+                }
+            } else if (update.annotationId) {
+                update.itemId = parseInt(update.itemId, 10);
+                if (!updates[userId][update.boxId].annotations[update.itemId]) {
+                    updates[userId][update.boxId].annotations[update.itemId] = [];
+                }
+                if (updates[userId][update.boxId].annotations[update.itemId].indexOf(update.annotationId) === -1) {
+                    updates[userId][update.boxId].annotations[update.itemId].push(update.annotationId);
+                }
+            } else if (update.questionId) {
+                if (updates[userId][update.boxId].questions.indexOf(update.questionId) === -1) {
+                    updates[userId][update.boxId].questions.push(update.questionId);
+                }
+
+            } else if (update.answerId) {
+                if (updates[userId][update.boxId].answers.indexOf(update.answerId) === -1) {
+                    updates[userId][update.boxId].answers.push(update.answerId);
+                }
+
+            } else {
+                //no update error?
+            }
+        }
+
+        cd.newUpdates.deleteAll = deleteUpdates;
+        cd.newUpdates.deleteLocalUpdates = deleteLocalUpdates;
+        cd.newUpdates.deleteUpdate = deleteUpdate;
+        cd.newUpdates.addUpdate = addUpdate //signalR
     })();
 
 

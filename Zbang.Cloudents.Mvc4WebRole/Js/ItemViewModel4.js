@@ -504,7 +504,7 @@
 
                         });
                         $ratePopup.one('click', '.closeDialog', function (e) {
-                            $ratePopup.remove();
+                            $ratePopup.hide();
                             ratedItems[cd.userDetail().nId].push(self.itemid());
                             cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
 

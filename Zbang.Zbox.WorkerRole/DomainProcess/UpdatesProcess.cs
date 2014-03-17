@@ -28,8 +28,8 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
                     parameters.UserWhoMadeActionId,
                     parameters.QuestionId,
                     parameters.AnswerId,
-                    parameters.ItemId,
-                    parameters.AnnotationId));
+                    parameters.ItemId
+                   ));
                 //var command = new UpdateStatisticsCommand(parameters4.ItemsIds.Select(s => new Zbang.Zbox.Domain.Commands.UpdateStatisticsCommand.StatisticItemData { ItemId = s.Id, Action = (StatisticsAction)s.Action }), parameters4.UserId, parameters4.StatTime);
                 //m_ZboxWriteService.Statistics(command);
             }
