@@ -6,35 +6,41 @@
         return;
     }
     var eById = document.getElementById.bind(document),
-        registerPopup = eById('register'), registerForm = eById('registerForm'),
-        showPopup = eById('showRegisterPopup'), cancelPopup = eById('cancelRegisterPopup'), regPopup = eById('regPopup'),
-        connectPopup = eById('connect'), connectForm = eById('login');
+        $registerPopup = $(eById('register')), $registerForm = $(eById('registerForm')),
+        $cancelPopup = $(eById('cancelRegisterPopup')), regPopup = eById('regPopup'),
+        $connectPopup = $(eById('connect')), $connectForm = $(eById('login'));
     
     //#region Show and Hide popups
     $(document).on('click', '.addConnect', function () {
         resetPopupView();
-        $(connectPopup).addClass('connect');
+        $connectPopup.addClass('connect');
+        focusOnElement($connectPopup);
     });
     $(document).on('click', '.addRegister', function () {
         resetPopupView();
-        $(registerPopup).addClass('register');
+        $registerPopup.addClass('register');
+        focusOnElement($registerPopup);
     });
 
     $('[data-closelogin]').click(resetPopupView);
 
     cd.pubsub.subscribe('register', function () {
         resetPopupView();
-        $(registerPopup).addClass('register');
+        $registerPopup.addClass('register');
+        focusOnElement($registerPopup);
     });
 
-    $(cancelPopup).click(function () {
+    $cancelPopup.click(function () {
         regPopup.style.display = 'none';
     });
 
+    function focusOnElement($popup) {
+        $popup.find('.inputText').first().focus();
+    }
 
     function resetPopupView() {
-        $(registerPopup).removeClass('register');
-        $(connectPopup).removeClass('connect');
+        $registerPopup.removeClass('register');
+        $connectPopup.removeClass('connect');
         if (regPopup) {
             regPopup.style.display = 'none';
         }
@@ -42,7 +48,7 @@
     //#endregion
 
 
-    $(connectForm).submit(function (e) {
+    $connectForm.submit(function (e) {
         e.preventDefault();
         var $form = $(this), $submit = $form.find(':submit');
         if (!(!$form.valid || $form.valid())) {
@@ -71,7 +77,7 @@
         });
     });
 
-    $(registerForm).submit(function (e) {
+    $registerForm.submit(function (e) {
         e.preventDefault();
 
         var $form = $(this), $submit = $form.find(':submit');
