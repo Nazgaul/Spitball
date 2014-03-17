@@ -1151,6 +1151,10 @@ ul.ui-autocomplete {
         position: absolute;
         margin: 10px 0 0 0; //override
     }
+    span.field-validation-error:last-of-type
+    {
+        position: static; //override (so that the min length pwd error doesn't cover the t&s text)
+    }
 }
 
 .accntLabel {

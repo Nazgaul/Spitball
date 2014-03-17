@@ -165,9 +165,6 @@
   <data name="Terms" xml:space="preserve">
     <value>Условия предоставления услуг</value>
   </data>
-  <data name="Username" xml:space="preserve">
-    <value>Имя пользователя</value>
-  </data>
   <data name="UserSettings" xml:space="preserve">
     <value>Пользовательские настройки</value>
   </data>
