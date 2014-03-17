@@ -222,10 +222,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
         [OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
         [HttpGet]
-        [ActionName("Invites")]
         [Ajax]
         [AjaxCache(TimeToCache = 0)]
-        public async Task<ActionResult> InvitesData()
+        public async Task<ActionResult> Notifications()
         {
             if (!User.Identity.IsAuthenticated)
             {

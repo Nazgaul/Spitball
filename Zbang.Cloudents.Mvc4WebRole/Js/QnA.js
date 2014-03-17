@@ -186,7 +186,9 @@
             $QForm.css('margin-bottom', -$QForm.outerHeight(true) - 20 + 'px');
             self.state(state.answers);
             if (e.target.getAttribute('data-action')) {
-                $('.enterAnswer').find('textarea').focus();
+                setTimeout(function () { //fix for animation
+                    $('.enterAnswer').find('textarea').focus();
+                }, 1000);
             }
             cd.pubsub.publish('clearTooltip');
         };

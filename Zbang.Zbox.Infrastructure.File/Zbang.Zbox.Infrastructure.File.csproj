@@ -93,7 +93,6 @@
     <Compile Include="YoutubeProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Aspose.Total.lic">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
