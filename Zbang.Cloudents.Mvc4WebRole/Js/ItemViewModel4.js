@@ -730,7 +730,7 @@
                     }
                     var url = '/d/' + boxid + '/' + self.itemid();
                     window.open(url);
-                    trackEvent('Download', 'The number of downloads made on iten view');
+                    trackEvent('Download', 'The number of downloads made on item view');
                     cd.pubsub.publish('item_Download', { id: self.itemid() });
                 });
 

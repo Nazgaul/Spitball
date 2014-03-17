@@ -13,19 +13,18 @@
     //#region Show and Hide popups
     $(document).on('click', '.addConnect', function () {
         resetPopupView();
-        connectPopup.classList.add('connect');
+        $(connectPopup).addClass('connect');
     });
     $(document).on('click', '.addRegister', function () {
         resetPopupView();
-        registerPopup.classList.add('register');
+        $(registerPopup).addClass('register');
     });
 
     $('[data-closelogin]').click(resetPopupView);
 
     cd.pubsub.subscribe('register', function () {
         resetPopupView();
-        registerPopup.classList.add('register');
-
+        $(registerPopup).addClass('register');
     });
 
     $(cancelPopup).click(function () {
@@ -34,8 +33,8 @@
 
 
     function resetPopupView() {
-        registerPopup.classList.remove('register');
-        connectPopup.classList.remove('connect');
+        $(registerPopup).removeClass('register');
+        $(connectPopup).removeClass('connect');
         if (regPopup) {
             regPopup.style.display = 'none';
         }
