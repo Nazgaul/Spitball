@@ -51,9 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Aspose.Slides.NET.14.1.2.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Words, Version=14.1.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Words, Version=14.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Words.14.1.0\lib\net3.5-client\Aspose.Words.dll</HintPath>
+      <HintPath>..\packages\Aspose.Words.14.2.0\lib\net3.5-client\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="ImageResizer, Version=3.4.2.549, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

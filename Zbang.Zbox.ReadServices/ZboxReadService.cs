@@ -179,15 +179,23 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                var dbQeury = @"select b.BoxId as BoxUid, b.BoxName as BoxName, u.UserName as BoxOwner,
-                                u.universityname as Universityname
+                var dbQeury = @"select u.UserImage as userpic,
+ u.UserName as username,
+  m.CreationTime as date,
+  m.NotRead as isread,
+  m.Text as message,m.MessageId,
+b.BoxName,
+b.BoxId,
+boxOwner.UniversityName  as Universityname
 	                            from zbox.Message m
-	                            inner join zbox.box b on m.BoxId = b.BoxId
-	                            inner join zbox.users u on u.UserId = b.OwnerId
-	                            where TypeOfMsg = 2
-                                and b.IsDeleted = 0
+	                            left join zbox.box b on m.BoxId = b.BoxId and b.IsDeleted = 0
+	                            inner join zbox.users u on u.UserId = m.SenderId
+								left join zbox.users boxOwner on boxOwner.UserId = b.OwnerId
+	                            where TypeOfMsg in (2,3)
+                                
                                 and isActive = 1
-	                            and m.RecepientId = @UserId;";
+	                            and m.RecepientId = @UserId;
+";
 
                 return await conn.QueryAsync<InviteDto>(dbQeury, new { UserId = query.UserId });
             }

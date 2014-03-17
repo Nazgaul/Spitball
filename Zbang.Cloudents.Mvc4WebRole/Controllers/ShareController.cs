@@ -240,7 +240,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var urlBuilder = new UrlBuilder(HttpContext);
                 return this.CdJson(new JsonResponse(true, invites.Select(s =>
                 {
-                    s.Url = urlBuilder.BuildBoxUrl(s.BoxUid, s.BoxName, s.Universityname);
+                    if (s.BoxId.HasValue)
+                    {
+                        s.Url = urlBuilder.BuildBoxUrl(s.BoxId.Value, s.BoxName, s.Universityname);
+                    }
                     return s;
                 })));
             }
