@@ -209,7 +209,9 @@
         cd.pubsub.subscribe('box', function (data) {
             boxid = data.id;
             getQuestions();
-            cd.pubsub.publish('getUpdates');
+            if (cd.register()) {
+                cd.pubsub.publish('getUpdates');
+            }
         });
 
         cd.pubsub.subscribe('updates', function (updates) {
