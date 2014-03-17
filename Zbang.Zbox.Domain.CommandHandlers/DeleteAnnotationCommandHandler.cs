@@ -15,11 +15,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
+        private readonly IRepository<Item> m_ItemRepository;
 
-        public DeleteAnnotationCommandHandler(IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository)
+        public DeleteAnnotationCommandHandler(IUserRepository userRepository, 
+            IRepository<ItemComment> itemCommentRepository,
+            IRepository<Item> itemRepository)
         {
             m_UserRepository = userRepository;
             m_ItemCommentRepository = itemCommentRepository;
+            m_ItemRepository = itemRepository;
         }
         public void Handle(DeleteAnnotationCommand message)
         {
@@ -32,6 +36,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
             }
+            itemComment.Item.DecreaseNumberOfComments();
+            m_ItemRepository.Save(itemComment.Item);
 
             m_ItemCommentRepository.Delete(itemComment);
         }

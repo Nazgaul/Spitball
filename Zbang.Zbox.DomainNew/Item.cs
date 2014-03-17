@@ -41,10 +41,20 @@ namespace Zbang.Zbox.Domain
 
         public virtual float Rate { get; internal set; }
         public virtual bool Sponsored { get; set; }
+        public virtual int NumberOfComments { get; private set; }
 
         public void IncreaseNumberOfViews()
         {
             NumberOfViews++;
+        }
+
+        public virtual void IncreaseNumberOfComments()
+        {
+            NumberOfComments++;
+        }
+        public virtual void DecreaseNumberOfComments()
+        {
+            NumberOfComments--;
         }
 
 

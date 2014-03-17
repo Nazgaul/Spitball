@@ -14,6 +14,7 @@
     <property name="Size"/>
     <!--<property name="Uid" access="readonly"/>-->
     <property name="NumberOfViews"/>
+    <property name="NumberOfComments"/>
     <component name="DateTimeUser" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
       <property name="UpdateTime"  not-null="true" insert="true"  />

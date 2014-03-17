@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
     public abstract class ItemDto
@@ -14,7 +15,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             float rate,
             string thumbnail,
             bool sponsored,
-            string owner, string description)
+            string owner, 
+            DateTime date)
         {
             Id = id;
             Name = name;
@@ -26,7 +28,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             Thumbnail = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(thumbnail);
             Owner = owner;
             Sponsored = sponsored;
-            Description = description;
+            Date = date;
         }
 
         public long Id { get; private set; }
@@ -44,8 +46,10 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 
         public string Thumbnail { get; private set; }
 
-        public string Description { get; private set; }
+       
         public bool Sponsored { get; private set; }
+
+        public DateTime Date { get; set; }
         
     }
 }
