@@ -191,9 +191,8 @@ boxOwner.UniversityName  as Universityname
 	                            left join zbox.box b on m.BoxId = b.BoxId and b.IsDeleted = 0
 	                            inner join zbox.users u on u.UserId = m.SenderId
 								left join zbox.users boxOwner on boxOwner.UserId = b.OwnerId
-	                            where TypeOfMsg in (2,3)
-                                
-                                and isActive = 1
+	                            where TypeOfMsg in (2,1)
+                                and (isActive = 1 or IsActive is null)
 	                            and m.RecepientId = @UserId;
 ";
 

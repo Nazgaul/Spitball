@@ -41,7 +41,7 @@
 
 
 
-    definition.getInvites = new definitionobj({ url: share + "Invites", type: get });
+    definition.getInvites = new definitionobj({ url: share + "Notifications", type: get });
     //test
     definition.fbBoxInvite = new definitionobj({ url: share + 'InviteBoxFacebook', isJson: true });
     definition.fbInvite = new definitionobj({ url: share + 'InviteFacebook', isJson: true });
