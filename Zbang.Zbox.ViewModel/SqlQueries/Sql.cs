@@ -14,7 +14,6 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                         (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
                         from zbox.users u 
                         where u.usertype = 1 
-                        --and u.Country = @country
                         order by MemberCount desc";
         public const string GetWallList = @"select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action, universityname as uniName
                                     from (	 
@@ -113,47 +112,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                                   and ub.UserId = @UserId
                                   ORDER BY ub.UserBoxRelId desc;";
 
-        public const string SearchLibraryWithPrivate = @"
-                    select  b.boxid as id, b.BoxName, b.BoxPicture as BoxPicture,
-                          ub.UserType, 
-                          b.itemcount as ItemCount,
-                           b.MembersCount as MembersCount,
-	                       b.commentcount as CommentCount,
-	                        b.CourseCode,
-	                       b.ProfessorName,
-                         b.Discriminator as BoxType,
-	                    case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else ''
-								                    end as universityname
-                          from Zbox.box b, zbox.UserBoxRel ub
-                          where 
-                          b.IsDeleted = 0   
-                          and b.BoxId = ub.BoxId
-                          and ub.UserId = @userid   
-                          and b.BoxName like '%' + @query + '%'
-                         union
-	                       select b.boxid, b.BoxName,b.BoxPicture,
-                          (select ub2.UserType from zbox.UserBoxRel ub2 where ub2.userid = @userid  and ub2.boxid = b.BoxId) as UserType,
-                          b.itemcount as ItemCount,
-                           b.MembersCount as MembersCount,
-                          b.commentcount as CommentCount,
-                          b.CourseCode,
-                          b.ProfessorName,
-     
-                          b.Discriminator as BoxType,
-	                      case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else ''
-								                    end as universityname
-                          from Zbox.box b
-                          where 
-                          b.IsDeleted = 0   
-                          and b.PrivacySetting =3
-                          and b.ownerid = @universityId  
-                          and (b.BoxName like '%' + @query + '%'
-	                        or b.CourseCode like '%' + @query + '%'
-	                        or b.ProfessorName like '%' + @query + '%')
-                          order by b.BoxName
-";
+       
         /// <summary>
         /// Used in user page to get boxes common with current user and his friend
         /// </summary>
