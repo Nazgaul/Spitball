@@ -127,13 +127,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     var query = new GetUserByFacebookQuery(facebookUserData.id);
                     user = m_ZboxReadService.GetUserDetailsByFacebookId(query);
-                    try
-                    {
-                        var command = new UpdateUserEmailCommand(user.Uid, facebookUserData.email, true);
-                        m_ZboxWriteService.UpdateUserEmail(command);
-                    }
-                    catch
-                    { }
+                    //try
+                    //{
+                    //    var command = new UpdateUserEmailCommand(user.Uid, facebookUserData.email, true);
+                    //    m_ZboxWriteService.UpdateUserEmail(command);
+                    //}
+                    //catch
+                    //{ }
                 }
                 catch (UserNotFoundException)
                 {
