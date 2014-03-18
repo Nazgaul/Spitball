@@ -12,7 +12,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         const string Category = "Update";
         const string Subject = "Cloudents Update";
-        //{Updates}
+
+        // private string cube, moreTemplate;
+        //answerTemplate, itemTemplate, memberTemplate, , questionTemplate;
+
+        public UpdatesMail()
+        {
+
+        }
+
         public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
         {
             Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
@@ -23,44 +31,56 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(updateParams, "updateParams");
 
             message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Updates");
+            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Updates");
 
-            var cube = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesBoxCube");
-            var line = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesLine");
+            var cube = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.UpdatesList");
+            //answerTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Answer");
+            ////itemTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Item");
+            //memberTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Member");
+
+            //questionTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Question");
+
 
             var sb = new StringBuilder();
             foreach (var boxUpdate in updateParams.Updates)
             {
-                sb.Append(generateBoxCube(boxUpdate, message, cube, line));
+                sb.Append(generateBoxCube(boxUpdate, parameters.UserCulture, cube));
             }
 
 
             //message.Text = textBody;
             message.Subject = Subject;
-            message.Html = message.Html.Replace("{Updates}", sb.ToString());
+
+            message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
+            message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
+            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions).ToString());
+            message.Html = message.Html.Replace("{X-ANSWERS}", updateParams.NoOfAnswers.ToString());
+            message.Html = message.Html.Replace("{X-QUESTIONS}", updateParams.NoOfQuestions.ToString());
+            message.Html = message.Html.Replace("{X-NEW-ITEMS}", updateParams.NoOfItems.ToString());
             // message.AddSubVal("{Updates}", new List<string> { sb.ToString() });
             //message.AddSubVal("{USER-NAME}", new List<string> { "Ram" });
         }
 
-        private string generateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, SendGridMail.ISendGrid message, string cube, string line)
+        private string generateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, CultureInfo culture, string cube)
         {
-            // var randomBoxStringReplacement = Guid.NewGuid().ToString();
             cube = cube.Replace("{BOX-NAME}", boxUpdate.BoxName);
 
-            //message.AddSubVal(randomBoxStringReplacement, new List<string> { boxUpdate.BoxName });
             StringBuilder sb = new StringBuilder();
             foreach (var update in boxUpdate.Updates)
             {
-                sb.Append(generateLineUpdate(update, line));
+                sb.Append(update.BuildMailLine(culture));
             }
-            cube = cube.Replace("{lineOfUpdates}", sb.ToString());
+            if (boxUpdate.ExtraUpdatesCount > 0)
+            {
+                var moreTemplate = LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.More");
+                moreTemplate = moreTemplate.Replace("{NUM-MORE}", boxUpdate.ExtraUpdatesCount.ToString());
+                moreTemplate = moreTemplate.Replace("{BOX-URL}", boxUpdate.Url);
+                sb.Append(moreTemplate);
+            }
+            cube = cube.Replace("{BOX_UPDATES}", sb.ToString());
             return cube;
         }
 
-        private string generateLineUpdate(UpdateMailParams.BoxUpdateDetails update, string line)
-        {
-            return line.Replace("{USER-NAME}", update.UserName).Replace("{ACTION-ELEM}", update.ActionElement)
-                   .Replace("{ACTION-TEXT}", update.ActionText.GetEnumDescription()).Replace("{ACTION-URL}", update.ActionUrl);
-        }
+
     }
 }

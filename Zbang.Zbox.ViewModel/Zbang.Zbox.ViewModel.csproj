@@ -76,7 +76,7 @@
     <Compile Include="DTOs\Dashboard\UniversityDashboardInfoDto.cs" />
     <Compile Include="DTOs\Dashboard\WallDto.cs" />
     <Compile Include="DTOs\Emails\BoxDigestDto.cs" />
-    <Compile Include="DTOs\Emails\CommentDigestDto.cs" />
+    <Compile Include="DTOs\Emails\QnADigestDto.cs" />
     <Compile Include="DTOs\Emails\ItemDigestDto.cs" />
     <Compile Include="DTOs\Emails\MembersDigestDto.cs" />
     <Compile Include="DTOs\Emails\BadItemDto.cs" />

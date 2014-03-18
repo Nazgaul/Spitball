@@ -175,22 +175,32 @@
     <EmbeddedResource Include="MailTemplate\PersonalMsgHe.html" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\More.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList.html" />
+=======
     <Content Include="MailTemplate\InviteCloudents.html" />
     <Content Include="MailTemplate\InviteCloudentsHe.html" />
     <Content Include="MailTemplate\UpdatesEmail\Answer.html" />
+    <Content Include="MailTemplate\UpdatesEmail\AnswerHe.html" />
     <Content Include="MailTemplate\UpdatesEmail\Item.html" />
+    <Content Include="MailTemplate\UpdatesEmail\ItemHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\Member.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MemberHe.html" />
     <Content Include="MailTemplate\UpdatesEmail\More.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MoreHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\Question.html" />
+    <Content Include="MailTemplate\UpdatesEmail\QuestionHe.html" />
     <Content Include="MailTemplate\UpdatesEmail\Updates.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\AnswerHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\ItemHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\MemberHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\MoreHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\QuestionHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesListHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesList.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesListHe.html" />
+>>>>>>> 373ee39300e977cd0db360f3a1f72117df52c558
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

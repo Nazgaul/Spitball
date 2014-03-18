@@ -376,7 +376,7 @@
             extension = getExtension(fileName, type);
 
         if (extension.length > 3) {
-            cssClass += 'fourLetterExtension';
+            cssClass += 'fourLetterExtension ';
         }
         return cssClass += prefix + extension.toLowerCase();
     }
