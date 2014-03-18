@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="April" xml:space="preserve">
+    <value>أبريل </value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>أغسطس </value>
+  </data>
   <data name="CloudentsJoin" xml:space="preserve">
     <value>تعتبر Cloudents هي منصة الدراسة الاجتماعية المجانية الأكثر تقدما عبر الإنترنت والهاتف الجوال. انضم إلى ثورة الدراسة الاجتماعية من خلال Cloudents الآن.</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>لوحة التحكم</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>ديسمبر </value>
   </data>
   <data name="DeleteCourse" xml:space="preserve">
     <value>حذف هذه الدورة سوف يؤدي إلى حذف كافة محتوياتها بما فيها الملفات والأسئلة الشائعة وإجاباتها. هل أنت متأكد من أنك تريد حذف هذه الدورة؟</value>
@@ -129,17 +138,47 @@
   <data name="DeleteUser" xml:space="preserve">
     <value>هل أنت متأكد من أنك تريد حذف هذا المستخدم؟</value>
   </data>
+  <data name="February" xml:space="preserve">
+    <value>فبراير </value>
+  </data>
   <data name="IShared" xml:space="preserve">
     <value>أنا شاركت</value>
   </data>
+  <data name="January" xml:space="preserve">
+    <value>يناير </value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>يوليو </value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>يونيو </value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>الآن </value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>مسيرة </value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>قد </value>
+  </data>
   <data name="NoSelected" xml:space="preserve">
     <value>لا توجد مقررات مختارة</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>نوفمبر </value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>أكتوبر </value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>على Cloudents</value>
   </data>
   <data name="SendDirect" xml:space="preserve">
     <value>إرسال رسالة مباشرة</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>سبتمبر </value>
   </data>
   <data name="ShareBy" xml:space="preserve">
     <value>مشاركة بالاسم أو البريد الإلكتروني</value>

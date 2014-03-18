@@ -657,6 +657,21 @@ input[type="radio"] + label:before {
   font-weight: normal;
   /*rtl*/
 }
+.boxItemList.sponsored .listItem:first-child {
+  padding: 0 260px 0 0;
+  /*rtl*/
+}
+.boxItemList.sponsored .listItem:first-child .imgBorder {
+  border: none;
+  border-left: 1px solid #c2c2c2;
+  /*rtl*/
+  border-radius: 0 3px 3px 0;
+  /*rtl*/
+}
+.boxItemList.sponsored .listItem:first-child .itemContent {
+  margin: 0px 0 5px 15px;
+  /*rtl*/
+}
 .boxItemsHeader {
   position: relative;
   /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
