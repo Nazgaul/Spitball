@@ -49,6 +49,7 @@
             success: function (data) {
                 notificationsData = data || {};
                 parseData(notificationsData);
+                showNewNotifications();
             }
         });
     }
@@ -71,18 +72,27 @@
 
         notificationsList.insertAdjacentHTML('beforeend', result);
 
-        function showNewNotifications(count) {
-            if (!count) {
-                notificationsCounter.classList.remove('invitesCounterShow');
-                notifications.classList.add('noInvites');
-                notificationsCounter.textContent = '';
-                return;
+       
+    }
+
+    function showNewNotifications() {
+        var count = 0;
+        for (var i = 0, l = notificationsData.length ; i < l; i++) {
+            if (!notificationsData[i].isRead) {
+                count++;
             }
 
-            notifications.classList.remove('noInvites');
-            notificationsCounter.classList.add('invitesCounterShow');
-            notificationsCounter.textContent = numOfInvites;
         }
+        if (!count) {
+            notificationsCounter.classList.remove('invitesCounterShow');
+            notifications.classList.add('noInvites');
+            notificationsCounter.textContent = '';
+            return;
+        }
+
+        notifications.classList.remove('noInvites');
+        notificationsCounter.classList.add('invitesCounterShow');
+        notificationsCounter.textContent = count;
     }
 
     function registerEvents() {
@@ -101,8 +111,12 @@
 
         });
 
-        $notificationsList.on('scroll', function () {
+        $notificationsList.on('scroll', function (e) {
+            e.stopPropagation();
             if ($notificationsList.scrollTop() + $notificationsList.innerHeight() >= $notificationsList[0].scrollHeight) {
+                if ($notificationsList.children().length === notificationsData.length) {
+                    return;
+                }
                 page++;
                 parseData(); // render items from the current page set
             }
