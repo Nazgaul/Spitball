@@ -160,9 +160,9 @@
 
                     if (materials.length < 50) {                        
                         materialsLoaded = true;
-                        if (isFirstPage) {
-                            getDataOtherUnis();
-                            sOtherMaterialsBtn.style.display = 'block';
+                        sOtherMaterialsBtn.style.display = 'block';
+                        if (isFirstPage && materials.length === 0) {
+                           getDataOtherUnis();
                         }
                         
                     }
@@ -325,7 +325,7 @@
                 cPage = cOtherPage = 0;
             }
             otherMaterialsSplit.style.display = 'none';
-
+            sOtherMaterialsBtn.style.display = 'none';
             isLoading = isOtherLoading = materialsLoaded = otherUnisScroll = false;
             otherDataAvailable = true;
             sTabContent.classList.remove('noResults');
