@@ -27,7 +27,7 @@
  
   <sql-query name="GetItemUpdateByBox" read-only="1">
     <![CDATA[
-    select u.username as UserName,u.userid as UserId  i.itemid as Id,i.name as Name, i.ThumbnailBlobName as Picture
+    select u.username as UserName,u.userid as UserId,  i.itemid as Id,i.name as Name, i.ThumbnailBlobName as Picture
     from zbox.item i inner join zbox.users u on u.userid = i.userid
     where i.boxid = :BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,i.creationTime)) >0

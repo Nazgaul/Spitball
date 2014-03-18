@@ -39,6 +39,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 m_TimeToSleepAfterExcecuting = TimeSpan.FromHours(1);
             }
+           
         }
         public void Run()
         {
@@ -86,9 +87,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             var updates = new List<UpdateMailParams.BoxUpdate>();
             var boxes = m_ZboxReadService.GetBoxesLastUpdates(new ViewModel.Queries.Emails.GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));
+            int numOfQuestion = 0, numOfAnswers = 0, numOfItems = 0;
             boxes = boxes.Select(s =>
             {
-                s.Url = string.Empty;
+                if (string.IsNullOrEmpty(s.UniversityName))
+                {
+                    s.Url = string.Format(UrlConsts.BoxUrl, s.BoxId, UrlConsts.NameToQueryString(s.BoxName));
+                }
+                else
+                {
+                    s.Url = string.Format(UrlConsts.CourseUrl, s.BoxId, UrlConsts.NameToQueryString(s.BoxName), UrlConsts.NameToQueryString(s.UniversityName));
+                }
+
                 return s;
             });
 
@@ -96,7 +106,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 var boxupdates = GetBoxData(box);
                 var userSpecificUpdates = boxupdates.Where(w => w.UserId != userid);
-
+                numOfQuestion += userSpecificUpdates.OfType<UpdateMailParams.QuestionUpdate>().Count();
+                numOfAnswers += userSpecificUpdates.OfType<UpdateMailParams.AnswerUpdate>().Count();
+                numOfItems += userSpecificUpdates.OfType<UpdateMailParams.ItemUpdate>().Count();
                 if (userSpecificUpdates.Count() > 0)
                 {
                     updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName, userSpecificUpdates.Take(4), string.Empty, userSpecificUpdates.Count() - 4));
@@ -109,10 +121,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 return;
             }
 
-            m_MailComponent.GenerateAndSendEmail(email, new UpdateMailParams(updates, new System.Globalization.CultureInfo(culture), userName,
-                updates.OfType<UpdateMailParams.QuestionUpdate>().Count(),
-                updates.OfType<UpdateMailParams.AnswerUpdate>().Count(),
-                updates.OfType<UpdateMailParams.ItemUpdate>().Count()));
+            m_MailComponent.GenerateAndSendEmail(email, new UpdateMailParams(updates,
+                new System.Globalization.CultureInfo(culture), userName,
+                numOfQuestion,
+                numOfAnswers,
+                numOfItems));
 
         }
         private IEnumerable<UpdateMailParams.BoxUpdateDetails> GetBoxData(BoxDigestDto box)
@@ -124,7 +137,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var items = m_ZboxReadService.GetItemsLastUpdates(new ViewModel.Queries.Emails.GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
 
 
-            var itemsUpdate = items.Select(s => new UpdateMailParams.ItemUpdate(s.Name, s.Picture, s.UserName, string.Empty, s.UserId));
+            var itemsUpdate = items.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
+                s.Picture
+                , s.UserName,
+               string.Format(UrlConsts.ItemUrl,
+               UrlConsts.NameToQueryString(box.UniversityName ?? "my"), box.BoxId,
+               UrlConsts.NameToQueryString(box.BoxName), s.Id,
+               UrlConsts.NameToQueryString(s.Name))
+                , s.UserId));
 
 
             var questions = m_ZboxReadService.GetQuestionsLastUpdates(new ViewModel.Queries.Emails.GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
@@ -152,6 +172,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
             {
+                return true;
                 if (DateTime.UtcNow.Hour == 0)
                 {
                     return true;

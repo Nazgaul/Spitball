@@ -54,11 +54,48 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
             message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
             message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions).ToString());
-            message.Html = message.Html.Replace("{X-ANSWERS}", updateParams.NoOfAnswers.ToString());
-            message.Html = message.Html.Replace("{X-QUESTIONS}", updateParams.NoOfQuestions.ToString());
-            message.Html = message.Html.Replace("{X-NEW-ITEMS}", updateParams.NoOfItems.ToString());
+            message.Html = message.Html.Replace("{X-ANSWERS}", AggregateAnswers(updateParams.NoOfAnswers));
+            message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
+            message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));
             // message.AddSubVal("{Updates}", new List<string> { sb.ToString() });
             //message.AddSubVal("{USER-NAME}", new List<string> { "Ram" });
+        }
+
+        private string AggregateAnswers(int numOfAnswers)
+        {
+            if (numOfAnswers == 1)
+            {
+                return "1 answer,";
+            }
+            if (numOfAnswers == 0)
+            {
+                return string.Empty;
+            }
+            return string.Format("{0} answers,", numOfAnswers);
+        }
+        private string AggregateQuestion(int numOfQuestion)
+        {
+            if (numOfQuestion == 1)
+            {
+                return "1 question,";
+            }
+            if (numOfQuestion == 0)
+            {
+                return string.Empty;
+            }
+            return string.Format("{0} questions,", numOfQuestion);
+        }
+        private string AggregateItems(int numOfItems)
+        {
+            if (numOfItems == 1)
+            {
+                return "1 item,";
+            }
+            if (numOfItems == 0)
+            {
+                return string.Empty;
+            }
+            return string.Format("{0} items,", numOfItems);
         }
 
         private string generateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, CultureInfo culture, string cube)
