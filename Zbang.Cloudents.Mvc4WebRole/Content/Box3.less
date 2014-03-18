@@ -1004,7 +1004,10 @@
     {
         .boxItemTt
         {
-            display: block;
+            //display: block;
+            opacity: 1;
+            z-index: 11;
+            visibility: visible;
         }
     }   
 }
@@ -1018,7 +1021,11 @@
     height: 183px;
     .boxSizing;
     bottom: 100%;
-    display: none;
+    //display: none;
+    opacity:0;
+    z-index: -1;
+    visibility: hidden;
+    .transition(.3s ease-in 1s);
     z-index: 11;
     background: #fff;
     border-radius: 5px;

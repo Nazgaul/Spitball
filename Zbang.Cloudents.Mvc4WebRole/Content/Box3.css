@@ -952,7 +952,9 @@
   z-index: 1;
 }
 .boxItem:hover .boxItemTt {
-  display: block;
+  opacity: 1;
+  z-index: 11;
+  visibility: visible;
 }
 /*#region box item tool tips */
 .boxItemTt {
@@ -966,7 +968,13 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   bottom: 100%;
-  display: none;
+  opacity: 0;
+  z-index: -1;
+  visibility: hidden;
+  -webkit-transition: 0.3s ease-in 1s;
+  -moz-transition: 0.3s ease-in 1s;
+  -o-transition: 0.3s ease-in 1s;
+  transition: 0.3s ease-in 1s;
   z-index: 11;
   background: #fff;
   border-radius: 5px;
