@@ -12,7 +12,7 @@
     }
 
     function BoxItemViewModel() {
-        function Item(data) {
+        function Item(data) {            
             data = data || {};
             var that = this;
             that.name = data.name;
@@ -21,17 +21,26 @@
             that.userid = data.ownerId;
             that.type = data.type;
             that.numOfViews = data.numOfViews;
+            that.numOfDownloads = data.numOfDownloads;
+            that.commentsCount = data.commentsCount;            
+            that.ownerName = data.owner;
             that.rate = 69 / 5 * data.rate;
+            that.date = data.date ? cd.parseTimeString(data.date) : '';
             that.isNew = ko.observable(data.isNew || false);
-            if (that.type === 'File') {
-                that.thumbnailUrl = data.thumbnail;
-            }
-            if (that.type === 'Link') {
-                that.thumbnailUrl = data.thumbnail;
-            }
-            that.download = "/d/" + boxid + "/" + that.uid;
-            that.description = data.description;
+            that.thumbnailUrl = data.thumbnail;            
+            that.download = data.downloadUrl;
+            that.extension = cd.getExtension(data.name, data.type);
+            that.extensionColor = cd.getExtensionColor(data.name, data.type);
             that.tabId = ko.observable(data.tabId);
+
+            if (data.description) {
+                that.description = data.description;
+                that.noPreview = '';
+            } else {
+                that.noPreview = ' noPreview';//space is needed
+                that.description = '';
+            }
+
             that.isCheck = ko.computed({
                 read: function () {
                     return that.tabId() === self.manageTab();
@@ -45,6 +54,7 @@
                     }
                 }
             });
+
             that.deleteAllow = ko.computed(
                 function () {
                     return (self.permission() === 'subscribe' || self.permission() === 'owner') && (self.permission() === 'owner' ||
@@ -311,6 +321,7 @@
             return true;
         };
 
+
         $('.boxItemsViewToggle').click(function (e) {
             var type = e.target.getAttribute('data-template');
             setView(type,e.target);
@@ -322,6 +333,28 @@
             analytics.trackEvent('Box', 'Download', 'The number of downloads made on box view');
         });
 
+        $('#BoxItemList').hoverIntent({
+            over: function(e){
+                var item = ko.dataFor(this),
+                html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
+                if (!this.querySelector('.boxItemTt')) {
+                    this.insertAdjacentHTML('afterbegin', html);
+                }
+                var tooltip = this.querySelector('.boxItemTt')
+                $(tooltip).fadeIn(300);
+            },            
+            out: function () {
+                $('.boxItemTt').remove();
+            },
+            selector: 'li.boxItem',
+            timeout: 100,
+            interval: 400
+        });
+        
+        cd.pubsub.subscribe('clearTooltip',function() {
+              $('.boxItemTt').remove();
+        });
+        
         function setView(view,element) {
             if (self.currentView() === view) {
                 return;
@@ -333,5 +366,6 @@
             self.currentView(view);
             cd.loadImages(document.getElementById('BoxItemList'));
         }
+
     }
 })(jQuery, cd.data, ko, cd, ZboxResources, cd.analytics);

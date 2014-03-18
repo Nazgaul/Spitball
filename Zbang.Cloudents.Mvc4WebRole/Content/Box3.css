@@ -951,9 +951,6 @@
   color: #F0F8FF;
   z-index: 1;
 }
-.boxItem:hover .boxItemTt {
-  display: block;
-}
 /*#region box item tool tips */
 .boxItemTt {
   position: absolute;

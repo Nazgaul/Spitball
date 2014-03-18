@@ -175,13 +175,18 @@
     <EmbeddedResource Include="MailTemplate\PersonalMsgHe.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item.html" />
+    <Content Include="MailTemplate\InviteCloudents.html" />
+    <Content Include="MailTemplate\InviteCloudentsHe.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\More.html" />
+    <Content Include="MailTemplate\UpdatesEmail\AnswerHe.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates.html" />
+    <Content Include="MailTemplate\UpdatesEmail\ItemHe.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MemberHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MoreHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\QuestionHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesHe.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesListHe.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

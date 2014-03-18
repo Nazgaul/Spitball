@@ -217,8 +217,8 @@
             that.userid = data.ownerId;
             that.type = data.type;
             that.itemUrl = data.url + consts.ref;
-            that.extension = getExtension(that.name(), that.type);
-            that.extensionColor = getExtensionColor(that.name(), that.type);
+            that.extension = cd.getExtension(that.name(), that.type);
+            that.extensionColor = cd.getExtensionColor(that.name(), that.type);
 
             that.select = ko.computed(function () {
                 return that.uid() === self.itemid();
@@ -367,8 +367,8 @@
                     .itemName(data.nameWOExtension || data.name)
                     .numberOfDownloads(data.nDownloads)
                     .numberOfViews(data.numberOfViews || 1)
-                    .extension(getExtension(data.name, data.type))
-                    .extensionColor(getExtensionColor(data.name, data.type))
+                    .extension(cd.getExtension(data.name, data.type))
+                    .extensionColor(cd.getExtensionColor(data.name, data.type))
                     .copyLink(cd.location())
                     .rate(consts.starWidth * data.rate)
                     .boxurl(data.boxUrl)
@@ -951,18 +951,7 @@
         //#endregion 
 
         //#region utilities
-        function getExtension(fileName, type) {            
-            if (type.toLowerCase() === consts.link) {
-                return consts.www;
-            }
-
-            var x = fileName.lastIndexOf('.');
-            if (x === -1) {
-                return '';
-            }
-
-            return fileName.slice(x + 1)
-        }
+       
 
         function getNameNoExtension(fileName, type) {
             if (type === consts.link) {
@@ -971,18 +960,7 @@
             return fileName.substring(0, fileName.lastIndexOf('.'));
         }
 
-        function getExtensionColor(fileName, type) {
-            var prefix = consts.mF;
-            if (type.toLowerCase() === consts.link) {
-                return prefix + consts.link;
-            }
-            var cssClass = '';
-            var extension = getExtension(fileName, type);
-            if (extension.length > 3) {
-                cssClass += consts.fLtrExt;
-            }
-            return cssClass += prefix + extension.toLowerCase();
-        }
+      
 
         function trackEvent(action, label) {
             analytics.trackEvent('Item', action, label);

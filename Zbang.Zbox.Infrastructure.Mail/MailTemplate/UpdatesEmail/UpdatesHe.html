@@ -85,7 +85,7 @@
 			body[yahoo] .footerterms {margin:0px auto !important; width:320px !important;}
 			body[yahoo] .nopadding {width:0 !important;}
 			body[yahoo] .table {width:300px !important; font-size:14px !important;}
-		    body[yahoo] .item {display: block !important; margin-left: auto !important; margin-right: auto !important; text-align:center !important;}
+			body[yahoo] .item {display: block !important; margin-left: auto !important; margin-right: auto !important; text-align:center !important;}
 			body[yahoo] .itemtext {width:220px !important;}
 			
 		} 
@@ -109,8 +109,8 @@
                     <!-- * LOGO HERE * -->
                     <table cellpadding="0" cellspacing="0" border="0" align="center" class="logo" width="600" bgcolor="#0F9D58">
                       <tr bgcolor="#0F9D58">
-                        <td class="logo" width="600" bgcolor="#0F9D58" align="left" valign="bottom">
-                        <a target="_blank" href="https://www.cloudents.com"><img width="170" height="54" align="left" valign="bottom" src="http://zboxstorage.blob.core.windows.net/zboxhelp/logo.png" alt="Logo Alt Here" title="Logo Title Here"/></a></td>
+                        <td class="logo" width="600" bgcolor="#0F9D58" align="right" valign="bottom">
+                        <a target="_blank" href="#"><img width="170" height="54" align="Left" valign="bottom" src="http://zboxstorage.blob.core.windows.net/zboxhelp/logo.png" alt="Logo Alt Here" title="Logo Title Here"/></a></td>
                        </tr>
                     </table>
                     <!-- * END OF LOGO HERE * -->
@@ -132,10 +132,10 @@
                 <tr>
                 <td>
                 	<!-- * NEWS HERE * -->
-                    <table cellpadding="0" cellspacing="0" border="0" align="left" class="news" width="600" style="font-size:14px;">
+                    <table cellpadding="0" cellspacing="0" border="0" align="right" class="news" width="600" style="font-size:14px;">
                        <!-- * NAME HERE * -->
                        <tr>
-                        <td align="left"><strong>Hi {USERNAME},</strong></td>
+                        <td align="right"><strong>,{USERNAME} שלום</strong></td>
                        </tr>
                        <!-- * END OF NAME HERE * -->
                        
@@ -147,13 +147,15 @@
                         
                         <!-- * UPDATES HERE * -->
                        <tr>
-                        <td align="left">You have {NUM-UPDATES} updates: <a style="text-decoration:none;" href="#">{X-ANSWERS}</a>, <a style="text-decoration:none;" href="#">{X-QUESTIONS}</a>, <a style="text-decoration:none;" href="#">{X-NEW-ITEMS}</a>,</td>
+                        <td align="right">
+                            יש לך {NUM-UPDATES} עדכונים:   
+                            <a style="text-decoration:none;" href="#">{X-ANSWERS}</a>, <a style="text-decoration:none;" href="#">{X-QUESTIONS}</a>, <a style="text-decoration:none;" href="#">{X-NEW-ITEMS}</a>,</td>
                        </tr>
                        <!-- * END OF UPDATES * -->
                        
                        <!-- * UPDATES HERE * -->
                        <tr>
-                        <td align="left">and many more to see.</td>
+                        <td align="right">{MANY-MORE}</td>
                        </tr>
                        <!-- * END OF UPDATES * -->
                        
@@ -165,7 +167,8 @@
                        
                     </table>
                     <!-- * END OF NEWS HERE * -->
-
+                    
+                   
                 </td>
                 </tr>
                 <!-- * END OF NEWS * -->
@@ -178,9 +181,7 @@
                 
             </table>
             <!-- * END OF DASHBOARD * -->
-            
 
-           
            <!-- * MARGIN TOP TABLE * -->
             <table cellpadding="0" cellspacing="0" border="0" align="center" class="margin" width="600">
               <tr>
@@ -189,10 +190,7 @@
             </table>
             <!-- * END OF MARGIN TOP TABLE * -->
             
-
             {UPDATES}
-
-            
 
             <!-- * MESSAGE AND BUTTON HERE * -->
             <table cellpadding="0" cellspacing="0" border="0" align="center" class="msgbutton" width="600" bgcolor="#EBECED">
@@ -208,11 +206,9 @@
                
                 <tr>
                 <td width="20"></td>
-                <td>See you soon, Cloudents team</td>
-                <td width="20"></td>
-                <td>
-                	<!-- * BUTTON * -->
-                    <table cellpadding="0" cellspacing="0" border="0" align="right" class="button" width="170" bgcolor="#0F9D58" style="-webkit-border-radius: 2px;
+                <td align="left">
+                <!-- * BUTTON * -->
+                    <table cellpadding="0" cellspacing="0" border="0" align="left" class="button" width="170" bgcolor="#0F9D58" style="-webkit-border-radius: 2px;
 -moz-border-radius: 2px; border-radius: 2px;">
                         <!-- * TOP SPACER * -->
                         <tr>
@@ -234,7 +230,12 @@
                         
                     </table>
                     <!-- * END OF BUTTON * -->
-				</td>
+                    </td>
+                <td width="20"></td>
+                <td align="right"> 
+                    נפגש בקרוב,
+                    <br />
+                    cloudents&nbsp; צוות&nbsp; </td>
                 <td width="20"></td>
                 
                 <!-- * TOP SPACER * -->
@@ -271,8 +272,11 @@
                 <!-- * FOOTER TERMS * -->
                 <tr>
                     <td width="25"></td> 
-                    <td align="left" style="font-size:12px; color:#383838;">This message was intended for <a style="color:#09955b; text-decoration:none;" href="mailto:{email}">{email}</a>.<br />
-If you'd like to change the frequency in which you receive these messages, please update your <a target="_blank" style="color:#919191; text-decoration:none;" href="https://www.cloudents.com/Account/Settings#Notification">email preferences.</a> If you don't want to receive any notifications from Cloudents, <a target="_blank" style="color:#919191; text-decoration:none;" href="{unsubscribeUrl}">unsubscribe</a>. </td>
+                    <td align="right" style="font-size:12px; color:#383838;"> <a style="color:#09955b; text-decoration:none;" href="mailto:{email}">.{email}</a>הודעה זו נשלחה ל<br />
+אם תרצה/י לשנות את תדירות קבלת ההודעות, אנא עדכנ/י את <a target="_blank" style="color:#919191; text-decoration:none;" href="https://www.cloudents.com/Account/Settings#Notification">הגדרות ההתראות בחשבונך</a>
+                        אם לא תרצה/י לקבל עוד התראות,      
+                        <a target="_blank" style="color:#919191; text-decoration:none;" href="{unsubscribeUrl}">בטל/י מעקב</a>
+                            </td>
                     <td width="25"></td>
                 </tr>
                 <!-- * END OF FOOTER TERMS * -->
