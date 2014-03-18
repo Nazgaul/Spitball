@@ -393,105 +393,129 @@
 .moreFilesItem:hover .mFdoc,
 .itemTop .mFdoc,
 .select .mFdoc,
+.boxItemTt .mFdoc,
 .moreFilesItem:hover .mFdocx,
 .itemTop .mFdocx,
-.select .mFdocx {
+.select .mFdocx,
+.boxItemTt .mFdocx {
   background: #4991be;
 }
 .moreFilesItem:hover .mFpdf,
 .itemTop .mFpdf,
-.select .mFpdf {
+.select .mFpdf,
+.boxItemTt .mFpdf {
   background: #cd4a4e;
 }
 .moreFilesItem:hover .mFjpg,
 .itemTop .mFjpg,
-.select .mFjpg {
+.select .mFjpg,
+.boxItemTt .mFjpg {
   background: #81c048;
 }
 .moreFilesItem:hover .mFpng,
 .itemTop .mFpng,
-.select .mFpng {
+.select .mFpng,
+.boxItemTt .mFpng {
   background: #70777c;
 }
 .moreFilesItem:hover .mFtif,
 .itemTop .mFtif,
-.select .mFtif {
+.select .mFtif,
+.boxItemTt .mFtif {
   background: #9cada5;
 }
 .moreFilesItem:hover .mFppt,
 .itemTop .mFppt,
 .select .mFppt,
+.boxItemTt .mFppt,
 .moreFilesItem:hover .mFpptx,
 .itemTop .mFpptx,
-.select .mFpptx {
+.select .mFpptx,
+.boxItemTt .mFpptx {
   background: #ea7147;
 }
 .moreFilesItem:hover .mFgif,
 .itemTop .mFgif,
-.select .mFgif {
+.select .mFgif,
+.boxItemTt .mFgif {
   background: #c7cb47;
 }
 .moreFilesItem:hover .mFtxt,
 .itemTop .mFtxt,
-.select .mFtxt {
+.select .mFtxt,
+.boxItemTt .mFtxt {
   background: #abceec;
 }
 .moreFilesItem:hover .mFzip,
 .itemTop .mFzip,
 .select .mFzip,
+.boxItemTt .mFzip,
 .moreFilesItem:hover .mFrar,
 .itemTop .mFrar,
-.select .mFrar {
+.select .mFrar,
+.boxItemTt .mFrar {
   background: #cfcfcf;
 }
 .moreFilesItem:hover .mFxls,
 .itemTop .mFxls,
 .select .mFxls,
+.boxItemTt .mFxls,
 .moreFilesItem:hover .mFxlsx,
 .itemTop .mFxlsx,
-.select .mFxlsx {
+.select .mFxlsx,
+.boxItemTt .mFxlsx {
   background: #5bba67;
 }
 .moreFilesItem:hover .mFbmp,
 .itemTop .mFbmp,
-.select .mFbmp {
+.select .mFbmp,
+.boxItemTt .mFbmp {
   background: #47c7b5;
 }
 .moreFilesItem:hover .mFmp3,
 .itemTop .mFmp3,
 .select .mFmp3,
+.boxItemTt .mFmp3,
 .moreFilesItem:hover .mFmp4,
 .itemTop .mFmp4,
-.select .mFmp4 {
+.select .mFmp4,
+.boxItemTt .mFmp4 {
   background: #ba4c89;
 }
 .moreFilesItem:hover .mFpsd,
 .itemTop .mFpsd,
-.select .mFpsd {
+.select .mFpsd,
+.boxItemTt .mFpsd {
   background: #4870b8;
 }
 .moreFilesItem:hover .mFai,
 .itemTop .mFai,
 .select .mFai,
+.boxItemTt .mFai,
 .moreFilesItem:hover .mFeps,
 .itemTop .mFeps,
-.select .mFeps {
+.select .mFeps,
+.boxItemTt .mFeps {
   background: #dcb447;
 }
 .moreFilesItem:hover .mFavi,
 .itemTop .mFavi,
 .select .mFavi,
+.boxItemTt .mFavi,
 .moreFilesItem:hover .mFmov,
 .itemTop .mFmov,
 .select .mFmov,
+.boxItemTt .mFmov,
 .moreFilesItem:hover .mFwmv,
 .itemTop .mFwmv,
-.select .mFwmv {
+.select .mFwmv,
+.boxItemTt .mFwmv {
   background: #e14878;
 }
 .moreFilesItem:hover .mFlink,
 .itemTop .mFlink,
-.select .mFlink {
+.select .mFlink,
+.boxItemTt .mFlink {
   background: #7a9f8d;
 }
 .moreFilesData {
