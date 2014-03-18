@@ -3,21 +3,30 @@
 <!-- ko stopBinding: true -->
 
 <li class="navItem"><a href="@Url.Action("Index", "Dashboard")" data-title="@SharedResources.Home" data-navigation="Dashboard" class="homeLink rFloat"></a></li>
-<li class="navItem"><a data-title="@SharedResources.Help" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a>@*<button type="button" title="@SharedResources.Help" class="feedbacklnk feedBack rFloat"></button>*@</li>
+<li class="navItem"><a data-title="@SharedResources.Help" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a></li>
 <li class="navItem headerInvites" id="headerInvites">
-    <a href="javascript:void(0)" class="navLinks newInvites noInvites" id="invites" data-title="@SharedResources.Notifications">
+    <button class="navLinks newInvites noInvites" id="invites" data-title="@SharedResources.Notifications">
         <span id="invitesCounter" class="invitesCounter"></span>
-    </a>
-    <ul id="invitesList" class="userInvites">
-    
-    </ul>
+    </button>
+    <ul id="invitesList" class="userInvites"></ul>
 </li>
-<script type="text/html" id="invitesTemplate">
-        <li id="invite_{{id}}">
-            <a data-navigation="Box" href="{{url}}">
-                <span class="invboxName elps">{{name}}</span>
-                <span class="invboxOwner">@Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.SharedResources.Owner:&nbsp;<span class="ownerName elps"></span>{{owner}}</span>
-            </a>
-        </li>
+
+<script type="text/html" id="inviteTemplate">
+    <li>
+        <a data-navigation="Box" href="{{url}}">
+            <span>{{boxName}}</span>
+            <span>{{senderName}}</span>
+            <img src="{{senderImg}}" alt="" />
+            <span data-time="{{date}}"></span>
+        </a>
+    </li>
+</script>
+<script type="text/html" id="messageTemplate">
+    <li>
+        <span>{{senderName}}</span>
+        <img src="{{senderImg}}" alt="" />
+        <span>{{message}}</span>
+        <span data-time="{{date}}"></span>
+    </li>
 </script>
 <!-- /ko -->
