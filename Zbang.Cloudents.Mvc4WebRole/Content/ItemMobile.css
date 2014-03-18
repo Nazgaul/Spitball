@@ -13,14 +13,18 @@ a:focus {
 button {
   font-family: inherit;
   /* 1 */
+
   font-size: 100%;
   /* 2 */
+
   margin: 0;
   /* 3 */
+
   line-height: normal;
   text-transform: none;
   cursor: pointer;
   /* 3 */
+
   -webkit-appearance: none;
   background: transparent;
 }

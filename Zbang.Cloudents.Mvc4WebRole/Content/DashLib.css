@@ -34,8 +34,10 @@
   top: 50px;
   left: 0;
   /*rtl*/
+
   padding-left: 314px;
   /*rtl*/
+
   width: 100%;
 }
 .boxesHeader.topBar.editName #lib_Back {
@@ -58,6 +60,7 @@
 .boxesHeader.topBar h2 {
   padding: 8px 8px 0 0;
   /*rtl*/
+
   font-size: 18px;
   font-weight: normal;
 }
@@ -71,6 +74,7 @@
   background: url(/Images/common14-sprite.png?v=1) 0 -1px no-repeat;
   margin-right: 5px;
   /*rtl*/
+
   width: 20px;
   height: 19px;
   vertical-align: middle;
@@ -95,6 +99,7 @@
   margin-top: 25px;
   padding-right: 10px;
   /*rtl*/
+
 }
 .boxRename {
   background: url(/Images/common14-sprite.png?v=1) -52px -1px no-repeat;
@@ -200,6 +205,7 @@
   display: block;
   text-align: left;
   /*rtl*/
+
 }
 .emptyLib .libEmpty .inputText,
 .emptyLib .dashEmpty .inputText {
@@ -221,9 +227,11 @@
 .contentWpr {
   margin-left: 290px;
   /*rtl*/
+
   position: relative;
   padding: 0 10px 0 24px;
   /*rtl*/
+
   height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -238,6 +246,7 @@
   top: 105px;
   right: 10px;
   /*rtl*/
+
   border: 0;
   height: 90%;
   height: -webkit-calc(100% - 105px);
@@ -247,10 +256,12 @@
   min-width: 0;
   padding-right: 315px;
   /*rtl*/
+
 }
 .contentWpr.featured .emptyLib {
   padding-right: 290px;
   /*rtl*/
+
 }
 .unionFeatured {
   display: none;
@@ -268,6 +279,7 @@
   top: 0;
   left: 0;
   /*rtl*/
+
   width: 100%;
   text-align: center;
 }
@@ -374,6 +386,7 @@
 .deptLink {
   margin: 0 14px 35px 0;
   /*rtl*/
+
   width: 244px;
   height: 66px;
   border: 1px solid #cecece;
@@ -386,6 +399,7 @@
   display: inline-block;
   padding: 2px 9px 6px 15px;
   /*rtl*/
+
 }
 .deptLink:hover {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
@@ -400,6 +414,7 @@
   top: -18px;
   left: -1px;
   /*rtl*/
+
   width: 244px;
   height: 18px;
   background: url(/Images/union4-sprite.png) -1px -58px no-repeat;
@@ -426,6 +441,7 @@
   bottom: 4px;
   left: 15px;
   /*rtl*/
+
   color: #383838;
 }
 .courseCount:before {
@@ -441,6 +457,7 @@
   background: url(/Images/dash13-sprite.png) -278px -18px no-repeat;
   margin: -3px 11px 0 0;
   /*rtl*/
+
   vertical-align: middle;
 }
 .addBtn.browse {
@@ -460,6 +477,7 @@
   position: relative;
   margin: 30px 7px 0 84px;
   /*rtl*/
+
   overflow: hidden;
 }
 .box {
@@ -467,6 +485,7 @@
   vertical-align: top;
   float: left;
   /*rtl*/
+
   border: 1px solid #dedede;
   border-radius: 3px;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
@@ -483,6 +502,7 @@
   box-sizing: border-box;
   margin: 0 18px 24px 0;
   /*rtl*/
+
   overflow: hidden;
   width: 222px;
 }
@@ -531,10 +551,12 @@
   top: 0;
   left: 0;
   /*rtl*/
+
   width: 77px;
   height: 98px;
   border-right: 1px solid #dedede;
   /*rtl*/
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -548,6 +570,7 @@
   width: 130px;
   left: 84px;
   /*rtl*/
+
   color: #676767;
 }
 .box .subscriber:before {
@@ -559,6 +582,7 @@
   background: url(/Images/union4-sprite.png) -103px -22px no-repeat;
   margin-right: 5px;
   /*rtl*/
+
   vertical-align: middle;
 }
 .box .follow {
@@ -566,6 +590,7 @@
   position: absolute;
   left: 84px;
   /*rtl*/
+
   top: 70px;
   width: 130px;
   font-size: 16px;
@@ -587,6 +612,7 @@
   position: absolute;
   left: 84px;
   /*rtl*/
+
   top: 65px;
 }
 .propName {
@@ -607,6 +633,7 @@
   top: 0;
   left: 0;
   /*rtl*/
+
   -webkit-transition: opacity, 0.2s linear;
   -moz-transition: opacity, 0.2s linear;
   -o-transition: opacity, 0.2s linear;
@@ -616,6 +643,7 @@
   font-size: 11px;
   padding: 4px 0 4px 5px;
   /*rtl*/
+
 }
 .hoverItem:before {
   content: '';
@@ -623,6 +651,7 @@
   background: url(/Images/dashLib-sprite.png) no-repeat;
   margin-right: 5px;
   /*rtl*/
+
   vertical-align: middle;
 }
 .itemImg:before {
@@ -663,6 +692,7 @@
   font-size: 18px;
   color: #bcbcbc;
   /*background: transparent;*/
+
   width: 222px;
 }
 .libraryItem.addDep:hover,
