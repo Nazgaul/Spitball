@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Cloudents - Invite to course</title>
+<title>Cloudents Invitation</title>
 <style type="text/css">
 	body { margin: 0 auto; padding: 0; font-family:Arial, Helvetica, sans-serif; font-size:15px; color:#383838; background:#FBFBFB;}
 	
@@ -28,10 +28,14 @@
 			
 			/* Center Elements in Tables */
 			body[yahoo] .logo{width:440px !important;}
-			body[yahoo] .text{width:440px !important;}
+			body[yahoo] .title{width:440px !important;}
 			body[yahoo] .content{width:440px !important;}
 			body[yahoo] .imgtext{width:320px !important;}
-			body[yahoo] .button {width:100px !important;}
+			body[yahoo] .button {width:170px !important;}
+			body[yahoo] .text {width:440px !important;}
+			/*body[yahoo] .white {height:16px !important;}*/
+			body[yahoo] .picture {width:440px !important;}
+			body[yahoo] .picture img {width:350px !important;display: block !important; margin-left: auto !important; margin-right: auto !important; text-align:center !important;}
 			body[yahoo] .footer {width:440px !important;}
 		} 
 	
@@ -46,10 +50,13 @@
 			
 			/* Center Elements in Tables */
 			body[yahoo] .logo{width:320px !important; height:54px !important; background:#0F9D58 !important;}
-			body[yahoo] .text {width:320px !important;}
+			body[yahoo] .title {width:320px !important;}
 			body[yahoo] .content {width:320px !important;}
-			body[yahoo] .imgtext {width:200px !important;}
-			body[yahoo] .button {width:100px !important;}
+			body[yahoo] .imgtext{width:200px !important;}
+			body[yahoo] .button {width:170px !important;}
+			body[yahoo] .text {width:320px !important;}
+			body[yahoo] .picture {width:320px !important;}
+			body[yahoo] .picture img {width:320px !important;}
 			body[yahoo] .footer {width:320px !important;}		
 		} 
 		
@@ -83,7 +90,7 @@
             <!-- * HEADER WRAPPER * -->
             
             <!-- * TITLE * -->
-            <table cellpadding="0" cellspacing="0" border="0" class="text" width="600" align="center" bgcolor="#ffffff">
+            <table cellpadding="0" cellspacing="0" border="0" class="title" width="600" align="center" bgcolor="#ffffff">
                 <!-- * TOP SPACER * -->
                 <tr>
                     <td height="20"></td>
@@ -95,7 +102,7 @@
                 <!-- * MESSAGE TEXT HERE * -->
                 <tr>
                     <td width="20"></td>
-                    <td align="left" style="font-size:22px; color:#383838;">Invitation to {BOXNAME}</td>
+                    <td class="title" align="left" style="font-size:22px; color:#383838;">Invitation to Cloudents</td>
                     <td width="20"></td>
                 </tr>
                 <!-- * END OF MESSAGE TEXT HERE * -->
@@ -112,12 +119,12 @@
             <!-- * END OF TITLE * -->
             
             <!-- * IMAGE & TEXT MODULE * -->
-            <table cellpadding="0" cellspacing="0" border="0" align="center" class="content" width="600" style="border-bottom:1px solid #ccc;" bgcolor="#FFFFFF">
+            <table cellpadding="0" cellspacing="0" border="0" align="center" class="content" width="600" bgcolor="#FFFFFF">
             	<!-- * TOP SPACER * -->
                 <tr>
-                    <td height="30"></td>
-                    <td height="30"></td>
-                    <td height="30"></td>
+                    <td height="20"></td>
+                    <td height="20"></td>
+                    <td height="20"></td>
                 </tr>
                 <!-- * END OF TOP SPACER * -->
                 
@@ -128,37 +135,38 @@
                         <table cellpadding="0" cellspacing="0" border="0" align="left" class="image" width="66" height="66">
                             <tr>
                                 <td align="left">
-                                <a href="#">
-                                <img src="{ImgUrl}" alt="User image" title="{INVITOR}"/></a></td>
+                                <a href="https://www.cloudents.com">
+                                <img src="USER-IMG-SRC" alt="{USERNAME}" title="{USERNAME}"/></a></td>
                             </tr>
                         </table>
                         <!-- * END OF HEADER * -->
                         
                         <!-- * TEXT HERE * -->
-                        <table cellpadding="0" cellspacing="0" border="0" align="right" class="imgtext" width="494" style="line-height:110%;">
+                        <table cellpadding="0" cellspacing="0" border="0" align="right" class="imgtext" width="474" style="line-height:110%;">
                             <tr>
-                                <td style="font-weight:bold; font-size:14px; color:#383838;" height="25">{INVITOR}</td>
+                                <td style="font-weight:bold; font-size:14px; color:#383838;">{USERNAME}</td>
                             </tr>
                             
                             <tr>
-                                <td style="font-size:14px;">Invites you to join <a style="text-decoration:none; font-size:14px; color:#0371C8;" target="_blank" href="{BoxUrl}">{BOXNAME}</a></td>
+                                <td style="font-size:14px;">Would like to invite you to join <a style="text-decoration:none; font-size:14px; color:#0371C8;" target="_blank" href="https://www.cloudents.com">Cloudents</a></td>
                             </tr>
                             
                             <!-- * TOP SPACER * -->
                             <tr>
-                                <td height="17"></td>
+                                <td height="7"></td>
                             </tr>
                             <!-- * END OF TOP SPACER * -->
                             
                             <tr>
                             	<td>
                                 <!-- * BUTTON * -->
-                                <table cellpadding="0" cellspacing="0" border="0" align="left" class="button" width="100" height="28" bgcolor="#0371C8" style="-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;">
+                                <table cellpadding="0" cellspacing="0" border="0" align="left" class="button" width="170" height="30" bgcolor="#0371C8" style="-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;">
                                     <tr>
-                                    	<td width="10"></td>
-                                        <td align="center"><a style="line-height:150%; display:block; color:#FFFFFF; font-size:14px; text-decoration:none;" href="{BoxUrl}" target="_blank">View now</a></td>
-                                        <td width="10"></td>
+                                    	<td width="20"></td>
+                                        <td align="center"><a style="line-height:200%; display:block; color:#FFFFFF; font-size:14px; text-decoration:none;" href="https://www.cloudents.com" target="_blank">Check out cloudents</a></td>
+                                        <td width="20"></td>
                                     </tr>
+                                    
                                 </table>
                                 <!-- * END OF BUTTON * -->
                                 </td>
@@ -172,14 +180,121 @@
                 
                 <!-- * TOP SPACER * -->
                 <tr>
-                    <td height="150"></td>
-                    <td height="150"></td>
-                    <td height="150"></td>
+                    <td height="40"></td>
+                    <td height="40"></td>
+                    <td height="40"></td>
                 </tr>
                 <!-- * END OF TOP SPACER * -->
                 
             </table>
             <!-- * END OF IMAGE & TEXT MODULE * -->
+            
+            <!-- * TEXT & RIGHT IMAGE MODULE * -->
+            <table cellpadding="0" cellspacing="0" border="0" align="center" class="content" width="600" bgcolor="#EBECED">
+                <!-- * TOP SPACER * -->
+                <tr bgcolor="#EBECED">
+                    <td bgcolor="#EBECED" height="10"></td>
+                    <td bgcolor="#EBECED" height="10"></td>
+                </tr>
+                <!-- * END OF TOP SPACER * -->
+                
+                 <!-- * TEXT HERE * -->
+                <tr>
+                    <td>
+                    	 <!-- * PICTURE HERE * -->
+                        <table cellpadding="0" cellspacing="0" border="0" align="right" class="picture" width="270" bgcolor="#EBECED">
+                            <tr>
+                                <td><img src="http://zboxstorage.blob.core.windows.net/zboxhelp/picture.png" alt="Image Alt Here" title="Image Title Here"/></td>
+                                <td width="10"></td>
+                            </tr>
+                        </table>
+                        <!-- * END OF PICTURE HERE * -->
+                        
+                    	<!-- * TEXT * -->
+                        <table cellpadding="0" cellspacing="0" border="0" align="left" class="text" width="330" bgcolor="#EBECED">
+                        
+                        	<!-- * TOP SPACER * -->
+                            <tr>
+                            	<td height="13"></td>
+                                <td height="13"></td>
+                                <td height="13"></td>
+                            </tr>
+                            <!-- * END OF TOP SPACER * -->
+                            
+                            <tr>
+                            	<td width="25"></td>
+                                <td align="left" style="font-weight:bold; font-size:18px; color:#383838;">What is Cloudents</td>
+                                <td width="25"></td>
+                            </tr>
+                            
+                            <!-- * TOP SPACER * -->
+                            <tr>
+                            	<td height="10"></td>
+                                <td height="10"></td>
+                                <td height="10"></td>
+                            </tr>
+                            <!-- * END OF TOP SPACER * -->
+
+                            
+                            <tr>
+                            	<td width="25"></td>
+                                <td class="text" align="left" style="font-size:14px; color:#383838;">Cloudents is the most advanced free online and mobile social studying platform. Powered by students, it inspires to share, learn, connect and assist others to succeed through social studying.</td>
+                                <td width="25"></td>
+                            </tr>
+                            
+                            <!-- * TOP SPACER * -->
+                            <tr>
+                            	<td height="15"></td>
+                                <td height="15"></td>
+                                <td height="15"></td>
+                            </tr>
+                            <!-- * END OF TOP SPACER * -->
+                            
+                            <tr> 
+                            	<td width="25"></td>
+                                <td align="left">
+                                	<!-- * BUTTON * -->
+                                <table cellpadding="0" cellspacing="0" border="0" align="left" class="button" width="170" height="30" bgcolor="#0371C8" style="-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;">
+                                    <tr>
+                                    	<td width="20"></td>
+                                        <td align="center"><a style="line-height:200%; display:block; color:#FFFFFF; font-size:14px; text-decoration:none;" href="https://www.cloudents.com" target="_blank">Check out cloudents</a></td>
+                                        <td width="20"></td>
+                                    </tr>
+                            
+                                </table>
+                                <!-- * END OF BUTTON * -->
+                                </td>
+                                <td width="25"></td>
+                            </tr>
+                            
+                            <!-- * TOP SPACER * -->
+                            <tr class="white">
+                            	<td class="white" height="32"></td>
+                                <td class="white" height="32"></td>
+                                <td class="white" height="32"></td>
+                            </tr>
+                            <!-- * END OF TOP SPACER * -->
+                            
+                            
+                        </table>
+                        <!-- * END OF TEXT * -->
+                        
+                       
+                    </td>
+                </tr>
+                <!-- * END OF TEXT HERE * -->
+                
+                <!-- * TOP SPACER * -->
+                <tr>
+                    <td height="20" bgcolor="#FFFFFF"></td>
+                    <td height="20" bgcolor="#FFFFFF"></td>
+                    <td height="20" bgcolor="#FFFFFF"></td>
+                </tr>
+                <!-- * END OF TOP SPACER * -->
+                
+                
+            </table>
+            <!-- * END OF TEXT & RIGHT IMAGE MODULE * -->
             
             <!-- * FOOTER * -->
 			<table cellpadding="0" cellspacing="0" border="0" class="footer" width="600" align="center" bgcolor="#F5F5F5">

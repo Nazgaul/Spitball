@@ -175,6 +175,8 @@
     <EmbeddedResource Include="MailTemplate\PersonalMsgHe.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MailTemplate\InviteCloudents.html" />
+    <Content Include="MailTemplate\InviteCloudentsHe.html" />
     <Content Include="MailTemplate\UpdatesEmail\Answer.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerHe.html" />
     <Content Include="MailTemplate\UpdatesEmail\Item.html" />
