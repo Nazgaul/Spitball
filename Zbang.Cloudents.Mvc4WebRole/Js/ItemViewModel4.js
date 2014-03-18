@@ -635,8 +635,12 @@
             $itemShare.prop(consts.checked, false);
             $itemPrint.prop(consts.checked, false);
             commentShow = false;
-            $ratePopup.hide();
+            $ratePopup.hide().removeClass('show');
             clearTimeout(ratePopupTimeout);
+            $rateContainer.find('.star').each(function (i, e) {
+                $(e).removeClass('rated').text(e.id.slice(-1));
+            });
+
         });
         //#endregion
 
@@ -679,10 +683,12 @@
                         e.preventDefault();
                         return false;
                     }
-                    if ($ratePopup.hasClass('show')) {
-                        $ratePopup.removeClass('show').hide();
-                    }
+
+                    $ratePopup.removeClass('show').hide();
                     clearTimeout(ratePopupTimeout);
+                    $rateContainer.find('.star').each(function (i,e) {
+                        $(e).removeClass('rated').text(e.id.slice(-1));
+                    });
 
                     $commentToggle.prop('checked', false).trigger('change');
 
@@ -899,6 +905,9 @@
                     e.stopPropagation();
                     var startWidth = $('.stars .full').width()
 
+                    clearTimeout(ratePopupTimeout);
+                    $ratePopup.hide().removeClass('show');
+
                     if (choosedRate) {
                         return;
                     }
@@ -911,7 +920,10 @@
                     if ($this.index() === $rated.index()) {
                         return; // don't do anything if user selects rating which is already selected
                     }
+
                     choosedRate = true;
+
+                    setItemRate(currentRate);
 
                     self.rate(calculateFakeRate(startWidth, currentRate));
 

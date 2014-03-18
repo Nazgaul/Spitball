@@ -334,13 +334,14 @@
         });
 
         $('#BoxItemList').hoverIntent({
-            over: function(e){
+            over: function (e) {
+                if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
+                    return;
+                }
                 var item = ko.dataFor(this),
                 html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
-                if (!this.querySelector('.boxItemTt')) {
-                    if (cd.getElementPosition(this).top - $(window).scrollTop() >= 132) {//132 header+ topbar
-                        this.insertAdjacentHTML('afterbegin', html);
-                    }
+                if (!this.querySelector('.boxItemTt')) {                    
+                        this.insertAdjacentHTML('afterbegin', html);                    
                 }
                 var tooltip = this.querySelector('.boxItemTt')
                 $(tooltip).fadeIn(300);

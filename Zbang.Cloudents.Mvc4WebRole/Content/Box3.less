@@ -801,6 +801,40 @@
             font-size: 15px;
             line-height: 30px;
         }
+        .listItem:first-child
+        {
+            background: #fff;
+            border: 1px solid @borderColor;
+            border-radius: 3px;
+            font-size: 15px;
+            padding:0 0 0 260px; /*rtl*/ //override
+            margin-bottom: 14px;
+            .imgBorder
+            {
+                top:0;
+                width: 236px;
+                border: none;
+                border-right: 1px solid @borderColor; /*rtl*/
+                border-radius: 3px 0 0 3px; /*rtl*/
+            }
+            .boxName{
+                font-size: 17px;
+                font-weight: normal;
+                padding-top: 8px;
+            }
+            .actionBtns {
+                display: none;
+            }
+            .itemContent {
+                max-height: 74px;
+                margin: 0px 15px 5px 0; /*rtl*/
+                line-height: 18px;
+            }
+            .views{
+                font-size: 13px;
+            }
+        }
+
     }
 }
 

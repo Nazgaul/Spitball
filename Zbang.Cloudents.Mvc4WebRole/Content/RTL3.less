@@ -698,6 +698,24 @@ input[type="radio"] {
         font-weight: normal; /*rtl*/
     }
 }
+.boxItemList {
+    &.sponsored
+    {
+        .listItem:first-child
+        {
+            padding:0 260px 0 0; /*rtl*/ //override
+            .imgBorder
+            {
+                border: none;
+                border-left: 1px solid @borderColor; /*rtl*/
+                border-radius: 0 3px 3px 0; /*rtl*/
+            }
+            .itemContent {
+                margin: 0px 0 5px 15px; /*rtl*/
+            }
+        }
+    }
+}
 .boxItemsHeader {
     //margin: -28px 0 0 386px; /*rtl*/
     position: relative; /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
