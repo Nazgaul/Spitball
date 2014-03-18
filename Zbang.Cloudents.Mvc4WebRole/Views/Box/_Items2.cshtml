@@ -46,25 +46,7 @@
 </div>
 
 <script type="text/html" id="BoxItemsThumbViewTemplate">
-    <li class="boxItem" data-bind="attr: { id: uid }">
-        <div class="boxItemTt">
-            <div class="arrow downArrow"></div>
-            <div class="ttTop">
-                <div class="moreFilesThumb">jpg</div>
-                <div class="detailsWpr">
-                    <div class="lFloat ttDetail">Owner</div>
-                    <a href="#" class="ttLink elps">Amir Shalev</a>
-
-                    <div class="lFloat ttDetail">Uploaded</div>
-                    <div class="">05/01/2014</div>
-                </div>
-                <div class="lFloat ttDetail" data-numdownload="6">Downloads</div>
-                <div class="rFloat ttDetail" data-numcommment="30">Comments</div>
-            </div>
-            <div class="ttPreview">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie 
-            </div>
-        </div>
+    <li class="boxItem" data-bind="attr: { id: uid }">        
         <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
             <!--ko if:sponsored-->
             <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="479" height="188" />
@@ -129,5 +111,25 @@
             </div>
         }
     </li>
+</script>
 
+<script type="text/html" id="boxItemTooltipTemplate">
+    <div class="boxItemTt{{noPreview}}">
+        <div class="arrow downArrow"></div>
+        <div class="ttTop">
+            <div class="moreFilesThumb {{extensionColor}}">{{extension}}</div>
+            <div class="detailsWpr">
+                <div class="lFloat ttDetail">Owner</div>
+                <a href="#" class="ttLink elps">{{ownerName}}</a>
+
+                <div class="lFloat ttDetail">Uploaded</div>
+                <div>{{date}}</div>
+            </div>
+            <div class="lFloat ttDetail" data-numdownload="{{numOfDownloads}}">Downloads</div>
+            <div class="rFloat ttDetail" data-numcommment="{{commentsCount}}">Comments</div>
+        </div>
+        <div class="ttPreview">
+            {{description}}
+        </div>
+    </div>
 </script>

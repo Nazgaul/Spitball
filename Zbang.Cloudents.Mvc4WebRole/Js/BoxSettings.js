@@ -155,7 +155,7 @@
                         selectedObj[input] = undefined;
                     }
 
-                    if (selectedObj[input] !== boxSettingsData[input]) {
+                    if (selectedObj[input].toLowerCase() !== boxSettingsData[input].toLowerCase()) {
                         changed = true;
                     }
                 }

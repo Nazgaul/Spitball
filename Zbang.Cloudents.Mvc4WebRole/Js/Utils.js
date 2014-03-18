@@ -102,7 +102,7 @@
     //#region Dates in the system    
     var actionTimeInterval;
 
-    var parseActionTime = function (date) {
+    function parseActionTime(date) {
         if (!date) {
             return;
         }
@@ -198,6 +198,10 @@
         }
     }
     actionTimeInterval = setInterval(updateTimeActions, 60000);
+
+    function parseTimeString(date) {
+        return parseActionTime(new Date(date));
+    }
     //#endregion
     var resetErrors = function (form) {
         var $form = $(form);
@@ -350,7 +354,32 @@
     };
 
 
+    var getExtension = function(fileName, type) {            
+        if (type.toLowerCase() === 'link') {
+            return 'www';
+        }
 
+        var x = fileName.lastIndexOf('.');
+        if (x === -1) {
+            return '';
+        }
+
+        return fileName.slice(x + 1)
+    }
+
+    function getExtensionColor(fileName, type) {
+        var prefix = 'mF';
+        if (type.toLowerCase() === 'link') {
+            return prefix + 'link';
+        }
+        var cssClass = '',
+            extension = getExtension(fileName, type);
+
+        if (extension.length > 3) {
+            cssClass += 'fourLetterExtension';
+        }
+        return cssClass += prefix + extension.toLowerCase();
+    }
 
     //var getParameterFromHash = function (index) {
     //    var url = window.location.hash;
@@ -1046,13 +1075,15 @@
         }
     };
     cd.updateTimeActions = updateTimeActions;
-    cd.parseActionTime = parseActionTime;
+    cd.parseTimeString= parseTimeString;
     cd.highlightSearch = highlightSearch;
     cd.getElementPosition = getElementPosition;
     cd.sessionStorageWrapper = sessionStorageWrapper;
     cd.localStorageWrapper = localStorageWrapper;
     cd.debounce = debounce;
     cd.conversion = conversion;
+    cd.getExtensionColor = getExtensionColor;
+    cd.getExtension = getExtension;
     cd.loadImages = loadImages;
     cd.ConvertToDate = ConvertToDate;
     //var eById = document.getElementById.bind(document);
