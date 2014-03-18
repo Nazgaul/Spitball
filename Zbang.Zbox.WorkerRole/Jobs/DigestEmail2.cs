@@ -19,7 +19,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly NotificationSettings m_DigestEmailHourBack;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IMailComponent m_MailComponent;
-        private readonly IShortCodesCache m_ShortCodesCache;
 
         private bool m_KeepRunning;
         private readonly TimeSpan m_TimeToSleepAfterExcecuting;
@@ -27,12 +26,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>> m_Cache = new Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>>();
 
         public DigestEmail2(NotificationSettings hourForEmailDigest, IZboxReadServiceWorkerRole zboxService,
-            IMailComponent mailComponent, IShortCodesCache shortCodesCache)
+            IMailComponent mailComponent)
         {
             m_DigestEmailHourBack = hourForEmailDigest;
             m_ZboxReadService = zboxService;
             m_MailComponent = mailComponent;
-            m_ShortCodesCache = shortCodesCache;
             if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
             {
                 m_TimeToSleepAfterExcecuting = TimeSpan.FromMinutes(Zbang.Zbox.ViewModel.Queries.Emails.BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes);
@@ -73,7 +71,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 try
                 {
-                    buildUserReport(user.UserId, user.Email, user.Culture);
+                    buildUserReport(user.UserId, user.Email, user.Culture, user.UserName);
                 }
                 catch (Exception ex)
                 {
@@ -84,13 +82,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             Thread.Sleep(m_TimeToSleepAfterExcecuting);
         }
 
-        private void buildUserReport(long userid, string email, string culture)
+        private void buildUserReport(long userid, string email, string culture, string userName)
         {
             var updates = new List<UpdateMailParams.BoxUpdate>();
             var boxes = m_ZboxReadService.GetBoxesLastUpdates(new ViewModel.Queries.Emails.GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));
             boxes = boxes.Select(s =>
             {
-                s.BoxUid = m_ShortCodesCache.LongToShortCode(s.BoxId);
+                s.Url = string.Empty;
                 return s;
             });
 
@@ -101,7 +99,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 if (userSpecificUpdates.Count() > 0)
                 {
-                    updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName, userSpecificUpdates));
+                    updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName, userSpecificUpdates.Take(4), string.Empty, userSpecificUpdates.Count() - 4));
                 }
             }
 
@@ -111,7 +109,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 return;
             }
 
-            m_MailComponent.GenerateAndSendEmail(email, new UpdateMailParams(updates, new System.Globalization.CultureInfo(culture)));
+            m_MailComponent.GenerateAndSendEmail(email, new UpdateMailParams(updates, new System.Globalization.CultureInfo(culture), userName,
+                updates.OfType<UpdateMailParams.QuestionUpdate>().Count(),
+                updates.OfType<UpdateMailParams.AnswerUpdate>().Count(),
+                updates.OfType<UpdateMailParams.ItemUpdate>().Count()));
+
         }
         private IEnumerable<UpdateMailParams.BoxUpdateDetails> GetBoxData(BoxDigestDto box)
         {
@@ -121,31 +123,26 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             var items = m_ZboxReadService.GetItemsLastUpdates(new ViewModel.Queries.Emails.GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
 
-            var itemsUpdate = items.Select(s => new UpdateMailParams.BoxUpdateDetails(s.UserId, s.UserName,
-                s.Name, EmailAction.AddedItem,
-                  string.Format(UrlConsts.ItemUrl, box.BoxUid, s.Uid)));
+
+            var itemsUpdate = items.Select(s => new UpdateMailParams.ItemUpdate(s.Name, s.Picture, s.UserName, string.Empty, s.UserId));
 
 
-            var comments = m_ZboxReadService.GetQuestionsLastUpdates(new ViewModel.Queries.Emails.GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var commentsUpdate = comments.Select(s => new UpdateMailParams.BoxUpdateDetails(s.UserId, s.UserName,
-               string.Empty,
-                EmailAction.AskedQuestion,
-                string.Format(UrlConsts.BoxUrl, box.BoxUid)
-             ));
+            var questions = m_ZboxReadService.GetQuestionsLastUpdates(new ViewModel.Queries.Emails.GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+            var questionUpdate = questions.Select(s => new UpdateMailParams.QuestionUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
             var answers = m_ZboxReadService.GetAnswersLastUpdates(new ViewModel.Queries.Emails.GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var answersUpdate = answers.Select(s => new UpdateMailParams.BoxUpdateDetails(s.UserId, s.UserName,
-               string.Empty,
-                EmailAction.Answered,
-                string.Format(UrlConsts.BoxUrl, box.BoxUid)
-             ));
+            var answersUpdate = answers.Select(s => new UpdateMailParams.AnswerUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
 
             var memebers = m_ZboxReadService.GetNewMembersLastUpdates(new ViewModel.Queries.Emails.GetMembersLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var membersUpdate = memebers.Select(s =>
-                new UpdateMailParams.BoxUpdateDetails(s.UserId, s.UserName, box.BoxName, EmailAction.Join, string.Format(UrlConsts.BoxUrl, box.BoxUid)));
+                new UpdateMailParams.UserJoin(s.Name, s.Picture, box.BoxName, string.Empty, s.Id));
 
-            var boxupdates = itemsUpdate.Union(commentsUpdate).Union(membersUpdate).Union(answersUpdate);
+            var boxupdates = new List<UpdateMailParams.BoxUpdateDetails>();
+            boxupdates.AddRange(itemsUpdate);
+            boxupdates.AddRange(questionUpdate);
+            boxupdates.AddRange(membersUpdate);
+            boxupdates.AddRange(answersUpdate);
             m_Cache.Add(box.BoxId, boxupdates);
             return boxupdates;
 

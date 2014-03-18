@@ -5,11 +5,10 @@ using System.Text;
 
 namespace Zbang.Zbox.ViewModel.DTOs.Emails
 {
-   public  class CommentDigestDto
+   public  class QnADigestDto
     {
         public string UserName { get; set; }
-        //public string ItemUid { get; set; }
-        //public string ItemName { get; set; }
+        public string Text { get; set; }
         public long UserId { get; set; }
     }
 }

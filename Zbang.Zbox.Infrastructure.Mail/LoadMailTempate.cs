@@ -10,10 +10,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public static class LoadMailTempate
     {
+        private static Dictionary<string, string> resources = new Dictionary<string, string>();
         public static string LoadMailFromContent(CultureInfo culture, string resourceName)
         {
-           
-
             while (!culture.Equals(CultureInfo.InvariantCulture))
             {
                 var assemblyResourceName = resourceName + culture.Name.UppercaseFirst() + ".html";
@@ -25,12 +24,20 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 culture = culture.Parent;
 
             }
-            return loadResource(resourceName + ".html");
+            string content = string.Empty;
+            if (resources.TryGetValue(resourceName, out content))
+            {
+                return content;
+            }
+            content =  loadResource(resourceName + ".html");
+            resources.Add(resourceName, content);
+            return content;
 
         }
 
         private static string loadResource(string resourceName)
         {
+            
             var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
             if (stream != null)
             {
