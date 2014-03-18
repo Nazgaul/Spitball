@@ -116,7 +116,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
     public class InviteMailParams : MailParameters
     {
-        public InviteMailParams(string invitor, string boxname, string boxurl,string invitorImage, CultureInfo culture)
+        public InviteMailParams(string invitor, string boxname, string boxurl, string invitorImage, CultureInfo culture)
             : base(culture)
         {
             Invitor = invitor;
@@ -160,10 +160,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
     public class UpdateMailParams : MailParameters
     {
-        public UpdateMailParams(IEnumerable<BoxUpdate> updates, CultureInfo culture)
+        public UpdateMailParams(IEnumerable<BoxUpdate> updates, CultureInfo culture,
+            string userName, int numberOfQuestions, int numberOfAnswers, int numberOfItems)
             : base(culture)
         {
             Updates = updates;
+            UserName = userName;
+            NoOfQuestions = numberOfQuestions;
+            NoOfAnswers = numberOfAnswers;
+            NoOfItems = numberOfItems;
         }
         public override string MailResover
         {
@@ -171,34 +176,146 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
 
         public IEnumerable<BoxUpdate> Updates { get; private set; }
+        public string UserName { get; private set; }
+        public int NoOfQuestions { get; private set; }
+        public int NoOfAnswers { get; private set; }
+        public int NoOfItems { get; private set; }
+
 
         public class BoxUpdate
         {
-            public BoxUpdate(string boxName, IEnumerable<BoxUpdateDetails> updates)
+            public BoxUpdate(string boxName, IEnumerable<BoxUpdateDetails> updates, string boxUrl, int numberOfExtraUpdates)
             {
                 BoxName = boxName;
                 Updates = updates;
+                Url = boxUrl;
+                ExtraUpdatesCount = numberOfExtraUpdates;
             }
             public string BoxName { get; private set; }
+            public string Url { get; private set; }
+            public int ExtraUpdatesCount { get; private set; }
             public IEnumerable<BoxUpdateDetails> Updates { get; private set; }
 
         }
-        public class BoxUpdateDetails
+        public abstract class BoxUpdateDetails
         {
-            public BoxUpdateDetails(long userId, string userName, string actionElement, EmailAction actionText, string actionUrl)
+            public BoxUpdateDetails(string url, string picture, long userId)
             {
+                Url = url;
+                Picture = picture;
                 UserId = userId;
-                UserName = userName;
-                ActionElement = actionElement;
-                ActionText = actionText;
-                ActionUrl = actionUrl;
             }
+            //public BoxUpdateDetails(long userId, string userName, string actionElement, EmailAction actionText, string actionUrl)
+            //{
+            //    UserId = userId;
+            //    UserName = userName;
+            //    ActionElement = actionElement;
+            //    ActionText = actionText;
+            //    ActionUrl = actionUrl;
+            //}
             public long UserId { get; private set; }
-            public string UserName { get; private set; }
-            public string ActionElement { get; private set; }
-            public EmailAction ActionText { get; private set; }
+            //public string UserName { get; private set; }
+            //public string ActionElement { get; private set; }
+            //public EmailAction ActionText { get; private set; }
 
-            public string ActionUrl { get; private set; }
+            //public string ActionUrl { get; private set; }
+            public string Url { get; set; }
+            public string Picture { get; set; }
+
+            public abstract string BuildMailLine(CultureInfo culture);
+
+
+        }
+        public class ItemUpdate : BoxUpdateDetails
+        {
+            public ItemUpdate(string name, string picture, string ownerName, string url, long userId)
+                : base(url, picture, userId)
+            {
+                Name = name;
+                OwnerName = ownerName;
+
+            }
+            public string Name { get; set; }
+            public string OwnerName { get; set; }
+
+            public override string BuildMailLine(CultureInfo culture)
+            {
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Item"));
+                sb.Replace("{FILE_URL}", Url);
+                sb.Replace("{IMG-SOURCE}", Picture);
+                sb.Replace("{FILE-NAME}", Name);
+                sb.Replace("{UPLOADER}", OwnerName);
+                return sb.ToString();
+            }
+        }
+        public class QuestionUpdate : BoxUpdateDetails
+        {
+            public QuestionUpdate(string user, string text, string picture, string url, long userId)
+                : base(url, picture, userId)
+            {
+                User = user;
+                Text = text;
+            }
+            public string User { get; set; }
+            public string Text { get; set; }
+
+            public override string BuildMailLine(CultureInfo culture)
+            {
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Question"));
+                sb.Replace("{ASKER}", User);
+                sb.Replace("{QUESTION_URL}", Url);
+                sb.Replace("{BOX_PICTURE}", Picture);
+                sb.Replace("{ANSWER-URL}", Url);
+                sb.Replace("{QUESTION-TXT}", Text);
+
+                return sb.ToString();
+            }
+        }
+        public class AnswerUpdate : BoxUpdateDetails
+        {
+            public AnswerUpdate(string user, string text, string picture, string url, long userId)
+                : base(url, picture, userId)
+            {
+                User = user;
+                Text = text;
+            }
+            public string User { get; set; }
+            public string Text { get; set; }
+
+            public override string BuildMailLine(CultureInfo culture)
+            {
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Answer"));
+                sb.Replace("{ANSWERER}", User);
+                sb.Replace("{ANSWER_URL}", Url);
+                sb.Replace("{BOX_PICTURE}", Picture);
+                sb.Replace("{ANSWER-TXT}", Text);
+
+                return sb.ToString();
+            }
+        }
+
+        public class UserJoin : BoxUpdateDetails
+        {
+            public UserJoin(string name, string picture, string boxName, string url, long userId)
+                : base(url, picture, userId)
+            {
+                Name = name;
+                BoxName = boxName;
+            }
+            public string Name { get; set; }
+            public string BoxName { get; private set; }
+
+
+            public override string BuildMailLine(CultureInfo culture)
+            {
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Member"));
+                sb.Replace("{MEMBER-NAME}", Name);
+                sb.Replace("{MEMBER_URL}", Url);
+                sb.Replace("{MEMBER_PICTURE}", Picture);
+                sb.Replace("{BOX-NAME}", BoxName);
+
+                return sb.ToString();
+            }
         }
     }
 

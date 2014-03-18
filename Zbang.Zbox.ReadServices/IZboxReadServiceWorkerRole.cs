@@ -13,8 +13,8 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<UserDigestDto> GetUsersByNotificationSettings(GetUserByNotificationQuery query);
         IEnumerable<BoxDigestDto> GetBoxesLastUpdates(GetBoxesLastUpdateQuery query);
         IEnumerable<ItemDigestDto> GetItemsLastUpdates(GetItemsLastUpdateQuery query);
-        IEnumerable<CommentDigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query);
-        IEnumerable<CommentDigestDto> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query);
+        IEnumerable<QnADigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query);
+        IEnumerable<QnADigestDto> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query);
         IEnumerable<MembersDigestDto> GetNewMembersLastUpdates(GetMembersLastUpdateQuery query);
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);

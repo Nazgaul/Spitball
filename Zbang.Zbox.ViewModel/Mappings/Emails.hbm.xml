@@ -6,7 +6,7 @@
   <!--New Emails-->
   <sql-query name="GetUserListByNotificationSettings" read-only="1">
     <![CDATA[
-      select distinct u.userid as UserId,u.email as Email, u.culture as Culture
+      select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
       from zbox.userboxrel ub 
       join zbox.users u on ub.userid = u.userid
       join zbox.box b on ub.boxid = b.boxid
@@ -16,7 +16,8 @@
   </sql-query>
   <sql-query name="GetBoxPossibleUpdateByUser" read-only="1">
     <![CDATA[
-    select distinct b.boxid as BoxId,b.uid as BoxUid, b.boxname as BoxName
+    select distinct b.boxid as BoxId, b.boxname as BoxName, b.BoxPicture as BoxPicture,
+  (select universityname from zbox.Users u where b.OwnerId = u.UserId) as UniversityName
     from zbox.userboxrel ub 
     join zbox.box b on ub.boxid = b.boxid
       where ub.userid = :UserId
@@ -26,15 +27,15 @@
  
   <sql-query name="GetItemUpdateByBox" read-only="1">
     <![CDATA[
-    select u.username as UserName, u.userid as UserId, i.itemid as Uid,i.name as Name
+    select u.username as UserName,u.userid as UserId  i.itemid as Id,i.name as Name, i.ThumbnailBlobName as Picture
     from zbox.item i inner join zbox.users u on u.userid = i.userid
     where i.boxid = :BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,i.creationTime)) >0
     ]]>
   </sql-query>
-  <sql-query name="GetCommentUpdateByBox" read-only="1">
+  <sql-query name="GetQuestionUpdateByBox" read-only="1">
     <![CDATA[
-    select u.userName as UserName, u.userid as UserId
+    select u.userName as UserName, u.userid as UserId, q.Text as Text
     from zbox.question q 
     join Zbox.Users u on q.UserId = u.userid
     where q.boxid = :BoxId
@@ -43,7 +44,7 @@
   </sql-query>
   <sql-query name="GetAnswerUpdateByBox" read-only="1">
     <![CDATA[
-    select u.userName as UserName, u.userid as UserId
+    select u.userName as UserName, u.userid as UserId, a.Text as Text
     from zbox.answer a 
     join Zbox.Users u on a.UserId = u.userid
     where a.boxid = :BoxId
@@ -52,7 +53,7 @@
   </sql-query>
   <sql-query name="GetMembersUpdateByBox" read-only="1">
     <![CDATA[
-    select u.userName as UserName, u.userid as UserId  
+    select u.userName as Name, u.userid as Id, u.UserImage as Picture
     from zbox.UserBoxRel ub
     inner join zbox.users u on u.userid = ub.userid
     where ub.UserType = 2

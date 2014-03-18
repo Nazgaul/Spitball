@@ -50,26 +50,26 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public IEnumerable<CommentDigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query)
+        public IEnumerable<QnADigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query)
         {
             using (UnitOfWork.Start())
             {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetCommentUpdateByBox");
+                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetQuestionUpdateByBox");
                 dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
                 dbQuery.SetInt64("BoxId", query.BoxId);
-                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<CommentDigestDto>());
-                return dbQuery.List<CommentDigestDto>();
+                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<QnADigestDto>());
+                return dbQuery.List<QnADigestDto>();
             }
         }
-        public IEnumerable<CommentDigestDto> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query)
+        public IEnumerable<QnADigestDto> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetAnswerUpdateByBox");
                 dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
                 dbQuery.SetInt64("BoxId", query.BoxId);
-                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<CommentDigestDto>());
-                return dbQuery.List<CommentDigestDto>();
+                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<QnADigestDto>());
+                return dbQuery.List<QnADigestDto>();
             }
         }
 
