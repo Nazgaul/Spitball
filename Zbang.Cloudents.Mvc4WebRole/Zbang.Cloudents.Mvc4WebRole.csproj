@@ -650,7 +650,7 @@
       <DependentUpon>Search.less</DependentUpon>
     </Content>
     <Content Include="Content\Search.min.css">
-      <DependentUpon>Search.less</DependentUpon>
+      <DependentUpon>Search.css</DependentUpon>
     </Content>
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
