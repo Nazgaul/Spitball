@@ -172,14 +172,34 @@
         }
         var observer;
         if (element.id === 'item') {
-            observer = new MutationObserver(itemObserve);
+            observer = new JsMutationObserver(itemObserve);
         }
         if (element.id === 'box') {
-            observer = new MutationObserver(boxObserve);
+            observer = new JsMutationObserver(boxObserve);
+        }
+
+        if (element.id === 'g_search' || element.id === 'search' ) {
+            observer = new JsMutationObserver(searchDDObserve);
         }
 
         observer.observe(element, config);
 
+    }
+    function searchDDObserve(mutations) {
+        for (var i = 0; i < mutations.length; ++i) {
+            // look through all added nodes of this mutation
+            for (var j = 0; j < mutations[i].addedNodes.length; ++j) {
+                // was a child added with ID of 'bar'?
+                var elm = mutations[i].addedNodes[j];
+                if (elm.nodeName === 'LI') {
+                    var childs = elm.getElementsByTagName('*');
+                    for (var z = 0,zL = childs.length; z < zL; z++) {
+                        cd.setElementDirection(childs[z]);
+                    }
+                    
+                }
+            }
+        }
     }
     function boxObserve(mutations) {
         var text;
