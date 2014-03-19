@@ -8,9 +8,9 @@
     <button class="navLinks newInvites noInvites" id="invites" data-title="@SharedResources.Notifications">
         <span id="invitesCounter" class="invitesCounter"></span>
     </button>
-    <div class="notifyWpr">
+    <div class="notifyWpr noResults">
         <div class="arrow upArrow"></div>
-        <div class="notifyTop">Notifications</div>
+        <div class="notifyTop">@SharedResources.Notifications</div>
         <ul id="invitesList" class="notifyList"></ul>
     </div>
 </li>
@@ -21,7 +21,7 @@
             <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
             <span>{{senderName}}</span>
             <span data-time="{{date}}"></span><br />
-            Invites you to follow <span>{{boxName}}</span>
+            @SharedResources.InvitesYou <span>{{boxName}}</span>
         </a>
     </li>
 </script>
