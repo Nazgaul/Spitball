@@ -113,12 +113,12 @@
     var reRTL = new RegExp('[' + rtlChars + ']', 'g');
     var reNotRTL = new RegExp('[^' + rtlChars + controlChars + ']', 'g');
 
-
-    $body.on('keypress', 'textarea', function () {
-        var value = $(this).val();
-        for (var i = 0; i < value.length; i++) {
-
+    function checkRTLDirection(value) {
+     
+        if (!value) {
+            return;
         }
+
         var rtls = value.match(reRTL);
         if (rtls !== null)
             rtls = rtls.length;
@@ -131,14 +131,29 @@
         else
             notrtls = 0;
 
-        if (rtls > notrtls)
-            $(this).css('direction', 'rtl').css('text-align', 'right');
-        else
-            $(this).css('direction', 'ltr').css('text-align', 'left');
+        return rtls > notrtls;
+    }
+    $body.on('keypress', 'textarea', function () {
+        if (checkRTLDirection($(this).value)) {
+            $(element).css('direction', 'rtl').css('text-align', 'right');
+        } else {
+            $(element).css('direction', 'ltr').css('text-align', 'left');
+        }
     });
+
     $document.on('submit', 'form', function () {
         $(this).find('textarea').css('direction', '').css('text-align', '');
     });
+
+    var setElementDirection = function (element) {
+        if (checkRTLDirection(element.textContent)) {
+            $(element).css('direction', 'rtl');
+        } else {
+            $(element).css('direction', 'ltr');
+        }
+    }
+
+    cd.setElementDirection = setElementDirection;
     //#endregion
 
     //#region hover intent

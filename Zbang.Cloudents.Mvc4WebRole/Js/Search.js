@@ -6,6 +6,7 @@
     var eById = document.getElementById.bind(document);
 
     cd.loadModel('search', 'SearchContext', SearchViewModel);
+    cd.createObserver(eById('search'));
 
     function SearchViewModel() {
         var search = eById('search'),

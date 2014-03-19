@@ -25,6 +25,9 @@
         },
         currentValue, maxCategoryItems, maxOtherItems;
 
+    cd.createObserver(eById('g_search'));
+
+
     function Item(data) {
         var self = this;
         self.image = data.image;
