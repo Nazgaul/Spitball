@@ -460,4 +460,10 @@
   <data name="Username" xml:space="preserve">
     <value>שם משתמש</value>
   </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>הורדות</value>
+  </data>
+  <data name="SweetThanks" xml:space="preserve">
+    <value>מעולה, תודה</value>
+  </data>
 </root>

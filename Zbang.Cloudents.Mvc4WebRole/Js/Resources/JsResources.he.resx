@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="April" xml:space="preserve">
+    <value>אפריל</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>אוגוסט</value>
+  </data>
   <data name="CloudentsJoin" xml:space="preserve">
     <value>התחברתי לcloudents  המאגר האקדמי של הסטודנטים :
 מבחנים משנים קודמות, סיכומים, מאמרים.
@@ -126,23 +132,56 @@
   <data name="Dashboard" xml:space="preserve">
     <value>איזור שלי</value>
   </data>
+  <data name="December" xml:space="preserve">
+    <value>דצמבר</value>
+  </data>
   <data name="DeleteCourse" xml:space="preserve">
     <value>מחיקת קורס זה תמחק את כל התוכן שלו, כולל קבצים, שאלות ותשובות. האם אתה בטוח שאתה רוצה למחוק את הקורס הזה?</value>
   </data>
   <data name="DeleteUser" xml:space="preserve">
     <value>האם אתה בטוח שברצונך למחוק משתמש זה?</value>
   </data>
+  <data name="February" xml:space="preserve">
+    <value>פברואר</value>
+  </data>
   <data name="IShared" xml:space="preserve">
     <value>שיתפתי</value>
   </data>
+  <data name="January" xml:space="preserve">
+    <value>ינואר</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>יולי</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>יוני</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>עכשיו</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>מרץ</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>מאי</value>
+  </data>
   <data name="NoSelected" xml:space="preserve">
     <value>משתמש לא בחר קורסים</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>נובמבר</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>אוקטובר</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>ב Cloudents</value>
   </data>
   <data name="SendDirect" xml:space="preserve">
     <value>שלח הודעה</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>ספטמבר</value>
   </data>
   <data name="ShareBy" xml:space="preserve">
     <value>שתף דרך אימייל או שם</value>

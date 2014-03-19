@@ -388,4 +388,7 @@
   <data name="Username" xml:space="preserve">
     <value>用户名</value>
   </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>下载</value>
+  </data>
 </root>

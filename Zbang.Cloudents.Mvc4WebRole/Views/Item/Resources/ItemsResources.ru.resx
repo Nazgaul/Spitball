@@ -145,9 +145,6 @@
   <data name="Download" xml:space="preserve">
     <value>Загрузить</value>
   </data>
-  <data name="Downloads" xml:space="preserve">
-    <value>загрузки</value>
-  </data>
   <data name="Flag" xml:space="preserve">
     <value>Отметить элемент</value>
   </data>

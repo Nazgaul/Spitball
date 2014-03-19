@@ -456,4 +456,14 @@
   <data name="Username" xml:space="preserve">
     <value>Имя пользователя</value>
   </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>загрузки</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Новый</value>
+  </data>
+  <data name="SweetThanks" xml:space="preserve">
+    <value>Отлично, спасибо
+</value>
+  </data>
 </root>
