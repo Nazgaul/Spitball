@@ -170,13 +170,18 @@
         if (!element) {
             return;
         }
-
-        var observer = new MutationObserver(mObserve);
+        var observer;
+        if (element.id === 'item') {
+            observer = new MutationObserver(itemObserve);
+        }
+        if (element.id === 'box') {
+            observer = new MutationObserver(boxObserve);
+        }
 
         observer.observe(element, config);
 
     }
-    function mObserve(mutations) {
+    function boxObserve(mutations) {
         var text;
         if (actionTimeInterval) {
             clearInterval(actionTimeInterval);
@@ -186,6 +191,32 @@
                 text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
                 mutation.target.textContent = text;
             }
+            if (mutation.target.classList.contains('boxItemTt')) {
+                var elements = mutation.target.querySelectorAll('[data-time]'),
+                    element;
+
+                for (var i = 0, l = elements.length; i < l; i++) {
+                    element = elements[i];
+                    if (element.getAttribute('data-obsv')) {
+                        continue;
+                    }
+                    element.setAttribute('data-obsv', true);
+                    text = parseActionTime(new Date(element.getAttribute('data-time')));
+                    element.textContent = text;
+                }
+
+            }
+
+        });
+        actionTimeInterval = setInterval(updateTimeActions, 60000);
+    }
+
+    function itemObserve(mutations) {
+        var text;
+        if (actionTimeInterval) {
+            clearInterval(actionTimeInterval);
+        }
+        mutations.forEach(function (mutation) {         
             if (mutation.target.classList.contains('annotationList')) {
                 var elements = mutation.target.querySelectorAll('[data-time]'),
                     element;

@@ -7,8 +7,6 @@
 
     cd.loadModel('box', 'BoxContext', registerKoBoxItems);
 
-    //cd.createObserver(document.getElementById('BoxItemList'));
-
     function registerKoBoxItems() {
         ko.applyBindings(new BoxItemViewModel(), $('#box_items')[0]);
     }

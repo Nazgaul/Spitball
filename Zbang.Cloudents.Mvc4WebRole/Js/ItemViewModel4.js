@@ -17,7 +17,7 @@
 
     cd.loadModel(consts.item, 'ItemContext', registerKOItem);
 
-    cd.createObserver(eById('previewWrapper'));    
+    cd.createObserver(eById('item'));    
 
     function registerKOItem() {
         ko.applyBindings(new ItemViewModel(), document.getElementById(consts.item));
