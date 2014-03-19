@@ -156,7 +156,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             var memebers = m_ZboxReadService.GetNewMembersLastUpdates(new ViewModel.Queries.Emails.GetMembersLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var membersUpdate = memebers.Select(s =>
-                new UpdateMailParams.UserJoin(s.Name, s.Picture, box.BoxName, string.Empty, s.Id));
+                new UpdateMailParams.UserJoin(s.Name, s.Picture, box.BoxName, 
+                    string.Format(UrlConsts.UserUrl,
+                    s.Id,
+                    UrlConsts.NameToQueryString(s.Name))
+                    , s.Id));
 
             var boxupdates = new List<UpdateMailParams.BoxUpdateDetails>();
             boxupdates.AddRange(itemsUpdate);
