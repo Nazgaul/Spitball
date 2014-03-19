@@ -657,11 +657,6 @@ ul.ui-autocomplete li a {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.notifyList {
-  background: #fff;
-  max-height: 421px;
-  overflow: auto;
-}
 .userMenu {
   width: 160px;
   right: 0;

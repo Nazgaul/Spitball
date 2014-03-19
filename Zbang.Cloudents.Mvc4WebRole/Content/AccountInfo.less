@@ -192,6 +192,13 @@
     margin-top: -10px;
     border-radius: 5px 5px 0 0;
 }
+.notifyList 
+{
+    background: #fff;
+    max-height: 421px;
+    overflow: auto;
+    border-radius: 0 0 5px 5px;
+}
 .notifyItem{
     border-bottom: 1px solid rgb(159,158,157);
     border-bottom: 1px solid rgba(159,158,157,.5);
@@ -215,10 +222,22 @@
             background: @borderColor;
         }
     }
+    .semiFont{
+        font-size: 15px;
+    }
+}
+.notifyImg
+{
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }
 
-    
-
+.notifyMsg
+{
+    line-height: 17px;
+    margin-top: -16px;
+}    
 .invboxName {
     display: inline-block;
     font-weight: bold;

@@ -18,7 +18,7 @@
 <script type="text/html" id="inviteTemplate">
     <li class="notifyItem">
         <a data-navigation="Box" href="{{url}}">
-            <img src="{{senderImg}}" alt="" />
+            <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
             <span>{{senderName}}</span>
             <span data-time="{{date}}"></span><br />
             Invites you to follow <span>{{boxName}}</span>
@@ -28,9 +28,9 @@
 <script type="text/html" id="messageTemplate">
     <li class="notifyItem">
         <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
-        <span>{{senderName}}</span>
+        <span class="semiFont">{{senderName}}</span>
         <span data-time="{{date}}"></span>
-        <div>{{message}}</div>
+        <div class="elps notifyMsg">{{message}}</div>
     </li>
 </script>
 <!-- /ko -->
