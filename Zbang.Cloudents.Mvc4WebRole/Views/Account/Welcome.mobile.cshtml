@@ -14,7 +14,7 @@
 
         <div class="title2 boldFont">@LogOnResources.ByEmail</div>
         @{Html.RenderPartial("Register", Model.Register);}
-        <div class="help2">@LogOnResources.AlreadyHave&nbsp;@*<button type="button" data-modelNav="connect">@LogOnResources.ConnectHere</button>*@<a style="color:#383838;" href="#connect">@LogOnResources.ConnectHere</a></div>
+        <div class="help2">@LogOnResources.AlreadyHave&nbsp;@*<button type="button" data-modelNav="connect">@LogOnResources.ConnectHere</button>*@<a class="boldFont" style="color:#383838;" href="#connect">@LogOnResources.ConnectHere</a></div>
     </div>
 </div>
 <div id="connect" class="connect0">
@@ -28,7 +28,7 @@
         <div class="title2 boldFont">@LogOnResources.ByEmail</div>
         @{Html.RenderPartial("LogOn", Model.LogOn);}
         <div class="help">@LogOnResources.ForgotYourPassword&nbsp;<a href="@Url.Action("ResetPassword")">@LogOnResources.Retrieve</a></div>
-        <div class="help2">@LogOnResources.NoAccount&nbsp;@*<button type="button" data-modelNav="register">@LogOnResources.Create</button>*@<a style="color:#383838;" href="#register">@LogOnResources.Create</a></div>
+        <div class="help2">@LogOnResources.NoAccount&nbsp;@*<button type="button" data-modelNav="register">@LogOnResources.Create</button>*@<a class="boldFont" style="color:#383838;" href="#register">@LogOnResources.Create</a></div>
     </div>
 </div>
 

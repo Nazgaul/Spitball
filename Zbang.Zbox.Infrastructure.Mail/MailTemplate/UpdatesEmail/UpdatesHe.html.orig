@@ -96,7 +96,11 @@
 </style>
 </head>
 
+<<<<<<< HEAD
+<body style="width:100% !important; color:#383838; font-family: Helvetica,sans-serif; margin:0; padding:0; direction:rtl;" yahoo="fix">
+=======
 <body style="direction:rtl;width:100% !important; color:#383838; font-family: Helvetica,sans-serif; margin:0; padding:0;" yahoo="fix"  dir="rtl">
+>>>>>>> 071521565f98a076b5d13eb22aa73b704df206eb
 <!-- * WRAPPER * -->
 <table cellpadding="0" cellspacing="0" border="0" class="wrapper" width="100%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
 	<tr>
@@ -155,7 +159,11 @@
                        
                        <!-- * UPDATES HERE * -->
                        <tr>
+<<<<<<< HEAD
+                        <td align="right">and many more to see.</td>
+=======
                         <td align="right">ועוד נוספים</td>
+>>>>>>> 071521565f98a076b5d13eb22aa73b704df206eb
                        </tr>
                        <!-- * END OF UPDATES * -->
                        

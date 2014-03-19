@@ -77,9 +77,15 @@
         var $fAddLink = $('#fAddLink');
 
         $fAddLink.submit(function (e) {
-            var $url = $('#Url');
-            /// <summary></summary>
             e.preventDefault();
+
+            var $url = $('#Url');
+            if (document.querySelector('input[value="'+$url.val()+'/"]')) {
+                cd.displayErrors($fAddLink, 'Link already exists');
+                return;
+            }
+            
+            /// <summary></summary>            
             var $form = $(this);
             if (!$form.valid || $form.valid()) {
                 var fdata = $form.serializeArray();

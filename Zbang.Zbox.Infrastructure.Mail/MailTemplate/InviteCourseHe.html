@@ -18,7 +18,7 @@
     /* End Email Client BUG Fixes */
 	
 	@media only screen and (max-width: 639px) {
-			body{width:auto!important; min-width of 99% !important;}
+			body{width:auto!important; min-width:99% !important;}
 			
 			/* Adjust table widths at smaller screen sizes */
 			body[yahoo] .table		{width:440px !important;}
@@ -36,7 +36,7 @@
 		} 
 	
 	@media only screen and (max-width: 349px) {
-			body{width:auto!important; min-width of 99% !important;}
+			body{width:auto!important; min-width:99% !important;}
 			
 			/* Adjust table widths at smaller screen sizes */
 			body[yahoo] .table		{width:320px !important;}
@@ -58,7 +58,7 @@
 </style>
 </head>
 
-<body style="width:100% !important; color:#383838; font-family: Helvetica,sans-serif; margin:0; padding:0;" yahoo="fix">
+<body style="direction:rtl;width:100% !important; color:#383838; font-family: Helvetica,sans-serif; margin:0; padding:0;" yahoo="fix" dir="rtl">
 <!-- * WRAPPER * -->
 <table cellpadding="0" cellspacing="0" border="0" class="wrapper" width="100%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
 	<tr>
@@ -95,7 +95,7 @@
                 <!-- * MESSAGE TEXT HERE * -->
                 <tr>
                     <td width="20"></td>
-                    <td align="right" style="font-size:22px; color:#383838;"> {BOXNAME}הזמנה ל </td>
+                    <td align="right" style="font-size:22px; color:#383838;"> הזמנה ל{BOXNAME} </td>
                     <td width="20"></td>
                 </tr>
                 <!-- * END OF MESSAGE TEXT HERE * -->
@@ -141,7 +141,7 @@
                             </tr>
                             
                             <tr>
-                                <td align="right" style="font-size:14px;"><a style="text-decoration:none; font-size:14px; color:#0371C8;" target="_blank" href="{BoxUrl}">{BOXNAME}</a>הזמינ/ה אותך ל</td>
+                                <td align="right" style="font-size:14px;">הזמינ/ה אותך ל<a style="text-decoration:none; font-size:14px; color:#0371C8;" target="_blank" href="{BoxUrl}">{BOXNAME}</a></td>
                             </tr>
                             
                             <!-- * TOP SPACER * -->
@@ -194,7 +194,7 @@
                 <!-- * FOOTER TERMS * -->
                 <tr>
                     <td width="25"></td> 
-                    <td align="right" style="font-size:12px; color:#383838;"> <a style="color:#09955b; text-decoration:none;" href="mailto:{email}">.{email}</a>הודעה זו נשלחה ל<br />
+                    <td align="right" style="font-size:12px; color:#383838;">הודעה זו נשלחה ל<a style="color:#09955b; text-decoration:none;" href="mailto:{email}">{email}.</a><br />
 אם תרצה/י לשנות את תדירות קבלת ההודעות, אנא עדכנ/י את <a target="_blank" style="color:#919191; text-decoration:none;" href="https://www.cloudents.com/Account/Settings#Notification">הגדרות ההתראות בחשבונך</a>
                         אם לא תרצה/י לקבל עוד התראות,      
                         <a target="_blank" style="color:#919191; text-decoration:none;" href="{unsubscribeUrl}">בטל/י מעקב</a>
