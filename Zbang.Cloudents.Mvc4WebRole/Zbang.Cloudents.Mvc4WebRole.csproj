@@ -832,7 +832,6 @@
     <Content Include="Js\Dialog.js" />
     <Content Include="Js\externalScriptsInitializer.js" />
     <Content Include="Js\Invite.js" />
-    <Content Include="Js\InviteViewModel2.js" />
     <Content Include="Js\Library.js" />
     <Content Include="Js\LibraryChoose.js" />
     <Content Include="Js\Mobile\MAccountSettings.js" />
