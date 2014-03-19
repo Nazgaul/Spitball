@@ -135,9 +135,9 @@
     }
     $body.on('keypress', 'textarea', function () {
         if (checkRTLDirection($(this).value)) {
-            $(element).css('direction', 'rtl').css('text-align', 'right');
+            $(this).css('direction', 'rtl').css('text-align', 'right');
         } else {
-            $(element).css('direction', 'ltr').css('text-align', 'left');
+            $(this).css('direction', 'ltr').css('text-align', 'left');
         }
     });
 
