@@ -45,11 +45,9 @@ namespace Zbang.Zbox.Domain
             : base(id, sender, recepient)
         {
             Box = box;
-            NotRead = false;
             IsActive = true;
         }
         public virtual Box Box { get; private set; }
-        public bool NotRead { get; private set; }
         public DateTime? OpenTime { get; private set; }
         public DateTime? SendTime { get; private set; }
         public bool IsActive { get; internal set; }
