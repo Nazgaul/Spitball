@@ -90,6 +90,7 @@
     <Compile Include="InviteToSystemFacebookCommandHandler.cs" />
     <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="MarkAsAnswerCommandHandler.cs" />
+    <Compile Include="MarkNotificationAsReadCommandHanlder.cs" />
     <Compile Include="RateAnswerCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RenameNodeCommandHandler.cs" />

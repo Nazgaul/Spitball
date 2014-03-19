@@ -79,6 +79,7 @@
     <Compile Include="IInviteToCloudentsRepository.cs" />
     <Compile Include="IItemRateRepository.cs" />
     <Compile Include="IItemTabRepository.cs" />
+    <Compile Include="IMessageBaseRepository.cs" />
     <Compile Include="InviteRepository.cs" />
     <Compile Include="InviteToCloudentsRepository.cs" />
     <Compile Include="IQuestionRepository.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="IUpdatesRepository.cs" />
     <Compile Include="IUserBoxRelRepository.cs" />
     <Compile Include="IUserRepository.cs" />
+    <Compile Include="MessageBaseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionRepository.cs" />
     <Compile Include="ItemRateRepository.cs" />
