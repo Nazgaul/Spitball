@@ -643,7 +643,7 @@ ul.ui-autocomplete li a {
   /*rtl*/
 }
 .userMenu,
-.userInvites {
+.notifyList {
   display: none;
   position: absolute;
   left: 0;
@@ -669,7 +669,7 @@ ul.ui-autocomplete li a {
   cursor: none;
 }
 .menuItem,
-.userInvites a {
+.notifyList a {
   color: #0d864b;
   display: block;
 }

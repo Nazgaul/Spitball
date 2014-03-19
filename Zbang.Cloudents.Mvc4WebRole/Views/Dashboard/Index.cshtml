@@ -41,9 +41,9 @@
 
 
         @*<div class="searchEmpty " data-bind="visible: mptySrchStt, css: { noResults: mptySrchStt }">
-            <h2 id="dash_seaEmpy">@Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.NoResult</h2>
-            <div class="searchEmptyText">@Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.TryAgain</div>
-        </div>*@
+                <h2 id="dash_seaEmpy">@Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.NoResult</h2>
+                <div class="searchEmptyText">@Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.MainViewResources.TryAgain</div>
+            </div>*@
         <div class="contentWpr" id="dash_right" data-bind="fadeVisible: loadedAnimation">
             <section class="unionCourses">
                 <header class="boxesHeader" data-bind="text: titleShow"></header>
@@ -85,7 +85,7 @@
         </div>
         <script type="text/html" id="dashBoxTemplate">
             <li class="box" data-bind="attr: { id: 'dashB' + uid }">
-                <a data-navigation="Box" data-bind="attr: { href: boxUrl, 'data-title': name }">
+                <a data-navigation="Box" data-bind="attr: { href: boxUrl}">
                     <!--ko if: numOfUpdates() > 0-->
                     <div class="boxNotify" data-bind="text:numOfUpdates"></div>
                     <!--/ko-->
@@ -122,9 +122,9 @@
             </li>
         </script>
 
-        <script type="text/html" id="friendsTemplate">            
-                <li class="friendItem"><a href="{{url}}" data-navigation="user"><img class="friendImg calloutTrgr" src="{{userImage}}" alt="" data-uid="{{id}}" width="31" height="31" /></a></li>
-            
+        <script type="text/html" id="friendsTemplate">
+            <li class="friendItem"><a href="{{url}}" data-navigation="user"><img class="friendImg calloutTrgr" src="{{userImage}}" alt="" data-uid="{{id}}" width="31" height="31" /></a></li>
+
         </script>
     </div>
     @{

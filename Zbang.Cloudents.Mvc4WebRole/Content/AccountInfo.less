@@ -170,7 +170,7 @@
     display: inline;
 }
 
-.userInvites {
+.notifyList {
     left: 0; /*rtl*/
     background-color: #f5f5f5;
     //width: 190px;
@@ -178,30 +178,31 @@
     width: 184px; //this is the max width such that the dd doesn't get cut, when user name is at min width.
     max-height: 360px;
     overflow: auto;
+    
 }
-
-    .userInvites li {
-        border-bottom: 1px solid rgb(159,158,157);
-        border-bottom: 1px solid rgba(159,158,157,.5);
-        box-shadow: 0 1px 0 #fff;
+.notifyItem{
+    border-bottom: 1px solid rgb(159,158,157);
+    border-bottom: 1px solid rgba(159,158,157,.5);
+    box-shadow: 0 1px 0 #fff;
+    &:last-child
+    {
+        border-bottom: 0;
     }
-
-        .userInvites li:last-child {
-            border-bottom: 0;
-        }
-
-    .userInvites a {
+    a {
         //width: 190px;
         width: 175px;
         padding: 10px 6px;
         line-height: normal;
         display: table-cell;
         color: @textColor;
-    }
-
-        .userInvites a:hover {
+        &:hover
+        {
             background: @borderColor;
         }
+    }
+}
+
+    
 
 .invboxName {
     display: inline-block;
