@@ -161,7 +161,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     public class UpdateMailParams : MailParameters
     {
         public UpdateMailParams(IEnumerable<BoxUpdate> updates, CultureInfo culture,
-            string userName, int numberOfQuestions, int numberOfAnswers, int numberOfItems)
+            string userName, int numberOfQuestions, int numberOfAnswers, int numberOfItems, int numberOfUsers)
             : base(culture)
         {
             Updates = updates;
@@ -169,6 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             NoOfQuestions = numberOfQuestions;
             NoOfAnswers = numberOfAnswers;
             NoOfItems = numberOfItems;
+            NoOfUsers = numberOfUsers;
         }
         public override string MailResover
         {
@@ -180,6 +181,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public int NoOfQuestions { get; private set; }
         public int NoOfAnswers { get; private set; }
         public int NoOfItems { get; private set; }
+        public int NoOfUsers { get; private set; }
 
 
         public class BoxUpdate
@@ -317,6 +319,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 return sb.ToString();
             }
         }
+
+        
     }
 
 
