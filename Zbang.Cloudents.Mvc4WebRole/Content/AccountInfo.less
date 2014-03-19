@@ -183,6 +183,13 @@
             background: #fff;
         }
     }
+    &.noResults
+    {
+        .notifyEmpty
+        {
+            display: block;
+        }
+    }
 }
 .notifyTop{
     line-height: 13px;
@@ -191,6 +198,19 @@
     border-bottom: 1px solid @borderColor;
     margin-top: -10px;
     border-radius: 5px 5px 0 0;
+}
+.notifyEmpty
+{
+    display: none;
+    &:before
+    {
+       content: '';
+       display: block;
+        width: 99px;
+        height: 99px;
+        background: @common-sprite -155px -89px no-repeat;
+        margin: 10px auto;
+    }
 }
 .notifyList 
 {

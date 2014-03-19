@@ -570,7 +570,7 @@ input[type="radio"]:checked + label + .inputText {
   display: inline-block;
   width: 18px;
   height: 19px;
-  background: url(/Images/common14-sprite.png?v=1) -171px -64px no-repeat;
+  background: url(/Images/common15-sprite.png?v=1) -171px -64px no-repeat;
   vertical-align: middle;
   margin-right: 5px;
 }
@@ -610,7 +610,7 @@ input[type="radio"]:checked + label + .inputText {
   vertical-align: middle;
   width: 22px;
   height: 19px;
-  background: url(/Images/common14-sprite.png?v=1) -155px -42px no-repeat;
+  background: url(/Images/common15-sprite.png?v=1) -155px -42px no-repeat;
   margin-right: 8px;
   /*rtl*/
 
@@ -632,7 +632,7 @@ input[type="radio"]:checked + label + .inputText {
   display: inline-block;
   width: 24px;
   height: 17px;
-  background: url(/Images/common14-sprite.png?v=1) -154px -24px no-repeat;
+  background: url(/Images/common15-sprite.png?v=1) -154px -24px no-repeat;
   vertical-align: middle;
 }
 .memberItem:hover .inviteUserBtn,
