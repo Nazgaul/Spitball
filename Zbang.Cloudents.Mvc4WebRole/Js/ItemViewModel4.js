@@ -527,7 +527,7 @@
 
                         });
 
-                    }, 5000);//5 seocnds
+                    }, 3000);//3 seocnds
                     //
 
                     function initializeCanvas(e) {

@@ -78,6 +78,10 @@
   right: 5px;
   /*rtl*/
   top: 5px;
+  display: none;
+}
+.ratePopup:hover .closeDialog {
+  display: block;
 }
 .rateWpr {
   border-radius: 0 0 3px 3px;
