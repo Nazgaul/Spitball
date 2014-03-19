@@ -40,8 +40,7 @@ body {
   /*rtl*/
   right: auto;
 }
-.userMenu,
-.notifyList {
+.userMenu {
   right: 0;
   /*rtl*/
   left: auto;

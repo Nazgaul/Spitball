@@ -642,8 +642,7 @@ ul.ui-autocomplete li a {
   right: 0;
   /*rtl*/
 }
-.userMenu,
-.notifyList {
+.userMenu {
   display: none;
   position: absolute;
   left: 0;

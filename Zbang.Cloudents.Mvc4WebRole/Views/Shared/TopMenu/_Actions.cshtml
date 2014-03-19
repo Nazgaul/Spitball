@@ -8,26 +8,29 @@
     <button class="navLinks newInvites noInvites" id="invites" data-title="@SharedResources.Notifications">
         <span id="invitesCounter" class="invitesCounter"></span>
     </button>
-
-    <ul id="invitesList" class="notifyList"></ul>
+    <div class="notifyWpr">
+        <div class="arrow upArrow"></div>
+        <div class="notifyTop">Notifications</div>
+        <ul id="invitesList" class="notifyList"></ul>
+    </div>
 </li>
 
 <script type="text/html" id="inviteTemplate">
     <li class="notifyItem">
         <a data-navigation="Box" href="{{url}}">
-            <span>{{boxName}}</span>
+            <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
             <span>{{senderName}}</span>
-            <img src="{{senderImg}}" alt="" />
-            <span data-time="{{date}}"></span>
+            <span data-time="{{date}}"></span><br />
+            Invites you to follow <span>{{boxName}}</span>
         </a>
     </li>
 </script>
 <script type="text/html" id="messageTemplate">
     <li class="notifyItem">
-        <span>{{senderName}}</span>
-        <img src="{{senderImg}}" alt="" />
-        <span>{{message}}</span>
+        <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
+        <span class="semiFont">{{senderName}}</span>
         <span data-time="{{date}}"></span>
+        <div class="elps notifyMsg">{{message}}</div>
     </li>
 </script>
 <!-- /ko -->
