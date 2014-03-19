@@ -53,7 +53,7 @@
   </sql-query>
   <sql-query name="GetMembersUpdateByBox" read-only="1">
     <![CDATA[
-    select u.userName as Name, u.userid as Id, u.UserImage as Picture
+    select u.userName as Name, u.userid as Id, u.UserImageLarge as Picture
     from zbox.UserBoxRel ub
     inner join zbox.users u on u.userid = ub.userid
     where ub.UserType = 2

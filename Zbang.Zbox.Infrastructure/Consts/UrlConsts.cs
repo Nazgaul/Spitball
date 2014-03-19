@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const string ItemUrl = CloudentsURL + "item/{0}/{1}/{2}/{3}/{4}/";
         public const string BoxUrl = CloudentsURL + "box/my/{0}/{1}/";
         public const string CourseUrl = CloudentsURL + "course/{2}/{0}/{1}/";
+        public const string UserUrl = CloudentsURL + "user/{0}/{1}";
         public const string PasswordUpdate = "https://www.cloudents.com/account/passwordupdate?key={0}";
         public const string BoxUrlInvite = "https://www.cloudents.com/Share/FromEmail?key={0}&email={1}";
 
