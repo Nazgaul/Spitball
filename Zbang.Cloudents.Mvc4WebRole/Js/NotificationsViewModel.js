@@ -106,6 +106,15 @@
                 $notificationsList.slideUp(150);
                 return;
             }
+
+            dataContext.notificationRead({
+                success: function () {
+                    notificationsCounter.classList.remove('invitesCounterShow');
+                    notifications.classList.add('noInvites');
+                    notificationsCounter.textContent = '';
+                }
+            });
+
             e.stopPropagation();
             $notificationsList.slideDown(150);
 

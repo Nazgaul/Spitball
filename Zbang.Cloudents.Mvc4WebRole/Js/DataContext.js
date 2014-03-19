@@ -109,7 +109,10 @@
     definition.follow = new definitionobj({ url: share + "SubscribeToBox" });
 
     definition.changeNotification = new definitionobj({ url: cBOX + "ChangeNotification" });
+
     definition.getNotification = new definitionobj({ url: cBOX + "GetNotification", type: get });
+    definition.notificationRead = new definitionobj({ url: share + "NotificationRead" });
+    
     definition.firstTimeUpdate = new definitionobj({ url: "/Account/FirstTime" });
 
     definition.statistics = new definitionobj({ url: "/Home/Statistics", isJson: true, type: 'put' });
