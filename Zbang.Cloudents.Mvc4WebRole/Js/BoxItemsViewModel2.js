@@ -27,7 +27,8 @@
             that.rate = 69 / 5 * data.rate;
             that.date = data.date;
             that.isNew = ko.observable(data.isNew || false);
-            that.thumbnailUrl = data.thumbnail;            
+            that.thumbnailUrl = data.thumbnail;
+            that.linkUrl = data.linkUrl || '';
             that.download = data.downloadUrl;
             that.extension = cd.getExtension(data.name, data.type);
             that.extensionColor = cd.getExtensionColor(data.name, data.type);
