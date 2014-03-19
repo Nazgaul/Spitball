@@ -7,9 +7,9 @@
     function InviteViewModel() {
         function Invite(data) {
             var that = this;
-            that.id = data.boxUid;
+            that.id = data.boxid;
             that.name = data.boxName;
-            that.owner = data.boxOwner;
+            that.owner = data.userName;
             that.picture = data.image || '/images/EmptyState/my_default3.png';
             that.url = data.url;
         }
@@ -35,12 +35,17 @@
         });
 
         function getInvite() {
-            dataContext.getInvites({
+            dataContext.getNotifications({
                 success: function (data) {
                     if (data.length) {
-                        $('#f_invites,[data-id="f_invites"]').text(data.length);
-                        var mapped = $.map(data, function (d) { return new Invite(d); });
+                        var mapped = $.map(data, function (d) {
+                            if (!d.message) {
+                                return new Invite(d);
+                            }
+                        });
                         self.invites(mapped);
+                        $('#f_invites,[data-id="f_invites"]').text(mapped.length);
+
                     }
                     else {
                         $('#f_invites,[data-id="f_invites"]').hide();

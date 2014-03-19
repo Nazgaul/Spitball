@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -53,49 +54,44 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
             message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
-            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions).ToString());
+            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions + updateParams.NoOfUsers).ToString());
             message.Html = message.Html.Replace("{X-ANSWERS}", AggregateAnswers(updateParams.NoOfAnswers));
             message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
             message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));
+            message.Html = message.Html.Replace("{X-NEW-USERS}", AggregateUsers(updateParams.NoOfUsers));
+
             // message.AddSubVal("{Updates}", new List<string> { sb.ToString() });
             //message.AddSubVal("{USER-NAME}", new List<string> { "Ram" });
         }
 
+        private string AggregateUsers(int numOfUsers)
+        {
+            return AggreateWithString(numOfUsers, EmailResource.user, EmailResource.users);
+        }
+
         private string AggregateAnswers(int numOfAnswers)
         {
-            if (numOfAnswers == 1)
-            {
-                return "1 answer,";
-            }
-            if (numOfAnswers == 0)
-            {
-                return string.Empty;
-            }
-            return string.Format("{0} answers,", numOfAnswers);
+            return AggreateWithString(numOfAnswers, EmailResource.answer, EmailResource.answers);
         }
         private string AggregateQuestion(int numOfQuestion)
         {
-            if (numOfQuestion == 1)
-            {
-                return "1 question,";
-            }
-            if (numOfQuestion == 0)
-            {
-                return string.Empty;
-            }
-            return string.Format("{0} questions,", numOfQuestion);
+            return AggreateWithString(numOfQuestion, EmailResource.question, EmailResource.questions);
         }
         private string AggregateItems(int numOfItems)
         {
-            if (numOfItems == 1)
+            return AggreateWithString(numOfItems, EmailResource.item, EmailResource.items);
+        }
+        private string AggreateWithString(int number, string single, string many)
+        {
+            if (number == 1)
             {
-                return "1 item,";
+                return string.Format("1 {0},", single);
             }
-            if (numOfItems == 0)
+            if (number == 0)
             {
                 return string.Empty;
             }
-            return string.Format("{0} items,", numOfItems);
+            return string.Format("{0} {1},", number, many);
         }
 
         private string generateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, CultureInfo culture, string cube)

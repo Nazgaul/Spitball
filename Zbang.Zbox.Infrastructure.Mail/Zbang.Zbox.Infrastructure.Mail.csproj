@@ -78,6 +78,11 @@
     <Compile Include="MessageMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterIoc.cs" />
+    <Compile Include="Resources\EmailResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="UpdatesMail.cs" />
     <Compile Include="WelcomeMail.cs" />
   </ItemGroup>
@@ -93,6 +98,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\Welcome.html" />
+    <EmbeddedResource Include="Resources\EmailResource.he.resx" />
+    <EmbeddedResource Include="Resources\EmailResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmailResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ForgotPwd.html" />
