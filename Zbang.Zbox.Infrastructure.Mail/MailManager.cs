@@ -56,8 +56,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             mail.GenerateMail(sendGridMail, parameters);
 
             //sendGridMail.AddTo(recepient);
-            //  sendGridMail.AddTo("cloudents@outlook.com");
-            sendGridMail.AddTo(new List<string> { "dddavid2@gmail.com", "cloudents@outlook.com", "yaari_r@yahoo.com" });
+              sendGridMail.AddTo("cloudents@outlook.com");
+            //sendGridMail.AddTo(new List<string> { "dddavid2@gmail.com", "cloudents@outlook.com", "yaari_r@yahoo.com" });
             var embarkeData = new Dictionary<string, string>() {
                { "embarkeAppId" , "3f61a514-0610-412e-9024-b4eb5670eb9d"},
                { "embarkeMsgId" , Guid.NewGuid().ToString() }
