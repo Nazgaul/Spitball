@@ -8,6 +8,7 @@
         ko.applyBindings(new QnAViewModel(), document.getElementById('box_QA'));
 
     });
+    //cd.createObserver(document.getElementById('box_QA'));
 
     function QnAViewModel() {
 

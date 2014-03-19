@@ -17,6 +17,8 @@
 
     cd.loadModel(consts.item, 'ItemContext', registerKOItem);
 
+    cd.createObserver(eById('previewWrapper'));    
+
     function registerKOItem() {
         ko.applyBindings(new ItemViewModel(), document.getElementById(consts.item));
     }
@@ -237,11 +239,8 @@
             that.x = data.X;
             that.y = data.Y;
             that.width = data.Width;
-            that.height = data.Height;
-            if (!(data.CreationDate instanceof Date)) {
-                data.CreationDate = new Date(parseInt(data.CreationDate.replace("/Date(", "").replace(")/", ""), 10));
-            }
-            that.date = cd.dateToShow(data.CreationDate);
+            that.height = data.Height;            
+            that.date = data.CreationDate;
             that.userImage = data.UserImage;
             that.userName = data.UserName;
             that.uid = data.Uid;
@@ -1084,7 +1083,10 @@
                     var annotationCanvas = $this.siblings('.annotation');
                     var ctx = annotationCanvas[0].getContext('2d');
                     clearRectangle(ctx);
-                    $('.readView').addClass('addAnotationShow');
+                    var readViews = $itemPreview[0].querySelectorAll('.readView');
+                    for (var i = 0,l=readViews.length; i < l; i++) {
+                        readViews[i].classList.add('addAnotationShow');
+                    }
 
                     if (rect.w < 0) {
                         rect.startX += rect.w;

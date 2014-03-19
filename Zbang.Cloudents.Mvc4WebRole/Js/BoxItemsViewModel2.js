@@ -7,6 +7,8 @@
 
     cd.loadModel('box', 'BoxContext', registerKoBoxItems);
 
+    //cd.createObserver(document.getElementById('BoxItemList'));
+
     function registerKoBoxItems() {
         ko.applyBindings(new BoxItemViewModel(), $('#box_items')[0]);
     }
@@ -20,12 +22,12 @@
             //that.uploader = data.Owner;
             that.userid = data.ownerId;
             that.type = data.type;
-            that.numOfViews = data.numOfViews;
-            that.numOfDownloads = data.numOfDownloads;
-            that.commentsCount = data.commentsCount;            
+            that.numOfViews = data.numOfViews || 0;
+            that.numOfDownloads = data.numOfDownloads || 0;
+            that.commentsCount = data.commentsCount || 0;            
             that.ownerName = data.owner;
             that.rate = 69 / 5 * data.rate;
-            that.date = data.date ? cd.parseTimeString(data.date) : '';
+            that.date = data.date;
             that.isNew = ko.observable(data.isNew || false);
             that.thumbnailUrl = data.thumbnail;            
             that.download = data.downloadUrl;

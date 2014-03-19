@@ -118,7 +118,7 @@
             case 0:
                 var timeObj = calculateSecondsDifferece();
                 if (timeObj.hours >= 1) {
-                    
+
                     return ZboxResources.HoursAgo.format(Math.round(timeObj.hours));
                 }
                 if (timeObj.minutes >= 1) {
@@ -136,9 +136,9 @@
                     todayMonth = today.getMonth() + 1;
 
                 if (dateMonth < todayMonth) {
-                    return date.getDate() + ' ' + months[dateMonth-1];
+                    return date.getDate() + ' ' + months[dateMonth - 1];
                 } else if (dateMonth > todayMonth) {
-                    return date.getDate() + ' ' + months[dateMonth-1] + ', ' + date.getFullYear();
+                    return date.getDate() + ' ' + months[dateMonth - 1] + ', ' + date.getFullYear();
                 } else {
                     return ZboxResources.DaysAgo.format(dateDifference);
                 }
@@ -161,30 +161,43 @@
 
         }
     }
-    var target = document.querySelector('#main');
+   
 
-    if (target) {
-        // create an observer instance
-        var observer = new MutationObserver(function (mutations) {
-            var text;
-            if (actionTimeInterval) {
-                clearInterval(actionTimeInterval);
+    // configuration of the observer:
+    var config = { attributes: true, childList: true, subtree: true };
+        
+    function createObserver(element) {
+        if (!element) {
+            return;
+        }
+
+        var observer = new MutationObserver(mObserve);
+
+        observer.observe(element, config);
+
+    }
+    function mObserve(mutations) {
+        var text;
+        if (actionTimeInterval) {
+            clearInterval(actionTimeInterval);
+        }
+        mutations.forEach(function (mutation) {
+            if (mutation.attributeName === 'data-time') {
+                text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
+                mutation.target.textContent = text;
             }
-            mutations.forEach(function (mutation) {
-                if (mutation.attributeName === 'data-time') {
-                    text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
-                    mutation.target.textContent = text;
+            if (mutation.target.innerHTML.indexOf('data-time') > -1) {
+                var element = mutation.target.querySelector('[data-time]');
+                if (element.getAttribute('data-obsv')) {
+                    return;
                 }
-                
-            });
-            actionTimeInterval = setInterval(updateTimeActions, 60000);
+                element.setAttribute('data-obsv', true);
+                text = parseActionTime(new Date(element.getAttribute('data-time')));
+                element.textContent = text;
+            }
+
         });
-
-        // configuration of the observer:
-        var config = { attributes: true, childList: true, subtree: true };
-
-        // pass in the target node, as well as the observer options
-        observer.observe(target, config);
+        actionTimeInterval = setInterval(updateTimeActions, 60000);
     }
 
     function updateTimeActions() {
@@ -332,14 +345,14 @@
         topLocation = $elem.css('position') === 'relative' ? 20 : $elem.position().top + 20;
 
         if (Modernizr.cssanimations) {
-            loaderHtml = '<div class="loading"><div class="spinner"></div></div>';        
+            loaderHtml = '<div class="loading"><div class="spinner"></div></div>';
             x = $(loaderHtml).css({ top: topLocation });
         }
         else {
             loaderHtml = '<div class="loadingGif"></div>';
-            x = $(loaderHtml);            
+            x = $(loaderHtml);
         }
-    
+
         //var leftLocation = $elem.position().left + $elem.outerWidth(true) / 2;
 
         var handle = window.setTimeout(function () {
@@ -354,7 +367,7 @@
     };
 
 
-    var getExtension = function(fileName, type) {            
+    var getExtension = function (fileName, type) {
         if (type.toLowerCase() === 'link') {
             return 'www';
         }
@@ -638,7 +651,7 @@
     };
 
     var deleteAllow = function (userType, ownerId) {
-        if (userType === 'none' || userType === 'invite' ) { //user is unsubscribed
+        if (userType === 'none' || userType === 'invite') { //user is unsubscribed
             return false;
         }
 
@@ -832,7 +845,7 @@
             });
         });
 
-  
+
         Object.defineProperty(window.HTMLInputElement.prototype, 'placeholder', {
             get: function () {
                 return this.getAttribute('placeholder');
@@ -842,7 +855,7 @@
 
     };
 
-    
+
 
     //var elemList = [];
     cd.menu = function (elem, menu, menuShow, menuClosed) {
@@ -889,11 +902,11 @@
 
     var getElementPosition = function (e) {
         o = e;
-        var l =o.offsetLeft; var t = o.offsetTop;
-        while (o=o.offsetParent)
+        var l = o.offsetLeft; var t = o.offsetTop;
+        while (o = o.offsetParent)
             l += o.offsetLeft;
         o = e;
-        while (o=o.offsetParent)
+        while (o = o.offsetParent)
             t += o.offsetTop;
         return { left: l, top: t };
     }
@@ -1075,7 +1088,7 @@
         }
     };
     cd.updateTimeActions = updateTimeActions;
-    cd.parseTimeString= parseTimeString;
+    cd.parseTimeString = parseTimeString;
     cd.highlightSearch = highlightSearch;
     cd.getElementPosition = getElementPosition;
     cd.sessionStorageWrapper = sessionStorageWrapper;
@@ -1123,12 +1136,13 @@
     cd.deleteAllow = deleteAllow;
     cd.unregisterAction = unregisterAction;
     cd.putPlaceHolder = putPlaceHolder;
+    cd.createObserver = createObserver;
 
     //cd.switchBackToMobile = switchBackToMobile;
     cd.loaderOn = loaderOn;
     cd.shareFb = shareFb;
     cd.setTitle = setTitle;
-
+    
     cd.clone = clone;
 
     cd.OneSecond = 1000;
