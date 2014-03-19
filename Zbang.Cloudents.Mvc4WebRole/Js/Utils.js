@@ -161,11 +161,11 @@
 
         }
     }
-   
+
 
     // configuration of the observer:
     var config = { attributes: true, childList: true, subtree: true };
-        
+
     function createObserver(element) {
         if (!element) {
             return;
@@ -186,14 +186,20 @@
                 text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
                 mutation.target.textContent = text;
             }
-            if (mutation.target.innerHTML.indexOf('data-time') > -1) {
-                var element = mutation.target.querySelector('[data-time]');
-                if (element.getAttribute('data-obsv')) {
-                    return;
+            if (mutation.target.classList.contains('annotationList')) {
+                var elements = mutation.target.querySelectorAll('[data-time]'),
+                    element;
+
+                for (var i = 0, l = elements.length; i < l; i++) {
+                    element = elements[i];
+                    if (element.getAttribute('data-obsv')) {
+                        continue;
+                    }
+                    element.setAttribute('data-obsv', true);
+                    text = parseActionTime(new Date(element.getAttribute('data-time')));
+                    element.textContent = text;
                 }
-                element.setAttribute('data-obsv', true);
-                text = parseActionTime(new Date(element.getAttribute('data-time')));
-                element.textContent = text;
+
             }
 
         });
@@ -1142,7 +1148,7 @@
     cd.loaderOn = loaderOn;
     cd.shareFb = shareFb;
     cd.setTitle = setTitle;
-    
+
     cd.clone = clone;
 
     cd.OneSecond = 1000;
