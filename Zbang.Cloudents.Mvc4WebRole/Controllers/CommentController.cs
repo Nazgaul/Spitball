@@ -21,10 +21,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         public CommentController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-           // IShortCodesCache shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService)
             : base(zboxWriteService, zboxReadService,
-            //shortToLongCache, 
             formsAuthenticationService)
         { }
 
@@ -40,9 +38,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Index(long boxUid)
         {
            
-            //return string.IsNullOrEmpty(itemUid) ? GetBoxComments(boxUid) : GetItemComment(boxUid, itemUid);
             var userId = GetUserId(false);
-
             var query = new GetBoxCommentsQuery(boxUid, userId);
             var result = m_ZboxReadService.GetBoxComments(query);
             return this.CdJson(new JsonResponse(true, result));

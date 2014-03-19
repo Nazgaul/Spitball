@@ -39,7 +39,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 m_TimeToSleepAfterExcecuting = TimeSpan.FromHours(1);
             }
-           
+
         }
         public void Run()
         {
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             var updates = new List<UpdateMailParams.BoxUpdate>();
             var boxes = m_ZboxReadService.GetBoxesLastUpdates(new ViewModel.Queries.Emails.GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));
-            int numOfQuestion = 0, numOfAnswers = 0, numOfItems = 0;
+            int numOfQuestion = 0, numOfAnswers = 0, numOfItems = 0, numOfUsers = 0;
             boxes = boxes.Select(s =>
             {
                 if (string.IsNullOrEmpty(s.UniversityName))
@@ -109,6 +109,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 numOfQuestion += userSpecificUpdates.OfType<UpdateMailParams.QuestionUpdate>().Count();
                 numOfAnswers += userSpecificUpdates.OfType<UpdateMailParams.AnswerUpdate>().Count();
                 numOfItems += userSpecificUpdates.OfType<UpdateMailParams.ItemUpdate>().Count();
+                numOfUsers += userSpecificUpdates.OfType<UpdateMailParams.UserJoin>().Count();
                 if (userSpecificUpdates.Count() > 0)
                 {
                     updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName, userSpecificUpdates.Take(4), string.Empty, userSpecificUpdates.Count() - 4));
@@ -125,7 +126,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 new System.Globalization.CultureInfo(culture), userName,
                 numOfQuestion,
                 numOfAnswers,
-                numOfItems));
+                numOfItems, numOfUsers));
 
         }
         private IEnumerable<UpdateMailParams.BoxUpdateDetails> GetBoxData(BoxDigestDto box)
@@ -156,7 +157,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             var memebers = m_ZboxReadService.GetNewMembersLastUpdates(new ViewModel.Queries.Emails.GetMembersLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var membersUpdate = memebers.Select(s =>
-                new UpdateMailParams.UserJoin(s.Name, s.Picture, box.BoxName, 
+                new UpdateMailParams.UserJoin(s.Name, s.Picture, box.BoxName,
                     string.Format(UrlConsts.UserUrl,
                     s.Id,
                     UrlConsts.NameToQueryString(s.Name))
