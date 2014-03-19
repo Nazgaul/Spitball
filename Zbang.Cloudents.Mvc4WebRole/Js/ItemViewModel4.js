@@ -17,6 +17,8 @@
 
     cd.loadModel(consts.item, 'ItemContext', registerKOItem);
 
+    cd.createObserver(eById('item'));    
+
     function registerKOItem() {
         ko.applyBindings(new ItemViewModel(), document.getElementById(consts.item));
     }
@@ -231,20 +233,17 @@
         function AnnotationObj(data) {
             data = data || {};
             var that = this;
-            that.id = data.Id;
-            that.imageId = data.ImageId;
-            that.comment = data.Comment.replace(/\n/g, '<br/>');
-            that.x = data.X;
-            that.y = data.Y;
-            that.width = data.Width;
-            that.height = data.Height;
-            if (!(data.CreationDate instanceof Date)) {
-                data.CreationDate = new Date(parseInt(data.CreationDate.replace("/Date(", "").replace(")/", ""), 10));
-            }
-            that.date = cd.dateToShow(data.CreationDate);
-            that.userImage = data.UserImage;
-            that.userName = data.UserName;
-            that.uid = data.Uid;
+            that.id = data.id;
+            that.imageId = data.imageId;
+            that.comment = data.comment.replace(/\n/g, '<br/>');
+            that.x = data.x;
+            that.y = data.y;
+            that.width = data.width;
+            that.height = data.height;            
+            that.date = data.creationDate;
+            that.userImage = data.userImage;
+            that.userName = data.userName;
+            that.uid = data.uid;
         }
         //#endregion
 
@@ -528,7 +527,7 @@
 
                         });
 
-                    }, 5000);//5 seocnds
+                    }, 3000);//3 seocnds
                     //
 
                     function initializeCanvas(e) {
@@ -1084,7 +1083,10 @@
                     var annotationCanvas = $this.siblings('.annotation');
                     var ctx = annotationCanvas[0].getContext('2d');
                     clearRectangle(ctx);
-                    $('.readView').addClass('addAnotationShow');
+                    var readViews = $itemPreview[0].querySelectorAll('.readView');
+                    for (var i = 0,l=readViews.length; i < l; i++) {
+                        readViews[i].classList.add('addAnotationShow');
+                    }
 
                     if (rect.w < 0) {
                         rect.startX += rect.w;
@@ -1156,17 +1158,17 @@
                     success: function (retVal) {
                         submitBtn.removeAttr(consts.disabled);
                         annotationList.push(new AnnotationObj({
-                            Id: retVal,
-                            ImageId: _that.data('id'),
-                            Comment: $('<div/>').text(val).html(),
-                            X: rect.startX,
-                            Y: rect.startY,
-                            Width: rect.w,
-                            Height: rect.h,
-                            CreationDate: new Date(), // need to do something
-                            UserImage: $('#userName').prev().attr('src'),
-                            UserName: cd.userDetail().name,
-                            Uid: cd.userDetail().id
+                            id: retVal,
+                            imageId: _that.data('id'),
+                            comment: $('<div/>').text(val).html(),
+                            x: rect.startX,
+                            y: rect.startY,
+                            width: rect.w,
+                            height: rect.h,
+                            creationDate: new Date(), // need to do something
+                            userImage: $('#userName').prev().attr('src'),
+                            userName: cd.userDetail().name,
+                            uid: cd.userDetail().id
                         }));
                         clearAddAnnotation();
                         reProcessAnnotation(commentShow);
