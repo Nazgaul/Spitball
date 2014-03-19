@@ -210,4 +210,7 @@
   <data name="SignUp" xml:space="preserve">
     <value>التسجيل</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
 </root>

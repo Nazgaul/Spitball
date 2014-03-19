@@ -210,4 +210,7 @@
   <data name="SignUp" xml:space="preserve">
     <value>Зарегистрироваться</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Создать учетную запись</value>
+  </data>
 </root>

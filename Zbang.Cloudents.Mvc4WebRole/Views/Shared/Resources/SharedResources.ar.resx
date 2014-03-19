@@ -460,4 +460,15 @@
   <data name="Username" xml:space="preserve">
     <value>اسم المستخدم</value>
   </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>التنزيلات</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>جديد 
+</value>
+  </data>
+  <data name="SweetThanks" xml:space="preserve">
+    <value>الحلو، وشكرا 
+</value>
+  </data>
 </root>
