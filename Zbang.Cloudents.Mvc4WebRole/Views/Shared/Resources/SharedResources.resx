@@ -463,4 +463,10 @@ To help you get started tell us where you study</value>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>downloads</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Uploaded</value>
+  </data>
 </root>

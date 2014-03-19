@@ -144,9 +144,6 @@
   <data name="Download" xml:space="preserve">
     <value>下载</value>
   </data>
-  <data name="Downloads" xml:space="preserve">
-    <value>下载</value>
-  </data>
   <data name="Flag" xml:space="preserve">
     <value>标记项目</value>
   </data>

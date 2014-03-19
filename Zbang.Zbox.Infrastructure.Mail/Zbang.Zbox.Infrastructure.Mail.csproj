@@ -177,10 +177,10 @@
   <ItemGroup>
     <Content Include="MailTemplate\InviteCloudents.html" />
     <Content Include="MailTemplate\InviteCloudentsHe.html" />
-    <Content Include="MailTemplate\UpdatesEmail\Answer.html" />
-    <Content Include="MailTemplate\UpdatesEmail\Item.html" />
-    <Content Include="MailTemplate\UpdatesEmail\More.html" />
-    <Content Include="MailTemplate\UpdatesEmail\Updates.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\More.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\AnswerHe.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question.html" />

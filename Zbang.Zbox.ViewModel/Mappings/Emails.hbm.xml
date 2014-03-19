@@ -27,7 +27,7 @@
  
   <sql-query name="GetItemUpdateByBox" read-only="1">
     <![CDATA[
-    select u.username as UserName,u.userid as UserId  i.itemid as Id,i.name as Name, i.ThumbnailBlobName as Picture
+    select u.username as UserName,u.userid as UserId,  i.itemid as Id,i.name as Name, i.ThumbnailBlobName as Picture
     from zbox.item i inner join zbox.users u on u.userid = i.userid
     where i.boxid = :BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,i.creationTime)) >0
@@ -53,7 +53,7 @@
   </sql-query>
   <sql-query name="GetMembersUpdateByBox" read-only="1">
     <![CDATA[
-    select u.userName as Name, u.userid as Id, u.UserImage as Picture
+    select u.userName as Name, u.userid as Id, u.UserImageLarge as Picture
     from zbox.UserBoxRel ub
     inner join zbox.users u on u.userid = ub.userid
     where ub.UserType = 2

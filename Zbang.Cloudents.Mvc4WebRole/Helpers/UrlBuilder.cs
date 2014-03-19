@@ -22,61 +22,62 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         }
         public static string NameToQueryString(string name)
         {
-            // - < > " ' % ; ) ( & + - 
+            return Zbang.Zbox.Infrastructure.Consts.UrlConsts.NameToQueryString(name);
+            //// - < > " ' % ; ) ( & + - 
 
-            //<,>,*,%,&,:,\\
-            if (string.IsNullOrEmpty(name))
-            {
-                return name;
-            }
-            char previousChar = '\0';
-            var sb = new StringBuilder();
-            foreach (var character in name)
-            {
-                switch (character)
-                {
-                    case '<':
-                    case '>':
-                    case '*':
-                    case '%':
-                    case '&':
-                    case ':':
-                    case '\\':
-                    case '/':
-                    case ';':
-                    case '?':
-                    case '@':
-                    case '=':
-                    case '+':
-                    case '$':
-                    case ',':
-                    case '{':
-                    case '}':
-                    case '|':
-                    case '^':
-                    case '[':
-                    case ']':
-                    case '`':
-                    case '"':
-                    case '\'':
-                        continue;
-                    case ' ':
-                    case '_':
-                    case '-':
-                        if (previousChar != '-')
-                        {
-                            sb.Append('-');
-                        }
-                        previousChar = '-';
+            ////<,>,*,%,&,:,\\
+            //if (string.IsNullOrEmpty(name))
+            //{
+            //    return name;
+            //}
+            //char previousChar = '\0';
+            //var sb = new StringBuilder();
+            //foreach (var character in name)
+            //{
+            //    switch (character)
+            //    {
+            //        case '<':
+            //        case '>':
+            //        case '*':
+            //        case '%':
+            //        case '&':
+            //        case ':':
+            //        case '\\':
+            //        case '/':
+            //        case ';':
+            //        case '?':
+            //        case '@':
+            //        case '=':
+            //        case '+':
+            //        case '$':
+            //        case ',':
+            //        case '{':
+            //        case '}':
+            //        case '|':
+            //        case '^':
+            //        case '[':
+            //        case ']':
+            //        case '`':
+            //        case '"':
+            //        case '\'':
+            //            continue;
+            //        case ' ':
+            //        case '_':
+            //        case '-':
+            //            if (previousChar != '-')
+            //            {
+            //                sb.Append('-');
+            //            }
+            //            previousChar = '-';
 
-                        break;
-                    default:
-                        previousChar = character;
-                        sb.Append(character);
-                        break;
-                }
-            }
-            return sb.ToString().ToLower();
+            //            break;
+            //        default:
+            //            previousChar = character;
+            //            sb.Append(character);
+            //            break;
+            //    }
+            //}
+            //return sb.ToString().ToLower();
 
         }
 
