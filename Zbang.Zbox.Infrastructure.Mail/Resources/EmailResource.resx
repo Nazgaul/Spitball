@@ -136,9 +136,9 @@
     <value>questions</value>
   </data>
   <data name="user" xml:space="preserve">
-    <value>user</value>
+    <value>new member</value>
   </data>
   <data name="users" xml:space="preserve">
-    <value>users</value>
+    <value>new members</value>
   </data>
 </root>

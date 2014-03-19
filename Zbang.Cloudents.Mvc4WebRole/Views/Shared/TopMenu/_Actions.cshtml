@@ -8,11 +8,12 @@
     <button class="navLinks newInvites noInvites" id="invites" data-title="@SharedResources.Notifications">
         <span id="invitesCounter" class="invitesCounter"></span>
     </button>
-    <ul id="invitesList" class="userInvites"></ul>
+
+    <ul id="invitesList" class="notifyList"></ul>
 </li>
 
 <script type="text/html" id="inviteTemplate">
-    <li>
+    <li class="notifyItem">
         <a data-navigation="Box" href="{{url}}">
             <span>{{boxName}}</span>
             <span>{{senderName}}</span>
@@ -22,7 +23,7 @@
     </li>
 </script>
 <script type="text/html" id="messageTemplate">
-    <li>
+    <li class="notifyItem">
         <span>{{senderName}}</span>
         <img src="{{senderImg}}" alt="" />
         <span>{{message}}</span>

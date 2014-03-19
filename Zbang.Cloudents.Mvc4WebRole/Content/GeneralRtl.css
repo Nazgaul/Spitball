@@ -41,7 +41,7 @@ body {
   right: auto;
 }
 .userMenu,
-.userInvites {
+.notifyList {
   right: 0;
   /*rtl*/
   left: auto;

@@ -5,10 +5,8 @@
 .headerRightWpr {
   padding-left: 241px;
   /*rtl*/
-
   margin-left: -241px;
   /*rtl*/
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -28,7 +26,6 @@
 .headerRightWpr .userSection {
   margin-left: 70px;
   /*rtl*/
-
 }
 .userSection {
   line-height: 50px;
@@ -63,7 +60,6 @@
   position: absolute;
   right: -1px;
   /*rtl*/
-
   top: 16px;
 }
 .feedBack:after,
@@ -105,7 +101,6 @@
   display: inline-block;
   margin-right: 12px;
   /*rtl*/
-
 }
 .signUp .btn {
   display: inline-block;
@@ -143,7 +138,6 @@
   top: 16px;
   right: 10px;
   /*rtl*/
-
   background: url(/Images/dash13-sprite.png) -240px -46px no-repeat;
   width: 19px;
   height: 18px;
@@ -153,7 +147,6 @@
   opacity: 0.4;
   left: 11px;
   /*rtl*/
-
 }
 .invitesCounter {
   display: none;
@@ -173,31 +166,30 @@
 .invitesCounterShow {
   display: inline;
 }
-.userInvites {
+.notifyList {
   left: 0;
   /*rtl*/
-
   background-color: #f5f5f5;
   width: 184px;
   max-height: 360px;
   overflow: auto;
 }
-.userInvites li {
+.notifyItem {
   border-bottom: 1px solid #9f9e9d;
   border-bottom: 1px solid rgba(159, 158, 157, 0.5);
   box-shadow: 0 1px 0 #fff;
 }
-.userInvites li:last-child {
+.notifyItem:last-child {
   border-bottom: 0;
 }
-.userInvites a {
+.notifyItem a {
   width: 175px;
   padding: 10px 6px;
   line-height: normal;
   display: table-cell;
   color: #383838;
 }
-.userInvites a:hover {
+.notifyItem a:hover {
   background: #c2c2c2;
 }
 .invboxName {
