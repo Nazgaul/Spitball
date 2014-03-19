@@ -19,11 +19,19 @@ namespace Zbang.Zbox.Domain
             Sender = sender;
             Recepient = recepient;
             CreationTime = DateTime.UtcNow;
+            NotRead = false;
         }
         public Guid Id { get; private set; }
         public virtual User Sender { get; private set; }
         public virtual User Recepient { get; private set; }
         public DateTime CreationTime { get; private set; }
+        public bool NotRead { get; private set; }
+
+        public void UpdateMessageAsRead()
+        {
+            NotRead = true;
+        }
+
 
     }
 
@@ -63,10 +71,9 @@ namespace Zbang.Zbox.Domain
         {
             Throw.OnNull(text, "text");
             Text = text;
-            NotRead = false;
+
         }
         public string Text { get; private set; }
-        public bool NotRead { get; private set; }
         public DateTime? OpenTime { get; private set; }
 
     }
@@ -79,9 +86,7 @@ namespace Zbang.Zbox.Domain
         public InviteToCloudents(Guid id, User sender, User recepient)
             : base(id, sender, recepient)
         {
-            NotRead = false;
         }
-        public bool NotRead { get; private set; }
         public DateTime? OpenTime { get; private set; }
     }
 }

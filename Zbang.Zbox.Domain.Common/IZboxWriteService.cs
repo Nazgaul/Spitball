@@ -82,6 +82,8 @@ namespace Zbang.Zbox.Domain.Common
 
         void AddReputation(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
+
+        void MarkMessagesAsRead(MarkNotificationAsReadCommand command);
        
     }
 }

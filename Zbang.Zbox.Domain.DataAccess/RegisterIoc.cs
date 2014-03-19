@@ -22,6 +22,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<IInviteRepository, InviteRepository>();
             ioc.RegisterType<IInviteToCloudentsRepository, InviteToCloudentsRepository>();
             ioc.RegisterType<IUpdatesRepository, UpdatesRepository>();
+            ioc.RegisterType<IMessageBaseRepository, MessageBaseRepository>();
 
         }
     }

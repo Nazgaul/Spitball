@@ -103,6 +103,7 @@
     <Compile Include="InviteToSystemCommand.cs" />
     <Compile Include="InviteToSystemFacebookCommand.cs" />
     <Compile Include="MarkAsAnswerCommand.cs" />
+    <Compile Include="MarkNotificationAsReadCommand.cs" />
     <Compile Include="RateAnswerCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
     <Compile Include="RenameNodeCommand.cs" />

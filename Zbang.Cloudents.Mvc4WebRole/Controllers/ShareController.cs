@@ -314,5 +314,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ZboxWriteService.AddReputation(command);
             return Json(new JsonResponse(true));
         }
+
+        [HttpPost, Ajax, ZboxAuthorize]
+        public ActionResult NotificationRead()
+        {
+            var command = new MarkNotificationAsReadCommand(GetUserId());
+            m_ZboxWriteService.MarkMessagesAsRead(command);
+            return this.CdJson(new JsonResponse(true));
+        }
     }
 }
