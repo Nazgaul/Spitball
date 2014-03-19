@@ -114,7 +114,7 @@
     var reNotRTL = new RegExp('[^' + rtlChars + controlChars + ']', 'g');
 
     function checkRTLDirection(value) {
-     
+
         if (!value) {
             return;
         }
@@ -268,13 +268,14 @@
         var $element = $(this),
             tooltipTitle = $element.attr('data-title'),
             $html = $(cd.attachTemplateToData('titleToolTipTempalte', { title: tooltipTitle })),
-            $arrow = $html.find('.ttArrow'), arrowMargin = 15,
+            $arrow = $html.find('.ttArrow'), arrowMargin = 15, offsetY = 3,
             pos;
 
 
         $body.append($html);
         pos = calcualtePosition();
         $html.css('top', pos.y + this.offsetHeight).css('left', pos.x);
+        cd.setElementDirection($html[0]);
 
         function calcualtePosition() {
             var elemPos = cd.getElementPosition($element[0]),
@@ -283,10 +284,10 @@
                 middle = tooltipWidth / 2 - triggerWidth / 2;
 
             if (tooltipWidth > elemPos.left) {
-                positionX = elemPos.left;
+                positionX = elemPos.left - (arrowMargin + $arrow.outerWidth() / 2) + triggerWidth / 2;
                 $arrow.css({ 'left': arrowMargin + 'px', right: 'auto' });
             } else if (screenWidth - elemPos.left < tooltipWidth) {
-                positionX = elemPos.left - tooltipWidth + triggerWidth;
+                positionX = elemPos.left - tooltipWidth + (arrowMargin + $arrow.outerWidth() / 2) + triggerWidth / 2;
                 $arrow.css({ right: arrowMargin + 'px', left: 'auto' });
             } else {
                 positionX = elemPos.left - middle;
@@ -302,7 +303,7 @@
             }
             //
 
-            return { x: positionX - $window.scrollLeft(), y: elemPos.top + scrollTop };
+            return { x: positionX - $window.scrollLeft(), y: elemPos.top + scrollTop + offsetY };
         }
     }
 
@@ -349,7 +350,7 @@
         });
 
         cd.newUpdates = {};
-     
+
         function deleteUpdate(update) {
             if (!updates) {
                 return;
@@ -372,7 +373,7 @@
             updateIndex = updates[userId][update.boxId][update.type].indexOf(update.id);
             updates[userId][update.boxId][update.type].splice(updateIndex, 1);
         }
-           
+
         function deleteUpdates(boxId) {
 
             dataContext.deleteUpdates({
@@ -385,7 +386,7 @@
             boxId = parseInt(boxId, 10);
             if (updates[userId][boxId]) {
                 updates[userId][boxId] = null;
-            }            
+            }
         }
 
         function getData() {
@@ -405,7 +406,7 @@
             updating = true;
             dataContext.newUpdates({
                 success: function (data) {
-                    data = data || [];                  
+                    data = data || [];
                     parseData(data);
                     cd.pubsub.publish('updates', updates[userId])
                 }
@@ -423,13 +424,13 @@
                 for (var i = 0, l = data.length; i < l; i++) {
                     currentUpdate = data[i];
 
-                   
+
                     addUpdate(currentUpdate)
                 }
 
                 updates[userId].ttl = new Date().getTime();
 
-                
+
             }
         }
         function addUpdate(update) {
