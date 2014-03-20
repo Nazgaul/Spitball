@@ -41,11 +41,6 @@ body {
   right: auto;
 }
 .userMenu {
-  right: 0;
-  /*rtl*/
-  left: auto;
-}
-.userMenu {
   left: 0;
   /*rtl*/
   right: auto;
@@ -146,6 +141,10 @@ body {
   text-align: right;
   /*rtl*/
   padding: 0 19px 0 45px;
+  /*rtl*/
+}
+.scrolling .barShadow {
+  box-shadow: -2px 3px 7px rgba(0, 0, 0, 0.15);
   /*rtl*/
 }
 .scrolling #dash_right:before {
