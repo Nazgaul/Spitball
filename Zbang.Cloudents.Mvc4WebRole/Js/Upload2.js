@@ -169,18 +169,23 @@
         //        select: "multi"
         //    });
         //});
-        // cd.innerScroll($('#uploadList'), parseInt($('#uploadList').css('maxHeight').replace('px', ''), 10));
-        document.getElementById('up_Drive').addEventListener('click', function () {
-            if (!cd.google.connected) {
-                cd.google.register();
+        // cd.innerScroll($('#uploadList'), parseInt($('#uploadList').css('maxHeight').replace('px', ''), 10));        
+        cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
+            if (!isAuto) {
+                loadPicker();
                 return;
             }
 
-            loadPicker();
-         
-        }, false);
-        cd.pubsub.subscribe('gAuthSuccess', function () {    
-            loadPicker();
+            document.getElementById('up_Drive').onclick = function () {
+                loadPicker();
+            }
+
+        });
+        cd.pubsub.subscribe('gAuthFail', function () {
+            document.getElementById('up_Drive').onclick = function(){
+                cd.google.register(false);
+
+            }
         });
     }
 

@@ -186,6 +186,7 @@
                 cd.pubsub.publish('register');
                 return;
             }
+            cd.google.register(true);
             cd.pubsub.publish('upload');
         };
         cd.pubsub.subscribe('addItem', function (d) {
