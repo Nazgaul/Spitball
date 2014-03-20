@@ -317,9 +317,9 @@
             //remove the new tag
             if (item.isNew()) {
                 item.isNew(false);
-                cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });
+                cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });                
             }
-            return true;
+            
         };
 
 

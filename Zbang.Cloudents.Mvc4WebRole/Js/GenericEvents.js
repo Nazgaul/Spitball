@@ -449,7 +449,7 @@
 
 
             if (update.itemId) {
-                if (updates[userId][update.boxId].items.indexOf(update.Id) === -1) {
+                if (updates[userId][update.boxId].items.indexOf(update.itemId) === -1) {
                     updates[userId][update.boxId].items.push(parseInt(update.itemId, 10));
                 }
             } else if (update.annotationId) {

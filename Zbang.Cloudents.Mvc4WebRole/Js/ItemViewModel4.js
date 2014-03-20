@@ -401,8 +401,11 @@
                     for (var i = 0; i < retVal.length; i++) {
                         annotationList.push(new AnnotationObj(retVal[i]));
                     }
-                    $commentsNumber.text(annotationList.length);
-
+                    if (annotationList.length) {
+                        $commentsNumber.text(annotationList.length).show();
+                    } else {
+                        $commentsNumber.text(0).hide();
+                    }
                 }
             });
         }
@@ -1172,7 +1175,7 @@
                         }));
                         clearAddAnnotation();
                         reProcessAnnotation(commentShow);
-                        $commentsNumber.text(annotationList.length);
+                        $commentsNumber.text(annotationList.length).show();
                     },
                     error: function (msg) {
                         msg = msg || {};

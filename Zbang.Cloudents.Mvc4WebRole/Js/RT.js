@@ -43,6 +43,9 @@
         connect = true;
         /// <summary>Get from signalR the data to share with other user</summary>
         /// <param name="e" type="MessageEvent"></param>
+        if (!win) {
+            return;
+        }
         if (e.origin !== stripTrailingSlash(win.src)) {
             return;
         }
