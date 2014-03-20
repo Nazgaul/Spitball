@@ -7,7 +7,7 @@
 
     var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
     apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
-    scopes = 'https://www.google.com/m8/feeds/contacts/default/full',
+    scopes = ['https://www.google.com/m8/feeds/contacts/default/full','https://www.googleapis.com/auth/drive.readonly'],
     access_token, contacts = [],/* isImmediate = true,*/ loaded = false;
 
     function checkAuth(isImmediate) {
@@ -100,6 +100,7 @@
     function handleResult(authResult, isImmediate) {
         if (authResult && !authResult.error) {
             access_token = gapi.auth.getToken().access_token;
+            cd.google.connected = true;
             cd.pubsub.publish('gAuthSuccess', isImmediate);
             return;
         }
