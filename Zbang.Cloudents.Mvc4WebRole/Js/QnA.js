@@ -218,7 +218,8 @@
 
         cd.pubsub.subscribe('updates', function (updates) {
             var box = updates[boxid],
-                questions, question, answers, answer;
+                questions, question, answers, answer,
+                newAnswers = false;
 
             if (!box) {
                 return;
@@ -234,10 +235,18 @@
 
                 for (var j = 0, le = question.answers().length; j < le; j++) {
                     answer = question.answers()[j];
-                    answer.isNew(box.answers.indexOf(answer.id) > -1);
+                    if (box.answers.indexOf(answer.id) > -1) {
+                        answer.isNew(true);
+                        newAnswers = true;
+                    }
                 }
-            }
 
+                if (newAnswers) {
+                    question.isNew(true);
+                    newAnswers = false; 
+                }
+                
+            }
         });
 
         cd.pubsub.subscribe('boxclear', function () {
