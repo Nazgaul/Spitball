@@ -469,4 +469,7 @@ To help you get started tell us where you study</value>
   <data name="Uploaded" xml:space="preserve">
     <value>Uploaded</value>
   </data>
+  <data name="InvitesYou" xml:space="preserve">
+    <value>Invites you to follow</value>
+  </data>
 </root>
