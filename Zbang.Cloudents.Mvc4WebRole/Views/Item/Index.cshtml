@@ -8,8 +8,8 @@
             <div class="itemNameWpr">
                 <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'data-title': itemName, 'data-name': itemName }"></span></div>
             </div>
-            <div class="itemOwner">
-                <span class="calloutTrgr elps" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></span>
+            <div class="itemOwner elps">
+                <span class="calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></span>
             </div>
             <span class="lFloat" data-bind="text: update"></span>
             <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>

@@ -187,6 +187,16 @@
   <ItemGroup>
     <Content Include="MailTemplate\InviteCloudents.html" />
     <Content Include="MailTemplate\InviteCloudentsHe.html" />
+    <Content Include="MailTemplate\InviteCloudentsRu.html" />
+    <Content Include="MailTemplate\InviteCourseRu.html" />
+    <Content Include="MailTemplate\PersonalMsgRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\ItemRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MemberRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MoreRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\QuestionRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesListRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\More.html" />
