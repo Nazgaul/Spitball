@@ -1943,7 +1943,7 @@ input[type="radio"] + label:before {
 }
 .upFriend {
   margin: 0 0 20px 31px;
-  /*diff rtl*/
+  /*rtl*/
 }
 .upInvites .inviteFriendBtn.btn3:before {
   margin: 0 0 0 8px;
