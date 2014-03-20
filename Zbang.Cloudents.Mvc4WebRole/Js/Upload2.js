@@ -171,6 +171,10 @@
         //});
         // cd.innerScroll($('#uploadList'), parseInt($('#uploadList').css('maxHeight').replace('px', ''), 10));        
         cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
+            if (!$('#uploadDialog').is(':visible')) {
+                return;
+            }
+
             if (!isAuto) {
                 loadPicker();
                 return;
