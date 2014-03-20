@@ -32,6 +32,7 @@
                     </div>
                     <!-- ko if:answerCount() === 0 -->
                     <form data-bind="submit: $root.postAnswer">
+                        <div class="arrow upArrow"></div>
                         <img class="QAImg lFloat" data-bind="attr: { src: $root.userImg }" alt="" width="32" height="32" />
                         <div class="textareaWpr">
                             <textarea name="Content" placeholder="@IndexResources.HaveAnswer" data-bind="placeholder: ''" class="QTextarea"></textarea>
