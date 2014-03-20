@@ -1609,7 +1609,7 @@ input[type="radio"] + label:before {
   /*rtl*/
 }
 .commentBtn .commentsNumber {
-  right: 5px;
+  left: 20px;
   /*rtl*/
 }
 /*#endregion */
