@@ -155,7 +155,7 @@
             if (privateLocation.url === removeStartingSlash(location.pathname)) {
                 return;
             }
-            if (historyNav[historyNav.length - 2].url) {
+            if (historyNav[historyNav.length - 2] && historyNav[historyNav.length - 2].url) {
                 pubsub.publish('nav', historyNav[historyNav.length - 2].url);
             }
         }

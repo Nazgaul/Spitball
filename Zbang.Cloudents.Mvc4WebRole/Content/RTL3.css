@@ -1608,6 +1608,10 @@ input[type="radio"] + label:before {
   float: right;
   /*rtl*/
 }
+.commentBtn .commentsNumber {
+  right: 5px;
+  /*rtl*/
+}
 /*#endregion */
 /*#region item content */
 .itemDisplay {
