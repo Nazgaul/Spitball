@@ -297,6 +297,9 @@
             (function loadImage(listImages, i) {
                 setTimeout(function () {
                     var img = listImages[i];
+                    if (!img) {
+                        return;
+                    }
                     var dataSrc = img.getAttribute('data-src');
                     if (dataSrc !== 'null') {
                         img.src = dataSrc;

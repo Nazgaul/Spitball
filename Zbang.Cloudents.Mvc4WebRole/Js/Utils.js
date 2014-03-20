@@ -211,7 +211,7 @@
                 text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
                 mutation.target.textContent = text;
             }
-            if (mutation.target.classList.contains('boxItemTt')) {
+            if (mutation.target.classList.contains('boxItem')) {
                 var elements = mutation.target.querySelectorAll('[data-time]'),
                     element;
 

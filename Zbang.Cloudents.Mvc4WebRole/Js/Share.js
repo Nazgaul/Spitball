@@ -8,6 +8,8 @@
     fromPopup = {},
     messageDialog = $('#sendMsgDialog').dialog({
         submitCallBack: function (url, data, form) {
+            cd.autocomplete2('attemptValidate');
+           
             if (!form.find('[name="Recepients"]').length) {
                 cd.displayErrors(form, ZboxResources.FieldRequired);
                 return false;
