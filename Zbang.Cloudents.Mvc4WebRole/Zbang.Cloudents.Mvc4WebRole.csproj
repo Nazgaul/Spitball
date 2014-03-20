@@ -530,7 +530,7 @@
       <DependentUpon>AccountInfo.less</DependentUpon>
     </Content>
     <Content Include="Content\AccountInfo.min.css">
-      <DependentUpon>AccountInfo.less</DependentUpon>
+      <DependentUpon>AccountInfo.css</DependentUpon>
     </Content>
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>

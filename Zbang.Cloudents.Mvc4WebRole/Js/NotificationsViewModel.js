@@ -13,6 +13,7 @@
         notificationsCounter = eById('invitesCounter'),
         notificationsList = eById('invitesList'),
         headerNotifications = eById('headerInvites'),
+        notificationsWrpr = eById('notifyWpr'),
         consts = {
             inviteTemplate: 'inviteTemplate',
             messageTemplate: 'messageTemplate',
@@ -84,39 +85,37 @@
 
         }
         if (!count) {
-            notificationsCounter.classList.remove('invitesCounterShow');
-            notifications.classList.add('noInvites');
+            notificationsCounter.classList.remove('invitesCounterShow');            
             notificationsCounter.textContent = '';
             return;
         }
-
-        notifications.classList.remove('noInvites');
+        
         notificationsCounter.classList.add('invitesCounterShow');
         notificationsCounter.textContent = count;
     }
 
     function registerEvents() {
-        var $notificationsList = $(notificationsList);
+        var $notificationsList = $(notificationsList),
+            $notificationsWrpr = $(notificationsWrpr);
+
         $(notifications).click(function (e) {
-            if (!notificationsList.children.length) {
-                return;
-            }
-            $('ul.userMenu').slideUp(150);//close settings - maybe should be in class
-            if ($notificationsList.is(':visible')) {
-                $notificationsList.slideUp(150);
+            e.stopPropagation();
+
+            !notificationsList.children.length ? notificationsWrpr.classList.add('noResults') : notificationsWrpr.classList.remove('noResults');
+            $('ul.userMenu').slideUp();//close maybe class
+            if ($notificationsWrpr.is(':visible')) {
+                $notificationsWrpr.slideUp(150);
                 return;
             }
 
             dataContext.notificationRead({
                 success: function () {
                     notificationsCounter.classList.remove('invitesCounterShow');
-                    notifications.classList.add('noInvites');
                     notificationsCounter.textContent = '';
                 }
             });
 
-            e.stopPropagation();
-            $notificationsList.slideDown(150);
+            $notificationsWrpr.slideDown(150);
 
         });
 
@@ -132,7 +131,7 @@
         });
 
         $('body').click(function () {
-            $notificationsList.slideUp(150);
+            $notificationsWrpr.slideUp(150);
         });
 
         $(headerNotifications).on('click', '[data-navigation="Box"]', function () {

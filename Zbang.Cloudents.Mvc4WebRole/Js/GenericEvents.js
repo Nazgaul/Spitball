@@ -36,7 +36,7 @@
     var slideSpeed = 150;
     var $userMenu = $('ul.userMenu');
     $('[data-menu="user"]').click(function (e) {
-        $('#invitesList').slideUp(); //close invite - maybe should be in class
+        $('#notifyWpr').slideUp(); //close invite - maybe should be in class
         if ($userMenu.is(':visible')) {
             $userMenu.slideUp(slideSpeed);
             return;
