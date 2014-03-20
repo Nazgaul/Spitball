@@ -1154,6 +1154,18 @@
 .readView.author:hover .deleteBtn {
   display: block;
 }
+.readView .annotateContent > .annotator {
+  width: auto;
+  max-width: 160px;
+  display: inline-block;
+}
+.annotateDate {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 9px;
+  font-size: 11px;
+  color: #676767;
+}
 .addAnotationShow {
   opacity: 0.15;
 }
