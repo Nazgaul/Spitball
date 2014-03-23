@@ -85,7 +85,7 @@
 			body[yahoo] .footerterms {margin:0px auto !important; width:320px !important;}
 			body[yahoo] .nopadding {width:0 !important;}
 			body[yahoo] .table {width:300px !important; font-size:14px !important;}
-		    body[yahoo] .item {display: block !important; margin-left: auto !important; margin-right: auto !important; text-align:center !important;}
+			body[yahoo] .item {display: block !important; margin-left: auto !important; margin-right: auto !important; text-align:center !important;}
 			body[yahoo] .itemtext {width:220px !important;}
 			
 		} 
@@ -96,22 +96,22 @@
 </style>
 </head>
 
-<body style="width: 100% !important; color: #383838; font-family: Helvetica,sans-serif; margin: 0; padding: 0;" yahoo="fix">
+<body style="direction: rtl; width: 100% !important; color: #383838; font-family: Helvetica,sans-serif; margin: 0; padding: 0;" yahoo="fix" dir="rtl">
     <!-- * WRAPPER * -->
-    <table cellpadding="0" cellspacing="0" border="0" class="wrapper" width="100%" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+    <table dir="rtl" cellpadding="0" cellspacing="0" border="0" class="wrapper" width="100%" style="direction: rtl; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
         <tr>
             <td>
                 <!-- * HEADER WRAPPER * -->
-                <table cellpadding="0" cellspacing="0" border="0" class="logowrapper" width="100%" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                <table dir="rtl" cellpadding="0" cellspacing="0" border="0" class="logowrapper" width="100%" style="direction: rtl; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                     <tr>
                         <td>
 
                             <!-- * LOGO HERE * -->
-                            <table cellpadding="0" cellspacing="0" border="0" align="center" class="logo" width="600" bgcolor="#0F9D58">
+                            <table dir="rtl" cellpadding="0" cellspacing="0" border="0" align="center" class="logo" width="600" bgcolor="#0F9D58" style="direction: rtl;">
                                 <tr bgcolor="#0F9D58">
-                                    <td class="logo" width="600" bgcolor="#0F9D58" align="left" valign="bottom">
-                                        <a target="_blank" href="https://www.cloudents.com">
-                                            <img width="170" height="54" align="left" valign="bottom" src="http://az32006.vo.msecnd.net/zboxhelp/logo.png" alt="Logo Alt Here" title="Logo Title Here" /></a></td>
+                                    <td class="logo" width="600" bgcolor="#0F9D58" align="right" valign="bottom">
+                                        <a target="_blank" href="https://www.cloudents.com/">
+                                            <img width="170" height="54" align="Left" valign="bottom" src="http://az32006.vo.msecnd.net/zboxhelp/logo.png" alt="Logo Alt Here" title="Logo Title Here" /></a></td>
                                 </tr>
                             </table>
                             <!-- * END OF LOGO HERE * -->
@@ -122,7 +122,7 @@
                 <!-- * HEADER WRAPPER * -->
 
                 <!-- * DASHBOARD * -->
-                <table cellpadding="0" cellspacing="0" border="0" align="center" class="dashboard" width="600">
+                <table dir="rtl" cellpadding="0" cellspacing="0" border="0" align="center" class="dashboard" width="600" style="direction: rtl;">
                     <!-- * TOP SPACER * -->
                     <tr>
                         <td height="20"></td>
@@ -133,10 +133,10 @@
                     <tr>
                         <td>
                             <!-- * NEWS HERE * -->
-                            <table cellpadding="0" cellspacing="0" border="0" align="left" class="news" width="600" style="font-size: 14px;">
+                            <table dir="rtl" cellpadding="0" cellspacing="0" border="0" align="right" class="news" width="600" style="font-size: 14px; direction: rtl;">
                                 <!-- * NAME HERE * -->
                                 <tr>
-                                    <td align="left"><strong>Привет {USERNAME},</strong></td>
+                                    <td align="right">مرحباً<strong> {USERNAME},</strong></td>
                                 </tr>
                                 <!-- * END OF NAME HERE * -->
 
@@ -148,37 +148,33 @@
 
                                 <!-- * UPDATES HERE * -->
                                 <tr>
-                                    <td align="left">У вас есть {NUM-UPDATES} обновлений/я: <a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-ANSWERS}</a> <a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-QUESTIONS}</a> <a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-NEW-ITEMS}</a><a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-NEW-USERS}</a> и многое другое.</td>
+                                    
+                                    <td align="right">لديك {NUM-UPDATES} تحديث:   
+                            <a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-ANSWERS}</a> <a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-QUESTIONS}</a> <a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-NEW-ITEMS}</a><a style="text-decoration: none;" href="https://www.cloudents.com/dashboard">{X-NEW-USERS}</a> والكثير والمزيد لمشاهدته</td>
                                 </tr>
                                 <!-- * END OF UPDATES * -->
 
                             </table>
                             <!-- * END OF NEWS HERE * -->
 
+
                         </td>
                     </tr>
                     <!-- * END OF NEWS * -->
 
-                </table>
-                <!-- * END OF DASHBOARD * -->
-
-
-
-                <!-- * MARGIN TOP TABLE * -->
-                <table cellpadding="0" cellspacing="0" border="0" align="center" class="margin" width="600">
+                    <!-- * TOP SPACER * -->
                     <tr>
                         <td height="25"></td>
                     </tr>
-                </table>
-                <!-- * END OF MARGIN TOP TABLE * -->
+                    <!-- * END OF TOP SPACER * -->
 
+                </table>
+                <!-- * END OF DASHBOARD * -->
 
                 {UPDATES}
 
-            
-
             <!-- * MESSAGE AND BUTTON HERE * -->
-                <table cellpadding="0" cellspacing="0" border="0" align="center" class="msgbutton" width="600" bgcolor="#EBECED">
+                <table dir="rtl" cellpadding="0" cellspacing="0" border="0" align="center" class="msgbutton" width="600" bgcolor="#EBECED" style="direction: rtl;">
                     <!-- * TOP SPACER * -->
                     <tr>
                         <td height="15"></td>
@@ -191,11 +187,12 @@
 
                     <tr>
                         <td width="20"></td>
-                        <td>До скорой встречи, коллектив Cloudents</td>
+                        <td align="right">أراك قريبا،  فريق Cloudents </td>
+
                         <td width="20"></td>
-                        <td>
+                        <td align="left">
                             <!-- * BUTTON * -->
-                            <table cellpadding="0" cellspacing="0" border="0" align="right" class="button" width="250" bgcolor="#0F9D58" style="-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;">
+                            <table dir="rtl" cellpadding="0" cellspacing="0" border="0" align="left" class="button" width="170" bgcolor="#0F9D58" style="-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; direction: rtl;">
                                 <!-- * TOP SPACER * -->
                                 <tr>
                                     <td height="10"></td>
@@ -204,7 +201,7 @@
 
                                 <!-- * BUTTON TEXT * -->
                                 <tr>
-                                    <td class="buttontext" align="center"><a style="text-decoration: none; color: #FFFFFF; font-size: 16px;" href="https://www.cloudents.com">Просмотреть всё на Cloudents</a></td>
+                                    <td class="buttontext" align="center"><a style="text-decoration: none; color: #FFFFFF; font-size: 16px;" href="https://www.cloudents.com">شاهد الكل على cloudents</a></td>
                                 </tr>
                                 <!-- * END OF BUTTON TEXT * -->
 
@@ -232,7 +229,7 @@
                 <!-- * END OF MESSAGE AND BUTTON HERE * -->
 
                 <!-- * MARGIN TOP TABLE * -->
-                <table cellpadding="0" cellspacing="0" border="0" align="center" class="margin" width="600">
+                <table dir="rtl" cellpadding="0" cellspacing="0" border="0" align="center" class="margin" width="600" style="direction: rtl;">
                     <tr>
                         <td height="150"></td>
                     </tr>
@@ -240,7 +237,7 @@
                 <!-- * END OF MARGIN TOP TABLE * -->
 
                 <!-- * FOOTER * -->
-                <table cellpadding="0" cellspacing="0" border="0" class="footer" width="600" align="center" bgcolor="#F5F5F5">
+                <table dir="rtl" cellpadding="0" cellspacing="0" border="0" class="footer" width="600" align="center" bgcolor="#F5F5F5" style="direction: rtl;">
                     <!-- * TOP SPACER * -->
                     <tr>
                         <td height="15"></td>
@@ -252,8 +249,11 @@
                     <!-- * FOOTER TERMS * -->
                     <tr>
                         <td width="25"></td>
-                        <td align="left" style="font-size: 12px; color: #383838;">Это сообщение было предназначено для <a style="color: #09955b; text-decoration: none;" href="mailto:{email}">{email}</a>.<br />
-                            Если вы хотите изменить периодичность получения этих сообщений, <a target="_blank" style="color: #919191; text-decoration: none;" href="https://www.cloudents.com/Account/Settings#Notification">обновите настройки электронной почты.</a>Если вы не хотите получать уведомления от Cloudents, <a target="_blank" style="color: #919191; text-decoration: none;" href="{unsubscribeUrl}">отпишитесь</a>. </td>
+                        <td align="right" style="font-size: 12px; color: #383838;">كان الغرض من هذه الرسالة<a style="color: #09955b; text-decoration: none;" href="mailto:{email}">{email}.</a><br />
+                            إذا كنت ترغب في تغيير وتيرة هذه الرسائل التي تصلك، يرجى <a target="_blank" style="color: #919191; text-decoration: none;" href="https://www.cloudents.com/Account/Settings#Notification">تحديث تفضيلات بريدك الإلكتروني.</a>
+                            إذا كنت لا ترغب في تلقي أية إخطارات من Cloudents،    
+                        <a target="_blank" style="color: #919191; text-decoration: none;" href="{unsubscribeUrl}">قم بإلغاء الاشتراك</a>
+                        </td>
                         <td width="25"></td>
                     </tr>
                     <!-- * END OF FOOTER TERMS * -->
@@ -269,7 +269,7 @@
                 <!-- * END OF FOOTER * -->
 
                 <!-- * MARGIN TOP TABLE * -->
-                <table cellpadding="0" cellspacing="0" border="0" align="center" class="margin" width="600">
+                <table dir="rtl" cellpadding="0" cellspacing="0" border="0" align="center" class="margin" width="600" style="direction: rtl;">
                     <tr>
                         <td height="25"></td>
                     </tr>

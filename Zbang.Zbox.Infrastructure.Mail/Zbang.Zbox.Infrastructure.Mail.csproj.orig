@@ -185,6 +185,7 @@
     <EmbeddedResource Include="MailTemplate\PersonalMsgHe.html" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <EmbeddedResource Include="MailTemplate\InviteCloudents.html" />
     <EmbeddedResource Include="MailTemplate\InviteCloudentsAr.html" />
     <EmbeddedResource Include="MailTemplate\InviteCloudentsHe.html" />
@@ -196,10 +197,25 @@
     <EmbeddedResource Include="MailTemplate\ResetPwdAr.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdHe.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdRu.html" />
-    <Content Include="MailTemplate\UpdatesEmail\AnswerAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseAr.html" />
+=======
+    <Content Include="MailTemplate\InviteCloudents.html" />
+    <Content Include="MailTemplate\InviteCloudentsAr.html" />
+    <Content Include="MailTemplate\InviteCloudentsHe.html" />
+    <Content Include="MailTemplate\InviteCloudentsRu.html" />
+    <Content Include="MailTemplate\InviteCourseRu.html" />
+    <Content Include="MailTemplate\PersonalMsgAr.html" />
+    <Content Include="MailTemplate\PersonalMsgRu.html" />
+    <Content Include="MailTemplate\ResetPwd.html" />
+    <Content Include="MailTemplate\ResetPwdAr.html" />
+    <Content Include="MailTemplate\ResetPwdHe.html" />
+    <Content Include="MailTemplate\ResetPwdRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\AnswerAr.html" />
+    <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
+    <Content Include="MailTemplate\InviteCourseAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\ItemAr.html" />
+>>>>>>> bb757768b81d233b10673dee0ec57df8b4c39ee3
     <Content Include="MailTemplate\UpdatesEmail\ItemRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\MemberAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\MemberRu.html" />

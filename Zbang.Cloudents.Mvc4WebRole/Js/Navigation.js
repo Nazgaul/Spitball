@@ -529,7 +529,8 @@
         catch (err) {
             console.log(err.message);
         }
-
+       
+        cd.updateTimeActions();
         pubsub.publish(d[0].id.toLowerCase() + '_show');
     }
 

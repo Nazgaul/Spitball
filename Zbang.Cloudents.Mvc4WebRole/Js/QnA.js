@@ -162,6 +162,7 @@
 
         self.showAllAnswers = function (q, e) {
             self.selectedQuestion(q);
+            cd.updateTimeActions(document.getElementById('box_QA'));
             analytics.trackEvent('Answer', 'Click on answer', 'The number of clicks on show answer');
             $(e.target).parents('.QItem').addClass('selected');
 
@@ -269,6 +270,7 @@
                 newquestionobj.question.isNew = true;
                 newquestion = new Question(newquestionobj.question);
                 self.questionList.unshift(newquestion);
+                cd.parseTimeString($('.QACreateTime:empty')[0]);
             }
             cd.newUpdates.addUpdate({ questionId: newquestionobj.question.id, boxId: newquestionobj.boxid });
         });
@@ -281,7 +283,7 @@
                 newAnswerObj.answer.isNew = true;
                 newAnswer = new Answer(newAnswerObj.answer);
                 question.answers.push(newAnswer);
-
+                cd.parseTimeString($('.QACreateTime:empty')[0]);
             }
             cd.newUpdates.addUpdate({ answerId: newAnswerObj.answer.id, boxId: box });
             // self.postAnswer
@@ -337,10 +339,12 @@
                         files: getFiles($f)
                     };
                     var newquestion = new Question(obj);
+                    
                     cd.pubsub.publish('addQuestionNoti', { boxid: boxid, question: obj });
                     $f.find('button').removeAttr('disabled').hide();
                     $f.find('textarea').css('height', '');
                     self.questionList.unshift(newquestion);
+                    cd.parseTimeString($('.QList').children(':first').find('[data-time]'));
                     textArea.val('');
                     $f.find('.attachedList').empty();
                     self.state(state.question);
@@ -418,6 +422,7 @@
                     var newanswer = new Answer(answerObj);
                     $f.find('button').removeAttr('disabled').hide();
                     question.answers.push(newanswer);
+                    cd.updateTimeActions(document.getElementById('box_QA'));
                     cd.pubsub.publish('addAnswerNoti', { boxid: boxid, questionId: question.id, answer: answerObj });
                     textArea.val('');
                     $f.find('.attachedList').empty();
@@ -521,6 +526,7 @@
                     self.questionList($.map(data, function (i) { return new Question(i); }));
                     //cd.updateTimeActions();
                     self.state(state.question);
+                    cd.updateTimeActions(document.getElementById('box_QA'));
                 }
             });
         }
