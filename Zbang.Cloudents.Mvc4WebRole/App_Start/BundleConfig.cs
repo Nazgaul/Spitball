@@ -151,6 +151,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/Cache.js"),
                 new JsFileWithCdn("~/Js/DataContext.js"),
                 new JsFileWithCdn("~/Js/GenericEvents.js"),
+                new JsFileWithCdn("~/Js/Navigation.js"),
+
 
                 new JsFileWithCdn("~/Js/Dialog.js"), //dialog message
                 new JsFileWithCdn("~/Js/Autocomplete.js"), //dialog message
@@ -160,7 +162,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                new JsFileWithCdn("~/Js/TooltipGuide.js"),
                 
                 //new JsFileWithCdn("~/Js/bootstrapper2.js"),
-                new JsFileWithCdn("~/Js/Navigation.js"),
                 new JsFileWithCdn("~/Js/Statistics.js"),
 
                 //header

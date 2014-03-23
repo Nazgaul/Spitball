@@ -91,6 +91,17 @@
     //    }, false);
     //}
 
+    //replace animation if ie9
+    if (!Modernizr.cssanimations) {
+        var loader = document.getElementById('mLoading');
+        var gifLoader = document.createElement('div');
+        gifLoader.className = 'loadingGif';
+        gifLoader.id = 'mLoading'
+        loader.parentElement.insertBefore(gifLoader, loader);
+        loader.parentElement.removeChild(loader);
+    }
+
+
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
@@ -446,6 +457,8 @@
         }
 
     }
+
+
     pubsub.subscribe('hidePage', function () {
         var currentElem = $('#' + getParameterFromUrl(0)),
          elem = $('.page:visible').not(currentElem);
