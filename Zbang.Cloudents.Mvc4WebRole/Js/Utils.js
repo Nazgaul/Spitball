@@ -102,6 +102,11 @@
     //#region Dates in the system    
     var actionTimeInterval;
 
+
+    if (!actionTimeInterval) {
+        actionTimeInterval = setInterval(updateTimeActions, 60000);
+    }
+
     function parseActionTime(date) {
         if (!date) {
             return;
@@ -161,116 +166,24 @@
 
         }
     }
-
-
-    // configuration of the observer:
-    var config = { attributes: true, childList: true, subtree: true };
-
-    function createObserver(element) {
-        if (!element) {
-            return;
+    
+    function updateTimeActions(container) {
+        if (!container) {
+            container = document.body;
         }
-        var observer;
-        if (element.id === 'item') {
-            observer = new JsMutationObserver(itemObserve);
-        }
-        if (element.id === 'box') {
-            observer = new JsMutationObserver(boxObserve);
-        }
-
-        if (element.id === 'g_search' || element.id === 'search' ) {
-            observer = new JsMutationObserver(searchDDObserve);
-        }
-
-        observer.observe(element, config);
-
-    }
-    function searchDDObserve(mutations) {
-        for (var i = 0; i < mutations.length; ++i) {
-            // look through all added nodes of this mutation
-            for (var j = 0; j < mutations[i].addedNodes.length; ++j) {
-                // was a child added with ID of 'bar'?
-                var elm = mutations[i].addedNodes[j];
-                if (elm.nodeName === 'LI') {
-                    var childs = elm.getElementsByTagName('*');
-                    for (var z = 0,zL = childs.length; z < zL; z++) {
-                        cd.setElementDirection(childs[z]);
-                    }
-                    
-                }
-            }
+        var $timedObjects = $(container).find('[data-time]'),
+        text;
+        for (var i = 0, l = $timedObjects.length; i < l; i++) {            
+            parseTimeString($timedObjects[i]);
         }
     }
-    function boxObserve(mutations) {
-        var text;
-        if (actionTimeInterval) {
-            clearInterval(actionTimeInterval);
+
+    function parseTimeString(element) {
+        if (element instanceof jQuery) {
+            element = element[0];
         }
-        mutations.forEach(function (mutation) {
-            if (mutation.attributeName === 'data-time') {
-                text = parseActionTime(new Date(mutation.target.getAttribute('data-time')));
-                mutation.target.textContent = text;
-            }
-            if (mutation.target.classList.contains('boxItem')) {
-                var elements = mutation.target.querySelectorAll('[data-time]'),
-                    element;
-
-                for (var i = 0, l = elements.length; i < l; i++) {
-                    element = elements[i];
-                    if (element.getAttribute('data-obsv')) {
-                        continue;
-                    }
-                    element.setAttribute('data-obsv', true);
-                    text = parseActionTime(new Date(element.getAttribute('data-time')));
-                    element.textContent = text;
-                }
-
-            }
-
-        });
-        actionTimeInterval = setInterval(updateTimeActions, 60000);
-    }
-
-    function itemObserve(mutations) {
-        var text;
-        if (actionTimeInterval) {
-            clearInterval(actionTimeInterval);
-        }
-        mutations.forEach(function (mutation) {         
-            if (mutation.target.classList.contains('annotationList')) {
-                var elements = mutation.target.querySelectorAll('[data-time]'),
-                    element;
-
-                for (var i = 0, l = elements.length; i < l; i++) {
-                    element = elements[i];
-                    if (element.getAttribute('data-obsv')) {
-                        continue;
-                    }
-                    element.setAttribute('data-obsv', true);
-                    text = parseActionTime(new Date(element.getAttribute('data-time')));
-                    element.textContent = text;
-                }
-
-            }
-
-        });
-        actionTimeInterval = setInterval(updateTimeActions, 60000);
-    }
-
-    function updateTimeActions() {
-        var $timedObjects = $('[data-time]'),
-        $time, text;
-        for (var i = 0, l = $timedObjects.length; i < l; i++) {
-            $time = $($timedObjects[i]);
-            text = parseActionTime(new Date($time.data('time')));
-            $time.text(text);
-
-        }
-    }
-    actionTimeInterval = setInterval(updateTimeActions, 60000);
-
-    function parseTimeString(date) {
-        return parseActionTime(new Date(date));
+        text = parseActionTime(new Date(element.getAttribute('data-time')));
+        element.textContent = text;
     }
     //#endregion
     var resetErrors = function (form) {
@@ -1192,8 +1105,7 @@
     cd.appendData = appendData;
     cd.deleteAllow = deleteAllow;
     cd.unregisterAction = unregisterAction;
-    cd.putPlaceHolder = putPlaceHolder;
-    cd.createObserver = createObserver;
+    cd.putPlaceHolder = putPlaceHolder;    
 
     //cd.switchBackToMobile = switchBackToMobile;
     cd.loaderOn = loaderOn;

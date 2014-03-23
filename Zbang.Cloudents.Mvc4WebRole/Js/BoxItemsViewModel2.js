@@ -213,7 +213,8 @@
         cd.pubsub.subscribe('addedItem', function (d) {
             if (d.boxid === boxid) {
                 d.item.isNew = true;
-                cd.pubsub.publish('addItem', d.item);                
+                cd.pubsub.publish('addItem', d.item);
+
             }
             cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });            
         });
@@ -347,6 +348,7 @@
                 }
                 var tooltip = this.querySelector('.boxItemTt')
                 $(tooltip).fadeIn(300);
+                cd.parseTimeString($(tooltip).find('[data-time]'));
             },            
             out: function () {
                 $('.boxItemTt').remove();

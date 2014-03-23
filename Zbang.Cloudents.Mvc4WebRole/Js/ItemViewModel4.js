@@ -17,8 +17,6 @@
 
     cd.loadModel(consts.item, 'ItemContext', registerKOItem);
 
-    cd.createObserver(eById('item'));    
-
     function registerKOItem() {
         ko.applyBindings(new ItemViewModel(), document.getElementById(consts.item));
     }
@@ -1480,6 +1478,7 @@
                 //    height: 55
                 //});
             }
+            cd.parseTimeString(x.find('[data-time]'));
             return x;
         }
         function processCommentRemark() {
