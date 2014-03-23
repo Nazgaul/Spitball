@@ -183,6 +183,10 @@
 .notifyWpr.noResults .notifyEmpty {
   display: block;
 }
+.notifyWpr.noResults .notifyTop {
+  text-align: left;
+  /*rtl*/
+}
 .notifyTop {
   line-height: 13px;
   padding: 7px 10px;

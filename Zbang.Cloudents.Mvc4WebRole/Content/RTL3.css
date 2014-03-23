@@ -487,6 +487,10 @@ input[type="radio"] + label:before {
   margin: 0 -167px 0 0;
   /*rtl*/
 }
+.notifyWpr.noResults .notifyTop {
+  text-align: right;
+  /*rtl*/
+}
 .notifyItem {
   padding: 0 70px 0 8px;
   /*rtl*/
@@ -669,6 +673,11 @@ input[type="radio"] + label:before {
 .boxEmpty > h2 {
   font-weight: normal;
   /*rtl*/
+}
+.boxItemList.sponsored .boxItem:first-child img {
+  right: 2px;
+  /*rtl*/
+  left: auto;
 }
 .boxItemList.sponsored .listItem:first-child {
   padding: 0 260px 0 0;
