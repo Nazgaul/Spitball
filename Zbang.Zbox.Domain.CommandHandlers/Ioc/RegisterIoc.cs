@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<ShareBoxFacebookCommand>), typeof(ShareBoxFacebookCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<InviteToSystemCommand>), typeof(InviteToSystemCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<InviteToSystemFacebookCommand>), typeof(InviteToSystemFacebookCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<MarkNotificationAsReadCommand>), typeof(MarkNotificationAsReadCommandHanlder));
+            ioc.RegisterType(typeof(ICommandHandler<MarkMessagesAsReadCommand>), typeof(MarkMessagesAsReadCommandHanlder));
 
 
 

@@ -8,11 +8,13 @@ namespace Zbang.Zbox.ViewModel.DTOs
     [Serializable]
     public class InviteDto
     {
+        public Guid MsgId { get; set; }
         public long? BoxId { get; set; }
         public string UserPic { get; set; }
         public string UserName { get; set; }
         public DateTime Date { get; set; }
         public bool IsRead { get; set; }
+        public bool IsNew { get; set; }
 
         public string Message { get; set; }
        

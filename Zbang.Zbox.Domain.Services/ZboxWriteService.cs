@@ -603,7 +603,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void MarkMessagesAsRead(MarkNotificationAsReadCommand command)
+        public void MarkMessageAsRead(MarkMessagesAsReadCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void MarkMessagesAsOld(MarkMessagesAsOldCommand command)
         {
             using (UnitOfWork.Start())
             {

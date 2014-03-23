@@ -181,8 +181,10 @@ namespace Zbang.Zbox.ReadServices
             {
                 var dbQeury = @"select u.UserImage as userpic,
  u.UserName as username,
+ m.MessageId as msgId,
   m.CreationTime as date,
   m.NotRead as isread,
+  m.New as IsNew,
   m.Text as message,m.MessageId,
 b.BoxName,
 b.BoxId,
