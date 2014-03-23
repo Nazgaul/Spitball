@@ -149,6 +149,7 @@
         e.preventDefault();
         if (!cd.register()) {
             cd.pubsub.publish('register');
+            removeTooltip();
             return;
         }
         removeTooltip();
