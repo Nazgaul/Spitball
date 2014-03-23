@@ -7,9 +7,9 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class MarkNotificationAsReadCommand : ICommand
+    public class MarkMessagesAsOldCommand : ICommand
     {
-        public MarkNotificationAsReadCommand(long userId)
+        public MarkMessagesAsOldCommand(long userId)
         {
             UserId = userId;
         }

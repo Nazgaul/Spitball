@@ -13,6 +13,7 @@
 
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
     <property name="NotRead" not-null="false" />
+    <property name="New" not-null="false" />
     
     <subclass name="Invite" discriminator-value="Invite" >
       <many-to-one column="BoxId" class="Box" name="Box" foreign-key="MessageBoxBoxId"/>

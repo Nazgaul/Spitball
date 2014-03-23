@@ -20,16 +20,22 @@ namespace Zbang.Zbox.Domain
             Recepient = recepient;
             CreationTime = DateTime.UtcNow;
             NotRead = false;
+            New = true;
         }
         public Guid Id { get; private set; }
         public virtual User Sender { get; private set; }
         public virtual User Recepient { get; private set; }
         public DateTime CreationTime { get; private set; }
         public bool NotRead { get; private set; }
+        public bool New { get; private set; }
 
         public void UpdateMessageAsRead()
         {
             NotRead = true;
+        }
+        public void UpdateMessageAsOld()
+        {
+            New = false;
         }
 
 

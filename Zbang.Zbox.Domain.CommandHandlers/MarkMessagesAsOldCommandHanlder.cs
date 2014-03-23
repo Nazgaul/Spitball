@@ -9,14 +9,16 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class MarkNotificationAsReadCommandHanlder : ICommandHandler<MarkNotificationAsReadCommand>
+    public class MarkMessagesAsOldCommandHanlder : ICommandHandler<MarkMessagesAsOldCommand>
     {
         private readonly IMessageBaseRepository m_MessageRepositoy;
-        public MarkNotificationAsReadCommandHanlder(IMessageBaseRepository messageRepository)
+        public MarkMessagesAsOldCommandHanlder(IMessageBaseRepository messageRepository)
         {
             m_MessageRepositoy = messageRepository;
         }
-        public void Handle(MarkNotificationAsReadCommand commandMessage)
+
+
+        public void Handle(MarkMessagesAsOldCommand commandMessage)
         {
             var messages = m_MessageRepositoy.GetCurrentInvites(commandMessage.UserId);
             foreach (var message in messages)

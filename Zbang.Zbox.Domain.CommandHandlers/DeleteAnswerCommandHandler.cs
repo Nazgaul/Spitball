@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             bool isAuthorize = answer.User.Id != message.UserId || box.Owner.Id != message.UserId;
             if (!isAuthorize)
             {
-                throw new UnauthorizedAccessException("User didnt ask the question");
+                throw new UnauthorizedAccessException("User didnt ask the answer");
             }
            
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) - 1);

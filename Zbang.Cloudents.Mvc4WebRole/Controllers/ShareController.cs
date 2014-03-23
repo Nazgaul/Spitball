@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             IFormsAuthenticationService formsAuthenticationService,
             Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
             : base(zboxWriteService, zboxReadService,
-                //shortToLongCache, 
+              
             formsAuthenticationService)
         {
             m_InviteLinkDecrypt = inviteLinkDecrypt;
@@ -316,10 +316,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, Ajax, ZboxAuthorize]
-        public ActionResult NotificationRead()
+        public ActionResult NotificationAsRead(Guid messageId)
         {
-            var command = new MarkNotificationAsReadCommand(GetUserId());
-            m_ZboxWriteService.MarkMessagesAsRead(command);
+            var command = new MarkMessagesAsReadCommand(GetUserId(), messageId);
+            m_ZboxWriteService.MarkMessageAsRead(command);
+            return this.CdJson(new JsonResponse(true));
+        }
+
+        [HttpPost, Ajax, ZboxAuthorize]
+        public ActionResult NotificationOld()
+        {
+            var command = new MarkMessagesAsOldCommand(GetUserId());
+            m_ZboxWriteService.MarkMessagesAsOld(command);
             return this.CdJson(new JsonResponse(true));
         }
     }

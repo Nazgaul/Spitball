@@ -11,6 +11,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -90,17 +91,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpPost]
         public JsonResult DeleteQuestion(Guid questionId)
         {
-            var command = new DeleteQuestionCommand(questionId, GetUserId());
-            m_ZboxWriteService.DeleteQuestion(command);
-            return Json(new JsonResponse(true));
+            try
+            {
+                var command = new DeleteQuestionCommand(questionId, GetUserId());
+                m_ZboxWriteService.DeleteQuestion(command);
+                return Json(new JsonResponse(true));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Delete question questionId {0} userid {1}", questionId.ToString(), GetUserId()), ex);
+                return Json(new JsonResponse(false));
+            }
         }
         [ZboxAuthorize]
         [Ajax, HttpPost]
         public JsonResult DeleteAnswer(Guid answerId)
         {
-            var command = new DeleteAnswerCommand(answerId, GetUserId());
-            m_ZboxWriteService.DeleteAnswer(command);
-            return Json(new JsonResponse(true));
+            try
+            {
+                var command = new DeleteAnswerCommand(answerId, GetUserId());
+                m_ZboxWriteService.DeleteAnswer(command);
+                return Json(new JsonResponse(true));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId.ToString(), GetUserId()), ex);
+                return Json(new JsonResponse(false));
+            }
         }
 
 

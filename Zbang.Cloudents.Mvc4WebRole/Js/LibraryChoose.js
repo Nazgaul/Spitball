@@ -304,14 +304,16 @@
                 cd.analytics.trackEvent('Library Choose', 'Search', term);
 
                 $('.uniName').each(function () {
-                    var $parent = $(this).parents('li');
-                    var lowerText = $(this).text().toLowerCase();
-                    var termTrimmed = term.trim();
-                    var query;
-                    if (currentCountryCode == 'IL') {
-                        query = lowerText.indexOf(termTrimmed.toLowerCase()) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1;
+                    var $parent = $(this).parents('li'),
+                        lowerText = $(this).text().toLowerCase(),
+                        termTrimmed = term.trim(),
+                        query, regExp = new RegExp('[\u0590-\u05FF\uFB1D-\uFB4F]', 'g');
+                    
+                    if (lowerText.match(regExp) && lowerText.match(regExp).length > 0) {
+                        query = lowerText.indexOf(termTrimmed) > -1 || lowerText.indexOf(cd.conversion.convert(termTrimmed)) > -1;
                     } else {
-                        query = lowerText.indexOf(termTrimmed.toLowerCase()) > -1;
+                        var termLowerCase = termTrimmed.toLowerCase();
+                            query = lowerText.indexOf(termLowerCase) > -1 || cd.removeDiacritics(lowerText).indexOf(termLowerCase) > -1;                        
                     }
                     query ? $parent.show() : $parent.hide();
                 });
