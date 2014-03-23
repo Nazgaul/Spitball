@@ -97,7 +97,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\Welcome.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOld.html" />
     <EmbeddedResource Include="Resources\EmailResource.he.resx" />
     <EmbeddedResource Include="Resources\EmailResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -113,7 +113,7 @@
     <EmbeddedResource Include="MailTemplate\NewMsgHe.html" />
     <EmbeddedResource Include="MailTemplate\Updates.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesHe.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeHe.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOldHe.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\UpdatesBoxCube.html" />
@@ -141,7 +141,7 @@
     <EmbeddedResource Include="MailTemplate\UpdatesBoxCubeRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesLineRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesRu.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeRu.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOldRu.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ForgotPwdOldRu.html" />
@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ForgotPwdZh.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeZh.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOldZh.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesLineZh.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesBoxCubeZh.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesZh.html" />
@@ -201,6 +201,10 @@
     <Content Include="MailTemplate\UpdatesEmail\QuestionRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\UpdatesListRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\UpdatesRu.html" />
+    <Content Include="MailTemplate\Welcome.html" />
+    <Content Include="MailTemplate\WelcomeAr.html" />
+    <Content Include="MailTemplate\WelcomeHe.html" />
+    <Content Include="MailTemplate\WelcomeRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\More.html" />
