@@ -139,13 +139,13 @@
                             text = facebookText.en;
                         }
                         FB.api('/me/feed', 'post', { message: text, link: 'https://www.cloudents.com' }, function () {
-                            location.href = obj.url;
+                            window.location.reload();
                         });
                     });
 
                 }
                 else {
-                    location.href = obj.url;
+                    window.location.reload();
                 }
             },
             error: function (msg) {
