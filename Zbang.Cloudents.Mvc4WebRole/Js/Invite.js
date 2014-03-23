@@ -651,7 +651,7 @@
                 return;
             }
 
-            cd.appendData(emailsSelectedElement, 'emailSelectedItemTemplate', { id: item.id, display: item.display }, 'beforeend', false);
+            cd.appendData(emailsSelectedElement, 'emailSelectedItemTemplate', { id: item.id, name: item.display }, 'beforeend', false);
 
             if (valid) {
                 emailsSelecetd.push(item.id);
