@@ -111,7 +111,9 @@
     definition.changeNotification = new definitionobj({ url: cBOX + "ChangeNotification" });
 
     definition.getNotification = new definitionobj({ url: cBOX + "GetNotification", type: get });
-    definition.notificationRead = new definitionobj({ url: share + "NotificationRead" });
+
+    definition.notificationAsRead = new definitionobj({ url: share + "NotificationAsRead" });
+    definition.notificationOld = new definitionobj({ url: share + "NotificationOld" });
     
     definition.firstTimeUpdate = new definitionobj({ url: "/Account/FirstTime" });
 

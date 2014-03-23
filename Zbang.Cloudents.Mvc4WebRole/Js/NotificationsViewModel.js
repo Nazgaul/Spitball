@@ -23,22 +23,26 @@
 
     function Invite(data) {
         var that = this;
+        that.id = data.msgId;
         that.boxId = data.boxid;
         that.boxName = data.boxName;
         that.senderName = data.userName;
         that.senderImg = data.userPic;
-        that.isRead = data.isRead;
+        that.isRead = data.isRead ? ' new' : '';
+        that.isNew = data.isNew ;
         that.date = data.date;
         that.url = data.url + '?r=siteheader&s=invite';
     }
 
     function Message(data) {
         var that = this;
+        that.id = data.msgId
         that.senderName = data.userName;
         that.senderImg = data.userPic;
         that.message = data.message;
         that.date = data.date;
-        that.isRead = data.isRead;
+        that.isRead = data.isRead ? ' new' : '';
+        that.isNew = data.isNew;
         //that.url = data.url; //TODO!!!!!!!!!!!!!!!!!
     }
 
@@ -79,7 +83,7 @@
     function showNewNotifications() {
         var count = 0;
         for (var i = 0, l = notificationsData.length ; i < l; i++) {
-            if (!notificationsData[i].isRead) {
+            if (notificationsData[i].isNew) {
                 count++;
             }
 
@@ -108,7 +112,7 @@
                 return;
             }
 
-            dataContext.notificationRead({
+            dataContext.notificationOld({
                 success: function () {
                     notificationsCounter.classList.remove('invitesCounterShow');
                     notificationsCounter.textContent = '';
@@ -128,6 +132,14 @@
                 page++;
                 parseData(); // render items from the current page set
             }
+        })
+        .on('click', 'li', function () {
+            dataContext.notificationAsRead({
+                data: { messageId: this.id },
+                success: function () {
+                    this.classList.remove('new');
+                }
+            });
         });
 
         $('body').click(function () {
