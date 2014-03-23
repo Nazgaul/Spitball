@@ -225,14 +225,17 @@
   border-bottom: 0;
 }
 .notifyItem a {
-  width: 175px;
-  padding: 10px 6px;
+  /*width: 175px;*/
+  padding: 8px 6px;
   line-height: normal;
   display: table-cell;
   color: #383838;
 }
-.notifyItem a:hover {
-  background: #c2c2c2;
+.notifyItem.new {
+  background: #f2f2f2;
+}
+.notifyItem:hover {
+  background: #f9f9f9;
 }
 .notifyItem .semiFont {
   font-size: 15px;

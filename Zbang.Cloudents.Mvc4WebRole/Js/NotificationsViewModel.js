@@ -28,7 +28,7 @@
         that.boxName = data.boxName;
         that.senderName = data.userName;
         that.senderImg = data.userPic;
-        that.isRead = data.isRead ? ' new' : '';
+        that.isRead = !data.isRead ? ' new' : '';
         that.isNew = data.isNew ;
         that.date = data.date;
         that.url = data.url + '?r=siteheader&s=invite';
@@ -37,11 +37,12 @@
     function Message(data) {
         var that = this;
         that.id = data.msgId
+
         that.senderName = data.userName;
         that.senderImg = data.userPic;
         that.message = data.message;
         that.date = data.date;
-        that.isRead = data.isRead ? ' new' : '';
+        that.isRead = !data.isRead ? ' new' : '';
         that.isNew = data.isNew;
         //that.url = data.url; //TODO!!!!!!!!!!!!!!!!!
     }
@@ -134,10 +135,11 @@
             }
         })
         .on('click', 'li', function () {
+            var that = this;
             dataContext.notificationAsRead({
-                data: { messageId: this.id },
+                data: { messageId: that.id },
                 success: function () {
-                    this.classList.remove('new');
+                    that.classList.remove('new');
                 }
             });
         });
