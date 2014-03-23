@@ -68,7 +68,7 @@
 .back:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common15-sprite.png?v=1) 0 -1px no-repeat;
+  background: url(/Images/common15-sprite.png) 0 -1px no-repeat;
   margin-right: 5px;
   /*rtl*/
   width: 20px;
@@ -97,7 +97,7 @@
   /*rtl*/
 }
 .boxRename {
-  background: url(/Images/common15-sprite.png?v=1) -52px -1px no-repeat;
+  background: url(/Images/common15-sprite.png) -52px -1px no-repeat;
   width: 15px;
   height: 15px;
   vertical-align: top;
@@ -689,6 +689,8 @@
 }
 .libraryItem.addDep {
   width: 244px;
+  border-radius: 5px;
+  padding: 13px 0 10px;
 }
 .libraryItem.addCourse {
   margin: 0;
