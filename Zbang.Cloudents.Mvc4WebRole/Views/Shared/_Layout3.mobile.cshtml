@@ -9,7 +9,7 @@
     <meta name="description" content="Join the social studying revolution at Cloudents" />
     <meta property="fb:app_id" content="450314258355338">
     <meta name="apple-mobile-web-app-capable" content="yes">
-     @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
     {
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     }
@@ -21,41 +21,43 @@
     <title>@ViewBag.title</title>
     @Html.Css2("siteMobile")
     @Html.CssRtl("siteMobileRtl")
-     @Html.CssCulture("lang")
+    @Html.CssCulture("lang")
     @*@Html.CssCulture("lang")*@
 </head>
 <body>
-    
+
     <div id="search" class="search">
         <input id="seachInput" type="search" class="inputText boldFont" />
     </div>
-    <button type="button" id="searchClose" data-modelNav class="sprite1a sprite1b searchBtnClose"></button>
+    <button type="button" id="searchClose" data-modelnav class="sprite1a sprite1b searchBtnClose"></button>
     @{Html.RenderAction("Wall", "Comment");}
     @{Html.RenderAction("Invites", "Share");}
     @{Html.RenderAction("GetUserDetail3", "Account", true);}
     <div class="wpr">
-        <button type="button" data-modelNav class="settingsOpenGray"></button>
+        <button type="button" data-modelnav class="settingsOpenGray"></button>
         <header>
-            <button type="button" id="settingsPanelOpen" data-modelNav="settingsPanel" class="sprite1a settingsBtn lFloat"><span data-id="f_invites" class="settingsLatest numberCircle"></span></button>
+            <button type="button" id="settingsPanelOpen" data-modelnav="settingsPanel" class="sprite1a settingsBtn lFloat"><span data-id="f_invites" class="settingsLatest numberCircle"></span></button>
             <a data-version="@VersionHelper.CurrentVersion()" href="/" class="sprite1a logo"></a>
             @*<button type="button" id="searchMenu" data-modelNav="search" class="sprite1a searchBtn rFloat"></button>*@
         </header>
 
         <div class="content" id="main">
-            
-            <div id="mLoading" class="loading"><div class="spinner"></div></div>
+
+            @*<div id="mLoading" class="loading"><div class="spinner"></div></div>//Doesn't work for mobile*@
+            <div id="mLoading" class="loadingGif"></div>
+
             @RenderBody()
         </div>
     </div>
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
 
-    <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")" ></script>
+    <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>
     <div id="cssCheck"></div>
     @Html.Script2("mobile")
 
     @RenderSection("script", false)
 
 
-     
+
 </body>
 </html>
