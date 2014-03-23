@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var messages = m_MessageRepositoy.GetCurrentInvites(commandMessage.UserId);
             foreach (var message in messages)
             {
-                message.UpdateMessageAsRead();
+                message.UpdateMessageAsOld();
                 m_MessageRepositoy.Save(message);
             }
         }
