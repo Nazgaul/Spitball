@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     user.UniversityId,
                     user.UniversityWrapperId));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                return Json(new JsonResponse(true, new { url = Url.Action("Index", "Dashboard"), isnew = isNew }));
+                return Json(new JsonResponse(true, new { isnew = isNew }));
             }
             catch (ArgumentException)
             {
@@ -203,8 +203,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 result.UniversityId,
                                 result.UniversityWrapperId));
                         TempData[UserProfile.UserDetail] = new UserDetailDto(result);
-                        var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
-                        return Json(new JsonResponse(true, url));
+                      //  var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
+                        return Json(new JsonResponse(true/*, url*/));
                     }
                     catch (UserNotFoundException)
                     {
