@@ -97,7 +97,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\Welcome.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOld.html" />
     <EmbeddedResource Include="Resources\EmailResource.he.resx" />
     <EmbeddedResource Include="Resources\EmailResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -113,7 +113,7 @@
     <EmbeddedResource Include="MailTemplate\NewMsgHe.html" />
     <EmbeddedResource Include="MailTemplate\Updates.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesHe.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeHe.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOldHe.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\UpdatesBoxCube.html" />
@@ -141,7 +141,7 @@
     <EmbeddedResource Include="MailTemplate\UpdatesBoxCubeRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesLineRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesRu.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeRu.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOldRu.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ForgotPwdOldRu.html" />
@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ForgotPwdZh.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeZh.html" />
+    <EmbeddedResource Include="MailTemplate\WelcomeOldZh.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesLineZh.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesBoxCubeZh.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesZh.html" />
@@ -186,21 +186,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MailTemplate\InviteCloudents.html" />
+    <Content Include="MailTemplate\InviteCloudentsAr.html" />
     <Content Include="MailTemplate\InviteCloudentsHe.html" />
     <Content Include="MailTemplate\InviteCloudentsRu.html" />
     <Content Include="MailTemplate\InviteCourseRu.html" />
+    <Content Include="MailTemplate\PersonalMsgAr.html" />
     <Content Include="MailTemplate\PersonalMsgRu.html" />
     <Content Include="MailTemplate\ResetPwd.html" />
     <Content Include="MailTemplate\ResetPwdAr.html" />
     <Content Include="MailTemplate\ResetPwdHe.html" />
     <Content Include="MailTemplate\ResetPwdRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\AnswerAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
+    <Content Include="MailTemplate\InviteCourseAr.html" />
+    <Content Include="MailTemplate\UpdatesEmail\ItemAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\ItemRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MemberAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\MemberRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\MoreAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\MoreRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\QuestionAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\QuestionRu.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesAr.html" />
+    <Content Include="MailTemplate\UpdatesEmail\UpdatesListAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\UpdatesListRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\UpdatesRu.html" />
+    <Content Include="MailTemplate\Welcome.html" />
+    <Content Include="MailTemplate\WelcomeAr.html" />
+    <Content Include="MailTemplate\WelcomeHe.html" />
+    <Content Include="MailTemplate\WelcomeRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\More.html" />
