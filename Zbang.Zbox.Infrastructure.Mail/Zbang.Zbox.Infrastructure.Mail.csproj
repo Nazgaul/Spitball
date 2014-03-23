@@ -190,6 +190,10 @@
     <Content Include="MailTemplate\InviteCloudentsRu.html" />
     <Content Include="MailTemplate\InviteCourseRu.html" />
     <Content Include="MailTemplate\PersonalMsgRu.html" />
+    <Content Include="MailTemplate\ResetPwd.html" />
+    <Content Include="MailTemplate\ResetPwdAr.html" />
+    <Content Include="MailTemplate\ResetPwdHe.html" />
+    <Content Include="MailTemplate\ResetPwdRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\ItemRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\MemberRu.html" />
