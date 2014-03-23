@@ -752,6 +752,13 @@
   font-size: 15px;
   line-height: 30px;
 }
+.boxItemList.sponsored .boxItem:first-child img {
+  left: 2px;
+  /*rtl*/
+  top: -1px;
+  width: 321px;
+  border: none;
+}
 .boxItemList.sponsored .listItem:first-child {
   background: #fff;
   border: 1px solid #c2c2c2;

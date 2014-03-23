@@ -509,6 +509,13 @@ input[type="radio"] {
 
 .notifyWpr{
     margin: 0 -167px 0 0; /*rtl*/
+    &.noResults
+    {
+        .notifyTop
+        {
+            text-align: right; /*rtl*/
+        }
+    }
 }
 .notifyItem{
     padding: 0 70px 0 8px; /*rtl*/
@@ -713,6 +720,13 @@ input[type="radio"] {
 .boxItemList {
     &.sponsored
     {
+        .boxItem:first-child
+        {
+            img{
+                right: 2px; /*rtl*/
+                left: auto;
+            }
+        }
         .listItem:first-child
         {
             padding:0 260px 0 0; /*rtl*/ //override
