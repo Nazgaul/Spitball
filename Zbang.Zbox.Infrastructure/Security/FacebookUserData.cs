@@ -5,20 +5,35 @@ namespace Zbang.Zbox.Infrastructure.Security
     public class FacebookUserData
     {
         /*
-           *  "id": "100002578618647",
-                "name": "Ruth Lewis",
-                "first_name": "Ruth",
-                "last_name": "Lewis",
-                "link": "http://www.facebook.com/ruthl6898",
-                "username": "ruthl6898",
-                "gender": "female",
-                "email": "ruthl6898\u0040gmail.com",
-                "timezone": 2,
-                "locale": "en_US",
-                "updated_time": "2011-11-29T08:28:39+0000"
+            "id": "100007262131639",
+   "name": "Yang Zion Tomer",
+   "first_name": "Yang",
+   "middle_name": "Zion",
+   "last_name": "Tomer",
+   "link": "https://www.facebook.com/yang.tomer",
+   "location": {
+      "id": "106371992735156",
+      "name": "Tel Aviv, Israel"
+   },
+   "education": [
+      {
+         "school": {
+            "id": "106059432758368",
+            "name": "Open University"
+         },
+         "type": "College"
+      }
+   ],
+   "gender": "male",
+   "email": "testingtomer1\u0040gmail.com",
+   "timezone": 2,
+   "locale": "he_IL",
+   "updated_time": "2014-03-24T11:51:33+0000",
+   "username": "yang.tomer"
            */
         public long id { get; set; } //yes. the user id is of type long...dont use int
         public string first_name { get; set; }
+        public string middle_name { get; set; }
         public string last_name { get; set; }
         public string name { get; set; }
         public string email { get; set; }
@@ -27,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         public string Image { get; set; }
         public string LargeImage { get; set; }
 
-        private string gender { get; set; }
+        public string gender { get; set; }
         public bool GetGender()
         {
             return gender.ToLower() == "male";

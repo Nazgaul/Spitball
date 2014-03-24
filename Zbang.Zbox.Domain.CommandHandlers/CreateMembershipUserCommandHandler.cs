@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user.FirstName = command.FirstName;
                 user.MiddleName = command.MiddleName;
                 user.LastName = command.LastName;
-                user.Name = user.FirstName + " " + user.MiddleName + " " + user.LastName;
+                user.Name = user.CreateName();
                 user.Sex = command.Sex;
 
 

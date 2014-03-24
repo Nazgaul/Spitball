@@ -140,7 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
                         facebookUserData.Image, facebookUserData.LargeImage, universityId,
                         facebookUserData.first_name,
-                        string.Empty,
+                        facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender());
                     var commandResult = m_ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
