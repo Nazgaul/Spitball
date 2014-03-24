@@ -50,6 +50,9 @@
     };
 
     var escapeHtmlChars = function (str) {
+        if (!str)
+            return '';
+
         return str
              .replace(/&/g, "&amp;")
              .replace(/</g, "&lt;")

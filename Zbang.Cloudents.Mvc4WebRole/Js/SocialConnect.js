@@ -152,17 +152,17 @@
 
 
         var friend;
-        FB.api('/me/friends?fields=id,name,username,picture.height(34).width(34)', function (response) {
+        FB.api('/me/friends?fields=id,first_name,middle_name,last_name,gender,username,picture.height(34).width(34)', function (response) {
             for (var i = 0, l = response.data.length; i < l; i++) {
                 if (!response.data) {
                     return;
                 }
                 friend = response.data[i];
-                contacts.push({ id: friend.id, name: cd.escapeHtmlChars(friend.name), userImage: 'null', username: friend.username, defaultImage: friend.picture.data.url });
+                contacts.push({ id: friend.id, firstname: cd.escapeHtmlChars(friend.first_name), middlename: cd.escapeHtmlChars(friend.middle_name), lastname: cd.escapeHtmlChars(friend.last_name), name: friend.first_name + ' ' + (friend.middle_name ? friend.middle_name + ' ' : '') + friend.last_name, userImage: 'null', username: friend.username, defaultImage: friend.picture.data.url });
             }
 
             contacts.sort(function (a, b) {
-                return cd.sortMembersByName(a.name, b.name);
+                return cd.sortMembersByName(a.firstname + ' ' + (a.middlename ? a.middlename + ' ' : '') + a.lastname, b.firstname + ' ' + (b.middlename ? b.middlename + ' ' : '') + b.lastname);
             });
 
             cd.pubsub.publish('fbContacts', contacts);
