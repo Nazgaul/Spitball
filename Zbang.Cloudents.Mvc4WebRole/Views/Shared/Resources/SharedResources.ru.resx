@@ -466,4 +466,10 @@
     <value>Отлично, спасибо
 </value>
   </data>
+  <data name="InvitesYou" xml:space="preserve">
+    <value>Приглашает вас следовать</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Загружено</value>
+  </data>
 </root>

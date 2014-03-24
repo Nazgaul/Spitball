@@ -113,6 +113,10 @@ body {
   text-align: right;
   /*rtl*/
 }
+.register .firstName {
+  margin: 0 0 0 4%;
+  /*rtl*/
+}
 .acceptTerms {
   text-align: right;
   /*rtl*/

@@ -8,11 +8,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 {
     public class Register : IModelBinder
     {
-
+        //neeed to remove
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(RegisterResources), Name = "Name")]
         [RegularExpression(@"^[^@]*$", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "NameCannotContain")]
         public string NewUserName { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
+        public string FirstName { get; set; }
+
+        public string MiddleName { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
+        public string LastName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
         [RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
