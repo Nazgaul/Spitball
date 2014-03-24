@@ -1,12 +1,13 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.Profile
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @using (Html.BeginForm("ChangeProfile", "Account", FormMethod.Post, new { @class = "settingsTab selected profileInfo", id = "Profile" }))
 { 
     @Html.LabelFor(m => m.Name)
-    @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText" })@Html.ValidationMessageFor(m => m.FirstName)
-    @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText" })@Html.ValidationMessageFor(m => m.MiddleName)
-    @Html.TextBoxFor(m => m.LastName, new { @class = "inputText" })@Html.ValidationMessageFor(m => m.LastName)
+    @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText", @placeholder= @SharedResources.FirstName  })@Html.ValidationMessageFor(m => m.FirstName)
+    @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText", @placeholder= @SharedResources.MiddleName })@Html.ValidationMessageFor(m => m.MiddleName)
+    @Html.TextBoxFor(m => m.LastName, new { @class = "inputText", @placeholder= @SharedResources.LastName })@Html.ValidationMessageFor(m => m.LastName)
 
     <div class="section">
         @Html.LabelFor(m => m.Image)

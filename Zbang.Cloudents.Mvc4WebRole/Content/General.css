@@ -1132,14 +1132,8 @@ ul.ui-autocomplete li a {
   margin: 22px 0 0 0;
   height: 34px;
 }
-.register .firstName,
-.register .midName {
-  display: inline-block;
-  width: 48%;
-}
 .register .firstName {
-  margin-right: 4%;
-  /*rtl*/
+  width: 100%;
 }
 .register .field-validation-error,
 .register .validation-summary-errors {
