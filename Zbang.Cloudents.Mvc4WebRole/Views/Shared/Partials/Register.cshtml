@@ -26,10 +26,10 @@
     @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder= LogOnResources.Password })
    
     @Html.RadioButtonFor(model => model.IsMale, true, new { id = "maleRadio" })
-    <label class="genderLabel first" for="maleRadio">Male</label>
+    <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
     
     @Html.RadioButtonFor(model => model.IsMale, false, new { id = "femaleRadio" })
-    <label class="genderLabel" for="femaleRadio">Female</label>
+    <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
     
     <div class="formBottom">
         <span class="acceptTerms">

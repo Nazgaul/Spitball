@@ -421,7 +421,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = GetUserId();
-                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code);
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code, model.GroupNumber, model.RegisterNumber);
                 m_ZboxWriteService.UpdateUserUniversity(command);
                 m_FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
                 return this.CdJson(new JsonResponse(true, new { redirect = Url.Action("Index", "Library") }));
