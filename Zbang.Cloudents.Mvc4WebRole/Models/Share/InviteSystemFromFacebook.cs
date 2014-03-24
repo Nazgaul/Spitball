@@ -18,7 +18,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
 
         [Required]
         public string FirstName { get; set; }
-        [Required]
         public string MiddleName { get; set; }
         [Required]
         public string LastName { get; set; }
