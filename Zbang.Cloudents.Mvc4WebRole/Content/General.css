@@ -939,6 +939,7 @@ ul.ui-autocomplete li a {
 }
 .staticWpr.register {
   max-height: none;
+  top: 12%;
 }
 .staticWpr .facebook {
   width: 100%;
