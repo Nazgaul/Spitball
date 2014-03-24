@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 message.UniversityId = university.DataUnversity.Id;
                 message.UniversityWrapperId = university.Id;
             }
-            user.UpdateUserUniversity(university, userCode, deparment);
+            user.UpdateUserUniversity(university, userCode, deparment, message.GroupNumber, message.RegisterNumber);
 
             m_UserRepository.Save(user);
         }

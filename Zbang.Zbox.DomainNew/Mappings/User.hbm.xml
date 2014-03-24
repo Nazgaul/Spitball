@@ -56,6 +56,8 @@
 
     <many-to-one column="UniversityId2" class="University" name="University" foreign-key="UniversityUser"/>
     <many-to-one column="Department" class="Department" name="Department" foreign-key="DeparetmentUser" not-null="false"/>
+    <property name="GroupNumber"/>
+    <property name="RegisterNumber"/>
 
     <set name="UserBoxRel" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="UserId"/>
