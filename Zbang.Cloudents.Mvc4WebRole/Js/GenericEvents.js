@@ -255,6 +255,7 @@
     //#endregion 
 
     //#region title tooltip    
+    var titleClicked = false;
 
     $(document).hoverIntent({
         over: showTooltipTitle,
@@ -264,14 +265,20 @@
         interval: 500
     });
 
+    $document.on('click','[data-title]',function () {
+        titleClicked = true;
+    });
+
     function showTooltipTitle(e) {
+        if (titleClicked) {
+            titleClicked = false;
+            return;
+        }
         var $element = $(this),
             tooltipTitle = $element.attr('data-title'),
             $html = $(cd.attachTemplateToData('titleToolTipTempalte', { title: tooltipTitle })),
             $arrow = $html.find('.ttArrow'), arrowMargin = 15, offsetY = 3,
             pos;
-
-
         $body.append($html);
         pos = calcualtePosition();
         $html.css('top', pos.y + this.offsetHeight).css('left', pos.x);
