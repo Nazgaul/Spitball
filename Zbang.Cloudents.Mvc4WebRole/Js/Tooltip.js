@@ -21,7 +21,7 @@
         that.image = data.image;
         that.university = data.universityName || '';
         that.score = data.score || 0;
-        that.url = data.url + '?r=' + cd.getParameterFromUrl(0) + '&s=tooltip';
+        that.url = data.url;// + '?r=' + cd.getParameterFromUrl(0) + '&s=tooltip';
     }
 
     function getTooltipData(e) {

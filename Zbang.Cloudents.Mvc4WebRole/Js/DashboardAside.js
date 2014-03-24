@@ -27,7 +27,7 @@
 
             self.boxid = data.boxId;
             self.boxName = data.boxName;
-            self.boxurl = data.url + '?r=dashboard&s=activity'
+            self.boxurl = data.url;// + '?r=dashboard&s=activity'
 
             self.textAction = textActionReolver();
             function textActionReolver() {
@@ -94,7 +94,7 @@
             self.userName = data.name;
             self.userImage = data.image || '/images/user-pic.png';
             self.id = data.uid;
-            self.url = data.url + '?r=dashboard&s=friends';
+            self.url = data.url;// + '?r=dashboard&s=friends';
         }
 
 
@@ -188,7 +188,7 @@
                 _self.name = data.name;
                 _self.image = data.image;
                 //_self.identifier = cd.guid();
-                _self.url = data.url + '?r=dashboard&s=members';
+                _self.url = data.url;// + '?r=dashboard&s=members';
             }
             document.getElementById('showUserFriends').onclick = function (e) {
                 if (friends.length) {

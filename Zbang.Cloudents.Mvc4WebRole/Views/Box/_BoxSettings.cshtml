@@ -12,7 +12,9 @@
 
             <button data-id="Settings" type="button" class="tabBtn">@DialogResources.Settings</button>
             <button data-id="Members" type="button" class="tabBtn">@SharedResources.Members</button>
-            <a data-navigation="invite" href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })?r=box&s=members" data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
+            <a data-navigation="invite" href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })"
+                @*href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })?r=box&s=members"*@ 
+               data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
             <div class="arrow tabArrow"></div>
         </div>
         <form id="boxSettingsForm" class="boxSettingsForm">

@@ -52,7 +52,7 @@
                 var url = Url.Action("Index", "Account");
                 if (User != null && User.Identity.IsAuthenticated)
                 {
-                    url = Url.Action("Index", "Dashboard") + "?r=siteheader";
+                    url = Url.Action("Index", "Dashboard");// + "?r=siteheader";
                 }
             }
 

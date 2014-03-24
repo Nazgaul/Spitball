@@ -33,7 +33,7 @@
             self.proffessor = cd.highlightSearch(searchTerm, data.proffessor, consts.BOLDPART) || data.proffessor || '';
             self.courseCode = cd.highlightSearch(searchTerm, data.courseCode, consts.BOLDPART) || data.courseCode || '';
             self.allDetails = data.proffessor && data.courseCode ? 'allDetails' : '';
-            self.url = data.url + '?r=search&s=courses'
+            self.url = data.url;// + '?r=search&s=courses'
         }
 
         function Material(data) {
@@ -41,7 +41,7 @@
             self.image = data.image;
             self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART);
             self.boxName = data.boxname;
-            self.url = data.url + '?r=search&s=materials';
+            self.url = data.url;// + '?r=search&s=materials';
             self.universityName = data.uniName || '';
             self.dotted = data.uniName ? 'dot' : '';
             self.content = cd.highlightSearch(searchTerm, data.content, consts.BOLDPART) || data.content || '';
@@ -54,7 +54,7 @@
             self.id = data.id;
             self.name = cd.highlightSearch(searchTerm, data.name, consts.BOLDPART) || data.name || '';
             self.image = data.image;
-            self.url = data.url + '?r=search&s=members';
+            self.url = data.url;// + '?r=search&s=members';
 
         };
 
