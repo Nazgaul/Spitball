@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             IFormsAuthenticationService formsAuthenticationService,
             Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
             : base(zboxWriteService, zboxReadService,
-              
+
             formsAuthenticationService)
         {
             m_InviteLinkDecrypt = inviteLinkDecrypt;
@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var userId = GetUserId();
 
-            var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, model.UserName, model.Name);
+            var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, model.UserName, model.FirstName, model.MiddleName, model.LastName, model.Sex);
             m_ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
 
             return Json(new JsonResponse(true));
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = GetUserId();
-            var command = new ShareBoxFacebookCommand(userId, model.Id, model.UserName, model.Name, model.BoxUid);
+            var command = new ShareBoxFacebookCommand(userId, model.Id, model.UserName, model.BoxId, model.FirstName, model.MiddleName, model.LastName, model.Sex);
             m_ZboxWriteService.ShareBoxFacebbok(command);
             return Json(new JsonResponse(true));
         }

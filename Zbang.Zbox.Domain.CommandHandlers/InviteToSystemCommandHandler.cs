@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var images = m_ProfilePictureProvider.GetDefaultProfileImage();
                 if (recepientUser == null)
                 {
-                    recepientUser = new User(recepient, recepient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
+                    recepientUser = new User(recepient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
                     m_UserRepository.Save(recepientUser, true);
                 }
 

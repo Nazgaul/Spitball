@@ -27,6 +27,16 @@ namespace Zbang.Zbox.Infrastructure.Security
         public string Image { get; set; }
         public string LargeImage { get; set; }
 
+        private string gender { get; set; }
+        public bool GetGender()
+        {
+            return gender.ToLower() == "male";
+        }
+
+
+
+
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -34,8 +44,10 @@ namespace Zbang.Zbox.Infrastructure.Security
             sb.AppendLine("first_name=" + first_name);
             sb.AppendLine("last_name=" + last_name);
             sb.AppendLine("name=" + name);
+
             sb.AppendLine("email=" + email);
             sb.AppendLine("locale=" + locale);
+            sb.AppendLine("gender=" + gender);
             return sb.ToString();
         }
     }

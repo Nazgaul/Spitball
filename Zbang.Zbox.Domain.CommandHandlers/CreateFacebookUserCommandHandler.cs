@@ -37,13 +37,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 if (user == null)
                 {
                     newUser = true;
-                    user = new User(command.Email, command.UserName, facebookCommand.UserImage, facebookCommand.LargeUserImage);
+                    user = new User(command.Email, facebookCommand.UserImage, facebookCommand.LargeUserImage,
+                        command.FirstName, command.MiddleName, command.LastName, command.Sex);
                 }
             }
             if (!user.IsRegisterUser)
             {
                 user.Email = facebookCommand.Email;
-                user.Name = command.UserName;
+                //user.Name = command.UserName;
+                user.FirstName = command.FirstName;
+                user.MiddleName = command.MiddleName;
+                user.LastName = command.LastName;
+                user.Name = user.FirstName + " " + user.MiddleName + " " + user.LastName;
+                user.Sex = command.Sex;
+
+
                 TriggerWelcomeMail(user);
                 user.IsRegisterUser = true;
                 user.Quota.AllocateStorage();
@@ -53,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
             }
             user.FacebookId = facebookCommand.FacebookUserId;
-            
+
             var retVal = new CreateFacebookUserCommandResult(user);
             if (facebookCommand.UniversityId.HasValue)
             {

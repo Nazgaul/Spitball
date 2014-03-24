@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         continue;
                     }
                     var images = m_ProfilePictureProvider.GetDefaultProfileImage();
-                    recepientUser = new User(recepient, recepient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
+                    recepientUser = new User(recepient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
                     m_UserRepository.Save(recepientUser);
 
 

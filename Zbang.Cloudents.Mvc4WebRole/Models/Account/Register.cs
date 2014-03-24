@@ -9,15 +9,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
     public class Register : IModelBinder
     {
         //neeed to remove
-        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
-        [Display(ResourceType = typeof(RegisterResources), Name = "Name")]
-        [RegularExpression(@"^[^@]*$", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "NameCannotContain")]
-        public string NewUserName { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
+        //[Display(ResourceType = typeof(RegisterResources), Name = "Name")]
+        //[RegularExpression(@"^[^@]*$", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "NameCannotContain")]
+        //public string NewUserName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         public string FirstName { get; set; }
 
-        public string MiddleName { get; set; }
+        //public string MiddleName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         public string LastName { get; set; }
@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
         //the new version doesnt get the resouce
-        [System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
+        //[System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
         public string ConfirmEmail { get; set; }
 
 
@@ -40,6 +40,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
+
+
+        public bool Sex { get; set; }
 
         //[DataType(DataType.Password)]
         //[Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FirstConfirm")]

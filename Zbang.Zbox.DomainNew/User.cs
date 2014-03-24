@@ -21,7 +21,9 @@ namespace Zbang.Zbox.Domain
             FirstTime = new UserFirstTime();
             Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
         }
-        public User(string email, string userName, string smallImage, string largeImage)
+
+        //for university pupose only
+        protected User(string email, string userName, string smallImage, string largeImage)
             : this()
         {
             Email = email;
@@ -29,7 +31,29 @@ namespace Zbang.Zbox.Domain
             IsRegisterUser = false;
             Image = smallImage;
             ImageLarge = largeImage;
+        }
+        public User(string email, string smallImage, string largeImage)
+        {
+            Name  = Email = email.Trim();
+            IsRegisterUser = false;
+            Image = smallImage;
+            ImageLarge = largeImage;
+        }
+        
+        public User(string email, string smallImage, string largeImage, string firstName, string middleName, string lastName, bool sex)
+            : this()
+        {
+            Email = email;
+            IsRegisterUser = true;
+            Image = smallImage;
+            ImageLarge = largeImage;
 
+            FirstName = firstName.Trim();
+            LastName = lastName.Trim();
+            MiddleName = middleName.Trim();
+
+            Name = FirstName + " " + MiddleName + " " + LastName;
+            Sex = sex;
 
         }
 
@@ -39,6 +63,13 @@ namespace Zbang.Zbox.Domain
         public virtual string Country { get; set; }
         public virtual bool IsRegisterUser { get; set; }
         public virtual string Name { get; set; }
+
+
+        public virtual string FirstName { get; set; }
+        public virtual string MiddleName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual bool Sex { get; set; }
+
         public virtual Quota Quota { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
         public virtual ICollection<UserBoxRel> UserBoxRel { get; private set; }

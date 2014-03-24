@@ -47,9 +47,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             recepientUser = new User(message.FacebookUserName + "@facebook.com",
-                    message.FacebookName,
                     m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.square),
-                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.normal));
+                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.normal),
+                    message.FirstName,
+                    message.MiddleName,
+                    message.LastName,
+                    message.Sex);
             recepientUser.FacebookId = message.FacebookUserId;
             m_UserRepository.Save(recepientUser, true);
 

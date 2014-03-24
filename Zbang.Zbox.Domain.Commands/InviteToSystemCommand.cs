@@ -7,9 +7,9 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-   public  class InviteToSystemCommand: ICommand
+    public class InviteToSystemCommand : ICommand
     {
-       public InviteToSystemCommand(long senderId, IList<string> recepients)
+        public InviteToSystemCommand(long senderId, IList<string> recepients)
         {
             SenderId = senderId;
             Recepients = recepients;
