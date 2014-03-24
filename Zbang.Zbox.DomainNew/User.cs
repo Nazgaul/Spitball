@@ -143,9 +143,9 @@ namespace Zbang.Zbox.Domain
 
 
 
-        public void UpdateUserProfile(string userName, Uri picture, Uri largePicture)
+        public void UpdateUserProfile(string firstName, string middleName, string lastName, Uri picture, Uri largePicture)
         {
-            Name = userName.Trim();
+           // Name = userName.Trim();
             if (picture != null)
             {
                 Image = picture.AbsoluteUri;
@@ -154,6 +154,17 @@ namespace Zbang.Zbox.Domain
             {
                 ImageLarge = largePicture.AbsoluteUri;
             }
+            FirstName = firstName.Trim();
+            if (!string.IsNullOrEmpty(middleName))
+            {
+                MiddleName = middleName.Trim();
+            }
+            else
+            {
+                MiddleName = null;
+            }
+            LastName = lastName.Trim();
+            Name = CreateName();
 
         }
         public void UpdateUserLanguage(string culture)

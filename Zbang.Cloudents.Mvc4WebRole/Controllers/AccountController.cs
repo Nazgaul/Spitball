@@ -395,8 +395,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var id = GetUserId();
                 var profilePics = new ProfileImages(model.Image, model.LargeImage);
 
-                var command = new UpdateUserProfileCommand(id, model.Name, profilePics.Image,
-                    profilePics.LargeImage);
+                var command = new UpdateUserProfileCommand(id, profilePics.Image,
+                    profilePics.LargeImage, model.FirstName, model.MiddleName, model.LastName);
                 m_ZboxWriteService.UpdateUserProfile(command);
                 return Json(new JsonResponse(true));
             }

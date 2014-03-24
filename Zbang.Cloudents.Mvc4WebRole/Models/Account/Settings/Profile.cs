@@ -25,8 +25,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 
         //public string UniversityImage { get; set; }
 
+        [Required]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
+        [Required]
         public string LastName { get; set; }
 
         //public long? UniversityCode { get; set; }
