@@ -466,4 +466,10 @@
   <data name="SweetThanks" xml:space="preserve">
     <value>מעולה, תודה</value>
   </data>
+  <data name="InvitesYou" xml:space="preserve">
+    <value>מזמין אותך לעקוב</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>הועלה</value>
+  </data>
 </root>

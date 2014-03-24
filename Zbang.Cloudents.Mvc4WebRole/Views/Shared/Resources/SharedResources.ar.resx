@@ -471,4 +471,10 @@
     <value>الحلو، وشكرا 
 </value>
   </data>
+  <data name="InvitesYou" xml:space="preserve">
+    <value>يدعوك</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>تم التحميل على الموقع</value>
+  </data>
 </root>

@@ -1071,7 +1071,17 @@ ul.ui-autocomplete li a {
   height: 40px;
 }
 .register .inputText {
-  margin: 30px 0 0 0;
+  margin: 22px 0 0 0;
+  height: 34px;
+}
+.register .firstName,
+.register .midName {
+  display: inline-block;
+  width: 48%;
+}
+.register .firstName {
+  margin-right: 4%;
+  /*rtl*/
 }
 .register .field-validation-error,
 .register .validation-summary-errors {
