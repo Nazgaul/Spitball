@@ -86,6 +86,14 @@ body {
   margin: 0 0 0 13px;
   /*rtl*/
 }
+.popupWrppr.departmentChoose .statusLabel.first {
+  margin: 0 0 0 20px;
+  /*rtl*/
+}
+.popupWrppr.departmentChoose .dptDetail.first {
+  margin: 20px 0 0 34px;
+  /*rtl*/
+}
 .requestSentDiv {
   padding: 0 18px 0 0;
   /*rtl*/

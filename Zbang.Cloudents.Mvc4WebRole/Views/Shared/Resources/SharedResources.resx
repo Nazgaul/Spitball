@@ -472,4 +472,13 @@ To help you get started tell us where you study</value>
   <data name="InvitesYou" xml:space="preserve">
     <value>Invites you to follow</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
 </root>

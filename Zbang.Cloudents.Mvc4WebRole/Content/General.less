@@ -798,7 +798,7 @@ ul.ui-autocomplete {
     background-color: transparent;
     width: 11px;
     height: 11px;
-    background: @common-sprite no-repeat;
+    background: @common-sprite -79px -26px no-repeat;
     position: absolute;
     top: 12px;
     right: 12px; /*rtl*/
@@ -945,29 +945,53 @@ ul.ui-autocomplete {
     &.departmentChoose {
         width: 700px;
         //z-index:12;
+        font-size: 15px;
         label {
             display: block;
             font-size: 15px;
             color: #383838;
             margin-bottom: 8px;
         }
-
+        .chooseDptTxt
+        {
+            margin: 22px 0 12px;
+        }
         select {
             display: block;
             font-size: 13px;
             color: #383838;
-            width: 50%;
+            width: 310px;
             padding: 3px 3px 5px 2px;
             .boxSizing;
         }
-
+        .statusLabel
+        {
+            display: inline-block;
+            &.first
+            {
+                margin-right: 20px; /*rtl*/
+            }
+        }
+        .dptDetail{
+            width: 310px;
+            display: inline-block;
+            &.first
+            {
+                margin: 20px 34px 0 0; /*rtl*/
+            }
+        }
+        .inputText
+        {
+            display: block;
+        }
         #department {
             width: 100%;
             margin-bottom: 15px;
         }
 
-        input {
+        .btn1 {
             font-size: 13px;
+            display: block;
         }
 
         .modal2 {
@@ -976,7 +1000,13 @@ ul.ui-autocomplete {
     }
     /*#endregion*/
 }
-
+.lecturerRadio:checked
+{
+    ~ label, ~ select, ~ .dptDetail
+    {
+        display: none;
+    }
+}
 .requestSentDiv {
     font-size: 18px;
     //color: #111;

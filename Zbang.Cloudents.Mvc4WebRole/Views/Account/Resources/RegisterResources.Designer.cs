@@ -79,38 +79,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First name.
-        /// </summary>
-        public static string FirstName {
-            get {
-                return ResourceManager.GetString("FirstName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to By joining, I agree to the Zbang.
         /// </summary>
         public static string IAgree {
             get {
                 return ResourceManager.GetString("IAgree", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last name.
-        /// </summary>
-        public static string LastName {
-            get {
-                return ResourceManager.GetString("LastName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Middle name.
-        /// </summary>
-        public static string MiddleName {
-            get {
-                return ResourceManager.GetString("MiddleName", resourceCulture);
             }
         }
         
