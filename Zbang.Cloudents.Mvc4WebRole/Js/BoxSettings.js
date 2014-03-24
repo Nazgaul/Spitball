@@ -30,7 +30,7 @@
         _self.cMemStat = data.sUserStatus === 'Invite' ? 'memberPending' : '';
         //_self.identifier = cd.guid();
         _self.tooltipClass = data.sUserStatus === 'Subscribe' || data.sUserStatus === 'Owner' ? ' calloutTrgr' : ''; //space is needed        
-        _self.url = data.url + '?r=box&s=members';
+        _self.url = data.url;// + '?r=box&s=members';
     }
 
     var statusData;

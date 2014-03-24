@@ -69,7 +69,7 @@
             that.name = data.name;
             that.image = data.picture || consts.EMPTYBOXPICTURE;
             that.userType = data.userType;
-            that.url = data.url + '?r=user&s=courselist';
+            that.url = data.url;// + '?r=user&s=courselist';
 
             self.followBox = function (box) {
                 dataContext.follow({
@@ -86,7 +86,7 @@
             that.id = data.uid;
             that.name = data.name;
             that.image = data.largeImage;
-            that.url = data.url + '?r=user&s=otheruser'
+            that.url = data.url;// + '?r=user&s=otheruser'
         }
 
         function Member(data) {
@@ -130,7 +130,7 @@
             that.image = data.image;
             that.rating = data.rate;
             that.views = data.numOfViews;
-            that.url = data.url + '?r=user&s=files';
+            that.url = data.url;// + '?r=user&s=files';
 
         }
 
@@ -141,7 +141,7 @@
             that.boxImage = data.boxPicutre || consts.EMPTYBOXPICTURE;
             that.answersCount = data.answersCount;
             that.content = data.content.replace(/\n/g, '<br/>');
-            that.url = data.url + '?r=user&s=question';
+            that.url = data.url;// + '?r=user&s=question';
         }
 
         function Answer(data) {
@@ -155,7 +155,7 @@
             that.boxImage = data.boxPicture || consts.EMPTYBOXPICTURE;
             that.content = data.content.replace(/\n/g, '<br/>');
             that.answersCount = data.answersCount;
-            that.url = data.url + '?r=user&s=answer';
+            that.url = data.url;// + '?r=user&s=answer';
         }
         //#endregion      
 

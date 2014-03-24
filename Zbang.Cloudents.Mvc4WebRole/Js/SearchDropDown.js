@@ -21,7 +21,7 @@
             MAXITEMS: 6,
             MINITEMS: 3,
             BOLDSTRINGLENTH: 30,
-            REF: '?r=searchdd'
+            REF: ''//'?r=searchdd'
         },
         currentValue, maxCategoryItems, maxOtherItems;
 

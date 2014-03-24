@@ -31,7 +31,7 @@
         that.isRead = !data.isRead ? ' new' : '';
         that.isNew = data.isNew ;
         that.date = data.date;
-        that.url = data.url + '?r=siteheader&s=invite';
+        that.url = data.url;// + '?r=siteheader&s=invite';
     }
 
     function Message(data) {

@@ -26,12 +26,12 @@
             this.name = data.name;
             this.template = 'library-node';
 
-            this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name) + '/?r=library';
+            this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name);// + '/?r=library';
         }
         function LibraryBox(data) {
             var that = this;
             Box.call(that, data);
-            that.boxUrl = that.boxUrl.substring(0, that.boxUrl.indexOf('?')) + '?r=library'; ///replace dashboard with library
+            that.boxUrl = that.boxUrl.substring(0, that.boxUrl.indexOf('?'));// + '?r=library'; ///replace dashboard with library
             that.boxFollow = function () {
                 return that.userType() === 'invite' || that.userType() === 'none';
             };

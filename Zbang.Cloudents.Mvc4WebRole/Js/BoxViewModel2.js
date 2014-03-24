@@ -55,7 +55,7 @@
             that.name = data.name;
             that.image = data.image;
             that.id = data.uid;
-            that.url = data.url + '?r=box&s=sidebar';
+            that.url = data.url;// + '?r=box&s=sidebar';
             that.isOwner = data.uid === self.ownerId;
         }
         function Tab(data) {

@@ -61,7 +61,7 @@
                     return (self.permission() === 'subscribe' || self.permission() === 'owner') && (self.permission() === 'owner' ||
                          that.userid === cd.userDetail().nId);
                 });
-            that.itemUrl = data.url + '?r=box';
+            that.itemUrl = data.url;// + '?r=box';
             that.sponsored = data.sponsored || false;
             if (data.sponsored) {
                 document.getElementById('BoxItemList').classList.add('sponsored');
