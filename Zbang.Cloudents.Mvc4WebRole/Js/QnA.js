@@ -270,7 +270,7 @@
                 newquestionobj.question.isNew = true;
                 newquestion = new Question(newquestionobj.question);
                 self.questionList.unshift(newquestion);
-                cd.parseTimeString($('.QACreateTime:empty')[0]);
+                cd.parseTimeString($('.createTime:empty')[0]);
             }
             cd.newUpdates.addUpdate({ questionId: newquestionobj.question.id, boxId: newquestionobj.boxid });
         });
@@ -283,7 +283,7 @@
                 newAnswerObj.answer.isNew = true;
                 newAnswer = new Answer(newAnswerObj.answer);
                 question.answers.push(newAnswer);
-                cd.parseTimeString($('.QACreateTime:empty')[0]);
+                cd.parseTimeString($('.createTime:empty')[0]);
             }
             cd.newUpdates.addUpdate({ answerId: newAnswerObj.answer.id, boxId: box });
             // self.postAnswer

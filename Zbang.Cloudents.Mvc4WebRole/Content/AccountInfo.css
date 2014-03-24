@@ -220,25 +220,28 @@
   /*rtl*/
   position: relative;
   height: 70px;
+  background: #fff;
+}
+.notifyItem:not(.new):hover {
+  background: #f9f9f9;
+}
+.notifyItem.new {
+  background: #f2f2f2;
 }
 .notifyItem:last-child {
   border-bottom: 0;
 }
 .notifyItem a {
-  /*width: 175px;*/
   padding: 8px 6px;
   line-height: normal;
   display: table-cell;
   color: #383838;
 }
-.notifyItem.new {
-  background: #f2f2f2;
-}
-.notifyItem:hover {
-  background: #f9f9f9;
-}
 .notifyItem .semiFont {
   font-size: 15px;
+}
+.notifyItem .createTime {
+  margin-top: 1px;
 }
 .notifyImg {
   position: absolute;

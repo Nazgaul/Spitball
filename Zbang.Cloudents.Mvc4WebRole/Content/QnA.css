@@ -84,7 +84,10 @@
         transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;*/
 }
 .QA .userName {
-  max-width: 225px;
+  max-width: 210px;
+}
+.QA .createTime {
+  margin-top: 9px;
 }
 .QForm {
   -webkit-transition: all, 0.5s ease 1.3s;
@@ -385,7 +388,7 @@ textarea:invalid {
 .QItem .AUsername {
   display: inline-block;
   margin-top: 14px;
-  max-width: 225px;
+  max-width: 210px;
 }
 .QItem form {
   background: #f5f5f5;
@@ -409,7 +412,7 @@ textarea:invalid {
 .QBottom .upArrow:before {
   bottom: -6px;
 }
-.QBottom .QACreateTime {
+.QBottom .createTime {
   margin-top: 15px;
 }
 .answerBottom {
@@ -762,15 +765,15 @@ textarea:invalid {
   /*rtl*/
   width: 340px;
 }
-.QACreateTime {
+.createTime {
   font-size: 11px;
   color: #676767;
   display: inline-block;
   vertical-align: top;
-  margin: 9px 0 0 5px;
+  margin-left: 5px;
   /*rtl*/
 }
-.QACreateTime.innerSection {
+.createTime.innerSection {
   margin-top: 9px;
 }
 /*#endregion */
