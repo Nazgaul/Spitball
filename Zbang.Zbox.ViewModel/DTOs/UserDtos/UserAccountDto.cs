@@ -4,7 +4,10 @@ namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
     public class UserAccountDto
     {
         //profile
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+
         public string Image { get; set; }
         public string University { get; set; }
 

@@ -13,7 +13,7 @@
     </div>
     <div class="settingsContent" id="settingsContent">
         @{
-            Html.RenderPartial("_AccountProfile", new Profile { Name = Model.Name, Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic });
+            Html.RenderPartial("_AccountProfile", new Profile { Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic, FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName });
             Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language } });
             Html.RenderPartial("_AccountStorage", new Storage { AllocatedSize = Model.AllocatedSize, UsedSpace = Model.UsedSpace });
             Html.RenderPartial("_AccountNotification", new Notification());

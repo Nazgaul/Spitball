@@ -26,35 +26,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new Infrastructure.Exceptions.UserNotFoundException("user doesn't exists");
             }
-            //University university = GetUniversity(command.University);
-
-            user.UpdateUserProfile(command.UserName, command.PicturePath, command.LargePicturePath);
-
-            //if (university != null)
-            //{
-            //    m_QueueProvider.InsertMessageToTranaction(new Infrastructure.Transport.AddAFriendData(user.Id, university.Id));
-            //    //user.AddAFriend(university);
-            //    if (university.DataUnversity == null)
-            //    {
-            //        command.UniversityId = university.Id;
-            //    }
-            //    else
-            //    {
-            //        command.UniversityWrapperId = university.Id;
-            //        command.UniversityId = university.DataUnversity.Id;
-            //    }
-            //}
+            user.UpdateUserProfile(command.FirstName, command.MiddleName, command.LastName, command.PicturePath, command.LargePicturePath);
             m_UserRepository.Save(user);
-        }
-
-        private University GetUniversity(string universityName)
-        {
-            if (string.IsNullOrEmpty(universityName))
-            {
-                return null;
-            }
-            var university = m_UniversityRepository.GetUniversity(universityName);
-            return university;
         }
     }
 }
