@@ -156,7 +156,12 @@
   <!--account settings-->
   <query name="GetUserAccountSettings">
     <![CDATA[
-    select u.Name as Name,
+    select 
+    
+    COALESCE(u.FirstName,u.Name) as FirstName,
+    u.MiddleName as MiddleName,
+    u.LastName as MiddleName,
+    
     u.ImageLarge as Image, 
     v.Name as University,
     v.Image as UniversityPic,
