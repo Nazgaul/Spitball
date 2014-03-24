@@ -23,7 +23,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         //TODO add validation to Image url
         public string LargeImage { get; set; }
 
-        public string UniversityImage { get; set; }
+        //public string UniversityImage { get; set; }
+
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
 
         //public long? UniversityCode { get; set; }
 

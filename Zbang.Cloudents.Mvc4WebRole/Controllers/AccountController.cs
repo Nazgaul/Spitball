@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IFacebookAuthenticationService> m_FacebookService;
         private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
-       // private readonly Lazy<IEmailVerfication> m_EmailVerification;
+        // private readonly Lazy<IEmailVerfication> m_EmailVerification;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
 
@@ -137,8 +137,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 catch (UserNotFoundException)
                 {
-                    var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email, facebookUserData.name,
-                        facebookUserData.Image, facebookUserData.LargeImage, universityId);
+                    var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
+                        facebookUserData.Image, facebookUserData.LargeImage, universityId,
+                        facebookUserData.first_name,
+                        facebookUserData.middle_name,
+                        facebookUserData.last_name,
+                        facebookUserData.GetGender());
                     var commandResult = m_ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
                     user = new LogInUserDto
                     {
@@ -203,7 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 result.UniversityId,
                                 result.UniversityWrapperId));
                         TempData[UserProfile.UserDetail] = new UserDetailDto(result);
-                      //  var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
+                        //  var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
                         return Json(new JsonResponse(true/*, url*/));
                     }
                     catch (UserNotFoundException)
@@ -249,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-              //  var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
+                //  var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
                 return Json(true);
             }
             catch (Exception ex)
@@ -282,7 +286,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail, out userProviderKey);
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey, model.NewEmail, model.NewUserName, universityId);
+                    CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
+                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName, model.Sex);
                     var result = m_ZboxWriteService.CreateUser(command);
 
                     m_FormsAuthenticationService.SignIn(result.User.Id, false,

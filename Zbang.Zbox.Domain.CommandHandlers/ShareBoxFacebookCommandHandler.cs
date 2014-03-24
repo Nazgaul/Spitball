@@ -51,10 +51,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var recepient = m_UserRepository.GetUserByFacebookId(message.FacebookUserId);
             if (recepient == null)
             {
-                recepient = new User(message.FacebookUserName + "@facebook.com", 
-                    message.FacebookName,
-                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId,FacebookPictureType.square),
-                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId,FacebookPictureType.normal));
+                recepient = new User(message.FacebookUserName + "@facebook.com",
+                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.square),
+                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.normal),
+                    message.FirstName,
+                    message.MiddleName,
+                    message.LastName,
+                    message.Sex);
                 recepient.FacebookId = message.FacebookUserId;
                 m_UserRepository.Save(recepient, true);
             }
@@ -67,7 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             currentInvite.UpdateSendTime();
             m_InviteRepository.Save(currentInvite);
 
-            
+
 
         }
     }

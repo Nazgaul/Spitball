@@ -38,13 +38,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 newUser = true;
                 var defaultImages = m_ProfileProvider.GetDefaultProfileImage();
-                user = new User(command.Email, command.UserName, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri);
+                user = new User(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
+                    command.FirstName,
+                    command.MiddleName,
+                    command.LastName,command.Sex);
             }
             if (!user.IsRegisterUser)
             {
                 TriggerWelcomeMail(user);
                 user.IsRegisterUser = true;
-                user.Name = command.UserName;
+               // user.Name = command.UserName;
+
+                user.FirstName = command.FirstName;
+                user.MiddleName = command.MiddleName;
+                user.LastName = command.LastName;
+                user.Name = user.CreateName();
+                user.Sex = command.Sex;
+
+
                 user.Quota.AllocateStorage();
                 if (!newUser)
                 {
@@ -52,18 +63,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
             }
             user.MembershipId = membershipCommand.MembershipUserId;
-          
+
             var retVal = new CreateMembershipUserCommandResult(user);
             if (membershipCommand.UniversityId.HasValue)
             {
-                UpdateUniversity(command.UniversityId.Value, retVal,user);
-                
+                UpdateUniversity(command.UniversityId.Value, retVal, user);
+
             }
             m_UserRepository.Save(user);
             return retVal;
         }
 
-        
+
 
         //private University GetUniversity(string universityName)
         //{

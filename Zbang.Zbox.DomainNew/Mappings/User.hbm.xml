@@ -15,6 +15,13 @@
     <property name="IsRegisterUser" column="IsEmailVerified" not-null="true"/>
 
     <property name="Name" column="UserName" not-null="false"/>
+
+    <property name="FirstName" not-null="false"/>
+    <property name="MiddleName" not-null="false"/>
+    <property name="LastName" not-null="false"/>
+    <property name="Sex" not-null="false"/>
+
+
     <property name="Culture" column="Culture" not-null="false"/>
     <property name="Country" length="2" type="string" column="Country" not-null="false"/>
 

@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
+using System.Text;
 
 namespace Zbang.Zbox.Domain
 {
@@ -21,7 +22,9 @@ namespace Zbang.Zbox.Domain
             FirstTime = new UserFirstTime();
             Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
         }
-        public User(string email, string userName, string smallImage, string largeImage)
+
+        //for university pupose only
+        protected User(string email, string userName, string smallImage, string largeImage)
             : this()
         {
             Email = email;
@@ -29,8 +32,47 @@ namespace Zbang.Zbox.Domain
             IsRegisterUser = false;
             Image = smallImage;
             ImageLarge = largeImage;
+        }
+        public User(string email, string smallImage, string largeImage)
+        {
+            Name  = Email = email.Trim();
+            IsRegisterUser = false;
+            Image = smallImage;
+            ImageLarge = largeImage;
+        }
+        
+        public User(string email, string smallImage, string largeImage, string firstName, string middleName, string lastName, bool sex)
+            : this()
+        {
+            Email = email;
+            IsRegisterUser = true;
+            Image = smallImage;
+            ImageLarge = largeImage;
+            
+            FirstName = firstName.Trim();
+            LastName = lastName.Trim();
+            if (!string.IsNullOrEmpty(middleName))
+            {
+                MiddleName = middleName.Trim();
+            }
+            
+            Name = CreateName();
+            Sex = sex;
 
+        }
 
+        public string CreateName()
+        {
+            var sb = new StringBuilder();
+            sb.Append(FirstName);
+            sb.Append(" ");
+            if (!string.IsNullOrEmpty(MiddleName))
+            {
+                sb.Append(MiddleName);
+                sb.Append(" ");
+            }
+            sb.Append(LastName);
+            return sb.ToString();
         }
 
         public virtual long Id { get; protected set; }
@@ -39,6 +81,13 @@ namespace Zbang.Zbox.Domain
         public virtual string Country { get; set; }
         public virtual bool IsRegisterUser { get; set; }
         public virtual string Name { get; set; }
+
+
+        public virtual string FirstName { get; set; }
+        public virtual string MiddleName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual bool Sex { get; set; }
+
         public virtual Quota Quota { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
         public virtual ICollection<UserBoxRel> UserBoxRel { get; private set; }

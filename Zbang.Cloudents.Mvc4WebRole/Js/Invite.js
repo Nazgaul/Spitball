@@ -536,13 +536,13 @@
                 fbDialog, fbBlocker;
 
             var fbObj = {
-                data: { Id: friend.id, Username: friend.username || friend.id, FirstName: friend.firstname, MiddleName:friend.middlename, LastName: friend.lastname, Gender: friend.gender},
+                data: { Id: friend.id, Username: friend.username || friend.id, FirstName: friend.firstname, MiddleName:friend.middlename, LastName: friend.lastname, Sex: friend.gender},
                 success: function (response) {
                     inviteAnimation(elm);
 
                 },
                 error: function () {
-                    cd.notification('Error');
+                    cd.notification('Error, sending invite to user');
                 }
             };
 

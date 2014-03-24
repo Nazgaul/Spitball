@@ -12,7 +12,7 @@ namespace Zbang.Zbox.DomainTests
         [TestInitialize]
         public void Setup()
         {
-            m_SomeUser = new User("some email", "some user name", " some small image", "some largeImage");
+            m_SomeUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace Zbang.Zbox.DomainTests
         public void ChangeUserRelationShipToBoxType_UserChangeRelationShipToBox_UpdateUserTimeUpdated()
         {
             long someBoxId = 1;
-            var someOtherUser = new User("some email2", "some user name2", " some small image2", "some largeImage2");
+            var someOtherUser = new User("some email2", " some small image2", "some largeImage2", "some first name2", "some middle name2", "some last nam2e", true);
             var someBox = new Box("some box", someOtherUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
 

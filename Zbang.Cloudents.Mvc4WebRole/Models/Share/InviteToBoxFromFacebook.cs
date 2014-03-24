@@ -12,12 +12,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
         public long Id { get; set; }
         [Required]
         public string UserName { get; set; }
-        [Required]
-        public string Name { get; set; }
+        //[Required]
+        //public string Name { get; set; }
 
 
         [Required]
-        public long BoxUid { get; set; }
+        public long BoxId { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public bool Sex { get; set; }
+
 
     }
 }

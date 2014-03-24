@@ -26,13 +26,13 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someItemId = 1L;
             var someBlobUrl = "someblobname";
-            var someUploaderUser = new User("some email", "some userName", "some SmallImg", "someLargeImg");
+            var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
             var someBox = new Box("some box name", someUploaderUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox);
 
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
 
-            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl,"xxxx");
+            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl, "xxxx");
             var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository);
 
             commandHandle.Handle(someCommand);
@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             //var stubItemInBox = MockRepository.GenerateStub<ICollection<Item>>();
             var someItemId = 1L;
             var someBlobUrl = "someblobname";
-            var someUploaderUser = new User("some email", "some userName", "some SmallImg", "someLargeImg");
+            var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
             var someBox = new Box("some box name", someUploaderUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
 
             var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox);
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
 
-            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl,"xxx");
+            var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl, "xxx");
             var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository);
 
             commandHandle.Handle(someCommand);

@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubUserRepository = MockRepository.GenerateStub<IUserRepository>();
             m_StubBlobProvider = MockRepository.GenerateStub<IBlobProvider>();
             m_StubQueueProvider = MockRepository.GenerateStub<IQueueProvider>();
-          //  m_StubActionRepository = MockRepository.GenerateStub<IActionRepository>();
+            //  m_StubActionRepository = MockRepository.GenerateStub<IActionRepository>();
             m_StubItemRepository = MockRepository.GenerateStub<IRepository<Item>>();
             m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
         }
@@ -37,17 +37,17 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         [TestMethod]
         public void Handle_LastFileDeletedFromBox_BoxPictureRemoved()
         {
-           // var stubBox = MockRepository.GenerateStub<Box>();
+            // var stubBox = MockRepository.GenerateStub<Box>();
             ICollection<Item> itemsInBox = new List<Item>();
             //var stubFile = MockRepository.GenerateStub<File>();
             //var stubUser = MockRepository.GenerateStub<User>();
-            var someUser = new User("some email", "some name", "some image", "some large image");
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
             var someThumbnail = "someThumbnailName";
             long someUserId = 1L, someBoxId = 2L, someItemId = 3L;
             someUser.GetType().GetProperty("Id").SetValue(someUser, someUserId);
             //stubBox.GetType().GetProperty("Id").SetValue(stubBox, someBoxId);
 
-            var someBox = new Box("some box", someUser,Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someBox = new Box("some box", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             var someFile = new File("some ItemName", someUser, 5, "someblobName", someThumbnail, someBox);
             someFile.GetType().GetProperty("Id").SetValue(someFile, someItemId);
             var userItems = new List<Item>() { someFile };
