@@ -176,7 +176,10 @@ input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
+::-ms-clear {  //remove X for inputs in IE10+
+    display: none; 
 
+}
 /**
  * Remove inner padding and border in Firefox 4+.
  */
