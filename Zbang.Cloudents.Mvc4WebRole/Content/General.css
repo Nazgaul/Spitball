@@ -743,7 +743,7 @@ ul.ui-autocomplete li a {
   background-color: transparent;
   width: 11px;
   height: 11px;
-  background: url(/Images/common15-sprite.png) no-repeat;
+  background: url(/Images/common15-sprite.png) -79px -26px no-repeat;
   position: absolute;
   top: 12px;
   right: 12px;
@@ -882,6 +882,7 @@ ul.ui-autocomplete li a {
 }
 .popupWrppr.departmentChoose {
   width: 700px;
+  font-size: 15px;
 }
 .popupWrppr.departmentChoose label {
   display: block;
@@ -889,25 +890,52 @@ ul.ui-autocomplete li a {
   color: #383838;
   margin-bottom: 8px;
 }
+.popupWrppr.departmentChoose .chooseDptTxt {
+  margin: 22px 0 12px;
+}
 .popupWrppr.departmentChoose select {
   display: block;
   font-size: 13px;
   color: #383838;
-  width: 50%;
+  width: 310px;
   padding: 3px 3px 5px 2px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.popupWrppr.departmentChoose .statusLabel {
+  display: inline-block;
+}
+.popupWrppr.departmentChoose .statusLabel.first {
+  margin-right: 20px;
+  /*rtl*/
+}
+.popupWrppr.departmentChoose .dptDetail {
+  width: 310px;
+  display: inline-block;
+}
+.popupWrppr.departmentChoose .dptDetail.first {
+  margin: 20px 34px 0 0;
+  /*rtl*/
+}
+.popupWrppr.departmentChoose .inputText {
+  display: block;
+}
 .popupWrppr.departmentChoose #department {
   width: 100%;
   margin-bottom: 15px;
 }
-.popupWrppr.departmentChoose input {
+.popupWrppr.departmentChoose .btn1 {
   font-size: 13px;
+  display: block;
 }
 .popupWrppr.departmentChoose .modal2 {
   z-index: 11;
+}
+.lecturerRadio:checked ~ label,
+.lecturerRadio:checked ~ select,
+.lecturerRadio:checked ~ .dptDetail {
+  display: none;
 }
 .requestSentDiv {
   font-size: 18px;

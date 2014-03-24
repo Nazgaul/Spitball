@@ -13,8 +13,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 
         //public string Language { get; set; }
 
+        //readonly fields
         [Display(ResourceType = typeof(AccountSettingsResources), Name = "School")]
         public string University { get; set; }
+        public string UniversityImage { get; set; }
 
         //TODO add validation to Image url
         [Display(ResourceType = typeof(AccountSettingsResources), Name = "Photo")]
@@ -23,7 +25,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         //TODO add validation to Image url
         public string LargeImage { get; set; }
 
-        public string UniversityImage { get; set; }
+        
+
+        [Required]
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        [Required]
+        public string LastName { get; set; }
 
         //public long? UniversityCode { get; set; }
 

@@ -140,7 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
                         facebookUserData.Image, facebookUserData.LargeImage, universityId,
                         facebookUserData.first_name,
-                        string.Empty,
+                        facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender());
                     var commandResult = m_ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
@@ -395,8 +395,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var id = GetUserId();
                 var profilePics = new ProfileImages(model.Image, model.LargeImage);
 
-                var command = new UpdateUserProfileCommand(id, model.Name, profilePics.Image,
-                    profilePics.LargeImage);
+                var command = new UpdateUserProfileCommand(id, profilePics.Image,
+                    profilePics.LargeImage, model.FirstName, model.MiddleName, model.LastName);
                 m_ZboxWriteService.UpdateUserProfile(command);
                 return Json(new JsonResponse(true));
             }

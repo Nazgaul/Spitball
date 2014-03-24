@@ -3,7 +3,13 @@
     <div class="popupWrppr departmentChoose" >
         <header class="popupHeader">Воронежский институт высоких технологий</header>
         <button type="button" class="closeDialog"></button>
-    
+        <div class="chooseDptTxt">Пожалуйста заполните подробности ниже:</div>
+
+        <input checked type="radio" id="studentRadio" name="userStatus"   />
+        <label class="statusLabel first" for="studentRadio">Я студент</label>
+        <input class="lecturerRadio" id="lecturerRadio" name="userStatus" type="radio" />
+        <label class="statusLabel" for="lecturerRadio">Я преподаватель</label>
+
         <label for="department">Ваш раздел</label>
        
         <select id="department">
@@ -26,6 +32,14 @@
               <option style="display:none;" value="@item.Id" data-department="@item.Name">@item.Year</option>
           }
         </select>
+        <div class="dptDetail first">
+            <label>Номер группы</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="dptDetail">
+            <label>Номер зачетной книжки</label>
+            <input type="text" class="inputText" />
+        </div>
         <input id="depSubmit"  type="submit" class="btn1" disabled="disabled" value="Продолжить"/>
     </div>
     <div class="modal2"></div>

@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
+using System.Text;
 
 namespace Zbang.Zbox.Domain
 {
@@ -47,14 +48,31 @@ namespace Zbang.Zbox.Domain
             IsRegisterUser = true;
             Image = smallImage;
             ImageLarge = largeImage;
-
+            
             FirstName = firstName.Trim();
             LastName = lastName.Trim();
-            MiddleName = middleName.Trim();
-
-            Name = FirstName + " " + MiddleName + " " + LastName;
+            if (!string.IsNullOrEmpty(middleName))
+            {
+                MiddleName = middleName.Trim();
+            }
+            
+            Name = CreateName();
             Sex = sex;
 
+        }
+
+        public string CreateName()
+        {
+            var sb = new StringBuilder();
+            sb.Append(FirstName);
+            sb.Append(" ");
+            if (!string.IsNullOrEmpty(MiddleName))
+            {
+                sb.Append(MiddleName);
+                sb.Append(" ");
+            }
+            sb.Append(LastName);
+            return sb.ToString();
         }
 
         public virtual long Id { get; protected set; }
@@ -125,9 +143,9 @@ namespace Zbang.Zbox.Domain
 
 
 
-        public void UpdateUserProfile(string userName, Uri picture, Uri largePicture)
+        public void UpdateUserProfile(string firstName, string middleName, string lastName, Uri picture, Uri largePicture)
         {
-            Name = userName.Trim();
+           // Name = userName.Trim();
             if (picture != null)
             {
                 Image = picture.AbsoluteUri;
@@ -136,6 +154,17 @@ namespace Zbang.Zbox.Domain
             {
                 ImageLarge = largePicture.AbsoluteUri;
             }
+            FirstName = firstName.Trim();
+            if (!string.IsNullOrEmpty(middleName))
+            {
+                MiddleName = middleName.Trim();
+            }
+            else
+            {
+                MiddleName = null;
+            }
+            LastName = lastName.Trim();
+            Name = CreateName();
 
         }
         public void UpdateUserLanguage(string culture)
