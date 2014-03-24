@@ -263,6 +263,32 @@ input[type="search"] {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 /*#endregion */
+/*#region radio input */
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"] + label:before {
+  content: '';
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background: url(/Images/radioBtn.png) -15px -1px no-repeat;
+  vertical-align: middle;
+  margin: -2px 4px 0 0;
+  /*rtl*/
+}
+input[type="radio"]:checked + label:before {
+  content: '';
+  background-position: -1px -1px;
+}
+input[type="radio"]:checked + label + .inputText {
+  opacity: 1;
+  -webkit-transition: opacity, 0.5s linear;
+  -moz-transition: opacity, 0.5s linear;
+  -o-transition: opacity, 0.5s linear;
+  transition: opacity, 0.5s linear;
+}
+/*#endregion */
 /*#region checkbox */
 .checkbox {
   display: none;
@@ -942,7 +968,7 @@ ul.ui-autocomplete li a {
 }
 .staticWpr.register {
   max-height: none;
-  top: 12%;
+  top: 10%;
 }
 .staticWpr .facebook {
   width: 100%;
@@ -1090,10 +1116,19 @@ ul.ui-autocomplete li a {
 .register .field-validation-error,
 .register .validation-summary-errors {
   position: absolute;
-  margin: 10px 0 0 0;
+  margin: 2px 0 0 0;
 }
 .register span.field-validation-error:last-of-type {
-  position: static;
+  margin-top: -53px;
+}
+.genderLabel {
+  font-size: 15px;
+  margin: 15px 0 5px;
+  display: inline-block;
+}
+.genderLabel.first {
+  margin: 15px 25px 5px 0;
+  /*rtl*/
 }
 .accntLabel {
   font-size: 15px;

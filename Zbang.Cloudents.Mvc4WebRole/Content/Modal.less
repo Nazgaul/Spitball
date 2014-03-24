@@ -241,34 +241,6 @@
 
 /*#endregion */
 
-input[type="radio"]
-{
-    display:none;
-    + label 
-    {
-        //color: #111;
-        &:before 
-        {
-            content: '';
-            display:inline-block;
-            width: 13px;
-            height: 13px;
-            background: url(/Images/radioBtn.png) -15px -1px no-repeat;
-            vertical-align: middle;
-            margin: -2px 4px 0 0; /*rtl*/
-        }
-    }
-    
-    &:checked + label:before {
-        content: '';
-        background-position: -1px -1px;
-    }
-    &:checked + label + .inputText {
-        opacity: 1;
-        .transition(opacity, .5s linear);
-    }
-}
-
 /*#region box settings and members */
 
 #dash_showfriends, #box_settings,#item_rename{

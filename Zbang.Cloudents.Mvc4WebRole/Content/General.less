@@ -301,6 +301,36 @@ input, form, select {
 
 /*#endregion */
 
+/*#region radio input */
+input[type="radio"]
+{
+    display:none;
+    + label 
+    {
+        //color: #111;
+        &:before 
+        {
+            content: '';
+            display:inline-block;
+            width: 13px;
+            height: 13px;
+            background: url(/Images/radioBtn.png) -15px -1px no-repeat;
+            vertical-align: middle;
+            margin: -2px 4px 0 0; /*rtl*/
+        }
+    }
+    
+    &:checked + label:before {
+        content: '';
+        background-position: -1px -1px;
+    }
+    &:checked + label + .inputText {
+        opacity: 1;
+        .transition(opacity, .5s linear);
+    }
+}
+/*#endregion */
+
 /*#region checkbox */
 .checkbox {
     display: none;
@@ -1013,7 +1043,7 @@ ul.ui-autocomplete {
 
     &.register {
         max-height: none;
-        top: 12%; //override
+        top: 10%; //override
     }
 
     .facebook {
@@ -1163,14 +1193,24 @@ ul.ui-autocomplete {
 
     .field-validation-error, .validation-summary-errors {
         position: absolute;
-        margin: 10px 0 0 0; //override
+        margin: 2px 0 0 0; //override
     }
     span.field-validation-error:last-of-type
     {
-        position: static; //override (so that the min length pwd error doesn't cover the t&s text)
+        //position: static; //override (so that the min length pwd error doesn't cover the t&s text)
+        margin-top: -53px;
     }
 }
-
+.genderLabel
+{
+    font-size: 15px;
+    margin: 15px 0 5px;
+    display: inline-block;
+    &.first
+    {
+        margin: 15px 25px 5px 0; /*rtl*/
+    }
+}
 .accntLabel {
     font-size: 15px;
     margin-bottom: 2px;

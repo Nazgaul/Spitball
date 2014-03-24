@@ -117,6 +117,10 @@ body {
   margin: 0 0 0 4%;
   /*rtl*/
 }
+.genderLabel.first {
+  margin: 15px 0 5px 25px;
+  /*rtl*/
+}
 .acceptTerms {
   text-align: right;
   /*rtl*/
