@@ -536,7 +536,7 @@
                 fbDialog, fbBlocker;
 
             var fbObj = {
-                data: { Id: friend.id, Username: friend.username || friend.id, Name: friend.name },
+                data: { Id: friend.id, Username: friend.username || friend.id, FirstName: friend.firstname, MiddleName:friend.middlename, LastName: friend.lastname, Gender: friend.gender},
                 success: function (response) {
                     inviteAnimation(elm);
 
@@ -547,7 +547,7 @@
             };
 
             if (boxid !== '') {
-                fbObj.data.BoxUid = boxid;
+                fbObj.data.BoxId = boxid;
             }
             var offset = window.pageYOffset;
             FB.ui({
