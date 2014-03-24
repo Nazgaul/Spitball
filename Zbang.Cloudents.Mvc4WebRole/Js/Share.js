@@ -3,13 +3,13 @@
         return;
     }
 
-    var google, firstTime = true,
+    var google, firstTime = true, loadedContacts = false,
     eById = document.getElementById.bind(document),
     fromPopup = {},
     messageDialog = $('#sendMsgDialog').dialog({
         submitCallBack: function (url, data, form) {
             cd.autocomplete2('attemptValidate');
-           
+
             if (!form.find('[name="Recepients"]').length) {
                 cd.displayErrors(form, ZboxResources.FieldRequired);
                 return false;
@@ -73,9 +73,15 @@
     });
 
     cd.pubsub.subscribe('gContacts', function (contacts) {
-        if (firstTime) {
+        if (!$('.popupWrppr.invite').is(':visible')) {
             return;
         }
+
+        if (firstTime || loadedContacts) {
+            return;
+        }
+        loadedContacts=true;
+
         cd.autocomplete2('insertData', contacts);
     });
 
@@ -96,15 +102,13 @@
             getCloudentsContacts();
             firstTime = false;
         }
-        if (!cd.google.connected) {
-            if (d.data) {
-                if (d.data.length !== 1) {// not loading google when sending a message to a single contact
-                    cd.google.register(true);
-                }
+        if (!(d.data && d.data.length === 1)) {// not loading google when sending a message to a single contact
+            if (cd.google.connected) {
+                cd.pubsub.publish('gGetContacts');
             } else {
                 cd.google.register(true);
             }
-        }
+        } 
 
         if (d.data) {
             cd.autocomplete2('addEmailsToList', d.data);
