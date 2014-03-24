@@ -104,6 +104,8 @@ namespace Zbang.Zbox.Domain
         public virtual int Reputation { get; set; }
 
         public virtual Department Department { get; set; }
+        public virtual string GroupNumber { get; set; }
+        public virtual string RegisterNumber { get; set; }
 
 
         public void RemoveInviteState(Box box)
@@ -176,11 +178,13 @@ namespace Zbang.Zbox.Domain
             Culture = culture;
         }
 
-        public void UpdateUserUniversity(University university, string userCode, Department department)
+        public void UpdateUserUniversity(University university, string userCode, Department department, string groupNumber, string registerNumber)
         {
             University = university;
             this.Code = userCode;
             this.Department = department;
+            this.GroupNumber = groupNumber;
+            this.RegisterNumber = registerNumber;
 
         }
 

@@ -18,7 +18,7 @@ namespace Zbang.Zbox.DomainTests
         [TestMethod]
         public void UpdateUserUniversity_NullUniversity_ThrowException()
         {
-            m_SomeUser.UpdateUserUniversity(null, string.Empty, null);
+            m_SomeUser.UpdateUserUniversity(null, string.Empty, null, null, null);
             Assert.AreEqual(m_SomeUser.University, null);
             // Assert.AreEqual(m_SomeUser.UniversityAlias, null);
         }

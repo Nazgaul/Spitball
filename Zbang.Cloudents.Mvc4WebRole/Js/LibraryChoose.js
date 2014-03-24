@@ -212,6 +212,8 @@
                     data: [
                         { name: 'UniversityId', value: universityId },
                         { name: 'DepartmentId', value: $('#year').val() },
+                        { name: 'GroupNumber', value: $('#group').val() },
+                        { name: 'RegisterNumber', value: $('#registration').val() }
                     ],
                     success: function (d) {
                         if (d.redirect) {
@@ -325,16 +327,13 @@
             $(document).on('change', '#department', function () {
                 var $year = $('#year');
                 $year.val('-1').trigger('change');
+                if (this.selectedIndex === 0) {
+                    return;
+                }
                 $year.find('option').not(':first').hide().filter('[data-department= ' + $(this).val() + ']').show();
             })
            .on('change', '#year', function () {
-               if ($(this).val() === '-1') {
-                   $('#depSubmit').attr('disabled', 'disabled');
-               }
-               else {
-                   $('#depSubmit').removeAttr('disabled');
-               }
-
+               checkSubmitState();
            })
             .on('click', '.closeDialog', function () {
                 $(this).parents('[data-popup]').remove();
@@ -342,6 +341,35 @@
             .on('click', '#depSubmit', function (e) {
                 selectUniversity(e);
             });
+
+            $(document).on('keyup','#group,#registration', function(){
+                checkSubmitState();
+            });
+
+            $(document).on('change', '#lecturerRadio,#studentRadio', function () {
+                checkSubmitState();
+            });
+
+
+            function checkSubmitState() {
+                var studentRadio = document.getElementById('studentRadio');
+
+                if (studentRadio.checked) {
+                    var department = document.getElementById('department'),
+                        year = document.getElementById('year'),
+                        group = document.getElementById('group'),
+                        registration = document.getElementById('registration');
+                    
+                    if (department.selectedIndex && year.selectedIndex && group.value !== '' && registration.value !== '') {
+                        $('#depSubmit').removeAttr('disabled');
+                    } else {
+                        $('#depSubmit').attr('disabled', 'disabled');
+                    }
+                } else {
+                    $('#depSubmit').removeAttr('disabled');
+
+                }                
+            }
             //#endregion
         }
     }
