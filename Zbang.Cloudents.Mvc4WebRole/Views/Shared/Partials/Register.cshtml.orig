@@ -12,18 +12,24 @@
     @Html.ValidationMessageFor(model => model.FirstName, null)
     @Html.TextBoxFor(model => model.FirstName, new { @class = "inputText firstName", tabindex = 10, @placeholder= @SharedResources.FirstName })
 
+<<<<<<< HEAD
+    @Html.TextBoxFor(model => model.MiddleName, new { @class = "inputText midName", tabindex = 11, @placeholder= @SharedResources.MiddleName })
+=======
+    //@Html.TextBoxFor(model => model.MiddleName, new { @class = "inputText midName", tabindex = 11, @placeholder= @RegisterResources.MiddleName })
+>>>>>>> 26d2d9a0ed9c90a7f0080c619658ae9386140a83
+
     @Html.ValidationMessageFor(model => model.LastName, null)
-    @Html.TextBoxFor(model => model.LastName, new { @class = "inputText", tabindex = 11, @placeholder= @SharedResources.LastName })
+    @Html.TextBoxFor(model => model.LastName, new { @class = "inputText", tabindex = 12, @placeholder= @SharedResources.LastName })
 
     @Html.ValidationMessageFor(model => model.NewEmail, null)
-    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 12, @placeholder= SharedResources.Email, type="email" })
+    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 13, @placeholder= SharedResources.Email, type="email" })
 
     @Html.ValidationMessageFor(model => model.ConfirmEmail, null)
-    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 13, @placeholder = @RegisterResources.VerifyEmail, type = "email" })
+    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 14, @placeholder = @RegisterResources.VerifyEmail, type = "email" })
 
     
     @Html.ValidationMessageFor(model => model.Password, null)
-    @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder= LogOnResources.Password })
+    @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 15, @placeholder= LogOnResources.Password })
    
     @Html.RadioButtonFor(model => model.IsMale, true, new { id = "maleRadio" })
     <label class="genderLabel first" for="maleRadio">Male</label>
