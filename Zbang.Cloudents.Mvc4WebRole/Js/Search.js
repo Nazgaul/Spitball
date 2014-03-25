@@ -241,6 +241,7 @@
                 var toWipe = cOtherPage === 0;
 
                 appendList(sOtherMaterialList, 'sMaterialItemTemplate', materials, toWipe);
+
             }
         }
         function registerEvents() {
@@ -311,6 +312,7 @@
 
         function appendList(list, template, dataItems, wipe) {
             cd.appendData(list, template, dataItems, 'beforeend', wipe);
+            cd.setElementChildrenDirection(sTabContent, 'li', true);
         }
 
         function clear(clearPage) {
@@ -405,7 +407,7 @@
                 if ($(window).scrollTop() + $(window).height() == $(document).height()) {
                     var showMoreAvailable = isShowMoreAvailable(currentTab);
 
-                    if (materialsLoaded && otherUnisScroll && otherDataAvailable) {
+                    if (materialsLoaded && otherUnisScroll && otherDataAvailable && currentTab === sTabMaterials) {
                         cOtherPage++;
                         getDataOtherUnis();
                     }

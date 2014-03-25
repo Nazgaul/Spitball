@@ -102,6 +102,33 @@
 
     };
 
+    //#region Set text direction
+    function setElementChildrenDirection(container, element, subtree) {
+        var list = container.querySelectorAll(element),
+            item;
+        for (var i = 0, l = list.length; i < l; i++) {
+            item = list[i];
+            cd.setElementDirection(item);
+
+            if (!subtree) {
+                continue;
+            }
+
+            var sublist = item.getElementsByTagName('*');
+            for (var j = 0, jL = sublist.length; j < jL; j++) {
+                if (sublist[j].className.toLowerCase().indexOf('highlight') > -1) {
+                    continue;
+                }
+
+                cd.setElementDirection(sublist[j]);
+            }
+        }
+
+    }
+
+
+    //#endregion
+
     //#region Dates in the system    
     var actionTimeInterval;
 
@@ -169,14 +196,14 @@
 
         }
     }
-    
+
     function updateTimeActions(container) {
         if (!container) {
             container = document.body;
         }
         var $timedObjects = $(container).find('[data-time]'),
         text;
-        for (var i = 0, l = $timedObjects.length; i < l; i++) {            
+        for (var i = 0, l = $timedObjects.length; i < l; i++) {
             parseTimeString($timedObjects[i]);
         }
     }
@@ -1208,8 +1235,8 @@
     cd.appendData = appendData;
     cd.deleteAllow = deleteAllow;
     cd.unregisterAction = unregisterAction;
-    cd.putPlaceHolder = putPlaceHolder;    
-
+    cd.putPlaceHolder = putPlaceHolder;
+    cd.setElementChildrenDirection = setElementChildrenDirection;
     //cd.switchBackToMobile = switchBackToMobile;
     cd.loaderOn = loaderOn;
     cd.shareFb = shareFb;
