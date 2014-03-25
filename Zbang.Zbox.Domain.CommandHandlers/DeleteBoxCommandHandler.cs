@@ -34,9 +34,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new BoxDoesntExistException();
             }
-            User user = m_UserRepository.Get(command.UserId);
+            
 
-            UserRelationshipType userType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, box.Id); //user.GetUserType(box.Id);
+            UserRelationshipType userType = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, box.Id); //user.GetUserType(box.Id);
 
 
             //if box is empty everyone can remove it only the owner and another user
@@ -83,6 +83,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             box.IsDeleted = true;
+            User user = m_UserRepository.Load(command.UserId);
             box.UserTime.UpdateUserTime(user.Email);
             m_BoxRepository.Save(box);
         }

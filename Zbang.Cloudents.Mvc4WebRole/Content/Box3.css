@@ -753,10 +753,7 @@
   line-height: 30px;
 }
 .boxItemList.sponsored .boxItem:first-child img {
-  left: 2px;
-  /*rtl*/
-  top: -1px;
-  width: 321px;
+  width: 100%;
   border: none;
 }
 .boxItemList.sponsored .listItem:first-child {

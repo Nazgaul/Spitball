@@ -177,7 +177,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
             {
-                return true;
                 if (DateTime.UtcNow.Hour == 0)
                 {
                     return true;
