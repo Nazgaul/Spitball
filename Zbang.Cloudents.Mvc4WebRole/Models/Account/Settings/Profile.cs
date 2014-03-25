@@ -5,11 +5,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 {
     public class Profile 
     {
-        [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "UsernameEmpty")]
-        [DataType(DataType.Text)]
-        [Display(ResourceType = typeof(AccountSettingsResources), Name = "Name")]
-        [RegularExpression(@"^[^@]*$", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "NameCannotContain")]
-        public string Name { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "UsernameEmpty")]
+        //[DataType(DataType.Text)]
+        //[Display(ResourceType = typeof(AccountSettingsResources), Name = "Name")]
+        //[RegularExpression(@"^[^@]*$", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "NameCannotContain")]
+        //public string Name { get; set; }
 
         //public string Language { get; set; }
 
@@ -25,9 +25,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         //TODO add validation to Image url
         public string LargeImage { get; set; }
 
-        
 
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "UsernameEmpty")]
+        [Display(ResourceType = typeof(AccountSettingsResources), Name = "Name")]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         [Required]

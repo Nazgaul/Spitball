@@ -4,22 +4,22 @@
 
 @using (Html.BeginForm("ChangeProfile", "Account", FormMethod.Post, new { @class = "settingsTab selected profileInfo", id = "Profile" }))
 { 
-    @Html.LabelFor(m => m.Name)
-    @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText", @placeholder= @SharedResources.FirstName  })@Html.ValidationMessageFor(m => m.FirstName)
-    @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText", @placeholder= @SharedResources.MiddleName })@Html.ValidationMessageFor(m => m.MiddleName)
-    @Html.TextBoxFor(m => m.LastName, new { @class = "inputText", @placeholder= @SharedResources.LastName })@Html.ValidationMessageFor(m => m.LastName)
+    @Html.LabelFor(m => m.FirstName)
+    @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText", @placeholder = @SharedResources.FirstName, id = "Name" })@Html.ValidationMessageFor(m => m.FirstName)
+    @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText", @placeholder = @SharedResources.MiddleName })@Html.ValidationMessageFor(m => m.MiddleName)
+    @Html.TextBoxFor(m => m.LastName, new { @class = "inputText", @placeholder = @SharedResources.LastName })@Html.ValidationMessageFor(m => m.LastName)
 
     <div class="section">
         @Html.LabelFor(m => m.Image)
         <img id="accountSettingsThumb" class="profilePhoto" width="100" height="100" src="@Model.Image" alt="" />
-        <a href="#" class="photoBtn" id="uplImage" >@AccountSettingsResources.UploadImage</a>
+        <a href="#" class="photoBtn" id="uplImage">@AccountSettingsResources.UploadImage</a>
     </div>
     <div class="schoolSection">
         @Html.LabelFor(m => m.University)
         <div class="schoolWpr">
             <img class="imgBorder" width="32" height="32" alt="School logo" src="@Model.UniversityImage" />
             <div class="propValue">@Model.University</div>
-            <a class="changeUni regFont" href="@Url.Action("Choose","Library")">@AccountSettingsResources.ChangeUni</a>
+            <a class="changeUni regFont" href="@Url.Action("Choose", "Library")">@AccountSettingsResources.ChangeUni</a>
         </div>
     </div>
     <input type="submit" class="btn1" value="@AccountSettingsResources.Save" />
