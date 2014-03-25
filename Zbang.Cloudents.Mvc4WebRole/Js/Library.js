@@ -297,7 +297,7 @@
                 isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount === 0 && box.itemCount === 0);
 
             if (isDelete) {
-                isok = \confirm(JsResources.DeleteCourse);
+                isok = confirm(JsResources.DeleteCourse);
             }
             else {
                 isok = confirm(ZboxResources.SureYouWant + ' ' + ZboxResources.ToLeaveGroup);

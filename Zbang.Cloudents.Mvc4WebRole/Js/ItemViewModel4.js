@@ -771,7 +771,7 @@
 
                 $itemRenameSave.click(function (e) {
                     e.preventDefault();
-                    var fileName = $itemNameElemnt.val();
+                    var fileName = $itemName.val();
                     var oldFilename = self.itemName();
 
                     if (checknewFileName()) {
@@ -779,7 +779,7 @@
                     } else {
                         cd.notification(ZboxResources.InvalidFilename);
                         setTimeout(function () {
-                            $itemNameElemnt.focus();
+                            $itemName.focus();
                         }, 50);
                     }
 
@@ -807,7 +807,7 @@
 
                                 self.copyLink(location);
                                 fixHistory(location)
-                                $itemNameElemnt.val('');
+                                $itemName.val('');
                             },
                             error: function (msg) {
                                 cd.notification(msg);
