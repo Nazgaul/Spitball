@@ -43,6 +43,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 
         public string Url { get; set; }
         public string DownloadUrl { get; set; }
+        public string UserUrl { get; set; }
 
         public string Thumbnail { get; private set; }
 
