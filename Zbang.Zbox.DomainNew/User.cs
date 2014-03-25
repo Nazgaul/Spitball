@@ -45,7 +45,6 @@ namespace Zbang.Zbox.Domain
             : this()
         {
             Email = email;
-            IsRegisterUser = true;
             Image = smallImage;
             ImageLarge = largeImage;
             

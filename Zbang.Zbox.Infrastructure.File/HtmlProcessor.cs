@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -33,15 +34,15 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                Document word;
+                Document word = null;
+
+                CancellationTokenSource canceller = new CancellationTokenSource();
 
                 using (var sr = m_BlobProvider.DownloadFile(blobName))
                 {
                     SetLicense();
                     word = new Document(sr);
-                   
                 }
-
                 ImageSaveOptions imgOptions = new ImageSaveOptions(SaveFormat.Jpeg);
                 imgOptions.JpegQuality = 100;
 
@@ -73,8 +74,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
         {
-           var publicUrl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 20);
-           return Task.FromResult<PreviewResult>(new PreviewResult(String.Format(ContentFormat, publicUrl)));
+            var publicUrl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 20);
+            return Task.FromResult<PreviewResult>(new PreviewResult(String.Format(ContentFormat, publicUrl)));
 
         }
         public static readonly string[] htmlExtensions = { ".htm", ".html" };

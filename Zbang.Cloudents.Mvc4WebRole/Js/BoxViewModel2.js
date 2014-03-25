@@ -342,16 +342,16 @@
         self.tabDelete = function (m, e) {
             var $e = $(e.target);
             closeMenu($e);
-            if (!confirm(ZboxResources.SureDeleteTab)) {
-                return;
-            }
-            dataContext.deleteTab({
-                data: { TabId: m.id, BoxUid: self.boxid },
-                success: function () {
-                    self.tabs.remove(m);
-                    self.switchTab({});
-                }
-            });
+
+            cd.confirm(ZboxResources.SureDeleteTab, function () {
+                dataContext.deleteTab({
+                    data: { TabId: m.id, BoxUid: self.boxid },
+                    success: function () {
+                        self.tabs.remove(m);
+                        self.switchTab({});
+                    }
+                });
+            }, null);
         };
 
         function closeMenu(elem) {

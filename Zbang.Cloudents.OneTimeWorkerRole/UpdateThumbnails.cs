@@ -50,12 +50,11 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
 
-//                var blobNames = new List<string>() {
-//                    "c90554cb-ede9-4aa7-85a6-1c5c64b2bbd8.docx",
-//"9c6c899d-98ca-4d2b-b04f-33759d4ad461.docx",
-//"00de9064-97d8-45dd-a800-d78f0024ccd3.docx",
-//"6b77e41a-2f57-46f3-8f48-c3a19c27f305.docx"
-//                };
+                //var blobs = new List<string>() {
+                //    "23423065-2b1c-4c4f-ad85-231231947647.mp3",
+                //                    "2d2446f6-c0dd-438f-9ec6-84fb78d2b4e1.htm",
+                                    
+                //};
                 var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
                 foreach (var blobname in blobs)
                 {
@@ -92,9 +91,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor != null)
             {
-                var t = processor.PreProcessFile(blobUri);
-                t.Wait();
-                var retVal = t.Result;
+                var t =  processor.PreProcessFile(blobUri).Result;
+
+                //t.Wait(TimeSpan.FromSeconds(30));
+                var retVal = t;
                 if (retVal == null)
                 {
                     return;

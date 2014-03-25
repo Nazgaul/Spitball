@@ -116,26 +116,15 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-              return await conn.QueryAsync<string>(@"select blobname from zbox.item where thumbnailblobname in 
-('filev2.jpg',
-'filev3.jpg',
-'filev4.jpg',
-'imagev1.jpg',
-'imagev4.jpg',
-'linkv2.jpg',
-'musicv1.jpg',
-'pdfv1.jpg',
-'pdfv4.jpg',
-'powerpointv1.jpg',
-'powerv4.jpg',
-'soundv4.jpg',
-'videov1.jpg',
-'videov4.jpg',
-'wordv1.jpg',
-'wordv4.jpg',
-'excelv1.jpg',
-'excelv4.jpg')
-and  isdeleted = 0");                
+                return await conn.QueryAsync<string>(@"select blobname from zbox.item
+ where content is null and isdeleted = 0 and discriminator = 'FILE' 
+
+ and SUBSTRING(blobname, 
+        LEN(blobname)-(CHARINDEX('.', reverse(blobname))-2), 8000) in 
+		('rtf', 'docx', 'doc', 'txt','pptx', 'potx', 'ppxs', 'ppsx', 'ppt', 'pot', 'pps','pdf','xls', 'xlsx', 'xlsm', 'xltx', 'ods', 'csv')
+
+
+");                
             }
         }
     }

@@ -24,14 +24,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
         [RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
-        [Remote("CheckEmail","Account",HttpMethod="Post",ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
+        //[Remote("CheckEmail","Account",HttpMethod="Post",ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
         [Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
         public string NewEmail { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
         //the new version doesnt get the resouce
-        //[System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
+        [System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
         public string ConfirmEmail { get; set; }
 
 
