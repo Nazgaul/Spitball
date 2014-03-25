@@ -78,6 +78,7 @@
 
         notificationsList.insertAdjacentHTML('beforeend', result);
 
+        cd.updateTimeActions(document.getElementById(notificationsList));
        
     }
 
