@@ -169,6 +169,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currently not following any courses.
+        /// </summary>
+        public static string NotFollowing {
+            get {
+                return ResourceManager.GetString("NotFollowing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 10 pts Upload an item to a Course.
         /// </summary>
         public static string PointsTxt1 {

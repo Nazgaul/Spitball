@@ -477,4 +477,20 @@
   <data name="Uploaded" xml:space="preserve">
     <value>تم التحميل على الموقع</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>أنثى </value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>الاسم الأول 
+</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>ذكر </value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>الاسم الأوسط </value>
+  </data>
 </root>

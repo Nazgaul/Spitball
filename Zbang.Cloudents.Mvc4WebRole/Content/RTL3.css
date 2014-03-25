@@ -1183,9 +1183,6 @@ input[type="radio"] + label:before {
 }
 /*#region box media queries */
 /*#endregion */
-/*.boxItem .boxOwner {
-    margin: 0 6px 0 0;
-}*/
 .actionBtns {
   left: 8px;
   /*rtl*/

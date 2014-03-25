@@ -153,6 +153,9 @@
   <data name="NoQuestions" xml:space="preserve">
     <value>No questions to show</value>
   </data>
+  <data name="NotFollowing" xml:space="preserve">
+    <value>Currently not following any courses</value>
+  </data>
   <data name="PointsTxt1" xml:space="preserve">
     <value>10 pts Upload an item to a Course</value>
   </data>
