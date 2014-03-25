@@ -138,7 +138,7 @@
                 self.title(decodeURIComponent(data.name || ''));
 
                 if (!cd.firstLoad) {
-                    var uniName = document.getElementById('univeristyName').textContent
+                    var uniName = document.getElementById('univeristyName').textContent;
                     if (self.title()) {
                         cd.setTitle('{0} | {1} | Cloudents'.format(uniName, self.title()));
                     } else {
