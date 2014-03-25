@@ -179,24 +179,40 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                var dbQeury = @"select u.UserImage as userpic,
+                var dbQeury = @"select * from (select u.UserImage as userpic,
  u.UserName as username,
  m.MessageId as msgId,
   m.CreationTime as date,
   m.NotRead as isread,
   m.New as IsNew,
-  m.Text as message,m.MessageId,
+  m.Text as message,
 b.BoxName,
 b.BoxId,
 boxOwner.UniversityName  as Universityname
-	                            from zbox.Message m
-	                            left join zbox.box b on m.BoxId = b.BoxId and b.IsDeleted = 0
-	                            inner join zbox.users u on u.UserId = m.SenderId
-								left join zbox.users boxOwner on boxOwner.UserId = b.OwnerId
-	                            where TypeOfMsg in (2,1)
-                                and (isActive = 1 or IsActive is null)
-	                            and m.RecepientId = @UserId
-                                order by m.MessageId desc;
+from zbox.message m 
+inner join zbox.box b on m.BoxId = b.BoxId and b.IsDeleted = 0
+inner join zbox.users u on u.UserId = m.SenderId
+inner join zbox.users boxOwner on boxOwner.UserId = b.OwnerId
+where m.RecepientId = @userid
+ and TypeOfMsg = 2
+ and isactive = 1
+ union all
+select u.UserImage as userpic,
+ u.UserName as username,
+ m.MessageId as msgId,
+  m.CreationTime as date,
+  m.NotRead as isread,
+  m.New as IsNew,
+  m.Text as message,
+null,
+null,
+null  as Universityname
+ from zbox.message m 
+ inner join zbox.users u on u.UserId = m.SenderId
+where m.RecepientId = @userid
+ and TypeOfMsg = 1 ) t
+ order by t.msgid desc
+
 ";
 
                 return await conn.QueryAsync<InviteDto>(dbQeury, new { UserId = query.UserId });
