@@ -112,7 +112,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 numOfUsers += userSpecificUpdates.OfType<UpdateMailParams.UserJoin>().Count();
                 if (userSpecificUpdates.Count() > 0)
                 {
-                    updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName, userSpecificUpdates.Take(4), string.Empty, userSpecificUpdates.Count() - 4));
+                    updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName, userSpecificUpdates.Take(4), box.Url, userSpecificUpdates.Count() - 4));
                 }
             }
 
