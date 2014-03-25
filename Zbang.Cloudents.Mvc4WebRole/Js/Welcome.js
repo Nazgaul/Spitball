@@ -122,7 +122,7 @@
     function hightLightMenu() {
         $('.currentItem').removeClass('currentItem');
         var url = location.pathname.toLowerCase() + location.hash;
-        if (url === "/account") {
+        if (url === "/account/") {
             $('aside').find('li:first').addClass('currentItem');
         } else {
             $('aside').find('a[href$="' + url + '"]').parent().addClass('currentItem');
