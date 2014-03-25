@@ -1960,10 +1960,6 @@ input[type="radio"] + label:before {
   /*rtl*/
   left: auto;
 }
-.upFriend {
-  margin: 0 0 20px 31px;
-  /*rtl*/
-}
 .upInvites .inviteFriendBtn.btn3:before {
   margin: 0 0 0 8px;
   /*rtl*/
@@ -1983,7 +1979,7 @@ input[type="radio"] + label:before {
         }
     }*/
 }
-.upInviteItem .upFriendImg {
+.upInviteItem .userItemImg {
   right: 0;
   /*rtl*/
   left: auto;

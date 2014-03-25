@@ -849,8 +849,8 @@
                     return { commonLength: commonLength, allLength: allLength };
                 }
                 function setHeight(commonLength, allLength) {
-                    setContainerHeight(document.querySelector('.upFriends .inCommonList'), '.upFriend', commonLength, consts.FRIENDSINROW);
-                    setContainerHeight(document.querySelector('.upFriends .inAllFriendList'), '.upFriend', allLength, consts.FRIENDSINROW);
+                    setContainerHeight(document.querySelector('.upFriends .inCommonList'), '.userItem', commonLength, consts.FRIENDSINROW);
+                    setContainerHeight(document.querySelector('.upFriends .inAllFriendList'), '.userItem', allLength, consts.FRIENDSINROW);
                 }
 
 

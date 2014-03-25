@@ -223,6 +223,12 @@ body {
   margin: 0;
   /* diff rtl*/
 }
+/*#region user items (used in search page and user page) */
+.userItem {
+  margin: 0 0 20px 31px;
+  /*rtl*/
+}
+/*#endregion */
 /*#region checkbox */
 .checkbox ~ .cbLabel:before {
   margin: 0 0 0 5px;
