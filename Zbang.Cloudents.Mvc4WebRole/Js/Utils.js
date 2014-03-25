@@ -5,20 +5,26 @@
     }
 
     var notification = function (msg) {
+        cd.pubsub.publish('clearTooltip');
         alert(msg);
     };
 
     var confirm = function (msg, trueCallback, falseCallback) {
-        if (!$.isFunction(trueCallback)) {
+        cd.pubsub.publish('clearTooltip');
+        if (trueCallback && !$.isFunction(trueCallback)) {
             throw 'trueCallback should be function';
         }
-        if (!$.isFunction(falseCallback)) {
+        if (falseCallback && !$.isFunction(falseCallback)) {
             throw 'falseCallback should be function';
         }
         if (window.confirm(msg)) {
-            trueCallback();
+            if (trueCallback) {
+                trueCallback();
+            }
         } else {
-            falseCallback();
+            if (falseCallback) {
+                falseCallback();
+            }
         }
     };
 

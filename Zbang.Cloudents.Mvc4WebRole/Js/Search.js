@@ -17,7 +17,7 @@
             sTabContent = eById('sTabContent'), isLoading = false, isOtherLoading = false, isFirstPage,
             gSearch = eById('g_searchQ'), materialsLoaded = false, otherDataAvailable = true,
             otherMaterialsSplit = document.querySelector('.splitHR'), sOtherMaterialsBtn = eById('sOtherMaterialsBtn'), otherUnisScroll = false,
-            searchTerm, cPage = 0, cOtherPage = 0, currentTab = sTabCourses;
+            searchTerm, cPage = 0, cOtherPage = 0, currentTab = sTabCourses,
         consts = {
             COURSES: 'sTab1',
             MATERIALS: 'sTab2',
@@ -89,7 +89,7 @@
                 search.removeAttribute('data-data');
                 parseData(JSON.parse(initData));
                 if (isFirstPage) {
-                    setCurrentTab(sTabCourses);
+                    setCurrentTab(getFirstTab());
                 }
                 pubsub.publish('search_load');
                 return;
@@ -117,7 +117,7 @@
                     data = data || {};
                     parseData(data);
                     if (isFirstPage) {
-                        setCurrentTab(currentTab);
+                        setCurrentTab(getFirstTab());
                         return;
                     }
                 },
@@ -129,6 +129,19 @@
                 }
             })
 
+            function getFirstTab() {                
+                if (!sCourseList.children.length) {
+                    if (sMaterialList.children.length) {
+                        return sTabMaterials;
+                    }
+
+                    if (sMemberList.children.length) {
+                        return sTabMembers;
+                    }
+                }
+
+                return sTabCourses;
+            }
 
 
             function parseData(data) {

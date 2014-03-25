@@ -409,10 +409,11 @@
                 return;
             }
             var href = likeBox.getAttribute('data-href'), link = likeBox.getAttribute('data-link');
-            var height = Math.floor($(window).height() - $(likeBox).offset().top);
+            var height = $(window).height() - $(likeBox).offset().top-15;
+            
 
             var src = link.replace(/{{href}}/i, href).replace(/{{height}}/i, height);
-
+            height = Math.ceil(height / 10) * 10;
             likeBox.height = height;
             likeBox.src = src;
 

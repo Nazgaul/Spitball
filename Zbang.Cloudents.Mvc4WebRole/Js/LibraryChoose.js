@@ -337,6 +337,7 @@
            })
             .on('click', '.closeDialog', function () {
                 $(this).parents('[data-popup]').remove();
+                userNotSelected = true;
             })
             .on('click', '#depSubmit', function (e) {
                 selectUniversity(e);

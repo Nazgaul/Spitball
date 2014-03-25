@@ -246,15 +246,14 @@
             /// <param name="box" type="Box"></param>
 
             //if (!confirm(ZboxResources.SureYouWant0ThisBox.format(box.removeBoxTitle))) {
-            if (!confirm(ZboxResources.SureYouWant + ' ' + box.removeBoxConfirm)) {
-
-                return;
-            }
-            analytics.trackEvent('Follow', 'Unfollow', 'Clicking on the  box "x" mark on dashboard level');
-            self.boxes.remove(box);
-            dataContext.removeBox2({
-                data: { boxUid: box.uid }
-            });
+            cd.confirm(ZboxResources.SureYouWant + ' ' + box.removeBoxConfirm,
+                function () {
+                    analytics.trackEvent('Follow', 'Unfollow', 'Clicking on the  box "x" mark on dashboard level');
+                    self.boxes.remove(box);
+                    dataContext.removeBox2({
+                        data: { boxUid: box.uid }
+                    });
+                }, null);          
         };
 
         var emptyText = '';

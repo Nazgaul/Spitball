@@ -231,20 +231,21 @@
                 cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + item.type);
                 return false;
             }
-            if (!confirm(ZboxResources.SureYouWantToDelete + ' ' + item.name + "?")) {
-                return false;
-            }
-            self.items.remove(item);
-            //countOfItems--;
-            dataContext.removeItem({
-                data: { itemId: item.uid, BoxUid: boxid },
-                success: function () {
-                    cd.pubsub.publish('removeItemNotification', { itemid: item.uid, boxid: boxid });
-                },
-                error: function () {
-                    self.items.push(item);
-                }
-            });
+            cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + item.name + "?",
+                function () {
+                    self.items.remove(item);
+                    //countOfItems--;
+                    dataContext.removeItem({
+                        data: { itemId: item.uid, BoxUid: boxid },
+                        success: function () {
+                            cd.pubsub.publish('removeItemNotification', { itemid: item.uid, boxid: boxid });
+                        },
+                        error: function () {
+                            self.items.push(item);
+                        }
+                    });
+
+                }, null);
         };
         cd.pubsub.subscribe('removeItem', function (id) {
             var x = ko.utils.arrayFirst(self.items(), function (i) {
