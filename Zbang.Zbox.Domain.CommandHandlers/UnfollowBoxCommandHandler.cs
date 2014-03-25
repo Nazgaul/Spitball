@@ -17,21 +17,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
 
-        public UnfollowBoxCommandHandler(IRepository<Box> boxRepository, 
+        public UnfollowBoxCommandHandler(IRepository<Box> boxRepository,
             IUserRepository userRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
         }
-        
+
         public void Handle(UnfollowBoxCommand message)
         {
             var box = m_BoxRepository.Get(message.BoxId);
+            var user = m_UserRepository.Load(message.UserId);
             if (box == null || box.IsDeleted)
             {
                 throw new BoxDoesntExistException();
             }
-            if (box.CommentCount == 0 && box.MembersCount <= 2 && box.ItemCount == 0)
+            if (box.CommentCount == 0 && box.MembersCount <= 2 && box.ItemCount == 0 && box.UserTime.CreatedUser == user.Email)
             {
                 DeleteBox(box);
                 return;
@@ -84,7 +85,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             box.UserBoxRel.Remove(userBoxRel);
 
-           // var box = m_BoxRepository.Get(command.BoxId);
+            // var box = m_BoxRepository.Get(command.BoxId);
             box.CalculateMembers();
             m_BoxRepository.Save(box);
         }
