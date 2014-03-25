@@ -216,15 +216,7 @@
 
 
         dropdown.classList.remove('noResults');
-
-
-        if (emptyCategories === 3 && emptyOtherItems) {
-            dropdown.classList.add('noResults');
-            searchDropdownBtn.disabled = true;
-        } else {
-            searchDropdownBtn.disabled = false;
-        }
-
+  
         showAll.href = '/search/?q=' + input.value + '&r=searchdd';
         showAllText.textContent = input.value;
 
@@ -256,6 +248,17 @@
         appendData(uniList, 'itemsSearchTemplate', otherItems, maxOtherItems);
 
         show();
+
+        if (emptyCategories === 3 && emptyOtherItems) {
+            dropdown.classList.add('noResults');
+            searchDropdownBtn.disabled = true;
+        } else {
+            searchDropdownBtn.disabled = false;
+            cd.setElementChildrenDirection(dropdown, 'li', true);//set direction of text
+        }
+
+        
+   
 
         function mapData(dataType, arr) {
             if (!arr) {

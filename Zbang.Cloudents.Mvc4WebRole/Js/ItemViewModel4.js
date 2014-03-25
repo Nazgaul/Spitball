@@ -1024,7 +1024,7 @@
             var distance = currentRate - startWidth / consts.starWidth,
                 starChange;
 
-            if (startWidth === 0 || initialRate === 0) {
+            if (startWidth === 0 || initialRate === 0 || self.numberOfViews() === 1) {
                 startWidth = 0;
                 starChange = currentRate;
             }
