@@ -35,6 +35,7 @@ using System.Web;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Dapper;
+using System.Text.RegularExpressions;
 
 namespace Testing
 {
@@ -65,10 +66,54 @@ namespace Testing
             public string Title { get; set; }
         }
 
+        static async Task<string> GetTitle(string url)
+        {
+            using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) })
+            {
+
+                var uri = new UriBuilder(url).Uri;
+                var response = await client.GetAsync(uri);
+                var str = await response.Content.ReadAsStringAsync();
+                var html = string.Empty;
+
+                var x = Regex.Match(str, "<meta.*?charset=([^\"']+)");
+                var charset = x.Groups[1];
+                if (string.IsNullOrEmpty(charset.Value))
+                {
+                    //var start = str.IndexOf("charset=");
+                    //if (start == -1)
+                    //{
+                    html = await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    // var end = str.IndexOf('"', start);
+
+                    //var encoding = str.Substring(start, end - start).Remove(0, 8);
+
+                    //HtmlAgilityPack.HtmlWeb x = new HtmlAgilityPack.HtmlWeb();
+                    //var v = x.Load(url);
+
+                    //var html = await client.GetStringAsync(uri);
+
+                    //var bytes = await client.GetByteArrayAsync(uri);
+                    html = Encoding.GetEncoding(charset.Value).GetString(await response.Content.ReadAsByteArrayAsync());
+                }
+                //return responseString;
+
+                string title = Regex.Match(html, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                return title;
+            }
+        }
+
         static void Main(string[] args)
         {
-            //var s = "https://www.cloudents.com/d/lzodJqaBYHu/pD0nrbAtHSq";
 
+            //var s = "https://www.cloudents.com/d/lzodJqaBYHu/pD0nrbAtHSq";
+            var xzx = GetTitle("http://www.vivt.ru/").Result;
+            var xzx2 = GetTitle("http://www.ynet.co.il/").Result;
+            var xzx3 = GetTitle("https://www.google.com/").Result;
+            var xzx4 = GetTitle("https://www.cloudents.com/").Result;
             //System.Net.WebClient wb = new WebClient();
             //var x = wb.DownloadData(s);
 
@@ -333,7 +378,7 @@ namespace Testing
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.cloudents.com", "ram", new CultureInfo("en-Us")));
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams("h$$$sdhf##askjd", new CultureInfo("en-Us")));
 
-           // mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL")));
+            // mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL")));
             ////mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("en-Us")));
 
             //mail.GenerateAndSendEmail("itsik.bitran@facebook.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
