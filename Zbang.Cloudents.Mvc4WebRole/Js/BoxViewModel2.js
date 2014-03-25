@@ -191,16 +191,17 @@
         //#region followbox
         self.followbox = function () {
             document.getElementById('joinGrpWpr').classList.add('followed');
-            setTimeout(function () {
-                addMember(new Member({
-                    name: cd.userDetail().name,
-                    image: cd.userDetail().img,
-                    uid: cd.userDetail().id
-                }));
-                self.userType('subscribe');
+            addMember(new Member({
+                name: cd.userDetail().name,
+                image: cd.userDetail().img,
+                uid: cd.userDetail().id
+            }));
+            self.userType('subscribe');
+
+            cd.pubsub.publish('perm', self.userType());
+            cd.pubsub.publish('dinvite', self.boxid);
+            setTimeout(function () {                
                 document.getElementById('joinGrpWpr').classList.remove('show');
-                cd.pubsub.publish('perm', self.userType());
-                cd.pubsub.publish('dinvite', self.boxid);
             }, 3300);
             analytics.trackEvent('Follow', 'Join group', 'Clicking on join group button, on the box level');
             dataContext.follow({
