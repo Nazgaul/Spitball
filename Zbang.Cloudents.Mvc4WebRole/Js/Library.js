@@ -31,7 +31,7 @@
         function LibraryBox(data) {
             var that = this;
             Box.call(that, data);
-            that.boxUrl = that.boxUrl.substring(0, that.boxUrl.indexOf('?'));// + '?r=library'; ///replace dashboard with library
+            that.boxUrl = that.boxUrl;//.substring(0, that.boxUrl.indexOf('?'));// + '?r=library'; ///replace dashboard with library
             that.boxFollow = function () {
                 return that.userType() === 'invite' || that.userType() === 'none';
             };
