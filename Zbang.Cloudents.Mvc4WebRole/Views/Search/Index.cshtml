@@ -53,11 +53,17 @@
 </script>
 
 <script type="text/html" id="sMemberItemTemplate">
-    <li class="sMembersItem">
+   @* <li class="sMembersItem">
         <a href="{{url}}" data-navigation="user">
             <img class="imgBorder lFloat calloutTrgr" src="{{image}}" width="74" height="74" data-uid="{{id}}" />
         </a>
         <div class="sMemberName elps">{{name}}</div>
         <button type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
+    </li>*@
+
+    <li class="userItem calloutTrgr" data-uid="{{id}}">
+        <a href="{{url}}" data-navigation="user">
+            <img class="userItemImg" src="{{image}}" width="74" height="74" /></a>
+        <div class="userItemName">{{name}}</div>
     </li>
 </script>

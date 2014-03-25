@@ -1585,6 +1585,34 @@ select.inputText {
   animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
 }
 /*#endregion */
+/*#region user items (used in search page and user page) */
+.userItem {
+  display: inline-block;
+  height: 116px;
+  margin-right: 31px;
+  /*rtl*/
+  overflow: hidden;
+  text-align: center;
+  width: 76px;
+  vertical-align: top;
+  margin-bottom: 20px;
+}
+.userItem:nth-child(7n) {
+  margin: 0;
+}
+.userItemImg {
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+.userItemName {
+  line-height: 15px;
+  height: 36px;
+}
+.userItemName .sHighlight {
+  padding: 0;
+}
+/*#endregion */
 /*#region media queries */
 @media (max-width: 1024px) {
   .siteHeader.siteHeader,

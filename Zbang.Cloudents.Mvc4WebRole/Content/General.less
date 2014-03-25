@@ -1707,6 +1707,40 @@ select.inputText {
 }
 /*#endregion */
 
+/*#region user items (used in search page and user page) */
+.userItem {
+    display: inline-block;
+    height: 116px;
+    margin-right: 31px; /*rtl*/
+    overflow: hidden;
+    text-align: center;
+    width: 76px;
+    vertical-align: top; // to make Safari happy
+    margin-bottom: 20px;
+
+    &:nth-child(7n) {
+        margin: 0;
+    }
+}
+
+.userItemImg {
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    margin-bottom: 6px;
+}
+
+.userItemName {
+    line-height: 15px;
+    height: 36px;
+    .sHighlight
+    {
+        padding:0; //TODO ask Itsik about this
+    }
+}
+
+
+/*#endregion */ 
+
 /*#region media queries */
 
 //When viewport width becomes < 1024px we convert all of the fixed elments to absolute.
