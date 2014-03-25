@@ -189,18 +189,21 @@
                     return;
                 }
                 var that = this;
-                that.setAttribute(CDISABLED, CDISABLED);
-                analytics.trackEvent('Unfollow/Delete', 'click in box settings');
-                dataContext.removeBox2({
-                    data: { boxUid: boxSettingsData.boxUid },
-                    success: function () {
-                        changeViewBoxSettings(false, true);
-                        that.removeAttribute(CDISABLED);
-                        cd.sessionStorageWrapper.clear();
-                        cd.pubsub.publish('nav', '/');
+                cd.confirm(sentence, function () {                
+                    that.setAttribute(CDISABLED, CDISABLED);
+                    analytics.trackEvent('Unfollow/Delete', 'click in box settings');
+                    dataContext.removeBox2({
+                        data: { boxUid: boxSettingsData.boxUid },
+                        success: function () {
+                            changeViewBoxSettings(false, true);
+                            that.removeAttribute(CDISABLED);
+                            cd.sessionStorageWrapper.clear();
+                            cd.pubsub.publish('nav', '/');
 
-                    }
-                });
+                        }
+                    });
+                }, null);
+                
             };
 
             eById('closeBoxSettings').onclick = function () {

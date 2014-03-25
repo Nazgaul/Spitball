@@ -195,13 +195,15 @@
             if (!confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?")) {
                 return;
             }
-            cd.sessionStorageWrapper.clear();
-            dataContext.removeItem({
-                data: { itemId: self.itemid(), BoxUid: boxid },
-                success: function () {
-                    cd.pubsub.publish('nav', self.boxurl());
-                }
-            });
+            cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
+                cd.sessionStorageWrapper.clear();
+                dataContext.removeItem({
+                    data: { itemId: self.itemid(), BoxUid: boxid },
+                    success: function () {
+                        cd.pubsub.publish('nav', self.boxurl());
+                    }
+                });
+            }, null);            
         };
         //#endregion
 
