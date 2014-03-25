@@ -14,15 +14,26 @@
    
     Html.RenderAction("AntiForgeryToken", "Home", true);
 
-    @Html.TextBoxFor(model => model.NewUserName, new { @class = "inputText", placeholder = @SharedResources.Username })
-    @Html.ValidationMessageFor(m=>m.NewUserName)
-    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", placeholder = @MobileResources.Email, type="email" })
-    @Html.ValidationMessageFor(m=>m.NewEmail)
+    @Html.ValidationMessageFor(model => model.FirstName, null)
+    @Html.TextBoxFor(model => model.FirstName, new { @class = "inputText firstName", @placeholder = @SharedResources.FirstName })
+
+    @Html.ValidationMessageFor(model => model.LastName, null)
+    @Html.TextBoxFor(model => model.LastName, new { @class = "inputText", @placeholder = @SharedResources.LastName })
+    
+    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", placeholder = @MobileResources.Email, type = "email" })
+    @Html.ValidationMessageFor(m => m.NewEmail)
      
-    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", placeholder = @RegisterResources.VerifyEmail, type="email" })
-     @Html.ValidationMessageFor(m=>m.ConfirmEmail)
+    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", placeholder = @RegisterResources.VerifyEmail, type = "email" })
+     @Html.ValidationMessageFor(m => m.ConfirmEmail)
     @Html.PasswordFor(model => model.Password, new { @class = "inputText", placeholder = @MobileResources.Password })
-     @Html.ValidationMessageFor(m=>m.Password)
+     @Html.ValidationMessageFor(m => m.Password)
+
+    @Html.RadioButtonFor(model => model.IsMale, true, new { id = "maleRadio" })
+    <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
+    
+    @Html.RadioButtonFor(model => model.IsMale, false, new { id = "femaleRadio" })
+    <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
+    
     <div class="formBottom">
         <input class="btn1" type="submit"  value="@MobileResources.SignUp"  />
         <span class="acceptTerms">
