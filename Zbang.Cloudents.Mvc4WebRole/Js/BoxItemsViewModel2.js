@@ -24,6 +24,7 @@
             that.numOfDownloads = data.numOfDownloads || 0;
             that.commentsCount = data.commentsCount || 0;            
             that.ownerName = data.owner;
+            that.ownerUrl = data.userUrl;
             that.rate = 69 / 5 * data.rate;
             that.date = data.date;
             that.isNew = ko.observable(data.isNew || false);
@@ -347,7 +348,11 @@
                 if (!this.querySelector('.boxItemTt')) {                    
                         this.insertAdjacentHTML('afterbegin', html);                    
                 }
-                var tooltip = this.querySelector('.boxItemTt')
+                var tooltip = this.querySelector('.boxItemTt');
+                if (item.type.toLowerCase() === 'link') {
+                    $(tooltip).find('.ttDetail').remove();
+                }
+
                 $(tooltip).fadeIn(300);
                 cd.parseTimeString($(tooltip).find('[data-time]'));
             },            
