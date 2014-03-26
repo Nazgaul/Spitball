@@ -160,7 +160,7 @@
     
     COALESCE(u.FirstName,u.Name) as FirstName,
     u.MiddleName as MiddleName,
-    u.LastName as MiddleName,
+    u.LastName as LastName,
     
     u.ImageLarge as Image, 
     v.Name as University,

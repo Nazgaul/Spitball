@@ -35,12 +35,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Updates");
 
             var cube = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.UpdatesList");
-            //answerTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Answer");
-            ////itemTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Item");
-            //memberTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Member");
-
-            //questionTemplate = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Question");
-
 
             var sb = new StringBuilder();
             foreach (var boxUpdate in updateParams.Updates)
@@ -59,9 +53,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
             message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));
             message.Html = message.Html.Replace("{X-NEW-USERS}", AggregateUsers(updateParams.NoOfUsers));
-
-            // message.AddSubVal("{Updates}", new List<string> { sb.ToString() });
-            //message.AddSubVal("{USER-NAME}", new List<string> { "Ram" });
         }
 
         private string AggregateUsers(int numOfUsers)

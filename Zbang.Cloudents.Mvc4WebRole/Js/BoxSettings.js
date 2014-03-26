@@ -305,7 +305,7 @@
                     data: { boxUid: boxSettingsData.boxUid, userId: memberid },
                     error: function () {
                         window.clearTimeout(interval);
-                        $('#member' + memberid).show().removeClass('uninvited');
+                        $('#boxmember' + memberid).show().removeClass('uninvited');
                         elem.removeAttribute(CDISABLED);
 
                     }
@@ -316,14 +316,14 @@
                 membersLengthElement.textContent = (membersLength - 1) + ' ' + membersLengthElement.getAttribute('data-label');;
 
                 var uninvitedText = boxSettings.getElementsByClassName('membersList')[0].getAttribute('data-uninvited');
-                $('#member' + memberid).find('.memberStatus').append('<span class="uninvite">' + uninvitedText + '</span>');
+                $('#boxmember' + memberid).find('.memberStatus').append('<span class="uninvite">' + uninvitedText + '</span>');
                 window.setTimeout(function () {
-                    $('#member' + memberid).addClass('uninvited');
+                    $('#boxmember' + memberid).addClass('uninvited');
                     // $('#member' + memberid).remove();
                 }, 10);
 
                 var interval = window.setTimeout(function () {
-                    $('#member' + memberid).remove();
+                    $('#boxmember' + memberid).remove();
                     setScroll();
                     calculatePopupHeight();
                 }, 3000);

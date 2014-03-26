@@ -110,10 +110,10 @@ namespace Testing
         {
 
             //var s = "https://www.cloudents.com/d/lzodJqaBYHu/pD0nrbAtHSq";
-            var xzx = GetTitle("http://www.vivt.ru/").Result;
-            var xzx2 = GetTitle("http://www.ynet.co.il/").Result;
-            var xzx3 = GetTitle("https://www.google.com/").Result;
-            var xzx4 = GetTitle("https://www.cloudents.com/").Result;
+            //var xzx = GetTitle("http://www.vivt.ru/").Result;
+            //var xzx2 = GetTitle("http://www.ynet.co.il/").Result;
+            //var xzx3 = GetTitle("https://www.google.com/").Result;
+            //var xzx4 = GetTitle("https://www.cloudents.com/").Result;
             //System.Net.WebClient wb = new WebClient();
             //var x = wb.DownloadData(s);
 
@@ -373,7 +373,7 @@ namespace Testing
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("he-IL")));
 
             //mail.GenerateAndSendEmail("noatseitlin@facebook.com", new WelcomeMailParams("ram", new CultureInfo("ru-RU")));
-            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new WelcomeMailParams("ram2", new CultureInfo("en-Us")));
+            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new WelcomeMailParams("ram2", new CultureInfo("en-Us")));
 
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.cloudents.com", "ram", new CultureInfo("en-Us")));
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams("h$$$sdhf##askjd", new CultureInfo("en-Us")));

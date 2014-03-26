@@ -294,7 +294,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         new UserDetail(
                             result.User.Culture,
                             result.UniversityId, result.UniversityWrapperId));
-                    return Json(new JsonResponse(true, Url.Action("Index", "Dashboard")));
+                    return Json(new JsonResponse(true, Url.Action("Index", "Library")));
 
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));
