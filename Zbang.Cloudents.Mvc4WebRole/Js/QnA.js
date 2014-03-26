@@ -199,6 +199,10 @@
             $('.QA').removeClass('changeState').removeClass('flipTransition');
             $('.QForm').css('margin-bottom', '-20px');
 
+            setTimeout(function () {
+                applyScroll();
+            }, 1200);
+
             if (self.questionList().length) {
                 self.state(state.question);
                 return;
