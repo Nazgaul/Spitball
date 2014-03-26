@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public MailParameters(CultureInfo culture)
             : this(culture, DefaultEmail, DefaultSenderName)
         {
-
+            
         }
         public MailParameters(CultureInfo culture, string senderEmail, string senderName)
         {
@@ -140,6 +140,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             : base(culture, DefaultEmail, senderUserName)
         {
             Message = message;
+            SenderImage = "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg";
             //SenderUserName = senderUserName;
         }
         public MessageMailParams(string message, string senderUserName, CultureInfo culture, string senderEmail, string senderImage)
