@@ -1121,6 +1121,7 @@ ul.ui-autocomplete li a {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  height: 34px;
 }
 .signIn .btn1,
 .register .btn1 {
@@ -1130,7 +1131,6 @@ ul.ui-autocomplete li a {
 }
 .register .inputText {
   margin: 22px 0 0 0;
-  height: 34px;
 }
 .register .firstName {
   width: 100%;
