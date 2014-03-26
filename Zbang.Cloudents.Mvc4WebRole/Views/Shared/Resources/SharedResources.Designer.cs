@@ -412,6 +412,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group boxes.
+        /// </summary>
+        public static string GroupBoxes {
+            get {
+                return ResourceManager.GetString("GroupBoxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Help {
