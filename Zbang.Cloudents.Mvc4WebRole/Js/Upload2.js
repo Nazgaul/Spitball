@@ -79,17 +79,6 @@
         $fAddLink.submit(function (e) {
             e.preventDefault();
 
-            var $url = $('#Url'),
-                value = $url.val();
-            if (value.slice(-1) !== '/') {
-                value += '/';
-            }
-
-            if (document.querySelector('input[value="' + value + '"]')) {
-                cd.displayErrors($fAddLink, 'Link already exists');
-                return;
-            }
-
             /// <summary></summary>            
             var $form = $(this);
             if (!$form.valid || $form.valid()) {
