@@ -168,7 +168,7 @@ textarea:focus {
 body {
   font-size: 13px;
   /*-webkit-backface-visibility: hidden;*/
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', Arial;
   /*rtl*/
 }
 body,
