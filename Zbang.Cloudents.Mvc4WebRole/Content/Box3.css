@@ -755,6 +755,9 @@
 .boxItemList.sponsored .boxItem:first-child {
   position: relative;
 }
+.boxItemList.sponsored .boxItem:first-child .boxLink {
+  padding-top: 192px;
+}
 .boxItemList.sponsored .boxItem:first-child .boxLink:after {
   content: '';
   display: inline-block;
@@ -772,6 +775,8 @@
 }
 .boxItemList.sponsored .boxItem:first-child img {
   width: 100%;
+  position: absolute;
+  top: 0;
 }
 .boxItemList.sponsored .boxItem:first-child .boxItemTt {
   left: 0;
@@ -1036,6 +1041,7 @@
   top: 100%;
   bottom: auto;
   margin-top: 10px;
+  /*diff rtl*/
 }
 .boxItemTt.noPreview {
   height: 107px;

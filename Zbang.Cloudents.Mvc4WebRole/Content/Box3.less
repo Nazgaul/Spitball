@@ -803,16 +803,18 @@
         .boxItem:first-child
         {
             position: relative;
-            .boxLink:after
-            {
-                .pseudo;
-                position: absolute;
-                margin: auto;
-                left:0;right:0;
-                top:50px;
-                width: 81px;
-                height: 81px;
-                background: @boxSprite -75px 0 no-repeat;
+            .boxLink {
+                padding-top: 192px; //sponsored link img absolute
+                &:after {
+                    .pseudo;
+                    position: absolute;
+                    margin: auto;
+                    left:0;right:0;
+                    top:50px;
+                    width: 81px;
+                    height: 81px;
+                    background: @boxSprite -75px 0 no-repeat;
+                }
             }
             &:hover .boxLink:after
             {
@@ -820,6 +822,8 @@
             }
             img{
                 width: 100%;
+                position: absolute; //sponsored link img absolute
+                top:0; //sponsored link img absolute
             }
             .boxItemTt
             {
@@ -1086,7 +1090,7 @@
     .downArrow {
         top: 100%;
         bottom: auto;
-        margin-top: 10px;
+        margin-top: 10px; /*diff rtl*/
     }
     &.noPreview
     {

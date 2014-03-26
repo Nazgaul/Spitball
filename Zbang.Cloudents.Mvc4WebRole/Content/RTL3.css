@@ -790,6 +790,10 @@ input[type="radio"] + label:before {
   /*rtl*/
   left: auto;
 }
+.boxItemTt .downArrow {
+  margin-top: 14px;
+  /*diff rtl*/
+}
 .boxItemTt.noPreview .downArrow {
   top: 81px;
   /* diff rtl*/
