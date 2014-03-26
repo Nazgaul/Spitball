@@ -204,7 +204,7 @@
 .source .btn:before {
   content: '';
   display: block;
-  background: url(/Images/upload-sprite.png) no-repeat;
+  background: url(/Images/upload15-sprite.png) no-repeat;
   margin: 0 auto 10px;
 }
 .source .link:before {
@@ -268,7 +268,7 @@
   content: '';
   width: 130px;
   height: 113px;
-  background: url(/Images/upload-sprite.png) 0 -54px;
+  background: url(/Images/upload15-sprite.png) 0 -54px;
   display: block;
   margin: 0 auto 22px;
 }
@@ -283,7 +283,7 @@
   z-index: 100;
 }
 .uploads button {
-  background: url(/Images/upload-sprite.png) no-repeat;
+  background: url(/Images/upload15-sprite.png) no-repeat;
   vertical-align: top;
 }
 .uploads.collapsed .uploadList {

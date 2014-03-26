@@ -17,11 +17,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(inviteToCloudentsParams, "inviteParams");
 
             message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Invite");
+            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCloudents");
             message.Subject = Subject;
 
             message.Html = message.Html.Replace("{Name}", inviteToCloudentsParams.SenderName);
-          //  message.Html = message.Html.Replace("{Image}", inviteToCloudentsParams.SenderImage);
+            message.Html = message.Html.Replace("{Image}", inviteToCloudentsParams.SenderImage);
 
         }
     }
