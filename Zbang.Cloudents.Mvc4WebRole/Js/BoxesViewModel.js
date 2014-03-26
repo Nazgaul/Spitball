@@ -39,12 +39,12 @@
             return;
         }
         if (box.userType() === 'owner') {
-            return ZboxResources.ToDeleteBox;
+            return ZboxResources.SureYouWant + ' ' + ZboxResources.ToDeleteBox;
         }
         if (box.membersCount <= 2 && !box.commentCount && !box.itemCount) {
             return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
         }
-        return ZboxResources.ToLeaveGroup;
+        return ZboxResources.SureYouWant + ' ' + ZboxResources.ToLeaveGroup;
     }
 }
 
@@ -87,7 +87,7 @@
             }
             );
         });
-      
+
         cd.pubsub.subscribe('updates', function (updates) {
             var box;
 
@@ -202,7 +202,7 @@
             if (cd.register()) {
                 cd.pubsub.publish('getUpdates');
             }
-            
+
 
             self.boxes([]);
             if (!cd.firstLoad) {
@@ -246,14 +246,14 @@
             /// <param name="box" type="Box"></param>
 
             //if (!confirm(ZboxResources.SureYouWant0ThisBox.format(box.removeBoxTitle))) {
-            cd.confirm(ZboxResources.SureYouWant + ' ' + box.removeBoxConfirm,
+            cd.confirm(box.removeBoxConfirm,
                 function () {
                     analytics.trackEvent('Follow', 'Unfollow', 'Clicking on the  box "x" mark on dashboard level');
                     self.boxes.remove(box);
                     dataContext.removeBox2({
                         data: { boxUid: box.uid }
                     });
-                }, null);          
+                }, null);
         };
 
         var emptyText = '';
