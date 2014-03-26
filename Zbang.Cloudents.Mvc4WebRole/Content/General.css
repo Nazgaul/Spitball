@@ -168,7 +168,7 @@ textarea:focus {
 body {
   font-size: 13px;
   /*-webkit-backface-visibility: hidden;*/
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', Arial;
   /*rtl*/
 }
 body,
@@ -1141,7 +1141,7 @@ ul.ui-autocomplete li a {
   margin: 2px 0 0 0;
 }
 .register span.field-validation-error:last-of-type {
-  margin-top: -53px;
+  /*margin-top: -53px;*/
 }
 .genderLabel {
   font-size: 15px;

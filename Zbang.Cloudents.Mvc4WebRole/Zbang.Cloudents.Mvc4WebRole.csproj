@@ -590,7 +590,7 @@
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
     <Content Include="Content\Invite.min.css">
-      <DependentUpon>Invite.css</DependentUpon>
+      <DependentUpon>Invite.less</DependentUpon>
     </Content>
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>
@@ -644,7 +644,7 @@
       <DependentUpon>RTL3.less</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.min.css">
-      <DependentUpon>RTL3.less</DependentUpon>
+      <DependentUpon>RTL3.css</DependentUpon>
     </Content>
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
@@ -698,7 +698,7 @@
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
     <Content Include="Content\Upload.min.css">
-      <DependentUpon>Upload.less</DependentUpon>
+      <DependentUpon>Upload.css</DependentUpon>
     </Content>
     <Content Include="Content\UserPage.css">
       <DependentUpon>UserPage.less</DependentUpon>
@@ -800,7 +800,7 @@
     <Content Include="Images\trash.png" />
     <Content Include="Images\union3-sprite.png" />
     <Content Include="Images\union4-sprite.png" />
-    <Content Include="Images\upload-sprite.png" />
+    <Content Include="Images\upload15-sprite.png" />
     <Content Include="Images\user-gmail-pic.jpg" />
     <Content Include="Images\user-pic.png" />
     <Content Include="Images\user13-sprite.png" />

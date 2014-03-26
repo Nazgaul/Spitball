@@ -344,7 +344,7 @@
   content: '';
   width: 59px;
   height: 51px;
-  background: url(/Images/upload-sprite.png) -131px -116px;
+  background: url(/Images/upload15-sprite.png) -131px -116px;
   display: block;
   margin: 6px auto 10px;
 }
@@ -362,7 +362,7 @@
   content: '';
   width: 130px;
   height: 113px;
-  background: url(/Images/upload-sprite.png) 0 -54px;
+  background: url(/Images/upload15-sprite.png) 0 -54px;
   display: block;
   margin: 0 auto 22px;
 }
@@ -641,6 +641,12 @@
   margin-right: 5px;
   /*rtl*/
   vertical-align: middle;
+}
+.hoverItem.memberImg:before {
+  margin-right: 3px;
+}
+.hoverItem.commentImg:before {
+  margin-right: 4px;
 }
 .itemImg:before {
   background-position: -20px -77px;

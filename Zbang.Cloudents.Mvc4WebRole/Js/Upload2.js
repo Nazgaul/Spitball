@@ -79,17 +79,8 @@
         $fAddLink.submit(function (e) {
             e.preventDefault();
 
-            var $url = $('#Url'),
-                value = $url.val();
-            if (value.slice(-1) !== '/') {
-                value += '/';
-            }
-
-            if (document.querySelector('input[value="' + value + '"]')) {
-                cd.displayErrors($fAddLink, 'Link already exists');
-                return;
-            }
-
+            var $url = $('#Url');
+        
             /// <summary></summary>            
             var $form = $(this);
             if (!$form.valid || $form.valid()) {
@@ -111,8 +102,10 @@
 
                         trackUpload('upload link', '');
                     },
-                    error: function (data) {
+                    error: function (data,err) {
                         cd.displayErrors($fAddLink, data);
+                        finishFakeUploadError(guid);
+
                     }
                 });
             }
@@ -265,6 +258,22 @@
 
         return guid;
     }
+
+    function finishFakeUploadError(guid) {
+        //finish load bar and add red X
+        var $fileId = $('#' + guid),
+          $progressBarMaxwidth = $('.progress').width();
+
+        $fileId.find('.progress').data('percentage', 100);
+        $fileId.find('span.progressFill').width($progressBarMaxwidth * (1));
+        updateTitle(guid, 100);
+
+        $fileId.attr('data-done', 1);
+        $fileId.find('.fileError').show();
+        $fileId.find('.fileCancel').hide();
+        $fileId.find('.progress').hide();
+    }
+
     function finishFakeUpload(guid) {
         var $fileId = $('#' + guid),
             $progressBarMaxwidth = $('.progress').width();
