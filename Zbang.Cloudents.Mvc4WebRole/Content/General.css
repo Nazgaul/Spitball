@@ -1597,9 +1597,6 @@ select.inputText {
   vertical-align: top;
   margin-bottom: 20px;
 }
-.userItem:nth-child(7n) {
-  margin: 0;
-}
 .userItemImg {
   border: 1px solid #c2c2c2;
   border-radius: 3px;

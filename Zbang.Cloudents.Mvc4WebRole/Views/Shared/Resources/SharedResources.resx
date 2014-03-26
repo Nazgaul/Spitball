@@ -487,4 +487,7 @@ To help you get started tell us where you study</value>
   <data name="MiddleName" xml:space="preserve">
     <value>Middle name</value>
   </data>
+  <data name="GroupBoxes" xml:space="preserve">
+    <value>Group boxes</value>
+  </data>
 </root>
