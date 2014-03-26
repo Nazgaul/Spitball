@@ -191,10 +191,7 @@
         };
 
         //#region delete an item
-        self.deleteItem = function () {
-            if (!confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?")) {
-                return;
-            }
+        self.deleteItem = function () {            
             cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
                 cd.sessionStorageWrapper.clear();
                 dataContext.removeItem({

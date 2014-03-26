@@ -1453,7 +1453,7 @@ input[type="radio"] + label:before {
 }
 /*#endregion */
 /*#region invite */
-.emailUser {
+.emailUser.emailUser {
   padding: 4px 9px 6px 2px;
   /*rtl*/
 }
