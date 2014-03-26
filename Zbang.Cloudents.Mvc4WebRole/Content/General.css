@@ -1174,6 +1174,9 @@ ul.ui-autocomplete li a {
   /*rtl*/
   line-height: 15px;
 }
+.acceptTerms .tos {
+  display: inline-block;
+}
 .acceptTerms > a {
   color: #676767;
 }
