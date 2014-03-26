@@ -267,7 +267,7 @@ input[type="search"] {
 input[type="radio"] {
   display: none;
 }
-input[type="radio"] + label:before {
+input[type="radio"] ~ label:before {
   content: '';
   display: inline-block;
   width: 13px;
@@ -277,7 +277,7 @@ input[type="radio"] + label:before {
   margin: -2px 4px 0 0;
   /*rtl*/
 }
-input[type="radio"]:checked + label:before {
+input[type="radio"]:checked ~ label:before {
   content: '';
   background-position: -1px -1px;
 }

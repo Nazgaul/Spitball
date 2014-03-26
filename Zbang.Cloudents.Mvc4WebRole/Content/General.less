@@ -306,7 +306,7 @@ input, form, select {
 input[type="radio"]
 {
     display:none;
-    + label 
+    ~ label 
     {
         //color: #111;
         &:before 
@@ -321,10 +321,11 @@ input[type="radio"]
         }
     }
     
-    &:checked + label:before {
+    &:checked ~ label:before {
         content: '';
         background-position: -1px -1px;
     }
+    //TODO: Check this (maybe need to move this back to flag item)
     &:checked + label + .inputText {
         opacity: 1;
         .transition(opacity, .5s linear);
