@@ -111,8 +111,10 @@
 
                         trackUpload('upload link', '');
                     },
-                    error: function (data) {
+                    error: function (data,err) {
                         cd.displayErrors($fAddLink, data);
+                        finishFakeUploadError(guid);
+
                     }
                 });
             }
@@ -265,6 +267,22 @@
 
         return guid;
     }
+
+    function finishFakeUploadError(guid) {
+        //finish load bar and add red X
+        var $fileId = $('#' + guid),
+          $progressBarMaxwidth = $('.progress').width();
+
+        $fileId.find('.progress').data('percentage', 100);
+        $fileId.find('span.progressFill').width($progressBarMaxwidth * (1));
+        updateTitle(guid, 100);
+
+        $fileId.attr('data-done', 1);
+        $fileId.find('.fileError').show();
+        $fileId.find('.fileCancel').hide();
+        $fileId.find('.progress').hide();
+    }
+
     function finishFakeUpload(guid) {
         var $fileId = $('#' + guid),
             $progressBarMaxwidth = $('.progress').width();
