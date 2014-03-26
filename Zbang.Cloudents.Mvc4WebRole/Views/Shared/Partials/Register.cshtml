@@ -25,8 +25,10 @@
     @Html.ValidationMessageFor(model => model.Password, null)
     @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder= LogOnResources.Password })
    
+    @Html.ValidationMessageFor(m=>m.IsMale)
     @Html.RadioButtonFor(model => model.IsMale, true, new { id = "maleRadio" })
     <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
+    
     
     @Html.RadioButtonFor(model => model.IsMale, false, new { id = "femaleRadio" })
     <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>

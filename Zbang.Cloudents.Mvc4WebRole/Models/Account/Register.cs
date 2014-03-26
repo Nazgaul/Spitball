@@ -43,11 +43,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public string Password { get; set; }
 
 
-        public bool Sex { get; set; }
 
 
         [Required]
-        public bool IsMale { get; set; }
+        public bool? IsMale { get; set; }
         //[DataType(DataType.Password)]
         //[Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FirstConfirm")]
         //[Display(ResourceType = typeof(RegisterResources), Name = "ConfirmPassword")]
