@@ -79,6 +79,8 @@
         $fAddLink.submit(function (e) {
             e.preventDefault();
 
+            var $url = $('#Url');
+        
             /// <summary></summary>            
             var $form = $(this);
             if (!$form.valid || $form.valid()) {
