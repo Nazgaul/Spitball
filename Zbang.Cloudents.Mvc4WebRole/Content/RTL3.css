@@ -2139,6 +2139,10 @@ input[type="radio"] + label:before {
   margin: -2px 16px 0 0;
   /*rtl*/
 }
+.searchPage .userItem {
+  margin: 0 0 0 35px;
+  /*rtl*/
+}
 .sTabs.sTab2 ~ .upArrow:before {
   right: 75px;
   /* diff rtl*/

@@ -114,7 +114,7 @@
   display: inline-block;
   width: 40px;
   height: 32px;
-  background: url(/Images/common15-sprite.png?v=1) -241px -56px no-repeat;
+  background: url(/Images/common15-sprite.png) -241px -56px no-repeat;
   vertical-align: middle;
   float: left;
   /*rtl*/
@@ -184,6 +184,13 @@
   margin: -2px 0 0 16px;
   /*rtl*/
   vertical-align: top;
+}
+.searchPage .userItem {
+  margin-right: 35px;
+  /*rtl*/
+}
+.searchPage .userItem:nth-child(9n) {
+  margin: 0;
 }
 .sTabs {
   margin: 30px 0 32px;
