@@ -267,7 +267,7 @@ input[type="search"] {
 input[type="radio"] {
   display: none;
 }
-input[type="radio"] + label:before {
+input[type="radio"] ~ label:before {
   content: '';
   display: inline-block;
   width: 13px;
@@ -277,7 +277,7 @@ input[type="radio"] + label:before {
   margin: -2px 4px 0 0;
   /*rtl*/
 }
-input[type="radio"]:checked + label:before {
+input[type="radio"]:checked ~ label:before {
   content: '';
   background-position: -1px -1px;
 }
@@ -1121,6 +1121,7 @@ ul.ui-autocomplete li a {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  height: 34px;
 }
 .signIn .btn1,
 .register .btn1 {
@@ -1130,7 +1131,6 @@ ul.ui-autocomplete li a {
 }
 .register .inputText {
   margin: 22px 0 0 0;
-  height: 34px;
 }
 .register .firstName {
   width: 100%;
@@ -1596,9 +1596,6 @@ select.inputText {
   width: 76px;
   vertical-align: top;
   margin-bottom: 20px;
-}
-.userItem:nth-child(7n) {
-  margin: 0;
 }
 .userItemImg {
   border: 1px solid #c2c2c2;

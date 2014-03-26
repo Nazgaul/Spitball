@@ -72,15 +72,6 @@
   padding: 0 8px 0 4px;
   /*rtl*/
 }
-/*#region flag Item */
-input[type="radio"] {
-  display: none;
-}
-input[type="radio"] + label:before {
-  margin: -2px 0 0 4px;
-  /*rtl*/
-}
-/*#endregion */
 /*#region box settings and members */
 .boxSettings .inviteBtn:before {
   margin: 0 0 0 5px;
@@ -1453,7 +1444,7 @@ input[type="radio"] + label:before {
 }
 /*#endregion */
 /*#region invite */
-.emailUser {
+.emailUser.emailUser {
   padding: 4px 9px 6px 2px;
   /*rtl*/
 }
@@ -1602,15 +1593,8 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .printDD.printDD {
-  left: 53px;
+  left: 19px;
   /*diff rtl*/
-  /*.iconTxt{
-        &:before
-        {
-            left: 53px; //rtl
-            right: auto;
-        }
-    }*/
 }
 .fullscreen,
 .commentBtn,
@@ -2137,6 +2121,10 @@ input[type="radio"] + label:before {
 }
 .searchPage .views {
   margin: -2px 16px 0 0;
+  /*rtl*/
+}
+.searchPage .userItem {
+  margin: 0 0 0 35px;
   /*rtl*/
 }
 .sTabs.sTab2 ~ .upArrow:before {

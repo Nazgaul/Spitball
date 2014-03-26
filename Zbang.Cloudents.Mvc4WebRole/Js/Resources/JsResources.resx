@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="April" xml:space="preserve">
-    <value>April</value>
+    <value>Apr</value>
   </data>
   <data name="August" xml:space="preserve">
     <value>August</value>
@@ -130,7 +130,7 @@
     <value>Dashboard</value>
   </data>
   <data name="December" xml:space="preserve">
-    <value>December</value>
+    <value>Dec</value>
   </data>
   <data name="DeleteCourse" xml:space="preserve">
     <value>Deleting this course will delete all its content including files and Q&amp;A. Are you sure you would like to delete this course?</value>
@@ -145,19 +145,19 @@
     <value>I shared</value>
   </data>
   <data name="January" xml:space="preserve">
-    <value>January</value>
+    <value>Jan</value>
   </data>
   <data name="July" xml:space="preserve">
-    <value>July</value>
+    <value>Jul</value>
   </data>
   <data name="June" xml:space="preserve">
-    <value>June</value>
+    <value>Jun</value>
   </data>
   <data name="JustNow" xml:space="preserve">
     <value>Just now</value>
   </data>
   <data name="March" xml:space="preserve">
-    <value>March</value>
+    <value>Mar</value>
   </data>
   <data name="May" xml:space="preserve">
     <value>May</value>
@@ -166,10 +166,10 @@
     <value>Member did not join any courses</value>
   </data>
   <data name="November" xml:space="preserve">
-    <value>November</value>
+    <value>Nov</value>
   </data>
   <data name="October" xml:space="preserve">
-    <value>October</value>
+    <value>Oct</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
     <value>on Cloudents</value>
@@ -178,7 +178,7 @@
     <value>Send a direct message</value>
   </data>
   <data name="September" xml:space="preserve">
-    <value>September</value>
+    <value>Sept</value>
   </data>
   <data name="ShareBy" xml:space="preserve">
     <value>Share by name or email</value>

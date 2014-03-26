@@ -38,6 +38,9 @@
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
+.userPage .userItem:nth-child(7n) {
+  margin: 0;
+}
 /*#region user page aside */
 .upSidebar {
   width: 227px;

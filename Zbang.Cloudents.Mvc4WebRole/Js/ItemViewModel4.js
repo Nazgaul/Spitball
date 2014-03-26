@@ -11,7 +11,7 @@
         itemLoad: 'item_load', itemClear: 'itemclear', perm: 'perm', imagesQuery: 'img.imageContent', rated: 'rated',
         title: '{0} | {1}.{2} | Cloudents', divWrapper: 'divWrapper', checked: 'checked', fetchRate: 'fetchrate',
         flagItemDialog: 'flagItemDialog', fullscreen: 'fulscrn', submit: ':submit', thirdWindowHeight: $(window).height() / 3,
-        firstChild: ':first-child', lastChild: ':last-child', annotation: 'annotation'
+        firstChild: ':first-child', lastChild: ':last-child', annotation: 'annotation',video : 'video'
     },
     eById = document.getElementById.bind(document);
 
@@ -191,10 +191,7 @@
         };
 
         //#region delete an item
-        self.deleteItem = function () {
-            if (!confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?")) {
-                return;
-            }
+        self.deleteItem = function () {            
             cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
                 cd.sessionStorageWrapper.clear();
                 dataContext.removeItem({
@@ -471,7 +468,7 @@
                             });
                         });
 
-                    var images = $previewWrapper.find(consts.imagesQuery);
+                    var images = $previewWrapper.find('img.imageContent,video');
 
                     var newImages = $previewWrapper.find('img[data-new="true"]');
 
@@ -1295,6 +1292,11 @@
                 var index = annotationList.indexOf(annotation);
                 annotationList.splice(index, 1);
                 reProcessAnnotation(commentShow);
+                if (!annotationList.length) {
+                    $commentsNumber.hide();
+                }
+                $commentsNumber.text(annotationList.length).show();
+
                 dataContext.deleteAnnotation({
                     data: { CommentId: id }
                 });

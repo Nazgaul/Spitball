@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
 
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
         public bool? IsMale { get; set; }
         //[DataType(DataType.Password)]
         //[Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FirstConfirm")]

@@ -306,7 +306,7 @@ input, form, select {
 input[type="radio"]
 {
     display:none;
-    + label 
+    ~ label 
     {
         //color: #111;
         &:before 
@@ -321,10 +321,11 @@ input[type="radio"]
         }
     }
     
-    &:checked + label:before {
+    &:checked ~ label:before {
         content: '';
         background-position: -1px -1px;
     }
+    //TODO: Check this (maybe need to move this back to flag item)
     &:checked + label + .inputText {
         opacity: 1;
         .transition(opacity, .5s linear);
@@ -1198,6 +1199,7 @@ ul.ui-autocomplete {
         width: 100%;
         margin-bottom: 20px;
         .boxSizing;
+        height: 34px;
     }
 
     .btn1 {
@@ -1209,8 +1211,7 @@ ul.ui-autocomplete {
 
 .register {
     .inputText {
-        margin: 22px 0 0 0; //override
-        height: 34px;
+        margin: 22px 0 0 0; //override 
     }
     .firstName
     {
@@ -1718,10 +1719,6 @@ select.inputText {
     width: 76px;
     vertical-align: top; // to make Safari happy
     margin-bottom: 20px;
-
-    &:nth-child(7n) {
-        margin: 0;
-    }
 }
 
 .userItemImg {

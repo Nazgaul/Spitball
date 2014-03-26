@@ -80,20 +80,6 @@
     }
 }
 
-/*#region flag Item */
-
-input[type="radio"] {
-    display: none;
-
-    + label {
-        &:before {
-            margin: -2px 0 0 4px; /*rtl*/
-        }
-    }
-}
-/*#endregion */
-
-
 /*#region box settings and members */
 
 .boxSettings {
@@ -1172,7 +1158,7 @@ input[type="radio"] {
 /*#endregion */
 
 /*#region invite */
-.emailUser {
+.emailUser.emailUser {
     padding: 4px 9px 6px 2px; /*rtl*/
 }
 
@@ -1331,14 +1317,7 @@ input[type="radio"] {
     }
 }
 .printDD.printDD {
-    left: 53px; /*diff rtl*/
-    /*.iconTxt{
-        &:before
-        {
-            left: 53px; //rtl
-            right: auto;
-        }
-    }*/
+    left: 19px; /*diff rtl*/
 }
 
 .fullscreen, .commentBtn, .itemDownload, .itemPrint {
@@ -1899,6 +1878,9 @@ input[type="radio"] {
     }
     .views{
         margin: -2px 16px 0 0; /*rtl*/
+    }
+    .userItem {
+        margin: 0 0 0 35px; /*rtl*/
     }
 }
 .sTabs {

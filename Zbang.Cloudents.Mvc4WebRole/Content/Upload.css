@@ -428,7 +428,7 @@ button.fileError {
   margin-top: -8px;
   margin-bottom: 12px;
 }
-.emailUser {
+.emailUser.emailUser {
   padding: 4px 2px 6px 9px;
   /*rtl*/
   margin-bottom: 6px;
@@ -445,7 +445,7 @@ button.fileError {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.emailUser .inputLabel {
+.emailUser.emailUser .inputLabel {
   padding-top: 2px;
   vertical-align: top;
   margin: 0;
@@ -490,7 +490,7 @@ button.fileError {
   background: transparent;
   display: inline-block;
   width: 100%;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 .inviteInput:-moz-placeholder {
   color: #919191;

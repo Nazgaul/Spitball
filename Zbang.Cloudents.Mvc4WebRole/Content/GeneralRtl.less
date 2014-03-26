@@ -249,6 +249,15 @@ body
 }
 /*#endregion */ 
 
+/*#region radio input */
+input[type="radio"] {
+    + label {
+        &:before {
+            margin: -2px 0 0 4px; /*rtl*/
+        }
+    }
+}
+/*#endregion */
 
 /*#region checkbox */
 .checkbox {
