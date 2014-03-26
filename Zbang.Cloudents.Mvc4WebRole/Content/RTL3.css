@@ -1602,7 +1602,7 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .printDD.printDD {
-  left: 53px;
+  left: 19px;
   /*diff rtl*/
   /*.iconTxt{
         &:before
