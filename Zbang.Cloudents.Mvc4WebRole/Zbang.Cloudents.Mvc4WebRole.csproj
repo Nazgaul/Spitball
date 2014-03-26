@@ -590,7 +590,7 @@
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
     <Content Include="Content\Invite.min.css">
-      <DependentUpon>Invite.css</DependentUpon>
+      <DependentUpon>Invite.less</DependentUpon>
     </Content>
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>

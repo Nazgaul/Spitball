@@ -1842,6 +1842,10 @@ input[type="radio"] + label:before {
   margin: 3px 0 0 30px;
   /*diff rtl*/
 }
+.invTab {
+  height: 50px;
+  /*diff rtl*/
+}
 .invContentTop .inputText {
   left: 0;
   /*rtl*/
