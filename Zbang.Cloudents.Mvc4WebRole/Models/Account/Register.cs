@@ -37,6 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
+        //[System.ComponentModel.DataAnnotations.MinLength(6, ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
@@ -56,9 +57,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            
+
             var x = BindModel(controllerContext, bindingContext);
-            
+
             return x;
         }
     }

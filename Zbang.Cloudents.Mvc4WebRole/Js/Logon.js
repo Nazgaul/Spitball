@@ -57,9 +57,9 @@
         if (!(!$form.valid || $form.valid())) {
             return;
         }
-
+        var c = 'disabled';
         var d = $form.serializeArray();
-        $submit.attr('disabled', 'disabled');
+        $submit.attr(c, c);
         $.ajax({
             url: $form.prop('action'),
             data: d,
@@ -71,10 +71,10 @@
                 }
                 cd.resetErrors($form);
                 cd.displayErrors($form, data.Payload);
-                $submit.removeAttr('disabled');
+                $submit.removeAttr(c);
             },
             error: function () {
-                $submit.removeAttr('disabled');
+                $submit.removeAttr(c);
                 cd.notification('Something went wrong please try again');
             }
         });
