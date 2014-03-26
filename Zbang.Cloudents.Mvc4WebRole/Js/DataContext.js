@@ -275,7 +275,7 @@
                         success(data.Payload || data.payload, ajaxCache);
                     } else {
                         if (typeof options.error === 'function') {
-                            options.error(data.Payload);
+                            options.error(data.Payload || data.payload);
                         }
                     }
                 }

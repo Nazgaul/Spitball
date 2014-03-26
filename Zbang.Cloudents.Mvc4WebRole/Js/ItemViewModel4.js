@@ -36,7 +36,7 @@
                         $otakimP = $('#Otakim_P'), $itemFS = $('#item_FS'), $itemCL = $('#item_CL'), $itemSettings = $('#itemSettings'),
                         $itemRenameSave = $('#itemRenameSave'), $itemName = $('#itemName'), $itemRename = $('#item_rename'),
                         $itemRenameCancel = $('#itemRenameCancel'), $rateBubble = $('#rateBubble'), $rateBtn = $('#rateBtn'),
-                        $ratePopup = $('#ratePopup'), $commentsNumber = $('.commentsNumber'),
+                        $ratePopup = $('#ratePopup'), $commentsNumber = $('.commentsNumber'),$itemMsg = $('#item_msg'),
 
         //data
         isLtr = $('html').css('direction') === 'ltr', itemType, userType, blobName, annotationList = [],
@@ -757,6 +757,10 @@
                 $itemCL.click(function (e) {
                     e.preventDefault();
                     this.select();
+                });
+
+                $itemMsg.click(function () {
+                    cd.pubsub.publish('message');
                 });
             }
             function settingsEvents() {

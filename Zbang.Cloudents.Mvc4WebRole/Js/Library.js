@@ -160,7 +160,7 @@
                 window.scrollTo(0, 0);
             }
             catch(err) {
-                console.log(err.messsage);
+                console.log(err.message);
             }
             self.elements([]);
             $('#lib_NodeName').show().next('input').remove();
