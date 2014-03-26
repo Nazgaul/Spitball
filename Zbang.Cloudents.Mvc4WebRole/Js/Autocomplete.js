@@ -125,6 +125,7 @@
                         privateMethods.addEmail({ id: inputValue, name: inputValue }, cd.validateEmail(inputValue));
                     }
                 }
+                privateMethods.calculateInputWidth();
             } else {
 
                 contacts = privateMethods.searchItems(inputValue);
@@ -153,6 +154,7 @@
             var display = listItem.getElementsByClassName(eName)[0].textContent, id = listItem.getElementsByClassName(eAddress)[0].textContent;
 
             privateMethods.addEmail({ id: id, name: display }, true);
+            privateMethods.calculateInputWidth();
         },
         appendContacts: function (contacts) {
 
