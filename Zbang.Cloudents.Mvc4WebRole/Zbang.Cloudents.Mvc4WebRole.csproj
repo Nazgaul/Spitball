@@ -644,7 +644,7 @@
       <DependentUpon>RTL3.less</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.min.css">
-      <DependentUpon>RTL3.less</DependentUpon>
+      <DependentUpon>RTL3.css</DependentUpon>
     </Content>
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>

@@ -642,6 +642,12 @@
   /*rtl*/
   vertical-align: middle;
 }
+.hoverItem.memberImg:before {
+  margin-right: 3px;
+}
+.hoverItem.commentImg:before {
+  margin-right: 4px;
+}
 .itemImg:before {
   background-position: -20px -77px;
   width: 8px;

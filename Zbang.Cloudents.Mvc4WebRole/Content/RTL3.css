@@ -241,6 +241,12 @@ input[type="radio"] + label:before {
   margin: 0 0 0 5px;
   /*rtl*/
 }
+.hoverItem.memberImg:before {
+  margin: 0 0 0 3px;
+}
+.hoverItem.commentImg:before {
+  margin: 0 0 0 4px;
+}
 .boxWpr {
   margin: 30px 84px 0 7px;
   /*rtl*/

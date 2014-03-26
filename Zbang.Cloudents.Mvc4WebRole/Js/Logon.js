@@ -11,12 +11,15 @@
         $connectPopup = $(eById('connect')), $connectForm = $(eById('login'));
     
     //#region Show and Hide popups
-    $(document).on('click', '.addConnect', function () {
+    $(document).on('click', '.addConnect', function (e) {
+        e.preventDefault();
         resetPopupView();
         $connectPopup.addClass('connect');
         focusOnElement($connectPopup);
     });
-    $(document).on('click', '.addRegister', function () {
+    $(document).on('click', '.addRegister', function (e) {
+
+        e.preventDefault();
         resetPopupView();
         $registerPopup.addClass('register');
         focusOnElement($registerPopup);
