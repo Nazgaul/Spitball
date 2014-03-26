@@ -42,6 +42,7 @@
                     },
                     always: function () {
                         input.removeAttr('disabled');
+                        cd.autocomplete2('clear');
                     }
                 });
             }
