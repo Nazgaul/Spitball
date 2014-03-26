@@ -164,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     user.UniversityId,
                     user.UniversityWrapperId));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                return Json(new JsonResponse(true, new { isnew = isNew }));
+                return Json(new JsonResponse(true, new { isnew = isNew, url= Url.Action("Index","Library") }));
             }
             catch (ArgumentException)
             {
@@ -207,8 +207,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 result.UniversityId,
                                 result.UniversityWrapperId));
                         TempData[UserProfile.UserDetail] = new UserDetailDto(result);
-                        //  var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
-                        return Json(new JsonResponse(true/*, url*/));
+                        var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
+                        return Json(new JsonResponse(true, url));
                     }
                     catch (UserNotFoundException)
                     {
@@ -287,7 +287,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
-                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName, model.Sex);
+                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName, model.IsMale.Value);
                     var result = m_ZboxWriteService.CreateUser(command);
 
                     m_FormsAuthenticationService.SignIn(result.User.Id, false,

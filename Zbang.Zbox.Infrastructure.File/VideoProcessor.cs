@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var value = string.Empty;
             if (!metaData.TryGetValue(MetaDataConsts.VideoStatus, out value))
             {
-                return new PreviewResult { ViewName = "MediaLoading" };
+                return new PreviewResult { ViewName = "MediaLoading"  };
                 //return new PreviewResult(ContentNotReady);
             }
             var url = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 600);
