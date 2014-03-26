@@ -19,7 +19,7 @@
     @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 12, @placeholder= SharedResources.Email, type="email" })
 
     @Html.ValidationMessageFor(model => model.ConfirmEmail, null)
-    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 13, @placeholder = @RegisterResources.VerifyEmail, type = "email" })
+    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 13, @placeholder = RegisterResources.VerifyEmail, type = "email" })
 
     
     @Html.ValidationMessageFor(model => model.Password, null)
