@@ -4,13 +4,11 @@
         return;
     }
 
-    var notification = function (msg) {
-        cd.pubsub.publish('clearTooltip');
+    var notification = function (msg) {        
         alert(msg);
     };
 
-    var confirm = function (msg, trueCallback, falseCallback) {
-        cd.pubsub.publish('clearTooltip');
+    var confirm = function (msg, trueCallback, falseCallback) {        
         if (trueCallback && !$.isFunction(trueCallback)) {
             throw 'trueCallback should be function';
         }
@@ -75,12 +73,12 @@
         }
         if ($.isArray(errors)) {
             for (var i = 0; i < errors.length; i++) {
-                var label = $form.find($('label[for=' + errors[i].Key + ']'));
+                var label = $form.find('label[for=' + errors[i].Key + ']').first();
                 if (label.length) {
                     generateFieldError(label, errors[i].Value[0]);
                     continue;
                 }
-                var input = $form.find($('input[name=' + errors[i].Key + ']'));
+                var input = $form.find('input[name=' + errors[i].Key + ']').first();
                 if (input.length) {
                     generateFieldError(input, errors[i].Value[0]);
                     continue;
