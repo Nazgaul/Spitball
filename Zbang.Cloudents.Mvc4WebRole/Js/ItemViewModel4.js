@@ -11,7 +11,7 @@
         itemLoad: 'item_load', itemClear: 'itemclear', perm: 'perm', imagesQuery: 'img.imageContent', rated: 'rated',
         title: '{0} | {1}.{2} | Cloudents', divWrapper: 'divWrapper', checked: 'checked', fetchRate: 'fetchrate',
         flagItemDialog: 'flagItemDialog', fullscreen: 'fulscrn', submit: ':submit', thirdWindowHeight: $(window).height() / 3,
-        firstChild: ':first-child', lastChild: ':last-child', annotation: 'annotation'
+        firstChild: ':first-child', lastChild: ':last-child', annotation: 'annotation',video : 'video'
     },
     eById = document.getElementById.bind(document);
 
@@ -471,7 +471,7 @@
                             });
                         });
 
-                    var images = $previewWrapper.find(consts.imagesQuery);
+                    var images = $previewWrapper.find('img.imageContent,video');
 
                     var newImages = $previewWrapper.find('img[data-new="true"]');
 
