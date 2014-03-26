@@ -1292,6 +1292,11 @@
                 var index = annotationList.indexOf(annotation);
                 annotationList.splice(index, 1);
                 reProcessAnnotation(commentShow);
+                if (!annotationList.length) {
+                    $commentsNumber.hide();
+                }
+                $commentsNumber.text(annotationList.length).show();
+
                 dataContext.deleteAnnotation({
                     data: { CommentId: id }
                 });
