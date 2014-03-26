@@ -235,10 +235,20 @@
                     // if hoverIntent state is true, then call the mouseOut function after the specified delay
                     if (ob.hoverIntent_s == 1) { ob.hoverIntent_t = setTimeout(function () { delay(ev, ob); }, cfg.timeout); }
                 }
+
+                $(ob).off('click').on('click',function () {
+                    ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+                    hideTooltipTitle();
+                });
             };
+
+        
 
             // listen for mouseenter and mouseleave
             return this.on({ 'mouseenter.hoverIntent': handleHover, 'mouseleave.hoverIntent': handleHover }, cfg.selector);
+
+            //listen for mouseclick
+        
         };
     })(jQuery);
     //#endregion
@@ -249,14 +259,13 @@
     $document.mousemove(function (e) {
         cd.mouse.posX = e.pageX;
         cd.mouse.posY = e.pageY;
-        cd.mouse.target = e.target;
+        cd.mouse.target = e.target;        
     });
 
     //#endregion 
 
     //#region title tooltip    
-    var titleClicked = false;
-
+    
     $(document).hoverIntent({
         over: showTooltipTitle,
         out: hideTooltipTitle,
@@ -265,15 +274,9 @@
         interval: 500
     });
 
-    $document.on('click','[data-title]',function () {
-        titleClicked = true;
-    });
-
-    function showTooltipTitle(e) {
-        if (titleClicked) {
-            titleClicked = false;
-            return;
-        }
+    
+    function showTooltipTitle(e) {        
+    
         var $element = $(this),
             tooltipTitle = $element.attr('data-title'),
             $html = $(cd.attachTemplateToData('titleToolTipTempalte', { title: tooltipTitle })),

@@ -48,7 +48,7 @@
             </li>
             <!--ko foreach :{data: tabs ,afterAdd: myDrag}-->
             <li class="boxFolder" data-click="switchTab" data-bind="css: { current: isSelected }">
-                <span class="boxFolderName elps" data-bind="text: name, attr: { 'data-title': name }"></span>
+                <span class="boxFolderName elps" data-bind="text: name"></span>
                 <div data-title="menu" class="editFolder rFloat" data-click="tabMenu" data-bind="visible: isAction">
                     <ul class="editFolderMenu">
                         <li>
