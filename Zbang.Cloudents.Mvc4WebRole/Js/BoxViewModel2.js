@@ -197,7 +197,7 @@
                 uid: cd.userDetail().id
             }));
             self.userType('subscribe');
-
+            cd.pubsub.publish('removeNotification', self.boxid);
             cd.pubsub.publish('perm', self.userType());
             cd.pubsub.publish('dinvite', self.boxid);
             setTimeout(function () {                

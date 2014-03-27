@@ -28,9 +28,9 @@
             });
             _that.answerLengthText = ko.computed(function () {
                 if (_that.answers().length === 1) {
-                    return _that.answers().length + ' ' + ZboxResources.Answer;
+                    return _that.answers().length + ' ' + JsResources.Reply;
                 }
-                return _that.answers().length + ' ' + ZboxResources.Answers;
+                return _that.answers().length + ' ' + JsResources.Replies;
             });
             _that.bestAnswer = ko.computed(function () {
                 var x = ko.utils.arrayFirst(_that.answers(), function (i) {

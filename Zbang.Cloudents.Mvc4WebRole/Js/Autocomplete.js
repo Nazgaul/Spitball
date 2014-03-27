@@ -77,6 +77,9 @@
                 privateMethods.addEmail({ id: inputElementValue, name: inputElementValue }, true);
             }
         },
+        calculateContainerWidth: function (gConnectVisible) {
+            privateMethods.changeContainerWidth(false);
+        },
 
         clear: function () {
             settings[sOutputElement].style.display = 'none';

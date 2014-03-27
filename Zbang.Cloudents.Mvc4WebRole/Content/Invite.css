@@ -48,7 +48,7 @@
   border-radius: 5px;
   position: relative;
 }
-.invForm .emailUser {
+.invForm .emailUser.emailUser {
   height: 112px;
   margin-bottom: 12px;
   max-height: none;
