@@ -350,7 +350,7 @@
                 }
                 var tooltip = this.querySelector('.boxItemTt');
                 if (item.type.toLowerCase() === 'link') {
-                    $(tooltip).find('.ttDetail').remove();
+                    $(tooltip).addClass('ttLink').find('.ttDetail').remove();
                 }
 
                 $(tooltip).fadeIn(300);
