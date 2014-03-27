@@ -177,7 +177,7 @@
                 if (dateMonth < todayMonth) {
                     return date.getDate() + ' ' + months[dateMonth - 1];
                 } else if (dateMonth > todayMonth) {
-                    return date.getDate() + ' ' + months[dateMonth - 1] + ', ' + date.getFullYear();
+                    return date.getDate() + ' ' + months[dateMonth - 1] + ' ' + date.getFullYear();
                 } else {
                     return ZboxResources.DaysAgo.format(dateDifference);
                 }
