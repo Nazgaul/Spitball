@@ -6,7 +6,7 @@
     <form class="clearfix QForm" data-bind="submit: postQuestion, visible: state() > 1">
         <div class="textareaWpr">
             <img data-bind="attr: { src: userImg }" class="QAImg lFloat" alt="" width="32" height="32" />
-            <textarea name="Content" class="QTextarea" data-bind="placeholder: ''" placeholder="@IndexResources.AskStudent"></textarea>
+            <textarea name="Content" class="QTextarea" data-bind="placeholder: ''" placeholder="@IndexResources.OnYourMind"></textarea>
             <ul class="attachedList"></ul>
         </div>
         <div class="rFloat">
@@ -35,7 +35,7 @@
                         <div class="arrow upArrow"></div>
                         <img class="QAImg lFloat" data-bind="attr: { src: $root.userImg }" alt="" width="32" height="32" />
                         <div class="textareaWpr">
-                            <textarea name="Content" placeholder="@IndexResources.HaveAnswer" data-bind="placeholder: ''" class="QTextarea"></textarea>
+                            <textarea name="Content" placeholder="@SharedResources.WriteComment" data-bind="placeholder: ''" class="QTextarea"></textarea>
                             <ul class="attachedList"></ul>
                         </div>
                         <div class="rFloat">
@@ -48,7 +48,7 @@
                         <div class="arrow upArrow"  data-bind="visible: answerCount"></div>
                         <div class="answerBottom" data-click="showAllAnswers" data-bind="visible: answerCount">
                             <button type="button" class="numAnswers" data-bind="text: answerLengthText"></button>
-                            <button type="button" data-action="answer">@IndexResources.AddAnswer</button>
+                            <button type="button" data-action="answer">@IndexResources.AddReply</button>
                         </div>
                         <!-- ko with:bestAnswer -->
                         <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
@@ -130,7 +130,7 @@
                 <form data-bind="submit: $root.postAnswer" class="clearfix">
                     <img class="QAImg lFloat" data-bind="attr: { src: $root.userImg }" alt="" width="32" height="32" />
                     <div class="textareaWpr">
-                        <textarea name="Content" placeholder="@IndexResources.HaveAnswer" data-bind="placeholder: ''" class="QTextarea"></textarea>
+                        <textarea name="Content" placeholder="@SharedResources.WriteComment" data-bind="placeholder: ''" class="QTextarea"></textarea>
                         <ul class="attachedList"></ul>
                     </div>
                     <div class="rFloat">

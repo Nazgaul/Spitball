@@ -493,4 +493,7 @@ To help you get started tell us where you study</value>
   <data name="NoNotifications" xml:space="preserve">
     <value>No notifications were found</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>Replies</value>
+  </data>
 </root>
