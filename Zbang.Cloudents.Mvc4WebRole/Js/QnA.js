@@ -199,6 +199,10 @@
             $('.QA').removeClass('changeState').removeClass('flipTransition');
             $('.QForm').css('margin-bottom', '-20px');
 
+            setTimeout(function () {
+                applyScroll();
+            }, 1200);
+
             if (self.questionList().length) {
                 self.state(state.question);
                 return;
@@ -613,13 +617,12 @@
                     }
                 }
                 else {
-                    //  scroll(0,$('#Answers'));
-                    var $enterAnswer = $('.enterAnswer'), $answers = $('#Answers');
-                    if ($(window).height() < $enterAnswer.offset().top) {
-                        $enterAnswer.addClass('QAfloatButton');
-                        //$('.AWpr').css('paddingBottom',$enterAnswer.outerHeight(true) + 'px');//.height($answers.height() + $enterAnswer.outerHeight(true));
-                    }
-
+                    //  scroll(0,$('#Answers'));                   
+                        var $enterAnswer = $('.enterAnswer'), $answers = $('#Answers');
+                        if ($(window).height() < $enterAnswer.offset().top - $(window).scrollTop()) {
+                            $enterAnswer.addClass('QAfloatButton');
+                            //$('.AWpr').css('paddingBottom',$enterAnswer.outerHeight(true) + 'px');//.height($answers.height() + $enterAnswer.outerHeight(true));
+                        }
                 }
                 applyScroll();
 

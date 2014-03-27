@@ -909,7 +909,15 @@
                     var startWidth = $('.stars .full').width()
 
                     clearTimeout(ratePopupTimeout);
-                    $ratePopup.hide().removeClass('show');
+
+                    if ($ratePopup.is(':visible')) {
+                        setTimeout(function () {
+                            $ratePopup.removeClass('show');
+                        }, 500);
+                    } else {
+                        $ratePopup.hide().removeClass('show');
+                    }
+                    
 
                     if (choosedRate) {
                         return;
@@ -1292,6 +1300,11 @@
                 var index = annotationList.indexOf(annotation);
                 annotationList.splice(index, 1);
                 reProcessAnnotation(commentShow);
+                if (!annotationList.length) {
+                    $commentsNumber.hide();
+                }
+                $commentsNumber.text(annotationList.length).show();
+
                 dataContext.deleteAnnotation({
                     data: { CommentId: id }
                 });

@@ -25,6 +25,7 @@
     @Html.ValidationMessageFor(model => model.Password, null)
     @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder= LogOnResources.Password })
    <span>
+    @Html.ValidationMessageFor(m=>m.IsMale)
     @Html.RadioButtonFor(model => model.IsMale, true, new { id = "maleRadio" })
     <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
     </span>
@@ -35,7 +36,7 @@
     <div class="formBottom">
         <span class="acceptTerms">
             @RegisterResources.IAgree<!--
-         --><a target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<!--
+         --><a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices&nbsp;</a>@RegisterResources.And&nbsp;<!--
          --><a target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
         </span>
         <input class="btn1 lFloat" type="submit" tabindex=15 value="@LogOnResources.SignUp"  />

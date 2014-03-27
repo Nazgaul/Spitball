@@ -66,6 +66,7 @@
             type: 'POST',
             success: function (data) {
                 if (data.Success) {
+                    
                     window.location.reload();
                     return;
                 }
@@ -97,6 +98,10 @@
             type: 'POST',
             success: function (data) {
                 if (data.Success) {
+                    if (data.Payload) {
+                        window.location.href = data.Payload;
+                        return;
+                    }
                     window.location.reload();
                     return;
                 }
@@ -142,6 +147,10 @@
                             text = facebookText.en;
                         }
                         FB.api('/me/feed', 'post', { message: text, link: 'https://www.cloudents.com' }, function () {
+                            if (obj.url) {
+                                window.location.href = obj.url;
+                                return;
+                            }
                             window.location.reload();
                         });
                     });

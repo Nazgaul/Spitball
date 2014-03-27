@@ -7,6 +7,7 @@ using System.Data;
 using System.IO;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
@@ -18,6 +19,7 @@ namespace Zbang.Zbox.Domain
             UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
             Items = new List<Item>();
             Comments = new List<Comment>();
+            Questions = new List<Question>();
             PrivacySettings = new PrivacySettings();
         }
 
@@ -29,6 +31,10 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(user.Email);
             Owner = user;
             UserBoxRel.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
+
+            var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+            Questions.Add(new Question(user, "Created this course", this, idGenerator.GetId(), null));
+
             this.CalculateMembers();
         }
 
@@ -47,6 +53,7 @@ namespace Zbang.Zbox.Domain
         public IQueryable<Item> Items2 { get; set; }
 
         protected virtual ICollection<Comment> Comments { get; set; }
+        protected virtual ICollection<Question> Questions { get; set; }
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }

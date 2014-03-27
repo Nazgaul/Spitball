@@ -236,7 +236,7 @@
                     if (ob.hoverIntent_s == 1) { ob.hoverIntent_t = setTimeout(function () { delay(ev, ob); }, cfg.timeout); }
                 }
 
-                $(ob).off('click').on('click',function () {
+                $(ob).off('click.title').on('click.title',function () {
                     ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
                     hideTooltipTitle();
                 });
