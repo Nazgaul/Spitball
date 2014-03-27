@@ -1068,9 +1068,11 @@
 }
 .boxItemTt.ttLink {
   height: 81px;
+  /* rtl*/
 }
 .boxItemTt.ttLink .downArrow {
   top: 59px;
+  /*diff rtl*/
 }
 .boxItemTt.ttLink .ttTop {
   padding-bottom: 0;
