@@ -487,4 +487,10 @@
   <data name="MiddleName" xml:space="preserve">
     <value>Отчество</value>
   </data>
+  <data name="GroupBoxes" xml:space="preserve">
+    <value>Групповые ящики </value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>Никакие уведомления не были найдены</value>
+  </data>
 </root>

@@ -237,8 +237,10 @@
   display: table-cell;
   color: #383838;
 }
-.notifyItem .semiFont {
+.notifyItem .notifier {
   font-size: 15px;
+  max-width: 185px;
+  display: inline-block;
 }
 .notifyItem .createTime {
   margin-top: 1px;

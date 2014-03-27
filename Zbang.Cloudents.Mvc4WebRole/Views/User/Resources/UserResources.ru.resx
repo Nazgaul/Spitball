@@ -153,6 +153,9 @@
   <data name="NoQuestions" xml:space="preserve">
     <value>Нет вопросов показать</value>
   </data>
+  <data name="NotFollowing" xml:space="preserve">
+    <value>В настоящее время не следуют какие-либо курсы</value>
+  </data>
   <data name="PointsTxt1" xml:space="preserve">
     <value>15 очков - за загрузку файла</value>
   </data>

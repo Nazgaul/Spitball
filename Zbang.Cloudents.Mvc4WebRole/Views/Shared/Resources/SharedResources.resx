@@ -490,4 +490,7 @@ To help you get started tell us where you study</value>
   <data name="GroupBoxes" xml:space="preserve">
     <value>Group boxes</value>
   </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>No notifications were found</value>
+  </data>
 </root>
