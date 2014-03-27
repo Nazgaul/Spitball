@@ -153,6 +153,9 @@
   <data name="NoQuestions" xml:space="preserve">
     <value>אין שאלות להצגה</value>
   </data>
+  <data name="NotFollowing" xml:space="preserve">
+    <value>נכון לעכשיו אינך עוקב אחרי קורסים</value>
+  </data>
   <data name="PointsTxt1" xml:space="preserve">
     <value>10 נק' על  שיתוף מסמך</value>
   </data>
