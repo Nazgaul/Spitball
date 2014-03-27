@@ -197,6 +197,7 @@
 }
 .notifyEmpty {
   display: none;
+  padding-bottom: 48px;
 }
 .notifyEmpty:before {
   content: '';
@@ -204,7 +205,7 @@
   width: 99px;
   height: 99px;
   background: url(/Images/common15-sprite.png) -155px -89px no-repeat;
-  margin: 10px auto;
+  margin: 43px auto -6px auto;
 }
 .notifyList {
   background: #fff;
