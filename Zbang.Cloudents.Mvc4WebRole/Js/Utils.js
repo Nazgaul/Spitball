@@ -109,23 +109,32 @@
     //#region Set text direction
     function setElementChildrenDirection(container, element, subtree) {
         var list = container.querySelectorAll(element),
+            textAlign = $('html').css('direction') === 'ltr' ? 'ltr' : 'rtl',
             item;
         for (var i = 0, l = list.length; i < l; i++) {
             item = list[i];
-            cd.setElementDirection(item);
 
+            loopElements(item.children);
+            
             if (!subtree) {
                 continue;
             }
 
-            var sublist = item.getElementsByTagName('*');
-            for (var j = 0, jL = sublist.length; j < jL; j++) {
-                if (sublist[j].className.toLowerCase().indexOf('highlight') > -1) {
-                    continue;
-                }
-
-                cd.setElementDirection(sublist[j]);
+            loopElements(item.getElementsByTagName('*'));            
+        }
+        function loopElements(list) {
+            for (var i = 0, l = list.length; i < l; i++) {                
+                setDirection(list[i]);
             }
+        }
+
+        function setDirection(item) {
+            if (item.getAttribute('data-ignore-rtl')) {                
+                $(item).css('direction', textAlign);
+                return;
+            }
+
+            cd.setElementDirection(item);
         }
 
     }
@@ -1044,7 +1053,7 @@
 
     var highlightSearch = function (term, name, className) {
         var className = className || 'boldPart',
-            firstPart = '<span class="' + className + '">',
+            firstPart = '<span class="' + className + '" data-ignore-rtl="true">',
             lastPart = '</span>',
             boldStringLength = firstPart.length + lastPart.length;
 

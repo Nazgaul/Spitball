@@ -49,7 +49,6 @@ footer {
   top: 0;
   right: -200px;
   /*rtl*/
-
   width: 200px;
   height: 100%;
   padding: 17px 12px 16px 12px;
@@ -59,7 +58,6 @@ footer {
   transition: all, 0.5s;
   text-align: left;
   /*rtl*/
-
   font-size: 14px;
   color: #fff;
   -webkit-box-sizing: border-box;
@@ -71,19 +69,18 @@ footer {
   top: 19px;
   right: 12px;
   /*rtl*/
-
   width: 10px;
   height: 10px;
-  background: url(/Images/common15-sprite.png?v=1) -68px -15px no-repeat;
+  background: url(/Images/common15-sprite.png) -68px -15px no-repeat;
 }
 .sideBar li {
   line-height: 15px;
   display: inline-block;
   float: left;
   /*rtl*/
-
   clear: both;
   opacity: 0.35;
+  cursor: pointer;
   margin-bottom: 10px;
 }
 .sideBar li:hover {
@@ -133,18 +130,15 @@ footer {
 .headerWpr.menuOpen .headerActions {
   margin-right: 200px;
   /*rtl*/
-
 }
 .headerWpr.menuOpen .sideBar {
   right: 0;
   /*rtl*/
-
 }
 .headerSettings {
   display: inline-block;
   margin: 0 12px 0 8px;
   /*rtl*/
-
   width: 17px;
   height: 13px;
   background: url(/Images/dash13-sprite.png) -254px -28px no-repeat;
@@ -241,11 +235,9 @@ footer {
 .contactUs {
   direction: ltr;
   /*no rtl*/
-
   width: 645px;
   text-align: left;
   /*no rtl*/
-
 }
 .lastModified {
   font-size: 11px;
@@ -263,7 +255,6 @@ footer {
   background-color: #fff;
   padding: 0 4px 0 8px;
   /* rtl */
-
   height: 28px;
   color: #464646;
   border: 1px solid #c2c2c2;
@@ -279,7 +270,6 @@ footer {
   display: inline-block;
   text-align: left;
   /*rtl*/
-
 }
 .innerContent > .boldFont {
   margin-top: 40px;
@@ -354,7 +344,6 @@ footer {
 .firefox {
   padding: 0 40px 0 30px;
   /*rtl*/
-
 }
 .firefox:before {
   width: 66px;
@@ -391,7 +380,6 @@ footer {
   margin: 70px auto 0;
   text-align: left;
   /*rtl*/
-
 }
 .libEmpty.libraryChoose {
   width: 666px;
@@ -415,7 +403,6 @@ footer {
     {
         background-position: -233px -2px;
     }*/
-
 }
 .uniWpr:after {
   content: '';
@@ -426,7 +413,6 @@ footer {
   position: absolute;
   right: 9px;
   /*rtl*/
-
   top: 8px;
 }
 .uniWpr .inputText {
@@ -436,7 +422,6 @@ footer {
   font-size: 17px;
   padding: 0 30px 0 10px;
   /*rtl*/
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -445,7 +430,6 @@ footer {
   display: none;
   text-align: left;
   /*rtl*/
-
   max-height: 500px;
   width: 100%;
   border: 1px solid #c2c2c2;
@@ -473,7 +457,6 @@ footer {
   cursor: pointer;
   padding: 13px 0 13px 8px;
   /*rtl*/
-
 }
 .uniList .schoolItem:hover {
   -webkit-transition: background 0.2s;
@@ -500,7 +483,6 @@ footer {
   display: block;
   padding: 6px 5px 0 8px;
   /*rtl*/
-
   line-height: 20px;
 }
 .uniName {
@@ -518,7 +500,6 @@ footer {
   height: 11px;
   margin-right: 4px;
   /*rtl*/
-
   background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
 }
 .newUni.newUni {
@@ -571,11 +552,9 @@ footer {
   border-radius: 5px;
   margin: 59px 0 0 15px;
   /*rtl*/
-
   display: inline-block;
   padding: 17px 8px 0 69px;
   /*rtl*/
-
   background: #fff;
   position: relative;
   font-size: 15px;
@@ -586,18 +565,16 @@ footer {
   display: inline-block;
   width: 53px;
   height: 53px;
-  background: url(/Images/common15-sprite.png?v=1) -239px -1px no-repeat;
+  background: url(/Images/common15-sprite.png) -239px -1px no-repeat;
   position: absolute;
   left: 8px;
   /*rtl*/
-
   top: 7px;
 }
 .faq.staticPage {
   margin-top: -65px;
   text-align: left;
   /*rtl*/
-
   color: #383838;
   background: url(/Images/gray_jean80.png) repeat;
 }
@@ -641,7 +618,6 @@ footer {
                 border-top: 1px solid @borderColor;
                 /*max-height: 300px;
             }*/
-
 }
 .faqItem input[type=checkbox]:checked ~ .question:after {
   -moz-transform: scaleY(-1);
@@ -655,7 +631,6 @@ footer {
   font-size: 15px;
   padding: 0 18px 0 16px;
   /*rtl*/
-
   position: relative;
   color: #0371c8;
   cursor: pointer;
@@ -671,23 +646,18 @@ footer {
   position: absolute;
   right: 18px;
   /*rtl*/
-
   top: 25px;
-  background: url(/Images/common15-sprite.png?v=1) -98px -49px no-repeat;
+  background: url(/Images/common15-sprite.png) -98px -49px no-repeat;
 }
 .answer {
   padding: 0 18px 0 16px;
   /*rtl*/
-
   display: none;
   padding-top: 25px;
   padding-bottom: 30px;
   border-top: 1px solid #c2c2c2;
   /*max-height:0;*/
-
   /*overflow: hidden;*/
-
   /*.transition(all 0.4s);*/
-
 }
 /*#endregion */

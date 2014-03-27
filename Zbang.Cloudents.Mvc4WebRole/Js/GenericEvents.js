@@ -110,8 +110,9 @@
     controlChars += '\u2000-\u200D';
 
     //Start Regular Expression magic
-    var reRTL = new RegExp('[' + rtlChars + ']', 'g');
-    var reNotRTL = new RegExp('[^' + rtlChars + controlChars + ']', 'g');
+    var reRTL = new RegExp('[' + rtlChars + ']', 'g'),
+        reNotRTL = new RegExp('[^' + rtlChars + controlChars + ']', 'g'),
+        textAlign = $('html').css('direction') === 'ltr' ? 'left' : 'right';
 
     function checkRTLDirection(value) {
 
@@ -147,9 +148,9 @@
 
     var setElementDirection = function (element) {
         if (checkRTLDirection(element.textContent)) {
-            $(element).css('direction', 'rtl');
+            $(element).css({ direction: 'rtl', 'text-align': textAlign });
         } else {
-            $(element).css('direction', 'ltr');
+            $(element).css({'direction': 'ltr', 'text-align': textAlign });
         }
     }
 
