@@ -83,8 +83,9 @@
 
     $registerForm.submit(function (e) {
         e.preventDefault();
-
+        
         var $form = $(this), $submit = $form.find(':submit');
+        $form.validate().settings.ignore = ''; //we to this because hidden fields are not validated
         if (!(!$form.valid || $form.valid())) {
             return;
         }
