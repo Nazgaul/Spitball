@@ -123,6 +123,9 @@
   <data name="answers" xml:space="preserve">
     <value>answers</value>
   </data>
+  <data name="InviteSubject" xml:space="preserve">
+    <value>Invitation to {0}</value>
+  </data>
   <data name="item" xml:space="preserve">
     <value>item</value>
   </data>
