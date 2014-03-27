@@ -52,7 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             IFormsAuthenticationService formsAuthenticationService,
             Lazy<IUserProfile> userProfile,
             Lazy<IQueueProvider> queueProvider,
-            //Lazy<IEmailVerfication> emailVerification,
             Lazy<IEncryptObject> encryptObject)
             : base(zboxWriteService, zboxReadService,
             formsAuthenticationService)
@@ -61,7 +60,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_FacebookService = facebookService;
             m_UserProfile = userProfile;
             m_QueueProvider = queueProvider;
-            //m_EmailVerification = emailVerification;
             m_EncryptObject = encryptObject;
         }
 
