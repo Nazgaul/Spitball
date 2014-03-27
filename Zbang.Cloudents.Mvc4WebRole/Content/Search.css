@@ -277,20 +277,17 @@
 .sTabContent.sLoading.sLoading .splitHR {
   display: none;
 }
-.box.sCourseItem,
-.sMembersItem {
+.box.sCourseItem {
   width: 473px;
   display: inline-block;
   float: none;
   margin: 0 0 20px 0;
 }
-.box.sCourseItem:nth-child(odd),
-.sMembersItem:nth-child(odd) {
+.box.sCourseItem:nth-child(odd) {
   margin: 0 20px 20px 0;
   /*rtl*/
 }
-.box.sCourseItem:hover,
-.sMembersItem:hover {
+.box.sCourseItem:hover {
   background: #f9f9f9;
 }
 .box.sCourseItem {
@@ -318,24 +315,6 @@
   top: 15px;
   font-size: 13px;
   color: #676767;
-}
-.sMembersItem {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 6px;
-  position: relative;
-}
-.sMembersItem:hover {
-  padding: 6px 40px 6px 6px;
-  /*rtl*/
-}
-.sMembersItem:hover .inviteUserBtn {
-  display: block;
-  position: absolute;
-  right: 10px;
-  /*rtl*/
-  top: 25px;
 }
 .sMemberName {
   margin: 26px 0 0 104px;
