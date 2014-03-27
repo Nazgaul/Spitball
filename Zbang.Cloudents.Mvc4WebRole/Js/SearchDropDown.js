@@ -157,7 +157,7 @@
             cd.historyManager.remove();
             formSubmitted = true;
             pubsub.publish('searchclear');
-            pubsub.publish('nav', '/search/?q=' + input.value + '&r=searchdd');
+            pubsub.publish('nav', '/search/?q=' + input.value);// + '&r=searchdd');
         };
 
 
