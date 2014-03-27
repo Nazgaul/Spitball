@@ -798,6 +798,17 @@
 .boxItemTt.noPreview .ttPreview {
   display: none;
 }
+.boxItemTt.ttLink {
+  height: 83px;
+  /*diff rtl*/
+}
+.boxItemTt.ttLink .downArrow {
+  top: 57px;
+  /*diff rtl*/
+}
+.boxItemTt.ttLink .ttTop {
+  padding-bottom: 0;
+}
 .boxItemTt .ttTop > .ttDetail:before {
   margin: 0 20px 0 4px;
   /*rtl*/
