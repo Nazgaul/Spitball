@@ -24,31 +24,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
         [RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
-        [Remote("CheckEmail","Account",HttpMethod="Post",ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
+        //[Remote("CheckEmail","Account",HttpMethod="Post",ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
         [Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
         public string NewEmail { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
         //the new version doesnt get the resouce
-        //[System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
+        [System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
         public string ConfirmEmail { get; set; }
 
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
+        //[System.ComponentModel.DataAnnotations.MinLength(6, ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
 
 
-<<<<<<< HEAD
-        public bool Sex { get; set; }
 
-=======
+
+<<<<<<< HEAD
         [Required]
+        public bool? IsMale { get; set; }
+=======
+        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
         public bool IsMale { get; set; }
->>>>>>> 1b30f06a52fb7feb4939db526272e07d8fe9b32d
+>>>>>>> 5dd8323a157d5606a5b2295414ee8195b9c65066
         //[DataType(DataType.Password)]
         //[Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FirstConfirm")]
         //[Display(ResourceType = typeof(RegisterResources), Name = "ConfirmPassword")]
@@ -58,9 +61,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            
+
             var x = BindModel(controllerContext, bindingContext);
-            
+
             return x;
         }
     }
