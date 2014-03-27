@@ -8,6 +8,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
 {
     public class AnswerDto
     {
+        private DateTime m_Date;
         public AnswerDto()
         {
             Files = new List<ItemDto>();
@@ -22,7 +23,12 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
         public bool Answer { get; set; }
         public int Rating { get; set; }
         public bool IRate { get; set; }
-        public DateTime CreationTime { get; set; }
+        public DateTime CreationTime { get { return m_Date; }
+            set
+            {
+                m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+            }
+        }
 
         public List<ItemDto> Files { get; set; }
 
