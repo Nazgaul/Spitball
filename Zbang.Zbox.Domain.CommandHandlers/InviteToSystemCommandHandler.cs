@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var invite = new InviteToCloudents(m_IdGenerator.GetId(), sender, recepientUser);
                 m_InviteToCloudents.Save(invite);
 
-                m_QueueProvider.InsertMessageToMailNew(new InviteToCloudentsData(sender.Name, sender.Image, recepientUser.Email, sender.Culture));
+                m_QueueProvider.InsertMessageToMailNew(new InviteToCloudentsData(sender.Name, sender.Image, recepientUser.Email, sender.Culture, sender.Email));
             }
         }
 

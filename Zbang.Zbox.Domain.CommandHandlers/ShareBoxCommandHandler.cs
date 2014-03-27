@@ -90,7 +90,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 //var inviteUrl = string.Format(UrlConsts.BoxUrl, box.Id);
                 m_QueueProvider.InsertMessageToMailNew(new InviteMailData(sender.Name, box.Name,
                     inviteUrl,
-                    recepientUser.Email, recepientUser.Culture, sender.Image));
+                    recepientUser.Email, recepientUser.Culture, sender.Image, sender.Email));
             }
         }
 

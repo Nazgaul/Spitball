@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public MailParameters(CultureInfo culture)
             : this(culture, DefaultEmail, DefaultSenderName)
         {
-            
+
         }
         public MailParameters(CultureInfo culture, string senderEmail, string senderName)
         {
@@ -62,6 +62,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
             SenderName = senderName;
             SenderImage = senderImage;
         }
+
+        public InvitationToCloudentsMailParams(string senderName, string senderImage, CultureInfo culture, string senderEmail)
+            : base(culture, senderEmail, senderName)
+        {
+            SenderName = senderName;
+            SenderImage = senderImage;
+        }
+        
         public string SenderName { get; private set; }
         public string SenderImage { get; private set; }
 
@@ -118,6 +126,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         public InviteMailParams(string invitor, string boxname, string boxurl, string invitorImage, CultureInfo culture)
             : base(culture)
+        {
+            Invitor = invitor;
+            BoxName = boxname;
+            BoxUrl = boxurl;
+            InvitorImage = invitorImage;
+        }
+        public InviteMailParams(string invitor, string boxname, string boxurl, string invitorImage, CultureInfo culture, string senderEmail)
+            : base(culture, senderEmail, invitor)
         {
             Invitor = invitor;
             BoxName = boxname;
@@ -321,7 +337,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
-        
+
     }
 
 
