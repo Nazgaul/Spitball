@@ -28,10 +28,12 @@
 </script>
 <script type="text/html" id="messageTemplate">
     <li class="notifyItem{{isRead}}" id="{{id}}">
-        <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
-        <span class="semiFont notifier elps">{{senderName}}</span>
-        <span class="createTime" data-time="{{date}}"></span>
-        <div class="elps notifyMsg">{{message}}</div>
-    </li>
+        <a data-navigation="messaging" href="{{url}}">
+            <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
+            <span class="semiFont notifier elps">{{senderName}}</span>
+            <span class="createTime" data-time="{{date}}"></span>
+            <div class="elps notifyMsg">{{message}}</div>
+        </a>
+</li>
 </script>
 <!-- /ko -->
