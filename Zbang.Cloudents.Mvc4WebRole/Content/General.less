@@ -306,7 +306,7 @@ input, form, select {
 input[type="radio"]
 {
     display:none;
-    ~ label 
+    + label, + .field-validation-error + label 
     {
         //color: #111;
         &:before 
@@ -321,9 +321,12 @@ input[type="radio"]
         }
     }
     
-    &:checked ~ label:before {
-        content: '';
-        background-position: -1px -1px;
+    &:checked  {
+        + label:before, + .field-validation-error + label:before 
+        {
+            content: '';
+            background-position: -1px -1px;
+        }
     }
     //TODO: Check this (maybe need to move this back to flag item)
     &:checked + label + .inputText {
@@ -1227,6 +1230,7 @@ ul.ui-autocomplete {
         /*margin-top: -53px;*/// fix for position
     }
 }
+
 .genderLabel
 {
     font-size: 15px;
@@ -1236,6 +1240,10 @@ ul.ui-autocomplete {
     {
         margin: 15px 25px 5px 0; /*rtl*/
     }
+}
+.field-validation-error + .genderLabel
+{
+    margin-top: 20px;
 }
 .accntLabel {
     font-size: 15px;
