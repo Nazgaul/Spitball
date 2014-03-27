@@ -223,11 +223,11 @@
   background: #fff;
   line-height: normal;
 }
-.notifyItem:not(.new):hover {
-  background: #f9f9f9;
-}
 .notifyItem.new {
   background: #f2f2f2;
+}
+.notifyItem:hover {
+  background: #f9f9f9;
 }
 .notifyItem:last-child {
   border-bottom: 0;
@@ -235,16 +235,15 @@
 .notifyItem a {
   padding: 8px 6px;
   line-height: normal;
-  display: table-cell;
+  /*display: table-cell;*/
   color: #383838;
 }
 .notifyItem .notifier {
-  font-size: 15px;
   max-width: 185px;
   display: inline-block;
 }
 .notifyItem .createTime {
-  margin-top: 3px;
+  margin-top: 2px;
 }
 .notifyImg {
   position: absolute;

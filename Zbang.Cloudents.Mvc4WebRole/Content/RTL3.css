@@ -1355,7 +1355,7 @@
   /*rtl*/
 }
 .qaAttach {
-  margin: 0 44px 0 0;
+  margin: 0 44px 5px 0;
   /*rtl*/
 }
 .qaAttachItem {
@@ -1368,7 +1368,7 @@
   left: auto;
 }
 .question .QContent {
-  padding: 0 8px 0 0;
+  padding: 0 8px 10px 0;
   /*rtl*/
 }
 .question .deleteBtn {

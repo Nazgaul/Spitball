@@ -538,7 +538,7 @@ textarea:invalid {
   white-space: nowrap;
   overflow-y: hidden;
   overflow-x: auto;
-  margin-left: 44px;
+  margin: 0 0 5px 44px;
   /*rtl*/
 }
 .qaAttachItem {
@@ -620,7 +620,7 @@ textarea:invalid {
 .question .QContent {
   font-size: 15px;
   color: #383838;
-  padding: 0 0 0 8px;
+  padding: 0 0 10px 8px;
   line-height: 17px;
   margin-top: -5px;
   /*&:hover {
@@ -646,7 +646,7 @@ textarea:invalid {
   line-height: 32px;
 }
 .AList {
-  margin: 0 6px;
+  margin: 0 21px;
 }
 .AItem {
   padding: 8px 0;
@@ -745,7 +745,7 @@ textarea:invalid {
   background-position: -57px -85px;
 }
 .enterAnswer {
-  margin: 6px 0;
+  margin: 6px 14px;
   padding: 6px;
   background: #fff;
   border: 1px solid #c2c2c2;
@@ -756,7 +756,7 @@ textarea:invalid {
   width: 300px;
 }
 .enterAnswer .textareaWpr {
-  width: 300px;
+  width: 280px;
   margin: 0 0 0 3px;
 }
 .QAfloatButton {
