@@ -23,9 +23,20 @@ namespace Zbang.Zbox.WorkerRole.Mail
             var parameters = data as InviteToCloudentsData;
             Throw.OnNull(parameters, "InviteToCloudents");
 
-            m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
-                new InvitationToCloudentsMailParams(parameters.SenderName, parameters.SenderImage,
-               new CultureInfo(parameters.Culture)));
+
+            //obselete
+            if (string.IsNullOrEmpty(parameters.SenderEmail))
+            {
+                m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
+                    new InvitationToCloudentsMailParams(parameters.SenderName, parameters.SenderImage,
+                   new CultureInfo(parameters.Culture)));
+            }
+            else
+            {
+                m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
+                 new InvitationToCloudentsMailParams(parameters.SenderName, parameters.SenderImage,
+                new CultureInfo(parameters.Culture), parameters.SenderEmail));
+            }
 
             return true;
         }

@@ -14,13 +14,14 @@ namespace Zbang.Zbox.Infrastructure.Transport
 
         }
         public InviteMailData(string invitorName, string boxName, string boxUrl
-            , string emailAddress, string culture, string invitorImage)
+            , string emailAddress, string culture, string invitorImage, string invitorEmail)
             : base(emailAddress, culture)
         {
             InvitorName = invitorName;
             BoxName = boxName;
             BoxUrl = boxUrl;
             InvitoryImage = invitorImage;
+            InvitoryEmail = invitorEmail;
         }
         [ProtoMember(1)]
         public string InvitorName { get; private set; }
@@ -30,6 +31,9 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public string BoxUrl { get; private set; }
         [ProtoMember(4)]
         public string InvitoryImage { get; private set; }
+
+        [ProtoMember(5)]
+        public string InvitoryEmail { get; private set; }
 
         public override string MailResover
         {

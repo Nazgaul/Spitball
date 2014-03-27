@@ -357,7 +357,7 @@
                 cd.parseTimeString($(tooltip).find('[data-time]'));
             },            
             out: function () {
-                $('.boxItemTt').remove();
+                //$('.boxItemTt').remove();
             },
             selector: 'li.boxItem',
             timeout: 100,
@@ -365,7 +365,7 @@
         });
         
         cd.pubsub.subscribe('clearTooltip',function() {
-              $('.boxItemTt').remove();
+              //$('.boxItemTt').remove();
         });
         
         function setView(view,element) {

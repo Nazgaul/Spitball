@@ -757,6 +757,9 @@
 }
 .boxItemList.sponsored .boxItem:first-child .boxLink {
   padding-top: 192px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .boxItemList.sponsored .boxItem:first-child .boxLink:after {
   content: '';
@@ -769,6 +772,9 @@
   width: 81px;
   height: 81px;
   background: url(/Images/box-sprite14.png?v=1) -75px 0 no-repeat;
+}
+.boxItemList.sponsored .boxItem:first-child:hover .actionBtns {
+  display: none;
 }
 .boxItemList.sponsored .boxItem:first-child:hover .boxLink:after {
   background-position: -75px -82px;
@@ -817,6 +823,9 @@
 }
 .boxItemList.sponsored .listItem:first-child .views {
   font-size: 13px;
+}
+.boxItemList.sponsored .listItem:first-child:hover .actionBtns {
+  display: none;
 }
 .boxItems {
   margin: 20px 20px 0 20px;
@@ -1056,6 +1065,17 @@
 }
 .boxItemTt.noPreview .ttPreview {
   display: none;
+}
+.boxItemTt.ttLink {
+  height: 81px;
+  /* rtl*/
+}
+.boxItemTt.ttLink .downArrow {
+  top: 59px;
+  /*diff rtl*/
+}
+.boxItemTt.ttLink .ttTop {
+  padding-bottom: 0;
 }
 .boxItemTt .ttTop {
   padding: 0 20px;
@@ -1591,8 +1611,8 @@
 }
 .cbManage:checked + div {
   display: inline-block;
-  width: 146px;
-  height: 246px;
+  width: 150px;
+  height: 227px;
   position: absolute;
   top: 0;
   z-index: -1;

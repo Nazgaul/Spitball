@@ -8,6 +8,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ActivityDtos
 {
     public class AnnotationDto
     {
+        private DateTime m_Date;
         public AnnotationDto()
         {
             Replies = new List<AnnotationReplyDto>();
@@ -22,7 +23,14 @@ namespace Zbang.Zbox.ViewModel.DTOs.ActivityDtos
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate
+        {
+            get { return m_Date; }
+            set
+            {
+                m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+            }
+        }
 
         public string UserImage { get; set; }
         public string UserName { get; set; }
