@@ -909,7 +909,15 @@
                     var startWidth = $('.stars .full').width()
 
                     clearTimeout(ratePopupTimeout);
-                    $ratePopup.hide().removeClass('show');
+
+                    if ($ratePopup.is(':visible')) {
+                        setTimeout(function () {
+                            $ratePopup.removeClass('show');
+                        }, 500);
+                    } else {
+                        $ratePopup.hide().removeClass('show');
+                    }
+                    
 
                     if (choosedRate) {
                         return;
