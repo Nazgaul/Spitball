@@ -267,7 +267,8 @@ input[type="search"] {
 input[type="radio"] {
   display: none;
 }
-input[type="radio"] ~ label:before {
+input[type="radio"] + label:before,
+input[type="radio"] + .field-validation-error + label:before {
   content: '';
   display: inline-block;
   width: 13px;
@@ -277,7 +278,8 @@ input[type="radio"] ~ label:before {
   margin: -2px 4px 0 0;
   /*rtl*/
 }
-input[type="radio"]:checked ~ label:before {
+input[type="radio"]:checked + label:before,
+input[type="radio"]:checked + .field-validation-error + label:before {
   content: '';
   background-position: -1px -1px;
 }
@@ -1151,6 +1153,9 @@ ul.ui-autocomplete li a {
 .genderLabel.first {
   margin: 15px 25px 5px 0;
   /*rtl*/
+}
+.field-validation-error + .genderLabel {
+  margin-top: 20px;
 }
 .accntLabel {
   font-size: 15px;

@@ -216,11 +216,12 @@
   border-bottom: 1px solid #9f9e9d;
   border-bottom: 1px solid rgba(159, 158, 157, 0.5);
   box-shadow: 0 1px 0 #fff;
-  padding: 0 8px 0 70px;
+  padding: 10px 8px 0 70px;
   /*rtl*/
   position: relative;
   height: 70px;
   background: #fff;
+  line-height: normal;
 }
 .notifyItem:not(.new):hover {
   background: #f9f9f9;
@@ -243,7 +244,7 @@
   display: inline-block;
 }
 .notifyItem .createTime {
-  margin-top: 1px;
+  margin-top: 3px;
 }
 .notifyImg {
   position: absolute;
@@ -252,8 +253,7 @@
   top: 10px;
 }
 .notifyMsg {
-  line-height: 17px;
-  margin-top: -16px;
+  line-height: 15px;
 }
 .invboxName {
   display: inline-block;
