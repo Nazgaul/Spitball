@@ -123,6 +123,9 @@
   <data name="answers" xml:space="preserve">
     <value>תשובות</value>
   </data>
+  <data name="InviteSubject" xml:space="preserve">
+    <value>הזמנה ל{0}</value>
+  </data>
   <data name="item" xml:space="preserve">
     <value>פריט</value>
   </data>

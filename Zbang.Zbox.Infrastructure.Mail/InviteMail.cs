@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
     internal class InviteMail : IMailBuilder
     {
         const string Category = "Invite";
-        const string Subject = "Invitation to {0}";
 
 
         public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
             //message.Text = textBody;
-            message.Subject = string.Format(Subject, inviteParams.BoxName);
+            message.Subject = string.Format(EmailResource.InviteSubject, inviteParams.BoxName);
             message.Html = message.Html.Replace("{INVITOR}", inviteParams.Invitor);
             message.Html = message.Html.Replace("{BOXNAME}", inviteParams.BoxName);
             message.Html = message.Html.Replace("{BoxUrl}", inviteParams.BoxUrl);

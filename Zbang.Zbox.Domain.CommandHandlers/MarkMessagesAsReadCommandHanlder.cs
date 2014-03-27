@@ -24,6 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException("User is not the recepients");
             }
             message.UpdateMessageAsRead();
+            m_MessageRepositoy.Save(message);
         }
     }
 }

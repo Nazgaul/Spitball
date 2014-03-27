@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -48,6 +50,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public void GenerateAndSendEmail(string recepient, MailParameters parameters)
         {
+            Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
 
             var sendGridMail = SendGridMail.SendGrid.GetInstance();
             sendGridMail.From = new MailAddress(parameters.SenderEmail, parameters.SenderName);
