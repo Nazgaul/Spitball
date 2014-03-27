@@ -88,6 +88,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add your reply.
+        /// </summary>
+        public static string AddReply {
+            get {
+                return ResourceManager.GetString("AddReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All questions.
         /// </summary>
         public static string AllQuestions {
@@ -174,6 +183,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         public static string CourseNumber {
             get {
                 return ResourceManager.GetString("CourseNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created this course.
+        /// </summary>
+        public static string CreatedCourse {
+            get {
+                return ResourceManager.GetString("CreatedCourse", resourceCulture);
             }
         }
         
@@ -427,6 +445,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         public static string Number {
             get {
                 return ResourceManager.GetString("Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What&apos;s on your mind?.
+        /// </summary>
+        public static string OnYourMind {
+            get {
+                return ResourceManager.GetString("OnYourMind", resourceCulture);
             }
         }
         
