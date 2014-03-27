@@ -268,7 +268,7 @@
         $fileId.find('span.progressFill').width($progressBarMaxwidth * (1));
         updateTitle(guid, 100);
 
-        $fileId.attr('data-done', 1);
+        $fileId.attr('data-done', 3);
         $fileId.find('.fileError').show();
         $fileId.find('.fileCancel').hide();
         $fileId.find('.progress').hide();
@@ -419,8 +419,8 @@
         if (!timer) {
             timer = setInterval(function () {
                 var $uploadList = $('#uploadList'),
-                    files = filesUploaded = $uploadList.children().length,
-                    filesUploaded = $uploadList.find('[data-done]').length;
+                    files = filesUploaded = $uploadList.children().not('[data-done="3"]').length,
+                    filesUploaded = $uploadList.find('[data-done="1"]').length;
 
                 if (files === filesUploaded) {
                     cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files - filesIgnored });
