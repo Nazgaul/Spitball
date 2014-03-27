@@ -378,15 +378,15 @@ namespace Testing
            // mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.cloudents.com", "ram", new CultureInfo("en-Us")));
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams("h$$$sdhf##askjd", new CultureInfo("en-Us")));
 
-            // mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL")));
-            ////mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("en-Us")));
+            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL")));
+            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("en-Us")));
 
             //mail.GenerateAndSendEmail("itsik.bitran@facebook.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
             ////mail.GenerateAndSendEmail("itsik.bitran@facebook.com", new MessageMailParams("some message", "some user name", new CultureInfo("en-Us"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
 
 
-            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "yaari_r@yahoo.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
-            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("en-Us"), "yaari_r@yahoo.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
+            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "yaari_r@yahoo.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
+            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("en-Us"), "yaari_r@yahoo.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
 
             //var updates = new List<Zbang.Zbox.Infrastructure.Mail.UpdateMailParams.BoxUpdate> 
             //{
