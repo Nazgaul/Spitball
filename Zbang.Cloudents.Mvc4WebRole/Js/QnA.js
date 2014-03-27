@@ -530,6 +530,8 @@
                     self.questionList($.map(data, function (i) { return new Question(i); }));
                     //cd.updateTimeActions();
                     self.state(state.question);
+                    applyScroll();
+
                     cd.updateTimeActions(document.getElementById('box_QA'));
                 }
             });
@@ -573,10 +575,7 @@
                 if (document.getElementById('box').style.display === 'block') {
                     applyScroll();
                 }
-            });
-            cd.pubsub.subscribe('box_show', function () {
-                applyScroll();
-            });
+            });         
             //var pos = 0;
             //$('#Questions').slimScroll().bind('slimscrolling', function (e, position) {
             //    pos = position;
