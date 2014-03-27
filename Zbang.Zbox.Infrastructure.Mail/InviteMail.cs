@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     internal class InviteMail : IMailBuilder
     {
         const string Category = "Invite";
-        const string Subject = "Invitation to Cloudents";
+        const string Subject = "Invitation to {0}";
 
 
         public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
@@ -20,10 +20,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
             //message.Text = textBody;
-            message.Subject = Subject;
-            message.Html = message.Html.Replace("{INVITOR}", inviteParams.Invitor );
-            message.Html = message.Html.Replace("{BOXNAME}",  inviteParams.BoxName );
-            message.Html = message.Html.Replace("{BoxUrl}",  inviteParams.BoxUrl );
+            message.Subject = string.Format(Subject, inviteParams.BoxName);
+            message.Html = message.Html.Replace("{INVITOR}", inviteParams.Invitor);
+            message.Html = message.Html.Replace("{BOXNAME}", inviteParams.BoxName);
+            message.Html = message.Html.Replace("{BoxUrl}", inviteParams.BoxUrl);
             message.Html = message.Html.Replace("{ImgUrl}", inviteParams.InvitorImage);
         }
     }
