@@ -1355,7 +1355,7 @@
   /*rtl*/
 }
 .qaAttach {
-  margin: 0 44px 0 0;
+  margin: 0 44px 5px 0;
   /*rtl*/
 }
 .qaAttachItem {
@@ -1368,7 +1368,7 @@
   left: auto;
 }
 .question .QContent {
-  padding: 0 8px 0 0;
+  padding: 0 8px 10px 0;
   /*rtl*/
 }
 .question .deleteBtn {
@@ -2139,8 +2139,7 @@
   /* diff rtl*/
   left: auto;
 }
-.box.sCourseItem:nth-child(odd),
-.sMembersItem:nth-child(odd) {
+.box.sCourseItem:nth-child(odd) {
   margin: 0 0 20px 20px;
   /*rtl*/
 }
@@ -2152,15 +2151,6 @@
   right: 100px;
   /*rtl*/
   left: auto;
-}
-.sMembersItem:hover {
-  padding: 6px 6px 6px 40px;
-  /*rtl*/
-}
-.sMembersItem:hover .inviteUserBtn {
-  left: 10px;
-  /*rtl*/
-  right: auto;
 }
 .sMemberName {
   margin: 26px 104px 0 0;

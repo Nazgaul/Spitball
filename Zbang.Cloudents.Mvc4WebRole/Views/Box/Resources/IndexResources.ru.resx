@@ -286,13 +286,13 @@
     <value>Неприглашённый</value>
   </data>
   <data name="InviteBox" xml:space="preserve">
-    <value>Пригласить людей в этот групповой ящик с помощью:</value>
+    <value>Пригласить в этот групповой ящик с :</value>
   </data>
   <data name="InviteCourse" xml:space="preserve">
     <value>Пригласить людей на этот курс с помощью:</value>
   </data>
   <data name="ShareBox" xml:space="preserve">
-    <value>Поделиться этим групповым ящиком</value>
+    <value>Поделиться этим  ящиком</value>
   </data>
   <data name="ShareCourse" xml:space="preserve">
     <value>Поделиться этим курсом</value>

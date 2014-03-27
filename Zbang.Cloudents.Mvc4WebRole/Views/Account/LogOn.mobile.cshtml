@@ -1,7 +1,7 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 
-@using (Html.BeginForm("LogIn", "Account", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post)
+@using (Html.BeginForm("LogIn", "Account", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post, new { id = "login" })
    )
 {
     Html.EnableClientValidation(false);
