@@ -493,4 +493,11 @@
   <data name="MiddleName" xml:space="preserve">
     <value>الاسم الأوسط </value>
   </data>
+  <data name="GroupBoxes" xml:space="preserve">
+    <value>صناديق المجموعة 
+</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>لا توجد الإخطارات</value>
+  </data>
 </root>

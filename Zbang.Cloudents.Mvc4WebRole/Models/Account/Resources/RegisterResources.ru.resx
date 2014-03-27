@@ -165,4 +165,7 @@
   <data name="Name" xml:space="preserve">
     <value>Имя</value>
   </data>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>Пожалуйста, выберите пол</value>
+  </data>
 </root>

@@ -487,4 +487,10 @@
   <data name="MiddleName" xml:space="preserve">
     <value>שם אמצעי</value>
   </data>
+  <data name="GroupBoxes" xml:space="preserve">
+    <value>קופסאות קבוצתיות</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>לא נמצאו התראות</value>
+  </data>
 </root>
