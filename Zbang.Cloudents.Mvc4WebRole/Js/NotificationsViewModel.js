@@ -1,4 +1,4 @@
-﻿(function (cd, dataContext, $, ko, analytics) {
+﻿(function (cd, dataContext,pubsub, $, ko, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('ntfvm')) {
         return;
@@ -24,7 +24,7 @@
     function Invite(data) {
         var that = this;
         that.id = data.msgId;
-        that.boxId = data.boxid;
+        that.boxId = data.boxId;
         that.boxName = data.boxName;
         that.senderName = data.userName;
         that.senderImg = data.userPic;
@@ -62,18 +62,19 @@
 
 
     function parseData() {
-        var item, html, result = '',
+        var item, html='', result = '',
             currentPageItems = notificationsData.slice((page - 1) * consts.pageSize, page * consts.pageSize);
         for (var i = 0, l = currentPageItems.length ; i < l; i++) {
-            if (currentPageItems[i].message) {
-                item = new Message(currentPageItems[i]);
-                html = cd.attachTemplateToData(consts.messageTemplate, item);
-            } else {
+            if (!currentPageItems[i].message) {
+            //    item = new Message(currentPageItems[i]);
+            //    html = cd.attachTemplateToData(consts.messageTemplate, item);
+            //} else {
                 item = new Invite(currentPageItems[i]);
                 html = cd.attachTemplateToData(consts.inviteTemplate, item);
+                result += html;
+
             }
 
-            result += html;
         }
 
         notificationsList.insertAdjacentHTML('beforeend', result);
@@ -152,6 +153,10 @@
         $(headerNotifications).on('click', '[data-navigation="Box"]', function () {
             analytics.trackEvent('Site header', 'Notificaitons', 'User clicked an invitation');
         });
+
+        pubsub.subscribe('removeNotification', function (data) {
+            $notificationsList.find('[data-boxid="' + data + '"]').remove();                
+        });
     }
 
-})(cd, cd.data, jQuery, ko, cd.analytics);
+})(cd, cd.data, cd.pubsub,jQuery, ko, cd.analytics);

@@ -151,17 +151,16 @@
                     selectedObj.professor = eById('boxSettingsProfessor').value;
                 }
                 for (var input in selectedObj) {
-                    if (selectedObj[input] === "") {
-                        selectedObj[input] = undefined;
+                    
+                    var value = selectedObj[input] ? selectedObj[input].toLowerCase() : undefined,
+                        value2 = boxSettingsData[input] ? boxSettingsData[input].toLowerCase() : undefined;
+                    if (value !== value2) {
+                            changed = true;
+                        }
                     }
-
-                    if (selectedObj[input].toLowerCase() !== boxSettingsData[input].toLowerCase()) {
-                        changed = true;
-                    }
-                }
-                if (!changed) {
-                    changeViewBoxSettings(false, true);
-                    return;
+                    if (!changed) {
+                        changeViewBoxSettings(false, true);
+                        return;
                 }
                 cd.confirm('Changes will be discarded, are you sure you want to cancel?',
                     function () {

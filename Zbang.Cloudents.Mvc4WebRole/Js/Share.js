@@ -118,7 +118,9 @@
         messageDialog.dialog('show');
         document.getElementById('messageInput').blur();
         cd.autocomplete2('setWidth', $('.emailUserWpr .emailUser').width());
-
+        if (cd.google.connected) {
+            cd.autocomplete2('calculateContainerWidth', false);
+        }
 
     }
 

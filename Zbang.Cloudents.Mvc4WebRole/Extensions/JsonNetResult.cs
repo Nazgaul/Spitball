@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
                 NullValueHandling = NullValueHandling.Ignore
             };
             SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-            SerializerSettings.Converters.Add(new IsoDateTimeConverter());
+            SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal });
 
         }
 
@@ -65,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
                 NullValueHandling = NullValueHandling.Ignore
             };
             SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-            SerializerSettings.Converters.Add(new IsoDateTimeConverter());
+            SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal });
             Formatting = Newtonsoft.Json.Formatting.None;
 
         }
