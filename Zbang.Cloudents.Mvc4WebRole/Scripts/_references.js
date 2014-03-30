@@ -80,3 +80,4 @@
 /// <reference path="../js/notificationsviewmodel.js" />
 /// <reference path="jquery-ui-1.10.4.js" />
 /// <reference path="jquery.mcustomscrollbar.js" />
+/// <reference path="../js/quiz.js" />
