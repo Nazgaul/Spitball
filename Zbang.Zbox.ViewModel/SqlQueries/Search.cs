@@ -98,7 +98,7 @@ and u.userid != @universityid
 )
 and b.Discriminator = 2
 and i.Name like '%' +@query + '%'
-order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
+order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc, uniName
 offset @offsetV rows
 fetch next @pageSize rows only;";
     }
