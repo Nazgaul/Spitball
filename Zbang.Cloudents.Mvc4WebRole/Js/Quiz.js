@@ -5,11 +5,31 @@
         return;
     }
     var eById = document.getElementById.bind(document),
-        sideBar = eById('quizSideBar'),
+        quizSideBar = eById('quizSideBar'),
         quizQuestionList = eById('quizQuestionList'),
         quizAddQuestion = eById('quizAddQuestion'),
         saveBtn = eById('saveQuiz');
 
+    var consts = {
+        emptyQuestion : 1000,
+        validQuestion: 1001,
+        errorQuestion : 1002,
+    }
+
+    function Quiz(data) {
+        var that = this;
+        that.name = data.name
+        that.questions = data.questions;
+    }
+
+    function Question(data) {
+        var that = this;
+        that.text = data.questionText;
+        that.answers = data.answers;
+        that.correctAnswer = data.correctAnswer;
+        that.element = data.element;
+
+    }
     pubsub.subscribe('initQuiz', function () {
 
     });
@@ -55,47 +75,78 @@
 
         $(saveQuiz).click(function () {
 
-            parseQuiz();
+            var quiz = parseQuiz(),
+                quizQuestions = quiz.questions,
+                errorElements = [];
+
+            if (!quiz.name) {
+                errorElements.push(quizSideBar.querySelector('.quizName'));
+            }
+
+            for (var i = 0, l = quizQuestions; i < l; i++) {
+                var validCount = quizQuestions[i] + (answersArr.length > 1) + answerSelected;
+
+            }
 
             function parseQuiz() {
-                var quizName = quizSideBar.querySelector('.quizName'),
-                    questions = quizQuestionList.querySelectorAll('.questionHolder'),                    
-                    errorElements = [];
+                var questions = quizQuestionList.querySelectorAll('.questionHolder'),
+                    questionsArr = [], quizName;
 
-                if (quizName.length > 0) {
-                    errorElements.push(quizName);
-                }
-
+                quizName = quizSideBar.querySelector('.quizName').value;
+            
+                
                 for (var i = 0, l = questions.length; i < l; i++) {
-                    checkValidQuestion(questions[i]);
+
+                    questionsArr.push(parseQuestion(questions[i]));
+
+                    //switch (checkValidQuestion(questions[i])){
+                    //    //case consts.validQuestion:
+                    //    //    questions[i].style.border = '3px solid green';
+                    //    //    break;
+                    //    case consts.errorQuestion:
+                    //        errorElements.push(questions[i]);
+                    //        break;
+                    //    //case consts.emptyQuestion:
+                    //    //    questions[i].style.border = '3px solid blue';
+                    //    //    break;
+                    //    default:
+                    //        console.log('hacking not allowed');
+                    //}                        
+                    //valid
+                    //var validCount = isQuestionText + (answersArr.length > 1) + answerSelected;
+                    //switch (validCount) {
+                    //    case 0:
+                    //        return consts.emptyQuestion;
+                    //    case 3:
+                    //        return consts.validQuestion;
+                    //        break;
+                    //    default:
+                    //        return consts.errorQuestion;
+                    //}
+
                 }
-
-
-                function checkValidQuestion(question) {                    
-                    var isQuestionText,
+                return new Quiz({name : quizName, questions: questionsArr});                
+                
+                function parseQuestion(question) {
+                    var answersArr = [],
+                        correctAnswer,
                         answers = question.querySelectorAll('.quizAnswer'),
-                        answersArr = [];
-                    
+                        questionText;
                     //check question text 
-                    isQuestionText = question.querySelector('.questionText').value.length > 0;         
+                    questionText = question.querySelector('.questionText').value;
 
                     //get question answers
                     for (var i = 0, l = answers.length; i < l; i++) {
                         var answer = answers[i].querySelector('.questionAnswer');
                         if (answer.value.length > 0) {
-                            answersArr.push(answer);
+                            answersArr.push(answer.value);
+                            if (answer.nextElementSibling.checked) {
+                                correctAnswer = i;
+                            }                                
                         }
                     }
 
-                    //check if one answer is selected
-                    var checked = false;
-                    for (var i = 0, l = answersArr.length; i < l && !checked; i++) {
-                        if (answersArr[i].nextElementSibling.checked) {
-                            checked = true;
-                        }
-                    }
-                    
-                    if (answers)
+                    return new Question({ text: questionText, answers: answersArr,correctAnswer : correctAnswer,element: question });
                 }
             }
 
