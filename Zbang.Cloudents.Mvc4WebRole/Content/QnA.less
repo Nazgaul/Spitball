@@ -107,7 +107,7 @@
     position: absolute; // I intentionally do not set top here
     left: 0; /*rtl*/
     //margin-top: 32px;
-    margin-top: 6px;
+    margin-top: 15px;
     .transition(all, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900) .2s);
     width: 365px; //place the vertical scroll inside by 1px
 }
@@ -115,7 +115,7 @@
 .AWpr {
     //width: 354px;
     //margin: 6px 6px 0 6px;
-    margin: 6px 0px 0 0;
+    margin: 15px 0 0 0;
     width: 363px;
     position: absolute; // I intentionally do not set top here
     left: 376px;
@@ -333,7 +333,7 @@ textarea:invalid {
 
 .QItem {
     margin-bottom: 8px;
-    background: #fff;
+    //background: #fff;
     .transition(all, .2s ease);
 
     .textareaWpr {
@@ -390,6 +390,12 @@ textarea:invalid {
     }
     form{
         background: #f5f5f5;
+        border-radius: 0 0 3px 3px;
+        padding-bottom: 3px;
+        ~ .QBottom
+        {
+            display: none;
+        }
     }
     .upArrow{
         margin-bottom: -9px;
@@ -401,6 +407,7 @@ textarea:invalid {
 }
 .QBottom {
     background: #f5f5f5; //FL
+    border-radius: 0 0 3px 3px;
     .seeMore {
         color: #66a1cf;
         clear: both;
@@ -449,6 +456,7 @@ textarea:invalid {
     //background: #fafafa;
     background: #fff; //FL
     cursor: pointer;
+    border-radius: 3px 3px 0 0;
 
     + div .QAImg, + form .QAImg {
         margin: 6px 6px 6px 15px; /*rtl*/
