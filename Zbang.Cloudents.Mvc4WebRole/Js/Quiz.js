@@ -43,11 +43,62 @@
 
         });
 
+
+
         $(quizQuestionList).on('click', '.quizRemoveQuestion', function () {
             $(this).parent().remove();
         });
+
         $(quizAddQuestion).click(function () {
             quizQuestionList.insertAdjacentHTML('beforeend', eById('quizQuestionTemplate').innerHTML);
+        });
+
+        $(saveQuiz).click(function () {
+
+            parseQuiz();
+
+            function parseQuiz() {
+                var quizName = quizSideBar.querySelector('.quizName'),
+                    questions = quizQuestionList.querySelectorAll('.questionHolder'),                    
+                    errorElements = [];
+
+                if (quizName.length > 0) {
+                    errorElements.push(quizName);
+                }
+
+                for (var i = 0, l = questions.length; i < l; i++) {
+                    checkValidQuestion(questions[i]);
+                }
+
+
+                function checkValidQuestion(question) {                    
+                    var isQuestionText,
+                        answers = question.querySelectorAll('.quizAnswer'),
+                        answersArr = [];
+                    
+                    //check question text 
+                    isQuestionText = question.querySelector('.questionText').value.length > 0;         
+
+                    //get question answers
+                    for (var i = 0, l = answers.length; i < l; i++) {
+                        var answer = answers[i].querySelector('.questionAnswer');
+                        if (answer.value.length > 0) {
+                            answersArr.push(answer);
+                        }
+                    }
+
+                    //check if one answer is selected
+                    var checked = false;
+                    for (var i = 0, l = answersArr.length; i < l && !checked; i++) {
+                        if (answersArr[i].nextElementSibling.checked) {
+                            checked = true;
+                        }
+                    }
+                    
+                    if (answers)
+                }
+            }
+
         });
     }
     registerEvents();
