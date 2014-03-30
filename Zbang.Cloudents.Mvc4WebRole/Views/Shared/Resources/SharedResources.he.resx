@@ -493,4 +493,7 @@
   <data name="NoNotifications" xml:space="preserve">
     <value>לא נמצאו התראות</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
 </root>

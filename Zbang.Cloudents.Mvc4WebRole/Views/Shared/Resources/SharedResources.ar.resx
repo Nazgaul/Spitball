@@ -500,4 +500,7 @@
   <data name="NoNotifications" xml:space="preserve">
     <value>لا توجد الإخطارات</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>ردود</value>
+  </data>
 </root>

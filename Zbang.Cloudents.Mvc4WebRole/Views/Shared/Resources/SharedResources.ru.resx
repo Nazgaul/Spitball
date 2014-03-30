@@ -493,4 +493,7 @@
   <data name="NoNotifications" xml:space="preserve">
     <value>Никакие уведомления не были найдены</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>Ответов</value>
+  </data>
 </root>

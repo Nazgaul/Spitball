@@ -119,22 +119,22 @@ header
 }
 .numberCircle {
     position: absolute;
-    right: -10px;
+    right: -10px; /*rtl*/
     top: 3px;
-    padding: 4px;
-    .borderRadius(9px);
-    border: 2px solid #fff;
+    padding: 5px;
+    border-radius: 10px;
     color: #fff;
-    font-size: 16px;
-    -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    height: 10px;
-    line-height: 7px;
+    font-size: 13px;
+    -webkit-box-shadow: 1px 1px 3px rgba(57,0,12,.5); /*rtl*/
+    box-shadow: 1px 1px 3px rgba(57,0,12,.5); /*rtl*/
+    height: 9px;
+    line-height: 9px;
+    min-width: 9px;
+    display: inline-block;
+    text-align: center;
+    background: #d1294d;  
 }
-.settingsLatest
-{    
-    background: #d9961a;    
-}
+
 .logo
 {    
     display: inline-block;
@@ -434,7 +434,6 @@ header
     }
     .numberCircle
     {
-        background: @color;
         right: 10px;
         top: 5px;
     }
