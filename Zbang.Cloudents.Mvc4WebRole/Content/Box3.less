@@ -977,7 +977,7 @@
     }
 }
 .listItem{
-    padding: 14px 0 14px 138px; /*rtl*/
+    padding: 15px 0 15px 138px; /*rtl*/
     position: relative;
     display: block;
     height: 143px;
@@ -994,7 +994,7 @@
     .imgBorder{
         position: absolute;
         left:0; /*rtl*/
-        top: 11px;
+        top: 15px;
     }
     .boxName
     {
@@ -1008,8 +1008,13 @@
     .itemContent
     {
         max-height: 71px;
-        margin: 15px 0 20px;
+        margin: 14px 0 17px;
         overflow: hidden;
+        max-width: 720px;
+        &:empty
+        {
+            margin-bottom: 0;
+        }
     }
     .stars{
         display: inline-block;

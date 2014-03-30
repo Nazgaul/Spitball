@@ -199,6 +199,10 @@
 .notifyEmpty {
   display: none;
   padding-bottom: 48px;
+  background: #FFF;
+  text-align: center;
+  border-radius: 0 0 5px 5px;
+  padding-top: 1px;
 }
 .notifyEmpty:before {
   content: '';
@@ -224,6 +228,7 @@
   height: 70px;
   background: #fff;
   line-height: normal;
+  overflow: hidden;
 }
 .notifyItem.new {
   background: #f2f2f2;
@@ -235,7 +240,7 @@
   border-bottom: 0;
 }
 .notifyItem a {
-  padding: 8px 6px;
+  padding: 4px 6px;
   line-height: normal;
   /*display: table-cell;*/
   color: #383838;
@@ -252,6 +257,14 @@
   left: 10px;
   /*rtl*/
   top: 10px;
+}
+.inviteTxtWpr {
+  line-height: 15px;
+  margin-top: -2px;
+  color: #676767;
+}
+.inviteTxtWpr .semiFont {
+  color: #383838;
 }
 .notifyMsg {
   line-height: 15px;

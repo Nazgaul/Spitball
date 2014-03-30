@@ -925,7 +925,7 @@
   right: 0;
 }
 .listItem {
-  padding: 14px 0 14px 138px;
+  padding: 15px 0 15px 138px;
   /*rtl*/
   position: relative;
   display: block;
@@ -947,7 +947,7 @@
   position: absolute;
   left: 0;
   /*rtl*/
-  top: 11px;
+  top: 15px;
 }
 .listItem .boxName {
   color: #0f9d58;
@@ -958,8 +958,12 @@
 }
 .listItem .itemContent {
   max-height: 71px;
-  margin: 15px 0 20px;
+  margin: 14px 0 17px;
   overflow: hidden;
+  max-width: 720px;
+}
+.listItem .itemContent:empty {
+  margin-bottom: 0;
 }
 .listItem .stars {
   display: inline-block;

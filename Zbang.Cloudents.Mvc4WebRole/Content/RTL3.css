@@ -741,7 +741,7 @@
   transform: scaleX(-1);
 }
 .listItem {
-  padding: 14px 138px 14px 0;
+  padding: 15px 138px 15px 0;
   /*rtl*/
   text-align: right;
   /*rtl*/
