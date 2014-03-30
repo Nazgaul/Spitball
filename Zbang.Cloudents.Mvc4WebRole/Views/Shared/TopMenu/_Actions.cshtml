@@ -21,8 +21,11 @@
         <a data-navigation="Box" href="{{url}}">
             <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
             <span class="semiFont notifier elps">{{senderName}}</span>
+            
             <span class="createTime" data-time="{{date}}"></span><br />
-            @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{boxName}}"</span>
+            <div class="inviteTxtWpr">
+                @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{boxName}}"</span>
+            </div>
         </a>
     </li>
 </script>

@@ -301,4 +301,14 @@
   <data name="MyFriends" xml:space="preserve">
     <value>أصدقائي</value>
   </data>
+  <data name="AddReply" xml:space="preserve">
+    <value>إضافة ردكم
+</value>
+  </data>
+  <data name="CreatedCourse" xml:space="preserve">
+    <value>خلقت هذه الدورة</value>
+  </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>ما الذي يدور في ذهنك؟</value>
+  </data>
 </root>

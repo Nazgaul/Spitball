@@ -35,10 +35,6 @@ q {
 .middleActionItem {
   padding: 0;
 }
-/*.itemActions .backWpr {
-    max-width: -webkit-calc(50% - 240px);
-    max-width: calc(50% - 240px);
-}*/
 /*#endregion */
 /*#region box page */
 .inviteFriendBtn.btn3 {
@@ -74,7 +70,7 @@ q {
 /*#endregion */
 /*#region invite page*/
 .invItem .invName {
-  max-width: 160px;
+  max-width: 138px;
 }
 .invBtn .invited {
   min-width: 100px;

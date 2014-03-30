@@ -300,4 +300,13 @@
   <data name="MyFriends" xml:space="preserve">
     <value>Мои друзья</value>
   </data>
+  <data name="AddReply" xml:space="preserve">
+    <value>Добавить свой ​​ответ </value>
+  </data>
+  <data name="CreatedCourse" xml:space="preserve">
+    <value>Создал этот курс</value>
+  </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>О чем вы думаете?</value>
+  </data>
 </root>

@@ -177,6 +177,12 @@
   <data name="OnCloudents" xml:space="preserve">
     <value>ב Cloudents</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>תגובה</value>
+  </data>
   <data name="SendDirect" xml:space="preserve">
     <value>שלח הודעה</value>
   </data>

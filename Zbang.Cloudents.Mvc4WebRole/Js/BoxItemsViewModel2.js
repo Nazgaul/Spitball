@@ -365,7 +365,7 @@
         });
         
         cd.pubsub.subscribe('clearTooltip',function() {
-              //$('.boxItemTt').remove();
+              $('.boxItemTt').remove();
         });
         
         function setView(view,element) {

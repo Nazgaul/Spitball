@@ -175,6 +175,12 @@
   <data name="OnCloudents" xml:space="preserve">
     <value>на Cloudents</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>Ответов</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Ответ </value>
+  </data>
   <data name="SendDirect" xml:space="preserve">
     <value>Отправить сообщение напрямую</value>
   </data>
