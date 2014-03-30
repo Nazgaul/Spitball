@@ -89,6 +89,34 @@
 
     <div class="bodyContent" id="main">
         @RenderBody()
+
+        <aside id="quizSideBar" style="position:fixed;top:50px;right:0px;width:300px;height:100%;background-color:#fff;border-left:2px solid #000" ;>
+            <input type="text" class="inputText quizName" placeholder="Quiz Name" />
+            <div class="quizQuestionList" id="quizQuestionList">
+                <div class="questionHolder">
+                    <input type="text" class="inputText questionText" placeholder="Question Text">
+                    <div>answers</div>
+                    <div class="quizAnswersList">
+                        <div class="quizAnswer">
+                            <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
+                        </div>
+                        <div class="quizAnswer">
+                            <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
+                        </div>
+                        <div class="quizAnswer">
+                            <input type="text" class="inputText questionAnswer" placeholder="option3" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+                        </div>
+                        <div class="quizAnswer">
+                            <input type="text" class="inputText questionAnswer" placeholder="option4" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="saveQuiz" class="saveQuiz">Save</button>
+            <button class="quizAddQuestion" id="quizAddQuestion">Add quesiton</button>
+
+
+        </aside>
         <div id="fb-root"></div>
 
         <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
@@ -134,6 +162,27 @@
     <div id="cssCheck"></div>
     <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
 
+    <script type="text/html" id="quizQuestionTemplate">
+        <div class="questionHolder">
+            <button class="quizRemoveQuestion">X</button>
+            <input type="text" class="inputText questionText" placeholder="Question Text">
+            <div>answers</div>
+            <div class="quizAnswersList">
+                <div class="quizAnswer">
+                    <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
+                </div>
+                <div class="quizAnswer">
+                    <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
+                </div>
+                <div class="quizAnswer">
+                    <input type="text" class="inputText questionAnswer" placeholder="option3" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+                </div>
+                <div class="quizAnswer">
+                    <input type="text" class="inputText questionAnswer" placeholder="option4" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+    </script>
 
     <script type="text/html" id="userToolTipTempalte">
         <a data-navigation="User" href="{{url}}">
@@ -159,7 +208,8 @@
     <script type="text/html" id="titleToolTipTempalte">
         <div class="titleTooltip">
             <div style="position: relative">
-                <div class="toolTipContent">{{title}}<div class="ttArrow"></div>
+                <div class="toolTipContent">
+                    {{title}}<div class="ttArrow"></div>
                 </div>
             </div>
         </div>
@@ -222,6 +272,9 @@
 
 
     </div>
+
+
+
     @*@Search*@
     <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
