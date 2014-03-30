@@ -89,7 +89,7 @@
             cd.setCookie('lang', $(this).data('language'), 10);
         });
         //mobile view
-        $('#langSelect').val(cd.getCookie('lang') || 'en-US').change(function () {
+        $('#langSelect').val(cd.getCookie('lang') || $('option[value^="'+$('body').attr('data-lang')+'"]').val()).change(function () {
             cd.setCookie('lang', $(this).val(), 10);
             location.reload();
         });
