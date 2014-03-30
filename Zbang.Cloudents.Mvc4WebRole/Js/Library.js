@@ -404,12 +404,23 @@
         //cd.loader.registerTwitter();
 
         function facebookLikeBox() {
+            //var likeBox = document.getElementById('facebookLikeBox');
+            //if (!likeBox) {
+            //    return;
+            //}
+            //var href = likeBox.getAttribute('data-href'), link = likeBox.getAttribute('data-link');
+            //var height = Math.floor($(window).height() - $(likeBox).offset().top);
+
+            //var src = link.replace(/{{href}}/i, href).replace(/{{height}}/i, height);
+
+            //likeBox.height = height;
+            //likeBox.src = src;
             var likeBox = document.getElementById('facebookLikeBox');
             if (!likeBox) {
                 return;
             }
             var href = likeBox.getAttribute('data-href'), link = likeBox.getAttribute('data-link');
-            var height = $(window).height() - $(likeBox).offset().top-15;
+            var height = Math.floor($(window).height() - $(likeBox).offset().top - 15);
             
 
             var src = link.replace(/{{href}}/i, href).replace(/{{height}}/i, height);
