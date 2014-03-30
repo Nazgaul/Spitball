@@ -496,4 +496,10 @@
   <data name="Replies" xml:space="preserve">
     <value>תגובות</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>הגב</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
 </root>

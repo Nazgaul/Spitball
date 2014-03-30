@@ -88,11 +88,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add your reply.
+        ///   Looks up a localized string similar to Add your comment.
         /// </summary>
-        public static string AddReply {
+        public static string AddComment {
             get {
-                return ResourceManager.GetString("AddReply", resourceCulture);
+                return ResourceManager.GetString("AddComment", resourceCulture);
             }
         }
         

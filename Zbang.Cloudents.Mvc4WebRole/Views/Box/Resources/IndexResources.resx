@@ -295,8 +295,8 @@
   <data name="MyFriends" xml:space="preserve">
     <value>My friends</value>
   </data>
-  <data name="AddReply" xml:space="preserve">
-    <value>Add your reply</value>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add your comment</value>
   </data>
   <data name="CreatedCourse" xml:space="preserve">
     <value>Created this course</value>
