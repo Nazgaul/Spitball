@@ -614,7 +614,7 @@
       <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
     <Content Include="Content\lang.ru-RU.min.css">
-      <DependentUpon>lang.ru-RU.css</DependentUpon>
+      <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
