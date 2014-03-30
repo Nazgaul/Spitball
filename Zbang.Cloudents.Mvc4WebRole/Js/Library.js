@@ -398,7 +398,7 @@
                 page++;
                 libraryList();
             }
-        }, $('#Library'));
+        }, $('#library'));
 
         //cd.loader.registerFacebook();
         //cd.loader.registerTwitter();
