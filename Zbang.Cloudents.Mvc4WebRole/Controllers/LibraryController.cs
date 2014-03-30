@@ -180,7 +180,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var result = m_ZboxReadService.GetLibraryNode(query);
             result.Boxes.Elem = AssignUrl(result.Boxes.Elem);
             return this.CdJson(new JsonResponse(true, result));
-            //return Json(new JsonResponse(true, result), JsonRequestBehavior.AllowGet);
 
         }
 

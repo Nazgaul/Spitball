@@ -1183,7 +1183,7 @@
    
 .boxItemList:not(.sponsored)  
 .boxItem:nth-child(odd) {
-    margin-right: 10px;
+    margin-right: 20px;
     /*rtl*/
   }
    
