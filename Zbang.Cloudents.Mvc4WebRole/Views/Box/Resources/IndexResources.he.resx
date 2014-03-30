@@ -300,7 +300,7 @@
   <data name="MyFriends" xml:space="preserve">
     <value>חברים שלי</value>
   </data>
-  <data name="AddReply" xml:space="preserve">
+  <data name="AddComment" xml:space="preserve">
     <value>כתוב תגובה ...</value>
   </data>
   <data name="CreatedCourse" xml:space="preserve">
