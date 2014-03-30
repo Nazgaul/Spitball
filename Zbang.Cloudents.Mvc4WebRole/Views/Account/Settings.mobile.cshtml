@@ -8,7 +8,7 @@
 }
 <div id="account" class="profile page">
     @{
-        Html.RenderPartial("_AccountProfile", new Profile { Name = Model.Name, Image = Model.Image, University = Model.University });
+        Html.RenderPartial("_AccountProfile", new Profile { FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName, Image = Model.Image, University = Model.University });
         Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language } });
      }
    
