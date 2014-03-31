@@ -124,8 +124,37 @@ namespace Zbang.Zbox.ReadServices
 		('rtf', 'docx', 'doc', 'txt','pptx', 'potx', 'ppxs', 'ppsx', 'ppt', 'pot', 'pps','pdf','xls', 'xlsx', 'xlsm', 'xltx', 'ods', 'csv')
 
 
-");                
+");
             }
         }
+
+        public async Task<PartnersDto> GetPartnersEmail(long userid)
+        {
+            PartnersDto retVal = new PartnersDto();
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                using (var grid = conn.QueryMultiple(Zbang.Zbox.ViewModel.SqlQueries.Email.partners, new { userid = userid }))
+                {
+                    retVal.LastWeekUsers = grid.Read<int>().First();
+                    retVal.AllUsers = grid.Read<int>().First();
+
+                    retVal.LastWeekCourses = grid.Read<int>().First();
+                    retVal.AllCourses = grid.Read<int>().First();
+
+                    retVal.LastWeekItems = grid.Read<int>().First();
+                    retVal.AllItems = grid.Read<int>().First();
+
+                    retVal.LastWeekQnA = grid.Read<int>().First();
+                    retVal.AllQnA= grid.Read<int>().First();
+
+                    retVal.Univeristies = grid.Read<Univeristy>();
+
+                }
+
+            }
+            return retVal;
+
+        }
+
     }
 }

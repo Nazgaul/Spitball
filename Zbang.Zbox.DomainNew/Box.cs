@@ -32,8 +32,7 @@ namespace Zbang.Zbox.Domain
             Owner = user;
             UserBoxRel.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
 
-            var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
-            Questions.Add(new Question(user, "Created this course", this, idGenerator.GetId(), null));
+           
 
             this.CalculateMembers();
         }
@@ -57,7 +56,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
-        public virtual int CommentCount { get; private set; }
+        public virtual int CommentCount { get; protected set; }
 
 
         public void ChangeBoxName(string newBoxName)
