@@ -9,7 +9,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
     public interface IQueueProvider
     {
         void InsertMessageToCache(FileProcessData message);
-        void InsertMessageToMail(MailQueueData message);
         void InsertMessageToMailNew(BaseMailData message);
 
        // void InsertMessageToThumbnail(GenerateThumbnail message);

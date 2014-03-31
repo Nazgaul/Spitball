@@ -60,19 +60,6 @@ namespace Zbang.Zbox.Domain
         public virtual int CommentCount { get; private set; }
 
 
-        //public virtual string Uid
-        //{
-        //    get
-        //    {
-        //        if (Id == 0)
-        //        {
-        //            return null;
-        //        }
-        //        var shortUrlDecoder = Infrastructure.Url.ShortCodesCache.Create();
-        //        return shortUrlDecoder.LongToShortCode(Id);
-        //    }
-        //}
-
         public void ChangeBoxName(string newBoxName)
         {
             Name = newBoxName.Trim();
@@ -155,6 +142,14 @@ namespace Zbang.Zbox.Domain
 
 
         #region dbiTemp
+        public void CreateCreationQuestionIfNoneExists()
+        {
+            if (Questions.Count() == 0)
+            {
+                var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+                Questions.Add(new Question(this.Owner, "Created this course", this, idGenerator.GetId(), null));
+            }
+        }
         //public void UpdateMembersDbi(int count)
         //{
         //    MembersCount = count;

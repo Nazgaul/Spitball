@@ -13,7 +13,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
     public class QueueProvider : IQueueProvider
     {
         internal const string QueueName = "zboxCacheQueue";
-        internal const string MailQueueName = "zboxMailQueue";
         internal const string ThumbnailQueueName = "zboxThumbnailQueue";
         internal const string NewMailQueueName = "zboxMailQueue2";
         internal const string UpdateDomainQueueName = "transactionQueueName";
@@ -41,11 +40,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
             return GetQueue(QueueName.ToLower());
         }
 
-        private CloudQueue GetMailQueue()
-        {
-            return GetQueue(MailQueueName.ToLower());
-        }
-
         private CloudQueue GetMailQueueNew()
         {
             return GetQueue(NewMailQueueName.ToLower());
@@ -67,10 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             var queue = GetCacheQueue();
             queue.InsertToQueueProto(message);
         }
-        public void InsertMessageToMail(MailQueueData message)
-        {
-            GetMailQueue().InsertToQueue(message);
-        }
+       
         public void InsertMessageToMailNew(BaseMailData message)
         {
             GetMailQueueNew().InsertToQueueProto(message);
