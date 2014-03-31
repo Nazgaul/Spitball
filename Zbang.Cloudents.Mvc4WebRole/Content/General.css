@@ -1270,6 +1270,7 @@ select.inputText {
   content: '';
   display: block;
   position: fixed;
+  top: 50px;
   height: 10px;
   width: 100%;
   margin: -10px 0 0 -24px;
@@ -1695,6 +1696,9 @@ select.inputText {
   .joinGrpWpr.joinGrpWpr.followed .joinGrp {
     top: -20px;
     opacity: 0;
+  }
+  .scrolling #dash_right:before {
+    display: none;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
