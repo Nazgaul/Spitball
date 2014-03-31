@@ -861,7 +861,7 @@
    
 .boxItemList:not(.sponsored)  
 .boxItem:nth-child(odd) {
-    margin: 0 0 20px 10px;
+    margin: 0 0 20px 20px;
     /*rtl*/
   }
    
@@ -2137,7 +2137,7 @@
   /*rtl*/
 }
 .searchPage .userItem {
-  margin: 0 0 0 35px;
+  margin: 0 0 0 32px;
   /*rtl*/
 }
 .sTabs.sTab2 ~ .upArrow:before {
