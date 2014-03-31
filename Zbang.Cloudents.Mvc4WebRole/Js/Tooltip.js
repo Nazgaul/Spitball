@@ -144,6 +144,17 @@
     function removeTooltip() {
         $('.userTooltip').remove();
     }
+
+    $(document).on('click', '.userTooltip .btn3', function (e) {
+        e.preventDefault();
+        if (!cd.register()) {
+            cd.pubsub.publish('register');
+            removeTooltip();
+            return;
+        }
+        removeTooltip();
+        cd.pubsub.publish('message', { id: '', data: [{ name: tooltip.name, id: tooltip.id, userImage: tooltip.image }] });
+    })
        
     cd.pubsub.subscribe('clearTooltip', removeTooltip);
 })(cd, cd.data, jQuery);

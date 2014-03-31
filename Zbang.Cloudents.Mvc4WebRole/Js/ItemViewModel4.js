@@ -502,7 +502,9 @@
                             return;
                         }
 
-                        $ratePopup.one('click', '.star', function () {                          
+                        $ratePopup.one('click', '.star', function () {
+                            $ratePopup.addClass('rated');
+
                             var $this = $(this),
                                 startWidth = $('.stars .full').width(),
                                 itemRate = getItemRate(),
@@ -514,8 +516,8 @@
                             ratedItems[cd.userDetail().nId].push(self.itemid());
                             cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
                             setTimeout(function () {
-                                $ratePopup.removeClass('show');
-                            }, 500);
+                                $ratePopup.removeClass('show').removeClass('rated');
+                            }, 3000);
 
                         });
                         $ratePopup.one('click', '.closeDialog', function (e) {
