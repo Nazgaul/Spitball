@@ -11,10 +11,15 @@
         quizPreview = eById('quizPreview'),
         saveBtn = eById('saveQuiz');
 
+    var consts = {
+        quizValid: 3,
+        quizEmpty: 0
+    }
     function Quiz(data) {
         var that = this;
         that.name = data.name
         that.questions = data.questions;
+        that.errors = data.errors;
     }
 
     function Question(data) {
@@ -44,7 +49,11 @@
         if (!quiz.name) {
             return false;
         }
-        if (quiz.questions.length < 2) {
+        if (!quiz.questions.length) {
+            return false;
+        }
+
+        if (quiz.errors.length) {
             return false;
         }
 
@@ -52,22 +61,34 @@
     }
 
     function validateQuestion(question) {
-        return (question.text.length > 0) + (question.answers.length > 1) + (question.correctAnswer > -1);
+        var count = consts.quizValid;//3 is valid
+        if (!question.text.length) {
+            count--;
+        }
+        if (question.answers.length < 2) {
+            count--;
+        }
+        if (question.correctAnswer === -1) {
+            count--;
+        }
+        return count;
     }
     function parseQuiz() {
         var questions = quizQuestionList.querySelectorAll('.questionHolder'),
-            questionsArr = [], quizName;
+            questionsArr = [], errors = [], quizName;
 
         quizName = quizSideBar.querySelector('.quizName').value;
 
 
         for (var i = 0, l = questions.length; i < l; i++) {
             var question = parseQuestion(questions[i]);
-            if (question) {
-                questionsArr.push(question);
+            if (question.obj) {
+                questionsArr.push(question.obj);
+            } else if (question.elm) {
+                errors.push(question.elm)
             }
         }
-        return new Quiz({ name: quizName, questions: questionsArr });
+        return new Quiz({ name: quizName, questions: questionsArr,errors: errors });
 
         function parseQuestion(question) {
             var answersArr = [],
@@ -90,11 +111,15 @@
                 }
             }
 
-            var question = new Question({ text: questionText, answers: answersArr, correctAnswer: correctAnswer, element: question }),
-                validCount = validateQuestion(question);
-            if (validCount === 3) {
-                return question;
+            var questionObj = new Question({ text: questionText, answers: answersArr, correctAnswer: correctAnswer, element: question }),
+                validCount = validateQuestion(questionObj);
+            if (validCount === consts.quizValid) {
+                return {obj: questionObj};
+            } else if (validCount < consts.quizValid && validCount > consts.quizEmpty) {
+                return { elm: question };
             }
+
+            return {};
         }
     }
 
@@ -103,11 +128,15 @@
             var nextAnswer = this.parentElement.nextElementSibling,
                 checkbox = this.nextElementSibling;
 
-            if (nextAnswer && this.value.length) {
+            if (nextAnswer && this.value.length) {   //enable next input
                 nextAnswer.firstElementChild.disabled = false;
             }
             
-            //maybe check index greater than 2
+            //enable/disable next radio button
+            if ($(this.parentElement).index() < 2) {
+                return;
+            }
+
             checkbox.disabled = this.value.length === 0;
 
         }); 
