@@ -76,6 +76,7 @@
     <Compile Include="DTOs\Dashboard\UniversityDashboardInfoDto.cs" />
     <Compile Include="DTOs\Dashboard\WallDto.cs" />
     <Compile Include="DTOs\Emails\BoxDigestDto.cs" />
+    <Compile Include="DTOs\Emails\PartnersDto.cs" />
     <Compile Include="DTOs\Emails\QnADigestDto.cs" />
     <Compile Include="DTOs\Emails\ItemDigestDto.cs" />
     <Compile Include="DTOs\Emails\MembersDigestDto.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
     <Compile Include="SqlQueries\Admin.cs" />
+    <Compile Include="SqlQueries\Email.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
     <Compile Include="SqlQueries\Search.cs" />
     <Compile Include="SqlQueries\Seo.cs" />

@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.Services
                         box.CalculateMembers();
                         box.UpdateItemCount();
                         box.UpdateQnACount(boxRepository.QnACount(box.Id));
-                        box.CreateCreationQuestionIfNoneExists();
+                        //box.CreateCreationQuestionIfNoneExists();
                         UnitOfWork.CurrentSession.Save(box);
                     }
                     tx.Commit();
