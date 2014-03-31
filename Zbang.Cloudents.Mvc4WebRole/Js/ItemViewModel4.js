@@ -493,7 +493,7 @@
 
                     
                     ratePopupTimeout = setTimeout(function () {
-                        $ratePopup.removeClass('changedItem');
+                        $ratePopup.removeClass('changedItem').addClass('show');
                         $ratePopup.show();                        
 
                         if (!cd.register()) {
@@ -684,7 +684,7 @@
                         return false;
                     }
 
-                    $ratePopup.hide().addClass('itemChanged');
+                    $ratePopup.hide().addClass('changedItem').removeClass('show');
                     clearTimeout(ratePopupTimeout);
                     $rateContainer.find('.star').each(function (i,e) {
                         $(e).removeClass('rated').text(e.id.slice(-1));
