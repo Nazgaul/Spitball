@@ -9,15 +9,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
     }
 
-    public class MailQueueName : QueueName
-    {
-
-        public override string Name
-        {
-            get { return QueueProvider.MailQueueName; }
-        }
-    }
-
     public class MailQueueNameNew : QueueName
     {
 
