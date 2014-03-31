@@ -63,7 +63,7 @@
         if (!question.text.length) {
             count--;
         }
-        if (question.answers.length < 2) {
+        if (question.answers.length < 2)  {
             count--;
         }
         if (question.correctAnswer === -1) {
