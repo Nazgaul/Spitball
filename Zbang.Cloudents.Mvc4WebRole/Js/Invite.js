@@ -447,11 +447,14 @@
                         setTimeout(function () {
                             aside.classList.remove('invSuccess');
                         }, 2000);
-                        eById('inviteSendEmail').removeAttribute('disabled');
                     },
                     error: function (data) {
                         cd.notification('Error, please try again later');
+                    },
+                    always: function () {
+                        eById('inviteSendEmail').removeAttribute('disabled');
                     }
+
                 };
                 eById('inviteSendEmail').setAttribute('disabled', 'disabled');
                 if (boxid !== '') {

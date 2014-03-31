@@ -136,15 +136,13 @@
                 libraryList();
                 $('#lib_NodeName').addClass('hover');
                 self.title(decodeURIComponent(data.name || ''));
-
-                if (!cd.firstLoad) {
-                    var uniName = document.getElementById('univeristyName').textContent;
-                    if (self.title()) {
-                        cd.setTitle('{0} | {1} | Cloudents'.format(uniName, self.title()));
-                    } else {
-                        cd.setTitle('{0} | Cloudents'.format(uniName));
-                    }
+                var uniName = document.getElementById('univeristyName').textContent;
+                if (self.title()) {
+                    cd.setTitle('{0} | {1} | Cloudents'.format(uniName, self.title()));
+                } else {
+                    cd.setTitle('{0} | Cloudents'.format(uniName));
                 }
+              
 
             });
         });

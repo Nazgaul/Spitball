@@ -205,9 +205,7 @@
 
 
             self.boxes([]);
-            if (!cd.firstLoad) {
-                cd.setTitle(JsResources.Dashboard + ' | Cloudents');
-            }
+            cd.setTitle(JsResources.Dashboard + ' | Cloudents');            
             cd.pubsub.publish('dashboard_load');
             if (!boxes.length) {
                 self.loadedAnimation(true);

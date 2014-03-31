@@ -1002,15 +1002,15 @@
         // elemList.push(elem);
     };
 
-    var setTitle = function () {
-        var name = $('[data-name]:visible').data('name');
-        if (name) {
-            document.title = 'Cloudents ' + $('[data-name]:visible').data('name');
-        }
-        else {
-            document.title = 'Cloudents';
-        }
-    };
+    //var setTitle = function () {
+    //    var name = $('[data-name]:visible').data('name');
+    //    if (name) {
+    //        document.title = 'Cloudents ' + $('[data-name]:visible').data('name');
+    //    }
+    //    else {
+    //        document.title = 'Cloudents';
+    //    }
+    //};
 
     var getElementPosition = function (e) {
         o = e;
@@ -1253,7 +1253,7 @@
     //cd.switchBackToMobile = switchBackToMobile;
     cd.loaderOn = loaderOn;
     cd.shareFb = shareFb;
-    cd.setTitle = setTitle;
+    //cd.setTitle = setTitle;
 
     cd.clone = clone;
 
