@@ -450,9 +450,8 @@
                 if (!self.membersSectionVisible()) {
                     populateScore(userScore);
                 }
-                if (!cd.firstLoad) {
-                    cd.setTitle(username + ' | Cloudents');
-                }
+
+                cd.setTitle(username + ' | Cloudents');
                 self.score(userScore);
 
                 pubsub.publish('clearTooltip');
@@ -474,9 +473,9 @@
             function populateProfile(data) {
                 data = data || {};
                 var profile = new Profile(data);
-                if (!cd.firstLoad) {
-                    cd.setTitle(profile.name + ' | Cloudents');
-                }
+                    
+                cd.setTitle(profile.name + ' | Cloudents');
+                
                 self.name(profile.name);
 
                 upUsername.textContent = profile.name;

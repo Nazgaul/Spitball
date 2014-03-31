@@ -165,9 +165,7 @@
                         return $(this).data('link') + self.boxid;
                     });
 
-                if (!cd.firstLoad) {
-                    cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
-                }
+                cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
 
                 cd.pubsub.publish('box_load', self.boxid);
 
@@ -200,7 +198,7 @@
             cd.pubsub.publish('removeNotification', self.boxid);
             cd.pubsub.publish('perm', self.userType());
             cd.pubsub.publish('dinvite', self.boxid);
-            setTimeout(function () {                
+            setTimeout(function () {
                 document.getElementById('joinGrpWpr').classList.remove('show');
             }, 3300);
             analytics.trackEvent('Follow', 'Join group', 'Clicking on join group button, on the box level');

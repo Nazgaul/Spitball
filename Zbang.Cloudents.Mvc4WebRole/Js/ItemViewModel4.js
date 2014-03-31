@@ -324,9 +324,7 @@
 
                 fillVariables();
 
-                if (!cd.firstLoad) {
-                    cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
-                }
+                cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
 
 
                 cd.pubsub.publish(consts.itemLoad, null, function () {

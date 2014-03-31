@@ -34,27 +34,28 @@ namespace Zbang.Zbox.Domain
             ImageLarge = largeImage;
         }
         public User(string email, string smallImage, string largeImage)
+            : this()
         {
-            Name  = Email = email.Trim();
+            Name = Email = email.Trim();
             IsRegisterUser = false;
             Image = smallImage;
             ImageLarge = largeImage;
         }
-        
+
         public User(string email, string smallImage, string largeImage, string firstName, string middleName, string lastName, bool sex)
             : this()
         {
             Email = email;
             Image = smallImage;
             ImageLarge = largeImage;
-            
+
             FirstName = firstName.Trim();
             LastName = lastName.Trim();
             if (!string.IsNullOrEmpty(middleName))
             {
                 MiddleName = middleName.Trim();
             }
-            
+
             Name = CreateName();
             Sex = sex;
 
@@ -115,7 +116,7 @@ namespace Zbang.Zbox.Domain
         public Reputation AddReputation(ReputationAction action)
         {
             var reputation = new Reputation(IdGenerator.GetGuid(), this, action);
-            
+
             Reputation += reputation.Score;
             return reputation;
         }
@@ -146,7 +147,7 @@ namespace Zbang.Zbox.Domain
 
         public void UpdateUserProfile(string firstName, string middleName, string lastName, Uri picture, Uri largePicture)
         {
-           // Name = userName.Trim();
+            // Name = userName.Trim();
             if (picture != null)
             {
                 Image = picture.AbsoluteUri;

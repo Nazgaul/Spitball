@@ -3,7 +3,7 @@
         return;
     }
 
-    cd.firstLoad = true, waitingForPageLoad = true;
+    var firstLoad = true, waitingForPageLoad = true;
 
 
     var privateLocation = {
@@ -176,7 +176,7 @@
     };
 
     function changeHistoryState() {
-        cd.firstLoad = false;
+        firstLoad = false;
 
         if (window.history && window.history.pushState) {
             if (privateLocation.url && privateLocation.url.charAt(0) !== '/') {
@@ -598,6 +598,9 @@
     };
 
     cd.setTitle = function (title) {
+        if (firstLoad) {
+            return;
+        }
         historyNav[historyNav.length - 1].title = title;
         document.title = title;
     }
