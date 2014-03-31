@@ -491,9 +491,10 @@
                         }
                     }
 
-                    $ratePopup.show();
+                    
                     ratePopupTimeout = setTimeout(function () {
-                        $ratePopup.addClass('show');
+                        $ratePopup.removeClass('changedItem');
+                        $ratePopup.show();                        
 
                         if (!cd.register()) {
                             $ratePopup.one('click', '.star', function () {
@@ -683,7 +684,7 @@
                         return false;
                     }
 
-                    $ratePopup.removeClass('show').hide();
+                    $ratePopup.hide().addClass('itemChanged');
                     clearTimeout(ratePopupTimeout);
                     $rateContainer.find('.star').each(function (i,e) {
                         $(e).removeClass('rated').text(e.id.slice(-1));
