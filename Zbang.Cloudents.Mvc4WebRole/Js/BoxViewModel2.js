@@ -440,7 +440,7 @@
                         if (self.userType() === 'owner') {
                             return 1;
                         }
-                        if (self.members().length <= 2 && self.noOfComments() === 0 && self.noOfItems() === 0) {
+                        if (self.members().length <= 2 && self.noOfComments() < 2 && self.noOfItems() === 0) {
                             return 2;
                         }
                         return 0;

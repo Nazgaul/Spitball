@@ -25,7 +25,7 @@
         if (box.userType() === 'owner') {
             retVal = true;
         }
-        if (box.membersCount <= 2 && !box.commentCount && !box.itemCount) {
+        if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
             retVal = true;
         }
         return retVal ? ZboxResources.Delete : ZboxResources.LeaveGroup;
@@ -41,7 +41,7 @@
         if (box.userType() === 'owner') {
             return ZboxResources.SureYouWant + ' ' + ZboxResources.ToDeleteBox;
         }
-        if (box.membersCount <= 2 && !box.commentCount && !box.itemCount) {
+        if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
             return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
         }
         return ZboxResources.SureYouWant + ' ' + ZboxResources.ToLeaveGroup;
@@ -205,7 +205,7 @@
 
 
             self.boxes([]);
-            cd.setTitle(JsResources.Dashboard + ' | Cloudents');            
+            cd.setTitle(JsResources.Dashboard + ' | Cloudents');
             cd.pubsub.publish('dashboard_load');
             if (!boxes.length) {
                 self.loadedAnimation(true);

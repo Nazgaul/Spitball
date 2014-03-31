@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             //if box is empty everyone can remove it only the owner and another user
-            if (box.CommentCount == 0 && box.MembersCount <=2 && box.ItemCount == 0)
+            if (box.CommentCount == 1 && box.MembersCount <=2 && box.ItemCount == 0)
             {
                 userType = UserRelationshipType.Owner;
             }
