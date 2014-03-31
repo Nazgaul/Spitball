@@ -24,11 +24,9 @@
 
     function Question(data) {
         var that = this;
-        that.index = data.index;
         that.text = data.text || '';
         that.answers = data.answers;
         that.correctAnswer = data.correctAnswer;
-        that.element = data.element;
     }
 
     function Answer(data) {
@@ -53,7 +51,7 @@
             return false;
         }
 
-        if (quiz.errors.length) {
+        if (quiz.errors) {
             return false;
         }
 
@@ -75,7 +73,7 @@
     }
     function parseQuiz() {
         var questions = quizQuestionList.querySelectorAll('.questionHolder'),
-            questionsArr = [], errors = [], quizName;
+            questionsArr = [], errors = 0, quizName;
 
         quizName = quizSideBar.querySelector('.quizName').value;
 
@@ -85,10 +83,10 @@
             if (question.obj) {
                 questionsArr.push(question.obj);
             } else if (question.elm) {
-                errors.push(question.elm)
+                errors++;
             }
         }
-        return new Quiz({ name: quizName, questions: questionsArr,errors: errors });
+        return new Quiz({ name: quizName, questions: questionsArr, errors: errors });
 
         function parseQuestion(question) {
             var answersArr = [],
@@ -104,22 +102,23 @@
                 var answer = answers[i].querySelector('.questionAnswer');
                 if (answer.value.length > 0) {
                     answersArr.push(new Answer({ index: aIndex, text: answer.value }));
-                    aIndex++;
                     if (answer.nextElementSibling.checked) {
-                        correctAnswer = i;
+                        correctAnswer = aIndex;
                     }
+                    aIndex++;
+
                 }
             }
 
-            var questionObj = new Question({ text: questionText, answers: answersArr, correctAnswer: correctAnswer, element: question }),
+            var questionObj = new Question({ text: questionText, answers: answersArr, correctAnswer: correctAnswer }),
                 validCount = validateQuestion(questionObj);
             if (validCount === consts.quizValid) {
-                return {obj: questionObj};
+                return { obj: questionObj };
             } else if (validCount < consts.quizValid && validCount > consts.quizEmpty) {
-                return { elm: question };
+                return { elm: question };//fix
             }
 
-            return {};
+            return {};//fix
         }
     }
 
@@ -131,7 +130,7 @@
             if (nextAnswer && this.value.length) {   //enable next input
                 nextAnswer.firstElementChild.disabled = false;
             }
-            
+
             //enable/disable next radio button
             if ($(this.parentElement).index() < 2) {
                 return;
@@ -139,7 +138,7 @@
 
             checkbox.disabled = this.value.length === 0;
 
-        }); 
+        });
         $(quizQuestionList).on('change', '.questionHolder', function (e) {
             if (e.target.type !== 'checkbox') {
                 return;
@@ -174,12 +173,38 @@
 
         $(quizPreview).click(function () {
             var quiz = parseQuiz(),
-                previewObj = {};
+                question,answer,
+                previewObj = {}, questionObj = {};
 
-            //previewObj.
-            //for (var i = 0; i < length; i++) {
+            previewObj.name = quiz.name || 'Quiz name here';
 
-            //}
+            var questionsHTML = '';
+            for (var i = 0, l = quiz.questions.length; i < l; i++) {
+                question = quiz.questions[i];
+
+                var answersHTML='';
+                for (var j = 0, jL = question.answers.length; j < jL; j++) {
+                    answer = question.answers[j];
+                    answer.correct = '';
+                    if (answer.index === question.correctAnswer) {
+                        answer.correct = 'correct';
+                    }
+                    answersHTML += cd.attachTemplateToData('quizAnswerPreviewTemplate', answer);
+                }
+
+                questionObj.index = (i+1);
+                questionObj.text = question.text;
+                questionObj.answers = answersHTML;
+
+                questionsHTML += cd.attachTemplateToData('quizQuestionPreviewTemplate', questionObj);
+            }
+
+            previewObj.questions = questionsHTML;
+
+            var previewHTML = cd.attachTemplateToData('quizPreviewTemplate', previewObj);
+            $('body').append(previewHTML);   
+
+            
         });
     }
     registerEvents();

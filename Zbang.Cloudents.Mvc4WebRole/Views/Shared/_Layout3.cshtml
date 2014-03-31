@@ -1,4 +1,4 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿ @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 
 @{
@@ -185,21 +185,21 @@
         </div>
     </script>
 
-    <script type="text/html" id="quizPreview">
-        <li>
+    <script type="text/html" id="quizPreviewTemplate">
+        <div id="preview">
             <span>{{name}}</span>
             <ul>{{questions}}</ul>
-        </li>
+        </div>
     </script>
 
-    <script type="text/html" id="quizQuestionPreview">
+    <script type="text/html" id="quizQuestionPreviewTemplate">
         <li>
             <span>{{index}}. </span><span>{{text}}</span>
             <ul>{{answers}}</ul>
         </li>
     </script>
 
-    <script type="text/html" id="quizAnswerPreview">
+    <script type="text/html" id="quizAnswerPreviewTemplate">
         <li><span>{{index}}. </span><span>{{text}}</span><span>{{correct}}</span></li>
     </script>
 
