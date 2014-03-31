@@ -114,6 +114,7 @@
             </div>
             <button id="saveQuiz" class="saveQuiz">Save</button>
             <button class="quizAddQuestion" id="quizAddQuestion">Add quesiton</button>
+            <button class="quizAddQuestion" id="quizPreview">Preview</button>
 
 
         </aside>
@@ -182,6 +183,24 @@
                 </div>
             </div>
         </div>
+    </script>
+
+    <script type="text/html" id="quizPreview">
+        <li>
+            <span>{{name}}</span>
+            <ul>{{questions}}</ul>
+        </li>
+    </script>
+
+    <script type="text/html" id="quizQuestionPreview">
+        <li>
+            <span>{{index}}. </span><span>{{text}}</span>
+            <ul>{{answers}}</ul>
+        </li>
+    </script>
+
+    <script type="text/html" id="quizAnswerPreview">
+        <li><span>{{index}}. </span><span>{{text}}</span><span>{{correct}}</span></li>
     </script>
 
     <script type="text/html" id="userToolTipTempalte">
