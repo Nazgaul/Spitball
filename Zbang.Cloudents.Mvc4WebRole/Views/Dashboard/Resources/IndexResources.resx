@@ -184,6 +184,9 @@ interest with the:</value>
   <data name="PendingInvitations" xml:space="preserve">
     <value>Pending invitations</value>
   </data>
+  <data name="PostedComment" xml:space="preserve">
+    <value>posted a comment</value>
+  </data>
   <data name="ResultFor" xml:space="preserve">
     <value>Result for</value>
   </data>

@@ -260,6 +260,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to posted a comment.
+        /// </summary>
+        public static string PostedComment {
+            get {
+                return ResourceManager.GetString("PostedComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Result for.
         /// </summary>
         public static string ResultFor {
