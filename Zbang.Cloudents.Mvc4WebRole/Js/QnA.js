@@ -530,8 +530,6 @@
                     self.questionList($.map(data, function (i) { return new Question(i); }));
                     //cd.updateTimeActions();
                     self.state(state.question);
-                    applyScroll();
-
                     cd.updateTimeActions(document.getElementById('box_QA'));
                 }
             });
@@ -541,6 +539,7 @@
 
         var $qaContent = $('.QAContent'), heightFromTop = $('#box_QA').position().top;
         function applyScroll() {
+            
             heightFromTop = heightFromTop || $('#box_QA').position().top;
             cd.innerScroll($('#Questions'), $(window).height() - ($('#Questions').offset().top - $(window).scrollTop()));
 
@@ -551,7 +550,7 @@
 
 
             cd.innerScroll($('#Answers'),
-                $(window).height() - ($('#Answers').offset().top - $(window).scrollTop()) - extraHeight);
+                $(window).height() - ($('#Answers').offset().top - $(window).scrollTop()) - $(window).scrollTop() - extraHeight);
 
             //  var extraHeight = $('.QATop').outerHeight(true);
             //  if (self.state() === state.answers) {
@@ -699,6 +698,10 @@
                 }
             }
         }
+
+        cd.pubsub.subscribe('qnaScroll', function () {
+            applyScroll();
+        });
     }
 
 
