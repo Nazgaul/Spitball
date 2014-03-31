@@ -53,6 +53,9 @@
 .ratePopup.rated .rateTxt2 {
   top: 8px;
 }
+.ratePopup.changedItem .rateWpr {
+  top: -25px;
+}
 .ratePopup .rateTxt {
   line-height: 16px;
 }
