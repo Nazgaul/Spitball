@@ -28,6 +28,7 @@
     .transition(top 1s 2s);
     &.show
     {
+        visibility: visible;
         top: 129px;
         .rateWpr{
             top:0;
@@ -46,11 +47,13 @@
             top:8px;
         }
     }
-    &.changedItem
+    &.rated2
     {
-        .rateWpr{
-            top: -25px;
-        }
+        .transition(top 1s 0s);
+    }
+
+    &.changedItem {
+        visibility:hidden;
     }
     .rateTxt{
         line-height: 16px;
