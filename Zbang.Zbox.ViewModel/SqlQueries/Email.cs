@@ -59,7 +59,7 @@ userid in (Select userid from zbox.users where universityid2=@userid)
 		) t
 		
 --National Cloudents Top 10--
-select top 10 u.username, (select count(*) from zbox.users where universityid2 = u.userid) as students
+select top 10 u.username as Name, (select count(*) from zbox.users where universityid2 = u.userid) as students
 from zbox.users u where usertype = 1
 and country = 'NL'
 order by Students desc  ";

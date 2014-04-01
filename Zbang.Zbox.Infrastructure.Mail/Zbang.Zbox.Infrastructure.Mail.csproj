@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangeEmailMail.cs" />
+    <Compile Include="EmailParameters\Partners.cs" />
     <Compile Include="FlagItemMail.cs" />
     <Compile Include="ForgotPasswordMail.cs" />
     <Compile Include="IMailBuilder.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="MailManager.cs" />
     <Compile Include="MailParameters.cs" />
     <Compile Include="MessageMail.cs" />
+    <Compile Include="PartnersMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Resources\EmailResource.Designer.cs">
@@ -196,7 +198,7 @@
     <EmbeddedResource Include="MailTemplate\ResetPwdAr.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdHe.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdRu.html" />
-    <Content Include="MailTemplate\Partners\WeeklyUpdate.html" />
+    <EmbeddedResource Include="MailTemplate\Partners\WeeklyUpdate.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseAr.html" />
