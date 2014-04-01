@@ -1,0 +1,17 @@
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.quizSideBar {
+  position: fixed;
+  top: 50px;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  background: #fff;
+}
+.toggleQuiz {
+  width: 22px;
+  height: 22px;
+  background: url(/Images/common16-sprite.png) -294px -2px;
+}

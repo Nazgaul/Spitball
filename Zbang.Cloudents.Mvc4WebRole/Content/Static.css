@@ -71,7 +71,7 @@ footer {
   /*rtl*/
   width: 10px;
   height: 10px;
-  background: url(/Images/common15-sprite.png) -68px -15px no-repeat;
+  background: url(/Images/common16-sprite.png) -68px -15px no-repeat;
 }
 .sideBar li {
   line-height: 15px;
@@ -565,7 +565,7 @@ footer {
   display: inline-block;
   width: 53px;
   height: 53px;
-  background: url(/Images/common15-sprite.png) -239px -1px no-repeat;
+  background: url(/Images/common16-sprite.png) -239px -1px no-repeat;
   position: absolute;
   left: 8px;
   /*rtl*/
@@ -647,7 +647,7 @@ footer {
   right: 18px;
   /*rtl*/
   top: 25px;
-  background: url(/Images/common15-sprite.png) -98px -49px no-repeat;
+  background: url(/Images/common16-sprite.png) -98px -49px no-repeat;
 }
 .answer {
   padding: 0 18px 0 16px;

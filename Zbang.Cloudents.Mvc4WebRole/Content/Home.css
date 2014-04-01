@@ -205,7 +205,7 @@ aside > button {
   /*rtl*/
   width: 10px;
   height: 10px;
-  background: url(/Images/common15-sprite.png?v=1) -68px -15px no-repeat;
+  background: url(/Images/common16-sprite.png?v=1) -68px -15px no-repeat;
 }
 aside li {
   line-height: 15px;
@@ -265,7 +265,7 @@ aside .last {
   /*rtl*/
   width: 17px;
   height: 13px;
-  background: url(/Images/common15-sprite.png?v=1) -112px -1px no-repeat;
+  background: url(/Images/common16-sprite.png?v=1) -112px -1px no-repeat;
   vertical-align: top;
 }
 .headerSettings:hover {

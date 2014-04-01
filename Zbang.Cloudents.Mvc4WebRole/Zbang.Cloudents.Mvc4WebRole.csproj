@@ -640,6 +640,12 @@
     <Content Include="Content\QnA.min.css">
       <DependentUpon>QnA.css</DependentUpon>
     </Content>
+    <Content Include="Content\Quiz.css">
+      <DependentUpon>Quiz.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Quiz.min.css">
+      <DependentUpon>Quiz.less</DependentUpon>
+    </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
     </Content>
@@ -743,6 +749,7 @@
     <Content Include="Images\comment-sprite.png" />
     <Content Include="Images\common14-sprite.png" />
     <Content Include="Images\common15-sprite.png" />
+    <Content Include="Images\common16-sprite.png" />
     <Content Include="Images\cursor.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
@@ -947,6 +954,7 @@
     <Content Include="Install.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Quiz.less" />
     <None Include="Js\CDNFallback.min.js.map">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </None>
