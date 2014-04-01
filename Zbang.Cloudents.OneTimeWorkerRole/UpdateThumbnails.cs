@@ -50,12 +50,12 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
 
-                //var blobs = new List<string>() {
-                //    "23423065-2b1c-4c4f-ad85-231231947647.mp3",
+                var blobs = new List<string>() {
+                    "36220469-73ec-4a57-8ccc-5e9224cb1965.doc"
                 //                    "2d2446f6-c0dd-438f-9ec6-84fb78d2b4e1.htm",
                                     
-                //};
-                var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
+                };
+                //var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
                 foreach (var blobname in blobs)
                 {
 
