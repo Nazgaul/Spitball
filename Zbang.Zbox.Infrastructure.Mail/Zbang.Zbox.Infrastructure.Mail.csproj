@@ -97,33 +97,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\WelcomeOld.html" />
     <EmbeddedResource Include="Resources\EmailResource.he.resx" />
     <EmbeddedResource Include="Resources\EmailResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EmailResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ForgotPwd.html" />
-    <EmbeddedResource Include="MailTemplate\ForgotPwdHe.html" />
-    <EmbeddedResource Include="MailTemplate\InviteBox.html" />
-    <EmbeddedResource Include="MailTemplate\InviteBoxHe.html" />
-    <EmbeddedResource Include="MailTemplate\NewMsg.html" />
-    <EmbeddedResource Include="MailTemplate\NewMsgHe.html" />
-    <EmbeddedResource Include="MailTemplate\Updates.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesHe.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeOldHe.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\UpdatesBoxCube.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\UpdatesLine.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\UpdatesBoxCubeHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesLineHe.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ChangeEmail.html" />
@@ -135,25 +113,6 @@
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ChangeEmailRu.html" />
     <EmbeddedResource Include="MailTemplate\FlaggedItemRu.html" />
-    <EmbeddedResource Include="MailTemplate\ForgotPwdRu.html" />
-    <EmbeddedResource Include="MailTemplate\InviteBoxRu.html" />
-    <EmbeddedResource Include="MailTemplate\NewMsgRu.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesBoxCubeRu.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesLineRu.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesRu.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeOldRu.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ForgotPwdOldRu.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ForgotPwdOld.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ForgotPwdOldHe.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ForgotPwdAr.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -162,21 +121,7 @@
     <EmbeddedResource Include="MailTemplate\ChangeEmailZh.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ForgotPwdZh.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeOldZh.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesLineZh.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesBoxCubeZh.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesZh.html" />
-    <EmbeddedResource Include="MailTemplate\InviteBoxZh.html" />
-    <EmbeddedResource Include="MailTemplate\NewMsgZh.html" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ChangeEmailAr.html" />
-    <EmbeddedResource Include="MailTemplate\Invite.html" />
-    <EmbeddedResource Include="MailTemplate\InviteAr.html" />
-    <EmbeddedResource Include="MailTemplate\InviteHe.html" />
-    <EmbeddedResource Include="MailTemplate\InviteRu.html" />
-    <EmbeddedResource Include="MailTemplate\InviteZh.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\InviteCourse.html" />

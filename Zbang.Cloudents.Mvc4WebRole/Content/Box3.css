@@ -436,7 +436,7 @@
   border: 1px solid #ebebeb;
 }
 .mtouch .boxRename {
-  display: block;
+  display: inline-block;
 }
 .boxPrps {
   overflow: hidden;
