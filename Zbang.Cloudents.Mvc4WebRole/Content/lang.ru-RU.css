@@ -45,6 +45,9 @@ q {
 .friendItem:last-child:nth-child(-n + 4) {
   float: right;
 }
+.tag:before {
+  width: 52px;
+}
 .friendItem:last-child:nth-child(5) {
   float: none;
 }
