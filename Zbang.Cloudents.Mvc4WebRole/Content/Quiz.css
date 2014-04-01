@@ -6,12 +6,21 @@
   position: fixed;
   top: 50px;
   right: 0;
-  width: 400px;
+  width: 383px;
   height: 100%;
   background: #fff;
+  z-index: 4;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-left: 12px;
+  box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
 }
 .toggleQuiz {
   width: 22px;
   height: 22px;
   background: url(/Images/common16-sprite.png) -294px -2px;
+  position: absolute;
+  left: -13px;
+  top: 20px;
 }
