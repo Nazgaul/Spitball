@@ -28,6 +28,7 @@
     .transition(top 1s 2s);
     &.show
     {
+        visibility: visible;
         top: 129px;
         .rateWpr{
             top:0;
@@ -36,6 +37,8 @@
             top: -20px;
         }
     }
+    // rated class added when user clicks on a star from the rate popop
+    // in this case there are 2 steps 1)Sweet... 2) Move up 
     &.rated
     {
         .rateWpr{
@@ -46,11 +49,15 @@
             top:8px;
         }
     }
-    &.changedItem
+    // rated2 class added when user clicks on a star from the rating in the ASIDE
+    // in this case if the rating popup is visible - then move it up in 1 step (no sweet)
+    &.rated2
     {
-        .rateWpr{
-            top: -25px;
-        }
+        .transition(top 1s 0s);
+    }
+    // This class is necessary when moving between items 'mid-transition' - we hide it.
+    &.changedItem {
+        visibility:hidden;
     }
     .rateTxt{
         line-height: 16px;

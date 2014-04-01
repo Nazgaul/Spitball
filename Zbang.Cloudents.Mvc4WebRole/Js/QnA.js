@@ -531,6 +531,13 @@
                     //cd.updateTimeActions();
                     self.state(state.question);
                     cd.updateTimeActions(document.getElementById('box_QA'));
+                    var interval = setInterval(function () {
+                        if ($('#box_QA').is(':visible')) {
+                            clearInterval(interval);
+                            applyScroll();
+                        }
+
+                    }, 100);
                 }
             });
         }
@@ -698,10 +705,6 @@
                 }
             }
         }
-
-        cd.pubsub.subscribe('qnaScroll', function () {
-            applyScroll();
-        });
     }
 
 

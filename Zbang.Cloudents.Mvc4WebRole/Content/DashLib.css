@@ -5,6 +5,7 @@
 .dashboard,
 .union {
   height: 100%;
+  vertical-align: top;
 }
 .dashContent,
 .libraryContent {
@@ -16,6 +17,9 @@
   font-size: 18px;
   line-height: 100%;
   padding: 27px 0 25px;
+}
+.libraryContent {
+  vertical-align: top;
 }
 .libraryContent .contentWpr {
   padding-top: 105px;
@@ -38,6 +42,9 @@
   /*rtl*/
   width: 100%;
 }
+.boxesHeader.topBar.editName {
+  padding-top: 25px;
+}
 .boxesHeader.topBar.editName #lib_Back {
   width: 100%;
   max-width: -webkit-calc(100% - 15px);
@@ -47,7 +54,6 @@
   width: 100%;
   font-size: 14px;
   display: inline-block;
-  margin-top: 25px;
 }
 .boxesHeader.topBar:hover .boxRename {
   display: inline-block;

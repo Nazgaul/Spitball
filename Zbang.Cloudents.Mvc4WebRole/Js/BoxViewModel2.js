@@ -167,8 +167,7 @@
 
                 cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
 
-                cd.pubsub.publish('box_load', self.boxid);
-                cd.pubsub.publish('qnaScroll');
+                cd.pubsub.publish('box_load', self.boxid);                
                 setTimeout(function () {
                     if (self.follow()) {
                         document.getElementById('joinGrpWpr').classList.add('show');

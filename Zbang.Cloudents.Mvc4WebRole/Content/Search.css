@@ -187,7 +187,7 @@
 }
 .searchPage .userItem {
   margin-right: 32px;
-  /*rtl*/
+  /* diff rtl*/
 }
 .searchPage .userItem:nth-child(9n) {
   margin: 0;

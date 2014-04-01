@@ -483,19 +483,16 @@
                     });
 
                     //rateitempopup
-
-               
+             
                     if (ratedItems && ratedItems[cd.userDetail().nId]) {
                         if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
                             return;
                         }
                     }
 
-                    
                     ratePopupTimeout = setTimeout(function () {
                         $ratePopup.removeClass('changedItem').addClass('show');
-                        $ratePopup.show();                        
-
+                                               
                         if (!cd.register()) {
                             $ratePopup.one('click', '.star', function () {
                                 cd.unregisterAction(this);
@@ -522,7 +519,6 @@
 
                         });
                         $ratePopup.one('click', '.closeDialog', function (e) {
-                            $ratePopup.hide();
                             ratedItems[cd.userDetail().nId].push(self.itemid());
                             cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
 
@@ -683,8 +679,7 @@
                         e.preventDefault();
                         return false;
                     }
-
-                    $ratePopup.hide().addClass('changedItem').removeClass('show');
+                    $ratePopup.addClass('changedItem').removeClass('show');
                     clearTimeout(ratePopupTimeout);
                     $rateContainer.find('.star').each(function (i,e) {
                         $(e).removeClass('rated').text(e.id.slice(-1));
@@ -912,10 +907,10 @@
 
                     if ($ratePopup.is(':visible')) {
                         setTimeout(function () {
-                            $ratePopup.removeClass('show');
+                            $ratePopup.removeClass('show').addClass('rated2');
                         }, 500);
                     } else {
-                        $ratePopup.hide().removeClass('show');
+                        $ratePopup.removeClass('show');
                     }
                     
 

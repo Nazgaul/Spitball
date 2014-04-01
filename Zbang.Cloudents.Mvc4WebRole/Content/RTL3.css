@@ -2137,8 +2137,8 @@
   /*rtl*/
 }
 .searchPage .userItem {
-  margin: 0 0 0 32px;
-  /*rtl*/
+  margin: 0 0 0 31px;
+  /* diff rtl*/
 }
 .sTabs.sTab2 ~ .upArrow:before {
   right: 75px;

@@ -39,6 +39,7 @@
   transition: top 1s 2s;
 }
 .ratePopup.show {
+  visibility: visible;
   top: 129px;
 }
 .ratePopup.show .rateWpr {
@@ -53,8 +54,14 @@
 .ratePopup.rated .rateTxt2 {
   top: 8px;
 }
-.ratePopup.changedItem .rateWpr {
-  top: -25px;
+.ratePopup.rated2 {
+  -webkit-transition: top 1s 0s;
+  -moz-transition: top 1s 0s;
+  -o-transition: top 1s 0s;
+  transition: top 1s 0s;
+}
+.ratePopup.changedItem {
+  visibility: hidden;
 }
 .ratePopup .rateTxt {
   line-height: 16px;
