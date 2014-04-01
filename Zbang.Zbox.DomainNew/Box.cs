@@ -147,6 +147,7 @@ namespace Zbang.Zbox.Domain
             {
                 var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
                 Questions.Add(new Question(this.Owner, "Created this course", this, idGenerator.GetId(), null));
+                UpdateQnACount(1);
             }
         }
         //public void UpdateMembersDbi(int count)

@@ -89,6 +89,11 @@
     <Compile Include="AnswerRating.cs" />
     <Compile Include="Quota.cs" />
     <Compile Include="Reputation.cs" />
+    <Compile Include="Resources\QuestionResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuestionResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="University.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="User.cs" />
@@ -106,6 +111,13 @@
     <EmbeddedResource Include="Mappings\UserBoxRel.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\QuestionResource.ar.resx" />
+    <EmbeddedResource Include="Resources\QuestionResource.he.resx" />
+    <EmbeddedResource Include="Resources\QuestionResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\QuestionResource.ru.resx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Item.hbm.xml">
