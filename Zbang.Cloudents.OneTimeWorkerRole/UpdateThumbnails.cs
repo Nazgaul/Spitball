@@ -51,7 +51,14 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
 
                 var blobs = new List<string>() {
-                    "36220469-73ec-4a57-8ccc-5e9224cb1965.doc"
+                    
+//"989fa4b8-897a-47dc-8c8b-da1d84a3f1b0.pdf",
+//"67fc54ff-db81-48a5-9a88-9b3efd5ea328.docx",
+//"d5b2369a-8eb8-4f93-90f9-d4af08d7c89d.pdf",
+//"df40b48c-b231-4da4-b26a-936f4ab15ab3.pdf",
+//"9f7b0ee0-c5b1-4274-9df0-967019611cc0.doc",
+//"65fc3bf8-211c-4e5f-ad26-c1fc3d5bb9d9.pdf",
+"7b4ec14e-c561-466c-8338-e4732c931bf7.pdf"
                 //                    "2d2446f6-c0dd-438f-9ec6-84fb78d2b4e1.htm",
                                     
                 };
