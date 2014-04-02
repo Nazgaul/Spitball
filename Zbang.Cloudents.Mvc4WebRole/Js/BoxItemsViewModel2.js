@@ -341,14 +341,14 @@
         });
 
 
-        $('#addQuiz').click = function (e) {
+        $('#addQuiz').click(function (e) {
             if (!cd.register()) {
                 cd.pubsub.publish('register');
                 return;
             }
             
             cd.pubsub.publish('initQuiz', {boxId: boxid, boxName : cd.getParameterFromUrl(3)});
-        };
+        });
 
         $('#BoxItemList').hoverIntent({
             over: function (e) {

@@ -734,6 +734,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\404.png" />
     <Content Include="Images\box-sprite14.png" />
+    <Content Include="Images\box16-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
     <Content Include="Images\callout-sprite.png" />
     <Content Include="Images\cb1.png" />

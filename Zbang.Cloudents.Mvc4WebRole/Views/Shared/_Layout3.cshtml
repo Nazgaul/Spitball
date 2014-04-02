@@ -97,7 +97,7 @@
                 <input type="text" class="inputText quizName" placeholder="Choose quiz name" />
 
                 <div class="quizQuestionList" id="quizQuestionList">
-                    <div class="questionHolder">
+                    @*<div class="questionHolder">
                         <input type="text" class="inputText questionText" placeholder="Question Text">
                         <div>answers</div>
                         <div class="quizAnswersList">
@@ -111,7 +111,7 @@
                             <input type="text" class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
                         </div>                        
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <button id="saveQuiz" class="saveQuiz">Save</button>
                 <button class="quizAddQuestion" id="quizAddQuestion">Add quesiton</button>
@@ -166,20 +166,20 @@
     <script type="text/html" id="quizQuestionTemplate">
         <div class="questionHolder">
             <button class="quizRemoveQuestion">X</button>
-            <input type="text" class="inputText questionText" placeholder="Question Text">
+            <input type="text" class="inputText questionText" placeholder="Question #{{index}}">
             <div>answers</div>
-            <div class="quizAnswersList">
-                <div class="quizAnswer">
+            <ul class="quizAnswersList">
+                <li class="quizAnswer">
                    <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
-                </div>
-                <div class="quizAnswer">
-2                    <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
-                </div>
-                <div class="quizAnswer disabled">
+                </li>
+                <li class="quizAnswer">
+                  <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
+                </li>
+                <li class="quizAnswer disabled">
                    <input type="text" class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-                </div>
+                </li>
                 
-            </div>
+            </ul>
         </div>
     </script>
 

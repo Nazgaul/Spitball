@@ -43,11 +43,11 @@
     });
 
     function addInitQuestions() {
-        var initHTML = cd.attachTempalteToData('quizQuestionTemplate', { index: 1 });
-        initHTML += cd.attachTempalteToData('quizQuestionTemplate', { index: 2 });
-        initHTML += cd.attachTempalteToData('quizQuestionTemplate', { index: 3 });
+        var initHTML = cd.attachTemplateToData('quizQuestionTemplate', { index: 1 });
+        initHTML += cd.attachTemplateToData('quizQuestionTemplate', { index: 2 });
+        initHTML += cd.attachTemplateToData('quizQuestionTemplate', { index: 3 });
 
-        quizQuestionTemplate.insertAdjacentHTML('afterbegin', initHTML);
+        quizQuestionList.insertAdjacentHTML('afterbegin', initHTML);
     }
 
     function showQuiz() {
@@ -148,7 +148,7 @@
             radioBtn.disabled = this.value.length === 0;
 
             
-        });b
+        });
 
         $(quizQuestionList).on('click', '.questionAnswer[readonly="readonly"]', function (e) {
             e.preventDefault();
