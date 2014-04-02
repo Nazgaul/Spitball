@@ -33,7 +33,7 @@
   box-sizing: border-box;
 }
 .quizSideBar .inputText {
-  width: 260px;
+  width: 270px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -101,21 +101,30 @@
   display: block;
 }
 .questionHolder .closeDialog {
-  background-position: -79px -15px;
+  background-position: -68px -26px;
   display: none;
 }
 .questionHolder .lFloat {
-  margin-top: 14px;
+  margin-top: 3px;
   color: #676767;
 }
 .questionHolder .rFloat {
   width: 40px;
   font-size: 11px;
-  margin-top: 10px;
+  margin-bottom: 9px;
   color: #676767;
 }
 .questionHolder .inputText {
   resize: none;
+  margin: -5px 0 9px;
+  padding-top: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.questionHolder label {
+  position: absolute;
+  right: 17px;
 }
 .quizAnswersList {
   list-style-type: decimal;
