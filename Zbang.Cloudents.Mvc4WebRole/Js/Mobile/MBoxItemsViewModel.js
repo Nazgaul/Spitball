@@ -13,7 +13,7 @@
         function Item(data) {
             var that = this;
             that.name = data.name;
-            that.uid = data.uid;
+            that.uid = data.id;
             that.uploader = data.owner;
             //that.userid = data.OwnerId;
             that.type = data.type;
