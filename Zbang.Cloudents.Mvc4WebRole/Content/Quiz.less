@@ -12,8 +12,23 @@
     //border-left:2px solid #000;
     //overflow-y:scroll;
     .boxSizing;
-    padding-left: 12px;
+    padding: 0 14px;
+    border-left: 1px solid @borderColor;
     box-shadow: -4px 0 4px rgba(0,0,0,.15);
+    .transition(right .4s);
+    header{
+        height: 40px;
+        background: @attentionBlue;
+        color: #fff;
+        font-size: 17px;
+        margin: 0 -14px 0 -15px; //left padding + 1px border
+        padding: 8px 0 0 24px;
+        .boxSizing;
+    }
+    .inputText{
+        width: 100%;
+        .boxSizing;
+    }
 }
 .toggleQuiz
 {
@@ -21,6 +36,22 @@
     height: 22px;
     background: @common-sprite -294px -2px;
     position: absolute;
-    left:-13px;
-    top: 20px;
+    right: 374px;
+    top: 78px;
+    z-index: 5;
+    .transition(all .4s);
+    cursor: pointer;
+}
+
+.checkbox:checked
+{
+    ~ .toggleQuiz
+    {
+        .flipH;
+        right: 3px;
+    }
+    ~ .quizSideBar
+    {
+        right: -372px; 
+    }
 }
