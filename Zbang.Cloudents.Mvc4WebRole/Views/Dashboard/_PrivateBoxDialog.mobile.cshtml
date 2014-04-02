@@ -11,8 +11,8 @@
             @Html.ValidationSummary(false)
 
             @Html.LabelFor(m => m.BoxName)
-        
-            @Html.HiddenFor(m => m.privacySettings, new { value = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl })
+         
+            @Html.HiddenFor(m => m.privacySettings, new { value = Model.privacySettings.GetStringValueLowerCase() })
             @Html.TextBoxFor(m => m.BoxName, new { @class = "inputText verticalMargins" , autofocus="autofocus"})
             <input type="submit" class="rFloat btn1"  value="@DialogResources.Create" />
         }
