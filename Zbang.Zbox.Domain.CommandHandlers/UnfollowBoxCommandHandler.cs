@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new BoxDoesntExistException();
             }
-            if (box.CommentCount == 0 && box.MembersCount <= 2 && box.ItemCount == 0 && box.UserTime.CreatedUser == user.Email)
+            if (box.CommentCount <= 1 && box.MembersCount <= 2 && box.ItemCount == 0 && box.UserTime.CreatedUser == user.Email)
             {
                 DeleteBox(box);
                 return;

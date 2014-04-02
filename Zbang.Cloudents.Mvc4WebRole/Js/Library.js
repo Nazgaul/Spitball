@@ -292,7 +292,7 @@
 
         self.unsubscribe = function (box) {
             var isok = false,
-                isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount === 0 && box.itemCount === 0);
+                isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
 
             if (isDelete) {
                 isok = confirm(JsResources.DeleteCourse);

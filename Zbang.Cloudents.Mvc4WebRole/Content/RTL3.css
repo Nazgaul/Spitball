@@ -1217,6 +1217,11 @@
   /*rtl*/
   left: auto;
 }
+.cbManage:checked + div {
+  right: -3px;
+  /*rtl*/
+  left: auto;
+}
 .boxManage .btn1 {
   margin: 0 10px 0 5px;
   /*rtl*/
