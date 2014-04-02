@@ -94,7 +94,7 @@
         <aside id="quizSideBar" class="quizSideBar">
             <section class="quiz">
                 <header>Create a quiz
-                    <button class="closeDialog" data-closediag="close"></button>
+                    <button class="closeDialog"></button>
                 </header>
                 <div class="quizWpr">
                     <input type="text" class="inputText quizName" placeholder="Choose quiz name" />
@@ -152,28 +152,39 @@
 
     <script type="text/html" id="quizQuestionTemplate">
         <li class="questionHolder">
-            <button class="closeDialog" data-closediag="close"></button>
-            @*<button class="quizRemoveQuestion">X</button>*@
-            <textarea class="inputText questionText" placeholder="Question #{{index}}"></textarea>
-            <div>answers</div>
-            <ul class="quizAnswersList">
-                <li class="quizAnswer">
-                   <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
-                </li>
-                <li class="quizAnswer">
-                  <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
-                </li>
-                <li class="quizAnswer disabled">
-                   <input type="text" class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-                </li>
+            <form>
+                <button class="closeDialog quizRemoveQuestion"></button>
+                @*<button class="quizRemoveQuestion">X</button>*@
+                <textarea class="inputText questionText" placeholder="Question #{{index}}"></textarea>
+                <div class="lFloat">Answers:</div>
+                <div class="rFloat">Correct Answer</div>
+                <ul class="quizAnswersList">
+                    <li class="quizAnswer">
+                       <textarea class="inputText questionAnswer" placeholder="Answer 1" ></textarea>
+                       <input id="quizRadio1" type="radio" class="correctAnswer" name="quizRadio" />
+                       <label for="quizRadio1"></label>
+                    </li>
+                    <li class="quizAnswer">
+                        <textarea class="inputText questionAnswer" placeholder="Answer 2"></textarea>
+                        <input id="quizRadio2" type="radio" class="correctAnswer" name="quizRadio" />
+                        <label for="quizRadio2"></label>
+                    </li>
+                    <li class="quizAnswer disabled">
+                       <textarea class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" ></textarea>
+                       <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+                       <label></label>
+                    </li>
                 
-            </ul>
+                </ul>
+            </form>
         </li>
     </script>
 
     <script type="text/html" id="quizAnswerTemplate">
         <li class="quizAnswer">
-            <input type="text" class="inputText questionAnswer" placeholder="Answer {{index}}" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+            <textarea class="inputText questionAnswer" placeholder="Answer {{index}}" ></textarea>
+            <input id="quizRadio{{index}}" type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+            <label for="quizRadio{{index}}"></label>
         </li>
     </script>
 
