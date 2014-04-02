@@ -13,14 +13,53 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-left: 12px;
+  padding: 0 14px;
+  border-left: 1px solid #c2c2c2;
   box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
+  -webkit-transition: right 0.4s;
+  -moz-transition: right 0.4s;
+  -o-transition: right 0.4s;
+  transition: right 0.4s;
+}
+.quizSideBar header {
+  height: 40px;
+  background: #0371c8;
+  color: #fff;
+  font-size: 17px;
+  margin: 0 -14px 0 -15px;
+  padding: 8px 0 0 24px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.quizSideBar .inputText {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .toggleQuiz {
   width: 22px;
   height: 22px;
   background: url(/Images/common16-sprite.png) -294px -2px;
   position: absolute;
-  left: -13px;
-  top: 20px;
+  right: 374px;
+  top: 78px;
+  z-index: 5;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+.checkbox:checked ~ .toggleQuiz {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+  right: 3px;
+}
+.checkbox:checked ~ .quizSideBar {
+  right: -372px;
 }
