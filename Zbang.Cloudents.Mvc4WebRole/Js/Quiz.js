@@ -144,7 +144,13 @@
             }
 
             var radioBtn = this.nextElementSibling;
-            radioBtn.disabled = this.value.length === 0;
+            if (this.value.length > 0) {
+                radioBtn.disabled = false;
+            } else {
+                radioBtn.disabled = true;
+                radioBtn.checked = false;
+            }
+            
 
             
         });
@@ -156,14 +162,28 @@
                 html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
             
             this.parentElement.insertAdjacentHTML('beforebegin', html);
+
+            $(this).focusout();
+            $(this.parentElement.previousElementSibling.firstElementChild).focus();
         });
         
 
-        $(quizQuestionList).on('click', '.quizRemoveQuestion', function () {
-            $(this).parent().remove();
+        $(quizQuestionList).on('click', '.quizRemoveQuestion', function (e) {
+            e.preventDefault();
+            var question = this.parentElement.parentElement;
+
+            quizQuestionList.removeChild(question);
+
+            var questions = quizQuestionList.querySelectorAll('.questionText');
+            for (var i = 0, l = questions.length; i < l; i++) {
+                question = questions[i];
+                if (question.placeholder === question.textContent) {
+
+                }
+            }
         });
 
-        $(quizAddQuestion).click(function () {
+        $(quizAddQuestion).click(function (e) {
             addQuestion(quizQuestionList.children.length + 1);            
         });
 
