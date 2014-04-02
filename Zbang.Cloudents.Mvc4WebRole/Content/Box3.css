@@ -851,9 +851,9 @@
   background: url(/Images/box16-sprite.png) -54px -106px no-repeat;
 }
 .boxItemsHeader .iconTxt.quizBtn:before {
-  width: 26px;
-  height: 21px;
-  background-position: -49px -165px;
+  width: 15px;
+  height: 13px;
+  background-position: -57px -143px;
   margin-top: -3px;
 }
 .listViewBtn,

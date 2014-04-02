@@ -2,6 +2,12 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.bodyContent.noQuiz .quizSideBar {
+  right: -390px;
+}
+.bodyContent.noQuiz .toggleQuiz {
+  right: -22px;
+}
 .quizSideBar {
   position: fixed;
   top: 50px;
@@ -59,7 +65,7 @@
   width: 22px;
   height: 22px;
   background: url(/Images/common16-sprite.png) -294px -2px;
-  position: absolute;
+  position: fixed;
   right: 374px;
   top: 78px;
   z-index: 6;

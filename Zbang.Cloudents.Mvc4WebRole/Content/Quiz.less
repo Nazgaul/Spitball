@@ -1,5 +1,16 @@
 ﻿@import "varsAndMixins";
-
+.bodyContent{
+    &.noQuiz
+    {
+        .quizSideBar {
+            right: -390px;
+        }
+        
+        .toggleQuiz{
+            right: -22px;
+        }
+    }
+}
 .quizSideBar
 {
     position: fixed;
@@ -14,6 +25,7 @@
     border-left: 1px solid @borderColor;
     box-shadow: -4px 0 4px rgba(0,0,0,.15);
     .transition(right .4s);
+    
     header{
         height: 40px;
         background: @attentionBlue;
@@ -52,7 +64,7 @@
     width: 22px;
     height: 22px;
     background: @common-sprite -294px -2px;
-    position: absolute;
+    position: fixed;
     right: 374px;
     top: 78px;
     z-index: 6;
