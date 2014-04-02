@@ -141,3 +141,20 @@
   clear: both;
   padding-left: 16px;
 }
+.quizAddQuestion {
+  width: 100%;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: left;
+  color: #0371c8;
+}
+.quizAddQuestion:hover {
+  background: #fff;
+}
+.saveQuiz {
+  margin-top: 8px;
+}
+.quizPreview {
+  color: #0371c8;
+  margin-top: 12px;
+}
