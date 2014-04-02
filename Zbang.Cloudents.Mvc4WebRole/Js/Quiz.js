@@ -43,15 +43,13 @@
     });
 
     function addInitQuestions() {
-        addQuestion(1);//change to array
-        addQuestion(2);
-        addQuestion(3);
+        addQuestion([1, 2, 3]);
 
     }
 
     function showQuiz() {
         //show the quiz div
-
+        eById('main').classList.remove('noQuiz');
     }
 
     function validateQuiz(quiz) {
@@ -74,7 +72,7 @@
         if (!question.text.length) {
             count--;
         }
-        if (question.answers.length < 2)  {
+        if (question.answers.length < 2) {
             count--;
         }
         if (question.correctAnswer === -1) {
@@ -150,23 +148,23 @@
                 radioBtn.disabled = true;
                 radioBtn.checked = false;
             }
-            
 
-            
+
+
         });
 
         $(quizQuestionList).on('click', '.questionAnswer[readonly="readonly"]', function (e) {
             e.preventDefault();
-            var answersList = this.parentElement.parentElement ,
-                indexObj = { index: answersList.children.length, topIndex: $(answersList.parentElement.parentElement).index() + 1},
+            var answersList = this.parentElement.parentElement,
+                indexObj = { index: answersList.children.length, topIndex: $(answersList.parentElement.parentElement).index() + 1 },
                 html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
-            
+
             this.parentElement.insertAdjacentHTML('beforebegin', html);
 
             $(this).focusout();
             $(this.parentElement.previousElementSibling.firstElementChild).focus();
         });
-        
+
 
         $(quizQuestionList).on('click', '.quizRemoveQuestion', function (e) {
             e.preventDefault();
@@ -184,7 +182,9 @@
         });
 
         $(quizAddQuestion).click(function (e) {
-            addQuestion(quizQuestionList.children.length + 1);            
+            var questionsLength = quizQuestionList.children.length;
+
+            addQuestion(questionsLength + 1);
         });
 
         $(saveQuiz).click(function () {
@@ -204,7 +204,7 @@
 
         $(quizPreview).click(function () {
             var quiz = parseQuiz(),
-                question,answer,
+                question, answer,
                 previewObj = {}, questionObj = {};
 
             previewObj.name = quiz.name || 'Quiz name here';
@@ -213,7 +213,7 @@
             for (var i = 0, l = quiz.questions.length; i < l; i++) {
                 question = quiz.questions[i];
 
-                var answersHTML='';
+                var answersHTML = '';
                 for (var j = 0, jL = question.answers.length; j < jL; j++) {
                     answer = question.answers[j];
                     answer.correct = '';
@@ -223,7 +223,7 @@
                     answersHTML += cd.attachTemplateToData('quizAnswerPreviewTemplate', answer);
                 }
 
-                questionObj.index = (i+1);
+                questionObj.index = (i + 1);
                 questionObj.text = question.text;
                 questionObj.answers = answersHTML;
 
@@ -233,15 +233,30 @@
             previewObj.questions = questionsHTML;
 
             var previewHTML = cd.attachTemplateToData('quizPreviewTemplate', previewObj);
-            $('body').append(previewHTML);   
+            $('body').append(previewHTML);
 
-            
+
+
+
+        });
+
+        $(window).on('beforeunload', function () {
+            return 'Quiz changes might be lost, continue?'
+            //cd.confirm('Quiz changes might be lost, continue?',
+            //    function () { },
+            //    function () { }
+            //);
         });
     }
-    function addQuestion(index) {
-        var indexObj = { index: index },
+    function addQuestion(indexes) {
+        var indexObj, html;
+        for (var i = 0, l = indexes.length; i < l; i++) {
+            indexObj = { index: indexes[i] },
             html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
+            quizQuestionList.insertAdjacentHTML('beforeend', html);
+        }
+        
 
-        quizQuestionList.insertAdjacentHTML('beforeend', html);
+        
     }
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);

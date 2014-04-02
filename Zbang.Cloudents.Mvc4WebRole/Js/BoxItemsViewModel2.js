@@ -347,7 +347,8 @@
                 return;
             }
             
-            cd.pubsub.publish('initQuiz', {boxId: boxid, boxName : cd.getParameterFromUrl(3)});
+            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3) });
+            this.disabled = true;
         });
 
         $('#BoxItemList').hoverIntent({

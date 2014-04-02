@@ -134,8 +134,8 @@
 
         return rtls > notrtls;
     }
-    $body.on('keypress', 'textarea', function () {
-        if (checkRTLDirection($(this).value)) {
+    $body.on('keyup', 'textarea', function () {
+        if (checkRTLDirection(this.value)) {
             $(this).css('direction', 'rtl').css('text-align', 'right');
         } else {
             $(this).css('direction', 'ltr').css('text-align', 'left');
