@@ -43,11 +43,10 @@
     });
 
     function addInitQuestions() {
-        var initHTML = cd.attachTemplateToData('quizQuestionTemplate', { index: 1 });
-        initHTML += cd.attachTemplateToData('quizQuestionTemplate', { index: 2 });
-        initHTML += cd.attachTemplateToData('quizQuestionTemplate', { index: 3 });
+        addQuestion(1);//change to array
+        addQuestion(2);
+        addQuestion(3);
 
-        quizQuestionList.insertAdjacentHTML('afterbegin', initHTML);
     }
 
     function showQuiz() {
@@ -158,10 +157,10 @@
 
         $(quizQuestionList).on('click', '.questionAnswer[readonly="readonly"]', function (e) {
             e.preventDefault();
-            var answersList = e.delegateTarget.querySelector('.quizAnswersList'),
-                indexObj = {index: answersList.children.length },
+            var answersList = this.parentElement.parentElement ,
+                indexObj = { index: answersList.children.length, topIndex: $(answersList.parentElement.parentElement).index() + 1},
                 html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
-
+            
             this.parentElement.insertAdjacentHTML('beforebegin', html);
 
             $(this).focusout();
@@ -185,7 +184,7 @@
         });
 
         $(quizAddQuestion).click(function (e) {
-            quizQuestionList.insertAdjacentHTML('beforeend', eById('quizQuestionTemplate').innerHTML);
+            addQuestion(quizQuestionList.children.length + 1);            
         });
 
         $(saveQuiz).click(function () {
@@ -238,5 +237,11 @@
 
             
         });
+    }
+    function addQuestion(index) {
+        var indexObj = { index: index },
+            html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
+
+        quizQuestionList.insertAdjacentHTML('beforeend', html);
     }
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);

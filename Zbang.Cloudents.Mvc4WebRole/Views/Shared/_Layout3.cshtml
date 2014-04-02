@@ -161,13 +161,13 @@
                 <ul class="quizAnswersList">
                     <li class="quizAnswer">
                        <textarea class="inputText questionAnswer" placeholder="Answer 1" ></textarea>
-                       <input id="quizRadio1" type="radio" class="correctAnswer" name="quizRadio" />
-                       <label for="quizRadio1"></label>
+                       <input id="quizRadio{{index}}1" type="radio" class="correctAnswer" name="quizRadio" />
+                       <label for="quizRadio{{index}}1"></label>
                     </li>
                     <li class="quizAnswer">
                         <textarea class="inputText questionAnswer" placeholder="Answer 2"></textarea>
-                        <input id="quizRadio2" type="radio" class="correctAnswer" name="quizRadio" />
-                        <label for="quizRadio2"></label>
+                        <input id="quizRadio{{index}}2" type="radio" class="correctAnswer" name="quizRadio" />
+                        <label for="quizRadio{{index}}2"></label>
                     </li>
                     <li class="quizAnswer disabled">
                        <textarea class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" ></textarea>
@@ -183,8 +183,8 @@
     <script type="text/html" id="quizAnswerTemplate">
         <li class="quizAnswer">
             <textarea class="inputText questionAnswer" placeholder="Answer {{index}}" ></textarea>
-            <input id="quizRadio{{index}}" type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
-            <label for="quizRadio{{index}}"></label>
+            <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+            <label for="quizRadio{{topIndex}}{{index}}"></label>
         </li>
     </script>
 
