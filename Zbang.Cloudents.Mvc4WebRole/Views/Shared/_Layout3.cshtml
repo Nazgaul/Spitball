@@ -107,11 +107,8 @@
                             <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
                         </div>
                         <div class="quizAnswer">
-                            <input type="text" class="inputText questionAnswer" placeholder="option3" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-                        </div>
-                        <div class="quizAnswer">
-                            <input type="text" class="inputText questionAnswer" placeholder="option4" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-                        </div>
+                            <input type="text" class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -173,22 +170,24 @@
             <div>answers</div>
             <div class="quizAnswersList">
                 <div class="quizAnswer">
-                    <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
+                   <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
                 </div>
                 <div class="quizAnswer">
-                    <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
+2                    <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
                 </div>
                 <div class="quizAnswer disabled">
-                    <input type="text" class="inputText questionAnswer" placeholder="option3" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+                   <input type="text" class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
                 </div>
                 
             </div>
         </div>
     </script>
 
-    @*<div class="quizAnswer">
-        <input type="text" class="inputText questionAnswer" placeholder="option4" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-    </div>*@
+    <script type="text/html" id="quizAnswerTemplate">
+        <div class="quizAnswer">
+            <input type="text" class="inputText questionAnswer" placeholder="Answer {{index}}" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
+        </div>
+    </script>
 
     <script type="text/html" id="quizPreviewTemplate">
         <div id="preview">

@@ -9,7 +9,9 @@
         quizQuestionList = eById('quizQuestionList'),
         quizAddQuestion = eById('quizAddQuestion'),
         quizPreview = eById('quizPreview'),
-        saveBtn = eById('saveQuiz');
+        saveBtn = eById('saveQuiz'),
+    //
+        errorElements = [];
 
     var consts = {
         quizValid: 3,
@@ -31,12 +33,22 @@
 
     function Answer(data) {
         var that = this;
-        that.index = data.index;
         that.text = data.text;
     }
     pubsub.subscribe('initQuiz', function () {
+        addInitQuestions();
+        showQuiz();
+        registerEvents();
 
     });
+
+    function addInitQuestions() {
+        var initHTML = cd.attachTempalteToData('quizQuestionTemplate', { index: 1 });
+        initHTML += cd.attachTempalteToData('quizQuestionTemplate', { index: 2 });
+        initHTML += cd.attachTempalteToData('quizQuestionTemplate', { index: 3 });
+
+        quizQuestionTemplate.insertAdjacentHTML('afterbegin', initHTML);
+    }
 
     function showQuiz() {
         //show the quiz div
@@ -124,29 +136,29 @@
 
     function registerEvents() {
         $(quizQuestionList).on('keyup', '.questionAnswer', function (e) {
-            var nextAnswer = this.parentElement.nextElementSibling,
-                checkbox = this.nextElementSibling;
+            var answersList = e.delegateTarget.querySelector('.quizAnswersList'),
+                quizAnswer = this.parentElement;
 
-            if (nextAnswer && this.value.length) {   //enable next input
-                nextAnswer.firstElementChild.disabled = false;
-            }
-
-            //enable/disable next radio button
-            if ($(this.parentElement).index() < 2) {
+            //if it's the first / second child element
+            if (answersList.firstElementChild === quizAnswer || answersList.firstElementChild.nextElementSibling === quizAnswer) {
                 return;
             }
 
-            checkbox.disabled = this.value.length === 0;
+            var radioBtn = this.nextElementSibling;
+            radioBtn.disabled = this.value.length === 0;
 
+            
+        });b
+
+        $(quizQuestionList).on('click', '.questionAnswer[readonly="readonly"]', function (e) {
+            e.preventDefault();
+            var answersList = e.delegateTarget.querySelector('.quizAnswersList'),
+                indexObj = {index: answersList.children.length },
+                html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
+
+            this.parentElement.insertAdjacentHTML('beforebegin', html);
         });
-        $(quizQuestionList).on('change', '.questionHolder', function (e) {
-            if (e.target.type !== 'checkbox') {
-                return;
-            }
-            var state = e.target.checked;
-            $(this).find('input').prop('checked', false);
-            e.target.checked = state;
-        });
+        
 
         $(quizQuestionList).on('click', '.quizRemoveQuestion', function () {
             $(this).parent().remove();
@@ -207,6 +219,4 @@
             
         });
     }
-    registerEvents();
-
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);

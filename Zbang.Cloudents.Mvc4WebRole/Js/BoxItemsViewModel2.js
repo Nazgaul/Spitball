@@ -190,6 +190,8 @@
             cd.google.register(true);
             cd.pubsub.publish('upload');
         };
+
+
         cd.pubsub.subscribe('addItem', function (d) {
             try {
                 var newItem = new Item(d);
@@ -337,6 +339,16 @@
             cd.pubsub.publish('item_Download', { id: data.uid });
             analytics.trackEvent('Box', 'Download', 'The number of downloads made on box view');
         });
+
+
+        $('#addQuiz').click = function (e) {
+            if (!cd.register()) {
+                cd.pubsub.publish('register');
+                return;
+            }
+            
+            cd.pubsub.publish('initQuiz', {boxId: boxid, boxName : cd.getParameterFromUrl(3)});
+        };
 
         $('#BoxItemList').hoverIntent({
             over: function (e) {
