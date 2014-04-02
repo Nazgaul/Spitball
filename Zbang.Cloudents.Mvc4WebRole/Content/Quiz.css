@@ -128,6 +128,10 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.questionHolder .inputText[readonly],
+.questionHolder .inputText[readonly] ~ label {
+  opacity: .5;
+}
 .questionHolder label {
   position: absolute;
   right: 17px;
