@@ -35,21 +35,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.Cells, Version=7.7.2.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Cells, Version=8.0.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Cells.7.7.2\lib\net40-client\Aspose.Cells.dll</HintPath>
+      <HintPath>..\packages\Aspose.Cells.8.0.0\lib\net40-client\Aspose.Cells.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Imaging, Version=2.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Imaging, Version=2.3.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Imaging.2.2.0\lib\net4.0\Aspose.Imaging.dll</HintPath>
+      <HintPath>..\packages\Aspose.Imaging.2.3.0.1\lib\net4.0\Aspose.Imaging.dll</HintPath>
     </Reference>
     <Reference Include="Aspose.Pdf, Version=9.0.0.0, Culture=neutral, PublicKeyToken=47b2d0fcacdd3eb6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Aspose.Pdf.9.0.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Slides, Version=14.1.2.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Slides, Version=14.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Slides.NET.14.1.2.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>
+      <HintPath>..\packages\Aspose.Slides.NET.14.2.0.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>
     </Reference>
     <Reference Include="Aspose.Words, Version=14.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
