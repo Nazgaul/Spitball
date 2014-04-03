@@ -87,38 +87,23 @@
         </div>
     </header>
 
-    <div class="bodyContent" id="main">
+    <div class="bodyContent noQuiz" id="main">
         @RenderBody()
-
+        <input id="quizToggle" type="checkbox" class="checkbox" />
+        <label for="quizToggle" class="toggleQuiz"></label>
         <aside id="quizSideBar" class="quizSideBar">
-            <input id="quizToggle" type="checkbox" class="checkbox" />
-            <label for="quizToggle" class="toggleQuiz"></label>
-            <input type="text" class="inputText quizName" placeholder="Quiz Name" />
-            <div class="quizQuestionList" id="quizQuestionList">
-                <div class="questionHolder">
-                    <input type="text" class="inputText questionText" placeholder="Question Text">
-                    <div>answers</div>
-                    <div class="quizAnswersList">
-                        <div class="quizAnswer">
-                            <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
-                        </div>
-                        <div class="quizAnswer">
-                            <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
-                        </div>
-                        <div class="quizAnswer">
-                            <input type="text" class="inputText questionAnswer" placeholder="option3" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-                        </div>
-                        <div class="quizAnswer">
-                            <input type="text" class="inputText questionAnswer" placeholder="option4" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-                        </div>
-                    </div>
+            <section class="quiz">
+                <header>Create a quiz
+                    <button class="closeDialog"></button>
+                </header>
+                <div class="quizWpr">
+                    <input type="text" class="inputText quizName" placeholder="Choose quiz name" />
+                    <ul class="quizQuestionList" id="quizQuestionList"></ul>
+                    <button class="quizAddQuestion iconTxt" id="quizAddQuestion">Add question</button>
                 </div>
-            </div>
-            <button id="saveQuiz" class="saveQuiz">Save</button>
-            <button class="quizAddQuestion" id="quizAddQuestion">Add quesiton</button>
-            <button class="quizAddQuestion" id="quizPreview">Preview</button>
-
-
+                <button id="saveQuiz" class="saveQuiz btn1 lFloat">Publish</button>
+                <button class="quizPreview rFloat" id="quizPreview">Preview quiz</button>
+            </section>
         </aside>
         <div id="fb-root"></div>
 
@@ -166,28 +151,42 @@
     <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
 
     <script type="text/html" id="quizQuestionTemplate">
-        <div class="questionHolder">
-            <button class="quizRemoveQuestion">X</button>
-            <input type="text" class="inputText questionText" placeholder="Question Text">
-            <div>answers</div>
-            <div class="quizAnswersList">
-                <div class="quizAnswer">
-                    <input type="text" class="inputText questionAnswer" placeholder="option1" /><input type="checkbox" class="correctAnswer" />
-                </div>
-                <div class="quizAnswer">
-                    <input type="text" class="inputText questionAnswer" placeholder="option2" /><input type="checkbox" class="correctAnswer" />
-                </div>
-                <div class="quizAnswer disabled">
-                    <input type="text" class="inputText questionAnswer" placeholder="option3" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-                </div>
+        <li class="questionHolder">
+            <form>
+                <button class="closeDialog quizRemoveQuestion"></button>
+                @*<button class="quizRemoveQuestion">X</button>*@
+                <textarea class="inputText questionText" placeholder="Question #{{index}}"></textarea>
+                <div class="lFloat">Answers:</div>
+                <div class="rFloat">Correct Answer</div>
+                <ul class="quizAnswersList">
+                    <li class="quizAnswer">
+                       <textarea class="inputText questionAnswer" placeholder="Answer 1" ></textarea>
+                       <input id="quizRadio{{index}}1" type="radio" class="correctAnswer" name="quizRadio" />
+                       <label for="quizRadio{{index}}1"></label>
+                    </li>
+                    <li class="quizAnswer">
+                        <textarea class="inputText questionAnswer" placeholder="Answer 2"></textarea>
+                        <input id="quizRadio{{index}}2" type="radio" class="correctAnswer" name="quizRadio" />
+                        <label for="quizRadio{{index}}2"></label>
+                    </li>
+                    <li class="quizAnswer disabled">
+                       <textarea class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" ></textarea>
+                       <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+                       <label></label>
+                    </li>
                 
-            </div>
-        </div>
+                </ul>
+            </form>
+        </li>
     </script>
 
-    @*<div class="quizAnswer">
-        <input type="text" class="inputText questionAnswer" placeholder="option4" disabled="disabled" /><input type="checkbox" class="correctAnswer" disabled="disabled" />
-    </div>*@
+    <script type="text/html" id="quizAnswerTemplate">
+        <li class="quizAnswer">
+            <textarea class="inputText questionAnswer" placeholder="Answer {{index}}" ></textarea>
+            <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+            <label for="quizRadio{{topIndex}}{{index}}"></label>
+        </li>
+    </script>
 
     <script type="text/html" id="quizPreviewTemplate">
         <div id="preview">

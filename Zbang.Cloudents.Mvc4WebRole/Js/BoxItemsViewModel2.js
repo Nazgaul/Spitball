@@ -190,6 +190,8 @@
             cd.google.register(true);
             cd.pubsub.publish('upload');
         };
+
+
         cd.pubsub.subscribe('addItem', function (d) {
             try {
                 var newItem = new Item(d);
@@ -338,6 +340,17 @@
             analytics.trackEvent('Box', 'Download', 'The number of downloads made on box view');
         });
 
+
+        $('#addQuiz').click(function (e) {
+            if (!cd.register()) {
+                cd.pubsub.publish('register');
+                return;
+            }
+            
+            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3) });
+            this.disabled = true;
+        });
+
         $('#BoxItemList').hoverIntent({
             over: function (e) {
                 if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
@@ -357,7 +370,7 @@
                 cd.parseTimeString($(tooltip).find('[data-time]'));
             },            
             out: function () {
-                //$('.boxItemTt').remove();
+                $('.boxItemTt').remove();
             },
             selector: 'li.boxItem',
             timeout: 100,
@@ -365,7 +378,7 @@
         });
         
         cd.pubsub.subscribe('clearTooltip',function() {
-              //$('.boxItemTt').remove();
+              $('.boxItemTt').remove();
         });
         
         function setView(view,element) {

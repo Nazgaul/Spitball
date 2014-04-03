@@ -9,7 +9,9 @@
         quizQuestionList = eById('quizQuestionList'),
         quizAddQuestion = eById('quizAddQuestion'),
         quizPreview = eById('quizPreview'),
-        saveBtn = eById('saveQuiz');
+        saveBtn = eById('saveQuiz'),
+    //
+        errorElements = [];
 
     var consts = {
         quizValid: 3,
@@ -31,16 +33,23 @@
 
     function Answer(data) {
         var that = this;
-        that.index = data.index;
         that.text = data.text;
     }
     pubsub.subscribe('initQuiz', function () {
+        addInitQuestions();
+        showQuiz();
+        registerEvents();
 
     });
 
+    function addInitQuestions() {
+        addQuestion([1, 2, 3]);
+
+    }
+
     function showQuiz() {
         //show the quiz div
-
+        eById('main').classList.remove('noQuiz');
     }
 
     function validateQuiz(quiz) {
@@ -63,7 +72,7 @@
         if (!question.text.length) {
             count--;
         }
-        if (question.answers.length < 2)  {
+        if (question.answers.length < 2) {
             count--;
         }
         if (question.correctAnswer === -1) {
@@ -124,36 +133,58 @@
 
     function registerEvents() {
         $(quizQuestionList).on('keyup', '.questionAnswer', function (e) {
-            var nextAnswer = this.parentElement.nextElementSibling,
-                checkbox = this.nextElementSibling;
+            var answersList = e.delegateTarget.querySelector('.quizAnswersList'),
+                quizAnswer = this.parentElement;
 
-            if (nextAnswer && this.value.length) {   //enable next input
-                nextAnswer.firstElementChild.disabled = false;
-            }
-
-            //enable/disable next radio button
-            if ($(this.parentElement).index() < 2) {
+            //if it's the first / second child element
+            if (answersList.firstElementChild === quizAnswer || answersList.firstElementChild.nextElementSibling === quizAnswer) {
                 return;
             }
 
-            checkbox.disabled = this.value.length === 0;
-
-        });
-        $(quizQuestionList).on('change', '.questionHolder', function (e) {
-            if (e.target.type !== 'checkbox') {
-                return;
+            var radioBtn = this.nextElementSibling;
+            if (this.value.length > 0) {
+                radioBtn.disabled = false;
+            } else {
+                radioBtn.disabled = true;
+                radioBtn.checked = false;
             }
-            var state = e.target.checked;
-            $(this).find('input').prop('checked', false);
-            e.target.checked = state;
+
+
+
         });
 
-        $(quizQuestionList).on('click', '.quizRemoveQuestion', function () {
-            $(this).parent().remove();
+        $(quizQuestionList).on('click', '.questionAnswer[readonly="readonly"]', function (e) {
+            e.preventDefault();
+            var answersList = this.parentElement.parentElement,
+                indexObj = { index: answersList.children.length, topIndex: $(answersList.parentElement.parentElement).index() + 1 },
+                html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
+
+            this.parentElement.insertAdjacentHTML('beforebegin', html);
+
+            $(this).focusout();
+            $(this.parentElement.previousElementSibling.firstElementChild).focus();
         });
 
-        $(quizAddQuestion).click(function () {
-            quizQuestionList.insertAdjacentHTML('beforeend', eById('quizQuestionTemplate').innerHTML);
+
+        $(quizQuestionList).on('click', '.quizRemoveQuestion', function (e) {
+            e.preventDefault();
+            var question = this.parentElement.parentElement;
+
+            quizQuestionList.removeChild(question);
+
+            var questions = quizQuestionList.querySelectorAll('.questionText');
+            for (var i = 0, l = questions.length; i < l; i++) {
+                question = questions[i];
+                if (question.placeholder === question.textContent) {
+
+                }
+            }
+        });
+
+        $(quizAddQuestion).click(function (e) {
+            var questionsLength = quizQuestionList.children.length;
+
+            addQuestion(questionsLength + 1);
         });
 
         $(saveQuiz).click(function () {
@@ -173,7 +204,7 @@
 
         $(quizPreview).click(function () {
             var quiz = parseQuiz(),
-                question,answer,
+                question, answer,
                 previewObj = {}, questionObj = {};
 
             previewObj.name = quiz.name || 'Quiz name here';
@@ -182,7 +213,7 @@
             for (var i = 0, l = quiz.questions.length; i < l; i++) {
                 question = quiz.questions[i];
 
-                var answersHTML='';
+                var answersHTML = '';
                 for (var j = 0, jL = question.answers.length; j < jL; j++) {
                     answer = question.answers[j];
                     answer.correct = '';
@@ -192,7 +223,7 @@
                     answersHTML += cd.attachTemplateToData('quizAnswerPreviewTemplate', answer);
                 }
 
-                questionObj.index = (i+1);
+                questionObj.index = (i + 1);
                 questionObj.text = question.text;
                 questionObj.answers = answersHTML;
 
@@ -202,11 +233,30 @@
             previewObj.questions = questionsHTML;
 
             var previewHTML = cd.attachTemplateToData('quizPreviewTemplate', previewObj);
-            $('body').append(previewHTML);   
+            $('body').append(previewHTML);
 
-            
+
+
+
+        });
+
+        $(window).on('beforeunload', function () {
+            return 'Quiz changes might be lost, continue?'
+            //cd.confirm('Quiz changes might be lost, continue?',
+            //    function () { },
+            //    function () { }
+            //);
         });
     }
-    registerEvents();
+    function addQuestion(indexes) {
+        var indexObj, html;
+        for (var i = 0, l = indexes.length; i < l; i++) {
+            indexObj = { index: indexes[i] },
+            html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
+            quizQuestionList.insertAdjacentHTML('beforeend', html);
+        }
+        
 
+        
+    }
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);
