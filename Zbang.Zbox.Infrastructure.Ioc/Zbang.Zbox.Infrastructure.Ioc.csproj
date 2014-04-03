@@ -64,7 +64,6 @@
     <Compile Include="LifeTimeManager.cs" />
     <Compile Include="PerHttpRequestLifetime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnityDependencyResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
