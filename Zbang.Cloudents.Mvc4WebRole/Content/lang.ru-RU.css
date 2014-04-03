@@ -82,6 +82,11 @@ q {
   font-size: 14px;
 }
 /*#endregion*/
+/*#region User page */
+.dateCol {
+  width: 165px;
+}
+/*#endregion */
 /*#region modal.less */
 .tabArrow:before {
   left: 50px;
