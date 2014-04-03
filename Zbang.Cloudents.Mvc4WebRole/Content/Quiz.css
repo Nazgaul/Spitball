@@ -61,7 +61,7 @@
 .quizSideBar .inputText.questionText {
   border: none;
   border-bottom: 1px solid #f1f1f1;
-  padding-right: 20px;
+  padding: 0 20px 0 0;
   /*rtl*/
   width: 100%;
   resize: none;

@@ -93,17 +93,17 @@
         <label for="quizToggle" class="toggleQuiz"></label>
         <aside id="quizSideBar" class="quizSideBar">
             <section class="quiz">
-                <header>Create a quiz
+                <header>@QuizResources.CreateQuiz
                     <button class="closeDialog"></button>
                 </header>
                 <div class="quizWpr">
-                    <input type="text" class="inputText quizName" placeholder="Choose quiz name" />
+                    <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" />
                     <ul class="quizQuestionList" id="quizQuestionList"></ul>
-                    <button class="quizAddQuestion iconTxt" id="quizAddQuestion">Add question</button>
+                    <button class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
                 </div>
                 <div class="quizBottom">
-                    <button id="saveQuiz" class="saveQuiz btn1 lFloat">Publish</button>
-                    <button class="quizPreview rFloat" id="quizPreview">Preview quiz</button>
+                    <button id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
+                    <button class="quizPreview rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
                 </div>
             </section>
         </aside>
@@ -156,27 +156,25 @@
         <li class="questionHolder">
             <form>
                 <button class="closeDialog quizRemoveQuestion"></button>
-                @*<button class="quizRemoveQuestion">X</button>*@
-                <textarea class="inputText questionText" placeholder="Question #{{index}}"></textarea>
-                <div class="lFloat">Answers:</div>
-                <div class="rFloat">Correct Answer</div>
+                <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}"></textarea>
+                <div class="lFloat">@SharedResources.Answers:</div>
+                <div class="rFloat">@QuizResources.CorrectAnswer</div>
                 <ul class="quizAnswersList">
                     <li class="quizAnswer">
-                       <textarea class="inputText questionAnswer" placeholder="Answer 1" ></textarea>
+                       <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 1" ></textarea>
                        <input id="quizRadio{{index}}1" type="radio" class="correctAnswer" name="quizRadio" />
                        <label for="quizRadio{{index}}1"></label>
                     </li>
                     <li class="quizAnswer">
-                        <textarea class="inputText questionAnswer" placeholder="Answer 2"></textarea>
+                        <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 2"></textarea>
                         <input id="quizRadio{{index}}2" type="radio" class="correctAnswer" name="quizRadio" />
                         <label for="quizRadio{{index}}2"></label>
                     </li>
                     <li class="quizAnswer disabled">
-                       <textarea class="inputText questionAnswer" placeholder="Add an answer" readonly="readonly" ></textarea>
+                       <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly" ></textarea>
                        <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
                        <label></label>
                     </li>
-                
                 </ul>
             </form>
         </li>
@@ -184,7 +182,7 @@
 
     <script type="text/html" id="quizAnswerTemplate">
         <li class="quizAnswer">
-            <textarea class="inputText questionAnswer" placeholder="Answer {{index}}" ></textarea>
+            <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{index}}" ></textarea>
             <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
             <label for="quizRadio{{topIndex}}{{index}}"></label>
         </li>
