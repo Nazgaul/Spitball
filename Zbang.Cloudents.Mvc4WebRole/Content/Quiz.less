@@ -98,7 +98,7 @@
     border-radius: 3px;
     margin-bottom: 10px;
     position: relative;
-    padding: 8px;
+    padding: 12px;
     .boxSizing;
     &:hover
     {
@@ -131,12 +131,10 @@
         }
     }
     label{
-        //margin-left: 30px;
         position: absolute;
         right: 17px;
     }
 }
-
 
 .quizAnswersList{
     list-style-type: decimal;
@@ -151,13 +149,31 @@
     background: rgba(255,255,255,.5);
     text-align: left;
     color: @attentionBlue;
+    margin-bottom: 60px;
+    padding: 0 12px;
+    .boxSizing;
     &:hover
     {
         background: #fff;
     }
+    &:before
+    {
+        width: 13px;
+        height: 13px;
+        background-position: -72px -122px;
+    }
+}
+.quizBottom
+{
+    background: #fff;
+    border-top: 1px solid @borderColor;
+    height: 42px;
+    margin: 0 -14px;
+    padding: 0 14px;
 }
 .saveQuiz{
-    margin-top: 8px;
+    margin-top: 6px;
+    padding: 3px 20px 4px 20px;
 }
 .quizPreview
 {
