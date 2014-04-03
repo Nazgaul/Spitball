@@ -516,6 +516,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\Shared\Resources\QuizResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuizResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Resources\SharedResources.Designer.cs">
       <DependentUpon>SharedResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1592,6 +1597,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.zh.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ar.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.he.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>QuizResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ru.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.zh.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

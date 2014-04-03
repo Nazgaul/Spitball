@@ -13,7 +13,6 @@
   right: auto;
 }
 /*#endregion*/
-/*#endregion */
 .inputText {
   padding: 0 8px 0 4px;
   /*rtl*/
@@ -449,7 +448,6 @@
   /*rtl*/
 }
 /*#endregion */
-/*#endregion */
 /*#region AccountInfo.css */
 .headerRightWpr {
   padding: 0 241px 0 0;
@@ -689,6 +687,10 @@
 .boxItemsHeader {
   position: relative;
   /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
+}
+.boxItemsHeader .iconTxt {
+  margin: 0 0 0 15px;
+  /*rtl*/
 }
 .listViewBtn,
 .thumbViewBtn {
@@ -1253,9 +1255,7 @@
 }
 /*#endregion */
 /*#endregion */
-/*#region QnA.css */
-/*#region Q&A */
-/*#region Q&A */
+/*#region Q&A.css */
 .QA {
   text-align: right;
   /*rtl*/
@@ -1419,8 +1419,6 @@
   /*rtl*/
 }
 /*#endregion */
-/*#endregion */
-/*#endregion */
 /*#region newUpload */
 .source .btn {
   float: right;
@@ -1491,7 +1489,6 @@
   padding: 14px 11px 5px 8px;
   /*rtl*/
 }
-/*#endregion */
 /*#endregion */
 /*#region Item3.css */
 .ratePopup {
@@ -1813,11 +1810,6 @@
 /*#endregion */
 /*#endregion */
 /*#region Invite page */
-/*.inviteWpr {
-    h2 {
-        text-align: right; /*rtl
-    }
-}*/
 /*#region aside */
 .connectMore {
   margin-top: 15px;
@@ -1909,10 +1901,6 @@
   margin: 0 12px 0 0;
   /*rtl*/
 }
-/*.uploadsImg {
-    right: 0; 
-    left: auto;
-}*/
 /*#endregion */
 /*#region QnA tabs */
 .qaBoxname {
@@ -2409,5 +2397,88 @@
     -o-transform: scale(0.6);
     transform: scale(0.6);
   }
+}
+/*#endregion */
+/*#region Quiz.css */
+.bodyContent.noQuiz .quizSideBar {
+  left: -390px;
+  /*rtl*/
+  right: auto;
+}
+.bodyContent.noQuiz .toggleQuiz {
+  left: -22px;
+  /*rtl*/
+  right: auto;
+}
+.quizSideBar {
+  left: 0;
+  /*rtl*/
+  right: auto;
+  border: none;
+  border-right: 1px solid #c2c2c2;
+  /*rtl*/
+  box-shadow: 4px 0 4px rgba(0, 0, 0, 0.15);
+  /*rtl*/
+  -webkit-transition: left 0.4s;
+  -moz-transition: left 0.4s;
+  -o-transition: left 0.4s;
+  transition: left 0.4s;
+  /*rtl*/
+}
+.quizSideBar header {
+  margin: 0 -15px 0 -14px;
+  /*rtl*/
+  padding: 8px 24px 0 0;
+  /*rtl*/
+}
+.quizSideBar .inputText.questionText {
+  padding: 0 0 0 20px;
+  /*rtl*/
+}
+.toggleQuiz {
+  left: 374px;
+  /*rtl*/
+  right: auto;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+  /*diff rtl*/
+}
+.checkbox:checked ~ .toggleQuiz {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+  /*diff rtl*/
+  left: 3px;
+  /*rtl*/
+  right: auto;
+}
+.checkbox:checked ~ .quizSideBar {
+  left: -372px;
+  /*rtl*/
+  right: auto;
+}
+.quizWpr {
+  padding: 0 0 0 4px;
+  /*rtl*/
+  margin: 0 0 0 -12px;
+  /*rtl*/
+}
+.questionHolder label {
+  left: 17px;
+  /*rtl*/
+  right: auto;
+}
+.quizAnswersList {
+  padding: 0 16px 0 0;
+  /*rtl*/
+}
+.quizAddQuestion {
+  text-align: right;
+  /*rtl*/
 }
 /*#endregion */

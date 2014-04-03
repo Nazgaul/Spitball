@@ -493,4 +493,10 @@
   <data name="NoNotifications" xml:space="preserve">
     <value>לא נמצאו התראות</value>
   </data>
+  <data name="Answer" xml:space="preserve">
+    <value>תשובה</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>שאלה</value>
+  </data>
 </root>

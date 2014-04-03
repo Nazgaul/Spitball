@@ -12,8 +12,6 @@
 }
 /*#endregion*/
 
-/*#endregion */
-
 .inputText {
     padding: 0 8px 0 4px; /*rtl*/
 }
@@ -164,8 +162,6 @@
     margin: 0 10px 0 0; /*rtl*/
 }
 /*#endregion */
-
-
 
 /*#endregion */
 
@@ -467,8 +463,6 @@
 
 /*#endregion */
 
-/*#endregion */
-
 /*#region AccountInfo.css */
 .headerRightWpr
 {
@@ -704,6 +698,7 @@
 }
 /*#endregion */
 /*#endregion */
+
 /*#region boxItems */
 .boxEmpty {
     > h2 {
@@ -729,11 +724,11 @@
     }
 }
 .boxItemsHeader {
-    //margin: -28px 0 0 386px; /*rtl*/
     position: relative; /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
+    .iconTxt{
+        margin: 0 0 0 15px; /*rtl*/
+    }
 }
-
-
 
 .listViewBtn, .thumbViewBtn
 {
@@ -903,6 +898,7 @@
 
 
 /*#endregion */
+
 /*#region manage */
 .cbLabel {
     right: 6px; /*rtl*/
@@ -920,6 +916,7 @@
     }
 }
 /*#endregion */
+
 /*#region friend callout */
 .callout {
     //margin: 0 -5px 0 0; /*rtl*/
@@ -952,11 +949,7 @@
 /*#endregion */
 /*#endregion */
 
-/*#region QnA.css */
-
-/*#region Q&A */
-
-/*#region Q&A */
+/*#region Q&A.css */
 
 .QA {
     text-align: right; /*rtl*/
@@ -1129,10 +1122,6 @@
 }
 /*#endregion */
 
-
-/*#endregion */
-/*#endregion */
-
 /*#region newUpload */
 .source {
     .btn {
@@ -1206,7 +1195,6 @@
 
 /*#endregion */
 
-/*#endregion */
 /*#region Item3.css */
 .ratePopup{
     right:50%; /*rtl*/
@@ -1275,8 +1263,6 @@
 .bubble {
     right: -31px; /*rtl*/
     left: auto;
-    //left: auto;
-    //right:auto;
 
     &.closing {
         .bubbleText {
@@ -1487,11 +1473,13 @@
     }
 }
 /*#endregion */
+
 /*#region account settings */
 .changePwd .inputText {
     margin: 0 0 5px 5px; /*rtl*/
 }
 /*#endregion */
+
 /*#region storage */
 .storage {
     .header {
@@ -1507,6 +1495,7 @@
     margin: 0 2px 0 27px; /*rtl*/
 }
 /*#endregion */
+
 /*#region notifications */
 .notifications .settingsBox {
     margin: 3px 5px 0 0; /*rtl*/
@@ -1524,11 +1513,6 @@
 
 /*#region Invite page */
 
-/*.inviteWpr {
-    h2 {
-        text-align: right; /*rtl
-    }
-}*/
 /*#region aside */
 
 .connectMore {
@@ -1538,6 +1522,7 @@
     margin: 0 0 0 4px; /*rtl*/
 }
 /*#endregion */
+
 /*#region invite main content */
 
 .invMain{
@@ -1636,11 +1621,6 @@
         margin: 0 12px 0 0; /*rtl*/ // override
     }
 }
-/*.uploadsImg {
-    right: 0; 
-    left: auto;
-}*/
-
 /*#endregion */
 
 /*#region QnA tabs */
@@ -1915,14 +1895,12 @@
     &:nth-child(odd) {
         margin: 0 0 20px 20px; /*rtl*/
     }
-}
-.box.sCourseItem
-{
     .boxImg
     {
         margin: 0 0 0 24px; /*rtl*/
     }
 }
+
 .sOtherUni
 {
     right: 100px; /*rtl*/
@@ -1946,7 +1924,6 @@
 }
 /*#endregion */
 
-
 /*#endregion */
 
 /*#region welcome*/
@@ -1954,12 +1931,9 @@
     &:before {
         margin-right:0;
         margin-left:4px;
-    }
-    
+    }   
 }
-
 /*#endregion */
-
 
 /*#region Animations.css */
 .mixi-frames6 () {
@@ -1999,3 +1973,81 @@
 
 /*#endregion */
 
+/*#region Quiz.css */
+
+.bodyContent{
+    &.noQuiz {
+        .quizSideBar {
+            left: -390px; /*rtl*/
+            right: auto;
+        }
+        
+        .toggleQuiz{
+            left: -22px; /*rtl*/
+            right: auto;
+        }
+    }
+}
+.quizSideBar
+{
+    left: 0; /*rtl*/
+    right: auto;
+    border: none;
+    border-right: 1px solid @borderColor; /*rtl*/
+    box-shadow: 4px 0 4px rgba(0,0,0,.15); /*rtl*/
+    .transition(left .4s); /*rtl*/
+    
+    header{
+        margin: 0 -15px 0 -14px;  /*rtl*/ //left padding + 1px border
+        padding: 8px 24px 0 0; /*rtl*/
+    }
+    .inputText{
+        &.questionText
+        {
+            padding: 0 0 0 20px; /*rtl*/
+        }
+    }
+}
+.toggleQuiz
+{
+    left: 374px; /*rtl*/
+    right: auto;
+    .flipH; /*diff rtl*/
+}
+
+.checkbox:checked
+{
+    ~ .toggleQuiz
+    {
+        .flipH(1); /*diff rtl*/
+        left: 3px; /*rtl*/
+        right: auto;
+    }
+    ~ .quizSideBar
+    {
+        left: -372px;  /*rtl*/
+        right: auto;
+    }
+}
+.quizWpr
+{
+    padding: 0 0 0 4px; /*rtl*/
+    margin: 0 0 0 -12px; /*rtl*/
+}
+.questionHolder
+{
+    label {
+        left: 17px; /*rtl*/
+        right: auto;
+    }
+}
+
+.quizAnswersList{
+    padding: 0 16px 0 0; /*rtl*/
+}
+
+.quizAddQuestion
+{
+    text-align: right; /*rtl*/
+}
+/*#endregion */
