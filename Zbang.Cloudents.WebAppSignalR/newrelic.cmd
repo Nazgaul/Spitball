@@ -27,7 +27,7 @@ IF %NR_ERROR_LEVEL% EQU 0 (
 	ECHO %ldt% : Begin installing the New Relic .net Agent >> "%RoleRoot%\nr.log" 2>&1
 
 	:: Current version of the installer
-	SET NR_INSTALLER_NAME=NewRelicAgent_x64_2.23.2.0.msi
+	SET NR_INSTALLER_NAME=NewRelicAgent_x64_2.24.218.0.msi
 	:: Path used for custom configuration and worker role environment varibles
 	SET NR_HOME=%ALLUSERSPROFILE%\New Relic\.NET Agent\
 
@@ -79,6 +79,9 @@ GOTO:EOF
 	IF %ERRORLEVEL% EQU 0 (
 	  REM  The New Relic Server Monitor installed ok and does not need to be installed again.
 	  ECHO New Relic Server Monitor was installed successfully. >> "%RoleRoot%\nr_server.log" 2>&1
+
+	  NET STOP "New Relic Server Monitor Service"
+	  NET START "New Relic Server Monitor Service"
 
 	) ELSE (
 	  REM   An error occurred. Log the error to a separate log and exit with the error code.

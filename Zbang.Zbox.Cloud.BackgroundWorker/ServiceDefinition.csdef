@@ -13,5 +13,8 @@
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="500" />
     </LocalResources>
+    <Startup>
+      <Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple" />
+    </Startup>
   </WorkerRole>
 </ServiceDefinition>
