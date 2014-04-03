@@ -60,7 +60,6 @@ namespace Zbang.Zbox.WorkerRole
                 //DO NOT CHANGE ANYTHING IN HERE
             else
             {
-                TraceLog.WriteError("in not emulated section");
                 return new[]
                        {
                            m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
@@ -170,6 +169,7 @@ namespace Zbang.Zbox.WorkerRole
                 e.Cancel = true;
             }
         }
+        
 
         //private static void RoleEnvironmentChanged(object sender, RoleEnvironmentChangedEventArgs e)
         //{

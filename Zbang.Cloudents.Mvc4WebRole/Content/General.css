@@ -1145,6 +1145,10 @@ ul.ui-autocomplete li a {
 .register span.field-validation-error:last-of-type {
   /*margin-top: -53px;*/
 }
+.registerMobile .field-validation-error,
+.registerMobile .validation-summary-errors {
+  position: static;
+}
 .genderLabel {
   font-size: 15px;
   margin: 15px 0 5px;

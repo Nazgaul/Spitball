@@ -9,8 +9,8 @@
 <div class="imgBg"></div>
 <div class="sprite logo"></div>
 <div class="text">@LogOnResources.AcademicCloud</div>
-<a href="@Url.ActionHash("Welcome", "register")" class="btn create boldFont">@LogOnResources.CreateNew</a>
-<a href="@Url.ActionHash("Welcome", "connect")" class="btn connect boldFont">@LogOnResources.SignIn</a>
+<a href="@Url.ActionHash("Welcome",new { universityId = ViewBag.universityId }, "register")" class="btn create boldFont">@LogOnResources.CreateNew</a>
+<a href="@Url.ActionHash("Welcome",new { universityId = ViewBag.universityId }, "connect")" class="btn connect boldFont">@LogOnResources.SignIn</a>
 <div class="lang">
     <select class="langSelect" id="langSelect">
         <option value="@Languages.GetLanguageDetailByName(Languages.EnglishName).Culture">@Languages.EnglishName</option>

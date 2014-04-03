@@ -73,6 +73,8 @@
                 up.settings.multipart_params.fileName = file.name;
                 up.settings.multipart_params.fileSize = file.size;
                 up.settings.multipart_params.tabId = boxToUpload.tabid;
+                up.settings.multipart_params.UniName = cd.getParameterFromUrl(1);
+                up.settings.multipart_params.BoxName = cd.getParameterFromUrl(3);
             }
             catch (err) {
             }
@@ -88,7 +90,7 @@
         });
         uploader.bind('FileUploaded', function (up, file, data) {
             var itemData = JSON.parse(data.response);
-            cd.pubsub.publish('addItem', itemData.Payload);
+            cd.pubsub.publish('addItem', itemData.payload.fileDto);
             cd.pubsub.publish('clear_cache');
         });
 

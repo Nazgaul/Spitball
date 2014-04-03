@@ -521,6 +521,7 @@
                         $ratePopup.one('click', '.closeDialog', function (e) {
                             ratedItems[cd.userDetail().nId].push(self.itemid());
                             cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                            $ratePopup.addClass('changedItem').remove('show');
 
                         });
 

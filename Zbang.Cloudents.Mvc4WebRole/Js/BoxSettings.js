@@ -184,9 +184,6 @@
                     default:
                         sentence = ZboxResources.SureYouWant + ZboxResources.ToLeaveGroup;
                 }
-                if (!confirm(sentence)) {
-                    return;
-                }
                 var that = this;
                 cd.confirm(sentence, function () {                
                     that.setAttribute(CDISABLED, CDISABLED);
