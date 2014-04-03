@@ -24,21 +24,21 @@ namespace Zbang.Zbox.Infrastructure.Ioc
         {
             get { return m_RegisteredTypes.AsReadOnly(); }
         }
-        private IocFactory()
-        {
-            //this cause issue with register with name
-            //m_Container.AddNewExtension<DecoratorContainerExtension>();
+        //private IocFactory()
+        //{
+        //    //this cause issue with register with name
+        //    //m_Container.AddNewExtension<DecoratorContainerExtension>();
             
-            if (IsOnWeb())
-            {
-                HttpContextBase context = new HttpContextWrapper(HttpContext.Current);
+        //    if (IsOnWeb())
+        //    {
+        //        HttpContextBase context = new HttpContextWrapper(HttpContext.Current);
 
-                context.ApplicationInstance.Disposed += (s, e) =>
-                {
-                    m_Container.Dispose();
-                };
-            }
-        }
+        //        context.ApplicationInstance.Disposed += (s, e) =>
+        //        {
+        //            m_Container.Dispose();
+        //        };
+        //    }
+        //}
 
         public void RegisterType<TFrom, TTo>() where TTo : TFrom
         {
@@ -138,15 +138,15 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             }
         }
 
-        internal IUnityContainer unityContainer
+        public IUnityContainer unityContainer
         {
             get { return m_Container; }
         }
 
-        private bool IsOnWeb()
-        {
-            return HttpContext.Current != null;
-        }
+        //private bool IsOnWeb()
+        //{
+        //    return HttpContext.Current != null;
+        //}
 
         private LifetimeManager GetLifeTimeManager(LifeTimeManager manager)
         {

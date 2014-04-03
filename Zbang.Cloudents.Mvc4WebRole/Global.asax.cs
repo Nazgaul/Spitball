@@ -25,7 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 #endif
             AreaRegistration.RegisterAllAreas();
 
-            IocConfig.RegisterIoc();
+            //IocConfig.RegisterIoc();
             DisplayConfig.RegisterDisplays();
             ViewConfig.RegisterEngineAndViews();
             BundleConfig.RegisterBundle();

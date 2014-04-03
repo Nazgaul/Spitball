@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
+    /// <summary>
+    /// Compress the response
+    /// </summary>
     public class CompressFilter : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
