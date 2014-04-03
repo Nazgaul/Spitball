@@ -1,13 +1,14 @@
 ﻿@import "varsAndMixins";
+
 .bodyContent{
     &.noQuiz
     {
         .quizSideBar {
-            right: -390px;
+            right: -390px; /*rtl*/
         }
         
         .toggleQuiz{
-            right: -22px;
+            right: -22px; /*rtl*/
         }
     }
 }
@@ -15,24 +16,24 @@
 {
     position: fixed;
     top: 50px;
-    right: 0;
+    right: 0; /*rtl*/
     width: 383px;
     height: 100%;
     background: #e4e4e4;
     z-index: 5;
     .boxSizing;
     padding: 0 14px;
-    border-left: 1px solid @borderColor;
-    box-shadow: -4px 0 4px rgba(0,0,0,.15);
-    .transition(right .4s);
+    border-left: 1px solid @borderColor; /*rtl*/
+    box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
+    .transition(right .4s); /*rtl*/
     
     header{
         height: 40px;
         background: @attentionBlue;
         color: #fff;
         font-size: 17px;
-        margin: 0 -14px 0 -15px; //left padding + 1px border
-        padding: 8px 0 0 24px;
+        margin: 0 -14px 0 -15px;  /*rtl*/ //left padding + 1px border
+        padding: 8px 0 0 24px; /*rtl*/
         .boxSizing;
     }
     .inputText{
@@ -49,7 +50,7 @@
         {
             border: none;
             border-bottom: 1px solid #f1f1f1;
-            padding: 0 20px 0 0;
+            padding-right: 20px; /*rtl*/
             width: 100%;
             resize: none;
             font-size: 17px;
@@ -65,7 +66,7 @@
     height: 22px;
     background: @common-sprite -294px -2px;
     position: fixed;
-    right: 374px;
+    right: 374px; /*rtl*/
     top: 78px;
     z-index: 6;
     .transition(all .4s);
@@ -77,11 +78,11 @@
     ~ .toggleQuiz
     {
         .flipH;
-        right: 3px;
+        right: 3px; /*rtl*/
     }
     ~ .quizSideBar
     {
-        right: -372px; 
+        right: -372px;  /*rtl*/
     }
 }
 .quizWpr
@@ -89,8 +90,8 @@
     overflow: auto;
     height: ~'-webkit-calc(100% - 130px)';
     height: ~'calc(100% - 130px)';
-    padding-right: 4px;
-    margin-right: -12px;
+    padding-right: 4px; /*rtl*/
+    margin-right: -12px; /*rtl*/
 }
 .questionHolder
 {
@@ -132,14 +133,14 @@
     }
     label{
         position: absolute;
-        right: 17px;
+        right: 17px; /*rtl*/
     }
 }
 
 .quizAnswersList{
     list-style-type: decimal;
     clear: both;
-    padding-left: 16px;
+    padding-left: 16px; /*rtl*/
 }
 
 .quizAddQuestion
@@ -147,7 +148,7 @@
     width: 100%;
     height: 40px;
     background: rgba(255,255,255,.5);
-    text-align: left;
+    text-align: left; /*rtl*/
     color: @attentionBlue;
     margin-bottom: 60px;
     padding: 0 12px;

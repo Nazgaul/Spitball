@@ -843,6 +843,7 @@
 .boxItemsHeader .iconTxt {
   padding: 4px 15px;
   margin-right: 15px;
+  /*rtl*/
   height: 32px;
 }
 .boxItemsHeader .iconTxt:before {

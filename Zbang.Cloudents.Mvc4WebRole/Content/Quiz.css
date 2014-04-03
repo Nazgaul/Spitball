@@ -4,14 +4,17 @@
 /*#endregion */
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
+  /*rtl*/
 }
 .bodyContent.noQuiz .toggleQuiz {
   right: -22px;
+  /*rtl*/
 }
 .quizSideBar {
   position: fixed;
   top: 50px;
   right: 0;
+  /*rtl*/
   width: 383px;
   height: 100%;
   background: #e4e4e4;
@@ -21,11 +24,14 @@
   box-sizing: border-box;
   padding: 0 14px;
   border-left: 1px solid #c2c2c2;
+  /*rtl*/
   box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
+  /*rtl*/
   -webkit-transition: right 0.4s;
   -moz-transition: right 0.4s;
   -o-transition: right 0.4s;
   transition: right 0.4s;
+  /*rtl*/
 }
 .quizSideBar header {
   height: 40px;
@@ -33,7 +39,9 @@
   color: #fff;
   font-size: 17px;
   margin: 0 -14px 0 -15px;
+  /*rtl*/
   padding: 8px 0 0 24px;
+  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -53,7 +61,8 @@
 .quizSideBar .inputText.questionText {
   border: none;
   border-bottom: 1px solid #f1f1f1;
-  padding: 0 20px 0 0;
+  padding-right: 20px;
+  /*rtl*/
   width: 100%;
   resize: none;
   font-size: 17px;
@@ -67,6 +76,7 @@
   background: url(/Images/common16-sprite.png) -294px -2px;
   position: fixed;
   right: 374px;
+  /*rtl*/
   top: 78px;
   z-index: 6;
   -webkit-transition: all 0.4s;
@@ -82,16 +92,20 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
   right: 3px;
+  /*rtl*/
 }
 .checkbox:checked ~ .quizSideBar {
   right: -372px;
+  /*rtl*/
 }
 .quizWpr {
   overflow: auto;
   height: -webkit-calc(100% - 130px);
   height: calc(100% - 130px);
   padding-right: 4px;
+  /*rtl*/
   margin-right: -12px;
+  /*rtl*/
 }
 .questionHolder {
   background: #fff;
@@ -135,17 +149,20 @@
 .questionHolder label {
   position: absolute;
   right: 17px;
+  /*rtl*/
 }
 .quizAnswersList {
   list-style-type: decimal;
   clear: both;
   padding-left: 16px;
+  /*rtl*/
 }
 .quizAddQuestion {
   width: 100%;
   height: 40px;
   background: rgba(255, 255, 255, 0.5);
   text-align: left;
+  /*rtl*/
   color: #0371c8;
   margin-bottom: 60px;
   padding: 0 12px;
