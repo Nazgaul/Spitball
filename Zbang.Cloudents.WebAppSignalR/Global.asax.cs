@@ -18,7 +18,7 @@ namespace Zbang.Cloudents.WebAppSignalR
           //  Microsoft.AspNet.SignalR.GlobalHost.DependencyResolver = new Zbang.Zbox.Infrastructure.Ioc.SignalRDependencyResolver();
 
 
-            string connectionString = "Endpoint=sb://zbangcloudents.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=pwEE7wUSxPY/AkJu4LFXG3eVjZHvv+sKWI16ajW51qE=";
+            //string connectionString = "Endpoint=sb://zbangcloudents.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=pwEE7wUSxPY/AkJu4LFXG3eVjZHvv+sKWI16ajW51qE=";
             //if (Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment.IsAvailable)
             //{
             //    GlobalHost.DependencyResolver.UseServiceBus(connectionString, "Cloudents");
