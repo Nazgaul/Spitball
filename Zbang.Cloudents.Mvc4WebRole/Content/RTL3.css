@@ -2468,6 +2468,11 @@
   margin: 0 0 0 -12px;
   /*rtl*/
 }
+.questionHolder .lFloat {
+  margin: 3px 0 0 5px;
+  /*rtl*/
+  color: #676767;
+}
 .questionHolder label {
   left: 17px;
   /*rtl*/

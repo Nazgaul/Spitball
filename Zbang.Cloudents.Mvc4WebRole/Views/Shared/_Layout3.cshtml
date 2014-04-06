@@ -91,18 +91,20 @@
         @RenderBody()
         <input id="quizToggle" type="checkbox" class="checkbox" />
         <label for="quizToggle" class="toggleQuiz"></label>
-        <aside id="quizSideBar" class="quizSideBar">
+        <aside id="quizSideBar" class="quizSideBar error nameReq">
             <section class="quiz">
                 <header>@QuizResources.CreateQuiz
                     <button class="closeDialog"></button>
                 </header>
                 <div class="quizWpr">
+                    <div data-quizin="@SharedResources.In" class="quizLoc">Course name here</div>
                     <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" />
                     <ul class="quizQuestionList" id="quizQuestionList"></ul>
                     <button class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
                 </div>
                 <div class="quizBottom">
                     <button id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
+                    <span class="error">Check your quiz</span>
                     <button class="quizPreview rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
                 </div>
             </section>
@@ -153,12 +155,14 @@
     <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
 
     <script type="text/html" id="quizQuestionTemplate">
-        <li class="questionHolder">
+        <li class="questionHolder correctReq answerReq questionReq">
             <form>
                 <button class="closeDialog quizRemoveQuestion"></button>
                 <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}"></textarea>
-                <div class="lFloat">@SharedResources.Answers:</div>
-                <div class="rFloat">@QuizResources.CorrectAnswer</div>
+                <span class="rFloat error addQuestion">Add question</span>
+                <div class="lFloat answers">@SharedResources.Answers:</div>
+                <span class="lFloat error addAnswer">Add answer</span>
+                <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
                 <ul class="quizAnswersList">
                     <li class="quizAnswer">
                        <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 1" ></textarea>
