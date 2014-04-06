@@ -4,7 +4,6 @@
         return;
     }    
     cd.loadModel('account', 'AccountContext', function () {
-        $('[data-navigation]').removeAttr('data-navigation'); // force postback        
         accountSettingsProfile();
         registerEvents();
         storage();
