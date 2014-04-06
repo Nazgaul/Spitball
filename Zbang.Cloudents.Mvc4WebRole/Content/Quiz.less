@@ -228,8 +228,86 @@
     margin-top: 6px;
     padding: 3px 20px 4px 20px;
 }
-.quizPreview
+.quizPreviewBtn
 {
     color: @attentionBlue;
     margin-top: 12px;
 }
+/*#region Quiz Preview */
+.quizPreview
+{
+    display: none;
+    position: absolute;
+    z-index: 14;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: url(/Images/gray_jean80.png) repeat #FFF;
+    &:before
+    {
+        .pseudo;
+        width: 100%;
+        height: @header-height;
+        background: #fff;
+        border-bottom: 1px solid @borderColor;
+        position: absolute;
+        z-index: -1;
+    }
+    h2{
+        font-size: 20px;
+        font-weight: normal;
+        width: 800px;
+        margin: 0 auto;
+        height: 50px;
+        padding-top: 11px;
+    }
+}
+.quizPrevWpr
+{
+    width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    padding: 0 20px;
+    .boxSizing;
+    border: 1px solid @borderColor;
+}
+.quizTitle{
+    font-size: 22px;
+    width: 800px;
+    margin: 10px auto 20px;
+    &:before
+    {
+        content: attr(data-questioncount) "\00a0";
+        display: inline-block;
+    }
+}
+.quizQList
+{
+    list-style-type: decimal;
+    font-size: 19px;
+    padding: 0 25px;
+    > li{
+        padding: 20px;
+        //margin: 0 -20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+}
+.quizAList
+{
+    list-style-type: lower-latin;
+    font-size: 15px;
+    padding: 10px 20px;
+    li{
+        margin-bottom: 10px;
+        &:last-child {
+            margin:0;
+        }
+    }
+    .correct{
+        background: rgba(3,113,200,.2);
+    }
+}
+
+
+/*#endregion */

@@ -105,7 +105,7 @@
                 <div class="quizBottom">
                     <button id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
                     <span class="error">@QuizResources.CheckQuiz</span>
-                    <button class="quizPreview rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
+                    <button class="quizPreviewBtn rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
                 </div>
             </section>
         </aside>
@@ -116,6 +116,48 @@
               data-boxf="@ViewBag.fBox.ToString().ToLower()"
               data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
 
+    </div>
+
+    <div class="quizPreview" id="preview1">
+        <h2>Quiz name here</h2>
+        <div class="quizTitle" data-questioncount="4">multiple choice questions</div>
+        <div class="quizPrevWpr">
+           
+            <ul class="quizQList">
+                <li>
+                    <div>Why did the duck cross the road</div>
+                    <ul class="quizAList">
+                        <li>To get to the other side</li>
+                        <li class="correct">To prove he's no chicken</li>
+                        <li>because it was the chicken's day off</li>
+                    </ul>
+                </li>
+                <li>
+                    <div>Why did the duck cross the road</div>
+                    <ul class="quizAList">
+                        <li>To get to the other side</li>
+                        <li class="correct">To prove he's no chicken</li>
+                        <li>because it was the chicken's day off</li>
+                    </ul>
+                </li>
+                <li>
+                    <div>Why did the duck cross the road</div>
+                    <ul class="quizAList">
+                        <li>To get to the other side</li>
+                        <li class="correct">To prove he's no chicken</li>
+                        <li>because it was the chicken's day off</li>
+                    </ul>
+                </li>
+                <li>
+                    <div>Why did the duck cross the road</div>
+                    <ul class="quizAList">
+                        <li>To get to the other side</li>
+                        <li class="correct">To prove he's no chicken</li>
+                        <li>because it was the chicken's day off</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div id="mLoading" class="loading">
@@ -194,20 +236,23 @@
 
     <script type="text/html" id="quizPreviewTemplate">
         <div id="preview">
-            <span>{{name}}</span>
-            <ul>{{questions}}</ul>
+            <div class="quizPrevWpr">
+                <h2>{{name}}</h2>
+                <div></div>
+                <ul>{{questions}}</ul>
+            </div>
         </div>
     </script>
 
     <script type="text/html" id="quizQuestionPreviewTemplate">
         <li>
-            <span>{{index}}. </span><span>{{text}}</span>
+            <div>{{text}}</div>
             <ul>{{answers}}</ul>
         </li>
     </script>
 
     <script type="text/html" id="quizAnswerPreviewTemplate">
-        <li><span>{{index}}. </span><span>{{text}}</span><span>{{correct}}</span></li>
+        <li class="previewAnswer{{correct}}">{{text}}</li>
     </script>
 
     <script type="text/html" id="userToolTipTempalte">
