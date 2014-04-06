@@ -123,6 +123,9 @@
   <data name="AddQuestion" xml:space="preserve">
     <value>Add question</value>
   </data>
+  <data name="CheckQuiz" xml:space="preserve">
+    <value>Check your quiz</value>
+  </data>
   <data name="ChooseName" xml:space="preserve">
     <value>Choose quiz name</value>
   </data>

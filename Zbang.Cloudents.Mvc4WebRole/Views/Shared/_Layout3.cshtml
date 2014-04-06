@@ -104,7 +104,7 @@
                 </div>
                 <div class="quizBottom">
                     <button id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
-                    <span class="error">Check your quiz</span>
+                    <span class="error">@QuizResources.CheckQuiz</span>
                     <button class="quizPreview rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
                 </div>
             </section>
@@ -159,9 +159,9 @@
             <form>
                 <button class="closeDialog quizRemoveQuestion"></button>
                 <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}"></textarea>
-                <span class="rFloat error addQuestion">Add question</span>
+                <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
                 <div class="lFloat answers">@SharedResources.Answers:</div>
-                <span class="lFloat error addAnswer">Add answer</span>
+                <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
                 <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
                 <ul class="quizAnswersList">
                     <li class="quizAnswer">

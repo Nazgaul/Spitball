@@ -2478,6 +2478,10 @@
   /*rtl*/
   right: auto;
 }
+.questionHolder.questionReq .addQuestion {
+  margin: -2px 0 0 20px;
+  /*rtl*/
+}
 .quizAnswersList {
   padding: 0 16px 0 0;
   /*rtl*/

@@ -79,6 +79,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check your quiz.
+        /// </summary>
+        public static string CheckQuiz {
+            get {
+                return ResourceManager.GetString("CheckQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose quiz name.
         /// </summary>
         public static string ChooseName {
