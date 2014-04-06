@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         public Item Link { get; private set; }
 
-        public Comment NewComment { get; private set; }
+       // public Comment NewComment { get; private set; }
 
         //public string[] GetCacheKeys()
         //{

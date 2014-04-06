@@ -105,8 +105,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
                 }
                 //var result = string.IsNullOrEmpty(newComment.ItemUid) ? AddBoxComment(newComment) : AddItemComment(newComment);
-                var result = AddBoxComment(newComment);
-                return this.CdJson(new JsonResponse(true, result));
+                //var result = AddBoxComment(newComment);
+                return this.CdJson(new JsonResponse(true));
             }
             catch (UnauthorizedAccessException)
             {
@@ -121,19 +121,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
         }
-        private Zbox.ViewModel.DTOs.ActivityDtos.CommentDto AddBoxComment(NewComment comment)
-        {
-            var command = new AddBoxCommentCommand(GetUserId(), comment.BoxUid, comment.CommentText);
-            var result = m_ZboxWriteService.AddBoxComment(command);
+        //private Zbox.ViewModel.DTOs.ActivityDtos.CommentDto AddBoxComment(NewComment comment)
+        //{
+        //    var command = new AddBoxCommentCommand(GetUserId(), comment.BoxUid, comment.CommentText);
+        //    var result = m_ZboxWriteService.AddBoxComment(command);
 
-            var commentDto = new Zbox.ViewModel.DTOs.ActivityDtos.CommentDto(
-                result.NewComment.Id, null, result.User.Name, result.User.Image, result.User.Id,
-                DateTime.SpecifyKind(result.NewComment.DateTimeUser.CreationTime, DateTimeKind.Unspecified),
-                result.Target.Name, result.Target.Id.ToString(), null, null, result.NewComment.CommentText);
+        //    var commentDto = new Zbox.ViewModel.DTOs.ActivityDtos.CommentDto(
+        //        result.NewComment.Id, null, result.User.Name, result.User.Image, result.User.Id,
+        //        DateTime.SpecifyKind(result.NewComment.DateTimeUser.CreationTime, DateTimeKind.Unspecified),
+        //        result.Target.Name, result.Target.Id.ToString(), null, null, result.NewComment.CommentText);
 
-            return commentDto;
+        //    return commentDto;
 
-        }
+        //}
 
 
         #endregion
@@ -145,8 +145,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var userId = GetUserId();
-                var query = new DeleteCommentCommand(commentId, userId, boxUid);
-                m_ZboxWriteService.DeleteComment(query);
+                //var query = new DeleteCommentCommand(commentId, userId, boxUid);
+                //m_ZboxWriteService.DeleteComment(query);
                 return this.CdJson(new JsonResponse(true, commentId));
             }
             catch (Exception ex)

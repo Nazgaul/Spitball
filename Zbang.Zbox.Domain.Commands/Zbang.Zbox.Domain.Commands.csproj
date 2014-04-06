@@ -80,10 +80,6 @@
     <Compile Include="ChangeFileNameCommandResult.cs" />
     <Compile Include="ChangeItemTabNameCommand.cs" />
     <Compile Include="ChangeNotificationSettingsCommand.cs" />
-    <Compile Include="AddBoxCommentCommand.cs" />
-    <Compile Include="AddBoxCommentCommandResult.cs" />
-    <Compile Include="AddReplyToCommentCommand.cs" />
-    <Compile Include="AddReplyToCommentCommandResult.cs" />
     <Compile Include="CreateAcademicBoxCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />
     <Compile Include="CreateFacebookUserCommandResult.cs" />
@@ -93,7 +89,6 @@
     <Compile Include="CreateUniversityCommand.cs" />
     <Compile Include="DeleteAnnotationCommand.cs" />
     <Compile Include="DeleteAnswerCommand.cs" />
-    <Compile Include="DeleteCommentCommand.cs" />
     <Compile Include="DeleteFileFromQnACommand.cs" />
     <Compile Include="DeleteItemTabCommand.cs" />
     <Compile Include="DeleteNodeFromLibraryCommand.cs" />

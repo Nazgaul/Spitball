@@ -173,38 +173,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                AddBoxCommentCommandResult result = m_CommandBus.Dispatch<AddBoxCommentCommand, AddBoxCommentCommandResult>(command);
-                UnitOfWork.Current.TransactionalFlush();
-
-                return result;
-            }
-        }
-
-        //public AddItemCommentCommandResult AddItemComment(AddItemCommentCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        AddItemCommentCommandResult result = m_CommandBus.Dispatch<AddItemCommentCommand, AddItemCommentCommandResult>(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-
-        //        return result;
-        //    }
-        //}
-
-        public AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                AddReplyToCommentCommandResult result = m_CommandBus.Dispatch<AddReplyToCommentCommand, AddReplyToCommentCommandResult>(command);
-                UnitOfWork.Current.TransactionalFlush();
-
-                return result;
-            }
-        }
+       
 
         public void DeleteItem(DeleteItemCommand command)
         {
@@ -224,23 +193,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        //public void FlagBadItem(FlagItemAsBadCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
-        //public void LikeItem(LikeItemCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
+      
         public void Statistics(UpdateStatisticsCommand command)
         {
             using (UnitOfWork.Start())
@@ -310,25 +263,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        //public void VerifyEmail(VerifyEmailCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send<VerifyEmailCommand>(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
-
-        public void DeleteComment(DeleteCommentCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
-
+       
 
 
         public ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command)
@@ -342,40 +277,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        //public void AddTagToBox(AddTagToBoxCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send<AddTagToBoxCommand>(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-        //public void DeleteTagFromBox(DeleteTagFromBoxCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send<DeleteTagFromBoxCommand>(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
-        //public void AddAFriend(AddFriendCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
-        //public void ChangeBoxNotification(ChangeBoxNotificationSettingsCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
+       
 
         public void UpdateUserLanguage(UpdateUserLanguageCommand command)
         {

@@ -19,8 +19,8 @@ namespace Zbang.Zbox.Domain.Common
 
         AddFileToBoxCommandResult AddFileToBox(AddFileToBoxCommand command);
         AddLinkToBoxCommandResult AddLinkToBox(AddLinkToBoxCommand command);
-        AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
-        AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
+        //AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
+        //AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
 
         void DeleteItem(DeleteItemCommand command);
         void RateItem(RateItemCommand command);
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void SendMessage(SendMessageCommand command);
         void SubscribeToSharedBox(SubscribeToSharedBoxCommand command);
-        void DeleteComment(DeleteCommentCommand command);
+        //void DeleteComment(DeleteCommentCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
         

@@ -70,8 +70,6 @@
     <Compile Include="ChangeFileNameCommandHandler.cs" />
     <Compile Include="ChangeItemTabNameCommandHandler.cs" />
     <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
-    <Compile Include="AddBoxCommentCommandHandler.cs" />
-    <Compile Include="AddReplyToCommentCommandHandler.cs" />
     <Compile Include="CreateAcademicBoxCommandHandler.cs" />
     <Compile Include="CreateFacebookUserCommandHandler.cs" />
     <Compile Include="CreateItemTabCommandHandler.cs" />
@@ -79,7 +77,6 @@
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteAnnotationCommandHandler.cs" />
     <Compile Include="DeleteAnswerCommandHandler.cs" />
-    <Compile Include="DeleteCommentCommandHandler.cs" />
     <Compile Include="DeleteFileFromQnACommandHandler.cs" />
     <Compile Include="DeleteItemTabCommandHandler.cs" />
     <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
@@ -170,6 +167,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Quiz\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

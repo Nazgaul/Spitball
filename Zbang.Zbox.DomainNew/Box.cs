@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain
         {
             UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
             Items = new List<Item>();
-            Comments = new List<Comment>();
+            //Comments = new List<Comment>();
             Questions = new List<Question>();
             PrivacySettings = new PrivacySettings();
         }
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain
 
         public IQueryable<Item> Items2 { get; set; }
 
-        protected virtual ICollection<Comment> Comments { get; set; }
+        //protected virtual ICollection<Comment> Comments { get; set; }
         protected virtual ICollection<Question> Questions { get; set; }
 
         public virtual int MembersCount { get; private set; }
@@ -87,12 +87,12 @@ namespace Zbang.Zbox.Domain
             Picture = null;
         }
 
-        public Comment AddBoxComment(User user, string commentText)
-        {
-            var comment = new Comment(user, commentText, this, null);
-            Comments.Add(comment);
-            return comment;
-        }
+        //public Comment AddBoxComment(User user, string commentText)
+        //{
+        //    var comment = new Comment(user, commentText, this, null);
+        //    Comments.Add(comment);
+        //    return comment;
+        //}
 
 
         public File AddFile(string fileName, User user, long length, string blobAddressName, string thumbnailBlobAddressName)
