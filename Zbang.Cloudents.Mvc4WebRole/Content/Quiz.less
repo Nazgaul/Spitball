@@ -11,6 +11,14 @@
             right: -22px; /*rtl*/
         }
     }
+    &.previewQuiz
+    {
+        position: fixed; //remove the scroll from existing content of bodyContent
+        ~ .quizPreview
+        {
+            margin-top: 0;
+        }
+    }
 }
 .quizSideBar {
     position: fixed;
@@ -234,15 +242,17 @@
     margin-top: 12px;
 }
 /*#region Quiz Preview */
+
 .quizPreview
 {
-    display: none;
+    margin-top: -100%;
     position: absolute;
     z-index: 14;
     left: 0;
     top: 0;
     width: 100%;
-    background: url(/Images/gray_jean80.png) repeat #FFF;
+    background: url(/Images/gray_jean80.png) repeat #fff;
+    .transition(margin 1s ease-in);
     &:before
     {
         .pseudo;
@@ -265,7 +275,7 @@
 .quizPrevWpr
 {
     width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 60px;
     background: #fff;
     border-radius: 5px;
     padding: 0 20px;
@@ -304,8 +314,19 @@
             margin:0;
         }
     }
-    .correct{
-        background: rgba(3,113,200,.2);
+    .correct {
+        display:inline;
+        background: rgba(3, 113, 200, 0.2);
+        &:before
+        {
+            content: '';
+           display: list-item;
+           float: left;
+        }
+        + li
+        {
+            margin-top: 5px;
+        }
     }
 }
 
