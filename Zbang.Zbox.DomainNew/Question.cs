@@ -24,7 +24,12 @@ namespace Zbang.Zbox.Domain
         public virtual Quiz Quiz { get; private set; }
         public virtual string Text { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
-        public virtual Answer RightAnswer { get; internal set; }
+        public virtual Answer RightAnswer { get; private set; }
+
+        public virtual void UpdateCorrectAnswer(Answer answer)
+        {
+            RightAnswer = answer;
+        }
 
         public void UpdateText(string newText)
         {
