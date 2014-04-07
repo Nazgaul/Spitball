@@ -76,6 +76,9 @@
   resize: none;
   font-size: 17px;
 }
+.quizSideBar .inputText.emptyText.questionAnswer {
+  border: 1px solid #d1294d;
+}
 .quizSideBar.nameReq .quizName {
   border: 1px solid #d1294d;
 }

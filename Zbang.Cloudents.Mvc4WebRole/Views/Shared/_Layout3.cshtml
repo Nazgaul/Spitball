@@ -91,13 +91,13 @@
         @RenderBody()
         <input id="quizToggle" type="checkbox" class="checkbox" />
         <label for="quizToggle" class="toggleQuiz"></label>
-        <aside id="quizSideBar" class="quizSideBar error nameReq">
+        <aside id="quizSideBar" class="quizSideBar">
             <section class="quiz">
                 <header>@QuizResources.CreateQuiz
                     <button class="closeDialog"></button>
                 </header>
                 <div class="quizWpr">
-                    <div data-quizin="@SharedResources.In" class="quizLoc">Course name here</div>
+                    <div data-quizin="@SharedResources.In" class="quizLoc"></div>
                     <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" />
                     <ul class="quizQuestionList" id="quizQuestionList"></ul>
                     <button class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
@@ -155,7 +155,7 @@
     <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
 
     <script type="text/html" id="quizQuestionTemplate">
-        <li class="questionHolder correctReq answerReq questionReq">
+        <li class="questionHolder">
             <form>
                 <button class="closeDialog quizRemoveQuestion"></button>
                 <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}"></textarea>
