@@ -7,15 +7,15 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class DeleteQuestionCommand : ICommand
+    public class DeleteReplyCommand : ICommand
     {
-        public DeleteQuestionCommand(Guid questionId, long userId)
+        public DeleteReplyCommand(Guid answerId, long userId)
         {
-            QuestionId = questionId;
+            AnswerId = answerId;
             UserId = userId;
         }
-        public Guid QuestionId { get; private set; }
+        public Guid AnswerId { get; set; }
 
-        public long UserId { get; private set; }
+        public long UserId { get; set; }
     }
 }

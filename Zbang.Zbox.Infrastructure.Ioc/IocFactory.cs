@@ -46,16 +46,19 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             m_Container.RegisterType<TFrom, TTo>();
         }
 
-        public void RegisterType(Type from, Type to)
+        public IocFactory RegisterType(Type from, Type to)
         {
             m_RegisteredTypes.Add(from.GetType());
             m_Container.RegisterType(from, to);
+
+            return this;
         }
-        public void RegisterType(Type from, Type to, string name)
+        public IocFactory RegisterType(Type from, Type to, string name)
         {
             m_RegisteredTypes.Add(from.GetType());
 
             m_Container.RegisterType(from, to, name);
+            return this;
         }
 
         public void RegisterType<TFrom, TTo>(string name) where TTo : TFrom

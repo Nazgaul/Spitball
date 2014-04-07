@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
@@ -14,34 +13,27 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Question(User user, string text, Box box, Guid id, IList<Item> items)
+        public Question(Guid id, Quiz quiz, string text)
         {
-            Throw.OnNull(user, "User");
-            Throw.OnNull(box, "box");
-            Throw.OnNull(text, "text", false);
             Id = id;
-            Items = items;
-            User = user;
-            Box = box;
-            Text = text.Trim();
-            DateTimeUser = new UserTimeDetails(user.Email);
-            Box.UserTime.UpdateUserTime(user.Email);
+            Text = text;
+
+            DateTimeUser = new UserTimeDetails(quiz.Owner.Email);
         }
-        public virtual Guid Id { get; set; }
-        public virtual User User { get; set; }
-        public virtual string Text { get; set; }
-        public virtual Box Box { get; set; }
-        protected virtual ICollection<Item> Items { get; set; }
-        protected virtual ICollection<Answer> Answers { get; set; }
+        public virtual Guid Id { get; private set; }
+        public virtual Quiz Quiz { get; private set; }
+        public virtual string Text { get; private set; }
+        public virtual UserTimeDetails DateTimeUser { get; private set; }
+        public virtual Answer RightAnswer { get; internal set; }
 
-        public ICollection<Answer> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
-
-        
-        public virtual UserTimeDetails DateTimeUser { get; set; }
-
-        public void RemoveItem(Item item)
+        public void UpdateText(string newText)
         {
-            Items.Remove(item);
-        }    
+            Throw.OnNull(newText, "newText", false);
+            Text = newText;
+            DateTimeUser.UpdateTime = DateTime.UtcNow;
+
+        }
     }
+
+
 }

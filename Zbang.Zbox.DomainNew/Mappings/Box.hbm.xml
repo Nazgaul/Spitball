@@ -46,7 +46,7 @@
     </bag>-->
     <bag name="Questions" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="BoxId" />
-      <one-to-many class="Question"/>
+      <one-to-many class="Comment"/>
     </bag>
 
     <property name="MembersCount" >

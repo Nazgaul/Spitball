@@ -14,15 +14,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<Answer> m_AnswerRepository;
-        private readonly IRepository<Question> m_QuestionRepository;
+        private readonly IRepository<CommentReplies> m_AnswerRepository;
+        private readonly IRepository<Comment> m_QuestionRepository;
         private readonly IRepository<Updates> m_UpdatesRepository;
 
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
             IRepository<Item> itemRepository,
-            IRepository<Answer> answerRepository,
-            IRepository<Question> questionRepository,
+            IRepository<CommentReplies> answerRepository,
+            IRepository<Comment> questionRepository,
             IRepository<Updates> updatesRepository
              )
         {
@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return m_ItemRepository.Load(itemId.Value);
         }
 
-        private Answer GetAnswer(Guid? answerId)
+        private CommentReplies GetAnswer(Guid? answerId)
         {
             if (!answerId.HasValue)
             {
@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return m_AnswerRepository.Load(answerId.Value);
         }
 
-        private Question GetQuestion(Guid? questionId)
+        private Comment GetQuestion(Guid? questionId)
         {
             if (!questionId.HasValue)
             {

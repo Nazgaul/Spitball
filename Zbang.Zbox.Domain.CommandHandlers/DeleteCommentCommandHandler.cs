@@ -1,58 +1,58 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.DataAccess;
-using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteCommentCommandHandler : ICommandHandler<DeleteCommentCommand>
     {
-        //Fields             
-        private IRepository<CommentReplies> m_CommentRepository;
-        private IUserRepository m_UserRepository;
-        private IRepository<Box> m_BoxRepository;
+        private readonly IRepository<Comment> m_QuestionRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IBoxRepository m_BoxRepository;
 
-        //Ctors
-        public DeleteCommentCommandHandler(IRepository<CommentReplies> commentRepository, IUserRepository userRepository , IRepository<Box> boxRepository)
+
+        public DeleteCommentCommandHandler(
+            IRepository<Comment> questionRepository,
+            IBoxRepository boxRepository,
+            IRepository<Reputation> reputationRepository)
         {
-            m_CommentRepository = commentRepository;
-            m_UserRepository = userRepository;
+            m_QuestionRepository = questionRepository;
             m_BoxRepository = boxRepository;
+            m_ReputationRepository = reputationRepository;
         }
-
-        //Methods
-        public void Handle(DeleteCommentCommand command)
+        public void Handle(DeleteCommentCommand message)
         {
-            CommentReplies commentReply = m_CommentRepository.Get(command.CommentId);
-            Box box = m_BoxRepository.Get(command.BoxId);
-            User user = m_UserRepository.Get(command.UserId);
+            var question = m_QuestionRepository.Load(message.QuestionId);
+            var box = question.Box;
 
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, box.Id); //user.GetUserType(box.Id);
-           
-            bool isAuthorized = (userType == UserRelationshipType.Owner) || (user == commentReply.Author);
 
-            if (commentReply == null)
-                throw new ArgumentException("Comment does not exist");
-
-            if (!isAuthorized)
-                throw new UnauthorizedAccessException("User is not authorized to delete comment");
-
-            commentReply.IsDeleted = true;
-
-            commentReply.DateTimeUser.UpdateUserTime(user.Email);
-
-            Comment comment = commentReply as Comment;
-            if (comment != null)
+            bool isAuthorize = question.User.Id == message.UserId || box.Owner.Id == message.UserId;
+            if (!isAuthorize)
             {
-                comment.DeleteReplies(user.Email);
+                throw new UnauthorizedAccessException("User didnt ask the question");
             }
-            //box.DecreaseCommentCounter();
+
+
+            var substract = question.AnswersReadOnly.Count + 1;
+
+            foreach (var item in question.AnswersReadOnly)
+            {
+                m_ReputationRepository.Save(item.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteAnswer));
+            }
+
+            m_ReputationRepository.Save(question.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteQuestion));
+            box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) - substract);
 
             m_BoxRepository.Save(box);
-            m_CommentRepository.Save(commentReply);
+
+            m_QuestionRepository.Delete(question);
+
         }
     }
 }

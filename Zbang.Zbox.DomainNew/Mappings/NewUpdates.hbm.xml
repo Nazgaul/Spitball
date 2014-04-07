@@ -10,8 +10,8 @@
 
     <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="NewUpdatesUser"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="NewUpdatesBox"/>
-    <many-to-one name="Question" class="Question" column="QuestionId" not-null="false" foreign-key="NewUpdatesQuestion"/>
-    <many-to-one name="Answer" class="Answer" column="AnswerId" not-null="false" foreign-key="NewUpdatesAnswer"/>
+    <many-to-one name="Question" class="Comment" column="QuestionId" not-null="false" foreign-key="NewUpdatesQuestion"/>
+    <many-to-one name="Answer" class="CommentReplies" column="AnswerId" not-null="false" foreign-key="NewUpdatesAnswer"/>
     <many-to-one name="Item" class="Item" column="ItemId" not-null="false" foreign-key="NewUpdatesItem"/>
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
   </class>

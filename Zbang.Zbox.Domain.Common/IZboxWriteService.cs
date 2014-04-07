@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Commands.Quiz;
 
 namespace Zbang.Zbox.Domain.Common
 {
@@ -71,13 +72,13 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         #region QnA
-        void AddQuestion(AddQuestionCommand command);
+        void AddQuestion(AddCommentCommand command);
         Task AddAnswer(AddAnswerToQuestionCommand command);
         void MarkCorrectAnswer(MarkAsAnswerCommand command);
-        void RateAnswer(RateAnswerCommand command);
+        //void RateAnswer(RateAnswerCommand command);
         void DeleteFileFromQnA(DeleteFileFromQnACommand command);
-        void DeleteQuestion(DeleteQuestionCommand command);
-        void DeleteAnswer(DeleteAnswerCommand command);
+        void DeleteComment(DeleteCommentCommand command);
+        void DeleteAnswer(DeleteReplyCommand command);
         #endregion
 
         void AddReputation(AddReputationCommand command);
@@ -85,6 +86,19 @@ namespace Zbang.Zbox.Domain.Common
 
         void MarkMessageAsRead(MarkMessagesAsReadCommand command);
         void MarkMessagesAsOld(MarkMessagesAsOldCommand command);
-       
+
+        #region Quiz
+        void CreateQuiz(CreateQuizCommand command);
+        void UpdateQuiz(UpdateQuizCommand command);
+        void DeleteQuiz(DeleteQuizCommand command);
+        void CreateQuestion(CreateQuestionCommand command);
+        void UpdateQuestion(UpdateQuestionCommand command);
+        void DeleteQuestion(DeleteQuestionCommand command);
+        void CreateAnswer(CreateAnswerCommand command);
+        void DeleteAnswer(DeleteAnswerCommand command);
+        void UpdateAnswer(UpdateAnswerCommand command);
+        void SaveQuiz(SaveQuizCommand command);
+        #endregion
+
     }
 }

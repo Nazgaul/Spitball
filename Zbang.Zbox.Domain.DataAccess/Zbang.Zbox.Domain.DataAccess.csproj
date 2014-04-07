@@ -70,10 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcademicBoxRepository.cs" />
-    <Compile Include="AnswerRatingRepository.cs" />
     <Compile Include="BoxRepository.cs" />
     <Compile Include="IAcademicBoxRepository.cs" />
-    <Compile Include="IAnswerRatingRepository.cs" />
     <Compile Include="IBoxRepository.cs" />
     <Compile Include="IInviteRepository.cs" />
     <Compile Include="IInviteToCloudentsRepository.cs" />

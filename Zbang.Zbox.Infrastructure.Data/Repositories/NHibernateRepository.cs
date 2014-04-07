@@ -1,8 +1,10 @@
 ﻿using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using NHibernate;
+using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Trace;
 using System;
+using System.Linq;
 
 namespace Zbang.Zbox.Infrastructure.Data.Repositories
 {
@@ -69,6 +71,9 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             Session.Delete(item);
         }
 
-
+        public IQueryable<T> GetQuerable()
+        {
+            return Session.Query<T>();
+        }
     }
 }

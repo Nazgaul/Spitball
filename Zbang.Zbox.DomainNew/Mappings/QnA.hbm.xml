@@ -2,7 +2,7 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <class name="Question">
+  <class name="Comment" table="Question">
     <id name="Id" column="QuestionId">
       <generator class="assigned"/>
     </id>
@@ -22,11 +22,11 @@
     </bag>
    <bag name="Answers" inverse="true" lazy="true" cascade="delete-orphan" >
       <key column="QuestionId" foreign-key="questionIdAnswer"/>
-      <one-to-many class="Answer"/>
+      <one-to-many class="CommentReplies"/>
     </bag>
   </class>
 
-  <class name="Answer">
+  <class table="Answer" name="CommentReplies">
     <id name="Id" column="AnswerId">
       <generator class="assigned"/>
     </id>
@@ -34,7 +34,7 @@
     <property name="Text" not-null="true" length="8000"></property>
     <property name="MarkAnswer" not-null="true"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdAnswer"/>
-    <many-to-one name="Question" class="Question" column="QuestionId" not-null="true" foreign-key="questionIdAnswer"/>
+    <many-to-one name="Question" class="Comment" column="QuestionId" not-null="true" foreign-key="questionIdAnswer"/>
 
     <component name="DateTimeUser" class="UserTimeDetails">
       <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
@@ -52,7 +52,7 @@
   </class>
 
 
-  <class name="AnswerRating" table="AnswerRating">
+  <!--<class name="AnswerRating" table="AnswerRating">
     <id name="Id" column="AnswerRatingId">
       <generator class="assigned"></generator>
     </id>
@@ -60,6 +60,6 @@
     <many-to-one name="Answer" lazy="false"  class="Answer" column="AnswerId" not-null="true" foreign-key="AnswerIdAnswerRating" unique-key="likeAnswerRatingUser" />
     <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdAnswerRating" unique-key="likeAnswerRatingUser"/>
     <property name="RateUp" column="RateUp" not-null="true"/>
-  </class>
+  </class>-->
   
 </hibernate-mapping>

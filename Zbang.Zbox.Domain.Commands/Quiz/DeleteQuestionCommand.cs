@@ -5,17 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Commands;
 
-namespace Zbang.Zbox.Domain.Commands
+namespace Zbang.Zbox.Domain.Commands.Quiz
 {
-    public class DeleteCommentCommand : ICommand
+    public class DeleteQuestionCommand : ICommand
     {
-        public DeleteCommentCommand(Guid questionId, long userId)
+        public DeleteQuestionCommand(long userId, Guid questionId)
         {
-            QuestionId = questionId;
             UserId = userId;
+            QuestionId = questionId;
         }
-        public Guid QuestionId { get; private set; }
-
         public long UserId { get; private set; }
+        public Guid QuestionId { get;private set; }
     }
 }

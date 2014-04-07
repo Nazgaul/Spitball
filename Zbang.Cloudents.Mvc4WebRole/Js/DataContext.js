@@ -164,6 +164,18 @@
     definition.getUserPageActivity = new definitionobj({ url: '/User/Activity', type: get });
     definition.getUserPageInvites = new definitionobj({ url: '/User/OwnedInvites', type: get });
 
+
+    definition.quizCreate = new definitionobj({ url: '/Quiz/Create' });
+    definition.quizUpdate = new definitionobj({ url: '/Quiz/Update' });
+    definition.quizDelete = new definitionobj({ url: '/Quiz/Delete' });
+    definition.quizSave = new definitionobj({ url: '/Quiz/Delete' });
+    definition.quizQCreate = new definitionobj({ url: '/Quiz/CreateQuestion' });
+    definition.quizQUpdate = new definitionobj({ url: '/Quiz/UpdateQuestion' });
+    definition.quizQDelete = new definitionobj({ url: '/Quiz/DeleteQuestion' });
+    definition.quizACreate = new definitionobj({ url: '/Quiz/CreateAnswer' });
+    definition.quizAUpdate = new definitionobj({ url: '/Quiz/UpdateAnswer' });
+    definition.quizADelete = new definitionobj({ url: '/Quiz/DeleteAnswer' });
+
     //#endregion definition
     /**
  * Outline our webservices

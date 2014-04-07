@@ -100,7 +100,7 @@
                     <div data-quizin="@SharedResources.In" class="quizLoc">Course name here</div>
                     <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" />
                     <ul class="quizQuestionList" id="quizQuestionList"></ul>
-                    <button class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
+                    <button class="quizAddQuestion iconTxt" id="quizAddQuestion" disabled="disabled">@QuizResources.AddQuestion</button>
                 </div>
                 <div class="quizBottom">
                     <button id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
@@ -320,20 +320,20 @@
         </li>
     </script>
     <div style="position: absolute; z-index: 1000; background-color: #fff; width: 200px; height: 100px; display: none;" id="genericTooltipGuide">
-        <div class="stepTip" data-step="0" style="display=none;">
+        <div class="stepTip" data-step="0" style="display:none;">
             <div class="titleTip">text number 1</div>
             <div class="textTip">this is some first text</div>
             <button class="nextStep">next</button>
             <button class="closeTip">close</button>
         </div>
-        <div class="stepTip" data-step="1" style="display=none;">
+        <div class="stepTip" data-step="1" style="display:none;">
             <div class="titleTip">text number 2</div>
             <div class="textTip">this is some second text</div>
             <button class="prevStep">prev</button>
             <button class="nextStep">next</button>
             <button class="closeTip">close</button>
         </div>
-        <div class="stepTip" data-step="2" style="display=none;">
+        <div class="stepTip" data-step="2" style="display:none;">
             <div class="titleTip">text number 3</div>
             <div class="textTip">this is some third text</div>
             <button class="prevStep">prev</button>

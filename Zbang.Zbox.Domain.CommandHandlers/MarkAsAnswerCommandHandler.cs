@@ -15,10 +15,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class MarkAsAnswerCommandHandler : ICommandHandler<MarkAsAnswerCommand>
     {
         private readonly IQuestionRepository m_QuestionRepository;
-        private readonly IRepository<Answer> m_AnswerRepository;
+        private readonly IRepository<CommentReplies> m_AnswerRepository;
         private readonly IUserRepository m_UserRepository;
 
-        public MarkAsAnswerCommandHandler(IQuestionRepository questionRepository, IRepository<Answer> answerRepository, IUserRepository userRepository)
+        public MarkAsAnswerCommandHandler(IQuestionRepository questionRepository, IRepository<CommentReplies> answerRepository, IUserRepository userRepository)
         {
             m_QuestionRepository = questionRepository;
             m_AnswerRepository = answerRepository;

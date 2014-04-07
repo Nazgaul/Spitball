@@ -19,8 +19,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
-        private readonly IRepository<Answer> m_AnswerRepository;
-        private readonly IRepository<Question> m_QuestionRepository;
+        private readonly IRepository<CommentReplies> m_AnswerRepository;
+        private readonly IRepository<Comment> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IQueueProvider m_QueueProvider;
@@ -28,8 +28,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
         public AddAnswerToQuestionCommandHandler(IUserRepository userRepository, IBoxRepository boxRepository,
-            IRepository<Answer> answerRepository,
-            IRepository<Question> questionRepository,
+            IRepository<CommentReplies> answerRepository,
+            IRepository<Comment> questionRepository,
             IRepository<Item> itemRepository,
             IRepository<Reputation> reputationRepository,
             IQueueProvider queueProvider)
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is not connected to box");
             }
             var files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
-            var answer = new Answer(user, text, box, message.Id, question, files);
+            var answer = new CommentReplies(user, text, box, message.Id, question, files);
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
 
