@@ -291,7 +291,7 @@
         dataContext.quizQCreate({
             data: { quizId: quizId, text: questionText },
             success: function(data){
-                question.setAttribute('data-id', data);
+                questionHolder.setAttribute('data-id', data);
                 if (callback) {
                     callback();
                 }
