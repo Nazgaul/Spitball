@@ -34,10 +34,12 @@ namespace Zbang.Zbox.Domain
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 
-        public void UpdateCorrectAnswer()
+        public virtual void UpdateCorrectAnswer()
         {
-            Question.RightAnswer = this;
+            Question.UpdateCorrectAnswer(this);
         }
+
+        
         public void UpdateText(string newText)
         {
             Throw.OnNull(newText, "newText", false);

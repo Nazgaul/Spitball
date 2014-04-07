@@ -291,7 +291,7 @@
         dataContext.quizQCreate({
             data: { quizId: quizId, text: questionText },
             success: function(data){
-                question.setAttribute('data-id', data);
+                questionHolder.setAttribute('data-id', data);
                 if (callback) {
                     callback();
                 }
@@ -419,7 +419,7 @@
 
         function save() {
             dataContext.quizACreate({
-                data: { quizId: questionId, text: answerText, correctAnswer: isCorrect },
+                data: { questionId: questionId, text: answerText, correctAnswer: isCorrect },
                 success: function (data) {
                     answer.setAttribute('data-id', data);
                 },
@@ -428,7 +428,7 @@
         }
         function update() {
             dataContext.quizAUpdate({
-                data: { id: answerId, text: answerText }
+                data: { id: answerId, text: answerText , correctAnswer: isCorrect }
             });
         }
     }
