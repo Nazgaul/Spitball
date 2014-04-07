@@ -251,6 +251,7 @@
   left: 0;
   top: 0;
   width: 100%;
+  min-height: 100%;
   background: url(/Images/gray_jean80.png) repeat #ffffff;
   -webkit-transition: margin 1s ease-in;
   -moz-transition: margin 1s ease-in;
@@ -274,6 +275,10 @@
   margin: 0 auto;
   height: 50px;
   padding-top: 11px;
+}
+.quizPreview .closeDialog {
+  background-position: -68px -26px;
+  top: 20px;
 }
 .quizPrevWpr {
   width: 800px;

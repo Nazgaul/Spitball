@@ -118,17 +118,6 @@
 
     </div>
 
-    <div class="quizPreview" id="preview1">
-        <h2>Quiz name here</h2>
-        <div class="quizTitle" data-questioncount="4">multiple choice questions</div>
-        <div class="quizPrevWpr">
-           
-            <ul class="quizQList">
-          
-            </ul>
-        </div>
-    </div>
-
     <div id="mLoading" class="loading">
         <div class="spinner"></div>
     </div>
@@ -206,6 +195,7 @@
     <script type="text/html" id="quizPreviewTemplate">
         <div class="quizPreview" id="preview">
             <h2>{{name}}</h2>
+            <button class="closeDialog"></button>
             <div class="quizTitle" data-questioncount="{{numOfQuestions}}">multiple choice questions</div>
             <div class="quizPrevWpr">
 
