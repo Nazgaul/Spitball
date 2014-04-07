@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain
         {
             Id = id;
             Text = text;
-
+            Quiz = quiz;
             DateTimeUser = new UserTimeDetails(quiz.Owner.Email);
         }
         public virtual Guid Id { get; private set; }
