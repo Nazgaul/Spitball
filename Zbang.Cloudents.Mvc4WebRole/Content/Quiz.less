@@ -1,5 +1,6 @@
 ﻿@import "varsAndMixins";
 
+/*#region Create Quiz */
 .bodyContent{
     &.noQuiz
     {
@@ -241,19 +242,21 @@
     color: @attentionBlue;
     margin-top: 12px;
 }
-/*#region Quiz Preview */
+/*#endregion */
+
+/*#region Quiz Preview  */
 
 .quizPreview
 {
     margin-top: -100%;
     position: absolute;
     z-index: 14;
-    left: 0;
+    left: 0; /*rtl*/
     top: 0;
     width: 100%;
     min-height: 100%;
     background: url(/Images/gray_jean80.png) repeat #fff;
-    .transition(margin 1s ease-in);
+    .transition(margin .5s ease-in);
     &:before
     {
         .pseudo;
@@ -304,7 +307,8 @@
     font-size: 19px;
     padding: 0 25px;
     > li{
-        padding: 20px;
+        position:relative; //for item view
+        padding: 20px 0;
         //margin: 0 -20px;
         border-bottom: 1px solid #f1f1f1;
     }
@@ -327,14 +331,55 @@
         {
             content: '';
            display: list-item;
-           float: left;
+           float: left; /*rtl*/
         }
         + li
         {
-            margin-top: 5px;
+            margin-top: 10px;
         }
     }
 }
+/*#endregion */
 
+/*#region Quiz item page */
+.quizPage{
+    &.page
+    {
+        display: block;
+    }
+    .leftPanel
+    {
+        position: fixed;
+        left:0;
+        top: @header-height;
+        height: 100%;
+    }
+    .itemRight
+    {
+        text-align: left;
+    }
+    .quizAList {
+        .correct{
+            background: none;
+        }
+    }
+   
+}
+.userCorrect, .userWrong
+{
+     &:before {
+        .pseudo;
+        position: absolute;
+        left: -45px;
+        width: 3px;
+        height: ~'-webkit-calc(100% - 40px)';
+        height: ~'calc(100% - 40px)';
+        background: @color;
+    }
+}
+.userWrong:before
+{
+    background: @errorColor;
+}
 
 /*#endregion */

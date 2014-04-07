@@ -1128,6 +1128,7 @@
     <Content Include="Views\Library\SelectDepartment.cshtml" />
     <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
+    <Content Include="Views\Quiz\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1137,7 +1138,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\Factories\" />
-    <Folder Include="Views\Quiz\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

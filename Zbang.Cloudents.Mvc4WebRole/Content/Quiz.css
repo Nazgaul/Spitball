@@ -2,6 +2,7 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+/*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
@@ -243,20 +244,22 @@
   color: #0371c8;
   margin-top: 12px;
 }
-/*#region Quiz Preview */
+/*#endregion */
+/*#region Quiz Preview  */
 .quizPreview {
   margin-top: -100%;
   position: absolute;
   z-index: 14;
   left: 0;
+  /*rtl*/
   top: 0;
   width: 100%;
   min-height: 100%;
   background: url(/Images/gray_jean80.png) repeat #ffffff;
-  -webkit-transition: margin 1s ease-in;
-  -moz-transition: margin 1s ease-in;
-  -o-transition: margin 1s ease-in;
-  transition: margin 1s ease-in;
+  -webkit-transition: margin 0.5s ease-in;
+  -moz-transition: margin 0.5s ease-in;
+  -o-transition: margin 0.5s ease-in;
+  transition: margin 0.5s ease-in;
 }
 .quizPreview:before {
   content: '';
@@ -306,7 +309,8 @@
   padding: 0 25px;
 }
 .quizQList > li {
-  padding: 20px;
+  position: relative;
+  padding: 20px 0;
   border-bottom: 1px solid #f1f1f1;
 }
 .quizAList {
@@ -328,8 +332,40 @@
   content: '';
   display: list-item;
   float: left;
+  /*rtl*/
 }
 .quizAList .correct + li {
-  margin-top: 5px;
+  margin-top: 10px;
+}
+/*#endregion */
+/*#region Quiz item page */
+.quizPage.page {
+  display: block;
+}
+.quizPage .leftPanel {
+  position: fixed;
+  left: 0;
+  top: 50px;
+  height: 100%;
+}
+.quizPage .itemRight {
+  text-align: left;
+}
+.quizPage .quizAList .correct {
+  background: none;
+}
+.userCorrect:before,
+.userWrong:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: -45px;
+  width: 3px;
+  height: -webkit-calc(100% - 40px);
+  height: calc(100% - 40px);
+  background: #0f9d58;
+}
+.userWrong:before {
+  background: #d1294d;
 }
 /*#endregion */
