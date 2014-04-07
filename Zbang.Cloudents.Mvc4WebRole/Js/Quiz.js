@@ -48,24 +48,18 @@
 
     function initQuiz() {
         var calls = [];
-        calls.push(dataContext.quizCreate({
+        dataContext.quizCreate({
             data: { boxId: boxId },
             success: function (data) {
                 quizSideBar.setAttribute('data-id', data);
+                quizId = data;
             }
-        }));
+        });
+
         for (var i = 0; i < consts.initQuestionsLength; i++) {
-            calls.push(addQuestion());
+            appendQuestion();
 
         }
-  
-        $.when.apply(null, calls).done(function (a, b, c, d) {
-            quizSideBar.setAttribute('data-id', a[0].payload);
-            quizQuestionList.children[0].setAttribute('data-id', b[0].payload);
-            quizQuestionList.children[1].setAttribute('data-id', c[0].payload);
-            quizQuestionList.children[2].setAttribute('data-id', d[0].payload);            
-            quizAddQuestion.disabled = false;
-        })
     }
 
     function showQuiz() {
@@ -190,13 +184,13 @@
 
     function registerEvents() {
         $(quizQuestionList).on('click', '.quizRemoveQuestion', removeQuestion)
-                           .on('focusout', '.questionText', updateQuestion)
+                           .on('focusout', '.questionText', saveQuestion)
                            .on('change','.correctAnswer',saveAnswer)
                            .on('keyup', '.questionAnswer', toggleAnswerRadioBtn)
                            .on('focusout', '.questionAnswer', saveAnswer)
                            .on('click', '.questionAnswer[readonly="readonly"]', addAnswer);
 
-        $(quizAddQuestion).click(addQuestion);
+        $(quizAddQuestion).click(appendQuestion);
 
         $(quizName).focusout(updateQuiz);
 
@@ -278,18 +272,20 @@
     //#endregion Quiz
 
     //#region Question
-    function addQuestion() {        
+    function appendQuestion() {
         var indexObj = { index: quizQuestionList.children.length + 1 },
         html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
         quizQuestionList.insertAdjacentHTML('beforeend', html);
-
-        return dataContext.quizQCreate({
+    }
+    function saveQuestion(question,callback) {                
+        quizAddQuestion.disabled = true;
+        dataContext.quizQCreate({
             data: { quizId: quizId},
-            success: function (data) {
-                quizQuestionList.lastElementChild.setAttribute('data-id', data);
-
-            },
-            error: function () { }
+            success: callback,
+            error: function () { },
+            always: function () {
+                quizAddQuestion.disabled = false;
+            }
         });
     }
 
@@ -377,38 +373,55 @@
     }
  
     function saveAnswer() {        
-        var answerInput, isCorrect;
-        if (this.type === 'textarea') {
+        var answerInput, isCorrect, answerText,
+            answer = this.parentElement,
+            question = $(answer).parents('.questionHolder')[0],
+            questionId = question.getAttribute('data-id'),
+            answerId = answer.getAttribute('data-id');
+
+        if (this.type === 'textarea') { //check if user focusout the answer or clicked the radio button
             answerInput = this;
             isCorrect= answerInput.nextElementSibling.checked;
         } else {
-            answerInput = this.previousElementSibling.value;
+            answerInput = this.previousElementSibling;
             isCorrect = this.checked;
         }
-        var answer = this.parentElement,
-            answerId = answer.getAttribute('data-id'),            
-            answerText = answerInput.value,
-            
-            questionId = $(answer).parents('.questionHolder')[0].getAttribute('data-id');
+        answerText = answerInput.value;
 
-        if (!answerText) {          
+        if (!answerText) {
+            return;
+        }
+
+        if (!questionId) {
+            saveQuestion(question,
+                function (data) {
+                    question.setAttribute('data-id', data);
+                    save();
+                });
             return;
         }
 
         if (!answerId) {
+            save();
+            return;
+        }
+       
+        update();
+
+        function save() {                      
             dataContext.quizACreate({
-                data: { quizId: questionId, text: answerText, correctAnswer: isCorrect},
+                data: { quizId: questionId, text: answerText, correctAnswer: isCorrect },
                 success: function (data) {
                     answer.setAttribute('data-id', data);
                 },
                 error: function () { }
             });
-            return;
         }
-
-        dataContext.quizAUpdate({
-            data: { id: answerId, text: answerText }
-        });
+        function update(){
+            dataContext.quizAUpdate({
+                data: { id: answerId, text: answerText }
+            });
+        }        
     }
 
     function removeAnswer(answerId) {
