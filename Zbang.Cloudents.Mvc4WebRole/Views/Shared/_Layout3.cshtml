@@ -124,38 +124,7 @@
         <div class="quizPrevWpr">
            
             <ul class="quizQList">
-                <li>
-                    <div>Why did the duck cross the road</div>
-                    <ul class="quizAList">
-                        <li>To get to the other side</li>
-                        <li class="correct">To prove he's no chicken</li>
-                        <li>because it was the chicken's day off</li>
-                    </ul>
-                </li>
-                <li>
-                    <div>Why did the duck cross the road</div>
-                    <ul class="quizAList">
-                        <li>To get to the other side</li>
-                        <li class="correct">To prove he's no chickenTo prove he's no chickenTo prove he's no chickenTo prove he's no chickenTo prove he's no chicken</li>
-                        <li>because it was the chicken's day off</li>
-                    </ul>
-                </li>
-                <li>
-                    <div>Why did the duck cross the road</div>
-                    <ul class="quizAList">
-                        <li>To get to the other side</li>
-                        <li class="correct">To prove he's no chicken</li>
-                        <li>because it was the chicken's day off</li>
-                    </ul>
-                </li>
-                <li>
-                    <div>Why did the duck cross the road</div>
-                    <ul class="quizAList">
-                        <li>To get to the other side</li>
-                        <li class="correct">To prove he's no chicken</li>
-                        <li>because it was the chicken's day off</li>
-                    </ul>
-                </li>
+          
             </ul>
         </div>
     </div>
@@ -235,11 +204,12 @@
     </script>
 
     <script type="text/html" id="quizPreviewTemplate">
-        <div id="preview">
+        <div class="quizPreview" id="preview">
+            <h2>{{name}}</h2>
+            <div class="quizTitle" data-questioncount="{{numOfQuestions}}">multiple choice questions</div>
             <div class="quizPrevWpr">
-                <h2>{{name}}</h2>
-                <div></div>
-                <ul>{{questions}}</ul>
+
+                <ul class="quizQList">{{questions}}</ul>
             </div>
         </div>
     </script>
@@ -247,12 +217,14 @@
     <script type="text/html" id="quizQuestionPreviewTemplate">
         <li>
             <div>{{text}}</div>
-            <ul>{{answers}}</ul>
+            <ul class="quizAList">
+              {{answers}}
+            </ul>
         </li>
     </script>
 
     <script type="text/html" id="quizAnswerPreviewTemplate">
-        <li class="previewAnswer{{correct}}">{{text}}</li>
+        <li {{correct}}>{{text}}</li>
     </script>
 
     <script type="text/html" id="userToolTipTempalte">
