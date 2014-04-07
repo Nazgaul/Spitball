@@ -47,19 +47,9 @@
 
     });
 
-    function initQuiz() {
-        var calls = [];
-        dataContext.quizCreate({
-            data: { boxId: boxId },
-            success: function (data) {
-                quizSideBar.setAttribute('data-id', data);
-                quizId = data;
-            }
-        });
-
+    function initQuiz() {    
         for (var i = 0; i < consts.initQuestionsLength; i++) {
             appendQuestion();
-
         }
     }
 
@@ -186,6 +176,7 @@
     function registerEvents() {
         $(quizQuestionList).on('click', '.quizRemoveQuestion', removeQuestion)
                            .on('focusout', '.questionText', function () { saveQuestion(this); })
+                            .on('keyup', '.questionText', checkQuestion)
                            .on('change', '.correctAnswer', saveAnswer)
                            .on('keyup', '.questionAnswer', toggleAnswerRadioBtn)
                            .on('focusout', '.questionAnswer', saveAnswer)
@@ -193,7 +184,7 @@
 
         $(quizAddQuestion).click(appendQuestion);
 
-        $(quizName).focusout(updateQuiz);
+        $(quizName).focusout(saveQuiz);
 
         $(window).on('beforeunload', function () {
             return 'Quiz changes might be lost';
@@ -208,16 +199,25 @@
 
     //#region Quiz
 
-    function updateQuiz() {
-        var quizId = quizSideBar.getAttribute('data-id');
-
+    function saveQuiz() {
+        if (!quizId) {
+            dataContext.quizCreate({
+                data: { boxId: boxId, text: quizName.value },
+                success: function (data) {
+                    quizSideBar.setAttribute('data-id', data);
+                    quizId = data;
+                }
+            });
+            return;
+        }
+  
         dataContext.quizUpdate({
             data: { id: quizId, text: quizName.value },
             error: function () { }
         });
     }
 
-    function saveQuiz() {
+    function publisheQuiz() {
         //var quiz = parseQuiz();
 
         //if (validateQuiz(quiz)) {
@@ -301,6 +301,30 @@
                 quizAddQuestion.disabled = false;
             }
         });
+    }
+
+    function checkQuestion(e) {
+        var question = this.parentElement.parentElement,
+            questionId = question.getAttribute('data-id'),
+            answers = question.querySelectorAll('.quizAnswer'),
+            value, valueFound = false;
+        for (var i = 0, l = answers.length; i < l && !valueFound; i++) {
+            value = answers[i].firstElementChild.value;
+            if (value) {
+                valueFound = true;
+            }
+        }
+
+        if (valueFound || this.value.length) {
+            return;
+        }
+
+        if (questionId) {
+            dataContext.quizQDelete({
+                data: { id: questionId },
+                error: function () { }
+            });
+        }
     }
 
     function removeQuestion(e) {
