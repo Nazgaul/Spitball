@@ -10,10 +10,11 @@
         quizQuestionList = eById('quizQuestionList'),
         quizAddQuestion = eById('quizAddQuestion'),
         quizPreview = eById('quizPreview'),
+        mainDiv = eById('main'),
         saveBtn = eById('saveQuiz');
 
     var consts = {
-        initQuestionsLength : 3
+        initQuestionsLength: 3
     }
 
     var quizId, boxId, boxName;
@@ -46,25 +47,15 @@
 
     });
 
-    function initQuiz() {
-        var calls = [];
-        dataContext.quizCreate({
-            data: { boxId: boxId },
-            success: function (data) {
-                quizSideBar.setAttribute('data-id', data);
-                quizId = data;
-            }
-        });
-
+    function initQuiz() {    
         for (var i = 0; i < consts.initQuestionsLength; i++) {
             appendQuestion();
-
         }
     }
 
     function showQuiz() {
         //show the quiz div
-        eById('main').classList.remove('noQuiz');
+        mainDiv.classList.remove('noQuiz');
         quizName.focus();
     }
 
@@ -184,15 +175,16 @@
 
     function registerEvents() {
         $(quizQuestionList).on('click', '.quizRemoveQuestion', removeQuestion)
-                           .on('focusout', '.questionText', saveQuestion)
-                           .on('change','.correctAnswer',saveAnswer)
+                           .on('focusout', '.questionText', function () { saveQuestion(this); })
+                            .on('keyup', '.questionText', checkQuestion)
+                           .on('change', '.correctAnswer', saveAnswer)
                            .on('keyup', '.questionAnswer', toggleAnswerRadioBtn)
                            .on('focusout', '.questionAnswer', saveAnswer)
                            .on('click', '.questionAnswer[readonly="readonly"]', addAnswer);
 
         $(quizAddQuestion).click(appendQuestion);
 
-        $(quizName).focusout(updateQuiz);
+        $(quizName).focusout(saveQuiz);
 
         $(window).on('beforeunload', function () {
             return 'Quiz changes might be lost';
@@ -207,15 +199,25 @@
 
     //#region Quiz
 
-    function updateQuiz() {
-        var quizId = quizSideBar.getAttribute('data-id');
-                
+    function saveQuiz() {
+        if (!quizId) {
+            dataContext.quizCreate({
+                data: { boxId: boxId, text: quizName.value },
+                success: function (data) {
+                    quizSideBar.setAttribute('data-id', data);
+                    quizId = data;
+                }
+            });
+            return;
+        }
+  
         dataContext.quizUpdate({
-            data: { id: quizId, text: quizName.value }
+            data: { id: quizId, text: quizName.value },
+            error: function () { }
         });
     }
 
-    function saveQuiz() {
+    function publisheQuiz() {
         //var quiz = parseQuiz();
 
         //if (validateQuiz(quiz)) {
@@ -223,7 +225,7 @@
         //} else {
         //    console.log('not saved');
         //}
-        
+
         //console.log(quiz);
     }
 
@@ -259,8 +261,10 @@
 
         var previewHTML = cd.attachTemplateToData('quizPreviewTemplate', previewObj);
         $('body').append(previewHTML);
-        eById('main').classList.add('previewQuiz');
-
+        mainDiv.classList.add('previewQuiz');
+        $('#preview').find('.closeDialog').one('click', function () {
+            mainDiv.classList.remove('previewQuiz');
+        });
     }
 
 
@@ -273,16 +277,54 @@
         html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
         quizQuestionList.insertAdjacentHTML('beforeend', html);
     }
-    function saveQuestion(question,callback) {                
+    function saveQuestion(question, callback) {
+        var questionHolder = $(question).parents('.questionHolder')[0],
+            questionId = questionHolder.getAttribute('data-id'),
+            questionText = question.value;
+
+        if (questionId) {
+            updateQuestion(questionId, questionText);
+            return;
+        }
+
         quizAddQuestion.disabled = true;
         dataContext.quizQCreate({
-            data: { quizId: quizId},
-            success: callback,
+            data: { quizId: quizId, text: questionText },
+            success: function(data){
+                questionHolder.setAttribute('data-id', data);
+                if (callback) {
+                    callback();
+                }
+            }, 
             error: function () { },
             always: function () {
                 quizAddQuestion.disabled = false;
             }
         });
+    }
+
+    function checkQuestion(e) {
+        var question = this.parentElement.parentElement,
+            questionId = question.getAttribute('data-id'),
+            answers = question.querySelectorAll('.quizAnswer'),
+            value, valueFound = false;
+        for (var i = 0, l = answers.length; i < l && !valueFound; i++) {
+            value = answers[i].firstElementChild.value;
+            if (value) {
+                valueFound = true;
+            }
+        }
+
+        if (valueFound || this.value.length) {
+            return;
+        }
+
+        if (questionId) {
+            dataContext.quizQDelete({
+                data: { id: questionId },
+                error: function () { }
+            });
+        }
     }
 
     function removeQuestion(e) {
@@ -316,14 +358,10 @@
 
         }
     }
-    
-    function updateQuestion() {
-        var question = this,
-            questionId = question.getAttribute('data-id'),
-            questionText = question.value;
 
+    function updateQuestion(id,text) {            
         dataContext.quizQUpdate({
-            data: { id: questionId, text: questionText }
+            data: { id: id, text: text }
         });
     }
 
@@ -349,7 +387,7 @@
         } else {
             radioBtn.disabled = true;
             radioBtn.checked = false;
-            
+
         }
     }
 
@@ -367,8 +405,8 @@
 
         $(answerInput.parentElement.previousElementSibling.firstElementChild).focus();
     }
- 
-    function saveAnswer() {        
+
+    function saveAnswer() {
         var answerInput, isCorrect, answerText,
             answer = this.parentElement,
             question = $(answer).parents('.questionHolder')[0],
@@ -377,7 +415,7 @@
 
         if (this.type === 'textarea') { //check if user focusout the answer or clicked the radio button
             answerInput = this;
-            isCorrect= answerInput.nextElementSibling.checked;
+            isCorrect = answerInput.nextElementSibling.checked;
         } else {
             answerInput = this.previousElementSibling;
             isCorrect = this.checked;
@@ -389,9 +427,8 @@
         }
 
         if (!questionId) {
-            saveQuestion(question,
-                function (data) {
-                    question.setAttribute('data-id', data);
+            saveQuestion(question.querySelector('.questionText'),
+                function () {                    
                     save();
                 });
             return;
@@ -401,23 +438,23 @@
             save();
             return;
         }
-       
+
         update();
 
-        function save() {                      
+        function save() {
             dataContext.quizACreate({
-                data: { quizId: questionId, text: answerText, correctAnswer: isCorrect },
+                data: { questionId: questionId, text: answerText, correctAnswer: isCorrect },
                 success: function (data) {
                     answer.setAttribute('data-id', data);
                 },
                 error: function () { }
             });
         }
-        function update(){
+        function update() {
             dataContext.quizAUpdate({
-                data: { id: answerId, text: answerText }
+                data: { id: answerId, text: answerText , correctAnswer: isCorrect }
             });
-        }        
+        }
     }
 
     function removeAnswer(answerId) {

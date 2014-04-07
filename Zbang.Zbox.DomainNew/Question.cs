@@ -17,14 +17,19 @@ namespace Zbang.Zbox.Domain
         {
             Id = id;
             Text = text;
-
+            Quiz = quiz;
             DateTimeUser = new UserTimeDetails(quiz.Owner.Email);
         }
         public virtual Guid Id { get; private set; }
         public virtual Quiz Quiz { get; private set; }
         public virtual string Text { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
-        public virtual Answer RightAnswer { get; internal set; }
+        public virtual Answer RightAnswer { get; private set; }
+
+        public virtual void UpdateCorrectAnswer(Answer answer)
+        {
+            RightAnswer = answer;
+        }
 
         public void UpdateText(string newText)
         {
