@@ -71,6 +71,7 @@
     function showQuiz() {
         //show the quiz div
         eById('main').classList.remove('noQuiz');
+        quizName.focus();
     }
 
     function validateQuiz(quiz) {
@@ -251,7 +252,7 @@
     function updateQuiz() {
         var quizId = quizSideBar.getAttribute('data-id');
                 
-        dataContext.quizQUpdate({
+        dataContext.quizUpdate({
             data: { id: quizId, text: quizName.value }
         });
     }
