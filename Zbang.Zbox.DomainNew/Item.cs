@@ -34,8 +34,8 @@ namespace Zbang.Zbox.Domain
         public virtual Box Box { get; set; }
         public virtual int NumberOfViews { get; private set; }
 
-        public virtual Question Question { get; set; }
-        public virtual Answer Answer { get; set; }
+        public virtual Comment Question { get; set; }
+        public virtual CommentReplies Answer { get; set; }
         public virtual string ItemContentUrl { get; set; }
         public virtual string ThumbnailBlobName { get; set; }
 

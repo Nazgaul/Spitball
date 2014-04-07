@@ -26,8 +26,8 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public int QnACount(long id)
         {
-            var questionNumber = UnitOfWork.CurrentSession.Query<Question>().Where(w => w.Box.Id == id).Count();
-            var answerNumber = UnitOfWork.CurrentSession.Query<Answer>().Where(w => w.Box.Id == id).Count();
+            var questionNumber = UnitOfWork.CurrentSession.Query<Comment>().Where(w => w.Box.Id == id).Count();
+            var answerNumber = UnitOfWork.CurrentSession.Query<CommentReplies>().Where(w => w.Box.Id == id).Count();
             return questionNumber + answerNumber;
         }
         //public  GetBoxOwner(long boxid)

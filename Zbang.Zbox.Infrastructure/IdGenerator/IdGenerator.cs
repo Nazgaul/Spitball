@@ -12,6 +12,8 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
         public const string ItemLikeScope = "ItemLike";
         public const string ItemAnnotationScope = "ItemAnnotation";
         public const string ItemAnnotationReplyScope = "ItemReply";
+
+        public const string QuizScope = "Quiz";
         SnowMaker.BlobOptimisticDataStore m_DataStorage;
         SnowMaker.UniqueIdGenerator m_Generator;
         public IdGenerator()

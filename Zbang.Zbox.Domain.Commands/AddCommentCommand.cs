@@ -7,9 +7,9 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddQuestionCommand : ICommand
+    public class AddCommentCommand : ICommand
     {
-        public AddQuestionCommand(long userId, long boxId, string text, Guid id, IEnumerable<long> filesIds)
+        public AddCommentCommand(long userId, long boxId, string text, Guid id, IEnumerable<long> filesIds)
         {
             UserId = userId;
             BoxId = boxId;

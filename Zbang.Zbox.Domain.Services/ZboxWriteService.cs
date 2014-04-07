@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -173,7 +174,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-       
+
 
         public void DeleteItem(DeleteItemCommand command)
         {
@@ -193,7 +194,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-      
+
         public void Statistics(UpdateStatisticsCommand command)
         {
             using (UnitOfWork.Start())
@@ -263,7 +264,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-       
+
 
 
         public ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command)
@@ -277,7 +278,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-       
+
 
         public void UpdateUserLanguage(UpdateUserLanguageCommand command)
         {
@@ -399,7 +400,7 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
 
         #region QnA
-        public void AddQuestion(AddQuestionCommand command)
+        public void AddQuestion(AddCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -413,7 +414,7 @@ namespace Zbang.Zbox.Domain.Services
             {
                 await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
-                
+
             }
         }
         public void MarkCorrectAnswer(MarkAsAnswerCommand command)
@@ -425,14 +426,14 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void RateAnswer(RateAnswerCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void RateAnswer(RateAnswerCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
         public void DeleteFileFromQnA(DeleteFileFromQnACommand command)
         {
             using (UnitOfWork.Start())
@@ -441,7 +442,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void DeleteQuestion(DeleteQuestionCommand command)
+        public void DeleteComment(DeleteCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -449,7 +450,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void DeleteAnswer(DeleteAnswerCommand command)
+        public void DeleteAnswer(DeleteReplyCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -521,5 +522,88 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+
+        #region quiz
+        public void CreateQuiz(CreateQuizCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void UpdateQuiz(UpdateQuizCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void DeleteQuiz(DeleteQuizCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void CreateQuestion(CreateQuestionCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void UpdateQuestion(UpdateQuestionCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void DeleteQuestion(DeleteQuestionCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void CreateAnswer(CreateAnswerCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void DeleteAnswer(DeleteAnswerCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void UpdateAnswer(UpdateAnswerCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void SaveQuiz(SaveQuizCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        #endregion
     }
 }

@@ -15,11 +15,11 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddQuestionCommandHandler : ICommandHandler<AddQuestionCommand>
+    public class AddQuestionCommandHandler : ICommandHandler<AddCommentCommand>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
-        private readonly IRepository<Question> m_QuestionRepository;
+        private readonly IRepository<Comment> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IQueueProvider m_QueueProvider;
@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public AddQuestionCommandHandler(IUserRepository userRepository,
             IBoxRepository boxRepository,
-            IRepository<Question> questionRepository
+            IRepository<Comment> questionRepository
             , IRepository<Item> itemRepository,
             IRepository<Reputation> reputationRepository,
             IQueueProvider queueProvider)
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
         }
-        public void Handle(AddQuestionCommand message)
+        public void Handle(AddCommentCommand message)
         {
             Throw.OnNull(message, "message");
 
@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
 
-            var question = new Question(user, text, box, message.Id, files);
+            var question = new Comment(user, text, box, message.Id, files);
             m_QuestionRepository.Save(question);
 
             var reputation = user.AddReputation(ReputationAction.AddQuestion);

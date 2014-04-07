@@ -76,11 +76,11 @@
     <Compile Include="CreateMembershipUserCommandHandler.cs" />
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteAnnotationCommandHandler.cs" />
-    <Compile Include="DeleteAnswerCommandHandler.cs" />
+    <Compile Include="DeleteReplyCommandHandler.cs" />
     <Compile Include="DeleteFileFromQnACommandHandler.cs" />
     <Compile Include="DeleteItemTabCommandHandler.cs" />
     <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
-    <Compile Include="DeleteQuestionCommandHandler.cs" />
+    <Compile Include="DeleteCommentCommandHandler.cs" />
     <Compile Include="DeleteUpdatesCommandHandler.cs" />
     <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
     <Compile Include="InviteToSystemCommandHandler.cs" />
@@ -89,7 +89,16 @@
     <Compile Include="MarkAsAnswerCommandHandler.cs" />
     <Compile Include="MarkMessagesAsOldCommandHanlder.cs" />
     <Compile Include="MarkMessagesAsReadCommandHanlder.cs" />
-    <Compile Include="RateAnswerCommandHandler.cs" />
+    <Compile Include="Quiz\CreateAnswerCommandHandler.cs" />
+    <Compile Include="Quiz\CreateQuestionCommandHandler.cs" />
+    <Compile Include="Quiz\CreateQuizCommandHandler.cs" />
+    <Compile Include="Quiz\DeleteAnswerCommandHandler.cs" />
+    <Compile Include="Quiz\DeleteQuestionCommandHandler.cs" />
+    <Compile Include="Quiz\DeleteQuizCommandHandler.cs" />
+    <Compile Include="Quiz\SaveQuizCommandHandler.cs" />
+    <Compile Include="Quiz\UpdateAnswerCommandHandler.cs" />
+    <Compile Include="Quiz\UpdateQuestionCommandHandler.cs" />
+    <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RenameNodeCommandHandler.cs" />
     <Compile Include="SendMessageCommandHandler.cs" />
@@ -168,9 +177,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Quiz\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

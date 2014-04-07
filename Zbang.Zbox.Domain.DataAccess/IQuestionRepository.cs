@@ -6,8 +6,8 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
-    public interface IQuestionRepository : IRepository<Question>
+    public interface IQuestionRepository : IRepository<Comment>
     {
-        IQueryable<Answer> GetAnswers(Question question);
+        IQueryable<CommentReplies> GetAnswers(Comment question);
     }
 }

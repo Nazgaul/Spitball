@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -10,10 +11,10 @@ namespace Zbang.Zbox.Domain
     {
         protected Quiz()
         {
-            
+
         }
         public Quiz(string name, long id, Box box, User owner)
-            :this()
+            : this()
         {
             Id = id;
             Name = name;
@@ -22,19 +23,28 @@ namespace Zbang.Zbox.Domain
 
             DateTimeUser = new UserTimeDetails(owner.Email);
         }
-        public virtual long Id { get; set; }
-        public virtual string Name { get; set; }
+        public virtual long Id { get; private set; }
+        public virtual string Name { get; private set; }
 
         public virtual bool Publish { get; set; }
 
-        public virtual User Owner { get; set; }
-        public virtual Box Box { get; set; }
+        public virtual User Owner { get; private set; }
+        public virtual Box Box { get; private set; }
 
         public virtual string Content { get; set; }
 
-        public virtual float Rate { get; set; }
-        public virtual int NumberOfViews { get; set; }
-        public virtual int NumberOfComments { get; set; }
-        public virtual UserTimeDetails DateTimeUser { get; set; }
+        public virtual float Rate { get; private set; }
+        public virtual int NumberOfViews { get; private set; }
+        public virtual int NumberOfComments { get; private set; }
+        public virtual UserTimeDetails DateTimeUser { get; private set; }
+
+        public virtual void UpdateText(string newText)
+        {
+            Throw.OnNull(newText, "newText", false);
+            Name = newText;
+            DateTimeUser.UpdateTime = DateTime.UtcNow;
+        }
+
+        
     }
 }

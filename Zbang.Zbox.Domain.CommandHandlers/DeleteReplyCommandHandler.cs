@@ -10,14 +10,14 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
+    public class DeleteReplyCommandHandler : ICommandHandler<DeleteReplyCommand>
     {
-        private readonly IRepository<Answer> m_AnswerRepository;
+        private readonly IRepository<CommentReplies> m_AnswerRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
 
 
-        public DeleteAnswerCommandHandler(IRepository<Answer> answerRepository,
+        public DeleteReplyCommandHandler(IRepository<CommentReplies> answerRepository,
             IBoxRepository boxRepository,
             IRepository<Reputation> reputationRepository)
         {
@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository = boxRepository;
             m_ReputationRepository = reputationRepository;
         }
-        public void Handle(DeleteAnswerCommand message)
+        public void Handle(DeleteReplyCommand message)
         {
             var answer = m_AnswerRepository.Load(message.AnswerId);
             var box = answer.Box;

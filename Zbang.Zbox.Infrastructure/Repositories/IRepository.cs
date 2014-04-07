@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 namespace Zbang.Zbox.Infrastructure.Repositories
 {
     public interface IRepository<TEntity>
@@ -10,6 +11,8 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         void Delete(TEntity item);
 
         TEntity UnProxyObjectAs(TEntity obj);
+
+        IQueryable<TEntity> GetQuerable();
         
     }
 }
