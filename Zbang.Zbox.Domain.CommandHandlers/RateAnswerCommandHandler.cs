@@ -14,11 +14,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IAnswerRatingRepository m_AnswerRatingRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Answer> m_AnswerRepository;
+        private readonly IRepository<CommentReplies> m_AnswerRepository;
 
         public RateAnswerCommandHandler(IAnswerRatingRepository answerRatingRepository,
             IUserRepository userRepository,
-            IRepository<Answer> answerRepository)
+            IRepository<CommentReplies> answerRepository)
         {
             m_AnswerRatingRepository = answerRatingRepository;
             m_UserRepository = userRepository;

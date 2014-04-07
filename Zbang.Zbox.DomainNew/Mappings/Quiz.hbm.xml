@@ -7,9 +7,9 @@
     <id name="Id" column="Id">
       <generator class="assigned"/>
     </id>
-    <property name="Name" not-null="true" length="8000"></property>
+    <property name="Name" not-null="false" length="8000"></property>
     <property name="Publish" not-null="true"></property>
-    <property name="Content" not-null="true"></property>
+    <property name="Content" not-null="false"></property>
     <property name="Rate" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
     <property name="NumberOfComments" not-null="true"></property>
@@ -18,6 +18,41 @@
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdQuiz"/>
 
     
+    <component name="DateTimeUser" class="UserTimeDetails">
+      <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
+      <property name="UpdateTime" type="DateTime2"  not-null="true" insert="true"  />
+      <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
+      <property name="UpdatedUser"  not-null="true" insert="true" />
+    </component>
+  </class>
+
+  <class name="Question" table="QuizQuestion">
+    <id name="Id" column="Id">
+      <generator class="assigned"/>
+    </id>
+    <property name="Text" not-null="false" length="8000"></property>
+    <many-to-one name="Quiz" class="Quiz" column="QuizId" not-null="true" foreign-key="QuizIdQuestion"/>
+    
+    <component name="DateTimeUser" class="UserTimeDetails">
+      <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
+      <property name="UpdateTime" type="DateTime2"  not-null="true" insert="true"  />
+      <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
+      <property name="UpdatedUser"  not-null="true" insert="true" />
+    </component>
+    <many-to-one name="RightAnswer"
+        column="RightAnswerId"
+        unique="true"
+        not-null="false"/>
+  </class>
+  
+    <class name="Answer" table="QuizAnswer">
+    <id name="Id" column="Id">
+      <generator class="assigned"/>
+    </id>
+    <property name="Text" not-null="true" length="8000"></property>
+    <many-to-one name="Quiz" class="Quiz" column="QuizId" not-null="true" foreign-key="QuizIdAnswer"/>
+    <many-to-one name="Question" class="Question" column="QuestionId" not-null="true" foreign-key="QuestionIdAnswer"/>
+      
     <component name="DateTimeUser" class="UserTimeDetails">
       <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
       <property name="UpdateTime" type="DateTime2"  not-null="true" insert="true"  />

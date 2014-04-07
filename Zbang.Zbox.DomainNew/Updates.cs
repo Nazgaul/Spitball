@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain
 
         }
         public Updates(User user, Box box,
-            Question question = null, Answer answer = null, Item item = null
+            Comment question = null, CommentReplies answer = null, Item item = null
             )
         {
             User = user;
@@ -26,8 +26,8 @@ namespace Zbang.Zbox.Domain
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
         public virtual Box Box { get; set; }
-        public virtual Question Question { get; set; }
-        public virtual Answer Answer { get; set; }
+        public virtual Comment Question { get; set; }
+        public virtual CommentReplies Answer { get; set; }
         public virtual Item Item { get; set; }
       
         public virtual DateTime CreationTime { get; set; }

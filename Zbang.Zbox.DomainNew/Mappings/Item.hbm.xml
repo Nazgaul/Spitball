@@ -24,8 +24,8 @@
     <many-to-one column="BoxId" class="Box" name="Box" index="iBoxIsDeleted"/>
 
 
-    <many-to-one column="QuestionId" class="Question" name="Question" />
-    <many-to-one column="AnswerId" class="Answer" name="Answer"/>
+    <many-to-one column="QuestionId" class="Comment" name="Question" />
+    <many-to-one column="AnswerId" class="CommentReplies" name="Answer"/>
 
     <property name="ItemContentUrl" column="BlobName"/>
 

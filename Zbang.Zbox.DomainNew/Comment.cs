@@ -1,48 +1,47 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Comment : CommentReplies
+    public class Comment
     {
         protected Comment()
         {
-            Replies = new List<CommentReplies>();
+
         }
-        public Comment(User user, string commentText, Box box, Item item)
-            : base(user, commentText)
+        public Comment(User user, string text, Box box, Guid id, IList<Item> items)
         {
+            Throw.OnNull(user, "User");
+            Throw.OnNull(box, "box");
+            Throw.OnNull(text, "text", false);
+            Id = id;
+            Items = items;
+            User = user;
             Box = box;
-            Item = item;
-           
+            Text = text.Trim();
+            DateTimeUser = new UserTimeDetails(user.Email);
+            Box.UserTime.UpdateUserTime(user.Email);
         }
-      
-        protected virtual ICollection<CommentReplies> Replies { get; set; }
-        protected virtual Box Box { get; set; }
-        protected virtual Item Item { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual User User { get; set; }
+        public virtual string Text { get; set; }
+        public virtual Box Box { get; set; }
+        protected virtual ICollection<Item> Items { get; set; }
+        protected virtual ICollection<CommentReplies> Answers { get; set; }
 
+        public ICollection<CommentReplies> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
 
-        public CommentReplies AddComment(User author, string commentText)
+        
+        public virtual UserTimeDetails DateTimeUser { get; set; }
+
+        public void RemoveItem(Item item)
         {
-            var comment = new CommentReplies(author, commentText) {Parent = this};
-            Replies.Add(comment);
-
-            DateTimeUser.UpdateUserTime(author.Email);
-            return comment;
-        }
-
-        public void DeleteReplies(string author)
-        {
-            foreach (var reply in Replies)
-            {
-                reply.IsDeleted = true;
-                reply.DateTimeUser.UpdateUserTime(author);
-            }
-            Box.UserTime.UpdateUserTime(author);
-            if (Item != null)
-            {
-                Item.DateTimeUser.UpdateUserTime(author);
-            }
-        }
-
+            Items.Remove(item);
+        }    
     }
 }

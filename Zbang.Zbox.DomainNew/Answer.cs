@@ -13,41 +13,35 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-
-        public Answer(User user, string text, Box box, Guid id, Question question, IList<Item> items)
+        public Answer(Guid id, string text, Question question, bool isCorrect)
         {
-            Throw.OnNull(user, "User");
-            Throw.OnNull(box, "box");
-            Throw.OnNull(question, "question");
             Throw.OnNull(text, "text", false);
+
             Id = id;
-
-            User = user;
-            Box = box;
-            Text = text.Trim();
-            DateTimeUser = new UserTimeDetails(user.Email);
+            Quiz = question.Quiz;
+            Text = text;
             Question = question;
-            MarkAnswer = false;
-            Items = items;
-            Box.UserTime.UpdateUserTime(user.Email);
+            if (isCorrect)
+            {
+                UpdateCorrectAnswer();
+            }
+            DateTimeUser = new UserTimeDetails(Quiz.Owner.Email);
         }
+        public virtual Guid Id { get; private set; }
+        public virtual Quiz Quiz { get; private set; }
+        public virtual string Text { get; private set; }
+        public virtual Question Question { get; private set; }
 
-        public virtual Guid Id { get; set; }
-        public virtual User User { get; set; }
-        public virtual string Text { get; set; }
-        public virtual Box Box { get; set; }
-        public virtual ICollection<Item> Items { get; set; }
-        public virtual UserTimeDetails DateTimeUser { get; set; }
+        public virtual UserTimeDetails DateTimeUser { get; private set; }
 
-        public virtual Question Question { get; set; }
-        public virtual bool MarkAnswer { get; set; }
-
-        public virtual int RatingCount { get; internal set; }
-
-
-        public void RemoveItem(Item item)
+        public void UpdateCorrectAnswer()
         {
-            Items.Remove(item);
-        }  
+            Question.RightAnswer = this;
+        }
+        public void UpdateText(string newText)
+        {
+            Throw.OnNull(newText, "newText", false);
+            Text = newText;
+        }
     }
 }

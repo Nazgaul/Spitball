@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public AnswerRating(Guid id, User user, Answer answer)
+        public AnswerRating(Guid id, User user, CommentReplies answer)
         {
             Id = id;
             User = user;
@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
-        public virtual Answer Answer { get; set; }
+        public virtual CommentReplies Answer { get; set; }
 
         public bool RateUp { get; set; }
     }

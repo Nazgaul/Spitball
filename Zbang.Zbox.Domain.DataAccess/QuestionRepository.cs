@@ -9,13 +9,13 @@ using Zbang.Zbox.Infrastructure.Data.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
-    public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository
+    public class QuestionRepository : NHibernateRepository<Comment>, IQuestionRepository
     {
-        public IQueryable<Answer> GetAnswers(Question question)
+        public IQueryable<CommentReplies> GetAnswers(Comment question)
         {
 
             //this cant be done with query over
-            return UnitOfWork.CurrentSession.Query<Answer>().Where(c => c.Question == question);
+            return UnitOfWork.CurrentSession.Query<CommentReplies>().Where(c => c.Question == question);
 
             //.QueryOver<University>();
             //query.Where(w => w.AliasName.Coalesce(string.Empty) ==  name.Trim().Lower());

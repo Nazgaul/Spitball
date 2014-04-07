@@ -1,4 +1,6 @@
-﻿using Zbang.Zbox.Domain.Commands;
+﻿using Zbang.Zbox.Domain.CommandHandlers.Quiz;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Ioc;
 
@@ -13,14 +15,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<CreateUserCommand, CreateUserCommandResult>), typeof(CreateMembershipUserCommandHandler), "Membership");
             ioc.RegisterType(typeof(ICommandHandler<CreateUserCommand, CreateUserCommandResult>), typeof(CreateFacebookUserCommandHandler), "Facebook");
 
-            ioc.RegisterType(typeof(ICommandHandler<UpdateUserPasswordCommand, UpdateUserCommandResult>), typeof(UpdateUserPasswordCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<UpdateUserEmailCommand>), typeof(UpdateUserEmailCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<UpdateUserProfileCommand>), typeof(UpdateUserProfileCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateBoxCommandHandler), "CreateBoxCommand");
-            ioc.RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateAcademicBoxCommandHandler), "CreateAcademicBoxCommand");
-            ioc.RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<ChangeBoxPrivacySettingsCommand, ChangeBoxPrivacySettingsCommandResult>), typeof(ChangeBoxPrivacySettingsCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<UpdateUserPasswordCommand, UpdateUserCommandResult>), typeof(UpdateUserPasswordCommandHandler))
+            .RegisterType(typeof(ICommandHandler<UpdateUserEmailCommand>), typeof(UpdateUserEmailCommandHandler))
+            .RegisterType(typeof(ICommandHandler<UpdateUserProfileCommand>), typeof(UpdateUserProfileCommandHandler))
+            .RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateBoxCommandHandler), "CreateBoxCommand")
+            .RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateAcademicBoxCommandHandler), "CreateAcademicBoxCommand")
+            .RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
+            .RegisterType(typeof(ICommandHandler<ChangeBoxPrivacySettingsCommand, ChangeBoxPrivacySettingsCommandResult>), typeof(ChangeBoxPrivacySettingsCommandHandler))
+            .RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler));
 
             ioc.RegisterType(typeof(ICommandHandler<DeleteBoxCommand>), typeof(DeleteBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UnfollowBoxCommand>), typeof(UnfollowBoxCommandHandler));
@@ -71,13 +73,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<CreateUniversityCommand>), typeof(CreateUniversityCommandHandler));
 
             //QnA
-            ioc.RegisterType(typeof(ICommandHandler<AddQuestionCommand>), typeof(AddQuestionCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<AddCommentCommand>), typeof(AddQuestionCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddAnswerToQuestionCommand>), typeof(AddAnswerToQuestionCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<MarkAsAnswerCommand>), typeof(MarkAsAnswerCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<RateAnswerCommand>), typeof(RateAnswerCommandHandler));
+            //ioc.RegisterType(typeof(ICommandHandler<RateAnswerCommand>), typeof(RateAnswerCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteFileFromQnACommand>), typeof(DeleteFileFromQnACommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<DeleteQuestionCommand>), typeof(DeleteQuestionCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<DeleteAnswerCommand>), typeof(DeleteAnswerCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<DeleteCommentCommand>), typeof(DeleteCommentCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<DeleteReplyCommand>), typeof(DeleteReplyCommandHandler));
 
             //message
             ioc.RegisterType(typeof(ICommandHandler<SendMessageCommand>), typeof(SendMessageCommandHandler));
@@ -96,6 +98,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<AddNewUpdatesCommand>), typeof(AddNewUpdatesCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteUpdatesCommand>), typeof(DeleteUpdatesCommandHandler));
             
+            //quiz
+            ioc.RegisterType(typeof(ICommandHandler<CreateQuizCommand>), typeof(CreateQuizCommandHandler))
+            .RegisterType(typeof(ICommandHandler<UpdateQuizCommand>), typeof(UpdateQuizCommandHandler))
+            .RegisterType(typeof(ICommandHandler<DeleteQuizCommand>), typeof(DeleteQuizCommandHandler))
+            .RegisterType(typeof(ICommandHandler<UpdateQuestionCommand>), typeof(UpdateQuestionCommandHandler))
+            .RegisterType(typeof(ICommandHandler<DeleteQuestionCommand>), typeof(DeleteQuestionCommandHandler))
+            .RegisterType(typeof(ICommandHandler<CreateQuestionCommand>), typeof(CreateQuestionCommandHandler))
+            .RegisterType(typeof(ICommandHandler<DeleteAnswerCommand>), typeof(DeleteAnswerCommandHandler))
+            .RegisterType(typeof(ICommandHandler<UpdateAnswerCommand>), typeof(UpdateAnswerCommandHandler))
+            .RegisterType(typeof(ICommandHandler<SaveQuizCommand>), typeof(SaveQuizCommandHandler))
+            .RegisterType(typeof(ICommandHandler<CreateAnswerCommand>), typeof(CreateAnswerCommandHandler));
         }
     }
 }
