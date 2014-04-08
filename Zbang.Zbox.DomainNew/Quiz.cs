@@ -54,6 +54,10 @@ namespace Zbang.Zbox.Domain
             Name = newText.Trim();
             DateTimeUser.UpdateTime = DateTime.UtcNow;
         }
+        public virtual void UpdateNumberOfViews()
+        {
+            NumberOfViews++;
+        }
 
         
     }

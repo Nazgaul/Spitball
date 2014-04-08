@@ -14,11 +14,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateStatisticsCommandHandler : ICommandHandler<UpdateStatisticsCommand>
     {
         private IRepository<Item> m_ItemRepository;
+        private IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
         private IUserRepository m_UserRepository;
-        public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository, IUserRepository userRepository)
+        public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository, IUserRepository userRepository,
+            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository)
         {
             m_ItemRepository = itemRepository;
             m_UserRepository = userRepository;
+            m_QuizRepository = quizRepository;
         }
         public void Handle(UpdateStatisticsCommand message)
         {
@@ -35,6 +38,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             foreach (var itemId in message.ItemId)
             {
+                if (itemId.Action == Infrastructure.Enums.StatisticsAction.Quiz)
+                {
+                    var quiz = m_QuizRepository.Load(itemId.ItemId);
+                    quiz.UpdateNumberOfViews();
+                    m_QuizRepository.Save(quiz);
+                    break;
+                }
                 var item = m_ItemRepository.Get(itemId.ItemId);// we use get because we need to cast to File and get proxy
                 if (item == null)
                 {
