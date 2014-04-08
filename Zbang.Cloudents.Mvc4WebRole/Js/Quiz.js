@@ -380,12 +380,18 @@
 
         var previewHTML = cd.attachTemplateToData('quizPreviewTemplate', previewObj);
         $('body').append(previewHTML);
-        mainDiv.classList.add('previewQuiz');
+        setTimeout(function () { //fix for animation
+            mainDiv.classList.add('previewQuiz');
+        }, 0)
+        
 
-        //$('#preview').find('.closeDialog').one('click', function () {
-        //    mainDiv.classList.remove('previewQuiz');
-        //    $('#preview').remove();
-        //});
+        $('#preview').find('.closeDialog').one('click', function () {
+            mainDiv.classList.remove('previewQuiz');
+            setTimeout(function () {//fix for animation
+                $('#preview').remove();
+            }, 1000);
+            
+        });
     }
 
 
