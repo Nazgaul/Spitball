@@ -365,19 +365,14 @@
   /*rtl*/
   float: none;
 }
-.quizPage .correct,
-.quizPage .wrong {
+.quizPage .quizAList .correct:before,
+.quizPage .quizAList .wrong:before {
   width: 17px;
   height: 16px;
   background-color: none;
   background: url(/Images/common16-sprite.png) -18px -121px no-repeat;
-  display: list-item;
 }
-.quizPage .correct + li,
-.quizPage .wrong + li {
-  margin: 0;
-}
-.quizPage .wrong {
+.quizPage .quizAList .wrong:before {
   background-position: -36px -121px;
 }
 .userCorrect:before,

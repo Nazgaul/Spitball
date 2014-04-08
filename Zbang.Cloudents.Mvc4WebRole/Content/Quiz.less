@@ -371,22 +371,20 @@
             margin: -2px 4px 0 0; /*rtl*/
             float: none; // override
         }
-        
-    } 
-    .correct, .wrong {
-        width: 17px;
-        height: 16px;
-        background-color: none;
-        background: @common-sprite -18px -121px no-repeat;
-        display: list-item; // override
-        + li
-        {
-            margin: 0;
+        .correct, .wrong {
+            &:before
+            {
+                width: 17px;
+                height: 16px;
+                background-color: none;
+                background: @common-sprite -18px -121px no-repeat;
+            }
         }
-    }
-    .wrong{
-        background-position: -36px -121px;
+        .wrong:before{
+            background-position: -36px -121px;
+        }
     } 
+     
 }
 .userCorrect, .userWrong
 {
