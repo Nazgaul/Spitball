@@ -89,26 +89,7 @@
 
     <div class="bodyContent noQuiz" id="main">
         @RenderBody()
-        <input id="quizToggle" type="checkbox" class="checkbox" />
-        <label for="quizToggle" class="toggleQuiz"></label>
-        <aside id="quizSideBar" class="quizSideBar">
-            <section class="quiz">
-                <header>@QuizResources.CreateQuiz
-                    <button class="closeDialog"></button>
-                </header>
-                <div class="quizWpr">
-                    <div data-quizin="@SharedResources.In" class="quizLoc"></div>
-                    <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" />
-                    <ul class="quizQuestionList" id="quizQuestionList"></ul>
-                    <button class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
-                </div>
-                <div class="quizBottom">
-                    <button id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
-                    <span class="error">@QuizResources.CheckQuiz</span>
-                    <button class="quizPreviewBtn rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
-                </div>
-            </section>
-        </aside>
+
         <div id="fb-root"></div>
 
         <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
@@ -152,70 +133,7 @@
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
-    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
-
-    <script type="text/html" id="quizQuestionTemplate">
-        <li class="questionHolder">
-            <form>
-                <button class="closeDialog quizRemoveQuestion"></button>
-                <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}"></textarea>
-                <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
-                <div class="lFloat answers">@SharedResources.Answers:</div>
-                <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
-                <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
-                <ul class="quizAnswersList">
-                    <li class="quizAnswer">
-                       <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 1" ></textarea>
-                       <input id="quizRadio{{index}}1" type="radio" class="correctAnswer" name="quizRadio" />
-                       <label for="quizRadio{{index}}1"></label>
-                    </li>
-                    <li class="quizAnswer">
-                        <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 2"></textarea>
-                        <input id="quizRadio{{index}}2" type="radio" class="correctAnswer" name="quizRadio" />
-                        <label for="quizRadio{{index}}2"></label>
-                    </li>
-                    <li class="quizAnswer disabled">
-                       <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly" ></textarea>
-                       <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
-                       <label></label>
-                    </li>
-                </ul>
-            </form>
-        </li>
-    </script>
-
-    <script type="text/html" id="quizAnswerTemplate">
-        <li class="quizAnswer">
-            <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{index}}" ></textarea>
-            <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
-            <label for="quizRadio{{topIndex}}{{index}}"></label>
-        </li>
-    </script>
-
-    <script type="text/html" id="quizPreviewTemplate">
-        <div class="quizPreview" id="preview">
-            <h2>{{name}}</h2>
-            <button class="closeDialog"></button>
-            <div class="quizTitle" data-questioncount="{{numOfQuestions}}">multiple choice questions</div>
-            <div class="quizPrevWpr">
-
-                <ul class="quizQList">{{questions}}</ul>
-            </div>
-        </div>
-    </script>
-
-    <script type="text/html" id="quizQuestionPreviewTemplate">
-        <li>
-            <div>{{text}}</div>
-            <ul class="quizAList">
-              {{answers}}
-            </ul>
-        </li>
-    </script>
-
-    <script type="text/html" id="quizAnswerPreviewTemplate">
-        <li {{correct}}>{{text}}</li>
-    </script>
+    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>  
 
     <script type="text/html" id="userToolTipTempalte">
         <a data-navigation="User" href="{{url}}">
