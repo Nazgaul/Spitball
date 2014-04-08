@@ -97,6 +97,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Correct.
+        /// </summary>
+        public static string Correct {
+            get {
+                return ResourceManager.GetString("Correct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Correct Answer.
         /// </summary>
         public static string CorrectAnswer {
@@ -111,6 +120,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string CreateQuiz {
             get {
                 return ResourceManager.GetString("CreateQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min.
+        /// </summary>
+        public static string Min {
+            get {
+                return ResourceManager.GetString("Min", resourceCulture);
             }
         }
         
@@ -138,6 +156,60 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Publish {
             get {
                 return ResourceManager.GetString("Publish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quiz summary.
+        /// </summary>
+        public static string QuizSummary {
+            get {
+                return ResourceManager.GetString("QuizSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retake quiz.
+        /// </summary>
+        public static string RetakeQuiz {
+            get {
+                return ResourceManager.GetString("RetakeQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yor time was.
+        /// </summary>
+        public static string TimeWas {
+            get {
+                return ResourceManager.GetString("TimeWas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong.
+        /// </summary>
+        public static string Wrong {
+            get {
+                return ResourceManager.GetString("Wrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You got.
+        /// </summary>
+        public static string YouGot {
+            get {
+                return ResourceManager.GetString("YouGot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your score.
+        /// </summary>
+        public static string YourScore {
+            get {
+                return ResourceManager.GetString("YourScore", resourceCulture);
             }
         }
     }

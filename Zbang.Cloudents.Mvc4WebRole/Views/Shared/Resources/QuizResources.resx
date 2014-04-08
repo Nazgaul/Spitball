@@ -129,11 +129,17 @@
   <data name="ChooseName" xml:space="preserve">
     <value>Choose quiz name</value>
   </data>
+  <data name="Correct" xml:space="preserve">
+    <value>Correct</value>
+  </data>
   <data name="CorrectAnswer" xml:space="preserve">
     <value>Correct Answer</value>
   </data>
   <data name="CreateQuiz" xml:space="preserve">
     <value>Create a quiz</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
   </data>
   <data name="MultipleChoice" xml:space="preserve">
     <value>multiple choice questions</value>
@@ -143,5 +149,23 @@
   </data>
   <data name="Publish" xml:space="preserve">
     <value>Publish</value>
+  </data>
+  <data name="QuizSummary" xml:space="preserve">
+    <value>Quiz summary</value>
+  </data>
+  <data name="RetakeQuiz" xml:space="preserve">
+    <value>Retake quiz</value>
+  </data>
+  <data name="TimeWas" xml:space="preserve">
+    <value>Yor time was</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Wrong</value>
+  </data>
+  <data name="YouGot" xml:space="preserve">
+    <value>You got</value>
+  </data>
+  <data name="YourScore" xml:space="preserve">
+    <value>Your score</value>
   </data>
 </root>
