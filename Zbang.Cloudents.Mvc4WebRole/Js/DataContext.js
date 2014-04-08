@@ -168,6 +168,7 @@
     definition.quizCreate = new definitionobj({ url: '/Quiz/Create' });
     definition.quizUpdate = new definitionobj({ url: '/Quiz/Update' });
     definition.quizDelete = new definitionobj({ url: '/Quiz/Delete' });
+    definition.quizPublish = new definitionobj({ url: '/Quiz/Save' });
     definition.quizSave = new definitionobj({ url: '/Quiz/Delete' });
     definition.quizQCreate = new definitionobj({ url: '/Quiz/CreateQuestion' });
     definition.quizQUpdate = new definitionobj({ url: '/Quiz/UpdateQuestion' });
