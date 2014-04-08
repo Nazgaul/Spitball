@@ -381,6 +381,8 @@
 
 
     var getExtension = function (fileName, type) {
+        type = type || '';
+        fileName = fileName || '';
         if (type.toLowerCase() === 'link') {
             return 'www';
         }
@@ -395,6 +397,8 @@
 
     function getExtensionColor(fileName, type) {
         var prefix = 'mF';
+        type = type || '';
+        fileName = fileName || '';
         if (type.toLowerCase() === 'link') {
             return prefix + 'link';
         }

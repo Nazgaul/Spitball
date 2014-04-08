@@ -280,7 +280,7 @@
                     boxName: cd.getParameterFromUrl(3)
                 },
                 success: function (data) {
-                    var elems = $.map(data.dto, function (i) { return new Item(i); });
+                    var elems = $.map(data, function (i) { return new Item(i); });
                     self.items(elems);
                 }
             });

@@ -8,7 +8,7 @@
   <resultset name="ItemDto">
     <return-scalar column="id" type="long"/>
     <return-scalar column="Name" type="string"/>
-    <return-scalar column="OwnerId" type="string"/>
+    <return-scalar column="OwnerId" type="long"/>
     <return-scalar column="Owner" type="string"/>
     <return-scalar column="Thumbnail" type="string"/>
     <return-scalar column="Discriminator" type="string"/>
@@ -23,18 +23,33 @@
     <return-scalar column="CommentsCount" type="int"/>
   </resultset>
 
+  <resultset name="QuizDto">
+    <return-scalar column="Id" type="long"/>
+    <return-scalar column="OwnerId" type="long"/>
+    <return-scalar column="Owner" type="string"/>
+    <return-scalar column="Name" type="string"/>
+    <return-scalar column="Publish" type="bool"/>
+    <return-scalar column="Rate" type="double"/>
+    <return-scalar column="NumOfViews" type="int"/>
+    <return-scalar column="Description" type="string"/>
+    <return-scalar column="CommentsCount" type="int"/>
+    <return-scalar column="Date" type="DateTime"/>
+  </resultset>
+  
+  
+
 
   <resultset name="ItemWithDetailDto">
-    <return-scalar column="id" type="long"/>
-    <return-scalar column="updateTime" type="DateTime"/>
-    <return-scalar column="name" type="string"/>
-    <return-scalar column="userName" type="string"/>
-    <return-scalar column="userId" type="long"/>
-    <return-scalar column="userImage" type="string"/>
-    <return-scalar column="blob" type="string"/>
+    <return-scalar column="Id" type="long"/>
+    <return-scalar column="UpdateTime" type="DateTime"/>
+    <return-scalar column="Name" type="string"/>
+    <return-scalar column="UserName" type="string"/>
+    <return-scalar column="UserId" type="long"/>
+    <return-scalar column="UserImage" type="string"/>
+    <return-scalar column="Blob" type="string"/>
     <return-scalar column="Discriminator" type="string"/>
-    <return-scalar column="numberOfViews" type="int"/>
-    <return-scalar column="numberOfDownloads" type="int"/>
+    <return-scalar column="NumberOfViews" type="int"/>
+    <return-scalar column="NumberOfDownloads" type="int"/>
     <return-scalar column="Rate" type="double"/>
     <return-scalar column="BoxId" type="long"/>
     <return-scalar column="BoxName" type="string"/>
@@ -45,7 +60,7 @@
 
   <!--Used in box page to get item section-->
   <!--TODO: AGGREGATE BOX ITEMS-->
-  <sql-query name="GetBoxItemDtosByBoxId2" resultset-ref="ItemDto" >
+  <sql-query name="GetBoxItemDtosByBoxId2" resultset-ref="ItemDto" read-only="1">
     <![CDATA[
     select
     i.itemid as Id,
@@ -68,6 +83,23 @@
     and i.BoxId = :BoxId
     and (:TabId is null or i.ItemTabId = :TabId)
     order by i.itemid desc
+    ]]>
+  </sql-query>
+  <sql-query name="GetBoxQuiz" read-only="1" resultset-ref="QuizDto">
+    <![CDATA[
+    select 
+    id as Id, 
+    userid as OwnerId,
+    (select u.UserName from zbox.Users u where u.userid = q.UserId) as Owner,
+    name as Name,
+    Publish,
+    rate as Rate,
+    NumberOfViews as NumOfViews,
+    Content as Description,
+    NumberOfComments as commentsCount,
+    CreationTime as Date
+    from zbox.quiz q
+    where boxid = :BoxId
     ]]>
   </sql-query>
 

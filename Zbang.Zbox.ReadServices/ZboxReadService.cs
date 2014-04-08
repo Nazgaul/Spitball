@@ -308,18 +308,21 @@ where m.RecepientId = @userid
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public PagedDto<Item.ItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query)
+        public IEnumerable<Item.IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query)
         {
             using (UnitOfWork.Start())
             {
 
                 var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
-                queryBoxItem.SetReadOnly(true);
                 queryBoxItem.SetInt64("BoxId", query.BoxId);
-                // queryBoxItem.SetEnum("Order", query.Order);
                 queryBoxItem.SetParameter("TabId", query.TabId);
                 queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileDto), typeof(Item.LinkDto)));
 
+
+                var queryQuiz = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuiz");
+                queryQuiz.SetInt64("BoxId", query.BoxId)
+                    .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
+                
                 //queryBoxItem.SetFirstResult(query.PageNumber * query.MaxResult);
                 //queryBoxItem.SetMaxResults(query.MaxResult);
 
@@ -327,11 +330,16 @@ where m.RecepientId = @userid
                 //queryCountBoxItem.SetInt64("BoxId", query.BoxId);
 
                 var fitems = queryBoxItem.Future<Item.ItemDto>();
+                var fQuiz = queryQuiz.Future<Item.QuizDto>();
+
+                IEnumerable<Item.IItemDto> items = fitems.ToList();
+                var quizes = fQuiz.ToList();
+                var retVal = items.Union(quizes);
                 //var fcount = queryCountBoxItem.FutureValue<long>();
 
                 // CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                var result = new PagedDto<Item.ItemDto> { Dto = fitems.ToList(), Count = 0 /*fcount.Value*/ };
-                return result;
+                //var result = new PagedDto<Item.IItemDto> { Dto = retVal, Count = 0 /*fcount.Value*/ };
+                return retVal;
             }
 
         }

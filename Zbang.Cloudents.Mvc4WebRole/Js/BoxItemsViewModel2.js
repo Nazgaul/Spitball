@@ -119,7 +119,7 @@
                     boxName: cd.getParameterFromUrl(3)
                 },
                 success: function (result) {
-                    generateModel(result.dto);
+                    generateModel(result);
                     if (cd.register()) {
                         cd.pubsub.publish('getUpdates');
                         cd.newUpdates.deleteAll(boxid);
