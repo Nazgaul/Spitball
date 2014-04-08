@@ -1,0 +1,89 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+
+
+@model Zbang.Zbox.ViewModel.DTOs.ItemDtos.ItemWithDetailDto
+
+<div id="quiz" class="page itemPage quizPage">
+    <div class="leftPanel lFloat">
+        <div class="itemTop">
+            Hello
+        </div>
+    </div>
+    <div class="itemRight">
+        <div class="itemActions topBar barShadow">
+            
+            <section class="shareBtn rFloat">
+                <input class="checkbox" type="checkbox" id="quizShare" data-ddcbox="itemShare" />
+                <label for="itemShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
+                <div class="dropDown shareDD" data-dropdown="itemShare">
+                    <label class="closeItem rFloat" for="itemShare"></label>
+                    <div class="arrow shareArrow"></div>
+                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
+                    <div class="shareTxt">@SharedResources.ShareUsing</div>
+                    <ul class="shareList">
+                        <li class="shareItem">
+                            <button type="button" id="quiz_FS" class="fbShare">@SharedResources.Facebook</button></li>
+
+                        @if (User.Identity.IsAuthenticated)
+                            {
+                            <li class="shareItem">
+                                <button type="button" id="quiz_msg" class="emailShare">@SharedResources.Email</button></li>
+                            }
+                    </ul>
+                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                    <input type="text" id="quiz_CL" class="linkShare elps" readonly="readonly" data-bind="value: copyLink" />
+                </div>
+            </section>
+
+            <a class="backWpr elps lFloat" data-navigation="Box" data-bind=" attr: { href: boxurl }">
+                <div>@ItemsResources.Backto</div>
+                <h2 class="semiFont elps" data-bind="text: boxName">Box name here</h2>
+            </a>
+        </div>
+        <div class="quizTitle" data-questioncount="3">multiple choice questions</div>
+        <div class="quizPrevWpr">
+
+            <ul class="quizQList">
+                <li class="userCorrect">
+                    <div>Why did the duck cross the road?</div>
+                    <ul class="quizAList">
+
+                        <li class="correct">To get to the other side</li>
+
+                        <li>To prove he's no chicken</li>
+
+                        <li>because it was the chicken's day off</li>
+
+                    </ul>
+                </li>
+
+                <li class="userWrong">
+                    <div>Why did the duck cross the road?</div>
+                    <ul class="quizAList">
+
+                        <li>To get to the other side</li>
+
+                        <li class="correct">To prove he's no chicken</li>
+
+                        <li>because it was the chicken's day off</li>
+
+                    </ul>
+                </li>
+
+                <li class="userCorrect">
+                    <div>Why did the duck cross the road?</div>
+                    <ul class="quizAList">
+
+                        <li>To get to the other side</li>
+
+                        <li>To prove he's no chicken</li>
+
+                        <li class="correct">because it was the chicken's day off</li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
