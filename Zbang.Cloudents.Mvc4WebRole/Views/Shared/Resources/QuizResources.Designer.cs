@@ -115,6 +115,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to multiple choice questions.
+        /// </summary>
+        public static string MultipleChoice {
+            get {
+                return ResourceManager.GetString("MultipleChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview quiz.
         /// </summary>
         public static string PreviewQuiz {

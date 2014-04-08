@@ -135,6 +135,9 @@
   <data name="CreateQuiz" xml:space="preserve">
     <value>Create a quiz</value>
   </data>
+  <data name="MultipleChoice" xml:space="preserve">
+    <value>multiple choice questions</value>
+  </data>
   <data name="PreviewQuiz" xml:space="preserve">
     <value>Preview quiz</value>
   </data>
