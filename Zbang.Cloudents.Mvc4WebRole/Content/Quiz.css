@@ -259,10 +259,10 @@
   width: 100%;
   min-height: 100%;
   background: url(/Images/gray_jean80.png) repeat #ffffff;
-  -webkit-transition: margin 0.5s ease-in;
-  -moz-transition: margin 0.5s ease-in;
-  -o-transition: margin 0.5s ease-in;
-  transition: margin 0.5s ease-in;
+  -webkit-transition: margin 1s ease-in;
+  -moz-transition: margin 1s ease-in;
+  -o-transition: margin 1s ease-in;
+  transition: margin 1s ease-in;
 }
 .quizPreview:before {
   content: '';
@@ -338,7 +338,7 @@
   margin-bottom: 10px;
 }
 .quizAList li:last-child {
-  margin: 0;
+  margin-bottom: 0;
 }
 /*#endregion */
 /*#region Quiz item page */
