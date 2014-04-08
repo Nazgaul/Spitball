@@ -12,45 +12,65 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     public class SaveQuizCommandHandler : ICommandHandler<SaveQuizCommand>
     {
         private readonly IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
-        private readonly IRepository<Zbang.Zbox.Domain.Question> m_QuestionRepository;
-        private readonly IRepository<Zbang.Zbox.Domain.Answer> m_AnswerRepository;
+       // private readonly IRepository<Zbang.Zbox.Domain.Question> m_QuestionRepository;
+       // private readonly IRepository<Zbang.Zbox.Domain.Answer> m_AnswerRepository;
 
         public SaveQuizCommandHandler(
-            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository,
-            IRepository<Zbang.Zbox.Domain.Question> questionRepository,
-            IRepository<Zbang.Zbox.Domain.Answer> answerRepository
+            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository
+           // IRepository<Zbang.Zbox.Domain.Question> questionRepository,
+           // IRepository<Zbang.Zbox.Domain.Answer> answerRepository
             )
         {
             m_QuizRepository = quizRepository;
-            m_QuestionRepository = questionRepository;
-            m_AnswerRepository = answerRepository;
+           // m_QuestionRepository = questionRepository;
+           // m_AnswerRepository = answerRepository;
         }
         public void Handle(SaveQuizCommand message)
         {
             var quiz = m_QuizRepository.Load(message.QuizId);
-            var questions = m_QuestionRepository.GetQuerable().Where(w => w.Quiz == quiz);
-            var answers = m_AnswerRepository.GetQuerable().Where(w => w.Quiz == quiz);
+            //var questions = m_QuestionRepository.GetQuerable().Where(w => w.Quiz == quiz);
+            //var answers = m_AnswerRepository.GetQuerable().Where(w => w.Quiz == quiz);
 
             if (string.IsNullOrEmpty(quiz.Name))
             {
                 throw new ArgumentException("quiz name is empty");
             }
-            var wrongQuestions = questions.Where(w => w.Text == null || w.RightAnswer == null).ToList();
-
-            if (wrongQuestions.Count > 0)
+            foreach (var question in quiz.Questions)
             {
-                throw new ArgumentException("question is not right");
+                if (string.IsNullOrWhiteSpace(question.Text))
+                {
+                    throw new ArgumentException("question is not right");
+                }
+                if (question.RightAnswer == null)
+                {
+                    throw new ArgumentException("question is not right");
+                }
+                if (question.Answers.Count() < 2)
+                {
+                    throw new ArgumentException("question is not right");
+                }
+                if (question.Answers.Where(w => w.Text == null).Count() > 0)
+                {
+                    throw new ArgumentException("question is not right");
+                }
+                
             }
+            //var wrongQuestions = questions.Where(w => w.Text == null || w.RightAnswer == null).ToList();
 
-            var wrongAnswers = answers.Where(w => w.Text == null).ToList();
-            if (wrongAnswers.Count > 0)
-            {
-                throw new ArgumentException("answers is not right");
-            }
+            //if (wrongQuestions.Count > 0)
+            //{
+            //    throw new ArgumentException("question is not right");
+            //}
+
+            //var wrongAnswers = answers.Where(w => w.Text == null).ToList();
+            //if (wrongAnswers.Count > 0)
+            //{
+            //    throw new ArgumentException("answers is not right");
+            //}
 
             quiz.Publish = true;
             var sb = new StringBuilder();
-            foreach (var question in questions)
+            foreach (var question in quiz.Questions)
             {
 
                 sb.AppendFormat("{0} ", question.Text);

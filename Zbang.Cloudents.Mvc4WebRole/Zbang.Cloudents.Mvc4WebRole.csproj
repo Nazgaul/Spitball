@@ -1129,6 +1129,7 @@
     <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Quiz\Index.cshtml" />
+    <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
