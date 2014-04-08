@@ -3,6 +3,7 @@
 /*#region mixins */
 /*#endregion */
 /*#region Create Quiz */
+
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
