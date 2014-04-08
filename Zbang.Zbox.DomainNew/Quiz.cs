@@ -46,6 +46,7 @@ namespace Zbang.Zbox.Domain
         public virtual int NumberOfViews { get; private set; }
         public virtual int NumberOfComments { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
+        public virtual ICollection<Question> Questions { get; private set; }
 
         public virtual void UpdateText(string newText)
         {

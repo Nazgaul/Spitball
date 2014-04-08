@@ -39,6 +39,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        [Ajax, HttpGet, CompressFilter]
+        public ActionResult CreateQuiz()
+        {
+            return PartialView();
+        }
+
         #region Quiz
         [HttpPost, Ajax]
         public ActionResult Create(Quiz model)
@@ -99,7 +105,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (model.QuizId == 0)
             {
-                ModelState.AddModelError(string.Empty,"Quiz id cannot be 0");
+                ModelState.AddModelError(string.Empty, "Quiz id cannot be 0");
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
 
             }

@@ -24,6 +24,11 @@
       <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
+    <bag name="Questions" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="QuizId" foreign-key="QuizIdQuestion"/>
+      <one-to-many class="Question"/>
+    </bag>
+    
   </class>
 
   <class name="Question" table="QuizQuestion">
@@ -42,6 +47,10 @@
     <many-to-one name="RightAnswer" foreign-key="RightAnswerIdQuestion"
         column="RightAnswerId" class="Answer"
         not-null="false"/>
+    <bag name="Answers" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="QuestionId" foreign-key="QuestionIdAnswer"/>
+      <one-to-many class="Answer"/>
+    </bag>
   </class>
   
     <class name="Answer" table="QuizAnswer">
