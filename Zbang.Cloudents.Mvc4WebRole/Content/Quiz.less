@@ -15,6 +15,7 @@
     &.previewQuiz
     {
         position: fixed; //remove the scroll from existing content of bodyContent
+        width: 100%;
         ~ .quizPreview
         {
             margin-top: 0;
@@ -251,7 +252,7 @@
 
 .quizPreview
 {
-    margin-top: -100%;
+    margin-top: 100%;
     position: absolute;
     z-index: 14;
     left: 0; /*rtl*/
@@ -259,7 +260,7 @@
     width: 100%;
     min-height: 100%;
     background: url(/Images/gray_jean80.png) repeat #fff;
-    .transition(margin 1s ease-in);
+    .transition(margin .7s ease-in);
     &:before
     {
         .pseudo;
