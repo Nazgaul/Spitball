@@ -19,6 +19,14 @@ namespace Zbang.Zbox.Domain
 
             Id = id;
             Quiz = question.Quiz;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                text = null;
+            }
+            if (text != null)
+            {
+                text = text.Trim();
+            }
             Text = text;
             Question = question;
             if (isCorrect)
@@ -43,7 +51,7 @@ namespace Zbang.Zbox.Domain
         public void UpdateText(string newText)
         {
             Throw.OnNull(newText, "newText", false);
-            Text = newText;
+            Text = newText.Trim();
         }
     }
 }

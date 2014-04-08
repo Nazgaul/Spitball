@@ -16,6 +16,16 @@ namespace Zbang.Zbox.Domain
         public Question(Guid id, Quiz quiz, string text)
         {
             Id = id;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                text = null;
+            }
+            if (text != null)
+            {
+                text = text.Trim();
+                
+            }
+
             Text = text;
             Quiz = quiz;
             DateTimeUser = new UserTimeDetails(quiz.Owner.Email);
@@ -34,7 +44,7 @@ namespace Zbang.Zbox.Domain
         public void UpdateText(string newText)
         {
             Throw.OnNull(newText, "newText", false);
-            Text = newText;
+            Text = newText.Trim();
             DateTimeUser.UpdateTime = DateTime.UtcNow;
 
         }

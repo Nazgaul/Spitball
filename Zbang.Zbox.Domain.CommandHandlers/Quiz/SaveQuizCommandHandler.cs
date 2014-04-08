@@ -31,14 +31,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var questions = m_QuestionRepository.GetQuerable().Where(w => w.Quiz == quiz);
             var answers = m_AnswerRepository.GetQuerable().Where(w => w.Quiz == quiz);
 
-            var wrongQuestions = questions.Where(w => string.IsNullOrWhiteSpace(w.Text) || w.RightAnswer == null).ToList();
+            if (string.IsNullOrEmpty(quiz.Name))
+            {
+                throw new ArgumentException("quiz name is empty");
+            }
+            var wrongQuestions = questions.Where(w => w.Text == null || w.RightAnswer == null).ToList();
 
             if (wrongQuestions.Count > 0)
             {
                 throw new ArgumentException("question is not right");
             }
 
-            var wrongAnswers = answers.Where(w => string.IsNullOrWhiteSpace(w.Text)).ToList();
+            var wrongAnswers = answers.Where(w => w.Text == null).ToList();
             if (wrongAnswers.Count > 0)
             {
                 throw new ArgumentException("answers is not right");
@@ -48,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var sb = new StringBuilder();
             foreach (var question in questions)
             {
-                
+
                 sb.AppendFormat("{0} ", question.Text);
                 if (sb.Length > 400)
                 {
