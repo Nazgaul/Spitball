@@ -7,7 +7,48 @@
 <div id="quiz" class="page itemPage quizPage">
     <div class="leftPanel lFloat">
         <div class="itemTop">
-            Hello
+            <div class="moreFilesThumb lFloat"></div>
+            <div class="itemNameWpr">
+                <div class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'data-title': itemName, 'data-name': itemName }">Quiz name here</span></div>
+            </div>
+            <div class="itemOwner elps">
+                <span class="calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }">Owner name here</span>
+            </div>
+            <span class="lFloat" data-bind="text: update">28/01/03</span>
+            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>
+            <div class="actions">
+                <span data-title="@SharedResources.Views" class="lFloat views" data-bind="text: numberOfViews">12312</span>
+                <span data-title="@SharedResources.Downloads" id="item_down" class="lFloat downloads" data-bind="text: numberOfDownloads">4365</span>
+                <div id="rateContainer" class="rFloat rateContainer">
+                    <span class="stars">
+                        <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
+                    </span>
+                    <button type="button" id="rateBtn" class="rateBtn"></button>
+                    <div id="rateBubble" class="bubble">
+                        <div class="arrow upArrow"></div>
+                        <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
+
+                        <ul class="rateList">
+                            <li id="star5" class="star">5</li>
+                            <li id="star4" class="star star4">4</li>
+                            <li id="star3" class="star star3">3</li>
+                            <li id="star2" class="star star2">2</li>
+                            <li id="star1" class="star star1">1</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
+        <div class="userResults">
+            <div class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+            <div>@QuizResources.YouGot:</div>
+            <div class="results" data-results="7">@QuizResources.Correct</div>
+            <div class="results wrong" data-results="3">@QuizResources.Wrong</div>
+            <div>@QuizResources.TimeWas:</div>
+            <div class="quizTime" data-time-unit="@QuizResources.Min">00:12:45</div>
+            <button class="btn1">@QuizResources.RetakeQuiz</button>
         </div>
     </div>
     <div class="itemRight">
