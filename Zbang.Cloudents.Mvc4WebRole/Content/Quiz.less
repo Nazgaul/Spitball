@@ -280,6 +280,20 @@
         background-position: -68px -26px;
         top: 20px;
     }
+
+    .correct {
+        display:inline;
+        background: rgba(3, 113, 200, 0.2);
+        &:before
+        {
+            content: '';
+            display: list-item;
+            float: left; /*rtl*/
+        }
+        + li {
+            margin-top: 10px;
+        }
+    }
 }
 .quizPrevWpr
 {
@@ -324,20 +338,6 @@
             margin:0;
         }
     }
-    .correct {
-        display:inline;
-        background: rgba(3, 113, 200, 0.2);
-        &:before
-        {
-            content: '';
-           display: list-item;
-           float: left; /*rtl*/
-        }
-        + li
-        {
-            margin-top: 10px;
-        }
-    }
 }
 /*#endregion */
 
@@ -359,11 +359,31 @@
         text-align: left;
     }
     .quizAList {
-        .correct{
-            background: none;
+        li:before {
+            .pseudo;
+            width: 13px;
+            height: 13px;
+            background: url(/Images/radioBtn.png) -15px -1px no-repeat;
+            vertical-align: middle;
+            margin: -2px 4px 0 0; /*rtl*/
+            float: none; // override
+        }
+        
+    } 
+    .correct, .wrong {
+        width: 17px;
+        height: 16px;
+        background-color: none;
+        background: @common-sprite -18px -121px no-repeat;
+        display: list-item; // override
+        + li
+        {
+            margin: 0;
         }
     }
-   
+    .wrong{
+        background-position: -36px -121px;
+    } 
 }
 .userCorrect, .userWrong
 {

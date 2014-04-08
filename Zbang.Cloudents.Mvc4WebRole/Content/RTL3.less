@@ -2069,18 +2069,17 @@
 .quizPreview{
     right: 0; /*rtl*/
     left: auto;
-}
-
-.quizAList {
     .correct {
-        &:before {
-           float: right; /*rtl*/
+        &:before
+        {
+            content: '';
+            display: list-item;
+            float: right; /*rtl*/
         }
     }
 }
-
-
 /*#endregion */
+
 
 
 /*#endregion */

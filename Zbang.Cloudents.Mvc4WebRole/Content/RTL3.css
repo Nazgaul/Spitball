@@ -2498,7 +2498,9 @@
   /*rtl*/
   left: auto;
 }
-.quizAList .correct:before {
+.quizPreview .correct:before {
+  content: '';
+  display: list-item;
   float: right;
   /*rtl*/
 }

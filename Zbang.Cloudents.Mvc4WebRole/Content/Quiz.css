@@ -283,6 +283,19 @@
   background-position: -68px -26px;
   top: 20px;
 }
+.quizPreview .correct {
+  display: inline;
+  background: rgba(3, 113, 200, 0.2);
+}
+.quizPreview .correct:before {
+  content: '';
+  display: list-item;
+  float: left;
+  /*rtl*/
+}
+.quizPreview .correct + li {
+  margin-top: 10px;
+}
 .quizPrevWpr {
   width: 800px;
   margin: 0 auto 60px;
@@ -324,19 +337,6 @@
 .quizAList li:last-child {
   margin: 0;
 }
-.quizAList .correct {
-  display: inline;
-  background: rgba(3, 113, 200, 0.2);
-}
-.quizAList .correct:before {
-  content: '';
-  display: list-item;
-  float: left;
-  /*rtl*/
-}
-.quizAList .correct + li {
-  margin-top: 10px;
-}
 /*#endregion */
 /*#region Quiz item page */
 .quizPage.page {
@@ -351,8 +351,31 @@
 .quizPage .itemRight {
   text-align: left;
 }
-.quizPage .quizAList .correct {
-  background: none;
+.quizPage .quizAList li:before {
+  content: '';
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background: url(/Images/radioBtn.png) -15px -1px no-repeat;
+  vertical-align: middle;
+  margin: -2px 4px 0 0;
+  /*rtl*/
+  float: none;
+}
+.quizPage .correct,
+.quizPage .wrong {
+  width: 17px;
+  height: 16px;
+  background-color: none;
+  background: url(/Images/common16-sprite.png) -18px -121px no-repeat;
+  display: list-item;
+}
+.quizPage .correct + li,
+.quizPage .wrong + li {
+  margin: 0;
+}
+.quizPage .wrong {
+  background-position: -36px -121px;
 }
 .userCorrect:before,
 .userWrong:before {
