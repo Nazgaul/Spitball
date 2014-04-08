@@ -5,7 +5,19 @@
         return;
     }
     var eById = document.getElementById.bind(document),
-        quizSideBar = eById('quizSideBar'),
+        quizSideBar,quizName,boxNameText,quizQuestionList,
+        quizAddQuestion, quizPreview, mainDiv,
+        addQuiz, saveBtn;
+
+        assignDomElements();
+
+    function assignDomElements() {
+        quizSideBar = eById('quizSideBar');
+
+        if (!quizSideBar) {
+            return;
+        }
+
         quizName = quizSideBar.getElementsByClassName('quizName')[0],
         boxNameText = quizSideBar.getElementsByClassName('quizLoc')[0],
         quizQuestionList = eById('quizQuestionList'),
@@ -14,7 +26,7 @@
         mainDiv = eById('main'),
         addQuiz = eById('addQuiz'),
         saveBtn = eById('saveQuiz');
-
+    }
 
     var consts = {
         initQuestionsLength: 3,
@@ -47,20 +59,34 @@
         boxName = data.boxName;
 
         initQuiz();
-        showQuiz();
-        registerEvents();
+    
 
     });
 
     function initQuiz() {
-        boxNameText.textContent = boxName;
+        if (!quizSideBar) {
 
-        for (var i = 0; i < consts.initQuestionsLength; i++) {
-            appendQuestion();
+            dataContext.quizHTML({
+                success: function (data) {
+                    document.body.insertAdjacentHTML('beforeend', data);
+                    assignDomElements();
+
+                    boxNameText.textContent = boxName;
+
+                    for (var i = 0; i < consts.initQuestionsLength; i++) {
+                        appendQuestion();
+                    }
+
+                    showQuiz();
+                    registerEvents();
+                }
+            });
         }
+
+     
     }
 
-    function showQuiz() {
+    function showQuiz() {        
         //show the quiz div
         mainDiv.classList.remove('noQuiz');
         quizName.focus();
@@ -312,7 +338,7 @@
 
             },
             always: function () {
-                saveBtn.disabled = false;
+                saveBtn. abled = false;
             }
         });
     }
@@ -354,11 +380,17 @@
 
         var previewHTML = cd.attachTemplateToData('quizPreviewTemplate', previewObj);
         $('body').append(previewHTML);
-        mainDiv.classList.add('previewQuiz');
+        setTimeout(function () { //fix for animation
+            mainDiv.classList.add('previewQuiz');
+        }, 0)
+        
 
         $('#preview').find('.closeDialog').one('click', function () {
             mainDiv.classList.remove('previewQuiz');
-            $('#preview').remove();
+            setTimeout(function () {//fix for animation
+                $('#preview').remove();
+            }, 1000);
+            
         });
     }
 
