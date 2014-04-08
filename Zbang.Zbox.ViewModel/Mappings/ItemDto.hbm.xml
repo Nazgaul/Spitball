@@ -21,7 +21,6 @@
     <return-scalar column="NumOfDownloads" type="int"/>
     <return-scalar column="Date" type="DateTime"/>
     <return-scalar column="CommentsCount" type="int"/>
-
   </resultset>
 
 

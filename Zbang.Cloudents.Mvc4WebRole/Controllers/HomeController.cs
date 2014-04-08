@@ -175,6 +175,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         [HttpGet]
         [OutputCache(Duration = 24 * 60 * 60, Location = System.Web.UI.OutputCacheLocation.Any)]
+        [CompressFilter]
         public async Task<ActionResult> SiteMap()
         {
             var content = await GetSitemapXml();
@@ -261,7 +262,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //    Priority = 0.8
             //});
             var seoItems = await m_ZboxReadService.GetSeoBoxesAndItems();
-            foreach (var box in seoItems.Boxes)
+            foreach (var box in seoItems.Boxes.Take(9500))
             {
                 nodes.Add(new SitemapNode(urlBuilder.BuildBoxUrl(box.Id, box.Name, box.UniversityName), requestContext));
             }

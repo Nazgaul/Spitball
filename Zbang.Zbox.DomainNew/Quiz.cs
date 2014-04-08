@@ -17,6 +17,15 @@ namespace Zbang.Zbox.Domain
             : this()
         {
             Id = id;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                name = null;
+            }
+            if (name != null)
+            {
+                name = name.Trim();
+               
+            }
             Name = name;
             Owner = owner;
             Box = box;
@@ -41,7 +50,7 @@ namespace Zbang.Zbox.Domain
         public virtual void UpdateText(string newText)
         {
             Throw.OnNull(newText, "newText", false);
-            Name = newText;
+            Name = newText.Trim();
             DateTimeUser.UpdateTime = DateTime.UtcNow;
         }
 
