@@ -12,6 +12,36 @@
     }
 
     function BoxItemViewModel() {
+        function Quiz(data) {
+            var that = this;
+
+            data = data || {};
+            that.uid = data.id;
+
+            that.ownerName = data.owner;
+            that.ownerUrl = data.userUrl;
+            that.ownerUrl = data.userUrl;
+
+            that.numOfViews = data.numOfViews || 0;            
+            that.commentsCount = data.commentsCount || 0;
+
+            that.rate = 69 / 5 * data.rate;
+
+            that.publish = data.publish;
+            that.date = data.date;
+            that.itemUrl = data.url || '';
+            that.sponsored = false;
+            that.thumbnailUrl = '';
+            that.isNew = data.isNew;
+            that.download = '';
+            that.deleteAllow = ko.computed(function () {
+                return (self.permission() === 'subscribe' || self.permission() === 'owner') && (self.permission() === 'owner' ||
+                     that.userid === cd.userDetail().nId);
+            });
+            that.linkUrl = '';
+            that.type = data.type;
+            that.noPreview = '';
+        }
         function Item(data) {            
             data = data || {};
             var that = this;
@@ -154,6 +184,10 @@
         function generateModel(data) {
             var mapped = [];
             for (var i = 0, l = data.length; i < l; i++) {
+                if (data[i].type === 'Quiz') {
+                    mapped.push(new Quiz(data[i]));
+                    continue;
+                }
                 mapped.push(new Item(data[i]));
             }
             mapped.sort(sort);
@@ -362,7 +396,7 @@
                         this.insertAdjacentHTML('afterbegin', html);                    
                 }
                 var tooltip = this.querySelector('.boxItemTt');
-                if (item.type.toLowerCase() === 'link') {
+                if (item.type.toLowerCase() === 'link' || item.type.toLowerCase() === 'quiz') {
                     $(tooltip).addClass('ttLink').find('.ttDetail').remove();
                 }
 

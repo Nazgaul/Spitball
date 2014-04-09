@@ -253,6 +253,12 @@
                     location.href = '/account';
                 }
                 searchContext();
+                break;
+            case 'quiz':
+                if (!cd.register()) {
+                    location.href = '/account';
+                }
+                quizContext();
             default:
                 break;
         }
@@ -261,6 +267,10 @@
     }
     function userContext(data) {
         pubsub.publish('user');
+    }
+
+    function quizContext(data) {
+        pubsub.publish('quiz');
     }
 
     function searchContext(data) {
@@ -451,7 +461,18 @@
                         }
                     });
                     break;
-
+                case 'quiz':
+                    dataContext.quizMp({
+                        data: { boxUid: getParameterFromUrl(2), quizId: getParameterFromUrl(4), uniName: getParameterFromUrl(1),boxName : getParamaterFromUrl(3) },
+                        success: function (html) {
+                            main.insertAdjacentHTML('beforeend', html);
+                            pubsub.publish('QuizContext', null, quizContext);
+                        },
+                        error: function () {
+                            location.reload();
+                        }
+                    });
+                    break;
                 default:
                     //some error 
                     break;

@@ -206,7 +206,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/Search.js"),
 
                 //Quiz
-                new JsFileWithCdn("~/Js/Quiz.js")
+                new JsFileWithCdn("~/Js/QuizCreate.js"),
+                new JsFileWithCdn("~/Js/QuizViewModel.js")
                 );
 
 
