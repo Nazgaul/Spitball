@@ -17,13 +17,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<CommentReplies> m_AnswerRepository;
         private readonly IRepository<Comment> m_QuestionRepository;
         private readonly IRepository<Updates> m_UpdatesRepository;
+        private readonly IRepository<Domain.Quiz> m_QuizRepository;
 
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
             IRepository<Item> itemRepository,
             IRepository<CommentReplies> answerRepository,
             IRepository<Comment> questionRepository,
-            IRepository<Updates> updatesRepository
+            IRepository<Updates> updatesRepository,
+            IRepository<Domain.Quiz> quizRepository
              )
         {
             m_BoxRepository = boxRepository;
@@ -31,6 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AnswerRepository = answerRepository;
             m_QuestionRepository = questionRepository;
             m_UpdatesRepository = updatesRepository;
+            m_QuizRepository = quizRepository;
 
         }
         public void Handle(AddNewUpdatesCommand message)
@@ -42,13 +45,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var newUpdate = new Updates(userBoxRel.User, box,
                     GetQuestion(message.QuestionId),
                     GetAnswer(message.AnswerId),
-                    GetItem(message.ItemId)
+                    GetItem(message.ItemId),
+                    GetQuiz(message.QuizId)
                    );
                 m_UpdatesRepository.Save(newUpdate);
             }
 
         }
-       
+        private Zbang.Zbox.Domain.Quiz GetQuiz(long? quizId)
+        {
+            if (!quizId.HasValue)
+            {
+                return null;
+            }
+            return m_QuizRepository.Load(quizId.Value);
+        }
 
         private Item GetItem(long? itemId)
         {
