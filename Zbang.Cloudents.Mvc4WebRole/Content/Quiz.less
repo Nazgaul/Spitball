@@ -421,6 +421,13 @@
 .userResults {
     text-align: center;
     margin: 7px;
+    overflow: hidden;
+    &.show {
+        .userScore, .resultsWpr, .timeWpr {
+            margin-top: 0;
+            opacity:1;
+        }
+    }
 }
 .userScore{    
     background: #f5f5f5;
@@ -428,12 +435,28 @@
     height: 72px;
     padding-top: 18px;
     margin-bottom: 15px;
+    position: relative;
+    //top: -90px;
+     margin-top: -90px;
+    opacity: 0;
+    z-index: 2;
+    .transition(all .8s ease-in);
     &:after {
         content: attr(data-user-score);
         display: block;
         font-size: 38px;
         margin-top: -5px;
     }
+}
+.resultsWpr {
+    position: relative;
+    //top:-210px;
+    //margin-top: -114px;
+    margin-top: -100px;
+    opacity: 0;
+    background: #fff;
+    .transition(all .8s ease-in .8s);
+    z-index: 1;
 }
 .results
 {
@@ -462,6 +485,15 @@
         color: @color;
         margin: -5px 0 10px;
     }
+}
+.timeWpr {
+    position: relative;
+    //top:-341px;
+    //margin-top: -142px;
+    margin-top: -122px;
+    opacity: 0;
+    background: #fff;
+    .transition(all .8s ease-in 1.6s);
 }
 .quizTime {
     width: 156px;

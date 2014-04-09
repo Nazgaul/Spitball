@@ -1686,6 +1686,9 @@
 .actionBtns .deleteBtn:before {
   margin-top: 2px;
 }
+.actionBtns .deleteBtn:first-child {
+  border: none;
+}
 .downloadBtn:before {
   content: '';
   display: inline-block;
