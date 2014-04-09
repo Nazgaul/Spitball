@@ -12,12 +12,14 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.ViewModel.Queries;
+using System.Threading.Tasks;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     [ZboxAuthorize]
-
+    [CompressFilter]
     public class QuizController : BaseController
     {
         private readonly Lazy<IIdGenerator> m_IdGenerator;
@@ -35,15 +37,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //
         // GET: /Quiz/
         [Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
-        public ActionResult Index(long boxId, long quizId, string quizName, string universityName, string boxName)
+        public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
-            return View();
+            var query = new GetQuizQuery(quizId);
+            var values = await m_ZboxReadService.GetQuiz(query);
+            return View(values);
         }
 
-        [Ajax, HttpGet, CompressFilter]
+        [Ajax, HttpGet]
         public ActionResult CreateQuiz()
         {
             return PartialView();
+        }
+
+        [Ajax, HttpGet]
+        public async Task<ActionResult> Data(long quizId)
+        {
+            var query = new GetQuizQuery(quizId);
+            var values = await m_ZboxReadService.GetQuiz(query);
+            return this.CdJson(new JsonResponse(true, values));
         }
 
         #region Quiz

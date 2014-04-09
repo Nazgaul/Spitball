@@ -232,5 +232,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUpdates(query);
         }
+
+
+        public Task<ViewModel.DTOs.ItemDtos.QuizWithDetailDto> GetQuiz(GetQuizQuery query)
+        {
+            return m_ReadService.GetQuiz(query);
+        }
     }
 }

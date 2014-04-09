@@ -86,5 +86,8 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query);
         Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);
+
+        //Quiz
+        Task<Item.QuizWithDetailDto> GetQuiz(GetQuizQuery query);
     }
 }

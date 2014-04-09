@@ -207,16 +207,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var urlBuilder = new UrlBuilder(HttpContext);
                 foreach (var item in result)
                 {
+                    item.UserUrl = urlBuilder.BuildUserUrl(item.OwnerId, item.Owner);
                     if (item is Zbang.Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
                     {
                         item.Url = urlBuilder.buildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
                         item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
+                        continue;
                     }
-                    if (item is Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizDto)
+                    var quiz = item as Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizDto;
+                    if (quiz != null)
                     {
-                        item.Url = urlBuilder.BuildQuizUrl(boxUid, boxName, item.Id, item.Name, uniName);
+                        if (quiz.Publish)
+                        {
+                            quiz.Url = urlBuilder.BuildQuizUrl(boxUid, boxName, item.Id, item.Name, uniName);
+                        }
                     }
-                    item.UserUrl = urlBuilder.BuildUserUrl(item.OwnerId, item.Owner);
+                    
 
                 }
                 var remove = result.OfType<Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
