@@ -12,6 +12,8 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.ViewModel.Queries;
+using System.Threading.Tasks;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -35,9 +37,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //
         // GET: /Quiz/
         [Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
-        public ActionResult Index(long boxId, long quizId, string quizName, string universityName, string boxName)
+        public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
-            return View();
+            var query = new GetQuizQuery(quizId);
+            var values = await m_ZboxReadService.GetQuiz(query);
+            return View(values);
         }
 
         [Ajax, HttpGet, CompressFilter]

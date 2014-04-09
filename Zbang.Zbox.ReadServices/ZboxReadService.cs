@@ -319,7 +319,7 @@ where m.RecepientId = @userid
                 var queryQuiz = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuiz");
                 queryQuiz.SetInt64("BoxId", query.BoxId)
                     .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
-                
+
                 //queryBoxItem.SetFirstResult(query.PageNumber * query.MaxResult);
                 //queryBoxItem.SetMaxResults(query.MaxResult);
 
@@ -832,7 +832,28 @@ where m.RecepientId = @userid
         #endregion
 
         #region Quiz
-        
+        public async Task<Item.QuizWithDetailDto> GetQuiz(GetQuizQuery query)
+        {
+            var retVal = new Item.QuizWithDetailDto();
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { QuizId= query.QuizId }))
+                {
+                    retVal = grid.Read<Item.QuizWithDetailDto>().First();
+                    retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
+
+
+                    var answers = grid.Read<Item.AnswerWithDetailDto>();
+
+                    foreach (var question in retVal.Questions)
+                    {
+                        question.Answers.AddRange(answers.Where(w=>w.QuestionId == question.Id));
+                    }
+
+                }
+            }
+            return retVal;
+        }
         #endregion
     }
 }
