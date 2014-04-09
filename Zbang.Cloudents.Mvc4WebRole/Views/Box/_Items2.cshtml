@@ -94,14 +94,16 @@
             <!--/ko-->
 
             <div class="boxName semiFont elps" data-bind="text: name"></div>
-            <span class="tag" data-bind="visible : isNew">@SharedResources.New</span>
             
+
             <p class="itemContent" data-bind="text: description">                
             </p>
+            <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">Owner name here</div>
             <div class="stars">
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
             <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
+            <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
         </a>
         @if (User.Identity.IsAuthenticated)
         {
@@ -143,6 +145,34 @@
         @*empty div used for green outline*@
         <label class="cbLabel" data-bind="attr: { for: 'c_' + uid }"></label>
         <!--/ko-->
+    </li>
+</script>
+
+
+<script type="text/html" id="QuizItemsListViewTempalte">
+    <li class="listItem quizItem" data-bind="attr: { id: uid }">
+        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+            <div class="imgBorder"></div>
+            <div class="boxName semiFont elps" data-bind="text: name"></div>
+
+            <p class="itemContent" data-bind="text: description">
+            </p>
+            <div class="stars">
+                <div class="full" data-bind="style: { width: rate + 'px' }"></div>
+            </div>
+            <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
+            <span class="tag" data-quiz-draft="@SharedResources.Draft" data-bind="visible: isNew">@SharedResources.New</span>
+        </a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="actionBtns">
+                <a href="#" class="lFloat editBtn"></a>
+                @*<!--ko if:deleteAllow-->*@
+                <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
+                @*<!--/ko-->*@
+                <input type="hidden" data-bind="value: linkUrl" />
+            </div>
+        }
     </li>
 </script>
 

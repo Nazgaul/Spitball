@@ -773,6 +773,11 @@
 .listItem{
     padding: 15px 138px 15px 0; /*rtl*/
     text-align: right; /*rtl*/
+    &.draft .tag {
+        right: 15px; /*rtl*/
+        left: auto;
+        padding: 0 22px 0 0; /*rtl*/
+    }
     .actionBtns{
         left: 0; /*rtl*/
         right: auto;
@@ -781,9 +786,12 @@
         right:0; /*rtl*/
         left: auto;
     }
-    
     .views {
         margin: 0 20px 0 0; //override  /*rtl*/
+    }
+    .tag{
+        left: 10px; /*rtl*/
+        right: auto;
     }
 }
 
@@ -802,6 +810,23 @@
     .tag{
         right: -6px; /*rtl*/
         left: auto;
+    }
+    &.quizItem
+    {
+        &:before {
+            float:right; /*rtl*/
+        }
+        &:after {
+            right: 0; /*rtl*/
+            left: auto;
+        }
+        .stars {
+            right:4px; /*rtl*/
+            left: auto;
+        }
+    }
+    &.draft .tag {
+        margin: 0 15px 0 0; /*rtl*/
     }
 }
 

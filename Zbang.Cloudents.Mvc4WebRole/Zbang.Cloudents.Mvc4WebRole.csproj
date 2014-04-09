@@ -556,7 +556,7 @@
       <DependentUpon>AccountInfo.less</DependentUpon>
     </Content>
     <Content Include="Content\AccountInfo.min.css">
-      <DependentUpon>AccountInfo.css</DependentUpon>
+      <DependentUpon>AccountInfo.less</DependentUpon>
     </Content>
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
@@ -574,7 +574,7 @@
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.min.css">
-      <DependentUpon>DashLib.css</DependentUpon>
+      <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\Fonts\Alef-bold.svg" />
     <Content Include="Content\Fonts\Alef-regular.svg" />
@@ -672,13 +672,13 @@
       <DependentUpon>Quiz.less</DependentUpon>
     </Content>
     <Content Include="Content\Quiz.min.css">
-      <DependentUpon>Quiz.css</DependentUpon>
+      <DependentUpon>Quiz.less</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.min.css">
-      <DependentUpon>RTL3.css</DependentUpon>
+      <DependentUpon>RTL3.less</DependentUpon>
     </Content>
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
@@ -708,7 +708,7 @@
       <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobile.min.css">
-      <DependentUpon>SiteMobile.css</DependentUpon>
+      <DependentUpon>SiteMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\SiteMobileRtl.css">
       <DependentUpon>SiteMobileRtl.less</DependentUpon>
@@ -738,7 +738,7 @@
       <DependentUpon>UserPage.less</DependentUpon>
     </Content>
     <Content Include="Content\UserPage.min.css">
-      <DependentUpon>UserPage.css</DependentUpon>
+      <DependentUpon>UserPage.less</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>

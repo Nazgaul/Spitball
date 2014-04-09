@@ -943,6 +943,48 @@
   text-align: left;
   /*rtl*/
 }
+.listItem.quizItem .imgBorder {
+  width: 112px;
+  height: 143px;
+  background: #fff;
+}
+.listItem.quizItem .imgBorder:before {
+  content: '';
+  display: block;
+  width: 46px;
+  height: 38px;
+  background: url(/Images/box16-sprite.png) -2px -143px no-repeat;
+  vertical-align: middle;
+  margin: 48px auto 0;
+}
+.listItem.quizItem .itemContent {
+  max-height: 58px;
+  margin: 5px 0;
+}
+.listItem.quizItem .quizOwner {
+  margin: 10px 0;
+}
+.listItem.draft .tag {
+  color: #d1294d;
+  position: relative;
+  top: 0;
+  left: 15px;
+  /*rtl*/
+  padding-left: 22px;
+  /*rtl*/
+}
+.listItem.draft .tag:before {
+  content: '';
+  display: inline-block;
+  width: 21px;
+  height: 16px;
+  background: url(/Images/box16-sprite.png) -105px -165px no-repeat;
+  vertical-align: middle;
+  margin-top: 2px;
+}
+.listItem.draft .tag:after {
+  display: none;
+}
 .listItem .boxLink {
   height: 143px;
   display: block;
@@ -984,6 +1026,12 @@
   display: inline-block;
   vertical-align: top;
   margin: 0 0 0 20px;
+}
+.listItem .tag {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  /*rtl*/
 }
 .boxItem {
   float: left;
@@ -1046,6 +1094,7 @@
   height: 21px;
   background: url(/Images/box16-sprite.png) -76px -165px no-repeat;
   float: left;
+  /*rtl*/
   margin: 11px 9px;
 }
 .boxItem.quizItem:after {
@@ -1056,6 +1105,7 @@
   background: #c2c2c2;
   position: absolute;
   left: 0;
+  /*rtl*/
   top: 187px;
 }
 .boxItem.quizItem .boxLink {
@@ -1072,35 +1122,36 @@
   clear: both;
   line-height: 19px;
   margin: 0 0 32px 0;
-  display: block;
 }
 .boxItem.quizItem .quizOwner {
   height: 36px;
   overflow: hidden;
   line-height: 16px;
 }
-.boxItem.quizItem .quizOwner:before {
-  content: attr(data-quiz-owner) '\00a0';
-  display: inline-block;
-}
 .boxItem.quizItem .stars {
   position: absolute;
   left: 4px;
+  /*rtl*/
   bottom: 4px;
 }
-.boxItem.draft .tag {
+.boxItem .draft .tag {
+  width: 21px;
+  height: 16px;
+  background: url(/Images/box16-sprite.png) -105px -165px no-repeat;
   display: block;
   padding: 0;
   border-radius: 0;
   color: transparent;
   margin-left: 15px;
-  width: 21px;
-  height: 16px;
-  background: url(/Images/box16-sprite.png) -105px -165px no-repeat;
+  /*rtl*/
 }
-.boxItem.draft .tag:before,
-.boxItem.draft .tag:after {
+.boxItem .draft .tag:before,
+.boxItem .draft .tag:after {
   display: none;
+}
+.quizOwner:before {
+  content: attr(data-quiz-owner) '\00a0';
+  display: inline-block;
 }
 /*#region box item tool tips */
 .boxItemTt {

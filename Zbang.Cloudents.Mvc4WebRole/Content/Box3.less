@@ -994,6 +994,49 @@
     height: 143px;
     border-top: 1px solid #dbdbdb;
     text-align: left; /*rtl*/
+    &.quizItem {
+        .imgBorder
+        {
+            width: 112px;
+            height: 143px;
+            background: #fff;
+            &:before
+            {
+                content: '';
+                display: block;
+                width: 46px;
+                height: 38px;
+                background: @boxSprite -2px -143px no-repeat; 
+                vertical-align: middle;
+                margin: 48px auto 0;
+            }
+        }
+        .itemContent {
+            max-height: 58px; // max 3 lines instead of 4 - to compensate for the extra owner section
+            margin: 5px 0;
+        }
+        .quizOwner{
+            margin: 10px 0;
+        }
+    }
+    &.draft .tag {
+        color: @errorColor;
+        position: relative;
+        top: 0;
+        left: 15px; /*rtl*/
+        padding-left: 22px; /*rtl*/
+        &:before {
+            .pseudo;
+            width: 21px;
+            height: 16px;
+            background: @boxSprite -105px -165px no-repeat;
+            vertical-align: middle;
+            margin-top: 2px;
+        }
+        &:after {
+            display: none;
+        }
+    }
     .boxLink {
         height: 143px;
         display: block;
@@ -1038,7 +1081,11 @@
         vertical-align: top;
         margin: 0 0 0 20px; //override  /*rtl*/
     }
-    
+    .tag{
+        position: absolute;
+        top: 15px;
+        right: 10px; /*rtl*/
+    }
 }
 
 .boxItem {
@@ -1103,7 +1150,7 @@
             width: 25px;
             height: 21px;
             background: @boxSprite -76px -165px no-repeat;
-            float:left;
+            float:left; /*rtl*/
             margin: 11px 9px;
         }
         &:after
@@ -1113,7 +1160,7 @@
             height: 1px;
             background: @borderColor;
             position: absolute;
-            left: 0;
+            left: 0; /*rtl*/
             top: 187px;
         }
 
@@ -1129,36 +1176,36 @@
             clear: both;
             line-height: 19px;
             margin: 0 0 32px 0; //override
-            display: block; //override clamp2
         }
         .quizOwner{
             height: 36px;
             overflow: hidden;
             line-height: 16px;
-            &:before {
-                content: attr(data-quiz-owner) '\00a0';
-                display: inline-block;
-            }
         }
         .stars {
             position: absolute;
-            left:4px;
+            left:4px; /*rtl*/
             bottom: 4px;
         }
     }
-    &.draft .tag
-    {
-        &:before, &:after {
-            display: none;
-        }
+    .draft .tag {
+        width: 21px;
+        height: 16px;
+        background: @boxSprite -105px -165px no-repeat;
         display: block;
         padding: 0;
         border-radius: 0; 
         color: transparent; //override
-        margin-left: 15px;
-        width: 21px;
-        height: 16px;
-        background: @boxSprite -105px -165px no-repeat;
+        margin-left: 15px; /*rtl*/
+        &:before, &:after {
+            display: none;
+        }
+    }
+}
+.quizOwner{
+    &:before {
+        content: attr(data-quiz-owner) '\00a0';
+        display: inline-block;
     }
 }
 /*#region box item tool tips */
