@@ -117,12 +117,12 @@
 </script>
 
 <script type="text/html" id="QuizItemsThumbViewTemplate">
-    <li class="boxItem quizItem" data-bind="attr: { id: uid }">
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+    <li class="boxItem quizItem" data-bind="attr: { id: uid }, css : { draft : publish }">
+        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: quizUrl }">
             
             <div class="boxName" data-bind="text: name"></div>
             <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
-            <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">Owner name here</div>
+            <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:" data-bind="text : ownerName"></div>
             <div class="stars">
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
@@ -135,7 +135,6 @@
                 @*<!--ko if:deleteAllow-->*@
                 <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
                 @*<!--/ko-->*@
-                <input type="hidden" data-bind="value: linkUrl" />
             </div>
         }
         <!--ko if:$root.manageTab-->

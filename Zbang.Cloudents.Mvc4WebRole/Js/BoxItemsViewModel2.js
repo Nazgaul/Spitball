@@ -17,6 +17,7 @@
 
             data = data || {};
             that.uid = data.id;
+            that.name = data.name || "Draft";
 
             that.ownerName = data.owner;
             that.ownerUrl = data.userUrl;
@@ -29,7 +30,7 @@
 
             that.publish = data.publish;
             that.date = data.date;
-            that.itemUrl = data.url || '';
+            that.quizUrl = data.url || '';
             that.sponsored = false;
             that.thumbnailUrl = '';
             that.isNew = data.isNew;
@@ -40,7 +41,7 @@
             });
             that.linkUrl = '';
             that.type = data.type;
-            that.noPreview = '';
+            that.noPreview = ' noPreview';
         }
         function Item(data) {            
             data = data || {};
@@ -110,7 +111,14 @@
 
         self.currentView = ko.observable('BoxItemsThumbViewTemplate');
 
-        self.viewMode = function () {
+        self.viewMode = function (item) {
+            if (item.type === 'Quiz') {
+                if (self.currentView() === 'BoxItemsThumbViewTemplate') {
+                    return 'QuizItemsThumbViewTemplate';
+                }
+                
+                return 'QuizItemsListViewTempalte';
+            }
             return self.currentView();
         }
             
