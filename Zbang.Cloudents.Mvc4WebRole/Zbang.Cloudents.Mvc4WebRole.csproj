@@ -568,7 +568,7 @@
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
     <Content Include="Content\Box3.min.css">
-      <DependentUpon>Box3.css</DependentUpon>
+      <DependentUpon>Box3.less</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
@@ -582,7 +582,7 @@
       <DependentUpon>General.less</DependentUpon>
     </Content>
     <Content Include="Content\General.min.css">
-      <DependentUpon>General.css</DependentUpon>
+      <DependentUpon>General.less</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>

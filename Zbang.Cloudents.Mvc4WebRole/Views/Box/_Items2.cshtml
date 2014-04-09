@@ -95,7 +95,7 @@
 
             <div class="boxName semiFont elps" data-bind="text: name"></div>
             <span class="tag" data-bind="visible : isNew">@SharedResources.New</span>
-
+            
             <p class="itemContent" data-bind="text: description">                
             </p>
             <div class="stars">
@@ -115,6 +115,38 @@
         }
     </li>
 </script>
+
+<script type="text/html" id="QuizItemsThumbViewTemplate">
+    <li class="boxItem quizItem" data-bind="attr: { id: uid }">
+        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+            
+            <div class="boxName" data-bind="text: name"></div>
+            <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
+            <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">Owner name here</div>
+            <div class="stars">
+                <div class="full" data-bind="style: { width: rate + 'px' }"></div>
+            </div>
+            <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
+        </a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="actionBtns">
+                <a href="#"  class="lFloat editBtn"></a>
+                @*<!--ko if:deleteAllow-->*@
+                <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
+                @*<!--/ko-->*@
+                <input type="hidden" data-bind="value: linkUrl" />
+            </div>
+        }
+        <!--ko if:$root.manageTab-->
+        <input class="cbManage" data-bind="attr: { id: 'c_' + uid }, checked: isCheck" type="checkbox">
+        <div></div>
+        @*empty div used for green outline*@
+        <label class="cbLabel" data-bind="attr: { for: 'c_' + uid }"></label>
+        <!--/ko-->
+    </li>
+</script>
+
 
 <script type="text/html" id="boxItemTooltipTemplate">
     <div class="boxItemTt{{noPreview}}">

@@ -1039,6 +1039,69 @@
   color: #F0F8FF;
   z-index: 1;
 }
+.boxItem.quizItem:before {
+  content: '';
+  display: inline-block;
+  width: 25px;
+  height: 21px;
+  background: url(/Images/box16-sprite.png) -76px -165px no-repeat;
+  float: left;
+  margin: 11px 9px;
+}
+.boxItem.quizItem:after {
+  content: '';
+  display: inline-block;
+  width: 147px;
+  height: 1px;
+  background: #c2c2c2;
+  position: absolute;
+  left: 0;
+  top: 187px;
+}
+.boxItem.quizItem .boxLink {
+  padding: 11px 9px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.boxItem.quizItem .boxName {
+  color: #0371c8;
+  font-size: 17px;
+  height: 115px;
+  overflow: hidden;
+  clear: both;
+  line-height: 19px;
+  margin: 0 0 32px 0;
+  display: block;
+}
+.boxItem.quizItem .quizOwner {
+  height: 36px;
+  overflow: hidden;
+  line-height: 16px;
+}
+.boxItem.quizItem .quizOwner:before {
+  content: attr(data-quiz-owner) '\00a0';
+  display: inline-block;
+}
+.boxItem.quizItem .stars {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+}
+.boxItem.draft .tag {
+  display: block;
+  padding: 0;
+  border-radius: 0;
+  color: transparent;
+  margin-left: 15px;
+  width: 21px;
+  height: 16px;
+  background: url(/Images/box16-sprite.png) -105px -165px no-repeat;
+}
+.boxItem.draft .tag:before,
+.boxItem.draft .tag:after {
+  display: none;
+}
 /*#region box item tool tips */
 .boxItemTt {
   position: absolute;
@@ -1556,12 +1619,14 @@
   display: block;
 }
 .actionBtns .downloadBtn,
-.actionBtns .deleteBtn {
+.actionBtns .deleteBtn,
+.actionBtns .editBtn {
   background: #fff;
   width: 29px;
   height: 29px;
 }
-.actionBtns .downloadBtn:before {
+.actionBtns .downloadBtn:before,
+.actionBtns .editBtn:before {
   margin-top: 6px;
 }
 .actionBtns .deleteBtn {
@@ -1579,6 +1644,16 @@
 }
 .downloadBtn:hover:before {
   background-position: -57px -29px;
+}
+.editBtn:before {
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url(/Images/common16-sprite.png) -52px -1px no-repeat;
+}
+.editBtn:hover:before {
+  background-position: -52px -21px;
 }
 .deleteBtn:before {
   content: '';
