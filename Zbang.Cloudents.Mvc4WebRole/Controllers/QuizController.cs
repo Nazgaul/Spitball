@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     [ZboxAuthorize]
-
+    [CompressFilter]
     public class QuizController : BaseController
     {
         private readonly Lazy<IIdGenerator> m_IdGenerator;
@@ -44,10 +44,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View(values);
         }
 
-        [Ajax, HttpGet, CompressFilter]
+        [Ajax, HttpGet]
         public ActionResult CreateQuiz()
         {
             return PartialView();
+        }
+
+        [Ajax, HttpGet]
+        public async Task<ActionResult> Data(long quizId)
+        {
+            var query = new GetQuizQuery(quizId);
+            var values = await m_ZboxReadService.GetQuiz(query);
+            return this.CdJson(new JsonResponse(true, values));
         }
 
         #region Quiz
