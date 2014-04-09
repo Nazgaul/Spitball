@@ -84,12 +84,14 @@
     <Compile Include="DTOs\InviteDto.cs" />
     <Compile Include="DTOs\ItemDtos\FileDto.cs" />
     <Compile Include="DTOs\ItemDtos\FileWithDetailDto.cs" />
+    <Compile Include="DTOs\ItemDtos\IItemDto.cs" />
     <Compile Include="DTOs\ItemDtos\ItemDto.cs" />
     <Compile Include="DTOs\ItemDtos\ItemSeoDto.cs" />
     <Compile Include="DTOs\ItemDtos\ItemToFriendDto.cs" />
     <Compile Include="DTOs\ItemDtos\ItemWithDetailDto.cs" />
     <Compile Include="DTOs\ItemDtos\LinkDto.cs" />
     <Compile Include="DTOs\ItemDtos\LinkWithDetailDto.cs" />
+    <Compile Include="DTOs\ItemDtos\QuizDto.cs" />
     <Compile Include="DTOs\ItemRateDto.cs" />
     <Compile Include="DTOs\Library\DepartmentDto.cs" />
     <Compile Include="DTOs\Library\NodeBoxesDto.cs" />

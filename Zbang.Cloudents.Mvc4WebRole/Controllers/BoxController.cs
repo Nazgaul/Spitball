@@ -205,15 +205,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxItemsPagedQuery(boxUid, userId, pageNumber, OrderBy.LastModified, tab);
                 var result = m_ZboxReadService.GetBoxItemsPaged2(query);
                 var urlBuilder = new UrlBuilder(HttpContext);
-                foreach (var item in result.Dto)
+                foreach (var item in result)
                 {
-                    item.Url = urlBuilder.buildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
-                    item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
+                    if (item is Zbang.Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
+                    {
+                        item.Url = urlBuilder.buildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
+                        item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
+                    }
+                    if (item is Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizDto)
+                    {
+                        item.Url = urlBuilder.BuildQuizUrl(boxUid, boxName, item.Id, item.Name, uniName);
+                    }
                     item.UserUrl = urlBuilder.BuildUserUrl(item.OwnerId, item.Owner);
-                    
-                }
 
-                return this.CdJson(new JsonResponse(true, result));
+                }
+                var remove = result.OfType<Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
+                return this.CdJson(new JsonResponse(true, result.Except(remove).OrderByDescending(o => o.Date)));
             }
             catch (Exception ex)
             {

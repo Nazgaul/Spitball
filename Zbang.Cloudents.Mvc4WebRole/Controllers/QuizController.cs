@@ -34,7 +34,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         //
         // GET: /Quiz/
-        public ActionResult Index()
+        [Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
+        public ActionResult Index(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
             return View();
         }

@@ -33,7 +33,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query);
 
         //PagedDto<ItemDto> GetBoxItemsPaged(GetBoxItemsPagedQuery query);
-        PagedDto<Item.ItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
+        IEnumerable<Item.IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
         Item.ItemWithDetailDto GetItem(GetItemQuery query);
         Task<ItemRateDto> GetRate(GetItemRateQuery query);
 
