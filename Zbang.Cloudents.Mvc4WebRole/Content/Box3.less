@@ -1095,6 +1095,71 @@
         color: #F0F8FF;
         z-index: 1;
     }
+    &.quizItem
+    {
+        &:before
+        {
+            .pseudo;
+            width: 25px;
+            height: 21px;
+            background: @boxSprite -76px -165px no-repeat;
+            float:left;
+            margin: 11px 9px;
+        }
+        &:after
+        {
+            .pseudo;
+            width: 147px;
+            height: 1px;
+            background: @borderColor;
+            position: absolute;
+            left: 0;
+            top: 187px;
+        }
+
+        .boxLink{
+            padding: 11px 9px;
+            .boxSizing;
+        }
+        .boxName {
+            color: @attentionBlue;
+            font-size: 17px;
+            height: 115px;
+            overflow: hidden;
+            clear: both;
+            line-height: 19px;
+            margin: 0 0 32px 0; //override
+            display: block; //override clamp2
+        }
+        .quizOwner{
+            height: 36px;
+            overflow: hidden;
+            line-height: 16px;
+            &:before {
+                content: attr(data-quiz-owner) '\00a0';
+                display: inline-block;
+            }
+        }
+        .stars {
+            position: absolute;
+            left:4px;
+            bottom: 4px;
+        }
+    }
+    &.draft .tag
+    {
+        &:before, &:after {
+            display: none;
+        }
+        display: block;
+        padding: 0;
+        border-radius: 0; 
+        color: transparent; //override
+        margin-left: 15px;
+        width: 21px;
+        height: 16px;
+        background: @boxSprite -105px -165px no-repeat;
+    }
 }
 /*#region box item tool tips */
 .boxItemTt {
@@ -1276,13 +1341,13 @@
     {
         display: block;
     }
-    .downloadBtn, .deleteBtn {
+    .downloadBtn, .deleteBtn, .editBtn {
         background: #fff;
         width: 29px;
         height: 29px;
     }
 
-    .downloadBtn {
+    .downloadBtn, .editBtn {
         &:before {
             margin-top: 6px; // specific to this .downloadBtn class
         }
@@ -1306,6 +1371,18 @@
 
     &:hover:before {
         background-position: -57px -29px;
+    }
+}
+.editBtn{
+    &:before {
+        .pseudo;
+        width: 15px;
+        height: 15px;
+        background: @common-sprite -52px -1px no-repeat;
+    }
+
+    &:hover:before {
+        background-position: -52px -21px;
     }
 }
 // general .deleteBtn class

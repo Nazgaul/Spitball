@@ -189,7 +189,7 @@
     <EmbeddedResource Include="Mappings\NewUpdates.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mappings\Quiz.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Quiz.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

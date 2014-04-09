@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
 
         }
-        public UpdateData(long userid, long boxid, long? itemId = null, Guid? questionId = null, Guid? answerId = null
+        public UpdateData(long userid, long boxid, long? itemId = null, Guid? questionId = null, Guid? answerId = null, long? quizId = null
             )
         {
             UserWhoMadeActionId = userid;
@@ -22,6 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
             ItemId = itemId;
             QuestionId = questionId;
             AnswerId = answerId;
+            QuizId = quizId;
         }
         public override string ProcessResolver
         {
@@ -37,5 +38,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public Guid? QuestionId { get; private set; }
         [ProtoMember(5)]
         public Guid? AnswerId { get; private set; }
+        [ProtoMember(6)]
+        public long? QuizId { get; private set; }
     }
 }
