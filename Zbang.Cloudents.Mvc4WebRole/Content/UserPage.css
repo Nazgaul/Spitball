@@ -710,6 +710,9 @@
   text-align: left;
   /*rtl*/
 }
+.upMembers .membersTop .searchWpr {
+  width: 80%;
+}
 .upMembers .memberItem {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -772,7 +775,7 @@
   vertical-align: top;
 }
 .dateCol {
-  width: 110px;
+  width: 115px;
   padding: 0 15px;
 }
 .courseCol {

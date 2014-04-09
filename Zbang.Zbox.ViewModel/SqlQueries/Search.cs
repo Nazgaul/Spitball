@@ -69,7 +69,7 @@ join zbox.users u2 on u2.UserId = b.OwnerId
 where i.IsDeleted = 0
 and b.OwnerId = @universityId
 and b.Discriminator = 2
-and i.Name like '%' +@query + '%'
+and (i.Name like '%' +@query + '%')
 order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
 offset @offsetV rows
 fetch next @pageSize rows only;";
@@ -97,8 +97,8 @@ and u.country = (select country from zbox.users where userid = @universityId)
 and u.userid != @universityid
 )
 and b.Discriminator = 2
-and i.Name like '%' +@query + '%'
-order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
+and (i.Name like '%' +@query + '%')
+order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc, uniName
 offset @offsetV rows
 fetch next @pageSize rows only;";
     }

@@ -172,7 +172,7 @@
 .notifyWpr{
     width: 378px;
     position: absolute;
-    top: 52px;
+    top: 50px;
     margin-left: -167px; /*rtl*/
     border: 1px solid @borderColor;
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.2);
@@ -182,6 +182,7 @@
         &:before
         {
             background: #fff;
+            bottom: -6px;
         }
     }
     &.noResults
@@ -208,6 +209,10 @@
 {
     display: none;
     padding-bottom:48px;
+    background: #FFF;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+    padding-top: 1px; //need this so that it covers the share btn. TODO: look into this
     &:before
     {
        content: '';
@@ -234,6 +239,7 @@
     height: 70px;
     background: #fff;
     line-height: normal;
+    overflow: hidden;
 
     &.new
     {
@@ -246,9 +252,8 @@
     &:last-child {
         border-bottom: 0;
     }
-
     a {
-        padding: 8px 6px;
+        padding: 4px 6px;
         line-height: normal;
         /*display: table-cell;*/
         color: @textColor;
@@ -267,7 +272,15 @@
     left: 10px; /*rtl*/
     top: 10px;
 }
-
+.inviteTxtWpr
+{
+    line-height: 15px;
+    margin-top: -2px;
+    color: #676767;
+    .semiFont{
+        color: @textColor;
+    }
+}
 .notifyMsg
 {
     line-height: 15px;

@@ -496,4 +496,13 @@
   <data name="Answer" xml:space="preserve">
     <value>Ответ</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>Ответов</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Опубликовать</value>
+  </data>
 </root>

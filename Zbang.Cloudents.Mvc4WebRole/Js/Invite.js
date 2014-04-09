@@ -447,11 +447,14 @@
                         setTimeout(function () {
                             aside.classList.remove('invSuccess');
                         }, 2000);
-                        eById('inviteSendEmail').removeAttribute('disabled');
                     },
                     error: function (data) {
                         cd.notification('Error, please try again later');
+                    },
+                    always: function () {
+                        eById('inviteSendEmail').removeAttribute('disabled');
                     }
+
                 };
                 eById('inviteSendEmail').setAttribute('disabled', 'disabled');
                 if (boxid !== '') {
@@ -692,7 +695,7 @@
             }
         }
 
-        var consts = { ITEM_MARGIN_LEFT: 3, INPUT_MIN_WIDTH: 130 }
+        var consts = { ITEM_MARGIN_LEFT: 3, INPUT_MIN_WIDTH: 235 }
         function calculateInputWidth() {
             var emailElements = emailsSelectedElement.getElementsByClassName('emailItem'),
                 inputElementWidth, width = $('.inviteEmailListWpr').width(),
@@ -707,7 +710,7 @@
                 }
             }
             inputElementWidth = width - calculadtedWidth;
-            inviteInput.style.width = (inputElementWidth < consts.INPUT_MIN_WIDTH ? consts.INPUT_MIN_WIDTH : (inputElementWidth - 4 * emailElements.length)) + 'px'; //4 * emailsLenth is because of display-inline-block
+            inviteInput.style.width = (inputElementWidth < 135 ? consts.INPUT_MIN_WIDTH : (inputElementWidth - 4 * emailElements.length)) + 'px'; //4 * emailsLenth is because of display-inline-block
             inviteInput.style.display = 'inline-block';
         }
 

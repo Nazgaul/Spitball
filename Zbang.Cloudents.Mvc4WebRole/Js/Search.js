@@ -79,9 +79,7 @@
             } else {
                 searchTerm = gSearch.value || cd.getParameterByName('q');
             }
-            if (!cd.firstLoad) {
-                cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
-            }
+            cd.setTitle('Search | ' + searchTerm + ' | Cloudents');
 
             isFirstPage = cPage === 0;
 

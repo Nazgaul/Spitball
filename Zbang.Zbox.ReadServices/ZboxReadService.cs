@@ -99,8 +99,6 @@ namespace Zbang.Zbox.ReadServices
                 dbNode.SetFirstResult(query.PageNumber * DefaultPageSize);
                 var fnodeResult = dbNode.Future<NodeDto>();
 
-
-
                 IEnumerable<BoxDto> fboxesResult = new List<BoxDto>();
                 if (query.ParentNode.HasValue)
                 {
@@ -108,7 +106,6 @@ namespace Zbang.Zbox.ReadServices
                     boxesQuery.SetReadOnly(true);
                     boxesQuery.SetParameter("ParentNode", query.ParentNode);
                     boxesQuery.SetEnum("Sort", query.Sort);
-                    //boxesQuery.SetParameter("UniversityId", query.UniversityId);
                     boxesQuery.SetParameter("UserId", query.UserId);
                     boxesQuery.SetMaxResults(DefaultPageSize);
                     boxesQuery.SetFirstResult(query.PageNumber * DefaultPageSize);

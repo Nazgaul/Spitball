@@ -41,10 +41,29 @@
   transition: top 1s 2s;
 }
 .ratePopup.show {
+  visibility: visible;
   top: 129px;
 }
 .ratePopup.show .rateWpr {
   top: 0;
+}
+.ratePopup.show .rateTxt2 {
+  top: -20px;
+}
+.ratePopup.rated .rateWpr {
+  top: -27px;
+}
+.ratePopup.rated .rateTxt2 {
+  top: 8px;
+}
+.ratePopup.rated2 {
+  -webkit-transition: top 1s 0s;
+  -moz-transition: top 1s 0s;
+  -o-transition: top 1s 0s;
+  transition: top 1s 0s;
+}
+.ratePopup.changedItem {
+  visibility: hidden;
 }
 .ratePopup .rateTxt {
   line-height: 16px;
@@ -54,6 +73,7 @@
   left: 0;
   right: 0;
   margin: auto;
+  top: 8px;
 }
 .ratePopup .starsWpr {
   position: relative;

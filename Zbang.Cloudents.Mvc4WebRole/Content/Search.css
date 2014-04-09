@@ -186,8 +186,8 @@
   vertical-align: top;
 }
 .searchPage .userItem {
-  margin-right: 35px;
-  /*rtl*/
+  margin-right: 32px;
+  /* diff rtl*/
 }
 .searchPage .userItem:nth-child(9n) {
   margin: 0;

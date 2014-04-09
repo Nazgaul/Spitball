@@ -13,8 +13,9 @@
         var dashWall = document.getElementById('dash_Wall'),
         dashFriends = document.getElementById('dash_Friend'),
         dashWallTextItem = dashWall.getAttribute('data-itemText'),
-        dashWallTextQuestion = dashWall.getAttribute('data-questionText'),
-        dashWallTextAnswer = dashWall.getAttribute('data-answerText'),
+        //dashWallTextQuestion = dashWall.getAttribute('data-questionText'),
+        //dashWallTextAnswer = dashWall.getAttribute('data-answerText'),
+        dashWallTextComment = dashWall.getAttribute('data-commenttext'),
         activityFeedTemplate = 'activityFeedTemplate';
 
         function Activity(data) {
@@ -33,8 +34,8 @@
             function textActionReolver() {
                 switch (data.action) {
                     case 'item': return dashWallTextItem;
-                    case 'question': return dashWallTextQuestion;
-                    case 'answer': return dashWallTextAnswer;
+                    case 'question': return dashWallTextComment;
+                    case 'answer': return dashWallTextComment;
                     default:
                         return '';
 

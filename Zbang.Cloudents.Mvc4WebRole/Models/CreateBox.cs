@@ -8,6 +8,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
     public class CreateBox
     {
+        
         [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(CreateBoxResources), Name = "BoxName")]
         [StringLength(Box.NameLength, ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "BoxNameUpTo")]

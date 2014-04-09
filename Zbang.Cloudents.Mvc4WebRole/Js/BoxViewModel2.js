@@ -165,12 +165,9 @@
                         return $(this).data('link') + self.boxid;
                     });
 
-                if (!cd.firstLoad) {
-                    cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
-                }
+                cd.setTitle('{0} | {1} | Cloudents'.format(self.name(), self.ownerName()));
 
-                cd.pubsub.publish('box_load', self.boxid);
-
+                cd.pubsub.publish('box_load', self.boxid);                
                 setTimeout(function () {
                     if (self.follow()) {
                         document.getElementById('joinGrpWpr').classList.add('show');
@@ -200,7 +197,7 @@
             cd.pubsub.publish('removeNotification', self.boxid);
             cd.pubsub.publish('perm', self.userType());
             cd.pubsub.publish('dinvite', self.boxid);
-            setTimeout(function () {                
+            setTimeout(function () {
                 document.getElementById('joinGrpWpr').classList.remove('show');
             }, 3300);
             analytics.trackEvent('Follow', 'Join group', 'Clicking on join group button, on the box level');
@@ -442,7 +439,7 @@
                         if (self.userType() === 'owner') {
                             return 1;
                         }
-                        if (self.members().length <= 2 && self.noOfComments() === 0 && self.noOfItems() === 0) {
+                        if (self.members().length <= 2 && self.noOfComments() < 2 && self.noOfItems() === 0) {
                             return 2;
                         }
                         return 0;

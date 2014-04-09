@@ -450,9 +450,10 @@
         border: 1px solid #ebebeb;
     }
 }
-
+// this applies to rename btn in library and box pages
+//NB: display:block broke layout in library page.
 .mtouch .boxRename {
-    display: block;
+    display: inline-block; 
 }
 
 .boxPrps {
@@ -889,6 +890,7 @@
 .boxItemsHeader {
     height: 68px;
     margin-top: -28px;
+    //margin: -28px 1px 0 0; /*rtl*/
     padding-top: 20px;
     .boxSizing;
     .iconTxt{
@@ -986,7 +988,7 @@
     }
 }
 .listItem{
-    padding: 14px 0 14px 138px; /*rtl*/
+    padding: 15px 0 15px 138px; /*rtl*/
     position: relative;
     display: block;
     height: 143px;
@@ -1003,7 +1005,7 @@
     .imgBorder{
         position: absolute;
         left:0; /*rtl*/
-        top: 11px;
+        top: 15px;
     }
     .boxName
     {
@@ -1017,8 +1019,13 @@
     .itemContent
     {
         max-height: 71px;
-        margin: 15px 0 20px;
+        margin: 14px 0 17px;
         overflow: hidden;
+        max-width: 720px;
+        &:empty
+        {
+            margin-bottom: 0;
+        }
     }
     .stars{
         display: inline-block;
@@ -1353,12 +1360,15 @@
 
 .cbManage:checked + div {
     display: inline-block;
-    width: 150px;
-    height: 227px;
+    width: 148px;
+    height: 100%;
     position: absolute;
-    top: 0;
+    top: -3px;
+    left: -3px; /*rtl*/
     z-index: -1;
-    outline: 2px solid #83b641;
+    border: 2px solid #83B641;
+    border-top: 4px solid #83B641;
+    border-radius: 4px;
 }
 
 .no-checked .cbManage {

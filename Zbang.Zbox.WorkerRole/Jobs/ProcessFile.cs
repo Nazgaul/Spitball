@@ -92,7 +92,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 return false;
 
 
-            }, TimeSpan.FromHours(1));
+            }, TimeSpan.FromHours(1), 10);
         }
 
         //private void GenerateCopyRights(string blobName, IFileProcessor processor)

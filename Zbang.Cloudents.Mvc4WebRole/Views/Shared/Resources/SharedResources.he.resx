@@ -269,7 +269,7 @@
     <value>באמצעות הזמנה</value>
   </data>
   <data name="WriteComment" xml:space="preserve">
-    <value>כתב תגובה</value>
+    <value>כתוב תגובה ...</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>שמור</value>
@@ -492,6 +492,15 @@
   </data>
   <data name="NoNotifications" xml:space="preserve">
     <value>לא נמצאו התראות</value>
+  </data>
+  <data name="Replies" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>הגב</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>פרסם</value>
   </data>
   <data name="Answer" xml:space="preserve">
     <value>תשובה</value>

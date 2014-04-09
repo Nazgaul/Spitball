@@ -14,24 +14,12 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class MailManager2 : IMailComponent
     {
-        //private readonly SmtpClient m_SmtpClient;
-
-        //private readonly IUnityContainer m_Container;
         private readonly IocFactory m_Container = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-
-        public MailManager2(/*IUnityContainer container*/)
-        {
-            // m_SmtpClient = new SmtpClient("smtp.sendgrid.net", 587);
-            //m_SmtpClient.Credentials = new System.Net.NetworkCredential("cloudents", "zbangitnow");
-            //m_SmtpClient.EnableSsl = true;
-
-        }
 
         private void Send(SendGridMail.ISendGrid message)
         {
             try
             {
-
                 var smtpClient = SendGridMail.Transport.SMTP.GetInstance(
                     new System.Net.NetworkCredential("cloudents", "zbangitnow"), "smtp.sendgrid.net", 587);
                 //var smtpClient = SendGridMail.Transport.SMTP.GetInstance(
@@ -87,5 +75,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
 
 
+
+
+        public void GenerateAndSendEmail(IEnumerable<string> recepients, MailParameters parameters)
+        {
+            foreach (var recepient in recepients)
+            {
+                GenerateAndSendEmail(recepient, parameters);
+            }
+        }
     }
 }

@@ -144,8 +144,8 @@
     function removeTooltip() {
         $('.userTooltip').remove();
     }
-    
-    $(document).on('click touchend', '.userTooltip .btn3', function (e) {
+
+    $(document).on('click', '.userTooltip .btn3', function (e) {
         e.preventDefault();
         if (!cd.register()) {
             cd.pubsub.publish('register');
@@ -154,29 +154,7 @@
         }
         removeTooltip();
         cd.pubsub.publish('message', { id: '', data: [{ name: tooltip.name, id: tooltip.id, userImage: tooltip.image }] });
-    })    
-    .on('touchend', '.calloutTrgr', function (e) {
-        var event = e.originalEvent;
-        e.preventDefault();
-        e.stopPropagation();     
-        dataContext.minProfile({
-            data: { userId: this.getAttribute('data-uid') },
-            success: function (data) {
-                var tooltipData = data || {};
-                showTooltip(tooltipData,
-                    event.changedTouches[event.changedTouches.length - 1].clientX,
-                    event.changedTouches[event.changedTouches.length - 1].clientY);
-            }
-        });        
-    });
-
-    $(document).on('touchend', '.userTooltip', function (e) {
-
-        e.preventDefault();
-        e.stopPropagation();
-
     })
-    .on('touchend', 'body', removeTooltip);
-
+       
     cd.pubsub.subscribe('clearTooltip', removeTooltip);
 })(cd, cd.data, jQuery);

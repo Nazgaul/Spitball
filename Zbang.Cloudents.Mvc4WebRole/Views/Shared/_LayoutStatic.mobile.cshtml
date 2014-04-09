@@ -12,14 +12,14 @@
     @Html.CssRtl("mobileRtl")
      @Html.CssCulture("lang")
 </head>
-<body>
+<body data-lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
     <div>
         @RenderBody()
     </div>
-     <div id="cssCheck"></div>
+    <div id="cssCheck"></div>
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
 
-    @RenderSection("scripts",false)
+    @RenderSection("scripts", false)
 
 </body>
 </html>

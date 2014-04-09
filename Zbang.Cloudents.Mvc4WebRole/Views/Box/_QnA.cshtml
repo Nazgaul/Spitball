@@ -11,10 +11,10 @@
         </div>
         <div class="rFloat">
             <button type="button" class="attachBtn" data-upload="QnA"></button>
-            <button type="submit" class="askBtn">@IndexResources.Ask</button>
+            <button type="submit" class="askBtn">@SharedResources.Post</button>
         </div>
     </form>
-    <button id="qa_Back" type="button" data-click="showAllQuestion" data-bind="style: { display: state() > 1 ? 'block' : 'none' }" class="back">@IndexResources.AllQuestions</button>
+    <button id="qa_Back" type="button" data-click="showAllQuestion" data-bind="style: { display: state() > 1 ? 'block' : 'none' }" class="back">@SharedResources.Back</button>
 
     <div class="QWpr" data-bind="visible: state() > 1">
         <div id="Questions" class="questions">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="rFloat">
                             <button type="button" class="attachBtn" data-upload="QnA"></button>
-                            <button type="submit" disabled class="askBtn">@IndexResources.Answer</button>
+                            <button type="submit" disabled class="askBtn">@SharedResources.Comment</button>
                         </div>
                     </form>
                     <!-- /ko-->
@@ -48,7 +48,7 @@
                         <div class="arrow upArrow"  data-bind="visible: answerCount"></div>
                         <div class="answerBottom" data-click="showAllAnswers" data-bind="visible: answerCount">
                             <button type="button" class="numAnswers" data-bind="text: answerLengthText"></button>
-                            <button type="button" data-action="answer">@IndexResources.AddReply</button>
+                            <button type="button" data-action="answer">@IndexResources.AddComment</button>
                         </div>
                         <!-- ko with:bestAnswer -->
                         <img class="QAImg lFloat calloutTrgr" data-bind="attr: { src: userImg, 'data-uid' : userId }" alt="" width="32" height="32" />
@@ -135,7 +135,7 @@
                     </div>
                     <div class="rFloat">
                         <button type="button" class="attachBtn clearfix" data-upload="QnA"></button>
-                        <button type="submit" disabled class="askBtn">@IndexResources.Answer</button>
+                        <button type="submit" disabled class="askBtn">@SharedResources.Comment</button>
                     </div>
                 </form>
             </div>
@@ -151,12 +151,12 @@
                 <img data-bind="attr: { src: userImg }" class="QAImg lFloat" alt="" width="32" height="32" />
                 @*<div data-bind="text: userName" class="userName boldFont elps"></div>*@
                 <div class="textareaWpr">
-                    <textarea name="Content" class="QTextarea" data-bind="placeholder: ''" required placeholder="@IndexResources.GoAhead"></textarea>
+                    <textarea name="Content" class="QTextarea" data-bind="placeholder: ''" placeholder="@IndexResources.OnYourMind" required></textarea>
                     <ul class="attachedList"></ul>
                 </div>
                 <div class="rFloat">
                     <button type="button" class="attachBtn" data-upload="QnA"></button>
-                    <button type="submit" class="askBtn" disabled>@IndexResources.Ask</button>
+                    <button type="submit" class="askBtn" disabled>@SharedResources.Comment</button>
                 </div>
             </form>
             <div class="qaText2">@IndexResources.NoQuestions</div>

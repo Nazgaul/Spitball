@@ -17,4 +17,5 @@
       <Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple" />
     </Startup>
   </WorkerRole>
+  
 </ServiceDefinition>

@@ -28,9 +28,9 @@
             });
             _that.answerLengthText = ko.computed(function () {
                 if (_that.answers().length === 1) {
-                    return _that.answers().length + ' ' + JsResources.Reply;
+                    return _that.answers().length + ' ' + ZboxResources.Comment;
                 }
-                return _that.answers().length + ' ' + JsResources.Replies;
+                return _that.answers().length + ' ' + ZboxResources.Comments;
             });
             _that.bestAnswer = ko.computed(function () {
                 var x = ko.utils.arrayFirst(_that.answers(), function (i) {
@@ -530,9 +530,14 @@
                     self.questionList($.map(data, function (i) { return new Question(i); }));
                     //cd.updateTimeActions();
                     self.state(state.question);
-                    applyScroll();
-
                     cd.updateTimeActions(document.getElementById('box_QA'));
+                    var interval = setInterval(function () {
+                        if ($('#box_QA').is(':visible')) {
+                            clearInterval(interval);
+                            applyScroll();
+                        }
+
+                    }, 100);
                 }
             });
         }
@@ -541,6 +546,7 @@
 
         var $qaContent = $('.QAContent'), heightFromTop = $('#box_QA').position().top;
         function applyScroll() {
+            
             heightFromTop = heightFromTop || $('#box_QA').position().top;
             cd.innerScroll($('#Questions'), $(window).height() - ($('#Questions').offset().top - $(window).scrollTop()));
 
@@ -551,7 +557,7 @@
 
 
             cd.innerScroll($('#Answers'),
-                $(window).height() - ($('#Answers').offset().top - $(window).scrollTop()) - extraHeight);
+                $(window).height() - ($('#Answers').offset().top - $(window).scrollTop()) - $(window).scrollTop() - extraHeight);
 
             //  var extraHeight = $('.QATop').outerHeight(true);
             //  if (self.state() === state.answers) {

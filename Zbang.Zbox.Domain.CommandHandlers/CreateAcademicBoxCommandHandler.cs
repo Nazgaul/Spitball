@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var picturePath = m_AcademicBoxThumbnailProvider.GetAcademicBoxThumbnail();
             box = new AcademicBox(academicCommand.BoxName, universityUser,
-                  academicCommand.CourseCode, academicCommand.Professor, library, picturePath);
+                  academicCommand.CourseCode, academicCommand.Professor, library, picturePath, user);
 
             m_LibraryRepository.Save(library);
             box.UserBoxRel.Add(new UserBoxRel(universityUser, box, UserRelationshipType.Owner));

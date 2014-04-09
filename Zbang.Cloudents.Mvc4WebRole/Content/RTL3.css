@@ -743,7 +743,7 @@
   transform: scaleX(-1);
 }
 .listItem {
-  padding: 14px 138px 14px 0;
+  padding: 15px 138px 15px 0;
   /*rtl*/
   text-align: right;
   /*rtl*/
@@ -863,7 +863,7 @@
    
 .boxItemList:not(.sponsored)  
 .boxItem:nth-child(odd) {
-    margin: 0 0 20px 10px;
+    margin: 0 0 20px 20px;
     /*rtl*/
   }
    
@@ -1216,6 +1216,11 @@
 }
 .cbManage:checked ~ .cbLabel:after {
   right: 1px;
+  /*rtl*/
+  left: auto;
+}
+.cbManage:checked + div {
+  right: -3px;
   /*rtl*/
   left: auto;
 }
@@ -2125,8 +2130,8 @@
   /*rtl*/
 }
 .searchPage .userItem {
-  margin: 0 0 0 35px;
-  /*rtl*/
+  margin: 0 0 0 31px;
+  /* diff rtl*/
 }
 .sTabs.sTab2 ~ .upArrow:before {
   right: 75px;

@@ -324,9 +324,7 @@
 
                 fillVariables();
 
-                if (!cd.firstLoad) {
-                    cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
-                }
+                cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
 
 
                 cd.pubsub.publish(consts.itemLoad, null, function () {
@@ -485,18 +483,16 @@
                     });
 
                     //rateitempopup
-
-               
+             
                     if (ratedItems && ratedItems[cd.userDetail().nId]) {
                         if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
                             return;
                         }
                     }
 
-                    $ratePopup.show();
                     ratePopupTimeout = setTimeout(function () {
-                        $ratePopup.addClass('show');
-
+                        $ratePopup.removeClass('changedItem').addClass('show');
+                                               
                         if (!cd.register()) {
                             $ratePopup.one('click', '.star', function () {
                                 cd.unregisterAction(this);
@@ -504,7 +500,9 @@
                             return;
                         }
 
-                        $ratePopup.one('click', '.star', function () {                          
+                        $ratePopup.one('click', '.star', function () {
+                            $ratePopup.addClass('rated');
+
                             var $this = $(this),
                                 startWidth = $('.stars .full').width(),
                                 itemRate = getItemRate(),
@@ -516,14 +514,14 @@
                             ratedItems[cd.userDetail().nId].push(self.itemid());
                             cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
                             setTimeout(function () {
-                                $ratePopup.removeClass('show');
-                            }, 500);
+                                $ratePopup.removeClass('show').removeClass('rated');
+                            }, 3000);
 
                         });
                         $ratePopup.one('click', '.closeDialog', function (e) {
-                            $ratePopup.hide();
                             ratedItems[cd.userDetail().nId].push(self.itemid());
                             cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                            $ratePopup.addClass('changedItem').remove('show');
 
                         });
 
@@ -682,8 +680,7 @@
                         e.preventDefault();
                         return false;
                     }
-
-                    $ratePopup.removeClass('show').hide();
+                    $ratePopup.addClass('changedItem').removeClass('show');
                     clearTimeout(ratePopupTimeout);
                     $rateContainer.find('.star').each(function (i,e) {
                         $(e).removeClass('rated').text(e.id.slice(-1));
@@ -795,16 +792,15 @@
 
                         dataContext.renameItem({
                             data: { newFileName: fileName, ItemId: self.itemid() },
-                            success: function (data) {
-                                var nameNoExtenstion = data.queryString.slice(0, data.queryString.lastIndexOf('.'));
-                                self.itemName(nameNoExtenstion);
-                                var listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
-                                    listItem = ko.dataFor(listItemElement[0]);
-
-                                listItem.name(data.queryString);
-
-                                var location = self.copyLink().substring(0, self.copyLink().length - 1),
+                            success: function (data) {                                                               
+                                var extension = data.queryString.slice(data.queryString.lastIndexOf('.'), data.queryString.length),
+                                    listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
+                                    listItem = ko.dataFor(listItemElement[0]),
+                                    location = self.copyLink().substring(0, self.copyLink().length - 1),
                                     location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
+
+                                self.itemName(data.name);
+                                listItem.name(data.name + extension);                                
 
                                 self.copyLink(location);
                                 fixHistory(location)
@@ -912,10 +908,10 @@
 
                     if ($ratePopup.is(':visible')) {
                         setTimeout(function () {
-                            $ratePopup.removeClass('show');
+                            $ratePopup.removeClass('show').addClass('rated2');
                         }, 500);
                     } else {
-                        $ratePopup.hide().removeClass('show');
+                        $ratePopup.removeClass('show');
                     }
                     
 

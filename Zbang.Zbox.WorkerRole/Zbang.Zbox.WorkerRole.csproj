@@ -130,6 +130,7 @@
     <Compile Include="Jobs\AddFiles.cs" />
     <Compile Include="Jobs\DeleteCacheBlobContainer.cs" />
     <Compile Include="Jobs\DigestEmail2.cs" />
+    <Compile Include="Jobs\PartnersEmail.cs" />
     <Compile Include="Jobs\ProcessFile.cs" />
     <Compile Include="Jobs\IJob.cs" />
     <Compile Include="Jobs\MailProcess2.cs" />

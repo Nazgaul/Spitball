@@ -136,15 +136,13 @@
                 libraryList();
                 $('#lib_NodeName').addClass('hover');
                 self.title(decodeURIComponent(data.name || ''));
-
-                if (!cd.firstLoad) {
-                    var uniName = document.getElementById('univeristyName').textContent;
-                    if (self.title()) {
-                        cd.setTitle('{0} | {1} | Cloudents'.format(uniName, self.title()));
-                    } else {
-                        cd.setTitle('{0} | Cloudents'.format(uniName));
-                    }
+                var uniName = document.getElementById('univeristyName').textContent;
+                if (self.title()) {
+                    cd.setTitle('{0} | {1} | Cloudents'.format(uniName, self.title()));
+                } else {
+                    cd.setTitle('{0} | Cloudents'.format(uniName));
                 }
+              
 
             });
         });
@@ -294,7 +292,7 @@
 
         self.unsubscribe = function (box) {
             var isok = false,
-                isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount === 0 && box.itemCount === 0);
+                isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
 
             if (isDelete) {
                 isok = confirm(JsResources.DeleteCourse);
@@ -398,18 +396,29 @@
                 page++;
                 libraryList();
             }
-        }, $('#Library'));
+        }, $('#library'));
 
         //cd.loader.registerFacebook();
         //cd.loader.registerTwitter();
 
         function facebookLikeBox() {
+            //var likeBox = document.getElementById('facebookLikeBox');
+            //if (!likeBox) {
+            //    return;
+            //}
+            //var href = likeBox.getAttribute('data-href'), link = likeBox.getAttribute('data-link');
+            //var height = Math.floor($(window).height() - $(likeBox).offset().top);
+
+            //var src = link.replace(/{{href}}/i, href).replace(/{{height}}/i, height);
+
+            //likeBox.height = height;
+            //likeBox.src = src;
             var likeBox = document.getElementById('facebookLikeBox');
             if (!likeBox) {
                 return;
             }
             var href = likeBox.getAttribute('data-href'), link = likeBox.getAttribute('data-link');
-            var height = $(window).height() - $(likeBox).offset().top-15;
+            var height = Math.floor($(window).height() - $(likeBox).offset().top - 15);
             
 
             var src = link.replace(/{{href}}/i, href).replace(/{{height}}/i, height);

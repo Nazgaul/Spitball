@@ -1149,6 +1149,10 @@ ul.ui-autocomplete li a {
 .register span.field-validation-error:last-of-type {
   /*margin-top: -53px;*/
 }
+.registerMobile .field-validation-error,
+.registerMobile .validation-summary-errors {
+  position: static;
+}
 .genderLabel {
   font-size: 15px;
   margin: 15px 0 5px;
@@ -1274,6 +1278,7 @@ select.inputText {
   content: '';
   display: block;
   position: fixed;
+  top: 50px;
   height: 10px;
   width: 100%;
   margin: -10px 0 0 -24px;
@@ -1699,6 +1704,9 @@ select.inputText {
   .joinGrpWpr.joinGrpWpr.followed .joinGrp {
     top: -20px;
     opacity: 0;
+  }
+  .scrolling #dash_right:before {
+    display: none;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {

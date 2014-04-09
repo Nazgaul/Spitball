@@ -22,6 +22,8 @@ namespace Zbang.Zbox.WorkerRole
         public const string Dbi = "Dbi";
         public const string Transaction = "Transaction";
 
+        public const string EmailPartners = "EmailPartners";
+
         public Infrastructure.Ioc.IocFactory Unity { get; private set; }
         public UnityFactory()
         {
@@ -53,6 +55,7 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IJob, UpdateDomainProcess>(Transaction);
             Unity.RegisterType<IJob, MailProcess2>(MailProcess2);
             Unity.RegisterType<IJob, AddFiles>(AddFiles);
+            Unity.RegisterType<IJob, PartnersEmail>(EmailPartners);
 
             Unity.RegisterType<Imail2, Welcome>(BaseMailData.WelcomeResolver);
             Unity.RegisterType<Imail2, Invite2>(BaseMailData.InviteResolver);

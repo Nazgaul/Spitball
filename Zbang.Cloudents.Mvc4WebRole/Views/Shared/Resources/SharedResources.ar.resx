@@ -503,4 +503,13 @@
   <data name="Answer" xml:space="preserve">
     <value>الإجابة</value>
   </data>
+  <data name="Replies" xml:space="preserve">
+    <value>ردود</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>تعليق</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>نشر</value>
+  </data>
 </root>

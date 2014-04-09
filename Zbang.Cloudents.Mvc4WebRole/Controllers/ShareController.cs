@@ -78,30 +78,46 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, ZboxAuthorize]
         public ActionResult Invite(InviteSystem model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                if (!ModelState.IsValid)
+                {
+                    return Json(new JsonResponse(false, GetModelStateErrors()));
+                }
+                var userId = GetUserId();
+
+                var inviteCommand = new InviteToSystemCommand(userId, model.Recepients);
+                m_ZboxWriteService.InviteSystem(inviteCommand);
+
+                return Json(new JsonResponse(true));
             }
-            var userId = GetUserId();
-
-            var inviteCommand = new InviteToSystemCommand(userId, model.Recepients);
-            m_ZboxWriteService.InviteSystem(inviteCommand);
-
-            return Json(new JsonResponse(true));
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Share/Invite user: {0} model: {1}", GetUserId(), model), ex);
+                return Json(new JsonResponse(false, "Unsepcified error. try again later"));
+            }
         }
         [HttpPost, ZboxAuthorize]
         public ActionResult InviteFacebook(InviteSystemFromFacebook model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                if (!ModelState.IsValid)
+                {
+                    return Json(new JsonResponse(false, GetModelStateErrors()));
+                }
+                var userId = GetUserId();
+
+                var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, model.UserName, model.FirstName, model.MiddleName, model.LastName, model.Sex);
+                m_ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
+
+                return Json(new JsonResponse(true));
+             }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", GetUserId(), model), ex);
+                return Json(new JsonResponse(false, "Unsepcified error. try again later"));
             }
-            var userId = GetUserId();
-
-            var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, model.UserName, model.FirstName, model.MiddleName, model.LastName, model.Sex);
-            m_ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
-
-            return Json(new JsonResponse(true));
         }
 
 
@@ -175,7 +191,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("SendMessage user: {0} model: {1}", GetUserId(), model), ex);
-                // ModelState.AddModelError(string.Empty, "Unsepcified error. try again later");
                 return Json(new JsonResponse(false, "Unsepcified error. try again later"));
             }
         }
@@ -248,7 +263,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Share Invites userid " + userid, ex);
+                TraceLog.WriteError("Share Notifications userid " + userid, ex);
                 return this.CdJson(new JsonResponse(true, new string[0]));
             }
         }

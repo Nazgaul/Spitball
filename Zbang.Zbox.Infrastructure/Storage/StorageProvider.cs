@@ -151,16 +151,13 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         private static void CreateQueues(CloudQueueClient queueClient)
         {
-            var mailQueue = queueClient.GetQueueReference(QueueProvider.MailQueueName.ToLower());
             var queue = queueClient.GetQueueReference(QueueProvider.QueueName.ToLower());
             var downloadContentFromUrlQueue = queueClient.GetQueueReference(QueueProvider.DownloadContentFromUrl.ToLower());
             var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueProvider.DownloadContentFromUrlPahse2.ToLower());
             var mailQueue2 = queueClient.GetQueueReference(QueueProvider.NewMailQueueName.ToLower());
             var transactionQueue = queueClient.GetQueueReference(QueueProvider.UpdateDomainQueueName.ToLower());
 
-            mailQueue.CreateIfNotExists();
             queue.CreateIfNotExists();
-            //thumbanilQueue.CreateIfNotExists();
             mailQueue2.CreateIfNotExists();
             transactionQueue.CreateIfNotExists();
             downloadContentFromUrlQueue.CreateIfNotExists();

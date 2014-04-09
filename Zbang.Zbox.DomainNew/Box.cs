@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain
             Owner = user;
             UserBoxRel.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
 
-            var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+           
             Questions.Add(new Comment(user, "Created this course", this, idGenerator.GetId(), null));
 
             this.CalculateMembers();
@@ -57,21 +57,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
-        public virtual int CommentCount { get; private set; }
+        public virtual int CommentCount { get; protected set; }
 
-
-        //public virtual string Uid
-        //{
-        //    get
-        //    {
-        //        if (Id == 0)
-        //        {
-        //            return null;
-        //        }
-        //        var shortUrlDecoder = Infrastructure.Url.ShortCodesCache.Create();
-        //        return shortUrlDecoder.LongToShortCode(Id);
-        //    }
-        //}
 
         public void ChangeBoxName(string newBoxName)
         {
@@ -155,6 +142,15 @@ namespace Zbang.Zbox.Domain
 
 
         #region dbiTemp
+        public void CreateCreationQuestionIfNoneExists()
+        {
+            if (Questions.Count() == 0)
+            {
+                var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+                Questions.Add(new Question(this.Owner, "Created this course", this, idGenerator.GetId(), null));
+                UpdateQnACount(1);
+            }
+        }
         //public void UpdateMembersDbi(int count)
         //{
         //    MembersCount = count;
