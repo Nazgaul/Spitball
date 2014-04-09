@@ -93,6 +93,7 @@
     <Compile Include="DTOs\ItemDtos\LinkDto.cs" />
     <Compile Include="DTOs\ItemDtos\LinkWithDetailDto.cs" />
     <Compile Include="DTOs\ItemDtos\QuizDto.cs" />
+    <Compile Include="DTOs\ItemDtos\QuizWithDetailDto.cs" />
     <Compile Include="DTOs\ItemRateDto.cs" />
     <Compile Include="DTOs\Library\DepartmentDto.cs" />
     <Compile Include="DTOs\Library\NodeBoxesDto.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Email.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
+    <Compile Include="SqlQueries\Quiz.cs" />
     <Compile Include="SqlQueries\Search.cs" />
     <Compile Include="SqlQueries\Seo.cs" />
     <Compile Include="SqlQueries\Sql.cs" />
