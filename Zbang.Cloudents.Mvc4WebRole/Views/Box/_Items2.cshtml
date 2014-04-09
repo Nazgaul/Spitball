@@ -98,7 +98,7 @@
 
             <p class="itemContent" data-bind="text: description">                
             </p>
-            <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">Owner name here</div>
+            
             <div class="stars">
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
@@ -133,7 +133,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="actionBtns">
-                <a href="#"  class="lFloat editBtn"></a>
+                @*<a href="#"  class="lFloat editBtn"></a>*@
                 @*<!--ko if:deleteAllow-->*@
                 <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
                 @*<!--/ko-->*@
@@ -157,6 +157,7 @@
 
             <p class="itemContent" data-bind="text: description">
             </p>
+            <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">Owner name here</div>
             <div class="stars">
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
@@ -166,7 +167,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="actionBtns">
-                <a href="#" class="lFloat editBtn"></a>
+                @*<a href="#" class="lFloat editBtn"></a>*@
                 @*<!--ko if:deleteAllow-->*@
                 <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
                 @*<!--/ko-->*@
