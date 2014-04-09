@@ -849,7 +849,8 @@
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\NotificationsViewModel.js" />
-    <Content Include="Js\Quiz.js" />
+    <Content Include="Js\QuizCreate.js" />
+    <Content Include="Js\QuizViewModel.js" />
     <Content Include="Js\Search.js" />
     <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\Share.js" />
