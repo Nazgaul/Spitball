@@ -23,6 +23,14 @@
         }
     });
 
+    pubsub.subscribe('quiz', function (data) {
+        items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
+        if (items.indexOf(data.id) == -1) {
+            items.push({ Uid: data.id, Action: 3 });
+            cd.localStorageWrapper.setItem(key, JSON.stringify(items));
+        }
+    });
+
     window.setInterval(sendData, 300000); // 5 minutes
     sendData();
 
