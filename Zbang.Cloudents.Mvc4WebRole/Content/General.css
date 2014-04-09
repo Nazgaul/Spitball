@@ -14,10 +14,8 @@
 html {
   -ms-text-size-adjust: 100%;
   /* 2 */
-
   -webkit-text-size-adjust: 100%;
   /* 2 */
-
 }
 /* ==========================================================================
    Links
@@ -71,13 +69,10 @@ select,
 textarea {
   font-family: inherit;
   /* 1 */
-
   font-size: 100%;
   /* 2 */
-
   margin: 0;
   /* 3 */
-
 }
 textarea:invalid {
   box-shadow: none;
@@ -110,7 +105,6 @@ input[type="reset"],
 input[type="submit"] {
   cursor: pointer;
   /* 3 */
-
   -webkit-appearance: none;
 }
 /**
@@ -128,10 +122,8 @@ input[type="checkbox"],
 input[type="radio"] {
   box-sizing: border-box;
   /* 1 */
-
   padding: 0;
   /* 2 */
-
 }
 /**
  * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
@@ -164,13 +156,10 @@ input::-moz-focus-inner {
 textarea {
   overflow: auto;
   /* 1 */
-
   vertical-align: top;
   /* 2 */
-
   resize: vertical;
   /* mine remove safari's glow on textarea focus*/
-
 }
 textarea:focus {
   outline-style: none;
@@ -179,12 +168,7 @@ textarea:focus {
 body {
   font-size: 13px;
   /*-webkit-backface-visibility: hidden;*/
-<<<<<<< HEAD
   font-family: 'Open Sans', Arial;
-=======
-
-  font-family: 'Open Sans', sans-serif;
->>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
   /*rtl*/
 }
 body,
@@ -326,7 +310,6 @@ input[type="radio"]:checked + label + .inputText {
   vertical-align: middle;
   margin-right: 5px;
   /*rtl*/
-
   padding-top: 2px;
 }
 .checkbox:checked ~ .cbLabel:before {
@@ -347,7 +330,6 @@ input[type="radio"]:checked + label + .inputText {
   user-select: none;
   margin-left: 5px;
   /*rtl*/
-
 }
 .field-validation-error + input.inputText,
 .validation-summary-errors + input.inputText {
@@ -415,7 +397,6 @@ input[type="radio"]:checked + label + .inputText {
   position: absolute;
   right: 5px;
   /*rtl*/
-
   top: 5px;
   width: 10px;
   height: 11px;
@@ -431,7 +412,6 @@ input[type="radio"]:checked + label + .inputText {
   cursor: default;
   margin-right: 6px;
   /*rtl*/
-
 }
 .emailText ~ .removeItem {
   display: inline-block;
@@ -513,23 +493,19 @@ input[type="radio"]:checked + label + .inputText {
   top: 0;
   left: 2.25em;
   /* (container width - part width)/2  */
-
   width: .5em;
   height: 1.5em;
   border-radius: .2em;
   background: #eee;
   box-shadow: 0 3.5em #eee;
   /* container height - part height */
-
   -webkit-transform-origin: 50% 2.5em;
   /* container height / 2 */
-
   -moz-transform-origin: 50% 2.5em;
   -ms-transform-origin: 50% 2.5em;
   -o-transform-origin: 50% 2.5em;
   transform-origin: 50% 2.5em;
   /* container height / 2 */
-
 }
 .progressLoader:before {
   background: #555;
@@ -563,11 +539,9 @@ input[type="radio"]:checked + label + .inputText {
 ul.ui-autocomplete {
   text-align: left;
   /*rtl*/
-
   max-height: 120px;
   border: solid 1px #cfcece;
   /*display: block!important;*/
-
   overflow-x: hidden;
   overflow-y: auto;
   background: #fff;
@@ -644,7 +618,6 @@ ul.ui-autocomplete li a {
 .navUser {
   margin-left: 30px;
   /*rtl*/
-
   line-height: 19px;
   position: relative;
 }
@@ -655,11 +628,9 @@ ul.ui-autocomplete li a {
   display: inline-block;
   text-align: left;
   /*rtl*/
-
   color: #fff;
   margin: 8px 0 0 36px;
   /*rtl*/
-
 }
 .navUser .userImg {
   vertical-align: top;
@@ -673,7 +644,6 @@ ul.ui-autocomplete li a {
   line-height: 7px;
   margin-left: 36px;
   /*rtl*/
-
 }
 .userPts:after {
   display: inline-block;
@@ -682,7 +652,6 @@ ul.ui-autocomplete li a {
 .userSettings {
   margin-right: 10px;
   /*rtl*/
-
 }
 .userDrpSettings {
   cursor: pointer;
@@ -698,7 +667,6 @@ ul.ui-autocomplete li a {
   top: 18px;
   left: 0;
   /*rtl*/
-
   width: 17px;
   height: 13px;
   background: url(/Images/dash13-sprite.png) -254px -28px no-repeat;
@@ -708,14 +676,12 @@ ul.ui-autocomplete li a {
   position: absolute;
   right: 0;
   /*rtl*/
-
 }
 .userMenu {
   display: none;
   position: absolute;
   left: 0;
   /*rtl*/
-
   z-index: 10;
   top: 50px;
   border: 1px solid #959595;
@@ -730,7 +696,6 @@ ul.ui-autocomplete li a {
   width: 160px;
   right: 0;
   /*rtl*/
-
   left: auto;
 }
 .userMenu span {
@@ -751,11 +716,9 @@ ul.ui-autocomplete li a {
   padding: 10px 5px;
   text-align: left;
   /*rtl*/
-
   -ms-word-wrap: break-word;
   word-wrap: break-word;
   /* or "normal" */
-
   overflow-wrap: break-word;
   line-height: 12px;
   -webkit-box-sizing: border-box;
@@ -1235,12 +1198,10 @@ ul.ui-autocomplete li a {
 .lFloat {
   float: left;
   /*rtl*/
-
 }
 .rFloat {
   float: right;
   /*rtl*/
-
 }
 .regFont {
   font-weight: normal;
@@ -1252,7 +1213,6 @@ ul.ui-autocomplete li a {
 .boldFont {
   font-weight: 600;
   /*rtl - because Hebrew doesn't support this*/
-
 }
 .clearfix:after {
   content: ".";
@@ -1286,7 +1246,6 @@ select.inputText {
   background: #fff;
   padding: 0 4px 0 8px;
   /*rtl*/
-
   height: 28px;
   color: #464646;
   border: 1px solid #c2c2c2;
@@ -1304,10 +1263,8 @@ select.inputText {
   border-bottom: 1px solid #c2c2c2;
   text-align: left;
   /*rtl*/
-
   padding: 0 45px 0 19px;
   /*rtl*/
-
   background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1332,10 +1289,8 @@ select.inputText {
 .backWpr {
   text-align: left;
   /*rtl*/
-
   padding-left: 40px;
   /*rtl*/
-
   margin-top: 22px;
   position: relative;
   display: inline-block;
@@ -1351,7 +1306,6 @@ select.inputText {
   position: absolute;
   left: 0;
   /*rtl*/
-
   width: 35px;
   height: 35px;
   background: url(/Images/common16-sprite.png) -204px 0 no-repeat;
@@ -1387,7 +1341,6 @@ select.inputText {
   z-index: 7;
   text-align: left;
   /*rtl*/
-
 }
 .dropDown:before {
   content: '';
@@ -1396,7 +1349,6 @@ select.inputText {
   position: absolute;
   left: 0;
   /*rtl*/
-
   top: 0;
   border-bottom: 1px solid #c2c2c2;
 }
@@ -1492,7 +1444,6 @@ select.inputText {
   border-radius: 14px;
   margin: -1px 6px 0 0;
   /*rtl*/
-
   vertical-align: middle;
 }
 .emptySearch:after {
@@ -1504,12 +1455,7 @@ select.inputText {
   top: 9px;
   left: 7px;
   /*rtl*/
-<<<<<<< HEAD
   background: url(/Images/common16-sprite.png) -294px -33px no-repeat;
-=======
-
-  background: url(/Images/common14-sprite.png?v=1) -294px -33px no-repeat;
->>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .emptySearchAdmin:after {
   top: 5px;
@@ -1545,7 +1491,6 @@ select.inputText {
   background: url(/Images/common16-sprite.png) no-repeat;
   margin-right: 6px;
   /*rtl*/
-
 }
 .showAll {
   color: #0371c8;
@@ -1562,12 +1507,10 @@ select.inputText {
   display: inline-block;
   text-align: right;
   /*rtl*/
-
   position: absolute;
   bottom: 0;
   right: 0;
   /*rtl*/
-
   width: 23px;
   height: 18px;
   background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%);
@@ -1613,10 +1556,8 @@ select.inputText {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   left: -webkit-calc(50% - 112px);
   /*rtl*/
-
   left: calc(50% - 112px);
   /*rtl */
-
 }
 .ptsPopup:before {
   content: attr(data-pts-before);
@@ -1627,7 +1568,6 @@ select.inputText {
   display: inline-block;
   margin-left: 4px;
   /*rtl*/
-
 }
 .digitWpr {
   direction: ltr;
@@ -1653,7 +1593,6 @@ select.inputText {
 .ptDigit:first-child {
   margin-left: 4px;
   /* no rtl !!*/
-
 }
 .ptsAnim {
   display: block;
@@ -1797,7 +1736,6 @@ select.inputText {
   overflow: hidden;
   padding: 10px 10px 6px 110px;
   /*rtl*/
-
   position: fixed;
   z-index: 13;
   background: #fff;
@@ -1829,7 +1767,6 @@ select.inputText {
   top: 0;
   left: 0;
   /*rtl*/
-
   border-right: 1px solid #c2c2c2;
 }
 .ttUsername {
@@ -1858,7 +1795,6 @@ select.inputText {
 .userTooltip.hidePoints .ttPoints {
   display: none;
 }
-<<<<<<< HEAD
 .titleTooltip {
   display: inline-block;
   position: absolute;
@@ -1891,6 +1827,3 @@ select.inputText {
   margin: auto;
 }
 /*#endregion */
-=======
-/*#endregion */
->>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6

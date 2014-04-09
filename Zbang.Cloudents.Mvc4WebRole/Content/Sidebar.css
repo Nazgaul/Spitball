@@ -8,7 +8,6 @@
   background: #fff;
   border-right: 1px solid #c2c2c2;
   /*rtl*/
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -66,7 +65,6 @@
   color: #383838;
   text-align: left;
   /*rtl*/
-
   border-top: 1px solid #c2c2c2;
   position: relative;
 }
@@ -84,7 +82,6 @@
   height: 23px;
   float: left;
   /*rtl*/
-
   margin: 10px 9px 0 9px;
 }
 .productsBtn:after {
@@ -96,7 +93,6 @@
   position: absolute;
   right: 10px;
   /*rtl*/
-
   top: 25px;
 }
 .closeProducts {
@@ -106,17 +102,13 @@
   background: #fff;
   float: right;
   /*rtl*/
-
   margin: -32px -1px 0 0;
   /*rtl*/
-
   border-radius: 5px 0 0 5px;
   /*rtl*/
-
   border: 1px solid #c2c2c2;
   border-right: 1px solid #fff;
   /*rtl*/
-
   position: relative;
 }
 .closeProducts:before {
@@ -124,7 +116,7 @@
   display: inline-block;
   width: 10px;
   height: 11px;
-  background: url(/Images/common16-sprite.png?v=1) -68px -25px no-repeat;
+  background: url(/Images/common16-sprite.png) -68px -25px no-repeat;
   margin: 5px 7px;
 }
 .productsHeader {
@@ -146,7 +138,6 @@
 .dashLists .friendsList {
   padding: 11px 7px 7px 11px;
   /*rtl*/
-
 }
 .dashLists .friendItem.friendBtn:first-child {
   float: none;
@@ -165,7 +156,6 @@
 .updateContent {
   margin-left: 3px;
   /*rtl*/
-
   display: inline-block;
   max-width: 180px;
   color: #676767;
@@ -176,7 +166,6 @@
 .asideList {
   padding: 0 5px 0 10px;
   /*rtl*/
-
   position: relative;
 }
 .asideList .activityItem {
@@ -191,7 +180,6 @@
 .asideList.dash > .activityItem {
   margin: 0 8px 7px 0;
   /* rtl override the .asideList > .activityItem rule */
-
   border-bottom: 1px solid #E7E7E7;
   padding-bottom: 7px;
 }
@@ -207,7 +195,6 @@
   max-width: 224px;
   margin: -1px 0 0 4px;
   /*rtl*/
-
   -ms-word-wrap: break-word;
   word-wrap: break-word;
   font-size: 11px;
@@ -217,7 +204,6 @@
   max-width: 200px;
   margin-left: 4px;
   /*rtl*/
-
 }
 .asideImg {
   vertical-align: top;
@@ -251,7 +237,6 @@
   display: inline-block;
   margin-right: 10px;
   /*rtl*/
-
   vertical-align: middle;
   background: url(/Images/lib_sprite.png) no-repeat;
   height: 32px;
@@ -261,7 +246,6 @@
   background-position: -1px -1px;
   margin: 0 10px 0 12px;
   /*rtl*/
-
 }
 .asideLib > .courses:before {
   width: 44px;
@@ -276,13 +260,11 @@
   background-position: -34px -1px;
   margin: 0 10px 0 2px;
   /*rtl*/
-
 }
 .statCategory {
   font-size: 15px;
   margin-left: 3px;
   /*rtl; use this if whitespace in markup span if too big */
-
 }
 .libHeader {
   margin-bottom: 12px;
@@ -292,7 +274,6 @@
   display: inline-block;
   margin-right: 4px;
   /*rtl*/
-
   background: url(/Images/lib_sprite.png) -122px -1px no-repeat;
   width: 27px;
   height: 32px;
@@ -334,12 +315,10 @@
   background: #c2c2c2;
   left: -3px;
   /*rtl*/
-
 }
 .courses:after {
   right: -3px;
   /*rtl*/
-
   left: auto;
 }
 .libTopWpr {
@@ -363,7 +342,6 @@
             display: inline-block;
         }
     }*/
-
 }
 .libTop .changeUni {
   color: #0f9d58;
@@ -382,7 +360,6 @@
   border-bottom: 1px solid #c2c2c2;
   font-size: 0;
   /* remove display:inline-block children whitespace */
-
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -397,7 +374,6 @@
   text-align: center;
   border-right: 1px solid #c2c2c2;
   /*rtl*/
-
   display: table-cell;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
