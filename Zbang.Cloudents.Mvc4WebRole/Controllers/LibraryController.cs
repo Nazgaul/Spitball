@@ -378,6 +378,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n054-3503509.";
                     break;
+                case 64805:
+                    ViewBag.AgudaName = string.Empty;
+                    ViewBag.AgudaMail = string.Empty;
+
+                    ViewBag.AgudaPhone = string.Empty;
+                    break;
                 default:
                     ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
                     ViewBag.AgudaMail = "aguda@mla.ac.il";

@@ -83,10 +83,39 @@ aside li {
   /*rtl*/
 
 }
+<<<<<<< HEAD
+=======
+.fbImg {
+  right: 16px;
+  /*rtl*/
+
+  left: auto;
+}
+.fbImg:after {
+  right: 24px;
+  /*rtl*/
+
+  left: auto;
+}
+.facebook,
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 .email {
   text-align: right;
   /*rtl*/
 
+<<<<<<< HEAD
+=======
+}
+.email {
+  padding: 5px 15px;
+  /*rtl*/
+
+}
+.facebook {
+  padding: 5px 55px 5px 15px;
+  /*rtl*/
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 /*.emailImg
 {

@@ -5,8 +5,10 @@
 .headerRightWpr {
   padding-left: 241px;
   /*rtl*/
+
   margin-left: -241px;
   /*rtl*/
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -26,6 +28,7 @@
 .headerRightWpr .userSection {
   margin-left: 70px;
   /*rtl*/
+
 }
 .userSection {
   line-height: 50px;
@@ -60,6 +63,7 @@
   position: absolute;
   right: -1px;
   /*rtl*/
+
   top: 16px;
 }
 .feedBack:after,
@@ -101,6 +105,7 @@
   display: inline-block;
   margin-right: 12px;
   /*rtl*/
+
 }
 .signUp .btn {
   display: inline-block;
@@ -138,6 +143,7 @@
   top: 16px;
   right: 10px;
   /*rtl*/
+
   background: url(/Images/dash13-sprite.png) -240px -46px no-repeat;
   width: 19px;
   height: 18px;
@@ -147,6 +153,7 @@
   opacity: 0.4;
   left: 11px;
   /*rtl*/
+
 }
 .invitesCounter {
   display: none;
@@ -187,6 +194,7 @@
 .notifyWpr.noResults .notifyTop {
   text-align: left;
   /*rtl*/
+<<<<<<< HEAD
 }
 .notifyTop {
   line-height: 13px;
@@ -215,6 +223,12 @@
 .notifyList {
   background: #fff;
   max-height: 421px;
+=======
+
+  background-color: #f5f5f5;
+  width: 184px;
+  max-height: 360px;
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
   overflow: auto;
   border-radius: 0 0 5px 5px;
 }

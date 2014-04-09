@@ -18,6 +18,10 @@
 .settingsMenu ul {
   margin: 33px 0 0 23px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .settingsMenu li {
   font-size: 15px;
@@ -33,9 +37,17 @@
   top: 80px;
   left: 288px;
   /*rtl*/
+<<<<<<< HEAD
   width: 670px;
   text-align: left;
   /*rtl*/
+=======
+
+  width: 670px;
+  text-align: left;
+  /*rtl*/
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .settingsContent label {
   width: 140px;
@@ -64,6 +76,7 @@
 .profileInfo .btn1 {
   margin-right: 8px;
   /*take into account +4px because of inline block: 8+4=12*/
+<<<<<<< HEAD
 }
 .profileInfo .inputText {
   width: 140px;
@@ -71,19 +84,39 @@
   /*rtl*/
   height: 29px;
   font-size: 15px;
+=======
+
+}
+.profileInfo .inputText {
+  width: 400px;
+  margin-top: -6px;
+  height: 29px;
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .profileInfo .profilePhoto {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
   display: inline-block;
   vertical-align: top;
   margin-bottom: 3px;
   /*needed in order to view the bottom box-shadow (caused by vertical-align)*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .profileInfo .photoBtn {
   display: inline-block;
   margin: 5px 0 0 5px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
   color: #0f9d58;
 }
 .profileInfo .changeUni {
@@ -104,6 +137,10 @@
 .schoolWpr {
   padding-left: 44px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
   position: relative;
   display: inline-block;
 }
@@ -111,6 +148,10 @@
   position: absolute;
   left: 0;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 /*#endregion */
 /*#region account settings */
@@ -166,10 +207,15 @@
 .checkMailMsg {
   position: absolute;
   left: 200px;
+<<<<<<< HEAD
   /*rtl*/
   top: 0px;
   padding-left: 55px;
   /*rtl*/
+=======
+  top: 0px;
+  padding-left: 55px;
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
   line-height: 15px;
   white-space: nowrap;
   -webkit-transition: opacity 1s;
@@ -181,6 +227,7 @@
 .checkMailMsg:before {
   content: '';
   display: inline-block;
+<<<<<<< HEAD
   background: url(/Images/common16-sprite.png) -179px -40px;
   width: 23px;
   height: 23px;
@@ -190,6 +237,15 @@
   top: 4px;
   left: 28px;
   /*rtl*/
+=======
+  background: url(/Images/common14-sprite.png?v=1) -179px -40px;
+  width: 23px;
+  height: 23px;
+  margin-right: 5px;
+  position: absolute;
+  top: 4px;
+  left: 28px;
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .checkMailMsg .checkMailTxt {
   color: #676767;
@@ -212,11 +268,19 @@
   height: 28px;
   margin: 0 5px 5px 0;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .changePwd input:first-child {
   display: block;
   margin: -12px 0 21px;
   /*override margin for first input*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 /*#endregion */
 /*#region manage friends */
@@ -236,6 +300,10 @@
   color: #383838;
   margin: 2px 0 11px -1px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .storage .storageBar {
   width: 550px;
@@ -270,6 +338,10 @@
   background: #0f9d58;
   margin-right: 10px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 /*temporarily removed from markup*/
 /*.key .shared:before 
@@ -284,6 +356,10 @@
 .key .percent {
   margin: 0 27px 0 2px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 /*#endregion */
 /*#region notifications */
@@ -298,6 +374,10 @@
   width: 310px;
   margin: 3px 0 0 5px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .notifications .select {
   display: inline-block;
@@ -309,6 +389,10 @@
   vertical-align: top;
   margin: 0;
   /* override boximage class from box.css*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .notifications .semiFont {
   font-size: 15px;
@@ -323,6 +407,10 @@
   display: inline;
   margin-right: 6px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .notifications input {
   width: 214px;
@@ -333,10 +421,18 @@
 .boxesList {
   margin: 6px 0 39px 1px;
   /*rtl*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6
 }
 .boxesList li {
   margin-bottom: 18px;
   padding-bottom: 13px;
   border-bottom: 1px solid #dfd5da;
 }
+<<<<<<< HEAD
 /*#endregion */
+=======
+/*#endregion */
+>>>>>>> 93006585e1fbbd23f1ea7b8b1db3725c1a6d00d6

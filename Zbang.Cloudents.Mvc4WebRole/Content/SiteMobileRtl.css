@@ -20,6 +20,7 @@
     {
            margin: 20px 8px 0 0;
     }*/
+
 }
 /*#endregion */
 /*#region settings panel / menu */
@@ -43,6 +44,7 @@
   padding: 0 6px 0 10px;
   text-align: right;
   /*rtl*/
+
 }
 .panelBtn:before {
   margin-right: auto;
@@ -66,15 +68,18 @@
 .inputText {
   padding: 10px 8px 10px 4px;
   /*rtl*/
+
 }
 /*#region popup */
 .popup.selectUni .inputText {
   padding: 10px 25px 10px 4px;
   /*rtl*/
+
 }
 .enterCode {
   text-align: right;
   /*rtl*/
+
 }
 /*#region dashLib content */
 .topBtns {
@@ -119,6 +124,7 @@
   right: auto;
   left: 10px;
   /*rtl*/
+
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -157,11 +163,13 @@
 .boxSettingsBtn {
   right: 0;
   /*rtl*/
+
   left: auto;
 }
 .boxSettingsBtn:before {
   left: 8px;
   /*rtl*/
+
   right: auto;
 }
 .itemsBtn {
@@ -190,6 +198,7 @@
 .selectWpr:after {
   left: 0px;
   /*rtl*/
+
   right: auto;
 }
 .boxHeader:after {
@@ -209,6 +218,7 @@
 .commentText {
   padding: 12px 8px 0 4px;
   /*rtl*/
+
 }
 /*#endregion */
 /*#region 'Static' pages */
@@ -216,6 +226,7 @@
   margin-left: auto;
   margin-right: 8px;
   /*rtl*/
+
 }
 /*#endregion */
 /*#region Actions */
@@ -227,43 +238,53 @@
   margin-right: auto;
   margin-left: 100px;
   /*rtl*/
+
 }
 .inviteUser {
   margin: 17px 12px 18px 0;
   /*rtl*/
+
   padding: 2px 9px 5px 2px;
   /*rtl*/
+
 }
 .inviteInput {
   padding: 4px 8px 4px 4px;
   /*rtl*/
+
 }
 .inviteList li {
   margin: 3px 0 0 3px;
   /*rtl*/
+
 }
 .uniList:before {
   margin-left: auto;
   margin-right: 6px;
   /*rtl*/
+
 }
 .uniList li a {
   padding: 13px 13px 13px 5px;
   /*rtl*/
+
 }
 .uniImg + span {
   padding: 2px 8px 0 5px;
   /*rtl*/
+
 }
 .uniName + span:before {
   margin-right: auto;
   margin-left: 4px;
   /*rtl*/
+
 }
 .newUni .uniImg:before {
   margin-left: auto;
   margin-right: -1px;
   /*rtl*/
+
 }
 /*#endregion */
 /*#endregion */
