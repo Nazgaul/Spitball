@@ -71,11 +71,11 @@
             font-size: 17px;
         }
         &.emptyText.questionAnswer {
-            border: 1px solid #d1294d;
+            border: 1px solid @errorColor;
         }
     }
     &.nameReq .quizName {
-        border: 1px solid #d1294d;
+        border: 1px solid @errorColor;
     }
 
     section {
@@ -83,7 +83,7 @@
     }
     .error{
         display: none;
-        color: #d1294d;
+        color: @errorColor;
     }
 }
 
@@ -194,7 +194,7 @@
     }
     &.correctReq {
         .correct{
-            color: #d1294d;
+            color: @errorColor;
         }
     }
 }

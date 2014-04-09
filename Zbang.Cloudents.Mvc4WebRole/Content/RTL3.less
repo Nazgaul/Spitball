@@ -803,6 +803,23 @@
         right: -6px; /*rtl*/
         left: auto;
     }
+    &.quizItem
+    {
+        &:before {
+            float:right; /*rtl*/
+        }
+        &:after {
+            right: 0; /*rtl*/
+            left: auto;
+        }
+        .stars {
+            right:4px; /*rtl*/
+            left: auto;
+        }
+    }
+    &.draft .tag {
+        margin: 0 15px 0 0; /*rtl*/
+    }
 }
 
 /*#region box item tool tips */
