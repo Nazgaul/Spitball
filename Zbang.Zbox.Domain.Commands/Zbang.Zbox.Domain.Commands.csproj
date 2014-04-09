@@ -107,6 +107,7 @@
     <Compile Include="Quiz\DeleteQuestionCommand.cs" />
     <Compile Include="Quiz\DeleteQuizCommand.cs" />
     <Compile Include="Quiz\SaveQuizCommand.cs" />
+    <Compile Include="Quiz\SaveUserQuizCommand.cs" />
     <Compile Include="Quiz\UpdateAnswerCommand.cs" />
     <Compile Include="Quiz\UpdateQuestionCommand.cs" />
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
