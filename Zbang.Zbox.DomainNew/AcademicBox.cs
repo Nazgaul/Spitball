@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
             Picture = picture;
             this.UserTime.CreatedUser = creator.Email;
             var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
-            Questions.Add(new Question(creator, Zbang.Zbox.Domain.Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));
+            Questions.Add(new Comment(creator, Zbang.Zbox.Domain.Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));
             CommentCount = 1;
         }
 

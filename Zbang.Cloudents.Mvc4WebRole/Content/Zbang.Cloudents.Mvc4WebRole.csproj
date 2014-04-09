@@ -758,7 +758,6 @@
     <Content Include="Content\WelcomeRtl.min.css">
       <DependentUpon>WelcomeRtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Zbang.Cloudents.Mvc4WebRole.csproj" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\404.png" />

@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class Quiz
     {
-        public const string Quiz = @"select q.name, q.id, q.UserId as ownerid,
+        public const string Quiz2 = @"select q.name, q.id, q.UserId as ownerid,
 (select u.UserName from zbox.Users u where u.userid = q.UserId) as Owner,
 q.CreationTime as date,
 q.NumberOfViews,

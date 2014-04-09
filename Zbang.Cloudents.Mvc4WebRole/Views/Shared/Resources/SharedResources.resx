@@ -498,11 +498,13 @@ To help you get started tell us where you study</value>
   </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
+    </data>
   <data name="Answer" xml:space="preserve">
     <value>Answer</value>
   </data>
   <data name="Question" xml:space="preserve">
     <value>Question</value>
+    </data>
   <data name="Post" xml:space="preserve">
     <value>Post</value>
   </data>

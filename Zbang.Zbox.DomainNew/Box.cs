@@ -31,10 +31,6 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(user.Email);
             Owner = user;
             UserBoxRel.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
-
-           
-            Questions.Add(new Comment(user, "Created this course", this, idGenerator.GetId(), null));
-
             this.CalculateMembers();
         }
 
@@ -147,7 +143,7 @@ namespace Zbang.Zbox.Domain
             if (Questions.Count() == 0)
             {
                 var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
-                Questions.Add(new Question(this.Owner, "Created this course", this, idGenerator.GetId(), null));
+                Questions.Add(new Comment(this.Owner, "Created this course", this, idGenerator.GetId(), null));
                 UpdateQnACount(1);
             }
         }
