@@ -162,7 +162,7 @@
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
             <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
-            <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
+            <span class="tag" data-quiz-draft="@SharedResources.Draft" data-bind="visible: isNew">@SharedResources.New</span>
         </a>
         @if (User.Identity.IsAuthenticated)
         {
