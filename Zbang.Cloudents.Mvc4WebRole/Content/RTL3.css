@@ -748,6 +748,13 @@
   text-align: right;
   /*rtl*/
 }
+.listItem.draft .tag {
+  right: 15px;
+  /*rtl*/
+  left: auto;
+  padding: 0 22px 0 0;
+  /*rtl*/
+}
 .listItem .actionBtns {
   left: 0;
   /*rtl*/
@@ -760,6 +767,11 @@
 }
 .listItem .views {
   margin: 0 20px 0 0;
+}
+.listItem .tag {
+  left: 10px;
+  /*rtl*/
+  right: auto;
 }
 .boxItem {
   float: right;

@@ -969,7 +969,9 @@
   position: relative;
   top: 0;
   left: 15px;
+  /*rtl*/
   padding-left: 22px;
+  /*rtl*/
 }
 .listItem.draft .tag:before {
   content: '';
@@ -1029,6 +1031,7 @@
   position: absolute;
   top: 15px;
   right: 10px;
+  /*rtl*/
 }
 .boxItem {
   float: left;
