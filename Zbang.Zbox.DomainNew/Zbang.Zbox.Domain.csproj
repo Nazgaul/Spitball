@@ -95,6 +95,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuestionResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="SolvedQuestion.cs" />
+    <Compile Include="SolvedQuiz.cs" />
     <Compile Include="University.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="User.cs" />

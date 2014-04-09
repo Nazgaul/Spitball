@@ -98,6 +98,7 @@ namespace Zbang.Zbox.Domain.Common
         void DeleteAnswer(DeleteAnswerCommand command);
         void UpdateAnswer(UpdateAnswerCommand command);
         void SaveQuiz(SaveQuizCommand command);
+        void SaveUserAnswers(SaveUserQuizCommand command);
         #endregion
 
     }
