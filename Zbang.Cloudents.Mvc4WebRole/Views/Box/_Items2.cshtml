@@ -18,7 +18,7 @@
         </div>
         <!--/ko-->
         <button type="button" data-click="addItem" class="iconTxt btn1 lFloat" data-bind="visible: !manageTab() && !emptyState()">@DialogResources.UploadFiles</button>
-        <button type="button" class="iconTxt btn1 lFloat quizBtn" id="addQuiz">Create a quiz</button>
+        <button type="button" class="iconTxt btn1 lFloat quizBtn" id="addQuiz" data-bind="visible: !manageTab()">Create a quiz</button>
 
         <!--ko ifnot:emptyState-->
         <button id="listViewBtn" type="button" class="listViewBtn rFloat boxItemsViewToggle" data-template="BoxItemsListViewTempalte"></button>
@@ -119,12 +119,16 @@
 </script>
 
 <script type="text/html" id="QuizItemsThumbViewTemplate">
-    <li class="boxItem quizItem" data-bind="attr: { id: uid }, css : { draft : publish }">
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: quizUrl }">
-            
+    <li class="boxItem quizItem" data-bind="attr: { id: uid }, css : { draft : !publish }">
+        <a class="boxLink" data-navigation="quiz" data-click="quizSlct" data-bind="attr: { href: itemUrl }">
+
             <div class="boxName" data-bind="text: name"></div>
+            <!--ko if:publish-->
             <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
-            <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:" data-bind="text : ownerName"></div>
+            <!--/ko-->
+            <!--ko ifnot:publish-->
+            <span class="tag">@SharedResources.Draft</span>
+            <!--/ko-->            <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:" data-bind="text : ownerName"></div>
             <div class="stars">
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
@@ -150,8 +154,8 @@
 
 
 <script type="text/html" id="QuizItemsListViewTempalte">
-    <li class="listItem quizItem" data-bind="attr: { id: uid }">
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+    <li class="listItem quizItem" data-bind="attr: { id: uid }, css : { draft : !publish }">        
+        <a class="boxLink" data-navigation="quiz" data-click="quizSlct" data-bind="attr: { href: itemUrl }">
             <div class="imgBorder"></div>
             <div class="boxName semiFont elps" data-bind="text: name"></div>
 
@@ -161,7 +165,12 @@
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
             <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
-            <span class="tag" data-quiz-draft="@SharedResources.Draft" data-bind="visible: isNew">@SharedResources.New</span>
+            <!--ko if:publish-->
+            <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
+            <!--/ko-->
+            <!--ko ifnot:publish-->
+            <span class="tag">@SharedResources.Draft</span>
+            <!--/ko-->
         </a>
         @if (User.Identity.IsAuthenticated)
         {
@@ -170,7 +179,6 @@
                 @*<!--ko if:deleteAllow-->*@
                 <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
                 @*<!--/ko-->*@
-                <input type="hidden" data-bind="value: linkUrl" />
             </div>
         }
     </li>

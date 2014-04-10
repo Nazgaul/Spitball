@@ -378,7 +378,7 @@
                 return;
             }
 
-            if (update.itemId) {
+            if (update.itemId || update.quizId) {
                 update.id = parseInt(update.id, 10);
             }
             updateIndex = updates[userId][update.boxId][update.type].indexOf(update.id);
@@ -453,6 +453,7 @@
             if (!updates[cd.userDetail().nId][update.boxId]) {
                 updates[userId][update.boxId] = {};
                 updates[userId][update.boxId].items = [];
+                updates[userId][update.boxId].quizzes = [];
                 updates[userId][update.boxId].questions = [];
                 updates[userId][update.boxId].answers = [];
                 updates[userId][update.boxId].annotations = {};
@@ -470,6 +471,10 @@
                 }
                 if (updates[userId][update.boxId].annotations[update.itemId].indexOf(update.annotationId) === -1) {
                     updates[userId][update.boxId].annotations[update.itemId].push(update.annotationId);
+                }
+            } else if (update.quizId) {
+                if (updates[userId][update.boxId].quizzes.indexOf(update.quizId) === -1) {
+                    updates[userId][update.boxId].quizzes.push(parseInt(update.quizId, 10));
                 }
             } else if (update.questionId) {
                 if (updates[userId][update.boxId].questions.indexOf(update.questionId) === -1) {

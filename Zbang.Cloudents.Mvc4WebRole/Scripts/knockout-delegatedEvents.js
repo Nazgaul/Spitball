@@ -74,6 +74,7 @@
                     if (result !== true) {
                         if (event.preventDefault) {
                             event.preventDefault();
+                            event.stopPropagation();
                         }
                         else {
                             event.returnValue = false;

@@ -1134,7 +1134,7 @@
   /*rtl*/
   bottom: 4px;
 }
-.boxItem .draft .tag {
+.boxItem.draft .tag {
   width: 21px;
   height: 16px;
   background: url(/Images/box16-sprite.png) -105px -165px no-repeat;
@@ -1145,8 +1145,8 @@
   margin-left: 15px;
   /*rtl*/
 }
-.boxItem .draft .tag:before,
-.boxItem .draft .tag:after {
+.boxItem.draft .tag:before,
+.boxItem.draft .tag:after {
   display: none;
 }
 .quizOwner:before {

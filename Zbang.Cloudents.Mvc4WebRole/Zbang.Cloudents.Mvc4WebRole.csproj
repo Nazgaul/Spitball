@@ -568,7 +568,7 @@
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
     <Content Include="Content\Box3.min.css">
-      <DependentUpon>Box3.less</DependentUpon>
+      <DependentUpon>Box3.css</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
@@ -1023,7 +1023,9 @@
     <Content Include="Scripts\knockout-3.0.0.debug.js" />
     <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\knockout-delegatedEvents.js" />
-    <Content Include="Scripts\knockout-delegatedEvents.min.js" />
+    <Content Include="Scripts\knockout-delegatedEvents.min.js">
+      <DependentUpon>knockout-delegatedEvents.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\MutationObserver.js" />
     <Content Include="Scripts\plupload\plupload.browserplus.js" />

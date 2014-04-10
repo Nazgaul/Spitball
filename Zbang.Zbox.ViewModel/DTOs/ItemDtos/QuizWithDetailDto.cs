@@ -35,7 +35,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         }
         public Guid Id { get; set; }
         public string Text { get; set; }
-        public Guid CorrectAnswer { get; set; }
+        public Guid? CorrectAnswer { get; set; }
 
         public List<AnswerWithDetailDto> Answers { get; set; }
     }

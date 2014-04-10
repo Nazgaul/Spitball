@@ -33,7 +33,7 @@
             <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
             <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
             <ul class="quizAnswersList">
-                <li class="quizAnswer">
+                @*<li class="quizAnswer">
                     <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 1"></textarea>
                     <input id="quizRadio{{index}}1" type="radio" class="correctAnswer" name="quizRadio" />
                     <label for="quizRadio{{index}}1"></label>
@@ -42,7 +42,7 @@
                     <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 2"></textarea>
                     <input id="quizRadio{{index}}2" type="radio" class="correctAnswer" name="quizRadio" />
                     <label for="quizRadio{{index}}2"></label>
-                </li>
+                </li>*@
                 <li class="quizAnswer disabled">
                     <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly"></textarea>
                     <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
@@ -56,7 +56,7 @@
 <script type="text/html" id="quizAnswerTemplate">
     <li class="quizAnswer">
         <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{index}}"></textarea>
-        <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+        <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" name="quizRadio" />
         <label for="quizRadio{{topIndex}}{{index}}"></label>
     </li>
 </script>

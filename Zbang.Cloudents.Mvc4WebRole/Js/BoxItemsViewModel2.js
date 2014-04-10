@@ -11,68 +11,23 @@
         ko.applyBindings(new BoxItemViewModel(), $('#box_items')[0]);
     }
 
+
     function BoxItemViewModel() {
-        function Quiz(data) {
-            var that = this;
-
-            data = data || {};
-            that.uid = data.id;
-            that.name = data.name || "Draft";
-
-            that.ownerName = data.owner;
-            that.ownerUrl = data.userUrl;
-            that.ownerUrl = data.userUrl;
-
-            that.numOfViews = data.numOfViews || 0;            
-            that.commentsCount = data.commentsCount || 0;
-
-            that.rate = 69 / 5 * data.rate;
-
-            that.publish = data.publish;
-            that.date = data.date;
-            that.quizUrl = data.url || '';
-            that.sponsored = false;
-            that.thumbnailUrl = '';
-            that.isNew = data.isNew;
-            that.download = '';
-            that.deleteAllow = ko.computed(function () {
-                return (self.permission() === 'subscribe' || self.permission() === 'owner') && (self.permission() === 'owner' ||
-                     that.userid === cd.userDetail().nId);
-            });
-            that.linkUrl = '';
-            that.type = data.type;
-            that.noPreview = ' noPreview';
-        }
-        function Item(data) {            
+        function BaseItem(data) {
             data = data || {};
             var that = this;
-            that.name = data.name;
+            that.name = data.name || '';
             that.uid = data.id;
-            //that.uploader = data.Owner;
-            that.userid = data.ownerId;
             that.type = data.type;
             that.numOfViews = data.numOfViews || 0;
-            that.numOfDownloads = data.numOfDownloads || 0;
-            that.commentsCount = data.commentsCount || 0;            
+            that.commentsCount = data.commentsCount || 0;
+            that.ownerId = data.ownerId;
             that.ownerName = data.owner;
             that.ownerUrl = data.userUrl;
             that.rate = 69 / 5 * data.rate;
             that.date = data.date;
-            that.isNew = ko.observable(data.isNew || false);
-            that.thumbnailUrl = data.thumbnail;
-            that.linkUrl = data.linkUrl || '';
-            that.download = data.downloadUrl;
-            that.extension = cd.getExtension(data.name, data.type);
-            that.extensionColor = cd.getExtensionColor(data.name, data.type);
+            that.isNew = ko.observable(data.isNew || false);          
             that.tabId = ko.observable(data.tabId);
-
-            if (data.description) {
-                that.description = data.description;
-                that.noPreview = '';
-            } else {
-                that.noPreview = ' noPreview';//space is needed
-                that.description = '';
-            }
 
             that.isCheck = ko.computed({
                 read: function () {
@@ -94,11 +49,36 @@
                          that.userid === cd.userDetail().nId);
                 });
             that.itemUrl = data.url;// + '?r=box';
+        }
+        function Quiz(data) {
+            var that = this;
+            BaseItem.call(that, data);                    
+            that.publish = data.publish;
+            that.noPreview = ' noPreview';
+            that.description = data.content || '';            
+        }
+        function Item(data) {
+            var that = this;
+            BaseItem.call(that, data);
+            that.thumbnailUrl = data.thumbnail;
+            that.numOfDownloads = data.numOfDownloads || 0;
+            that.download = data.downloadUrl;
+            that.extension = cd.getExtension(data.name, data.type);
+            that.extensionColor = cd.getExtensionColor(data.name, data.type);
             that.sponsored = data.sponsored || false;
+            that.linkUrl = data.linkUrl || '';
+
             if (data.sponsored) {
                 document.getElementById('BoxItemList').classList.add('sponsored');
             }
- 
+
+            if (data.description) {
+                that.description = data.description;
+                that.noPreview = '';
+            } else {
+                that.noPreview = ' noPreview';//space is needed
+                that.description = '';
+            }
         }
 
         var self = this, boxid, current = 0, //countOfItems = 0,
@@ -192,11 +172,12 @@
         function generateModel(data) {
             var mapped = [];
             for (var i = 0, l = data.length; i < l; i++) {
-                if (data[i].type === 'Quiz') {
+                if (data[i].type.toLowerCase() === 'quiz') {
                     mapped.push(new Quiz(data[i]));
                     continue;
                 }
                 mapped.push(new Item(data[i]));
+                
             }
             mapped.sort(sort);
             var tt = new TrackTiming('Box Items', 'Render time of items');
@@ -235,8 +216,16 @@
 
 
         cd.pubsub.subscribe('addItem', function (d) {
-            try {
-                var newItem = new Item(d);
+            try
+            {
+                var newItem;
+
+                if (d.type.toLowerCase() === 'quiz') {
+                    newItem = new Quiz(d);
+                } else {
+                    newItem = new Item(d);
+                }
+
                 var x = ko.utils.arrayFirst(self.items(), function (i) {
                     return i.uid === newItem.uid;
                 });
@@ -356,6 +345,23 @@
         };
         //#endregion
         //if user in manage mode the click on item trigger the checkbox and not go to item view
+        self.quizSlct = function (quiz) {
+            if (self.manageTab()) {
+                quiz.isCheck(!quiz.isCheck());
+                return false;
+            }
+
+            if (!quiz.publish) {
+                cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3), quizId: quiz.uid });
+                return false;
+            }
+            
+            if (quiz.isNew()) {
+                quiz.isNew(false);
+                cd.newUpdates.deleteUpdate({ type: 'quizzes', boxId: boxid, id: quiz.uid });
+            }
+        }
+
         self.itmSlct = function (item) {
             if (self.manageTab()) {
                 item.isCheck(!item.isCheck());

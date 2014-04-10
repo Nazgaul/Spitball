@@ -105,8 +105,8 @@
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
+        e.preventDefault();  
 
-        e.preventDefault();
         if (e.ctrlKey) {
             window.open(this.href, '_blank');
             return;

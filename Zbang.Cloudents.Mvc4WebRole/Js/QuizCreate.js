@@ -12,7 +12,9 @@
         assignDomElements();
 
     function assignDomElements() {
-        quizSideBar = eById('quizSideBar');
+        quizSideBar = eById('quizSideBar'),
+        mainDiv = eById('main');
+
 
         if (!quizSideBar) {
             return;
@@ -23,7 +25,6 @@
         quizQuestionList = eById('quizQuestionList'),
         quizAddQuestion = eById('quizAddQuestion'),
         quizPreview = eById('quizPreview'),
-        mainDiv = eById('main'),
         addQuiz = eById('addQuiz'),
         saveBtn = eById('saveQuiz');
     }
@@ -31,7 +32,8 @@
     var consts = {
         initQuestionsLength: 3,
         emptyQuestion: 3,
-        validQuestion: 0
+        validQuestion: 0,
+        minAnswers : 2
     }
 
     var quizId, boxId, boxName;
@@ -55,30 +57,47 @@
         that.text = data.text || '';
     }
     pubsub.subscribe('initQuiz', function (data) {
+        
         boxId = data.boxId;
         boxName = data.boxName;
-
-        initQuiz();
+        initQuiz(data.quizId);
     
 
     });
 
-    function initQuiz() {
+    function initQuiz(quizId) {
         if (!quizSideBar) {
 
             dataContext.quizHTML({
                 success: function (data) {
-                    document.body.insertAdjacentHTML('beforeend', data);
+                    mainDiv.insertAdjacentHTML('beforeend', data);
                     assignDomElements();
 
                     boxNameText.textContent = boxName;
 
-                    for (var i = 0; i < consts.initQuestionsLength; i++) {
-                        appendQuestion();
+                    if (!quizId) {
+                        for (var i = 0; i < consts.initQuestionsLength; i++) {
+                            appendQuestion();
+                        }
+                    } else {//edit draft                        
+                        dataContext.quizData({
+                            data: { quizId: quizId },
+                            success: function (data) {
+                                data = data || {};
+                                populateQuiz(data);
+                                showQuiz();
+                                registerEvents();
+                            }
+                        });
+                        return;
                     }
+
 
                     showQuiz();
                     registerEvents();
+
+
+
                 }
             });
         }
@@ -88,7 +107,7 @@
 
     function showQuiz() {        
         //show the quiz div
-        mainDiv.classList.remove('noQuiz');
+        setTimeout(function () { mainDiv.classList.remove('noQuiz'); }, 0);
         quizName.focus();
     }
 
@@ -120,6 +139,7 @@
 
         return true;
     }
+
     function validateQuestion(question, noChangeErrorState) {
         var $question = $(question), error = false;
         
@@ -163,9 +183,17 @@
 
             error = true;
             errorClass += 'answerReq';
+
+
             count++;
 
-            if (count === consts.emptyQuestion && $question.index() > 0) {
+
+            if (count === consts.emptyQuestion && validAnswers.length === 1) {
+                count--;
+             
+            }
+
+            if (count === consts.emptyQuestion  && $question.index() > 0) {
                 answers.removeClass('emptyText');
             }
         }
@@ -179,6 +207,16 @@
 
 
         return count;
+    }
+    
+    function populateQuiz(data) {
+        quizSideBar.setAttribute('data-id', data.id);
+        quizId = data.id;
+        quizName.value = data.name || '';
+
+        for (var i = 0, l = data.questions.length; i < l; i++) {
+            appendQuestion(null,data.questions[i]);
+        }
     }
 
     function parseQuiz() {        
@@ -288,9 +326,9 @@
 
         $(saveBtn).click(publishQuiz);
 
-        $(window).on('beforeunload', function () {
-            return 'Quiz changes might be lost';
-        });
+        //$(window).on('beforeunload', function () {
+        //    return 'Quiz changes might be lost';
+        //});
 
 
         //$(saveQuiz).click(saveQuiz);          
@@ -338,7 +376,7 @@
 
             },
             always: function () {
-                saveBtn. abled = false;
+                saveBtn.disabled = false;
             }
         });
     }
@@ -399,10 +437,41 @@
     //#endregion Quiz
 
     //#region Question
-    function appendQuestion() {
+    function appendQuestion(e,question) {
         var indexObj = { index: quizQuestionList.children.length + 1 },
         html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
         quizQuestionList.insertAdjacentHTML('beforeend', html);
+
+
+        var answersList = quizQuestionList.lastElementChild.getElementsByClassName('quizAnswersList')[0];
+
+        if (!question) {
+            for (var i = 0; i < consts.minAnswers; i++) {
+                var aIndexObj = { index: (i+1), topIndex: indexObj.index },
+                html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
+                answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
+            }
+            
+            return;
+        }
+
+        quizQuestionList.lastElementChild.setAttribute('data-id', question.id);
+        $(quizQuestionList.lastElementChild).find('.questionText')[0].value = question.text;
+       
+        for (var i = 0, l = question.answers.length; i < l; i++) {
+            var aIndexObj = { index: (i + 1), topIndex: indexObj.index },
+            html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
+            answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
+
+
+            
+            answersList.lastElementChild.previousElementSibling.setAttribute('data-id', question.answers[i].id);
+            answersList.lastElementChild.previousElementSibling.firstElementChild.value = question.answers[i].text;
+        }
+
+        if (question.correctAnswer) {
+            $(answersList).find('[data-id="' + question.correctAnswer + '"]').find('.correctAnswer')[0].checked = true;            
+        }
     }
     function saveQuestion(question, callback) {
         var questionHolder = $(question).parents('.questionHolder')[0],
@@ -532,6 +601,8 @@
             html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
 
         answer.insertAdjacentHTML('beforebegin', html);
+
+        answersList.lastElementChild.previousElementSibling.querySelector('input').disabled = true;
 
         $(answerInput.parentElement.previousElementSibling.firstElementChild).focus();
     }
