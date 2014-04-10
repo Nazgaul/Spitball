@@ -14,6 +14,7 @@
             <div class="itemOwner elps">
                 <span class="calloutTrgr" data-uid="@Model.OwnerId">@Model.Owner</span>
             </div>
+            @Html.Raw(ViewBag.userD)
             <span class="lFloat" data-bind="text: update">@Model.Date.ToString("d/M/yy")</span>
             <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>
             <div class="actions">
