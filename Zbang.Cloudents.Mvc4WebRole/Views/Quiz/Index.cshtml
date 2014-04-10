@@ -115,7 +115,7 @@
                             {
                                 //add correct class if it is the correct answer
                                 //add wrong if user chose this as the answer incorrectly
-                                <li class="correct">
+                                <li class="@(answer.Id==item.CorrectAnswer?"corrent":string.Empty) ">
                                 <input id="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)" type="radio" class="correctAnswer" name="@string.Format("quizTestRadio", questionIndex)" />
                                 <label for="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)">@answer.Text</label>
                             </li>

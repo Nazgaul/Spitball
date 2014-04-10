@@ -45,6 +45,10 @@ namespace Zbang.Zbox.Infrastructure.Security
         public string gender { get; set; }
         public bool GetGender()
         {
+            if (string.IsNullOrEmpty(gender))
+            {
+                return true;
+            }
             return gender.ToLower() == "male";
         }
 
