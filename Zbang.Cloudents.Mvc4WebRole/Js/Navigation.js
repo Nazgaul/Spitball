@@ -528,6 +528,9 @@
     pubsub.subscribe('search_load', function () {
         showPage($('#search'));
     });
+    pubsub.subscribe('quiz_load', function () {
+        showPage($('#quiz'));
+    });
 
     function showPage(d) {
 

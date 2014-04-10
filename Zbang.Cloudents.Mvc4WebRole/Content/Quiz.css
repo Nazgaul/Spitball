@@ -343,17 +343,25 @@
 }
 /*#endregion */
 /*#region Quiz item page */
-.quizPage.page {
-  display: block;
+.quizPage .sectionHeader {
+  color: transparent;
 }
 .quizPage .leftPanel {
   position: fixed;
   left: 0;
+  /*rtl*/
   top: 50px;
   height: 100%;
 }
+.quizPage .itemTop {
+  background: #fff;
+}
+.quizPage .itemPrint.iconTop {
+  margin-top: 11px;
+}
 .quizPage .itemRight {
   text-align: left;
+  /*rtl*/
 }
 .quizPage .quizAList li:before {
   content: '';
@@ -368,6 +376,7 @@
 }
 .quizPage .quizAList .correct:before,
 .quizPage .quizAList .wrong:before {
+  display: none;
   width: 17px;
   height: 16px;
   background-color: none;
@@ -391,12 +400,34 @@
   padding: 5px 20px;
   margin: 20px 0;
 }
+.quizPage.checkQuiz .userScore,
+.quizPage.checkQuiz .resultsWpr,
+.quizPage.checkQuiz .timeWpr {
+  margin-top: 0;
+  opacity: 1;
+}
+.quizPage.checkQuiz .userCorrect:before,
+.quizPage.checkQuiz .userWrong:before,
+.quizPage.checkQuiz .correct:before,
+.quizPage.checkQuiz .wrong:before {
+  display: inline-block;
+}
+.quizPage.checkQuiz .sectionHeader {
+  color: #383838;
+}
+.quizPage.checkQuiz .quizPrevWpr .btn1 {
+  display: none;
+}
+.quizPage.checkQuiz .timeWpr0 {
+  margin-top: -95px;
+}
 .userCorrect:before,
 .userWrong:before {
   content: '';
-  display: inline-block;
+  display: none;
   position: absolute;
   left: -45px;
+  /*rtl*/
   width: 3px;
   height: -webkit-calc(100% - 40px);
   height: calc(100% - 40px);
@@ -405,16 +436,38 @@
 .userWrong:before {
   background: #d1294d;
 }
+.timeWpr0 {
+  position: relative;
+  z-index: -1;
+  height: 95px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 26px 10px;
+  border-bottom: 1px solid #c2c2c2;
+  -webkit-transition: margin 0.5s ease-in;
+  -moz-transition: margin 0.5s ease-in;
+  -o-transition: margin 0.5s ease-in;
+  transition: margin 0.5s ease-in;
+}
+.timeWpr0 .quizTime {
+  margin: 0;
+}
+.timeWpr0 .quizTime:before {
+  content: attr(data-timer-label);
+  display: block;
+  font-size: 13px;
+  text-transform: lowercase;
+  position: absolute;
+  top: -12px;
+}
+.timeWpr0 .btn1 {
+  margin: 11px 0;
+}
 .userResults {
   text-align: center;
   margin: 7px;
   overflow: hidden;
-}
-.userResults.show .userScore,
-.userResults.show .resultsWpr,
-.userResults.show .timeWpr {
-  margin-top: 0;
-  opacity: 1;
 }
 .userScore {
   background: #f5f5f5;
@@ -426,10 +479,10 @@
   margin-top: -90px;
   opacity: 0;
   z-index: 2;
-  -webkit-transition: all 0.8s ease-in;
-  -moz-transition: all 0.8s ease-in;
-  -o-transition: all 0.8s ease-in;
-  transition: all 0.8s ease-in;
+  -webkit-transition: all 0.8s ease-in 1s;
+  -moz-transition: all 0.8s ease-in 1s;
+  -o-transition: all 0.8s ease-in 1s;
+  transition: all 0.8s ease-in 1s;
 }
 .userScore:after {
   content: attr(data-user-score);
@@ -442,10 +495,10 @@
   margin-top: -100px;
   opacity: 0;
   background: #fff;
-  -webkit-transition: all 0.8s ease-in 0.8s;
-  -moz-transition: all 0.8s ease-in 0.8s;
-  -o-transition: all 0.8s ease-in 0.8s;
-  transition: all 0.8s ease-in 0.8s;
+  -webkit-transition: all 0.8s ease-in 1.8s;
+  -moz-transition: all 0.8s ease-in 1.8s;
+  -o-transition: all 0.8s ease-in 1.8s;
+  transition: all 0.8s ease-in 1.8s;
   z-index: 1;
 }
 .results {
@@ -462,6 +515,7 @@
   display: inline-block;
   position: absolute;
   left: 0;
+  /*rtl*/
   width: 1px;
   height: 55px;
   background: #c2c2c2;
@@ -481,23 +535,15 @@
   margin-top: -122px;
   opacity: 0;
   background: #fff;
-  -webkit-transition: all 0.8s ease-in 1.6s;
-  -moz-transition: all 0.8s ease-in 1.6s;
-  -o-transition: all 0.8s ease-in 1.6s;
-  transition: all 0.8s ease-in 1.6s;
+  -webkit-transition: all 0.8s ease-in 2.6s;
+  -moz-transition: all 0.8s ease-in 2.6s;
+  -o-transition: all 0.8s ease-in 2.6s;
+  transition: all 0.8s ease-in 2.6s;
 }
 .quizTime {
   width: 156px;
   position: relative;
   font-size: 38px;
   margin: 0 auto;
-}
-.quizTime:after {
-  content: attr(data-time-unit);
-  position: absolute;
-  right: -26px;
-  bottom: 7px;
-  display: inline-block;
-  font-size: 13px;
 }
 /*#endregion */

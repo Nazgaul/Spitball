@@ -2540,4 +2540,30 @@
   /*rtl*/
 }
 /*#endregion */
+/*#region Quiz item page */
+.quizPage .leftPanel {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.quizPage .itemRight {
+  text-align: right;
+  /*rtl*/
+}
+.quizPage .quizAList li:before {
+  margin: -2px 0 0 4px;
+  /*rtl*/
+}
+.userCorrect:before,
+.userWrong:before {
+  right: -45px;
+  /*rtl*/
+  left: auto;
+}
+.results.wrong:before {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */
 /*#endregion */

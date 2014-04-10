@@ -167,7 +167,7 @@
 
 
     definition.quizCreate = new definitionobj({ url: '/Quiz/Create' });
-    definition.quizData = new definitionobj({url: '/Quiz/Data',type:get });
+    definition.quizData = new definitionobj({ url: '/Quiz/GetDraft', type: get });
     definition.quizHTML = new definitionobj({ url: '/Quiz/CreateQuiz', type:get});
     definition.quizUpdate = new definitionobj({ url: '/Quiz/Update' });
     definition.quizDelete = new definitionobj({ url: '/Quiz/Delete' });

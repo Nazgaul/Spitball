@@ -2108,6 +2108,38 @@
 }
 /*#endregion */
 
+/*#region Quiz item page */
+.quizPage{
+    .leftPanel {
+        right:0; /*rtl*/
+        left: auto;
+    }
+    .itemRight
+    {
+        text-align: right; /*rtl*/
+    }
+    .quizAList {
+        li:before {
+            margin: -2px 0 0 4px; /*rtl*/
+        }
+    } 
+}
+.userCorrect, .userWrong {
+     &:before {
+        right: -45px; /*rtl*/
+        left: auto;
+    }
+}
 
+.results
+{
+    &.wrong {
+        &:before {
+            right:0; /*rtl*/
+            left: auto;
+        }
+    }
+}
+/*#endregion */
 
 /*#endregion */

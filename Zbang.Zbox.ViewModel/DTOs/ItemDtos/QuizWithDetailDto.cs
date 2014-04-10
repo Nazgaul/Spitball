@@ -21,6 +21,10 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public int NumberOfViews { get; set; }
         public float Rate { get; set; }
 
+        public long BoxId { get; set; }
+
+        public bool Publish { get; set; }
+
 
         public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
         

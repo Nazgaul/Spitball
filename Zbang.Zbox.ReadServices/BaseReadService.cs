@@ -130,23 +130,28 @@ namespace Zbang.Zbox.ReadServices
             {
                 throw new BoxDoesntExistException();
             }
-            if (userType.Value == UserRelationshipType.Owner)
+            return GetUserStatusToBox(box.Value.Value, userType.Value);
+        }
+        protected UserRelationshipType GetUserStatusToBox(BoxPrivacySettings privacySettings, UserRelationshipType userRelationShipType)
+        {
+            const string key = "AllowedToSee";
+            if (userRelationShipType == UserRelationshipType.Owner)
             {
-                m_ContextCacheWrapper.AddObject(key, userType.Value);
-                return userType.Value;
+                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                return userRelationShipType;
             }
-            if (box.Value == BoxPrivacySettings.AnyoneWithUrl)
+            if (privacySettings == BoxPrivacySettings.AnyoneWithUrl)
             {
-                m_ContextCacheWrapper.AddObject(key, userType.Value);
-                return userType.Value;
+                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                return userRelationShipType;
             }
 
-            if (box.Value == BoxPrivacySettings.MembersOnly)
+            if (privacySettings == BoxPrivacySettings.MembersOnly)
             {
-                if (userType.Value == UserRelationshipType.Subscribe || userType.Value == UserRelationshipType.Invite)
+                if (userRelationShipType == UserRelationshipType.Subscribe || userRelationShipType == UserRelationshipType.Invite)
                 {
-                    m_ContextCacheWrapper.AddObject(key, userType.Value);
-                    return userType.Value;
+                    m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                    return userRelationShipType;
                 }
             }
 

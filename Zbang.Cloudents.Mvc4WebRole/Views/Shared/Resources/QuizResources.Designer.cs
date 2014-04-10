@@ -79,11 +79,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check answers.
+        /// </summary>
+        public static string CheckAnswers {
+            get {
+                return ResourceManager.GetString("CheckAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check your quiz.
         /// </summary>
         public static string CheckQuiz {
             get {
                 return ResourceManager.GetString("CheckQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can choose to save the quiz as a &apos;draft&apos; for future editing (only you can see and edit the draft).
+        /// </summary>
+        public static string ChooseDraft {
+            get {
+                return ResourceManager.GetString("ChooseDraft", resourceCulture);
             }
         }
         
@@ -124,6 +142,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete the quiz.
+        /// </summary>
+        public static string DeleteQuiz {
+            get {
+                return ResourceManager.GetString("DeleteQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to leave this quiz?.
+        /// </summary>
+        public static string LeaveQuiz {
+            get {
+                return ResourceManager.GetString("LeaveQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Min.
         /// </summary>
         public static string Min {
@@ -138,6 +174,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string MultipleChoice {
             get {
                 return ResourceManager.GetString("MultipleChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t finished your quiz yet..
+        /// </summary>
+        public static string NotFinished {
+            get {
+                return ResourceManager.GetString("NotFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause.
+        /// </summary>
+        public static string Pause {
+            get {
+                return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play.
+        /// </summary>
+        public static string Play {
+            get {
+                return ResourceManager.GetString("Play", resourceCulture);
             }
         }
         
@@ -160,6 +223,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish the quiz.
+        /// </summary>
+        public static string PublishQuiz {
+            get {
+                return ResourceManager.GetString("PublishQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quiz summary.
         /// </summary>
         public static string QuizSummary {
@@ -174,6 +246,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string RetakeQuiz {
             get {
                 return ResourceManager.GetString("RetakeQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save as draft.
+        /// </summary>
+        public static string SaveDraft {
+            get {
+                return ResourceManager.GetString("SaveDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timer.
+        /// </summary>
+        public static string Timer {
+            get {
+                return ResourceManager.GetString("Timer", resourceCulture);
             }
         }
         
