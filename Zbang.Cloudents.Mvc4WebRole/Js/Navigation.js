@@ -463,7 +463,7 @@
                     break;
                 case 'quiz':
                     dataContext.quizMp({
-                        data: { boxUid: getParameterFromUrl(2), quizId: getParameterFromUrl(4), uniName: getParameterFromUrl(1),boxName : getParamaterFromUrl(3) },
+                        data: { boxId: getParameterFromUrl(2), quizId: getParameterFromUrl(4), quizName: getParameterFromUrl(5), universityName: getParameterFromUrl(1), boxName: getParameterFromUrl(3) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('QuizContext', null, quizContext);

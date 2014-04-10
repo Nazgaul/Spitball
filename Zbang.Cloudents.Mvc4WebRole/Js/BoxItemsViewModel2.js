@@ -46,7 +46,7 @@
             that.deleteAllow = ko.computed(
                 function () {
                     return (self.permission() === 'subscribe' || self.permission() === 'owner') && (self.permission() === 'owner' ||
-                         that.userid === cd.userDetail().nId);
+                         that.ownerId === cd.userDetail().nId);
                 });
             that.itemUrl = data.url;// + '?r=box';
         }
@@ -260,10 +260,39 @@
         });
 
         //#region remove item
+            
+            
+
+        self.removeQuiz = function (quiz) {
+            if (quiz.ownerId !== cd.userDetail().nId) {
+                cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
+                return;
+            }
+            
+            var quizName = quiz.name || 'quiz draft';
+            cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + quizName + "?",
+                            function () {
+                                self.items.remove(quiz);
+                                //countOfItems--;
+                                dataContext.quizDelete({
+                                    data: { id: quiz.uid },
+                                    success: function () {
+                                        cd.pubsub.publish('removeItemNotification', { itemid: quiz.uid, boxid: boxid });
+                                    },
+                                    error: function () {
+                                        self.items.push(quiz);
+                                    }
+                                });
+
+                            }, null);
+
+        };
+        
+
         self.removeItem = function (item) {
-            if (!cd.deleteAllow(self.permission(), item.userid)) { //userid is an int we need a string
+            if (!cd.deleteAllow(self.permission(),item.ownerId)) { 
                 cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + item.type);
-                return false;
+                return;
             }
             cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + item.name + "?",
                 function () {
@@ -360,6 +389,8 @@
                 quiz.isNew(false);
                 cd.newUpdates.deleteUpdate({ type: 'quizzes', boxId: boxid, id: quiz.uid });
             }
+
+            return true;
         }
 
         self.itmSlct = function (item) {
@@ -373,6 +404,8 @@
                 item.isNew(false);
                 cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });                
             }
+
+            return true;
             
         };
 
@@ -395,8 +428,7 @@
                 return;
             }
             
-            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3) });
-            this.disabled = true;
+            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3) });            
         });
 
         $('#BoxItemList').hoverIntent({
@@ -404,7 +436,10 @@
                 if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
                     return;
                 }
-                var item = ko.dataFor(this),
+                var item = ko.dataFor(this),html;
+                if (item.type.toLowerCase() === 'quiz') {
+                    return;
+                }
                 html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
                 if (!this.querySelector('.boxItemTt')) {                    
                         this.insertAdjacentHTML('afterbegin', html);                    
