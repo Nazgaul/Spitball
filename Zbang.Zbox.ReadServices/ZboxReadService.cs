@@ -334,7 +334,7 @@ where m.RecepientId = @userid
                 var retVal = items.Union(quizes);
                 //var fcount = queryCountBoxItem.FutureValue<long>();
 
-                // CheckIfUserAllowedToSee(query.BoxId, query.UserId);
+                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
                 //var result = new PagedDto<Item.IItemDto> { Dto = retVal, Count = 0 /*fcount.Value*/ };
                 return retVal;
             }
@@ -837,19 +837,42 @@ where m.RecepientId = @userid
             var retVal = new Item.QuizWithDetailDto();
             using (var conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { QuizId= query.QuizId }))
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer, Sql.Security.GetBoxPrivacySettings, Sql.Security.GetUserToBoxRelationShip), new { QuizId = query.QuizId, BoxId = query.BoxId, UserId = query.UserId }))
                 {
                     retVal = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
-
 
                     var answers = grid.Read<Item.AnswerWithDetailDto>();
 
                     foreach (var question in retVal.Questions)
                     {
-                        question.Answers.AddRange(answers.Where(w=>w.QuestionId == question.Id));
+                        question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
 
+                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                    var userRelationShip = grid.Read<UserRelationshipType>().First();
+                    GetUserStatusToBox(privacySettings, userRelationShip);
+
+                }
+            }
+            return retVal;
+        }
+        public async Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
+        {
+            var retVal = new Item.QuizWithDetailDto();
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer ), new { QuizId = query.QuizId}))
+                {
+                    retVal = grid.Read<Item.QuizWithDetailDto>().First();
+                    retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
+
+                    var answers = grid.Read<Item.AnswerWithDetailDto>();
+
+                    foreach (var question in retVal.Questions)
+                    {
+                        question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
+                    }
                 }
             }
             return retVal;
