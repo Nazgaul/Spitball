@@ -31,9 +31,9 @@
         <div>
             <div>@QuizResources.NotFinished</div>
             <div>@QuizResources.ChooseDraft</div>
-            <button type="button" class="btn1">@QuizResources.PublishQuiz</button>
-            <button type="button" class="btn1">@QuizResources.SaveDraft</button>
-            <button type="button" class="btn2">@QuizResources.DeleteQuiz</button>
+            <button type="button" id="quizClosePublish" class="btn1">@QuizResources.PublishQuiz</button>
+            <button type="button" id="quizCloseDraft" class="btn1">@QuizResources.SaveDraft</button>
+            <button type="button" id="quizCloseDelete" class="btn2">@QuizResources.DeleteQuiz</button>
         </div>
     </div>
     <div class="modal2"></div>
@@ -48,17 +48,7 @@
             <div class="lFloat answers">@SharedResources.Answers:</div>
             <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
             <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
-            <ul class="quizAnswersList">
-                @*<li class="quizAnswer">
-                    <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 1"></textarea>
-                    <input id="quizRadio{{index}}1" type="radio" class="correctAnswer" name="quizRadio" />
-                    <label for="quizRadio{{index}}1"></label>
-                </li>
-                <li class="quizAnswer">
-                    <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer 2"></textarea>
-                    <input id="quizRadio{{index}}2" type="radio" class="correctAnswer" name="quizRadio" />
-                    <label for="quizRadio{{index}}2"></label>
-                </li>*@
+            <ul class="quizAnswersList">                
                 <li class="quizAnswer disabled">
                     <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly"></textarea>
                     <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />

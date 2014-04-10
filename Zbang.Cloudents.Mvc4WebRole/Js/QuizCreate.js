@@ -7,7 +7,8 @@
     var eById = document.getElementById.bind(document),
         quizSideBar, quizName, boxNameText, quizQuestionList,
         quizAddQuestion, quizPreview, mainDiv, closeQuiz,
-        addQuiz, saveBtn;
+        addQuiz, saveBtn, quitQuizDialog, quizClosePublish,
+        quizCloseDraft, quizCloseDelete;
 
     assignDomElements();
 
@@ -27,17 +28,23 @@
         quizAddQuestion = eById('quizAddQuestion'),
         quizPreview = eById('quizPreview'),
         addQuiz = eById('addQuiz'),
-        saveBtn = eById('saveQuiz');
+        saveBtn = eById('saveQuiz'),
+        quitQuizDialog = eById('quitQuizDialog'),
+        quizClosePublish = eById('quizClosePublish'),
+        quizCloseDraft = eById('quizCloseDraft'),
+        quizCloseDelete = eById('quizCloseDelete');
+
     }
 
     var consts = {
         initQuestionsLength: 3,
         emptyQuestion: 3,
         validQuestion: 0,
-        minAnswers: 2
+        minAnswers: 2,
+        keyTab: 9
     }
 
-    var quizId, boxId, boxName;
+    var quizId, boxId, boxName, firstTime = true;
 
     function Quiz(data) {
         var that = this;
@@ -326,6 +333,12 @@
     }
 
     function registerEvents() {
+        if (!firstTime) {
+            return;
+        }
+
+        firstTime = false;
+
         $(quizQuestionList).on('click', '.quizRemoveQuestion', removeQuestion)
                            .on('focusout', '.questionText', function () { saveQuestion(this); })
                             .on('keyup', '.questionText', checkQuestion)
@@ -336,7 +349,12 @@
 
         $(quizAddQuestion).click(appendQuestion);
 
-        $(quizName).focusout(saveQuiz);
+        $(quizName).focusout(saveQuiz).keyup(function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === consts.keyTab) {
+                saveQuiz();
+            }
+        });
 
         $(saveBtn).click(publishQuiz);
 
@@ -344,8 +362,8 @@
         //    return 'Quiz changes might be lost';
         //});
 
-        $(closeQuiz).click(clearQuiz);
-        //$(saveQuiz).click(saveQuiz);          
+        $(closeQuiz).click(showClosePopup);
+
         $(quizPreview).click(previewQuiz);
 
 
@@ -356,7 +374,7 @@
     function saveQuiz() {
         if (!quizId) {
             dataContext.quizCreate({
-                data: { boxId: boxId, text: quizName.value },
+                data: { boxId: boxId, name: quizName.value },
                 success: function (data) {
                     quizSideBar.setAttribute('data-id', data);
                     quizId = data;
@@ -366,7 +384,7 @@
         }
 
         dataContext.quizUpdate({
-            data: { id: quizId, text: quizName.value },
+            data: { id: quizId, name: quizName.value },
             error: function () { }
         });
     }
@@ -446,7 +464,15 @@
         });
     }
 
+    function deleteQuiz() {
+        
+        dataContext.quizDelete({
+            data: { id: quizId }
+        });
 
+        clearQuiz();
+
+    }
 
 
 
@@ -585,11 +611,13 @@
     //#region Answer
     function toggleAnswerRadioBtn(e) {
         var answersList = e.delegateTarget.querySelector('.quizAnswersList'),
-                quizAnswer = this.parentElement;
+            quizAnswer = this.parentElement,
+            keyCode = e.keyCode || e.which;
 
         if (!this.value.length) {
             removeAnswer(quizAnswer);
         }
+
 
         //if it's the first / second child element
         if (answersList.firstElementChild === quizAnswer || answersList.firstElementChild.nextElementSibling === quizAnswer) {
@@ -604,17 +632,19 @@
             radioBtn.checked = false;
 
         }
+
     }
 
     function addAnswer(e) {
         e.preventDefault();
-
-        var answerInput = this,
-            answersList = answerInput.parentElement.parentElement,
-            answersLength = answersList.children.length,
-            answer = answerInput.parentElement,
-            indexObj = { index: answersLength, topIndex: $(answersList.parentElement.parentElement).index() + 1 },
-            html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
+        appendAnswer(this);
+    }
+    function appendAnswer(answerInput) {
+        var answersList = answerInput.parentElement.parentElement,
+        answersLength = answersList.children.length,
+        answer = answerInput.parentElement,
+        indexObj = { index: answersLength, topIndex: $(answersList.parentElement.parentElement).index() + 1 },
+        html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
 
         answer.insertAdjacentHTML('beforebegin', html);
 
@@ -623,12 +653,14 @@
         $(answerInput.parentElement.previousElementSibling.firstElementChild).focus();
     }
 
-    function saveAnswer() {
+    function saveAnswer(e) {
         var answerInput, isCorrect, answerText,
             answer = this.parentElement,
             question = $(answer).parents('.questionHolder')[0],
             questionId = question.getAttribute('data-id'),
             answerId = answer.getAttribute('data-id');
+
+
 
         if (this.type === 'textarea') { //check if user focusout the answer or clicked the radio button
             answerInput = this;
@@ -637,6 +669,13 @@
             answerInput = this.previousElementSibling;
             isCorrect = this.checked;
         }
+
+        console.log(e.relatedTarget);
+        if (e.relatedTarget && e.relatedTarget.readOnly) {
+            appendAnswer(answer.nextElementSibling.firstElementChild);
+        }
+
+
         answerText = answerInput.value;
 
         if (!answerText) {
@@ -701,4 +740,25 @@
 
     }
     //#endregion Answer
+
+    //*#region close popup
+    function showClosePopup() {
+        $(quitQuizDialog).show();
+
+        $(quizClosePublish).one('click', function () {
+            $(quitQuizDialog).hide();
+            publishQuiz();
+        });
+        $(quizCloseDraft).one('click', function () {
+            $(quitQuizDialog).hide();
+            clearQuiz();
+        });
+        $(quizCloseDelete).one('click', function () {
+            $(quitQuizDialog).hide();
+            deleteQuiz();
+        });
+
+    }
+
+    //*endregion
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);

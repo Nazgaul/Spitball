@@ -859,11 +859,12 @@ where m.RecepientId = @userid
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
                     var userRelationShip = grid.Read<UserRelationshipType>().First();
                     GetUserStatusToBox(privacySettings, userRelationShip);
-
-                    retVal.Sheet = grid.Read<Item.SolveSheet>().First();
-                    retVal.Sheet.Questions = grid.Read<Item.SolveQuestion>();
-
-
+                    
+                    retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
+                    if (retVal.Sheet != null)
+                    {
+                        retVal.Sheet.Questions = grid.Read<Item.SolveQuestion>();
+                    }                    
                 }
             }
             return retVal;
