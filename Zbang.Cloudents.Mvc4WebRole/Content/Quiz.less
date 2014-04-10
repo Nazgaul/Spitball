@@ -388,54 +388,55 @@
         margin: 20px 0;
     }
 
-    &.checkQuiz {
-        .userScore, .resultsWpr, .timeWpr {
-            margin-top: 0;
-            opacity: 1;
-        }
+    
+}
+.checkQuiz {
+    .userScore, .resultsWpr, .timeWpr {
+        margin-top: 0;
+        opacity: 1;
+    }
 
-        .userCorrect, .userWrong {
-            &:before {
-                display: inline-block;
-            }
-        }
-
-        .correct label, .wrong label {
-            &:before {
-                .pseudo;
-                width: 17px;
-                height: 16px;
-                background-color: none;
-                background: @common-sprite -18px -121px no-repeat;
-            }
-        }
-        .wrong label:before {
-            background-position: -36px -121px;
-        }
-        .sectionHeader {
-            color: @textColor;
-        }
-
-        .quizPrevWpr .btn1 {
-            display: none;
-        }
-
-        .timeWpr0 {
-            margin-top: -95px;
-        }
-        .quizQList .noAnswer:after
-        {
-            content: attr(data-no-answer);
+    .userCorrect, .userWrong {
+        &:before {
             display: inline-block;
-            position: absolute;
-            top:21px;
-            right: -140px; /*rtl*/
-            color: @errorColor;
-            background: #f5f5f5;
-            padding: 3px;
-            border-radius: 8px;
-            font-size: 13px;
         }
+    }
+
+    .correct label, .wrong label {
+        &:before {
+            .pseudo;
+            width: 17px;
+            height: 16px;
+            background-color: none;
+            background: @common-sprite -18px -121px no-repeat;
+        }
+    }
+    .wrong label:before {
+        background-position: -36px -121px;
+    }
+    .sectionHeader {
+        color: @textColor;
+    }
+
+    .quizPrevWpr .btn1 {
+        display: none;
+    }
+
+    .timeWpr0 {
+        margin-top: -95px;
+    }
+    .quizQList .noAnswer:after
+    {
+        content: attr(data-no-answer);
+        display: inline-block;
+        position: absolute;
+        top:21px;
+        right: -140px; /*rtl*/
+        color: @errorColor;
+        background: #f5f5f5;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-size: 13px;
     }
 }
 
