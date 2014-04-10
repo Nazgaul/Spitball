@@ -14,7 +14,13 @@ namespace Zbang.Zbox.Domain
         }
         public SolvedQuestion(Guid id, User user, Question question,Answer answer, bool correct, SolvedQuiz solvedQuiz)
         {
-
+            Id = id;
+            User = user;
+            Question = question;
+            Answer = answer;
+            Quiz = Question.Quiz;
+            Correct = correct;
+            SolvedQuiz = solvedQuiz;
         }
         public Guid Id { get; set; }
         public User User { get; set; }

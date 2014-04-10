@@ -22,6 +22,8 @@ namespace Zbang.Zbox.Domain
             CreationTime = DateTime.UtcNow;
 
         }
+
+        
         public virtual Guid Id { get; set; }
         public virtual Quiz Quiz { get; set; }
         public virtual User User { get; set; }
@@ -29,6 +31,11 @@ namespace Zbang.Zbox.Domain
         public virtual int Score { get; set; }
         public virtual DateTime CreationTime { get; set; }
         public virtual ICollection<SolvedQuestion> SolvedQuestions { get; set; }
+
+        public virtual void AddSolvedQuestion(SolvedQuestion answer)
+        {
+            SolvedQuestions.Add(answer);
+        }
     }
 }
 

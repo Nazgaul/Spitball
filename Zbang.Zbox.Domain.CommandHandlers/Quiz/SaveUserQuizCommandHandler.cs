@@ -65,10 +65,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 var correct = userAnswer.AnswerId == question.RightAnswer.Id;
                 var answer = m_AnswerRepository.Load(userAnswer.AnswerId);
                 var solvedAnswer = new SolvedQuestion(m_IdGenerator.GetId(), user, question, answer, correct, solvedQuiz);
+                solvedQuiz.AddSolvedQuestion(solvedAnswer);
                 m_SolvedQuestionRepository.Save(solvedAnswer);
 
             }
-            solvedQuiz.Score = solvedQuiz.SolvedQuestions.Where(w => w.Correct).Count() / quiz.Questions.Count();
+            var score =  (decimal)solvedQuiz.SolvedQuestions.Where(w => w.Correct).Count() / quiz.Questions.Count();
+            solvedQuiz.Score = (int)Math.Round(score * 100);
             m_SolvedQuizRepository.Save(solvedQuiz);
         }
 

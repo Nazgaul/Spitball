@@ -179,6 +179,7 @@
     definition.quizACreate = new definitionobj({ url: '/Quiz/CreateAnswer' });
     definition.quizAUpdate = new definitionobj({ url: '/Quiz/UpdateAnswer' });
     definition.quizADelete = new definitionobj({ url: '/Quiz/DeleteAnswer' });
+    definition.quizSaveQuest = new definitionobj({ url: '/Quiz/SaveAnswers', isJson: true });
 
     //#endregion definition
     /**

@@ -46,16 +46,16 @@
             <div data-timer-label="@QuizResources.Timer" class="quizTime">00:12:45</div>
         </div>
         <div class="userResults">
-            <div class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+            <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
             <div class="resultsWpr">
                 <div>@QuizResources.YouGot:</div>
-                <div class="results" data-results="7">@QuizResources.Correct</div>
-                <div class="results wrong" data-results="3">@QuizResources.Wrong</div>
+                <div  id="quizUserRight" class="results" data-results="7">@QuizResources.Correct</div>
+                <div id="quizUserWrong"  class="results wrong" data-results="3">@QuizResources.Wrong</div>
             </div>
             <div class="timeWpr">
                 <div>@QuizResources.TimeWas:</div>
                 <div class="quizTime">00:12:45</div>
-                <button class="btn1">@QuizResources.RetakeQuiz</button>
+                <button id="quizRetake" class="btn1">@QuizResources.RetakeQuiz</button>
             </div>
         </div>
     </div>
@@ -106,7 +106,7 @@
                     //add userCorrect class if UserControl answered the question correctly
                     //add userWrong class if UserControl answered incorrectly OR no answer
                     //add noAnswer class in addition to userWrong if user gave no answer
-                    <li>
+                    <li data-id="@item.Id">
                         <div>@item.Text</div>
                         <ul class="quizAList">
                             @foreach (var answer in item.Answers)
@@ -114,7 +114,7 @@
                                 //add correct class if it is the correct answer
                                 //add wrong if user chose this as the answer incorrectly
                                 <li class="@(answer.Id==item.CorrectAnswer?"correct":string.Empty) ">
-                                <input id="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)" type="radio" name="@string.Format("quizTestRadio{0}", questionIndex)" />
+                                <input data-id="@answer.Id" id="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)" type="radio" name="@string.Format("quizTestRadio{0}", questionIndex)" />
                                 <label for="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)">@answer.Text</label>
                             </li>
                                 answerIndex++;
