@@ -438,6 +438,8 @@ input[type="radio"][disabled] + label {
   z-index: 10;
 }
 .loading {
+  display: none;
+  /*TEMPORARILY DISABLED!!!!!!!!!!*/
   width: 120px;
   height: 120px;
   margin: auto;
@@ -450,6 +452,8 @@ input[type="radio"][disabled] + label {
   background: url(/Images/loader.png) center center no-repeat;
 }
 .spinner {
+  display: none;
+  /*TEMPORARILY DISABLED!!!!!!!!!!*/
   border: 10px solid transparent;
   border-top: 10px solid rgba(15, 157, 88, 0.75);
   border-left: 10px solid rgba(15, 157, 88, 0.75);

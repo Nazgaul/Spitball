@@ -2541,6 +2541,13 @@
 }
 /*#endregion */
 /*#region Quiz item page */
+.quizPage {
+  /*.quizAList {
+        li:before {
+            margin: -2px 0 0 4px; 
+        }
+    }*/
+}
 .quizPage .leftPanel {
   right: 0;
   /*rtl*/
@@ -2548,10 +2555,6 @@
 }
 .quizPage .itemRight {
   text-align: right;
-  /*rtl*/
-}
-.quizPage .quizAList li:before {
-  margin: -2px 0 0 4px;
   /*rtl*/
 }
 .userCorrect:before,

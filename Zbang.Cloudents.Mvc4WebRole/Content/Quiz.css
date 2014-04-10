@@ -363,16 +363,16 @@
   text-align: left;
   /*rtl*/
 }
-.quizPage .quizAList li:before {
-  content: '';
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  background: url(/Images/radioBtn.png) -15px -1px no-repeat;
-  vertical-align: middle;
-  margin: -2px 4px 0 0;
-  /*rtl*/
-  float: none;
+.quizPage .quizAList {
+  /*li:before {
+            //.pseudo;
+            width: 13px;
+            height: 13px;
+            background: url(/Images/radioBtn.png) -15px -1px no-repeat;
+            vertical-align: middle;
+            margin: -2px 4px 0 0;
+            float: none; // override
+        }*/
 }
 .quizPage .quizAList .correct:before,
 .quizPage .quizAList .wrong:before {

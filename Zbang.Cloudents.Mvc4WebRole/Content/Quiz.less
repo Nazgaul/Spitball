@@ -346,41 +346,45 @@
 /*#endregion */
 
 /*#region Quiz item page */
-.quizPage{
-        display: block;//TEMPORARY!!
+.quizPage {
+    .page {
+        //display: block; //TEMPORARY!!
     }
     .sectionHeader {
         color: transparent;
-    .leftPanel
-    {
+    }
+
+    .leftPanel {
         position: fixed;
-        left:0; /*rtl*/
+        left: 0; /*rtl*/
         top: @header-height;
         height: 100%;
     }
+
     .itemTop {
         background: #fff;
     }
+
     .itemPrint.iconTop {
         margin-top: 11px;
     }
-    .itemRight
-    {
+
+    .itemRight {
         text-align: left; /*rtl*/
     }
+
     .quizAList {
-        li:before {
-            .pseudo;
+        /*li:before {
+            //.pseudo;
             width: 13px;
             height: 13px;
             background: url(/Images/radioBtn.png) -15px -1px no-repeat;
             vertical-align: middle;
-            margin: -2px 4px 0 0; /*rtl*/
+            margin: -2px 4px 0 0;
             float: none; // override
-        }
+        }*/
         .correct, .wrong {
-            &:before
-            {
+            &:before {
                 display: none;
                 width: 17px;
                 height: 16px;
@@ -388,15 +392,16 @@
                 background: @common-sprite -18px -121px no-repeat;
             }
         }
-        .wrong:before{
+
+        .wrong:before {
             background-position: -36px -121px;
         }
-    } 
-    .moreFilesThumb
-    {
+    }
+
+    .moreFilesThumb {
         background: @attentionBlue;
-        &:after
-        {
+
+        &:after {
             .pseudo;
             width: 26px;
             height: 21px;
@@ -404,34 +409,40 @@
             background: @boxSprite -48px -165px no-repeat;
         }
     }
-    .btn1{
+
+    .btn1 {
         padding: 5px 20px;
         margin: 20px 0;
     }
+
     &.checkQuiz {
         .userScore, .resultsWpr, .timeWpr {
             margin-top: 0;
-            opacity:1;
+            opacity: 1;
         }
+
         .userCorrect, .userWrong, .correct, .wrong {
-             &:before {
+            &:before {
                 display: inline-block;
             }
         }
+
         .sectionHeader {
             color: @textColor;
         }
+
         .quizPrevWpr .btn1 {
             display: none;
         }
+
         .timeWpr0 {
             margin-top: -95px;
         }
     }
 }
-.userCorrect, .userWrong
-{
-     &:before {
+
+.userCorrect, .userWrong {
+    &:before {
         content: '';
         display: none;
         position: absolute;
@@ -442,11 +453,12 @@
         background: @color;
     }
 }
-.userWrong:before
-{
+
+.userWrong:before {
     background: @errorColor;
 }
-.timeWpr0{
+
+.timeWpr0 {
     position: relative;
     z-index: -1;
     height: 95px;
@@ -454,8 +466,10 @@
     padding: 26px 10px;
     border-bottom: 1px solid @borderColor;
     .transition(margin .5s ease-in);
+
     .quizTime {
-        margin:0;
+        margin: 0;
+
         &:before {
             content: attr(data-timer-label);
             display: block;
@@ -465,16 +479,19 @@
             top: -12px;
         }
     }
+
     .btn1 {
         margin: 11px 0;
     }
 }
+
 .userResults {
     text-align: center;
     margin: 7px;
     overflow: hidden;
 }
-.userScore{    
+
+.userScore {
     background: #f5f5f5;
     text-align: center;
     height: 72px;
@@ -482,10 +499,11 @@
     margin-bottom: 15px;
     position: relative;
     //top: -90px;
-     margin-top: -90px;
+    margin-top: -90px;
     opacity: 0;
     z-index: 2;
     .transition(all .8s ease-in 1s);
+
     &:after {
         content: attr(data-user-score);
         display: block;
@@ -493,6 +511,7 @@
         margin-top: -5px;
     }
 }
+
 .resultsWpr {
     position: relative;
     //top:-210px;
@@ -503,26 +522,30 @@
     .transition(all .8s ease-in 1.8s);
     z-index: 1;
 }
-.results
-{
+
+.results {
     width: 48%;
     display: inline-block;
     margin: 10px 0;
     border-bottom: 1px solid #eee;
+
     &.wrong {
         position: relative;
+
         &:before {
             .pseudo;
             position: absolute;
-            left:0; /*rtl*/
+            left: 0; /*rtl*/
             width: 1px;
             height: 55px;
             background: @borderColor;
         }
+
         &:after {
             color: @errorColor;
         }
     }
+
     &:after {
         content: attr(data-results);
         display: block;
@@ -531,6 +554,7 @@
         margin: -5px 0 10px;
     }
 }
+
 .timeWpr {
     position: relative;
     //top:-341px;
@@ -540,6 +564,7 @@
     background: #fff;
     .transition(all .8s ease-in 2.6s);
 }
+
 .quizTime {
     width: 156px;
     position: relative;
