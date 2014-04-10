@@ -42,44 +42,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
 
-            var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
-            var model = await m_ZboxReadService.GetQuiz(query);
-            if (model.BoxId != boxId)
-            {
-                throw new ItemNotFoundException();
-            }
-            if (quizName != UrlBuilder.NameToQueryString(model.Name))
-            {
-                throw new ItemNotFoundException();
-            }
-            if (!model.Publish)
-            {
-                throw new ArgumentException("Quiz not published");
-            }
-
-            return View(model);
+            var model = await GetQuiz(boxId, quizId, quizName);
+            var serializer = new Extensions.JsonNetSerializer();
+            ViewBag.userD = serializer.Serialize(model.Sheet);
+            return View(model.Quiz);
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [ActionName("Index")]
         public async Task<ActionResult> Index2(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
+            var model = await GetQuiz(boxId, quizId, quizName);
+            var serializer = new Extensions.JsonNetSerializer();
+            ViewBag.userD = serializer.Serialize(model.Sheet);
+            return PartialView(model.Quiz);
+
+        }
+        [NonAction]
+        private async Task<Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName)
+        {
             var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
             var model = await m_ZboxReadService.GetQuiz(query);
-            if (model.BoxId != boxId)
+            if (model.Quiz.BoxId != boxId)
             {
                 throw new ItemNotFoundException();
             }
-            if (quizName != UrlBuilder.NameToQueryString(model.Name))
+            if (quizName != UrlBuilder.NameToQueryString(model.Quiz.Name))
             {
                 throw new ItemNotFoundException();
             }
-            if (!model.Publish)
+            if (!model.Quiz.Publish)
             {
                 throw new ArgumentException("Quiz not published");
             }
-            return PartialView(model);
-
+            return model;
         }
 
         [Ajax, HttpGet]

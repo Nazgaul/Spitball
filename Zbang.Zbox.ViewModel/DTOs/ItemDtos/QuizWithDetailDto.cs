@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
+    public class QuizWithDetailSolvedDto
+    {
+        public QuizWithDetailDto Quiz { get; set; }
+        public SolveSheet Sheet { get; set; }
+        
+    }
     public class QuizWithDetailDto
     {
         public QuizWithDetailDto()
@@ -48,6 +54,23 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
     {
         public Guid Id { get; set; }
         public string Text { get; set; }
+        public Guid QuestionId { get; set; }
+    }
+
+    public class SolveSheet
+    {
+        public SolveSheet(long timeTaken, int score)
+        {
+            TimeTaken = TimeSpan.FromTicks(timeTaken);
+            Score = score;
+        }
+        public TimeSpan TimeTaken { get; set; }
+        public int Score { get; set; }
+        public IEnumerable<SolveQuestion> Questions { get; set; }
+    }
+    public class SolveQuestion
+    {
+        public Guid AnswerId { get; set; }
         public Guid QuestionId { get; set; }
     }
 }

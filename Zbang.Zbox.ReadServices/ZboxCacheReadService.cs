@@ -234,7 +234,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<ViewModel.DTOs.ItemDtos.QuizWithDetailDto> GetQuiz(GetQuizQuery query)
+        public Task<ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
             return m_ReadService.GetQuiz(query);
         }

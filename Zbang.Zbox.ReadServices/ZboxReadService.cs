@@ -832,19 +832,26 @@ where m.RecepientId = @userid
         #endregion
 
         #region Quiz
-        public async Task<Item.QuizWithDetailDto> GetQuiz(GetQuizQuery query)
+        public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
-            var retVal = new Item.QuizWithDetailDto();
+            var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer, Sql.Security.GetBoxPrivacySettings, Sql.Security.GetUserToBoxRelationShip), new { QuizId = query.QuizId, BoxId = query.BoxId, UserId = query.UserId }))
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4} {5} {6}", 
+                    Sql.Quiz.QuizQuery,
+                    Sql.Quiz.Question,
+                    Sql.Quiz.Answer,
+                    Sql.Security.GetBoxPrivacySettings,
+                    Sql.Security.GetUserToBoxRelationShip,
+                    Sql.Quiz.UserQuiz,
+                    Sql.Quiz.UserAnswer), new { QuizId = query.QuizId, BoxId = query.BoxId, UserId = query.UserId }))
                 {
-                    retVal = grid.Read<Item.QuizWithDetailDto>().First();
-                    retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
+                    retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
+                    retVal.Quiz.Questions = grid.Read<Item.QuestionWithDetailDto>();
 
                     var answers = grid.Read<Item.AnswerWithDetailDto>();
 
-                    foreach (var question in retVal.Questions)
+                    foreach (var question in retVal.Quiz.Questions)
                     {
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
@@ -852,6 +859,10 @@ where m.RecepientId = @userid
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
                     var userRelationShip = grid.Read<UserRelationshipType>().First();
                     GetUserStatusToBox(privacySettings, userRelationShip);
+
+                    retVal.Sheet = grid.Read<Item.SolveSheet>().First();
+                    retVal.Sheet.Questions = grid.Read<Item.SolveQuestion>();
+
 
                 }
             }
