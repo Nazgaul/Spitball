@@ -38,6 +38,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         // GET: /Quiz/
         [Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [NonAjax]
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
 
@@ -55,8 +56,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 throw new ArgumentException("Quiz not published");
             }
-            //TODO:add validation
+
             return View(model);
+        }
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [Ajax]
+        [ActionName("Index")]
+        public async Task<ActionResult> Index2(long boxId, long quizId, string quizName, string universityName, string boxName)
+        {
+            var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
+            var model = await m_ZboxReadService.GetQuiz(query);
+            if (model.BoxId != boxId)
+            {
+                throw new ItemNotFoundException();
+            }
+            if (quizName != UrlBuilder.NameToQueryString(model.Name))
+            {
+                throw new ItemNotFoundException();
+            }
+            if (!model.Publish)
+            {
+                throw new ArgumentException("Quiz not published");
+            }
+            return PartialView(model);
+
         }
 
         [Ajax, HttpGet]
