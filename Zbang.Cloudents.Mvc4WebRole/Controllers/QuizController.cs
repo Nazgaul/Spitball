@@ -24,7 +24,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IIdGenerator> m_IdGenerator;
 
-
         public QuizController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
             IFormsAuthenticationService formsAuthenticationService,
@@ -40,8 +39,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
             var query = new GetQuizQuery(quizId);
-            var values = await m_ZboxReadService.GetQuiz(query);
-            return View(values);
+            var model = await m_ZboxReadService.GetQuiz(query);
+            //TODO:add validation
+            return View(model);
         }
 
         [Ajax, HttpGet]
@@ -50,9 +50,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
+        [Ajax, HttpPost]
+        public ActionResult SaveAnswers(SaveUserAnswers model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
+            }
+            var command = new SaveUserQuizCommand(model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
+                GetUserId(), model.QuizId, model.EndTime - model.StartTime);
+            m_ZboxWriteService.SaveUserAnswers(command);                
+            
+            return this.CdJson(new JsonResponse(true));
+        }
+
         [Ajax, HttpGet]
         public async Task<ActionResult> Data(long quizId)
         {
+            //TODO:add validation -- only draft
             var query = new GetQuizQuery(quizId);
             var values = await m_ZboxReadService.GetQuiz(query);
             return this.CdJson(new JsonResponse(true, values));

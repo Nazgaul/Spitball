@@ -348,6 +348,7 @@
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Question.cs" />
     <Compile Include="Models\Quiz\Quiz.cs" />
+    <Compile Include="Models\Quiz\SaveUserAnswers.cs" />
     <Compile Include="Models\Quiz\UpdateAnswer.cs" />
     <Compile Include="Models\Quiz\UpdateQuestion.cs" />
     <Compile Include="Models\Quiz\UpdateQuiz.cs" />

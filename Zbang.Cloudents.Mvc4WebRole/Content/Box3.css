@@ -1124,7 +1124,7 @@
   margin: 0 0 32px 0;
 }
 .boxItem.quizItem .quizOwner {
-  height: 36px;
+  height: 34px;
   overflow: hidden;
   line-height: 16px;
 }
@@ -1685,6 +1685,9 @@
 }
 .actionBtns .deleteBtn:before {
   margin-top: 2px;
+}
+.actionBtns .deleteBtn:first-child {
+  border: none;
 }
 .downloadBtn:before {
   content: '';

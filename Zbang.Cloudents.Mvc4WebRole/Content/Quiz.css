@@ -408,6 +408,13 @@
 .userResults {
   text-align: center;
   margin: 7px;
+  overflow: hidden;
+}
+.userResults.show .userScore,
+.userResults.show .resultsWpr,
+.userResults.show .timeWpr {
+  margin-top: 0;
+  opacity: 1;
 }
 .userScore {
   background: #f5f5f5;
@@ -415,12 +422,31 @@
   height: 72px;
   padding-top: 18px;
   margin-bottom: 15px;
+  position: relative;
+  margin-top: -90px;
+  opacity: 0;
+  z-index: 2;
+  -webkit-transition: all 0.8s ease-in;
+  -moz-transition: all 0.8s ease-in;
+  -o-transition: all 0.8s ease-in;
+  transition: all 0.8s ease-in;
 }
 .userScore:after {
   content: attr(data-user-score);
   display: block;
   font-size: 38px;
   margin-top: -5px;
+}
+.resultsWpr {
+  position: relative;
+  margin-top: -100px;
+  opacity: 0;
+  background: #fff;
+  -webkit-transition: all 0.8s ease-in 0.8s;
+  -moz-transition: all 0.8s ease-in 0.8s;
+  -o-transition: all 0.8s ease-in 0.8s;
+  transition: all 0.8s ease-in 0.8s;
+  z-index: 1;
 }
 .results {
   width: 48%;
@@ -449,6 +475,16 @@
   font-size: 38px;
   color: #0f9d58;
   margin: -5px 0 10px;
+}
+.timeWpr {
+  position: relative;
+  margin-top: -122px;
+  opacity: 0;
+  background: #fff;
+  -webkit-transition: all 0.8s ease-in 1.6s;
+  -moz-transition: all 0.8s ease-in 1.6s;
+  -o-transition: all 0.8s ease-in 1.6s;
+  transition: all 0.8s ease-in 1.6s;
 }
 .quizTime {
   width: 156px;
