@@ -123,8 +123,14 @@
   <data name="AddQuestion" xml:space="preserve">
     <value>Add question</value>
   </data>
+  <data name="CheckAnswers" xml:space="preserve">
+    <value>Check answers</value>
+  </data>
   <data name="CheckQuiz" xml:space="preserve">
     <value>Check your quiz</value>
+  </data>
+  <data name="ChooseDraft" xml:space="preserve">
+    <value>You can choose to save the quiz as a 'draft' for future editing (only you can see and edit the draft)</value>
   </data>
   <data name="ChooseName" xml:space="preserve">
     <value>Choose quiz name</value>
@@ -138,11 +144,26 @@
   <data name="CreateQuiz" xml:space="preserve">
     <value>Create a quiz</value>
   </data>
+  <data name="DeleteQuiz" xml:space="preserve">
+    <value>Delete the quiz</value>
+  </data>
+  <data name="LeaveQuiz" xml:space="preserve">
+    <value>Are you sure you want to leave this quiz?</value>
+  </data>
   <data name="Min" xml:space="preserve">
     <value>Min</value>
   </data>
   <data name="MultipleChoice" xml:space="preserve">
     <value>multiple choice questions</value>
+  </data>
+  <data name="NotFinished" xml:space="preserve">
+    <value>You haven't finished your quiz yet.</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
   </data>
   <data name="PreviewQuiz" xml:space="preserve">
     <value>Preview quiz</value>
@@ -150,11 +171,20 @@
   <data name="Publish" xml:space="preserve">
     <value>Publish</value>
   </data>
+  <data name="PublishQuiz" xml:space="preserve">
+    <value>Publish the quiz</value>
+  </data>
   <data name="QuizSummary" xml:space="preserve">
     <value>Quiz summary</value>
   </data>
   <data name="RetakeQuiz" xml:space="preserve">
     <value>Retake quiz</value>
+  </data>
+  <data name="SaveDraft" xml:space="preserve">
+    <value>Save as draft</value>
+  </data>
+  <data name="Timer" xml:space="preserve">
+    <value>Timer</value>
   </data>
   <data name="TimeWas" xml:space="preserve">
     <value>Yor time was</value>
