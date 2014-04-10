@@ -401,14 +401,15 @@
             display: inline-block;
         }
     }
-
-    .correct label, .wrong label {
+    //duplicated class name for extra specificity
+    .correct.correct label, .wrong.wrong label {
         &:before {
             .pseudo;
             width: 17px;
             height: 16px;
             background-color: none;
             background: @common-sprite -18px -121px no-repeat;
+            opacity: 1; //override disabled radio half opacity on label
         }
     }
     .wrong label:before {
@@ -473,7 +474,6 @@
             content: attr(data-timer-label);
             display: block;
             font-size: 13px;
-            text-transform: lowercase;
             position: absolute;
             top: -12px;
         }

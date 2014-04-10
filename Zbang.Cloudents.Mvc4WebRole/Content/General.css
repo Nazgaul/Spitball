@@ -290,7 +290,7 @@ input[type="radio"]:checked + label + .inputText {
   -o-transition: opacity, 0.5s linear;
   transition: opacity, 0.5s linear;
 }
-input[type="radio"][disabled] + label {
+input[type="radio"][disabled] + label:before {
   opacity: .5;
 }
 /*#endregion */

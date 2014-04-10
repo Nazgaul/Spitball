@@ -104,6 +104,15 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.popupWrppr.quitQuiz {
+  width: 560px;
+}
+.quitQuizDialog {
+  display: none;
+}
+.quitQuizDialog.show {
+  display: block;
+}
 .requestSentDiv {
   font-size: 18px;
   padding-left: 18px;

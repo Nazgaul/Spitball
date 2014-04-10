@@ -389,14 +389,15 @@
 .checkQuiz .userWrong:before {
   display: inline-block;
 }
-.checkQuiz .correct label:before,
-.checkQuiz .wrong label:before {
+.checkQuiz .correct.correct label:before,
+.checkQuiz .wrong.wrong label:before {
   content: '';
   display: inline-block;
   width: 17px;
   height: 16px;
   background-color: none;
   background: url(/Images/common16-sprite.png) -18px -121px no-repeat;
+  opacity: 1;
 }
 .checkQuiz .wrong label:before {
   background-position: -36px -121px;
@@ -459,7 +460,6 @@
   content: attr(data-timer-label);
   display: block;
   font-size: 13px;
-  text-transform: lowercase;
   position: absolute;
   top: -12px;
 }

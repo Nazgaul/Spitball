@@ -101,7 +101,6 @@
         width: 700px;        
         max-height:none;
         padding-bottom:0;
-
     }
      &.itemRename {
         color:@textColor;
@@ -113,8 +112,16 @@
             .boxSizing;
         }
     }
+    &.quitQuiz {
+        width: 560px;
+    }
 }
-
+.quitQuizDialog {
+    display: none;
+    &.show {
+        display: block;
+    }
+}
 .requestSentDiv
 {
     font-size: 18px;
