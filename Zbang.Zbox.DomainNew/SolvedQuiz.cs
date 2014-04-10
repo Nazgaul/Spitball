@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Domain
     {
         protected SolvedQuiz()
         {
-            SolvedQuestion = new List<SolvedQuestion>();
+            SolvedQuestions = new List<SolvedQuestion>();
         }
         public SolvedQuiz(Guid id, Quiz quiz, User user, TimeSpan timeTaken)
             : this()
@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain
         public virtual TimeSpan TimeTaken { get; set; }
         public virtual int Score { get; set; }
         public virtual DateTime CreationTime { get; set; }
-        public virtual ICollection<SolvedQuestion> SolvedQuestion { get; set; }
+        public virtual ICollection<SolvedQuestion> SolvedQuestions { get; set; }
     }
 }
 

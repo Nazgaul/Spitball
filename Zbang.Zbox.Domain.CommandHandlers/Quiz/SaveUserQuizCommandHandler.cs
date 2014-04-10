@@ -42,6 +42,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         {
             var user = m_UserRepository.Load(message.UserId);
             var quiz = m_QuizRepository.Load(message.QuizId);
+
+            var userRelationShipType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, quiz.Box.Id);
+            if (userRelationShipType == Infrastructure.Enums.UserRelationshipType.None)
+            {
+                throw new UnauthorizedAccessException("User is not connected to box - cant save quiz");
+            }
             var answerSheet = m_SolvedQuizRepository.GetQuerable().Where(w => w.User == user && w.Quiz == quiz).FirstOrDefault();
             if (answerSheet != null)
             {
@@ -62,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 m_SolvedQuestionRepository.Save(solvedAnswer);
 
             }
-            solvedQuiz.Score = solvedQuiz.SolvedQuestion.Where(w => w.Correct).Count() / quiz.Questions.Count();
+            solvedQuiz.Score = solvedQuiz.SolvedQuestions.Where(w => w.Correct).Count() / quiz.Questions.Count();
             m_SolvedQuizRepository.Save(solvedQuiz);
         }
 
