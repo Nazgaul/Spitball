@@ -343,9 +343,6 @@
 }
 /*#endregion */
 /*#region Quiz item page */
-.quizPage.page {
-  display: block;
-}
 .quizPage .sectionHeader {
   color: transparent;
 }
