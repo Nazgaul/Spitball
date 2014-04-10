@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var answer = m_AnswerRepository.Load(message.AnswerId);
             var box = answer.Box;
 
-            bool isAuthorize = answer.User.Id != message.UserId || box.Owner.Id != message.UserId;
+            bool isAuthorize = answer.User.Id == message.UserId || box.Owner.Id == message.UserId;
             if (!isAuthorize)
             {
                 throw new UnauthorizedAccessException("User didnt ask the answer");
