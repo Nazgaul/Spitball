@@ -305,7 +305,7 @@
     margin: 0 auto 60px;
     background: #fff;
     border-radius: 5px;
-    padding: 0 20px;
+    padding: 0 140px 0 20px; /*rtl*/
     .boxSizing;
     border: 1px solid @borderColor;
 }
@@ -327,7 +327,6 @@
     > li{
         position:relative; //for item view
         padding: 20px 0;
-        //margin: 0 -20px;
         border-bottom: 1px solid #f1f1f1;
     }
 }
@@ -372,32 +371,6 @@
     .itemRight {
         text-align: left; /*rtl*/
     }
-
-    .quizAList {
-        /*li:before {
-            //.pseudo;
-            width: 13px;
-            height: 13px;
-            background: url(/Images/radioBtn.png) -15px -1px no-repeat;
-            vertical-align: middle;
-            margin: -2px 4px 0 0;
-            float: none; // override
-        }*/
-        .correct, .wrong {
-            &:before {
-                display: none;
-                width: 17px;
-                height: 16px;
-                background-color: none;
-                background: @common-sprite -18px -121px no-repeat;
-            }
-        }
-
-        .wrong:before {
-            background-position: -36px -121px;
-        }
-    }
-
     .moreFilesThumb {
         background: @attentionBlue;
 
@@ -421,12 +394,24 @@
             opacity: 1;
         }
 
-        .userCorrect, .userWrong, .correct, .wrong {
+        .userCorrect, .userWrong {
             &:before {
                 display: inline-block;
             }
         }
 
+        .correct label, .wrong label {
+            &:before {
+                .pseudo;
+                width: 17px;
+                height: 16px;
+                background-color: none;
+                background: @common-sprite -18px -121px no-repeat;
+            }
+        }
+        .wrong label:before {
+            background-position: -36px -121px;
+        }
         .sectionHeader {
             color: @textColor;
         }
@@ -437,6 +422,19 @@
 
         .timeWpr0 {
             margin-top: -95px;
+        }
+        .quizQList .noAnswer:after
+        {
+            content: attr(data-no-answer);
+            display: inline-block;
+            position: absolute;
+            top:21px;
+            right: -140px; /*rtl*/
+            color: @errorColor;
+            background: #f5f5f5;
+            padding: 3px;
+            border-radius: 8px;
+            font-size: 13px;
         }
     }
 }
@@ -542,7 +540,7 @@
         }
 
         &:after {
-            color: @errorColor;
+            color: @errorColor; //TODO: what is this??
         }
     }
 

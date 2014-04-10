@@ -2539,15 +2539,12 @@
   float: right;
   /*rtl*/
 }
+.quizPrevWpr {
+  padding: 0 20px 0 140px;
+  /*rtl*/
+}
 /*#endregion */
 /*#region Quiz item page */
-.quizPage {
-  /*.quizAList {
-        li:before {
-            margin: -2px 0 0 4px; 
-        }
-    }*/
-}
 .quizPage .leftPanel {
   right: 0;
   /*rtl*/

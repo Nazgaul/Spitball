@@ -156,6 +156,9 @@
   <data name="MultipleChoice" xml:space="preserve">
     <value>multiple choice questions</value>
   </data>
+  <data name="NoAnswer" xml:space="preserve">
+    <value>No answer given</value>
+  </data>
   <data name="NotFinished" xml:space="preserve">
     <value>You haven't finished your quiz yet.</value>
   </data>
