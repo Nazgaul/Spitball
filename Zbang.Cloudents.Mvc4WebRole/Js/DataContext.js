@@ -29,6 +29,7 @@
     definition.userMp = new definitionobj({ url: '/user', type: get });
     definition.accountMp = new definitionobj({ url: cAccount + "Settings", type: get });
     definition.searchMp = new definitionobj({ url: search, type: get });
+    definition.quizMp = new definitionobj({ url: '/Quiz/', type: get });
 
     definition.dashboard = new definitionobj({ url: dashboard + "BoxList", type: get });
     definition.createBox = new definitionobj({ url: dashboard + "Create" });

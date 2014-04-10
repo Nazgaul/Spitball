@@ -5,11 +5,11 @@
         return;
     }
     var eById = document.getElementById.bind(document),
-        quizSideBar,quizName,boxNameText,quizQuestionList,
-        quizAddQuestion, quizPreview, mainDiv,
+        quizSideBar, quizName, boxNameText, quizQuestionList,
+        quizAddQuestion, quizPreview, mainDiv, closeQuiz,
         addQuiz, saveBtn;
 
-        assignDomElements();
+    assignDomElements();
 
     function assignDomElements() {
         quizSideBar = eById('quizSideBar'),
@@ -22,6 +22,7 @@
 
         quizName = quizSideBar.getElementsByClassName('quizName')[0],
         boxNameText = quizSideBar.getElementsByClassName('quizLoc')[0],
+        closeQuiz = eById('closeQuiz'),
         quizQuestionList = eById('quizQuestionList'),
         quizAddQuestion = eById('quizAddQuestion'),
         quizPreview = eById('quizPreview'),
@@ -33,7 +34,7 @@
         initQuestionsLength: 3,
         emptyQuestion: 3,
         validQuestion: 0,
-        minAnswers : 2
+        minAnswers: 2
     }
 
     var quizId, boxId, boxName;
@@ -57,56 +58,69 @@
         that.text = data.text || '';
     }
     pubsub.subscribe('initQuiz', function (data) {
-        
         boxId = data.boxId;
         boxName = data.boxName;
         initQuiz(data.quizId);
-    
+
 
     });
 
     function initQuiz(quizId) {
-        if (!quizSideBar) {
+        if (quizSideBar) {
+            if (!quizId) {
+                appendEmptyState();
+                showQuiz();
+                registerEvents();
+                return;
+            }
 
-            dataContext.quizHTML({
-                success: function (data) {
-                    mainDiv.insertAdjacentHTML('beforeend', data);
-                    assignDomElements();
+            editDraft();
+            return;
+        }
 
-                    boxNameText.textContent = boxName;
+        dataContext.quizHTML({
+            success: function (data) {
+                mainDiv.insertAdjacentHTML('beforeend', data);
+                assignDomElements();
 
-                    if (!quizId) {
-                        for (var i = 0; i < consts.initQuestionsLength; i++) {
-                            appendQuestion();
-                        }
-                    } else {//edit draft                        
-                        dataContext.quizData({
-                            data: { quizId: quizId },
-                            success: function (data) {
-                                data = data || {};
-                                populateQuiz(data);
-                                showQuiz();
-                                registerEvents();
-                            }
-                        });
-                        return;
-                    }
+                boxNameText.textContent = boxName;
 
-
+                if (!quizId) {
+                    appendEmptyState();
                     showQuiz();
                     registerEvents();
 
+                } else {//edit draft                        
+                    editDraft();
+                    return;
+                }
+            }
+        });
 
-
+        function editDraft() {
+            dataContext.quizData({
+                data: { quizId: quizId },
+                success: function (data) {
+                    data = data || {};
+                    populateQuiz(data);
+                    showQuiz();
+                    registerEvents();
                 }
             });
         }
 
-     
+        function appendEmptyState() {
+            for (var i = 0; i < consts.initQuestionsLength; i++) {
+                appendQuestion();
+            }
+        }
+
+
     }
 
-    function showQuiz() {        
+    function showQuiz() {
         //show the quiz div
+        addQuiz.disabled = true;
         setTimeout(function () { mainDiv.classList.remove('noQuiz'); }, 0);
         quizName.focus();
     }
@@ -120,13 +134,13 @@
         //quiz name
         var quizNameText = quizName.value;
 
-        if (!quizNameText) {           
+        if (!quizNameText) {
             quizSideBar.classList.add('nameReq');
         }
 
         //question
 
-        var qState = getQuestionsState();  
+        var qState = getQuestionsState();
 
         if (qState.length === qState.empty) {
             $(quizQuestionList.firstElementChild).addClass('correctReq questionReq answerReq');
@@ -142,7 +156,7 @@
 
     function validateQuestion(question, noChangeErrorState) {
         var $question = $(question), error = false;
-        
+
         if (!noChangeErrorState) { //no need to change error state for preview
             $question.removeClass('correctReq questionReq answerReq');
         }
@@ -190,10 +204,10 @@
 
             if (count === consts.emptyQuestion && validAnswers.length === 1) {
                 count--;
-             
+
             }
 
-            if (count === consts.emptyQuestion  && $question.index() > 0) {
+            if (count === consts.emptyQuestion && $question.index() > 0) {
                 answers.removeClass('emptyText');
             }
         }
@@ -208,26 +222,26 @@
 
         return count;
     }
-    
+
     function populateQuiz(data) {
         quizSideBar.setAttribute('data-id', data.id);
         quizId = data.id;
         quizName.value = data.name || '';
 
         for (var i = 0, l = data.questions.length; i < l; i++) {
-            appendQuestion(null,data.questions[i]);
+            appendQuestion(null, data.questions[i]);
         }
     }
 
-    function parseQuiz() {        
+    function parseQuiz() {
         var questionsArr = [], quizNameText;
-     
+
         //reset
         quizSideBar.classList.remove('nameReq');
         quizSideBar.classList.remove('error');
 
         quizNameText = quizSideBar.querySelector('.quizName').value;
-   
+
         if (!quizNameText) {
             quizSideBar.classList.add('nameReq');
         }
@@ -238,7 +252,7 @@
             $(quizQuestionList.firstElementChild).addClass('correctReq questionReq answerReq');
         }
 
-        
+
 
         if (!quizNameText || qState.invalid > 0 || qState.valid === 0) {
             quizSideBar.classList.add('error');
@@ -249,7 +263,7 @@
             var question = qState.vQuestions[i];
             if (validateQuestion(question) === 0) {
                 questionsArr.push(parseQuestion(question));
-                
+
             }
 
         }
@@ -275,7 +289,7 @@
             }
 
             var questionObj = new Question({ text: questionText, answers: answersArr, correctAnswer: correctAnswer });
-           
+
             return questionObj;
         }
 
@@ -307,7 +321,7 @@
         return {
             valid: validQuestions, empty: emptyQuestions,
             invalid: invalidQuestions, length: questions.length,
-            vQuestions : vQuestions
+            vQuestions: vQuestions
         };
     }
 
@@ -330,7 +344,7 @@
         //    return 'Quiz changes might be lost';
         //});
 
-
+        $(closeQuiz).click(clearQuiz);
         //$(saveQuiz).click(saveQuiz);          
         $(quizPreview).click(previewQuiz);
 
@@ -358,7 +372,7 @@
     }
 
     function publishQuiz() {
-        if (!validateQuiz()) {            
+        if (!validateQuiz()) {
             return;
         }
 
@@ -367,7 +381,7 @@
 
         dataContext.quizPublish({
             data: { id: quizId },
-            success:function(data) {
+            success: function (data) {
                 if (data) {
                     return;
                 }
@@ -421,23 +435,25 @@
         setTimeout(function () { //fix for animation
             mainDiv.classList.add('previewQuiz');
         }, 0)
-        
+
 
         $('#preview').find('.closeDialog').one('click', function () {
             mainDiv.classList.remove('previewQuiz');
             setTimeout(function () {//fix for animation
                 $('#preview').remove();
             }, 1000);
-            
+
         });
     }
+
+
 
 
 
     //#endregion Quiz
 
     //#region Question
-    function appendQuestion(e,question) {
+    function appendQuestion(e, question) {
         var indexObj = { index: quizQuestionList.children.length + 1 },
         html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
         quizQuestionList.insertAdjacentHTML('beforeend', html);
@@ -447,30 +463,30 @@
 
         if (!question) {
             for (var i = 0; i < consts.minAnswers; i++) {
-                var aIndexObj = { index: (i+1), topIndex: indexObj.index },
+                var aIndexObj = { index: (i + 1), topIndex: indexObj.index },
                 html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
                 answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
             }
-            
+
             return;
         }
 
         quizQuestionList.lastElementChild.setAttribute('data-id', question.id);
         $(quizQuestionList.lastElementChild).find('.questionText')[0].value = question.text;
-       
+
         for (var i = 0, l = question.answers.length; i < l; i++) {
             var aIndexObj = { index: (i + 1), topIndex: indexObj.index },
             html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
             answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
 
 
-            
+
             answersList.lastElementChild.previousElementSibling.setAttribute('data-id', question.answers[i].id);
             answersList.lastElementChild.previousElementSibling.firstElementChild.value = question.answers[i].text;
         }
 
         if (question.correctAnswer) {
-            $(answersList).find('[data-id="' + question.correctAnswer + '"]').find('.correctAnswer')[0].checked = true;            
+            $(answersList).find('[data-id="' + question.correctAnswer + '"]').find('.correctAnswer')[0].checked = true;
         }
     }
     function saveQuestion(question, callback) {
@@ -680,6 +696,8 @@
 
         quizQuestionList.innerHTML = '';
         quizName.value = '';
+        quizId = null;
+        quizSideBar.removeAttribute('data-id');
 
     }
     //#endregion Answer
