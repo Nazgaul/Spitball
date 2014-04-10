@@ -73,9 +73,11 @@
             $('#quizRetake').click(function () {
                 $('#quiz').removeClass('checkQuiz');
                 $('#quizTQuestion').find('input').removeAttr('disabled', 'disabled');
+                
                 $('#quizTQuestion').children('li').removeClass('noAnswer userWrong userCorrect');
             });
 
+            $('#quizTimer').stopwatch();
         }
 
 
