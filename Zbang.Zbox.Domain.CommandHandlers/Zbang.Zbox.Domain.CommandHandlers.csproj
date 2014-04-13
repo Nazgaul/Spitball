@@ -90,9 +90,11 @@
     <Compile Include="MarkMessagesAsOldCommandHanlder.cs" />
     <Compile Include="MarkMessagesAsReadCommandHanlder.cs" />
     <Compile Include="Quiz\CreateAnswerCommandHandler.cs" />
+    <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuestionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuizCommandHandler.cs" />
     <Compile Include="Quiz\DeleteAnswerCommandHandler.cs" />
+    <Compile Include="Quiz\DeleteDiscussionCommandHandler.cs" />
     <Compile Include="Quiz\DeleteQuestionCommandHandler.cs" />
     <Compile Include="Quiz\DeleteQuizCommandHandler.cs" />
     <Compile Include="Quiz\SaveQuizCommandHandler.cs" />
