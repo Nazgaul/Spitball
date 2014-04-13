@@ -505,4 +505,10 @@
   <data name="Post" xml:space="preserve">
     <value>Опубликовать</value>
   </data>
+  <data name="Draft" xml:space="preserve">
+    <value>Черновик</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Вопрос</value>
+  </data>
 </root>
