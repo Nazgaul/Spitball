@@ -54,7 +54,7 @@
     .inputText {
         width: 270px;
         .boxSizing;
-
+        border-color: rgba(56,56,56,.5);
         &.quizName {
             width: 100%;
             margin: 10px 0 17px;
@@ -63,9 +63,8 @@
         }
 
         &.questionText {
-            border: none;
-            border-bottom: 1px solid #f1f1f1;
-            padding: 0 20px 0 0; /*rtl*/ //override other props
+            min-height: 32px;
+            padding: 3px 6px;
             width: 100%;
             resize: none;
             font-size: 17px;
@@ -158,13 +157,13 @@
         margin: 3px 5px 0 0; /*rtl*/
     }
     .answers{
-        color: #676767;
+        color: #9d9d9d;
     }
     .correct{
         width: 40px;
         font-size: 11px;
         margin-bottom: 9px;
-        color: #676767;
+        color: #9d9d9d;
     }
     .inputText{
         resize: none;

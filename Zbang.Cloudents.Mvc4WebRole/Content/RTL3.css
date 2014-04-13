@@ -2467,10 +2467,6 @@
   padding: 8px 24px 0 0;
   /*rtl*/
 }
-.quizSideBar .inputText.questionText {
-  padding: 0 0 0 20px;
-  /*rtl*/
-}
 .toggleQuiz {
   left: 374px;
   /*rtl*/
