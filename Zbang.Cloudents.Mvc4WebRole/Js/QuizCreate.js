@@ -378,7 +378,7 @@
                 success: function (data) {
                     quizSideBar.setAttribute('data-id', data);
                     quizId = data;
-                    addItemToBox();
+                    addItemToBox(false);
                 }
             });
             return;
@@ -386,6 +386,9 @@
 
         dataContext.quizUpdate({
             data: { id: quizId, name: quizName.value },
+            success: function () {
+                addItemToBox(false);
+            },
             error: function () { }
         });    
     }
@@ -399,12 +402,12 @@
         saveBtn.disabled = true;
 
         dataContext.quizPublish({
-            data: { id: quizId },
+            data: { id: quizId, boxId: boxId, universityName: getParameterFromUrl(1), boxName: cd.getParameterFromUrl(3), name: quizName.value },
             success: function (data) {
-                if (data) {
+                if (!data) {
                     return;
                 }
-
+                addItemToBox(true,data);
                 clearQuiz();
 
             },
@@ -758,29 +761,32 @@
         });
         $(quizCloseDelete).one('click', function () {
             $(quitQuizDialog).hide();
-            deleteQuiz();
+            deleteQuiz();            
         });
 
     }
-    function addItemToBox(isPublish,url) {
+    
+    //*endregion
+
+    function addItemToBox(isPublish, url) {
         var quiz = {
-            uid: quizId,
+            id: quizId,
             boxid: boxId,
             name: quizName.value,
             publish: isPublish,
-            content: isPublish || getContent(),
+            description: isPublish || getContent(),
             rate: 0,
-            ownerId: cd.userDetail().uId,
+            ownerId: cd.userDetail().nId,
             ownerName: cd.userDetail().name,
             ownerUrl: cd.userDetail().url,
             type: 'quiz',
             url: url,
             date: new Date()
         }
-        
-        function getCotnent() {
+
+        pubsub.publish('addItem', quiz);
+        function getContent() {
 
         }
     }
-    //*endregion
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);

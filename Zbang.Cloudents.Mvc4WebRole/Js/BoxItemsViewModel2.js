@@ -55,7 +55,7 @@
             BaseItem.call(that, data);                    
             that.publish = data.publish;
             that.noPreview = ' noPreview';
-            that.description = data.content || '';            
+            that.description = data.description || '';            
         }
         function Item(data) {
             var that = this;
@@ -92,7 +92,7 @@
         self.currentView = ko.observable('BoxItemsThumbViewTemplate');
 
         self.viewMode = function (item) {
-            if (item.type === 'Quiz') {
+            if (item.type.toLowerCase() === 'quiz') {
                 if (self.currentView() === 'BoxItemsThumbViewTemplate') {
                     return 'QuizItemsThumbViewTemplate';
                 }
@@ -216,7 +216,7 @@
 
 
         cd.pubsub.subscribe('addItem', function (d) {
-            if (d.boxid === boxid) { 
+            if (d.boxid !== boxid) { 
                 return;            
             }
 
@@ -234,13 +234,13 @@
                 var x = ko.utils.arrayFirst(self.items(), function (i) {
                     return i.uid === newItem.uid;
                 });
-
-                if (x.type.toLowerCase() === 'quiz') {
-                    self.items().remove(x);
-                }
-
+               
                 if (x) {
-                    return;
+                    if (x.type.toLowerCase() !== 'quiz') {
+                        return;                        
+                    }
+
+                    self.items.remove(x);
                 }
                 self.items.unshift(newItem);
                 self.items.sort(sort);
@@ -248,15 +248,20 @@
                 //self.loadedAnimation(true);
                 cd.loadImages(document.getElementById('BoxItemList'));
             } catch (e) {
+                console.log(e);
             }
 
 
         });
 
       
-        cd.pubsub.subscribe('addedItem', function (d) {        
-            d.item.isNew = true;
-            cd.pubsub.publish('addItem', d.item);
+        cd.pubsub.subscribe('addedItem', function (d) {
+            if (d.boxid === boxid) {
+                d.item.isNew = true;
+                cd.pubsub.publish('addItem', d.item);
+            }
+
+
             cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });            
         });
         //#endregion

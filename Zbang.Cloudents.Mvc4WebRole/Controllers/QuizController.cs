@@ -157,7 +157,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var command = new UpdateQuizCommand(GetUserId(), model.Id, model.Text);
+            var command = new UpdateQuizCommand(GetUserId(), model.Id, model.Name);
             m_ZboxWriteService.UpdateQuiz(command);
             return this.CdJson(new JsonResponse(true));
         }
