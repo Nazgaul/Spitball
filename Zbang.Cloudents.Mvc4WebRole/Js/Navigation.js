@@ -462,12 +462,15 @@
                     });
                     break;
                 case 'quiz':
-                    $('#quiz').remove();  //fix for quiz navigation
+                    console.log('1');
                     dataContext.quizMp({
                         data: { boxId: getParameterFromUrl(2), quizId: getParameterFromUrl(4), quizName: getParameterFromUrl(5), universityName: getParameterFromUrl(1), boxName: getParameterFromUrl(3) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
-                            pubsub.publish('QuizContext', null, quizContext);
+                            pubsub.publish('QuizContext', null, function () {
+                                console.log('2');
+                                quizContext();
+                            });
                         },
                         error: function () {
                             location.reload();

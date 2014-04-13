@@ -11,6 +11,16 @@
 
     function QuizViewModel() {
 
+        function UserComment(data) {
+            var that = this;
+            that.id = data.id;
+            that.questionId = data.questionId;
+            that.text = data.text;
+            that.date = data.date;
+            that.userId = data.userId;
+            that.userName = data.userName;
+            that.userPicture = data.userPicture;
+        }
         function AnswerPerQuestion(data) {
             var that = this;
             that.questionId = data.q;
@@ -25,6 +35,9 @@
         var quizId = cd.getParameterFromUrl(4), startTime, stopWatch, firstTime = true;
 
         cd.pubsub.subscribe('quiz', function (data) {
+            if (!firstTime) {
+                return;
+            }
             initQuiz();
 
             pubsub.publish('quiz_load');
@@ -96,13 +109,6 @@
 
         function registerEvents() {
 
-            $(quizTQuestion).on('change', 'input', function () {
-                if (stopWatch.isRunning) {
-                    return;
-                }
-                quizCheckAnswers.disabled = false;
-                toggleTimer(true, false);
-            });
 
             $(quizCheckAnswers).click(function () {
                 quiz.classList.add('checkQuiz');
@@ -133,8 +139,19 @@
 
             $(quizTimerToggle).click(function () {
                 toggleTimer(!stopWatch.isRunning, false);
-                
+
             });
+            
+            $(quizTQuestion).on('change', 'input', function () {
+                quizCheckAnswers.disabled = false;
+
+                if (stopWatch.isRunning) {
+                    return;
+                }
+
+                toggleTimer(true, false);
+            });
+
 
 
 
@@ -178,11 +195,11 @@
                 answerSheet.push(new AnswerPerQuestion({ q: question.getAttribute('data-id'), a: answer.getAttribute('data-id') }));
 
                 if (answer.parentElement.classList.contains('correct')) {
-                    answer.classList.add('userCorrect');
+                    question.classList.add('userCorrect');
                     continue;
                 }
 
-                answer.classList.add('userWrong');
+                question.classList.add('userWrong');
             }
 
             return answerSheet;
@@ -206,14 +223,49 @@
                 data: { quizId: quizId },
                 success: function (data) {
                     data = data || {};
-                    populateComments(data);
+                    var map = data.map(function (comment) {
+                        return new UserComment(comment);
+                    });
+                    populateComments(map);
+                    //cd.parseTimeString(quizTQuestion);
                     registerDiscussionEvents();
                 }
             });
 
-            function populateComments(data) {
-                for (var i = 0, l = data.length ; i < l; i++) {
-                    console.log(data);
+            function populateComments(comments) {
+                
+                var comment, commentsObj = {};
+                for (var i = 0, l = comments.length ; i < l; i++) {
+                    comment = comments[i];
+
+                    if (!commentsObj[comment.questionId]) {
+                        commentsObj[comment.questionId] = [];
+                    }                    
+                    commentsObj[comment.questionId].push(comment);
+                }
+
+                var questions = quizTQuestion.children,
+                    question, questionId,comment;
+
+                for (var i = 0, l = questions.length; i < l; i++) {
+                    question = questions[i];
+                    questionId = question.getAttribute('data-id');
+                    if (commentsObj[questionId]) {
+                        appendComments(question,commentsObj[questionId]);
+                    }
+
+                    question.getElementsByClassName('quizUserCommentImg')[0].src = cd.userDetail().img;
+                }
+                
+                function appendComments(question,comments) {
+                    question.getElementsByClassName('qNumOfCmnts')[0].textContent = comments.length + ' ' + (comments.length > 1 ? ZboxResources.Comments : ZboxResources.Comment);
+
+                    var commentsHTML = '';
+                    for (var i = 0, l = comments.length; i < l; i++) {
+                        commentsHTML += cd.attachTemplateToData('quizCommentTemplate', comments[i]);
+                    }
+                    
+                    question.getElementsByClassName('quizComments')[0].insertAdjacentHTML('beforeend', commentsHTML);
                 }
             }
 
@@ -223,6 +275,20 @@
                     $(this).parents('.commentWpr').addClass('show');
                 });
 
+                $(quizTQuestion).on('keyup', '.cTextArea', function () {                    
+                    this.nextElementSibling.disabled = this.value.length === 0;                    
+                });
+
+                $('.askBtn').click(function () {
+
+                    var text = this.previousElementSibling.value,
+                        questionId =  $(this).parents('li')[0].getAttribute('data-id');
+                    if (text.length > 0) {
+                        dataContext.quizCreateDiscussion({
+                            data : { questionId: questionId, text: text }
+                        });
+                    }
+                });
             }
         }
 
@@ -231,8 +297,9 @@
             $(quizTQuestion).find('input').removeAttr('disabled').prop('checked', false);
             $(quizTQuestion).children().removeClass('noAnswer userWrong');
             $(quizTQuestion).find('.userCorrect').removeClass('userCorrect');
-
             stopWatch.reset();
+            stopWatch = null;
+            firstTime = true;
         }
 
 

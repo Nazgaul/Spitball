@@ -675,7 +675,7 @@
       <DependentUpon>Quiz.less</DependentUpon>
     </Content>
     <Content Include="Content\Quiz.min.css">
-      <DependentUpon>Quiz.less</DependentUpon>
+      <DependentUpon>Quiz.css</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>

@@ -415,7 +415,7 @@
 }
 .cTextArea {
   width: 600px;
-  margin-left: 42px;
+  /*margin-left: 42px;*/
   /*rtl*/
   border-radius: 3px;
   font-size: 15px;

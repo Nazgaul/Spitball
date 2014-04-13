@@ -72,6 +72,10 @@
 
     });
 
+    pubsub.subscribe('quizclear', function () {
+        clearQuiz();
+    });
+
     function initQuiz(quizId) {        
         if (quizSideBar) {
             if (cd.isElementInViewport(quizSideBar)) {

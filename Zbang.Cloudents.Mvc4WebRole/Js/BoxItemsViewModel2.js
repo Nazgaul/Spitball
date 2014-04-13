@@ -404,6 +404,7 @@
                 cd.newUpdates.deleteUpdate({ type: 'quizzes', boxId: boxid, id: quiz.uid });
             }
 
+            $('#quiz').remove();  //fix for quiz navigation
             return true;
         }
 

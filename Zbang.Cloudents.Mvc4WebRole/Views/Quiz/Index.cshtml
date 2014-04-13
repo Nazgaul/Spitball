@@ -126,11 +126,10 @@
                         <div class="commentWpr">
                             <div class="splitHR"><button class="splitHRText"><span class="qNumOfCmnts iconTxt">@IndexResources.AddComment</span></button></div>
                             
-                            <ul class="quizComments">                              
-                            </ul>
+                            <ul class="quizComments"></ul>
                             <button class="closeDialog"></button>
                             <div class="cTextAreaWpr">
-                                <img src="http://placehold.it/32x32" class="imgBorder lFloat" alt="" width="32" height="32" />
+                                <img class="quizUserCommentImg" src="" class="imgBorder lFloat" alt="" width="32" height="32" />
                                 <textarea class="cTextArea" placeholder="@SharedResources.WriteComment"></textarea>
                                 <button type="submit" disabled class="askBtn rFloat">@SharedResources.Comment</button>
                             </div>
@@ -146,10 +145,10 @@
 
 
 <script type="text/html" id="quizCommentTemplate">
-    <li>
-        <img class="imgBorder" width="32" height="32" alt="" src="http://placehold.it/32x32" />
-        <span class="semiFont">Bob van roggue</span>
-        <span class="createTime">Yesterday</span>
-        <div class="commentTxt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to ma</div>
+    <li class="calloutTrgr" data-id="{{userId}}">
+        <img class="imgBorder" width="32" height="32" alt="" src="{{userPicture}}" />
+        <span class="semiFont">{{userName}}</span>
+        <span class="createTime" data-time="date"></span>
+        <div class="commentTxt">{{text}}</div>
     </li>
 </script>
