@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 
 
 @model Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailDto
@@ -109,7 +110,7 @@
                     //add userWrong class if UserControl answered incorrectly OR no answer
                     //add noAnswer class in addition to userWrong if user gave no answer
                     <li data-id="@item.Id">
-                        <div>@item.Text</div>
+                        <div class="quizQuestion">@item.Text</div>
                         <ul class="quizAList">
                             @foreach (var answer in item.Answers)
                             {
@@ -121,8 +122,30 @@
                                 </li>
                                 answerIndex++;
                             }
-
                         </ul>
+                        <div class="commentWpr">
+                            <div class="splitHR"><button class="splitHRText"><span class="iconTxt">@IndexResources.AddComment</span></button></div>
+                            <ul class="quizComments">
+                                <li>
+                                    <img class="imgBorder" width="32" height="32" alt="" src="http://placehold.it/32x32" />
+                                    <span class="semiFont">Bob van roggue</span>
+                                    <span class="createTime">Yesterday</span>
+                                    <div class="commentTxt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to ma</div>
+                                </li>
+                                <li>
+                                    <img class="imgBorder" width="32" height="32" alt="" src="http://placehold.it/32x32" />
+                                    <span class="semiFont">Bob van roggue</span>
+                                    <span class="createTime">Yesterday</span>
+                                    <div class="commentTxt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to ma</div>
+                                </li>
+                                <li>
+                                    <img class="imgBorder" width="32" height="32" alt="" src="http://placehold.it/32x32" />
+                                    <span class="semiFont">Bob van roggue</span>
+                                    <span class="createTime">Yesterday</span>
+                                    <div class="commentTxt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to ma</div>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                             questionIndex++;
                 }
