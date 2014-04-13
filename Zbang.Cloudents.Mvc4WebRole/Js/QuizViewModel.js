@@ -39,6 +39,8 @@
             if (!firstTime) {
                 return;
             }
+            firstTime = false;
+
             initQuiz();
 
             pubsub.publish('quiz_load');
