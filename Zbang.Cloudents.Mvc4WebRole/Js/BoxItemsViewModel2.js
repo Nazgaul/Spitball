@@ -285,6 +285,7 @@
             cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + quizName + "?",
                             function () {
                                 self.items.remove(quiz);
+                                cd.pubsub.publish('deleteQuiz',quiz.uid);
                                 //countOfItems--;
                                 dataContext.quizDelete({
                                     data: { id: quiz.uid },
@@ -446,13 +447,14 @@
 
         $('#BoxItemList').hoverIntent({
             over: function (e) {
-                if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
-                    return;
-                }
-                var item = ko.dataFor(this),html;
+                var item = ko.dataFor(this), html;
                 if (item.type.toLowerCase() === 'quiz') {
                     return;
                 }
+                if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
+                    return;
+                }
+                
                 html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
                 if (!this.querySelector('.boxItemTt')) {                    
                         this.insertAdjacentHTML('afterbegin', html);                    
