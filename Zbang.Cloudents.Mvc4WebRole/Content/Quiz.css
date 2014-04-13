@@ -354,6 +354,7 @@
   margin: 0 -140px 0 -25px;
   /*rtl*/
   position: relative;
+  display: none;
 }
 .commentWpr .closeDialog {
   background-position: -68px -26px;
@@ -375,8 +376,7 @@
 .commentWpr.show .closeDialog,
 .commentWpr.show .quizComments,
 .commentWpr.show .imgBorder,
-.commentWpr.show textArea,
-.commentWpr.show .askBtn {
+.commentWpr.show .cTextAreaWpr {
   display: block;
 }
 .quizComments {
@@ -394,9 +394,18 @@
 .quizComments .createTime {
   vertical-align: baseline;
 }
+.quizComments:empty ~ .closeDialog {
+  display: none;
+}
+.quizComments:empty ~ .cTextAreaWpr {
+  margin: 25px 0;
+}
 .commentTxt {
   font-size: 15px;
   margin: 10px 0;
+}
+.cTextAreaWpr {
+  display: none;
 }
 .cTextArea {
   width: 600px;
@@ -407,7 +416,6 @@
   resize: none;
   height: 22px;
   padding: 4px;
-  display: none;
 }
 .quizAList {
   list-style-type: lower-latin;
@@ -468,6 +476,9 @@
 .checkQuiz .userCorrect .quizAList:before,
 .checkQuiz .userWrong .quizAList:before {
   display: inline-block;
+}
+.checkQuiz .commentWpr {
+  display: block;
 }
 .checkQuiz .correct.correct label:before,
 .checkQuiz .wrong.wrong label:before {

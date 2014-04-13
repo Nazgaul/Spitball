@@ -350,6 +350,7 @@
 .commentWpr {
     margin: 0 -140px 0 -25px; /*rtl*/
     position: relative;
+    display: none;
     .closeDialog {
         background-position: -68px -26px;
         top: 60px;
@@ -366,7 +367,7 @@
         margin: 8px 100px 0 0; /*rtl*/
     }
     &.show {
-        .closeDialog, .quizComments, .imgBorder, textArea, .askBtn {
+        .closeDialog, .quizComments, .imgBorder, .cTextAreaWpr {
             display: block;
         }
     }
@@ -384,10 +385,21 @@
     .createTime {
         vertical-align: baseline; //override
     }
+    &:empty {
+        ~ .closeDialog {
+            display: none;
+        }
+        ~ .cTextAreaWpr {
+            margin: 25px 0;
+        }
+    }
 }
 .commentTxt {
     font-size: 15px;
     margin: 10px 0;
+}
+.cTextAreaWpr {
+    display: none;
 }
 .cTextArea {
     width: 600px;
@@ -397,7 +409,6 @@
     resize: none;
     height: 22px;
     padding: 4px;
-    display: none;
 }
 .quizAList
 {
@@ -471,6 +482,9 @@
                 display: inline-block;
             }
         }
+    }
+    .commentWpr {
+        display: block;
     }
     //duplicated class name for extra specificity
     .correct.correct label, .wrong.wrong label {
