@@ -329,10 +329,13 @@
 .quizQList > li {
   position: relative;
   padding-top: 20px;
+  clear: both;
 }
 .quizQList .splitHR {
   text-align: left;
-  padding: 10px 0 0px 14px;
+  /*rtl*/
+  padding: 10px 0 0 14px;
+  /*rtl*/
   font-size: 13px;
 }
 .quizQList .splitHRText:before,
@@ -349,18 +352,44 @@
 }
 .commentWpr {
   margin: 0 -140px 0 -25px;
+  /*rtl*/
+  position: relative;
+}
+.commentWpr .closeDialog {
+  background-position: -68px -26px;
+  top: 60px;
+  display: none;
+}
+.commentWpr .imgBorder {
+  position: absolute;
+  left: 0;
+  /*rtl*/
+  display: none;
+}
+.commentWpr .askBtn {
+  padding: 4px 15px;
+  height: auto;
+  margin: 8px 100px 0 0;
+  /*rtl*/
+}
+.commentWpr.show .closeDialog,
+.commentWpr.show .quizComments,
+.commentWpr.show .imgBorder,
+.commentWpr.show textArea,
+.commentWpr.show .askBtn {
+  display: block;
 }
 .quizComments {
   font-size: 13px;
+  display: none;
+  padding-right: 110px;
+  /*rtl*/
 }
 .quizComments li {
   padding-left: 42px;
+  /*rtl*/
   position: relative;
   margin-top: 20px;
-}
-.quizComments .imgBorder {
-  position: absolute;
-  left: 0;
 }
 .quizComments .createTime {
   vertical-align: baseline;
@@ -368,6 +397,17 @@
 .commentTxt {
   font-size: 15px;
   margin: 10px 0;
+}
+.cTextArea {
+  width: 600px;
+  margin-left: 42px;
+  /*rtl*/
+  border-radius: 3px;
+  font-size: 15px;
+  resize: none;
+  height: 22px;
+  padding: 4px;
+  display: none;
 }
 .quizAList {
   list-style-type: lower-latin;

@@ -327,11 +327,12 @@
     > li{
         position:relative; //for item view
         padding-top: 20px;
+        clear: both;
     }
     .splitHR {
         
-        text-align: left;
-        padding: 10px 0 0px 14px;
+        text-align: left; /*rtl*/
+        padding: 10px 0 0 14px; /*rtl*/
         font-size: 13px;
     }
     .splitHRText:before, .splitHRText:after {
@@ -347,26 +348,56 @@
     }
 }
 .commentWpr {
-    margin: 0 -140px 0 -25px;
-}
-.quizComments {
-    font-size: 13px;
-    li{
-        padding-left: 42px;
-        position: relative;
-        margin-top: 20px;
+    margin: 0 -140px 0 -25px; /*rtl*/
+    position: relative;
+    .closeDialog {
+        background-position: -68px -26px;
+        top: 60px;
+        display: none;
     }
     .imgBorder {
         position: absolute;
-        left:0;
+        left:0; /*rtl*/
+        display: none;
     }
+    .askBtn {
+        padding: 4px 15px;
+        height: auto;
+        margin: 8px 100px 0 0; /*rtl*/
+    }
+    &.show {
+        .closeDialog, .quizComments, .imgBorder, textArea, .askBtn {
+            display: block;
+        }
+    }
+}
+.quizComments {
+    font-size: 13px;
+    display: none;
+    padding-right: 110px; /*rtl*/
+    li{
+        padding-left: 42px; /*rtl*/
+        position: relative;
+        margin-top: 20px;
+    }
+    
     .createTime {
-        vertical-align: baseline;
+        vertical-align: baseline; //override
     }
 }
 .commentTxt {
     font-size: 15px;
     margin: 10px 0;
+}
+.cTextArea {
+    width: 600px;
+    margin-left: 42px; /*rtl*/
+    border-radius: 3px;
+    font-size: 15px;
+    resize: none;
+    height: 22px;
+    padding: 4px;
+    display: none;
 }
 .quizAList
 {
