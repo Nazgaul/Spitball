@@ -16,11 +16,11 @@
                 <span class="calloutTrgr" data-uid="@Model.OwnerId">@Model.Owner</span>
             </div>
             <span class="lFloat">@Model.Date.ToString("d/M/yy")</span>
-            <button type="button" class="itemFlag rFloat">@ItemsResources.Flag</button>
+            @*<button type="button" class="itemFlag rFloat">@ItemsResources.Flag</button>*@
             <div class="actions">
                 <span data-title="@SharedResources.Views" class="lFloat views">@Model.NumberOfViews</span>
 
-                <div class="rFloat rateContainer">
+                @*<div class="rFloat rateContainer">
                     <span class="stars">
                         <span class="full"></span>
                     </span>
@@ -37,7 +37,7 @@
                             <li class="star star1">1</li>
                         </ul>
                     </div>
-                </div>
+                </div>*@
 
             </div>
         </div>
@@ -145,8 +145,8 @@
 
 
 <script type="text/html" id="quizCommentTemplate">
-    <li class="calloutTrgr" data-id="{{id}}" data-uid="{{userId}}">
-        <img class="imgBorder" width="32" height="32" alt="" src="{{userPicture}}" />
+    <li  data-id="{{id}}">
+        <img class="imgBorder calloutTrgr" data-uid="{{userId}}" width=" 32" height="32" alt="" src="{{userPicture}}" />
         <span class="semiFont">{{userName}}</span>
         <span class="createTime" data-time="{{date}}"></span>
         <div class="commentTxt">{{text}}</div>

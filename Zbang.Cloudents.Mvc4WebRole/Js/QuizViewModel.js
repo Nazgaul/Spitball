@@ -292,8 +292,30 @@
 
             function registerDiscussionEvents() {
                 $('.qNumOfCmnts').click(function () {
-                    $('.commentWpr').removeClass('show');
-                    $(this).parents('.commentWpr').addClass('show');
+                    var that = this,
+                        $wrapper = $(that).parents('.commentWpr'),
+                        $comments = $wrapper.find('.quizComments'),
+                        isVisible = $comments.is(':visible');
+
+                    $('.quizComments').slideUp({
+                        duration: 500,
+                        complete: function () {
+                            $('.commentWpr').removeClass('show');
+                        }
+                    });
+
+                    if (isVisible) {
+                        return;
+                    }
+                    setTimeout(function () {
+                        $comments.slideDown({
+                            duration: 500,
+                            complete: function () {
+                            $wrapper.addClass('show');
+                        }
+                        });
+                    }, 500)
+                    
                 });
 
                 $(quizTQuestion).on('keyup', '.cTextArea', function () {
@@ -301,15 +323,23 @@
                 });
 
                 $('.askBtn').click(function () {
-
-                    var text = this.previousElementSibling.value,
-                        question = $(this).parents('li')[0],
+                    var that = this;
+                    var text = that.previousElementSibling.value,
+                        question = $(that).parents('li')[0],
                         questionId = question.getAttribute('data-id');
-                    if (text.length > 0) {
-                        dataContext.quizCreateDiscussion({
-                            data: { questionId: questionId, text: text }
-                        });
+                    if (!text.length) {
+                        return;
                     }
+                    that.disabled = true;
+                    dataContext.quizCreateDiscussion({
+                        data: { questionId: questionId, text: text },
+                        success: function() {                           
+                            that.previousElementSibling.value='';
+                        },
+                        error: function () {
+                            that.disabeld = false;
+                        }
+                    });
 
                     var comment = {
                         id: '',
@@ -327,7 +357,12 @@
                 });
 
                 $(quizTQuestion).on('click', '.closeDialog', function () {
-                    $(this).parents('.commentWpr').removeClass('show');
+                    $('.quizComments').slideUp({
+                        duration: 500,
+                        complete: function () {
+                            $('.commentWpr').removeClass('show');
+                        }
+                    });
                 });
 
 
