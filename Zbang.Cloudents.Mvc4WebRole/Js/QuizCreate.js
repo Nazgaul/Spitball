@@ -358,9 +358,9 @@
 
         $(saveBtn).click(publishQuiz);
 
-        //$(window).on('beforeunload', function () {
-        //    return 'Quiz changes might be lost';
-        //});
+        $(window).on('beforeunload', function () {
+            return 'Quiz changes might be lost';
+        });
 
         $(closeQuiz).click(showClosePopup);
 
@@ -378,6 +378,7 @@
                 success: function (data) {
                     quizSideBar.setAttribute('data-id', data);
                     quizId = data;
+                    addItemToBox();
                 }
             });
             return;
@@ -386,7 +387,7 @@
         dataContext.quizUpdate({
             data: { id: quizId, name: quizName.value },
             error: function () { }
-        });
+        });    
     }
 
     function publishQuiz() {
@@ -465,7 +466,9 @@
     }
 
     function deleteQuiz() {
-        
+
+        cd.pubsub.publish('removeItem', quizId);
+
         dataContext.quizDelete({
             data: { id: quizId }
         });
@@ -759,6 +762,25 @@
         });
 
     }
+    function addItemToBox(isPublish,url) {
+        var quiz = {
+            uid: quizId,
+            boxid: boxId,
+            name: quizName.value,
+            publish: isPublish,
+            content: isPublish || getContent(),
+            rate: 0,
+            ownerId: cd.userDetail().uId,
+            ownerName: cd.userDetail().name,
+            ownerUrl: cd.userDetail().url,
+            type: 'quiz',
+            url: url,
+            date: new Date()
+        }
+        
+        function getCotnent() {
 
+        }
+    }
     //*endregion
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);

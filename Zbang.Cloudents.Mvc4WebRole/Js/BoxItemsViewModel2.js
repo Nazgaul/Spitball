@@ -216,6 +216,10 @@
 
 
         cd.pubsub.subscribe('addItem', function (d) {
+            if (d.boxid === boxid) { 
+                return;            
+            }
+
             try
             {
                 var newItem;
@@ -226,9 +230,15 @@
                     newItem = new Item(d);
                 }
 
+                
                 var x = ko.utils.arrayFirst(self.items(), function (i) {
                     return i.uid === newItem.uid;
                 });
+
+                if (x.type.toLowerCase() === 'quiz') {
+                    self.items().remove(x);
+                }
+
                 if (x) {
                     return;
                 }
@@ -244,12 +254,9 @@
         });
 
       
-        cd.pubsub.subscribe('addedItem', function (d) {
-            if (d.boxid === boxid) {
-                d.item.isNew = true;
-                cd.pubsub.publish('addItem', d.item);
-
-            }
+        cd.pubsub.subscribe('addedItem', function (d) {        
+            d.item.isNew = true;
+            cd.pubsub.publish('addItem', d.item);
             cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });            
         });
         //#endregion
@@ -310,6 +317,7 @@
 
                 }, null);
         };
+
         cd.pubsub.subscribe('removeItem', function (id) {
             var x = ko.utils.arrayFirst(self.items(), function (i) {
                 return i.uid === id;

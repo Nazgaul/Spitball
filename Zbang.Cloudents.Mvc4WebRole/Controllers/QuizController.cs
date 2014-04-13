@@ -45,6 +45,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await GetQuiz(boxId, quizId, quizName);
             var serializer = new Extensions.JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
+
+            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
+
+            ViewBag.boxName = boxName;
+            ViewBag.boxUrl = url;
+
             return View(model.Quiz);
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -55,6 +62,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await GetQuiz(boxId, quizId, quizName);
             var serializer = new Extensions.JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
+            
+            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
+
+            ViewBag.boxName = boxName;
+            ViewBag.boxUrl = url;
+
+
             return PartialView(model.Quiz);
 
         }
