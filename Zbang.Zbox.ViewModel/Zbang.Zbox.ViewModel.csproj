@@ -83,6 +83,7 @@
     <Compile Include="DTOs\Emails\BadItemDto.cs" />
     <Compile Include="DTOs\Emails\UserDigestDto.cs" />
     <Compile Include="DTOs\InviteDto.cs" />
+    <Compile Include="DTOs\ItemDtos\DiscussionDto.cs" />
     <Compile Include="DTOs\ItemDtos\FileDto.cs" />
     <Compile Include="DTOs\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="DTOs\ItemDtos\IItemDto.cs" />

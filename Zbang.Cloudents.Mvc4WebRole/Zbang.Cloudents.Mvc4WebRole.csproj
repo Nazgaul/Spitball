@@ -346,8 +346,10 @@
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
+    <Compile Include="Models\Quiz\Discussion.cs" />
     <Compile Include="Models\Quiz\Question.cs" />
     <Compile Include="Models\Quiz\Quiz.cs" />
+    <Compile Include="Models\Quiz\SaveQuiz.cs" />
     <Compile Include="Models\Quiz\SaveUserAnswers.cs" />
     <Compile Include="Models\Quiz\UpdateAnswer.cs" />
     <Compile Include="Models\Quiz\UpdateQuestion.cs" />
@@ -1013,7 +1015,7 @@
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.stopwatch.js" />
+    <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -1622,6 +1624,7 @@
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QuizResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.zh.resx" />

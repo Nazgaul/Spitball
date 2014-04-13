@@ -76,6 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Department.cs" />
+    <Compile Include="Discussion.cs" />
     <Compile Include="FirstTime.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemComment.cs" />

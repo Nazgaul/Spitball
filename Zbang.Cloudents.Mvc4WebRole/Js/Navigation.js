@@ -234,7 +234,7 @@
                 boxContext(prevLocation);
                 break;
             case 'item':
-                itemContext();
+                itemContext()
                 break;
             case 'invite':
                 if (!cd.register()) {
@@ -269,7 +269,7 @@
         pubsub.publish('user');
     }
 
-    function quizContext(data) {
+    function quizContext(data) {        
         pubsub.publish('quiz');
     }
 
@@ -462,6 +462,7 @@
                     });
                     break;
                 case 'quiz':
+                    $('#quiz').remove();  //fix for quiz navigation
                     dataContext.quizMp({
                         data: { boxId: getParameterFromUrl(2), quizId: getParameterFromUrl(4), quizName: getParameterFromUrl(5), universityName: getParameterFromUrl(1), boxName: getParameterFromUrl(3) },
                         success: function (html) {

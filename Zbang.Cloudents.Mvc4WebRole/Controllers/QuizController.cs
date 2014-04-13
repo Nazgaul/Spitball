@@ -45,6 +45,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await GetQuiz(boxId, quizId, quizName);
             var serializer = new Extensions.JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
+
+            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
+
+            ViewBag.boxName = boxName;
+            ViewBag.boxUrl = url;
+
             return View(model.Quiz);
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -55,9 +62,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await GetQuiz(boxId, quizId, quizName);
             var serializer = new Extensions.JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
+
+            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
+
+            ViewBag.boxName = boxName;
+            ViewBag.boxUrl = url;
+
+
             return PartialView(model.Quiz);
 
         }
+
+        [Ajax]
+        [ZboxAuthorize]
+        public async Task<ActionResult> Discussion(long quizId)
+        {
+            var query = new GetDisscussionQuery(quizId);
+            var model = await m_ZboxReadService.GetDiscussion(query);
+            return this.CdJson(new JsonResponse(true, model));
+        }
+
         [NonAction]
         private async Task<Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName)
         {
@@ -142,7 +167,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var command = new UpdateQuizCommand(GetUserId(), model.Id, model.Text);
+            var command = new UpdateQuizCommand(GetUserId(), model.Id, model.Name);
             m_ZboxWriteService.UpdateQuiz(command);
             return this.CdJson(new JsonResponse(true));
         }
@@ -157,13 +182,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost, Ajax]
         [ZboxAuthorize]
-        public ActionResult Save(long id)
+        public ActionResult Save(SaveQuiz model)
         {
             try
             {
-                var command = new SaveQuizCommand(GetUserId(), id);
+                var command = new SaveQuizCommand(GetUserId(), model.QuizId);
                 m_ZboxWriteService.SaveQuiz(command);
-                return this.CdJson(new JsonResponse(true));
+                var urlBuilder = new UrlBuilder(HttpContext);
+                var url = urlBuilder.BuildQuizUrl(model.BoxId, model.BoxName, model.QuizId, model.QuizName, model.UniversityName);
+                //TODO add url
+                return this.CdJson(new JsonResponse(true, url));
             }
             catch (Exception ex)
             {
@@ -249,6 +277,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ZboxWriteService.DeleteAnswer(command);
             return this.CdJson(new JsonResponse(true));
         }
+
+
+        #endregion
+
+        #region Discussion
+        [HttpPost, Ajax, ZboxAuthorize]
+        public ActionResult CreateDiscussion(Discussion model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
+            }
+            var id = m_IdGenerator.Value.GetId();
+            var command = new CreateDiscussionCommand(GetUserId(), model.Text, model.QuestionId, id);
+            m_ZboxWriteService.CreateItemInDiscussion(command);
+            return this.CdJson(new JsonResponse(true, id));
+        }
+
+        [HttpPost, Ajax, ZboxAuthorize]
+        public ActionResult DeleteDiscussion(Guid id)
+        {
+            var command = new DeleteDiscussionCommand(id, GetUserId());
+            m_ZboxWriteService.DeleteItemInDiscussion(command);
+            return this.CdJson(new JsonResponse(true, id));
+
+        }
+
         #endregion
     }
 }

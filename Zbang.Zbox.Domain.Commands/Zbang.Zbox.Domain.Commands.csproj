@@ -101,9 +101,11 @@
     <Compile Include="MarkMessagesAsOldCommand.cs" />
     <Compile Include="MarkMessagesAsReadCommand.cs" />
     <Compile Include="Quiz\CreateAnswerCommand.cs" />
+    <Compile Include="Quiz\CreateDiscussionCommand.cs" />
     <Compile Include="Quiz\CreateQuestionCommand.cs" />
     <Compile Include="Quiz\CreateQuizCommand.cs" />
     <Compile Include="Quiz\DeleteAnswerCommand.cs" />
+    <Compile Include="Quiz\DeleteDiscussionCommand.cs" />
     <Compile Include="Quiz\DeleteQuestionCommand.cs" />
     <Compile Include="Quiz\DeleteQuizCommand.cs" />
     <Compile Include="Quiz\SaveQuizCommand.cs" />

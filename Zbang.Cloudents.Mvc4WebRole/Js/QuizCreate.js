@@ -358,9 +358,9 @@
 
         $(saveBtn).click(publishQuiz);
 
-        //$(window).on('beforeunload', function () {
-        //    return 'Quiz changes might be lost';
-        //});
+        $(window).on('beforeunload', function () {
+            return 'Quiz changes might be lost';
+        });
 
         $(closeQuiz).click(showClosePopup);
 
@@ -378,6 +378,7 @@
                 success: function (data) {
                     quizSideBar.setAttribute('data-id', data);
                     quizId = data;
+                    addItemToBox(false);
                 }
             });
             return;
@@ -385,8 +386,11 @@
 
         dataContext.quizUpdate({
             data: { id: quizId, name: quizName.value },
+            success: function () {
+                addItemToBox(false);
+            },
             error: function () { }
-        });
+        });    
     }
 
     function publishQuiz() {
@@ -398,12 +402,12 @@
         saveBtn.disabled = true;
 
         dataContext.quizPublish({
-            data: { id: quizId },
+            data: { id: quizId, boxId: boxId, universityName: getParameterFromUrl(1), boxName: cd.getParameterFromUrl(3), name: quizName.value },
             success: function (data) {
-                if (data) {
+                if (!data) {
                     return;
                 }
-
+                addItemToBox(true,data);
                 clearQuiz();
 
             },
@@ -465,7 +469,9 @@
     }
 
     function deleteQuiz() {
-        
+
+        cd.pubsub.publish('removeItem', quizId);
+
         dataContext.quizDelete({
             data: { id: quizId }
         });
@@ -755,10 +761,32 @@
         });
         $(quizCloseDelete).one('click', function () {
             $(quitQuizDialog).hide();
-            deleteQuiz();
+            deleteQuiz();            
         });
 
     }
-
+    
     //*endregion
+
+    function addItemToBox(isPublish, url) {
+        var quiz = {
+            id: quizId,
+            boxid: boxId,
+            name: quizName.value,
+            publish: isPublish,
+            description: isPublish || getContent(),
+            rate: 0,
+            ownerId: cd.userDetail().nId,
+            ownerName: cd.userDetail().name,
+            ownerUrl: cd.userDetail().url,
+            type: 'quiz',
+            url: url,
+            date: new Date()
+        }
+
+        pubsub.publish('addItem', quiz);
+        function getContent() {
+
+        }
+    }
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);

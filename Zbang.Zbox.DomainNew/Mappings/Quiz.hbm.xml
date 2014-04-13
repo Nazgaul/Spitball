@@ -83,7 +83,7 @@
       <one-to-many class="SolvedQuestion"/>
     </bag>
   </class>
-  
+
   <class name="SolvedQuestion" table="SolvedQuestion">
     <id name="Id" column="Id">
       <generator class="assigned"/>
@@ -95,4 +95,17 @@
     <many-to-one name="SolvedQuiz" class="SolvedQuiz" column="SolvedQuizId" not-null="true" foreign-key="SolvedQuizIdSolvedQuestion"/>
     <property name="Correct" not-null="true" ></property>
   </class>
+
+  <class name="Discussion" table="QuizDiscussion">
+    <id name="Id" column="Id">
+      <generator class="assigned"/>
+    </id>
+    <many-to-one name="Quiz" class="Quiz" column="QuizId" not-null="true" foreign-key="QuizIdSolvedQuestion"/>
+    <many-to-one name="Owner" class="User" column="UserId" not-null="true" foreign-key="UserIdSolvedQuestion"/>
+    <many-to-one name="Question" class="Question" column="QuestionId" not-null="true" foreign-key="QuestionIdSolvedQuestion"/>
+    <property name="Text" not-null="true" length="8000"></property>
+    <property name="CreationTime" not-null="true" type="DateTime2" ></property>
+  </class>
+
+
 </hibernate-mapping>
