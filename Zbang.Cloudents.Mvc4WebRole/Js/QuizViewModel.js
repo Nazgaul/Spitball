@@ -30,7 +30,8 @@
             quizUserScore, quizUserRight,
             quizUserWrong, quizRetake,
             quizTimerToggle, quizTimer,
-            quizTimerResult, quizShare;
+            quizTimerResult, quizShare,
+            quizFS, quizMsg, quizCL;
 
         var quizId = cd.getParameterFromUrl(4), startTime, stopWatch, firstTime = true;
 
@@ -48,6 +49,7 @@
             quizUserScore = eById('quizUserScore'), quizUserRight = eById('quizUserRight'),
             quizUserWrong = eById('quizUserWrong'), quizRetake = eById('quizRetake'),
             quizTimerToggle = eById('quizTimerToggle'), quizTimer = eById('quizTimer'),
+            quizCL = eById('quiz_CL'), quizMsg = eById('quiz_msg'),quizFS = eById('quiz_FS'),
             quizTimerResult = eById('quizTimerResult'), quizShare = eById('quizShare');
         }
 
@@ -58,6 +60,8 @@
             if (!stopWatch) {
                 stopWatch = new Stopwatch(quizTimer);
             }
+
+            quizCL.value = cd.location();
 
             registerEvents();
 
@@ -151,8 +155,27 @@
                 toggleTimer(true, false);
             });
 
+            $(quizCL).click(function (e) {
+                e.preventDefault();
+                this.select();
+            });
 
+            $(quizMsg).click(function () {
+                cd.pubsub.publish('message');
+            });
 
+            $(quizFS).click(function () {
+                var itemName = quiz.querySelector('.itemNameText').textContent,
+                    uniName = cd.getParameterFromUrl(1),
+                    boxName = cd.getParameterFromUrl(3)
+                cd.shareFb(cd.location(), //url
+                  itemName, //title
+                  uniName ? boxName+ ' - ' + uniName : boxName, //caption
+                  JsResources.IShared + ' ' + itemName + ' ' +  JsResources.OnCloudents +
+                  '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                  null //picture
+                  );
+            });
 
         }
 
