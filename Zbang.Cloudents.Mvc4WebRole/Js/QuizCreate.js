@@ -74,14 +74,19 @@
 
     function initQuiz(quizId) {
         if (quizSideBar) {
-            if (!quizId) {
-                appendEmptyState();
-                showQuiz();
-                registerEvents();
+            clearQuiz();
+            $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend',
+            function (e) {
+                if (!quizId) {
+                    appendEmptyState();                    
+                    showQuiz();
+                    registerEvents();
+                    return;
+                }
+            
+                editDraft();
                 return;
-            }
-
-            editDraft();
+            });
             return;
         }
 
@@ -371,7 +376,7 @@
                 clearQuiz();
             }
         });
-
+  
     }
 
     //#region Quiz
@@ -407,7 +412,7 @@
         saveBtn.disabled = true;
 
         dataContext.quizPublish({
-            data: { id: quizId, boxId: boxId, universityName: getParameterFromUrl(1), boxName: cd.getParameterFromUrl(3), name: quizName.value },
+            data: { id: quizId, boxId: boxId, universityName: cd.getParameterFromUrl(1), boxName: boxName, name: quizName.value },
             success: function (data) {
                 if (!data) {
                     return;
@@ -781,7 +786,14 @@
 
         pubsub.publish('addItem', quiz);
         function getContent() {
+            var result = '',
+                questions =quizSideBar.querySelectorAll('.questionText');
 
+            for (var i = 0, l = questions.length; i < l; i++) {
+                result += questions[i].value;
+            }
+
+            return result;
         }
     }
 
