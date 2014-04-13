@@ -366,6 +366,11 @@
 
         $(quizPreview).click(previewQuiz);
 
+        pubsub.subscribe('deleteQuiz', function (id) {
+            if (quizId === id) {
+                clearQuiz();
+            }
+        });
 
     }
 
@@ -734,17 +739,7 @@
             error: function () { }
         });
     }
-
-    function clearQuiz() {
-        mainDiv.classList.add('noQuiz');
-        addQuiz.disabled = false;
-
-        quizQuestionList.innerHTML = '';
-        quizName.value = '';
-        quizId = null;
-        quizSideBar.removeAttribute('data-id');
-
-    }
+        
     //#endregion Answer
 
     //*#region close popup
@@ -788,5 +783,17 @@
         function getContent() {
 
         }
+    }
+
+
+    function clearQuiz() {
+        mainDiv.classList.add('noQuiz');
+        addQuiz.disabled = false;
+        $(window).off('beforeunload');
+        quizQuestionList.innerHTML = '';
+        quizName.value = '';
+        quizId = null;
+        quizSideBar.removeAttribute('data-id');
+
     }
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);
