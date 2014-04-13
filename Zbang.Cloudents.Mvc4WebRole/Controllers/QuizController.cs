@@ -172,13 +172,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost, Ajax]
         [ZboxAuthorize]
-        public ActionResult Save(long id)
+        public ActionResult Save(SaveQuiz model)
         {
             try
             {
-                var command = new SaveQuizCommand(GetUserId(), id);
+                var command = new SaveQuizCommand(GetUserId(), model.QuizId);
                 m_ZboxWriteService.SaveQuiz(command);
-                return this.CdJson(new JsonResponse(true));
+                var urlBuilder = new UrlBuilder(HttpContext);
+                var url = urlBuilder.BuildQuizUrl(model.BoxId, model.BoxName, model.QuizId, model.QuizName, model.UniversityName);
+                //TODO add url
+                return this.CdJson(new JsonResponse(true, url));
             }
             catch (Exception ex)
             {
@@ -264,6 +267,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ZboxWriteService.DeleteAnswer(command);
             return this.CdJson(new JsonResponse(true));
         }
+
+
+        #endregion
+
+        #region Discussion
+        [HttpPost, Ajax, ZboxAuthorize]
+        public ActionResult CreateDiscussion(Discussion model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
+            }
+            var id = m_IdGenerator.Value.GetId();
+            var command = new CreateDiscussionCommand(GetUserId(), model.Text, model.QuestionId, id);
+            m_ZboxWriteService.CreateItemInDiscussion(command);
+            return this.CdJson(new JsonResponse(true, id));
+        }
+
+        [HttpPost, Ajax, ZboxAuthorize]
+        public ActionResult DeleteDiscussion(Guid id)
+        {
+            var command = new DeleteDiscussionCommand(id, GetUserId());
+            m_ZboxWriteService.DeleteItemInDiscussion(command);
+            return this.CdJson(new JsonResponse(true, id));
+
+        }
+
         #endregion
     }
 }
