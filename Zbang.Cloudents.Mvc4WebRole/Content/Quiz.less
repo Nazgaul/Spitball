@@ -141,15 +141,18 @@
     &[class*='Req'] {
         border: 1px solid #d1294d;
     }    
-    &:hover
-    {
+    &:hover {
         .closeDialog{
             display: block;
         }
     }
     .closeDialog{
-        background-position: -68px -26px;
+        background-position: -87px -121px;
         display: none;
+        width: 20px;
+        height: 19px;
+        right: -3px; /*rtl*/
+        top: -9px;
     }
     .lFloat{
         margin: 3px 5px 0 0; /*rtl*/
@@ -348,7 +351,7 @@
     }
 }
 .commentWpr {
-    margin: 0 -140px 0 -25px; /*rtl*/
+    margin: 0 -140px 30px -25px; /*rtl*/
     position: relative;
     display: none;
     .closeDialog {
@@ -365,6 +368,7 @@
         padding: 4px 15px;
         height: auto;
         margin: 8px 100px 0 0; /*rtl*/
+        display: block;
     }
     &.show {
         .closeDialog, .quizComments, .imgBorder, .cTextAreaWpr {

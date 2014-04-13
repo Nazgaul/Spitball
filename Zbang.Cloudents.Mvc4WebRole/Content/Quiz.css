@@ -155,8 +155,13 @@
   display: block;
 }
 .questionHolder .closeDialog {
-  background-position: -68px -26px;
+  background-position: -87px -121px;
   display: none;
+  width: 20px;
+  height: 19px;
+  right: -3px;
+  /*rtl*/
+  top: -9px;
 }
 .questionHolder .lFloat {
   margin: 3px 5px 0 0;
@@ -351,7 +356,7 @@
   background-position: -55px -121px;
 }
 .commentWpr {
-  margin: 0 -140px 0 -25px;
+  margin: 0 -140px 30px -25px;
   /*rtl*/
   position: relative;
   display: none;
@@ -372,6 +377,7 @@
   height: auto;
   margin: 8px 100px 0 0;
   /*rtl*/
+  display: block;
 }
 .commentWpr.show .closeDialog,
 .commentWpr.show .quizComments,

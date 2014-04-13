@@ -2504,6 +2504,11 @@
   margin: 0 0 0 -12px;
   /*rtl*/
 }
+.questionHolder .closeDialog {
+  left: -3px;
+  /*rtl*/
+  right: auto;
+}
 .questionHolder .lFloat {
   margin: 3px 0 0 5px;
   /*rtl*/
@@ -2550,7 +2555,7 @@
   /*rtl*/
 }
 .commentWpr {
-  margin: 0 -25px 0 -140px;
+  margin: 0 -25px 30px -140px;
   /*rtl*/
 }
 .commentWpr .imgBorder {
