@@ -202,7 +202,7 @@
 }
 .questionHolder.questionReq .questionText {
   width: 65%;
-  padding: 0;
+  padding: 0 6px;
 }
 .questionHolder.correctReq .correct {
   color: #d1294d;

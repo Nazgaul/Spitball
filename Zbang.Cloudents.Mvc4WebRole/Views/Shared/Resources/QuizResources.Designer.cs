@@ -277,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yor time was.
+        ///   Looks up a localized string similar to Your time was.
         /// </summary>
         public static string TimeWas {
             get {

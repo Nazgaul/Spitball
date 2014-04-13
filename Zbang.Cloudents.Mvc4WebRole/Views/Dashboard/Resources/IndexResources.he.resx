@@ -225,4 +225,7 @@
   <data name="AnsweredQuestion" xml:space="preserve">
     <value>ענה/ענתה על שאלה</value>
   </data>
+  <data name="PostedComment" xml:space="preserve">
+    <value>הוסיף/ה תגובה</value>
+  </data>
 </root>
