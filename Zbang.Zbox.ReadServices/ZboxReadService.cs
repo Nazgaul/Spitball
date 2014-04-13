@@ -837,7 +837,7 @@ where m.RecepientId = @userid
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4} {5} {6}", 
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4} {5} {6}",
                     Sql.Quiz.QuizQuery,
                     Sql.Quiz.Question,
                     Sql.Quiz.Answer,
@@ -859,22 +859,30 @@ where m.RecepientId = @userid
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
                     var userRelationShip = grid.Read<UserRelationshipType>().First();
                     GetUserStatusToBox(privacySettings, userRelationShip);
-                    
+
                     retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
                     if (retVal.Sheet != null)
                     {
                         retVal.Sheet.Questions = grid.Read<Item.SolveQuestion>();
-                    }                    
+                    }
                 }
             }
             return retVal;
         }
+        public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, new { QuizId = query.QuizId });
+            }
+        }
+
         public async Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
         {
             var retVal = new Item.QuizWithDetailDto();
             using (var conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer ), new { QuizId = query.QuizId}))
+                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { QuizId = query.QuizId }))
                 {
                     retVal = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();

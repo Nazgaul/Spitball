@@ -244,5 +244,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetDraftQuiz(query);
         }
+
+
+        public Task<IEnumerable<ViewModel.DTOs.ItemDtos.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
+        {
+            return m_ReadService.GetDiscussion(query);
+        }
     }
 }
