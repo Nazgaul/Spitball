@@ -518,4 +518,7 @@
   <data name="Question" xml:space="preserve">
     <value>سؤال</value>
   </data>
+  <data name="NoAnswer" xml:space="preserve">
+    <value>الجواب لا</value>
+  </data>
 </root>

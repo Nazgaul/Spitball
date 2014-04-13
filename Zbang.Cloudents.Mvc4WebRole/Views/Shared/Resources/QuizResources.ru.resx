@@ -198,4 +198,7 @@
   <data name="YourScore" xml:space="preserve">
     <value>Ваш результат</value>
   </data>
+  <data name="NoAnswer" xml:space="preserve">
+    <value>Не дано ответа</value>
+  </data>
 </root>

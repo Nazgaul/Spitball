@@ -508,4 +508,7 @@
   <data name="Question" xml:space="preserve">
     <value>שאלה</value>
   </data>
+  <data name="Draft" xml:space="preserve">
+    <value>טיוטא</value>
+  </data>
 </root>
