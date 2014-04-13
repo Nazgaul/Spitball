@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetQuizQuery :QueryBase
+    public class GetQuizQuery : QueryBase
     {
         public GetQuizQuery(long quizId, long userId, long boxId)
-            :base (userId)
+            : base(userId)
         {
             QuizId = quizId;
             BoxId = boxId;
@@ -24,6 +24,15 @@ namespace Zbang.Zbox.ViewModel.Queries
         {
             QuizId = quizId;
         }
-        public long QuizId { get;private set; }
+        public long QuizId { get; private set; }
+    }
+
+    public class GetDisscussionQuery
+    {
+        public GetDisscussionQuery(long quizId)
+        {
+            QuizId = quizId;
+        }
+        public long QuizId { get; private set; }
     }
 }

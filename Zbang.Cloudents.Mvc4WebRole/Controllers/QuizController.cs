@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await GetQuiz(boxId, quizId, quizName);
             var serializer = new Extensions.JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
-            
+
             UrlBuilder builder = new UrlBuilder(HttpContext);
             var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
 
@@ -73,6 +73,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView(model.Quiz);
 
         }
+
+        [Ajax]
+        [ZboxAuthorize]
+        public async Task<ActionResult> Discussion(long quizId)
+        {
+            var query = new GetDisscussionQuery(quizId);
+            var model = await m_ZboxReadService.GetDiscussion(query);
+            return this.CdJson(new JsonResponse(true, model));
+        }
+
         [NonAction]
         private async Task<Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName)
         {

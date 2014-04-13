@@ -23,6 +23,16 @@ where id = @QuizId;";
 
         public const string UserQuiz = @"select q.TimeTaken,q.Score from zbox.SolvedQuiz q where QuizId = @QuizId and UserId = @UserId ;";
         public const string UserAnswer = @"select q.AnswerId,q.QuestionId from zbox.SolvedQuestion q where QuizId = @QuizId and UserId = @UserId;";
-            
+
+        public const string Discussion = @"select qd.Id,
+u.UserName,
+qd.CreationTime as Date,
+u.UserImage as UserPicture,
+u.UserId,
+qd.Text,
+qd.QuestionId
+from zbox.QuizDiscussion qd
+left join zbox.Users u on u.UserId = qd.UserId
+where qd.QuizId = @QuizId";
     }
 }
