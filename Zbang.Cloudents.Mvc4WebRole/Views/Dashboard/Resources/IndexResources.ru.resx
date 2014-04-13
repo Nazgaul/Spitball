@@ -225,4 +225,7 @@
   <data name="AddedItem" xml:space="preserve">
     <value>добавил/а элемент</value>
   </data>
+  <data name="PostedComment" xml:space="preserve">
+    <value>оставил/а комментарий</value>
+  </data>
 </root>

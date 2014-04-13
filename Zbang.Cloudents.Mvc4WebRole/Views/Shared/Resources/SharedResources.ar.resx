@@ -512,4 +512,10 @@
   <data name="Post" xml:space="preserve">
     <value>نشر</value>
   </data>
+  <data name="Draft" xml:space="preserve">
+    <value>مسودة</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>سؤال</value>
+  </data>
 </root>

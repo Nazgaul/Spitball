@@ -225,4 +225,7 @@
   <data name="AddedItem" xml:space="preserve">
     <value>تمت إضافة عنصر </value>
   </data>
+  <data name="PostedComment" xml:space="preserve">
+    <value>تم نشر تعليق</value>
+  </data>
 </root>
