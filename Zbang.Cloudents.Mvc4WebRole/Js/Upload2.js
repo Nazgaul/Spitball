@@ -600,6 +600,7 @@
             if (boxToUpload.question) {
                 cd.pubsub.publish('qnaAttacment', d);
             }
+            d.boxid = boxid;
             cd.pubsub.publish('addItem', d);
         }
         d.ownerUrl = cd.userDetail().url; //need this for activity feed

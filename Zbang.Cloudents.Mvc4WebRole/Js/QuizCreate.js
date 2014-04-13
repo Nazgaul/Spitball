@@ -72,23 +72,18 @@
 
     });
 
-    function initQuiz(quizId) {
+    function initQuiz(quizId) {        
         if (quizSideBar) {
-            clearQuiz();
-            $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend',
-            function (e) {
-                if (!quizId) {
-                    appendEmptyState();                    
-                    showQuiz();
-                    registerEvents();
-                    return;
-                }
-            
-                editDraft();
+            if (cd.isElementInViewport(quizSideBar)) {
+                clearQuiz();
+                $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', showState);
                 return;
-            });
+            }
+
+            showState();
             return;
         }
+
 
         dataContext.quizHTML({
             success: function (data) {
@@ -108,6 +103,17 @@
                 }
             }
         });
+
+        function showState() {
+            if (!quizId) {
+                appendEmptyState();
+                showQuiz();
+                registerEvents();
+                return;
+            }
+
+            editDraft();
+        }
 
         function editDraft() {
             dataContext.quizData({
@@ -751,15 +757,15 @@
     function showClosePopup() {
         $(quitQuizDialog).show();
 
-        $(quizClosePublish).one('click', function () {
+        $(quizClosePublish).off('click').one('click', function () {
             $(quitQuizDialog).hide();
             publishQuiz();
         });
-        $(quizCloseDraft).one('click', function () {
+        $(quizCloseDraft).off('click').one('click', function () {
             $(quitQuizDialog).hide();
             clearQuiz();
         });
-        $(quizCloseDelete).one('click', function () {
+        $(quizCloseDelete).off('click').one('click', function () {
             $(quitQuizDialog).hide();
             deleteQuiz();            
         });

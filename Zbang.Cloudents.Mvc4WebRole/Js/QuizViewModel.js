@@ -45,14 +45,8 @@
             if (!stopWatch) {
                 stopWatch = new Stopwatch(quizTimer);
             }
-            
-                registerEvents();
-            
 
-
-            
-
-
+            registerEvents();
 
             function checkAnswerSheet() {
                 var userResult = JSON.parse(quiz.getAttribute('data-data'));
@@ -68,25 +62,25 @@
                     timeTaken = userResult.timeTaken.substr(0, userResult.timeTaken.lastIndexOf('.'));
                 } else {
                     timeTaken = userResult.timeTaken;
-                }   
+                }
 
                 fillAnswers();
                 checkAnswers();
                 showScore(timeTaken);
 
                 function fillAnswers() {
-                    var answerSheet = {},qa;
+                    var answerSheet = {}, qa;
                     for (var i = 0, l = userResult.questions.length; i < l; i++) {
                         qa = userResult.questions[i];
                         answerSheet[qa.questionId] = qa.answerId;
                     }
 
                     var questions = quizTQuestion.children,
-                        question,questionId;
+                        question, questionId;
 
                     for (var i = 0, l = questions.length; i < l; i++) {
                         question = questions[i];
-                        questionId = question.getAttribute('data-id');                                                
+                        questionId = question.getAttribute('data-id');
                         if (answerSheet[questionId]) {
                             $(question).find('[data-id="' + answerSheet[questionId] + '"]')[0].checked = true;
                         }
@@ -106,13 +100,12 @@
                 if (stopWatch.isRunning) {
                     return;
                 }
-                toggleTimer(true, false);                
+                quizCheckAnswers.disabled = false;
+                toggleTimer(true, false);
             });
 
             $(quizCheckAnswers).click(function () {
-                
                 quiz.classList.add('checkQuiz');
-
 
                 var answerSheet = checkAnswers();
                 showScore();
@@ -124,6 +117,9 @@
                         EndTime: stopWatch.endTime,
                         QuizId: quizId,
                         Answers: answerSheet
+                    },
+                    success: function () {
+                        getComments();
                     },
                     error: function () { }
                 });
@@ -137,7 +133,11 @@
 
             $(quizTimerToggle).click(function () {
                 toggleTimer(!stopWatch.isRunning, false);
+                
             });
+
+
+
         }
 
         function toggleTimer(isStart, isReset) {
@@ -201,16 +201,42 @@
             quizTimerResult.textContent = lastTime || stopWatch.lastTime;
         }
 
+        function getComments() {
+            dataContext.quizGetDiscussion({
+                data: { quizId: quizId },
+                success: function (data) {
+                    data = data || {};
+                    populateComments(data);
+                    registerDiscussionEvents();
+                }
+            });
+
+            function populateComments(data) {
+                for (var i = 0, l = data.length ; i < l; i++) {
+                    console.log(data);
+                }
+            }
+
+            function registerDiscussionEvents() {
+                $('.qNumOfCmnts').click(function () {
+                    $('.commentWpr').removeClass('show');
+                    $(this).parents('.commentWpr').addClass('show');
+                });
+
+            }
+        }
+
         function clearQuiz() {
             quiz.classList.remove('checkQuiz');
             $(quizTQuestion).find('input').removeAttr('disabled').prop('checked', false);
             $(quizTQuestion).children().removeClass('noAnswer userWrong');
             $(quizTQuestion).find('.userCorrect').removeClass('userCorrect');
-            
+
             stopWatch.reset();
         }
 
-        
+
+
         //#region rate
 
         //function registerRateEvents() {
@@ -218,6 +244,7 @@
         //}
 
         //#endregion
+
     }
 
 })(jQuery, cd, cd.data, cd.pubsub, ZboxResources, cd.analytics);

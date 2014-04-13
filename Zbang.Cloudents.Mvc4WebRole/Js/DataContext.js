@@ -181,6 +181,11 @@
     definition.quizADelete = new definitionobj({ url: '/Quiz/DeleteAnswer' });
     definition.quizSaveQuest = new definitionobj({ url: '/Quiz/SaveAnswers', isJson: true });
 
+    definition.quizGetDiscussion = new definitionobj({ url: '/Quiz/Discussion' });
+    definition.quizCreateDiscussion = new definitionobj({ url: '/Quiz/CreateDiscussion' });
+    definition.quizDeleteDiscussion = new definitionobj({ url: '/Quiz/DeleteDiscussion' });
+    
+
     //#endregion definition
     /**
  * Outline our webservices

@@ -26,7 +26,7 @@
             that.ownerUrl = data.userUrl;
             that.rate = 69 / 5 * data.rate;
             that.date = data.date;
-            that.isNew = ko.observable(data.isNew || false);          
+            that.isNew = ko.observable(data.isNew || false);
             that.tabId = ko.observable(data.tabId);
 
             that.isCheck = ko.computed({
@@ -52,10 +52,10 @@
         }
         function Quiz(data) {
             var that = this;
-            BaseItem.call(that, data);                    
+            BaseItem.call(that, data);
             that.publish = data.publish;
             that.noPreview = ' noPreview';
-            that.description = data.description || '';            
+            that.description = data.description || '';
         }
         function Item(data) {
             var that = this;
@@ -87,7 +87,7 @@
         self.permission = ko.observable('none');
         self.loaded = ko.observable(false);
         self.loadedAnimation = ko.observable(false);
-        
+
 
         self.currentView = ko.observable('BoxItemsThumbViewTemplate');
 
@@ -96,19 +96,19 @@
                 if (self.currentView() === 'BoxItemsThumbViewTemplate') {
                     return 'QuizItemsThumbViewTemplate';
                 }
-                
+
                 return 'QuizItemsListViewTempalte';
             }
             return self.currentView();
         }
-            
+
         cd.pubsub.subscribe('perm', function (d) {
             self.permission(d);
         });
 
 
         cd.pubsub.subscribe('box', function (data) {
-            boxid = data.id;
+            boxid = parseInt(data.id, 10);
             current = 0;
             tab = null;
             self.permission('none');
@@ -122,7 +122,7 @@
 
         });
         cd.pubsub.subscribe('boxclear', function () {
-            self.manageTab('');            
+            self.manageTab('');
             self.loaded(false).loadedAnimation(false).items([]);
         });
 
@@ -148,7 +148,7 @@
                 }
             });
         }
-        cd.pubsub.subscribe('updates', function (updates) {            
+        cd.pubsub.subscribe('updates', function (updates) {
             var box = updates[boxid],
                 items, item;
 
@@ -177,16 +177,16 @@
                     continue;
                 }
                 mapped.push(new Item(data[i]));
-                
+
             }
             mapped.sort(sort);
             var tt = new TrackTiming('Box Items', 'Render time of items');
             tt.startTime();
-            self.items(mapped);            
+            self.items(mapped);
             cd.loadImages(document.getElementById('BoxItemList'));
             tt.endTime();
             tt.send();
-            self.loadedAnimation(true);                       
+            self.loadedAnimation(true);
         }
 
         function sort(a, b) {
@@ -196,7 +196,7 @@
             if (b.sponsored) {
                 return 1;
             }
-            if (a.uid < b.uid) {
+            if (a.date < b.date) {
                 return 1
             } else {
                 return -1;
@@ -216,12 +216,11 @@
 
 
         cd.pubsub.subscribe('addItem', function (d) {
-            if (d.boxid !== boxid) { 
-                return;            
+            if (d.boxid !== boxid) {
+                return;
             }
 
-            try
-            {
+            try {
                 var newItem;
 
                 if (d.type.toLowerCase() === 'quiz') {
@@ -230,14 +229,14 @@
                     newItem = new Item(d);
                 }
 
-                
+
                 var x = ko.utils.arrayFirst(self.items(), function (i) {
                     return i.uid === newItem.uid;
                 });
-               
+
                 if (x) {
                     if (x.type.toLowerCase() !== 'quiz') {
-                        return;                        
+                        return;
                     }
 
                     self.items.remove(x);
@@ -254,15 +253,16 @@
 
         });
 
-      
+
         cd.pubsub.subscribe('addedItem', function (d) {
             if (d.boxid === boxid) {
+                d.item.boxid = d.boxid;
                 d.item.isNew = true;
                 cd.pubsub.publish('addItem', d.item);
             }
 
 
-            cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });            
+            cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });
         });
         //#endregion
 
@@ -272,20 +272,20 @@
         });
 
         //#region remove item
-            
-            
+
+
 
         self.removeQuiz = function (quiz) {
             if (quiz.ownerId !== cd.userDetail().nId) {
                 cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
                 return;
             }
-            
+
             var quizName = quiz.name || 'quiz draft';
             cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + quizName + "?",
                             function () {
                                 self.items.remove(quiz);
-                                cd.pubsub.publish('deleteQuiz',quiz.uid);
+                                cd.pubsub.publish('deleteQuiz', quiz.uid);
                                 //countOfItems--;
                                 dataContext.quizDelete({
                                     data: { id: quiz.uid },
@@ -300,10 +300,10 @@
                             }, null);
 
         };
-        
+
 
         self.removeItem = function (item) {
-            if (!cd.deleteAllow(self.permission(),item.ownerId)) { 
+            if (!cd.deleteAllow(self.permission(), item.ownerId)) {
                 cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + item.type);
                 return;
             }
@@ -398,7 +398,7 @@
                 cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3), quizId: quiz.uid });
                 return false;
             }
-            
+
             if (quiz.isNew()) {
                 quiz.isNew(false);
                 cd.newUpdates.deleteUpdate({ type: 'quizzes', boxId: boxid, id: quiz.uid });
@@ -416,17 +416,17 @@
             //remove the new tag
             if (item.isNew()) {
                 item.isNew(false);
-                cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });                
+                cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });
             }
 
             return true;
-            
+
         };
 
 
         $('.boxItemsViewToggle').click(function (e) {
             var type = e.target.getAttribute('data-template');
-            setView(type,e.target);
+            setView(type, e.target);
         });
         //Analytics
         $('#BoxItemList').on('click', 'a.downloadBtn', function (e) {
@@ -441,8 +441,8 @@
                 cd.pubsub.publish('register');
                 return;
             }
-            
-            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3) });            
+
+            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3) });
         });
 
         $('#BoxItemList').hoverIntent({
@@ -454,10 +454,10 @@
                 if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
                     return;
                 }
-                
+
                 html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
-                if (!this.querySelector('.boxItemTt')) {                    
-                        this.insertAdjacentHTML('afterbegin', html);                    
+                if (!this.querySelector('.boxItemTt')) {
+                    this.insertAdjacentHTML('afterbegin', html);
                 }
                 var tooltip = this.querySelector('.boxItemTt');
                 if (item.type.toLowerCase() === 'link' || item.type.toLowerCase() === 'quiz') {
@@ -466,7 +466,7 @@
 
                 $(tooltip).fadeIn(300);
                 cd.parseTimeString($(tooltip).find('[data-time]'));
-            },            
+            },
             out: function () {
                 $('.boxItemTt').remove();
             },
@@ -474,18 +474,18 @@
             timeout: 100,
             interval: 400
         });
-        
-        cd.pubsub.subscribe('clearTooltip',function() {
-              $('.boxItemTt').remove();
+
+        cd.pubsub.subscribe('clearTooltip', function () {
+            $('.boxItemTt').remove();
         });
-        
-        function setView(view,element) {
+
+        function setView(view, element) {
             if (self.currentView() === view) {
                 return;
             }
 
             $('.boxItemsViewToggle').removeClass('currentState');
-            
+
             element.classList.add('currentState');
             self.currentView(view);
             cd.loadImages(document.getElementById('BoxItemList'));
