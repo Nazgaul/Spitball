@@ -145,10 +145,10 @@
 
 
 <script type="text/html" id="quizCommentTemplate">
-    <li class="calloutTrgr" data-id="{{userId}}">
+    <li class="calloutTrgr" data-id="{{id}}" data-uid="{{userId}}">
         <img class="imgBorder" width="32" height="32" alt="" src="{{userPicture}}" />
         <span class="semiFont">{{userName}}</span>
-        <span class="createTime" data-time="date"></span>
+        <span class="createTime" data-time="{{date}}"></span>
         <div class="commentTxt">{{text}}</div>
     </li>
 </script>

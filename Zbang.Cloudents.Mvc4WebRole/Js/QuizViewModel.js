@@ -76,9 +76,9 @@
                 } else {
                     timeTaken = userResult.timeTaken;
                 }
-
                 fillAnswers();
                 checkAnswers();
+                getComments();
                 showScore(timeTaken);
 
                 function fillAnswers() {
@@ -111,7 +111,6 @@
 
 
             $(quizCheckAnswers).click(function () {
-                quiz.classList.add('checkQuiz');
 
                 var answerSheet = checkAnswers();
                 showScore();
@@ -141,7 +140,7 @@
                 toggleTimer(!stopWatch.isRunning, false);
 
             });
-            
+
             $(quizTQuestion).on('change', 'input', function () {
                 quizCheckAnswers.disabled = false;
 
@@ -219,6 +218,9 @@
         }
 
         function getComments() {
+
+            $('.quizComments').empty();
+
             dataContext.quizGetDiscussion({
                 data: { quizId: quizId },
                 success: function (data) {
@@ -227,46 +229,40 @@
                         return new UserComment(comment);
                     });
                     populateComments(map);
-                    //cd.parseTimeString(quizTQuestion);
+
+                    cd.updateTimeActions(quizTQuestion);
                     registerDiscussionEvents();
+                    quiz.classList.add('checkQuiz');
+
                 }
             });
 
             function populateComments(comments) {
-                
+
                 var comment, commentsObj = {};
                 for (var i = 0, l = comments.length ; i < l; i++) {
                     comment = comments[i];
 
                     if (!commentsObj[comment.questionId]) {
                         commentsObj[comment.questionId] = [];
-                    }                    
+                    }
                     commentsObj[comment.questionId].push(comment);
                 }
 
                 var questions = quizTQuestion.children,
-                    question, questionId,comment;
+                    question, questionId, comment;
 
                 for (var i = 0, l = questions.length; i < l; i++) {
                     question = questions[i];
                     questionId = question.getAttribute('data-id');
                     if (commentsObj[questionId]) {
-                        appendComments(question,commentsObj[questionId]);
+                        appendComments(question, commentsObj[questionId]);
                     }
 
                     question.getElementsByClassName('quizUserCommentImg')[0].src = cd.userDetail().img;
                 }
-                
-                function appendComments(question,comments) {
-                    question.getElementsByClassName('qNumOfCmnts')[0].textContent = comments.length + ' ' + (comments.length > 1 ? ZboxResources.Comments : ZboxResources.Comment);
 
-                    var commentsHTML = '';
-                    for (var i = 0, l = comments.length; i < l; i++) {
-                        commentsHTML += cd.attachTemplateToData('quizCommentTemplate', comments[i]);
-                    }
-                    
-                    question.getElementsByClassName('quizComments')[0].insertAdjacentHTML('beforeend', commentsHTML);
-                }
+
             }
 
             function registerDiscussionEvents() {
@@ -275,20 +271,52 @@
                     $(this).parents('.commentWpr').addClass('show');
                 });
 
-                $(quizTQuestion).on('keyup', '.cTextArea', function () {                    
-                    this.nextElementSibling.disabled = this.value.length === 0;                    
+                $(quizTQuestion).on('keyup', '.cTextArea', function () {
+                    this.nextElementSibling.disabled = this.value.length === 0;
                 });
 
                 $('.askBtn').click(function () {
 
                     var text = this.previousElementSibling.value,
-                        questionId =  $(this).parents('li')[0].getAttribute('data-id');
+                        question = $(this).parents('li')[0],
+                        questionId = question.getAttribute('data-id');
                     if (text.length > 0) {
                         dataContext.quizCreateDiscussion({
-                            data : { questionId: questionId, text: text }
+                            data: { questionId: questionId, text: text }
                         });
                     }
+
+                    var comment = {
+                        id: '',
+                        userId: cd.userDetail().nId,
+                        userPicture: cd.userDetail().img,
+                        userName: cd.userDetail().name,
+                        text: text,
+                        date: new Date()
+                    }
+
+                    var html = cd.attachTemplateToData('quizCommentTemplate', comment);
+                    var commentsElement = question.getElementsByClassName('quizComments')[0];
+                    commentsElement.insertAdjacentHTML('beforeend', html);
+                    cd.parseTimeString(commentsElement.lastElementChild.querySelector('.createTime'));
                 });
+
+                $(quizTQuestion).on('click', '.closeDialog', function () {
+                    $(this).parents('.commentWpr').removeClass('show');
+                });
+
+
+            }
+
+            function appendComments(question, comments) {
+                question.getElementsByClassName('qNumOfCmnts')[0].textContent = comments.length + ' ' + (comments.length > 1 ? ZboxResources.Comments : ZboxResources.Comment);
+
+                var commentsHTML = '';
+                for (var i = 0, l = comments.length; i < l; i++) {
+                    commentsHTML += cd.attachTemplateToData('quizCommentTemplate', comments[i]);
+                }
+
+                question.getElementsByClassName('quizComments')[0].insertAdjacentHTML('beforeend', commentsHTML);
             }
         }
 
