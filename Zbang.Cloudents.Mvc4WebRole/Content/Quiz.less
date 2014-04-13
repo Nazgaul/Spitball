@@ -326,9 +326,47 @@
     padding: 0 25px;
     > li{
         position:relative; //for item view
-        padding: 20px 0;
-        border-bottom: 1px solid #f1f1f1;
+        padding-top: 20px;
     }
+    .splitHR {
+        
+        text-align: left;
+        padding: 10px 0 0px 14px;
+        font-size: 13px;
+    }
+    .splitHRText:before, .splitHRText:after {
+        border-color: #eee;
+    }
+    .iconTxt {
+        color: @attentionBlue;
+        &:before {
+            width: 15px;
+            height: 15px;
+            background-position: -55px -121px;
+        }
+    }
+}
+.commentWpr {
+    margin: 0 -140px 0 -25px;
+}
+.quizComments {
+    font-size: 13px;
+    li{
+        padding-left: 42px;
+        position: relative;
+        margin-top: 20px;
+    }
+    .imgBorder {
+        position: absolute;
+        left:0;
+    }
+    .createTime {
+        vertical-align: baseline;
+    }
+}
+.commentTxt {
+    font-size: 15px;
+    margin: 10px 0;
 }
 .quizAList
 {
@@ -397,8 +435,10 @@
     }
 
     .userCorrect, .userWrong {
-        &:before {
-            display: inline-block;
+        .quizQuestion, .quizAList {
+            &:before {
+                display: inline-block;
+            }
         }
     }
     //duplicated class name for extra specificity
@@ -412,9 +452,11 @@
             opacity: 1; //override disabled radio half opacity on label
         }
     }
+
     .wrong label:before {
         background-position: -36px -121px;
     }
+
     .sectionHeader {
         color: @textColor;
     }
@@ -426,12 +468,12 @@
     .timeWpr0 {
         margin-top: -95px;
     }
-    .quizQList .noAnswer:after
-    {
+
+    .quizQList .noAnswer:after {
         content: attr(data-no-answer);
         display: inline-block;
         position: absolute;
-        top:21px;
+        top: 21px;
         right: -140px; /*rtl*/
         color: @errorColor;
         background: #f5f5f5;
@@ -442,20 +484,26 @@
 }
 
 .userCorrect, .userWrong {
-    &:before {
-        content: '';
-        display: none;
-        position: absolute;
-        left: -45px; /*rtl*/
-        width: 3px;
-        height: ~'-webkit-calc(100% - 40px)';
-        height: ~'calc(100% - 40px)';
-        background: @color;
-    }
+   .quizQuestion, .quizAList {
+        position: relative;
+        &:before {
+            content: '';
+            display: none;
+            position: absolute;
+            left: -45px; /*rtl*/
+            top:0;
+            width: 3px;
+            height: 100%;
+            background: @color;
+        }
+   }   
 }
-
-.userWrong:before {
-    background: @errorColor;
+.userWrong {
+   .quizQuestion, .quizAList {
+        &:before {
+            background: @errorColor;
+        }
+   }   
 }
 
 .timeWpr0 {

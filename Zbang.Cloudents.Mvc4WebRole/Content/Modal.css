@@ -107,8 +107,16 @@
 .popupWrppr.quitQuiz {
   width: 560px;
 }
+.popupWrppr.quitQuiz .btn1 {
+  margin-top: 20px;
+  padding: 4px 15px;
+}
 .popupWrppr.quitQuiz .btn1 + .btn1 {
   margin: 15px 15px 5px 15px;
+}
+.popupWrppr.quitQuiz .quitQuizTxt {
+  font-size: 15px;
+  margin: 15px 0;
 }
 .quitQuizDialog {
   display: none;
