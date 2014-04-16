@@ -11,7 +11,7 @@
         itemLoad: 'item_load', itemClear: 'itemclear', perm: 'perm', imagesQuery: 'img.imageContent', rated: 'rated',
         title: '{0} | {1}.{2} | Cloudents', divWrapper: 'divWrapper', checked: 'checked', fetchRate: 'fetchrate',
         flagItemDialog: 'flagItemDialog', fullscreen: 'fulscrn', submit: ':submit', thirdWindowHeight: $(window).height() / 3,
-        firstChild: ':first-child', lastChild: ':last-child', annotation: 'annotation',video : 'video'
+        firstChild: ':first-child', lastChild: ':last-child', annotation: 'annotation', video: 'video'
     },
     eById = document.getElementById.bind(document);
 
@@ -36,7 +36,7 @@
                         $otakimP = $('#Otakim_P'), $itemFS = $('#item_FS'), $itemCL = $('#item_CL'), $itemSettings = $('#itemSettings'),
                         $itemRenameSave = $('#itemRenameSave'), $itemName = $('#itemName'), $itemRename = $('#item_rename'),
                         $itemRenameCancel = $('#itemRenameCancel'), $rateBubble = $('#rateBubble'), $rateBtn = $('#rateBtn'),
-                        $ratePopup = $('#ratePopup'), $commentsNumber = $('.commentsNumber'),$itemMsg = $('#item_msg'),
+                        $ratePopup = $('#ratePopup'), $commentsNumber = $('.commentsNumber'), $itemMsg = $('#item_msg'),
 
         //data
         isLtr = $('html').css('direction') === 'ltr', itemType, userType, blobName, annotationList = [],
@@ -191,7 +191,7 @@
         };
 
         //#region delete an item
-        self.deleteItem = function () {            
+        self.deleteItem = function () {
             cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
                 cd.sessionStorageWrapper.clear();
                 dataContext.removeItem({
@@ -200,7 +200,7 @@
                         cd.pubsub.publish('nav', self.boxurl());
                     }
                 });
-            }, null);            
+            }, null);
         };
         //#endregion
 
@@ -236,7 +236,7 @@
             that.x = data.x;
             that.y = data.y;
             that.width = data.width;
-            that.height = data.height;            
+            that.height = data.height;
             that.date = data.creationDate;
             that.userImage = data.userImage;
             that.userName = data.userName;
@@ -280,7 +280,11 @@
                     boxName: cd.getParameterFromUrl(3)
                 },
                 success: function (data) {
-                    var elems = $.map(data, function (i) { return new Item(i); });
+                    var elems = $.map(data, function (i) {
+                        if (i.type.toLowerCase() !== 'quiz') {
+                            return new Item(i);
+                        }
+                    });
                     self.items(elems);
                 }
             });
@@ -344,8 +348,8 @@
                     $rated.toggleClass(consts.rated).text(5 - $rated.index());
                 }
 
-                
-       
+
+
                 function fillVariables() {
                     ownerid = data.ownerUid;
                     userType = data.userType;
@@ -483,7 +487,7 @@
                     });
 
                     //rateitempopup
-             
+
                     if (ratedItems && ratedItems[cd.userDetail().nId]) {
                         if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
                             return;
@@ -492,7 +496,7 @@
 
                     ratePopupTimeout = setTimeout(function () {
                         $ratePopup.removeClass('changedItem').addClass('show');
-                                               
+
                         if (!cd.register()) {
                             $ratePopup.one('click', '.star', function () {
                                 cd.unregisterAction(this);
@@ -682,7 +686,7 @@
                     }
                     $ratePopup.addClass('changedItem').removeClass('show');
                     clearTimeout(ratePopupTimeout);
-                    $rateContainer.find('.star').each(function (i,e) {
+                    $rateContainer.find('.star').each(function (i, e) {
                         $(e).removeClass('rated').text(e.id.slice(-1));
                     });
 
@@ -792,7 +796,7 @@
 
                         dataContext.renameItem({
                             data: { newFileName: fileName, ItemId: self.itemid() },
-                            success: function (data) {                                                               
+                            success: function (data) {
                                 var extension = data.queryString.slice(data.queryString.lastIndexOf('.'), data.queryString.length),
                                     listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
                                     listItem = ko.dataFor(listItemElement[0]),
@@ -800,7 +804,7 @@
                                     location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
 
                                 self.itemName(data.name);
-                                listItem.name(data.name + extension);                                
+                                listItem.name(data.name + extension);
 
                                 self.copyLink(location);
                                 fixHistory(location)
@@ -913,7 +917,7 @@
                     } else {
                         $ratePopup.removeClass('show');
                     }
-                    
+
 
                     if (choosedRate) {
                         return;
@@ -936,7 +940,7 @@
 
                     trackEvent('Rate', 'User rated an item with ' + currentRate + ' stars');
 
-                    toggleStarClass($rated,currentRate);
+                    toggleStarClass($rated, currentRate);
 
 
 
@@ -970,7 +974,7 @@
         //#endregion 
 
         //#region utilities
-       
+
 
         function getNameNoExtension(fileName, type) {
             if (type === consts.link) {
@@ -979,7 +983,7 @@
             return fileName.substring(0, fileName.lastIndexOf('.'));
         }
 
-      
+
 
         function trackEvent(action, label) {
             analytics.trackEvent('Item', action, label);
@@ -1014,7 +1018,7 @@
                     initialRate = rate;
                     $.data($rateContainer[0], consts.fetchRate, false);
                     var $rated = $rateBubble.find('.' + consts.rated);
-                    toggleStarClass($rated,rate);
+                    toggleStarClass($rated, rate);
                 }
             });
         }
@@ -1092,7 +1096,7 @@
                     var ctx = annotationCanvas[0].getContext('2d');
                     clearRectangle(ctx);
                     var readViews = $itemPreview[0].querySelectorAll('.readView');
-                    for (var i = 0,l=readViews.length; i < l; i++) {
+                    for (var i = 0, l = readViews.length; i < l; i++) {
                         readViews[i].classList.add('addAnotationShow');
                     }
 
