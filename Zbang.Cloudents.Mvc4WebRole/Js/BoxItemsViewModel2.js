@@ -234,21 +234,27 @@
                     return i.uid === newItem.uid;
                 });
 
-                if (x) {
-                    if (x.type.toLowerCase() !== 'quiz') {
+                if (newItem.type.toLowerCase() === 'quiz') {
+                    if (x) {
+                        x.name = newItem.name;
+                        document.getElementById(x.uid).getElementsByClassName('boxName')[0].textContent = newItem.name;
                         return;
                     }
+                    self.permission('subscribe');
+                    cd.pubsub.publish('clear_cache');
+                    cd.loadImages(document.getElementById('BoxItemList'));
 
-                    x.name = newItem.name;
-                    document.getElementById(x.uid).getElementsByClassName('boxName')[0].textContent = newItem.name;
                 } else {
+                    if (x) {
+                        return;
+                    }
                     self.items.unshift(newItem);
                     self.items.sort(sort);
+                    cd.pubsub.publish('clear_cache');
+                    cd.loadImages(document.getElementById('BoxItemList'));
                 }
 
-                cd.pubsub.publish('clear_cache');
-                //self.loadedAnimation(true);
-                cd.loadImages(document.getElementById('BoxItemList'));
+                
             } catch (e) {
                 console.log(e);
             }
