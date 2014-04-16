@@ -505,6 +505,7 @@
 }
 .checkQuiz .timeWpr0 {
   margin-top: -95px;
+  z-index: -1;
 }
 .checkQuiz .quizQList .noAnswer:after {
   content: attr(data-no-answer);
@@ -545,7 +546,6 @@
 }
 .timeWpr0 {
   position: relative;
-  z-index: -1;
   height: 95px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
