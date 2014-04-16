@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
     {
         public const string CloudentsURL = "https://www.cloudents.com/";
         public const string ItemUrl = CloudentsURL + "item/{0}/{1}/{2}/{3}/{4}/";
+        public const string QuizUrl = CloudentsURL + "quiz/{0}/{1}/{2}/{3}/{4}/";
         public const string BoxUrl = CloudentsURL + "box/my/{0}/{1}/";
         public const string CourseUrl = CloudentsURL + "course/{2}/{0}/{1}/";
         public const string UserUrl = CloudentsURL + "user/{0}/{1}";

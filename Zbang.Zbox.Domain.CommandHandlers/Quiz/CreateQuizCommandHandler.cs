@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
@@ -33,7 +34,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             if (userType == Infrastructure.Enums.UserRelationshipType.None)
             {
-                throw new UnauthorizedAccessException("user not connected to box");
+                user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
+                box.CalculateMembers();
+                m_UserReposiotry.Save(user);
             }
             var quiz = new Zbang.Zbox.Domain.Quiz(message.Text, message.QuizId, box, user);
 

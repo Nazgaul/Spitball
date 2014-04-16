@@ -30,7 +30,18 @@
     select u.username as UserName,u.userid as UserId,  i.itemid as Id,i.name as Name, i.ThumbnailBlobName as Picture
     from zbox.item i inner join zbox.users u on u.userid = i.userid
     where i.boxid = :BoxId
+    and publish = 1
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,i.creationTime)) >0
+    
+    ]]>
+  </sql-query>
+  <sql-query name="GetQuizUpdateByBox" read-only="1">
+    <![CDATA[
+   	select u.username as UserName,u.userid as UserId,  q.id as Id,q.name as Name, 'http://zboxstorage.blob.core.windows.net/mailcontainer/Quiz.jpg' as Picture
+	 from zbox.quiz q inner join zbox.users u on u.userid = q.userid
+	 where i.boxid = :BoxId
+    and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,q.creationTime)) >0;
+    
     ]]>
   </sql-query>
   <sql-query name="GetQuestionUpdateByBox" read-only="1">

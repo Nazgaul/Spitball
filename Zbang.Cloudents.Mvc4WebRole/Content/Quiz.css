@@ -93,7 +93,7 @@
 .toggleQuiz {
   width: 22px;
   height: 22px;
-  background: url(/Images/common16-sprite.png) -294px -2px;
+  background: url(/Images/common16-sprite.png?v=2) -294px -2px;
   position: fixed;
   right: 374px;
   /*rtl*/
@@ -208,7 +208,7 @@
   color: #d1294d;
 }
 .quizAnswersList {
-  list-style-type: decimal;
+  list-style-type: lower-alpha;
   clear: both;
   padding-left: 16px;
   /*rtl*/
@@ -492,7 +492,7 @@
   width: 17px;
   height: 16px;
   background-color: none;
-  background: url(/Images/common16-sprite.png) -18px -121px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -18px -121px no-repeat;
   opacity: 1;
 }
 .checkQuiz .wrong label:before {
