@@ -292,14 +292,13 @@
   top: 20px;
 }
 .quizPreview .correct {
-  display: inline;
   background: rgba(3, 113, 200, 0.2);
-}
-.quizPreview .correct:before {
-  content: '';
-  display: list-item;
-  float: left;
-  /*rtl*/
+  /*&:before
+        {
+            content: '';
+            display: list-item;
+            float: left; 
+        }*/
 }
 .quizPreview .correct + li {
   margin-top: 10px;
