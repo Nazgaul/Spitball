@@ -542,7 +542,7 @@
   display: inline-block;
   width: 18px;
   height: 19px;
-  background: url(/Images/common16-sprite.png) -171px -64px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -171px -64px no-repeat;
   vertical-align: middle;
   margin-right: 5px;
 }
@@ -581,7 +581,7 @@
   vertical-align: middle;
   width: 22px;
   height: 19px;
-  background: url(/Images/common16-sprite.png) -155px -42px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -155px -42px no-repeat;
   margin-right: 8px;
   /*rtl*/
 }
@@ -602,7 +602,7 @@
   display: inline-block;
   width: 24px;
   height: 17px;
-  background: url(/Images/common16-sprite.png) -154px -24px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -154px -24px no-repeat;
   vertical-align: middle;
 }
 .memberItem:hover .inviteUserBtn,

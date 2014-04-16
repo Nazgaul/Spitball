@@ -482,7 +482,7 @@ button.fileError {
   vertical-align: middle;
   width: 17px;
   height: 13px;
-  background: url(/Images/common16-sprite.png) -73px -70px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -73px -70px no-repeat;
   margin: -1px 5px 0 0;
   /*rtl*/
 }

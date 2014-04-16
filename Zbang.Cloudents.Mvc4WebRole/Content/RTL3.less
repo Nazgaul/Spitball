@@ -132,7 +132,7 @@
 
 .membersList {
     margin: 0 -5px 0 -13px; /*rtl*/ //Doing this right: for the scrollbars and left: for item hover
-    padding: 0 5px 0 13px; 
+    padding: 0 5px 0 13px;
 }
 
 .memberItem {
@@ -190,16 +190,14 @@
 .deptLink {
     margin: 0 0 35px 14px; /*rtl*/
     padding: 2px 15px 6px 9px; /*rtl*/
-    &:before
-    {
-        right:-1px; /*rtl*/
+    &:before {
+        right: -1px; /*rtl*/
         left: auto;
         .flipH;
     }
 }
 
-.courseCount
-{
+.courseCount {
     right: 15px; /*rtl*/
     left: auto;
 }
@@ -212,11 +210,12 @@
             left: 10px; /*rtl*/
             right: auto;
         }
-        .libraryList{
+
+        .libraryList {
             padding: 0 0 0 315px; /*rtl*/
         }
-        .emptyLib
-        {
+
+        .emptyLib {
             padding: 0 0 0 290px; /*rtl*/
         }
     }
@@ -239,12 +238,13 @@
         margin: 0 0 0 5px; /*rtl*/
     }
 
-    &.hoverItem.memberImg:before {
-        margin:0 0 0 3px;
-    }
-    &.hoverItem.commentImg:before {
-        margin:0 0 0 4px;
-    }   
+&.hoverItem.memberImg:before {
+    margin: 0 0 0 3px;
+}
+
+&.hoverItem.commentImg:before {
+    margin: 0 0 0 4px;
+}
 
 .box .boxName, .itemName {
     //margin: 3px 11px 0 4px; /*rtl*/
@@ -283,17 +283,17 @@
         left: auto;
     }
 }
-.boxNotify{
+
+.boxNotify {
     left: 16px; /*rtl*/
     right: auto;
     box-shadow: -1px 1px 3px rgba(57,0,12,.5); /*rtl*/
-    
 }
 //.unionCourses {
-    .courseCode {
-        right: 84px; /*rtl*/
-        left: auto;
-    }
+.courseCode {
+    right: 84px; /*rtl*/
+    left: auto;
+}
 //}
 
 /*#region boxesHeader */
@@ -301,10 +301,11 @@
     right: 0;
     left: auto;
     padding: 0 314px 0 45px; /*rtl*/ //(left padding is from topBar class)
-    h2{
+    h2 {
         padding: 8px 0 0 8px; /*rtl*/
     }
 }
+
 .back:before {
     margin: 0 0 0 5px; /*rtl*/
     .flipH(-1); /*rtl flip*/
@@ -409,8 +410,7 @@
 
 .asideList {
     padding: 0 10px 0 5px; /*rtl*/
-
-    &.dash > .activityItem{
+    &.dash > .activityItem {
         margin: 0 0 7px 8px; /* rtl  */
     }
 }
@@ -452,11 +452,13 @@
     border-left: 1px solid #fff; /*rtl*/
     border-right: 1px solid #c2c2c2;
 }
-.dashLists{
+
+.dashLists {
     .friendsList {
         padding: 11px 11px 7px 7px; /*rtl*/
     }
 }
+
 .updateContent {
     margin: 0 3px 0 0; /*rtl*/
 }
@@ -464,12 +466,10 @@
 /*#endregion */
 
 /*#region AccountInfo.css */
-.headerRightWpr
-{
+.headerRightWpr {
     padding: 0 @logoWidth 0 0; /*rtl*/
-    margin: 0 -@logoWidth 0 0;  /*rtl*/
-    .userSection
-    {
+    margin: 0 -@logoWidth 0 0; /*rtl*/
+    .userSection {
         margin: 0 @searchMargin 0 0; /*rtl*/
     }
 }
@@ -480,6 +480,7 @@
         right: auto;
     }
 }
+
 .signUp {
     margin: 0 0 0 12px; /*rtl*/
 }
@@ -494,21 +495,20 @@
     left: auto;
 }
 
-.notifyWpr{
+.notifyWpr {
     margin: 0 -170px 0 0; /*rtl*/
-    &.noResults
-    {
-        .notifyTop
-        {
+    &.noResults {
+        .notifyTop {
             text-align: right; /*rtl*/
         }
     }
 }
-.notifyItem{
+
+.notifyItem {
     padding: 10px 70px 0 8px; /*rtl*/
 }
-.notifyImg
-{
+
+.notifyImg {
     right: 10px; /*rtl*/
     left: auto;
 }
@@ -521,37 +521,39 @@
 /*#endregion */
 
 /*#region box3.css */
-.shareBtn{
-    .shareItem{
+.shareBtn {
+    .shareItem {
         padding: 0 6px 0 0; /*rtl*/
-        &:first-child
-        {
+        &:first-child {
             padding: 0 0 0 6px; /*rtl*/
         }
     }
+
     .fbShare, .emailShare {
-        &:before
-        {
+        &:before {
             margin: 0 0 0 6px; /*rtl*/
         }
     }
 }
 
-.shareDD
-{
+.shareDD {
     left: -5px; /*rtl*/
     right: auto;
-    h4{
+
+    h4 {
         margin: -2px 0 0 10px; /*rtl*/
     }
-    .closeItem{
+
+    .closeItem {
         left: 15px; /*rtl*/
         right: auto;
     }
-    .shareArrow{
+
+    .shareArrow {
         left: 8px; /*rtl*/
         right: auto;
-        &:before{
+
+        &:before {
             left: -12px; /*rtl*/
             right: auto;
         }
@@ -563,6 +565,7 @@
         margin: 0 8px 0 0; /*rtl*/
     }
 }
+
 .joinGrpWpr {
     &.show {
         .joinGrpBtn {
@@ -570,14 +573,14 @@
         }
     }
 }
-.joinGrp
-{
-    &:before
-    {
-        right:0; /*rtl*/
+
+.joinGrp {
+    &:before {
+        right: 0; /*rtl*/
         left: auto;
     }
 }
+
 .shareMenu {
     left: -6px; /*rtl*/
     right: auto;
@@ -643,28 +646,30 @@
     margin: 0 0 6px 6px; /*rtl*/
 }
 
-/*if < 5 items: float friendBtn right.*/
-.friendItem:last-child:nth-child(-n + 5) {
-    float: left; /*rtl*/
-}
+    /*if < 5 items: float friendBtn right.*/
+    .friendItem:last-child:nth-child(-n + 5) {
+        float: left; /*rtl*/
+    }
 
 /*#endregion */
 
 /*#region box folders */
-.boxMembers,.boxFolders {
+.boxMembers, .boxFolders {
     .sectionHeader {
         border-right: none;
         border-left: 1px solid @borderColor;
-        font-size: 17px /*diff rtl*/
+        font-size: 17px; /*diff rtl*/
     }
 }
 
 .boxFolder, .createFolder {
     border-right: none;
     border-left: 1px solid @borderColor;
+
     &.current {
         font-weight: bold; /*rtl*/
     }
+
     .boxFolderName {
         &.editable {
             padding: 8px 8px 0 4px; /*rtl*/
@@ -705,46 +710,46 @@
         font-weight: normal; /*rtl*/
     }
 }
+
 .boxItemList {
-    &.sponsored
-    {
-        .listItem:first-child
-        {
-            padding:0 260px 0 0; /*rtl*/ //override
-            .imgBorder
-            {
+    &.sponsored {
+        .listItem:first-child {
+            padding: 0 260px 0 0; /*rtl*/ //override
+            .imgBorder {
                 border: none;
                 border-left: 1px solid @borderColor; /*rtl*/
                 border-radius: 0 3px 3px 0; /*rtl*/
             }
+
             .itemContent {
                 margin: 0px 0 5px 15px; /*rtl*/
             }
         }
     }
 }
+
 .boxItemsHeader {
     position: relative; /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
-    .iconTxt{
+    .iconTxt {
         margin: 0 0 0 15px; /*rtl*/
     }
 }
 
-.listViewBtn, .thumbViewBtn
-{
+.listViewBtn, .thumbViewBtn {
     border-radius: 0 3px 3px 0; /*rtl*/
 }
-.listViewBtn
-{
+
+.listViewBtn {
     float: none; /* no ltr - fix for listViewBtn in RTL */
     position: absolute; /* no ltr - fix for listViewBtn in RTL */
     left: 34px; /* no ltr - fix for listViewBtn in RTL */
 }
-.thumbViewBtn
-{
+
+.thumbViewBtn {
     border-right: none; /*rtl*/
     border-radius: 3px 0 0 3px; /*rtl*/
 }
+
 .tag {
     padding: 1px 6px 2px 12px; /*rtl*/
     border-radius: 0 3px 3px 3px; /*rtl*/
@@ -756,21 +761,21 @@
         border-color: #f1f1f1 #0e8249 #0e8249 #f1f1f1; //rtl
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 1px 1px 1px rgba(0, 0, 0, 0.2); //rtl
     }*/
-    &:before
-    {
+    &:before {
         right: 0; //rtl
         left: auto;
         width: 33px; /*diff rtl*/
         border-radius: 0 3px 3px 0; //rtl
     }
-    &:after
-    {
+
+    &:after {
         left: 0; //rtl
         right: auto;
         .flipH;
     }
 }
-.listItem{
+
+.listItem {
     padding: 15px 138px 15px 0; /*rtl*/
     text-align: right; /*rtl*/
     &.draft .tag {
@@ -778,18 +783,22 @@
         left: auto;
         padding: 0 22px 0 0; /*rtl*/
     }
-    .actionBtns{
+
+    .actionBtns {
         left: 0; /*rtl*/
         right: auto;
     }
-    .imgBorder{
-        right:0; /*rtl*/
+
+    .imgBorder {
+        right: 0; /*rtl*/
         left: auto;
     }
+
     .views {
         margin: 0 20px 0 0; //override  /*rtl*/
     }
-    .tag{
+
+    .tag {
         left: 10px; /*rtl*/
         right: auto;
     }
@@ -807,24 +816,28 @@
         left: 4px; /*rtl*/
         right: auto;
     }
-    .tag{
+
+    .tag {
         right: -6px; /*rtl*/
         left: auto;
     }
-    &.quizItem
-    {
+
+    &.quizItem {
         &:before {
-            float:right; /*rtl*/
+            float: right; /*rtl*/
         }
+
         &:after {
             right: 0; /*rtl*/
             left: auto;
         }
+
         .stars {
-            right:4px; /*rtl*/
+            right: 4px; /*rtl*/
             left: auto;
         }
     }
+
     &.draft .tag {
         margin: 0 15px 0 0; /*rtl*/
     }
@@ -834,61 +847,63 @@
 .boxItemTt {
     right: -66px; /*rtl*/
     left: auto;
+
     .downArrow {
         margin-top: 14px; /*diff rtl*/
     }
-    &.noPreview
-    {
+
+    &.noPreview {
         .downArrow {
             top: 81px; /* diff rtl*/
         }
-        .ttPreview
-        {
+
+        .ttPreview {
             display: none;
         }
     }
-    &.ttLink
-    {
+
+    &.ttLink {
         height: 83px; /*diff rtl*/
         .downArrow {
-            top:57px; /*diff rtl*/
+            top: 57px; /*diff rtl*/
         }
+
         .ttTop {
             padding-bottom: 0;
         }
     }
-    .ttTop{
-        > .ttDetail
-        {
-            &:before
-            {
-                margin: 0 20px 0 4px; /*rtl*/
 
+    .ttTop {
+        > .ttDetail {
+            &:before {
+                margin: 0 20px 0 4px; /*rtl*/
             }
-            &:last-child:before
-            {
+
+            &:last-child:before {
                 margin: 0 24px 0 4px; /*rtl*/
             }
-            &:after
-            {
-                right:0; /*rtl*/
+
+            &:after {
+                right: 0; /*rtl*/
                 left: auto;
             }
         }
     }
+
     .detailsWpr {
         right: 11px; /*rtl*/
         left: auto;
     }
-    .ttPreview
-    {
+
+    .ttPreview {
         max-height: 55px; /* diff rtl - heb has 4 lines*/
     }
 }
-/*#endregion */ 
+/*#endregion */
 
 
 .box-layout-rtl(boxItemList,boxItem,148px,248px,2,12,20px,310px,411px);
+
 .stars {
     margin: 3px 5px 0 0; /*rtl*/
     .full {
@@ -934,10 +949,12 @@
     right: 1px; /*rtl*/
     left: auto;
 }
+
 .cbManage:checked + div {
     right: -3px; /*rtl*/
     left: auto;
 }
+
 .boxManage {
     .btn1 {
         margin: 0 10px 0 5px; /*rtl*/
@@ -1047,12 +1064,14 @@
 .QItem {
     .askBtn {
         margin: 2px 0 7px 6px; /*rtl*/
-        height:26px;
-        line-height:22px;
+        height: 26px;
+        line-height: 22px;
     }
+
     .userName {
-        margin:7px 10px 0 0; /*rtl*/
+        margin: 7px 10px 0 0; /*rtl*/
     }
+
     .tag {
         left: -3px; //rtl
         right: auto;
@@ -1086,9 +1105,11 @@
 .QContent {
     padding: 0 10px 10px 0; /*rtl*/
 }
-.AContent{
+
+.AContent {
     padding: 7px 0 7px 10px; /*rtl*/
 }
+
 .AMore {
     margin: 4px 44px 8px 0; /*rtl*/
 }
@@ -1145,6 +1166,7 @@
     left: 27px; /*rtl*/
     right: auto;
 }
+
 .createTime {
     margin: 0 5px 0 0; /*rtl*/
 }
@@ -1214,7 +1236,7 @@
 }
 
 .eSingleImg {
-    margin:5px 0 0 6px;/*rtl*/
+    margin: 5px 0 0 6px; /*rtl*/
 }
 
 .inviteMsg {
@@ -1224,17 +1246,19 @@
 /*#endregion */
 
 /*#region Item3.css */
-.ratePopup{
-    right:50%; /*rtl*/
+.ratePopup {
+    right: 50%; /*rtl*/
     left: auto;
-    .starsWpr{
+
+    .starsWpr {
         margin: 0 10px 0 0; /*rtl*/
     }
-    .star{
+
+    .star {
         float: left; /*rtl*/
     }
-    .closeDialog
-    {
+
+    .closeDialog {
         left: 5px; /*rtl*/
         right: auto;
     }
@@ -1243,9 +1267,9 @@
 .itemRight, .boxRight {
     padding: 0 290px 0 0; /*rtl*/
 }
-.itemRight
-{
-    .shareDD{
+
+.itemRight {
+    .shareDD {
         left: 0; /*rtl*/
         right: auto;
     }
@@ -1269,14 +1293,14 @@
 }
 
 .itemRenameBtn {
-    left:0; /*rtl*/
-    right:auto;
+    left: 0; /*rtl*/
+    right: auto;
 }
 
 .itemTop {
     .itemRename {
-        left:0;
-        right:auto;
+        left: 0;
+        right: auto;
     }
 }
 
@@ -1309,7 +1333,7 @@
     }
 }
 
-.itemFlag {    
+.itemFlag {
     &:before {
         margin: 0 0 0 5px; /*rtl*/
     }
@@ -1337,11 +1361,13 @@
         left: 22px; /*rtl*/
         right: auto;
     }
-    .backWpr{
+
+    .backWpr {
         right: 19px; /*rtl*/
         left: auto;
     }
 }
+
 .printDD.printDD {
     left: 19px; /*diff rtl*/
 }
@@ -1352,7 +1378,7 @@
 
 .commentBtn {
     .commentsNumber {
-        left:20px; /*rtl*/              
+        left: 20px; /*rtl*/
     }
 }
 
@@ -1378,9 +1404,8 @@
 .addAnotation {
     right: 806px; /*rtl*/
     left: auto;
-
     //.btnWpr {
-        // margin: 0 0 0 6px; /*rtl*/
+    // margin: 0 0 0 6px; /*rtl*/
     //}
 }
 
@@ -1468,9 +1493,11 @@
     .btn1 {
         margin: 0 0 0 8px; /*take into account +4px because of inline block: 8+4=12*/
     }
+
     .inputText {
         margin: -6px 0 0 8px; /*rtl*/
     }
+
     .profilePhoto {
         box-shadow: -2px 2px 2px rgba(0, 0, 0, .4); /*rtl*/
     }
@@ -1479,22 +1506,20 @@
         margin: 5px 5px 0 0; /*rtl*/
     }
 }
-.schoolWpr
-{
+
+.schoolWpr {
     padding: 0 44px 0 0; /*rtl*/
-    .imgBorder
-    {
-        right:0; /*rtl*/
+    .imgBorder {
+        right: 0; /*rtl*/
         left: auto;
     }
 }
-.checkMailMsg
-{
+
+.checkMailMsg {
     right: 200px; /*rtl*/
     left: auto;
     padding: 0 55px 0 0; /*rtl*/
-    &:before
-    {
+    &:before {
         margin: 0 0 0 5px; /*rtl*/
         right: 28px; /*rtl*/
         left: auto;
@@ -1553,38 +1578,38 @@
 
 /*#region invite main content */
 
-.invMain{
-    &.invBox
-    {
-        .invHeaderText{
-            padding: 0 34px 0 0;/*rtl*/
+.invMain {
+    &.invBox {
+        .invHeaderText {
+            padding: 0 34px 0 0; /*rtl*/
         }
-        .invHeaderText:before
-        {
-            margin: 0 0 0 4px; /*rtl*/
-        }
+
+            .invHeaderText:before {
+                margin: 0 0 0 4px; /*rtl*/
+            }
     }
 }
-.invboxImg
-{
-    right:0; /*rtl*/
+
+.invboxImg {
+    right: 0; /*rtl*/
     left: auto;
 }
+
 .inviteSources {
     margin: 3px 0 0 30px; /*diff rtl*/
 }
 
-.invTab{
-    height: 50px;  /*diff rtl*/
+.invTab {
+    height: 50px; /*diff rtl*/
 }
 
-.invContentTop
-{
-    .inputText{
-        left:0; /*rtl*/
+.invContentTop {
+    .inputText {
+        left: 0; /*rtl*/
         right: auto;
     }
 }
+
 .fbTop {
     .inputText {
         left: 0; /*rtl*/
@@ -1594,7 +1619,7 @@
 
 .invItem {
     &:nth-child(2n + 1) {
-        margin: 20px 0 0 82px; /*rtl*/ //20px top margin from invItem    
+        margin: 20px 0 0 82px; /*rtl*/ //20px top margin from invItem
     }
 }
 
@@ -1617,64 +1642,58 @@
 /*#endregion */
 
 /*#region user page */
-.userPage, .searchPage{
+.userPage, .searchPage {
     text-align: right; /*rtl*/
 }
 /*#region user page aside */
-.upSidebar{
+.upSidebar {
     margin: 28px 21px 0 0; /*rtl*/
 }
 /*#region points section */
-.pointsWpr
-{
-    &:before
-    {
+.pointsWpr {
+    &:before {
         right: 0; /*rtl*/
         left: auto;
     }
 }
-.emptyPoints
-{
+
+.emptyPoints {
     text-align: right; /*rtl*/
 }
 /*#endregion */
 
 /*#region uploads 'tab' */
 
-.uploadsItem
-{
+.uploadsItem {
     padding: 0 64px 0 10px; /*rtl*/
-
-    .views{
+    .views {
         margin: 0 12px 0 0; /*rtl*/ // override
     }
 }
 /*#endregion */
 
 /*#region QnA tabs */
-.qaBoxname
-{
+.qaBoxname {
     margin: 0 10px 0 0; /*rtl*/
 }
-.qaWpr{
+
+.qaWpr {
     padding: 10px 10px 5px 5px; /*rtl*/
 }
-.qaQuestion
-{
+
+.qaQuestion {
     margin: -10px -10px 0 -5px; /*rtl*/
     padding: 10px 10px 8px 5px; /*rtl*/
 }
-.qLink
-{
-    &:after
-    {
+
+.qLink {
+    &:after {
         margin: 0 5px 0 0; /*rtl*/
         .flipH;
     }
 }
 
-.qaUsername
-{
+.qaUsername {
     margin: 0 8px 11px 0; /*rtl*/
 }
 /*#endregion */
@@ -1683,24 +1702,24 @@
 
 /*#region userpage content */
 
-.upTop
-{
+.upTop {
     padding: 0 112px 0 0; /*rtl*/
-    .btn3{
-        &:before
-        {
+    .btn3 {
+        &:before {
             margin: 0 0 0 5px; /*rtl*/
         }
     }
 }
-.upImg
-{
+
+.upImg {
     right: 0; /*rtl*/
     left: auto;
 }
+
 .upSectionWpr {
     padding: 15px 14px 0 12px; /*rtl*/
 }
+
 .upShowAll {
     &:after {
         margin: 0 8px 0 0; /*rtl*/
@@ -1708,35 +1727,33 @@
 }
 
 .followingList {
-    .btn3{
+    .btn3 {
         right: 84px; /*rtl*/
         left: auto;
     }
 }
 
-.upInvites{
-    .inviteFriendBtn.btn3{
-        &:before
-        {
+.upInvites {
+    .inviteFriendBtn.btn3 {
+        &:before {
             margin: 0 0 0 8px; /*rtl*/
         }
     }
 }
 
-.upInviteItem
-{
+.upInviteItem {
     padding: 0 91px 0 0; /*rtl*/
     float: right; /*rtl*/
-    .userItemImg
-    {
-        right:0; /*rtl*/
+    .userItemImg {
+        right: 0; /*rtl*/
         left: auto;
     }
-    .semiFont
-    {
+
+    .semiFont {
         margin: 0 0 4px; /*diff rtl*/
     }
-    .btn1{
+
+    .btn1 {
         left: 0; /*rtl*/
         right: auto;
     }
@@ -1750,8 +1767,8 @@
         }
     }*/
 }
-.invitedToWpr
-{
+
+.invitedToWpr {
     padding: 9px 35px 0 5px; /*rtl*/
 }
 /*.invitedToImg
@@ -1759,9 +1776,8 @@
     right:0; 
     left: auto;
 }*/
-.emptyInvites
-{
-    .btn3{
+.emptyInvites {
+    .btn3 {
         margin: 0 15px 0 0; /*rtl*/
     }
 }
@@ -1772,18 +1788,18 @@
 .upMembers {
     .membersContent {
         .emptySearch {
-            right:426px; /*rtl*/
+            right: 426px; /*rtl*/
             left: auto;
         }
     }
 
     .membersTop {
-        text-align:right; /*rtl*/
+        text-align: right; /*rtl*/
     }
 }
 
 .memberTopRow {
-    text-align:right; /*rtl*/
+    text-align: right; /*rtl*/
     .deptCol {
         &:after {
             .pseudo;
@@ -1795,6 +1811,7 @@
         padding: 0 36px 0 0; /*rtl*/
     }
 }
+
 .memberCol {
     padding: 0 10px 0 0; /*rtl*/
 }
@@ -1803,6 +1820,7 @@
 .deptPopup {
     right: 514px; /*rtl*/
     left: auto;
+
     .cbLabel.cbLabel {
         padding: 0 37px 0 5px; /*rtl*/
         &:before {
@@ -1826,6 +1844,7 @@
         padding: 0 10px 0 0; /*rtl*/
     }
 }
+
 .upMemberName {
     padding: 0 10px 0 0; /*rtl*/
 }
@@ -1839,39 +1858,34 @@
 
 /*#region search drop down */
 
-.searchItem{
-    > .searchTitle
-    {
+.searchItem {
+    > .searchTitle {
         margin: 0 56px 0 0; /*rtl*/
     }
-    .userImg
-    {
+
+    .userImg {
         margin: 0 3px 0 0; /*rtl*/
     }
 }
 
-.searchDetails
-{
+.searchDetails {
     padding: 0 15px 0 0; /*rtl*/
 }
-.otherUni
-{
+
+.otherUni {
     right: 71px; /*rtl*/
     left: auto;
 }
-.boxLoc
-{
-    &:before
-    {
+
+.boxLoc {
+    &:before {
         margin: 0 0 0 4px; /*rtl*/
     }
 }
-.dpt
-{
-    .searchDetails
-    {
-        &:before
-        {
+
+.dpt {
+    .searchDetails {
+        &:before {
             float: right; /*rtl*/
             margin: 0 0 0 16px; /*rtl*/
         }
@@ -1880,74 +1894,73 @@
 /*#endregion */
 
 /*#region Search page - 's' prefix stands for 'search' */
-.searchPage
-{
-    &:after
-    {
-        right:0; /*rtl*/
+.searchPage {
+    &:after {
+        right: 0; /*rtl*/
         left: auto;
     }
-    .upArrow{
+
+    .upArrow {
         top: -14px; /*rtl (font issue)*/
-        &:before
-        {
+        &:before {
             right: 10px; /* diff rtl*/
             left: auto;
             .transition(right .5s); /*rtl*/
         }
     }
-    .views{
+
+    .views {
         margin: -2px 16px 0 0; /*rtl*/
     }
+
     .userItem {
         margin: 0 0 0 31px; /* diff rtl*/
     }
 }
+
 .sTabs {
     &.sTab2 {
-        ~ .upArrow:before{
+        ~ .upArrow:before {
             right: 75px; /* diff rtl*/
             left: auto;
         }
     }
 
     &.sTab3 {
-        ~ .upArrow:before{
+        ~ .upArrow:before {
             right: 142px; /* diff rtl*/
             left: auto;
         }
     }
 }
 
-.box.sCourseItem{
+.box.sCourseItem {
     &:nth-child(odd) {
         margin: 0 0 20px 20px; /*rtl*/
     }
-    .boxImg
-    {
+
+    .boxImg {
         margin: 0 0 0 24px; /*rtl*/
     }
 }
 
-.sOtherUni
-{
+.sOtherUni {
     right: 100px; /*rtl*/
     left: auto;
 }
 
-.sMemberName
-{
+.sMemberName {
     margin: 26px 104px 0 0; /*rtl*/
 }
-.sMaterialsItem{
-    .sOtherUni
-    {
+
+.sMaterialsItem {
+    .sOtherUni {
         right: 136px; /*rtl*/
         left: auto;
     }
 }
-.sMaterialImg
-{
+
+.sMaterialImg {
     margin: 0 0 0 26px; /*rtl*/
 }
 /*#endregion */
@@ -1957,16 +1970,16 @@
 /*#region welcome*/
 .genderLabel {
     &:before {
-        margin-right:0;
-        margin-left:4px;
-    }   
+        margin-right: 0;
+        margin-left: 4px;
+    }
 }
 /*#endregion */
 
 /*#region Animations.css */
 .mixi-frames6 () {
     0% {
-        opacity:0;
+        opacity: 0;
         top: 38px;
         right: ~'-webkit-calc(50% - 112px)'; /*rtl*/
         right: ~'calc(50% - 112px)'; /*rtl*/
@@ -1975,7 +1988,7 @@
     }
 
     19%, 90% {
-        opacity:1;
+        opacity: 1;
         top: 53px;
         right: ~'-webkit-calc(50% - 112px)'; /*rtl*/
         right: ~'calc(50% - 112px)'; /*rtl*/
@@ -1984,7 +1997,7 @@
     }
 
     100% {
-        opacity:0;
+        opacity: 0;
         top: 38px;
         right: ~'-webkit-calc(100% - 200px)'; /*rtl*/
         right: ~'calc(100% - 200px)'; /*rtl*/
@@ -1993,97 +2006,111 @@
     }
 }
 
-@-webkit-keyframes ptsAnim {.mixi-frames6;}
-@-moz-keyframes ptsAnim {.mixi-frames6;}
-@-ms-keyframes ptsAnim {.mixi-frames6;}
-@-o-keyframes ptsAnim {.mixi-frames6;}
-@keyframes ptsAnim {.mixi-frames6;}
+@-webkit-keyframes ptsAnim {
+    .mixi-frames6;
+}
+
+@-moz-keyframes ptsAnim {
+    .mixi-frames6;
+}
+
+@-ms-keyframes ptsAnim {
+    .mixi-frames6;
+}
+
+@-o-keyframes ptsAnim {
+    .mixi-frames6;
+}
+
+@keyframes ptsAnim {
+    .mixi-frames6;
+}
 
 /*#endregion */
 
 /*#region Quiz.css */
 
 /*#region Create Quiz */
-.bodyContent{
+.bodyContent {
     &.noQuiz {
         .quizSideBar {
             left: -390px; /*rtl*/
             right: auto;
         }
-        
-        .toggleQuiz{
+
+        .toggleQuiz {
             left: -22px; /*rtl*/
             right: auto;
         }
     }
 }
-.quizSideBar
-{
+
+.quizSideBar {
     left: 0; /*rtl*/
     right: auto;
     border: none;
     border-right: 1px solid @borderColor; /*rtl*/
     box-shadow: 4px 0 4px rgba(0,0,0,.15); /*rtl*/
     .transition(left .4s); /*rtl*/
-    
-    header{
-        margin: 0 -15px 0 -14px;  /*rtl*/ //left padding + 1px border
+    header {
+        margin: 0 -15px 0 -14px; /*rtl*/ //left padding + 1px border
         padding: 8px 24px 0 0; /*rtl*/
     }
 }
-.toggleQuiz
-{
+
+.toggleQuiz {
     left: 374px; /*rtl*/
     right: auto;
     .flipH; /*diff rtl*/
 }
 
-.checkbox:checked
-{
-    ~ .toggleQuiz
-    {
+.checkbox:checked {
+    ~ .toggleQuiz {
         .flipH(1); /*diff rtl*/
         left: 3px; /*rtl*/
         right: auto;
     }
-    ~ .quizSideBar
-    {
-        left: -372px;  /*rtl*/
+
+    ~ .quizSideBar {
+        left: -372px; /*rtl*/
         right: auto;
     }
 }
-.quizWpr
-{
+
+.quizWpr {
     padding: 0 0 0 4px; /*rtl*/
     margin: 0 0 0 -12px; /*rtl*/
 }
-.questionHolder
-{
-    .closeDialog{
+
+.questionHolder {
+    .closeDialog {
         left: -3px; /*rtl*/
         right: auto;
     }
-    .lFloat{
+
+    .lFloat {
         margin: 3px 0 0 5px; /*rtl*/
         color: #676767;
     }
+
     label {
         left: 17px; /*rtl*/
         right: auto;
     }
-    &.questionReq{
-        .addQuestion{
+
+    &.questionReq {
+        .addQuestion {
             margin: -2px 0 0 20px; /*rtl*/
         }
     }
 }
 
-.quizAnswersList{
+.quizAnswersList {
     padding: 0 16px 0 0; /*rtl*/
+    list-style-type: decimal;
 }
 
-.quizAddQuestion
-{
+.quizAddQuestion {
     text-align: right; /*rtl*/
 }
 
@@ -2092,63 +2119,68 @@
 
 /*#region Quiz Preview */
 
-.quizPreview{
+.quizPreview {
     right: 0; /*rtl*/
     left: auto;
+
     .correct {
-        &:before
-        {
+        &:before {
             content: '';
             display: list-item;
             float: right; /*rtl*/
         }
     }
 }
-.quizPrevWpr
-{
+
+.quizPrevWpr {
     padding: 0 20px 0 140px; /*rtl*/
 }
-.quizQList
-{
+
+.quizQList {
     .splitHR {
         text-align: right; /*rtl*/
         padding: 10px 14px 0 0; /*rtl*/
     }
 }
+
 .commentWpr {
     margin: 0 -25px 30px -140px; /*rtl*/
     .imgBorder {
-        right:0; /*rtl*/
+        right: 0; /*rtl*/
         left: auto;
     }
+
     .askBtn {
         margin: 8px 0 0 100px; /*rtl*/
     }
 }
+
 .quizComments {
     padding: 0 0 0 110px; /*rtl*/
-    li{
+    li {
         padding: 0 42px 0 0; /*rtl*/
-    }  
+    }
 }
+
 .cTextArea {
     margin: 0 42px 0 0; /*rtl*/
 }
 /*#endregion */
 
 /*#region Quiz item page */
-.quizPage{
+.quizPage {
     .leftPanel {
-        right:0; /*rtl*/
+        right: 0; /*rtl*/
         left: auto;
     }
-    .itemRight
-    {
+
+    .itemRight {
         text-align: right; /*rtl*/
-    } 
+    }
 }
+
 .userCorrect, .userWrong {
-     &:before {
+    &:before {
         right: -45px; /*rtl*/
         left: auto;
     }
@@ -2161,11 +2193,10 @@
     }
 }
 
-.results
-{
+.results {
     &.wrong {
         &:before {
-            right:0; /*rtl*/
+            right: 0; /*rtl*/
             left: auto;
         }
     }

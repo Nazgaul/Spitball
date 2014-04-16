@@ -48,6 +48,18 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<ItemDigestDto>());
                 return dbQuery.List<ItemDigestDto>();
             }
+        
+        }
+        public IEnumerable<ItemDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query)
+        {
+            using (UnitOfWork.Start())
+            {
+                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetQuizUpdateByBox");
+                dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
+                dbQuery.SetInt64("BoxId", query.BoxId);
+                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<ItemDigestDto>());
+                return dbQuery.List<ItemDigestDto>();
+            }
         }
 
         public IEnumerable<QnADigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query)

@@ -15,6 +15,7 @@ using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.ViewModel.Queries;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -195,6 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
+                TraceLog.WriteError("Quiz/Save model: " + model.ToString(), ex);
                 return this.CdJson(new JsonResponse(false, ex.Message));
             }
         }

@@ -622,7 +622,8 @@
 .boxFolders .sectionHeader {
   border-right: none;
   border-left: 1px solid #c2c2c2;
-  font-size: 17px /*diff rtl*/;
+  font-size: 17px;
+  /*diff rtl*/
 }
 .boxFolder,
 .createFolder {
@@ -2522,6 +2523,7 @@
 .quizAnswersList {
   padding: 0 16px 0 0;
   /*rtl*/
+  list-style-type: decimal;
 }
 .quizAddQuestion {
   text-align: right;

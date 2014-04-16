@@ -343,7 +343,7 @@
   width: 22px;
   height: 19px;
   vertical-align: middle;
-  background: url(/Images/common16-sprite.png) -155px -42px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -155px -42px no-repeat;
   margin-right: 5px;
   /*rtl*/
 }
@@ -448,7 +448,7 @@
   vertical-align: middle;
   margin-left: 8px;
   /*rtl*/
-  background: url(/Images/common16-sprite.png) -98px -49px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -98px -49px no-repeat;
   width: 9px;
   height: 7px;
 }
@@ -554,7 +554,7 @@
 .upInvites .inviteFriendBtn.btn3:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common16-sprite.png) -143px -3px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -143px -3px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -787,10 +787,10 @@
   display: inline-block;
   width: 16px;
   height: 10px;
-  background: url(/Images/common16-sprite.png) -102px -88px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -102px -88px no-repeat;
 }
 .courseCol .courseList:hover:before {
-  background: url(/Images/common16-sprite.png) -102px -102px no-repeat;
+  background: url(/Images/common16-sprite.png?v=2) -102px -102px no-repeat;
 }
 .deptPopup {
   display: none;

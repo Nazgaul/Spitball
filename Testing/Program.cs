@@ -108,7 +108,11 @@ namespace Testing
 
         static void Main(string[] args)
         {
-
+            var x2 = @". עיקרי תוכנית בוורידג*. 
+תכנית השמה לה ליעד להביא לחיסול המחסור בתקופה שלאחר המלחמה. המטרה האסטרטגית של התוכנית הייתה ליצור מערכת מקיפה של ביטחון סוציאלי, שתבטיח לכל אדם רמת מינימום של הכנסה. רמת המינימום נועדה להיות מספיקה לקיום, אך לשמש בתור רצפה בלבד, שאף אחד לא ייפול מתחתיה. על הרצפה הזו, יוכל כל אחד להוסיף לעצמו הכנסה מעבודה, או חסכון. היעד השני של התוכנית היה, שבנוסף לחופש ממחסור, אנגליה תבנה מדיניות חברתית מקיפה לקידום חברתי, שתכלול גם מאבק ב ענקיםהבאים: חולי, בערות, עוני, ואבטלה. התוכנית נועדה ליצור מערכת ביטחון סוציאלי, שתלווה כל אדם מהעריסה עד הקבר ותבטיח לו הכנסת מינימום.
+האם תוכנית בוורידג' רלוונטית לימינו? – התבססות על מאמריהם של לאה אחדות ואברהם דורון:";
+            
+            x2 = x2.Substring(0,  Math.Min(x2.Length, 400));
             //var s = "https://www.cloudents.com/d/lzodJqaBYHu/pD0nrbAtHSq";
             //var xzx = GetTitle("http://www.vivt.ru/").Result;
             //var xzx2 = GetTitle("http://www.ynet.co.il/").Result;
@@ -375,7 +379,7 @@ namespace Testing
             //mail.GenerateAndSendEmail("noatseitlin@facebook.com", new WelcomeMailParams("ram", new CultureInfo("ru-RU")));
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new WelcomeMailParams("ram2", new CultureInfo("en-Us")));
 
-           // mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.cloudents.com", "ram", new CultureInfo("en-Us")));
+            // mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.cloudents.com", "ram", new CultureInfo("en-Us")));
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams("h$$$sdhf##askjd", new CultureInfo("en-Us")));
 
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL")));
