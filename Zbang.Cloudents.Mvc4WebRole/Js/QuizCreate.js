@@ -379,12 +379,18 @@
 
         $(quizAddQuestion).click(appendQuestion);
 
-        $(quizName).focusout(saveQuiz).keyup(function (e) {
-            var keyCode = e.keyCode || e.which;
-            if (keyCode === consts.keyTab) {
+        $(quizName).focusout(function () {
+            setTimeout(function () {
                 saveQuiz();
-            }
+            },100);
+            
         });
+        ////.keyup(function (e) {
+        ////    var keyCode = e.keyCode || e.which;
+        ////    if (keyCode === consts.keyTab) {
+        ////        saveQuiz();
+        ////    }
+        //});
 
         $(saveBtn).click(publishQuiz);
 
@@ -407,25 +413,28 @@
     //#region Quiz
 
     function saveQuiz() {
-        if (!quizId) {
-            dataContext.quizCreate({
-                data: { boxId: boxId, name: quizName.value },
-                success: function (data) {
-                    quizSideBar.setAttribute('data-id', data);
-                    quizId = data;
-                    addItemToBox(false);
-                }
-            });
-            return;
-        }
+            if (!quizId) {
+                dataContext.quizCreate({
+                    data: { boxId: boxId, name: quizName.value },
+                    success: function (data) {
+                        quizSideBar.setAttribute('data-id', data);
+                        quizId = data;
+                        addItemToBox(false);
+                    }
+                });
+                return;
+            }
 
-        dataContext.quizUpdate({
-            data: { id: quizId, name: quizName.value },
-            success: function () {
-                addItemToBox(false);
-            },
-            error: function () { }
-        });    
+            dataContext.quizUpdate({
+                data: { id: quizId, name: quizName.value },
+                success: function () {
+                    addItemToBox(false);
+                },
+                error: function () { }
+            });
+           
+        
+
     }
 
     function publishQuiz() {

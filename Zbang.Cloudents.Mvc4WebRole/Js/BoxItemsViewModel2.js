@@ -236,25 +236,25 @@
 
                 if (newItem.type.toLowerCase() === 'quiz') {
                     if (x) {
-                        x.name = newItem.name;
-                        document.getElementById(x.uid).getElementsByClassName('boxName')[0].textContent = newItem.name;
+                        newItem.date = x.date;
+                        self.items.remove(x);
+                        self.items.unshift(newItem);
+                        self.items.sort(sort);
                         return;
                     }
-                    self.permission('subscribe');
-                    cd.pubsub.publish('clear_cache');
-                    cd.loadImages(document.getElementById('BoxItemList'));
 
-                } else {
-                    if (x) {
-                        return;
-                    }
-                    self.items.unshift(newItem);
-                    self.items.sort(sort);
-                    cd.pubsub.publish('clear_cache');
-                    cd.loadImages(document.getElementById('BoxItemList'));
+                    self.permission('subscribe');                    
                 }
 
-                
+                if (x) { //other type than quiz
+                    return;
+                }
+                self.items.unshift(newItem);
+                self.items.sort(sort);
+                cd.pubsub.publish('clear_cache');
+                cd.loadImages(document.getElementById('BoxItemList'));
+
+
             } catch (e) {
                 console.log(e);
             }
