@@ -50,15 +50,15 @@ namespace Zbang.Zbox.ReadServices
             }
         
         }
-        public IEnumerable<ItemDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query)
+        public IEnumerable<QuizDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetQuizUpdateByBox");
                 dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
                 dbQuery.SetInt64("BoxId", query.BoxId);
-                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<ItemDigestDto>());
-                return dbQuery.List<ItemDigestDto>();
+                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<QuizDigestDto>());
+                return dbQuery.List<QuizDigestDto>();
             }
         }
 

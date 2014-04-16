@@ -16,7 +16,7 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<QnADigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query);
         IEnumerable<QnADigestDto> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query);
         IEnumerable<MembersDigestDto> GetNewMembersLastUpdates(GetMembersLastUpdateQuery query);
-        IEnumerable<ItemDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query);
+        IEnumerable<QuizDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query);
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
 
