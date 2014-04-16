@@ -293,30 +293,32 @@
             }
 
             function registerDiscussionEvents() {
-                $('.qNumOfCmnts').click(function () {
+                $('[data-discussion]').click(function () {
                     var that = this,
                         $wrapper = $(that).parents('.commentWpr'),
                         $comments = $wrapper.find('.quizComments'),
                         isVisible = $comments.is(':visible');
 
-                    $('.quizComments').slideUp({
-                        duration: 500,
-                        complete: function () {
-                            $('.commentWpr').removeClass('show');
-                        }
-                    });
+                    //$('.quizComments').slideUp({
+                    //   // duration: 500,
+                    //    complete: function () {
+                    //        $('.commentWpr').removeClass('show');
+                    //    }
+                    //});
 
                     if (isVisible) {
                         return;
                     }
-                    setTimeout(function () {
-                        $comments.slideDown({
-                            duration: 500,
-                            complete: function () {
-                                $wrapper.addClass('show');
-                            }
-                        });
-                    }, 500)
+                    $comments.show();
+                    $wrapper.addClass('show');
+                    //setTimeout(function () {
+                    //    $comments.slideDown({
+                    //        duration: 500,
+                    //        complete: function () {
+                    //            $wrapper.addClass('show');
+                    //        }
+                    //    });
+                    //}, 500)
                     
                 });
 
