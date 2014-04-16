@@ -420,7 +420,7 @@
         saveBtn.disabled = true;
 
         dataContext.quizPublish({
-            data: { id: quizId, boxId: boxId, universityName: cd.getParameterFromUrl(1), boxName: boxName, name: quizName.value },
+            data: { quizId: quizId, boxId: boxId, universityName: cd.getParameterFromUrl(1), boxName: boxName, name: quizName.value },
             success: function (data) {
                 if (!data) {
                     return;
