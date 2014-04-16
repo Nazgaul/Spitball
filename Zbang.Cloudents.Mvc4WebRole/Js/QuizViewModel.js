@@ -114,8 +114,6 @@
 
 
         function registerEvents() {
-
-
             $(quizCheckAnswers).click(function () {
 
                 var answerSheet = checkAnswers();
@@ -177,6 +175,10 @@
                   '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
                   null //picture
                   );
+            });
+
+            pubsub.subscribe('quizclear', function () {
+                clearQuiz();
             });
 
         }
@@ -311,8 +313,8 @@
                         $comments.slideDown({
                             duration: 500,
                             complete: function () {
-                            $wrapper.addClass('show');
-                        }
+                                $wrapper.addClass('show');
+                            }
                         });
                     }, 500)
                     
@@ -383,6 +385,7 @@
         function clearQuiz() {
             quiz.classList.remove('checkQuiz');
             $(quizTQuestion).find('input').removeAttr('disabled').prop('checked', false);
+
             $(quizTQuestion).children().removeClass('noAnswer userWrong');
             $(quizTQuestion).find('.userCorrect').removeClass('userCorrect');
             stopWatch.reset();

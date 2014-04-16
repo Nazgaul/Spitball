@@ -239,10 +239,13 @@
                         return;
                     }
 
-                    self.items.remove(x);
+                    x.name = newItem.name;
+                    document.getElementById(x.uid).getElementsByClassName('boxName')[0].textContent = newItem.name;
+                } else {
+                    self.items.unshift(newItem);
+                    self.items.sort(sort);
                 }
-                self.items.unshift(newItem);
-                self.items.sort(sort);
+
                 cd.pubsub.publish('clear_cache');
                 //self.loadedAnimation(true);
                 cd.loadImages(document.getElementById('BoxItemList'));

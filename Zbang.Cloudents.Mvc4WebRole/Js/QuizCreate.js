@@ -8,7 +8,8 @@
         quizSideBar, quizName, boxNameText, quizQuestionList,
         quizAddQuestion, quizPreview, mainDiv, closeQuiz,
         addQuiz, saveBtn, quitQuizDialog, quizClosePublish,
-        quizCloseDraft, quizCloseDelete;
+        quizCloseDraft, quizCloseDelete,
+        transitioning = false;
 
     assignDomElements();
 
@@ -65,6 +66,15 @@
         that.text = data.text || '';
     }
     pubsub.subscribe('initQuiz', function (data) {
+
+        if (quizId  && (quizId === data.quizId)) {
+            return;
+        }
+        
+        if (transitioning) {
+            return;
+        }
+
         boxId = data.boxId;
         boxName = data.boxName;
         initQuiz(data.quizId);
@@ -76,7 +86,8 @@
 
     function initQuiz(quizId) {        
         if (quizSideBar) {
-            if (cd.isElementInViewport(quizSideBar)) {
+            var rect = quizSideBar.getBoundingClientRect();
+            if (rect.left >= 0 && rect.right <= $(window).width()) {
                 clearQuiz();
                 $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', showState);
                 return;
@@ -141,7 +152,13 @@
     function showQuiz() {
         //show the quiz div
         addQuiz.disabled = true;
-        setTimeout(function () { mainDiv.classList.remove('noQuiz'); }, 0);
+        setTimeout(function () {
+            mainDiv.classList.remove('noQuiz');
+            transitioning = true;
+            $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
+                transitioning = false;
+            });
+        }, 0);
         quizName.focus();
     }
 
@@ -381,7 +398,7 @@
 
         pubsub.subscribe('deleteQuiz', function (id) {
             if (quizId === id) {
-                clearQuiz();
+                clearQuiz();                
             }
         });
   
@@ -421,10 +438,7 @@
 
         dataContext.quizPublish({
             data: { quizId: quizId, boxId: boxId, universityName: cd.getParameterFromUrl(1), boxName: boxName, name: quizName.value },
-            success: function (data) {
-                if (!data) {
-                    return;
-                }
+            success: function (data) {               
                 addItemToBox(true,data);
                 clearQuiz();
 
@@ -766,10 +780,15 @@
         $(quizCloseDraft).off('click').one('click', function () {
             $(quitQuizDialog).hide();
             clearQuiz();
-        });
+        });        
+
         $(quizCloseDelete).off('click').one('click', function () {
             $(quitQuizDialog).hide();
-            deleteQuiz();            
+            deleteQuiz();
+        });
+
+        $(quitQuizDialog).off('click').one('click', '.closeDialog', function () {
+            $(quitQuizDialog).hide();
         });
 
     }
@@ -785,8 +804,8 @@
             description: isPublish || getContent(),
             rate: 0,
             ownerId: cd.userDetail().nId,
-            ownerName: cd.userDetail().name,
-            ownerUrl: cd.userDetail().url,
+            owner: cd.userDetail().name,
+            userUrl: cd.userDetail().url,
             type: 'quiz',
             url: url,
             date: new Date()
@@ -808,6 +827,10 @@
 
     function clearQuiz() {
         mainDiv.classList.add('noQuiz');
+        transitioning = true;
+        $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
+            transitioning = false;
+        });
         addQuiz.disabled = false;
         $(window).off('beforeunload');
         quizQuestionList.innerHTML = '';

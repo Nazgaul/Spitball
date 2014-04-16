@@ -127,7 +127,7 @@
     <value>Add website link</value>
   </data>
   <data name="AddPrivateBox" xml:space="preserve">
-    <value>Add Group box</value>
+    <value>Add Group Box</value>
     <comment>Add private box dialog</comment>
   </data>
   <data name="AddSchool" xml:space="preserve">
