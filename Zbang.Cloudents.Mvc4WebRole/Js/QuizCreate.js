@@ -8,7 +8,7 @@
         quizSideBar, quizName, boxNameText, quizQuestionList,
         quizAddQuestion, quizPreview, mainDiv, closeQuiz,
         addQuiz, saveBtn, quitQuizDialog, quizClosePublish,
-        quizCloseDraft, quizCloseDelete,
+        quizCloseDraft, quizCloseDelete, quizWrapper,
         transitioning = false;
 
     assignDomElements();
@@ -24,6 +24,7 @@
 
         quizName = quizSideBar.getElementsByClassName('quizName')[0],
         boxNameText = quizSideBar.getElementsByClassName('quizLoc')[0],
+        quizWrapper = quizSideBar.getElementsByClassName('quizWpr')[0],
         closeQuiz = eById('closeQuiz'),
         quizQuestionList = eById('quizQuestionList'),
         quizAddQuestion = eById('quizAddQuestion'),
@@ -376,7 +377,8 @@
                            .on('change', '.correctAnswer', saveAnswer)
                            .on('keyup', '.questionAnswer', toggleAnswerRadioBtn)
                            .on('focusout', '.questionAnswer', saveAnswer)
-                           .on('click', '.questionAnswer[readonly="readonly"]', addAnswer);
+                           .on('click', '.questionAnswer[readonly="readonly"]', addAnswer)
+                           .on('focusin', '.questionAnswer[readonly="readonly"]', addAnswer);
 
         $(quizAddQuestion).click(appendQuestion);
 
@@ -539,6 +541,7 @@
                 answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
             }
 
+            $(quizWrapper).scrollTop(quizWrapper.scrollHeight - $(quizWrapper).height());
             return;
         }
 
@@ -559,6 +562,7 @@
         if (question.correctAnswer) {
             $(answersList).find('[data-id="' + question.correctAnswer + '"]').find('.correctAnswer')[0].checked = true;
         }
+
     }
     function saveQuestion(question, callback) {
         var questionHolder = $(question).parents('.questionHolder')[0],
@@ -656,9 +660,7 @@
     //#region Answer
     function toggleAnswerRadioBtn(e) {
         var answersList = e.delegateTarget.querySelector('.quizAnswersList'),
-            quizAnswer = this.parentElement,
-            keyCode = e.keyCode || e.which;
-
+            quizAnswer = this.parentElement;
         if (!this.value.length) {
             removeAnswer(quizAnswer);
         }
@@ -695,7 +697,10 @@
 
         answersList.lastElementChild.previousElementSibling.querySelector('input').disabled = true;
 
-        $(answerInput.parentElement.previousElementSibling.firstElementChild).focus();
+        var input = answerInput.parentElement.previousElementSibling.firstElementChild;
+        $(input).focus();
+
+        $(quizWrapper).scrollTop($(input).offset.top);
     }
 
     function saveAnswer(e) {
@@ -714,13 +719,7 @@
             answerInput = this.previousElementSibling;
             isCorrect = this.checked;
         }
-
-        console.log(e.relatedTarget);
-        if (e.relatedTarget && e.relatedTarget.readOnly) {
-            appendAnswer(answer.nextElementSibling.firstElementChild);
-        }
-
-
+        
         answerText = answerInput.value;
 
         if (!answerText) {
