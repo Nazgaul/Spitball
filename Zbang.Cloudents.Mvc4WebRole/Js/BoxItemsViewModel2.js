@@ -238,12 +238,11 @@
                     if (x) {
                         newItem.date = x.date;
                         self.items.remove(x);
-                        self.items.unshift(newItem);
-                        self.items.sort(sort);
-                        return;
+                     
                     }
-
-                    self.permission('subscribe');                    
+                    self.items.unshift(newItem);
+                    self.items.sort(sort);
+                    return;
                 }
 
                 if (x) { //other type than quiz

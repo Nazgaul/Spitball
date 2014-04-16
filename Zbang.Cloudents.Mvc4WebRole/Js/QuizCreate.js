@@ -67,13 +67,14 @@
     }
     pubsub.subscribe('initQuiz', function (data) {
 
-        if (quizId  && (quizId === data.quizId)) {
+        if (quizId && (quizId === data.quizId)) {
             return;
         }
-        
+
         if (transitioning) {
             return;
         }
+
 
         boxId = data.boxId;
         boxName = data.boxName;
@@ -84,7 +85,7 @@
 
 
 
-    function initQuiz(quizId) {        
+    function initQuiz(quizId) {
         if (quizSideBar) {
             var rect = quizSideBar.getBoundingClientRect();
             if (rect.left >= 0 && rect.right <= $(window).width()) {
@@ -382,8 +383,8 @@
         $(quizName).focusout(function () {
             setTimeout(function () {
                 saveQuiz();
-            },100);
-            
+            }, 100);
+
         });
         ////.keyup(function (e) {
         ////    var keyCode = e.keyCode || e.which;
@@ -404,37 +405,34 @@
 
         pubsub.subscribe('deleteQuiz', function (id) {
             if (quizId === id) {
-                clearQuiz();                
+                clearQuiz();
             }
         });
-  
+
     }
 
     //#region Quiz
 
     function saveQuiz() {
-            if (!quizId) {
-                dataContext.quizCreate({
-                    data: { boxId: boxId, name: quizName.value },
-                    success: function (data) {
-                        quizSideBar.setAttribute('data-id', data);
-                        quizId = data;
-                        addItemToBox(false);
-                    }
-                });
-                return;
-            }
-
-            dataContext.quizUpdate({
-                data: { id: quizId, name: quizName.value },
-                success: function () {
+        if (!quizId) {
+            dataContext.quizCreate({
+                data: { boxId: boxId, name: quizName.value },
+                success: function (data) {
+                    quizSideBar.setAttribute('data-id', data);
+                    quizId = data;
                     addItemToBox(false);
-                },
-                error: function () { }
+                }
             });
-           
-        
+            return;
+        }
 
+        dataContext.quizUpdate({
+            data: { id: quizId, name: quizName.value },
+            success: function () {
+                addItemToBox(false);
+            },
+            error: function () { }
+        });
     }
 
     function publishQuiz() {
@@ -447,8 +445,8 @@
 
         dataContext.quizPublish({
             data: { quizId: quizId, boxId: boxId, universityName: cd.getParameterFromUrl(1), boxName: boxName, name: quizName.value },
-            success: function (data) {               
-                addItemToBox(true,data);
+            success: function (data) {
+                addItemToBox(true, data);
                 clearQuiz();
 
             },
@@ -775,7 +773,7 @@
             error: function () { }
         });
     }
-        
+
     //#endregion Answer
 
     //*#region close popup
@@ -789,7 +787,7 @@
         $(quizCloseDraft).off('click').one('click', function () {
             $(quitQuizDialog).hide();
             clearQuiz();
-        });        
+        });
 
         $(quizCloseDelete).off('click').one('click', function () {
             $(quitQuizDialog).hide();
@@ -801,7 +799,7 @@
         });
 
     }
-    
+
     //*endregion
 
     function addItemToBox(isPublish, url) {
@@ -823,7 +821,7 @@
         pubsub.publish('addItem', quiz);
         function getContent() {
             var result = '',
-                questions =quizSideBar.querySelectorAll('.questionText');
+                questions = quizSideBar.querySelectorAll('.questionText');
 
             for (var i = 0, l = questions.length; i < l; i++) {
                 result += questions[i].value;
