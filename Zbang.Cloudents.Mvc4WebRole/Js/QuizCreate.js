@@ -161,6 +161,10 @@
                 transitioning = false;
             });
         }, 0);
+        //did that to kick in the elastic script
+        $('.quizWpr').find('textarea').each(function () {
+            $(this).focus();
+        });
         quizName.focus();
     }
 
@@ -500,7 +504,7 @@
         }, 0)
 
 
-        $('#preview').find('.closeDialog').one('click', function () {
+        $('#preview').find('.closePreview').one('click', function () {
             mainDiv.classList.remove('previewQuiz');
             setTimeout(function () {//fix for animation
                 $('#preview').remove();

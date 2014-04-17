@@ -6,18 +6,18 @@
     <section class="quiz">
         <header>
             @QuizResources.CreateQuiz
-            <button id="closeQuiz" class="closeDialog"></button>
+            <button type="button" id="closeQuiz" class="closeDialog"></button>
     </header>
     <div class="quizWpr">
         <div data-quizin="@SharedResources.In" class="quizLoc"></div>
         <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" />
         <ul class="quizQuestionList" id="quizQuestionList"></ul>
-        <button class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
+        <button type="button" class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
     </div>
     <div class="quizBottom">
-        <button id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
+        <button type="button" id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
         <span class="error">@QuizResources.CheckQuiz</span>
-        <button class="quizPreviewBtn rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
+        <button type="button" class="quizPreviewBtn rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
     </div>
 </section>
 </aside>
@@ -26,7 +26,7 @@
     <div class="popupWrppr confirm quitQuiz">
         <div>
             <header class="popupHeader">@QuizResources.LeaveQuiz</header>
-            <button class="closeDialog"></button>
+            <button type="button" class="closeDialog"></button>
         </div>
         <div>
             <div class="quitQuizTxt">@QuizResources.NotFinished</div>
@@ -42,7 +42,7 @@
 <script type="text/html" id="quizQuestionTemplate">
     <li class="questionHolder">
         <form>
-            <button class="closeDialog quizRemoveQuestion"></button>
+            <button type="button" class="closeDialog quizRemoveQuestion"></button>
             <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}"></textarea>
             <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
             <div class="lFloat answers">@SharedResources.Answers:</div>
@@ -70,7 +70,7 @@
 <script type="text/html" id="quizPreviewTemplate">
     <div class="quizPreview" id="preview">
         <h2>{{name}}</h2>
-        <button class="closeDialog"></button>
+        <button type="button" class="closePreview">@QuizResources.EditQuiz</button>
         <div class="quizTitle" data-questioncount="{{numOfQuestions}}">@QuizResources.MultipleChoice</div>
         <div class="quizPrevWpr">
 
