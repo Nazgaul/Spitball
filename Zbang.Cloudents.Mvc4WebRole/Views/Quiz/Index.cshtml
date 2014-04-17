@@ -43,7 +43,7 @@
         </div>
         <h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
         <div class="timeWpr0">
-            <button class="btn1 rFloat" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
+            <button type="button" class="btn1 rFloat" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
             <div data-timer-label="@QuizResources.Timer" class="quizTime" id="quizTimer">00:00:00</div>
         </div>
         <div class="userResults">
@@ -56,7 +56,7 @@
             <div class="timeWpr">
                 <div>@QuizResources.TimeWas:</div>
                 <div id="quizTimerResult" class="quizTime">00:00:00</div>
-                <button id="quizRetake" class="btn1">@QuizResources.RetakeQuiz</button>
+                <button type="button" id="quizRetake" class="btn1">@QuizResources.RetakeQuiz</button>
             </div>
         </div>
     </div>
@@ -127,7 +127,7 @@
                             <div class="splitHR"><button class="splitHRText" data-discussion="discussion" type="button"><span class="qNumOfCmnts iconTxt">@IndexResources.AddComment</span></button></div>
                             
                             <ul class="quizComments"></ul>
-                            <button class="closeDialog"></button>
+                            
                             <div class="cTextAreaWpr">
                                 <img class="quizUserCommentImg imgBorder lFloat" src=""  alt="" width="32" height="32" />
                                 <textarea class="cTextArea" placeholder="@SharedResources.WriteComment"></textarea>
@@ -138,7 +138,7 @@
                             questionIndex++;
                 }
             </ul>
-            <button class="btn1" id="quizCheckAnswers" disabled="disabled">@QuizResources.CheckAnswers</button>
+            <button type="button" class="btn1" id="quizCheckAnswers" disabled="disabled">@QuizResources.CheckAnswers</button>
         </div>
     </div>
 </div>
@@ -146,9 +146,11 @@
 
 <script type="text/html" id="quizCommentTemplate">
     <li  data-id="{{id}}">
+        <button type="button" class="closeDialog"></button>
         <img class="imgBorder calloutTrgr" data-uid="{{userId}}" width=" 32" height="32" alt="" src="{{userPicture}}" />
         <span class="semiFont">{{userName}}</span>
         <span class="createTime" data-time="{{date}}"></span>
         <div class="commentTxt">{{text}}</div>
+      
     </li>
 </script>

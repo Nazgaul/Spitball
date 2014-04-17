@@ -340,7 +340,8 @@
                     dataContext.quizCreateDiscussion({
                         data: { questionId: questionId, text: text },
                         success: function() {                           
-                            that.previousElementSibling.value='';
+                            that.previousElementSibling.value = '';
+                            $(that.previousElementSibling).height('');
                         },
                         error: function () {
                             that.disabeld = false;

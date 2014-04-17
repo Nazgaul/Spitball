@@ -8,7 +8,7 @@
         <a @*href="@Model.Url?r=siteheader"*@ href="@Model.Url" data-navigation="User">
             <img id="userImg" src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />
             @*<div class="userDtails">*@
-            <div id="userName" data-id="@Model.Uid" class="userName elps">@Model.Name.Split(' ')[0]</div>
+            <div id="userName" data-id="@Model.Uid" data-name="@Model.Name" class="userName elps">@Model.Name.Split(' ')[0]</div>
             <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts">@Model.Score</div>
             @*</div>*@
         </a>
