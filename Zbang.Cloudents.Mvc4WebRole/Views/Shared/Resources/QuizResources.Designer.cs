@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check your quiz.
+        ///   Looks up a localized string similar to Correct errors.
         /// </summary>
         public static string CheckQuiz {
             get {

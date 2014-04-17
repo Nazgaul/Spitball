@@ -99,6 +99,11 @@
     height: 100%;
 }
 
+.quizSideBar .questionHolder .error {
+    display: none;
+    color: #d1294d;
+}
+
 .quizSideBar .error {
     display: none;
     color: #d1294d;
@@ -420,7 +425,6 @@
 
 .commentWpr .closeDialog {
     background-position: -68px -26px;
-    top: 60px;
     display: none;
 }
 
@@ -483,7 +487,7 @@
 
 .cTextArea {
     width: 600px;
-    /*margin-left: 42px;*/
+    margin-left: 42px;
     /*rtl*/
     border-radius: 3px;
     font-size: 15px;

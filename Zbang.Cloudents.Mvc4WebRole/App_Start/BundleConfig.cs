@@ -39,6 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
         {
             #region Css
             RegisterCss("lang.ru-RU", "~/Content/lang.ru-RU.css");
+            RegisterCss("lang.he-IL", "~/Content/lang.he-IL.css");
 
             RegisterCss("newrtl3", "~/Content/GeneralRtl.css",
                 "~/Content/rtl3.css",

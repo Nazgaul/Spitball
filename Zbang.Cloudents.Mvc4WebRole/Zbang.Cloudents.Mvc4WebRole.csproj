@@ -641,6 +641,12 @@
     <Content Include="Content\ItemMobileRtl.min.css">
       <DependentUpon>ItemMobileRtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\lang.he-IL.css">
+      <DependentUpon>lang.he-IL.less</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.he-IL.min.css">
+      <DependentUpon>lang.he-IL.less</DependentUpon>
+    </Content>
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
@@ -987,6 +993,7 @@
     <Content Include="Content\Fonts\Alef-regular.ttf" />
     <Content Include="Content\Fonts\Alef-regular.woff" />
     <Content Include="Content\Fonts\web.config" />
+    <None Include="Content\lang.he-IL.less" />
     <None Include="Js\CDNFallback.min.js.map">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </None>

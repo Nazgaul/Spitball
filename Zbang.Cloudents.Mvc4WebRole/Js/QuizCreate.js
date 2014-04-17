@@ -135,6 +135,7 @@
                 data: { quizId: quizId },
                 success: function (data) {
                     data = data || {};
+
                     populateQuiz(data);
                     showQuiz();
                     registerEvents();
@@ -550,7 +551,8 @@
         }
 
         quizQuestionList.lastElementChild.setAttribute('data-id', question.id);
-        $(quizQuestionList.lastElementChild).find('.questionText')[0].value = question.text;
+
+        $(quizQuestionList.lastElementChild).find('.questionText')[0].value = (question.text || '');
 
         for (var i = 0, l = question.answers.length; i < l; i++) {
             var aIndexObj = { index: (i + 1), topIndex: indexObj.index },
@@ -655,7 +657,7 @@
 
     function updateQuestion(id, text) {
         dataContext.quizQUpdate({
-            data: { id: id, text: text }
+            data: { id: id, text: text || '' }
         });
     }
 
@@ -723,7 +725,7 @@
             answerInput = this.previousElementSibling;
             isCorrect = this.checked;
         }
-        
+
         answerText = answerInput.value;
 
         if (!answerText) {

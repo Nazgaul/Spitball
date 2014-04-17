@@ -127,7 +127,7 @@
     <value>Check answers</value>
   </data>
   <data name="CheckQuiz" xml:space="preserve">
-    <value>Check your quiz</value>
+    <value>Correct errors</value>
   </data>
   <data name="ChooseDraft" xml:space="preserve">
     <value>You can choose to save the quiz as a 'draft' for future editing (only you can see and edit the draft)</value>

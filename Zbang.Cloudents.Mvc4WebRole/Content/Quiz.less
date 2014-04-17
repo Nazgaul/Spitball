@@ -40,7 +40,7 @@
             display: inline-block;
         }
     }
-    
+
     header {
         height: 40px;
         background: @attentionBlue;
@@ -55,6 +55,7 @@
         width: 270px;
         .boxSizing;
         border-color: rgba(56,56,56,.5);
+
         &.quizName {
             width: 100%;
             margin: 10px 0 17px;
@@ -69,10 +70,12 @@
             resize: none;
             font-size: 17px;
         }
+
         &.emptyText.questionAnswer {
             border: 1px solid @errorColor;
         }
     }
+
     &.nameReq .quizName {
         border: 1px solid @errorColor;
     }
@@ -80,10 +83,18 @@
     section {
         height: 100%;
     }
-    .error{
-        display: none;
-        color: @errorColor;
+
+    //issue with css priority
+    .questionHolder {
+        .error {
+            display: none;
+            color: @errorColor;
+        }
     }
+     .error {
+            display: none;
+            color: @errorColor;
+        }
 }
 
 .toggleQuiz
@@ -357,7 +368,7 @@
     display: none;
     .closeDialog {
         background-position: -68px -26px;
-        top: 60px;
+       // top: 60px;
         display: none;
     }
     .imgBorder {
@@ -408,7 +419,7 @@
 }
 .cTextArea {
     width: 600px;
-    /*margin-left: 42px;*/ /*rtl*/
+    margin-left: 42px; /*rtl*/
     border-radius: 3px;
     font-size: 15px;
     resize: none;
