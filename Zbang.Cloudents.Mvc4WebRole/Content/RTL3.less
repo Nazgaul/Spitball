@@ -2130,6 +2130,12 @@
             float: right; /*rtl*/
         }
     }
+    .closePreview
+    {
+        //background-position: -68px -26px;
+        left:10px;
+        right:auto;
+    }
 }
 
 .quizPrevWpr {
@@ -2180,9 +2186,11 @@
 }
 
 .userCorrect, .userWrong {
-    &:before {
-        right: -45px; /*rtl*/
-        left: auto;
+    .quizQuestion, .quizAList {
+        &:before {
+            right: -45px; /*rtl*/
+            left: auto;
+        }
     }
 }
 

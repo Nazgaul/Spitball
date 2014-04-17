@@ -201,4 +201,7 @@
   <data name="YourScore" xml:space="preserve">
     <value>Your score</value>
   </data>
+  <data name="EditQuiz" xml:space="preserve">
+    <value>Edit Quiz</value>
+  </data>
 </root>
