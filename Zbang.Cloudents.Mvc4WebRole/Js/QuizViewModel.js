@@ -327,13 +327,15 @@
                 });
 
                 $('.askBtn').click(function () {
-                    var that = this;
-                    var text = that.previousElementSibling.value,
+                    var that = this,
+                        text = that.previousElementSibling.value,
                         question = $(that).parents('li')[0],
                         questionId = question.getAttribute('data-id');
+
                     if (!text.length) {
                         return;
                     }
+
                     that.disabled = true;
                     dataContext.quizCreateDiscussion({
                         data: { questionId: questionId, text: text },
@@ -353,12 +355,16 @@
                         userName: cd.userDetail().name,
                         text: text,
                         date: new Date()
-                    }
+                    },
+                    html = cd.attachTemplateToData('quizCommentTemplate', comment),
+                    commentsElement = question.getElementsByClassName('quizComments')[0];                    
 
-                    var html = cd.attachTemplateToData('quizCommentTemplate', comment);
-                    var commentsElement = question.getElementsByClassName('quizComments')[0];
                     commentsElement.insertAdjacentHTML('beforeend', html);
                     cd.parseTimeString(commentsElement.lastElementChild.querySelector('.createTime'));
+
+                    var commentsLength = commentsElement.children.length;
+                    question.getElementsByClassName('qNumOfCmnts')[0].textContent = commentsLength + ' ' + (commentsLength > 1 ? ZboxResources.Comments : ZboxResources.Comment);
+
                 });
 
                 $(quizTQuestion).on('click', '.closeDialog', function () {

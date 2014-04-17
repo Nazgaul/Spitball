@@ -9,7 +9,7 @@
         quizAddQuestion, quizPreview, mainDiv, closeQuiz,
         addQuiz, saveBtn, quitQuizDialog, quizClosePublish,
         quizCloseDraft, quizCloseDelete, quizWrapper,
-        transitioning = false;
+        quizToggle, transitioning = false;
 
     assignDomElements();
 
@@ -35,6 +35,7 @@
         quizClosePublish = eById('quizClosePublish'),
         quizCloseDraft = eById('quizCloseDraft'),
         quizCloseDelete = eById('quizCloseDelete');
+        quizToggle = eById('quizToggle');
 
     }
 
@@ -87,6 +88,7 @@
 
 
     function initQuiz(quizId) {
+
         if (quizSideBar) {
             var rect = quizSideBar.getBoundingClientRect();
             if (rect.left >= 0 && rect.right <= $(window).width()) {
@@ -105,7 +107,6 @@
                 mainDiv.insertAdjacentHTML('beforeend', data);
                 assignDomElements();
 
-                boxNameText.textContent = boxName;
 
                 if (!quizId) {
                     appendEmptyState();
@@ -153,8 +154,12 @@
     }
 
     function showQuiz() {
+
+        boxNameText.textContent = boxName;
+
         //show the quiz div
         addQuiz.disabled = true;
+        quizToggle.checked = false;
         setTimeout(function () {
             mainDiv.classList.remove('noQuiz');
             transitioning = true;
@@ -451,7 +456,7 @@
         saveBtn.disabled = true;
 
         dataContext.quizPublish({
-            data: { quizId: quizId, boxId: boxId, universityName: cd.getParameterFromUrl(1), boxName: boxName, name: quizName.value },
+            data: { quizId: quizId, boxId: boxId, universityName: cd.getParameterFromUrl(1), boxName: boxName, quizName: quizName.value },
             success: function (data) {
                 addItemToBox(true, data);
                 clearQuiz();

@@ -403,7 +403,7 @@
             }
 
             if (!quiz.publish) {
-                cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3), quizId: quiz.uid });
+                cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent, quizId: quiz.uid });
                 return false;
             }
 
@@ -451,7 +451,7 @@
                 return;
             }
 
-            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: cd.getParameterFromUrl(3) });
+            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });
         });
 
         $('#BoxItemList').hoverIntent({
