@@ -343,7 +343,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
         private static void RegisterJs(string key, params JsFileWithCdn[] jsFiles)
         {
             var jsBundle = SquishIt.Framework.Bundle.JavaScript();
-            jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
@@ -383,7 +382,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
         private static string GetValueFromCloudConfig()
         {
-            return "https://az414808.vo.msecnd.net";
             if (!RoleEnvironment.IsAvailable)
             {
                

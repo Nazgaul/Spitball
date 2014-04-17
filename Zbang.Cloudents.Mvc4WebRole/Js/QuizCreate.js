@@ -166,7 +166,7 @@
             transitioning = true;
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
                 transitioning = false;
-                setScroll();                
+                setScroll();
             });
         }, 0);
         //did that to kick in the elastic script
@@ -695,7 +695,7 @@
         }
 
     }
-    
+
     function appendAnswer(e) {
         e.preventDefault();
 
@@ -717,7 +717,7 @@
         setScroll();
 
         $(quizWrapper).scrollTop($(input).offset.top);
-        
+
 
     }
 
@@ -850,10 +850,13 @@
 
 
     function setScroll() {
-        if (!scrollCreated) {
-            cd.innerScroll($(quizWrapper), $(quizWrapper).height());
-            scrollCreated = true;
-        }        
+
+        if (scrollCreated) {
+            $(quizWrapper).slimScroll({ 'destroy': '' });
+            scrollCreated = false;
+        }
+        cd.innerScroll($(quizWrapper), $(quizWrapper).height(), '366px', '0px');
+        scrollCreated = true;
     }
     cd.pubsub.subscribe('windowChanged', function () {
         setScroll();

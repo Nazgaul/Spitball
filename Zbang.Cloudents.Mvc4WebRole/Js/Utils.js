@@ -1102,7 +1102,7 @@
     };
 
 
-    var innerScroll = function (elem, height) {
+    var innerScroll = function (elem, height, width, distance) {
         var direction = $('html').css('direction') === 'ltr' ? 'right' : 'left';
         if (Modernizr.touch) {
             elem.css({ height: height, overflow: 'auto', '-webkit-overflow-scrolling': 'touch' });
@@ -1113,7 +1113,8 @@
             height: height,
             position: direction,
             disableFadeOut: true,
-            distance: '3px'
+            distance: distance || '3px',
+            width: width || 'none'
         });
     };
 
