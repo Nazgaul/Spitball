@@ -9,7 +9,8 @@
         quizAddQuestion, quizPreview, mainDiv, closeQuiz,
         addQuiz, saveBtn, quitQuizDialog, quizClosePublish,
         quizCloseDraft, quizCloseDelete, quizWrapper,
-        quizToggle, transitioning = false;
+        quizToggle, transitioning = false, scrollCreated = false;
+
 
     assignDomElements();
 
@@ -165,6 +166,7 @@
             transitioning = true;
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
                 transitioning = false;
+                setScroll();                
             });
         }, 0);
         //did that to kick in the elastic script
@@ -387,8 +389,8 @@
                            .on('change', '.correctAnswer', saveAnswer)
                            .on('keyup', '.questionAnswer', toggleAnswerRadioBtn)
                            .on('focusout', '.questionAnswer', saveAnswer)
-                           .on('click', '.questionAnswer[readonly="readonly"]', addAnswer)
-                           .on('focusin', '.questionAnswer[readonly="readonly"]', addAnswer);
+                           .on('click', '.questionAnswer[readonly="readonly"]', appendAnswer)
+                           .on('focusin', '.questionAnswer[readonly="readonly"]', appendAnswer);
 
         $(quizAddQuestion).click(appendQuestion);
 
@@ -552,6 +554,7 @@
             }
 
             $(quizWrapper).scrollTop(quizWrapper.scrollHeight - $(quizWrapper).height());
+            setScroll();
             return;
         }
 
@@ -573,7 +576,7 @@
         if (question.correctAnswer) {
             $(answersList).find('[data-id="' + question.correctAnswer + '"]').find('.correctAnswer')[0].checked = true;
         }
-
+        setScroll();
     }
     function saveQuestion(question, callback) {
         var questionHolder = $(question).parents('.questionHolder')[0],
@@ -692,13 +695,12 @@
         }
 
     }
-
-    function addAnswer(e) {
+    
+    function appendAnswer(e) {
         e.preventDefault();
-        appendAnswer(this);
-    }
-    function appendAnswer(answerInput) {
-        var answersList = answerInput.parentElement.parentElement,
+
+        var answerInput = this,
+            answersList = answerInput.parentElement.parentElement,
         answersLength = answersList.children.length,
         answer = answerInput.parentElement,
         indexObj = { index: answersLength, topIndex: $(answersList.parentElement.parentElement).index() + 1 },
@@ -711,7 +713,12 @@
         var input = answerInput.parentElement.previousElementSibling.firstElementChild;
         $(input).focus();
 
+
+        setScroll();
+
         $(quizWrapper).scrollTop($(input).offset.top);
+        
+
     }
 
     function saveAnswer(e) {
@@ -840,6 +847,17 @@
             return result;
         }
     }
+
+
+    function setScroll() {
+        if (!scrollCreated) {
+            cd.innerScroll($(quizWrapper), $(quizWrapper).height());
+            scrollCreated = true;
+        }        
+    }
+    cd.pubsub.subscribe('windowChanged', function () {
+        setScroll();
+    });
 
 
     function clearQuiz() {
