@@ -11,10 +11,9 @@
 
 (function () {
     var cdnPath = '/cdn/', scriptsPath = '/Scripts/',
-    cdnCdPath = 'vo.msecnd.net/',
-    cdnMsPath = '//ajax.aspnetcdn.com/';
+    cdnCdPath = 'vo.msecnd.net/';
 
-    window.onload = function () {        
+    window.onload = function () {
         cssFailCallback();
         javascriptFailCallback();
     };
@@ -33,32 +32,14 @@
     }
 
     function javascriptFailCallback() {
-        var jqueryActive = false, resourcesActive = false, files;
-        if (window.jQuery) {
-            jqueryActive = true;    //jQuery loaded
-        }
-        if (window.cd && window.ko) {
-            resourcesActive = true;  //Resources loaded
+        if (window.cd && window.jQuery) {
+            return;
         }
 
-        if (!jqueryActive) {
-            files = getCDNScripts(true); //Both failed 
-            for (var i = 0, l = files.length; i < l; i++) {
-                if (files[i].indexOf(cdnMsPath) > -1) {
-                    loadScript(scriptsPath + getFilename(files[i]));
-                } else if (files[i].indexOf(cdnCdPath) > -1) {
-                    loadScript(cdnPath + getFilename(files[i]));
-                }
-            }
-        } else if (!resourcesActive) { //Cloudents CDN failed
-            files = getCDNScripts(false);
-            for (var i = 0, l = files.length; i < l; i++) {
-                if (files[i].indexOf(cdnCdPath) > -1) {
-                    loadScript(cdnPath + getFilename(files[i]));
-                }
-            }
-        } else {
-            //All good
+        files = getCDNScripts();
+
+        for (var i = 0, l = files.length; i < l; i++) {
+            loadScript(cdnPath + getFilename(files[i]));
         }
     }
 
@@ -73,22 +54,17 @@
         return files;
     }
 
-    function getCDNScripts(totalCDNFail) {
+    function getCDNScripts() {
         var link, files = [];
         for (var i = 0, l = document.scripts.length ; i < l; i++) {
             link = document.scripts[i].getAttribute('src');
             if (link) {
-                if (totalCDNFail) {
-                    if (link.indexOf(cdnMsPath) > -1 || link.indexOf(cdnPath) > -1) {
-                        files.push(link);
-                    }
-                } else {
-                    if (link.indexOf(cdnCdPath) > -1) {
-                        files.push(link);
-                    }
+                if (link.indexOf(cdnCdPath) > -1) {
+                    files.push(link);
                 }
             }
         }
+
         return files;
     }
 

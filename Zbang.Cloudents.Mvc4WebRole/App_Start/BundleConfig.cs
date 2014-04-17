@@ -120,7 +120,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
 
                 new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
-                new JsFileWithCdn("~/Scripts/MutationObserver.js"),
+                //new JsFileWithCdn("~/Scripts/MutationObserver.js"),
 
                 new JsFileWithCdn("~/Js/Utils.js"),
                 new JsFileWithCdn("~/Js/pubsub.js"),
