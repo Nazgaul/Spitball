@@ -115,7 +115,12 @@
             getItems();
         });
         cd.pubsub.subscribe('itemTab', function (d) {
-            tab = d;
+            if (typeof d === 'string') {
+                tab = d;                
+            } else {
+                tab = null;
+            }
+
             current = 0;
             self.manageTab('');
             getItems();
@@ -170,10 +175,12 @@
         });
 
         function generateModel(data) {
-            var mapped = [];
+            var mapped = [];            
             for (var i = 0, l = data.length; i < l; i++) {
                 if (data[i].type.toLowerCase() === 'quiz') {
-                    mapped.push(new Quiz(data[i]));
+                    if (!tab) {
+                        mapped.push(new Quiz(data[i]));
+                    }                    
                     continue;
                 }
                 mapped.push(new Item(data[i]));
