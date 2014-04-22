@@ -1,144 +1,114 @@
-﻿q {
-    quotes: '\00AB' '\00BB' '\201E' '\201C';
-    font-weight: normal;
+q {
+  quotes: '\00AB' '\00BB' '\201E' '\201C';
+  font-weight: normal;
 }
-
 .membersOnly {
-    width: 810px;
+  width: 810px;
 }
-
 .userInfo .userName {
-    width: 90px;
+  width: 90px;
 }
-
 .inviteVia .facebook,
 .inviteVia .email {
-    width: 342px;
+  width: 342px;
 }
-
 .enterForm .small {
-    display: block;
-    margin-bottom: 4px;
-    line-height: 10px;
+  display: block;
+  margin-bottom: 4px;
+  line-height: 10px;
 }
-
 .connect,
 .create {
-    font-size: 12px;
+  font-size: 12px;
 }
-
 .popupWrppr.registerNow {
-    width: 485px;
+  width: 485px;
 }
-
 .homeContent h1 {
-    font-size: 32px;
+  font-size: 32px;
 }
-
 /*#region item page */
 .previewWrapper h2 {
-    line-height: 12px;
-    margin-bottom: 20px;
+  line-height: 12px;
+  margin-bottom: 20px;
 }
-
 .middleActionItem {
-    padding: 0;
+  padding: 0;
 }
-
 /*#endregion */
 /*#region box page */
 .inviteFriendBtn.btn3 {
-    width: 150px;
-    padding: 7px 13px;
+  width: 150px;
+  padding: 7px 13px;
 }
-
 /*if < 4 items: float friendBtn right.*/
 .friendItem:last-child:nth-child(-n + 4) {
-    float: right;
+  float: right;
 }
-
 .tag:before {
-    width: 52px;
+  width: 52px;
 }
-
 .friendItem:last-child:nth-child(5) {
-    float: none;
+  float: none;
 }
-
 /*if > 11 items hide all further items*/
 .friendItem:nth-child(n+11) {
-    display: none;
+  display: none;
 }
-
 .friendItem:last-child {
-    display: inline-block;
+  display: inline-block;
 }
-
 .academic .boxSetting .editBoxName {
-    width: 540px;
+  width: 540px;
 }
-
 .private .boxSetting .editBoxName {
-    width: 504px;
+  width: 504px;
 }
-
 #box_settings .memberName {
-    width: 245px;
+  width: 245px;
 }
-
 .boxSetting label {
-    padding-right: 10px;
+  padding-right: 10px;
 }
-
 /*#endregion */
 /*#region quiz*/
 .questionHolder .correct {
-    width: 60px;
+  width: 60px;
 }
-
 .questionHolder.questionReq .addQuestion {
-    margin: -2px 0px 0 0;
+  margin: -2px 0px 0 0;
 }
-
 .popupWrppr.quitQuiz {
-    width: 620px;
+  width: 620px;
 }
-
 /*#endregion*/
 /*#region invite page*/
 .invItem .invName {
-    max-width: 138px;
+  max-width: 138px;
 }
-
 .invBtn .invited {
-    min-width: 100px;
+  min-width: 100px;
 }
-
 .invForm h3 {
-    font-size: 14px;
+  font-size: 14px;
 }
-
 /*#endregion*/
 /*#region User page */
 .dateCol {
-    width: 165px;
+  width: 165px;
 }
-
 /*#endregion */
 /*#region modal.less */
 .tabArrow:before {
-    left: 50px;
+  left: 50px;
 }
-
 .tabMembers .tabArrow:before {
-    left: 163px;
+  left: 163px;
 }
-
 /*#endregion */
 .emailUser .inputLabel {
-    width: 41px;
+  width: 41px;
 }
-
 .gConnect {
-    width: 118px;
+  width: 118px;
 }
