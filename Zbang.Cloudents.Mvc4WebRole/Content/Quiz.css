@@ -15,6 +15,12 @@
   position: fixed;
   width: 100%;
 }
+.bodyContent.previewQuiz.topBarFix ~ .quizPreview:before {
+  position: fixed;
+}
+.bodyContent.previewQuiz.topBarFix ~ .quizPreview h2 {
+  display: block;
+}
 .bodyContent.previewQuiz ~ .quizPreview {
   margin-top: 0;
 }
@@ -268,10 +274,10 @@
   width: 100%;
   min-height: 100%;
   background: url(/Images/gray_jean80.png) repeat #ffffff;
-  -webkit-transition: margin 0.7s ease-in;
-  -moz-transition: margin 0.7s ease-in;
-  -o-transition: margin 0.7s ease-in;
-  transition: margin 0.7s ease-in;
+  -webkit-transition: margin 7s ease-in;
+  -moz-transition: margin 7s ease-in;
+  -o-transition: margin 7s ease-in;
+  transition: margin 7s ease-in;
 }
 .quizPreview:before {
   content: '';
@@ -280,10 +286,11 @@
   height: 50px;
   background: #fff;
   border-bottom: 1px solid #c2c2c2;
-  position: fixed;
+  position: absolute;
   z-index: 1;
 }
 .quizPreview h2 {
+  display: none;
   font-size: 20px;
   font-weight: normal;
   width: 800px;

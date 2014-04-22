@@ -16,6 +16,17 @@
     {
         position: fixed; //remove the scroll from existing content of bodyContent
         width: 100%;
+        &.topBarFix {
+            ~ .quizPreview
+            {
+                &:before {
+                    position: fixed;
+                }
+                h2 {
+                    display: block;
+                }
+            }
+        }
         ~ .quizPreview
         {
             margin-top: 0;
@@ -273,7 +284,7 @@
     width: 100%;
     min-height: 100%;
     background: url(/Images/gray_jean80.png) repeat #fff;
-    .transition(margin .7s ease-in);
+    .transition(margin 7s ease-in);
     &:before
     {
         .pseudo;
@@ -281,10 +292,11 @@
         height: @header-height;
         background: #fff;
         border-bottom: 1px solid @borderColor;
-        position: fixed;
+        position: absolute;
         z-index: 1;
     }
     h2{
+        display: none;
         font-size: 20px;
         font-weight: normal;
         width: 800px;

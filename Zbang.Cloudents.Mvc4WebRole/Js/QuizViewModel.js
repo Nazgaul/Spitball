@@ -423,7 +423,7 @@
         function setCommentsLength(question, length) {
             var title = question.getElementsByClassName('qNumOfCmnts')[0];
             if (!length) {
-                title.textContent = 'Add your comment';
+                title.textContent = JsResources.AddComment;
                 return;
             }
             title.textContent = length+ ' ' + (length > 1 ? ZboxResources.Comments : ZboxResources.Comment);
