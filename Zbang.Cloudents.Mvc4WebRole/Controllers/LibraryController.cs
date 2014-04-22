@@ -393,6 +393,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.userName = userData.Name;
             return PartialView(new Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University() { UniversityId = uid });
         }
+        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
+        public ActionResult InsertID(long universityId)
+        {
+            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
+        }
 
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
         public async Task<ActionResult> SelectDepartment(long universityId)

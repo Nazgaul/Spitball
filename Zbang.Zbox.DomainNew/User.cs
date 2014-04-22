@@ -11,8 +11,6 @@ namespace Zbang.Zbox.Domain
 {
     public class User
     {
-
-
         protected User()
         {
             UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
@@ -42,7 +40,8 @@ namespace Zbang.Zbox.Domain
             ImageLarge = largeImage;
         }
 
-        public User(string email, string smallImage, string largeImage, string firstName, string middleName, string lastName, bool sex)
+        public User(string email, string smallImage, string largeImage,
+            string firstName, string middleName, string lastName, bool sex)
             : this()
         {
             Email = email;
@@ -178,7 +177,9 @@ namespace Zbang.Zbox.Domain
             Culture = culture;
         }
 
-        public void UpdateUserUniversity(University university, string userCode, Department department, string groupNumber, string registerNumber)
+        public void UpdateUserUniversity(University university,
+            string userCode, Department department, string groupNumber,
+            string registerNumber)
         {
             University = university;
             this.Code = userCode;

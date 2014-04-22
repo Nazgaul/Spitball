@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="SolvedQuestion.cs" />
     <Compile Include="SolvedQuiz.cs" />
+    <Compile Include="Student.cs" />
     <Compile Include="University.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="User.cs" />

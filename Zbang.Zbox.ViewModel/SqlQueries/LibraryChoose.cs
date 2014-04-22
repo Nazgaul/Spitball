@@ -10,5 +10,8 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
     {
         public const string GetDepartments = @"select id,name,year from zbox.department
                 where universityid = @universityId";
+
+        public const string GetNeedId = @"select  count(*) from zbox.student
+              where UniversityId = @universityId";
     }
 }

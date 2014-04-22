@@ -250,5 +250,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetDiscussion(query);
         }
+
+
+        public Task<bool> GetUniversityNeedCode(long universityId)
+        {
+            return m_ReadService.GetUniversityNeedCode(universityId);
+        }
     }
 }
