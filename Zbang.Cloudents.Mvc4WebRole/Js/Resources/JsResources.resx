@@ -189,4 +189,7 @@
   <data name="ShareBy" xml:space="preserve">
     <value>Share by name or email</value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add your comment</value>
+  </data>
 </root>

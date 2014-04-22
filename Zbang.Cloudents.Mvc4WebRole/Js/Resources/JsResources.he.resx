@@ -192,4 +192,7 @@
   <data name="ShareBy" xml:space="preserve">
     <value>שתף דרך אימייל או שם</value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>כתוב תגובה...</value>
+  </data>
 </root>
