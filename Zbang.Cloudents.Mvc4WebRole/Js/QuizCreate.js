@@ -511,9 +511,13 @@
             mainDiv.classList.add('previewQuiz');
         }, 0)
 
+        setTimeout(function () { //fix for animation
+            mainDiv.classList.add('topBarFix');
+        }, 700)
 
         $('#preview').find('.closePreview').one('click', function () {
             mainDiv.classList.remove('previewQuiz');
+            mainDiv.classList.remove('topBarFix');
             setTimeout(function () {//fix for animation
                 $('#preview').remove();
             }, 1000);
