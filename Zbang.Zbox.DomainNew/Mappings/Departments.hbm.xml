@@ -11,4 +11,13 @@
     <property name="Name" />
     <property name="Year" />
   </class>
+  
+  <class name="Student" table="Student" >
+    <id name="StudentId" column="StudentId" type="long">
+      <generator class="native"></generator>
+    </id>
+    <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityStudent"/>
+    <property name="ID" />
+  </class>
+
 </hibernate-mapping>
