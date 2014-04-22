@@ -1,5 +1,43 @@
-﻿<form>
-    insert your id
-    <input type="text" name="Code" required />
-    <input type="submit" />
-</form>
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div id="libEnterCode" title="">
+    <div class="popupWrppr enterCode">
+        <header class="popupHeader">שלום, <span>@ViewBag.userName</span></header>
+        <button class="closeDialog"></button>
+        @using (Html.BeginForm("UpdateUniversity", "Account"))
+        {
+            Html.RenderAction("AntiForgeryToken", "Home", true);
+            <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png")" alt="" width="108" height="114" style="visibility:hidden" />
+            <div>
+                המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.
+                אימות חברי אגודה ע"י מספר ת"ז
+            </div>
+
+            @Html.HiddenFor(m => m.UniversityId)
+            @Html.ValidationMessageFor(m => m.Code)
+            <label for="Code" >מספר ת"ז </label>
+            @*@Html.TextBoxFor(m => m.Code, new { @class = "inputText", placeholder = "הזן את הקוד כאן", id = "insertCode", autofocus = "autofocus" })*@
+            <input type="text" name="studentID" class="inputText" placeholder="הכנס ת.ז. כאן" autofocus/>
+
+            <input type="submit" class="btn1" disabled="disabled" value="המשך" />
+        }
+        <div class="noCode">
+            <div class="boldFont">אינו רשום במערכת?</div>
+            <div>
+                לקבלת קוד משתמש אישי יש לשלוח מייל ל<a class="mailTo" href="mailto:@ViewBag.AgudaMail" target="_blank">@ViewBag.AgudaMail</a>
+                <br />
+                עם <span class="boldFont">הפרטים הבאים</span> :
+            </div>
+            <div>
+                - שם פרטי ומשפחה<br />
+                - כתובת מייל (אליו ישלח הקוד)<br />
+                - תעודת זהות<br />
+                - מספר טלפון<br /><br />
+
+                @ViewBag.AgudaPhone
+            </div>
+        </div>
+    </div>
+    <div class="modal2"></div>
+</div>
