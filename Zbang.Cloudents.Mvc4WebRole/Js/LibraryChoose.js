@@ -213,7 +213,8 @@
                         { name: 'UniversityId', value: universityId },
                         { name: 'DepartmentId', value: $('#year').val() },
                         { name: 'GroupNumber', value: $('#group').val() },
-                        { name: 'RegisterNumber', value: $('#registration').val() }
+                        { name: 'RegisterNumber', value: $('#registration').val() },
+                        { name: 'StudentID', value: $('#userIdNumber').val() }
                     ],
                     success: function (d) {
                         if (d.redirect) {
@@ -371,6 +372,26 @@
 
                 }                
             }
+            //#endregion
+
+
+
+            //#region id
+
+            $(document).on('keyup', '#userIdNumber',function () {
+                if (this.value === '') {
+                    $('#submitRegIdPopup').attr('disabled', 'disabled');
+                    return;
+                }
+                $('#submitRegIdPopup').removeAttr('disabled');
+
+            }).on('click','#closeRegIdPopup', function () {
+                $('#libEnterId').hide();
+
+            }).on('click', '#submitRegIdPopup', function (e) {
+                selectUniversity(e);
+            });
+
             //#endregion
         }
     }

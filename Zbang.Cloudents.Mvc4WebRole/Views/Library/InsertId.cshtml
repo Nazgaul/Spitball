@@ -1,10 +1,10 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="libEnterCode" title="">
+<div id="libEnterId" title="">
     <div class="popupWrppr enterCode">
         <header class="popupHeader">שלום, <span>@ViewBag.userName</span></header>
-        <button class="closeDialog"></button>
+        <button id="closeRegIdPopup" class="closeDialog"></button>
         @using (Html.BeginForm("UpdateUniversity", "Account"))
         {
             Html.RenderAction("AntiForgeryToken", "Home", true);
@@ -16,11 +16,10 @@
 
             @Html.HiddenFor(m => m.UniversityId)
             @Html.ValidationMessageFor(m => m.Code)
-            <label for="Code" >מספר ת"ז </label>
+            <label for="Code">מספר ת"ז</label>
             @*@Html.TextBoxFor(m => m.Code, new { @class = "inputText", placeholder = "הזן את הקוד כאן", id = "insertCode", autofocus = "autofocus" })*@
-            <input type="text" name="studentID" class="inputText" placeholder="הכנס ת.ז. כאן" autofocus/>
-
-            <input type="submit" class="btn1" disabled="disabled" value="המשך" />
+            <input id="userIdNumber" type="text" name="studentID" class="inputText" placeholder="הכנס ת.ז. כאן" autofocus />
+            <input id="submitRegIdPopup" type="submit" class="btn1" disabled="disabled" value="המשך" />
         }
         <div class="noCode">
             <div class="boldFont">אינו רשום במערכת?</div>
