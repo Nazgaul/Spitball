@@ -1777,14 +1777,15 @@
   display: none;
 }
 @media (max-width: 1145px) {
-  .boxItemsHeader {
+  .boxItemsHeader.boxItemsHeader {
     font-size: 12px;
   }
-  .boxItemsHeader .boxManage {
+  .boxItemsHeader.boxItemsHeader .boxManage {
     font-size: 12px;
   }
-  .boxItemsHeader button {
+  .boxItemsHeader.boxItemsHeader button {
     padding: 2px 5px;
+    font-size: 13px;
   }
 }
 .boxManage {
