@@ -281,8 +281,8 @@
         height: @header-height;
         background: #fff;
         border-bottom: 1px solid @borderColor;
-        position: absolute;
-        z-index: -1;
+        position: fixed;
+        z-index: 1;
     }
     h2{
         font-size: 20px;
@@ -291,13 +291,17 @@
         margin: 0 auto;
         height: 50px;
         padding-top: 11px;
+        position: fixed;
+        left: 0;right: 0;
+        z-index: 2;
     }
     .closePreview
     {
         //background-position: -68px -26px;
         top: 20px;
-        position: absolute;
-        right:10px;
+        position: fixed;
+        right: 10px; /*rtl*/
+        z-index: 2;
     }
 
     .correct {
@@ -327,7 +331,7 @@
 .quizTitle{
     font-size: 22px;
     width: 800px;
-    margin: 10px auto 20px;
+    margin: 67px auto 20px;
     &:before
     {
         content: attr(data-questioncount) "\00a0";

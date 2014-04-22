@@ -280,8 +280,8 @@
   height: 50px;
   background: #fff;
   border-bottom: 1px solid #c2c2c2;
-  position: absolute;
-  z-index: -1;
+  position: fixed;
+  z-index: 1;
 }
 .quizPreview h2 {
   font-size: 20px;
@@ -290,11 +290,17 @@
   margin: 0 auto;
   height: 50px;
   padding-top: 11px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
 .quizPreview .closePreview {
   top: 20px;
-  position: absolute;
+  position: fixed;
   right: 10px;
+  /*rtl*/
+  z-index: 2;
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);
@@ -323,7 +329,7 @@
 .quizTitle {
   font-size: 22px;
   width: 800px;
-  margin: 10px auto 20px;
+  margin: 67px auto 20px;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";

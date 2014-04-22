@@ -2544,6 +2544,7 @@
 }
 .quizPreview .closePreview {
   left: 10px;
+  /*rtl*/
   right: auto;
 }
 .quizPrevWpr {
