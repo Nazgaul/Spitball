@@ -479,7 +479,7 @@
             return;
         }
 
-        previewObj.name = quiz.name || 'Quiz name here';
+        previewObj.name = quiz.name;
 
 
         var questionsHTML = '';
