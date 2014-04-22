@@ -15,6 +15,13 @@
   position: fixed;
   width: 100%;
 }
+.bodyContent.previewQuiz.topBarFix ~ .quizPreview:before {
+  position: fixed;
+  top: 0;
+}
+.bodyContent.previewQuiz.topBarFix ~ .quizPreview h2 {
+  display: block;
+}
 .bodyContent.previewQuiz ~ .quizPreview {
   margin-top: 0;
 }
@@ -280,10 +287,11 @@
   height: 50px;
   background: #fff;
   border-bottom: 1px solid #c2c2c2;
-  position: fixed;
+  position: absolute;
   z-index: 1;
 }
 .quizPreview h2 {
+  display: none;
   font-size: 20px;
   font-weight: normal;
   width: 800px;
