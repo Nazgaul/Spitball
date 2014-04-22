@@ -293,7 +293,7 @@
             }
 
             function registerDiscussionEvents() {
-                $('[data-discussion]').click(function () {
+                $('[data-discussion]').off('click').click(function () {
                     var that = this,
                         $wrapper = $(that).parents('.commentWpr'),
                         $comments = $wrapper.find('.quizComments'),
@@ -309,6 +309,14 @@
                     if (isVisible) {
                         return;
                     }
+
+                    $('.quizComments').hide();
+                    $('.commentWpr').removeClass('show');
+
+
+                    $wrapper.removeClass('show');
+
+                    
                     $comments.show();
                     $wrapper.addClass('show');
                     //setTimeout(function () {
@@ -322,15 +330,17 @@
                     
                 });
 
-                $(quizTQuestion).on('keyup', '.cTextArea', function () {
+                $(quizTQuestion).off('keyup').on('keyup', '.cTextArea', function () {
                     this.nextElementSibling.disabled = this.value.length === 0;
                 });
 
-                $('.askBtn').click(function () {
+                $('.askBtn').off('click').click(function () {
                     var that = this,
                         text = that.previousElementSibling.value,
                         question = $(that).parents('li')[0],
-                        questionId = question.getAttribute('data-id');
+                        questionId = question.getAttribute('data-id'),
+                        commentsElement = question.getElementsByClassName('quizComments')[0];                    
+
 
                     if (!text.length) {
                         return;
@@ -339,9 +349,10 @@
                     that.disabled = true;
                     dataContext.quizCreateDiscussion({
                         data: { questionId: questionId, text: text },
-                        success: function() {                           
+                        success: function(data) {                           
                             that.previousElementSibling.value = '';
                             $(that.previousElementSibling).height('');
+                            commentsElement.lastElementChild.setAttribute('data-id',data);
                         },
                         error: function () {
                             that.disabeld = false;
@@ -356,31 +367,39 @@
                         text: text,
                         date: new Date()
                     },
-                    html = cd.attachTemplateToData('quizCommentTemplate', comment),
-                    commentsElement = question.getElementsByClassName('quizComments')[0];                    
+                    html = cd.attachTemplateToData('quizCommentTemplate', comment);
 
                     commentsElement.insertAdjacentHTML('beforeend', html);
+
                     cd.parseTimeString(commentsElement.lastElementChild.querySelector('.createTime'));
 
                     var commentsLength = commentsElement.children.length;
-                    question.getElementsByClassName('qNumOfCmnts')[0].textContent = commentsLength + ' ' + (commentsLength > 1 ? ZboxResources.Comments : ZboxResources.Comment);
+                    setCommentsLength(question, commentsLength);
 
                 });
 
-                $(quizTQuestion).on('click', '.closeDialog', function () {
-                    $('.quizComments').slideUp({
-                        duration: 500,
-                        complete: function () {
-                            $('.commentWpr').removeClass('show');
-                        }
+                $(quizTQuestion).off('click').on('click', '.closeDialog', function () {
+
+                    var comment = this.parentElement,
+                        $comment = $(comment),
+                        commentId = comment.getAttribute('data-id'),
+                        commentsLength = comment.parentElement.children.length,
+                        question = $comment.parents('li')[0];
+
+                    dataContext.quizDeleteDiscussion({
+                        data: { id: commentId}
                     });
+
+                    $comment.remove();
+                    setCommentsLength(question, commentsLength-1);
+
                 });
 
 
             }
 
             function appendComments(question, comments) {
-                question.getElementsByClassName('qNumOfCmnts')[0].textContent = comments.length + ' ' + (comments.length > 1 ? ZboxResources.Comments : ZboxResources.Comment);
+                setCommentsLength(question, comments.length);                
 
                 var commentsHTML = '';
                 for (var i = 0, l = comments.length; i < l; i++) {
@@ -394,14 +413,21 @@
         function clearQuiz() {
             quiz.classList.remove('checkQuiz');
             $(quizTQuestion).find('input').removeAttr('disabled').prop('checked', false);
-
+            $('.quizComments').hide();
             $(quizTQuestion).children().removeClass('noAnswer userWrong');
             $(quizTQuestion).find('.userCorrect').removeClass('userCorrect');
             stopWatch.reset();
-            stopWatch = null;
-            firstTime = true;
+            stopWatch = null;            
         }
 
+        function setCommentsLength(question, length) {
+            var title = question.getElementsByClassName('qNumOfCmnts')[0];
+            if (!length) {
+                title.textContent = 'Add your comment';
+                return;
+            }
+            title.textContent = length+ ' ' + (length > 1 ? ZboxResources.Comments : ZboxResources.Comment);
+        }
 
 
         //#region rate

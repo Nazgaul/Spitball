@@ -167,13 +167,13 @@
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
                 transitioning = false;
                 setScroll();
+                quizName.focus();
             });
         }, 0);
         //did that to kick in the elastic script
         $('.quizWpr').find('textarea').each(function () {
             $(this).focus();
-        });
-        quizName.focus();
+        });        
     }
 
     function validateQuiz() {
