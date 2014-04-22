@@ -556,9 +556,12 @@
                 html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
                 answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
             }
-
-            $(quizWrapper).scrollTop(quizWrapper.scrollHeight - $(quizWrapper).height());
+            
             setScroll();
+            $(quizWrapper).slimScroll({ scrollTo: quizWrapper.scrollHeight - $(quizWrapper).height() });
+
+            $(quizQuestionList.lastElementChild).find('.questionText').focus();
+
             return;
         }
 
@@ -715,14 +718,14 @@
         answersList.lastElementChild.previousElementSibling.querySelector('input').disabled = true;
 
         var input = answerInput.parentElement.previousElementSibling.firstElementChild;
-        $(input).focus();
+
 
 
         setScroll();
 
-        $(quizWrapper).scrollTop($(input).offset.top);
-
-
+        $(quizWrapper).slimScroll({ scrollTo: $(input).offset().top });
+        //+$(input).height()
+        $(input).focus();
     }
 
     function saveAnswer(e) {
