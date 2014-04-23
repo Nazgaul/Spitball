@@ -16,7 +16,9 @@
     {
         position: fixed; //remove the scroll from existing content of bodyContent
         width: 100%;
+        //display: block; //override 
         &.topBarFix {
+            display: none;
             ~ .quizPreview
             {
                 &:before {

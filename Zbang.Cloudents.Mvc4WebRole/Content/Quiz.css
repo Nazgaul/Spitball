@@ -15,6 +15,9 @@
   position: fixed;
   width: 100%;
 }
+.bodyContent.previewQuiz.topBarFix {
+  display: none;
+}
 .bodyContent.previewQuiz.topBarFix ~ .quizPreview:before {
   position: fixed;
   top: 0;
