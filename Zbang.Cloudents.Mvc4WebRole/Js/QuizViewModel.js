@@ -304,6 +304,8 @@
                     //});
 
                     if (isVisible) {
+                        $('.quizComments').hide();
+                        $('.commentWpr').removeClass('show');
                         return;
                     }
 
@@ -403,7 +405,12 @@
                     commentsHTML += cd.attachTemplateToData('quizCommentTemplate', comments[i]);
                 }
 
-                question.getElementsByClassName('quizComments')[0].insertAdjacentHTML('beforeend', commentsHTML);
+
+                var quizComments = question.getElementsByClassName('quizComments')[0];
+                quizComments.insertAdjacentHTML('beforeend', commentsHTML);
+                $(quizComments).find('[data-uid]').not('[data-uid="' + cd.userDetail().nId + '"]').each(function () {
+                    $(this).parent().find('button').remove();
+                });
             }
         }
 
