@@ -67,12 +67,19 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.quizSideBar header .closeDialog {
+  right: 20px;
+  /*rtl*/
+}
 .quizSideBar .inputText {
   width: 270px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-color: rgba(56, 56, 56, 0.5);
+  border-color: rgba(194, 194, 194, 0.5);
+}
+.quizSideBar .inputText:focus {
+  border-color: #c2c2c2;
 }
 .quizSideBar .inputText.quizName {
   width: 100%;
@@ -136,10 +143,7 @@
   overflow: auto;
   height: -webkit-calc(100% - 130px);
   height: calc(100% - 130px);
-  padding-right: 4px;
-  /*rtl*/
-  margin-right: -12px;
-  /*rtl*/
+  width: 354px !important;
 }
 .quizLoc {
   padding-top: 10px;
@@ -188,6 +192,8 @@
   font-size: 11px;
   margin-bottom: 9px;
   color: #9d9d9d;
+  line-height: 12px;
+  height: 27px;
 }
 .questionHolder .inputText {
   resize: none;
@@ -201,10 +207,19 @@
 .questionHolder .inputText[readonly] ~ label {
   opacity: .5;
 }
+.questionHolder .inputText:focus ~ label:before {
+  opacity: 1;
+}
+.questionHolder input[type="radio"]:checked + label:before {
+  opacity: 1;
+}
 .questionHolder label {
   position: absolute;
   right: 17px;
   /*rtl*/
+}
+.questionHolder label:before {
+  opacity: .5;
 }
 .questionHolder.answerReq .addAnswer {
   display: inline-block;
