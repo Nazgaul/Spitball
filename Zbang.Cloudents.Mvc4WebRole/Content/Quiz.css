@@ -15,6 +15,9 @@
   position: fixed;
   width: 100%;
 }
+.bodyContent.previewQuiz.topBarFix {
+  display: none;
+}
 .bodyContent.previewQuiz.topBarFix ~ .quizPreview:before {
   position: fixed;
   top: 0;
@@ -30,7 +33,7 @@
   top: 50px;
   right: 0;
   /*rtl*/
-  width: 383px;
+  width: 386px;
   height: 100%;
   background: #e4e4e4;
   z-index: 5;
@@ -301,14 +304,14 @@
   position: fixed;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 1;
 }
 .quizPreview .closePreview {
   top: 20px;
   position: fixed;
   right: 10px;
   /*rtl*/
-  z-index: 2;
+  z-index: 1;
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);

@@ -829,6 +829,7 @@
     <Content Include="Images\members-only.png" />
     <Content Include="Images\misc-sprite.png" />
     <Content Include="Images\multi2.png" />
+    <Content Include="Images\national-union-pic.png" />
     <Content Include="Images\no-preview.png" />
     <Content Include="Images\nopreview_empty.png" />
     <Content Include="Images\QnA-sprite.png" />

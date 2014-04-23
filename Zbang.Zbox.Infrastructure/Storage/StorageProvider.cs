@@ -51,9 +51,9 @@ namespace Zbang.Zbox.Infrastructure.Storage
                _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             }
             // not need every time
-            //CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
-            //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
-            //CreateTables(_cloudStorageAccount.CreateCloudTableClient());
+            CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
+            CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
+            CreateTables(_cloudStorageAccount.CreateCloudTableClient());
 
         }
         internal static LocalResource LocalResource

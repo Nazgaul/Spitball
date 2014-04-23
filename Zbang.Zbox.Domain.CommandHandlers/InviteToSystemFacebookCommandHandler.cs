@@ -52,7 +52,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     message.FirstName,
                     message.MiddleName,
                     message.LastName,
-                    message.Sex);
+                    message.Sex,
+                    false);
             recepientUser.FacebookId = message.FacebookUserId;
             m_UserRepository.Save(recepientUser, true);
 

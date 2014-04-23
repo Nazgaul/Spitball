@@ -3,17 +3,17 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
-    new { @class = "register", id = "registerForm" }
+    new { @class = "register desktop", id = "registerForm" }
    ))
 {
     @Html.ValidationSummary(true)
     Html.RenderAction("AntiForgeryToken", "Home", true);
 
     @Html.ValidationMessageFor(model => model.FirstName, null)
-    @Html.TextBoxFor(model => model.FirstName, new { @class = "inputText firstName", tabindex = 10, @placeholder= @SharedResources.FirstName })
+    @Html.TextBoxFor(model => model.FirstName, new { @class = "inputText firstName lFloat", tabindex = 10, @placeholder= @SharedResources.FirstName })
 
     @Html.ValidationMessageFor(model => model.LastName, null)
-    @Html.TextBoxFor(model => model.LastName, new { @class = "inputText", tabindex = 11, @placeholder= @SharedResources.LastName })
+    @Html.TextBoxFor(model => model.LastName, new { @class = "inputText lastName rFloat", tabindex = 11, @placeholder= @SharedResources.LastName })
 
     @Html.ValidationMessageFor(model => model.NewEmail, null)
     @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 12, @placeholder= SharedResources.Email, type="email" })
@@ -32,6 +32,9 @@
     @Html.RadioButtonFor(model => model.IsMale, false, new { id = "femaleRadio" })
     <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
 
+    @Html.CheckBoxFor(model => model.MarketEmail, new { id = "MarketEmail", @class = "checkbox"})
+    @Html.LabelFor(model => model.MarketEmail, new { @class = "cbLabel" })   
+    
     <div class="formBottom">
         <span class="acceptTerms">
             @RegisterResources.IAgree<!--

@@ -1235,11 +1235,39 @@ ul.ui-autocomplete {
         //position: static; //override (so that the min length pwd error doesn't cover the t&s text)
         /*margin-top: -53px;*/// fix for position
     }
+    .cbLabel {
+        display: none; /*rtl*/ //display only in hebrew
+        margin: 12px 0 16px;
+        font-size: 13px;
+    }
+    
+}
+.desktop {
+    .firstName, .lastName
+    {
+        width: 48%;
+        display: inline-block;
+        margin-bottom: 22px;
+    }
+    .firstName {
+        + .field-validation-error {
+            margin-left: 4%;
+        }
+    }
+    .lastName {
+        + .field-validation-error {
+            margin-top: 58px;
+            display: block;
+        }
+    }
 }
 .registerMobile {
      .field-validation-error, .validation-summary-errors {
          position:static;
     }
+     .inputText {
+         padding: 5px 4px 5px 8px; //override mobile.css inputText 
+     }
 }
 
 .genderLabel

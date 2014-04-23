@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
         {
             Local.Data["one"] = "This is a string";
             Local.Data["two"] = 99.9m;
-            var person = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
+            var person = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             Local.Data[1] = person;
 
             Assert.AreEqual(3, Local.Data.Count);

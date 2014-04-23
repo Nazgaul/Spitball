@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain
         }
 
         public User(string email, string smallImage, string largeImage,
-            string firstName, string middleName, string lastName, bool sex)
+            string firstName, string middleName, string lastName, bool sex,bool marketEmail)
             : this()
         {
             Email = email;
@@ -57,6 +57,7 @@ namespace Zbang.Zbox.Domain
 
             Name = CreateName();
             Sex = sex;
+            MarketEmail = marketEmail;
 
         }
 
@@ -105,6 +106,8 @@ namespace Zbang.Zbox.Domain
         public virtual Department Department { get; set; }
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
+
+        public virtual bool MarketEmail { get; set; }
 
 
         public void RemoveInviteState(Box box)

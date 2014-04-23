@@ -7,7 +7,8 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public abstract class CreateUserCommand : ICommand
     {
-        public CreateUserCommand(string emailId, long? universityId, string firstName, string middleName, string lastName, bool sex)
+        public CreateUserCommand(string emailId, long? universityId, string firstName, string middleName, string lastName, bool sex,
+            bool marketEmail)
         {
             Email = emailId;
             UniversityId = universityId;
@@ -15,6 +16,7 @@ namespace Zbang.Zbox.Domain.Commands
             MiddleName = middleName;
             LastName = lastName;
             Sex = sex;
+            MarketEmail = marketEmail;
         }
 
         public string Email { get; private set; }
@@ -24,6 +26,8 @@ namespace Zbang.Zbox.Domain.Commands
         public string MiddleName { get; private set; }
         public string LastName { get; private set; }
         public bool Sex { get; private set; }
+
+        public bool MarketEmail { get; private set; }
 
         public long?  UniversityId { get; private set; }
 

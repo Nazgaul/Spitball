@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             ICollection<Item> itemsInBox = new List<Item>();
             //var stubFile = MockRepository.GenerateStub<File>();
             //var stubUser = MockRepository.GenerateStub<User>();
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someThumbnail = "someThumbnailName";
             long someUserId = 1L, someBoxId = 2L, someItemId = 3L;
             someUser.GetType().GetProperty("Id").SetValue(someUser, someUserId);

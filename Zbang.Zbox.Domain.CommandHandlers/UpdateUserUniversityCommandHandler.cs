@@ -14,18 +14,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IUniversityRepository m_UniversityRepository;
         private readonly IRepository<Department> m_DepartmentRepository;
-       // private readonly IRepository<Student> m_StudentRepository;
+        private readonly IRepository<Student> m_StudentRepository;
 
         public UpdateUserUniversityCommandHandler(IUserRepository userRepository,
             IUniversityRepository universityRepository,
-            IRepository<Department> departmentRepository
-            //IRepository<Student> studentRepository
+            IRepository<Department> departmentRepository,
+            IRepository<Student> studentRepository
             )
         {
             m_UserRepository = userRepository;
             m_UniversityRepository = universityRepository;
             m_DepartmentRepository = departmentRepository;
-          //  m_StudentRepository = studentRepository;
+            m_StudentRepository = studentRepository;
         }
         public void Handle(UpdateUserUniversityCommand message)
         {
@@ -45,6 +45,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException("code is invalid");
             }
 
+
+            var StudentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => w.University == university);
+            bool needId = StudentsIdsInUniversity.Count() > 0;
+            if (needId && string.IsNullOrEmpty(message.StudentId))
+            {
+                throw new ArgumentException("need id for this univerisity");
+            }
+            if (needId)
+            {
+                var student = StudentsIdsInUniversity.Where(w => w.ID == message.StudentId).FirstOrDefault();
+
+                if (student == null)
+                {
+                    throw new ArgumentException("need id for this univerisity");
+                }
+                userCode = student.ID;
+            }
             if (university.DataUnversity != null)
             {
                 message.UniversityId = university.DataUnversity.Id;

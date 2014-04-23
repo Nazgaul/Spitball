@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var guid = Guid.NewGuid();
             long someUserId = 1, someBoxId = 1;
             var command = new CreateItemTabCommand(guid, "test", someUserId, someBoxId);
-            var theUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true); 
+            var theUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var theBox = new Box("some name", theUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
 
             m_UserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubItemTabRepository.AssertWasCalled(x => x.Save(dummy));
         }
 
-       
+
 
         [TestMethod]
         [ExpectedException(typeof(UnauthorizedAccessException))]
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         public void Handle_BoxNull_ThrowException()
         {
             var guid = Guid.NewGuid();
-            long someBoxId = 1, someUserId=1;
+            long someBoxId = 1, someUserId = 1;
             var command = new CreateItemTabCommand(guid, "test", someBoxId, someUserId);
             m_StubBoxRepository.Stub(x => x.Get(someBoxId)).Return(null);
             m_UserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
@@ -81,7 +81,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var guid = Guid.NewGuid();
             long boxId = 1, userId = 1;
             var duplicateTabName = "Some name";
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true); 
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             someBox.GetType().GetProperty("Id").SetValue(someBox, boxId);
 
@@ -105,7 +105,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var guid = Guid.NewGuid();
             long boxId = 1;
             var duplicateTabName = string.Empty;
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true); 
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
 
 

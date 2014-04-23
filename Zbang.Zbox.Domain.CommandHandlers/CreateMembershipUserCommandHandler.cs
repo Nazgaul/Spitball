@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user = new User(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
                     command.FirstName,
                     command.MiddleName,
-                    command.LastName,command.Sex);
+                    command.LastName,command.Sex, command.MarketEmail);
             }
             if (!user.IsRegisterUser)
             {
@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user.LastName = command.LastName;
                 user.Name = user.CreateName();
                 user.Sex = command.Sex;
-
+                user.MarketEmail = command.MarketEmail;
 
                 user.Quota.AllocateStorage();
                 if (!newUser)

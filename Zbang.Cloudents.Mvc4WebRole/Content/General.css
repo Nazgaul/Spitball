@@ -1148,9 +1148,31 @@ ul.ui-autocomplete li a {
 .register span.field-validation-error:last-of-type {
   /*margin-top: -53px;*/
 }
+.register .cbLabel {
+  display: none;
+  /*rtl*/
+  margin: 12px 0 16px;
+  font-size: 13px;
+}
+.desktop .firstName,
+.desktop .lastName {
+  width: 48%;
+  display: inline-block;
+  margin-bottom: 22px;
+}
+.desktop .firstName + .field-validation-error {
+  margin-left: 4%;
+}
+.desktop .lastName + .field-validation-error {
+  margin-top: 58px;
+  display: block;
+}
 .registerMobile .field-validation-error,
 .registerMobile .validation-summary-errors {
   position: static;
+}
+.registerMobile .inputText {
+  padding: 5px 4px 5px 8px;
 }
 .genderLabel {
   font-size: 15px;
