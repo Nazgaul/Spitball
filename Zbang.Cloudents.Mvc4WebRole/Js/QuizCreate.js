@@ -179,7 +179,7 @@
         }, 0);
         //did that to kick in the elastic script
         $(quizWrapper).find('textarea').each(function () {
-            $(this).elastic();
+            $(this).elastic().trigger('forceUpdate');
         });
     }
 
