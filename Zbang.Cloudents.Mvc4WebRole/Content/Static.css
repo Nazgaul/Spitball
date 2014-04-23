@@ -663,18 +663,19 @@ footer {
 /*#endregion */
 /*#region chairman - only displayed for hebrew */
 .chairman {
+  min-height: 100vh;
+  margin-top: -194px;
   display: none;
   /*rtl*/
   text-align: right;
   direction: rtl;
-  margin-top: -120px;
   width: 450px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #ebeced;
   box-shadow: 4px 0 4px rgba(0, 0, 0, 0.15);
-  padding: 18px 33px 50px 33px;
+  padding: 96px 33px 50px 33px;
 }
 .chairman:before {
   content: '';
