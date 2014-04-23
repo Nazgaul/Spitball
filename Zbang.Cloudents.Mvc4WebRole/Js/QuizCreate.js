@@ -152,7 +152,7 @@
         function appendEmptyState() {
             var result = '';
             for (var i = 0; i < consts.initQuestionsLength; i++) {
-                result += appendQuestion(null,i+1);
+                result += appendQuestion(null, i + 1);
             }
 
             quizQuestionList.insertAdjacentHTML('beforeend', result);
@@ -172,15 +172,15 @@
             mainDiv.classList.remove('noQuiz');
             transitioning = true;
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
-                transitioning = false;                
+                transitioning = false;
                 quizName.focus();
-                
+
             });
         }, 0);
         //did that to kick in the elastic script
         $(quizWrapper).find('textarea').each(function () {
             $(this).elastic();
-        });        
+        });
     }
 
     function validateQuiz() {
@@ -290,11 +290,11 @@
             result = '';
 
         for (var i = 0; i < questionsLength; i++) {
-            if(!data.questions[i]) {
-                result += appendQuestion(null,i+1);
+            if (!data.questions[i]) {
+                result += appendQuestion(null, i + 1);
                 continue;
             }
-            result += appendQuestion(data.questions[i],i+1);
+            result += appendQuestion(data.questions[i], i + 1);
         }
 
         quizQuestionList.insertAdjacentHTML('beforeend', result);
@@ -412,9 +412,9 @@
                            .on('focusin', '.questionAnswer[readonly="readonly"]', appendAnswer);
 
         $(quizAddQuestion).click(function () {
-            var questionLength = quizQuestionList.children.length + 1;
-            result = appendQuestion(null,questionLength);
-            quizQuestionList.insertAdjacentHTML('beforeend', result);
+            var questionLength = quizQuestionList.children.length + 1,
+                result = appendQuestion(null, questionLength);
+                quizQuestionList.insertAdjacentHTML('beforeend', result);
 
             $(quizWrapper).slimScroll({ scrollTo: quizWrapper.scrollHeight - $(quizWrapper).height() });
             $(quizQuestionList.lastElementChild).find('.questionText').focus();
@@ -568,32 +568,32 @@
     //#endregion Quiz
 
     //#region Question
-    function appendQuestion(question,index) {
+    function appendQuestion(question, index) {
+        question = question || {};
 
-        var indexObj = { index: index },
-            html = cd.attachTemplateToData('quizQuestionTemplate', indexObj),
+        var questionObj = { index: index, id: question.id || '', text: question.text || '' },
+            html = cd.attachTemplateToData('quizQuestionTemplate', questionObj),
             $questionElm = $(html), aIndexObj,
             $answersList = $questionElm.find('.quizAnswersList');
 
-        if (!question) {
+        if (!question.id) {
             for (var i = 0; i < consts.minAnswers; i++) {
-                aIndexObj = { index: (i + 1), topIndex: indexObj.index },
-                html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);                
+                aIndexObj = { index: (i + 1), topIndex: questionObj.index, id: '', text: '' },
+                html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
                 $answersList.children().last()[0].insertAdjacentHTML('beforebegin', html);
             }
-            
+
             return $questionElm[0].outerHTML;
         }
-        //not empty y state
-        $questionElm[0].setAttribute('data-id', question.id);
+        //not empty y state        
 
-        $questionElm.find('.questionText')[0].value = (question.text || '');
 
         var answersLength = question.answers.length < 2 ? consts.minAnswers : question.answers.length;
 
-        
+
         for (var i = 0, l = answersLength; i < l; i++) {
-            aIndexObj = { index: (i + 1), topIndex: indexObj.index },
+            question.answers[i] = question.answers[i] || {};
+            aIndexObj = { index: (i + 1), topIndex: questionObj.index, id: question.answers[i].id || '', text: question.answers[i].text || '' },
             html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
             $answersList.children().last()[0].insertAdjacentHTML('beforebegin', html);
 
@@ -601,9 +601,9 @@
                 continue;
             }
 
-            var $lastAnswer = $answersList.children().last().prev().find('.questionAnswer');
-            $lastAnswer[0].setAttribute('data-id', question.answers[i].id);
-            $lastAnswer[0].value = question.answers[i].text;
+            //var $lastAnswer = $answersList.children().last().prev().find('.questionAnswer');
+            //$lastAnswer[0].setAttribute('data-id', question.answers[i].id);
+            //$lastAnswer.vale(question.answers[i].text);
         }
 
         if (question.correctAnswer) {
@@ -611,7 +611,7 @@
         }
 
         return $questionElm[0].outerHTML;
-        
+
     }
     function saveQuestion(question, callback) {
         var questionHolder = $(question).parents('.questionHolder')[0],
@@ -738,7 +738,7 @@
             answersList = answerInput.parentElement.parentElement,
         answersLength = answersList.children.length,
         answer = answerInput.parentElement,
-        indexObj = { index: answersLength, topIndex: $(answersList.parentElement.parentElement).index() + 1 },
+        indexObj = { index: answersLength, topIndex: $(answersList.parentElement.parentElement).index() + 1, text: '' , id : '' },
         html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
 
         answer.insertAdjacentHTML('beforebegin', html);
@@ -746,12 +746,7 @@
         answersList.lastElementChild.previousElementSibling.querySelector('input').disabled = true;
 
         var input = answerInput.parentElement.previousElementSibling.firstElementChild;
-
-
-
         
-
-        $(quizWrapper).slimScroll({ scrollTo: $(input).offset().top });
         $(input).focus();
     }
 
