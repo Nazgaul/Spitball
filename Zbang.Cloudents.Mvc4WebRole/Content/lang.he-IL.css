@@ -5,3 +5,13 @@
 .quizAnswersList {
   list-style-type: hebrew;
 }
+.chairman {
+  display: block;
+  /*rtl*/
+}
+.chairman ~ .page {
+  padding-left: 450px;
+}
+.chairman ~ .page .libraryChoose {
+  width: 85%;
+}

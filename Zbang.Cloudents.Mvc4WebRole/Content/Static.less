@@ -716,7 +716,7 @@ footer {
 
 /*#region chairman - only displayed for hebrew */
 .chairman {
-
+    display: none; /*rtl*/ //only displayed for hebrew
     text-align: right;
     direction: rtl;
     margin-top: -120px; //because of top margin of staticContent
@@ -739,11 +739,8 @@ footer {
     p {
         margin: 12px 0;
     }
-    ~ .page {
-        padding-left: 450px;
-        .libraryChoose {
-            width: 85%;
-        }
+    a {
+        color: @attentionBlue;
     }
 }
 /*#endregion */
