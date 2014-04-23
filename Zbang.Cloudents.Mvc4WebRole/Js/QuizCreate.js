@@ -107,18 +107,7 @@
             success: function (data) {
                 mainDiv.insertAdjacentHTML('beforeend', data);
                 assignDomElements();
-
-
-                if (!quizId) {
-                    appendEmptyState();
-                    showQuiz();
-                    registerEvents();
-                    setScroll();
-                } else {//edit draft                        
-                    editDraft();
-                    setScroll();
-                    return;
-                }
+                showState();
             }
         });
 
@@ -126,13 +115,11 @@
             if (!quizId) {
                 appendEmptyState();
                 showQuiz();
-                setScroll();
                 registerEvents();
                 return;
             }
 
             editDraft();
-            setScroll();
         }
 
         function editDraft() {
@@ -143,8 +130,8 @@
 
                     populateQuiz(data);
                     showQuiz();
-                    setScroll();
-                    registerEvents();
+                    registerEvents();                    
+
                 }
             });
         }
@@ -174,13 +161,15 @@
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
                 transitioning = false;
                 quizName.focus();
-
+                setScroll();
             });
         }, 0);
         //did that to kick in the elastic script
         $(quizWrapper).find('textarea').each(function () {
             $(this).elastic().trigger('forceUpdate');
         });
+
+
     }
 
     function validateQuiz() {
@@ -298,8 +287,7 @@
         }
 
         quizQuestionList.insertAdjacentHTML('beforeend', result);
-
-        $(quizWrapper).slimScroll({ scrollTo: quizWrapper.scrollHeight - $(quizWrapper).height() });
+        
         $(quizQuestionList.lastElementChild).find('.questionText').focus();
     }
 
@@ -421,9 +409,9 @@
         });
 
         $(quizName).focusout(function () {
-            setTimeout(function () {
+            //setTimeout(function () {
                 saveQuiz();
-            }, 100);
+            //}, 100);
 
         });
         ////.keyup(function (e) {
