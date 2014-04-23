@@ -55,7 +55,7 @@
 
                     var $twin = $('.twin');
                     if (!$twin.length) {
-                        $twin = jQuery('<div>...</div')
+                        $twin = jQuery('<div>...</div>')
                        .css({
                            'position': 'absolute',
                            'display': 'none',
