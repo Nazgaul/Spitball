@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubItemRateRepositoy.Stub(x => x.GetRateOfUser(userid, itemid)).Return(null);
 
-            var user = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true); 
+            var user = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); 
             user.GetType().GetProperty("Id").SetValue(user, userid);
             var item = new Item("some name", user, 1, new Box("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly), "some url","some thumbnail");
 
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
 
-            var user = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true); 
+            var user = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); 
             user.GetType().GetProperty("Id").SetValue(user, userid);
             user.Reputation = 5;
             var item = new Item("some name", user, 1, new Box("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly), "some url", "some thumbnail");

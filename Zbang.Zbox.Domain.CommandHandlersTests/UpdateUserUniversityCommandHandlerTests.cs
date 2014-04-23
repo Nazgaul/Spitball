@@ -14,13 +14,16 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         private IUserRepository m_StubUserRepository;
         private IUniversityRepository m_StubUniversityRepository;
         private IRepository<Department> m_StubDepartmentRepository;
+        private IRepository<Student> m_StubStudentRepository;
 
         [TestInitialize]
         public void Setup()
         {
             m_StubUserRepository = MockRepository.GenerateStub<IUserRepository>();
             m_StubUniversityRepository = MockRepository.GenerateStub<IUniversityRepository>();
+
             m_StubDepartmentRepository = MockRepository.GenerateStub<IRepository<Department>>();
+            m_StubStudentRepository = MockRepository.GenerateStub<IRepository<Student>>();
         }
 
         [TestMethod]
@@ -29,10 +32,10 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someUniversityId = 1L;
             var someUserId = 2L;
-            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0);
+            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0, null, null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true); ;
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); ;
             var someUniversity = new University("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -40,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);
 
-            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository);
+            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository, m_StubStudentRepository);
             commandHanlder.Handle(command);
 
         }
@@ -50,10 +53,10 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someUniversityId = 1L;
             var someUserId = 2L;
-            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null, "N10028");
+            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null, "N10028", null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someUniversity = new University("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -61,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);
 
-            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository);
+            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository, m_StubStudentRepository);
             commandHanlder.Handle(command);
 
             m_StubUserRepository.AssertWasCalled(x => x.Save(someUser));
@@ -73,10 +76,10 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someUniversityId = 1L;
             var someUserId = 2L;
-            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null, "N12345");
+            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null, "N12345", null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someUniversity = new University("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -84,7 +87,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);
 
-            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository);
+            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository, m_StubStudentRepository);
             commandHanlder.Handle(command);
         }
 
@@ -94,11 +97,11 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someUniversityId = 1L;
             var someUserId = 2L;
-            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null, "N12345");
+            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null, "N12345", null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
-            var someOtherUser = new User("some email2", " some small image2", "some largeImage2", "some first name2", "some middle name2", "some last name2", true);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
+            var someOtherUser = new User("some email2", " some small image2", "some largeImage2", "some first name2", "some middle name2", "some last name2", true, false);
             var someUniversity = new University("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -109,7 +112,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);
 
-            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository);
+            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository, m_StubStudentRepository);
             commandHanlder.Handle(command);
 
         }
@@ -119,10 +122,10 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someUniversityId = 1L;
             var someUserId = 2L;
-            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0);
+            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0, null, null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someUniversity = new University("some university", "some img", "some l img", "test");
 
             someUser.Code = "N10028";
@@ -132,7 +135,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);
 
-            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository);
+            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository, m_StubStudentRepository);
             commandHanlder.Handle(command);
 
             m_StubUserRepository.AssertWasCalled(x => x.Save(someUser));
@@ -143,16 +146,16 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someUniversityId = 1L;
             var someUserId = 2L;
-            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0);
+            var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0, null, null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someUniversity = new University("some university", "some img", "some l img", "test");
 
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);
 
-            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository);
+            var commandHanlder = new UpdateUserUniversityCommandHandler(m_StubUserRepository, m_StubUniversityRepository, m_StubDepartmentRepository, m_StubStudentRepository);
             commandHanlder.Handle(command);
 
             m_StubUserRepository.AssertWasCalled(x => x.Save(someUser));

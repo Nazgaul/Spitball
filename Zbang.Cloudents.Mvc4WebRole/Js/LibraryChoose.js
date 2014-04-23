@@ -389,6 +389,7 @@
                 $('#libEnterId').hide();
 
             }).on('click', '#submitRegIdPopup', function (e) {
+                e.preventDefault();
                 selectUniversity(e);
             });
 

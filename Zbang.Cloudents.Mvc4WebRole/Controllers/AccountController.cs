@@ -140,7 +140,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.first_name,
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
-                        facebookUserData.GetGender());
+                        facebookUserData.GetGender(),
+                        false);
                     var commandResult = m_ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
                     user = new LogInUserDto
                     {
@@ -162,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     user.UniversityId,
                     user.UniversityWrapperId));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                return Json(new JsonResponse(true, new { isnew = isNew, url= Url.Action("Index","Library") }));
+                return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library") }));
             }
             catch (ArgumentException)
             {
@@ -285,7 +286,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
-                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName, model.IsMale.Value);
+                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName, 
+                        model.IsMale.Value,
+                        model.MarketEmail);
                     var result = m_ZboxWriteService.CreateUser(command);
 
                     m_FormsAuthenticationService.SignIn(result.User.Id, false,
@@ -425,7 +428,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = GetUserId();
-                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code, model.GroupNumber, model.RegisterNumber);
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code, model.GroupNumber, model.RegisterNumber, model.studentID);
                 m_ZboxWriteService.UpdateUserUniversity(command);
                 m_FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
                 return this.CdJson(new JsonResponse(true, new { redirect = Url.Action("Index", "Library") }));

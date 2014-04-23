@@ -5,9 +5,10 @@ namespace Zbang.Zbox.Domain.Commands
     {
         public UpdateUserUniversityCommand(long universityId, 
             long userId, long? departmentId,
-            string code = null,
-            string groupNumber = null,
-            string registerNumber = null)
+            string code ,
+            string groupNumber,
+            string registerNumber,
+            string studentId)
         {
             UniversityId = universityId;
             UserId = userId;
@@ -15,6 +16,7 @@ namespace Zbang.Zbox.Domain.Commands
             DepartmentId = departmentId.GetValueOrDefault();
             GroupNumber = groupNumber;
             RegisterNumber = registerNumber;
+            StudentId = studentId;
         }
 
         public long UniversityId { get; set; }
@@ -28,5 +30,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         public string GroupNumber { get; private set; }
         public string RegisterNumber { get; private set; }
+
+        public string StudentId { get; private set; }
     }
 }

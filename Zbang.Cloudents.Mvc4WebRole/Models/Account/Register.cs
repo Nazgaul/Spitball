@@ -47,12 +47,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
         public bool? IsMale { get; set; }
-        //[DataType(DataType.Password)]
-        //[Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FirstConfirm")]
-        //[Display(ResourceType = typeof(RegisterResources), Name = "ConfirmPassword")]
-        //[Compare("Password", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmPasswordComapre")]
-        //public string ConfirmPassword { get; set; }
 
+        [Required]
+        public bool MarketEmail { get; set; }
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {

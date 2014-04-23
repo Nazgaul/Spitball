@@ -39,6 +39,7 @@
     <property name="Code" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
 
+    <property name="MarketEmail" />
 
     <component name="FirstTime" class="UserFirstTime">
       <property name="Dashboard" not-null="true">
