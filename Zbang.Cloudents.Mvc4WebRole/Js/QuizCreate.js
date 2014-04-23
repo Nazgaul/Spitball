@@ -113,9 +113,10 @@
                     appendEmptyState();
                     showQuiz();
                     registerEvents();
-
+                    setScroll();
                 } else {//edit draft                        
                     editDraft();
+                    setScroll();
                     return;
                 }
             }
@@ -125,11 +126,13 @@
             if (!quizId) {
                 appendEmptyState();
                 showQuiz();
+                setScroll();
                 registerEvents();
                 return;
             }
 
             editDraft();
+            setScroll();
         }
 
         function editDraft() {
@@ -140,18 +143,22 @@
 
                     populateQuiz(data);
                     showQuiz();
+                    setScroll();
                     registerEvents();
                 }
             });
         }
 
         function appendEmptyState() {
+            var result = '';
             for (var i = 0; i < consts.initQuestionsLength; i++) {
-                appendQuestion();
+                result += appendQuestion(null,i+1);
             }
+
+            quizQuestionList.insertAdjacentHTML('beforeend', result);
+
+            $(quizQuestionList.lastElementChild).find('.questionText').focus();
         }
-
-
     }
 
     function showQuiz() {
@@ -165,14 +172,14 @@
             mainDiv.classList.remove('noQuiz');
             transitioning = true;
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
-                transitioning = false;
-                setScroll();
+                transitioning = false;                
                 quizName.focus();
+                
             });
         }, 0);
         //did that to kick in the elastic script
-        $('.quizWpr').find('textarea').each(function () {
-            $(this).focus();
+        $(quizWrapper).find('textarea').each(function () {
+            $(this).elastic();
         });        
     }
 
@@ -279,9 +286,21 @@
         quizId = data.id;
         quizName.value = data.name || '';
 
-        for (var i = 0, l = data.questions.length; i < l; i++) {
-            appendQuestion(null, data.questions[i]);
+        var questionsLength = data.questions.length < 3 ? consts.initQuestionsLength : data.questions.length,
+            result = '';
+
+        for (var i = 0; i < questionsLength; i++) {
+            if(!data.questions[i]) {
+                result += appendQuestion(null,i+1);
+                continue;
+            }
+            result += appendQuestion(data.questions[i],i+1);
         }
+
+        quizQuestionList.insertAdjacentHTML('beforeend', result);
+
+        $(quizWrapper).slimScroll({ scrollTo: quizWrapper.scrollHeight - $(quizWrapper).height() });
+        $(quizQuestionList.lastElementChild).find('.questionText').focus();
     }
 
     function parseQuiz() {
@@ -389,10 +408,17 @@
                            .on('change', '.correctAnswer', saveAnswer)
                            .on('keyup', '.questionAnswer', toggleAnswerRadioBtn)
                            .on('focusout', '.questionAnswer', saveAnswer)
-                           .on('click', '.questionAnswer[readonly="readonly"]', appendAnswer)
+                           //.on('click', '.questionAnswer[readonly="readonly"]', appendAnswer)
                            .on('focusin', '.questionAnswer[readonly="readonly"]', appendAnswer);
 
-        $(quizAddQuestion).click(appendQuestion);
+        $(quizAddQuestion).click(function () {
+            var questionLength = quizQuestionList.children.length + 1;
+            result = appendQuestion(null,questionLength);
+            quizQuestionList.insertAdjacentHTML('beforeend', result);
+
+            $(quizWrapper).slimScroll({ scrollTo: quizWrapper.scrollHeight - $(quizWrapper).height() });
+            $(quizQuestionList.lastElementChild).find('.questionText').focus();
+        });
 
         $(quizName).focusout(function () {
             setTimeout(function () {
@@ -542,48 +568,50 @@
     //#endregion Quiz
 
     //#region Question
-    function appendQuestion(e, question) {
-        var indexObj = { index: quizQuestionList.children.length + 1 },
-        html = cd.attachTemplateToData('quizQuestionTemplate', indexObj);
-        quizQuestionList.insertAdjacentHTML('beforeend', html);
+    function appendQuestion(question,index) {
 
-
-        var answersList = quizQuestionList.lastElementChild.getElementsByClassName('quizAnswersList')[0];
+        var indexObj = { index: index },
+            html = cd.attachTemplateToData('quizQuestionTemplate', indexObj),
+            $questionElm = $(html), aIndexObj,
+            $answersList = $questionElm.find('.quizAnswersList');
 
         if (!question) {
             for (var i = 0; i < consts.minAnswers; i++) {
-                var aIndexObj = { index: (i + 1), topIndex: indexObj.index },
-                html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
-                answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
+                aIndexObj = { index: (i + 1), topIndex: indexObj.index },
+                html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);                
+                $answersList.children().last()[0].insertAdjacentHTML('beforebegin', html);
             }
             
-            setScroll();
-            $(quizWrapper).slimScroll({ scrollTo: quizWrapper.scrollHeight - $(quizWrapper).height() });
-
-            $(quizQuestionList.lastElementChild).find('.questionText').focus();
-
-            return;
+            return $questionElm[0].outerHTML;
         }
+        //not empty y state
+        $questionElm[0].setAttribute('data-id', question.id);
 
-        quizQuestionList.lastElementChild.setAttribute('data-id', question.id);
+        $questionElm.find('.questionText')[0].value = (question.text || '');
 
-        $(quizQuestionList.lastElementChild).find('.questionText')[0].value = (question.text || '');
+        var answersLength = question.answers.length < 2 ? consts.minAnswers : question.answers.length;
 
-        for (var i = 0, l = question.answers.length; i < l; i++) {
-            var aIndexObj = { index: (i + 1), topIndex: indexObj.index },
+        
+        for (var i = 0, l = answersLength; i < l; i++) {
+            aIndexObj = { index: (i + 1), topIndex: indexObj.index },
             html = cd.attachTemplateToData('quizAnswerTemplate', aIndexObj);
-            answersList.lastElementChild.insertAdjacentHTML('beforebegin', html);
+            $answersList.children().last()[0].insertAdjacentHTML('beforebegin', html);
 
+            if (!question.answers[i]) {
+                continue;
+            }
 
-
-            answersList.lastElementChild.previousElementSibling.setAttribute('data-id', question.answers[i].id);
-            answersList.lastElementChild.previousElementSibling.firstElementChild.value = question.answers[i].text;
+            var $lastAnswer = $answersList.children().last().prev().find('.questionAnswer');
+            $lastAnswer[0].setAttribute('data-id', question.answers[i].id);
+            $lastAnswer[0].value = question.answers[i].text;
         }
 
         if (question.correctAnswer) {
-            $(answersList).find('[data-id="' + question.correctAnswer + '"]').find('.correctAnswer')[0].checked = true;
+            $answersList.find('[data-id="' + question.correctAnswer + '"]').next()[0].checked = true;
         }
-        setScroll();
+
+        return $questionElm[0].outerHTML;
+        
     }
     function saveQuestion(question, callback) {
         var questionHolder = $(question).parents('.questionHolder')[0],
@@ -721,10 +749,9 @@
 
 
 
-        setScroll();
+        
 
         $(quizWrapper).slimScroll({ scrollTo: $(input).offset().top });
-        //+$(input).height()
         $(input).focus();
     }
 
