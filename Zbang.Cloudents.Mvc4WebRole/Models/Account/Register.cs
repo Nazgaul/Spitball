@@ -49,6 +49,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public bool? IsMale { get; set; }
 
         [Required]
+        [Display(Name="מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית")]
         public bool MarketEmail { get; set; }
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
