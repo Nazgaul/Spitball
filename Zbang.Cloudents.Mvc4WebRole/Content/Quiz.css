@@ -467,6 +467,9 @@
   /*rtl*/
   list-style-position: inside;
   position: relative;
+  white-space: pre-line;
+  text-indent: -34px;
+  margin-left: 13px;
 }
 .quizAList li:before {
   content: '';
