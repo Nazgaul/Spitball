@@ -15,5 +15,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 
         public string GroupNumber { get; set; }
         public string RegisterNumber { get; set; }
+
+        public string studentID { get; set; }
     }
 }

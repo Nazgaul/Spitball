@@ -14,14 +14,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IUniversityRepository m_UniversityRepository;
         private readonly IRepository<Department> m_DepartmentRepository;
+       // private readonly IRepository<Student> m_StudentRepository;
 
         public UpdateUserUniversityCommandHandler(IUserRepository userRepository,
             IUniversityRepository universityRepository,
-            IRepository<Department> departmentRepository)
+            IRepository<Department> departmentRepository
+            //IRepository<Student> studentRepository
+            )
         {
             m_UserRepository = userRepository;
             m_UniversityRepository = universityRepository;
             m_DepartmentRepository = departmentRepository;
+          //  m_StudentRepository = studentRepository;
         }
         public void Handle(UpdateUserUniversityCommand message)
         {

@@ -396,6 +396,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
         public ActionResult InsertID(long universityId)
         {
+            var userData = m_UserProfile.Value.GetUserData(ControllerContext);
+            switch (universityId)
+            {
+                
+                default:
+                    //ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
+                    ViewBag.AgudaMail = "aguda4u.co.il@gmail.com";
+                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-9628930";
+                    break;
+            }
+            ViewBag.userName = userData.Name;
             return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
         }
 
