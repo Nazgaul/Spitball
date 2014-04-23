@@ -470,14 +470,20 @@
     li{
         margin: 0 0 10px -20px; /*rtl*/ // compensate for list-style-position: inside
         list-style-position: inside; //force left-align on the list style type
+        position: relative;
         &:before {
             content: '';
             display: inline-block;
-            padding-left: 5px; /*rtl*/  // compensate for list-style-position: inside
+            padding-left: 18px; /*rtl*/  // compensate for list-style-position: inside
             
         }
         &:last-child {
             margin-bottom:0;
+        }
+        label:before {
+            position: absolute;
+            left: 19px; /*rtl*/
+            top: 7px;
         }
     }
 }
@@ -554,10 +560,11 @@
             background-color: none;
             background: @common-sprite -18px -121px no-repeat;
             opacity: 1; //override disabled radio half opacity on label
+            margin: -4px 0 0 -2px; /*rtl*/
         }
     }
 
-    .wrong label:before {
+    .wrong.wrong label:before {
         background-position: -36px -121px;
     }
 

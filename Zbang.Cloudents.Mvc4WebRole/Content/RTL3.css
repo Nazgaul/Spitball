@@ -2586,8 +2586,13 @@
   /*rtl*/
 }
 .quizAList li:before {
-  padding: 0 5px 0 0;
+  padding: 0 18px 0 0;
   /*rtl*/
+}
+.quizAList li label:before {
+  right: 19px;
+  /*rtl*/
+  left: auto;
 }
 /*#endregion */
 /*#region Quiz item page */
@@ -2607,6 +2612,11 @@
   right: -45px;
   /*rtl*/
   left: auto;
+}
+.checkQuiz .correct.correct label:before,
+.checkQuiz .wrong.wrong label:before {
+  margin: -4px -2px 0 0;
+  /*rtl*/
 }
 .checkQuiz .quizQList .noAnswer:after {
   left: -140px;
