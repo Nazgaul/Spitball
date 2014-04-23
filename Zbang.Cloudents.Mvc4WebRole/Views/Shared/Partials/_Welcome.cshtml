@@ -15,7 +15,7 @@
     <div class="enterTitle">@LogOnResources.CreateAccount</div>
     <div class="facebook"><span class="fbImg"></span>@LogOnResources.FacebookSignUp</div>
     <div class="enterForm" id="joinForm">
-    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register());}
+    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
     </div>
     <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
     <button class="closeDialog" data-closelogin="close"></button>
