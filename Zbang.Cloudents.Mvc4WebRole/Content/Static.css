@@ -663,6 +663,8 @@ footer {
 /*#endregion */
 /*#region chairman - only displayed for hebrew */
 .chairman {
+  display: none;
+  /*rtl*/
   text-align: right;
   direction: rtl;
   margin-top: -120px;
@@ -689,10 +691,7 @@ footer {
 .chairman p {
   margin: 12px 0;
 }
-.chairman ~ .page {
-  padding-left: 450px;
-}
-.chairman ~ .page .libraryChoose {
-  width: 85%;
+.chairman a {
+  color: #0371c8;
 }
 /*#endregion */
