@@ -141,6 +141,7 @@
                 $(window).bind('resize', setTwinWidth);
                 $textarea.bind('resize', setTwinWidth);
                 $textarea.bind('update', update);
+                $textarea.bind('forceUpdate', update);
 
                 // Compact textarea on blur //removed by Daniel - as not required
                 //$textarea.bind('blur', function () {
