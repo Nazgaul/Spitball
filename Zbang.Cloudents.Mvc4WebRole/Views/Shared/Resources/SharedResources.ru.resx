@@ -511,4 +511,7 @@
   <data name="Question" xml:space="preserve">
     <value>Вопрос</value>
   </data>
+  <data name="Course" xml:space="preserve">
+    <value>курс</value>
+  </data>
 </root>

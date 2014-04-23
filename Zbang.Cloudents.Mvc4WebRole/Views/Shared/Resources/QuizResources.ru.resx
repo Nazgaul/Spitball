@@ -201,4 +201,7 @@
   <data name="NoAnswer" xml:space="preserve">
     <value>Не дано ответа</value>
   </data>
+  <data name="NoAnswer1" xml:space="preserve">
+    <value>Не дано ответа</value>
+  </data>
 </root>

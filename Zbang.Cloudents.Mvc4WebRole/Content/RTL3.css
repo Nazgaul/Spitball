@@ -2501,7 +2501,7 @@
   right: auto;
 }
 .questionHolder .closeDialog {
-  left: -3px;
+  left: 0;
   /*rtl*/
   right: auto;
 }
