@@ -1171,6 +1171,9 @@ ul.ui-autocomplete li a {
 .registerMobile .validation-summary-errors {
   position: static;
 }
+.registerMobile .inputText {
+  padding: 5px 4px 5px 8px;
+}
 .genderLabel {
   font-size: 15px;
   margin: 15px 0 5px;
