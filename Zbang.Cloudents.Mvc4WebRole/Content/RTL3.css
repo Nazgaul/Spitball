@@ -2468,6 +2468,11 @@
   padding: 8px 24px 0 0;
   /*rtl*/
 }
+.quizSideBar header .closeDialog {
+  left: 20px;
+  /*rtl*/
+  right: auto;
+}
 .toggleQuiz {
   left: 374px;
   /*rtl*/
@@ -2494,12 +2499,6 @@
   left: -372px;
   /*rtl*/
   right: auto;
-}
-.quizWpr {
-  padding: 0 0 0 4px;
-  /*rtl*/
-  margin: 0 0 0 -12px;
-  /*rtl*/
 }
 .questionHolder .closeDialog {
   left: -3px;

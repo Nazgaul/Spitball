@@ -63,13 +63,18 @@
         margin: 0 -14px 0 -15px; /*rtl*/ //left padding + 1px border
         padding: 8px 0 0 24px; /*rtl*/
         .boxSizing;
+        .closeDialog {
+            right: 20px; /*rtl*/
+        }
     }
 
     .inputText {
         width: 270px;
         .boxSizing;
-        border-color: rgba(56,56,56,.5);
-
+        border-color: rgba(194,194,194,.5);
+        &:focus {
+            border-color: @borderColor;
+        }
         &.quizName {
             width: 100%;
             margin: 10px 0 17px;
@@ -141,8 +146,9 @@
     overflow: auto;
     height: ~'-webkit-calc(100% - 130px)';
     height: ~'calc(100% - 130px)';
-    padding-right: 4px; /*rtl*/
-    margin-right: -12px; /*rtl*/
+    //padding-right: 4px; /*rtl*/
+    //margin-right: 10px; /*rtl*/
+    width: 354px !important; //override slimscroll
 }
 .quizLoc
 {
@@ -189,6 +195,8 @@
         font-size: 11px;
         margin-bottom: 9px;
         color: #9d9d9d;
+        line-height: 12px;
+        height: 27px;
     }
     .inputText{
         resize: none;
@@ -199,10 +207,19 @@
         {
             opacity: .5;
         }
+        &:focus ~ label:before {
+            opacity:1;
+        }
+    }
+    input[type="radio"]:checked + label:before{
+        opacity:1;
     }
     label{
         position: absolute;
         right: 17px; /*rtl*/
+        &:before {
+            opacity: .5;
+        }
     }
     &.answerReq {
         .addAnswer {
