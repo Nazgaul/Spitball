@@ -36,11 +36,7 @@
         var quizId = cd.getParameterFromUrl(4), startTime, stopWatch, firstTime = true;
 
         cd.pubsub.subscribe('quiz', function (data) {
-            if (!firstTime) {
-                return;
-            }
-            firstTime = false;
-
+         
             initQuiz();
 
             pubsub.publish('quiz_load');
@@ -114,7 +110,8 @@
 
 
         function registerEvents() {
-            $(quizCheckAnswers).click(function () {
+
+            $(quizCheckAnswers).off('click').click(function () {
 
                 var answerSheet = checkAnswers();
                 showScore();
@@ -134,18 +131,18 @@
                 });
             });
 
-            $(quizRetake).click(function () {
+            $(quizRetake).off('click').click(function () {
                 clearQuiz();
 
                 toggleTimer(false, true);
             });
 
-            $(quizTimerToggle).click(function () {
+            $(quizTimerToggle).off('click').click(function () {
                 toggleTimer(!stopWatch.isRunning, false);
 
             });
 
-            $(quizTQuestion).on('change', 'input', function () {
+            $(quizTQuestion).off('click').on('change', 'input', function () {
                 quizCheckAnswers.disabled = false;
 
                 if (stopWatch.isRunning) {
@@ -155,16 +152,16 @@
                 toggleTimer(true, false);
             });
 
-            $(quizCL).click(function (e) {
+            $(quizCL).off('click').click(function (e) {
                 e.preventDefault();
                 this.select();
             });
 
-            $(quizMsg).click(function () {
+            $(quizMsg).off('click').click(function () {
                 cd.pubsub.publish('message');
             });
 
-            $(quizFS).click(function () {
+            $(quizFS).off('click').click(function () {
                 var itemName = quiz.querySelector('.itemNameText').textContent,
                     uniName = cd.getParameterFromUrl(1),
                     boxName = cd.getParameterFromUrl(3)
@@ -412,12 +409,14 @@
 
         function clearQuiz() {
             quiz.classList.remove('checkQuiz');
+            $('.commentWpr').removeClass('show');
             $(quizTQuestion).find('input').removeAttr('disabled').prop('checked', false);
             $('.quizComments').hide();
             $(quizTQuestion).children().removeClass('noAnswer userWrong');
             $(quizTQuestion).find('.userCorrect').removeClass('userCorrect');
             stopWatch.reset();
-            stopWatch = null;            
+            stopWatch = null;
+
         }
 
         function setCommentsLength(question, length) {

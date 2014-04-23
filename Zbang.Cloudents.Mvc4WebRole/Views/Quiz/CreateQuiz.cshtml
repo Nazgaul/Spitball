@@ -40,10 +40,10 @@
 </div>
 
 <script type="text/html" id="quizQuestionTemplate">
-    <li class="questionHolder">
+    <li data-id="{{id}}" class="questionHolder">
         <form>
             <button type="button" class="closeDialog quizRemoveQuestion"></button>
-            <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}"></textarea>
+            <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}">{{text}}</textarea>
             <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
             <div class="lFloat answers">@SharedResources.Answers:</div>
             <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
@@ -60,8 +60,8 @@
 </script>
 
 <script type="text/html" id="quizAnswerTemplate">
-    <li class="quizAnswer">
-        <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{index}}"></textarea>
+    <li data-id="{{id}}" class="quizAnswer">
+        <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{index}}">{{text}}</textarea>
         <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" name="quizRadio" />
         <label for="quizRadio{{topIndex}}{{index}}"></label>
     </li>
