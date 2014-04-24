@@ -140,13 +140,13 @@
                 // Update textarea size on keyup, change, cut and paste
                 $textarea.bind('input', function () {
                     update();
-                });
+                })
 
                 // Update width of twin if browser or textarea is resized (solution for textareas with widths in percent)
+               
+                .bind('resize', setTwinWidth)
+                .bind('update forceUpdate', update)
                 $(window).bind('resize', setTwinWidth);
-                $textarea.bind('resize', setTwinWidth);
-                $textarea.bind('update', update);
-                $textarea.bind('forceUpdate', update);
 
                 // Compact textarea on blur //removed by Daniel - as not required
                 //$textarea.bind('blur', function () {
@@ -160,7 +160,7 @@
                 //});
 
                 // And this line is to catch the browser paste event
-                $textarea.bind('input paste', function (e) { setTimeout(update, 250); });
+                //$textarea.bind('input paste', function (e) { setTimeout(update, 250); });
                 $textarea.data('elastic', $twin);
                 $twin.data('elastic', $textarea);
                 // Run update once when elastic is initialized
