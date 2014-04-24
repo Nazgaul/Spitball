@@ -168,7 +168,10 @@
                 transitioning = false;
                 setScroll();
 
-                setElastic(30);
+                setTimeout(function () {
+                    setElastic(30);
+                }, 0);
+                
 
                 quizName.focus();
             });
@@ -941,7 +944,7 @@
 
     function setElastic(start, end) {
 
-        var textAreas = quizWrapper.querySelectorAll('textarea');
+        var textAreas = quizWrapper.getElementsByTagName('textarea');
 
         start = start || 0;
         end = end || textAreas.length;
