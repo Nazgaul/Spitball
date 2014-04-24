@@ -88,6 +88,7 @@
             width: 100%;
             resize: none;
             font-size: 17px;
+            line-height:19px;
         }
 
         &.emptyText.questionAnswer {
@@ -143,12 +144,16 @@
 }
 .quizWpr
 {
-    overflow: auto;
+    overflow:hidden;
     height: ~'-webkit-calc(100% - 130px)';
     height: ~'calc(100% - 130px)';
     //padding-right: 4px; /*rtl*/
     //margin-right: 10px; /*rtl*/
     width: 354px !important; //override slimscroll
+
+    textarea {
+        overflow:hidden;
+    }
 }
 .quizLoc
 {
@@ -428,7 +433,7 @@
         padding: 4px 15px;
         height: auto;
         margin: 2px 14px 0 0; /*rtl*/ 
-        display: block;
+        display: none;
     }
     &.show {
         .quizComments, .imgBorder, .cTextAreaWpr {

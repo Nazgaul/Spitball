@@ -93,6 +93,7 @@
   width: 100%;
   resize: none;
   font-size: 17px;
+  line-height: 19px;
 }
 .quizSideBar .inputText.emptyText.questionAnswer {
   border: 1px solid #d1294d;
@@ -140,10 +141,13 @@
   /*rtl*/
 }
 .quizWpr {
-  overflow: auto;
+  overflow: hidden;
   height: -webkit-calc(100% - 130px);
   height: calc(100% - 130px);
   width: 354px !important;
+}
+.quizWpr textarea {
+  overflow: hidden;
 }
 .quizLoc {
   padding-top: 10px;
@@ -424,7 +428,7 @@
   height: auto;
   margin: 2px 14px 0 0;
   /*rtl*/
-  display: block;
+  display: none;
 }
 .commentWpr.show .quizComments,
 .commentWpr.show .imgBorder,

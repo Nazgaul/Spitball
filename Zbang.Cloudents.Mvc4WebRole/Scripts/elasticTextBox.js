@@ -1,7 +1,6 @@
 ﻿(function ($) {
     jQuery.fn.extend({
-        elastic: function () {
-
+        elastic: function (data) {            
             //	We will create a div clone of the textarea
             //	by copying these attributes from the textarea to the div.
             var mimics = [
@@ -29,7 +28,7 @@
             ];
 
             return this.each(function () {
-
+                this.isForced = data.forced;
                 // Elastic only works on textareas
                 if (this.type !== 'textarea') {
                     return false;
@@ -165,7 +164,7 @@
                 $textarea.data('elastic', $twin);
                 $twin.data('elastic', $textarea);
                 // Run update once when elastic is initialized
-                update();
+                update(this.isForced);
 
             });
         }

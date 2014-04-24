@@ -330,10 +330,14 @@
                     
                 });
 
-                $(quizTQuestion).off('keyup').on('keyup', '.cTextArea', function () {
+                $(quizTQuestion).off('input').on('input', '.cTextArea', function (e) {
                     this.nextElementSibling.disabled = this.value.length === 0;
+                }).off('focus').on('focus', '.cTextArea', function (e) {
+                    this.nextElementSibling.style.display = 'block';
+                }).off('blur').on('blur', '.cTextArea', function (e) {
+                    this.nextElementSibling.style.display = 'none';
                 });
-
+                               
                 $('.askBtn').off('click').click(function () {
                     var that = this,
                         text = that.previousElementSibling.value,
@@ -342,7 +346,10 @@
                         commentsElement = question.getElementsByClassName('quizComments')[0];                    
 
 
+                    text = text.trim();
+
                     if (!text.length) {
+                        cd.notification('cannot save empty comment');
                         return;
                     }
 

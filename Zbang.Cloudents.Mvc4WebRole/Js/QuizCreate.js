@@ -128,9 +128,10 @@
                 success: function (data) {
                     data = data || {};
 
+
                     populateQuiz(data);
                     showQuiz();
-                    registerEvents();                    
+                    registerEvents();
 
                 }
             });
@@ -144,7 +145,10 @@
 
             quizQuestionList.insertAdjacentHTML('beforeend', result);
 
-            $(quizQuestionList.lastElementChild).find('.questionText').focus();
+            if (!firstTime) {
+                $(quizQuestionList.lastElementChild).find('.questionText').focus();
+            }
+
         }
     }
 
@@ -155,20 +159,20 @@
         //show the quiz div
         addQuiz.disabled = true;
         quizToggle.checked = false;
+        setElastic(0, 30);
+
         setTimeout(function () {
             mainDiv.classList.remove('noQuiz');
             transitioning = true;
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
                 transitioning = false;
-                quizName.focus();
                 setScroll();
+
+                setElastic(30);
+
+                quizName.focus();
             });
         }, 0);
-        //did that to kick in the elastic script
-        $(quizWrapper).find('textarea').each(function () {
-            $(this).elastic().trigger('forceUpdate');
-        });
-
 
     }
 
@@ -287,8 +291,7 @@
         }
 
         quizQuestionList.insertAdjacentHTML('beforeend', result);
-        
-        $(quizQuestionList.lastElementChild).find('.questionText').focus();
+
     }
 
     function parseQuiz() {
@@ -407,7 +410,7 @@
         $(quizAddQuestion).click(function () {
             var questionLength = quizQuestionList.children.length + 1,
                 result = appendQuestion(null, questionLength);
-                quizQuestionList.insertAdjacentHTML('beforeend', result);
+            quizQuestionList.insertAdjacentHTML('beforeend', result);
 
             $(quizWrapper).slimScroll({ scrollTo: quizWrapper.scrollHeight - $(quizWrapper).height() });
             $(quizQuestionList.lastElementChild).find('.questionText').focus();
@@ -415,7 +418,7 @@
 
         $(quizName).focusout(function () {
             //setTimeout(function () {
-                saveQuiz();
+            saveQuiz();
             //}, 100);
         }).keyup(function () {
             if (this.value.length > 0) {
@@ -423,8 +426,8 @@
                 checkForErrors();
             }
         });
-        
-        $(quizSideBar).on('keyup','.questionReq .questionText', function (e) {
+
+        $(quizSideBar).on('keyup', '.questionReq .questionText', function (e) {
             if (this.value.length) {
                 $(this).parents('.questionHolder').removeClass('questionReq');
                 checkForErrors();
@@ -435,11 +438,11 @@
 
                 var answerList = $(this).parents('.quizAnswersList')[0],
                     invalidAnswers = answerList.getElementsByClassName('emptyText');
-                
+
                 if (!invalidAnswers.length) {
                     $(this).parents('.questionHolder').removeClass('answerReq');
                 }
-                
+
                 checkForErrors();
             }
 
@@ -448,7 +451,7 @@
             checkForErrors();
         });
 
-        $(saveBtn).click(publishQuiz);        
+        $(saveBtn).click(publishQuiz);
 
         $(closeQuiz).click(showClosePopup);
 
@@ -460,13 +463,14 @@
             }
         });
 
+
+
     }
 
     //#region Quiz
 
     function saveQuiz() {
 
-        addItemToBox(false);
 
         if (!quizId) {
             dataContext.quizCreate({
@@ -474,20 +478,20 @@
                 success: function (data) {
                     quizSideBar.setAttribute('data-id', data);
                     quizId = data;
-                    //addItemToBox(false);
+                    addItemToBox(false);
                 }
             });
             return;
         }
 
-        var oldQuizId = quizId;
+        addItemToBox(false);
         dataContext.quizUpdate({
             data: { id: quizId, name: quizName.value },
             success: function () {
                 //if (quizId === oldQuizId) {
                 //    addItemToBox(false);
                 //}
-                
+
             },
             error: function () { }
         });
@@ -670,7 +674,7 @@
             }
         }
 
-        if (valueFound || this.value.length) {            
+        if (valueFound || this.value.length) {
             return;
         }
 
@@ -757,7 +761,7 @@
             answersList = answerInput.parentElement.parentElement,
         answersLength = answersList.children.length,
         answer = answerInput.parentElement,
-        indexObj = { index: answersLength, topIndex: $(answersList.parentElement.parentElement).index() + 1, text: '' , id : '' },
+        indexObj = { index: answersLength, topIndex: $(answersList.parentElement.parentElement).index() + 1, text: '', id: '' },
         html = cd.attachTemplateToData('quizAnswerTemplate', indexObj);
 
         answer.insertAdjacentHTML('beforebegin', html);
@@ -765,7 +769,7 @@
         answersList.lastElementChild.previousElementSibling.querySelector('input').disabled = true;
 
         var input = answerInput.parentElement.previousElementSibling.firstElementChild;
-        
+
         $(input).focus();
     }
 
@@ -933,5 +937,19 @@
         if (!nameError && !bodyErrors) {
             quizSideBar.classList.remove('error');
         }
+    }
+
+    function setElastic(start, end) {
+
+        var textAreas = quizWrapper.querySelectorAll('textarea');
+
+        start = start || 0;
+        end = end || textAreas.length;
+
+
+        for (var i = start; i < end; i++) {
+            $(textAreas[i]).elastic({ forced: true });
+        }
+
     }
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);
