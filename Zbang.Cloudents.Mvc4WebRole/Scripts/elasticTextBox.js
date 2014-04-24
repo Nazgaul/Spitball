@@ -1,6 +1,7 @@
 ﻿(function ($) {
     jQuery.fn.extend({
-        elastic: function (data) {            
+        elastic: function (data) {
+            data = data || {};
             //	We will create a div clone of the textarea
             //	by copying these attributes from the textarea to the div.
             var mimics = [
@@ -13,10 +14,14 @@
 				'fontFamily',
 				'width',
 				'fontWeight',
-				'border-top-width',
-				'border-right-width',
-				'border-bottom-width',
-				'border-left-width',
+				//'border-top-width',
+				//'border-right-width',
+				//'border-bottom-width',
+				//'border-left-width',
+                'borderTopWidth',
+				'borderRightWidth',
+				'borderBottomWidth',
+				'borderLeftWidth',
 				'borderTopStyle',
 				'borderTopColor',
 				'borderRightStyle',
@@ -72,8 +77,10 @@
                 // Copy the essential styles (mimics) from the textarea to the twin
                 var i = mimics.length;
                 while (i--) {
-                    twin.style[mimics[i].toString()] = textarea.style[mimics[i].toString()];
-                    //$twin.css(mimics[i].toString(), $textarea.css(mimics[i].toString()));
+
+                    //doesnt work like jquery somehow -- height problem
+                    //twin.style[mimics[i].toString()] = getComputedStyle(textarea).getPropertyValue(mimics[i].toString());// textarea.style[mimics[i].toString()];
+                    $twin.css(mimics[i].toString(), $textarea.css(mimics[i].toString()));
                 }
 
                 // Updates the width of the twin. (solution for textareas with widths in percent)
@@ -143,7 +150,7 @@
                 })
 
                 // Update width of twin if browser or textarea is resized (solution for textareas with widths in percent)
-               
+
                 .bind('resize', setTwinWidth)
                 .bind('update forceUpdate', update)
                 $(window).bind('resize', setTwinWidth);
