@@ -181,8 +181,8 @@
         display: none;
         width: 20px;
         height: 19px;
-        right: -3px; /*rtl*/
-        top: -9px;
+        right: 0; /*rtl*/
+        top: -10px;
     }
     .lFloat{
         margin: 3px 5px 0 0; /*rtl*/
@@ -197,6 +197,7 @@
         color: #9d9d9d;
         line-height: 12px;
         height: 27px;
+        text-align: center;
     }
     .inputText{
         resize: none;
@@ -216,7 +217,7 @@
     }
     label{
         position: absolute;
-        right: 17px; /*rtl*/
+        right: 19px; /*rtl*/
         &:before {
             opacity: .5;
         }
@@ -349,6 +350,12 @@
             margin-top: 10px;
         }
     }
+    .quizAList li{
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
 .quizPrevWpr
 {
@@ -363,7 +370,7 @@
 .quizTitle{
     font-size: 22px;
     width: 800px;
-    margin: 67px auto 20px;
+    margin: 20px auto;
     &:before
     {
         content: attr(data-questioncount) "\00a0";
@@ -468,16 +475,29 @@
     font-size: 15px;
     padding: 10px 20px;
     li{
-        margin: 0 0 10px -20px; /*rtl*/ // compensate for list-style-position: inside
+        margin: 0 0 -34px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
         list-style-position: inside; //force left-align on the list style type
+        position: relative; //TODO:not sure if this is necessary anymore
+        white-space: pre-line;
+        text-indent: -34px;
         &:before {
             content: '';
             display: inline-block;
-            padding-left: 5px; /*rtl*/  // compensate for list-style-position: inside
+            padding-left: 18px; /*rtl*/  // compensate for list-style-position: inside
             
         }
         &:last-child {
-            margin-bottom:0;
+            margin-bottom:-40px;
+        }
+        label {
+            position: relative;
+            top: -40px;
+            left: 5px; /*rtl*/
+            &:before {
+                position: absolute;
+                left: -19px; /*rtl*/
+                top: 7px;
+            }
         }
     }
 }
@@ -554,10 +574,11 @@
             background-color: none;
             background: @common-sprite -18px -121px no-repeat;
             opacity: 1; //override disabled radio half opacity on label
+            margin: -3px 0 0 -3px; /*rtl*/
         }
     }
 
-    .wrong label:before {
+    .wrong.wrong label:before {
         background-position: -36px -121px;
     }
 
@@ -622,6 +643,7 @@
     
     .quizTime {
         margin: 0;
+        font-weight:100;
 
         &:before {
             content: attr(data-timer-label);
@@ -629,6 +651,8 @@
             font-size: 13px;
             position: absolute;
             top: -12px;
+            font-weight:normal;
+            
         }
     }
 
@@ -655,6 +679,7 @@
     opacity: 0;
     z-index: 2;
     .transition(all .8s ease-in 1s);
+    color:#383838;
 
     &:after {
         content: attr(data-user-score);

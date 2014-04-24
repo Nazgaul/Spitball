@@ -198,4 +198,7 @@
   <data name="YourScore" xml:space="preserve">
     <value>نتيجتك</value>
   </data>
+  <data name="NoAnswer" xml:space="preserve">
+    <value>الجواب لا</value>
+  </data>
 </root>

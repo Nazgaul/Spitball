@@ -511,4 +511,7 @@
   <data name="Draft" xml:space="preserve">
     <value>טיוטא</value>
   </data>
+  <data name="Course" xml:space="preserve">
+    <value>קורס</value>
+  </data>
 </root>

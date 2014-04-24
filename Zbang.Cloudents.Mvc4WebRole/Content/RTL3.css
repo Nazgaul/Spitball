@@ -2501,7 +2501,7 @@
   right: auto;
 }
 .questionHolder .closeDialog {
-  left: -3px;
+  left: 0;
   /*rtl*/
   right: auto;
 }
@@ -2511,7 +2511,7 @@
   color: #676767;
 }
 .questionHolder label {
-  left: 17px;
+  left: 19px;
   /*rtl*/
   right: auto;
 }
@@ -2582,12 +2582,26 @@
   /*rtl*/
 }
 .quizAList li {
-  margin: 0 -20px 10px 0;
-  /*rtl*/
+  margin: 0 13px -26px 0;
+  /*diff rtl for bottom*/
 }
 .quizAList li:before {
-  padding: 0 5px 0 0;
+  padding: 0 18px 0 0;
   /*rtl*/
+}
+.quizAList li label {
+  top: -34px;
+  /* need this */
+  right: 5px;
+  /*rtl*/
+  left: auto;
+}
+.quizAList li label:before {
+  top: 5px;
+  /* need this */
+  right: -19px;
+  /*rtl*/
+  left: auto;
 }
 /*#endregion */
 /*#region Quiz item page */
@@ -2607,6 +2621,11 @@
   right: -45px;
   /*rtl*/
   left: auto;
+}
+.checkQuiz .correct.correct label:before,
+.checkQuiz .wrong.wrong label:before {
+  margin: -3px -3px 0 0;
+  /*rtl*/
 }
 .checkQuiz .quizQList .noAnswer:after {
   left: -140px;

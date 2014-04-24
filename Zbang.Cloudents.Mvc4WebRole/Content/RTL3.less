@@ -2088,7 +2088,7 @@
 
 .questionHolder {
     .closeDialog {
-        left: -3px; /*rtl*/
+        left: 0; /*rtl*/
         right: auto;
     }
 
@@ -2098,7 +2098,7 @@
     }
 
     label {
-        left: 17px; /*rtl*/
+        left: 19px; /*rtl*/
         right: auto;
     }
 
@@ -2177,9 +2177,19 @@
 .quizAList
 {
     li{
-        margin: 0 -20px 10px 0; /*rtl*/
+        margin: 0 13px -26px 0; /*diff rtl for bottom*/
         &:before {
-            padding: 0 5px 0 0; /*rtl*/
+            padding: 0 18px 0 0; /*rtl*/
+        }
+        label {
+            top: -34px; /* need this */
+            right: 5px; /*rtl*/
+            left: auto;
+            &:before {
+                top: 5px; /* need this */
+                right: -19px; /*rtl*/
+                left: auto;
+            }
         }
     }
 }
@@ -2207,6 +2217,11 @@
 }
 
 .checkQuiz {
+    .correct.correct label, .wrong.wrong label {
+        &:before {
+            margin: -3px -3px 0 0; /*rtl*/
+        }
+    }
     .quizQList .noAnswer:after {
         left: -140px; /*rtl*/
         right: auto;
