@@ -347,15 +347,12 @@
 .quizPreview .quizAList li:last-child {
   margin-bottom: 0;
 }
-.quizPreview .quizQList {
-  padding-bottom: 15px;
-}
 .quizPrevWpr {
   width: 800px;
   margin: 0 auto 60px;
   background: #fff;
   border-radius: 5px;
-  padding: 0 140px 0 20px;
+  padding: 0 140px 15px 20px;
   /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
