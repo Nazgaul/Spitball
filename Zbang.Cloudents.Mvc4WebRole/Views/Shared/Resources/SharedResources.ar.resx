@@ -521,4 +521,7 @@
   <data name="NoAnswer" xml:space="preserve">
     <value>الجواب لا</value>
   </data>
+  <data name="Course" xml:space="preserve">
+    <value>مسار</value>
+  </data>
 </root>

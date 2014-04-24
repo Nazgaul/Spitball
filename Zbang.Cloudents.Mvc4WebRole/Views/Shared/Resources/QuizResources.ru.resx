@@ -204,4 +204,8 @@
   <data name="NoAnswer1" xml:space="preserve">
     <value>Не дано ответа</value>
   </data>
+  <data name="EditQuiz" xml:space="preserve">
+    <value>Редактировать Тест
+</value>
+  </data>
 </root>
