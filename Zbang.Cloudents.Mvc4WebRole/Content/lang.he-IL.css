@@ -15,3 +15,7 @@
 .chairman ~ .page .libraryChoose {
   width: 85%;
 }
+.quizAList li {
+  list-style-type: hebrew;
+}
+/*# sourceMappingURL=lang.he-IL.css.map */
