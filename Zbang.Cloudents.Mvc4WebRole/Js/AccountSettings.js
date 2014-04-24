@@ -301,7 +301,7 @@
                 data: values,
                 success: function () {
                     $('#userName').text($('#Name').val().trim().split(' ', 1)[0]);
-                    $('#userDetails').find('img').attr('src', smallimg);
+                    $('#userImg').attr('src', smallimg);
                     cd.notification(ZboxResources.SettingsSaved);
                     cd.pubsub.publish('clear_cache');
                 },
