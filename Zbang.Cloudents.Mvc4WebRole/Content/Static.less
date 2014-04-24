@@ -716,21 +716,24 @@ footer {
 
 /*#region chairman - only displayed for hebrew */
 .chairman {
+    min-height: 100vh;
+    margin-top: -194px; // -120px for top margin of staticContent;24px for footer;50px for header
     display: none; /*rtl*/ //only displayed for hebrew
     text-align: right;
     direction: rtl;
-    margin-top: -120px; //because of top margin of staticContent
     width: 450px;
     .boxSizing;
     background: #ebeced;
     box-shadow: 4px 0 4px rgba(0,0,0,.15);
-    padding: 18px 33px 50px 33px;
+    padding: 96px 33px 50px 33px;
     &:before {
         .pseudo;
         background: url(/Images/national-union-pic.png) no-repeat;
         margin-bottom: 15px;
         width: 385px;
         height: 150px;
+        border-radius: 3px;
+        border: 1px solid @borderColor;
     }
     h2 {
         font-size: 24px;

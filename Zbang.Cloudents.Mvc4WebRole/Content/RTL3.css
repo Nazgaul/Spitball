@@ -2468,6 +2468,11 @@
   padding: 8px 24px 0 0;
   /*rtl*/
 }
+.quizSideBar header .closeDialog {
+  left: 20px;
+  /*rtl*/
+  right: auto;
+}
 .toggleQuiz {
   left: 374px;
   /*rtl*/
@@ -2495,14 +2500,8 @@
   /*rtl*/
   right: auto;
 }
-.quizWpr {
-  padding: 0 0 0 4px;
-  /*rtl*/
-  margin: 0 0 0 -12px;
-  /*rtl*/
-}
 .questionHolder .closeDialog {
-  left: -3px;
+  left: 0;
   /*rtl*/
   right: auto;
 }
@@ -2587,8 +2586,13 @@
   /*rtl*/
 }
 .quizAList li:before {
-  padding: 0 5px 0 0;
+  padding: 0 18px 0 0;
   /*rtl*/
+}
+.quizAList li label:before {
+  right: 19px;
+  /*rtl*/
+  left: auto;
 }
 /*#endregion */
 /*#region Quiz item page */
@@ -2608,6 +2612,11 @@
   right: -45px;
   /*rtl*/
   left: auto;
+}
+.checkQuiz .correct.correct label:before,
+.checkQuiz .wrong.wrong label:before {
+  margin: -4px -2px 0 0;
+  /*rtl*/
 }
 .checkQuiz .quizQList .noAnswer:after {
   left: -140px;
