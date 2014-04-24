@@ -223,6 +223,7 @@
                 }
 
                 question.classList.add('userWrong');
+                answer.parentElement.classList.add('wrong');
             }
 
             return answerSheet;
