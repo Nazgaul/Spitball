@@ -347,6 +347,9 @@
 .quizPreview .quizAList li:last-child {
   margin-bottom: 0;
 }
+.quizPreview .quizQList {
+  padding-bottom: 15px;
+}
 .quizPrevWpr {
   width: 800px;
   margin: 0 auto 60px;
