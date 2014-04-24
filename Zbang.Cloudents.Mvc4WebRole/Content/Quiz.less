@@ -197,6 +197,7 @@
         color: #9d9d9d;
         line-height: 12px;
         height: 27px;
+        text-align: center;
     }
     .inputText{
         resize: none;
@@ -642,6 +643,7 @@
     
     .quizTime {
         margin: 0;
+        font-weight:100;
 
         &:before {
             content: attr(data-timer-label);
@@ -649,6 +651,8 @@
             font-size: 13px;
             position: absolute;
             top: -12px;
+            font-weight:normal;
+            
         }
     }
 
@@ -675,6 +679,7 @@
     opacity: 0;
     z-index: 2;
     .transition(all .8s ease-in 1s);
+    color:#383838;
 
     &:after {
         content: attr(data-user-score);

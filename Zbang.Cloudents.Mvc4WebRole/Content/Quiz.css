@@ -194,6 +194,7 @@
   color: #9d9d9d;
   line-height: 12px;
   height: 27px;
+  text-align: center;
 }
 .questionHolder .inputText {
   resize: none;
@@ -626,6 +627,7 @@
 }
 .timeWpr0 .quizTime {
   margin: 0;
+  font-weight: 100;
 }
 .timeWpr0 .quizTime:before {
   content: attr(data-timer-label);
@@ -633,6 +635,7 @@
   font-size: 13px;
   position: absolute;
   top: -12px;
+  font-weight: normal;
 }
 .timeWpr0 .btn1 {
   margin: 11px 0;
@@ -656,6 +659,7 @@
   -moz-transition: all 0.8s ease-in 1s;
   -o-transition: all 0.8s ease-in 1s;
   transition: all 0.8s ease-in 1s;
+  color: #383838;
 }
 .userScore:after {
   content: attr(data-user-score);
@@ -720,3 +724,4 @@
   margin: 0 auto;
 }
 /*#endregion */
+/*# sourceMappingURL=Quiz.css.map */
