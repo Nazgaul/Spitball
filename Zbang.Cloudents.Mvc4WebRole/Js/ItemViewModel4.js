@@ -375,9 +375,10 @@
                     .flagAllow(checkFlagAllow(userType));
 
                     function checkFlagAllow(userType) {
-                        if (userType === 'none' || userType === 'invite') {
+                        if (userType === 'none' || userType === 'invite') {                         
                             return false;
                         }
+
                         if (ownerid === cd.userDetail().nId) {
                             return false;
                         }
@@ -706,6 +707,7 @@
             }
             function printEvents() {
                 $itemPrint.change(function (e) {
+                    
                     if (!otakim) {
                         this.checked = false;
                         print();
@@ -714,6 +716,7 @@
                 });
 
                 $itemP.click(function () {
+
                     print();
                 });
 
@@ -722,6 +725,10 @@
                         cd.unregisterAction(this);
                         return;
                     }
+                    if (!checkBoxPermission()) {
+                        return;
+                    }
+
                     $('[data-ddcbox]').prop('checked', false).css('visibility', 'hidden');
                     var url = '/item/print/' + '?boxId=' + boxid + '&itemId=' + self.itemid() + '&otakim=true';
                     setTimeout(function () { var mywindow = window.open(url, '_blank'); }, 400)
@@ -734,6 +741,11 @@
                         cd.unregisterAction(this);
                         return;
                     }
+                    if (!checkBoxPermission()) {
+                        return;
+                    }
+
+                    
                     var url = '/d/' + boxid + '/' + self.itemid();
                     window.open(url);
                     trackEvent('Download', 'The number of downloads made on item view');
@@ -975,6 +987,14 @@
 
         //#region utilities
 
+        function checkBoxPermission() {
+            if (userType === 'none' || userType === 'invite') {
+                cd.notification(ZboxResources.NeedToFollowBox);
+                return false;
+            }
+
+            return true;
+        }
 
         function getNameNoExtension(fileName, type) {
             if (type === consts.link) {
@@ -999,6 +1019,10 @@
                 return;
             }
 
+            if (!checkBoxPermission()) {
+                return;
+            }
+       
             var url = '/item/print/' + '?boxId=' + boxid + '&itemId=' + self.itemid();
             var mywindow = window.open(url, '_blank');
             mywindow.onload = function () {
@@ -1149,10 +1173,10 @@
             $('#annotator').text(cd.userDetail().name);
             $AddAnotation.submit(function (e) {
                 e.preventDefault();
-                if (userType === 'none' || userType === 'invite') {
-                    cd.notification(ZboxResources.NeedToFollowBox);
+                if (!checkBoxPermission()) {
                     return;
                 }
+
                 var subRect = rect;
                 var submitBtn = $(this).find('button[type="submit"]').attr(consts.disabled, consts.disabled);
                 var val = this.querySelector('textarea').value.trim(), _that = $(this);
