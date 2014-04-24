@@ -225,7 +225,11 @@
         if (element instanceof jQuery) {
             element = element[0];
         }
-        text = parseActionTime(new Date(element.getAttribute('data-time')));
+        var time = element.getAttribute('data-time');
+        if ($.isNumeric(time)) {
+            time = parseInt(time, 10);
+        }
+        text = parseActionTime(new Date(time));
         element.textContent = text;
     }
     //#endregion
@@ -346,6 +350,15 @@
 
         return getComputedStyle(loader).getPropertyValue('display') !== 'none';
     };
+
+    var getUTCDate = function (date) {
+        if (date) {
+            date = new Date(date);
+            return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+        }
+
+        return new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60000);
+    }
 
     var renderLoading = function (elem, timeout) {
         if (loaderOn()) {
@@ -1272,6 +1285,7 @@
 
     cd.clone = clone;
 
+    cd.getUTCDate = getUTCDate;
     cd.OneSecond = 1000;
     cd.OneMinute = cd.OneSecond * 60;
     cd.OneHour = cd.OneMinute * 60;

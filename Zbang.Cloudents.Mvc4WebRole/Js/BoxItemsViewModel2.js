@@ -25,7 +25,8 @@
             that.ownerName = data.owner;
             that.ownerUrl = data.userUrl;
             that.rate = 69 / 5 * data.rate;
-            that.date = data.date;
+
+            that.date = new Date(data.date).getTime();
             that.isNew = ko.observable(data.isNew || false);
             that.tabId = ko.observable(data.tabId);
 
@@ -116,7 +117,7 @@
         });
         cd.pubsub.subscribe('itemTab', function (d) {
             if (typeof d === 'string') {
-                tab = d;                
+                tab = d;
             } else {
                 tab = null;
             }
@@ -175,12 +176,12 @@
         });
 
         function generateModel(data) {
-            var mapped = [];            
+            var mapped = [];
             for (var i = 0, l = data.length; i < l; i++) {
                 if (data[i].type.toLowerCase() === 'quiz') {
                     if (!tab) {
                         mapped.push(new Quiz(data[i]));
-                    }                    
+                    }
                     continue;
                 }
                 mapped.push(new Item(data[i]));
@@ -206,6 +207,12 @@
             if (a.date < b.date) {
                 return 1
             } else {
+                return -1;
+            }
+            if (a.name < b.name) {
+                return 1;
+            }
+            else {
                 return -1;
             }
             return 0;
@@ -245,7 +252,7 @@
                     if (x) {
                         newItem.date = x.date;
                         self.items.remove(x);
-                     
+
                     }
                     self.items.unshift(newItem);
                     self.items.sort(sort);

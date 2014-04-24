@@ -384,6 +384,11 @@
     }
 
     function registerEvents() {
+
+        $(window).off('beforeunload').on('beforeunload', function () {
+            return 'Quiz changes might be lost';
+        });
+
         if (!firstTime) {
             return;
         }
@@ -412,20 +417,38 @@
             //setTimeout(function () {
                 saveQuiz();
             //}, 100);
-
+        }).keyup(function () {
+            if (this.value.length > 0) {
+                quizSideBar.classList.remove('nameReq');
+                checkForErrors();
+            }
         });
-        ////.keyup(function (e) {
-        ////    var keyCode = e.keyCode || e.which;
-        ////    if (keyCode === consts.keyTab) {
-        ////        saveQuiz();
-        ////    }
-        //});
+        
+        $(quizSideBar).on('keyup','.questionReq .questionText', function (e) {
+            if (this.value.length) {
+                $(this).parents('.questionHolder').removeClass('questionReq');
+                checkForErrors();
+            }
+        }).on('keyup', '.answerReq .questionAnswer', function (e) {
+            if (this.value.length) {
+                this.classList.remove('emptyText');
 
-        $(saveBtn).click(publishQuiz);
+                var answerList = $(this).parents('.quizAnswersList')[0],
+                    invalidAnswers = answerList.getElementsByClassName('emptyText');
+                
+                if (!invalidAnswers.length) {
+                    $(this).parents('.questionHolder').removeClass('answerReq');
+                }
+                
+                checkForErrors();
+            }
 
-        $(window).on('beforeunload', function () {
-            return 'Quiz changes might be lost';
+        }).on('change', '.correctReq .correctAnswer', function (e) {
+            $(this).parents('.questionHolder').removeClass('correctReq');
+            checkForErrors();
         });
+
+        $(saveBtn).click(publishQuiz);        
 
         $(closeQuiz).click(showClosePopup);
 
@@ -442,22 +465,29 @@
     //#region Quiz
 
     function saveQuiz() {
+
+        addItemToBox(false);
+
         if (!quizId) {
             dataContext.quizCreate({
                 data: { boxId: boxId, name: quizName.value },
                 success: function (data) {
                     quizSideBar.setAttribute('data-id', data);
                     quizId = data;
-                    addItemToBox(false);
+                    //addItemToBox(false);
                 }
             });
             return;
         }
 
+        var oldQuizId = quizId;
         dataContext.quizUpdate({
             data: { id: quizId, name: quizName.value },
             success: function () {
-                addItemToBox(false);
+                //if (quizId === oldQuizId) {
+                //    addItemToBox(false);
+                //}
+                
             },
             error: function () { }
         });
@@ -489,7 +519,7 @@
               question, answer,
               previewObj = {}, questionObj = {};
 
-        if (!quiz.questions.length) {
+        if (!quiz) {
             return;
         }
 
@@ -632,14 +662,15 @@
             questionId = question.getAttribute('data-id'),
             answers = question.querySelectorAll('.quizAnswer'),
             value, valueFound = false;
+
         for (var i = 0, l = answers.length; i < l && !valueFound; i++) {
             value = answers[i].firstElementChild.value;
-            if (value) {
+            if (value.length) {
                 valueFound = true;
             }
         }
 
-        if (valueFound || this.value.length) {
+        if (valueFound || this.value.length) {            
             return;
         }
 
@@ -849,7 +880,7 @@
             userUrl: cd.userDetail().url,
             type: 'quiz',
             url: url,
-            date: new Date()
+            date: cd.getUTCDate()
         }
 
         pubsub.publish('addItem', quiz);
@@ -893,5 +924,14 @@
         quizId = null;
         quizSideBar.removeAttribute('data-id');
 
+    }
+
+    function checkForErrors() {
+        var bodyErrors = $(quizSideBar).find('.correctReq,.questionReq,.answerReq').length,
+            nameError = quizSideBar.classList.contains('nameReq');
+
+        if (!nameError && !bodyErrors) {
+            quizSideBar.classList.remove('error');
+        }
     }
 })(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);
