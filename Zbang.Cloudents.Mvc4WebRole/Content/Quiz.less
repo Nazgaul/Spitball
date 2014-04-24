@@ -356,9 +356,6 @@
             margin-bottom: 0;
         }
     }
-    .quizQList {
-        padding-bottom: 15px;
-    }
 }
 .quizPrevWpr
 {
@@ -366,7 +363,7 @@
     margin: 0 auto 60px;
     background: #fff;
     border-radius: 5px;
-    padding: 0 140px 0 20px; /*rtl*/
+    padding: 0 140px 15px 20px; /*rtl*/
     .boxSizing;
     border: 1px solid @borderColor;
 }
@@ -478,11 +475,12 @@
     font-size: 15px;
     padding: 10px 20px;
     li{
-        margin: 0 0 -34px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
+        margin: 0 0 -27px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
         list-style-position: inside; //force left-align on the list style type
         position: relative; //TODO:not sure if this is necessary anymore
         white-space: pre-line;
         text-indent: -34px;
+        line-height: 18px;
         &:before {
             content: '';
             display: inline-block;
@@ -494,7 +492,7 @@
         }
         label {
             position: relative;
-            top: -40px;
+            top: -35px;
             left: 5px; /*rtl*/
             &:before {
                 position: absolute;

@@ -225,7 +225,11 @@
         if (element instanceof jQuery) {
             element = element[0];
         }
-        text = parseActionTime(new Date(element.getAttribute('data-time')));
+        var time = element.getAttribute('data-time');
+        if ($.isNumeric(time)) {
+            time = parseInt(time, 10);
+        }
+        text = parseActionTime(new Date(time));
         element.textContent = text;
     }
     //#endregion
