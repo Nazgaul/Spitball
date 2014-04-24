@@ -852,9 +852,9 @@
   background: url(/Images/box16-sprite.png) -54px -106px no-repeat;
 }
 .boxItemsHeader .iconTxt.quizBtn:before {
-  width: 15px;
-  height: 13px;
-  background-position: -57px -143px;
+  width: 19px;
+  height: 17px;
+  background-position: -48px -143px;
   margin-top: -3px;
 }
 .listViewBtn,
@@ -951,9 +951,9 @@
 .listItem.quizItem .imgBorder:before {
   content: '';
   display: block;
-  width: 46px;
-  height: 38px;
-  background: url(/Images/box16-sprite.png) -2px -143px no-repeat;
+  width: 39px;
+  height: 35px;
+  background: url(/Images/box16-sprite.png) -4px -144px no-repeat;
   vertical-align: middle;
   margin: 48px auto 0;
 }
@@ -1090,9 +1090,9 @@
 .boxItem.quizItem:before {
   content: '';
   display: inline-block;
-  width: 25px;
-  height: 21px;
-  background: url(/Images/box16-sprite.png) -76px -165px no-repeat;
+  width: 22px;
+  height: 20px;
+  background: url(/Images/box16-sprite.png) -74px -165px no-repeat;
   float: left;
   /*rtl*/
   margin: 11px 9px;

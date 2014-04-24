@@ -81,7 +81,7 @@ body {
   right: 15px;
   /*rtl*/
   top: 15px;
-  background: url(/Images/hp14-sprite.png) -949px -244px no-repeat;
+  background: url(/Images/hp16-sprite.png) -949px -244px no-repeat;
   width: 11px;
   height: 12px;
 }
@@ -164,7 +164,7 @@ body {
   display: inline-block;
   width: 289px;
   height: 240px;
-  background: url(/Images/hp14-sprite.png) -172px -1px no-repeat;
+  background: url(/Images/hp16-sprite.png) -172px -1px no-repeat;
   float: right;
   /*rtl*/
   margin-top: 35px;
@@ -172,7 +172,7 @@ body {
 .logo {
   width: 186px;
   height: 33px;
-  background: url(/Images/hp14-sprite.png) -529px -335px no-repeat;
+  background: url(/Images/hp16-sprite.png) -529px -335px no-repeat;
   margin: 20px 12px 0;
 }
 /*#region side menu */
@@ -293,7 +293,7 @@ aside .last {
   display: inline-block;
   width: 86px;
   height: 86px;
-  background: url(/Images/hp14-sprite.png) 0 0 no-repeat;
+  background: url(/Images/hp16-sprite.png) 0 0 no-repeat;
   position: absolute;
   left: 0;
   right: 0;
@@ -461,7 +461,7 @@ section.unions .btn:hover {
 .union:before {
   content: '';
   display: inline-block;
-  background: url(/Images/hp14-sprite.png) no-repeat;
+  background: url(/Images/hp16-sprite.png) no-repeat;
   vertical-align: middle;
 }
 .uName,

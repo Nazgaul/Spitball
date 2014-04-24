@@ -801,6 +801,7 @@
     <Content Include="Images\gray_jean80.png" />
     <Content Include="Images\home-sprite.png" />
     <Content Include="Images\hp14-sprite.png" />
+    <Content Include="Images\hp16-sprite.png" />
     <Content Include="Images\invite-sprite.png" />
     <Content Include="Images\item13-sprite.png" />
     <Content Include="Images\jeanBkg.png" />
