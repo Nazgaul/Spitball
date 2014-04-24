@@ -2140,32 +2140,31 @@
         right:auto;
     }
 }
-
-.quizPrevWpr {
-    padding: 0 20px 0 140px; /*rtl*/
-}
-
 .quizQList {
     .splitHR {
         text-align: right; /*rtl*/
-        padding: 10px 14px 0 0; /*rtl*/
+        padding: 15px 14px 0 0; /*rtl*/
+        margin: 0 0 -4px 20px; /*rtl*/
     }
 }
 
 .commentWpr {
-    margin: 0 -25px 30px -140px; /*rtl*/
+    margin: 0 -25px 0 -45px; /*rtl*/
+    .closeDialog {
+        left: 20px; /*rtl*/
+        right: auto;
+    }
     .imgBorder {
         right: 0; /*rtl*/
         left: auto;
     }
 
     .askBtn {
-        margin: 8px 0 0 100px; /*rtl*/
+        margin: 2px 0 0 14px; /*rtl*/
     }
 }
 
 .quizComments {
-    padding: 0 0 0 110px; /*rtl*/
     li {
         padding: 0 42px 0 0; /*rtl*/
     }
@@ -2216,6 +2215,11 @@
 }
 
 .checkQuiz {
+    .userCorrect, .userWrong {
+        .quizQuestion, .quizAList {
+            padding: 0 0 0 80px; /*rtl*/////
+        }
+    }
     .correct.correct label, .wrong.wrong label {
         &:before {
             margin: -3px -3px 0 0; /*rtl*/
