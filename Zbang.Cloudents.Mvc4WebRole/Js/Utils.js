@@ -347,6 +347,15 @@
         return getComputedStyle(loader).getPropertyValue('display') !== 'none';
     };
 
+    var getUTCDate = function (date) {
+        if (date) {
+            date = new Date(date);
+            return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+        }
+
+        return new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60000);
+    }
+
     var renderLoading = function (elem, timeout) {
         if (loaderOn()) {
             return function () { };
@@ -1272,6 +1281,7 @@
 
     cd.clone = clone;
 
+    cd.getUTCDate = getUTCDate;
     cd.OneSecond = 1000;
     cd.OneMinute = cd.OneSecond * 60;
     cd.OneHour = cd.OneMinute * 60;
