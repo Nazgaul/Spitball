@@ -142,7 +142,7 @@
     <value>это неправильный адрес эл. почты</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
-    <value>это поле обязательно для заполнения</value>
+    <value>это поле обязательно</value>
   </data>
   <data name="FirstConfirm" xml:space="preserve">
     <value>Сначала вы должны подтвердить свой пароль</value>

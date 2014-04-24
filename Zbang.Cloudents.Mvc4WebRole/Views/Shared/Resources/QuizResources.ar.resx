@@ -201,4 +201,8 @@
   <data name="NoAnswer" xml:space="preserve">
     <value>الجواب لا</value>
   </data>
+  <data name="EditQuiz" xml:space="preserve">
+    <value>تحرير مسابقة
+</value>
+  </data>
 </root>

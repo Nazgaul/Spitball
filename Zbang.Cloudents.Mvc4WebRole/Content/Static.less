@@ -718,13 +718,12 @@ footer {
 .chairman {
     min-height: 100vh;
     margin-top: -194px; // -120px for top margin of staticContent;24px for footer;50px for header
-    display: none; /*rtl*/ //only displayed for hebrew
-    text-align: right;
-    direction: rtl;
+    direction: rtl; /* no rtl !!!*/
+    text-align: right; /*no rtl!!!*/
     width: 450px;
     .boxSizing;
     background: #ebeced;
-    box-shadow: 4px 0 4px rgba(0,0,0,.15);
+    box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
     padding: 96px 33px 50px 33px;
     &:before {
         .pseudo;
@@ -744,6 +743,12 @@ footer {
     }
     a {
         color: @attentionBlue;
+    }
+    ~ .page {
+        padding-right: 450px; /*rtl*/
+        .libraryChoose {
+            width: 85%;
+        }
     }
 }
 /*#endregion */

@@ -356,8 +356,7 @@
   margin: 0 auto 60px;
   background: #fff;
   border-radius: 5px;
-  padding: 0 140px 15px 20px;
-  /*rtl*/
+  padding: 0 20px 15px 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -385,9 +384,11 @@
 .quizQList .splitHR {
   text-align: left;
   /*rtl*/
-  padding: 10px 0 0 14px;
+  padding: 15px 0 0 14px;
   /*rtl*/
   font-size: 13px;
+  margin: 0 20px -4px 0;
+  /*rtl*/
 }
 .quizQList .splitHRText:before,
 .quizQList .splitHRText:after {
@@ -401,14 +402,19 @@
   height: 15px;
   background-position: -55px -121px;
 }
+/*.quizQuestion {
+    padding-right: 80px;
+}*/
 .commentWpr {
-  margin: 0 -140px 30px -25px;
-  /*rtl*/
+  margin: 0 -45px 0 -25px;
   position: relative;
   display: none;
 }
 .commentWpr .closeDialog {
   background-position: -68px -26px;
+  right: 20px;
+  /*rtl*/
+  top: 3px;
   display: none;
 }
 .commentWpr .imgBorder {
@@ -420,21 +426,21 @@
 .commentWpr .askBtn {
   padding: 4px 15px;
   height: auto;
-  margin: 8px 100px 0 0;
+  margin: 2px 14px 0 0;
   /*rtl*/
   display: none;
 }
-.commentWpr.show .closeDialog,
 .commentWpr.show .quizComments,
 .commentWpr.show .imgBorder,
 .commentWpr.show .cTextAreaWpr {
   display: block;
 }
+.commentWpr.show li:hover .closeDialog {
+  display: block;
+}
 .quizComments {
   font-size: 13px;
   display: none;
-  padding-right: 110px;
-  /*rtl*/
 }
 .quizComments li {
   padding-left: 42px;
@@ -531,10 +537,10 @@
 .quizPage .moreFilesThumb:after {
   content: '';
   display: inline-block;
-  width: 26px;
-  height: 21px;
+  width: 22px;
+  height: 19px;
   vertical-align: middle;
-  background: url(/Images/box16-sprite.png) -48px -165px no-repeat;
+  background: url(/Images/box16-sprite.png) -48px -166px no-repeat;
 }
 .quizPage .btn1 {
   padding: 5px 20px;
@@ -545,6 +551,12 @@
 .checkQuiz .timeWpr {
   margin-top: 0;
   opacity: 1;
+}
+.checkQuiz .userCorrect .quizQuestion,
+.checkQuiz .userWrong .quizQuestion,
+.checkQuiz .userCorrect .quizAList,
+.checkQuiz .userWrong .quizAList {
+  padding-right: 80px;
 }
 .checkQuiz .userCorrect .quizQuestion:before,
 .checkQuiz .userWrong .quizQuestion:before,

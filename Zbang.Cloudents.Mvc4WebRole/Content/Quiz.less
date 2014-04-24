@@ -368,7 +368,7 @@
     margin: 0 auto 60px;
     background: #fff;
     border-radius: 5px;
-    padding: 0 140px 15px 20px; /*rtl*/
+    padding: 0 20px 15px 20px;
     .boxSizing;
     border: 1px solid @borderColor;
 }
@@ -395,8 +395,9 @@
     .splitHR {
         
         text-align: left; /*rtl*/
-        padding: 10px 0 0 14px; /*rtl*/
+        padding: 15px 0 0 14px; /*rtl*/
         font-size: 13px;
+        margin: 0 20px -4px 0; /*rtl*/
     }
     .splitHRText:before, .splitHRText:after {
         border-color: #eee;
@@ -410,13 +411,17 @@
         }
     }
 }
+/*.quizQuestion {
+    padding-right: 80px;
+}*/
 .commentWpr {
-    margin: 0 -140px 30px -25px; /*rtl*/
+    margin: 0 -45px 0 -25px;
     position: relative;
     display: none;
     .closeDialog {
         background-position: -68px -26px;
-       // top: 60px;
+        right: 20px; /*rtl*/
+        top: 3px;
         display: none;
     }
     .imgBorder {
@@ -427,11 +432,14 @@
     .askBtn {
         padding: 4px 15px;
         height: auto;
-        margin: 8px 100px 0 0; /*rtl*/
+        margin: 2px 14px 0 0; /*rtl*/ 
         display: none;
     }
     &.show {
-        .closeDialog, .quizComments, .imgBorder, .cTextAreaWpr {
+        .quizComments, .imgBorder, .cTextAreaWpr {
+            display: block;
+        }
+        li:hover .closeDialog {
             display: block;
         }
     }
@@ -439,7 +447,6 @@
 .quizComments {
     font-size: 13px;
     display: none;
-    padding-right: 110px; /*rtl*/
     li{
         padding-left: 42px; /*rtl*/
         position: relative;
@@ -541,10 +548,10 @@
 
         &:after {
             .pseudo;
-            width: 26px;
-            height: 21px;
+            width: 22px;
+            height: 19px;
             vertical-align: middle;
-            background: @boxSprite -48px -165px no-repeat;
+            background: @boxSprite -48px -166px no-repeat;
         }
     }
 
@@ -563,6 +570,7 @@
 
     .userCorrect, .userWrong {
         .quizQuestion, .quizAList {
+            padding-right: 80px; ////
             &:before {
                 display: inline-block;
             }

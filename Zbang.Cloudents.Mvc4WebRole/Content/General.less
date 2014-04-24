@@ -1236,7 +1236,7 @@ ul.ui-autocomplete {
         /*margin-top: -53px;*/// fix for position
     }
     .cbLabel {
-        display: none; /*rtl*/ //display only in hebrew
+        display: none; /*rtl - (HEBREW ONLY)*/
         margin: 12px 0 16px;
         font-size: 13px;
     }
@@ -1251,7 +1251,7 @@ ul.ui-autocomplete {
     }
     .firstName {
         + .field-validation-error {
-            margin-left: 4%;
+            margin: 2px 0 0 4%; /*rtl*/
         }
     }
     .lastName {
@@ -1273,11 +1273,11 @@ ul.ui-autocomplete {
 .genderLabel
 {
     font-size: 15px;
-    margin: 15px 0 5px;
+    margin: 20px 0 5px;
     display: inline-block;
     &.first
     {
-        margin: 15px 25px 5px 0; /*rtl*/
+        margin: 20px 25px 5px 0; /*rtl*/
     }
 }
 .field-validation-error + .genderLabel
