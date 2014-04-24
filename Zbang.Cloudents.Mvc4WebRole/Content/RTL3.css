@@ -2582,19 +2582,23 @@
   /*rtl*/
 }
 .quizAList li {
-  margin: 0 13px -34px 0;
-  /*rtl*/
+  margin: 0 13px -26px 0;
+  /*diff rtl for bottom*/
 }
 .quizAList li:before {
   padding: 0 18px 0 0;
   /*rtl*/
 }
 .quizAList li label {
+  top: -34px;
+  /* need this */
   right: 5px;
   /*rtl*/
   left: auto;
 }
 .quizAList li label:before {
+  top: 5px;
+  /* need this */
   right: -19px;
   /*rtl*/
   left: auto;
