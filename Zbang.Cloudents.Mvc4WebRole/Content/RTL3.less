@@ -2177,13 +2177,17 @@
 .quizAList
 {
     li{
-        margin: 0 -20px 10px 0; /*rtl*/
+        margin: 0 13px -34px 0; /*rtl*/
         &:before {
             padding: 0 18px 0 0; /*rtl*/
         }
-        label:before {
-            right: 19px; /*rtl*/
+        label {
+            right: 5px; /*rtl*/
             left: auto;
+            &:before {
+                right: -19px; /*rtl*/
+                left: auto;
+            }
         }
     }
 }
@@ -2213,7 +2217,7 @@
 .checkQuiz {
     .correct.correct label, .wrong.wrong label {
         &:before {
-            margin: -4px -2px 0 0; /*rtl*/
+            margin: -3px -3px 0 0; /*rtl*/
         }
     }
     .quizQList .noAnswer:after {

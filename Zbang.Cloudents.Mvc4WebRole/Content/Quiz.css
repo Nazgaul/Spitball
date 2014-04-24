@@ -340,6 +340,12 @@
 .quizPreview .correct + li {
   margin-top: 10px;
 }
+.quizPreview .quizAList li {
+  margin-bottom: 10px;
+}
+.quizPreview .quizAList li:last-child {
+  margin-bottom: 0;
+}
 .quizPrevWpr {
   width: 800px;
   margin: 0 auto 60px;
@@ -355,7 +361,7 @@
 .quizTitle {
   font-size: 22px;
   width: 800px;
-  margin: 67px auto 20px;
+  margin: 20px auto;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";
@@ -463,13 +469,12 @@
   padding: 10px 20px;
 }
 .quizAList li {
-  margin: 0 0 10px -20px;
+  margin: 0 0 -34px 13px;
   /*rtl*/
   list-style-position: inside;
   position: relative;
   white-space: pre-line;
   text-indent: -34px;
-  margin-left: 13px;
 }
 .quizAList li:before {
   content: '';
@@ -478,11 +483,17 @@
   /*rtl*/
 }
 .quizAList li:last-child {
-  margin-bottom: 0;
+  margin-bottom: -40px;
+}
+.quizAList li label {
+  position: relative;
+  top: -40px;
+  left: 5px;
+  /*rtl*/
 }
 .quizAList li label:before {
   position: absolute;
-  left: 19px;
+  left: -19px;
   /*rtl*/
   top: 7px;
 }
@@ -547,7 +558,7 @@
   background-color: none;
   background: url(/Images/common16-sprite.png?v=2) -18px -121px no-repeat;
   opacity: 1;
-  margin: -4px 0 0 -2px;
+  margin: -3px 0 0 -3px;
   /*rtl*/
 }
 .checkQuiz .wrong.wrong label:before {

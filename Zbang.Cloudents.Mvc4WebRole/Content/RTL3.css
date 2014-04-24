@@ -2582,15 +2582,20 @@
   /*rtl*/
 }
 .quizAList li {
-  margin: 0 -20px 10px 0;
+  margin: 0 13px -34px 0;
   /*rtl*/
 }
 .quizAList li:before {
   padding: 0 18px 0 0;
   /*rtl*/
 }
+.quizAList li label {
+  right: 5px;
+  /*rtl*/
+  left: auto;
+}
 .quizAList li label:before {
-  right: 19px;
+  right: -19px;
   /*rtl*/
   left: auto;
 }
@@ -2615,7 +2620,7 @@
 }
 .checkQuiz .correct.correct label:before,
 .checkQuiz .wrong.wrong label:before {
-  margin: -4px -2px 0 0;
+  margin: -3px -3px 0 0;
   /*rtl*/
 }
 .checkQuiz .quizQList .noAnswer:after {
