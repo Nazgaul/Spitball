@@ -475,11 +475,12 @@
     font-size: 15px;
     padding: 10px 20px;
     li{
-        margin: 0 0 -34px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
+        margin: 0 0 -27px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
         list-style-position: inside; //force left-align on the list style type
         position: relative; //TODO:not sure if this is necessary anymore
         white-space: pre-line;
         text-indent: -34px;
+        line-height: 18px;
         &:before {
             content: '';
             display: inline-block;
@@ -491,7 +492,7 @@
         }
         label {
             position: relative;
-            top: -40px;
+            top: -35px;
             left: 5px; /*rtl*/
             &:before {
                 position: absolute;

@@ -470,12 +470,13 @@
   padding: 10px 20px;
 }
 .quizAList li {
-  margin: 0 0 -34px 13px;
+  margin: 0 0 -27px 13px;
   /*rtl*/
   list-style-position: inside;
   position: relative;
   white-space: pre-line;
   text-indent: -34px;
+  line-height: 18px;
 }
 .quizAList li:before {
   content: '';
@@ -488,7 +489,7 @@
 }
 .quizAList li label {
   position: relative;
-  top: -40px;
+  top: -35px;
   left: 5px;
   /*rtl*/
 }
