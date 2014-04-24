@@ -665,16 +665,15 @@ footer {
 .chairman {
   min-height: 100vh;
   margin-top: -194px;
-  display: none;
+  text-align: left;
   /*rtl*/
-  text-align: right;
-  direction: rtl;
   width: 450px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #ebeced;
-  box-shadow: 4px 0 4px rgba(0, 0, 0, 0.15);
+  box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
+  /*rtl*/
   padding: 96px 33px 50px 33px;
 }
 .chairman:before {
@@ -696,5 +695,12 @@ footer {
 }
 .chairman a {
   color: #0371c8;
+}
+.chairman ~ .page {
+  padding-right: 450px;
+  /*rtl*/
+}
+.chairman ~ .page .libraryChoose {
+  width: 85%;
 }
 /*#endregion */
