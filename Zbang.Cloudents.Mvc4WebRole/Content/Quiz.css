@@ -216,7 +216,7 @@
 }
 .questionHolder label {
   position: absolute;
-  right: 17px;
+  right: 19px;
   /*rtl*/
 }
 .questionHolder label:before {
@@ -724,4 +724,3 @@
   margin: 0 auto;
 }
 /*#endregion */
-/*# sourceMappingURL=Quiz.css.map */
