@@ -127,10 +127,10 @@
     <value>בדוק תשובות</value>
   </data>
   <data name="CheckQuiz" xml:space="preserve">
-    <value>בדוק קויז</value>
+    <value>בדוק קוויז</value>
   </data>
   <data name="ChooseDraft" xml:space="preserve">
-    <value>את/ה יכול/ה לשמור את הקויז כ'טיוטה' ולהמשיך אחר כך (רק את/ה יכול לראות טיוטות שלך)</value>
+    <value>את/ה יכול/ה לשמור את הקוויז כ'טיוטה' ולהמשיך אחר כך (רק את/ה יכול לראות טיוטות שלך)</value>
   </data>
   <data name="ChooseName" xml:space="preserve">
     <value>בחר שם</value>
@@ -142,13 +142,13 @@
     <value>תשובה נכונה</value>
   </data>
   <data name="CreateQuiz" xml:space="preserve">
-    <value>צור קויז</value>
+    <value>צור קוויז</value>
   </data>
   <data name="DeleteQuiz" xml:space="preserve">
-    <value>מחק קויז</value>
+    <value>מחק קוויז</value>
   </data>
   <data name="LeaveQuiz" xml:space="preserve">
-    <value>רוצה לעזוב את הקויז?</value>
+    <value>רוצה לעזוב את הקוויז?</value>
   </data>
   <data name="Min" xml:space="preserve">
     <value>זמן</value>
@@ -160,7 +160,7 @@
     <value>לא ניתנה תשובה</value>
   </data>
   <data name="NotFinished" xml:space="preserve">
-    <value>לא סיימת את יצירת הקויז</value>
+    <value>לא סיימת את יצירת הקוויז</value>
   </data>
   <data name="Pause" xml:space="preserve">
     <value>עצור</value>
@@ -169,16 +169,16 @@
     <value>התחל</value>
   </data>
   <data name="PreviewQuiz" xml:space="preserve">
-    <value>צפה בקויז</value>
+    <value>צפה בקוויז</value>
   </data>
   <data name="Publish" xml:space="preserve">
     <value>פרסם</value>
   </data>
   <data name="PublishQuiz" xml:space="preserve">
-    <value>פרסם קויז</value>
+    <value>פרסם קוויז</value>
   </data>
   <data name="QuizSummary" xml:space="preserve">
-    <value>סיכום הקויז</value>
+    <value>סיכום הקוויז</value>
   </data>
   <data name="RetakeQuiz" xml:space="preserve">
     <value>הבחן שוב</value>
