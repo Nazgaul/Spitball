@@ -134,8 +134,6 @@
 /*#endregion */
 /*#region chairman - only displayed for hebrew */
 .chairman {
-  text-align: right;
-  /*rtl*/
   box-shadow: 4px 0 4px rgba(0, 0, 0, 0.15);
   /*rtl*/
 }

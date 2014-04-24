@@ -665,8 +665,8 @@ footer {
 .chairman {
   min-height: 100vh;
   margin-top: -194px;
-  text-align: left;
-  /*rtl*/
+  text-align: right;
+  /*no rtl!!!*/
   width: 450px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
