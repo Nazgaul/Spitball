@@ -94,6 +94,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             quiz.Content = sb.ToString().Substring(0, Math.Min(sb.Length, 254));;
             m_QueueProvider.InsertMessageToTranaction(new UpdateData(quiz.Owner.Id, quiz.Box.Id, null, null, null, quiz.Id));
             quiz.Box.UserTime.UpdateUserTime(quiz.Owner.Email);
+            quiz.Box.UpdateItemCount();
             m_BoxRepository.Save(quiz.Box);
             m_QuizRepository.Save(quiz);
         }

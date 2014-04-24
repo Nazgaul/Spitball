@@ -45,8 +45,10 @@ namespace Zbang.Zbox.Domain
 
         public virtual ICollection<UserBoxRel> UserBoxRel { get; private set; }
         public virtual ICollection<Item> Items { get; protected set; }
+        public virtual ICollection<Quiz> Quizes { get; protected set; }
 
         public IQueryable<Item> Items2 { get; set; }
+
 
         //protected virtual ICollection<Comment> Comments { get; set; }
         protected virtual ICollection<Comment> Questions { get; set; }
@@ -173,7 +175,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateItemCount()
         {
-            ItemCount = this.Items.Count(file => !file.IsDeleted);
+            ItemCount = this.Items.Count(file => !file.IsDeleted) + this.Quizes.Count(quiz => quiz.Publish);
+
         }
         #endregion
         #region commentCount

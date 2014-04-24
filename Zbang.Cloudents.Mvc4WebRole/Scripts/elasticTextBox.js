@@ -36,20 +36,17 @@
                 }
 
                 var $textarea = jQuery(this),
+                    textarea = this,
 
 				lineHeight = 0,
 				minheight = 0,
 				maxheight = 0,
 				$twin = createTwin();
-
+                twin = $twin[0];
                 //   goalheight = 0;
 
                 // Opera returns max-height of -1 if not set
                 if (maxheight < 0) { maxheight = Number.MAX_VALUE; }
-
-                // Append the twin to the DOM
-                // We are going to meassure the height of this, not the textarea.
-                $twin.appendTo('body');
 
                 function createTwin() {
 
@@ -63,6 +60,9 @@
                            'word-wrap': 'break-word',
                            'white-space': 'pre-wrap'
                        }).addClass('twin');
+                        // Append the twin to the DOM
+                        // We are going to meassure the height of this, not the textarea.
+                        $twin.appendTo('body');
                     }
                     lineHeight = parseInt($textarea.css('line-height'), 10) || parseInt($textarea.css('font-size'), '10'),
                     minheight = parseInt($textarea.css('height'), 10) || lineHeight * 3,
@@ -73,14 +73,16 @@
                 // Copy the essential styles (mimics) from the textarea to the twin
                 var i = mimics.length;
                 while (i--) {
-                    $twin.css(mimics[i].toString(), $textarea.css(mimics[i].toString()));
+                    twin.style[mimics[i].toString()] = textarea.style[mimics[i].toString()];
+                    //$twin.css(mimics[i].toString(), $textarea.css(mimics[i].toString()));
                 }
 
                 // Updates the width of the twin. (solution for textareas with widths in percent)
                 function setTwinWidth() {
                     var curatedWidth = Math.floor(parseInt($textarea.width(), 10));
                     if ($twin.width() !== curatedWidth) {
-                        $twin.css({ 'width': curatedWidth + 'px' });
+                        //$twin.css({ 'width': curatedWidth + 'px' });
+                        twin.style.width = curatedWidth + 'px';
 
                         // Update height of textarea
                         update(true);
@@ -91,7 +93,9 @@
                 function setHeightAndOverflow(height, overflow) {
                     var curratedHeight = Math.floor(parseInt(height, 10));
                     if ($textarea.height() !== curratedHeight) {
-                        $textarea.css({ 'height': curratedHeight + 'px', 'overflow-y': overflow });
+                        textarea.style.height = curratedHeight + 'px';
+                        textarea.style.overflowY = overflow;
+                        // $textarea.css({ 'height': curratedHeight + 'px', 'overflow-y': overflow });
                     }
                 }
 
@@ -99,15 +103,16 @@
                 function update(forced) {
 
                     // Get curated content from the textarea.
-                    var textareaContent = $textarea.val().replace(/&/g, '&amp;').replace(/ {2}/g, '&nbsp;').replace(/<|>/g, '&gt;').replace(/\n/g, '<br />');
+                    var textareaContent = textarea.value.replace(/&/g, '&amp;').replace(/ {2}/g, '&nbsp;').replace(/<|>/g, '&gt;').replace(/\n/g, '<br />');
 
                     // Compare curated content with curated twin.
-                    var twinContent = $twin.html().replace(/<br>/ig, '<br />');
+                    var twinContent = twin.innerHTML.replace(/<br>/ig, '<br />');
 
                     if (forced || textareaContent + '...' !== twinContent) {
 
                         // Add an extra white space so new rows are added when you are at the end of a row.
-                        $twin.html(textareaContent + '...');
+                        //$twin.html(textareaContent + '...');
+                        twin.innerHTML = textareaContent + '...';
 
                         // Change textarea height if twin plus the height of one line differs more than 3 pixel from textarea height
                         if ($textarea.height() !== 0) {
@@ -130,10 +135,11 @@
                 }
 
                 // Hide scrollbars
-                $textarea.css({ 'overflow': 'hidden' });
+                textarea.style.overflow = 'hidden';
+                //$textarea.css({ 'overflow': 'hidden' });
 
                 // Update textarea size on keyup, change, cut and paste
-                $textarea.bind('keyup change cut paste', function () {
+                $textarea.bind('input', function () {
                     update();
                 });
 
