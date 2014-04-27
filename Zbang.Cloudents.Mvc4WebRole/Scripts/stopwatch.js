@@ -45,9 +45,9 @@ var Stopwatch = function (output, options) {
     }
 
     function render() {
-        var seconds = Math.floor(seconds = (clock / 1000) % 60);
-        var minutes = Math.floor((clock / (1000 * 60)) % 60);
-        var hours = Math.floor((clock / (1000 * 60 * 60)) % 24);
+        var seconds = Math.floor(seconds = (clock / 1000) % 60),
+            minutes = Math.floor((clock / (1000 * 60)) % 60),
+            hours = Math.floor((clock / (1000 * 60 * 60)) % 24);
         that.lastTime = ((hours <= 9) ? '0' + hours : hours) + ":" + ((minutes <= 9) ? '0' + minutes : minutes) + ':' + ((seconds <= 9) ? '0' + seconds : seconds);
         output.textContent = that.lastTime;
     }
@@ -59,11 +59,21 @@ var Stopwatch = function (output, options) {
         offset = now;
         return d;
     }
+    
+    function renderTimeDiff() {
+        var diff = that.endTime - that.startTime;
+        var seconds = Math.floor(seconds = (diff / 1000) % 60),
+            minutes = Math.floor((diff / (1000 * 60)) % 60),
+            hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        that.lastTime = ((hours <= 9) ? '0' + hours : hours) + ":" + ((minutes <= 9) ? '0' + minutes : minutes) + ':' + ((seconds <= 9) ? '0' + seconds : seconds);
+        output.textContent = that.lastTime;
+    }
 
     // public API
     that.start = start;
     that.stop = stop;
     that.reset = reset;
+    that.renderTimeDiff = renderTimeDiff;
     that.isRunning = false;
 };
 
