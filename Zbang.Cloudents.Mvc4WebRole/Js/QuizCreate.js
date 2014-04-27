@@ -935,13 +935,18 @@
 
     function clearQuiz() {
         mainDiv.classList.add('noQuiz');
-
+        transitioning = true;
         if (Modernizr.cssanimations) {
-            transitioning = true;
+
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
                 transitioning = false;
             });
+        } else {
+            transitioning = false;
+            mainDiv.style.display = 'none';
+            mainDiv.style.display = 'block';
         }
+
         addQuiz.disabled = false;
         $(window).off('beforeunload');
         quizQuestionList.innerHTML = '';
