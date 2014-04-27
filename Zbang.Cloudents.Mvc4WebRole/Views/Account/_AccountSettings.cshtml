@@ -28,7 +28,7 @@
     <div class="section">
         <label>@AccountSettingsResources.Password</label>
         <div class="changePwd">
-            @*<span id="passerr" class="validation-summary-errors"></span> *@
+            @*<span id="passerr" class="validation-summary-errors"></span>  *@
             @Html.LabelFor(m => m.Password.CurrentPassword)
             @Html.PasswordFor(m => m.Password.CurrentPassword, new { @class = "inputText", id = "oldpsw" })
             @Html.ValidationMessageFor(m => m.Password.CurrentPassword)
