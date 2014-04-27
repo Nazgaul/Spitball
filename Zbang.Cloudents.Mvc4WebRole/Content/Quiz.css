@@ -342,12 +342,6 @@
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);
-  /*&:before
-        {
-            content: '';
-            display: list-item;
-            float: left; 
-        }*/
 }
 .quizPreview .correct + li {
   margin-top: 10px;

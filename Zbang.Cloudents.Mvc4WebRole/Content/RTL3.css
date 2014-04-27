@@ -2539,12 +2539,6 @@
   /*rtl*/
   left: auto;
 }
-.quizPreview .correct:before {
-  content: '';
-  display: list-item;
-  float: right;
-  /*rtl*/
-}
 .quizPreview .closePreview {
   left: 10px;
   /*rtl*/
