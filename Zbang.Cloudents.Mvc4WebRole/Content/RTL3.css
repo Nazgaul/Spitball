@@ -1811,6 +1811,10 @@
 }
 /*#endregion */
 /*#region account settings */
+.changePwd.show ~ .btnTxt {
+  margin: 0 143px 0 0;
+  /*rtl*/
+}
 .changePwd .inputText {
   margin: 0 0 5px 5px;
   /*rtl*/

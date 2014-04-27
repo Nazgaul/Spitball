@@ -9,7 +9,7 @@
     @Html.ValidationSummary(true)
     Html.RenderAction("AntiForgeryToken", "Home", true);
 
-    @Html.ValidationMessageFor(model => model.FirstName, null)
+    @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "firstError" })
     @Html.TextBoxFor(model => model.FirstName, new { @class = "inputText firstName lFloat", tabindex = 10, @placeholder= @SharedResources.FirstName })
 
     @Html.ValidationMessageFor(model => model.LastName, null)

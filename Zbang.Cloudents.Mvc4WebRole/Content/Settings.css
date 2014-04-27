@@ -209,6 +209,7 @@
 }
 .changePwd.show ~ .btnTxt {
   margin-left: 143px;
+  /*rtl*/
   display: block;
 }
 .changePwd .inputText {
