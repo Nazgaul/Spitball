@@ -13,10 +13,8 @@ namespace Zbang.Cloudents.MobileService.Controllers
 	    public ApiServices Services { get; set; }
 
 		// GET api/Test
-        [AuthorizeLevel(Microsoft.WindowsAzure.Mobile.Service.Security.AuthorizationLevel.User)]
         public string Get()
         {
-            
             Services.Log.Info("Hello from custom controller!");
             return "Hello";
         }

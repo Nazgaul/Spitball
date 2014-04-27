@@ -1103,7 +1103,10 @@ ul.ui-autocomplete {
 .enterForm {
     margin: 0 auto;
     color: @textColor;
-
+    position: relative; //FF needs this in order to place the error msgs correctly
+    .firstError {
+        left:0; /*rtl*/
+    }
     .field-validation-error, .validation-summary-errors {
         font-size: 13px;
         color: @errorColor;

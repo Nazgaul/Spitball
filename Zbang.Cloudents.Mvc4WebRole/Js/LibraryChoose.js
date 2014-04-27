@@ -19,7 +19,7 @@
         "use strict";
         var currentCountryCode = libraryChoose.getAttribute('data-country');
 
-
+        $('footer').remove(); //hack for now.
         function University(data) {
             var that = this;
             data = data || {};

@@ -230,24 +230,34 @@
 .changePwd
 {
     display: none;
-}
-    .changePwd.show
+    &.show
     {
         display: inline-block;
+        ~ .btnTxt {
+            margin-left: 143px; /*rtl*/
+            display: block;
+        }
     }
 
-    .changePwd .inputText
+    .inputText
     {
         width: 210px;
         height: 28px;
         margin: 0 5px 5px 0; /*rtl*/
     }
 
-    .changePwd input:first-child
+    input:first-child
     {
         display: block;
         margin: -12px 0 21px; /*override margin for first input*/
     }
+    label {
+        display: block;
+        margin-bottom: 4px;
+        color: #676767;
+    }    
+}
+    
 /*#endregion */
 
 /*#region manage friends */

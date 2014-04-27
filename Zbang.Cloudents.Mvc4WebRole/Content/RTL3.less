@@ -1528,8 +1528,16 @@
 /*#endregion */
 
 /*#region account settings */
-.changePwd .inputText {
-    margin: 0 0 5px 5px; /*rtl*/
+.changePwd {
+    &.show {
+        ~ .btnTxt {
+            margin: 0 143px 0 0; /*rtl*/
+        }
+    }
+
+    .inputText {
+        margin: 0 0 5px 5px; /*rtl*/
+    }
 }
 /*#endregion */
 
@@ -2127,13 +2135,6 @@
     right: 0; /*rtl*/
     left: auto;
 
-    .correct {
-        &:before {
-            content: '';
-            display: list-item;
-            float: right; /*rtl*/
-        }
-    }
     .closePreview
     {
         left:10px; /*rtl*/
@@ -2226,7 +2227,7 @@
         }
     }
     .quizQList .noAnswer:after {
-        left: -140px; /*rtl*/
+        left: -30px; /*rtl*/
         right: auto;
     }
 }

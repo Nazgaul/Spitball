@@ -1811,6 +1811,10 @@
 }
 /*#endregion */
 /*#region account settings */
+.changePwd.show ~ .btnTxt {
+  margin: 0 143px 0 0;
+  /*rtl*/
+}
 .changePwd .inputText {
   margin: 0 0 5px 5px;
   /*rtl*/
@@ -2535,12 +2539,6 @@
   /*rtl*/
   left: auto;
 }
-.quizPreview .correct:before {
-  content: '';
-  display: list-item;
-  float: right;
-  /*rtl*/
-}
 .quizPreview .closePreview {
   left: 10px;
   /*rtl*/
@@ -2632,7 +2630,7 @@
   /*rtl*/
 }
 .checkQuiz .quizQList .noAnswer:after {
-  left: -140px;
+  left: -30px;
   /*rtl*/
   right: auto;
 }

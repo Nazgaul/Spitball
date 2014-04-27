@@ -12,3 +12,11 @@
 .quizAList li {
   list-style-type: hebrew;
 }
+/*#region IE 9+ ONLY CODE HERE */
+@media screen and (min-width: 0\0) {
+  .quizAnswersList,
+  .quizAList li {
+    list-style-type: decimal;
+  }
+}
+/*#endregion */
