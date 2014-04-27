@@ -28,9 +28,14 @@
     <div class="section">
         <label>@AccountSettingsResources.Password</label>
         <div class="changePwd">
-            <span id="passerr" class="validation-summary-errors"></span>
-            @Html.PasswordFor(m => m.Password.CurrentPassword, new { @class = "inputText", placeholder = @AccountSettingsResources.OldPwd, id = "oldpsw" })
-            @Html.PasswordFor(m => m.Password.NewPassword, new { @class = "inputText", placeholder = @AccountSettingsResources.NewPwd, id = "newpsw" })
+            @*<span id="passerr" class="validation-summary-errors"></span>*@
+            @Html.LabelFor(m => m.Password.CurrentPassword)
+            @Html.PasswordFor(m => m.Password.CurrentPassword, new { @class = "inputText", id = "oldpsw" })
+            @Html.ValidationMessageFor(m => m.Password.CurrentPassword)
+            @Html.LabelFor(m => m.Password.NewPassword)
+            @Html.PasswordFor(m => m.Password.NewPassword, new { @class = "inputText", id = "newpsw" })
+            @Html.ValidationMessageFor(m => m.Password.NewPassword)
+
         </div>
         <button type="button" class="btnTxt" id="ChangePwd">@AccountSettingsResources.ChangePwd</button>
     </div>
