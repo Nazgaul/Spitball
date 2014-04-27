@@ -1017,6 +1017,11 @@ ul.ui-autocomplete li a {
 .enterForm {
   margin: 0 auto;
   color: #383838;
+  position: relative;
+}
+.enterForm .firstError {
+  left: 0;
+  /*rtl*/
 }
 .enterForm .field-validation-error,
 .enterForm .validation-summary-errors {

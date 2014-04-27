@@ -1528,8 +1528,16 @@
 /*#endregion */
 
 /*#region account settings */
-.changePwd .inputText {
-    margin: 0 0 5px 5px; /*rtl*/
+.changePwd {
+    &.show {
+        ~ .btnTxt {
+            margin: 0 143px 0 0; /*rtl*/
+        }
+    }
+
+    .inputText {
+        margin: 0 0 5px 5px; /*rtl*/
+    }
 }
 /*#endregion */
 
