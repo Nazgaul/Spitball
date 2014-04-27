@@ -333,12 +333,36 @@
   z-index: 1;
 }
 .quizPreview .closePreview {
-  top: 20px;
+  top: 8px;
   position: fixed;
   right: 10px;
   /*rtl*/
   z-index: 1;
   display: none;
+}
+.quizPreview .closePreview:before {
+  content: attr(data-backto) "\00a0";
+  display: inline-block;
+}
+.quizPreview .closePreview:hover:after {
+  background-position: -204px -35px;
+}
+.quizPreview .closePreview:after {
+  content: '';
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  background: url(/Images/common16-sprite.png?v=2) -204px 0 no-repeat;
+  border-radius: 18px;
+  vertical-align: middle;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+  /*rtl*/
+  margin-left: 5px;
+  /*rtl*/
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);

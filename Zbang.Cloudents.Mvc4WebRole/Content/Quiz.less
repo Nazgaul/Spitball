@@ -337,12 +337,29 @@
     }
     .closePreview
     {
-        //background-position: -68px -26px;
-        top: 20px;
+        top: 8px;
         position: fixed;
         right: 10px; /*rtl*/
         z-index: 1;
         display:none;
+        &:before {
+            content: attr(data-backto) "\00a0";
+            display: inline-block;
+        }
+        &:hover:after {
+            background-position: -204px -35px;
+        }
+
+        &:after {
+            .pseudo;
+            width: 35px;
+            height: 35px;
+            background: @common-sprite -204px 0 no-repeat;
+            border-radius: 18px;
+            vertical-align: middle;
+            .flipH(); /*rtl*/
+            margin-left: 5px; /*rtl*/
+        }
     }
 
     .correct {

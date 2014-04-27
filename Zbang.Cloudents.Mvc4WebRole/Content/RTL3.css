@@ -2544,6 +2544,16 @@
   /*rtl*/
   right: auto;
 }
+.quizPreview .closePreview:after {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+  /*rtl*/
+  margin: 0 5px 0 0;
+  /*rtl*/
+}
 .quizQList .splitHR {
   text-align: right;
   /*rtl*/
