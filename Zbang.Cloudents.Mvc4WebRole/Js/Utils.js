@@ -947,11 +947,12 @@
     };
 
     //We have a bug in here since not the entire website is uploaded
-    var putPlaceHolder = function () {
+    var putPlaceHolder = function (x) {
+        x = x || $('input[placeholder] , textarea[placeholder]');
         if (Modernizr.input.placeholder) {
             return;
         }
-        $('input[placeholder] , textarea[placeholder]').each(function () {
+        x.each(function () {
             var defaultValue = this.getAttribute('placeholder');
             if (this.value === '') {
                 this.value = defaultValue;
