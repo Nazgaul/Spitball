@@ -438,8 +438,11 @@
             $('.commentWpr').removeClass('show');
             $(quizTQuestion).find('input').removeAttr('disabled').prop('checked', false);
             $('.quizComments').hide();
-            $(quizTQuestion).children().removeClass('noAnswer userWrong');
             $(quizTQuestion).find('.userCorrect').removeClass('userCorrect');
+            $(quizTQuestion).find('.noAnswer').removeClass('noAnswer');
+            $(quizTQuestion).find('.wrong').removeClass('wrong');
+            $(quizTQuestion).find('.userWrong').removeClass('userWrong');
+             
             stopWatch.reset();
             stopWatch = null;
 

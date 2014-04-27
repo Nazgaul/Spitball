@@ -947,6 +947,7 @@
     };
 
     //We have a bug in here since not the entire website is uploaded
+    var placeHolderDefined = false;
     var putPlaceHolder = function (x) {
         x = x || $('input[placeholder] , textarea[placeholder]');
         if (Modernizr.input.placeholder) {
@@ -976,6 +977,10 @@
         });
 
 
+        if (placeHolderDefined) {
+            return;
+        }
+        placeHolderDefined = true;
         Object.defineProperty(window.HTMLInputElement.prototype, 'placeholder', {
             get: function () {
                 return this.getAttribute('placeholder');

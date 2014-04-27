@@ -89,6 +89,9 @@ q {
 .popupWrppr.quitQuiz {
   width: 620px;
 }
+.cTextArea {
+  width: 565px;
+}
 /*#endregion*/
 /*#region invite page*/
 .invItem .invName {
