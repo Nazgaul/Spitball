@@ -334,8 +334,6 @@
                     this.nextElementSibling.disabled = this.value.length === 0;
                 }).off('focus').on('focus', '.cTextArea', function (e) {
                     this.nextElementSibling.style.display = 'block';
-                }).off('blur').on('blur', '.cTextArea', function (e) {
-                    this.nextElementSibling.style.display = 'none';
                 });
                                
                 $('.askBtn').off('click').click(function () {
