@@ -655,6 +655,7 @@
 .timeWpr0 .quizTime {
   margin: 0;
   font-weight: 100;
+  color: #383838;
 }
 .timeWpr0 .quizTime:before {
   content: attr(data-timer-label);
@@ -687,6 +688,7 @@
   -o-transition: all 0.8s ease-in 1s;
   transition: all 0.8s ease-in 1s;
   color: #383838;
+  font-weight: 100;
 }
 .userScore:after {
   content: attr(data-user-score);
