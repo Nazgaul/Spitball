@@ -304,6 +304,15 @@ ul.ui-autocomplete {
 }
 
 /*#endregion */
+
+
+@media (max-width: 1024px) {
+    //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
+    .quizTitle.quizTitle, .quizPrevWpr.quizPrevWpr {
+        margin: 0 20px 0 0; /*rtl*/
+    }
+}
+
 /*#region User tooltip */
 .userTooltip
 {

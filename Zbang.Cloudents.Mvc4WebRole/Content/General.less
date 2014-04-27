@@ -1806,6 +1806,8 @@ select.inputText {
     .asideLib.asideLib,
     .asideDash.asideDash,
     .settingsMenu.settingsMenu,
+    .quizPage.quizPage .leftPanel,
+    .quizPage.quizPage .topBar,
     .joinGrpBtn.joinGrpBtn { //repeated classname for extra specificity (this is legal and in spec)
         position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
     }
@@ -1813,7 +1815,9 @@ select.inputText {
     .boxPage .leftPanel.leftPanel {
         height: auto;
     }
-
+    .quizTitle.quizTitle, .quizPrevWpr.quizPrevWpr {
+        margin-left: 20px; /*rtl*/
+    }
     .contentWpr.contentWpr {
         background: url(/Images/gray_jean80.png) repeat #fff;
 
