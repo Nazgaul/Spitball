@@ -53,18 +53,48 @@
 
         function initQuiz() {
             assignElements();
-            checkAnswerSheet();
 
             if (!stopWatch) {
                 stopWatch = new Stopwatch(quizTimer);
             }
 
+            var savedData = cd.localStorageWrapper.getItem(quizId);
+            if (savedData) {
+                fillUnregisterSheet(savedData);
+            } else {
+                checkAnswerSheet();
+            }
+            
+            
+
+
             quizCL.value = cd.location();
 
             registerEvents();
 
-            function checkAnswerSheet() {
+            function fillUnregisterSheet(savedData) {
+                
+                cd.localStorageWrapper.removeItem(quizId);
+
+                var answerSheet = JSON.parse(savedData),
+                    $quizTQuestion = $(quizTQuestion);
+
+                quizCheckAnswers.disabled = false;
+
+                for (var i = 0, l = answerSheet.Answers.length; i < l; i++) {
+                    $quizTQuestion.find('[data-id="' + answerSheet.Answers[i].answerId + '"]')[0].checked = true;
+                }
+
+                stopWatch.startTime = new Date(answerSheet.StartTime);
+                stopWatch.endTime = new Date(answerSheet.EndTime);
+                stopWatch.renderTimeDiff();
+
+                saveAnswers();
+            }
+
+            function checkAnswerSheet(sentSheet) {
                 var userResult = JSON.parse(quiz.getAttribute('data-data'));
+
                 if (!userResult) {
                     return;
                 }
@@ -87,19 +117,20 @@
                     var answerSheet = {}, qa;
                     for (var i = 0, l = userResult.questions.length; i < l; i++) {
                         qa = userResult.questions[i];
-                        answerSheet[qa.questionId] = qa.answerId;
+                        //answerSheet[qa.questionId] = qa.answerId;
+                        $(quizTQuestion).find('[data-id="' + qa.answerId + '"]')[0].checked = true;
                     }
 
-                    var questions = quizTQuestion.children,
-                        question, questionId;
+                    //var questions = quizTQuestion.children,
+                    //    question, questionId;
 
-                    for (var i = 0, l = questions.length; i < l; i++) {
-                        question = questions[i];
-                        questionId = question.getAttribute('data-id');
-                        if (answerSheet[questionId]) {
-                            $(question).find('[data-id="' + answerSheet[questionId] + '"]')[0].checked = true;
-                        }
-                    }
+                    //for (var i = 0, l = questions.length; i < l; i++) {
+                    //    question = questions[i];
+                    //    questionId = question.getAttribute('data-id');
+                    //    if (answerSheet[questionId]) {
+                    //        $(question).find('[data-id="' + answerSheet[questionId] + '"]')[0].checked = true;
+                    //    }
+                    //}
                 }
 
             }
@@ -111,25 +142,7 @@
 
         function registerEvents() {
 
-            $(quizCheckAnswers).off('click').click(function () {
-
-                var answerSheet = checkAnswers();
-                showScore();
-                toggleTimer(false, false);
-
-                dataContext.quizSaveQuest({
-                    data: {
-                        StartTime: stopWatch.startTime,
-                        EndTime: stopWatch.endTime,
-                        QuizId: quizId,
-                        Answers: answerSheet
-                    },
-                    success: function () {
-                        getComments();
-                    },
-                    error: function () { }
-                });
-            });
+            $(quizCheckAnswers).off('click').click(saveAnswers);
 
             $(quizRetake).off('click').click(function () {
                 clearQuiz();
@@ -142,7 +155,7 @@
 
             });
 
-            $(quizTQuestion).off('click').on('change', 'input', function () {
+            $(quizTQuestion).off('click').on('change', 'input', function (e) {                
                 quizCheckAnswers.disabled = false;
 
                 if (stopWatch.isRunning) {
@@ -430,6 +443,36 @@
             stopWatch.reset();
             stopWatch = null;
 
+        }
+
+        function saveAnswers() {
+            toggleTimer(false, false);
+
+            var answerSheet = checkAnswers(),
+                sendData = {
+                    StartTime: stopWatch.startTime,
+                    EndTime: stopWatch.endTime,
+                    QuizId: quizId,
+                    Answers: answerSheet
+                };
+
+            if (!cd.register()) {
+                cd.localStorageWrapper.setItem(quizId, JSON.stringify(sendData));
+                cd.unregisterAction(this);
+                return;
+            }
+
+
+            showScore();
+
+
+            dataContext.quizSaveQuest({
+                data: sendData,
+                success: function () {
+                    getComments();
+                },
+                error: function () { }
+            });
         }
 
         function setCommentsLength(question, length) {

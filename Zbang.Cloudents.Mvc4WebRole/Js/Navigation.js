@@ -254,10 +254,7 @@
                 }
                 searchContext();
                 break;
-            case 'quiz':
-                if (!cd.register()) {
-                    location.href = '/account';
-                }
+            case 'quiz':                
                 quizContext();
             default:
                 break;
