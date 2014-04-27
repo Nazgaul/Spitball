@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Zbang.Cloudents.MobileService.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Zbang.Cloudents.MobileService.WebApiApplication" Language="C#" %>
