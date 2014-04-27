@@ -94,7 +94,11 @@
             var rect = quizSideBar.getBoundingClientRect();
             if (rect.left >= 0 && rect.right <= $(window).width()) {
                 clearQuiz();
-                $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', showState);
+                if (Modernizr.cssanimations) {
+                    $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', showState);
+                    return;
+                }
+                showState();
                 return;
             }
 
@@ -931,7 +935,7 @@
 
     function clearQuiz() {
         mainDiv.classList.add('noQuiz');
-        
+
         if (Modernizr.cssanimations) {
             transitioning = true;
             $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
