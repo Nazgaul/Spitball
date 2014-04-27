@@ -869,7 +869,7 @@ where m.RecepientId = @userid
                     }
 
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                    var userRelationShip = grid.Read<UserRelationshipType>().First();
+                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
                     GetUserStatusToBox(privacySettings, userRelationShip);
 
                     retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
