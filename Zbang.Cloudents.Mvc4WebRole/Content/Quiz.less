@@ -186,8 +186,9 @@
         display: none;
         width: 20px;
         height: 19px;
-        right: 0; /*rtl*/
+        right: -1px; /*rtl*/
         top: -10px;
+        .scale(.85);
     }
     .lFloat{
         margin: 3px 5px 0 0; /*rtl*/
@@ -375,7 +376,7 @@
 .quizTitle{
     font-size: 22px;
     width: 800px;
-    margin: 20px auto;
+    margin: 100px auto 20px;
     &:before
     {
         content: attr(data-questioncount) "\00a0";
@@ -542,6 +543,11 @@
 
     .itemRight {
         text-align: left; /*rtl*/
+    }
+    .topBar {
+        position:fixed;
+        width: 100%;
+        top: @header-height;
     }
     .moreFilesThumb {
         background: @attentionBlue;

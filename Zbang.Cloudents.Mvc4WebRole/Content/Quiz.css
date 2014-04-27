@@ -180,9 +180,14 @@
   display: none;
   width: 20px;
   height: 19px;
-  right: 0;
+  right: -1px;
   /*rtl*/
   top: -10px;
+  -webkit-transform: scale(0.85);
+  -moz-transform: scale(0.85);
+  -ms-transform: scale(0.85);
+  -o-transform: scale(0.85);
+  transform: scale(0.85);
 }
 .questionHolder .lFloat {
   margin: 3px 5px 0 0;
@@ -365,7 +370,7 @@
 .quizTitle {
   font-size: 22px;
   width: 800px;
-  margin: 20px auto;
+  margin: 100px auto 20px;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";
@@ -530,6 +535,11 @@
 .quizPage .itemRight {
   text-align: left;
   /*rtl*/
+}
+.quizPage .topBar {
+  position: fixed;
+  width: 100%;
+  top: 50px;
 }
 .quizPage .moreFilesThumb {
   background: #0371c8;

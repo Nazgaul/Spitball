@@ -272,6 +272,13 @@ ul.ui-autocomplete {
   right: auto;
 }
 /*#endregion */
+@media (max-width: 1024px) {
+  .quizTitle.quizTitle,
+  .quizPrevWpr.quizPrevWpr {
+    margin: 0 20px 0 0;
+    /*rtl*/
+  }
+}
 /*#region User tooltip */
 .userTooltip {
   padding: 17px 110px 6px 10px;
