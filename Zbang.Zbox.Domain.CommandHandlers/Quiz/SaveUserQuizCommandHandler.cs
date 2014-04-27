@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -44,9 +45,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var quiz = m_QuizRepository.Load(message.QuizId);
 
             var userRelationShipType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, quiz.Box.Id);
-            if (userRelationShipType == Infrastructure.Enums.UserRelationshipType.None)
+            if (userRelationShipType == UserRelationshipType.Invite || userRelationShipType == UserRelationshipType.None)
             {
-                throw new UnauthorizedAccessException("User is not connected to box - cant save quiz");
+                user.ChangeUserRelationShipToBoxType(quiz.Box, UserRelationshipType.Subscribe);
+                quiz.Box.CalculateMembers();
+                m_UserRepository.Save(user);
             }
             var answerSheet = m_SolvedQuizRepository.GetQuerable().Where(w => w.User == user && w.Quiz == quiz).FirstOrDefault();
             if (answerSheet != null)

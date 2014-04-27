@@ -664,7 +664,7 @@ footer {
 /*#region chairman - only displayed for hebrew */
 .chairman {
   min-height: 100vh;
-  margin-top: -194px;
+  margin-top: -170px;
   direction: rtl;
   /* no rtl !!!*/
   text-align: right;
@@ -706,3 +706,4 @@ footer {
   width: 85%;
 }
 /*#endregion */
+/*# sourceMappingURL=Static.css.map */

@@ -14,6 +14,7 @@ namespace Zbang.Cloudents.MobileService.App_Start
             // Use this class to set configuration options for your mobile service
             ConfigOptions options = new ConfigOptions();
             
+            
             // Use this class to set WebAPI configuration options
             HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
             config.SetIsHosted(true);
