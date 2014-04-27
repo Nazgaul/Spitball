@@ -942,6 +942,7 @@
                 transitioning = false;
             });
         } else {
+            //fix for the stupid ie9
             transitioning = false;
             mainDiv.style.display = 'none';
             mainDiv.style.display = 'block';
