@@ -2636,7 +2636,7 @@
   /*rtl*/
 }
 .checkQuiz .quizQList .noAnswer:after {
-  left: -140px;
+  left: -30px;
   /*rtl*/
   right: auto;
 }
