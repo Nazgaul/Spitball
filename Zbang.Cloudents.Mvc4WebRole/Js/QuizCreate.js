@@ -445,7 +445,7 @@
 
         $(quizName).focusout(function () {
             //setTimeout(function () {
-            saveQuiz();
+            saveQuiz();           
             //}, 100);
         }).keyup(function () {
             if (this.value.length > 0) {
@@ -511,7 +511,11 @@
             return;
         }
 
-        addItemToBox(false);
+        setTimeout(function () {
+            addItemToBox(false);
+        }, 100);
+
+
         dataContext.quizUpdate({
             data: { id: quizId, name: quizName.value },
             success: function () {
