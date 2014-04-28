@@ -123,9 +123,6 @@
   <data name="Additional" xml:space="preserve">
     <value>附加项目</value>
   </data>
-  <data name="Backto" xml:space="preserve">
-    <value>返回</value>
-  </data>
   <data name="Comments" xml:space="preserve">
     <value>评论</value>
   </data>

@@ -391,4 +391,7 @@
   <data name="Downloads" xml:space="preserve">
     <value>下载</value>
   </data>
+  <data name="Backto" xml:space="preserve">
+    <value>返回</value>
+  </data>
 </root>

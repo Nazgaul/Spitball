@@ -124,7 +124,12 @@
                         if ($textarea.height() !== 0) {
                             if (Math.abs($twin.height() - $textarea.height()) > 3) {
 
-                                var goalheight = $twin.height() + lineHeight;
+                                var goalheight; //fix no need for lineheight for one line
+                                if ($twin.height() > parseInt($textarea.css('height'), 10)) {
+                                    goalheight = $twin.height() + lineHeight;
+                                } else {
+                                    goalheight = $twin.height();
+                                }
                                 if (goalheight >= maxheight) {
                                     setHeightAndOverflow(maxheight, 'auto');
                                 } else if (goalheight <= minheight) {

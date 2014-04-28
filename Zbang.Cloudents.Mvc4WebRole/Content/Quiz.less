@@ -473,9 +473,6 @@
         ~ .closeDialog {
             display: none;
         }
-        ~ .cTextAreaWpr {
-            margin: 25px 0;
-        }
     }
 }
 .commentTxt {
@@ -484,6 +481,7 @@
 }
 .cTextAreaWpr {
     display: none;
+    margin-top: 20px;
 }
 .cTextArea {
     width: 600px;
@@ -558,7 +556,8 @@
     }
     .topBar {
         position:fixed;
-        width: 100%;
+        width: ~'-webkit-calc(100% - 305px)';
+        width: ~'calc(100% - 305px)'; // 305px = leftPanel = 290px + 15px margin
         top: @header-height;
     }
     .moreFilesThumb {

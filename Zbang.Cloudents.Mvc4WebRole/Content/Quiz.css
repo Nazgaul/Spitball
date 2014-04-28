@@ -479,15 +479,13 @@
 .quizComments:empty ~ .closeDialog {
   display: none;
 }
-.quizComments:empty ~ .cTextAreaWpr {
-  margin: 25px 0;
-}
 .commentTxt {
   font-size: 15px;
   margin: 10px 0;
 }
 .cTextAreaWpr {
   display: none;
+  margin-top: 20px;
 }
 .cTextArea {
   width: 600px;
@@ -558,7 +556,8 @@
 }
 .quizPage .topBar {
   position: fixed;
-  width: 100%;
+  width: -webkit-calc(100% - 305px);
+  width: calc(100% - 305px);
   top: 50px;
 }
 .quizPage .moreFilesThumb {
