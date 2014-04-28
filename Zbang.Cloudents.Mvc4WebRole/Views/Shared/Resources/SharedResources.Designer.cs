@@ -151,6 +151,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to.
+        /// </summary>
+        public static string Backto {
+            get {
+                return ResourceManager.GetString("Backto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Box.
         /// </summary>
         public static string Box {

@@ -524,4 +524,7 @@
   <data name="Course" xml:space="preserve">
     <value>مسار</value>
   </data>
+  <data name="Backto" xml:space="preserve">
+    <value>العودة الى </value>
+  </data>
 </root>
