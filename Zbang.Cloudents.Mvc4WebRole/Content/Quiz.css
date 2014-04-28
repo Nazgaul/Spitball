@@ -340,10 +340,6 @@
   z-index: 1;
   display: none;
 }
-.quizPreview .closePreview:before {
-  content: attr(data-backto) "\00a0";
-  display: inline-block;
-}
 .quizPreview .closePreview:hover:after {
   background-position: -204px -35px;
 }
