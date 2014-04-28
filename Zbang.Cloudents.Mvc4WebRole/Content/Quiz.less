@@ -321,7 +321,7 @@
         background: #fff;
         border-bottom: 1px solid @borderColor;
         position: absolute;
-        z-index: 1;        
+        z-index: 1;     
     }
     h2{
         display: none;
@@ -342,10 +342,7 @@
         right: 10px; /*rtl*/
         z-index: 1;
         display:none;
-        &:before {
-            content: attr(data-backto) "\00a0";
-            display: inline-block;
-        }
+
         &:hover:after {
             background-position: -204px -35px;
         }

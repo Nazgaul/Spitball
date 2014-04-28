@@ -149,6 +149,9 @@
     <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseAr.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Discussion.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\DiscussionAr.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\DiscussionHe.html" />
+    <EmbeddedResource Include="MailTemplate\UpdatesEmail\DiscussionRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\ItemAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\ItemRu.html" />
     <Content Include="MailTemplate\UpdatesEmail\MemberAr.html" />
