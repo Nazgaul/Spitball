@@ -124,9 +124,6 @@
   <data name="Additional" xml:space="preserve">
     <value>Дополнительные элементы</value>
   </data>
-  <data name="Backto" xml:space="preserve">
-    <value>Назад в</value>
-  </data>
   <data name="Comments" xml:space="preserve">
     <value>Комментарии</value>
   </data>

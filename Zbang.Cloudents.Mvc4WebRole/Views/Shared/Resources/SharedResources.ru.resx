@@ -514,4 +514,7 @@
   <data name="Course" xml:space="preserve">
     <value>Курс</value>
   </data>
+  <data name="Backto" xml:space="preserve">
+    <value>Назад в</value>
+  </data>
 </root>
