@@ -225,20 +225,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Picture = picture;
                 UserId = userId;
             }
-            //public BoxUpdateDetails(long userId, string userName, string actionElement, EmailAction actionText, string actionUrl)
-            //{
-            //    UserId = userId;
-            //    UserName = userName;
-            //    ActionElement = actionElement;
-            //    ActionText = actionText;
-            //    ActionUrl = actionUrl;
-            //}
+            
             public long UserId { get; private set; }
-            //public string UserName { get; private set; }
-            //public string ActionElement { get; private set; }
-            //public EmailAction ActionText { get; private set; }
-
-            //public string ActionUrl { get; private set; }
             public string Url { get; set; }
             public string Picture { get; set; }
 
@@ -309,6 +297,29 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 sb.Replace("{ANSWER_URL}", Url);
                 sb.Replace("{BOX_PICTURE}", Picture);
                 sb.Replace("{ANSWER-TXT}", Text);
+
+                return sb.ToString();
+            }
+        }
+
+        public class DiscussionUpdate : BoxUpdateDetails
+        {
+            public DiscussionUpdate(string user, string text, string picture, string url, long userId)
+                : base(url, picture, userId)
+            {
+                User = user;
+                Text = text;
+            }
+            public string User { get; set; }
+            public string Text { get; set; }
+
+            public override string BuildMailLine(CultureInfo culture)
+            {
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Discussion"));
+                sb.Replace("{USERNAME}", User);
+                sb.Replace("{ANSWER_URL}", Url);
+                sb.Replace("{BOX_PICTURE}", Picture);
+                sb.Replace("{COMMENT-TXT}", Text);
 
                 return sb.ToString();
             }

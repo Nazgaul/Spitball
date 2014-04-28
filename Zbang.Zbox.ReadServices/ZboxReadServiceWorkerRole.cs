@@ -62,6 +62,18 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public IEnumerable<QuizDiscussionDigestDto> GetQuizDiscussion(GetCommentsLastUpdateQuery query)
+        {
+            using (UnitOfWork.Start())
+            {
+                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetQuizDiscussionUpdateByBox");
+                dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
+                dbQuery.SetInt64("BoxId", query.BoxId);
+                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<QuizDiscussionDigestDto>());
+                return dbQuery.List<QuizDiscussionDigestDto>();
+            }
+        }
+
         public IEnumerable<QnADigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query)
         {
             using (UnitOfWork.Start())

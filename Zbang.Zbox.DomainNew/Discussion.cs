@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain
             CreationTime = DateTime.UtcNow;
             Quiz = question.Quiz;
             Question = question;
+            Quiz.Box.UserTime.UpdateUserTime(owner.Email);
         }
         public virtual Guid Id { get; set; }
         public virtual User Owner { get; set; }

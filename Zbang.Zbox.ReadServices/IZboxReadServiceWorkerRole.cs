@@ -18,6 +18,8 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<MembersDigestDto> GetNewMembersLastUpdates(GetMembersLastUpdateQuery query);
         IEnumerable<QuizDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query);
 
+        IEnumerable<QuizDiscussionDigestDto> GetQuizDiscussion(GetCommentsLastUpdateQuery query);
+
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
 
         Task<IEnumerable<string>> GetMissingThumbnailBlobs();

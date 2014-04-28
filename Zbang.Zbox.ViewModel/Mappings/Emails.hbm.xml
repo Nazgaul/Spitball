@@ -37,7 +37,8 @@
   </sql-query>
   <sql-query name="GetQuizUpdateByBox" read-only="1">
     <![CDATA[
-   	select u.username as UserName,u.userid as UserId,  q.id as Id,q.name as Name, 'http://zboxstorage.blob.core.windows.net/mailcontainer/Quiz.jpg' as Picture
+   	select u.username as UserName,u.userid as UserId,  q.id as Id,q.name as Name, 
+    'http://zboxstorage.blob.core.windows.net/mailcontainer/Quiz.jpg' as Picture
 	 from zbox.quiz q inner join zbox.users u on u.userid = q.userid
 	 where q.boxid = :BoxId
      and publish = 1
@@ -61,6 +62,16 @@
     join Zbox.Users u on a.UserId = u.userid
     where a.boxid = :BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,a.creationTime)) >0;
+    ]]>
+  </sql-query>
+  <sql-query name="GetQuizDiscussionUpdateByBox" read-only="1">
+    <![CDATA[
+    select u.userName as UserName, u.userid as UserId, d.Text as Text
+    from zbox.quizdiscussion d 
+    join Zbox.Users u on d.UserId = u.userid
+	  join zbox.Quiz q on q.Id = d.QuizId
+    where q.boxid = :BoxId
+    and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,:Notification,d.creationTime)) >0;
     ]]>
   </sql-query>
   <sql-query name="GetMembersUpdateByBox" read-only="1">

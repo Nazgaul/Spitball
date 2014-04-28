@@ -164,6 +164,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var answers = m_ZboxReadService.GetAnswersLastUpdates(new ViewModel.Queries.Emails.GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var answersUpdate = answers.Select(s => new UpdateMailParams.AnswerUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
+            var disucssion = m_ZboxReadService.GetQuizDiscussion(new ViewModel.Queries.Emails.GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+            var discussionUpdate = disucssion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture, 
+                string.Format(UrlConsts.QuizUrl,
+               UrlConsts.NameToQueryString(box.UniversityName ?? "my"), box.BoxId,
+               UrlConsts.NameToQueryString(box.BoxName), s.QuizId,
+               UrlConsts.NameToQueryString(s.QuizName)), s.UserId));
 
             var memebers = m_ZboxReadService.GetNewMembersLastUpdates(new ViewModel.Queries.Emails.GetMembersLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var membersUpdate = memebers.Select(s =>
@@ -179,6 +185,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             boxupdates.AddRange(membersUpdate);
             boxupdates.AddRange(answersUpdate);
             boxupdates.AddRange(quizUpdate);
+            boxupdates.AddRange(discussionUpdate);
             m_Cache.Add(box.BoxId, boxupdates);
             return boxupdates;
 
