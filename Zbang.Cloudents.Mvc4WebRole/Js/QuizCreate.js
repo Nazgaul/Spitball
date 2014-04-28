@@ -94,7 +94,11 @@
             var rect = quizSideBar.getBoundingClientRect();
             if (rect.left >= 0 && rect.right <= $(window).width()) {
                 clearQuiz();
-                $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', showState);
+                if (Modernizr.cssanimations) {
+                    $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', showState);
+                    return;
+                }
+                showState();
                 return;
             }
 
@@ -163,19 +167,25 @@
 
         setTimeout(function () {
             mainDiv.classList.remove('noQuiz');
+            if (!Modernizr.cssanimations) {                
+                endTransition();
+                return;
+            }
             transitioning = true;
-            $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
-                transitioning = false;
-                setScroll();
 
-                setTimeout(function () {
-                    setElastic(30);
-                }, 0);
-
-
-                quizName.focus();
-            });
+            $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', endTransition);
         }, 0);
+
+        function endTransition() {            
+            transitioning = false;
+            setScroll();
+            cd.putPlaceHolder($(quizSideBar).find('[placeholder]'));
+            setTimeout(function () {
+                setElastic(30);
+                quizName.focus();
+
+            }, 0);
+        }
 
     }
 
@@ -225,16 +235,21 @@
         }
 
         //question text 
-        var text = question.querySelector('.questionText').value;
-        if (!text) {
+        var questionTextArea = question.querySelector('.questionText');
+        if (questionTextArea.value === questionTextArea.placeholder || questionTextArea.value === '') {
             error = true;
             errorClass += 'questionReq ';
             count++;
-        }
+        }        
 
         //answers 
         var answers = $question.find('.questionAnswer'),
-            validAnswers = answers.filter(function () { return this.value.length > 0; });
+            validAnswers = answers.filter(function () {
+                if (this.value === this.placeholder) {
+                    return false;
+                }
+                return this.value.length > 0;
+            });
 
         answers.removeClass('emptyText');
 
@@ -243,7 +258,7 @@
             var answer, found = 0;
             for (var i = 0; i < 2 && found < 2; i++) {
                 answer = answers[i];
-                if (!answer.value) {
+                if (!answer.value || answer.value === answer.placeholder) {
                     found++;
                     answer.classList.add('emptyText');
                 }
@@ -353,7 +368,7 @@
                 answers = question.querySelectorAll('.quizAnswer');
             for (var i = 0, l = answers.length; i < l; i++) {
                 var answer = answers[i].querySelector('.questionAnswer');
-                if (answer.value.length > 0) {
+                if (answer.value.length > 0 && answer.value !== answer.placeholder) {
                     answersArr.push(new Answer({ text: answer.value }));
                     if (answer.nextElementSibling.checked) {
                         correctAnswer = i;
@@ -430,7 +445,7 @@
 
         $(quizName).focusout(function () {
             //setTimeout(function () {
-            saveQuiz();
+            saveQuiz();           
             //}, 100);
         }).keyup(function () {
             if (this.value.length > 0) {
@@ -496,7 +511,11 @@
             return;
         }
 
-        addItemToBox(false);
+        setTimeout(function () {
+            addItemToBox(false);
+        }, 100);
+
+
         dataContext.quizUpdate({
             data: { id: quizId, name: quizName.value },
             success: function () {
@@ -767,7 +786,7 @@
 
         var input = answerInput.parentElement.previousElementSibling.firstElementChild;
 
-        $(input).focus();
+        setTimeout(function () { $(input).focus(); }, 20);
     }
 
     function saveAnswer(e) {
@@ -921,9 +940,18 @@
     function clearQuiz() {
         mainDiv.classList.add('noQuiz');
         transitioning = true;
-        $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
+        if (Modernizr.cssanimations) {
+
+            $(quizSideBar).one('oTransitionEnd msTransitionEnd transitionend', function () {
+                transitioning = false;
+            });
+        } else {
+            //fix for the stupid ie9
             transitioning = false;
-        });
+            mainDiv.style.display = 'none';
+            mainDiv.style.display = 'block';
+        }
+
         addQuiz.disabled = false;
         $(window).off('beforeunload');
         quizQuestionList.innerHTML = '';
