@@ -207,6 +207,12 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\mobile-cloudents.pubxml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3e0f1fbf-60d1-40b2-b649-933142c27cb7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

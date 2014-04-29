@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
+using Zbang.Zbox.Infrastructure.Security;
 
 namespace Zbang.Cloudents.MobileService
 {
@@ -18,8 +20,12 @@ namespace Zbang.Cloudents.MobileService
             
 
             // Use this class to set WebAPI configuration options
-            HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
-            
+            //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
+
+            HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options, (configuration, builder) =>
+            {
+                builder.RegisterType<FacebookAuthenticationService>().As<IFacebookAuthenticationService>();
+            }));
 
             // To display errors in the browser during development, uncomment the following
             // line. Comment it out again when you deploy your service for production use.

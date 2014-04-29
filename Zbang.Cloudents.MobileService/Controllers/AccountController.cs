@@ -7,12 +7,16 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Security;
+
 
 namespace Zbang.Cloudents.MobileService.Controllers
 {
     public class AccountController : ApiController
     {
         public ApiServices Services { get; set; }
+        public IFacebookAuthenticationService FacebookService { get; set; }
 
         // GET api/Account
         [AuthorizeLevel(AuthorizationLevel.User)]
@@ -23,8 +27,9 @@ namespace Zbang.Cloudents.MobileService.Controllers
             var providers = await currentUser.GetIdentitiesAsync();
             var facebookCredentials = providers.OfType<FacebookCredentials>().FirstOrDefault();
 
+            var facebookData = await FacebookService.FacebookLogIn(facebookCredentials.AccessToken);
 
-            Services.Log.Info("Hello from custom controller!");
+            Services.Log.Info(facebookData.id.ToString());
             return "Hello";
         }
 

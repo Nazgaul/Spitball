@@ -47,9 +47,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sendGridMail.EnableClickTracking();
             mail.GenerateMail(sendGridMail, parameters);
 
-            //sendGridMail.AddTo(recepient);
+            sendGridMail.AddTo(recepient);
             //sendGridMail.AddBcc("cloudents@outlook.com");
-            sendGridMail.AddTo("yaari.ram@gmail.com");
+            //sendGridMail.AddTo("yaari.ram@gmail.com");
             //sendGridMail.AddTo(new List<string> { "dddavid2@gmail.com", "cloudents@outlook.com", "yaari_r@yahoo.com" });
             var embarkeData = new Dictionary<string, string>() {
                { "embarkeAppId" , "3f61a514-0610-412e-9024-b4eb5670eb9d"},
