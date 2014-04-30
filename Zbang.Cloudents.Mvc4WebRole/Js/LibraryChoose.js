@@ -386,7 +386,7 @@
                 $('#submitRegIdPopup').removeAttr('disabled');
 
             }).on('click','#closeRegIdPopup', function () {
-                $('#libEnterId').hide();
+                $('#libEnterId').remove();
 
             }).on('click', '#submitRegIdPopup', function (e) {
                 e.preventDefault();

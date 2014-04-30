@@ -33,10 +33,15 @@ namespace Zbang.Cloudents.MobileService.Controllers
             return "Hello";
         }
 
-        public string LogIn()
+        public LoginResult LogIn()
         {
-            
-            return "LogIn";
+            return new LoginResult()
+            {
+
+                User = new LoginResultUser { UserId = "1" },
+                AuthenticationToken = "blabla"
+            };
+           // return LoginResult;
         }
 
         public string Register()

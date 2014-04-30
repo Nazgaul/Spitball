@@ -1019,9 +1019,9 @@
                 return;
             }
 
-            if (!checkBoxPermission()) {
-                return;
-            }
+            //if (!checkBoxPermission()) {
+            //    return;
+            //}
        
             var url = '/item/print/' + '?boxId=' + boxid + '&itemId=' + self.itemid();
             var mywindow = window.open(url, '_blank');
