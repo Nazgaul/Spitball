@@ -11,7 +11,7 @@
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
     <AzureHostedServiceLabel>ZboxWorkerRole</AzureHostedServiceLabel>
     <AzureHostedServiceName>ZboxWorkerRole</AzureHostedServiceName>
-    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
+    <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Azure</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
