@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail;
@@ -20,17 +21,23 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IMailComponent m_MailComponent;
 
+        private readonly ICache m_Cache;
+
         private bool m_KeepRunning;
         private readonly TimeSpan m_TimeToSleepAfterExcecuting;
 
-        private Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>> m_Cache = new Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>>();
+        private readonly string CacheRegionName;
+
+        //private Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>> m_Cache = new Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>>();
 
         public DigestEmail2(NotificationSettings hourForEmailDigest, IZboxReadServiceWorkerRole zboxService,
-            IMailComponent mailComponent)
+            IMailComponent mailComponent, ICache cache)
         {
             m_DigestEmailHourBack = hourForEmailDigest;
             m_ZboxReadService = zboxService;
             m_MailComponent = mailComponent;
+            m_Cache = cache;
+            CacheRegionName = "DigestEmails" + m_DigestEmailHourBack;
             if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
             {
                 m_TimeToSleepAfterExcecuting = TimeSpan.FromMinutes(Zbang.Zbox.ViewModel.Queries.Emails.BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes);
@@ -79,7 +86,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     TraceLog.WriteError(string.Format("Digest email2 report:{0} user {1}", m_DigestEmailHourBack, user), ex);
                 }
             }
-            m_Cache.Clear();
+            m_Cache.RemoveFromCache(CacheRegionName, null);
+            // m_Cache.Clear();
             Thread.Sleep(m_TimeToSleepAfterExcecuting);
         }
 
@@ -131,10 +139,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         }
         private IEnumerable<UpdateMailParams.BoxUpdateDetails> GetBoxData(BoxDigestDto box)
         {
-            if (m_Cache.ContainsKey(box.BoxId))
+            var cacheItem = m_Cache.GetFromCache(box.BoxId.ToString(), CacheRegionName) as IEnumerable<UpdateMailParams.BoxUpdateDetails>;
+            if (cacheItem != null)
             {
-                return m_Cache[box.BoxId];
+                return cacheItem;
             }
+            //if (m_Cache.ContainsKey(box.BoxId))
+            //{
+            //    return m_Cache[box.BoxId];
+            //}
             var items = m_ZboxReadService.GetItemsLastUpdates(new ViewModel.Queries.Emails.GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
 
 
@@ -165,7 +178,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var answersUpdate = answers.Select(s => new UpdateMailParams.AnswerUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
             var disucssion = m_ZboxReadService.GetQuizDiscussion(new ViewModel.Queries.Emails.GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var discussionUpdate = disucssion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture, 
+            var discussionUpdate = disucssion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture,
                 string.Format(UrlConsts.QuizUrl,
                UrlConsts.NameToQueryString(box.UniversityName ?? "my"), box.BoxId,
                UrlConsts.NameToQueryString(box.BoxName), s.QuizId,
@@ -186,7 +199,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             boxupdates.AddRange(answersUpdate);
             boxupdates.AddRange(quizUpdate);
             boxupdates.AddRange(discussionUpdate);
-            m_Cache.Add(box.BoxId, boxupdates);
+            // m_Cache.Add(box.BoxId, boxupdates);
+            m_Cache.AddToCache(box.BoxId.ToString(), boxupdates, TimeSpan.FromDays(1), CacheRegionName);
+
             return boxupdates;
 
         }

@@ -27,7 +27,7 @@
             var now = new Date();
             privateLocation.url = this.removeQueryString(privateLocation.url);
             if (data.ttl < now.getTime()) {
-                this.remove();                
+                this.remove();
                 historyNav = [cd.clone(privateLocation)];
                 if (history.replaceState) {
                     history.replaceState(privateLocation.url, '', privateLocation.url);
@@ -46,7 +46,7 @@
             }
 
             historyNav = data.history;
-            
+
             var lastPage = historyNav.pop();
             if (privateLocation.url.indexOf('search') === -1) {
                 privateLocation.url = lastPage.url;
@@ -105,7 +105,7 @@
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
-        e.preventDefault();  
+        e.preventDefault();
 
         if (e.ctrlKey) {
             window.open(this.href, '_blank');
@@ -254,8 +254,8 @@
                 }
                 searchContext();
                 break;
-            case 'quiz':                
-                quizContext();
+            case 'quiz':
+                quizContext({ id: cd.getParameterFromUrl(4) });
             default:
                 break;
         }
@@ -266,8 +266,8 @@
         pubsub.publish('user');
     }
 
-    function quizContext(data) {        
-        pubsub.publish('quiz');
+    function quizContext(data) {
+        pubsub.publish('quiz', data);
     }
 
     function searchContext(data) {
@@ -555,7 +555,7 @@
         catch (err) {
             console.log(err.message);
         }
-       
+
         cd.updateTimeActions();
         pubsub.publish(d[0].id.toLowerCase() + '_show');
     }

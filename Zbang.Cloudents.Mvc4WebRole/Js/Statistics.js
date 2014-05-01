@@ -24,6 +24,7 @@
     });
 
     pubsub.subscribe('quiz', function (data) {
+        console.log('here');
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (items.indexOf(data.id) == -1) {
             items.push({ Uid: data.id, Action: 3 });
