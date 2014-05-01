@@ -493,6 +493,10 @@
   height: 22px;
   padding: 4px;
 }
+.qPreview,
+.quizQuestion {
+  white-space: pre-line;
+}
 .quizAList {
   list-style-type: lower-latin;
   font-size: 15px;
