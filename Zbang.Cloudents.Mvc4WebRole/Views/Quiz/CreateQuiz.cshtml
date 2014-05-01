@@ -62,7 +62,7 @@
 <script type="text/html" id="quizAnswerTemplate">
     <li data-id="{{id}}" class="quizAnswer">
         <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{index}}">{{text}}</textarea>
-        <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" name="quizRadio" />
+        <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" disabled name="quizRadio" />
         <label for="quizRadio{{topIndex}}{{index}}"></label>
     </li>
 </script>
