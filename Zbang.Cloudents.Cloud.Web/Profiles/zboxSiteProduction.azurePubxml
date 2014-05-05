@@ -4,14 +4,14 @@
     <AzureCredentials>{"ServiceManagementEndpoint":"https:\/\/management.core.windows.net\/","SubscriptionId":"14372284-8ae0-4016-b2c1-4610fcbd2cb8"}</AzureCredentials>
     <AzureDeleteDeploymentOnFailure>False</AzureDeleteDeploymentOnFailure>
     <AzureDeploymentLabel>Zbang.Cloudents.Cloud.Web</AzureDeploymentLabel>
-    <AzureDeploymentReplacementMethod>AutomaticUpgrade</AzureDeploymentReplacementMethod>
-    <AzureSlot>Production</AzureSlot>
+    <AzureDeploymentReplacementMethod>BlastUpgrade</AzureDeploymentReplacementMethod>
+    <AzureSlot>Staging</AzureSlot>
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>zboxtest</AzureHostedServiceLabel>
-    <AzureHostedServiceName>zboxtest</AzureHostedServiceName>
-    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
+    <AzureHostedServiceLabel>zboxSite</AzureHostedServiceLabel>
+    <AzureHostedServiceName>zbox</AzureHostedServiceName>
+    <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>

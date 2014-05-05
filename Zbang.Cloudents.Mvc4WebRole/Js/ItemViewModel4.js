@@ -741,9 +741,9 @@
                         cd.unregisterAction(this);
                         return;
                     }
-                    if (!checkBoxPermission()) {
-                        return;
-                    }
+                    //if (!checkBoxPermission()) {
+                    //    return;
+                    //}
 
                     
                     var url = '/d/' + boxid + '/' + self.itemid();

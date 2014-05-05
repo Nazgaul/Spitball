@@ -175,12 +175,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DataObjects\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ProfessorController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Models\Account\LogIn.cs" />
     <Compile Include="ScheduledJobs\SampleJob.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

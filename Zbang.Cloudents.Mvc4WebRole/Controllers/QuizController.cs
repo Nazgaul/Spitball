@@ -176,9 +176,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult Delete(long id)
         {
-            var command = new DeleteQuizCommand(id, GetUserId());
-            m_ZboxWriteService.DeleteQuiz(command);
-            return this.CdJson(new JsonResponse(true));
+            try
+            {
+                var command = new DeleteQuizCommand(id, GetUserId());
+                m_ZboxWriteService.DeleteQuiz(command);
+                return this.CdJson(new JsonResponse(true));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Delete quiz id:" + id, ex);
+                return this.CdJson(new JsonResponse(false));
+            }
         }
 
         [HttpPost, Ajax]

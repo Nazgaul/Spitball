@@ -256,7 +256,6 @@
 
                 // support for mobile
                 me.bind('touchstart', function (e, b) {
-                    console.log('here');
                     if (e.originalEvent.touches.length) {
                         // record where touch started
                         touchDif = e.originalEvent.touches[0].pageY;

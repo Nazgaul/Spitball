@@ -9,6 +9,7 @@ using Microsoft.WindowsAzure.Mobile.Service.Security;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Cloudents.MobileService.Models.Account;
 
 
 namespace Zbang.Cloudents.MobileService.Controllers
@@ -33,8 +34,13 @@ namespace Zbang.Cloudents.MobileService.Controllers
             return "Hello";
         }
 
-        public LoginResult LogIn()
+        public LoginResult LogIn(LogIn model)
         {
+            if (!ModelState.IsValid)
+            {
+                return null;
+            }
+            
             return new LoginResult()
             {
 
@@ -46,6 +52,7 @@ namespace Zbang.Cloudents.MobileService.Controllers
 
         public string Register()
         {
+            
             return "Register";
         }
 
