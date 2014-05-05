@@ -28,6 +28,7 @@
       <key column="QuizId" foreign-key="QuizIdQuestion"/>
       <one-to-many class="Question"/>
     </bag>
+    
 
   </class>
 

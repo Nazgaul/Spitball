@@ -13,13 +13,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     {
         private readonly IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
         private readonly IRepository<Updates> m_Updates;
-
+        private readonly IRepository<Domain.SolvedQuiz> m_SolvedQuizRepository;
 
         public DeleteQuizCommandHandler(IRepository<Zbang.Zbox.Domain.Quiz> quizRepository,
-            IRepository<Updates> updates)
+            IRepository<Updates> updates,
+            IRepository<Domain.SolvedQuiz> solvedQuizRepository)
         {
             m_QuizRepository = quizRepository;
             m_Updates = updates;
+            m_SolvedQuizRepository = solvedQuizRepository;
         }
         public void Handle(DeleteQuizCommand message)
         {
@@ -34,6 +36,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             foreach (var quizUpdate in updatesToThatQuiz)
             {
                 m_Updates.Delete(quizUpdate);
+            }
+
+            var solvedQuizes = m_SolvedQuizRepository.GetQuerable().Where(w => w.Quiz.Id == message.QuizId);
+            foreach (var solvedQuiz in solvedQuizes)
+            {
+                m_SolvedQuizRepository.Delete(solvedQuiz);
             }
 
             m_QuizRepository.Delete(quiz);

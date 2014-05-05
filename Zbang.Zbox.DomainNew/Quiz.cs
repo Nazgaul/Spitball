@@ -48,6 +48,7 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual ICollection<Question> Questions { get; private set; }
 
+
         public virtual void UpdateText(string newText)
         {
             //Throw.OnNull(newText, "newText", false);
