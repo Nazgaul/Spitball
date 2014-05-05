@@ -760,14 +760,10 @@
         }
 
         var radioBtn = this.nextElementSibling;
-        if (this.value.length > 0) {
-            radioBtn.disabled = false;
-        } else {
+        if (!this.value.length) {
             radioBtn.disabled = true;
             radioBtn.checked = false;
-
         }
-
     }
 
     function appendAnswer(e) {
@@ -782,7 +778,7 @@
 
         answer.insertAdjacentHTML('beforebegin', html);
 
-        answersList.lastElementChild.previousElementSibling.querySelector('input').disabled = true;
+        //answersList.lastElementChild.previousElementSibling.querySelector('input').disabled = true;
 
         var input = answerInput.parentElement.previousElementSibling.firstElementChild;
 
@@ -792,6 +788,7 @@
     function saveAnswer(e) {
         var answerInput, isCorrect, answerText,
             answer = this.parentElement,
+            radioBtn,
             question = $(answer).parents('.questionHolder')[0],
             questionId = question.getAttribute('data-id'),
             answerId = answer.getAttribute('data-id');
@@ -800,8 +797,10 @@
 
         if (this.type === 'textarea') { //check if user focusout the answer or clicked the radio button
             answerInput = this;
-            isCorrect = answerInput.nextElementSibling.checked;
+            radioBtn = answerInput.nextElementSibling;
+            isCorrect = radioBtn.checked;
         } else {
+            radioBtn = this;
             answerInput = this.previousElementSibling;
             isCorrect = this.checked;
         }
@@ -833,6 +832,7 @@
                 data: { questionId: questionId, text: answerText, correctAnswer: isCorrect },
                 success: function (data) {
                     answer.setAttribute('data-id', data);
+                    radioBtn.disabled = false;
                 },
                 error: function () { }
             });

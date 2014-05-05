@@ -152,6 +152,9 @@ input[type="checkbox"],
 input[type="radio"] {
     box-sizing: border-box; /* 1 */
     padding: 0; /* 2 */
+    &[disabled] + label:before {
+        opacity: .5!important;
+    }
 }
 
 /**
