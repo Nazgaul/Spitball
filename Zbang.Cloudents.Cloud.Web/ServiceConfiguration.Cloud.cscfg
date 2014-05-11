@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2013-10.2.2">
   <Role name="Zbang.Cloudents.Mvc4WebRole">
-    <Instances count="2" />
+    <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
       <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
@@ -13,7 +13,7 @@
       <!--<Setting name="CdnEndpoint" value="https://az414807.vo.msecnd.net" />-->
 
       <!--<Setting name="CdnEndpoint" value="az158719.vo.msecnd.net" />-->
-      <Setting name="CdnEndpoint" value="" />
+      <Setting name="CdnEndpoint" value="https://az414820.vo.msecnd.net" />
       <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;" />
       <Setting name="otakimUrl" value="http://www.otakim.co.il/printreferrer.aspx" />
     </ConfigurationSettings>
