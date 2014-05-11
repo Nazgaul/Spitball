@@ -397,6 +397,14 @@ input[type="radio"][disabled] + label:before {
 .btn3:hover {
   background: #0e68af;
 }
+.btn4 {
+  color: #0371c8;
+  border: 1px solid #0371c8;
+  padding: 5px 8px;
+  min-width: 64px;
+  font-size: 13px;
+  border-radius: 5px;
+}
 /*#endregion */
 /*#region delete email 'x' */
 .removeItem,
@@ -887,7 +895,7 @@ ul.ui-autocomplete li a {
   animation: fadein 0.5s 0 ease;
 }
 .popupWrppr.requestSent .closeDialog {
-  background-position: -79px -15px;
+  background-position: -68px -14px;
 }
 .popupWrppr.departmentChoose {
   width: 700px;
@@ -1438,6 +1446,102 @@ select.inputText {
   width: 9px;
   height: 7px;
   background: url(/Images/common16-sprite.png?v=2) -98px -49px no-repeat;
+}
+.tooltip {
+  position: absolute;
+  top: 100px;
+  left: 400px;
+  background: #fff;
+  border: 1px solid #c2c2c2;
+  min-height: 58px;
+  width: 200px;
+  padding: 20px 20px 17px 20px;
+  border-radius: 3px;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3);
+}
+.tooltip.btns {
+  padding-bottom: 70px;
+}
+.tooltip h4 {
+  font-size: 15px;
+}
+.tooltip:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 46px;
+  border-width: 0 10px 10px;
+  border-style: solid;
+  border-color: #c2c2c2 rgba(0, 0, 0, 0);
+  display: block;
+  width: 0;
+}
+.tooltip:after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 47px;
+  border-width: 0 9px 9px;
+  border-style: solid;
+  border-color: #ffffff rgba(0, 0, 0, 0);
+  display: block;
+  width: 0;
+}
+.tooltip.bottom:before {
+  bottom: -10px;
+  top: auto;
+  border-width: 10px 10px 0;
+}
+.tooltip.bottom:after {
+  bottom: -8px;
+  top: auto;
+  border-width: 9px 9px 0;
+}
+.tooltip.left:before {
+  top: 11px;
+  bottom: auto;
+  left: -13px;
+  border-width: 11px 13px 11px 0;
+  border-color: rgba(0, 0, 0, 0) #c2c2c2;
+}
+.tooltip.left:after {
+  top: 13px;
+  bottom: auto;
+  left: -11px;
+  border-width: 9px 11px 9px 0;
+  border-color: rgba(0, 0, 0, 0) #ffffff;
+}
+.tooltip.right:before {
+  top: 11px;
+  bottom: auto;
+  left: auto;
+  right: -13px;
+  border-width: 11px 0 11px 13px;
+  border-color: rgba(0, 0, 0, 0) #c2c2c2;
+}
+.tooltip.right:after {
+  top: 13px;
+  bottom: auto;
+  left: auto;
+  right: -11px;
+  border-width: 9px 0 9px 11px;
+  border-color: rgba(0, 0, 0, 0) #ffffff;
+}
+.ttBtns {
+  width: 100%;
+  height: 53px;
+  background: #ebebeb;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 13px 20px 0 20px;
+  border-radius: 0 0 3px 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ttBtns button {
+  padding: 4px 25px;
 }
 .sectionHeader {
   height: 34px;

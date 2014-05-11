@@ -133,7 +133,7 @@
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
-    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>  
+    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
 
     <script type="text/html" id="userToolTipTempalte">
         <a data-navigation="User" href="{{url}}">
@@ -199,6 +199,17 @@
             </a>
         </li>
     </script>
+    @*If the tooltip has btns add class btns and extra markup
+    If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
+    <div class="tooltip btns">
+        <button type="button" class="closeDialog"></button>
+        <h4 class="semiFont">Tooltip title here</h4>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+        <div class="ttBtns">
+            <button type="reset" class="lFloat btn4">Cancel</button>
+            <button type="button" class="rFloat btn3">Next</button>
+        </div>
+    </div>
     <div style="position: absolute; z-index: 1000; background-color: #fff; width: 200px; height: 100px; display: none;" id="genericTooltipGuide">
         <div class="stepTip" data-step="0" style="display:none;">
             <div class="titleTip">text number 1</div>
