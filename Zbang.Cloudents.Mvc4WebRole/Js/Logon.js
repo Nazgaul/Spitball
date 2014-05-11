@@ -175,9 +175,12 @@
                 if (response.authResponse) {
                     var accessToken = response.authResponse.accessToken;
                     FB.api('/me/permissions', function (response) {
+
                         var perms = response.data[0];
+                        //console.log(perms)
                         // Check for publish_stream permission in this case....
                         if (perms.email) {
+                            //console.log(accessToken);
                             logInFacebook(accessToken);
                             // User has permission
                             cd.analytics.trackEvent('Homepage', 'Facebook signup', 'Successful login useing facebook');
@@ -188,7 +191,7 @@
                     });
                 }
 
-            }, { scope: 'email,publish_stream' });
+            }, { scope: 'email,publish_stream,user_friends' });
         });
         cd.loader.registerFacebook();
 

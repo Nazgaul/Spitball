@@ -15,11 +15,11 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public async Task<FacebookUserData> FacebookLogIn(string token)
         {
-
+            FacebookUserData user;
             using (HttpClient client = new HttpClient())
             {
 
-                FacebookUserData user;
+                
                 using (var sr = await client.GetStreamAsync("https://graph.facebook.com/me?access_token=" + token))
                 {
 
@@ -33,10 +33,18 @@ namespace Zbang.Zbox.Infrastructure.Security
                     }
                     user.Image = GetFacebookUserImage(user.id, FacebookPictureType.square);
                     user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.normal);
-                    return user;
+                    
                 }
             }
+
+            using (var client = new HttpClient())
+            {
+                var str = await client.GetStringAsync("https://graph.facebook.com/v2.0/me/friends?limit=50000&access_token=" + token);
+                TraceLog.WriteInfo(str);
+            }
+            return user;
         }
+
 
         public string GetFacebookUserImage(long facebookId, FacebookPictureType type)
         {
