@@ -218,6 +218,53 @@ body
         left: auto;
     }
 }
+
+/*#region tooltip */
+// tooltip variables:
+@arrowLeft: 135px; //change vertical offset of arrow
+@arrowTop: 40px;  //change horizontal offset of arrow
+@arrowHeight: 8px; // change arrow size
+
+.tooltip {
+    &:before {
+        right: @arrowLeft; /*rtl*/
+        left: auto;
+    }
+    &:after {
+        right: @arrowLeft + 1; /*rtl*/
+        left: auto;
+    }
+    &.left {
+        &:before {
+            right: -@arrowHeight - 2; /*rtl*/
+            left: auto;
+            border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2); /*rtl*/
+        }
+        &:after {
+            right: -@arrowHeight; /*rtl*/
+            left: auto;
+            border-width: (@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight; /*rtl*/
+        }
+    }
+    &.right {
+        &:before {
+            left: -@arrowHeight - 2; /*rtl*/
+            right: auto;
+            border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0; /*rtl*/
+        }
+        &:after {
+            left: -@arrowHeight; /*rtl*/
+            right: auto;
+            border-width:(@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0; /*rtl*/
+        }
+    }
+}
+.ttBtns {
+    right:0; /*rtl*/
+    left: auto;
+}
+/*#endregion */
+
 .sectionHeader
 {
     font-weight: normal; /*diff rtl*/

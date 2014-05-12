@@ -1553,6 +1553,11 @@ select.inputText {
     height: 7px;
     background: @common-sprite -98px -49px no-repeat;
 }
+/*#region tooltip */
+// tooltip variables:
+@arrowLeft: 135px; //change vertical offset of arrow
+@arrowTop: 40px;  //change horizontal offset of arrow
+@arrowHeight: 8px; // change arrow size
 
 .tooltip {
 
@@ -1573,27 +1578,29 @@ select.inputText {
     }
     h4 {
         font-size: 15px;
+        margin-bottom: 12px;
     }
     .closeDialog {
-
+        background-position: -68px -14px;
+        top:24px;
     }
     &:before {
         content:"";
         position: absolute;
-        top: -10px;
-        left: 46px;
-        border-width: 0 10px 10px;
+        top: -@arrowHeight;
+        left: @arrowLeft; /*rtl*/
+        border-width: 0 @arrowHeight @arrowHeight;
         border-style: solid;
-        border-color: #c2c2c2 rgba(0, 0, 0, 0);
+        border-color: @borderColor rgba(0, 0, 0, 0);
         display: block;
         width: 0;
     }
     &:after {
         content:"";
         position: absolute;
-        top: -8px;
-        left: 47px;
-        border-width: 0 9px 9px;
+        top: -@arrowHeight + 2;
+        left: @arrowLeft + 1; /*rtl*/
+        border-width: 0 (@arrowHeight - 1) (@arrowHeight - 1);
         border-style: solid;
         border-color: #FFF rgba(0, 0, 0, 0);
         display: block;
@@ -1601,51 +1608,47 @@ select.inputText {
     }
     &.bottom {
         &:before {
-            bottom: -10px;
+            bottom: -@arrowHeight;
             top: auto;
-            //left: auto;
-            //right: 40px;
-            border-width: 10px 10px 0;
+            border-width: @arrowHeight @arrowHeight 0;
         }
         &:after {
-            bottom: -8px;
+            bottom: -@arrowHeight + 2;
             top: auto;
-            //left: auto;
-            //right: 47px;
-            border-width: 9px 9px 0;
+            border-width: (@arrowHeight - 1) (@arrowHeight - 1) 0;
         }
     }
     &.left {
         &:before {
-            top: 11px;
+            top: @arrowTop;
             bottom: auto;
-            left: -13px;
-            border-width: 11px 13px 11px 0;
+            left: -@arrowHeight - 2; /*rtl*/
+            border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0; /*rtl*/
             border-color: rgba(0, 0, 0, 0) @borderColor;
         }
         &:after {
-            top: 13px;
+            top: @arrowTop + 2;
             bottom: auto;
-            left: -11px;
-            border-width: 9px 11px 9px 0;
+            left: -@arrowHeight; /*rtl*/
+            border-width: (@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0; /*rtl*/
             border-color: rgba(0, 0, 0, 0) #fff;
         }
     }
     &.right {
         &:before {
-            top: 11px;
+            top: @arrowTop;
             bottom: auto;
             left: auto;
-            right: -13px;
-            border-width: 11px 0 11px 13px;
+            right: -@arrowHeight - 2; /*rtl*/
+            border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2); /*rtl*/
             border-color: rgba(0, 0, 0, 0) @borderColor;
         }
         &:after {
-            top: 13px;
+            top: @arrowTop + 2;
             bottom: auto;
             left: auto;
-            right: -11px;
-            border-width: 9px 0 9px 11px;
+            right: -@arrowHeight; /*rtl*/
+            border-width:(@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight; /*rtl*/
             border-color: rgba(0, 0, 0, 0) #fff;
         }
     }
@@ -1656,7 +1659,7 @@ select.inputText {
     background: #ebebeb;
     position: absolute;
     bottom:0;
-    left:0;
+    left:0; /*rtl*/
     padding: 13px 20px 0 20px;
     border-radius: 0 0 3px 3px;
     .boxSizing;
@@ -1664,6 +1667,8 @@ select.inputText {
         padding: 4px 25px;
     }
 }
+/*#endregion */
+
 .sectionHeader {
     height: 34px;
     line-height: 34px;
