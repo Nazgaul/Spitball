@@ -844,8 +844,6 @@ ul.ui-autocomplete {
         margin-left: 10px; /*rtl*/
     }
 
-    
-
     .btn1, .btn2 {
         margin-top: 18px;
         //float: right; /*rtl*/
@@ -857,7 +855,18 @@ ul.ui-autocomplete {
         .boxSizing;
         width: 100%;
     }
-
+    .inviteMsg {
+        width: 100%;
+        max-height: 176px;
+        min-height: 117px;
+        padding: 14px 8px 5px 11px; /*rtl*/
+        outline-color: transparent;
+        resize: none;
+        .boxSizing;
+        color: @textColor;
+        border-radius: 3px;
+        .placeholderColor(#676767);
+    }
     &.enterCode {
         font-size: 13px;
         background: #faf9fa;

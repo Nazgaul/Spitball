@@ -65,6 +65,14 @@ body {
   margin: 18px 10px 0 0;
   /*rtl*/
 }
+.popupWrppr .inputText {
+  padding: 0 8px 0 4px;
+  /*rtl*/
+}
+.popupWrppr .inviteMsg {
+  padding: 14px 11px 5px 8px;
+  /*rtl*/
+}
 .popupWrppr.enterCode form,
 .popupWrppr.enterCode .noCode {
   padding: 0 9px 25px 19px;
