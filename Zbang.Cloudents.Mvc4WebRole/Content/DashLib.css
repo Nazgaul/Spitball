@@ -238,6 +238,12 @@
 .contentWpr > section {
   position: relative;
 }
+.contentWpr.fadeVisible {
+  -webkit-animation: fadein 0.5s 0 ease;
+  -moz-animation: fadein 0.5s 0 ease;
+  -o-animation: fadein 0.5s 0 ease;
+  animation: fadein 0.5s 0 ease;
+}
 .contentWpr.featured .unionFeatured {
   display: block;
   position: absolute;
