@@ -344,9 +344,10 @@ textarea:invalid {
 }
 .QItem .textareaWpr {
   margin: 6px 0 0 0;
+  width: 274px;
 }
-.QItem .QTextarea {
-  width: 272px;
+.QItem .attachedList {
+  padding: 0 8px 3px 8px;
 }
 .QItem .askBtn {
   margin: 2px 6px 7px 0;
