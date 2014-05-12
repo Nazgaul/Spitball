@@ -931,7 +931,7 @@
   left: calc(400px - 49%);
   /*rtl*/
 }
-.previewWrapper h2 {
+.previewWrapper .boldFont {
   font-size: 22px;
   white-space: pre-wrap;
   line-height: 22px;
@@ -1009,7 +1009,7 @@
   text-align: center;
   display: none;
 }
-.annotationEmpty h2 {
+.annotationEmpty .boldFont {
   font-size: 15px;
   margin-bottom: 10px;
 }
