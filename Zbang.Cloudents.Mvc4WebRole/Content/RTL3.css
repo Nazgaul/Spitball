@@ -2520,8 +2520,8 @@
   right: auto;
 }
 .questionHolder.questionReq .addQuestion {
-  margin: -2px 0 0 20px;
-  /*rtl*/
+  left: 21px;
+  right: auto;
 }
 .quizAnswersList {
   padding: 0 16px 0 0;
