@@ -188,7 +188,7 @@
                     });
                 }
 
-            }, { scope: 'email,publish_stream' });
+            }, { scope: 'email,publish_stream,user_friends' });
         });
         cd.loader.registerFacebook();
 

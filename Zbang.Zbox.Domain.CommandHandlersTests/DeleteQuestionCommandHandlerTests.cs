@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubQuestionRepository.Stub(x => x.Load(questionId)).Return(question);
 
-            var commandHanlder = new DeleteCommentCommandHandler(m_StubQuestionRepository, m_StubBoxRepository, m_StubReputationRepository);
+            var commandHanlder = new DeleteCommentCommandHandler(m_StubQuestionRepository, m_StubBoxRepository, m_StubReputationRepository, null);
 
             commandHanlder.Handle(command);
         }
