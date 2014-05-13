@@ -237,12 +237,10 @@
 }
 .questionHolder.questionReq .addQuestion {
   display: inline-block;
-  margin: -2px 20px 0 0;
+  position: absolute;
+  right: 21px;
   /*rtl*/
-}
-.questionHolder.questionReq .questionText {
-  width: 65%;
-  padding: 0 6px;
+  top: 15px;
 }
 .questionHolder.correctReq .correct {
   color: #d1294d;

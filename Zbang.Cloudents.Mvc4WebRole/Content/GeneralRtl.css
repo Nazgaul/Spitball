@@ -65,6 +65,14 @@ body {
   margin: 18px 10px 0 0;
   /*rtl*/
 }
+.popupWrppr .inputText {
+  padding: 0 8px 0 4px;
+  /*rtl*/
+}
+.popupWrppr .inviteMsg {
+  padding: 14px 11px 5px 8px;
+  /*rtl*/
+}
 .popupWrppr.enterCode form,
 .popupWrppr.enterCode .noCode {
   padding: 0 9px 25px 19px;
@@ -200,6 +208,51 @@ body {
   /*rtl*/
   left: auto;
 }
+/*#region tooltip */
+.tooltip:before {
+  right: 135px;
+  /*rtl*/
+  left: auto;
+}
+.tooltip:after {
+  right: 136px;
+  /*rtl*/
+  left: auto;
+}
+.tooltip.left:before {
+  right: -10px;
+  /*rtl*/
+  left: auto;
+  border-width: 8px 0 8px 10px;
+  /*rtl*/
+}
+.tooltip.left:after {
+  right: -8px;
+  /*rtl*/
+  left: auto;
+  border-width: 6px 0 6px 8px;
+  /*rtl*/
+}
+.tooltip.right:before {
+  left: -10px;
+  /*rtl*/
+  right: auto;
+  border-width: 8px 10px 8px 0;
+  /*rtl*/
+}
+.tooltip.right:after {
+  left: -8px;
+  /*rtl*/
+  right: auto;
+  border-width: 6px 8px 6px 0;
+  /*rtl*/
+}
+.ttBtns {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */
 .sectionHeader {
   font-weight: normal;
   /*diff rtl*/

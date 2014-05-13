@@ -1521,10 +1521,6 @@
   margin: 5px 0 0 6px;
   /*rtl*/
 }
-.inviteMsg {
-  padding: 14px 11px 5px 8px;
-  /*rtl*/
-}
 /*#endregion */
 /*#region Item3.css */
 .ratePopup {
@@ -2520,8 +2516,8 @@
   right: auto;
 }
 .questionHolder.questionReq .addQuestion {
-  margin: -2px 0 0 20px;
-  /*rtl*/
+  left: 21px;
+  right: auto;
 }
 .quizAnswersList {
   padding: 0 16px 0 0;
