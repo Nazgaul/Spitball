@@ -54,6 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 "~/Content/Search.css",
                 "~/Content/Sidebar.css",
                 "~/Content/Modal.css",
+                "~/Content/ng-modal.css",
                 "~/Content/QnA.css",
                 "~/Content/Quiz.css",
                 "~/Content/Invite.css",
@@ -93,6 +94,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             RegisterCss("itemMobile", "~/Content/ItemMobile.css");
             RegisterCss("itemMobileRtl", "~/Content/ItemMobileRtl.css");
             #endregion
+
+            //test
+            RegisterJs("test",
+                new JsFileWithCdn("~/Scripts/angular.js"),
+                new JsFileWithCdn("~/Scripts/angular-resource.js"),
+                new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
+                new JsFileWithCdn("~/Js/app/services.js"),
+                new JsFileWithCdn("~/Js/app/directives.js"),
+                new JsFileWithCdn("~/Scripts/ng-modal.js"),                
+ 
+                new JsFileWithCdn("~/Js/app/controller.js")
+             );
+
+
             RegisterJs("home",
                 new JsFileWithCdn("~/Js/Logon.js"),
                 new JsFileWithCdn("~/Js/Welcome.js"));
@@ -127,10 +142,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
                 new JsFileWithCdn("~/Js/GmfcnHandler.js")
                 //new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
-
                 );
             RegisterJs("faq", new JsFileWithCdn("~/Js/externalScriptsInitializer.js"));
-                
+
 
             #region layout3
             RegisterJs("cd1",
@@ -162,7 +176,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
 
                new JsFileWithCdn("~/Js/TooltipGuide.js"),
-                
+
                 //new JsFileWithCdn("~/Js/bootstrapper2.js"),
                 new JsFileWithCdn("~/Js/Statistics.js"),
 
@@ -384,7 +398,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
         {
             if (!RoleEnvironment.IsAvailable)
             {
-               
+
                 return string.Empty;
             }
             try

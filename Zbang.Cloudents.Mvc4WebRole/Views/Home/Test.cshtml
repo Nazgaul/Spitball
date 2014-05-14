@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="mDashboard">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div ng-controller="DashboardController">
+        <input type="text" ng-model="query" />
+        <div ng-show="name">Hello {{name}}</div>
+
+        <ul>
+            <li ng-repeat="name in names | filter:query | orderBy: predicate">
+                <span>{{name.first}}</span>
+                <span>{{name.last}}</span>
+            </li>
+
+        </ul>
+    </div>
+</body>
+</html>
+
+@Html.Script2("test")

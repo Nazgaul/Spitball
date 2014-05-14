@@ -8,12 +8,8 @@
     var eById = document.getElementById.bind(document),
         $guideContainer, stepIndex = 0;
 
-    pubsub.subscribe('tooltipGuide', function (guideId) {
-        if (!(guideId)) {
-            return;
-        }
-
-        guideId = guideId || 'genericTooltipGuide';
+    pubsub.subscribe('tooltipGuide', function (guideId) {        
+        guideId = guideId.length ? guideId : 'genericTooltipGuide';
         $guideContainer = $(eById(guideId));
         initFirstStep();
     });

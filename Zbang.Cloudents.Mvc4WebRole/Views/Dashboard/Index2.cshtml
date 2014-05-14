@@ -1,0 +1,136 @@
+﻿@model Zbang.Zbox.ViewModel.DTOs.Dashboard.UniversityDashboardInfoDto
+@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+<div id="dashboard" class="page dashboard" ng-app="mDashboard">
+    <div class="dashContent" id="dash_Boxes" ng-controller="DashboardController">
+        <aside class="asideDash lFloat" id="dash_Aside" ng-controller="DashboardAsideController">
+            <a class="dashTop" href="@Url.GenerateUrl("Index", "Library")" data-navigation="Library">
+                <span class="uniLogo">
+                    <img alt="" width="70" height="70" src="@Model.Img" />
+                </span>
+                <span class="uniName"><span class="uniText">@Model.Name</span></span>
+
+            </a>
+            @if (!string.IsNullOrEmpty(Model.AdvertismentUrl))
+            {
+                <button id="dash_Product" type="button" class="productsBtn" data-url="@Model.AdvertismentUrl">
+                    <h2 class="productsHeader">חנות האגודה</h2>
+                    <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
+                    <div class="closeProducts"></div>
+                </button>
+            }
+            <div class="dashLists">
+                <div id="dash_friends">
+                    <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="toggleShowFriends()" id="showUserFriends" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
+                    <ul class="friendsList" id="dash_Friend">
+                        <li class="friendItem" ng-repeat="friend in friends">
+                            <a href="{{friend.url}}" data-navigation="user">
+                                <img class="friendImg calloutTrgr" src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
+                            </a>
+                        </li>
+
+                        <li class="friendItem friendBtn" data-action="true">
+                            <a data-navigation="invite" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents"
+                               href="@Url.Action("Index", "Invite", new {boxid = "" })" class="inviteFriendBtn btn3"></a>
+
+
+
+                        </li>
+
+
+
+                    </ul>
+                </div>
+                <div class="feedList" id="dash_feed">
+                    <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
+                    <div>
+                        <ul class="asideList dash" id="dash_Wall" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
+
+                            <li class="activityItem" ng-repeat="activity in wall">
+                                <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
+                                    <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
+                                </a>
+                                <div class="latest">
+                                    <a data-navigation="Box" href="{{activity.url}}">
+                                        <div class="latestName elps">{{activity.boxName}}</div>
+                                        <span class="semiFont">{{activity.userName}}</span>
+                                        <span class="activityAction">{{activityAction}}</span>
+                                    </a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <modal-dialog show="showAllDialogShown" view-name="_Friends2" width="500px" dialog-title="Modal Dialog Title"  class="dashMembers">
+            </modal-dialog>
+        </aside>
+        <div class="contentWpr" id="dash_right" ng-class="{fadeVisible : contentLoaded}">
+            <section class="unionCourses">
+                <header class="boxesHeader" ng-show="contentLoaded">{{title}}</header>
+                
+                <div ng-hide="academicBoxes.length > 0" class="emptyDash">
+                    <div class="followEmpty">
+                        <h2 class="boldFont">@IndexResources.FollowCourses</h2>
+                        <div>@IndexResources.FindCourses</div>
+                    </div>
+                </div>                
+                <ol id="BoxList" class="myAreaList clearfix">
+                    <li class="box">
+                        <a class="addBtn browse"
+                           href="@Url.Action("Index","Library")" data-navigation="Library">@SharedResources.BrowseCourses</a>
+                    </li>
+
+                    <li ng-repeat="box in academicBoxes" class="box" id="dash{{box.id}}" ng-include="'dashBoxTemplate'">
+
+                    </li>
+
+                </ol>
+
+            </section>
+            <section class="groupBoxes">
+        <header class="boxesHeader">@IndexResources.MyGroup</header>
+        <div ng-hide="groupBoxes.length > 0" class="emptyDash">
+            <div class="groupEmpty">
+                <h2 class="boldFont">@IndexResources.WhereStudy</h2>
+                <div>@IndexResources.UploadContent</div>
+            </div>
+        </div>
+                <ol id="BoxList" class="myAreaList clearfix">
+                    <li ng-repeat="box in groupBoxes" class="box" id="dash{{box.id}}" ng-include="'dashBoxTemplate'">
+
+                    </li>
+</ol>
+    </section>
+        </div>
+        <script type="text/ng-template" id="dashBoxTemplate">
+           
+                <a data-navigation="Box" ng-href="{{box.url}}">
+                    <div ng-show="numOfUpdates.length > 0" class="boxNotify">{{box.numOfUpdates}}</div>
+                    <div>
+                        <img class="boxImg" src="{{box.boxPicture}}" alt="" width="77" height="98" />
+                        <ul class="boxHoverList">
+                            <li class="hoverItem itemImg">{{box.itemCount}}</li>
+                            <li class="hoverItem memberImg">{{box.membersCount}}</li>
+                            <li class="hoverItem commentImg">{{box.commentCount}}</li>
+                        </ul>
+                    </div>
+                    <div class="boxWpr clamp2">
+                        <span class="boxName">{{box.name}}</span>
+                    </div>
+                    <span class="courseCode elps">{{box.courseCode}}</span>
+                    <span class="courseCode propName elps">{{box.professor}}</span>
+                </a>
+                <button type="button" class="removeItem" ng-show="box.userType !== 'none'" ng-click="removeBox" data-title="removeBoxTitle"></button>           
+        </script>
+
+    </div>
+    @{
+        //Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
+        
+
+    }
+</div>

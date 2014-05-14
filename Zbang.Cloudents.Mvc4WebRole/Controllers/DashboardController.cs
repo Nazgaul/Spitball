@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return PartialView(taskData.Result);
             }
-            return View(taskData.Result);
+            return View("Index2",taskData.Result);
         }
 
         private Zbang.Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbang.Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
