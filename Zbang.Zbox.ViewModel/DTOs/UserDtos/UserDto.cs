@@ -9,7 +9,13 @@
         public string Name
         {
             get { return m_Name; }
-            set { m_Name.Trim(); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    m_Name = value.Trim();
+                }
+            }
         }
         public long Uid { get; set; }
 
