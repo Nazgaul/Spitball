@@ -3,13 +3,18 @@
     [System.Serializable]
     public class UserDto
     {
+        private string m_Name;
         public string Image { get; set; }
         public string LargeImage { get; set; }
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return m_Name; }
+            set { m_Name.Trim(); }
+        }
         public long Uid { get; set; }
 
         public string Url { get; set; }
-        
+
     }
 
     public class UserMinProfile
@@ -24,7 +29,7 @@
     }
 
     [System.Serializable]
-    public class UserDetailDto :UserDto
+    public class UserDetailDto : UserDto
     {
         public UserDetailDto()
         {
