@@ -115,6 +115,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateUrl", "GenerateUrl\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuplicateQuiz", "DuplicateQuiz\DuplicateQuiz.csproj", "{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.UniversityCreator", "UniversityCreator\Zbang.Zbox.UniversityCreator.csproj", "{821AEEF0-D260-45DD-8A57-4C180A55430C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -1085,6 +1087,31 @@ Global
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.Release|x86.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{821AEEF0-D260-45DD-8A57-4C180A55430C}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1133,6 +1160,7 @@ Global
 		{53CAEB74-7727-4F39-98E4-8170D5C21791} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{8BC82B02-49C4-4056-A48F-E174E609D43E} = {EDC210D9-AF1F-42CB-B44A-E9AEDA8511C2}
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C} = {EDC210D9-AF1F-42CB-B44A-E9AEDA8511C2}
+		{821AEEF0-D260-45DD-8A57-4C180A55430C} = {EDC210D9-AF1F-42CB-B44A-E9AEDA8511C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4

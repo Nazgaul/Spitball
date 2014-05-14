@@ -5,6 +5,8 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
+using System.Configuration;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Storage
 {
@@ -34,22 +36,30 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
         private static void ConfigureStorageAccount()
         {
-            if (RoleEnvironment.IsAvailable)
+            try
             {
-                StorageCredentials x = new StorageCredentials();
-
-                //Microsoft.WindowsAzure.Storage.Auth.StorageCredentials x = new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
-                //CloudStorageAccount.SetConfigurationSettingPublisher(
-                //    (configName, configSetter) => configSetter(RoleEnvironment.GetConfigurationSettingValue(configName)));
-
-                _cloudStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-
+                _cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
             }
-            else
+            catch (ConfigurationErrorsException)
             {
-                //_cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==");
-               _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             }
+            //if (RoleEnvironment.IsAvailable)
+            //{
+            //    StorageCredentials x = new StorageCredentials();
+
+            //    //Microsoft.WindowsAzure.Storage.Auth.StorageCredentials x = new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
+            //    //CloudStorageAccount.SetConfigurationSettingPublisher(
+            //    //    (configName, configSetter) => configSetter(RoleEnvironment.GetConfigurationSettingValue(configName)));
+
+            //    _cloudStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+
+            //}
+            //else
+            //{
+            //    //_cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==");
+            //   _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            //}
             // not need every time
             CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
             CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
