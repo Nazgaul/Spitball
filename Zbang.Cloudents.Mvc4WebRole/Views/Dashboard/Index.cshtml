@@ -79,9 +79,9 @@
                 </div>
                 <!--/ko-->
                 <ol class="myAreaList clearfix">
-                    @*<li class="box">
+                    <li class="box">
                         <button class="addBtn" data-bind="click: addBox">@SharedResources.CreateNew</button>
-                    </li>*@
+                    </li>
                     <!--ko template:{name:'dashBoxTemplate', foreach : privateBoxes}-->
                     <!--/ko-->
                 </ol>
@@ -132,7 +132,7 @@
         </script>
     </div>
     @{
-        //Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
+        Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
         Html.RenderPartial("_Friends");
 
     }
