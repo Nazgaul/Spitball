@@ -92,7 +92,9 @@
         template: "<div class='ng-modal' ng-show='show'>\n \
                     <div class='ng-modal-overlay'></div>\n \
                     <div class='ng-modal-dialog' ng-style='dialogStyle'>\n \
+                    <header class='popupHeader'>\n \
                     <span class='ng-modal-title' ng-show='dialogTitle && dialogTitle.length' ng-bind='dialogTitle'></span>\n  \
+                    </header>\n \
                     <div class='ng-modal-close' ng-click='hideModal()'>\n \
                     <div ng-bind-html='closeButtonHtml'></div>\n \
                     </div>\n \
