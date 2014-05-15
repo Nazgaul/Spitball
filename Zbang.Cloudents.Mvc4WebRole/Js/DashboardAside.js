@@ -97,9 +97,6 @@
 //            self.id = data.uid;
 //            self.url = data.url;// + '?r=dashboard&s=friends';
 //        }
-
-
-
 //        utils.pubsub.subscribe('dashSideD', function (d) {
 //            mapData({ Wall: d.wall, Friends: d.friend });
 //        });
@@ -163,7 +160,6 @@
 
 //        }
 
-
 //        analytics.setLibrary($('.uniText').text());
 
 //        $('#dash_Product').click(function () {
@@ -215,8 +211,6 @@
 //            document.getElementById('closeShowFriends').onclick = function (e) {
 //                changeFriendsPopupView(false, true);
 //            };
-
-
 //            //$(membersList).on('change', '.checkbox', function (e) {
 //            //    var checkboxes = dashShowFriends.querySelectorAll('.memberItem input:checked');
 //            //    if (checkboxes.length) {
@@ -224,11 +218,7 @@
 //            //        return;
 //            //    }
 //            //    sendAMsgBtm.style.display = 'none';
-
-
 //            //});
-
-
 //            $(membersList).on('click', '.inviteUserBtn', function (e) {
 
 //                var id = getListItem(e.target).id,
@@ -236,8 +226,6 @@
 //                triggerMessagePopup([{ id: friend.id, name: friend.name, userImage:friend.image }]);
 
 //            });
-
-
 //            //document.getElementById('friendsSettings').addEventListener('change', function () {
 //            //    var checkboxes = membersList.getElementsByClassName('checkbox'),
 //            //        state = this.checked;

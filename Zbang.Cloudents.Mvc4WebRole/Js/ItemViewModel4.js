@@ -44,7 +44,6 @@
         flagRequest = true, flagPopupEvents = true, firstTime = true, rateMenuOpen = false, choosedRate = false, initialRate = 0, loaded = true,
         $bubbleText = $rateBubble.find('.bubbleText'), ratePopupTimeout, ratedItems;
 
-
         //#endregion
 
         //#region observables
@@ -70,7 +69,6 @@
         self.uniName = ko.observable();
 
         //#endregion        
-
 
         //#region ko events
 
@@ -114,7 +112,6 @@
                 }
                 cd.resetForm($flagItemDialog.find('form'));
                 $flagItemDialog.hide();
-
 
             });
 
@@ -176,7 +173,6 @@
             if (!$selected.length) {
                 return;
             }
-
 
             if ($selected.is(consts.firstChild)) {
                 $arrow = $itemPrev;
@@ -330,7 +326,6 @@
 
                 cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
 
-
                 cd.pubsub.publish(consts.itemLoad, null, function () {
                     cd.innerScroll($itemMoreFiles, $(window).height() - $itemMoreFiles.offset().top);
                     itemPageLoad.resolve();
@@ -347,8 +342,6 @@
                 if ($rated.length) {
                     $rated.toggleClass(consts.rated).text(5 - $rated.index());
                 }
-
-
 
                 function fillVariables() {
                     ownerid = data.ownerUid;
@@ -1294,7 +1287,6 @@
                 ctx = getContext('annotation' + annotation.imageId);
                 clearRectangle(ctx);
 
-
             })
             .on('click', '.show-more', function (e) {
                 trackAnnotation('moreAnnotationClick');
@@ -1376,7 +1368,6 @@
                 var label = $(this).next()[0];
                 if (commentShow) {
                     label.title = label.getAttribute('data-hidecomments');
-
 
                 } else {
                     label.title = label.getAttribute('data-showcomments');

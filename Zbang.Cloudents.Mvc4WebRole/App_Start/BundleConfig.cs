@@ -97,8 +97,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
             //test
             RegisterJs("test",
-                new JsFileWithCdn("~/Scripts/angular.js"),
-                new JsFileWithCdn("~/Scripts/angular-resource.js"),
+                new JsFileWithCdn("~//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"),
+                //new JsFileWithCdn("~//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.min.js"),
                 new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
                 new JsFileWithCdn("~/Js/app/services.js"),
                 new JsFileWithCdn("~/Js/app/filters.js"),

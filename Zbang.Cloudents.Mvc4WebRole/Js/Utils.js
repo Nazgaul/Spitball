@@ -4,11 +4,11 @@
         return;
     }
 
-    var notification = function (msg) {        
+    var notification = function (msg) {
         alert(msg);
     };
 
-    var confirm = function (msg, trueCallback, falseCallback) {        
+    var confirm = function (msg, trueCallback, falseCallback) {
         if (trueCallback && !$.isFunction(trueCallback)) {
             throw 'trueCallback should be function';
         }
@@ -115,21 +115,21 @@
             item = list[i];
 
             loopElements(item.children);
-            
+
             if (!subtree) {
                 continue;
             }
 
-            loopElements(item.getElementsByTagName('*'));            
+            loopElements(item.getElementsByTagName('*'));
         }
         function loopElements(list) {
-            for (var i = 0, l = list.length; i < l; i++) {                
+            for (var i = 0, l = list.length; i < l; i++) {
                 setDirection(list[i]);
             }
         }
 
         function setDirection(item) {
-            if (item.getAttribute('data-ignore-rtl')) {                
+            if (item.getAttribute('data-ignore-rtl')) {
                 $(item).css('direction', textAlign);
                 return;
             }
@@ -1074,6 +1074,28 @@
         //analytics.trackSocial(url, 'share');
     };
 
+    var alreadyPosted = false;
+    var postFb = function (name, description, link, picture, caption) {
+
+        if (alreadyPosted) {
+            return;
+        }
+
+        alreadyPosted = true;
+
+
+        var params = {
+            name: name,
+            description: description,
+            link: link,
+            picture: '/images/cloudents.png',
+            caption: 'CLOUDENTS'
+        }
+
+        FB.api('/me/feed', 'post', params, function (response) {            
+        });
+    };
+
     var highlightSearch = function (term, name, className) {
         var className = className || 'boldPart',
             firstPart = '<span class="' + className + '" data-ignore-rtl="true">',
@@ -1287,6 +1309,7 @@
     //cd.switchBackToMobile = switchBackToMobile;
     cd.loaderOn = loaderOn;
     cd.shareFb = shareFb;
+    cd.postFb = postFb;
     //cd.setTitle = setTitle;
 
     cd.clone = clone;

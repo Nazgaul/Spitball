@@ -43,7 +43,11 @@
                 dataContext.subscribeBox({
                     data: { BoxUid: that.uid }
                 });
-                analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
+                cd.postFb(that.name,
+                'I joined {0} on Cloudents, online social studying platform'.format(that.name),
+                ////In Hebrew "גם אני הצטרפתי ל{0} בקלאודנטס, המאגר האקדמי שלי"
+                cd.location());
+                //analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
             };
 
 

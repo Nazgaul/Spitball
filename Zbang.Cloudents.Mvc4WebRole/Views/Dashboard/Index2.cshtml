@@ -25,22 +25,15 @@
                 <div id="dash_friends">
                     <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="toggleShowFriends()" id="showUserFriends" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
                     <ul class="friendsList" id="dash_Friend">
-                        <li class="friendItem" ng-repeat="friend in friends">
+                        <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
                             <a href="{{friend.url}}" data-navigation="user">
                                 <img class="friendImg calloutTrgr" src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
                             </a>
                         </li>
-
                         <li class="friendItem friendBtn" data-action="true">
                             <a data-navigation="invite" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents"
                                href="@Url.Action("Index", "Invite", new {boxid = "" })" class="inviteFriendBtn btn3"></a>
-
-
-
                         </li>
-
-
-
                     </ul>
                 </div>
                 <div class="feedList" id="dash_feed">

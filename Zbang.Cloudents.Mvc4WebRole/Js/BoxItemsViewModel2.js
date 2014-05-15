@@ -11,7 +11,6 @@
         ko.applyBindings(new BoxItemViewModel(), $('#box_items')[0]);
     }
 
-
     function BoxItemViewModel() {
         function BaseItem(data) {
             data = data || {};
@@ -89,7 +88,6 @@
         self.loaded = ko.observable(false);
         self.loadedAnimation = ko.observable(false);
 
-
         self.currentView = ko.observable('BoxItemsThumbViewTemplate');
 
         self.viewMode = function (item) {
@@ -131,7 +129,6 @@
             self.manageTab('');
             self.loaded(false).loadedAnimation(false).items([]);
         });
-
 
         function getItems() {
             self.loaded(false).loadedAnimation(false);
@@ -228,7 +225,6 @@
             cd.pubsub.publish('upload');
         };
 
-
         cd.pubsub.subscribe('addItem', function (d) {
             if (d.boxid !== boxid) {
                 return;
@@ -242,7 +238,6 @@
                 } else {
                     newItem = new Item(d);
                 }
-
 
                 var x = ko.utils.arrayFirst(self.items(), function (i) {
                     return i.uid === newItem.uid;
@@ -267,14 +262,10 @@
                 cd.pubsub.publish('clear_cache');
                 cd.loadImages(document.getElementById('BoxItemList'));
 
-
             } catch (e) {
                 console.log(e);
             }
-
-
         });
-
 
         cd.pubsub.subscribe('addedItem', function (d) {
             if (d.boxid === boxid) {
@@ -282,20 +273,15 @@
                 d.item.isNew = true;
                 cd.pubsub.publish('addItem', d.item);
             }
-
-
             cd.newUpdates.addUpdate({ itemId: d.item.id, boxId: d.boxid });
         });
         //#endregion
-
 
         self.emptyState = ko.computed(function () {
             return self.loaded() && !self.items().length;
         });
 
         //#region remove item
-
-
 
         self.removeQuiz = function (quiz) {
             if (quiz.ownerId !== cd.userDetail().nId) {

@@ -5,7 +5,6 @@
 
     var firstLoad = true, waitingForPageLoad = true;
 
-
     var privateLocation = {
         title: document.title,
         url: location.pathname.replace(/[\/\/]+/, '/') + location.search
@@ -101,7 +100,6 @@
         loader.parentElement.removeChild(loader);
     }
 
-
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
@@ -143,8 +141,6 @@
         }
         //historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
         changeHistoryState();
-
-
 
         locationChanged();
     });
@@ -197,8 +193,6 @@
         }
 
         historyNav.push(clonedLocation);
-
-
         //save history to local storage
         cd.historyManager.save();
 
@@ -260,7 +254,6 @@
                 break;
         }
 
-
     }
     function userContext(data) {
         pubsub.publish('user');
@@ -297,8 +290,6 @@
         //    case 'search':
         //        pubsub.publish('dash_search', { query: getParameterFromUrl(2) });
         //        break;
-
-
         //    default:
         //        pubsub.publish('dash_boxes');
         //        break;
