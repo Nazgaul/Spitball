@@ -40,6 +40,35 @@ namespace DuplicateQuiz
 
         private async void buttonDuplicate_Click(object sender, EventArgs e)
         {
+            var boxids = new string[] { 
+                textBoxBoxId.Text,
+                textBoxBoxId2.Text,
+            textBoxBoxId3.Text,
+            textBoxBoxId4.Text,
+            textBoxBoxId5.Text,
+            textBoxBoxId6.Text,
+            textBoxBoxId7.Text,
+            textBoxBoxId8.Text,
+            textBoxBoxId9.Text,
+            textBoxBoxId10.Text,
+            textBoxBoxId11.Text,
+            textBoxBoxId12.Text,
+            textBoxBoxId13.Text,
+            textBoxBoxId14.Text,
+            textBoxBoxId15.Text,
+            textBoxBoxId16.Text,
+            textBoxBoxId17.Text,
+            textBoxBoxId18.Text,
+            textBoxBoxId19.Text,
+            textBoxBoxId20.Text};
+
+            var boxIdIntLong = boxids.Select(s =>
+            {
+                long i;
+                long.TryParse(s, out i);
+                return i;
+            });
+
 
             var retVal = new QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnection())
@@ -63,41 +92,47 @@ namespace DuplicateQuiz
 
                 }
             }
-            var idGenerator = Unity.Resolve<Zbang.Zbox.Infrastructure.IdGenerator.IIdGenerator>();
-            var zboxWriteService = Unity.Resolve<Zbang.Zbox.Domain.Common.IZboxWriteService>();
-
             var userId = long.Parse(ConfigurationManager.AppSettings["UserId"]);
-            var quizId =  idGenerator.GetId(Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator.QuizScope);
-
-            var createQuizCommand = new CreateQuizCommand(
-                userId,
-               quizId,
-                retVal.Quiz.Name,
-                long.Parse(textBoxBoxId.Text));
-
-
-            zboxWriteService.CreateQuiz(createQuizCommand);
-
-            foreach (var question in retVal.Quiz.Questions)
+            foreach (var item in boxIdIntLong.Where(w => w != 0))
             {
-                var questionId = idGenerator.GetId();
-                var createQuestionCommand = new CreateQuestionCommand(
-                    question.Text, quizId, userId, questionId);
-                zboxWriteService.CreateQuestion(createQuestionCommand);
 
-                foreach (var answer in question.Answers)
+                MessageBox.Show(item.ToString());
+                var idGenerator = Unity.Resolve<Zbang.Zbox.Infrastructure.IdGenerator.IIdGenerator>();
+                var zboxWriteService = Unity.Resolve<Zbang.Zbox.Domain.Common.IZboxWriteService>();
+
+                var quizId = idGenerator.GetId(Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator.QuizScope);
+
+                var createQuizCommand = new CreateQuizCommand(
+                    userId,
+                   quizId,
+                    retVal.Quiz.Name,
+                    item);
+
+
+                zboxWriteService.CreateQuiz(createQuizCommand);
+
+                foreach (var question in retVal.Quiz.Questions)
                 {
-                    var createAnswerCommand = new CreateAnswerCommand(
-                        userId, idGenerator.GetId(), answer.Text,
-                        answer.Id == question.CorrectAnswer, questionId
-                        );
-                    zboxWriteService.CreateAnswer(createAnswerCommand);
+                    var questionId = idGenerator.GetId();
+                    var createQuestionCommand = new CreateQuestionCommand(
+                        question.Text, quizId, userId, questionId);
+                    zboxWriteService.CreateQuestion(createQuestionCommand);
+
+                    foreach (var answer in question.Answers)
+                    {
+                        var createAnswerCommand = new CreateAnswerCommand(
+                            userId, idGenerator.GetId(), answer.Text,
+                            answer.Id == question.CorrectAnswer, questionId
+                            );
+                        zboxWriteService.CreateAnswer(createAnswerCommand);
+                    }
                 }
+
+                zboxWriteService.SaveQuiz(new SaveQuizCommand(userId, quizId));
             }
-
-            zboxWriteService.SaveQuiz(new SaveQuizCommand(userId, quizId));
-
             MessageBox.Show("Done");
         }
+
+
     }
 }
