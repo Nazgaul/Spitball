@@ -862,6 +862,7 @@
     <Content Include="Js\app\app.js" />
     <Content Include="Js\app\controller.js" />
     <Content Include="Js\app\directives.js" />
+    <Content Include="Js\app\filters.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\BoxSettings.js" />

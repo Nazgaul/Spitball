@@ -344,3 +344,4 @@
 /// <reference path="../js/resources/zboxresources.zh.js" />
 /// <reference path="jquery-ui-1.10.4.js" />
 /// <reference path="jquery.mcustomscrollbar.js" />
+/// <reference path="../js/app/filters.js" />

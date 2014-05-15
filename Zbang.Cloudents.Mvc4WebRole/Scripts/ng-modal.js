@@ -28,7 +28,7 @@
   });
 
   app.directive('modalDialog', [
-    'ngModalDefaults', '$sce','PartialView', function(ngModalDefaults, $sce,PartialView) {
+    'ngModalDefaults', '$sce', '$compile', 'PartialView', function (ngModalDefaults, $sce, $compile, PartialView) {
       return {
         restrict: 'E',
         scope: {
@@ -49,7 +49,12 @@
               PartialView.fetch({
                   data: { name: scope.viewName },
                   success: function (data) {
-                      element[0].getElementsByClassName('ng-modal-dialog-content')[0].insertAdjacentHTML('beforeend', data);
+                      var el = angular.element(data),
+                          compiled = $compile(el);
+                      
+                      
+                      element.find('.ng-modal-dialog-content').append(el);
+                      compiled(scope.$parent);
                   },
                   error: function () {
                       console.log('view doesn\'t exist');
@@ -68,7 +73,10 @@
           scope.hideModal = function() {
             return scope.show = false;
           };
-          scope.$watch('show', function(newVal, oldVal) {
+          scope.$watch('show', function (newVal, oldVal) {
+              if (newVal && !scope.dialogContentHtml) {
+                  setupViewContent();
+              }
             if (newVal && !oldVal) {
               document.getElementsByTagName("body")[0].style.overflow = "hidden";
             } else {
@@ -78,11 +86,18 @@
               return scope.onClose();
             }
           });
-          setupViewContent();
           setupCloseButton();
           return setupStyle();
         },
-        template: "<div class='ng-modal' ng-show='show'>\n  <div class='ng-modal-overlay'></div>\n  <div class='ng-modal-dialog' ng-style='dialogStyle'>\n    <span class='ng-modal-title' ng-show='dialogTitle && dialogTitle.length' ng-bind='dialogTitle'></span>\n    <div class='ng-modal-close' ng-click='hideModal()'>\n      <div ng-bind-html='closeButtonHtml'></div>\n    </div>\n    <div class='ng-modal-dialog-content' ng-transclude></div>\n  </div>\n</div>"
+        template: "<div class='ng-modal' ng-show='show'>\n \
+                    <div class='ng-modal-overlay'></div>\n \
+                    <div class='ng-modal-dialog' ng-style='dialogStyle'>\n \
+                    <span class='ng-modal-title' ng-show='dialogTitle && dialogTitle.length' ng-bind='dialogTitle'></span>\n  \
+                    <div class='ng-modal-close' ng-click='hideModal()'>\n \
+                    <div ng-bind-html='closeButtonHtml'></div>\n \
+                    </div>\n \
+                    <div class='ng-modal-dialog-content' ng-transclude ng-bind-html='dialogContentHtml'></div>\n  \
+                    </div>\n</div>"
       };
     }
   ]);
