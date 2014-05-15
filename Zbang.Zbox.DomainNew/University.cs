@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain
         }
 
         public virtual ICollection<Library> Libraries { get; set; }
-        public virtual string AliasName { get; private set; }
+        //public virtual string AliasName { get; private set; }
         public virtual bool NeedCode { get; private set; }
         public virtual University DataUnversity { get; private set; }
 

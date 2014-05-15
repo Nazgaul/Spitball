@@ -82,9 +82,6 @@
     <Compile Include="InviteToCloudentsRepository.cs" />
     <Compile Include="IQuestionRepository.cs" />
     <Compile Include="ItemTabRepository.cs" />
-    <Compile Include="IUniversityRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="IUpdatesRepository.cs" />
     <Compile Include="IUserBoxRelRepository.cs" />
     <Compile Include="IUserRepository.cs" />
@@ -93,9 +90,6 @@
     <Compile Include="QuestionRepository.cs" />
     <Compile Include="ItemRateRepository.cs" />
     <Compile Include="RegisterIoc.cs" />
-    <Compile Include="UniversityRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="UpdatesRepository.cs" />
     <Compile Include="UserBoxRelRepository.cs" />
     <Compile Include="UserRepository.cs" />

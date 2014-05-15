@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RegisterIoc.cs" />
+    <Compile Include="ZboxSearchService.cs" />
     <Compile Include="ZboxWriteService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZboxWorkerRoleService.cs" />

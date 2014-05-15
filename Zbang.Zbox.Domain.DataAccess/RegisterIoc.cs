@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<IUserRepository, UserRepository>();
             ioc.RegisterType<IUserBoxRelRepository, UserBoxRelRepository>();
             ioc.RegisterType<IBoxRepository, BoxRepository>();
-            ioc.RegisterType<IUniversityRepository, UniversityRepository>();
+            //ioc.RegisterType<IUniversityRepository, UniversityRepository>();
             ioc.RegisterType<IAcademicBoxRepository, AcademicBoxRepository>();
             //ioc.RegisterType<IActionRepository, ActionRepository>();
 

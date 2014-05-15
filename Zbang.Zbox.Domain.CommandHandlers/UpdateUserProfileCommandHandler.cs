@@ -9,15 +9,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateUserProfileCommandHandler : ICommandHandler<UpdateUserProfileCommand>
     {
         private readonly IUserRepository m_UserRepository;
-        private readonly IUniversityRepository m_UniversityRepository;
-        private readonly IQueueProvider m_QueueProvider;
 
-        public UpdateUserProfileCommandHandler(IUserRepository userRepository, IUniversityRepository universityRepository,
-            IQueueProvider queueProvider)
+        public UpdateUserProfileCommandHandler(IUserRepository userRepository)
         {
             m_UserRepository = userRepository;
-            m_UniversityRepository = universityRepository;
-            m_QueueProvider = queueProvider;
         }
         public void Handle(UpdateUserProfileCommand command)
         {

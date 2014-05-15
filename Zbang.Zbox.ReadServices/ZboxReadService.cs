@@ -589,27 +589,27 @@ where m.RecepientId = @userid
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query)
-        {
-            //const int pageNumber = 20;
-            using (var conn = await DapperConnection.OpenConnection())
-            {
-                //var transferLetter = IocFactory.Unity.Resolve<IEnglishToHebrewChars>();
-                //var stemmer = IocFactory.Unity.Resolve<IHebrewStemmer>();
-                //var filter = IocFactory.Unity.Resolve<IFilterWords>();
+        //public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query)
+        //{
+        //    //const int pageNumber = 20;
+        //    using (var conn = await DapperConnection.OpenConnection())
+        //    {
+        //        //var transferLetter = IocFactory.Unity.Resolve<IEnglishToHebrewChars>();
+        //        //var stemmer = IocFactory.Unity.Resolve<IHebrewStemmer>();
+        //        //var filter = IocFactory.Unity.Resolve<IFilterWords>();
 
-                //var hebrewLetters = stemmer.StemAHebrewWord(transferLetter.TransferEnglishCharsToHebrew(query.Prefix));
-                ////var hebrewLetters = transferLetter.TransferEnglishCharsToHebrew(query.Prefix);
-                //hebrewLetters = filter.removeWords(hebrewLetters);
-                //var filteredQuery = filter.removeWords(query.Prefix);
+        //        //var hebrewLetters = stemmer.StemAHebrewWord(transferLetter.TransferEnglishCharsToHebrew(query.Prefix));
+        //        ////var hebrewLetters = transferLetter.TransferEnglishCharsToHebrew(query.Prefix);
+        //        //hebrewLetters = filter.removeWords(hebrewLetters);
+        //        //var filteredQuery = filter.removeWords(query.Prefix);
 
-                return await conn.QueryAsync<UniversityByPrefixDto>(Sql.Sql.GetUniversitiesList);
-                //    , new
-                //{
-                //    country = query.Country,
-                //});
-            }
-        }
+        //        return await conn.QueryAsync<UniversityByPrefixDto>(Sql.Sql.GetUniversitiesList);
+        //        //    , new
+        //        //{
+        //        //    country = query.Country,
+        //        //});
+        //    }
+        //}
 
         public async Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId)
         {
