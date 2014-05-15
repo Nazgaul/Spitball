@@ -19,12 +19,17 @@ cloudentsServices.factory('Dashboard', function ($http) {
     return {
         boxList: function (payload) {
             submitRequest($http,'/Dashboard/BoxList', methods.GET, payload.data, payload.success, payload.error);
-        },
+        }
+    };
+});
+cloudentsServices.factory('User', function ($http) {
+    return {
         friends: function (payload) {
             submitRequest($http, '/User/Friends', methods.GET, payload.data, payload.success, payload.error);
         }
     };
 });
+
 
 
 cloudentsServices.factory('Box', function ($http) {

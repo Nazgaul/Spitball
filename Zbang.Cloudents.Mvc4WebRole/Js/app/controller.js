@@ -1,4 +1,4 @@
-﻿var dashboard = angular.module('mDashboard', ['ngResource', 'apiService','ngModal']);
+﻿var dashboard = angular.module('mDashboard', ['ngResource', 'apiService','ngModal','Filters']);
 
 dashboard.config(function (ngModalDefaultsProvider) {
     return ngModalDefaultsProvider.set({
@@ -23,12 +23,12 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard','Box', functi
         document.getElementById('dashboard').style.display = 'block';
         document.getElementById('mLoading').style.display = 'none';
         }
-    });;
+    });
 
     //var friends = Dashboard.friends.(function (data) {
     //    console.log(friends);
     //    console.log(data);
-    //});
+    //})
     $scope.title = 'CoursesFollow';
     //$scope.title = ZboxResources.CoursesFollow;
     
@@ -85,27 +85,41 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard','Box', functi
 
 }]);
 
-dashboard.controller('DashboardAsideController', function ($scope) {
+dashboard.controller('DashboardAsideController',['$scope','User', function ($scope,User) {
     var dashWall = document.getElementById('dash_Wall'),
         dashWallTextItem = dashWall.getAttribute('data-itemText'),
         dashWallTextComment = dashWall.getAttribute('data-commenttext');
 
    var activityAction = function (activity) {
-        switch (activityAction.action) {
-            case 'item': return dashWallTextItem;
-            case 'question': return dashWallTextComment;
-            case 'answer': return dashWallTextComment;
-            default:
-                return '';
+       switch (activityAction.action) {
+           case 'item': return dashWallTextItem;
+           case 'question': return dashWallTextComment;
+           case 'answer': return dashWallTextComment;
+           default:
+               return '';
 
-        }
+       };
    }
-
+   
    $scope.showAllDialogShown = false;
    $scope.toggleShowFriends = function () {
-       $scope.showAllDialogShown = !$scope.showAllDialogShown;
+       User.friends({
+           success: function (data) {
+               $scope.users = data.payload.my;
+               $scope.showAllDialogShown = !$scope.showAllDialogShown;
+
+           }
+       });
+       
    };
 
-});
+   $scope.sendUserMessage = function (user) {
+       $scope.showAllDialogShown = false;
+       var friend = [{ id: user.uid, name: user.name, userImage: user.image }];
+       cd.pubsub.publish('messageFromPopup', { id: ''.id, data: friend });
+
+   }
+
+}]);
 
  
