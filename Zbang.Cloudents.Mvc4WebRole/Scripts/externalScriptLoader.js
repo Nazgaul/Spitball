@@ -76,8 +76,6 @@ TrackTiming.prototype.send = function () {
     return this;
 };
 
-
-
 (function (cd, $) {
     function async_load(src, shouldAsync) {
         try {

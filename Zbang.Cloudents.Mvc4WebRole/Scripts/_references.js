@@ -100,3 +100,4 @@
 /// <reference path="../js/resources/zboxresources.js" />
 /// <reference path="../js/resources/zboxresources.ru.js" />
 /// <reference path="../js/resources/zboxresources.zh.js" />
+/// <reference path="../js/app/filters.js" />

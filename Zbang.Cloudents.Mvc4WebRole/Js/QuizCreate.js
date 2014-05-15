@@ -11,13 +11,11 @@
         quizCloseDraft, quizCloseDelete, quizWrapper, quizWrapperHeight,
         quizToggle, transitioning = false, scrollCreated = false;
 
-
     assignDomElements();
 
     function assignDomElements() {
         quizSideBar = eById('quizSideBar'),
         mainDiv = eById('main');
-
 
         if (!quizSideBar) {
             return;
@@ -78,15 +76,11 @@
             return;
         }
 
-
         boxId = data.boxId;
         boxName = data.boxName;
         initQuiz(data.quizId);
 
-
     });
-
-
 
     function initQuiz(quizId) {
 
@@ -131,8 +125,6 @@
                 data: { quizId: quizId },
                 success: function (data) {
                     data = data || {};
-
-
                     populateQuiz(data);
                     showQuiz();
                     registerEvents();
@@ -253,7 +245,6 @@
 
         answers.removeClass('emptyText');
 
-
         if (validAnswers.length < 2) {
             var answer, found = 0;
             for (var i = 0; i < 2 && found < 2; i++) {
@@ -267,10 +258,7 @@
             error = true;
             errorClass += 'answerReq';
 
-
             count++;
-
-
             if (count === consts.emptyQuestion && validAnswers.length === 1) {
                 count--;
 
@@ -280,9 +268,6 @@
                 answers.removeClass('emptyText');
             }
         }
-
-
-
 
         if (count > consts.validQuestion && count < consts.emptyQuestion && !noChangeErrorState) {
             $question.addClass(errorClass);
@@ -792,8 +777,6 @@
             question = $(answer).parents('.questionHolder')[0],
             questionId = question.getAttribute('data-id'),
             answerId = answer.getAttribute('data-id');
-
-
 
         if (this.type === 'textarea') { //check if user focusout the answer or clicked the radio button
             answerInput = this;

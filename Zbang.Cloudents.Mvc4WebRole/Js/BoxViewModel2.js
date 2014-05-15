@@ -205,6 +205,10 @@
                 data: { BoxUid: self.boxid }
             });
 
+            cd.postFb(self.name(),
+                'I joined {0} on Cloudents, online social studying platform'.format(self.name()),
+                //In Hebrew "גם אני הצטרפתי ל{0} בקלאודנטס, המאגר האקדמי שלי"
+                cd.location());                     
         };
 
 

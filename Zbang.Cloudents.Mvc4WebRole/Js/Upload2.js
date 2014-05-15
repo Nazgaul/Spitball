@@ -318,6 +318,12 @@
                 up.settings.multipart_params.tabId = file.tabid;
                 up.settings.multipart_params.boxName = file.boxName;
                 up.settings.multipart_params.uniName = file.uniName;
+
+
+                cd.postFb(file.boxName,
+                'I uploaded {0} to Cloudents, online social studying platform'.format(file.name),
+                ////In Hebrew "גם אני שיטפתי {0} בקלאודנטס, המאגר האקדמי שלי"
+                cd.location());
             }
             catch (err) {
             }

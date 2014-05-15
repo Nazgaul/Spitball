@@ -12,6 +12,7 @@
 (function () {
     var cdnPath = '/cdn/', scriptsPath = '/Scripts/',
     cdnCdPath = 'vo.msecnd.net/';
+    cdnGooglePath = 'ajax.googleapis.com';
 
     window.onload = function () {
         cssFailCallback();
@@ -38,9 +39,14 @@
 
         files = getCDNScripts();
 
-        for (var i = 0, l = files.length; i < l; i++) {
-            loadScript(cdnPath + getFilename(files[i]));
+        for (var i = 0, l = files.google.length; i < l; i++) {
+            loadScript(scriptsPath + getFilename(files.google[i]));
         }
+
+        for (var i = 0, l = files.cloudents.length; i < l; i++) {
+            loadScript(cdnPath + getFilename(files.cloudents[i]));
+        }
+     
     }
 
     function getCDNStylesheets() {
@@ -55,17 +61,19 @@
     }
 
     function getCDNScripts() {
-        var link, files = [];
+        var link, cloudents = [], google= [];
         for (var i = 0, l = document.scripts.length ; i < l; i++) {
             link = document.scripts[i].getAttribute('src');
             if (link) {
                 if (link.indexOf(cdnCdPath) > -1) {
-                    files.push(link);
+                    cloudents.push(link);
+                } else if (link.indexOf(cdnGooglePath) > -1) {
+                    google.push(link);
                 }
             }
         }
 
-        return files;
+        return { cloudents: cloudents, google: google };
     }
 
     function loadStylesheet(url) {

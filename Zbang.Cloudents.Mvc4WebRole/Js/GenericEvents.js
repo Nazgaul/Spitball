@@ -55,15 +55,12 @@
     //#endregion
     //#endregion
 
-
     //#region window resize 
     var resizeFunc = cd.debounce(function () {
         cd.pubsub.publish('windowChanged');
     }, 50);
     $window.resize(resizeFunc);
     //#endregion
-
-
 
     //#region close dialog
     $document.on('click', '[data-closeDiag]', function () {
@@ -347,8 +344,6 @@
 
 
     });
-
-
     //#endregion scrolling
 
     //#region new to the user
@@ -435,12 +430,10 @@
                 for (var i = 0, l = data.length; i < l; i++) {
                     currentUpdate = data[i];
 
-
                     addUpdate(currentUpdate)
                 }
 
                 updates[userId].ttl = new Date().getTime();
-
 
             }
         }
@@ -458,8 +451,6 @@
                 updates[userId][update.boxId].answers = [];
                 updates[userId][update.boxId].annotations = {};
             }
-
-
             if (update.itemId) {
                 if (updates[userId][update.boxId].items.indexOf(update.itemId) === -1) {
                     updates[userId][update.boxId].items.push(parseInt(update.itemId, 10));
