@@ -369,7 +369,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     break;
                 case 1173:
                     ViewBag.AgudaName = "אגודת הסטודנטים בסימינר הקיבוצים";
-                    ViewBag.AgudaMail = "academic.aguda@smkb.ac.il";
+                    ViewBag.AgudaMail = "maagar.aguda@gmail.com";
                     ViewBag.AgudaPhone = string.Empty;
                     break;
                 case 22906:
