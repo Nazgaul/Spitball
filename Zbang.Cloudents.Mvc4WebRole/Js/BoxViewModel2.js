@@ -206,8 +206,7 @@
             });
 
             cd.postFb(self.name(),
-                'I joined {0} on Cloudents, online social studying platform'.format(self.name()),
-                //In Hebrew "גם אני הצטרפתי ל{0} בקלאודנטס, המאגר האקדמי שלי"
+                JsResources.IJoined.format(self.name()),
                 cd.location());                     
         };
 

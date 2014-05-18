@@ -192,4 +192,10 @@
   <data name="AddComment" xml:space="preserve">
     <value>Add your comment</value>
   </data>
+  <data name="IJoined" xml:space="preserve">
+    <value>I joined {0} on Cloudents, our free online social studying platform</value>
+  </data>
+  <data name="IUploaded" xml:space="preserve">
+    <value>I uploaded {0} to Cloudents, our free online social studying platform</value>
+  </data>
 </root>

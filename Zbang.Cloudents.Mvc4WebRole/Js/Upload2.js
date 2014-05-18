@@ -321,8 +321,7 @@
 
 
                 cd.postFb(file.boxName,
-                'I uploaded {0} to Cloudents, online social studying platform'.format(file.name),
-                ////In Hebrew "גם אני שיטפתי {0} בקלאודנטס, המאגר האקדמי שלי"
+                JsResources.IUploaded.format(file.name),
                 cd.location());
             }
             catch (err) {

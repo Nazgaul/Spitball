@@ -572,11 +572,16 @@ footer {
   top: 7px;
 }
 .faq.staticPage {
-  margin-top: -65px;
   text-align: left;
   /*rtl*/
   color: #383838;
   background: url(/Images/gray_jean80.png) repeat;
+  min-height: 100vh;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 50px;
+  margin: -115px 0 -50px;
 }
 .faq .contactLink {
   color: #0371c8;
