@@ -109,7 +109,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var country = GetUserCountryByIP();
 
             var query = new GetUniversityByPrefixQuery();
-            var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
+           // var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
 
             var haveUniversity = false;
             var userData = m_FormsAuthenticationService.GetUserData();
@@ -118,7 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 haveUniversity = true;
             }
             JsonNetSerializer serializer = new JsonNetSerializer();
-            ViewBag.data = serializer.Serialize(result.OrderByDescending(o => o.MemberCount));
+            //ViewBag.data = serializer.Serialize(result.OrderByDescending(o => o.MemberCount));
             //result;
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();

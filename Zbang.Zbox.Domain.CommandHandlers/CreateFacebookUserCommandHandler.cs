@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         public CreateFacebookUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
-            IUniversityRepository universityRepository,
+            IRepository<University> universityRepository,
             IInviteToCloudentsRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
             : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository)

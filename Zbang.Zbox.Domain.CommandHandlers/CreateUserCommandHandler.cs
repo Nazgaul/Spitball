@@ -13,13 +13,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected readonly IUserRepository m_UserRepository;
         protected readonly IQueueProvider m_QueueRepository;
-        protected readonly IUniversityRepository m_UniversityRepository;
+        protected readonly IRepository<University> m_UniversityRepository;
         protected readonly IInviteToCloudentsRepository m_InviteToCloudentsRepository;
         protected readonly IRepository<Reputation> m_ReputationRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
-            IUniversityRepository universityRepository,
+            IRepository<University> universityRepository,
             IInviteToCloudentsRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
         {

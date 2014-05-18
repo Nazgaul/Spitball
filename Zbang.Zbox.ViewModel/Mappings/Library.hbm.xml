@@ -32,7 +32,7 @@
   </resultset>
 
   <!--Get list of universities - used in university choose page-->
-  <sql-query name="GetUniversitiesList" read-only="1">
+  <!--<sql-query name="GetUniversitiesList" read-only="1">
     <![CDATA[
     select u.userid as Uid , 
     coalesce(AliasName,userName) as Name,
@@ -45,7 +45,7 @@
       like '%' + :prefix + '%' or coalesce(u.AliasName,u.userName) like '%' + :prefixHeb + '%'))
     order by MemberCount desc
       ]]>
-  </sql-query>
+  </sql-query>-->
 
   <!--Lib page-->
   <sql-query name="GetUniversityDataByUserId" read-only="true" resultset-ref="LibraryDetails">

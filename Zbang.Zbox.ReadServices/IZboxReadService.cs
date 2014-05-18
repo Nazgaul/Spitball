@@ -50,7 +50,7 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<Box.BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query);
         NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query);
 
-        Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query);
+        //Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query);
         //IEnumerable<string> GetUniversityByPrefix(GetUniversityQuery query);
         
 

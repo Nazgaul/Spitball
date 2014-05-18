@@ -76,7 +76,7 @@
 
 
     <subclass name="University" discriminator-value="1">
-      <property name="AliasName" />
+      <!--<property name="AliasName" />-->
       <property name="UniversityName"/>
       
       <property name="NeedCode" />

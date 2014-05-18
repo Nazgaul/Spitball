@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
     public class UpdateUserUniversityCommandHandlerTests
     {
         private IUserRepository m_StubUserRepository;
-        private IUniversityRepository m_StubUniversityRepository;
+        private IRepository<University> m_StubUniversityRepository;
         private IRepository<Department> m_StubDepartmentRepository;
         private IRepository<Student> m_StubStudentRepository;
 
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         public void Setup()
         {
             m_StubUserRepository = MockRepository.GenerateStub<IUserRepository>();
-            m_StubUniversityRepository = MockRepository.GenerateStub<IUniversityRepository>();
+            m_StubUniversityRepository = MockRepository.GenerateStub<IRepository<University>>();
 
             m_StubDepartmentRepository = MockRepository.GenerateStub<IRepository<Department>>();
             m_StubStudentRepository = MockRepository.GenerateStub<IRepository<Student>>();
