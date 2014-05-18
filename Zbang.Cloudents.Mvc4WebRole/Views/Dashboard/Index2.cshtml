@@ -22,7 +22,7 @@
                 </button>
             }
             <div class="dashLists">
-                <div id="dash_friends">
+                <div id="dash_friends" class="dashFriends">
                     <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="toggleShowFriends()" id="showUserFriends" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
                     <ul class="friendsList" id="dash_Friend">
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
@@ -38,7 +38,7 @@
                 </div>                
                     <div class="feedList" id="dash_feed">
                         <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
-                        <div>
+                        <div class="activityWpr">
                             <ul class="asideList dash" id="dash_Wall" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
 
                                 <li class="activityItem" ng-repeat="activity in wall">
