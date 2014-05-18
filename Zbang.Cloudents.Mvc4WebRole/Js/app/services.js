@@ -9,7 +9,7 @@ var cloudentsServices = angular.module('apiService', ['jmdobry.angular-cache']).
     });
 }),
 
-    methods = { POST: 'POST', GET: 'GET' };
+methods = { POST: 'POST', GET: 'GET' };
 
 cloudentsServices.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -18,7 +18,7 @@ cloudentsServices.config(['$httpProvider', function ($httpProvider) {
 cloudentsServices.factory('Dashboard', function ($http) {
     return {
         boxList: function (payload) {
-            submitRequest($http,'/Dashboard/BoxList', methods.GET, payload.data, payload.success, payload.error);
+            submitRequest($http, '/Dashboard/BoxList', methods.GET, payload.data, payload.success, payload.error);
         }
     };
 });
@@ -43,7 +43,7 @@ cloudentsServices.factory('Box', function ($http) {
         update: function (payload) {
             submitRequest($http, '/Box/UpdateInfo', methods.POST, payload.data, payload.success, payload.error);
         }
-        
+
     };
 });
 
@@ -56,5 +56,5 @@ cloudentsServices.factory('PartialView', function ($http) {
 });
 
 function submitRequest($http, url, method, data, success, error) {
-    $http({ method: method, url: url, params:data }).success(success).error(error);
+    $http({ method: method, url: url, params: data }).success(success).error(error);
 }

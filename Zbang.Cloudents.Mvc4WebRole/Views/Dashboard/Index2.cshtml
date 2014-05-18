@@ -22,7 +22,7 @@
                 </button>
             }
             <div class="dashLists">
-                <div id="dash_friends">
+                <div id="dash_friends" ng-class="{twoLines : twoLinesFriends}">
                     <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="toggleShowFriends()" id="showUserFriends" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
                     <ul class="friendsList" id="dash_Friend">
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">

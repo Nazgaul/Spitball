@@ -239,15 +239,16 @@
 
     @*@Search*@
     <script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>
-    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
+    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>    
     @Html.Script2("General")
-    @Html.Script2("test")
+    @Html.Script2("angular")
     @Html.Script2("cd1")
     @RenderSection("scripts", false)
 
     @if (User.Identity.IsAuthenticated)
     {
         <iframe id="fconnect" src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
+        
     }
 
 </body>
