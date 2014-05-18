@@ -44,8 +44,8 @@
                     data: { BoxUid: that.uid }
                 });
                 cd.postFb(that.name,
-                'I joined {0} on Cloudents, online social studying platform'.format(that.name),
-                ////In Hebrew "גם אני הצטרפתי ל{0} בקלאודנטס, המאגר האקדמי שלי"
+                JsResources.IJoined.format(that.name),
+
                 cd.location());
                 //analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
             };

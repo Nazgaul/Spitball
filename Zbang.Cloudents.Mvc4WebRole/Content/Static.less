@@ -617,10 +617,14 @@ footer {
     }
 
     &.staticPage {
-        margin-top: -65px;
         text-align: left; /*rtl*/
         color: @textColor;
         background: url(/Images/gray_jean80.png) repeat;
+
+        min-height: 100vh;
+        .boxSizing;
+        padding-top: @header-height;
+        margin: -115px 0 -@header-height;
     }
 
     .contactLink {

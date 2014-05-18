@@ -104,8 +104,8 @@
 /*#endregion */
 /*#region faq */
 .faq aside {
-  margin: 59px 15px 0 0;
-  /*rtl*/
+  margin: 6px 15px 0 0;
+  /* diff rtl*/
   padding: 17px 69px 0 8px;
   /*rtl*/
 }

@@ -142,11 +142,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I joined {0} on Cloudents, our free online social studying platform.
+        /// </summary>
+        public static string IJoined {
+            get {
+                return ResourceManager.GetString("IJoined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I shared.
         /// </summary>
         public static string IShared {
             get {
                 return ResourceManager.GetString("IShared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I uploaded {0} to Cloudents, our free online social studying platform.
+        /// </summary>
+        public static string IUploaded {
+            get {
+                return ResourceManager.GetString("IUploaded", resourceCulture);
             }
         }
         

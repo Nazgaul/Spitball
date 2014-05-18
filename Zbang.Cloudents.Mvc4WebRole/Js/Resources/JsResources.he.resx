@@ -195,4 +195,10 @@
   <data name="AddComment" xml:space="preserve">
     <value>כתוב תגובה...</value>
   </data>
+  <data name="IJoined" xml:space="preserve">
+    <value>גם אני הצטרפתי ל{0} בקלאודנטס, המאגר האקדמי שלי</value>
+  </data>
+  <data name="IUploaded" xml:space="preserve">
+    <value>גם אני שיתפתי {0} בקלאודנטס, המאגר האקדמי שלי</value>
+  </data>
 </root>
