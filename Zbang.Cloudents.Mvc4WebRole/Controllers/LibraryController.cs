@@ -401,8 +401,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 case 1128:
                     ViewBag.AgudaSentence = "המאגר האקדמי של אוניברסיטת בר אילן פתוח לכל חברי אגודת הסטודנטים של אוניברסיטת בר אילן.  אימות חברי אגודה ע\"י מספר ת\"ז";
-                    ViewBag.AgudaMail = "aguda4u.co.il@gmail.com";
-                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-9628930";
+                    ViewBag.AgudaMail = "pniyot@bis.org.il";
+                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-5343666";
                     break;
                 default:
                     ViewBag.AgudaSentence = "המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.  אימות חברי אגודה ע\"י מספר ת\"ז";
