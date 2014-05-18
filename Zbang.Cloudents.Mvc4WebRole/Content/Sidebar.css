@@ -153,6 +153,21 @@
   content: attr(data-dash-invite);
   display: inline-block;
 }
+.dashFriends.twoLines ~ .feedList {
+  height: -webkit-calc(100% - 132px);
+  height: calc(100% - 132px);
+}
+.feedList {
+  height: -webkit-calc(100% - 93px);
+  height: calc(100% - 93px);
+}
+.activityWpr {
+  height: -webkit-calc(100% - 32px);
+  height: calc(100% - 32px);
+}
+.activityWpr .asideList {
+  height: 100%;
+}
 .updateContent {
   margin-left: 3px;
   /*rtl*/

@@ -22,7 +22,7 @@
                 </button>
             }
             <div class="dashLists">
-                <div id="dash_friends">
+                <div id="dash_friends" ng-class="{twoLines : twoLinesFriends}" class="dashFriends">
                     <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="toggleShowFriends()" id="showUserFriends" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
                     <ul class="friendsList" id="dash_Friend">
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
@@ -35,29 +35,29 @@
                                href="@Url.Action("Index", "Invite", new {boxid = "" })" class="inviteFriendBtn btn3"></a>
                         </li>
                     </ul>
-                </div>
-                <div class="feedList" id="dash_feed">
-                    <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
-                    <div>
-                        <ul class="asideList dash" id="dash_Wall" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
+                </div>                
+                    <div class="feedList" id="dash_feed">
+                        <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
+                        <div class="activityWpr">
+                            <ul class="asideList dash" id="dash_Wall" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
 
-                            <li class="activityItem" ng-repeat="activity in wall">
-                                <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
-                                    <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
-                                </a>
-                                <div class="latest">
-                                    <a data-navigation="Box" href="{{activity.url}}">
-                                        <div class="latestName elps">{{activity.boxName}}</div>
-                                        <span class="semiFont">{{activity.userName}}</span>
-                                        <span class="activityAction">{{activityAction}}</span>
+                                <li class="activityItem" ng-repeat="activity in wall">
+                                    <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
+                                        <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
                                     </a>
-                                </div>
-                            </li>
+                                    <div class="latest">
+                                        <a data-navigation="Box" href="{{activity.url}}">
+                                            <div class="latestName elps">{{activity.boxName}}</div>
+                                            <span class="semiFont">{{activity.userName}}</span>
+                                            <span class="activityAction">{{activityAction}}</span>
+                                        </a>
+                                    </div>
+                                </li>
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
             <modal-dialog show="showAllDialogShown" view-name="_Friends2" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
             </modal-dialog>
         </aside>

@@ -144,6 +144,11 @@
 .popupWrppr.requestSent .closeDialog {
   background-position: -79px -15px;
 }
+.popupWrppr.boxSettings {
+  width: 700px;
+  max-height: none;
+  padding-bottom: 0;
+}
 .popupWrppr.itemRename {
   color: #383838;
 }

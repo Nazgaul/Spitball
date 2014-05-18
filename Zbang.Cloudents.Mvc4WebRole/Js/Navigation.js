@@ -294,6 +294,7 @@
         //        pubsub.publish('dash_boxes');
         //        break;
         //}
+        showPage($('#dashboard'));
         pubsub.publish('dash_boxes');
     }
     function libraryContext() {
@@ -374,8 +375,13 @@
                 case 'dashboard':
                     dataContext.dashBoardMp({
                         success: function (html) {
-                            main.insertAdjacentHTML('beforeend', html);
-                            pubsub.publish('DashboardContext', null, dashboardContext);
+                            var el = angular.element(html);
+                            var result = cd.$compile(el);
+                            $(main).append(el);
+                            result(cd.$scope.main);
+                                
+                            //main.insertAdjacentHTML('beforeend', html);
+                            //pubsub.publish('DashboardContext', null, dashboardContext);
                         },
                         error: function () {
                             location.reload();

@@ -1,4 +1,4 @@
-﻿var dashboard = angular.module('mDashboard', ['ngResource', 'apiService','ngModal','Filters']);
+﻿var dashboard = angular.module('mDashboard', ['apiService', 'ngModal', 'Filters']);
 
 dashboard.config(function (ngModalDefaultsProvider) {
     return ngModalDefaultsProvider.set({
@@ -6,8 +6,7 @@ dashboard.config(function (ngModalDefaultsProvider) {
     });
 });
 
-dashboard.controller('DashboardController', ['$scope', 'Dashboard','Box', function ($scope, Dashboard,Box) {
-
+dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', function ($scope, Dashboard, Box) {
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];
 
@@ -17,11 +16,15 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard','Box', functi
             $scope.friends = data.payload.friends;
 
             mapBoxes(data.payload.boxes);
-        
 
-        $scope.contentLoaded = true;
-        document.getElementById('dashboard').style.display = 'block';
-        document.getElementById('mLoading').style.display = 'none';
+            
+            if (data.payload.friends.length > 4) {
+                $scope.twoLinesFriends = true;
+            }
+
+            $scope.contentLoaded = true;
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('mLoading').style.display = 'none';
         }
     });
 
@@ -31,18 +34,13 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard','Box', functi
     //})
     $scope.title = 'CoursesFollow';
     //$scope.title = ZboxResources.CoursesFollow;
-    
-
-    $scope.getPartialHTML = function (box) {
-        return document.getElementById('dashBoxTemplate').innerHTML;
-    };
 
     $scope.removeBox = function (box) {
         Box.create.query(function () { });
 
     };
 
-    
+
     $scope.creatingBox = false;
     //$scope.createBox = function () {                            
     //        analytics.trackEvent('Dashboard', 'Create privte box', 'Number of clicks on "create" after writing down the box name');
@@ -85,41 +83,40 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard','Box', functi
 
 }]);
 
-dashboard.controller('DashboardAsideController',['$scope','User', function ($scope,User) {
+dashboard.controller('DashboardAsideController', ['$scope', 'User', function ($scope, User) {
     var dashWall = document.getElementById('dash_Wall'),
         dashWallTextItem = dashWall.getAttribute('data-itemText'),
         dashWallTextComment = dashWall.getAttribute('data-commenttext');
 
-   var activityAction = function (activity) {
-       switch (activityAction.action) {
-           case 'item': return dashWallTextItem;
-           case 'question': return dashWallTextComment;
-           case 'answer': return dashWallTextComment;
-           default:
-               return '';
+    var activityAction = function (activity) {
+        switch (activityAction.action) {
+            case 'item': return dashWallTextItem;
+            case 'question': return dashWallTextComment;
+            case 'answer': return dashWallTextComment;
+            default:
+                return '';
 
-       };
-   }
-   
-   $scope.showAllDialogShown = false;
-   $scope.toggleShowFriends = function () {
-       User.friends({
-           success: function (data) {
-               $scope.users = data.payload.my;
-               $scope.showAllDialogShown = !$scope.showAllDialogShown;
+        };
+    }
 
-           }
-       });
-       
-   };
+    $scope.showAllDialogShown = false;
+    $scope.toggleShowFriends = function () {
+        User.friends({
+            success: function (data) {
+                $scope.users = data.payload.my;
+                $scope.showAllDialogShown = !$scope.showAllDialogShown;
 
-   $scope.sendUserMessage = function (user) {
-       $scope.showAllDialogShown = false;
-       var friend = [{ id: user.uid, name: user.name, userImage: user.image }];
-       cd.pubsub.publish('messageFromPopup', { id: ''.id, data: friend });
+            }
+        });
 
-   }
+    };
+
+    $scope.sendUserMessage = function (user) {
+        $scope.showAllDialogShown = false;
+        var friend = [{ id: user.uid, name: user.name, userImage: user.image }];
+        cd.pubsub.publish('messageFromPopup', { id: ''.id, data: friend });
+
+    }
 
 }]);
 
- 
