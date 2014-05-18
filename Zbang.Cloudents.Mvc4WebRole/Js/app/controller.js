@@ -1,4 +1,4 @@
-﻿var dashboard = angular.module('mDashboard', ['ngResource', 'apiService','ngModal','Filters']);
+﻿var dashboard = angular.module('mDashboard', ['apiService','ngModal','Filters']);
 
 dashboard.config(function (ngModalDefaultsProvider) {
     return ngModalDefaultsProvider.set({
@@ -7,7 +7,6 @@ dashboard.config(function (ngModalDefaultsProvider) {
 });
 
 dashboard.controller('DashboardController', ['$scope', 'Dashboard','Box', function ($scope, Dashboard,Box) {
-
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];
 
