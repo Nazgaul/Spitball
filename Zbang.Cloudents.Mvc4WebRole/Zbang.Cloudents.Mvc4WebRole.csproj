@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -649,6 +649,7 @@
     <Content Include="Content\ItemMobileRtl.min.css">
       <DependentUpon>ItemMobileRtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
@@ -1295,8 +1296,8 @@
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4..js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
-    <Content Include="Scripts\jquery.mCustomScrollbar.min.js" />
-    <Content Include="Scripts\jquery.mousewheel.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Scripts\jquery.mousewheel.min.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
@@ -1305,7 +1306,7 @@
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Content\ng-modal.css" />
-    <Content Include="Scripts\ng-modal.js" />    
+    <Content Include="Scripts\ng-modal.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
