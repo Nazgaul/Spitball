@@ -30,8 +30,8 @@
         dataContext.getItems({
             data: { BoxUid: boxid, pageNumber: 0 },
             success: function (data) {
-                for (var i = 0, length = data.dto.length; i < length; i++) {
-                    itemsinBox.push(data.dto[i].id);
+                for (var i = 0, length = data.length; i < length; i++) {
+                    itemsinBox.push(data[i].id);
                 }
                 calculatePosition();
                 prevItem.removeAttribute('disabled');
