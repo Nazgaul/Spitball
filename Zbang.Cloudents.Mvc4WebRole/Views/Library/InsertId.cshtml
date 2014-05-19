@@ -10,8 +10,7 @@
             Html.RenderAction("AntiForgeryToken", "Home", true);
             <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png")" alt="" width="108" height="114" />
             <div>
-                המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.
-                אימות חברי אגודה ע"י מספר ת"ז
+                @ViewBag.AgudaSentence
             </div>
 
             @Html.HiddenFor(m => m.UniversityId)
