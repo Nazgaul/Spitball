@@ -818,7 +818,13 @@
     line-height: 28px;
     border-bottom: 1px solid @borderColor;
     background: #f5f5f5;
-
+    .checkbox:checked {
+        ~ .deptCol:after {
+            .flipV;
+            margin-top: 11px; // move flipped arrow
+            vertical-align: top;// up by 2px
+        }
+    }
     .deptCol {
         cursor: pointer;
 

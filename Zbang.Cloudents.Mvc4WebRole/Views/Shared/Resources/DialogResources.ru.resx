@@ -271,7 +271,7 @@
     <value>Загруженные файлы</value>
   </data>
   <data name="UploadFiles" xml:space="preserve">
-    <value>Загрузка файлов</value>
+    <value>Загрузить ресурс</value>
   </data>
   <data name="UploadingFiles" xml:space="preserve">
     <value>Идет загрузка файлов</value>
