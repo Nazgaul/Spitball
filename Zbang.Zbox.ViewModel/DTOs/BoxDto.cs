@@ -23,7 +23,8 @@ namespace Zbang.Zbox.ViewModel.DTOs
             ItemCount = itemCount;
             if (!string.IsNullOrEmpty(boxPicture))
             {
-                BoxPicture = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
+                var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                BoxPicture = blobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
             }
             MembersCount = membersCount;
             CommentCount = commentCount;
@@ -45,7 +46,8 @@ namespace Zbang.Zbox.ViewModel.DTOs
             ItemCount = itemCount;
             if (!string.IsNullOrEmpty(boxPicture))
             {
-                BoxPicture = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
+                var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                BoxPicture = blobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
             }
             MembersCount = membersCount;
             CommentCount = commentCount;

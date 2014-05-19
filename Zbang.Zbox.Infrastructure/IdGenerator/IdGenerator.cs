@@ -1,8 +1,11 @@
-﻿using NHibernate.Id;
+﻿using Microsoft.WindowsAzure.Storage;
+using NHibernate.Id;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.IdGenerator
@@ -16,9 +19,23 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
         public const string QuizScope = "Quiz";
         SnowMaker.BlobOptimisticDataStore m_DataStorage;
         SnowMaker.UniqueIdGenerator m_Generator;
-        public IdGenerator()
+        public IdGenerator(IBlobProvider blobProvider)
         {
-            m_DataStorage = new SnowMaker.BlobOptimisticDataStore(Storage.StorageProvider.ZboxCloudStorage, BlobProvider.AzureIdGeneratorContainer.ToLower());
+            //TODO temp
+            CloudStorageAccount _cloudStorageAccount;
+            try
+            {
+                _cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
+            }
+            catch (ConfigurationErrorsException)
+            {
+                _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            }
+            m_DataStorage = new SnowMaker.BlobOptimisticDataStore(
+                _cloudStorageAccount,
+                //BlobProvider.AzureIdGeneratorContainer.ToLower()
+                "zboxIdGenerator"
+                );
             m_Generator = new SnowMaker.UniqueIdGenerator(m_DataStorage) { BatchSize = 20 };
         }
 

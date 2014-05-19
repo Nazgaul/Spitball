@@ -64,5 +64,14 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<Stream> GetFAQQeustion();
 
         string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double experationTimeInMinutes);
+
+
+        string ProfileContainerUrl { get; }
+
+        string BlobContainerUrl { get; }
+
+        string GetThumbnailUrl(string blobName);
+        string GetThumbnailLinkUrl();
+        string GetBlobUrl(string blobName);
     }
 }

@@ -74,13 +74,13 @@ namespace Zbang.Zbox.Infrastructure.Profile
         {
             for (int i = StartIndexOfPicturesUser; i < StartIndexOfPicturesUser + NumberOfRandomPicturesOfUser; i++)
             {
-                var uri = BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(FileName + i, ImageSize.S50X50);
-                var uriLarge = BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(FileName + i, ImageSize.S100X100);
+                var uri = m_BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(FileName + i, ImageSize.S50X50);
+                var uriLarge = m_BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(FileName + i, ImageSize.S100X100);
                 m_DefaultUserProfilePictures.Add(new ProfileImages(uri, uriLarge));
             }
 
-            var libUri = BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(LibName + "1", ImageSize.S50X50);
-            var libUriLarge = BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(LibName + "1", ImageSize.S100X100);
+            var libUri = m_BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(LibName + "1", ImageSize.S50X50);
+            var libUriLarge = m_BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(LibName + "1", ImageSize.S100X100);
             m_LibDefaultProfilePicture = new ProfileImages(libUri, libUriLarge);
         }
 
