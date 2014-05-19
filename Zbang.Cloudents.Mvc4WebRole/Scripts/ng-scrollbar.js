@@ -75,7 +75,7 @@ angular.module('ngScrollbar', []).
 
         var wheelHandler = function(event) {
 
-          var wheelDivider = 20; // so it can be changed easily
+          var wheelDivider = 10; // so it can be changed easily
 
           var deltaY = event.wheelDeltaY !== undefined ?
             event.wheelDeltaY / wheelDivider :
