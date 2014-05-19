@@ -25,6 +25,10 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
             $scope.contentLoaded = true;
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('mLoading').style.display = 'none';
+
+
+            //rebuildscrollbar
+            $scope.$broadcast('rebuild:me');
         }
     });
 
