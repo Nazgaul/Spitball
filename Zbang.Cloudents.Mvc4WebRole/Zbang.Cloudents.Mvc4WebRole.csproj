@@ -680,6 +680,12 @@
     <Content Include="Content\Modal.min.css">
       <DependentUpon>Modal.css</DependentUpon>
     </Content>
+    <Content Include="Content\ng-scrollbar.css">
+      <DependentUpon>ng-scrollbar.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ng-scrollbar.min.css">
+      <DependentUpon>ng-scrollbar.css</DependentUpon>
+    </Content>
     <Content Include="Content\QnA.css">
       <DependentUpon>QnA.less</DependentUpon>
     </Content>
@@ -1032,6 +1038,7 @@
     <Content Include="Content\Fonts\Alef-regular.woff" />
     <Content Include="Content\Fonts\web.config" />
     <None Include="Content\lang.he-IL.less" />
+    <Content Include="Content\ng-scrollbar.less" />
     <None Include="Js\CDNFallback.min.js.map">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </None>
@@ -1307,6 +1314,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Content\ng-modal.css" />
     <Content Include="Scripts\ng-modal.js" />
+    <Content Include="Scripts\ng-scrollbar.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

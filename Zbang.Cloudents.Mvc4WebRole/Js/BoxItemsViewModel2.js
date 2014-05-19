@@ -71,7 +71,7 @@
             if (data.sponsored) {
                 document.getElementById('BoxItemList').classList.add('sponsored');
             }
-
+            
             if (data.description) {
                 that.description = data.description;
                 that.noPreview = '';
