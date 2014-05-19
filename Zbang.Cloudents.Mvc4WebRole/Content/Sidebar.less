@@ -98,6 +98,16 @@
         right: 10px; /*rtl*/
         top: 25px;
     }
+    ~ .dashLists {
+        .asideList.dash {
+            margin-top: -@ActivityListOffsetProduct;
+            padding-top: @ActivityListOffsetProduct;
+        }
+        .twoLines ~ .feedList .dash {
+            margin-top: -@ActivityListOffsetProduct2Lines;
+            padding-top: @ActivityListOffsetProduct2Lines;
+        }
+    }
 }
 
 .closeProducts {
@@ -161,23 +171,18 @@
         }
     }
 }
-.dashFriends.twoLines {
-    ~ .feedList {
-        height: ~'-webkit-calc(100% - 132px)';
-        height: ~'calc(100% - 132px)';
-    }
-}
+
 .feedList {
-    height: ~'-webkit-calc(100% - 93px)';
-    height: ~'calc(100% - 93px)';
+    //height: ~'-webkit-calc(100% - 93px)';
+    //height: ~'calc(100% - 93px)';
 }
-.activityWpr {
+/*.activityWpr {
     height: ~'-webkit-calc(100% - 32px)';
     height: ~'calc(100% - 32px)';
     .asideList {
         height: 100%;
     }
-}
+}*/
 .activityAction {
     //word-break:normal;
 }
@@ -193,10 +198,30 @@
 .asideImg.top {
     vertical-align: top;
 }
+@asideTopHeight: 160px;
+@dashProductHeight: 55px;
+@dashFriendsHeight: 93px;
+@dashFriendsHeight2Lines: 132px;
+@ActivityHeaderHeight: 32px;
+@ActivityListOffset: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight;
+@ActivityListOffset2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight;
+@ActivityListOffsetProduct: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight + @dashProductHeight;
+@ActivityListOffsetProduct2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight + @dashProductHeight;
+
+.dashFriends.twoLines {
+    ~ .feedList .dash {
+        margin-top: -@ActivityListOffset2Lines;
+        padding-top: @ActivityListOffset2Lines;
+    }
+}
 
 .asideList {
     padding: 0 5px 0 10px; /*rtl*/
     position: relative;
+    //height: @ActivityListOffset;
+    //height: @ActivityListOffset2Lines;
+    //height: @ActivityListOffsetProduct;
+    //height: @ActivityListOffsetProduct2Lines;
 
     .activityItem {
         margin-bottom: 10px;
@@ -210,13 +235,19 @@
         }
     }
 
-    &.dash > .activityItem {
-        margin: 0 8px 7px 0; /* rtl override the .asideList > .activityItem rule */
-        border-bottom: 1px solid #E7E7E7;
-        padding-bottom: 7px;
+    &.dash {
+        height: 100vh;
+        margin-top: -@ActivityListOffset;
+        padding-top: @ActivityListOffset;
+        .boxSizing;
+        > .activityItem {
+            margin: 0 8px 7px 0; /* rtl override the .asideList > .activityItem rule */
+            border-bottom: 1px solid #E7E7E7;
+            padding-bottom: 7px;
 
-        &:last-child {
-            margin-bottom: 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 }
