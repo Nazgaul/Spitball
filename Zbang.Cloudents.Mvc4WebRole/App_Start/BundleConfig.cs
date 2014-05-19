@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 "~/Content/Settings.css",
                 "~/Content/DashLib.css", 
                 "~/Content/ng-modal.css",
-                "~/Content/jquery.mCustomScrollbar.css");
+                "~/Content/ng-scrollbar.css");
 
             RegisterCss("staticRtl", "~/Content/GeneralRtl.css",
                 "~/Content/StaticRtl.css",
@@ -101,12 +101,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"),
                 new JsFileWithCdn("~//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
                 new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
+                new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
                 new JsFileWithCdn("~/Js/app/services.js"),
                 new JsFileWithCdn("~/Js/app/filters.js"),
                 new JsFileWithCdn("~/Js/app/directives.js"),
                 new JsFileWithCdn("~/Scripts/ng-modal.js"),
                 new JsFileWithCdn("~/Js/app/app.js"),
-                new JsFileWithCdn("~/Js/app/controller.js")
+                new JsFileWithCdn("~/Js/app/controller.js")                                
              );
 
 
@@ -155,8 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
                 new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
                 new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
-                new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min"),
-                new JsFileWithCdn("~/Scripts/jquery.mousewheel.js"),
+
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
 
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),

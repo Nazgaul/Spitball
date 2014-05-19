@@ -101,3 +101,4 @@
 /// <reference path="plupload/plupload.silverlight.js" />
 /// <reference path="jquery.mcustomscrollbar.concat.min.js" />
 /// <reference path="jquery.mousewheel.min.js" />
+/// <reference path="../js/app/angular-mcustomscrollbar.js" />
