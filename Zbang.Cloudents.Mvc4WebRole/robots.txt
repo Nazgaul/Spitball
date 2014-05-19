@@ -4,5 +4,7 @@ disallow: /dashboard/
 disallow: /library/
 disallow: /user/
 disallow: /invite/
+disallow: /Account/ChangeLanguage
+disallow: /Account/ForgotPassword
 
 Sitemap: https://www.cloudents.com/sitemap.xml
