@@ -129,7 +129,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
                 return excelExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }

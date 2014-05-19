@@ -30,15 +30,17 @@ using Item = Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 using Qna = Zbang.Zbox.ViewModel.DTOs.Qna;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService
     {
-        public ZboxReadService(IHttpContextCacheWrapper contextCacheWrapper)
+        private readonly IBlobProvider m_BlobProvider;
+        public ZboxReadService(IHttpContextCacheWrapper contextCacheWrapper, IBlobProvider blobProvider)
             : base(contextCacheWrapper)
         {
-
+            m_BlobProvider = blobProvider;
         }
         const int DefaultPageSize = 50;
 
@@ -417,6 +419,9 @@ where m.RecepientId = @userid
                 var itemsDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQnAItem");
                 itemsDbQuery.SetInt64("boxId", query.BoxId);
                 itemsDbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Qna.FileDto), typeof(Qna.LinkDto)));
+
+
+
                 var fItems = itemsDbQuery.Future<Qna.ItemDto>();
 
 
@@ -505,7 +510,10 @@ where m.RecepientId = @userid
                     var ownedBoxes = grid.Read<SearchBoxes>();
                     var universityBoxes = grid.Read<SearchBoxes>();
                     retVal.Users = grid.Read<SearchUsers>();
-                    retVal.Items = grid.Read<SearchItems>();
+                    retVal.Items = grid.Read<SearchItems>().Select(s=> {
+                        s.Image = m_BlobProvider.GetThumbnailUrl(s.Image);
+                        return s;
+                    });
 
 
                     retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.PageSize);
@@ -520,6 +528,11 @@ where m.RecepientId = @userid
                          userId = query.UserId,
                          offsetV = query.Offset,
                          pageSize = query.PageSize
+                     });
+                     retVal.OtherItems.Select(s =>
+                     {
+                         s.Image = m_BlobProvider.GetThumbnailUrl(s.Image);
+                         return s;
                      });
                 }
             }

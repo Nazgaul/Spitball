@@ -36,6 +36,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Dapper;
 using System.Text.RegularExpressions;
+using Zbang.Zbox.Infrastructure.Azure.Search;
 
 namespace Testing
 {
@@ -68,6 +69,7 @@ namespace Testing
 
         static async Task<string> GetTitle(string url)
         {
+           
             using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) })
             {
 
@@ -108,6 +110,8 @@ namespace Testing
 
         static void Main(string[] args)
         {
+            //UniversitySearchProvider x = new UniversitySearchProvider();
+            //x.BuildUniversityData();
             var x2 = @". עיקרי תוכנית בוורידג*. 
 תכנית השמה לה ליעד להביא לחיסול המחסור בתקופה שלאחר המלחמה. המטרה האסטרטגית של התוכנית הייתה ליצור מערכת מקיפה של ביטחון סוציאלי, שתבטיח לכל אדם רמת מינימום של הכנסה. רמת המינימום נועדה להיות מספיקה לקיום, אך לשמש בתור רצפה בלבד, שאף אחד לא ייפול מתחתיה. על הרצפה הזו, יוכל כל אחד להוסיף לעצמו הכנסה מעבודה, או חסכון. היעד השני של התוכנית היה, שבנוסף לחופש ממחסור, אנגליה תבנה מדיניות חברתית מקיפה לקידום חברתי, שתכלול גם מאבק ב ענקיםהבאים: חולי, בערות, עוני, ואבטלה. התוכנית נועדה ליצור מערכת ביטחון סוציאלי, שתלווה כל אדם מהעריסה עד הקבר ותבטיח לו הכנסת מינימום.
 האם תוכנית בוורידג' רלוונטית לימינו? – התבססות על מאמריהם של לאה אחדות ואברהם דורון:";
@@ -168,8 +172,8 @@ namespace Testing
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
 
-            var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
-            var y = x.GetId();
+            //var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
+            //var y = x.GetId();
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;

@@ -7,6 +7,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Emails
 {
     public class ItemDigestDto
     {
+        
         private string m_Picture;
         public string UserName { get; set; }
         public long Id { get; set; }
@@ -14,7 +15,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.Emails
         public string Picture { get { return m_Picture; }
             set
             {
-                m_Picture = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(value);
+                var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                m_Picture = blobProvider.GetThumbnailUrl(value);
             }
         }
         public long UserId { get; set; }

@@ -37,16 +37,18 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         private static string loadResource(string resourceName)
         {
-            
-            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
-            if (stream != null)
+
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
             {
-                var content = new byte[stream.Length];
-                stream.Position = 0;
-                stream.Read(content, 0, (int)stream.Length);
-                return Encoding.UTF8.GetString(content);
+                if (stream != null)
+                {
+                    var content = new byte[stream.Length];
+                    stream.Position = 0;
+                    stream.Read(content, 0, (int)stream.Length);
+                    return Encoding.UTF8.GetString(content);
+                }
+                return string.Empty;
             }
-            return string.Empty;
         }
     }
 }

@@ -200,10 +200,8 @@
     <Compile Include="Storage\ILocalStorageProvider.cs" />
     <Compile Include="Storage\IQueueProvider.cs" />
     <Compile Include="Storage\ITableProvider.cs" />
-    <Compile Include="Storage\LocalStorageProvider.cs" />
     <Compile Include="Storage\QueueExtension.cs" />
     <Compile Include="Storage\QueueName.cs" />
-    <Compile Include="Storage\TableProvider.cs" />
     <Compile Include="Thumbnail\IAcademicBoxThumbnailProvider.cs" />
     <Compile Include="Thumbnail\ImageResizer.cs" />
     <Compile Include="Url\EncryptObject.cs" />
@@ -212,8 +210,6 @@
     <Compile Include="WebWorkerRoleJoinData\QueueDataTransfer\GenerateThumbnail.cs" />
     <Compile Include="WebWorkerRoleJoinData\QueueDataTransfer\MailQueueData.cs" />
     <Compile Include="WebWorkerRoleJoinData\QueueDataTransfer\FileProcessQueueData.cs" />
-    <Compile Include="Storage\QueueProvider.cs" />
-    <Compile Include="Storage\StorageProvider.cs" />
     <Compile Include="Cache\Cache.cs" />
     <Compile Include="Cache\IWithCache.cs" />
     <Compile Include="Cache\WithCache.cs" />
@@ -229,7 +225,6 @@
     <Compile Include="Url\ShortCodes.cs" />
     <Compile Include="Url\ShortCodesCache.cs" />
     <Compile Include="Trace\TraceLog.cs" />
-    <Compile Include="Storage\BlobProvider.cs" />
     <Compile Include="Storage\IBlobProvider.cs" />
     <Compile Include="CommandHandlers\ICommandBus.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />

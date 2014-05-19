@@ -108,7 +108,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
                 return powerPoint2007Extenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }

@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
-
+        private readonly IBlobProvider m_BlobProvider;
 
 
 
@@ -34,7 +34,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Item> itemRepository,
             IItemTabRepository itemTabRepository,
             IFileProcessorFactory fileProcessorFactory,
-            IRepository<Reputation> reputationRepository
+            IRepository<Reputation> reputationRepository,
+            IBlobProvider blobProvider
             )
         {
             m_BoxRepository = boxRepository;
@@ -44,6 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemTabRepository = itemTabRepository;
             m_FileProcessorFactory = fileProcessorFactory;
             m_ReputationRepository = reputationRepository;
+            m_BlobProvider = blobProvider;
         }
 
         public AddFileToBoxCommandResult Execute(AddFileToBoxCommand command)
@@ -67,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            var processor = m_FileProcessorFactory.GetProcessor(new Uri(BlobProvider.GetBlobUrl(command.BlobAddressName)));
+            var processor = m_FileProcessorFactory.GetProcessor(new Uri(m_BlobProvider.GetBlobUrl(command.BlobAddressName)));
             string thumbnailImgLink = ThumbnailProvider.DefaultFileTypePicture;
             if (processor != null)
             {
@@ -112,7 +114,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void TriggerCacheDocument(string blobAddress, long itemId)
         {
-            Uri uri = new Uri(BlobProvider.GetBlobUrl(blobAddress));
+            Uri uri = new Uri(m_BlobProvider.GetBlobUrl(blobAddress));
 
             var queueMessage = new FileProcessData { BlobName = uri, ItemId = itemId };
             m_QueueProvider.InsertMessageToCache(queueMessage);

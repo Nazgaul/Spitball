@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         private void RegisterTypes()
         {
 
-            Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
+            //Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
 
         }
        

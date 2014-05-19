@@ -17,7 +17,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
             {
                 if (!string.IsNullOrEmpty(value))
                 {
-                    m_Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(value);
+                    var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                    m_Image = blobProvider.GetThumbnailUrl(value);
                 }
             }
         }
