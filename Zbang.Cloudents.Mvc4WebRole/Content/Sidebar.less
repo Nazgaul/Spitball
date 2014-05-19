@@ -99,13 +99,17 @@
         top: 25px;
     }
     ~ .dashLists {
-        .feedList {
-            margin-top: -@ActivityListOffsetProduct;
-            padding-top: @ActivityListOffsetProduct;
+        .asideList.dash {
+            //margin-top: -@ActivityListOffsetProduct;
+            //padding-top: @ActivityListOffsetProduct;
+            height: ~'-webkit-calc(100vh - @{ActivityListOffsetProduct})';
+            height: ~'calc(100vh - @{ActivityListOffsetProduct})';
         }
-        .twoLines ~ .feedList {
-            margin-top: -@ActivityListOffsetProduct2Lines;
-            padding-top: @ActivityListOffsetProduct2Lines;
+        .twoLines ~ .feedList .dash {
+            //margin-top: -@ActivityListOffsetProduct2Lines;
+            //padding-top: @ActivityListOffsetProduct2Lines;
+            height: ~'-webkit-calc(100vh - @{ActivityListOffsetProduct2Lines})';
+            height: ~'calc(100vh - @{ActivityListOffsetProduct2Lines})';
         }
     }
 }
@@ -192,35 +196,17 @@
 @dashFriendsHeight: 93px;
 @dashFriendsHeight2Lines: 132px;
 @ActivityHeaderHeight: 32px;
-//@ActivityListOffset: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight;
-//@ActivityListOffset2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight;
-//@ActivityListOffsetProduct: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight + @dashProductHeight;
-//@ActivityListOffsetProduct2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight + @dashProductHeight;
+@ActivityListOffset: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight;
+@ActivityListOffset2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight;
+@ActivityListOffsetProduct: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight + @dashProductHeight;
+@ActivityListOffsetProduct2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight + @dashProductHeight;
 
-@ActivityListOffset: @asideTopHeight + @dashFriendsHeight;
-@ActivityListOffset2Lines: @asideTopHeight + @dashFriendsHeight2Lines;
-@ActivityListOffsetProduct: @asideTopHeight + @dashFriendsHeight + @dashProductHeight;
-@ActivityListOffsetProduct2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @dashProductHeight;
-.activityWpr {
-    height: 100%;
-}
-
-.feedList {
-    height: 100vh;
-    margin-top: -@ActivityListOffset;
-    padding-top: @ActivityListOffset;
-}
-/*.activityWpr {
-    height: ~'-webkit-calc(100% - 32px)';
-    height: ~'calc(100% - 32px)';
-    .asideList {
-        height: 100%;
-    }
-}*/
 .dashFriends.twoLines {
-    ~ .feedList {
-        margin-top: -@ActivityListOffset2Lines;
-        padding-top: @ActivityListOffset2Lines;
+    ~ .feedList .dash {
+        //margin-top: -@ActivityListOffset2Lines;
+        //padding-top: @ActivityListOffset2Lines;
+        height: ~'-webkit-calc(100vh - @{ActivityListOffset2Lines})';
+        height: ~'calc(100vh - @{ActivityListOffset2Lines})';
     }
 }
 
@@ -229,8 +215,8 @@
     position: relative;
 
     .activityItem {
-        margin-bottom: 10px;
         list-style: none;
+        margin-bottom: 10px;
         //remove that from parent due to calculation of height
         &:first-child {
             padding-top: 10px; //margin somehow affect calulation in js
@@ -242,7 +228,10 @@
     }
 
     &.dash {
-        height: ~'calc(100% - 32px)';
+        height: ~'-webkit-calc(100vh - @{ActivityListOffset})';
+        height: ~'calc(100vh - @{ActivityListOffset})';
+        //margin-top: -@ActivityListOffset;
+        //padding-top: @ActivityListOffset;
         .boxSizing;
         > .activityItem {
             margin: 0 8px 7px 0; /* rtl override the .asideList > .activityItem rule */

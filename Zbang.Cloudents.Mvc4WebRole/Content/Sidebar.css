@@ -95,13 +95,13 @@
   /*rtl*/
   top: 25px;
 }
-.productsBtn ~ .dashLists .feedList {
-  margin-top: -308px;
-  padding-top: 308px;
+.productsBtn ~ .dashLists .asideList.dash {
+  height: -webkit-calc(100vh - 340px);
+  height: calc(100vh - 340px);
 }
-.productsBtn ~ .dashLists .twoLines ~ .feedList {
-  margin-top: -347px;
-  padding-top: 347px;
+.productsBtn ~ .dashLists .twoLines ~ .feedList .dash {
+  height: -webkit-calc(100vh - 379px);
+  height: calc(100vh - 379px);
 }
 .closeProducts {
   display: none;
@@ -171,24 +171,9 @@
 .asideImg.top {
   vertical-align: top;
 }
-.activityWpr {
-  height: 100%;
-}
-.feedList {
-  height: 100vh;
-  margin-top: -253px;
-  padding-top: 253px;
-}
-/*.activityWpr {
-    height: ~'-webkit-calc(100% - 32px)';
-    height: ~'calc(100% - 32px)';
-    .asideList {
-        height: 100%;
-    }
-}*/
-.dashFriends.twoLines ~ .feedList {
-  margin-top: -292px;
-  padding-top: 292px;
+.dashFriends.twoLines ~ .feedList .dash {
+  height: -webkit-calc(100vh - 324px);
+  height: calc(100vh - 324px);
 }
 .asideList {
   padding: 0 5px 0 10px;
@@ -196,8 +181,8 @@
   position: relative;
 }
 .asideList .activityItem {
-  margin-bottom: 10px;
   list-style: none;
+  margin-bottom: 10px;
 }
 .asideList .activityItem:first-child {
   padding-top: 10px;
@@ -206,7 +191,8 @@
   margin-bottom: 24px;
 }
 .asideList.dash {
-  height: calc(100% - 32px);
+  height: -webkit-calc(100vh - 285px);
+  height: calc(100vh - 285px);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
