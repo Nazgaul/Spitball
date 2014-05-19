@@ -1,4 +1,4 @@
-﻿var dashboard = angular.module('mDashboard', ['apiService', 'ngModal', 'Filters']);
+﻿var dashboard = angular.module('mDashboard', ['apiService', 'ngModal', 'Filters','ngScrollbar']);
 
 dashboard.config(function (ngModalDefaultsProvider) {
     return ngModalDefaultsProvider.set({
