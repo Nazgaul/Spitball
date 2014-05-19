@@ -820,12 +820,10 @@
   /*rtl*/
   left: auto;
 }
-.boxItemTt .downArrow {
-  margin-top: 14px;
-  /*diff rtl*/
-}
 .boxItemTt.noPreview .downArrow {
   top: 81px;
+  /* diff rtl*/
+  margin-top: 14px;
   /* diff rtl*/
 }
 .boxItemTt.noPreview .ttPreview {
