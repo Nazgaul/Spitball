@@ -194,6 +194,7 @@
 }
 .asideList .activityItem {
   margin-bottom: 10px;
+  list-style: none;
 }
 .asideList .activityItem:first-child {
   padding-top: 10px;
