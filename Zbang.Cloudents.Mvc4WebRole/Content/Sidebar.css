@@ -171,6 +171,9 @@
 .asideImg.top {
   vertical-align: top;
 }
+.activityWpr {
+  height: 100%;
+}
 .feedList {
   height: 100vh;
   margin-top: -253px;
