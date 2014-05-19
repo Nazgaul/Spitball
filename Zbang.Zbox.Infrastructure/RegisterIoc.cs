@@ -29,14 +29,10 @@ namespace Zbang.Zbox.Infrastructure
             ioc.RegisterType<Thumbnail.IAcademicBoxThumbnailProvider, Thumbnail.ThumbnailProvider>(LifeTimeManager.Singleton);
 
 
-            ioc.RegisterType<Storage.IBlobProvider, Storage.BlobProvider>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<Storage.ITableProvider, Storage.TableProvider>(LifeTimeManager.PerHttpRequest);
 
             ioc.RegisterType<Profile.IProfilePictureProvider, Profile.ProfilePictureProvider>(LifeTimeManager.PerHttpRequest);
 
-            ioc.RegisterType<Storage.ILocalStorageProvider, Storage.LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
 
-            ioc.RegisterType<Storage.IQueueProvider, Storage.QueueProvider>(LifeTimeManager.PerHttpRequest);
 
             ioc.RegisterType<Security.IMembershipService, Security.AccountMembershipService>(LifeTimeManager.PerHttpRequest);
 

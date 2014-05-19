@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public static readonly string[] wordExtenstions = { ".rtf", ".docx", ".doc", ".txt" };
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
                 return wordExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }

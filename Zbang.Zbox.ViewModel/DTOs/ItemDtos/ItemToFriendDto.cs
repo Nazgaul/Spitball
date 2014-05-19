@@ -8,17 +8,20 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
     public class ItemToFriendDto
     {
-        public ItemToFriendDto(long id, string image, double rate, int numOfViews, string name, long boxId,string boxName,
+        public ItemToFriendDto(long id, string image, double rate, int numOfViews, string name, long boxId, string boxName,
             string universityName)
         {
+            var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
             Id = id;
             if (string.IsNullOrEmpty(image))
             {
-                Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailLinkUrl();
+                Image = blobProvider.GetThumbnailLinkUrl();
+               // Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailLinkUrl();
             }
             else
             {
-                Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(image);
+                Image = blobProvider.GetThumbnailUrl(image);
+               // Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(image);
             }
             Rate = rate;
             NumOfViews = numOfViews;

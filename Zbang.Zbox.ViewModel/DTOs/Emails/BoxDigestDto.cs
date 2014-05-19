@@ -21,7 +21,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.Emails
                 }
                 else
                 {
-                    m_Picture = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(value);
+                    var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                    m_Picture = blobProvider.GetThumbnailUrl(value);
                 }
             }
 

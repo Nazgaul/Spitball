@@ -10,7 +10,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
     {
         public SearchItems(string image, string name, long id, string type, string content, double rate, int views, string boxName, long boxid, string universityName, string uniName)
         {
-            Image = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(image);
+            Image = image;// Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(image);
             Name = name;
             Id = id;
             Boxname = boxName;

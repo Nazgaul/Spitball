@@ -14,6 +14,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
         {
             var ioc = IocFactory.Unity;
             ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
+
+            ioc.RegisterType<Storage.IBlobProvider, Storage.BlobProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<Storage.ITableProvider, Storage.TableProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<Storage.IQueueProvider, Storage.QueueProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<Storage.ILocalStorageProvider, Storage.LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
+
         }
     }
 }

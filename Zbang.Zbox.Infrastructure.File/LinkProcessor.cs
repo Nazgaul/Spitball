@@ -9,6 +9,12 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class LinkProcessor : IContentProcessor
     {
+        protected readonly IBlobProvider m_BlobProvider;
+
+        public LinkProcessor(IBlobProvider blobProvider)
+        {
+            m_BlobProvider = blobProvider;
+        }
         private static readonly string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
         public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
         {
@@ -28,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public bool CanProcessFile(Uri blobName)
         {
 
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
                 return false;
             }

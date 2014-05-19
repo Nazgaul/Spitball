@@ -13,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Storage
 {
-    public class BlobProvider 
+    public class BlobProvider : IBlobProvider
     {
         private const int CacheContainerItemAvaibleInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
@@ -46,25 +46,25 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
 
         static string ThumbnailContainerUrl { get; set; }
-        public static string BlobContainerUrl { get; set; }
+        public string BlobContainerUrl { get; set; }
 
-        internal static string ProfileContainerUrl { get; set; }
+        public string ProfileContainerUrl { get;  private set; }
 
-        public static string GetBlobUrl(string blobName)
+        public string GetBlobUrl(string blobName)
         {
             return BlobContainerUrl + blobName;
         }
 
-        public static string GetThumbnailUrl(string blobName)
+        public string GetThumbnailUrl(string blobName)
         {
             return ThumbnailContainerUrl + blobName;
         }
 
-        static string LinkThumbnailUrl
+        string LinkThumbnailUrl
         {
             get { return GetThumbnailUrl("linkv2.jpg"); }
         }
-        public static string GetThumbnailLinkUrl()
+        public string GetThumbnailLinkUrl()
         {
             return LinkThumbnailUrl;
         }
