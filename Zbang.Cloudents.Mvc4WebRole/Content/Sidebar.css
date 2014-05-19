@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region library sidebar */
+﻿
+
+
+
+
 .asideDash {
   height: 100%;
   background: #fff;
@@ -96,12 +96,12 @@
   top: 25px;
 }
 .productsBtn ~ .dashLists .feedList {
-  margin-top: -308px;
-  padding-top: 308px;
+  height: -webkit-calc(100vh - 308px);
+  height: calc(100vh - 308px);
 }
 .productsBtn ~ .dashLists .twoLines ~ .feedList {
-  margin-top: -347px;
-  padding-top: 347px;
+  height: -webkit-calc(100vh - 347px);
+  height: calc(100vh - 347px);
 }
 .closeProducts {
   display: none;
@@ -187,8 +187,8 @@
     }
 }*/
 .dashFriends.twoLines ~ .feedList {
-  margin-top: -292px;
-  padding-top: 292px;
+  height: -webkit-calc(100vh - 292px);
+  height: calc(100vh - 292px);
 }
 .asideList {
   padding: 0 5px 0 10px;
@@ -206,7 +206,8 @@
   margin-bottom: 24px;
 }
 .asideList.dash {
-  height: calc(100% - 32px);
+  height: -webkit-calc(100vh - 253px);
+  height: calc(100vh - 253px);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -312,8 +313,8 @@
   width: 27px;
   height: 32px;
 }
-/*#endregion */
-/*#region Lib Aside */
+
+
 .unionName {
   font-size: 22px;
   border-bottom: 1px solid #c2c2c2;
@@ -463,4 +464,4 @@
 .libLists .libTwitter {
   bottom: 0;
 }
-/*#endregion */
+
