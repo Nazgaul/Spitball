@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.ViewModel.DTOs.Emails;
+using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
+using Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -48,7 +50,7 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<ItemDigestDto>());
                 return dbQuery.List<ItemDigestDto>();
             }
-        
+
         }
         public IEnumerable<QuizDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query)
         {
@@ -152,6 +154,15 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<UniversityLuceneDto> GetUniversityDetail(long userId)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                var retVal = conn.Query<UniversityLuceneDto>(LibraryChoose.GetUniversityDetail, new { UserId = userId });
+                return retVal.FirstOrDefault();
+            }
+        }
+
         public async Task<PartnersDto> GetPartnersEmail(long userid)
         {
             PartnersDto retVal = new PartnersDto();
@@ -169,7 +180,7 @@ namespace Zbang.Zbox.ReadServices
                     retVal.AllItems = grid.Read<int>().First();
 
                     retVal.LastWeekQnA = grid.Read<int>().First();
-                    retVal.AllQnA= grid.Read<int>().First();
+                    retVal.AllQnA = grid.Read<int>().First();
 
                     retVal.Univeristies = grid.Read<Univeristy>();
 

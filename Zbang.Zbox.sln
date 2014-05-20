@@ -113,6 +113,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateUrl", "GenerateUrl\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuplicateQuiz", "DuplicateQuiz\DuplicateQuiz.csproj", "{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingApp", "TestingApp\TestingApp.csproj", "{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -1058,6 +1060,31 @@ Global
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.Release|x86.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1105,6 +1132,7 @@ Global
 		{9919E724-6184-4773-B48D-D53986ECFCE2} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{8BC82B02-49C4-4056-A48F-E174E609D43E} = {EDC210D9-AF1F-42CB-B44A-E9AEDA8511C2}
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C} = {EDC210D9-AF1F-42CB-B44A-E9AEDA8511C2}
+		{DAABC94B-69CC-4C8C-ABC7-D9AE05D94759} = {5DE8FAF5-ED0F-4681-9C50-159B781380D4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
