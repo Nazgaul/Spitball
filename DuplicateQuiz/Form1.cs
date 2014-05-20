@@ -24,6 +24,9 @@ namespace DuplicateQuiz
         public Form1()
         {
             InitializeComponent();
+#if DEBUG
+            log4net.Config.XmlConfigurator.Configure();
+#endif
             RegisterIoc();
         }
 
@@ -36,6 +39,7 @@ namespace DuplicateQuiz
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbang.Zbox.Domain.Services.RegisterIoc.Register();
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
         }
 
         private async void buttonDuplicate_Click(object sender, EventArgs e)

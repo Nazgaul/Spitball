@@ -29,8 +29,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
            {
                if (!string.IsNullOrEmpty(value))
                {
-                   var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                   m_BoxPicture = blobProvider.GetThumbnailUrl(value);
+                   //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                   m_BoxPicture = value;// blobProvider.GetThumbnailUrl(value);
                }
            }
        }

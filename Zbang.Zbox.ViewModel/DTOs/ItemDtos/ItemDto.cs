@@ -23,8 +23,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             TabId = tabid;
             NumOfViews = numOfViews;
             Rate = rate;
-            var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-            Thumbnail = blobProvider.GetThumbnailUrl(thumbnail);
+            //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+            Thumbnail = thumbnail;// blobProvider.GetThumbnailUrl(thumbnail);
             Owner = owner;
             Sponsored = sponsored;
             Date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public string DownloadUrl { get; set; }
         public string UserUrl { get; set; }
 
-        public string Thumbnail { get; private set; }
+        public string Thumbnail { get; set; }
 
 
         public bool Sponsored { get; private set; }
