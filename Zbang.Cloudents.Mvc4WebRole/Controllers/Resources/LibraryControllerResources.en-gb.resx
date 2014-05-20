@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="course_already_exists" xml:space="preserve">
+    <value>This module already exists</value>
+  </data>
+  <data name="Problem_with_create_a_course" xml:space="preserve">
+    <value>Problem creating a module</value>
+  </data>
 </root>
