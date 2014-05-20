@@ -118,8 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BrowserUnsupported" xml:space="preserve">
-    <value>Cloudents אינו תומך
-גרסת הדפדפן שלך </value>
+    <value>קלאודנטס אינו תומך בגרסת הדפדפן שלך</value>
   </data>
   <data name="GoBack" xml:space="preserve">
     <value>או חזור</value>

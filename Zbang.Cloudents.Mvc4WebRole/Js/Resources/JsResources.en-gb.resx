@@ -117,10 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CoursesFollow" xml:space="preserve">
+    <value>Modules I follow</value>
+  </data>
   <data name="DeleteCourse" xml:space="preserve">
     <value>Deleting this module will delete all its content including files and Q&amp;A. Are you sure you would like to delete this module?</value>
   </data>
+  <data name="FbText" xml:space="preserve">
+    <value>I too have joined Cloudents.
+Cloudents has the largest collection of course notes and exams at your school. Join Cloudents, the more students join, the easier studying becomes.</value>
+  </data>
+  <data name="MyCourses" xml:space="preserve">
+    <value>My Modules</value>
+  </data>
   <data name="NoSelected" xml:space="preserve">
     <value>Member did not join any modules</value>
+  </data>
+  <data name="OnCourse" xml:space="preserve">
+    <value>on the module</value>
+  </data>
+  <data name="ToCourse" xml:space="preserve">
+    <value>to the module</value>
   </data>
 </root>

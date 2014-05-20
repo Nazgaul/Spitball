@@ -243,7 +243,7 @@
         self.displayMembers = ko.observableArray();
 
         self.membersLength = ko.computed(function (e) {
-            return self.members().length + ' ' + ZboxResources.Members;
+            return self.members().length + ' ' + JsResources.Members;
         });
         self.membersSectionVisible = ko.computed(function () {
             return self.score() >= consts.ADMINSCORE && self.viewSelf();

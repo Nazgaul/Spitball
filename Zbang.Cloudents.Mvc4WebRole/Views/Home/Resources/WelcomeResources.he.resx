@@ -121,7 +121,7 @@
     <value>סגור</value>
   </data>
   <data name="step1Header" xml:space="preserve">
-    <value>ברוך הבא ל-cloudents</value>
+    <value>ברוך הבא ל-קלאודנטס</value>
   </data>
   <data name="step1Text" xml:space="preserve">
     <value>המקום שלך ללמוד, לשתף ולהתחבר לחברים</value>
@@ -162,7 +162,7 @@
     <value>שתף עם החברים</value>
   </data>
   <data name="step4InviteText" xml:space="preserve">
-    <value>Cloudents טוב יותר ביחד, הזמן את החברים להצטרף</value>
+    <value>קלאודנטס טוב יותר ביחד, הזמן את החברים להצטרף</value>
   </data>
   <data name="step4InviteTitle" xml:space="preserve">
     <value>הזמן</value>

@@ -484,7 +484,7 @@
                 title.textContent = JsResources.AddComment;
                 return;
             }
-            title.textContent = length+ ' ' + (length > 1 ? ZboxResources.Comments : ZboxResources.Comment);
+            title.textContent = length+ ' ' + (length > 1 ? JsResources.Comments : JsResources.Comment);
         }
 
 

@@ -174,7 +174,7 @@
                     return i.name === boxName;
                 });
                 if (exists) {
-                    cd.displayErrors($form, ZboxResources.BoxExists);
+                    cd.displayErrors($form, JsResources.BoxExists);
                     return false;
                 }
                 createBox(data);

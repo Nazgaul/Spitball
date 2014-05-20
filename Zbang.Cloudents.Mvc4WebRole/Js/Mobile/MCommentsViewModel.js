@@ -95,7 +95,7 @@
             var $commentText = $(form).find('textarea'),
                 text = $.trim($commentText.val());
             if (self.permission() < 2) {
-                cd.notification(ZboxResources.NeedToFollowBox);
+                cd.notification(JsResources.NeedToFollowBox);
                 $('.boxFollow').show();
                 return false;
             }
@@ -120,7 +120,7 @@
                    return;
                }
                if (self.permission() < 2) {
-                   cd.notification(ZboxResources.NeedToFollowBox);
+                   cd.notification(JsResources.NeedToFollowBox);
                    $('.boxFollow').show();
                    $(this).blur();
                    return false;

@@ -28,9 +28,9 @@
             });
             _that.answerLengthText = ko.computed(function () {
                 if (_that.answers().length === 1) {
-                    return _that.answers().length + ' ' + ZboxResources.Comment;
+                    return _that.answers().length + ' ' + JsResources.Comment;
                 }
-                return _that.answers().length + ' ' + ZboxResources.Comments;
+                return _that.answers().length + ' ' + JsResources.Comments;
             });
             _that.bestAnswer = ko.computed(function () {
                 var x = ko.utils.arrayFirst(_that.answers(), function (i) {
@@ -320,7 +320,7 @@
                 return;
             }
             if (self.permission() === 'none' || self.permission() === 'invite') {
-                cd.notification(ZboxResources.NeedToFollowBox);
+                cd.notification(JsResources.NeedToFollowBox);
                 return;
             }
             var $f = $(f),
@@ -395,7 +395,7 @@
                 return;
             }
             if (self.permission() === 'none' || self.permission() === 'invite') {
-                cd.notification(ZboxResources.NeedToFollowBox);
+                cd.notification(JsResources.NeedToFollowBox);
                 return;
             }
             analytics.trackEvent('Answer', 'Give answer', 'Providing answer ');
@@ -670,7 +670,7 @@
 
                 if (self.permission() === 'none' || self.permission() === 'invite') {
                     $(this).blur();
-                    cd.notification(ZboxResources.NeedToFollowBox);
+                    cd.notification(JsResources.NeedToFollowBox);
                     return;
                 }
                 if (this.value === this.getAttribute('placeholder')) {

@@ -1553,6 +1553,7 @@
     <EmbeddedResource Include="Js\Resources\JsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>JsResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.ru.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.zh.resx" />

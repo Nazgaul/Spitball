@@ -122,7 +122,7 @@
                 if (self.title()) {
                     return self.title();
                 }
-                return ZboxResources.TopLevel;
+                return JsResources.TopLevel;
             });
 
         //#region emptystate
@@ -253,7 +253,7 @@
                     return i.name === data[0].value;
                 });
                 if (item) {
-                    cd.notification(ZboxResources.ItemExists);
+                    cd.notification(JsResources.ItemExists);
                     return false;
                 }
                 data.push(pushParentId());
@@ -302,7 +302,7 @@
                 isok = confirm(JsResources.DeleteCourse);
             }
             else {
-                isok = confirm(ZboxResources.SureYouWant + ' ' + ZboxResources.ToLeaveGroup);
+                isok = confirm(JsResources.SureYouWant + ' ' + JsResources.ToLeaveGroup);
             }
             if (!isok) {
                 return;

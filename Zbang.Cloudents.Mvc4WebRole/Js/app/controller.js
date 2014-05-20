@@ -36,8 +36,8 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
     //    console.log(friends);
     //    console.log(data);
     //})
-    $scope.title = 'CoursesFollow';
-    //$scope.title = ZboxResources.CoursesFollow;
+    //$scope.title = 'CoursesFollow';
+    $scope.title = JsResources.CoursesFollow;
 
     $scope.removeBox = function (box) {
         Box.create.query(function () { });

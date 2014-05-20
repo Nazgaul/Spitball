@@ -40,7 +40,7 @@
 
         uploader.bind('Error', function (up, err) {
             if (err.code === plupload.FILE_EXTENSION_ERROR) {
-                cd.notification(ZboxResources.IncorrectExtension);
+                cd.notification(JsResources.IncorrectExtension);
             }
             if (err.status === 401) {
                 document.location.href = '/';
@@ -61,7 +61,7 @@
                 $('#Profile').submit();
             }
             else {
-                cd.notification(ZboxResources.CouldNotProcess);
+                cd.notification(JsResources.CouldNotProcess);
             }
         });
     }
@@ -99,7 +99,7 @@
                     newpswElem.val('');
                     oldpswElem.val('');
                     window.scrollTo(0, 0); //iphone issue bug 477
-                    cd.notification(ZboxResources.PwdChanged);
+                    cd.notification(JsResources.PwdChanged);
                     location.hash = ''; // close the form
                     $('#changePwd').removeClass('selected');
                 },
@@ -140,7 +140,7 @@
                 dataContext.changeEmail({
                     data: { Email: newEmail },
                     success: function () {
-                        $newEmail.val('').attr('placeholder', ZboxResources.TypeCode).focus().next().text(ZboxResources.Save);
+                        $newEmail.val('').attr('placeholder', JsResources.TypeCode).focus().next().text(JsResources.Save);
                         codeRequired = true;
                     },
                     error: function (msg) {
@@ -153,21 +153,21 @@
             function submitCode() {
                 var newEmail = $newEmail.val();
                 if (newEmail === '') {
-                    emailerr.text(ZboxResources.FieldRequired);
+                    emailerr.text(JsResources.FieldRequired);
                     return;
                 }
                 if (!$.isNumeric(newEmail)) {
-                    emailerr.text(ZboxResources.FieldNeedsNumber);
+                    emailerr.text(JsResources.FieldNeedsNumber);
                     return;
                 }
                 dataContext.submitCode({
                     data: { code: newEmail },
                     success: function (data) {
-                        $newEmail.attr('placeholder', ZboxResources.EnterEmail).next().text(ZboxResources.Change);
+                        $newEmail.attr('placeholder', JsResources.EnterEmail).next().text(JsResources.Change);
                         $newEmail.parent().toggle().prev().toggle();
                         codeRequired = false;
                         $('.changeEmail').find('span:first').text(data);
-                        cd.notification(ZboxResources.EmailChanged);
+                        cd.notification(JsResources.EmailChanged);
                     },
                     error: function (msg) {
                         emailerr.text(msg);
@@ -201,7 +201,7 @@
             success: function () {
                 $('#userName').text($('#profileName').val().trim().split(' ', 1)[0]);
                 $('#userDetails').find('img').attr('src', smallimg);
-                cd.notification(ZboxResources.SettingsSaved);
+                cd.notification(JsResources.SettingsSaved);
             },
             error: function (msg) {
                 cd.displayErrors($this, msg);

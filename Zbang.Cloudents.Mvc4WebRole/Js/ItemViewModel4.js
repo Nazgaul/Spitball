@@ -188,7 +188,7 @@
 
         //#region delete an item
         self.deleteItem = function () {
-            cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
+            cd.confirm(JsResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
                 cd.sessionStorageWrapper.clear();
                 dataContext.removeItem({
                     data: { itemId: self.itemid(), BoxUid: boxid },
@@ -784,7 +784,7 @@
                     if (checknewFileName()) {
                         saveFileName();
                     } else {
-                        cd.notification(ZboxResources.InvalidFilename);
+                        cd.notification(JsResources.InvalidFilename);
                         setTimeout(function () {
                             $itemName.focus();
                         }, 50);
@@ -982,7 +982,7 @@
 
         function checkBoxPermission() {
             if (userType === 'none' || userType === 'invite') {
-                cd.notification(ZboxResources.NeedToFollowBox);
+                cd.notification(JsResources.NeedToFollowBox);
                 return false;
             }
 
@@ -1505,7 +1505,7 @@
                     x.find('.show-more').remove();
                 }
                 //x.find('.annotationText').dotdotdot({
-                //    after: $(document.createElement('button')).attr('type', 'button').addClass('more').text(ZboxResources.More),
+                //    after: $(document.createElement('button')).attr('type', 'button').addClass('more').text(JsResources.More),
                 //    height: 55
                 //});
             }

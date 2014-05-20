@@ -28,7 +28,7 @@
         if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
             retVal = true;
         }
-        return retVal ? ZboxResources.Delete : ZboxResources.LeaveGroup;
+        return retVal ? JsResources.Delete : JsResources.LeaveGroup;
     }
     self.removeBoxConfirm = confirmDeleteOrUnfollow(self);
     function confirmDeleteOrUnfollow(box) {
@@ -39,12 +39,12 @@
             return;
         }
         if (box.userType() === 'owner') {
-            return ZboxResources.SureYouWant + ' ' + ZboxResources.ToDeleteBox;
+            return JsResources.SureYouWant + ' ' + JsResources.ToDeleteBox;
         }
         if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
             return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
         }
-        return ZboxResources.SureYouWant + ' ' + ZboxResources.ToLeaveGroup;
+        return JsResources.SureYouWant + ' ' + JsResources.ToLeaveGroup;
     }
 }
 
@@ -247,7 +247,7 @@
 //            /// <summary></summary>
 //            /// <param name="box" type="Box"></param>
 
-//            //if (!confirm(ZboxResources.SureYouWant0ThisBox.format(box.removeBoxTitle))) {
+//            //if (!confirm(JsResources.SureYouWant0ThisBox.format(box.removeBoxTitle))) {
 //            cd.confirm(box.removeBoxConfirm,
 //                function () {
 //                    analytics.trackEvent('Follow', 'Unfollow', 'Clicking on the  box "x" mark on dashboard level');
@@ -286,9 +286,9 @@
 //                    return '';
 //                }
 //                //if (issearch && self.boxes().length) {
-//                //    return '\u200F' + self.boxes().length + '\u200F ' + ZboxResources.SearchResults + ' \u200E“' + $dash_SearchQuery.val() + '”\u200E';
+//                //    return '\u200F' + self.boxes().length + '\u200F ' + JsResources.SearchResults + ' \u200E“' + $dash_SearchQuery.val() + '”\u200E';
 //                //}
-//                return ZboxResources.CoursesFollow;
+//                return JsResources.CoursesFollow;
 //            });
 
 //        //#region createBox
@@ -322,7 +322,7 @@
 //                            return i.name.toLowerCase() === boxName.toLowerCase();
 //                        });
 //                        if (exists) {
-//                            cd.displayErrors($form, ZboxResources.BoxExists);
+//                            cd.displayErrors($form, JsResources.BoxExists);
 //                            return false;
 //                        }
 //                        createBox(data);

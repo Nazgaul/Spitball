@@ -285,12 +285,12 @@
 
         self.removeQuiz = function (quiz) {
             if (quiz.ownerId !== cd.userDetail().nId) {
-                cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
+                cd.notification(JsResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
                 return;
             }
 
             var quizName = quiz.name || 'quiz draft';
-            cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + quizName + "?",
+            cd.confirm(JsResources.SureYouWantToDelete + ' ' + quizName + "?",
                             function () {
                                 self.items.remove(quiz);
                                 cd.pubsub.publish('deleteQuiz', quiz.uid);
@@ -312,10 +312,10 @@
 
         self.removeItem = function (item) {
             if (!cd.deleteAllow(self.permission(), item.ownerId)) {
-                cd.notification(ZboxResources.DontHavePermissionToDelete + ' ' + item.type);
+                cd.notification(JsResources.DontHavePermissionToDelete + ' ' + item.type);
                 return;
             }
-            cd.confirm(ZboxResources.SureYouWantToDelete + ' ' + item.name + "?",
+            cd.confirm(JsResources.SureYouWantToDelete + ' ' + item.name + "?",
                 function () {
                     self.items.remove(item);
                     //countOfItems--;

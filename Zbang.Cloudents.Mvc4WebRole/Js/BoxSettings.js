@@ -89,10 +89,10 @@
         }
 
         if (!boxSettingsData.willDelete()) {
-            eById('boxSettingsDelete').textContent = ZboxResources.Unfollow;
+            eById('boxSettingsDelete').textContent = JsResources.Unfollow;
         }
         else {
-            eById('boxSettingsDelete').textContent = ZboxResources.Delete;
+            eById('boxSettingsDelete').textContent = JsResources.Delete;
         }
         dataContext.getNotification({
             data: { boxUid: boxSettingsData.boxUid },
@@ -176,13 +176,13 @@
                 var sentence = '';
                 switch (boxSettingsData.willDelete()) {
                     case 1:
-                        sentence = ZboxResources.SureYouWant + ZboxResources.ToDeleteBox;
+                        sentence = JsResources.SureYouWant + JsResources.ToDeleteBox;
                         break;
                     case 2:
                         sentence = 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
                         break;
                     default:
-                        sentence = ZboxResources.SureYouWant + ZboxResources.ToLeaveGroup;
+                        sentence = JsResources.SureYouWant + JsResources.ToLeaveGroup;
                 }
                 var that = this;
                 cd.confirm(sentence, function () {                
