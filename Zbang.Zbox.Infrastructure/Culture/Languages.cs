@@ -6,8 +6,8 @@ namespace Zbang.Zbox.Infrastructure.Culture
 {
     public static class Languages
     {
-        public const string EnglishUSName = "English (US)";
-        public const string EnglishGBName = "English (UK)";
+        public const string EnglishUSName = "English \u200E(US)\u200E";
+        public const string EnglishGBName = "English \u200E(UK)\u200E";
         public const string HebrewName = "עברית";
         public const string ArabicName = "العربية";
         public const string RussianName = "Pусский";
