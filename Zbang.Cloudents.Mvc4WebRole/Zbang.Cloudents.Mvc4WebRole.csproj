@@ -246,11 +246,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Controllers\Resources\CommentControllerResources.Designer.cs">
-      <DependentUpon>CommentControllerResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Controllers\Resources\LibraryControllerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1543,15 +1538,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.zh.resx" />
-    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.ar.resx" />
-    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.he.resx" />
-    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CommentControllerResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\CommentControllerResources.zh.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ar.resx" />
+    <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.en-gb.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1560,6 +1548,7 @@
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.zh.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.ar.resx" />
+    <EmbeddedResource Include="Js\Resources\JsResources.en-gb.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.he.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1647,6 +1636,7 @@
     <EmbeddedResource Include="Models\Resources\BoxSettingResource.ru.resx" />
     <EmbeddedResource Include="Models\Resources\BoxSettingResource.zh.resx" />
     <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1705,6 +1695,7 @@
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\HomeResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1784,6 +1775,7 @@
     <EmbeddedResource Include="Views\Box\Resources\IndexResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\IndexResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Box\Resources\IndexResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1808,6 +1800,7 @@
     <EmbeddedResource Include="Views\Box\Resources\MainViewResources.ru.resx" />
     <EmbeddedResource Include="Views\Box\Resources\MainViewResources.zh.resx" />
     <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.ar.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.he.resx" />
     <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1825,6 +1818,7 @@
     <EmbeddedResource Include="Views\Comment\Resources\CommentResources.ru.resx" />
     <EmbeddedResource Include="Views\Comment\Resources\CommentResources.zh.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1836,6 +1830,7 @@
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ru.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.zh.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1864,6 +1859,7 @@
     <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.ru.resx" />
     <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.zh.resx" />
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.ar.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1892,6 +1888,7 @@
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ru.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.zh.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ar.resx" />
+    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1902,6 +1899,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ru.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.zh.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.zh.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.ar.resx">
@@ -1937,6 +1935,7 @@
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\SharedResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1965,6 +1964,7 @@
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.ru.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.zh.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
+    <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
