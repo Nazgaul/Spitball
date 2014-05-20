@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.MediaServices;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Ioc
 {
@@ -15,10 +17,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             var ioc = IocFactory.Unity;
             ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
 
-            ioc.RegisterType<Storage.IBlobProvider, Storage.BlobProvider>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<Storage.ITableProvider, Storage.TableProvider>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<Storage.IQueueProvider, Storage.QueueProvider>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<Storage.ILocalStorageProvider, Storage.LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IBlobProvider, Storage.BlobProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<ITableProvider, Storage.TableProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IQueueProvider, Storage.QueueProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<ILocalStorageProvider, Storage.LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IUniversityWriteSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IUniversityReadSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
 
         }
     }

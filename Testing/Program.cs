@@ -69,7 +69,7 @@ namespace Testing
 
         static async Task<string> GetTitle(string url)
         {
-           
+
             using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) })
             {
 
@@ -112,11 +112,11 @@ namespace Testing
         {
             //UniversitySearchProvider x = new UniversitySearchProvider();
             //x.BuildUniversityData();
-            var x2 = @". עיקרי תוכנית בוורידג*. 
-תכנית השמה לה ליעד להביא לחיסול המחסור בתקופה שלאחר המלחמה. המטרה האסטרטגית של התוכנית הייתה ליצור מערכת מקיפה של ביטחון סוציאלי, שתבטיח לכל אדם רמת מינימום של הכנסה. רמת המינימום נועדה להיות מספיקה לקיום, אך לשמש בתור רצפה בלבד, שאף אחד לא ייפול מתחתיה. על הרצפה הזו, יוכל כל אחד להוסיף לעצמו הכנסה מעבודה, או חסכון. היעד השני של התוכנית היה, שבנוסף לחופש ממחסור, אנגליה תבנה מדיניות חברתית מקיפה לקידום חברתי, שתכלול גם מאבק ב ענקיםהבאים: חולי, בערות, עוני, ואבטלה. התוכנית נועדה ליצור מערכת ביטחון סוציאלי, שתלווה כל אדם מהעריסה עד הקבר ותבטיח לו הכנסת מינימום.
-האם תוכנית בוורידג' רלוונטית לימינו? – התבססות על מאמריהם של לאה אחדות ואברהם דורון:";
-            
-            x2 = x2.Substring(0,  Math.Min(x2.Length, 400));
+            //            var x2 = @". עיקרי תוכנית בוורידג*. 
+            //תכנית השמה לה ליעד להביא לחיסול המחסור בתקופה שלאחר המלחמה. המטרה האסטרטגית של התוכנית הייתה ליצור מערכת מקיפה של ביטחון סוציאלי, שתבטיח לכל אדם רמת מינימום של הכנסה. רמת המינימום נועדה להיות מספיקה לקיום, אך לשמש בתור רצפה בלבד, שאף אחד לא ייפול מתחתיה. על הרצפה הזו, יוכל כל אחד להוסיף לעצמו הכנסה מעבודה, או חסכון. היעד השני של התוכנית היה, שבנוסף לחופש ממחסור, אנגליה תבנה מדיניות חברתית מקיפה לקידום חברתי, שתכלול גם מאבק ב ענקיםהבאים: חולי, בערות, עוני, ואבטלה. התוכנית נועדה ליצור מערכת ביטחון סוציאלי, שתלווה כל אדם מהעריסה עד הקבר ותבטיח לו הכנסת מינימום.
+            //האם תוכנית בוורידג' רלוונטית לימינו? – התבססות על מאמריהם של לאה אחדות ואברהם דורון:";
+
+            //            x2 = x2.Substring(0, Math.Min(x2.Length, 400));
             //var s = "https://www.cloudents.com/d/lzodJqaBYHu/pD0nrbAtHSq";
             //var xzx = GetTitle("http://www.vivt.ru/").Result;
             //var xzx2 = GetTitle("http://www.ynet.co.il/").Result;
@@ -172,12 +172,14 @@ namespace Testing
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
 
+
+
             //var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
             //var y = x.GetId();
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;
-            Emails();
+            //Emails();
 
             //var y =  GetCountries();
 
@@ -200,8 +202,13 @@ namespace Testing
 
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-            m_TableProvider = iocFactory.Resolve<ITableProvider>();
-            var words = m_TableProvider.GetFileterWored();
+            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
+            lucenewire.BuildUniversityData();
+
+            var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
+            var x = luceneRead.SearchUniversity("פתוחה");
+            //m_TableProvider = iocFactory.Resolve<ITableProvider>();
+            //var words = m_TableProvider.GetFileterWored();
 
             // var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
 
