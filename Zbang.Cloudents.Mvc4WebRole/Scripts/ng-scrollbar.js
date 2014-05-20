@@ -75,7 +75,7 @@ angular.module('ngScrollbar', []).
 
         var wheelHandler = function(event) {
 
-          var wheelDivider = 20; // so it can be changed easily
+          var wheelDivider = 10; // so it can be changed easily
 
           var deltaY = event.wheelDeltaY !== undefined ?
             event.wheelDeltaY / wheelDivider :
@@ -113,7 +113,7 @@ angular.module('ngScrollbar', []).
         var buildScrollbar = function(rollToBottom) {
 
           // Getting top position of a parent element to place scroll correctly
-          var parentOffsetTop = element[0].parentElement.offsetTop;
+          var parentOffsetTop = cd.getElementPosition(element[0]).top;
 
           var wheelEvent = win[0].onmousewheel !== undefined ? 'mousewheel' : 'DOMMouseScroll';
 
@@ -126,7 +126,7 @@ angular.module('ngScrollbar', []).
           track = angular.element(angular.element(tools.children()[0]).children()[1]);
 
           // Check if scroll bar is needed
-          page.height = element[0].offsetHeight - parentOffsetTop;
+          page.height = win[0].innerHeight - parentOffsetTop;
           page.scrollHeight = transculdedContainer[0].scrollHeight;
 
           if (page.height < page.scrollHeight) {

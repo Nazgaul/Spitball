@@ -37,7 +37,7 @@
   width: 386px;
   height: 100%;
   background: #e4e4e4;
-  z-index: 5;
+  z-index: 4;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -62,7 +62,7 @@
   font-size: 17px;
   margin: 0 -14px 0 -15px;
   /*rtl*/
-  padding: 8px 0 0 24px;
+  padding: 8px 0 0 14px;
   /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

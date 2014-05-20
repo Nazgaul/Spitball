@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region library sidebar */
+﻿
+
+
+
+
 .asideDash {
   height: 100%;
   background: #fff;
@@ -67,6 +67,18 @@
   /*rtl*/
   border-top: 1px solid #c2c2c2;
   position: relative;
+  /*~ .dashLists {
+        .asideList.dash {
+            //margin-top: -@ActivityListOffsetProduct;
+            //padding-top: @ActivityListOffsetProduct;
+            height: ~'-webkit-calc(100vh - @{ActivityListOffsetProduct})';
+            height: ~'calc(100vh - @{ActivityListOffsetProduct})';
+        }
+        .twoLines ~ .feedList .dash {
+            height: ~'-webkit-calc(100vh - @{ActivityListOffsetProduct2Lines})';
+            height: ~'calc(100vh - @{ActivityListOffsetProduct2Lines})';
+        }
+    }*/
 }
 .productsBtn.checked .closeProducts {
   display: block;
@@ -94,14 +106,6 @@
   right: 10px;
   /*rtl*/
   top: 25px;
-}
-.productsBtn ~ .dashLists .feedList {
-  margin-top: -308px;
-  padding-top: 308px;
-}
-.productsBtn ~ .dashLists .twoLines ~ .feedList {
-  margin-top: -347px;
-  padding-top: 347px;
 }
 .closeProducts {
   display: none;
@@ -171,21 +175,9 @@
 .asideImg.top {
   vertical-align: top;
 }
-.feedList {
-  height: 100vh;
-  margin-top: -253px;
-  padding-top: 253px;
-}
-/*.activityWpr {
-    height: ~'-webkit-calc(100% - 32px)';
-    height: ~'calc(100% - 32px)';
-    .asideList {
-        height: 100%;
-    }
-}*/
-.dashFriends.twoLines ~ .feedList {
-  margin-top: -292px;
-  padding-top: 292px;
+.dashFriends.twoLines ~ .feedList .dash {
+  height: -webkit-calc(100vh - 324px);
+  height: calc(100vh - 324px);
 }
 .asideList {
   padding: 0 5px 0 10px;
@@ -193,8 +185,8 @@
   position: relative;
 }
 .asideList .activityItem {
-  margin-bottom: 10px;
   list-style: none;
+  margin-bottom: 10px;
 }
 .asideList .activityItem:first-child {
   padding-top: 10px;
@@ -203,7 +195,8 @@
   margin-bottom: 24px;
 }
 .asideList.dash {
-  height: calc(100% - 32px);
+  height: -webkit-calc(100vh - 285px);
+  height: calc(100vh - 285px);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -309,8 +302,8 @@
   width: 27px;
   height: 32px;
 }
-/*#endregion */
-/*#region Lib Aside */
+
+
 .unionName {
   font-size: 22px;
   border-bottom: 1px solid #c2c2c2;
@@ -460,4 +453,4 @@
 .libLists .libTwitter {
   bottom: 0;
 }
-/*#endregion */
+

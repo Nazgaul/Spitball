@@ -2463,7 +2463,7 @@
 .quizSideBar header {
   margin: 0 -15px 0 -14px;
   /*rtl*/
-  padding: 8px 24px 0 0;
+  padding: 8px 14px 0 0;
   /*rtl*/
 }
 .quizSideBar header .closeDialog {
