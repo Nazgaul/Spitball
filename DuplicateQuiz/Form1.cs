@@ -96,7 +96,6 @@ namespace DuplicateQuiz
             foreach (var item in boxIdIntLong.Where(w => w != 0))
             {
 
-                MessageBox.Show(item.ToString());
                 var idGenerator = Unity.Resolve<Zbang.Zbox.Infrastructure.IdGenerator.IIdGenerator>();
                 var zboxWriteService = Unity.Resolve<Zbang.Zbox.Domain.Common.IZboxWriteService>();
 
