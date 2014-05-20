@@ -34,6 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IIdGenerator> m_IdGenerator;
         private readonly Lazy<IZboxCacheReadService> m_ZboxCacheReadService;
+        private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
 
         public LibraryController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
@@ -41,13 +42,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<ITableProvider> tableProvider,
             Lazy<IUserProfile> userProfile,
             IFormsAuthenticationService formsAuthenticationService,
-            Lazy<IIdGenerator> idGenerator)
+            Lazy<IIdGenerator> idGenerator,
+            Lazy<IUniversityReadSearchProvider> universitySearch)
             : base(zboxWriteService, zboxReadService,
             formsAuthenticationService)
         {
             m_TableProvider = tableProvider;
             m_UserProfile = userProfile;
             m_IdGenerator = idGenerator;
+            m_UniversitySearch = universitySearch;
             m_ZboxCacheReadService = zboxCacheReadService;
         }
 
@@ -104,12 +107,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Choose()
+        public ActionResult Choose()
         {
             var country = GetUserCountryByIP();
 
-            var query = new GetUniversityByPrefixQuery();
-           // var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
+            //var query = new GetUniversityByPrefixQuery();
+            // var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
 
             var haveUniversity = false;
             var userData = m_FormsAuthenticationService.GetUserData();
@@ -117,16 +120,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 haveUniversity = true;
             }
-            JsonNetSerializer serializer = new JsonNetSerializer();
+            //JsonNetSerializer serializer = new JsonNetSerializer();
             //ViewBag.data = serializer.Serialize(result.OrderByDescending(o => o.MemberCount));
             //result;
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_SelectUni");
-            }
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return PartialView("_SelectUni");
+            //}
             return View("_SelectUni");
+        }
+        [HttpGet, Ajax]
+        public ActionResult SearchUniversity(string term)
+        {
+            return this.CdJson(new JsonResponse(true, m_UniversitySearch.Value.SearchUniversity(term)));
         }
 
         [NonAction]
@@ -399,7 +407,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userData = m_UserProfile.Value.GetUserData(ControllerContext);
             switch (universityId)
             {
-                
+
                 default:
                     //ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
                     ViewBag.AgudaMail = "aguda4u.co.il@gmail.com";
