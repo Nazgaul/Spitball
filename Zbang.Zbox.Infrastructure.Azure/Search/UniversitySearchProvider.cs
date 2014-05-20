@@ -7,6 +7,7 @@ using Lucene.Net.Store.Azure;
 using SpellChecker.Net.Search.Spell;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -33,6 +34,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         const string ImageField = "image";
         const string MembersCountField = "membersCount";
 
+        private readonly IndexSearcher m_IndexService;
+
 
         public UniversitySearchProvider(IBlobProvider blobProvider, IZboxReadServiceWorkerRole dbReadService)
         {
@@ -40,6 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, universityCatalog);
             m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, universitySuggestionCatalog);
             m_DbReadService = dbReadService;
+            m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
         }
         public void BuildUniversityData()
         {
@@ -102,10 +106,18 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return null;
             }
-            using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
-            {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
+            //{
+                sw.Stop();
+                Debug.WriteLine(sw.ElapsedMilliseconds);
+                sw.Restart();
                 using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
                 {
+                    sw.Stop();
+                    Debug.WriteLine(sw.ElapsedMilliseconds);
+                    sw.Restart();
                     //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
                     //{
                     //    string[] suggestions = speller.SuggestSimilar(term, 5);
@@ -117,12 +129,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     parser.AllowLeadingWildcard = true;
                     var query = parseQuery("*" + term + "*", parser);
 
-                    var hits = searcher.Search(query, 50).ScoreDocs;
+                    var hits = m_IndexService.Search(query, 50).ScoreDocs;
                     var retVal = new List<UniversityByPrefixDto>();
                     for (int i = 0; i < hits.Length; i++)
                     {
 
-                        Document doc2 = searcher.Doc(hits[i].Doc);//.Doc(i);
+                        Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
                         UniversityByPrefixDto university = new UniversityByPrefixDto(
                             doc2.GetField(NameField).StringValue,
                             doc2.GetField(ImageField).StringValue,
@@ -135,10 +147,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
 
                     }
+                    sw.Stop();
+                    Debug.WriteLine(sw.ElapsedMilliseconds);
+
 
                     return retVal;
                 }
-            }
+           // }
             //return new List<SampleData>();
         }
         private Lucene.Net.Search.Query parseQuery(string searchQuery, QueryParser parser)

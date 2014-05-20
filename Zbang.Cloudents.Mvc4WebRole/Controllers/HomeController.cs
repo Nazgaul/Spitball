@@ -228,6 +228,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Priority = 1.0,
                     Frequency = SitemapFrequency.Daily
                 },
+                new SitemapNode("/account/he-il/",requestContext)
+                {
+                    Priority = 1.0,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode("/account/ru-ru/",requestContext)
+                {
+                    Priority = 1.0,
+                    Frequency = SitemapFrequency.Daily
+                },
                  new SitemapNode(requestContext, new { area = "", controller = "Home", action = "AboutUs" })
                 {
                     Priority = 0.95,
