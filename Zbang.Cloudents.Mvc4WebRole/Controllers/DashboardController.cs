@@ -114,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region CreateBox
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Create(CreateBox model)
         {
             if (!ModelState.IsValid)
