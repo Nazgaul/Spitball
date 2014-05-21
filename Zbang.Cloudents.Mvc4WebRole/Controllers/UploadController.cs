@@ -28,13 +28,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public UploadController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            // IShortCodesCache shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService,
             IBlobProvider blobProvider,
             Lazy<IQueueProvider> queueProvider,
             IProfilePictureProvider profilePicture)
             : base(zboxWriteService, zboxReadService,
-                // shortToLongCache, 
             formsAuthenticationService)
         {
             m_BlobProvider = blobProvider;
@@ -91,7 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var result = m_ZboxWriteService.AddFileToBox(command);
 
                 var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
-                    result.File.ThumbnailBlobName,
+                   m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
                     string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0);
                 var urlBuilder = new UrlBuilder(HttpContext);
                 fileDto.Url = urlBuilder.buildItemUrl(boxUid, boxName, result.File.Id, result.File.Name, uniName);
@@ -222,8 +220,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new AddLinkToBoxCommand(userid, model.BoxId, model.Url, model.TabId, title);
                 var result = m_ZboxWriteService.AddLinkToBox(command);
                 var item = new LinkDto(result.Link.Id, result.Link.Name,
-                    result.Link.Uploader.Id, result.Link.ThumbnailBlobName, string.Empty,
-                    0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl,DateTime.UtcNow);
+                    result.Link.Uploader.Id, m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
+                    0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow);
 
                 var urlBuilder = new UrlBuilder(HttpContext);
                 item.Url = urlBuilder.buildItemUrl(model.BoxId, model.BoxName, item.Id, item.Name, model.UniName);
@@ -274,7 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var result = m_ZboxWriteService.AddFileToBox(command);
 
             var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
-                result.File.ThumbnailBlobName,
+               m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
                 string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0);
             var urlBuilder = new UrlBuilder(HttpContext);
             fileDto.Url = urlBuilder.buildItemUrl(boxUid, boxName, fileDto.Id, fileDto.Name, uniName);

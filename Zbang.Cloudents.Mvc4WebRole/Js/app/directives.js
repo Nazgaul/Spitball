@@ -9,3 +9,11 @@ cloudentsDirectives.directive('testDirective', function () {             //use a
         }
     };
 });
+cloudentsDirectives.directive('xngFocus', function () {
+    return function(scope, element, attrs) {
+        scope.$watch(attrs.xngFocus, 
+          function (newValue) { 
+              newValue && element.focus();
+          },true);
+    };    
+});
