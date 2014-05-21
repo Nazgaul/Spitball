@@ -990,12 +990,6 @@
       <DependentUpon>externalScriptLoader.js</DependentUpon>
     </Content>
     <Content Include="Content\UserPage.less" />
-    <Content Include="Install.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Install.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Quiz.less" />
     <Content Include="Content\Fonts\Alef-bold.ttf" />
     <Content Include="Content\Fonts\Alef-bold.woff" />
