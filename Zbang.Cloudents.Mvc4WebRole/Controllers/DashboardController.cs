@@ -152,6 +152,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return retVal;
         }
 
+        [HttpGet, CompressFilter, Ajax]
+        public ActionResult PrivateBoxPartial()
+        {
+            try
+            {
+                return PartialView("_PrivateBoxDialog");
+            }
+            catch (Exception ex)
+            {
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
 
         #endregion
 

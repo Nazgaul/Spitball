@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <ol id="BoxList" class="myAreaList clearfix">
-                    <li class="box">
+                    <li ng-click="showCreateBox()" class="box">
                         <button ng-click="createBox" class="addBtn">@SharedResources.CreateNew</button>
                     </li>
                     <li ng-repeat="box in groupBoxes" class="box" id="dash{{box.id}}" ng-include="'dashBoxTemplate'">
@@ -125,11 +125,10 @@
             </a>
             <button type="button" class="removeItem" ng-show="box.userType !== 'none'" ng-click="removeBox" data-title="removeBoxTitle"></button>
         </script>
-
+        <modal-dialog show="PrivateBoxDialogShown" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
+            <div ng-if="PrivateBoxDialogShown">
+                <div ng-include="'/Dashboard/PrivateBoxPartial'"></div>
+            </div>
+        </modal-dialog>
     </div>
-    @{
-    //Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
-
-
-    }
 </div>

@@ -44,30 +44,33 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
 
     };
 
-
-    $scope.creatingBox = false;
-    $scope.createBox = function () {
-        analytics.trackEvent('Dashboard', 'Create privte box', 'Number of clicks on "create" after writing down the box name');
-        $scope.creatingBox = true;
-        Box.create({
-            data: data
-        });
-        dataContext.createBox({
-            data: data,
-            success: function (result) {
-                var box = new Box(result);
-                cd.resetForm($('#createBoxDialog'));
-                $privateBoxDialog.hide();
-                $('#BoxName').val('');
-                isSubmit = false;
-                cd.pubsub.publish('nav', box.boxUrl/* + '?r=dashboard'*/);
-            },
-            error: function (msg) {
-                isSubmit = false;
-                cd.notification(msg[0].Value[0]);
-            }
-        });
+    $scope.showCreateBox = function () {
+        $scope.PrivateBoxDialogShown = true;
     };
+    
+    //$scope.creatingBox = false;
+    //$scope.createBox = function () {
+    //    analytics.trackEvent('Dashboard', 'Create privte box', 'Number of clicks on "create" after writing down the box name');
+    //    $scope.creatingBox = true;
+    //    Box.create({
+    //        data: data
+    //    });
+    //    dataContext.createBox({
+    //        data: data,
+    //        success: function (result) {
+    //            var box = new Box(result);
+    //            cd.resetForm($('#createBoxDialog'));
+    //            $privateBoxDialog.hide();
+    //            $('#BoxName').val('');
+    //            isSubmit = false;
+    //            cd.pubsub.publish('nav', box.boxUrl/* + '?r=dashboard'*/);
+    //        },
+    //        error: function (msg) {
+    //            isSubmit = false;
+    //            cd.notification(msg[0].Value[0]);
+    //        }
+    //    });
+    //};
 
 
     function mapBoxes(boxes) {
@@ -125,3 +128,20 @@ dashboard.controller('DashboardAsideController', ['$scope', 'User', function ($s
 
 }]);
 
+dashboard.controller('CreateBoxController', ['$scope', 'Box', function ($scope, Box) {
+    $scope.formData = {};
+
+    $scope.createBox = function (isValid) {
+        if (!isValid) {
+            return;
+        }
+
+        Box.create({
+            data: $scope.formData,
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+}]);
