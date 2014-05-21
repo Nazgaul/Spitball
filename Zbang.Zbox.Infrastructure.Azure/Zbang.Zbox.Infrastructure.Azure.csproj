@@ -147,6 +147,7 @@
     <Compile Include="MediaServices\MediaSevicesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue\QueueProvider.cs" />
+    <Compile Include="Search\IUniversityReadSearchProvider.cs" />
     <Compile Include="Search\University.cs" />
     <Compile Include="Search\UniversitySearchProvider.cs" />
     <Compile Include="Storage\LocalStorageProvider.cs" />
@@ -171,6 +172,14 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
       <Project>{3e0f1fbf-60d1-40b2-b649-933142c27cb7}</Project>
       <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ReadServices\Zbang.Zbox.ReadServices.csproj">
+      <Project>{091bcb44-6764-41ca-a255-c6da6157092b}</Project>
+      <Name>Zbang.Zbox.ReadServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ViewModel\Zbang.Zbox.ViewModel.csproj">
+      <Project>{bc85a7bd-262d-43e0-8d9d-ee76c602bfaf}</Project>
+      <Name>Zbang.Zbox.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

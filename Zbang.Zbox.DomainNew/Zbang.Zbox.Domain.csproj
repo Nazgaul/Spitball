@@ -116,6 +116,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\QuestionResource.ar.resx" />
+    <EmbeddedResource Include="Resources\QuestionResource.en-gb.resx" />
     <EmbeddedResource Include="Resources\QuestionResource.he.resx" />
     <EmbeddedResource Include="Resources\QuestionResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>

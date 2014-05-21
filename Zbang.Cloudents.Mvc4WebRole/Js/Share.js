@@ -11,7 +11,7 @@
             cd.autocomplete2('attemptValidate');
 
             if (!form.find('[name="Recepients"]').length) {
-                cd.displayErrors(form, ZboxResources.FieldRequired);
+                cd.displayErrors(form, JsResources.FieldRequired);
                 return false;
             }
             var input = form.find('input[type="submit"]').attr('disabled', 'disabled');

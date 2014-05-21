@@ -44,7 +44,7 @@
             return;
         }
         if (!regex.test(email)) {
-            cd.notification(ZboxResources.InvalidEmail);
+            cd.notification(JsResources.InvalidEmail);
             $inviteInput.filter(':visible').focus();
             return;
         }
@@ -89,7 +89,7 @@
             var recepients = $fInvite.find('input[name="Recepients"]').length;
             if (!recepients) {
                 //var error = [{ Key: "Recepients", Value: ['- This field is required.'] }];
-                cd.displayErrors($fInvite, ZboxResources.SpecifyRecipient);
+                cd.displayErrors($fInvite, JsResources.SpecifyRecipient);
                 return;
             }
 
@@ -103,7 +103,7 @@
                 dataContext.inviteBox({
                     data: data,
                     error: function (data) {
-                        cd.notification(ZboxResources.ProblemSending);
+                        cd.notification(JsResources.ProblemSending);
                     },
                     isJson: false
                 });

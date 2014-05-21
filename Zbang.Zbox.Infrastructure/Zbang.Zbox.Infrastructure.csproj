@@ -200,7 +200,6 @@
     <Compile Include="Storage\ILocalStorageProvider.cs" />
     <Compile Include="Storage\IQueueProvider.cs" />
     <Compile Include="Storage\ITableProvider.cs" />
-    <Compile Include="Storage\IUniversityReadSearchProvider.cs" />
     <Compile Include="Storage\QueueExtension.cs" />
     <Compile Include="Storage\QueueName.cs" />
     <Compile Include="Thumbnail\IAcademicBoxThumbnailProvider.cs" />

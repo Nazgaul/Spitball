@@ -1,4 +1,4 @@
-﻿var dashboard = angular.module('mDashboard', ['apiService', 'ngModal', 'Filters','ngScrollbar']);
+﻿var dashboard = angular.module('mDashboard', ['apiService', 'ngModal', 'Filters', 'ngScrollbar']);
 
 dashboard.config(function (ngModalDefaultsProvider) {
     return ngModalDefaultsProvider.set({
@@ -17,7 +17,7 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
 
             mapBoxes(data.payload.boxes);
 
-            
+
             if (data.payload.friends.length > 4) {
                 $scope.twoLinesFriends = true;
             }
@@ -36,8 +36,8 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
     //    console.log(friends);
     //    console.log(data);
     //})
-    $scope.title = 'CoursesFollow';
-    //$scope.title = ZboxResources.CoursesFollow;
+    //$scope.title = 'CoursesFollow';
+    $scope.title = JsResources.CoursesFollow;
 
     $scope.removeBox = function (box) {
         Box.create.query(function () { });
@@ -46,33 +46,34 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
 
 
     $scope.creatingBox = false;
-    //$scope.createBox = function () {                            
-    //        analytics.trackEvent('Dashboard', 'Create privte box', 'Number of clicks on "create" after writing down the box name');
-    //        $scope.creatingBox = true;
-    //        Box.create({
-    //            data: data
-    //        });
-    //        dataContext.createBox({
-    //            data: data,
-    //            success: function (result) {
-    //                var box = new Box(result);
-    //                cd.resetForm($('#createBoxDialog'));
-    //                $privateBoxDialog.hide();
-    //                $('#BoxName').val('');
-    //                isSubmit = false;
-    //                cd.pubsub.publish('nav', box.boxUrl/* + '?r=dashboard'*/);
-    //            },
-    //            error: function (msg) {
-    //                isSubmit = false;
-    //                cd.notification(msg[0].Value[0]);
-    //            }
-    //        });
-    //    }
-    //};
+    $scope.createBox = function () {
+        analytics.trackEvent('Dashboard', 'Create privte box', 'Number of clicks on "create" after writing down the box name');
+        $scope.creatingBox = true;
+        Box.create({
+            data: data
+        });
+        dataContext.createBox({
+            data: data,
+            success: function (result) {
+                var box = new Box(result);
+                cd.resetForm($('#createBoxDialog'));
+                $privateBoxDialog.hide();
+                $('#BoxName').val('');
+                isSubmit = false;
+                cd.pubsub.publish('nav', box.boxUrl/* + '?r=dashboard'*/);
+            },
+            error: function (msg) {
+                isSubmit = false;
+                cd.notification(msg[0].Value[0]);
+            }
+        });
+    };
+
 
     function mapBoxes(boxes) {
         var academic = [], group = [];
         for (var i = 0, l = boxes.length; i < l; i++) {
+            boxes[i].boxPicture = boxes[i].boxPicture || '/images/emptyState/my_default3.png';
             if (boxes[i].boxType === 'academic') {
                 academic.push(boxes[i]);
             } else {

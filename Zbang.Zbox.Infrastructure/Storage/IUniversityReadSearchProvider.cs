@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IUniversityReadSearchProvider
     {
-        IEnumerable<string> SearchUniversity(string term);
+        IEnumerable<UniversityByPrefixDto> SearchUniversity(string term);
     }
 
     public interface IUniversityWriteSearchProvider

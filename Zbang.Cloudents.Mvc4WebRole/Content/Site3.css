@@ -124,16 +124,17 @@ h6 {
 .drop {
   color: #fff;
   border-radius: 3px;
-  background-color: #0f9d58;
-  padding: 3px;
+  background: #0f9d58;
+  padding: 2px 4px;
   display: none;
-  position: absolute;
-  right: 0;
+  position: relative;
+  right: 8px;
   /*rtl*/
-  top: 0;
+  font-size: 17px;
+  vertical-align: top;
 }
 .dropHover {
-  color: #dc552a;
+  color: #0f9d58;
 }
 /*#endregion*/
 .plupload.html5 {

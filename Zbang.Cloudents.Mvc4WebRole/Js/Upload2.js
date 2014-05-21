@@ -351,12 +351,12 @@
             var cloneBoxToUpload = cd.clone(boxToUpload);
             for (var i = 0; i < files.length; i++) {
                 if (files[i].name.indexOf('.') === -1 && files[i].size === 4096) {
-                    cd.notification(ZboxResources.CantUploadDirectory);
+                    cd.notification(JsResources.CantUploadDirectory);
                     uploader.removeFile(files[i]);
                     continue;
                 }
                 if (files[i].size === 0) {
-                    cd.notification(ZboxResources.CantUploadEmptyFile);
+                    cd.notification(JsResources.CantUploadEmptyFile);
                     uploader.removeFile(files[i]);
                     continue;
                 }

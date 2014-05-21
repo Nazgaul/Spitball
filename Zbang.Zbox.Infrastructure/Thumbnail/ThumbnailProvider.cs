@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
         public ThumbnailProvider(IBlobProvider blobProvider/*, IFileConvertFactory fileConvertor*/)
         {
             m_BlobProvider = blobProvider;
-            InitializeBlob();
+           // InitializeBlob();
         }
 
         //private void InitializeThumbnailMapper()
@@ -112,7 +112,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
             }
             await Task.WhenAll(tasks);
             
-            //InitializeAcademicBoxThumbnails();
+            InitializeAcademicBoxThumbnails();
         }
 
         public const int NumberOfAcademicBoxThumbnail = 10;

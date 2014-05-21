@@ -15,16 +15,17 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
             : base(uid, ownerId, boxUid, questionId, answerId, name)
         {
             //TODO: this is not good should be logic in dto
-            var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+           // var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
 
-            m_Thumbnail = blobProvider.GetThumbnailUrl(thumbnail);
+            m_Thumbnail = thumbnail;// blobProvider.GetThumbnailUrl(thumbnail);
             //Size = size;
         }
 
-        public override string Thumbnail
-        {
-            get { return m_Thumbnail; }
-        }
+        //public override string Thumbnail
+        //{
+        //    get { return m_Thumbnail; }
+        //    set { m_Thumbnail = value; }
+        //}
 
         //public long Size { get; private set; }
 

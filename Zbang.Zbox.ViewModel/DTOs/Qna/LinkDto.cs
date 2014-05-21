@@ -13,18 +13,22 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
             string boxUid, Guid? questionId, Guid? answerId, string name)
             : base(uid, ownerId, boxUid, questionId, answerId, name)
         {
-            m_Thumbnail = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>().GetThumbnailLinkUrl();
+            m_Thumbnail = string.Empty;// Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>().GetThumbnailLinkUrl();
             //m_Thumbnail = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailLinkUrl();
         }
 
-        public override string Thumbnail
-        {
-            get
-            {
-                return m_Thumbnail;
-            }
+        //public override string Thumbnail
+        //{
+        //    get
+        //    {
+        //        return m_Thumbnail;
+        //    }
+        //    set
+        //    {
+        //        m_Thumbnail = value;
+        //    }
 
-        }
+        //}
 
         public override string Type
         {

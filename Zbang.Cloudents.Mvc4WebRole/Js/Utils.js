@@ -167,16 +167,16 @@
                 var timeObj = calculateSecondsDifferece();
                 if (timeObj.hours >= 1) {
 
-                    return ZboxResources.HoursAgo.format(Math.round(timeObj.hours));
+                    return JsResources.HoursAgo.format(Math.round(timeObj.hours));
                 }
                 if (timeObj.minutes >= 1) {
-                    return ZboxResources.MinAgo.format(Math.round(timeObj.minutes));
+                    return JsResources.MinAgo.format(Math.round(timeObj.minutes));
                 }
 
                 return JsResources.JustNow;
                 break;
             case 1:
-                return ZboxResources.Yesterday;
+                return JsResources.Yesterday;
                 break;
 
             default:
@@ -188,7 +188,7 @@
                 } else if (dateMonth > todayMonth) {
                     return date.getDate() + ' ' + months[dateMonth - 1] + ', ' + date.getFullYear();
                 } else {
-                    return ZboxResources.DaysAgo.format(dateDifference);
+                    return JsResources.DaysAgo.format(dateDifference);
                 }
                 break;
         }

@@ -7,13 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ViewModel.DTOs.Emails;
+using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
+using Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadServiceWorkerRole : IZboxReadServiceWorkerRole
     {
+        private readonly IBlobProvider m_BlobProvider;
+        public ZboxReadServiceWorkerRole(IBlobProvider blobProvider)
+        {
+            m_BlobProvider = blobProvider;
+        }
         public IEnumerable<UserDigestDto> GetUsersByNotificationSettings(GetUserByNotificationQuery query)
         {
             using (UnitOfWork.Start())
@@ -34,7 +42,10 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
                 dbQuery.SetInt64("UserId", query.UserId);
                 dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<BoxDigestDto>());
-                return dbQuery.List<BoxDigestDto>();
+                return dbQuery.List<BoxDigestDto>().Select(s=> {
+                    s.BoxPicture = string.IsNullOrEmpty(s.BoxPicture) ? "https://www.cloudents.com/images/emptyState/my_default3.png" : m_BlobProvider.GetThumbnailUrl(s.BoxPicture);
+                    return s;
+                });
             }
         }
 
@@ -46,9 +57,13 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
                 dbQuery.SetInt64("BoxId", query.BoxId);
                 dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<ItemDigestDto>());
-                return dbQuery.List<ItemDigestDto>();
+                return dbQuery.List<ItemDigestDto>().Select(s =>
+                {
+                    s.Picture = m_BlobProvider.GetThumbnailUrl(s.Picture);
+                    return s;
+                });
             }
-        
+
         }
         public IEnumerable<QuizDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query)
         {
@@ -152,6 +167,15 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<UniversityLuceneDto> GetUniversityDetail(long userId)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                var retVal = conn.Query<UniversityLuceneDto>(LibraryChoose.GetUniversityDetail, new { UserId = userId });
+                return retVal.FirstOrDefault();
+            }
+        }
+
         public async Task<PartnersDto> GetPartnersEmail(long userid)
         {
             PartnersDto retVal = new PartnersDto();
@@ -169,7 +193,7 @@ namespace Zbang.Zbox.ReadServices
                     retVal.AllItems = grid.Read<int>().First();
 
                     retVal.LastWeekQnA = grid.Read<int>().First();
-                    retVal.AllQnA= grid.Read<int>().First();
+                    retVal.AllQnA = grid.Read<int>().First();
 
                     retVal.Univeristies = grid.Read<Univeristy>();
 

@@ -171,7 +171,7 @@
     <value>סטודנטים</value>
   </data>
   <data name="StudyPlatform" xml:space="preserve">
-    <value>Cloudents עוזרת לסטודנטים ללמוד טוב יותר על ידי לימוד משותף</value>
+    <value>קלאודנטס עוזרת לסטודנטים ללמוד טוב יותר על ידי לימוד משותף</value>
   </data>
   <data name="WatchShare" xml:space="preserve">
     <value>צפה ושתף</value>
@@ -184,6 +184,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>הרשם דרך אימייל</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>קלאודנטס היא הפלטפורמה החינמית המתקדמת ביותר ללימוד קבוצתי ברשת. הצטרפו עכשיו למהפכת הלימוד הקבוצתי של קלאודנטס.</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>קלאודנטס | עוזרת לסטודנטים להצליח בלימודים בעזרת עבודת צוות</value>

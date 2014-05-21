@@ -44,7 +44,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 
         public UserRelationshipType UserType { get; set; }
 
-        public string Blob { get; protected set; }
+        public string Blob { get; set; }
         public float Rate { get; private set; }
 
         //for check if item is connected to box

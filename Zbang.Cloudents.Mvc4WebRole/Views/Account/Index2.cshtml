@@ -35,7 +35,8 @@
         </video>
     </div>
     <div class="language">
-        <a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishName).Culture" href="@Url.Action("Index", "Account")" title="English site">@Languages.EnglishName</a>
+        <a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishUSName).Culture" href="@Url.Action("Index", "Account")" title="English (US)">@Languages.EnglishUSName</a>
+        <a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishGBName).Culture" href="@Url.Action("Index", "Account")" title="English (UK)">@Languages.EnglishGBName</a>
         <a data-language="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture" href="@Url.Action("Index", "Account")" title="Russian site">@Languages.RussianName</a>
         <a data-language="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture" href="@Url.Action("Index", "Account")" title="Hebrew site">@Languages.HebrewName</a>
         <a data-language="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture" href="@Url.Action("Index", "Account")" title="Arabic site">@Languages.ArabicName</a>
@@ -52,7 +53,8 @@
             <li class="last"><a href="@Url.Action("ContactUs", "Home")">@FooterResources.ContactUs</a></li>
             <li class="sideBarSignupBtn addRegister" data-university="@ViewBag.universityId">@LogOnResources.SignUp</li>
             <li class="last addConnect" data-university="@ViewBag.universityId">@SharedResources.SignIn</li>            
-            <li><a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishName).Culture" href="@Url.Action("Index", "Account")" title="English site">@Languages.EnglishName</a></li>
+            <li><a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishUSName).Culture" href="@Url.Action("Index", "Account")" title="English site">@Languages.EnglishUSName</a></li>
+            <li><a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishGBName).Culture" href="@Url.Action("Index", "Account")" title="English site">@Languages.EnglishGBName</a></li>
             <li><a data-language="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture" href="@Url.Action("Index", "Account")" title="Russian site">@Languages.RussianName</a></li>
             <li><a data-language="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture" href="@Url.Action("Index", "Account")" title="Hebrew site">@Languages.HebrewName</a></li>
             <li><a data-language="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture" href="@Url.Action("Index", "Account")" title="Arabic site">@Languages.ArabicName</a></li>

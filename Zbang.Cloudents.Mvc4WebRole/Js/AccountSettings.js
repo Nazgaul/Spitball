@@ -54,7 +54,7 @@
                     newpswElem.val('');
                     oldpswElem.val('');
                     prev.toggleClass(css);
-                    alert(ZboxResources.PwdChanged);
+                    alert(JsResources.PwdChanged);
                 },
                 error: function (msg) {
                     emailerr.text(msg);
@@ -92,7 +92,7 @@
                 dataContext.changeEmail({
                     data: { Email: newEmail },
                     success: function () {
-                        $newEmail.val('').attr('placeholder', ZboxResources.TypeCode).next().text(ZboxResources.Save).addClass('checkMail');
+                        $newEmail.val('').attr('placeholder', JsResources.TypeCode).next().text(JsResources.Save).addClass('checkMail');
                         codeRequired = true;
                     },
                     error: function (msg) {
@@ -104,21 +104,21 @@
             function submitCode() {
                 var newEmail = $newEmail.val();
                 if (newEmail === '') {
-                    emailerr.text(ZboxResources.FieldRequired);
+                    emailerr.text(JsResources.FieldRequired);
                     return;
                 }
                 if (!$.isNumeric(newEmail)) {
-                    emailerr.text(ZboxResources.FieldNeedsNumber);
+                    emailerr.text(JsResources.FieldNeedsNumber);
                     return;
                 }
                 dataContext.submitCode({
                     data: { code: newEmail },
                     success: function (data) {
-                        $newEmail.attr('placeholder', ZboxResources.EnterEmail).next().text(ZboxResources.Change);
+                        $newEmail.attr('placeholder', JsResources.EnterEmail).next().text(JsResources.Change);
                         $newEmail.parent().toggle().prev().toggle();
                         codeRequired = false;
                         $('.changeEmail').find('span:first').text(data);
-                        cd.notification(ZboxResources.EmailChanged);
+                        cd.notification(JsResources.EmailChanged);
                     },
                     error: function (msg) {
                         emailerr.text(msg);
@@ -260,7 +260,7 @@
 
             uploader.bind('Error', function (up, err) {
                 if (err.code === plupload.FILE_EXTENSION_ERROR) {
-                    cd.notification(ZboxResources.IncorrectExtension);
+                    cd.notification(JsResources.IncorrectExtension);
                 }
                 if (err.status === 401) {
                     document.location.href = '/';
@@ -280,7 +280,7 @@
                     $('#accountSettingsThumb').attr('src', largeimg);
                 }
                 else {
-                    cd.notification(ZboxResources.CouldNotProcess);
+                    cd.notification(JsResources.CouldNotProcess);
                 }
             });
 
@@ -302,7 +302,7 @@
                 success: function () {
                     $('#userName').text($('#Name').val().trim().split(' ', 1)[0]);
                     $('#userImg').attr('src', smallimg);
-                    cd.notification(ZboxResources.SettingsSaved);
+                    cd.notification(JsResources.SettingsSaved);
                     cd.pubsub.publish('clear_cache');
                 },
                 error: function (msg) {

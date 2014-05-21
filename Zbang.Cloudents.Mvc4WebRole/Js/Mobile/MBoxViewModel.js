@@ -237,10 +237,10 @@
         }
         self.removeB = ko.computed(function () {
             var retVal = isDeleteOrUnfollow();
-            return retVal ? ZboxResources.Delete : ZboxResources.Unfollow;
+            return retVal ? JsResources.Delete : JsResources.Unfollow;
         });
         self.removeBA = function () {
-            if (!confirm(ZboxResources.SureYouWant0ThisBox.format(self.removeB()))) {
+            if (!confirm(JsResources.SureYouWant0ThisBox.format(self.removeB()))) {
                 return;
             }
             if (isDeleteOrUnfollow()) {
@@ -266,7 +266,7 @@
                 return;
             }
             if (self.follow()) {
-                cd.notification(ZboxResources.NeedToFollowBox);
+                cd.notification(JsResources.NeedToFollowBox);
                 e.stopPropagation();
                 return;
             }

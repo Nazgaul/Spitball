@@ -238,7 +238,7 @@
                         assignItemToTab(ui.draggable[0].id, ko.dataFor(event.target).id);
                         var $span = $('<span class="drop boldFont">+1</span>');
                         $this.append($span);
-                        $span.fadeIn(500, function () {
+                        $span.fadeIn(1000, function () {
                             $span.remove();
                         });
                     },
@@ -261,7 +261,7 @@
                 return false;
             }
             if (self.follow()) {
-                cd.notification(ZboxResources.NeedToFollowBox);
+                cd.notification(JsResources.NeedToFollowBox);
                 return false;
             }
             return true;
@@ -283,7 +283,7 @@
                     return i.name() === tabName;
                 });
                 if (exists) {
-                    cd.displayErrors(form, ZboxResources.TabExists);
+                    cd.displayErrors(form, JsResources.TabExists);
                     return false;
                 }
                 createTab(data);
@@ -344,7 +344,7 @@
             var $e = $(e.target);
             closeMenu($e);
 
-            cd.confirm(ZboxResources.SureDeleteTab, function () {
+            cd.confirm(JsResources.SureDeleteTab, function () {
                 dataContext.deleteTab({
                     data: { TabId: m.id, BoxUid: self.boxid },
                     success: function () {

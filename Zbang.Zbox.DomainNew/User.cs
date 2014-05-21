@@ -112,7 +112,11 @@ namespace Zbang.Zbox.Domain
 
         public void RemoveInviteState(Box box)
         {
-            Invites.Where(w => w.Box == box).ToList().ForEach(f => f.IsActive = false);
+            var invites = Invites.Where(w => w.Box == box).ToList();
+            if (invites != null)
+            {
+                invites.ForEach(f => f.IsActive = false);
+            }
         }
 
         public Reputation AddReputation(ReputationAction action)

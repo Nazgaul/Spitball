@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.ViewModel.DTOs.Emails;
+using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.ReadServices
@@ -26,5 +27,7 @@ namespace Zbang.Zbox.ReadServices
 
 
         Task<PartnersDto> GetPartnersEmail(long userid);
+
+        Task<UniversityLuceneDto> GetUniversityDetail(long userId);
     }
 }

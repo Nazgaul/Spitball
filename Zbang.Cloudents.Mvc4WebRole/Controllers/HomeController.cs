@@ -153,9 +153,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [DonutOutputCache(Duration = TimeConsts.Hour * 2,
-            VaryByParam = "none",
-            VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
+        //[DonutOutputCache(Duration = TimeConsts.Hour * 2,
+        //    VaryByParam = "none",
+        //    VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
         [CompressFilter(Order = 1)]
         public ActionResult JsResources()
         {
@@ -168,6 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             foreach (System.Collections.DictionaryEntry item in set)
             {
                 sb.Append("\"" + item.Key.ToString() + "\":\"" + item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n") + "\",");
+                sb.AppendLine();
             }
             sb.Remove(sb.Length - 1, 1);
             sb.Append("}");
@@ -224,6 +225,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             List<SitemapNode> nodes = new List<SitemapNode>
             {
                 new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Index" })
+                {
+                    Priority = 1.0,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode("/account/he-il/",requestContext)
+                {
+                    Priority = 1.0,
+                    Frequency = SitemapFrequency.Daily
+                },
+                new SitemapNode("/account/ru-ru/",requestContext)
                 {
                     Priority = 1.0,
                     Frequency = SitemapFrequency.Daily

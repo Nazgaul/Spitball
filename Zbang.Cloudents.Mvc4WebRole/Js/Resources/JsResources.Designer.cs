@@ -70,6 +70,51 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to a few sec. ago.
+        /// </summary>
+        public static string AFewSecAgo {
+            get {
+                return ResourceManager.GetString("AFewSecAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a min. ago.
+        /// </summary>
+        public static string AMinAgo {
+            get {
+                return ResourceManager.GetString("AMinAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to an hour ago.
+        /// </summary>
+        public static string AnHourAgo {
+            get {
+                return ResourceManager.GetString("AnHourAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Answer.
+        /// </summary>
+        public static string Answer {
+            get {
+                return ResourceManager.GetString("Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Answers.
+        /// </summary>
+        public static string Answers {
+            get {
+                return ResourceManager.GetString("Answers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apr.
         /// </summary>
         public static string April {
@@ -88,11 +133,182 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to b.
+        /// </summary>
+        public static string B {
+            get {
+                return ResourceManager.GetString("B", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This box already exists.
+        /// </summary>
+        public static string BoxExists {
+            get {
+                return ResourceManager.GetString("BoxExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t add reply.
+        /// </summary>
+        public static string CantAddReply {
+            get {
+                return ResourceManager.GetString("CantAddReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, URLs can&apos;t be modified.
+        /// </summary>
+        public static string CantModifyUrl {
+            get {
+                return ResourceManager.GetString("CantModifyUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t upload a directory.
+        /// </summary>
+        public static string CantUploadDirectory {
+            get {
+                return ResourceManager.GetString("CantUploadDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t upload 0 size file...removing it from list.
+        /// </summary>
+        public static string CantUploadEmptyFile {
+            get {
+                return ResourceManager.GetString("CantUploadEmptyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must choose an existing box or create a new box.
+        /// </summary>
+        public static string ChooseBox {
+            get {
+                return ResourceManager.GetString("ChooseBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to click here.
+        /// </summary>
+        public static string ClickHere {
+            get {
+                return ResourceManager.GetString("ClickHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cloudents is the most advanced free online and mobile social studying platform. Join the social studying revolution with Cloudents now..
         /// </summary>
         public static string CloudentsJoin {
             get {
                 return ResourceManager.GetString("CloudentsJoin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to comment.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment by.
+        /// </summary>
+        public static string CommentBy {
+            get {
+                return ResourceManager.GetString("CommentBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to comments.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy link.
+        /// </summary>
+        public static string CopyLink {
+            get {
+                return ResourceManager.GetString("CopyLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not process your picture.
+        /// </summary>
+        public static string CouldNotProcess {
+            get {
+                return ResourceManager.GetString("CouldNotProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #ID.
+        /// </summary>
+        public static string CourseId {
+            get {
+                return ResourceManager.GetString("CourseId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courses I follow.
+        /// </summary>
+        public static string CoursesFollow {
+            get {
+                return ResourceManager.GetString("CoursesFollow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new.
+        /// </summary>
+        public static string CreateNew {
+            get {
+                return ResourceManager.GetString("CreateNew", resourceCulture);
             }
         }
         
@@ -106,11 +322,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} days ago.
+        /// </summary>
+        public static string DaysAgo {
+            get {
+                return ResourceManager.GetString("DaysAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dec.
         /// </summary>
         public static string December {
             get {
                 return ResourceManager.GetString("December", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decline.
+        /// </summary>
+        public static string Decline {
+            get {
+                return ResourceManager.GetString("Decline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete box.
+        /// </summary>
+        public static string DeleteBox {
+            get {
+                return ResourceManager.GetString("DeleteBox", resourceCulture);
             }
         }
         
@@ -124,11 +376,129 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete.
+        /// </summary>
+        public static string DeleteLowercase {
+            get {
+                return ResourceManager.GetString("DeleteLowercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to delete this box.
+        /// </summary>
+        public static string DeleteThisBox {
+            get {
+                return ResourceManager.GetString("DeleteThisBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this member?.
+        /// </summary>
+        public static string DeleteThisMember {
+            get {
+                return ResourceManager.GetString("DeleteThisMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this user?.
         /// </summary>
         public static string DeleteUser {
             get {
                 return ResourceManager.GetString("DeleteUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission.
+        /// </summary>
+        public static string DontHavePermission {
+            get {
+                return ResourceManager.GetString("DontHavePermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to delete a file.
+        /// </summary>
+        public static string DontHavePermissionDeleteFile {
+            get {
+                return ResourceManager.GetString("DontHavePermissionDeleteFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to delete a.
+        /// </summary>
+        public static string DontHavePermissionToDelete {
+            get {
+                return ResourceManager.GetString("DontHavePermissionToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag and drop files here to upload or.
+        /// </summary>
+        public static string DragDropFiles {
+            get {
+                return ResourceManager.GetString("DragDropFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to choose from the drop down.
+        /// </summary>
+        public static string DropDownChoose {
+            get {
+                return ResourceManager.GetString("DropDownChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your email changed.
+        /// </summary>
+        public static string EmailChanged {
+            get {
+                return ResourceManager.GetString("EmailChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new email.
+        /// </summary>
+        public static string EnterEmail {
+            get {
+                return ResourceManager.GetString("EnterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I too have joined Cloudents.
+        ///Cloudents has the largest collection of course notes and exams at your school. Join Cloudents, the more students join, the easier studying becomes..
+        /// </summary>
+        public static string FbText {
+            get {
+                return ResourceManager.GetString("FbText", resourceCulture);
             }
         }
         
@@ -142,6 +512,78 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This field should contain a number.
+        /// </summary>
+        public static string FieldNeedsNumber {
+            get {
+                return ResourceManager.GetString("FieldNeedsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is required.
+        /// </summary>
+        public static string FieldRequired {
+            get {
+                return ResourceManager.GetString("FieldRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to file.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to files.
+        /// </summary>
+        public static string Files {
+            get {
+                return ResourceManager.GetString("Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I think you&apos;ll find this interesting.
+        /// </summary>
+        public static string FindThisInteresting {
+            get {
+                return ResourceManager.GetString("FindThisInteresting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to follow.
+        /// </summary>
+        public static string Follow {
+            get {
+                return ResourceManager.GetString("Follow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GB.
+        /// </summary>
+        public static string Gb {
+            get {
+                return ResourceManager.GetString("Gb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} hours ago.
+        /// </summary>
+        public static string HoursAgo {
+            get {
+                return ResourceManager.GetString("HoursAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I joined {0} on Cloudents, our free online social studying platform.
         /// </summary>
         public static string IJoined {
@@ -151,11 +593,101 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to file has incorrect extension.
+        /// </summary>
+        public static string IncorrectExtension {
+            get {
+                return ResourceManager.GetString("IncorrectExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email.
+        /// </summary>
+        public static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file name.
+        /// </summary>
+        public static string InvalidFilename {
+            get {
+                return ResourceManager.GetString("InvalidFilename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite.
+        /// </summary>
+        public static string Invite {
+            get {
+                return ResourceManager.GetString("Invite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invites.
+        /// </summary>
+        public static string Invites {
+            get {
+                return ResourceManager.GetString("Invites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite sent.
+        /// </summary>
+        public static string InviteSent {
+            get {
+                return ResourceManager.GetString("InviteSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I shared.
         /// </summary>
         public static string IShared {
             get {
                 return ResourceManager.GetString("IShared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item.
+        /// </summary>
+        public static string Item {
+            get {
+                return ResourceManager.GetString("Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item added by.
+        /// </summary>
+        public static string ItemBy {
+            get {
+                return ResourceManager.GetString("ItemBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This item already exists.
+        /// </summary>
+        public static string ItemExists {
+            get {
+                return ResourceManager.GetString("ItemExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to items.
+        /// </summary>
+        public static string Items {
+            get {
+                return ResourceManager.GetString("Items", resourceCulture);
             }
         }
         
@@ -196,11 +728,56 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Just me.
+        /// </summary>
+        public static string JustMe {
+            get {
+                return ResourceManager.GetString("JustMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Just now.
         /// </summary>
         public static string JustNow {
             get {
                 return ResourceManager.GetString("JustNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KB.
+        /// </summary>
+        public static string Kb {
+            get {
+                return ResourceManager.GetString("Kb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave group.
+        /// </summary>
+        public static string LeaveGroup {
+            get {
+                return ResourceManager.GetString("LeaveGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Like.
+        /// </summary>
+        public static string Like {
+            get {
+                return ResourceManager.GetString("Like", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please log in.
+        /// </summary>
+        public static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
             }
         }
         
@@ -223,11 +800,173 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MB.
+        /// </summary>
+        public static string Mb {
+            get {
+                return ResourceManager.GetString("Mb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to member.
+        /// </summary>
+        public static string Member {
+            get {
+                return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to members.
+        /// </summary>
+        public static string Members {
+            get {
+                return ResourceManager.GetString("Members", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message sent.
+        /// </summary>
+        public static string MessageSent {
+            get {
+                return ResourceManager.GetString("MessageSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} min. ago.
+        /// </summary>
+        public static string MinAgo {
+            get {
+                return ResourceManager.GetString("MinAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to more.
+        /// </summary>
+        public static string More {
+            get {
+                return ResourceManager.GetString("More", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Courses.
+        /// </summary>
+        public static string MyCourses {
+            get {
+                return ResourceManager.GetString("MyCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My space.
+        /// </summary>
+        public static string MySpace {
+            get {
+                return ResourceManager.GetString("MySpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Space.
+        /// </summary>
+        public static string MySpace1 {
+            get {
+                return ResourceManager.GetString("MySpace1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to follow this box.
+        /// </summary>
+        public static string NeedToFollowBox {
+            get {
+                return ResourceManager.GetString("NeedToFollowBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have no current boxes.
+        /// </summary>
+        public static string NoCurrentBoxes {
+            get {
+                return ResourceManager.GetString("NoCurrentBoxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have no current invites.
+        /// </summary>
+        public static string NoCurrentInvites {
+            get {
+                return ResourceManager.GetString("NoCurrentInvites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member did not join any courses.
         /// </summary>
         public static string NoSelected {
             get {
                 return ResourceManager.GetString("NoSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No text entered.
+        /// </summary>
+        public static string NoTextEntered {
+            get {
+                return ResourceManager.GetString("NoTextEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You do not have rights to invite people to this box.
+        /// </summary>
+        public static string NotHaveRights {
+            get {
+                return ResourceManager.GetString("NotHaveRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing here yet.
+        /// </summary>
+        public static string NothingHereYet {
+            get {
+                return ResourceManager.GetString("NothingHereYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no items here to download.
+        /// </summary>
+        public static string NothingToDownload {
+            get {
+                return ResourceManager.GetString("NothingToDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not a valid URL format.
+        /// </summary>
+        public static string NotValidUrl {
+            get {
+                return ResourceManager.GetString("NotValidUrl", resourceCulture);
             }
         }
         
@@ -259,6 +998,88 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to on the course.
+        /// </summary>
+        public static string OnCourse {
+            get {
+                return ResourceManager.GetString("OnCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select files to upload.
+        /// </summary>
+        public static string PleaseSelectFiles {
+            get {
+                return ResourceManager.GetString("PleaseSelectFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview not available
+        ///for this file type..
+        /// </summary>
+        public static string PreviewNotAvailable {
+            get {
+                return ResourceManager.GetString("PreviewNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy settings changed.
+        /// </summary>
+        public static string PrivacySettingChanged {
+            get {
+                return ResourceManager.GetString("PrivacySettingChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a problem with loading the image.
+        /// </summary>
+        public static string ProblemLoadingImage {
+            get {
+                return ResourceManager.GetString("ProblemLoadingImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem sending your invite.
+        /// </summary>
+        public static string ProblemSending {
+            get {
+                return ResourceManager.GetString("ProblemSending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to professor name.
+        /// </summary>
+        public static string ProfessorName {
+            get {
+                return ResourceManager.GetString("ProfessorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password was successfully changed.
+        /// </summary>
+        public static string PwdChanged {
+            get {
+                return ResourceManager.GetString("PwdChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rename.
+        /// </summary>
+        public static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replies.
         /// </summary>
         public static string Replies {
@@ -277,11 +1098,56 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to School library.
+        /// </summary>
+        public static string SchoolLibrary {
+            get {
+                return ResourceManager.GetString("SchoolLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to results for.
+        /// </summary>
+        public static string SearchResults {
+            get {
+                return ResourceManager.GetString("SearchResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select files to upload.
+        /// </summary>
+        public static string SelectFilesToUpload {
+            get {
+                return ResourceManager.GetString("SelectFilesToUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send a direct message.
         /// </summary>
         public static string SendDirect {
             get {
                 return ResourceManager.GetString("SendDirect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send a message.
+        /// </summary>
+        public static string SendMsg {
+            get {
+                return ResourceManager.GetString("SendMsg", resourceCulture);
             }
         }
         
@@ -295,11 +1161,308 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your settings are saved.
+        /// </summary>
+        public static string SettingsSaved {
+            get {
+                return ResourceManager.GetString("SettingsSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share by name or email.
         /// </summary>
         public static string ShareBy {
             get {
                 return ResourceManager.GetString("ShareBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        public static string Skip {
+            get {
+                return ResourceManager.GetString("Skip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please specify at least one recipient..
+        /// </summary>
+        public static string SpecifyRecipient {
+            get {
+                return ResourceManager.GetString("SpecifyRecipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are still uploading files. Are you sure you want to close?.
+        /// </summary>
+        public static string StillUploading {
+            get {
+                return ResourceManager.GetString("StillUploading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this comment?.
+        /// </summary>
+        public static string SureDeleteComment {
+            get {
+                return ResourceManager.GetString("SureDeleteComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this Item?.
+        /// </summary>
+        public static string SureDeleteItem {
+            get {
+                return ResourceManager.GetString("SureDeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this reply?.
+        /// </summary>
+        public static string SureDeleteReply {
+            get {
+                return ResourceManager.GetString("SureDeleteReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this tab?.
+        /// </summary>
+        public static string SureDeleteTab {
+            get {
+                return ResourceManager.GetString("SureDeleteTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you are not interested in following this box (&apos;{0}&apos;)?.
+        /// </summary>
+        public static string SureToDecline0 {
+            get {
+                return ResourceManager.GetString("SureToDecline0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this box (&apos;{0}&apos;)?.
+        /// </summary>
+        public static string SureToDelete0 {
+            get {
+                return ResourceManager.GetString("SureToDelete0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to unfollow this box (&apos;{0}&apos;)?.
+        /// </summary>
+        public static string SureToUnfollow0 {
+            get {
+                return ResourceManager.GetString("SureToUnfollow0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want {0} this box (&apos;{1}&apos;)?.
+        /// </summary>
+        public static string SureYouWant0 {
+            get {
+                return ResourceManager.GetString("SureYouWant0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to {0} this box?.
+        /// </summary>
+        public static string SureYouWant0ThisBox {
+            get {
+                return ResourceManager.GetString("SureYouWant0ThisBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want.
+        /// </summary>
+        public static string SureYouWantTo {
+            get {
+                return ResourceManager.GetString("SureYouWantTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete.
+        /// </summary>
+        public static string SureYouWantToDelete {
+            get {
+                return ResourceManager.GetString("SureYouWantToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This tab already exists.
+        /// </summary>
+        public static string TabExists {
+            get {
+                return ResourceManager.GetString("TabExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this box.
+        /// </summary>
+        public static string ThisBox {
+            get {
+                return ResourceManager.GetString("ThisBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is a box.
+        /// </summary>
+        public static string ThisIsABox {
+            get {
+                return ResourceManager.GetString("ThisIsABox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to the course.
+        /// </summary>
+        public static string ToCourse {
+            get {
+                return ResourceManager.GetString("ToCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to delete.
+        /// </summary>
+        public static string ToDelete {
+            get {
+                return ResourceManager.GetString("ToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to delete this box?.
+        /// </summary>
+        public static string ToDeleteBox {
+            get {
+                return ResourceManager.GetString("ToDeleteBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to leave this group?.
+        /// </summary>
+        public static string ToLeaveGroup {
+            get {
+                return ResourceManager.GetString("ToLeaveGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top level.
+        /// </summary>
+        public static string TopLevel {
+            get {
+                return ResourceManager.GetString("TopLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to unfollow.
+        /// </summary>
+        public static string ToUnfollow {
+            get {
+                return ResourceManager.GetString("ToUnfollow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To view the content of this box.
+        /// </summary>
+        public static string ToViewContent {
+            get {
+                return ResourceManager.GetString("ToViewContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type code received by email.
+        /// </summary>
+        public static string TypeCode {
+            get {
+                return ResourceManager.GetString("TypeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unfollow.
+        /// </summary>
+        public static string Unfollow {
+            get {
+                return ResourceManager.GetString("Unfollow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unfollow this box.
+        /// </summary>
+        public static string UnfollowThisBox {
+            get {
+                return ResourceManager.GetString("UnfollowThisBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlike.
+        /// </summary>
+        public static string Unlike {
+            get {
+                return ResourceManager.GetString("Unlike", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link was copied to clipboard.
+        /// </summary>
+        public static string UrlCopied {
+            get {
+                return ResourceManager.GetString("UrlCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What&apos;s new?.
+        /// </summary>
+        public static string WhatsNew {
+            get {
+                return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We are working on making it possible to preview all file types but haven&apos;t gotten to this one yet\n\nMeanwhile, you can try downloading the file to your computer to view.
+        /// </summary>
+        public static string WorkingOnPreview {
+            get {
+                return ResourceManager.GetString("WorkingOnPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yesterday.
+        /// </summary>
+        public static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
     }

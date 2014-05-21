@@ -9,13 +9,18 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
     public class AnswerToFriendDto
     {
         private string m_BoxPicture;
-        public string BoxPicture { get { return m_BoxPicture; }
+        public string BoxPicture
+        {
+            get
+            {
+                return m_BoxPicture;
+            }
             set
             {
                 if (!string.IsNullOrEmpty(value))
                 {
-                    var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                    m_BoxPicture = blobProvider.GetThumbnailUrl(value);
+                    //  var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                    m_BoxPicture = value;// blobProvider.GetThumbnailUrl(value);
                 }
             }
         }
@@ -31,6 +36,6 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
         public string UniversityName { get; set; }
 
         public string Url { get; set; }
-      
+
     }
 }

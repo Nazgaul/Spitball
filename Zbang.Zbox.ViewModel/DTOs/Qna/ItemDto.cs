@@ -20,7 +20,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
         }
         public long Uid { get; private set; }
         public string Name { get; private set; }
-        public abstract string Thumbnail { get; }
+        public string Thumbnail { get; set; }
         public string BoxUid { get; private set; }
         public long OwnerId { get; private set; }
         public abstract string Type { get; }
