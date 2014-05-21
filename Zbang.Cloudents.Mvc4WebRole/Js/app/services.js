@@ -30,8 +30,6 @@ cloudentsServices.factory('User', function ($http) {
     };
 });
 
-
-
 cloudentsServices.factory('Box', function ($http) {
     return {
         create: function (payload) {
@@ -47,12 +45,63 @@ cloudentsServices.factory('Box', function ($http) {
     };
 });
 
+cloudentsServices.factory('Quiz', function ($http) {
+    return {
+        getDraft: function (payload) {
+            submitRequest($http, '/Quiz/GetDraft', methods.GET, payload.data, payload.success, payload.error);
+        },
+        create: function (payload) {
+            submitRequest($http, '/Quiz/Create', methods.POST, payload.data, payload.success, payload.error);
+        },
+        update: function (payload) {
+            submitRequest($http, '/Quiz/Update', methods.POST, payload.data, payload.success, payload.error);
+        },
+        'delete': function (payload) {
+            submitRequest($http, '/Quiz/Delete', methods.POST, payload.data, payload.success, payload.error);
+        },
+        save: function (payload) {
+            submitRequest($http, '/Quiz/Save', methods.POST, payload.data, payload.success, payload.error);
+        },
+        question: {
+            create: function (payload) {
+                submitRequest($http, '/Quiz/CreateQuestion', methods.POST, payload.data, payload.success, payload.error);
+            },
+            update: function (payload) {
+                submitRequest($http, '/Quiz/UpdateQuestion', methods.POST, payload.data, payload.success, payload.error);
+            },
+            'delete': function (payload) {
+                submitRequest($http, '/Quiz/SaveQuestion', methods.POST, payload.data, payload.success, payload.error);
+            }
+
+        },
+        answer: {
+            create: function (payload) {
+                submitRequest($http, '/Quiz/CreateAnswer', methods.POST, payload.data, payload.success, payload.error);
+            },
+            update: function (payload) {
+                submitRequest($http, '/Quiz/UpdateAnswer', methods.POST, payload.data, payload.success, payload.error);
+            },
+            'delete': function (payload) {
+                submitRequest($http, '/Quiz/DeleteAnswer', methods.POST, payload.data, payload.success, payload.error);
+            }
+        },
+        discussion: {
+            createDiscussion: function (payload) {
+                submitRequest($http, '/Quiz/DeleteAnswer', methods.POST, payload.data, payload.success, payload.error);
+            },
+            deleteDiscussion: function (payload) {
+                submitRequest($http, '/Quiz/DeleteAnswer', methods.POST, payload.data, payload.success, payload.error);
+            }
+        }
+    };
+});
+
 cloudentsServices.factory('PartialView', function ($http) {
     return {
         fetch: function (payload) {
             submitRequest($http, '/Home/Partial', methods.GET, payload.data, payload.success, payload.error);
         }
-    }
+    };
 });
 
 function submitRequest($http, url, method, data, success, error) {

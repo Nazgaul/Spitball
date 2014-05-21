@@ -166,6 +166,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion search
 
+        #region Friends
+        [HttpGet, CompressFilter, Ajax]
+        public ActionResult FriendsPartial()
+        {
+            try
+            {
+                return PartialView("_Friends2");
+            }
+            catch (Exception ex)
+            {
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+        #endregion
+
 
     }
 }

@@ -58,7 +58,10 @@
                     </div>
                 </div>
             </div>
-            <modal-dialog show="showAllDialogShown" view-name="_Friends2" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
+            <modal-dialog show="showAllDialogShown" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
+                <div ng-if="showAllDialogShown">
+                    <div ng-include="'/Dashboard/FriendsPartial'"></div>
+                </div>
             </modal-dialog>
         </aside>
         <div class="contentWpr" id="dash_right" ng-class="{fadeVisible : contentLoaded}">
