@@ -147,7 +147,6 @@
     display: table;
     table-layout: fixed;
     width: 100%;
-    //margin-bottom: 20px;
 
     .friendsList {
         padding: 11px 7px 7px 11px; /*rtl*/
@@ -216,31 +215,17 @@
 
     .activityItem {
         list-style: none;
-        margin-bottom: 10px;
+        margin: 0 10px 10px 0; /*rtl*/
+        border-bottom: 1px solid #E7E7E7;
+        padding-bottom: 7px;
         //remove that from parent due to calculation of height
         &:first-child {
             padding-top: 10px; //margin somehow affect calulation in js
         }
 
         &:last-child {
-            margin-bottom: 24px;
-        }
-    }
-
-    &.dash {
-        /*height: ~'-webkit-calc(100vh - @{ActivityListOffset})';
-        height: ~'calc(100vh - @{ActivityListOffset})';*/
-        //margin-top: -@ActivityListOffset;
-        //padding-top: @ActivityListOffset;
-        .boxSizing;
-        > .activityItem {
-            margin: 0 8px 7px 0; /* rtl override the .asideList > .activityItem rule */
-            border-bottom: 1px solid #E7E7E7;
-            padding-bottom: 7px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+            border:none;
+            margin-bottom:0;
         }
     }
 }
