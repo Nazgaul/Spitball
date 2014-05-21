@@ -17,12 +17,12 @@ namespace Zbang.Zbox.ViewModel.DTOs.Emails
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    m_Picture = "https://www.cloudents.com/images/emptyState/my_default3.png";
+                    //m_Picture = "https://www.cloudents.com/images/emptyState/my_default3.png";
                 }
                 else
                 {
-                    var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                    m_Picture = blobProvider.GetThumbnailUrl(value);
+                    //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                    m_Picture = value;// blobProvider.GetThumbnailUrl(value);
                 }
             }
 

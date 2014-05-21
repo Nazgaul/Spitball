@@ -14,18 +14,18 @@ namespace Zbang.Zbox.ViewModel.DTOs
         //private BoxType m_BoxType;
 
         public BoxDto(long boxId, string boxName,// DateTime updateTime,
-           UserRelationshipType userType, int itemCount, string boxPicture, int membersCount,
+           UserRelationshipType userType, int itemCount, int membersCount,
             int commentCount, string courseCode, string professorName, BoxType boxType, string uniName , string url)
         {
             Id = boxId;
             Name = boxName;
             UserType = userType;
             ItemCount = itemCount;
-            if (!string.IsNullOrEmpty(boxPicture))
-            {
-                var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                BoxPicture = blobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
-            }
+            //if (!string.IsNullOrEmpty(boxPicture))
+            //{
+            //    var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+            //    BoxPicture = blobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
+            //}
             MembersCount = membersCount;
             CommentCount = commentCount;
             CourseCode = courseCode;
@@ -46,8 +46,8 @@ namespace Zbang.Zbox.ViewModel.DTOs
             ItemCount = itemCount;
             if (!string.IsNullOrEmpty(boxPicture))
             {
-                var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                BoxPicture = blobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
+                //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+                BoxPicture = boxPicture;//blobProvider.GetThumbnailUrl(boxPicture);// boxPicture;
             }
             MembersCount = membersCount;
             CommentCount = commentCount;
@@ -66,7 +66,7 @@ namespace Zbang.Zbox.ViewModel.DTOs
         public int ItemCount { get; private set; }
         public int MembersCount { get; private set; }
         public int CommentCount { get; private set; }
-        public string BoxPicture { get; private set; }
+        public string BoxPicture { get;  set; }
         public long Id { get; private set; }
         public string CourseCode { get; private set; }
         public string Professor { get; private set; }

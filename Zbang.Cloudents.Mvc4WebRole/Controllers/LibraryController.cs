@@ -295,7 +295,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 //TODO: this is not good
                 UrlBuilder builder = new UrlBuilder(HttpContext);
                 var retVal = new BoxDto(result.NewBox.Id, command.BoxName,
-                                        UserRelationshipType.Subscribe, 0, null,
+                                        UserRelationshipType.Subscribe, 0, 
                                         0, 0, command.CourseCode, command.Professor, BoxType.Academic, result.UserName,
                                         builder.BuildBoxUrl(BoxType.Academic, result.NewBox.Id, command.BoxName, result.UserName)
                                         );
