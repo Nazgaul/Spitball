@@ -238,7 +238,7 @@
                         assignItemToTab(ui.draggable[0].id, ko.dataFor(event.target).id);
                         var $span = $('<span class="drop boldFont">+1</span>');
                         $this.append($span);
-                        $span.fadeIn(500, function () {
+                        $span.fadeIn(1000, function () {
                             $span.remove();
                         });
                     },
@@ -415,7 +415,7 @@
                     return;
                 }
                 if (self.follow()) {
-                    cd.notification(JsResources.NeedToFollowBox);
+                    cd.notification(ZboxResources.NeedToFollowBox);
                     e.stopPropagation();
                     e.preventDefault();
                     return;
@@ -429,7 +429,7 @@
                     return;
                 }
                 if (self.follow()) {
-                    cd.notification(JsResources.NeedToFollowBox);
+                    cd.notification(ZboxResources.NeedToFollowBox);
                     return false;
                 }
                 data = {
@@ -549,7 +549,7 @@
 
             $('#box_msg').click(function () {
                 cd.pubsub.publish('message',
-                    { text: JsResources.FindThisInteresting + '\n\u200e"' + self.name() + '" - ' + cd.location() }
+                    { text: ZboxResources.FindThisInteresting + '\n\u200e"' + self.name() + '" - ' + cd.location() }
                     );
             });
 
