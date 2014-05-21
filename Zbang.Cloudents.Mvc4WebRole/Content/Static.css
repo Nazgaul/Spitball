@@ -449,55 +449,70 @@ footer {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.uniList .schoolItem {
+.uniList .emptySearch:after {
+  top: 6px;
+}
+.schoolItem {
   overflow: hidden;
   white-space: nowrap;
-  display: inline-block;
-  width: 100%;
-  background: #fff;
   -webkit-transition: background, 0.2s linear;
   -moz-transition: background, 0.2s linear;
   -o-transition: background, 0.2s linear;
   transition: background, 0.2s linear;
   color: #43392b;
   cursor: pointer;
-  padding: 13px 0 13px 8px;
+  padding: 5px 0 8px 8px;
   /*rtl*/
+  margin: 0 3px 8px 8px;
+  /*rtl*/
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  height: 80px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #F9F9F9;
+  display: block !important;
 }
-.uniList .schoolItem:hover {
+.schoolItem:first-child {
+  margin-top: 8px;
+}
+.schoolItem:hover {
   -webkit-transition: background 0.2s;
   -moz-transition: background 0.2s;
   -o-transition: background 0.2s;
   transition: background 0.2s;
-  background: #fafafa;
+  background: #ebeced;
 }
-.uniList .schoolItem:active {
+.schoolItem:active {
   background: #ebebeb;
-}
-.uniList .emptySearch:after {
-  top: 6px;
 }
 .uniImg {
   display: inline-block;
-  width: 50px;
-  height: 50px;
-  border: 1px solid #C2C2C2;
+  width: 66px;
+  height: 66px;
+  border: 1px solid #c2c2c2;
   border-radius: 3px;
 }
 .uniDetails {
   overflow: hidden;
   display: block;
-  padding: 6px 5px 0 8px;
+  padding: 10px 5px 0 8px;
   /*rtl*/
-  line-height: 20px;
+}
+.uniDetails .btn3 {
+  margin: 10px 10px 0 0;
+  /*rtl*/
 }
 .uniName {
   color: #383838;
-  font-size: 15px;
+  font-size: 22px;
   display: block;
 }
 .uniCount {
   font-size: 13px;
+  position: relative;
+  top: -5px;
 }
 .uniCount:before {
   content: '';
@@ -527,7 +542,51 @@ footer {
 .newUni.newUni .createUni:hover {
   text-decoration: underline;
 }
+/*<ul class="fbUniList">
+            <li>
+                <div class="schoolItem">
+                    <img src="http://placehold.it/100x100" class="lFloat uniImg" width="66" height="66" alt="uni" />
+                    <div class="uniDetails">
+                        <div class="uniName elps boldFont">The open university</div>
+                        <div class="friendsCount" data-friendscount="23">of your friends are registered</div>
+                        <button type="button" class="btn3 rFloat">Choose</button>
+                    </div>
+                </div>
+                <ul class="fbFriendsList">
+                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
+                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
+                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
+                </ul>
+            </li>*/
 /*#endregion */
+.fbUniList {
+  margin-top: 55px;
+}
+.fbUniList > li {
+  margin-bottom: 20px;
+}
+.fbUniList .schoolItem {
+  background: #ebeced;
+  border-radius: 3px 3px 0 0;
+  margin: 0;
+  padding: 5px 15px;
+}
+.fbFriendsList {
+  background: #fff;
+  padding: 8px 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #C2C2C2;
+  min-height: 48px;
+  border-radius: 0 0 3px 3px;
+  border-top: none;
+  overflow: auto;
+}
+.fbFriendsList .imgBorder {
+  margin: 0 5px 5px 0;
+  /*rtl*/
+}
 /*#region faq */
 .faq:after {
   content: '';

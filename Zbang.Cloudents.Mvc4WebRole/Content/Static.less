@@ -493,55 +493,65 @@ footer {
     background: #fff;
     .boxSizing;
 
-    .schoolItem {
-        overflow: hidden;
-        white-space: nowrap;
-        display: inline-block;
-        width: 100%;
-        background: #fff;
-        .transition(background, .2s linear);
-        color: #43392b;
-        cursor: pointer;
-        padding: 13px 0 13px 8px; /*rtl*/
-        &:hover {
-            .transition(background .2s);
-            background: #fafafa;
-        }
-
-        &:active {
-            background: #ebebeb;
-        }
-    }
-
     .emptySearch:after {
         top: 6px;
     }
 }
+.schoolItem {
+    overflow: hidden;
+    white-space: nowrap;
+    .transition(background, .2s linear);
+    color: #43392b;
+    cursor: pointer;
+    padding: 5px 0 8px 8px; /*rtl*/
+    margin: 0 3px 8px 8px; /*rtl*/
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    height: 80px;
+    .boxSizing;
+    background: #F9F9F9;
+    //display: block;
+    display: block !important;
 
+    &:first-child {
+        margin-top: 8px;
+    }
+    &:hover {
+        .transition(background .2s);
+        background: #ebeced;
+    }
+
+    &:active {
+        background: #ebebeb;
+    }
+}
 .uniImg {
     display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #C2C2C2;
+    width: 66px;
+    height: 66px;
+    border: 1px solid @borderColor;
     border-radius: 3px;
 }
 
 .uniDetails {
     overflow: hidden;
     display: block;
-    padding: 6px 5px 0 8px; /*rtl*/
-    line-height: 20px;
+    padding: 10px 5px 0 8px; /*rtl*/
+    .btn3 {
+        margin: 10px 10px 0 0; /*rtl*/
+    }
 }
 
 .uniName {
     color: @textColor;
-    font-size: 15px;
+    font-size: 22px;
     display: block;
 }
 
 .uniCount {
     font-size: 13px;
-
+    position: relative;
+    top: -5px;
     &:before {
         .pseudo();
         width: 14px;
@@ -571,9 +581,50 @@ footer {
     }
 }
 
+/*<ul class="fbUniList">
+            <li>
+                <div class="schoolItem">
+                    <img src="http://placehold.it/100x100" class="lFloat uniImg" width="66" height="66" alt="uni" />
+                    <div class="uniDetails">
+                        <div class="uniName elps boldFont">The open university</div>
+                        <div class="friendsCount" data-friendscount="23">of your friends are registered</div>
+                        <button type="button" class="btn3 rFloat">Choose</button>
+                    </div>
+                </div>
+                <ul class="fbFriendsList">
+                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
+                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
+                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
+                </ul>
+            </li>*/
+
+
 /*#endregion */
-
-
+.fbUniList {
+    margin-top: 55px;
+    > li {
+        margin-bottom: 20px;
+    }
+    .schoolItem {
+        background: #ebeced;
+        border-radius: 3px 3px 0 0; 
+        margin:0;
+        padding: 5px 15px;
+    }
+}
+.fbFriendsList {
+    background: #fff;
+    padding: 8px 15px;
+    .boxSizing;
+    border: 1px solid #C2C2C2;
+    min-height: 48px;
+    border-radius: 0 0 3px 3px;
+    border-top: none;
+    overflow: auto;
+    .imgBorder {
+        margin: 0 5px 5px 0; /*rtl*/
+    }
+}
 
 /*#region faq */
 .faq {
