@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
             //test
             RegisterJs("angular",
-                new JsFileWithCdn("~//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"),
+                new JsFileWithCdn("~//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"),
                 new JsFileWithCdn("~//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
                 new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
                 new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
@@ -107,7 +107,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 new JsFileWithCdn("~/Js/app/directives.js"),
                 new JsFileWithCdn("~/Scripts/ng-modal.js"),
                 new JsFileWithCdn("~/Js/app/app.js"),
-                new JsFileWithCdn("~/Js/app/controller.js")                                
+                new JsFileWithCdn("~/Js/app/controller.js"),
+                new JsFileWithCdn("~/Js/app/quizcreatecontroller.js")
              );
 
 

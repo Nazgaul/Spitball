@@ -15,7 +15,7 @@
                 <li class="questionHolder" ng-repeat=" question in quiz.questions" ng-include="'quizQuestionTemplate'"></li>
             </ul>
             <button type="button" class="quizAddQuestion iconTxt" ng-click="addQuestion()">@QuizResources.AddQuestion</button>
-        </divng-scrollbar>
+        </div>
         <div class="quizBottom">
             <button type="button" ng-click="saveQuiz()" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
             <span class="error">@QuizResources.CheckQuiz</span>
