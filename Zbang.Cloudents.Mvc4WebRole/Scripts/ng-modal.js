@@ -28,40 +28,21 @@
     });
 
     app.directive('modalDialog', [
-      'ngModalDefaults', '$sce', '$compile', 'PartialView', function (ngModalDefaults, $sce, $compile, PartialView) {
-          var loadView = true;
+      'ngModalDefaults', '$sce', '$compile', 'PartialView', function (ngModalDefaults, $sce, $compile, PartialView) {                   
           return {
               restrict: 'E',
               scope: {
                   show: '=',
                   dialogTitle: '@',
                   onClose: '&?',
-                  viewName: '@'
               },
               replace: true,
               transclude: true,
               link: function (scope, element, attrs) {
-                  var setupCloseButton, setupViewContent, setupStyle;
+                  var setupCloseButton, setupStyle;
                   setupCloseButton = function () {
                       return scope.closeButtonHtml = $sce.trustAsHtml(ngModalDefaults.closeButtonHtml);
-                  };
-                  setupViewContent = function () {
-
-                      PartialView.fetch({
-                          data: { name: scope.viewName },
-                          success: function (data) {
-                              var el = angular.element(data),
-                                  compiled = $compile(el);
-
-
-                              element.find('.ng-modal-dialog-content').append(el);
-                              compiled(scope.$parent);
-                          },
-                          error: function () {
-                              console.log('view doesn\'t exist');
-                          }
-                      });
-                  }
+                  };                 
                   setupStyle = function () {
                       scope.dialogStyle = {};
                       if (attrs.width) {
@@ -75,10 +56,7 @@
                       return scope.show = false;
                   };
                   scope.$watch('show', function (newVal, oldVal) {
-                      if (loadView) {
-                          setupViewContent();
-                          loadView = false;
-                      }
+                     
                       if (newVal && !oldVal) {
                           document.getElementsByTagName("body")[0].style.overflow = "hidden";
                       } else {
@@ -91,6 +69,7 @@
                   setupCloseButton();
                   return setupStyle();
               },
+         
               template: "<div class='ng-modal' ng-show='show'>\n \
                     <div class='ng-modal-overlay'></div>\n \
                     <div class='ng-modal-dialog' ng-style='dialogStyle'>\n \
@@ -100,7 +79,7 @@
                     <div class='ng-modal-close' ng-click='hideModal()'>\n \
                     <div ng-bind-html='closeButtonHtml'></div>\n \
                     </div>\n \
-                    <div class='ng-modal-dialog-content' ng-transclude ng-bind-html='dialogContentHtml'></div>\n  \
+                    <div class='ng-modal-dialog-content' ng-transclude></div>\n  \
                     </div>\n</div>"
           };
       }

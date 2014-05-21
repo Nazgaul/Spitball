@@ -284,19 +284,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return nodes;
         }
-
-        [HttpGet,CompressFilter,Ajax]
-        public ActionResult Partial(string name)
-        {
-            try
-            {
-                return PartialView(name);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Partial with name : " + name, ex);
-                return this.CdJson(new JsonResponse(false));
-            }
-        }
     }
 }

@@ -649,7 +649,6 @@
     <Content Include="Content\ItemMobileRtl.min.css">
       <DependentUpon>ItemMobileRtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
@@ -870,6 +869,7 @@
     <Content Include="Js\app\controller.js" />
     <Content Include="Js\app\directives.js" />
     <Content Include="Js\app\filters.js" />
+    <Content Include="Js\app\quizcreatecontroller.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\BoxSettings.js" />
@@ -1450,7 +1450,7 @@
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog2.cshtml" />
-    <Content Include="Views\Shared\Partials\_Friends2.cshtml" />
+    <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
