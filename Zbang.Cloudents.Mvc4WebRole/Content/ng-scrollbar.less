@@ -15,12 +15,16 @@
   }
 
   .ngsb-scrollbar {
-    width:16px;
+    //width:16px;
     height:100%;
-    top:0;
+    //top:0;
     right:0;
-    opacity:0.75;
-    filter:"alpha(opacity=75)"; -ms-filter:"alpha(opacity=75)"; /* old ie */
+    //opacity:0.75;
+    //filter:"alpha(opacity=75)"; -ms-filter:"alpha(opacity=75)"; /* old ie */
+
+    width: 7px;
+    //top: 2px;
+    //height: ~'calc(100% - 4px)';
 
     .ngsb-thumb-container{
       position:absolute;
@@ -41,47 +45,53 @@
       height:100%;
       margin:0 auto;
       width:6px;
-      background: #000;
+      /*background: #000;
       background: rgba(0, 0, 0, 0.4);
       -webkit-border-radius:2px;
       -moz-border-radius:2px;
       border-radius:2px;
-      filter:"alpha(opacity=40)"; -ms-filter:"alpha(opacity=40)"; /* old ie */
-      box-shadow:1px 1px 1px rgba(255,255,255,0.1);
+      filter:"alpha(opacity=40)"; -ms-filter:"alpha(opacity=40)";
+      box-shadow:1px 1px 1px rgba(255,255,255,0.1);*/
     }
 
     .ngsb-thumb-pos {
       cursor:pointer;
       width:100%;
       height:30px;
+      //background: #000;
+
+      background: rgba(103, 103, 103, 0.5);
+      border-radius:3px;
+      //filter:"alpha(opacity=40)"; -ms-filter:"alpha(opacity=40)"; /* old ie */
+      //box-shadow:1px 1px 1px rgba(255,255,255,0.1);
 
       .ngsb-thumb {
         transition: 0.5s all;
-        width:4px;
+        /*width:4px;
         height:100%;
         margin:0 auto;
         -webkit-border-radius:10px;
         -moz-border-radius:10px;
         border-radius:10px;
         text-align:center;
-        background:#fff; /* rgba fallback */
+        background:#fff;
         background:rgba(255,255,255,0.4);
         filter:"alpha(opacity=40)";
-        -ms-filter:"alpha(opacity=40)"; /* old ie */
+        -ms-filter:"alpha(opacity=40)";*/ 
       }
 
-      &:hover {
+      /*&:hover {
         .ngsb-thumb {
           background:rgba(255,255,255,0.5);
           filter:"alpha(opacity=50)";
-          -ms-filter:"alpha(opacity=50)"; /* old ie */
+          -ms-filter:"alpha(opacity=50)"; 
         }
       }
 
       &:active {
         background:rgba(255,255,255,0.6);
-        filter:"alpha(opacity=60)"; -ms-filter:"alpha(opacity=60)"; /* old ie */
-      }
+        filter:"alpha(opacity=60)"; -ms-filter:"alpha(opacity=60)"; 
+      }*/
     }
   }
 }

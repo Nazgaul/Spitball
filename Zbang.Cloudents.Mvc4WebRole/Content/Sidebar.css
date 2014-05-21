@@ -175,12 +175,21 @@
 .asideImg.top {
   vertical-align: top;
 }
+/*@asideTopHeight: 160px;
+@dashProductHeight: 55px;
+@dashFriendsHeight: 93px;
+@dashFriendsHeight2Lines: 132px;
+@ActivityHeaderHeight: 32px;
+@ActivityListOffset: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight;
+@ActivityListOffset2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight;
+@ActivityListOffsetProduct: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight + @dashProductHeight;
+@ActivityListOffsetProduct2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight + @dashProductHeight;*/
 .dashFriends.twoLines ~ .feedList .dash {
-  height: -webkit-calc(100vh - 324px);
-  height: calc(100vh - 324px);
+  /*height: ~'-webkit-calc(100vh - @{ActivityListOffset2Lines})';
+        height: ~'calc(100vh - @{ActivityListOffset2Lines})';*/
 }
 .asideList {
-  padding: 0 5px 0 10px;
+  padding: 0 2px 0 10px;
   /*rtl*/
   position: relative;
 }
@@ -195,8 +204,8 @@
   margin-bottom: 24px;
 }
 .asideList.dash {
-  height: -webkit-calc(100vh - 285px);
-  height: calc(100vh - 285px);
+  /*height: ~'-webkit-calc(100vh - @{ActivityListOffset})';
+        height: ~'calc(100vh - @{ActivityListOffset})';*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

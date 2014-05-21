@@ -389,7 +389,7 @@
   border-right: none;
 }
 .asideList {
-  padding: 0 10px 0 5px;
+  padding: 0 10px 0 2px;
   /*rtl*/
 }
 .asideList.dash > .activityItem {

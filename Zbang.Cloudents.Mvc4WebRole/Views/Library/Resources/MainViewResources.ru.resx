@@ -195,4 +195,7 @@
   <data name="SearchFor" xml:space="preserve">
     <value>Искать вашу школу</value>
   </data>
+  <data name="WelcomeTo" xml:space="preserve">
+    <value>Добро пожаловать в Cloudents!</value>
+  </data>
 </root>

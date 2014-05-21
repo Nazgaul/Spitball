@@ -197,4 +197,10 @@
   <data name="SearchFor" xml:space="preserve">
     <value>Search for your school</value>
   </data>
+  <data name="ChooseSchool" xml:space="preserve">
+    <value>Please complete registration by choosing your current school</value>
+  </data>
+  <data name="WelcomeTo" xml:space="preserve">
+    <value>Welcome to Cloudents!</value>
+  </data>
 </root>

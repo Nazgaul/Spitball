@@ -189,7 +189,7 @@
 .asideImg.top {
     vertical-align: top;
 }
-@asideTopHeight: 160px;
+/*@asideTopHeight: 160px;
 @dashProductHeight: 55px;
 @dashFriendsHeight: 93px;
 @dashFriendsHeight2Lines: 132px;
@@ -197,19 +197,20 @@
 @ActivityListOffset: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight;
 @ActivityListOffset2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight;
 @ActivityListOffsetProduct: @asideTopHeight + @dashFriendsHeight + @ActivityHeaderHeight + @dashProductHeight;
-@ActivityListOffsetProduct2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight + @dashProductHeight;
+@ActivityListOffsetProduct2Lines: @asideTopHeight + @dashFriendsHeight2Lines + @ActivityHeaderHeight + @dashProductHeight;*/
 
 .dashFriends.twoLines {
     ~ .feedList .dash {
         //margin-top: -@ActivityListOffset2Lines;
         //padding-top: @ActivityListOffset2Lines;
-        height: ~'-webkit-calc(100vh - @{ActivityListOffset2Lines})';
-        height: ~'calc(100vh - @{ActivityListOffset2Lines})';
+
+        /*height: ~'-webkit-calc(100vh - @{ActivityListOffset2Lines})';
+        height: ~'calc(100vh - @{ActivityListOffset2Lines})';*/
     }
 }
 
 .asideList {
-    padding: 0 5px 0 10px; /*rtl*/
+    padding: 0 2px 0 10px; /*rtl*/
     position: relative;
 
     .activityItem {
@@ -226,8 +227,8 @@
     }
 
     &.dash {
-        height: ~'-webkit-calc(100vh - @{ActivityListOffset})';
-        height: ~'calc(100vh - @{ActivityListOffset})';
+        /*height: ~'-webkit-calc(100vh - @{ActivityListOffset})';
+        height: ~'calc(100vh - @{ActivityListOffset})';*/
         //margin-top: -@ActivityListOffset;
         //padding-top: @ActivityListOffset;
         .boxSizing;

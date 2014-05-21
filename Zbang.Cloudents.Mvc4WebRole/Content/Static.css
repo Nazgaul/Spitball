@@ -385,10 +385,16 @@ footer {
   width: 666px;
   margin-top: 170px;
 }
+.libEmpty h2 {
+  font-size: 18px;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 5px;
+}
 .libEmptyTitle {
   font-size: 32px;
-  color: #383838;
   text-align: center;
+  font-weight: normal;
 }
 /*.uni_txt {
     font-size: 15px;
@@ -504,12 +510,12 @@ footer {
 }
 .newUni.newUni {
   font-size: 13px;
-  height: 34px;
+  height: 40px;
   color: #383838;
   background: #f5f5f5;
   border-top: 1px solid #c2c2c2;
   text-align: center;
-  padding-top: 7px;
+  padding-top: 13px;
   margin-top: -5px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
