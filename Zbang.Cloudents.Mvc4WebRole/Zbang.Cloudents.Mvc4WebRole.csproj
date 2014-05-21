@@ -911,31 +911,6 @@
     <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\QnA.js" />
-    <Content Include="Js\Resources\ZboxResources.ar.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ZboxResources.ar.resx</DependentUpon>
-    </Content>
-    <Content Include="Js\Resources\ZboxResources.he.js">
-      <DependentUpon>ZboxResources.he.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
-    <Content Include="Js\Resources\ZboxResources.js">
-      <DependentUpon>ZboxResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
-    <Content Include="Js\Resources\ZboxResources.ru.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ZboxResources.ru.resx</DependentUpon>
-    </Content>
-    <Content Include="Js\Resources\ZboxResources.zh.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ZboxResources.zh.resx</DependentUpon>
-    </Content>
     <Content Include="Js\RT.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
@@ -1557,29 +1532,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.ru.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.zh.resx" />
-    <EmbeddedResource Include="Js\Resources\ZboxResources.ar.resx">
-      <Generator>JavaScriptResourceCodeGenerator</Generator>
-      <LastGenOutput>ZboxResources.ar.js</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Js\Resources\ZboxResources.he.resx">
-      <Generator>JavaScriptResourceCodeGenerator</Generator>
-      <LastGenOutput>ZboxResources.he.js</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Js\Resources\ZboxResources.resx">
-      <Generator>JavaScriptResourceCodeGenerator</Generator>
-      <LastGenOutput>ZboxResources.js</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Js\Resources\ZboxResources.ru.resx">
-      <Generator>JavaScriptResourceCodeGenerator</Generator>
-      <LastGenOutput>ZboxResources.ru.js</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Js\Resources\ZboxResources.zh.resx">
-      <Generator>JavaScriptResourceCodeGenerator</Generator>
-      <LastGenOutput>ZboxResources.zh.js</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ar.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.resx">

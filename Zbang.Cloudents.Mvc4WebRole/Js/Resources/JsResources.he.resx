@@ -175,7 +175,7 @@
     <value>אוקטובר</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
-    <value>ב-קלאודנטס</value>
+    <value>בקלאודנטס</value>
   </data>
   <data name="Replies" xml:space="preserve">
     <value>תגובות</value>
@@ -322,7 +322,7 @@
     <value>הכנס את הדוא"ל החדש</value>
   </data>
   <data name="FbText" xml:space="preserve">
-    <value>גם אני התחברתי ל-קלאודנטס, האתר האקדמי החברתי.
+    <value>גם אני התחברתי לקלאודנטס, האתר האקדמי החברתי.
 ב-קלאודנטס מאגר הסיכומים, מבחנים ושאלות ותשובות הגדול ביותר. גם אתה מוזמן להתחבר, ככל שיותר סטודנטים יצטרפו, כך יהיה קל יותר להצליח בלימודים.</value>
   </data>
   <data name="FieldNeedsNumber" xml:space="preserve">

@@ -166,7 +166,7 @@
     <value>הצטרף עכשיו</value>
   </data>
   <data name="NewTo" xml:space="preserve">
-    <value>חדש ב-קלאודנטס?</value>
+    <value>חדש בקלאודנטס?</value>
   </data>
   <data name="ConnectAccount" xml:space="preserve">
     <value>התחבר לחשבון קיים</value>
@@ -190,7 +190,7 @@
     <value>התחבר</value>
   </data>
   <data name="ConnectCloudents" xml:space="preserve">
-    <value>התחבר ל-קלאודנטס</value>
+    <value>התחבר לקלאודנטס</value>
   </data>
   <data name="ConnectHere" xml:space="preserve">
     <value>התחבר כאן</value>
