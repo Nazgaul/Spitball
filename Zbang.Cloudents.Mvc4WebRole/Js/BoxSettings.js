@@ -544,4 +544,4 @@
         }
 
     }
-}(cd, cd.data, jQuery, cd.pubsub, ZboxResources, cd.analytics));
+}(cd, cd.data, jQuery, cd.pubsub, JsResources, cd.analytics));

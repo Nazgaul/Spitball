@@ -312,4 +312,4 @@
 
         });
     }
-})(cd.data, jQuery, ko, cd, ZboxResources, plupload, cd.analytics);
+})(cd.data, jQuery, ko, cd, JsResources, plupload, cd.analytics);

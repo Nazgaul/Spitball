@@ -465,4 +465,4 @@
 
 
     }
-})(cd, cd.data, ko, ZboxResources, cd.analytics);
+})(cd, cd.data, ko, JsResources, cd.analytics);

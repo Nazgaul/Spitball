@@ -966,4 +966,4 @@
         }
 
     }
-})(jQuery, window.cd, window.cd.data, cd.pubsub, window.ZboxResources, window.cd.analytics, Modernizr);
+})(jQuery, window.cd, window.cd.data, cd.pubsub, window.JsResources, window.cd.analytics, Modernizr);

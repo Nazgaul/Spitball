@@ -709,4 +709,4 @@
 
 
 
-})(jQuery, ko, cd, cd.data, ZboxResources, cd.analytics);
+})(jQuery, ko, cd, cd.data, JsResources, cd.analytics);

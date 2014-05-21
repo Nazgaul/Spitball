@@ -153,9 +153,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [DonutOutputCache(Duration = TimeConsts.Hour * 2,
-            VaryByParam = "none",
-            VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
+        //[DonutOutputCache(Duration = TimeConsts.Hour * 2,
+        //    VaryByParam = "none",
+        //    VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
         [CompressFilter(Order = 1)]
         public ActionResult JsResources()
         {
@@ -168,6 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             foreach (System.Collections.DictionaryEntry item in set)
             {
                 sb.Append("\"" + item.Key.ToString() + "\":\"" + item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n") + "\",");
+                sb.AppendLine();
             }
             sb.Remove(sb.Length - 1, 1);
             sb.Append("}");
@@ -293,20 +294,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //}
 
             return nodes;
-        }
-
-        [HttpGet,CompressFilter,Ajax]
-        public ActionResult Partial(string name)
-        {
-            try
-            {
-                return PartialView(name);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Partial with name : " + name, ex);
-                return this.CdJson(new JsonResponse(false));
-            }
         }
     }
 }

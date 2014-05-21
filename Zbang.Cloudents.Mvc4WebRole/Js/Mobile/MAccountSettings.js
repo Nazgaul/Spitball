@@ -228,4 +228,4 @@
         elem.type = 'file';
         return !elem.disabled;
     }
-})(cd.data, ZboxResources, jQuery, cd, plupload);
+})(cd.data, JsResources, jQuery, cd, plupload);

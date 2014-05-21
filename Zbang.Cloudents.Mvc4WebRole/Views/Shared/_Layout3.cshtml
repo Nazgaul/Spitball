@@ -87,16 +87,24 @@
         </div>
     </header>
 
-    <div class="bodyContent noQuiz" id="main" ng-controller="MainController" nav-fix>
+    <div class="bodyContent noQuiz" id="main" ng-controller="MainController">
         @RenderBody()
 
         <div id="fb-root"></div>
+
+
+
+        <div id="quizCreate" ng-controller="QuizCreateController">
+            <div ng-if="params.showCreateQuiz">
+                <div ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
+            </div>
+
+        </div>
 
         <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
               data-myf="@ViewBag.fDash.ToString().ToLower()"
               data-boxf="@ViewBag.fBox.ToString().ToLower()"
               data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
-
     </div>
 
     <div id="mLoading" class="loading">
@@ -200,7 +208,7 @@
         </li>
     </script>
     @*If the tooltip has btns add class btns and extra markup
-    If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
+        If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
     <div class="tooltip btns">
         <button type="button" class="closeDialog"></button>
         <h4 class="semiFont">Tooltip title here</h4>
@@ -237,7 +245,7 @@
 
     @*@Search*@
     @*<script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>*@
-    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>    
+    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
     @Html.Script2("General")
     @Html.Script2("angular")
     @Html.Script2("cd1")
@@ -246,7 +254,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <iframe id="fconnect" src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
-        
+
     }
 
 </body>

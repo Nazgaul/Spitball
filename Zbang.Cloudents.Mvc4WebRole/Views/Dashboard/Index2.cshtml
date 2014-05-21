@@ -35,42 +35,45 @@
                                href="@Url.Action("Index", "Invite", new {boxid = "" })" class="inviteFriendBtn btn3"></a>
                         </li>
                     </ul>
-                </div>                
-                    <div class="feedList" id="dash_feed">
-                        <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
-                        <div class="activityWpr">
-                            <ul ng-scrollbar rebuild-on-resize rebuild-on="rebuild:me" class="asideList dash" id="dash_Wall" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
+                </div>
+                <div class="feedList" id="dash_feed">
+                    <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
+                    <div class="activityWpr">
+                        <ul ng-scrollbar rebuild-on-resize rebuild-on="rebuild:me" class="asideList dash" id="dash_Wall" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
 
-                                <li class="activityItem" ng-repeat="activity in wall">
-                                    <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
-                                        <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
+                            <li class="activityItem" ng-repeat="activity in wall">
+                                <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
+                                    <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
+                                </a>
+                                <div class="latest">
+                                    <a data-navigation="Box" href="{{activity.url}}">
+                                        <div class="latestName elps">{{activity.boxName}}</div>
+                                        <span class="semiFont">{{activity.userName}}</span>
+                                        <span class="activityAction">{{activityAction}}</span>
                                     </a>
-                                    <div class="latest">
-                                        <a data-navigation="Box" href="{{activity.url}}">
-                                            <div class="latestName elps">{{activity.boxName}}</div>
-                                            <span class="semiFont">{{activity.userName}}</span>
-                                            <span class="activityAction">{{activityAction}}</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </li>
+                        </ul>
 
-                        </div>
                     </div>
                 </div>
-            <modal-dialog show="showAllDialogShown" view-name="_Friends2" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
+            </div>
+            <modal-dialog show="showAllDialogShown" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
+                <div ng-if="showAllDialogShown">
+                    <div ng-include="'/Dashboard/FriendsPartial'"></div>
+                </div>
             </modal-dialog>
         </aside>
         <div class="contentWpr" id="dash_right" ng-class="{fadeVisible : contentLoaded}">
             <section class="unionCourses">
                 <header class="boxesHeader" ng-show="contentLoaded">{{title}}</header>
-                
+
                 <div ng-hide="academicBoxes.length > 0" class="emptyDash">
                     <div class="followEmpty">
                         <h2 class="boldFont">@IndexResources.FollowCourses</h2>
                         <div>@IndexResources.FindCourses</div>
                     </div>
-                </div>                
+                </div>
                 <ol id="BoxList" class="myAreaList clearfix">
                     <li class="box">
                         <a class="addBtn browse"
@@ -85,45 +88,48 @@
 
             </section>
             <section class="groupBoxes">
-        <header class="boxesHeader">@IndexResources.MyGroup</header>
-        <div ng-hide="groupBoxes.length > 0" class="emptyDash">
-            <div class="groupEmpty">
-                <h2 class="boldFont">@IndexResources.WhereStudy</h2>
-                <div>@IndexResources.UploadContent</div>
-            </div>
-        </div>
+                <header class="boxesHeader">@IndexResources.MyGroup</header>
+                <div ng-hide="groupBoxes.length > 0" class="emptyDash">
+                    <div class="groupEmpty">
+                        <h2 class="boldFont">@IndexResources.WhereStudy</h2>
+                        <div>@IndexResources.UploadContent</div>
+                    </div>
+                </div>
                 <ol id="BoxList" class="myAreaList clearfix">
+                    <li class="box">
+                        <button ng-click="createBox" class="addBtn">@SharedResources.CreateNew</button>
+                    </li>
                     <li ng-repeat="box in groupBoxes" class="box" id="dash{{box.id}}" ng-include="'dashBoxTemplate'">
 
                     </li>
-</ol>
-    </section>
+                </ol>
+            </section>
         </div>
         <script type="text/ng-template" id="dashBoxTemplate">
-           
-                <a data-navigation="Box" ng-href="{{box.url}}">
-                    <div ng-show="numOfUpdates.length > 0" class="boxNotify">{{box.numOfUpdates}}</div>
-                    <div>
-                        <img class="boxImg" src="{{box.boxPicture}}" alt="" width="77" height="98" />
-                        <ul class="boxHoverList">
-                            <li class="hoverItem itemImg">{{box.itemCount}}</li>
-                            <li class="hoverItem memberImg">{{box.membersCount}}</li>
-                            <li class="hoverItem commentImg">{{box.commentCount}}</li>
-                        </ul>
-                    </div>
-                    <div class="boxWpr clamp2">
-                        <span class="boxName">{{box.name}}</span>
-                    </div>
-                    <span class="courseCode elps">{{box.courseCode}}</span>
-                    <span class="courseCode propName elps">{{box.professor}}</span>
-                </a>
-                <button type="button" class="removeItem" ng-show="box.userType !== 'none'" ng-click="removeBox" data-title="removeBoxTitle"></button>           
+
+            <a data-navigation="Box" ng-href="{{box.url}}">
+                <div ng-show="numOfUpdates.length > 0" class="boxNotify">{{box.numOfUpdates}}</div>
+                <div>
+                    <img class="boxImg" src="{{box.boxPicture}}" alt="" width="77" height="98" />
+                    <ul class="boxHoverList">
+                        <li class="hoverItem itemImg">{{box.itemCount}}</li>
+                        <li class="hoverItem memberImg">{{box.membersCount}}</li>
+                        <li class="hoverItem commentImg">{{box.commentCount}}</li>
+                    </ul>
+                </div>
+                <div class="boxWpr clamp2">
+                    <span class="boxName">{{box.name}}</span>
+                </div>
+                <span class="courseCode elps">{{box.courseCode}}</span>
+                <span class="courseCode propName elps">{{box.professor}}</span>
+            </a>
+            <button type="button" class="removeItem" ng-show="box.userType !== 'none'" ng-click="removeBox" data-title="removeBoxTitle"></button>
         </script>
 
     </div>
     @{
-        //Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
-        
+    //Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
+
 
     }
 </div>

@@ -122,4 +122,4 @@
         $inviteInput.width(maxwidth - space);
     }
 
-})(cd, ZboxResources, cd.analytics, cd.data);
+})(cd, JsResources, cd.analytics, cd.data);
