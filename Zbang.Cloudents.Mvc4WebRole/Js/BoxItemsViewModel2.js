@@ -501,4 +501,4 @@
         }
 
     }
-})(jQuery, cd.data, ko, cd, ZboxResources, cd.analytics);
+})(jQuery, cd.data, ko, cd, JsResources, cd.analytics);

@@ -612,4 +612,4 @@
         d.ownerImg = cd.userDetail().img; //need this for activity feed
         cd.pubsub.publish('addItemNoti', { BoxUid: boxid, item: d });
     }
-})(jQuery, window.plupload, window.cd, window.cd.data, window.ZboxResources, window.cd.analytics);
+})(jQuery, window.plupload, window.cd, window.cd.data, window.JsResources, window.cd.analytics);

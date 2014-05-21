@@ -1559,4 +1559,4 @@
         //#endregion
     }
 
-})(jQuery, window.cd.data, window.ko, window.cd, window.ZboxResources, window.cd.analytics, Modernizr);
+})(jQuery, window.cd.data, window.ko, window.cd, window.JsResources, window.cd.analytics, Modernizr);

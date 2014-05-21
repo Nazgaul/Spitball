@@ -67,4 +67,4 @@
         //    }
         //});
     }
-})(cd.data, ko, ZboxResources, cd);
+})(cd.data, ko, JsResources, cd);

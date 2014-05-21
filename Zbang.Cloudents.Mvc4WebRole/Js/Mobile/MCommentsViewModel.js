@@ -139,4 +139,4 @@
                e.stopPropagation();
            });
     }
-})(cd, ko, cd.data, ZboxResources);
+})(cd, ko, cd.data, JsResources);

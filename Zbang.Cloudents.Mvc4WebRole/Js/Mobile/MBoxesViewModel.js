@@ -197,4 +197,4 @@
         //#endregion
     }
 
-})(jQuery, ko, cd, cd.data, ZboxResources);
+})(jQuery, ko, cd, cd.data, JsResources);
