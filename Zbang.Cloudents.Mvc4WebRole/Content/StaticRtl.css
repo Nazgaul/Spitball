@@ -99,12 +99,12 @@
   padding: 10px 8px 0 5px;
   /*rtl*/
 }
-.uniDetails .btn3 {
-  margin: 10px 0 0 10px;
-  /*rtl*/
-}
 .uniCount:before {
   margin: 0 0 0 4px;
+  /*rtl*/
+}
+.fbUniList .uniDetails {
+  padding: 10px 8px 0 0;
   /*rtl*/
 }
 .fbFriendsList .imgBorder {

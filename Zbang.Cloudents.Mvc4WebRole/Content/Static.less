@@ -537,9 +537,6 @@ footer {
     overflow: hidden;
     display: block;
     padding: 10px 5px 0 8px; /*rtl*/
-    .btn3 {
-        margin: 10px 10px 0 0; /*rtl*/
-    }
 }
 
 .uniName {
@@ -581,25 +578,6 @@ footer {
     }
 }
 
-/*<ul class="fbUniList">
-            <li>
-                <div class="schoolItem">
-                    <img src="http://placehold.it/100x100" class="lFloat uniImg" width="66" height="66" alt="uni" />
-                    <div class="uniDetails">
-                        <div class="uniName elps boldFont">The open university</div>
-                        <div class="friendsCount" data-friendscount="23">of your friends are registered</div>
-                        <button type="button" class="btn3 rFloat">Choose</button>
-                    </div>
-                </div>
-                <ul class="fbFriendsList">
-                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
-                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
-                    <li><img src="http://placehold.it/32x32" class="lFloat uniImg" width="32" height="32" alt="friend" /></li>
-                </ul>
-            </li>*/
-
-
-/*#endregion */
 .fbUniList {
     margin-top: 55px;
     > li {
@@ -610,6 +588,13 @@ footer {
         border-radius: 3px 3px 0 0; 
         margin:0;
         padding: 5px 15px;
+    }
+    .uniDetails {
+        padding: 10px 0 0 8px; /*rtl*/
+        .btn3 {
+            margin-top: 10px;
+            padding: 5px 20px;
+        }
     }
 }
 .fbFriendsList {
