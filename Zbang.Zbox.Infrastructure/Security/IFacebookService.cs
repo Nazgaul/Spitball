@@ -1,11 +1,13 @@
 ﻿
+using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace Zbang.Zbox.Infrastructure.Security
 {
-    public interface IFacebookAuthenticationService
+    public interface IFacebookService
     {
         Task<FacebookUserData> FacebookLogIn(string token);
         string GetFacebookUserImage(long facebookId, FacebookPictureType type);
        // Task<FacebookUserData> FacebookLogIn(string token);
+        Task<IEnumerable<long>> GetFacebookUserFriends(string authToken);
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using System.Text;
+using System.Collections.Generic;
 namespace Zbang.Zbox.Infrastructure.Security
 {
     public class FacebookUserData
@@ -51,6 +52,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             }
             return gender.ToLower() == "male";
         }
+
 
 
 

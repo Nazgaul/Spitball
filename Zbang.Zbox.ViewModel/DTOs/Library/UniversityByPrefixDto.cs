@@ -28,5 +28,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Library
     {
         public string Image { get; private set; }
         public long MemberCount { get; private set; }
+
+        public string Name { get; set; }
     }
 }

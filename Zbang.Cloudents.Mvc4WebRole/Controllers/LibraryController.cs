@@ -35,6 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IIdGenerator> m_IdGenerator;
         private readonly Lazy<IZboxCacheReadService> m_ZboxCacheReadService;
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
+        private readonly Lazy<IFacebookService> m_FacebookService;
 
         public LibraryController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
@@ -43,7 +44,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IUserProfile> userProfile,
             IFormsAuthenticationService formsAuthenticationService,
             Lazy<IIdGenerator> idGenerator,
-            Lazy<IUniversityReadSearchProvider> universitySearch)
+            Lazy<IUniversityReadSearchProvider> universitySearch,
+            Lazy<IFacebookService> facebookService)
             : base(zboxWriteService, zboxReadService,
             formsAuthenticationService)
         {
@@ -52,6 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_IdGenerator = idGenerator;
             m_UniversitySearch = universitySearch;
             m_ZboxCacheReadService = zboxCacheReadService;
+            m_FacebookService = facebookService;
         }
 
 
@@ -136,6 +139,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var retVal = m_UniversitySearch.Value.SearchUniversity(term);
             return this.CdJson(new JsonResponse(true,retVal));
+        }
+
+        [HttpGet, Ajax]
+        public async Task<ActionResult> GetFriends(string authToken)
+        {
+            if (string.IsNullOrEmpty(authToken))
+            {
+                return this.CdJson(null);
+            }
+            var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
+            var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId);
+
+            return this.CdJson(suggestedUniversity);
         }
 
         [NonAction]
@@ -295,7 +311,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 //TODO: this is not good
                 UrlBuilder builder = new UrlBuilder(HttpContext);
                 var retVal = new BoxDto(result.NewBox.Id, command.BoxName,
-                                        UserRelationshipType.Subscribe, 0, 
+                                        UserRelationshipType.Subscribe, 0,
                                         0, 0, command.CourseCode, command.Professor, BoxType.Academic, result.UserName,
                                         builder.BuildBoxUrl(BoxType.Academic, result.NewBox.Id, command.BoxName, result.UserName)
                                         );

@@ -76,6 +76,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return MvcHtmlString.Empty;
         }
 
+        public static System.Web.HtmlString GetAntiForgeryKey2()
+        {
+            var x = System.Web.Helpers.AntiForgery.GetHtml();
+
+            return x;
+
+        }
+
+
 
         //public static MvcHtmlString RadioButtonForEnum<TModel, TProperty>(
         //    this HtmlHelper<TModel> htmlHelper,
@@ -103,7 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         //            metaData.PropertyName,
         //            name
         //        );
-                
+
         //        var radio = htmlHelper.RadioButtonFor(expression, name, new { id = id }).ToHtmlString();
         //        var field = fields.Single(f => f.Name == name);
         //        var label = name;

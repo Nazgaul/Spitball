@@ -675,6 +675,31 @@ where m.RecepientId = @userid
             }
         }
 
+        public async Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+
+                using (var grid = await conn.QueryMultipleAsync(
+                     string.Format("{0} {1}", Sql.LibraryChoose.GetUniversityByFriendIds, Sql.LibraryChoose.GetFriendsInUniversitiesByFriendsIds),
+                    new { FriendsIds = friendsIds }
+                     ))
+                {
+                    var retVal = grid.Read<UniversityByFriendDto>();
+                    var friends = grid.Read<FriendPerUniversityDto>();
+
+                    retVal.Select(s =>
+                    {
+                        s.Friends = friends.Where(w => w.UniversityId == s.Id);
+                        return s;
+                    }).ToList();
+                    return retVal;
+                };
+
+
+            }
+        }
+
 
         /// <summary>
         /// Get user data for user detail in all the pages.

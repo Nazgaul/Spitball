@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                         Document doc = new Document();
                         doc.Add(new Field(IdField, university.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
-                        doc.Add(new Field(NameField, university.Name, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
+                        doc.Add(new Field(NameField, extraDetail.Name, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
 
                         doc.Add(new Field("extra1", university.Extra1, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
                         doc.Add(new Field("extra2", university.Extra2, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
