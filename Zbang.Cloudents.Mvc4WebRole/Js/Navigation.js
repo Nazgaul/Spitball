@@ -375,13 +375,13 @@
                 case 'dashboard':
                     dataContext.dashBoardMp({
                         success: function (html) {
-                            var el = angular.element(html);
-                            var result = cd.$compile(el);
-                            $(main).append(el);
-                            result(cd.$scope.main);
+                            //var el = angular.element(html);
+                            //var result = cd.$compile(el);
+                            //$(main).append(el);
+                            //result(cd.$scope.main);
                                 
-                            //main.insertAdjacentHTML('beforeend', html);
-                            //pubsub.publish('DashboardContext', null, dashboardContext);
+                            main.insertAdjacentHTML('beforeend', html);
+                            pubsub.publish('DashboardContext', null, dashboardContext);
                         },
                         error: function () {
                             location.reload();

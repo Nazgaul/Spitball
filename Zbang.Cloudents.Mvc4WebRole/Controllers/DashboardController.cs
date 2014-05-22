@@ -61,9 +61,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return View("Index2", taskData);
+                return View("Index", taskData);
             }
-            return View("Index2", taskData);
+            return View("Index", taskData);
         }
 
         private Zbang.Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbang.Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
