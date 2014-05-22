@@ -125,7 +125,7 @@
             </a>
             <button type="button" class="removeItem" ng-show="box.userType !== 'none'" ng-click="removeBox" data-title="removeBoxTitle"></button>
         </script>
-        <modal-dialog show="PrivateBoxDialogShown" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
+        <modal-dialog show="PrivateBoxDialogShown" dialog-title="@DialogResources.AddPrivateBox" class="confirm privateBox">
             <div ng-if="PrivateBoxDialogShown">
                 <div ng-include="'/Dashboard/PrivateBoxPartial'"></div>
             </div>

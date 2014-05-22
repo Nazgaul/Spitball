@@ -383,7 +383,7 @@ footer {
 }
 .libEmpty.libraryChoose {
   width: 666px;
-  margin-top: 170px;
+  margin-top: 138px;
 }
 .libEmpty h2 {
   font-size: 18px;
@@ -560,11 +560,11 @@ footer {
 }
 .fbFriendsList {
   background: #fff;
-  padding: 8px 15px;
+  padding: 7px 15px 2px 15px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid #C2C2C2;
+  border: 1px solid #c2c2c2;
   min-height: 48px;
   border-radius: 0 0 3px 3px;
   border-top: none;
@@ -573,6 +573,16 @@ footer {
 .fbFriendsList .imgBorder {
   margin: 0 5px 5px 0;
   /*rtl*/
+}
+.fbFriendsList li:nth-child(17) .imgBorder {
+  margin-right: 0;
+}
+.friendsCount {
+  font-size: 15px;
+}
+.friendsCount:before {
+  content: attr(data-friendscount) '\00a0';
+  display: inline-block;
 }
 /*#region faq */
 .faq:after {
@@ -760,6 +770,6 @@ footer {
   /*rtl*/
 }
 .chairman ~ .page .libraryChoose {
-  width: 85%;
+  width: 657px;
 }
 /*#endregion */
