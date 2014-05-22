@@ -457,7 +457,7 @@
                 return;
             }
 
-            //cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });
+            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });
             
             //var el = document.getElementById('quizCreate');
             //var scope = angular.element(el).scope();
@@ -465,7 +465,7 @@
             //    scope.initQuiz({ boxId: boxid, boxName: document.getElementById('box_Name').textContent });
             //});
 
-            angular.element('#quizCreate').scope().$broadcast('initQuiz')
+            //angular.element('#quizCreate').scope().$broadcast('initQuiz')
         });
 
         $('#BoxItemList').hoverIntent({
