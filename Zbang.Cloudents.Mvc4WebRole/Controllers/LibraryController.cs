@@ -135,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult SearchUniversity(string term)
         {
             var retVal = m_UniversitySearch.Value.SearchUniversity(term);
-            return this.CdJson(retVal);
+            return this.CdJson(new JsonResponse(true,retVal));
         }
 
         [NonAction]
