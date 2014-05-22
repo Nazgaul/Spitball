@@ -14,13 +14,13 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         public const string GetNeedId = @"select  count(*) from zbox.student
               where UniversityId = @universityId";
 
-        public const string GetUniversityDetail = @"select  
-                         u.UniversityName as Name
+        public const string GetUniversityDetail = @"select
+                         u.Userid as Id,  
+                         u.UniversityName as Name,
                          u.userimagelarge as Image,
                          (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
                          from zbox.users u 
-                         where u.usertype = 1 
-                         and u.userid = @UserId";
+                         where u.usertype = 1";
 
         public const string GetUniversityByFriendIds = @"
 with users_cte(username,userimage,universityid2) as (
