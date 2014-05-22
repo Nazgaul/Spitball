@@ -493,55 +493,62 @@ footer {
     background: #fff;
     .boxSizing;
 
-    .schoolItem {
-        overflow: hidden;
-        white-space: nowrap;
-        display: inline-block;
-        width: 100%;
-        background: #fff;
-        .transition(background, .2s linear);
-        color: #43392b;
-        cursor: pointer;
-        padding: 13px 0 13px 8px; /*rtl*/
-        &:hover {
-            .transition(background .2s);
-            background: #fafafa;
-        }
-
-        &:active {
-            background: #ebebeb;
-        }
-    }
-
     .emptySearch:after {
         top: 6px;
     }
 }
+.schoolItem {
+    overflow: hidden;
+    white-space: nowrap;
+    .transition(background, .2s linear);
+    color: #43392b;
+    cursor: pointer;
+    padding: 5px 0 8px 8px; /*rtl*/
+    margin: 0 3px 8px 8px; /*rtl*/
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    height: 80px;
+    .boxSizing;
+    background: #F9F9F9;
+    //display: block;
+    display: block !important;
 
+    &:first-child {
+        margin-top: 8px;
+    }
+    &:hover {
+        .transition(background .2s);
+        background: #ebeced;
+    }
+
+    &:active {
+        background: #ebebeb;
+    }
+}
 .uniImg {
     display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #C2C2C2;
+    width: 66px;
+    height: 66px;
+    border: 1px solid @borderColor;
     border-radius: 3px;
 }
 
 .uniDetails {
     overflow: hidden;
     display: block;
-    padding: 6px 5px 0 8px; /*rtl*/
-    line-height: 20px;
+    padding: 10px 5px 0 8px; /*rtl*/
 }
 
 .uniName {
     color: @textColor;
-    font-size: 15px;
+    font-size: 22px;
     display: block;
 }
 
 .uniCount {
     font-size: 13px;
-
+    position: relative;
+    top: -5px;
     &:before {
         .pseudo();
         width: 14px;
@@ -571,9 +578,38 @@ footer {
     }
 }
 
-/*#endregion */
-
-
+.fbUniList {
+    margin-top: 55px;
+    > li {
+        margin-bottom: 20px;
+    }
+    .schoolItem {
+        background: #ebeced;
+        border-radius: 3px 3px 0 0; 
+        margin:0;
+        padding: 5px 15px;
+    }
+    .uniDetails {
+        padding: 10px 0 0 8px; /*rtl*/
+        .btn3 {
+            margin-top: 10px;
+            padding: 5px 20px;
+        }
+    }
+}
+.fbFriendsList {
+    background: #fff;
+    padding: 8px 15px;
+    .boxSizing;
+    border: 1px solid #C2C2C2;
+    min-height: 48px;
+    border-radius: 0 0 3px 3px;
+    border-top: none;
+    overflow: auto;
+    .imgBorder {
+        margin: 0 5px 5px 0; /*rtl*/
+    }
+}
 
 /*#region faq */
 .faq {
