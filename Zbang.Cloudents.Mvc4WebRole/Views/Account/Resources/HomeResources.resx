@@ -195,4 +195,7 @@ With 10 GB personal storage space your content is always backed up and secure.
   <data name="Title" xml:space="preserve">
     <value>Cloudents | Helping students to study better by working together</value>
   </data>
+  <data name="PlayVideo" xml:space="preserve">
+    <value>Play video</value>
+  </data>
 </root>

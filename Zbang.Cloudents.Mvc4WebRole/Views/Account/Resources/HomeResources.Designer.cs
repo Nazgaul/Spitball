@@ -188,6 +188,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Play video.
+        /// </summary>
+        public static string PlayVideo {
+            get {
+                return ResourceManager.GetString("PlayVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Powered by students, Cloudents helps students study better by working together..
         /// </summary>
         public static string PoweredBy {

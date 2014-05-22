@@ -84,7 +84,7 @@
 .ratePopup .star {
   width: 20px;
   height: 15px;
-  background: url(/Images/common16-sprite.png?v=2) -2px -86px;
+  background: url(/Images/common17-sprite.png?v=2) -2px -86px;
   display: inline-block;
   float: right;
   /*rtl*/
@@ -150,7 +150,7 @@
   right: 0px;
   /*rtl*/
   margin: 0;
-  background: url(/Images/common16-sprite.png?v=1) -72px -42px no-repeat;
+  background: url(/Images/common17-sprite.png?v=1) -72px -42px no-repeat;
   width: 23px;
   height: 23px;
 }
@@ -294,7 +294,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  background: url(/Images/common16-sprite.png?v=2) -136px -43px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -136px -43px no-repeat;
   vertical-align: middle;
   margin-right: 4px;
 }
@@ -334,7 +334,7 @@
   background: #0371c8;
 }
 .bubble .star.rated {
-  background: url(/Images/common16-sprite.png?v=2) -136px -43px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -136px -43px no-repeat;
   cursor: default;
 }
 .bubble .star:before {
@@ -346,7 +346,7 @@
   left: 25px;
   /*rtl*/
   top: 0;
-  background: url(/Images/common16-sprite.png?v=2) -2px -86px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -2px -86px no-repeat;
 }
 .bubble .star:after {
   content: '';
@@ -357,7 +357,7 @@
   /*rtl*/
   width: 96px;
   height: 15px;
-  background: url(/Images/common16-sprite.png?v=2) -2px -103px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -2px -103px no-repeat;
 }
 .bubble .star4:after {
   width: 76px;
@@ -641,7 +641,7 @@
 .shareBtnTxt:before {
   width: 19px;
   height: 15px;
-  background: url(/Images/common16-sprite.png?v=2) -183px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -183px -1px no-repeat;
 }
 .itemDownload:before {
   width: 14px;
@@ -654,7 +654,7 @@
 .itemDelete:before {
   width: 15px;
   height: 17px;
-  background: url(/Images/common16-sprite.png?v=2) -37px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -37px -1px no-repeat;
 }
 .itemDelete:hover:before {
   background-position: -37px -21px;
@@ -1261,7 +1261,7 @@
   width: 10px;
   height: 10px;
   cursor: pointer;
-  background: url(/Images/common16-sprite.png?v=2) -79px -26px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -79px -26px no-repeat;
   z-index: 13;
 }
 .itemPrev,

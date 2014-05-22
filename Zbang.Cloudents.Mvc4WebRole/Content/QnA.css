@@ -228,7 +228,7 @@ textarea:invalid {
 .removeAttach:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common16-sprite.png?v=2) -68px -15px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -68px -15px no-repeat;
   width: 10px;
   height: 10px;
   vertical-align: top;
@@ -745,7 +745,7 @@ textarea:invalid {
   left: 9px;
   /*rtl*/
   top: 45px;
-  background: url(/Images/box16-sprite.png) -57px -47px no-repeat;
+  background: url(/Images/box17-sprite.png) -57px -47px no-repeat;
 }
 .markAnswerBtn:hover {
   background-position: -57px -66px;

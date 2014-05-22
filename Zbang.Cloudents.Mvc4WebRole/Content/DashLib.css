@@ -74,7 +74,7 @@
 .back:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common16-sprite.png?v=2) 0 -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) 0 -1px no-repeat;
   margin-right: 5px;
   /*rtl*/
   width: 20px;
@@ -103,7 +103,7 @@
   /*rtl*/
 }
 .boxRename {
-  background: url(/Images/common16-sprite.png?v=2) -52px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -52px -1px no-repeat;
   width: 15px;
   height: 15px;
   vertical-align: top;
@@ -714,4 +714,3 @@
   margin: 0;
 }
 /*#endregion */
-/*# sourceMappingURL=DashLib.css.map */

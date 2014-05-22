@@ -415,7 +415,7 @@ input[type="radio"][disabled] + label:before {
   top: 5px;
   width: 10px;
   height: 11px;
-  background: url(/Images/common16-sprite.png?v=2) -68px -14px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -68px -14px no-repeat;
   display: none;
 }
 .removeItem:hover,
@@ -760,7 +760,7 @@ ul.ui-autocomplete li a {
   background-color: transparent;
   width: 11px;
   height: 11px;
-  background: url(/Images/common16-sprite.png?v=2) -79px -26px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -79px -26px no-repeat;
   position: absolute;
   top: 15px;
   right: 12px;
@@ -1116,7 +1116,7 @@ ul.ui-autocomplete li a {
 }
 .facebook {
   cursor: pointer;
-  padding: 5px 15px 9px 55px;
+  padding: 8px 15px 9px 55px;
   /*rtl*/
   font-size: 17px;
   border-radius: 5px;
@@ -1133,7 +1133,8 @@ ul.ui-autocomplete li a {
   z-index: 1;
   color: #fff;
 }
-.fbImg {
+.fbImg,
+.emailImg {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1141,11 +1142,12 @@ ul.ui-autocomplete li a {
   display: inline-block;
   width: 11px;
   height: 22px;
-  background: url(/Images/common16-sprite.png?v=2) -130px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -130px -1px no-repeat;
   left: 16px;
   /*rtl*/
 }
-.fbImg:after {
+.fbImg:after,
+.emailImg:after {
   content: '';
   display: inline-block;
   opacity: .5;
@@ -1156,6 +1158,19 @@ ul.ui-autocomplete li a {
   /*rtl*/
   position: relative;
   top: -3px;
+}
+.emailImg {
+  width: 22px;
+  height: 17px;
+  background-position: -131px -24px;
+  left: 8px;
+  /*rtl*/
+}
+.emailImg:after {
+  background: #676767;
+  top: -6px;
+  left: 31px;
+  /*rtl*/
 }
 .signIn,
 .register {
@@ -1377,7 +1392,7 @@ select.inputText {
   /*rtl*/
   width: 35px;
   height: 35px;
-  background: url(/Images/common16-sprite.png?v=2) -204px 0 no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -204px 0 no-repeat;
   overflow: hidden;
   border-radius: 18px;
 }
@@ -1475,7 +1490,7 @@ select.inputText {
   display: inline-block;
   width: 9px;
   height: 7px;
-  background: url(/Images/common16-sprite.png?v=2) -98px -49px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -98px -49px no-repeat;
 }
 /*#region tooltip */
 .tooltip {
@@ -1639,7 +1654,7 @@ select.inputText {
   top: 9px;
   left: 7px;
   /*rtl*/
-  background: url(/Images/common16-sprite.png?v=2) -294px -33px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -294px -33px no-repeat;
 }
 .emptySearchAdmin:after {
   top: 5px;
@@ -1672,7 +1687,7 @@ select.inputText {
   content: '';
   display: inline-block;
   vertical-align: middle;
-  background: url(/Images/common16-sprite.png?v=2) no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) no-repeat;
   margin-right: 6px;
   /*rtl*/
 }

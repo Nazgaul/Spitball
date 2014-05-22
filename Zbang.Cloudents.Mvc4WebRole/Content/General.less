@@ -1185,7 +1185,7 @@ ul.ui-autocomplete {
 
 .facebook {
     cursor: pointer;
-    padding: 5px 15px 9px 55px; /*rtl*/
+    padding: 8px 15px 9px 55px; /*rtl*/
     font-size: 17px;
     border-radius: 5px;
     position: relative;
@@ -1199,7 +1199,7 @@ ul.ui-autocomplete {
     color: #fff;
 }
 
-.fbImg {
+.fbImg, .emailImg {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1210,7 +1210,7 @@ ul.ui-autocomplete {
     background: @common-sprite -130px -1px no-repeat;
     left: 16px; /*rtl*/
     &:after {
-        .pseudo();
+        .pseudo;
         opacity: .5;
         width: 1px;
         background: #fff;
@@ -1220,7 +1220,17 @@ ul.ui-autocomplete {
         top: -3px;
     }
 }
-
+.emailImg {
+    width: 22px;
+    height: 17px;
+    background-position: -131px -24px;
+    left: 8px; /*rtl*/
+    &:after {
+        background: #676767;
+        top: -6px;
+        left: 31px; /*rtl*/
+    }
+}
 .signIn, .register {
     text-align: left; /*rtl*/
     display: inline-block;
