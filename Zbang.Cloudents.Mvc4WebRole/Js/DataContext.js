@@ -54,6 +54,9 @@
     definition.universityEnterCode = new definitionobj({ url: library + "InsertCode", type: get });
     definition.newUniversity = new definitionobj({ url: library + "UniversityRequest" });
     definition.depList = new definitionobj({ url: library + "Departments", type: get });
+    definition.searchUniversity = new definitionobj({ url: library + "SearchUniversity", type: get });
+    definition.getFriendsUnis = new definitionobj({ url: library + "GetFriends", type: get });
+    
 
     definition.createDepartment = new definitionobj({ url: library + "Create" });
     definition.createAcademicBox = new definitionobj({ url: library + "CreateBox" });

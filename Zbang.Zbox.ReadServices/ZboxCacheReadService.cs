@@ -256,5 +256,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUniversityNeedCode(universityId);
         }
+
+
+        public Task<IEnumerable<ViewModel.DTOs.Library.UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
+        {
+            return m_ReadService.GetUniversityListByFriendsIds(friendsIds);
+        }
     }
 }

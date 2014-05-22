@@ -99,8 +99,10 @@
     <Compile Include="DTOs\ItemDtos\QuizWithDetailDto.cs" />
     <Compile Include="DTOs\ItemRateDto.cs" />
     <Compile Include="DTOs\Library\DepartmentDto.cs" />
+    <Compile Include="DTOs\Library\FriendPerUniversityDto.cs" />
     <Compile Include="DTOs\Library\NodeBoxesDto.cs" />
     <Compile Include="DTOs\Library\NodeDto.cs" />
+    <Compile Include="DTOs\Library\UniversityByFriendDto.cs" />
     <Compile Include="DTOs\Library\UniversityByPrefixDto.cs" />
     <Compile Include="DTOs\Library\UniversityInfoDto.cs" />
     <Compile Include="DTOs\Notification\BoxIDDto.cs" />

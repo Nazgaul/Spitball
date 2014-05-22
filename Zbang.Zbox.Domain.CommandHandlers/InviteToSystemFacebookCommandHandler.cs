@@ -19,13 +19,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<InviteToCloudents> m_InviteToCloudents;
         private readonly IIdGenerator m_IdGenerator;
-        private readonly IFacebookAuthenticationService m_FacebookPictureService;
+        private readonly IFacebookService m_FacebookPictureService;
 
         public InviteToSystemFacebookCommandHandler(IUserRepository userRepository,
 
             IRepository<InviteToCloudents> inviteToCloudentsRepository,
             IIdGenerator idGenerator,
-             IFacebookAuthenticationService facebookPrictureService
+             IFacebookService facebookPrictureService
             )
         {
             m_UserRepository = userRepository;

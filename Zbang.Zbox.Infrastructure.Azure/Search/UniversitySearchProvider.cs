@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             BuildLucene(universities);
         }
 
-        private async void BuildLucene(IEnumerable<University> universities)
+        private async void BuildLucene(IEnumerable<University> universitiesExtra)
         {
 
             using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
@@ -62,9 +62,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                         analyzer,
                         new Lucene.Net.Index.IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
                 {
+                    var universities = await m_DbReadService.GetUniversityDetail();
                     foreach (var university in universities)
                     {
-                        var extraDetail = await m_DbReadService.GetUniversityDetail(university.Id);
+                        var extraDetail = universitiesExtra.FirstOrDefault(f => f.Id == university.Id);
                         var searchQuery = new TermQuery(new Term("id", university.Id.ToString()));
                         indexWriter.DeleteDocuments(searchQuery);
                         //indexWriter.DeleteAll();
@@ -73,13 +74,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                         Document doc = new Document();
                         doc.Add(new Field(IdField, university.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
                         doc.Add(new Field(NameField, university.Name, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-
-                        doc.Add(new Field("extra1", university.Extra1, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-                        doc.Add(new Field("extra2", university.Extra2, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-                        doc.Add(new Field("extra3", university.Extra3, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-
-                        doc.Add(new Field(ImageField, extraDetail.Image, Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
-                        doc.Add(new Field(MembersCountField, extraDetail.MemberCount.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
+                        if (extraDetail != null)
+                        {
+                            doc.Add(new Field("extra1", extraDetail.Extra1, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
+                            doc.Add(new Field("extra2", extraDetail.Extra2, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
+                            doc.Add(new Field("extra3", extraDetail.Extra3, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
+                        }
+                        doc.Add(new Field(ImageField, university.Image, Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
+                        doc.Add(new Field(MembersCountField, university.MemberCount.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
 
 
                         indexWriter.AddDocument(doc);
@@ -110,50 +112,53 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             sw.Start();
             //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
             //{
+            sw.Stop();
+            Debug.WriteLine(sw.ElapsedMilliseconds);
+            sw.Restart();
+            using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
+            {
                 sw.Stop();
                 Debug.WriteLine(sw.ElapsedMilliseconds);
                 sw.Restart();
-                using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
+                //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
+                //{
+                //    string[] suggestions = speller.SuggestSimilar(term, 5);
+                //    Debug.WriteLine(string.Join(",", suggestions));
+                //}
+
+                // search by multiple fields (ordered by RELEVANCE)
+                var parser = new MultiFieldQueryParser
+                    (Lucene.Net.Util.Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer);
+                parser.AllowLeadingWildcard = true;
+                term = term.Replace(" ", "* *");
+                term = "*" + term + "*";
+                var query = parseQuery(term, parser);
+
+                var hits = m_IndexService.Search(query, 50).ScoreDocs;
+                var retVal = new List<UniversityByPrefixDto>();
+                for (int i = 0; i < hits.Length; i++)
                 {
-                    sw.Stop();
-                    Debug.WriteLine(sw.ElapsedMilliseconds);
-                    sw.Restart();
-                    //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
-                    //{
-                    //    string[] suggestions = speller.SuggestSimilar(term, 5);
-                    //}
 
-                    // search by multiple fields (ordered by RELEVANCE)
-                    var parser = new MultiFieldQueryParser
-                        (Lucene.Net.Util.Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer);
-                    parser.AllowLeadingWildcard = true;
-                    var query = parseQuery("*" + term + "*", parser);
+                    Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
+                    UniversityByPrefixDto university = new UniversityByPrefixDto(
+                        doc2.GetField(NameField).StringValue,
+                        doc2.GetField(ImageField).StringValue,
+                       Convert.ToInt64(doc2.GetField(IdField).StringValue),
+                      Convert.ToInt64(doc2.GetField(MembersCountField).StringValue)
+                        );
 
-                    var hits = m_IndexService.Search(query, 50).ScoreDocs;
-                    var retVal = new List<UniversityByPrefixDto>();
-                    for (int i = 0; i < hits.Length; i++)
-                    {
-
-                        Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
-                        UniversityByPrefixDto university = new UniversityByPrefixDto(
-                            doc2.GetField(NameField).StringValue,
-                            doc2.GetField(ImageField).StringValue,
-                           Convert.ToInt64(doc2.GetField(IdField).StringValue),
-                          Convert.ToInt64(doc2.GetField(MembersCountField).StringValue)
-                            );
-
-                        retVal.Add(university);
-                        //Console.WriteLine(doc2.GetField("University").StringValue);
+                    retVal.Add(university);
+                    //Console.WriteLine(doc2.GetField("University").StringValue);
 
 
-                    }
-                    sw.Stop();
-                    Debug.WriteLine(sw.ElapsedMilliseconds);
-
-
-                    return retVal;
                 }
-           // }
+                sw.Stop();
+                Debug.WriteLine(sw.ElapsedMilliseconds);
+
+
+                return retVal;
+            }
+            // }
             //return new List<SampleData>();
         }
         private Lucene.Net.Search.Query parseQuery(string searchQuery, QueryParser parser)
