@@ -1415,6 +1415,7 @@
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog2.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
+    <Content Include="Views\Quiz\CreateQuiz2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

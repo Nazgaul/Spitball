@@ -403,13 +403,13 @@
             }
 
             if (!quiz.publish) {
-                var el = document.getElementById('quizCreate');
-                var scope = angular.element(el).scope();
-                scope.$apply(function () {
-                    scope.initQuiz({ boxId: boxid, boxName: document.getElementById('box_Name').textContent, quizId: quiz.uid });
-                });
+                //var el = document.getElementById('quizCreate');
+                //var scope = angular.element(el).scope();
+                //scope.$apply(function () {
+                //    scope.initQuiz({ boxId: boxid, boxName: document.getElementById('box_Name').textContent, quizId: quiz.uid });
+                //});
                 
-                //cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent, quizId: quiz.uid });
+                cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent, quizId: quiz.uid });
                 return false;
             }
 
@@ -457,13 +457,13 @@
                 return;
             }
 
-            //cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });
+            cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });
             
-            var el = document.getElementById('quizCreate');
-            var scope = angular.element(el).scope();
-            scope.$apply(function () {
-                scope.initQuiz({ boxId: boxid, boxName: document.getElementById('box_Name').textContent });
-            });
+            //var el = document.getElementById('quizCreate');
+            //var scope = angular.element(el).scope();
+            //scope.$apply(function () {
+            //    scope.initQuiz({ boxId: boxid, boxName: document.getElementById('box_Name').textContent });
+            //});
 
             //angular.element('#quizCreate').scope().$broadcast('initQuiz')
         });

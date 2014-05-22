@@ -8,18 +8,16 @@
             @QuizResources.CreateQuiz
             <button type="button" id="closeQuiz" class="closeDialog"></button>
         </header>
-        <div ng-scrollbar rebuild-on-resize rebuild-on="rebuild:quiz" class="quizwpr">
-            <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
-            <input type="text" ng-model="quiz.name" class="inputText quizName" placeholder="@QuizResources.ChooseName" autofocus />
-            <ul class="quizQuestionList">
-                <li class="questionHolder" ng-repeat=" question in quiz.questions" ng-include="'quizQuestionTemplate'"></li>
-            </ul>
-            <button type="button" class="quizAddQuestion iconTxt" ng-click="addQuestion()">@QuizResources.AddQuestion</button>
+        <div class="quizWpr">
+            <div data-quizin="@SharedResources.Course:" class="quizLoc"></div>
+            <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" />
+            <ul class="quizQuestionList" id="quizQuestionList"></ul>
+            <button type="button" class="quizAddQuestion iconTxt" id="quizAddQuestion">@QuizResources.AddQuestion</button>
         </div>
         <div class="quizBottom">
-            <button type="button" ng-click="saveQuiz()" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
+            <button type="button" id="saveQuiz" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
             <span class="error">@QuizResources.CheckQuiz</span>
-            <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
+            <button type="button" class="quizPreviewBtn rFloat" id="quizPreview">@QuizResources.PreviewQuiz</button>
         </div>
     </section>
 </aside>
@@ -41,33 +39,32 @@
     <div class="modal2"></div>
 </div>
 
-<script type="text/ng-template" id="quizQuestionTemplate">
-    <form>
-        <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)"></button>
-        <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{$index + 1}}" ng-model="question.text" xng-focus="{{$last}}"></textarea>
-        <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
-        <div class="lFloat answers">@SharedResources.Answers:</div>
-        <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
-        <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
-        <ul class="quizAnswersList">
-            <li class="quizAnswer" ng-repeat="answer in question.answers" ng-include="'quizAnswerTemplate'">
-            </li>
-
-            <li class="quizAnswer disabled">
-                <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly" ng-click="addAnswer(question)"></textarea>
-                <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
-                <label></label>
-            </li>
-        </ul>
-    </form>
+<script type="text/html" id="quizQuestionTemplate">
+    <li data-id="{{id}}" class="questionHolder">
+        <form>
+            <button type="button" class="closeDialog quizRemoveQuestion"></button>
+            <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{index}}">{{text}}</textarea>
+            <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
+            <div class="lFloat answers">@SharedResources.Answers:</div>
+            <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
+            <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
+            <ul class="quizAnswersList">
+                <li class="quizAnswer disabled">
+                    <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly"></textarea>
+                    <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+                    <label></label>
+                </li>
+            </ul>
+        </form>
+    </li>
 </script>
 
-<script type="text/ng-template" id="quizAnswerTemplate">
-    <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{$index + 1}}" ng-model="answer.text"></textarea>
-    <input id="quizRadio{{$parent.$index}}{{$index}}" type="radio" class="correctAnswer"
-           ng-disabled="isEmptyAnswer(answer)" ng-checked="answer.text.length && isCorrect(question,answer)"  name="quizRadio" />
-    <label for="quizRadio{{$parent.$index}}{{$index}}" ng-click="markCorrect(question,answer)"></label>
-
+<script type="text/html" id="quizAnswerTemplate">
+    <li data-id="{{id}}" class="quizAnswer">
+        <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{index}}">{{text}}</textarea>
+        <input id="quizRadio{{topIndex}}{{index}}" type="radio" class="correctAnswer" disabled name="quizRadio" />
+        <label for="quizRadio{{topIndex}}{{index}}"></label>
+    </li>
 </script>
 
 <script type="text/html" id="quizPreviewTemplate">
