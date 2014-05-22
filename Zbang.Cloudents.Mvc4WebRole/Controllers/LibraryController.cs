@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
             var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId);
 
-            return this.CdJson(suggestedUniversity);
+            return this.CdJson(new JsonResponse(true,suggestedUniversity));
         }
 
         [NonAction]

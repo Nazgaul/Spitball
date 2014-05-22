@@ -1,4 +1,4 @@
-﻿(function (cd, $, dataContext, ko, analytics) {
+﻿(function (cd, $, dataContext, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('lc')) {
         return;
@@ -10,7 +10,8 @@
         uniList = eById('uniList'),
         sCountry = eById('sCountry'),
         countryList = eById('countryList'),
-        uniSearch = eById('uni_search');
+        uniSearch = eById('uni_search'),
+        fbUniList = eById('fbUniList');
 
     cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
 
@@ -22,11 +23,22 @@
         $('footer').remove(); //hack for now.
         function University(data) {
             var that = this;
-            data = data || {};
-            that.membersCount = data.memberCount;
+            if (data.memberCount) {
+                that.membersCount = data.memberCount;
+            } else {
+                that.friendsCount = data.friends.length;
+                that.friends = $.map(data.friends, function (i) { return new Friend(i); });
+            }
+
             that.name = data.name;
             that.image = data.image;
             that.id = data.id;
+        }
+
+        function Friend(data) {
+            var that = this;
+            that.name = data.name;
+            that.image = data.image;
         }
 
         var haveUniversity = libraryChoose.getAttribute('data-haveuniversity');
@@ -36,61 +48,110 @@
             });
             $('.siteHeader').find('button').attr('disabled', 'disabled'); //no buttons ??
         }
-        var universities = [];
 
-        registerEvents();                       
+        var waitForFb = setInterval(function () {
+            if (!window.FB) {
+                return;
+            }            
+            clearInterval(waitForFb);
+            window.fbAsyncInit();
+            var token;
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    token = response.authResponse.accessToken;
+                    if (!token) {
+                        return;
+                    }
 
-        function appendUniversities(data) {
-            if (data.length) {
-                $(uniList).show().removeClass('noResults');
-            } else {
-                $(uniList).addClass('noResults');
+                    dataContext.getFriendsUnis({
+                        data: { authToken: token },
+                        success: function (data) {
+                            data = data || {};
+                            showFriendsUnis(data);
+                        }
+                    });
+                }
+            });
+        }, 10);
+
+
+        registerEvents();
+
+        function showFriendsUnis(data) {
+            if (!data.length) {
+                return;
             }
 
-            var mappeddata = $.map(data, function (i) { return new University(i); });        
+            var mappeddata = $.map(data, function (i) { return new University(i); }),
+                html;
+
+            for (var i = 0, l = mappeddata.length; i < l; i++) {
+                var uni = mappeddata[i];
+                uni.friendsList = cd.attachTemplateToData('fBFriendTemplate', uni.friends);
+
+                html = cd.attachTemplateToData('universityItemFbTemplate', uni);
+
+                fbUniList.insertAdjacentHTML('beforeend', html);
+
+            }
+            $(fbUniList).show();
+        }
+
+        function appendUniversities(data) {
+            $(uniList).show();
+            if (data.length) {                
+                $(uniList).removeClass('noResults');
+            } else {
+                $(uniList).addClass('noResults');   
+            }
+
+            var mappeddata = $.map(data, function (i) { return new University(i); });
             $('#uniList li:not(:nth-last-child(-n+2))').remove();
             cd.appendData(uniList, 'universityItemTemplate', mappeddata, 'afterbegin', false);
         }
 
         function registerEvents() {
-             var  request2 = true, request = true, INPUT_TEXT = 'input[type=text]:first';
+            var request2 = true, request = true, INPUT_TEXT = 'input[type=text]:first';
 
-             var term,
-           searchUniversity = cd.debounce(function () {
-               if (term === uniSelect.value) {
-                   return;
-               }
+            var term,
+          searchUniversity = cd.debounce(function () {
+              if (term === uniSelect.value) {
+                  return;
+              }
 
-               if (Modernizr.input.placeholder) {
+              if (Modernizr.input.placeholder) {
 
-                   term = uniSelect.value;
+                  term = uniSelect.value;
 
-               } else {
-                   if (uniSelect.value === uniSelect.getAttribute('placeholder')) {
-                       term = '';
-                   } else {
-                       term = uniSelect.value;
-                   }
-               }
+              } else {
+                  if (uniSelect.value === uniSelect.getAttribute('placeholder')) {
+                      term = '';
+                  } else {
+                      term = uniSelect.value;
+                  }
+              }
 
-               if (term.length < 2) {
-                   $(uniList).hide();
-                   return;
-               }
+              if (term.length < 2) {
+                  $(fbUniList).show();
+                  $(uniList).hide();
+                  return;
+              }
 
-               dataContext.searchUniversity({
-                   data: { term: term },
-                   success: function (data) {
-                       data = data || {};
-                       appendUniversities(data);
-                       
-                   }
-               });
+              $(fbUniList).hide();
 
-               cd.analytics.trackEvent('Library Choose', 'Search', term);
-           }, 150);
+              dataContext.searchUniversity({
+                  data: { term: term },
+                  success: function (data) {
+                      data = data || {};
+                      appendUniversities(data);
+                  }
+              });
+
+              cd.analytics.trackEvent('Library Choose', 'Search', term);
+          }, 150);
 
             $(uniList).on('click', 'li:not(:last)', selectUniversity);
+            $(fbUniList).on('click', 'button', selectUniversity);
             $('.newUni').click(newUniversity);
 
             $(uniSearch).keyup(searchUniversity);
@@ -254,7 +315,7 @@
             }
 
 
-      
+
 
             //#region department
             $(document).on('change', '#department', function () {
@@ -276,7 +337,7 @@
                 selectUniversity(e);
             });
 
-            $(document).on('keyup','#group,#registration', function(){
+            $(document).on('keyup', '#group,#registration', function () {
                 checkSubmitState();
             });
 
@@ -293,7 +354,7 @@
                         year = document.getElementById('year'),
                         group = document.getElementById('group'),
                         registration = document.getElementById('registration');
-                    
+
                     if (department.selectedIndex && year.selectedIndex && group.value !== '' && registration.value !== '') {
                         $('#depSubmit').removeAttr('disabled');
                     } else {
@@ -302,7 +363,7 @@
                 } else {
                     $('#depSubmit').removeAttr('disabled');
 
-                }                
+                }
             }
             //#endregion
 
@@ -310,14 +371,14 @@
 
             //#region id
 
-            $(document).on('keyup', '#userIdNumber',function () {
+            $(document).on('keyup', '#userIdNumber', function () {
                 if (this.value === '') {
                     $('#submitRegIdPopup').attr('disabled', 'disabled');
                     return;
                 }
                 $('#submitRegIdPopup').removeAttr('disabled');
 
-            }).on('click','#closeRegIdPopup', function () {
+            }).on('click', '#closeRegIdPopup', function () {
                 $('#libEnterId').remove();
 
             }).on('click', '#submitRegIdPopup', function (e) {
@@ -329,4 +390,4 @@
         }
     }
 
-})(cd, jQuery, cd.data, ko, cd.analytics);
+})(cd, jQuery, cd.data, cd.analytics);
