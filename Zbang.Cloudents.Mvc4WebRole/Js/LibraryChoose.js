@@ -71,7 +71,12 @@
                    } else {
                        term = uniSelect.value;
                    }
-               }               
+               }
+
+               if (term.length < 2) {
+                   $(uniList).hide();
+                   return;
+               }
 
                dataContext.searchUniversity({
                    data: { term: term },
