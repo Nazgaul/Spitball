@@ -114,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region CreateBox
 
         [HttpPost]
-       // [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public ActionResult Create(CreateBox model)
         {
             if (!ModelState.IsValid)
@@ -161,6 +161,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
+                TraceLog.WriteError("PrivateBoxPartial ", ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }
