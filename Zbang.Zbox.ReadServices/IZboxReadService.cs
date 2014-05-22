@@ -60,6 +60,7 @@ namespace Zbang.Zbox.ReadServices
         Task<User.UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query);
 
         string GetLocationByIP(long ipNumber);
+        Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds);
 
 
         IEnumerable<QuestionDto> GetQuestions(GetBoxQuestionsQuery query);

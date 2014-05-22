@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class AccountController : BaseController
     {
         private readonly Lazy<IMembershipService> m_MembershipService;
-        private readonly Lazy<IFacebookAuthenticationService> m_FacebookService;
+        private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         // private readonly Lazy<IEmailVerfication> m_EmailVerification;
@@ -46,7 +46,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public AccountController(
             Lazy<IMembershipService> membershipService,
-            Lazy<IFacebookAuthenticationService> facebookService,
+            Lazy<IFacebookService> facebookService,
             IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
             IFormsAuthenticationService formsAuthenticationService,

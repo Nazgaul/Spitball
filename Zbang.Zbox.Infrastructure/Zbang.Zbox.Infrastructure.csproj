@@ -185,7 +185,7 @@
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Security\FacebookAuthenticationService.cs" />
     <Compile Include="Security\FacebookUserData.cs" />
-    <Compile Include="Security\IFacebookAuthenticationService.cs" />
+    <Compile Include="Security\IFacebookService.cs" />
     <Compile Include="Security\Resources\Validation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

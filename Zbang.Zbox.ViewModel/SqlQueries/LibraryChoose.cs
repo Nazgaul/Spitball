@@ -21,5 +21,27 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                          from zbox.users u 
                          where u.usertype = 1 
                          and u.userid = @UserId";
+
+        public const string GetUniversityByFriendIds = @"
+with users_cte(username,userimage,universityid2) as (
+select username,userimage,universityid2 from zbox.users where facebookuserid in @FriendsIds
+),
+university_cte(userid,universityname, userimage,number) as (
+select top(3) u.userid, u.universityname, u.userimage , count(*) as number from zbox.users u join users_cte c on u.userid = c.universityid2
+group by u.userid, u.universityname,u.userimage
+order by count(*) desc
+)
+select userid as id,universityname as name, userimage as image  from university_cte u;";
+
+        public const string GetFriendsInUniversitiesByFriendsIds = @"
+with users_cte(username,userimage,universityid2) as (
+select username,userimage,universityid2 from zbox.users where facebookuserid in @FriendsIds
+),
+university_cte(userid,universityname, userimage,number) as (
+select top(3) u.userid, u.universityname, u.userimage , count(*) as number from zbox.users u join users_cte c on u.userid = c.universityid2
+group by u.userid, u.universityname,u.userimage
+order by count(*) desc
+)
+select username as Name,userimage as Image,universityid2 as UniversityId  from users_cte c where universityid2 in (select userid from university_cte);";
     }
 }
