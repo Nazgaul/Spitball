@@ -44,8 +44,9 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
 
     };
 
-    $scope.showCreateBox = function () {
-        $scope.PrivateBoxDialogShown = true;
+    $scope.toggleShowCreateBox = function () {
+        $scope.privateBoxDialogShown = !$scope.privateBoxDialogShown;
+        $scope.createBoxPartial = true;
     };
     
     //$scope.creatingBox = false;
@@ -106,13 +107,13 @@ dashboard.controller('DashboardAsideController', ['$scope', 'User', function ($s
 
         };
     }
-
-    $scope.showAllDialogShown = false;
+   
     $scope.toggleShowFriends = function () {
         User.friends({
             success: function (data) {
                 $scope.users = data.payload.my;
                 $scope.showAllDialogShown = !$scope.showAllDialogShown;
+                $scope.showAllPartial = true;
 
             }
         });
@@ -129,7 +130,9 @@ dashboard.controller('DashboardAsideController', ['$scope', 'User', function ($s
 }]);
 
 dashboard.controller('CreateBoxController', ['$scope', 'Box', function ($scope, Box) {
-    $scope.formData = {};
+    $scope.formData = {
+        privacySettings: 'AnyoneWithUrl'
+    };
 
     $scope.createBox = function (isValid) {
         if (!isValid) {
@@ -139,9 +142,16 @@ dashboard.controller('CreateBoxController', ['$scope', 'Box', function ($scope, 
         Box.create({
             data: $scope.formData,
             success: function (data) {
-                console.log(data);
+                $scope.formData = {};
+                $scope.toggleShowCreateBox();
             }
         });
     }
+
+    $scope.reset = function () {
+        $scope.formData = {};
+        $scope.toggleShowCreateBox();
+
+    };
 
 }]);

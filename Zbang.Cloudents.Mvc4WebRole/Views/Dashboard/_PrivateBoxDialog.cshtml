@@ -20,17 +20,17 @@
             <label for="membersOnlyPrivacy">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
             <div class="labelExplain explain1">@SharedResources.OnlyPeople</div>
 
-            <input type="radio" id="AnyoneWithUrlPrivacy" name="privacySettings" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" checked="checked" />
+            <input type="radio" id="AnyoneWithUrlPrivacy" name="privacySettings" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
             <label for="AnyoneWithUrlPrivacy">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
             <div class="labelExplain">@SharedResources.AnyoneWho</div>
 
             @Html.AntiForgeryToken() @*add ng-model attribute*@
 
-            <input type="submit" class="btn1 next" value="@DialogResources.Create" ng-disabled="CreateBoxForm.$invalid" />
-            <button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
+            <input type="submit" class="btn1 next" value="@DialogResources.Create" ng-disabled="CreateBoxForm.$invalid" ng-click="hideModal()"/>
+            <button type="reset" class="btn2 cancel" ng-click="reset()">@DialogResources.Cancel</input>
 
-        </form>     
-    </div>
+        </form>             
+</div>
 
         @*@using (Html.BeginForm("Create", "Dashboard", FormMethod.Post, new { id = "createBoxDialog" }))
         {
