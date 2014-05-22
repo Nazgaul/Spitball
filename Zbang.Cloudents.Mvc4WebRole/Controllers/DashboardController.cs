@@ -189,6 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
+                TraceLog.WriteError("FriendsPartial", ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }

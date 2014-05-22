@@ -138,7 +138,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult SearchUniversity(string term)
         {
             var retVal = m_UniversitySearch.Value.SearchUniversity(term);
-            return this.CdJson(new JsonResponse(true,retVal));
+            return this.CdJson(new JsonResponse(true, retVal));
         }
 
         [HttpGet, Ajax]
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
             var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId);
 
-            return this.CdJson(new JsonResponse(true,suggestedUniversity));
+            return this.CdJson(new JsonResponse(true, suggestedUniversity));
         }
 
         [NonAction]

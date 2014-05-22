@@ -30,5 +30,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Library
         public long MemberCount { get; private set; }
 
         public string Name { get; set; }
+
+        public long Id { get; set; }
     }
 }
