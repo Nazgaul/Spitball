@@ -1583,8 +1583,8 @@ select.inputText {
 @arrowHeight: 8px; // change arrow size
 
 .tooltip {
-    display: none;
-
+    //display: none;
+    z-index: 5;
     position: absolute; //temp
     top: 100px; //temp
     left: 400px; //temp
@@ -1600,23 +1600,22 @@ select.inputText {
     &.btns {
         padding-bottom: 70px;
     }
-    &:not(.btns) {
+    /*&:not(.btns) {
         .ttBtns {
             display: none;
         }
-    }
+    }*/
     &.icon {
         width: 325px;
         .stepTip {
-            padding-left: 90px;
+            padding-left: 90px; /*rtl*/
             &:before {
                 .pseudo;
                 position: absolute;
-                left:12px;
+                left:15px; /*rtl*/
                 width: 85px;
                 height: 85px;
                 vertical-align: middle;
-                margin-right: 15px;
                 background: url(/Images/tt-sprite.png) no-repeat;
             }
         }

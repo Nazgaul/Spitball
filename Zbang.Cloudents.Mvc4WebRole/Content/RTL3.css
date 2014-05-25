@@ -320,35 +320,6 @@
   padding: 90px 290px 0 0;
 }
 /*#endregion */
-/*#region AUTO COMPLETE */
-.uniWpr:before {
-  right: 6px;
-  /*rtl*/
-  left: auto;
-  -moz-transform: scaleX(1);
-  -webkit-transform: scaleX(1);
-  -o-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  transform: scaleX(1);
-  /*rtl*/
-}
-.uniList {
-  text-align: right;
-  /*rtl*/
-}
-.uniList li a {
-  padding: 13px 8px 13px 0;
-  /*rtl*/
-}
-.uniImg + span {
-  padding: 6px 8px 0 5px;
-  /*rtl*/
-}
-.uniCount:before {
-  margin: 0 0 0 4px;
-  /*rtl*/
-}
-/*#endregion */
 /*#endregion */
 /*#region Sidebar.css */
 /*#region library sidebar */

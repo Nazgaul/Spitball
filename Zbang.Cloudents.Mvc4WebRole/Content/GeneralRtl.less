@@ -231,6 +231,15 @@ body
 @arrowHeight: 8px; // change arrow size
 
 .tooltip {
+    &.icon {
+        .stepTip {
+            padding: 0 90px 0 0; /*rtl*/
+            &:before {
+                right:15px; /*rtl*/
+                left: auto;
+            }
+        }
+    }
     &:before {
         right: @arrowLeft; /*rtl*/
         left: auto;
