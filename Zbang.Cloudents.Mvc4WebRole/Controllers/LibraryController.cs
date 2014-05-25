@@ -381,10 +381,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
-        public ActionResult InsertCode(long uid)
+        public ActionResult InsertCode(long universityId)
         {
             var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-            switch (uid)
+            switch (universityId)
             {
                 case 19878:
                     ViewBag.AgudaName = "מכללת אשקלון - היחידה ללימודי חוץ";
@@ -416,7 +416,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     break;
             }
             ViewBag.userName = userData.Name;
-            return PartialView(new Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University() { UniversityId = uid });
+            return PartialView(new Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University() { UniversityId = universityId });
         }
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
         public ActionResult InsertID(long universityId)

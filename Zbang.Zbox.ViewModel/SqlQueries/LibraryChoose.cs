@@ -14,6 +14,8 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         public const string GetNeedId = @"select  count(*) from zbox.student
               where UniversityId = @universityId";
 
+        public const string GetNeedCode = @"select needcode from zbox.users where userid = @universityId";
+
         public const string GetUniversityDetail = @"select
                          u.Userid as Id,  
                          u.UniversityName as Name,
