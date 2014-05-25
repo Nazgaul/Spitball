@@ -502,8 +502,9 @@ footer {
 }
 .uniName {
   color: #383838;
-  font-size: 22px;
+  font-size: 20px;
   display: block;
+  font-weight: normal;
 }
 .uniCount {
   font-size: 13px;

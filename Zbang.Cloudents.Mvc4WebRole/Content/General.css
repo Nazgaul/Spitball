@@ -1133,6 +1133,9 @@ ul.ui-autocomplete li a {
   z-index: 1;
   color: #fff;
 }
+.facebook:hover {
+  background: #334d83;
+}
 .fbImg,
 .emailImg {
   position: absolute;

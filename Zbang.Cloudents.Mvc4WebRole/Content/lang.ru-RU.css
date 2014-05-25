@@ -25,7 +25,15 @@ q {
   width: 485px;
 }
 .homeContent h1 {
-  font-size: 32px;
+  font-size: 38px;
+  width: 700px;
+}
+.homeContent h3 {
+  letter-spacing: normal;
+}
+.headingTexts .facebook,
+.headingTexts .email {
+  width: 378px;
 }
 /*#region item page */
 .previewWrapper h2 {

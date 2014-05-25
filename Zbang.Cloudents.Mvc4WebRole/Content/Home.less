@@ -91,13 +91,15 @@ body {
     margin: 0 auto;
     color: #fff;
     text-align: left; /*rtl*/
+    .facebook, .email {
+        width: 225px; /* diff rtl*/
+    }
     .facebook
     {
         font-size: 15px;
         margin: 35px 0 10px;
         min-width: 0;
-        display: block; //override
-        width: 240px;
+        display: block; //override       
     }
 }
 
@@ -114,8 +116,10 @@ body {
     position: relative;
     text-align: left; /*rtl*/
     display: block; //override
-    width: 240px;
     line-height: 25px;
+    &:hover {
+        background: #ececec;
+    }
 }
 .homeContent {
     text-align: center;
@@ -125,17 +129,17 @@ body {
         width: 620px;
         -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2); /*rtl*/
         text-shadow: 2px 2px 2px rgba(0,0,0,.2); /*rtl*/
-        //line-height: 30px;
         font-weight: 600;
-        //white-space: pre-wrap;
+        white-space: pre-wrap;
         margin-bottom: 15px;
     }
 
     h3 {
-        font-size: 15px;
+        font-size: 15px; /*rtl*/
         font-weight: normal;
         -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);/*rtl*/
         text-shadow: 2px 2px 2px rgba(0,0,0,.2);/*rtl*/
+        letter-spacing: 0.4px;
     }
 
     section {
@@ -176,7 +180,7 @@ body {
 .logo {
     width: 190px;
     height: 52px;
-    background: @homepage-sprite -881px -271px no-repeat;
+    background: @homepage-sprite -881px -271px no-repeat; /*rtl*/
     margin-top: 20px; 
 }
 /*#region side menu */
@@ -251,8 +255,7 @@ aside {
         .boxSizing;
 
         &:hover {
-            background: @colorHover;
-            color: #fff;
+            background: #ececec;
         }
     }
 }
@@ -352,8 +355,6 @@ aside {
         padding: 0 5px;
 
         &:hover {
-            //color: #8c8c8c;
-            //color: @color;
             color: #a7a7a7;
         }
 

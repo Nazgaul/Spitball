@@ -203,4 +203,7 @@
   <data name="WelcomeTo" xml:space="preserve">
     <value>Welcome to Cloudents!</value>
   </data>
+  <data name="Student" xml:space="preserve">
+    <value>student</value>
+  </data>
 </root>

@@ -91,12 +91,16 @@ body {
   text-align: left;
   /*rtl*/
 }
+.headingTexts .facebook,
+.headingTexts .email {
+  width: 225px;
+  /* diff rtl*/
+}
 .headingTexts .facebook {
   font-size: 15px;
   margin: 35px 0 10px;
   min-width: 0;
   display: block;
-  width: 240px;
 }
 .email {
   color: #676767;
@@ -111,8 +115,10 @@ body {
   text-align: left;
   /*rtl*/
   display: block;
-  width: 240px;
   line-height: 25px;
+}
+.email:hover {
+  background: #ececec;
 }
 .homeContent {
   text-align: center;
@@ -126,15 +132,18 @@ body {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
   font-weight: 600;
+  white-space: pre-wrap;
   margin-bottom: 15px;
 }
 .homeContent h3 {
   font-size: 15px;
+  /*rtl*/
   font-weight: normal;
   -webkit-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
+  letter-spacing: 0.4px;
 }
 .homeContent section {
   height: 310px;
@@ -173,6 +182,7 @@ body {
   width: 190px;
   height: 52px;
   background: url(/Images/hp17-sprite.png) -881px -271px no-repeat;
+  /*rtl*/
   margin-top: 20px;
 }
 /*#region side menu */
@@ -256,8 +266,7 @@ aside .last {
   box-sizing: border-box;
 }
 .headerActions .btn:hover {
-  background: #19ae66;
-  color: #fff;
+  background: #ececec;
 }
 .headerSettings {
   display: inline-block;

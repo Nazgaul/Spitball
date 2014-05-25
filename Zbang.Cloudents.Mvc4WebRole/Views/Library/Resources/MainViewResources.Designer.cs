@@ -270,6 +270,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to student.
+        /// </summary>
+        public static string Student {
+            get {
+                return ResourceManager.GetString("Student", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Students.
         /// </summary>
         public static string Students {

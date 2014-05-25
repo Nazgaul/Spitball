@@ -201,4 +201,7 @@
   <data name="WelcomeTo" xml:space="preserve">
     <value>ברוך הבא לקלאודנטס!</value>
   </data>
+  <data name="Student" xml:space="preserve">
+    <value>סטודנט</value>
+  </data>
 </root>

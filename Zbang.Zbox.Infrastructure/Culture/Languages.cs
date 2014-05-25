@@ -14,12 +14,12 @@ namespace Zbang.Zbox.Infrastructure.Culture
         public const string ChineseName = "中文";
 
         public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
-            new LanguagesDetail(EnglishUSName,"en-us"),
-            new LanguagesDetail(EnglishGBName,"en-gb"),
-            new LanguagesDetail(HebrewName,"he-il"),
-            new LanguagesDetail(ArabicName,"ar-ae"),
-            new LanguagesDetail(RussianName,"ru-ru"),
-            new LanguagesDetail(ChineseName,"zh-cn")
+            new LanguagesDetail(EnglishUSName,"en-US"),
+            new LanguagesDetail(EnglishGBName,"en-GB"),
+            new LanguagesDetail(HebrewName,"he-IL"),
+            new LanguagesDetail(ArabicName,"ar-AE"),
+            new LanguagesDetail(RussianName,"ru-RU"),
+            new LanguagesDetail(ChineseName,"zh-CN")
         };
 
 
