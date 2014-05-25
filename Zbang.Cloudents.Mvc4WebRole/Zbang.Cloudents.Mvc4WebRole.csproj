@@ -851,6 +851,7 @@
     <Content Include="Images\students.png" />
     <Content Include="Images\table-bg1.png" />
     <Content Include="Images\trash.png" />
+    <Content Include="Images\tt-sprite.png" />
     <Content Include="Images\union3-sprite.png" />
     <Content Include="Images\union4-sprite.png" />
     <Content Include="Images\upload15-sprite.png" />

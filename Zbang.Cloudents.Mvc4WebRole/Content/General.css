@@ -1497,7 +1497,6 @@ select.inputText {
 }
 /*#region tooltip */
 .tooltip {
-  display: none;
   position: absolute;
   top: 100px;
   left: 400px;
@@ -1511,6 +1510,26 @@ select.inputText {
 }
 .tooltip.btns {
   padding-bottom: 70px;
+}
+.tooltip:not(.btns) .ttBtns {
+  display: none;
+}
+.tooltip.icon {
+  width: 325px;
+}
+.tooltip.icon .stepTip {
+  padding-left: 90px;
+}
+.tooltip.icon .stepTip:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 12px;
+  width: 85px;
+  height: 85px;
+  vertical-align: middle;
+  margin-right: 15px;
+  background: url(/Images/tt-sprite.png) no-repeat;
 }
 .tooltip h4 {
   font-size: 15px;
