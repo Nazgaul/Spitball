@@ -89,6 +89,17 @@
             @RenderBody()
         </div>
     </div>
+
+    <script type="text/html" id="titleToolTipTempalte">
+        <div class="titleTooltip">
+            <div style="position: relative">
+                <div class="toolTipContent">
+                    {{title}}<div class="ttArrow"></div>
+                </div>
+            </div>
+        </div>
+
+    </script>
     @{
         Html.RenderPartial("_Footer");
         if (!User.Identity.IsAuthenticated)

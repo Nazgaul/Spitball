@@ -4,7 +4,7 @@
 <div id="libEnterCode" title="">
     <div class="popupWrppr enterCode">
         <header class="popupHeader">שלום, <span>@ViewBag.userName</span></header>
-        <button class="closeDialog"></button>
+        <button class="closeDialog" id="closeNeedCodePopup"></button>
         @using (Html.BeginForm("UpdateUniversity","Account"))
         {
             Html.RenderAction("AntiForgeryToken", "Home", true);
