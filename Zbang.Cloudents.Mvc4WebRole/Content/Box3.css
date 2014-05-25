@@ -52,7 +52,7 @@
   display: inline-block;
   width: 11px;
   height: 22px;
-  background: url(/Images/common16-sprite.png?v=2) -130px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -130px -1px no-repeat;
   vertical-align: middle;
   margin-right: 6px;
   /*rtl*/
@@ -161,7 +161,7 @@
 .inviteBtn:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common16-sprite.png?v=2) -90px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -90px -1px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -417,7 +417,7 @@
   right: 8px;
   /*rtl*/
   margin: 0;
-  background: url(/Images/common16-sprite.png?v=2) -72px -42px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -72px -42px no-repeat;
   width: 23px;
   height: 23px;
 }
@@ -633,7 +633,7 @@
   display: inline-block;
   width: 11px;
   height: 11px;
-  background: url(/Images/box16-sprite.png) -58px 0 no-repeat;
+  background: url(/Images/box17-sprite.png) -58px 0 no-repeat;
   vertical-align: top;
   margin: 14px 6px 0 0;
   /*rtl*/
@@ -735,7 +735,7 @@
   margin: 0 auto 16px;
   width: 50px;
   height: 43px;
-  background: url(/Images/box16-sprite.png) 0 -56px no-repeat;
+  background: url(/Images/box17-sprite.png) 0 -56px no-repeat;
 }
 .boxEmpty .uploadFilesBtn {
   display: block;
@@ -771,7 +771,7 @@
   top: 50px;
   width: 81px;
   height: 81px;
-  background: url(/Images/box16-sprite.png) -75px 0 no-repeat;
+  background: url(/Images/box17-sprite.png) -75px 0 no-repeat;
 }
 .boxItemList.sponsored .boxItem:first-child:hover .actionBtns {
   display: none;
@@ -849,7 +849,7 @@
 .boxItemsHeader .iconTxt:before {
   width: 14px;
   height: 16px;
-  background: url(/Images/box16-sprite.png) -54px -106px no-repeat;
+  background: url(/Images/box17-sprite.png) -54px -106px no-repeat;
 }
 .boxItemsHeader .iconTxt.quizBtn:before {
   width: 19px;
@@ -873,7 +873,7 @@
   display: inline-block;
   width: 16px;
   height: 11px;
-  background: url(/Images/box16-sprite.png) -45px -123px;
+  background: url(/Images/box17-sprite.png) -45px -123px;
 }
 .listViewBtn.currentState,
 .thumbViewBtn.currentState {
@@ -929,7 +929,7 @@
   display: inline-block;
   width: 9px;
   height: 18px;
-  background: url(/Images/box16-sprite.png) -8px -119px no-repeat;
+  background: url(/Images/box17-sprite.png) -8px -119px no-repeat;
   position: absolute;
   right: 0;
 }
@@ -953,7 +953,7 @@
   display: block;
   width: 39px;
   height: 35px;
-  background: url(/Images/box16-sprite.png) -4px -144px no-repeat;
+  background: url(/Images/box17-sprite.png) -4px -144px no-repeat;
   vertical-align: middle;
   margin: 48px auto 0;
 }
@@ -978,7 +978,7 @@
   display: inline-block;
   width: 21px;
   height: 16px;
-  background: url(/Images/box16-sprite.png) -105px -165px no-repeat;
+  background: url(/Images/box17-sprite.png) -105px -165px no-repeat;
   vertical-align: middle;
   margin-top: 2px;
 }
@@ -1004,8 +1004,8 @@
   color: #0f9d58;
   font-size: 15px;
   display: inline-block;
-  max-width: -webkit-calc(100% - 70px);
-  max-width: calc(100% - 70px);
+  max-width: -webkit-calc(100vw - 880px);
+  max-width: calc(100vw - 880px);
 }
 .listItem .itemContent {
   max-height: 71px;
@@ -1092,7 +1092,7 @@
   display: inline-block;
   width: 22px;
   height: 20px;
-  background: url(/Images/box16-sprite.png) -74px -165px no-repeat;
+  background: url(/Images/box17-sprite.png) -74px -165px no-repeat;
   float: left;
   /*rtl*/
   margin: 11px 9px;
@@ -1137,7 +1137,7 @@
 .boxItem.draft .tag {
   width: 21px;
   height: 16px;
-  background: url(/Images/box16-sprite.png) -105px -165px no-repeat;
+  background: url(/Images/box17-sprite.png) -105px -165px no-repeat;
   display: block;
   padding: 0;
   border-radius: 0;
@@ -1621,7 +1621,7 @@
   width: 69px;
   height: 14px;
   position: relative;
-  background: url(/Images/common16-sprite.png?v=2) -1px -41px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -1px -41px no-repeat;
   margin: 3px 0 0 5px;
   /*rtl*/
   cursor: pointer;
@@ -1632,7 +1632,7 @@
   left: 0;
   /*rtl*/
   height: 13px;
-  background: url(/Images/common16-sprite.png?v=2) -1px -55px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -1px -55px no-repeat;
 }
 .addBtn.addItem {
   display: inline-block;
@@ -1651,7 +1651,7 @@
   margin: -8px auto 33px;
   width: 56px;
   height: 55px;
-  background: url(/Images/box16-sprite.png) 0 0 no-repeat;
+  background: url(/Images/box17-sprite.png) 0 0 no-repeat;
 }
 .actionBtns {
   display: none;
@@ -1694,7 +1694,7 @@
   display: inline-block;
   width: 14px;
   height: 16px;
-  background: url(/Images/box16-sprite.png) -57px -12px no-repeat;
+  background: url(/Images/box17-sprite.png) -57px -12px no-repeat;
 }
 .downloadBtn:hover:before {
   background-position: -57px -29px;
@@ -1704,7 +1704,7 @@
   display: inline-block;
   width: 15px;
   height: 15px;
-  background: url(/Images/common16-sprite.png?v=2) -52px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -52px -1px no-repeat;
 }
 .editBtn:hover:before {
   background-position: -52px -21px;
@@ -1714,7 +1714,7 @@
   display: inline-block;
   width: 15px;
   height: 17px;
-  background: url(/Images/common16-sprite.png?v=2) -37px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=2) -37px -1px no-repeat;
 }
 .deleteBtn:hover:before {
   background-position: -37px -21px;

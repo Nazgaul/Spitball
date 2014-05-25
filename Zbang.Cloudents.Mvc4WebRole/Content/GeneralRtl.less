@@ -119,16 +119,21 @@ body
 /*#endregion */
 
 /*#region connect and register pages */
-
-.fbImg
-{
+.fbImg, .emailImg {
     right: 16px; /*rtl*/
     left: auto;
-    &:after
-    {
+    &:after {
         right: 24px; /*rtl*/
         left: auto;
-    }   
+    }
+}
+.emailImg {
+    right: 8px;
+    left: auto;
+    &:after {
+        right: 31px; /*rtl*/
+        left: auto;
+    }
 }
 .enterForm {
     .firstError {
@@ -138,7 +143,7 @@ body
 }
 .facebook
 {
-    padding: 5px 55px 9px 15px; /*rtl*/
+    padding: 8px 55px 9px 15px; /*rtl*/
     text-align: right; /*rtl*/
 }
 .signIn, .register

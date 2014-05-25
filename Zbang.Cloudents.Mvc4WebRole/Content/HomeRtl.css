@@ -18,10 +18,39 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+.topImg:before {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 .headerWpr.menuOpen ~ aside {
   left: 0;
   /*rtl*/
   right: auto;
+}
+.headingTexts {
+  text-align: right;
+  /*rtl*/
+}
+.email {
+  padding: 7px 53px 8px 15px;
+  /*rtl*/
+  text-align: right;
+  /*rtl*/
+}
+.homeContent h1 {
+  -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  /*rtl*/
+  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  /*rtl*/
+}
+.homeContent h3 {
+  -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  /*rtl*/
+  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  /*rtl*/
 }
 .homeContent h2 {
   text-align: right;
@@ -68,20 +97,30 @@ aside li {
   margin: 6px 4px 0 12px;
   /*rtl*/
 }
-.email {
-  text-align: right;
+.videoWpr {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.videoWpr:before {
+  right: 78px;
+  /*rtl*/
+  left: auto;
+  -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  /*rtl*/
+  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
 }
-/*.emailImg
-{
-    right: 8px;
-    left: auto;
-    &:after
-    {
-        right: 33px;
-        left: auto;
-    }
-}*/
+.videoWpr:after {
+  right: 0;
+  /*rtl*/
+  left: auto;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 .language a:not(.lastLang):before {
   left: -7px;
   /*rtl*/

@@ -108,13 +108,24 @@ body {
 }
 /*#endregion */
 /*#region connect and register pages */
-.fbImg {
+.fbImg,
+.emailImg {
   right: 16px;
   /*rtl*/
   left: auto;
 }
-.fbImg:after {
+.fbImg:after,
+.emailImg:after {
   right: 24px;
+  /*rtl*/
+  left: auto;
+}
+.emailImg {
+  right: 8px;
+  left: auto;
+}
+.emailImg:after {
+  right: 31px;
   /*rtl*/
   left: auto;
 }
@@ -124,7 +135,7 @@ body {
   left: auto;
 }
 .facebook {
-  padding: 5px 55px 9px 15px;
+  padding: 8px 55px 9px 15px;
   /*rtl*/
   text-align: right;
   /*rtl*/

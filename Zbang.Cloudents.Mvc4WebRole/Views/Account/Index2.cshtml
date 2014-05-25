@@ -17,16 +17,15 @@
         <h1>@HomeResources.SocialStudy</h1>
         <h3>@HomeResources.StudyPlatform</h3>
         <div class="facebook"><span class="fbImg"></span>@HomeResources.FacebookSignUp</div>
-        <button type="button" id="homeRegister" class="email addRegister">@HomeResources.EmailSignUp</button>
-        <div class="signinText">@LogOnResources.AlreadyHave&nbsp;
+        <button type="button" id="homeRegister" class="email addRegister"><span class="emailImg"></span>@HomeResources.EmailSignUp</button>
+        @*<div class="signinText">@LogOnResources.AlreadyHave&nbsp;
             <button class="addConnect loginLink" type="button">@SharedResources.SignIn</button>
-        </div>
+        </div>*@
     </div>
 
     
 
-    <div id="VideoWpr" class="videoWpr">
-    </div>
+    <div id="VideoWpr" data-playtext="@HomeResources.PlayVideo" class="videoWpr"></div>
     <div class="vidoeWrapper" id="mVideo">
         <video preload="none" id="homeVideo" class="video" controls>
             <source src="https://zboxstorage.blob.core.windows.net/videos/homeScreenVideo.mp4" type="video/mp4">

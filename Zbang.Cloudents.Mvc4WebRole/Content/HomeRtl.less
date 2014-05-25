@@ -7,8 +7,7 @@
 
 .topImg
 {
-    > .btn
-    {
+    > .btn {
         padding: 0 20px 0 35px; /*rtl*/
         text-transform: none;/*rtl (remove uppercase)*/
         &:after
@@ -17,6 +16,9 @@
             right: auto;
             .flipH;
         }
+    }
+    &:before {
+        .flipH;
     }
 }
 .headerWpr
@@ -30,8 +32,25 @@
         }
     }
 }
+.headingTexts
+{
+    text-align: right; /*rtl*/
+}
+.email
+{
+    padding: 7px 53px 8px 15px; /*rtl*/
+    text-align: right; /*rtl*/
+}
 .homeContent {
-    
+    h1 {
+        -webkit-text-shadow: -2px 2px 2px rgba(0,0,0,.2); /*rtl*/
+        text-shadow: -2px 2px 2px rgba(0,0,0,.2); /*rtl*/
+    }
+
+    h3 {
+        -webkit-text-shadow: -2px 2px 2px rgba(0,0,0,.2);/*rtl*/
+        text-shadow: -2px 2px 2px rgba(0,0,0,.2);/*rtl*/
+    }
     h2{
         text-align: right; /*rtl*/
     }
@@ -77,24 +96,21 @@ aside {
 {
     margin: 6px 4px 0 12px; /*rtl*/
 }
-
-.email
-{
-    //padding: 5px 15px; /*rtl*/ TODO - CHECK THIS
-    text-align: right; /*rtl*/
-}
-
-/*.emailImg
-{
-    right: 8px;
+.videoWpr {
+    right: 0; /*rtl*/
     left: auto;
-    &:after
-    {
-        right: 33px;
+    &:before {
+        right: 78px; /*rtl*/
         left: auto;
+        -webkit-text-shadow: -2px 2px 2px rgba(0,0,0,.2); /*rtl*/
+        text-shadow: -2px 2px 2px rgba(0,0,0,.2); /*rtl*/
     }
-}*/
-
+    &:after {
+        right: 0; /*rtl*/
+        left: auto;
+        .flipH;
+    }
+}
 .language{
     a{
         &:not(.lastLang){
