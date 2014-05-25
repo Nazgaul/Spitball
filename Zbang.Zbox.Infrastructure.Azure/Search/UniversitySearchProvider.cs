@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, universityCatalog);
             m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, universitySuggestionCatalog);
             m_DbReadService = dbReadService;
-           // m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+            m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
         }
         public void BuildUniversityData()
         {

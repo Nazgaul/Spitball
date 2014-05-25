@@ -31,7 +31,11 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
                 {
                     if (!RunningInWeb)
                     {
-                        return _localData ?? (_localData = new Hashtable());
+                        if (_localData == null)
+                        {
+                            _localData = new Hashtable();
+                        }
+                        return _localData;
                     }
                     var webHashtable = HttpContext.Current.Items[LocalDataHashtableKey] as Hashtable;
                     if (webHashtable == null)

@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Configuration;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Storage
 {
@@ -40,8 +41,9 @@ namespace Zbang.Zbox.Infrastructure.Storage
             {
                 _cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
             }
-            catch (ConfigurationErrorsException)
+            catch (ConfigurationErrorsException ex)
             {
+                TraceLog.WriteError("on ConfigureStorageAccount", ex);
                 _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             }
             //if (RoleEnvironment.IsAvailable)
@@ -61,9 +63,9 @@ namespace Zbang.Zbox.Infrastructure.Storage
             //   _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             //}
             // not need every time
-            CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
-            CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
-            CreateTables(_cloudStorageAccount.CreateCloudTableClient());
+            //CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
+            //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
+            //CreateTables(_cloudStorageAccount.CreateCloudTableClient());
 
         }
         internal static LocalResource LocalResource
