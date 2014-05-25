@@ -679,11 +679,11 @@ where m.RecepientId = @userid
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                var retVal = await conn.QueryAsync<int>(Sql.LibraryChoose.GetNeedCode, new
+                var retVal = await conn.QueryAsync<bool>(Sql.LibraryChoose.GetNeedCode, new
                 {
                     universityId = universityId
                 });
-                return retVal.FirstOrDefault() > 0;
+                return retVal.FirstOrDefault();
             }
         }
 
