@@ -224,7 +224,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Group Boxes.
+        ///   Looks up a localized string similar to My study groups.
         /// </summary>
         public static string MyGroup {
             get {

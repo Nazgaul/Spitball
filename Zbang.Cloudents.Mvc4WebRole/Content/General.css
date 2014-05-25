@@ -1497,6 +1497,7 @@ select.inputText {
 }
 /*#region tooltip */
 .tooltip {
+  display: none;
   position: absolute;
   top: 100px;
   left: 400px;
