@@ -252,6 +252,11 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
+        public Task<bool> GetUniversityNeedId(long universityId)
+        {
+            return m_ReadService.GetUniversityNeedId(universityId);
+        }
+
         public Task<bool> GetUniversityNeedCode(long universityId)
         {
             return m_ReadService.GetUniversityNeedCode(universityId);

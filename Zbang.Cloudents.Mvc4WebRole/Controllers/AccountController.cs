@@ -414,10 +414,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
             }
-            var needId = await m_ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            var needId = await m_ZboxReadService.GetUniversityNeedId(model.UniversityId);
             if (needId && string.IsNullOrEmpty(model.studentID))
             {
                 return RedirectToAction("InsertID", "Library", new { universityId = model.UniversityId });
+            }
+
+            var needCode = await m_ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            if (needCode && string.IsNullOrEmpty(model.Code))
+            {
+                return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
             }
 
             if (!ModelState.IsValid)

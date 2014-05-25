@@ -663,11 +663,23 @@ where m.RecepientId = @userid
             }
         }
 
-        public async Task<bool> GetUniversityNeedCode(long universityId)
+        public async Task<bool> GetUniversityNeedId(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
                 var retVal = await conn.QueryAsync<int>(Sql.LibraryChoose.GetNeedId, new
+                {
+                    universityId = universityId
+                });
+                return retVal.FirstOrDefault() > 0;
+            }
+        }
+
+        public async Task<bool> GetUniversityNeedCode(long universityId)
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                var retVal = await conn.QueryAsync<int>(Sql.LibraryChoose.GetNeedCode, new
                 {
                     universityId = universityId
                 });
