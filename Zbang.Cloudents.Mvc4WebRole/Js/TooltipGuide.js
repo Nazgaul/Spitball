@@ -126,6 +126,10 @@
     }
 
     cd.pubsub.subscribe('clearTooltip', function () {
+        if (!$guideContainer.length) {
+            return;
+        }
+
         $guideContainer.remove();
     });
 })(cd, cd.pubsub, jQuery);
