@@ -100,7 +100,8 @@ aside {
     margin: 6px 4px 0 12px; /*rtl*/
 }
 .videoWpr {
-    right: 0; /*rtl*/
+    right: ~'-webkit-calc(50% - 512px)'; /*rtl*/
+    right: ~'calc(50% - 512px)'; /*rtl*/
     left: auto;
     &:before {
         right: 78px; /*rtl*/

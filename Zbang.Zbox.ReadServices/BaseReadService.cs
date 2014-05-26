@@ -1,16 +1,11 @@
 ﻿using NHibernate;
 using NHibernate.Transform;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.Notification;
 using Zbang.Zbox.ViewModel.Queries;
-using Zbang.Zbox.ViewModel.Queries.Notification;
 using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zbang.Zbox.ViewModel.SqlQueries
+﻿namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class LibraryChoose
     {
@@ -35,15 +29,15 @@ order by count(*) desc
 )
 select userid as id,universityname as name, userimage as image  from university_cte u;";
 
-        public const string GetFriendsInUniversitiesByFriendsIds = @"
-with users_cte(username,userimage,universityid2) as (
-select username,userimage,universityid2 from zbox.users where facebookuserid in @FriendsIds
+        public const string GetFriendsInUniversitiesByFriendsIds = 
+        @"with users_cte(universityid2,facebookuserid) as (
+select universityid2,facebookuserid from zbox.users where facebookuserid in @FriendsIds
 ),
 university_cte(userid,universityname, userimage,number) as (
 select top(3) u.userid, u.universityname, u.userimagelarge as userimage  , count(*) as number from zbox.users u join users_cte c on u.userid = c.universityid2
 group by u.userid, u.universityname,u.userimagelarge
 order by count(*) desc
 )
-select username as Name,userimage as Image,universityid2 as UniversityId  from users_cte c where universityid2 in (select userid from university_cte);";
+select universityid2 as UniversityId , facebookuserid as Id  from users_cte c where universityid2 in (select userid from university_cte);";
     }
 }

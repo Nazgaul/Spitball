@@ -1,4 +1,5 @@
-﻿using Lucene.Net.Analysis.Standard;
+﻿using System.Globalization;
+using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
@@ -11,7 +12,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.Library;
@@ -20,13 +21,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
     public class UniversitySearchProvider : IUniversityWriteSearchProvider, IUniversityReadSearchProvider
     {
-        private readonly IBlobProvider m_BlobProvider;
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
         private readonly AzureDirectory m_AzureUniversiesDirectory;
         private readonly AzureDirectory m_AzureUniversiesSpellerDirectory;
 
-        const string universityCatalog = "UniversityCatalog";
-        const string universitySuggestionCatalog = "UniversitySuggestionCatalog";
+        const string UniversityCatalog = "UniversityCatalog";
+        const string UniversitySuggestionCatalog = "UniversitySuggestionCatalog";
 
 
         const string IdField = "id";
@@ -37,11 +37,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private readonly IndexSearcher m_IndexService;
 
 
-        public UniversitySearchProvider(IBlobProvider blobProvider, IZboxReadServiceWorkerRole dbReadService)
+        public UniversitySearchProvider(IZboxReadServiceWorkerRole dbReadService)
         {
-            m_BlobProvider = blobProvider;
-            m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, universityCatalog);
-            m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, universitySuggestionCatalog);
+            m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversityCatalog);
+            m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
             m_DbReadService = dbReadService;
             m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
         }
@@ -60,19 +59,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 using (IndexWriter indexWriter = new IndexWriter(m_AzureUniversiesDirectory,
                         analyzer,
-                        new Lucene.Net.Index.IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
+                        new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
                 {
                     var universities = await m_DbReadService.GetUniversityDetail();
                     foreach (var university in universities)
                     {
                         var extraDetail = universitiesExtra.FirstOrDefault(f => f.Id == university.Id);
-                        var searchQuery = new TermQuery(new Term("id", university.Id.ToString()));
+                        var searchQuery = new TermQuery(new Term("id", university.Id.ToString(CultureInfo.InvariantCulture)));
                         indexWriter.DeleteDocuments(searchQuery);
                         //indexWriter.DeleteAll();
                         //indexWriter.Commit();
 
                         Document doc = new Document();
-                        doc.Add(new Field(IdField, university.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
+                        doc.Add(new Field(IdField, university.Id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
                         doc.Add(new Field(NameField, university.Name, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
                         if (extraDetail != null)
                         {
@@ -81,7 +80,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             doc.Add(new Field("extra3", extraDetail.Extra3, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
                         }
                         doc.Add(new Field(ImageField, university.Image, Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
-                        doc.Add(new Field(MembersCountField, university.MemberCount.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
+                        doc.Add(new Field(MembersCountField, university.MemberCount.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
 
 
                         indexWriter.AddDocument(doc);
@@ -177,13 +176,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private IEnumerable<University> ConvertToObject(string data)
         {
             var universities = new List<University>();
-            var universitiesData = data.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var universitiesData = data.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var universitydata in universitiesData)
             {
-                var splitData = universitydata.Split(new char[] { '\t' });
+                var splitData = universitydata.Split(new[] { '\t' });
 
-                long id = 0;
+                long id;
                 long.TryParse(splitData[0], out id);
                 var university = new University
                 {

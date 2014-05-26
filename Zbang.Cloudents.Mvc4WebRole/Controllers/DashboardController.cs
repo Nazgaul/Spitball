@@ -1,5 +1,4 @@
-﻿using DevTrends.MvcDonutCaching;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -45,30 +44,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var userDetail = m_FormsAuthenticationService.GetUserData();
 
-            var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
-
-            var query = new GetDashboardQuery(userid, universityWrapper);
-            var taskData = await m_ZboxReadService.GetMyData(query);
-
-            //var queryboxes = new GetBoxesQuery(userid);
-            //var taskBoxes = m_ZboxReadService.GetDashboard(queryboxes);
-
-            //await Task.WhenAll(taskData, taskBoxes);
-            //var data = taskBoxes.Result;
-            //data = AssignUrl(data);
-            //JsonNetSerializer serializer = new JsonNetSerializer();
-            //ViewBag.Boxes = serializer.Serialize(data);
-
-            if (Request.IsAjaxRequest())
+            if (userDetail.UniversityId != null)
             {
-                return View("Index", taskData);
+                var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+
+                var query = new GetDashboardQuery(userid, universityWrapper);
+                var taskData = m_ZboxReadService.GetMyData(query);
+
+                var queryboxes = new GetBoxesQuery(userid);
+                var taskBoxes = m_ZboxReadService.GetDashboard(queryboxes);
+
+                await Task.WhenAll(taskData, taskBoxes);
+                var data = taskBoxes.Result;
+                data = AssignUrl(data);
+                var serializer = new JsonNetSerializer();
+                ViewBag.Boxes = serializer.Serialize(data);
+
+                if (Request.IsAjaxRequest())
+                {
+                    return View("Index", taskData.Result);
+                }
+                return View("Index", taskData.Result);
             }
-            return View("Index", taskData);
+            return RedirectToAction("Choose", "Library");
+
         }
 
-        private Zbang.Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbang.Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
+        private Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
         {
-            UrlBuilder builder = new UrlBuilder(this.HttpContext);
+            var builder = new UrlBuilder(HttpContext);
             data.Boxes = data.Boxes.Select(s =>
              {
                  s.Url = builder.BuildBoxUrl(s.BoxType, s.Id, s.Name, s.UniName);
@@ -142,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private BoxDto CreateBox(CreateBoxCommand command)
         {
             var result = m_ZboxWriteService.CreateBox(command);
-            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var builder = new UrlBuilder(HttpContext);
             //TODO: User name can come from cookie detail one well do that
             var retVal = new BoxDto(result.NewBox.Id, command.BoxName,
                  UserRelationshipType.Owner, 0,

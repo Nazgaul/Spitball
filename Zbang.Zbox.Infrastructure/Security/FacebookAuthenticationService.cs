@@ -50,17 +50,21 @@ namespace Zbang.Zbox.Infrastructure.Security
             return string.Format(facebookPicture, facebookId, (int)type);
         }
 
-        public async Task<IEnumerable<long>> GetFacebookUserFriends(string authToken)
+        public async Task<IEnumerable<FacebookFriendData>> GetFacebookUserFriends(string authToken)
         {
             using (var client = new HttpClient())
             {
-                var str = await client.GetStringAsync("https://graph.facebook.com/v1.0/me/friends?limit=50000&access_token=" + authToken);
+                var str = await client.GetStringAsync("https://graph.facebook.com/v1.0/me/friends?fields=picture.height(32).width(32),name&limit=5000&access_token=" + authToken);
 
                 dynamic o = JObject.Parse(str);
-                var list = new List<long>();
+                var list = new List<FacebookFriendData>();
                 foreach (dynamic friend in o.data)
                 {
-                    list.Add(Convert.ToInt64(friend.id));
+                    list.Add(new FacebookFriendData { 
+                        Id = Convert.ToInt64(friend.id) ,
+                        Image = friend.picture.data.url,
+                        Name = friend.name
+                    });
                 }
 
                 return list;

@@ -32,10 +32,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        public ActionResult NotFound()
-        {
-            return View();
-        }
+        //public ActionResult NotFound()
+        //{
+        //    return View();
+        //}
 
         public ActionResult MembersOnly()
         {

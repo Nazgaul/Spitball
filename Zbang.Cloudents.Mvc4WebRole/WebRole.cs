@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Microsoft.Web.Administration;
-using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using System.Net;
@@ -15,7 +9,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 {
     public class WebRole : RoleEntryPoint
     {
-        const string webApplicationProjectName = "Web";
+        //const string webApplicationProjectName = "Web";
+
+        
         public override bool OnStart()
         {
 
@@ -25,32 +21,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //ConfigureDiagnostics();
 
            // ConfigureStorageAccount();
-
-            RoleEnvironment.Changed += (s, e) =>
-            {
-            //    var settingChanges = e.Changes.OfType<RoleEnvironmentConfigurationSettingChange>();
-            //    if (settingChanges.First().ConfigurationSettingName == "CdnEndpoint")
-            //    {
-            //        Trace.WriteLine("Cdn enpoint changed");
-            //        using (ServerManager serverManager = new ServerManager())
-            //        {
-            //            try
-            //            {
-            //                var appPoolName = serverManager.Sites[RoleEnvironment.CurrentRoleInstance.Id + "_" + webApplicationProjectName].Applications.First().ApplicationPoolName;
-            //                var appPool = serverManager.ApplicationPools[appPoolName];
-            //                appPool.Recycle();
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                Trace.Write(ex);
-            //            }
-
-            //        }
-            //        //return;
-            //    }
-
-                 RoleEnvironment.RequestRecycle();
-            };
+            
+            RoleEnvironment.Changed += (s, e) => RoleEnvironment.RequestRecycle();
 
             //RoleEnvironment.Changing += (s, e) =>
             //{
@@ -106,11 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         }
         private bool ValidateRemoteCertificate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors policyErrors)
         {
-            bool result = false;
-            if (cert.Subject.ToUpper().Contains("CLOUDENTS"))
-            {
-                result = true;
-            }
+            bool result = cert.Subject.ToUpper().Contains("CLOUDENTS");
 
             return result;
         }
@@ -121,18 +89,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 var localuri = new Uri(string.Format("https://{0}/", RoleEnvironment.CurrentRoleInstance.InstanceEndpoints["Endpoint2"].IPEndpoint));
                 System.Threading.Tasks.Task.Factory.StartNew(() =>
                 {
-                    ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateRemoteCertificate);
+                    ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate;
                     while (true)
                     {
                         try
                         {
                             var request = (HttpWebRequest)WebRequest.Create(localuri);
                             request.Method = "GET";
-                            using (var response = request.GetResponse())
+                            using (request.GetResponse())
                             {
                             }
+                            
                             break;
                         }
+// ReSharper disable once EmptyGeneralCatchClause
                         catch
                         {
                         }
@@ -147,8 +117,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             base.Run();
         }
 
-        private void ConfigureStorageAccount()
-        {
+        //private void ConfigureStorageAccount()
+        //{
             // This code sets up a handler to update CloudStorageAccount instances when their corresponding
             // configuration settings change in the service configuration file.
             //RoleEnvironment.Changed += (s, e) =>
@@ -180,7 +150,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //var cloudStorageAccount = CloudStorageAccount.FromConfigurationSetting("StorageConnectionString");
             //CreateBlobStorages(cloudStorageAccount.CreateCloudBlobClient());
             //CreateQueues(cloudStorageAccount.CreateCloudQueueClient());
-        }
+       // }
 
 
     }

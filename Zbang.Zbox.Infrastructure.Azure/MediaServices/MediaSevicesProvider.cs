@@ -1,24 +1,24 @@
-﻿using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.WindowsAzure.MediaServices.Client;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.MediaServices;
 using Zbang.Zbox.Infrastructure.Storage;
 
-namespace Zbang.Zbox.Infrastructure.MediaServices
+namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 {
     public class MediaSevicesProvider : IMediaSevicesProvider
     {
-        private readonly CloudMediaContext _context;
+        private readonly CloudMediaContext m_Context;
         private readonly IBlobProvider m_BlobProvider;
         private readonly ILocalStorageProvider m_LocalProvider;
 
@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
         {
             m_BlobProvider = blobProvider;
             m_LocalProvider = localProvider;
-            _context = new CloudMediaContext(AccountName, AccountKey);
+            m_Context = new CloudMediaContext(AccountName, AccountKey);
 
         }
 
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
             //var uploadFilePath = filePath;
 
             ////var context = new CloudMediaContext("zboxmediaservices", "S52DSdcZS2Bhgr7Ofg5rGtBKByR4eVZDkpx8fOXmi2I=");
-            var uploadAsset = _context.Assets.Create(Path.GetFileNameWithoutExtension(blobName), AssetCreationOptions.None);
+            var uploadAsset = m_Context.Assets.Create(Path.GetFileNameWithoutExtension(blobName), AssetCreationOptions.None);
             var assetFile = uploadAsset.AssetFiles.Create(Path.GetFileName(blobName));
             assetFile.Upload(uploadFilePath);
             return uploadAsset.Id;
@@ -93,14 +93,14 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
         private string DownloadToAzureStorage(Uri originalBlob, string streamingAssetId)
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
-            var streamingAsset = _context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
+            var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
             var assetFiles = streamingAsset.AssetFiles.ToList();
             var streamingAssetFile = assetFiles.Where(f => f.Name.ToLower().EndsWith(".mp4")).FirstOrDefault();
 
             var daysForWhichStreamingUrlIsActive = 365;
-            var accessPolicy = _context.AccessPolicies.Create(streamingAsset.Name, TimeSpan.FromDays(daysForWhichStreamingUrlIsActive),
+            var accessPolicy = m_Context.AccessPolicies.Create(streamingAsset.Name, TimeSpan.FromDays(daysForWhichStreamingUrlIsActive),
                                                      AccessPermissions.Read | AccessPermissions.List);
-            var locator = _context.Locators.CreateLocator(LocatorType.Sas, streamingAsset, accessPolicy);
+            var locator = m_Context.Locators.CreateLocator(LocatorType.Sas, streamingAsset, accessPolicy);
             var containerName = new UriBuilder(locator.Path).Path.Replace("/", string.Empty);
 
             var fileName = streamingAssetFile.Name;
@@ -127,7 +127,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
                 locationToSave = m_LocalProvider.SaveFileToStorage(ms, blobName);
 
             }
-            var streamingAsset = _context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
+            var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
 
             var assetFiles = streamingAsset.AssetFiles.ToList();
             var streamingAssetFile = assetFiles.Where(f => f.Name.ToLower().EndsWith(".mp4")).FirstOrDefault();
@@ -156,15 +156,15 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
             //var encodeAssetId = assetId; // "YOUR ASSET ID";
             // Preset reference documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj129582.aspx
             var encodingPreset = "H264 Broadband 720p";
-            var assetToEncode = _context.Assets.Where(a => a.Id == encodeAssetId).FirstOrDefault();
+            var assetToEncode = m_Context.Assets.Where(a => a.Id == encodeAssetId).FirstOrDefault();
             if (assetToEncode == null)
             {
                 throw new ArgumentException("Could not find assetId: " + encodeAssetId);
             }
 
-            IJob job = _context.Jobs.Create("Encoding " + assetToEncode.Name + " to " + encodingPreset);
+            IJob job = m_Context.Jobs.Create("Encoding " + assetToEncode.Name + " to " + encodingPreset);
 
-            IMediaProcessor latestWameMediaProcessor = (from p in _context.MediaProcessors where p.Name == "Windows Azure Media Encoder" select p).ToList().OrderBy(wame => new Version(wame.Version)).LastOrDefault();
+            IMediaProcessor latestWameMediaProcessor = (from p in m_Context.MediaProcessors where p.Name == "Windows Azure Media Encoder" select p).ToList().OrderBy(wame => new Version(wame.Version)).LastOrDefault();
             ITask encodeTask = job.Tasks.AddNew("Encoding", latestWameMediaProcessor, encodingPreset, TaskOptions.None);
             encodeTask.InputAssets.Add(assetToEncode);
             encodeTask.OutputAssets.AddNew(assetToEncode.Name + " as " + encodingPreset, AssetCreationOptions.None);
@@ -189,8 +189,8 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
             // TODO: Replace with an IAsset.Id string if you are not using the previous snippets
             // var streamingAssetId = preparedAsset.Id; // "YOUR ASSET ID";
             var daysForWhichStreamingUrlIsActive = 365;
-            var streamingAsset = _context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
-            var accessPolicy = _context.AccessPolicies.Create(streamingAsset.Name, TimeSpan.FromDays(daysForWhichStreamingUrlIsActive),
+            var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
+            var accessPolicy = m_Context.AccessPolicies.Create(streamingAsset.Name, TimeSpan.FromDays(daysForWhichStreamingUrlIsActive),
                                                      AccessPermissions.Read | AccessPermissions.List);
             string streamingUrl = string.Empty;
             var assetFiles = streamingAsset.AssetFiles.ToList();
@@ -214,7 +214,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
             var blobPath = string.Empty;
             if (string.IsNullOrEmpty(streamingUrl) && streamingAssetFile != null)
             {
-                var locator = _context.Locators.CreateLocator(LocatorType.Sas, streamingAsset, accessPolicy);
+                var locator = m_Context.Locators.CreateLocator(LocatorType.Sas, streamingAsset, accessPolicy);
                 var mp4Uri = new UriBuilder(locator.Path);
                 mp4Uri.Path += "/" + streamingAssetFile.Name;
                 blobPath = mp4Uri.Path;
@@ -227,7 +227,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
         {
             // Use a LINQ Select query to get an asset.
             var assetInstance =
-                from a in _context.Assets
+                from a in m_Context.Assets
                 where a.Id == assetId
                 select a;
             // Reference the asset as an IAsset.
@@ -264,7 +264,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
         public void DeleteLocatorsForAsset(IAsset asset)
         {
             string assetId = asset.Id;
-            var locators = from a in _context.Locators
+            var locators = from a in m_Context.Locators
                            where a.AssetId == assetId
                            select a;
 
@@ -281,7 +281,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
             // To delete a specific access policy, get a reference to the policy.  
             // based on the policy Id passed to the method.
             var policyInstance =
-                 from p in _context.AccessPolicies
+                 from p in m_Context.AccessPolicies
                  where p.Id == existingPolicyId
                  select p;
             IAccessPolicy policy = policyInstance.FirstOrDefault();
@@ -301,10 +301,10 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
             // Create a new asset.
-            IAsset asset = _context.Assets.Create("NewAsset_" + Guid.NewGuid(), AssetCreationOptions.None);
-            IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy",
+            IAsset asset = m_Context.Assets.Create("NewAsset_" + Guid.NewGuid(), AssetCreationOptions.None);
+            IAccessPolicy writePolicy = m_Context.AccessPolicies.Create("writePolicy",
                 TimeSpan.FromMinutes(120), AccessPermissions.Write);
-            ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
+            ILocator destinationLocator = m_Context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
             // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
             Uri uploadUri = new Uri(destinationLocator.Path);
@@ -336,7 +336,7 @@ namespace Zbang.Zbox.Infrastructure.MediaServices
             writePolicy.Delete();
 
             // Refresh the asset.
-            asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
+            asset = m_Context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
             return asset;
             //At this point, you can create a job using your asset.
 

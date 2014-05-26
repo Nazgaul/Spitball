@@ -94,7 +94,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var urlBuilder = new UrlBuilder(HttpContext);
                 fileDto.Url = urlBuilder.buildItemUrl(boxUid, boxName, result.File.Id, result.File.Name, uniName);
                 cookie.RemoveCookie("upload");
-                return this.CdJson(new JsonResponse(true, new { fileDto = fileDto, boxid = boxUid }));
+                return this.CdJson(new JsonResponse(true, new { fileDto, boxid = boxUid }));
 
             }
             catch (Exception ex)

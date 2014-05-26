@@ -1,13 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.ViewModel.DTOs;
+using Zbang.Zbox.ViewModel.DTOs.ActivityDtos;
+using Zbang.Zbox.ViewModel.DTOs.BoxDtos;
+using Zbang.Zbox.ViewModel.DTOs.Dashboard;
+using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
+using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.DTOs.Qna;
+using Zbang.Zbox.ViewModel.DTOs.Search;
 using Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Library;
+using Zbang.Zbox.ViewModel.Queries.QnA;
+using Zbang.Zbox.ViewModel.Queries.Search;
+using Zbang.Zbox.ViewModel.Queries.User;
+using BoxDto = Zbang.Zbox.ViewModel.DTOs.BoxDtos.BoxDto;
+using UserDto = Zbang.Zbox.ViewModel.DTOs.UserDtos.UserDto;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -22,90 +33,90 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<ViewModel.DTOs.Dashboard.DashboardDto> GetDashboard(ViewModel.Queries.Boxes.GetBoxesQuery query)
+        public Task<DashboardDto> GetDashboard(GetBoxesQuery query)
         {
             return m_ReadService.GetDashboard(query);
         }
 
-        public Task<ViewModel.DTOs.Dashboard.UniversityDashboardInfoDto> GetMyData(ViewModel.Queries.User.GetDashboardQuery query)
+        public Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
         {
             return m_ReadService.GetMyData(query);
         }
 
-        public ViewModel.DTOs.Library.NodeBoxesDto GetLibraryNode(ViewModel.Queries.Library.GetLibraryNodeQuery query)
+        public NodeBoxesDto GetLibraryNode(GetLibraryNodeQuery query)
         {
             return m_ReadService.GetLibraryNode(query);
         }
 
-        public Task<ViewModel.DTOs.Library.UniversityInfoDto> GetUniversityDetail(ViewModel.Queries.Library.GetUniversityDetailQuery query)
+        public Task<UniversityInfoDto> GetUniversityDetail(GetUniversityDetailQuery query)
         {
-            return m_Cache.QueryAsync<ViewModel.Queries.Library.GetUniversityDetailQuery, ViewModel.DTOs.Library.UniversityInfoDto>
+            return m_Cache.QueryAsync
                 (m_ReadService.GetUniversityDetail, query);
         }
 
-        public Task<IEnumerable<ViewModel.DTOs.InviteDto>> GetInvites(ViewModel.Queries.GetInvitesQuery query)
+        public Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query)
         {
             return m_ReadService.GetInvites(query);
         }
 
-        public IEnumerable<ViewModel.DTOs.ItemDtos.IItemDto> GetBoxItemsPaged2(ViewModel.Queries.GetBoxItemsPagedQuery query)
+        public IEnumerable<IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query)
         {
             return m_ReadService.GetBoxItemsPaged2(query);
         }
 
-        public ViewModel.DTOs.ItemDtos.ItemWithDetailDto GetItem(ViewModel.Queries.GetItemQuery query)
+        public ItemWithDetailDto GetItem(GetItemQuery query)
         {
             return m_ReadService.GetItem(query);
         }
 
-        public Task<ViewModel.DTOs.ItemRateDto> GetRate(ViewModel.Queries.GetItemRateQuery query)
+        public Task<ItemRateDto> GetRate(GetItemRateQuery query)
         {
             return m_ReadService.GetRate(query);
         }
 
-        public IEnumerable<ViewModel.DTOs.ActivityDtos.BaseActivityDto> GetBoxComments(ViewModel.Queries.GetBoxCommentsQuery query)
+        public IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
         {
             return m_ReadService.GetBoxComments(query);
         }
 
-        public Task<IEnumerable<ViewModel.DTOs.ActivityDtos.AnnotationDto>> GetItemComments(ViewModel.Queries.GetItemCommentsQuery query)
+        public Task<IEnumerable<AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
         {
             return m_ReadService.GetItemComments(query);
         }
 
-        public ViewModel.DTOs.BoxDtos.BoxDto GetBox2(ViewModel.Queries.GetBoxQuery query)
+        public BoxDto GetBox2(GetBoxQuery query)
         {
             return m_ReadService.GetBox2(query);
         }
 
-        public Task<ViewModel.DTOs.Search.SearchDto> Search(ViewModel.Queries.Search.GroupSearchQuery query)
+        public Task<SearchDto> Search(GroupSearchQuery query)
         {
             return m_ReadService.Search(query);
         }
 
-        public Task<IEnumerable<ViewModel.DTOs.UserDtos.UserDto>> GetUserFriends(ViewModel.Queries.GetUserFriendsQuery query)
+        public Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query)
         {
-            return m_Cache.QueryAsync<GetUserFriendsQuery, IEnumerable<ViewModel.DTOs.UserDtos.UserDto>>
+            return m_Cache.QueryAsync
                 (m_ReadService.GetUserFriends, query);
             //return m_ReadService.GetUserFriends(query);
         }
 
-        public ViewModel.DTOs.UserDtos.UserDetailDto GetUserData(ViewModel.Queries.GetUserDetailsQuery query)
+        public UserDetailDto GetUserData(GetUserDetailsQuery query)
         {
             return m_ReadService.GetUserData(query);
         }
 
-        public ViewModel.DTOs.UserDtos.UserAccountDto GetUserAccountDetails(ViewModel.Queries.GetUserDetailsQuery query)
+        public UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query)
         {
             return m_ReadService.GetUserAccountDetails(query);
         }
 
-        public IEnumerable<ViewModel.DTOs.BoxDtos.BoxNotificationDto> GetUserBoxesNotification(ViewModel.Queries.GetUserDetailsQuery query)
+        public IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query)
         {
             return m_ReadService.GetUserBoxesNotification(query);
         }
 
-        public Infrastructure.Enums.NotificationSettings GetUserBoxNotificationSettings(ViewModel.Queries.GetBoxQuery query)
+        public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query)
         {
             return m_ReadService.GetUserBoxNotificationSettings(query);
         }
@@ -117,54 +128,54 @@ namespace Zbang.Zbox.ReadServices
         //    //return m_ReadService.GetUniversityListByPrefix(query);
         //}
 
-        public ViewModel.DTOs.BoxSettingsDto GetBoxSetting(ViewModel.Queries.GetBoxQuery query)
+        public BoxSettingsDto GetBoxSetting(GetBoxQuery query)
         {
             return m_ReadService.GetBoxSetting(query);
         }
 
-        public IEnumerable<ViewModel.DTOs.UserDtos.UserMemberDto> GetBoxMembers(ViewModel.Queries.GetBoxQuery query)
+        public IEnumerable<UserMemberDto> GetBoxMembers(GetBoxQuery query)
         {
             return m_ReadService.GetBoxMembers(query);
         }
 
-        public Task<ViewModel.DTOs.UserDtos.UserMinProfile> GetUserMinProfile(ViewModel.Queries.GetUserMinProfileQuery query)
+        public Task<UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query)
         {
-            return m_Cache.QueryAsync<ViewModel.Queries.GetUserMinProfileQuery, ViewModel.DTOs.UserDtos.UserMinProfile>
+            return m_Cache.QueryAsync
                (m_ReadService.GetUserMinProfile, query);
             //return m_ReadService.GetUserMinProfile(query);
         }
 
-        public string GetLocationByIP(long ipNumber)
+        public string GetLocationByIp(long ipNumber)
         {
-            return m_ReadService.GetLocationByIP(ipNumber);
+            return m_ReadService.GetLocationByIp(ipNumber);
         }
 
-        public IEnumerable<ViewModel.DTOs.Qna.QuestionDto> GetQuestions(ViewModel.Queries.QnA.GetBoxQuestionsQuery query)
+        public IEnumerable<QuestionDto> GetQuestions(GetBoxQuestionsQuery query)
         {
             return m_ReadService.GetQuestions(query);
         }
 
-        public Task<bool> GetInvite(ViewModel.Queries.GetInviteDetailQuery query)
+        public Task<bool> GetInvite(GetInviteDetailQuery query)
         {
             return m_ReadService.GetInvite(query);
         }
 
-        public ViewModel.DTOs.BoxDtos.BoxMetaDto GetBoxMeta(ViewModel.Queries.GetBoxQuery query)
+        public BoxMetaDto GetBoxMeta(GetBoxQuery query)
         {
             return m_ReadService.GetBoxMeta(query);
         }
 
-        public ViewModel.DTOs.UserDtos.LogInUserDto GetUserDetailsByMembershipId(ViewModel.Queries.GetUserByMembershipQuery query)
+        public LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
             return m_ReadService.GetUserDetailsByMembershipId(query);
         }
 
-        public ViewModel.DTOs.UserDtos.LogInUserDto GetUserDetailsByFacebookId(ViewModel.Queries.GetUserByFacebookQuery query)
+        public LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
         {
             return m_ReadService.GetUserDetailsByFacebookId(query);
         }
 
-        public ViewModel.DTOs.UserDtos.LogInUserDto GetUserDetailsByEmail(ViewModel.Queries.GetUserByEmailQuery query)
+        public LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query)
         {
             return m_ReadService.GetUserDetailsByEmail(query);
         }
@@ -175,12 +186,12 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.BoxDtos.BoxToFriendDto>> GetUserWithFriendBoxes(ViewModel.Queries.Boxes.GetUserWithFriendQuery query)
+        public Task<IEnumerable<BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserWithFriendBoxes(query);
         }
 
-        public Task<IEnumerable<ViewModel.DTOs.ItemDtos.ItemToFriendDto>> GetUserWithFriendFiles(ViewModel.Queries.Boxes.GetUserWithFriendQuery query)
+        public Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserWithFriendFiles(query);
         }
@@ -204,49 +215,49 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<ViewModel.DTOs.SeoDto> GetSeoBoxesAndItems()
+        public Task<SeoDto> GetSeoBoxesAndItems()
         {
             return m_ReadService.GetSeoBoxesAndItems();
         }
 
 
-        public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(ViewModel.Queries.Library.GetAdminUsersQuery query)
+        public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
         {
             return m_ReadService.GetUniversityUsers(query);
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.Library.DepartmentDto>> GetDepartmentList(long universityId)
+        public Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId)
         {
             return m_ReadService.GetDepartmentList(universityId);
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.Search.SearchItems>> OtherUniversities(ViewModel.Queries.Search.GroupSearchQuery query)
+        public Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
         {
             return m_ReadService.OtherUniversities(query);
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.UpdatesDto>> GetUpdates(QueryBase query)
+        public Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query)
         {
             return m_ReadService.GetUpdates(query);
         }
 
 
-        public Task<ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
+        public Task<QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
             return m_ReadService.GetQuiz(query);
         }
 
 
-        public Task<ViewModel.DTOs.ItemDtos.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
+        public Task<QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
         {
             return m_ReadService.GetDraftQuiz(query);
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.ItemDtos.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
+        public Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
         {
             return m_ReadService.GetDiscussion(query);
         }
@@ -263,7 +274,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.Library.UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
+        public Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
         {
             return m_ReadService.GetUniversityListByFriendsIds(friendsIds);
         }

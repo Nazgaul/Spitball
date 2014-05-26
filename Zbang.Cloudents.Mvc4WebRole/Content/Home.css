@@ -93,7 +93,7 @@ body {
 }
 .headingTexts .facebook,
 .headingTexts .email {
-  width: 225px;
+  width: 228px;
   /* diff rtl*/
 }
 .headingTexts .facebook {
@@ -291,13 +291,15 @@ aside .last {
   color: #0f9d58;
 }
 .videoWpr {
-  width: 1024px;
+  width: 180px;
   height: 69px;
   position: relative;
   top: 474px;
-  left: 0;
+  left: -webkit-calc(50% - 512px);
   /*rtl*/
-  margin: 0 auto;
+  left: calc(50% - 512px);
+  /*rtl*/
+  margin: 0;
   color: #fff;
 }
 .videoWpr:before {

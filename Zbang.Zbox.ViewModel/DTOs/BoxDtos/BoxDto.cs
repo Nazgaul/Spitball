@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Zbang.Zbox.Infrastructure.Enums;
-using System;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 
 namespace Zbang.Zbox.ViewModel.DTOs.BoxDtos

@@ -1,13 +1,13 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
+using Zbang.Zbox.Infrastructure.Azure.Storage;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Storage.Entities;
 
-namespace Zbang.Zbox.Infrastructure.Storage
+namespace Zbang.Zbox.Infrastructure.Azure.Table
 {
     class TableProvider : ITableProvider
     {
@@ -55,9 +55,9 @@ namespace Zbang.Zbox.Infrastructure.Storage
         {
             var table = TableClient.GetTableReference(FilterWords);
 
-            TableQuery<StemmerWordRemoval> rangeQuery = new TableQuery<StemmerWordRemoval>();
+            var rangeQuery = new TableQuery<StemmerWordRemoval>();
 
-            var excecuting = table.ExecuteQuery<StemmerWordRemoval>(rangeQuery);
+            var excecuting = table.ExecuteQuery(rangeQuery);
             return excecuting.Select(s => s.Word);
         }
 

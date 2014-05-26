@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 
-namespace Zbang.Zbox.Infrastructure.Storage
+namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
     public interface IUniversityReadSearchProvider
     {

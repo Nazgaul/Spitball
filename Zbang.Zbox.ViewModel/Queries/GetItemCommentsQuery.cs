@@ -1,7 +1,4 @@
 ﻿
-using System.Runtime.Serialization;
-
-
 namespace Zbang.Zbox.ViewModel.Queries
 {
     public class GetItemCommentsQuery : QueryBase

@@ -274,7 +274,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-                m_ZboxReadService.GetLocationByIP(200);
+                m_ZboxReadService.GetLocationByIp(200);
             }
             catch (Exception ex)
             {
