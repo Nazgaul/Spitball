@@ -11,6 +11,7 @@
        
     }
 
+// ReSharper disable once InconsistentNaming
     public class HTTPItemConsts
     {
         public const string HeaderSend = "headerSent";

@@ -16,9 +16,10 @@
     <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
     <button type="button"><span class="emailImg"></span></button>
     <div class="enterForm" id="joinForm">
-    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
+        @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
     </div>
     <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
     <button class="closeDialog" data-closelogin="close"></button>
 </div>
+<div>Step 1</div>
 <div class="modal2"></div>

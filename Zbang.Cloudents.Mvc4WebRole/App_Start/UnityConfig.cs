@@ -1,12 +1,11 @@
 using System;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 
-namespace Zbang.Cloudents.Mvc4WebRole.App_Start
+namespace Zbang.Cloudents.Mvc4WebRole
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -14,9 +13,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
     public class UnityConfig
     {
         #region Unity Container
-        private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
+        private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
         {
-            var iocFactory = Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var iocFactory = IocFactory.Unity;
            // var container = new UnityContainer();
             RegisterTypes(iocFactory);
             return  iocFactory.unityContainer;// container;
@@ -27,15 +26,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
         /// </summary>
         public static IUnityContainer GetConfiguredContainer()
         {
-            return container.Value;
+            return Container.Value;
         }
         #endregion
 
         /// <summary>Registers the type mappings with the Unity container.</summary>
-        /// <param name="container">The unity container to configure.</param>
+        /// <param name="iocContainer">The unity container to configure.</param>
         /// <remarks>There is no need to register concrete types such as controllers or API controllers (unless you want to 
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
-        public static void RegisterTypes(IocFactory container)
+        public static void RegisterTypes(IocFactory iocContainer)
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
@@ -51,15 +50,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             Zbox.ReadServices.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
-            container.RegisterType<IUserProfile, UserProfile>();
-            container.RegisterType<IEmailVerfication, EmailVerification>(LifeTimeManager.Singleton);
+            iocContainer.RegisterType<IUserProfile, UserProfile>();
 
 
             //we need that for blob getting the blob container url
-            container.Resolve<IBlobProvider>();
-            container.Resolve<IThumbnailProvider>();
+            iocContainer.Resolve<IBlobProvider>();
+            iocContainer.Resolve<IThumbnailProvider>();
 
-            container.Resolve<Zbang.Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
+            iocContainer.Resolve<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
         }
     }
 }

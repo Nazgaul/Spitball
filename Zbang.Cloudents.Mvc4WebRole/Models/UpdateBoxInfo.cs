@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
 using Zbang.Zbox.Domain;

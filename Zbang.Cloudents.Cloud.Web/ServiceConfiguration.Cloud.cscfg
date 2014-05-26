@@ -12,7 +12,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <!--<Setting name="CdnEndpoint" value="https://az414807.vo.msecnd.net" />-->
       <!--<Setting name="CdnEndpoint" value="az158719.vo.msecnd.net" />-->
-      <Setting name="CdnEndpoint" value="https://az414820.vo.msecnd.net" />
+      <Setting name="CdnEndpoint" value="https://az414807.vo.msecnd.net" />
       <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;" />
       <Setting name="otakimUrl" value="http://www.otakim.co.il/printreferrer.aspx" />
       <Setting name="CacheUse" value="true" />

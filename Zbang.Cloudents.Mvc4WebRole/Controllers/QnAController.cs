@@ -131,9 +131,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             retVal.ToList().ForEach(f =>
             {
                 f.Url = urlBuilder.BuildUserUrl(f.UserUid, f.UserName);
-                f.Files.ForEach(fi => fi.Url = urlBuilder.buildItemUrl(boxId, boxName, fi.Uid, fi.Name, uniName));
+                f.Files.ForEach(fi => fi.Url = urlBuilder.BuildItemUrl(boxId, boxName, fi.Uid, fi.Name, uniName));
 
-                f.Answers.ForEach(fa => fa.Files.ForEach(fi1 => fi1.Url = urlBuilder.buildItemUrl(boxId, boxName, fi1.Uid, fi1.Name, uniName)));
+                f.Answers.ForEach(fa => fa.Files.ForEach(fi1 => fi1.Url = urlBuilder.BuildItemUrl(boxId, boxName, fi1.Uid, fi1.Name, uniName)));
                 f.Answers.ForEach(fa => fa.Url = urlBuilder.BuildUserUrl(fa.UserId, fa.UserName));
             });
             return this.CdJson(new JsonResponse(true, retVal));

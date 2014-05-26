@@ -92,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                    m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
                     string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0);
                 var urlBuilder = new UrlBuilder(HttpContext);
-                fileDto.Url = urlBuilder.buildItemUrl(boxUid, boxName, result.File.Id, result.File.Name, uniName);
+                fileDto.Url = urlBuilder.BuildItemUrl(boxUid, boxName, result.File.Id, result.File.Name, uniName);
                 cookie.RemoveCookie("upload");
                 return this.CdJson(new JsonResponse(true, new { fileDto, boxid = boxUid }));
 
@@ -224,7 +224,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow);
 
                 var urlBuilder = new UrlBuilder(HttpContext);
-                item.Url = urlBuilder.buildItemUrl(model.BoxId, model.BoxName, item.Id, item.Name, model.UniName);
+                item.Url = urlBuilder.BuildItemUrl(model.BoxId, model.BoxName, item.Id, item.Name, model.UniName);
 
                 return this.CdJson(new JsonResponse(true, item));
             }
@@ -275,7 +275,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
                 string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0);
             var urlBuilder = new UrlBuilder(HttpContext);
-            fileDto.Url = urlBuilder.buildItemUrl(boxUid, boxName, fileDto.Id, fileDto.Name, uniName);
+            fileDto.Url = urlBuilder.BuildItemUrl(boxUid, boxName, fileDto.Id, fileDto.Name, uniName);
             return this.CdJson(new JsonResponse(true, fileDto));
 
 

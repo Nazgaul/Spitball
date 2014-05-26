@@ -91,7 +91,7 @@
                 cd.pubsub.publish('gContacts', contacts);
                 cd.google.connected = true;
             },
-            error: function (data) {
+            error: function () {
                 //console.log(data);
             }
         });
@@ -109,15 +109,16 @@
         cd.pubsub.publish('gAuthFail');
 
     }
+
     cd.google = {
         register: register,
         connected: false
-    }
+    };
 }(cd, cd.data));
 //#endregion
 
 //#region facebook
-(function (cd, dataContext) {
+(function (cd) {
     cd.loader.registerFacebook();
     var access_token, contacts = [];
 

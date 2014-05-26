@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.WebPages;
 using Zbang.Cloudents.Mvc4WebRole.App_Start;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 //using Microsoft.AspNet.SignalR.ServiceBus;
 
