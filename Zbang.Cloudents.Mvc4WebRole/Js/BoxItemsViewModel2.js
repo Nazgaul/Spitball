@@ -194,7 +194,7 @@
             self.loadedAnimation(true);
 
             var firstTimeBox = document.getElementById('firstTime').getAttribute('data-boxf');
-            if (firstTimeBox) {
+            if (firstTimeBox === 'true') {
                 cd.pubsub.publish('tooltipGuide', {
                     guideId: 'quiz',
                     buttonTest: function () {//here

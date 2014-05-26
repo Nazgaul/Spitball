@@ -1496,6 +1496,14 @@ select.inputText {
   background: url(/Images/common17-sprite.png?v=2) -98px -49px no-repeat;
 }
 /*#region tooltip */
+.quizGuideTemplate .tooltip {
+  top: 119px;
+  left: 622px;
+}
+.quizGuideTemplate .tooltip + .tooltip {
+  top: 460px;
+  left: 263px;
+}
 .tooltip {
   display: none;
   z-index: 5;
@@ -1548,8 +1556,9 @@ select.inputText {
   content: "";
   position: absolute;
   top: -8px;
-  left: 135px;
-  /*rtl*/
+  left: 0;
+  right: 0;
+  margin: auto;
   border-width: 0 8px 8px;
   border-style: solid;
   border-color: #c2c2c2 rgba(0, 0, 0, 0);
@@ -1560,8 +1569,9 @@ select.inputText {
   content: "";
   position: absolute;
   top: -6px;
-  left: 136px;
-  /*rtl*/
+  left: 0;
+  right: 0;
+  margin: auto;
   border-width: 0 7px 7px;
   border-style: solid;
   border-color: #ffffff rgba(0, 0, 0, 0);
@@ -1586,6 +1596,7 @@ select.inputText {
   border-width: 8px 10px 8px 0;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
+  margin: 0;
 }
 .tooltip.left:after {
   top: 42px;
@@ -1595,6 +1606,7 @@ select.inputText {
   border-width: 6px 8px 6px 0;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #ffffff;
+  margin: 0;
 }
 .tooltip.right:before {
   top: 40px;
@@ -1605,6 +1617,7 @@ select.inputText {
   border-width: 8px 0 8px 10px;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
+  margin: 0;
 }
 .tooltip.right:after {
   top: 42px;
@@ -1615,6 +1628,7 @@ select.inputText {
   border-width: 6px 0 6px 8px;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #ffffff;
+  margin: 0;
 }
 .ttBtns {
   width: 100%;

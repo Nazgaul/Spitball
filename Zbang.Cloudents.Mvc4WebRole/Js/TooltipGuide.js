@@ -22,6 +22,7 @@
         if (!buttonTestFunc()) {
             $firstStep.removeClass('btns');
         }
+        $firstStep.show();
         setTooltipStep($firstStep);
         registerEvents();
     }
@@ -30,14 +31,14 @@
     function setTooltipStep() {
         var $tooltipStep = $guideContainer.find('[data-step="' + stepIndex + '"]');
 
-        setPosition();
+        //setPosition();
         if (stepIndex > 0) {
             toggleStep();
         }
 
 
-        function setPosition() {
-            var arrowPosition = $tooltipStep[0].getAttribute('data-arrow-position');
+        function setPosition(element,position) {
+            var arrowPosition = position || $tooltipStep[0].getAttribute('data-arrow-position');
 
             setArrowPosition();
             setStepPosition();
@@ -46,7 +47,7 @@
                 $tooltipStep.addClass(arrowPosition);
             }
             function setStepPosition() {
-                var $relativeElement = $($tooltipStep[0].getAttribute('data-tt-position'));
+                var $relativeElement = element ? $(element) : $($tooltipStep[0].getAttribute('data-tt-position'));
 
                 if (!$relativeElement.length) {
                     return;
@@ -63,20 +64,22 @@
                         break;
                     case 'right':
                         top = elementPosition.top - 40 - arrowSize / 2 + elementHeight / 2;
-                        left = elementPosition.left - elementWidth + arrowSize;
+                        left = elementPosition.left - arrowSize - $tooltipStep.outerWidth(true);
                         break;
                     case 'top':
                         top = elementPosition.top + elementHeight + arrowSize;
                         left = elementPosition.left - $tooltipStep.outerWidth(true) / 2 + elementWidth / 2;
                         break;
                     case 'bottom':
-                        top = elementPosition.top - arrowSize;
+                        top = elementPosition.top - $tooltipStep.outerHeight(true) - arrowSize;
                         left = elementPosition.left - $tooltipStep.outerWidth(true) / 2 + elementWidth / 2;
                         break;
                 }
                 $tooltipStep.css({ top: top, left: left });
+                console.log('top: ' + top + ' left: '+  left );
             }
         }
+        //cd.setPosition = setPosition;
 
         function toggleStep() {
             $guideContainer.find('.tooltip').hide();

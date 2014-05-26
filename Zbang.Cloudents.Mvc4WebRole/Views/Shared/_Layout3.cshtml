@@ -1,4 +1,4 @@
-﻿ @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 
 @{
@@ -209,40 +209,46 @@
     </script>
     @*If the tooltip has btns add class btns and extra markup
         If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
-    <div id="quizGuideTemplate" class="steps" style="display:none">
-        <div class="tooltip btns" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
-            <button type="button" class="closeDialog"></button>
-            <div class="stepTip">            
-                    <div>בקלאודנטס  בנינו עבורכם כלי אינטראקטיבי ליצירת קוויזים (שאלון אמריקאי) בו תוכלו ליצור ולשתף מבחנים שאתם בניתם ולתרגל איתם כחלק מהכנה לבחינת הקורס.</div>
-                    <ul>
-                        <li>יצירת הקוויז על גבי מסמכים קיימים בקלאודנטס</li>
-                        <li>אפשרות לשמירה של קובץ טיוטה</li>
-                        <li>סימון תשובות נכונות</li>
-                        <li>שמירה אוטומטית של התוכן בענן</li>
-                        <li>יצירת הקוויז על גבי מסמכים קיימים בקלאודנטס</li>
-                        <li>שיתוף של הקוויז עם החברים</li>
-                    </ul>
-                    <div>הקווזים של קלאודנטס  - צרו, שתפו, תרגלו והצליחו במבחן!</div>                
-                <div class="ttBtns">
-                    <button type="button" data-next class="rFloat btn3">Next</button>
+    @{
+        if (ViewBag.fBox)
+        {
+            <div id="quizGuideTemplate" class="steps quizGuideTemplate" style="display:none">
+                <div class="tooltip btns left" data-step="0">
+                    <button type="button" class="closeDialog"></button>
+                    <div class="stepTip">
+                        <div>בקלאודנטס  בנינו עבורכם כלי אינטראקטיבי ליצירת קוויזים (שאלון אמריקאי) בו תוכלו ליצור ולשתף מבחנים שאתם בניתם ולתרגל איתם כחלק מהכנה לבחינת הקורס.</div>
+                        <ul>
+                            <li>יצירת הקוויז על גבי מסמכים קיימים בקלאודנטס</li>
+                            <li>אפשרות לשמירה של קובץ טיוטה</li>
+                            <li>סימון תשובות נכונות</li>
+                            <li>שמירה אוטומטית של התוכן בענן</li>
+                            <li>יצירת הקוויז על גבי מסמכים קיימים בקלאודנטס</li>
+                            <li>שיתוף של הקוויז עם החברים</li>
+                        </ul>
+                        <div>הקווזים של קלאודנטס  - צרו, שתפו, תרגלו והצליחו במבחן!</div>
+                        <div class="ttBtns">
+                            <button type="button" data-next class="rFloat btn3">Next</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tooltip top" data-step="1">
+                    <button type="button" class="closeDialog"></button>
+                    <div class="stepTip">
+                        בקופסה שלפניכם קיים קוויז שיעזור לכם להתכונן טוב יותר לבחינה, נסו אותו!
+                        הקוויז של קלאודנטס הוא מבחן המורכב משאלות סגורות המאפשר לתרגל בחינות באופן אינטראקטיבי:
+                        •	קבלת ציון משוכלל של הבחינה
+                        •	קבלת פידבק מהחברים האחרים בקורס
+                        •	שיתוף של הבחינה עם חברים כדי שתוכלו ללמוד ביחד
+                        •	דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה
+                        •	מדידה של כמה זמן לקח לכם לפתור את הקוויז
+                        למה אתה מחכים, שיהיה בהצלחה!
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="tooltip" data-step="1" style="display:none;" data-tt-position=".quizItem" , data-arrow-position="top">
-            <button type="button" class="closeDialog"></button>
-            <div class="stepTip">
-                בקופסה שלפניכם קיים קוויז שיעזור לכם להתכונן טוב יותר לבחינה, נסו אותו!
-                הקוויז של קלאודנטס הוא מבחן המורכב משאלות סגורות המאפשר לתרגל בחינות באופן אינטראקטיבי:
-                •	קבלת ציון משוכלל של הבחינה
-                •	קבלת פידבק מהחברים האחרים בקורס
-                •	שיתוף של הבחינה עם חברים כדי שתוכלו ללמוד ביחד
-                •	דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה
-                •	מדידה של כמה זמן לקח לכם לפתור את הקוויז
-                למה אתה מחכים, שיהיה בהצלחה!
 
-            </div>
-        </div>
-    </div>
+        }
+    }
 
     @*@Search*@
     @*<script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>*@
@@ -259,4 +265,5 @@
     }
 
 </body>
+
 </html>
