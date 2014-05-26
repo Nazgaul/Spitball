@@ -1517,14 +1517,27 @@ select.inputText {
   padding: 20px 20px 17px 20px;
   border-radius: 3px;
   box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3);
-  /*&:not(.btns) {
-        .ttBtns {
-            display: none;
-        }
-    }*/
-}
-.tooltip.btns {
   padding-bottom: 70px;
+}
+.tooltip:last-child [data-done] {
+  display: block;
+}
+.tooltip.lastStep [data-next] {
+  display: none;
+}
+.tooltip.lastStep [data-done] {
+  display: block;
+}
+.tooltip [data-done] {
+  display: none;
+}
+.tooltip [data-prev] {
+  border: 1px solid #286ec7;
+  background: #ebebeb;
+  color: #286ec7;
+}
+.tooltip [data-prev]:hover {
+  background: #fff;
 }
 .tooltip.icon {
   width: 325px;
@@ -1659,7 +1672,7 @@ select.inputText {
   box-sizing: border-box;
 }
 .ttBtns button {
-  padding: 4px 25px;
+  padding: 4px 12px;
 }
 /*#endregion */
 .sectionHeader {

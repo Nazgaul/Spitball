@@ -1610,14 +1610,31 @@ select.inputText {
     padding: 20px 20px 17px 20px;
     border-radius: 3px;
     box-shadow: 0 2px 9px rgba(0, 0, 0, .3);
-    &.btns {
-        padding-bottom: 70px;
+    padding-bottom: 70px;
+    &:last-child {
+        [data-done] {
+            display: block;
+        }
     }
-    /*&:not(.btns) {
-        .ttBtns {
+    &.lastStep {
+        [data-next] {
             display: none;
         }
-    }*/
+        [data-done] {
+            display: block;
+        }
+    }
+    [data-done] {
+        display: none;
+    }
+    [data-prev] {
+        border: 1px solid #286ec7;
+        background: #ebebeb;
+        color: #286ec7;
+        &:hover {
+            background: #fff;
+        }
+    }
     &.icon {
         width: 325px;
         .stepTip {
@@ -1747,7 +1764,9 @@ select.inputText {
     border-radius: 0 0 3px 3px;
     .boxSizing;
     button {
-        padding: 4px 25px;
+        padding: 4px 12px;
+        //position: absolute;
+        //right: 10px;
     }
 }
 /*#endregion */

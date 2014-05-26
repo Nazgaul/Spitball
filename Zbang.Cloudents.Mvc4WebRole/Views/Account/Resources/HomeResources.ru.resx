@@ -184,12 +184,6 @@
   <data name="SignUpNow" xml:space="preserve">
     <value>Зарегистрироваться сейчас с помощью:</value>
   </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>Присоединится через Facebook</value>
-  </data>
-  <data name="EmailSignUp" xml:space="preserve">
-    <value>Присоединится через электронную почту</value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Cloudents — это самая передовая из бесплатных онлайновых и мобильных платформ социального обучения. Присоединяйтесь к революции в сфере социального обучения вместе с Cloudents прямо сейчас.</value>
   </data>

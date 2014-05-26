@@ -179,12 +179,6 @@
   <data name="WhenItSuits" xml:space="preserve">
     <value>תלמד מתי ואיפה שמתאים לך, מכל מחשב, נייד או טאבלט. עם שטח אחסון אישי של 10GB, אתה יכול להיות בטוח שהתוכן שלך תמיד מגובה.</value>
   </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>הרשם דרך פייסבוק</value>
-  </data>
-  <data name="EmailSignUp" xml:space="preserve">
-    <value>הרשם דרך אימייל</value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>קלאודנטס היא הפלטפורמה החינמית המתקדמת ביותר ללימוד קבוצתי ברשת. הצטרפו עכשיו למהפכת הלימוד הקבוצתי של קלאודנטס.</value>
   </data>

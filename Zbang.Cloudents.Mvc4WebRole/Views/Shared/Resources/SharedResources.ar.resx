@@ -527,4 +527,13 @@
   <data name="Backto" xml:space="preserve">
     <value>العودة الى </value>
   </data>
+  <data name="FacebookSignUp" xml:space="preserve">
+    <value>التسجيل عبر الفيس بوك</value>
+  </data>
+  <data name="EmailSignUp" xml:space="preserve">
+    <value>تسجيل الدخول بالبريد الإلكتروني </value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>اغلاق</value>
+  </data>
 </root>

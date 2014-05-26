@@ -196,6 +196,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cloudents help.
         /// </summary>
         public static string CloudentsHelp {
@@ -385,11 +394,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign up with email.
+        /// </summary>
+        public static string EmailSignUp {
+            get {
+                return ResourceManager.GetString("EmailSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Facebook.
         /// </summary>
         public static string Facebook {
             get {
                 return ResourceManager.GetString("Facebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign up with Facebook.
+        /// </summary>
+        public static string FacebookSignUp {
+            get {
+                return ResourceManager.GetString("FacebookSignUp", resourceCulture);
             }
         }
         

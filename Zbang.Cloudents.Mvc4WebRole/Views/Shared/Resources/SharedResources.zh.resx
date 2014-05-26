@@ -394,4 +394,13 @@
   <data name="Backto" xml:space="preserve">
     <value>返回</value>
   </data>
+  <data name="FacebookSignUp" xml:space="preserve">
+    <value>使用 Facebook 注册</value>
+  </data>
+  <data name="EmailSignUp" xml:space="preserve">
+    <value>使用 Email 注册</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
 </root>

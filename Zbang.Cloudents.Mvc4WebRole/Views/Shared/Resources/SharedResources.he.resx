@@ -517,4 +517,13 @@
   <data name="Backto" xml:space="preserve">
     <value>חזרה ל</value>
   </data>
+  <data name="FacebookSignUp" xml:space="preserve">
+    <value>הרשם דרך פייסבוק</value>
+  </data>
+  <data name="EmailSignUp" xml:space="preserve">
+    <value>הרשם דרך אימייל</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
 </root>
