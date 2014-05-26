@@ -31,7 +31,7 @@
     function setTooltipStep() {
         var $tooltipStep = $guideContainer.find('[data-step="' + stepIndex + '"]');
 
-        //setPosition();
+        setPosition();
         if (stepIndex > 0) {
             toggleStep();
         }
@@ -76,10 +76,8 @@
                         break;
                 }
                 $tooltipStep.css({ top: top, left: left });
-                console.log('top: ' + top + ' left: '+  left );
             }
         }
-        //cd.setPosition = setPosition;
 
         function toggleStep() {
             $guideContainer.find('.tooltip').hide();
