@@ -589,4 +589,9 @@
   <data name="Yesterday" xml:space="preserve">
     <value>אתמול</value>
   </data>
+  <data name="FbShareQuiz" xml:space="preserve">
+    <value>שיתפתי את הקוויז "{0}" במחולל הקוויזים  בקלאודנטס, המאגר האקדמי של הסטודנטים: מבחנים משנים קודמות, סיכומים ומאמרים. למעלה מ95 אלף קבצים כבר קיימים במאגר!
+&lt;center&gt;&lt;/center&gt;
+עם קלאודנטס הדרך אל התואר קלה יותר, להרשמה בחינם לחץ כאן</value>
+  </data>
 </root>
