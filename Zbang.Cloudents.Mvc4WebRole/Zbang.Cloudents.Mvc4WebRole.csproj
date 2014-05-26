@@ -588,8 +588,6 @@
     <Content Include="Content\DashLib.min.css">
       <DependentUpon>DashLib.css</DependentUpon>
     </Content>
-    <Content Include="Content\Fonts\Alef-bold.svg" />
-    <Content Include="Content\Fonts\Alef-regular.svg" />
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
@@ -1008,12 +1006,6 @@
     </Content>
     <Content Include="Content\UserPage.less" />
     <Content Include="Content\Quiz.less" />
-    <Content Include="Content\Fonts\Alef-bold.ttf" />
-    <Content Include="Content\Fonts\Alef-bold.woff" />
-    <Content Include="Content\Fonts\Alef-regular.eot" />
-    <Content Include="Content\Fonts\Alef-regular.ttf" />
-    <Content Include="Content\Fonts\Alef-regular.woff" />
-    <Content Include="Content\Fonts\web.config" />
     <None Include="Content\lang.he-IL.less" />
     <Content Include="Content\ng-scrollbar.less" />
     <None Include="Js\CDNFallback.min.js.map">
