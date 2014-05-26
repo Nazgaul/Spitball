@@ -771,12 +771,8 @@
   /*rtl*/
   left: auto;
 }
-.boxItem.quizItem:before {
-  float: right;
-  /*rtl*/
-}
 .boxItem.quizItem:after {
-  right: 0;
+  right: 8px;
   /*rtl*/
   left: auto;
 }

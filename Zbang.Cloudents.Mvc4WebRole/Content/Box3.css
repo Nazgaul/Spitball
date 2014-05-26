@@ -652,8 +652,8 @@
 .editFolder:before {
   content: '';
   display: inline-block;
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
   border-style: solid;
   border-width: 5px 4px 0 4px;
   border-color: #383838 transparent transparent transparent;
@@ -852,10 +852,22 @@
   background: url(/Images/box17-sprite.png) -54px -106px no-repeat;
 }
 .boxItemsHeader .iconTxt.quizBtn:before {
-  width: 19px;
-  height: 17px;
+  width: 22px;
+  height: 18px;
   background-position: -48px -143px;
-  margin-top: -3px;
+  margin-top: -4px;
+}
+.boxItemsHeader .quizBtn {
+  background: #517e9e;
+  border: 1px solid #517e9e;
+}
+.boxItemsHeader .quizBtn:hover {
+  background: #456c88;
+  border: 1px solid #546c88;
+}
+.boxItemsHeader .quizBtn:disabled {
+  background: #A5A5A5;
+  border: 1px solid #A5A5A5;
 }
 .listViewBtn,
 .thumbViewBtn {
@@ -1087,26 +1099,34 @@
   color: #F0F8FF;
   z-index: 1;
 }
+.boxItem.quizItem {
+  position: relative;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+.boxItem.quizItem .actionBtns {
+  top: 24px;
+}
 .boxItem.quizItem:before {
   content: '';
   display: inline-block;
-  width: 22px;
-  height: 20px;
-  background: url(/Images/box17-sprite.png) -74px -165px no-repeat;
-  float: left;
-  /*rtl*/
-  margin: 11px 9px;
+  position: absolute;
+  width: 153px;
+  height: 220px;
+  background: url(/Images/box17-sprite.png) -159px -1px no-repeat;
+  z-index: -1;
 }
 .boxItem.quizItem:after {
   content: '';
   display: inline-block;
-  width: 147px;
-  height: 1px;
-  background: #c2c2c2;
+  width: 28px;
+  height: 24px;
+  background: url(/Images/box17-sprite.png) -47px -168px no-repeat;
   position: absolute;
-  left: 0;
+  top: 28px;
+  left: 8px;
   /*rtl*/
-  top: 187px;
 }
 .boxItem.quizItem .boxLink {
   padding: 11px 9px;
@@ -1115,18 +1135,16 @@
   box-sizing: border-box;
 }
 .boxItem.quizItem .boxName {
-  color: #0371c8;
+  color: #517e9e;
   font-size: 17px;
-  height: 115px;
+  height: 100px;
   overflow: hidden;
   clear: both;
-  line-height: 19px;
-  margin: 0 0 32px 0;
+  line-height: 25px;
+  margin: 55px 0 16px;
 }
 .boxItem.quizItem .quizOwner {
-  height: 34px;
-  overflow: hidden;
-  line-height: 16px;
+  display: none;
 }
 .boxItem.quizItem .stars {
   position: absolute;
@@ -1144,6 +1162,7 @@
   color: transparent;
   margin-left: 15px;
   /*rtl*/
+  top: 180px;
 }
 .boxItem.draft .tag:before,
 .boxItem.draft .tag:after {
