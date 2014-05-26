@@ -109,7 +109,9 @@ aside li {
   /*rtl*/
 }
 .videoWpr {
-  right: 0;
+  right: -webkit-calc(50% - 512px);
+  /*rtl*/
+  right: calc(50% - 512px);
   /*rtl*/
   left: auto;
 }
