@@ -196,14 +196,7 @@
             var firstTimeBox = document.getElementById('firstTime').getAttribute('data-boxf');
             if (firstTimeBox === 'true') {
                 cd.pubsub.publish('tooltipGuide', {
-                    guideId: 'quiz',
-                    buttonTest: function () {//here
-                        if ($('.quizItem').length) {
-                            return true;
-                        }
-
-                        return false;
-                    }
+                    guideId: 'quiz'      
                 });
                 document.getElementById('firstTime').removeAttribute('data-boxf');
             }

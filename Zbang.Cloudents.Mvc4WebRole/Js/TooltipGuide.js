@@ -11,18 +11,16 @@
     pubsub.subscribe('tooltipGuide', function (obj) {
         obj.guideId = obj.guideId.length ? obj.guideId + 'GuideTemplate' : 'genericTooltipGuide';
         $guideContainer = $(eById(obj.guideId));
-        initFirstStep(obj.buttonTest);
+        initFirstStep();
+    
     });
 
-    function initFirstStep(buttonTestFunc) {
+    function initFirstStep() {
         var $firstStep = $guideContainer.find('[data-step="0"]');
 
         $guideContainer.show();
 
-        if (!buttonTestFunc()) {
-            $firstStep.removeClass('btns');
-        }
-        $firstStep.show();
+
         setTooltipStep($firstStep);
         registerEvents();
     }
@@ -32,57 +30,60 @@
         var $tooltipStep = $guideContainer.find('[data-step="' + stepIndex + '"]');
 
         setPosition();
-        if (stepIndex > 0) {
-            toggleStep();
+        checkNextTooltip();
+        toggleStep();
+
+
+        function setPosition() {
+
+            var $relativeElement = $($tooltipStep[0].getAttribute('data-tt-position')),
+                arrowPosition = $tooltipStep[0].getAttribute('data-arrow-position');
+
+
+            if (!$relativeElement.length) {
+                return;
+            }
+            var elementPosition = cd.getElementPosition($relativeElement[0]),
+                elementWidth = $relativeElement.outerWidth(),
+                elementHeight = $relativeElement.outerHeight(),
+                top, left;
+
+            switch (arrowPosition) {
+                case 'left':
+                    top = elementPosition.top - 40 - arrowSize / 2 + elementHeight / 2;
+                    left = elementPosition.left + elementWidth + arrowSize;
+                    break;
+                case 'right':
+                    top = elementPosition.top - 40 - arrowSize / 2 + elementHeight / 2;
+                    left = elementPosition.left - arrowSize - $tooltipStep.outerWidth(true);
+                    break;
+                case 'top':
+                    top = elementPosition.top + elementHeight + arrowSize;
+                    left = elementPosition.left - $tooltipStep.outerWidth(true) / 2 + elementWidth / 2;
+                    break;
+                case 'bottom':
+                    top = elementPosition.top - $tooltipStep.outerHeight(true) - arrowSize;
+                    left = elementPosition.left - $tooltipStep.outerWidth(true) / 2 + elementWidth / 2;
+                    break;
+            }
+
+            $tooltipStep.css({ top: top, left: left });
+
         }
 
-
-        function setPosition(element,position) {
-            var arrowPosition = position || $tooltipStep[0].getAttribute('data-arrow-position');
-
-            setArrowPosition();
-            setStepPosition();
-            
-            function setArrowPosition() {
-                $tooltipStep.addClass(arrowPosition);
+        function checkNextTooltip() {
+            var $nextStep = $guideContainer.find('[data-step="' + (stepIndex + 1) + '"]');
+            if (!$nextStep.length) {
+                return;
             }
-            function setStepPosition() {
-                var $relativeElement = element ? $(element) : $($tooltipStep[0].getAttribute('data-tt-position'));
 
-                if (!$relativeElement.length) {
-                    return;
-                }
-                var elementPosition = cd.getElementPosition($relativeElement[0]),
-                    elementWidth = $relativeElement.outerWidth(),
-                    elementHeight = $relativeElement.outerHeight(),
-                    top, left;
+            var $nextRelativeElement = $($nextStep[0].getAttribute('data-tt-position'));
 
-                switch (arrowPosition) {
-                    case 'left':
-                        top = elementPosition.top - 40 - arrowSize / 2 + elementHeight / 2;
-                        left = elementPosition.left + elementWidth + arrowSize;
-                        break;
-                    case 'right':
-                        top = elementPosition.top - 40 - arrowSize / 2 + elementHeight / 2;
-                        left = elementPosition.left - arrowSize - $tooltipStep.outerWidth(true);
-                        break;
-                    case 'top':
-                        top = elementPosition.top + elementHeight + arrowSize;
-                        left = elementPosition.left - $tooltipStep.outerWidth(true) / 2 + elementWidth / 2;
-                        break;
-                    case 'bottom':
-                        top = elementPosition.top - $tooltipStep.outerHeight(true) - arrowSize;
-                        left = elementPosition.left - $tooltipStep.outerWidth(true) / 2 + elementWidth / 2;
-                        break;
-                }
-                $tooltipStep.css({ top: top, left: left });
-             }
-                }
-                $tooltipStep.css({ top: top, left: left });
-                console.log('top: ' + top + ' left: '+  left );
+            if (!$nextRelativeElement.length) {
+                $tooltipStep.removeClass('btns');
             }
+
         }
-        //cd.setPosition = setPosition;
 
         function toggleStep() {
             $guideContainer.find('.tooltip').hide();
@@ -123,4 +124,8 @@
     function closeGuide() {
         $guideContainer.remove();
     }
+
+    cd.pubsub.subscribe('clearTooltip', function () {
+        $guideContainer.remove();
+    });
 })(cd, cd.pubsub, jQuery);
