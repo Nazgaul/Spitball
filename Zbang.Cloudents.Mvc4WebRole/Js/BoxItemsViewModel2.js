@@ -192,6 +192,21 @@
             tt.endTime();
             tt.send();
             self.loadedAnimation(true);
+
+            var firstTimeBox = document.getElementById('firstTime').getAttribute('data-boxf');
+            if (firstTimeBox) {
+                cd.pubsub.publish('tooltipGuide', {
+                    guideId: 'quiz',
+                    buttonTest: function () {//here
+                        if ($('.quizItem').length) {
+                            return true;
+                        }
+
+                        return false;
+                    }
+                });
+                document.getElementById('firstTime').removeAttribute('data-boxf');
+            }
         }
 
         function sort(a, b) {
