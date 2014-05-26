@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models

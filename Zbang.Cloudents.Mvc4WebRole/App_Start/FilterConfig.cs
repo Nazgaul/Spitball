@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 
-namespace Zbang.Cloudents.Mvc4WebRole.App_Start
+namespace Zbang.Cloudents.Mvc4WebRole
 {
     public class FilterConfig
     {

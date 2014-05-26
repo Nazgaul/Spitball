@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 result.Items = result.Items.Select(s =>
                 {
-                    s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                    s.Url = urlBuilder.BuildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
                     return s;
                 });
             }
@@ -121,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 result.OtherItems = result.OtherItems.Select(s =>
                 {
-                    s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                    s.Url = urlBuilder.BuildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
                     return s;
                 });
             }
@@ -155,7 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     result = result.Select(s =>
                     {
-                        s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                        s.Url = urlBuilder.BuildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
                         return s;
                     });
                     return this.CdJson(new JsonResponse(true, result));

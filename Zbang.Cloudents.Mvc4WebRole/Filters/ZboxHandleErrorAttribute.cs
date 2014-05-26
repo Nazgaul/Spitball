@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters

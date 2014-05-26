@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var item = m_ZboxReadService.GetItem(query);
 
             UrlBuilder builder = new UrlBuilder(HttpContext);
-            var url = builder.buildItemUrl(boxId, item.BoxName, itemId, item.Name, item.UniName);
+            var url = builder.BuildItemUrl(boxId, item.BoxName, itemId, item.Name, item.UniName);
             return RedirectPermanent(url);
         }
 
@@ -93,7 +93,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var item = m_ZboxReadService.GetItem(query);
 
             UrlBuilder builder = new UrlBuilder(HttpContext);
-            var url = builder.buildItemUrl(boxId, item.BoxName, itemid, item.Name, item.UniName);
+            var url = builder.BuildItemUrl(boxId, item.BoxName, itemid, item.Name, item.UniName);
             return RedirectPermanent(url);
         }
 

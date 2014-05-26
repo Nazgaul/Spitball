@@ -1,28 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class UrlBuilder
     {
-        private UrlHelper _urlHelper;
+        private readonly UrlHelper m_UrlHelper;
         public UrlBuilder(HttpContextBase httpContext)
         {
             if (httpContext == null)
             {
                 throw new ArgumentNullException("controllerContext");
             }
-            _urlHelper = new UrlHelper(httpContext.Request.RequestContext);
+            m_UrlHelper = new UrlHelper(httpContext.Request.RequestContext);
 
         }
         public static string NameToQueryString(string name)
         {
-            return Zbang.Zbox.Infrastructure.Consts.UrlConsts.NameToQueryString(name);
+            return UrlConsts.NameToQueryString(name);
             //// - < > " ' % ; ) ( & + - 
 
             ////<,>,*,%,&,:,\\
@@ -86,19 +84,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             if (boxtype == BoxType.Academic)
             {
 
-                return _urlHelper.RouteUrl("CourseBox", new
+                return m_UrlHelper.RouteUrl("CourseBox", new
                 {
-                    universityName = UrlBuilder.NameToQueryString(uniName),
+                    universityName = NameToQueryString(uniName),
                     boxId = boxid,
-                    boxName = UrlBuilder.NameToQueryString(boxName)
+                    boxName = NameToQueryString(boxName)
                 });
 
             }
-            else
-            {
-                return _urlHelper.RouteUrl("PrivateBox", new { boxId = boxid, boxName = UrlBuilder.NameToQueryString(boxName) });
-
-            }
+            return m_UrlHelper.RouteUrl("PrivateBox", new { boxId = boxid, boxName = NameToQueryString(boxName) });
         }
 
         public string BuildBoxUrl(long boxid, string boxName, string uniName)
@@ -107,58 +101,52 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 return BuildBoxUrl(BoxType.Academic, boxid, boxName, uniName);
             }
-            else
-            {
-                return BuildBoxUrl(BoxType.Box, boxid, boxName, uniName);
-            }
+            return BuildBoxUrl(BoxType.Box, boxid, boxName, uniName);
         }
+
         public string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName)
         {
             if (string.IsNullOrEmpty(universityName))
             {
                 universityName = "my";
             }
-            return _urlHelper.RouteUrl("Quiz", new
+            return m_UrlHelper.RouteUrl("Quiz", new
             {
-                universityName = UrlBuilder.NameToQueryString(universityName),
-                boxId = boxId,
-                boxName = UrlBuilder.NameToQueryString(boxName),
-                quizId = quizId,
-                quizName = UrlBuilder.NameToQueryString(quizName)
+                universityName = NameToQueryString(universityName), boxId,
+                boxName = NameToQueryString(boxName), quizId,
+                quizName = NameToQueryString(quizName)
             });
         }
 
-        public string buildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName = "my")
+        public string BuildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName = "my")
         {
             if (string.IsNullOrEmpty(universityName))
             {
                 universityName = "my";
             }
-            return _urlHelper.RouteUrl("Item", new
+            return m_UrlHelper.RouteUrl("Item", new
             {
-                universityName = UrlBuilder.NameToQueryString(universityName),
-                boxId = boxId,
-                boxName = UrlBuilder.NameToQueryString(boxName),
+                universityName = NameToQueryString(universityName), boxId,
+                boxName = NameToQueryString(boxName),
                 itemid = itemId,
-                itemName = UrlBuilder.NameToQueryString(itemName)
+                itemName = NameToQueryString(itemName)
             });
         }
 
         public string BuildUserUrl(long userid, string userName)
         {
-            return _urlHelper.RouteUrl("User", new
+            return m_UrlHelper.RouteUrl("User", new
             {
                 userId = userid,
-                userName = UrlBuilder.NameToQueryString(userName)
+                userName = NameToQueryString(userName)
             });
         }
 
         public string BuildDownloadUrl(long boxId, long itemId)
         {
-            return _urlHelper.RouteUrl("ItemDownload", new
+            return m_UrlHelper.RouteUrl("ItemDownload", new
             {
-                BoxUid = boxId,
-                itemId = itemId
+                BoxUid = boxId, itemId
             });
         }
     }

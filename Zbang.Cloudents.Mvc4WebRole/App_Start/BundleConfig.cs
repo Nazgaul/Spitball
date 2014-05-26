@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web;
-using Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify;
 
 namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 {

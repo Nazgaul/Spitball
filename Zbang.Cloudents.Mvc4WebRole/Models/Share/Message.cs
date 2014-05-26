@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
