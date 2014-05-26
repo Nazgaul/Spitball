@@ -76,6 +76,9 @@
                         break;
                 }
                 $tooltipStep.css({ top: top, left: left });
+            }
+                }
+                $tooltipStep.css({ top: top, left: left });
                 console.log('top: ' + top + ' left: '+  left );
             }
         }

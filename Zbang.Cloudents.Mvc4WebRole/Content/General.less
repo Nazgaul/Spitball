@@ -1680,17 +1680,26 @@ select.inputText {
         }
     }
     &.left {
+        &.tall {
+            &:before {
+                top: @arrowTop;
+                margin:0; //override
+            }
+            &:after {
+                top: @arrowTop + 2;
+            }
+        }
         &:before {
-            top: @arrowTop;
             bottom: auto;
+            top: 45%;
             left: -@arrowHeight - 2; /*rtl*/
             border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0; /*rtl*/
             border-color: rgba(0, 0, 0, 0) @borderColor;
-            margin:0; //override
+            margin: -2px 0 0 0; //override
         }
         &:after {
-            top: @arrowTop + 2;
             bottom: auto;
+            top: 45%;
             left: -@arrowHeight; /*rtl*/
             border-width: (@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0; /*rtl*/
             border-color: rgba(0, 0, 0, 0) #fff;
@@ -1698,18 +1707,27 @@ select.inputText {
         }
     }
     &.right {
+        &.tall {
+            &:before {
+                top: @arrowTop;
+                margin:0; //override
+            }
+            &:after {
+                top: @arrowTop + 2;
+            }
+        }
         &:before {
-            top: @arrowTop;
             bottom: auto;
+            top: 45%;
             left: auto;
             right: -@arrowHeight - 2; /*rtl*/
             border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2); /*rtl*/
             border-color: rgba(0, 0, 0, 0) @borderColor;
-            margin:0; //override
+            margin: -2px 0 0 0; //override
         }
         &:after {
-            top: @arrowTop + 2;
             bottom: auto;
+            top: 45%;
             left: auto;
             right: -@arrowHeight; /*rtl*/
             border-width:(@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight; /*rtl*/

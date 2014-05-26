@@ -92,15 +92,13 @@
 
         <div id="fb-root"></div>
 
-
-
         <div id="quizCreate" ng-controller="QuizCreateController">
             <div ng-if="params.showCreateQuiz">
                 <div ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
             </div>
 
         </div>
-
+        @*@{ViewBag.fBox = true; }*@
         <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
               data-myf="@ViewBag.fDash.ToString().ToLower()"
               data-boxf="@ViewBag.fBox.ToString().ToLower()"
@@ -213,7 +211,7 @@
         if (ViewBag.fBox)
         {
             <div id="quizGuideTemplate" class="steps quizGuideTemplate" style="display:none">
-                <div class="tooltip btns left" data-step="0">
+                  <div class="tooltip btns" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
                     <button type="button" class="closeDialog"></button>
                     <div class="stepTip">
                         <div>בקלאודנטס  בנינו עבורכם כלי אינטראקטיבי ליצירת קוויזים (שאלון אמריקאי) בו תוכלו ליצור ולשתף מבחנים שאתם בניתם ולתרגל איתם כחלק מהכנה לבחינת הקורס.</div>
@@ -231,7 +229,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tooltip top" data-step="1">
+                <div class="tooltip" data-step="1" data-tt-position=".quizItem" , data-arrow-position="top">
                     <button type="button" class="closeDialog"></button>
                     <div class="stepTip">
                         בקופסה שלפניכם קיים קוויז שיעזור לכם להתכונן טוב יותר לבחינה, נסו אותו!

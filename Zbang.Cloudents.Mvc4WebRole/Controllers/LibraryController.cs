@@ -432,7 +432,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     break;
             }
             ViewBag.userName = userData.Name;
-            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
+            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University() { UniversityId = universityId }) }));
         }
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
         public ActionResult InsertId(long universityId)

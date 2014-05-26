@@ -92,7 +92,7 @@ body {
     color: #fff;
     text-align: left; /*rtl*/
     .facebook, .email {
-        width: 225px; /* diff rtl*/
+        width: 228px; /* diff rtl*/
     }
     .facebook
     {
@@ -288,12 +288,13 @@ aside {
 }
 
 .videoWpr {
-    width: 1024px;
+    width: 180px;
     height: 69px;
     position: relative;
     top: 474px;
-    left: 0; /*rtl*/
-    margin: 0 auto;
+    left: ~'-webkit-calc(50% - 512px)'; /*rtl*/
+    left: ~'calc(50% - 512px)'; /*rtl*/
+    margin: 0;
     color: #fff;
     &:before {
         content: attr(data-playtext);
