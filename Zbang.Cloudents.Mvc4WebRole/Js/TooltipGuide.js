@@ -126,6 +126,7 @@
     }
 
     cd.pubsub.subscribe('clearTooltip', function () {
+        $guideContainer = $guideContainer || [];
         if (!$guideContainer.length) {
             return;
         }
