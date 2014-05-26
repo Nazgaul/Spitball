@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2013-10.2.2">
+<ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2014-01.2.3">
   <Role name="Zbang.Cloudents.Mvc4WebRole">
     <Instances count="1" />
     <ConfigurationSettings>
@@ -13,6 +13,7 @@
       <Setting name="CdnEndpoint" value="az414807.vo.msecnd.net" />
       <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;" />
       <Setting name="otakimUrl" value="http://www.otakim.co.il/printreferrer.aspx" />
+      <Setting name="CacheUse" value="true" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />

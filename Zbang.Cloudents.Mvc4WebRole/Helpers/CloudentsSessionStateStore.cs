@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -9,28 +7,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class CloudentsSessionStateStore : SessionStateStoreProviderBase
     {
-        Microsoft.Web.DistributedCache.DistributedCacheSessionStateStoreProvider azureAppFabricCache = 
+        readonly Microsoft.Web.DistributedCache.DistributedCacheSessionStateStoreProvider m_AzureAppFabricCache = 
             new Microsoft.Web.DistributedCache.DistributedCacheSessionStateStoreProvider();
 
         public override string Description
         {
             get
             {
-                return azureAppFabricCache.Description;
+                return m_AzureAppFabricCache.Description;
             }
         }
         public override string Name
         {
             get
             {
-                return azureAppFabricCache.Name;
+                return m_AzureAppFabricCache.Name;
             }
         }
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
             try
             {
-                azureAppFabricCache.Initialize(name, config);
+                m_AzureAppFabricCache.Initialize(name, config);
             }
             catch (Exception ex)
             {
@@ -41,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                return azureAppFabricCache.CreateNewStoreData(context, timeout);
+                return m_AzureAppFabricCache.CreateNewStoreData(context, timeout);
             }
             catch (Exception ex)
             {
@@ -54,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                azureAppFabricCache.CreateUninitializedItem(context, id, timeout);
+                m_AzureAppFabricCache.CreateUninitializedItem(context, id, timeout);
             }
             catch (Exception ex)
             {
@@ -66,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                azureAppFabricCache.Dispose();
+                m_AzureAppFabricCache.Dispose();
             }
             catch (Exception ex)
             {
@@ -78,7 +76,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                azureAppFabricCache.EndRequest(context);
+                m_AzureAppFabricCache.EndRequest(context);
             }
             catch (Exception ex)
             {
@@ -90,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                return azureAppFabricCache.GetItem(context, id, out locked, out lockAge, out lockId, out actions);
+                return m_AzureAppFabricCache.GetItem(context, id, out locked, out lockAge, out lockId, out actions);
             }
             catch (Exception ex)
             {
@@ -103,7 +101,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                return azureAppFabricCache.GetItemExclusive(context, id, out locked, out lockAge, out lockId, out actions);
+                return m_AzureAppFabricCache.GetItemExclusive(context, id, out locked, out lockAge, out lockId, out actions);
             }
             catch (Exception ex)
             {
@@ -116,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                azureAppFabricCache.InitializeRequest(context);
+                m_AzureAppFabricCache.InitializeRequest(context);
             }
             catch (Exception ex)
             {
@@ -129,7 +127,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                azureAppFabricCache.ReleaseItemExclusive(context, id, lockId);
+                m_AzureAppFabricCache.ReleaseItemExclusive(context, id, lockId);
             }
             catch (Exception ex)
             {
@@ -141,7 +139,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                azureAppFabricCache.RemoveItem(context, id, lockId, item);
+                m_AzureAppFabricCache.RemoveItem(context, id, lockId, item);
             }
             catch (Exception ex)
             {
@@ -153,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                azureAppFabricCache.ResetItemTimeout(context, id);
+                m_AzureAppFabricCache.ResetItemTimeout(context, id);
             }
             catch (Exception ex)
             {
@@ -166,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             try
             {
                 
-                azureAppFabricCache.SetAndReleaseItemExclusive(context, id, item, lockId, newItem);
+                m_AzureAppFabricCache.SetAndReleaseItemExclusive(context, id, item, lockId, newItem);
             }
             catch (Exception ex)
             {
@@ -178,7 +176,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                return azureAppFabricCache.SetItemExpireCallback(expireCallback);
+                return m_AzureAppFabricCache.SetItemExpireCallback(expireCallback);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceDefinition name="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2013-10.2.2">
+<ServiceDefinition name="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2014-01.2.3">
   <WebRole name="Zbang.Cloudents.Mvc4WebRole" vmsize="Small">
     <Sites>
       <Site name="Web">
@@ -23,12 +23,12 @@
       <Setting name="CdnEndpoint" />
       <Setting name="ZBox" />
       <Setting name="otakimUrl" />
+      <Setting name="CacheUse"/>
     </ConfigurationSettings>
     <Startup>
       <Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" />
       <Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple" />
     </Startup>
-    
     <Certificates>
       <Certificate name="CloudDents" storeLocation="LocalMachine" storeName="My" />
       <Certificate name="MyIntermediateCertCloudDents" storeLocation="LocalMachine" storeName="CA" />

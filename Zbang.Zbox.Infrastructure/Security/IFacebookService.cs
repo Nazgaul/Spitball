@@ -8,6 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Security
         Task<FacebookUserData> FacebookLogIn(string token);
         string GetFacebookUserImage(long facebookId, FacebookPictureType type);
        // Task<FacebookUserData> FacebookLogIn(string token);
-        Task<IEnumerable<long>> GetFacebookUserFriends(string authToken);
+        Task<IEnumerable<FacebookFriendData>> GetFacebookUserFriends(string authToken);
     }
 }

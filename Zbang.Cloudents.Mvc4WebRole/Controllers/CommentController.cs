@@ -30,7 +30,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Ajax for Comment list.
         /// </summary>
         /// <param name="boxUid"></param>
-        /// <param name="itemUid"></param>
         /// <returns></returns>
         [HttpGet]
         [Ajax]
@@ -144,7 +143,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var userId = GetUserId();
                 //var query = new DeleteCommentCommand(commentId, userId, boxUid);
                 //m_ZboxWriteService.DeleteComment(query);
                 return this.CdJson(new JsonResponse(true, commentId));

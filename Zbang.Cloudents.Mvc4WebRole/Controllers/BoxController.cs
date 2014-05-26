@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -8,7 +9,6 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
-using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -20,6 +20,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs;
+using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -205,16 +206,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxItemsPagedQuery(boxUid, userId, pageNumber, OrderBy.LastModified, tab);
                 var result = m_ZboxReadService.GetBoxItemsPaged2(query);
                 var urlBuilder = new UrlBuilder(HttpContext);
-                foreach (var item in result)
+                var itemDtos = result as IList<IItemDto> ?? result.ToList();
+                foreach (var item in itemDtos)
                 {
                     item.UserUrl = urlBuilder.BuildUserUrl(item.OwnerId, item.Owner);
-                    if (item is Zbang.Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
+                    if (item is Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
                     {
                         item.Url = urlBuilder.buildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
                         item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
                         continue;
                     }
-                    var quiz = item as Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizDto;
+                    var quiz = item as QuizDto;
                     if (quiz != null)
                     {
                         if (quiz.Publish)
@@ -225,8 +227,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     
 
                 }
-                var remove = result.OfType<Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
-                return this.CdJson(new JsonResponse(true, result.Except(remove).OrderByDescending(o => o.Date)));
+                var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
+                return this.CdJson(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
             }
             catch (Exception ex)
             {
@@ -451,7 +453,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Box Setting page
         /// </summary>
         /// <param name="boxUid"></param>
-        /// <param name="userUid"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         /// 
         [HttpPost, Ajax]

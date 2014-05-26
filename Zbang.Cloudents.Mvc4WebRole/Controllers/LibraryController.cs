@@ -64,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoUniversity]
         [CompressFilter]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "none")]
-        public async Task<ActionResult> Index(Guid? LibId)
+        public async Task<ActionResult> Index(Guid? libId)
         {
             var userDetail = m_FormsAuthenticationService.GetUserData();
             if (userDetail == null || !userDetail.UniversityId.HasValue)
@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Choose");
             }
             //TODO: bring with one roundtrip
-            var queryNodes = new GetLibraryNodeQuery(userDetail.UniversityId.Value, LibId, GetUserId(), 0, OrderBy.LastModified);
+            var queryNodes = new GetLibraryNodeQuery(userDetail.UniversityId.Value, libId, GetUserId(), 0, OrderBy.LastModified);
             var data = m_ZboxReadService.GetLibraryNode(queryNodes);
             data.Boxes.Elem = AssignUrl(data.Boxes.Elem);
             JsonNetSerializer serializer = new JsonNetSerializer();
@@ -149,7 +149,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(null);
             }
             var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
-            var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId);
+            var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId.Select(s=>s.Id));
 
             return this.CdJson(new JsonResponse(true, suggestedUniversity));
         }

@@ -544,7 +544,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             blob.BeginDeleteIfExists(DeleteSnapshotsOption.IncludeSnapshots,
                 null,
                 new BlobRequestOptions()
-                                , new Microsoft.WindowsAzure.Storage.OperationContext(),
+                                , new OperationContext(),
                 async => blob.EndDeleteIfExists(async), null);
 
             //blob.BeginDeleteIfExists(options, async => blob.EndDeleteIfExists(async), null);

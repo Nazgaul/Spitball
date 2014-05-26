@@ -68,9 +68,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             TraceLog.WriteError(info);
             if (Request.IsAjaxRequest())
             {
-                this.HttpNotFound().ExecuteResult(this.ControllerContext);
+                HttpNotFound().ExecuteResult(ControllerContext);
             }
-            this.View("Error").ExecuteResult(this.ControllerContext);
+            View("Error").ExecuteResult(ControllerContext);
             //base.HandleUnknownAction(actionName);
         }
 
@@ -118,10 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return userId;
         }
-        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
-        {
-            return base.BeginExecuteCore(callback, state);
-        }
+       
         #region Language
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
@@ -195,18 +192,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        private string GetQueryStringLanguage(System.Collections.Specialized.NameValueCollection nameValueCollection)
-        {
-            //object queryStringLanguage;
-            object queryStringLanguage = nameValueCollection["language"];
-            //filterContext.ActionParameters.TryGetValue("language", out queryStringLanguage);
+        //private string GetQueryStringLanguage(System.Collections.Specialized.NameValueCollection nameValueCollection)
+        //{
+        //    //object queryStringLanguage;
+        //    object queryStringLanguage = nameValueCollection["language"];
+        //    //filterContext.ActionParameters.TryGetValue("language", out queryStringLanguage);
 
-            if (queryStringLanguage != null && Languages.CheckIfLanguageIsSupported(queryStringLanguage.ToString()))
-            {
-                return queryStringLanguage.ToString();
-            }
-            return null;
-        }
+        //    if (queryStringLanguage != null && Languages.CheckIfLanguageIsSupported(queryStringLanguage.ToString()))
+        //    {
+        //        return queryStringLanguage.ToString();
+        //    }
+        //    return null;
+        //}
         #endregion
     }
 }

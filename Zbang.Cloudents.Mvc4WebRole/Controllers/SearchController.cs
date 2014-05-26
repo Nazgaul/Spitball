@@ -84,15 +84,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [NonAction]
-        private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool AllResult, int page)
+        private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool allResult, int page)
         {
             var userDetail = m_FormsAuthenticationService.GetUserData();
-            var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), AllResult, page);
-            var result = await m_ZboxReadService.Search(query);
-            var urlBuilder = new UrlBuilder(HttpContext);
-            AssignUrls(result, urlBuilder);
+            if (userDetail.UniversityId != null)
+            {
+                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), allResult, page);
+                var result = await m_ZboxReadService.Search(query);
+                var urlBuilder = new UrlBuilder(HttpContext);
+                AssignUrls(result, urlBuilder);
 
-            return result;
+                return result;
+            }
+            return null;
         }
         [NonAction]
         private void AssignUrls(Zbox.ViewModel.DTOs.Search.SearchDto result, UrlBuilder urlBuilder)
@@ -142,17 +146,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return this.CdJson(new JsonResponse(false, "need query"));
                 }
                 var userDetail = m_FormsAuthenticationService.GetUserData();
-                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), true, page);
-                var result = await m_ZboxReadService.OtherUniversities(query);
-                var urlBuilder = new UrlBuilder(HttpContext);
-
-
-                result = result.Select(s =>
+                if (userDetail.UniversityId != null)
                 {
-                    s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
-                    return s;
-                });
-                return this.CdJson(new JsonResponse(true, result));
+                    var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), true, page);
+                    var result = await m_ZboxReadService.OtherUniversities(query);
+                    var urlBuilder = new UrlBuilder(HttpContext);
+
+
+                    result = result.Select(s =>
+                    {
+                        s.Url = urlBuilder.buildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
+                        return s;
+                    });
+                    return this.CdJson(new JsonResponse(true, result));
+                }
+                return this.CdJson(new JsonResponse(false, "need univeristy"));
             }
             catch (Exception ex)
             {

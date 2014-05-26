@@ -1,5 +1,4 @@
 ﻿using DevTrends.MvcDonutCaching;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -56,7 +55,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToActionPermanent("Index", "Dashboard");
             }
-            return RedirectToAction("Index", "Account", new { universityId = universityId });
+            return RedirectToAction("Index", "Account", new {  universityId });
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
@@ -187,9 +186,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private async Task<string> GetSitemapXml()
         {
-            const string SitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
+            const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XElement root;
-            XNamespace xmlns = SitemapsNamespace;
+            XNamespace xmlns = sitemapsNamespace;
 
             var nodes = await GetSitemapNodes();
 

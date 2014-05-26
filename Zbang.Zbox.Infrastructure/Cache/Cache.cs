@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Cache
@@ -14,9 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
     {
         private const string AppKey = "DataCache";
         private readonly string m_CachePrefix;
-        // private DataCache m_DataCache;
         private readonly System.Web.Caching.Cache m_Cache;
-
         private readonly bool m_IsCacheAvaible;
         public Cache()
         {
@@ -25,11 +24,13 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version + ConfigurationManager.AppSettings[AppKey];
                 if (IsAppFabricCache())
                 {
-                   // var v = new DataCacheFactoryConfiguration();
-                    Microsoft.ApplicationServer.Caching.DataCacheFactory x = new DataCacheFactory(new DataCacheFactoryConfiguration()
-                    {
-                        RequestTimeout = TimeSpan.FromSeconds(20),
-                    });
+                    // var v = new DataCacheFactoryConfiguration();
+
+                    //m_DataCacheFactory = new DataCacheFactory(new DataCacheFactoryConfiguration
+                    //{
+                    //    RequestTimeout = TimeSpan.FromSeconds(5),
+                        
+                    //});
                 }
                 else
                 {
@@ -67,19 +68,20 @@ namespace Zbang.Zbox.Infrastructure.Cache
             try
             {
                 var keyWithPrefix = m_CachePrefix + key;
-                var m_DataCache = new DataCache();
-                m_DataCache.CreateRegion(region);
+                var dataCache = new DataCache();
+
+                dataCache.CreateRegion(region);
                 if (tags == null)
                 {
-                    m_DataCache.Put(keyWithPrefix, value, experation, region);
+                    dataCache.Put(keyWithPrefix, value, experation, region);
                     return true;
                 }
                 if (tags.Count == 0)
                 {
-                    m_DataCache.Put(keyWithPrefix, value, experation, region);
+                    dataCache.Put(keyWithPrefix, value, experation, region);
                     return true;
                 }
-                m_DataCache.Put(keyWithPrefix, value, experation, tags.Select(s => new DataCacheTag(s)), region);
+                dataCache.Put(keyWithPrefix, value, experation, tags.Select(s => new DataCacheTag(s)), region);
 
                 return true;
             }
@@ -108,18 +110,18 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             try
             {
-                var m_DataCache = new DataCache();
+                var dataCache = new DataCache();
                 if (tags != null)
                 {
-                    var elements = m_DataCache.GetObjectsByAnyTag(tags.Select(s => new DataCacheTag(s)), region);
+                    var elements = dataCache.GetObjectsByAnyTag(tags.Select(s => new DataCacheTag(s)), region);
                     foreach (var elem in elements)
                     {
-                        m_DataCache.Remove(elem.Key);
+                        dataCache.Remove(elem.Key);
                     }
                 }
                 else
                 {
-                    m_DataCache.RemoveRegion(region);
+                    dataCache.RemoveRegion(region);
                 }
 
                 return true;
@@ -142,9 +144,9 @@ namespace Zbang.Zbox.Infrastructure.Cache
             try
             {
                 var keyWithPrefix = m_CachePrefix + key;
-                var m_DataCache = new DataCache();
+                var dataCache = new DataCache();
 
-                return m_DataCache.Get(keyWithPrefix);
+                return dataCache.Get(keyWithPrefix);
 
             }
             catch (DataCacheException ex)
@@ -157,8 +159,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         private bool IsAppFabricCache()
         {
+            bool shouldUseCacheFromConfig;
+
+            bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
             //return true;
-            return RoleEnvironment.IsAvailable;
+            return RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
         }
 
     }

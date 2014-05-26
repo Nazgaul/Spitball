@@ -1,13 +1,7 @@
-﻿using Cobisi.EmailVerify;
-using DevTrends.MvcDonutCaching;
-using System;
-using System.IO;
+﻿using System;
+using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
@@ -18,7 +12,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Profile;
@@ -270,7 +263,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, base.GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             //var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
             //if (!retVal)
@@ -286,8 +279,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
-                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName, 
-                        model.IsMale.Value,
+                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName,
+                      !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail);
                     var result = m_ZboxWriteService.CreateUser(command);
 
@@ -304,7 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
-            return Json(new JsonResponse(false, base.GetModelStateErrors()));
+            return Json(new JsonResponse(false, GetModelStateErrors()));
         }
         #endregion
 
@@ -374,7 +367,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Code = generatedCode;
                 Session[SessionKey] = model;
 
-                m_QueueProvider.Value.InsertMessageToMailNew(new ChangeEmailData(generatedCode.ToString(), model.Email, System.Threading.Thread.CurrentThread.CurrentCulture.Name));
+                m_QueueProvider.Value.InsertMessageToMailNew(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture), model.Email, System.Threading.Thread.CurrentThread.CurrentCulture.Name));
                 return Json(new JsonResponse(true, new { code = true }));
             }
             catch (ArgumentException ex)
@@ -441,7 +434,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (ArgumentException)
             {
-                ModelState.AddModelError("Code", Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
+                ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
                 return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
 
             }
@@ -586,7 +579,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 userData.Step = 2;
                 var key = CrypticElement(userData);
-                return RedirectToAction("PasswordUpdate", new { key = key });
+                return RedirectToAction("PasswordUpdate", new { key });
             }
             ModelState.AddModelError(string.Empty, "This is not the correct code");
             return View(model);
@@ -655,12 +648,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [NonAction]
-        private string RandomString(int Size)
+        private string RandomString(int size)
         {
             var random = new Random();
             //string input = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             string input = "0123456789";
-            var chars = Enumerable.Range(0, Size)
+            var chars = Enumerable.Range(0, size)
                                    .Select(x => input[random.Next(0, input.Length)]);
             return new string(chars.ToArray());
             //return "12345";
@@ -668,7 +661,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private string CrypticElement<T>(T obj) where T : class
         {
-            return m_EncryptObject.Value.EncryptElement<T>(obj, ResetPasswordCrypticPropose);
+            return m_EncryptObject.Value.EncryptElement(obj, ResetPasswordCrypticPropose);
 
         }
         [NonAction]
