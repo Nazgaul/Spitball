@@ -162,52 +162,19 @@
                     appendList(sCourseList, 'sCourseItemTemplate', courses, toWipe);
                     appendList(sMaterialList, 'sMaterialItemTemplate', materials, toWipe);
                     appendList(sMemberList, 'sMemberItemTemplate', members, toWipe);                    
-
-                    //setNumbersAndText();
-                    //length = parseNumber(currentTab);
-                    //sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
-
+             
                     sSearchTerm.textContent = searchTerm;
 
-                    if (materials.length < 50) {                        
-                        materialsLoaded = true;
-                        sOtherMaterialsBtn.style.display = 'block';
+                    if (materials.length < 50 && !otherUnisScroll) {
+                        materialsLoaded = true;                        
                         if (isFirstPage && materials.length === 0) {
-                           getDataOtherUnis();
+                            otherUnisScroll = true;
+                            getDataOtherUnis();
+                        } else {
+                            sOtherMaterialsBtn.style.display = 'block';
                         }
-                        
                     }
                     pubsub.publish('search_load');
-
-                   
-                    //function setNumbersAndText() {
-                    //    var length;
-
-                    //    sSearchTerm.textContent = searchTerm;
-
-
-                    //    length = parseNumber(sTabCourses);
-                    //    applyText(sTabCourses, length, courses.length);
-
-                    //    length = parseNumber(sTabMaterials);
-                    //    applyText(sTabMaterials, length, materials.length);
-
-                    //    length = parseNumber(sTabMembers);
-                    //    applyText(sTabMembers, length, members.length);
-
-                    //    function applyText(elm, currentLength, length) {
-                    //        var type = elm.getAttribute('data-type');
-                    //        //if (!currentLength) {
-                    //        //    elm.textContent = type + ' (0)';
-                    //        //    return;
-                    //        //}
-                    //        currentLength += length;
-                    //        if (length === 50) {
-                    //            currentLength += '+';
-                    //        }
-                    //        elm.textContent = type + ' (' + currentLength + ')';
-                    //    }
-                    //};
                 };
             };
         };
@@ -261,9 +228,7 @@
                 if (isLoading) {
                     return;
                 }
-                setCurrentTab(this);
-                //var length = parseNumber(this);
-                //sTabResults.setAttribute('data-resultcount', length && length % 50 === 0 ? length + '+' : length);
+                setCurrentTab(this);            
             });
 
 
@@ -400,13 +365,6 @@
                    
                 default:
                     return false;
-                    break;
-            }
-
-            if (number) {
-                return parseInt(number[1]);
-            } else {
-                return 0;
             }
         }
         function scrollEvent() {
@@ -421,6 +379,7 @@
                     if (materialsLoaded && otherUnisScroll && otherDataAvailable && currentTab === sTabMaterials) {
                         cOtherPage++;
                         getDataOtherUnis();
+                        return;
                     }
 
                     if (!showMoreAvailable) {

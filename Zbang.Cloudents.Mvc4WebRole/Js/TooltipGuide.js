@@ -76,7 +76,7 @@
                         break;
                 }
                 $tooltipStep.css({ top: top, left: left });
-            }
+             }
         }
 
         function toggleStep() {

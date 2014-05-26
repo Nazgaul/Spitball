@@ -186,11 +186,7 @@
             var loader = cd.renderLoading(('body'));
             dataContext.dashboard({
                 success: function (data) {
-                    console.time('a');
-
                     generateModel(data.boxes);
-                    console.timeEnd('a');
-
                     cd.pubsub.publish('dashSideD', { friend: data.friends, wall: data.wall });
 
                 },
