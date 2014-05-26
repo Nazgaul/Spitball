@@ -489,10 +489,9 @@ footer {
     overflow-y: auto;
     box-shadow: 0 1px 1px rgba(17, 17, 17, .5);
     padding: 0;
-    //background: #f5f5f5;
+    overflow-y: scroll;
     background: #fff;
     .boxSizing;
-
     .emptySearch:after {
         top: 6px;
     }
@@ -550,12 +549,9 @@ footer {
     font-size: 13px;
     position: relative;
     top: -5px;
-    &:before {
-        .pseudo();
-        width: 14px;
-        height: 11px;
-        margin-right: 4px; /*rtl*/
-        background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
+    &:after {
+        content: '\00a0' attr(data-students);
+        display: inline-block;
     }
 }
 
@@ -566,8 +562,7 @@ footer {
     background: #f5f5f5;
     border-top: 1px solid @borderColor;
     text-align: center;
-    padding-top: 13px;
-    margin-top: -5px;
+    padding-top: 10px;
     .boxSizing;
 
     .createUni {
@@ -773,15 +768,18 @@ footer {
 
 /*#region chairman - only displayed for hebrew */
 .chairman {
+    width: 450px;
     min-height: 100vh;
-    margin-top: -170px; // -120px for top margin of staticContent;24px for footer;50px for header
+    margin-top: -@header-height; 
+    position: absolute;
+    top: @header-height;
+    right:0;
     direction: rtl; /* no rtl !!!*/
     text-align: right; /*no rtl!!!*/
-    width: 450px;
     .boxSizing;
     background: #ebeced;
     box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
-    padding: 96px 33px 50px 33px;
+    padding: 100px 33px 50px 33px;
     &:before {
         .pseudo;
         background: url(/Images/national-union-pic.png) no-repeat;

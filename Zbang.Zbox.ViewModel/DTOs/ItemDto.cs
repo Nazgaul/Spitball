@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
-using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Zbox.ViewModel.DTOs
 {

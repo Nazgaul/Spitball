@@ -212,8 +212,7 @@
                 universityId;
             function selectUniversity(e) {
                 var $uni = $(this),
-                    name = $uni.find('.uniName').text(),
-                    nCode = $uni.attr('data-ncode') === 'true' ? true : false;
+                    name = $uni.find('.uniName').text();
 
                 if ($uni.length > 0) {
                     universityId = $uni.attr('data-id');
@@ -226,15 +225,6 @@
 
                 cd.analytics.setLibrary(name);
 
-
-                //this can only be Netanya for now
-                if (nCode) {
-                    cd.analytics.trackEvent('Library Choose', 'Code', universityId);
-                    needCodePopUp(universityId);
-                    return;
-                }
-
-
                 //var load = cd.renderLoading($(uniList));
                 cd.pubsub.publish('clear_cache');
                 dataContext.updateUniversity({
@@ -243,7 +233,8 @@
                         { name: 'DepartmentId', value: $('#year').val() },
                         { name: 'GroupNumber', value: $('#group').val() },
                         { name: 'RegisterNumber', value: $('#registration').val() },
-                        { name: 'StudentID', value: $('#userIdNumber').val() }
+                        { name: 'StudentID', value: $('#userIdNumber').val() },
+                        { name: 'Code', value: $('#insertCode').val() }
                     ],
                     success: function (d) {
                         if (d.redirect) {
@@ -261,57 +252,7 @@
                         userNotSelected = true;
                         //load();
                     }
-                });
-
-                function needCodePopUp(universityId) {
-                    var $libEnterCode = $('#libEnterCode');
-                    if (!$libEnterCode.length && request2) {
-                        request2 = false;
-                        dataContext.universityEnterCode({
-                            data: { uid: universityId },
-                            success: function (data) {
-                                $(libraryChoose).append(data);
-                                registerneedCodePopUpEvent();
-                            }
-                        });
-                    }
-                    else {
-                        $libEnterCode.show().find(INPUT_TEXT).focus();
-                    }
-
-                    function registerneedCodePopUpEvent() {
-                        var $libEnterCode = $('#libEnterCode'), codeSubmit = document.getElementById('codeSubmit');
-                        $libEnterCode.find('form').submit(function (e) {
-                            e.preventDefault();
-                            var $form = $(this);
-                            if (!$form.valid || $form.valid()) {
-                                cd.pubsub.publish('clear_cache');
-                                dataContext.updateUniversity({
-                                    data: $form.serializeArray(),
-                                    success: function () {
-                                        window.location.href = '/dashboard/';
-                                    },
-                                    error: function (msg) {
-                                        cd.displayErrors($form, msg);
-                                        //cd.notification(msg);
-                                    }
-                                });
-                            }
-                        });
-                        $('#insertCode').keyup(function () {
-                            if (this.value === '') {
-                                codeSubmit.setAttribute('disabled', 'disabled');
-                                return;
-                            }
-                            codeSubmit.removeAttribute('disabled');
-
-                        });
-                        $libEnterCode.find('.closeDialog,.cancel').click(function () {
-                            $libEnterCode.hide();
-
-                        });
-                    }
-                }
+                });                
             }
 
 
@@ -382,6 +323,26 @@
                 $('#libEnterId').remove();
 
             }).on('click', '#submitRegIdPopup', function (e) {
+                e.preventDefault();
+                selectUniversity(e);
+            });
+
+            //#endregion
+
+
+            //#region code
+
+            $(document).on('keyup', '#insertCode', function () {
+                if (this.value === '') {
+                    $('#codeSubmit').attr('disabled', 'disabled');
+                    return;
+                }
+                $('#codeSubmit').removeAttr('disabled');
+
+            }).on('click', '#closeNeedCodePopup', function () {
+                $('#libEnterCode').remove();
+
+            }).on('click', '#codeSubmit', function (e) {
                 e.preventDefault();
                 selectUniversity(e);
             });

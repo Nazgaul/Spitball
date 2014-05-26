@@ -1582,9 +1582,22 @@ select.inputText {
 @arrowTop: 40px;  //change horizontal offset of arrow
 @arrowHeight: 8px; // change arrow size
 
-.tooltip {
-    //display: none;
 
+//.steps
+.quizGuideTemplate {
+    .tooltip {
+        top: 119px;
+        left: 622px;
+        + .tooltip {
+            top: 460px;
+            left: 263px;
+        }
+    }
+}
+
+.tooltip {
+    display: none;
+    z-index: 5;
     position: absolute; //temp
     top: 100px; //temp
     left: 400px; //temp
@@ -1600,23 +1613,22 @@ select.inputText {
     &.btns {
         padding-bottom: 70px;
     }
-    &:not(.btns) {
+    /*&:not(.btns) {
         .ttBtns {
             display: none;
         }
-    }
+    }*/
     &.icon {
         width: 325px;
         .stepTip {
-            padding-left: 90px;
+            padding-left: 90px; /*rtl*/
             &:before {
                 .pseudo;
                 position: absolute;
-                left:12px;
+                left:15px; /*rtl*/
                 width: 85px;
                 height: 85px;
                 vertical-align: middle;
-                margin-right: 15px;
                 background: url(/Images/tt-sprite.png) no-repeat;
             }
         }
@@ -1633,7 +1645,9 @@ select.inputText {
         content:"";
         position: absolute;
         top: -@arrowHeight;
-        left: @arrowLeft; /*rtl*/
+        //left: @arrowLeft; /*rtl*/
+        left:0;right:0;
+        margin: auto;
         border-width: 0 @arrowHeight @arrowHeight;
         border-style: solid;
         border-color: @borderColor rgba(0, 0, 0, 0);
@@ -1644,7 +1658,9 @@ select.inputText {
         content:"";
         position: absolute;
         top: -@arrowHeight + 2;
-        left: @arrowLeft + 1; /*rtl*/
+        //left: @arrowLeft + 1; /*rtl*/
+        left:0;right:0;
+        margin: auto;
         border-width: 0 (@arrowHeight - 1) (@arrowHeight - 1);
         border-style: solid;
         border-color: #FFF rgba(0, 0, 0, 0);
@@ -1670,6 +1686,7 @@ select.inputText {
             left: -@arrowHeight - 2; /*rtl*/
             border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0; /*rtl*/
             border-color: rgba(0, 0, 0, 0) @borderColor;
+            margin:0; //override
         }
         &:after {
             top: @arrowTop + 2;
@@ -1677,6 +1694,7 @@ select.inputText {
             left: -@arrowHeight; /*rtl*/
             border-width: (@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0; /*rtl*/
             border-color: rgba(0, 0, 0, 0) #fff;
+            margin:0; //override
         }
     }
     &.right {
@@ -1687,6 +1705,7 @@ select.inputText {
             right: -@arrowHeight - 2; /*rtl*/
             border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2); /*rtl*/
             border-color: rgba(0, 0, 0, 0) @borderColor;
+            margin:0; //override
         }
         &:after {
             top: @arrowTop + 2;
@@ -1695,6 +1714,7 @@ select.inputText {
             right: -@arrowHeight; /*rtl*/
             border-width:(@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight; /*rtl*/
             border-color: rgba(0, 0, 0, 0) #fff;
+            margin:0; //override
         }
     }
 }

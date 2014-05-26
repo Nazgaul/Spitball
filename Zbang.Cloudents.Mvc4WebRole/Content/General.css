@@ -1496,7 +1496,17 @@ select.inputText {
   background: url(/Images/common17-sprite.png?v=2) -98px -49px no-repeat;
 }
 /*#region tooltip */
+.quizGuideTemplate .tooltip {
+  top: 119px;
+  left: 622px;
+}
+.quizGuideTemplate .tooltip + .tooltip {
+  top: 460px;
+  left: 263px;
+}
 .tooltip {
+  display: none;
+  z-index: 5;
   position: absolute;
   top: 100px;
   left: 400px;
@@ -1507,28 +1517,31 @@ select.inputText {
   padding: 20px 20px 17px 20px;
   border-radius: 3px;
   box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3);
+  /*&:not(.btns) {
+        .ttBtns {
+            display: none;
+        }
+    }*/
 }
 .tooltip.btns {
   padding-bottom: 70px;
-}
-.tooltip:not(.btns) .ttBtns {
-  display: none;
 }
 .tooltip.icon {
   width: 325px;
 }
 .tooltip.icon .stepTip {
   padding-left: 90px;
+  /*rtl*/
 }
 .tooltip.icon .stepTip:before {
   content: '';
   display: inline-block;
   position: absolute;
-  left: 12px;
+  left: 15px;
+  /*rtl*/
   width: 85px;
   height: 85px;
   vertical-align: middle;
-  margin-right: 15px;
   background: url(/Images/tt-sprite.png) no-repeat;
 }
 .tooltip h4 {
@@ -1543,8 +1556,9 @@ select.inputText {
   content: "";
   position: absolute;
   top: -8px;
-  left: 135px;
-  /*rtl*/
+  left: 0;
+  right: 0;
+  margin: auto;
   border-width: 0 8px 8px;
   border-style: solid;
   border-color: #c2c2c2 rgba(0, 0, 0, 0);
@@ -1555,8 +1569,9 @@ select.inputText {
   content: "";
   position: absolute;
   top: -6px;
-  left: 136px;
-  /*rtl*/
+  left: 0;
+  right: 0;
+  margin: auto;
   border-width: 0 7px 7px;
   border-style: solid;
   border-color: #ffffff rgba(0, 0, 0, 0);
@@ -1581,6 +1596,7 @@ select.inputText {
   border-width: 8px 10px 8px 0;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
+  margin: 0;
 }
 .tooltip.left:after {
   top: 42px;
@@ -1590,6 +1606,7 @@ select.inputText {
   border-width: 6px 8px 6px 0;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #ffffff;
+  margin: 0;
 }
 .tooltip.right:before {
   top: 40px;
@@ -1600,6 +1617,7 @@ select.inputText {
   border-width: 8px 0 8px 10px;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
+  margin: 0;
 }
 .tooltip.right:after {
   top: 42px;
@@ -1610,6 +1628,7 @@ select.inputText {
   border-width: 6px 0 6px 8px;
   /*rtl*/
   border-color: rgba(0, 0, 0, 0) #ffffff;
+  margin: 0;
 }
 .ttBtns {
   width: 100%;

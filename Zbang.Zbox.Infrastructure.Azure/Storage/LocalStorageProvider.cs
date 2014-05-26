@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Zbox.Infrastructure.Storage
+namespace Zbang.Zbox.Infrastructure.Azure.Storage
 {
     public class LocalStorageProvider : ILocalStorageProvider
     {

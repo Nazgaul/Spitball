@@ -444,6 +444,7 @@ footer {
   overflow-y: auto;
   box-shadow: 0 1px 1px rgba(17, 17, 17, 0.5);
   padding: 0;
+  overflow-y: scroll;
   background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -511,14 +512,9 @@ footer {
   position: relative;
   top: -5px;
 }
-.uniCount:before {
-  content: '';
+.uniCount:after {
+  content: '\00a0' attr(data-students);
   display: inline-block;
-  width: 14px;
-  height: 11px;
-  margin-right: 4px;
-  /*rtl*/
-  background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
 }
 .newUni.newUni {
   font-size: 13px;
@@ -527,8 +523,7 @@ footer {
   background: #f5f5f5;
   border-top: 1px solid #c2c2c2;
   text-align: center;
-  padding-top: 13px;
-  margin-top: -5px;
+  padding-top: 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -731,20 +726,23 @@ footer {
 /*#endregion */
 /*#region chairman - only displayed for hebrew */
 .chairman {
+  width: 450px;
   min-height: 100vh;
-  margin-top: -170px;
+  margin-top: -50px;
+  position: absolute;
+  top: 50px;
+  right: 0;
   direction: rtl;
   /* no rtl !!!*/
   text-align: right;
   /*no rtl!!!*/
-  width: 450px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #ebeced;
   box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
   /*rtl*/
-  padding: 96px 33px 50px 33px;
+  padding: 100px 33px 50px 33px;
 }
 .chairman:before {
   content: '';

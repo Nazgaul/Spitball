@@ -1,8 +1,4 @@
-﻿using System.Runtime.Serialization;
-using Zbang.Zbox.Infrastructure.Query;
-using Zbang.Zbox.Infrastructure.Cache;
-
-namespace Zbang.Zbox.ViewModel.Queries
+﻿namespace Zbang.Zbox.ViewModel.Queries
 {
     public class GetBoxCommentsQuery : QueryBase
     {

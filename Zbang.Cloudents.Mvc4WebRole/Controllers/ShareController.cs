@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [CompressFilter]
         public ActionResult Index(long? boxid)
         {
-            var model = new Zbang.Zbox.ViewModel.DTOs.BoxDtos.BoxMetaDto();
+            var model = new Zbox.ViewModel.DTOs.BoxDtos.BoxMetaDto();
             try
             {
                 if (boxid.HasValue)
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 ModelState.AddModelError(string.Empty, "You do not have permission to share a box");
-                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model.ToString()), ex);
+                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model), ex);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             catch (ArgumentException ex)
@@ -153,7 +153,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
 
-                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model.ToString()), ex);
+                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, "Unsepcified error. try again later");
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
@@ -300,7 +300,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 var boxUid = m_ShortCodesCache.Value.LongToShortCode(values.BoxId);
-                var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxUid = boxUid });
+                var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxUid });
                 return Redirect(urlToRedirect);
             }
             //we are here if user is not register to the system

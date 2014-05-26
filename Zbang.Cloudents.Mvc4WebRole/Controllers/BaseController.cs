@@ -19,11 +19,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class BaseController : AsyncController
     {
         protected const string SessionUserUploadProfilePicturesKey = "UserUploadProfilePictures";
-        //public  const string TempDataNameUserRegisterFirstTime = "TempDataNameUserRegisterFirstTime";
 
         protected readonly IZboxWriteService m_ZboxWriteService;
         protected readonly IZboxReadService m_ZboxReadService;
-        //protected readonly IShortCodesCache m_ShortToLongCode;
         protected readonly IFormsAuthenticationService m_FormsAuthenticationService;
 
         public BaseController()
@@ -83,12 +81,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     continue;
                 }
-                if (Request.Cookies[cookieName] != null)
-                {
-                    var c = new HttpCookie(cookieName);
-                    c.Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies.Add(c);
-                }
+                if (Request.Cookies[cookieName] == null) continue;
+                var c = new HttpCookie(cookieName) {Expires = DateTime.Now.AddDays(-1)};
+                Response.Cookies.Add(c);
             }
 
         }
@@ -175,20 +170,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return;
             }
-            if (Thread.CurrentThread.CurrentUICulture.Name != language)
+            if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
+            try
             {
-                try
-                {
-                    CultureInfo cultureInfo = new CultureInfo(language);
-                    //CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-                    //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-                    Thread.CurrentThread.CurrentUICulture = cultureInfo;
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-                }
-                catch (CultureNotFoundException)
-                {
-                    // RemoveLanguageFromSession();
-                }
+                var cultureInfo = new CultureInfo(language);
+                //CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+                //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+                Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+            }
+            catch (CultureNotFoundException)
+            {
+                // RemoveLanguageFromSession();
             }
         }
 

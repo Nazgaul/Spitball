@@ -686,8 +686,8 @@
 
     &:before {
         .pseudo;
-        width: 0px;
-        height: 0px;
+        width: 0;
+        height: 0;
         border-style: solid;
         border-width: 5px 4px 0 4px;
         border-color: #383838 transparent transparent transparent;
@@ -905,10 +905,22 @@
         }
         &.quizBtn:before
         {
-            width: 19px;
-            height: 17px;
+            width: 22px;
+            height: 18px;
             background-position: -48px -143px;
-            margin-top: -3px;
+            margin-top: -4px;
+        }
+    }
+    .quizBtn {
+        background: #517e9e;
+        border: 1px solid #517e9e;
+        &:hover {
+            background: #456c88;
+            border: 1px solid #546c88;
+        }
+        &:disabled {
+            background: #A5A5A5;
+            border: 1px solid #A5A5A5;
         }
     }
 }
@@ -1144,43 +1156,46 @@
     }
     &.quizItem
     {
-        &:before
-        {
+        position:relative;
+        border: none;
+        background: none;
+        box-shadow: none;
+        .actionBtns {
+            top: 24px;
+        }
+        &:before {
             .pseudo;
-            width: 22px;
-            height: 20px;
-            background: @boxSprite -74px -165px no-repeat;
-            float:left; /*rtl*/
-            margin: 11px 9px;
+            position: absolute;
+            width: 153px;
+            height: 220px;
+            background: @boxSprite -159px -1px no-repeat;
+            z-index: -1;
         }
         &:after
         {
             .pseudo;
-            width: 147px;
-            height: 1px;
-            background: @borderColor;
+            width: 28px;
+            height: 24px;
+            background: @boxSprite -47px -168px no-repeat;
             position: absolute;
-            left: 0; /*rtl*/
-            top: 187px;
+            top: 28px;
+            left: 8px; /*rtl*/
         }
-
         .boxLink{
             padding: 11px 9px;
             .boxSizing;
         }
         .boxName {
-            color: @attentionBlue;
+            color: #517e9e;
             font-size: 17px;
-            height: 115px;
+            height: 100px;
             overflow: hidden;
             clear: both;
-            line-height: 19px;
-            margin: 0 0 32px 0; //override
+            line-height: 25px;
+            margin: 55px 0 16px; //override
         }
         .quizOwner{
-            height: 34px;
-            overflow: hidden;
-            line-height: 16px;
+            display: none;
         }
         .stars {
             position: absolute;
@@ -1197,6 +1212,7 @@
         border-radius: 0; 
         color: transparent; //override
         margin-left: 15px; /*rtl*/
+        top: 180px;
         &:before, &:after {
             display: none;
         }

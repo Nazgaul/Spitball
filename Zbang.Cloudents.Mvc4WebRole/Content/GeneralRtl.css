@@ -220,6 +220,15 @@ body {
   left: auto;
 }
 /*#region tooltip */
+.tooltip.icon .stepTip {
+  padding: 0 90px 0 0;
+  /*rtl*/
+}
+.tooltip.icon .stepTip:before {
+  right: 15px;
+  /*rtl*/
+  left: auto;
+}
 .tooltip:before {
   right: 135px;
   /*rtl*/

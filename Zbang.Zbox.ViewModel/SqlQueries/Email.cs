@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zbang.Zbox.ViewModel.SqlQueries
+﻿namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class Email
     {
-        public const string partners = @"
+        public const string Partners = @"
 --NEW USERS--
 Select Count(*) from zbox.users where creationtime>getdate()-7
 and universityid2=@userid

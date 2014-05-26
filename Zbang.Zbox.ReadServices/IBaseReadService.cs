@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.Notification;
-using Zbang.Zbox.ViewModel.Queries;
-using Zbang.Zbox.ViewModel.Queries.Notification;
+﻿using Zbang.Zbox.ViewModel.Queries;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 
 namespace Zbang.Zbox.ReadServices

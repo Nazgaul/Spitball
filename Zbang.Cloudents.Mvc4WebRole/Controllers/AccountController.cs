@@ -410,7 +410,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var needId = await m_ZboxReadService.GetUniversityNeedId(model.UniversityId);
             if (needId && string.IsNullOrEmpty(model.studentID))
             {
-                return RedirectToAction("InsertID", "Library", new { universityId = model.UniversityId });
+                return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
             }
 
             var needCode = await m_ZboxReadService.GetUniversityNeedCode(model.UniversityId);

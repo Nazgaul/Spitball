@@ -72,7 +72,7 @@
         <img src="{{image}}" class="lFloat uniImg" width="66" height="66" alt="{{name}}" />
         <span class="uniDetails">
             <span class="uniName elps boldFont">{{name}}</span>
-            <span class="uniCount">{{membersCount}}</span>
+            <span class="uniCount" data-students="@MainViewResources.Students" data-student="@MainViewResources.Student">{{membersCount}}</span>
         </span>    
     </li>
 </script>
@@ -95,5 +95,5 @@
     </li>     
 </script>
 <script type="text/html" id="fBFriendTemplate">
-    <li><img src="{{image}}" class="lFloat imgBorder" width="32" height="32" title="{{name}}" alt="{{name}}" /></li>
+    <li><img src="{{image}}" class="lFloat imgBorder" width="32" height="32" data-title="{{name}}" alt="{{name}}" /></li>
 </script>
