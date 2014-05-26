@@ -6,12 +6,12 @@ namespace Zbang.Zbox.ReadServices
     {
         public static void Register()
         {
-            var Ioc = IocFactory.Unity;
+            var ioc = IocFactory.Unity;
 
-            Ioc.RegisterType<IZboxCacheReadService, ZboxCacheReadService>(LifeTimeManager.PerHttpRequest);
-            Ioc.RegisterType<IZboxReadService,  ZboxReadService>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IZboxCacheReadService, ZboxCacheReadService>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IZboxReadService,  ZboxReadService>(LifeTimeManager.PerHttpRequest);
             //Ioc.RegisterType<IZboxApiReadService, ZboxApiReadService>(LifeTimeManager.PerHttpRequest);
-            Ioc.RegisterType<IZboxReadServiceWorkerRole, ZboxReadServiceWorkerRole>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IZboxReadServiceWorkerRole, ZboxReadServiceWorkerRole>(LifeTimeManager.PerHttpRequest);
 
         }
     }

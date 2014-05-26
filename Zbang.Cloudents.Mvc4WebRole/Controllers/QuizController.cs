@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Quiz;
@@ -44,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var model = await GetQuiz(boxId, quizId, quizName);
-            var serializer = new Extensions.JsonNetSerializer();
+            var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
             UrlBuilder builder = new UrlBuilder(HttpContext);
@@ -61,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index2(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
             var model = await GetQuiz(boxId, quizId, quizName);
-            var serializer = new Extensions.JsonNetSerializer();
+            var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
             UrlBuilder builder = new UrlBuilder(HttpContext);
@@ -204,7 +202,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Quiz/Save model: " + model.ToString(), ex);
+                TraceLog.WriteError("Quiz/Save model: " + model, ex);
                 return this.CdJson(new JsonResponse(false, ex.Message));
             }
         }

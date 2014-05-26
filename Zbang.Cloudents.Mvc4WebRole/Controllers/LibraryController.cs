@@ -11,6 +11,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -64,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoUniversity]
         [CompressFilter]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "none")]
-        public async Task<ActionResult> Index(Guid? LibId)
+        public async Task<ActionResult> Index(Guid? libId)
         {
             var userDetail = m_FormsAuthenticationService.GetUserData();
             if (userDetail == null || !userDetail.UniversityId.HasValue)
@@ -83,10 +84,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Choose");
             }
             //TODO: bring with one roundtrip
-            var queryNodes = new GetLibraryNodeQuery(userDetail.UniversityId.Value, LibId, GetUserId(), 0, OrderBy.LastModified);
+            var queryNodes = new GetLibraryNodeQuery(userDetail.UniversityId.Value, libId, GetUserId(), 0, OrderBy.LastModified);
             var data = m_ZboxReadService.GetLibraryNode(queryNodes);
             data.Boxes.Elem = AssignUrl(data.Boxes.Elem);
-            JsonNetSerializer serializer = new JsonNetSerializer();
+            var serializer = new JsonNetSerializer();
 
             ViewBag.data = serializer.Serialize(data);
 
@@ -100,19 +101,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         private IEnumerable<BoxDto> AssignUrl(IEnumerable<BoxDto> data)
         {
-            UrlBuilder builder = new UrlBuilder(this.HttpContext);
-            foreach (var item in data)
+            var builder = new UrlBuilder(HttpContext);
+            var assignUrl = data as IList<BoxDto> ?? data.ToList();
+            foreach (var item in assignUrl)
             {
                 item.Url = builder.BuildBoxUrl(item.BoxType, item.Id, item.Name, item.UniName);
             }
-            return data;
+            return assignUrl;
 
         }
 
         [HttpGet]
         public ActionResult Choose()
         {
-            var country = GetUserCountryByIP();
+            var country = GetUserCountryByIp();
 
             //var query = new GetUniversityByPrefixQuery();
             // var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
@@ -149,13 +151,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(null);
             }
             var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
-            var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId);
+            var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId.Select(s => s.Id));
+
+            foreach (var university in suggestedUniversity)
+            {
+                university.Friends = university.Friends.Select(s =>
+                {
+                    var facebookData = friendsId.FirstOrDefault(f => f.Id == s.Id);
+                    if (facebookData != null)
+                    {
+                        s.Image = facebookData.Image;
+                        s.Name = facebookData.Name;
+                    }
+                    return s;
+                });
+            }
 
             return this.CdJson(new JsonResponse(true, suggestedUniversity));
         }
 
         [NonAction]
-        private string GetUserCountryByIP()
+        private string GetUserCountryByIp()
         {
             string userIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (string.IsNullOrWhiteSpace(userIp))
@@ -171,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             //var ipNumber2 = BitConverter.ToInt64(ipAddress.GetAddressBytes().Reverse().ToArray(), 0);
 
-            return m_ZboxReadService.GetLocationByIP(ipNumber);
+            return m_ZboxReadService.GetLocationByIp(ipNumber);
 
         }
         [NonAction]
@@ -419,7 +435,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University() { UniversityId = universityId }) }));
         }
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
-        public ActionResult InsertID(long universityId)
+        public ActionResult InsertId(long universityId)
         {
             var userData = m_UserProfile.Value.GetUserData(ControllerContext);
             switch (universityId)

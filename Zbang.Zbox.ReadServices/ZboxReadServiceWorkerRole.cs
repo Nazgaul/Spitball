@@ -1,9 +1,7 @@
 ﻿using Dapper;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
@@ -178,10 +176,10 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<PartnersDto> GetPartnersEmail(long userid)
         {
-            PartnersDto retVal = new PartnersDto();
+            var retVal = new PartnersDto();
             using (var conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(Zbang.Zbox.ViewModel.SqlQueries.Email.partners, new { userid = userid }))
+                using (var grid = await conn.QueryMultipleAsync(Email.Partners, new { userid }))
                 {
                     retVal.LastWeekUsers = grid.Read<int>().First();
                     retVal.AllUsers = grid.Read<int>().First();

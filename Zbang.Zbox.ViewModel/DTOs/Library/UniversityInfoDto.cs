@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Zbang.Zbox.ViewModel.DTOs.Library
+﻿namespace Zbang.Zbox.ViewModel.DTOs.Library
 {
     public class UniversityInfoDto
     {

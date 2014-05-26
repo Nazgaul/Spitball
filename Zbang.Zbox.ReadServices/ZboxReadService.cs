@@ -7,12 +7,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.Dashboard;
 using Zbang.Zbox.ViewModel.DTOs.Library;
@@ -54,7 +52,7 @@ namespace Zbang.Zbox.ReadServices
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 var retVal = new DashboardDto();
-                using (var grid = conn.QueryMultiple(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList, new { UserId = query.UserId }))
+                using (var grid = await conn.QueryMultipleAsync(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList, new { query.UserId }))
                 {
                     retVal.Boxes = grid.Read<BoxDto>().Select(s =>
                     {
@@ -82,7 +80,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                var sqlQuery = @"select uWrap.userName as Name, uWrap.UserImageLarge as Img  , uWrap.AdvertismentUrl as AdvertismentUrl
+                const string sqlQuery = @"select uWrap.userName as Name, uWrap.UserImageLarge as Img  , uWrap.AdvertismentUrl as AdvertismentUrl
                   from zbox.users uWrap  
                   where uWrap.UserId = @univerSityDbQuery";
 
@@ -164,7 +162,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { UserId = query.UserId, UniversityWrapper = query.UniversityWrapperId });
+                var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { query.UserId, UniversityWrapper = query.UniversityWrapperId });
                 return retVal.FirstOrDefault();
             }
             //using (UnitOfWork.Start())
@@ -192,7 +190,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                var dbQeury = @"select * from (select u.UserImage as userpic,
+                const string dbQeury = @"select * from (select u.UserImage as userpic,
  u.UserName as username,
  m.MessageId as msgId,
   m.CreationTime as date,
@@ -228,7 +226,7 @@ where m.RecepientId = @userid
 
 ";
 
-                return await conn.QueryAsync<InviteDto>(dbQeury, new { UserId = query.UserId });
+                return await conn.QueryAsync<InviteDto>(dbQeury, new { query.UserId });
             }
         }
 
@@ -245,7 +243,7 @@ where m.RecepientId = @userid
                 boxQuery.SetResultTransformer(Transformers.AliasToBean<Box.BoxMetaDto>());
 
                 var fbox = boxQuery.FutureValue<Box.BoxMetaDto>();
-                var userType = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
+                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
                 var retVal = fbox.Value;
                 retVal.Image = m_BlobProvider.GetThumbnailUrl(retVal.Image);
@@ -397,7 +395,7 @@ where m.RecepientId = @userid
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 //IEnumerable<Activity.AnnotationDto> retVal;
-                var sql = @"select Rate from zbox.itemRate where itemid = @itemId and ownerid = @userid";
+                const string sql = @"select Rate from zbox.itemRate where itemid = @itemId and ownerid = @userid";
                 var retVal = await conn.QueryAsync<ItemRateDto>(sql, new { itemId = query.ItemId, userid = query.UserId });
                 return retVal.FirstOrDefault();
             }
@@ -485,7 +483,7 @@ where m.RecepientId = @userid
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 //IEnumerable<Activity.AnnotationDto> retVal;
-                var sql = @"SELECT [ItemCommentId] as Id
+                const string sql = @"SELECT [ItemCommentId] as Id
                           ,[ImageId]
                           ,[CordX] as X
                           ,[CordY] as Y
@@ -503,7 +501,6 @@ where m.RecepientId = @userid
 
                 return await conn.QueryAsync<Activity.AnnotationDto>(sql, new { itemId = query.ItemId });
             }
-
         }
 
 
@@ -519,7 +516,7 @@ where m.RecepientId = @userid
             using (var conn = await DapperConnection.OpenConnection())
             {
 
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3}",
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
                      Sql.Search.OwnedSubscribedBoxes,
                      Sql.Search.UniversityBoxes,
                      Sql.Search.Users,
@@ -546,23 +543,21 @@ where m.RecepientId = @userid
 
                     retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.PageSize);
                 }
-                if (retVal.Items.Count() == 0)
-                {
-                    retVal.OtherItems = await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,
-                        new
-                     {
-                         query = query.Query,
-                         universityId = query.UniversityId,
-                         userId = query.UserId,
-                         offsetV = query.Offset,
-                         pageSize = query.PageSize
-                     });
-                    retVal.OtherItems.Select(s =>
+                if (retVal.Items.Any()) return retVal;
+                retVal.OtherItems = await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,
+                    new
                     {
-                        s.Image = m_BlobProvider.GetThumbnailUrl(s.Image);
-                        return s;
-                    }).ToList();
-                }
+                        query = query.Query,
+                        universityId = query.UniversityId,
+                        userId = query.UserId,
+                        offsetV = query.Offset,
+                        pageSize = query.PageSize
+                    });
+                retVal.OtherItems = retVal.OtherItems.Select(s =>
+                {
+                    s.Image = m_BlobProvider.GetThumbnailUrl(s.Image);
+                    return s;
+                }).ToList();
             }
             return retVal;
         }
@@ -593,7 +588,7 @@ where m.RecepientId = @userid
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<User.UserDto>(Sql.Sql.FriendList, new { UserId = query.UserId });
+                return await conn.QueryAsync<User.UserDto>(Sql.Sql.FriendList, new { query.UserId });
             }
         }
 
@@ -601,10 +596,10 @@ where m.RecepientId = @userid
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                var sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image, u.userReputation as score, uu.username as universityName
+                const string sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image, u.userReputation as score, uu.username as universityName
                             from zbox.users u left join zbox.users uu on u.UniversityId2 = uu.UserId
                             where u.userid = @UserId";
-                var retVal = await conn.QueryAsync<User.UserMinProfile>(sql, new { UserId = query.UserId });
+                var retVal = await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
                 return retVal.FirstOrDefault();
 
             }
@@ -614,7 +609,7 @@ where m.RecepientId = @userid
         /// Get The country the user is in based on the ip address
         /// </summary>
         /// <returns></returns>
-        public string GetLocationByIP(long ipNumber)
+        public string GetLocationByIp(long ipNumber)
         {
             using (UnitOfWork.Start())
             {
@@ -625,40 +620,13 @@ where m.RecepientId = @userid
         }
 
 
-        /// <summary>
-        /// Used for University choose page
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        //public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query)
-        //{
-        //    //const int pageNumber = 20;
-        //    using (var conn = await DapperConnection.OpenConnection())
-        //    {
-        //        //var transferLetter = IocFactory.Unity.Resolve<IEnglishToHebrewChars>();
-        //        //var stemmer = IocFactory.Unity.Resolve<IHebrewStemmer>();
-        //        //var filter = IocFactory.Unity.Resolve<IFilterWords>();
-
-        //        //var hebrewLetters = stemmer.StemAHebrewWord(transferLetter.TransferEnglishCharsToHebrew(query.Prefix));
-        //        ////var hebrewLetters = transferLetter.TransferEnglishCharsToHebrew(query.Prefix);
-        //        //hebrewLetters = filter.removeWords(hebrewLetters);
-        //        //var filteredQuery = filter.removeWords(query.Prefix);
-
-        //        return await conn.QueryAsync<UniversityByPrefixDto>(Sql.Sql.GetUniversitiesList);
-        //        //    , new
-        //        //{
-        //        //    country = query.Country,
-        //        //});
-        //    }
-        //}
-
         public async Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
                 return await conn.QueryAsync<DepartmentDto>(Sql.LibraryChoose.GetDepartments, new
                 {
-                    universityId = universityId
+                    universityId
                 });
             }
         }
@@ -669,7 +637,7 @@ where m.RecepientId = @userid
             {
                 var retVal = await conn.QueryAsync<int>(Sql.LibraryChoose.GetNeedId, new
                 {
-                    universityId = universityId
+                    universityId
                 });
                 return retVal.FirstOrDefault() > 0;
             }
@@ -681,7 +649,7 @@ where m.RecepientId = @userid
             {
                 var retVal = await conn.QueryAsync<bool>(Sql.LibraryChoose.GetNeedCode, new
                 {
-                    universityId = universityId
+                    universityId
                 });
                 return retVal.FirstOrDefault();
             }
@@ -700,15 +668,13 @@ where m.RecepientId = @userid
                     var retVal = grid.Read<UniversityByFriendDto>();
                     var friends = grid.Read<FriendPerUniversityDto>();
 
-                    retVal.Select(s =>
-                    {
-                        s.Friends = friends.Where(w => w.UniversityId == s.Id);
-                        return s;
-                    }).ToList();
+                    retVal = retVal.Select(s =>
+                       {
+                           s.Friends = friends.Where(w => w.UniversityId == s.Id);
+                           return s;
+                       }).ToList();
                     return retVal;
-                };
-
-
+                }
             }
         }
 
@@ -816,11 +782,11 @@ where m.RecepientId = @userid
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                var sqlQuery = @"select count(*) from   zbox.Message 
+                const string sqlQuery = @"select count(*) from   zbox.Message 
                                 where TypeOfMsg = 2
                                 and MessageId = @MessageId
                                 and isActive = 1";
-                var count = await conn.QueryAsync<int>(sqlQuery, new { MessageId = query.MessageId });
+                var count = await conn.QueryAsync<int>(sqlQuery, new { query.MessageId });
 
                 return count.FirstOrDefault() > 0;
             }
@@ -912,7 +878,7 @@ where m.RecepientId = @userid
             var retVal = new User.UserToFriendActivity();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles, Sql.Sql.UserWithFriendQuestion, Sql.Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
+                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles, Sql.Sql.UserWithFriendQuestion, Sql.Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
                 {
                     retVal.Items = grid.Read<Item.ItemToFriendDto>().Select(s =>
                     {
@@ -938,7 +904,7 @@ where m.RecepientId = @userid
             SeoDto retVal = new SeoDto();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(String.Format("{0} {1}", Sql.Seo.GetBoxes, Sql.Seo.GetItems)))
+                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1}", Sql.Seo.GetBoxes, Sql.Seo.GetItems)))
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
                     retVal.Items = grid.Read<Item.ItemSeoDto>();
@@ -949,11 +915,11 @@ where m.RecepientId = @userid
         #endregion
 
         #region Admin
-        public async Task<IEnumerable<Zbang.Zbox.ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
+        public async Task<IEnumerable<ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<Zbang.Zbox.ViewModel.DTOs.UserDtos.AdminUserDto>(Sql.Admin.UsersInUniversity,
+                return await conn.QueryAsync<ViewModel.DTOs.UserDtos.AdminUserDto>(Sql.Admin.UsersInUniversity,
                     new
                     {
                         universityId = query.UniversityId
@@ -968,14 +934,14 @@ where m.RecepientId = @userid
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2} {3} {4} {5} {6}",
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5} {6}",
                     Sql.Quiz.QuizQuery,
                     Sql.Quiz.Question,
                     Sql.Quiz.Answer,
                     Sql.Security.GetBoxPrivacySettings,
                     Sql.Security.GetUserToBoxRelationShip,
                     Sql.Quiz.UserQuiz,
-                    Sql.Quiz.UserAnswer), new { QuizId = query.QuizId, BoxId = query.BoxId, UserId = query.UserId }))
+                    Sql.Quiz.UserAnswer), new { query.QuizId, query.BoxId, query.UserId }))
                 {
                     retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Quiz.Questions = grid.Read<Item.QuestionWithDetailDto>();
@@ -1004,18 +970,18 @@ where m.RecepientId = @userid
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, new { QuizId = query.QuizId });
+                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, new { query.QuizId });
             }
         }
 
         public async Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
         {
-            var retVal = new Item.QuizWithDetailDto();
+
             using (var conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { QuizId = query.QuizId }))
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { query.QuizId }))
                 {
-                    retVal = grid.Read<Item.QuizWithDetailDto>().First();
+                    Item.QuizWithDetailDto retVal = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
 
                     var answers = grid.Read<Item.AnswerWithDetailDto>();
@@ -1024,9 +990,11 @@ where m.RecepientId = @userid
                     {
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
+                    return retVal;
+
                 }
             }
-            return retVal;
+
         }
         #endregion
     }
