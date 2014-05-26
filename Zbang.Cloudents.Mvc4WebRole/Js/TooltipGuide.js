@@ -80,7 +80,7 @@
             var $nextRelativeElement = $($nextStep[0].getAttribute('data-tt-position'));
 
             if (!$nextRelativeElement.length) {
-                $tooltipStep.removeClass('btns');
+                $tooltipStep.addClass('lastStep');
             }
 
         }
@@ -119,18 +119,20 @@
 
             setTooltipStep();
         });
+
+
+        cd.pubsub.subscribe('clearTooltip', function () {
+            $guideContainer = $guideContainer || [];
+            if (!$guideContainer.length) {
+                return;
+            }
+
+            $guideContainer.remove();
+        });
     }
 
     function closeGuide() {
         $guideContainer.remove();
     }
 
-    cd.pubsub.subscribe('clearTooltip', function () {
-        $guideContainer = $guideContainer || [];
-        if (!$guideContainer.length) {
-            return;
-        }
-
-        $guideContainer.remove();
-    });
 })(cd, cd.pubsub, jQuery);

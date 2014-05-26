@@ -179,10 +179,4 @@
   <data name="SignUpNow" xml:space="preserve">
     <value>马上注册：</value>
   </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>使用 Facebook 注册</value>
-  </data>
-  <data name="EmailSignUp" xml:space="preserve">
-    <value>使用 Email 注册</value>
-  </data>
 </root>

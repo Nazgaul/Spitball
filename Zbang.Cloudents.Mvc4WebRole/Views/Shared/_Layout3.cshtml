@@ -204,13 +204,13 @@
             </a>
         </li>
     </script>
-    @*If the tooltip has btns add class btns and extra markup
+    @*
         If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
     @{
         if (ViewBag.fBox)
         {
             <div id="quizGuideTemplate" class="steps quizGuideTemplate">
-                  <div class="tooltip btns left tall" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
+                  <div class="tooltip left tall" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
                     <button type="button" class="closeDialog"></button>
                     <div class="stepTip">
                         <div>בקלאודנטס  בנינו עבורכם כלי אינטראקטיבי ליצירת קוויזים (שאלון אמריקאי) בו תוכלו ליצור ולשתף מבחנים שאתם בניתם ולתרגל איתם כחלק מהכנה לבחינת הקורס.</div>
@@ -224,7 +224,8 @@
                         </ul>
                         <div>הקווזים של קלאודנטס  - צרו, שתפו, תרגלו והצליחו במבחן!</div>
                         <div class="ttBtns">
-                            <button type="button" data-next class="rFloat btn3">Next</button>
+                            <button type="button" data-done class="rFloat btn3">Dismiss</button>
+                            <button type="button" data-next class="rFloat btn3">@DialogResources.Next</button>
                         </div>
                     </div>
                 </div>
@@ -239,7 +240,10 @@
                         •	דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה
                         •	מדידה של כמה זמן לקח לכם לפתור את הקוויז
                         למה אתה מחכים, שיהיה בהצלחה!
-
+                        <div class="ttBtns">
+                            <button type="button" data-prev class="lFloat btn3">Previous</button>
+                            <button type="button" data-done class="rFloat btn3">Dismiss</button>
+                        </div>
                     </div>
                 </div>
             </div>

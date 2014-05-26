@@ -179,12 +179,6 @@
   <data name="SignUpNow" xml:space="preserve">
     <value>اشترك الآن مع:</value>
   </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>التسجيل عبر الفيس بوك</value>
-  </data>
-  <data name="EmailSignUp" xml:space="preserve">
-    <value>تسجيل الدخول بالبريد الإلكتروني </value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Cloudents هي المنصة الاجتماعية المجانية الأكثر تقدما للدراسة عبر الإنترنت والهاتف الجوال. أنضم إلى الثورة الدراسة الاجتماعية من خلال Cloudents الآن.</value>
   </data>

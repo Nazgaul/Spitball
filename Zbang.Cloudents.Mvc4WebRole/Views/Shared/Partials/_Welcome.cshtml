@@ -11,9 +11,10 @@
     <button class="closeDialog" data-closelogin="close"></button>
 </div>
    
-<div class="staticWpr popupWrppr"  id="register" >
+<div class="staticWpr popupWrppr"  id="register">
     <div class="enterTitle">@LogOnResources.CreateAccount</div>
-    <div class="facebook"><span class="fbImg"></span>@LogOnResources.FacebookSignUp</div>
+    <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
+    <button type="button"><span class="emailImg"></span></button>
     <div class="enterForm" id="joinForm">
         @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
     </div>

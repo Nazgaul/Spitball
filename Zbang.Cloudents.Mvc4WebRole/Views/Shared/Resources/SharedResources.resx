@@ -517,4 +517,13 @@ To help you get started tell us where you study</value>
   <data name="Backto" xml:space="preserve">
     <value>Back to</value>
   </data>
+  <data name="FacebookSignUp" xml:space="preserve">
+    <value>Sign up with Facebook</value>
+  </data>
+  <data name="EmailSignUp" xml:space="preserve">
+    <value>Sign up with email</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>
