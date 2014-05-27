@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 
+using System.IO;
+using Zbang.Zbox.Infrastructure.Security.Resources;
 namespace Zbang.Zbox.Domain
 {
-    public class Item
+    public abstract class Item
     {
         public const int NameLength = 120;
         protected Item()
         {
             IsDeleted = false;
         }
-        public Item(string itemName, User uploader, long iSized, Box box, string itemContentUrl, string thumbnailBlobName)
+        protected Item(string itemName, User uploader, long iSized, Box box, string itemContentUrl, string thumbnailBlobName)
             : this()
         {
             DateTimeUser = new UserTimeDetails(uploader.Email);
@@ -72,6 +72,8 @@ namespace Zbang.Zbox.Domain
             }
             Rate -= (prevRate - Rate) / --count;
         }
+
+        public  abstract string ChangeName(string newName);
     }
 
     public class Link : Item
@@ -83,6 +85,16 @@ namespace Zbang.Zbox.Domain
         public Link(string itemName, User iUploaderUser, long iSized, Box box, string linkTitle, string thumbnailBlobName)
             : base(linkTitle, iUploaderUser, iSized, box, itemName, thumbnailBlobName)
         { }
+
+
+
+
+
+        public override string ChangeName(string newName)
+        {
+           Name =  newName;
+           return Name;
+        }
     }
 
     public class File : Item
@@ -107,5 +119,25 @@ namespace Zbang.Zbox.Domain
         }
 
 
+
+        public override string ChangeName(string newName)
+        {
+            var fileNameExtension = Path.GetExtension(newName);
+            var fileNameWithoutExtension = newName.RemoveEndOfString(NameLength);
+            if (fileNameWithoutExtension == Path.GetFileNameWithoutExtension(Name))
+            {
+                return Name;
+            }
+
+            //if (!Validation.IsValidFileName(command.NewFileName))
+            //{
+            //    throw new ArgumentException("file name is not a valid file name", "NewFileName");
+            //}
+
+            var newUniquefileName = Box.GetUniqueFileName(fileNameWithoutExtension + fileNameExtension);// command.NewFileName);
+
+            Name = newUniquefileName;
+            return Name;
+        }
     }
 }
