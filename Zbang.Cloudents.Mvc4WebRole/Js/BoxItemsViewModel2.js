@@ -353,6 +353,9 @@
         //#region draggable
         self.edrag = function (element) {
             if (element.nodeType === 1) {
+                if (element.classList.contains('quizItem')) {
+                    return;
+                }
                 $(element).draggable({
                     cursor: "pointer",
                     //delay: 100,
