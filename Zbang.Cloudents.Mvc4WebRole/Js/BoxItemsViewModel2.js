@@ -176,9 +176,7 @@
             var mapped = [];
             for (var i = 0, l = data.length; i < l; i++) {
                 if (data[i].type.toLowerCase() === 'quiz') {
-                    if (tab) {
-                        continue;
-                    } else if(self.manageTab()) {                        
+                    if (tab ||self.manageTab()) {                        
                         continue;
                     }
 
