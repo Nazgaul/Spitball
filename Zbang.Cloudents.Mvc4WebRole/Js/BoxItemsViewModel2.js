@@ -491,8 +491,16 @@
                 if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
                     return;
                 }
+                if (item.type.toLowerCase() === 'file') {
+                    html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
+                }
 
-                html = cd.attachTemplateToData('box' + item.type +'TooltipTemplate', item);
+                else if (item.type.toLowerCase() === 'quiz') {
+                    if (!item.publish) {
+                        return;
+                    }
+                    html = cd.attachTemplateToData('boxQuizTooltipTemplate', item);
+                }
                 if (!this.querySelector('.boxItemTt')) {
                     this.insertAdjacentHTML('afterbegin', html);
                 }

@@ -530,15 +530,15 @@ To help you get started tell us where you study</value>
     <value>Dismiss</value>
   </data>
   <data name="FreePlatform" xml:space="preserve">
-    <value />
+    <value>Cloudents is the most advanced free online and mobile social studying platform</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>
   </data>
   <data name="RegisterFirst" xml:space="preserve">
-    <value />
+    <value>This site is free, registered users get access to all the features.</value>
   </data>
   <data name="RegisterFree" xml:space="preserve">
-    <value />
+    <value>Sign up for free!</value>
   </data>
 </root>
