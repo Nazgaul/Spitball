@@ -484,7 +484,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Cloudents is the most advanced free online and mobile social studying platform.
         /// </summary>
         public static string FreePlatform {
             get {
@@ -889,7 +889,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This site is free, registered users get access to all the features..
         /// </summary>
         public static string RegisterFirst {
             get {
@@ -898,7 +898,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Sign up for free!.
         /// </summary>
         public static string RegisterFree {
             get {
