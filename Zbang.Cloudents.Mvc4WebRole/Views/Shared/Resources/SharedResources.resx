@@ -526,4 +526,19 @@ To help you get started tell us where you study</value>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>Dismiss</value>
+  </data>
+  <data name="FreePlatform" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="RegisterFirst" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegisterFree" xml:space="preserve">
+    <value />
+  </data>
 </root>

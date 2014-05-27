@@ -526,4 +526,13 @@
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
+  <data name="FreePlatform" xml:space="preserve">
+    <value>это самая передовая и бесплатная учебная платформа в сети.</value>
+  </data>
+  <data name="RegisterFirst" xml:space="preserve">
+    <value>Для того, чтобы продолжать наслаждаться Cloudents</value>
+  </data>
+  <data name="RegisterFree" xml:space="preserve">
+    <value>Зарегистрируйтесь бесплатно!</value>
+  </data>
 </root>

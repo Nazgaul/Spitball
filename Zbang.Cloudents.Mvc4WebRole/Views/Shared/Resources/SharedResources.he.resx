@@ -526,4 +526,13 @@
   <data name="Close" xml:space="preserve">
     <value>סגור</value>
   </data>
+  <data name="FreePlatform" xml:space="preserve">
+    <value>הפלטפורמה החינמית המתקדמת ביותר ללימוד קבוצתי ברשת</value>
+  </data>
+  <data name="RegisterFirst" xml:space="preserve">
+    <value>על מנת להמשיך וליהנות מקלאודנטס </value>
+  </data>
+  <data name="RegisterFree" xml:space="preserve">
+    <value>הירשמו בחינם!</value>
+  </data>
 </root>
