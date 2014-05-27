@@ -79,6 +79,7 @@
             var video = $(this)[0];
             video.currentTime = 0;
             video.pause();
+            //video.attr('autoplay');
         });
     });
     //#endregion

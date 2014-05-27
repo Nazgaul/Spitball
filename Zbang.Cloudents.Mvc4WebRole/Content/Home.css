@@ -105,7 +105,7 @@ body {
 .email {
   color: #676767;
   background: #fff;
-  border: 1px solid #c2c2c2;
+  border: 1px solid #fff;
   padding: 7px 15px 8px 53px;
   /*rtl*/
   cursor: pointer;
