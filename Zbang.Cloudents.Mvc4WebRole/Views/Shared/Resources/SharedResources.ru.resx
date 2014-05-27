@@ -521,7 +521,7 @@
     <value>Присоединится через Facebook</value>
   </data>
   <data name="EmailSignUp" xml:space="preserve">
-    <value>Присоединится через электронную почту</value>
+    <value>Присоединится через эл. почту</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>

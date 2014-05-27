@@ -166,7 +166,7 @@
     <value>Пуск</value>
   </data>
   <data name="PreviewQuiz" xml:space="preserve">
-    <value>Предпросмотр теста</value>
+    <value>Просмотр</value>
   </data>
   <data name="Publish" xml:space="preserve">
     <value>Опубликовать</value>
