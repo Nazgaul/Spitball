@@ -176,10 +176,15 @@
             var mapped = [];
             for (var i = 0, l = data.length; i < l; i++) {
                 if (data[i].type.toLowerCase() === 'quiz') {
-                    if (!tab) {
-                        mapped.push(new Quiz(data[i]));
+                    if (tab) {
+                        continue;
+                    } else if(self.manageTab()) {                        
+                        continue;
                     }
+
+                    mapped.push(new Quiz(data[i]));
                     continue;
+
                 }
                 mapped.push(new Item(data[i]));
 
