@@ -60,13 +60,10 @@
         }
       
 
-        function parentElem(data) {
-            data = data || {};
+        function parentElem(data) {            
             var that = this;
-            that.id = data.id;
-            that.name = data.name;
-
-            that.url = that.id ? '/library/' + that.id + '/' + encodeURIComponent(that.name) : '/dashboard';
+            that.name = 'Dashboard';
+            that.url = '/dashboard';
         }
 
         cd.pubsub.subscribe('box', function (data) {
@@ -107,7 +104,7 @@
                 self.userType(result.userType);
                 self.privacySetting(result.privacySetting);
                 self.boxtype(result.sboxType);
-                self.parent(new parentElem(result.parent));
+                self.parent(new parentElem(result));
                 var mapped = $.map(result.subscribers, function (d) { return new member(d); });
                 
                 //self.members(mapped.slice(0, 4));
