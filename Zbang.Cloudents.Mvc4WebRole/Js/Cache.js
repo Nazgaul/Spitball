@@ -57,7 +57,6 @@
     }
 
     function getFromCache(key, params) {
-        params = params || {};
         key = buildKey(key, params);
         var stringElement = cd.sessionStorageWrapper.getItem(key);// cache[key];
         if (!stringElement) {
