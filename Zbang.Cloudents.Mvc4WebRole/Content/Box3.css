@@ -1152,6 +1152,16 @@
   /*rtl*/
   bottom: 4px;
 }
+.boxItem.quizItem .moreFilesThumb {
+  width: 36px;
+  height: 31px;
+  background: url(/Images/box17-sprite.png) -4px -146px no-repeat;
+  border-radius: 0;
+  border: none;
+}
+.boxItem.quizItem .detailsWpr {
+  width: 191px;
+}
 .boxItem.draft .tag {
   width: 21px;
   height: 16px;
