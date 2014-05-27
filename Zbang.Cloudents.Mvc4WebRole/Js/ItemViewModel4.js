@@ -211,7 +211,7 @@
             that.uploader = data.owner;
             that.userid = data.ownerId;
             that.type = data.type;
-            that.itemUrl = data.url + consts.ref;
+            that.itemUrl = data.url;
             that.extension = cd.getExtension(that.name(), that.type);
             that.extensionColor = cd.getExtensionColor(that.name(), that.type);
 
