@@ -1056,6 +1056,76 @@ ul.ui-autocomplete li a {
 .staticWpr.register ~ .modal2 {
   display: block;
 }
+.staticWpr.registerFirst .facebook {
+  margin-top: 15px;
+}
+.staticWpr.registerFirst .enterTitle {
+  display: none;
+}
+.staticWpr.registerFirst .regFirstTxt,
+.staticWpr.registerFirst .emailBtn {
+  display: block;
+}
+.staticWpr.registerFirst .emailBtnWpr {
+  -webkit-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  -moz-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  -o-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  overflow: hidden;
+  height: 57px;
+  position: relative;
+}
+.staticWpr.registerFirst .registerContent {
+  -moz-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  -o-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.staticWpr.registerFirst.step2 .emailBtnWpr {
+  height: 440px;
+}
+.staticWpr.registerFirst.step2 .emailBtn {
+  display: none;
+}
+.staticWpr.registerFirst.step2 .registerContent {
+  pointer-events: auto;
+}
+.regFirstTxt {
+  display: none;
+  font-size: 22px;
+  text-align: center;
+}
+.regFirstTxt2 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.emailBtn {
+  display: none;
+  color: #676767;
+  background: #FFF;
+  border: 1px solid #c2c2c2;
+  padding: 7px 15px 8px 53px;
+  /*rtl*/
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 5px;
+  text-align: left;
+  /*rtl*/
+  line-height: 25px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  margin-top: 15px;
+  height: 42px;
+}
+.emailBtn:hover {
+  background: #ececec;
+}
 .enterForm {
   margin: 0 auto;
   color: #383838;
