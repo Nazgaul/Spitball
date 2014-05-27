@@ -205,3 +205,24 @@
         </div>
     </div>
 </script>
+
+<script type="text/html" id="boxQuizTooltipTemplate">
+    <div class="boxItemTt">
+        <div class="arrow downArrow"></div>
+        <div class="ttTop">
+            <div class="moreFilesThumb"></div>
+            <div class="detailsWpr">
+                <div class="lFloat ttDetail">@SharedResources.Owner</div>
+                <a href="{{ownerUrl}}" data-navigation="user" class="ttLink elps">{{ownerName}}</a>
+
+                <div class="lFloat ttDetail">Created:</div>
+                <div data-time="{{date}}"></div>
+            </div>
+            <div class="lFloat ttDetail" data-numdownload="{{numOfViews}}">Views</div>
+            <div class="rFloat ttDetail" data-numcommment="{{commentsCount}}">@SharedResources.Comments</div>
+        </div>
+        <div class="ttPreview">
+            {{description}}
+        </div>
+    </div>
+</script>

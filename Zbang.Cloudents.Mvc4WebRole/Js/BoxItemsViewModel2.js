@@ -479,19 +479,17 @@
         $('#BoxItemList').hoverIntent({
             over: function (e) {
                 var item = ko.dataFor(this), html;
-                if (item.type.toLowerCase() === 'quiz') {
-                    return;
-                }
+
                 if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
                     return;
                 }
 
-                html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
+                html = cd.attachTemplateToData('box' + item.type +'TooltipTemplate', item);
                 if (!this.querySelector('.boxItemTt')) {
                     this.insertAdjacentHTML('afterbegin', html);
                 }
                 var tooltip = this.querySelector('.boxItemTt');
-                if (item.type.toLowerCase() === 'link' || item.type.toLowerCase() === 'quiz') {
+                if (item.type.toLowerCase() === 'link') {
                     $(tooltip).addClass('ttLink').find('.ttDetail').remove();
                 }
 
