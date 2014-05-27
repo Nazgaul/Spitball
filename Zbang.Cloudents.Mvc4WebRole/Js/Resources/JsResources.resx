@@ -587,4 +587,9 @@ for this file type.</value>
   <data name="Yesterday" xml:space="preserve">
     <value>yesterday</value>
   </data>
+  <data name="FbShareQuiz" xml:space="preserve">
+    <value>I am sharing the Quiz {0} which I created using the Cloudents Quiz creator. Cloudents is a free social studying platform with summaries, study notes, old exams -over 95000 items of study material!&lt;center&gt;&lt;/center&gt;
+
+Sign up for FREE at www.cloudents.com</value>
+  </data>
 </root>

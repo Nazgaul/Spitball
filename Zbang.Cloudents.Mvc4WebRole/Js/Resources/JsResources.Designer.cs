@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -486,6 +489,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string EnterEmail {
             get {
                 return ResourceManager.GetString("EnterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I am sharing the Quiz {0} which I created using the Cloudents Quiz creator. Cloudents is a free social studying platform with summaries, study notes, old exams -over 95000 items of study material!&lt;center&gt;&lt;/center&gt;
+        ///
+        ///Sign up for FREE at www.cloudents.com.
+        /// </summary>
+        public static string FbShareQuiz {
+            get {
+                return ResourceManager.GetString("FbShareQuiz", resourceCulture);
             }
         }
         

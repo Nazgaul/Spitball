@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public ChangeFileNameCommandResult Execute(ChangeFileNameCommand command)
         {
-            var user = m_UserRepository.Get(command.UserId);
+            var user = m_UserRepository.Load(command.UserId);
             var item = m_ItemRepository.Get(command.FileId);
 
             var fileNameExtension = Path.GetExtension(item.Name);
