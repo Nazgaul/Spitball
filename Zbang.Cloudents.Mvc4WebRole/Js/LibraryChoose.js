@@ -225,8 +225,8 @@
                         }
 
                     },
-                    error: function () {
-                        cd.notification('unspecified error');
+                    error: function (msg) {
+                        cd.notification(msg[0].value[0]);
                     },
                     always: function () {
                         userNotSelected = true;
@@ -390,6 +390,11 @@
 
             }).on('click', '#submitRegIdPopup', function (e) {
                 e.preventDefault();
+                if ($('#userIdNumber').val().length !== 9) {
+                    alert('אנא הכנס 9 ספרות');
+                    return;
+                }
+               
                 selectUniversity(e);
             });
 

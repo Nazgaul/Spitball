@@ -22,7 +22,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                return (string)m_Cache.GetFromCache(key, CacheRegion);
+                var localCacheValue = (string)httpContext.Cache[key];
+                if (localCacheValue == null)
+                {
+                    localCacheValue = (string)m_Cache.GetFromCache(key, CacheRegion);
+                }
+                return localCacheValue;
             }
             catch (Exception ex)
             {
@@ -36,7 +41,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
+                httpContext.Cache.Insert(key, virtualPath, null /* dependencies */, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(2));
                 m_Cache.AddToCache(key, virtualPath, TimeSpan.FromDays(2), CacheRegion);
+               
             }
             catch (Exception ex)
             {
