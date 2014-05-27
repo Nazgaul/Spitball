@@ -463,13 +463,6 @@
 
 
             if (!cd.register()) {
-
-                if (quizId === '1568') {
-                    showScore();
-                    quiz.classList.add('checkQuiz');
-                    return;
-                }
-
                 cd.localStorageWrapper.setItem(quizId, JSON.stringify(sendData));
                 cd.unregisterAction(this);
                 return;
