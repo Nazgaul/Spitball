@@ -59,3 +59,63 @@
 
 @*    <div class="modal2"></div>*@
 </div>
+
+@model Zbang.Cloudents.Mvc4WebRole.Models.CreateBox
+
+
+
+<div ng-controller="CreateBoxController">
+    <div class="popupWrppr confirm privateBox">
+        <header class="popupHeader"><span>@DialogResources.AddPrivateBox</span></header>
+        <button class="closeDialog" ng-click="hideModal()"></button>
+
+        <form name="CreateBoxForm" ng-submit="createBox(CreateBoxForm.$valid)" novalidate>
+            @Html.LabelFor(m => m.BoxName)
+            <div class="validation" ng-show="CreateBoxForm.boxName.$invalid && !CreateBoxForm.boxName.$pristine">Name Error</div>
+            <input type="text" name="boxName" class="inputText boxName" ng-model="formData.boxName" required />
+
+            <input type="radio" id="membersOnlyPrivacy" name="privacySettings" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
+            <label for="membersOnlyPrivacy">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
+            <div class="labelExplain explain1">@SharedResources.OnlyPeople</div>
+
+            <input type="radio" id="AnyoneWithUrlPrivacy" name="privacySettings" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
+            <label for="AnyoneWithUrlPrivacy">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+            <div class="labelExplain">@SharedResources.AnyoneWho</div>
+
+            @Html.AntiForgeryToken() @*add ng-model attribute*@
+
+            <input type="submit" class="btn1 next" value="@DialogResources.Create" ng-disabled="CreateBoxForm.$invalid" ng-click="hideModal()"/>
+            <button type="reset" class="btn2 cancel" ng-click="reset()">@DialogResources.Cancel</input>
+
+        </form>             
+</div>
+
+        @*@using (Html.BeginForm("Create", "Dashboard", FormMethod.Post, new { id = "createBoxDialog" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @Html.LabelFor(m => m.BoxName)@Html.ValidationMessageFor(m=>m.BoxName)
+            @Html.TextBoxFor(m => m.BoxName, new { @class = "inputText boxName" })
+
+            <input type="radio"
+                id="sizeSmall"
+                name="privacySettings"
+                value="@BoxPrivacySettings.MembersOnly"
+                 />
+            <label for="sizeSmall">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
+            <div class="labelExplain explain1">@SharedResources.OnlyPeople</div>
+
+            <input type="radio"
+                id="sizeMed" checked="checked"
+                name="privacySettings"
+                value="@BoxPrivacySettings.AnyoneWithUrl" />
+
+            <label for="sizeMed">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+            <div class="labelExplain">@SharedResources.AnyoneWho</div>
+            <input type="submit" class="btn1 next" value="@DialogResources.Create" />
+            <button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
+        }*@
+
+@*    <div class="modal2"></div>*@
+</div>
