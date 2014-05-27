@@ -179,10 +179,10 @@
                     uniName = cd.getParameterFromUrl(1),
                     boxName = cd.getParameterFromUrl(3)
                 cd.shareFb(cd.location(), //url
-                  itemName, //title
-                  uniName ? boxName+ ' - ' + uniName : boxName, //caption
-                  JsResources.FbShareQuiz,
-                  null //picture
+                   itemName, //title
+                  boxName,  //caption
+                  JsResources.FbShareQuiz.format(itemName), //description
+                  '/images/share-quiz.png' //picture
                   );
             });
 
