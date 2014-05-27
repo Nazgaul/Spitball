@@ -1,4 +1,4 @@
-﻿(function ($, cd, dataContext, pubsub, ZboxResources, analytics) {
+﻿(function ($, cd, dataContext, pubsub, JsResources, analytics) {
     "use strict";
 
     if (window.scriptLoaded.isLoaded('qvm')) {
@@ -36,7 +36,7 @@
         var quizId = cd.getParameterFromUrl(4), startTime, stopWatch, firstTime = true;
 
         cd.pubsub.subscribe('quiz', function (data) {
-         
+
             initQuiz();
 
             pubsub.publish('quiz_load');
@@ -47,7 +47,7 @@
             quizUserScore = eById('quizUserScore'), quizUserRight = eById('quizUserRight'),
             quizUserWrong = eById('quizUserWrong'), quizRetake = eById('quizRetake'),
             quizTimerToggle = eById('quizTimerToggle'), quizTimer = eById('quizTimer'),
-            quizCL = eById('quiz_CL'), quizMsg = eById('quiz_msg'),quizFS = eById('quiz_FS'),
+            quizCL = eById('quiz_CL'), quizMsg = eById('quiz_msg'), quizFS = eById('quiz_FS'),
             quizTimerResult = eById('quizTimerResult'), quizShare = eById('quizShare');
         }
 
@@ -64,8 +64,8 @@
             } else {
                 checkAnswerSheet();
             }
-            
-            
+
+
 
 
             quizCL.value = cd.location();
@@ -73,7 +73,7 @@
             registerEvents();
 
             function fillUnregisterSheet(savedData) {
-                
+
                 cd.localStorageWrapper.removeItem(quizId);
 
                 var answerSheet = JSON.parse(savedData),
@@ -155,7 +155,7 @@
 
             });
 
-            $(quizTQuestion).off('click').on('change', 'input', function (e) {                
+            $(quizTQuestion).off('click').on('change', 'input', function (e) {
                 quizCheckAnswers.disabled = false;
 
                 if (stopWatch.isRunning) {
@@ -179,10 +179,11 @@
                     uniName = cd.getParameterFromUrl(1),
                     boxName = cd.getParameterFromUrl(3)
                 cd.shareFb(cd.location(), //url
-                   itemName, //title
-                  boxName,  //caption
-                  JsResources.FbShareQuiz.format(itemName), //description
-                  '/images/share-quiz.png' //picture
+                  itemName, //title
+                  uniName ? boxName + ' - ' + uniName : boxName, //caption
+                  JsResources.IShared + ' ' + itemName + ' ' + JsResources.OnCloudents +
+                  '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                  null //picture
                   );
             });
 
@@ -328,7 +329,7 @@
 
                     $wrapper.removeClass('show');
 
-                    
+
                     $comments.show();
                     $wrapper.addClass('show');
                     //setTimeout(function () {
@@ -339,7 +340,7 @@
                     //        }
                     //    });
                     //}, 500)
-                    
+
                 });
 
                 $(quizTQuestion).off('input').on('input', '.cTextArea', function (e) {
@@ -347,13 +348,13 @@
                 }).off('focus').on('focus', '.cTextArea', function (e) {
                     this.nextElementSibling.style.display = 'block';
                 });
-                               
+
                 $('.askBtn').off('click').click(function () {
                     var that = this,
                         text = that.previousElementSibling.value,
                         question = $(that).parents('li')[0],
                         questionId = question.getAttribute('data-id'),
-                        commentsElement = question.getElementsByClassName('quizComments')[0];                    
+                        commentsElement = question.getElementsByClassName('quizComments')[0];
 
 
                     text = text.trim();
@@ -366,10 +367,10 @@
                     that.disabled = true;
                     dataContext.quizCreateDiscussion({
                         data: { questionId: questionId, text: text },
-                        success: function(data) {                           
+                        success: function (data) {
                             that.previousElementSibling.value = '';
                             $(that.previousElementSibling).height('');
-                            commentsElement.lastElementChild.setAttribute('data-id',data);
+                            commentsElement.lastElementChild.setAttribute('data-id', data);
                         },
                         error: function () {
                             that.disabeld = false;
@@ -404,11 +405,11 @@
                         question = $comment.parents('li')[0];
 
                     dataContext.quizDeleteDiscussion({
-                        data: { id: commentId}
+                        data: { id: commentId }
                     });
 
                     $comment.remove();
-                    setCommentsLength(question, commentsLength-1);
+                    setCommentsLength(question, commentsLength - 1);
 
                 });
 
@@ -416,7 +417,7 @@
             }
 
             function appendComments(question, comments) {
-                setCommentsLength(question, comments.length);                
+                setCommentsLength(question, comments.length);
 
                 var commentsHTML = '';
                 for (var i = 0, l = comments.length; i < l; i++) {
@@ -441,7 +442,7 @@
             $(quizTQuestion).find('.noAnswer').removeClass('noAnswer');
             $(quizTQuestion).find('.wrong').removeClass('wrong');
             $(quizTQuestion).find('.userWrong').removeClass('userWrong');
-             
+
             stopWatch.reset();
             stopWatch = null;
 
@@ -452,21 +453,23 @@
 
             var answerSheet = checkAnswers(),
                 sendData = {
-                    StartTime: stopWatch.startTime,
+                    StartTime: stopWatch.startTime, 
                     EndTime: stopWatch.endTime,
                     QuizId: quizId,
                     Answers: answerSheet
                 };
 
+
+
+
             if (!cd.register()) {
                 cd.localStorageWrapper.setItem(quizId, JSON.stringify(sendData));
                 cd.unregisterAction(this);
                 return;
+
             }
 
-
             showScore();
-
 
             dataContext.quizSaveQuest({
                 data: sendData,
@@ -483,7 +486,7 @@
                 title.textContent = JsResources.AddComment;
                 return;
             }
-            title.textContent = length+ ' ' + (length > 1 ? JsResources.Comments : JsResources.Comment);
+            title.textContent = length + ' ' + (length > 1 ? JsResources.Comments : JsResources.Comment);
         }
 
 
