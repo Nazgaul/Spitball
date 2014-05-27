@@ -433,6 +433,7 @@
             }
 
             $('#quiz').remove();  //fix for quiz navigation
+            cd.pubsub.publish('enterItem');
             return true;
         }
 
@@ -448,6 +449,7 @@
                 cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });
             }
 
+            cd.pubsub.publish('enterItem');
             return true;
 
         };

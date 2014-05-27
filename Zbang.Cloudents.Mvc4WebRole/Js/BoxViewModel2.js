@@ -498,6 +498,9 @@
                 cd.pubsub.publish('dinvite', self.boxid);
             });
 
+            cd.pubsub.subscribe('enterItem', function () {
+                self.followbox();
+            });
             //cd.pubsub.subscribe('boxclear', revertSettings);
             //function revertSettings() {
             //    for (var i = 0; i < contentEditable.length; i++) {
@@ -604,7 +607,7 @@
             self.members([]);
             self.noOfItems = ko.observable(5);
             self.noOfComments = ko.observable(5);
-            self.userType('none'),
+            //self.userType('none');
             self.tabs([]);
             document.getElementById('joinGrpWpr').classList.remove('followed');
             document.getElementById('joinGrpWpr').classList.remove('show');
