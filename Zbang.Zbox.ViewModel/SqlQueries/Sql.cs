@@ -67,7 +67,7 @@
         /// <summary>
         /// Used in user page to bring friends
         /// </summary>
-        public const string FriendList = @"select u.userid as Uid,u.UserName as Name,u.UserImage as Image ,
+        public const string FriendList = @"select top(11) u.userid as Uid,u.UserName as Name,u.UserImage as Image ,
                                 u.UserImageLarge as LargeImage,
                                 u.UserReputation
 								from zbox.Users u where userid =( select universityid2 from zbox.users where userid = @userid)

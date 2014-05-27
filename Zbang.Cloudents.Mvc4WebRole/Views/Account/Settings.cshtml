@@ -14,13 +14,10 @@
     <div class="settingsContent" id="settingsContent">
         @{
             Html.RenderPartial("_AccountProfile", new Profile { Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic, FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName });
-            Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language } });
+            Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language }, NewEmail = new ChangeMail { Code = null, Email = string.Empty }, Password = new Password { CurrentPassword = string.Empty, NewPassword = string.Empty } });
             Html.RenderPartial("_AccountStorage", new Storage { AllocatedSize = Model.AllocatedSize, UsedSpace = Model.UsedSpace });
             Html.RenderPartial("_AccountNotification", new Notification());
         }
     </div>
 </div>
-
-
-
 

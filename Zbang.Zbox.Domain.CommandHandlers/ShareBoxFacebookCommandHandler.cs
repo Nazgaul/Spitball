@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -52,14 +48,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (recepient == null)
             {
                 recepient = new User(message.FacebookUserName + "@facebook.com",
-                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.square),
-                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.normal),
+                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Square),
+                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal),
                     message.FirstName,
                     message.MiddleName,
                     message.LastName,
                     message.Sex,
-                    false);
-                recepient.FacebookId = message.FacebookUserId;
+                    false) {FacebookId = message.FacebookUserId};
                 m_UserRepository.Save(recepient, true);
             }
 

@@ -29,6 +29,7 @@ using Qna = Zbang.Zbox.ViewModel.DTOs.Qna;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 using Zbang.Zbox.Infrastructure.Storage;
+using System.Diagnostics;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -54,14 +55,7 @@ namespace Zbang.Zbox.ReadServices
                 var retVal = new DashboardDto();
                 using (var grid = await conn.QueryMultipleAsync(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList, new { query.UserId }))
                 {
-                    retVal.Boxes = grid.Read<BoxDto>().Select(s =>
-                    {
-                        if (!string.IsNullOrEmpty(s.BoxPicture))
-                        {
-                            s.BoxPicture = m_BlobProvider.GetThumbnailUrl(s.BoxPicture);
-                        }
-                        return s;
-                    }).ToList();
+                    retVal.Boxes = grid.Read<BoxDto>();
                     retVal.Friends = grid.Read<User.UserDto>();
                     retVal.Wall = grid.Read<WallDto>();
                 }
