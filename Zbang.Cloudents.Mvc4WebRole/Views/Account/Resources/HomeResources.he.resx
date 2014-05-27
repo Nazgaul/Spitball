@@ -185,4 +185,7 @@
   <data name="Title" xml:space="preserve">
     <value>קלאודנטס | עוזרת לסטודנטים להצליח בלימודים בעזרת עבודת צוות</value>
   </data>
+  <data name="PlayVideo" xml:space="preserve">
+    <value>צפה בסרטון</value>
+  </data>
 </root>

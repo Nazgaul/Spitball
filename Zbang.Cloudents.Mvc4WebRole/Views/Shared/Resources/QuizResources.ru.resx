@@ -127,7 +127,7 @@
     <value>Проверить ответы</value>
   </data>
   <data name="CheckQuiz" xml:space="preserve">
-    <value>Проверить свой тест</value>
+    <value>Исправить ошибки</value>
   </data>
   <data name="ChooseDraft" xml:space="preserve">
     <value>Вы можете сохранить черновик теста, чтобы продолжить работу над ним позже (просмотр и редактирование черновика будет доступно только вам).</value>

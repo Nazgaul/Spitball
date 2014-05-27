@@ -54,9 +54,10 @@
         cd.analytics.trackEvent('Homepage', 'Show video', 'Clicking on play the video');
         $('#mVideo').fadeIn(300);
         $('#homeVideo').animate({ opacity: 1 }, 600, function () {
-
             var video = $(this)[0];
-            video.currentTime = 0;
+            if (video.readyState) {
+                video.currentTime = 0;
+            }
             video.play();
         });
         calculateTopMargin();
@@ -77,9 +78,11 @@
         $('#mVideo').fadeOut(300);
         $('#homeVideo').animate({ opacity: 0 }, 300, function () {
             var video = $(this)[0];
-            video.currentTime = 0;
+            if (video.readyState) {
+                video.currentTime = 0;
+            }
             video.pause();
-            //video.attr('autoplay');
+            
         });
     });
     //#endregion
