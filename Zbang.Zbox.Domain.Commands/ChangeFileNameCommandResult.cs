@@ -5,12 +5,12 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class ChangeFileNameCommandResult : ICommandResult
     {
-        public ChangeFileNameCommandResult(Item file)
+        public ChangeFileNameCommandResult(string name)
         {
-            File = file;
+            Name = name;
         }
 
-        public Item File { get; set; }
+        public string Name { get; private set; }
 
         //public string[] GetCacheKeys()
         //{
