@@ -220,22 +220,26 @@ body {
   left: auto;
 }
 /*#region tooltip */
+.quizGuideTemplate .tooltip {
+  right: 566px;
+  /*diff rtl*/
+  left: auto;
+}
+.quizGuideTemplate .tooltip + .tooltip {
+  right: 263px;
+  /*rtl*/
+  left: auto;
+}
+.tooltip li {
+  margin: 0 15px 0 0;
+  /*rtl*/
+}
 .tooltip.icon .stepTip {
   padding: 0 90px 0 0;
   /*rtl*/
 }
 .tooltip.icon .stepTip:before {
   right: 15px;
-  /*rtl*/
-  left: auto;
-}
-.tooltip:before {
-  right: 135px;
-  /*rtl*/
-  left: auto;
-}
-.tooltip:after {
-  right: 136px;
   /*rtl*/
   left: auto;
 }

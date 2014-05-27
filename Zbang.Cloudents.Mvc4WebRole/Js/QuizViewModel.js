@@ -181,8 +181,7 @@
                 cd.shareFb(cd.location(), //url
                   itemName, //title
                   uniName ? boxName+ ' - ' + uniName : boxName, //caption
-                  JsResources.IShared + ' ' + itemName + ' ' +  JsResources.OnCloudents +
-                  '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                  JsResources.FbShareQuiz,
                   null //picture
                   );
             });

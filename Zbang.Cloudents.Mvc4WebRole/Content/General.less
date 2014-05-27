@@ -1587,10 +1587,10 @@ select.inputText {
 .quizGuideTemplate {
     .tooltip {
         top: 119px;
-        left: 622px;
+        left: 622px; /*rtl*/
         + .tooltip {
             top: 460px;
-            left: 263px;
+            left: 263px; /*rtl*/
         }
     }
 }
@@ -1598,11 +1598,7 @@ select.inputText {
 .tooltip {
     display: none;
     z-index: 5;
-    position: absolute; //temp
-    top: 100px; //temp
-    left: 400px; //temp
-
-    //position: relative;
+    position: absolute;
     background: #fff;
     border: 1px solid @borderColor;
     min-height: 58px;
@@ -1611,6 +1607,14 @@ select.inputText {
     border-radius: 3px;
     box-shadow: 0 2px 9px rgba(0, 0, 0, .3);
     padding-bottom: 70px;
+    ul {
+        list-style-type: disc;
+        margin: 5px 0;
+    }
+    li {
+        margin-left: 15px; /*rtl*/
+        padding: 3px 0;
+    }
     &:last-child {
         [data-done] {
             display: block;
@@ -1662,7 +1666,6 @@ select.inputText {
         content:"";
         position: absolute;
         top: -@arrowHeight;
-        //left: @arrowLeft; /*rtl*/
         left:0;right:0;
         margin: auto;
         border-width: 0 @arrowHeight @arrowHeight;
@@ -1675,7 +1678,6 @@ select.inputText {
         content:"";
         position: absolute;
         top: -@arrowHeight + 2;
-        //left: @arrowLeft + 1; /*rtl*/
         left:0;right:0;
         margin: auto;
         border-width: 0 (@arrowHeight - 1) (@arrowHeight - 1);
