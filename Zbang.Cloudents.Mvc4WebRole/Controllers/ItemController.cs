@@ -19,7 +19,6 @@ using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
@@ -34,7 +33,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class ItemController : BaseController
     {
         private readonly IBlobProvider m_BlobProvider;
-        private readonly IThumbnailProvider m_ThumbnailProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IIdGenerator> m_IdGenerator;
@@ -46,7 +44,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IShortCodesCache> shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService,
             IBlobProvider blobProvider,
-            IThumbnailProvider thumbnailProvider,
             IFileProcessorFactory fileProcessorFactory,
             IQueueProvider queueProvider,
             Lazy<IIdGenerator> idGenerator
@@ -55,7 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             formsAuthenticationService)
         {
             m_BlobProvider = blobProvider;
-            m_ThumbnailProvider = thumbnailProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
             m_IdGenerator = idGenerator;
@@ -67,6 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// </summary>
         /// <param name="boxUid"></param>
         /// <param name="itemUid"></param>
+        /// <param name="itemName"></param>
         /// <returns></returns>
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
@@ -74,7 +71,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Index(string boxUid, string itemUid, string itemName)
         {
             var itemId = m_ShortToLongCode.Value.ShortCodeToLong(itemUid, ShortCodesType.Item);
-            var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid, ShortCodesType.Box);
+            var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
             var query = new GetItemQuery(GetUserId(false), itemId, boxId);
             var item = m_ZboxReadService.GetItem(query);
 
@@ -88,7 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("Item/{BoxUid:length(11)}/{itemid:long:min(0)}")]
         public ActionResult Index(string boxUid, long itemid)
         {
-            var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid, ShortCodesType.Box);
+            var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
             var query = new GetItemQuery(GetUserId(false), itemid, boxId);
             var item = m_ZboxReadService.GetItem(query);
 
@@ -192,7 +189,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Ajax Request - user press next prev icon on item page
         /// </summary>
         /// <param name="boxUid"></param>
-        /// <param name="itemUid"></param>
+        /// <param name="itemId"></param>
+        /// <param name="uniName"></param>
         /// <returns></returns>
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
@@ -234,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Download Item
         /// </summary>
         /// <param name="boxUid"></param>
-        /// <param name="itemUid"></param>
+        /// <param name="itemId"></param>
         /// <returns>if link redirect to link if file download</returns>
         [ZboxAuthorize]
         [Route("D/{BoxUid:long:min(0)}/{itemid:long:min(0)}", Name = "ItemDownload")]
@@ -265,7 +263,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Used to rename file name - item name cannot be changed
         /// </summary>
         /// <param name="newFileName"></param>
-        /// <param name="itemUid"></param>
+        /// <param name="itemId"></param>
         /// <returns></returns>
         [ZboxAuthorize]
         [HttpPost]
@@ -285,11 +283,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new ChangeFileNameCommand(itemId, newFileName, userId);
                 var result = m_ZboxWriteService.ChangeFileName(command);
-                var urlBuilder = new UrlBuilder(HttpContext);
                 return Json(new JsonResponse(true, new
                 {
-                    name = Path.GetFileNameWithoutExtension(result.File.Name),
-                    queryString = UrlBuilder.NameToQueryString(result.File.Name)
+                    name = Path.GetFileNameWithoutExtension(result.Name),
+                    queryString = UrlBuilder.NameToQueryString(result.Name)
                 }));
             }
 
@@ -314,12 +311,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Print selected file
         /// </summary>
         /// <param name="boxId"></param>
-        /// <param name="itemUid"></param>
+        /// <param name="itemId"></param>
+        /// <param name="otakim"></param>
         /// <returns>View with no layout and print command in javascript</returns>
         [ZboxAuthorize]
         public async Task<ActionResult> Print(long boxId, long itemId, bool otakim = false)
         {
-            var userId = GetUserId(false);
 
             var query = new GetItemQuery(GetUserId(false), itemId, boxId);
 
@@ -338,7 +335,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (otakim)
                 {
                     var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);
-                    var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name, Zbang.Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
+                    var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name, 
+                        Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
                     return Redirect(url);
                 }
                 IEnumerable<string> retVal = null;
@@ -406,7 +404,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var query = new GetItemRateQuery(GetUserId(), itemId);
-            var retVal = await m_ZboxReadService.GetRate(query) ?? new Zbang.Zbox.ViewModel.DTOs.ItemRateDto();
+            var retVal = await m_ZboxReadService.GetRate(query) ?? new Zbox.ViewModel.DTOs.ItemRateDto();
 
             return Json(new JsonResponse(true, retVal), JsonRequestBehavior.AllowGet);
 
@@ -453,11 +451,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
                     }
-                    else
-                    {
-                        return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
-                    }
-
+                    return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
                 }
             }
             return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);

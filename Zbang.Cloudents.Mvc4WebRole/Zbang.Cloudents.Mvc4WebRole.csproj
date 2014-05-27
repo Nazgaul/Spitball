@@ -845,6 +845,7 @@
     <Content Include="Images\radioBtn.png" />
     <Content Include="Images\request-sent.png" />
     <Content Include="Images\search2.png" />
+    <Content Include="Images\share-quiz.png" />
     <Content Include="Images\sprite_browsericons.png" />
     <Content Include="Images\student-bg.jpg" />
     <Content Include="Images\students.png" />
