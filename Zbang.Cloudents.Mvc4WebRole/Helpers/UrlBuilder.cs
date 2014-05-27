@@ -21,69 +21,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         public static string NameToQueryString(string name)
         {
             return UrlConsts.NameToQueryString(name);
-            //// - < > " ' % ; ) ( & + - 
-
-            ////<,>,*,%,&,:,\\
-            //if (string.IsNullOrEmpty(name))
-            //{
-            //    return name;
-            //}
-            //char previousChar = '\0';
-            //var sb = new StringBuilder();
-            //foreach (var character in name)
-            //{
-            //    switch (character)
-            //    {
-            //        case '<':
-            //        case '>':
-            //        case '*':
-            //        case '%':
-            //        case '&':
-            //        case ':':
-            //        case '\\':
-            //        case '/':
-            //        case ';':
-            //        case '?':
-            //        case '@':
-            //        case '=':
-            //        case '+':
-            //        case '$':
-            //        case ',':
-            //        case '{':
-            //        case '}':
-            //        case '|':
-            //        case '^':
-            //        case '[':
-            //        case ']':
-            //        case '`':
-            //        case '"':
-            //        case '\'':
-            //            continue;
-            //        case ' ':
-            //        case '_':
-            //        case '-':
-            //            if (previousChar != '-')
-            //            {
-            //                sb.Append('-');
-            //            }
-            //            previousChar = '-';
-
-            //            break;
-            //        default:
-            //            previousChar = character;
-            //            sb.Append(character);
-            //            break;
-            //    }
-            //}
-            //return sb.ToString().ToLower();
-
         }
 
         public string BuildBoxUrl(BoxType boxtype, long boxid, string boxName, string uniName)
         {
             if (boxtype == BoxType.Academic)
             {
-
                 return m_UrlHelper.RouteUrl("CourseBox", new
                 {
                     universityName = NameToQueryString(uniName),

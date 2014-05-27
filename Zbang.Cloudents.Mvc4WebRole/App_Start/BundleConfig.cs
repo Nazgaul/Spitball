@@ -1,10 +1,10 @@
-﻿using Microsoft.WindowsAzure.ServiceRuntime;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
+using Microsoft.WindowsAzure.ServiceRuntime;
 
-namespace Zbang.Cloudents.Mvc4WebRole.App_Start
+namespace Zbang.Cloudents.Mvc4WebRole
 {
     public static class BundleConfig
     {
@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
         public static string CssLink(string key)
         {
-            var retVal = string.Empty;
+            string retVal;
             CssBundels.TryGetValue(key, out retVal);
 
             return retVal;
@@ -319,10 +319,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             CopyFilesToCdn("/Content", "*.jpg");
             CopyFilesToCdn("/Content", "*.gif");
             CopyFilesToCdn("/Images", "*.*");
-            CopyFilesToCdn("/Content/Fonts", "*.eot");
-            CopyFilesToCdn("/Content/Fonts", "*.svg");
-            CopyFilesToCdn("/Content/Fonts", "*.ttf");
-            CopyFilesToCdn("/Content/Fonts", "*.woff");
+            //CopyFilesToCdn("/Content/Fonts", "*.eot");
+            //CopyFilesToCdn("/Content/Fonts", "*.svg");
+            //CopyFilesToCdn("/Content/Fonts", "*.ttf");
+            //CopyFilesToCdn("/Content/Fonts", "*.woff");
 
         }
 
@@ -438,7 +438,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
                 }
                 catch (Exception ex)
                 {
-                    Zbang.Zbox.Infrastructure.Trace.TraceLog.WriteError(string.Format("On Copy Files to cdn filePath: {0} cdnFilePath: {1}", filePath, cdnFilePath), ex);
+                    Zbox.Infrastructure.Trace.TraceLog.WriteError(string.Format("On Copy Files to cdn filePath: {0} cdnFilePath: {1}", filePath, cdnFilePath), ex);
                 }
             }
         }
@@ -449,6 +449,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             {
                 LocalFile = localFile;
             }
+// ReSharper disable once UnusedMember.Local
             public JsFileWithCdn(string localFile, string cdnFile)
             {
                 LocalFile = localFile;

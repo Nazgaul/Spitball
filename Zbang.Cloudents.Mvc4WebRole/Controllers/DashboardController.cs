@@ -11,6 +11,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs;
@@ -25,12 +26,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class DashboardController : BaseController
     {
 
+        private readonly Lazy<IBlobProvider> m_BlobProivder;
+
         public DashboardController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService)
+            IFormsAuthenticationService formsAuthenticationService,
+            Lazy<IBlobProvider> blobProvider
+            )
             : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
-        { }
+                formsAuthenticationService)
+        {
+            m_BlobProivder = blobProvider;
+        }
 
         [UserNavNWelcome]
         [AjaxCache(TimeConsts.Day)]
@@ -44,45 +51,49 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var userDetail = m_FormsAuthenticationService.GetUserData();
 
-            if (userDetail.UniversityId != null)
+            if (userDetail.UniversityId == null)
             {
-                var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+                return RedirectToAction("Choose", "Library");
+            }
+            var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
-                var query = new GetDashboardQuery(userid, universityWrapper);
-                var taskData = m_ZboxReadService.GetMyData(query);
+            var query = new GetDashboardQuery(userid, universityWrapper);
+            var taskData = m_ZboxReadService.GetMyData(query);
 
-                var queryboxes = new GetBoxesQuery(userid);
-                var taskBoxes = m_ZboxReadService.GetDashboard(queryboxes);
+            var queryboxes = new GetBoxesQuery(userid);
+            var taskBoxes = m_ZboxReadService.GetDashboard(queryboxes);
 
-                await Task.WhenAll(taskData, taskBoxes);
-                var data = taskBoxes.Result;
-                data = AssignUrl(data);
-                var serializer = new JsonNetSerializer();
-                ViewBag.Boxes = serializer.Serialize(data);
+            await Task.WhenAll(taskData, taskBoxes);
+            var data = taskBoxes.Result;
+            data = AssignUrl(data);
+            var serializer = new JsonNetSerializer();
+            ViewBag.Boxes = serializer.Serialize(data);
 
-                if (Request.IsAjaxRequest())
-                {
-                    return View("Index", taskData.Result);
-                }
+            if (Request.IsAjaxRequest())
+            {
                 return View("Index", taskData.Result);
             }
-            return RedirectToAction("Choose", "Library");
-
+            return View("Index", taskData.Result);
         }
 
         private Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
         {
             var builder = new UrlBuilder(HttpContext);
             data.Boxes = data.Boxes.Select(s =>
-             {
-                 s.Url = builder.BuildBoxUrl(s.BoxType, s.Id, s.Name, s.UniName);
-                 return s;
-             });
-            foreach (var item in data.Wall)
+            {
+                s.Url = builder.BuildBoxUrl(s.BoxType, s.Id, s.Name, s.UniName);
+                if (!string.IsNullOrEmpty(s.BoxPicture))
+                {
+                    s.BoxPicture = m_BlobProivder.Value.GetThumbnailUrl(s.BoxPicture);
+                }
+                return s;
+            });
+            data.Wall = data.Wall.Select(item =>
             {
                 item.Url = builder.BuildBoxUrl(item.BoxId, item.BoxName, item.UniName);
                 item.UserUrl = builder.BuildUserUrl(item.UserId, item.UserName);
-            }
+                return item;
+            });
             data.Friends = data.Friends.Select(s =>
              {
                  s.Url = builder.BuildUserUrl(s.Uid, s.Name);

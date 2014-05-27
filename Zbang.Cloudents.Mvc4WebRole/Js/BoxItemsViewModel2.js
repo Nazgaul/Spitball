@@ -68,10 +68,7 @@
             that.sponsored = data.sponsored || false;
             that.linkUrl = data.linkUrl || '';
 
-            if (data.sponsored) {
-                document.getElementById('BoxItemList').classList.add('sponsored');
-            }
-            
+          
             if (data.description) {
                 that.description = data.description;
                 that.noPreview = '';
@@ -144,7 +141,7 @@
                     if (cd.register()) {
                         cd.pubsub.publish('getUpdates');
                         cd.newUpdates.deleteAll(boxid);
-                    }
+                    }                    
                 },
                 always: function () {
                     self.loaded(true);
@@ -173,21 +170,30 @@
         });
 
         function generateModel(data) {
-            var mapped = [];
+            var mapped = [], sponsored = false;
             for (var i = 0, l = data.length; i < l; i++) {
                 if (data[i].type.toLowerCase() === 'quiz') {
                     if (tab ||self.manageTab()) {                        
                         continue;
                     }
 
-                    mapped.push(new Quiz(data[i]));
+                    mapped.push(new Quiz(data[i]));                    
                     continue;
 
+                }
+                if (data[i].sponsored) {
+                    sponsored = true;
                 }
                 mapped.push(new Item(data[i]));
 
             }
             mapped.sort(sort);
+            if (sponsored) {
+                document.getElementById('BoxItemList').classList.add('sponsored');                
+            } else {
+                document.getElementById('BoxItemList').classList.remove('sponsored');
+            }
+
             var tt = new TrackTiming('Box Items', 'Render time of items');
             tt.startTime();
             self.items(mapped);

@@ -4,18 +4,14 @@
 
 @{ViewContext.FormContext = new FormContext();}
 <div class="settingsTab accountSettings" id="AccountSetting">
-    @*@using (Ajax.BeginForm("ChangeSettings", null, new AjaxOptions(), new { @class = "accountSettings", id = "tab1" }))
-        { *@
 
 
     @Html.LabelFor(m => m.Email)
     <div class="changeEmail">
-        @*<input type="text" class="inputText" value="@Model.Email" disabled />*@
         <div class="propValue">@Model.Email</div>
         <button type="button" class="btnTxt" id="ChangeEmail">@AccountSettingsResources.ChangeEmail</button>
         <div class="newEmail">
             @Html.TextBoxFor(m => m.NewEmail.Email, new { @class = "inputText", placeholder = AccountSettingsResources.EnterEmail, id = "newEmail" })
-            @*<input type="text" class="inputText" placeholder="@AccountSettingsResources.EnterEmail" />*@
             <button type="button" class="btnTxt" id="AddBtn">@SharedResources.Change</button>
             <span id="emailerr" class="validation-summary-errors"></span>
             <div class="checkMailMsg">
@@ -56,6 +52,5 @@
     </div>
 
     <input id="ChangeLanguage" type="button" class="btn1" value="@AccountSettingsResources.Save" />
-    @*<button class="btn2">@AccountSettingsResources.Cancel</button>*@
 
 </div>

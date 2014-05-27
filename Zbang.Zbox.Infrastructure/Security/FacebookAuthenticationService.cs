@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class FacebookAuthenticationService : IFacebookService
     {
-        const string facebookPicture = "https://graph.facebook.com/{0}/picture?width={1}&height={1}";
+        const string FacebookPicture = "https://graph.facebook.com/{0}/picture?width={1}&height={1}";
 
 
         public async Task<FacebookUserData> FacebookLogIn(string token)
@@ -29,13 +29,17 @@ namespace Zbang.Zbox.Infrastructure.Security
 
                     user = dataContractJsonSerializer.ReadObject(sr) as FacebookUserData;
 
+                    if (user == null)
+                    {
+                        throw new ArgumentNullException("user");
+                    }
                     //user can be without email if its not verified in facebook
                     if (string.IsNullOrEmpty(user.email))
                     {
                         throw new ArgumentNullException("email");
                     }
-                    user.Image = GetFacebookUserImage(user.id, FacebookPictureType.square);
-                    user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.normal);
+                    user.Image = GetFacebookUserImage(user.id, FacebookPictureType.Square);
+                    user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.Normal);
 
                 }
             }
@@ -47,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public string GetFacebookUserImage(long facebookId, FacebookPictureType type)
         {
-            return string.Format(facebookPicture, facebookId, (int)type);
+            return string.Format(FacebookPicture, facebookId, (int)type);
         }
 
         public async Task<IEnumerable<FacebookFriendData>> GetFacebookUserFriends(string authToken)
@@ -60,13 +64,16 @@ namespace Zbang.Zbox.Infrastructure.Security
                 var list = new List<FacebookFriendData>();
                 foreach (dynamic friend in o.data)
                 {
-                    list.Add(new FacebookFriendData { 
-                        Id = Convert.ToInt64(friend.id) ,
+                    list.Add(new FacebookFriendData
+                    {
+                        Id = Convert.ToInt64(friend.id),
                         Image = friend.picture.data.url,
                         Name = friend.name
                     });
                 }
-
+                var sb = new StringBuilder();
+                list.ForEach(s => sb.AppendLine(s.ToString()));
+                TraceLog.WriteInfo(sb.ToString());
                 return list;
             }
         }
@@ -74,7 +81,7 @@ namespace Zbang.Zbox.Infrastructure.Security
     }
     public enum FacebookPictureType
     {
-        square = 50,
-        normal = 100
+        Square = 50,
+        Normal = 100
     }
 }
