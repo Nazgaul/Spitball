@@ -176,10 +176,13 @@
             var mapped = [];
             for (var i = 0, l = data.length; i < l; i++) {
                 if (data[i].type.toLowerCase() === 'quiz') {
-                    if (!tab) {
-                        mapped.push(new Quiz(data[i]));
+                    if (tab ||self.manageTab()) {                        
+                        continue;
                     }
+
+                    mapped.push(new Quiz(data[i]));
                     continue;
+
                 }
                 mapped.push(new Item(data[i]));
 
@@ -353,6 +356,9 @@
         //#region draggable
         self.edrag = function (element) {
             if (element.nodeType === 1) {
+                if (element.classList.contains('quizItem')) {
+                    return;
+                }
                 $(element).draggable({
                     cursor: "pointer",
                     //delay: 100,
