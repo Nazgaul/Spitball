@@ -778,6 +778,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\404.png" />
+    <Content Include="Images\bg4.jpg" />
     <Content Include="Images\box17-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
     <Content Include="Images\callout-sprite.png" />
@@ -847,7 +848,6 @@
     <Content Include="Images\search2.png" />
     <Content Include="Images\share-quiz.png" />
     <Content Include="Images\sprite_browsericons.png" />
-    <Content Include="Images\student-bg.jpg" />
     <Content Include="Images\students.png" />
     <Content Include="Images\table-bg1.png" />
     <Content Include="Images\trash.png" />
