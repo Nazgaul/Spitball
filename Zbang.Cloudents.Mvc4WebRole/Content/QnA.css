@@ -514,7 +514,8 @@ textarea:invalid {
   overflow: hidden;
   padding: 7px 10px 7px 0;
   /*rtl*/
-  line-height: 15px;
+  line-height: 19px;
+  /* diff rtl*/
 }
 .AMore {
   color: #4f92c8;
