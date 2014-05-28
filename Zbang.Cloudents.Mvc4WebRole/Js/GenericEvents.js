@@ -330,7 +330,7 @@
     //#region scroll
     $document.on("scroll", function () {
         //#region tooltips 
-        cd.pubsub.publish('clearTooltip');
+        cd.pubsub.publish('clearTooltip', { scroll: true });
 
         //#endregion
 
