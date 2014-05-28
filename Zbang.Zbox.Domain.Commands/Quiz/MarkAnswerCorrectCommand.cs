@@ -7,16 +7,15 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands.Quiz
 {
-    public class UpdateAnswerCommand : ICommand
+    public class MarkAnswerCorrectCommand : ICommand
     {
-        public UpdateAnswerCommand(long userId, string text,  Guid id)
+        public MarkAnswerCorrectCommand(Guid id, long userId)
         {
-            UserId = userId;
-            Text = text;
             Id = id;
+            UserId = userId;
         }
-        public long UserId { get; private set; }
-        public string Text { get; private set; }
         public Guid Id { get; private set; }
+
+        public long UserId { get; private set; }
     }
 }

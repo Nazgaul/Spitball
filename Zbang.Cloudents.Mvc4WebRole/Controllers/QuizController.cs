@@ -272,7 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
             var id = m_IdGenerator.Value.GetId();
-            var command = new CreateAnswerCommand(GetUserId(), id, model.Text, model.CorrectAnswer, model.QuestionId);
+            var command = new CreateAnswerCommand(GetUserId(), id, model.Text, model.QuestionId);
             m_ZboxWriteService.CreateAnswer(command);
             return this.CdJson(new JsonResponse(true, id));
         }
@@ -285,7 +285,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
 
-            var command = new UpdateAnswerCommand(GetUserId(), model.Text, model.CorrectAnswer, model.Id);
+            var command = new UpdateAnswerCommand(GetUserId(), model.Text, model.Id);
             m_ZboxWriteService.UpdateAnswer(command);
             return this.CdJson(new JsonResponse(true));
         }
@@ -296,7 +296,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            //TODO: complete this....
+            var command = new MarkAnswerCorrectCommand(model.AnswerId,GetUserId());
+            m_ZboxWriteService.MarkAnswerAsCorrect(command);
             return this.CdJson(new JsonResponse(true));
         }
 

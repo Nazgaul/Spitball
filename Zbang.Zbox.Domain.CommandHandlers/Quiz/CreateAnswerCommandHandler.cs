@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 throw new UnauthorizedAccessException("user is not quiz owner");
             }
-            var answer = new Answer(message.Id, message.Text, question, message.IsCorrect);
+            var answer = new Answer(message.Id, message.Text, question);
             m_QuestionRepository.Save(question);
             m_AnswerRepository.Save(answer);
         }

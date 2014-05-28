@@ -125,9 +125,13 @@ namespace DuplicateQuiz
                     {
                         var createAnswerCommand = new CreateAnswerCommand(
                             userId, idGenerator.GetId(), answer.Text,
-                            answer.Id == question.CorrectAnswer, questionId
+                            questionId
                             );
                         zboxWriteService.CreateAnswer(createAnswerCommand);
+                        if (answer.Id == question.CorrectAnswer) {
+                            var command = new MarkAnswerCorrectCommand(answer.Id, userId);
+                            zboxWriteService.MarkAnswerAsCorrect(command);
+                        }
                     }
                 }
 

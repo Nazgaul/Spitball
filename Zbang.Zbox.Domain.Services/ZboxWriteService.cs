@@ -573,6 +573,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+        public void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
         public void SaveQuiz(SaveQuizCommand command)
         {
             using (UnitOfWork.Start())
