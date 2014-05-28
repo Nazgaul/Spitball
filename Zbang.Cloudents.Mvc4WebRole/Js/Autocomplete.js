@@ -326,9 +326,9 @@
             for (var i = 0, l = contacts.length; i < l ; i++) {
                 contact = contacts[i];
                 while (value && (index = contact.name.toLowerCase().indexOf(value.toLowerCase(), currentIndex)) > -1) {
-                    contact.highlightName = contact.name.insert(index, '<span class="boldPart">');
+                    contact.highlightName = contact.name.insert(index, '<mark class="boldPart">');
                     currentIndex = index + 23 + value.length;
-                    contact.highlightName = contact.highlightName.insert(currentIndex, '</span>');
+                    contact.highlightName = contact.highlightName.insert(currentIndex, '</mark>');
 
                     foundList.push(contact);
                     currentIndex = currentIndex + 7;
