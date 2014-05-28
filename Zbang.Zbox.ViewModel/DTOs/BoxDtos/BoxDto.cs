@@ -51,6 +51,6 @@ namespace Zbang.Zbox.ViewModel.DTOs.BoxDtos
         public UserRelationshipType UserType { get; set; }
         public BoxType BoxType { get; set; }
 
-        public NodeDto Parent;
+        //public NodeDto Parent;
     }
 }

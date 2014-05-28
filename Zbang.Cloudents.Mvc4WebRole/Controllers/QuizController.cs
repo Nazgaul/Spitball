@@ -14,6 +14,8 @@ using Zbang.Zbox.ViewModel.Queries;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -41,7 +43,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
 
-            var model = await GetQuiz(boxId, quizId, quizName);
+            var model = await GetQuiz(boxId, quizId, quizName, true);
+
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
@@ -51,14 +54,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.boxName = boxName;
             ViewBag.boxUrl = url;
 
+
+            if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))
+            {
+                var culture = Languages.GetCultureBaseOnCountry(model.Quiz.Seo.Country);
+                BaseControllerResources.Culture = culture;
+                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | Cloudents", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName);
+            }
+            ViewBag.metaDescription = model.Quiz.Questions.First().Text;
+
             return View(model.Quiz);
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [ActionName("Index")]
-        public async Task<ActionResult> Index2(long boxId, long quizId, string quizName, string universityName, string boxName)
+        public async Task<ActionResult> IndexAjax(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
-            var model = await GetQuiz(boxId, quizId, quizName);
+            var model = await GetQuiz(boxId, quizId, quizName, false);
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
@@ -83,9 +95,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [NonAction]
-        private async Task<Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName)
+        private async Task<Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName, bool isNonAjax)
         {
-            var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
+            var query = new GetQuizQuery(quizId, GetUserId(false), boxId, isNonAjax);
             var model = await m_ZboxReadService.GetQuiz(query);
             if (model.Quiz.BoxId != boxId)
             {
@@ -277,6 +289,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ZboxWriteService.UpdateAnswer(command);
             return this.CdJson(new JsonResponse(true));
         }
+        [HttpPost, Ajax, ZboxAuthorize]
+        public ActionResult MarkCorrect(MarkAnswer model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
+            }
+            //TODO: complete this....
+            return this.CdJson(new JsonResponse(true));
+        }
+
         [HttpPost, Ajax]
         [ZboxAuthorize]
         public ActionResult DeleteAnswer(Guid id)

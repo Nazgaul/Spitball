@@ -1,4 +1,4 @@
-﻿var quizCreate = angular.module('QuizCreate', ['apiService', 'ngModal', 'ngScrollbar','main.directives']);
+﻿var quizCreate = angular.module('QuizCreate', ['apiService', 'ngModal', 'main.directives']);
 
 quizCreate.controller('QuizCreateController', ['$scope', 'Quiz', function ($scope, Quiz) {
     function Question(data) {
@@ -64,10 +64,45 @@ quizCreate.controller('QuizCreateController', ['$scope', 'Quiz', function ($scop
         $scope.$broadcast('rebuild:quiz');
     };
 
+    $scope.saveQuiz = function () {
+        if (!$scope.quiz.id) {
+            Quiz.create({
+                data: { boxId: $scope.quiz.courseId, name: $scope.quiz.name },
+                success: function (id) {
+                    $scope.quiz.id = id;
+                }
+            });
+            return;
+        }        
+        
+        Quiz.update({
+            data: { id: $scope.quiz.id, name: $scope.quiz.name }            
+        });
+
+    };
+
+    $scope.publishQuiz = function () {
+
+    };
+
     $scope.addAnswer = function (question) {
         var answer = new Answer();
         question.answers.push(answer);
     };
+    $scope.saveAnswer = function (question,answer) {
+        if (!answser.id) {
+            //save
+            console.log('save');
+
+
+            return;
+        }
+
+        console.log('update');
+
+        //update
+    };
+
 
     $scope.addQuestion = function () {
         var question = new Question();
@@ -76,6 +111,18 @@ quizCreate.controller('QuizCreateController', ['$scope', 'Quiz', function ($scop
             $scope.addAnswer(question);
         }
     };
+    $scope.saveQuestion = function(question) {
+        if (!question.id) {
+            console.log('save');
+            //save
+
+
+            return;
+        }
+
+        console.log('update');
+        //update
+    }
 
     $scope.removeQuestion = function (index) {       
         if (index > -1) {
@@ -96,6 +143,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'Quiz', function ($scop
         if ($scope.isEmptyAnswer(answer)) {
             return;
         }
+
+        console.log('marked ' + answer.id);
         question.correctAnswerId = answer.id;
     };
 

@@ -351,6 +351,7 @@
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Discussion.cs" />
+    <Compile Include="Models\Quiz\MarkAnswer.cs" />
     <Compile Include="Models\Quiz\Question.cs" />
     <Compile Include="Models\Quiz\Quiz.cs" />
     <Compile Include="Models\Quiz\SaveQuiz.cs" />
@@ -1406,13 +1407,13 @@
     <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Quiz\Index.cshtml" />
-    <Content Include="Views\Quiz\CreateQuiz.cshtml" />
+    <Content Include="Views\Quiz\CreateQuiz1.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog2.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
-    <Content Include="Views\Quiz\CreateQuiz2.cshtml" />
+    <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1491,6 +1492,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.zh.resx" />
+    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
