@@ -270,14 +270,14 @@ where m.RecepientId = @userid
                 tabsQuery.SetInt64("BoxId", query.BoxId);
                 tabsQuery.SetResultTransformer(Transformers.AliasToBean<TabDto>());
 
-                IQuery boxLibQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxLibNode");
-                boxLibQuery.SetInt64("BoxId", query.BoxId);
-                boxLibQuery.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
+                //IQuery boxLibQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxLibNode");
+                //boxLibQuery.SetInt64("BoxId", query.BoxId);
+                //boxLibQuery.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
 
                 var fbox = boxQuery.FutureValue<Box.BoxDto>();
                 var fmembers = membersQuery.Future<User.UserDto>();
                 var fTab = tabsQuery.Future<TabDto>();
-                var fParent = boxLibQuery.FutureValue<NodeDto>();
+                //var fParent = boxLibQuery.FutureValue<NodeDto>();
 
                 var userType = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
                 Box.BoxDto box = fbox.Value;
@@ -287,7 +287,7 @@ where m.RecepientId = @userid
                 box.Subscribers = fmembers.ToList();
                 box.Tabs = fTab.ToList();
                 box.UserType = userType;
-                box.Parent = fParent.Value;
+               // box.Parent = fParent.Value;
                 return box;
             }
         }

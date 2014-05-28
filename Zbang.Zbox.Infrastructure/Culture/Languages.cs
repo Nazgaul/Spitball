@@ -41,6 +41,10 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 case "il":
                     return new CultureInfo("he-IL");
+                case "ru" :
+                    return new CultureInfo("ru-RU");
+                case "gb" :
+                    return new CultureInfo("en-GB");
                 default:
                     return new CultureInfo("en-US");
             }

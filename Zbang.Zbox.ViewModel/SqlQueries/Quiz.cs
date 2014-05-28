@@ -11,6 +11,10 @@ q.Publish
  from zbox.Quiz q 
 where id = @QuizId;";
 
+        public const string QuizSeoQuery = @"
+
+";
+
         public const string Question = @"select q.Id, q.Text,q.RightAnswerId as correctAnswer from zbox.QuizQuestion q where QuizId = @QuizId;";
 
         public const string Answer = @"select a.id, a.text,a.QuestionId from zbox.QuizAnswer a where QuizId = @QuizId;";

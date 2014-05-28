@@ -14,6 +14,7 @@ using Zbang.Zbox.ViewModel.Queries;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Culture;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -51,12 +52,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.boxName = boxName;
             ViewBag.boxUrl = url;
 
+
+            //if (!string.IsNullOrEmpty(item.Country))
+            //{
+            //    var culture = Languages.GetCultureBaseOnCountry(item.Country);
+            //    BaseControllerResources.Culture = culture;
+            //    ViewBag.title = string.Format("{0} {1} | {2} | Cloudents", BaseControllerResources.TitlePrefix, item.BoxName, item.Name);
+            //}
+            ViewBag.metaDescription = model.Quiz.Questions.First().Text;
+
             return View(model.Quiz);
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [ActionName("Index")]
-        public async Task<ActionResult> Index2(long boxId, long quizId, string quizName, string universityName, string boxName)
+        public async Task<ActionResult> IndexAjax(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
             var model = await GetQuiz(boxId, quizId, quizName);
             var serializer = new JsonNetSerializer();
@@ -277,6 +287,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ZboxWriteService.UpdateAnswer(command);
             return this.CdJson(new JsonResponse(true));
         }
+        [HttpPost,Ajax,ZboxAuthorize]
+        public ActionResult MarkCorrect(MarkAnswer model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
+            }
+            //TODO: complete this....
+            return this.CdJson(new JsonResponse(true));
+        }
+
         [HttpPost, Ajax]
         [ZboxAuthorize]
         public ActionResult DeleteAnswer(Guid id)

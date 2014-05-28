@@ -1102,8 +1102,8 @@
 
     var highlightSearch = function (term, name, className) {
         var className = className || 'boldPart',
-            firstPart = '<span class="' + className + '" data-ignore-rtl="true">',
-            lastPart = '</span>',
+            firstPart = '<mark class="' + className + '" data-ignore-rtl="true">',
+            lastPart = '</mark>',
             boldStringLength = firstPart.length + lastPart.length;
 
         if (!name) {
