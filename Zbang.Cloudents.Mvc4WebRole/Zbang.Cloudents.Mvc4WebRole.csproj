@@ -351,6 +351,7 @@
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Discussion.cs" />
+    <Compile Include="Models\Quiz\MarkAnswer.cs" />
     <Compile Include="Models\Quiz\Question.cs" />
     <Compile Include="Models\Quiz\Quiz.cs" />
     <Compile Include="Models\Quiz\SaveQuiz.cs" />

@@ -16,10 +16,12 @@ using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.Library;
+using System.IO;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
-    public class UniversitySearchProvider : IUniversityWriteSearchProvider, IUniversityReadSearchProvider
+    public class UniversitySearchProvider : IUniversityWriteSearchProvider, IUniversityReadSearchProvider , IDisposable
     {
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
         private readonly AzureDirectory m_AzureUniversiesDirectory;
@@ -43,6 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
             m_DbReadService = dbReadService;
             m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+
         }
         public void BuildUniversityData()
         {
@@ -85,15 +88,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                         indexWriter.AddDocument(doc);
                     }
+                    indexWriter.Commit();
+                    indexWriter.Optimize();
                     using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
                     {
                         speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), NameField));
+                        speller.Close();
                         //m_AzureUniversiesSpellerDirectory.speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra1"));
                         //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra2"));
                         //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra3"));
 
                     }
-                    indexWriter.Optimize();
+
+
+                    indexWriter.Close();
                     //IndexWriter indexWriter = new IndexWriter(azureDirectory, new StandardAnalyzer(), true);
 
                 }
@@ -176,21 +184,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private IEnumerable<University> ConvertToObject(string data)
         {
             var universities = new List<University>();
-            var universitiesData = data.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var universitiesData = data.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var universitydata in universitiesData)
             {
-                var splitData = universitydata.Split(new[] { '\t' });
+                var splitData = universitydata.Split(new[] { ',' });
 
                 long id;
                 long.TryParse(splitData[0], out id);
                 var university = new University
                 {
                     Id = long.Parse(splitData[0]),
-                    Name = splitData[1].Trim(),
-                    Extra1 = splitData[2] != null ? splitData[2].Trim() : null,
-                    Extra2 = splitData[3] != null ? splitData[3].Trim() : null,
-                    Extra3 = splitData[4] != null ? splitData[4].Trim() : null
+                    // Name = splitData[1].Trim(),
+                    Extra1 = splitData[1] != null ? splitData[1].Trim() : null,
+                    Extra2 = splitData[2] != null ? splitData[2].Trim() : null,
+                    Extra3 = splitData[3] != null ? splitData[3].Trim() : null
                 };
                 //university.Extra = String.Join(" ", splitData.Skip(2)).Trim();
 
@@ -214,6 +222,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 }
                 return string.Empty;
             }
+        }
+
+        public void Dispose()
+        {
+            if (m_IndexService != null)
+            {
+                m_IndexService.Dispose();
+            }
+            m_AzureUniversiesDirectory.Dispose();
+            m_AzureUniversiesSpellerDirectory.Dispose();
         }
     }
 
