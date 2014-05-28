@@ -10,7 +10,7 @@
         </header>
         <div ng-scrollbar rebuild-on-resize rebuild-on="rebuild:quiz" class="quizwpr">
             <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
-            <input type="text" ng-model="quiz.name" class="inputText quizName" placeholder="@QuizResources.ChooseName" autofocus />
+            <input type="text" ng-model="quiz.name" class="inputText quizName" placeholder="@QuizResources.ChooseName" autofocus ng-blur="saveQuiz()" />
             <ul class="quizQuestionList">
                 <li class="questionHolder" ng-repeat=" question in quiz.questions" ng-include="'quizQuestionTemplate'"></li>
             </ul>
@@ -44,7 +44,7 @@
 <script type="text/ng-template" id="quizQuestionTemplate">
     <form>
         <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)"></button>
-        <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{$index + 1}}" ng-blur="saveQuestion(question)" ng-model="question.text" xng-focus="{{$last}}"></textarea>
+        <textarea class="inputText questionText" placeholder="@SharedResources.Question #{{$index + 1}}" ng-blur="saveQuestion(question)" ng-model="question.text" ></textarea>
         <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
         <div class="lFloat answers">@SharedResources.Answers:</div>
         <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
@@ -63,10 +63,12 @@
 </script>
 
 <script type="text/ng-template" id="quizAnswerTemplate">
-    <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(answer)" ng-model="answer.text"></textarea>
-    <input id="quizRadio{{$parent.$index}}{{$index}}" type="radio" class="correctAnswer"
-           ng-disabled="isEmptyAnswer(answer)" ng-checked="answer.text.length && isCorrect(question,answer)"  name="quizRadio" />
-    <label for="quizRadio{{$parent.$index}}{{$index}}" ng-click="markCorrect(question,answer)"></label>
+    <textarea class="inputText questionAnswer" placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-model="answer.text"></textarea>
+    <input id="quizRadio{{$parent.$parent.$index}}{{$index}}" type="radio" class="correctAnswer"
+           ng-disabled="isEmptyAnswer(answer)" ng-checked="answer.text.length && isCorrect(question,answer)" name="quizRadio" />
+    <label for="quizRadio{{$parent.$parent.$index}}{{$index}}" ng-click="markCorrect(question,answer)"></label>
+
+    
 
 </script>
 
