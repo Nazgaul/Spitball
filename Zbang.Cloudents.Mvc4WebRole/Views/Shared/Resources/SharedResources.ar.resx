@@ -536,4 +536,54 @@
   <data name="Close" xml:space="preserve">
     <value>اغلاق</value>
   </data>
+  <data name="CloudentsQuizzes" xml:space="preserve">
+    <value>ألغاز Cloudents - قم بإنشاء ومشاركة ومشاركة الألغاز وكن مستعداً لامتحاناتك!</value>
+  </data>
+  <data name="CreateShare" xml:space="preserve">
+    <value>قم بعمل ومشاركة ألغاز Cloudents للتحضير لامتحان واختبار معلومات أصدقائك</value>
+  </data>
+  <data name="DiscussQuiz" xml:space="preserve">
+    <value> ناقش الأسئلة والأجوبة مع أصدقائك</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ExamQuestion" xml:space="preserve">
+    <value> إضافة سؤال محتمل في الامتحان</value>
+  </data>
+  <data name="FreePlatform" xml:space="preserve">
+    <value>Cloudents هي المنصة الاجتماعية المجانية الأكثر تقدما للدراسة عبر الإنترنت والهاتف الجوال </value>
+  </data>
+  <data name="MultipleAnswers" xml:space="preserve">
+    <value> إضافة إجابات متعددة ووضع علامة على الإجابة الصحيحة</value>
+  </data>
+  <data name="PrepareExam" xml:space="preserve">
+    <value>استعد للامتحانات من خلال حل ألغاز Cloudents </value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="PublishQuiz" xml:space="preserve">
+    <value> انشر اللغز وشاركه مع أصدقائك</value>
+  </data>
+  <data name="RegisterFirst" xml:space="preserve">
+    <value>هذا الموقع مجاني، لدى كل المستخدمين المسجلين حق الحصول على كافة الميزات.</value>
+  </data>
+  <data name="RegisterFree" xml:space="preserve">
+    <value>اشترك مجانا!</value>
+  </data>
+  <data name="SeeScore" xml:space="preserve">
+    <value> اعرف درجاتك والوقت الذي استغرقته للانتهاء من الامتحانات
+</value>
+  </data>
+  <data name="ShareQuiz" xml:space="preserve">
+    <value> شارك اللغز مع أصدقائك
+</value>
+  </data>
+  <data name="TryIt" xml:space="preserve">
+    <value>لماذا لا تُجرِّب؟ حظاً موفقاً!</value>
+  </data>
+  <data name="UseMaterial" xml:space="preserve">
+    <value> استخدم المواد أو الوثائق التعليمية الخاصة بك الموجودة بالفعل على Cloudents</value>
+  </data>
 </root>

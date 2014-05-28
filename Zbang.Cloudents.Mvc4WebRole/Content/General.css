@@ -125,10 +125,17 @@ input[type="radio"] {
   padding: 0;
   /* 2 */
 }
-input[type="checkbox"][disabled] + label:before,
-input[type="radio"][disabled] + label:before {
+input[type="checkbox"] input[type="radio"][disabled] + label:before,
+input[type="radio"] input[type="radio"][disabled] + label:before {
   opacity: .5!important;
 }
+/*li:not(.correct), li:not(.wrong) {
+    input[type="radio"] {
+        &[disabled] + label:before {
+            opacity: .5!important;
+        }
+    }
+}*/
 /**
  * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
  * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
@@ -1578,7 +1585,7 @@ select.inputText {
 }
 .tooltip {
   display: none;
-  z-index: 5;
+  z-index: 2;
   position: absolute;
   background: #fff;
   border: 1px solid #c2c2c2;

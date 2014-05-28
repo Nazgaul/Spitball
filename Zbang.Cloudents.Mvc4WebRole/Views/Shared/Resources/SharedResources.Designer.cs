@@ -214,6 +214,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Cloudents Quizzes - Create, share, practice and be prepared for your exams!
+        ///.
+        /// </summary>
+        public static string CloudentsQuizzes {
+            get {
+                return ResourceManager.GetString("CloudentsQuizzes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Comment {
@@ -304,6 +315,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create and share Cloudents Quizzes to prepare for exams and test your friends&apos; knowledge..
+        /// </summary>
+        public static string CreateShare {
+            get {
+                return ResourceManager.GetString("CreateShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dashboard.
         /// </summary>
         public static string Dashboard {
@@ -345,6 +365,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Departments {
             get {
                 return ResourceManager.GetString("Departments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discuss the questions and answers with your friends.
+        /// </summary>
+        public static string DiscussQuiz {
+            get {
+                return ResourceManager.GetString("DiscussQuiz", resourceCulture);
             }
         }
         
@@ -408,6 +437,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string EmailSignUp {
             get {
                 return ResourceManager.GetString("EmailSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a potential exam question.
+        /// </summary>
+        public static string ExamQuestion {
+            get {
+                return ResourceManager.GetString("ExamQuestion", resourceCulture);
             }
         }
         
@@ -709,6 +747,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add multiple answers and mark the correct one.
+        /// </summary>
+        public static string MultipleAnswers {
+            get {
+                return ResourceManager.GetString("MultipleAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Space.
         /// </summary>
         public static string MySpace {
@@ -853,6 +900,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prepare for an exam by taking a Cloudents Quiz..
+        /// </summary>
+        public static string PrepareExam {
+            get {
+                return ResourceManager.GetString("PrepareExam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
         public static string Previous {
@@ -867,6 +923,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Pts {
             get {
                 return ResourceManager.GetString("Pts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish the Quiz and share it with friends.
+        /// </summary>
+        public static string PublishQuiz {
+            get {
+                return ResourceManager.GetString("PublishQuiz", resourceCulture);
             }
         }
         
@@ -1033,6 +1098,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See how you score and how long it took to complete.
+        /// </summary>
+        public static string SeeScore {
+            get {
+                return ResourceManager.GetString("SeeScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a school.
         /// </summary>
         public static string SelectSchool {
@@ -1083,6 +1157,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string ShareItem {
             get {
                 return ResourceManager.GetString("ShareItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share the Quiz with your friends.
+        /// </summary>
+        public static string ShareQuiz {
+            get {
+                return ResourceManager.GetString("ShareQuiz", resourceCulture);
             }
         }
         
@@ -1232,6 +1315,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Why not give it a go? Good luck!.
+        /// </summary>
+        public static string TryIt {
+            get {
+                return ResourceManager.GetString("TryIt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tweet this.
         /// </summary>
         public static string TweetThis {
@@ -1264,6 +1356,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Uploaded {
             get {
                 return ResourceManager.GetString("Uploaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use your own material or documents already on Cloudents.
+        /// </summary>
+        public static string UseMaterial {
+            get {
+                return ResourceManager.GetString("UseMaterial", resourceCulture);
             }
         }
         
