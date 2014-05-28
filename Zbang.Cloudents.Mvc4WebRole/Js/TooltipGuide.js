@@ -27,17 +27,18 @@
 
 
     function setTooltipStep() {
-        var $tooltipStep = $guideContainer.find('[data-step="' + stepIndex + '"]');
+        var $tooltipStep = $guideContainer.find('[data-step="' + stepIndex + '"]'),
+            $relativeElement = $($tooltipStep[0].getAttribute('data-tt-position'));
 
         setPosition();
         checkNextTooltip();
         toggleStep();
+        scrollToView();
 
 
         function setPosition() {
-
-            var $relativeElement = $($tooltipStep[0].getAttribute('data-tt-position')),
-                arrowPosition = $tooltipStep[0].getAttribute('data-arrow-position');
+            
+            var arrowPosition = $tooltipStep[0].getAttribute('data-arrow-position');
 
 
             if (!$relativeElement.length) {
@@ -89,6 +90,18 @@
             $guideContainer.find('.tooltip').hide();
             $tooltipStep.show();
         }
+
+        function scrollToView() {
+            var $window = $(window),
+                top = cd.getElementPosition($relativeElement[0]).top;
+            if (top > $window.height()) {
+                $window.scrollTop(top - $relativeElement.outerHeight(true));
+            } else {
+                $window.scrollTop(top);
+            }
+            
+
+        }
     }
 
     function registerEvents() {
@@ -121,7 +134,10 @@
         });
 
 
-        cd.pubsub.subscribe('clearTooltip', function () {
+        cd.pubsub.subscribe('clearTooltip', function (type) {
+            if (type.scroll) {
+                return;
+            }
             $guideContainer = $guideContainer || [];
             if (!$guideContainer.length) {
                 return;

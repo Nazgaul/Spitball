@@ -101,6 +101,8 @@ namespace Zbang.Zbox.Domain.Common
         void SaveUserAnswers(SaveUserQuizCommand command);
         void CreateItemInDiscussion(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
+
+        void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command);
         #endregion
 
     }

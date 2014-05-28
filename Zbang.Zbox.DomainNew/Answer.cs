@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Answer(Guid id, string text, Question question, bool isCorrect)
+        public Answer(Guid id, string text, Question question)
         {
             Throw.OnNull(text, "text", false);
 
@@ -29,10 +29,7 @@ namespace Zbang.Zbox.Domain
             }
             Text = text;
             Question = question;
-            if (isCorrect)
-            {
-                UpdateCorrectAnswer();
-            }
+           
             DateTimeUser = new UserTimeDetails(Quiz.Owner.Email);
         }
         public virtual Guid Id { get; private set; }

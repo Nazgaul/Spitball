@@ -9,14 +9,16 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
-    class UpdateAnswerCommandHandler : ICommandHandler<UpdateAnswerCommand>
+    class MarkAnswerCorrectCommandHandler : ICommandHandler<MarkAnswerCorrectCommand>
     {
         private readonly IRepository<Answer> m_AnswerRepository;
-        public UpdateAnswerCommandHandler(IRepository<Answer> answerRepository)
+        private readonly IRepository<Question> m_QuestionRepository;
+        public MarkAnswerCorrectCommandHandler(IRepository<Answer> answerRepository, IRepository<Question> questionRepository)
         {
             m_AnswerRepository = answerRepository;
+            m_QuestionRepository = questionRepository;
         }
-        public void Handle(UpdateAnswerCommand message)
+        public void Handle(MarkAnswerCorrectCommand message)
         {
             var answer = m_AnswerRepository.Load(message.Id);
 
@@ -24,10 +26,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 throw new UnauthorizedAccessException("User is not owner of quiz");
             }
+            answer.UpdateCorrectAnswer();
+            m_QuestionRepository.Save(answer.Question);
 
-            answer.UpdateText(message.Text);
-           
-            m_AnswerRepository.Save(answer);
         }
     }
 }
