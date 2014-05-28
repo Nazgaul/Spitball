@@ -94,19 +94,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #endregion
 
             //test
-            //RegisterJs("angular",
-            //    new JsFileWithCdn("~/Scripts/angular.min.js,https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"),
-            //    new JsFileWithCdn("~/Scripts/angular-route.js,https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
-            //    new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
-            //    new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
-            //    new JsFileWithCdn("~/Js/app/services.js"),
-            //    new JsFileWithCdn("~/Js/app/filters.js"),
-            //    new JsFileWithCdn("~/Js/app/directives.js"),
-            //    new JsFileWithCdn("~/Scripts/ng-modal.js"),
-            //    new JsFileWithCdn("~/Js/app/app.js"),
-            //    new JsFileWithCdn("~/Js/app/controller.js"),
-            //    new JsFileWithCdn("~/Js/app/quizcreatecontroller.js")
-            // );
+            RegisterJs("angular",
+                new JsFileWithCdn("~/Scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"),
+                new JsFileWithCdn("~/Scripts/angular-route.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
+              new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
+            //  new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
+                new JsFileWithCdn("~/Js/app/services.js"),
+                 new JsFileWithCdn("~/Js/app/filters.js"),
+                new JsFileWithCdn("~/Js/app/directives.js"),
+                new JsFileWithCdn("~/Scripts/ng-modal.js"),
+                new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
+                 new JsFileWithCdn("~/Js/app/app.js")
+             //    new JsFileWithCdn("~/Js/app/controller.js"),
+             );
 
 
             RegisterJs("home",

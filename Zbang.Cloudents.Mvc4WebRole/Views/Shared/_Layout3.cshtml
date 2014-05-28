@@ -86,7 +86,7 @@
         </div>
     </header>
 
-    <div class="bodyContent noQuiz" id="main" ng-controller="MainController">
+    <div class="bodyContent noQuiz" id="main" @*ng-controller="MainController"*@>
         @RenderBody()
 
         <div id="fb-root"></div>
@@ -96,7 +96,8 @@
                 <div ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
             </div>
 
-        </div>        
+        </div>
+        @{ViewBag.fBox = true;}
         <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
               data-myf="@ViewBag.fDash.ToString().ToLower()"
               data-boxf="@ViewBag.fBox.ToString().ToLower()"
@@ -254,7 +255,7 @@
     @*<script type="text/javascript" src="@Url.UICultureContent("~/Js/Resources/ZboxResources.js")"></script>*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
     @Html.Script2("General")
-    @*@Html.Script2("angular")*@
+    @Html.Script2("angular")
     @Html.Script2("cd1")
     @RenderSection("scripts", false)
 
