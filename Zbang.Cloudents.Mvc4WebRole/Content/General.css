@@ -1413,7 +1413,7 @@ select.inputText {
 }
 .topBar {
   position: fixed;
-  z-index: 4;
+  z-index: 3;
   height: 80px;
   font-size: 13px;
   color: #383838;
