@@ -257,14 +257,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     Priority = 0.8,
                     Frequency = SitemapFrequency.Daily
-                },
-                //  new SitemapNode(urlBuilder.BuildBoxUrl(12,"test on study","test"),ControllerContext.RequestContext)
-                //{
-                //    Priority = 0.8,
-                //    Frequency = SitemapFrequency.Daily
-                //}
-
-
+                }
             };
 
             //nodes.Add(new SitemapNode(this.ControllerContext.RequestContext, new { area = "", controller = "Home", action = "Index" })
@@ -277,7 +270,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 nodes.Add(new SitemapNode(urlBuilder.BuildBoxUrl(box.Id, box.Name, box.UniversityName), requestContext));
             }
-            foreach (var item in seoItems.Items.Take(40000))
+            var maxElement = 40000;
+            foreach (var item in seoItems.Quizes)
+            {
+                nodes.Add(new SitemapNode(urlBuilder.BuildQuizUrl(item.BoxId, item.BoxName, item.Id, item.Name, item.UniversityName), requestContext));
+                maxElement--;
+            }
+            foreach (var item in seoItems.Items.Take(maxElement))
             {
                 nodes.Add(new SitemapNode(urlBuilder.BuildItemUrl(item.BoxId, item.BoxName, item.Id, item.Name, item.UniversityName), requestContext));
             }
