@@ -535,4 +535,43 @@
   <data name="RegisterFree" xml:space="preserve">
     <value>הירשמו בחינם!</value>
   </data>
+  <data name="CloudentsQuizzes" xml:space="preserve">
+    <value>הקווזים של קלאודנטס - צרו, שתפו, תרגלו והצליחו במבחן!</value>
+  </data>
+  <data name="CreateShare" xml:space="preserve">
+    <value>חדש בקלאודנטס יצירת קוויזים (שאלון אמריקאי) צורו ושתפו מבחנים שאתם בונים כחלק מהכנה לבחינת הקורס.</value>
+  </data>
+  <data name="DiscussQuiz" xml:space="preserve">
+    <value>דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="ExamQuestion" xml:space="preserve">
+    <value>סימון תשובות נכונות</value>
+  </data>
+  <data name="MultipleAnswers" xml:space="preserve">
+    <value>שמירה אוטומטית של התוכן בענן</value>
+  </data>
+  <data name="PrepareExam" xml:space="preserve">
+    <value>קוויז שיעזור לכם להתכונן טוב יותר לבחינה, נסו אותו!</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>קודם</value>
+  </data>
+  <data name="PublishQuiz" xml:space="preserve">
+    <value>שיתוף של הקוויז עם החברים</value>
+  </data>
+  <data name="SeeScore" xml:space="preserve">
+    <value>קבלת ציון וזמן של הבחינה</value>
+  </data>
+  <data name="ShareQuiz" xml:space="preserve">
+    <value>שיתוף של הבחינה עם חברים כדי שתוכלו ללמוד ביחד</value>
+  </data>
+  <data name="TryIt" xml:space="preserve">
+    <value>למה אתה מחכים, שיהיה בהצלחה!</value>
+  </data>
+  <data name="UseMaterial" xml:space="preserve">
+    <value>יצירת הקוויז על גבי מסמכים קיימים בקלאודנטס</value>
+  </data>
 </root>

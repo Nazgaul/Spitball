@@ -541,4 +541,39 @@ To help you get started tell us where you study</value>
   <data name="RegisterFree" xml:space="preserve">
     <value>Sign up for free!</value>
   </data>
+  <data name="CloudentsQuizzes" xml:space="preserve">
+    <value>
+Cloudents Quizzes - Create, share, practice and be prepared for your exams!
+</value>
+  </data>
+  <data name="CreateShare" xml:space="preserve">
+    <value>Create and share Cloudents Quizzes to prepare for exams and test your friends' knowledge.</value>
+  </data>
+  <data name="DiscussQuiz" xml:space="preserve">
+    <value>Discuss the questions and answers with your friends</value>
+  </data>
+  <data name="ExamQuestion" xml:space="preserve">
+    <value>Add a potential exam question</value>
+  </data>
+  <data name="MultipleAnswers" xml:space="preserve">
+    <value>Add multiple answers and mark the correct one</value>
+  </data>
+  <data name="PrepareExam" xml:space="preserve">
+    <value>Prepare for an exam by taking a Cloudents Quiz.</value>
+  </data>
+  <data name="PublishQuiz" xml:space="preserve">
+    <value>Publish the Quiz and share it with friends</value>
+  </data>
+  <data name="SeeScore" xml:space="preserve">
+    <value>See how you score and how long it took to complete</value>
+  </data>
+  <data name="ShareQuiz" xml:space="preserve">
+    <value>Share the Quiz with your friends</value>
+  </data>
+  <data name="TryIt" xml:space="preserve">
+    <value>Why not give it a go? Good luck!</value>
+  </data>
+  <data name="UseMaterial" xml:space="preserve">
+    <value>Use your own material or documents already on Cloudents</value>
+  </data>
 </root>

@@ -535,4 +535,46 @@
   <data name="RegisterFree" xml:space="preserve">
     <value>Зарегистрируйтесь бесплатно!</value>
   </data>
+  <data name="CloudentsQuizzes" xml:space="preserve">
+    <value>
+Тесты Cloudents – создавайте, делитесь, практикуйтесь и готовьтесь к своим экзаменам!
+</value>
+  </data>
+  <data name="CreateShare" xml:space="preserve">
+    <value>Создавайте тесты Cloudents и делитесь ими для подготовки к экзаменам и проверки знаний своих друзей.</value>
+  </data>
+  <data name="DiscussQuiz" xml:space="preserve">
+    <value>Обсудите вопросы и ответы с друзьями</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>Закрить</value>
+  </data>
+  <data name="ExamQuestion" xml:space="preserve">
+    <value>Добавьте возможный вопрос экзамена</value>
+  </data>
+  <data name="MultipleAnswers" xml:space="preserve">
+    <value>Добавьте несколько вопросов и отметьте правильный</value>
+  </data>
+  <data name="PrepareExam" xml:space="preserve">
+    <value>Подготовьтесь к экзамену, пройдя тест Cloudents.</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Предыдущий
+</value>
+  </data>
+  <data name="PublishQuiz" xml:space="preserve">
+    <value>Опубликуйте тест и поделитесь им с друзьями</value>
+  </data>
+  <data name="SeeScore" xml:space="preserve">
+    <value>Посмотрите, каков ваш результат и сколько времени потребовалось на выполнение</value>
+  </data>
+  <data name="ShareQuiz" xml:space="preserve">
+    <value>Поделитесь своим тестом с друзьями</value>
+  </data>
+  <data name="TryIt" xml:space="preserve">
+    <value>Почему бы не попробовать? Удачи!</value>
+  </data>
+  <data name="UseMaterial" xml:space="preserve">
+    <value>Используйте свои материалы или документу, уже имеющиеся на Cloudents</value>
+  </data>
 </root>

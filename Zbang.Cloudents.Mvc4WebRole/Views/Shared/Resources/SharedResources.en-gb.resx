@@ -129,7 +129,4 @@
   <data name="Courses" xml:space="preserve">
     <value>modules</value>
   </data>
-  <data name="InviteCloudents" xml:space="preserve">
-    <value>Invite your friends to Cloudents</value>
-  </data>
 </root>

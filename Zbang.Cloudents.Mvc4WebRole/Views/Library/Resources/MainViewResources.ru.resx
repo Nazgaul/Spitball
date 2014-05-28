@@ -198,4 +198,10 @@
   <data name="WelcomeTo" xml:space="preserve">
     <value>Добро пожаловать в Cloudents!</value>
   </data>
+  <data name="ChooseSchool" xml:space="preserve">
+    <value>Пожалуйста завершите регистрацию с помощью выбора вашего университета</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>студент</value>
+  </data>
 </root>
