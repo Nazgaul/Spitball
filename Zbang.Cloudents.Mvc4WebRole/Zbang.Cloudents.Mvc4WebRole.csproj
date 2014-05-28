@@ -1492,6 +1492,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.zh.resx" />
+    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

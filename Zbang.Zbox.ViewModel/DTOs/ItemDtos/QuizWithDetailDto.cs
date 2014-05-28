@@ -28,10 +28,19 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 
         public bool Publish { get; set; }
 
+        public QuizSeo Seo { get; set; }
+
 
         public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
         
 
+    }
+
+    public class QuizSeo
+    {
+        public string Country { get; set; }
+        public string BoxName { get; set; }
+        public string UniversityName { get; set; }
     }
 
     public class QuestionWithDetailDto
