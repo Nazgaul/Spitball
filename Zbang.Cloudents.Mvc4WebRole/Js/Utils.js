@@ -130,7 +130,11 @@
 
         function setDirection(item) {
             if (item.getAttribute('data-ignore-rtl')) {
-                $(item).css('direction', textAlign);
+                if (cd.checkRTLDirection(item.textContent)) {
+                    $(item).css('direction', 'rtl');
+                } else {
+                    $(item).css('direction', 'ltr');
+                }                                
                 return;
             }
 
