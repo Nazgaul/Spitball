@@ -45,54 +45,155 @@ cloudentsServices.factory('Box', function ($http) {
     };
 });
 
-cloudentsServices.factory('Quiz', function ($http) {
+cloudentsServices.factory('QuizService', function ($http,$q) {
     return {
-        getDraft: function (payload) {
-            submitRequest($http, '/Quiz/GetDraft', methods.GET, payload.data, payload.success, payload.error);
+        create: function (data) {
+            var dfd = $q.defer();
+            $http.post('/Quiz/Create', data).success(function (data, status) {
+                dfd.resolve(data);
+            }).error(function (data, status) {
+                dfd.reject(data);
+            });
+
+            return dfd.promise;
         },
-        create: function (payload) {
-            submitRequest($http, '/Quiz/Create', methods.POST, payload.data, payload.success, payload.error);
+        update: function (data) {
+            var dfd = $q.defer();
+            $http.post('/Quiz/Update', data).success(function (data, status) {
+                dfd.resolve(data);
+            }).error(function (data, status) {
+                dfd.reject(data);
+            });
+
+            return dfd.promise;
         },
-        update: function (payload) {
-            submitRequest($http, '/Quiz/Update', methods.POST, payload.data, payload.success, payload.error);
+        'delete': function (data) {
+            var dfd = $q.defer();
+            $http.post('/Quiz/Delete', data).success(function (data, status) {
+                dfd.resolve(data);
+            }).error(function (data, status) {
+                dfd.reject(data);
+            });
+
+            return dfd.promise;
         },
-        'delete': function (payload) {
-            submitRequest($http, '/Quiz/Delete', methods.POST, payload.data, payload.success, payload.error);
+        save: function (data) {
+            var dfd = $q.defer();
+            $http.post('/Quiz/Save', data).success(function (data, status) {
+                dfd.resolve(data);
+            }).error(function (data, status) {
+                dfd.reject(data);
+            });
+
+            return dfd.promise;
         },
-        save: function (payload) {
-            submitRequest($http, '/Quiz/Save', methods.POST, payload.data, payload.success, payload.error);
-        },
-        question: {
-            create: function (payload) {
-                submitRequest($http, '/Quiz/CreateQuestion', methods.POST, payload.data, payload.success, payload.error);
-            },
-            update: function (payload) {
-                submitRequest($http, '/Quiz/UpdateQuestion', methods.POST, payload.data, payload.success, payload.error);
-            },
-            'delete': function (payload) {
-                submitRequest($http, '/Quiz/SaveQuestion', methods.POST, payload.data, payload.success, payload.error);
-            }
+        getDraft: function (data) {
+            var dfd = $q.defer();
+            $http.get('/Quiz/GetDraft', { params: data }).success(function (data, status) {
+                dfd.resolve(data);
+            }).error(function (data, status) {
+                dfd.reject(data);
+            });
+            return dfd.promise;
 
         },
+        question: {
+            create: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/CreateQuestion', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
+            },
+            update: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/UpdateQuestion', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
+            },
+            'delete': function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/DeleteQuestion', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
+            }
+        },
         answer: {
-            create: function (payload) {
-                submitRequest($http, '/Quiz/CreateAnswer', methods.POST, payload.data, payload.success, payload.error);
+            create: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/CreateAnswer', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
             },
-            update: function (payload) {
-                submitRequest($http, '/Quiz/UpdateAnswer', methods.POST, payload.data, payload.success, payload.error);
+            update: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/UpdateAnswer', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
             },
-            'delete': function (payload) {
-                submitRequest($http, '/Quiz/DeleteAnswer', methods.POST, payload.data, payload.success, payload.error);
+            'delete': function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/DeleteAnswer', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
+            },
+            markCorrect: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/MarkCorrect', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
             }
         },
         discussion: {
-            createDiscussion: function (payload) {
-                submitRequest($http, '/Quiz/DeleteAnswer', methods.POST, payload.data, payload.success, payload.error);
+            createDiscussion: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/CreateDiscussion', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
             },
-            deleteDiscussion: function (payload) {
-                submitRequest($http, '/Quiz/DeleteAnswer', methods.POST, payload.data, payload.success, payload.error);
+            deleteDiscussion: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Quiz/DeleteDiscussion', data).success(function (data, status) {
+                    dfd.resolve(data);
+                }).error(function (data, status) {
+                    dfd.reject(data);
+                });
+                return dfd.promise;
+
             }
         }
+
     };
 });
 
@@ -103,7 +204,3 @@ cloudentsServices.factory('PartialView', function ($http) {
         }
     };
 });
-
-function submitRequest($http, url, method, data, success, error) {
-    $http({ method: method, url: url, params: data }).success(success).error(error);
-}
