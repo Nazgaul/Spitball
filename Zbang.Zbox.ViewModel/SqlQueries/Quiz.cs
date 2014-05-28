@@ -12,8 +12,11 @@ q.Publish
 where id = @QuizId;";
 
         public const string QuizSeoQuery = @"
-
-";
+select u.country as Country,b.boxname as BoxName, u.universityname as UniversityName from 
+		zbox.quiz q
+		join zbox.box b on q.boxid= b.boxid
+		join zbox.users u on b.ownerid = u.userid
+		where id = @QuizId;";
 
         public const string Question = @"select q.Id, q.Text,q.RightAnswerId as correctAnswer from zbox.QuizQuestion q where QuizId = @QuizId;";
 

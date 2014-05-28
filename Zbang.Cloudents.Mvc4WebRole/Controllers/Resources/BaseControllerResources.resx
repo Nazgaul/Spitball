@@ -123,6 +123,12 @@
   <data name="MetaDescriptionBy" xml:space="preserve">
     <value>By</value>
   </data>
+  <data name="QuizTitlePrefix" xml:space="preserve">
+    <value>Test yourself in the Quiz</value>
+  </data>
+  <data name="QuizTitleText" xml:space="preserve">
+    <value>in</value>
+  </data>
   <data name="TitlePrefix" xml:space="preserve">
     <value>Study</value>
   </data>

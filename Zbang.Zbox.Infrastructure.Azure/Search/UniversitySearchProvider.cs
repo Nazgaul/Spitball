@@ -100,10 +100,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                     }
 
-
-                    indexWriter.Close();
-                    //IndexWriter indexWriter = new IndexWriter(azureDirectory, new StandardAnalyzer(), true);
-
                 }
             }
         }
