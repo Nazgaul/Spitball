@@ -18,6 +18,7 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 using System.IO;
 using Zbang.Zbox.Infrastructure.Trace;
+using System.Timers;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -36,15 +37,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         const string ImageField = "image";
         const string MembersCountField = "membersCount";
 
-        private readonly IndexSearcher m_IndexService;
-
-
+        private IndexSearcher m_IndexService;
+        private readonly Timer m_Timer;
+       
         public UniversitySearchProvider(IZboxReadServiceWorkerRole dbReadService)
         {
             m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversityCatalog);
             m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
             m_DbReadService = dbReadService;
             m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+
+            m_Timer = new Timer(TimeSpan.FromMinutes(30).TotalMilliseconds);
+            m_Timer.Elapsed += (s, e) =>
+            {
+                m_IndexService.Dispose();
+                m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+            };
+            m_Timer.Enabled = true;
 
         }
         public void BuildUniversityData()
@@ -111,18 +120,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return null;
             }
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
             //{
-            sw.Stop();
-            Debug.WriteLine(sw.ElapsedMilliseconds);
-            sw.Restart();
             using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
             {
-                sw.Stop();
-                Debug.WriteLine(sw.ElapsedMilliseconds);
-                sw.Restart();
                 //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
                 //{
                 //    string[] suggestions = speller.SuggestSimilar(term, 5);
@@ -155,10 +156,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
 
                 }
-                sw.Stop();
-                Debug.WriteLine(sw.ElapsedMilliseconds);
-
-
                 return retVal;
             }
             // }
@@ -228,6 +225,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
             m_AzureUniversiesDirectory.Dispose();
             m_AzureUniversiesSpellerDirectory.Dispose();
+            m_Timer.Dispose();
         }
     }
 

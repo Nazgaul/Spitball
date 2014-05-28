@@ -29,7 +29,6 @@ using Qna = Zbang.Zbox.ViewModel.DTOs.Qna;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 using Zbang.Zbox.Infrastructure.Storage;
-using System.Diagnostics;
 
 namespace Zbang.Zbox.ReadServices
 {
