@@ -131,10 +131,11 @@
         } else {
             $('aside').find('a[href$="' + url + '"]').parent().addClass('currentItem');
         }
-        $('aside').find('[data-language|="' + $('html').attr('lang') + '"]').parent().addClass('currentItem');
+        $('aside').find('[data-language="' + $('html').attr('lang') + '"]').parent().addClass('currentItem');
     }
 
 
+    $('.language').find('[data-language="' + $('html').attr('lang') + '"]').addClass('currentItem');
 
     cd.sessionStorageWrapper.clear();
     cd.localStorageWrapper.removeItem('history');//remove history

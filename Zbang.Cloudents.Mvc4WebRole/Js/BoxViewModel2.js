@@ -68,8 +68,7 @@
                 return this.isSelected() && cd.register();
             }, this);
         }
-        function ParentElem(data) {
-            data = data || {};
+        function ParentElem() {
             var that = this;
             var backData = cd.prevLinkData('box');
             if (!backData) {
@@ -141,7 +140,7 @@
                 .privacySetting(result.privacySetting)
 
                 .boxtype(result.boxType)
-                .parent(new ParentElem(result.parent))
+                .parent(new ParentElem())
 
                 .members(mapped)
 
