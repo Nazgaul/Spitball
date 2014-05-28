@@ -1197,7 +1197,7 @@
   box-sizing: border-box;
   bottom: 100%;
   display: none;
-  z-index: 11;
+  z-index: 4;
   background: #fff;
   border-radius: 5px;
   margin-bottom: 8px;

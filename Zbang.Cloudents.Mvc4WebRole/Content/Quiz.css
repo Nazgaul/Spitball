@@ -495,6 +495,7 @@
 .qPreview,
 .quizQuestion {
   white-space: pre-line;
+  line-height: 27px;
 }
 .quizAList {
   list-style-type: lower-latin;
@@ -524,6 +525,7 @@
   top: -35px;
   left: 5px;
   /*rtl*/
+  line-height: 20px;
 }
 .quizAList li label:before {
   position: absolute;
@@ -603,7 +605,7 @@
   height: 16px;
   background-color: none;
   background: url(/Images/common17-sprite.png?v=2) -18px -121px no-repeat;
-  opacity: 1;
+  opacity: 1 !important;
   margin: -3px 0 0 -3px;
   /*rtl*/
 }

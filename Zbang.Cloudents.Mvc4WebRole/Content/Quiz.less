@@ -491,6 +491,7 @@
 }
 .qPreview, .quizQuestion {
     white-space: pre-line;
+    line-height: 27px;
 }
 .quizAList
 {
@@ -517,6 +518,7 @@
             position: relative;
             top: -35px;
             left: 5px; /*rtl*/
+            line-height: 20px;
             &:before {
                 position: absolute;
                 left: -19px; /*rtl*/
@@ -604,7 +606,7 @@
             height: 16px;
             background-color: none;
             background: @common-sprite -18px -121px no-repeat;
-            opacity: 1; //override disabled radio half opacity on label
+            opacity: 1 !important; //override disabled radio half opacity on label. TODO: See if there is another way!
             margin: -3px 0 0 -3px; /*rtl*/
         }
     }

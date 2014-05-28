@@ -201,4 +201,10 @@
   <data name="WelcomeTo" xml:space="preserve">
     <value>اهلا وسهلا بك في -Cloudents!</value>
   </data>
+  <data name="ChooseSchool" xml:space="preserve">
+    <value>يرجى إكمال التسجيل عن طريق اختيار المدرسة الحالية</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>طالب</value>
+  </data>
 </root>
