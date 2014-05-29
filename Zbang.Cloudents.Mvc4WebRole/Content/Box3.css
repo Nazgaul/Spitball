@@ -435,9 +435,6 @@
 .boxTop img {
   border: 1px solid #ebebeb;
 }
-.mtouch .boxRename {
-  display: inline-block;
-}
 .boxPrps {
   overflow: hidden;
   padding-left: 15px;

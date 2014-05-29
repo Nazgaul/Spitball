@@ -2228,8 +2228,30 @@ select.inputText {
     }
 }
 
+.mtouch{   
+    // this applies to rename btn in library,box and item pages
+    //NB: display:block broke layout in library page.
+    .boxRename.boxRename, .itemRenameBtn.itemRenameBtn {
+        display: inline-block; 
+    }
+}
+
 // IPAD - SPECIFIC CODE
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .headingTexts.headingTexts {
+        padding-left: 40px; /*rtl*/
+        .boxSizing;
+    }
+    .topImg.topImg {
+        height: 615px;
+    }
+    .logo.logo, .videoWpr.videoWpr {
+        margin-left: 40px; /*rtl*/
+    }
+    .language.language {
+        margin-top: 214px;
+    }
+
     .printDD.printDD .printTxt2 {
         padding: 0;
     }

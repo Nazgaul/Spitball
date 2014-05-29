@@ -36,7 +36,7 @@
 }
 .headingTexts .facebook,
 .headingTexts .email {
-  width: 230px;
+  width: 242px;
   /* diff rtl*/
 }
 .email {
@@ -114,6 +114,7 @@ aside li {
   right: calc(50% - 512px);
   /*rtl*/
   left: auto;
+  top: 100px;
 }
 .videoWpr:before {
   right: 78px;
