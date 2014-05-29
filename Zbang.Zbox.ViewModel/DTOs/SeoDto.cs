@@ -6,5 +6,6 @@ namespace Zbang.Zbox.ViewModel.DTOs
     {
         public IEnumerable<BoxDtos.BoxSeoDto> Boxes { get; set; }
         public IEnumerable<ItemDtos.ItemSeoDto> Items { get; set; }
+        public IEnumerable<ItemDtos.ItemSeoDto> Quizes { get; set; }
     }
 }

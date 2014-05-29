@@ -29,7 +29,6 @@ using Qna = Zbang.Zbox.ViewModel.DTOs.Qna;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 using Zbang.Zbox.Infrastructure.Storage;
-using System.Diagnostics;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -898,10 +897,11 @@ where m.RecepientId = @userid
             SeoDto retVal = new SeoDto();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1}", Sql.Seo.GetBoxes, Sql.Seo.GetItems)))
+                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Seo.GetBoxes, Sql.Seo.GetItems, Sql.Seo.GetQuizes)))
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
                     retVal.Items = grid.Read<Item.ItemSeoDto>();
+                    retVal.Quizes = grid.Read<Item.ItemSeoDto>();
                 }
             }
             return retVal;
