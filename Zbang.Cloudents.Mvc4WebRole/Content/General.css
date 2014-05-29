@@ -2070,10 +2070,12 @@ select.inputText {
   }
 }
 .mtouch .boxRename.boxRename,
-.mtouch .itemRenameBtn.itemRenameBtn {
+.mtouch .itemRenameBtn.itemRenameBtn,
+.mtouch .ratePopup.ratePopup .closeDialog {
   display: inline-block;
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  /*#region home page */
   .headingTexts.headingTexts {
     padding-left: 40px;
     /*rtl*/
@@ -2091,6 +2093,10 @@ select.inputText {
   }
   .language.language {
     margin-top: 214px;
+  }
+  /*#endregion */
+  .inviteSources.inviteSources {
+    margin-top: 0;
   }
   .printDD.printDD .printTxt2 {
     padding: 0;

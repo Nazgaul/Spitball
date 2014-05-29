@@ -34,7 +34,7 @@
   left: 50%;
   /*rtl*/
   top: 91px;
-  z-index: 4;
+  z-index: 3;
   -webkit-transition: top 1s 2s;
   -moz-transition: top 1s 2s;
   -o-transition: top 1s 2s;
