@@ -484,14 +484,41 @@
 
 /*#region box friends */
 
-.boxMembers .friendsList {
-    border-right: 1px solid @borderColor; /*rtl*/
+.boxMembers.friendsList {
+    //border-right: 1px solid @borderColor; /*rtl*/
+    position: fixed;
+    top: 150px;
+    width: 366px;
+    right: 0;
 }
 
 .friendsList {
     .boxSizing;
     padding: 11px 7px 7px 7px;
     font-size: 0; // remove whitespace caused by inline-block
+    li {
+        margin: 0 6px 6px 0; /*rtl*/
+        display: inline-block;
+        vertical-align: top;
+        &.static {
+            &:before {
+                .pseudo;
+                width: 15px;
+                height: 15px;
+                background: orange;
+                vertical-align: middle;
+            }
+        }
+        /*if > 7 items hide all further items*/
+        .friendItem:nth-child(n+8) {
+            display: none;
+        }
+        /*if > 6 items: float show all right.*/
+        &:last-child:nth-child(n+7) {
+            float: right; /*rtl*/
+            display: inline-block;
+        }
+    }
 }
 
 .friendItem {

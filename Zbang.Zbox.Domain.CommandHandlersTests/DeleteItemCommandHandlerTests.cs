@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             //stubBox.GetType().GetProperty("Id").SetValue(stubBox, someBoxId);
 
             var someBox = new Box("some box", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
-            var someFile = new File("some ItemName", someUser, 5, "someblobName", someThumbnail, someBox);
+            var someFile = new File("some ItemName", someUser, 5, "someblobName", someThumbnail, someBox, "some img url");
             someFile.GetType().GetProperty("Id").SetValue(someFile, someItemId);
             var userItems = new List<Item>() { someFile };
 

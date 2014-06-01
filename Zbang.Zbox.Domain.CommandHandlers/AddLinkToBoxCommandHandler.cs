@@ -22,12 +22,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IBlobProvider m_BlobProvider;
 
 
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
             IRepository<Item> itemRepository,
             IItemTabRepository itemTabRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Reputation> reputationRepository,
+            IBlobProvider blobProvider)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
@@ -35,6 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_ItemTabRepository = itemTabRepository;
             m_ReputationRepository = reputationRepository;
+            m_BlobProvider = blobProvider;
         }
 
         public AddLinkToBoxCommandResult Execute(AddLinkToBoxCommand command)
@@ -58,7 +61,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UserRepository.Save(user);
             }
             //Add link to Box 
-            var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, ThumbnailProvider.LinkTypePicture);
+            var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, ThumbnailProvider.LinkTypePicture,
+               m_BlobProvider.GetThumbnailLinkUrl());
 
             m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddItem));
             m_ItemRepository.Save(link, true);

@@ -80,7 +80,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = box.AddFile(command.FileName.RemoveEndOfString(Item.NameLength),
                 user, command.Length,
                 command.BlobAddressName,
-                thumbnailImgLink);
+                thumbnailImgLink,
+                m_BlobProvider.GetThumbnailUrl(thumbnailImgLink));
 
             m_ItemRepository.Save(item, true);
             box.UserTime.UpdateUserTime(user.Name);
