@@ -27,13 +27,14 @@ namespace Zbang.Zbox.Domain
         public virtual int Score { get; set; }
         public virtual ReputationAction Action { get; set; }
 
-
+        public const int AddQuizScore = 30;
         public const int UploadItemScore = 10;
         public const int AddAnswerScore = 10;
         public const int AddQuestionScore = 5;
         public const int DeleteItemScore = -UploadItemScore;
         public const int DeleteQuestionScore = -AddQuestionScore;
         public const int DeleteAnswerScore = -AddAnswerScore;
+        public const int DeleteQuizScore = -AddQuizScore;
         public const int ShareFabookScore = 5;
         public const int InviteToCloudentsScore = 20;
         public const int InviteToBoxScore = 5;
@@ -85,6 +86,10 @@ namespace Zbang.Zbox.Domain
                     return UnRate4StareScore;
                 case ReputationAction.UnRate5Stars:
                     return UnRate5StareScore;
+                case ReputationAction.AddQuiz:
+                    return AddQuizScore;
+                case ReputationAction.DelteQuiz:
+                    return DeleteQuizScore;
                 default:
                     return 0;
             }

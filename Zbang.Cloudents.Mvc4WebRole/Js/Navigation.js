@@ -47,6 +47,10 @@
             historyNav = data.history;
 
             var lastPage = historyNav.pop();
+            if (lastPage.url === "") {
+                this.remove();
+                return;
+            }
             if (privateLocation.url.indexOf('search') === -1) {
                 privateLocation.url = lastPage.url;
             } else {
