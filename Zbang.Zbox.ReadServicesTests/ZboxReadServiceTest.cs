@@ -38,7 +38,7 @@ namespace Zbang.Zbox.ReadServicesTests
             Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<IHebrewStemmer>(m_HebrewStemmer);
             Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<IFilterWords>(m_FilterWords);
 
-            m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider, m_BlobProvider);
+            m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider);
         }
 
 

@@ -165,6 +165,8 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+       
+
         public async Task<IEnumerable<UniversityLuceneDto>> GetUniversityDetail()
         {
             using (var conn = await DapperConnection.OpenConnection())

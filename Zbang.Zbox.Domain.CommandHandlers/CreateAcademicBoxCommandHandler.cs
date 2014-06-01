@@ -4,6 +4,7 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -13,6 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IAcademicBoxRepository m_AcademicRepository;
         private readonly IRepository<Library> m_LibraryRepository;
         private readonly IAcademicBoxThumbnailProvider m_AcademicBoxThumbnailProvider;
+        private readonly IBlobProvider m_BlobProvider;
 
         public CreateAcademicBoxCommandHandler(
             IBoxRepository boxRepository,
@@ -20,13 +22,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<UserBoxRel> userBoxRelRepository,
             IRepository<Library> libraryRepository,
             IAcademicBoxRepository academicRepository,
-            IAcademicBoxThumbnailProvider academicBoxThumbnailProvider
+            IAcademicBoxThumbnailProvider academicBoxThumbnailProvider,
+            IBlobProvider blobProvider
             )
             : base(boxRepository, userRepository, userBoxRelRepository)
         {
             m_AcademicRepository = academicRepository;
             m_LibraryRepository = libraryRepository;
             m_AcademicBoxThumbnailProvider = academicBoxThumbnailProvider;
+            m_BlobProvider = blobProvider;
         }
         public override CreateBoxCommandResult Execute(CreateBoxCommand command)
         {
@@ -63,7 +67,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var picturePath = m_AcademicBoxThumbnailProvider.GetAcademicBoxThumbnail();
             box = new AcademicBox(academicCommand.BoxName, universityUser,
-                  academicCommand.CourseCode, academicCommand.Professor, library, picturePath, user);
+                  academicCommand.CourseCode, academicCommand.Professor, library, 
+                  picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath));
 
             m_LibraryRepository.Save(library);
             box.UserBoxRel.Add(new UserBoxRel(universityUser, box, UserRelationshipType.Owner));

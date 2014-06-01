@@ -19,8 +19,8 @@ namespace Zbang.Zbox.ReadServicesTests
             var m_HttpCacheProvider = Rhino.Mocks.MockRepository.GenerateStub<IHttpContextCacheWrapper>();
             Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
 
-            var blobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
-            m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider, blobProvider);
+          //  var blobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
+            m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider);
         }
 
         [TestMethod]

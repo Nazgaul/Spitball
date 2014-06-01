@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox, "some url");
 
-            someBox.AddPicture("some box picture");
+            someBox.AddPicture("some box picture","some picture url");
             // stubBox.GetType().GetProperty("Items").SetValue(stubBox, stubItemInBox);
             // stubItemInBox.Stub(x => x.Count).Return(5);
 

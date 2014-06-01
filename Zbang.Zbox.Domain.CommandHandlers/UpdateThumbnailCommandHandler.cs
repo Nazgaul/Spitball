@@ -63,14 +63,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void UpdateThumbail(UpdateThumbnailCommand command, File file)
         {
-            file.UpdateThumbnail(command.ThumbnailUrl, m_BlobProvider.GetThumbnailUrl(command.ThumbnailUrl));
+            var thumbnailUrl = m_BlobProvider.GetThumbnailUrl(command.ThumbnailUrl);
+            file.UpdateThumbnail(command.ThumbnailUrl, thumbnailUrl);
             //file.ThumbnailBlobName = command.ThumbnailUrl;
 
 
             var boxPicture = file.Box.Picture;
             if (string.IsNullOrEmpty(file.Box.Picture))
             {
-                file.Box.AddPicture(command.ThumbnailUrl);
+                file.Box.AddPicture(command.ThumbnailUrl, thumbnailUrl);
                 m_BoxRepository.Save(file.Box);
             }
            

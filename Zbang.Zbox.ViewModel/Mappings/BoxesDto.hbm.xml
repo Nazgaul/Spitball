@@ -32,7 +32,7 @@
     b.itemcount as ItemCount,
     b.MembersCount as MembersCount,
     b.commentcount as CommentCount,
-    b.BoxPicture as BoxPicture, 
+    b.pictureurl as BoxPicture, 
     b.ProfessorName as ProfessorName,
     b.Discriminator as boxType,
     (select universityname from zbox.Users u where b.OwnerId = u.UserId) as Universityname

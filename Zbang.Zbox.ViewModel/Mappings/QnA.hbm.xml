@@ -70,7 +70,7 @@
     i.itemid as Uid,
     i.Name as Name,
     i.UserId as OwnerId,
-    i.ThumbnailBlobName as Thumbnail,
+    i.thumbnailurl as Thumbnail,
     (select Uid from zbox.Box b where b.BoxId = i.BoxId) as BoxUid,
     i.Discriminator as Discriminator,
     i.QuestionId as QuestionId,
