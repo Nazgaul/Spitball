@@ -33,6 +33,8 @@
       <column name="Rate" sql-type="float"/>
     </property>
     <property name="ThumbnailBlobName"/>
+    <property name="ThumbnailUrl"/>
+    
     <subclass name="Link" discriminator-value="Link">
       <property name="Sponsored"/>
     </subclass>

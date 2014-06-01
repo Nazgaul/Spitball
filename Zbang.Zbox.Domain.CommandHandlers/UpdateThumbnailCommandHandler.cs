@@ -3,6 +3,7 @@ using System.IO;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -10,12 +11,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<File> m_ItemRepository;
         private readonly IRepository<Box> m_BoxRepository;
+        private readonly IBlobProvider m_BlobProvider;
 
         public UpdateThumbnailCommandHandler(IRepository<File> itemRepository,
-            IRepository<Box> boxRepository)
+            IRepository<Box> boxRepository,
+            IBlobProvider blobProvider)
         {
             m_ItemRepository = itemRepository;
             m_BoxRepository = boxRepository;
+            m_BlobProvider = blobProvider;
         }
         public void Handle(UpdateThumbnailCommand command)
         {
@@ -59,8 +63,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void UpdateThumbail(UpdateThumbnailCommand command, File file)
         {
-
-            file.ThumbnailBlobName = command.ThumbnailUrl;
+            file.UpdateThumbnail(command.ThumbnailUrl, m_BlobProvider.GetThumbnailUrl(command.ThumbnailUrl));
+            //file.ThumbnailBlobName = command.ThumbnailUrl;
 
 
             var boxPicture = file.Box.Picture;

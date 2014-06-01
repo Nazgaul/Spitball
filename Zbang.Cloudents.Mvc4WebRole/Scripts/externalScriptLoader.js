@@ -10,14 +10,25 @@ _gaq.push(['_setAccount', 'UA-9850006-3'],
 
 (function (cd) {
     function async_load() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var gaScript = document.createElement('script');
+        gaScript.type = 'text/javascript';
+        gaScript.async = true;
+        gaScript.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[document.getElementsByTagName('script').length - 1];
-        s.parentNode.insertBefore(ga, s);
+        s.parentNode.insertBefore(gaScript, s);
 
         _gaq.push(['_setCustomVar', 5, 'visitorid', cd.userDetail().id, 1]);
+
+      
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-9850006-3', 'cloudents.com');
+        ga('send', 'pageview');
+
+       
     }
     if (window.attachEvent) {
         window.attachEvent('onload', async_load);

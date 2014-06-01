@@ -80,13 +80,14 @@ namespace Zbang.Zbox.Domain
         //}
 
 
-        public File AddFile(string fileName, User user, long length, string blobAddressName, string thumbnailBlobAddressName)
+        public File AddFile(string fileName, User user, long length, 
+            string blobAddressName, string thumbnailBlobAddressName, string thumbnailUrl)
         {
             if (Items.OfType<File>().FirstOrDefault(f => f.ItemContentUrl == blobAddressName) != null)
             {
                 throw new ArgumentException("Only one file can be connected to one blob");
             }
-            var file = new File(GetUniqueFileName(fileName), user, length, blobAddressName, thumbnailBlobAddressName, this);
+            var file = new File(GetUniqueFileName(fileName), user, length, blobAddressName, thumbnailBlobAddressName, this, thumbnailUrl);
             return AddItem(file) as File;
         }
 
@@ -113,14 +114,14 @@ namespace Zbang.Zbox.Domain
             return fileName;
         }
 
-        public Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail)
+        public Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail, string thumbnailUrl)
         {
             var linkExist = Items.Any(s => s.ItemContentUrl == url && !s.IsDeleted);
             if (linkExist)
             {
                 throw new DuplicateNameException("This link already exists in the box");
             }
-            var link = new Link(url, user, linkStorageSize, this, linkTitle, thumbnail);
+            var link = new Link(url, user, linkStorageSize, this, linkTitle, thumbnail, thumbnailUrl);
             return AddItem(link);
         }
 
