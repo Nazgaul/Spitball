@@ -464,9 +464,11 @@
   margin-top: 10px;
 }
 /*#region box friends */
-.boxMembers .friendsList {
-  border-right: 1px solid #c2c2c2;
-  /*rtl*/
+.boxMembers.friendsList {
+  position: fixed;
+  top: 150px;
+  width: 366px;
+  right: 0;
 }
 .friendsList {
   -webkit-box-sizing: border-box;
@@ -474,6 +476,30 @@
   box-sizing: border-box;
   padding: 11px 7px 7px 7px;
   font-size: 0;
+}
+.friendsList li {
+  margin: 0 6px 6px 0;
+  /*rtl*/
+  display: inline-block;
+  vertical-align: top;
+  /*if > 7 items hide all further items*/
+  /*if > 6 items: float show all right.*/
+}
+.friendsList li.static:before {
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: orange;
+  vertical-align: middle;
+}
+.friendsList li .friendItem:nth-child(n+8) {
+  display: none;
+}
+.friendsList li:last-child:nth-child(n+7) {
+  float: right;
+  /*rtl*/
+  display: inline-block;
 }
 .friendItem {
   margin: 0 6px 6px 0;

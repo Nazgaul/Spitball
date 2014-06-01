@@ -46,13 +46,15 @@
 </div>
 
 <script type="text/html" id="BoxItemsThumbViewTemplate">
-    <li class="boxItem" data-bind="attr: { id: uid }">        
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+    <li class="boxItem" data-bind="attr: { id: uid }">
+
+        <p class="itemContent" data-bind="text: description">
+        </p><a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
             <!--ko if:sponsored-->
             <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="479" height="188" />
             <!--/ko-->
             <!--ko ifnot: sponsored-->
-            <img data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="148" height="188" />
+            <img data-bind="attr: { 'data-src': thumbnailUrl, alt: name }" alt="" width="148" height="188" />
             <!--/ko-->
 
             <span class="tag" data-bind="visible : isNew">@SharedResources.New</span>
@@ -93,11 +95,11 @@
             <!--/ko-->
 
             <div class="boxName semiFont elps" data-bind="text: name"></div>
-            
 
-            <p class="itemContent" data-bind="text: description">                
+
+            <p class="itemContent" data-bind="text: description">
             </p>
-            
+
             <div class="stars">
                 <div class="full" data-bind="style: { width: rate + 'px' }"></div>
             </div>
@@ -153,7 +155,7 @@
 
 
 <script type="text/html" id="QuizItemsListViewTempalte">
-    <li class="listItem quizItem" data-bind="attr: { id: uid }, css : { draft : !publish }">        
+    <li class="listItem quizItem" data-bind="attr: { id: uid }, css : { draft : !publish }">
         <a class="boxLink" data-navigation="quiz" data-click="quizSlct" data-bind="attr: { href: itemUrl }">
             <div class="imgBorder"></div>
             <div class="boxName semiFont elps" data-bind="text: name"></div>

@@ -11,7 +11,7 @@
             <div class="boxTop">
                 <img class="lFloat" data-bind="attr: { src: image }" alt="" width="74" height="94" />
                 <div class="boxNameWpr clamp2">
-                    <div class="boxName semiFont" id="box_Name" data-bind="text: name, attr: { 'data-title': name, 'data-name': name }"></div>
+                    <h1 class="boxName semiFont" id="box_Name" data-bind="text: name, attr: { 'data-title': name, 'data-name': name }"></h1>
                 </div>
                 <div class="courseCode elps" id="box_Course" data-bind="text: courseId, visible: boxtype() === 'academic'"></div>
                 <div class="courseCode elps calloutTrgr" id="box_Owner" data-bind="text: ownerName, visible: boxtype() === 'box',attr: { 'data-uid' : ownerId }"></div>
@@ -111,6 +111,43 @@
     <div class="box-content">
         <!--ko stopBinding:true-->
         @{Html.RenderPartial("_Items2");}
+
+        <ul class="boxMembers friendsList">
+            <!--ko foreach:members-->
+            <li>
+                <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg calloutTrgr" alt="" data-bind="attr: { src: image, 'data-uid': id }" width="31" height="31" /></a>
+            </li>
+            <!--/ko-->
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="friendItem"><button id="showAllMembers" class="showAll rFloat" type="button">+16</button></li>
+            @*<li class="friendItem">
+                <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                    data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="inviteFriendBtn btn3">@IndexResources.Invite</a>
+            </li>*@
+        </ul>
         @{Html.RenderPartial("_QnA");}
         <!--/ko-->
     </div>
