@@ -82,10 +82,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             data.Boxes = data.Boxes.Select(s =>
             {
                 s.Url = builder.BuildBoxUrl(s.BoxType, s.Id, s.Name, s.UniName);
-                if (!string.IsNullOrEmpty(s.BoxPicture))
-                {
-                    s.BoxPicture = m_BlobProivder.Value.GetThumbnailUrl(s.BoxPicture);
-                }
                 return s;
             });
             data.Wall = data.Wall.Select(item =>

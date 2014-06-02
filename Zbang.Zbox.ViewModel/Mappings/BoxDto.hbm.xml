@@ -49,7 +49,7 @@
 
   <sql-query name="GetBoxMetaForInvite" read-only="1" resultset-ref="boxMeta">
     <![CDATA[
-   select b.boxId as Id, b.boxName as Name, b.BoxPicture as Image, u.universityname as UnivtesityName
+   select b.boxId as Id, b.boxName as Name, b.pictureurl as Image, u.universityname as UnivtesityName
     from zbox.Box b join zbox.Users u on b.OwnerId = u.UserId
     where b.boxId = :BoxId
     and b.IsDeleted = 0  
@@ -72,7 +72,7 @@
     b.MembersCount as Members,
     b.ItemCount as Items,
     b.CommentCount as Comments,
-    b.BoxPicture as Image
+    b.pictureUrl as Image
     from zbox.Box b join zbox.Users u on b.OwnerId = u.UserId
     where  b.boxId = :BoxId
     and b.IsDeleted = 0  

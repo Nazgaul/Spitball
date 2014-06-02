@@ -54,19 +54,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 if (string.IsNullOrWhiteSpace(question.Text))
                 {
-                    throw new ArgumentException("question is not right");
+                    throw new ArgumentException("question text is empty");
                 }
                 if (question.RightAnswer == null)
                 {
-                    throw new ArgumentException("question is not right");
+                    throw new ArgumentException("question have no right answer");
                 }
                 if (question.Answers.Count() < 2)
                 {
-                    throw new ArgumentException("question is not right");
+                    throw new ArgumentException("question answers are below 2");
                 }
                 if (question.Answers.Where(w => w.Text == null).Count() > 0)
                 {
-                    throw new ArgumentException("question is not right");
+                    throw new ArgumentException("question answers dont have text");
                 }
 
             }

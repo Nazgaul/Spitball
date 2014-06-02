@@ -67,7 +67,7 @@
     i.Name as Name,
     i.userid as OwnerId,
     u.UserName as Owner,
-    i.ThumbnailBlobName as Thumbnail,
+    i.thumbnailurl as Thumbnail,
     i.Discriminator as Discriminator,
     i.ItemTabId as TabId,
 	  i.NumberOfViews as NumOfViews,

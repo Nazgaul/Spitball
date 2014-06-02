@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
@@ -15,13 +17,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IRepository<Updates> m_Updates;
         private readonly IRepository<Domain.SolvedQuiz> m_SolvedQuizRepository;
 
+        private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IUserRepository m_UserRepository;
+
         public DeleteQuizCommandHandler(IRepository<Zbang.Zbox.Domain.Quiz> quizRepository,
             IRepository<Updates> updates,
-            IRepository<Domain.SolvedQuiz> solvedQuizRepository)
+            IRepository<Domain.SolvedQuiz> solvedQuizRepository,
+            IRepository<Reputation> reputationRepository,
+            IUserRepository userRepository)
         {
             m_QuizRepository = quizRepository;
             m_Updates = updates;
             m_SolvedQuizRepository = solvedQuizRepository;
+            m_ReputationRepository = reputationRepository;
+            m_UserRepository = userRepository;
         }
         public void Handle(DeleteQuizCommand message)
         {
@@ -43,7 +52,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 m_SolvedQuizRepository.Delete(solvedQuiz);
             }
-
+            m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.DelteQuiz));
+            m_UserRepository.Save(quiz.Owner);
             m_QuizRepository.Delete(quiz);
         }
     }

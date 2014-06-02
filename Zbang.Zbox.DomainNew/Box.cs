@@ -31,6 +31,7 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(user.Email);
             Owner = user;
             UserBoxRel.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
+            RemovePicture();
             this.CalculateMembers();
         }
 
@@ -42,6 +43,8 @@ namespace Zbang.Zbox.Domain
         public virtual bool IsDeleted { get; set; }
         public virtual User Owner { get; private set; }
         public virtual string Picture { get; protected set; }
+
+        public virtual string PictureUrl { get; set; }
 
         public virtual ICollection<UserBoxRel> UserBoxRel { get; private set; }
         public virtual ICollection<Item> Items { get; protected set; }
@@ -63,13 +66,15 @@ namespace Zbang.Zbox.Domain
             Name = newBoxName.Trim();
         }
 
-        public void AddPicture(string boxPicture)
+        public void AddPicture(string boxPicture, string picutreUrl)
         {
             Picture = boxPicture;
+            PictureUrl = picutreUrl;
         }
         public void RemovePicture()
         {
             Picture = null;
+            PictureUrl = "/images/emptyState/my_default3.png";
         }
 
         //public Comment AddBoxComment(User user, string commentText)
@@ -141,15 +146,7 @@ namespace Zbang.Zbox.Domain
 
 
         #region dbiTemp
-        public void CreateCreationQuestionIfNoneExists()
-        {
-            if (Questions.Count() == 0)
-            {
-                var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
-                Questions.Add(new Comment(this.Owner, "Created this course", this, idGenerator.GetId(), null));
-                UpdateQnACount(1);
-            }
-        }
+      
         //public void UpdateMembersDbi(int count)
         //{
         //    MembersCount = count;
@@ -162,6 +159,8 @@ namespace Zbang.Zbox.Domain
         //{
         //    CommentCount = count;
         //}
+
+        
         #endregion
 
 

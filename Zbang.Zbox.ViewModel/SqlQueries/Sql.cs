@@ -88,7 +88,7 @@
 
         public const string UserBoxes = @"select b.boxid as id,
                                 b.BoxName,
-                                b.BoxPicture as BoxPicture,
+                                b.pictureUrl as BoxPicture,
                                 ub.UserType, 
                                 b.itemcount as ItemCount,
                                 b.MembersCount as MembersCount,
@@ -110,7 +110,7 @@
         /// <summary>
         /// Used in user page to get boxes common with current user and his friend
         /// </summary>
-        public const string UserWithFriendBoxes = @"select COALESCE( uMe.UserType,0) as userType, b.boxid as id ,b.BoxName as name,b.BoxPicture as picture,
+        public const string UserWithFriendBoxes = @"select COALESCE( uMe.UserType,0) as userType, b.boxid as id ,b.BoxName as name,b.pictureurl as picture,
         case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
 								else null
 								end as universityname
@@ -124,7 +124,7 @@
         /// <summary>
         /// Used in user page to get files common with current user
         /// </summary>
-        public const string UserWithFriendFiles = @" select i.ItemId as id, i.ThumbnailBlobName as image, i.Rate as rate,i.NumberOfViews as numOfViews,i.Name as name,b.boxid as boxid, b.boxname as boxname,
+        public const string UserWithFriendFiles = @" select i.ItemId as id, i.ThumbnailUrl as image, i.Rate as rate,i.NumberOfViews as numOfViews,i.Name as name,b.boxid as boxid, b.boxname as boxname,
   case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
 								else null
 								end as universityname
@@ -140,7 +140,7 @@
         /// <summary>
         ///  Used in user page to get question common with current user
         /// </summary>
-        public const string UserWithFriendQuestion = @" select b.BoxPicture as boxPicutre,b.BoxName as boxName,q.Text as content, b.BoxId as boxid,
+        public const string UserWithFriendQuestion = @" select b.pictureurl as boxPicutre,b.BoxName as boxName,q.Text as content, b.BoxId as boxid,
                         (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
 						case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
 								else null
@@ -157,7 +157,7 @@
         /// <summary>
         ///  Used in user page to get answers common with current user
         /// </summary>
-        public const string UserWithFriendAnswer = @"select b.BoxPicture as boxPicture, b.BoxId as boxid, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
+        public const string UserWithFriendAnswer = @"select b.pictureurl as boxPicture, b.BoxId as boxid, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
                    uQuestion.UserImage as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
                    (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
 				   case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
@@ -177,7 +177,7 @@
         ///  Used in user page to get user invites
         /// </summary>
         public const string UserPersonalInvites = @"select distinct u.UserImageLarge as userImage, u.UserName as username ,u.UserId as userid,
-                m.TypeOfMsg as inviteType,b.BoxName as boxName,b.BoxPicture as boxPicture,b.boxid as boxid,
+                m.TypeOfMsg as inviteType,b.BoxName as boxName,b.pictureurl as boxPicture,b.boxid as boxid,
                  case m.TypeOfMsg when 2 then (select count(*) from zbox.UserBoxRel ub where ub.userid = u.userid and ub.BoxId = b.BoxId)
                  when 3 then u.IsEmailVerified
                  end as status, m.MessageId
