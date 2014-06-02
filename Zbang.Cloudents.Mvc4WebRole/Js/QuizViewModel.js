@@ -33,9 +33,9 @@
             quizTimerResult, quizShare,
             quizFS, quizMsg, quizCL;
 
-        var quizId = cd.getParameterFromUrl(4), startTime, stopWatch, firstTime = true;
+        var quizId = cd.getParameterFromUrl(4), stopWatch;
 
-        cd.pubsub.subscribe('quiz', function (data) {
+        cd.pubsub.subscribe('quiz', function () {
 
             initQuiz();
 

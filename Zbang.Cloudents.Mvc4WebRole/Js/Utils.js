@@ -410,7 +410,7 @@
             return '';
         }
 
-        return fileName.slice(x + 1)
+        return fileName.slice(x + 1);
     }
 
     function getExtensionColor(fileName, type) {

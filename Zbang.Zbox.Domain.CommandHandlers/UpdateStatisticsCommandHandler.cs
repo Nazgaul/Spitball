@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -14,10 +11,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateStatisticsCommandHandler : ICommandHandler<UpdateStatisticsCommand>
     {
         private IRepository<Item> m_ItemRepository;
-        private IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
+        private IRepository<Domain.Quiz> m_QuizRepository;
         private IUserRepository m_UserRepository;
         public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository, IUserRepository userRepository,
-            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository)
+            IRepository<Domain.Quiz> quizRepository)
         {
             m_ItemRepository = itemRepository;
             m_UserRepository = userRepository;
@@ -38,6 +35,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             foreach (var itemId in message.ItemId)
             {
+                if (itemId.ItemId == 0)
+                {
+                    TraceLog.WriteInfo("itemId is 0 " + itemId);
+                    continue;
+                }
                 if (itemId.Action == Infrastructure.Enums.StatisticsAction.Quiz)
                 {
                     var quiz = m_QuizRepository.Load(itemId.ItemId);
@@ -51,11 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     TraceLog.WriteInfo("itemId is null " + itemId);
                     continue;
                 }
-                if (itemId.ItemId == 0)
-                {
-                    TraceLog.WriteInfo("itemId is 0 " + itemId);
-                    continue;
-                }
+                
                 
 
                 if (itemId.Action == Infrastructure.Enums.StatisticsAction.View)

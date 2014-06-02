@@ -146,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On Statistics" + model.ToString(), ex);
+                if (model != null) TraceLog.WriteError("On Statistics" + model, ex);
                 return Json(new JsonResponse(true));
             }
         }
@@ -166,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             sb.Append("JsResources={");
             foreach (System.Collections.DictionaryEntry item in set)
             {
-                sb.Append("\"" + item.Key.ToString() + "\":\"" + item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") + "\",");
+                sb.Append("\"" + item.Key + "\":\"" + item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") + "\",");
                 sb.AppendLine();
             }
             sb.Remove(sb.Length - 1, 1);

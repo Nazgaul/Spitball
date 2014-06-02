@@ -15,7 +15,7 @@
             var data = {}
             this.remove();
             data.history = historyNav;
-            var now = new Date();
+            var now = new Date(),
             later = now.setHours(now.getHours() + 1);
             data.lastpage = location.pathname + location.search; //remove querystring
             data.ttl = later;
@@ -99,7 +99,7 @@
         var loader = document.getElementById('mLoading');
         var gifLoader = document.createElement('div');
         gifLoader.className = 'loadingGif';
-        gifLoader.id = 'mLoading'
+        gifLoader.id = 'mLoading';
         loader.parentElement.insertBefore(gifLoader, loader);
         loader.parentElement.removeChild(loader);
     }
@@ -149,7 +149,7 @@
         locationChanged();
     });
 
-    window.onhashchange = function (e) {
+    window.onhashchange = function () {
         try {
             window.scrollTo(0, 1);
         }
@@ -232,7 +232,7 @@
                 boxContext(prevLocation);
                 break;
             case 'item':
-                itemContext()
+                itemContext();
                 break;
             case 'invite':
                 if (!cd.register()) {
@@ -253,21 +253,22 @@
                 searchContext();
                 break;
             case 'quiz':
-                quizContext({ id: cd.getParameterFromUrl(4) });
+                quizContext();
             default:
                 break;
         }
 
     }
-    function userContext(data) {
+    function userContext() {
         pubsub.publish('user');
     }
 
-    function quizContext(data) {
-        pubsub.publish('quiz', data);
+    function quizContext() {
+        
+        pubsub.publish('quiz', { id: cd.getParameterFromUrl(4) });
     }
 
-    function searchContext(data) {
+    function searchContext() {
         pubsub.publish('search');
     }
 
