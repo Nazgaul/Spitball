@@ -1,4 +1,4 @@
-﻿var appRoot = angular.module('main', [/*'mDashboard',*/'QuizCreate']);
+﻿var appRoot = angular.module('main', [/*'mDashboard',*/'custom_scrollbar','monospaced.elastic','QuizCreate']);
 cd.$scope = {};
 //appRoot.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 //    //$locationProvider.html5Mode(true)

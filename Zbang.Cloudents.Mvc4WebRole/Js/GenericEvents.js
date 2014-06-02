@@ -86,6 +86,9 @@
         if ($(this).val() === $(this).attr('placeholder')) {
             $(this).val(''); //ie issue with elastic
         }
+        if (this.getAttribute('msd-elastic') !== null) {
+            return;
+        }
         $(this).elastic();
 
     });

@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region Create Quiz */
+﻿
+
+
+
+
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
@@ -18,15 +18,15 @@
 .bodyContent.previewQuiz.topBarFix {
   display: none;
 }
-.bodyContent.previewQuiz.topBarFix ~ .quizPreview:before {
+.bodyContent.previewQuiz.topBarFix .quizPreview:before {
   position: fixed;
   top: 0;
 }
-.bodyContent.previewQuiz.topBarFix ~ .quizPreview h2,
-.bodyContent.previewQuiz.topBarFix ~ .quizPreview .closePreview {
+.bodyContent.previewQuiz.topBarFix .quizPreview h2,
+.bodyContent.previewQuiz.topBarFix .quizPreview .closePreview {
   display: block;
 }
-.bodyContent.previewQuiz ~ .quizPreview {
+.bodyContent.previewQuiz .quizPreview {
   margin-top: 0;
 }
 .quizSideBar {
@@ -51,6 +51,56 @@
   -o-transition: right 0.4s;
   transition: right 0.4s;
   /*rtl*/
+}
+.quizSideBar .emptyQuiz .quizName.ng-dirty:not(.ng-invalid) {
+  border: 1px solid #d1294d;
+}
+.quizSideBar .emptyQuiz .questionHolder:first-child[class*='Req'] {
+  border: 1px solid #d1294d;
+}
+.quizSideBar .emptyQuiz .questionHolder:first-child.answerReq .addAnswer {
+  display: inline-block;
+}
+.quizSideBar .emptyQuiz .questionHolder:first-child.questionReq .addQuestion {
+  display: inline-block;
+  position: absolute;
+  right: 21px;
+  /*rtl*/
+  top: 15px;
+}
+.quizSideBar .emptyQuiz .questionHolder:first-child.correctReq .correct {
+  color: #d1294d;
+}
+.quizSideBar .emptyQuiz .questionHolder:first-child .quizAnswer:nth-child(-n+2) .questionAnswer {
+  border: 1px solid #d1294d;
+}
+.quizSideBar .emptyQuiz .questionHolder:first-child .quizAnswer:nth-child(-n+2) .questionAnswer.ng-dirty:not(.ng-invalid) {
+  border: 1px solid #c2c2c2;
+}
+.quizSideBar .validated .quizName.ng-dirty:not(.ng-invalid) {
+  border: 1px solid #d1294d;
+}
+.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid[class*='Req'] {
+  border: 1px solid #d1294d;
+}
+.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.answerReq .addAnswer {
+  display: inline-block;
+}
+.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.questionReq .addQuestion {
+  display: inline-block;
+  position: absolute;
+  right: 21px;
+  /*rtl*/
+  top: 15px;
+}
+.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.correctReq .correct {
+  color: #d1294d;
+}
+.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid .quizAnswer:nth-child(-n+2) .questionAnswer {
+  border: 1px solid #d1294d;
+}
+.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid .quizAnswer:nth-child(-n+2) .questionAnswer.ng-dirty:not(.ng-invalid) {
+  border: 1px solid #c2c2c2;
 }
 .quizSideBar.error .quizBottom .error {
   display: inline-block;
@@ -95,12 +145,6 @@
   resize: none;
   font-size: 17px;
   line-height: 19px;
-}
-.quizSideBar .inputText.emptyText.questionAnswer {
-  border: 1px solid #d1294d;
-}
-.quizSideBar.nameReq .quizName {
-  border: 1px solid #d1294d;
 }
 .quizSideBar section {
   height: 100%;
@@ -170,9 +214,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.questionHolder[class*='Req'] {
-  border: 1px solid #d1294d;
-}
 .questionHolder:hover .closeDialog {
   display: block;
 }
@@ -232,19 +273,6 @@
 .questionHolder label:before {
   opacity: .5;
 }
-.questionHolder.answerReq .addAnswer {
-  display: inline-block;
-}
-.questionHolder.questionReq .addQuestion {
-  display: inline-block;
-  position: absolute;
-  right: 21px;
-  /*rtl*/
-  top: 15px;
-}
-.questionHolder.correctReq .correct {
-  color: #d1294d;
-}
 .quizAnswersList {
   list-style-type: lower-alpha;
   clear: both;
@@ -291,8 +319,8 @@
   color: #0371c8;
   margin-top: 12px;
 }
-/*#endregion */
-/*#region Quiz Preview  */
+
+
 .quizPreview {
   margin-top: 100%;
   position: absolute;
@@ -533,8 +561,8 @@
   /*rtl*/
   top: 7px;
 }
-/*#endregion */
-/*#region Quiz item page */
+
+
 .quizPage .sectionHeader {
   color: transparent;
 }
@@ -772,4 +800,48 @@
   font-size: 38px;
   margin: 0 auto;
 }
-/*#endregion */
+
+/*.validated {
+    .quizName {
+        &.ng-invalid {
+               border-color:@errorColor;
+        }
+    }
+    .questionText {
+     &.ng-invalid {
+            
+      }
+    } 
+    .questionAnswer {
+        &.ng-invalid {
+            border-color:@errorColor;
+        }
+    }*
+}
+/*.emptyQuiz {
+    .quizName {
+        &.ng-invalid {
+               border-color:@errorColor;
+        }
+    }
+
+    .questionHolder:first-child {
+        .questionText {
+            &.ng-invalid {
+                border-color:@errorColor;
+            }
+        }
+        .questionAnswer:first-child {
+            &.ng-invalid {
+                border-color:@errorColor;
+            }
+
+            +.questionAnswer {
+                &.ng-invalid {
+                border-color:@errorColor;
+                }
+
+            }
+        }
+    }
+}*/

@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/Settings.css",
                 "~/Content/DashLib.css",
                 "~/Content/ng-modal.css",
-                "~/Content/ng-scrollbar.css");
+                "~/Content/jquery.mCustomScrollbar.css");
 
             RegisterCss("staticRtl", "~/Content/GeneralRtl.css",
                 "~/Content/StaticRtl.css",
@@ -98,6 +98,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"),
                 new JsFileWithCdn("~/Scripts/angular-route.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
               new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
+                new JsFileWithCdn("~/Scripts/elastic.js"),
+              new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
             //  new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
                 new JsFileWithCdn("~/Js/app/services.js"),
                  new JsFileWithCdn("~/Js/app/filters.js"),
@@ -157,7 +159,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
 
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
+                                new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
 
+                                new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
+                
+                //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
