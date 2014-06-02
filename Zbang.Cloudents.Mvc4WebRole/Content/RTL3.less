@@ -431,6 +431,15 @@
     }
 }
 
+.friendItem {
+    margin: 0 0 6px 6px; /*rtl*/
+}
+
+/*if < 5 items: float friendBtn right.*/
+.friendItem:last-child:nth-child(-n + 5) {
+    float: left; /*rtl*/
+}
+
 .updateContent {
     margin: 0 3px 0 0; /*rtl*/
 }
@@ -608,13 +617,13 @@
 /*#region box friends */
 
 .boxMembers {
-    &.friendsList {
+    &.boxFriendsList {
         left: 15px; /*rtl*/
         right: auto;
     }
 }
 
-.friendsList {
+.boxFriendsList {
     li {
         margin: 0 0 6px 2px; /*rtl*/
         &:last-child {
@@ -623,16 +632,6 @@
             }
         }
     }
-}
-
-
-.friendItem {
-    margin: 0 0 6px 6px; /*rtl*/
-}
-
-/*if < 5 items: float friendBtn right.*/
-.friendItem:last-child:nth-child(-n + 5) {
-    float: left; /*rtl*/
 }
 
 /*#endregion */

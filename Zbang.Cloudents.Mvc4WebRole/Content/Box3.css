@@ -359,7 +359,7 @@
 }
 .boxTopWpr.boxEdit img,
 .boxTopWpr.boxEdit .boxRename,
-.boxTopWpr.boxEdit .friendsList {
+.boxTopWpr.boxEdit .boxFriendsList {
   display: none;
 }
 .boxTopWpr.boxEdit .courseCode {
@@ -482,7 +482,7 @@
   margin-top: 10px;
 }
 /*#region box friends */
-.boxMembers.friendsList {
+.boxMembers.boxFriendsList {
   position: fixed;
   top: 150px;
   width: 366px;
@@ -490,17 +490,17 @@
   /*rtl*/
   padding: 0;
 }
-.boxMembers:not(.friendsList) {
+.boxMembers:not(.boxFriendsList) {
   display: none;
 }
-.friendsList {
+.boxFriendsList {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 11px 7px 7px 7px;
   font-size: 0;
 }
-.friendsList li {
+.boxFriendsList li {
   width: 50px;
   height: 50px;
   border: 1px solid #c2c2c2;
@@ -515,11 +515,11 @@
   /*if > 7 items hide all further items*/
   /*Hide the 7th child only if there are at least 7 more children*/
 }
-.friendsList li.static {
+.boxFriendsList li.static {
   background: #0371c8;
   padding-top: 15px;
 }
-.friendsList li.static:before {
+.boxFriendsList li.static:before {
   content: '';
   display: inline-block;
   width: 21px;
@@ -527,62 +527,36 @@
   background: url(/Images/common17-sprite.png?v=2) -142px -2px no-repeat;
   vertical-align: middle;
 }
-.friendsList li.static:hover {
+.boxFriendsList li.static:hover {
   background: #0e68af;
 }
-.friendsList li:nth-child(n+8) {
+.boxFriendsList li:nth-child(n+8) {
   display: none;
 }
-.friendsList li:nth-child(7):nth-last-child(n + 8) {
+.boxFriendsList li:nth-child(7):nth-last-child(n + 8) {
   display: none;
 }
-.friendsList li:last-child {
+.boxFriendsList li:last-child {
   background: #fff;
   /*if > 13 items: float show all right.*/
 }
-.friendsList li:last-child:nth-child(n+14) {
+.boxFriendsList li:last-child:nth-child(n+14) {
   float: right;
   /*rtl*/
   display: inline-block;
 }
-.friendsList li:last-child .showAllMembers {
+.boxFriendsList li:last-child .showAllMembers {
   color: #0371c8;
   padding-top: 14px;
   text-align: center;
   font-size: 16px;
 }
-.friendsList li:last-child .showAllMembers:before {
+.boxFriendsList li:last-child .showAllMembers:before {
   content: '+' attr(data-morefriends-count);
   display: inline-block;
 }
-.friendsList li:last-child:hover {
+.boxFriendsList li:last-child:hover {
   background: #f9f9f9;
-}
-.friendItem {
-  margin: 0 6px 6px 0;
-  /*rtl*/
-  display: inline-block;
-  vertical-align: top;
-}
-.friendItem:nth-child(7) {
-  margin: 0;
-}
-/*if < 5 items: float friendBtn right.*/
-.friendItem:last-child:nth-child(-n + 5) {
-  float: right;
-  /*rtl*/
-}
-/*if > 11 items hide all further items*/
-.friendItem:nth-child(n+12) {
-  display: none;
-}
-.friendItem:last-child {
-  display: inline-block;
-  margin: 0;
-}
-.friendImg {
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
 }
 .inviteFriendBtn.btn3 {
   -webkit-box-sizing: border-box;

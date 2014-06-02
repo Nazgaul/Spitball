@@ -372,7 +372,7 @@
             .boxSizing;
         }
 
-        img, .boxRename, .friendsList {
+        img, .boxRename, .boxFriendsList {
             display: none;
         }
 
@@ -504,19 +504,19 @@
 /*#region box friends */
 
 .boxMembers {
-    &.friendsList {
+    &.boxFriendsList {
          position: fixed;
         top: 150px;
         width: 366px;
         right: 15px; /*rtl*/
         padding: 0;
     }
-    &:not(.friendsList) {
+    &:not(.boxFriendsList) {
         display: none; //TEMP !!!!!!!!!!!!!!!!!
     }
 }
 
-.friendsList {
+.boxFriendsList {
     .boxSizing;
     padding: 11px 7px 7px 7px;
     font-size: 0; // remove whitespace caused by inline-block
@@ -578,37 +578,6 @@
     }
 }
 
-.friendItem {
-    margin: 0 6px 6px 0; /*rtl*/
-    display: inline-block;
-    vertical-align: top;
-    //position: relative;
-}
-
-    .friendItem:nth-child(7) {
-        margin: 0;
-    }
-
-    /*if < 5 items: float friendBtn right.*/
-    .friendItem:last-child:nth-child(-n + 5) {
-        float: right; /*rtl*/
-    }
-
-    /*if > 11 items hide all further items*/
-    .friendItem:nth-child(n+12) {
-        display: none;
-    }
-
-
-    .friendItem:last-child {
-        display: inline-block;
-        margin: 0;
-    }
-
-.friendImg {
-    border: 1px solid @borderColor;
-    border-radius: 3px;
-}
 
 .inviteFriendBtn.btn3 {
     .boxSizing;
