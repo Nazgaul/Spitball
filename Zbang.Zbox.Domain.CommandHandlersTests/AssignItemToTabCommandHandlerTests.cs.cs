@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someItemId = new List<long>() { 1 };
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); 
             var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
-            var someItem = new Link("some name", someUser, 1, someBox, "some name", "some thumbnail");
+            var someItem = new Link("some name", someUser, 1, someBox, "some name", "some thumbnail", "some thumbnailUrl");
 
             var command = new AssignItemToTabCommand(someItemId, ItemTab, someUserId, someBoxId, true);
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someItem);
@@ -91,7 +91,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new AssignItemToTabCommand(new List<long>() { 1 }, ItemTab, 1, 1, false);
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); 
             var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
-            var someItem = new Link("some name", someUser, 1, someBox, "some name", "some thumbnail");
+            var someItem = new Link("some name", someUser, 1, someBox, "some name", "some thumbnail", "some img url");
 
 
             var someItemTab = new ItemTab(ItemTab, "some name", someBox);

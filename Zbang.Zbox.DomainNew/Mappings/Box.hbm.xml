@@ -12,6 +12,7 @@
 
     <property name="Name" column="BoxName" not-null="true" length="120"/>
     <property name="Picture" column="BoxPicture" not-null="false"/>
+    <property name="PictureUrl" />
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
       <property name="UpdateTime"  not-null="true" insert="true"  />

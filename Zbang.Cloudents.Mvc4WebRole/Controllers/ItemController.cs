@@ -416,8 +416,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [AjaxCache(TimeConsts.Minute * 15)]
-        public async Task<ActionResult> Preview(Uri blobName, int imageNumber, long uid, string boxUid, int width = 0, int height = 0)
+        public async Task<ActionResult> Preview(string blobName, int imageNumber, long uid, string boxUid, int width = 0, int height = 0)
         {
+            var uri = new Uri(m_BlobProvider.GetBlobUrl(blobName));
             //this will not work due to ie9
             //if (!Request.Headers["Referer"].Contains(boxUid))
             //{
@@ -427,12 +428,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
             }
-            var processor = m_FileProcessorFactory.GetProcessor(blobName);
+            var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor != null)
             {
                 try
                 {
-                    var retVal = await processor.ConvertFileToWebSitePreview(blobName, width, height, imageNumber);
+                    var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, imageNumber);
                     if (string.IsNullOrEmpty(retVal.ViewName))
                     {
                         return Json(new JsonResponse(true, new { preview = retVal.Content.First() }), JsonRequestBehavior.AllowGet);

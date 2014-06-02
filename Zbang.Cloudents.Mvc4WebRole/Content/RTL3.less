@@ -431,6 +431,15 @@
     }
 }
 
+.friendItem {
+    margin: 0 0 6px 6px; /*rtl*/
+}
+
+/*if < 5 items: float friendBtn right.*/
+.friendItem:last-child:nth-child(-n + 5) {
+    float: left; /*rtl*/
+}
+
 .updateContent {
     margin: 0 3px 0 0; /*rtl*/
 }
@@ -608,20 +617,22 @@
 /*#region box friends */
 
 .boxMembers {
-    .friendsList {
-        border-left: 1px solid @borderColor; /*rtl*/
-        border-right: none;
+    &.boxFriendsList {
+        left: 15px; /*rtl*/
+        right: auto;
     }
 }
 
-.friendItem {
-    margin: 0 0 6px 6px; /*rtl*/
-}
-
-    /*if < 5 items: float friendBtn right.*/
-    .friendItem:last-child:nth-child(-n + 5) {
-        float: left; /*rtl*/
+.boxFriendsList {
+    li {
+        margin: 0 0 6px 2px; /*rtl*/
+        &:last-child {
+            &:nth-child(n+14) {
+                float: left; /*rtl*/
+            }
+        }
     }
+}
 
 /*#endregion */
 

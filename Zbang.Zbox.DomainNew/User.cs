@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using System.Text;
 
@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain
         }
 
         public User(string email, string smallImage, string largeImage,
-            string firstName, string middleName, string lastName, bool sex,bool marketEmail)
+            string firstName, string middleName, string lastName, bool sex, bool marketEmail)
             : this()
         {
             Email = email;
@@ -55,13 +55,13 @@ namespace Zbang.Zbox.Domain
                 MiddleName = middleName.Trim();
             }
 
-            Name = CreateName();
+            CreateName();
             Sex = sex;
             MarketEmail = marketEmail;
 
         }
 
-        public string CreateName()
+        public void CreateName()
         {
             var sb = new StringBuilder();
             sb.Append(FirstName);
@@ -72,7 +72,18 @@ namespace Zbang.Zbox.Domain
                 sb.Append(" ");
             }
             sb.Append(LastName);
-            return sb.ToString();
+            //return sb.ToString();
+            Name = sb.ToString();
+            GenerateUrl();
+        }
+
+        public void GenerateUrl()
+        {
+            if (Id == 0)
+            {
+                return;
+            }
+            Url = UrlConsts.BuildUserUrl(Id, Name);
         }
 
         public virtual long Id { get; protected set; }
@@ -80,13 +91,15 @@ namespace Zbang.Zbox.Domain
         public virtual string Culture { get; set; }
         public virtual string Country { get; set; }
         public virtual bool IsRegisterUser { get; set; }
-        public virtual string Name { get; set; }
+        public virtual string Name { get; private set; }
 
 
         public virtual string FirstName { get; set; }
         public virtual string MiddleName { get; set; }
         public virtual string LastName { get; set; }
         public virtual bool Sex { get; set; }
+
+        public virtual string Url { get; set; }
 
         public virtual Quota Quota { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
@@ -112,7 +125,8 @@ namespace Zbang.Zbox.Domain
 
         public void RemoveInviteState(Box box)
         {
-            var invites = Invites.Where(w => w.Box == box).ToList();
+            var invites = Invites.Where(w => Equals(w.Box, box)).ToList();
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse - this is nhibernate issue
             if (invites != null)
             {
                 invites.ForEach(f => f.IsActive = false);
@@ -130,23 +144,24 @@ namespace Zbang.Zbox.Domain
         public void ChangeUserRelationShipToBoxType(Box box, UserRelationshipType newUserType)
         {
             RemoveInviteState(box);
-            var userType = UserBoxRel.FirstOrDefault(w => w.Box == box);
+            var userType = UserBoxRel.FirstOrDefault(w => Equals(w.Box, box));
             if (userType == null)
             {
                 userType = new UserBoxRel(this, box, UserRelationshipType.Subscribe);
-                this.UserBoxRel.Add(userType);
+                UserBoxRel.Add(userType);
                 box.UserBoxRel.Add(userType);
                 //throw new ArgumentException("user is not connected to box");
             }
             userType.UserRelationshipType = newUserType;
-            userType.UserTime.UpdateUserTime(this.Email);
+            userType.UserTime.UpdateUserTime(Email);
         }
 
 
 
         public IEnumerable<Box> GetUserOwnedBoxes()
         {
-            return UserBoxRel.Where(w => w.UserRelationshipType == UserRelationshipType.Owner).Select(s => s.Box).Where(w => w.IsDeleted == false);
+            return UserBoxRel.Where(w => w.UserRelationshipType == UserRelationshipType.Owner)
+                .Select(s => s.Box).Where(w => w.IsDeleted == false);
         }
 
 
@@ -172,9 +187,9 @@ namespace Zbang.Zbox.Domain
                 MiddleName = null;
             }
             LastName = lastName.Trim();
-            Name = CreateName();
-
+            CreateName();
         }
+
         public void UpdateUserLanguage(string culture)
         {
             if (!Languages.CheckIfLanguageIsSupported(culture))
@@ -189,10 +204,10 @@ namespace Zbang.Zbox.Domain
             string registerNumber)
         {
             University = university;
-            this.Code = userCode;
-            this.Department = department;
-            this.GroupNumber = groupNumber;
-            this.RegisterNumber = registerNumber;
+            Code = userCode;
+            Department = department;
+            GroupNumber = groupNumber;
+            RegisterNumber = registerNumber;
 
         }
 

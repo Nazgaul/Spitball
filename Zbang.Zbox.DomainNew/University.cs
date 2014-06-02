@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain
     public class University : User
     {
         //public const string UniversityEmailAddress = "support@cloudents.com";
-        protected University() : base()
+        protected University()
         {
             Libraries = new HashedSet<Library>();
             NeedCode = false;
@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain
 
         public University(string universityName, string image, string largeImage, string creatingUserName)
             : this(
-            string.Format("{0}@cloudents.com",Guid.NewGuid().ToString()),
+            string.Format("{0}@cloudents.com",Guid.NewGuid()),
             universityName,image,largeImage,creatingUserName)
             
         {           

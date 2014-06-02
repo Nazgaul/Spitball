@@ -2,7 +2,7 @@
 {
     public static class Search
     {
-        public const string OwnedSubscribedBoxes = @"select  b.BoxPicture as image,
+        public const string OwnedSubscribedBoxes = @"select  b.pictureurl as image,
  b.BoxName as name,
  b.ProfessorName as proffessor,
  b.CourseCode as courseCode,
@@ -20,7 +20,7 @@ order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, l
 offset @offsetV rows
 fetch next @pageSize rows only; ";
 
-        public const string UniversityBoxes = @"select b.BoxPicture as image,
+        public const string UniversityBoxes = @"select b.pictureurl as image,
  b.BoxName as name,
  b.ProfessorName as proffessor,
  b.CourseCode as courseCode,
@@ -37,7 +37,7 @@ order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, l
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
-        public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id
+        public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
 from zbox.users u
 where u.UniversityId2 = @universityId
 and u.username like '%' +@query + '%'
@@ -47,7 +47,7 @@ fetch next @pageSize rows only;";
 
 
         public const string Items = @"select 
-i.ThumbnailBlobName as image,
+i.thumbnailurl as image,
 i.Name as name,
 i.ItemId as id,
 i.Discriminator as type,
@@ -69,7 +69,7 @@ offset @offsetV rows
 fetch next @pageSize rows only;";
 
         public const string ItemFromOtherUniversities = @"
-select i.ThumbnailBlobName as image,
+select i.thumbnailurl as image,
 i.Name as name,
 i.ItemId as id,
 i.Discriminator as type,

@@ -131,6 +131,37 @@
   background: url(/Images/common17-sprite.png?v=2) -68px -25px no-repeat;
   margin: 5px 7px;
 }
+.dashLists .friendsList {
+  font-size: 0;
+  padding: 11px 7px 7px 11px;
+  /*rtl*/
+}
+.friendItem {
+  margin: 0 6px 6px 0;
+  /*rtl*/
+  display: inline-block;
+  vertical-align: top;
+  /*if < 5 items: float friendBtn right.*/
+  /*if > 11 items hide all further items*/
+}
+.friendItem:nth-child(7) {
+  margin: 0;
+}
+.friendItem:last-child:nth-child(-n + 5) {
+  float: right;
+  /*rtl*/
+}
+.friendItem:nth-child(n+12) {
+  display: none;
+}
+.friendItem:last-child {
+  display: inline-block;
+  margin: 0;
+}
+.friendImg {
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+}
 .productsHeader {
   font-size: 16px;
   margin-bottom: -2px;

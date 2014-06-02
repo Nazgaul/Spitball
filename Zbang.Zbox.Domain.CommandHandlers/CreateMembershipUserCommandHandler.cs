@@ -41,18 +41,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user = new User(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
                     command.FirstName,
                     command.MiddleName,
-                    command.LastName,command.Sex, command.MarketEmail);
+                    command.LastName, command.Sex, command.MarketEmail);
+                m_UserRepository.Save(user, true);
+                user.GenerateUrl();
             }
             if (!user.IsRegisterUser)
             {
                 TriggerWelcomeMail(user);
                 user.IsRegisterUser = true;
-               // user.Name = command.UserName;
 
                 user.FirstName = command.FirstName;
                 user.MiddleName = command.MiddleName;
                 user.LastName = command.LastName;
-                user.Name = user.CreateName();
+                user.CreateName();
                 user.Sex = command.Sex;
                 user.MarketEmail = command.MarketEmail;
 
@@ -67,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var retVal = new CreateMembershipUserCommandResult(user);
             if (membershipCommand.UniversityId.HasValue)
             {
-                UpdateUniversity(command.UniversityId.Value, retVal, user);
+                UpdateUniversity(membershipCommand.UniversityId.Value, retVal, user);
 
             }
             m_UserRepository.Save(user);

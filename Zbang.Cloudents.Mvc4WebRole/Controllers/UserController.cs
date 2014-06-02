@@ -86,8 +86,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetUserMinProfileQuery(userId);
             var result = await m_ZboxCacheService.Value.GetUserMinProfile(query);
-            var urlBuilder = new UrlBuilder(HttpContext);
-            result.Url = urlBuilder.BuildUserUrl(result.Id, result.Name);
             return result;
         }
 
@@ -116,23 +114,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(taskUserData, taskFriendData);
 
                 IEnumerable<UserDto> friendFriends = null;
-                var urlBuilder = new UrlBuilder(HttpContext);
                 if (taskFriendData.Result != null)
                 {
-                    friendFriends = taskFriendData.Result.Where(w => w.Uid != GetUserId()).Select(s =>
-                    {
-                        s.Url = urlBuilder.BuildUserUrl(s.Uid, s.Name);
-                        return s;
-
-                    });
+                    friendFriends = taskFriendData.Result.Where(w => w.Uid != GetUserId());
                 }
                 return this.CdJson(new JsonResponse(true, new
                 {
-                    my = taskUserData.Result.Select(s =>
-                    {
-                        s.Url = urlBuilder.BuildUserUrl(s.Uid, s.Name);
-                        return s;
-                    }),
+                    my = taskUserData.Result,
                     user = friendFriends
                 }));
             }
@@ -240,9 +228,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetUserWithFriendQuery(GetUserId(), userId);
             var model = await m_ZboxReadService.GetUserWithFriendActivity(query);
             var urlBuilder = new UrlBuilder(HttpContext);
-            model.Items.ToList().ForEach((i) => i.Url = urlBuilder.BuildItemUrl(i.BoxId, i.BoxName, i.Id, i.Name, i.UniversityName));
-            model.Questions.ToList().ForEach((i) => i.Url = urlBuilder.BuildBoxUrl(i.Boxid, i.BoxName, i.UniversityName));
-            model.Answers.ToList().ForEach((i) => i.Url = urlBuilder.BuildBoxUrl(i.Boxid, i.BoxName, i.UniversityName));
+            model.Items.ToList().ForEach(i => i.Url = urlBuilder.BuildItemUrl(i.BoxId, i.BoxName, i.Id, i.Name, i.UniversityName));
+            model.Questions.ToList().ForEach(i => i.Url = urlBuilder.BuildBoxUrl(i.Boxid, i.BoxName, i.UniversityName));
+            model.Answers.ToList().ForEach(i => i.Url = urlBuilder.BuildBoxUrl(i.Boxid, i.BoxName, i.UniversityName));
 
             return this.CdJson(new JsonResponse(true, model));
         }

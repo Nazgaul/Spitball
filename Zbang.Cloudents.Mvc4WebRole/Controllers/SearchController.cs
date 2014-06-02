@@ -125,14 +125,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return s;
                 });
             }
-            if (result.Users != null)
-            {
-                result.Users = result.Users.Select(s =>
-                {
-                    s.Url = urlBuilder.BuildUserUrl(s.Id, s.Name);
-                    return s;
-                });
-            }
         }
 
 

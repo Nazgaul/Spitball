@@ -14,6 +14,24 @@
   width: -webkit-calc(100% - 290px);
   width: calc(100% - 290px);
 }
+.inviteFriendsBtn {
+  margin-top: 13px;
+  display: inline-block;
+  cursor: pointer;
+  line-height: 8px;
+  padding: 5px;
+}
+.inviteFriendsBtn:before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 19px;
+  margin: 0 auto 13px;
+  background: url(/Images/common17-sprite.png?v=2) -90px -1px no-repeat;
+}
+.inviteFriendsBtn:hover:before {
+  background-position: -90px -21px;
+}
 .shareBtn {
   position: relative;
   margin-top: 12px;
@@ -341,7 +359,7 @@
 }
 .boxTopWpr.boxEdit img,
 .boxTopWpr.boxEdit .boxRename,
-.boxTopWpr.boxEdit .friendsList {
+.boxTopWpr.boxEdit .boxFriendsList {
   display: none;
 }
 .boxTopWpr.boxEdit .courseCode {
@@ -435,9 +453,6 @@
 .boxTop img {
   border: 1px solid #ebebeb;
 }
-.mtouch .boxRename {
-  display: inline-block;
-}
 .boxPrps {
   overflow: hidden;
   padding-left: 15px;
@@ -467,42 +482,81 @@
   margin-top: 10px;
 }
 /*#region box friends */
-.boxMembers .friendsList {
-  border-right: 1px solid #c2c2c2;
+.boxMembers.boxFriendsList {
+  position: fixed;
+  top: 150px;
+  width: 366px;
+  right: 15px;
   /*rtl*/
+  padding: 0;
 }
-.friendsList {
+.boxMembers:not(.boxFriendsList) {
+  display: none;
+}
+.boxFriendsList {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 11px 7px 7px 7px;
   font-size: 0;
 }
-.friendItem {
-  margin: 0 6px 6px 0;
-  /*rtl*/
-  display: inline-block;
-  vertical-align: top;
-}
-.friendItem:nth-child(7) {
-  margin: 0;
-}
-/*if < 5 items: float friendBtn right.*/
-.friendItem:last-child:nth-child(-n + 5) {
-  float: right;
-  /*rtl*/
-}
-/*if > 11 items hide all further items*/
-.friendItem:nth-child(n+12) {
-  display: none;
-}
-.friendItem:last-child {
-  display: inline-block;
-  margin: 0;
-}
-.friendImg {
+.boxFriendsList li {
+  width: 50px;
+  height: 50px;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
+  display: inline-block;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 2px 6px 0;
+  /*rtl*/
+  /*if > 7 items hide all further items*/
+  /*Hide the 7th child only if there are at least 7 more children*/
+}
+.boxFriendsList li.static {
+  background: #0371c8;
+  padding-top: 15px;
+}
+.boxFriendsList li.static:before {
+  content: '';
+  display: inline-block;
+  width: 21px;
+  height: 19px;
+  background: url(/Images/common17-sprite.png?v=2) -142px -2px no-repeat;
+  vertical-align: middle;
+}
+.boxFriendsList li.static:hover {
+  background: #0e68af;
+}
+.boxFriendsList li:nth-child(n+8) {
+  display: none;
+}
+.boxFriendsList li:nth-child(7):nth-last-child(n + 8) {
+  display: none;
+}
+.boxFriendsList li:last-child {
+  background: #fff;
+  /*if > 13 items: float show all right.*/
+}
+.boxFriendsList li:last-child:nth-child(n+14) {
+  float: right;
+  /*rtl*/
+  display: inline-block;
+}
+.boxFriendsList li:last-child .showAllMembers {
+  color: #0371c8;
+  padding-top: 14px;
+  text-align: center;
+  font-size: 16px;
+}
+.boxFriendsList li:last-child .showAllMembers:before {
+  content: '+' attr(data-morefriends-count);
+  display: inline-block;
+}
+.boxFriendsList li:last-child:hover {
+  background: #f9f9f9;
 }
 .inviteFriendBtn.btn3 {
   -webkit-box-sizing: border-box;

@@ -6,8 +6,10 @@
 .headingTexts .email {
   width: 185px;
 }
-.videoWpr {
-  top: 400px;
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .language.language {
+    margin-top: 261px;
+  }
 }
 /*#endregion */
 .register .cbLabel {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Zbang.Zbox.Domain.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain.CommandHandlersTests
 {
@@ -12,12 +13,14 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
     {
         private IRepository<File> m_StubItemRepository;
         private IRepository<Box> m_StubBoxRepository;
+        private IBlobProvider m_BlobProvider;
 
         [TestInitialize]
         public void Setup()
         {
             m_StubItemRepository = MockRepository.GenerateStub<IRepository<File>>();
             m_StubBoxRepository = MockRepository.GenerateStub<IRepository<Box>>();
+            m_BlobProvider = MockRepository.GenerateStub<IBlobProvider>();
 
         }
 
@@ -28,12 +31,12 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someBlobUrl = "someblobname";
             var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someBox = new Box("some box name", someUploaderUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
-            var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox);
+            var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox, "some img url");
 
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
 
             var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl, "xxxx");
-            var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository);
+            var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository, m_BlobProvider);
 
             commandHandle.Handle(someCommand);
 
@@ -50,16 +53,16 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someBox = new Box("some box name", someUploaderUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
 
-            var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox);
+            var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox, "some url");
 
-            someBox.AddPicture("some box picture");
+            someBox.AddPicture("some box picture","some picture url");
             // stubBox.GetType().GetProperty("Items").SetValue(stubBox, stubItemInBox);
             // stubItemInBox.Stub(x => x.Count).Return(5);
 
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
 
             var someCommand = new UpdateThumbnailCommand(someItemId, "some new thumbnailUrl", someBlobUrl, someBlobUrl, "xxx");
-            var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository);
+            var commandHandle = new UpdateThumbnailCommandHandler(m_StubItemRepository, m_StubBoxRepository, m_BlobProvider);
 
             commandHandle.Handle(someCommand);
 

@@ -34,7 +34,7 @@
   left: 50%;
   /*rtl*/
   top: 91px;
-  z-index: 4;
+  z-index: 3;
   -webkit-transition: top 1s 2s;
   -moz-transition: top 1s 2s;
   -o-transition: top 1s 2s;
@@ -147,7 +147,7 @@
   display: none;
   position: absolute;
   top: -12px;
-  right: 0px;
+  right: 0;
   /*rtl*/
   margin: 0;
   background: url(/Images/common17-sprite.png?v=1) -72px -42px no-repeat;

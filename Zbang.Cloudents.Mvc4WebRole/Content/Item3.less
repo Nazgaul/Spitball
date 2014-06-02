@@ -24,7 +24,7 @@
     position: absolute;
     left:50%; /*rtl*/
     top: 91px;
-    z-index:4; // above itemPreview but below topBar
+    z-index:3; // above itemPreview but below topBar. Make sure this works on Ipad as well.(I noticed that it rebders differently to desktop here)
     .transition(top 1s 2s);
     &.show
     {
@@ -139,10 +139,10 @@
 }
 
 .itemRenameBtn{
-     display: none;
+    display: none;
     position: absolute;
     top: -12px;
-    right: 0px; /*rtl*/
+    right: 0; /*rtl*/
     margin: 0;
     background: url(/Images/common17-sprite.png?v=1) -72px -42px no-repeat;
     width: 23px;

@@ -8,6 +8,7 @@
     <return-scalar column="UserName" type="string"/>
     <return-scalar column="UserImage" type="string"/>
     <return-scalar column="UserUid" type="long"/>
+    <return-scalar column="Url" type="string" />
     <return-scalar column="Content" type="string"/>
     <return-scalar column="CreationTime" type="DateTime"/>
   </resultset>
@@ -16,6 +17,7 @@
     <return-scalar column="UserName" type="string"/>
     <return-scalar column="UserImage" type="string"/>
     <return-scalar column="UserId" type="long"/>
+    <return-scalar column="Url" type="string"/>
     <return-scalar column="Content" type="string"/>
     <return-scalar column="QuestionId" type="Guid"/>
     <return-scalar column="Answer" type="bool"/>
@@ -40,6 +42,7 @@
     ,u.[UserName] as UserName
 	  ,u.UserImage as UserImage
 	  ,u.userid as UserUid
+    ,u.Url as Url
     ,[Text] as Content
     ,q.CreationTime as creationTime
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
@@ -53,6 +56,7 @@
 	    ,u.[UserName] as UserName
       ,u.UserImage as UserImage
       ,u.userid as UserId
+      ,u.Url as Url
       ,[Text] as Content
       ,[QuestionId] as questionId
       ,MarkAnswer as answer
@@ -70,7 +74,7 @@
     i.itemid as Uid,
     i.Name as Name,
     i.UserId as OwnerId,
-    i.ThumbnailBlobName as Thumbnail,
+    i.thumbnailurl as Thumbnail,
     (select Uid from zbox.Box b where b.BoxId = i.BoxId) as BoxUid,
     i.Discriminator as Discriminator,
     i.QuestionId as QuestionId,

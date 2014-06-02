@@ -45,9 +45,9 @@ namespace Testing
 
 
         //static UnityContainer unityFactory = new UnityContainer();
-        static IThumbnailProvider m_ThumbnailProvider;
-        static IBlobProvider m_BlobProvider;
-        static ITableProvider m_TableProvider;
+        //static IThumbnailProvider m_ThumbnailProvider;
+        //static IBlobProvider m_BlobProvider;
+        //static ITableProvider m_TableProvider;
         //static IEnumerable<Country> GetCountries()
         //{
         //    return from ri in

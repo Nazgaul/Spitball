@@ -9,11 +9,16 @@
     text-align: left; /*rtl*/
     position: fixed;
     .transition(top 1s ease-in);
-    top: 150px;
+    //top: 150px;
+    top: 212px;
     right: 20px; /*rtl*/
     height: 100%;
     z-index: 1; // QA to appear above box items on narrow screen
     background: url(/Images/gray_jean80.png) repeat #fff; // On narrow screen - QA needs background. (TODO: maybe set this in a separate media query??)
+
+    background: rgba(217, 217, 217, 0.65);
+    border-radius: 5px 5px 0 0;
+
     &.changeState {
         .QWpr {
             left: -344px; /*rtl*/
@@ -85,7 +90,8 @@
 .QForm {
     .transition(all, .5s ease 1.3s);
     opacity: 1;
-    margin: 0 7px -20px 7px;
+    //margin: 0 7px -20px 7px;
+    margin: 10px 7px -36px 7px;
 
     .textareaWpr {
         width: 350px;
@@ -108,6 +114,7 @@
     left: 0; /*rtl*/
     //margin-top: 32px;
     margin-top: 15px;
+    //padding-top: 15px;
     .transition(all, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900) .2s);
     width: 365px; //place the vertical scroll inside by 1px
 }
@@ -270,8 +277,8 @@ textarea:invalid {
 }
 
 .QAContent {
-    background: rgba(217,217,217,.65);
-    border-radius: 5px 5px 0 0;
+    //background: rgba(217,217,217,.65);
+    //border-radius: 5px 5px 0 0;
     overflow-y: auto;
     overflow-x: hidden; //for animation
     position: relative; //for animation

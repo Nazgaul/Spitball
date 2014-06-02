@@ -13,33 +13,37 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
     class CreateQuizCommandHandler : ICommandHandler<CreateQuizCommand>
     {
-        private readonly IUserRepository m_UserReposiotry;
+        private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
 
-        public CreateQuizCommandHandler(IUserRepository userRepositoy,
+        public CreateQuizCommandHandler(IUserRepository userRepository,
             IBoxRepository boxRepository,
-            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository)
+            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository,
+            IRepository<Reputation> reputationRepository)
         {
-            m_UserReposiotry = userRepositoy;
+            m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_QuizRepository = quizRepository;
+            m_ReputationRepository = reputationRepository;
         }
         public void Handle(CreateQuizCommand message)
         {
-            var user = m_UserReposiotry.Load(message.UserId);
+            var user = m_UserRepository.Load(message.UserId);
             var box = m_BoxRepository.Load(message.BoxId);
 
-            var userType = m_UserReposiotry.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
+            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
 
             if (userType == Infrastructure.Enums.UserRelationshipType.None)
             {
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 box.CalculateMembers();
-                m_UserReposiotry.Save(user);
+                m_UserRepository.Save(user);
             }
             var quiz = new Zbang.Zbox.Domain.Quiz(message.Text, message.QuizId, box, user);
-
+            m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddQuiz));
+            m_UserRepository.Save(user);
             m_QuizRepository.Save(quiz);
         }
     }

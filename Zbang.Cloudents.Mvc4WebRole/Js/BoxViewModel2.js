@@ -405,7 +405,7 @@
                 analytics.trackEvent('BoxSettings', 'Open - show settings');
                 openBoxSettings('Settings');
             });
-
+            //$('.static').click(function () {
             document.getElementById('boxInvite').addEventListener('click', function (e) {
                 if (!cd.register()) {
                     cd.unregisterAction(this);

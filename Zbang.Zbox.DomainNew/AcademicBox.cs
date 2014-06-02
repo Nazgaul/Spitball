@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Domain
     public class AcademicBox : Box
     {
         public AcademicBox(string boxName, User user,
-            string courseCode, string professor, Library library, string picture, User creator)
+            string courseCode, string professor, Library library, string picture, User creator, string pictureUrl)
             :
             base(boxName, user, BoxPrivacySettings.AnyoneWithUrl)
         {
@@ -18,7 +18,8 @@ namespace Zbang.Zbox.Domain
             CourseCode = courseCode;
             Library.Add(library);
             Professor = professor;
-            Picture = picture;
+           // Picture = picture;
+            AddPicture(picture, pictureUrl);
             this.UserTime.CreatedUser = creator.Email;
             var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
             Questions.Add(new Comment(creator, Zbang.Zbox.Domain.Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));

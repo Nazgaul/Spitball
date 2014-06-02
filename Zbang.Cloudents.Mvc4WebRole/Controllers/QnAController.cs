@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId.ToString(), GetUserId()), ex);
+                TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, GetUserId()), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -130,11 +130,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var urlBuilder = new UrlBuilder(HttpContext);
             retVal.ToList().ForEach(f =>
             {
-                f.Url = urlBuilder.BuildUserUrl(f.UserUid, f.UserName);
                 f.Files.ForEach(fi => fi.Url = urlBuilder.BuildItemUrl(boxId, boxName, fi.Uid, fi.Name, uniName));
-
                 f.Answers.ForEach(fa => fa.Files.ForEach(fi1 => fi1.Url = urlBuilder.BuildItemUrl(boxId, boxName, fi1.Uid, fi1.Name, uniName)));
-                f.Answers.ForEach(fa => fa.Url = urlBuilder.BuildUserUrl(fa.UserId, fa.UserName));
             });
             return this.CdJson(new JsonResponse(true, retVal));
         }

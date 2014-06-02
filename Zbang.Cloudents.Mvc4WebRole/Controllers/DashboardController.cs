@@ -82,23 +82,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             data.Boxes = data.Boxes.Select(s =>
             {
                 s.Url = builder.BuildBoxUrl(s.BoxType, s.Id, s.Name, s.UniName);
-                if (!string.IsNullOrEmpty(s.BoxPicture))
-                {
-                    s.BoxPicture = m_BlobProivder.Value.GetThumbnailUrl(s.BoxPicture);
-                }
                 return s;
             });
             data.Wall = data.Wall.Select(item =>
             {
                 item.Url = builder.BuildBoxUrl(item.BoxId, item.BoxName, item.UniName);
-                item.UserUrl = builder.BuildUserUrl(item.UserId, item.UserName);
                 return item;
             });
-            data.Friends = data.Friends.Select(s =>
-             {
-                 s.Url = builder.BuildUserUrl(s.Uid, s.Name);
-                 return s;
-             });
             return data;
 
         }

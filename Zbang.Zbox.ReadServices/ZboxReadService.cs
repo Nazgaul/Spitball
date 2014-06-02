@@ -28,17 +28,14 @@ using Item = Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 using Qna = Zbang.Zbox.ViewModel.DTOs.Qna;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
-using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService
     {
-        private readonly IBlobProvider m_BlobProvider;
-        public ZboxReadService(IHttpContextCacheWrapper contextCacheWrapper, IBlobProvider blobProvider)
+        public ZboxReadService(IHttpContextCacheWrapper contextCacheWrapper)
             : base(contextCacheWrapper)
         {
-            m_BlobProvider = blobProvider;
         }
         const int DefaultPageSize = 50;
 
@@ -124,14 +121,7 @@ namespace Zbang.Zbox.ReadServices
                     fParent = dbQueryParentNode.FutureValue<NodeDto>();
                 }
                 var nodes = fnodeResult.ToList();
-                var boxes = fboxesResult.ToList().Select(s =>
-                {
-                    if (!string.IsNullOrEmpty(s.BoxPicture))
-                    {
-                        s.BoxPicture = m_BlobProvider.GetThumbnailUrl(s.BoxPicture);
-                    }
-                    return s;
-                }).ToList();
+                var boxes = fboxesResult.ToList();
                 //var boxesCount = fboxesCountResult == null ? 0 : fboxesCountResult.Value;
                 var parent = fParent == null ? null : fParent.Value;
 
@@ -239,7 +229,6 @@ where m.RecepientId = @userid
                 CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
                 var retVal = fbox.Value;
-                retVal.Image = m_BlobProvider.GetThumbnailUrl(retVal.Image);
                 return retVal;
             }
         }
@@ -338,11 +327,7 @@ where m.RecepientId = @userid
                 var fitems = queryBoxItem.Future<Item.ItemDto>();
                 var fQuiz = queryQuiz.Future<Item.QuizDto>();
 
-                IEnumerable<Item.IItemDto> items = fitems.ToList().Select(s =>
-                {
-                    s.Thumbnail = string.IsNullOrEmpty(s.Thumbnail) ? m_BlobProvider.GetThumbnailLinkUrl() : m_BlobProvider.GetThumbnailUrl(s.Thumbnail);
-                    return s;
-                }).ToList();
+                IEnumerable<Item.IItemDto> items = fitems.ToList();
                 var quizes = fQuiz.ToList();
                 var retVal = items.Union(quizes);
                 //var fcount = queryCountBoxItem.FutureValue<long>();
@@ -378,7 +363,6 @@ where m.RecepientId = @userid
                 }
                 var retVal = item.Value;
                 retVal.UserType = type;
-                retVal.Blob = m_BlobProvider.GetBlobUrl(retVal.Blob);
                 return retVal;
             }
         }
@@ -441,11 +425,6 @@ where m.RecepientId = @userid
                 var questions = fquestion.ToList();
                 var answers = fanswer.ToList();
                 IEnumerable<Qna.ItemDto> items = fItems.ToList();
-                items = items.Select(s =>
-                {
-                    s.Thumbnail = string.IsNullOrEmpty(s.Thumbnail) ? m_BlobProvider.GetThumbnailLinkUrl() : m_BlobProvider.GetThumbnailUrl(s.Thumbnail);
-                    return s;
-                }).ToList();
 
                 foreach (var answer in answers)
                 {
@@ -524,14 +503,10 @@ where m.RecepientId = @userid
                          pageSize = query.PageSize
                      }))
                 {
-                    var ownedBoxes = grid.Read<SearchBoxes>().Select(s => { s.Image = m_BlobProvider.GetThumbnailUrl(s.Image); return s; }).ToList();
-                    var universityBoxes = grid.Read<SearchBoxes>().Select(s => { s.Image = m_BlobProvider.GetThumbnailUrl(s.Image); return s; }).ToList();
+                    var ownedBoxes = grid.Read<SearchBoxes>();
+                    var universityBoxes = grid.Read<SearchBoxes>();
                     retVal.Users = grid.Read<SearchUsers>();
-                    retVal.Items = grid.Read<SearchItems>().Select(s =>
-                    {
-                        s.Image = m_BlobProvider.GetThumbnailUrl(s.Image);
-                        return s;
-                    }).ToList();
+                    retVal.Items = grid.Read<SearchItems>();
 
 
                     retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.PageSize);
@@ -546,11 +521,7 @@ where m.RecepientId = @userid
                         offsetV = query.Offset,
                         pageSize = query.PageSize
                     });
-                retVal.OtherItems = retVal.OtherItems.Select(s =>
-                {
-                    s.Image = m_BlobProvider.GetThumbnailUrl(s.Image);
-                    return s;
-                }).ToList();
+                retVal.OtherItems = retVal.OtherItems;
             }
             return retVal;
         }
@@ -589,7 +560,8 @@ where m.RecepientId = @userid
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                const string sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image, u.userReputation as score, uu.username as universityName
+                const string sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image,
+                            u.userReputation as score, uu.username as universityName, u.url as Url
                             from zbox.users u left join zbox.users uu on u.UniversityId2 = uu.UserId
                             where u.userid = @UserId";
                 var retVal = await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
@@ -800,15 +772,7 @@ where m.RecepientId = @userid
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 var retVal = await conn.QueryAsync<Box.BoxToFriendDto>(Sql.Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
-                return retVal.Select(s =>
-                {
-                    if (!string.IsNullOrEmpty(s.Picture))
-                    {
-                        s.Picture = m_BlobProvider.GetThumbnailUrl(s.Picture);
-
-                    }
-                    return s;
-                }).ToList();
+                return retVal;
             }
         }
         public async Task<IEnumerable<Item.ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query)
@@ -816,11 +780,7 @@ where m.RecepientId = @userid
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 var retVal = await conn.QueryAsync<Item.ItemToFriendDto>(Sql.Sql.UserWithFriendFiles, new { Me = query.UserId, Myfriend = query.FriendId });
-                return retVal.Select(s =>
-                {
-                    s.Image = string.IsNullOrEmpty(s.Image) ? m_BlobProvider.GetThumbnailLinkUrl() : m_BlobProvider.GetThumbnailUrl(s.Image);
-                    return s;
-                }).ToList();
+                return retVal;
             }
         }
 
@@ -829,11 +789,7 @@ where m.RecepientId = @userid
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 var retVal = await conn.QueryAsync<Qna.QuestionToFriendDto>(Sql.Sql.UserWithFriendQuestion, new { Me = query.UserId, Myfriend = query.FriendId });
-                return retVal.Select(s =>
-                {
-                    s.BoxPicutre = m_BlobProvider.GetThumbnailUrl(s.BoxPicutre);
-                    return s;
-                }).ToList();
+                return retVal;
             }
         }
 
@@ -842,11 +798,7 @@ where m.RecepientId = @userid
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 var retVal = await conn.QueryAsync<Qna.AnswerToFriendDto>(Sql.Sql.UserWithFriendAnswer, new { Me = query.UserId, Myfriend = query.FriendId });
-                return retVal.Select(s =>
-                {
-                    s.BoxPicture = string.IsNullOrEmpty(s.BoxPicture) ? null : m_BlobProvider.GetThumbnailUrl(s.BoxPicture);
-                    return s;
-                }).ToList();
+                return retVal;
             }
         }
 
@@ -855,15 +807,7 @@ where m.RecepientId = @userid
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
                 var retVal = await conn.QueryAsync<User.UserInviteDto>(Sql.Sql.UserPersonalInvites, new { Me = query.UserId });
-                return retVal.Select(s =>
-                {
-                    if (!string.IsNullOrEmpty(s.BoxPicture))
-                    {
-                        //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                        s.BoxPicture = m_BlobProvider.GetThumbnailUrl(s.BoxPicture);// blobProvider.GetThumbnailUrl(value);
-                    }
-                    return s;
-                }).ToList();
+                return retVal;
             }
         }
         public async Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
@@ -873,16 +817,8 @@ where m.RecepientId = @userid
             {
                 using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles, Sql.Sql.UserWithFriendQuestion, Sql.Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
                 {
-                    retVal.Items = grid.Read<Item.ItemToFriendDto>().Select(s =>
-                    {
-                        s.Image = string.IsNullOrEmpty(s.Image) ? m_BlobProvider.GetThumbnailLinkUrl() : m_BlobProvider.GetThumbnailUrl(s.Image);
-                        return s;
-                    }).ToList();
-                    retVal.Questions = grid.Read<Qna.QuestionToFriendDto>().Select(s =>
-                    {
-                        s.BoxPicutre = m_BlobProvider.GetThumbnailUrl(s.BoxPicutre);
-                        return s;
-                    }).ToList();
+                    retVal.Items = grid.Read<Item.ItemToFriendDto>();
+                    retVal.Questions = grid.Read<Qna.QuestionToFriendDto>();
                     retVal.Answers = grid.Read<Qna.AnswerToFriendDto>();
                 }
             }
@@ -897,10 +833,11 @@ where m.RecepientId = @userid
             SeoDto retVal = new SeoDto();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1}", Sql.Seo.GetBoxes, Sql.Seo.GetItems)))
+                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Seo.GetBoxes, Sql.Seo.GetItems, Sql.Seo.GetQuizes)))
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
                     retVal.Items = grid.Read<Item.ItemSeoDto>();
+                    retVal.Quizes = grid.Read<Item.ItemSeoDto>();
                 }
             }
             return retVal;

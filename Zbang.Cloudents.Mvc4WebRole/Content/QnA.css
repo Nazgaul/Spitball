@@ -14,12 +14,14 @@
   -moz-transition: top 1s ease-in;
   -o-transition: top 1s ease-in;
   transition: top 1s ease-in;
-  top: 150px;
+  top: 212px;
   right: 20px;
   /*rtl*/
   height: 100%;
   z-index: 1;
   background: url(/Images/gray_jean80.png) repeat #ffffff;
+  background: rgba(217, 217, 217, 0.65);
+  border-radius: 5px 5px 0 0;
 }
 .QA.changeState .QWpr {
   left: -344px;
@@ -96,7 +98,7 @@
   -o-transition: all, 0.5s ease 1.3s;
   transition: all, 0.5s ease 1.3s;
   opacity: 1;
-  margin: 0 7px -20px 7px;
+  margin: 10px 7px -36px 7px;
 }
 .QForm .textareaWpr {
   width: 350px;
@@ -267,8 +269,6 @@ textarea:invalid {
   min-height: 60px;
 }
 .QAContent {
-  background: rgba(217, 217, 217, 0.65);
-  border-radius: 5px 5px 0 0;
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
