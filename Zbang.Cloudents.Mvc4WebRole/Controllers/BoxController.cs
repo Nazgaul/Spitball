@@ -112,17 +112,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.title = string.Format("{0} | Cloudents", box.Name);
                 }
 
-                var urlBuilder = new UrlBuilder(HttpContext);
                 if (boxName != UrlBuilder.NameToQueryString(box.Name))
                 {
                     throw new BoxDoesntExistException();
                 }
-                box.Subscribers = box.Subscribers.Select(s =>
-                {
-                    s.Url = urlBuilder.BuildUserUrl(s.Uid, s.Name);
-                    return s;
-                });
-                JsonNetSerializer serializer = new JsonNetSerializer();
+              
+                var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(box);
 
                 ViewBag.boxid = boxId;
@@ -170,12 +165,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetBoxQuery(boxUid, userId);
                 var result = m_ZboxReadService.GetBox2(query);
-                var urlBuilder = new UrlBuilder(HttpContext);
-                result.Subscribers = result.Subscribers.Select(s =>
-                {
-                    s.Url = urlBuilder.BuildUserUrl(s.Uid, s.Name);
-                    return s;
-                });
                 return this.CdJson(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)
@@ -209,7 +198,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
                 {
-                    item.UserUrl = urlBuilder.BuildUserUrl(item.OwnerId, item.Owner);
                     if (item is Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
                     {
                         item.Url = urlBuilder.BuildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
@@ -217,15 +205,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         continue;
                     }
                     var quiz = item as QuizDto;
-                    if (quiz != null)
+                    if (quiz == null) continue;
+                    if (quiz.Publish)
                     {
-                        if (quiz.Publish)
-                        {
-                            quiz.Url = urlBuilder.BuildQuizUrl(boxUid, boxName, item.Id, item.Name, uniName);
-                        }
+                        quiz.Url = urlBuilder.BuildQuizUrl(boxUid, boxName, item.Id, item.Name, uniName);
                     }
-                    
-
                 }
                 var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
                 return this.CdJson(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
@@ -252,12 +236,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = GetUserId(false);
             var result = m_ZboxReadService.GetBoxMembers(new GetBoxQuery(boxUid, userId));
-            var urlBuilder = new UrlBuilder(HttpContext);
-            result = result.Select(s =>
-            {
-                s.Url = urlBuilder.BuildUserUrl(s.Uid, s.Name);
-                return s;
-            });
             return this.CdJson(new JsonResponse(true, result));
         }
 

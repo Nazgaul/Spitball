@@ -1,21 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace Zbang.Zbox.Infrastructure.Consts
 {
     public class UrlConsts
     {
-        public const string CloudentsURL = "https://www.cloudents.com/";
-        public const string ItemUrl = CloudentsURL + "item/{0}/{1}/{2}/{3}/{4}/";
-        public const string QuizUrl = CloudentsURL + "quiz/{0}/{1}/{2}/{3}/{4}/";
-        public const string BoxUrl = CloudentsURL + "box/my/{0}/{1}/";
-        public const string CourseUrl = CloudentsURL + "course/{2}/{0}/{1}/";
-        public const string UserUrl = CloudentsURL + "user/{0}/{1}";
-        public const string PasswordUpdate = "https://www.cloudents.com/account/passwordupdate?key={0}";
-        public const string BoxUrlInvite = "https://www.cloudents.com/Share/FromEmail?key={0}&email={1}";
+        public const string CloudentsUrl = "https://www.cloudents.com/";
+        public const string ItemUrl = CloudentsUrl + "item/{0}/{1}/{2}/{3}/{4}/";
+        public const string QuizUrl = CloudentsUrl + "quiz/{0}/{1}/{2}/{3}/{4}/";
+        public const string BoxUrl = CloudentsUrl + "box/my/{0}/{1}/";
+        public const string CourseUrl = CloudentsUrl + "course/{2}/{0}/{1}/";
+        private const string UserUrl = "/user/{0}/{1}";
+        public const string PasswordUpdate = CloudentsUrl + "account/passwordupdate?key={0}";
+        public const string BoxUrlInvite = CloudentsUrl + "Share/FromEmail?key={0}&email={1}";
 
+        public static string BuildUserUrl(long id, string name, bool fullUrl = false)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("name");
+            }
+            
+            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(UserUrl, id, NameToQueryString(name)));
+            if (fullUrl)
+            {
+                return VirtualPathUtility.AppendTrailingSlash(CloudentsUrl) + relativeUrl;
+            }
+            return relativeUrl;
+        }
         public static string NameToQueryString(string name)
         {
             // - < > " ' % ; ) ( & + - 

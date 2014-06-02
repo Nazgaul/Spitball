@@ -75,6 +75,13 @@ namespace Zbang.Zbox.Domain.Services
                         var url = blobProvider.GetThumbnailLinkUrl();
                         link.UpdateThumbnail(link.ThumbnailBlobName, url);
                     }
+
+                    var users = UnitOfWork.CurrentSession.QueryOver<User>().Where(w => w.Url == null).List();
+                    foreach (var user in users)
+                    {
+                        user.GenerateUrl();
+
+                    }
                     tx.Commit();
 
                 }

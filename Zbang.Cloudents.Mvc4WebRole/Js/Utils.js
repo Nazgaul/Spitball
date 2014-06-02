@@ -1,4 +1,4 @@
-﻿(function (cd, $, analytics, dataContext) {
+﻿(function (cd, $, analytics) {
 
     if (window.scriptLoaded.isLoaded('u')) {
         return;
@@ -134,7 +134,7 @@
                     $(item).css('direction', 'rtl');
                 } else {
                     $(item).css('direction', 'ltr');
-                }                                
+                }
                 return;
             }
 
@@ -218,8 +218,7 @@
         if (!container) {
             container = document.body;
         }
-        var $timedObjects = $(container).find('[data-time]'),
-        text;
+        var $timedObjects = $(container).find('[data-time]');
         for (var i = 0, l = $timedObjects.length; i < l; i++) {
             parseTimeString($timedObjects[i]);
         }
@@ -229,12 +228,14 @@
         if (element instanceof jQuery) {
             element = element[0];
         }
+        if (!element) {
+            return;
+        }
         var time = element.getAttribute('data-time');
         if ($.isNumeric(time)) {
             time = parseInt(time, 10);
         }
-        text = parseActionTime(new Date(time));
-        element.textContent = text;
+        element.textContent = parseActionTime(new Date(time));;
     }
     //#endregion
     var resetErrors = function (form) {
@@ -1096,7 +1097,7 @@
             caption: 'CLOUDENTS'
         }
 
-        FB.api('/me/feed', 'post', params, function (response) {            
+        FB.api('/me/feed', 'post', params, function (response) {
         });
     };
 
@@ -1474,4 +1475,4 @@
     //    }
     //});
 
-})(window.cd = window.cd || {}, jQuery, cd.analytics, cd.data);
+})(window.cd = window.cd || {}, jQuery, cd.analytics);

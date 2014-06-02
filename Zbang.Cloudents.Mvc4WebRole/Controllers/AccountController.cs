@@ -652,7 +652,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var random = new Random();
             //string input = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            string input = "0123456789";
+            const string input = "0123456789";
             var chars = Enumerable.Range(0, size)
                                    .Select(x => input[random.Next(0, input.Length)]);
             return new string(chars.ToArray());
@@ -678,7 +678,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult GetUserDetail3()
         {
             const string userDatailView = "_UserDetail3";
-            var urlBuilder = new UrlBuilder(HttpContext);
             if (User == null || !(User.Identity.IsAuthenticated))
             {
                 return PartialView(userDatailView);
@@ -686,7 +685,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-                userData.Url = urlBuilder.BuildUserUrl(userData.Uid, userData.Name);
                 return PartialView(userDatailView, userData);
             }
             catch (UserNotFoundException)
