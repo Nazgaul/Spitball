@@ -9,10 +9,10 @@
 //                        from zbox.users u 
 //                        where u.usertype = 1 
 //                        order by MemberCount desc";
-        public const string GetWallList = @"select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action, universityname as uniName
+        public const string GetWallList = @"select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action, universityname as uniName, Url as Url
                                     from (	 
 	                                       select 
-	                                        author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,i.CreationTime as date, 'item' as action,
+	                                        author.userName, author.UserImage,author.url as url, author.userid as userid, b.boxid as boxid, b.boxname,i.CreationTime as date, 'item' as action,
  case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
 								                    else null
 								                    end as universityname
@@ -24,7 +24,7 @@
                                            where ub.UserId = @UserId and author.userid != @UserId 
 	   
 	                                       union all
-	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'question' as action,
+	                                       select   author.userName, author.UserImage,author.url as url, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'question' as action,
  case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
 								                    else null
 								                    end as universityname
@@ -35,7 +35,7 @@
 	                                       where ub.UserId =@UserId  and author.userid != @UserId 
 	  
 	                                        union all 
-	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'answer' as action,
+	                                       select   author.userName, author.UserImage,author.url as url, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'answer' as action,
  case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
 								                    else null
 								                    end as universityname
@@ -67,12 +67,13 @@
         /// <summary>
         /// Used in user page to bring friends
         /// </summary>
-        public const string FriendList = @"select top(11) u.userid as Uid,u.UserName as Name,u.UserImage as Image ,
+        public const string FriendList = @" select 
+                                u.userid as Uid,u.UserName as Name,u.UserImage as Image , u.Url as Url,
                                 u.UserImageLarge as LargeImage,
                                 u.UserReputation
 								from zbox.Users u where userid =( select universityid2 from zbox.users where userid = @userid)
 								union 
-								select u.userid as Uid,u.UserName as Name ,u.UserImage as Image ,
+								select u.userid as Uid,u.UserName as Name ,u.UserImage as Image ,u.url as Url,
                                 u.UserImageLarge as LargeImage,
                                 u.UserReputation
                                 from zbox.userboxrel ub 
@@ -82,7 +83,7 @@
                                 where ub.userid = @UserId
                                 and b.isdeleted = 0
                                 and ub2.userid != @UserId
-                                group by u.userid ,u.UserName  ,u.UserImage ,u.UserImageLarge,u.UserReputation
+                                group by u.userid ,u.UserName  ,u.UserImage ,u.UserImageLarge,u.UserReputation ,u.url
                                 order by u.UserReputation desc;";
 
 

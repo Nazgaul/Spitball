@@ -20,6 +20,7 @@
     <property name="MiddleName" not-null="false"/>
     <property name="LastName" not-null="false"/>
     <property name="Sex" not-null="false"/>
+    <property name="Url" not-null="false"/>
 
 
     <property name="Culture" column="Culture" not-null="false"/>

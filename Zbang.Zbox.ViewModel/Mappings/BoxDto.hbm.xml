@@ -23,6 +23,8 @@
     <return-scalar type="Zbang.Zbox.Infrastructure.Enums.UserRelationshipType,Zbang.Zbox.Infrastructure" column="UserStatus"/>
     <return-scalar type="string" column="Image"/>
     <return-scalar type="string" column="Name"/>
+    <return-scalar type="string" column="Url"/>
+    
     <return-scalar type="long" column="Uid"/>
   </resultset>
   <resultset name="boxMeta" >
@@ -93,7 +95,7 @@
   <!--box page - used to get box members -->
   <query name="GetBoxSubscribers" read-only="1">
     <![CDATA[
-    select u.id as Uid , u.Name as Name,u.Image as Image
+    select u.id as Uid , u.Name as Name,u.Image as Image, u.Url as Url
     from UserBoxRel ub join ub.User u 
     where ub.BoxId=:BoxId 
     order by u.Image 
@@ -113,12 +115,12 @@
   <!--box page - used to get all the members of the box in pop up-->
   <sql-query name="GetBoxMembers" read-only="1" resultset-ref="BoxMembers">
     <![CDATA[
-    select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus
+    select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
     where ub.BoxId=:BoxId
 	  union 
-	  select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , 1 as userStatus
+	  select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , 1 as userStatus , u.url as Url
 	  from zbox.Message m
 	  join zbox.users u on u.UserId = m.RecepientId
 	  where m.BoxId = :BoxId

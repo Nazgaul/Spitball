@@ -22,6 +22,7 @@
      u.FirstTime.Library as FirstTimeLibrary,
      u.FirstTime.Item as FirstTimeItem,
      u.FirstTime.Box as FirstTimeBox, 
+     u.Url as Url,
      u.Email as Email,
      u.Reputation as Score,
      uu.Name as LibName,

@@ -66,6 +66,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             m_AnswerRepository.Save(answer);
+            m_UserRepository.Save(user);
         }
     }
 }

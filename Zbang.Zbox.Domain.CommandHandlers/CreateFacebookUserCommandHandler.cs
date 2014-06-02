@@ -39,6 +39,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     newUser = true;
                     user = new User(command.Email, facebookCommand.UserImage, facebookCommand.LargeUserImage,
                         command.FirstName, command.MiddleName, command.LastName, command.Sex, command.MarketEmail);
+                    m_UserRepository.Save(user, true);
+                    user.GenerateUrl();
                 }
             }
             if (!user.IsRegisterUser)
@@ -48,7 +50,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user.FirstName = command.FirstName;
                 user.MiddleName = command.MiddleName;
                 user.LastName = command.LastName;
-                user.Name = user.CreateName();
+                user.CreateName();
                 user.Sex = command.Sex;
                 user.MarketEmail = command.MarketEmail;
 
@@ -66,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var retVal = new CreateFacebookUserCommandResult(user);
             if (facebookCommand.UniversityId.HasValue)
             {
-                UpdateUniversity(command.UniversityId.Value, retVal, user);
+                UpdateUniversity(facebookCommand.UniversityId.Value, retVal, user);
             }
             m_UserRepository.Save(user);
             return retVal;

@@ -10,6 +10,7 @@
     <return-scalar column="Name" type="string"/>
     <return-scalar column="OwnerId" type="long"/>
     <return-scalar column="Owner" type="string"/>
+    <return-scalar column="UserUrl" type="string" />
     <return-scalar column="Thumbnail" type="string"/>
     <return-scalar column="Discriminator" type="string"/>
     <return-scalar column="TabId" type="string"/>
@@ -27,6 +28,7 @@
     <return-scalar column="Id" type="long"/>
     <return-scalar column="OwnerId" type="long"/>
     <return-scalar column="Owner" type="string"/>
+    <return-scalar column="UserUrl" type="string"/>
     <return-scalar column="Name" type="string"/>
     <return-scalar column="Publish" type="bool"/>
     <return-scalar column="Rate" type="double"/>
@@ -35,8 +37,8 @@
     <return-scalar column="CommentsCount" type="int"/>
     <return-scalar column="Date" type="DateTime"/>
   </resultset>
-  
-  
+
+
 
 
   <resultset name="ItemWithDetailDto">
@@ -67,6 +69,7 @@
     i.Name as Name,
     i.userid as OwnerId,
     u.UserName as Owner,
+    u.Url as UserUrl,
     i.thumbnailurl as Thumbnail,
     i.Discriminator as Discriminator,
     i.ItemTabId as TabId,
@@ -89,21 +92,23 @@
     <![CDATA[
     select 
     id as Id, 
-    userid as OwnerId,
-    (select u.UserName from zbox.Users u where u.userid = q.UserId) as Owner,
+    q.userid as OwnerId,
+    u.UserName as Owner,
+    u.Url as UserUrl,
     name as Name,
     Publish,
     rate as Rate,
     NumberOfViews as NumOfViews,
     Content as Description,
     NumberOfComments as commentsCount,
-    CreationTime as Date
+    q.CreationTime as Date
     from zbox.quiz q
+    join zbox.Users u on u.userid = q.UserId
     where boxid = :BoxId
     ]]>
   </sql-query>
 
- 
+
 
   <!--Temp for dbi-->
   <query name="GetItemIdByBlobId">
@@ -140,5 +145,5 @@
     ]]>
   </sql-query>
 
-  
+
 </hibernate-mapping>
