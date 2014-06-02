@@ -14,6 +14,24 @@
   width: -webkit-calc(100% - 290px);
   width: calc(100% - 290px);
 }
+.inviteFriendsBtn {
+  margin-top: 13px;
+  display: inline-block;
+  cursor: pointer;
+  line-height: 8px;
+  padding: 5px;
+}
+.inviteFriendsBtn:before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 19px;
+  margin: 0 auto 13px;
+  background: url(/Images/common17-sprite.png?v=2) -90px -1px no-repeat;
+}
+.inviteFriendsBtn:hover:before {
+  background-position: -90px -21px;
+}
 .shareBtn {
   position: relative;
   margin-top: 12px;
@@ -468,7 +486,12 @@
   position: fixed;
   top: 150px;
   width: 366px;
-  right: 0;
+  right: 15px;
+  /*rtl*/
+  padding: 0;
+}
+.boxMembers:not(.friendsList) {
+  display: none;
 }
 .friendsList {
   -webkit-box-sizing: border-box;
@@ -478,28 +501,62 @@
   font-size: 0;
 }
 .friendsList li {
-  margin: 0 6px 6px 0;
-  /*rtl*/
+  width: 50px;
+  height: 50px;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
   display: inline-block;
   vertical-align: top;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 2px 6px 0;
+  /*rtl*/
   /*if > 7 items hide all further items*/
-  /*if > 6 items: float show all right.*/
+  /*Hide the 7th child only if there are at least 7 more children*/
+}
+.friendsList li.static {
+  background: #0371c8;
+  padding-top: 15px;
 }
 .friendsList li.static:before {
   content: '';
   display: inline-block;
-  width: 15px;
-  height: 15px;
-  background: orange;
+  width: 21px;
+  height: 19px;
+  background: url(/Images/common17-sprite.png?v=2) -142px -2px no-repeat;
   vertical-align: middle;
 }
-.friendsList li .friendItem:nth-child(n+8) {
+.friendsList li.static:hover {
+  background: #0e68af;
+}
+.friendsList li:nth-child(n+8) {
   display: none;
 }
-.friendsList li:last-child:nth-child(n+7) {
+.friendsList li:nth-child(7):nth-last-child(n + 8) {
+  display: none;
+}
+.friendsList li:last-child {
+  background: #fff;
+  /*if > 13 items: float show all right.*/
+}
+.friendsList li:last-child:nth-child(n+14) {
   float: right;
   /*rtl*/
   display: inline-block;
+}
+.friendsList li:last-child .showAllMembers {
+  color: #0371c8;
+  padding-top: 14px;
+  text-align: center;
+  font-size: 16px;
+}
+.friendsList li:last-child .showAllMembers:before {
+  content: '+' attr(data-morefriends-count);
+  display: inline-block;
+}
+.friendsList li:last-child:hover {
+  background: #f9f9f9;
 }
 .friendItem {
   margin: 0 6px 6px 0;

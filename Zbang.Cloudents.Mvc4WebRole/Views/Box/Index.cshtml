@@ -31,8 +31,7 @@
                 <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg calloutTrgr" alt="" data-bind="attr: { src: image, 'data-uid': id }" width="31" height="31" /></a>
             </li>
             <!--/ko-->
-            <li class="friendItem"><a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                @*href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })?r=box&s=sidebar"*@ 
+            <li class="friendItem"><a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
                                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="inviteFriendBtn btn3">@IndexResources.Invite</a></li>
         </ul>
     </div>
@@ -93,7 +92,8 @@
                 <input type="text" id="box_CL" class="linkShare" value="" readonly="readonly" data-bind="value: copyLink" />
             </div>
         </section>
-
+        <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+           data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
         <a class="backWpr elps lFloat" data-bind="attr: { href: parent().url },visible: backVisible" data-navigation="Dashboard">
             <div>@SharedResources.Backto</div>
             <h2 class="semiFont" data-bind="text: parent().name"></h2>
@@ -115,7 +115,7 @@
         <ul class="boxMembers friendsList">
             <!--ko foreach:members-->
             <li>
-                <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg calloutTrgr" alt="" data-bind="attr: { src: image, 'data-uid': id }" width="31" height="31" /></a>
+                <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg " alt="" data-bind="attr: { src: image, 'data-uid': id }" width="48" height="48" /></a>
             </li>
             <!--/ko-->
             <li class="static">
@@ -142,7 +142,7 @@
                 <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
                    data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
             </li>
-            <li class="friendItem"><button id="showAllMembers" class="showAll rFloat" type="button">+16</button></li>
+            <li><button class="showAllMembers" data-morefriends-count="16" type="button"></button></li>
             @*<li class="friendItem">
                 <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
                     data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="inviteFriendBtn btn3">@IndexResources.Invite</a>

@@ -577,10 +577,18 @@
   left: auto;
 }
 /*#region box friends */
-.boxMembers .friendsList {
-  border-left: 1px solid #c2c2c2;
+.boxMembers.friendsList {
+  left: 15px;
   /*rtl*/
-  border-right: none;
+  right: auto;
+}
+.friendsList li {
+  margin: 0 0 6px 2px;
+  /*rtl*/
+}
+.friendsList li:last-child:nth-child(n+14) {
+  float: left;
+  /*rtl*/
 }
 .friendItem {
   margin: 0 0 6px 6px;

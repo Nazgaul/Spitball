@@ -608,20 +608,32 @@
 /*#region box friends */
 
 .boxMembers {
-    .friendsList {
-        border-left: 1px solid @borderColor; /*rtl*/
-        border-right: none;
+    &.friendsList {
+        left: 15px; /*rtl*/
+        right: auto;
     }
 }
+
+.friendsList {
+    li {
+        margin: 0 0 6px 2px; /*rtl*/
+        &:last-child {
+            &:nth-child(n+14) {
+                float: left; /*rtl*/
+            }
+        }
+    }
+}
+
 
 .friendItem {
     margin: 0 0 6px 6px; /*rtl*/
 }
 
-    /*if < 5 items: float friendBtn right.*/
-    .friendItem:last-child:nth-child(-n + 5) {
-        float: left; /*rtl*/
-    }
+/*if < 5 items: float friendBtn right.*/
+.friendItem:last-child:nth-child(-n + 5) {
+    float: left; /*rtl*/
+}
 
 /*#endregion */
 
