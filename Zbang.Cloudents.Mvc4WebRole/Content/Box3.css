@@ -751,6 +751,13 @@
   position: relative;
 }
 /*#region boxItems */
+.thumbContent {
+  position: absolute;
+  top: 50px;
+  z-index: -1;
+  max-height: 130px;
+  overflow: hidden;
+}
 .boxEmpty {
   overflow: hidden;
   text-align: center;
@@ -871,7 +878,7 @@
 }
 .boxItemList.sponsored .listItem:first-child .itemContent {
   max-height: 74px;
-  margin: 0px 15px 5px 0;
+  margin: 0 15px 5px 0;
   /*rtl*/
   line-height: 18px;
 }
