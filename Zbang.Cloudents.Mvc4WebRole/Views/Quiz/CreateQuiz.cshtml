@@ -9,7 +9,7 @@
             <button type="button" ng-click="closeDialog()" class="closeDialog"></button>
         </header>        
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
-            <m-custom-scrollbar refresh-on-change="quiz.questions" class="quizWpr">
+            <m-custom-scrollbar class="quizWpr">
                 <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
                 <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" autofocus ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
                 <ul class="quizQuestionList">
@@ -27,65 +27,66 @@
     </section>
 </aside>
 
-<div class="quizPreview" quiz-preview show="quiz.showPreview">
-    <h2 class="elps">{{quiz.name}}</h2>
-    <button type="button" class="closePreview" ng-click="previewQuiz()">@SharedResources.Back</button>
-    <div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>
-    <div class="quizPrevWpr">
-        <ul class="quizQList">
-            <li ng-repeat="question in quiz.questions">
-                <div class="qPreview">{{question.text}}</div>
-                <ul class="quizAList">
-                    <li ng-repeat="answer in question.answers">
-                        <span ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
-                    </li>
-                </ul>
+<m-custom-scrollbar>
+    <div class="quizPreview" quiz-preview show="quiz.showPreview">
+        <h2 class="elps">{{quiz.name}}</h2>
+        <button type="button" class="closePreview" ng-click="previewQuiz()">@SharedResources.Back</button>
+        <div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>
+        <div class="quizPrevWpr">
+            <ul class="quizQList">
+                <li ng-repeat="question in quiz.questions">
+                    <div class="qPreview">{{question.text}}</div>
+                    <ul class="quizAList">
+                        <li ng-repeat="answer in question.answers">
+                            <span ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</m-custom-scrollbar>
+
+    <modal-dialog show="params.showCloseDialog" dialog-title="@QuizResources.LeaveQuiz">
+        <div class="popupWrppr confirm quitQuiz">
+            <div>
+                <header class="popupHeader">@QuizResources.LeaveQuiz</header>
+                <button type="button" class="closeDialog"></button>
+            </div>
+            <div>
+                <div class="quitQuizTxt">@QuizResources.NotFinished</div>
+                <div>@QuizResources.ChooseDraft</div>
+                <button type="button" ng-click="publish()" class="btn1">@QuizResources.PublishQuiz</button>
+                <button type="button" ng-click="saveDraft()" class="btn1">@QuizResources.SaveDraft</button>
+                <button type="button" ng-click="deleteQuiz()" class="btn2">@QuizResources.DeleteQuiz</button>
+            </div>
+        </div>
+    </modal-dialog>
+
+
+
+    <script type="text/ng-template" id="quizQuestionTemplate">
+        <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)"></button>
+        <textarea name="question" required class="inputText questionText" msd-elastic placeholder=" @SharedResources.Question #{{$index + 1}}" ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="!questionForm.$pristine"></textarea>
+        <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
+        <div class="lFloat answers">@SharedResources.Answers:</div>
+        <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
+        <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
+        <ul class="quizAnswersList">
+            <li class="quizAnswer" ng-repeat="answer in question.answers" ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
+            </li>
+
+            <li class="quizAnswer disabled">
+                <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly" ng-click="addAnswer(question)"></textarea>
+                <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+                <label></label>
             </li>
         </ul>
-    </div>
-</div>
+    </script>
 
-
-<modal-dialog show="params.showCloseDialog" dialog-title="@QuizResources.LeaveQuiz">
-    <div class="popupWrppr confirm quitQuiz">
-        <div>
-            <header class="popupHeader">@QuizResources.LeaveQuiz</header>
-            <button type="button" class="closeDialog"></button>
-        </div>
-        <div>
-            <div class="quitQuizTxt">@QuizResources.NotFinished</div>
-            <div>@QuizResources.ChooseDraft</div>
-            <button type="button" ng-click="publish()" class="btn1">@QuizResources.PublishQuiz</button>
-            <button type="button" ng-click="saveDraft()" class="btn1">@QuizResources.SaveDraft</button>
-            <button type="button" ng-click="deleteQuiz()" class="btn2">@QuizResources.DeleteQuiz</button>
-        </div>
-    </div>
-</modal-dialog>
-
-
-
-<script type="text/ng-template" id="quizQuestionTemplate">
-    <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)"></button>
-    <textarea name="question" required class="inputText questionText" msd-elastic placeholder=" @SharedResources.Question #{{$index + 1}}" ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="!questionForm.$pristine"></textarea>
-    <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
-    <div class="lFloat answers">@SharedResources.Answers:</div>
-    <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
-    <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
-    <ul class="quizAnswersList">
-        <li class="quizAnswer" ng-repeat="answer in question.answers" ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
-        </li>
-
-        <li class="quizAnswer disabled">
-            <textarea class="inputText questionAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly" ng-click="addAnswer(question)"></textarea>
-            <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
-            <label></label>
-        </li>
-    </ul>
-</script>
-
-<script type="text/ng-template" id="quizAnswerTemplate">
-    <textarea name="answer" class="inputText questionAnswer" msd-elastic ng-required="$index < 2 && !answersForm.answer.$pristine" placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-change="toggleRadioBtn(question,answer)" ng-model="answer.text"></textarea>
-    <input id="quizRadio{{currentIndex}}" type="radio" class="correctAnswer" name="quizRadio@*{{$parent.$parent.$index}}*@"
-           ng-disabled="isEmptyText(answer)" value="{{answer.id}}" ng-model="question.correctAnswer" ng-required="!questionForm.$pristine" />
-    <label for="quizRadio{{currentIndex}}" ng-click="markCorrect(question,answer)"></label>
-</script>
+    <script type="text/ng-template" id="quizAnswerTemplate">
+        <textarea name="answer" class="inputText questionAnswer" msd-elastic ng-required="$index < 2 && !answersForm.answer.$pristine" placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-change="toggleRadioBtn(question,answer)" ng-model="answer.text"></textarea>
+        <input id="quizRadio{{currentIndex}}" type="radio" class="correctAnswer" name="quizRadio@*{{$parent.$parent.$index}}*@"
+               ng-disabled="isEmptyText(answer)" value="{{answer.id}}" ng-model="question.correctAnswer" ng-required="!questionForm.$pristine" />
+        <label for="quizRadio{{currentIndex}}" ng-click="markCorrect(question,answer)"></label>
+    </script>

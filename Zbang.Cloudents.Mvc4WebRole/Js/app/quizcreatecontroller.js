@@ -413,6 +413,8 @@ quizCreate.directive('quizPreview', function () {
 
                 setTimeout(function () { //fix for animation
                     mainDiv.classList.add('topBarFix');
+                    $('.siteHeader').hide();
+                    scope.$broadcast('update-scroll');
                 }, 700)
               }
 
@@ -420,6 +422,7 @@ quizCreate.directive('quizPreview', function () {
                   mainDiv.classList.remove('previewQuiz');
                   mainDiv.classList.remove('topBarFix');
                   element[0].style.display = 'none';
+                  $('.siteHeader').show();
               }
                   
           }, true);

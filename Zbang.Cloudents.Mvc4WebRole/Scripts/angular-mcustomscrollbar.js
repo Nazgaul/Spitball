@@ -5,8 +5,12 @@
         template: '<div><div ng-transclude></div></div>',
         replace: true,
         link: function ($scope, $elem, $attr) {
-            var height = $(window).height() - cd.getElementPosition($elem[0]).top;
-            $elem.mCustomScrollbar({ setHeight: height });
+            var height = $(window).height() - cd.getElementPosition($elem[0]).top-100;
+            $elem.mCustomScrollbar({ setHeight: height, theme: "dark" });
+
+            $scope.$on('update-scroll', function () {
+                $elem.mCustomScrollbar('update');
+            });
         }
     };
 }]);
