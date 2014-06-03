@@ -397,6 +397,10 @@
 .quizPreview .quizAList li:last-child {
   margin-bottom: 0;
 }
+.quizPreview .quizAList li .ng-binding {
+  top: -17px;
+  position: relative;
+}
 .quizPrevWpr {
   width: 800px;
   margin: 0 auto 60px;
@@ -536,6 +540,8 @@
   white-space: pre-line;
   text-indent: -34px;
   line-height: 18px;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 .quizAList li:before {
   content: '';

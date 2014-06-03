@@ -954,7 +954,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This site is free, registered users get access to all the features..
+        ///   Looks up a localized string similar to Create a free account to get access to all features..
         /// </summary>
         public static string RegisterFirst {
             get {
