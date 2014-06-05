@@ -36,7 +36,11 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     }
 
     $scope.reset();
-
+    $scope.$on('initQuiz', function (e,data) {
+        $scope.$apply(function () {
+            $scope.initQuiz(data)
+        });
+    });
     $scope.initQuiz = function (data) {
         if ($scope.quiz.id) {
             if ($scope.quiz.id === data.quizId) {
