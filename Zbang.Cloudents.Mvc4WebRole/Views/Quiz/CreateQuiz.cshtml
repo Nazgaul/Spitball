@@ -9,7 +9,7 @@
             <button type="button" ng-click="closeDialog()" class="closeDialog"></button>
         </header>        
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
-            <m-custom-scrollbar class="quizWpr">
+            <m-custom-scrollbar class="quizWpr" bottom="40">
                 <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
                 <input type="text" class="inputText quizName" placeholder="@QuizResources.ChooseName" autofocus ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
                 <ul class="quizQuestionList">
@@ -27,7 +27,7 @@
     </section>
 </aside>
 
-<m-custom-scrollbar>
+<m-custom-scrollbar top="50" bottom="0">
     <div class="quizPreview" quiz-preview show="quiz.showPreview">
         <h2 class="elps">{{quiz.name}}</h2>
         <button type="button" class="closePreview" ng-click="previewQuiz()">@SharedResources.Back</button>

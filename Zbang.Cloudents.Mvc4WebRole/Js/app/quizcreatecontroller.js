@@ -27,7 +27,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
     $scope.reset = function () {
         $scope.quiz = {
-            id: '',
+            id: null,
             name : null,
             questions: [],
             courseId: null,
@@ -108,29 +108,35 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     }
 
     $scope.deleteQuiz = function () {
-        Quiz.delete({id: $scope.quiz.id}).then(function () {
+        if (!$scope.quiz.id) {
+            closed();
+            return;
+        }
+
+            closed();
+        });
+
+        function closed() {
             $scope.reset();
             $scope.params.showCreateQuiz = false;
             $scope.params.showCloseDialog = false;
-        });
+        }
     };
+
     $scope.saveDraft = function () {
         $scope.params.showCloseDialog = false;
         $scope.params.showCreateQuiz = false;
 
-
         if ($scope.isEmptyQuiz()) {
-            Quiz.delete({ id: $scope.quiz.id }).then(function () {
-
+            if (!$scope.quiz.id) {
+                return;
+            }
                 $scope.reset();
-
             });
             return;
         }
-
         $scope.reset();
-
-    };
+    };   
 
     $scope.addQuestion = function () {
         var question = new Question();
@@ -411,12 +417,11 @@ quizCreate.directive('quizPreview', function () {
                       mainDiv.classList.add('previewQuiz');
                   }, 0);
 
-<<<<<<< HEAD
-                  setTimeout(function() { //fix for animation
+                setTimeout(function () { //fix for animationB
                       mainDiv.classList.add('topBarFix');
-                  }, 700);
-=======
-                setTimeout(function () { //fix for animation
+                    $('.siteHeader').hide();
+                    scope.$broadcast('update-scroll');
+                    scope.$emit('update-scroll');
                     mainDiv.classList.add('topBarFix');
                     $('.siteHeader').hide();
                     scope.$broadcast('update-scroll');

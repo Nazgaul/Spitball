@@ -21,15 +21,23 @@
 
         e.preventDefault();
         resetPopupView();
-        $registerPopup.addClass('register');
+        $registerPopup.addClass('register');        
         focusOnElement($registerPopup);
+    });
+
+    $(document).on('click', '.registerFirst .emailBtn', function (e) {
+        $registerPopup.addClass('step2');
     });
 
     $('[data-closelogin]').click(resetPopupView);
 
-    cd.pubsub.subscribe('register', function () {
+    cd.pubsub.subscribe('register', function (data) {
         resetPopupView();
         $registerPopup.addClass('register');
+        if (data.action) {
+            $registerPopup.addClass('registerFirst');
+        }
+        
         focusOnElement($registerPopup);
     });
 
