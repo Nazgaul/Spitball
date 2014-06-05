@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/Item3.css",
                 "~/Content/Settings.css",
                 "~/Content/DashLib.css",
-                "~/Content/ng-modal.css",
+                //"~/Content/ng-modal.css",
                 "~/Content/jquery.mCustomScrollbar.css");
 
             RegisterCss("staticRtl", "~/Content/GeneralRtl.css",
