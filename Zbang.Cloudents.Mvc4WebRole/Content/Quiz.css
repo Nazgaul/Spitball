@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
@@ -25,6 +25,9 @@
 }
 .bodyContent.previewQuiz .quizPreview {
   margin-top: 50px;
+}
+.bodyContent.previewQuiz .quizTitle {
+  margin: 20px auto;
 }
 .quizSideBar {
   position: fixed;
@@ -316,8 +319,8 @@
   color: #0371c8;
   margin-top: 12px;
 }
-
-
+/*#endregion */
+/*#region Quiz Preview  */
 .quizPreview {
   margin-top: 100%;
   position: fixed;
@@ -415,7 +418,7 @@
 .quizTitle {
   font-size: 22px;
   width: 800px;
-  margin: 20px auto;
+  margin: 100px auto 20px;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";
@@ -521,6 +524,7 @@
   resize: none;
   height: 22px;
   padding: 4px;
+  border: 1px solid #a9a9a9;
 }
 .qPreview,
 .quizQuestion {
@@ -565,8 +569,8 @@
   /*rtl*/
   top: 7px;
 }
-
-
+/*#endregion */
+/*#region Quiz item page */
 .quizPage .sectionHeader {
   color: transparent;
 }
@@ -804,7 +808,7 @@
   font-size: 38px;
   margin: 0 auto;
 }
-
+/*#endregion */
 /*.validated {
     .quizName {
         &.ng-invalid {

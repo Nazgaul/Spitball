@@ -16,18 +16,14 @@ namespace Zbang.Zbox.WorkerRole.OneTimeUpdates
 {
     public class UpdateThumbnails : IUpdateThumbnails
     {
-        private IThumbnailProvider m_ThumbnailProvider;
-        private IBlobProvider m_BlobProvider;
         // private IFileConvertFactory m_FileContertFactory;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private IZboxWriteService m_ZboxService;
         private IZboxReadService m_ZboxReadService;
 
-        public UpdateThumbnails(IBlobProvider blobProvider, IThumbnailProvider thumbnailProvider, IFileProcessorFactory fileProcessorFactory,
+        public UpdateThumbnails(IFileProcessorFactory fileProcessorFactory,
             IZboxWriteService zboxService, IZboxReadService zboxReadService)
         {
-            m_ThumbnailProvider = thumbnailProvider;
-            m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             // m_FileContertFactory = fileConvertFacotry;
             m_ZboxReadService = zboxReadService;

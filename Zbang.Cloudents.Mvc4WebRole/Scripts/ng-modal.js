@@ -6,7 +6,7 @@
     app.provider("ngModalDefaults", function () {
         return {
             options: {
-                closeButtonHtml: "<span class='ng-modal-close-x'>X</span>"
+                closeButtonHtml: ""
             },
             $get: function () {
                 return this.options;

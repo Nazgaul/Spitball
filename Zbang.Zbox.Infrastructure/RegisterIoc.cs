@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure
             ioc.RegisterType<CommandHandlers.ICommandBus, CommandHandlers.CommandBus>(LifeTimeManager.PerHttpRequest);
 
 
-            ioc.RegisterType<Thumbnail.IThumbnailProvider, Thumbnail.ThumbnailProvider>(LifeTimeManager.Singleton);
+            //ioc.RegisterType<Thumbnail.IThumbnailProvider, Thumbnail.ThumbnailProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<Thumbnail.IAcademicBoxThumbnailProvider, Thumbnail.ThumbnailProvider>(LifeTimeManager.Singleton);
 
 

@@ -1,11 +1,11 @@
-﻿using Aspose.Pdf;
+﻿using System.Globalization;
+using Aspose.Pdf;
 using Aspose.Pdf.Devices;
 using Aspose.Pdf.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -13,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class PdfProcessor : FileProcessor, IContentProcessor
+    public class PdfProcessor : FileProcessor
     {
 
         const string CacheVersion = "V4";
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private void SetLicense()
         {
-            var license = new Aspose.Pdf.License();
+            var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
 
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
                     blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString();// DateTime.UtcNow.ToString();
+                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
 
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         Compress compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
                         parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString());
+                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
                     }
                 }
                 catch (IndexOutOfRangeException)
@@ -114,13 +114,13 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public static readonly string[] pdfExtenstions = { ".pdf" };
+        public static readonly string[] PdfExtenstions = { ".pdf" };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
-                return pdfExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return PdfExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 
@@ -144,7 +144,7 @@ namespace Zbang.Zbox.Infrastructure.File
                             var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
                             m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, ms, "image/jpeg");
 
-                            return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult
+                            return Task.FromResult(new PreProcessFileResult
                             {
                                 ThumbnailName = thumbnailBlobAddressUri,
                                 FileTextContent = ExtractPdfText(pdfDocument)
@@ -156,7 +156,7 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile pdf", ex);
-                return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
         }
 
@@ -182,7 +182,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.PdfFileTypePicture;
+            return Thumbnail.ThumbnailProvider.PdfFileTypePicture;
         }
     }
 }
