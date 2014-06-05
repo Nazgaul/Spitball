@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Thumbnail
 {
@@ -43,7 +39,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
         public ThumbnailProvider(IBlobProvider blobProvider/*, IFileConvertFactory fileConvertor*/)
         {
             m_BlobProvider = blobProvider;
-           // InitializeBlob();
+            InitializeBlob();
         }
 
         //private void InitializeThumbnailMapper()

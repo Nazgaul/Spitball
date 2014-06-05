@@ -24,10 +24,11 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             Trace.TraceInformation("Zbang.Cloudents.OneTimeWorkerRole entry point called", "Information");
             var updateThumbnail = m_Unity.Resolve<IUpdateThumbnails>();
             updateThumbnail.UpdateThumbnailPicture();
+            Trace.TraceInformation("Finish Processing", "Information");
             while (true)
             {
                 Thread.Sleep(10000);
-                Trace.TraceInformation("Working", "Information");
+              //  Trace.TraceInformation("Working", "Information");
             }
         }
 

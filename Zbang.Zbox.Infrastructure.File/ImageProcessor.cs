@@ -52,6 +52,10 @@ namespace Zbang.Zbox.Infrastructure.File
 
             using (var stream = m_BlobProvider.DownloadFile(blobName))
             {
+                if (stream.Length == 0)
+                {
+                    throw new ArgumentException("Stream is 0");
+                }
                 ResizeSettings settings = new ResizeSettings();
                 settings.Mode = FitMode.Max;
                 using (var outPutStream = ProcessFile(stream, imageDimentions.Width, imageDimentions.Height, settings))
