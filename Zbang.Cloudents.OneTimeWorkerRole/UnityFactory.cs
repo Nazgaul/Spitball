@@ -1,6 +1,8 @@
-﻿using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
-
+﻿
 //using Zbang.Zbox.WorkerRole.OneTimeUpdates;
+
+using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Cloudents.OneTimeWorkerRole
 {
@@ -19,19 +21,19 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         public const string Dbi = "Dbi";
         public const string Transaction = "Transaction";
 
-        public Zbang.Zbox.Infrastructure.Ioc.IocFactory Unity { get; private set; }
+        public IocFactory Unity { get; private set; }
         public UnityFactory()
         {
-            Unity = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            Unity = IocFactory.Unity;
 
 
-            Zbang.Zbox.Infrastructure.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            Zbang.Zbox.Domain.Services.RegisterIoc.Register();
-            Zbang.Zbox.ReadServices.RegisterIoc.Register();
-            Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            RegisterIoc.Register();
+            Zbox.Infrastructure.Data.RegisterIoc.Register();
+            Zbox.Infrastructure.File.RegisterIoc.Register();
+            Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Zbox.Domain.Services.RegisterIoc.Register();
+            Zbox.ReadServices.RegisterIoc.Register();
+            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
            
 
@@ -43,7 +45,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         private void RegisterTypes()
         {
 
-            //Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
+            Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
 
         }
        
