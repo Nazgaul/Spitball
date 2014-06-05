@@ -718,7 +718,11 @@ ul.ui-autocomplete {
         position: absolute;
     }
 }
-
+.userAnchor {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 .userPts {
     font-size: 11px;
     color: #fff;
@@ -1114,6 +1118,9 @@ ul.ui-autocomplete {
     &.register {
         max-height: none;
         top: 10%; //override
+        .emailBtn {
+            border: 1px solid @borderColor;
+        }
     }
 
     .facebook {

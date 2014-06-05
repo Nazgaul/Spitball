@@ -28,11 +28,14 @@
                     display: block;
                 }
             }
-
+            
         }
         .quizPreview
         {
             margin-top: 50px;
+        }
+        .quizTitle {
+            margin: 20px auto;
         }
     }
 }
@@ -441,7 +444,7 @@
 .quizTitle{
     font-size: 22px;
     width: 800px;
-    margin: 20px auto;
+    margin: 100px auto 20px;
     &:before
     {
         content: attr(data-questioncount) "\00a0";
@@ -544,6 +547,7 @@
     resize: none;
     height: 22px;
     padding: 4px;
+    border: 1px solid #a9a9a9;
 }
 .qPreview, .quizQuestion {
     white-space: pre-line;
