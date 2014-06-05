@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.File;

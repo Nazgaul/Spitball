@@ -8,7 +8,6 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -18,22 +17,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IBlobProvider m_BlobProvider;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IRepository<Updates> m_Updates;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
 
 
-        public DeleteItemCommandHandler(IQueueProvider queueProvider,
+        public DeleteItemCommandHandler(
             IRepository<Box> boxRepository, IBlobProvider blobProvider,
             IUserRepository userRepository,
+            IRepository<Updates> updates,
             IRepository<Item> itemRepository,
             IRepository<Reputation> reputationRepository)
         {
 
             m_BoxRepository = boxRepository;
             m_BlobProvider = blobProvider;
-            m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
+            m_Updates = updates;
             m_ItemRepository = itemRepository;
             m_ReputationRepository = reputationRepository;
         }
@@ -84,6 +84,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             uploaderFile.Quota.UsedSpace = m_UserRepository.GetItemsByUser(uploaderFile.Id).Sum(s => s.Size);
             var reputation = uploaderFile.AddReputation(ReputationAction.DeleteItem);
             m_ReputationRepository.Save(reputation);
+
+
+            var updatesToThatQuiz = m_Updates.GetQuerable().Where(w => w.Item.Id == command.ItemId);
+
+            foreach (var quizUpdate in updatesToThatQuiz)
+            {
+                m_Updates.Delete(quizUpdate);
+            }
+
             m_BoxRepository.Save(box);
             m_UserRepository.Save(uploaderFile);
         }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -13,16 +10,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
     class DeleteQuizCommandHandler : ICommandHandler<DeleteQuizCommand>
     {
-        private readonly IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
+        private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<Updates> m_Updates;
-        private readonly IRepository<Domain.SolvedQuiz> m_SolvedQuizRepository;
+        private readonly IRepository<SolvedQuiz> m_SolvedQuizRepository;
 
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IUserRepository m_UserRepository;
 
-        public DeleteQuizCommandHandler(IRepository<Zbang.Zbox.Domain.Quiz> quizRepository,
+        public DeleteQuizCommandHandler(IRepository<Domain.Quiz> quizRepository,
             IRepository<Updates> updates,
-            IRepository<Domain.SolvedQuiz> solvedQuizRepository,
+            IRepository<SolvedQuiz> solvedQuizRepository,
             IRepository<Reputation> reputationRepository,
             IUserRepository userRepository)
         {
