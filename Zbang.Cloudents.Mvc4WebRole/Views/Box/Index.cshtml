@@ -98,34 +98,36 @@
         @{Html.RenderPartial("_Items2");}
         <!--/ko-->            
         <ul class="boxMembers boxFriendsList">
-            <!--ko if:members().length > 7-->
-                <!--ko foreach:members.slice(0,6)-->
+            <!--ko foreach:members()-->
                 <li>
-                    <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg " alt="" data-bind="attr: { src: image, 'data-uid': id , title: name}" width="48" height="48" /></a>
+                    <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg " alt="" data-bind="attr: { src: image, 'data-uid': id, title: name }" width="48" height="48" /></a>
                 </li>
-                <!--/ko-->
-                <li><button class="showAllMembers" data-bind="attr: { 'data-morefriends-count' : 16}" type="button"></button></li>
             <!--/ko-->
-            <!--ko if:members().length === 7-->
-                <!--ko foreach:members-->
-                    <li>
-                        <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg " alt="" data-bind="attr: { src: image, 'data-uid': id , title: name}" width="48" height="48" /></a>
-                    </li>
-                <!--/ko-->
-            <!--/ko-->
-            <!--ko if:members().length < 7-->
-                <!--ko foreach:members()-->
-                    <li>
-                        <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg " alt="" data-bind="attr: { src: image, 'data-uid': id, title: name }" width="48" height="48" /></a>
-                    </li>
-                <!--/ko-->
-                <!--ko foreach:new Array(8-members().length)-->
-                    <li class="static">
-                        <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                        data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-                    </li>
-                <!--/ko-->
-            <!--/ko-->                     
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li class="static">
+                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+            </li>
+            <li><button class="showAllMembers" data-bind="attr: { 'data-morefriends-count' : 16}" type="button"></button></li>                  
         </ul>
         <!--ko stopBinding:true-->
         @{Html.RenderPartial("_QnA");}
