@@ -1,35 +1,26 @@
 ﻿using System;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Infrastructure.File;
-using System.IO;
-using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
 
 namespace Zbang.Cloudents.OneTimeWorkerRole
 {
     public class UpdateThumbnails : IUpdateThumbnails
     {
-        private IThumbnailProvider m_ThumbnailProvider;
-        private IBlobProvider m_BlobProvider;
         // private IFileConvertFactory m_FileContertFactory;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private IZboxWriteService m_ZboxService;
-        private IZboxReadService m_ZboxReadService;
+        private readonly IZboxWriteService m_ZboxService;
+        private readonly IZboxReadService m_ZboxReadService;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadServiceWorkerRole;
 
-        public UpdateThumbnails(IBlobProvider blobProvider, IThumbnailProvider thumbnailProvider, IFileProcessorFactory fileProcessorFactory,
+        public UpdateThumbnails(IFileProcessorFactory fileProcessorFactory,
             IZboxWriteService zboxService, IZboxReadService zboxReadService,
             IZboxReadServiceWorkerRole zboxReadServiceWorkerRole)
         {
-            m_ThumbnailProvider = thumbnailProvider;
-            m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_ZboxReadService = zboxReadService;
             m_ZboxService = zboxService;
@@ -67,8 +58,6 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 {
 
                     var blob = fileContainer.GetBlockBlobReference(blobname);
-                    Guid fileName = Guid.Empty;
-                    var blobName = blob.Uri.Segments[blob.Uri.Segments.Length - 1];
                     try
                     {
                         TraceLog.WriteInfo("processing now " + blob.Uri);
@@ -109,7 +98,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var itemid = m_ZboxReadService.GetItemIdByBlobId(blobName);
                 if (itemid == 0)
                 {
-                    throw new System.ArgumentException("cannot be 0", "itemid");
+                    throw new ArgumentException("cannot be 0", "itemid");
                 }
                 var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName, retVal.FileTextContent);
                 m_ZboxService.UpdateThumbnailPicture(command);

@@ -153,15 +153,27 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-                return await conn.QueryAsync<string>(@"select blobname from zbox.item
- where content is null and isdeleted = 0 and discriminator = 'FILE' 
+//                return await conn.QueryAsync<string>(@"select blobname from zbox.item
+// where content is null and isdeleted = 0 and discriminator = 'FILE' 
+//
+// and SUBSTRING(blobname, 
+//        LEN(blobname)-(CHARINDEX('.', reverse(blobname))-2), 8000) in 
+//		('rtf', 'docx', 'doc', 'txt','pptx', 'potx', 'ppxs', 'ppsx', 'ppt', 'pot', 'pps','pdf','xls', 'xlsx', 'xlsm', 'xltx', 'ods', 'csv')
+//
+//
+//");
 
- and SUBSTRING(blobname, 
-        LEN(blobname)-(CHARINDEX('.', reverse(blobname))-2), 8000) in 
-		('rtf', 'docx', 'doc', 'txt','pptx', 'potx', 'ppxs', 'ppsx', 'ppt', 'pot', 'pps','pdf','xls', 'xlsx', 'xlsm', 'xltx', 'ods', 'csv')
+                return await conn.QueryAsync<string>(@"select blobname from zbox.item where thumbnailblobname in 
+(
+'filev4.jpg',
+'imagev4.jpg',
+'pdfv4.jpg',
+'powerv4.jpg',
+'wordv4.jpg',
+'excelv4.jpg'
+)
+and  isdeleted = 0");
 
-
-");
             }
         }
 

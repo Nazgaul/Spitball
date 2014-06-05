@@ -123,6 +123,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
     };
 
+
     $scope.saveDraft = function () {
         $scope.params.showCloseDialog = false;
         $scope.params.showCreateQuiz = false;
@@ -136,7 +137,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             return;
         }
         $scope.reset();
-    };   
+    };
+
 
     $scope.addQuestion = function () {
         var question = new Question();
