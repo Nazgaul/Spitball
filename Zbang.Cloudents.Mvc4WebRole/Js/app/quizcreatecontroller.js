@@ -53,7 +53,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
         if (!data.quizId) {
             for (var i = 0; i < $scope.params.minQuestions; i++) {
-                $scope.addQuestion();
+                $scope.addQuestion(false);
             }
 
             $scope.params.loadCreateQuiz = true;
@@ -144,11 +144,12 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     };
 
 
-    $scope.addQuestion = function () {
+    $scope.addQuestion = function (focus) {
         var question = new Question();
+        question.focus = focus;
         $scope.quiz.questions.push(question);
         for (var i = 0; i < $scope.params.minAnswers; i++) {
-            $scope.addAnswer(question);
+            $scope.addAnswer(question,false);
         }
     };
     $scope.saveQuestion = function (question) {
@@ -181,8 +182,9 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
     };
 
-    $scope.addAnswer = function (question) {
+    $scope.addAnswer = function (question,focus) {
         var answer = new Answer();
+        answer.focus = focus;
         question.answers.push(answer);
     };
 
@@ -397,6 +399,12 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
       
     };
 
+    $scope.checkTab = function (question,lastAnswer,e) {
+        e.preventDefault();
+        if (lastAnswer && e.keyCode === 9) {
+            $scope.addAnswer(question,true);
+        }        
+    }
     $scope.closeDialog = function () {
         $scope.params.showCloseDialog = true;
     };
@@ -432,7 +440,6 @@ quizCreate.directive('quizPreview', function () {
                       $('.siteHeader').hide();
                       scope.$broadcast('update-scroll');
                   }, 700);
-//>>>>>>> 05044e53fa9bc68de18a3f3f1c96e820b692e86d
               }
 
               function hidePreview() {
@@ -443,5 +450,17 @@ quizCreate.directive('quizPreview', function () {
               }
                   
           }, true);
+    };
+});
+
+quizCreate.directive('quizFocus', function () {
+    return {
+        restrict : 'A',        
+        link : function (scope, element, attrs) {
+            if (attrs.focus === 'true') {
+                element.focus();
+                element.removeAttr('focus');
+            }
+        }        
     };
 });
