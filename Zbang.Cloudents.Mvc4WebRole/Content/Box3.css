@@ -1263,7 +1263,7 @@
   box-sizing: border-box;
   bottom: 100%;
   display: none;
-  z-index: 4;
+  z-index: 6;
   background: #fff;
   border-radius: 5px;
   margin-bottom: 8px;
