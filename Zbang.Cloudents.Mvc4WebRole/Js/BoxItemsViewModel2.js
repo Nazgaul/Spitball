@@ -490,10 +490,12 @@
             over: function (e) {
                 var item = ko.dataFor(this), html;
 
+      
+
                 if (cd.getElementPosition(this).top - $(window).scrollTop() < 132) {//132 header+ topbar
                     return;
                 }
-                if (item.type.toLowerCase() === 'file') {
+                if (item.type.toLowerCase() === 'file' || item.type.toLowerCase() === 'link') {
                     html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
                 }
 
