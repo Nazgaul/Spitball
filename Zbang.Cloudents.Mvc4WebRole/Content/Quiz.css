@@ -157,7 +157,7 @@
 .toggleQuiz {
   width: 22px;
   height: 22px;
-  background: url(/Images/common17-sprite.png?v=2) -294px -2px;
+  background: url(/Images/common17-sprite.png?v=3) -294px -2px;
   position: fixed;
   right: 374px;
   /*rtl*/
@@ -373,7 +373,7 @@
   display: inline-block;
   width: 35px;
   height: 35px;
-  background: url(/Images/common17-sprite.png?v=2) -204px 0 no-repeat;
+  background: url(/Images/common17-sprite.png?v=3) -204px 0 no-repeat;
   border-radius: 18px;
   vertical-align: middle;
   -moz-transform: scaleX(-1);
@@ -636,7 +636,7 @@
   width: 17px;
   height: 16px;
   background-color: none;
-  background: url(/Images/common17-sprite.png?v=2) -18px -121px no-repeat;
+  background: url(/Images/common17-sprite.png?v=3) -18px -121px no-repeat;
   opacity: 1 !important;
   margin: -3px 0 0 -3px;
   /*rtl*/

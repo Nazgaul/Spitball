@@ -511,11 +511,14 @@
         right: 15px; /*rtl*/
         padding: 0;
     }
-    &:not(.boxFriendsList) {
-        display: none; //TEMP !!!!!!!!!!!!!!!!!
-    }
 }
-
+.boxInvite {
+    display: block;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+}
 .boxFriendsList {
     .boxSizing;
     padding: 11px 7px 7px 7px;
@@ -531,17 +534,20 @@
         margin: 0 2px 6px 0; /*rtl*/
 
         &.static {
-            background: @attentionBlue;
-            padding-top: 15px;
+            position: relative;
+            padding-top: 12px;
             &:before {
                 .pseudo;
-                width: 21px;
-                height: 19px;
-                background: @common-sprite -142px -2px no-repeat;
+                width: 29px;
+                height: 26px;
+                background: @common-sprite -21px -142px no-repeat;
                 vertical-align: middle;
+                opacity: .2;
             }
-            &:hover {
-                background: @attentionBlueHover;
+            &:hover::before {
+                //background: @attentionBlueHover;
+                opacity:1;
+                
             }
         }
         /*if > 7 items hide all further items*/
@@ -1302,8 +1308,9 @@
     bottom: 100%;
     display: none;  
     //z-index:11;
-    z-index:4;  //TODO - need to fix this: over topBar and site header and under general tooltip?? - maybe with js? 
+    //z-index:4;  //TODO - need to fix this: over topBar and site header and under general tooltip?? - maybe with js? 
     //z-index: 1; //place underneath general tooltip
+    z-index: 6; // over leftPanel and siteheader - (both with 5)
     background: #fff;
     border-radius: 5px;
     margin-bottom: 8px;
