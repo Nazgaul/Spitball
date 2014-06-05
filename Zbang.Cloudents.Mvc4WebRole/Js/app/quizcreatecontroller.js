@@ -114,7 +114,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
 
             closed();
-        });
+        
 
         function closed() {
             $scope.reset();
@@ -132,7 +132,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
                 return;
             }
                 $scope.reset();
-            });
+            
             return;
         }
         $scope.reset();
@@ -417,16 +417,16 @@ quizCreate.directive('quizPreview', function () {
                       mainDiv.classList.add('previewQuiz');
                   }, 0);
 
-                setTimeout(function () { //fix for animationB
+                  setTimeout(function() { //fix for animationB
                       mainDiv.classList.add('topBarFix');
-                    $('.siteHeader').hide();
-                    scope.$broadcast('update-scroll');
-                    scope.$emit('update-scroll');
-                    mainDiv.classList.add('topBarFix');
-                    $('.siteHeader').hide();
-                    scope.$broadcast('update-scroll');
-                }, 700)
->>>>>>> 05044e53fa9bc68de18a3f3f1c96e820b692e86d
+                      $('.siteHeader').hide();
+                      scope.$broadcast('update-scroll');
+                      scope.$emit('update-scroll');
+                      mainDiv.classList.add('topBarFix');
+                      $('.siteHeader').hide();
+                      scope.$broadcast('update-scroll');
+                  }, 700);
+//>>>>>>> 05044e53fa9bc68de18a3f3f1c96e820b692e86d
               }
 
               function hidePreview() {
