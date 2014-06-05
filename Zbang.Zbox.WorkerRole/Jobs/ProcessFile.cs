@@ -1,14 +1,12 @@
 ﻿using System;
-using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Transport;
-//using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.FileConvert;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -43,7 +41,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             catch (Exception ex)
             {
-                Zbang.Zbox.Infrastructure.Trace.TraceLog.WriteError("On Run ProcessFile", ex);
+                TraceLog.WriteError("On Run ProcessFile", ex);
                 throw;
             }
         }
@@ -52,7 +50,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             m_QueueProcess.RunQueue(new CacheQueueName(), msg =>
             {
-                var msgData = msg.FromMessageProto<Zbang.Zbox.Infrastructure.Transport.FileProcessData>();
+                var msgData = msg.FromMessageProto<Infrastructure.Transport.FileProcessData>();
                 if (msgData == null)
                 {
                     TraceLog.WriteInfo("GenerateDocumentCache - message is not in the currect format " + msg.Id);
@@ -62,20 +60,28 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 try
                 {
                     var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);
-                    if (processor != null)
+                    if (processor == null) return true;
+
+                    var tokenSource = new CancellationTokenSource();
+                    tokenSource.CancelAfter(TimeSpan.FromMinutes(1));
+                    using (var t = Task.Factory.StartNew(() => processor.PreProcessFile(msgData.BlobName),
+                            tokenSource.Token))
                     {
-                        var t = processor.PreProcessFile(msgData.BlobName);
-                        t.Wait();
-                        var retVal = t.Result;
+
+
+                       // var t = processor.PreProcessFile();
+                        t.Wait(tokenSource.Token);
+                        var retVal = t.Result.Result;
                         if (retVal == null)
                         {
                             return true;
                         }
                         var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
-                        var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName, oldBlobName, retVal.FileTextContent);
+                        var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
+                            oldBlobName, retVal.FileTextContent);
                         m_ZboxWriteService.UpdateThumbnailPicture(command);
+                        return true;
                     }
-                    return true;
                 }
                 catch (ItemNotFoundException ex)
                 {
