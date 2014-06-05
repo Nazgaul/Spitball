@@ -8,11 +8,11 @@
     @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
     </div>
     <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
-    <button class="closeDialog" data-closelogin="close"></button>
+    <button class="closeDialog" data-closelogin="close"></button>    
 </div>
 @*Guy: When user needs to register in order to perform an action - add the class 'registerFirst' to the popup
 When the user ckicks the button 'emailBtn' - add the class 'step2' to the popup*@
-<div class="staticWpr popupWrppr" id="register">
+<div class="staticWpr popupWrppr registerFirst" id="register">
     <div class="regFirstTxt">
         <div>@SharedResources.RegisterFirst</div>
         <div class="regFirstTxt2">@SharedResources.FreePlatform</div>
@@ -30,6 +30,4 @@ When the user ckicks the button 'emailBtn' - add the class 'step2' to the popup*
             <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
         </div>
     </div>
-</div>
-
-<div class="modal2"></div>
+</div><div class="modal2"></div>

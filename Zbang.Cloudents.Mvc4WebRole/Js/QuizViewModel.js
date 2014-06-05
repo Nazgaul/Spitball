@@ -437,7 +437,7 @@
             quiz.classList.remove('checkQuiz');
             $('.commentWpr').removeClass('show');
             $(quizTQuestion).find('input').removeAttr('disabled').prop('checked', false);
-            $('.quizComments').hide();
+            //$('.quizComments').hide();
             $(quizTQuestion).find('.userCorrect').removeClass('userCorrect');
             $(quizTQuestion).find('.noAnswer').removeClass('noAnswer');
             $(quizTQuestion).find('.wrong').removeClass('wrong');

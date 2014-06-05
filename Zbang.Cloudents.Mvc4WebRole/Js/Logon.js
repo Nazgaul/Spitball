@@ -7,23 +7,13 @@
     }
     var eById = document.getElementById.bind(document),
         $registerPopup = $(eById('register')), $registerForm = $(eById('registerForm')),
-        $cancelPopup = $(eById('cancelRegisterPopup')), regPopup = eById('regPopup'),
+        $cancelPopup = $(eById('cancelRegisterPopup')),// regPopup = eById('regPopup'),
         $connectPopup = $(eById('connect')), $connectForm = $(eById('login'));
     
     //#region Show and Hide popups
-    $(document).on('click', '.addConnect', function (e) {
-        e.preventDefault();
-        resetPopupView();
-        $connectPopup.addClass('connect');
-        focusOnElement($connectPopup);
-    });
-    $(document).on('click', '.addRegister', function (e) {
-
-        e.preventDefault();
-        resetPopupView();
-        $registerPopup.addClass('register');        
-        focusOnElement($registerPopup);
-    });
+    $(document).on('click', '.addConnect',connect);
+      
+    $(document).on('click', '.addRegister', register);
 
     $(document).on('click', '.registerFirst .emailBtn', function (e) {
         $registerPopup.addClass('step2');
@@ -34,30 +24,36 @@
     cd.pubsub.subscribe('register', function (data) {
         resetPopupView();
         $registerPopup.addClass('register');
-        if (data.action) {
+        //if (data.action) {
             $registerPopup.addClass('registerFirst');
-        }
+        //}
         
         focusOnElement($registerPopup);
     });
 
-    $cancelPopup.click(function () {
-        regPopup.style.display = 'none';
-    });
+    $cancelPopup.click(resetPopupView);
 
     function focusOnElement($popup) {
         $popup.find('.inputText').first().focus();
     }
 
     function resetPopupView() {
-        $registerPopup.removeClass('register');
+        $registerPopup.removeClass('register step2');                
         $connectPopup.removeClass('connect');
-        if (regPopup) {
-            regPopup.style.display = 'none';
-        }
     }
     //#endregion
-
+    function connect(e) {
+        e.preventDefault();
+        resetPopupView();
+        $connectPopup.addClass('connect');        
+        focusOnElement($connectPopup);
+    }
+    function register(e) {
+        e.preventDefault();
+        resetPopupView();
+        $registerPopup.addClass('register');        
+        focusOnElement($registerPopup);
+    }
 
     $connectForm.submit(function (e) {
         e.preventDefault();
