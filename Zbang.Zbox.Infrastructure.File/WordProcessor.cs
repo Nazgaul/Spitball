@@ -1,12 +1,11 @@
-﻿using Aspose.Words;
+﻿using System.Globalization;
+using Aspose.Words;
 using Aspose.Words.Saving;
-using Aspose.Words.Tables;
 using ImageResizer;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -14,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class WordProcessor : FileProcessor, IContentProcessor
+    public class WordProcessor : FileProcessor
     {
         const string VersionCache = "V4";
         public WordProcessor(IBlobProvider blobProvider)
@@ -25,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private void SetLicense()
         {
-            var license = new Aspose.Words.License();
+            var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
 
@@ -60,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
                     blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString();// DateTime.UtcNow.ToString();
+                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
                 imgOptions.PageIndex = pageIndex;
@@ -72,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         Compress compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
                         parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString());
+                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
                     }
                 }
                 catch (ArgumentOutOfRangeException)
@@ -98,12 +97,12 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public static readonly string[] wordExtenstions = { ".rtf", ".docx", ".doc", ".txt" };
+        public static readonly string[] WordExtenstions = { ".rtf", ".docx", ".doc", ".txt" };
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
-                return wordExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return WordExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
         }
@@ -137,10 +136,10 @@ namespace Zbang.Zbox.Infrastructure.File
                     ms.Seek(0, SeekOrigin.Begin);
                     using (var output = new MemoryStream())
                     {
-                        ImageResizer.ImageBuilder.Current.Build(ms, output, settings);
+                        ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
                         m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult
+                        return Task.FromResult(new PreProcessFileResult
                         {
                             ThumbnailName = thumbnailBlobAddressUri,
                             FileTextContent = ExtractDocumentText(word)
@@ -151,7 +150,7 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile word", ex);
-                return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
         }
 
@@ -173,7 +172,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.WordFileTypePicture;
+            return Thumbnail.ThumbnailProvider.WordFileTypePicture;
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -6,6 +8,7 @@ using Zbang.Zbox.ReadServices;
 using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
+using System.Threading.Tasks;
 
 namespace Zbang.Cloudents.OneTimeWorkerRole
 {
@@ -41,15 +44,17 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
-//                var blobs = new List<string>() {
-                    
+//                var blobs = new List<string>
+//                {
+//                     "51e877ec-4b1e-4f11-846d-a1c80ba405a8.pdf",
+//                    "1419efca-3ff5-4371-b565-ec8e27144124.docx"
+                   
 ////"989fa4b8-897a-47dc-8c8b-da1d84a3f1b0.pdf",
 ////"67fc54ff-db81-48a5-9a88-9b3efd5ea328.docx",
 ////"d5b2369a-8eb8-4f93-90f9-d4af08d7c89d.pdf",
 ////"df40b48c-b231-4da4-b26a-936f4ab15ab3.pdf",
 ////"9f7b0ee0-c5b1-4274-9df0-967019611cc0.doc",
 ////"65fc3bf8-211c-4e5f-ad26-c1fc3d5bb9d9.pdf",
-//"7b4ec14e-c561-466c-8338-e4732c931bf7.pdf"
 //                //                    "2d2446f6-c0dd-438f-9ec6-84fb78d2b4e1.htm",
                                     
 //                };
@@ -85,12 +90,17 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             //TEST
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
-            if (processor != null)
-            {
-                var t =  processor.PreProcessFile(blobUri).Result;
+            if (processor == null) return;
+            var tokenSource = new CancellationTokenSource();
+            tokenSource.CancelAfter(TimeSpan.FromMinutes(1));
+            CancellationToken token = tokenSource.Token;
 
-                //t.Wait(TimeSpan.FromSeconds(30));
-                var retVal = t;
+          
+
+            using (var t = Task.Factory.StartNew(() => processor.PreProcessFile(blobUri), token))
+            {
+                t.Wait(token);
+                var retVal = t.Result.Result;
                 if (retVal == null)
                 {
                     return;
@@ -100,21 +110,12 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 {
                     throw new ArgumentException("cannot be 0", "itemid");
                 }
-                var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName, retVal.FileTextContent);
+                var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName,
+                    retVal.FileTextContent);
                 m_ZboxService.UpdateThumbnailPicture(command);
             }
         }
-
-        //private void GenerateCopyRights(string blobName)
-        //{
-        //    var stream = m_BlobProvider.DownloadFile(blobName);
-        //    var retVal = processor.GenerateCopyRight(stream);
-        //    var blob = m_BlobProvider.GetFile(blobName);
-        //    using (var ms = new MemoryStream(retVal, false))
-        //    {
-        //        blob.UploadFromStream(ms);
-        //    }
-        //}
+      
 
 
     }
