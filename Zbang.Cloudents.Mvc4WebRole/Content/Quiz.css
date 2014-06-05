@@ -26,6 +26,9 @@
 .bodyContent.previewQuiz .quizPreview {
   margin-top: 50px;
 }
+.bodyContent.previewQuiz .quizTitle {
+  margin: 20px auto;
+}
 .quizSideBar {
   position: fixed;
   top: 50px;
