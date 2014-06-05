@@ -415,7 +415,7 @@
 .quizTitle {
   font-size: 22px;
   width: 800px;
-  margin: 20px auto;
+  margin: 100px auto 20px;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";
