@@ -49,9 +49,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
     return {
         create: function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Create', data).success(function (data, status) {
+            $http.post('/Quiz/Create', data).success(function (data) {
                 dfd.resolve(data);
-            }).error(function (data, status) {
+            }).error(function (data) {
                 dfd.reject(data);
             });
 
@@ -59,9 +59,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
         },
         update: function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Update', data).success(function (data, status) {
+            $http.post('/Quiz/Update', data).success(function (data) {
                 dfd.resolve(data);
-            }).error(function (data, status) {
+            }).error(function (data) {
                 dfd.reject(data);
             });
 
@@ -69,9 +69,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
         },
         'delete': function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Delete', data).success(function (data, status) {
+            $http.post('/Quiz/Delete', data).success(function (data) {
                 dfd.resolve(data);
-            }).error(function (data, status) {
+            }).error(function (data) {
                 dfd.reject(data);
             });
 
@@ -79,9 +79,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
         },
         save: function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Save', data).success(function (data, status) {
+            $http.post('/Quiz/Save', data).success(function (data) {
                 dfd.resolve(data);
-            }).error(function (data, status) {
+            }).error(function (data) {
                 dfd.reject(data);
             });
 
@@ -89,9 +89,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
         },
         getDraft: function (data) {
             var dfd = $q.defer();
-            $http.get('/Quiz/GetDraft', { params: data }).success(function (data, status) {
+            $http.get('/Quiz/GetDraft', { params: data }).success(function (data) {
                 dfd.resolve(data);
-            }).error(function (data, status) {
+            }).error(function (data) {
                 dfd.reject(data);
             });
             return dfd.promise;
@@ -100,9 +100,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
         question: {
             create: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/CreateQuestion', data).success(function (data, status) {
+                $http.post('/Quiz/CreateQuestion', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -110,9 +110,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
             },
             update: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/UpdateQuestion', data).success(function (data, status) {
+                $http.post('/Quiz/UpdateQuestion', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -120,9 +120,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
             },
             'delete': function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/DeleteQuestion', data).success(function (data, status) {
+                $http.post('/Quiz/DeleteQuestion', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -132,9 +132,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
         answer: {
             create: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/CreateAnswer', data).success(function (data, status) {
+                $http.post('/Quiz/CreateAnswer', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -142,9 +142,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
             },
             update: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/UpdateAnswer', data).success(function (data, status) {
+                $http.post('/Quiz/UpdateAnswer', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -152,9 +152,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
             },
             'delete': function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/DeleteAnswer', data).success(function (data, status) {
+                $http.post('/Quiz/DeleteAnswer', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -162,9 +162,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
             },
             markCorrect: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/MarkCorrect', data).success(function (data, status) {
+                $http.post('/Quiz/MarkCorrect', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -174,9 +174,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
         discussion: {
             createDiscussion: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/CreateDiscussion', data).success(function (data, status) {
+                $http.post('/Quiz/CreateDiscussion', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;
@@ -184,9 +184,9 @@ cloudentsServices.factory('QuizService', function ($http,$q) {
             },
             deleteDiscussion: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/DeleteDiscussion', data).success(function (data, status) {
+                $http.post('/Quiz/DeleteDiscussion', data).success(function (data) {
                     dfd.resolve(data);
-                }).error(function (data, status) {
+                }).error(function (data) {
                     dfd.reject(data);
                 });
                 return dfd.promise;

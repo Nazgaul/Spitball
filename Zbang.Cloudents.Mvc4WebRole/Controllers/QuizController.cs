@@ -118,7 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult CreateQuiz()
         {
-            return PartialView("CreateQuiz1");
+            return PartialView("CreateQuiz");
         }
 
         [Ajax, HttpPost]

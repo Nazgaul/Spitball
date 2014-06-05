@@ -411,15 +411,24 @@ quizCreate.directive('quizPreview', function () {
                       mainDiv.classList.add('previewQuiz');
                   }, 0);
 
+<<<<<<< HEAD
                   setTimeout(function() { //fix for animation
                       mainDiv.classList.add('topBarFix');
                   }, 700);
+=======
+                setTimeout(function () { //fix for animation
+                    mainDiv.classList.add('topBarFix');
+                    $('.siteHeader').hide();
+                    scope.$broadcast('update-scroll');
+                }, 700)
+>>>>>>> 05044e53fa9bc68de18a3f3f1c96e820b692e86d
               }
 
               function hidePreview() {
                   mainDiv.classList.remove('previewQuiz');
                   mainDiv.classList.remove('topBarFix');
                   element[0].style.display = 'none';
+                  $('.siteHeader').show();
               }
                   
           }, true);
