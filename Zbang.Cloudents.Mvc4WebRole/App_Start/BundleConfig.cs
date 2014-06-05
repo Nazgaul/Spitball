@@ -95,7 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //test
             RegisterJs("angular",
-                new JsFileWithCdn("~/Scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"),
+                new JsFileWithCdn("~/Scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"),
                 new JsFileWithCdn("~/Scripts/angular-route.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
               new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
                 new JsFileWithCdn("~/Scripts/elastic.js"),
@@ -364,7 +364,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static void RegisterJs(string key, params JsFileWithCdn[] jsFiles)
         {
             var jsBundle = SquishIt.Framework.Bundle.JavaScript();
-            jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))

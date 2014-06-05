@@ -4,12 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.WorkerRole.Jobs;
-using Zbang.Zbox.WorkerRole.OneTimeUpdates;
 using Zbang.Zbox.Infrastructure.Ioc;
 //using Zbang.Zbox.WorkerRole.OneTimeUpdates;
 
@@ -58,22 +56,20 @@ namespace Zbang.Zbox.WorkerRole
                        };
             }
             //DO NOT CHANGE ANYTHING IN HERE
-            else
+            return new[]
             {
-                return new[]
-                       {
-                           m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
-                           m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnEveryChange)),
-                           m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceAWeek)),
-                           m_Unity.Resolve<IJob>(UnityFactory.GenerateDocumentCache),
-                           m_Unity.Resolve<IJob>(UnityFactory.AddFiles),
-                           m_Unity.Resolve<IJob>(UnityFactory.Transaction),
-                           m_Unity.Resolve<IJob>(UnityFactory.Dbi),
-                           m_Unity.Unity.Resolve<IJob>(UnityFactory.MailProcess2), 
-                           m_Unity.Unity.Resolve<IJob>(UnityFactory.EmailPartners)
-                       };
-            }
+                m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
+                m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnEveryChange)),
+                m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceAWeek)),
+                m_Unity.Resolve<IJob>(UnityFactory.GenerateDocumentCache),
+                m_Unity.Resolve<IJob>(UnityFactory.AddFiles),
+                m_Unity.Resolve<IJob>(UnityFactory.Transaction),
+                m_Unity.Resolve<IJob>(UnityFactory.Dbi),
+                m_Unity.Unity.Resolve<IJob>(UnityFactory.MailProcess2), 
+                m_Unity.Unity.Resolve<IJob>(UnityFactory.EmailPartners)
+            };
         }
+
         public override void Run()
         {
 

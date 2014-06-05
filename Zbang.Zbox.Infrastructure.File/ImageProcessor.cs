@@ -1,18 +1,16 @@
 ﻿using ImageResizer;
-using ImageResizer.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class ImageProcessor : FileProcessor, IContentProcessor
+    public class ImageProcessor : FileProcessor
     {
         private const int SubstractWidth = 100;
         const int SubstractHeight = 100;
@@ -76,7 +74,7 @@ namespace Zbang.Zbox.Infrastructure.File
             settings.Format = "jpg";
 
             var ms = new MemoryStream();
-            ImageResizer.ImageBuilder.Current.Build(stream, ms, settings);
+            ImageBuilder.Current.Build(stream, ms, settings);
             return ms;
         }
 
@@ -107,13 +105,13 @@ namespace Zbang.Zbox.Infrastructure.File
             return m_PreviewDimenstion[key];
         }
 
-        public static readonly string[] imageExtenstions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
+        public static readonly string[] ImageExtenstions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
-                return imageExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return ImageExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 
@@ -137,7 +135,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
                         m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
                     }
 
                 }
@@ -145,14 +143,14 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile image", ex);
-                return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
 
         }
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.ImageFileTypePicture;
+            return Thumbnail.ThumbnailProvider.ImageFileTypePicture;
         }
     }
 }
