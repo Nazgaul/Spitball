@@ -93,7 +93,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
         Quiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function (response) {
             if (!response) {
-                console.log('error updating quiz')
+                //console.log('error updating quiz');
             }
 
             addItemToBox(false);
@@ -113,9 +113,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             return;
         }
 
-        Quiz.delete({id: $scope.quiz.id}).then(function (data) {
             closed();
-        });
+        
 
         function closed() {
             $scope.reset();
@@ -132,9 +131,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             if (!$scope.quiz.id) {
                 return;
             }
-            Quiz.delete({ id: $scope.quiz.id }).then(function (data) {
                 $scope.reset();
-            });
+            
             return;
         }
         $scope.reset();
@@ -149,14 +147,14 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     };
     $scope.saveQuestion = function (question) {
         if (!$scope.quiz.id) {
-            createQuiz().then(function (quizId) {
+            createQuiz().then(function () {
                 createQuestion(question);
             });
             return;
         }
 
         if (!question.id) {
-            createQuestion(question).then(function (questionId) {
+            createQuestion(question).then(function () {
 
             });
             return;
@@ -192,7 +190,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
     $scope.saveAnswer = function (question, answer) {
         if (answer.id && !answer.text.length) {
-            Quiz.answer.delete({ id: answer.id }).then(function (data) {                
+            Quiz.answer.delete({ id: answer.id }).then(function () {                
                 answer.id = null;                
             });
             return;
@@ -203,16 +201,16 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
 
         if (!$scope.quiz.id) {
-            createQuiz().then(function (quizId) {
+            createQuiz().then(function () {
                 createQuestion(question);
-            }).then(function (questionId) {
+            }).then(function () {
                 createAnswer(question, answer);
             });
             return;
         }
 
         if (!question.id) {
-            createQuestion(question).then(function (questionId) {
+            createQuestion(question).then(function () {
                 createAnswer(question, answer);
             });
             return;
@@ -313,7 +311,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
                 l--;
             }
         }
-        return true // we need that to call the next function
+        return true; // we need that to call the next function
     };
     $scope.isEmptyQuestion = function (question) {
         if (!$scope.isEmptyText(question)) {
@@ -401,7 +399,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 quizCreate.directive('quizPreview', function () {
     return function (scope, element, attrs) {
         scope.$watch(attrs.show,
-          function (newValue,oldValue) {
+          function (newValue) {
               
               var mainDiv = document.getElementById('main');
 
@@ -415,16 +413,20 @@ quizCreate.directive('quizPreview', function () {
 
               function showPreview() {
                 element[0].style.display = 'block';
-                setTimeout(function () { //fix for animation
-                    mainDiv.classList.add('previewQuiz');
-                }, 0)
+                  setTimeout(function() { //fix for animation
+                      mainDiv.classList.add('previewQuiz');
+                  }, 0);
 
-                setTimeout(function () { //fix for animationB
-                    mainDiv.classList.add('topBarFix');
-                    $('.siteHeader').hide();
-                    scope.$broadcast('update-scroll');
-                    scope.$emit('update-scroll');
-                }, 700)
+                  setTimeout(function() { //fix for animationB
+                      mainDiv.classList.add('topBarFix');
+                      $('.siteHeader').hide();
+                      scope.$broadcast('update-scroll');
+                      scope.$emit('update-scroll');
+                      mainDiv.classList.add('topBarFix');
+                      $('.siteHeader').hide();
+                      scope.$broadcast('update-scroll');
+                  }, 700);
+//>>>>>>> 05044e53fa9bc68de18a3f3f1c96e820b692e86d
               }
 
               function hidePreview() {
