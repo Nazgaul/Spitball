@@ -44,9 +44,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin, Version=4.48.4489.28432, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+    <Reference Include="AjaxMin, Version=4.97.4951.28478, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxMin.4.48.4489.28432\lib\net20\AjaxMin.dll</HintPath>
+      <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
     <Reference Include="DevTrends.MvcDonutCaching, Version=1.2.3.0, Culture=neutral, PublicKeyToken=73c58d802958a09f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
