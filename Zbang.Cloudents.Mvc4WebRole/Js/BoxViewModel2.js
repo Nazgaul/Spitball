@@ -254,7 +254,7 @@
         }
         function checkTabPermission() {
             if (!cd.register()) {
-                cd.unregisterAction();
+                cd.pubsub.publish('register', { action: true });
                 return false;
             }
             if (self.follow()) {
@@ -406,7 +406,7 @@
             //$('.static').click(function () {
             document.getElementById('boxInvite').addEventListener('click', function (e) {
                 if (!cd.register()) {
-                    cd.unregisterAction(this);
+                    cd.pubsub.publish('register', { action: true });
                     e.stopPropagation();
                     e.preventDefault();
                     return;
