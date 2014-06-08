@@ -12,19 +12,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class ProcessFile : IJob
     {
-        private readonly IBlobProvider m_BlobProvider;
-        private readonly IQueueProvider m_QueueProvider;
         readonly private IZboxWriteService m_ZboxWriteService;
         private bool m_KeepRunning;
         private readonly QueueProcess m_QueueProcess;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
-        public ProcessFile(IBlobProvider blobProvider, IQueueProvider queueProvider,
+        public ProcessFile(IQueueProvider queueProvider,
             IFileProcessorFactory fileProcessorFactory,
             IZboxWriteService zboxService)
         {
-            m_BlobProvider = blobProvider;
-            m_QueueProvider = queueProvider;
             m_ZboxWriteService = zboxService;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(30));

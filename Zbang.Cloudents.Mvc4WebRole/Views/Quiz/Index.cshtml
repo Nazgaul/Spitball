@@ -93,7 +93,7 @@
             </a>
             @*<button type="button" class="itemPrint iconTop" id="quiz_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
         </div>
-        <div class="quizTitle" data-questioncount="@Model.Questions.Count()">@QuizResources.MultipleChoice</div>
+        <div class="quizTitle">@Model.Name</div>
         <div class="quizPrevWpr">
             @{
                 var questionIndex = 0;
