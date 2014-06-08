@@ -9,7 +9,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     {
         private readonly IZboxWriteService m_ZboxService;
         private bool m_KeepRunning;
-        private int paging = 100;
+        private int paging = 10;
 
         public UpdateDataBase(IZboxWriteService zboxService)
         {
