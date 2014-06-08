@@ -100,7 +100,9 @@
         <ul class="boxMembers boxFriendsList">
             <!--ko foreach:members()-->
                 <li>
-                    <a href="" data-navigation="user" data-bind="attr: {href:url}"><img class="friendImg " alt="" data-bind="attr: { src: image, 'data-uid': id, title: name }" width="48" height="48" /></a>
+                    <a href="" class="" data-navigation="user" data-bind="attr: {href:url}">
+                        <img class="friendImg calloutTrgr" alt="" data-bind="attr: { src: image, 'data-uid': id }" width="48" height="48" />
+                    </a>
                 </li>
             <!--/ko-->
             <li class="static">
@@ -127,7 +129,7 @@
                 <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
                    data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
             </li>
-            <li><button class="showAllMembers" data-bind="attr: { 'data-morefriends-count' : 16}" type="button"></button></li>                  
+            <li id="showAllMembers"><button class="showAllMembers" data-bind="attr: { 'data-morefriends-count' : membersLength()-6}" type="button"></button></li>                  
         </ul>
         <!--ko stopBinding:true-->
         @{Html.RenderPartial("_QnA");}

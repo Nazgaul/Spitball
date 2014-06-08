@@ -18,7 +18,7 @@
         self.boxid = '';
         self.name = ko.observable(); // use
 
-
+        self.membersLength = ko.observable();
         self.image = ko.observable(); //use
         self.ownerName = ko.observable();
         self.ownerId = ko.observable();
@@ -32,8 +32,7 @@
         self.copyLink = ko.observable(cd.location());
         self.parent = ko.observable(new ParentElem());
         self.userType = ko.observable();
-        self.tabs = ko.observableArray([]);
-
+        self.tabs = ko.observableArray([]);        
         self.backVisible = ko.computed(function () {
             return self.parent().url;
         });
@@ -145,15 +144,14 @@
                 .members(mapped)
 
                 .noOfItems(result.items)
-
+                .membersLength(result.members)
                 .noOfComments(result.comments)
                 .copyLink(cd.location());
                 //temp
                 //for (var i = 0; i < 5; i++) {
                 //    self.members.push(new Member(result.Subscribers[0]));
                 //}
-                //endtemp
-
+                //endtemp                
                 var mappedTabs = $.map(result.tabs, function (d) { return new Tab(d); });
                 self.tabs(mappedTabs);
 

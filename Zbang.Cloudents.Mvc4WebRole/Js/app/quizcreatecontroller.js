@@ -106,8 +106,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
 
     $scope.publish = function () {
-        $scope.params.showCloseDialog = false;
-
+        $scope.params.showCloseDialog = false;        
         $scope.submit(this.quizForm.$valid);
     }
 
@@ -387,6 +386,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             return;
         }
         
+        cd.pubsub.publish('addPoints', { type: 'quiz' });
         Quiz.save({
             quizId: $scope.quiz.id, boxId: $scope.quiz.courseId, universityName: cd.getParameterFromUrl(1), boxName: $scope.quiz.courseName, quizName: $scope.quiz.name }
         ).then(function (data) {
