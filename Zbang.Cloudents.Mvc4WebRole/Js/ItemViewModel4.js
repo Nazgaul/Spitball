@@ -419,7 +419,7 @@
             loaded = false;
 
             if (imagesNumber > 0 && !cd.register()) {
-                cd.unregisterAction();
+                cd.pubsub.publish('register', { action: true }); //ask user to register if more than 3 pages
                 return;
             }
 
@@ -489,7 +489,7 @@
 
                         if (!cd.register()) {
                             $ratePopup.one('click', '.star', function () {
-                                cd.unregisterAction(this);
+                                cd.pubsub.publish('register',{action : true});
                             });
                             return;
                         }
@@ -711,7 +711,7 @@
 
                 $otakimP.click(function () {
                     if (!cd.register()) {
-                        cd.unregisterAction(this);
+                        cd.pubsub.publish('register', { action: true });
                         return;
                     }
                     if (!checkBoxPermission()) {
@@ -727,7 +727,7 @@
             function shareEvents() {
                 $itemDL.click(function () {
                     if (!cd.register()) {
-                        cd.unregisterAction(this);
+                        cd.pubsub.publish('register', { action: true });
                         return;
                     }
                     //if (!checkBoxPermission()) {
@@ -887,7 +887,7 @@
                     e.stopPropagation();
 
                     if (!cd.register()) {
-                        cd.unregisterAction(this);
+                        cd.pubsub.publish('register', { action: true });
                         return;
                     }
 
@@ -1004,7 +1004,7 @@
 
         function print() {
             if (!cd.register()) {
-                cd.unregisterAction(this);
+                cd.pubsub.publish('register', { action: true });
                 return;
             }
 

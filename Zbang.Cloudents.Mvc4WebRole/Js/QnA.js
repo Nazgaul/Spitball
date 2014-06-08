@@ -316,7 +316,7 @@
         });
         self.postQuestion = function (f) {
             if (!cd.register()) {
-                cd.unregisterAction();
+                cd.pubsub.publish('register', { action: true });
                 return;
             }
             if (self.permission() === 'none' || self.permission() === 'invite') {
@@ -391,7 +391,7 @@
         }
         self.postAnswer = function (f) {
             if (!cd.register()) {
-                cd.unregisterAction();
+                cd.pubsub.publish('register', { action: true });
                 return;
             }
             if (self.permission() === 'none' || self.permission() === 'invite') {
@@ -664,7 +664,7 @@
             })
             .on('focus', '[name="Content"]', function () {
                 if (!cd.register()) {
-                    cd.unregisterAction();
+                    cd.pubsub.publish('register', { action: true });
                     return;
                 }
 

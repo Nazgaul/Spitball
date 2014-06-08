@@ -464,7 +464,7 @@
 
             if (!cd.register()) {
                 cd.localStorageWrapper.setItem(quizId, JSON.stringify(sendData));
-                cd.unregisterAction(this);
+                cd.pubsub.publish('register', { action: true });
                 return;
 
             }
