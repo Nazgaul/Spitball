@@ -1513,7 +1513,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.zh.resx" />
-    <EmbeddedResource Include="Js\Resources\JsResources.ar.resx" />
+    <EmbeddedResource Include="Js\Resources\JsResources.ar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.en-gb.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.he.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.resx">

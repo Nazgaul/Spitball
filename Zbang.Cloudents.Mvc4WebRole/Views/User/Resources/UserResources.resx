@@ -178,7 +178,10 @@
     <value>10 pts Answering a question</value>
   </data>
   <data name="PointsTxt8" xml:space="preserve">
-    <value>5 pts for sharing on FB</value>
+    <value>5 pts Sharing on FB</value>
+  </data>
+  <data name="PointsTxt9" xml:space="preserve">
+    <value>30 pts Creating a quiz</value>
   </data>
   <data name="UniMembers" xml:space="preserve">
     <value>University members</value>
