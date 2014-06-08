@@ -590,7 +590,7 @@
             $('#box_QA').on('click', '.attachDownload', function (e) {
                 if (!cd.register()) {
                     e.preventDefault();
-                    cd.pubsub.publish('register');
+                    cd.pubsub.publish('register', { action: true });
                     return;
                 }
             });

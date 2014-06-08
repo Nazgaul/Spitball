@@ -11,7 +11,8 @@
             answer: 10,
             question: 5,
             itemUpload: 10,
-            shareFb: 5
+            shareFb: 5,
+            quiz: 30
         };
    
 

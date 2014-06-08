@@ -424,7 +424,7 @@
             function openBoxSettings(tabName) {
                 var data = {};
                 if (!cd.register()) {
-                    cd.pubsub.publish('register');
+                    cd.pubsub.publish('register', { action: true });
                     return;
                 }
                 if (self.follow()) {

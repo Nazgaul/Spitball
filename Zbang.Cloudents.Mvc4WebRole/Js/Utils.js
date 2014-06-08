@@ -780,7 +780,7 @@
         return $('#userDetails').length || $('[data-log]').data('log');
     };
     var unregisterAction = function (elem) {
-        cd.pubsub.publish('register');
+        cd.pubsub.publish('register', { action: true });
         $(elem).blur();
     };
 

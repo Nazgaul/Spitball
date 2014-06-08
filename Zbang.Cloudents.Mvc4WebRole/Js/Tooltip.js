@@ -148,7 +148,7 @@
     $(document).on('click', '.userTooltip .btn3', function (e) {
         e.preventDefault();
         if (!cd.register()) {
-            cd.pubsub.publish('register');
+            cd.pubsub.publish('register', { action: true });
             removeTooltip();
             return;
         }

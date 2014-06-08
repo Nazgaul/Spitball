@@ -76,10 +76,6 @@
         self.flagItem = function () {
             var $flagItemDialog = $('#' + consts.flagItemDialog);
 
-            if (!cd.register()) {
-                cd.pubsub.publish(consts.register);
-                return;
-            }
             trackEvent('Flag item');
             if (!$flagItemDialog.length && flagRequest) {
                 flagRequest = false;
@@ -769,7 +765,7 @@
             function settingsEvents() {
                 $itemSettings.click(function () {
                     if (!cd.register()) {
-                        cd.pubsub.publish('register');
+                        cd.pubsub.publish('register', { action: true });
                         return;
                     }
                     $itemRename.show();
@@ -1238,7 +1234,7 @@
             })
             .on('click', '.annotation', function () {
                 if (!cd.register()) {
-                    cd.pubsub.publish('register');
+                    cd.pubsub.publish('register', { action: true });
                 }
             })
             .on('mouseleave', '.commentToggle', function () {

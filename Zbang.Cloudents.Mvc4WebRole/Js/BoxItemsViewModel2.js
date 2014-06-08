@@ -235,7 +235,7 @@
         //#region addItem
         self.addItem = function () {
             if (!cd.register()) {
-                cd.pubsub.publish('register');
+                cd.pubsub.publish('register', { action: true });
                 return;
             }
             cd.google.register(true);
@@ -474,7 +474,7 @@
 
         $('#addQuiz').click(function (e) {
             if (!cd.register()) {
-                cd.pubsub.publish('register');
+                cd.pubsub.publish('register', { action: true });
                 return;
             }
 
