@@ -87,11 +87,12 @@ namespace Zbang.Zbox.Domain
         }
 
         public virtual long Id { get; protected set; }
+
         public virtual string Email { get; set; }
         public virtual string Culture { get; set; }
-        public virtual string Country { get; set; }
+        
         public virtual bool IsRegisterUser { get; set; }
-        public virtual string Name { get; private set; }
+        public virtual string Name { get; protected set; }
 
 
         public virtual string FirstName { get; set; }
@@ -103,13 +104,13 @@ namespace Zbang.Zbox.Domain
 
         public virtual Quota Quota { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
-        public virtual ICollection<UserBoxRel> UserBoxRel { get; private set; }
+        public virtual ICollection<UserBoxRel> UserBoxRel { get; protected set; }
         protected virtual ICollection<Invite> Invites { get; set; }
         public virtual Guid? MembershipId { get; set; }
         public virtual long? FacebookId { get; set; }
         public virtual string Image { get; set; }
         public virtual string ImageLarge { get; set; }
-        public virtual University University { get; private set; }
+        public virtual University University { get; protected set; }
         public virtual string Code { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 

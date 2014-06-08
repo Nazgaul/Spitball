@@ -24,7 +24,7 @@
 
 
     <property name="Culture" column="Culture" not-null="false"/>
-    <property name="Country" length="2" type="string" column="Country" not-null="false"/>
+    
 
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
@@ -90,7 +90,8 @@
       <property name="YouTubeUrl" />
       <property name="LetterUrl" />
       <property name="AdvertismentUrl" />
-        
+      <property name="Country" length="2" type="string" column="Country" not-null="false"/>
+      
       <bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
         <key column="UserId" foreign-key="UnitveristyLibraries"/>
         <one-to-many class="Library"/>
