@@ -137,6 +137,10 @@
     cd.checkRTLDirection = checkRTLDirection;
 
     $body.on('keyup', 'textarea', function () {
+        if (!this.value.length) {
+            $(this).css('direction', '').css('text-align', '');
+            return;
+        }
         if (checkRTLDirection(this.value)) {
             $(this).css('direction', 'rtl').css('text-align', 'right');
         } else {
