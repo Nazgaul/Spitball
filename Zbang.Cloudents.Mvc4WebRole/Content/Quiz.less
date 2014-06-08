@@ -364,9 +364,11 @@
     left: 0; /*rtl*/
     top: 0;
     width: 100%;
-    min-height: 100%;
+    height: ~'-webkit-calc(100% - @{header-height})';
+    height: ~'calc(100% - @{header-height})';
     background: url(/Images/gray_jean80.png) repeat #fff;
     .transition(margin .7s ease-in);
+    overflow: auto;
     &:before
     {
         .pseudo;

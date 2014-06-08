@@ -329,12 +329,14 @@
   /*rtl*/
   top: 0;
   width: 100%;
-  min-height: 100%;
+  height: -webkit-calc(100% - 50px);
+  height: calc(100% - 50px);
   background: url(/Images/gray_jean80.png) repeat #ffffff;
   -webkit-transition: margin 0.7s ease-in;
   -moz-transition: margin 0.7s ease-in;
   -o-transition: margin 0.7s ease-in;
   transition: margin 0.7s ease-in;
+  overflow: auto;
 }
 .quizPreview:before {
   content: '';
