@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
 {
@@ -6,6 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
     {
         [Required]
         public long QuizId { get; set; }
+        [AllowHtml]
         public string Text { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -38,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var user = m_UserRepository.Load(message.UserId);
             var question = m_QuestionRepository.Load(message.QuestionId);
 
-            var discussion = new Discussion(message.DiscussionId, user, message.Text, question);
+            var discussion = new Discussion(message.DiscussionId, user, TextManipulation.EncodeText(message.Text), question);
             m_DiscussionRepository.Save(discussion);
         }
     }

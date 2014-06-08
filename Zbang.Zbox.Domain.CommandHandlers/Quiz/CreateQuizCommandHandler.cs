@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -41,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 box.CalculateMembers();
                 m_UserRepository.Save(user);
             }
-            var quiz = new Zbang.Zbox.Domain.Quiz(message.Text, message.QuizId, box, user);
+            var quiz = new Zbang.Zbox.Domain.Quiz(TextManipulation.EncodeText(message.Text), message.QuizId, box, user);
             m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddQuiz));
             m_UserRepository.Save(user);
             m_QuizRepository.Save(quiz);
