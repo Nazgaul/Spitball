@@ -16,6 +16,7 @@
       <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;" />
       <Setting name="otakimUrl" value="http://www.otakim.co.il/printreferrer.aspx" />
       <Setting name="CacheUse" value="true" />
+      <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />

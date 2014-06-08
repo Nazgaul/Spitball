@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.ViewModel.DTOs.Library;
 
 namespace Zbang.Zbox.ViewModel.DTOs.BoxDtos
 {
@@ -23,8 +22,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.BoxDtos
             {
                 if (!string.IsNullOrEmpty(value))
                 {
-                    //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                    m_Image = value;// blobProvider.GetThumbnailUrl(value);
+                    m_Image = value;
                 }
             }
         }

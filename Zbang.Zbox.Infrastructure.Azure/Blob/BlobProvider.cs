@@ -12,6 +12,7 @@ using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
@@ -43,14 +44,30 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             //CreateBlobStorages(m_BlobClient);
 
             BlobContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).Uri.AbsoluteUri);
-            ThumbnailContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureThumbnailContainer.ToLower()).Uri.AbsoluteUri);
-            ProfileContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureProfilePicContainer).Uri.AbsoluteUri);
+            var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+            if (string.IsNullOrEmpty(storageCdnEndpoint))
+            {
+                ThumbnailContainerUrl =
+                    VirtualPathUtility.AppendTrailingSlash(
+                        BlobClient.GetContainerReference(AzureThumbnailContainer.ToLower()).Uri.AbsoluteUri);
+                ProfileContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureProfilePicContainer).Uri.AbsoluteUri);
+            }
+            else
+            {
+                ThumbnailContainerUrl =
+                    VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(storageCdnEndpoint) +
+                                                           AzureThumbnailContainer.ToLower());
+                ProfileContainerUrl =
+                    VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(storageCdnEndpoint) +
+                                                           AzureProfilePicContainer.ToLower());
+            }
+            
         }
 
         static string ThumbnailContainerUrl { get; set; }
         public string BlobContainerUrl { get; set; }
 
-        public string ProfileContainerUrl { get;  private set; }
+        public string ProfileContainerUrl { get; private set; }
 
         public string GetBlobUrl(string blobName)
         {
@@ -122,7 +139,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
-             //   System.Convert.ToBase64String(
+                //   System.Convert.ToBase64String(
                 blob.Metadata.Add(item.Key, item.Value);
             }
             return blob.SetMetadataAsync();
@@ -158,8 +175,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes)
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            
-            
+
+
             var blob = GetFile(blobName);
             //try
             //{
