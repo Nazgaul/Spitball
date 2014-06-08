@@ -1,7 +1,4 @@
-﻿
-
-using System.IO;
-using Zbang.Zbox.Infrastructure.Security.Resources;
+﻿using System.IO;
 namespace Zbang.Zbox.Domain
 {
     public abstract class Item

@@ -34,6 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         public static void RegisterBundle()
         {
+            SquishIt.Framework.Configuration.Instance.UseYuiForCssMinification();
             #region Css
             RegisterCss("lang.ru-RU", "~/Content/lang.ru-RU.css");
             RegisterCss("lang.he-IL", "~/Content/lang.he-IL.css");
@@ -340,7 +341,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static void RegisterCss(string key, params string[] cssFiles)
         {
             var cssbundle = SquishIt.Framework.Bundle.Css();
-
+            
             foreach (var cssFile in cssFiles)
             {
                 cssbundle.Add(cssFile);

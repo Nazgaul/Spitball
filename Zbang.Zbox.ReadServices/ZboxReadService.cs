@@ -252,15 +252,11 @@ where m.RecepientId = @userid
                 IQuery membersQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxSubscribers");
                 membersQuery.SetInt64("BoxId", query.BoxId);
                 membersQuery.SetResultTransformer(Transformers.AliasToBean<User.UserDto>());
-                membersQuery.SetMaxResults(11);
+                membersQuery.SetMaxResults(7);
 
                 IQuery tabsQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxTabs");
                 tabsQuery.SetInt64("BoxId", query.BoxId);
                 tabsQuery.SetResultTransformer(Transformers.AliasToBean<TabDto>());
-
-                //IQuery boxLibQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxLibNode");
-                //boxLibQuery.SetInt64("BoxId", query.BoxId);
-                //boxLibQuery.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
 
                 var fbox = boxQuery.FutureValue<Box.BoxDto>();
                 var fmembers = membersQuery.Future<User.UserDto>();
@@ -268,7 +264,7 @@ where m.RecepientId = @userid
                 //var fParent = boxLibQuery.FutureValue<NodeDto>();
 
                 var userType = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                Box.BoxDto box = fbox.Value;
+                var box = fbox.Value;
 
                 if (box == null)
                     throw new BoxDoesntExistException();
@@ -882,7 +878,7 @@ where m.RecepientId = @userid
                     retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Quiz.Questions = grid.Read<Item.QuestionWithDetailDto>();
 
-                    var answers = grid.Read<Item.AnswerWithDetailDto>();
+                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
 
                     foreach (var question in retVal.Quiz.Questions)
                     {
@@ -926,7 +922,7 @@ where m.RecepientId = @userid
                     Item.QuizWithDetailDto retVal = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
 
-                    var answers = grid.Read<Item.AnswerWithDetailDto>();
+                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
 
                     foreach (var question in retVal.Questions)
                     {

@@ -23,7 +23,8 @@
       <Setting name="CdnEndpoint" />
       <Setting name="ZBox" />
       <Setting name="otakimUrl" />
-      <Setting name="CacheUse"/>
+      <Setting name="CacheUse" />
+      <Setting name="StorageCdnEndpoint" />
     </ConfigurationSettings>
     <Startup>
       <!--<Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" taskType="simple" />-->

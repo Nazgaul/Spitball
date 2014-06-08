@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.WorkerRole.Jobs;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -14,6 +9,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     {
         private readonly IZboxWriteService m_ZboxService;
         private bool m_KeepRunning;
+        private int paging = 100;
 
         public UpdateDataBase(IZboxWriteService zboxService)
         {
@@ -27,12 +23,16 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 try
                 {
-                    m_ZboxService.Dbi();
-                    Thread.Sleep(TimeSpan.FromDays(1));
+                    var shouldRun = m_ZboxService.Dbi(paging);
+                    if (!shouldRun)
+                    {
+                        Thread.Sleep(TimeSpan.FromDays(1));
+                    }
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("Update Dbi", ex);
+                    //   Thread.Sleep(TimeSpan.FromHours(1));
                 }
             }
         }

@@ -2062,7 +2062,10 @@ select.inputText {
     top: 0;
   }
   .joinGrpWpr.joinGrpWpr.show ~ .box-content .QA {
-    top: 158px;
+    top: 223px;
+  }
+  .joinGrpWpr.joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
+    top: 20px;
   }
   .joinGrpWpr.joinGrpWpr.followed {
     padding: 0;
@@ -2076,6 +2079,12 @@ select.inputText {
   .joinGrpWpr.joinGrpWpr.followed .joinGrp {
     top: -20px;
     opacity: 0;
+  }
+  .joinGrpWpr.joinGrpWpr.followed ~ .box-content .QA {
+    top: 204px;
+  }
+  .joinGrpWpr.joinGrpWpr.followed ~ .box-content .boxFriendsList {
+    top: 12px;
   }
   .scrolling #dash_right:before {
     display: none;

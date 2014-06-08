@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void Dbi()
+        public bool Dbi(int paging)
         {
             using (UnitOfWork.Start())
             {
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Domain.Services
                 {
                     var files =
                         UnitOfWork.CurrentSession.QueryOver<File>()
-                            .Where(w => w.IsDeleted == false && w.ThumbnailUrl == null)
+                            .Where(w => w.IsDeleted == false)
                             .List();
                     foreach (var file in files)
                     {
@@ -78,7 +78,7 @@ namespace Zbang.Zbox.Domain.Services
                 {
                     var links =
                         UnitOfWork.CurrentSession.QueryOver<Link>()
-                            .Where(w => w.IsDeleted == false && w.ThumbnailUrl == null)
+                            .Where(w => w.IsDeleted == false)
                             .List();
                     foreach (var link in links)
                     {
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.Domain.Services
                 }
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-                var users = UnitOfWork.CurrentSession.QueryOver<User>().Where(w => w.Url == null).List();
+                    var users = UnitOfWork.CurrentSession.QueryOver<University>().Where(w => w.Url == null).List();
                     foreach (var user in users)
                     {
                         user.GenerateUrl();
@@ -98,6 +98,22 @@ namespace Zbang.Zbox.Domain.Services
                     tx.Commit();
 
                 }
+                var retVal = false;
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    var users = UnitOfWork.CurrentSession.QueryOver<User>()
+                        .Where(w => w.Url == null).Take(500).List();
+                    foreach (var user in users)
+                    {
+                        retVal = true;
+                        user.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(user);
+                    }
+
+                    tx.Commit();
+
+                }
+                return retVal;
 
             }
         }

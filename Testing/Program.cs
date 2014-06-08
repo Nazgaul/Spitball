@@ -216,7 +216,9 @@ namespace Testing
 
             //var retVal = processor.ConvertFileToWebSitePreview("b6c49f14-f5d7-4733-9540-fac304ade3a8.ppt", 0, 0, 3);
             //m_ThumbnailProvider = iocFactory.Resolve<IThumbnailProvider>();
-            //m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
+
+            var m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
+            var x = m_BlobProvider.GetThumbnailUrl("sometest");
             //TestImage();
             //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
             //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
