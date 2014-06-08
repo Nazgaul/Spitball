@@ -223,6 +223,9 @@
   padding-top: 8px;
 }
 .joinGrpWpr.show ~ .box-content .QA {
+  top: 265px;
+}
+.joinGrpWpr.show ~ .box-content .boxFriendsList {
   top: 200px;
 }
 .joinGrpWpr.followed:after {
@@ -249,11 +252,18 @@
   transform: scale(1);
 }
 .joinGrpWpr.followed ~ .box-content .QA {
+  top: 212px;
+  -webkit-transition: top 0.3s 3s;
+  -moz-transition: top 0.3s 3s;
+  -o-transition: top 0.3s 3s;
+  transition: top 0.3s 3s;
+}
+.joinGrpWpr.followed ~ .box-content .boxFriendsList {
   top: 150px;
-  -webkit-transition: all 0.3s 3s;
-  -moz-transition: all 0.3s 3s;
-  -o-transition: all 0.3s 3s;
-  transition: all 0.3s 3s;
+  -webkit-transition: top 0.3s 3s;
+  -moz-transition: top 0.3s 3s;
+  -o-transition: top 0.3s 3s;
+  transition: top 0.3s 3s;
 }
 .joinGrpBtn {
   width: 100%;
@@ -482,14 +492,6 @@
   margin-top: 10px;
 }
 /*#region box friends */
-.boxMembers.boxFriendsList {
-  position: fixed;
-  top: 150px;
-  width: 366px;
-  right: 15px;
-  /*rtl*/
-  padding: 0;
-}
 .boxInvite {
   display: block;
   width: 50px;
@@ -498,11 +500,20 @@
   top: 0;
 }
 .boxFriendsList {
+  position: fixed;
+  top: 150px;
+  width: 366px;
+  right: 15px;
+  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 11px 7px 7px 7px;
+  padding: 0;
   font-size: 0;
+  -webkit-transition: top 1s ease-in;
+  -moz-transition: top 1s ease-in;
+  -o-transition: top 1s ease-in;
+  transition: top 1s ease-in;
 }
 .boxFriendsList .friendImg {
   border: none;

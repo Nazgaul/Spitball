@@ -586,7 +586,7 @@
   left: auto;
 }
 /*#region box friends */
-.boxMembers.boxFriendsList {
+.boxFriendsList {
   left: 15px;
   /*rtl*/
   right: auto;
