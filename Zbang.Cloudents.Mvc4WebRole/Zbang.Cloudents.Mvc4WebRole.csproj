@@ -782,6 +782,7 @@
     <Content Include="Images\checkbox-sprite1.png" />
     <Content Include="Images\cloudents-share-FB-1.png" />
     <Content Include="Images\cloudents-share-FB.png" />
+    <Content Include="Images\cloudents-share-Quiz.png" />
     <Content Include="Images\cloudents1-114x114.png" />
     <Content Include="Images\cloudents1-144x144.png" />
     <Content Include="Images\cloudents1-57x57.png" />
