@@ -477,7 +477,7 @@
                     });
 
                     //rateitempopup
-
+                    $ratePopup.show();
                     if (ratedItems && ratedItems[cd.userDetail().nId]) {
                         if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
                             return;
@@ -505,16 +505,20 @@
 
                             self.rate(fakeRate);
                             setItemRate(currentRate);
-                            ratedItems[cd.userDetail().nId].push(self.itemid());
-                            cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid() === -1) {
+                                ratedItems[cd.userDetail().nId].push(self.itemid());
+                                cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                            }                            
                             setTimeout(function () {
                                 $ratePopup.removeClass('show').removeClass('rated');
                             }, 3000);
 
                         });
                         $ratePopup.one('click', '.closeDialog', function (e) {
-                            ratedItems[cd.userDetail().nId].push(self.itemid());
-                            cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid() === -1) {
+                                ratedItems[cd.userDetail().nId].push(self.itemid());
+                                cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                            }                            
                             $ratePopup.addClass('changedItem').remove('show');
 
                         });
