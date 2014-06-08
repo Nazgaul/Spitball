@@ -505,7 +505,7 @@
 
                             self.rate(fakeRate);
                             setItemRate(currentRate);
-                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid() === -1) {
+                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
                                 ratedItems[cd.userDetail().nId].push(self.itemid());
                                 cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
                             }                            
@@ -515,7 +515,7 @@
 
                         });
                         $ratePopup.one('click', '.closeDialog', function (e) {
-                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid() === -1) {
+                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
                                 ratedItems[cd.userDetail().nId].push(self.itemid());
                                 cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
                             }                            
