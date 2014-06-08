@@ -276,6 +276,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
+        [CompressFilter]
         public async Task<ActionResult> Updates()
         {
             var model = await m_ZboxReadService.GetUpdates(new QueryBase(GetUserId()));

@@ -136,7 +136,7 @@
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
-    <script type="text/javascript" src="~/Js/CDNFallback.js"></script>
+    <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
 
     <script type="text/html" id="userToolTipTempalte">
         <a data-navigation="User" href="{{url}}">
@@ -208,7 +208,7 @@
         if (ViewBag.fBox)
         {
             <div id="quizGuideTemplate" class="steps quizGuideTemplate">
-                  <div class="tooltip left tall" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
+                <div class="tooltip left tall" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
                     <button type="button" class="closeDialog"></button>
                     <div class="stepTip">
                         <div>@SharedResources.CreateShare</div>
@@ -242,7 +242,6 @@
                     </div>
                 </div>
             </div>
-
         }
     }
 
@@ -259,7 +258,5 @@
         <iframe id="fconnect" src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
 
     }
-
 </body>
-
 </html>
