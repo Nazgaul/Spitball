@@ -120,9 +120,14 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         
 
         function closed() {
+            var id = $scope.quiz.id;
             $scope.reset();
             $scope.params.showCreateQuiz = false;
             $scope.params.showCloseDialog = false;
+            
+            Quiz.delete({ id: id }).then(function () {
+                cd.pubsub.publish('removeItem', id);
+            });
         }
     };
 
