@@ -183,7 +183,7 @@
                   uniName ? boxName + ' - ' + uniName : boxName, //caption
                   JsResources.IShared + ' ' + itemName + ' ' + JsResources.OnCloudents +
                   '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
-                  null //picture
+                  '/Images/cloudents-share-Quiz.png' //picture
                   );
             });
 

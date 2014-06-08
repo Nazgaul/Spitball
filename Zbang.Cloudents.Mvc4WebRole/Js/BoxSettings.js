@@ -258,7 +258,7 @@
             calculatePopupHeight();
             setScroll();
 
-            $('#member' + cd.userDetail().id).find('.inviteUserBtn,.removeUserBtn').remove(); //user who show the box cant invite himself or remove himself
+            $('#boxmember' + cd.userDetail().id).find('.inviteUserBtn,.removeUserBtn').remove(); //user who show the box cant invite himself or remove himself
             if (boxSettingsData.userType !== 'owner') {
                 $(membersList).find('.removeUserBtn').remove(); //only owner can remove users
             }
