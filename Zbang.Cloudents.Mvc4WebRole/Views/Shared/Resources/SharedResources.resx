@@ -576,4 +576,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="UseMaterial" xml:space="preserve">
     <value>Use your own material or documents already on Cloudents</value>
   </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Choose</value>
+  </data>
 </root>

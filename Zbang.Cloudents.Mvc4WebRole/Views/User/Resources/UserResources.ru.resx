@@ -181,6 +181,9 @@
   <data name="PointsTxt8" xml:space="preserve">
     <value>5 очков за предоставление доступа через Facebook</value>
   </data>
+  <data name="PointsTxt9" xml:space="preserve">
+    <value>30 очков за создание теста</value>
+  </data>
   <data name="UniMembers" xml:space="preserve">
     <value>Участники университета</value>
   </data>

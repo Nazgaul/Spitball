@@ -204,4 +204,7 @@
   <data name="Student" xml:space="preserve">
     <value>סטודנט</value>
   </data>
+  <data name="FriendsRegistered" xml:space="preserve">
+    <value>מחבריך כבר רשומים למערכת</value>
+  </data>
 </root>
