@@ -30,7 +30,7 @@
                         $previewWrapper = $('#previewWrapper'), $commentToggle = $('#commentToggle'),
                         $itemShare = $('#itemShare'), $itemPrint = $('#itemPrint'),
                         $previewFailed = $('.previewFailed'), $pageLoader = $('.pageLoader'), $commentBtn = $('.commentBtn'),
-                        $rateContainer = $('#rateContainer'), $rated = $('.rated'), $itemRight = $('.itemRight'),
+                        $rateContainer = $('#rateContainer'), $rated = $('#item').find('.rated'), $itemRight = $('.itemRight'),
                         $itemPrev = $('#itemPrev'), $itemNext = $('#itemNext'), $itemFulscrn = $('#itemFulscrn'),
                         $body = $('body'), $itemDL = $('#item_DL'), $itemPrint = $('#itemPrint'), $itemP = $('#item_P'),
                         $otakimP = $('#Otakim_P'), $itemFS = $('#item_FS'), $itemCL = $('#item_CL'), $itemSettings = $('#itemSettings'),
@@ -364,9 +364,9 @@
                     .flagAllow(checkFlagAllow(userType));
 
                     function checkFlagAllow(userType) {
-                        if (userType === 'none' || userType === 'invite') {                         
-                            return false;
-                        }
+                        //if (userType === 'none' || userType === 'invite') {                         
+                        //    return false;
+                        //}
 
                         if (ownerid === cd.userDetail().nId) {
                             return false;
@@ -464,8 +464,11 @@
 
                     var newImages = $previewWrapper.find('img[data-new="true"]');
 
+                    images.first().attr('alt', self.itemName() + '.' + self.extension() + ' | ' + self.boxName());
+
                     newImages.each(function (i, e) {
                         var y = new $.Deferred();
+
                         $(e).load(y, function (e) {
 
                             $.when(defferedItemShow).done(function () {

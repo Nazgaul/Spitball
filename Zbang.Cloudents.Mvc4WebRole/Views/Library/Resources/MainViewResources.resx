@@ -206,4 +206,7 @@
   <data name="Student" xml:space="preserve">
     <value>student</value>
   </data>
+  <data name="FriendsRegistered" xml:space="preserve">
+    <value>of your friends are registered</value>
+  </data>
 </root>

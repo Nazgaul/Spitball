@@ -107,7 +107,12 @@
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
+        if (this.getAttribute('data-navigation').toLowerCase() === 'link') {
+            return true;
+        }
+
         e.preventDefault();
+
 
         if (e.ctrlKey) {
             window.open(this.href, '_blank');

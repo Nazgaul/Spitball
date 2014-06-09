@@ -586,4 +586,8 @@
   <data name="UseMaterial" xml:space="preserve">
     <value> استخدم المواد أو الوثائق التعليمية الخاصة بك الموجودة بالفعل على Cloudents</value>
   </data>
+  <data name="Choose" xml:space="preserve">
+    <value>اختار
+</value>
+  </data>
 </root>
