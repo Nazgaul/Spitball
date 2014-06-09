@@ -4,12 +4,12 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
     public class FileDto : ItemDto
     {
-        public FileDto(long id, string name, long ownerId,
-            string thumbnail,
+        public FileDto(long id, string name, long ownerId, string userUrl,
+            string thumbnail, 
             string tabId, int numOfViews, float rate, bool sponsored, string owner, string description, int numOfDownloads,
             DateTime date, int commentsCount)
             : base(id, name, ownerId,
-             tabId, numOfViews, rate, thumbnail, sponsored, owner, date)
+             tabId, numOfViews, rate, thumbnail, sponsored, owner, date, userUrl)
         {
             NumOfDownloads = numOfDownloads;
             Description = description;

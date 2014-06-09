@@ -8,17 +8,14 @@ using Lucene.Net.Store.Azure;
 using SpellChecker.Net.Search.Spell;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using Zbang.Zbox.Infrastructure.Azure.Storage;
-using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.Library;
-using System.IO;
-using Zbang.Zbox.Infrastructure.Trace;
 using System.Timers;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -68,8 +65,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
             using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
             {
-
-                using (IndexWriter indexWriter = new IndexWriter(m_AzureUniversiesDirectory,
+                universitiesExtra = universitiesExtra.ToList();
+                using (var indexWriter = new IndexWriter(m_AzureUniversiesDirectory,
                         analyzer,
                         new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
                 {
@@ -82,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                         //indexWriter.DeleteAll();
                         //indexWriter.Commit();
 
-                        Document doc = new Document();
+                        var doc = new Document();
                         doc.Add(new Field(IdField, university.Id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
                         doc.Add(new Field(NameField, university.Name, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
                         if (extraDetail != null)
@@ -99,14 +96,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     }
                     indexWriter.Commit();
                     indexWriter.Optimize();
-                    using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
+                    try
                     {
-                        speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), NameField));
-                        speller.Close();
-                        //m_AzureUniversiesSpellerDirectory.speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra1"));
-                        //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra2"));
-                        //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra3"));
+                        using (
+                            var speller =
+                                new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
+                        {
+                            speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), NameField));
+                            speller.Close();
+                            //m_AzureUniversiesSpellerDirectory.speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra1"));
+                            //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra2"));
+                            //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra3"));
 
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("On build lucene speller", ex);
                     }
 
                 }
@@ -132,19 +138,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 // search by multiple fields (ordered by RELEVANCE)
                 var parser = new MultiFieldQueryParser
-                    (Lucene.Net.Util.Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer);
-                parser.AllowLeadingWildcard = true;
+                    (Lucene.Net.Util.Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer)
+                {
+                    AllowLeadingWildcard = true
+                };
                 term = term.Replace(" ", "* *");
                 term = "*" + term + "*";
                 var query = parseQuery(term, parser);
-
                 var hits = m_IndexService.Search(query, 50).ScoreDocs;
                 var retVal = new List<UniversityByPrefixDto>();
                 for (int i = 0; i < hits.Length; i++)
                 {
 
                     Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
-                    UniversityByPrefixDto university = new UniversityByPrefixDto(
+                    var university = new UniversityByPrefixDto(
                         doc2.GetField(NameField).StringValue,
                         doc2.GetField(ImageField).StringValue,
                        Convert.ToInt64(doc2.GetField(IdField).StringValue),

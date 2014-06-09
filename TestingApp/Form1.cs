@@ -45,7 +45,7 @@ namespace TestingApp
             textBox2.Text = string.Empty;
             foreach (var item in retVal)
             {
-                textBox2.Text += string.Format("id: {0} name: {1} MemberCount: {2} Image: {3}", item.Id, item.Name, item.MemberCount, item.Image);
+                textBox2.Text += string.Format("id: {0} name: {1} \n", item.Id, item.Name);
             }
             //textBox2.Text  = string .Format("",)
         }

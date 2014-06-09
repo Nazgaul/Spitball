@@ -14,7 +14,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             string thumbnail,
             bool sponsored,
             string owner,
-            DateTime date)
+            DateTime date,
+            string userUrl)
         {
             Id = id;
             Name = name;
@@ -28,6 +29,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             Owner = owner;
             Sponsored = sponsored;
             Date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
+            UserUrl = userUrl;
         }
 
         public long Id { get; set; }
