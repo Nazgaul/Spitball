@@ -990,6 +990,9 @@ ul.ui-autocomplete {
         width: 700px;
         //z-index:12;
         font-size: 15px;
+        .error {
+            display:none;
+        }
         .step1Wpr {
             h3 {
                 font-weight: normal;
@@ -1069,6 +1072,12 @@ ul.ui-autocomplete {
 
         .modal2 {
             z-index: 11;
+        }
+
+        &.codeError {
+            .error {
+                display:block;
+            }
         }
     }
     /*#endregion*/

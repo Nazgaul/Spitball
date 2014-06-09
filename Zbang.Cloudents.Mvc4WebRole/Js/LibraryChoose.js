@@ -13,6 +13,8 @@
         uniSearch = eById('uni_search'),
         fbUniList = eById('fbUniList');
 
+    var universityName, universityId;
+
     cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
 
 
@@ -150,8 +152,17 @@
               cd.analytics.trackEvent('Library Choose', 'Search', term);
           }, 150);
 
-            $(uniList).on('click', 'li:not(:last)', selectUniversity);
-            $(fbUniList).on('click', 'button', selectUniversity);
+            $(uniList).on('click', 'li:not(:last)', function (e) {
+                universityId = this.getAttribute('data-id');
+                universityName = $(this).find('.uniName').text();
+                selectUniversity(e);
+            });
+            $(fbUniList).on('click', 'button', function (e) {
+                var listItem = $(this).parents('li');
+                universityId = this.getAttribute('data-id');
+                universityName = listItem.find('.uniName').text();
+                selectUniversity(e);
+            });
             $('.newUni').click(newUniversity);
 
             $(uniSearch).keyup(searchUniversity);
@@ -211,19 +222,14 @@
             var userNotSelected = true,
                 universityId;
             function selectUniversity(e) {
-                var $uni = $(this),
-                    name = $uni.find('.uniName').text();
-
-                if ($uni.length > 0) {
-                    universityId = $uni.attr('data-id');
-                }
+                e.preventDefault();
 
                 if (!userNotSelected) {
                     return;
                 }
                 userNotSelected = false;
 
-                cd.analytics.setLibrary(name);
+                cd.analytics.setLibrary(universityName);
 
                 //var load = cd.renderLoading($(uniList));
                 cd.pubsub.publish('clear_cache');
@@ -284,7 +290,30 @@
 
             $(document).on('change', '#lecturerRadio,#studentRadio', function () {
                 checkSubmitState();
-            });
+            })
+            .on('input', '#departmentCodeInput', function () {
+                $('#departmentSubmit1')[0].disabled = !this.value.length;
+            })
+            .on('submit', '#selectDepartmentForm1', function (e) {
+                e.preventDefault();
+                var code = $('#departmentCodeInput').val();
+                if (!code.length) {
+                    return;
+                }
+
+                dataContext.verifyCode({
+                    data: { code: code },
+                    success: function (data) {
+                        if (data) {
+                            $('.departmentChoose').removeClass('codeError');
+                            $('.departmentChoose').addClass('step2');
+                            return;
+                        }
+                        $('.departmentChoose').addClass('codeError');
+
+                    }
+                });
+            })
 
 
             function checkSubmitState() {
@@ -311,7 +340,6 @@
 
 
             //#region id
-
             $(document).on('keyup', '#userIdNumber', function () {
                 if (this.value.length < 9) {
                     $('#submitRegIdPopup').attr('disabled', 'disabled');

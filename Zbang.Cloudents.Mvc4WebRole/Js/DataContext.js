@@ -58,6 +58,7 @@
     definition.getFriendsUnis = new definitionobj({ url: library + "GetFriends", type: get });
     
 
+    definition.verifyCode = new definitionobj({ url: library + "Verify" });
     definition.createDepartment = new definitionobj({ url: library + "Create" });
     definition.createAcademicBox = new definitionobj({ url: library + "CreateBox" });
     definition.deleteNode = new definitionobj({ url: library + "DeleteNode" });
