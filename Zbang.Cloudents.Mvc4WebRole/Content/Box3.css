@@ -776,6 +776,7 @@
   position: absolute;
   top: 50px;
   z-index: -1;
+  max-width: 140px;
   max-height: 130px;
   overflow: hidden;
 }
