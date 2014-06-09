@@ -118,6 +118,7 @@
             window.open(this.href, '_blank');
             return;
         }
+        
         privateLocation.url = this.pathname + (this.search || '');
         if (location.hash) {
             location.hash = '';

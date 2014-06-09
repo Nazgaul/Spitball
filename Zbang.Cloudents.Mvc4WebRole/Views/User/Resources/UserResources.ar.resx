@@ -180,6 +180,10 @@
   <data name="PointsTxt8" xml:space="preserve">
     <value>5 نقاط للمشاركة على الفيس بوك</value>
   </data>
+  <data name="PointsTxt9" xml:space="preserve">
+    <value>30 قرشا إنشاء مسابقة
+</value>
+  </data>
   <data name="UniMembers" xml:space="preserve">
     <value>أعضاء الجامعة</value>
   </data>

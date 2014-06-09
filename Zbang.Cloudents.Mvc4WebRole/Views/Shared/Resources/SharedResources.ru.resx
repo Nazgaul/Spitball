@@ -577,4 +577,7 @@
   <data name="UseMaterial" xml:space="preserve">
     <value>Используйте свои материалы или документу, уже имеющиеся на Cloudents</value>
   </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Выбирите</value>
+  </data>
 </root>

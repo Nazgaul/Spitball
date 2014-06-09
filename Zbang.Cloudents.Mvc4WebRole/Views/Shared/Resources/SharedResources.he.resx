@@ -574,4 +574,7 @@
   <data name="UseMaterial" xml:space="preserve">
     <value>יצירת הקוויז על גבי מסמכים קיימים בקלאודנטס</value>
   </data>
+  <data name="Choose" xml:space="preserve">
+    <value>בחר</value>
+  </data>
 </root>

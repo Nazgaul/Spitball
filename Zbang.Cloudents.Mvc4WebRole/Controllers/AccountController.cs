@@ -234,6 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult LogOff()
         {
+           
             Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             m_FormsAuthenticationService.SignOut();
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");

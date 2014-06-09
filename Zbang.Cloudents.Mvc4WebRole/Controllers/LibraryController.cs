@@ -476,5 +476,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
             return this.CdJson(new JsonResponse(true, retVal));
         }
+
+        [HttpPost, Ajax]
+        public ActionResult Verify(string code)
+        {
+            var isValid = code == "cloudvivt";
+            return this.CdJson(new JsonResponse(true, isValid));
+        }
     }
 }
