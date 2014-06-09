@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
-
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 
 @model Zbang.Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailDto
 
@@ -19,25 +19,24 @@
             <div class="actions">
                 <span data-title="@SharedResources.Views" class="lFloat views">@Model.NumberOfViews</span>
 
-                @*<div class="rFloat rateContainer">
+                <div id="quizRateContainer" class="rFloat rateContainer">
                     <span class="stars">
-                        <span class="full"></span>
+                        <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
                     </span>
-                    <button type="button" class="rateBtn"></button>
-                    <div class="bubble">
+                    <button type="button" id="quizRateBtn" class="rateBtn"></button>
+                    <div id="quizRateBubble" class="bubble">
                         <div class="arrow upArrow"></div>
-                        <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
+                        <div data-step2="ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
 
-                        <ul class="rateList" data-rate="@Model.Rate">
-                            <li class="star">5</li>
-                            <li class="star star4">4</li>
-                            <li class="star star3">3</li>
-                            <li class="star star2">2</li>
-                            <li class="star star1">1</li>
+                        <ul class="rateList">
+                            <li id="star5" class="star">5</li>
+                            <li id="star4" class="star star4">4</li>
+                            <li id="star3" class="star star3">3</li>
+                            <li id="star2" class="star star2">2</li>
+                            <li id="star1" class="star star1">1</li>
                         </ul>
                     </div>
-                </div>*@
-
+                </div>                
             </div>
         </div>
         <h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
@@ -60,8 +59,21 @@
         </div>
     </div>
     <div class="itemRight">
+        <div id="quizRatePopup" class="ratePopup">
+            <div class="rateTxt2">@SharedResources.SweetThanks</div>
+            <div class="rateWpr">
+                <span class="lFloat rateTxt">@ItemsResources.RateItem</span>
+                <span class="starsWpr lFloat">
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                </span>
+            </div>
+            <button type="button" class="closeDialog" data-closediag="close"></button>
+        </div>
         <div class="itemActions topBar barShadow">
-
             <section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="quizShare" data-ddcbox="quizShare" />
                 <label for="quizShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>

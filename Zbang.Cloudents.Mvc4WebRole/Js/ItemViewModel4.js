@@ -30,7 +30,7 @@
                         $previewWrapper = $('#previewWrapper'), $commentToggle = $('#commentToggle'),
                         $itemShare = $('#itemShare'), $itemPrint = $('#itemPrint'),
                         $previewFailed = $('.previewFailed'), $pageLoader = $('.pageLoader'), $commentBtn = $('.commentBtn'),
-                        $rateContainer = $('#rateContainer'), $rated = $('.rated'), $itemRight = $('.itemRight'),
+                        $rateContainer = $('#rateContainer'), $rated = $('#item').find('.rated'), $itemRight = $('.itemRight'),
                         $itemPrev = $('#itemPrev'), $itemNext = $('#itemNext'), $itemFulscrn = $('#itemFulscrn'),
                         $body = $('body'), $itemDL = $('#item_DL'), $itemPrint = $('#itemPrint'), $itemP = $('#item_P'),
                         $otakimP = $('#Otakim_P'), $itemFS = $('#item_FS'), $itemCL = $('#item_CL'), $itemSettings = $('#itemSettings'),
