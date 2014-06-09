@@ -44,10 +44,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_DbReadService = dbReadService;
             m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
 
-            m_Timer = new Timer(TimeSpan.FromHours(2).TotalMilliseconds);
+            m_Timer = new Timer(TimeSpan.FromHours(10).TotalMilliseconds);
             m_Timer.Elapsed += (s, e) =>
             {
                 m_IndexService.Dispose();
+                m_IndexService = null;
                 m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
             };
             m_Timer.Enabled = true;
