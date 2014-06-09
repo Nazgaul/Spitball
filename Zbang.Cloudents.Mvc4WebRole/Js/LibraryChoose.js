@@ -341,7 +341,7 @@
 
             //#region id
             $(document).on('keyup', '#userIdNumber', function () {
-                if (this.value.length < 9) {
+                if (this.value.length !== 9) {
                     $('#submitRegIdPopup').attr('disabled', 'disabled');
                     return;
                 }
