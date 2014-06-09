@@ -107,7 +107,7 @@
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
-        if (this.getAttribute('data-navigtion').toLowerCase() === 'link') {
+        if (this.getAttribute('data-navigation').toLowerCase() === 'link') {
             return true;
         }
 
