@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region Create Quiz */
+﻿
+
+
+
+
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
@@ -319,8 +319,8 @@
   color: #0371c8;
   margin-top: 12px;
 }
-/*#endregion */
-/*#region Quiz Preview  */
+
+
 .quizPreview {
   margin-top: 100%;
   position: fixed;
@@ -464,6 +464,12 @@
   margin: 0 -45px 0 -25px;
   position: relative;
   display: none;
+  /*&.show {
+        .quizComments, .imgBorder, .cTextAreaWpr {
+            display: block;
+        }
+        
+    }*/
 }
 .commentWpr .closeDialog {
   background-position: -68px -26px;
@@ -476,7 +482,7 @@
   position: absolute;
   left: 0;
   /*rtl*/
-  display: none;
+  /*display: none;*/
 }
 .commentWpr .askBtn {
   padding: 4px 15px;
@@ -485,12 +491,7 @@
   /*rtl*/
   display: block;
 }
-.commentWpr.show .quizComments,
-.commentWpr.show .imgBorder,
-.commentWpr.show .cTextAreaWpr {
-  display: block;
-}
-.commentWpr.show li:hover .closeDialog {
+.commentWpr li:hover .closeDialog {
   display: block;
 }
 .quizComments {
@@ -570,8 +571,8 @@
   /*rtl*/
   top: 7px;
 }
-/*#endregion */
-/*#region Quiz item page */
+
+
 .quizPage .sectionHeader {
   color: transparent;
 }
@@ -809,7 +810,7 @@
   font-size: 38px;
   margin: 0 auto;
 }
-/*#endregion */
+
 /*.validated {
     .quizName {
         &.ng-invalid {

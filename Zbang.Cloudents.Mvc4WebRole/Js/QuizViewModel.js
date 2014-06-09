@@ -125,20 +125,8 @@
                     var answerSheet = {}, qa;
                     for (var i = 0, l = userResult.questions.length; i < l; i++) {
                         qa = userResult.questions[i];
-                        //answerSheet[qa.questionId] = qa.answerId;
                         $(quizTQuestion).find('[data-id="' + qa.answerId + '"]')[0].checked = true;
-                    }
-
-                    //var questions = quizTQuestion.children,
-                    //    question, questionId;
-
-                    //for (var i = 0, l = questions.length; i < l; i++) {
-                    //    question = questions[i];
-                    //    questionId = question.getAttribute('data-id');
-                    //    if (answerSheet[questionId]) {
-                    //        $(question).find('[data-id="' + answerSheet[questionId] + '"]')[0].checked = true;
-                    //    }
-                    //}
+                    }      
                 }
 
             }
@@ -474,50 +462,41 @@
             }
 
             function registerDiscussionEvents() {
-                $('[data-discussion]').off('click').click(function () {
-                    var that = this,
-                        $wrapper = $(that).parents('.commentWpr'),
-                        $comments = $wrapper.find('.quizComments'),
-                        isVisible = $comments.is(':visible');
+                //$('[data-discussion]').off('click').click(function () {
+                //    var that = this,
+                //        $wrapper = $(that).parents('.commentWpr'),
+                //        $comments = $wrapper.find('.quizComments'),
+                //        isVisible = $comments.is(':visible');
 
-                    //$('.quizComments').slideUp({
-                    //   // duration: 500,
-                    //    complete: function () {
-                    //        $('.commentWpr').removeClass('show');
-                    //    }
-                    //});
+                //    //$('.quizComments').slideUp({
+                //    //   // duration: 500,
+                //    //    complete: function () {
+                //    //        $('.commentWpr').removeClass('show');
+                //    //    }
+                //    //});
 
-                    if (isVisible) {
-                        $('.quizComments').hide();
-                        $('.commentWpr').removeClass('show');
-                        return;
-                    }
+                //    if (isVisible) {
+                //        $('.quizComments').hide();
+                //        $('.commentWpr').removeClass('show');
+                //        return;
+                //    }
 
-                    $('.quizComments').hide();
-                    $('.commentWpr').removeClass('show');
-
-
-                    $wrapper.removeClass('show');
+                //    $('.quizComments').hide();
+                //    $('.commentWpr').removeClass('show');
 
 
-                    $comments.show();
-                    $wrapper.addClass('show');
-                    //setTimeout(function () {
-                    //    $comments.slideDown({
-                    //        duration: 500,
-                    //        complete: function () {
-                    //            $wrapper.addClass('show');
-                    //        }
-                    //    });
-                    //}, 500)
+                //    $wrapper.removeClass('show');
 
-                });
+
+                //    $comments.show();
+                //    $wrapper.addClass('show');
+                //});
 
                 $(quizTQuestion).off('input').on('input', '.cTextArea', function (e) {
                     this.nextElementSibling.disabled = this.value.length === 0;
-                }).off('focus').on('focus', '.cTextArea', function (e) {
-                    this.nextElementSibling.style.display = 'block';
-                });
+                });//.off('focus').on('focus', '.cTextArea', function (e) {
+                //    this.nextElementSibling.style.display = 'block';
+                //});
 
                 $('.askBtn').off('click').click(function () {
                     var that = this,

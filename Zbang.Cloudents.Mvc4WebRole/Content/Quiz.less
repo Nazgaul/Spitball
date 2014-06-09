@@ -499,7 +499,7 @@
     .imgBorder {
         position: absolute;
         left:0; /*rtl*/
-        display: none;
+        /*display: none;*/
     }
     .askBtn {
         padding: 4px 15px;
@@ -507,14 +507,15 @@
         margin: 2px 14px 0 0; /*rtl*/ 
         display: block;
     }
-    &.show {
+    li:hover .closeDialog {
+            display: block;
+    }
+    /*&.show {
         .quizComments, .imgBorder, .cTextAreaWpr {
             display: block;
         }
-        li:hover .closeDialog {
-            display: block;
-        }
-    }
+        
+    }*/
 }
 .quizComments {
     font-size: 13px;
