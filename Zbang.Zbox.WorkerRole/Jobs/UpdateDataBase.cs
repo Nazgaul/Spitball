@@ -9,7 +9,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     {
         private readonly IZboxWriteService m_ZboxService;
         private bool m_KeepRunning;
-        private int paging = 100;
+        private int paging = 10;
 
         public UpdateDataBase(IZboxWriteService zboxService)
         {
@@ -28,9 +28,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     {
                         Thread.Sleep(TimeSpan.FromDays(1));
                     }
+                    paging = paging * 2;
                 }
                 catch (Exception ex)
                 {
+                    paging = paging / 2;
                     TraceLog.WriteError("Update Dbi", ex);
                     //   Thread.Sleep(TimeSpan.FromHours(1));
                 }

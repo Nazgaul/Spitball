@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -42,9 +43,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 if (itemId.Action == Infrastructure.Enums.StatisticsAction.Quiz)
                 {
-                    var quiz = m_QuizRepository.Load(itemId.ItemId);
-                    quiz.UpdateNumberOfViews();
-                    m_QuizRepository.Save(quiz);
+                    try
+                    {
+                        var quiz = m_QuizRepository.Load(itemId.ItemId);
+                        quiz.UpdateNumberOfViews();
+                        m_QuizRepository.Save(quiz);
+                    }
+                    catch (ApplicationException ex)
+                    {
+                        TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
+                    }
                     break;
                 }
                 var item = m_ItemRepository.Get(itemId.ItemId);// we use get because we need to cast to File and get proxy

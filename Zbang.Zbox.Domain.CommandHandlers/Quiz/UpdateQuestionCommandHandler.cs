@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -24,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 throw new UnauthorizedAccessException("User is not owner of quiz");
             }
 
-            question.UpdateText(message.NewText);
+            question.UpdateText(TextManipulation.EncodeText(message.NewText));
             m_QuestionRepository.Save(question);
 
 

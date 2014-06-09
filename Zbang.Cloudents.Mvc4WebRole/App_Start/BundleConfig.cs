@@ -356,7 +356,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             else
             {
-
                 CssBundels.Add(key, cssbundle.Render("~/cdn/c#.css"));
             }
 

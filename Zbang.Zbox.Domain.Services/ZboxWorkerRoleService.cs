@@ -102,7 +102,7 @@ namespace Zbang.Zbox.Domain.Services
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     var users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.Url == null).Take(500).List();
+                        .Where(w => w.Url == null).Take(paging).List();
                     foreach (var user in users)
                     {
                         retVal = true;
