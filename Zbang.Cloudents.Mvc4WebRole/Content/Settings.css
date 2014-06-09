@@ -29,12 +29,10 @@
   color: #0f9d58;
 }
 .settingsContent {
-  position: absolute;
-  top: 80px;
-  left: 288px;
-  /*rtl*/
   width: 815px;
   text-align: left;
+  /*rtl*/
+  margin: 30px 20px 0 288px;
   /*rtl*/
 }
 .settingsContent label {
@@ -323,7 +321,7 @@
 .notifications .semiFont {
   font-size: 15px;
   color: #0f9d58;
-  max-width: 370px;
+  max-width: 500px;
   display: inline-block;
 }
 .notifications label {

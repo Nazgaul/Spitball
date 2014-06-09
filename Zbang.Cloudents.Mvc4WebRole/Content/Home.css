@@ -672,4 +672,18 @@ footer {
     /*rtl*/
   }
 }
+@media (max-width: 1024px) {
+  .logo {
+    margin-left: 20px;
+    /*rtl*/
+  }
+  .headingTexts {
+    padding-left: 20px;
+    /*rtl*/
+  }
+  .videoWpr {
+    left: 20px;
+    /*rtl*/
+  }
+}
 /*#endregion */
