@@ -1,58 +1,58 @@
 ﻿@model IEnumerable<Zbang.Zbox.ViewModel.DTOs.Library.DepartmentDto>
-<!--Step 1-->
-<div>
-    Добро пожаловать в учебную систему Cloudents!
-    Система предназначена только  студентам и преподавателям Воронежского института высоких технологий.
-    Подтверждения  с помощью кода
-    Введите код здесь _________________
 
-    Если вы не имеете  код тогда пошлите запрос на эл.почту : oimk@vivt.ru
-    <input type="submit"/>
-    <!--this is the code: cloudvivt-->
-</div>
-<!--Step 2-->
 <div data-popup="">
     <div class="popupWrppr departmentChoose">
         <header class="popupHeader">Воронежский институт высоких технологий</header>
         <button type="button" class="closeDialog"></button>
-        <div class="chooseDptTxt">Пожалуйста заполните подробности ниже:</div>
+        <form class="step1Wpr">
+            <h3>Добро пожаловать в учебную систему Cloudents!</h3>
+            <div class="ruTxt">
+                Система предназначена только  студентам и преподавателям Воронежского института высоких технологий.
+                Подтверждения  с помощью кода.
+            </div>
+            <span class="ruTxt2">Введите код здесь:</span>
+            <input type="text" class="inputText" />
+            <div class="ruTxt">Если вы не имеете  код тогда пошлите запрос на эл.почту : <a class="ruMail" href="mailto:oimk@vivt.ru">oimk@vivt.ru</a></div>
+            <input type="submit" class="btn1" value="Отправить" />
+            <!--this is the code: cloudvivt-->
+        </form>
+        <form class="step2Wpr">
+            <div class="chooseDptTxt">Пожалуйста заполните подробности ниже:</div>
 
-        <input checked type="radio" id="studentRadio" name="userStatus" />
-        <label class="statusLabel first" for="studentRadio">Я студент</label>
-        <input class="lecturerRadio" id="lecturerRadio" name="userStatus" type="radio" />
-        <label class="statusLabel" for="lecturerRadio">Я преподаватель</label>
+            <input checked type="radio" id="studentRadio" name="userStatus" />
+            <label class="statusLabel first" for="studentRadio">Я студент</label>
+            <input class="lecturerRadio" id="lecturerRadio" name="userStatus" type="radio" />
+            <label class="statusLabel" for="lecturerRadio">Я преподаватель</label>
 
-        <label for="department">Ваш раздел</label>
+            <label for="department">Ваш раздел</label>
 
-        <select id="department">
-            <option class="placeholder" selected="selected">выберите раздел</option>
-            @foreach (var item in Model.Select(s => s.Name).Distinct())
-            {
-                <option value="@item">@item</option>
-            }
-
-        </select>
-
-
-        <label for="year">
-            период обучения
-        </label>
-        <select id="year">
-            <option class="placeholder" value="-1" selected="selected">выберите период обучения</option>
-            @foreach (var item in Model)
-            {
-                <option style="display:none;" value="@item.Id" data-department="@item.Name">@item.Year</option>
-            }
-        </select>
-        <div class="dptDetail first">
-            <label>Номер группы</label>
-            <input id="group" type="text" class="inputText" />
-        </div>
-        <div class="dptDetail">
-            <label>Номер зачетной книжки</label>
-            <input id="registration" type="text" class="inputText" />
-        </div>
-        <input id="depSubmit" type="submit" class="btn1" disabled="disabled" value="Продолжить" />
+            <select id="department">
+                <option class="placeholder" selected="selected">выберите раздел</option>
+                @foreach (var item in Model.Select(s => s.Name).Distinct())
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+            <label for="year">
+                период обучения
+            </label>
+            <select id="year">
+                <option class="placeholder" value="-1" selected="selected">выберите период обучения</option>
+                @foreach (var item in Model)
+                {
+                    <option style="display:none;" value="@item.Id" data-department="@item.Name">@item.Year</option>
+                }
+            </select>
+            <div class="dptDetail first">
+                <label>Номер группы</label>
+                <input id="group" type="text" class="inputText" />
+            </div>
+            <div class="dptDetail">
+                <label>Номер зачетной книжки</label>
+                <input id="registration" type="text" class="inputText" />
+            </div>
+            <input id="depSubmit" type="submit" class="btn1" disabled="disabled" value="Продолжить" />
+        </form>
     </div>
     <div class="modal2"></div>
 </div>
