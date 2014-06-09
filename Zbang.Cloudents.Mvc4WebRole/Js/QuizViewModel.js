@@ -177,12 +177,15 @@
             $(quizFS).off('click').click(function () {
                 var itemName = quiz.querySelector('.itemNameText').textContent,
                     uniName = cd.getParameterFromUrl(1),
-                    boxName = cd.getParameterFromUrl(3)
+                    boxName = cd.getParameterFromUrl(3);
+
+                if (uniName === 'my') {
+                    uniName = null;
+                }
                 cd.shareFb(cd.location(), //url
                   itemName, //title
                   uniName ? boxName + ' - ' + uniName : boxName, //caption
-                  JsResources.IShared + ' ' + itemName + ' ' + JsResources.OnCloudents +
-                  '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                  JsResources.FbShareQuiz.format(itemName),
                   '/Images/cloudents-share-Quiz.png' //picture
                   );
             });

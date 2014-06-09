@@ -184,6 +184,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
+        [CompressFilter]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [AjaxCache(TimeConsts.Minute * 10)]

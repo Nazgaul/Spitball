@@ -2121,6 +2121,12 @@ select.inputText {
 // Facebook does this too.
 
 @media (max-width: 1024px) {
+
+    body {
+        position: relative;
+        display: table;
+    }
+
     //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
     .siteHeader.siteHeader,
     .boxPage .leftPanel.leftPanel,

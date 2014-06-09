@@ -20,8 +20,8 @@ body {
 
 .wrap {
     min-height: 100%; //sticky footer
-    min-height: ~"-webkit-calc(100% + 50px)";
-    min-height: ~"calc(100% + 50px)";
+    min-height: ~"-webkit-calc(100vh + 50px)";
+    min-height: ~"calc(100vh + 50px)";
     .boxSizing;
     margin: -@header-height 0 -@footer-height;
     padding: @header-height 0 @footer-height;
@@ -807,4 +807,15 @@ footer {
         }
     }
 }
+/*#endregion */
+
+/*#region media queries */
+
+@media (max-width: 1024px) {
+
+    .libEmpty.libraryChoose {
+        margin: 138px 20px 0 20px;
+    }
+}
+
 /*#endregion */

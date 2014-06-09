@@ -189,7 +189,7 @@
   overflow: hidden;
   height: -webkit-calc(100% - 130px);
   height: calc(100% - 130px);
-  width: 354px !important;
+  width: 370px !important;
 }
 .quizWpr textarea {
   overflow: hidden;

@@ -236,6 +236,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
         [OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
+        [CompressFilter]
         [HttpGet]
         [Ajax]
         [AjaxCache(TimeToCache = 0)]
