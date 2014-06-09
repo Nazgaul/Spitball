@@ -911,7 +911,7 @@
 
                 $rateContainer.on('click', '.star', function (e) {
                     e.stopPropagation();
-                    var startWidth = $('.stars .full').width()
+                    var startWidth = $('.stars .full').width();
 
                     clearTimeout(ratePopupTimeout);
 

@@ -34,7 +34,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         public static void RegisterBundle()
         {
-            SquishIt.Framework.Configuration.Instance.UseYuiForCssMinification();
             #region Css
             RegisterCss("lang.ru-RU", "~/Content/lang.ru-RU.css");
             RegisterCss("lang.he-IL", "~/Content/lang.he-IL.css");
@@ -440,7 +439,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         continue;
                     }
-                    Directory.CreateDirectory(Path.GetDirectoryName(cdnFilePath));
+                    var directory = Path.GetDirectoryName(cdnFilePath);
+                    if (directory != null) Directory.CreateDirectory(directory);
                     File.Copy(filePath, Path.Combine(cdnRoot, relativePath), true);
                 }
                 catch (Exception ex)

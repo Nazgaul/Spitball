@@ -5,7 +5,7 @@
     }
 
     var cache = {},
-    userid = cd.userDetail().id
+    userid = cd.userDetail().id,
     version = $('[data-version]').data('version');
 
     checkVersion();

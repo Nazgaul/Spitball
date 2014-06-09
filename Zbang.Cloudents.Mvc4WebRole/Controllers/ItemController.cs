@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetItemQuery(GetUserId(false), itemId, boxId);
             var item = m_ZboxReadService.GetItem(query);
 
-            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var builder = new UrlBuilder(HttpContext);
             var url = builder.BuildItemUrl(boxId, item.BoxName, itemId, item.Name, item.UniName);
             return RedirectPermanent(url);
         }
@@ -89,7 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetItemQuery(GetUserId(false), itemid, boxId);
             var item = m_ZboxReadService.GetItem(query);
 
-            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var builder = new UrlBuilder(HttpContext);
             var url = builder.BuildItemUrl(boxId, item.BoxName, itemid, item.Name, item.UniName);
             return RedirectPermanent(url);
         }
@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 var urlBuilder = new UrlBuilder(HttpContext);
                 item.BoxUrl = urlBuilder.BuildBoxUrl(boxUid, item.BoxName, uniName);
-                JsonNetSerializer serializer = new JsonNetSerializer();
+                var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(item);
                 return PartialView();
             }
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                JsonNetSerializer serializer = new JsonNetSerializer();
+                var serializer = new JsonNetSerializer();
                 var urlBuilder = new UrlBuilder(HttpContext);
                 if (!string.IsNullOrEmpty(item.Country))
                 {
@@ -327,11 +327,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var filedto = item as FileWithDetailDto;
             if (filedto != null)
             {
-                Uri uri;
-                if (!Uri.TryCreate(filedto.Blob, UriKind.Absolute, out uri))
-                {
-                    return RedirectToAction("Index", "Error");
-                }
+                var uri = new Uri(m_BlobProvider.GetBlobUrl(filedto.Blob));
+
+
                 if (otakim)
                 {
                     var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);

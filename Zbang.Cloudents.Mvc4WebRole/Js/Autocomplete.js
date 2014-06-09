@@ -1,4 +1,4 @@
-﻿//Currently used in Share
+﻿//Currently used in Share 
 (function (cd) {
     "use strict";
 
