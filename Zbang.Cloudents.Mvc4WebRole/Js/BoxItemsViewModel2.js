@@ -442,7 +442,9 @@
             }
 
             $('#quiz').remove();  //fix for quiz navigation
-            cd.pubsub.publish('enterItem');
+            if (cd.register()) {
+                cd.pubsub.publish('enterItem');
+            }
             return true;
         }
 
@@ -459,10 +461,12 @@
             }
 
 
-            cd.pubsub.publish('enterItem');
-
-            if (item.type.toLowerCase() === 'link') {                
+            if (cd.register()) {
+                cd.pubsub.publish('enterItem');
             }
+            
+
+            
             return true;
 
         };
