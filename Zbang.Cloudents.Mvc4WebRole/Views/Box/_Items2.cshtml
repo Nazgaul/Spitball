@@ -49,7 +49,7 @@
     <li class="boxItem" data-bind="attr: { id: uid }">
 
         <p class="thumbContent" data-bind="text: description"></p>
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+        <a class="boxLink" data-click="itmSlct" data-bind="attr: { href: itemUrl,'data-navigation' : item.type }">
             <!--ko if:sponsored-->
             <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="479" height="188" />
             <!--/ko-->
@@ -86,7 +86,7 @@
 
 <script type="text/html" id="BoxItemsListViewTempalte">
     <li class="listItem" data-bind="attr: { id: uid }">
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+        <a class="boxLink" data-click="itmSlct" data-bind="attr: { href: itemUrl,'data-navigation' : item.type }">
             <!--ko if:sponsored-->
             <img class="imgBorder" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }" alt="" width="112" height="143" />
             <!--/ko-->
