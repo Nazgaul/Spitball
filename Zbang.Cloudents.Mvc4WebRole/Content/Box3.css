@@ -19,7 +19,8 @@
   display: inline-block;
   cursor: pointer;
   line-height: 8px;
-  padding: 5px;
+  padding: 5px 20px;
+  color: #0371c8;
 }
 .inviteFriendsBtn:before {
   content: '';
@@ -35,6 +36,7 @@
 .shareBtn {
   position: relative;
   margin-top: 12px;
+  color: #0371c8;
 }
 .shareBtn .shareList {
   display: table;
@@ -774,6 +776,7 @@
   position: absolute;
   top: 50px;
   z-index: -1;
+  max-width: 140px;
   max-height: 130px;
   overflow: hidden;
 }

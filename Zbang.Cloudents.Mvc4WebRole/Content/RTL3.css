@@ -1738,10 +1738,9 @@
   /*rtl*/
 }
 .settingsContent {
-  right: 288px;
-  /*rtl*/
-  left: auto;
   text-align: right;
+  /*rtl*/
+  margin: 30px 288px 0 20px;
   /*rtl*/
 }
 /*#region profile info */
