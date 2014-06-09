@@ -76,6 +76,10 @@
                 that.noPreview = ' noPreview';//space is needed
                 that.description = '';
             }
+
+            that.thumbAlt = ko.computed(function () {
+                return '{0} | {1} | {2}'.format(that.name, cd.getParameterFromUrl(3), cd.getParameterFromUrl(1));
+            });            
         }
 
         var self = this, boxid, current = 0, //countOfItems = 0,
@@ -442,19 +446,23 @@
             return true;
         }
 
-        self.itmSlct = function (item) {
+        self.itmSlct = function (item,e) {
             if (self.manageTab()) {
                 item.isCheck(!item.isCheck());
                 return false;
             }
-
+            
             //remove the new tag
             if (item.isNew()) {
                 item.isNew(false);
                 cd.newUpdates.deleteUpdate({ type: 'items', boxId: boxid, id: item.uid });
             }
 
+
             cd.pubsub.publish('enterItem');
+
+            if (item.type.toLowerCase() === 'link') {                
+            }
             return true;
 
         };

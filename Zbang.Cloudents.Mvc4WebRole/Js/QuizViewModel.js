@@ -31,14 +31,20 @@
             quizUserWrong, quizRetake,
             quizTimerToggle, quizTimer,
             quizTimerResult, quizShare,
-            quizFS, quizMsg, quizCL;
+            quizFS, quizMsg, quizCL,
+            ratePopupTimeout, ratedQuizzes,
+            $rateContainer, $rateBubble,
+            $rateBtn, $ratePopup,
+            initialRate,currentRate,
+            $rateBubble, choosedRate = false,
+            $bubbleText,
 
-        var quizId = cd.getParameterFromUrl(4), stopWatch;
+            quizId = cd.getParameterFromUrl(4), stopWatch;
 
         cd.pubsub.subscribe('quiz', function () {
 
             initQuiz();
-
+            //loadRate();
             pubsub.publish('quiz_load');
         });
 
@@ -49,6 +55,8 @@
             quizTimerToggle = eById('quizTimerToggle'), quizTimer = eById('quizTimer'),
             quizCL = eById('quiz_CL'), quizMsg = eById('quiz_msg'), quizFS = eById('quiz_FS'),
             quizTimerResult = eById('quizTimerResult'), quizShare = eById('quizShare');
+            $rateContainer = $('#quizRateContainer'), $rateBubble = $('#quizRateBubble'), $rateBtn = $('#quizRateBtn'),
+            $ratePopup = $('#quizRatePopup'), $rateBubble = $('#quizRateBubble'), $bubbleText = $rateBubble.find('.bubbleText');
         }
 
         function initQuiz() {
@@ -71,7 +79,7 @@
             quizCL.value = cd.location();
 
             registerEvents();
-
+            setRateStorage();
             function fillUnregisterSheet(savedData) {
 
                 cd.localStorageWrapper.removeItem(quizId);
@@ -135,10 +143,75 @@
 
             }
 
+            function setRateStorage() {
+                $.data($rateContainer[0], 'fetchrate', true);
 
+                var $rated = $('.rated');
+                if ($rated.length) {
+                    $rated.toggleClass('rated').text(5 - $rated.index());
+                }
+
+                if (cd.register()) {
+                    if (!ratedQuizzes) {
+                        ratedQuizzes = JSON.parse(cd.localStorageWrapper.getItem('ratedQuizzes'));
+                        if (!ratedQuizzes) {
+                            ratedQuizzes = {};
+                        }
+                        if (!ratedQuizzes[cd.userDetail().nId]) {
+                            ratedQuizzes[cd.userDetail().nId] = [];
+                        }
+                    }
+                }
+            }
 
         }
 
+        function loadRate() {
+            if (ratedQuizzes && ratedQuizzes[cd.userDetail().nId] && ratedQuizzes[cd.userDetail().nId].indexOf(quizId) > -1) {
+                    return;                
+            }
+
+            ratePopupTimeout = setTimeout(function () {
+                $ratePopup.removeClass('changedItem').addClass('show');
+
+                if (!cd.register()) {
+                    $ratePopup.one('click', '.star', function () {
+                        cd.pubsub.publish('register', { action: true });
+                    });
+                    return;
+                }
+
+                $ratePopup.one('click', '.star', function () {
+                    $ratePopup.addClass('rated');
+
+                    var $this = $(this),
+                        startWidth = $('.stars .full').width(),
+                        itemRate = getQuizRate(),
+                        currentRate = 5 - $this.index(),
+                        fakeRate = calculateFakeRate(startWidth, currentRate);
+
+                    self.rate(fakeRate);
+                    setQuizRate(currentRate);
+                    if (ratedQuizzes[cd.userDetail().nId].indexOf(quizId) === -1) {
+                        ratedQuizzes[cd.userDetail().nId].push(quizId);
+                        cd.localStorageWrapper.setItem('ratedQuizzes', JSON.stringify(ratedQuizzes));
+                    }
+                    setTimeout(function () {
+                        $ratePopup.removeClass('show').removeClass('rated');
+                    }, 3000);
+
+                });
+                $ratePopup.one('click', '.closeDialog', function (e) {
+                    if (ratedQuizzes[cd.userDetail().nId].indexOf(quizId) === -1) {
+                        ratedQuizzes[cd.userDetail().nId].push(quizId);
+                        cd.localStorageWrapper.setItem('ratedQuizzes', JSON.stringify(ratedQuizzes));
+                    }
+                    $ratePopup.addClass('changedItem').remove('show');
+
+                });
+
+            }, 3000);//3 seocnds
+        }
 
         function registerEvents() {
 
@@ -193,6 +266,100 @@
             pubsub.subscribe('quizclear', function () {
                 clearQuiz();
             });
+
+            //rateEvents();
+
+            var rateMenuOpen = false;
+            function rateEvents() {
+              
+
+                $rateContainer.click(function (e) {
+                    trackEvent('Rate item menu opend', 'User opened the rate menu');
+                    e.stopPropagation();
+
+                    if (!cd.register()) {
+                        cd.pubsub.publish('register', { action: true });
+                        return;
+                    }
+
+                    if (rateMenuOpen) {
+                        return;
+                    }
+
+                    rateMenuOpen = true;
+
+                    if ($.data($rateContainer[0], 'fetchrate')) {
+                        getQuizRate();
+                    }
+
+                    $rateBtn.toggleClass('clicked');
+                    $bubbleText.text($bubbleText.attr('data-step1'));
+                });
+
+                $rateContainer.on('click', '.star', function (e) {
+                    e.stopPropagation();
+                    var startWidth = $('.stars .full').width();
+
+                    clearTimeout(ratePopupTimeout);
+
+                    if ($ratePopup.is(':visible')) {
+                        setTimeout(function () {
+                            $ratePopup.removeClass('show').addClass('rated2');
+                        }, 500);
+                    } else {
+                        $ratePopup.removeClass('show');
+                    }
+
+
+                    if (choosedRate) {
+                        return;
+                    }
+
+                    var $this = $(this),
+                        $rated = $rateBubble.find('.rated'),
+                        index = $this.index(),
+                        currentRate = 5 - index;
+
+                    if ($this.index() === $rated.index()) {
+                        return; // don't do anything if user selects rating which is already selected
+                    }
+
+                    choosedRate = true;
+
+                    setItemQuiz(currentRate);
+
+                    self.rate(calculateFakeRate(startWidth, currentRate));
+
+                    trackEvent('Rate', 'User rated a quiz with ' + currentRate + ' stars');
+
+                    toggleStarClass($rated, currentRate);
+
+
+
+                    initialRate = currentRate;
+                    startWidth = self.rate();
+
+                    setTimeout(function () {
+                        $bubbleText.text($bubbleText.attr('data-step2'));
+                        $rateBubble.addClass('closing');
+                    }, 1000);
+                    setTimeout(function () {
+                        $rateBtn.removeClass('clicked');
+                        $rateBubble.removeClass('closing');
+                        rateMenuOpen = choosedRate = false;
+                    }, 2000);
+                });
+
+                $('body').click(function () {
+                    if (choosedRate) {
+                        return;
+                    }
+                    $rateBtn.removeClass('clicked');
+                    $rateBubble.removeClass('closing');
+                    rateMenuOpen = choosedRate = false;
+                });
+            }
+
 
         }
 
@@ -495,11 +662,35 @@
 
         //#region rate
 
+        function getQuizRate() {
+            dataContext.getQuizRate({
+                data: { quizId: quizId},
+                success: function (data) {
+                    var rate = data.Rate >= 0 ? data.Rate : 0;
+                    initialRate = rate;
+                    $.data($rateContainer[0], 'fetchrate', false);
+                    var $rated = $rateBubble.find('.rated');
+                    toggleStarClass($rated, rate);
+                }
+            });
+        }
+        function setQuizRate(rate) {
+            dataContext.rateQuiz({
+                data: {
+                    quizId: quizId,
+                    rate: rate
+                }
+            });
+        }
         //function registerRateEvents() {
 
         //}
 
         //#endregion
+
+        function trackEvent(action, label) {
+            analytics.trackEvent('Quiz', action, label);
+        }
 
     }
 

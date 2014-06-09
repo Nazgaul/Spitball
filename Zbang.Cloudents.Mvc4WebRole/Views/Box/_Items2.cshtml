@@ -49,12 +49,12 @@
     <li class="boxItem" data-bind="attr: { id: uid }">
 
         <p class="thumbContent" data-bind="text: description"></p>
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+        <a class="boxLink" data-click="itmSlct" data-bind="attr: { href: itemUrl,'data-navigation' : type, target : type === 'Link' ? '_blank' : '_self'}">
             <!--ko if:sponsored-->
             <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="479" height="188" />
             <!--/ko-->
             <!--ko ifnot: sponsored-->
-            <img data-bind="attr: { 'data-src': thumbnailUrl, alt: name }" alt="" width="148" height="188" />
+            <img data-bind="attr: { 'data-src': thumbnailUrl, alt: thumbAlt }" alt="" width="148" height="188" />
             <!--/ko-->
 
             <span class="tag" data-bind="visible : isNew">@SharedResources.New</span>
@@ -86,7 +86,7 @@
 
 <script type="text/html" id="BoxItemsListViewTempalte">
     <li class="listItem" data-bind="attr: { id: uid }">
-        <a class="boxLink" data-navigation="Item" data-click="itmSlct" data-bind="attr: { href: itemUrl }">
+        <a class="boxLink" data-click="itmSlct" data-bind="attr: { href: itemUrl,'data-navigation' : type , target : type === 'Link' ? '_blank' : '_self'}">
             <!--ko if:sponsored-->
             <img class="imgBorder" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }" alt="" width="112" height="143" />
             <!--/ko-->
