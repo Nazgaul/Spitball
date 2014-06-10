@@ -364,9 +364,9 @@
                     .flagAllow(checkFlagAllow(userType));
 
                     function checkFlagAllow(userType) {
-                        //if (userType === 'none' || userType === 'invite') {                         
-                        //    return false;
-                        //}
+                        if (!cd.register()) {
+                            return false;
+                        }
 
                         if (ownerid === cd.userDetail().nId) {
                             return false;
