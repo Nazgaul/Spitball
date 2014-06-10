@@ -863,89 +863,136 @@
 
 .boxItemList {
     min-width: (@box-width * 2 + @min-margin);
-    &.sponsored
-    {
-        .boxName{
+
+    &.sponsored {
+        .boxName {
             font-size: 15px;
             line-height: 30px;
         }
-        .boxItem:first-child
-        {
+        .boxItem, .listItem {
             position: relative;
+            &:first-child {
+                &:hover {
+                    .actionBtns {
+                        display: none;
+                    }
+                    .boxLink:after {
+                        background-position: -75px -82px;
+                    }
+                }
+                .boxLink {
+                    //padding-top: 192px; //sponsored link img absolute
+                    //.boxSizing;
+
+                    &:after {
+                        .pseudo;
+                        position: absolute;
+                        /*margin: auto;
+                        left: 0;
+                        right: 0;
+                        top: 50px;*/
+                        width: 81px;
+                        height: 81px;
+                        background: @boxSprite -75px 0 no-repeat;
+                    }
+                }
+            }
+        }
+        .boxItem:first-child {
+            //position: relative;
+
             .boxLink {
                 padding-top: 192px; //sponsored link img absolute
                 .boxSizing;
+
                 &:after {
-                    .pseudo;
-                    position: absolute;
+                    //.pseudo;
+                    //position: absolute;
                     margin: auto;
-                    left:0;right:0;
-                    top:50px;
-                    width: 81px;
-                    height: 81px;
-                    background: @boxSprite -75px 0 no-repeat;
+                    left: 0;
+                    right: 0;
+                    top: 50px;
+                    //width: 81px;
+                    //height: 81px;
+                    //background: @boxSprite -75px 0 no-repeat;
                 }
             }
-            &:hover 
-            {
+
+            /*&:hover {
                 .actionBtns {
                     display: none;
                 }
+
                 .boxLink:after {
                     background-position: -75px -82px;
                 }
-            }
-            img{
+            }*/
+
+            img {
                 width: 100%;
                 position: absolute; //sponsored link img absolute
-                top:0; //sponsored link img absolute
-            }
-            .boxItemTt
-            {
-                left:0;
-                right:0;
-                margin: 0 auto 8px;
+                top: 0; //sponsored link img absolute
             }
 
+            .boxItemTt {
+                left: 0;
+                right: 0;
+                margin: 0 auto 8px;
+            }
         }
-        .listItem:first-child
-        {
+
+        .listItem:first-child {
             background: #fff;
             border: 1px solid @borderColor;
             border-radius: 3px;
             font-size: 15px;
-            padding:0 0 0 260px; /*rtl*/ //override
+            padding: 0 0 0 260px; /*rtl*/ //override
             margin-bottom: 14px;
-            .imgBorder
-            {
-                top:0;
-                width: 236px;
+
+            .imgBorder {
+                top: 0;
                 border: none;
                 border-right: 1px solid @borderColor; /*rtl*/
                 border-radius: 3px 0 0 3px; /*rtl*/
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                -webkit-background-size: cover;
+                background-size: cover;
             }
-            .boxName{
+
+            .boxName {
                 font-size: 17px;
                 font-weight: normal;
                 padding-top: 8px;
             }
+
             .actionBtns {
                 display: none;
             }
+
             .itemContent {
                 max-height: 74px;
                 margin: 0 15px 5px 0; /*rtl*/
                 line-height: 18px;
             }
-            .views{
+
+            .views {
                 font-size: 13px;
             }
-            &:hover .actionBtns
-            {
+
+            /*&:hover .actionBtns {
                 display: none;
+            }*/
+            .boxLink {
+                .boxSizing;
+                margin-left: -260px;
+                padding-left: 260px;
+                &:after {
+                    top:31px;
+                    left: 77px;
+                }
             }
         }
-
     }
 }
 
