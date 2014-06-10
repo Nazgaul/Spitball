@@ -1,19 +1,15 @@
 ﻿// Define you service here. Services can be added to same module as 'main' or a seperate module can be created.
-
-var cloudentsServices = angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFactoryProvider',function ($angularCacheFactoryProvider) {
-    $angularCacheFactoryProvider.setCacheDefaults({
-        maxAge: 300000,
-        deleteOnExpire: 'aggressive',
-        recycleFreq: 60000,
-        storageMode: 'sessionStorage'
-    });
-}]),
-
-methods = { POST: 'POST', GET: 'GET' };
-
-cloudentsServices.config(['$httpProvider', function ($httpProvider) {
+angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFactoryProvider', function ($angularCacheFactoryProvider) {
+        $angularCacheFactoryProvider.setCacheDefaults({
+            maxAge: 300000,
+            deleteOnExpire: 'aggressive',
+            recycleFreq: 60000,
+            storageMode: 'sessionStorage'
+        });
+    }]).
+    cloudentsServices.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-}]);
+    }]).
 
 //cloudentsServices.factory('Dashboard', function ($http) {
 //    return {
@@ -44,55 +40,54 @@ cloudentsServices.config(['$httpProvider', function ($httpProvider) {
 
 //    };
 //});
-
-cloudentsServices.factory('QuizService', ['$http','$q',function ($http,$q) {
+   factory('QuizService', ['$http','$q',function ($http,$q) {
     return {
         create: function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Create', data).success(function (data) {
-                dfd.resolve(data);
-            }).error(function (data) {
-                dfd.reject(data);
+            $http.post('/Quiz/Create', data).success(function (response) {
+                dfd.resolve(response);
+            }).error(function (response) {
+                dfd.reject(response);
             });
 
             return dfd.promise;
         },
         update: function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Update', data).success(function (data) {
-                dfd.resolve(data);
-            }).error(function (data) {
-                dfd.reject(data);
+            $http.post('/Quiz/Update', data).success(function (response) {
+                dfd.resolve(response);
+            }).error(function (response) {
+                dfd.reject(response);
             });
 
             return dfd.promise;
         },
         'delete': function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Delete', data).success(function (data) {
-                dfd.resolve(data);
-            }).error(function (data) {
-                dfd.reject(data);
+            $http.post('/Quiz/Delete', data).success(function (response) {
+                dfd.resolve(response);
+            }).error(function (response) {
+                dfd.reject(response);
             });
 
             return dfd.promise;
         },
         save: function (data) {
             var dfd = $q.defer();
-            $http.post('/Quiz/Save', data).success(function (data) {
-                dfd.resolve(data);
-            }).error(function (data) {
-                dfd.reject(data);
+            $http.post('/Quiz/Save', data).success(function (response) {
+                dfd.resolve(response);
+            }).error(function (response) {
+                dfd.reject(response);
             });
 
             return dfd.promise;
         },
         getDraft: function (data) {
             var dfd = $q.defer();
-            $http.get('/Quiz/GetDraft', { params: data }).success(function (data) {
-                dfd.resolve(data);
-            }).error(function (data) {
-                dfd.reject(data);
+            $http.get('/Quiz/GetDraft', { params: data }).success(function (response) {
+                dfd.resolve(response);
+            }).error(function (response) {
+                dfd.reject(response);
             });
             return dfd.promise;
 
@@ -100,30 +95,30 @@ cloudentsServices.factory('QuizService', ['$http','$q',function ($http,$q) {
         question: {
             create: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/CreateQuestion', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/CreateQuestion', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
             },
             update: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/UpdateQuestion', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/UpdateQuestion', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
             },
             'delete': function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/DeleteQuestion', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/DeleteQuestion', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
@@ -132,40 +127,40 @@ cloudentsServices.factory('QuizService', ['$http','$q',function ($http,$q) {
         answer: {
             create: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/CreateAnswer', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/CreateAnswer', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
             },
             update: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/UpdateAnswer', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/UpdateAnswer', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
             },
             'delete': function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/DeleteAnswer', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/DeleteAnswer', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
             },
             markCorrect: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/MarkCorrect', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/MarkCorrect', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
@@ -174,20 +169,20 @@ cloudentsServices.factory('QuizService', ['$http','$q',function ($http,$q) {
         discussion: {
             createDiscussion: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/CreateDiscussion', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/CreateDiscussion', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
             },
             deleteDiscussion: function (data) {
                 var dfd = $q.defer();
-                $http.post('/Quiz/DeleteDiscussion', data).success(function (data) {
-                    dfd.resolve(data);
-                }).error(function (data) {
-                    dfd.reject(data);
+                $http.post('/Quiz/DeleteDiscussion', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
                 });
                 return dfd.promise;
 
@@ -197,10 +192,10 @@ cloudentsServices.factory('QuizService', ['$http','$q',function ($http,$q) {
     };
 }]);
 
-cloudentsServices.factory('PartialView', ['$http', function ($http) {
-    return {
-        fetch: function (payload) {
-            submitRequest($http, '/Home/Partial', methods.GET, payload.data, payload.success, payload.error);
-        }
-    };
-}]);
+//cloudentsServices.factory('PartialView', ['$http', function ($http) {
+//    return {
+//        fetch: function (payload) {
+//            submitRequest($http, '/Home/Partial', methods.GET, payload.data, payload.success, payload.error);
+//        }
+//    };
+//}]);

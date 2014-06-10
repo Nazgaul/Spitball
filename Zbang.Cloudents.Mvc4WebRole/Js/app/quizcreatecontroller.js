@@ -28,17 +28,17 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     $scope.reset = function () {
         $scope.quiz = {
             id: null,
-            name : null,
+            name: null,
             questions: [],
             courseId: null,
-            courseName: null            
-        }
-    }
+            courseName: null
+        };
+    };
 
     $scope.reset();
     $scope.$on('initQuiz', function (e,data) {
         $scope.$apply(function () {
-            $scope.initQuiz(data)
+            $scope.initQuiz(data);
         });
     });
     $scope.initQuiz = function (data) {
@@ -64,9 +64,9 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
         $scope.quiz.id = data.quizId;
 
-        Quiz.getDraft({ quizId: data.quizId }).then(function (data) {
-            $scope.quiz.name = data.payload.name;
-            $scope.quiz.questions = data.payload.questions;
+        Quiz.getDraft({ quizId: data.quizId }).then(function (draft) {
+            $scope.quiz.name = draft.payload.name;
+            $scope.quiz.questions = draft.payload.questions;
 
             for (var i = 0, l = $scope.quiz.questions.length; i < l ; i++) {
                 var answersLength = $scope.quiz.questions[i].answers.length;
@@ -85,7 +85,6 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
     $scope.showQuiz = function () {
         document.getElementById('main').classList.remove('noQuiz');
-        $scope.$broadcast('rebuild:quiz');
     };
 
     $scope.saveQuiz = function () {
@@ -94,21 +93,18 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             return;
         }
 
-
         Quiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function (response) {
             if (!response) {
-                //console.log('error updating quiz');
+                return;
             }
-
             addItemToBox(false);
         });
     };
 
-
     $scope.publish = function () {
-        $scope.params.showCloseDialog = false;        
+        $scope.params.showCloseDialog = false;
         $scope.submit(this.quizForm.$valid);
-    }
+    };
 
     $scope.deleteQuiz = function () {
         if (!$scope.quiz.id) {
@@ -131,7 +127,6 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
     };
 
-
     $scope.saveDraft = function () {
         $scope.params.showCloseDialog = false;
         $scope.params.showCreateQuiz = false;
@@ -146,7 +141,6 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
         $scope.reset();
     };
-
 
     $scope.addQuestion = function (focus) {
         var question = new Question();
@@ -172,7 +166,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
 
         Quiz.question.update({ id: question.id, text: question.text });
-    }
+    };
 
     $scope.removeQuestion = function (index) {
         if (index > -1) {
@@ -191,7 +185,6 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         answer.focus = focus;
         question.answers.push(answer);
     };
-
 
     $scope.toggleRadioBtn = function (question, answer) {
         var text = answer.text || '';
@@ -250,8 +243,6 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         $scope.quiz.showPreview = !$scope.quiz.showPreview;
     };
 
-
-
     //#region helpers
     var createQuiz = function () {
         return Quiz.create({ boxId: $scope
@@ -266,13 +257,13 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             question.id = data.payload;
             return data.payload;
         });
-    }
+    };
     var createAnswer = function (question, answer) {
         return Quiz.answer.create({ questionId: question.id, text: answer.text }).then(function (data) {
             answer.id = data.payload;
             return data.payload;
         });
-    }
+    };
     //#endregion
 
     //#region validation 
@@ -343,9 +334,6 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         return true;
     };
 
-
-
-
     //#endregion
     function addItemToBox(isPublish, url) {
         var quiz = {
@@ -361,7 +349,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             type: 'quiz',
             url: url,
             date: cd.getUTCDate()
-        }
+        };
 
         cd.pubsub.publish('addItem', quiz);
 
@@ -386,7 +374,6 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         $scope.quiz.validated = true;
         $scope.quiz.empty = false;
 
-
         if (!isValid) {
             return;
         }
@@ -404,12 +391,12 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
       
     };
 
-    $scope.checkTab = function (question,lastAnswer,e) {
+    $scope.checkTab = function (question, lastAnswer, e) {
         e.preventDefault();
         if (lastAnswer && e.keyCode === 9) {
-            $scope.addAnswer(question,true);
-        }        
-    }
+            $scope.addAnswer(question, true);
+        }
+    };
     $scope.closeDialog = function () {
         $scope.params.showCloseDialog = true;
     };
@@ -428,7 +415,6 @@ quizCreate.directive('quizPreview', function () {
               }
 
               showPreview();
-
 
               function showPreview() {
                 element[0].style.display = 'block';

@@ -10,13 +10,12 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];
 
-    var boxList = Dashboard.boxList({
+    Dashboard.boxList({
         success: function (data) {
             $scope.wall = data.payload.wall;
             $scope.friends = data.payload.friends;
 
             mapBoxes(data.payload.boxes);
-
 
             if (data.payload.friends.length > 4) {
                 $scope.twoLinesFriends = true;
@@ -25,7 +24,6 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
             $scope.contentLoaded = true;
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('mLoading').style.display = 'none';
-
 
             //rebuildscrollbar
             $scope.$broadcast('rebuild:me');
@@ -73,7 +71,6 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
     //    });
     //};
 
-
     function mapBoxes(boxes) {
         var academic = [], group = [];
         for (var i = 0, l = boxes.length; i < l; i++) {
@@ -88,7 +85,7 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box', funct
         $scope.academicBoxes = academic;
         $scope.groupBoxes = group;
 
-    };
+    }
 
 }]);
 
@@ -105,8 +102,8 @@ dashboard.controller('DashboardAsideController', ['$scope', 'User', function ($s
             default:
                 return '';
 
-        };
-    }
+        }
+    };
    
     $scope.toggleShowFriends = function () {
         User.friends({
@@ -125,7 +122,7 @@ dashboard.controller('DashboardAsideController', ['$scope', 'User', function ($s
         var friend = [{ id: user.uid, name: user.name, userImage: user.image }];
         cd.pubsub.publish('messageFromPopup', { id: ''.id, data: friend });
 
-    }
+    };
 
 }]);
 
@@ -141,12 +138,12 @@ dashboard.controller('CreateBoxController', ['$scope', 'Box', function ($scope, 
 
         Box.create({
             data: $scope.formData,
-            success: function (data) {
+            success: function () {
                 $scope.formData = {};
                 $scope.toggleShowCreateBox();
             }
         });
-    }
+    };
 
     $scope.reset = function () {
         $scope.formData = {};
