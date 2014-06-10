@@ -1,10 +1,10 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region homepage image */
+﻿
+
+
+
+
+
+
 @media only screen and (max-device-width: 719px) {
   .imgBg {
     background: url(/Images/m-home-small.jpg) right top no-repeat;
@@ -24,13 +24,13 @@
     background-size: cover;
   }
 }
-/*#endregion */
-/*#region  regular sprites */
+
+
 .sprite {
   background: url(/Images/m-sprite-home.png) no-repeat;
 }
-/*#endregion */
-/*#region retina image sprites */
+
+
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .sprite {
     background-image: url(/Images/m-sprite-home@2x.png);
@@ -38,7 +38,7 @@
     background-size: 286px 50px;
   }
 }
-/*#endregion */
+
 body {
   text-align: center;
 }
@@ -162,6 +162,9 @@ option {
   margin: 0 auto 20px;
   height: 100%;
 }
+.content .inputText {
+  padding: 0 4px 0 8px;
+}
 .viaFB {
   color: #fff;
   margin: 28px 0 25px;
@@ -274,7 +277,7 @@ option {
   color: #0f9d58;
   text-decoration: none;
 }
-/*#region validation errors */
+
 .field-validation-error,
 .validation-summary-errors {
   font-size: 12px;
@@ -291,7 +294,7 @@ option {
 .field-validation-error + .inputText {
   border-top: 1px solid #ddd;
 }
-/*#endregion */
+
 /*@media only screen 
 and (orientation : landscape) and (min-width : 321px)  { 
   .btn
@@ -334,7 +337,7 @@ and (orientation : landscape) and (min-width : 321px)  {
     height: 110%;
   }
 }
-/*#region 'Static' pages */
+
 .error,
 .forgot,
 .pwdSent,
@@ -373,4 +376,4 @@ and (orientation : landscape) and (min-width : 321px)  {
 .forgot {
   padding-bottom: 20px;
 }
-/*#endregion */
+
