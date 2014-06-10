@@ -315,6 +315,10 @@
                             function () {
                                 self.items.remove(quiz);
                                 cd.pubsub.publish('deleteQuiz', quiz.uid);
+                                var $rootScope = angular.element(document.getElementById('main')).scope();
+                                $rootScope.$apply(function () {
+                                    $rootScope.$broadcast('deleteQuiz', { quizId: quiz.uid });
+                                });
                                 //countOfItems--;
                                 dataContext.quizDelete({
                                     data: { id: quiz.uid },

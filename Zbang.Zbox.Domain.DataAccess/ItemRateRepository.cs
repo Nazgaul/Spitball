@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
@@ -13,12 +9,12 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public int GetRateCount(long itemId)
         {
-            return UnitOfWork.CurrentSession.Query<ItemRate>().Where(w => w.Item.Id == itemId).Count();
+            return UnitOfWork.CurrentSession.Query<ItemRate>().Count(w => w.Item.Id == itemId);
         }
 
         public ItemRate GetRateOfUser(long userId, long itemId)
         {
-            return UnitOfWork.CurrentSession.Query<ItemRate>().Where(w => w.Item.Id == itemId && w.User.Id == userId).FirstOrDefault();
+            return UnitOfWork.CurrentSession.Query<ItemRate>().FirstOrDefault(w => w.Item.Id == itemId && w.User.Id == userId);
         }
     }
 }
