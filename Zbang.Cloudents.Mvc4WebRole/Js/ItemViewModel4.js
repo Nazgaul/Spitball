@@ -75,6 +75,7 @@
         //#region flag an item
         self.flagItem = function () {
             if (!cd.register()) {
+                cd.pubsub.publish('register', { action: true });
                 return;
             }
             var $flagItemDialog = $('#' + consts.flagItemDialog);
@@ -367,21 +368,13 @@
                     .flagAllow(checkFlagAllow(userType));
 
                     function checkFlagAllow(userType) {
-                        if (!cd.register()) {
+                        if (cd.register() && (ownerid === cd.userDetail().nId)) {
                             return false;
                         }
-
-                        if (ownerid === cd.userDetail().nId) {
-                            return false;
-                        }
-
                         return true;
                     }
-
-
                 }
             }
-
         }
 
         function getAnnotation() {
