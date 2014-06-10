@@ -74,6 +74,9 @@
 
         //#region flag an item
         self.flagItem = function () {
+            if (!cd.register()) {
+                return;
+            }
             var $flagItemDialog = $('#' + consts.flagItemDialog);
 
             trackEvent('Flag item');
