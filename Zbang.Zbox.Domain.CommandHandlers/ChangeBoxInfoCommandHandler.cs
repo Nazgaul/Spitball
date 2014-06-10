@@ -4,7 +4,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -65,6 +64,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private void ChangeNotificationSettings(long userId, long boxId, NotificationSettings notificationSettings)
         {
             var userBoxRel = m_UserboxRelationshipRepository.GetUserBoxRelationship(userId, boxId);
+            if (userBoxRel == null)
+            {
+                throw new ArgumentException("User is not connected to the box");
+            }
             userBoxRel.NotificationSettings = notificationSettings;
             m_UserboxRelationshipRepository.Save(userBoxRel);
         }
