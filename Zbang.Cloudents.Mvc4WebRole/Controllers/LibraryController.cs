@@ -115,32 +115,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Choose()
         {
             var country = GetUserCountryByIp();
-
-            //var query = new GetUniversityByPrefixQuery();
-            // var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
-
             var haveUniversity = false;
             var userData = m_FormsAuthenticationService.GetUserData();
             if (userData != null && userData.UniversityId.HasValue)
             {
                 haveUniversity = true;
             }
-            //JsonNetSerializer serializer = new JsonNetSerializer();
-            //ViewBag.data = serializer.Serialize(result.OrderByDescending(o => o.MemberCount));
-            //result;
+           
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
-            //if (Request.IsAjaxRequest())
-            //{
-            //    return PartialView("_SelectUni");
-            //}
+           
             return View("_SelectUni");
         }
         [HttpGet, Ajax]
         public ActionResult SearchUniversity(string term)
         {
-            var retVal = m_UniversitySearch.Value.SearchUniversity(term);
-            return this.CdJson(new JsonResponse(true, retVal));
+            try
+            {
+                var retVal = m_UniversitySearch.Value.SearchUniversity(term);
+                return this.CdJson(new JsonResponse(true, retVal));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("SeachUniversity term:  " + term, ex);
+                return this.CdJson(new JsonResponse(false));
+            }
         }
 
         [HttpGet, Ajax]
@@ -432,7 +431,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     break;
             }
             ViewBag.userName = userData.Name;
-            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University() { UniversityId = universityId }) }));
+            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University() { UniversityId = universityId }) }));
         }
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
         public ActionResult InsertId(long universityId)

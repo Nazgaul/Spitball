@@ -1,4 +1,4 @@
-﻿(function (dataContext, $, ko, cd, ZboxResources, plupload, analytics) {
+﻿(function (dataContext, $, ko, cd, JsResources, plupload, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('as')) {
         return;
@@ -9,7 +9,7 @@
         storage();
         notification();
         accountSettings();
-        document.title = "Account settings | Cloudents"
+        document.title = "Account settings | Cloudents";
         //});
         cd.pubsub.subscribe('accountSettings_load', function () {
             //changetab();

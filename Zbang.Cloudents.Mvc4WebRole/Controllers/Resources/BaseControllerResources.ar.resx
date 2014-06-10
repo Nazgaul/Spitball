@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cloudents" xml:space="preserve">
+    <value>Cloudents</value>
+  </data>
   <data name="QuizTitlePrefix" xml:space="preserve">
     <value>اختبار نفسك في</value>
   </data>

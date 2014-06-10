@@ -151,23 +151,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                var serializer = new JsonNetSerializer();
+
                 var urlBuilder = new UrlBuilder(HttpContext);
                 if (!string.IsNullOrEmpty(item.Country))
                 {
                     var culture = Languages.GetCultureBaseOnCountry(item.Country);
                     BaseControllerResources.Culture = culture;
-                    ViewBag.title = string.Format("{0} {1} | {2} | Cloudents", BaseControllerResources.TitlePrefix, item.BoxName, item.Name);
+                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, item.BoxName, item.Name, BaseControllerResources.Cloudents);
                 }
-                ViewBag.metaDescription = item.Description;
+                if (!string.IsNullOrEmpty(item.Description))
+                {
+                    var metaDescription = item.Description.Substring(0, 197);
+                    ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
+                }
                 item.BoxUrl = urlBuilder.BuildBoxUrl(boxId, item.BoxName, universityName);
+
+                var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(item);
                 //ViewBag.title = item.Name;
                 if (Request.IsAjaxRequest())
                 {
-                    return PartialView();
+                    return PartialView(item);
                 }
-                return View();
+                return View(item);
             }
             catch (BoxAccessDeniedException)
             {
@@ -333,7 +339,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (otakim)
                 {
                     var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);
-                    var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name, 
+                    var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name,
                         Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
                     return Redirect(url);
                 }
@@ -436,7 +442,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         return Json(new JsonResponse(true, new { preview = retVal.Content.First() }), JsonRequestBehavior.AllowGet);
                     }
-                   
+
                     return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }), JsonRequestBehavior.AllowGet);
                     //if (retVal.Content.Count() == 0 && imageNumber == 0) // this is happen due failed preview at the start
                     //{

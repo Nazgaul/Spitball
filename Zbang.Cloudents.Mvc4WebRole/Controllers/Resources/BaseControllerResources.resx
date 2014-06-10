@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cloudents" xml:space="preserve">
+    <value>Cloudents</value>
+  </data>
   <data name="MetaDescription" xml:space="preserve">
     <value>Study and share your class notes for {0} {1} {2} , online or on your phone through Cloudents.</value>
   </data>

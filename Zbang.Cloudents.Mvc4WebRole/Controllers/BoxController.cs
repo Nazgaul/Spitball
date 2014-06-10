@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxQuery(boxid, GetUserId(false));
                 var box = m_ZboxReadService.GetBox2(query);
 
-                UrlBuilder builder = new UrlBuilder(HttpContext);
+                var builder = new UrlBuilder(HttpContext);
                 var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
                 return RedirectPermanent(url);
             }
@@ -96,12 +96,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxQuery(boxId, userId);
                 var box = m_ZboxReadService.GetBox2(query);
 
-
+                var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
+                BaseControllerResources.Culture = culture;
                 if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
                 {
-                    var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
-                    BaseControllerResources.Culture = culture;
-                    ViewBag.title = string.Format("{0} {1} | {2} | Cloudents", BaseControllerResources.TitlePrefix, box.Name, box.OwnerName);
+
+                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, box.Name, box.OwnerName, BaseControllerResources.Cloudents);
                     ViewBag.metaDescription = Regex.Replace(string.Format(
                         BaseControllerResources.MetaDescription, box.Name,
                         string.IsNullOrWhiteSpace(box.CourseId) ? string.Empty : string.Format(", #{0}", box.CourseId),
@@ -109,14 +109,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 else
                 {
-                    ViewBag.title = string.Format("{0} | Cloudents", box.Name);
+                    ViewBag.title = string.Format("{0} | {1}", box.Name, BaseControllerResources.Cloudents);
                 }
 
                 if (boxName != UrlBuilder.NameToQueryString(box.Name))
                 {
                     throw new BoxDoesntExistException();
                 }
-              
+
                 var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(box);
 

@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cloudents.
+        /// </summary>
+        internal static string Cloudents {
+            get {
+                return ResourceManager.GetString("Cloudents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Study and share your class notes for {0} {1} {2} , online or on your phone through Cloudents..
         /// </summary>
         internal static string MetaDescription {

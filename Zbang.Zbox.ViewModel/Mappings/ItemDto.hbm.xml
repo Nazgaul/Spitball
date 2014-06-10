@@ -118,7 +118,7 @@
   </query>
 
   <!--Used for item page-->
-  <sql-query name="GetItem" resultset-ref="ItemWithDetailDto">
+  <sql-query name="GetItem" resultset-ref="ItemWithDetailDto" read-only="1">
     <![CDATA[
     select i.itemid as id, i.UpdateTime as updateTime,
     i.Name as name,
@@ -134,7 +134,7 @@
     b.BoxName as BoxName,
     u2.Country as Country, 
     u2.UniversityName as UniName,
-    SUBSTRING(content,0,197) as Description
+    content as Description
     
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId
