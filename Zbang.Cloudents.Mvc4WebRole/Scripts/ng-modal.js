@@ -28,7 +28,7 @@
     });
 
     app.directive('modalDialog', [
-      'ngModalDefaults', '$sce', '$compile', 'PartialView', function (ngModalDefaults, $sce, $compile, PartialView) {                   
+      'ngModalDefaults', '$sce', '$compile', function (ngModalDefaults, $sce, $compile) {
           return {
               restrict: 'E',
               scope: {
