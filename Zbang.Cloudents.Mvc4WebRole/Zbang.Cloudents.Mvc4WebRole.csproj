@@ -574,6 +574,9 @@
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
+    <Content Include="Content\General.min.css">
+      <DependentUpon>General.css</DependentUpon>
+    </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
@@ -608,6 +611,9 @@
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
+    <Content Include="Content\lang.ru-RU.min.css">
+      <DependentUpon>lang.ru-RU.css</DependentUpon>
+    </Content>
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
     </Content>
@@ -623,6 +629,9 @@
     </Content>
     <Content Include="Content\Quiz.css">
       <DependentUpon>Quiz.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Quiz.min.css">
+      <DependentUpon>Quiz.css</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
@@ -656,6 +665,9 @@
     </Content>
     <Content Include="Content\UserPage.css">
       <DependentUpon>UserPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\UserPage.min.css">
+      <DependentUpon>UserPage.css</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
