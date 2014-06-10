@@ -66,7 +66,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             // add: using Microsoft.WindowsAzure.MediaServices.Client;
             if (blobUrl.Host != "127.0.0.1")
             {
-                var uploadAssetAzure = uploadToMeidaServiceFromAzureStorage(blobUrl);
+                var uploadAssetAzure = UploadToMeidaServiceFromAzureStorage(blobUrl);
                 return uploadAssetAzure.Id;
             }
             var stream = await m_BlobProvider.DownloadFileAsync(blobName);
@@ -93,11 +93,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         private string DownloadToAzureStorage(Uri originalBlob, string streamingAssetId)
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
-            var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
+            var streamingAsset = m_Context.Assets.FirstOrDefault(a => a.Id == streamingAssetId);
             var assetFiles = streamingAsset.AssetFiles.ToList();
-            var streamingAssetFile = assetFiles.Where(f => f.Name.ToLower().EndsWith(".mp4")).FirstOrDefault();
+            var streamingAssetFile = assetFiles.FirstOrDefault(f => f.Name.ToLower().EndsWith(".mp4"));
 
-            var daysForWhichStreamingUrlIsActive = 365;
+            const int daysForWhichStreamingUrlIsActive = 365;
             var accessPolicy = m_Context.AccessPolicies.Create(streamingAsset.Name, TimeSpan.FromDays(daysForWhichStreamingUrlIsActive),
                                                      AccessPermissions.Read | AccessPermissions.List);
             var locator = m_Context.Locators.CreateLocator(LocatorType.Sas, streamingAsset, accessPolicy);
@@ -127,10 +127,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 locationToSave = m_LocalProvider.SaveFileToStorage(ms, blobName);
 
             }
-            var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
+            var streamingAsset = m_Context.Assets.FirstOrDefault(a => a.Id == streamingAssetId);
 
             var assetFiles = streamingAsset.AssetFiles.ToList();
-            var streamingAssetFile = assetFiles.Where(f => f.Name.ToLower().EndsWith(".mp4")).FirstOrDefault();
+            var streamingAssetFile = assetFiles.FirstOrDefault(f => f.Name.ToLower().EndsWith(".mp4"));
             streamingAssetFile.Download(locationToSave);
 
             var newBlobName = Path.GetFileNameWithoutExtension(blobName) + ".mp4";
@@ -294,7 +294,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
 
 
-        private IAsset uploadToMeidaServiceFromAzureStorage(Uri blobUri)
+        private IAsset UploadToMeidaServiceFromAzureStorage(Uri blobUri)
         {
 
             var cloudBlobClient = CreateBlobClient();
@@ -320,7 +320,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             if (sourceCloudBlob.Properties.Length > 0)
             {
-                IAssetFile assetFile = asset.AssetFiles.Create(fileName);
+               // IAssetFile assetFile = asset.AssetFiles.Create(fileName);
                 var destinationBlob = assetContainer.GetBlockBlobReference(fileName);
 
                 destinationBlob.DeleteIfExists();
