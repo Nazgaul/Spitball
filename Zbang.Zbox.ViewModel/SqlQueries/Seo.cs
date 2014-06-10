@@ -15,7 +15,8 @@ join zbox.Users u on b.OwnerId = u.UserId
 where b.OwnerId   in (select userid from zbox.users where usertype =1 and needcode = 0)
 and b.IsDeleted = 0
 and b.discriminator = 2
-and i.IsDeleted = 0;";
+and i.IsDeleted = 0
+and i.Discriminator = 'FILE';";
 
         public const string GetQuizes = @"select b.BoxId as BoxId,b.BoxName as BoxName,i.id as Id ,i.Name as Name,u.UniversityName as UniversityName
 from zbox.quiz i 

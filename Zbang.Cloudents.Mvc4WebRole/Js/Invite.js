@@ -1,7 +1,7 @@
 ﻿(function (cd, dataContext, pubsub, $, analytics) {
     if (window.scriptLoaded.isLoaded('i')) {
         return;
-    };
+    }
 
     var listContainer, invSources, inviteContentWrapper, inviteMain, inviteInput, emailsSelectedElement, searchByName,
         foundList = [], emailsSelecetd = [], google, currentTab, currentTabName, statusChecked = false,
@@ -695,7 +695,7 @@
             }
         }
 
-        var consts = { ITEM_MARGIN_LEFT: 3, INPUT_MIN_WIDTH: 235 }
+        var consts = { ITEM_MARGIN_LEFT: 3, INPUT_MIN_WIDTH: 235 };
         function calculateInputWidth() {
             var emailElements = emailsSelectedElement.getElementsByClassName('emailItem'),
                 inputElementWidth, width = $('.inviteEmailListWpr').width(),

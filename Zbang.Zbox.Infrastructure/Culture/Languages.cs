@@ -37,6 +37,10 @@ namespace Zbang.Zbox.Infrastructure.Culture
 
         public static CultureInfo GetCultureBaseOnCountry(string countryPrefix)
         {
+            if (string.IsNullOrEmpty(countryPrefix))
+            {
+                return new CultureInfo("en-US");
+            }
             switch (countryPrefix.ToLower())
             {
                 case "il":
