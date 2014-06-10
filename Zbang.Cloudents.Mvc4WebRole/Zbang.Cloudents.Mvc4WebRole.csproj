@@ -1284,7 +1284,7 @@
     <Content Include="Views\Box\Index.mobile.cshtml" />
     <Content Include="Views\Account\ResetPassword.mobile.cshtml" />
     <Content Include="Views\Account\Confirmation.mobile.cshtml" />
-    <Content Include="Views\Dashboard\_PrivateBoxDialog.mobile.cshtml" />
+    <Content Include="Views\Dashboard\_PrivateBoxDialog2.mobile.cshtml" />
     <Content Include="Views\Library\_CreateLibraryItem.mobile.cshtml" />
     <Content Include="Views\Library\_SelectUni.mobile.cshtml" />
     <Content Include="Views\Library\_UploadCreateAcademicBox.mobile.cshtml" />

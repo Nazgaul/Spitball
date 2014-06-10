@@ -9,13 +9,12 @@
             Html.RenderAction("AntiForgeryToken", "Home", true);
             <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png")" alt="" width="108" height="114" />
             <div>
-                המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.
-                אימות חברי אגודה ע"י מספר ת"ז
+                @ViewBag.AgudaSentence
             </div>
 
             @Html.HiddenFor(m => m.UniversityId)
             @Html.ValidationMessageFor(m => m.Code)
-            <label for="Code">מספר ת"ז</label>
+            <label for="Code">מספר ת"ז - נא להכניס 9 ספרות</label>
             <input id="userIdNumber" type="text" name="studentID" class="inputText" placeholder="הכנס ת.ז. כאן" autofocus />
             <input id="submitRegIdPopup" type="submit" class="btn1" disabled="disabled" value="המשך" />
         }

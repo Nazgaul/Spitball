@@ -1,4 +1,4 @@
-﻿(function (cd, dataContext,ko) {
+﻿(function (cd, dataContext, ko) {
     if (window.scriptLoaded.isLoaded('mIvm')) {
         return;
     }
@@ -37,15 +37,14 @@
         function getInvite() {
             dataContext.getNotifications({
                 success: function (data) {
-                    if (data.length) {
-                        var mapped = $.map(data, function (d) {
-                            if (!d.message) {
-                                return new Invite(d);
-                            }
-                        });
-                        self.invites(mapped);
+                    var mapped = $.map(data, function (d) {
+                        if (!d.message) {
+                            return new Invite(d);
+                        }
+                    });
+                    self.invites(mapped);
+                    if (mapped.length) {
                         $('#f_invites,[data-id="f_invites"]').text(mapped.length);
-
                     }
                     else {
                         $('#f_invites,[data-id="f_invites"]').hide();
@@ -55,4 +54,4 @@
         }
     }
 
-})(cd, cd.data,ko);
+})(cd, cd.data, ko);

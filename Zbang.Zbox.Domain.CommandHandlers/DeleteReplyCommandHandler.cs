@@ -15,15 +15,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<CommentReplies> m_AnswerRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
-
+        private readonly IRepository<Updates> m_Updates;
 
         public DeleteReplyCommandHandler(IRepository<CommentReplies> answerRepository,
             IBoxRepository boxRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Reputation> reputationRepository,
+            IRepository<Updates> updates)
         {
             m_AnswerRepository = answerRepository;
             m_BoxRepository = boxRepository;
             m_ReputationRepository = reputationRepository;
+            m_Updates = updates;
         }
         public void Handle(DeleteReplyCommand message)
         {
@@ -35,7 +37,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User didnt ask the answer");
             }
-           
+
+            var updatesToThatQuiz = m_Updates.GetQuerable().Where(w => w.Reply.Id == message.AnswerId);
+
+            foreach (var quizUpdate in updatesToThatQuiz)
+            {
+                m_Updates.Delete(quizUpdate);
+            }
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) - 1);
 
             m_ReputationRepository.Save(answer.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteAnswer));
