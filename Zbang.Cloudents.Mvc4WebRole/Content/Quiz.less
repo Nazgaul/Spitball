@@ -54,7 +54,7 @@
     box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
     .transition(right .4s); /*rtl*/
     .emptyQuiz {
-           .quizName.ng-dirty:not(.ng-invalid) {
+           .quizName:not(.ng-valid) {
                border: 1px solid @errorColor;
           }
         .questionHolder:first-child {
@@ -92,7 +92,7 @@
 
     }
     .validated {
-           .quizName.ng-dirty:not(.ng-invalid) {
+           .quizName:not(.ng-valid) {
                border: 1px solid @errorColor;
           }
            .questionHolder.ng-dirty.ng-invalid{
