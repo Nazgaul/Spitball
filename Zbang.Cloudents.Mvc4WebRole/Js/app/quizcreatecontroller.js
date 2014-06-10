@@ -387,8 +387,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
                 $scope.params.showCreateQuiz = false;
             }
             
-        });
-      
+        });      
     };
 
     $scope.checkTab = function (question, lastAnswer, e) {
@@ -400,6 +399,12 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     $scope.closeDialog = function () {
         $scope.params.showCloseDialog = true;
     };
+
+    $scope.$on('deleteQuiz', function (e,data) {
+        if (data.quizId === $scope.quiz.id) {
+            $scope.deleteQuiz();
+        }
+    });
 }]);
 
 quizCreate.directive('quizPreview', function () {
