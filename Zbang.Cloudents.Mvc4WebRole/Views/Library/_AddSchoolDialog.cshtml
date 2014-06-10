@@ -1,5 +1,6 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
 
 <div id="addSchoolDialog">
     <div class="popupWrppr confirm addSchool">
@@ -23,6 +24,7 @@
             </div>
             <div class="rFloat">
                 @Html.LabelFor(m => m.SchoolType)
+                @*@Html.EnumDropDownListFor(m => m.SchoolType, DialogResources.SelectFromList)*@
                 <select class="inputText schoolType" name="SchoolType">
                     <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
                     <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>

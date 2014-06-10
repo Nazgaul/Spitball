@@ -52,6 +52,8 @@
     function resetPopupView() {
         $registerPopup.removeClass('register registerFirst step2');
         $connectPopup.removeClass('connect');
+        cd.resetForm($('#registerForm'));
+        cd.resetForm($('#login'));
         if (regPopup) {
             regPopup.style.display = 'none';
         }

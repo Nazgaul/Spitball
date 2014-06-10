@@ -13,6 +13,7 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Extensions;
+using System.Configuration;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
@@ -44,7 +45,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             //CreateBlobStorages(m_BlobClient);
 
             BlobContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).Uri.AbsoluteUri);
-            var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+            string storageCdnEndpoint = string.Empty;
+            try
+            {
+                storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+            }
+            catch (ConfigurationErrorsException) { }
             if (string.IsNullOrEmpty(storageCdnEndpoint))
             {
                 ThumbnailContainerUrl =

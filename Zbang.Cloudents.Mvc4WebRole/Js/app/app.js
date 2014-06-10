@@ -10,6 +10,6 @@ cd.$scope = {};
 //}]);
 
 appRoot.controller('MainController', ['$scope','$compile', function ($scope,$compile) {
-    cd.$scope.main = $scope;
-    cd.$compile = $compile;    
+    //cd.$scope.main = $scope;
+    //cd.$compile = $compile;    
 }]);

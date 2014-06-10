@@ -17,8 +17,6 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         {
             //TODO: this is not good should be logic in dto
             NameWOExtension = Path.GetFileNameWithoutExtension(Name);
-            //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-            Blob = blob;// blobProvider.GetBlobUrl(blob);
             NDownloads = numberOfDownloads;
         }
         public string NameWOExtension { get; set; }

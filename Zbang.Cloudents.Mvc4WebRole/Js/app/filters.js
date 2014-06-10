@@ -2,8 +2,7 @@
 
 filters.filter('orderByFilter', function () {
     return function (items, filterData, reverse) {
-        var filtered = [],
-            aName,bName,
+        var filtered = [],           
             searchValue = filterData.input ? filterData.input.toLowerCase() : filterData.input;
         
         angular.forEach(items, function (item) {
@@ -15,8 +14,8 @@ filters.filter('orderByFilter', function () {
                       aIndex, bIndex;
 
             if (searchValue && searchValue.length) {
-                var aIndex = aName.indexOf(searchValue),
-                    bIndex = bName.indexOf(searchValue);
+                aIndex = aName.indexOf(searchValue);
+                bIndex = bName.indexOf(searchValue);
                 if (aIndex === -1 && bIndex === -1 || aIndex === bIndex) {
                     return sortByName();
                 } else if (aIndex === -1) {
@@ -50,8 +49,9 @@ filters.filter('orderByFilter', function () {
             }
         });
                                 
-        if (reverse) filtered.reverse();
+        if (reverse) {
+            filtered.reverse();
+        }
         return filtered;
     };
 });
-

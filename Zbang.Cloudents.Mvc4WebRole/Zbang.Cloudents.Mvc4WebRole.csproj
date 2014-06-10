@@ -862,6 +862,9 @@
     <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Content\QnA.less" />
     <Content Include="Content\Search.less" />
+    <Content Include="Content\Item3.css.map">
+      <DependentUpon>Item3.css</DependentUpon>
+    </Content>
     <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
