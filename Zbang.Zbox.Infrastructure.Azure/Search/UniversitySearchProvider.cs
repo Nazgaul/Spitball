@@ -157,7 +157,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 };
 
                 //term = term.Replace(" ", "* *");
-                var searchTerm = term.Replace(" ", "* *") + "*";
+                var searchTerm = term + "*";
                 var query = parseQuery(searchTerm, parser);
                 var values = ProcessHits(query);
                 //var hits = m_IndexService.Search(query, 50).ScoreDocs;
