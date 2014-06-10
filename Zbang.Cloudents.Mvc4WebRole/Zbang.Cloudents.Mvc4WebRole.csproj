@@ -601,6 +601,9 @@
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>
     </Content>
+    <Content Include="Content\Item3.min.css">
+      <DependentUpon>Item3.css</DependentUpon>
+    </Content>
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
     </Content>

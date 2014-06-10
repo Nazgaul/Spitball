@@ -577,4 +577,7 @@
   <data name="Choose" xml:space="preserve">
     <value>בחר</value>
   </data>
+  <data name="Created" xml:space="preserve">
+    <value>נוצר</value>
+  </data>
 </root>

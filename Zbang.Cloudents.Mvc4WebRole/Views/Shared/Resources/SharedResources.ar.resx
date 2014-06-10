@@ -567,7 +567,7 @@
     <value> انشر اللغز وشاركه مع أصدقائك</value>
   </data>
   <data name="RegisterFirst" xml:space="preserve">
-    <value>هذا الموقع مجاني، لدى كل المستخدمين المسجلين حق الحصول على كافة الميزات.</value>
+    <value>للوصول إلى كافة الميزات</value>
   </data>
   <data name="RegisterFree" xml:space="preserve">
     <value>اشترك مجانا!</value>
@@ -589,5 +589,8 @@
   <data name="Choose" xml:space="preserve">
     <value>اختار
 </value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>خلق</value>
   </data>
 </root>
