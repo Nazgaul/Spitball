@@ -439,11 +439,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userData = m_UserProfile.Value.GetUserData(ControllerContext);
             switch (universityId)
             {
-
-                    ViewBag.AgudaSentence = "המאגר האקדמי של אוניברסיטת בר אילן פתוח לכל חברי אגודת הסטודנטים של אוניברסיטת בר אילן.  אימות חברי אגודה ע\"י מספר ת\"ז";
-                    ViewBag.AgudaMail = "pniyot@bis.org.il";
-                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-5343666";
-                    break;
                 default:
                     ViewBag.AgudaSentence = "המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.  אימות חברי אגודה ע\"י מספר ת\"ז";
                     //ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";

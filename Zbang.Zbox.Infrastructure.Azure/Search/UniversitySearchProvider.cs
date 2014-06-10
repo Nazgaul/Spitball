@@ -16,10 +16,11 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 using System.Timers;
 using Zbang.Zbox.Infrastructure.Trace;
+using Lucene.Net.Analysis;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
-    public class UniversitySearchProvider : IUniversityWriteSearchProvider, IUniversityReadSearchProvider , IDisposable
+    public class UniversitySearchProvider : IUniversityWriteSearchProvider, IUniversityReadSearchProvider, IDisposable
     {
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
         private readonly AzureDirectory m_AzureUniversiesDirectory;
@@ -36,20 +37,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private IndexSearcher m_IndexService;
         private readonly Timer m_Timer;
-       
+
         public UniversitySearchProvider(IZboxReadServiceWorkerRole dbReadService)
         {
             m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversityCatalog);
             m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
             m_DbReadService = dbReadService;
-            m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+            //m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
 
             m_Timer = new Timer(TimeSpan.FromHours(1).TotalMilliseconds);
             m_Timer.Elapsed += (s, e) =>
             {
                 m_IndexService.Dispose();
                 m_IndexService = null;
-                m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+            //    m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
             };
             m_Timer.Enabled = true;
 
@@ -122,15 +123,26 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public IEnumerable<UniversityByPrefixDto> SearchUniversity(string term)
         {
+
             // validation
             if (string.IsNullOrEmpty(term.Replace("*", "").Replace("?", "")))
             {
                 return null;
             }
+            HashSet<string> extraWords = new HashSet<string>(StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+
+            extraWords.Add("college");
+            extraWords.Add("university");
+            extraWords.Add("אוניברסיטה");
+            extraWords.Add("ה");
+
+
+            
             //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
             //{
-            using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
+            using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30, extraWords))
             {
+
                 //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
                 //{
                 //    string[] suggestions = speller.SuggestSimilar(term, 5);
@@ -143,31 +155,65 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 {
                     AllowLeadingWildcard = true
                 };
-                term = term.Replace(" ", "* *");
-                term = "*" + term + "*";
-                var query = parseQuery(term, parser);
-                var hits = m_IndexService.Search(query, 50).ScoreDocs;
-                var retVal = new List<UniversityByPrefixDto>();
-                for (int i = 0; i < hits.Length; i++)
-                {
 
-                    Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
-                    var university = new UniversityByPrefixDto(
-                        doc2.GetField(NameField).StringValue,
-                        doc2.GetField(ImageField).StringValue,
-                       Convert.ToInt64(doc2.GetField(IdField).StringValue),
-                      Convert.ToInt64(doc2.GetField(MembersCountField).StringValue)
-                        );
+                //term = term.Replace(" ", "* *");
+                var searchTerm = term.Replace(" ", "* *") + "*";
+                var query = parseQuery(searchTerm, parser);
+                var values = ProcessHits(query);
+                //var hits = m_IndexService.Search(query, 50).ScoreDocs;
+                //var retVal = new List<UniversityByPrefixDto>();
+                //for (int i = 0; i < hits.Length; i++)
+                //{
 
-                    retVal.Add(university);
-                    //Console.WriteLine(doc2.GetField("University").StringValue);
+                //    Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
+                //    var university = new UniversityByPrefixDto(
+                //        doc2.GetField(NameField).StringValue,
+                //        doc2.GetField(ImageField).StringValue,
+                //       Convert.ToInt64(doc2.GetField(IdField).StringValue),
+                //      Convert.ToInt64(doc2.GetField(MembersCountField).StringValue)
+                //        );
+
+                //    retVal.Add(university);
+                //    //Console.WriteLine(doc2.GetField("University").StringValue);
 
 
-                }
-                return retVal;
+                //}
+                if (values.Count != 0) return values;
+                var similarSearchTerm = term.Replace(" ", "* *");
+                similarSearchTerm = "*" + similarSearchTerm + "*";
+                var extendQuery = parseQuery(similarSearchTerm, parser);
+                values = ProcessHits(extendQuery);
+                return values;
             }
             // }
             //return new List<SampleData>();
+        }
+
+        private IList<UniversityByPrefixDto> ProcessHits(Lucene.Net.Search.Query query)
+        {
+            if (m_IndexService == null)
+            {
+                m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+            }
+            var hits = m_IndexService.Search(query, 20).ScoreDocs;
+            var retVal = new List<UniversityByPrefixDto>();
+            for (int i = 0; i < hits.Length; i++)
+            {
+
+                Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
+                var university = new UniversityByPrefixDto(
+                    doc2.GetField(NameField).StringValue,
+                    doc2.GetField(ImageField).StringValue,
+                   Convert.ToInt64(doc2.GetField(IdField).StringValue),
+                  Convert.ToInt64(doc2.GetField(MembersCountField).StringValue)
+                    );
+
+                retVal.Add(university);
+                //Console.WriteLine(doc2.GetField("University").StringValue);
+
+
+            }
+            return retVal;
         }
         private Lucene.Net.Search.Query parseQuery(string searchQuery, QueryParser parser)
         {
