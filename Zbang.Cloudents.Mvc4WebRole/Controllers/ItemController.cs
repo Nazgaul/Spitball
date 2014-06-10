@@ -157,7 +157,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     var culture = Languages.GetCultureBaseOnCountry(item.Country);
                     BaseControllerResources.Culture = culture;
-                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, item.BoxName, item.Name, BaseControllerResources.Cloudents);
+                    var seoItemName = item.Name;
+                    var file = item as FileWithDetailDto;
+                    if (file != null)
+                    {
+                        seoItemName = file.NameWOExtension;
+                    }
+                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, item.BoxName, seoItemName, BaseControllerResources.Cloudents);
                 }
                 if (!string.IsNullOrEmpty(item.Description))
                 {
