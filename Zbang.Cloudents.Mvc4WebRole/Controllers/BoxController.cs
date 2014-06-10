@@ -283,7 +283,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.Professor, model.CourseCode, model.Picture, model.BoxPrivacy, model.Notification);
                 m_ZboxWriteService.ChangeBoxInfo(commandBoxName);
                 // ChangeNotification(model.BoxUid, model.Notification);
-                return this.CdJson(new JsonResponse(true, new { queryString = UrlBuilder.NameToQueryString(model.Name) }));
+                return this.CdJson(new JsonResponse(true, new {queryString = UrlBuilder.NameToQueryString(model.Name)}));
             }
             catch (UnauthorizedAccessException)
             {
@@ -291,6 +291,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (ArgumentException)
             {
+                return this.CdJson(new JsonResponse(false));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("on UpdateBox info model: {0} userid {1}", model, GetUserId()), ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }
