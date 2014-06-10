@@ -1,0 +1,20 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.CreateBox
+
+
+<div id="addBox" class="addPrivate popup">
+    <div class="popupWpr">
+        <div class="subTitle topContent">@DialogResources.AddPrivateBox</div>
+        @using (Html.BeginForm("Create", "Dashboard", FormMethod.Post, new { id = "createBoxDialog" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false)
+
+            @Html.LabelFor(m => m.BoxName)
+         
+            @Html.HiddenFor(m => m.privacySettings, new { value = Model.privacySettings.GetStringValueLowerCase() })
+            @Html.TextBoxFor(m => m.BoxName, new { @class = "inputText verticalMargins" , autofocus="autofocus"})
+            <input type="submit" class="rFloat btn1"  value="@DialogResources.Create" />
+        }
+    </div>
+</div>
