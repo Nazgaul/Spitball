@@ -530,7 +530,7 @@
     <value>это самая передовая и бесплатная учебная платформа в сети.</value>
   </data>
   <data name="RegisterFirst" xml:space="preserve">
-    <value>Для того, чтобы продолжать наслаждаться Cloudents</value>
+    <value>Чтобы получить доступ ко всем возможностям</value>
   </data>
   <data name="RegisterFree" xml:space="preserve">
     <value>Зарегистрируйтесь бесплатно!</value>
@@ -579,5 +579,8 @@
   </data>
   <data name="Choose" xml:space="preserve">
     <value>Выбирите</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Создан</value>
   </data>
 </root>
