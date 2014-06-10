@@ -17,13 +17,13 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             return HttpContext.Current != null;
         }
 
-        readonly Hashtable v = new Hashtable();
+        readonly Hashtable m_V = new Hashtable();
 
         public override object GetValue()
         {
             if (!IsOnWeb())
             {
-                return v[_key];
+                return m_V[_key];
             }
             return HttpContext.Current.Items[_key];
         }
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             }
             else
             {
-                v[_key] = newValue;
+                m_V[_key] = newValue;
             }
         }
 
@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             }
             else
             {
-                v.Remove(_key);
+                m_V.Remove(_key);
             }
         }
     }

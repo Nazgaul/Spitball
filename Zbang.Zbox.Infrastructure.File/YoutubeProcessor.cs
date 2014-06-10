@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -31,17 +30,18 @@ namespace Zbang.Zbox.Infrastructure.File
             [?=&+%\w-]*       # Consume any URL (query) remainder.",
            RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 
-        private static readonly string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"//www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
+        private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"//www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
+
         public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum)
         {
             Match match = YoutubeRegex.Match(blobName.AbsoluteUri);
             if (match.Groups.Count < 2 || String.IsNullOrEmpty(match.Groups[1].Value))
             {
-                return Task.FromResult<PreviewResult>(new PreviewResult() { ViewName = "LinkDenied", Content = new List<string> { blobName.AbsoluteUri } });
+                return Task.FromResult(new PreviewResult { ViewName = "LinkDenied", Content = new List<string> { blobName.AbsoluteUri } });
             }
 
             string videoId = match.Groups[1].Value;
-            return Task.FromResult<PreviewResult>(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, 800, 450, videoId) } });
+            return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, 800, 450, videoId) } });
 
         }
 
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.LinkTypePicture;
+            return Thumbnail.ThumbnailProvider.LinkTypePicture;
         }
     }
 }
