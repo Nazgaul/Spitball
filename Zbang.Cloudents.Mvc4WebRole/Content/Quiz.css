@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
@@ -52,7 +52,7 @@
   transition: right 0.4s;
   /*rtl*/
 }
-.quizSideBar .emptyQuiz .quizName.ng-dirty:not(.ng-invalid) {
+.quizSideBar .emptyQuiz .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
 .quizSideBar .emptyQuiz .questionHolder:first-child[class*='Req'] {
@@ -77,7 +77,7 @@
 .quizSideBar .emptyQuiz .questionHolder:first-child .quizAnswer:nth-child(-n+2) .questionAnswer.ng-dirty:not(.ng-invalid) {
   border: 1px solid #c2c2c2;
 }
-.quizSideBar .validated .quizName.ng-dirty:not(.ng-invalid) {
+.quizSideBar .validated .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
 .quizSideBar .validated .questionHolder.ng-dirty.ng-invalid[class*='Req'] {
@@ -319,8 +319,8 @@
   color: #0371c8;
   margin-top: 12px;
 }
-
-
+/*#endregion */
+/*#region Quiz Preview  */
 .quizPreview {
   margin-top: 100%;
   position: fixed;
@@ -570,8 +570,8 @@
   /*rtl*/
   top: 7px;
 }
-
-
+/*#endregion */
+/*#region Quiz item page */
 .quizPage .sectionHeader {
   color: transparent;
 }
@@ -809,7 +809,7 @@
   font-size: 38px;
   margin: 0 auto;
 }
-
+/*#endregion */
 /*.validated {
     .quizName {
         &.ng-invalid {

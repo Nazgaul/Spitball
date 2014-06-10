@@ -536,7 +536,7 @@ To help you get started tell us where you study</value>
     <value>Previous</value>
   </data>
   <data name="RegisterFirst" xml:space="preserve">
-    <value>Create a free account to get access to all features.</value>
+    <value>To get access to all features</value>
   </data>
   <data name="RegisterFree" xml:space="preserve">
     <value>Sign up for free!</value>
@@ -578,5 +578,8 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   </data>
   <data name="Choose" xml:space="preserve">
     <value>Choose</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
   </data>
 </root>

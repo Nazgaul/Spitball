@@ -62,7 +62,7 @@
                     boxName: cd.getParameterFromUrl(3)
                 },
                 success: function (result) {
-                    generateModel(result.dto);
+                    generateModel(result);
                 },
                 always: function () {
                     self.loaded(true);
