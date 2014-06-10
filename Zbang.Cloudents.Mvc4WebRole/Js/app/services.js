@@ -7,8 +7,8 @@ angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFa
             storageMode: 'sessionStorage'
         });
     }]).
-    cloudentsServices.config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     }]).
 
 //cloudentsServices.factory('Dashboard', function ($http) {
