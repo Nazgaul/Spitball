@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.MediaServices;
@@ -12,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class VideoProcessor : FileProcessor
     {
-        private readonly string ContentFormat = "<video class=\"videoframe\" width=\"800\" controls src=\"{0}\"></video>";
+        private const string ContentFormat = "<video class=\"videoframe\" width=\"800\" controls src=\"{0}\"></video>";
 
         private readonly Lazy<IMediaSevicesProvider> m_MediaServiceProvider;
 
@@ -26,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var metaData = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
-            var value = string.Empty;
+            string value;
             if (!metaData.TryGetValue(MetaDataConsts.VideoStatus, out value))
             {
                 return new PreviewResult { ViewName = "MediaLoading"  };
@@ -47,21 +46,21 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public readonly string[] videoExtenstions = { ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".avi", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg", ".mpg", ".m2v", ".ismv", ".wmv" };
+        public readonly string[] VideoExtenstions = { ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg", ".mpg", ".m2v", ".ismv", ".wmv" };
 
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
             {
-                return videoExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return VideoExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
         }
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.VideoFileTypePicture;
+            return Thumbnail.ThumbnailProvider.VideoFileTypePicture;
         }
     }
 }

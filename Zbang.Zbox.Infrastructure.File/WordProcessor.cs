@@ -47,8 +47,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var parallelTask = new List<Task<string>>();
             var tasks = new List<Task>();
 
-            ImageSaveOptions imgOptions = new ImageSaveOptions(SaveFormat.Jpeg);
-            imgOptions.JpegQuality = 80;
+            var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 80};
 
             for (int pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
@@ -68,7 +67,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     using (var ms = new MemoryStream())
                     {
                         word.Value.Save(ms, imgOptions);
-                        Compress compressor = new Compress();
+                        var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
                         parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
                         meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
@@ -121,14 +120,15 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 }
 
-                ImageSaveOptions imgOptions = new ImageSaveOptions(SaveFormat.Jpeg);
-                imgOptions.JpegQuality = 100;
+                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 100};
 
-                ResizeSettings settings = new ResizeSettings();
-                settings.Width = ThumbnailWidth;
-                settings.Height = ThumbnailHeight;
-                settings.Quality = 80;
-                settings.Format = "jpg";
+                var settings = new ResizeSettings
+                {
+                    Width = ThumbnailWidth,
+                    Height = ThumbnailHeight,
+                    Quality = 80,
+                    Format = "jpg"
+                };
 
                 using (var ms = new MemoryStream())
                 {

@@ -37,8 +37,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    return View();
         //}
 
-        public ActionResult MembersOnly()
+        public ActionResult MembersOnly(string returnUrl)
         {
+            if (string.IsNullOrEmpty(returnUrl))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View("MembersOnly");
         }
     }

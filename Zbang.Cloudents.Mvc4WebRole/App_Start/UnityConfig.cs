@@ -18,7 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var iocFactory = IocFactory.Unity;
            // var container = new UnityContainer();
             RegisterTypes(iocFactory);
-            return  iocFactory.unityContainer;// container;
+            return  iocFactory.UnityContainer;// container;
         });
 
         /// <summary>

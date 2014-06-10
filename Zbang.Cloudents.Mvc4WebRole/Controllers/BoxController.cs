@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
                 }
-                return RedirectToAction("MembersOnly", "Error");
+                return RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
             catch (BoxDoesntExistException)
             {
