@@ -944,6 +944,7 @@ ul.ui-autocomplete li a {
 }
 .popupWrppr.departmentChoose .error {
   display: none;
+  color: #d1294d;
 }
 .popupWrppr.departmentChoose .step1Wpr h3 {
   font-weight: normal;
