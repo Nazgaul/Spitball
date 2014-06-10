@@ -282,7 +282,7 @@
     });
 
     
-    function showTooltipTitle(e) {        
+    function showTooltipTitle() {        
     
         var $element = $(this),
             tooltipTitle = $element.attr('data-title'),
@@ -411,7 +411,7 @@
                     getData();
                     return;
                 }
-                cd.pubsub.publish('updates', updates[userId])
+                cd.pubsub.publish('updates', updates[userId]);
                 return;
             }
 
@@ -423,7 +423,7 @@
                 success: function (data) {
                     data = data || [];
                     parseData(data);
-                    cd.pubsub.publish('updates', updates[userId])
+                    cd.pubsub.publish('updates', updates[userId]);
                 }
             });
 
@@ -439,7 +439,7 @@
                 for (var i = 0, l = data.length; i < l; i++) {
                     currentUpdate = data[i];
 
-                    addUpdate(currentUpdate)
+                    addUpdate(currentUpdate);
                 }
 
                 updates[userId].ttl = new Date().getTime();
@@ -494,7 +494,7 @@
         cd.newUpdates.deleteAll = deleteUpdates;
         cd.newUpdates.deleteLocalUpdates = deleteLocalUpdates;
         cd.newUpdates.deleteUpdate = deleteUpdate;
-        cd.newUpdates.addUpdate = addUpdate //signalR
+        cd.newUpdates.addUpdate = addUpdate; //signalR
     })();
 
 

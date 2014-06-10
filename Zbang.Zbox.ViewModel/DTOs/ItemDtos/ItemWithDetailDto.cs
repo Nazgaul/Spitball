@@ -5,7 +5,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 {
     public abstract class ItemWithDetailDto
     {
-        public ItemWithDetailDto(long id, DateTime updateTime, string name,
+        protected ItemWithDetailDto(long id, DateTime updateTime, string name,
             string userName, string userImage, long userId,
             int numberOfViews, string blob, float rate, long boxId,
             string boxName, string country, string uniName, string description)
@@ -23,10 +23,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             BoxName = boxName;
             Country = country ?? string.Empty;
             UniName = uniName;
-            if (!string.IsNullOrEmpty(description))
-            {
-                Description = description.Length == 197 ? description + "..." : description;
-            }
+            Description = description;
+            
 
         }
         public long Id { get; private set; }

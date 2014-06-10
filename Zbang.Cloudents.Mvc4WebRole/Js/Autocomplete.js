@@ -7,7 +7,7 @@
     }
 
     var sInputElement = 'sInputElement', sOutputElement = 'sOutputElement', sSelectedList = 'sSelectedList', eImg = 'eImg', eAddress = 'eAddress', eName = 'eName',
-    beforeEnd = 'beforeend', emailMenuItemTemplate = 'emailMenuItemTemplate', emailSelectedItemTemplate = 'emailSelectedItemTemplate', afterBegin = 'afterbegin',
+    beforeEnd = 'beforeend', emailMenuItemTemplate = 'emailMenuItemTemplate', emailSelectedItemTemplate = 'emailSelectedItemTemplate',
     contactsToDisplay = 'contactsToDisplay', sEmailSelectedList = 'sEmailSelectedList', maxWidth = 'maxWidth', dataSet = 'dataSet', contactsFound = 'contactsFound',
     settings = {}, maxMembers = 300,
     eById = document.getElementById.bind(document),
@@ -34,7 +34,7 @@
         setWidth: function (width) {
             settings[maxWidth] = width;
         },
-        insertData: function (data, resetList) {
+        insertData: function (data) {
             settings[dataSet] = settings[dataSet].concat(data);
         },
         addEmailsToList: function (data) {
@@ -77,7 +77,7 @@
                 privateMethods.addEmail({ id: inputElementValue, name: inputElementValue }, true);
             }
         },
-        calculateContainerWidth: function (gConnectVisible) {
+        calculateContainerWidth: function () {
             privateMethods.changeContainerWidth(false);
         },
 
@@ -96,7 +96,8 @@
     };
     var privateMethods = {
         inputKeydownListener: function (e) {
-            var outputElement = settings[sOutputElement], inputValue = settings[sInputElement].value,
+            //var outputElement = settings[sOutputElement],
+             var   inputValue = settings[sInputElement].value,
                 selectedList = settings[sSelectedList];
 
             if (e.keyCode === 188 || e.keyCode === 13 || e.keyCode === 186) { // , ENTER ;

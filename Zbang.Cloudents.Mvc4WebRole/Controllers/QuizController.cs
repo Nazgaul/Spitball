@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var culture = Languages.GetCultureBaseOnCountry(model.Quiz.Seo.Country);
                 BaseControllerResources.Culture = culture;
-                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | Cloudents", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName);
+                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName, BaseControllerResources.Cloudents);
             }
             ViewBag.metaDescription = model.Quiz.Questions.First().Text;
 
@@ -74,7 +74,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
-            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var builder = new UrlBuilder(HttpContext);
             var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
 
             ViewBag.boxName = boxName;
@@ -296,7 +296,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var command = new MarkAnswerCorrectCommand(model.AnswerId,GetUserId());
+            var command = new MarkAnswerCorrectCommand(model.AnswerId, GetUserId());
             m_ZboxWriteService.MarkAnswerAsCorrect(command);
             return this.CdJson(new JsonResponse(true));
         }

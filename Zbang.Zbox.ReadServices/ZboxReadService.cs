@@ -346,7 +346,6 @@ where m.RecepientId = @userid
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetItem");
-                dbQuery.SetReadOnly(true);
                 dbQuery.SetInt64("ItemId", query.ItemId);
                 dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileWithDetailDto), typeof(Item.LinkWithDetailDto)));
 
