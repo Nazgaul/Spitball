@@ -68,16 +68,13 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box','User'
         if (!isValid) {
             return;
         }
-        Box.create($scope.createBoxFormData).then(function (box) {            
+        Box.create($scope.createBoxFormData).then(function (box) {
+            $scope.createBoxFormData = {
+                privacySettings: 'AnyoneWithUrl'
+            };
             $scope.groupBoxes.unshift(box.payload);
             $scope.toggleShowCreateBox();
         });
-
-        $scope.createBoxFormData = {
-            privacySettings: 'AnyoneWithUrl'
-        };
-
-
     };
 
     $scope.toggleShowFriends = function () {
