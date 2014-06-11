@@ -255,19 +255,19 @@
             return url + '_' + JSON.stringify(params);
         }
 
-        var isEmpty = false;
-        for (var prop in options.data) {
-            if (options.data[prop] === null || typeof (options.data[prop]) === 'undefined') {
-                isEmpty = true;
-            }                
-        }
+        //var isEmpty = false;
+        //for (var prop in options.data) {
+        //    if (options.data[prop] === null || typeof (options.data[prop]) === 'undefined') {
+        //        isEmpty = true;
+        //    }                
+        //}
 
-        if (isEmpty) {
-            if ($.isFunction(options.error)) {
-                options.error('empty property provided');
-                return;
-            }
-        }
+        //if (isEmpty) {
+        //    if ($.isFunction(options.error)) {
+        //        options.error('empty property provided');
+        //        return;
+        //    }
+        //}
 
 
 

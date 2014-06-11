@@ -68,7 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         {
                             continue;
                         }
-                        if (context.Request.UserAgent.IndexOf("iPad", StringComparison.OrdinalIgnoreCase) >= 0)
+                        if (context.Request.UserAgent != null && context.Request.UserAgent.IndexOf("iPad", StringComparison.OrdinalIgnoreCase) >= 0)
                         {
                             continue;
                         }

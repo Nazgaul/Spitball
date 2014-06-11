@@ -3,11 +3,11 @@
     if (window.scriptLoaded.isLoaded('sc')) {
         return;
     }
-    
+
 
     var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
     apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
-    scopes = ['https://www.google.com/m8/feeds/contacts/default/full','https://www.googleapis.com/auth/drive.readonly'],
+    scopes = ['https://www.google.com/m8/feeds/contacts/default/full', 'https://www.googleapis.com/auth/drive.readonly'],
     access_token, contacts = [],/* isImmediate = true,*/ loaded = false;
 
     function checkAuth(isImmediate) {
@@ -159,7 +159,17 @@
                     return;
                 }
                 friend = response.data[i];
-                contacts.push({ id: friend.id, firstname: cd.escapeHtmlChars(friend.first_name), middlename: cd.escapeHtmlChars(friend.middle_name), lastname: cd.escapeHtmlChars(friend.last_name), name: friend.first_name + ' ' + (friend.middle_name ? friend.middle_name + ' ' : '') + friend.last_name, userImage: 'null', username: friend.username, defaultImage: friend.picture.data.url });
+                contacts.push({
+                    id: friend.id,
+                    firstname: cd.escapeHtmlChars(friend.first_name),
+                    middlename: cd.escapeHtmlChars(friend.middle_name),
+                    lastname: cd.escapeHtmlChars(friend.last_name),
+                    name: friend.first_name + ' ' + (friend.middle_name ? friend.middle_name + ' ' : '') + friend.last_name,
+                    userImage: 'null',
+                    username: friend.username,
+                    defaultImage: friend.picture.data.url,
+                    gender: friend.gender === 'male' ? 1 : 0
+                });
             }
 
             contacts.sort(function (a, b) {
