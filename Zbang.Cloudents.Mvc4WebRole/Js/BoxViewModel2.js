@@ -495,7 +495,7 @@
             });
 
             cd.pubsub.subscribe('enterItem', function () {
-                if (self.follow()) {
+                if (!self.follow()) {
                     return;
                 }
                 self.followbox();

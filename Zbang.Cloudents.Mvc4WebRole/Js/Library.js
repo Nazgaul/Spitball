@@ -302,7 +302,7 @@
                 isok = confirm(JsResources.DeleteCourse);
             }
             else {
-                isok = confirm(JsResources.SureYouWant + ' ' + JsResources.ToLeaveGroup);
+                isok = confirm(JsResources.SureYouWantTo + ' ' + JsResources.ToLeaveGroup);
             }
             if (!isok) {
                 return;

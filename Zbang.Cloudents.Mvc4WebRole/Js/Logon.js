@@ -25,7 +25,7 @@
         focusOnElement($registerPopup);
     });
 
-    $(document).on('click', '.registerFirst .emailBtn', function (e) {
+    $(document).on('click', '.registerFirst .emailBtn', function () {
         $registerPopup.addClass('step2');
     });
 
@@ -60,18 +60,18 @@
     }
 
     //#endregion
-    function connect(e) {
-        e.preventDefault();
-        resetPopupView();
-        $connectPopup.addClass('connect');
-        focusOnElement($connectPopup);
-    }
-    function register(e) {
-        e.preventDefault();
-        resetPopupView();
-        $registerPopup.addClass('register');
-        focusOnElement($registerPopup);
-    }
+    //function connect(e) {
+    //    e.preventDefault();
+    //    resetPopupView();
+    //    $connectPopup.addClass('connect');
+    //    focusOnElement($connectPopup);
+    //}
+    //function register(e) {
+    //    e.preventDefault();
+    //    resetPopupView();
+    //    $registerPopup.addClass('register');
+    //    focusOnElement($registerPopup);
+    //}
 
     $connectForm.submit(function (e) {
         e.preventDefault();
