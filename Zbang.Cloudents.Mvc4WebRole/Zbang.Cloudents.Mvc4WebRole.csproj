@@ -565,6 +565,9 @@
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
+    <Content Include="Content\Animations.min.css">
+      <DependentUpon>Animations.css</DependentUpon>
+    </Content>
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
@@ -662,6 +665,9 @@
     </Content>
     <Content Include="Content\Welcome.css">
       <DependentUpon>Welcome.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Welcome.min.css">
+      <DependentUpon>Welcome.css</DependentUpon>
     </Content>
     <Content Include="Content\WelcomeRtl.css">
       <DependentUpon>WelcomeRtl.less</DependentUpon>

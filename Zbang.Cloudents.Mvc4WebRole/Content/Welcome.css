@@ -131,7 +131,7 @@
   left: 340px;
   /*rtl*/
 }
-.radioBtns > * {
+.radioBtns > input {
   cursor: pointer;
 }
 input[type="radio"] {
@@ -149,9 +149,6 @@ input[type="radio"] + label:before {
   vertical-align: middle;
   box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
 }
-/*input[type="radio"] + label:after {
-    box-shadow: inset 1px 1px 1px rgba(0,0,0,.5);
-}*/
 input[type="radio"]:checked + label:before {
   content: '';
   background: #0f9d58;
