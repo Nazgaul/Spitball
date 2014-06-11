@@ -594,9 +594,10 @@
             $(quizTQuestion).find('.wrong').removeClass('wrong');
             $(quizTQuestion).find('.userWrong').removeClass('userWrong');
 
-            stopWatch.reset();
-            stopWatch = null;
-
+            if (stopWatch) {
+                stopWatch.reset();
+                stopWatch = null;
+            }            
         }
 
         function saveAnswers() {
