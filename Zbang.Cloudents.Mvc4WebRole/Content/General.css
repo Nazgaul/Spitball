@@ -2139,6 +2139,9 @@ select.inputText {
   .topImg.topImg {
     height: 615px;
   }
+  .videoWpr.videoWpr {
+    left: auto;
+  }
   .logo.logo,
   .videoWpr.videoWpr {
     margin-left: 40px;

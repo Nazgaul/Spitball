@@ -51,7 +51,7 @@
 .mixi-frames3 () {
 	/*0% { max-width: 60%; opacity: 0; }
   100% { max-width: 100%; opacity: 1; }*/
-    0% { .scale(0.5,0.5); opacity: 0; }
+    0 { .scale(0.5,0.5); opacity: 0; }
   100% { .scale(1,1);  opacity: 1; }
 }
 
@@ -93,9 +93,9 @@
 
 
 @-ms-keyframes spin {
-  0% {
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
+  0 {
+    -ms-transform: rotate(0);
+    transform: rotate(0);
   }
   100% {
 
@@ -104,8 +104,8 @@
   }
 }
 @-o-keyframes spin {
-  0% {
-    -o-transform: rotate(0deg);
+  0 {
+    -o-transform: rotate(0);
   }
   100% {
     -o-transform: rotate(-360deg);
@@ -113,8 +113,8 @@
 }
 
 @-moz-keyframes spin {
-    0% {
-        -moz-transform: rotate(0deg);
+    0 {
+        -moz-transform: rotate(0);
     }
 
     100% {
@@ -124,9 +124,9 @@
 
 
 @-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+    0 {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
     }
 
     100% {
@@ -136,12 +136,12 @@
 }
 
 @keyframes spin {
-    0% {
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+    0 {
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
     }
     100% {
         -moz-transform: rotate(-360deg);
@@ -154,7 +154,7 @@
 
 
 .mixi-frames6 () {
-    0% {
+    0 {
         opacity:0;
         top: 38px;
         left: ~'-webkit-calc(50% - 112px)'; /*rtl*/
