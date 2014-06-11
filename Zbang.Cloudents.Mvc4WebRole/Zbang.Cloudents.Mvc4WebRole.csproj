@@ -754,7 +754,7 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app\app.js" />
-    <Content Include="Js\app\controller.js" />
+    <Content Include="Js\app\dashboardcontroller.js" />
     <Content Include="Js\app\directives.js" />
     <Content Include="Js\app\filters.js" />
     <Content Include="Js\app\quizcreatecontroller.js" />
@@ -1151,7 +1151,6 @@
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\ng-modal.js" />
-    <Content Include="Scripts\ng-scrollbar.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -1220,7 +1219,7 @@
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
-    <Content Include="Views\Dashboard\_PrivateBoxDialog2.cshtml" />
+    <Content Include="Views\Dashboard\_PrivateBoxDialog3.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>

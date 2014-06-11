@@ -369,11 +369,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         [ZboxAuthorize]
         [Obsolete]
-        public ActionResult Delete(long boxUid)
+        public ActionResult Delete(long id)
         {
             var userId = GetUserId();
 
-            return DeleteOwnedBox(boxUid, userId);
+            return DeleteOwnedBox(id, userId);
 
 
         }
@@ -381,10 +381,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [ZboxAuthorize]
-        public ActionResult Delete2(long boxUid)
+        public ActionResult Delete2(long id)
         {
             var userId = GetUserId();
-            var command = new UnfollowBoxCommand(boxUid, userId);
+            var command = new UnfollowBoxCommand(id, userId);
             m_ZboxWriteService.UnfollowBox(command);
             return Json(new JsonResponse(true));
         }
