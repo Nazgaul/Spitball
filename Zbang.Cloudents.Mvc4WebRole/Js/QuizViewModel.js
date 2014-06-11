@@ -79,7 +79,7 @@
             quizCL.value = cd.location();
 
             registerEvents();
-            setRateStorage();
+        //    setRateStorage();
             function fillUnregisterSheet(savedData) {
 
                 cd.localStorageWrapper.removeItem(quizId);
