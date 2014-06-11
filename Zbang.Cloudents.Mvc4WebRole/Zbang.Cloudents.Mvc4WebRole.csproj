@@ -574,8 +574,14 @@
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
+    <Content Include="Content\DashLib.min.css">
+      <DependentUpon>DashLib.css</DependentUpon>
+    </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
+    </Content>
+    <Content Include="Content\General.min.css">
+      <DependentUpon>General.css</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>

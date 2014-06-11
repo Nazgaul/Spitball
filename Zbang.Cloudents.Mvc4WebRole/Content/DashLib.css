@@ -1,7 +1,7 @@
-﻿
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 .dashboard,
 .union {
   height: 100%;
@@ -33,7 +33,7 @@
   border: 1px solid #fff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-
+/*#region boxesHeader */
 .boxesHeader.topBar {
   top: 50px;
   left: 0;
@@ -84,7 +84,13 @@
 .back:hover:before {
   background-position: 0 -21px;
 }
-
+/*#lib_Back{
+    height: 19px;
+    display:inline-block;
+    vertical-align:top; 
+    max-width: ~'-webkit-calc(100% - 25px)';
+    max-width: ~'calc(100% - 25px)';
+}*/
 .boxTitle {
   font-size: 22px;
   color: #383838;
@@ -107,8 +113,8 @@
 .libBoxActions {
   display: none;
 }
-
-
+/*#endregion */
+/*#region new library */
 .searchEmpty {
   padding: 90px 0 0 290px;
   color: #383838;
@@ -261,8 +267,8 @@
 .unionFeatured {
   display: none;
 }
-
-
+/*#endregion */
+/*#region new dashboard */
 .unionCourses .emptyDash ~ .myAreaList {
   min-height: 200px;
   border-bottom: 1px solid #c2c2c2;
@@ -293,8 +299,8 @@
 .groupEmpty:before {
   background-position: -106px -1px;
 }
-
-
+/*#endregion */
+/*#region IframeProducts*/
 .products {
   position: absolute;
   top: 0;
@@ -306,7 +312,7 @@
   height: 100%;
   border: 0;
 }
-
+/*#endregion*/
 .groupBoxes .myAreaList {
   padding-bottom: 100px;
 }
@@ -372,7 +378,7 @@
   display: block;
   margin: 0 auto 22px;
 }
-
+/*#region new department look  */
 .deptItem {
   display: inline-block;
   vertical-align: top;
@@ -437,8 +443,8 @@
 .courseCount:before {
   content: attr(data-dept-numcourses);
 }
-
-
+/*#endregion */
+/*#region add Button (dept, dash box, lib box etc)*/
 .addBtn:before {
   content: '';
   display: inline-block;
@@ -458,8 +464,8 @@
   height: 16px;
   background-position: -278px -1px;
 }
-
-
+/*#endregion */
+/*#region dashLib box */
 .boxWpr {
   height: 36px;
   line-height: 15px;
@@ -618,8 +624,8 @@
 .libraryList > .box:hover .courseCode {
   display: none;
 }
-
-
+/*#endregion */
+/*#region box hover list */
 .boxHoverList {
   background: #19ae66;
   color: #fff;
@@ -669,8 +675,8 @@
   height: 8px;
   background-position: -30px -90px;
 }
-
-
+/*#endregion */
+/*#region DISABLE ADDBTN */
 .libraryList .addBtn {
   color: #bcbcbc;
   width: 100%;
@@ -707,4 +713,10 @@
 .libraryItem.addCourse {
   margin: 0;
 }
-
+/*#endregion */
+@media (max-width: 1024px) {
+  body {
+    position: relative;
+    display: table;
+  }
+}
