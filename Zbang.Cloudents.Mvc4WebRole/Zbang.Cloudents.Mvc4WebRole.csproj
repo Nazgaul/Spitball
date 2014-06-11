@@ -598,6 +598,9 @@
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>
     </Content>
+    <Content Include="Content\Item3.min.css">
+      <DependentUpon>Item3.css</DependentUpon>
+    </Content>
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
     </Content>
@@ -627,6 +630,9 @@
     <Content Include="Content\Quiz.css">
       <DependentUpon>Quiz.less</DependentUpon>
     </Content>
+    <Content Include="Content\Quiz.min.css">
+      <DependentUpon>Quiz.css</DependentUpon>
+    </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
     </Content>
@@ -650,6 +656,9 @@
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Static.min.css">
+      <DependentUpon>Static.css</DependentUpon>
     </Content>
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>

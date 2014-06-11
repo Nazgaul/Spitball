@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
@@ -80,27 +80,37 @@
 .quizSideBar .validated .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid[class*='Req'] {
+.quizSideBar .validated .questionHolder.ng-invalid {
+  /*.quizAnswer:nth-child(-n+2) {                
+                .questionAnswer {
+                    border: 1px solid @errorColor;
+                    &.ng-dirty:not(.ng-invalid) {
+                    border: 1px solid @borderColor;
+                    }
+                }                                
+            }*/
+  /*.questionAnswer.ng-invalid:focus {
+                border: 1px solid @borderColor
+            }*/
+}
+.quizSideBar .validated .questionHolder.ng-invalid[class*='Req'] {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.answerReq .addAnswer {
+.quizSideBar .validated .questionHolder.ng-invalid.answerReq .addAnswer {
   display: inline-block;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.questionReq .addQuestion {
+.quizSideBar .validated .questionHolder.ng-invalid.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
   right: 21px;
   /*rtl*/
   top: 15px;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.correctReq .correct {
+.quizSideBar .validated .questionHolder.ng-invalid.correctReq .correct {
   color: #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid .quizAnswer:nth-child(-n+2) .questionAnswer {
+.quizSideBar .validated .questionHolder.ng-invalid .questionAnswer.ng-invalid {
   border: 1px solid #d1294d;
-}
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid .quizAnswer:nth-child(-n+2) .questionAnswer.ng-dirty:not(.ng-invalid) {
-  border: 1px solid #c2c2c2;
 }
 .quizSideBar.error .quizBottom .error {
   display: inline-block;
@@ -319,8 +329,8 @@
   color: #0371c8;
   margin-top: 12px;
 }
-
-
+/*#endregion */
+/*#region Quiz Preview  */
 .quizPreview {
   margin-top: 100%;
   position: fixed;
@@ -570,8 +580,8 @@
   /*rtl*/
   top: 7px;
 }
-
-
+/*#endregion */
+/*#region Quiz item page */
 .quizPage .sectionHeader {
   color: transparent;
 }
@@ -809,7 +819,7 @@
   font-size: 38px;
   margin: 0 auto;
 }
-
+/*#endregion */
 /*.validated {
     .quizName {
         &.ng-invalid {

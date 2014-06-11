@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region layout */
 .itemPage,
 .boxPage,
 .quizPage {
@@ -137,8 +137,8 @@
   right: 0;
   /*rtl*/
 }
-
-
+/*#endregion */
+/*#region left panel */
 .leftPanel {
   width: 290px;
   background: #fff;
@@ -561,8 +561,8 @@
   color: #111;
   width: 230px;
 }
-
-
+/*#endregion */
+/*#region top action buttons and print drop down */
 .itemBack,
 .boxBack {
   height: 44px;
@@ -745,7 +745,15 @@
 :-webkit-full-screen img {
   width: 100%;
 }
+/*#fullView {
+    width: 100%;
+    height: 100%;
 
+    iframe {
+        width:100%;
+        height:100%;
+    }
+}*/
 :-moz-full-screen {
   overflow: auto;
 }
@@ -753,8 +761,8 @@
   display: block;
   margin: 0 auto;
 }
-
-
+/*#endregion */
+/*#region item content */
 .pageLoader {
   margin: 21px 0;
   position: absolute;
@@ -955,8 +963,8 @@
   padding: 15px;
   border-top: 1px solid #858585;
 }
-
-
+/*#endregion */
+/*#region annotation */
 .commentsToggleCb {
   display: none;
 }
@@ -1188,8 +1196,8 @@
 .addAnotationShow {
   opacity: 0.15;
 }
-
-
+/*#endregion */
+/*#region fullscreen */
 .itemFulscrn {
   display: none;
   text-align: center;
@@ -1197,6 +1205,9 @@
 }
 .itemFulscrn .modal2 {
   background: rgba(0, 0, 0, 0.9);
+}
+.itemFulscrn .copyRightWarning {
+  display: none;
 }
 .itemFulscrn .previewWrapper {
   z-index: 13;
@@ -1299,4 +1310,4 @@ body.fulscrn .itemPage {
   position: fixed;
   top: 50px;
 }
-
+/*#endregion */

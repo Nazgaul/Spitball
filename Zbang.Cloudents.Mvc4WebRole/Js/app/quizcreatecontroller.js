@@ -22,7 +22,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         showCreateQuiz: false,
         showCloseDialog : false,
         minQuestions: 3,
-        minAnswers: 2
+        minAnswers: 2,
+        isDraft : false
     };
 
     $scope.reset = function () {
@@ -52,6 +53,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         $scope.quiz.courseName = data.boxName;
 
         if (!data.quizId) {
+            $scope.params.isDraft = false;
+
             for (var i = 0; i < $scope.params.minQuestions; i++) {
                 $scope.addQuestion(false);
             }
@@ -67,7 +70,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         Quiz.getDraft({ quizId: data.quizId }).then(function (draft) {
             $scope.quiz.name = draft.payload.name;
             $scope.quiz.questions = draft.payload.questions;
-
+            $scope.params.isDraft = true;
             for (var i = 0, l = $scope.quiz.questions.length; i < l ; i++) {
                 var answersLength = $scope.quiz.questions[i].answers.length;
                 for (var z = 0; z < 2 && answersLength < 2; z++) {

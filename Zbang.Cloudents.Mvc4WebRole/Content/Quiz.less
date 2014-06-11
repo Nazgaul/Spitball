@@ -95,7 +95,7 @@
            .quizName:not(.ng-valid) {
                border: 1px solid @errorColor;
           }
-           .questionHolder.ng-dirty.ng-invalid{
+           .questionHolder.ng-invalid{
             &[class*='Req'] {
                 border: 1px solid #d1294d;
             } 
@@ -118,14 +118,20 @@
                 }
             }       
 
-            .quizAnswer:nth-child(-n+2) {                
+            /*.quizAnswer:nth-child(-n+2) {                
                 .questionAnswer {
                     border: 1px solid @errorColor;
                     &.ng-dirty:not(.ng-invalid) {
                     border: 1px solid @borderColor;
                     }
                 }                                
+            }*/
+            .questionAnswer.ng-invalid{
+                border: 1px solid @errorColor;
             }
+            /*.questionAnswer.ng-invalid:focus {
+                border: 1px solid @borderColor
+            }*/
         }
 
     }
