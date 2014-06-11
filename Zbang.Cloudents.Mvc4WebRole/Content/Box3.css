@@ -1309,7 +1309,6 @@
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
   padding: 10px 0;
   width: 276px;
-  height: 183px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1320,14 +1319,20 @@
   border-radius: 5px;
   margin-bottom: 8px;
 }
+.boxItemTt .itemName {
+  padding: 10px 20px 0 20px;
+  margin: -10px 0 18px;
+  background: #f5f5f5;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #c2c2c2;
+  font-size: 15px;
+}
 .boxItemTt .downArrow {
+  width: 274px;
+  position: absolute;
   top: 100%;
-  bottom: auto;
-  margin-top: 10px;
-  /*diff rtl*/
 }
 .boxItemTt.noPreview {
-  height: 107px;
   background: #f5f5f5;
 }
 .boxItemTt.noPreview .downArrow {
@@ -1356,7 +1361,6 @@
   background: #F5F5F5;
   margin-top: -32px;
   padding-top: 32px;
-  border-radius: 5px 5px 0 0;
   padding-bottom: 17px;
 }
 .boxItemTt .ttTop > .ttDetail {
