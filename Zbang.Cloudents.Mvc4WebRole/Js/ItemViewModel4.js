@@ -465,10 +465,9 @@
                     newImages.each(function (i, e) {
                         var y = new $.Deferred();
 
-                        $(e).load(y, function (e) {
-
+                        $(e).load(y, function (v) {
                             $.when(defferedItemShow).done(function () {
-                                initializeCanvas(e);
+                                initializeCanvas(v);
                             });
                         });
 
@@ -498,10 +497,9 @@
 
                             var $this = $(this),
                                 startWidth = $('.stars .full').width(),
-                                itemRate = getItemRate(),
                                 currentRate = 5 - $this.index(),
                                 fakeRate = calculateFakeRate(startWidth, currentRate);
-
+                            getItemRate();
                             self.rate(fakeRate);
                             setItemRate(currentRate);
                             if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
@@ -536,14 +534,17 @@
                         index = images.index(imgElement),
                         canvas = document.createElement('canvas');
 
+                        console.log(imgWidth, imgHeight);
+
                         canvas.className = consts.annotation;
                         canvas.width = $(parent).width() - (($(parent).width() - imgWidth) / 2) + 4;
                         canvas.height = imgHeight;
                         canvas.id = consts.annotation + index;
                         canvas.style[isLtr ? 'left' : 'right'] = ($(parent).width() - imgWidth) / 2 + 'px';
                         docFragment.appendChild(canvas);
-
+                       
                         if (cd.register()) {
+                            
                             var canvas2 = document.createElement('canvas');
                             canvas2.className = "newAnnotation";
                             canvas2.width = imgWidth;

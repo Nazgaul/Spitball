@@ -73,13 +73,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                         new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
                 {
                     var universities = await m_DbReadService.GetUniversityDetail();
+                    indexWriter.DeleteAll();
+                    indexWriter.Commit();
                     foreach (var university in universities)
                     {
                         var extraDetail = universitiesExtra.FirstOrDefault(f => f.Id == university.Id);
-                        var searchQuery = new TermQuery(new Term("id", university.Id.ToString(CultureInfo.InvariantCulture)));
-                        indexWriter.DeleteDocuments(searchQuery);
-                        //indexWriter.DeleteAll();
-                        //indexWriter.Commit();
+                        //var searchQuery = new TermQuery(new Term("id", university.Id.ToString(CultureInfo.InvariantCulture)));
+                        //indexWriter.DeleteDocuments(searchQuery);
+                       
 
                         var doc = new Document();
                         doc.Add(new Field(IdField, university.Id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));

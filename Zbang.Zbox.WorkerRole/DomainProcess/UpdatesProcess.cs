@@ -1,4 +1,6 @@
-﻿using Zbang.Zbox.Domain.Common;
+﻿using System;
+using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRole.DomainProcess
@@ -16,7 +18,8 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         public bool Excecute(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as UpdateData;
-            if (parameters != null)
+            if (parameters == null) return true;
+            try
             {
                 m_ZboxWriteService.AddNewUpdate(new Domain.Commands.AddNewUpdatesCommand(
                     parameters.BoxId,
@@ -25,10 +28,14 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
                     parameters.AnswerId,
                     parameters.ItemId,
                     parameters.QuizId
-                   ));
-                //var command = new UpdateStatisticsCommand(parameters4.ItemsIds.Select(s => new Zbang.Zbox.Domain.Commands.UpdateStatisticsCommand.StatisticItemData { ItemId = s.Id, Action = (StatisticsAction)s.Action }), parameters4.UserId, parameters4.StatTime);
-                //m_ZboxWriteService.Statistics(command);
+                    ));
             }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("On new update model:" + parameters, ex);
+            }
+            //var command = new UpdateStatisticsCommand(parameters4.ItemsIds.Select(s => new Zbang.Zbox.Domain.Commands.UpdateStatisticsCommand.StatisticItemData { ItemId = s.Id, Action = (StatisticsAction)s.Action }), parameters4.UserId, parameters4.StatTime);
+            //m_ZboxWriteService.Statistics(command);
 
             return true;
         }

@@ -105,7 +105,7 @@
             </a>
             @*<button type="button" class="itemPrint iconTop" id="quiz_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
         </div>
-        <div class="quizTitle">@Model.Name</div>
+        <div class="quizTitle">@Html.Raw(Model.Name)</div>
         <div class="quizPrevWpr">
             @{
                 var questionIndex = 0;
@@ -121,7 +121,7 @@
                     //add userWrong class if UserControl answered incorrectly OR no answer
                     //add noAnswer class in addition to userWrong if user gave no answer
                     <li data-id="@item.Id">
-                        <div class="quizQuestion">@item.Text</div>
+                        <div class="quizQuestion">@Html.Raw(item.Text)</div>
                         <ul class="quizAList">
                             @foreach (var answer in item.Answers)
                             {
@@ -129,7 +129,7 @@
                                 //add wrong if user chose this as the answer incorrectly
                                 <li class="@(answer.Id==item.CorrectAnswer?"correct":string.Empty) ">
                                     <input data-id="@answer.Id" id="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)" type="radio" name="@string.Format("quizTestRadio{0}", questionIndex)" />
-                                    <label for="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)">@answer.Text.</label>
+                                    <label for="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)">@Html.Raw(answer.Text)</label>
                                 </li>
                                 answerIndex++;
                             }

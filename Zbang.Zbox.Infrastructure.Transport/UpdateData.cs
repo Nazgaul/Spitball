@@ -40,5 +40,17 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public Guid? AnswerId { get; private set; }
         [ProtoMember(6)]
         public long? QuizId { get; private set; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(string.Format("UserWhoMadeActionId: {0}", UserWhoMadeActionId));
+            sb.AppendLine(string.Format("BoxId: {0}", BoxId));
+            sb.AppendLine(string.Format("ItemId: {0}", ItemId));
+            sb.AppendLine(string.Format("QuestionId: {0}", QuestionId));
+            sb.AppendLine(string.Format("AnswerId: {0}", AnswerId));
+            sb.AppendLine(string.Format("QuizId: {0}", QuizId));
+            return base.ToString();
+        }
     }
 }
