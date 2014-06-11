@@ -428,7 +428,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AjaxCache(TimeConsts.Minute * 15)]
         public async Task<ActionResult> Preview(string blobName, int imageNumber, long uid, string boxUid, int width = 0, int height = 0)
         {
-            var uri = new Uri(m_BlobProvider.GetBlobUrl(blobName));
+            Uri uri;
+            if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
+            {
+                uri = new Uri(m_BlobProvider.GetBlobUrl(blobName));
+            }
             //this will not work due to ie9
             //if (!Request.Headers["Referer"].Contains(boxUid))
             //{
@@ -439,33 +443,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
             }
             var processor = m_FileProcessorFactory.GetProcessor(uri);
-            if (processor != null)
+            if (processor == null)
+                return
+                    Json(
+                        new JsonResponse(true,
+                            new
+                            {
+                                preview =
+                                    RenderRazorViewToString("_PreviewFailed",
+                                        Url.ActionLinkWithParam("Download", new {BoxUid = boxUid, ItemId = uid}))
+                            }),
+                        JsonRequestBehavior.AllowGet);
+            try
             {
-                try
+                var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, imageNumber);
+                if (string.IsNullOrEmpty(retVal.ViewName))
                 {
-                    var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, imageNumber);
-                    if (string.IsNullOrEmpty(retVal.ViewName))
-                    {
-                        return Json(new JsonResponse(true, new { preview = retVal.Content.First() }), JsonRequestBehavior.AllowGet);
-                    }
+                    return Json(new JsonResponse(true, new { preview = retVal.Content.First() }), JsonRequestBehavior.AllowGet);
+                }
 
-                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }), JsonRequestBehavior.AllowGet);
-                    //if (retVal.Content.Count() == 0 && imageNumber == 0) // this is happen due failed preview at the start
-                    //{
-                    //    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
-                    //}
-                }
-                catch (Exception ex)
-                {
-                    TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
-                    if (imageNumber == 0)
-                    {
-                        return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
-                    }
-                    return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
-                }
+                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }), JsonRequestBehavior.AllowGet);
+                //if (retVal.Content.Count() == 0 && imageNumber == 0) // this is happen due failed preview at the start
+                //{
+                //    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
+                //}
             }
-            return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
+                if (imageNumber == 0)
+                {
+                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
+                }
+                return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
+            }
         }
         #endregion
 

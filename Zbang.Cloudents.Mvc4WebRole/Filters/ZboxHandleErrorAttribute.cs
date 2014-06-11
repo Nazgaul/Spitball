@@ -15,6 +15,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 filterContext.HttpContext.Request.RequestType,
                 filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n"));
             TraceLog.WriteError(info, filterContext.Exception);
+           
             //if (filterContext.Exception.GetType() == typeof(BoxAccessDeniedException))
             //{
 
