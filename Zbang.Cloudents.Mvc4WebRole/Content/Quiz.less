@@ -54,9 +54,9 @@
     box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
     .transition(right .4s); /*rtl*/
     .emptyQuiz {
-           .quizName:not(.ng-valid) {
-               border: 1px solid @errorColor;
-          }
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
         .questionHolder:first-child {
             &[class*='Req'] {
                 border: 1px solid #d1294d;
@@ -89,13 +89,12 @@
                 }                                
             }
         }
-
     }
     .validated {
-           .quizName:not(.ng-valid) {
-               border: 1px solid @errorColor;
-          }
-           .questionHolder.ng-invalid{
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
+        .questionHolder.ng-invalid{
             &[class*='Req'] {
                 border: 1px solid #d1294d;
             } 
@@ -117,21 +116,9 @@
                     color: @errorColor;
                 }
             }       
-
-            /*.quizAnswer:nth-child(-n+2) {                
-                .questionAnswer {
-                    border: 1px solid @errorColor;
-                    &.ng-dirty:not(.ng-invalid) {
-                    border: 1px solid @borderColor;
-                    }
-                }                                
-            }*/
             .questionAnswer.ng-invalid{
                 border: 1px solid @errorColor;
             }
-            /*.questionAnswer.ng-invalid:focus {
-                border: 1px solid @borderColor
-            }*/
         }
 
     }
@@ -176,11 +163,7 @@
             font-size: 17px;
             line-height:19px;
         }
-
-      
     }
-
- 
 
     section {
         height: 100%;

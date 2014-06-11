@@ -80,19 +80,6 @@
 .quizSideBar .validated .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-invalid {
-  /*.quizAnswer:nth-child(-n+2) {                
-                .questionAnswer {
-                    border: 1px solid @errorColor;
-                    &.ng-dirty:not(.ng-invalid) {
-                    border: 1px solid @borderColor;
-                    }
-                }                                
-            }*/
-  /*.questionAnswer.ng-invalid:focus {
-                border: 1px solid @borderColor
-            }*/
-}
 .quizSideBar .validated .questionHolder.ng-invalid[class*='Req'] {
   border: 1px solid #d1294d;
 }

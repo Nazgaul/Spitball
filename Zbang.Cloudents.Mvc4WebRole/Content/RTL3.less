@@ -2036,6 +2036,31 @@
     border-right: 1px solid @borderColor; /*rtl*/
     box-shadow: 4px 0 4px rgba(0,0,0,.15); /*rtl*/
     .transition(left .4s); /*rtl*/
+
+    .emptyQuiz {
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
+        .questionHolder:first-child {
+            &.questionReq{
+                .addQuestion{
+                    left: 21px; /*rtl*/
+                    right: auto;
+                }
+            }
+        }
+    }
+    .validated {
+        .questionHolder.ng-invalid{
+            &.questionReq{
+                .addQuestion{
+                    left: 21px; /*rtl*/
+                    right: auto;
+                }
+            }
+        }
+    }
+
     header {
         margin: 0 -15px 0 -14px; /*rtl*/ //left padding + 1px border
         padding: 8px 14px 0 0; /*rtl*/
