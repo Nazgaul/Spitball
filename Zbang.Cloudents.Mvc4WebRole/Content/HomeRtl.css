@@ -1,7 +1,7 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
+﻿
+
+
+
 .topImg > .btn {
   padding: 0 20px 0 35px;
   /*rtl*/
@@ -162,7 +162,7 @@ aside li {
   /*rtl*/
   border-right: none;
 }
-/*#region footer */
+
 footer {
   right: 0;
   /*rtl*/
@@ -172,8 +172,8 @@ footer {
   padding: 0 6px 0 3px;
   /*rtl*/
 }
-/*#endregion */
-/*#region media queries */
+
+
 @media (max-width: 1430px) {
   .headerWpr.menuOpen .headerActions {
     left: 200px;
@@ -196,4 +196,4 @@ footer {
     left: auto;
   }
 }
-/*#endregion */
+

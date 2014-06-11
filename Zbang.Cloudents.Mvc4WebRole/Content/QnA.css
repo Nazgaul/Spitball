@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region Q&A */
+﻿
+
+
+
+
 .QA {
   overflow: hidden;
   width: 366px;
@@ -288,7 +288,7 @@ textarea:invalid {
 .QEmptyForm:before {
   content: '';
   display: block;
-  background: url(/Images/multi2.png) no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUwAAAAxCAYAAACxpZD0AAAEmklEQVR42u3dv2/bRhjG8YcSYdWwXaN2ixjeUsN7kZ1T9gL5R7r3P8uSDubQDgE6tEahTC1UpDJqy5ZZW6Ko43WhCzX+dUfSOgv4fgAPiUSfCAZP3veOPEVHR0eqfHdwcPBmf39fLmaz2Vfdbnej2+3KlbU2lhRHUSQAaMpaK0kmiqLC9ZiyLFUURd7r9f5yef9oNNLx8fFPSZJ831n4+ytjjM9nLasPCwArFbJRFJWu75/P55J0JUn/C8zqBSc+Ay5+Vi4XgLYzsMYxvoF5+Wlg/uMTmFSYAFa4jXcOzKrzvlVhZsuoMAlZAKErzFZacp85zCiKvCtMFnsArFqF2VpLvqS5BgB4KPyCVJjeLTntNYDQfDtX31Xy++Ywr5aw6EPCAmi90KxxjHNgFkXRvCWvuegDAMHb+DYqzLm1duK68NOgJafKBBCswqy56HMrMCW/lXJL+AFYRTUWfS7vDMwlLPxwLyaAINWlb0tujJG1dpIkSXlXYF4+9a1F3IsJ4BmErFPQLs5fBqswuV4AGqdejXswm2y8ESowAaAVNTvWWvOXdwXmSZ7nT9qSU2ECaLm9frIKs8rD0/sC8+fxeOwVmFSYAFapjfcJzIuLC0l6f/Pn+JPX35+fn7/r9/uvt7e3H/1lxpiy0+kojmPv/xFY/AHQNPx8K0xjjIwxxuWbIrIs03A4/EXS2/+mABa+omLRa0nfOIz/cmNj43Bzc9PnJHtRFHl9tQUA3Gpvy1LW2mtJU9djrq+vlWXZQNJvDm/vS3qbJMn8vgrzxrvq5zGvtra2vj08PHQ+yfl8vl4UxYv19XWuOIDa8jxXFEVna2trmesxg8FAWZYdSfrhrteTJHnw+PixNzwkTdOp532bPIMOoLWWvNPpeOVJtZHGpO6YnaYh7/nFadyKBKC1wPQtwKq8yuuO2TQwJ1ViE5gAls43MKuOeFp3vKaBOaXCBLAqFWYVmOFact85TLHLEYCwgRmuJa8RmFSZAIIEZtURh2nJkyQprbUz37ZcPCEEoIXM9O1WQ6+SS8xjAliB6nKhwgzWkks1V8q55ACaBKY8N/+pNgOeqd6mQa0FZk5LDuC5V5hN5y/bCszxdOr3GWjJATTlG5hVTl2EDsz+aDQiMAE865b89PRUkj40GTdu+sGTJPk1TdOvsyx75brNm7W2jONYvV6PKw/AW1EUyvO87HTcaj5jjCaTyQdJPzaqatuq9NI0/UKS6xZEezs7Oy/39va48gC8nZ2d6eTk5KOkPxwPmWlh5/QHCsCnrTAXBjqXdJ6mqVPgx3H8+e7uLlcegLcsyyTpY/WzNHHbv9Blu7g0Ted1nhACgJsWW9LcN3ua6gQ634LABFBXlR9LD5FQgWkITAAEpvP5EpgAGgVmsexxgwVmjaeDAGAxMJceIkECM0kSY4zh5nUAtOSOmMcEQEvufs4EJgA/1lqVZVmqwa5DqxiY3FoEoG51GWQRhJYcAO34CgTm5Xg85uoD8FLtjpaFGDsOeN5/DgaDF7PZ7LMoivhXAMDJcDgsJP0eYuwo5K09aZrGkr4MXOkCWC1/39WSL+NZ8n8BrV/W9aI/wUgAAAAASUVORK5CYII=') /*/Images/multi2.png*/ no-repeat;
   width: 332px;
   height: 49px;
   position: absolute;
@@ -787,4 +787,4 @@ textarea:invalid {
 .createTime.innerSection {
   margin-top: 9px;
 }
-/*#endregion */
+
