@@ -23,7 +23,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         showCloseDialog : false,
         minQuestions: 3,
         minAnswers: 2,
-        isDraft : false
+        isDraft: false,
+        focus : true
     };
 
     $scope.reset = function () {
@@ -34,9 +35,12 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             courseId: null,
             courseName: null
         };
+
+        $scope.params.isDraft = false;        
     };
 
     $scope.reset();
+
     $scope.$on('initQuiz', function (e,data) {
         $scope.$apply(function () {
             $scope.initQuiz(data);
@@ -60,8 +64,9 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             }
 
             $scope.params.loadCreateQuiz = true;
-            $scope.params.showCreateQuiz = true;
-
+            $scope.params.showCreateQuiz = true;            
+            $scope.params.focus = true;
+    
             return;
         }
 
@@ -81,7 +86,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             }
 
             $scope.params.loadCreateQuiz = true;
-            $scope.params.showCreateQuiz = true;
+            $scope.params.showCreateQuiz = true;            
+            $scope.params.focus = true;
 
         });
     };
@@ -92,7 +98,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
     $scope.saveQuiz = function () {
         if (!$scope.quiz.id) {
-            createQuiz();
+            createQuiz();            
             return;
         }
 
@@ -106,7 +112,9 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
     $scope.publish = function () {
         $scope.params.showCloseDialog = false;
+        $scope.params.focus = false;
         $scope.submit(this.quizForm.$valid);
+
     };
 
     $scope.deleteQuiz = function () {
@@ -115,6 +123,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
         var id = $scope.quiz.id;
         $scope.reset();
+        $scope.params.focus = false;
         $scope.params.showCreateQuiz = false;
         $scope.params.showCloseDialog = false;
 
@@ -126,6 +135,7 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     $scope.saveDraft = function () {
         $scope.params.showCloseDialog = false;
         $scope.params.showCreateQuiz = false;
+        $scope.params.focus = false;
 
         if ($scope.isEmptyQuiz()) {
             if (!$scope.quiz.id) {
@@ -182,8 +192,21 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         question.answers.push(answer);
     };
 
-    $scope.removeAnswer = function (questionAnswers,index) {        
-        question.answers.splice(index,1);
+    $scope.removeAnswer = function (question,index) {
+        var answerId = question.answers[index].id;
+        question.answers.splice(index, 1);
+
+        if (!answerId) {
+            return;
+        }
+
+        if (question.correctAnswer === answerId) {
+            question.correctAnswer = null;
+        }
+
+        Quiz.answer.delete({ id: answerId }).then(function () {
+        });
+        
     };
 
     $scope.toggleRadioBtn = function (question, answer) {
@@ -194,14 +217,15 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     };
 
     $scope.saveAnswer = function (question, answer) {
-        if (answer.id && !answer.text.length) {
+        var answerText = answer.text || '';
+        if (answer.id && !answerText.length) {
             Quiz.answer.delete({ id: answer.id }).then(function () {                
                 answer.id = null;                
             });
             return;
         }
 
-        if (!answer.text) {
+        if (!answerText.length) {
             return;
         }
 
@@ -457,11 +481,19 @@ quizCreate.directive('quizPreview', function () {
 quizCreate.directive('quizFocus', function () {
     return {
         restrict : 'A',        
-        link : function (scope, element, attrs) {
-            if (attrs.focus === 'true') {
-                element.focus();
-                element.removeAttr('focus');
-            }
+        link: function (scope, element, attrs) {
+            scope.$watch(function () {
+                return element.attr('data-focus');
+            }, function (newValue) {                
+                if (newValue === 'true') {
+                    setTimeout(function () { element.focus(); }, 10);
+                }
+
+            });
+
+            //if (attrs.focus === 'true') {
+                
+            //}
         }        
     };
 });

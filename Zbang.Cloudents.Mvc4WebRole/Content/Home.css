@@ -1,7 +1,7 @@
-﻿
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 body {
   color: #383838;
   min-width: 1024px;
@@ -184,7 +184,7 @@ body {
   /*rtl*/
   margin-top: 20px;
 }
-
+/*#region side menu */
 aside {
   background: #39434a;
   position: fixed;
@@ -235,7 +235,7 @@ aside li.currentItem {
 aside .last {
   margin-bottom: 30px;
 }
-
+/*#endregion */
 .headerActions {
   margin-top: 2px;
   position: absolute;
@@ -609,7 +609,7 @@ section.unions .btn:hover {
 .stats > .cell.last {
   border: none;
 }
-
+/*#region footer */
 footer {
   height: 42px;
   line-height: 42px;
@@ -645,8 +645,8 @@ footer {
 .footer a:hover {
   text-decoration: underline;
 }
-
-
+/*#endregion */
+/*#region media queries */
 @media (max-width: 1111px) {
   section.unions ul {
     -webkit-transform: scale(0.9);
@@ -686,4 +686,4 @@ footer {
     /*rtl*/
   }
 }
-
+/*#endregion */

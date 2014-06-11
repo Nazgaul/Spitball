@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region header(from _Layout3mobile) */
 .numberCircle {
   left: -10px;
   right: auto;
@@ -11,8 +11,8 @@
   box-shadow: -1px 1px 3px rgba(57, 0, 12, 0.5);
   /*rtl*/
 }
-
-
+/*#endregion */
+/*#region search */
 .searchBtnClose {
   right: auto;
   left: 6px;
@@ -21,8 +21,8 @@
            margin: 20px 8px 0 0;
     }*/
 }
-
-
+/*#endregion */
+/*#region settings panel / menu */
 .settingsOpenGray {
   left: auto;
   right: 67%;
@@ -56,7 +56,7 @@
   right: auto;
   left: 10px;
 }
-
+/*#endregion */
 .content {
   -webkit-transition: right, 0.3s ease 0.2s;
   -moz-transition: right, 0.3s ease 0.2s;
@@ -67,7 +67,7 @@
   padding: 10px 8px 10px 4px;
   /*rtl*/
 }
-
+/*#region popup */
 .popup.selectUni .inputText {
   padding: 10px 25px 10px 4px;
   /*rtl*/
@@ -76,7 +76,7 @@
   text-align: right;
   /*rtl*/
 }
-
+/*#region dashLib content */
 .topBtns {
   left: auto;
   right: 0;
@@ -134,8 +134,8 @@
 .commentsList li > .comment {
   padding: 0 6px 0 30px;
 }
-
-
+/*#endregion */
+/*#region box/course */
 .friendsList {
   text-align: right;
 }
@@ -210,16 +210,16 @@
   padding: 12px 8px 0 4px;
   /*rtl*/
 }
-
-
+/*#endregion */
+/*#region 'Static' pages */
 .goBack .btn1 {
   margin-left: auto;
   margin-right: 8px;
   /*rtl*/
 }
-
-
-
+/*#endregion */
+/*#region Actions */
+/*#region popups pages */
 .updates .description {
   margin: 0 6px 0 25px;
 }
@@ -265,7 +265,7 @@
   margin-right: -1px;
   /*rtl*/
 }
-
-
-
-
+/*#endregion */
+/*#endregion */
+/*#region buttons */
+/*#endregion */
