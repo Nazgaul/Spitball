@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
-            UrlBuilder builder = new UrlBuilder(HttpContext);
+            var builder = new UrlBuilder(HttpContext);
             var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
 
             ViewBag.boxName = boxName;
@@ -292,13 +292,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax, ZboxAuthorize]
         public ActionResult MarkCorrect(MarkAnswer model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var command = new MarkAnswerCorrectCommand(model.AnswerId, GetUserId());
-            m_ZboxWriteService.MarkAnswerAsCorrect(command);
-            return this.CdJson(new JsonResponse(true));
+            if (!model.AnswerId.HasValue)
+            {
+                return this.CdJson(new JsonResponse(false, "Guid is empty"));
+            }
+            try
+            {
+                var command = new MarkAnswerCorrectCommand(model.AnswerId.Value, GetUserId());
+                m_ZboxWriteService.MarkAnswerAsCorrect(command);
+                return this.CdJson(new JsonResponse(true));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("On mark answer", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
         }
 
         [HttpPost, Ajax]

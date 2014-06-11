@@ -565,9 +565,6 @@
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
-    <Content Include="Content\Animations.min.css">
-      <DependentUpon>Animations.css</DependentUpon>
-    </Content>
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
@@ -577,14 +574,8 @@
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
-    <Content Include="Content\DashLib.min.css">
-      <DependentUpon>DashLib.css</DependentUpon>
-    </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
-    </Content>
-    <Content Include="Content\General.min.css">
-      <DependentUpon>General.css</DependentUpon>
     </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
@@ -606,9 +597,6 @@
     </Content>
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Item3.min.css">
-      <DependentUpon>Item3.css</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
@@ -651,14 +639,8 @@
     <Content Include="Content\Quiz.css">
       <DependentUpon>Quiz.less</DependentUpon>
     </Content>
-    <Content Include="Content\Quiz.min.css">
-      <DependentUpon>Quiz.css</DependentUpon>
-    </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
-    </Content>
-    <Content Include="Content\RTL3.min.css">
-      <DependentUpon>RTL3.css</DependentUpon>
     </Content>
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
@@ -684,9 +666,6 @@
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
     </Content>
-    <Content Include="Content\Static.min.css">
-      <DependentUpon>Static.css</DependentUpon>
-    </Content>
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
@@ -701,9 +680,6 @@
     </Content>
     <Content Include="Content\Welcome.css">
       <DependentUpon>Welcome.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Welcome.min.css">
-      <DependentUpon>Welcome.css</DependentUpon>
     </Content>
     <Content Include="Content\WelcomeRtl.css">
       <DependentUpon>WelcomeRtl.less</DependentUpon>
