@@ -1335,10 +1335,6 @@
 .boxItemTt.noPreview {
   background: #f5f5f5;
 }
-.boxItemTt.noPreview .downArrow {
-  top: 85px;
-  /* diff rtl*/
-}
 .boxItemTt.noPreview .downArrow:before {
   background: #f5f5f5;
 }
