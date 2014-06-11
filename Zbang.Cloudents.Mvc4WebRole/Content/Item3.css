@@ -1085,6 +1085,7 @@
 .readView .annotateContent textarea {
   width: 248px;
   max-height: 150px;
+  font-size: 13px;
 }
 .addAnotation .annotator,
 .readView .annotator,
@@ -1107,6 +1108,7 @@
 .readView .annnotateAction {
   line-height: 32px;
   background: none;
+  font-size: 13px;
 }
 .addAnotation .annnotateAction,
 .readView .annnotateAction {
@@ -1138,6 +1140,8 @@
   word-wrap: break-word;
   padding-top: 3px;
   padding-bottom: 3px;
+  font-size: 13px;
+  font-weight: normal;
 }
 .show-more {
   position: absolute;
@@ -1192,6 +1196,7 @@
   margin-top: 9px;
   font-size: 11px;
   color: #676767;
+  font-weight: normal;
 }
 .addAnotationShow {
   opacity: 0.15;
