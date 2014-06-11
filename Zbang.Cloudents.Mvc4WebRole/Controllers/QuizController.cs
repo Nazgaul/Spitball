@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Quiz;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.ReadServices;
@@ -116,6 +118,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet]
         [ZboxAuthorize]
+        [DonutOutputCache(Duration = TimeConsts.Hour, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+            + CustomCacheKeys.Lang)]
         public ActionResult CreateQuiz()
         {
             return PartialView("CreateQuiz");

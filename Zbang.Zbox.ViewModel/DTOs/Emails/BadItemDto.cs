@@ -7,6 +7,6 @@
 
         public long Uid { get; set; }
         public string ItemName { get; set; }
-        public long BoxUid { get; set; }
+        public long BoxId { get; set; }
     }
 }

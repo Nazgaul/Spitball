@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -15,25 +13,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
     public class SaveQuizCommandHandler : ICommandHandler<SaveQuizCommand>
     {
-        private readonly IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
+        private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IBoxRepository m_BoxRepository;
-        // private readonly IRepository<Zbang.Zbox.Domain.Question> m_QuestionRepository;
-        // private readonly IRepository<Zbang.Zbox.Domain.Answer> m_AnswerRepository;
 
         public SaveQuizCommandHandler(
-            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository,
+            IRepository<Domain.Quiz> quizRepository,
             IQueueProvider queueProvider,
             IBoxRepository boxRepository
-            // IRepository<Zbang.Zbox.Domain.Question> questionRepository,
-            // IRepository<Zbang.Zbox.Domain.Answer> answerRepository
             )
         {
             m_QuizRepository = quizRepository;
             m_QueueProvider = queueProvider;
             m_BoxRepository = boxRepository;
-            // m_QuestionRepository = questionRepository;
-            // m_AnswerRepository = answerRepository;
         }
         public void Handle(SaveQuizCommand message)
         {
@@ -64,7 +56,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 {
                     throw new ArgumentException("question answers are below 2");
                 }
-                if (question.Answers.Where(w => w.Text == null).Count() > 0)
+                if (question.Answers.Any(w => w.Text == null))
                 {
                     throw new ArgumentException("question answers dont have text");
                 }
@@ -85,13 +77,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             quiz.Publish = true;
             var sb = new StringBuilder();
-            var result = string.Empty;
             foreach (var question in quiz.Questions)
             {
                 sb.AppendFormat("{0} ", question.Text);
             }
             
-            quiz.Content = sb.ToString().Substring(0, Math.Min(sb.Length, 254));;
+            quiz.Content = sb.ToString().Substring(0, Math.Min(sb.Length, 254));
             m_QueueProvider.InsertMessageToTranaction(new UpdateData(quiz.Owner.Id, quiz.Box.Id, null, null, null, quiz.Id));
             quiz.Box.UserTime.UpdateUserTime(quiz.Owner.Email);
             quiz.Box.UpdateItemCount();
