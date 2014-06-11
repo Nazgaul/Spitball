@@ -111,23 +111,16 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
 
     $scope.deleteQuiz = function () {
         if (!$scope.quiz.id) {
-            closed();
             return;
         }
+        var id = $scope.quiz.id;
+        $scope.reset();
+        $scope.params.showCreateQuiz = false;
+        $scope.params.showCloseDialog = false;
 
-            closed();
-        
-
-        function closed() {
-            var id = $scope.quiz.id;
-            $scope.reset();
-            $scope.params.showCreateQuiz = false;
-            $scope.params.showCloseDialog = false;
-            
-            Quiz.delete({ id: id }).then(function () {
-                cd.pubsub.publish('removeItem', id);
-            });
-        }
+        Quiz.delete({ id: id }).then(function () {
+            cd.pubsub.publish('removeItem', id);
+        });        
     };
 
     $scope.saveDraft = function () {
@@ -189,6 +182,10 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         question.answers.push(answer);
     };
 
+    $scope.removeAnswer = function (questionAnswers,index) {        
+        question.answers.splice(index,1);
+    };
+
     $scope.toggleRadioBtn = function (question, answer) {
         var text = answer.text || '';
         if (!text.length && question.correctAnswer === answer.id) {
@@ -235,6 +232,11 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         if (question.correctAnswer === answer.id) {
             return;
         }
+
+        if (answer.id.length === 0 || answer.text === 0) {
+            return;
+        }
+
         Quiz.answer.markCorrect({ answerId: answer.id }).then(function (data) {
             if (!data) {
                 console.log('error mark answer as true');
