@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region search drop down */
 .searchDD {
   display: none;
   margin-top: 5px;
@@ -132,8 +132,8 @@
   left: 71px;
   /*rtl*/
 }
-
-
+/*#endregion */
+/*#region Search page - 's' prefix stands for 'search' */
 .searchPage {
   width: 1012px;
   margin: 0 auto;
@@ -384,4 +384,4 @@
   border: 1px solid #c2c2c2;
   color: #0371c8;
 }
-
+/*#endregion */

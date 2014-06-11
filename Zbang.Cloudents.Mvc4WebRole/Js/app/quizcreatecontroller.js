@@ -182,8 +182,21 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         question.answers.push(answer);
     };
 
-    $scope.removeAnswer = function (questionAnswers,index) {        
-        question.answers.splice(index,1);
+    $scope.removeAnswer = function (question,index) {
+        var answerId = question.answers[index].id;
+        question.answers.splice(index, 1);
+
+        if (!answerId) {
+            return;
+        }
+
+        if (question.correctAnswer === answerId) {
+            question.correctAnswer = null;
+        }
+
+        Quiz.answer.delete({ id: answerId }).then(function () {
+        });
+        
     };
 
     $scope.toggleRadioBtn = function (question, answer) {
@@ -194,14 +207,15 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     };
 
     $scope.saveAnswer = function (question, answer) {
-        if (answer.id && !answer.text.length) {
+        var answerText = answer.text || '';
+        if (answer.id && !answerText.length) {
             Quiz.answer.delete({ id: answer.id }).then(function () {                
                 answer.id = null;                
             });
             return;
         }
 
-        if (!answer.text) {
+        if (!answerText.length) {
             return;
         }
 

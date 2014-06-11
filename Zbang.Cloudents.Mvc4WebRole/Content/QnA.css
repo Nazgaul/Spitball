@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region Q&A */
 .QA {
   overflow: hidden;
   width: 366px;
@@ -787,4 +787,4 @@ textarea:invalid {
 .createTime.innerSection {
   margin-top: 9px;
 }
-
+/*#endregion */

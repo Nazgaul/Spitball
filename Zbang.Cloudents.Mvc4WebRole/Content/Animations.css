@@ -1,7 +1,7 @@
-﻿
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 @-webkit-keyframes slidein {
   from {
     top: 100%;

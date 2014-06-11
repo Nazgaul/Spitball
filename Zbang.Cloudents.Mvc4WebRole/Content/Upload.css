@@ -1,7 +1,7 @@
-﻿
-
-
-
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 .selectBox,
 .newBox {
   width: 204px;
@@ -18,7 +18,7 @@
   margin-left: 38px;
   /*rtl*/
 }
-
+/*#endregion */
 .dragDropBox {
   border: 1px dashed #c2c2c2;
   color: #383838;
@@ -84,7 +84,7 @@
   margin: 0 3px 0 0;
   /*rtl*/
 }
-
+/*#region invite popup step1 step2 - HISTORIC */
 /*.step2
 {
     display: none;
@@ -157,7 +157,7 @@
     }
     
 }*/
-
+/*#endregion */
 .chooseFrom {
   border-top: 1px solid #c7c7c7;
   text-align: center;
@@ -419,7 +419,7 @@ button.fileError {
   box-sizing: border-box;
   width: 100%;
 }
-
+/*#region invite */
 .emailUserWpr {
   position: relative;
 }
@@ -625,4 +625,4 @@ button.fileError {
   height: 43px;
   width: 100%;
 }
-
+/*#endregion */
