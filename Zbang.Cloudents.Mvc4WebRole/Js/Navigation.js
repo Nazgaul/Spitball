@@ -107,9 +107,10 @@
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
-        if (this.getAttribute('data-navigation').toLowerCase() === 'link') {
-            return true;
-        }
+        //RAM: I remove this because we cant show you tube link
+        //if (this.getAttribute('data-navigation').toLowerCase() === 'link') {
+        //    return true;
+        //}
 
         e.preventDefault();
 

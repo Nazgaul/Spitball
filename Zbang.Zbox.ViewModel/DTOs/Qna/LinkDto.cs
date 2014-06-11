@@ -9,22 +9,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
             : base(uid, ownerId, boxUid, questionId, answerId, name)
         {
             Thumbnail = thumbnail;
-                // Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>().GetThumbnailLinkUrl();
-            //m_Thumbnail = Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailLinkUrl();
         }
-
-        //public override string Thumbnail
-        //{
-        //    get
-        //    {
-        //        return m_Thumbnail;
-        //    }
-        //    set
-        //    {
-        //        m_Thumbnail = value;
-        //    }
-
-        //}
 
         public override string Type
         {
