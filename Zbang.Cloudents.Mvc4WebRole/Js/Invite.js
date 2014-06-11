@@ -4,11 +4,11 @@
     }
 
     var listContainer, invSources, inviteContentWrapper, inviteMain, inviteInput, emailsSelectedElement, searchByName,
-        foundList = [], emailsSelecetd = [], google, currentTab, currentTabName, statusChecked = false,
+        emailsSelecetd = [],  currentTab, currentTabName, statusChecked = false,
         eById = document.getElementById.bind(document),
         cloudentsContacts = [], facebookContacts = [], googleContacts = [],
         connectStatus = {}, boxid, loader, loading = false, fbInviteResponse, cdgInviteResponse,
-        defaultTab, defaultTabName, connectHeader;
+         defaultTabName, connectHeader, facebookInviteUrl;
 
     cd.loadModel('invite', 'InviteContext', InviteViewModel);
 
@@ -141,8 +141,8 @@
 
         //#region check connection and connect if needed
         cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
-            var gmailBtn = document.querySelector('.connectMore.gmail'),
-                gPlusBtn = document.querySelector('.connectMore.gPlus');
+           // var gmailBtn = document.querySelector('.connectMore.gmail'),
+           //     gPlusBtn = document.querySelector('.connectMore.gPlus');
 
             connectHeader.classList.remove('gpNone');
             connectHeader.classList.remove('gmailNone');
@@ -155,13 +155,13 @@
         });
 
         cd.pubsub.subscribe('gAuthFail', function () {
-            var gmailBtn = document.querySelector('.connectMore.gmail'),
-                gPlusBtn = document.querySelector('.connectMore.gPlus');
+            var gmailBtn = document.querySelector('.connectMore.gmail');
+              //  gPlusBtn = document.querySelector('.connectMore.gPlus');
 
             connectHeader.classList.add('gpNone');
             connectHeader.classList.add('gmailNone');
             connectStatus.google = false;
-            gPlusBtn = gmailBtn.onclick = function () {
+            gmailBtn.onclick = function () {
                 //cd.pubsub.publish('gRegister');
                 cd.google.register(false);
             };
@@ -181,7 +181,7 @@
 
         cd.pubsub.subscribe('fbStatus', function (status) {
 
-            fbBtn = document.querySelector('.connectMore.fb');
+          var  fbBtn = document.querySelector('.connectMore.fb');
 
             if (status !== 'connected') {
                 connectHeader.classList.add('fbNone');
@@ -399,7 +399,7 @@
 
             };
 
-            document.querySelector('.invForm .inputText.emailUser').onclick = function (e) {
+            document.querySelector('.invForm .inputText.emailUser').onclick = function () {
                 inviteInput.focus();
             };
             inviteInput.onkeydown = function (e) {
@@ -439,7 +439,7 @@
 
                 var responseObj = {
                     data: { Recepients: emailsSelecetd, boxuid: boxid },
-                    success: function (itemData) {
+                    success: function () {
                         form[0].reset();
                         emailsSelecetd = [];
                         aside.classList.add('invSuccess');
@@ -448,7 +448,7 @@
                             aside.classList.remove('invSuccess');
                         }, 2000);
                     },
-                    error: function (data) {
+                    error: function () {
                         cd.notification('Error, please try again later');
                     },
                     always: function () {
@@ -466,11 +466,11 @@
                 e.preventDefault();
             };
 
-            searchByName.onkeyup = function (e) {
+            searchByName.onkeyup = function () {
                 searchContacts();
                 analytics.trackEvent('Invite', 'Search', 'User is searching');
             };
-            eById('inviteConnectAccount').onclick = function (e) {
+            eById('inviteConnectAccount').onclick = function () {
                 if (currentTabName === 'fb') {
                     cd.facebook.login();
                     //FB.login(function (response) {
@@ -516,7 +516,7 @@
             var id = elm.getAttribute('data-id');
             var obj = {
                 data: { Recepients: id },
-                success: function (response) {
+                success: function () {
                     inviteAnimation(elm);
                 },
                 error: function () {
@@ -540,11 +540,12 @@
 
             var fbObj = {
                 data: { Id: friend.id, Username: friend.username || friend.id, FirstName: friend.firstname, MiddleName:friend.middlename, LastName: friend.lastname, Sex: friend.gender},
-                success: function (response) {
+                success: function () {
                     inviteAnimation(elm);
 
                 },
-                error: function () {
+                error: function (msg) {
+                    console.log(msg);
                     cd.notification('Error, sending invite to user');
                 }
             };
@@ -646,7 +647,7 @@
 
         //#region send by email
         function addEmail(item, valid) {
-            var id, display, lastElement;
+            var lastElement;
 
             if (emailsSelecetd.indexOf(item.id) > -1) {//email  already exist
                 inviteInput.value = inviteInput.value.slice(0, -1);
@@ -679,7 +680,7 @@
         }
 
         function removeEmail(emailElement) {
-            var email = emailElement.getAttribute('data-id');
+            var email = emailElement.getAttribute('data-id'),
             index = emailsSelecetd.indexOf(email);
 
             calculateInputWidth();
@@ -749,10 +750,10 @@
         //#endregion
 
         //#region pubsubs
-        cd.pubsub.subscribe('fbInit', function (d) {
+        cd.pubsub.subscribe('fbInit', function () {
             checkAccountStatus();
         });
-        cd.pubsub.subscribe('inviteclear', function (d) {
+        cd.pubsub.subscribe('inviteclear', function () {
             searchByName.value = '';
         });
         cd.pubsub.subscribe('invite', function (d) {
