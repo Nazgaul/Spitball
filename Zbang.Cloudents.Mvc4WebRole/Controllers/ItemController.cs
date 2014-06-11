@@ -114,6 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 item.BoxUrl = urlBuilder.BuildBoxUrl(boxUid, item.BoxName, uniName);
                 var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(item);
+                
                 return PartialView();
             }
             catch (BoxAccessDeniedException)
@@ -167,7 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (!string.IsNullOrEmpty(item.Description))
                 {
-                    var metaDescription = item.Description.Substring(0, 197);
+                    var metaDescription = item.Description.RemoveEndOfString(197);
                     ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
                 }
                 item.BoxUrl = urlBuilder.BuildBoxUrl(boxId, item.BoxName, universityName);
@@ -175,11 +176,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(item);
                 //ViewBag.title = item.Name;
+                ViewBag.Description = item.Description;
                 if (Request.IsAjaxRequest())
                 {
-                    return PartialView(item);
+                    return PartialView();
                 }
-                return View(item);
+                return View();
             }
             catch (BoxAccessDeniedException)
             {

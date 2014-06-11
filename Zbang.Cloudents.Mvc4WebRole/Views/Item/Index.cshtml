@@ -1,8 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@model Zbang.Zbox.ViewModel.DTOs.ItemDtos.ItemWithDetailDto
+
+@{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
 <div id="item" class="page itemPage" data-data="@ViewBag.data">
-    <h1>@Model.Description</h1>
+    <h1>@ViewBag.Description</h1>
     <div class="leftPanel lFloat">
         <div class="itemTop">
             <div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>
