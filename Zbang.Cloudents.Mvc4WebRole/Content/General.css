@@ -2153,6 +2153,13 @@ select.inputText {
   .printDD.printDD .printTxt2 {
     padding: 0;
   }
+  .listViewBtn.listViewBtn,
+  .thumbViewBtn.thumbViewBtn {
+    width: 32px;
+  }
+  .listItem.listItem .boxName {
+    max-width: 140px;
+  }
   .modal2.modal2 {
     position: absolute;
   }
