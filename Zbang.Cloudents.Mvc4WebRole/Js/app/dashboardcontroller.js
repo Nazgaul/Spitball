@@ -115,14 +115,14 @@ dashboard.controller('DashboardController', ['$scope', 'Dashboard', 'Box','User'
         }
 
         if (box.userType === 'owner') {
-            return JsResources.SureYouWant + ' ' + JsResources.ToDeleteBox;
+            return JsResources.SureYouWantTo + ' ' + JsResources.ToDeleteBox;
         }
 
         if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
             return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
         }
 
-        return JsResources.SureYouWant + ' ' + JsResources.ToLeaveGroup;
+        return JsResources.SureYouWantTo + ' ' + JsResources.ToLeaveGroup;
     };
 
     $scope.getTitle = function (box) {           
