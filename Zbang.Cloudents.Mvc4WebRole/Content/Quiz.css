@@ -35,7 +35,8 @@
   right: 0;
   /*rtl*/
   width: 386px;
-  height: 100%;
+  height: -webkit-calc(100% - 50px);
+  height: calc(100% - 50px);
   background: #e4e4e4;
   z-index: 4;
   -webkit-box-sizing: border-box;
@@ -144,7 +145,7 @@
   line-height: 19px;
 }
 .quizSideBar section {
-  height: 100%;
+  min-height: 100%;
 }
 .quizSideBar .questionHolder .error {
   display: none;
@@ -184,8 +185,6 @@
 }
 .quizWpr {
   overflow: hidden;
-  height: -webkit-calc(100% - 130px);
-  height: calc(100% - 130px);
   width: 370px !important;
 }
 .quizWpr textarea {

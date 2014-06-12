@@ -907,6 +907,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 296px)/ 1 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 296px)/ 1 - 1px + 296px);
     /*rtl*/
   }
@@ -936,6 +938,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 444px)/ 2 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 444px)/ 2 - 1px + 296px);
     /*rtl*/
   }
@@ -965,6 +969,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 592px)/ 3 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 592px)/ 3 - 1px + 296px);
     /*rtl*/
   }
@@ -994,6 +1000,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 740px)/ 4 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 740px)/ 4 - 1px + 296px);
     /*rtl*/
   }
@@ -1023,6 +1031,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 888px)/ 5 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 888px)/ 5 - 1px + 296px);
     /*rtl*/
   }
@@ -1052,6 +1062,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 1036px)/ 6 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 1036px)/ 6 - 1px + 296px);
     /*rtl*/
   }
@@ -1081,6 +1093,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 1184px)/ 7 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 1184px)/ 7 - 1px + 296px);
     /*rtl*/
   }
@@ -1110,6 +1124,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 1332px)/ 8 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 1332px)/ 8 - 1px + 296px);
     /*rtl*/
   }
@@ -1139,6 +1155,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 1480px)/ 9 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 1480px)/ 9 - 1px + 296px);
     /*rtl*/
   }
@@ -1168,6 +1186,8 @@
    
 .boxItemList.sponsored  
 .boxItem:first-child {
+    width: -webkit-calc((100% - 1628px)/ 10 - 1px + 296px);
+    /*rtl*/
     width: calc((100% - 1628px)/ 10 - 1px + 296px);
     /*rtl*/
   }

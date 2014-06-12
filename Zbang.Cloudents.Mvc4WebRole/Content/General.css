@@ -2018,70 +2018,70 @@ select.inputText {
 /*#endregion */
 /*#region media queries */
 @media (max-width: 1024px) {
-  .siteHeader.siteHeader,
-  .boxPage .leftPanel.leftPanel,
-  .QA.QA,
-  .boxFriendsList.boxFriendsList,
-  .boxPage .boxActions.boxActions,
-  .asideLib.asideLib,
-  .asideDash.asideDash,
-  .settingsMenu.settingsMenu,
-  .quizPage.quizPage .leftPanel,
-  .quizPage.quizPage .topBar,
-  .joinGrpBtn.joinGrpBtn {
+  .mno-touch .siteHeader,
+  .mno-touch .boxPage .leftPanel,
+  .mno-touch .QA,
+  .mno-touch .boxFriendsList,
+  .mno-touch .boxPage .boxActions,
+  .mno-touch .asideLib,
+  .mno-touch .asideDash,
+  .mno-touch .settingsMenu,
+  .mno-touch .quizPage .leftPanel,
+  .mno-touch .quizPage .topBar,
+  .mno-touch .joinGrpBtn {
     position: absolute;
   }
-  .boxPage .leftPanel.leftPanel {
+  .mno-touch .boxPage .leftPanel {
     height: auto;
   }
-  .quizTitle.quizTitle,
-  .quizPrevWpr.quizPrevWpr {
+  .mno-touch .quizTitle,
+  .mno-touch .quizPrevWpr {
     margin-left: 20px;
     /*rtl*/
   }
-  .contentWpr.contentWpr {
+  .mno-touch .contentWpr {
     background: url(/Images/gray_jean80.png) repeat #ffffff;
   }
-  .contentWpr.contentWpr.featured .unionFeatured {
+  .mno-touch .contentWpr.featured .unionFeatured {
     height: -webkit-calc(100% - 25px);
     height: calc(100% - 25px);
     top: 25px;
   }
-  .libraryContent.libraryContent .contentWpr {
+  .mno-touch .libraryContent .contentWpr {
     padding-top: 25px;
   }
-  .boxPage .boxActions.boxActions,
-  .boxesHeader.boxesHeader.topBar {
+  .mno-touch .boxPage .boxActions,
+  .mno-touch .boxesHeader.topBar {
     z-index: 1;
     position: relative;
     top: 0;
     width: 100%;
   }
-  .boxFriendsList.boxFriendsList {
+  .mno-touch .boxFriendsList {
     top: 12px;
   }
-  .QA.QA {
+  .mno-touch .QA {
     margin-top: -139px;
     height: 100vh;
   }
-  .box-content.box-content {
+  .mno-touch .box-content {
     padding: 0;
   }
-  .joinGrpWpr.joinGrpWpr .joinGrpBtn {
+  .mno-touch .joinGrpWpr .joinGrpBtn {
     padding: 0;
     margin: 0;
     top: -51px;
   }
-  .joinGrpWpr.joinGrpWpr:after {
+  .mno-touch .joinGrpWpr:after {
     height: 0;
   }
-  .joinGrpWpr.joinGrpWpr.show {
+  .mno-touch .joinGrpWpr.show {
     z-index: 0;
   }
-  .joinGrpWpr.joinGrpWpr.show:after {
+  .mno-touch .joinGrpWpr.show:after {
     height: 51px;
   }
-  .joinGrpWpr.joinGrpWpr.show .joinGrpBtn {
+  .mno-touch .joinGrpWpr.show .joinGrpBtn {
     margin: 0;
     -moz-animation: joinWprNarrowSlide 1s ease-in;
     -o-animation: joinWprNarrowSlide 1s ease-in;
@@ -2089,32 +2089,32 @@ select.inputText {
     animation: joinWprNarrowSlide 1s ease-in;
     top: 0;
   }
-  .joinGrpWpr.joinGrpWpr.show ~ .box-content .QA {
+  .mno-touch .joinGrpWpr.show ~ .box-content .QA {
     top: 223px;
   }
-  .joinGrpWpr.joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
+  .mno-touch .joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
     top: 20px;
   }
-  .joinGrpWpr.joinGrpWpr.followed {
+  .mno-touch .joinGrpWpr.followed {
     padding: 0;
   }
-  .joinGrpWpr.joinGrpWpr.followed:after {
+  .mno-touch .joinGrpWpr.followed:after {
     height: 0;
   }
-  .joinGrpWpr.joinGrpWpr.followed .joinGrpBtn {
+  .mno-touch .joinGrpWpr.followed .joinGrpBtn {
     top: -51px;
   }
-  .joinGrpWpr.joinGrpWpr.followed .joinGrp {
+  .mno-touch .joinGrpWpr.followed .joinGrp {
     top: -20px;
     opacity: 0;
   }
-  .joinGrpWpr.joinGrpWpr.followed ~ .box-content .QA {
+  .mno-touch .joinGrpWpr.followed ~ .box-content .QA {
     top: 204px;
   }
-  .joinGrpWpr.joinGrpWpr.followed ~ .box-content .boxFriendsList {
+  .mno-touch .joinGrpWpr.followed ~ .box-content .boxFriendsList {
     top: 12px;
   }
-  .scrolling #dash_right:before {
+  .mno-touch .scrolling #dash_right:before {
     display: none;
   }
 }

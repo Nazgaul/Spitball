@@ -2154,6 +2154,7 @@ select.inputText {
 /*#endregion */ 
 
 /*#region media queries */
+////Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
 
 //When viewport width becomes < 1024px we convert all of the fixed elments to absolute.
 //This is in order to maintain the ability to scroll horizontally to the RHS of the top bar.
@@ -2161,133 +2162,136 @@ select.inputText {
 
 @media (max-width: 1024px) {
 
+    .mno-touch {
+        
+        .siteHeader,
+        .boxPage .leftPanel,
+        .QA,
+        .boxFriendsList,
+        .boxPage .boxActions,
+        .asideLib,
+        .asideDash,
+        .settingsMenu,
+        .quizPage .leftPanel,
+        .quizPage .topBar,
+        .joinGrpBtn { 
+            position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
+        }
 
-    //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
-    .siteHeader.siteHeader,
-    .boxPage .leftPanel.leftPanel,
-    .QA.QA,
-    .boxFriendsList.boxFriendsList,
-    .boxPage .boxActions.boxActions,
-    .asideLib.asideLib,
-    .asideDash.asideDash,
-    .settingsMenu.settingsMenu,
-    .quizPage.quizPage .leftPanel,
-    .quizPage.quizPage .topBar,
-    .joinGrpBtn.joinGrpBtn { //repeated classname for extra specificity (this is legal and in spec)
-        position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
-    }
+        .boxPage .leftPanel {
+            height: auto;
+        }
 
-    .boxPage .leftPanel.leftPanel {
-        height: auto;
-    }
-    .quizTitle.quizTitle, .quizPrevWpr.quizPrevWpr {
-        margin-left: 20px; /*rtl*/
-    }
-    .contentWpr.contentWpr {
-        background: url(/Images/gray_jean80.png) repeat #fff;
+        .quizTitle, .quizPrevWpr {
+            margin-left: 20px; /*rtl*/
+        }
 
-        &.featured {
-            .unionFeatured {
-                height: ~"-webkit-calc(100% - 25px)";
-                height: ~"calc(100% - 25px)";
-                top: 25px;
+        .contentWpr {
+            background: url(/Images/gray_jean80.png) repeat #fff;
+
+            &.featured {
+                .unionFeatured {
+                    height: ~"-webkit-calc(100% - 25px)";
+                    height: ~"calc(100% - 25px)";
+                    top: 25px;
+                }
             }
         }
-    }
 
-    .libraryContent.libraryContent .contentWpr {
-        padding-top: 25px;
-    }
+        .libraryContent .contentWpr {
+            padding-top: 25px;
+        }
 
-    .boxPage .boxActions.boxActions, .boxesHeader.boxesHeader.topBar {
-        //position: static;
-        z-index: 1;
-        position: relative; // in order to enable z-index - to appear over the join btn
-        top: 0;
-        width: 100%;
-    }
-    .boxFriendsList.boxFriendsList {
-        top: 12px;
-    }
-    .QA.QA {
-        margin-top: -139px;
-        height: 100vh;
-    }
+        .boxPage .boxActions, .boxesHeader.topBar {
+            //position: static;
+            z-index: 1;
+            position: relative; // in order to enable z-index - to appear over the join btn
+            top: 0;
+            width: 100%;
+        }
 
-    .backWpr.backWpr {
-        //padding-top: 10px;
-        //margin: 0;
-    }
+        .boxFriendsList {
+            top: 12px;
+        }
 
-    .box-content.box-content {
-        padding: 0;
-    }
+        .QA {
+            margin-top: -139px;
+            height: 100vh;
+        }
 
-    .joinGrpWpr.joinGrpWpr {
-        .joinGrpBtn {
+        .box-content {
             padding: 0;
-            margin: 0;
-            top: -51px;
         }
 
-        &:after {
-            height: 0;
-        }
-
-        &.show {
-            z-index: 0; //override
-            &:after {
-                height: 51px;
-            }
-
+        .joinGrpWpr {
             .joinGrpBtn {
+                padding: 0;
                 margin: 0;
-                -moz-animation: joinWprNarrowSlide 1s ease-in;
-                -o-animation: joinWprNarrowSlide 1s ease-in;
-                -webkit-animation: joinWprNarrowSlide 1s ease-in;
-                animation: joinWprNarrowSlide 1s ease-in;
-                top: 0;
+                top: -51px;
             }
-
-            ~ .box-content {
-                .QA {
-                    top: 223px;
-                }
-                .boxFriendsList.boxFriendsList {
-                    top: 20px;
-                }
-            }
-        }
-
-        &.followed {
-            padding: 0;
 
             &:after {
                 height: 0;
             }
 
-            .joinGrpBtn {
-                top: -51px;
+            &.show {
+                z-index: 0; //override
+                &:after {
+                    height: 51px;
+                }
+
+                .joinGrpBtn {
+                    margin: 0;
+                    -moz-animation: joinWprNarrowSlide 1s ease-in;
+                    -o-animation: joinWprNarrowSlide 1s ease-in;
+                    -webkit-animation: joinWprNarrowSlide 1s ease-in;
+                    animation: joinWprNarrowSlide 1s ease-in;
+                    top: 0;
+                }
+
+                ~ .box-content {
+                    .QA {
+                        top: 223px;
+                    }
+
+                    .boxFriendsList.boxFriendsList {
+                        top: 20px;
+                    }
+                }
             }
 
-            .joinGrp {
-                top: -20px;
-                opacity: 0;
-            }
-            ~ .box-content {
-                .QA {
-                    top: 204px;
+            &.followed {
+                padding: 0;
+
+                &:after {
+                    height: 0;
                 }
-                .boxFriendsList {
-                    top: 12px;
+
+                .joinGrpBtn {
+                    top: -51px;
+                }
+
+                .joinGrp {
+                    top: -20px;
+                    opacity: 0;
+                }
+
+                ~ .box-content {
+                    .QA {
+                        top: 204px;
+                    }
+
+                    .boxFriendsList {
+                        top: 12px;
+                    }
                 }
             }
         }
-    }
 
-    .scrolling {
-        #dash_right:before {
-            display: none;
+        .scrolling {
+            #dash_right:before {
+                display: none;
+            }
         }
     }
 }

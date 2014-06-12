@@ -44,7 +44,8 @@
     top: 50px;
     right: 0; /*rtl*/
     width: 386px;
-    height: 100%;
+    height: ~'-webkit-calc(100% - @{header-height})';
+    height: ~'calc(100% - @{header-height})';
     background: #e4e4e4;
     //z-index: 5;
      z-index: 4; //changed to 4 beasu changed z-index of header to 5 (without this quiz blocks settings drop down)
@@ -166,7 +167,9 @@
     }
 
     section {
-        height: 100%;
+        min-height: 100%;
+        //height: ~'calc(100% - 150px)';
+        //height: 300px;
     }
 
     //issue with css priority
@@ -210,8 +213,8 @@
 .quizWpr
 {
     overflow:hidden;
-    height: ~'-webkit-calc(100% - 130px)';
-    height: ~'calc(100% - 130px)';
+    //height: ~'-webkit-calc(100vh - 173px)' !important;
+    //height: ~'calc(100vh - 173px)' !important;
     //padding-right: 4px; /*rtl*/
     //margin-right: 10px; /*rtl*/
     //width: 354px !important; //override slimscroll
@@ -329,6 +332,7 @@
     height: 42px;
     margin: 0 -14px;
     padding: 0 14px;
+    //margin-top: -32px;
     .error{
         margin: 10px;
     }
