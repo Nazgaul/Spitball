@@ -29,20 +29,24 @@
 
 <div ng-show="quiz.showPreview">
     <div class="quizPreview" quiz-preview show="quiz.showPreview">
-        <h2 class="elps">{{quiz.name}}</h2>
-        <button type="button" class="closePreview" ng-click="previewQuiz()">@SharedResources.Back</button>
-        <div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>
-        <div class="quizPrevWpr">
-            <ul class="quizQList">
-                <li ng-repeat="question in quiz.questions">
-                    <div class="qPreview">{{question.text}}</div>
-                    <ul class="quizAList">
-                        <li ng-repeat="answer in question.answers">
-                            <span ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="quizPreviewTop">
+            <button type="button" class="closePreview rFloat" ng-click="previewQuiz()">@SharedResources.Back</button>
+            <h2 class="elps">{{quiz.name}}</h2>
+        </div>
+        <div class="quizPreviewScroll">
+            <div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>
+            <div class="quizPrevWpr">
+                <ul class="quizQList">
+                    <li ng-repeat="question in quiz.questions">
+                        <div class="qPreview">{{question.text}}</div>
+                        <ul class="quizAList">
+                            <li ng-repeat="answer in question.answers">
+                                <span ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
