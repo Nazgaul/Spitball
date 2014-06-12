@@ -226,16 +226,16 @@ body {
   left: auto;
 }
 /*#region tooltip */
-.quizGuideTemplate .tooltip {
-  right: 566px;
-  /*diff rtl*/
-  left: auto;
-}
-.quizGuideTemplate .tooltip + .tooltip {
-  right: 263px;
-  /*rtl*/
-  left: auto;
-}
+/*.quizGuideTemplate {
+    .tooltip {
+        right: 566px; 
+        left: auto;
+        + .tooltip {
+            right: 263px; 
+            left: auto;
+        }
+    }
+}*/
 .tooltip li {
   margin: 0 15px 0 0;
   /*rtl*/

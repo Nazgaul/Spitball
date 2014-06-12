@@ -1609,16 +1609,16 @@ select.inputText {
   background: url(/Images/common17-sprite.png?v=3) -98px -49px no-repeat;
 }
 /*#region tooltip */
-.quizGuideTemplate .tooltip {
-  top: 119px;
-  left: 622px;
-  /*rtl*/
-}
-.quizGuideTemplate .tooltip + .tooltip {
-  top: 460px;
-  left: 263px;
-  /*rtl*/
-}
+/*.quizGuideTemplate {
+    .tooltip {
+        top: 119px;
+        left: 622px; 
+        + .tooltip {
+            top: 460px;
+            left: 263px;
+        }
+    }
+}*/
 .tooltip {
   display: none;
   z-index: 2;
