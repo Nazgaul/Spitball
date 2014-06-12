@@ -96,8 +96,6 @@
                 top = cd.getElementPosition($relativeElement[0]).top;
             if (top > $window.height()) {
                 $window.scrollTop(top - $relativeElement.outerHeight(true));
-            } else {
-                $window.scrollTop(top);
             }
             
 
