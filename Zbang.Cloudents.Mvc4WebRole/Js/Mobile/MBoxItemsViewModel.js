@@ -70,7 +70,12 @@
             });
         }
         function generateModel(data) {
-            var mapped = $.map(data, function (d) { return new Item(d); });
+            var mapped = $.map(data, function (d) {
+                if (d.type.toLowerCase() !== 'quiz') {
+                    return new Item(d);
+                }
+                
+            });
             self.items(mapped);
         }
         cd.pubsub.subscribe('addItem', function (d) {

@@ -11,6 +11,7 @@
     //#region dropdowns
     $window.unload(function () {  //firefoxfix
         $('[data-ddcbox]').prop('checked', false);
+        $window.scrollTop(0);        
     });
     $body.on('click', function (e) {
         var $target = $(e.target);
