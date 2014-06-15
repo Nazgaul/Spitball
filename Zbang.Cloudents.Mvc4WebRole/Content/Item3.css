@@ -1154,8 +1154,8 @@
   top: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  min-height: -webkit-calc(100vh - 150px);
-  min-height: calc(100vh - 150px);
+  min-height: -webkit-calc(100vh - 155px);
+  min-height: calc(100vh - 155px);
   font-size: 13px;
   font-weight: normal;
 }
