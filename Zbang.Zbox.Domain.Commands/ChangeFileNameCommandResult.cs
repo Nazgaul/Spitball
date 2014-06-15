@@ -1,5 +1,4 @@
-﻿using Zbang.Zbox.Infrastructure.Cache;
-using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
