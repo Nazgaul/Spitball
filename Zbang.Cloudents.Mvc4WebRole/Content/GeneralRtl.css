@@ -390,6 +390,10 @@ ul.ui-autocomplete {
     margin-top: 209px;
     /*diff rtl*/
   }
+  .middleActions.middleActions {
+    margin: 0 50px 0 0;
+    /*rtl*/
+  }
 }
 
 .userTooltip {

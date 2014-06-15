@@ -450,7 +450,7 @@
     .splitHR {
         
         text-align: left; /*rtl*/
-        padding: 15px 0 0 14px; /*rtl*/
+        padding: 10px 0 0 14px; /*rtl*/
         font-size: 13px;
         margin: 0 20px -4px 0; /*rtl*/
     }
@@ -470,9 +470,11 @@
     padding-right: 80px;
 }*/
 .commentWpr {
-    margin: 0 -45px 0 -25px;
+    margin: 10px 40px 0 34px; /*rtl*/
     position: relative;
     display: none;
+    background: #f6f7f9;
+    padding-left: 10px; /*rtl*/
     .closeDialog {
         background-position: -68px -26px;
         right: 20px; /*rtl*/
@@ -487,7 +489,7 @@
     .askBtn {
         padding: 4px 15px;
         height: auto;
-        margin: 2px 14px 0 0; /*rtl*/ 
+        margin: 2px 25px 10px 0; /*rtl*/ 
         display: block;
     }
     li:hover .closeDialog {
@@ -521,13 +523,18 @@
 .commentTxt {
     font-size: 15px;
     margin: 10px 0;
+    padding-right: 22px; /*rtl*/
 }
 .cTextAreaWpr {
     //display: none;
     margin-top: 20px;
+    overflow: hidden; //for comment button to take up space
+    .imgBorder {
+        left: 10px; /*rtl*/
+    }
 }
 .cTextArea {
-    width: 600px;
+    width: 430px;
     margin-left: 42px; /*rtl*/
     border-radius: 3px;
     font-size: 15px;

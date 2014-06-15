@@ -811,7 +811,7 @@
                                     location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
 
                                 self.itemName(data.name);
-                                listItem.name(data.name);
+                                listItem.name(data.name + '.' + self.extension());
 
                                 self.copyLink(location);
                                 fixHistory(location);

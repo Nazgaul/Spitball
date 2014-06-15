@@ -1,23 +1,23 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
+﻿
+
+
+
 .msg:before {
   margin: 0 0 0 3px;
   /*rtl*/
 }
-/*#region drag-drop*/
+
 .drop {
   left: 8px;
   /*rtl */
   right: auto;
 }
-/*#endregion*/
+
 .inputText {
   padding: 0 8px 0 4px;
   /*rtl*/
 }
-/*#region Modal.css */
+
 .ng-modal,
 .ng-modal-overlay {
   right: 0;
@@ -82,7 +82,7 @@
   padding: 0 8px 0 4px;
   /*rtl*/
 }
-/*#region box settings and members */
+
 .boxSettings .inviteBtn:before {
   margin: 0 0 0 5px;
   /*rtl*/
@@ -160,9 +160,9 @@
   margin: 0 10px 0 0;
   /*rtl*/
 }
-/*#endregion */
-/*#endregion */
-/*#region DashLib.css */
+
+
+
 .hebFlip {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -184,7 +184,7 @@
   /*rtl*/
   left: auto;
 }
-/*#region new department look */
+
 .deptLink {
   margin: 0 0 35px 14px;
   /*rtl*/
@@ -206,7 +206,7 @@
   /*rtl*/
   left: auto;
 }
-/*#endregion */
+
 .contentWpr {
   margin: 0 290px 0 0;
   /*rtl*/
@@ -296,7 +296,7 @@
   /*rtl*/
   left: auto;
 }
-/*#region boxesHeader */
+
 .boxesHeader.topBar {
   right: 0;
   left: auto;
@@ -325,15 +325,15 @@
   padding: 40px 236px 0 0;
   /*rtl*/
 }
-/*#endregion */
-/*#region library empty state */
+
+
 .searchEmpty {
   padding: 90px 290px 0 0;
 }
-/*#endregion */
-/*#endregion */
-/*#region Sidebar.css */
-/*#region library sidebar */
+
+
+
+
 .asideLibDiv:before {
   margin: 0 0 0 10px;
   /*rtl*/
@@ -390,7 +390,7 @@
   margin: -1px 4px 0 0;
   /*rtl*/
 }
-/*#endregion */
+
 .asideDash {
   border-left: 1px solid #c2c2c2;
   /*rtl*/
@@ -442,8 +442,8 @@
   margin: 0 3px 0 0;
   /*rtl*/
 }
-/*#endregion */
-/*#region AccountInfo.css */
+
+
 .headerRightWpr {
   padding: 0 241px 0 0;
   /*rtl*/
@@ -496,8 +496,8 @@
   /* rtl*/
   left: auto;
 }
-/*#endregion */
-/*#region box3.css */
+
+
 .shareBtn .shareItem {
   padding: 0 6px 0 0;
   /*rtl*/
@@ -596,7 +596,7 @@
   /*rtl*/
   left: auto;
 }
-/*#region box friends */
+
 .boxFriendsList {
   left: 15px;
   /*rtl*/
@@ -610,8 +610,8 @@
   float: left;
   /*rtl*/
 }
-/*#endregion */
-/*#region box folders */
+
+
 .boxMembers .sectionHeader,
 .boxFolders .sectionHeader {
   border-right: none;
@@ -652,14 +652,14 @@
   /*rtl*/
   left: auto;
 }
-/*#region editFolderMenu */
+
 .editFolderMenu button {
   text-align: right;
   /*rtl*/
 }
-/*#endregion */
-/*#endregion */
-/*#region boxItems */
+
+
+
 .boxEmpty > h2 {
   font-weight: normal;
   /*rtl*/
@@ -804,7 +804,7 @@
   margin: 0 15px 0 0;
   /*rtl*/
 }
-/*#region box item tool tips */
+
 .boxItemTt {
   right: -66px;
   /*rtl*/
@@ -846,7 +846,7 @@
   max-height: 55px;
   /* diff rtl - heb has 4 lines*/
 }
-/*#endregion */
+
  
 .boxItemList {
   display: block;
@@ -1228,8 +1228,8 @@
   /*rtl*/
   right: auto;
 }
-/*#region box media queries */
-/*#endregion */
+
+
 .actionBtns {
   left: 8px;
   /*rtl*/
@@ -1240,8 +1240,8 @@
   /*rtl*/
   border-left: none;
 }
-/*#endregion */
-/*#region manage */
+
+
 .cbLabel {
   right: 6px;
   /*rtl*/
@@ -1261,8 +1261,8 @@
   margin: 0 10px 0 5px;
   /*rtl*/
 }
-/*#endregion */
-/*#region friend callout */
+
+
 .callout {
   box-shadow: -3px 3px 3px rgba(70, 70, 70, 0.5);
   /*rtl*/
@@ -1291,9 +1291,9 @@
   margin: 0 0 0 4px;
   /*rtl*/
 }
-/*#endregion */
-/*#endregion */
-/*#region Q&A.css */
+
+
+
 .QA {
   text-align: right;
   /*rtl*/
@@ -1458,8 +1458,8 @@
   margin: 0 5px 0 0;
   /*rtl*/
 }
-/*#endregion */
-/*#region newUpload */
+
+
 .source .btn {
   float: right;
   /*rtl*/
@@ -1493,8 +1493,8 @@
 .dragDropTxtE {
   font-weight: normal;
 }
-/*#endregion */
-/*#region invite */
+
+
 .emailUser.emailUser {
   padding: 4px 9px 6px 2px;
   /*rtl*/
@@ -1525,8 +1525,8 @@
   margin: 5px 0 0 6px;
   /*rtl*/
 }
-/*#endregion */
-/*#region Item3.css */
+
+
 .ratePopup {
   right: 50%;
   /*rtl*/
@@ -1545,7 +1545,7 @@
   /*rtl*/
   right: auto;
 }
-/*#region layout */
+
 .itemRight,
 .boxRight {
   padding: 0 290px 0 0;
@@ -1556,8 +1556,8 @@
   /*rtl*/
   right: auto;
 }
-/*#endregion */
-/*#region left panel */
+
+
 .leftPanel {
   border-left: 1px solid #c2c2c2;
   /*rtl*/
@@ -1621,8 +1621,8 @@
   padding: 0 5px 0 0;
   /*rtl*/
 }
-/*#endregion */
-/*#region top action buttons */
+
+
 .itemBack,
 .boxBack {
   padding: 0 15px 0 0;
@@ -1653,8 +1653,8 @@
   left: 20px;
   /*rtl*/
 }
-/*#endregion */
-/*#region item content */
+
+
 .itemDisplay {
   box-shadow: -5px 5px 5px rgba(116, 100, 110, 0.3);
   /*rtl*/
@@ -1670,8 +1670,8 @@
   /*rtl*/
   left: auto;
 }
-/*#endregion */
-/*#region annotation */
+
+
 .addAnotation {
   right: 806px;
   /*rtl*/
@@ -1719,8 +1719,8 @@
   /*rtl*/
   right: auto;
 }
-/*#endregion */
-/*#region fullscreen */
+
+
 .exitFulscrn {
   left: 20px;
   /*rtl*/
@@ -1747,12 +1747,12 @@
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
-/*#endregion */
-/*#endregion */
+
+
 .plupload {
   direction: ltr;
 }
-/*#region Settings page */
+
 .settingsMenu {
   right: 0;
   /*rtl*/
@@ -1768,7 +1768,7 @@
   margin: 30px 288px 0 20px;
   /*rtl*/
 }
-/*#region profile info */
+
 .profileInfo .btn1 {
   margin: 0 0 0 8px;
   /*take into account +4px because of inline block: 8+4=12*/
@@ -1808,8 +1808,8 @@
   /*rtl*/
   left: auto;
 }
-/*#endregion */
-/*#region account settings */
+
+
 .changePwd.show ~ .btnTxt {
   margin: 0 143px 0 0;
   /*rtl*/
@@ -1818,8 +1818,8 @@
   margin: 0 0 5px 5px;
   /*rtl*/
 }
-/*#endregion */
-/*#region storage */
+
+
 .storage .header {
   margin: 2px -1px 11px 0;
   /*rtl*/
@@ -1832,8 +1832,8 @@
   margin: 0 2px 0 27px;
   /*rtl*/
 }
-/*#endregion */
-/*#region notifications */
+
+
 .notifications .settingsBox {
   margin: 3px 5px 0 0;
   /*rtl*/
@@ -1846,10 +1846,10 @@
   margin: 6px 1px 39px 0;
   /*rtl*/
 }
-/*#endregion */
-/*#endregion */
-/*#region Invite page */
-/*#region aside */
+
+
+
+
 .connectMore {
   margin-top: 15px;
   display: none;
@@ -1857,8 +1857,8 @@
   margin: 0 0 0 4px;
   /*rtl*/
 }
-/*#endregion */
-/*#region invite main content */
+
+
 .invMain.invBox .invHeaderText {
   padding: 0 34px 0 0;
   /*rtl*/
@@ -1907,20 +1907,20 @@
   margin: 0 0 0 5px;
   /*rtl*/
 }
-/*#endregion */
-/*#endregion */
-/*#region user page */
+
+
+
 .userPage,
 .searchPage {
   text-align: right;
   /*rtl*/
 }
-/*#region user page aside */
+
 .upSidebar {
   margin: 28px 21px 0 0;
   /*rtl*/
 }
-/*#region points section */
+
 .pointsWpr:before {
   right: 0;
   /*rtl*/
@@ -1930,8 +1930,8 @@
   text-align: right;
   /*rtl*/
 }
-/*#endregion */
-/*#region uploads 'tab' */
+
+
 .uploadsItem {
   padding: 0 64px 0 10px;
   /*rtl*/
@@ -1940,8 +1940,8 @@
   margin: 0 12px 0 0;
   /*rtl*/
 }
-/*#endregion */
-/*#region QnA tabs */
+
+
 .qaBoxname {
   margin: 0 10px 0 0;
   /*rtl*/
@@ -1969,9 +1969,9 @@
   margin: 0 8px 11px 0;
   /*rtl*/
 }
-/*#endregion */
-/*#endregion */
-/*#region userpage content */
+
+
+
 .upTop {
   padding: 0 112px 0 0;
   /*rtl*/
@@ -2044,7 +2044,7 @@
   margin: 0 15px 0 0;
   /*rtl*/
 }
-/*#region union*/
+
 .upMembers .membersContent .emptySearch {
   right: 426px;
   /*rtl*/
@@ -2106,11 +2106,11 @@
   padding: 0 10px 0 0;
   /*rtl*/
 }
-/*#endregion*/
-/*#endregion */
-/*#endregion */
-/*#region Search page and drop down */
-/*#region search drop down */
+
+
+
+
+
 .searchItem > .searchTitle {
   margin: 0 56px 0 0;
   /*rtl*/
@@ -2138,8 +2138,8 @@
   margin: 0 0 0 16px;
   /*rtl*/
 }
-/*#endregion */
-/*#region Search page - 's' prefix stands for 'search' */
+
+
 .searchPage:after {
   right: 0;
   /*rtl*/
@@ -2203,15 +2203,15 @@
   margin: 0 0 0 26px;
   /*rtl*/
 }
-/*#endregion */
-/*#endregion */
-/*#region welcome*/
+
+
+
 .genderLabel:before {
   margin-right: 0;
   margin-left: 4px;
 }
-/*#endregion */
-/*#region Animations.css */
+
+
 @-webkit-keyframes ptsAnim {
   0% {
     opacity: 0;
@@ -2437,9 +2437,9 @@
     transform: scale(0.6);
   }
 }
-/*#endregion */
-/*#region Quiz.css */
-/*#region Create Quiz */
+
+
+
 .bodyContent.noQuiz .quizSideBar {
   left: -390px;
   /*rtl*/
@@ -2555,8 +2555,8 @@
   transition: left 0.4s;
   /*rtl*/
 }
-/*#endregion */
-/*#region Quiz Preview */
+
+
 .quizPreviewTop {
   padding-right: -webkit-calc(50% - 400px);
   /*rtl*/
@@ -2589,13 +2589,15 @@
 .quizQList .splitHR {
   text-align: right;
   /*rtl*/
-  padding: 15px 14px 0 0;
+  padding: 10px 14px 0 0;
   /*rtl*/
   margin: 0 0 -4px 20px;
   /*rtl*/
 }
 .commentWpr {
-  margin: 0 -25px 0 -45px;
+  margin: 10px 34px 0 40px;
+  /*rtl*/
+  padding: 0 10px 0 0;
   /*rtl*/
 }
 .commentWpr .closeDialog {
@@ -2609,12 +2611,21 @@
   left: auto;
 }
 .commentWpr .askBtn {
-  margin: 2px 0 0 14px;
+  margin: 2px 0 10px 25px;
   /*rtl*/
 }
 .quizComments li {
   padding: 0 42px 0 0;
   /*rtl*/
+}
+.commentTxt {
+  padding: 0 0 0 22px;
+  /*rtl*/
+}
+.cTextAreaWpr .imgBorder {
+  right: 10px;
+  /*rtl*/
+  left: auto;
 }
 .cTextArea {
   margin: 0 42px 0 0;
@@ -2640,8 +2651,8 @@
   /*rtl*/
   left: auto;
 }
-/*#endregion */
-/*#region Quiz item page */
+
+
 .quizPage .leftPanel {
   right: 0;
   /*rtl*/
@@ -2681,5 +2692,5 @@
   /*rtl*/
   left: auto;
 }
-/*#endregion */
-/*#endregion */
+
+
