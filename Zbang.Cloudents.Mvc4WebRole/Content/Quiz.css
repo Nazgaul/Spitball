@@ -522,6 +522,8 @@
 .commentTxt {
   font-size: 15px;
   margin: 10px 0;
+  padding-right: 22px;
+  /*rtl*/
 }
 .cTextAreaWpr {
   margin-top: 20px;
