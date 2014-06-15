@@ -2165,7 +2165,7 @@ select.inputText {
   }
   .middleActions.middleActions {
     margin-left: 50px;
-    /*rtl*/
+    /* rtl*/
     max-width: none;
   }
   .middleActionItem.middleActionItem {
