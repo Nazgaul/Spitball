@@ -844,6 +844,7 @@
     <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Content\QnA.less" />
     <Content Include="Content\Search.less" />
+    <Content Include="Js\Web.config" />
     <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

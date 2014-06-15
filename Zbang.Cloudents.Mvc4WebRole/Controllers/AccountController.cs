@@ -12,6 +12,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Profile;
@@ -62,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //donut output cache doesnt support route
         //[OutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
         //    + CustomCacheKeys.Lang + ";"
-        //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour, Location = System.Web.UI.OutputCacheLocation.Server, Order = 2)]
+        //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5, Location = System.Web.UI.OutputCacheLocation.Any, Order = 2)]
         [CompressFilter(Order = 1)]
         [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}")]
         public ActionResult Index(long? universityId, string lang)
@@ -234,7 +235,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult LogOff()
         {
-           
+
             Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             m_FormsAuthenticationService.SignOut();
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
