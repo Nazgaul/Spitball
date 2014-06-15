@@ -512,7 +512,9 @@
                     return;
                 }
                 if (item.type.toLowerCase() === 'file' || item.type.toLowerCase() === 'link') {
-                    html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
+                    var cloned = cd.clone(item);
+                    cloned.name = cloned.name.substring(0,cloned.name.lastIndexOf('.'));
+                    html = cd.attachTemplateToData('boxItemTooltipTemplate', cloned);
                 }
 
                 else if (item.type.toLowerCase() === 'quiz') {
@@ -524,13 +526,19 @@
                 if (!this.querySelector('.boxItemTt')) {
                     this.insertAdjacentHTML('afterbegin', html);
                 }
-                var tooltip = this.querySelector('.boxItemTt');
+                var tooltip = this.querySelector('.boxItemTt'),
+                    $tooltip = $(tooltip);
                 if (item.type.toLowerCase() === 'link') {
-                    $(tooltip).addClass('ttLink').find('.ttDetail').remove();
+                    $tooltip.addClass('ttLink').find('.ttDetail').remove();
                 }
 
+
                 $(tooltip).fadeIn(300);
-                cd.parseTimeString($(tooltip).find('[data-time]'));
+                //if (cd.getElementPosition($tooltip[0]).top - $tooltip.outerWidth(true) < 0) {
+                //    $tooltip.css('top', '50px');
+                //}
+
+                cd.parseTimeString($tooltip.find('[data-time]'));
             },
             out: function () {
                 $('.boxItemTt').remove();
