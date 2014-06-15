@@ -114,7 +114,7 @@
            var request = true, INPUT_TEXT = 'input[type=text]:first';
 
             var term,
-          searchUniversity = cd.debounce(function () {
+                searchUniversity = cd.debounce(function () {
               if (term === uniSelect.value) {
                   return;
               }
