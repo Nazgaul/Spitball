@@ -8,7 +8,7 @@
     cd.loadModel('box', 'BoxContext', registerKoBoxItems);
 
     function registerKoBoxItems() {
-        ko.applyBindings(new BoxItemViewModel(), $('#box_items')[0]);
+        ko.applyBindings(new BoxItemViewModel(), document.getElementById('box_items'));
     }
 
     function BoxItemViewModel() {
@@ -25,7 +25,6 @@
             that.ownerUrl = data.userUrl;
             that.rate = 69 / 5 * data.rate;
 
-            console.log(data.name,data.date);
             that.date = new Date(data.date).getTime();
             that.isNew = ko.observable(data.isNew || false);
             that.tabId = ko.observable(data.tabId);
