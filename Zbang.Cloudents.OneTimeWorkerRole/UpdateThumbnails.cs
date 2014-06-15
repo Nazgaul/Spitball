@@ -44,11 +44,11 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
-                var blobs = new List<string>
-                {
-                     "7b1e269e-247d-4153-81b2-a264c2b24ab4.avi",
-                };
-              //  var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
+                //var blobs = new List<string>
+                //{
+                //     "7b1e269e-247d-4153-81b2-a264c2b24ab4.avi",
+                //};
+                var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
                 foreach (var blobname in blobs)
                 {
 

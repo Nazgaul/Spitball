@@ -804,14 +804,14 @@
                         dataContext.renameItem({
                             data: { newFileName: fileName, ItemId: self.itemid() },
                             success: function (data) {
-                                var extension = data.queryString.slice(data.queryString.lastIndexOf('.'), data.queryString.length),
-                                    listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
+                                //var extension = data.queryString.slice(data.queryString.lastIndexOf('.'), data.queryString.length),
+                                 var listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
                                     listItem = ko.dataFor(listItemElement[0]),
                                     location = self.copyLink().substring(0, self.copyLink().length - 1);
                                     location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
 
                                 self.itemName(data.name);
-                                listItem.name(data.name + extension);
+                                listItem.name(data.name);
 
                                 self.copyLink(location);
                                 fixHistory(location);
