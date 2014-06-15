@@ -1399,12 +1399,16 @@
     }
     &.ttLink
     {
-        height: 81px; /* rtl*/
+        .itemName {
+            display: none;
+        }
         .downArrow {
-            top:59px; /*diff rtl*/
+            bottom: 0;
         }
         .ttTop {
-            padding-bottom: 0;
+            margin: 0 0 -10px 0; //override
+            padding: 18px 20px 0 20px; //override
+            border-radius: 5px;
         }
     }
     .ttTop{

@@ -1,7 +1,7 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
+﻿
+
+
+
 .boxPage .leftPanel {
   border: none;
   height: 100%;
@@ -167,7 +167,7 @@
   bottom: 3px;
   background: #fff;
 }
-/*#region box right header */
+
 .inviteBtn {
   cursor: pointer;
   vertical-align: top;
@@ -346,7 +346,7 @@
   height: 20px;
   background-position: -136px -42px;
 }
-/*#endregion */
+
 .boxTopWpr {
   display: table-row;
 }
@@ -493,7 +493,7 @@
   display: none;
   margin-top: 10px;
 }
-/*#region box friends */
+
 .boxInvite {
   display: block;
   width: 50px;
@@ -595,8 +595,8 @@
 .noFriends button {
   color: #0f9d58;
 }
-/*#endregion */
-/*#region box folders */
+
+
 .boxMembers .sectionHeader,
 .boxFolders .sectionHeader {
   font-size: 13px;
@@ -738,7 +738,7 @@
   /*rtl*/
   top: 28px;
 }
-/*#region editFolderMenu */
+
 .editFolderMenu {
   display: none;
   position: absolute;
@@ -763,15 +763,15 @@
   background: #176cb2;
   color: #fff;
 }
-/*#endregion */
-/*#endregion */
+
+
 .box-content {
   display: table;
   width: 100%;
   padding-top: 88px;
   position: relative;
 }
-/*#region boxItems */
+
 .thumbContent {
   position: absolute;
   top: 50px;
@@ -1300,7 +1300,7 @@
   content: attr(data-quiz-owner) '\00a0';
   display: inline-block;
 }
-/*#region box item tool tips */
+
 .boxItemTt {
   position: absolute;
   left: -66px;
@@ -1341,16 +1341,16 @@
 .boxItemTt.noPreview .ttPreview {
   display: none;
 }
-.boxItemTt.ttLink {
-  height: 81px;
-  /* rtl*/
+.boxItemTt.ttLink .itemName {
+  display: none;
 }
 .boxItemTt.ttLink .downArrow {
-  top: 59px;
-  /*diff rtl*/
+  bottom: 0;
 }
 .boxItemTt.ttLink .ttTop {
-  padding-bottom: 0;
+  margin: 0 0 -10px 0;
+  padding: 18px 20px 0 20px;
+  border-radius: 5px;
 }
 .boxItemTt .ttTop {
   padding: 0 20px;
@@ -1423,7 +1423,7 @@
   /* diff rtl*/
   overflow: hidden;
 }
-/*#endregion */
+
  
 .boxItemList {
   display: block;
@@ -1886,8 +1886,8 @@
 .deleteBtn:hover:before {
   background-position: -37px -21px;
 }
-/*#endregion */
-/*#region manage */
+
+
 .cbManage {
   display: none;
 }
@@ -1972,8 +1972,8 @@
   font-size: 13px;
   color: #111;
 }
-/*#endregion */
-/*#region friend callout */
+
+
 .callout {
   visibility: hidden;
   opacity: 0;
@@ -2033,4 +2033,4 @@
   margin-right: 4px;
   /*rtl*/
 }
-/*#endregion */
+
