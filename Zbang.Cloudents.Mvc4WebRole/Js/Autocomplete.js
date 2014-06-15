@@ -1,5 +1,5 @@
 ﻿//Currently used in Share 
-(function (cd) {
+(function (cd, jsResources) {
     "use strict";
 
     if (window.scriptLoaded.isLoaded('ac')) {
@@ -45,7 +45,7 @@
                 cd.appendData(singleEmailUserWpr, 'singleUserEmailTemplate', data, 'afterbegin', true);
                 singleEmailUserWpr.style.display = 'block';
                 emailUserWpr.style.display = 'none';
-                document.querySelector('.invite .popupHeader').textContent = JsResources.SendDirect;                
+                document.querySelector('.invite .popupHeader').textContent = jsResources.SendDirect;                
                 return;
             }
 
@@ -85,7 +85,7 @@
             settings[sOutputElement].style.display = 'none';
             document.getElementsByClassName('emailUserWpr')[0].style.display = 'block';
             document.getElementsByClassName('singleEmailUserWpr')[0].style.display = 'none';
-            document.querySelector('.invite .popupHeader').textContent = JsResources.ShareBy;
+            document.querySelector('.invite .popupHeader').textContent = jsResources.ShareBy;
             cd.removeChildren(settings[sSelectedList]);
             cd.removeChildren(settings[sOutputElement]);
             settings[contactsFound] = [];
@@ -118,7 +118,7 @@
         },
         inputKeyupListener: function (e) {
             var outputElement = settings[sOutputElement], inputElement = settings[sInputElement],
-                selectedList = settings[sSelectedList], inputValue = inputElement.value, contact, contacts = settings[contactsFound];
+                 inputValue = inputElement.value, contact, contacts = settings[contactsFound];
             if (e.keyCode === 188 || e.keyCode === 13 || e.keyCode === 186 || e.keyCode === 9) { // , ENTER ; TAB 
 
                 if (inputValue.length > 0) {
@@ -148,7 +148,7 @@
             }
         },
         listItemClick: function (e) {
-            var listItem = e.target, email;
+            var listItem = e.target;
             if (!listItem || listItem.classList.contains('emailMenu'))
                 return;
             while (listItem.nodeName !== 'LI') {
@@ -178,7 +178,7 @@
 
         },
         addEmail: function (item, valid) {
-            var selectedList = settings[sSelectedList], inputElement = settings[sInputElement], outputElement = settings[sOutputElement], emailSelectedList = settings[sEmailSelectedList], id, display, lastElement;
+            var selectedList = settings[sSelectedList], inputElement = settings[sInputElement], outputElement = settings[sOutputElement], emailSelectedList = settings[sEmailSelectedList],  lastElement;
 
             if (emailSelectedList.indexOf(item.id) > -1) {//email  already exist
                 inputElement.value = inputElement.value.slice(0, -1);
@@ -237,7 +237,7 @@
 
         },
         editInput: function (emailItem) {
-            var inputElement = settings[sInputElement], selectedList = settings[sSelectedList];
+            var inputElement = settings[sInputElement];
 
             if (!emailItem)
                 return;
@@ -282,7 +282,7 @@
 
         },
         removeEditEmailClick: function (e) {
-            var inputElement = settings[sInputElement], target = e.target, emailItem;
+            var target = e.target, emailItem;
             if (!target)
                 return;
             emailItem = target;
@@ -342,7 +342,7 @@
             return foundList;
         },
         sortList: function (foundList) {
-            var value = settings[sInputElement].value.toLowerCase(), outputElement = settings[sOutputElement];
+            var value = settings[sInputElement].value.toLowerCase();
             foundList.sort(function (a, b) {
                 return cd.sortMembersByName(a.name, b.name, value);
             });
@@ -355,7 +355,7 @@
                 gConnectLength = parseInt(window.getComputedStyle(gConnect, null).getPropertyValue('width'), 10) + 5,//5 is position:right
                 toLabel = document.querySelector('.emailUser .inputLabel'),
                 toLabelWidth = parseInt(window.getComputedStyle(toLabel, null).getPropertyValue('width'), 10),
-                containerWidth = parseInt(window.getComputedStyle(settings[sSelectedList].parentElement).getPropertyValue('width', null), 10),
+                //containerWidth = parseInt(window.getComputedStyle(settings[sSelectedList].parentElement).getPropertyValue('width', null), 10),
                 newWidth;
 
             if (gConnectVisible) {
@@ -389,4 +389,4 @@
             console.log('Method ' + method + ' does not exist on autocomplete');
         }
     };
-}(cd));
+}(cd, JsResources));

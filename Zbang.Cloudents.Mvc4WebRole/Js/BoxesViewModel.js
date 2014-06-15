@@ -34,7 +34,7 @@
     function confirmDeleteOrUnfollow(box) {
         // <summary></summary>
         // <param name="box" type="Box"></param>
-        var retVal = 0;
+        
         if (box.userType() === 'none') {
             return;
         }
@@ -48,7 +48,7 @@
     }
 }
 
-(function (cd, dataContext, ko, analytics) {
+(function (cd, dataContext, ko, analytics, jsResources) {
     "use strict";
     if (window.scriptLoaded.isLoaded('bsvm')) {
         return;
@@ -205,7 +205,7 @@
 
 
             self.boxes([]);
-            cd.setTitle(JsResources.Dashboard + ' | Cloudents');
+            cd.setTitle(jsResources.Dashboard + ' | Cloudents');
             cd.pubsub.publish('dashboard_load');
             if (!boxes.length) {
                 self.loadedAnimation(true);
@@ -254,7 +254,6 @@
                 }, null);
         };
 
-        var emptyText = '';
         self.mptySrchStt = ko.computed(function () {
             var x = self.loaded() && !self.boxes().length;//&& issearch;
             //if (x) {
@@ -284,7 +283,7 @@
                 //if (issearch && self.boxes().length) {
                 //    return '\u200F' + self.boxes().length + '\u200F ' + JsResources.SearchResults + ' \u200E“' + $dash_SearchQuery.val() + '”\u200E';
                 //}
-                return JsResources.CoursesFollow;
+                return jsResources.CoursesFollow;
             });
 
         //#region createBox
@@ -318,7 +317,7 @@
                             return i.name.toLowerCase() === boxName.toLowerCase();
                         });
                         if (exists) {
-                            cd.displayErrors($form, JsResources.BoxExists);
+                            cd.displayErrors($form, jsResources.BoxExists);
                             return false;
                         }
                         createBox(data);
@@ -367,4 +366,4 @@
 
     }
 
-})(window.cd, cd.data, ko, cd.analytics);
+})(window.cd, cd.data, ko, cd.analytics, JsResources);

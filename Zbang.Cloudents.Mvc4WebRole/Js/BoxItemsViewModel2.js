@@ -1,4 +1,4 @@
-﻿(function ($, dataContext, ko, cd, ZboxResources, analytics) {
+﻿(function ($, dataContext, ko, cd, jsResources, analytics) {
     "use strict";
 
     if (window.scriptLoaded.isLoaded('bivm')) {
@@ -223,17 +223,17 @@
                 return 1;
             }
             if (a.date < b.date) {
-                return 1
+                return 1;
             } else {
                 return -1;
             }
-            if (a.name < b.name) {
-                return 1;
-            }
-            else {
-                return -1;
-            }
-            return 0;
+            //if (a.name < b.name) {
+            //    return 1;
+            //}
+            //else {
+            //    return -1;
+            //}
+            //return 0;
         }
 
         //#region addItem
@@ -306,12 +306,12 @@
 
         self.removeQuiz = function (quiz) {
             if (quiz.ownerId !== cd.userDetail().nId) {
-                cd.notification(JsResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
+                cd.notification(jsResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
                 return;
             }
 
             var quizName = quiz.name || 'quiz draft';
-            cd.confirm(JsResources.SureYouWantToDelete + ' ' + quizName + "?",
+            cd.confirm(jsResources.SureYouWantToDelete + ' ' + quizName + "?",
                             function () {
                                 self.items.remove(quiz);
                                 cd.pubsub.publish('deleteQuiz', quiz.uid);
@@ -337,10 +337,10 @@
 
         self.removeItem = function (item) {
             if (!cd.deleteAllow(self.permission(), item.ownerId)) {
-                cd.notification(JsResources.DontHavePermissionToDelete + ' ' + item.type);
+                cd.notification(jsResources.DontHavePermissionToDelete + ' ' + item.type);
                 return;
             }
-            cd.confirm(JsResources.SureYouWantToDelete + ' ' + item.name + "?",
+            cd.confirm(jsResources.SureYouWantToDelete + ' ' + item.name + "?",
                 function () {
                     self.items.remove(item);
                     //countOfItems--;
@@ -452,7 +452,7 @@
             return true;
         }
 
-        self.itmSlct = function (item,e) {
+        self.itmSlct = function (item) {
             if (self.manageTab()) {
                 item.isCheck(!item.isCheck());
                 return false;
@@ -488,7 +488,7 @@
         });
 
 
-        $('#addQuiz').click(function (e) {
+        $('#addQuiz').click(function () {
             if (!cd.register()) {
                 cd.pubsub.publish('register', { action: true });
                 return;
@@ -503,8 +503,8 @@
         });
 
         $('#BoxItemList').hoverIntent({
-            over: function (e) {
-                var item = ko.dataFor(this), html;
+            over: function () {
+                var item = ko.dataFor(this), html = '';
 
       
 

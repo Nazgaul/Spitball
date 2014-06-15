@@ -130,15 +130,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return null;
             }
-            HashSet<string> extraWords = new HashSet<string>(StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+            var extraWords = new HashSet<string>(StopAnalyzer.ENGLISH_STOP_WORDS_SET)
+            {
+                "college",
+                "university",
+                "אוניברסיטה",
+                "ה"
+            };
 
-            extraWords.Add("college");
-            extraWords.Add("university");
-            extraWords.Add("אוניברסיטה");
-            extraWords.Add("ה");
 
-
-            
             //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
             //{
             using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30, extraWords))

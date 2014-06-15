@@ -102,7 +102,7 @@
 
                         trackUpload('upload link', '');
                     },
-                    error: function (data,err) {
+                    error: function (data) {
                         cd.displayErrors($fAddLink, data);
                         finishFakeUploadError(guid);
 
@@ -321,7 +321,7 @@
 
 
                 cd.postFb(file.boxName,
-                JsResources.IUploaded.format(file.name),
+                ZboxResources.IUploaded.format(file.name),
                 cd.location());
             }
             catch (err) {
@@ -351,12 +351,12 @@
             var cloneBoxToUpload = cd.clone(boxToUpload);
             for (var i = 0; i < files.length; i++) {
                 if (files[i].name.indexOf('.') === -1 && files[i].size === 4096) {
-                    cd.notification(JsResources.CantUploadDirectory);
+                    cd.notification(ZboxResources.CantUploadDirectory);
                     uploader.removeFile(files[i]);
                     continue;
                 }
                 if (files[i].size === 0) {
-                    cd.notification(JsResources.CantUploadEmptyFile);
+                    cd.notification(ZboxResources.CantUploadEmptyFile);
                     uploader.removeFile(files[i]);
                     continue;
                 }
@@ -424,7 +424,7 @@
         if (!timer) {
             timer = setInterval(function () {
                 var $uploadList = $('#uploadList'),
-                    files = filesUploaded = $uploadList.children().not('[data-done="3"]').length,
+                    files = $uploadList.children().not('[data-done="3"]').length,
                     filesUploaded = $uploadList.find('[data-done="1"]').length;
 
                 if (files === filesUploaded) {
@@ -444,7 +444,7 @@
     }
 
     function registerDnd() {
-        var dndAvailable = true;
+        //var dndAvailable = true;
 
         if (!'draggable' in document.createElement('span')) {
             return;
