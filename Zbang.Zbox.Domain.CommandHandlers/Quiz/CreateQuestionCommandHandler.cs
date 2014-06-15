@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -12,11 +8,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
     class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
-        private readonly IRepository<Zbang.Zbox.Domain.Quiz> m_QuizRepository;
+        private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<Question> m_QuestionRepository;
 
         public CreateQuestionCommandHandler(
-            IRepository<Zbang.Zbox.Domain.Quiz> quizRepository,
+            IRepository<Domain.Quiz> quizRepository,
             IRepository<Question> questionRepository)
         {
             m_QuizRepository = quizRepository;

@@ -1,11 +1,8 @@
-﻿using System;
-using Zbang.Zbox.Domain.Commands;
+﻿using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -13,20 +10,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IQueueProvider m_QueueProvider;
         private readonly IInviteRepository m_InviteRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
 
 
         public SubscribeToSharedBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository,
-            IQueueProvider queueProvider,
             IInviteRepository inviteRepository,
             IRepository<Reputation> reputationRepository)
         {
 
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
-            m_QueueProvider = queueProvider;
             m_InviteRepository = inviteRepository;
             m_ReputationRepository = reputationRepository;
 

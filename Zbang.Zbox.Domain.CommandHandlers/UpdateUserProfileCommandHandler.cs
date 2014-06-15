@@ -1,8 +1,7 @@
 ﻿using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
-using Zbang.Zbox.Infrastructure.Profile;
-using Zbang.Zbox.Infrastructure.Storage;
+
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {

@@ -4,7 +4,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -40,21 +39,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var userCode = user.Code ?? message.Code;
 
-            if (university.NeedCode && !ValidateUserCode(userCode, user.Id))
+            if (university.NeedCode && !ValidateUserCode(userCode))
             {
                 throw new ArgumentException("code is invalid");
             }
 
 
-            var StudentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => w.University == university);
-            bool needId = StudentsIdsInUniversity.Count() > 0;
+            var studentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => w.University == university);
+            bool needId = studentsIdsInUniversity.Any();
             if (needId && string.IsNullOrEmpty(message.StudentId))
             {
                 throw new ArgumentException("need id for this univerisity");
             }
             if (needId)
             {
-                var student = StudentsIdsInUniversity.Where(w => w.ID == message.StudentId).FirstOrDefault();
+                var student = studentsIdsInUniversity.FirstOrDefault(w => w.ID == message.StudentId);
 
                 if (student == null)
                 {
@@ -72,21 +71,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository.Save(user);
         }
 
-        private bool ValidateUserCode(string p, long userId)
+        private bool ValidateUserCode(string p)
         {
             if (string.IsNullOrEmpty(p))
             {
-                throw new ArgumentNullException("need a code");
+                throw new ArgumentNullException("p");
             }
             var notHavingDigits = System.Text.RegularExpressions.Regex.IsMatch(p, @"^[^\d]*$");
             if (notHavingDigits)
             {
-                throw new ArgumentNullException("code need to have digits");
+                throw new NullReferenceException("code need to have digits");
             }
-            int sumOfDigits = p.Where((e) => e >= '0' && e <= '9')
+            int sumOfDigits = p.Where(e => e >= '0' && e <= '9')
                             .Reverse()
                             .Select((e, i) => ((int)e - 48) * (i % 2 == 0 ? 1 : 2))
-                            .Sum((e) => e / 10 + e % 10);
+                            .Sum(e => e / 10 + e % 10);
 
             //int sumOfDigits = creditCardNumber
             //               .Reverse()

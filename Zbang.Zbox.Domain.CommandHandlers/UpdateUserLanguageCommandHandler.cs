@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             User user = m_UserRepository.Get(message.UserId);
             if (user == null)
             {
-                throw new Zbox.Infrastructure.Exceptions.UserNotFoundException("user doesn't exists");
+                throw new Infrastructure.Exceptions.UserNotFoundException("user doesn't exists");
             }
             user.UpdateUserLanguage(message.Language);
             m_UserRepository.Save(user);

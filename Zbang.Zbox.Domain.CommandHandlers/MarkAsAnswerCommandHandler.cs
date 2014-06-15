@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -39,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User is not ask the question");
             }
-            var oldMarkedAnswer = m_QuestionRepository.GetAnswers(markedAnswer.Question).Where(w => w.MarkAnswer == true).FirstOrDefault();
+            var oldMarkedAnswer = m_QuestionRepository.GetAnswers(markedAnswer.Question).FirstOrDefault(w => w.MarkAnswer);
             if (oldMarkedAnswer != null)
             {
                 oldMarkedAnswer.MarkAnswer = false;

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -22,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (string.IsNullOrWhiteSpace(message.NewName))
             {
-                throw new ArgumentNullException("NewName","new name cannot be empty");
+                throw new NullReferenceException("new name cannot be empty");
             }
 
             var node = m_LibraryRepository.Get(message.NodeId);

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -19,13 +15,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(CreateUniversityCommand message)
         {
-            University university = new University(message.Email, message.Name,
+            var windowsIdentity = System.Security.Principal.WindowsIdentity.GetCurrent();
+            if (windowsIdentity == null)
+            {
+                throw new NullReferenceException("windowsIdentity");
+            }
+
+            var university = new University(message.Email, message.Name,
                 "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
                 "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg",
-                System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-
-            university.Country = message.Country;
+                windowsIdentity.Name)
+            {
+                Country = message.Country
+            };
             m_UniversityRepository.Save(university);
+
+
         }
     }
 }
