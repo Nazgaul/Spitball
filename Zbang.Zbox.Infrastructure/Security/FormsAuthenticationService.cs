@@ -14,6 +14,10 @@ namespace Zbang.Zbox.Infrastructure.Security
                 rememberMe);
 
             FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+            if (ticket == null)
+            {
+                throw new NullReferenceException("ticket");
+            }
             var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name,
                 ticket.IssueDate, ticket.Expiration, rememberMe, UserDetail.Serialize(userDetail));
             authCookie.Value = FormsAuthentication.Encrypt(newTicket);

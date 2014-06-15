@@ -1,6 +1,7 @@
 ﻿using System;
 
 
+// ReSharper disable once CheckNamespace -- this is extension
 public static class StringExtensions
 {
     public static string RemoveEndOfString(this String word, int length)

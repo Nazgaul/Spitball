@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             using (var ms = new MemoryStream(cloudQueueMessage.AsBytes))
             {
                 var dcs = new DataContractSerializer(typeof(T));
-                T data = dcs.ReadObject(ms) as T;
+                var data = dcs.ReadObject(ms) as T;
                 return data;
             }
         }
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         {
             using (var m = new MemoryStream())
             {
-                ProtoBuf.Serializer.Serialize<T>(m, data);
+                ProtoBuf.Serializer.Serialize(m, data);
                 m.Seek(0, SeekOrigin.Begin);
                 cloudQueue.AddMessage(new CloudQueueMessage(m.ToArray()));
 
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         {
             using (var m = new MemoryStream())
             {
-                ProtoBuf.Serializer.Serialize<T>(m, data);
+                ProtoBuf.Serializer.Serialize(m, data);
                 m.Seek(0, SeekOrigin.Begin);
                 await cloudQueue.AddMessageAsync(new CloudQueueMessage(m.ToArray()));
                 

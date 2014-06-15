@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using Zbang.Zbox.Infrastructure.Enums.Resources;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 
+// ReSharper disable once CheckNamespace - this is an extension
 public static class EnumExtension
 {
     public static string GetStringValue(this string value)
     {
-        MatchCollection seperation = Regex.Matches(value, "[A-Z][a-z]*");
+        var seperation = Regex.Matches(value, "[A-Z][a-z]*");
         if (seperation.Count == 0)
         {
             return value;
@@ -51,21 +47,17 @@ public static class EnumExtension
     {
         FieldInfo fi = value.GetType().GetField(value.ToString());
 
-        EnumDescription[] attributes = (EnumDescription[])fi.GetCustomAttributes(typeof(EnumDescription), false);
+        var attributes = (EnumDescription[])fi.GetCustomAttributes(typeof(EnumDescription), false);
 
 
-        if ((attributes != null) && (attributes.Length > 0))
+        if ((attributes.Length <= 0)) return value.GetStringValue();
+        var att = attributes[0];
+        if (att.ResorceType != null)
         {
-            var att = attributes[0];
-            if (att.ResorceType != null)
-            {
-                System.Resources.ResourceManager x = new System.Resources.ResourceManager(att.ResorceType);
-                return x.GetString(att.ResourceName);
-            }
-            return att.Description;
+            var x = new System.Resources.ResourceManager(att.ResorceType);
+            return x.GetString(att.ResourceName);
         }
-        else
-            return value.GetStringValue();
+        return att.Description;
     }
 
 

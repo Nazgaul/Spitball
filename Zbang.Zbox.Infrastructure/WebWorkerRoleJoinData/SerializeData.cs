@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Runtime.Serialization;
 
 namespace Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData
 {
@@ -29,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData
 
         public T DeserializeBinary(byte[] msg)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 var d = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 ms.Write(msg, 0, msg.Length);
@@ -40,7 +39,7 @@ namespace Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData
 
         public byte[] SerializeBinary(T data)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 var d = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 d.Serialize(ms, data);

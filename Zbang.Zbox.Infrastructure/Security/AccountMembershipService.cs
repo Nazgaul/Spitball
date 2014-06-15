@@ -29,7 +29,14 @@ namespace Zbang.Zbox.Infrastructure.Security
 
             }
             var user = Membership.GetUser(userName);
-
+            if (user == null)
+            {
+                throw new NullReferenceException("User");
+            }
+            if (user.ProviderUserKey == null)
+            {
+                throw new NullReferenceException("ProviderUserKey");
+            }
             membershipId = (Guid)user.ProviderUserKey;
             if (user.IsLockedOut)
             {
@@ -54,7 +61,11 @@ namespace Zbang.Zbox.Infrastructure.Security
             {
                 return status;
             }
-            memberShipUserId = (Guid)user.ProviderUserKey;
+
+            if (user.ProviderUserKey != null)
+            {
+                memberShipUserId = (Guid)user.ProviderUserKey;
+            }
             return status;
         }
 

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Web;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 
@@ -18,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Profile
         const int NumberOfRandomPicturesOfUser = 1;
         const int NumberOfRandomPicturesOfLib = 1;
 
-        private static bool firstTime = true;
+        private static bool _firstTime = true;
 
 
         private readonly IBlobProvider m_BlobProvider;
@@ -30,9 +28,9 @@ namespace Zbang.Zbox.Infrastructure.Profile
             m_BlobProvider = blobProvider;
             PopulateDefaultImagesUrl();
 
-            if (firstTime)
+            if (_firstTime)
             {
-                firstTime = false;
+                _firstTime = false;
                 CreateProfileImages();
             }
         }
@@ -86,25 +84,24 @@ namespace Zbang.Zbox.Infrastructure.Profile
 
         private void CreateProfileImages()
         {
-            Uri uri, uriLarge;
             var assembly = Assembly.GetExecutingAssembly();
             for (int i = StartIndexOfPicturesUser; i < StartIndexOfPicturesUser + NumberOfRandomPicturesOfUser; i++)
             {
-                uri = ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, FileName);
-                uriLarge = ReadProfileResourceAndUpload(assembly, i, ImageSize.S100X100, FileName);
+                 ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, FileName);
+                ReadProfileResourceAndUpload(assembly, i, ImageSize.S100X100, FileName);
             }
             for (int i = 1; i <= NumberOfRandomPicturesOfLib; i++)
             {
-                uri = ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, LibName);
-                uriLarge = ReadProfileResourceAndUpload(assembly, i, ImageSize.S100X100, LibName);
+                 ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, LibName);
+                 ReadProfileResourceAndUpload(assembly, i, ImageSize.S100X100, LibName);
             }
         }
 
-        private Uri ReadProfileResourceAndUpload(Assembly assembly, int i, ImageSize imageSize, string fileName)
+        private void ReadProfileResourceAndUpload(Assembly assembly, int i, ImageSize imageSize, string fileName)
         {
             using (var stream = assembly.GetManifestResourceStream(string.Format("Zbang.Zbox.Infrastructure.Profile.Resources.{0}{1}{2}.jpg", imageSize.ToString("G"), fileName, i)))
             {
-                return m_BlobProvider.UploadProfilePicture(CreateBlobFileNameWithFolder(fileName + i, imageSize), stream.ConvertToByteArray());
+                m_BlobProvider.UploadProfilePicture(CreateBlobFileNameWithFolder(fileName + i, imageSize), stream.ConvertToByteArray());
             }
         }
 
