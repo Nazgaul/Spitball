@@ -155,10 +155,10 @@
                 universityName = $(this).find('.uniName').text();
                 selectUniversity(e);
             });
-            $(fbUniList).on('click', 'button', function (e) {
-                var listItem = $(this).parents('li');
-                universityId = this.getAttribute('data-id');
-                universityName = listItem.find('.uniName').text();
+            $(fbUniList).on('click', 'li', function (e) {
+                //var listItem = $(this).parents('li');
+                universityId = $(this).find('button').attr('data-id');
+                universityName = $(this).find('.uniName').text();
                 selectUniversity(e);
             });
             $('.newUni').click(newUniversity);
