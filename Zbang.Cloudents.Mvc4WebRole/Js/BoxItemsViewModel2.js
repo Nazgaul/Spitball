@@ -8,7 +8,7 @@
     cd.loadModel('box', 'BoxContext', registerKoBoxItems);
 
     function registerKoBoxItems() {
-        ko.applyBindings(new BoxItemViewModel(), $('#box_items')[0]);
+        ko.applyBindings(new BoxItemViewModel(), document.getElementById('box_items'));
     }
 
     function BoxItemViewModel() {
@@ -233,7 +233,7 @@
             //else {
             //    return -1;
             //}
-            return 0;
+            //return 0;
         }
 
         //#region addItem

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -35,6 +31,7 @@ namespace Zbang.Zbox.Domain
         public virtual string Text { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual Answer RightAnswer { get; private set; }
+// ReSharper disable once UnusedAutoPropertyAccessor.Local
         public virtual ICollection<Answer> Answers { get; private set; }
 
         public virtual void UpdateCorrectAnswer(Answer answer)

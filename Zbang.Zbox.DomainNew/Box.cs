@@ -190,7 +190,7 @@ namespace Zbang.Zbox.Domain
         {
             if (this == other) return true;
 
-            Box box = other as Box;
+            var box = other as Box;
             if (box == null) return false;
 
             if (Name != box.Name) return false;

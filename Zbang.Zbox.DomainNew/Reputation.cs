@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
@@ -15,11 +11,14 @@ namespace Zbang.Zbox.Domain
         }
         public Reputation(Guid id, User user, ReputationAction action)
         {
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
             User = user;
             CreationTime = DateTime.UtcNow;
             Action = action;
             Score = CalcuateScore(action);
+// ReSharper restore DoNotCallOverridableMethodsInConstructor
+
         }
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }

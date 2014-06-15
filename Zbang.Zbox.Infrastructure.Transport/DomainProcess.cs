@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoInclude(16, typeof(UpdateData))]
     public abstract class DomainProcess
     {
+// ReSharper disable once EmptyConstructor - for protobuf
         protected DomainProcess()
         {
 

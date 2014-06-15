@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Domain
 {
@@ -14,11 +10,13 @@ namespace Zbang.Zbox.Domain
         }
         public AnswerRating(Guid id, User user, CommentReplies answer)
         {
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
             User = user;
             Answer = answer;
             RateUp = true;
             IncrementCount();
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
 

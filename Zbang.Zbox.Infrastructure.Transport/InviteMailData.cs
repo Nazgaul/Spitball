@@ -1,8 +1,4 @@
 ﻿using ProtoBuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
@@ -37,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
 
         public override string MailResover
         {
-            get { return BaseMailData.InviteResolver; }
+            get { return InviteResolver; }
         }
     }
 }

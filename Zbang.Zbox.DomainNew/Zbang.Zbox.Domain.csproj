@@ -121,6 +121,7 @@
     <EmbeddedResource Include="Resources\QuestionResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\QuestionResource.ru.resx" />
   </ItemGroup>

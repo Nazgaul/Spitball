@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
@@ -20,6 +17,7 @@ namespace Zbang.Zbox.Domain
             Throw.OnNull(box, "box");
             Throw.OnNull(question, "question");
             Throw.OnNull(text, "text", false);
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
 
             User = user;
@@ -30,6 +28,8 @@ namespace Zbang.Zbox.Domain
             MarkAnswer = false;
             Items = items;
             Box.UserTime.UpdateUserTime(user.Email);
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
+
         }
 
         public virtual Guid Id { get; set; }

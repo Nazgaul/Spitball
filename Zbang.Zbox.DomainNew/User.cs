@@ -182,14 +182,7 @@ namespace Zbang.Zbox.Domain
                 ImageLarge = largePicture.AbsoluteUri;
             }
             FirstName = firstName.Trim();
-            if (!string.IsNullOrEmpty(middleName))
-            {
-                MiddleName = middleName.Trim();
-            }
-            else
-            {
-                MiddleName = null;
-            }
+            MiddleName = !string.IsNullOrEmpty(middleName) ? middleName.Trim() : null;
             LastName = lastName.Trim();
             CreateName();
         }
