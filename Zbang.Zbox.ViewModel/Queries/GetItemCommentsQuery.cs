@@ -6,7 +6,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         public GetItemCommentsQuery(long itemId, long userId)
             : base(userId)
         {
-            this.ItemId = itemId;
+            ItemId = itemId;
         }
 
         public long ItemId { get; set; }

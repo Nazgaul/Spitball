@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         /// Query ctor without paging
         /// </summary>
         /// <param name="boxId"></param>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         public GetBoxItemsPagedQuery(long boxId, long id)
             : this(boxId, id, 0, OrderBy.LastModified, null)
         {
@@ -18,8 +18,10 @@ namespace Zbang.Zbox.ViewModel.Queries
         /// Query ctor with paging
         /// </summary>
         /// <param name="boxId"></param>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <param name="pageNumber"></param>
+        /// <param name="order"></param>
+        /// <param name="tabId"></param>
         public GetBoxItemsPagedQuery(long boxId, long id, int pageNumber, OrderBy order, Guid? tabId)
             : base(id, pageNumber)
         {

@@ -6,8 +6,8 @@ namespace Zbang.Zbox.ViewModel.Queries.Boxes
         protected const string PageQueryPrefix = "Page";
         protected string m_QueryName;
 
-        protected GetBoxesQueryBase(long Id, string boxesQueryName, int pageNumber)
-            : base(Id)
+        protected GetBoxesQueryBase(long id, string boxesQueryName, int pageNumber)
+            : base(id)
         {
             m_QueryName = boxesQueryName;
             PageNumber = pageNumber;
