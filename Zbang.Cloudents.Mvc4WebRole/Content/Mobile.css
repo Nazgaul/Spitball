@@ -1,10 +1,10 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region homepage image */
+﻿
+
+
+
+
+
+
 @media only screen and (max-device-width: 719px) {
   .imgBg {
     background: url(/Images/m-home-small.jpg) right top no-repeat;
@@ -24,13 +24,13 @@
     background-size: cover;
   }
 }
-/*#endregion */
-/*#region  regular sprites */
+
+
 .sprite {
   background: url(/Images/m-sprite-home.png) no-repeat;
 }
-/*#endregion */
-/*#region retina image sprites */
+
+
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .sprite {
     background-image: url(/Images/m-sprite-home@2x.png);
@@ -38,7 +38,7 @@
     background-size: 286px 50px;
   }
 }
-/*#endregion */
+
 body {
   text-align: center;
 }
@@ -125,7 +125,7 @@ body {
   bottom: 20px;
   left: 0;
   right: 0;
-  width: 75px;
+  width: 85px;
   padding-left: 16px;
   /*In order to look centered*/
   overflow: hidden;
@@ -133,22 +133,22 @@ body {
 .lang:after {
   content: '';
   display: inline-block;
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
   border-style: solid;
   border-width: 4px 4px 0 4px;
   border-color: #fff transparent transparent transparent;
   pointer-events: none;
   position: absolute;
   top: 8px;
-  right: 6px;
+  right: 0;
 }
 .langSelect {
   background: transparent;
   color: #fff;
   border: none;
   outline: none;
-  width: 95px;
+  width: 105px;
 }
 option {
   background: #000;
@@ -277,7 +277,7 @@ option {
   color: #0f9d58;
   text-decoration: none;
 }
-/*#region validation errors */
+
 .field-validation-error,
 .validation-summary-errors {
   font-size: 12px;
@@ -294,7 +294,7 @@ option {
 .field-validation-error + .inputText {
   border-top: 1px solid #ddd;
 }
-/*#endregion */
+
 /*@media only screen 
 and (orientation : landscape) and (min-width : 321px)  { 
   .btn
@@ -337,7 +337,7 @@ and (orientation : landscape) and (min-width : 321px)  {
     height: 110%;
   }
 }
-/*#region 'Static' pages */
+
 .error,
 .forgot,
 .pwdSent,
@@ -376,4 +376,4 @@ and (orientation : landscape) and (min-width : 321px)  {
 .forgot {
   padding-bottom: 20px;
 }
-/*#endregion */
+
