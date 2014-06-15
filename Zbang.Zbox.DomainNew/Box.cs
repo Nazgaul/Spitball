@@ -1,13 +1,9 @@
 ﻿using System;
-
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Data;
 using System.IO;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
@@ -17,7 +13,9 @@ namespace Zbang.Zbox.Domain
         protected Box()
         {
             UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Items = new List<Item>();
+
             //Comments = new List<Comment>();
             Questions = new List<Comment>();
             PrivacySettings = new PrivacySettings();
@@ -32,9 +30,9 @@ namespace Zbang.Zbox.Domain
             Owner = user;
             UserBoxRel.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
             RemovePicture();
-            this.CalculateMembers();
+            CalculateMembers();
         }
-
+        // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         public virtual long Id { get; protected set; }
         public virtual string Name { get; protected set; }
@@ -175,7 +173,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateItemCount()
         {
-            ItemCount = this.Items.Count(file => !file.IsDeleted) + this.Quizes.Count(quiz => quiz.Publish);
+            ItemCount = Items.Count(file => !file.IsDeleted) + Quizes.Count(quiz => quiz.Publish);
 
         }
         #endregion
@@ -231,7 +229,7 @@ namespace Zbang.Zbox.Domain
             {
                 throw new UnauthorizedAccessException("only owner can change privacy settings");
             }
-            this.PrivacySettings.PrivacySetting = boxPrivacySettings;
+            PrivacySettings.PrivacySetting = boxPrivacySettings;
 
         }
     }

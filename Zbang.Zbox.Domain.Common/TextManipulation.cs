@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -47,12 +46,7 @@ namespace Zbang.Zbox.Domain.Common
             }
             return sb.ToString();
         }
-        /// <summary>
-        /// Uses to create a comment that associate to link/ file
-        /// </summary>
-        /// <param name="userComment">The user comment</param>
-        /// <param name="serverComment">The Comment the server assign</param>
-        /// <returns>The comment to post</returns>
+      
         //public static string CombineUserServerComments(string userComment, string serverComment)
         //{
         //    if (string.IsNullOrEmpty(userComment))

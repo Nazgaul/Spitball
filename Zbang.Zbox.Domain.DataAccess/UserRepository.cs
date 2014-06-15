@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
-using NHibernate;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;

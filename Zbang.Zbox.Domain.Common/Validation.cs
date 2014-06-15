@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         // we need to get those extension from FileConvertFactory.cs dictionary
-        public static readonly string[] Extension = new[] { "xls", "xlsx", "xlsm", "xltx", "ods", "csv", "rtf", "docx", "doc", "ppt", "pot", "pps", "pptx", "potx", "ppxs", "ppsx" };
+        public static readonly string[] Extension = { "xls", "xlsx", "xlsm", "xltx", "ods", "csv", "rtf", "docx", "doc", "ppt", "pot", "pps", "pptx", "potx", "ppxs", "ppsx" };
 
         public static readonly string DocumentRegex = @"\.(" + string.Join("|", Extension) + @")(?:\?([^#]*))?(?:#(\.*))?$";
         public static bool IsDocument(string file)
