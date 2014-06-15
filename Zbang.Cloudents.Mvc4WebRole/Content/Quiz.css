@@ -444,7 +444,7 @@
 .quizQList .splitHR {
   text-align: left;
   /*rtl*/
-  padding: 15px 0 0 14px;
+  padding: 10px 0 0 14px;
   /*rtl*/
   font-size: 13px;
   margin: 0 20px -4px 0;
@@ -466,9 +466,13 @@
     padding-right: 80px;
 }*/
 .commentWpr {
-  margin: 0 -45px 0 -25px;
+  margin: 10px 40px 0 34px;
+  /*rtl*/
   position: relative;
   display: none;
+  background: #f6f7f9;
+  padding-left: 10px;
+  /*rtl*/
   /*&.show {
         .quizComments, .imgBorder, .cTextAreaWpr {
             display: block;
@@ -492,7 +496,7 @@
 .commentWpr .askBtn {
   padding: 4px 15px;
   height: auto;
-  margin: 2px 14px 0 0;
+  margin: 2px 25px 10px 0;
   /*rtl*/
   display: block;
 }
@@ -521,9 +525,14 @@
 }
 .cTextAreaWpr {
   margin-top: 20px;
+  overflow: hidden;
+}
+.cTextAreaWpr .imgBorder {
+  left: 10px;
+  /*rtl*/
 }
 .cTextArea {
-  width: 600px;
+  width: 430px;
   margin-left: 42px;
   /*rtl*/
   border-radius: 3px;
