@@ -173,7 +173,6 @@
     </Compile>
     <Compile Include="Extensions\EnumDescription.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Extensions\LazyAsync.cs" />
     <Compile Include="Extensions\RandomProvider.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />

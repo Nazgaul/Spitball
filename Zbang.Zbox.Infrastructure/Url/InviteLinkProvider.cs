@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Infrastructure.Url
@@ -27,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Url
         {
             var inviteLinkData = new InviteLinkData(id, boxId, DateTime.UtcNow.AddMonths(1), senderId, recepientEmail);
 
-            return m_EncryptObject.EncryptElement<InviteLinkData>(inviteLinkData, recepientEmail, InviteCryptHash);
+            return m_EncryptObject.EncryptElement(inviteLinkData, recepientEmail, InviteCryptHash);
         }
 
         public InviteLinkData DecryptInviteUrl(string token, string recepientEmail)

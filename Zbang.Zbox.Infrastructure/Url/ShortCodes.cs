@@ -40,10 +40,10 @@ namespace Zbang.Zbox.Infrastructure.Url
             long scResult = 0;
             var scLength = shortcode.Length;
             var codeToDecode = shortcode;
-            for (var i = 0; i < codeToDecode.Length; i++)
+            foreach (char t in codeToDecode)
             {
                 scLength--;
-                var codeChar = codeToDecode[i];
+                var codeChar = t;
                 scResult += shortcodeKeyspace.IndexOf(codeChar) * (long)(Math.Pow(ksLen, scLength));
             }
 
@@ -74,14 +74,14 @@ namespace Zbang.Zbox.Infrastructure.Url
             public override long GetCodeXor { get { return ShortcodeXor; } }
         }
 
-        class UserShortCodeConst : ShortCodeConst
-        {
-            const string ShortcodeKeyspace = "yUseufp6FlT0q1H7gdwJmi9YXLb8tChaOSr3ojMAD5ZBc2GRIEN4xnkVvWKPQz";
-            const long ShortcodeXor = 8432764110506944251;
-            public override string GetCodeHast { get { return ShortcodeKeyspace; } }
-            public override long GetCodeXor { get { return ShortcodeXor; } }
+        //class UserShortCodeConst : ShortCodeConst
+        //{
+        //    const string ShortcodeKeyspace = "yUseufp6FlT0q1H7gdwJmi9YXLb8tChaOSr3ojMAD5ZBc2GRIEN4xnkVvWKPQz";
+        //    const long ShortcodeXor = 8432764110506944251;
+        //    public override string GetCodeHast { get { return ShortcodeKeyspace; } }
+        //    public override long GetCodeXor { get { return ShortcodeXor; } }
            
-        }
+        //}
 
 
       

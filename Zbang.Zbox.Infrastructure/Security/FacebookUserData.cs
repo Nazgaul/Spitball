@@ -1,6 +1,5 @@
 ﻿
 using System.Text;
-using System.Collections.Generic;
 namespace Zbang.Zbox.Infrastructure.Security
 {
     public class FacebookUserData

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.Culture
@@ -9,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
     {
         public string StemAHebrewWord(string phrase)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             var words = phrase.Split(' ');
 

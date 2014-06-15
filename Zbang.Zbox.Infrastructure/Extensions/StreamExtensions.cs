@@ -1,12 +1,13 @@
 ﻿using System.IO;
 
+// ReSharper disable once CheckNamespace - this is extension
 public static class StreamExtensions
 {
     public static byte[] ConvertToByteArray(this Stream input)
     {
         input.Seek(0, SeekOrigin.Begin);
-        byte[] buffer = new byte[16 * 1024];
-        using (MemoryStream ms = new MemoryStream())
+        var buffer = new byte[16 * 1024];
+        using (var ms = new MemoryStream())
         {
             int read;
             while ((read = input.Read(buffer, 0, buffer.Length)) > 0)

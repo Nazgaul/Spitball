@@ -1,12 +1,8 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using NHibernate.Id;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.IdGenerator
 {
@@ -17,26 +13,26 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
         public const string ItemAnnotationReplyScope = "ItemReply";
 
         public const string QuizScope = "Quiz";
-        SnowMaker.BlobOptimisticDataStore m_DataStorage;
-        SnowMaker.UniqueIdGenerator m_Generator;
-        public IdGenerator(IBlobProvider blobProvider)
+        // private readonly SnowMaker.BlobOptimisticDataStore m_DataStorage;
+        private readonly SnowMaker.UniqueIdGenerator m_Generator;
+        public IdGenerator()
         {
             //TODO temp
-            CloudStorageAccount _cloudStorageAccount;
+            CloudStorageAccount cloudStorageAccount;
             try
             {
-                _cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
+                cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
             }
             catch (ConfigurationErrorsException)
             {
-                _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             }
-            m_DataStorage = new SnowMaker.BlobOptimisticDataStore(
-                _cloudStorageAccount,
+            var dataStorage = new SnowMaker.BlobOptimisticDataStore(
+                 cloudStorageAccount,
                 //BlobProvider.AzureIdGeneratorContainer.ToLower()
-                "zboxIdGenerator"
-                );
-            m_Generator = new SnowMaker.UniqueIdGenerator(m_DataStorage) { BatchSize = 20 };
+                 "zboxIdGenerator"
+                 );
+            m_Generator = new SnowMaker.UniqueIdGenerator(dataStorage) { BatchSize = 20 };
         }
 
         public long GetId(string scopeName)
@@ -51,14 +47,14 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
 
         public static Guid GetGuid()
         {
-           GuidCombGenerator CombGenerator = new GuidCombGenerator();
-           return (Guid)CombGenerator.Generate(null, null);
+            var combGenerator = new GuidCombGenerator();
+            return (Guid)combGenerator.Generate(null, null);
         }
 
 
         public Guid GetId()
         {
-            return IdGenerator.GetGuid();
+            return GetGuid();
         }
     }
 }

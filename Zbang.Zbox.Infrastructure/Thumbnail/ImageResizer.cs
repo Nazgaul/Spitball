@@ -12,19 +12,16 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
             {
                 return imageOriginalSize;
             }
-            int sourceWidth = imageOriginalSize.Width;
-            int sourceHeight = imageOriginalSize.Height;
+            int sourceWidth = imageOriginalSize.Width, sourceHeight = imageOriginalSize.Height;
 
-            float nPercentW = (destinationSize.Width / (float)sourceWidth);
-            float nPercentH = (destinationSize.Height / (float)sourceHeight);
+            float nPercentW = (destinationSize.Width / (float)sourceWidth), nPercentH = (destinationSize.Height / (float)sourceHeight);
 
             //want a larger image so i can crop
             //TODO - do something with this.
-            float nPercent = CalculateRatio(shouldCrop, nPercentW, nPercentH);
+            var nPercent = CalculateRatio(shouldCrop, nPercentW, nPercentH);
 
 
-            int destWidth = (int)(sourceWidth * nPercent);
-            int destHeight = (int)(sourceHeight * nPercent);
+            int destWidth = (int)(sourceWidth * nPercent), destHeight = (int)(sourceHeight * nPercent);
             return new Size(destWidth, destHeight);
         }
 
@@ -60,7 +57,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
             var ms = new MemoryStream();
 
             ImageCodecInfo[] info = ImageCodecInfo.GetImageEncoders(); // info 1 is jpg encoder
-            EncoderParameters encoderParameters = new EncoderParameters(2);
+            var encoderParameters = new EncoderParameters(2);
             encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, 85L);
             encoderParameters.Param[1] = new EncoderParameter(Encoder.RenderMethod, EncoderValue.RenderProgressive.ToString());
 

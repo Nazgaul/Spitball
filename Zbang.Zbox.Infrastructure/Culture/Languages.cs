@@ -6,16 +6,16 @@ namespace Zbang.Zbox.Infrastructure.Culture
 {
     public static class Languages
     {
-        public const string EnglishUSName = "English \u200E(US)\u200E";
-        public const string EnglishGBName = "English \u200E(UK)\u200E";
+        public const string EnglishUsName = "English \u200E(US)\u200E";
+        public const string EnglishGbName = "English \u200E(UK)\u200E";
         public const string HebrewName = "עברית";
         public const string ArabicName = "العربية";
         public const string RussianName = "Pусский";
         public const string ChineseName = "中文";
 
         public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
-            new LanguagesDetail(EnglishUSName,"en-US"),
-            new LanguagesDetail(EnglishGBName,"en-GB"),
+            new LanguagesDetail(EnglishUsName,"en-US"),
+            new LanguagesDetail(EnglishGbName,"en-GB"),
             new LanguagesDetail(HebrewName,"he-IL"),
             new LanguagesDetail(ArabicName,"ar-AE"),
             new LanguagesDetail(RussianName,"ru-RU"),

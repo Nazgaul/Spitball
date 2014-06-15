@@ -1,9 +1,6 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Zbang.Zbox.Infrastructure.Enums;
+﻿using System.Globalization;
+using Microsoft.WindowsAzure.Storage.Table;
+
 
 namespace Zbang.Zbox.Infrastructure.Storage.Entities
 {
@@ -11,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Storage.Entities
     {
 
         public FlagItem(long itemId, long userId, string other, string badItem)
-            : base("FlagItem", itemId.ToString())
+            : base("FlagItem", itemId.ToString(CultureInfo.InvariantCulture))
         {
 
             UserId = userId;
