@@ -25,6 +25,7 @@
             that.ownerUrl = data.userUrl;
             that.rate = 69 / 5 * data.rate;
 
+            console.log(data.name,data.date);
             that.date = new Date(data.date).getTime();
             that.isNew = ko.observable(data.isNew || false);
             that.tabId = ko.observable(data.tabId);
@@ -233,7 +234,7 @@
             //else {
             //    return -1;
             //}
-            return 0;
+            //return 0;
         }
 
         //#region addItem

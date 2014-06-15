@@ -389,8 +389,8 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
             userUrl: cd.userDetail().url,
             type: 'quiz',
             url: url,
-            date: cd.getUTCDate()
-        };
+            date: new Date()
+    };
 
         cd.pubsub.publish('addItem', quiz);
 
