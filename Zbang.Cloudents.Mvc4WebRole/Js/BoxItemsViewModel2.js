@@ -222,10 +222,10 @@
             if (b.sponsored) {
                 return 1;
             }
-            if (a.date < b.date) {
-                return 1;
-            } else {
+            if (a.date > b.date) {
                 return -1;
+            } else {
+                return 1;
             }
             //if (a.name < b.name) {
             //    return 1;
@@ -233,7 +233,7 @@
             //else {
             //    return -1;
             //}
-            //return 0;
+            return 0;
         }
 
         //#region addItem
@@ -534,10 +534,11 @@
 
 
                 $(tooltip).fadeIn(300);
-                //if (cd.getElementPosition($tooltip[0]).top - $tooltip.outerWidth(true) < 0) {
-                //    $tooltip.css('top', '50px');
-                //}
 
+                var offset = cd.getElementPosition($tooltip[0]).top;
+                if (offset < 0) {
+                    $tooltip.css('margin-bottom', offset - 5);
+                }
                 cd.parseTimeString($tooltip.find('[data-time]'));
             },
             out: function () {
