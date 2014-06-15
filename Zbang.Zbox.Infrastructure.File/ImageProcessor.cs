@@ -56,8 +56,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     throw new ArgumentException("Stream is 0");
                 }
-                ResizeSettings settings = new ResizeSettings();
-                settings.Mode = FitMode.Max;
+                var settings = new ResizeSettings {Mode = FitMode.Max};
                 using (var outPutStream = ProcessFile(stream, imageDimentions.Width, imageDimentions.Height, settings))
                 {
                     var cacheName = await m_BlobProvider.UploadFileToCacheAsync(cacheFileName, outPutStream, "image/jpg");
@@ -128,12 +127,21 @@ namespace Zbang.Zbox.Infrastructure.File
                 var blobName = GetBlobNameFromUri(blobUri);
                 using (var stream = m_BlobProvider.DownloadFile(blobName))
                 {
-                    ResizeSettings settings = new ResizeSettings();
-                    settings.Scale = ScaleMode.UpscaleCanvas;
-                    settings.Anchor = ContentAlignment.MiddleCenter;
-                    settings.BackgroundColor = Color.White;
-                    settings.Mode = FitMode.Crop;
-
+                    //var settings = new ResizeSettings
+                    //{
+                    //    Scale = ScaleMode.UpscaleCanvas,
+                    //    Anchor = ContentAlignment.MiddleCenter,
+                    //    BackgroundColor = Color.White,
+                    //    Mode = FitMode.Crop
+                    //};
+                    var settings = new ResizeSettings
+                    {
+                        
+                        Anchor = ContentAlignment.MiddleCenter,
+                        BackgroundColor = Color.White,
+                       // Mode = FitMode.Crop,
+                        Scale = ScaleMode.UpscaleCanvas
+                    };
 
                     using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
                     {
