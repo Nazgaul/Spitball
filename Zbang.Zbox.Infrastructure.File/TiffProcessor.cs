@@ -1,4 +1,6 @@
-﻿using Aspose.Imaging;
+﻿using System.Drawing;
+using Aspose.Imaging;
+using Aspose.Imaging.FileFormats.Jpeg;
 using Aspose.Imaging.FileFormats.Tiff;
 using Aspose.Imaging.ImageOptions;
 using Aspose.Imaging.Sources;
@@ -7,14 +9,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
+using Image = Aspose.Imaging.Image;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    class TiffProcessor : FileProcessor, IContentProcessor
+    class TiffProcessor : FileProcessor
     {
         public TiffProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
@@ -23,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
         private static void SetLicense()
         {
-            var license = new Aspose.Imaging.License();
+            var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
         public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
@@ -34,7 +37,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var tiff = new Lazy<TiffImage>(() =>
             {
                 SetLicense();
-                blobStr = m_BlobProvider.DownloadFile(blobName);
+                blobStr = BlobProvider.DownloadFile(blobName);
 
                 var tiffImage = (TiffImage)Image.Load(blobStr);
                 return tiffImage;
@@ -43,13 +46,13 @@ namespace Zbang.Zbox.Infrastructure.File
             });
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
-            JpegOptions jpgCreateOptions = new JpegOptions();
+            var jpgCreateOptions = new JpegOptions();
 
 
-            for (int pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
                 var cacheblobName = CreateCacheFileName(blobName, pageIndex);
-                var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
+                var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
                 if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
                 {
                     blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
@@ -61,22 +64,22 @@ namespace Zbang.Zbox.Infrastructure.File
 
                     tiff.Value.ActiveFrame = tiff.Value.Frames[pageIndex];// tiffFrame;
                     //Load Pixels of TiffFrame into an array of Colors
-                    Color[] pixels = tiff.Value.LoadPixels(tiff.Value.Bounds);
+                    var pixels = tiff.Value.LoadPixels(tiff.Value.Bounds);
 
                     //Set the Source of bmpCreateOptions as FileCreateSource by specifying the location where output will be saved
                     using (var ms = new MemoryStream())
                     {
-                        jpgCreateOptions.Source = new Aspose.Imaging.Sources.StreamSource(ms);
-                        using (Aspose.Imaging.FileFormats.Jpeg.JpegImage jpgImage =
-                  (Aspose.Imaging.FileFormats.Jpeg.JpegImage)Image.Create(jpgCreateOptions, tiff.Value.Width, tiff.Value.Height))
+                        jpgCreateOptions.Source = new StreamSource(ms);
+                        using (var jpgImage =
+                  (JpegImage)Image.Create(jpgCreateOptions, tiff.Value.Width, tiff.Value.Height))
                         {
                             //Save the bmpImage with pixels from TiffFrame
                             jpgImage.SavePixels(tiff.Value.Bounds, pixels);
                             jpgImage.Save();
                         }
-                        Compress compressor = new Compress();
+                        var compressor = new Compress();
                         var gzipSr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
+                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
                     }
                 }
                 catch (IndexOutOfRangeException)
@@ -101,13 +104,13 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public static readonly string[] tiffExtesions = { ".tiff", ".tif" };
+        public static readonly string[] TiffExtesions = { ".tiff", ".tif" };
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return tiffExtesions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return TiffExtesions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 
@@ -118,38 +121,39 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                ResizeSettings settings = new ResizeSettings();
-                settings.Scale = ScaleMode.UpscaleCanvas;
-                settings.Anchor = System.Drawing.ContentAlignment.MiddleCenter;
-                settings.BackgroundColor = System.Drawing.Color.White;
-                settings.Mode = FitMode.Crop;
-                settings.Width = ThumbnailWidth;
-                settings.Height = ThumbnailHeight;
+                var settings = new ResizeSettings
+                {
+                    Scale = ScaleMode.UpscaleCanvas,
+                    Anchor = ContentAlignment.MiddleCenter,
+                    BackgroundColor = System.Drawing.Color.White,
+                    Mode = FitMode.Crop,
+                    Width = ThumbnailWidth,
+                    Height = ThumbnailHeight,
+                    Quality = 80,
+                    Format = "jpg"
+                };
 
-                settings.Quality = 80;
-                settings.Format = "jpg";
-
-                using (var ms = m_BlobProvider.DownloadFile(blobName))
+                using (var ms = BlobProvider.DownloadFile(blobName))
                 {
                     using (var output = new MemoryStream())
                     {
-                        ImageResizer.ImageBuilder.Current.Build(ms, output, settings);
+                        ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
+                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
                     }
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile tiff", ex);
-                return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
         }
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.ImageFileTypePicture;
+            return ThumbnailProvider.ImageFileTypePicture;
         }
     }
 }

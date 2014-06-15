@@ -1,4 +1,5 @@
-﻿using Aspose.Slides;
+﻿using System.Globalization;
+using Aspose.Slides;
 using Aspose.Slides.Util;
 using ImageResizer;
 using System;
@@ -14,7 +15,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class PowerPoing2007Processor : FileProcessor, IContentProcessor
+    public class PowerPoing2007Processor : FileProcessor
     {
         const string CacheVersion = "V4";
         public PowerPoing2007Processor(IBlobProvider blobProvider)
@@ -25,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private static void SetLicense()
         {
-            var license = new Aspose.Slides.License();
+            var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
 
@@ -37,7 +38,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var ppt = new Lazy<Presentation>(() =>
             {
                 SetLicense();
-                using (var sr = m_BlobProvider.DownloadFile(blobName))
+                using (var sr = BlobProvider.DownloadFile(blobName))
                 {
                     return new Presentation(sr);
                 }
@@ -46,8 +47,8 @@ namespace Zbang.Zbox.Infrastructure.File
             var parallelTask = new List<Task<string>>();
             var tasks = new List<Task>();
 
-            var meta = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
-            for (int pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
                 string value;
                 var metaDataKey = CacheVersion + pageIndex;
@@ -55,8 +56,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString();// DateTime.UtcNow.ToString();
+                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
 
@@ -73,10 +74,10 @@ namespace Zbang.Zbox.Infrastructure.File
                     using (var ms = new MemoryStream())
                     {
                         retVal.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        Compress compressor = new Compress();
+                        var compressor = new Compress();
                         var gzipSr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString());
+                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
+                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
                         //blobsNamesInCache.Add(cacheName);
                     }
                 }
@@ -86,7 +87,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
 
             }
-            var t = m_BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
             tasks.AddRange(parallelTask);
             tasks.Add(t);
             await Task.WhenAll(tasks);
@@ -104,13 +105,13 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public static readonly string[] powerPoint2007Extenstions = { ".pptx", ".potx", ".ppxs", ".ppsx", ".ppt", ".pot", ".pps" };
+        public static readonly string[] PowerPoint2007Extenstions = { ".pptx", ".potx", ".ppxs", ".ppsx", ".ppt", ".pot", ".pps" };
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return powerPoint2007Extenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return PowerPoint2007Extenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 
@@ -123,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 var blobName = GetBlobNameFromUri(blobUri);
                 Presentation pptx;
 
-                using (var stream = m_BlobProvider.DownloadFile(blobName))
+                using (var stream = BlobProvider.DownloadFile(blobName))
                 {
                     SetLicense();
                     pptx = new Presentation(stream);
@@ -133,7 +134,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                 {
 
-                    ResizeSettings settings = new ResizeSettings();
+                    var settings = new ResizeSettings();
                     settings.Scale = ScaleMode.UpscaleCanvas;
                     settings.Anchor = ContentAlignment.MiddleCenter;
                     settings.BackgroundColor = Color.White;
@@ -147,15 +148,12 @@ namespace Zbang.Zbox.Infrastructure.File
 
                     using (var output = new MemoryStream())
                     {
-                        ImageResizer.ImageBuilder.Current.Build(img, output, settings);
+                        ImageBuilder.Current.Build(img, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
+                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
                         var pptContent =  ExtractStringFromPpt(pptx);
-                        if (pptx != null)
-                        {
-                            pptx.Dispose();
-                        }
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult
+                        pptx.Dispose();
+                        return Task.FromResult(new PreProcessFileResult
                         {
                             ThumbnailName = thumbnailBlobAddressUri,
                             FileTextContent = pptContent
@@ -166,7 +164,7 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile powerpoint2007", ex);
-                return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
         }
         private string ExtractStringFromPpt(Presentation ppt)
@@ -174,16 +172,16 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var sb = new StringBuilder();
-                ITextFrame[] textFramesSlideOne = SlideUtil.GetAllTextFrames(ppt, false);
+                var textFramesSlideOne = SlideUtil.GetAllTextFrames(ppt, false);
 
                 //Loop through the Array of TextFrames
-                for (int i = 0; i < textFramesSlideOne.Length; i++)
+                for (var i = 0; i < textFramesSlideOne.Length; i++)
 
                     //Loop through paragraphs in current TextFrame
-                    foreach (Paragraph para in textFramesSlideOne[i].Paragraphs)
+                    foreach (var para in textFramesSlideOne[i].Paragraphs)
 
                         //Loop through portions in the current Paragraph
-                        foreach (Portion port in para.Portions)
+                        foreach (var port in para.Portions)
                         {
                             //Display text in the current portion
                             sb.Append(port.Text);
@@ -208,7 +206,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.PowerPointFileTypePicture;
+            return Thumbnail.ThumbnailProvider.PowerPointFileTypePicture;
         }
     }
 }

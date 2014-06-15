@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -36,12 +37,12 @@ namespace Zbang.Zbox.Infrastructure.File
             var word = new Lazy<Document>(() =>
             {
                 SetLicense();
-                using (var sr = m_BlobProvider.DownloadFile(blobName))
+                using (var sr = BlobProvider.DownloadFile(blobName))
                 {
                     return new Document(sr);
                 }
             });
-            var meta = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
+            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
 
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
@@ -49,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 80};
 
-            for (int pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
                 string value;
                 var cacheblobName = CreateCacheFileName(blobName, pageIndex);
@@ -57,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 var metaDataKey = VersionCache + pageIndex;
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
                     meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
@@ -69,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         word.Value.Save(ms, imgOptions);
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
+                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
                         meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
                     }
                 }
@@ -79,7 +80,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
 
             }
-            var t = m_BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
             tasks.AddRange(parallelTask);
             tasks.Add(t);
             await Task.WhenAll(tasks);
@@ -99,7 +100,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public static readonly string[] WordExtenstions = { ".rtf", ".docx", ".doc", ".txt" };
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
                 return WordExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -113,7 +114,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 var blobName = GetBlobNameFromUri(blobUri);
                 Document word;
 
-                using (var sr = m_BlobProvider.DownloadFile(blobName))
+                using (var sr = BlobProvider.DownloadFile(blobName))
                 {
                     SetLicense();
                     word = new Document(sr);
@@ -138,7 +139,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
+                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
                         return Task.FromResult(new PreProcessFileResult
                         {
                             ThumbnailName = thumbnailBlobAddressUri,
@@ -172,7 +173,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Thumbnail.ThumbnailProvider.WordFileTypePicture;
+            return ThumbnailProvider.WordFileTypePicture;
         }
     }
 }

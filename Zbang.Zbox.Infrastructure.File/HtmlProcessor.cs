@@ -2,20 +2,18 @@
 using Aspose.Words.Saving;
 using ImageResizer;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
     public class HtmlProcessor : FileProcessor
     {
-        private static readonly string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
+        private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
 
         public HtmlProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
@@ -25,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private void SetLicense()
         {
-            var license = new Aspose.Words.License();
+            var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
         //using aspose word to create thumbnail
@@ -34,23 +32,22 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                Document word = null;
+                Document word;
 
-                CancellationTokenSource canceller = new CancellationTokenSource();
-
-                using (var sr = m_BlobProvider.DownloadFile(blobName))
+                using (var sr = BlobProvider.DownloadFile(blobName))
                 {
                     SetLicense();
                     word = new Document(sr);
                 }
-                ImageSaveOptions imgOptions = new ImageSaveOptions(SaveFormat.Jpeg);
-                imgOptions.JpegQuality = 100;
+                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 100};
 
-                ResizeSettings settings = new ResizeSettings();
-                settings.Width = ThumbnailWidth;
-                settings.Height = ThumbnailHeight;
-                settings.Quality = 80;
-                settings.Format = "jpg";
+                var settings = new ResizeSettings
+                {
+                    Width = ThumbnailWidth,
+                    Height = ThumbnailHeight,
+                    Quality = 80,
+                    Format = "jpg"
+                };
 
                 using (var ms = new MemoryStream())
                 {
@@ -58,40 +55,40 @@ namespace Zbang.Zbox.Infrastructure.File
                     ms.Seek(0, SeekOrigin.Begin);
                     using (var output = new MemoryStream())
                     {
-                        ImageResizer.ImageBuilder.Current.Build(ms, output, settings);
+                        ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
+                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
                     }
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile html", ex);
-                return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
         }
 
         public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
         {
-            var publicUrl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 20);
-            return Task.FromResult<PreviewResult>(new PreviewResult(String.Format(ContentFormat, publicUrl)));
+            var publicUrl = BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 20);
+            return Task.FromResult(new PreviewResult(String.Format(ContentFormat, publicUrl)));
 
         }
-        public static readonly string[] htmlExtensions = { ".htm", ".html" };
+        public static readonly string[] HtmlExtensions = { ".htm", ".html" };
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return htmlExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return HtmlExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
         }
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.DefaultFileTypePicture;
+            return ThumbnailProvider.DefaultFileTypePicture;
         }
     }
 }
