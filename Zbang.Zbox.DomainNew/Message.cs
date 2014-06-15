@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
@@ -54,6 +50,7 @@ namespace Zbang.Zbox.Domain
             IsActive = true;
         }
         public virtual Box Box { get; private set; }
+// ReSharper disable once UnusedAutoPropertyAccessor.Local
         public DateTime? OpenTime { get; private set; }
         public DateTime? SendTime { get; private set; }
         public bool IsActive { get; internal set; }
@@ -78,6 +75,7 @@ namespace Zbang.Zbox.Domain
 
         }
         public string Text { get; private set; }
+// ReSharper disable once UnusedAutoPropertyAccessor.Local
         public DateTime? OpenTime { get; private set; }
 
     }
@@ -91,6 +89,7 @@ namespace Zbang.Zbox.Domain
             : base(id, sender, recepient)
         {
         }
+// ReSharper disable once UnusedAutoPropertyAccessor.Local
         public DateTime? OpenTime { get; private set; }
     }
 }

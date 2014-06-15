@@ -7,7 +7,9 @@ namespace Zbang.Zbox.Domain
         protected UserTimeDetails()
         {
             DateTime now = DateTime.UtcNow;
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             CreationTime = now;
+
             UpdateTime = now;
             CreatedUser = string.Empty;
             UpdatedUser = string.Empty;
@@ -19,7 +21,7 @@ namespace Zbang.Zbox.Domain
             CreationTime = now;
             UpdateTime = now;
             CreatedUser = UpdatedUser = user;
-
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
         public virtual DateTime CreationTime { get; set; }

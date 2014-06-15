@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Domain
 {
@@ -14,6 +10,8 @@ namespace Zbang.Zbox.Domain
         }
         public Discussion(Guid id, User owner, string text, Question question)
         {
+            
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
             Owner = owner;
             Text = text.Trim();
@@ -21,6 +19,8 @@ namespace Zbang.Zbox.Domain
             Quiz = question.Quiz;
             Question = question;
             Quiz.Box.UserTime.UpdateUserTime(owner.Email);
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
+
         }
         public virtual Guid Id { get; set; }
         public virtual User Owner { get; set; }

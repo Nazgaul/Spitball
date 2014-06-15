@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain
 // ReSharper disable once RedundantBaseConstructorCall
             : base()
         {
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Libraries = new HashedSet<Library>();
             NeedCode = false;
         }
@@ -20,6 +21,8 @@ namespace Zbang.Zbox.Domain
         {
             Libraries = new HashedSet<Library>();
             UserTime.CreatedUser = creatingUserName;
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
+
             NeedCode = false;
         }
 
@@ -32,7 +35,9 @@ namespace Zbang.Zbox.Domain
 
         public virtual ICollection<Library> Libraries { get; set; }
         public virtual bool NeedCode { get; private set; }
+// ReSharper disable UnusedAutoPropertyAccessor.Local
         public virtual University DataUnversity { get; private set; }
+
 
         public string WebSiteUrl { get; private set; }
         public string MailAddress { get; private set; }
@@ -46,6 +51,7 @@ namespace Zbang.Zbox.Domain
         public virtual string Country { get; set; }
 
         public virtual string UniversityName { get; private set; }
+        // ReSharper restore UnusedAutoPropertyAccessor.Local
 
         public virtual Library CreateNewLibraryRoot(Guid id, string nodeName)
         {

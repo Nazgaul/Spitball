@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Domain
 {
@@ -10,6 +7,7 @@ namespace Zbang.Zbox.Domain
     {
         protected SolvedQuiz()
         {
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             SolvedQuestions = new List<SolvedQuestion>();
         }
         public SolvedQuiz(Guid id, Quiz quiz, User user, TimeSpan timeTaken)
@@ -20,6 +18,8 @@ namespace Zbang.Zbox.Domain
             User = user;
             TimeTaken = timeTaken;
             CreationTime = DateTime.UtcNow;
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
+
 
         }
 

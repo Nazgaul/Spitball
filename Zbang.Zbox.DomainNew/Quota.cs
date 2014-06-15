@@ -8,8 +8,10 @@ namespace Zbang.Zbox.Domain
 
         public Quota()
         {
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             AllocatedSize = 0;
             UsedSpace = 0;
+// ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
         public void AllocateStorage()
