@@ -1207,6 +1207,10 @@
     top: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    min-height: ~'-webkit-calc(100vh - 150px)';
+    min-height: ~'calc(100vh - 150px)'; //this prevents a scrollbar on 'short' documents. 150px is the height of the header + top bar + small margin
+    font-size: 13px;
+    font-weight: normal;
 }
 
 .readView {
