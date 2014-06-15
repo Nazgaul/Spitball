@@ -568,18 +568,14 @@
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
-    <Content Include="Content\Box3.min.css">
-      <DependentUpon>Box3.css</DependentUpon>
-    </Content>
+   
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
-    <Content Include="Content\General.min.css">
-      <DependentUpon>General.css</DependentUpon>
-    </Content>
+    
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
@@ -601,15 +597,11 @@
     <Content Include="Content\Item3.css">
       <DependentUpon>Item3.less</DependentUpon>
     </Content>
-    <Content Include="Content\Item3.min.css">
-      <DependentUpon>Item3.css</DependentUpon>
-    </Content>
+   
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
     </Content>
-    <Content Include="Content\ItemMobile.min.css">
-      <DependentUpon>ItemMobile.css</DependentUpon>
-    </Content>
+    
     <Content Include="Content\ItemMobileRtl.css">
       <DependentUpon>ItemMobileRtl.less</DependentUpon>
     </Content>
@@ -623,15 +615,11 @@
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
     </Content>
-    <Content Include="Content\Mobile.min.css">
-      <DependentUpon>Mobile.css</DependentUpon>
-    </Content>
+   
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
     </Content>
-    <Content Include="Content\MobileRtl.min.css">
-      <DependentUpon>MobileRtl.css</DependentUpon>
-    </Content>
+   
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
     </Content>
@@ -639,9 +627,7 @@
     <Content Include="Content\QnA.css">
       <DependentUpon>QnA.less</DependentUpon>
     </Content>
-    <Content Include="Content\QnA.min.css">
-      <DependentUpon>QnA.css</DependentUpon>
-    </Content>
+   
     <Content Include="Content\Quiz.css">
       <DependentUpon>Quiz.less</DependentUpon>
     </Content>
@@ -657,9 +643,7 @@
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
-    <Content Include="Content\Sidebar.min.css">
-      <DependentUpon>Sidebar.css</DependentUpon>
-    </Content>
+   
     <Content Include="Content\Site3.css">
       <DependentUpon>Site3.less</DependentUpon>
     </Content>

@@ -1,9 +1,10 @@
-﻿(function (cd, dataContext, $, pubsub, ZboxResources, analytics) {
+﻿(function (cd, dataContext, $, pubsub, jsResources, analytics) {
+    "use strict";
     if (window.scriptLoaded.isLoaded('bs')) {
         return;
     }
 
-    "use strict";
+   
     var boxSettings, boxSettingsData = {}, members = [], settingsFirstTime = true, membersFirstTime = true,
         eById = document.getElementById.bind(document), CDISABLED = 'disabled', MINHEIGHT = 420, MAXHEIGHT = 600;
     pubsub.subscribe('boxSettings', function (data) {
@@ -89,10 +90,10 @@
         }
 
         if (!boxSettingsData.willDelete()) {
-            eById('boxSettingsDelete').textContent = JsResources.Unfollow;
+            eById('boxSettingsDelete').textContent = jsResources.Unfollow;
         }
         else {
-            eById('boxSettingsDelete').textContent = JsResources.Delete;
+            eById('boxSettingsDelete').textContent = jsResources.Delete;
         }
         dataContext.getNotification({
             data: { boxUid: boxSettingsData.boxUid },
@@ -108,7 +109,7 @@
 
         function registerEvents() {
             eById('boxSettingsForm').onsubmit = function (e) {
-                var self = this, submitBtn = self.querySelector('input[type=submit]');
+                var self = this;
                 e.preventDefault();
                 var data = $(this).serializeArray();
                 data.push({ name: 'BoxUid', value: boxSettingsData.boxUid });
@@ -176,13 +177,13 @@
                 var sentence = '';
                 switch (boxSettingsData.willDelete()) {
                     case 1:
-                        sentence = JsResources.SureYouWant + JsResources.ToDeleteBox;
+                        sentence = jsResources.SureYouWant + jsResources.ToDeleteBox;
                         break;
                     case 2:
                         sentence = 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
                         break;
                     default:
-                        sentence = JsResources.SureYouWant + JsResources.ToLeaveGroup;
+                        sentence = jsResources.SureYouWant + jsResources.ToLeaveGroup;
                 }
                 var that = this;
                 cd.confirm(sentence, function () {                
@@ -215,7 +216,7 @@
         dataContext.boxMembers({
             data: { BoxUid: boxid },
             success: function (data) {
-                membersQuery = data
+                membersQuery = data;
                 members = [];
                 var membersCount = boxSettings.querySelector('.membersCount');
                 membersCount.textContent = membersQuery.length + ' ' + membersCount.getAttribute('data-label');
@@ -294,7 +295,7 @@
         }
 
         function removeMember(memberid, elem) {
-            var p = cd.confirm2(JsResources.DeleteUser);
+            var p = cd.confirm2(jsResources.DeleteUser);
             p.done(function () {
                 elem.setAttribute(CDISABLED, CDISABLED);
                 dataContext.removeUser({
@@ -388,8 +389,7 @@
 
             //member actions
 
-            var memberActionsList = boxSettings.getElementsByClassName('memberActions'),
-                guid, member;
+            var member;
             $(boxSettings).on('click', '.memberActions', function (e) {
                 /// <summary></summary>
                 /// <param name="e" type="HTMLElement"></param>

@@ -1,5 +1,5 @@
 ﻿/// <reference path="../Views/Library/Index.cshtml" />
-(function (cd, dataContext, ko, ZboxResources, analytics) {
+(function (cd, dataContext, ko, jsResources, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('l')) {
         return;
@@ -44,7 +44,7 @@
                     data: { BoxUid: that.uid }
                 });
                 cd.postFb(that.name,
-                JsResources.IJoined.format(that.name),
+                jsResources.IJoined.format(that.name),
 
                 cd.location());
                 //analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
@@ -122,7 +122,7 @@
                 if (self.title()) {
                     return self.title();
                 }
-                return JsResources.TopLevel;
+                return jsResources.TopLevel;
             });
 
         //#region emptystate
@@ -253,7 +253,7 @@
                     return i.name === data[0].value;
                 });
                 if (item) {
-                    cd.notification(JsResources.ItemExists);
+                    cd.notification(jsResources.ItemExists);
                     return false;
                 }
                 data.push(pushParentId());
@@ -299,10 +299,10 @@
                 isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
 
             if (isDelete) {
-                isok = confirm(JsResources.DeleteCourse);
+                isok = confirm(jsResources.DeleteCourse);
             }
             else {
-                isok = confirm(JsResources.SureYouWantTo + ' ' + JsResources.ToLeaveGroup);
+                isok = confirm(jsResources.SureYouWantTo + ' ' + jsResources.ToLeaveGroup);
             }
             if (!isok) {
                 return;

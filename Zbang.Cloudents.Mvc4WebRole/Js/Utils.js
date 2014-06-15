@@ -195,7 +195,7 @@
         }
 
         function calculateDayDifference() {
-            return diffDays = Math.round(Math.abs((date.getTime() - today.getTime()) / (oneDay)));
+            return Math.round(Math.abs((date.getTime() - today.getTime()) / (oneDay)));
         }
         function calculateSecondsDifferece() {
             var time1 = date.getTime(),
@@ -755,10 +755,10 @@
 
 
     var dateToShow = function (date, delimeter, twoDigitsYear) {
+        delimeter = delimeter || '/';
         var day = date.getDate(),
             month = date.getMonth() + 1,
-            year = date.getFullYear().toString(),//we use to string so we can use substring
-            delimeter = delimeter || '/';
+            year = date.getFullYear().toString();
         if (twoDigitsYear) {
             year = year.substr(2, 2);
         }
@@ -874,7 +874,7 @@
         /// <summary></summary>
         /// <param name="elem" type="jQuery"></param>
 
-        var $elem = $(elem);
+        var $elem = $(elem),
         text = $elem.attr('title') || $elem.text();
         $elem.attr({ 'contenteditable': true, spellcheck: false }).addClass('editable').text(text);
         setEndOfContenteditable($elem[0]);
@@ -1097,8 +1097,8 @@
     };
 
     var highlightSearch = function (term, name, className) {
-        var className = className || 'boldPart',
-            firstPart = '<mark class="' + className + '" data-ignore-rtl="true">',
+        className = className || 'boldPart';
+        var firstPart = '<mark class="' + className + '" data-ignore-rtl="true">',
             lastPart = '</mark>',
             boldStringLength = firstPart.length + lastPart.length;
 
