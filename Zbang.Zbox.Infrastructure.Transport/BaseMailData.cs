@@ -1,8 +1,4 @@
 ﻿using ProtoBuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
@@ -28,7 +24,8 @@ namespace Zbang.Zbox.Infrastructure.Transport
         protected BaseMailData()
         {
         }
-        public BaseMailData(string emailAddress,string culture)
+
+        protected BaseMailData(string emailAddress,string culture)
         {
             Culture = culture;
             EmailAddress = emailAddress;

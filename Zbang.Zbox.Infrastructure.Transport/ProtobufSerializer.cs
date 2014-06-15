@@ -1,34 +1,29 @@
-﻿using ProtoBuf;
-using ProtoBuf.Meta;
-using System;
-using System.Collections.Generic;
+﻿using ProtoBuf.Meta;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
     public class ProtobufSerializer<T> where T : class
     {
-        RuntimeTypeModel m_TypeModel;
+        private readonly RuntimeTypeModel m_TypeModel;
         public ProtobufSerializer()
         {
             if (typeof(T).IsDefined(typeof(ProtoBuf.ProtoContractAttribute), false))
             {
-               
-                m_TypeModel = ProtoBuf.Meta.RuntimeTypeModel.Default;
+
+                m_TypeModel = RuntimeTypeModel.Default;
                 return;
             }
-            m_TypeModel = ProtoBuf.Meta.TypeModel.Create();
+            m_TypeModel = TypeModel.Create();
             AddTypeToModel(m_TypeModel);
 
         }
 
-        private MetaType AddTypeToModel(RuntimeTypeModel typeModel)
+        private void AddTypeToModel(RuntimeTypeModel typeModel)
         {
             var properties = typeof(T).GetProperties().Select(p => p.Name).OrderBy(name => name);
-            return typeModel.Add(typeof(T), true).Add(properties.ToArray());
+            typeModel.Add(typeof(T), true).Add(properties.ToArray());
         }
 
         public byte[] SerializeData(T model)
