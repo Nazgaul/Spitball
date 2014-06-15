@@ -11,9 +11,10 @@ angular.module('main.directives', []).
 
                 //Use HTML5 placeholder attribute.
                 if (placeholderSupport) {
-                    attrs.$set("placeholder", txt);
                     return;
                 }
+
+                elem.removeAttr('placeholder');
 
                 elem.on("focus", function (event) {
                     if (elem.val() === txt) {
