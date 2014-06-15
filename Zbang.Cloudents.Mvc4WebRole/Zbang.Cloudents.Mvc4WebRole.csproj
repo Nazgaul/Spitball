@@ -1894,9 +1894,6 @@
   <ItemGroup>
     <Content Include="cdn\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Js\Resources\Web.config" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
