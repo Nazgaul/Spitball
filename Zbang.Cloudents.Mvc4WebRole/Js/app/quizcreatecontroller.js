@@ -186,6 +186,18 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
         }
     };
 
+    $scope.addTabAnswer = function (e,question,answer) {        
+        if (e.keyCode !== 9) {
+            return;
+        }
+                
+        if (question.answers[question.answers.length - 1] !== answer) {
+            return;
+        }
+        e.preventDefault();
+        $scope.addAnswer(question, true);
+    }
+
     $scope.addAnswer = function (question,focus) {
         var answer = new Answer();
         answer.focus = focus;
