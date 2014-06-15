@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -23,16 +21,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             switch (message.FirstTimeStage)
             {
-                case Zbang.Zbox.Infrastructure.Enums.FirstTime.Dashboard:
+                case Infrastructure.Enums.FirstTime.Dashboard:
                     user.UpdateDashboardFirstTime();
                     break;
-                case Zbang.Zbox.Infrastructure.Enums.FirstTime.Library:
+                case Infrastructure.Enums.FirstTime.Library:
                     user.UpdateLibraryFirstTime();
                     break;
-                case Zbang.Zbox.Infrastructure.Enums.FirstTime.Box:
+                case Infrastructure.Enums.FirstTime.Box:
                     user.UpdateBoxFirstTime();
                     break;
-                case Zbang.Zbox.Infrastructure.Enums.FirstTime.Item:
+                case Infrastructure.Enums.FirstTime.Item:
                     user.UpdateItemFirstTime();
                     break;
                 default:

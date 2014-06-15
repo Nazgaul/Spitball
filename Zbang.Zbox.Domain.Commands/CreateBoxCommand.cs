@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain.Commands

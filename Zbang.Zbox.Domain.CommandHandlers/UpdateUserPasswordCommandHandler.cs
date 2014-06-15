@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             User user = m_UserRepository.Get(command.Id);
             if (user == null)
-                throw new ArgumentNullException("user doesnt not exists");
+                throw new NullReferenceException("user doesnt not exists");
 
 
             if (IsUserRegisteredLocaly(user))

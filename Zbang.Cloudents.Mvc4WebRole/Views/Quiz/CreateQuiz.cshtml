@@ -87,10 +87,10 @@
     </script>
 
     <script type="text/ng-template" id="quizAnswerTemplate">
-        <textarea name="answer" class="inputText questionAnswer" quiz-focus data-focus="{{answer.focus}}" msd-elastic ng-required="!questionForm.$pristine || params.isDraft"
+        <textarea name="answer" class="inputText questionAnswer" quiz-focus data-focus="{{answer.focus}}" msd-elastic ng-required="!questionForm.$pristine || params.isDraft" ng-keydown="addTabAnswer($event,question,answer)"
                   ng-placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-change="toggleRadioBtn(question,answer)" ng-model="answer.text"></textarea>
 
-        <button type="button" class="TODO" ng-click="removeAnswer(question,$index)">X</button>
+        <button tabindex="-1" type="button" class="TODO" ng-click="removeAnswer(question,$index)">X</button>
         <input id="quizRadio{{currentIndex}}" type="radio" class="correctAnswer" name="quizRadio{{$parent.$parent.$index}}"
                ng-disabled="isEmptyText(answer)" value="{{answer.id}}" ng-model="question.correctAnswer" ng-required="!questionForm.$pristine || params.isDraft" />
         <label for="quizRadio{{currentIndex}}" ng-click="markCorrect(question,answer)"></label>

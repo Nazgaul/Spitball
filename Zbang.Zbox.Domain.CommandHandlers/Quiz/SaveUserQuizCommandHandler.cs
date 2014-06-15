@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -15,9 +12,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     public class SaveUserQuizCommandHandler : ICommandHandler<SaveUserQuizCommand>
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
-        private readonly IRepository<Domain.SolvedQuiz> m_SolvedQuizRepository;
-        private readonly IRepository<Domain.SolvedQuestion> m_SolvedQuestionRepository;
-        private readonly IRepository<Domain.Answer> m_AnswerRepository;
+        private readonly IRepository<SolvedQuiz> m_SolvedQuizRepository;
+        private readonly IRepository<SolvedQuestion> m_SolvedQuestionRepository;
+        private readonly IRepository<Answer> m_AnswerRepository;
         private readonly IIdGenerator m_IdGenerator;
 
         private readonly IUserRepository m_UserRepository;
@@ -25,9 +22,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         public SaveUserQuizCommandHandler(
             IRepository<Domain.Quiz> quizRepository,
             IUserRepository userRepository,
-            IRepository<Domain.SolvedQuiz> solvedQuizRepository,
-            IRepository<Domain.SolvedQuestion> solvedQuestionRepository,
-            IRepository<Domain.Answer> answerRepository,
+            IRepository<SolvedQuiz> solvedQuizRepository,
+            IRepository<SolvedQuestion> solvedQuestionRepository,
+            IRepository<Answer> answerRepository,
             IIdGenerator idGenerator
             )
         {
@@ -51,10 +48,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 quiz.Box.CalculateMembers();
                 m_UserRepository.Save(user);
             }
-            var answerSheet = m_SolvedQuizRepository.GetQuerable().Where(w => w.User == user && w.Quiz == quiz).FirstOrDefault();
+            var answerSheet = m_SolvedQuizRepository.GetQuerable().FirstOrDefault(w => w.User == user && w.Quiz == quiz);
             if (answerSheet != null)
             {
-                DeleteAnswers(answerSheet, user, quiz);
+                DeleteAnswers(answerSheet);
             }
             var solvedQuiz = new SolvedQuiz(m_IdGenerator.GetId(), quiz, user, message.TimeTaken);
             m_SolvedQuizRepository.Save(solvedQuiz);
@@ -72,12 +69,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 m_SolvedQuestionRepository.Save(solvedAnswer);
 
             }
-            var score =  (decimal)solvedQuiz.SolvedQuestions.Where(w => w.Correct).Count() / quiz.Questions.Count();
+            var score =  (decimal)solvedQuiz.SolvedQuestions.Count(w => w.Correct) / quiz.Questions.Count();
             solvedQuiz.Score = (int)Math.Round(score * 100);
             m_SolvedQuizRepository.Save(solvedQuiz);
         }
 
-        private void DeleteAnswers(SolvedQuiz answerSheet, User user, Domain.Quiz quiz)
+        private void DeleteAnswers(SolvedQuiz answerSheet)
         {
             m_SolvedQuizRepository.Delete(answerSheet);
         }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -34,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = m_ItemRepository.Load(message.ItemId);
 
             var itemComment = m_ItemCommentRepository.Load(message.ItemCommentId);
-            ItemCommentReply comment = new ItemCommentReply(user, item, message.ImageId, message.Comment, itemComment);
+            var comment = new ItemCommentReply(user, item, message.ImageId, message.Comment, itemComment);
             m_ItemCommentReplyRepository.Save(comment);
 
             message.ReplyId = comment.Id;

@@ -11,11 +11,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public abstract class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, CreateUserCommandResult>
     {
 
-        protected readonly IUserRepository m_UserRepository;
-        protected readonly IQueueProvider m_QueueRepository;
-        protected readonly IRepository<University> m_UniversityRepository;
-        protected readonly IInviteToCloudentsRepository m_InviteToCloudentsRepository;
-        protected readonly IRepository<Reputation> m_ReputationRepository;
+        protected readonly IUserRepository UserRepository;
+        protected readonly IQueueProvider QueueRepository;
+        protected readonly IRepository<University> UniversityRepository;
+        protected readonly IInviteToCloudentsRepository InviteToCloudentsRepository;
+        protected readonly IRepository<Reputation> ReputationRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
@@ -23,35 +23,35 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IInviteToCloudentsRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
         {
-            m_UserRepository = userRepository;
-            m_QueueRepository = queueRepository;
-            m_UniversityRepository = universityRepository;
-            m_InviteToCloudentsRepository = inviteToCloudentsRepository;
-            m_ReputationRepository = reputationRepository;
+            UserRepository = userRepository;
+            QueueRepository = queueRepository;
+            UniversityRepository = universityRepository;
+            InviteToCloudentsRepository = inviteToCloudentsRepository;
+            ReputationRepository = reputationRepository;
         }
 
         public virtual CreateUserCommandResult Execute(CreateUserCommand command)
         {
-            User user = m_UserRepository.GetUserByEmail(command.Email);
-            CreateUserCommandResult result = new CreateUserCommandResult(user);
+            User user = UserRepository.GetUserByEmail(command.Email);
+            var result = new CreateUserCommandResult(user);
             return result;
         }
 
         protected void TriggerWelcomeMail(User user)
         {
-            m_QueueRepository.InsertMessageToMailNew(new WelcomeMailData(user.Email, user.Name, user.Culture));
+            QueueRepository.InsertMessageToMailNew(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
         protected void AddReputation(User user)
         {
-            var invite = m_InviteToCloudentsRepository.GetInviteToCloudents(user);
+            var invite = InviteToCloudentsRepository.GetInviteToCloudents(user);
             if (invite == null)
             {
                 return;
             }
-            var reputation = invite.Sender.AddReputation(Zbang.Zbox.Infrastructure.Enums.ReputationAction.Invite);
-            m_ReputationRepository.Save(reputation);
-            m_UserRepository.Save(invite.Sender);
+            var reputation = invite.Sender.AddReputation(Infrastructure.Enums.ReputationAction.Invite);
+            ReputationRepository.Save(reputation);
+            UserRepository.Save(invite.Sender);
         }
 
 
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
         {
-            University university = m_UniversityRepository.Get(universityId);
+            University university = UniversityRepository.Get(universityId);
             if (university == null)
             {
                 return;

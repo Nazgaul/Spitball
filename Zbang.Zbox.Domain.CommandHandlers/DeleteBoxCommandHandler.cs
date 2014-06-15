@@ -6,7 +6,6 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -15,15 +14,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IBlobProvider m_BlobProvider;
 
         public DeleteBoxCommandHandler(IRepository<Box> boxRepository, 
-            IUserRepository userRepository,
-            IBlobProvider blobProvider )
+            IUserRepository userRepository
+             )
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
-            m_BlobProvider = blobProvider;
         }
 
         public void Handle(DeleteBoxCommand command)
@@ -53,7 +50,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            AcademicBox acadmicBox = box as AcademicBox;
+            var acadmicBox = box as AcademicBox;
             if (acadmicBox != null)
             {
                 foreach (var library in acadmicBox.Library)

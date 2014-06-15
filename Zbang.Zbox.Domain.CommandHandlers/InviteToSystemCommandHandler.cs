@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -22,20 +16,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Box> m_BoxRepository;
         private readonly IProfilePictureProvider m_ProfilePictureProvider;
         private readonly IRepository<InviteToCloudents> m_InviteToCloudents;
         private readonly IIdGenerator m_IdGenerator;
 
         public InviteToSystemCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
-            IRepository<Box> boxRepository,
             IProfilePictureProvider profilePictureProvider,
             IRepository<InviteToCloudents> inviteToCloudentsRepository,
             IIdGenerator idGenerator
 
             )
         {
-            m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
             m_InviteToCloudents = inviteToCloudentsRepository;

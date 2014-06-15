@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             item.IsDeleted = true;
             item.DateTimeUser.UpdateUserTime(user.Email);
-            File file = item as File;
+            var file = item as File;
 
             Box box = m_BoxRepository.Get(command.BoxId);
             Throw.OnNull(box, "box");

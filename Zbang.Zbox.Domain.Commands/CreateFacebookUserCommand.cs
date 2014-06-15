@@ -1,10 +1,8 @@
-﻿using System.Runtime.Serialization;
-
-namespace Zbang.Zbox.Domain.Commands
+﻿namespace Zbang.Zbox.Domain.Commands
 {
     public class CreateFacebookUserCommand : CreateUserCommand
     {
-        const string resolveName = "Facebook";
+        const string ResolveName = "Facebook";
 
         public CreateFacebookUserCommand(long facebookId, string email, string userImage,
             string largeUserImage, long? universityId, string firstName, string middleName, string lastName, bool sex, bool marketEmail)
@@ -23,7 +21,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         public override string CommandResolveName
         {
-            get { return resolveName; }
+            get { return ResolveName; }
         }
     }
 }
