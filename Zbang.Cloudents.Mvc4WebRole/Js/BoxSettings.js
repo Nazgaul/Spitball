@@ -177,13 +177,13 @@
                 var sentence = '';
                 switch (boxSettingsData.willDelete()) {
                     case 1:
-                        sentence = jsResources.SureYouWant + jsResources.ToDeleteBox;
+                        sentence = jsResources.SureYouWantTo + jsResources.ToDeleteBox;
                         break;
                     case 2:
                         sentence = 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
                         break;
                     default:
-                        sentence = jsResources.SureYouWant + jsResources.ToLeaveGroup;
+                        sentence = jsResources.SureYouWantTo + jsResources.ToLeaveGroup;
                 }
                 var that = this;
                 cd.confirm(sentence, function () {                
