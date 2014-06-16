@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
         public object TransformTuple(object[] tuple, string[] aliases)
         {
             var dic = new Dictionary<string, object>();
-            for (int i = 0; i < aliases.Length; i++)
+            for (var i = 0; i < aliases.Length; i++)
             {
                 dic.Add(aliases[i].ToLower(), tuple[i]);
             }
@@ -23,8 +23,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
             foreach (var parameter in ctorParams)
             {
                 var value = dic[parameter.Name.ToLower()];
-                Type t = Nullable.GetUnderlyingType(parameter.ParameterType) ?? parameter.ParameterType;
-                object safeValue = (value == null) ? null : Convert.ChangeType(value, t);
+                var t = Nullable.GetUnderlyingType(parameter.ParameterType) ?? parameter.ParameterType;
+                var safeValue = (value == null) ? null : Convert.ChangeType(value, t);
                 itemsToInvoke.Add(safeValue);
             }
             return ctor.Invoke(itemsToInvoke.ToArray());
@@ -32,14 +32,13 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
 
         public IList TransformList(IList collection)
         {
-            IList parents2 = (IList)Activator.CreateInstance(collection.GetType());
+            var parents2 = (IList)Activator.CreateInstance(collection.GetType());
             var parentsDictionary = new Dictionary<long, T>();
 
-            var sonsDictionary = new Dictionary<long, T>();
             var sons = new List<T>();
             foreach (var item in collection)
             {
-                T elem = item as T;
+                var elem = item as T;
                 if (elem == null)
                 {
                     parents2.Add(item);
@@ -71,7 +70,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
             foreach (var son in sons)
             {
                 T value;
-                if (parentsDictionary.TryGetValue(son.ParentId.Value, out value))
+
+                if (son.ParentId.HasValue && parentsDictionary.TryGetValue(son.ParentId.Value, out value))
                 {
                     value.Replies.Add(son);
                 }

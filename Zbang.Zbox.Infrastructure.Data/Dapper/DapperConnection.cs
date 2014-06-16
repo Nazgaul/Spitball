@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Infrastructure.Data.Dapper
 {
@@ -15,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
     {
         public static async Task<IDbConnection> OpenConnection()
         {
-            SqlConnection connection = new SqlConnection(ConfigFetcher.Fetch("Zbox"));
+            var connection = new SqlConnection(ConfigFetcher.Fetch("Zbox"));
             await connection.OpenAsync();
             return connection;
             
@@ -46,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 
         public async Task Excecute()
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnection())
             {
                 using (var grid = conn.QueryMultiple("s"))
                 {

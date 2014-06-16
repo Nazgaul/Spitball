@@ -1,16 +1,17 @@
-﻿using NHibernate.Transform;
+﻿using System;
+using NHibernate.Transform;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.Infrastructure.Data.Transformers
 {
     public static class Transformers
     {
-        public static IResultTransformer AliasToDerivedClasses(params System.Type[] types)
+        public static IResultTransformer AliasToDerivedClasses(params Type[] types)
         {
             return new AliasToDerivedClassesTransformer(types);
         }
 
-        public static IResultTransformer AliasToDerivedClassesCtorTransformer(params System.Type[] types)
+        public static IResultTransformer AliasToDerivedClassesCtorTransformer(params Type[] types)
         {
             return new AliasToDerivedClassesCtorTransformer(types);
         }

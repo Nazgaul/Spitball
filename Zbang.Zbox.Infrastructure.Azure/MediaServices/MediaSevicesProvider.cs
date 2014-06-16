@@ -121,7 +121,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         private string DownloadToLocalStorage(Uri originalBlob, string streamingAssetId)
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
-            var locationToSave = string.Empty;
+            string locationToSave;
             using (var ms = new MemoryStream())
             {
                 locationToSave = m_LocalProvider.SaveFileToStorage(ms, blobName);
@@ -178,6 +178,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             return preparedAsset.Id;
         }
 
+/*
         private string GetSmoothStreaming(string streamingAssetId)
         {
             // Create a .NET console app
@@ -222,6 +223,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             }
             return blobPath;
         }
+*/
 
         IAsset GetAsset(string assetId)
         {
@@ -276,6 +278,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             }
         }
 
+/*
         void DeleteAccessPolicy(string existingPolicyId)
         {
             // To delete a specific access policy, get a reference to the policy.  
@@ -290,6 +293,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             policy.Delete();
 
         }
+*/
 
 
 

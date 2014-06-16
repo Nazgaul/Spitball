@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 
 using NHibernate;
@@ -71,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
             // $$$$$$$$$$$$$$$$ gns: take this, when making thread safe! $$$$$$$$$$$$$$
             //IGenericTransaction tx = UnitOfWork.Current.BeginTransaction(isolationLevel);   
 
-            IGenericTransaction tx = BeginTransaction(isolationLevel);
+            var tx = BeginTransaction(isolationLevel);
 
             try
             {

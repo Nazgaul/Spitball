@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
 {
@@ -18,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
                 }
                 else
                 {
-                    IGenericTransaction tx = UnitOfWork.Current.BeginTransaction(level);
+                    var tx = UnitOfWork.Current.BeginTransaction(level);
                     try
                     {
                         transactional();

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.WindowsAzure.Storage;
@@ -440,11 +441,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         private string ToBase64(int blockIndex)
         {
             var blockId = blockIndex.ToString("D10");
-            return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(blockId));
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
         public async Task CommitBlockListAsync(string blobName, int currentIndex, string contentType)
         {
-            var blockList = Enumerable.Range(0, currentIndex).Select(s => ToBase64(s));
+            var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
             var blob = GetFile(blobName);
             await blob.PutBlockListAsync(blockList);
             //blob.PutBlockList(fileUploadedDetails.BlockIds);
@@ -467,7 +468,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         /// <returns>The size of the file</returns>
         public async Task<long> UploadFromLinkAsync(string url, string fileName)
         {
-            using (HttpClient client = new HttpClient())
+            using (var client = new HttpClient())
             {
 
                 using (var sr = await client.GetAsync(url))

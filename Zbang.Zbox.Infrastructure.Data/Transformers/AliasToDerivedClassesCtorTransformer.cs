@@ -1,8 +1,8 @@
-﻿using NHibernate.Transform;
+﻿using System.Collections;
+using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.Infrastructure.Data.Transformers
@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
             m_ResultClasses = types;
 
         }
-        public virtual System.Collections.IList TransformList(System.Collections.IList collection)
+        public virtual IList TransformList(IList collection)
         {
             foreach (var resultClass in m_ResultClasses)
             {
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
         {
             var dic = new Dictionary<string, object>();
 
-            for (int i = 0; i < aliases.Length; i++)
+            for (var i = 0; i < aliases.Length; i++)
             {
                 dic.Add(aliases[i].ToLower(), tuple[i]);
             }
@@ -58,9 +58,9 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
             {
 
                 var value = dic[parameter.Name.ToLower()];
-                Type t = Nullable.GetUnderlyingType(parameter.ParameterType) ?? parameter.ParameterType;
+                var t = Nullable.GetUnderlyingType(parameter.ParameterType) ?? parameter.ParameterType;
 
-                object safeValue = (value == null) ? null
+                var safeValue = (value == null) ? null
                                                    : Convert.ChangeType(value, t);
 
                 itemsToInvoke.Add(safeValue);

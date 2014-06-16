@@ -1,6 +1,4 @@
 ﻿using System;
-
-using NHibernate.Cfg;
 using NHibernate;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 

@@ -1,4 +1,6 @@
-﻿using Zbang.Zbox.Infrastructure.Ioc;
+﻿using Zbang.Zbox.Infrastructure.Data.Repositories;
+using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Infrastructure.Data
 {
@@ -6,9 +8,9 @@ namespace Zbang.Zbox.Infrastructure.Data
     {
         public static void Register()
         {
-            var Ioc = IocFactory.Unity;
+            var ioc = IocFactory.Unity;
 
-            Ioc.RegisterType(typeof(Zbox.Infrastructure.Repositories.IRepository<>),typeof(Repositories.NHibernateRepository<>));
+            ioc.RegisterType(typeof(IRepository<>),typeof(NHibernateRepository<>));
       
 
         }
