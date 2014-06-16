@@ -6,7 +6,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
     public class Notification
     {
         [Display(ResourceType = typeof(AccountSettingsResources), Name = "Notifications")]
-        public Zbang.Zbox.Infrastructure.Enums.NotificationSettings NotificationSettings { get; set; }
+        public Zbox.Infrastructure.Enums.NotificationSettings NotificationSettings { get; set; }
 
 
         public string BoxUid { get; set; }

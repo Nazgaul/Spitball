@@ -1,37 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Text;
-using System.Threading.Tasks;
+using SendGrid;
 using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class PartnersMail : IMailBuilder
     {
-        public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
+        public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
             var partnersParams = parameters as Partners;
-            Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(partnersParams, "Partners");
-
+            if (partnersParams == null)
+            {
+                throw new NullReferenceException("partnersParams");
+            }
             var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Partners.WeeklyUpdate"));
             message.Subject = "Cloudents weekly status update";
             message.SetCategory("Partners");
-            sb.Replace("{7DAYSUSERS}", partnersParams.WeekUsers.ToString())
-              .Replace("{TOTALUSERS}", partnersParams.AllUsers.ToString())
-              .Replace("{7DAYSCOURSES}", partnersParams.WeekCourses.ToString())
-              .Replace("{TOTALCOURSES}", partnersParams.AllCourses.ToString())
-              .Replace("{7DAYSITEMS}", partnersParams.WeekItems.ToString())
-              .Replace("{TOTALITEMS}", partnersParams.AllItems.ToString())
-              .Replace("{7DAYSQNA}", partnersParams.WeekQnA.ToString())
-              .Replace("{TOTALQNA}", partnersParams.AllQnA.ToString())
+            sb.Replace("{7DAYSUSERS}", partnersParams.WeekUsers.ToString(CultureInfo.InvariantCulture))
+              .Replace("{TOTALUSERS}", partnersParams.AllUsers.ToString(CultureInfo.InvariantCulture))
+              .Replace("{7DAYSCOURSES}", partnersParams.WeekCourses.ToString(CultureInfo.InvariantCulture))
+              .Replace("{TOTALCOURSES}", partnersParams.AllCourses.ToString(CultureInfo.InvariantCulture))
+              .Replace("{7DAYSITEMS}", partnersParams.WeekItems.ToString(CultureInfo.InvariantCulture))
+              .Replace("{TOTALITEMS}", partnersParams.AllItems.ToString(CultureInfo.InvariantCulture))
+              .Replace("{7DAYSQNA}", partnersParams.WeekQnA.ToString(CultureInfo.InvariantCulture))
+              .Replace("{TOTALQNA}", partnersParams.AllQnA.ToString(CultureInfo.InvariantCulture))
               .Replace("{SCHOOLNAME}", partnersParams.SchoolName);
 
             int i = 0;
             foreach (var university in partnersParams.Universities)
             {
                 sb.Replace("{USER" + i + "NAME}", university.Name)
-                  .Replace("{USER" + i + "COUNT}", university.StudentsCount.ToString());
+                  .Replace("{USER" + i + "COUNT}", university.StudentsCount.ToString(CultureInfo.InvariantCulture));
                 i++;
             }
 

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
+using System.Net;
 using System.Net.Mail;
-using System.Net.Mime;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using SendGrid;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -14,18 +12,22 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class MailManager2 : IMailComponent
     {
-        private readonly IocFactory m_Container = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+        private readonly IocFactory m_Container = IocFactory.Unity;
 
-        private void Send(SendGridMail.ISendGrid message)
+        private void Send(ISendGrid message)
         {
             try
             {
-                var smtpClient = SendGridMail.Transport.SMTP.GetInstance(
-                    new System.Net.NetworkCredential("cloudents", "zbangitnow"), "smtp.sendgrid.net", 587);
+              
+                //var smtpClient = SendGrid.Transport.SMTP.GetInstance(
+                //    new System.Net.NetworkCredential("cloudents", "zbangitnow"), "smtp.sendgrid.net", 587);
                 //var smtpClient = SendGridMail.Transport.SMTP.GetInstance(
                 //  new System.Net.NetworkCredential("3f61a514-0610-412e-9024-b4eb5670eb9d", "bb138472-93c1-4d47-91dc-a376e3c9dce2")
                 //  , "smtp-server.embarkemail.com", 25);
-                smtpClient.Deliver(message);
+                var transport = new Web(new NetworkCredential("cloudents", "zbangitnow"));
+                transport.Deliver(message);
+
+                //smtpClient.Deliver(message);
                 // var objectToken = message.To;
                 //m_SmtpClient.Send(message);//.Send(message);
             }
@@ -41,8 +43,12 @@ namespace Zbang.Zbox.Infrastructure.Mail
             Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
 
-            var sendGridMail = SendGridMail.SendGrid.GetInstance();
-            sendGridMail.From = new MailAddress(parameters.SenderEmail, parameters.SenderName);
+            var sendGridMail = new SendGridMessage
+            {
+                From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
+            };
+
+            //var sendGridMail = SendGridMail.SendGrid.GetInstance();
             var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
             sendGridMail.EnableClickTracking();
             mail.GenerateMail(sendGridMail, parameters);
@@ -51,7 +57,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //sendGridMail.AddBcc("cloudents@outlook.com");
             //sendGridMail.AddTo("yaari.ram@gmail.com");
             //sendGridMail.AddTo(new List<string> { "dddavid2@gmail.com", "cloudents@outlook.com", "yaari_r@yahoo.com" });
-            var embarkeData = new Dictionary<string, string>() {
+            var embarkeData = new Dictionary<string, string>
+            {
                { "embarkeAppId" , "3f61a514-0610-412e-9024-b4eb5670eb9d"},
                { "embarkeMsgId" , Guid.NewGuid().ToString() }
             };
@@ -62,10 +69,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //    }
             //};
             //sendGridMail.AddHeaders(embarkeDataTimeWindow);
-            sendGridMail.AddUniqueIdentifiers(embarkeData);
+            
+            sendGridMail.AddUniqueArgs(embarkeData);
 
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-            sendGridMail.AddSubVal("{email}", new List<string> { recepient });
+            sendGridMail.AddSubstitution("{email}", new List<string> { recepient });
 
             sendGridMail.EnableOpenTracking();
             sendGridMail.DisableGoogleAnalytics();

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SendGrid;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -12,7 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         const string Subject = "Password Recovery";
 
 
-        public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
+        public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
             //var forgotParams = parameters as ForgotPasswordMailParams;
             //if (forgotParams != null)
@@ -21,7 +19,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //    return;
             //}
             var forgotParams2 = parameters as ForgotPasswordMailParams2;
-            Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(forgotParams2, "forgotParams");
+            if (forgotParams2 == null)
+            {
+                throw new NullReferenceException("forgotParams2");
+            }
 
             //message.DisableClickTracking();
             
@@ -29,8 +30,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ResetPwd");
            
             message.Subject = Subject;
-            message.AddSubVal("{NEW-PWD}", new List<string> { forgotParams2.Code });
-            message.AddSubVal("{CHANGE-URL}", new List<string> { forgotParams2.Link });
+            message.AddSubstitution("{NEW-PWD}", new List<string> { forgotParams2.Code });
+            message.AddSubstitution("{CHANGE-URL}", new List<string> { forgotParams2.Link });
            // message.AddSubVal("{USERNAME}", new List<string> { forgotParams2.Name });
         }
 

@@ -9,7 +9,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [DataType(DataType.Text)]
         [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "CourseName")]
-        [StringLength(Zbang.Zbox.Domain.Box.NameLength, ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "BoxNameUpTo")]
+        [StringLength(Zbox.Domain.Box.NameLength, ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "BoxNameUpTo")]
         public string CourseName { get; set; }
 
         [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "CourseCode")]

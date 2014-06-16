@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(token);
                 if (facebookUserData == null)
                 {
-                    return Json(new JsonResponse(false, new { error = AccountControllerResources.FacebookGetDataError }));
+                    return Json(new JsonResponse(false, new {error = AccountControllerResources.FacebookGetDataError}));
                 }
                 try
                 {
@@ -157,10 +157,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     user.UniversityId,
                     user.UniversityWrapperId));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library") }));
+                return Json(new JsonResponse(true, new {isnew = isNew, url = Url.Action("Index", "Library")}));
             }
             catch (ArgumentException)
             {
+                return Json(new JsonResponse(false, new {error = AccountControllerResources.FacebookGetDataError}));
+            }
+            catch (NullReferenceException ex)
+            {
+                TraceLog.WriteError("token: " + token, ex);
                 return Json(new JsonResponse(false, new { error = AccountControllerResources.FacebookGetDataError }));
             }
             catch (Exception ex)

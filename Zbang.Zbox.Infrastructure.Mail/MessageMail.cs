@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+using SendGrid;
+using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -13,10 +11,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         //"Message via Cloudents from " + parameters.FromUserName   {USER_MSG}
 
-        public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
+        public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
             var messageParams = parameters as MessageMailParams;
-            Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(messageParams, "messageParams");
+            Throw.OnNull(messageParams, "messageParams");
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.PersonalMsg");

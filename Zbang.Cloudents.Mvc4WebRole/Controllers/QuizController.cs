@@ -133,11 +133,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var command = new SaveUserQuizCommand(model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
-                GetUserId(), model.QuizId, model.EndTime - model.StartTime);
-            m_ZboxWriteService.SaveUserAnswers(command);
+            try
+            {
+                var command =
+                    new SaveUserQuizCommand(
+                        model.Answers.Select(s => new UserAnswers {AnswerId = s.AnswerId, QuestionId = s.QuestionId}),
+                        GetUserId(), model.QuizId, model.EndTime - model.StartTime);
+                m_ZboxWriteService.SaveUserAnswers(command);
 
-            return this.CdJson(new JsonResponse(true));
+                return this.CdJson(new JsonResponse(true));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Save answers model: {0}", model), ex);
+            }
         }
 
         [Ajax, HttpGet]

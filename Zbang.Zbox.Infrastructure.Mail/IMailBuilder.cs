@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using SendGrid;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
     public interface IMailBuilder
     {
-        void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters);
+        void GenerateMail(ISendGrid message, MailParameters parameters);
     }
 }

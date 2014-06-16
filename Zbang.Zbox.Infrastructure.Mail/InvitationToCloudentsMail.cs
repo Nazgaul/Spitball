@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SendGrid;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -11,11 +8,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
         const string Category = "InvitationCloudents";
         const string Subject = "Invite to Cloudents";
 
-        public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
+        public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
             var inviteToCloudentsParams = parameters as InvitationToCloudentsMailParams;
-            Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(inviteToCloudentsParams, "inviteParams");
-
+            if (inviteToCloudentsParams == null)
+            {
+                throw new NullReferenceException("inviteToCloudentsParams");
+            }
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCloudents");
             message.Subject = Subject;

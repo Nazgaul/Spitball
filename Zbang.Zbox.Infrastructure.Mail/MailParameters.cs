@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -22,12 +18,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         internal const string DefaultEmail = "no-reply@cloudents.com";
         internal const string DefaultSenderName = "Cloudents";
-        public MailParameters(CultureInfo culture)
+
+        protected MailParameters(CultureInfo culture)
             : this(culture, DefaultEmail, DefaultSenderName)
         {
 
         }
-        public MailParameters(CultureInfo culture, string senderEmail, string senderName)
+
+        protected MailParameters(CultureInfo culture, string senderEmail, string senderName)
         {
             UserCulture = culture;
             SenderEmail = senderEmail;
@@ -71,7 +69,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             SenderImage = senderImage;
         }
         
-        public string SenderName { get; private set; }
+        public new string SenderName { get; private set; }
         public string SenderImage { get; private set; }
 
         public override string MailResover
@@ -95,7 +93,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public string Name { get; private set; }
         public override string MailResover
         {
-            get { return MailParameters.ForgotPswResolver; }
+            get { return ForgotPswResolver; }
         }
     }
 
@@ -112,7 +110,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
         public override string MailResover
         {
-            get { return MailParameters.FlagBadItemResolver; }
+            get { return FlagBadItemResolver; }
         }
         public string ItemName { get; private set; }
         public string Reason { get; private set; }
@@ -147,7 +145,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public string InvitorImage { get; set; }
         public override string MailResover
         {
-            get { return MailParameters.InviteResolver; }
+            get { return InviteResolver; }
         }
     }
 
@@ -219,7 +217,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
         public abstract class BoxUpdateDetails
         {
-            public BoxUpdateDetails(string url, string picture, long userId)
+            protected BoxUpdateDetails(string url, string picture, long userId)
             {
                 Url = url;
                 Picture = picture;
