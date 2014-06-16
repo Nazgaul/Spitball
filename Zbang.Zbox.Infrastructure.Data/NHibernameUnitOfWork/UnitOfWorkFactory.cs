@@ -5,9 +5,14 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using NHibernate.Connection;
+using Zbang.Zbox.Infrastructure.Data.Dialect;
+using Zbang.Zbox.Infrastructure.Data.Driver;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
+using Environment = NHibernate.Cfg.Environment;
 
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
@@ -40,10 +45,10 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
 
                 m_Configuration.DataBaseIntegration(dbi =>
                 {
-                    dbi.ConnectionProvider<NHibernate.Connection.DriverConnectionProvider>();
+                    dbi.ConnectionProvider<DriverConnectionProvider>();
                     
-                    dbi.Dialect<Dialect.ZboxDialect>();
-                    dbi.Driver<Driver.ZboxDriver>();
+                    dbi.Dialect<ZboxDialect>();
+                    dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
                     //dbi.ConnectionStringName = "Zbox";
                     dbi.SchemaAction = SchemaAutoAction.Update;
@@ -53,9 +58,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
                     dbi.LogFormattedSql = true;
 #endif
                 });
-                m_Configuration.SetProperty(NHibernate.Cfg.Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
-                m_Configuration.SetProperty(NHibernate.Cfg.Environment.UseProxyValidator, bool.FalseString);
-                m_Configuration.SetProperty(NHibernate.Cfg.Environment.DefaultSchema, "Zbox");
+                m_Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
+                m_Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
+                m_Configuration.SetProperty(Environment.DefaultSchema, "Zbox");
 
                 m_Configuration.AddAssembly("Zbang.Zbox.Domain");
                 m_Configuration.AddAssembly("Zbang.Zbox.ViewModel");
@@ -71,9 +76,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
         }
         private void SaveConfiguration()
         {
-            var storage = Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.ILocalStorageProvider>();
+            var storage = IocFactory.Unity.Resolve<ILocalStorageProvider>();
 
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 IFormatter bf = new BinaryFormatter();
                 bf.Serialize(ms, m_Configuration);
@@ -111,12 +116,12 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
             return string.Format("{0}{1}{2}{3}", SerializationFile, buildVersion, domainBuildVersion, viewModelBuildVersion);
         }
 
-        private NHibernate.Cfg.Configuration LoadConfigurationFromFile()
+        private Configuration LoadConfigurationFromFile()
         {
             //if (!IsConfigurationFileValid()) return null;
             try
             {
-                var storage = Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.ILocalStorageProvider>();
+                var storage = IocFactory.Unity.Resolve<ILocalStorageProvider>();
                 var file = storage.ReadFileFromStorage(GetConfigurationFileName());
                 if (file == null)
                 {
@@ -124,10 +129,10 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
                 }
                 using (var ms = new MemoryStream(file))
                 {
-                    BinaryFormatter bf = new BinaryFormatter();
+                    var bf = new BinaryFormatter();
 
 
-                    return (NHibernate.Cfg.Configuration)bf.Deserialize(ms);
+                    return (Configuration)bf.Deserialize(ms);
                 }
 
             }
@@ -139,7 +144,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
 
         public IUnitOfWork Create()
         {
-            ISession session = CreateSession();
+            var session = CreateSession();
             session.FlushMode = FlushMode.Commit;
             CurrentSession = session;
             return new UnitOfWorkImplementor(this, session);

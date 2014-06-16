@@ -2,6 +2,7 @@
 using Zbang.Zbox.Infrastructure.Azure.MediaServices;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Azure.Search;
+using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.Infrastructure.Azure.Table;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.MediaServices;
@@ -19,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<ITableProvider, TableProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IQueueProvider, QueueProvider>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<ILocalStorageProvider, Storage.LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<ILocalStorageProvider, LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IUniversityWriteSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<IUniversityReadSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
 

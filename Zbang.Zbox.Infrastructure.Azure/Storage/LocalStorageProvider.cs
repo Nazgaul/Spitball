@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         {
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
 
-            if (System.IO.File.Exists(fileNameWithPath))
+            if (File.Exists(fileNameWithPath))
             {
                 var file = new FileInfo(fileNameWithPath);
                 if (file.Length == streamArray.Length)
@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             }
             m_DirectorySize += streamArray.Length;
 
-            System.IO.File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
+            File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
             if (CheckIsDeleteRquired())
             {
                 try
@@ -56,17 +56,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         public byte[] ReadFileFromStorage(string fileName)
         {
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
-            if (System.IO.File.Exists(fileNameWithPath))
-            {
-                System.IO.File.SetLastAccessTime(fileNameWithPath, DateTime.UtcNow);
-                return System.IO.File.ReadAllBytes(fileNameWithPath);
-            }
-            return null;
+            if (!File.Exists(fileNameWithPath)) return null;
+            File.SetLastAccessTime(fileNameWithPath, DateTime.UtcNow);
+            return File.ReadAllBytes(fileNameWithPath);
         }
 
         public DateTime GetFileLastModified(string fileName)
         {
-            FileInfo fileInfo = new FileInfo(CombineDirectoryWithFileName(fileName));
+            var fileInfo = new FileInfo(CombineDirectoryWithFileName(fileName));
             return fileInfo.LastWriteTime;
         }
 

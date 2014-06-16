@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using SendGrid;
 using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
@@ -17,19 +15,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
         // private string cube, moreTemplate;
         //answerTemplate, itemTemplate, memberTemplate, , questionTemplate;
 
-        public UpdatesMail()
-        {
-
-        }
-
-        public void GenerateMail(SendGridMail.ISendGrid message, MailParameters parameters)
+        public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
             Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
 
 
             var updateParams = parameters as UpdateMailParams;
-            Zbang.Zbox.Infrastructure.Exceptions.Throw.OnNull(updateParams, "updateParams");
+            if (updateParams == null)
+            {
+                throw new NullReferenceException("updateParams");
+            }
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Updates");
@@ -48,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
             message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
-            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions + updateParams.NoOfUsers).ToString());
+            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions + updateParams.NoOfUsers).ToString(CultureInfo.InvariantCulture));
             message.Html = message.Html.Replace("{X-ANSWERS}", AggregateAnswers(updateParams.NoOfAnswers));
             message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
             message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));
@@ -89,7 +85,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             cube = cube.Replace("{BOX-NAME}", boxUpdate.BoxName);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var update in boxUpdate.Updates)
             {
                 sb.Append(update.BuildMailLine(culture));
@@ -97,7 +93,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             if (boxUpdate.ExtraUpdatesCount > 0)
             {
                 var moreTemplate = LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.More");
-                moreTemplate = moreTemplate.Replace("{NUM-MORE}", boxUpdate.ExtraUpdatesCount.ToString());
+                moreTemplate = moreTemplate.Replace("{NUM-MORE}", boxUpdate.ExtraUpdatesCount.ToString(CultureInfo.InvariantCulture));
                 moreTemplate = moreTemplate.Replace("{BOX-URL}", boxUpdate.Url);
                 sb.Append(moreTemplate);
             }

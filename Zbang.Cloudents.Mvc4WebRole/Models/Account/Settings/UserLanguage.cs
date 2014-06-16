@@ -9,7 +9,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 
         public System.Collections.Generic.IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!Zbang.Zbox.Infrastructure.Culture.Languages.CheckIfLanguageIsSupported(Language))
+            if (!Zbox.Infrastructure.Culture.Languages.CheckIfLanguageIsSupported(Language))
             {
                 yield return new ValidationResult(AccountSettingsResources.LanguageNotSupported, new[] { "Language" });
             }

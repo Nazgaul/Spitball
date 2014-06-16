@@ -17,6 +17,7 @@ using Zbang.Zbox.ViewModel.DTOs.Library;
 using System.Timers;
 using Zbang.Zbox.Infrastructure.Trace;
 using Lucene.Net.Analysis;
+using Version = Lucene.Net.Util.Version;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -65,7 +66,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private async void BuildLucene(IEnumerable<University> universitiesExtra)
         {
 
-            using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30))
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
                 universitiesExtra = universitiesExtra.ToList();
                 using (var indexWriter = new IndexWriter(m_AzureUniversiesDirectory,
@@ -141,7 +142,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
             //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
             //{
-            using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30, extraWords))
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30, extraWords))
             {
 
                 //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
@@ -152,7 +153,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 // search by multiple fields (ordered by RELEVANCE)
                 var parser = new MultiFieldQueryParser
-                    (Lucene.Net.Util.Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer)
+                    (Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer)
                 {
                     AllowLeadingWildcard = true
                 };

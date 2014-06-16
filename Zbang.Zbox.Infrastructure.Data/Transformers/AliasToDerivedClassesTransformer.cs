@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Transform;
@@ -14,7 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
             m_ResultClasses = types;
             m_AliasToBean = new Dictionary<string, AliasToBeanResultTransformer>();
         }
-        public System.Collections.IList TransformList(System.Collections.IList collection)
+        public IList TransformList(IList collection)
         {
             return collection;
         }
@@ -24,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
 
             var dic = new Dictionary<string, object>();
 
-            for (int i = 0; i < aliases.Length; i++)
+            for (var i = 0; i < aliases.Length; i++)
             {
                 dic.Add(aliases[i], tuple[i]);
             }

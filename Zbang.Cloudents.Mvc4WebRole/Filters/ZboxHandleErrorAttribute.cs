@@ -10,12 +10,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         public override void OnException(ExceptionContext filterContext)
         {
 
-            var info = string.Format("url {0} user {1} params {3} RequestType {2}", filterContext.HttpContext.Request.RawUrl,
+            var info = string.Format("url {0} user {1}  RequestType {2}", filterContext.HttpContext.Request.RawUrl,
                 filterContext.HttpContext.User.Identity.Name,
-                filterContext.HttpContext.Request.RequestType,
-                filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n"));
-            TraceLog.WriteError(info, filterContext.Exception);
-           
+                filterContext.HttpContext.Request.RequestType
+                );
+            TraceLog.WriteError(info, filterContext.Exception, filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n"));
+
             //if (filterContext.Exception.GetType() == typeof(BoxAccessDeniedException))
             //{
 

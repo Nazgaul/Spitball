@@ -1,18 +1,15 @@
-﻿using NHibernate;
-using NHibernate.Dialect;
-using NHibernate.Dialect.Function;
-using NHibernate.SqlCommand;
+﻿using NHibernate.Dialect;
 
 
 namespace Zbang.Zbox.Infrastructure.Data.Dialect
 {
     public class ZboxDialect :  MsSqlAzure2008Dialect
     {
-        protected override void RegisterFunctions()
-        {
-            base.RegisterFunctions();
-            //RegisterFunction("GetThumbnailUrl", new NoArgSQLFunction("Zbox.GetThumbnailUrl", NHibernateUtil.String, true));
-        }
+        //protected override void RegisterFunctions()
+        //{
+        //    base.RegisterFunctions();
+        //    //RegisterFunction("GetThumbnailUrl", new NoArgSQLFunction("Zbox.GetThumbnailUrl", NHibernateUtil.String, true));
+        //}
 
         //get from MsSqlAzure2008Dialect
         public override string PrimaryKeyString

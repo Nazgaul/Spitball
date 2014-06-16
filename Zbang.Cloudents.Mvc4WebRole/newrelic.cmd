@@ -3,16 +3,13 @@ SETLOCAL EnableExtensions
 for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%j
 set ldt=%ldt:~0,4%-%ldt:~4,2%-%ldt:~6,2% %ldt:~8,2%:%ldt:~10,2%:%ldt:~12,6%
 
-:: Update with your license key
-SET LICENSE_KEY=3c7434bc408ced6499a908faffb43f35a74b90c8
-
 SET NR_ERROR_LEVEL=0
 
 :: Comment out the line below if you do not want to install the New Relic Agent
 CALL:INSTALL_NEWRELIC_AGENT
 
 :: Comment out the line below if you do not want to install the New Relic Windows Server Monitor
-:: CALL:INSTALL_NEWRELIC_SERVER_MONITOR
+CALL:INSTALL_NEWRELIC_SERVER_MONITOR
 
 IF %NR_ERROR_LEVEL% EQU 0 (
 	EXIT /B 0
@@ -27,7 +24,7 @@ IF %NR_ERROR_LEVEL% EQU 0 (
 	ECHO %ldt% : Begin installing the New Relic .net Agent >> "%RoleRoot%\nr.log" 2>&1
 
 	:: Current version of the installer
-	SET NR_INSTALLER_NAME=NewRelicAgent_x64_2.24.218.0.msi
+	SET NR_INSTALLER_NAME=NewRelicAgent_x64_3.0.79.0.msi
 	:: Path used for custom configuration and worker role environment varibles
 	SET NR_HOME=%ALLUSERSPROFILE%\New Relic\.NET Agent\
 
@@ -71,7 +68,7 @@ GOTO:EOF
 	ECHO %ldt% : Begin installing the New Relic Server Monitor >> "%RoleRoot%\nr_server.log" 2>&1
 
 	:: Current version of the installer
-	SET NR_INSTALLER_NAME=NewRelicServerMonitor_x64_3.0.230.0.msi
+	SET NR_INSTALLER_NAME=NewRelicServerMonitor_x64_3.2.6.0.msi
 
 	ECHO Installing the New Relic Server Monitor. >> "%RoleRoot%\nr_server.log" 2>&1
 	msiexec.exe /i %NR_INSTALLER_NAME% /norestart /quiet NR_LICENSE_KEY=%LICENSE_KEY% /lv* %RoleRoot%\nr_server_install.log

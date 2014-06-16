@@ -596,4 +596,7 @@
 &lt;center&gt;&amp;#160;&lt;/center&gt;
 Для осуществления бесплатной регистрации нажмите здесь.</value>
   </data>
+  <data name="SureYouWantTo" xml:space="preserve">
+    <value>Вы уверены, что хотите</value>
+  </data>
 </root>

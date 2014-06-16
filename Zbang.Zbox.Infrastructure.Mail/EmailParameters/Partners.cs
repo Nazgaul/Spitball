@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Mail.EmailParameters
 {
@@ -11,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.EmailParameters
     {
         public override string MailResover
         {
-            get { return MailParameters.PartnersResolver; }
+            get { return PartnersResolver; }
         }
 
         public Partners(CultureInfo culture,

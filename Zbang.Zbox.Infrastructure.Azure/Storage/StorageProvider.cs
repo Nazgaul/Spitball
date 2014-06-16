@@ -1,4 +1,6 @@
 ﻿using System.Configuration;
+using System.IO;
+using System.Text;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -33,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             else
             {
                 _localStorage = new LocalResource { LocalResourcePath = "c:\\Temp\\Zbox", LocalResourceSizeInMegaBytes = 200 };
-                System.IO.Directory.CreateDirectory(LocalResource.LocalResourcePath);
+                Directory.CreateDirectory(LocalResource.LocalResourcePath);
             }
         }
         private static void ConfigureStorageAccount()
@@ -151,12 +153,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
             var blob = blobClient.GetRootContainerReference().GetBlockBlobReference("crossdomain.xml");
             blob.Properties.ContentType = "text/xml";
-            var bytes = System.Text.Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""utf-8""?>  
+            var bytes = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""utf-8""?>  
                     <cross-domain-policy>  
                         <allow-access-from domain=""http://*.multimicloud.com"" />                           
                         <allow-access-from domain=""http://*.cloudapp.net"" />  
                     </cross-domain-policy>");
-            using (var ms = new System.IO.MemoryStream(bytes, false))
+            using (var ms = new MemoryStream(bytes, false))
             {
                 blob.UploadFromStream(ms);
             }
