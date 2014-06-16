@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Boxes
@@ -18,7 +20,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Boxes
 
         public string CacheKey
         {
-            get { return this.UserId.ToString(); }
+            get { return UserId.ToString(CultureInfo.InvariantCulture); }
         }
 
         public string CacheRegion
@@ -26,7 +28,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Boxes
             get { return "Boxes"; }
         }
 
-        public System.Collections.Generic.List<string> CacheTags
+        public List<string> CacheTags
         {
             get { return null; }
         }

@@ -1,6 +1,8 @@
-﻿namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
+﻿using System;
+
+namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
 {
-    [System.Serializable]
+    [Serializable]
     public class UserDto
     {
         private string m_Name;
@@ -34,7 +36,7 @@
         public string Url { get; set; }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class UserDetailDto : UserDto
     {
         public UserDetailDto()

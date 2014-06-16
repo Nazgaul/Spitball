@@ -592,4 +592,7 @@ for this file type.</value>
 &lt;center&gt;&amp;#160;&lt;/center&gt;
 Sign up for FREE</value>
   </data>
+  <data name="SureYouWant" xml:space="preserve">
+    <value>Are you sure you want</value>
+  </data>
 </root>

@@ -14,14 +14,14 @@ namespace Zbang.Zbox.Infrastructure.Culture
             
             foreach (var word in words)
             {
-                sb.Append(removeStatingHeigh(word) + "%");
+                sb.Append(RemoveStatingHeigh(word) + "%");
                 
             }
             
             return sb.ToString().Trim();
         }
 
-        private string removeStatingHeigh(string word)
+        private string RemoveStatingHeigh(string word)
         {
             if (word.StartsWith("ה"))
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -34,13 +35,13 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum)
         {
-            Match match = YoutubeRegex.Match(blobName.AbsoluteUri);
+            var match = YoutubeRegex.Match(blobName.AbsoluteUri);
             if (match.Groups.Count < 2 || String.IsNullOrEmpty(match.Groups[1].Value))
             {
                 return Task.FromResult(new PreviewResult { ViewName = "LinkDenied", Content = new List<string> { blobName.AbsoluteUri } });
             }
 
-            string videoId = match.Groups[1].Value;
+            var videoId = match.Groups[1].Value;
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, 800, 450, videoId) } });
 
         }
@@ -74,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public string GetDefaultThumbnailPicture()
         {
-            return Thumbnail.ThumbnailProvider.LinkTypePicture;
+            return ThumbnailProvider.LinkTypePicture;
         }
     }
 }

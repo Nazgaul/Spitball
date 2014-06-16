@@ -17,7 +17,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
         {
             get
             {
-                if (NotificationSettings == Infrastructure.Enums.NotificationSettings.OnEveryChange)
+                if (NotificationSettings == NotificationSettings.OnEveryChange)
                 {
                     return (int)TimeSpan.FromMinutes(OnEveryChangeTimeToQueryInMInutes).TotalMinutes;
                 }

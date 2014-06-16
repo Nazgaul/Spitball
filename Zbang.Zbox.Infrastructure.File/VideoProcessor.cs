@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.MediaServices;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -24,14 +25,14 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var metaData = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
+            var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
             string value;
             if (!metaData.TryGetValue(MetaDataConsts.VideoStatus, out value))
             {
                 return new PreviewResult { ViewName = "MediaLoading"  };
                 //return new PreviewResult(ContentNotReady);
             }
-            var url = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 600);
+            var url = BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 600);
             return new PreviewResult(string.Format(ContentFormat, url));
 
         }
@@ -40,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             var newBlobName = await m_MediaServiceProvider.Value.EncodeVideo(blobUri);
             var metaData = new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "done" } };
-            await m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData);
+            await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData);
             return new PreProcessFileResult { BlobName = newBlobName, ThumbnailName = GetDefaultThumbnailPicture() };
 
 
@@ -51,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
                 return VideoExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -60,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Thumbnail.ThumbnailProvider.VideoFileTypePicture;
+            return ThumbnailProvider.VideoFileTypePicture;
         }
     }
 }

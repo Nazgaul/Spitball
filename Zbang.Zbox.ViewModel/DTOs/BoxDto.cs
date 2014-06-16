@@ -26,7 +26,8 @@ namespace Zbang.Zbox.ViewModel.DTOs
             CommentCount = commentCount;
             CourseCode = courseCode;
             Professor = professorName;
-            if (BoxType == Infrastructure.Enums.BoxType.Academic)
+            BoxType = boxType;
+            if (BoxType == BoxType.Academic)
             {
                 UniName = uniName;
             }
@@ -49,7 +50,7 @@ namespace Zbang.Zbox.ViewModel.DTOs
             CommentCount = commentCount;
             CourseCode = courseCode;
             Professor = professorName;
-            if (BoxType == Infrastructure.Enums.BoxType.Academic)
+            if (BoxType == BoxType.Academic)
             {
                 UniName = universityname;
             }

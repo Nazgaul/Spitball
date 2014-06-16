@@ -175,11 +175,13 @@ namespace Zbang.Zbox.ReadServices
 //and  isdeleted = 0");
 
                 return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
-blobname like '%.jpg'
+(blobname like '%.jpg'
 or blobname like '%.gif'
 or blobname like '%.png'
 or blobname like '%.jpeg'
-or blobname like '%.bmp'");
+or blobname like '%.bmp')
+and isdeleted = 0 
+");
 
             }
         }

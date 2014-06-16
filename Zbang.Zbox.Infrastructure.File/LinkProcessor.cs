@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
     public class LinkProcessor : IContentProcessor
     {
-        protected readonly IBlobProvider m_BlobProvider;
+        protected readonly IBlobProvider BlobProvider;
 
         public LinkProcessor(IBlobProvider blobProvider)
         {
-            m_BlobProvider = blobProvider;
+            BlobProvider = blobProvider;
         }
 
         private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
@@ -34,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public bool CanProcessFile(Uri blobName)
         {
 
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
                 return false;
             }
@@ -49,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public string GetDefaultThumbnailPicture()
         {
-            return Thumbnail.ThumbnailProvider.LinkTypePicture;
+            return ThumbnailProvider.LinkTypePicture;
         }
     }
 }

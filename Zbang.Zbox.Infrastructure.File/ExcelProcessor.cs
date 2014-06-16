@@ -1,4 +1,6 @@
-﻿using Aspose.Cells;
+﻿using System.Drawing.Imaging;
+using System.Globalization;
+using Aspose.Cells;
 using Aspose.Cells.Rendering;
 using ImageResizer;
 using System;
@@ -6,9 +8,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -35,7 +37,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private static void SetLicense()
         {
-            var license = new Aspose.Cells.License();
+            var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
 
@@ -49,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var excel = new Lazy<Workbook>(() =>
             {
                 SetLicense();
-                using (var sr = m_BlobProvider.DownloadFile(blobName))
+                using (var sr = BlobProvider.DownloadFile(blobName))
                 {
                     return new Workbook(sr);
                 }
@@ -59,12 +61,10 @@ namespace Zbang.Zbox.Infrastructure.File
             var parallelTask = new List<Task<string>>();
             var tasks = new List<Task>();
 
-            Aspose.Cells.Rendering.ImageOrPrintOptions imgOptions = new Aspose.Cells.Rendering.ImageOrPrintOptions();
-            imgOptions.ImageFormat = System.Drawing.Imaging.ImageFormat.Jpeg;
-            imgOptions.OnePagePerSheet = false;
+            var imgOptions = new ImageOrPrintOptions {ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false};
 
-            var meta = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
-            for (int pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
                 string value;
                 var metaDataKey = CacheVersion + pageIndex;
@@ -72,8 +72,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString();// DateTime.UtcNow.ToString();
+                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
                 //var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     var workSheet = excel.Value.Worksheets[pageIndex];
                     ScalePageSetupToFitPage(workSheet);
 
-                    SheetRender sr = new SheetRender(workSheet, imgOptions);
+                    var sr = new SheetRender(workSheet, imgOptions);
                     //Render the image for the sheet
                     using (var ms = new MemoryStream())
                     {
@@ -97,11 +97,11 @@ namespace Zbang.Zbox.Infrastructure.File
                         {
                             break;
                         }
-                        Compress compressor = new Compress();
+                        var compressor = new Compress();
                         var gzipSr = compressor.CompressToGzip(ms);
 
-                        parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString());
+                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
+                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
 
                     }
                 }
@@ -110,7 +110,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     break;
                 }
             }
-            var t = m_BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
             tasks.AddRange(parallelTask);
             tasks.Add(t);
             await Task.WhenAll(tasks);
@@ -125,13 +125,13 @@ namespace Zbang.Zbox.Infrastructure.File
         }
        
 
-        public static readonly string[] excelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
+        public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return excelExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return ExcelExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 
@@ -142,38 +142,38 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = m_BlobProvider.DownloadFile(blobName))
+                using (var stream = BlobProvider.DownloadFile(blobName))
                 {
                     SetLicense();
-                    var excel = new Aspose.Cells.Workbook(stream);
+                    var excel = new Workbook(stream);
                     var wb = excel.Worksheets[0];
                     //ScalePageSetupToFitPage(wb);
 
-                    Aspose.Cells.Rendering.ImageOrPrintOptions imgOptions = new Aspose.Cells.Rendering.ImageOrPrintOptions();
-                    imgOptions.ImageFormat = System.Drawing.Imaging.ImageFormat.Jpeg;
-                    imgOptions.OnePagePerSheet = false;
+                    var imgOptions = new ImageOrPrintOptions {ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false};
 
-                    Aspose.Cells.Rendering.SheetRender sr = new Aspose.Cells.Rendering.SheetRender(wb, imgOptions);
+                    var sr = new SheetRender(wb, imgOptions);
                     var img = sr.ToImage(0);
 
-                    ResizeSettings settings = new ResizeSettings();
-                    settings.Scale = ScaleMode.UpscaleCanvas;
-                    settings.Anchor = ContentAlignment.MiddleCenter;
-                    settings.BackgroundColor = Color.White;
-                    settings.Mode = FitMode.Crop;
-                    settings.Width = ThumbnailWidth;
-                    settings.Height = ThumbnailHeight;
+                    var settings = new ResizeSettings
+                    {
+                        Scale = ScaleMode.UpscaleCanvas,
+                        Anchor = ContentAlignment.MiddleCenter,
+                        BackgroundColor = Color.White,
+                        Mode = FitMode.Crop,
+                        Width = ThumbnailWidth,
+                        Height = ThumbnailHeight,
+                        Quality = 80,
+                        Format = "jpg"
+                    };
 
-                    settings.Quality = 80;
-                    settings.Format = "jpg";
                     // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
 
                     using (var output = new MemoryStream())
                     {
-                        ImageResizer.ImageBuilder.Current.Build(img, output, settings);
+                        ImageBuilder.Current.Build(img, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
+                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
                     }
 
                 }
@@ -181,14 +181,14 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile excel", ex);
-                return Task.FromResult<PreProcessFileResult>(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             }
             
         }
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.ExcelFileTypePicture;
+            return ThumbnailProvider.ExcelFileTypePicture;
         }
     }
 }

@@ -593,4 +593,10 @@
     <value>שיתפתי את הקוויז "{0}" במחולל הקוויזים  בקלאודנטס, המאגר האקדמי של הסטודנטים: מבחנים משנים קודמות, סיכומים ומאמרים. למעלה מ95 אלף קבצים כבר קיימים במאגר&lt;center&gt;&amp;#160;&lt;/center&gt;
 עם קלאודנטס הדרך אל התואר קלה יותר, להרשמה בחינם הכנסו לקלאודנטס.</value>
   </data>
+  <data name="SureYouWantTo" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך</value>
+  </data>
+  <data name="SureYouWant1" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך</value>
+  </data>
 </root>

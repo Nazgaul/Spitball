@@ -11,8 +11,7 @@
     function UniversityChooseViewModel() {
         var $libraryChoose = $('#libraryChoose'),
             $uniList = $('#uniList'),
-            $countryList = $('#lib_country'),
-            currentCountryCode = $countryList.attr('data-country'),
+            $countryList = $('#lib_country'),            
             $uniSearch = $('#uni_search'),
             universityName, universityId;
 

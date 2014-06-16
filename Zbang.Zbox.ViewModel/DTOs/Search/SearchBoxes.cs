@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.DTOs.Search
 {
@@ -33,10 +32,10 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
         public bool Equals(SearchBoxes x, SearchBoxes y)
         {
             //Check whether the compared objects reference the same data. 
-            if (Object.ReferenceEquals(x, y)) return true;
+            if (ReferenceEquals(x, y)) return true;
 
             //Check whether any of the compared objects is null. 
-            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+            if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
                 return false;
 
             //Check whether the products' properties are equal. 
@@ -45,12 +44,12 @@ namespace Zbang.Zbox.ViewModel.DTOs.Search
 
         public int GetHashCode(SearchBoxes obj)
         {
-            if (Object.ReferenceEquals(obj, null)) return 0;
+            if (ReferenceEquals(obj, null)) return 0;
 
             //Get hash code for the Name field if it is not null. 
 
             //Calculate the hash code for the product. 
-            return obj.Id.GetHashCode();;
+            return obj.Id.GetHashCode();
         }
     }
 

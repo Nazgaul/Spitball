@@ -9,6 +9,7 @@
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" />
       <Setting name="ZBox" />
+      <Setting name="StorageCdnEndpoint" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="500" />

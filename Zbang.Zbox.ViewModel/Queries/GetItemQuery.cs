@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Zbang.Zbox.Infrastructure.Query;
 namespace Zbang.Zbox.ViewModel.Queries
 {
@@ -17,7 +18,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         public long ItemId { get; private set; }
 
 
-        List<string> m_Tags = new List<string>();
+        readonly List<string> m_Tags = new List<string>();
 
         List<string> IQueryCache.CacheTags
         {
@@ -32,7 +33,7 @@ namespace Zbang.Zbox.ViewModel.Queries
 
         string IQueryCache.CacheKey
         {
-            get { return ItemId.ToString(); }
+            get { return ItemId.ToString(CultureInfo.InvariantCulture); }
         }
 
         string IQueryCache.CacheRegion
@@ -41,7 +42,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         }
 
 
-        public System.TimeSpan Expiration
+        public TimeSpan Expiration
         {
             get { return TimeSpan.FromHours(2); }
         }

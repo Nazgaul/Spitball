@@ -624,9 +624,6 @@
     <Content Include="Content\Quiz.css">
       <DependentUpon>Quiz.less</DependentUpon>
     </Content>
-    <Content Include="Content\Quiz.min.css">
-      <DependentUpon>Quiz.css</DependentUpon>
-    </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
     </Content>
@@ -847,6 +844,7 @@
     <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Content\QnA.less" />
     <Content Include="Content\Search.less" />
+    <Content Include="Js\Web.config" />
     <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1895,9 +1893,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Js\Resources\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
