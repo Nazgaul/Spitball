@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands

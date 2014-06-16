@@ -79,7 +79,7 @@
             quizCL.value = cd.location();
 
             registerEvents();
-            setRateStorage();
+        //    setRateStorage();
             function fillUnregisterSheet(savedData) {
 
                 cd.localStorageWrapper.removeItem(quizId);
@@ -494,11 +494,11 @@
 
                 $(quizTQuestion).off('input').on('input', '.cTextArea', function (e) {
                     this.nextElementSibling.disabled = this.value.length === 0;
-                }).off('focus').on('focus', '.cTextArea', function (e) {
-                    this.nextElementSibling.style.display = 'block';
-                }).off('blur').on('blur', '.cTextArea', function (e) {
-                    this.nextElementSibling.style.display = 'none';
-                });
+                });//}).off('focus').on('focus', '.cTextArea', function (e) {
+                //    this.nextElementSibling.style.display = 'block';
+                //}).off('blur').on('blur', '.cTextArea', function (e) {
+                //    this.nextElementSibling.style.display = 'none';
+                //});
 
                 $('.askBtn').off('click').click(function () {
                     var that = this,
@@ -594,9 +594,10 @@
             $(quizTQuestion).find('.wrong').removeClass('wrong');
             $(quizTQuestion).find('.userWrong').removeClass('userWrong');
 
-            stopWatch.reset();
-            stopWatch = null;
-
+            if (stopWatch) {
+                stopWatch.reset();
+                stopWatch = null;
+            }            
         }
 
         function saveAnswers() {

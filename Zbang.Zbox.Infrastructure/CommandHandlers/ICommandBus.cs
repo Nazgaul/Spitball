@@ -15,6 +15,6 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
 
         void Send<TCommand>(TCommand command) where TCommand : ICommand;
 
-        Task SendAsync<TCommand>(TCommand command) where TCommand : Commands.ICommand;
+        Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand;
     }
 }

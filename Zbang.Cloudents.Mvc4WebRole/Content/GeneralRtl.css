@@ -1,7 +1,7 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
+﻿
+
+
+
 html {
   direction: rtl;
 }
@@ -11,7 +11,7 @@ q {
 body {
   font-family: Arial;
 }
-/*#region site header classes */
+
 .navUser {
   margin: 0 30px 0 0;
   /*rtl*/
@@ -49,8 +49,8 @@ body {
   text-align: right;
   /*rtl*/
 }
-/*#endregion */
-/*#region popup */
+
+
 .popupForm .field-validation-error,
 .popupForm .validation-summary-errors {
   margin: 0 15px 0 0;
@@ -106,8 +106,8 @@ body {
   padding: 0 18px 0 0;
   /*rtl*/
 }
-/*#endregion */
-/*#region connect and register pages */
+
+
 .fbImg,
 .emailImg {
   right: 16px;
@@ -151,6 +151,11 @@ body {
   text-align: right;
   /*rtl*/
 }
+.register .validation-summary-errors {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
 .desktop .firstName + .field-validation-error {
   margin: 2px 4% 0 0;
   /*rtl*/
@@ -163,7 +168,7 @@ body {
   text-align: right;
   /*rtl*/
 }
-/*#endregion */
+
 .lFloat {
   float: right;
   /*rtl*/
@@ -225,17 +230,17 @@ body {
   /*rtl*/
   left: auto;
 }
-/*#region tooltip */
-.quizGuideTemplate .tooltip {
-  right: 566px;
-  /*diff rtl*/
-  left: auto;
-}
-.quizGuideTemplate .tooltip + .tooltip {
-  right: 263px;
-  /*rtl*/
-  left: auto;
-}
+
+/*.quizGuideTemplate {
+    .tooltip {
+        right: 566px; 
+        left: auto;
+        + .tooltip {
+            right: 263px; 
+            left: auto;
+        }
+    }
+}*/
 .tooltip li {
   margin: 0 15px 0 0;
   /*rtl*/
@@ -282,7 +287,7 @@ body {
   /*rtl*/
   left: auto;
 }
-/*#endregion */
+
 .sectionHeader {
   font-weight: normal;
   /*diff rtl*/
@@ -315,30 +320,30 @@ body {
   margin: 0;
   /* diff rtl*/
 }
-/*#region user items (used in search page and user page) */
+
 .userItem {
   margin: 0 0 20px 31px;
   /*rtl*/
 }
-/*#endregion */
-/*#region radio input */
+
+
 input[type="radio"] + label:before {
   margin: -2px 0 0 4px;
   /*rtl*/
 }
-/*#endregion */
-/*#region checkbox */
+
+
 .checkbox ~ .cbLabel:before {
   margin: 0 0 0 5px;
 }
-/*#endregion */
-/*#region validation errors */
+
+
 .field-validation-error,
 .validation-summary-errors {
   margin: 0 5px 0 0;
   /*rtl*/
 }
-/*#endregion */
+
 .removeItem,
 .closeItem {
   left: 5px;
@@ -349,7 +354,7 @@ input[type="radio"] + label:before {
   margin: 0 0 0 6px;
   /*rtl*/
 }
-/*#region AUTO COMPLETE */
+
 ul.ui-autocomplete {
   text-align: right;
   /*rtl*/
@@ -359,7 +364,7 @@ ul.ui-autocomplete {
   /*rtl*/
   right: auto;
 }
-/*#endregion */
+
 @media (max-width: 1024px) {
   .quizTitle.quizTitle,
   .quizPrevWpr.quizPrevWpr {
@@ -385,8 +390,12 @@ ul.ui-autocomplete {
     margin-top: 209px;
     /*diff rtl*/
   }
+  .middleActions.middleActions {
+    margin: 0 50px 0 0;
+    /*rtl*/
+  }
 }
-/*#region User tooltip */
+
 .userTooltip {
   padding: 17px 110px 6px 10px;
   /*rtl*/
@@ -396,4 +405,4 @@ ul.ui-autocomplete {
   /*rtl*/
   left: auto;
 }
-/*#endregion */
+

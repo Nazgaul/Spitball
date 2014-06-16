@@ -1,4 +1,4 @@
-﻿(function (dataContext, $, ko, cd, JsResources, plupload, analytics) {
+﻿(function (dataContext, $, ko, cd, jsResources, plupload, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('as')) {
         return;
@@ -54,7 +54,7 @@
                     newpswElem.val('');
                     oldpswElem.val('');
                     prev.toggleClass(css);
-                    alert(JsResources.PwdChanged);
+                    alert(jsResources.PwdChanged);
                 },
                 error: function (msg) {
                     emailerr.text(msg);
@@ -92,7 +92,7 @@
                 dataContext.changeEmail({
                     data: { Email: newEmail },
                     success: function () {
-                        $newEmail.val('').attr('placeholder', JsResources.TypeCode).next().text(JsResources.Save).addClass('checkMail');
+                        $newEmail.val('').attr('placeholder', jsResources.TypeCode).next().text(jsResources.Save).addClass('checkMail');
                         codeRequired = true;
                     },
                     error: function (msg) {
@@ -104,21 +104,21 @@
             function submitCode() {
                 var newEmail = $newEmail.val();
                 if (newEmail === '') {
-                    emailerr.text(JsResources.FieldRequired);
+                    emailerr.text(jsResources.FieldRequired);
                     return;
                 }
                 if (!$.isNumeric(newEmail)) {
-                    emailerr.text(JsResources.FieldNeedsNumber);
+                    emailerr.text(jsResources.FieldNeedsNumber);
                     return;
                 }
                 dataContext.submitCode({
                     data: { code: newEmail },
                     success: function (data) {
-                        $newEmail.attr('placeholder', JsResources.EnterEmail).next().text(JsResources.Change);
+                        $newEmail.attr('placeholder', jsResources.EnterEmail).next().text(jsResources.Change);
                         $newEmail.parent().toggle().prev().toggle();
                         codeRequired = false;
                         $('.changeEmail').find('span:first').text(data);
-                        cd.notification(JsResources.EmailChanged);
+                        cd.notification(jsResources.EmailChanged);
                     },
                     error: function (msg) {
                         emailerr.text(msg);
@@ -260,7 +260,7 @@
 
             uploader.bind('Error', function (up, err) {
                 if (err.code === plupload.FILE_EXTENSION_ERROR) {
-                    cd.notification(JsResources.IncorrectExtension);
+                    cd.notification(jsResources.IncorrectExtension);
                 }
                 if (err.status === 401) {
                     document.location.href = '/';
@@ -280,7 +280,7 @@
                     $('#accountSettingsThumb').attr('src', largeimg);
                 }
                 else {
-                    cd.notification(JsResources.CouldNotProcess);
+                    cd.notification(jsResources.CouldNotProcess);
                 }
             });
 
@@ -302,7 +302,7 @@
                 success: function () {
                     $('#userName').text($('#Name').val().trim().split(' ', 1)[0]);
                     $('#userImg').attr('src', smallimg);
-                    cd.notification(JsResources.SettingsSaved);
+                    cd.notification(jsResources.SettingsSaved);
                     cd.pubsub.publish('clear_cache');
                 },
                 error: function (msg) {

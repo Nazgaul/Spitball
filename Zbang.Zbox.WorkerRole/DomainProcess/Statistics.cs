@@ -19,7 +19,9 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         {
             var parameters4 = data as StatisticsData4;
             if (parameters4 == null) return true;
-            var command = new UpdateStatisticsCommand(parameters4.ItemsIds.Select(s => new UpdateStatisticsCommand.StatisticItemData { ItemId = s.Id, Action = (StatisticsAction)s.Action }), parameters4.UserId, parameters4.StatTime);
+            var command = new UpdateStatisticsCommand(parameters4.ItemsIds.Select(
+                s => new UpdateStatisticsCommand.StatisticItemData { ItemId = s.Id, Action = (StatisticsAction)s.Action }),
+                parameters4.UserId, parameters4.StatTime);
             m_ZboxWriteService.Statistics(command);
 
             return true;

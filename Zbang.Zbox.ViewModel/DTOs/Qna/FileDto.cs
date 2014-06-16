@@ -4,17 +4,13 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
 {
     public class FileDto : ItemDto
     {
-        private string m_Thumbnail;
 
         public FileDto(long uid, long ownerId,
            string thumbnail, string boxUid, Guid? questionId, Guid? answerId, string name)
             : base(uid, ownerId, boxUid, questionId, answerId, name)
         {
-            //TODO: this is not good should be logic in dto
-           // var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
 
-            m_Thumbnail = thumbnail;// blobProvider.GetThumbnailUrl(thumbnail);
-            //Size = size;
+            Thumbnail = thumbnail;
         }
 
         //public override string Thumbnail

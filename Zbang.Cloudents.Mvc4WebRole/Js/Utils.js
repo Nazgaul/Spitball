@@ -1,4 +1,4 @@
-﻿(function (cd, $, analytics) {
+﻿(function (cd, $, analytics, JsResources) {
 
     if (window.scriptLoaded.isLoaded('u')) {
         return;
@@ -109,7 +109,7 @@
     //#region Set text direction
     function setElementChildrenDirection(container, element, subtree) {
         var list = container.querySelectorAll(element),
-            textAlign = $('html').css('direction') === 'ltr' ? 'ltr' : 'rtl',
+            //textAlign = $('html').css('direction') === 'ltr' ? 'ltr' : 'rtl',
             item;
         for (var i = 0, l = list.length; i < l; i++) {
             item = list[i];
@@ -178,10 +178,8 @@
                 }
 
                 return JsResources.JustNow;
-                break;
             case 1:
                 return JsResources.Yesterday;
-                break;
 
             default:
                 var dateMonth = date.getMonth() + 1,
@@ -194,11 +192,10 @@
                 } else {
                     return JsResources.DaysAgo.format(dateDifference);
                 }
-                break;
         }
 
         function calculateDayDifference() {
-            return diffDays = Math.round(Math.abs((date.getTime() - today.getTime()) / (oneDay)));
+            return Math.round(Math.abs((date.getTime() - today.getTime()) / (oneDay)));
         }
         function calculateSecondsDifferece() {
             var time1 = date.getTime(),
@@ -258,9 +255,9 @@
         $form.validate();
         return $form;
     };
-    var resetErrors2 = function (form) {
-        $(form).trigger('onReset.unobtrusiveValidation');
-    };
+    //var resetErrors2 = function (form) {
+    //    $(form).trigger('onReset.unobtrusiveValidation');
+    //};
     var resetForm = function (form) {
         var $form = $(form);
         //$form[0].reset();
@@ -361,7 +358,7 @@
             date = new Date(date);
             return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
         }
-
+       
         return new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60000);
     }
 
@@ -758,10 +755,10 @@
 
 
     var dateToShow = function (date, delimeter, twoDigitsYear) {
+        delimeter = delimeter || '/';
         var day = date.getDate(),
             month = date.getMonth() + 1,
-            year = date.getFullYear().toString(),//we use to string so we can use substring
-            delimeter = delimeter || '/';
+            year = date.getFullYear().toString();
         if (twoDigitsYear) {
             year = year.substr(2, 2);
         }
@@ -835,8 +832,6 @@
 
             return 0;
         }
-
-        return 0;
     };
     var elementToInput = function (elem, done) {
         var retval = elementToInputwithoutFunc(elem);
@@ -853,7 +848,7 @@
                 retval.show();
             }
         })
-        .click(function (e) {
+        .click(function () {
             //stop propagation not working - we need to prevent <a> from clicking
             return false;
         });
@@ -879,7 +874,7 @@
         /// <summary></summary>
         /// <param name="elem" type="jQuery"></param>
 
-        var $elem = $(elem);
+        var $elem = $(elem),
         text = $elem.attr('title') || $elem.text();
         $elem.attr({ 'contenteditable': true, spellcheck: false }).addClass('editable').text(text);
         setEndOfContenteditable($elem[0]);
@@ -1041,7 +1036,7 @@
     //};
 
     var getElementPosition = function (e) {
-        o = e;
+       var o = e;
         var l = o.offsetLeft; var t = o.offsetTop;
         while (o = o.offsetParent)
             l += o.offsetLeft;
@@ -1063,7 +1058,7 @@
             display: 'popup'
         }, function (response) {
             if (response && response.post_id) {
-                $('[data-ddcbox]').each(function (i, e) { e.checked = false }); // close all popups
+                $('[data-ddcbox]').each(function (i, e) { e.checked = false; }); // close all popups
                 analytics.trackSocial(url, 'share');
                 cd.pubsub.publish('addPoints', { type: 'shareFb' });
                 var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
@@ -1080,7 +1075,7 @@
     };
 
     var alreadyPosted = false;
-    var postFb = function (name, description, link, picture, caption) {
+    var postFb = function (name, description, link) {
 
         if (alreadyPosted) {
             return;
@@ -1097,13 +1092,13 @@
             caption: 'CLOUDENTS'
         }
 
-        FB.api('/me/feed', 'post', params, function (response) {
+        FB.api('/me/feed', 'post', params, function () {
         });
     };
 
     var highlightSearch = function (term, name, className) {
-        var className = className || 'boldPart',
-            firstPart = '<mark class="' + className + '" data-ignore-rtl="true">',
+        className = className || 'boldPart';
+        var firstPart = '<mark class="' + className + '" data-ignore-rtl="true">',
             lastPart = '</mark>',
             boldStringLength = firstPart.length + lastPart.length;
 
@@ -1138,13 +1133,13 @@
             for (var i = 0, l = indeces.length; i < l; i++) {
                 name = highlight(name, indeces[i] + i * boldStringLength, indeces[i] + eTerm.length + i * boldStringLength);
             }
-        };
+        }
 
         function highlight(str, start, end) {
             var text = firstPart + str.substring(start, end) + lastPart;
 
             return str.substring(0, start) + text + str.substring(end);
-        };
+        }
     };
 
 
@@ -1206,7 +1201,7 @@
                 userData.name = userName.getAttribute('data-name');
                 userData.id = userName.getAttribute('data-id'); //TODO: need to because number
                 userData.nId = parseInt(userData.id, 10);
-                userDataElement = document.querySelector('.navUser a');
+               var userDataElement = document.querySelector('.navUser a');
                 userData.url = userDataElement ? userDataElement.href : '';
             }
 
@@ -1348,7 +1343,7 @@
         }
         var i = 0;
         template = cache[template];
-        len = data.length,
+       var len = data.length,
         fragment = [];
 
         var cacheRegularExp = {};
@@ -1438,14 +1433,6 @@
         window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     }
 
-    //ie8 console.log issue
-    if (typeof console === "undefined" || typeof console.log === "undefined") {
-        console = {};
-        console.log = function () { };
-    }
-
-
-
     $.extend($.expr[':'], {
         startsWith: function (elem, v, match) {
             //console.log(elem);
@@ -1475,4 +1462,4 @@
     //    }
     //});
 
-})(window.cd = window.cd || {}, jQuery, cd.analytics);
+})(window.cd = window.cd || {}, jQuery, cd.analytics, JsResources);

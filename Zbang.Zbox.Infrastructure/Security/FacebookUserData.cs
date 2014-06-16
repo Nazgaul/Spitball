@@ -1,6 +1,5 @@
 ﻿
 using System.Text;
-using System.Collections.Generic;
 namespace Zbang.Zbox.Infrastructure.Security
 {
     public class FacebookUserData
@@ -32,7 +31,9 @@ namespace Zbang.Zbox.Infrastructure.Security
    "updated_time": "2014-03-24T11:51:33+0000",
    "username": "yang.tomer"
            */
+// ReSharper disable InconsistentNaming
         public long id { get; set; } //yes. the user id is of type long...dont use int
+
         public string first_name { get; set; }
         public string middle_name { get; set; }
         public string last_name { get; set; }
@@ -44,6 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         public string LargeImage { get; set; }
 
         public string gender { get; set; }
+    // ReSharper restore InconsistentNaming
         public bool GetGender()
         {
             if (string.IsNullOrEmpty(gender))

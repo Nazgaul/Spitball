@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -10,8 +7,6 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -51,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is not connected to box");
             }
             var text = TextManipulation.EncodeText(message.Comment);
-            ItemComment comment = new ItemComment(user, item, message.ImageId, text, message.X, message.Y, message.Width, message.Height);
+            var comment = new ItemComment(user, item, message.ImageId, text, message.X, message.Y, message.Width, message.Height);
             item.IncreaseNumberOfComments();
             m_ItemCommentRepository.Save(comment);
             m_ItemRepository.Save(item);

@@ -11,9 +11,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateStatisticsCommandHandler : ICommandHandler<UpdateStatisticsCommand>
     {
-        private IRepository<Item> m_ItemRepository;
-        private IRepository<Domain.Quiz> m_QuizRepository;
-        private IUserRepository m_UserRepository;
+        private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Domain.Quiz> m_QuizRepository;
+        private readonly IUserRepository m_UserRepository;
         public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository, IUserRepository userRepository,
             IRepository<Domain.Quiz> quizRepository)
         {

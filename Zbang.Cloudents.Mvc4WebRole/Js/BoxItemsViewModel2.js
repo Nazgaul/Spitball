@@ -1,4 +1,4 @@
-﻿(function ($, dataContext, ko, cd, ZboxResources, analytics) {
+﻿(function ($, dataContext, ko, cd, jsResources, analytics) {
     "use strict";
 
     if (window.scriptLoaded.isLoaded('bivm')) {
@@ -8,7 +8,7 @@
     cd.loadModel('box', 'BoxContext', registerKoBoxItems);
 
     function registerKoBoxItems() {
-        ko.applyBindings(new BoxItemViewModel(), $('#box_items')[0]);
+        ko.applyBindings(new BoxItemViewModel(), document.getElementById('box_items'));
     }
 
     function BoxItemViewModel() {
@@ -222,18 +222,18 @@
             if (b.sponsored) {
                 return 1;
             }
-            if (a.date < b.date) {
-                return 1
-            } else {
+            if (a.date > b.date) {
                 return -1;
-            }
-            if (a.name < b.name) {
+            } else {
                 return 1;
             }
-            else {
-                return -1;
-            }
-            return 0;
+            //if (a.name < b.name) {
+            //    return 1;
+            //}
+            //else {
+            //    return -1;
+            //}
+            //return 0;
         }
 
         //#region addItem
@@ -306,12 +306,12 @@
 
         self.removeQuiz = function (quiz) {
             if (quiz.ownerId !== cd.userDetail().nId) {
-                cd.notification(JsResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
+                cd.notification(jsResources.DontHavePermissionToDelete + ' ' + quiz.type.toLowerCase());
                 return;
             }
 
             var quizName = quiz.name || 'quiz draft';
-            cd.confirm(JsResources.SureYouWantToDelete + ' ' + quizName + "?",
+            cd.confirm(jsResources.SureYouWantToDelete + ' ' + quizName + "?",
                             function () {
                                 self.items.remove(quiz);
                                 cd.pubsub.publish('deleteQuiz', quiz.uid);
@@ -337,10 +337,10 @@
 
         self.removeItem = function (item) {
             if (!cd.deleteAllow(self.permission(), item.ownerId)) {
-                cd.notification(JsResources.DontHavePermissionToDelete + ' ' + item.type);
+                cd.notification(jsResources.DontHavePermissionToDelete + ' ' + item.type);
                 return;
             }
-            cd.confirm(JsResources.SureYouWantToDelete + ' ' + item.name + "?",
+            cd.confirm(jsResources.SureYouWantToDelete + ' ' + item.name + "?",
                 function () {
                     self.items.remove(item);
                     //countOfItems--;
@@ -452,7 +452,7 @@
             return true;
         }
 
-        self.itmSlct = function (item,e) {
+        self.itmSlct = function (item) {
             if (self.manageTab()) {
                 item.isCheck(!item.isCheck());
                 return false;
@@ -488,7 +488,7 @@
         });
 
 
-        $('#addQuiz').click(function (e) {
+        $('#addQuiz').click(function () {
             if (!cd.register()) {
                 cd.pubsub.publish('register', { action: true });
                 return;
@@ -503,8 +503,8 @@
         });
 
         $('#BoxItemList').hoverIntent({
-            over: function (e) {
-                var item = ko.dataFor(this), html;
+            over: function () {
+                var item = ko.dataFor(this), html = '';
 
       
 
@@ -512,7 +512,9 @@
                     return;
                 }
                 if (item.type.toLowerCase() === 'file' || item.type.toLowerCase() === 'link') {
-                    html = cd.attachTemplateToData('boxItemTooltipTemplate', item);
+                    var cloned = cd.clone(item);
+                    cloned.name = cloned.name.substring(0,cloned.name.lastIndexOf('.'));
+                    html = cd.attachTemplateToData('boxItemTooltipTemplate', cloned);
                 }
 
                 else if (item.type.toLowerCase() === 'quiz') {
@@ -524,13 +526,20 @@
                 if (!this.querySelector('.boxItemTt')) {
                     this.insertAdjacentHTML('afterbegin', html);
                 }
-                var tooltip = this.querySelector('.boxItemTt');
+                var tooltip = this.querySelector('.boxItemTt'),
+                    $tooltip = $(tooltip);
                 if (item.type.toLowerCase() === 'link') {
-                    $(tooltip).addClass('ttLink').find('.ttDetail').remove();
+                    $tooltip.addClass('ttLink').find('.ttDetail').remove();
                 }
 
+
                 $(tooltip).fadeIn(300);
-                cd.parseTimeString($(tooltip).find('[data-time]'));
+
+                var offset = cd.getElementPosition($tooltip[0]).top;
+                if (offset < 0) {
+                    $tooltip.css('margin-bottom', offset - 5);
+                }
+                cd.parseTimeString($tooltip.find('[data-time]'));
             },
             out: function () {
                 $('.boxItemTt').remove();

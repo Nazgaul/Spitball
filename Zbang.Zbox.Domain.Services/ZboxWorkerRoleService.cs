@@ -51,13 +51,8 @@ namespace Zbang.Zbox.Domain.Services
                         {
                             box.AddPicture(picture, blobProvider.GetThumbnailUrl(picture));
                         }
-
-                        //       box.CreateCreationQuestionIfNoneExists();
                         UnitOfWork.CurrentSession.Save(box);
                     }
-
-
-
                     tx.Commit();
                 }
 

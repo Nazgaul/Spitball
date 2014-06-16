@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
@@ -30,6 +26,7 @@ namespace Zbang.Zbox.Domain
             Text = text;
             Question = question;
            
+// ReSharper disable once DoNotCallOverridableMethodsInConstructor Resharper
             DateTimeUser = new UserTimeDetails(Quiz.Owner.Email);
         }
         public virtual Guid Id { get; private set; }

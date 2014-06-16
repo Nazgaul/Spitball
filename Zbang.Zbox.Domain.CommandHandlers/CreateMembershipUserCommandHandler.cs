@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Throw.OnNull(command.Email, "Email");
 
 
-            User user = m_UserRepository.GetUserByEmail(command.Email);
+            User user = UserRepository.GetUserByEmail(command.Email);
             var newUser = false;
             if (user == null)//email was invited to a box new user
             {
@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     command.FirstName,
                     command.MiddleName,
                     command.LastName, command.Sex, command.MarketEmail);
-                m_UserRepository.Save(user, true);
+                UserRepository.Save(user, true);
                 user.GenerateUrl();
             }
             if (!user.IsRegisterUser)
@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 UpdateUniversity(membershipCommand.UniversityId.Value, retVal, user);
 
             }
-            m_UserRepository.Save(user);
+            UserRepository.Save(user);
             return retVal;
         }
 

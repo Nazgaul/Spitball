@@ -159,7 +159,6 @@
     <Compile Include="Queries\GetUserMinProfileQuery.cs" />
     <Compile Include="Queries\Library\GetAdminUsersQuery.cs" />
     <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />
-    <Compile Include="Queries\Library\GetUniversityByFriendsQuery.cs" />
     <Compile Include="Queries\Library\GetUniversityByPrefixQuery.cs" />
     <Compile Include="Queries\Library\GetUniversityDetailQuery.cs" />
     <Compile Include="Queries\Notification\GetBoxDataForDigestEmailQuery.cs" />

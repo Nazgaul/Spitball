@@ -708,7 +708,7 @@
             }
 
             .itemContent {
-                margin: 0px 0 5px 15px; /*rtl*/
+                margin: 0 0 5px 15px; /*rtl*/
             }
         }
     }
@@ -831,24 +831,8 @@
     left: auto;
 
     &.noPreview {
-        .downArrow {
-            top: 81px; /* diff rtl*/
-            margin-top: 14px; /* diff rtl*/
-        }
-
         .ttPreview {
             display: none;
-        }
-    }
-
-    &.ttLink {
-        height: 83px; /*diff rtl*/
-        .downArrow {
-            top: 57px; /*diff rtl*/
-        }
-
-        .ttTop {
-            padding-bottom: 0;
         }
     }
 
@@ -2036,6 +2020,31 @@
     border-right: 1px solid @borderColor; /*rtl*/
     box-shadow: 4px 0 4px rgba(0,0,0,.15); /*rtl*/
     .transition(left .4s); /*rtl*/
+
+    .emptyQuiz {
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
+        .questionHolder:first-child {
+            &.questionReq{
+                .addQuestion{
+                    left: 21px; /*rtl*/
+                    right: auto;
+                }
+            }
+        }
+    }
+    .validated {
+        .questionHolder.ng-invalid{
+            &.questionReq{
+                .addQuestion{
+                    left: 21px; /*rtl*/
+                    right: auto;
+                }
+            }
+        }
+    }
+
     header {
         margin: 0 -15px 0 -14px; /*rtl*/ //left padding + 1px border
         padding: 8px 14px 0 0; /*rtl*/
@@ -2059,15 +2068,10 @@
         right: auto;
     }
 
-    ~ .quizSideBar {
+    ~ .quizSideBar, ~ .quizSideBar .quizBottom {
         left: -372px; /*rtl*/
         right: auto;
     }
-}
-
-.quizWpr {
-    //padding: 0 0 0 4px; /*rtl*/
-    //margin: 0 0 0 10px; /*rtl*/
 }
 
 .questionHolder {
@@ -2102,20 +2106,29 @@
 .quizAddQuestion {
     text-align: right; /*rtl*/
 }
-
+.quizBottom
+{
+    left: 0; /*rtl*/
+    right: auto;
+    .transition(left .4s); /*rtl*/
+}
 
 /*#endregion */
 
 /*#region Quiz Preview */
-
+.quizPreviewTop {
+    padding-right: ~'-webkit-calc(50% - 400px)'; /*rtl*/
+    padding-right: ~'calc(50% - 400px)'; /*rtl*/
+    padding-left:0;
+    .boxSizing;
+}
 .quizPreview {
     right: 0; /*rtl*/
     left: auto;
 
     .closePreview
     {
-        left:10px; /*rtl*/
-        right:auto;
+        margin: 8px 0 0 10px; /*rtl*/
         &:after {
             .flipH(1); /*rtl*/
             margin: 0 5px 0 0; /*rtl*/
@@ -2125,13 +2138,14 @@
 .quizQList {
     .splitHR {
         text-align: right; /*rtl*/
-        padding: 15px 14px 0 0; /*rtl*/
+        padding: 10px 14px 0 0; /*rtl*/
         margin: 0 0 -4px 20px; /*rtl*/
     }
 }
 
 .commentWpr {
-    margin: 0 -25px 0 -45px; /*rtl*/
+    margin: 10px 34px 0 40px; /*rtl*/
+    padding: 0 10px 0 0; /*rtl*/
     .closeDialog {
         left: 20px; /*rtl*/
         right: auto;
@@ -2142,7 +2156,7 @@
     }
 
     .askBtn {
-        margin: 2px 0 0 14px; /*rtl*/
+        margin: 2px 0 10px 25px; /*rtl*/
     }
 }
 
@@ -2151,7 +2165,15 @@
         padding: 0 42px 0 0; /*rtl*/
     }
 }
-
+.commentTxt {
+    padding: 0 0 0 22px; /*rtl*/
+}
+.cTextAreaWpr {
+    .imgBorder {
+        right: 10px; /*rtl*/
+        left: auto;
+    }
+}
 .cTextArea {
     margin: 0 42px 0 0; /*rtl*/
 }

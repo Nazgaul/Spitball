@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
+﻿using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Domain.DataAccess;

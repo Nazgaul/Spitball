@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -22,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
             m_Cache = cacheProvider;
         }
 
-        public string removeWords(string phrase)
+        public string RemoveWords(string phrase)
         {
             phrase = phrase.Trim();
             if (string.IsNullOrWhiteSpace(phrase))
@@ -30,9 +29,9 @@ namespace Zbang.Zbox.Infrastructure.Culture
                 return phrase;
             }
             var wordToFilter = GetWordsToFilter().Select(s => s.ToLower()).ToList();
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            var words = phrase.Split(new string[] { " ", "%" }, StringSplitOptions.RemoveEmptyEntries);
+            var words = phrase.Split(new[] { " ", "%" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var word in words)
             {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Storage
@@ -14,7 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         {
             using (var ms = new MemoryStream())
             {
-                using (GZipStream gz = new System.IO.Compression.GZipStream(ms, CompressionMode.Compress))
+                using (var gz = new GZipStream(ms, CompressionMode.Compress))
                 {
                     gz.Write(stream, 0, stream.Length);
                 }
@@ -27,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             stream.Seek(0, SeekOrigin.Begin);
             using (var ms = new MemoryStream())
             {
-                using (GZipStream gz = new System.IO.Compression.GZipStream(ms, CompressionMode.Compress))
+                using (var gz = new GZipStream(ms, CompressionMode.Compress))
                 {
                     stream.CopyTo(gz);
                     //gz.Write(stream, 0, stream.Length);
@@ -60,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         {
             stream.Seek(0, SeekOrigin.Begin);
             var ms = new MemoryStream();
-            using (GZipStream gz = new System.IO.Compression.GZipStream(ms, CompressionMode.Compress))
+            using (var gz = new GZipStream(ms, CompressionMode.Compress))
             {
                 await stream.CopyToAsync(gz);
                 //stream.CopyTo(gz);

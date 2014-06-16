@@ -28,7 +28,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var m_HebrewStemmer = Rhino.Mocks.MockRepository.GenerateStub<IHebrewStemmer>();
             var m_BlobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
             var m_FilterWords = MockRepository.GenerateStub<IFilterWords>();
-            m_FilterWords.Stub(x => x.removeWords(phrase)).Return(phrase);
+            m_FilterWords.Stub(x => x.RemoveWords(phrase)).Return(phrase);
             m_EnglishStemmer.Stub(x => x.TransferEnglishCharsToHebrew(phrase)).Return(phrase);
             m_HebrewStemmer.Stub(x => x.StemAHebrewWord(phrase)).Return(phrase);
             var m_HttpCacheProvider = Rhino.Mocks.MockRepository.GenerateStub<IHttpContextCacheWrapper>();

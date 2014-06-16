@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             ValidateCommand(command);
 
-            User user = m_UserRepository.Get(command.UserId);
+            User user = UserRepository.Get(command.UserId);
             ValidateUser(user);
 
             Library library = m_LibraryRepository.Get(academicCommand.NodeId);
@@ -89,6 +89,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void ValidateUser(User user)
         {
+            if (user == null) throw new ArgumentNullException("user");
             if (user.University == null)
             {
                 throw new ArgumentException("User need to connect to a university first");

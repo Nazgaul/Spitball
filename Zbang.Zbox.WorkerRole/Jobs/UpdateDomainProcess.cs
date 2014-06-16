@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
+
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRole.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
@@ -51,13 +45,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 try
                 {
-                    var msgData = msg.FromMessageProto<Zbang.Zbox.Infrastructure.Transport.DomainProcess>();
+                    var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                     if (msgData == null)
                     {
                         TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess msgid:" + msg.Id);
                         return true;
                     }
-                    var process = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
+                    var process = Infrastructure.Ioc.IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
                     if (process == null)
                     {
                         TraceLog.WriteError("UpdateDomainProcess run - process is null msgid:" + msg.Id + " msgData.ProcessResolver:" + msgData.ProcessResolver);

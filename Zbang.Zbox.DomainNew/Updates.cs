@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Domain
             Quiz quiz = null
             )
         {
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             User = user;
             Box = box;
             Comment = comment;
@@ -20,6 +21,8 @@ namespace Zbang.Zbox.Domain
             Item = item;
             Quiz = quiz;
             CreationTime = DateTime.UtcNow;
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
+
         }
        
         public virtual Guid Id { get; set; }

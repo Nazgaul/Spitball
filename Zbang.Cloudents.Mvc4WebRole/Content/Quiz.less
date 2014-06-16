@@ -16,23 +16,17 @@
     {
         position: fixed; //remove the scroll from existing content of bodyContent
         width: 100%;
-        //display: block; //override 
         &.topBarFix {
             .quizPreview
             {
-                &:before {
-                    position: fixed;
-                    top:0;
-                }
                 h2,.closePreview {
                     display: block;
                 }
             }
-            
         }
         .quizPreview
         {
-            margin-top: 50px;
+            margin-top: 0; 
         }
         .quizTitle {
             margin: 20px auto;
@@ -44,7 +38,8 @@
     top: 50px;
     right: 0; /*rtl*/
     width: 386px;
-    height: 100%;
+    height: ~'-webkit-calc(100% - @{header-height})';
+    height: ~'calc(100% - @{header-height})';
     background: #e4e4e4;
     //z-index: 5;
      z-index: 4; //changed to 4 beasu changed z-index of header to 5 (without this quiz blocks settings drop down)
@@ -54,9 +49,9 @@
     box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
     .transition(right .4s); /*rtl*/
     .emptyQuiz {
-           .quizName:not(.ng-valid) {
-               border: 1px solid @errorColor;
-          }
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
         .questionHolder:first-child {
             &[class*='Req'] {
                 border: 1px solid #d1294d;
@@ -89,13 +84,12 @@
                 }                                
             }
         }
-
     }
     .validated {
-           .quizName:not(.ng-valid) {
-               border: 1px solid @errorColor;
-          }
-           .questionHolder.ng-dirty.ng-invalid{
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
+        .questionHolder.ng-invalid{
             &[class*='Req'] {
                 border: 1px solid #d1294d;
             } 
@@ -117,14 +111,8 @@
                     color: @errorColor;
                 }
             }       
-
-            .quizAnswer:nth-child(-n+2) {                
-                .questionAnswer {
-                    border: 1px solid @errorColor;
-                    &.ng-dirty:not(.ng-invalid) {
-                    border: 1px solid @borderColor;
-                    }
-                }                                
+            .questionAnswer.ng-invalid{
+                border: 1px solid @errorColor;
             }
         }
 
@@ -170,14 +158,12 @@
             font-size: 17px;
             line-height:19px;
         }
-
-      
     }
 
- 
-
     section {
-        height: 100%;
+        min-height: 100%;
+        //height: ~'calc(100% - 150px)';
+        //height: 300px;
     }
 
     //issue with css priority
@@ -213,7 +199,7 @@
         .flipH;
         right: 3px; /*rtl*/
     }
-    ~ .quizSideBar
+    ~ .quizSideBar, ~ .quizSideBar .quizBottom
     {
         right: -372px;  /*rtl*/
     }
@@ -221,11 +207,6 @@
 .quizWpr
 {
     overflow:hidden;
-    height: ~'-webkit-calc(100% - 130px)';
-    height: ~'calc(100% - 130px)';
-    //padding-right: 4px; /*rtl*/
-    //margin-right: 10px; /*rtl*/
-    //width: 354px !important; //override slimscroll
     width: 370px !important; //override jQuery custom scrollbar
 
     textarea {
@@ -338,8 +319,13 @@
     background: #fff;
     border-top: 1px solid @borderColor;
     height: 42px;
-    margin: 0 -14px;
     padding: 0 14px;
+    position: fixed;
+    bottom: 0;
+    right: 0; /*rtl*/
+    width: 385px;
+    .transition(right .4s); /*rtl*/
+    .boxSizing;
     .error{
         margin: 10px;
     }
@@ -356,7 +342,22 @@
 /*#endregion */
 
 /*#region Quiz Preview  */
-
+.quizPreviewTop {
+    position: fixed;
+    height: @header-height;
+    background: #fff;
+    border-bottom: 1px solid @borderColor;
+    width: 100%;
+    padding-left: ~'-webkit-calc(50% - 400px)'; /*rtl*/
+    padding-left: ~'calc(50% - 400px)'; /*rtl*/
+    .boxSizing;
+}
+.quizPreviewScroll {
+    height: ~'-webkit-calc(100% - @{header-height})';
+    height: ~'calc(100% - @{header-height})'; 
+    margin-top: 50px;
+    overflow: auto;
+}
 .quizPreview
 {
     margin-top: 100%;
@@ -365,41 +366,23 @@
     left: 0; /*rtl*/
     top: 0;
     width: 100%;
-    height: ~'-webkit-calc(100% - @{header-height})';
-    height: ~'calc(100% - @{header-height})';
+    height: 100%;
     background: url(/Images/gray_jean80.png) repeat #fff;
     .transition(margin .7s ease-in);
-    overflow: auto;
-    &:before
-    {
-        .pseudo;
-        width: 100%;
-        height: @header-height;
-        background: #fff;
-        border-bottom: 1px solid @borderColor;
-        position: absolute;
-        z-index: 1;     
-    }
+
     h2{
         display: none;
         font-size: 20px;
         font-weight: normal;
-        width: 800px;
-        margin: 0 auto;
-        height: 50px;
+        max-width: 800px;
         padding-top: 11px;
-        position: fixed;
-        left: 0;right: 0;
-        top:0;
         z-index: 1;
     }
     .closePreview
     {
-        top: 8px;
-        position: fixed;
-        right: 10px; /*rtl*/
         z-index: 1;
         display:none;
+        margin: 8px 10px 0 0; /*rtl*/
 
         &:hover:after {
             background-position: -204px -35px;
@@ -437,7 +420,7 @@
 .quizPrevWpr
 {
     width: 800px;
-    margin: 0 auto 60px;
+    margin: 20px auto 60px;
     background: #fff;
     border-radius: 5px;
     padding: 0 20px 15px 20px;
@@ -467,7 +450,7 @@
     .splitHR {
         
         text-align: left; /*rtl*/
-        padding: 15px 0 0 14px; /*rtl*/
+        padding: 10px 0 0 14px; /*rtl*/
         font-size: 13px;
         margin: 0 20px -4px 0; /*rtl*/
     }
@@ -487,9 +470,11 @@
     padding-right: 80px;
 }*/
 .commentWpr {
-    margin: 0 -45px 0 -25px;
+    margin: 10px 40px 0 34px; /*rtl*/
     position: relative;
     display: none;
+    background: #f6f7f9;
+    padding-left: 10px; /*rtl*/
     .closeDialog {
         background-position: -68px -26px;
         right: 20px; /*rtl*/
@@ -504,8 +489,8 @@
     .askBtn {
         padding: 4px 15px;
         height: auto;
-        margin: 2px 14px 0 0; /*rtl*/ 
-        //display: block;
+        margin: 2px 25px 10px 0; /*rtl*/ 
+        display: block;
     }
     li:hover .closeDialog {
             display: block;
@@ -538,13 +523,18 @@
 .commentTxt {
     font-size: 15px;
     margin: 10px 0;
+    padding-right: 22px; /*rtl*/
 }
 .cTextAreaWpr {
     //display: none;
     margin-top: 20px;
+    overflow: hidden; //for comment button to take up space
+    .imgBorder {
+        left: 10px; /*rtl*/
+    }
 }
 .cTextArea {
-    width: 600px;
+    width: 430px;
     margin-left: 42px; /*rtl*/
     border-radius: 3px;
     font-size: 15px;

@@ -3,10 +3,10 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public abstract class SearchQueryBase : QueryPagedBase
     {
-        public SearchQueryBase(long Id, string searchText, int pageNumber)
-            : base(Id, pageNumber)
+        protected SearchQueryBase(long id, string searchText, int pageNumber)
+            : base(id, pageNumber)
         {
-            this.SearchText = searchText.Replace(' ' , '%');
+            SearchText = searchText.Replace(' ' , '%');
         }
 
         /// <summary>

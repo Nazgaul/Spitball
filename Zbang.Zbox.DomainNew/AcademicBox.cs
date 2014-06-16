@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
@@ -16,17 +13,21 @@ namespace Zbang.Zbox.Domain
         {
             InitializeAcademicBox();
             CourseCode = courseCode;
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Library.Add(library);
+
             Professor = professor;
            // Picture = picture;
             AddPicture(picture, pictureUrl);
-            this.UserTime.CreatedUser = creator.Email;
-            var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
-            Questions.Add(new Comment(creator, Zbang.Zbox.Domain.Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));
+            UserTime.CreatedUser = creator.Email;
+            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+            Questions.Add(new Comment(creator, Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));
             CommentCount = 1;
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
         protected AcademicBox()
+// ReSharper disable once RedundantBaseConstructorCall nhibernate
             : base()
         {
             InitializeAcademicBox();

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.Culture
@@ -43,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
 
         public string TransferEnglishCharsToHebrew(string englishSentece)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var letter in englishSentece.ToLower())
             {
                 var outLetter = letter;

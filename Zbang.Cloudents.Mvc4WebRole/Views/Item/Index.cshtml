@@ -1,8 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@model Zbang.Zbox.ViewModel.DTOs.ItemDtos.ItemWithDetailDto
+
+@{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
 <div id="item" class="page itemPage" data-data="@ViewBag.data">
-    <h1>@Model.Description</h1>
+    <h1>@ViewBag.Description</h1>
     <div class="leftPanel lFloat">
         <div class="itemTop">
             <div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>
@@ -137,7 +138,7 @@
         <form id="AddAnotation" class="addAnotation">
             <img class="lFloat" width="32" height="32" alt="" />
             <div class="annotateContent">
-                <div id="annotator" class="annotator boldFont elps"></div>
+                <div id="annotator" class="annotator semiFont elps"></div>
                 <textarea class="inputText" name="comment"></textarea>
                 <div class="rFloat btnWpr">
                     <button type="button" class="btn1 btnCancel">@SharedResources.Cancel</button>
@@ -158,7 +159,7 @@
         <div class="readView">
             <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
             <div class="annotateContent">
-                <span class="annotator boldFont elps">{{userName}}</span>
+                <span class="annotator semiFont elps">{{userName}}</span>
                 <span data-time="{{date}}" class="annotateDate"></span>
                 <div class="annotationTextWpr">
                     <div class="annotationText">{{comment}}</div>

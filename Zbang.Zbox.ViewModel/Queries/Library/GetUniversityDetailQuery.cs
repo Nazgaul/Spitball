@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Query;
 namespace Zbang.Zbox.ViewModel.Queries.Library
 {
@@ -22,14 +24,14 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
             get { return "UniversityDetail"; }
         }
 
-        public System.Collections.Generic.List<string> CacheTags
+        public List<string> CacheTags
         {
             get { return null; }
         }
 
-        public System.TimeSpan Expiration
+        public TimeSpan Expiration
         {
-            get { return System.TimeSpan.FromMinutes(15); }
+            get { return TimeSpan.FromMinutes(15); }
         }
     }
 }

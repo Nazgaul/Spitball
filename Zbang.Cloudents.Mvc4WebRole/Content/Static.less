@@ -486,7 +486,6 @@ footer {
     border: 1px solid @borderColor;
     border-radius: 3px;
     overflow-x: hidden;
-    overflow-y: auto;
     box-shadow: 0 1px 1px rgba(17, 17, 17, .5);
     padding: 0;
     overflow-y: scroll;
@@ -584,12 +583,22 @@ footer {
         border-radius: 3px 3px 0 0; 
         margin:0;
         padding: 5px 15px;
+        position: relative; //for the choose button
     }
     .uniDetails {
         padding: 10px 0 0 8px; /*rtl*/
         .btn3 {
             margin-top: 10px;
             padding: 5px 20px;
+            &:before {
+                //trigger click on whole list item
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
         }
     }
 }

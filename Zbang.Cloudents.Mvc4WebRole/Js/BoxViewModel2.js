@@ -1,4 +1,4 @@
-﻿(function ($, dataContext, ko, cd, ZboxResources, analytics) {
+﻿(function ($, dataContext, ko, cd, zboxResources, analytics) {
     "use strict";
 
     if (window.scriptLoaded.isLoaded('bvm')) {
@@ -58,20 +58,21 @@
             that.isOwner = data.uid === self.ownerId;
         }
         function Tab(data) {
-            this.id = data.id;
-            this.name = ko.observable(data.name);
-            this.isSelected = ko.computed(function () {
-                return self.currentTab() === this.id;
+            var selfTab = this;
+            selfTab.id = data.id;
+            selfTab.name = ko.observable(data.name);
+            selfTab.isSelected = ko.computed(function () {
+                return self.currentTab() === selfTab.id;
             }, this);
-            this.isAction = ko.computed(function () {
-                return this.isSelected() && cd.register();
+            selfTab.isAction = ko.computed(function () {
+                return selfTab.isSelected() && cd.register();
             }, this);
         }
         function ParentElem() {
             var that = this;
             var backData = cd.prevLinkData('box');
             if (!backData) {
-                that.name = JsResources.Dashboard;
+                that.name = zboxResources.Dashboard;
                 that.url = '/dashboard/';
                 return;
             }
@@ -82,7 +83,7 @@
             } else { //library 
                 split = 1;
             }
-            that.name = backData.title.split(' | ')[split] //first part of the title
+            that.name = backData.title.split(' | ')[split]; //first part of the title
             that.url = backData.url;
             //if (backData.url.indexOf('dashboard') > -1) {
             //    that.name = JsResources.Dashboard;
@@ -203,7 +204,7 @@
             });
 
             cd.postFb(self.name(),
-                JsResources.IJoined.format(self.name()),
+                zboxResources.IJoined.format(self.name()),
                 cd.location());                     
         };
 
@@ -258,7 +259,7 @@
                 return false;
             }
             if (self.follow()) {
-                cd.notification(JsResources.NeedToFollowBox);
+                cd.notification(zboxResources.NeedToFollowBox);
                 return false;
             }
             return true;
@@ -280,7 +281,7 @@
                     return i.name() === tabName;
                 });
                 if (exists) {
-                    cd.displayErrors(form, JsResources.TabExists);
+                    cd.displayErrors(form, zboxResources.TabExists);
                     return false;
                 }
                 createTab(data);
@@ -341,7 +342,7 @@
             var $e = $(e.target);
             closeMenu($e);
 
-            cd.confirm(JsResources.SureDeleteTab, function () {
+            cd.confirm(zboxResources.SureDeleteTab, function () {
                 dataContext.deleteTab({
                     data: { TabId: m.id, BoxUid: self.boxid },
                     success: function () {
@@ -394,7 +395,6 @@
         //#endregion
         //#region event
         function registerEvents() {
-            var contentEditable = [];
             $('#showAllMembers').click(function () {
                 analytics.trackEvent('BoxSettings', 'Open - show all members');
                 openBoxSettings('Members');
@@ -412,7 +412,7 @@
                     return;
                 }
                 if (self.follow()) {
-                    cd.notification(ZboxResources.NeedToFollowBox);
+                    cd.notification(zboxResources.NeedToFollowBox);
                     e.stopPropagation();
                     e.preventDefault();
                     return;
@@ -420,16 +420,15 @@
             }, true);
 
             function openBoxSettings(tabName) {
-                var data = {};
                 if (!cd.register()) {
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
                 if (self.follow()) {
-                    cd.notification(ZboxResources.NeedToFollowBox);
+                    cd.notification(zboxResources.NeedToFollowBox);
                     return false;
                 }
-                data = {
+               var data = {
                     boxUid: self.boxid,
                     boxType: self.boxtype(),
                     userType: self.userType(),
@@ -467,7 +466,7 @@
             });
 
             cd.pubsub.subscribe('updateBoxUrl', function (boxName) {
-                var location = self.copyLink().substring(0, self.copyLink().length - 1),
+                var location = self.copyLink().substring(0, self.copyLink().length - 1);
                     location = location.substring(0, location.lastIndexOf('/') + 1) + boxName + '/';
                 self.copyLink(location);
                 if (window.history) {
@@ -496,6 +495,9 @@
             });
 
             cd.pubsub.subscribe('enterItem', function () {
+                if (!self.follow()) {
+                    return;
+                }
                 self.followbox();
             });
             //cd.pubsub.subscribe('boxclear', revertSettings);
@@ -538,7 +540,7 @@
                 cd.shareFb(cd.location(), //url
                     self.name(), //title
                     self.boxtype() === 'academic' ? self.name() + ' - ' + self.ownerName() : self.name(), //caption
-                    JsResources.IShared + ' ' + self.name() + ' ' + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                    zboxResources.IShared + ' ' + self.name() + ' ' + zboxResources.OnCloudents + '<center>&#160;</center><center></center>' + zboxResources.CloudentsJoin,
                     null //picture
                    );
             });
@@ -549,7 +551,7 @@
 
             $('#box_msg').click(function () {
                 cd.pubsub.publish('message',
-                    { text: ZboxResources.FindThisInteresting + '\n\u200e"' + self.name() + '" - ' + cd.location() }
+                    { text: zboxResources.FindThisInteresting + '\n\u200e"' + self.name() + '" - ' + cd.location() }
                     );
             });
 

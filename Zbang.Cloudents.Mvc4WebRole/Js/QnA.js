@@ -1,4 +1,4 @@
-﻿(function ($, ko, cd, dataContext, ZboxResources, analytics) {
+﻿(function ($, ko, cd, dataContext, jsResources, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('qna')) {
         return;
@@ -28,9 +28,9 @@
             });
             _that.answerLengthText = ko.computed(function () {
                 if (_that.answers().length === 1) {
-                    return _that.answers().length + ' ' + JsResources.Comment;
+                    return _that.answers().length + ' ' + jsResources.Comment;
                 }
-                return _that.answers().length + ' ' + JsResources.Comments;
+                return _that.answers().length + ' ' + jsResources.Comments;
             });
             _that.bestAnswer = ko.computed(function () {
                 var x = ko.utils.arrayFirst(_that.answers(), function (i) {
@@ -320,7 +320,7 @@
                 return;
             }
             if (self.permission() === 'none' || self.permission() === 'invite') {
-                cd.notification(JsResources.NeedToFollowBox);
+                cd.notification(jsResources.NeedToFollowBox);
                 return;
             }
             var $f = $(f),
@@ -395,7 +395,7 @@
                 return;
             }
             if (self.permission() === 'none' || self.permission() === 'invite') {
-                cd.notification(JsResources.NeedToFollowBox);
+                cd.notification(jsResources.NeedToFollowBox);
                 return;
             }
             analytics.trackEvent('Answer', 'Give answer', 'Providing answer ');
@@ -670,7 +670,7 @@
 
                 if (self.permission() === 'none' || self.permission() === 'invite') {
                     $(this).blur();
-                    cd.notification(JsResources.NeedToFollowBox);
+                    cd.notification(jsResources.NeedToFollowBox);
                     return;
                 }
                 if (this.value === this.getAttribute('placeholder')) {

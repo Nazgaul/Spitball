@@ -5,54 +5,54 @@
     }
 
     /* ---- Begin integration of Underscore template engine with Knockout. Could go in a separate file of course. ---- */
-    ko.cdTemplateEngine = function () {
-        this['allowTemplateRewriting'] = false;
-        this['cache'] = {};
-        this['string'] = '';
-    }
-    ko.cdTemplateEngine.prototype = ko.utils.extend(new ko.templateEngine(), {
-        renderTemplateSource: function (templateSource, bindingContext, options) {
-            console.log(bindingContext);
-           // console.log(templateSource);
-           //// console.log(bindingContext, options);
+    //ko.cdTemplateEngine = function () {
+    //    this['allowTemplateRewriting'] = false;
+    //    this['cache'] = {};
+    //    this['string'] = '';
+    //}
+    //ko.cdTemplateEngine.prototype = ko.utils.extend(new ko.templateEngine(), {
+    //    renderTemplateSource: function (templateSource, bindingContext, options) {
+    //        console.log(bindingContext);
+    //       // console.log(templateSource);
+    //       //// console.log(bindingContext, options);
 
-            var
-        templateNodesFunc = templateSource['nodes'],
-        templateNodes = templateNodesFunc ? templateSource['nodes']() : null;
+    //        var
+    //    templateNodesFunc = templateSource['nodes'],
+    //    templateNodes = templateNodesFunc ? templateSource['nodes']() : null;
 
-            if (templateNodes) {
-                var x = ko.utils.makeArray(templateNodes.cloneNode(true).childNodes);
-                console.log(x)
-                return x;
-            } else {
-                var templateText = templateSource['text']();
-                this.string += templateText;
-                if (bindingContext.$index() === 5) {
-                    var z = ko.utils.parseHtmlFragment(this.string);
-                    this.string = '';
-                    return z;
-                }
-                return ko.utils.parseHtmlFragment('');
+    //        if (templateNodes) {
+    //            var x = ko.utils.makeArray(templateNodes.cloneNode(true).childNodes);
+    //            console.log(x)
+    //            return x;
+    //        } else {
+    //            var templateText = templateSource['text']();
+    //            this.string += templateText;
+    //            if (bindingContext.$index() === 5) {
+    //                var z = ko.utils.parseHtmlFragment(this.string);
+    //                this.string = '';
+    //                return z;
+    //            }
+    //            return ko.utils.parseHtmlFragment('');
 
-            }
+    //        }
 
 
-            // Precompile and cache the templates for efficiency
-            //var precompiled = templateSource['data']('precompiled');
-            //if (!precompiled) {
-            //    precompiled = _.template("<% with($data) { %> " + templateSource.text() + " <% } %>");
-            //    templateSource['data']('precompiled', precompiled);
-            //}
-            //// Run the template and parse its output into an array of DOM elements
-            //var renderedMarkup = precompiled(bindingContext).replace(/\s+/g, " ");
+    //        // Precompile and cache the templates for efficiency
+    //        //var precompiled = templateSource['data']('precompiled');
+    //        //if (!precompiled) {
+    //        //    precompiled = _.template("<% with($data) { %> " + templateSource.text() + " <% } %>");
+    //        //    templateSource['data']('precompiled', precompiled);
+    //        //}
+    //        //// Run the template and parse its output into an array of DOM elements
+    //        //var renderedMarkup = precompiled(bindingContext).replace(/\s+/g, " ");
             
 
-        }//,
-        //createJavaScriptEvaluatorBlock: function (script) {
-        //    //console.log(script);
-        //    return "<%= " + script + " %>";
-        //}
-    });
+    //    }//,
+    //    //createJavaScriptEvaluatorBlock: function (script) {
+    //    //    //console.log(script);
+    //    //    return "<%= " + script + " %>";
+    //    //}
+    //});
 
     //ko.setTemplateEngine(new ko.cdTemplateEngine());
     /* ---- End integration of Underscore template engine with Knockout ---- */
@@ -114,7 +114,7 @@
 
     // Hooks up a form to jQuery Validation
     ko.bindingHandlers.validate = {
-        init: function (elem, valueAccessor) {
+        init: function (elem) {
             $(elem).validate();
         }
     };
@@ -152,7 +152,7 @@
 
     // Simulates HTML5-style placeholders on older browsers
     ko.bindingHandlers.placeholder = {
-        init: function (elem, valueAccessor) {
+        init: function (elem) {
             /// <summary></summary>
             /// <param name="elem" type="Element"></param>
             /// <param name="valueAccessor" type="Object"></param>
@@ -316,7 +316,7 @@
         }
     };
     ko.bindingHandlers['attr2'] = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        init: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
             ko.utils.objectForEach(value, function (attrName, attrValue) {
                 //attrValue = ko.utils.unwrapObservable(attrValue);
@@ -327,9 +327,7 @@
             //console.log(element,valueAccessor,allBindings,viewModel,bindingContext)
 
         },
-        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            //   console.log('update')
-            //console.log(element, valueAccessor, allBindings, viewModel, bindingContext)
+        update: function () {
         }
     };
 

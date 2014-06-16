@@ -785,7 +785,8 @@
         padding-bottom:21px;
         width: 101px;
         height: 9px;
-        background: url(/Images/loader1.png) no-repeat;
+        ///Images/loader1.png
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAS8AAAAJCAYAAABjXKpHAAABg0lEQVRo3u2ZQYrDMAxFCzlAlr1SoFAI5BK9QWE23c0xcoDeIyGbWeQMhZ7BK488qBCMlFidFrvwFw+3iQjlf0t1pJ33fgcAAJ9GcT/o++faEAPheG3imHEcH9RET9yYnq/93Y9iAw0xEI7XZhkLRI1NupFfNdETNyZ8rl/xbHhi082SJ9YcLKJ4RYJkhUQ6EF6gE+IrNs1HDHwvjj8IsYGuJA0KJFk38qnizR77F67BkwyeWPPEmINZKa14zYpwsxDfKQZqJs5K7IxkWCVZt7DBFf+0zQ9P3uyJNU+MOZi9eO2JSwak4uUU4ZwQf14x5UuId0qsU8S5ZOJUkicW3cin80rxgicZPLHmiTEHs3qCkxf+5XHywsnrM09ehTXrj9rGFxqX4X19EgyZHu/yUdPyuGYgGsJqczhZN+55TYJ/4Vr1n2cDu26WPLHmIKaNcgFrF03fsLYJ08Y7szVtbBfNy4G/Y7K1PdlK1m0xbbwzW9NGePImTyx5Ys1BFC8AAHiSX370n2ThijxBAAAAAElFTkSuQmCC') /*/Images/loader1.png*/ no-repeat;
         -webkit-animation: loader 1.5s steps(3) infinite;
         -moz-animation: loader 1.5s steps(3) infinite;
         -ms-animation: loader 1.5s steps(3) infinite;
@@ -875,7 +876,8 @@
     height: 120px;
     display: inline-block;
     margin: 100px auto 60px;
-    background: url(/Images/loading-media.png) center center no-repeat;
+    ///Images/loading-media.png
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA7CAYAAAAq55mNAAABnklEQVRo3u3asWcDYRjH8ePIVEIooWunUErW0CmE/gelU6fQpVspnUopWUvpFEIIpVOn0rGZSujUqVOnEkoJ5e3z8L6c13uXtHLv3fvcb/hOmT7J3b3P++YipVRUhSJAAQUU0FJB45NnV7tUO6C2bUMWtEmNqR9KBdicuqJqWdBN6j1QoN1DFnQoBGk6ckHrAV+uac1c0LYwJLdwQTsCoQpQQAEF1PRdBWif2qAu+FEvGbqfmKF54L6rAtS0xxNLFaBcrC/rT+lQE8/Xgzxn7LJATS29rRIPNfXWfTmXFcrdSoc2qOt1369lgpon8FzyPdqlXiUvL96mpKKg3ufeIqCH1IfUWfdG34dTbLwBBRRQQC3ojkDolwsa+9jxe+4p7W/DS0FI3gV10qC1Ik7qcup02V/73AH1mNfWKcd4xLzXJ43RKlAx4T0ju79+c4AGBOXDq1Hi8GpCbQUHXeFXcx0wT/WgEc7DKPGhlHV0tAz6JgT68p91tJEyPCyS92nQ66g1Ldmnd8dSlxfeyp1R5/pNMznLC97ABhRQQH30C3zyhUaBv3aCAAAAAElFTkSuQmCC') /*/Images/loading-media.png*/ center center no-repeat;
     .spinner
     {
         border-top: 10px solid rgba(56, 56, 56,.75);
@@ -952,7 +954,7 @@
     position: relative;
     left: 0; /*rtl*/
     height: 100%; //used for links
-    .transition(all, .3s);
+    .transition(all .3s);
 
     &.annotateState {
         left: ~"calc(400px - 49%)"; /*rtl*/
@@ -1073,7 +1075,8 @@
     right: 0;
     position: absolute;
     //cursor: crosshair;
-    cursor: url(/Images/cursor.png) 6 15, auto;
+    ///Images/cursor.png
+    cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAbCAYAAACjkdXHAAABZ0lEQVQ4y2P4//8/A//cCGYg3gvE//HgXUAMUssA0gPCDFDN0sgK9Vbl/W8+s/K/0LwodAMksGmWQ1ZUe2rpfxAwX1uCrlkOp2btlTn/84/M/r/5wSmw5o5za/6nH5z6X3xBHGHNc67v+o8NROzuJqxZdnHSf/uNlf9nXt0J1pS4byKYT5SzKfIzDKstywD7FUt0EdaMB2PVzAnEPwlo/AZVh6EZhLsIaG7BlcJAmA2ID+PQuBeahHFqBmFRIL6NpvEqEAshqcGpmQGafq9CNZ4HGWjp7MWADWNoBgnqRftpytUE9wD5PLg04tQMxBJA/A2IYwlqRsZQCWYg/gPE/4G4F8onWjMIP4dqBuG9QCxEiuYzSJpB+CEQ6xKreQua5v/QcAgnRvMcLJphuAsUDvg0NyIp/gDEG4F4JhC3AHEaEGvh05wJ1QgKdVdSQzsQqrmI1HgGYTMgXkpOIgFhfiDmJEkzKRgAIBDvkFgwtY0AAAAASUVORK5CYII=') /*/Images/cursor.png*/ 6 15, auto;
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
@@ -1124,6 +1127,7 @@
         textarea {
             width: 248px;
             max-height:150px;
+            font-size: 13px;
         }
     }
 
@@ -1141,6 +1145,7 @@
     .annotator, .annnotateAction {
         line-height: 32px;
         background: none;
+        font-size: 13px;
     }
 
     .annnotateAction {
@@ -1175,6 +1180,8 @@
     word-wrap: break-word;
     padding-top: 3px;
     padding-bottom: 3px;
+    font-size: 13px;
+    font-weight: normal;
 }
 
 
@@ -1200,6 +1207,10 @@
     top: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    min-height: ~'-webkit-calc(100vh - 155px)';
+    min-height: ~'calc(100vh - 155px)'; //this prevents a scrollbar on 'short' documents. 150px is the height of the header + top bar + small margin
+    font-size: 13px;
+    font-weight: normal;
 }
 
 .readView {
@@ -1240,6 +1251,7 @@
     margin-top: 9px;
     font-size: 11px;
     color: #676767;
+    font-weight: normal;
 }
 .addAnotationShow {
     opacity: 0.15;
@@ -1255,7 +1267,9 @@
     .modal2 {
         background: rgba(0,0,0,.9);
     }
-
+    .copyRightWarning {
+        display: none;
+    }
     .previewWrapper {
         //z-index: 12;
         z-index: 13;

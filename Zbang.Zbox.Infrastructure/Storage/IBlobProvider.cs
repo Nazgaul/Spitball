@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
-using Zbang.Zbox.Infrastructure.Enums;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 namespace Zbang.Zbox.Infrastructure.Storage
@@ -19,6 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         /// <param name="blobName">The blob Name</param>
         /// <param name="fileContent">the file content</param>
         /// <param name="mimeType">mimetype of the file</param>
+        /// <param name="fileGziped"></param>
         /// <returns>The url of the file with shared access signature</returns>
         Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false);
         Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType, bool fileGziped = false);
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes);
 
 
-        Task<Stream> GetFAQQeustion();
+        Task<Stream> GetFaqQeustion();
 
         string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double experationTimeInMinutes);
 

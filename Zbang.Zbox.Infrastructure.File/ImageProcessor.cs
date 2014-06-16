@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -41,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var imageDimentions = GetPreviewImageSize(new Size(width, height));
             var cacheFileName = CreateCacheFileName(blobName, imageDimentions);
 
-            var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
+            var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
 
             if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
             {
@@ -50,17 +51,16 @@ namespace Zbang.Zbox.Infrastructure.File
             }
 
 
-            using (var stream = m_BlobProvider.DownloadFile(blobName))
+            using (var stream = BlobProvider.DownloadFile(blobName))
             {
                 if (stream.Length == 0)
                 {
                     throw new ArgumentException("Stream is 0");
                 }
-                ResizeSettings settings = new ResizeSettings();
-                settings.Mode = FitMode.Max;
+                var settings = new ResizeSettings {Mode = FitMode.Max};
                 using (var outPutStream = ProcessFile(stream, imageDimentions.Width, imageDimentions.Height, settings))
                 {
-                    var cacheName = await m_BlobProvider.UploadFileToCacheAsync(cacheFileName, outPutStream, "image/jpg");
+                    var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, outPutStream, "image/jpg");
                     blobsNamesInCache.Add(cacheName);
                 }
             }
@@ -113,7 +113,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
                 return ImageExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -126,19 +126,28 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = m_BlobProvider.DownloadFile(blobName))
+                using (var stream = BlobProvider.DownloadFile(blobName))
                 {
-                    ResizeSettings settings = new ResizeSettings();
-                    settings.Scale = ScaleMode.UpscaleCanvas;
-                    settings.Anchor = ContentAlignment.MiddleCenter;
-                    settings.BackgroundColor = Color.White;
-                    settings.Mode = FitMode.Crop;
-
+                    //var settings = new ResizeSettings
+                    //{
+                    //    Scale = ScaleMode.UpscaleCanvas,
+                    //    Anchor = ContentAlignment.MiddleCenter,
+                    //    BackgroundColor = Color.White,
+                    //    Mode = FitMode.Crop
+                    //};
+                    var settings = new ResizeSettings
+                    {
+                        
+                        Anchor = ContentAlignment.MiddleCenter,
+                        BackgroundColor = Color.White,
+                       // Mode = FitMode.Crop,
+                        Scale = ScaleMode.UpscaleCanvas
+                    };
 
                     using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
                     {
-                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
+                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
+                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
                         return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
                     }
 
@@ -154,7 +163,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Thumbnail.ThumbnailProvider.ImageFileTypePicture;
+            return ThumbnailProvider.ImageFileTypePicture;
         }
     }
 }

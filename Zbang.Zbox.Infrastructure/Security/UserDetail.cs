@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
@@ -47,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             string language = array[0];
             long? universityId = null;
             long? universityWrapperId = null;
-            long temp = -1;
+            long temp;
 
             if (long.TryParse(array[1], out temp))
             {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.WindowsAzure.ServiceRuntime;
 using t = System.Diagnostics;
 
 namespace Zbang.Zbox.Infrastructure.Trace

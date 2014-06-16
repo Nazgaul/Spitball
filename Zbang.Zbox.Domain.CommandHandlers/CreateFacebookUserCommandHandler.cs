@@ -26,20 +26,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             if (string.IsNullOrWhiteSpace(command.Email))
             {
-                throw new ArgumentNullException("email", "email cannot be null or empty");
+                throw new NullReferenceException("email cannot be null or empty");
             }
 
-            User user = m_UserRepository.GetUserByEmail(command.Email);
+            User user = UserRepository.GetUserByEmail(command.Email);
             var newUser = false;
             if (user == null)//email was invited to a box new user
             {
-                user = m_UserRepository.GetUserByFacebookId(facebookCommand.FacebookUserId); // facebook invite
+                user = UserRepository.GetUserByFacebookId(facebookCommand.FacebookUserId); // facebook invite
                 if (user == null)
                 {
                     newUser = true;
                     user = new User(command.Email, facebookCommand.UserImage, facebookCommand.LargeUserImage,
                         command.FirstName, command.MiddleName, command.LastName, command.Sex, command.MarketEmail);
-                    m_UserRepository.Save(user, true);
+                    UserRepository.Save(user, true);
                     user.GenerateUrl();
                 }
             }
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 UpdateUniversity(facebookCommand.UniversityId.Value, retVal, user);
             }
-            m_UserRepository.Save(user);
+            UserRepository.Save(user);
             return retVal;
         }
     }

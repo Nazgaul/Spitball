@@ -1,13 +1,10 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
     public abstract class CreateUserCommand : ICommand
     {
-        public CreateUserCommand(string emailId, long? universityId, string firstName, string middleName, string lastName, bool sex,
+        protected CreateUserCommand(string emailId, long? universityId, string firstName, string middleName, string lastName, bool sex,
             bool marketEmail)
         {
             Email = emailId;

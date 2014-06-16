@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return View(model.Where(w => w.Language.ToLower() == System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower()));
 
             }
-            using (var stream = await m_BlobProvider.Value.GetFAQQeustion())
+            using (var stream = await m_BlobProvider.Value.GetFaqQeustion())
             {
                 var data = XDocument.Load(stream);
                 model = from category in data.Descendants("category")
@@ -158,20 +158,45 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [CompressFilter(Order = 1)]
         public ActionResult JsResources()
         {
-            ResourceManager rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());
-            var set = rm.GetResourceSet(System.Threading.Thread.CurrentThread.CurrentUICulture, true, true);
-
+            //var rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());
+            var x = typeof (Js.Resources.JsResources);
             var sb = new StringBuilder();
-
             sb.Append("JsResources={");
-            foreach (System.Collections.DictionaryEntry item in set)
+            foreach (var p in x.GetProperties())
             {
-                sb.Append("\"" + item.Key + "\":\"" + item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") + "\",");
-                sb.AppendLine();
+                
+                var s = p.GetValue(null, null);
+                if (s is string)
+                {
+                    sb.Append("\"" + p.Name+ "\":\"" +
+                              s.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") +
+                              "\",");
+                    sb.AppendLine();
+                }
+               
+                
             }
             sb.Remove(sb.Length - 1, 1);
             sb.Append("}");
             return Content(sb.ToString(), "application/javascript");
+            //using (var set = rm.GetResourceSet(System.Threading.Thread.CurrentThread.CurrentUICulture, true, true))
+            //{
+                
+            //    var sb = new StringBuilder();
+
+            //    sb.Append("JsResources={");
+            //    foreach (System.Collections.DictionaryEntry item in set)
+            //    {
+                    
+            //        sb.Append("\"" + item.Key + "\":\"" +
+            //                  item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") +
+            //                  "\",");
+            //        sb.AppendLine();
+            //    }
+            //    sb.Remove(sb.Length - 1, 1);
+            //    sb.Append("}");
+            //    return Content(sb.ToString(), "application/javascript");
+            //}
         }
         [AllowAnonymous]
         [HttpGet]

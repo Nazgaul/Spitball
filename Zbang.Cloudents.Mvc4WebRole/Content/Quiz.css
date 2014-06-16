@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region Create Quiz */
+﻿
+
+
+
+
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
   /*rtl*/
@@ -15,16 +15,12 @@
   position: fixed;
   width: 100%;
 }
-.bodyContent.previewQuiz.topBarFix .quizPreview:before {
-  position: fixed;
-  top: 0;
-}
 .bodyContent.previewQuiz.topBarFix .quizPreview h2,
 .bodyContent.previewQuiz.topBarFix .quizPreview .closePreview {
   display: block;
 }
 .bodyContent.previewQuiz .quizPreview {
-  margin-top: 50px;
+  margin-top: 0;
 }
 .bodyContent.previewQuiz .quizTitle {
   margin: 20px auto;
@@ -35,7 +31,8 @@
   right: 0;
   /*rtl*/
   width: 386px;
-  height: 100%;
+  height: -webkit-calc(100% - 50px);
+  height: calc(100% - 50px);
   background: #e4e4e4;
   z-index: 4;
   -webkit-box-sizing: border-box;
@@ -80,27 +77,24 @@
 .quizSideBar .validated .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid[class*='Req'] {
+.quizSideBar .validated .questionHolder.ng-invalid[class*='Req'] {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.answerReq .addAnswer {
+.quizSideBar .validated .questionHolder.ng-invalid.answerReq .addAnswer {
   display: inline-block;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.questionReq .addQuestion {
+.quizSideBar .validated .questionHolder.ng-invalid.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
   right: 21px;
   /*rtl*/
   top: 15px;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid.correctReq .correct {
+.quizSideBar .validated .questionHolder.ng-invalid.correctReq .correct {
   color: #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid .quizAnswer:nth-child(-n+2) .questionAnswer {
+.quizSideBar .validated .questionHolder.ng-invalid .questionAnswer.ng-invalid {
   border: 1px solid #d1294d;
-}
-.quizSideBar .validated .questionHolder.ng-dirty.ng-invalid .quizAnswer:nth-child(-n+2) .questionAnswer.ng-dirty:not(.ng-invalid) {
-  border: 1px solid #c2c2c2;
 }
 .quizSideBar.error .quizBottom .error {
   display: inline-block;
@@ -147,7 +141,7 @@
   line-height: 19px;
 }
 .quizSideBar section {
-  height: 100%;
+  min-height: 100%;
 }
 .quizSideBar .questionHolder .error {
   display: none;
@@ -181,14 +175,13 @@
   right: 3px;
   /*rtl*/
 }
-.checkbox:checked ~ .quizSideBar {
+.checkbox:checked ~ .quizSideBar,
+.checkbox:checked ~ .quizSideBar .quizBottom {
   right: -372px;
   /*rtl*/
 }
 .quizWpr {
   overflow: hidden;
-  height: -webkit-calc(100% - 130px);
-  height: calc(100% - 130px);
   width: 370px !important;
 }
 .quizWpr textarea {
@@ -305,8 +298,20 @@
   background: #fff;
   border-top: 1px solid #c2c2c2;
   height: 42px;
-  margin: 0 -14px;
   padding: 0 14px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  /*rtl*/
+  width: 385px;
+  -webkit-transition: right 0.4s;
+  -moz-transition: right 0.4s;
+  -o-transition: right 0.4s;
+  transition: right 0.4s;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .quizBottom .error {
   margin: 10px;
@@ -319,8 +324,28 @@
   color: #0371c8;
   margin-top: 12px;
 }
-/*#endregion */
-/*#region Quiz Preview  */
+
+
+.quizPreviewTop {
+  position: fixed;
+  height: 50px;
+  background: #fff;
+  border-bottom: 1px solid #c2c2c2;
+  width: 100%;
+  padding-left: -webkit-calc(50% - 400px);
+  /*rtl*/
+  padding-left: calc(50% - 400px);
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.quizPreviewScroll {
+  height: -webkit-calc(100% - 50px);
+  height: calc(100% - 50px);
+  margin-top: 50px;
+  overflow: auto;
+}
 .quizPreview {
   margin-top: 100%;
   position: fixed;
@@ -329,46 +354,26 @@
   /*rtl*/
   top: 0;
   width: 100%;
-  height: -webkit-calc(100% - 50px);
-  height: calc(100% - 50px);
+  height: 100%;
   background: url(/Images/gray_jean80.png) repeat #ffffff;
   -webkit-transition: margin 0.7s ease-in;
   -moz-transition: margin 0.7s ease-in;
   -o-transition: margin 0.7s ease-in;
   transition: margin 0.7s ease-in;
-  overflow: auto;
-}
-.quizPreview:before {
-  content: '';
-  display: inline-block;
-  width: 100%;
-  height: 50px;
-  background: #fff;
-  border-bottom: 1px solid #c2c2c2;
-  position: absolute;
-  z-index: 1;
 }
 .quizPreview h2 {
   display: none;
   font-size: 20px;
   font-weight: normal;
-  width: 800px;
-  margin: 0 auto;
-  height: 50px;
+  max-width: 800px;
   padding-top: 11px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
   z-index: 1;
 }
 .quizPreview .closePreview {
-  top: 8px;
-  position: fixed;
-  right: 10px;
-  /*rtl*/
   z-index: 1;
   display: none;
+  margin: 8px 10px 0 0;
+  /*rtl*/
 }
 .quizPreview .closePreview:hover:after {
   background-position: -204px -35px;
@@ -408,7 +413,7 @@
 }
 .quizPrevWpr {
   width: 800px;
-  margin: 0 auto 60px;
+  margin: 20px auto 60px;
   background: #fff;
   border-radius: 5px;
   padding: 0 20px 15px 20px;
@@ -439,7 +444,7 @@
 .quizQList .splitHR {
   text-align: left;
   /*rtl*/
-  padding: 15px 0 0 14px;
+  padding: 10px 0 0 14px;
   /*rtl*/
   font-size: 13px;
   margin: 0 20px -4px 0;
@@ -461,9 +466,13 @@
     padding-right: 80px;
 }*/
 .commentWpr {
-  margin: 0 -45px 0 -25px;
+  margin: 10px 40px 0 34px;
+  /*rtl*/
   position: relative;
   display: none;
+  background: #f6f7f9;
+  padding-left: 10px;
+  /*rtl*/
   /*&.show {
         .quizComments, .imgBorder, .cTextAreaWpr {
             display: block;
@@ -487,8 +496,9 @@
 .commentWpr .askBtn {
   padding: 4px 15px;
   height: auto;
-  margin: 2px 14px 0 0;
+  margin: 2px 25px 10px 0;
   /*rtl*/
+  display: block;
 }
 .commentWpr li:hover .closeDialog {
   display: block;
@@ -512,12 +522,19 @@
 .commentTxt {
   font-size: 15px;
   margin: 10px 0;
+  padding-right: 22px;
+  /*rtl*/
 }
 .cTextAreaWpr {
   margin-top: 20px;
+  overflow: hidden;
+}
+.cTextAreaWpr .imgBorder {
+  left: 10px;
+  /*rtl*/
 }
 .cTextArea {
-  width: 600px;
+  width: 430px;
   margin-left: 42px;
   /*rtl*/
   border-radius: 3px;
@@ -570,8 +587,8 @@
   /*rtl*/
   top: 7px;
 }
-/*#endregion */
-/*#region Quiz item page */
+
+
 .quizPage .sectionHeader {
   color: transparent;
 }
@@ -809,7 +826,7 @@
   font-size: 38px;
   margin: 0 auto;
 }
-/*#endregion */
+
 /*.validated {
     .quizName {
         &.ng-invalid {

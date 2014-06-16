@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         public async Task<FacebookUserData> FacebookLogIn(string token)
         {
             FacebookUserData user;
-            using (HttpClient client = new HttpClient())
+            using (var client = new HttpClient())
             {
 
 
@@ -31,12 +31,12 @@ namespace Zbang.Zbox.Infrastructure.Security
 
                     if (user == null)
                     {
-                        throw new ArgumentNullException("user");
+                        throw new NullReferenceException("user");
                     }
                     //user can be without email if its not verified in facebook
                     if (string.IsNullOrEmpty(user.email))
                     {
-                        throw new ArgumentNullException("email");
+                        throw new NullReferenceException("email");
                     }
                     user.Image = GetFacebookUserImage(user.id, FacebookPictureType.Square);
                     user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.Normal);

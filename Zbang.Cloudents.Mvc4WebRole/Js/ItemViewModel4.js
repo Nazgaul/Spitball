@@ -1,4 +1,4 @@
-﻿(function ($, dataContext, ko, cd, ZboxResources, analytics, Modernizr) {
+﻿(function ($, dataContext, ko, cd, JsResources, analytics, Modernizr) {
     "use strict";
 
     if (window.scriptLoaded.isLoaded('ivm4')) {
@@ -27,7 +27,7 @@
         //#region variables        
         //elements
         var $itemMoreFiles = $('#item_moreFiles'), $itemPreview = $('#itemPreview'),
-                        $previewWrapper = $('#previewWrapper'), $commentToggle = $('#commentToggle'),
+                        $previewWrapper = $('#previewWrapper'),previewWrapper = $previewWrapper[0], $commentToggle = $('#commentToggle'),
                         $itemShare = $('#itemShare'), $itemPrint = $('#itemPrint'),
                         $previewFailed = $('.previewFailed'), $pageLoader = $('.pageLoader'), $commentBtn = $('.commentBtn'),
                         $rateContainer = $('#rateContainer'), $rated = $('#item').find('.rated'), $itemRight = $('.itemRight'),
@@ -303,8 +303,8 @@
                     itemId: self.itemid(),
                     uniName: cd.getParameterFromUrl(1)
                 },
-                success: function (data) {
-                    parseData(data);
+                success: function (data2) {
+                    parseData(data2);
                 }
             });
 
@@ -367,7 +367,7 @@
                     .deleteAllow(cd.deleteAllow(userType, ownerid))
                     .flagAllow(checkFlagAllow(userType));
 
-                    function checkFlagAllow(userType) {
+                    function checkFlagAllow() {
                         if (cd.register() && (ownerid === cd.userDetail().nId)) {
                             return false;
                         }
@@ -449,7 +449,6 @@
                     //bug 349 scroll issue in iframe in ipad
                     if (/iPhone|iPod|iPad/.test(navigator.userAgent))
                         $('iframe.iframeContent').wrap(function () {
-                            var $this = $(this);
                             return $('<div />').addClass('iframeContent').css({
                                 overflow: 'auto',
                                 '-webkit-overflow-scrolling': 'touch'
@@ -465,10 +464,12 @@
                     newImages.each(function (i, e) {
                         var y = new $.Deferred();
 
-                        $(e).load(y, function (e) {
-
+                        $(e).load(y, function (v) {
                             $.when(defferedItemShow).done(function () {
-                                initializeCanvas(e);
+                                //IE issue........
+                                window.setTimeout(function() {
+                                    initializeCanvas(v);
+                                }, 10);
                             });
                         });
 
@@ -498,10 +499,9 @@
 
                             var $this = $(this),
                                 startWidth = $('.stars .full').width(),
-                                itemRate = getItemRate(),
                                 currentRate = 5 - $this.index(),
                                 fakeRate = calculateFakeRate(startWidth, currentRate);
-
+                            getItemRate();
                             self.rate(fakeRate);
                             setItemRate(currentRate);
                             if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
@@ -513,7 +513,7 @@
                             }, 3000);
 
                         });
-                        $ratePopup.one('click', '.closeDialog', function (e) {
+                        $ratePopup.one('click', '.closeDialog', function () {
                             if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
                                 ratedItems[cd.userDetail().nId].push(self.itemid());
                                 cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
@@ -536,14 +536,16 @@
                         index = images.index(imgElement),
                         canvas = document.createElement('canvas');
 
+
                         canvas.className = consts.annotation;
                         canvas.width = $(parent).width() - (($(parent).width() - imgWidth) / 2) + 4;
                         canvas.height = imgHeight;
                         canvas.id = consts.annotation + index;
                         canvas.style[isLtr ? 'left' : 'right'] = ($(parent).width() - imgWidth) / 2 + 'px';
                         docFragment.appendChild(canvas);
-
+                       
                         if (cd.register()) {
+                            
                             var canvas2 = document.createElement('canvas');
                             canvas2.className = "newAnnotation";
                             canvas2.width = imgWidth;
@@ -613,6 +615,7 @@
 
         //#region Clear data 
         cd.pubsub.subscribe(consts.itemClear, function () {
+            $('#AddAnotation').detach();
             $previewWrapper[0].innerHTML = '';
             self.itemName('')
             .update('')
@@ -679,8 +682,8 @@
                     }
                     $ratePopup.addClass('changedItem').removeClass('show');
                     clearTimeout(ratePopupTimeout);
-                    $rateContainer.find('.star').each(function (i, e) {
-                        $(e).removeClass('rated').text(e.id.slice(-1));
+                    $rateContainer.find('.star').each(function (i, e1) {
+                        $(e1).removeClass('rated').text(e1.id.slice(-1));
                     });
 
                     $commentToggle.prop('checked', false).trigger('change');
@@ -698,7 +701,7 @@
 
             }
             function printEvents() {
-                $itemPrint.change(function (e) {
+                $itemPrint.change(function () {
                     
                     if (!otakim) {
                         this.checked = false;
@@ -723,7 +726,7 @@
 
                     $('[data-ddcbox]').prop('checked', false).css('visibility', 'hidden');
                     var url = '/item/print/' + '?boxId=' + boxid + '&itemId=' + self.itemid() + '&otakim=true';
-                    setTimeout(function () { var mywindow = window.open(url, '_blank'); }, 400)
+                    setTimeout(function() { window.open(url, '_blank'); }, 400);
                     trackEvent('Print otakim');
                 });
             }
@@ -801,17 +804,17 @@
                         dataContext.renameItem({
                             data: { newFileName: fileName, ItemId: self.itemid() },
                             success: function (data) {
-                                var extension = data.queryString.slice(data.queryString.lastIndexOf('.'), data.queryString.length),
-                                    listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
+                                //var extension = data.queryString.slice(data.queryString.lastIndexOf('.'), data.queryString.length),
+                                 var listItemElement = $('.moreFilesName:contains(' + oldFilename + ')'),
                                     listItem = ko.dataFor(listItemElement[0]),
-                                    location = self.copyLink().substring(0, self.copyLink().length - 1),
+                                    location = self.copyLink().substring(0, self.copyLink().length - 1);
                                     location = location.substring(0, location.lastIndexOf('/') + 1) + data.queryString + '/';
 
                                 self.itemName(data.name);
-                                listItem.name(data.name + extension);
+                                listItem.name(data.name + '.' + self.extension());
 
                                 self.copyLink(location);
-                                fixHistory(location)
+                                fixHistory(location);
                                 $itemName.val('');
                             },
                             error: function (msg) {
@@ -949,7 +952,7 @@
 
 
                     initialRate = currentRate;
-                    startWidth = self.rate();
+                    self.rate();
 
                     setTimeout(function () {
                         $bubbleText.text($bubbleText.attr('data-step2'));
@@ -1023,7 +1026,7 @@
                 mywindow.close();
             };
             trackEvent('Print');
-            $itemPrint.prop('checked', false)
+            $itemPrint.prop('checked', false);
         }
 
         function getItemRate() {

@@ -8,19 +8,17 @@
         libraryChoose = eById('libraryChoose'),
         uniSelect = eById('uni_search'),
         uniList = eById('uniList'),
-        sCountry = eById('sCountry'),
-        countryList = eById('countryList'),
         uniSearch = eById('uni_search'),
         fbUniList = eById('fbUniList');
 
-    var universityName, universityId;
+    var universityName;
 
     cd.loadModel('libraryChoose', 'LibraryContext', UniversityChooseViewModel);
 
 
     function UniversityChooseViewModel() {
         "use strict";
-        var currentCountryCode = libraryChoose.getAttribute('data-country');
+       // var currentCountryCode = libraryChoose.getAttribute('data-country');
 
         $('footer').remove(); //hack for now.
         function University(data) {
@@ -113,10 +111,10 @@
         }
 
         function registerEvents() {
-            var request2 = true, request = true, INPUT_TEXT = 'input[type=text]:first';
+           var request = true, INPUT_TEXT = 'input[type=text]:first';
 
             var term,
-          searchUniversity = cd.debounce(function () {
+                searchUniversity = cd.debounce(function () {
               if (term === uniSelect.value) {
                   return;
               }
@@ -149,7 +147,7 @@
                   }
               });
 
-              cd.analytics.trackEvent('Library Choose', 'Search', term);
+              analytics.trackEvent('Library Choose', 'Search', term);
           }, 150);
 
             $(uniList).on('click', 'li:not(:last)', function (e) {
@@ -157,10 +155,10 @@
                 universityName = $(this).find('.uniName').text();
                 selectUniversity(e);
             });
-            $(fbUniList).on('click', 'button', function (e) {
-                var listItem = $(this).parents('li');
-                universityId = this.getAttribute('data-id');
-                universityName = listItem.find('.uniName').text();
+            $(fbUniList).on('click', 'li', function (e) {
+                //var listItem = $(this).parents('li');
+                universityId = $(this).find('button').attr('data-id');
+                universityName = $(this).find('.uniName').text();
                 selectUniversity(e);
             });
             $('.newUni').click(newUniversity);
@@ -169,7 +167,6 @@
 
 
             function newUniversity(e) {
-                var target = e.target;
                 e.target.disabled = true;
                 var $addSchoolDialog = $('#addSchoolDialog');
                 if (!$addSchoolDialog.length && request) {
@@ -229,7 +226,7 @@
                 }
                 userNotSelected = false;
 
-                cd.analytics.setLibrary(universityName);
+                analytics.setLibrary(universityName);
 
                 //var load = cd.renderLoading($(uniList));
                 cd.pubsub.publish('clear_cache');
@@ -288,32 +285,32 @@
                 checkSubmitState();
             });
 
-            $(document).on('change', '#lecturerRadio,#studentRadio', function () {
-                checkSubmitState();
-            })
-            .on('input', '#departmentCodeInput', function () {
-                $('#departmentSubmit1')[0].disabled = !this.value.length;
-            })
-            .on('submit', '#selectDepartmentForm1', function (e) {
-                e.preventDefault();
-                var code = $('#departmentCodeInput').val();
-                if (!code.length) {
-                    return;
-                }
-
-                dataContext.verifyCode({
-                    data: { code: code },
-                    success: function (data) {
-                        if (data) {
-                            $('.departmentChoose').removeClass('codeError');
-                            $('.departmentChoose').addClass('step2');
-                            return;
-                        }
-                        $('.departmentChoose').addClass('codeError');
-
+            $(document).on('change', '#lecturerRadio,#studentRadio', function() {
+                    checkSubmitState();
+                })
+                .on('input', '#departmentCodeInput', function() {
+                    $('#departmentSubmit1')[0].disabled = !this.value.length;
+                })
+                .on('submit', '#selectDepartmentForm1', function(e) {
+                    e.preventDefault();
+                    var code = $('#departmentCodeInput').val();
+                    if (!code.length) {
+                        return;
                     }
+
+                    dataContext.verifyCode({
+                        data: { code: code },
+                        success: function(data) {
+                            if (data) {
+                                $('.departmentChoose').removeClass('codeError');
+                                $('.departmentChoose').addClass('step2');
+                                return;
+                            }
+                            $('.departmentChoose').addClass('codeError');
+
+                        }
+                    });
                 });
-            })
 
 
             function checkSubmitState() {

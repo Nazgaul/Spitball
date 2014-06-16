@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.WindowsAzure.Storage.Queue;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
 using Zbang.Zbox.Infrastructure.Transport;
 using System.Threading.Tasks;
 

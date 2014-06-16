@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             Box box = m_BoxRepository.Get(command.BoxId); // need to get not to get proxy
 
-            AcademicBox academicBox = box as AcademicBox;
+            var academicBox = box as AcademicBox;
             if (academicBox != null)
             {
 
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             
             if (command.BoxName.Length > Box.NameLength)
             {
-                throw new ArgumentException("Box Name exceed " + Box.NameLength, "BoxName");
+                throw new OverflowException("Box Name exceed " + Box.NameLength);
             }
             var boxNameExists = box.Owner.GetUserOwnedBoxes().FirstOrDefault(w => w.Name == command.BoxName.Trim() && w.Id != box.Id);
             if (boxNameExists != null)

@@ -8,7 +8,6 @@ using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -48,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Get(command.UserId);
             if (user == null)
             {
-                throw new ArgumentNullException("user", "User cannot be null");
+                throw new NullReferenceException("user");
             }
             if (user.Quota.FreeSpace < LinkStorageSize)
             {

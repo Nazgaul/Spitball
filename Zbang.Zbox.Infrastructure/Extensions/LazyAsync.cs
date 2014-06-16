@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Extensions
@@ -14,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             base(() => Task.Factory.StartNew(valueFactory)) { }
 
         public AsyncLazy(Func<Task<T>> taskFactory) :
-            base(() => Task.Factory.StartNew(() => taskFactory()).Unwrap()) { }
+            base(() => Task.Factory.StartNew(taskFactory).Unwrap()) { }
 
 
         public TaskAwaiter<T> GetAwaiter() { return Value.GetAwaiter(); }

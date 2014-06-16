@@ -1,7 +1,6 @@
 ﻿using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using System;
@@ -10,23 +9,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateBoxCommandHandler : ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>
     {
-        protected readonly IUserRepository m_UserRepository;
-        protected readonly IRepository<UserBoxRel> m_UserBoxRelRepository;
+        protected readonly IUserRepository UserRepository;
+        protected readonly IRepository<UserBoxRel> UserBoxRelRepository;
         private readonly IBoxRepository m_BoxRepository;
 
         public CreateBoxCommandHandler(IBoxRepository boxRepository,
             IUserRepository userRepository, IRepository<UserBoxRel> userBoxRel)
         {
             m_BoxRepository = boxRepository;
-            m_UserRepository = userRepository;
-            m_UserBoxRelRepository = userBoxRel;
+            UserRepository = userRepository;
+            UserBoxRelRepository = userBoxRel;
         }
 
         public virtual CreateBoxCommandResult Execute(CreateBoxCommand command)
         {
             ValidateCommand(command);
 
-            User user = m_UserRepository.Get(command.UserId);
+            User user = UserRepository.Get(command.UserId);
             Box box = m_BoxRepository.GetBoxWithSameName(command.BoxName.Trim().ToLower(), user);
             if (box != null)
             {
@@ -46,7 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected void SaveRepositories(User user, Box box)
         {
-            m_UserRepository.Save(user);
+            UserRepository.Save(user);
             m_BoxRepository.Save(box);
         }
 
@@ -54,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (command.BoxName.Length > Box.NameLength)
             {
-                throw new ArgumentException("Box Name exceed" + Box.NameLength, "BoxName");
+                throw new OverflowException("Box Name exceed" + Box.NameLength);
             }
         }
     }

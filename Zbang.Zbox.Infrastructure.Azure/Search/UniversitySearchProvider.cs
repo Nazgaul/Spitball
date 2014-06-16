@@ -73,13 +73,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                         new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
                 {
                     var universities = await m_DbReadService.GetUniversityDetail();
+                    indexWriter.DeleteAll();
+                    indexWriter.Commit();
                     foreach (var university in universities)
                     {
                         var extraDetail = universitiesExtra.FirstOrDefault(f => f.Id == university.Id);
-                        var searchQuery = new TermQuery(new Term("id", university.Id.ToString(CultureInfo.InvariantCulture)));
-                        indexWriter.DeleteDocuments(searchQuery);
-                        //indexWriter.DeleteAll();
-                        //indexWriter.Commit();
+                        //var searchQuery = new TermQuery(new Term("id", university.Id.ToString(CultureInfo.InvariantCulture)));
+                        //indexWriter.DeleteDocuments(searchQuery);
+                       
 
                         var doc = new Document();
                         doc.Add(new Field(IdField, university.Id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
@@ -129,15 +130,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return null;
             }
-            HashSet<string> extraWords = new HashSet<string>(StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+            var extraWords = new HashSet<string>(StopAnalyzer.ENGLISH_STOP_WORDS_SET)
+            {
+                "college",
+                "university",
+                "אוניברסיטה",
+                "ה"
+            };
 
-            extraWords.Add("college");
-            extraWords.Add("university");
-            extraWords.Add("אוניברסיטה");
-            extraWords.Add("ה");
 
-
-            
             //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
             //{
             using (var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30, extraWords))

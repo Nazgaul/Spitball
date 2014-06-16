@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
         {
             if (param == null)
             {
-                throw new ArgumentNullException(name, name + " cannot be null");
+                throw new ArgumentNullException(name, name + @" cannot be null");
             }
         }
         public static void OnNull(string param, string name, bool whiteSpaceAllow = true)
@@ -17,14 +17,14 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
             {
                 if (string.IsNullOrEmpty(param))
                 {
-                    throw new ArgumentNullException(name, name + " cannot be null");
+                    throw new ArgumentNullException(name, name + @" cannot be null");
                 }
             }
             else
             {
                 if (string.IsNullOrWhiteSpace(param))
                 {
-                    throw new ArgumentNullException(name, name + " cannot be null");
+                    throw new ArgumentNullException(name, name + @" cannot be null");
                 }
             }
         }
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
         {
             if (param == Guid.Empty)
             {
-                throw new ArgumentNullException(name, name + " cannot be empty guid");
+                throw new ArgumentNullException(name, name + @" cannot be empty guid");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
         {
             if (param < 0)
             {
-                throw new ArgumentException(name + " cannot be negative", name);
+                throw new ArgumentException(name + @" cannot be negative", name);
             }
         }
     }

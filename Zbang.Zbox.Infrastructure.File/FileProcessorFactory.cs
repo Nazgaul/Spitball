@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -18,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.File
         private readonly IEnumerable<IContentProcessor> m_Processors;
         public FileProcessorFactory()
         {
-            m_Processors = Ioc.IocFactory.Unity.ResolveAll<IContentProcessor>();
+            m_Processors = IocFactory.Unity.ResolveAll<IContentProcessor>();
         }
         public IContentProcessor GetProcessor(Uri contentUrl)
         {

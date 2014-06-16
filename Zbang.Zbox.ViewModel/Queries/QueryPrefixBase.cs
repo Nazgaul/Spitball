@@ -5,7 +5,7 @@
         protected QueryPrefixBase(string prefix, long userid, int pageNumber)
             : base(userid, pageNumber)
         {
-            prefix = ChangePrefixForQuery(prefix);
+            ChangePrefixForQuery(prefix);
         }
 
         protected QueryPrefixBase(string prefix, long userid)
@@ -13,7 +13,7 @@
         {
         }
 
-        private string ChangePrefixForQuery(string prefix)
+        private void ChangePrefixForQuery(string prefix)
         {
             if (string.IsNullOrEmpty(prefix))
             {
@@ -21,7 +21,7 @@
             }
             prefix = prefix.Replace("%", string.Empty);
             Prefix = prefix.Replace(' ', '%');
-            return prefix;
+           // return prefix;
         }
         public string Prefix { get; private set; }
     }

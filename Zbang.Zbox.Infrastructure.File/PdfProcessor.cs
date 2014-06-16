@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -42,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var pdf = new Lazy<Document>(() =>
             {
                 SetLicense();
-                blobSr = m_BlobProvider.DownloadFile(blobName);
+                blobSr = BlobProvider.DownloadFile(blobName);
                 return new Document(blobSr);
             });
             var blobsNamesInCache = new List<string>();
@@ -50,8 +51,8 @@ namespace Zbang.Zbox.Infrastructure.File
             var tasks = new List<Task>();
 
 
-            var meta = await m_BlobProvider.FetechBlobMetaDataAsync(blobName);
-            for (int pageIndex = ++indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            for (var pageIndex = ++indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
                 string value;
                 var metaDataKey = CacheVersion + pageIndex;
@@ -60,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(m_BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
                     meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
@@ -76,15 +77,15 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 try
                 {
-                    Resolution resolution = new Resolution(150);
-                    JpegDevice jpegDevice = new JpegDevice(resolution, 90);
+                    var resolution = new Resolution(150);
+                    var jpegDevice = new JpegDevice(resolution, 90);
 
                     using (var ms = new MemoryStream())
                     {
                         jpegDevice.Process(pdf.Value.Pages[pageIndex], ms);
-                        Compress compressor = new Compress();
+                        var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(m_BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
+                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
                         meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
                     }
                 }
@@ -93,7 +94,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     break;
                 }
             }
-            var t = m_BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
             tasks.AddRange(parallelTask);
             tasks.Add(t);
 
@@ -118,7 +119,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(m_BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
                 return PdfExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -133,16 +134,16 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 SetLicense();
-                using (var stream = m_BlobProvider.DownloadFile(blobName))
+                using (var stream = BlobProvider.DownloadFile(blobName))
                 {
-                    using (Document pdfDocument = new Document(stream))
+                    using (var pdfDocument = new Document(stream))
                     {
-                        JpegDevice jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
+                        var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
                         using (var ms = new MemoryStream())
                         {
                             jpegDevice.Process(pdfDocument.Pages[1], ms);
                             var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                            m_BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, ms, "image/jpeg");
+                            BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, ms, "image/jpeg");
 
                             return Task.FromResult(new PreProcessFileResult
                             {
@@ -165,7 +166,7 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var textAbsorber = new TextAbsorber();
-                for (int i = 1; i < Math.Min(doc.Pages.Count, 10); i++)
+                for (var i = 1; i < Math.Min(doc.Pages.Count, 10); i++)
                 {
                     doc.Pages[i].Accept(textAbsorber);
                 }
@@ -182,7 +183,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
         public override string GetDefaultThumbnailPicture()
         {
-            return Thumbnail.ThumbnailProvider.PdfFileTypePicture;
+            return ThumbnailProvider.PdfFileTypePicture;
         }
     }
 }

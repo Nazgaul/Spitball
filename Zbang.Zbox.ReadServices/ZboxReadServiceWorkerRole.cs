@@ -143,7 +143,7 @@ namespace Zbang.Zbox.ReadServices
                 var itemVal = fitemQuery.Value;
 
                 retVal.ItemName = itemVal.ItemName;
-                retVal.BoxUid = itemVal.BoxUid;
+                retVal.BoxId = itemVal.BoxId;
                 retVal.Uid = itemVal.Uid;
                 return retVal;
             }
@@ -163,16 +163,25 @@ namespace Zbang.Zbox.ReadServices
 //
 //");
 
-                return await conn.QueryAsync<string>(@"select blobname from zbox.item where thumbnailblobname in 
-(
-'filev4.jpg',
-'imagev4.jpg',
-'pdfv4.jpg',
-'powerv4.jpg',
-'wordv4.jpg',
-'excelv4.jpg'
-)
-and  isdeleted = 0");
+//                return await conn.QueryAsync<string>(@"select blobname from zbox.item where thumbnailblobname in 
+//(
+//'filev4.jpg',
+//'imagev4.jpg',
+//'pdfv4.jpg',
+//'powerv4.jpg',
+//'wordv4.jpg',
+//'excelv4.jpg'
+//)
+//and  isdeleted = 0");
+
+                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
+(blobname like '%.jpg'
+or blobname like '%.gif'
+or blobname like '%.png'
+or blobname like '%.jpeg'
+or blobname like '%.bmp')
+and isdeleted = 0 
+");
 
             }
         }

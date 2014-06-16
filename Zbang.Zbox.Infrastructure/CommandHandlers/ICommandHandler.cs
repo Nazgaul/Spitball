@@ -3,19 +3,19 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Infrastructure.CommandHandlers
 {
-    public interface ICommandHandler<TCommand, TCommandResult>
+    public interface ICommandHandler<in TCommand, out TCommandResult>
                                     where TCommand: ICommand
                                     where TCommandResult: ICommandResult
     {
         TCommandResult Execute(TCommand command);
     }
 
-    public interface ICommandHandler<TCommand> where TCommand : ICommand
+    public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
         void Handle(TCommand message);
     }
 
-    public interface ICommandHandlerAsync<TCommand> where TCommand : ICommand
+    public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommand
     {
         Task HandleAsync(TCommand message);
     }

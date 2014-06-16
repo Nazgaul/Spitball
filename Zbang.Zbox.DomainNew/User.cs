@@ -13,12 +13,15 @@ namespace Zbang.Zbox.Domain
     {
         protected User()
         {
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
+
             Invites = new Iesi.Collections.Generic.HashedSet<Invite>();
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             FirstTime = new UserFirstTime();
             Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
+           
         }
 
         //for university pupose only
@@ -39,7 +42,7 @@ namespace Zbang.Zbox.Domain
             Image = smallImage;
             ImageLarge = largeImage;
         }
-
+       
         public User(string email, string smallImage, string largeImage,
             string firstName, string middleName, string lastName, bool sex, bool marketEmail)
             : this()
@@ -60,7 +63,7 @@ namespace Zbang.Zbox.Domain
             MarketEmail = marketEmail;
 
         }
-
+        // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()
         {
             var sb = new StringBuilder();
@@ -179,14 +182,7 @@ namespace Zbang.Zbox.Domain
                 ImageLarge = largePicture.AbsoluteUri;
             }
             FirstName = firstName.Trim();
-            if (!string.IsNullOrEmpty(middleName))
-            {
-                MiddleName = middleName.Trim();
-            }
-            else
-            {
-                MiddleName = null;
-            }
+            MiddleName = !string.IsNullOrEmpty(middleName) ? middleName.Trim() : null;
             LastName = lastName.Trim();
             CreateName();
         }

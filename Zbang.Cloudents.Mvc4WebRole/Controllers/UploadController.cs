@@ -253,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(fileName).ToLower(); ;
 
             var size = 0L;
-            var notUploaded = true;
+            bool notUploaded;
             try
             {
                 size = await m_BlobProvider.UploadFromLinkAsync(fileUrl, blobAddressUri);
@@ -267,7 +267,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 await m_QueueProvider.Value.InsertMessageToDownloadAsync(
                     new UrlToDownloadData(fileUrl, fileName, boxUid, tabId, userId));
-                return this.CdJson(new JsonResponse(false));
+                return this.CdJson(new JsonResponse(true));
             }
 
             var command = new AddFileToBoxCommand(userId, boxUid, blobAddressUri,

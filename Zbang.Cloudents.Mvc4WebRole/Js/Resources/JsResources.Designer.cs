@@ -1280,6 +1280,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want.
+        /// </summary>
+        public static string SureYouWant {
+            get {
+                return ResourceManager.GetString("SureYouWant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want {0} this box (&apos;{1}&apos;)?.
         /// </summary>
         public static string SureYouWant0 {

@@ -34,18 +34,18 @@
         that.url = data.url;// + '?r=siteheader&s=invite';
     }
 
-    function Message(data) {
-        var that = this;
-        that.id = data.msgId
+    //function Message(data) {
+    //    var that = this;
+    //    that.id = data.msgId;
 
-        that.senderName = data.userName;
-        that.senderImg = data.userPic;
-        that.message = data.message;
-        that.date = data.date;
-        that.isRead = !data.isRead ? ' new' : '';
-        that.isNew = data.isNew;
-        //that.url = data.url; //TODO!!!!!!!!!!!!!!!!!
-    }
+    //    that.senderName = data.userName;
+    //    that.senderImg = data.userPic;
+    //    that.message = data.message;
+    //    that.date = data.date;
+    //    that.isRead = !data.isRead ? ' new' : '';
+    //    that.isNew = data.isNew;
+    //    //that.url = data.url; //TODO!!!!!!!!!!!!!!!!!
+    //}
 
     getData();
     registerEvents();
@@ -62,7 +62,7 @@
 
 
     function parseData() {
-        var item, html='', result = '',
+        var item, html, result = '',
             currentPageItems = notificationsData.slice((page - 1) * consts.pageSize, page * consts.pageSize);
         for (var i = 0, l = currentPageItems.length ; i < l; i++) {
             if (!currentPageItems[i].message) {

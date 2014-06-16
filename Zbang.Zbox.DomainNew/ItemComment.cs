@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
@@ -10,10 +6,6 @@ namespace Zbang.Zbox.Domain
 {
     public abstract class ItemCommentBase
     {
-        public ItemCommentBase()
-        {
-
-        }
         public virtual long Id { get; set; }
         public virtual Item Item { get; set; }
         public virtual int ImageId { get; set; }
@@ -42,7 +34,9 @@ namespace Zbang.Zbox.Domain
             Throw.OnNull(comment, "comment", false);
 
 
-            var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = idGenerator.GetId(IdGenerator.ItemAnnotationScope);
 
             Author = author;
@@ -54,6 +48,7 @@ namespace Zbang.Zbox.Domain
             Width = width;
             Height = height;
             UserTime = new UserTimeDetails(Author.Email);
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
         public virtual int CordX { get; set; }
         public virtual int CordY { get; set; }
@@ -78,7 +73,8 @@ namespace Zbang.Zbox.Domain
             Throw.OnNull(parent, "parent");
 
 
-            var idGenerator = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = idGenerator.GetId(IdGenerator.ItemAnnotationReplyScope);
 
             Author = author;
@@ -87,6 +83,7 @@ namespace Zbang.Zbox.Domain
             Comment = comment;
             Parent = parent;
             UserTime = new UserTimeDetails(Author.Email);
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
         public virtual ItemComment Parent { get; set; }
     }

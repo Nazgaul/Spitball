@@ -47,16 +47,25 @@
             var elementPosition = cd.getElementPosition($relativeElement[0]),
                 elementWidth = $relativeElement.outerWidth(),
                 elementHeight = $relativeElement.outerHeight(),
-                top, left;
+                top, left,
+                inverse = ($('html').css('direction') === 'rtl');
 
             switch (arrowPosition) {
                 case 'left':
                     top = elementPosition.top - 40 - arrowSize / 2 + elementHeight / 2;
-                    left = elementPosition.left + elementWidth + arrowSize;
+                    if (inverse) {
+                        left = elementPosition.left - arrowSize - $tooltipStep.outerWidth(true);
+                    } else {
+                        left = elementPosition.left + elementWidth + arrowSize;
+                    }                    
                     break;
                 case 'right':
                     top = elementPosition.top - 40 - arrowSize / 2 + elementHeight / 2;
-                    left = elementPosition.left - arrowSize - $tooltipStep.outerWidth(true);
+                    if (inverse) {
+                        left = elementPosition.left + elementWidth + arrowSize;
+                    } else {
+                        left = elementPosition.left - arrowSize - $tooltipStep.outerWidth(true);
+                    }          
                     break;
                 case 'top':
                     top = elementPosition.top + elementHeight + arrowSize;
@@ -68,8 +77,7 @@
                     break;
             }
 
-            $tooltipStep.css({ top: top, left: left });
-
+            $tooltipStep.css({ top: top, left: left });            
         }
 
         function checkNextTooltip() {
@@ -96,8 +104,6 @@
                 top = cd.getElementPosition($relativeElement[0]).top;
             if (top > $window.height()) {
                 $window.scrollTop(top - $relativeElement.outerHeight(true));
-            } else {
-                $window.scrollTop(top);
             }
             
 

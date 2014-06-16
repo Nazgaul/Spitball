@@ -113,7 +113,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void TriggerCacheDocument(string blobAddress, long itemId)
         {
-            Uri uri = new Uri(m_BlobProvider.GetBlobUrl(blobAddress));
+            var uri = new Uri(m_BlobProvider.GetBlobUrl(blobAddress));
 
             var queueMessage = new FileProcessData { BlobName = uri, ItemId = itemId };
             m_QueueProvider.InsertMessageToCache(queueMessage);

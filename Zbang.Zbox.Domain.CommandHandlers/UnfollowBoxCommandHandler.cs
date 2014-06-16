@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -46,7 +44,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (userType == UserRelationshipType.Subscribe)
             {
                 UnfollowBox(box, message.UserId);
-                return;
             }
 
 
@@ -54,7 +51,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void DeleteBox(Box box)
         {
-            AcademicBox acadmicBox = box as AcademicBox;
+            var acadmicBox = box as AcademicBox;
             if (acadmicBox != null)
             {
                 foreach (var library in acadmicBox.Library)
