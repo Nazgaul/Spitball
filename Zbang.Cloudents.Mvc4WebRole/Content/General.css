@@ -2022,6 +2022,10 @@ select.inputText {
 
 
 @media (max-width: 1024px) {
+  .mno-touch body {
+    position: relative;
+    display: table;
+  }
   .mno-touch .siteHeader,
   .mno-touch .boxPage .leftPanel,
   .mno-touch .QA,
