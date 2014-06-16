@@ -256,6 +256,7 @@
 
                 if (d.type.toLowerCase() === 'quiz') {
                     newItem = new Quiz(d);
+                    $('#addQuiz')[0].disabled = false;
                 } else {
                     newItem = new Item(d);
                 }
@@ -434,7 +435,7 @@
                 var el = document.getElementsByTagName('html')[0];
                 var scope = angular.element(el).scope();
                 scope.$broadcast('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent, quizId: quiz.uid });
-
+                $('#addQuiz')[0].disabled = true;
                 return false;
                 
                 //cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent, quizId: quiz.uid });
@@ -497,7 +498,8 @@
             //cd.pubsub.publish('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });
             var el = document.getElementsByTagName('html')[0];
             var scope = angular.element(el).scope();
-            scope.$broadcast('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });            
+            scope.$broadcast('initQuiz', { boxId: boxid, boxName: document.getElementById('box_Name').textContent });
+            $('#addQuiz')[0].disabled = true;
 
             //angular.element('#quizCreate').scope().$broadcast('initQuiz')
         });
