@@ -596,4 +596,7 @@
   <data name="SureYouWantTo" xml:space="preserve">
     <value>האם אתה בטוח שברצונך</value>
   </data>
+  <data name="SureYouWant1" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך</value>
+  </data>
 </root>

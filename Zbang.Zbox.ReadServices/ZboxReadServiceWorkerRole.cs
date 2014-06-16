@@ -174,7 +174,7 @@ namespace Zbang.Zbox.ReadServices
 //)
 //and  isdeleted = 0");
 
-                return await conn.QueryAsync<string>(@"select itemid, blobname , isdeleted from zbox.item where 
+                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
 (blobname like '%.jpg'
 or blobname like '%.gif'
 or blobname like '%.png'
