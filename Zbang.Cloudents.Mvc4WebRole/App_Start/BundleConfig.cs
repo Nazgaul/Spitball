@@ -96,17 +96,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //test
             RegisterJs("angular",
                 new JsFileWithCdn("~/Scripts/angular.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.11/angular.min.js"),
-                new JsFileWithCdn("~/Scripts/angular-route.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
+                new JsFileWithCdn("~/Scripts/angular-route.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
               new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
                 new JsFileWithCdn("~/Scripts/elastic.js"),
               new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
+            //  new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
                 new JsFileWithCdn("~/Js/app/services.js"),
                  new JsFileWithCdn("~/Js/app/filters.js"),
                 new JsFileWithCdn("~/Js/app/directives.js"),
                 new JsFileWithCdn("~/Scripts/ng-modal.js"),
                 new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
-                 new JsFileWithCdn("~/Js/app/app.js"),
-                 new JsFileWithCdn("~/Js/app/dashboardcontroller.js")
+                 new JsFileWithCdn("~/Js/app/app.js")
+             //    new JsFileWithCdn("~/Js/app/controller.js"),
              );
 
 
@@ -161,7 +162,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                 new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
 
                                 new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
-
+                
                 //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
@@ -339,7 +340,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static void RegisterCss(string key, params string[] cssFiles)
         {
             var cssbundle = SquishIt.Framework.Bundle.Css();
-
+            
             foreach (var cssFile in cssFiles)
             {
                 cssbundle.Add(cssFile);
@@ -362,7 +363,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static void RegisterJs(string key, params JsFileWithCdn[] jsFiles)
         {
             var jsBundle = SquishIt.Framework.Bundle.JavaScript();
-
+            
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
@@ -455,7 +456,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 LocalFile = localFile;
             }
-            // ReSharper disable once UnusedMember.Local
+// ReSharper disable once UnusedMember.Local
             public JsFileWithCdn(string localFile, string cdnFile)
             {
                 LocalFile = localFile;
