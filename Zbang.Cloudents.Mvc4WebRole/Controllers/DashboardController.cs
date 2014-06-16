@@ -71,9 +71,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return View("Index", taskData.Result);
+                return View("Index2", taskData.Result);
             }
-            return View("Index", taskData.Result);
+            return View("Index2", taskData.Result);
+            //return View("Index", taskData.Result);
         }
 
         private Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
@@ -162,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                return PartialView("_PrivateBoxDialog");
+                return PartialView("_PrivateBoxDialog2");
             }
             catch (Exception ex)
             {
@@ -199,7 +200,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         #endregion
-
 
     }
 }

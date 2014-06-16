@@ -754,7 +754,7 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app\app.js" />
-    <Content Include="Js\app\controller.js" />
+    <Content Include="Js\app\dashboardcontroller.js" />
     <Content Include="Js\app\directives.js" />
     <Content Include="Js\app\filters.js" />
     <Content Include="Js\app\quizcreatecontroller.js" />
@@ -1181,6 +1181,7 @@
     <Content Include="Scripts\plupload\plupload.silverlight.js" />
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.10.0.min.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">

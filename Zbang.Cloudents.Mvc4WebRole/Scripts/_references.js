@@ -122,4 +122,5 @@
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
 /// <reference path="zeroclipboard.min.js" />
-/// <reference path="../js/app/controller.js" />
+/// <reference path="../js/app/dashboardcontroller.js" />
+/// <reference path="ui-bootstrap-custom-tpls-0.10.0.min.js" />

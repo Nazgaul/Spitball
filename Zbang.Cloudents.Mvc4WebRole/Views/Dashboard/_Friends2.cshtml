@@ -5,30 +5,27 @@
         <div class="popupTopBar">
             <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
             <a data-navigation="invite"
-               href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })"
-               @*href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })?r=dashboard&s=members"*@ data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
+               href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })" data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
             <div class="arrow tabArrow"></div>
         </div>
         <div class="membersContent">
-            <div class="membersTop">
-                @*<input id="friendsSettings" type="checkbox" class="checkbox" />
-                    <label for="friendsSettings" class="cbLabel">@SharedResources.All</label>*@
+            <div class="membersTop">                
                 <button type="button" id="frndPopSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                 <div class="searchWpr rFloat">
-                    <span class="membersCount lFloat">{{users.length}}&nbsp;@IndexResources.Members</span> @*Guy: fill the data-count attribute*@
+                    <span class="membersCount lFloat">{{friends.length}}&nbsp;@IndexResources.Members</span>
                     <div class="inputWpr">
                         <input ng-model="searchInput" class="membersSearch" id="friendsSearch" type="search" placeholder="@IndexResources.SearchMember" />
                     </div>
                 </div>
             </div>
             <ul class="membersList" id="membersListDashboard" data-pending="@IndexResources.Pending" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited" data-member="@IndexResources.ActiveMember">
-                <li class="memberItem" id="dashfriend{{user.uid}}" ng-show="([user] | filter:searchInput).length > 0" ng-repeat="user in users | orderByFilter:{field: 'name', input:searchInput}">
-                    <a href="{{user.url}}" data-navigation="user">
-                        <img class="friendImg calloutTrgr" data-uid="{{user.uid}}" alt="" src="{{user.image}}" width="34" height="34" />
+                <li class="memberItem" id="dashfriend{{friend.uid}}" ng-show="([friend] | filter:searchInput).length > 0" ng-repeat="friend in friends | orderByFilter:{field: 'name', input:searchInput}">
+                    <a href="{{friend.url}}" data-navigation="friend">
+                        <img class="friendImg calloutTrgr" data-uid="{{friend.uid}}" alt="" src="{{friend.image}}" width="34" height="34" />
                     </a>
-                    <span class="memberName elps">{{user.name}}</span>
+                    <span class="memberName elps">{{friend.name}}</span>
                     <span class="rFloat memberActions">
-                        <button type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(user)"></button>
+                        <button type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendMessage(friend)"></button>
                     </span>
                 </li>
             </ul>
