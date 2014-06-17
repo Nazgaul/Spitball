@@ -8,6 +8,11 @@ namespace Zbang.Zbox.Domain.Commands
             bool marketEmail)
         {
             Email = emailId;
+            if (universityId.HasValue && universityId.Value == 19878)
+            {
+                universityId = null;
+                
+            }
             UniversityId = universityId;
             FirstName = firstName;
             MiddleName = middleName;
