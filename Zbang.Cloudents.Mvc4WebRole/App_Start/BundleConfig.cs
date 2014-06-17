@@ -409,7 +409,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             if (!RoleEnvironment.IsAvailable)
             {
-                return "https://develop.cloudents.com/";
                 return string.Empty;
             }
             try
