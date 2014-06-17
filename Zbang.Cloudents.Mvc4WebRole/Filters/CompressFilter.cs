@@ -21,18 +21,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             acceptEncoding = acceptEncoding.ToUpperInvariant();
 
             HttpResponseBase response = filterContext.HttpContext.Response;
-            if (response.Filter != null)
+            if (response.Filter == null) return;
+            if (acceptEncoding.ToUpper().Contains("GZIP"))
             {
-                if (acceptEncoding.ToUpper().Contains("GZIP"))
-                {
-                    response.AppendHeader("Content-encoding", "gzip");
-                    response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
-                }
-                else if (acceptEncoding.ToUpper().Contains("DEFLATE"))
-                {
-                    response.AppendHeader("Content-encoding", "deflate");
-                    response.Filter = new DeflateStream(response.Filter, CompressionMode.Compress);
-                }
+                response.AppendHeader("Content-encoding", "gzip");
+                response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
+            }
+            else if (acceptEncoding.ToUpper().Contains("DEFLATE"))
+            {
+                response.AppendHeader("Content-encoding", "deflate");
+                response.Filter = new DeflateStream(response.Filter, CompressionMode.Compress);
             }
         }
     }

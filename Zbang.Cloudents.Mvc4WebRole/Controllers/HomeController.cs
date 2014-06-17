@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -153,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [DonutOutputCache(Duration = TimeConsts.Hour * 2,
+        [DonutOutputCache(Duration = TimeConsts.Hour * 2, 
             VaryByParam = "none",
             VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
         [CompressFilter(Order = 1)]
@@ -213,12 +211,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private async Task<string> GetSitemapXml()
         {
             const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            XElement root;
             XNamespace xmlns = sitemapsNamespace;
 
             var nodes = await GetSitemapNodes();
 
-            root = new XElement(xmlns + "urlset");
+            var root = new XElement(xmlns + "urlset");
 
 
             foreach (var node in nodes)
@@ -247,7 +244,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var urlBuilder = new UrlBuilder(HttpContext);
             var requestContext = ControllerContext.RequestContext;
-            List<SitemapNode> nodes = new List<SitemapNode>
+            var nodes = new List<SitemapNode>
             {
                 new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Index" })
                 {

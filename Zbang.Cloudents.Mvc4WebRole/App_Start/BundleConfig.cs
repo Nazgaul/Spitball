@@ -343,7 +343,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var cssbundle = SquishIt.Framework.Bundle.Css();
             cssbundle.WithReleaseFileRenderer(new SquishItRenderer());
-            cssbundle.ForceRelease();
             foreach (var cssFile in cssFiles)
             {
                 cssbundle.Add(cssFile);
