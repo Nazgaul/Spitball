@@ -77,6 +77,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new ArgumentNullException("p");
             }
+            if (!Char.IsLetter(p, 0))
+            {
+                throw new ArgumentException(@"need first to be letter", "p");
+            }
             var notHavingDigits = System.Text.RegularExpressions.Regex.IsMatch(p, @"^[^\d]*$");
             if (notHavingDigits)
             {
