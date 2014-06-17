@@ -2,9 +2,9 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="dashboard" class="page dashboard" ng-app="mDashboard">
-    <div class="dashContent" id="dash_Boxes" ng-controller="DashboardController">
-        <aside class="asideDash lFloat" id="dash_Aside" ng-controller="DashboardAsideController">
+<div id="dashboard" class="page dashboard">
+    <div class="dashContent" ng-controller="DashboardController">
+        <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.GenerateUrl("Index", "Library")" data-navigation="Library">
                 <span class="uniLogo">
                     <img alt="" width="70" height="70" src="@Model.Img" />
@@ -14,16 +14,17 @@
             </a>
             @if (!string.IsNullOrEmpty(Model.AdvertismentUrl))
             {
-                <button id="dash_Product" type="button" class="productsBtn" data-url="@Model.AdvertismentUrl">
+                <button type="button" class="productsBtn" data-url="@Model.AdvertismentUrl">
                     <h2 class="productsHeader">חנות האגודה</h2>
                     <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
                     <div class="closeProducts"></div>
                 </button>
             }
             <div class="dashLists">
-                <div id="dash_friends" ng-class="{twoLines : twoLinesFriends}" class="dashFriends">
-                    <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="toggleShowFriends()" id="showUserFriends" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
-                    <ul class="friendsList" id="dash_Friend">
+                <div class="dashFriends">
+                    <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="openShowFriends()" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
+                    <ul class="friendsList">
+
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
                             <a href="{{friend.url}}" data-navigation="user">
                                 <img class="friendImg calloutTrgr" src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
@@ -35,35 +36,34 @@
                         </li>
                     </ul>
                 </div>
-                <div class="feedList" id="dash_feed">
+                <div class="feedList" id="dash_feed" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
                     <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
                     <div class="activityWpr">
-                        <ul ng-scrollbar rebuild-on-resize rebuild-on="rebuild:me" class="asideList dash" id="dash_Wall" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
+                        <m-custom-scrollbar bottom="0">
+                            <ul class="asideList dash">
 
-                            <li class="activityItem" ng-repeat="activity in wall">
-                                <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
-                                    <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
-                                </a>
-                                <div class="latest">
-                                    <a data-navigation="Box" href="{{activity.url}}">
-                                        <div class="latestName elps">{{activity.boxName}}</div>
-                                        <span class="semiFont">{{activity.userName}}</span>
-                                        <span class="activityAction">{{activityAction}}</span>
+
+                                <li class="activityItem" ng-repeat="activity in wall">
+                                    <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
+                                        <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
                                     </a>
-                                </div>
-                            </li>
-                        </ul>
+                                    <div class="latest">
+                                        <a data-navigation="Box" href="{{activity.url}}">
+                                            <div class="latestName elps">{{activity.boxName}}</div>
+                                            <span class="semiFont">{{activity.userName}}</span>
+                                            <span class="activityAction">{{activity.action | actionText}}</span>
+                                        </a>
+                                    </div>
+                                </li>
 
+                            </ul>
+                        </m-custom-scrollbar>
                     </div>
                 </div>
             </div>
-            <modal-dialog show="showAllDialogShown" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
-                <div ng-if="showAllPartial">
-                    <div ng-include="'/Dashboard/FriendsPartial'"></div>
-                </div>
-            </modal-dialog>
+
         </aside>
-        <div class="contentWpr" id="dash_right" ng-class="{fadeVisible : contentLoaded}">
+        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <section class="unionCourses">
                 <header class="boxesHeader" ng-show="contentLoaded">{{title}}</header>
 
@@ -73,13 +73,13 @@
                         <div>@IndexResources.FindCourses</div>
                     </div>
                 </div>
-                <ol id="BoxList" class="myAreaList clearfix">
+                <ol class="myAreaList clearfix">
                     <li class="box">
                         <a class="addBtn browse"
                            href="@Url.Action("Index","Library")" data-navigation="Library">@SharedResources.BrowseCourses</a>
                     </li>
 
-                    <li ng-repeat="box in academicBoxes" class="box" id="dash{{box.id}}" ng-include="'dashBoxTemplate'">
+                    <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'">
 
                     </li>
 
@@ -94,11 +94,11 @@
                         <div>@IndexResources.UploadContent</div>
                     </div>
                 </div>
-                <ol id="BoxList" class="myAreaList clearfix">
-                    <li ng-click="toggleShowCreateBox()" class="box">
+                <ol class="myAreaList clearfix">
+                    <li ng-click="openCreateBox()" class="box">
                         <button ng-click="createBox" class="addBtn">@SharedResources.CreateNew</button>
                     </li>
-                    <li ng-repeat="box in groupBoxes" class="box" id="dash{{box.id}}" ng-include="'dashBoxTemplate'">
+                    <li ng-repeat="box in groupBoxes" class="box" ng-include="'dashBoxTemplate'">
 
                     </li>
                 </ol>
@@ -107,7 +107,7 @@
         <script type="text/ng-template" id="dashBoxTemplate">
 
             <a data-navigation="Box" ng-href="{{box.url}}">
-                <div ng-show="numOfUpdates.length > 0" class="boxNotify">{{box.numOfUpdates}}</div>
+                <div ng-show="box.numOfUpdates > 0" class="boxNotify">{{box.numOfUpdates}}</div>
                 <div>
                     <img class="boxImg" src="{{box.boxPicture}}" alt="" width="77" height="98" />
                     <ul class="boxHoverList">
@@ -122,12 +122,8 @@
                 <span class="courseCode elps">{{box.courseCode}}</span>
                 <span class="courseCode propName elps">{{box.professor}}</span>
             </a>
-            <button type="button" class="removeItem" ng-show="box.userType !== 'none'" ng-click="removeBox" data-title="removeBoxTitle"></button>
+            <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" data-title="{{getTitle(box)}}"></button>
         </script>
-        <modal-dialog show="privateBoxDialogShown" dialog-title="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.MyFriends" class="dashMembers">
-            <div ng-if="createBoxPartial">
-                <div ng-include="'/Dashboard/PrivateBoxPartial'"></div>
-            </div>
-        </modal-dialog>
+
     </div>
 </div>

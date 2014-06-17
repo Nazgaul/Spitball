@@ -100,3 +100,11 @@
 /// <reference path="plupload/plupload.html5.js" />
 /// <reference path="plupload/plupload.js" />
 /// <reference path="plupload/plupload.silverlight.js" />
+<<<<<<< HEAD
+/// <reference path="ng-scrollbar.js" />
+/// <reference path="stopwatch.js" />
+/// <reference path="zeroclipboard.min.js" />
+/// <reference path="../js/app/dashboardcontroller.js" />
+/// <reference path="ui-bootstrap-custom-tpls-0.10.0.min.js" />
+=======
+>>>>>>> 098c4eec86fad399c3f5da9e0d9ec9cc05b3b3d4

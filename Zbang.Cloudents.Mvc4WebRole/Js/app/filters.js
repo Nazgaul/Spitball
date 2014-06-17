@@ -1,4 +1,4 @@
-﻿var filters = angular.module('Filters', []);
+﻿var filters = angular.module('main.filters', []);
 
 filters.filter('orderByFilter', function () {
     return function (items, filterData, reverse) {

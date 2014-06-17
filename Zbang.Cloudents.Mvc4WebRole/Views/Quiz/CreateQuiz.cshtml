@@ -68,7 +68,7 @@
 
 
     <script type="text/ng-template" id="quizQuestionTemplate">
-        <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)"></button>
+        <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
         <textarea name="question" quiz-focus data-focus="{{question.focus}}" required class="inputText questionText" msd-elastic placeholder="@SharedResources.Question #{{$index + 1}}" ng-placeholder="@SharedResources.Question #{{$index + 1}}" ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="!questionForm.$pristine || params.isDraft"></textarea>
         <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
         <div class="lFloat answers">@SharedResources.Answers:</div>

@@ -175,15 +175,21 @@ quizCreate.controller('QuizCreateController', ['$scope', 'QuizService', function
     };
 
     $scope.removeQuestion = function (index) {
-        if (index > -1) {
-            var question = $scope.quiz.questions[index];
-            $scope.quiz.questions.splice(index, 1);
-            if (!question.id) {
-                return;
-            }
-            Quiz.question.delete({ id: question.id }).then(function () {
-            });
+        if (index === -1) {
+            return; //something went wrong
         }
+        if (index === 0) {
+            return;  //don't want to remove the first question
+        }
+
+        var question = $scope.quiz.questions[index];
+
+        $scope.quiz.questions.splice(index, 1);
+        if (!question.id) {
+            return;
+        }
+        Quiz.question.delete({ id: question.id }).then(function () {
+        });        
     };
 
     $scope.addTabAnswer = function (e,question,answer) {        
@@ -502,10 +508,6 @@ quizCreate.directive('quizFocus', function () {
                 }
 
             });
-
-            //if (attrs.focus === 'true') {
-                
-            //}
         }        
     };
 });
