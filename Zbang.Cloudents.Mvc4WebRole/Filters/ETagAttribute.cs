@@ -7,13 +7,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
     public class ETagAttribute : ActionFilterAttribute
     {
+        
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            
-            var stream = filterContext.HttpContext.Response.OutputStream;
-            var etag = GetToken(stream);
+            filterContext.HttpContext.Response.AddHeader("ETag", filterContext.Result.GetHashCode().ToString());
+            //var stream = filterContext.HttpContext.Response.OutputStream;
+            //var etag = GetToken(stream);
 
-            base.OnResultExecuted(filterContext);
+            //base.OnResultExecuted(filterContext);
         }
 
         private string GetToken(Stream stream)

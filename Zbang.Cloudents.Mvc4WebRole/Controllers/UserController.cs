@@ -275,7 +275,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
+        [HttpGet, Ajax]
         [CompressFilter]
         public async Task<ActionResult> Updates()
         {

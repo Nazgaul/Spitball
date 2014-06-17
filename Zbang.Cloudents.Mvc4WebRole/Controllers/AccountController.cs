@@ -65,6 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    + CustomCacheKeys.Lang + ";"
         //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5, Location = System.Web.UI.OutputCacheLocation.Any, Order = 2)]
         [CompressFilter(Order = 1)]
+        [ETag(Order = 2)]
         [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}")]
         public ActionResult Index(long? universityId, string lang)
         {
@@ -113,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(token);
                 if (facebookUserData == null)
                 {
-                    return Json(new JsonResponse(false, new {error = AccountControllerResources.FacebookGetDataError}));
+                    return Json(new JsonResponse(false, new { error = AccountControllerResources.FacebookGetDataError }));
                 }
                 try
                 {
@@ -157,11 +158,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     user.UniversityId,
                     user.UniversityWrapperId));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                return Json(new JsonResponse(true, new {isnew = isNew, url = Url.Action("Index", "Library")}));
+                return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library") }));
             }
             catch (ArgumentException)
             {
-                return Json(new JsonResponse(false, new {error = AccountControllerResources.FacebookGetDataError}));
+                return Json(new JsonResponse(false, new { error = AccountControllerResources.FacebookGetDataError }));
             }
             catch (NullReferenceException ex)
             {

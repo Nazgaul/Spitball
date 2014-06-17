@@ -100,6 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Name = category.Attribute("name").Value,
                             Order = int.Parse(category.Attribute("order").Value),
                             QuestionNAnswers = faqs.Select(s =>
+
                                 new QnA
                                 {
                                     Answer = s.Element("answer").Value,

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -96,18 +98,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //test
             RegisterJs("angular",
                 new JsFileWithCdn("~/Scripts/angular.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.11/angular.min.js"),
-                new JsFileWithCdn("~/Scripts/angular-route.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
+                new JsFileWithCdn("~/Scripts/angular-route.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"),
               new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
                 new JsFileWithCdn("~/Scripts/elastic.js"),
               new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
-            //  new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
+                //  new JsFileWithCdn("~/Scripts/ng-scrollbar.js"),
                 new JsFileWithCdn("~/Js/app/services.js"),
                  new JsFileWithCdn("~/Js/app/filters.js"),
                 new JsFileWithCdn("~/Js/app/directives.js"),
                 new JsFileWithCdn("~/Scripts/ng-modal.js"),
                 new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
                  new JsFileWithCdn("~/Js/app/app.js")
-             //    new JsFileWithCdn("~/Js/app/controller.js"),
+                //    new JsFileWithCdn("~/Js/app/controller.js"),
              );
 
 
@@ -162,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                 new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
 
                                 new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
-                
+
                 //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
@@ -340,7 +342,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static void RegisterCss(string key, params string[] cssFiles)
         {
             var cssbundle = SquishIt.Framework.Bundle.Css();
-            
+            cssbundle.WithReleaseFileRenderer(new SquishItRenderer());
+            cssbundle.ForceRelease();
             foreach (var cssFile in cssFiles)
             {
                 cssbundle.Add(cssFile);
@@ -350,20 +353,21 @@ namespace Zbang.Cloudents.Mvc4WebRole
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
                 cssbundle.WithOutputBaseHref(cdnUrl);
-                CssBundels.Add(key, cssbundle.Render("~/c#.css"));
-                CopyFilesToCdn("~/", "*.css", SearchOption.TopDirectoryOnly);
+                CssBundels.Add(key, cssbundle.Render("~/gzip/c#.css"));
+                CopyFilesToCdn("~/gzip/", "*.css", SearchOption.TopDirectoryOnly);
             }
             else
             {
-                CssBundels.Add(key, cssbundle.Render("~/cdn/c#.css"));
+                CssBundels.Add(key, cssbundle.Render("~/cdn/gzip/c#.css"));
             }
+
 
         }
 
         private static void RegisterJs(string key, params JsFileWithCdn[] jsFiles)
         {
             var jsBundle = SquishIt.Framework.Bundle.JavaScript();
-            
+            jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
@@ -392,12 +396,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
 
                 jsBundle.WithOutputBaseHref(cdnUrl);
-                JsBundels.Add(key, jsBundle.Render("~/j#.js"));
-                CopyFilesToCdn("~/", "*.js", SearchOption.TopDirectoryOnly);
+                JsBundels.Add(key, jsBundle.Render("~/gzip/j#.js"));
+                CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
             }
             else
             {
-                JsBundels.Add(key, jsBundle.Render("~/cdn/j#.js"));
+                JsBundels.Add(key, jsBundle.Render("~/cdn/gzip/j#.js"));
             }
         }
 
@@ -405,11 +409,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             if (!RoleEnvironment.IsAvailable)
             {
-
+                return "https://develop.cloudents.com/";
                 return string.Empty;
             }
             try
             {
+                
                 return RoleEnvironment.GetConfigurationSettingValue("CdnEndpoint");
             }
             catch (Exception)
@@ -441,7 +446,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                     var directory = Path.GetDirectoryName(cdnFilePath);
                     if (directory != null) Directory.CreateDirectory(directory);
-                    File.Copy(filePath, Path.Combine(cdnRoot, relativePath), true);
+                    File.Move(filePath, Path.Combine(cdnRoot, relativePath));
                 }
                 catch (Exception ex)
                 {
@@ -456,7 +461,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 LocalFile = localFile;
             }
-// ReSharper disable once UnusedMember.Local
+            // ReSharper disable once UnusedMember.Local
             public JsFileWithCdn(string localFile, string cdnFile)
             {
                 LocalFile = localFile;
@@ -467,4 +472,27 @@ namespace Zbang.Cloudents.Mvc4WebRole
         }
 
     }
+
+
+
+    public class SquishItRenderer : SquishIt.Framework.Renderers.IRenderer
+    {
+        public void Render(string content, string outputPath)
+        {
+            var compress = new Compress();
+            var bytes = compress.CompressToGzip(Encoding.UTF8.GetBytes(content));
+            var dir = Path.GetDirectoryName(outputPath);
+            if (dir == null)
+            {
+                throw new NullReferenceException("directory");
+            }
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            File.WriteAllBytes(outputPath, bytes);
+        }
+    }
+
+
 }

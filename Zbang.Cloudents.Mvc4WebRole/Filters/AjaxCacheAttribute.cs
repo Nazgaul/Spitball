@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -33,7 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 }
                 try
                 {
-                    filterContext.HttpContext.Response.Headers["Cd-Cache"] = (1000 * TimeToCache).ToString();
+                    filterContext.HttpContext.Response.Headers["Cd-Cache"] = (1000 * TimeToCache).ToString(CultureInfo.InvariantCulture);
                 }
                 catch (Exception ex)
                 {
