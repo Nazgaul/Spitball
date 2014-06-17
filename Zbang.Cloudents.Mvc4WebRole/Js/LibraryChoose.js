@@ -249,7 +249,9 @@
 
                     },
                     error: function (msg) {
-                        cd.notification(msg[0].value[0]);
+                        if (msg) {
+                            cd.notification(msg[0].value[0]);
+                        }
                     },
                     always: function () {
                         userNotSelected = true;
