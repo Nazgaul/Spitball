@@ -148,24 +148,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(null);
             }
-            var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
-            var suggestedUniversity = await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId.Select(s => s.Id));
-
-            foreach (var university in suggestedUniversity)
+            try
             {
-                university.Friends = university.Friends.Select(s =>
-                {
-                    var facebookData = friendsId.FirstOrDefault(f => f.Id == s.Id);
-                    if (facebookData != null)
-                    {
-                        s.Image = facebookData.Image;
-                        s.Name = facebookData.Name;
-                    }
-                    return s;
-                });
-            }
+                var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
+                var suggestedUniversity =
+                    await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId.Select(s => s.Id));
 
-            return this.CdJson(new JsonResponse(true, suggestedUniversity));
+                foreach (var university in suggestedUniversity)
+                {
+                    university.Friends = university.Friends.Select(s =>
+                    {
+                        var facebookData = friendsId.FirstOrDefault(f => f.Id == s.Id);
+                        if (facebookData != null)
+                        {
+                            s.Image = facebookData.Image;
+                            s.Name = facebookData.Name;
+                        }
+                        return s;
+                    });
+                }
+
+                return this.CdJson(new JsonResponse(true, suggestedUniversity));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Library Get friends authkey=" + authToken, ex);
+                return this.CdJson(new JsonResponse(false));
+            }
         }
 
         [NonAction]
