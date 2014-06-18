@@ -42,7 +42,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
         [UserNavNWelcome]
         [AjaxCache(TimeConsts.Minute * 10)]
-        [CompressFilter]
         public async Task<ActionResult> Index(long? userId, string userName)
         {
 
@@ -276,7 +275,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        [CompressFilter]
         public async Task<ActionResult> Updates()
         {
             var model = await m_ZboxReadService.GetUpdates(new QueryBase(GetUserId()));

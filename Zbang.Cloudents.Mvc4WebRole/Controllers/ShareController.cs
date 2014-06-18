@@ -39,7 +39,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize, HttpGet]
-        [CompressFilter]
         public ActionResult Index(long? boxid)
         {
             var model = new Zbox.ViewModel.DTOs.BoxDtos.BoxMetaDto();
@@ -235,8 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
-        [OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
-        [CompressFilter]
+        //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
         [HttpGet]
         [Ajax]
         [AjaxCache(TimeToCache = 0)]

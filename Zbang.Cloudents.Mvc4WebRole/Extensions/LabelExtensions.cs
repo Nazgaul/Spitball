@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
 
             var str = html.LabelFor(expression).ToString();
-            var position = str.IndexOf("</label>");
+            var position = str.IndexOf("</label>", StringComparison.Ordinal);
             str = str.Insert(position, ":");
             return MvcHtmlString.Create(str);
 

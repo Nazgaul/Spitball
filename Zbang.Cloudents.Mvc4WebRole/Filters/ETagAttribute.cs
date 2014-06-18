@@ -1,6 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO.Compression;
 using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,53 +9,110 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
     public class ETagAttribute : ActionFilterAttribute
     {
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            filterContext.HttpContext.Response.Filter = new ETagFilter(filterContext.HttpContext.Response,
-                filterContext.RequestContext.HttpContext.Request);
+
+            if (filterContext.IsChildAction) return;
+
+            HttpRequestBase request = filterContext.HttpContext.Request;
+            string acceptEncoding = request.Headers["Accept-Encoding"];
+            if (string.IsNullOrEmpty(acceptEncoding)) return;
+            acceptEncoding = acceptEncoding.ToUpperInvariant();
+            HttpResponseBase response = filterContext.HttpContext.Response;
+
+            if (response.Filter == null) return;
+            if (acceptEncoding.ToUpper().Contains("GZIP"))
+            {
+                response.AppendHeader("Content-encoding", "gzip");
+                response.Filter = new ETagFilter(
+                    response,
+                    filterContext.RequestContext.HttpContext.Request
+                    );
+            }
+            //filterContext.HttpContext.Response.Filter = new ETagFilter(
+            //    response,
+            //    filterContext.RequestContext.HttpContext.Request
+            //    );
         }
+
+
     }
 
-    public class ETagFilter : MemoryStream
+    public class ETagFilter : GZipStream
     {
-        private HttpResponseBase _response = null;
-        private HttpRequestBase _request;
-        private Stream _filter = null;
+        private readonly HttpResponseBase m_Response;
+        private readonly HttpRequestBase m_Request;
+        //private readonly Stream m_Filter;
+        private readonly MD5 m_Md5;
+        private bool m_FinalBlock;
+
+
 
         public ETagFilter(HttpResponseBase response, HttpRequestBase request)
+            : base(response.Filter, CompressionMode.Compress)
         {
-            _response = response;
-            _request = request;
-            _filter = response.Filter;
+            m_Response = response;
+            m_Request = request;
+            m_Md5 = MD5.Create();
         }
 
-        private string GetToken(Stream stream)
+
+        protected override void Dispose(bool disposing)
         {
-            byte[] checksum = new byte[0];
-            checksum = MD5.Create().ComputeHash(stream);
-            return Convert.ToBase64String(checksum, 0, checksum.Length);
+            m_Md5.Dispose();
+            base.Dispose(disposing);
+        }
+
+        private string ByteArrayToString(byte[] arrInput)
+        {
+            var output = new StringBuilder(arrInput.Length);
+            foreach (byte t in arrInput)
+            {
+                output.Append(t.ToString("X2"));
+            }
+            return output.ToString();
         }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            byte[] data = new byte[count];
-            Buffer.BlockCopy(buffer, offset, data, 0, count);
-            var token = GetToken(new MemoryStream(data));
+            var str = Encoding.UTF8.GetString(buffer);
+            var x = new Regex(@"<!--Donut#(.*)#-->", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            str = x.Replace(str, string.Empty);
 
-            string clientToken = _request.Headers["If-None-Match"];
+            buffer = Encoding.UTF8.GetBytes(str);
+
+            m_Md5.TransformBlock(buffer, 0, buffer.Length, null, 0);
+            base.Write(buffer, 0, buffer.Length);
+        }
+
+        public override void Flush()
+        {
+            if (m_FinalBlock)
+            {
+                base.Flush();
+                return;
+            }
+            m_FinalBlock = true;
+            m_Md5.TransformFinalBlock(new byte[0], 0, 0);
+            var token = ByteArrayToString(m_Md5.Hash);
+            string clientToken = m_Request.Headers["If-None-Match"];
 
             if (token != clientToken)
             {
-                _response.Headers["ETag"] = token;
-                _filter.Write(data, 0, count);
+                m_Response.Headers["ETag"] = token;
+                //_response.AddHeader("ETag", token);
+                //_filter.Write(data, 0, count);
             }
             else
             {
-                _response.SuppressContent = true;
-                _response.StatusCode = 304;
-                _response.StatusDescription = "Not Modified";
-                _response.Headers["Content-Length"] = "0";
+                m_Response.SuppressContent = true;
+                m_Response.StatusCode = 304;
+                m_Response.StatusDescription = "Not Modified";
+                m_Response.Headers["Content-Length"] = "0";
             }
+            base.Flush();
         }
     }
+
 }

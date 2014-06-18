@@ -266,13 +266,11 @@
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\ImageLink.cs" />
     <Compile Include="Extensions\RedirectToRouteResult.cs" />
-    <Compile Include="Extensions\ResourceFileResolver.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
     <Compile Include="Filters\AjaxAttribute.cs" />
     <Compile Include="Filters\AjaxCacheAttribute.cs" />
     <Compile Include="Filters\AntiforgeryHandleErrorAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
-    <Compile Include="Filters\CompressFilter.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\FlushHeaderAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />

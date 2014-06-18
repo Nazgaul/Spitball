@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Used in mobile
         /// </summary>
         /// <returns></returns>
-        [DonutOutputCache(Duration = int.MaxValue, VaryByParam = "none", VaryByCustom = "Lang")]
+        //[DonutOutputCache(Duration = int.MaxValue, VaryByParam = "none", VaryByCustom = "Lang")]
         [ChildActionOnly]
         public ActionResult Wall()
         {

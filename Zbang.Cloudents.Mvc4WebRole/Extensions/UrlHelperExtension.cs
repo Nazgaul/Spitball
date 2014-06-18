@@ -1,7 +1,7 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Zbang.Cloudents.Mvc4WebRole.App_Start;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 {
@@ -65,6 +65,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
             var dictionary = new RouteValueDictionary(routeValue);
             var url = urlHelper.Action(action, routeValue);
+            if (url == null)
+            {
+                throw new NullReferenceException("url");
+            }
             foreach (var item in dictionary)
             {
                 if (item.Value == null)
@@ -80,7 +84,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
             var dictionary = new RouteValueDictionary(routeValue);
             var url = urlHelper.Action(action, controller, routeValue);
-
+            if (url == null)
+            {
+                throw new NullReferenceException("url");
+            }
             foreach (var item in dictionary)
             {
                 if (item.Value == null)

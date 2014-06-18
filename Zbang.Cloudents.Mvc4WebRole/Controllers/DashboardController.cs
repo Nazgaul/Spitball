@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -11,7 +12,6 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
-using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs;
@@ -26,25 +26,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class DashboardController : BaseController
     {
 
-        private readonly Lazy<IBlobProvider> m_BlobProivder;
 
         public DashboardController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
-            Lazy<IBlobProvider> blobProvider
+            IFormsAuthenticationService formsAuthenticationService
             )
             : base(zboxWriteService, zboxReadService,
                 formsAuthenticationService)
         {
-            m_BlobProivder = blobProvider;
         }
 
         [UserNavNWelcome]
         [AjaxCache(TimeConsts.Day)]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        [CompressFilter(Order = 1)]
-        // [ETag(Order = 2)]
-        //[FlushHeader]
+        //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public async Task<ActionResult> Index()
         {
             var userid = GetUserId();
@@ -58,23 +52,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
             var query = new GetDashboardQuery(userid, universityWrapper);
-            var taskData = m_ZboxReadService.GetMyData(query);
-
-            var queryboxes = new GetBoxesQuery(userid);
-            var taskBoxes = m_ZboxReadService.GetDashboard(queryboxes);
-
-            await Task.WhenAll(taskData, taskBoxes);
-            var data = taskBoxes.Result;
-            data = AssignUrl(data);
-            var serializer = new JsonNetSerializer();
-            ViewBag.Boxes = serializer.Serialize(data);
+            var model = await m_ZboxReadService.GetMyData(query);
 
             if (Request.IsAjaxRequest())
             {
-                return View("Index2", taskData.Result);
+                return View("Index2", model);
             }
-            return View("Index2", taskData.Result);
-            //return View("Index", taskData.Result);
+            return View("Index2", model);
         }
 
         private Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
@@ -98,7 +82,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [HttpGet]
-        [CompressFilter(Order = 1)]
         [AjaxCache(TimeConsts.Day)]
         public async Task<ActionResult> BoxList()
         {
@@ -138,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", GetUserId(), model), ex);
-                ModelState.AddModelError(string.Empty, "Problem with Create new box");
+                ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
         }
@@ -158,7 +141,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return retVal;
         }
 
-        [HttpGet, CompressFilter, Ajax]
+        //TODO: check this out
+        [HttpGet, Ajax]
         public ActionResult PrivateBoxPartial()
         {
             try
@@ -185,8 +169,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion search
 
+
+        //TODO: check this out
         #region Friends
-        [HttpGet, CompressFilter, Ajax]
+        [HttpGet,  Ajax]
         public ActionResult FriendsPartial()
         {
             try

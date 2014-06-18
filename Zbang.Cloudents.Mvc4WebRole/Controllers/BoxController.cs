@@ -82,7 +82,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [CacheFilter(Duration = 0)]
-        [CompressFilter]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
         [AjaxCache(TimeConsts.Minute * 10)]
@@ -184,7 +183,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        [CompressFilter]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [AjaxCache(TimeConsts.Minute * 10)]

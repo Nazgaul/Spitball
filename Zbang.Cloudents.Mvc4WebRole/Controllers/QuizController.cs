@@ -22,8 +22,6 @@ using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
-
-    [CompressFilter]
     public class QuizController : BaseController
     {
         private readonly Lazy<IIdGenerator> m_IdGenerator;
