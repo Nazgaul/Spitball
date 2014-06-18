@@ -755,6 +755,7 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app\app.js" />
+    <Content Include="Js\app\boxcontroller.js" />
     <Content Include="Js\app\dashboardcontroller.js" />
     <Content Include="Js\app\directives.js" />
     <Content Include="Js\app\filters.js" />

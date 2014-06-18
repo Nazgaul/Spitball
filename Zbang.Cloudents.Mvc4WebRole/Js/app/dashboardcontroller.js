@@ -18,13 +18,17 @@
 
             $scope.contentLoaded = true;
 
-            $scope.$broadcast('update-scroll');        
+            $scope.$broadcast('update-scroll');
+
+            document.getElementById('mLoading').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('dashboard').style.opacity = 1;
+                        
+
+
 
         });
-        setTimeout(function () {
-            document.getElementById('dashboard').style.display = 'block';
-            document.getElementById('mLoading').style.display = 'none';
-        }, 50)//tempfix
+        //tempfix
 
         $scope.removeBox = function (box) {
             cd.confirm2($scope.removeConfirm(box)).then(function () {

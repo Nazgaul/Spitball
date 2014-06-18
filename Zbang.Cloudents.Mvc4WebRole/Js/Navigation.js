@@ -553,10 +553,17 @@
         $('.page:visible').finish().hide(); // finish - we want the callback sometime both screen a show - not sure how
         //d.show();
 
+        if (d[0].id === 'dashboard') {
+            return;
+        }
+
+        document.getElementById('mLoading').style.display = 'none';
+
         d[0].style.display = 'block';
         d[0].style.opacity = 1;
         analytics.trackPage(privateLocation.url);
-        document.getElementById('mLoading').style.display = 'none';
+        
+        
         //$('#mLoading').hide();
 
         try {

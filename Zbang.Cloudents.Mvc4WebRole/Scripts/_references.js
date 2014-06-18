@@ -72,7 +72,6 @@
 /// <reference path="stopwatch.js" />
 /// <reference path="zeroclipboard.min.js" />
 /// <reference path="../js/app/app.js" />
-/// <reference path="../js/app/controller.js" />
 /// <reference path="../js/app/directives.js" />
 /// <reference path="../js/app/filters.js" />
 /// <reference path="../js/app/quizcreatecontroller.js" />
@@ -100,6 +99,9 @@
 /// <reference path="plupload/plupload.html5.js" />
 /// <reference path="plupload/plupload.js" />
 /// <reference path="plupload/plupload.silverlight.js" />
+/// <reference path="../js/app/dashboardcontroller.js" />
+/// <reference path="ui-bootstrap-custom-tpls-0.10.0.min.js" />
+/// <reference path="../js/app/boxcontroller.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
