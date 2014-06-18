@@ -42,15 +42,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
             }
             var builder = new StringBuilder(content.Length);
             // Minify the comments
-            var icommentstart = content.IndexOf("<!--");
+            var icommentstart = content.IndexOf("<!--", StringComparison.Ordinal);
             while (icommentstart >= 0)
             {
-                var icommentend = content.IndexOf("-->", icommentstart + 3);
+                var icommentend = content.IndexOf("-->", icommentstart + 3, StringComparison.Ordinal);
                 if (icommentend < 0)
                 {
                     break;
                 }
-                if (_commentsMarkers.Select(m => content.IndexOf(m, icommentstart)).Any(i => i > 0 && i < icommentend))
+                if (CommentsMarkers.Select(m => content.IndexOf(m, icommentstart, StringComparison.Ordinal)).Any(i => i > 0 && i < icommentend))
                 {
                     // There is a comment but it contains javascript or IE conditionals
                     // => we keep it
@@ -60,10 +60,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
                 builder.Append(content, icommentend + 3, content.Length - icommentend - 3);
                 content = builder.ToString();
                 builder.Clear();
-                icommentstart = content.IndexOf("<!--", icommentstart);
+                icommentstart = content.IndexOf("<!--", icommentstart, StringComparison.Ordinal);
             }
             // Minify white space while keeping the HTML compatible with the given one
-            var lines = content.Split(_whiteSpaceSepartors, StringSplitOptions.RemoveEmptyEntries);
+            var lines = content.Split(WhiteSpaceSepartors, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < lines.Length; i++)
             {
                 var line = lines[i];
@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
                 {
                     builder.Append(' ');
                 }
-                if ((i < lines.Length - 1) || (_whiteSpaceSepartors.Any(s => s == content[content.Length - 1])))
+                if ((i < lines.Length - 1) || (WhiteSpaceSepartors.Any(s => s == content[content.Length - 1])))
                 {
                     builder.Append('\n');
                 }
@@ -89,8 +89,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
             return builder.ToString();
         }
 
-        private static readonly char[] _whiteSpaceSepartors = new[] { '\n', '\r' };
-        private static readonly string[] _commentsMarkers = new[] { "{", "}", "function", "var", "[if", "ko" };
+        private static readonly char[] WhiteSpaceSepartors = { '\n', '\r' };
+        private static readonly string[] CommentsMarkers = { "{", "}", "function", "var", "[if", "ko" };
     }
 
 }

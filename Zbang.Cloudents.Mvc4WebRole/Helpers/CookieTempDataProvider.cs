@@ -13,8 +13,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     public class CookieTempDataProvider : ITempDataProvider
     {
         internal const string TempDataCookieKey = "_temp";
-        private HttpContextBase _httpContext;
-        private readonly Compress _Compress;
+        private readonly HttpContextBase m_HttpContext;
+        private readonly Compress m_Compress;
 
         public CookieTempDataProvider(HttpContextBase httpContext)
         {
@@ -22,18 +22,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 throw new ArgumentNullException("httpContext");
             }
-            _httpContext = httpContext;
-            _Compress = new Compress();
+            m_HttpContext = httpContext;
+            m_Compress = new Compress();
         }
 
         public HttpContextBase HttpContext
         {
-            get { return _httpContext; }
+            get { return m_HttpContext; }
         }
 
         protected virtual IDictionary<string, object> LoadTempData(ControllerContext controllerContext)
         {
-            HttpCookie cookie = _httpContext.Request.Cookies[TempDataCookieKey];
+            HttpCookie cookie = m_HttpContext.Request.Cookies[TempDataCookieKey];
             if (cookie != null && !String.IsNullOrEmpty(cookie.Value))
             {
                 IDictionary<string, object> deserializedDictionary = Base64StringToDictionary2(cookie.Value);
@@ -41,9 +41,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 cookie.Expires = DateTime.MinValue;
                 cookie.Value = String.Empty;
 
-                if (_httpContext.Response != null && _httpContext.Response.Cookies != null)
+                if (m_HttpContext.Response != null && m_HttpContext.Response.Cookies != null)
                 {
-                    HttpCookie responseCookie = _httpContext.Response.Cookies[TempDataCookieKey];
+                    HttpCookie responseCookie = m_HttpContext.Response.Cookies[TempDataCookieKey];
                     if (responseCookie != null)
                     {
                         responseCookie.Expires = DateTime.MinValue;
@@ -65,11 +65,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             string cookieValue = DictionaryToBase64String2(values);
 
-            var cookie = new HttpCookie(TempDataCookieKey);
-            cookie.HttpOnly = true;
-            cookie.Value = cookieValue;
+            var cookie = new HttpCookie(TempDataCookieKey) {HttpOnly = true, Value = cookieValue};
 
-            _httpContext.Response.Cookies.Add(cookie);
+            m_HttpContext.Response.Cookies.Add(cookie);
         }
 
         public IDictionary<string, object> Base64StringToDictionary(string base64EncodedSerializedTempData)
@@ -80,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
 
             byte[] bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
-            var decompressBytes = _Compress.DecompressFromGzip(bytes);
+            var decompressBytes = m_Compress.DecompressFromGzip(bytes);
             using (var memStream = new MemoryStream(decompressBytes))
             {
                 var binFormatter = new BinaryFormatter();
@@ -90,15 +88,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         public string DictionaryToBase64String(IDictionary<string, object> values)
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Seek(0, SeekOrigin.Begin);
                 var binFormatter = new BinaryFormatter();
                 binFormatter.Serialize(memStream, values);
                 memStream.Seek(0, SeekOrigin.Begin);
                 byte[] bytes = memStream.ToArray();
-                var x = Convert.ToBase64String(bytes);
-                var compressBytes = _Compress.CompressToGzip(bytes);
+                var compressBytes = m_Compress.CompressToGzip(bytes);
 
                 var y = Convert.ToBase64String(compressBytes);
                 return y;
@@ -112,8 +109,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 var s = new JavaScriptSerializer();
                 var dataAsString = s.Serialize(values);
                 var bytes = GetBytes(dataAsString);
-                var compressBytes = _Compress.CompressToGzip(bytes);
-                var y = Convert.ToBase64String(compressBytes);
+                var compressBytes = m_Compress.CompressToGzip(bytes);
                 var z = HttpServerUtility.UrlTokenEncode(compressBytes);
                 return z;
             }
@@ -129,7 +125,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 //byte[] bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
                 var bytes = HttpServerUtility.UrlTokenDecode(base64EncodedSerializedTempData);
-                var decompressBytes = _Compress.DecompressFromGzip(bytes);
+                var decompressBytes = m_Compress.DecompressFromGzip(bytes);
                 var dataAsString = GetString(decompressBytes);
                 var s = new JavaScriptSerializer();
                 return s.Deserialize<IDictionary<string, object>>(dataAsString);
@@ -146,12 +142,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             var ms = new MemoryStream(bytes.Length);
 
-            for (var i = 0; i < bytes.Length; i++)
+            foreach (byte t in bytes)
             {
-                // if it is a zero, or if it would make a surrogate double byte, then escape it with an extra zero
-                if (bytes[i] == 0 || (0xd8 <= bytes[i] && bytes[i] <= 0xdf && ms.Length % 2 == 1))
+// if it is a zero, or if it would make a surrogate double byte, then escape it with an extra zero
+                if (t == 0 || (0xd8 <= t && t <= 0xdf && ms.Length % 2 == 1))
                     ms.WriteByte(0);
-                ms.WriteByte(bytes[i]);
+                ms.WriteByte(t);
             }
 
             // make sure the length is even
@@ -164,15 +160,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         byte[] GetBytes(string str)
         {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            var bytes = new byte[str.Length * sizeof(char)];
+            Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
             return bytes;
         }
 
         string GetString(byte[] bytes)
         {
-            char[] chars = new char[bytes.Length / sizeof(char)];
-            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            var chars = new char[bytes.Length / sizeof(char)];
+            Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
             return new string(chars);
         }
 
@@ -187,17 +183,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             var ms = new MemoryStream(bytes.Length);
 
             var escaped = false;
-            for (var i = 0; i < bytes.Length; i++)
+            foreach (byte t in bytes)
             {
-                // if it is a non-escaped zero, then treat it as an escape byte (may be the last byte as well)
-                if (bytes[i] == 0 && !escaped)
+// if it is a non-escaped zero, then treat it as an escape byte (may be the last byte as well)
+                if (t == 0 && !escaped)
                 {
                     escaped = true;
                 }
                 else
                 {
                     escaped = false;
-                    ms.WriteByte(bytes[i]);
+                    ms.WriteByte(t);
                 }
             }
 

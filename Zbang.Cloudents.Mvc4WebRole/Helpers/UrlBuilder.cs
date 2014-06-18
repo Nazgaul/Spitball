@@ -13,7 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             if (httpContext == null)
             {
-                throw new ArgumentNullException("controllerContext");
+                throw new ArgumentNullException("httpContext");
             }
             m_UrlHelper = new UrlHelper(httpContext.Request.RequestContext);
 

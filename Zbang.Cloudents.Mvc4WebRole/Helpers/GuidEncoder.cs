@@ -6,13 +6,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     {
         public static string Encode(string guidText)
         {
-            Guid guid = new Guid(guidText);
+            var guid = new Guid(guidText);
             return Encode(guid);
         }
 
         public static string Encode(Guid guid)
         {
-            string enc = Convert.ToBase64String(guid.ToByteArray());
+            var enc = Convert.ToBase64String(guid.ToByteArray());
             enc = enc.Replace("/", "_");
             enc = enc.Replace("+", "-");
             return enc.Substring(0, 22);
@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             encoded = encoded.Replace("_", "/");
             encoded = encoded.Replace("-", "+");
-            byte[] buffer = Convert.FromBase64String(encoded + "==");
+            var buffer = Convert.FromBase64String(encoded + "==");
             return new Guid(buffer);
         }
     }

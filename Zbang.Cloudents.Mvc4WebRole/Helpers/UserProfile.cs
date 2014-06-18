@@ -11,8 +11,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     public class UserProfile : IUserProfile
     {
         public const string UserDetail = "userDetail";
-        private IZboxReadService m_ZboxReadService;
-        private IHttpContextCacheWrapper m_ContextCacheService;
+        private readonly IZboxReadService m_ZboxReadService;
+        private readonly IHttpContextCacheWrapper m_ContextCacheService;
 
         public UserProfile(IZboxReadService zboxReadService,
             IHttpContextCacheWrapper contextCacheService)
@@ -43,6 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 return null;
             }
+// ReSharper disable once RedundantAssignment - need user id to be -1
             long userid = -1;
             if (!long.TryParse(controllerContext.HttpContext.User.Identity.Name, out userid))
             {
