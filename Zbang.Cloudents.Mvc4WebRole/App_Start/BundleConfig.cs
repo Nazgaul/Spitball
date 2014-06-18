@@ -195,8 +195,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
 
                 //dashboard page
-                new JsFileWithCdn("~/Js/BoxesViewModel.js"),
-                new JsFileWithCdn("~/Js/DashboardAside.js"),
+                //new JsFileWithCdn("~/Js/BoxesViewModel.js"),
+                //new JsFileWithCdn("~/Js/DashboardAside.js"),
                 //library page
                 new JsFileWithCdn("~/Js/Library.js"),
 
