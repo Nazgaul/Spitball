@@ -1,4 +1,4 @@
-﻿angular.module('mDashboard', ['apiService']).
+﻿angular.module('mDashboard', []).
     controller('DashboardController', ['$scope', '$modal', 'Dashboard', 'Box', 'User','NewUpdates', function ($scope, $modal, Dashboard, Box, User, NewUpdates) {
         $scope.academicBoxes = [];
         $scope.groupBoxes = [];
@@ -18,14 +18,13 @@
 
             $scope.contentLoaded = true;
 
-            $scope.$broadcast('update-scroll');
-
-            setTimeout(function () {
-                document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('mLoading').style.display = 'none';
-            }, 50)//tempfix
+            $scope.$broadcast('update-scroll');        
 
         });
+        setTimeout(function () {
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('mLoading').style.display = 'none';
+        }, 50)//tempfix
 
         $scope.removeBox = function (box) {
             cd.confirm2($scope.removeConfirm(box)).then(function () {
@@ -70,8 +69,6 @@
                 });
 
                 modalInstance.result.then(function (box) {
-                    //$scope.groupBoxes.unshift(box);
-                    cd.pubsub.publish('nav', box.url);
                 }, function () {
                     //dismiss
                 });
