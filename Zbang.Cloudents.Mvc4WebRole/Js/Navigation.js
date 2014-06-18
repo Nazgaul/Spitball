@@ -126,6 +126,7 @@
         }
         //historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
         changeHistoryState();
+        $('#dashboard').remove(); //fix
         locationChanged(privateLocation.url, $(this).data('d'));
 
 
@@ -392,7 +393,7 @@
                             $(main).append(el);
                             var rootScope = angular.element(main).scope();
                             result(rootScope);
-                                
+                            rootScope.$apply();
                             //main.insertAdjacentHTML('beforeend', html);
                             //pubsub.publish('DashboardContext', null, dashboardContext);
                         },
