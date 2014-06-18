@@ -7,7 +7,7 @@
 
             <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
             <a data-navigation="invite"
-                href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })"
+                href="@Url.Action("Index", "Share", new { ViewBag.boxid })"
                @*href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })?r=dashboard&s=members"*@ data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
             <div class="arrow tabArrow"></div>
         </div>
@@ -42,5 +42,4 @@
             <button type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
         </span>
     </li>
-    </a>
 </script>

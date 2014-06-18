@@ -146,6 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Save answers model: {0}", model), ex);
+                return this.CdJson(new JsonResponse(false));
             }
         }
 

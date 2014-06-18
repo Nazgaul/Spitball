@@ -27,7 +27,7 @@
                             <div class="attachBtn"></div>
                             <div class="numAttached" data-bind="text: files().length"></div>
                         </div>
-                        <div class="userName boldFont elps" data-bind="text: userName">itsik bitran</div><span class="createTime" data-bind="attr: { 'data-time': createTime}"></span>
+                        <div class="userName boldFont elps" data-bind="text: userName"></div><span class="createTime" data-bind="attr: { 'data-time': createTime}"></span>
                         <div class="QContent" data-bind="html: content"></div>
                     </div>
                     <!-- ko if:answerCount() === 0 -->
@@ -60,7 +60,7 @@
                                 <a data-bind="attr: { href: itemUrl }" href="#"><img data-bind="attr: { src: thumbnail }" alt="" width="100" height="125" /></a>
                                 <div class="attachActions">
                                     <a class="attachFull" data-bind="attr: { href: itemUrl }" href="#"></a>
-                                    <button class="attachDelete" type="button" data-bind="visible: isVisible()" }"></button>
+                                    <button class="attachDelete" type="button" data-bind="visible: isVisible()"></button>
                                     <a class="attachDownload" data-bind="attr: { href: download }"></a>
                                 </div>
                             </li>

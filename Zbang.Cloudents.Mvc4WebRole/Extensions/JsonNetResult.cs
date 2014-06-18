@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         public JsonNetSerializer()
         {
 
-            SerializerSettings = new JsonSerializerSettings()
+            SerializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 NullValueHandling = NullValueHandling.Ignore
@@ -28,7 +28,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
             JsonTextWriter writer = new JsonTextWriter(output)
             {
-                Formatting = Newtonsoft.Json.Formatting.None
+                Formatting = Formatting.None
             };
 
             JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
@@ -64,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             };
             SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
             SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal });
-            Formatting = Newtonsoft.Json.Formatting.None;
+            Formatting = Formatting.None;
 
         }
 
@@ -82,14 +82,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             if (ContentEncoding != null)
                 response.ContentEncoding = ContentEncoding;
 
-            if (Data != null)
+            if (Data == null) return;
+            using (var writer = new JsonTextWriter(response.Output) { Formatting = Formatting })
             {
-                JsonTextWriter writer = new JsonTextWriter(response.Output) { Formatting = Formatting };
-
                 JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
                 serializer.Serialize(writer, Data);
-
                 writer.Flush();
+                var v = writer.ToString();
             }
         }
     }
