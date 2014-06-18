@@ -76,14 +76,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             });
         }
 
-        public string BuildUserUrl(long userid, string userName)
-        {
-            return m_UrlHelper.RouteUrl("User", new
-            {
-                userId = userid,
-                userName = NameToQueryString(userName)
-            });
-        }
+        //public string BuildUserUrl(long userid, string userName)
+        //{
+        //    return m_UrlHelper.RouteUrl("User", new
+        //    {
+        //        userId = userid,
+        //        userName = NameToQueryString(userName)
+        //    });
+        //}
 
         public string BuildDownloadUrl(long boxId, long itemId)
         {
