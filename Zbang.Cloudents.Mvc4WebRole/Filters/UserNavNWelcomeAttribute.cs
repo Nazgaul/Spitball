@@ -3,7 +3,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
-    public class UserNavNWelcomeAttribute : System.Web.Mvc.ActionFilterAttribute
+    public class UserNavNWelcomeAttribute : ActionFilterAttribute
     {
         private readonly IUserProfile m_UserProfile;
 
@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         {
             m_UserProfile = DependencyResolver.Current.GetService<IUserProfile>();
         }
-        public override void OnActionExecuted(System.Web.Mvc.ActionExecutedContext filterContext)
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             base.OnActionExecuted(filterContext);
             if (filterContext.HttpContext.Request.IsAjaxRequest())

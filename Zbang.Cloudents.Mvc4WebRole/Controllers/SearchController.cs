@@ -26,7 +26,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         // GET: /Search/
         [UserNavNWelcome]
         [HttpGet]
-        [CompressFilter]
         public async Task<ActionResult> Index(string q)
         {
             if (string.IsNullOrWhiteSpace(q))
@@ -34,7 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
             var result = await PerformSearch(q, true, 0);
-            JsonNetSerializer serializer = new JsonNetSerializer();
+            var serializer = new JsonNetSerializer();
             ViewBag.data = serializer.Serialize(result);
             if (Request.IsAjaxRequest())
             {

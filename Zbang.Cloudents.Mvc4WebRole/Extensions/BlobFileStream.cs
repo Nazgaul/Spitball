@@ -42,24 +42,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
             m_Blob.FetchAttributes();
             response.AddHeader("Content-Length", m_Blob.Properties.Length.ToString(CultureInfo.InvariantCulture));
-            //response.Cache.SetCacheability(HttpCacheability.Private);
-            //response.Cache.SetMaxAge(TimeSpan.FromDays(1));
 
             m_Blob.DownloadToStream(response.OutputStream);
-            //using (var ms = new System.IO.MemoryStream())
-            //{
-
-            //m_Blob.DownloadRangeToStream(ms, 0, m_Blob.Properties.Length);
-            //response.BinaryWrite(ms.ToArray());
-            //}
-            //if (response.IsClientConnected)
-            //{
-            //    response.End();
-            //}
-            //response.Flush();
-            //response.End();
-            //   response.Flush();
-            // response.End();
         }
 
         internal static class ContentDispositionUtil
@@ -82,7 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
             private static string CreateRfc2231HeaderValue(string filename)
             {
-                StringBuilder builder = new StringBuilder("attachment; filename*=UTF-8''");
+                var builder = new StringBuilder("attachment; filename*=UTF-8''");
 
                 byte[] filenameBytes = Encoding.UTF8.GetBytes(filename);
                 foreach (byte b in filenameBytes)
@@ -120,7 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
                 // if it contains Unicode, and it will not encode Unicode as we require here.
                 // The Unicode test above is identical to the 4.0 FormatException test,
                 // allowing this helper to give the same results in 4.0 and 4.5.         
-                ContentDisposition disposition = new ContentDisposition() { FileName = fileName };
+                var disposition = new ContentDisposition { FileName = fileName };
                 return disposition.ToString();
             }
 

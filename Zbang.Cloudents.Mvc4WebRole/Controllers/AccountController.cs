@@ -64,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[OutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
         //    + CustomCacheKeys.Lang + ";"
         //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5, Location = System.Web.UI.OutputCacheLocation.Any, Order = 2)]
-        [CompressFilter(Order = 1)]
+        //[CompressFilter(Order = 1)]
         [ETag(Order = 2)]
         [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}")]
         public ActionResult Index(long? universityId, string lang)
@@ -310,8 +310,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region AccountSettings
-        [ZboxAuthorize, UserNavNWelcome, NoUniversity, CompressFilter]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
+        [ZboxAuthorize, UserNavNWelcome, NoUniversity]
+        //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [RequireHttps]
         public ActionResult Settings()
         {
@@ -490,7 +490,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
         //   + CustomCacheKeys.Lang + ";"
         //   + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 15)]
-        [CompressFilter]
         public ActionResult ResetPassword()
         {
             if (User.Identity.IsAuthenticated)

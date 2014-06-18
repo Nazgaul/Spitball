@@ -60,6 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             + CustomCacheKeys.Lang)]
         public ActionResult ContactUs()
         {
+            
             return View();
         }
 
@@ -151,10 +152,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [DonutOutputCache(Duration = TimeConsts.Hour * 2, 
+        [DonutOutputCache(Duration = TimeConsts.Hour * 2,
             VaryByParam = "none",
             VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
-        [CompressFilter(Order = 1)]
         public ActionResult JsResources()
         {
             //var rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());
@@ -200,7 +200,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         [HttpGet]
         [OutputCache(Duration = 24 * 60 * 60, Location = System.Web.UI.OutputCacheLocation.Any)]
-        [CompressFilter]
         public async Task<ActionResult> SiteMap()
         {
             var content = await GetSitemapXml();

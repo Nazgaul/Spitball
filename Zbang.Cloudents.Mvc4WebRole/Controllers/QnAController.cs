@@ -123,7 +123,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
         [AjaxCache(TimeToCache = TimeConsts.Minute * 20)]
-        [CompressFilter]
         public ActionResult Index(long boxId, string uniName, string boxName)
         {
             //this is a test

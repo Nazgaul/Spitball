@@ -27,7 +27,7 @@
 
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
                             <a href="{{friend.url}}" data-navigation="user">
-                                <img class="friendImg calloutTrgr" src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
+                                <img class="friendImg calloutTrgr" ng-src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
                             </a>
                         </li>
                         <li class="friendItem friendBtn" data-action="true">
@@ -45,7 +45,7 @@
 
                                 <li class="activityItem" ng-repeat="activity in wall">
                                     <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
-                                        <img class="asideImg calloutTrgr" src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
+                                        <img class="asideImg calloutTrgr" ng-src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
                                     </a>
                                     <div class="latest">
                                         <a data-navigation="Box" href="{{activity.url}}">
@@ -109,7 +109,7 @@
             <a data-navigation="Box" ng-href="{{box.url}}">
                 <div ng-show="box.numOfUpdates > 0" class="boxNotify">{{box.numOfUpdates}}</div>
                 <div>
-                    <img class="boxImg" src="{{box.boxPicture}}" alt="" width="77" height="98" />
+                    <img class="boxImg" ng-src="{{box.boxPicture}}" alt="" width="77" height="98" />
                     <ul class="boxHoverList">
                         <li class="hoverItem itemImg">{{box.itemCount}}</li>
                         <li class="hoverItem memberImg">{{box.membersCount}}</li>

@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         {
             IsAuthenticationRequired = true;
             //m_ZboxReadService = DependencyResolver.Current.GetService<IZboxReadService>();
-            var m_FormsAuthenticationSerivce = DependencyResolver.Current.GetService<Zbang.Zbox.Infrastructure.Security.IFormsAuthenticationService>();
+            //var m_FormsAuthenticationSerivce = DependencyResolver.Current.GetService<Zbang.Zbox.Infrastructure.Security.IFormsAuthenticationService>();
         }
         /// <summary>
         /// should user need to be autherise - default is true
@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 }
                 catch (Exception ex)
                 {
-                    Zbang.Zbox.Infrastructure.Trace.TraceLog.WriteError("Zbox Authorize Attribute trying to send header", ex);
+                    Zbox.Infrastructure.Trace.TraceLog.WriteError("Zbox Authorize Attribute trying to send header", ex);
 
                 }
                 //}

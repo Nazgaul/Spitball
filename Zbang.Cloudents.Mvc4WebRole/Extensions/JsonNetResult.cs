@@ -26,13 +26,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         public void Serialize(System.IO.TextWriter output, object data)
         {
-            JsonTextWriter writer = new JsonTextWriter(output)
+            using (var writer = new JsonTextWriter(output)
             {
                 Formatting = Formatting.None
-            };
-
-            JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
-            serializer.Serialize(writer, data);
+            })
+            {
+                var serializer = JsonSerializer.Create(SerializerSettings);
+                serializer.Serialize(writer, data);
+            }
         }
 
         public string Serialize(object data)
@@ -88,7 +89,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
                 JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
                 serializer.Serialize(writer, Data);
                 writer.Flush();
-                var v = writer.ToString();
             }
         }
     }

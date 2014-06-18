@@ -9,9 +9,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             filters.Add(new ZboxHandleErrorAttribute());
             filters.Add(new RequireHttpsAttribute());
-            filters.Add(new NoCacheAjaxFilterAttribute());
-
-          //  filters.Add(new NoUniversityAttribute());
+            //filters.Add(new NoCacheAjaxFilterAttribute());
+            filters.Add(new ETagAttribute());
+            //  filters.Add(new NoUniversityAttribute());
         }
     }
 }
