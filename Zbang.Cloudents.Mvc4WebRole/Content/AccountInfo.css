@@ -68,7 +68,7 @@
   display: inline-block;
   width: 19px;
   height: 18px;
-  background: url(/Images/dash13-sprite.png) -234px -23px no-repeat;
+  background: url(/Images/dash13-sprite.png?v=1) -234px -23px no-repeat;
   vertical-align: top;
 }
 .feedBack:hover:before,
@@ -138,7 +138,7 @@
   top: 16px;
   right: 10px;
   /*rtl*/
-  background: url(/Images/dash13-sprite.png) -240px -46px no-repeat;
+  background: url(/Images/dash13-sprite.png?v=1) -240px -46px no-repeat;
   width: 19px;
   height: 18px;
 }
@@ -209,7 +209,7 @@
   display: block;
   width: 99px;
   height: 99px;
-  background: url(/Images/common17-sprite.png?v=3) -155px -89px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -155px -89px no-repeat;
   margin: 43px auto -6px auto;
 }
 .notifyList {

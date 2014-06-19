@@ -14,28 +14,28 @@ body {
 
 .sprite1a:after,
 .sprite1b:before {
-  background: url(/Images/m-dash15-sprite.png) no-repeat;
+  background: url(/Images/m-dash15-sprite.png?v=1) no-repeat;
 }
 .boxSprite:before {
-  background: url(/Images/m-box15-sprite.png) no-repeat;
+  background: url(/Images/m-box15-sprite.png?v=1) no-repeat;
 }
 .libNew:before,
 .deptItem:after {
-  background: url(/Images/m-lib15-sprite.png) no-repeat;
+  background: url(/Images/m-lib15-sprite.png?v=1) no-repeat;
 }
 
 
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .sprite1a:after,
   .sprite1b:before {
-    background-image: url(/Images/m-dash15-spriteX2.png);
+    background-image: url(/Images/m-dash15-spriteX2.png?v=1);
     -webkit-background-size: 170px 46px;
     -moz-background-size: 170px 46px;
     -o-background-size: 170px 46px;
     background-size: 170px 46px;
   }
   .boxSprite:before {
-    background-image: url(/Images/m-box15-spriteX2.png);
+    background-image: url(/Images/m-box15-spriteX2.png?v=1);
     -webkit-background-size: 68px 51px;
     -moz-background-size: 68px 51px;
     -o-background-size: 68px 51px;
@@ -43,7 +43,7 @@ body {
   }
   .libNew:before,
   .deptItem:after {
-    background-image: url(/Images/m-lib15-spriteX2.png);
+    background-image: url(/Images/m-lib15-spriteX2.png?v=1);
     -webkit-background-size: 45px 21px;
     -moz-background-size: 45px 21px;
     -o-background-size: 45px 21px;
@@ -1334,7 +1334,7 @@ header {
   display: inline-block;
   width: 14px;
   height: 14px;
-  background: url(/Images/misc-sprite.png) -1px -1px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAlCAMAAADY8CGeAAAAhFBMVEUAAACwrq3MzMxwYWuFen53aXHk4+Tx8PDMzMzMzMyVlZWVlZWrq6vMzMzMzMzMzMxvYGmVlZWVlZXMzMzMzMzMzMzMzMyVlZWVlZWVlZV4anPMzMzk4uOVlZWVlZXMzMzk4+Tp6Oh1ZW+VlZWVlZWpoqPMzMyVlZV0ZG6PgoqBc3ykoKHlIVABAAAAJnRSTlMAHATbDhjuFD7nMIkSMVV29Mmb8rFs+OxbucOO5GlFzsmyotytLsXVcUwAAAEeSURBVDjLndLNdoIwEAXgBMWE/4KgIta/tndQ3//9Osyh3bhw4l2QBflOzp3EvJl8SIC2MM/BnKcfxRqSSm/yDVD58gSUajMAlpeoRRJpTYJOVgcUWgP4P1xqzWbeGjHWmhYn6dEB6j4F0DoTVUClv58KgFxRpzemFDF0SLzOSKwvZHDwajPHA0mQEbQOPkeClzGST+rTULMlqs0uS0MMEW1z/tiwc75SNsegPrSzbNIAkxMtTUN9QJ9lRpTlR8rUxjYk+c6oSZXvraY5dc+1dIb+07B75+3oTLyIZRDXWG/240fMZDHu9eZ8Y8TkdtEbt2LEZOX0RpCQAGPsfRzvPybETF2mTnoj5LASpDZXJo47hcz68ji4aRCPs1HmF6rmZTWQXMB6AAAAAElFTkSuQmCC') /*/Images/misc-sprite.png*/ -1px -1px no-repeat;
   position: absolute;
   margin-left: 6px;
   /*rtl*/
@@ -1387,7 +1387,7 @@ header {
   height: 11px;
   margin-right: 4px;
   /*rtl*/
-  background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAlCAMAAADY8CGeAAAAhFBMVEUAAACwrq3MzMxwYWuFen53aXHk4+Tx8PDMzMzMzMyVlZWVlZWrq6vMzMzMzMzMzMxvYGmVlZWVlZXMzMzMzMzMzMzMzMyVlZWVlZWVlZV4anPMzMzk4uOVlZWVlZXMzMzk4+Tp6Oh1ZW+VlZWVlZWpoqPMzMyVlZV0ZG6PgoqBc3ykoKHlIVABAAAAJnRSTlMAHATbDhjuFD7nMIkSMVV29Mmb8rFs+OxbucOO5GlFzsmyotytLsXVcUwAAAEeSURBVDjLndLNdoIwEAXgBMWE/4KgIta/tndQ3//9Osyh3bhw4l2QBflOzp3EvJl8SIC2MM/BnKcfxRqSSm/yDVD58gSUajMAlpeoRRJpTYJOVgcUWgP4P1xqzWbeGjHWmhYn6dEB6j4F0DoTVUClv58KgFxRpzemFDF0SLzOSKwvZHDwajPHA0mQEbQOPkeClzGST+rTULMlqs0uS0MMEW1z/tiwc75SNsegPrSzbNIAkxMtTUN9QJ9lRpTlR8rUxjYk+c6oSZXvraY5dc+1dIb+07B75+3oTLyIZRDXWG/240fMZDHu9eZ8Y8TkdtEbt2LEZOX0RpCQAGPsfRzvPybETF2mTnoj5LASpDZXJo47hcz68ji4aRCPs1HmF6rmZTWQXMB6AAAAAElFTkSuQmCC') /*/Images/misc-sprite.png*/ -1px -15px no-repeat;
 }
 .newUni .uniImg:before {
   content: '';
@@ -1395,7 +1395,7 @@ header {
   height: 34px;
   display: inline-block;
   vertical-align: middle;
-  background: url(/Images/misc-sprite.png) -16px -1px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAlCAMAAADY8CGeAAAAhFBMVEUAAACwrq3MzMxwYWuFen53aXHk4+Tx8PDMzMzMzMyVlZWVlZWrq6vMzMzMzMzMzMxvYGmVlZWVlZXMzMzMzMzMzMzMzMyVlZWVlZWVlZV4anPMzMzk4uOVlZWVlZXMzMzk4+Tp6Oh1ZW+VlZWVlZWpoqPMzMyVlZV0ZG6PgoqBc3ykoKHlIVABAAAAJnRSTlMAHATbDhjuFD7nMIkSMVV29Mmb8rFs+OxbucOO5GlFzsmyotytLsXVcUwAAAEeSURBVDjLndLNdoIwEAXgBMWE/4KgIta/tndQ3//9Osyh3bhw4l2QBflOzp3EvJl8SIC2MM/BnKcfxRqSSm/yDVD58gSUajMAlpeoRRJpTYJOVgcUWgP4P1xqzWbeGjHWmhYn6dEB6j4F0DoTVUClv58KgFxRpzemFDF0SLzOSKwvZHDwajPHA0mQEbQOPkeClzGST+rTULMlqs0uS0MMEW1z/tiwc75SNsegPrSzbNIAkxMtTUN9QJ9lRpTlR8rUxjYk+c6oSZXvraY5dc+1dIb+07B75+3oTLyIZRDXWG/240fMZDHu9eZ8Y8TkdtEbt2LEZOX0RpCQAGPsfRzvPybETF2mTnoj5LASpDZXJo47hcz68ji4aRCPs1HmF6rmZTWQXMB6AAAAAElFTkSuQmCC') /*/Images/misc-sprite.png*/ -16px -1px no-repeat;
   -webkit-transform: scale(0.64, 0.64);
   transform: scale(0.64, 0.64);
   margin-left: -1px;

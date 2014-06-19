@@ -13,7 +13,7 @@ html {
 }
 body {
   min-width: 1024px;
-  background: url(/Images/gray_jean80.png) repeat;
+  background: url(/Images/gray_jean80.png?v=1) repeat;
   overflow-y: scroll;
 }
 .header {
@@ -44,7 +44,7 @@ body {
   display: inline-block;
   width: 211px;
   height: 40px;
-  background: url(/Images/dash13-sprite.png) -1px -1px no-repeat;
+  background: url(/Images/dash13-sprite.png?v=1) -1px -1px no-repeat;
   /*rtl*/
   margin: 10px 0 0 30px;
   /*rtl*/
@@ -69,7 +69,7 @@ body {
 .dashLibSearch button {
   width: 19px;
   height: 20px;
-  background: url(/Images/dash13-sprite.png) -213px -2px no-repeat;
+  background: url(/Images/dash13-sprite.png?v=1) -213px -2px no-repeat;
   position: absolute;
   top: 6px;
   right: 12px;

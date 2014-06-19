@@ -19,7 +19,7 @@
   top: 193px;
   width: 35px;
   height: 45px;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAAAtCAYAAAAEP43UAAACyklEQVRo3t3bz0eEQRgH8GUtK7J0iUTqsMe9RJZEoo1YkVhDpyS6dNlz7KVbp5R0iUQiEqvLHvfSpUus2L9mm8ksK/tjnu88z8xsh+/xnfd9P+zM88w7m6lUKhmhzOm86XQJudLJ6qzqfBGu+9bZF3yXTK/X+01KWA86uYExtixEEmiSYAUAq6kzO2QsRRzHoO1NExiC1daZHzPmaQpoEmAI1odO0WHsBoBWTRnMYL0SX8pM6iXH8c1CcB0TjRNsFsD6tpM65T45uzBQ77ObEhiC1bWTOXq/Zgw0DjAU68zz4c0C0QLQdmKCGawXAKvBNKcs2QUjGJoPGIp1aydvroWmROwGvNBQMIP1DGAZ4LxAQbmu0yE+SwdBQ8BQrHfbKkm1YVXgmQzatiTYDIg1qYrnyrE0GgUMxfp0rOK5UpdEcwUzWE/gg5QDYvVzCT7rFgcYisXexxG7gTsQbdMHLA9i+VTxXMmDZc9YtHFgPlj1yFiDG5gtTrRRYAbrEcS6TARrsIVqg2gbLmA+WPd/tpdTSdGu1t5of8F8sKSqeK6UgRaqv1+3MQpsG8TqRiofqItAE3y3537/O+wnqcBBzTyxkChW1jb9yHu92Z3ksZM+itYS7hfRXHBgTSor1D+Zy+pcWC6FK4r2kMhqqTixXFsjNaX12A7xi/lELErzjaKdRywhOtxY1O0dFO1kSorUiVjIBiKKdhAIaxFsg5yw0C1qBA35YBuq0XbG8vkIosAWYy2xrRwSlu9nNgRNYrs6B1bxZCyOD7kKbKEWI29HQ1hcRwVUxBaqHhKL8zCKAluoGY97HobG4j7upAK2UNUYWBIH6lSAFgqp4lmwpI5sImgNwSqeDUvyULASaKGQo02sWNLHzhG0GmMVz44V4o8NiqGFQqp4EawQYAjaYAuFHAAWwwoFlrGfqWqE7N6sHJnrlonXmRTstaJgP907t/8lLaAdAAAAAElFTkSuQmCC') /*/Images/welcome-sprite.png*/ no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAAAtCAMAAAAz4X3mAAAAM1BMVEUAAABGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkbZ9MuFAAAAEXRSTlMA3KkGRVZZ5LMPL8YLhhttl7FT5/YAAAE4SURBVEjHndThkoMgDARgEBTFIrz/097c3HVWE3El+5O0X6tudPfZ1oQ0l31CZtcNt6bgXExCM1rr9nu0CM1m7cffYeUat/L3uJy1aLF8xqCNarD0d8JENGIt5HdGrCqmxz6ibZcrKRgQjVvN6WRPNVii+DrxrPlILRT/VktvtA8sFP8mlWqwUFa7xi2kEA3Wi4ce2qMWYKH4D9oktb5V+aLsQutaxfEcQutZLTAJqwANliy+XYvpkuzeJazX//B/vCRdfZ6WxPLda9sbqygL2uhdq8qya4uw+lPetKgsu5a9tJ61OmQxbaabBItrke04LK75TN4+sKxaaNSCxhar9CyuqQ/XrsW16SOGxCJakMXvW1wruqyw7Jq2DFpF8anFtRnFpxbXIooPy6r5TCyaOCPRHfMpfesHLx4lYb3laVMAAAAASUVORK5CYII=') /*/Images/welcome-sprite.png*/ no-repeat;
 }
 .welcome > .btnPrev {
   display: none;
@@ -50,7 +50,7 @@
   /*rtl*/
   width: 171px;
   height: 135px;
-  background: url(/Images/firsttime_sprite.png) -1px -1px no-repeat;
+  background: url(/Images/firsttime_sprite.png?v=1) -1px -1px no-repeat;
 }
 .popupWrppr.welcome > .step2 {
   display: none;
@@ -107,7 +107,7 @@
   margin: 16px 0 0 -6px;
   /*rtl*/
   height: 174px;
-  background: url(/Images/firsttime_sprite.png) -172px 0 no-repeat;
+  background: url(/Images/firsttime_sprite.png?v=1) -172px 0 no-repeat;
   /*rtl*/
 }
 .follow:after {

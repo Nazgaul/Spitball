@@ -83,6 +83,9 @@
 .quizSideBar .validated .questionHolder.ng-invalid.answerReq .addAnswer {
   display: inline-block;
 }
+.quizSideBar .validated .questionHolder.ng-invalid.answerReq .questionAnswer {
+  border: 1px solid #d1294d;
+}
 .quizSideBar .validated .questionHolder.ng-invalid.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
@@ -154,7 +157,7 @@
 .toggleQuiz {
   width: 22px;
   height: 22px;
-  background: url(/Images/common17-sprite.png?v=3) -294px -2px;
+  background: url(/Images/common17-sprite.png?v=4) -294px -2px;
   position: fixed;
   right: 374px;
   /*rtl*/
@@ -355,7 +358,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: url(/Images/gray_jean80.png) repeat #ffffff;
+  background: url(/Images/gray_jean80.png?v=1) repeat #ffffff;
   -webkit-transition: margin 0.7s ease-in;
   -moz-transition: margin 0.7s ease-in;
   -o-transition: margin 0.7s ease-in;
@@ -383,7 +386,7 @@
   display: inline-block;
   width: 35px;
   height: 35px;
-  background: url(/Images/common17-sprite.png?v=3) -204px 0 no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -204px 0 no-repeat;
   border-radius: 18px;
   vertical-align: middle;
   -moz-transform: scaleX(-1);
@@ -624,7 +627,7 @@
   width: 22px;
   height: 19px;
   vertical-align: middle;
-  background: url(/Images/box17-sprite.png) -48px -142px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -48px -142px no-repeat;
 }
 .quizPage .btn1 {
   padding: 5px 20px;
@@ -658,7 +661,7 @@
   width: 17px;
   height: 16px;
   background-color: none;
-  background: url(/Images/common17-sprite.png?v=3) -18px -121px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -18px -121px no-repeat;
   opacity: 1 !important;
   margin: -3px 0 0 -3px;
   /*rtl*/

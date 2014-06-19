@@ -92,7 +92,7 @@
   display: inline-block;
   width: 34px;
   height: 34px;
-  background: url(/Images/invite-sprite.png) -208px -2px no-repeat;
+  background: url(/Images/invite-sprite.png?v=1) -208px -2px no-repeat;
 }
 .invSidebar.invSuccess .invSent {
   opacity: 1;
@@ -120,7 +120,7 @@
   display: inline-block;
   width: 32px;
   height: 32px;
-  background: url(/Images/invite-sprite.png) no-repeat;
+  background: url(/Images/invite-sprite.png?v=1) no-repeat;
   vertical-align: middle;
 }
 
@@ -206,7 +206,7 @@
   display: inline-block;
   width: 32px;
   height: 32px;
-  background: url(/Images/invite-sprite.png) no-repeat;
+  background: url(/Images/invite-sprite.png?v=1) no-repeat;
 }
 .invTab.noFriends:before {
   opacity: .5;
@@ -317,7 +317,7 @@
   display: inline-block;
   width: 19px;
   height: 21px;
-  background: url(/Images/invite-sprite.png) -186px -11px no-repeat;
+  background: url(/Images/invite-sprite.png?v=1) -186px -11px no-repeat;
   vertical-align: middle;
   margin-right: 5px;
   /*rtl*/
@@ -368,7 +368,7 @@
   display: inline-block;
   width: 19px;
   height: 21px;
-  background: url(/Images/invite-sprite.png) -186px -11px no-repeat;
+  background: url(/Images/invite-sprite.png?v=1) -186px -11px no-repeat;
   vertical-align: middle;
   margin-right: 5px;
   /*rtl*/
@@ -441,7 +441,7 @@
   height: 56px;
   display: inline-block;
   vertical-align: middle;
-  background: url(/Images/invite-sprite.png) no-repeat;
+  background: url(/Images/invite-sprite.png?v=1) no-repeat;
 }
 .fbContent .connectAccount .connectTo {
   background-position: -58px -38px;
@@ -459,7 +459,7 @@
   width: 44px;
   height: 16px;
   display: inline-block;
-  background: url(/Images/invite-sprite.png) -137px -13px no-repeat;
+  background: url(/Images/invite-sprite.png?v=1) -137px -13px no-repeat;
   vertical-align: middle;
   margin: 0 -4px;
 }

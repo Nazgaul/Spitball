@@ -28,7 +28,7 @@
   width: 22px;
   height: 19px;
   margin: 0 auto 13px;
-  background: url(/Images/common17-sprite.png?v=3) -90px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -90px -1px no-repeat;
 }
 .inviteFriendsBtn:hover:before {
   background-position: -90px -21px;
@@ -72,7 +72,7 @@
   display: inline-block;
   width: 11px;
   height: 22px;
-  background: url(/Images/common17-sprite.png?v=3) -130px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -130px -1px no-repeat;
   vertical-align: middle;
   margin-right: 6px;
   /*rtl*/
@@ -181,7 +181,7 @@
 .inviteBtn:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common17-sprite.png?v=3) -90px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -90px -1px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -447,7 +447,7 @@
   right: 8px;
   /*rtl*/
   margin: 0;
-  background: url(/Images/common17-sprite.png?v=3) -72px -42px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -72px -42px no-repeat;
   width: 23px;
   height: 23px;
 }
@@ -544,7 +544,7 @@
   display: inline-block;
   width: 29px;
   height: 26px;
-  background: url(/Images/common17-sprite.png?v=3) -21px -142px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -21px -142px no-repeat;
   vertical-align: middle;
   opacity: .2;
 }
@@ -690,7 +690,7 @@
   border-top: 1px solid #c2c2c2;
   border-bottom: 1px solid #c2c2c2;
   margin-top: -1px;
-  background: url(/Images/gray_jean80.png) repeat #ffffff;
+  background: url(/Images/gray_jean80.png?v=1) repeat #ffffff;
 }
 .boxFolder.current:after {
   display: none;
@@ -708,7 +708,7 @@
   display: inline-block;
   width: 11px;
   height: 11px;
-  background: url(/Images/box17-sprite.png) -58px 0 no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -58px 0 no-repeat;
   vertical-align: top;
   margin: 14px 6px 0 0;
   /*rtl*/
@@ -818,7 +818,7 @@
   margin: 0 auto 16px;
   width: 50px;
   height: 43px;
-  background: url(/Images/box17-sprite.png) 0 -56px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) 0 -56px no-repeat;
 }
 .boxEmpty .uploadFilesBtn {
   display: block;
@@ -858,7 +858,7 @@
                         top: 50px;*/
   width: 81px;
   height: 81px;
-  background: url(/Images/box17-sprite.png) -75px 0 no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -75px 0 no-repeat;
 }
 .boxItemList.sponsored .boxItem:first-child {
   /*&:hover {
@@ -967,7 +967,7 @@
 .boxItemsHeader .iconTxt:before {
   width: 14px;
   height: 16px;
-  background: url(/Images/box17-sprite.png) -54px -106px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -54px -106px no-repeat;
 }
 .boxItemsHeader .iconTxt.quizBtn:before {
   width: 22px;
@@ -1003,7 +1003,7 @@
   display: inline-block;
   width: 16px;
   height: 11px;
-  background: url(/Images/box17-sprite.png) -45px -123px;
+  background: url(/Images/box17-sprite.png?v=1) -45px -123px;
 }
 .listViewBtn.currentState,
 .thumbViewBtn.currentState {
@@ -1059,7 +1059,7 @@
   display: inline-block;
   width: 9px;
   height: 18px;
-  background: url(/Images/box17-sprite.png) -8px -119px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -8px -119px no-repeat;
   position: absolute;
   right: 0;
 }
@@ -1083,7 +1083,7 @@
   display: block;
   width: 39px;
   height: 35px;
-  background: url(/Images/box17-sprite.png) -4px -144px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -4px -144px no-repeat;
   vertical-align: middle;
   margin: 48px auto 0;
 }
@@ -1108,7 +1108,7 @@
   display: inline-block;
   width: 21px;
   height: 16px;
-  background: url(/Images/box17-sprite.png) -105px -165px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -105px -165px no-repeat;
   vertical-align: middle;
   margin-top: 2px;
 }
@@ -1232,7 +1232,7 @@
   position: absolute;
   width: 153px;
   height: 220px;
-  background: url(/Images/box17-sprite.png) -159px -1px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -159px -1px no-repeat;
   z-index: -1;
 }
 .boxItem.quizItem:after {
@@ -1240,7 +1240,7 @@
   display: inline-block;
   width: 28px;
   height: 24px;
-  background: url(/Images/box17-sprite.png) -47px -168px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -47px -168px no-repeat;
   position: absolute;
   top: 28px;
   left: 8px;
@@ -1273,7 +1273,7 @@
 .boxItem.quizItem .moreFilesThumb {
   width: 36px;
   height: 31px;
-  background: url(/Images/box17-sprite.png) -4px -146px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -4px -146px no-repeat;
   border-radius: 0;
   border: none;
 }
@@ -1283,7 +1283,7 @@
 .boxItem.draft .tag {
   width: 21px;
   height: 16px;
-  background: url(/Images/box17-sprite.png) -105px -165px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -105px -165px no-repeat;
   display: block;
   padding: 0;
   border-radius: 0;
@@ -1384,7 +1384,7 @@
   top: 2px;
   width: 14px;
   height: 15px;
-  background: url(/Images/item13-sprite.png) -19px -21px no-repeat;
+  background: url(/Images/item13-sprite.png?v=1) -19px -21px no-repeat;
 }
 .boxItemTt .ttTop > .ttDetail:last-child:after {
   width: 18px;
@@ -1788,7 +1788,7 @@
   width: 69px;
   height: 14px;
   position: relative;
-  background: url(/Images/common17-sprite.png?v=3) -1px -41px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -1px -41px no-repeat;
   margin: 3px 0 0 5px;
   /*rtl*/
   cursor: pointer;
@@ -1799,7 +1799,7 @@
   left: 0;
   /*rtl*/
   height: 13px;
-  background: url(/Images/common17-sprite.png?v=3) -1px -55px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -1px -55px no-repeat;
 }
 .addBtn.addItem {
   display: inline-block;
@@ -1818,7 +1818,7 @@
   margin: -8px auto 33px;
   width: 56px;
   height: 55px;
-  background: url(/Images/box17-sprite.png) 0 0 no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) 0 0 no-repeat;
 }
 .actionBtns {
   display: none;
@@ -1861,7 +1861,7 @@
   display: inline-block;
   width: 14px;
   height: 16px;
-  background: url(/Images/box17-sprite.png) -57px -12px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -57px -12px no-repeat;
 }
 .downloadBtn:hover:before {
   background-position: -57px -29px;
@@ -1871,7 +1871,7 @@
   display: inline-block;
   width: 15px;
   height: 15px;
-  background: url(/Images/common17-sprite.png?v=3) -52px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -52px -1px no-repeat;
 }
 .editBtn:hover:before {
   background-position: -52px -21px;
@@ -1881,7 +1881,7 @@
   display: inline-block;
   width: 15px;
   height: 17px;
-  background: url(/Images/common17-sprite.png?v=3) -37px -1px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -37px -1px no-repeat;
 }
 .deleteBtn:hover:before {
   background-position: -37px -21px;
@@ -1909,7 +1909,7 @@
 }
 .cbManage:checked ~ .cbLabel:after {
   content: '';
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAb1BMVEVSuIb////5/PtuxJq648/K6drp9u9gvpD9/v5UuYdWuone8ujj8+uh2L2h2b6l2sDz+van28JowZb9/v2T07SX1Lad17t1xp7r9/F3x6D1+/jI6Nl9yqSBy6eHzqvx+fWR0rKq3MOs3cVYu4psw5kiWgYwAAAAY0lEQVR4XsXMNxbDMAzAUEJy7z295/5ntEb60XOC8Q+QnzUlcWrVZ9BbjoDFaOrA2ckLiIx+HpB5Lbf3V2QGYq13OJ/yCrhqbgleA6Xohg4YgadsOgQHjrnseSOhrSdwKeSPrTXWA2AzvFlCAAAAAElFTkSuQmCC') /*/Images/cb1.png*/ no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAM1BMVEVSuIbK6dptxJqU07RVuoip3MPq9/D////0+/d3x6Cg2L1gvpD5/Pu648/h8+qEzalowZZz+Y+oAAAAWUlEQVQYGcXBSRaEIBBEwWT8VeB0/9N2+9wg7jVCr0k1dD1EoOhhBZpmfYGla1aAVbNsQNRgL1FKQNBgB/O8Aa5BAawBm0aHcUm6ceNUs+7c+GuaeYWQ9aEfkJICo13ukZMAAAAASUVORK5CYII=') /*/Images/cb1.png*/ no-repeat;
   display: inline-block;
   width: 22px;
   height: 22px;
@@ -1996,7 +1996,7 @@
   top: -7px;
   left: 15px;
   /*rtl*/
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAYAAACH81QkAAABQ0lEQVQ4y7XUP0vDQBiA8U6Coq2COClChy46FCmKoi6WbsEiDg7iP7Crsx9DcHRyk46K0EkQHEQcREQd7OruF4jPyXsSwr3Jq9bhV0h693BHkivEcVz4q6+fxdp8ljomtf8tkQN84AUjv4lEEvBOfxqZwnsq4jStkVE8BgJOF+W8SBHXSsC7l3HBSB/OcwKeG9efjlRxZQwkVxR9R3rysqGBltGmFilizRDYwoQWWUYJsxkBt9ohGRuMrGMHZYzLkv3kXVQwhg25p0b8pCUMoo5ItjqD/cSY3EhLrocxgNXA1kyRPMFIVZ6OxYoW6cnJ1pEv1OJJi9Rwawg8Y0+LtDGHk4xARz7Utha5k3PUnanbbsmJya84lOPywd3LivhJZ5jGpRxQbqvHePNjLJGuXC+ggpv01qyRTFrkSJ6OxcW/vGyfpkUwWn/5xOYAAAAASUVORK5CYII=') /*/Images/callout-sprite.png*/ -1px -2px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAMAAACwLaQWAAAAbFBMVEUAAAD///88NDn///88NDn///88NDn///88NDn///88NDk8NDk8NDn///88NDk8NDk8NDk8NDk8NDn///88NDk8NDn///88NDn///////88NDn///88NDk8NDk8NDk8NDn///////88NDk8NDmW+sIEAAAAI3RSTlMAVLpe0Q3hZupS1E4QRS3JNthyMq0iJAccPqBOk/VEYhY9X52pPmAAAACgSURBVHhedcrpFoIgEEBhxIARBM19a533f8e0sdE6dn9+54r/XesfKFCnX+AQcdhDuOCc2yDVuAQ1Q4aUTQlaiZ9ku0Cgg7JOHOUNF5OohKEj6VVJ4FVPEsVNF89Dc4/MKsY8lB/fJ4uJlBrNXiiWMuG8+JMETpPkJ4YbSZUPBDJUJFYXTz0PhTvDKgBVkFk+AWwCNq8z2AvFMp04KQ57AVKuDgx3YWG0AAAAAElFTkSuQmCC') /*/Images/callout-sprite.png*/ -1px -2px no-repeat;
   width: 15px;
   height: 8px;
 }
@@ -2029,7 +2029,7 @@
   display: inline-block;
   width: 12px;
   height: 8px;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAYAAACH81QkAAABQ0lEQVQ4y7XUP0vDQBiA8U6Coq2COClChy46FCmKoi6WbsEiDg7iP7Crsx9DcHRyk46K0EkQHEQcREQd7OruF4jPyXsSwr3Jq9bhV0h693BHkivEcVz4q6+fxdp8ljomtf8tkQN84AUjv4lEEvBOfxqZwnsq4jStkVE8BgJOF+W8SBHXSsC7l3HBSB/OcwKeG9efjlRxZQwkVxR9R3rysqGBltGmFilizRDYwoQWWUYJsxkBt9ohGRuMrGMHZYzLkv3kXVQwhg25p0b8pCUMoo5ItjqD/cSY3EhLrocxgNXA1kyRPMFIVZ6OxYoW6cnJ1pEv1OJJi9Rwawg8Y0+LtDGHk4xARz7Utha5k3PUnanbbsmJya84lOPywd3LivhJZ5jGpRxQbqvHePNjLJGuXC+ggpv01qyRTFrkSJ6OxcW/vGyfpkUwWn/5xOYAAAAASUVORK5CYII=') /*/Images/callout-sprite.png*/ -1px -10px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAMAAACwLaQWAAAAbFBMVEUAAAD///88NDn///88NDn///88NDn///88NDn///88NDk8NDk8NDn///88NDk8NDk8NDk8NDk8NDn///88NDk8NDn///88NDn///////88NDn///88NDk8NDk8NDk8NDn///////88NDk8NDmW+sIEAAAAI3RSTlMAVLpe0Q3hZupS1E4QRS3JNthyMq0iJAccPqBOk/VEYhY9X52pPmAAAACgSURBVHhedcrpFoIgEEBhxIARBM19a533f8e0sdE6dn9+54r/XesfKFCnX+AQcdhDuOCc2yDVuAQ1Q4aUTQlaiZ9ku0Cgg7JOHOUNF5OohKEj6VVJ4FVPEsVNF89Dc4/MKsY8lB/fJ4uJlBrNXiiWMuG8+JMETpPkJ4YbSZUPBDJUJFYXTz0PhTvDKgBVkFk+AWwCNq8z2AvFMp04KQ57AVKuDgx3YWG0AAAAAElFTkSuQmCC') /*/Images/callout-sprite.png*/ -1px -10px no-repeat;
   margin-right: 4px;
   /*rtl*/
 }
