@@ -14,7 +14,7 @@
                 <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
                 <ul class="quizQuestionList">
                     <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index" ng-class="{
-                    answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}"></li>
+                    answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
                 </ul>
                 <button type="button" class="quizAddQuestion iconTxt" ng-click="addQuestion(true)">@QuizResources.AddQuestion</button>
             </m-custom-scrollbar>
