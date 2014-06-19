@@ -22,8 +22,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 throw new UnauthorizedAccessException("User is not owner of quiz");
             }
-            answer.Question.UpdateCorrectAnswer(null);
-            m_QuestionRepository.Save(answer.Question);
+            if (answer == answer.Question.RightAnswer)
+            {
+                answer.Question.UpdateCorrectAnswer(null);
+                m_QuestionRepository.Save(answer.Question);
+            }
             m_AnswerRepository.Delete(answer);
         }
     }

@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region sticky footer */
+﻿
+
+
+
+
 html,
 body {
   height: 100%;
@@ -28,8 +28,8 @@ body {
   box-sizing: border-box;
   height: 100%;
 }
-/*#endregion */
-/*#region header */
+
+
 .siteHeader {
   height: 50px;
   background-color: #0f9d58;
@@ -101,8 +101,8 @@ body {
 .dashLibSearchInput:-ms-input-placeholder {
   color: #0f9d58;
 }
-/*#endregion */
-/*#region footer */
+
+
 footer {
   height: 42px;
   line-height: 42px;
@@ -141,4 +141,4 @@ footer {
 .footer a:hover {
   text-decoration: underline;
 }
-/*#endregion */
+
