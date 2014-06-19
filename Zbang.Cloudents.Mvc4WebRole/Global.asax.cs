@@ -35,6 +35,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
             System.Web.Helpers.AntiForgeryConfig.RequireSsl = true;
             System.Web.Helpers.AntiForgeryConfig.CookieName = "cdVrfctn";
             System.Web.Helpers.AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
+
+            System.Web.Helpers.AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
+            
             MvcHandler.DisableMvcResponseHeader = true;
         }
         protected void Application_End()

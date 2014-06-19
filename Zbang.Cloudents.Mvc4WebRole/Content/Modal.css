@@ -1,7 +1,7 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
+﻿
+
+
+
 .ng-modal {
   position: fixed;
   top: 0;
@@ -259,7 +259,7 @@
   max-height: 80px;
   overflow: auto;
 }
-/*#region flag Item */
+
 .flagDialog .btn1.next,
 .flagDialog .btn2.cancel {
   margin-top: 0;
@@ -275,8 +275,8 @@
 .flagDialog input[type="text"]::-ms-clear {
   display: none;
 }
-/*#endregion */
-/*#region box settings and members */
+
+
 #dash_showfriends,
 #box_settings,
 #item_rename {
@@ -685,4 +685,4 @@
 .dashMembers .memberName {
   width: 212px;
 }
-/*#endregion */
+
