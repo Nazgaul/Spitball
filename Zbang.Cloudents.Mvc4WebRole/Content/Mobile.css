@@ -27,13 +27,13 @@
 
 
 .sprite {
-  background: url(/Images/m-sprite-home.png) no-repeat;
+  background: url(/Images/m-sprite-home.png?v=1) no-repeat;
 }
 
 
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .sprite {
-    background-image: url(/Images/m-sprite-home@2x.png);
+    background-image: url(/Images/m-sprite-home@2x.png?v=1);
     -webkit-background-size: 286px 50px;
     background-size: 286px 50px;
   }

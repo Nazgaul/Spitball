@@ -707,7 +707,7 @@
         border-top: 1px solid @borderColor;
         border-bottom: 1px solid @borderColor;
         margin-top: -1px;
-        background: url(/Images/gray_jean80.png) repeat #fff; // due to position:fixed on left panel: narrow screen with horiz scroll causes boxItems to show through
+        background: url(/Images/gray_jean80.png?v=1) repeat #fff; // due to position:fixed on left panel: narrow screen with horiz scroll causes boxItems to show through
         &:after {
             display: none;
         }
@@ -1631,8 +1631,7 @@
 
 .cbManage:checked ~ .cbLabel:after {
     content: '';
-    ///Images/cb1.png
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAb1BMVEVSuIb////5/PtuxJq648/K6drp9u9gvpD9/v5UuYdWuone8ujj8+uh2L2h2b6l2sDz+van28JowZb9/v2T07SX1Lad17t1xp7r9/F3x6D1+/jI6Nl9yqSBy6eHzqvx+fWR0rKq3MOs3cVYu4psw5kiWgYwAAAAY0lEQVR4XsXMNxbDMAzAUEJy7z295/5ntEb60XOC8Q+QnzUlcWrVZ9BbjoDFaOrA2ckLiIx+HpB5Lbf3V2QGYq13OJ/yCrhqbgleA6Xohg4YgadsOgQHjrnseSOhrSdwKeSPrTXWA2AzvFlCAAAAAElFTkSuQmCC') /*/Images/cb1.png*/ no-repeat;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAM1BMVEVSuIbK6dptxJqU07RVuoip3MPq9/D////0+/d3x6Cg2L1gvpD5/Pu648/h8+qEzalowZZz+Y+oAAAAWUlEQVQYGcXBSRaEIBBEwWT8VeB0/9N2+9wg7jVCr0k1dD1EoOhhBZpmfYGla1aAVbNsQNRgL1FKQNBgB/O8Aa5BAawBm0aHcUm6ceNUs+7c+GuaeYWQ9aEfkJICo13ukZMAAAAASUVORK5CYII=') /*/Images/cb1.png*/ no-repeat;
     display: inline-block;
     width: 22px;
     height: 22px;
@@ -1727,8 +1726,7 @@
         position: absolute;
         top: -7px;
         left: 15px; /*rtl*/
-        ///Images/callout-sprite.png
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAYAAACH81QkAAABQ0lEQVQ4y7XUP0vDQBiA8U6Coq2COClChy46FCmKoi6WbsEiDg7iP7Crsx9DcHRyk46K0EkQHEQcREQd7OruF4jPyXsSwr3Jq9bhV0h693BHkivEcVz4q6+fxdp8ljomtf8tkQN84AUjv4lEEvBOfxqZwnsq4jStkVE8BgJOF+W8SBHXSsC7l3HBSB/OcwKeG9efjlRxZQwkVxR9R3rysqGBltGmFilizRDYwoQWWUYJsxkBt9ohGRuMrGMHZYzLkv3kXVQwhg25p0b8pCUMoo5ItjqD/cSY3EhLrocxgNXA1kyRPMFIVZ6OxYoW6cnJ1pEv1OJJi9Rwawg8Y0+LtDGHk4xARz7Utha5k3PUnanbbsmJya84lOPywd3LivhJZ5jGpRxQbqvHePNjLJGuXC+ggpv01qyRTFrkSJ6OxcW/vGyfpkUwWn/5xOYAAAAASUVORK5CYII=') /*/Images/callout-sprite.png*/ -1px -2px no-repeat;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAMAAACwLaQWAAAAbFBMVEUAAAD///88NDn///88NDn///88NDn///88NDn///88NDk8NDk8NDn///88NDk8NDk8NDk8NDk8NDn///88NDk8NDn///88NDn///////88NDn///88NDk8NDk8NDk8NDn///////88NDk8NDmW+sIEAAAAI3RSTlMAVLpe0Q3hZupS1E4QRS3JNthyMq0iJAccPqBOk/VEYhY9X52pPmAAAACgSURBVHhedcrpFoIgEEBhxIARBM19a533f8e0sdE6dn9+54r/XesfKFCnX+AQcdhDuOCc2yDVuAQ1Q4aUTQlaiZ9ku0Cgg7JOHOUNF5OohKEj6VVJ4FVPEsVNF89Dc4/MKsY8lB/fJ4uJlBrNXiiWMuG8+JMETpPkJ4YbSZUPBDJUJFYXTz0PhTvDKgBVkFk+AWwCNq8z2AvFMp04KQ57AVKuDgx3YWG0AAAAAElFTkSuQmCC') /*/Images/callout-sprite.png*/ -1px -2px no-repeat;
         width: 15px;
         height: 8px;
     }
@@ -1762,8 +1760,7 @@
             .pseudo();
             width: 12px;
             height: 8px;
-            ///Images/callout-sprite.png
-            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAYAAACH81QkAAABQ0lEQVQ4y7XUP0vDQBiA8U6Coq2COClChy46FCmKoi6WbsEiDg7iP7Crsx9DcHRyk46K0EkQHEQcREQd7OruF4jPyXsSwr3Jq9bhV0h693BHkivEcVz4q6+fxdp8ljomtf8tkQN84AUjv4lEEvBOfxqZwnsq4jStkVE8BgJOF+W8SBHXSsC7l3HBSB/OcwKeG9efjlRxZQwkVxR9R3rysqGBltGmFilizRDYwoQWWUYJsxkBt9ohGRuMrGMHZYzLkv3kXVQwhg25p0b8pCUMoo5ItjqD/cSY3EhLrocxgNXA1kyRPMFIVZ6OxYoW6cnJ1pEv1OJJi9Rwawg8Y0+LtDGHk4xARz7Utha5k3PUnanbbsmJya84lOPywd3LivhJZ5jGpRxQbqvHePNjLJGuXC+ggpv01qyRTFrkSJ6OxcW/vGyfpkUwWn/5xOYAAAAASUVORK5CYII=') /*/Images/callout-sprite.png*/ -1px -10px no-repeat;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAMAAACwLaQWAAAAbFBMVEUAAAD///88NDn///88NDn///88NDn///88NDn///88NDk8NDk8NDn///88NDk8NDk8NDk8NDk8NDn///88NDk8NDn///88NDn///////88NDn///88NDk8NDk8NDk8NDn///////88NDk8NDmW+sIEAAAAI3RSTlMAVLpe0Q3hZupS1E4QRS3JNthyMq0iJAccPqBOk/VEYhY9X52pPmAAAACgSURBVHhedcrpFoIgEEBhxIARBM19a533f8e0sdE6dn9+54r/XesfKFCnX+AQcdhDuOCc2yDVuAQ1Q4aUTQlaiZ9ku0Cgg7JOHOUNF5OohKEj6VVJ4FVPEsVNF89Dc4/MKsY8lB/fJ4uJlBrNXiiWMuG8+JMETpPkJ4YbSZUPBDJUJFYXTz0PhTvDKgBVkFk+AWwCNq8z2AvFMp04KQ57AVKuDgx3YWG0AAAAAElFTkSuQmCC') /*/Images/callout-sprite.png*/ -1px -10px no-repeat;
             margin-right: 4px; /*rtl*/
         }
     }

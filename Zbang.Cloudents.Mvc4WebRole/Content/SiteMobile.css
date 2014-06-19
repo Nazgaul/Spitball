@@ -1,41 +1,41 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region mixins  */
-/*#endregion */
-/*#region variables */
-/*#endregion */
+﻿
+
+
+
+
+
+
+
 html,
 body {
   height: 100%;
   background: #f4f4f4;
 }
-/*#region  regular sprites */
+
 .sprite1a:after,
 .sprite1b:before {
-  background: url(/Images/m-dash15-sprite.png) no-repeat;
+  background: url(/Images/m-dash15-sprite.png?v=1) no-repeat;
 }
 .boxSprite:before {
-  background: url(/Images/m-box15-sprite.png) no-repeat;
+  background: url(/Images/m-box15-sprite.png?v=1) no-repeat;
 }
 .libNew:before,
 .deptItem:after {
-  background: url(/Images/m-lib15-sprite.png) no-repeat;
+  background: url(/Images/m-lib15-sprite.png?v=1) no-repeat;
 }
-/*#endregion */
-/*#region retina image sprites */
+
+
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .sprite1a:after,
   .sprite1b:before {
-    background-image: url(/Images/m-dash15-spriteX2.png);
+    background-image: url(/Images/m-dash15-spriteX2.png?v=1);
     -webkit-background-size: 170px 46px;
     -moz-background-size: 170px 46px;
     -o-background-size: 170px 46px;
     background-size: 170px 46px;
   }
   .boxSprite:before {
-    background-image: url(/Images/m-box15-spriteX2.png);
+    background-image: url(/Images/m-box15-spriteX2.png?v=1);
     -webkit-background-size: 68px 51px;
     -moz-background-size: 68px 51px;
     -o-background-size: 68px 51px;
@@ -43,15 +43,15 @@ body {
   }
   .libNew:before,
   .deptItem:after {
-    background-image: url(/Images/m-lib15-spriteX2.png);
+    background-image: url(/Images/m-lib15-spriteX2.png?v=1);
     -webkit-background-size: 45px 21px;
     -moz-background-size: 45px 21px;
     -o-background-size: 45px 21px;
     background-size: 45px 21px;
   }
 }
-/*#endregion */
-/*#region header (from _Layout3mobile) */
+
+
 header {
   background: #0f9d58;
   position: fixed;
@@ -120,8 +120,8 @@ header {
   background-position: -115px 0;
   vertical-align: middle;
 }
-/*#endregion */
-/*#region search */
+
+
 .search {
   position: fixed;
   top: -14px;
@@ -187,8 +187,8 @@ header {
   background-position: -137px 0;
   margin-top: 4px;
 }
-/*#endregion */
-/*#region settings panel / menu */
+
+
 .settingsOpenGray {
   position: absolute;
   left: 67%;
@@ -369,7 +369,7 @@ header {
   color: #0f9d58;
   visibility: hidden;
 }
-/*#endregion */
+
 .wpr {
   height: 100%;
 }
@@ -410,7 +410,7 @@ header {
 .subTitle.topContent {
   margin: 13px 0;
 }
-/*#region popup */
+
 .popup {
   font-size: 16px;
   color: #3b3b3b;
@@ -534,8 +534,8 @@ header {
 .requestSent {
   display: none;
 }
-/*#endregion */
-/*#region dashLib content */
+
+
 .topBtns {
   background: #fff;
   position: fixed;
@@ -733,8 +733,8 @@ header {
   font-size: 17px;
   font-weight: bold;
 }
-/*#endregion */
-/*#region box/course */
+
+
 .boxEmpty,
 .dashLibEmpty {
   font-size: 18px;
@@ -1128,8 +1128,8 @@ header {
   color: #0f9d58;
   margin-top: 4px;
 }
-/*#endregion */
-/*#region .friendspageList*/
+
+
 .friendspageList li > a {
   height: 32px;
 }
@@ -1138,9 +1138,9 @@ header {
   padding: 0 6px;
   line-height: 32px;
 }
-/*#endregion */
-/*#region Actions */
-/*#region popups pages */
+
+
+
 .profile {
   width: 96%;
   margin: 0 auto;
@@ -1334,7 +1334,7 @@ header {
   display: inline-block;
   width: 14px;
   height: 14px;
-  background: url(/Images/misc-sprite.png) -1px -1px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAlCAMAAADY8CGeAAAAhFBMVEUAAACwrq3MzMxwYWuFen53aXHk4+Tx8PDMzMzMzMyVlZWVlZWrq6vMzMzMzMzMzMxvYGmVlZWVlZXMzMzMzMzMzMzMzMyVlZWVlZWVlZV4anPMzMzk4uOVlZWVlZXMzMzk4+Tp6Oh1ZW+VlZWVlZWpoqPMzMyVlZV0ZG6PgoqBc3ykoKHlIVABAAAAJnRSTlMAHATbDhjuFD7nMIkSMVV29Mmb8rFs+OxbucOO5GlFzsmyotytLsXVcUwAAAEeSURBVDjLndLNdoIwEAXgBMWE/4KgIta/tndQ3//9Osyh3bhw4l2QBflOzp3EvJl8SIC2MM/BnKcfxRqSSm/yDVD58gSUajMAlpeoRRJpTYJOVgcUWgP4P1xqzWbeGjHWmhYn6dEB6j4F0DoTVUClv58KgFxRpzemFDF0SLzOSKwvZHDwajPHA0mQEbQOPkeClzGST+rTULMlqs0uS0MMEW1z/tiwc75SNsegPrSzbNIAkxMtTUN9QJ9lRpTlR8rUxjYk+c6oSZXvraY5dc+1dIb+07B75+3oTLyIZRDXWG/240fMZDHu9eZ8Y8TkdtEbt2LEZOX0RpCQAGPsfRzvPybETF2mTnoj5LASpDZXJo47hcz68ji4aRCPs1HmF6rmZTWQXMB6AAAAAElFTkSuQmCC') /*/Images/misc-sprite.png*/ -1px -1px no-repeat;
   position: absolute;
   margin-left: 6px;
   /*rtl*/
@@ -1387,7 +1387,7 @@ header {
   height: 11px;
   margin-right: 4px;
   /*rtl*/
-  background: url(/Images/misc-sprite.png) -1px -15px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAlCAMAAADY8CGeAAAAhFBMVEUAAACwrq3MzMxwYWuFen53aXHk4+Tx8PDMzMzMzMyVlZWVlZWrq6vMzMzMzMzMzMxvYGmVlZWVlZXMzMzMzMzMzMzMzMyVlZWVlZWVlZV4anPMzMzk4uOVlZWVlZXMzMzk4+Tp6Oh1ZW+VlZWVlZWpoqPMzMyVlZV0ZG6PgoqBc3ykoKHlIVABAAAAJnRSTlMAHATbDhjuFD7nMIkSMVV29Mmb8rFs+OxbucOO5GlFzsmyotytLsXVcUwAAAEeSURBVDjLndLNdoIwEAXgBMWE/4KgIta/tndQ3//9Osyh3bhw4l2QBflOzp3EvJl8SIC2MM/BnKcfxRqSSm/yDVD58gSUajMAlpeoRRJpTYJOVgcUWgP4P1xqzWbeGjHWmhYn6dEB6j4F0DoTVUClv58KgFxRpzemFDF0SLzOSKwvZHDwajPHA0mQEbQOPkeClzGST+rTULMlqs0uS0MMEW1z/tiwc75SNsegPrSzbNIAkxMtTUN9QJ9lRpTlR8rUxjYk+c6oSZXvraY5dc+1dIb+07B75+3oTLyIZRDXWG/240fMZDHu9eZ8Y8TkdtEbt2LEZOX0RpCQAGPsfRzvPybETF2mTnoj5LASpDZXJo47hcz68ji4aRCPs1HmF6rmZTWQXMB6AAAAAElFTkSuQmCC') /*/Images/misc-sprite.png*/ -1px -15px no-repeat;
 }
 .newUni .uniImg:before {
   content: '';
@@ -1395,7 +1395,7 @@ header {
   height: 34px;
   display: inline-block;
   vertical-align: middle;
-  background: url(/Images/misc-sprite.png) -16px -1px no-repeat;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAlCAMAAADY8CGeAAAAhFBMVEUAAACwrq3MzMxwYWuFen53aXHk4+Tx8PDMzMzMzMyVlZWVlZWrq6vMzMzMzMzMzMxvYGmVlZWVlZXMzMzMzMzMzMzMzMyVlZWVlZWVlZV4anPMzMzk4uOVlZWVlZXMzMzk4+Tp6Oh1ZW+VlZWVlZWpoqPMzMyVlZV0ZG6PgoqBc3ykoKHlIVABAAAAJnRSTlMAHATbDhjuFD7nMIkSMVV29Mmb8rFs+OxbucOO5GlFzsmyotytLsXVcUwAAAEeSURBVDjLndLNdoIwEAXgBMWE/4KgIta/tndQ3//9Osyh3bhw4l2QBflOzp3EvJl8SIC2MM/BnKcfxRqSSm/yDVD58gSUajMAlpeoRRJpTYJOVgcUWgP4P1xqzWbeGjHWmhYn6dEB6j4F0DoTVUClv58KgFxRpzemFDF0SLzOSKwvZHDwajPHA0mQEbQOPkeClzGST+rTULMlqs0uS0MMEW1z/tiwc75SNsegPrSzbNIAkxMtTUN9QJ9lRpTlR8rUxjYk+c6oSZXvraY5dc+1dIb+07B75+3oTLyIZRDXWG/240fMZDHu9eZ8Y8TkdtEbt2LEZOX0RpCQAGPsfRzvPybETF2mTnoj5LASpDZXJo47hcz68ji4aRCPs1HmF6rmZTWQXMB6AAAAAElFTkSuQmCC') /*/Images/misc-sprite.png*/ -16px -1px no-repeat;
   -webkit-transform: scale(0.64, 0.64);
   transform: scale(0.64, 0.64);
   margin-left: -1px;
@@ -1405,9 +1405,9 @@ header {
   font-weight: normal;
   color: #464646;
 }
-/*#endregion */
-/*#endregion */
-/*#region buttons */
+
+
+
 .btn1 {
   font-size: 16px;
   line-height: 30px;
@@ -1434,4 +1434,4 @@ header {
         background: #a5a5a5;
     }*/
 }
-/*#endregion */
+

@@ -1,7 +1,7 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
+﻿
+
+
+
 body {
   color: #383838;
   min-width: 1024px;
@@ -18,7 +18,7 @@ body {
   content: '';
   display: inline-block;
   margin: 0 auto;
-  background: url(/Images/bg4.jpg) no-repeat center center;
+  background: url(/Images/bg4.jpg?v=1) no-repeat center center;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -65,7 +65,7 @@ body {
   right: 15px;
   /*rtl*/
   top: 15px;
-  background: url(/Images/hp17-sprite.png) -949px -244px no-repeat;
+  background: url(/Images/hp17-sprite.png?v=1) -949px -244px no-repeat;
   width: 11px;
   height: 12px;
 }
@@ -172,7 +172,7 @@ body {
   display: inline-block;
   width: 289px;
   height: 240px;
-  background: url(/Images/hp17-sprite.png) -172px -1px no-repeat;
+  background: url(/Images/hp17-sprite.png?v=1) -172px -1px no-repeat;
   float: right;
   /*rtl*/
   margin-top: 35px;
@@ -180,11 +180,11 @@ body {
 .logo {
   width: 190px;
   height: 52px;
-  background: url(/Images/hp17-sprite.png) -881px -271px no-repeat;
+  background: url(/Images/hp17-sprite.png?v=1) -881px -271px no-repeat;
   /*rtl*/
   margin-top: 20px;
 }
-/*#region side menu */
+
 aside {
   background: #39434a;
   position: fixed;
@@ -214,7 +214,7 @@ aside > button {
   /*rtl*/
   width: 10px;
   height: 10px;
-  background: url(/Images/common17-sprite.png?v=3) -68px -15px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -68px -15px no-repeat;
 }
 aside li {
   line-height: 15px;
@@ -235,7 +235,7 @@ aside li.currentItem {
 aside .last {
   margin-bottom: 30px;
 }
-/*#endregion */
+
 .headerActions {
   margin-top: 2px;
   position: absolute;
@@ -273,7 +273,7 @@ aside .last {
   /*rtl*/
   width: 17px;
   height: 13px;
-  background: url(/Images/common17-sprite.png?v=3) -2px -141px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -2px -141px no-repeat;
   vertical-align: top;
 }
 .headerSettings:hover {
@@ -319,7 +319,7 @@ aside .last {
   display: inline-block;
   width: 69px;
   height: 69px;
-  background: url(/Images/hp17-sprite.png) -3px -4px no-repeat;
+  background: url(/Images/hp17-sprite.png?v=1) -3px -4px no-repeat;
   position: absolute;
   left: 0;
 }
@@ -382,7 +382,7 @@ aside .last {
   margin-top: 45px;
 }
 .qna {
-  background: url(/Images/gray_jean80.png) repeat;
+  background: url(/Images/gray_jean80.png?v=1) repeat;
 }
 .qna .sectionWpr:before {
   background-position: -463px -1px;
@@ -425,7 +425,7 @@ section.unions:before {
   content: '';
   display: inline-block;
   margin: 0 auto;
-  background: url(/Images/students.png) no-repeat center center #0f9d58;
+  background: url(/Images/students.png?v=1) no-repeat center center #0f9d58;
   width: 100%;
   position: absolute;
   left: 0;
@@ -497,7 +497,7 @@ section.unions .btn:hover {
 .union:before {
   content: '';
   display: inline-block;
-  background: url(/Images/hp17-sprite.png) no-repeat;
+  background: url(/Images/hp17-sprite.png?v=1) no-repeat;
   vertical-align: middle;
 }
 .uName,
@@ -609,7 +609,7 @@ section.unions .btn:hover {
 .stats > .cell.last {
   border: none;
 }
-/*#region footer */
+
 footer {
   height: 42px;
   line-height: 42px;
@@ -645,8 +645,8 @@ footer {
 .footer a:hover {
   text-decoration: underline;
 }
-/*#endregion */
-/*#region media queries */
+
+
 @media (max-width: 1111px) {
   section.unions ul {
     -webkit-transform: scale(0.9);
@@ -686,4 +686,4 @@ footer {
     /*rtl*/
   }
 }
-/*#endregion */
+

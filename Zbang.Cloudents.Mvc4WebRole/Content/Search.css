@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region search drop down */
+﻿
+
+
+
+
 .searchDD {
   display: none;
   margin-top: 5px;
@@ -114,7 +114,7 @@
   display: inline-block;
   width: 40px;
   height: 32px;
-  background: url(/Images/common17-sprite.png?v=3) -241px -56px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -241px -56px no-repeat;
   vertical-align: middle;
   float: left;
   /*rtl*/
@@ -132,8 +132,8 @@
   left: 71px;
   /*rtl*/
 }
-/*#endregion */
-/*#region Search page - 's' prefix stands for 'search' */
+
+
 .searchPage {
   width: 1012px;
   margin: 0 auto;
@@ -384,4 +384,4 @@
   border: 1px solid #c2c2c2;
   color: #0371c8;
 }
-/*#endregion */
+

@@ -1,7 +1,7 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
+﻿
+
+
+
 .ng-modal {
   position: fixed;
   top: 0;
@@ -48,7 +48,7 @@
   cursor: pointer;
   width: 11px;
   height: 11px;
-  background: url(/Images/common17-sprite.png?v=3) -79px -25px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -79px -25px no-repeat;
   position: absolute;
   top: 15px;
   right: 12px;
@@ -259,7 +259,7 @@
   max-height: 80px;
   overflow: auto;
 }
-/*#region flag Item */
+
 .flagDialog .btn1.next,
 .flagDialog .btn2.cancel {
   margin-top: 0;
@@ -275,8 +275,8 @@
 .flagDialog input[type="text"]::-ms-clear {
   display: none;
 }
-/*#endregion */
-/*#region box settings and members */
+
+
 #dash_showfriends,
 #box_settings,
 #item_rename {
@@ -300,7 +300,7 @@
   /*rtl*/
   width: 20px;
   height: 18px;
-  background: url(/Images/box17-sprite.png) -53px -85px no-repeat;
+  background: url(/Images/box17-sprite.png?v=1) -53px -85px no-repeat;
 }
 .boxSettings .btn1,
 .boxSettings .btn2 {
@@ -602,7 +602,7 @@
   display: inline-block;
   width: 18px;
   height: 19px;
-  background: url(/Images/common17-sprite.png?v=3) -171px -64px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -171px -64px no-repeat;
   vertical-align: middle;
   margin-right: 5px;
 }
@@ -641,7 +641,7 @@
   vertical-align: middle;
   width: 22px;
   height: 19px;
-  background: url(/Images/common17-sprite.png?v=3) -155px -42px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -155px -42px no-repeat;
   margin-right: 8px;
   /*rtl*/
 }
@@ -662,7 +662,7 @@
   display: inline-block;
   width: 24px;
   height: 17px;
-  background: url(/Images/common17-sprite.png?v=3) -154px -24px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -154px -24px no-repeat;
   vertical-align: middle;
 }
 .memberItem:hover .inviteUserBtn,
@@ -685,4 +685,4 @@
 .dashMembers .memberName {
   width: 212px;
 }
-/*#endregion */
+

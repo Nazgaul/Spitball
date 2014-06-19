@@ -1,8 +1,8 @@
-/*#region variables */
-/*#endregion */
-/*#region mixins */
-/*#endregion */
-/*#region library sidebar */
+﻿
+
+
+
+
 .asideDash {
   height: 100%;
   background: #fff;
@@ -89,7 +89,7 @@
 .productsBtn:before {
   content: '';
   display: inline-block;
-  background: url(/Images/dash13-sprite.png) -301px -1px no-repeat;
+  background: url(/Images/dash13-sprite.png?v=1) -301px -1px no-repeat;
   width: 32px;
   height: 23px;
   float: left;
@@ -101,7 +101,7 @@
   display: inline-block;
   width: 6px;
   height: 10px;
-  background: url(/Images/dash13-sprite.png) -302px -25px no-repeat;
+  background: url(/Images/dash13-sprite.png?v=1) -302px -25px no-repeat;
   position: absolute;
   right: 10px;
   /*rtl*/
@@ -128,7 +128,7 @@
   display: inline-block;
   width: 10px;
   height: 11px;
-  background: url(/Images/common17-sprite.png?v=3) -68px -25px no-repeat;
+  background: url(/Images/common17-sprite.png?v=4) -68px -25px no-repeat;
   margin: 5px 7px;
 }
 .dashLists .friendsList {
@@ -290,7 +290,7 @@
   margin-right: 10px;
   /*rtl*/
   vertical-align: middle;
-  background: url(/Images/lib_sprite.png) no-repeat;
+  background: url(/Images/lib_sprite.png?v=1) no-repeat;
   height: 32px;
 }
 .asideLib > .files:before {
@@ -326,12 +326,12 @@
   display: inline-block;
   margin-right: 4px;
   /*rtl*/
-  background: url(/Images/lib_sprite.png) -122px -1px no-repeat;
+  background: url(/Images/lib_sprite.png?v=1) -122px -1px no-repeat;
   width: 27px;
   height: 32px;
 }
-/*#endregion */
-/*#region Lib Aside */
+
+
 .unionName {
   font-size: 22px;
   border-bottom: 1px solid #c2c2c2;
@@ -481,4 +481,4 @@
 .libLists .libTwitter {
   bottom: 0;
 }
-/*#endregion */
+

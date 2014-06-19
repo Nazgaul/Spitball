@@ -7,7 +7,7 @@
         @using (Html.BeginForm("UpdateUniversity","Account"))
         {
             Html.RenderAction("AntiForgeryToken", "Home", true);
-            <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png")" alt="" width="108" height="114" style="visibility:hidden" />
+            <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png?v=1")" alt="" width="108" height="114" style="visibility:hidden" />
             <div>ההצטרפות לקבוצת הלימוד של "@ViewBag.AgudaName" נעשית ע"י
 הזנת קוד משתמש אישי הניתן דרך אגודת הסטודנטים.</div>
             
