@@ -1,4 +1,5 @@
-﻿using DevTrends.MvcDonutCaching;
+﻿using System.Web.UI;
+using DevTrends.MvcDonutCaching;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -53,14 +54,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToActionPermanent("Index", "Dashboard");
             }
-            return RedirectToAction("Index", "Account", new {  universityId });
+            return RedirectToAction("Index", "Account", new { universityId });
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
         public ActionResult ContactUs()
         {
-            
+
             return View();
         }
 
@@ -153,40 +154,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [DonutOutputCache(Duration = TimeConsts.Hour * 2,
-            VaryByParam = "none",
+            VaryByParam = "none", Location = OutputCacheLocation.ServerAndClient,
             VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
         public ActionResult JsResources()
         {
             //var rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());
-            var x = typeof (Js.Resources.JsResources);
+            var x = typeof(Js.Resources.JsResources);
             var sb = new StringBuilder();
             sb.Append("JsResources={");
             foreach (var p in x.GetProperties())
             {
-                
+
                 var s = p.GetValue(null, null);
                 if (s is string)
                 {
-                    sb.Append("\"" + p.Name+ "\":\"" +
+                    sb.Append("\"" + p.Name + "\":\"" +
                               s.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") +
                               "\",");
                     sb.AppendLine();
                 }
-               
-                
+
+
             }
             sb.Remove(sb.Length - 1, 1);
             sb.Append("}");
             return Content(sb.ToString(), "application/javascript");
             //using (var set = rm.GetResourceSet(System.Threading.Thread.CurrentThread.CurrentUICulture, true, true))
             //{
-                
+
             //    var sb = new StringBuilder();
 
             //    sb.Append("JsResources={");
             //    foreach (System.Collections.DictionaryEntry item in set)
             //    {
-                    
+
             //        sb.Append("\"" + item.Key + "\":\"" +
             //                  item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") +
             //                  "\",");

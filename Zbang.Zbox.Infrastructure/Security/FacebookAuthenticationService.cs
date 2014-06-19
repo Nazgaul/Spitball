@@ -58,7 +58,8 @@ namespace Zbang.Zbox.Infrastructure.Security
         {
             using (var client = new HttpClient())
             {
-                var str = await client.GetStringAsync("https://graph.facebook.com/v1.0/me/friends?fields=picture.height(32).width(32),name&limit=5000&access_token=" + authToken);
+                // we can only use 2100 in an in statement in sql
+                var str = await client.GetStringAsync("https://graph.facebook.com/v1.0/me/friends?fields=picture.height(32).width(32),name&limit=2100&access_token=" + authToken);
 
                 dynamic o = JObject.Parse(str);
                 var list = new List<FacebookFriendData>();

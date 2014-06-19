@@ -619,10 +619,10 @@ where m.RecepientId = @userid
         {
             using (var conn = await DapperConnection.OpenConnection())
             {
-
+                //we can only use 2100 in statement
                 using (var grid = await conn.QueryMultipleAsync(
                      string.Format("{0} {1}", Sql.LibraryChoose.GetUniversityByFriendIds, Sql.LibraryChoose.GetFriendsInUniversitiesByFriendsIds),
-                    new { FriendsIds = friendsIds }
+                    new { FriendsIds = friendsIds.Take(2099) }
                      ))
                 {
                     var retVal = grid.Read<UniversityByFriendDto>();
