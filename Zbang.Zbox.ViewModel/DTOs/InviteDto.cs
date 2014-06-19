@@ -24,7 +24,6 @@ namespace Zbang.Zbox.ViewModel.DTOs
         public string Message { get; set; }
 
         public string BoxName { get; private set; }
-        public string Universityname { get; set; }
 
         public string Url { get; set; }
     }

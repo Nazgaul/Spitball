@@ -16,7 +16,7 @@
     <return-scalar column="CourseCode" type="string"/>
     <return-scalar column="ProfessorName" type="string"/>
     <return-scalar column="BoxType" type="Zbang.Zbox.Infrastructure.Enums.BoxType,Zbang.Zbox.Infrastructure"/>
-    <return-scalar column="Universityname" type="string"/>
+    <return-scalar column="Url" type="string"/>
   </resultset>
   <resultset name="DtoCount">
     <return-scalar column="Count" type="Int32"/>
@@ -35,7 +35,7 @@
     b.pictureurl as BoxPicture, 
     b.ProfessorName as ProfessorName,
     b.Discriminator as boxType,
-    (select universityname from zbox.Users u where b.OwnerId = u.UserId) as Universityname
+    b.Url as Url
     from zbox.LibraryBox l
     join zbox.box b on b.BoxId = l.BoxId and b.IsDeleted = 0  and b.discriminator = 2
     where LibraryId = :ParentNode

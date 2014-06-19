@@ -2,14 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -47,8 +45,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (boxid.HasValue)
                 {
                     model = m_ZboxReadService.GetBoxMeta(new GetBoxQuery(boxid.Value, GetUserId()));
-                    var urlBuilder = new UrlBuilder(HttpContext);
-                    model.Url = urlBuilder.BuildBoxUrl(model.Id, model.Name, model.UnivtesityName);
                 }
             }
             catch (BoxAccessDeniedException)
@@ -249,16 +245,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetInvitesQuery(userid, page);
                 var invites = await m_ZboxReadService.GetInvites(query);
-
-                var urlBuilder = new UrlBuilder(HttpContext);
-                return this.CdJson(new JsonResponse(true, invites.Select(s =>
-                {
-                    if (s.BoxId.HasValue)
-                    {
-                        s.Url = urlBuilder.BuildBoxUrl(s.BoxId.Value, s.BoxName, s.Universityname);
-                    }
-                    return s;
-                })));
+                return this.CdJson(new JsonResponse(true, invites));
             }
             catch (Exception ex)
             {

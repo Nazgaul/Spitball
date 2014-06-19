@@ -100,14 +100,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private void AssignUrls(Zbox.ViewModel.DTOs.Search.SearchDto result, UrlBuilder urlBuilder)
         {
-            if (result.Boxes != null)
-            {
-                result.Boxes = result.Boxes.Select(s =>
-                {
-                    s.Url = urlBuilder.BuildBoxUrl(s.Id, s.Name, s.Universityname);
-                    return s;
-                });
-            }
             if (result.Items != null)
             {
                 result.Items = result.Items.Select(s =>

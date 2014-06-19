@@ -48,11 +48,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
-            var builder = new UrlBuilder(HttpContext);
-            var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
+           // var builder = new UrlBuilder(HttpContext);
+           // var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
 
             ViewBag.boxName = boxName;
-            ViewBag.boxUrl = url;
+            ViewBag.boxUrl = model.Quiz.Seo.BoxUrl;
 
 
             if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))

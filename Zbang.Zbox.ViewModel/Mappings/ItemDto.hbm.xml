@@ -58,6 +58,7 @@
     <return-scalar column="Country" type="string"/>
     <return-scalar column="UniName" type="string"/>
     <return-scalar column="Description" type="string"/>
+    <return-scalar column="BoxUrl" type="string"/>
   </resultset>
 
   <!--Used in box page to get item section-->
@@ -132,9 +133,11 @@
     i.rate as Rate,
     i.boxid as BoxId,
     b.BoxName as BoxName,
+    
     u2.Country as Country, 
     u2.UniversityName as UniName,
-    content as Description
+    content as Description,
+    b.Url as BoxUrl
     
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId

@@ -27,7 +27,6 @@
         public string Content { get; set; }
         public int AnswersCount { get; set; }
 
-        public string UniversityName { get; set; }
 
         public string Url { get; set; }
 

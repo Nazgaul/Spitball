@@ -8,13 +8,14 @@ namespace Zbang.Zbox.ViewModel.DTOs.BoxDtos
     {
 
 
-        public BoxNotificationDto(long id, string name, string owner, NotificationSettings notification,BoxType boxType)
+        public BoxNotificationDto(long id, string name, string owner, NotificationSettings notification,BoxType boxType, string url)
         {
             Id = id;
             Name = name;
             Owner = owner;
             Notifications = notification;
             BoxType = boxType;
+            Url = url;
         }
         public long Id { get; set; }
         public string Name { get; set; }

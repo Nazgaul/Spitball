@@ -7,9 +7,7 @@
  b.ProfessorName as proffessor,
  b.CourseCode as courseCode,
  b.BoxId as id ,
- case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else null
-								                    end as universityname
+b.Url as url
 from zbox.box b 
 join zbox.UserBoxRel ub on ub.BoxId = b.BoxId and ub.UserId = @userId
 where b.IsDeleted = 0
@@ -25,7 +23,7 @@ fetch next @pageSize rows only; ";
  b.ProfessorName as proffessor,
  b.CourseCode as courseCode,
  b.BoxId as id ,
- (select universityname from zbox.Users u where b.OwnerId = u.UserId) as universityname
+b.Url as url
 from zbox.box b
 where b.IsDeleted = 0
 and b.OwnerId = @universityId

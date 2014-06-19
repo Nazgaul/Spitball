@@ -17,7 +17,6 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
@@ -31,55 +30,51 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class BoxController : BaseController
     {
-        private readonly Lazy<IShortCodesCache> m_ShortToLongCode;
 
         public BoxController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            Lazy<IShortCodesCache> shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService)
             : base(zboxWriteService, zboxReadService,
             formsAuthenticationService)
         {
-            m_ShortToLongCode = shortToLongCache;
         }
 
 
         /// <summary>
         /// Page of box view
         /// </summary>
-        /// <param name="boxUid">The short id of box</param>
         /// <returns>box view</returns>
-        [NonAjax]
-        [Route("box/{boxUid:length(11)}")]
-        public ActionResult Index(string boxUid)
-        {
-            try
-            {
-                var boxid = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
-                var query = new GetBoxQuery(boxid, GetUserId(false));
-                var box = m_ZboxReadService.GetBox2(query);
+        //[NonAjax]
+        //[Route("box/{boxUid:length(11)}")]
+        //public ActionResult Index(string boxUid)
+        //{
+        //    try
+        //    {
+        //        var boxid = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
+        //        var query = new GetBoxQuery(boxid, GetUserId(false));
+        //        var box = m_ZboxReadService.GetBox2(query);
 
-                var builder = new UrlBuilder(HttpContext);
-                var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
-                return RedirectPermanent(url);
-            }
-            catch (BoxAccessDeniedException)
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-                }
-                return RedirectToAction("MembersOnly", "Error");
-            }
-            catch (BoxDoesntExistException)
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return HttpNotFound();
-                }
-                return RedirectToAction("Index", "Error");
-            }
-        }
+        //        var builder = new UrlBuilder(HttpContext);
+        //        var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
+        //        return RedirectPermanent(url);
+        //    }
+        //    catch (BoxAccessDeniedException)
+        //    {
+        //        if (Request.IsAjaxRequest())
+        //        {
+        //            return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+        //        }
+        //        return RedirectToAction("MembersOnly", "Error");
+        //    }
+        //    catch (BoxDoesntExistException)
+        //    {
+        //        if (Request.IsAjaxRequest())
+        //        {
+        //            return HttpNotFound();
+        //        }
+        //        return RedirectToAction("Index", "Error");
+        //    }
+        //}
 
         [CacheFilter(Duration = 0)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

@@ -85,7 +85,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //TODO: bring with one roundtrip
             var queryNodes = new GetLibraryNodeQuery(userDetail.UniversityId.Value, libId, GetUserId(), 0, OrderBy.LastModified);
             var data = m_ZboxReadService.GetLibraryNode(queryNodes);
-            data.Boxes.Elem = AssignUrl(data.Boxes.Elem);
             var serializer = new JsonNetSerializer();
 
             ViewBag.data = serializer.Serialize(data);
@@ -98,17 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        private IEnumerable<BoxDto> AssignUrl(IEnumerable<BoxDto> data)
-        {
-            var builder = new UrlBuilder(HttpContext);
-            var assignUrl = data as IList<BoxDto> ?? data.ToList();
-            foreach (var item in assignUrl)
-            {
-                item.Url = builder.BuildBoxUrl(item.BoxType, item.Id, item.Name, item.UniName);
-            }
-            return assignUrl;
-
-        }
+        
 
         [HttpGet]
         public ActionResult Choose()
@@ -226,7 +215,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, section, GetUserId(), page, order);
             var result = m_ZboxReadService.GetLibraryNode(query);
-            result.Boxes.Elem = AssignUrl(result.Boxes.Elem);
             return this.CdJson(new JsonResponse(true, result));
 
         }
@@ -329,16 +317,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, model.ParentId);
                 var result = m_ZboxWriteService.CreateBox(command);
-
-                //TODO: User name can come from cookie detail one well do that
-                //TODO: this is not good
-                UrlBuilder builder = new UrlBuilder(HttpContext);
-                var retVal = new BoxDto(result.NewBox.Id, command.BoxName,
-                                        UserRelationshipType.Subscribe, 0,
-                                        0, 0, command.CourseCode, command.Professor, BoxType.Academic, result.UserName,
-                                        builder.BuildBoxUrl(BoxType.Academic, result.NewBox.Id, command.BoxName, result.UserName)
-                                        );
-                return this.CdJson(new JsonResponse(true, retVal));
+                return this.CdJson(new JsonResponse(true, new { result.NewBox.Url}));
             }
             catch (BoxNameAlreadyExistsException)
             {

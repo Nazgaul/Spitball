@@ -139,12 +139,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetUserWithFriendQuery(GetUserId(), userId);
                 var model = await m_ZboxReadService.GetUserWithFriendBoxes(query);
-                var urlBuilder = new UrlBuilder(HttpContext);
-                foreach (var item in model)
-                {
-                    item.Url = urlBuilder.BuildBoxUrl(item.Id, item.Name, item.Universityname);
-                }
-
                 return this.CdJson(new JsonResponse(true, model));
             }
             catch (Exception ex)
@@ -170,12 +164,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
                 var model = await m_ZboxReadService.GetUserWithFriendBoxes(query);
-                var urlBuilder = new UrlBuilder(HttpContext);
-                foreach (var item in model)
-                {
-                    item.Url = urlBuilder.BuildBoxUrl(item.Id, item.Name, item.Universityname);
-                }
-
                 return this.CdJson(new JsonResponse(true, model));
             }
             catch (Exception ex)
@@ -228,8 +216,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await m_ZboxReadService.GetUserWithFriendActivity(query);
             var urlBuilder = new UrlBuilder(HttpContext);
             model.Items.ToList().ForEach(i => i.Url = urlBuilder.BuildItemUrl(i.BoxId, i.BoxName, i.Id, i.Name, i.UniversityName));
-            model.Questions.ToList().ForEach(i => i.Url = urlBuilder.BuildBoxUrl(i.Boxid, i.BoxName, i.UniversityName));
-            model.Answers.ToList().ForEach(i => i.Url = urlBuilder.BuildBoxUrl(i.Boxid, i.BoxName, i.UniversityName));
 
             return this.CdJson(new JsonResponse(true, model));
         }
@@ -262,14 +248,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = GetUserId();
             var query = new GetUserDetailsQuery(userid);
             var result = m_ZboxReadService.GetUserBoxesNotification(query);
-
-            var urlBuilder = new UrlBuilder(HttpContext);
-            result = result.Select(s =>
-            {
-                s.Url = urlBuilder.BuildBoxUrl(s.BoxType, s.Id, s.Name, s.Owner);
-                return s;
-            });
-
             return this.CdJson(new JsonResponse(true, result));
         }
 

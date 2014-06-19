@@ -2,8 +2,8 @@
 {
     public static class Seo
     {
-        public const string GetBoxes = @"select b.BoxId as Id,b.BoxName as Name,u.UniversityName as UniversityName
-from zbox.box b join zbox.Users u on b.OwnerId = u.UserId
+        public const string GetBoxes = @"select b.Url as url
+from zbox.box b 
 where ownerid in (select userid from zbox.users where usertype =1 and needcode = 0)
 and Discriminator = 2
 and IsDeleted = 0;";

@@ -9,13 +9,12 @@
 //                        from zbox.users u 
 //                        where u.usertype = 1 
 //                        order by MemberCount desc";
-        public const string GetWallList = @"select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action, universityname as uniName, Url as Url
+        public const string GetWallList = @"
+select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action,  Url as Url
                                     from (	 
 	                                       select 
-	                                        author.userName, author.UserImage,author.url as url, author.userid as userid, b.boxid as boxid, b.boxname,i.CreationTime as date, 'item' as action,
- case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else null
-								                    end as universityname
+	                                        author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,i.CreationTime as date, 'item' as action,
+ b.Url as Url
 
 	                                        from  zbox.UserBoxRel ub 
                                            join zbox.Box b on b.BoxId = ub.BoxId and b.IsDeleted = 0
@@ -24,10 +23,8 @@
                                            where ub.UserId = @UserId and author.userid != @UserId 
 	   
 	                                       union all
-	                                       select   author.userName, author.UserImage,author.url as url, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'question' as action,
- case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else null
-								                    end as universityname
+	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'question' as action,
+ b.Url as Url
 	                                        from  zbox.UserBoxRel ub 
                                            join zbox.Box b on b.BoxId = ub.BoxId and b.IsDeleted = 0
 	                                       join zbox.question q on q.boxid = b.boxid
@@ -35,10 +32,8 @@
 	                                       where ub.UserId =@UserId  and author.userid != @UserId 
 	  
 	                                        union all 
-	                                       select   author.userName, author.UserImage,author.url as url, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'answer' as action,
- case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								                    else null
-								                    end as universityname
+	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'answer' as action,
+ b.Url as Url
 
 	                                        from  zbox.UserBoxRel ub 
                                            join zbox.Box b on b.BoxId = ub.BoxId and b.IsDeleted = 0
@@ -98,9 +93,7 @@
                                 b.ProfessorName,
 								
                                 b.Discriminator as boxType,
-								case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								else null
-								end as universityname
+								b.Url as Url
                                   from Zbox.box b join zbox.UserBoxRel ub on b.BoxId = ub.BoxId  
                                   where 
                                   b.IsDeleted = 0   
@@ -112,9 +105,7 @@
         /// Used in user page to get boxes common with current user and his friend
         /// </summary>
         public const string UserWithFriendBoxes = @"select COALESCE( uMe.UserType,0) as userType, b.boxid as id ,b.BoxName as name,b.pictureurl as picture,
-        case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								else null
-								end as universityname
+        b.Url as Url
                             from 
                         zbox.UserBoxRel uFriend
                         join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
@@ -143,9 +134,7 @@
         /// </summary>
         public const string UserWithFriendQuestion = @" select b.pictureurl as boxPicutre,b.BoxName as boxName,q.Text as content, b.BoxId as boxid,
                         (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-						case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								else null
-								end as universityname
+						b.url as Url
                           from zbox.Question q
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
                          left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
@@ -161,9 +150,7 @@
         public const string UserWithFriendAnswer = @"select b.pictureurl as boxPicture, b.BoxId as boxid, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
                    uQuestion.UserImage as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
                    (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-				   case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								else null
-								end as universityname
+				  b.url as Url
                  from zbox.Answer a
                  join zbox.Question q on a.QuestionId = q.QuestionId
                  join zbox.Users uQuestion on uQuestion.UserId = q.UserId
@@ -189,5 +176,40 @@
                 where m.TypeOfMsg in (2,3)
                 and SenderId = @Me
                 order by status, m.MessageId desc;";
+
+
+        public const string UserInvites = @"
+select * from (select u.UserImage as userpic,
+ u.UserName as username,
+ m.MessageId as msgId,
+  m.CreationTime as date,
+  m.NotRead as isread,
+  m.New as IsNew,
+  m.Text as message,
+b.BoxName,
+b.BoxId,
+b.Url
+from zbox.message m 
+inner join zbox.box b on m.BoxId = b.BoxId and b.IsDeleted = 0
+inner join zbox.users u on u.UserId = m.SenderId
+where m.RecepientId = @userid
+ and TypeOfMsg = 2
+ and isactive = 1
+/* union all
+select u.UserImage as userpic,
+ u.UserName as username,
+ m.MessageId as msgId,
+  m.CreationTime as date,
+  m.NotRead as isread,
+  m.New as IsNew,
+  m.Text as message,
+null,
+null,
+null
+ from zbox.message m 
+ inner join zbox.users u on u.UserId = m.SenderId
+where m.RecepientId = @userid
+ and TypeOfMsg = 1*/ ) t
+ order by t.msgid desc";
     }
 }
