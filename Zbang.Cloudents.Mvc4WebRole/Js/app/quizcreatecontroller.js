@@ -411,7 +411,9 @@
                 return result;
             }
         }
-        $scope.submit = function (isValid) {
+        $scope.submit = function (event,isValid) {
+
+            event.preventDefault();
 
             if ($scope.isEmptyQuiz()) {
                 $scope.quiz.empty = true;

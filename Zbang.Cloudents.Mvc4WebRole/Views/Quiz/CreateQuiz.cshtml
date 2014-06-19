@@ -8,7 +8,7 @@
             @QuizResources.CreateQuiz
             <button type="button" ng-click="closeDialog()" class="closeDialog"></button>
         </header>        
-        <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
+        <form id="quizForm" name="quizForm" novalidate ng-submit="submit($event,quizForm.$valid)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
             <m-custom-scrollbar class="quizWpr" bottom="40">
                 <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
                 <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
@@ -19,7 +19,7 @@
                 <button type="button" class="quizAddQuestion iconTxt" ng-click="addQuestion(true)">@QuizResources.AddQuestion</button>
             </m-custom-scrollbar>
             <div class="quizBottom">
-                <button type="submit" class="saveQuiz btn1 lFloat">@QuizResources.Publish</button>
+                <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>
                 <span class="error">@QuizResources.CheckQuiz</span>
                 <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
             </div>
@@ -69,7 +69,9 @@
 
     <script type="text/ng-template" id="quizQuestionTemplate">
         <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
-        <textarea name="question" quiz-focus data-focus="{{question.focus}}" required class="inputText questionText" msd-elastic placeholder="@SharedResources.Question #{{$index + 1}}" ng-placeholder="@SharedResources.Question #{{$index + 1}}" ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="!questionForm.$pristine || params.isDraft"></textarea>
+        <textarea name="question" quiz-focus data-focus="{{question.focus}}" required class="inputText questionText" msd-elastic 
+                  placeholder="@SharedResources.Question #{{$index + 1}}" ng-placeholder="@SharedResources.Question #{{$index + 1}}" 
+                  ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="($index === 0) || (!questionForm.$pristine || params.isDraft)"></textarea>
         <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
         <div class="lFloat answers">@SharedResources.Answers:</div>
         <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
@@ -79,7 +81,8 @@
             </li>
 
             <li class="quizAnswer disabled">
-                <textarea class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer" placeholder="@QuizResources.AddAnswer" readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
+                <textarea class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer" placeholder="@QuizResources.AddAnswer" 
+                          readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
                 <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
                 <label></label>
             </li>
