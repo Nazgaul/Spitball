@@ -62,7 +62,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         protected override void HandleUnknownAction(string actionName)
         {
             var parameters = Request.Params.ToString().Replace("&", "\n");
-            var info = string.Format("HandleUnknownAction {0} url {1} user {2} params {3} ", actionName, Request.RawUrl, User.Identity.Name, parameters);
+            var info = string.Format("HandleUnknownAction {0} url {1} user {2} isAjax {4} params {3} "
+                , actionName, Request.RawUrl, User.Identity.Name, parameters, Request.IsAjaxRequest());
             TraceLog.WriteError(info);
             if (Request.IsAjaxRequest())
             {
@@ -82,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     continue;
                 }
                 if (Request.Cookies[cookieName] == null) continue;
-                var c = new HttpCookie(cookieName) {Expires = DateTime.Now.AddDays(-1)};
+                var c = new HttpCookie(cookieName) { Expires = DateTime.Now.AddDays(-1) };
                 Response.Cookies.Add(c);
             }
 
@@ -113,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return userId;
         }
-       
+
         #region Language
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {

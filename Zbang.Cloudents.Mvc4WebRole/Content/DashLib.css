@@ -708,3 +708,12 @@
   margin: 0;
 }
 
+<<<<<<< HEAD
+=======
+@media (max-width: 1024px) {
+  body {
+    position: relative;
+    display: table;
+  }
+}
+>>>>>>> be2d397225bc1ad15b647a4fb71c01d662d66f18

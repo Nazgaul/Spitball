@@ -65,7 +65,11 @@ body {
   right: 15px;
   /*rtl*/
   top: 15px;
+<<<<<<< HEAD
   background: url(/Images/hp17-sprite.png?v=1) -949px -244px no-repeat;
+=======
+  background: url(/Images/hp18-sprite.png?v=1) -949px -244px no-repeat;
+>>>>>>> cc702e6209204e7e54cac0d6b3bbdf878582b600
   width: 11px;
   height: 12px;
 }
@@ -172,7 +176,11 @@ body {
   display: inline-block;
   width: 289px;
   height: 240px;
+<<<<<<< HEAD
   background: url(/Images/hp17-sprite.png?v=1) -172px -1px no-repeat;
+=======
+  background: url(/Images/hp18-sprite.png?v=1) -172px -1px no-repeat;
+>>>>>>> cc702e6209204e7e54cac0d6b3bbdf878582b600
   float: right;
   /*rtl*/
   margin-top: 35px;
@@ -180,7 +188,11 @@ body {
 .logo {
   width: 190px;
   height: 52px;
+<<<<<<< HEAD
   background: url(/Images/hp17-sprite.png?v=1) -881px -271px no-repeat;
+=======
+  background: url(/Images/hp18-sprite.png?v=1) -881px -271px no-repeat;
+>>>>>>> cc702e6209204e7e54cac0d6b3bbdf878582b600
   /*rtl*/
   margin-top: 20px;
 }
@@ -345,7 +357,6 @@ aside .last {
   background: #000;
 }
 .language {
-  margin-top: 324px;
   background: #39434a;
   color: #FFF;
   height: 44px;
@@ -353,6 +364,10 @@ aside .last {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 681px;
 }
 .language a {
   font-size: 12px;
@@ -497,7 +512,11 @@ section.unions .btn:hover {
 .union:before {
   content: '';
   display: inline-block;
+<<<<<<< HEAD
   background: url(/Images/hp17-sprite.png?v=1) no-repeat;
+=======
+  background: url(/Images/hp18-sprite.png?v=1) no-repeat;
+>>>>>>> cc702e6209204e7e54cac0d6b3bbdf878582b600
   vertical-align: middle;
 }
 .uName,
