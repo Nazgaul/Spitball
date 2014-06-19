@@ -493,10 +493,10 @@
     }
 
 
-    pubsub.subscribe('hidePage', function () {
+    pubsub.subscribe('hidePage', function () {        
         var currentElem = $('#' + getParameterFromUrl(0)),
          elem = $('.page:visible').not(currentElem);
-        if (elem.length) {
+        if (elem.length || historyNav[historyNav.length-2].url.indexOf('dashboard') > -1) {
             elem.fadeOut(200, function () {
                 if (!$('.page:visible').length) { // if the page didnt load we need to put the loading icon
                     $('#mLoading').show();

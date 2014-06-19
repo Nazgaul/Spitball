@@ -1,4 +1,54 @@
-﻿(function ($, dataContext, ko, cd, zboxResources, analytics) {
+﻿function Box(data) { //temp fix
+    "use strict";
+
+    var self = this;
+    self.uid = data.id;
+    self.boxPicture = data.boxPicture || '/images/emptyState/my_default3.png';
+    self.name = data.name;
+    self.itemCount = data.itemCount;
+    self.membersCount = data.membersCount;
+    self.commentCount = data.commentCount;
+    self.boxUrl = data.url;// + '?r=dashboard';
+    self.userType = ko.observable(data.userType);
+    self.courseCode = data.courseCode;
+    self.professor = data.professor;
+    self.boxType = data.boxType;
+    self.numOfUpdates = ko.observable(0);
+    self.removeBoxTitle = isDeleteOrUnfollow(self);
+    function isDeleteOrUnfollow(box) {
+        // <summary></summary>
+        // <param name="box" type="Box"></param>
+        var retVal = false;
+        if (box.userType() === 'none') {
+            return;
+        }
+        if (box.userType() === 'owner') {
+            retVal = true;
+        }
+        if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
+            retVal = true;
+        }
+        return retVal ? JsResources.Delete : JsResources.LeaveGroup;
+    }
+    self.removeBoxConfirm = confirmDeleteOrUnfollow(self);
+    function confirmDeleteOrUnfollow(box) {
+        // <summary></summary>
+        // <param name="box" type="Box"></param>
+
+        if (box.userType() === 'none') {
+            return;
+        }
+        if (box.userType() === 'owner') {
+            return JsResources.SureYouWantTo + ' ' + JsResources.ToDeleteBox;
+        }
+        if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
+            return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
+        }
+        return JsResources.SureYouWantTo + ' ' + JsResources.ToLeaveGroup;
+    }
+}
+
+(function ($, dataContext, ko, cd, zboxResources, analytics) {
     "use strict";
 
     if (window.scriptLoaded.isLoaded('bvm')) {

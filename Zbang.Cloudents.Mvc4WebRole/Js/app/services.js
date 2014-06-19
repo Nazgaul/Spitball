@@ -67,8 +67,40 @@ angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFa
                 });
 
                 return dfd.promise;
+            },
+            items: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Box/Items', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
+            info: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Box/Data', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
+            QnA: {
+                list: function (data) {
+                    var dfd = $q.defer();
+                    $http.post('/QnA/', data).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
+
+                    return dfd.promise;
+                }
             }
-        }
+        };
     }]).
     factory('QuizService', ['$http', '$q', function ($http, $q) {
         return {
@@ -114,7 +146,7 @@ angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFa
             },
             getDraft: function (data) {
                 var dfd = $q.defer();
-                $http.get('/Quiz/GetDraft', { params: data }).success(function (response) {
+                $http.get('/Quiz/GetDraft', data).success(function (response) {
                     dfd.resolve(response);
                 }).error(function (response) {
                     dfd.reject(response);
@@ -241,13 +273,13 @@ angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFa
             },
             isNew: function (boxId, type, id) {
                 id = parseInt(id, 10);
-  
+
                 if (updates[boxId] && updates[boxId][type]) {
                     return updates[boxId][type].indexOf(id) > -1 ? true : false;
                 }
 
                 return false;
-                
+
             },
             removeUpdates: function (boxId) {
                 boxId = parseInt(boxId, 10);
@@ -299,13 +331,5 @@ angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFa
                 }
             }
 
-        };        
+        };
     }]);
-
-//cloudentsServices.factory('PartialView', ['$http', function ($http) {
-//    return {
-//        fetch: function (payload) {
-//            submitRequest($http, '/Home/Partial', methods.GET, payload.data, payload.success, payload.error);
-//        }
-//    };
-//}]);
