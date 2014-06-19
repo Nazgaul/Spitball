@@ -48,6 +48,7 @@
 
         $scope.openCreateBox = function () {
             var modalInstance = $modal.open({
+                windowClass: "privateBox confirm",
                 templateUrl: $scope.partials.createBox,
                 controller: 'CreateBoxCtrl',
             });
@@ -63,6 +64,7 @@
         $scope.openShowFriends = function () {
             User.friends().then(function (data) {
                 var modalInstance = $modal.open({
+                    windowClass: "boxSettings",
                     templateUrl: $scope.partials.friends,
                     controller: 'ShowFriendsCtrl',
                     resolve: {

@@ -18,6 +18,11 @@
   /*rtl*/
 }
 
+.modal .closeDialog {
+  left: 0;
+  /*rtl*/
+  right: auto;
+}
 .ng-modal,
 .ng-modal-overlay {
   right: 0;

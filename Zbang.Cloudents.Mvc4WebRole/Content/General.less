@@ -814,8 +814,6 @@ ul.ui-autocomplete {
 
 /*#region popup */
 .modal2 /*, div.fadeMeTrans*/ {
-    filter: alpha(opacity=50);
-    background: #111;
     background: rgba(17,17,17,.5);
     width: 100%;
     height: 100%;
@@ -854,7 +852,12 @@ ul.ui-autocomplete {
     .boxSizing;
     color: @textColor;
     .animation(fadein);
-
+}
+.popupWrppr, .modal {
+    width: 558px;
+    padding: 0 20px 15px;
+    //.boxSizing;
+    color: @textColor;
     .cancel {
         margin-left: 10px; /*rtl*/
     }
@@ -890,7 +893,7 @@ ul.ui-autocomplete {
         padding: 0; //override other properties
         text-align: right;
 
-        .popupHeader {
+        .popupHeader, .modal-title {
             .boxSizing;
             margin: 0 0 15px; //override other properties
         }
@@ -1108,7 +1111,7 @@ ul.ui-autocomplete {
     }
 }
 
-.popupHeader, .ng-modal-dialog .popupHeader {
+.popupHeader, .modal-title {
     color: #fff;
     font-size: 18px;
     background: #39434a;
@@ -1117,6 +1120,7 @@ ul.ui-autocomplete {
     margin: 0 -20px 15px;
     padding: 0 20px;
     width: 100%;
+    font-weight: normal;
 }
 
 /*#endregion */

@@ -752,8 +752,6 @@ ul.ui-autocomplete li a {
 
 
 .modal2 {
-  filter: alpha(opacity=50);
-  background: #111;
   background: rgba(17, 17, 17, 0.5);
   width: 100%;
   height: 100%;
@@ -796,18 +794,28 @@ ul.ui-autocomplete li a {
   -moz-animation: fadein 0.5s 0 ease;
   -o-animation: fadein 0.5s 0 ease;
   animation: fadein 0.5s 0 ease;
+}
+.popupWrppr,
+.modal {
+  width: 558px;
+  padding: 0 20px 15px;
+  color: #383838;
   
   
 }
-.popupWrppr .cancel {
+.popupWrppr .cancel,
+.modal .cancel {
   margin-left: 10px;
   /*rtl*/
 }
 .popupWrppr .btn1,
-.popupWrppr .btn2 {
+.modal .btn1,
+.popupWrppr .btn2,
+.modal .btn2 {
   margin-top: 18px;
 }
-.popupWrppr .inputText {
+.popupWrppr .inputText,
+.modal .inputText {
   height: 28px;
   padding: 0 4px 0 8px;
   /*rtl*/
@@ -816,7 +824,8 @@ ul.ui-autocomplete li a {
   box-sizing: border-box;
   width: 100%;
 }
-.popupWrppr .inviteMsg {
+.popupWrppr .inviteMsg,
+.modal .inviteMsg {
   width: 100%;
   max-height: 176px;
   min-height: 117px;
@@ -831,103 +840,130 @@ ul.ui-autocomplete li a {
   color: #383838;
   border-radius: 3px;
 }
-.popupWrppr .inviteMsg::-webkit-input-placeholder {
+.popupWrppr .inviteMsg::-webkit-input-placeholder,
+.modal .inviteMsg::-webkit-input-placeholder {
   color: #676767;
 }
-.popupWrppr .inviteMsg:-moz-placeholder {
-  color: #676767;
-  opacity: 1;
-}
-.popupWrppr .inviteMsg::-moz-placeholder {
+.popupWrppr .inviteMsg:-moz-placeholder,
+.modal .inviteMsg:-moz-placeholder {
   color: #676767;
   opacity: 1;
 }
-.popupWrppr .inviteMsg:-ms-input-placeholder {
+.popupWrppr .inviteMsg::-moz-placeholder,
+.modal .inviteMsg::-moz-placeholder {
+  color: #676767;
+  opacity: 1;
+}
+.popupWrppr .inviteMsg:-ms-input-placeholder,
+.modal .inviteMsg:-ms-input-placeholder {
   color: #676767;
 }
-.popupWrppr.enterCode {
+.popupWrppr.enterCode,
+.modal.enterCode {
   font-size: 13px;
   background: #faf9fa;
   direction: rtl;
   padding: 0;
   text-align: right;
 }
-.popupWrppr.enterCode .popupHeader {
+.popupWrppr.enterCode .popupHeader,
+.modal.enterCode .popupHeader,
+.popupWrppr.enterCode .modal-title,
+.modal.enterCode .modal-title {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0 0 15px;
 }
-.popupWrppr.enterCode .closeDialog {
+.popupWrppr.enterCode .closeDialog,
+.modal.enterCode .closeDialog {
   left: 20px;
   right: auto;
 }
-.popupWrppr.enterCode .lFloat {
+.popupWrppr.enterCode .lFloat,
+.modal.enterCode .lFloat {
   float: left;
 }
-.popupWrppr.enterCode .inputText {
+.popupWrppr.enterCode .inputText,
+.modal.enterCode .inputText {
   width: 268px;
 }
-.popupWrppr.enterCode label {
+.popupWrppr.enterCode label,
+.modal.enterCode label {
   display: block;
   margin: 17px 0 0 0;
 }
 .popupWrppr.enterCode form,
-.popupWrppr.enterCode .noCode {
+.modal.enterCode form,
+.popupWrppr.enterCode .noCode,
+.modal.enterCode .noCode {
   padding: 0 9px 25px 19px;
   border-bottom: 1px solid #c7c7c7;
 }
-.popupWrppr.enterCode .noCode {
+.popupWrppr.enterCode .noCode,
+.modal.enterCode .noCode {
   clear: both;
   padding: 0 9px 25px 0;
   background: #e8e8e8;
 }
-.popupWrppr.enterCode .noCode .boldFont {
+.popupWrppr.enterCode .noCode .boldFont,
+.modal.enterCode .noCode .boldFont {
   font-size: 20px;
   padding: 15px 0;
 }
-.popupWrppr.enterCode .noCode span.boldFont {
+.popupWrppr.enterCode .noCode span.boldFont,
+.modal.enterCode .noCode span.boldFont {
   font-size: 16px;
   padding: 0;
 }
-.popupWrppr.enterCode .btn1 {
+.popupWrppr.enterCode .btn1,
+.modal.enterCode .btn1 {
   width: 110px;
   margin: 0 8px 0 0;
   /*rtl*/
 }
-.popupWrppr.enterCode .mailTo {
+.popupWrppr.enterCode .mailTo,
+.modal.enterCode .mailTo {
   color: #0f9d58;
   text-decoration: underline;
 }
-.popupWrppr.addSchool {
+.popupWrppr.addSchool,
+.modal.addSchool {
   text-align: left;
   /*rtl*/
 }
-.popupWrppr.addSchool label {
+.popupWrppr.addSchool label,
+.modal.addSchool label {
   color: #383838;
   margin-bottom: 4px;
   font-size: 15px;
   display: inline-block;
 }
-.popupWrppr.addSchool .inputText {
+.popupWrppr.addSchool .inputText,
+.modal.addSchool .inputText {
   display: block;
 }
-.popupWrppr.addSchool .inputText.schoolName {
+.popupWrppr.addSchool .inputText.schoolName,
+.modal.addSchool .inputText.schoolName {
   margin-bottom: 10px;
 }
-.popupWrppr.addSchool .country {
+.popupWrppr.addSchool .country,
+.modal.addSchool .country {
   width: 261px;
   margin-right: 13px;
   /*rtl*/
 }
-.popupWrppr.addSchool .schoolType {
+.popupWrppr.addSchool .schoolType,
+.modal.addSchool .schoolType {
   width: 230px;
 }
-.popupWrppr.addSchool select {
+.popupWrppr.addSchool select,
+.modal.addSchool select {
   padding: 3px;
   font-size: 13px;
 }
-.popupWrppr.requestSent {
+.popupWrppr.requestSent,
+.modal.requestSent {
   display: none;
   min-height: 0;
   -webkit-animation: fadein 0.5s 0 ease;
@@ -935,52 +971,65 @@ ul.ui-autocomplete li a {
   -o-animation: fadein 0.5s 0 ease;
   animation: fadein 0.5s 0 ease;
 }
-.popupWrppr.requestSent .closeDialog {
+.popupWrppr.requestSent .closeDialog,
+.modal.requestSent .closeDialog {
   background-position: -68px -14px;
 }
-.popupWrppr.departmentChoose {
+.popupWrppr.departmentChoose,
+.modal.departmentChoose {
   width: 700px;
   font-size: 15px;
 }
-.popupWrppr.departmentChoose .error {
+.popupWrppr.departmentChoose .error,
+.modal.departmentChoose .error {
   display: none;
   color: #d1294d;
 }
-.popupWrppr.departmentChoose .step1Wpr h3 {
+.popupWrppr.departmentChoose .step1Wpr h3,
+.modal.departmentChoose .step1Wpr h3 {
   font-weight: normal;
   font-size: 18px;
 }
-.popupWrppr.departmentChoose .step1Wpr .inputText {
+.popupWrppr.departmentChoose .step1Wpr .inputText,
+.modal.departmentChoose .step1Wpr .inputText {
   margin: 4px 0 0 8px;
   display: inline-block;
   width: 250px;
 }
-.popupWrppr.departmentChoose .step1Wpr .ruTxt {
+.popupWrppr.departmentChoose .step1Wpr .ruTxt,
+.modal.departmentChoose .step1Wpr .ruTxt {
   margin: 10px 0;
   line-height: 24px;
 }
-.popupWrppr.departmentChoose .step1Wpr .ruMail {
+.popupWrppr.departmentChoose .step1Wpr .ruMail,
+.modal.departmentChoose .step1Wpr .ruMail {
   color: #676767;
 }
-.popupWrppr.departmentChoose .step2Wpr {
+.popupWrppr.departmentChoose .step2Wpr,
+.modal.departmentChoose .step2Wpr {
   display: none;
 }
-.popupWrppr.departmentChoose.step2 .step1Wpr {
+.popupWrppr.departmentChoose.step2 .step1Wpr,
+.modal.departmentChoose.step2 .step1Wpr {
   display: none;
 }
-.popupWrppr.departmentChoose.step2 .step2Wpr {
+.popupWrppr.departmentChoose.step2 .step2Wpr,
+.modal.departmentChoose.step2 .step2Wpr {
   display: block;
 }
-.popupWrppr.departmentChoose label {
+.popupWrppr.departmentChoose label,
+.modal.departmentChoose label {
   display: block;
   font-size: 15px;
   color: #383838;
   margin-bottom: 8px;
 }
-.popupWrppr.departmentChoose .chooseDptTxt {
+.popupWrppr.departmentChoose .chooseDptTxt,
+.modal.departmentChoose .chooseDptTxt {
   margin: 22px 0 12px;
 }
-.popupWrppr.departmentChoose select {
+.popupWrppr.departmentChoose select,
+.modal.departmentChoose select {
   display: block;
   font-size: 13px;
   color: #383838;
@@ -990,36 +1039,45 @@ ul.ui-autocomplete li a {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.popupWrppr.departmentChoose .statusLabel {
+.popupWrppr.departmentChoose .statusLabel,
+.modal.departmentChoose .statusLabel {
   display: inline-block;
 }
-.popupWrppr.departmentChoose .statusLabel.first {
+.popupWrppr.departmentChoose .statusLabel.first,
+.modal.departmentChoose .statusLabel.first {
   margin-right: 20px;
   /*rtl*/
 }
-.popupWrppr.departmentChoose .dptDetail {
+.popupWrppr.departmentChoose .dptDetail,
+.modal.departmentChoose .dptDetail {
   width: 310px;
   display: inline-block;
 }
-.popupWrppr.departmentChoose .dptDetail.first {
+.popupWrppr.departmentChoose .dptDetail.first,
+.modal.departmentChoose .dptDetail.first {
   margin: 20px 34px 0 0;
   /*rtl*/
 }
-.popupWrppr.departmentChoose .inputText {
+.popupWrppr.departmentChoose .inputText,
+.modal.departmentChoose .inputText {
   display: block;
 }
-.popupWrppr.departmentChoose #department {
+.popupWrppr.departmentChoose #department,
+.modal.departmentChoose #department {
   width: 100%;
   margin-bottom: 15px;
 }
-.popupWrppr.departmentChoose .btn1 {
+.popupWrppr.departmentChoose .btn1,
+.modal.departmentChoose .btn1 {
   font-size: 13px;
   display: block;
 }
-.popupWrppr.departmentChoose .modal2 {
+.popupWrppr.departmentChoose .modal2,
+.modal.departmentChoose .modal2 {
   z-index: 11;
 }
-.popupWrppr.departmentChoose.codeError .error {
+.popupWrppr.departmentChoose.codeError .error,
+.modal.departmentChoose.codeError .error {
   display: block;
 }
 .lecturerRadio:checked ~ label,
@@ -1042,7 +1100,7 @@ ul.ui-autocomplete li a {
   width: auto;
 }
 .popupHeader,
-.ng-modal-dialog .popupHeader {
+.modal-title {
   color: #fff;
   font-size: 18px;
   background: #39434a;
@@ -1051,6 +1109,7 @@ ul.ui-autocomplete li a {
   margin: 0 -20px 15px;
   padding: 0 20px;
   width: 100%;
+  font-weight: normal;
 }
 
 
