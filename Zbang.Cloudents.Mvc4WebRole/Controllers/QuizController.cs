@@ -275,6 +275,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
             }
+            if (model.QuestionId == Guid.Empty)
+            {
+                ModelState.AddModelError(string.Empty, @"No Question Given");
+                return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));
+            }
             var id = m_IdGenerator.Value.GetId();
             var command = new CreateAnswerCommand(GetUserId(), id, model.Text, model.QuestionId);
             m_ZboxWriteService.CreateAnswer(command);

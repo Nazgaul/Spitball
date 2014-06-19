@@ -405,7 +405,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("DeleteItem user: {0} itemId {1}", GetUserId(), itemId), ex);
+                TraceLog.WriteError(string.Format("RateItem user: {0} itemId {1}", GetUserId(), itemId), ex);
                 return Json(new JsonResponse(false));
             }
         }
