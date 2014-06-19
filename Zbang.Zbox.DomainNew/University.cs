@@ -53,6 +53,10 @@ namespace Zbang.Zbox.Domain
         public virtual string UniversityName { get; private set; }
         // ReSharper restore UnusedAutoPropertyAccessor.Local
 
+        public override string GetUniversityName()
+        {
+            return UniversityName;
+        }
         public virtual Library CreateNewLibraryRoot(Guid id, string nodeName)
         {
             if (Libraries.Any(f => f.Name == nodeName))

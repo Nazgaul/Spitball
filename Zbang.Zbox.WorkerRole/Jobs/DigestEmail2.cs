@@ -100,11 +100,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 if (string.IsNullOrEmpty(s.UniversityName))
                 {
-                    s.Url = string.Format(UrlConsts.BoxUrl, s.BoxId, UrlConsts.NameToQueryString(s.BoxName));
+                    s.Url = UrlConsts.BuildBoxUrl(s.BoxId, s.BoxName,  string.Empty, true);
                 }
                 else
                 {
-                    s.Url = string.Format(UrlConsts.CourseUrl, s.BoxId, UrlConsts.NameToQueryString(s.BoxName), UrlConsts.NameToQueryString(s.UniversityName));
+                    s.Url = UrlConsts.BuildBoxUrl(s.BoxId, s.BoxName, s.UniversityName, true);
                 }
 
                 return s;

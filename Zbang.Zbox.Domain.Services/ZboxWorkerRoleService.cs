@@ -20,16 +20,17 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public bool Dbi(int paging)
+        public void Dbi()
         {
             using (UnitOfWork.Start())
             {
-
+                UnitOfWork.CurrentSession.SetBatchSize(100);
                 var boxRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBoxRepository>();
                 var blobProvider = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBlobProvider>();
                 //members count
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
+
                     //box members
                     var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
                                          .Where(w => w.IsDeleted == false)
@@ -39,7 +40,8 @@ namespace Zbang.Zbox.Domain.Services
 
                         box.CalculateMembers();
                         box.UpdateItemCount();
-                        box.UpdateQnACount(boxRepository.QnACount(box.Id));
+                        //box.UpdateQnACount(boxRepository.QnACount(box.Id));
+                        box.GenerateUrl();
                         //box.UpdateBoxPicutureUrl()
                         var picture = box.Picture;
                         if (picture == null)
@@ -53,62 +55,63 @@ namespace Zbang.Zbox.Domain.Services
                         }
                         UnitOfWork.CurrentSession.Save(box);
                     }
+
                     tx.Commit();
                 }
 
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var files =
-                        UnitOfWork.CurrentSession.QueryOver<File>()
-                            .Where(w => w.IsDeleted == false)
-                            .List();
-                    foreach (var file in files)
-                    {
-                        var url = blobProvider.GetThumbnailUrl(file.ThumbnailBlobName);
-                        file.UpdateThumbnail(file.ThumbnailBlobName, url);
-                    }
-                    tx.Commit();
-                }
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var links =
-                        UnitOfWork.CurrentSession.QueryOver<Link>()
-                            .Where(w => w.IsDeleted == false)
-                            .List();
-                    foreach (var link in links)
-                    {
-                        var url = blobProvider.GetThumbnailLinkUrl();
-                        link.UpdateThumbnail(link.ThumbnailBlobName, url);
-                    }
-                    tx.Commit();
-                }
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var users = UnitOfWork.CurrentSession.QueryOver<University>().Where(w => w.Url == null).List();
-                    foreach (var user in users)
-                    {
-                        user.GenerateUrl();
+                //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                //{
+                //    var files =
+                //        UnitOfWork.CurrentSession.QueryOver<File>()
+                //            .Where(w => w.IsDeleted == false)
+                //            .List();
+                //    foreach (var file in files)
+                //    {
+                //        var url = blobProvider.GetThumbnailUrl(file.ThumbnailBlobName);
+                //        file.UpdateThumbnail(file.ThumbnailBlobName, url);
+                //    }
+                //    tx.Commit();
+                //}
+                //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                //{
+                //    var links =
+                //        UnitOfWork.CurrentSession.QueryOver<Link>()
+                //            .Where(w => w.IsDeleted == false)
+                //            .List();
+                //    foreach (var link in links)
+                //    {
+                //        var url = blobProvider.GetThumbnailLinkUrl();
+                //        link.UpdateThumbnail(link.ThumbnailBlobName, url);
+                //    }
+                //    tx.Commit();
+                //}
+                //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                //{
+                //    var users = UnitOfWork.CurrentSession.QueryOver<University>().Where(w => w.Url == null).List();
+                //    foreach (var user in users)
+                //    {
+                //        user.GenerateUrl();
 
-                    }
-                    tx.Commit();
+                //    }
+                //    tx.Commit();
 
-                }
-                var retVal = false;
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.Url == null).Take(paging).List();
-                    foreach (var user in users)
-                    {
-                        retVal = true;
-                        user.GenerateUrl();
-                        UnitOfWork.CurrentSession.Save(user);
-                    }
+                //}
+                //var retVal = false;
+                //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                //{
+                //    var users = UnitOfWork.CurrentSession.QueryOver<User>()
+                //        .Where(w => w.Url == null).Take(paging).List();
+                //    foreach (var user in users)
+                //    {
+                //        retVal = true;
+                //        user.GenerateUrl();
+                //        UnitOfWork.CurrentSession.Save(user);
+                //    }
 
-                    tx.Commit();
+                //    tx.Commit();
 
-                }
-                return retVal;
+                //}
+                //return retVal;
 
             }
         }

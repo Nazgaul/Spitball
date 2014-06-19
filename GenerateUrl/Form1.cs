@@ -60,21 +60,22 @@ namespace GenerateUrl
 
                 if (result.boxType == 2)
                 {
-                    textBoxResult.Text = string.Format(UrlConsts.CourseUrl,
+                    textBoxResult.Text = UrlConsts.BuildBoxUrl(
                          result.boxid,
                          UrlConsts.NameToQueryString(result.boxname),
-                         UrlConsts.NameToQueryString(result.universityname));
+                         UrlConsts.NameToQueryString(result.universityname), true);
                 }
                 else
                 {
-                    textBoxResult.Text = string.Format(UrlConsts.BoxUrl, result.boxid,
-                        UrlConsts.NameToQueryString(result.boxname));
+                    textBoxResult.Text = UrlConsts.BuildBoxUrl(
+                        result.boxid,
+                        UrlConsts.NameToQueryString(result.boxname), string.Empty, true);
                 }
 
             }
 
 
         }
-       
+
     }
 }

@@ -160,9 +160,6 @@
     <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="newrelic.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

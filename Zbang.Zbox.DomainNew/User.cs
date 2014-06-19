@@ -127,6 +127,11 @@ namespace Zbang.Zbox.Domain
         public virtual bool MarketEmail { get; set; }
 
 
+        public virtual string GetUniversityName()
+        {
+            return null;
+        }
+
         public void RemoveInviteState(Box box)
         {
             var invites = Invites.Where(w => Equals(w.Box, box)).ToList();
