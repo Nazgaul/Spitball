@@ -77,7 +77,7 @@ namespace Zbang.Zbox.Domain
         //    var university = obj as University;
         //    if (university == null) return false;
 
-        //    if (Name != university.Name) return false;
+        //    if (UniversityName != university.UniversityName) return false;
         //    return true;
         //}
         //public override int GetHashCode()
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain
         //    unchecked
         //    {
         //        int result;
-        //        result = 11 * Name.GetHashCode();
+        //        result = 11 * UniversityName.GetHashCode();
 
         //        return result;
         //    }

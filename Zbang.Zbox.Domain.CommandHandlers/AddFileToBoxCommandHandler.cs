@@ -82,6 +82,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_BlobProvider.GetThumbnailUrl(thumbnailImgLink));
 
             m_ItemRepository.Save(item, true);
+            item.GenerateUrl();
+            m_ItemRepository.Save(item);
+
             box.UserTime.UpdateUserTime(user.Name);
 
             m_BoxRepository.Save(box, true);

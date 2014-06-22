@@ -1,8 +1,7 @@
-﻿using NHibernate;
+﻿using Dapper;
+using NHibernate;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
-using Zbang.Zbox.Infrastructure.Storage;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -20,68 +19,79 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void Dbi()
+        public bool Dbi()
         {
+            var retVal = false;
             using (UnitOfWork.Start())
             {
-                UnitOfWork.CurrentSession.SetBatchSize(100);
-                var boxRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBoxRepository>();
-                var blobProvider = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBlobProvider>();
+                // var boxRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBoxRepository>();
+                //var blobProvider = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBlobProvider>();
                 //members count
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
 
                     //box members
                     var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
-                                         .Where(w => w.IsDeleted == false)
+                                         .Where(w => w.IsDeleted == false && w.Url == null).Take(100)
                                          .List();
                     foreach (var box in boxes)
                     {
-
-                        box.CalculateMembers();
-                        box.UpdateItemCount();
+                        retVal = true;
+                        //box.CalculateMembers();
+                        //box.UpdateItemCount();
                         //box.UpdateQnACount(boxRepository.QnACount(box.Id));
                         box.GenerateUrl();
                         //box.UpdateBoxPicutureUrl()
-                        var picture = box.Picture;
-                        if (picture == null)
-                        {
-                            box.RemovePicture();
+                        //var picture = box.Picture;
+                        //if (picture == null)
+                        //{
+                        //    box.RemovePicture();
 
-                        }
-                        else
-                        {
-                            box.AddPicture(picture, blobProvider.GetThumbnailUrl(picture));
-                        }
+                        //}
+                        //else
+                        //{
+                        //    box.AddPicture(picture, blobProvider.GetThumbnailUrl(picture));
+                        //}
                         UnitOfWork.CurrentSession.Save(box);
                     }
 
                     tx.Commit();
                 }
+                var files =
+                          UnitOfWork.CurrentSession.QueryOver<Item>()
+                              .Where(w => w.IsDeleted == false && w.Url == null)
+                              .Take(100).List();
 
-                //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                //{
-                //    var files =
-                //        UnitOfWork.CurrentSession.QueryOver<File>()
-                //            .Where(w => w.IsDeleted == false)
-                //            .List();
-                //    foreach (var file in files)
-                //    {
-                //        var url = blobProvider.GetThumbnailUrl(file.ThumbnailBlobName);
-                //        file.UpdateThumbnail(file.ThumbnailBlobName, url);
-                //    }
-                //    tx.Commit();
-                //}
+
+                foreach (var file in files)
+                {
+                    file.GenerateUrl();
+                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Item set Url = @Url where itemId = @Id"
+                        , new { Url = file.Url, Id = file.Id });
+                    //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                    //{
+
+                    retVal = true;
+
+                    ////UnitOfWork.CurrentSession.CreateSQLQuery("update zbox.Item set Url = :Url where itemId = :Id")
+                    ////    .SetString("Url",file.Url).SetInt64("Id", file.Id)
+                    ////    .ExecuteUpdate();
+                    //UnitOfWork.CurrentSession.Save(file);
+                    //tx.Commit();
+                }
+
+
                 //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 //{
                 //    var links =
                 //        UnitOfWork.CurrentSession.QueryOver<Link>()
-                //            .Where(w => w.IsDeleted == false)
-                //            .List();
+                //            .Where(w => w.IsDeleted == false && w.Url == null)
+                //            .Take(100).List();
                 //    foreach (var link in links)
                 //    {
-                //        var url = blobProvider.GetThumbnailLinkUrl();
-                //        link.UpdateThumbnail(link.ThumbnailBlobName, url);
+                //        retVal = true;
+                //        link.GenerateUrl();
+                //        UnitOfWork.CurrentSession.Save(link);
                 //    }
                 //    tx.Commit();
                 //}
@@ -112,7 +122,7 @@ namespace Zbang.Zbox.Domain.Services
 
                 //}
                 //return retVal;
-
+                return retVal;
             }
         }
 

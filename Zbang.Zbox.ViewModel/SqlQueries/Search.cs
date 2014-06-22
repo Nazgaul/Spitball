@@ -48,16 +48,15 @@ fetch next @pageSize rows only;";
 i.thumbnailurl as image,
 i.Name as name,
 i.ItemId as id,
-i.Discriminator as type,
 i.Content as content,
 i.Rate as rate,
 i.NumberOfViews as views,
 b.BoxName as boxname,
-b.BoxId as boxid ,u2.UniversityName as universityname,
-'' as uniName
+b.BoxId as boxid ,
+'' as uniName,
+i.url as Url
 from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
-join zbox.users u2 on u2.UserId = b.OwnerId
 where i.IsDeleted = 0
 and b.OwnerId = @universityId
 and b.Discriminator = 2
@@ -70,13 +69,13 @@ fetch next @pageSize rows only;";
 select i.thumbnailurl as image,
 i.Name as name,
 i.ItemId as id,
-i.Discriminator as type,
 i.Content as content,
 i.Rate as rate,
 i.NumberOfViews as views,
 b.BoxName as boxname,
-b.BoxId as boxid ,u2.UniversityName as universityname,
-universityname as uniName
+b.BoxId as boxid ,
+universityname as uniName,
+i.url as Url
 from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 join zbox.users u2 on u2.UserId = b.OwnerId

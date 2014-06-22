@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command);
 
-        void Dbi();
+        bool Dbi();
         void Statistics(UpdateStatisticsCommand command);
 
         #region annotation

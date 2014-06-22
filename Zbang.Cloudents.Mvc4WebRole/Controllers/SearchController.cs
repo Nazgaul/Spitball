@@ -90,33 +90,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), allResult, page);
                 var result = await m_ZboxReadService.Search(query);
-                var urlBuilder = new UrlBuilder(HttpContext);
-                AssignUrls(result, urlBuilder);
-
                 return result;
             }
             return null;
         }
-        [NonAction]
-        private void AssignUrls(Zbox.ViewModel.DTOs.Search.SearchDto result, UrlBuilder urlBuilder)
-        {
-            if (result.Items != null)
-            {
-                result.Items = result.Items.Select(s =>
-                {
-                    s.Url = urlBuilder.BuildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
-                    return s;
-                });
-            }
-            if (result.OtherItems != null)
-            {
-                result.OtherItems = result.OtherItems.Select(s =>
-                {
-                    s.Url = urlBuilder.BuildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
-                    return s;
-                });
-            }
-        }
+       
 
 
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
@@ -133,14 +111,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), true, page);
                     var result = await m_ZboxReadService.OtherUniversities(query);
-                    var urlBuilder = new UrlBuilder(HttpContext);
-
-
-                    result = result.Select(s =>
-                    {
-                        s.Url = urlBuilder.BuildItemUrl(s.Boxid, s.Boxname, s.Id, s.Name, s.Universityname);
-                        return s;
-                    });
                     return this.CdJson(new JsonResponse(true, result));
                 }
                 return this.CdJson(new JsonResponse(false, "need univeristy"));

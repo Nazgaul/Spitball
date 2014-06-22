@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return View("Index2", model);
+                return PartialView("Index2", model);
             }
             return View("Index2", model);
         }

@@ -65,6 +65,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddItem));
             m_ItemRepository.Save(link, true);
+            link.GenerateUrl();
+            m_ItemRepository.Save(link);
+
             box.UserTime.UpdateUserTime(user.Name);
             m_BoxRepository.Save(box, true);
 

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Zbang.Zbox.Infrastructure.Consts;
 namespace Zbang.Zbox.Domain
 {
     public abstract class Item
@@ -38,6 +39,8 @@ namespace Zbang.Zbox.Domain
         public virtual Box Box { get; set; }
         public virtual int NumberOfViews { get; private set; }
 
+        public virtual string Url { get; set; }
+
         public virtual Comment Question { get; set; }
         public virtual CommentReplies Answer { get; set; }
         public virtual string ItemContentUrl { get; set; }
@@ -49,6 +52,16 @@ namespace Zbang.Zbox.Domain
         {
             ThumbnailBlobName = blobName;
             ThumbnailUrl = url;
+        }
+
+        public virtual void GenerateUrl()
+        {
+            if (Id == 0)
+            {
+                return;
+            }
+            var universityName = Box.Owner.GetUniversityName() ?? "my";
+            Url = UrlConsts.BuildItemUrl(Box.Id, Box.Name, Id, Name, universityName);
         }
 
         public virtual float Rate { get; internal set; }
@@ -106,6 +119,7 @@ namespace Zbang.Zbox.Domain
         public override string ChangeName(string newName)
         {
             Name = newName;
+            GenerateUrl();
             return Name;
         }
     }
@@ -143,14 +157,10 @@ namespace Zbang.Zbox.Domain
                 return Name;
             }
 
-            //if (!Validation.IsValidFileName(command.NewFileName))
-            //{
-            //    throw new ArgumentException("file name is not a valid file name", "NewFileName");
-            //}
-
             var newUniquefileName = Box.GetUniqueFileName(fileNameWithoutExtension + fileNameExtension);// command.NewFileName);
 
             Name = newUniquefileName;
+            GenerateUrl();
             return Name;
         }
     }

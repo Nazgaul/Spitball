@@ -279,11 +279,6 @@ namespace Zbang.Zbox.ReadServices
                 queryQuiz.SetInt64("BoxId", query.BoxId)
                     .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
 
-                //queryBoxItem.SetFirstResult(query.PageNumber * query.MaxResult);
-                //queryBoxItem.SetMaxResults(query.MaxResult);
-
-                //IQuery queryCountBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemCountByBoxId");
-                //queryCountBoxItem.SetInt64("BoxId", query.BoxId);
 
                 var fitems = queryBoxItem.Future<Item.ItemDto>();
                 var fQuiz = queryQuiz.Future<Item.QuizDto>();
@@ -291,10 +286,8 @@ namespace Zbang.Zbox.ReadServices
                 IEnumerable<Item.IItemDto> items = fitems.ToList();
                 var quizes = fQuiz.ToList();
                 var retVal = items.Union(quizes);
-                //var fcount = queryCountBoxItem.FutureValue<long>();
 
                 CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                //var result = new PagedDto<Item.IItemDto> { Dto = retVal, Count = 0 /*fcount.Value*/ };
                 return retVal;
             }
 
@@ -798,7 +791,7 @@ namespace Zbang.Zbox.ReadServices
                 using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Seo.GetBoxes, Sql.Seo.GetItems, Sql.Seo.GetQuizes)))
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
-                    retVal.Items = grid.Read<Item.ItemSeoDto>();
+                    retVal.Items = grid.Read<Box.BoxSeoDto>();
                     retVal.Quizes = grid.Read<Item.ItemSeoDto>();
                 }
             }

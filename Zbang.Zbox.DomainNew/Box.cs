@@ -88,6 +88,8 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildBoxUrl(Id, Name, string.Empty);
         }
 
+       
+
         public File AddFile(string fileName, User user, long length,
             string blobAddressName, string thumbnailBlobAddressName, string thumbnailUrl)
         {

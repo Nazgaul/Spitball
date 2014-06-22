@@ -214,9 +214,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetUserWithFriendQuery(GetUserId(), userId);
             var model = await m_ZboxReadService.GetUserWithFriendActivity(query);
-            var urlBuilder = new UrlBuilder(HttpContext);
-            model.Items.ToList().ForEach(i => i.Url = urlBuilder.BuildItemUrl(i.BoxId, i.BoxName, i.Id, i.Name, i.UniversityName));
-
             return this.CdJson(new JsonResponse(true, model));
         }
 

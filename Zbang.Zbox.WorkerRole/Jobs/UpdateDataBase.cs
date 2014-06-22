@@ -22,8 +22,10 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 try
                 {
-                     m_ZboxService.Dbi();
+                    if (!m_ZboxService.Dbi())
+                    {
                         Thread.Sleep(TimeSpan.FromDays(1));
+                    }
                 }
                 catch (Exception ex)
                 {

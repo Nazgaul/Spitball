@@ -194,7 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     if (item is Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
                     {
-                        item.Url = urlBuilder.BuildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
+                        //item.Url = urlBuilder.BuildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
                         item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
                         continue;
                     }

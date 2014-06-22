@@ -117,9 +117,7 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
         /// Used in user page to get files common with current user
         /// </summary>
         public const string UserWithFriendFiles = @" select i.ItemId as id, i.ThumbnailUrl as image, i.Rate as rate,i.NumberOfViews as numOfViews,i.Name as name,b.boxid as boxid, b.boxname as boxname,
-  case b.Discriminator when 2 then (select universityname from zbox.Users u where b.OwnerId = u.UserId)
-								else null
-								end as universityname
+                        i.url as Url
                         from zbox.item i 
                         join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0
                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
