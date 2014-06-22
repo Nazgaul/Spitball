@@ -1139,7 +1139,8 @@
             }
         }
         .itemContent {
-            max-height: 58px; // max 3 lines instead of 4 - to compensate for the extra owner section
+            //max-height: 58px; // max 3 lines instead of 4 - to compensate for the extra owner section
+            max-height: 64px;
             margin: 5px 0;
         }
         .quizOwner{
@@ -1375,6 +1376,8 @@
         border-radius: 5px 5px 0 0;
         border-bottom: 1px solid @borderColor;
         font-size: 15px;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
     }
     .downArrow {
         

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
@@ -46,6 +48,15 @@ namespace Zbang.Zbox.Domain
         {
             CourseCode = courseCode;
             Professor = professorName;
+        }
+
+        public override void GenerateUrl()
+        {
+            if (Id == 0)
+            {
+                return;
+            }
+            Url = UrlConsts.BuildBoxUrl(Id, Name, Owner.GetUniversityName());
         }
     }
 }

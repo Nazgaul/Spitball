@@ -7,9 +7,9 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
     {
         public LinkDto(long id, string name, long ownerId, string userUrl,
             string thumbnail,
-             string tabId, int numOfViews, float rate, bool sponsored, string owner, string blobName, DateTime date)
+             string tabId, int numOfViews, float rate, bool sponsored, string owner, string blobName, DateTime date, string url)
             : base(id, name, ownerId,
-             tabId, numOfViews, rate, thumbnail, sponsored, owner, date, userUrl)
+             tabId, numOfViews, rate, thumbnail, sponsored, owner, date, userUrl,url)
         {
             LinkUrl = blobName;
         }

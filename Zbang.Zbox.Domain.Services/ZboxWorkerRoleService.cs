@@ -1,8 +1,7 @@
-﻿using NHibernate;
+﻿using Dapper;
+using NHibernate;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
-using Zbang.Zbox.Infrastructure.Storage;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -20,96 +19,58 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public bool Dbi(int paging)
+        public bool Dbi()
         {
+            var retVal = false;
             using (UnitOfWork.Start())
             {
-
-                var boxRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBoxRepository>();
-                var blobProvider = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBlobProvider>();
+                // var boxRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBoxRepository>();
+                //var blobProvider = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBlobProvider>();
                 //members count
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
+
                     //box members
                     var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
-                                         .Where(w => w.IsDeleted == false)
+                                         .Where(w => w.IsDeleted == false && w.Url == null).Take(100)
                                          .List();
                     foreach (var box in boxes)
                     {
-
-                        box.CalculateMembers();
-                        box.UpdateItemCount();
-                        box.UpdateQnACount(boxRepository.QnACount(box.Id));
-                        //box.UpdateBoxPicutureUrl()
-                        var picture = box.Picture;
-                        if (picture == null)
-                        {
-                            box.RemovePicture();
-
-                        }
-                        else
-                        {
-                            box.AddPicture(picture, blobProvider.GetThumbnailUrl(picture));
-                        }
+                        retVal = true;
+                        box.GenerateUrl();
                         UnitOfWork.CurrentSession.Save(box);
                     }
+
                     tx.Commit();
                 }
+                var files =
+                          UnitOfWork.CurrentSession.QueryOver<Item>()
+                              .Where(w => w.IsDeleted == false && w.Url == null)
+                              .Take(100).List();
 
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+
+                foreach (var file in files)
                 {
-                    var files =
-                        UnitOfWork.CurrentSession.QueryOver<File>()
-                            .Where(w => w.IsDeleted == false)
-                            .List();
-                    foreach (var file in files)
-                    {
-                        var url = blobProvider.GetThumbnailUrl(file.ThumbnailBlobName);
-                        file.UpdateThumbnail(file.ThumbnailBlobName, url);
-                    }
-                    tx.Commit();
+                    file.GenerateUrl();
+                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Item set Url = @Url where itemId = @Id"
+                        , new { file.Url, file.Id });
+
+                    retVal = true;
                 }
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+
+                var quizes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
+                              .Where(w =>  w.Url == null && w.Publish)
+                              .Take(100).List();
+
+                foreach (var quiz in quizes)
                 {
-                    var links =
-                        UnitOfWork.CurrentSession.QueryOver<Link>()
-                            .Where(w => w.IsDeleted == false)
-                            .List();
-                    foreach (var link in links)
-                    {
-                        var url = blobProvider.GetThumbnailLinkUrl();
-                        link.UpdateThumbnail(link.ThumbnailBlobName, url);
-                    }
-                    tx.Commit();
-                }
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var users = UnitOfWork.CurrentSession.QueryOver<University>().Where(w => w.Url == null).List();
-                    foreach (var user in users)
-                    {
-                        user.GenerateUrl();
+                    quiz.GenerateUrl();
+                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Quiz set Url = @Url where Id = @Id"
+                        , new { quiz.Url, quiz.Id });
 
-                    }
-                    tx.Commit();
-
-                }
-                var retVal = false;
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.Url == null).Take(paging).List();
-                    foreach (var user in users)
-                    {
-                        retVal = true;
-                        user.GenerateUrl();
-                        UnitOfWork.CurrentSession.Save(user);
-                    }
-
-                    tx.Commit();
-
+                    retVal = true;
                 }
                 return retVal;
-
             }
         }
 

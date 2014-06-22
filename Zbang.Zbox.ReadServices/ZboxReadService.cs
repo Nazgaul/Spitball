@@ -37,7 +37,7 @@ namespace Zbang.Zbox.ReadServices
             : base(contextCacheWrapper)
         {
         }
-        const int DefaultPageSize = 50;
+       // 
 
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
@@ -88,12 +88,13 @@ namespace Zbang.Zbox.ReadServices
         {
             using (UnitOfWork.Start())
             {
+                const int defaultPageSize = 50;
 
                 var dbNode = UnitOfWork.CurrentSession.GetNamedQuery(query.libraryQuery);
                 dbNode.SetProperties(query);
                 dbNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
-                dbNode.SetMaxResults(DefaultPageSize);
-                dbNode.SetFirstResult(query.PageNumber * DefaultPageSize);
+                dbNode.SetMaxResults(defaultPageSize);
+                dbNode.SetFirstResult(query.PageNumber * defaultPageSize);
                 var fnodeResult = dbNode.Future<NodeDto>();
 
                 IEnumerable<BoxDto> fboxesResult = new List<BoxDto>();
@@ -104,8 +105,8 @@ namespace Zbang.Zbox.ReadServices
                     boxesQuery.SetParameter("ParentNode", query.ParentNode);
                     boxesQuery.SetEnum("Sort", query.Sort);
                     boxesQuery.SetParameter("UserId", query.UserId);
-                    boxesQuery.SetMaxResults(DefaultPageSize);
-                    boxesQuery.SetFirstResult(query.PageNumber * DefaultPageSize);
+                    boxesQuery.SetMaxResults(defaultPageSize);
+                    boxesQuery.SetFirstResult(query.PageNumber * defaultPageSize);
                     boxesQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
                     fboxesResult = boxesQuery.Future<BoxDto>();
                 }
@@ -173,43 +174,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                const string dbQeury = @"select * from (select u.UserImage as userpic,
- u.UserName as username,
- m.MessageId as msgId,
-  m.CreationTime as date,
-  m.NotRead as isread,
-  m.New as IsNew,
-  m.Text as message,
-b.BoxName,
-b.BoxId,
-boxOwner.UniversityName  as Universityname
-from zbox.message m 
-inner join zbox.box b on m.BoxId = b.BoxId and b.IsDeleted = 0
-inner join zbox.users u on u.UserId = m.SenderId
-inner join zbox.users boxOwner on boxOwner.UserId = b.OwnerId
-where m.RecepientId = @userid
- and TypeOfMsg = 2
- and isactive = 1
- union all
-select u.UserImage as userpic,
- u.UserName as username,
- m.MessageId as msgId,
-  m.CreationTime as date,
-  m.NotRead as isread,
-  m.New as IsNew,
-  m.Text as message,
-null,
-null,
-null  as Universityname
- from zbox.message m 
- inner join zbox.users u on u.UserId = m.SenderId
-where m.RecepientId = @userid
- and TypeOfMsg = 1 ) t
- order by t.msgid desc
-
-";
-
-                return await conn.QueryAsync<InviteDto>(dbQeury, new { query.UserId });
+                return await conn.QueryAsync<InviteDto>(Sql.Sql.UserInvites, new { query.UserId });
             }
         }
 
@@ -314,11 +279,6 @@ where m.RecepientId = @userid
                 queryQuiz.SetInt64("BoxId", query.BoxId)
                     .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
 
-                //queryBoxItem.SetFirstResult(query.PageNumber * query.MaxResult);
-                //queryBoxItem.SetMaxResults(query.MaxResult);
-
-                //IQuery queryCountBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemCountByBoxId");
-                //queryCountBoxItem.SetInt64("BoxId", query.BoxId);
 
                 var fitems = queryBoxItem.Future<Item.ItemDto>();
                 var fQuiz = queryQuiz.Future<Item.QuizDto>();
@@ -326,10 +286,8 @@ where m.RecepientId = @userid
                 IEnumerable<Item.IItemDto> items = fitems.ToList();
                 var quizes = fQuiz.ToList();
                 var retVal = items.Union(quizes);
-                //var fcount = queryCountBoxItem.FutureValue<long>();
 
                 CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                //var result = new PagedDto<Item.IItemDto> { Dto = retVal, Count = 0 /*fcount.Value*/ };
                 return retVal;
             }
 
@@ -810,7 +768,9 @@ where m.RecepientId = @userid
             var retVal = new User.UserToFriendActivity();
             using (IDbConnection conn = await DapperConnection.OpenConnection())
             {
-                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles, Sql.Sql.UserWithFriendQuestion, Sql.Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
+                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles,
+                    Sql.Sql.UserWithFriendQuestion,
+                    Sql.Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
                 {
                     retVal.Items = grid.Read<Item.ItemToFriendDto>();
                     retVal.Questions = grid.Read<Qna.QuestionToFriendDto>();
@@ -831,8 +791,8 @@ where m.RecepientId = @userid
                 using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Seo.GetBoxes, Sql.Seo.GetItems, Sql.Seo.GetQuizes)))
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
-                    retVal.Items = grid.Read<Item.ItemSeoDto>();
-                    retVal.Quizes = grid.Read<Item.ItemSeoDto>();
+                    retVal.Items = grid.Read<Box.BoxSeoDto>();
+                    retVal.Quizes = grid.Read<Box.BoxSeoDto>();
                 }
             }
             return retVal;

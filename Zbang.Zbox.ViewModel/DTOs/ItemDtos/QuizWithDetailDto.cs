@@ -26,6 +26,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
 
         public long BoxId { get; set; }
 
+
+
         public bool Publish { get; set; }
 
         public QuizSeo Seo { get; set; }
@@ -41,6 +43,9 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         public string Country { get; set; }
         public string BoxName { get; set; }
         public string UniversityName { get; set; }
+
+        public string BoxUrl { get; set; }
+
     }
 
     public class QuestionWithDetailDto

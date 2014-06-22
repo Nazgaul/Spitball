@@ -13,6 +13,7 @@
     <property name="Rate" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
     <property name="NumberOfComments" not-null="true"></property>
+    <property name="Url" not-null="true" length="8000"></property>
 
     <many-to-one name="Owner" class="User" column="UserId" not-null="true" foreign-key="userIdQuiz"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdQuiz"/>

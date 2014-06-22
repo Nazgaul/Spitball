@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
         protected ItemWithDetailDto(long id, DateTime updateTime, string name,
             string userName, string userImage, long userId,
             int numberOfViews, string blob, float rate, long boxId,
-            string boxName, string country, string uniName, string description)
+            string boxName, string country, string uniName, string description, string boxUrl)
         {
             Id = id;
             UpdateTime = updateTime;
@@ -24,7 +24,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             Country = country ?? string.Empty;
             UniName = uniName;
             Description = description;
-            
+            BoxUrl = boxUrl;
+
 
         }
         public long Id { get; private set; }

@@ -48,11 +48,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
 
-            var builder = new UrlBuilder(HttpContext);
-            var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
+            // var builder = new UrlBuilder(HttpContext);
+            // var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
 
             ViewBag.boxName = boxName;
-            ViewBag.boxUrl = url;
+            ViewBag.boxUrl = model.Quiz.Seo.BoxUrl;
 
 
             if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))
@@ -135,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command =
                     new SaveUserQuizCommand(
-                        model.Answers.Select(s => new UserAnswers {AnswerId = s.AnswerId, QuestionId = s.QuestionId}),
+                        model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
                         GetUserId(), model.QuizId, model.EndTime - model.StartTime);
                 m_ZboxWriteService.SaveUserAnswers(command);
 
@@ -218,11 +218,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new SaveQuizCommand(GetUserId(), model.QuizId);
-                m_ZboxWriteService.SaveQuiz(command);
-                var urlBuilder = new UrlBuilder(HttpContext);
-                var url = urlBuilder.BuildQuizUrl(model.BoxId, model.BoxName, model.QuizId, model.QuizName, model.UniversityName);
+                var result = m_ZboxWriteService.SaveQuiz(command);
                 //TODO add url
-                return this.CdJson(new JsonResponse(true, url));
+                return this.CdJson(new JsonResponse(true, result));
             }
             catch (Exception ex)
             {
@@ -309,7 +307,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax, ZboxAuthorize]
         public ActionResult MarkCorrect(MarkAnswer model)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return this.CdJson(new JsonResponse(false, GetErrorsFromModelState()));

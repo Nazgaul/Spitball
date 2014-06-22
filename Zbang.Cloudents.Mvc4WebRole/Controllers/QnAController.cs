@@ -127,12 +127,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             //this is a test
             var retVal = m_ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, GetUserId(false)));
-            var urlBuilder = new UrlBuilder(HttpContext);
-            retVal.ToList().ForEach(f =>
-            {
-                f.Files.ForEach(fi => fi.Url = urlBuilder.BuildItemUrl(boxId, boxName, fi.Uid, fi.Name, uniName));
-                f.Answers.ForEach(fa => fa.Files.ForEach(fi1 => fi1.Url = urlBuilder.BuildItemUrl(boxId, boxName, fi1.Uid, fi1.Name, uniName)));
-            });
             return this.CdJson(new JsonResponse(true, retVal));
         }
 

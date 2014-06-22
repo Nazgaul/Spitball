@@ -61,11 +61,13 @@ body {
   /*rtl*/
   right: auto;
 }
-.popupWrppr .cancel {
+.popupWrppr .cancel,
+.modal .cancel {
   margin: 18px 10px 0 0;
   /*rtl*/
 }
-.popupWrppr .inputText {
+.popupWrppr .inputText,
+.modal .inputText {
   padding: 0 8px 0 4px;
   /*rtl*/
 }

@@ -38,15 +38,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private Box CreateNewBox(CreateBoxCommand command, User user)
         {
-            var box = new Box(command.BoxName, user,command.PrivacySettings);
+            var box = new Box(command.BoxName, user, command.PrivacySettings);
+
             SaveRepositories(user, box);
+            box.GenerateUrl();
+            m_BoxRepository.Save(box);
             return box;
         }
 
         protected void SaveRepositories(User user, Box box)
         {
             UserRepository.Save(user);
-            m_BoxRepository.Save(box);
+            m_BoxRepository.Save(box, true);
         }
 
         protected void ValidateCommand(CreateBoxCommand command)

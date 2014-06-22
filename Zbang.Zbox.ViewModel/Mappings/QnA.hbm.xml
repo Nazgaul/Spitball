@@ -34,6 +34,8 @@
     <return-scalar column="Discriminator" type="string"/>
     <return-scalar column="QuestionId" type="Guid"/>
     <return-scalar column="AnswerId" type="Guid"/>
+    <return-scalar column="Url" type="string"/>
+    
   </resultset>
   
   <sql-query name="GetBoxQuestion" read-only="1" resultset-ref="Question">
@@ -78,7 +80,8 @@
     (select Uid from zbox.Box b where b.BoxId = i.BoxId) as BoxUid,
     i.Discriminator as Discriminator,
     i.QuestionId as QuestionId,
-    i.AnswerId as AnswerId
+    i.AnswerId as AnswerId,
+    i.Url as Url
     from zbox.item i
     where i.IsDeleted = 0
     and i.BoxId = :boxId

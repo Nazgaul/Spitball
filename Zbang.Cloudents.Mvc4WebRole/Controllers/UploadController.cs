@@ -88,14 +88,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                      fileUploadedDetails.FileSize, tabId);
                 var result = m_ZboxWriteService.AddFileToBox(command);
 
-                var urlBuilder = new UrlBuilder(HttpContext);
 
                 var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                     result.File.Uploader.Url,
-                   m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
-                    string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0);
+                    m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
+                    string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0,
+                    result.File.Url);
 
-                fileDto.Url = urlBuilder.BuildItemUrl(boxUid, boxName, result.File.Id, result.File.Name, uniName);
                 cookie.RemoveCookie("upload");
                 return this.CdJson(new JsonResponse(true, new { fileDto, boxid = boxUid }));
 
@@ -228,10 +227,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.Link.Uploader.Id,
                     result.Link.Uploader.Url,
                     m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
-                    0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow);
-
-
-                item.Url = urlBuilder.BuildItemUrl(model.BoxId, model.BoxName, item.Id, item.Name, model.UniName);
+                    0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow, result.Link.Url);
 
                 return this.CdJson(new JsonResponse(true, item));
             }
@@ -277,13 +273,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                fileName,
                 size, tabId);
             var result = m_ZboxWriteService.AddFileToBox(command);
-            var urlBuilder = new UrlBuilder(HttpContext);
             var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                 result.File.Uploader.Url,
                m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
-                string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0);
-           
-            fileDto.Url = urlBuilder.BuildItemUrl(boxUid, boxName, fileDto.Id, fileDto.Name, uniName);
+                string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result.File.Url);
             return this.CdJson(new JsonResponse(true, fileDto));
 
 

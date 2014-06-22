@@ -23,7 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return UrlConsts.NameToQueryString(name);
         }
 
-        public string BuildBoxUrl(BoxType boxtype, long boxid, string boxName, string uniName)
+        private string BuildBoxUrl(BoxType boxtype, long boxid, string boxName, string uniName)
         {
             if (boxtype == BoxType.Academic)
             {
@@ -47,34 +47,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return BuildBoxUrl(BoxType.Box, boxid, boxName, uniName);
         }
 
-        public string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName)
-        {
-            if (string.IsNullOrEmpty(universityName))
-            {
-                universityName = "my";
-            }
-            return m_UrlHelper.RouteUrl("Quiz", new
-            {
-                universityName = NameToQueryString(universityName), boxId,
-                boxName = NameToQueryString(boxName), quizId,
-                quizName = NameToQueryString(quizName)
-            });
-        }
+        //public string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName)
+        //{
+        //    if (string.IsNullOrEmpty(universityName))
+        //    {
+        //        universityName = "my";
+        //    }
+        //    return m_UrlHelper.RouteUrl("Quiz", new
+        //    {
+        //        universityName = NameToQueryString(universityName), boxId,
+        //        boxName = NameToQueryString(boxName), quizId,
+        //        quizName = NameToQueryString(quizName)
+        //    });
+        //}
 
-        public string BuildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName = "my")
-        {
-            if (string.IsNullOrEmpty(universityName))
-            {
-                universityName = "my";
-            }
-            return m_UrlHelper.RouteUrl("Item", new
-            {
-                universityName = NameToQueryString(universityName), boxId,
-                boxName = NameToQueryString(boxName),
-                itemid = itemId,
-                itemName = NameToQueryString(itemName)
-            });
-        }
+        //public string BuildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName = "my")
+        //{
+        //    if (string.IsNullOrEmpty(universityName))
+        //    {
+        //        universityName = "my";
+        //    }
+        //    return m_UrlHelper.RouteUrl("Item", new
+        //    {
+        //        universityName = NameToQueryString(universityName), boxId,
+        //        boxName = NameToQueryString(boxName),
+        //        itemid = itemId,
+        //        itemName = NameToQueryString(itemName)
+        //    });
+        //}
 
         //public string BuildUserUrl(long userid, string userName)
         //{

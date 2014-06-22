@@ -22,6 +22,7 @@
     <return-scalar column="NumOfDownloads" type="int"/>
     <return-scalar column="Date" type="DateTime"/>
     <return-scalar column="CommentsCount" type="int"/>
+    <return-scalar column="Url" type="string"/>
   </resultset>
 
   <resultset name="QuizDto">
@@ -36,6 +37,7 @@
     <return-scalar column="Description" type="string"/>
     <return-scalar column="CommentsCount" type="int"/>
     <return-scalar column="Date" type="DateTime"/>
+    <return-scalar column="Url" type="string"/>
   </resultset>
 
 
@@ -58,6 +60,7 @@
     <return-scalar column="Country" type="string"/>
     <return-scalar column="UniName" type="string"/>
     <return-scalar column="Description" type="string"/>
+    <return-scalar column="BoxUrl" type="string"/>
   </resultset>
 
   <!--Used in box page to get item section-->
@@ -80,7 +83,8 @@
     i.BlobName as BlobName,
     i.NumberOfDownloads as NumOfDownloads,
     i.creationTime as Date,
-		i.numberofcomments as commentsCount
+		i.numberofcomments as commentsCount,
+    i.Url as Url
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = :BoxId
@@ -101,7 +105,8 @@
     NumberOfViews as NumOfViews,
     Content as Description,
     NumberOfComments as commentsCount,
-    q.CreationTime as Date
+    q.CreationTime as Date,
+    q.Url as Url
     from zbox.quiz q
     join zbox.Users u on u.userid = q.UserId
     where boxid = :BoxId
@@ -132,9 +137,11 @@
     i.rate as Rate,
     i.boxid as BoxId,
     b.BoxName as BoxName,
+    
     u2.Country as Country, 
     u2.UniversityName as UniName,
-    content as Description
+    content as Description,
+    b.Url as BoxUrl
     
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data;
 using System.IO;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace Zbang.Zbox.Domain
         protected Box()
         {
             UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Items = new List<Item>();
 
             //Comments = new List<Comment>();
@@ -42,7 +43,9 @@ namespace Zbang.Zbox.Domain
         public virtual User Owner { get; private set; }
         public virtual string Picture { get; protected set; }
 
-        public virtual string PictureUrl { get; set; }
+        public virtual string PictureUrl { get; private set; }
+
+        public virtual string Url { get; protected set; }
 
         public virtual ICollection<UserBoxRel> UserBoxRel { get; private set; }
         public virtual ICollection<Item> Items { get; protected set; }
@@ -62,6 +65,7 @@ namespace Zbang.Zbox.Domain
         public void ChangeBoxName(string newBoxName)
         {
             Name = newBoxName.Trim();
+            GenerateUrl();
         }
 
         public void AddPicture(string boxPicture, string picutreUrl)
@@ -75,15 +79,18 @@ namespace Zbang.Zbox.Domain
             PictureUrl = "/images/emptyState/my_default3.png";
         }
 
-        //public Comment AddBoxComment(User user, string commentText)
-        //{
-        //    var comment = new Comment(user, commentText, this, null);
-        //    Comments.Add(comment);
-        //    return comment;
-        //}
+        public virtual void GenerateUrl()
+        {
+            if (Id == 0)
+            {
+                return;
+            }
+            Url = UrlConsts.BuildBoxUrl(Id, Name, string.Empty);
+        }
 
+       
 
-        public File AddFile(string fileName, User user, long length, 
+        public File AddFile(string fileName, User user, long length,
             string blobAddressName, string thumbnailBlobAddressName, string thumbnailUrl)
         {
             if (Items.OfType<File>().FirstOrDefault(f => f.ItemContentUrl == blobAddressName) != null)
@@ -144,7 +151,7 @@ namespace Zbang.Zbox.Domain
 
 
         #region dbiTemp
-      
+
         //public void UpdateMembersDbi(int count)
         //{
         //    MembersCount = count;
@@ -158,7 +165,7 @@ namespace Zbang.Zbox.Domain
         //    CommentCount = count;
         //}
 
-        
+
         #endregion
 
 

@@ -291,17 +291,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var seoItems = await m_ZboxReadService.GetSeoBoxesAndItems();
             foreach (var box in seoItems.Boxes.Take(9500))
             {
-                nodes.Add(new SitemapNode(urlBuilder.BuildBoxUrl(box.Id, box.Name, box.UniversityName), requestContext));
+                nodes.Add(new SitemapNode(box.Url, requestContext));
             }
             var maxElement = 40000;
             foreach (var item in seoItems.Quizes)
             {
-                nodes.Add(new SitemapNode(urlBuilder.BuildQuizUrl(item.BoxId, item.BoxName, item.Id, item.Name, item.UniversityName), requestContext));
+                nodes.Add(new SitemapNode(item.Url, requestContext));
                 maxElement--;
             }
             foreach (var item in seoItems.Items.Take(maxElement))
             {
-                nodes.Add(new SitemapNode(urlBuilder.BuildItemUrl(item.BoxId, item.BoxName, item.Id, item.Name, item.UniversityName), requestContext));
+                nodes.Add(new SitemapNode(item.Url, requestContext));
             }
             //var items = Query(new GetSeoContentPages(false));
             //foreach (var item in items)

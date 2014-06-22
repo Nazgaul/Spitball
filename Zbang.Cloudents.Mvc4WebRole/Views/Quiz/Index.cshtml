@@ -110,23 +110,16 @@
             @{
                 var questionIndex = 0;
             }
-            @*Ram: If user didn't answer a question:
-                1) add class noAnswer on that li
-                2) add attr: data-no-answer="@QuizResources.NoAnswer on that li*@
+          
             <ul class="quizQList" data-no-answer="@QuizResources.NoAnswer" id="quizTQuestion">
                 @foreach (var item in Model.Questions)
                 {
                     var answerIndex = 0;
-                    //add userCorrect class if UserControl answered the question correctly
-                    //add userWrong class if UserControl answered incorrectly OR no answer
-                    //add noAnswer class in addition to userWrong if user gave no answer
                     <li data-id="@item.Id">
                         <div class="quizQuestion">@Html.Raw(item.Text)</div>
                         <ul class="quizAList">
                             @foreach (var answer in item.Answers)
                             {
-                                //add correct class if it is the correct answer
-                                //add wrong if user chose this as the answer incorrectly
                                 <li class="@(answer.Id==item.CorrectAnswer?"correct":string.Empty) ">
                                     <input data-id="@answer.Id" id="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)" type="radio" name="@string.Format("quizTestRadio{0}", questionIndex)" />
                                     <label for="@string.Format("quizTestRadio{0}{1}", questionIndex, answerIndex)">@Html.Raw(answer.Text)</label>

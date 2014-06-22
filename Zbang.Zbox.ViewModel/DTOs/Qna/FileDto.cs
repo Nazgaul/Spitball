@@ -6,8 +6,8 @@ namespace Zbang.Zbox.ViewModel.DTOs.Qna
     {
 
         public FileDto(long uid, long ownerId,
-           string thumbnail, string boxUid, Guid? questionId, Guid? answerId, string name)
-            : base(uid, ownerId, boxUid, questionId, answerId, name)
+           string thumbnail, string boxUid, Guid? questionId, Guid? answerId, string name, string url)
+            : base(uid, ownerId, boxUid, questionId, answerId, name, url)
         {
 
             Thumbnail = thumbnail;

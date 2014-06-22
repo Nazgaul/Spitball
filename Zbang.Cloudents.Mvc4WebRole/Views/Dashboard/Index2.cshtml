@@ -41,12 +41,8 @@
                     <div class="activityWpr">
                         <m-custom-scrollbar bottom="0">
                             <ul class="asideList dash">
-
-
                                 <li class="activityItem" ng-repeat="activity in wall">
-                                    <a class="asideImgLink" href="{{activity.userUrl}}" data-navigation="user">
-                                        <img class="asideImg calloutTrgr" ng-src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
-                                    </a>
+                                    <img class="asideImg calloutTrgr asideImgLink" ng-src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
                                     <div class="latest">
                                         <a data-navigation="Box" href="{{activity.url}}">
                                             <div class="latestName elps">{{activity.boxName}}</div>

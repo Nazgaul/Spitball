@@ -31,7 +31,7 @@
     <return-scalar type="long" column="Id"/>
     <return-scalar type="string" column="Image"/>
     <return-scalar type="string" column="Name"/>
-    <return-scalar type="string" column="UnivtesityName"/>
+    <return-scalar type="string" column="Url"/>
   </resultset>
 
 
@@ -51,8 +51,8 @@
 
   <sql-query name="GetBoxMetaForInvite" read-only="1" resultset-ref="boxMeta">
     <![CDATA[
-   select b.boxId as Id, b.boxName as Name, b.pictureurl as Image, u.universityname as UnivtesityName
-    from zbox.Box b join zbox.Users u on b.OwnerId = u.UserId
+   select b.boxId as Id, b.boxName as Name, b.pictureurl as Image, b.Url as Url
+    from zbox.Box b 
     where b.boxId = :BoxId
     and b.IsDeleted = 0  
     ]]>
@@ -85,7 +85,7 @@
   <!--Notification screen account settings-->
   <query name="GetUserBoxesNotification" read-only="1">
     <![CDATA[
-    select b.Id as Id, b.Name as Name, b.Owner.Name as Owner, ub.NotificationSettings as Notifications, b.class as boxType
+    select b.Id as Id, b.Name as Name, b.Owner.Name as Owner, ub.NotificationSettings as Notifications, b.class as boxType, b.Url as url
     from Box b join b.UserBoxRel ub
     where b.IsDeleted = 0
     and ub.UserId = :UserId

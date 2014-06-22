@@ -21,7 +21,6 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
@@ -36,12 +35,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IIdGenerator> m_IdGenerator;
-        private readonly Lazy<IShortCodesCache> m_ShortToLongCode;
 
 
         public ItemController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            Lazy<IShortCodesCache> shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService,
             IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
@@ -55,44 +52,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
             m_IdGenerator = idGenerator;
-            m_ShortToLongCode = shortToLongCache;
         }
 
         /// <summary>
         /// Item Page
         /// </summary>
-        /// <param name="boxUid"></param>
-        /// <param name="itemUid"></param>
-        /// <param name="itemName"></param>
         /// <returns></returns>
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [UserNavNWelcome]
-        [Route("Item/{BoxUid:length(11)}/{ItemUid:length(11)}/{itemName?}")]
-        public ActionResult Index(string boxUid, string itemUid, string itemName)
-        {
-            var itemId = m_ShortToLongCode.Value.ShortCodeToLong(itemUid, ShortCodesType.Item);
-            var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
-            var query = new GetItemQuery(GetUserId(false), itemId, boxId);
-            var item = m_ZboxReadService.GetItem(query);
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[UserNavNWelcome]
+        //[Route("Item/{BoxUid:length(11)}/{ItemUid:length(11)}/{itemName?}")]
+        //public ActionResult Index(string boxUid, string itemUid, string itemName)
+        //{
+        //    var itemId = m_ShortToLongCode.Value.ShortCodeToLong(itemUid, ShortCodesType.Item);
+        //    var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
+        //    var query = new GetItemQuery(GetUserId(false), itemId, boxId);
+        //    var item = m_ZboxReadService.GetItem(query);
 
-            var builder = new UrlBuilder(HttpContext);
-            var url = builder.BuildItemUrl(boxId, item.BoxName, itemId, item.Name, item.UniName);
-            return RedirectPermanent(url);
-        }
+        //    var builder = new UrlBuilder(HttpContext);
+        //    var url = builder.BuildItemUrl(boxId, item.BoxName, itemId, item.Name, item.UniName);
+        //    return RedirectPermanent(url);
+        //}
 
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [UserNavNWelcome]
-        [Route("Item/{BoxUid:length(11)}/{itemid:long:min(0)}")]
-        public ActionResult Index(string boxUid, long itemid)
-        {
-            var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
-            var query = new GetItemQuery(GetUserId(false), itemid, boxId);
-            var item = m_ZboxReadService.GetItem(query);
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[UserNavNWelcome]
+        //[Route("Item/{BoxUid:length(11)}/{itemid:long:min(0)}")]
+        //public ActionResult Index(string boxUid, long itemid)
+        //{
+        //    var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
+        //    var query = new GetItemQuery(GetUserId(false), itemid, boxId);
+        //    var item = m_ZboxReadService.GetItem(query);
 
-            var builder = new UrlBuilder(HttpContext);
-            var url = builder.BuildItemUrl(boxId, item.BoxName, itemid, item.Name, item.UniName);
-            return RedirectPermanent(url);
-        }
+        //    var builder = new UrlBuilder(HttpContext);
+        //    var url = builder.BuildItemUrl(boxId, item.BoxName, itemid, item.Name, item.UniName);
+        //    return RedirectPermanent(url);
+        //}
 
         [ActionName("Index"), Ajax]
         [AjaxCache(TimeConsts.Hour)]
@@ -109,8 +102,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                var urlBuilder = new UrlBuilder(HttpContext);
-                item.BoxUrl = urlBuilder.BuildBoxUrl(boxUid, item.BoxName, uniName);
                 var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(item);
                 
@@ -152,7 +143,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     throw new ItemNotFoundException();
                 }
 
-                var urlBuilder = new UrlBuilder(HttpContext);
                 if (!string.IsNullOrEmpty(item.Country))
                 {
                     var culture = Languages.GetCultureBaseOnCountry(item.Country);
@@ -170,7 +160,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var metaDescription = item.Description.RemoveEndOfString(197);
                     ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
                 }
-                item.BoxUrl = urlBuilder.BuildBoxUrl(boxId, item.BoxName, universityName);
 
                 var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(item);
@@ -217,8 +206,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetItemQuery(userId, itemId, boxUid);
                 var item = m_ZboxReadService.GetItem(query);
-                var urlBuilder = new UrlBuilder(HttpContext);
-                item.BoxUrl = urlBuilder.BuildBoxUrl(boxUid, item.BoxName, uniName);
                 if (item.BoxId != boxUid)
                 {
                     throw new ItemNotFoundException();

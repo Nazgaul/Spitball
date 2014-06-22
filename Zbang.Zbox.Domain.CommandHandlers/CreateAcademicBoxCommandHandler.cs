@@ -80,6 +80,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             SaveRepositories(universityUser, box);
             box.CalculateMembers();
+            m_AcademicRepository.Save(box,true);
+            box.GenerateUrl();
             m_AcademicRepository.Save(box);
             var result = new CreateBoxCommandResult(box, universityUser.UniversityName);
 

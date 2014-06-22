@@ -24,7 +24,6 @@
         public int AnswersCount { get; set; }
 
 
-        public string UniversityName { get; set; }
 
         public string Url { get; set; }
     }

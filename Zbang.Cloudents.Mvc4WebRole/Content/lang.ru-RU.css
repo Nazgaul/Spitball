@@ -1,4 +1,4 @@
-q {
+﻿q {
   quotes: '\00AB' '\00BB' '\201E' '\201C';
   font-weight: normal;
 }
@@ -35,7 +35,7 @@ q {
 .headingTexts .email {
   width: 302px;
 }
-/*#region item page */
+
 .previewWrapper h2 {
   line-height: 12px;
   margin-bottom: 20px;
@@ -43,8 +43,8 @@ q {
 .middleActionItem {
   padding: 0;
 }
-/*#endregion */
-/*#region box page */
+
+
 .inviteFriendBtn.btn3 {
   width: 150px;
   padding: 7px 13px;
@@ -86,8 +86,8 @@ q {
     margin-right: 3px;
   }
 }
-/*#endregion */
-/*#region quiz*/
+
+
 .questionHolder .correct {
   width: 60px;
 }
@@ -97,8 +97,8 @@ q {
 .cTextArea {
   width: 565px;
 }
-/*#endregion*/
-/*#region invite page*/
+
+
 .invItem .invName {
   max-width: 138px;
 }
@@ -108,20 +108,20 @@ q {
 .invForm h3 {
   font-size: 14px;
 }
-/*#endregion*/
-/*#region User page */
+
+
 .dateCol {
   width: 165px;
 }
-/*#endregion */
-/*#region modal.less */
+
+
 .tabArrow:before {
   left: 50px;
 }
 .tabMembers .tabArrow:before {
   left: 163px;
 }
-/*#endregion */
+
 .emailUser .inputLabel {
   width: 41px;
 }

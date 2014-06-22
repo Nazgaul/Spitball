@@ -2,18 +2,19 @@
 {
     public class SearchItems
     {
-        public SearchItems(string image, string name, long id, string type, string content, double rate, int views, string boxName, long boxid, string universityName, string uniName)
+        public SearchItems(string image, string name, long id,  string content,
+            double rate, int views, string boxName, long boxid, string uniName, string url)
         {
-            Image = image;// Zbang.Zbox.Infrastructure.Storage.BlobProvider.GetThumbnailUrl(image);
+            Image = image;
             Name = name;
             Id = id;
             Boxname = boxName;
             Boxid = boxid;
-            Universityname = universityName;
             Content = content;
             Rate = rate;
             Views = views;
             UniName = uniName;
+            Url = url;
         }
         public string Image { get; set; }
         public string Name { get; set; }
@@ -24,7 +25,6 @@
         public double Rate { get; set; }
         public int Views { get; set; }
 
-        public string Universityname { get; set; }
 
         public string Url { get; set; }
         public string UniName { get; set; }

@@ -47,7 +47,7 @@ _gaq.push(['_setAccount', 'UA-9850006-3'],
         'siteSpeedSampleRate': 70,
         'cookieDomain': 'cloudents.com'
     });
-
+    ga('require', 'displayfeatures');
     ga('send', 'pageview');
 
     cd.analytics = {

@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command);
 
-        bool Dbi(int paging);
+        bool Dbi();
         void Statistics(UpdateStatisticsCommand command);
 
         #region annotation
@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Domain.Common
         void CreateAnswer(CreateAnswerCommand command);
         void DeleteAnswer(DeleteAnswerCommand command);
         void UpdateAnswer(UpdateAnswerCommand command);
-        void SaveQuiz(SaveQuizCommand command);
+        SaveQuizCommandResult SaveQuiz(SaveQuizCommand command);
         void SaveUserAnswers(SaveUserQuizCommand command);
         void CreateItemInDiscussion(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);

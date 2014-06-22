@@ -12,7 +12,7 @@ q.Publish
 where id = @QuizId;";
 
         public const string QuizSeoQuery = @"
-select u.country as Country,b.boxname as BoxName, u.universityname as UniversityName from 
+select u.country as Country,b.boxname as BoxName, u.universityname as UniversityName, b.url as BoxUrl from 
 		zbox.quiz q
 		join zbox.box b on q.boxid= b.boxid
 		join zbox.users u on b.ownerid = u.userid

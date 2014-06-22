@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
@@ -10,11 +9,9 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.User;
 
@@ -56,27 +53,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return View("Index2", model);
+                return PartialView("Index2", model);
             }
             return View("Empty", model);
         }
 
-        private Zbox.ViewModel.DTOs.Dashboard.DashboardDto AssignUrl(Zbox.ViewModel.DTOs.Dashboard.DashboardDto data)
-        {
-            var builder = new UrlBuilder(HttpContext);
-            data.Boxes = data.Boxes.Select(s =>
-            {
-                s.Url = builder.BuildBoxUrl(s.BoxType, s.Id, s.Name, s.UniName);
-                return s;
-            });
-            data.Wall = data.Wall.Select(item =>
-            {
-                item.Url = builder.BuildBoxUrl(item.BoxId, item.BoxName, item.UniName);
-                return item;
-            });
-            return data;
 
-        }
 
 
 
@@ -90,7 +72,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetBoxesQuery(userid);
                 var data = await m_ZboxReadService.GetDashboard(query);
-                data = AssignUrl(data);
                 return this.CdJson(new JsonResponse(true, data));
             }
             catch (Exception ex)
@@ -115,7 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName, model.privacySettings);
                 var retVal = CreateBox(command);
-                return this.CdJson(new JsonResponse(true, retVal));
+                return this.CdJson(new JsonResponse(true, new { Url = retVal }));
 
             }
             catch (Exception ex)
@@ -128,17 +109,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [NonAction]
-        private BoxDto CreateBox(CreateBoxCommand command)
+        private string CreateBox(CreateBoxCommand command)
         {
             var result = m_ZboxWriteService.CreateBox(command);
-            var builder = new UrlBuilder(HttpContext);
-            //TODO: User name can come from cookie detail one well do that
-            var retVal = new BoxDto(result.NewBox.Id, command.BoxName,
-                 UserRelationshipType.Owner, 0,
-                 0, 0, string.Empty, string.Empty, BoxType.Box, string.Empty,
-                 builder.BuildBoxUrl(BoxType.Box, result.NewBox.Id, command.BoxName, string.Empty)
-                 );
-            return retVal;
+            return result.NewBox.Url;
         }
 
         //TODO: check this out
@@ -172,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //TODO: check this out
         #region Friends
-        [HttpGet,  Ajax]
+        [HttpGet, Ajax]
         public ActionResult FriendsPartial()
         {
             try

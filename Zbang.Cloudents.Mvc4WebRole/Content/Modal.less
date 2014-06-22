@@ -1,4 +1,94 @@
 ﻿@import "varsAndMixins";
+
+/*#region BOOTSTRAP CLASSES*/
+.modal {
+    //display: none;
+    overflow: auto;
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    margin: auto;
+    .closeDialog {
+        right: 0; /*rtl*/
+    }
+    &.boxSettings
+    {
+        width: 700px;        
+        max-height:none;
+        padding-bottom:0;
+        .memberItem{
+            width: 49%;
+            display: inline-block;
+        }
+        .memberName{
+            width: 212px;
+        }
+    }
+    &.privateBox
+	{
+		width: 600px;
+	}
+}
+.fade {
+    opacity: 0;
+    .transition(opacity .15s linear);
+    &.in {
+         opacity: 1;
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background: #111;
+    &.fade {
+        opacity: 0;
+    }
+    &.in {
+        opacity: .5;
+    }
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    background: #FFF;
+    padding: 0 20px 15px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    outline: 0;
+    .boxSizing;
+    .modal.in & {
+        .translate(0,0);
+    }
+    .modal.fade & {
+        .translate(0,25%);
+        .transition(all .3s ease-out);
+    }
+}
+
+.modal-content {
+    position: relative;
+}
+/*#endregion*/
+
+
+
+
 .ng-modal {
     position: fixed;
     top: 0;
@@ -6,6 +96,12 @@
     width: 100%;
     height: 100%;
     z-index:12;
+    //&[view-name="_Friends2"] .ng-modal-dialog {
+    &.dashMembers .ng-modal-dialog {
+        width: 700px;        
+        max-height:none;
+        padding-bottom:0;
+    }
 }
 .ng-modal-overlay {
     background: rgba(17,17,17,.5);
@@ -28,7 +124,7 @@
     padding: 0 20px 15px;
     .boxSizing;
     color: @textColor;
-    .animation(fadein);
+    //.animation(fadein);
 }
 .ng-modal-dialog-content {
   /*overflow: hidden;
@@ -44,22 +140,9 @@
     right: 12px; /*rtl*/
     z-index: 14;
 }
-.ng-modal-close-x {
-  /*font-weight: bold;
-  font-family: Arial, sans-serif;*/
-}
-.ng-modal-title {
-  /*font-weight: bold;
-  font-size: 200%;
-  display: block;
-  margin-bottom: 10px;
-  padding-bottom: 7px;
-  border-bottom: solid 1px #999;*/
-}
 
-.modal2 /*, div.fadeMeTrans*/
+.modal2
 {
-    filter: alpha(opacity=50);
     background: rgba(17,17,17,.5);
     height: 100%;
     left: 0; /* rtl */
@@ -68,15 +151,7 @@
     width: 100%;
     z-index:12;
 }
-.ng-modal {
 
-    //&[view-name="_Friends2"] .ng-modal-dialog {
-    &.dashMembers .ng-modal-dialog {
-        width: 700px;        
-        max-height:none;
-        padding-bottom:0;
-    }
-}
 .popupForm
 {
     .field-validation-error, .validation-summary-errors 
@@ -84,7 +159,7 @@
         margin-left: 15px; /*rtl*/
     }
 }
-.popupHeader {
+.popupHeader, .modal-title {
     .boxName { //from upload popup
         overflow: hidden;
         -ms-text-overflow: ellipsis;
@@ -126,11 +201,7 @@
         width:448px;
         min-height: 125px;
     }
-	&.privateBox
-	{
-		width: 600px;
-	}
-    
+
     &.flagItem
     {
         width: 570px;
@@ -151,12 +222,7 @@
             background-position: -79px -15px;
         }
     }
-    &.boxSettings
-    {
-        width: 700px;        
-        max-height:none;
-        padding-bottom:0; //moved to ng - but still in use!!!
-    }
+
     &.itemRename {
         color:@textColor;
         .inputText {
@@ -216,7 +282,7 @@
 }
 .confirm
 {
-    .popupHeader
+    .popupHeader, .modal-title
 	{
 		margin-bottom: 25px; //bug 147
 	}
@@ -251,11 +317,6 @@
     }
     .inputText {
         margin: 5px 0 25px;
-    }
-
-    .popupHeader {
-        //height: auto; // override height:32px - because need 2 lines here
-        //margin-bottom: 15px;
     }
 
     input[type="radio"] {
@@ -773,14 +834,4 @@
     }
 }
 
-.dashMembers 
-{
-    .memberItem{
-        width: 49%;
-        display: inline-block;
-    }
-    .memberName{
-        width: 212px;
-    }
-}
 /*#endregion */

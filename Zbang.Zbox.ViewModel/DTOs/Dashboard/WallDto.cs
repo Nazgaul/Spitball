@@ -14,6 +14,7 @@
 
         public string Url { get; set; }
 
-        public string UserUrl { get; set; }
+
+
     }
 }
