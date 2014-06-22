@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region from normalize 2.1.2  */
 /* ==========================================================================
    Base
    ========================================================================== */
@@ -175,7 +175,7 @@ textarea {
 textarea:focus {
   outline-style: none;
 }
-
+/*#endregion */
 body {
   font-size: 13px;
   /*-webkit-backface-visibility: hidden;*/
@@ -255,9 +255,9 @@ input[type="search"]::-webkit-search-cancel-button {
 input[type="search"] {
   -webkit-appearance: none;
 }
-
-
-
+/*#region placeholder text */
+/*#endregion */
+/*#region Webkit scoll bar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -273,8 +273,8 @@ input[type="search"] {
   background: rgba(157, 153, 156, 0.5);
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
-
-
+/*#endregion */
+/*#region radio input */
 input[type="radio"] {
   display: none;
 }
@@ -304,8 +304,8 @@ input[type="radio"]:checked + label + .inputText {
 input[type="radio"][disabled] + label:before {
   opacity: .5;
 }
-
-
+/*#endregion */
+/*#region checkbox */
 .checkbox {
   display: none;
 }
@@ -329,8 +329,8 @@ input[type="radio"][disabled] + label:before {
 .checkbox:checked ~ .cbLabel:before {
   background-position: -19px -1px;
 }
-
-
+/*#endregion */
+/*#region validation errors */
 .validation-summary-valid {
   display: none;
 }
@@ -354,8 +354,8 @@ input[type="radio"][disabled] + label:before {
   border: 1px solid #dc3500;
   outline-color: #dc3500;
 }
-
-
+/*#endregion */
+/*#region Site buttons */
 .btn1,
 .btn2 {
   border-radius: 5px;
@@ -412,8 +412,8 @@ input[type="radio"][disabled] + label:before {
   font-size: 13px;
   border-radius: 5px;
 }
-
-
+/*#endregion */
+/*#region delete email 'x' */
 .removeItem,
 .closeItem {
   position: absolute;
@@ -442,8 +442,8 @@ input[type="radio"][disabled] + label:before {
   margin-top: 7px;
   vertical-align: top;
 }
-
-
+/*#endregion */
+/*#region loading */
 .loadingGif {
   width: 128px;
   height: 128px;
@@ -552,8 +552,8 @@ input[type="radio"][disabled] + label:before {
   transform: rotate(-135deg);
   background: #bbb;
 }
-
-
+/*#endregion */
+/*#region AUTO COMPLETE */
 ul.ui-autocomplete {
   text-align: left;
   /*rtl*/
@@ -601,8 +601,8 @@ ul.ui-autocomplete li a {
 .ui-helper-hidden-accessible {
   display: none;
 }
-
-
+/*#endregion */
+/*#region jquery tooltip*/
 .ui-tooltip {
   padding: 8px;
   position: absolute;
@@ -611,8 +611,8 @@ ul.ui-autocomplete li a {
   -webkit-box-shadow: 0 0 5px #aaa;
   box-shadow: 0 0 5px #aaa;
 }
-
-
+/*#endregion*/
+/*#region site header classes */
 .userNav {
   font-size: 0;
   height: 50px;
@@ -749,8 +749,8 @@ ul.ui-autocomplete li a {
   box-sizing: border-box;
   color: #383838;
 }
-
-
+/*#endregion */
+/*#region popup */
 .modal2 {
   background: rgba(17, 17, 17, 0.5);
   width: 100%;
@@ -776,33 +776,6 @@ ul.ui-autocomplete li a {
   right: 12px;
   /*rtl*/
 }
-.popupWrppr {
-  position: fixed;
-  margin: 0 auto;
-  right: 0;
-  left: 0;
-  top: 20%;
-  width: 558px;
-  z-index: 13;
-  background-color: #fff;
-  padding: 0 20px 15px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #383838;
-  -webkit-animation: fadein 0.5s 0 ease;
-  -moz-animation: fadein 0.5s 0 ease;
-  -o-animation: fadein 0.5s 0 ease;
-  animation: fadein 0.5s 0 ease;
-}
-.popupWrppr,
-.modal {
-  width: 558px;
-  padding: 0 20px 15px;
-  color: #383838;
-  
-  
-}
 .popupWrppr .cancel,
 .modal .cancel {
   margin-left: 10px;
@@ -824,8 +797,28 @@ ul.ui-autocomplete li a {
   box-sizing: border-box;
   width: 100%;
 }
-.popupWrppr .inviteMsg,
-.modal .inviteMsg {
+.popupWrppr {
+  position: fixed;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+  top: 20%;
+  width: 558px;
+  z-index: 13;
+  background-color: #fff;
+  padding: 0 20px 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #383838;
+  -webkit-animation: fadein 0.5s 0 ease;
+  -moz-animation: fadein 0.5s 0 ease;
+  -o-animation: fadein 0.5s 0 ease;
+  animation: fadein 0.5s 0 ease;
+  /*#region departmentChoose*/
+  /*#endregion*/
+}
+.popupWrppr .inviteMsg {
   width: 100%;
   max-height: 176px;
   min-height: 117px;
@@ -840,26 +833,21 @@ ul.ui-autocomplete li a {
   color: #383838;
   border-radius: 3px;
 }
-.popupWrppr .inviteMsg::-webkit-input-placeholder,
-.modal .inviteMsg::-webkit-input-placeholder {
+.popupWrppr .inviteMsg::-webkit-input-placeholder {
   color: #676767;
 }
-.popupWrppr .inviteMsg:-moz-placeholder,
-.modal .inviteMsg:-moz-placeholder {
+.popupWrppr .inviteMsg:-moz-placeholder {
   color: #676767;
   opacity: 1;
 }
-.popupWrppr .inviteMsg::-moz-placeholder,
-.modal .inviteMsg::-moz-placeholder {
+.popupWrppr .inviteMsg::-moz-placeholder {
   color: #676767;
   opacity: 1;
 }
-.popupWrppr .inviteMsg:-ms-input-placeholder,
-.modal .inviteMsg:-ms-input-placeholder {
+.popupWrppr .inviteMsg:-ms-input-placeholder {
   color: #676767;
 }
-.popupWrppr.enterCode,
-.modal.enterCode {
+.popupWrppr.enterCode {
   font-size: 13px;
   background: #faf9fa;
   direction: rtl;
@@ -867,103 +855,82 @@ ul.ui-autocomplete li a {
   text-align: right;
 }
 .popupWrppr.enterCode .popupHeader,
-.modal.enterCode .popupHeader,
-.popupWrppr.enterCode .modal-title,
-.modal.enterCode .modal-title {
+.popupWrppr.enterCode .modal-title {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0 0 15px;
 }
-.popupWrppr.enterCode .closeDialog,
-.modal.enterCode .closeDialog {
+.popupWrppr.enterCode .closeDialog {
   left: 20px;
   right: auto;
 }
-.popupWrppr.enterCode .lFloat,
-.modal.enterCode .lFloat {
+.popupWrppr.enterCode .lFloat {
   float: left;
 }
-.popupWrppr.enterCode .inputText,
-.modal.enterCode .inputText {
+.popupWrppr.enterCode .inputText {
   width: 268px;
 }
-.popupWrppr.enterCode label,
-.modal.enterCode label {
+.popupWrppr.enterCode label {
   display: block;
   margin: 17px 0 0 0;
 }
 .popupWrppr.enterCode form,
-.modal.enterCode form,
-.popupWrppr.enterCode .noCode,
-.modal.enterCode .noCode {
+.popupWrppr.enterCode .noCode {
   padding: 0 9px 25px 19px;
   border-bottom: 1px solid #c7c7c7;
 }
-.popupWrppr.enterCode .noCode,
-.modal.enterCode .noCode {
+.popupWrppr.enterCode .noCode {
   clear: both;
   padding: 0 9px 25px 0;
   background: #e8e8e8;
 }
-.popupWrppr.enterCode .noCode .boldFont,
-.modal.enterCode .noCode .boldFont {
+.popupWrppr.enterCode .noCode .boldFont {
   font-size: 20px;
   padding: 15px 0;
 }
-.popupWrppr.enterCode .noCode span.boldFont,
-.modal.enterCode .noCode span.boldFont {
+.popupWrppr.enterCode .noCode span.boldFont {
   font-size: 16px;
   padding: 0;
 }
-.popupWrppr.enterCode .btn1,
-.modal.enterCode .btn1 {
+.popupWrppr.enterCode .btn1 {
   width: 110px;
   margin: 0 8px 0 0;
   /*rtl*/
 }
-.popupWrppr.enterCode .mailTo,
-.modal.enterCode .mailTo {
+.popupWrppr.enterCode .mailTo {
   color: #0f9d58;
   text-decoration: underline;
 }
-.popupWrppr.addSchool,
-.modal.addSchool {
+.popupWrppr.addSchool {
   text-align: left;
   /*rtl*/
 }
-.popupWrppr.addSchool label,
-.modal.addSchool label {
+.popupWrppr.addSchool label {
   color: #383838;
   margin-bottom: 4px;
   font-size: 15px;
   display: inline-block;
 }
-.popupWrppr.addSchool .inputText,
-.modal.addSchool .inputText {
+.popupWrppr.addSchool .inputText {
   display: block;
 }
-.popupWrppr.addSchool .inputText.schoolName,
-.modal.addSchool .inputText.schoolName {
+.popupWrppr.addSchool .inputText.schoolName {
   margin-bottom: 10px;
 }
-.popupWrppr.addSchool .country,
-.modal.addSchool .country {
+.popupWrppr.addSchool .country {
   width: 261px;
   margin-right: 13px;
   /*rtl*/
 }
-.popupWrppr.addSchool .schoolType,
-.modal.addSchool .schoolType {
+.popupWrppr.addSchool .schoolType {
   width: 230px;
 }
-.popupWrppr.addSchool select,
-.modal.addSchool select {
+.popupWrppr.addSchool select {
   padding: 3px;
   font-size: 13px;
 }
-.popupWrppr.requestSent,
-.modal.requestSent {
+.popupWrppr.requestSent {
   display: none;
   min-height: 0;
   -webkit-animation: fadein 0.5s 0 ease;
@@ -971,65 +938,52 @@ ul.ui-autocomplete li a {
   -o-animation: fadein 0.5s 0 ease;
   animation: fadein 0.5s 0 ease;
 }
-.popupWrppr.requestSent .closeDialog,
-.modal.requestSent .closeDialog {
+.popupWrppr.requestSent .closeDialog {
   background-position: -68px -14px;
 }
-.popupWrppr.departmentChoose,
-.modal.departmentChoose {
+.popupWrppr.departmentChoose {
   width: 700px;
   font-size: 15px;
 }
-.popupWrppr.departmentChoose .error,
-.modal.departmentChoose .error {
+.popupWrppr.departmentChoose .error {
   display: none;
   color: #d1294d;
 }
-.popupWrppr.departmentChoose .step1Wpr h3,
-.modal.departmentChoose .step1Wpr h3 {
+.popupWrppr.departmentChoose .step1Wpr h3 {
   font-weight: normal;
   font-size: 18px;
 }
-.popupWrppr.departmentChoose .step1Wpr .inputText,
-.modal.departmentChoose .step1Wpr .inputText {
+.popupWrppr.departmentChoose .step1Wpr .inputText {
   margin: 4px 0 0 8px;
   display: inline-block;
   width: 250px;
 }
-.popupWrppr.departmentChoose .step1Wpr .ruTxt,
-.modal.departmentChoose .step1Wpr .ruTxt {
+.popupWrppr.departmentChoose .step1Wpr .ruTxt {
   margin: 10px 0;
   line-height: 24px;
 }
-.popupWrppr.departmentChoose .step1Wpr .ruMail,
-.modal.departmentChoose .step1Wpr .ruMail {
+.popupWrppr.departmentChoose .step1Wpr .ruMail {
   color: #676767;
 }
-.popupWrppr.departmentChoose .step2Wpr,
-.modal.departmentChoose .step2Wpr {
+.popupWrppr.departmentChoose .step2Wpr {
   display: none;
 }
-.popupWrppr.departmentChoose.step2 .step1Wpr,
-.modal.departmentChoose.step2 .step1Wpr {
+.popupWrppr.departmentChoose.step2 .step1Wpr {
   display: none;
 }
-.popupWrppr.departmentChoose.step2 .step2Wpr,
-.modal.departmentChoose.step2 .step2Wpr {
+.popupWrppr.departmentChoose.step2 .step2Wpr {
   display: block;
 }
-.popupWrppr.departmentChoose label,
-.modal.departmentChoose label {
+.popupWrppr.departmentChoose label {
   display: block;
   font-size: 15px;
   color: #383838;
   margin-bottom: 8px;
 }
-.popupWrppr.departmentChoose .chooseDptTxt,
-.modal.departmentChoose .chooseDptTxt {
+.popupWrppr.departmentChoose .chooseDptTxt {
   margin: 22px 0 12px;
 }
-.popupWrppr.departmentChoose select,
-.modal.departmentChoose select {
+.popupWrppr.departmentChoose select {
   display: block;
   font-size: 13px;
   color: #383838;
@@ -1039,45 +993,36 @@ ul.ui-autocomplete li a {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.popupWrppr.departmentChoose .statusLabel,
-.modal.departmentChoose .statusLabel {
+.popupWrppr.departmentChoose .statusLabel {
   display: inline-block;
 }
-.popupWrppr.departmentChoose .statusLabel.first,
-.modal.departmentChoose .statusLabel.first {
+.popupWrppr.departmentChoose .statusLabel.first {
   margin-right: 20px;
   /*rtl*/
 }
-.popupWrppr.departmentChoose .dptDetail,
-.modal.departmentChoose .dptDetail {
+.popupWrppr.departmentChoose .dptDetail {
   width: 310px;
   display: inline-block;
 }
-.popupWrppr.departmentChoose .dptDetail.first,
-.modal.departmentChoose .dptDetail.first {
+.popupWrppr.departmentChoose .dptDetail.first {
   margin: 20px 34px 0 0;
   /*rtl*/
 }
-.popupWrppr.departmentChoose .inputText,
-.modal.departmentChoose .inputText {
+.popupWrppr.departmentChoose .inputText {
   display: block;
 }
-.popupWrppr.departmentChoose #department,
-.modal.departmentChoose #department {
+.popupWrppr.departmentChoose #department {
   width: 100%;
   margin-bottom: 15px;
 }
-.popupWrppr.departmentChoose .btn1,
-.modal.departmentChoose .btn1 {
+.popupWrppr.departmentChoose .btn1 {
   font-size: 13px;
   display: block;
 }
-.popupWrppr.departmentChoose .modal2,
-.modal.departmentChoose .modal2 {
+.popupWrppr.departmentChoose .modal2 {
   z-index: 11;
 }
-.popupWrppr.departmentChoose.codeError .error,
-.modal.departmentChoose.codeError .error {
+.popupWrppr.departmentChoose.codeError .error {
   display: block;
 }
 .lecturerRadio:checked ~ label,
@@ -1111,8 +1056,8 @@ ul.ui-autocomplete li a {
   width: 100%;
   font-weight: normal;
 }
-
-
+/*#endregion */
+/*#region connect and register pages */
 .enterTitle {
   font-size: 24px;
   color: #383838;
@@ -1456,8 +1401,8 @@ ul.ui-autocomplete li a {
 .acceptTerms > a {
   color: #676767;
 }
-
-
+/*#endregion */
+/*#region general helper classes */
 .lFloat {
   float: left;
   /*rtl*/
@@ -1671,7 +1616,7 @@ select.inputText {
   height: 7px;
   background: url(/Images/common17-sprite.png?v=4) -98px -49px no-repeat;
 }
-
+/*#region tooltip */
 /*.quizGuideTemplate {
     .tooltip {
         top: 119px;
@@ -1859,7 +1804,7 @@ select.inputText {
 .ttBtns button {
   padding: 4px 12px;
 }
-
+/*#endregion */
 .sectionHeader {
   height: 34px;
   line-height: 34px;
@@ -2053,8 +1998,8 @@ select.inputText {
   -webkit-animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
   animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
 }
-
-
+/*#endregion */
+/*#region user items (used in search page and user page) */
 .userItem {
   display: inline-block;
   height: 116px;
@@ -2078,8 +2023,8 @@ select.inputText {
 .userItemName .sHighlight {
   padding: 0;
 }
-
-
+/*#endregion */
+/*#region media queries */
 @media (max-width: 1024px) {
   .mno-touch body {
     position: relative;
@@ -2191,7 +2136,7 @@ select.inputText {
   display: inline-block;
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  
+  /*#region home page */
   .headingTexts.headingTexts {
     padding-left: 40px;
     /*rtl*/
@@ -2213,7 +2158,7 @@ select.inputText {
   .language.language {
     margin-top: 214px;
   }
-  
+  /*#endregion */
   .inviteSources.inviteSources {
     margin-top: 0;
   }
@@ -2249,14 +2194,14 @@ select.inputText {
     position: absolute;
   }
 }
-
-
+/*#endregion */
+/*#region cssCheck*/
 #cssCheck {
   position: absolute;
   left: -2000px;
 }
-
-
+/*#endregion*/
+/*#region User tooltip */
 .userTooltip {
   width: 379px;
   height: 101px;
@@ -2358,4 +2303,4 @@ select.inputText {
   right: 0;
   margin: auto;
 }
-
+/*#endregion */

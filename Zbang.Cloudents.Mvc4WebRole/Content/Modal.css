@@ -1,10 +1,9 @@
-﻿
-
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region BOOTSTRAP CLASSES*/
 .modal {
-  display: none;
   overflow: auto;
   overflow-y: scroll;
   position: fixed;
@@ -20,6 +19,21 @@
 .modal .closeDialog {
   right: 0;
   /*rtl*/
+}
+.modal.boxSettings {
+  width: 700px;
+  max-height: none;
+  padding-bottom: 0;
+}
+.modal.boxSettings .memberItem {
+  width: 49%;
+  display: inline-block;
+}
+.modal.boxSettings .memberName {
+  width: 212px;
+}
+.modal.privateBox {
+  width: 600px;
 }
 .fade {
   opacity: 0;
@@ -76,15 +90,15 @@
   -o-transform: translate(0, 25%);
   -ms-transform: translate(0, 25%);
   transform: translate(0, 25%);
-  -webkit-transition: transform 0.3s ease-out;
-  -moz-transition: transform 0.3s ease-out;
-  -o-transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .modal-content {
   position: relative;
 }
-
+/*#endregion*/
 .ng-modal {
   position: fixed;
   top: 0;
@@ -165,58 +179,42 @@
   padding-left: 8px;
   /*rtl*/
 }
-.popupWrppr,
-.modal {
+.popupWrppr {
   max-height: 396px;
 }
-.popupWrppr .closeDialog,
-.modal .closeDialog {
+.popupWrppr .closeDialog {
   background-position: -79px -25px;
 }
-.popupWrppr .cancel,
-.modal .cancel {
+.popupWrppr .cancel {
   margin-left: 10px;
   /*rtl*/
 }
 .popupWrppr .btn1,
-.modal .btn1,
-.popupWrppr .btn2,
-.modal .btn2 {
+.popupWrppr .btn2 {
   margin-top: 15px;
 }
 .popupWrppr.upload,
-.modal.upload,
-.popupWrppr.uploadUrl,
-.modal.uploadUrl {
+.popupWrppr.uploadUrl {
   width: 610px;
   max-height: none;
 }
-.popupWrppr.confirm,
-.modal.confirm {
+.popupWrppr.confirm {
   min-height: 175px;
   /* override upload popup*/
   max-height: 380px;
   width: 448px;
 }
-.popupWrppr.registerNow,
-.modal.registerNow {
+.popupWrppr.registerNow {
   width: 448px;
   min-height: 125px;
 }
-.popupWrppr.privateBox,
-.modal.privateBox {
-  width: 600px;
-}
-.popupWrppr.flagItem,
-.modal.flagItem {
+.popupWrppr.flagItem {
   width: 570px;
 }
-.popupWrppr.flagItem li,
-.modal.flagItem li {
+.popupWrppr.flagItem li {
   margin-top: 15px;
 }
-.popupWrppr.requestSent,
-.modal.requestSent {
+.popupWrppr.requestSent {
   display: none;
   -webkit-animation: fadein 0.5s 0 ease;
   -moz-animation: fadein 0.5s 0 ease;
@@ -224,31 +222,13 @@
   animation: fadein 0.5s 0 ease;
   position: absolute;
 }
-.popupWrppr.requestSent .closeDialog,
-.modal.requestSent .closeDialog {
+.popupWrppr.requestSent .closeDialog {
   background-position: -79px -15px;
 }
-.popupWrppr.boxSettings,
-.modal.boxSettings {
-  width: 700px;
-  max-height: none;
-  padding-bottom: 0;
-}
-.popupWrppr.boxSettings .memberItem,
-.modal.boxSettings .memberItem {
-  width: 49%;
-  display: inline-block;
-}
-.popupWrppr.boxSettings .memberName,
-.modal.boxSettings .memberName {
-  width: 212px;
-}
-.popupWrppr.itemRename,
-.modal.itemRename {
+.popupWrppr.itemRename {
   color: #383838;
 }
-.popupWrppr.itemRename .inputText,
-.modal.itemRename .inputText {
+.popupWrppr.itemRename .inputText {
   padding: 0 8px;
   width: 100%;
   margin: 15px 0;
@@ -257,21 +237,17 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.popupWrppr.quitQuiz,
-.modal.quitQuiz {
+.popupWrppr.quitQuiz {
   width: 560px;
 }
-.popupWrppr.quitQuiz .btn1,
-.modal.quitQuiz .btn1 {
+.popupWrppr.quitQuiz .btn1 {
   margin-top: 20px;
   padding: 4px 15px;
 }
-.popupWrppr.quitQuiz .btn1 + .btn1,
-.modal.quitQuiz .btn1 + .btn1 {
+.popupWrppr.quitQuiz .btn1 + .btn1 {
   margin: 15px 15px 5px 15px;
 }
-.popupWrppr.quitQuiz .quitQuizTxt,
-.modal.quitQuiz .quitQuizTxt {
+.popupWrppr.quitQuiz .quitQuizTxt {
   font-size: 15px;
   margin: 15px 0;
 }
@@ -357,7 +333,7 @@
   max-height: 80px;
   overflow: auto;
 }
-
+/*#region flag Item */
 .flagDialog .btn1.next,
 .flagDialog .btn2.cancel {
   margin-top: 0;
@@ -373,8 +349,8 @@
 .flagDialog input[type="text"]::-ms-clear {
   display: none;
 }
-
-
+/*#endregion */
+/*#region box settings and members */
 #dash_showfriends,
 #box_settings,
 #item_rename {
@@ -776,4 +752,4 @@
   height: 20px;
   background-position: -164px -1px;
 }
-
+/*#endregion */

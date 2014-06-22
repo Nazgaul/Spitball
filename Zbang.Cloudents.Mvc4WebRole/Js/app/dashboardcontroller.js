@@ -48,7 +48,7 @@
 
         $scope.openCreateBox = function () {
             var modalInstance = $modal.open({
-                windowClass: "privateBox confirm",
+                windowClass: "privateBox",
                 templateUrl: $scope.partials.createBox,
                 controller: 'CreateBoxCtrl',
             });

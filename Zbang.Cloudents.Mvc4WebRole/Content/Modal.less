@@ -17,6 +17,23 @@
     .closeDialog {
         right: 0; /*rtl*/
     }
+    &.boxSettings
+    {
+        width: 700px;        
+        max-height:none;
+        padding-bottom:0;
+        .memberItem{
+            width: 49%;
+            display: inline-block;
+        }
+        .memberName{
+            width: 212px;
+        }
+    }
+    &.privateBox
+	{
+		width: 600px;
+	}
 }
 .fade {
     opacity: 0;
@@ -60,9 +77,10 @@
     }
     .modal.fade & {
         .translate(0,25%);
-        .transition(transform .3s ease-out);
+        .transition(all .3s ease-out);
     }
 }
+
 .modal-content {
     position: relative;
 }
@@ -152,7 +170,7 @@
         padding-left: 8px; /*rtl*/
     }
 }
-.popupWrppr, .modal
+.popupWrppr
 {  
     max-height: 396px;
     .closeDialog
@@ -183,11 +201,7 @@
         width:448px;
         min-height: 125px;
     }
-	&.privateBox
-	{
-		width: 600px;
-	}
-    
+
     &.flagItem
     {
         width: 570px;
@@ -208,19 +222,7 @@
             background-position: -79px -15px;
         }
     }
-    &.boxSettings
-    {
-        width: 700px;        
-        max-height:none;
-        padding-bottom:0;
-        .memberItem{
-            width: 49%;
-            display: inline-block;
-        }
-        .memberName{
-            width: 212px;
-        }
-    }
+
     &.itemRename {
         color:@textColor;
         .inputText {
