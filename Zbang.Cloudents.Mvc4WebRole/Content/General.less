@@ -1,6 +1,5 @@
 ﻿@import "varsAndMixins";
 
-
 /*#region from normalize 2.1.2  */
 /* ==========================================================================
    Base
@@ -832,6 +831,22 @@ ul.ui-autocomplete {
     top: 15px;
     right: 12px; /*rtl*/
 }
+.popupWrppr, .modal {
+    .cancel {
+        margin-left: 10px; /*rtl*/
+    }
+
+    .btn1, .btn2 {
+        margin-top: 18px;
+    }
+
+    .inputText {
+        height: 28px;
+        padding: 0 4px 0 8px; /*rtl*/
+        .boxSizing;
+        width: 100%;
+    }
+}
 .popupWrppr {
     position: fixed;
     margin: 0 auto;
@@ -846,27 +861,7 @@ ul.ui-autocomplete {
     .boxSizing;
     color: @textColor;
     .animation(fadein);
-}
-.popupWrppr, .modal {
-    width: 558px;
-    padding: 0 20px 15px;
-    //.boxSizing;
-    color: @textColor;
-    .cancel {
-        margin-left: 10px; /*rtl*/
-    }
-
-    .btn1, .btn2 {
-        margin-top: 18px;
-        //float: right; /*rtl*/
-    }
-
-    .inputText {
-        height: 28px;
-        padding: 0 4px 0 8px; /*rtl*/
-        .boxSizing;
-        width: 100%;
-    }
+    
     .inviteMsg {
         width: 100%;
         max-height: 176px;

@@ -1,11 +1,37 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Enums
 @model Zbang.Cloudents.Mvc4WebRole.Models.CreateBox
-    
-<div class="popupWrppr confirm privateBox">
-    <header class="popupHeader"><span>@DialogResources.AddPrivateBox</span></header>
-    <button class="closeDialog" ng-click="cancel()"></button>
 
+@*<div class="popupWrppr confirm privateBox">
+        <header class="popupHeader"><span>@DialogResources.AddPrivateBox</span></header>
+        <button class="closeDialog" ng-click="cancel()"></button>
+
+        <form name="createBoxForm" ng-submit="create(createBoxForm.$valid)" novalidate>
+            @Html.LabelFor(m => m.BoxName)
+            <div class="validation" ng-show="createBoxForm.boxName.$invalid && !createBoxForm.boxName.$pristine">Name Error</div>
+            <input type="text" name="boxName" class="inputText boxName" ng-model="formData.boxName" required />
+
+            <input type="radio" id="membersOnlyPrivacy" name="privacySettings" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
+            <label for="membersOnlyPrivacy">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
+            <div class="labelExplain explain1">@SharedResources.OnlyPeople</div>
+
+            <input type="radio" id="AnyoneWithUrlPrivacy" name="privacySettings" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
+            <label for="AnyoneWithUrlPrivacy">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+            <div class="labelExplain">@SharedResources.AnyoneWho</div>
+
+            @Html.AntiForgeryToken() //add ng-model attribute
+
+            <input type="submit" class="btn1 next" value="@DialogResources.Create" />
+            <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
+
+        </form>
+    </div>*@
+
+
+<div class="modal-header">
+    <h3 class="modal-title"><span>@DialogResources.AddPrivateBox</span></h3>
+</div>
+<div class="modal-body">
     <form name="createBoxForm" ng-submit="create(createBoxForm.$valid)" novalidate>
         @Html.LabelFor(m => m.BoxName)
         <div class="validation" ng-show="createBoxForm.boxName.$invalid && !createBoxForm.boxName.$pristine">Name Error</div>
@@ -25,4 +51,5 @@
         <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
 
     </form>
+    <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>
