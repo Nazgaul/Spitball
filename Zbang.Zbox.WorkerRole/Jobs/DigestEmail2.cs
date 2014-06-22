@@ -161,10 +161,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var quizUpdate = quizes.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                 s.Picture
                 , s.UserName,
-               string.Format(UrlConsts.QuizUrl,
-               UrlConsts.NameToQueryString(box.UniversityName ?? "my"), box.BoxId,
-               UrlConsts.NameToQueryString(box.BoxName), s.Id,
-               UrlConsts.NameToQueryString(s.Name))
+                UrlConsts.BuildQuizUrl(box.BoxId,box.BoxName,s.Id,s.Name,box.UniversityName ?? "my",true)
                 , s.UserId));
 
 
@@ -176,10 +173,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             var disucssion = m_ZboxReadService.GetQuizDiscussion(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var discussionUpdate = disucssion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture,
-                string.Format(UrlConsts.QuizUrl,
-               UrlConsts.NameToQueryString(box.UniversityName ?? "my"), box.BoxId,
-               UrlConsts.NameToQueryString(box.BoxName), s.QuizId,
-               UrlConsts.NameToQueryString(s.QuizName)), s.UserId));
+                 UrlConsts.BuildQuizUrl(box.BoxId,box.BoxName,s.QuizId,s.QuizName,box.UniversityName ?? "my",true),
+                s.UserId));
 
             var memebers = m_ZboxReadService.GetNewMembersLastUpdates(new GetMembersLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var membersUpdate = memebers.Select(s =>

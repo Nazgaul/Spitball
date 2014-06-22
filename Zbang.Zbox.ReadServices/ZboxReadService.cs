@@ -792,7 +792,7 @@ namespace Zbang.Zbox.ReadServices
                 {
                     retVal.Boxes = grid.Read<Box.BoxSeoDto>();
                     retVal.Items = grid.Read<Box.BoxSeoDto>();
-                    retVal.Quizes = grid.Read<Item.ItemSeoDto>();
+                    retVal.Quizes = grid.Read<Box.BoxSeoDto>();
                 }
             }
             return retVal;

@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
     {
         public const string CloudentsUrl = "https://www.cloudents.com";
         private const string ItemUrl = "/item/{0}/{1}/{2}/{3}/{4}/";
-        public const string QuizUrl = CloudentsUrl + "/quiz/{0}/{1}/{2}/{3}/{4}/";
+        private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}";
@@ -66,6 +66,25 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
 
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(ItemUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
+            if (fullUrl)
+            {
+                return VirtualPathUtility.AppendTrailingSlash(CloudentsUrl) + relativeUrl;
+            }
+            return relativeUrl;
+        }
+        public static string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName, bool fullUrl = false)
+        {
+            if (string.IsNullOrEmpty(quizName))
+            {
+                throw new ArgumentException("itemName");
+            }
+            if (string.IsNullOrEmpty(boxName))
+            {
+                throw new ArgumentException("boxName");
+            }
+
+
+            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(QuizUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), quizId, NameToQueryString(quizName)));
             if (fullUrl)
             {
                 return VirtualPathUtility.AppendTrailingSlash(CloudentsUrl) + relativeUrl;

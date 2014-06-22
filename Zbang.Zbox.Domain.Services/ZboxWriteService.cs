@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.Services
 
 
 
-       
+
 
         #region IZboxWriteOnlyService
 
@@ -576,12 +576,13 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void SaveQuiz(SaveQuizCommand command)
+        public SaveQuizCommandResult SaveQuiz(SaveQuizCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                var result = m_CommandBus.Dispatch<SaveQuizCommand, SaveQuizCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
+                return result;
             }
         }
         public void SaveUserAnswers(SaveUserQuizCommand command)

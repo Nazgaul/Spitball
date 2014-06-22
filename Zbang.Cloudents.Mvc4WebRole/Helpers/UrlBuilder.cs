@@ -47,19 +47,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return BuildBoxUrl(BoxType.Box, boxid, boxName, uniName);
         }
 
-        public string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName)
-        {
-            if (string.IsNullOrEmpty(universityName))
-            {
-                universityName = "my";
-            }
-            return m_UrlHelper.RouteUrl("Quiz", new
-            {
-                universityName = NameToQueryString(universityName), boxId,
-                boxName = NameToQueryString(boxName), quizId,
-                quizName = NameToQueryString(quizName)
-            });
-        }
+        //public string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName)
+        //{
+        //    if (string.IsNullOrEmpty(universityName))
+        //    {
+        //        universityName = "my";
+        //    }
+        //    return m_UrlHelper.RouteUrl("Quiz", new
+        //    {
+        //        universityName = NameToQueryString(universityName), boxId,
+        //        boxName = NameToQueryString(boxName), quizId,
+        //        quizName = NameToQueryString(quizName)
+        //    });
+        //}
 
         //public string BuildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName = "my")
         //{

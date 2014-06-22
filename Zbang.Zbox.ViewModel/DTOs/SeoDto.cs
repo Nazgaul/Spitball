@@ -8,6 +8,6 @@ namespace Zbang.Zbox.ViewModel.DTOs
     {
         public IEnumerable<BoxSeoDto> Boxes { get; set; }
         public IEnumerable<BoxSeoDto> Items { get; set; }
-        public IEnumerable<ItemSeoDto> Quizes { get; set; }
+        public IEnumerable<BoxSeoDto> Quizes { get; set; }
     }
 }

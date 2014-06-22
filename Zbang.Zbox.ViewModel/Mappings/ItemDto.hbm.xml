@@ -37,6 +37,7 @@
     <return-scalar column="Description" type="string"/>
     <return-scalar column="CommentsCount" type="int"/>
     <return-scalar column="Date" type="DateTime"/>
+    <return-scalar column="Url" type="string"/>
   </resultset>
 
 
@@ -104,7 +105,8 @@
     NumberOfViews as NumOfViews,
     Content as Description,
     NumberOfComments as commentsCount,
-    q.CreationTime as Date
+    q.CreationTime as Date,
+    q.Url as Url
     from zbox.quiz q
     join zbox.Users u on u.userid = q.UserId
     where boxid = :BoxId
