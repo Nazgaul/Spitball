@@ -1326,6 +1326,8 @@
   border-radius: 5px 5px 0 0;
   border-bottom: 1px solid #c2c2c2;
   font-size: 15px;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 .boxItemTt .downArrow {
   width: 274px;
