@@ -10,7 +10,7 @@
 }
 <!DOCTYPE html>
 
-<html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="main">
+<html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name">
 <head>
     <title>@ViewBag.title</title>
     <link rel="SHORTCUT ICON" href="~/favicon.ico" />
@@ -90,11 +90,12 @@
 
         <div id="fb-root"></div>
 
-        <div id="quizCreate" ng-controller="QuizCreateController">
+        @*<div id="quizCreate" ng-controller="QuizCreateController">
             <div ng-if="params.loadCreateQuiz">
                 <div ng-show="params.showCreateQuiz" ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
             </div>
-        </div>
+        </div>*@
+
         <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
               data-myf="@ViewBag.fDash.ToString().ToLower()"
               data-boxf="@ViewBag.fBox.ToString().ToLower()"
@@ -244,10 +245,12 @@
 
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
-    @Html.Script2("General")
+    @*@Html.Script2("General")
     @Html.Script2("angular")
     @Html.Script2("cd1")
-    @RenderSection("scripts", false)
+    @RenderSection("scripts", false)*@
+
+    <script data-main="/Js/bootstrap.js" type="text/javascript" src="~/Scripts/require.js"></script>
 
     @if (User.Identity.IsAuthenticated)
     {

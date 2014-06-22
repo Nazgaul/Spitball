@@ -108,6 +108,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Js/app/directives.js"),
                 new JsFileWithCdn("~/Scripts/ng-modal.js"),
                  new JsFileWithCdn("~/Js/app/dashboardcontroller.js"),
+                 new JsFileWithCdn("~/Js/app/boxcontroller.js"),
                 new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
                  new JsFileWithCdn("~/Js/app/app.js")
              

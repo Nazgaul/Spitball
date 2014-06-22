@@ -1,165 +1,175 @@
-﻿angular.module('mBox').
-    controller('BoxController', ['$route', '$q', 'Box', 'NewUpdates', function ($route, $q, Box, NewUpdates) {
-        $scope.boxId = cd.getParameterFromUrl(2);
+﻿//angular.module('mBox', []).
+//    controller('BoxController', ['$scope', '$route', '$modal', '$q', 'Box', 'NewUpdates', function ($scope, $route, $modal, $q, Box, NewUpdates) {
+//        $scope.boxId = cd.getParameterFromUrl(2);
+//        $scope.uniName = cd.getParameterFromUrl(1);
+//        $scope.boxName = cd.getParameterFromUrl(3);
+//        var infoPromise = Box.info({ boxUid: $scope.boxId }), //uid
+//            itemsPromise = Box.items({ boxUid: $scope.boxId, pageNumber: 0, uniName: $scope.uniName, boxName: $scope.boxName }), //uid
+//            qnaPromise = Box.QnA.list({ boxId: $scope.boxId, uniName: $scope.uniName, boxName: $scope.boxName }),
+//            all = $q.all([infoPromise, itemsPromise, qnaPromise]);
 
-        var infoPromise = $q.all(Box.info({ boxId: boxId })),
-            itemsPromise = $q.all(Box.items({ boxId: boxId })),
-            qnaPromise = $q.all(Box.QnA.list({ boxId: boxId }));
+//        all.then(function (data) {
+//            var info = data[0].success ? data[0].payload : {},
+//                items = data[1].success ? data[1].payload : {},
+//                qna = data[2].success ? data[2].payload : {};
 
-        Box.items().then(function (data) {
-            data = data.payload || {};
-            $scope.boxName = ''; //name
-            $scope.boxType = '';
-            $scope.comments = 0;
-            $scope.courseId = 0;            
-            $scope.ownerName = '';
-            $scope.ownerId = 0;
-            $scope.privacySetting = '';
-            $scope.members = 29;
-            $scope.subscribers = null;
-            $scope.tabs = null;
-            $scope.uniCountry = 'IL';
-            $scope.userType = 'subscribe';
-            /*boxType: "academic"
-            comments: 0
-            courseId: "10234"
-            items: 22
-            members: 29
-            name: "בימי שואה ופקודה"
-            ownerName: "The Open University - האוניברסיטה הפתוחה"
-            ownerUid: 920
-            privacySetting: "anyoneWithUrl"
-            subscribers:
-            tabs: []
-            uniCountry: "IL"
-            userType: "subscribe"*/
+//            $scope.info = {
+//                name: info.name,
+//                comments: info.comments,
+//                courseId: info.courseId,
+//                itemsLength: info.items,
+//                membersLength: info.members,
+//                members: info.subscribers,
+//                ownerName: info.ownerName,
+//                ownerId: info.ownerUid, //uid
+//                privacy: info.privacySetting,
+//                tabs: info.tabs,
+//                userType: info.userType,
+//                uniCountry: info.uniCountry
+//            };
 
-            $scope.items = 'items';
-            //commentsCount: 0
-            //date: "2014-06-05T14:54:29Z"
-            //id: 2966
-            //numOfViews: 0
-            //owner: "guy golan"
-            //ownerId: 18372
-            //publish: false
-            //rate: 0
-            //type: "Quiz"
-            //userUrl: "/user/1/ram"
+//            $scope.info.currentTab = null;
 
-            $scope.qna = 'qna'
-            //answers: [{id:233b4bdc-3fb3-4be7-8ec5-a2f400c5063e,…}]
-            //content: "asdsadas"
-            //creationTime: "2014-03-20T09:54:27Z"
-            
-            //files: []
-            //id: "59d599bb-34f5-4692-ac84-a2f400c43b74"
-            //url: "/user/1/ram"
-            //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
-            //userName: "guy golan"
-            //userUid: 18372
+//            $scope.items = 'items';
+//            //commentsCount: 0
+//            //date: "2014-06-05T14:54:29Z"
+//            //id: 2966
+//            //numOfViews: 0
+//            //owner: "guy golan"
+//            //ownerId: 18372
+//            //publish: false
+//            //rate: 0
+//            //type: "Quiz"
+//            //userUrl: "/user/1/ram"
 
-            $scope.addQuiz = function () {
-            };
+//            $scope.qna = 'qna'
+//            //answers: [{id:233b4bdc-3fb3-4be7-8ec5-a2f400c5063e,…}]
+//            //content: "asdsadas"
+//            //creationTime: "2014-03-20T09:54:27Z"
 
-            $scope.openUploadPopup = function () {
-            };
+//            //files: []
+//            //id: "59d599bb-34f5-4692-ac84-a2f400c43b74"
+//            //url: "/user/1/ram"
+//            //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
+//            //userName: "guy golan"
+//            //userUid: 18372
 
-            $scope.openBoxManage = function (tab) {
-            };
+//            document.getElementById('mLoading').style.display = 'none';
+//            document.getElementById('box').style.display = 'block';
+//            document.getElementById('box').style.opacity = 1;
 
-            $scope.createTab = function () {
-            };
-            
-            $scope.shareFacebook = function () {
-            };
+//        });
+//        $scope.addQuiz = function () {
+//            $scope.params.quizOpen = true;
+//            $scope.$emit('initQuiz');
+//        };
 
-            $scope.shareEmail = function () {
-            };
+//        $scope.$on('addedItem', function (event, item) {
 
-            $scope.selectTab = function (tab) {
-            };
-        });
-    }]).
-    controller('QnAController', ['Box', function (Box) {
-        $scope.questions = $scope.qna
+//        });
 
-        //question 
+//        $scope.openUploadPopup = function () {
 
-        //content: "asdsadas"
-        //creationTime: "2014-03-20T09:54:27Z"
-        //files: []
-        //id: "59d599bb-34f5-4692-ac84-a2f400c43b74"
-        //url: "/user/1/ram"
-        //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
-        //userName: "guy golan"
-        //userUid: 18372
+//        };
 
-        //answer 
+//        $scope.openBoxManage = function (tab) {
 
-        //answer: false
-        //content: "asdasd"
-        //creationTime: "2014-03-20T09:57:20Z"
-        //files: []
-        //iRate: false
-        //id: "233b4bdc-3fb3-4be7-8ec5-a2f400c5063e"
-        //questionId: "59d599bb-34f5-4692-ac84-a2f400c43b74"
-        //rating: 0
-        //url: "/user/1/ram"
-        //userId: 18372
-        //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
-        //userName: "guy golan"
-        $scope.states = {
-            emptyState: 0,
-            question : 1,
-            answers : 2
-        }
+//        };
 
-        $scope.addAnswer = function (question) {
+//        $scope.createTab = function () {
 
-        };
-        $scope.deleteAnswer = function (question, answer) {
+//        };
 
-        };
+//        $scope.shareFacebook = function () {
+//        };
+
+//        $scope.shareEmail = function () {
+//        };
+
+//        $scope.selectTab = function (tab) {
+//        };
+
+//    }]).
+//    controller('QnAController', ['Box', function (Box) {
+//        $scope.questions = $scope.qna
+
+//        //question 
+
+//        //content: "asdsadas"
+//        //creationTime: "2014-03-20T09:54:27Z"
+//        //files: []
+//        //id: "59d599bb-34f5-4692-ac84-a2f400c43b74"
+//        //url: "/user/1/ram"
+//        //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
+//        //userName: "guy golan"
+//        //userUid: 18372
+
+//        //answer 
+
+//        //answer: false
+//        //content: "asdasd"
+//        //creationTime: "2014-03-20T09:57:20Z"
+//        //files: []
+//        //iRate: false
+//        //id: "233b4bdc-3fb3-4be7-8ec5-a2f400c5063e"
+//        //questionId: "59d599bb-34f5-4692-ac84-a2f400c43b74"
+//        //rating: 0
+//        //url: "/user/1/ram"
+//        //userId: 18372
+//        //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
+//        //userName: "guy golan"
+//        $scope.states = {
+//            emptyState: 0,
+//            question: 1,
+//            answers: 2
+//        }
+
+//        $scope.addAnswer = function (question) {
+
+//        };
+//        $scope.deleteAnswer = function (question, answer) {
+
+//        };
 
 
-        $scope.addFiles = function (question,answer) {
+//        $scope.addFiles = function (question, answer) {
 
-        }
+//        }
 
-        $scope.viewItem = function (link) {
+//        $scope.viewItem = function (link) {
 
-        }
+//        }
 
-        $scope.deleteItem = function () {
-        };
+//        $scope.deleteItem = function () {
+//        };
 
-        $scope.downloadItem = function () {
-        };
-        
-    }]).
-    controller('UploadController', ['Box', function (Box) {
-        $scope.saveLink = function () {
-        };
+//        $scope.downloadItem = function () {
+//        };
 
-        $scope.saveDropbox = function () {
-        };
+//    }]).
+//    controller('UploadController', ['Box', function (Box) {
+//        $scope.saveLink = function () {
+//        };
 
-        $scope.saveGoogleDrive = function () {
-        };
+//        $scope.saveDropbox = function () {
+//        };
 
-        $scope.uploader = null//upload;
-    }]).
-    controller('ManageController', ['Box', function (Box) {
-        //Settings
+//        $scope.saveGoogleDrive = function () {
+//        };
 
-        $scope.formData = {};
+//        $scope.uploader = null//upload;
+//    }]).
+//    controller('ManageController', ['Box', function (Box) {
+//        //Settings
 
-        $scope.save = function () {
-        };
+//        $scope.formData = {};
 
-        $scope.cancel = function () {
-        };
+//        $scope.save = function () {
+//        };
 
-        $scope.delete = function () {
-        };
-    }]);
+//        $scope.cancel = function () {
+//        };
+
+//        $scope.delete = function () {
+//        };
+//    }]);
