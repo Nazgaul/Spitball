@@ -445,7 +445,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                     var directory = Path.GetDirectoryName(cdnFilePath);
                     if (directory != null) Directory.CreateDirectory(directory);
-                    File.Move(filePath, Path.Combine(cdnRoot, relativePath));
+                    File.Copy(filePath, Path.Combine(cdnRoot, relativePath));
                 }
                 catch (Exception ex)
                 {
