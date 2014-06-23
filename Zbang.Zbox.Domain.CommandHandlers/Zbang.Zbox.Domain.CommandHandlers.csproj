@@ -105,6 +105,11 @@
     <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RenameNodeCommandHandler.cs" />
+    <Compile Include="Resources\CommandHandlerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommandHandlerResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SendMessageCommandHandler.cs" />
     <Compile Include="ShareBoxFacebookCommandHandler.cs" />
     <Compile Include="AddReputationCommandHandler.cs" />
@@ -183,6 +188,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CommandHandlerResources.ar.resx" />
+    <EmbeddedResource Include="Resources\CommandHandlerResources.he.resx" />
+    <EmbeddedResource Include="Resources\CommandHandlerResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommandHandlerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommandHandlerResources.ru.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
