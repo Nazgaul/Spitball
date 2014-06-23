@@ -8,6 +8,11 @@
         $body = $('body'),
         $html = $('html');
 
+
+    window.setTimeout(function () {
+        $('#fconnect').attr('src', $('#fconnect').attr('data-src'));
+    }, 15000);
+
     //#region dropdowns
     $window.unload(function () {  //firefoxfix
         $('[data-ddcbox]').prop('checked', false);

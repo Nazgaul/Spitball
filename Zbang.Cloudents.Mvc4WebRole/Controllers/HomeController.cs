@@ -296,7 +296,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var maxElement = 40000;
             foreach (var item in seoItems.Quizes)
             {
-                nodes.Add(new SitemapNode(urlBuilder.BuildQuizUrl(item.BoxId, item.BoxName, item.Id, item.Name, item.UniversityName), requestContext));
+                nodes.Add(new SitemapNode(item.Url, requestContext));
                 maxElement--;
             }
             foreach (var item in seoItems.Items.Take(maxElement))

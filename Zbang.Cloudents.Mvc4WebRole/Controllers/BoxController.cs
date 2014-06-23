@@ -181,7 +181,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [AjaxCache(TimeConsts.Minute * 10)]
-        public JsonNetResult Items(long boxUid, int pageNumber, Guid? tab, string uniName, string boxName)
+        public JsonNetResult Items(long boxUid, int pageNumber, Guid? tab)
         {
             var userId = GetUserId(false); // not really needs it
             try
@@ -194,16 +194,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     if (item is Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
                     {
-                        //item.Url = urlBuilder.BuildItemUrl(boxUid, boxName, item.Id, item.Name, uniName);
                         item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
-                        continue;
                     }
-                    var quiz = item as QuizDto;
-                    if (quiz == null) continue;
-                    if (quiz.Publish)
-                    {
-                        quiz.Url = urlBuilder.BuildQuizUrl(boxUid, boxName, item.Id, item.Name, uniName);
-                    }
+                   
                 }
                 var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
                 return this.CdJson(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));

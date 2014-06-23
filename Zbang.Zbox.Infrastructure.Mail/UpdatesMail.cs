@@ -44,17 +44,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
             message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
-            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions + updateParams.NoOfUsers).ToString(CultureInfo.InvariantCulture));
+            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions).ToString(CultureInfo.InvariantCulture));
             message.Html = message.Html.Replace("{X-ANSWERS}", AggregateAnswers(updateParams.NoOfAnswers));
             message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
             message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));
-            message.Html = message.Html.Replace("{X-NEW-USERS}", AggregateUsers(updateParams.NoOfUsers));
+            //message.Html = message.Html.Replace("{X-NEW-USERS}", AggregateUsers(updateParams.NoOfUsers));
         }
 
-        private string AggregateUsers(int numOfUsers)
-        {
-            return AggreateWithString(numOfUsers, EmailResource.user, EmailResource.users);
-        }
+        //private string AggregateUsers(int numOfUsers)
+        //{
+        //    return AggreateWithString(numOfUsers, EmailResource.user, EmailResource.users);
+        //}
 
         private string AggregateAnswers(int numOfAnswers)
         {

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -35,7 +32,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             catch (Exception ex)
             {
-                Zbang.Zbox.Infrastructure.Trace.TraceLog.WriteError("On Run MailProcess2", ex);
+                TraceLog.WriteError("On Run MailProcess2", ex);
                 throw;
             }
         }
@@ -52,7 +49,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 }
                 try
                 {
-                    var mail = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Imail2>(msgData.MailResover);
+                    var mail = IocFactory.Unity.Resolve<Imail2>(msgData.MailResover);
                     return mail.Excecute(msgData);
                 }
                 catch (NullReferenceException ex)

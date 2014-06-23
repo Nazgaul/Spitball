@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private bool IsChangeEmailNeeded(string newUserEmail, string currentEmail)
         {
-            return currentEmail.ToLower() != newUserEmail.ToLower();
+            return !String.Equals(currentEmail, newUserEmail, StringComparison.CurrentCultureIgnoreCase);
         }
 
         private void ChangeUserEmail(string email, User user, bool tempFromFacebookLogin)
@@ -63,16 +63,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException("Email is not in the correct format");
             }
             user.Email = email;
-            if (!tempFromFacebookLogin)
+            if (tempFromFacebookLogin) return;
+            if (user.MembershipId.HasValue)
             {
-                if (user.MembershipId.HasValue)
-                {
-                    m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
-                }
-                else
-                {
-                    throw new ArgumentException("Cannot change user email");
-                }
+                m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
+            }
+            else
+            {
+                throw new ArgumentException("Cannot change user email");
             }
         }
     }

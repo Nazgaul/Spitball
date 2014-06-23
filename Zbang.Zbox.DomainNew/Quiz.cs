@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Zbox.Domain
 {
@@ -45,6 +46,17 @@ namespace Zbang.Zbox.Domain
         public virtual int NumberOfComments { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual ICollection<Question> Questions { get; private set; }
+
+        public virtual string Url { get; set; }
+        public virtual void GenerateUrl()
+        {
+            if (Id == 0)
+            {
+                return;
+            }
+            var universityName = Box.Owner.GetUniversityName() ?? "my";
+            Url = UrlConsts.BuildQuizUrl(Box.Id, Box.Name, Id, Name, universityName);
+        }
 
         // ReSharper restore UnusedAutoPropertyAccessor.Local
         public virtual void UpdateText(string newText)

@@ -11,7 +11,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
-    public class SaveQuizCommandHandler : ICommandHandler<SaveQuizCommand>
+    public class SaveQuizCommandHandler : ICommandHandler<SaveQuizCommand, SaveQuizCommandResult>
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IQueueProvider m_QueueProvider;
@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_QueueProvider = queueProvider;
             m_BoxRepository = boxRepository;
         }
-        public void Handle(SaveQuizCommand message)
+        public SaveQuizCommandResult Execute(SaveQuizCommand message)
         {
             var quiz = m_QuizRepository.Load(message.QuizId);
             Throw.OnNull(quiz, "quiz");
@@ -86,8 +86,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_QueueProvider.InsertMessageToTranaction(new UpdateData(quiz.Owner.Id, quiz.Box.Id, null, null, null, quiz.Id));
             quiz.Box.UserTime.UpdateUserTime(quiz.Owner.Email);
             quiz.Box.UpdateItemCount();
+            quiz.GenerateUrl();
             m_BoxRepository.Save(quiz.Box);
             m_QuizRepository.Save(quiz);
+
+            return new SaveQuizCommandResult(quiz.Url);
         }
     }
 }
