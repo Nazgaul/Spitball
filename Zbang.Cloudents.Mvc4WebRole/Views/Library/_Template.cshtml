@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 <script type="text/html" id="library-node">
     <li class="libraryItem deptItem">
-        <a class="navigation deptLink" data-navigation="Library" data-bind="attr: { href: url }">
+        <a class="navigation deptLink union-sprite" data-navigation="Library" data-bind="attr: { href: url }">
             <div class="deptNameWpr clamp2">
                 <div class="deptName" data-bind="text: name"></div>
             </div>
@@ -30,7 +30,7 @@
         </a>
         @*<div class="dropToBox boldFont">Drop files here</div>*@
         <!--ko if:boxSubscribed()-->
-        <span class="subscriber">@MainViewResources.Following</span>
+        <span class="subscriber union-sprite">@MainViewResources.Following</span>
         <!-- /ko -->
         <!--ko if:boxFollow()-->
         <button class="follow" data-bind="click: subscribe">@MainViewResources.Follow</button>

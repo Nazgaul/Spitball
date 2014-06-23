@@ -179,8 +179,7 @@
   padding: 0 15px 0 0;
   /*rtl*/
 }
-.emptyLib .libEmpty label,
-.emptyLib .dashEmpty label {
+.emptyLib .libEmpty label {
   text-align: right;
   /*rtl*/
 }
