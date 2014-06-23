@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (!m_MembershipService.ChangePassword(user.MembershipId.Value, command.CurrentPassword, command.NewPassword))
             {
-                m_Result.Error = "Cannot change password";
+                m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
             }
         }
 

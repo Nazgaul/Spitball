@@ -85,11 +85,11 @@
   transform: translate(0, 0);
 }
 .modal.fade .modal-dialog {
-  -webkit-transform: translate(0, 25%);
-  -moz-transform: translate(0, 25%);
-  -o-transform: translate(0, 25%);
-  -ms-transform: translate(0, 25%);
-  transform: translate(0, 25%);
+  -webkit-transform: translate(0, 20vh);
+  -moz-transform: translate(0, 20vh);
+  -o-transform: translate(0, 20vh);
+  -ms-transform: translate(0, 20vh);
+  transform: translate(0, 20vh);
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;

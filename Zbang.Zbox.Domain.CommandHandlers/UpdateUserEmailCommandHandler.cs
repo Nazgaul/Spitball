@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             User user = m_UserRepository.Get(command.Id);
             if (user == null)
             {
-                throw new NullReferenceException("user doesnt not exists");
+                throw new NullReferenceException(Resources.CommandHandlerResources.UserNotExist);
             }
             if (user.Email == command.Email)
             {
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             if (CheckIfEmailOccupied(command.Email))
             {
-                throw new ArgumentException("This email is taken");
+                throw new ArgumentException(Resources.CommandHandlerResources.EmailTaken);
             }
 
 
@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (!Validation.IsEmailValid(email))
             {
-                throw new ArgumentException("Email is not in the correct format");
+                throw new ArgumentException(Resources.CommandHandlerResources.EmailNotCorrect);
             }
             user.Email = email;
             if (tempFromFacebookLogin) return;
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             else
             {
-                throw new ArgumentException("Cannot change user email");
+                throw new ArgumentException(Resources.CommandHandlerResources.CannotChangeEmail);
             }
         }
     }

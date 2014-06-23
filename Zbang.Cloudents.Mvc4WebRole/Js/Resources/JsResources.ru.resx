@@ -599,4 +599,19 @@
   <data name="SureYouWantTo" xml:space="preserve">
     <value>Вы уверены, что хотите</value>
   </data>
+  <data name="AtLeastOne" xml:space="preserve">
+    <value>Пожалуйста, введите как минимум один адрес электронной почты</value>
+  </data>
+  <data name="DeleteEmptyCourse" xml:space="preserve">
+    <value>Вы создали пустой курс. Если вы прекратите следовать, курс будет удален. Удалить курс?</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>Адрес электронной почты уже существует</value>
+  </data>
+  <data name="ErrorInvite" xml:space="preserve">
+    <value>Ошибка отправки приглашения пользователю</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Ошибка, пожалуйста попробуйте еще раз позже</value>
+  </data>
 </root>

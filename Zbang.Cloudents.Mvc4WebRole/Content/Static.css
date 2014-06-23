@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region sticky footer */
 html {
   height: 100%;
 }
@@ -39,9 +39,9 @@ footer {
   clear: both;
   line-height: 23px;
 }
-
-
-
+/*#endregion */
+/*#region headeractions and menu */
+/*#region side menu */
 .sideBar {
   background: #39434a;
   position: fixed;
@@ -92,7 +92,7 @@ footer {
 .sideBar .last {
   margin-bottom: 30px;
 }
-
+/*#endregion */
 .headerActions {
   line-height: 50px;
   height: 50px;
@@ -145,8 +145,8 @@ footer {
   vertical-align: middle;
   line-height: 50px;
 }
-
-
+/*#endregion */
+/*#region error pages */
 .membersOnly {
   text-align: center;
   font-size: 15px;
@@ -198,8 +198,8 @@ footer {
 .notFound a {
   color: #0f9d58;
 }
-
-
+/*#endregion */
+/*#region about us, contact us, privacy policy; terms of service */
 .staticPage {
   color: #000;
   margin: 0 auto;
@@ -249,8 +249,8 @@ footer {
   display: inline-block;
   margin-bottom: 1em;
 }
-
-
+/*#endregion */
+/*#region forgot password; email sent; verify password */
 .inputText {
   background-color: #fff;
   padding: 0 4px 0 8px;
@@ -301,8 +301,8 @@ footer {
 .lastP {
   margin-bottom: 40px;
 }
-
-
+/*#endregion */
+/*#region unsupported page */
 .unsupported {
   text-align: center;
 }
@@ -355,8 +355,8 @@ footer {
   height: 72px;
   background-position: -1px -1px;
 }
-
-
+/*#endregion */
+/*#region btns */
 .btn1,
 .btn2 {
   border-radius: 5px;
@@ -371,8 +371,8 @@ footer {
   border: 1px solid #c2c2c2;
   color: #464646;
 }
-
-
+/*#endregion */
+/*#region library empty state */
 .libEmpty {
   color: #383838;
   font-size: 18px;
@@ -400,8 +400,8 @@ footer {
     font-size: 15px;
     color: @textColor;
 }*/
-
-
+/*#endregion */
+/*#region AUTO COMPLETE */
 .uniWpr {
   position: relative;
   margin: 32px 0 8px;
@@ -588,7 +588,7 @@ footer {
   content: attr(data-friendscount) '\00a0';
   display: inline-block;
 }
-
+/*#region faq */
 .faq:after {
   content: '';
   width: 100%;
@@ -731,8 +731,8 @@ footer {
   /*overflow: hidden;*/
   /*.transition(all 0.4s);*/
 }
-
-
+/*#endregion */
+/*#region chairman - only displayed for hebrew */
 .chairman {
   width: 450px;
   min-height: 100vh;
@@ -779,11 +779,11 @@ footer {
 .chairman ~ .page .libraryChoose {
   width: 657px;
 }
-
-
+/*#endregion */
+/*#region media queries */
 @media (max-width: 1024px) {
   .libEmpty.libraryChoose {
     margin: 138px 20px 0 20px;
   }
 }
-
+/*#endregion */

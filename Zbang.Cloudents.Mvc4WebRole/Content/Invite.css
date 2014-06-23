@@ -1,13 +1,13 @@
-﻿
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 .inviteWpr {
   width: 1012px;
   margin: 40px auto 0;
   position: relative;
 }
-
+/*#region aside */
 .invSidebar {
   width: 270px;
 }
@@ -123,8 +123,8 @@
   background: url(/Images/invite-sprite.png?v=1) no-repeat;
   vertical-align: middle;
 }
-
-
+/*#endregion */
+/*#region invite main content */
 .invMain {
   overflow: hidden;
 }
@@ -466,4 +466,4 @@
 .connectTxt {
   margin: 50px 0 10px;
 }
-
+/*#endregion */

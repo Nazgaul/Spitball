@@ -433,7 +433,7 @@
                 attempValidate(); //check if the input is a valid email
 
                 if (emailsSelecetd.length === 0) {
-                    cd.notification('Please enter at least one email');
+                    cd.notification(JsResources.AtLeastOne);
                     return false;
                 }
 
@@ -449,7 +449,7 @@
                         }, 2000);
                     },
                     error: function () {
-                        cd.notification('Error, please try again later');
+                        cd.notification(JsResources.TryAgain);
                     },
                     always: function () {
                         eById('inviteSendEmail').removeAttribute('disabled');
@@ -546,7 +546,7 @@
                 },
                 error: function (msg) {
                     console.log(msg);
-                    cd.notification('Error, sending invite to user');
+                    cd.notification(JsResources.ErrorInvite);
                 }
             };
 
@@ -651,7 +651,7 @@
 
             if (emailsSelecetd.indexOf(item.id) > -1) {//email  already exist
                 inviteInput.value = inviteInput.value.slice(0, -1);
-                cd.notification('Email already exists');
+                cd.notification(JsResources.EmailExists);
                 return;
             }
 
