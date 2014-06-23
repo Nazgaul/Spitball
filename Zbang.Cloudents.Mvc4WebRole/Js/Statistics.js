@@ -32,7 +32,8 @@
     });
 
     window.setInterval(sendData, 300000); // 5 minutes
-    sendData();
+    window.setTimeout(sendData, 60000);
+    //sendData();
 
     function sendData() {
         var x = JSON.parse(cd.localStorageWrapper.getItem(key));
