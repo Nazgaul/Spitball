@@ -22,7 +22,10 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         public bool Excecute(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as BadItemData;
-            Throw.OnNull(parameters, "parameters");
+            if (parameters == null)
+            {
+                throw new System.NullReferenceException("parameters");
+            }
             m_TableProvider.InsertUserRequestAsync(
                 new Infrastructure.Storage.Entities.FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
 
