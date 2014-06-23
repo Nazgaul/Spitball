@@ -59,5 +59,50 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot change user email.
+        /// </summary>
+        public static string CannotChangeEmail {
+            get {
+                return ResourceManager.GetString("CannotChangeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot change password.
+        /// </summary>
+        public static string CannotChangePwd {
+            get {
+                return ResourceManager.GetString("CannotChangePwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is not in the correct format.
+        /// </summary>
+        public static string EmailNotCorrect {
+            get {
+                return ResourceManager.GetString("EmailNotCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email is taken.
+        /// </summary>
+        public static string EmailTaken {
+            get {
+                return ResourceManager.GetString("EmailTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User does not exist.
+        /// </summary>
+        public static string UserNotExist {
+            get {
+                return ResourceManager.GetString("UserNotExist", resourceCulture);
+            }
+        }
     }
 }

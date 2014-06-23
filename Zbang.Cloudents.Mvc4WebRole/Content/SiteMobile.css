@@ -1,17 +1,17 @@
-﻿
-
-
-
-
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region mixins  */
+/*#endregion */
+/*#region variables */
+/*#endregion */
 html,
 body {
   height: 100%;
   background: #f4f4f4;
 }
-
+/*#region  regular sprites */
 .sprite1a:after,
 .sprite1b:before {
   background: url(/Images/m-dash15-sprite.png?v=1) no-repeat;
@@ -23,8 +23,8 @@ body {
 .deptItem:after {
   background: url(/Images/m-lib15-sprite.png?v=1) no-repeat;
 }
-
-
+/*#endregion */
+/*#region retina image sprites */
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .sprite1a:after,
   .sprite1b:before {
@@ -50,8 +50,8 @@ body {
     background-size: 45px 21px;
   }
 }
-
-
+/*#endregion */
+/*#region header (from _Layout3mobile) */
 header {
   background: #0f9d58;
   position: fixed;
@@ -120,8 +120,8 @@ header {
   background-position: -115px 0;
   vertical-align: middle;
 }
-
-
+/*#endregion */
+/*#region search */
 .search {
   position: fixed;
   top: -14px;
@@ -187,8 +187,8 @@ header {
   background-position: -137px 0;
   margin-top: 4px;
 }
-
-
+/*#endregion */
+/*#region settings panel / menu */
 .settingsOpenGray {
   position: absolute;
   left: 67%;
@@ -369,7 +369,7 @@ header {
   color: #0f9d58;
   visibility: hidden;
 }
-
+/*#endregion */
 .wpr {
   height: 100%;
 }
@@ -410,7 +410,7 @@ header {
 .subTitle.topContent {
   margin: 13px 0;
 }
-
+/*#region popup */
 .popup {
   font-size: 16px;
   color: #3b3b3b;
@@ -534,8 +534,8 @@ header {
 .requestSent {
   display: none;
 }
-
-
+/*#endregion */
+/*#region dashLib content */
 .topBtns {
   background: #fff;
   position: fixed;
@@ -733,8 +733,8 @@ header {
   font-size: 17px;
   font-weight: bold;
 }
-
-
+/*#endregion */
+/*#region box/course */
 .boxEmpty,
 .dashLibEmpty {
   font-size: 18px;
@@ -1128,8 +1128,8 @@ header {
   color: #0f9d58;
   margin-top: 4px;
 }
-
-
+/*#endregion */
+/*#region .friendspageList*/
 .friendspageList li > a {
   height: 32px;
 }
@@ -1138,9 +1138,9 @@ header {
   padding: 0 6px;
   line-height: 32px;
 }
-
-
-
+/*#endregion */
+/*#region Actions */
+/*#region popups pages */
 .profile {
   width: 96%;
   margin: 0 auto;
@@ -1405,9 +1405,9 @@ header {
   font-weight: normal;
   color: #464646;
 }
-
-
-
+/*#endregion */
+/*#endregion */
+/*#region buttons */
 .btn1 {
   font-size: 16px;
   line-height: 30px;
@@ -1434,4 +1434,4 @@ header {
         background: #a5a5a5;
     }*/
 }
-
+/*#endregion */

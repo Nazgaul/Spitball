@@ -35,7 +35,7 @@
 .headingTexts .email {
   width: 302px;
 }
-
+/*#region item page */
 .previewWrapper h2 {
   line-height: 12px;
   margin-bottom: 20px;
@@ -43,8 +43,8 @@
 .middleActionItem {
   padding: 0;
 }
-
-
+/*#endregion */
+/*#region box page */
 .inviteFriendBtn.btn3 {
   width: 150px;
   padding: 7px 13px;
@@ -86,8 +86,8 @@
     margin-right: 3px;
   }
 }
-
-
+/*#endregion */
+/*#region quiz*/
 .questionHolder .correct {
   width: 60px;
 }
@@ -97,8 +97,8 @@
 .cTextArea {
   width: 565px;
 }
-
-
+/*#endregion*/
+/*#region invite page*/
 .invItem .invName {
   max-width: 138px;
 }
@@ -108,20 +108,20 @@
 .invForm h3 {
   font-size: 14px;
 }
-
-
+/*#endregion*/
+/*#region User page */
 .dateCol {
   width: 165px;
 }
-
-
+/*#endregion */
+/*#region modal.less */
 .tabArrow:before {
   left: 50px;
 }
 .tabMembers .tabArrow:before {
   left: 163px;
 }
-
+/*#endregion */
 .emailUser .inputLabel {
   width: 41px;
 }

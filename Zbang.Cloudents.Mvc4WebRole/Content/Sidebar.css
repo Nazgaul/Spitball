@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region library sidebar */
 .asideDash {
   height: 100%;
   background: #fff;
@@ -330,8 +330,8 @@
   width: 27px;
   height: 32px;
 }
-
-
+/*#endregion */
+/*#region Lib Aside */
 .unionName {
   font-size: 22px;
   border-bottom: 1px solid #c2c2c2;
@@ -481,4 +481,4 @@
 .libLists .libTwitter {
   bottom: 0;
 }
-
+/*#endregion */

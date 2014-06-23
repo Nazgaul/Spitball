@@ -1,7 +1,7 @@
-﻿
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 h1 {
   font-weight: 700;
 }
@@ -25,7 +25,7 @@ h6 {
   padding-top: 50px;
   /*position: relative;*/
 }
-
+/*#region dropdown */
 /*top bar*/
 .topbar {
   height: 44px;
@@ -108,9 +108,9 @@ h6 {
   display: none;
 }
 /*end pop ups*/
-
+/*#endregion */
 /*End*/
-
+/*#region drag-drop*/
 .draggable {
   border: 1px solid #0f9d58;
   color: #111;
@@ -136,8 +136,8 @@ h6 {
 .dropHover {
   color: #0f9d58;
 }
-
+/*#endregion*/
 .plupload.html5 {
   top: -500px;
 }
-
+/*#endregion */

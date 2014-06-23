@@ -1,8 +1,8 @@
-﻿
-
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region topHeader */
 /*.siteHeader > .rFloat {
     margin: 0 0 0 20px; 
 }*/
@@ -26,7 +26,7 @@
   padding: 0 15px 0 35px;
   /*rtl*/
 }
-
+/*#endregion */
 .footer li:after {
   padding: 0 6px 0 3px;
   /*rtl*/
@@ -35,4 +35,4 @@
   padding: 0 3px 0 6px;
   /*rtl*/
 }
-
+/*#endregion */

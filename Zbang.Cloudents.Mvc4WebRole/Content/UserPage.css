@@ -1,7 +1,7 @@
-﻿
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 .userPage,
 .searchPage {
   text-align: left;
@@ -41,7 +41,7 @@
 .userPage .userItem:nth-child(7n) {
   margin: 0;
 }
-
+/*#region user page aside */
 .upSidebar {
   width: 227px;
   height: 332px;
@@ -51,7 +51,7 @@
   display: inline-block;
   clear: both;
 }
-
+/*#region points section */
 .pointsWpr {
   width: 227px;
   min-height: 53px;
@@ -107,8 +107,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
-
+/*#endregion */
+/*#region uploads 'tab' */
 .upTabContent {
   display: none;
 }
@@ -223,8 +223,8 @@
   height: 53px;
   background-position: -6px -42px;
 }
-
-
+/*#endregion */
+/*#region QnA tabs */
 .qaItem {
   padding-bottom: 14px;
   margin-bottom: 14px;
@@ -317,9 +317,9 @@
   height: 34px;
   background-position: -5px -3px;
 }
-
-
-
+/*#endregion */
+/*#endregion */
+/*#region userpage content */
 .upContentWpr {
   width: 1021px;
   margin: 0 auto;
@@ -681,8 +681,8 @@
   margin-left: 15px;
   /*rtl*/
 }
-
-
+/*#endregion */
+/*#region union*/
 .upMembers {
   margin-top: 27px;
 }
@@ -907,4 +907,4 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+/*#endregion*/
