@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 ﻿
 
 
 
+=======
+/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+>>>>>>> bfe384ef90077fa14a8df1389d8ed3010c105347
 .boxPage .leftPanel {
   border: none;
   height: 100%;
@@ -938,12 +945,15 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin-left: -260px;
-  padding-left: 260px;
+  margin: 0 -260px 0 0;
+  /*rtl*/
+  padding: 0 260px 0 0;
+  /*rtl*/
 }
 .boxItemList.sponsored .listItem:first-child .boxLink:after {
-  top: 31px;
-  left: 77px;
+  right: 77px;
+  /*rtl*/
+  left: auto;
 }
 .boxItems {
   margin: 20px 20px 0 20px;
@@ -2035,4 +2045,9 @@
   margin-right: 4px;
   /*rtl*/
 }
+<<<<<<< HEAD
 
+=======
+/*#endregion */
+/*# sourceMappingURL=Box3.css.map */
+>>>>>>> bfe384ef90077fa14a8df1389d8ed3010c105347

@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(UserUrl, id, NameToQueryString(name)));
             if (fullUrl)
             {
-                return VirtualPathUtility.AppendTrailingSlash(CloudentsUrl) + relativeUrl;
+                return CloudentsUrl + relativeUrl;
             }
             return relativeUrl;
         }
@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             if (fullUrl)
             {
-                return VirtualPathUtility.AppendTrailingSlash(CloudentsUrl) + relativeUrl;
+                return CloudentsUrl + relativeUrl;
             }
             return relativeUrl;
         }
@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(ItemUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
             if (fullUrl)
             {
-                return VirtualPathUtility.AppendTrailingSlash(CloudentsUrl) + relativeUrl;
+                return CloudentsUrl + relativeUrl;
             }
             return relativeUrl;
         }
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(QuizUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), quizId, NameToQueryString(quizName)));
             if (fullUrl)
             {
-                return VirtualPathUtility.AppendTrailingSlash(CloudentsUrl) + relativeUrl;
+                return CloudentsUrl + relativeUrl;
             }
             return relativeUrl;
         }

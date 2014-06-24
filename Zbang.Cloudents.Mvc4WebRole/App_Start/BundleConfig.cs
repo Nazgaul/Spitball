@@ -61,7 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/Item3.css",
                 "~/Content/Settings.css",
                 "~/Content/DashLib.css",
-                //"~/Content/ng-modal.css",
                 "~/Content/jquery.mCustomScrollbar.css");
 
             RegisterCss("staticRtl", "~/Content/GeneralRtl.css",
@@ -446,7 +445,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                     var directory = Path.GetDirectoryName(cdnFilePath);
                     if (directory != null) Directory.CreateDirectory(directory);
-                    File.Move(filePath, Path.Combine(cdnRoot, relativePath));
+                    File.Copy(filePath, Path.Combine(cdnRoot, relativePath));
                 }
                 catch (Exception ex)
                 {

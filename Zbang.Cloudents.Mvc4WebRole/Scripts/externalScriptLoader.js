@@ -2,34 +2,34 @@
 //ga = ga || [];
 
 var x = document.getElementById('userName');//.getAttribute('data-id')
-_gaq.push(['_setAccount', 'UA-9850006-3'],
-            ['_setDomainName', 'cloudents.com'],
-            ['_setAllowLinker', true],
-            ['_trackPageview', location.pathname + location.search + location.hash],
-            ['_setSiteSpeedSampleRate', 15]);
+//_gaq.push(['_setAccount', 'UA-9850006-3'],
+//            ['_setDomainName', 'cloudents.com'],
+//            ['_setAllowLinker', true],
+//            ['_trackPageview', location.pathname + location.search + location.hash],
+//            ['_setSiteSpeedSampleRate', 15]);
 // ['_setCustomVar', 5, 'visitorid', cd.userDetail().id, 1];
 
 (function (cd) {
-    function async_load() {
-        var gaScript = document.createElement('script');
-        gaScript.type = 'text/javascript';
-        gaScript.async = true;
-        gaScript.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[document.getElementsByTagName('script').length - 1];
-        s.parentNode.insertBefore(gaScript, s);
+    //function async_load() {
+    //    var gaScript = document.createElement('script');
+    //    gaScript.type = 'text/javascript';
+    //    gaScript.async = true;
+    //    gaScript.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    //    var s = document.getElementsByTagName('script')[document.getElementsByTagName('script').length - 1];
+    //    s.parentNode.insertBefore(gaScript, s);
 
-        _gaq.push(['_setCustomVar', 5, 'visitorid', cd.userDetail().id, 1]);
+    //    _gaq.push(['_setCustomVar', 5, 'visitorid', cd.userDetail().id, 1]);
 
 
 
-    }
-    if (window.attachEvent) {
-        window.attachEvent('onload', async_load);
-    }
-    else {
+    //}
+    //if (window.attachEvent) {
+    //    window.attachEvent('onload', async_load);
+    //}
+    //else {
 
-        window.addEventListener('load', async_load, false);
-    }
+    //    window.addEventListener('load', async_load, false);
+    //}
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)
@@ -52,24 +52,24 @@ _gaq.push(['_setAccount', 'UA-9850006-3'],
 
     cd.analytics = {
         trackEvent: function (category, action, opt_label) {
-            _gaq.push(['_trackEvent', category, action, opt_label]);
+            //_gaq.push(['_trackEvent', category, action, opt_label]);
             window.ga('send', 'event', category, action, opt_label);  // value is a number.
         },
         trackSocial: function (targetUrl, action) {
-            _gaq.push(['_trackSocial', 'facebook', action, targetUrl]);
+            //_gaq.push(['_trackSocial', 'facebook', action, targetUrl]);
             window.ga('send', 'social', 'facebook', action, targetUrl);
         },
         trackPage: function (targetUrl) {
-            _gaq.push(['_trackPageview', targetUrl]);
+           // _gaq.push(['_trackPageview', targetUrl]);
             window.ga('send', 'pageview', targetUrl);
         },
         setLibrary: function (universityName) {
-            _gaq.push(['_setCustomVar',
-                         1,                   // This custom var is set to slot #1.  Required parameter.
-                         'Univeristy',     // The name acts as a kind of category for the user activity.  Required parameter.
-                         universityName,    // This value of the custom variable.  Required parameter.
-                         2                   // Sets the scope to session-level.  Optional parameter.
-            ]);
+            //_gaq.push(['_setCustomVar',
+            //             1,                   // This custom var is set to slot #1.  Required parameter.
+            //             'Univeristy',     // The name acts as a kind of category for the user activity.  Required parameter.
+            //             universityName,    // This value of the custom variable.  Required parameter.
+            //             2                   // Sets the scope to session-level.  Optional parameter.
+            //]);
         }
     };
 })(cd = window.cd || {});

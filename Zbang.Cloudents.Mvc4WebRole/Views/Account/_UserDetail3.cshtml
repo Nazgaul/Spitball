@@ -20,22 +20,24 @@
                 <a class="menuLink" data-navigation="account" href="@Url.Action("Settings", "Account")">@UserDetailResources.AccountSettings</a>
             </li>
             <li class="menuItem">
-                @Html.ActionLink(UserDetailResources.Feedback, "Help", "Home", null, new { @class = "menuLink" })
+                <a class="menuLink" target="_self" href="@Url.Action("Help","Home")">@UserDetailResources.Feedback</a>
+                
             </li>
             <li class="menuItem">
-                @Html.ActionLink(FooterResources.AboutUs, "AboutUs", "Home", null, new { @class = "menuLink" })
+                
+                @Html.ActionLink(FooterResources.AboutUs, "AboutUs", "Home", null, new { @class = "menuLink" , target="_self" })
             </li>
             <li class="menuItem">
-                @Html.ActionLink(FooterResources.ContactUs, "ContactUs", "Home", null, new { @class = "menuLink" })
+                @Html.ActionLink(FooterResources.ContactUs, "ContactUs", "Home", null, new { @class = "menuLink", target = "_self" })
             </li>
             <li class="menuItem">
-                @Html.ActionLink(FooterResources.PrivacyPolicy, "Privacy", "Home", null, new { @class = "menuLink" })
+                @Html.ActionLink(FooterResources.PrivacyPolicy, "Privacy", "Home", null, new { @class = "menuLink", target = "_self" })
             </li>
             <li class="menuItem">
-                @Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "menuLink" })
+                @Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "menuLink", target = "_self" })
             </li>
             <li class="menuItem">
-                <a id="logOut" class="menuLink" href="@Url.Action("LogOff", "Account")">@UserDetailResources.LogOut</a>
+                <a id="logOut" target="_self" class="menuLink" href="@Url.Action("LogOff", "Account")">@UserDetailResources.LogOut</a>
             </li>
         </ul>
     </li>

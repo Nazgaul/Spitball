@@ -134,6 +134,48 @@
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
+    @*
+        If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
+    @{
+        if (ViewBag.fBox)
+        {
+            <div id="quizGuideTemplate" class="steps quizGuideTemplate">
+                <div class="tooltip left tall" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
+                    <button type="button" class="closeDialog"></button>
+                    <div class="stepTip">
+                        <div>@SharedResources.CreateShare</div>
+                        <ul>
+                            <li>@SharedResources.ExamQuestion</li>
+                            <li>@SharedResources.MultipleAnswers</li>
+                            <li>@SharedResources.UseMaterial</li>
+                            <li>@SharedResources.PublishQuiz</li>
+                        </ul>
+                        <div>@SharedResources.CloudentsQuizzes</div>
+                        <div class="ttBtns">
+                            <button type="button" data-done class="rFloat btn3">@SharedResources.Dismiss</button>
+                            <button type="button" data-next class="rFloat btn3">@DialogResources.Next</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tooltip" data-step="1" data-tt-position=".quizItem:not(.draft)" data-arrow-position="top">
+                    <button type="button" class="closeDialog"></button>
+                    <div class="stepTip">
+                        <div>@SharedResources.PrepareExam</div>
+                        <ul>
+                            <li>@SharedResources.SeeScore</li>
+                            <li>@SharedResources.ShareQuiz</li>
+                            <li>@SharedResources.DiscussQuiz</li>
+                        </ul>
+                        <div>@SharedResources.TryIt</div>
+                        <div class="ttBtns">
+                            <button type="button" data-prev class="lFloat btn3">@SharedResources.Previous</button>
+                            <button type="button" data-done class="rFloat btn3">@SharedResources.Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
 
     <script type="text/html" id="userToolTipTempalte">
@@ -200,48 +242,7 @@
             </a>
         </li>
     </script>
-    @*
-        If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
-    @{
-        if (ViewBag.fBox)
-        {
-            <div id="quizGuideTemplate" class="steps quizGuideTemplate">
-                <div class="tooltip left tall" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
-                    <button type="button" class="closeDialog"></button>
-                    <div class="stepTip">
-                        <div>@SharedResources.CreateShare</div>
-                        <ul>
-                            <li>@SharedResources.ExamQuestion</li>
-                            <li>@SharedResources.MultipleAnswers</li>
-                            <li>@SharedResources.UseMaterial</li>
-                            <li>@SharedResources.PublishQuiz</li>
-                        </ul>
-                        <div>@SharedResources.CloudentsQuizzes</div>
-                        <div class="ttBtns">
-                            <button type="button" data-done class="rFloat btn3">@SharedResources.Dismiss</button>
-                            <button type="button" data-next class="rFloat btn3">@DialogResources.Next</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="tooltip" data-step="1" data-tt-position=".quizItem:not(.draft)" data-arrow-position="top">
-                    <button type="button" class="closeDialog"></button>
-                    <div class="stepTip">
-                        <div>@SharedResources.PrepareExam</div>
-                        <ul>
-                            <li>@SharedResources.SeeScore</li>
-                            <li>@SharedResources.ShareQuiz</li>
-                            <li>@SharedResources.DiscussQuiz</li>
-                        </ul>
-                        <div>@SharedResources.TryIt</div>
-                        <div class="ttBtns">
-                            <button type="button" data-prev class="lFloat btn3">@SharedResources.Previous</button>
-                            <button type="button" data-done class="rFloat btn3">@SharedResources.Dismiss</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
+  
 
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
@@ -254,7 +255,7 @@
 
     @if (User.Identity.IsAuthenticated)
     {
-        <iframe id="fconnect" src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
+        <iframe  id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
     }
 </body>
 </html>

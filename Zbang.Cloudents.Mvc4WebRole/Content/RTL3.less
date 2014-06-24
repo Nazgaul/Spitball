@@ -22,14 +22,7 @@
         right: auto;
     }
 }
-.ng-modal, .ng-modal-overlay  {
-    right: 0; /*rtl*/
-    left: auto;
-}
-.ng-modal-close {
-    left: 12px; /*rtl*/
-    right: auto;
-}
+
 .modal2 {
     right: 0; /*rtl*/
     left: auto;
@@ -188,7 +181,7 @@
 }
 
 .emptyLib {
-    .libEmpty, .dashEmpty {
+    .libEmpty/*, .dashEmpty*/ {
         label {
             text-align: right; /*rtl*/
         }
@@ -714,6 +707,14 @@
 
             .itemContent {
                 margin: 0 0 5px 15px; /*rtl*/
+            }
+            .boxLink {
+                margin-left: -260px;
+                padding-left: 260px;
+                &:after {
+                    top:31px;
+                    left: 77px;
+                }
             }
         }
     }

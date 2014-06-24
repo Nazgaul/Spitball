@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -13,15 +10,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     public class AddFiles : IJob
     {
         private bool m_KeepRunning;
-        private readonly IQueueProvider m_QueueProvider;
+        // ReSharper disable once NotAccessedField.Local
         private readonly IBlobProvider m_BlobProvider; // to trigger ctor
         private readonly QueueProcess m_QueueProcess;
         private readonly IZboxWriteService m_ZboxWriteService;
 
 
-        public AddFiles(IQueueProvider queueProvider, IZboxWriteService zboxWriteService,IBlobProvider blobProvider)
+        public AddFiles(IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IBlobProvider blobProvider)
         {
-            m_QueueProvider = queueProvider;
             m_ZboxWriteService = zboxWriteService;
             m_BlobProvider = blobProvider;
             m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(120));
@@ -63,11 +59,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                     var command = new AddFileToBoxCommand(msgData.UserId, msgData.BoxId, msgData.BlobUrl,
                        msgData.FileName,
-                        msgData.Size.Value, msgData.TablId);
-                   m_ZboxWriteService.AddFileToBox(command);
+                      msgData.Size.HasValue ? msgData.Size.Value : 0, msgData.TablId);
+                    m_ZboxWriteService.AddFileToBox(command);
                     return true;
                 }
-                
+
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("AddFiles run " + msg.Id, ex);

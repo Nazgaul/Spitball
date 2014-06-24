@@ -1,7 +1,7 @@
-﻿
-
-
-
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
 .settingsMenu {
   width: 263px;
   background: #fff;
@@ -45,7 +45,7 @@
 .settingsContent .seeMore {
   float: none;
 }
-
+/*#region profile info */
 .profileInfo {
   display: none;
 }
@@ -110,8 +110,8 @@
   left: 0;
   /*rtl*/
 }
-
-
+/*#endregion */
+/*#region account settings */
 .accountSettings {
   display: none;
 }
@@ -226,13 +226,13 @@
   margin-bottom: 4px;
   color: #676767;
 }
-
-
+/*#endregion */
+/*#region manage friends */
 .manageFriends {
   display: none;
 }
-
-
+/*#endregion */
+/*#region storage */
 .storage {
   display: none;
 }
@@ -293,8 +293,8 @@
   margin: 0 27px 0 2px;
   /*rtl*/
 }
-
-
+/*#endregion */
+/*#region notifications */
 .notifications {
   display: none;
 }
@@ -347,4 +347,4 @@
   padding-bottom: 13px;
   border-bottom: 1px solid #dfd5da;
 }
-
+/*#endregion */

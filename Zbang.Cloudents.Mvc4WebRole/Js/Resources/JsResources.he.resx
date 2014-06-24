@@ -596,4 +596,19 @@
   <data name="SureYouWantTo" xml:space="preserve">
     <value>האם אתה בטוח שברצונך</value>
   </data>
+  <data name="AtLeastOne" xml:space="preserve">
+    <value>אנא הכנס אימייל אחד לפחות</value>
+  </data>
+  <data name="DeleteEmptyCourse" xml:space="preserve">
+    <value>יצרת קורס ריק, אם תיבחר להפסיק לעקוב אחריו הוא יימחק. האם אתה בטוח שאתה רוצה למחוק את הקורס?</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>אימייל זה כבר קיים במערכת</value>
+  </data>
+  <data name="ErrorInvite" xml:space="preserve">
+    <value>שגיאה בשליחת הזמנה למשתמש</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>שגיאה, אנא נסה מאוחר יותר</value>
+  </data>
 </root>

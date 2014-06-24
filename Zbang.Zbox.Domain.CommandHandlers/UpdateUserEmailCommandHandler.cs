@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             User user = m_UserRepository.Get(command.Id);
             if (user == null)
             {
-                throw new NullReferenceException("user doesnt not exists");
+                throw new NullReferenceException(Resources.CommandHandlerResources.UserNotExist);
             }
             if (user.Email == command.Email)
             {
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             if (CheckIfEmailOccupied(command.Email))
             {
-                throw new ArgumentException("This email is taken");
+                throw new ArgumentException(Resources.CommandHandlerResources.EmailTaken);
             }
 
 
@@ -53,26 +53,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private bool IsChangeEmailNeeded(string newUserEmail, string currentEmail)
         {
-            return currentEmail.ToLower() != newUserEmail.ToLower();
+            return !String.Equals(currentEmail, newUserEmail, StringComparison.CurrentCultureIgnoreCase);
         }
 
         private void ChangeUserEmail(string email, User user, bool tempFromFacebookLogin)
         {
             if (!Validation.IsEmailValid(email))
             {
-                throw new ArgumentException("Email is not in the correct format");
+                throw new ArgumentException(Resources.CommandHandlerResources.EmailNotCorrect);
             }
             user.Email = email;
-            if (!tempFromFacebookLogin)
+            if (tempFromFacebookLogin) return;
+            if (user.MembershipId.HasValue)
             {
-                if (user.MembershipId.HasValue)
-                {
-                    m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
-                }
-                else
-                {
-                    throw new ArgumentException("Cannot change user email");
-                }
+                m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
+            }
+            else
+            {
+                throw new ArgumentException(Resources.CommandHandlerResources.CannotChangeEmail);
             }
         }
     }

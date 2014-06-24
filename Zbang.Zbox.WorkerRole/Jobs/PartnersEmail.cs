@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.ReadServices;
 
@@ -25,7 +24,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             public string SchoolName { get; set; }
             public long Id { get; set; }
-            public IEnumerable<string> Emails { get; set; }
+            public IEnumerable<string> Emails { get; private set; }
         }
 
         private readonly List<Partners> m_Partners = new List<Partners> {
@@ -64,8 +63,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 var data = m_ZboxReadService.GetPartnersEmail(parnter.Id).Result;
 
-                var parameters = new Zbang.Zbox.Infrastructure.Mail.EmailParameters.Partners(
-                    System.Globalization.CultureInfo.GetCultureInfo("en-US"),
+                var parameters = new Infrastructure.Mail.EmailParameters.Partners(
+                    CultureInfo.GetCultureInfo("en-US"),
                     parnter.SchoolName,
                     data.LastWeekUsers,
                     data.AllUsers,
@@ -75,7 +74,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     data.AllItems,
                     data.LastWeekQnA,
                     data.AllQnA,
-                    data.Univeristies.Select(s => new Zbang.Zbox.Infrastructure.Mail.EmailParameters.Partners.University
+                    data.Univeristies.Select(s => new Infrastructure.Mail.EmailParameters.Partners.University
                     {
                         Name = s.Name,
                         StudentsCount = s.Students

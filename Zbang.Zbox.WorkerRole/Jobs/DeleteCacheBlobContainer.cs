@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {

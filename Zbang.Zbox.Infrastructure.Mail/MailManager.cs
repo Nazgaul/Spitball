@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Threading;
+using System.Threading.Tasks;
 using SendGrid;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -12,19 +14,22 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class MailManager2 : IMailComponent
     {
+        internal const string SendGridUserName = "cloudents";
+        internal const string SendGridPassword = "zbangitnow";
         private readonly IocFactory m_Container = IocFactory.Unity;
 
         private void Send(ISendGrid message)
         {
             try
             {
-              
+
                 //var smtpClient = SendGrid.Transport.SMTP.GetInstance(
                 //    new System.Net.NetworkCredential("cloudents", "zbangitnow"), "smtp.sendgrid.net", 587);
                 //var smtpClient = SendGridMail.Transport.SMTP.GetInstance(
                 //  new System.Net.NetworkCredential("3f61a514-0610-412e-9024-b4eb5670eb9d", "bb138472-93c1-4d47-91dc-a376e3c9dce2")
                 //  , "smtp-server.embarkemail.com", 25);
-                var transport = new Web(new NetworkCredential("cloudents", "zbangitnow"));
+
+                var transport = new Web(new NetworkCredential(SendGridUserName, SendGridPassword));
                 transport.Deliver(message);
 
                 //smtpClient.Deliver(message);
@@ -48,15 +53,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
             };
 
-            //var sendGridMail = SendGridMail.SendGrid.GetInstance();
             var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
             sendGridMail.EnableClickTracking();
             mail.GenerateMail(sendGridMail, parameters);
 
             sendGridMail.AddTo(recepient);
-            //sendGridMail.AddBcc("cloudents@outlook.com");
-            //sendGridMail.AddTo("yaari.ram@gmail.com");
-            //sendGridMail.AddTo(new List<string> { "dddavid2@gmail.com", "cloudents@outlook.com", "yaari_r@yahoo.com" });
             var embarkeData = new Dictionary<string, string>
             {
                { "embarkeAppId" , "3f61a514-0610-412e-9024-b4eb5670eb9d"},
@@ -69,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //    }
             //};
             //sendGridMail.AddHeaders(embarkeDataTimeWindow);
-            
+
             sendGridMail.AddUniqueArgs(embarkeData);
 
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
@@ -81,7 +82,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         }
 
+        public async Task DeleteUnsubscribe(string email)
+        {
+            using (var client = new HttpClient())
+            {
 
+                var content =
+                    new StringContent(string.Empty);
+                var x = await client.PostAsync(string.Format("https://sendgrid.com/api/unsubscribes.delete.json?api_user={0}&api_key={1}&email={2}",SendGridUserName,SendGridPassword,email)
+                    ,content);
+            }
+        }
 
 
 

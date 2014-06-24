@@ -5,14 +5,14 @@
 <div class="emptyLib" data-bind="css: { admin: $('#univeristyName').data('id') === parseInt(cd.userDetail().id, 10) }">
     <h2 class="semiFont">@MainViewResources.SomethingMissing</h2>
     <div class="libEmptyWpr">
-        <div class="libEmpty">
+        <div class="libEmpty union-sprite">
             <h2 class="semiFont">@MainViewResources.FillGap</h2>
             <h2 class="semiFont">@MainViewResources.CreateCourse</h2>
             <form data-bind="submit: createAcademicBox">
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false)
                 @Html.LabelFor(m => m.CourseName)
-                @Html.ValidationMessageFor(m=>m.CourseName)
+                @Html.ValidationMessageFor(m => m.CourseName)
                 @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText" })
 
                 @Html.LabelFor(m => m.CourseId)
@@ -20,9 +20,9 @@
 
                 @Html.LabelFor(m => m.Professor)
                 @Html.TextBoxFor(m => m.Professor, new { @class = "inputText" })
-               
 
-                <input type="submit" class="btn1"  value="@DialogResources.Create"/>
+
+                <input type="submit" class="btn1" value="@DialogResources.Create" />
             </form>
         </div>
     </div>

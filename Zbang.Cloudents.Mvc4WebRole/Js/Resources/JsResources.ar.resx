@@ -589,4 +589,19 @@
     <value>قمت بتحميل امتحان (كويز) "{0}" على مصدر الامتحانات في كلاودنيتس، وهو المستودع الأكاديمي للطلاب: امتحانات من سنوات سابقة وملخصات ومقالات. يوجد في المستودع أكثر من 95 ألف ملف!&lt;center&gt;&amp;#160;&lt;/center&gt;
 الطريق على تحصيل اللقب الجامعي تصبح أسهل مع كلاودنيتس. للتسجيل مجاناً انقر هنا</value>
   </data>
+  <data name="AtLeastOne" xml:space="preserve">
+    <value>يرجى إدخال بريد إلكتروني واحد على الأقل</value>
+  </data>
+  <data name="DeleteEmptyCourse" xml:space="preserve">
+    <value>لقد قمت بإنشاء مسار دراسي فارغ، إذا لم تتابع هذا المسار الدراسي سوف يتم حذفه. هل تريد حذف المسار الدراسي؟</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>البريد الإلكتروني موجود بالفعل</value>
+  </data>
+  <data name="ErrorInvite" xml:space="preserve">
+    <value>خطأ في إرسال دعوة إلى مستخدم</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>خطأ، يرجى المحاولة مرة أخرى لاحقا</value>
+  </data>
 </root>
