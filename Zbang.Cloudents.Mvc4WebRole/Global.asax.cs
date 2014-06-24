@@ -120,6 +120,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             try
             {
+
                 var keys = custom.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 Array.Sort(keys);
                 var value = string.Empty;
