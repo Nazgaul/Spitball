@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="boxItems clearfix" id="box_items">
+<div class="boxItems clearfix">
     <div class="dropZoneOpacity" id="up_dropZone">
         <div class="dropZone">
             <div class="dropMsg boldFont">@DialogResources.DropToUpload</div>
@@ -9,24 +9,20 @@
     </div>
     <div class="boxItemsHeader">
 
-        <!--ko if:manageTab-->
-        <div class="lFloat boxManage">
+        <div class="lFloat boxManage" ng-if="options.manageTab">
             @MainViewResources.ChooseFiles
             <button class="btn1" type="button" data-click="manageSave">@MainViewResources.Save</button>
             <button class="btn2" type="button" data-click="managedecline">@MainViewResources.Cancel</button>
         </div>
-        <!--/ko-->
-        <button type="button" data-click="addItem" class="iconTxt btn1 lFloat" data-bind="visible: !manageTab() && !emptyState()">@DialogResources.UploadFiles</button>
-        <button type="button" class="iconTxt btn1 lFloat quizBtn" id="addQuiz" data-bind="visible: !manageTab()">@QuizResources.CreateQuiz</button>
 
-        <!--ko ifnot:emptyState-->
-        <button id="listViewBtn" type="button" class="listViewBtn rFloat boxItemsViewToggle" data-template="BoxItemsListViewTempalte"></button>
-        <button id="thumbViewBtn" type="button" class="thumbViewBtn rFloat boxItemsViewToggle currentState" data-template="BoxItemsThumbViewTemplate"></button>
-        <!--/ko-->
+        <button type="button" data-click="addItem" class="iconTxt btn1 lFloat" ng-show="items.length > 0 && !options.manageTab">@DialogResources.UploadFiles</button>
+        <button type="button" class="iconTxt btn1 lFloat quizBtn" id="addQuiz" ng-show="!options.manageTab">@QuizResources.CreateQuiz</button>
+
+        <button type="button" class="listViewBtn rFloat boxItemsViewToggle" ng-click="changeView(list)" ng-show="items.length > 0"></button>
+        <button type="button" class="thumbViewBtn rFloat boxItemsViewToggle" ng-click="changeView(thumb)" ng-show="items.length > 0"></button>
     </div>
 
-    <!--ko if:emptyState-->
-    <div class="boxEmpty">
+    <div class="boxEmpty" ng-if="items.length === 0">
         <h2>@MainViewResources.BoxEmpty</h2>
         <br />
         <div>@IndexResources.Syllabus</div>
@@ -34,157 +30,138 @@
 
         <div class="emptyBoxDrop">
             <span class="emptyBoxDropText">@DialogResources.DragAndDrop</span>
-            <button data-bind="click: addItem" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
+            <button ng-click="addItem" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
         </div>
     </div>
-    <!--/ko-->
 
 
-    <ol id="BoxItemList" class="boxItemList clearfix"
-        data-bind="fadeVisible: loadedAnimation,
-                   template: { name : viewMode, foreach:items,afterAdd:edrag}"></ol>
+    <ol id="BoxItemList" class="boxItemList clearfix">
+        <li ng-repeat="item in items" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'quiz' , quizDraft : item.publish }" ng-include="getView(item)">
+        </li>
+    </ol> @*add drag option*@
 </div>
 
-<script type="text/html" id="BoxItemsThumbViewTemplate">
-    <li class="boxItem" data-bind="attr: { id: uid }">
+<script type="text/ng-template" id="itemThumbView">
+    <p class="thumbContent">{{item.description}}</p>
+    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.itemUrl}}">
+        <img ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnailUrl')'}" alt="" width="479" height="188" />
 
-        <p class="thumbContent" data-bind="text: description"></p>
-        <a class="boxLink" data-click="itmSlct" data-bind="attr: { href: itemUrl,'data-navigation' : type, target : type === 'Link' ? '_blank' : '_self'}">
-            <!--ko if:sponsored-->
-            <img data-bind="style: { backgroundImage: 'url('+thumbnailUrl+')' }" alt="" width="479" height="188" />
-            <!--/ko-->
-            <!--ko ifnot: sponsored-->
-            <img data-bind="attr: { 'data-src': thumbnailUrl, alt: thumbAlt }" alt="" width="148" height="188" />
-            <!--/ko-->
+        <img ng-if="!item.sponsored" ng-src="item.thumbnailUrl" alt="{{item.name}} | {{boxName}} | {{uniName}}" width="148" height="188" />
 
-            <span class="tag" data-bind="visible : isNew">@SharedResources.New</span>
-            <div class="boxName clamp2" data-bind="text: name"></div>
-            <div class="stars">
-                <div class="full" data-bind="style: { width: rate + 'px' }"></div>
-            </div>
-            <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
-        </a>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="actionBtns">
-                <a data-bind="attr: { href: download }" target="_blank" data-title="@IndexResources.Download" class="lFloat downloadBtn"></a>
-                @*<!--ko if:deleteAllow-->*@
-                <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
-                @*<!--/ko-->*@
-                <input type="hidden" data-bind="value: linkUrl" />
-            </div>
-        }
-        <!--ko if:$root.manageTab-->
-        <input class="cbManage" data-bind="attr: { id: 'c_' + uid }, checked: isCheck" type="checkbox">
+        <span ng-if="item.isNew" class="tag">@SharedResources.New</span>
+        <div class="boxName clamp2">{{item.name}}</div>
+        <div class="stars">
+            <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
+        </div>
+        <div data-title="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="actionBtns">
+            <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-src="{{item.download}}"></a>
+            <button ng-if="deleteAllow()" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="removeItem(item)"></button>
+            @*<input type="hidden" data-bind="value: linkUrl" />*@ @*needed?????*@
+        </div>
+    }
+
+    <span ng-if="options.manageTab">
+        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
         <div></div>
         @*empty div used for green outline*@
-        <label class="cbLabel" data-bind="attr: { for: 'c_' + uid }"></label>
-        <!--/ko-->
-    </li>
+        <label for="{{'item_' + item.uid}}" class="cbLabel" ng-model="item.isCheck"></label>
+    </span>
 </script>
 
 
-<script type="text/html" id="BoxItemsListViewTempalte">
-    <li class="listItem" data-bind="attr: { id: uid }">
-        <a class="boxLink" data-click="itmSlct" data-bind="attr: { href: itemUrl,'data-navigation' : type , target : type === 'Link' ? '_blank' : '_self'}">
-            <!--ko if:sponsored-->
-            <img class="imgBorder" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }" alt="" width="236" height="143" />
-            <!--/ko-->
-            <!--ko ifnot: sponsored-->
-            <img class="imgBorder" data-bind="attr: { 'data-src': thumbnailUrl }" alt="" width="112" height="143" />
-            <!--/ko-->
+<script type="text/ng-template" id="itemListView">
+    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.itemUrl}}">
 
-            <div class="boxName semiFont elps" data-bind="text: name"></div>
+        <img class="imgBorder" ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnailUrl')'}" alt=" " width=" 236" height="143" />
+
+        <img class="imgBorder" ng-if="!item.sponsored" ng-src="item.thumbnailUrl" alt="{{item.name}} | {{boxName}} | {{uniName}}" alt="" width="112" height="143" />
+
+        <div class="boxName semiFont elps">{{item.name}}</div>
 
 
-            <p class="itemContent" data-bind="text: description">
-            </p>
+        <p class="itemContent">{{item.description}}</p>
 
-            <div class="stars">
-                <div class="full" data-bind="style: { width: rate + 'px' }"></div>
-            </div>
-            <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
-            <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
-        </a>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="actionBtns">
-                <a data-bind="attr: { href: download }" target="_blank" data-title="@IndexResources.Download" class="lFloat downloadBtn"></a>
-                @*<!--ko if:deleteAllow-->*@
-                <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeItem" data-bind="visible: deleteAllow"></button>
-                @*<!--/ko-->*@
-                <input type="hidden" data-bind="value: linkUrl" />
-            </div>
-        }
-    </li>
+        <div class="stars">
+            <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
+        </div>
+
+        <div data-title="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+        <span class="tag" ng-if="item.isNew">@SharedResources.New</span>
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <div class="actionBtns">
+        <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-src="{{item.download}}"></a>
+        <button ng-if="deleteAllow()" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="removeItem(item)"></button>
+    </div>
+    }
 </script>
 
-<script type="text/html" id="QuizItemsThumbViewTemplate">
-    <li class="boxItem quizItem" data-bind="attr: { id: uid }, css : { draft : !publish }">
-        <a class="boxLink" data-navigation="quiz" data-click="quizSlct" data-bind="attr: { href: itemUrl }">
 
-            <div class="boxName" data-bind="html: name"></div>
-            <!--ko if:publish-->
-            <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
-            <!--/ko-->
-            <!--ko ifnot:publish-->
-            <span class="tag">@SharedResources.Draft</span>
-            <!--/ko-->            <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:" data-bind="text : ownerName"></div>
-            <div class="stars">
-                <div class="full" data-bind="style: { width: rate + 'px' }"></div>
-            </div>
-            <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
-        </a>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="actionBtns">
-                @*<a href="#"  class="lFloat editBtn"></a>*@
-                @*<!--ko if:deleteAllow-->*@
-                <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeQuiz" data-bind="visible: deleteAllow"></button>
-                @*<!--/ko-->*@
-            </div>
-        }
-        <!--ko if:$root.manageTab-->
-        <input class="cbManage" data-bind="attr: { id: 'c_' + uid }, checked: isCheck" type="checkbox">
+
+<script type="text/ng-template" id="quizThumbItem">
+    <a class="boxLink" data-click="selectItem(item)" ng-href="{{item.itemUrl}}">
+
+        <div class="boxName" ng-bind-html="item.name"></div>
+
+        <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
+        
+        <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
+        
+        <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
+        <div class="stars">
+            <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
+        </div>
+        <div data-title="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="actionBtns">            
+            @*<!--ko if:deleteAllow-->*@
+            <button type="button" class="lFloat deleteBtn" ng-if="deleteAllow()" data-title="@IndexResources.Delete" ng-click="removeItem(item)"></button>
+            @*<!--/ko-->*@
+        </div>
+    }
+    <span ng-if="options.manageTab">
+        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
         <div></div>
         @*empty div used for green outline*@
-        <label class="cbLabel" data-bind="attr: { for: 'c_' + uid }"></label>
-        <!--/ko-->
+        <label for="{{'item_' + item.uid}}" class="cbLabel" ng-model="item.isCheck"></label>
+    </span>   
+</script>
+
+
+<script type="text/ng-template" id="quizListItem">
+    <a class="boxLink" data-click="selectItem(item)" ng-href="{{item.itemUrl}}">
+        <div class="imgBorder"></div>
+        <div class="boxName semiFont elps">{{item.name}}</div>
+
+        <p class="itemContent">{{item.description}}</p>
+        <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
+        <div class="stars">
+            <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
+        </div>
+        <div data-title="@SharedResources.Views" class="views">{{item.numOfView}}</div>
+        <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>               
+        <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>        
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="actionBtns">            
+            @*<!--ko if:deleteAllow-->*@
+            <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-if="deleteAllow()" ng-click="removeItem(item)"></button>
+            @*<!--/ko-->*@
+        </div>
+    }
     </li>
 </script>
 
 
-<script type="text/html" id="QuizItemsListViewTempalte">
-    <li class="listItem quizItem" data-bind="attr: { id: uid }, css : { draft : !publish }">
-        <a class="boxLink" data-navigation="quiz" data-click="quizSlct" data-bind="attr: { href: itemUrl }">
-            <div class="imgBorder"></div>
-            <div class="boxName semiFont elps" data-bind="text: name"></div>
 
-            <p class="itemContent" data-bind="text: description">
-            </p>
-            <div class="quizOwner elps" data-bind="text: ownerName" data-quiz-owner="@SharedResources.Owner:"></div>
-            <div class="stars">
-                <div class="full" data-bind="style: { width: rate + 'px' }"></div>
-            </div>
-            <div data-title="@SharedResources.Views" class="views" data-bind="text: numOfViews"></div>
-            <!--ko if:publish-->
-            <span class="tag" data-bind="visible: isNew">@SharedResources.New</span>
-            <!--/ko-->
-            <!--ko ifnot:publish-->
-            <span class="tag">@SharedResources.Draft</span>
-            <!--/ko-->
-        </a>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="actionBtns">
-                @*<a href="#" class="lFloat editBtn"></a>*@
-                @*<!--ko if:deleteAllow-->*@
-                <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" data-click="removeQuiz" data-bind="visible: deleteAllow"></button>
-                @*<!--/ko-->*@
-            </div>
-        }
-    </li>
-</script>
 
 
 <script type="text/html" id="boxItemTooltipTemplate">

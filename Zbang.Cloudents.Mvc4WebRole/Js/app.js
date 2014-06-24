@@ -35,22 +35,48 @@ define(['routes', 'services/dependencyResolverFor'], function (config, dependenc
             app.factory = $provide.factory;
             app.service = $provide.service;
 
-            $locationProvider.html5Mode(true);
+            if (window.history && history.pushState) {
+                $locationProvider.html5Mode(true).hashPrefix('!');
+            } else {
+                $locationProvider.hashPrefix('!');
+            }
+            
+
 
             if (config.routes !== undefined) {
                 angular.forEach(config.routes, function (route, path) {
-                    $routeProvider.when(path, { templateUrl: route.templateUrl, resolve: dependencyResolverFor(route.dependencies) });
+                    $routeProvider.when(path, { templateUrl: route.templateUrl, params: route.params, resolve: dependencyResolverFor(route.dependencies) });
                 });
             }
 
-            if (config.defaultRoutePaths !== undefined) {
-                $routeProvider.otherwise({ redirectTo: config.defaultRoutePaths });
+            if (config.defaultRoutePath !== undefined) {
+                $routeProvider.otherwise({ redirectTo: config.defaultRoutePath });
             }
 
             $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
         }
     ]);
+    
+    app.run(['$rootScope', '$window', function ($rootScope, $window) {
+        $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+
+            //title 
+            if (!previous) {
+                return;
+            }
+            switch (previous.$$route.params.type) {
+                case 'dashboard':
+                    $rootScope.previousTitle = 'Dashboard';
+                    break;
+            }            
+            console.log(event, current, previous);
+        });
+
+        $rootScope.$back = function () {
+            $window.history.back();
+        };
+    }]);
 
     return app;
 });

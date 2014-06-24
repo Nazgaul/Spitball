@@ -13,8 +13,8 @@
 
                 return deferred.promise;
             }]
-        }
+        };
 
         return definition;
-    }
+    };
 });

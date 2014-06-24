@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="box" class="page boxPage {{info.boxType}}" ng-controller="BoxController">
+<div id="box" class="page boxPage {{info.boxType}}" ng-controller="BoxCtrl">
     <div class="leftPanel lFloat">
         <div id="BoxTopWpr" class="boxTopWpr">
             <div class="boxTop">
@@ -26,9 +26,9 @@
                     <span class="tabBorder"></span>
                 </li>
 
-                <li ng-repeat="tab in info.tabs" class="boxFolder" data-click="switchTab" ng-class="{ current: tab.id === currentTab.id}">
+                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-click="switchTab()" ng-class="{ current: tab.id === currentTab.id}">
                     <span class="boxFolderName elps">{{tab.name}}</span>
-                    <div data-title="Tab menu" class="editFolder rFloat" ng-click="toggleTabMenu(tab)" ng-show="current: tab.id === currentTab.id">
+                    <div data-title="Tab menu" class="editFolder rFloat" ng-click="toggleTabMenu(tab)" ng-show="tab.id === currentTab.id">
                         <ul class="editFolderMenu" ng-show="tab.showMenu">
                             <li>
                                 <button type="button" ng-click="tabRename(tab)">@SharedResources.Rename</button>
@@ -75,9 +75,9 @@
             </section>
             <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
                data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
-            <a class="backWpr elps lFloat" data-bind="attr: { href: parent().url },visible: backVisible" data-navigation="Dashboard">
+            <a class="backWpr elps lFloat" ng-click="$back()">
                 <div>@SharedResources.Backto</div>
-                <h2 class="semiFont" data-bind="text: parent().name"></h2>
+                <h2 class="semiFont">{{previousTitle}}</h2>
             </a>
         </div>
         
@@ -90,7 +90,7 @@
 
 
         <div class="box-content">            
-           @*@{Html.RenderPartial("_Items2");}*@
+           @{Html.RenderPartial("_Items2");}
             <ul class="boxMembers boxFriendsList">
                 
                 <li ng-repeat="member in info.members">

@@ -5,15 +5,17 @@
          'User', 'NewUpdates',
 
          function ($scope, $modal, Dashboard, Box, User, NewUpdates) {
+             $scope.title = 'Dashboard';
+
              $scope.academicBoxes = [];
              $scope.groupBoxes = [];
 
              $scope.partials = {
                  friends: '/Dashboard/FriendsPartial',
                  createBox: '/Dashboard/PrivateBoxPartial'
-             }
+             };
 
-             $scope.title = JsResources.CoursesFollow;
+             $scope.myCourses = JsResources.CoursesFollow;
 
              Dashboard.boxList().then(function (data) {
                  $scope.wall = data.payload.wall;
@@ -28,8 +30,12 @@
                  document.getElementById('mLoading').style.display = 'none';
                  document.getElementById('dashboard').style.display = 'block';
                  document.getElementById('dashboard').style.opacity = 1;
-                 //tempfix
+
+
+
+
              });
+             //tempfix
 
              $scope.removeBox = function (box) {
                  cd.confirm2($scope.removeConfirm(box)).then(function () {
@@ -49,8 +55,10 @@
 
              $scope.openCreateBox = function () {
                  var modalInstance = $modal.open({
+                     windowClass: "privateBox",
                      templateUrl: $scope.partials.createBox,
                      controller: 'CreateBoxCtrl',
+                     backdrop: 'static'
                  });
 
                  modalInstance.result.then(function (box) {
@@ -64,8 +72,10 @@
              $scope.openShowFriends = function () {
                  User.friends().then(function (data) {
                      var modalInstance = $modal.open({
+                         windowClass: "boxSettings",
                          templateUrl: $scope.partials.friends,
                          controller: 'ShowFriendsCtrl',
+                         backdrop: 'static',
                          resolve: {
                              friends: function () {
                                  return data.payload.my;
@@ -79,6 +89,7 @@
                      });
                  });
              };
+
 
              $scope.removeConfirm = function (box) {
                  if (box.userType === 'none') {
@@ -128,6 +139,8 @@
                      //show box updates                
                      boxes[i].numOfUpdates = NewUpdates.getBoxUpdates(boxes[i].id);
                  }
+
+
 
                  $scope.academicBoxes = academic;
                  $scope.groupBoxes = group;
