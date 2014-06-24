@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -20,17 +20,6 @@
 /*#region Modal.css */
 .modal .closeDialog {
   left: 0;
-  /*rtl*/
-  right: auto;
-}
-.ng-modal,
-.ng-modal-overlay {
-  right: 0;
-  /*rtl*/
-  left: auto;
-}
-.ng-modal-close {
-  left: 12px;
   /*rtl*/
   right: auto;
 }
@@ -2695,3 +2684,4 @@
 }
 /*#endregion */
 /*#endregion */
+/*# sourceMappingURL=RTL3.css.map */
