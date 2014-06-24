@@ -25,6 +25,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             //   "D/{BoxUid}/{itemId}",
             //   new { controller = "Item", action = "Download", BoxUid = UrlParameter.Optional, ItemUid = UrlParameter.Optional });
 
+            routes.MapRoute("AccountLanguage",
+                "account/{lang}",
+                new {controller = "Account", action = "Index", lang = UrlParameter.Optional},
+                new {lang = "^[A-Za-z]{2}-[A-Za-z]{2}$"});
+            
 
             routes.MapRoute(
               "Sitemap",

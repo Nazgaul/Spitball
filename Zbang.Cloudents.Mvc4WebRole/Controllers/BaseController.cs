@@ -121,49 +121,54 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             base.Initialize(requestContext);
 
             TempDataProvider = new CookieTempDataProvider(HttpContext);
-            //try
-            //{
+            try
+            {
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    var userData = FormsAuthenticationService.GetUserData();
+                    if (userData != null)
+                    {
+                        ChangeThreadLanguage(userData.Language);
+                        return;
+                    }
+                }
+                if (Request.QueryString["lang"] != null)
+                {
+                    ChangeThreadLanguage(Request.QueryString["lang"]);
+                    return;
+                }
+                if (HttpContext.Request.Cookies["lang"] != null)
+                {
+                    var value = Server.HtmlEncode(HttpContext.Request.Cookies["lang"].Value);
+                    ChangeThreadLanguage(value);
+                    return;
+                }
+                var langFromUrl =  requestContext.RouteData.Values.FirstOrDefault(f => f.Key == "lang");
+                if (langFromUrl.Value != null)
+                {
+                    ChangeThreadLanguage(langFromUrl.Value.ToString());
+                    return;
+                }
 
-            //    if (User != null && User.Identity.IsAuthenticated)
-            //    {
-            //        var userData = FormsAuthenticationService.GetUserData();
-            //        if (userData != null)
-            //        {
-            //            ChangeThreadLanguage(userData.Language);
-            //            return;
-            //        }
-            //    }
-            //    if (Request.QueryString["lang"] != null)
-            //    {
-            //        ChangeThreadLanguage(Request.QueryString["lang"]);
-            //        return;
-            //    }
-            //    if (HttpContext.Request.Cookies["lang"] != null)
-            //    {
-            //        var value = Server.HtmlEncode(HttpContext.Request.Cookies["lang"].Value);
-            //        ChangeThreadLanguage(value);
-            //        return;
-            //    }
-
-            //    if (Request.UserLanguages == null) return;
-            //    foreach (var languageWithRating in Request.UserLanguages)
-            //    {
-            //        if (string.IsNullOrEmpty(languageWithRating))
-            //        {
-            //            continue;
-            //        }
-            //        var userLanguage = languageWithRating.Split(';')[0];
-            //        if (Languages.CheckIfLanguageIsSupported(userLanguage))
-            //        {
-            //            ChangeThreadLanguage(userLanguage);
-            //            break;
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    TraceLog.WriteError("initialize", ex);
-            //}
+                if (Request.UserLanguages == null) return;
+                foreach (var languageWithRating in Request.UserLanguages)
+                {
+                    if (string.IsNullOrEmpty(languageWithRating))
+                    {
+                        continue;
+                    }
+                    var userLanguage = languageWithRating.Split(';')[0];
+                    if (Languages.CheckIfLanguageIsSupported(userLanguage))
+                    {
+                        ChangeThreadLanguage(userLanguage);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("initialize", ex);
+            }
         }
         protected void ChangeThreadLanguage(string language)
         {
