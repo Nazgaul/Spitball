@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "none")]
         public async Task<ActionResult> Index(Guid? libId)
         {
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail == null || !userDetail.UniversityId.HasValue)
             {
                 return RedirectToAction("Choose");
@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             //TODO: bring with one roundtrip
             var queryNodes = new GetLibraryNodeQuery(userDetail.UniversityId.Value, libId, GetUserId(), 0, OrderBy.LastModified);
-            var data = m_ZboxReadService.GetLibraryNode(queryNodes);
+            var data = ZboxReadService.GetLibraryNode(queryNodes);
             var serializer = new JsonNetSerializer();
 
             ViewBag.data = serializer.Serialize(data);
@@ -104,7 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var country = GetUserCountryByIp();
             var haveUniversity = false;
-            var userData = m_FormsAuthenticationService.GetUserData();
+            var userData = FormsAuthenticationService.GetUserData();
             if (userData != null && userData.UniversityId.HasValue)
             {
                 haveUniversity = true;
@@ -141,7 +141,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
                 var suggestedUniversity =
-                    await m_ZboxReadService.GetUniversityListByFriendsIds(friendsId.Select(s => s.Id));
+                    await ZboxReadService.GetUniversityListByFriendsIds(friendsId.Select(s => s.Id));
 
                 foreach (var university in suggestedUniversity)
                 {
@@ -183,7 +183,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             //var ipNumber2 = BitConverter.ToInt64(ipAddress.GetAddressBytes().Reverse().ToArray(), 0);
 
-            return m_ZboxReadService.GetLocationByIp(ipNumber);
+            return ZboxReadService.GetLocationByIp(ipNumber);
 
         }
         [NonAction]
@@ -207,14 +207,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AjaxCache(TimeConsts.Minute * 30)]
         public ActionResult Nodes(Guid? section, int page = 0, OrderBy order = OrderBy.Name)
         {
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
             var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, section, GetUserId(), page, order);
-            var result = m_ZboxReadService.GetLibraryNode(query);
+            var result = ZboxReadService.GetLibraryNode(query);
             return this.CdJson(new JsonResponse(true, result));
 
         }
@@ -223,14 +223,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax]
         public JsonResult DeleteNode(Guid id)
         {
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
             if (!userDetail.UniversityId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
             }
 
             var command = new DeleteNodeFromLibraryCommand(id, userDetail.UniversityId.Value);
-            m_ZboxWriteService.DeleteNodeLibrary(command);
+            ZboxWriteService.DeleteNodeLibrary(command);
             return Json(new JsonResponse(true));
 
         }
@@ -244,7 +244,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
             }
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
             if (!userDetail.UniversityId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
@@ -253,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new RenameNodeCommand(model.NewName, model.Id, userDetail.UniversityId.Value);
 
-                m_ZboxWriteService.RenameNodeLibrary(command);
+                ZboxWriteService.RenameNodeLibrary(command);
                 return Json(new JsonResponse(true));
             }
             catch (ArgumentException ex)
@@ -271,7 +271,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
             }
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
@@ -285,7 +285,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var id = m_IdGenerator.Value.GetId();
                 var command = new AddNodeToLibraryCommand(model.Name, id, userDetail.UniversityId.Value, model.ParentId);
-                m_ZboxWriteService.AddNodeToLibrary(command);
+                ZboxWriteService.AddNodeToLibrary(command);
                 var result = new NodeDto { Id = id, Name = model.Name };
                 return this.CdJson(new JsonResponse(true, result));
             }
@@ -304,7 +304,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId();
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, model.ParentId);
-                var result = m_ZboxWriteService.CreateBox(command);
+                var result = ZboxWriteService.CreateBox(command);
                 return this.CdJson(new JsonResponse(true, new { result.NewBox.Url}));
             }
             catch (BoxNameAlreadyExistsException)
@@ -440,7 +440,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
         public async Task<ActionResult> SelectDepartment(long universityId)
         {
-            var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
+            var retVal = await ZboxReadService.GetDepartmentList(universityId);
             return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
         }
 
@@ -456,10 +456,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return this.CdJson(new JsonResponse(false));
             }
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
             var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
-            var retVal = await m_ZboxReadService.GetDepartmentList(universityId);
+            var retVal = await ZboxReadService.GetDepartmentList(universityId);
             return this.CdJson(new JsonResponse(true, retVal));
         }
 

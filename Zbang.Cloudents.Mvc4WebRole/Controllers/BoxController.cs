@@ -17,6 +17,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
@@ -30,51 +31,53 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class BoxController : BaseController
     {
-
+        private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
         public BoxController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService)
+            IFormsAuthenticationService formsAuthenticationService,
+            Lazy<IShortCodesCache> shortToLongCache)
             : base(zboxWriteService, zboxReadService,
             formsAuthenticationService)
         {
+            m_ShortCodesCache = shortToLongCache;
         }
 
 
         /// <summary>
-        /// Page of box view
+        /// We need to keep it because of invite links 
         /// </summary>
         /// <returns>box view</returns>
-        //[NonAjax]
-        //[Route("box/{boxUid:length(11)}")]
-        //public ActionResult Index(string boxUid)
-        //{
-        //    try
-        //    {
-        //        var boxid = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
-        //        var query = new GetBoxQuery(boxid, GetUserId(false));
-        //        var box = m_ZboxReadService.GetBox2(query);
+        [NonAjax]
+        [Route("box/{boxUid:length(11)}")]
+        public ActionResult Index(string boxUid)
+        {
+            try
+            {
+                var boxid = m_ShortCodesCache.Value.ShortCodeToLong(boxUid);
+                var query = new GetBoxQuery(boxid, GetUserId(false));
+                var box = ZboxReadService.GetBox2(query);
 
-        //        var builder = new UrlBuilder(HttpContext);
-        //        var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
-        //        return RedirectPermanent(url);
-        //    }
-        //    catch (BoxAccessDeniedException)
-        //    {
-        //        if (Request.IsAjaxRequest())
-        //        {
-        //            return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-        //        }
-        //        return RedirectToAction("MembersOnly", "Error");
-        //    }
-        //    catch (BoxDoesntExistException)
-        //    {
-        //        if (Request.IsAjaxRequest())
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //        return RedirectToAction("Index", "Error");
-        //    }
-        //}
+                var builder = new UrlBuilder(HttpContext);
+                var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
+                return RedirectPermanent(url);
+            }
+            catch (BoxAccessDeniedException)
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                }
+                return RedirectToAction("MembersOnly", "Error");
+            }
+            catch (BoxDoesntExistException)
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    return HttpNotFound();
+                }
+                return RedirectToAction("Index", "Error");
+            }
+        }
 
         [CacheFilter(Duration = 0)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -88,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxQuery(boxId, userId);
-                var box = m_ZboxReadService.GetBox2(query);
+                var box = ZboxReadService.GetBox2(query);
 
                 var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
                 BaseControllerResources.Culture = culture;
@@ -158,7 +161,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
 
                 var query = new GetBoxQuery(boxUid, userId);
-                var result = m_ZboxReadService.GetBox2(query);
+                var result = ZboxReadService.GetBox2(query);
                 return this.CdJson(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)
@@ -187,7 +190,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxItemsPagedQuery(boxUid, userId, pageNumber, OrderBy.LastModified, tab);
-                var result = m_ZboxReadService.GetBoxItemsPaged2(query);
+                var result = ZboxReadService.GetBoxItemsPaged2(query);
                 var urlBuilder = new UrlBuilder(HttpContext);
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
@@ -222,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonNetResult Members(long boxUid)
         {
             var userId = GetUserId(false);
-            var result = m_ZboxReadService.GetBoxMembers(new GetBoxQuery(boxUid, userId));
+            var result = ZboxReadService.GetBoxMembers(new GetBoxQuery(boxUid, userId));
             return this.CdJson(new JsonResponse(true, result));
         }
 
@@ -239,7 +242,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId();
 
             var query = new GetBoxQuery(boxUid, userId);
-            var result = m_ZboxReadService.GetBoxSetting(query);
+            var result = ZboxReadService.GetBoxSetting(query);
 
             var model = new BoxSetting
               {
@@ -267,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var commandBoxName = new ChangeBoxInfoCommand(model.BoxUid, userId, model.Name,
                     model.Professor, model.CourseCode, model.Picture, model.BoxPrivacy, model.Notification);
-                m_ZboxWriteService.ChangeBoxInfo(commandBoxName);
+                ZboxWriteService.ChangeBoxInfo(commandBoxName);
                 // ChangeNotification(model.BoxUid, model.Notification);
                 return this.CdJson(new JsonResponse(true, new {queryString = UrlBuilder.NameToQueryString(model.Name)}));
             }
@@ -320,7 +323,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var privacyCommand = new ChangeBoxPrivacySettingsCommand(userId, boxUid, privacy, string.Empty);
-            var privacyResult = m_ZboxWriteService.ChangeBoxPrivacySettings(privacyCommand);
+            var privacyResult = ZboxWriteService.ChangeBoxPrivacySettings(privacyCommand);
             return privacyResult;
         }
 
@@ -334,7 +337,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = GetUserId();
 
-            var result = m_ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxUid, userId));
+            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxUid, userId));
             return this.CdJson(new JsonResponse(true, result.ToString("g")));
         }
 
@@ -345,7 +348,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = GetUserId();
             var command = new ChangeNotificationSettingsCommand(boxUid, userId, notification);
-            m_ZboxWriteService.ChangeNotificationSettings(command);
+            ZboxWriteService.ChangeNotificationSettings(command);
             return this.CdJson(new JsonResponse(true));
 
         }
@@ -371,7 +374,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = GetUserId();
             var command = new UnfollowBoxCommand(boxUid, userId);
-            m_ZboxWriteService.UnfollowBox(command);
+            ZboxWriteService.UnfollowBox(command);
             return Json(new JsonResponse(true));
         }
 
@@ -390,7 +393,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
 
                 var query = new DeleteBoxCommand(boxId, userId);
-                m_ZboxWriteService.DeleteBox(query);
+                ZboxWriteService.DeleteBox(query);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
@@ -407,7 +410,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userId = GetUserId();
                 var command = new DeleteUserFromBoxCommand(userId, userToDeleteId, boxId);
-                m_ZboxWriteService.DeleteUserFromBox(command);
+                ZboxWriteService.DeleteUserFromBox(command);
 
                 //Check
                 return Json(new JsonResponse(true));
@@ -453,7 +456,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId();
                 var guid = Guid.NewGuid();
                 var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
-                m_ZboxWriteService.CreateBoxItemTab(command);
+                ZboxWriteService.CreateBoxItemTab(command);
                 var result = new TabDto { Id = guid, Name = model.Name };
                 return this.CdJson(new JsonResponse(true, result));
             }
@@ -474,7 +477,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             model.ItemId = model.ItemId ?? new long[0];
             var userId = GetUserId();
             var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.nDelete);
-            m_ZboxWriteService.AssignBoxItemToTab(command);
+            ZboxWriteService.AssignBoxItemToTab(command);
             return Json(new JsonResponse(true));
         }
 
@@ -487,7 +490,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var userId = GetUserId();
             var command = new ChangeItemTabNameCommand(model.TabId, model.NewName, userId, model.BoxUid);
-            m_ZboxWriteService.RenameBoxItemTab(command);
+            ZboxWriteService.RenameBoxItemTab(command);
             return this.CdJson(new JsonResponse(true));
         }
         [HttpPost, Ajax, ZboxAuthorize]
@@ -499,7 +502,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var userId = GetUserId();
             var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxUid);
-            m_ZboxWriteService.DeleteBoxItemTab(command);
+            ZboxWriteService.DeleteBoxItemTab(command);
             return Json(new JsonResponse(true));
         }
         #endregion
@@ -511,7 +514,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = GetUserId();
             var command = new DeleteUpdatesCommand(userId, boxId);
-            m_ZboxWriteService.DeleteUpdates(command);
+            ZboxWriteService.DeleteUpdates(command);
             return this.CdJson(new JsonResponse(true));
         }
 

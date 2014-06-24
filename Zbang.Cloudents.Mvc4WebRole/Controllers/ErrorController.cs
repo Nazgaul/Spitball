@@ -13,10 +13,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
         public ErrorController(IZboxWriteService zboxWriteService, IZboxReadService zboxReadService,
-                              // IShortCodesCache shortToLongCache,
             IFormsAuthenticationService formsAuthenticationService)
             : base(zboxWriteService, zboxReadService, 
-            //shortToLongCache,
             formsAuthenticationService)
         {
         }

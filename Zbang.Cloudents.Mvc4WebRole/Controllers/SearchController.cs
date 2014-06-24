@@ -85,11 +85,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool allResult, int page)
         {
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId != null)
             {
                 var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), allResult, page);
-                var result = await m_ZboxReadService.Search(query);
+                var result = await ZboxReadService.Search(query);
                 return result;
             }
             return null;
@@ -106,11 +106,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return this.CdJson(new JsonResponse(false, "need query"));
                 }
-                var userDetail = m_FormsAuthenticationService.GetUserData();
+                var userDetail = FormsAuthenticationService.GetUserData();
                 if (userDetail.UniversityId != null)
                 {
                     var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), true, page);
-                    var result = await m_ZboxReadService.OtherUniversities(query);
+                    var result = await ZboxReadService.OtherUniversities(query);
                     return this.CdJson(new JsonResponse(true, result));
                 }
                 return this.CdJson(new JsonResponse(false, "need univeristy"));

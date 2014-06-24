@@ -288,7 +288,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //    Frequency = SitemapFrequency.Always,
             //    Priority = 0.8
             //});
-            var seoItems = await m_ZboxReadService.GetSeoBoxesAndItems();
+            var seoItems = await ZboxReadService.GetSeoBoxesAndItems();
             foreach (var box in seoItems.Boxes.Take(9500))
             {
                 nodes.Add(new SitemapNode(box.Url, requestContext));

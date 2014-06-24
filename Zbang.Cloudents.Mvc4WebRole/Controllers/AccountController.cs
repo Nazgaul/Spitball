@@ -34,7 +34,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
-        // private readonly Lazy<IEmailVerfication> m_EmailVerification;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
 
@@ -61,15 +60,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
         //donut output cache doesnt support route
-        //[OutputCache(VaryByParam = "universityId;lang", VaryByCustom = CustomCacheKeys.Auth + ";"
-        //    + CustomCacheKeys.Lang + ";"
-        //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5, Location = System.Web.UI.OutputCacheLocation.Any, Order = 2)]
+        [DevTrends.MvcDonutCaching.DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
+            + CustomCacheKeys.Lang + ";"
+            + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5, Location = System.Web.UI.OutputCacheLocation.Server, Order = 2)]
         //[CompressFilter(Order = 1)]
-        [ETag(Order = 2)]
+        //[ETag(Order=1)]
         [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}")]
-        public ActionResult Index(long? universityId, string lang)
+        public ActionResult Index(string lang)
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
@@ -78,7 +76,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 ChangeThreadLanguage(lang);
             }
-            ViewBag.universityId = universityId;
             return View("Index2");
         }
 
@@ -119,14 +116,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 try
                 {
                     var query = new GetUserByFacebookQuery(facebookUserData.id);
-                    user = m_ZboxReadService.GetUserDetailsByFacebookId(query);
-                    //try
-                    //{
-                    //    var command = new UpdateUserEmailCommand(user.Uid, facebookUserData.email, true);
-                    //    m_ZboxWriteService.UpdateUserEmail(command);
-                    //}
-                    //catch
-                    //{ }
+                    user = ZboxReadService.GetUserDetailsByFacebookId(query);
                 }
                 catch (UserNotFoundException)
                 {
@@ -137,7 +127,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
                         false);
-                    var commandResult = m_ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
+                    var commandResult = ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
                     user = new LogInUserDto
                     {
                         Uid = commandResult.User.Id,
@@ -149,11 +139,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Score = commandResult.User.Reputation
                     };
                     isNew = true;
-                    //TempData[TempDataNameUserRegisterFirstTime] = true;
                 }
 
-
-                m_FormsAuthenticationService.SignIn(user.Uid, false, new UserDetail(
+                FormsAuthenticationService.SignIn(user.Uid, false, new UserDetail(
                     user.Culture,
                     user.UniversityId,
                     user.UniversityWrapperId));
@@ -198,9 +186,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     try
                     {
                         var query = new GetUserByMembershipQuery(membershipUserId);
-                        var result = m_ZboxReadService.GetUserDetailsByMembershipId(query);
+                        var result = ZboxReadService.GetUserDetailsByMembershipId(query);
 
-                        m_FormsAuthenticationService.SignIn(result.Uid, model.RememberMe,
+                        FormsAuthenticationService.SignIn(result.Uid, model.RememberMe,
                             new UserDetail(
                                 result.Culture,
                                 result.UniversityId,
@@ -243,7 +231,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
-            m_FormsAuthenticationService.SignOut();
+            FormsAuthenticationService.SignOut();
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
         }
 
@@ -290,9 +278,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName,
                       !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail);
-                    var result = m_ZboxWriteService.CreateUser(command);
+                    var result = ZboxWriteService.CreateUser(command);
 
-                    m_FormsAuthenticationService.SignIn(result.User.Id, false,
+                    FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
                             result.User.Culture,
                             result.UniversityId, result.UniversityWrapperId));
@@ -318,7 +306,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId();
             var query = new GetUserDetailsQuery(userId);
 
-            var user = m_ZboxReadService.GetUserAccountDetails(query);
+            var user = ZboxReadService.GetUserAccountDetails(query);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(user);
@@ -349,7 +337,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new UpdateUserEmailCommand(id, model.Email);
-                m_ZboxWriteService.UpdateUserEmail(command);
+                ZboxWriteService.UpdateUserEmail(command);
             }
             catch (Exception ex)
             {
@@ -399,7 +387,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var command = new UpdateUserProfileCommand(id, profilePics.Image,
                     profilePics.LargeImage, model.FirstName, model.MiddleName, model.LastName);
-                m_ZboxWriteService.UpdateUserProfile(command);
+                ZboxWriteService.UpdateUserProfile(command);
                 return Json(new JsonResponse(true));
             }
             catch (UserNotFoundException)
@@ -410,18 +398,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
         {
-            var retVal = await m_ZboxReadService.GetDepartmentList(model.UniversityId);
+            var retVal = await ZboxReadService.GetDepartmentList(model.UniversityId);
             if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
             {
                 return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
             }
-            var needId = await m_ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
             if (needId && string.IsNullOrEmpty(model.studentID))
             {
                 return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
             }
 
-            var needCode = await m_ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
             if (needCode && string.IsNullOrEmpty(model.Code))
             {
                 return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
@@ -437,8 +425,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var id = GetUserId();
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
                     model.GroupNumber, model.RegisterNumber, model.studentID);
-                m_ZboxWriteService.UpdateUserUniversity(command);
-                m_FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
+                ZboxWriteService.UpdateUserUniversity(command);
+                FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
                 return this.CdJson(new JsonResponse(true, new {redirect = Url.Action("Index", "Library")}));
             }
             catch (ArgumentException)
@@ -472,7 +460,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = GetUserId();
             var command = new UpdateUserPasswordCommand(id, model.CurrentPassword, model.NewPassword);
-            var commandResult = m_ZboxWriteService.UpdateUserPassword(command);
+            var commandResult = ZboxWriteService.UpdateUserPassword(command);
             return Json(new JsonResponse(!commandResult.HasErrors, commandResult.Error));
         }
 
@@ -488,8 +476,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = GetUserId();
             var command = new UpdateUserLanguageCommand(id, model.Language);
-            m_ZboxWriteService.UpdateUserLanguage(command);
-            m_FormsAuthenticationService.ChangeLanguage(model.Language);
+            ZboxWriteService.UpdateUserLanguage(command);
+            FormsAuthenticationService.ChangeLanguage(model.Language);
             return Json(new JsonResponse(true));
         }
 
@@ -534,7 +522,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return View(model);
                 }
                 var query = new GetUserByMembershipQuery(membershipUserId);
-                var result = m_ZboxReadService.GetUserDetailsByMembershipId(query);
+                var result = ZboxReadService.GetUserDetailsByMembershipId(query);
                 var code = RandomString(10);
 
 
@@ -654,9 +642,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
 
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
-            var result = m_ZboxReadService.GetUserDetailsByMembershipId(query);
+            var result = ZboxReadService.GetUserDetailsByMembershipId(query);
             Session.Abandon();
-            m_FormsAuthenticationService.SignIn(result.Uid, false,
+            FormsAuthenticationService.SignIn(result.Uid, false,
                 new UserDetail(
                     result.Culture,
                     result.UniversityId,
@@ -724,7 +712,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userid = GetUserId();
             var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
-            m_ZboxWriteService.UpdateUserFirstTimeStatus(command);
+            ZboxWriteService.UpdateUserFirstTimeStatus(command);
 
             return Json(new JsonResponse(true));
         }

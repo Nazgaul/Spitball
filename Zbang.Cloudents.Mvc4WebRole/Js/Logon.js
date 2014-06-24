@@ -16,16 +16,15 @@
         resetPopupView();
         $connectPopup.addClass('connect');
         focusOnElement($connectPopup);
-    });
-    $(document).on('click', '.addRegister', function (e) {
+    })
+    .on('click', '.addRegister', function (e) {
 
         e.preventDefault();
         resetPopupView();
         $registerPopup.addClass('register');
         focusOnElement($registerPopup);
-    });
-
-    $(document).on('click', '.registerFirst .emailBtn', function () {
+    })
+    .on('click', '.registerFirst .emailBtn', function () {
         $registerPopup.addClass('step2');
     });
 

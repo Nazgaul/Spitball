@@ -38,18 +38,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public async Task<ActionResult> Index()
         {
+            
             var userid = GetUserId();
-
-            var userDetail = m_FormsAuthenticationService.GetUserData();
-
-            if (userDetail.UniversityId == null)
-            {
-                return RedirectToAction("Choose", "Library");
-            }
+            var userDetail = FormsAuthenticationService.GetUserData();
+            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no univeristy attribute
             var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
             var query = new GetDashboardQuery(userid, universityWrapper);
-            var model = await m_ZboxReadService.GetMyData(query);
+            var model = await ZboxReadService.GetMyData(query);
 
             if (Request.IsAjaxRequest())
             {
@@ -71,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxesQuery(userid);
-                var data = await m_ZboxReadService.GetDashboard(query);
+                var data = await ZboxReadService.GetDashboard(query);
                 return this.CdJson(new JsonResponse(true, data));
             }
             catch (Exception ex)
@@ -89,13 +85,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
             }
             try
             {
                 var userId = GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName, model.privacySettings);
-                var retVal = CreateBox(command);
+                var result = ZboxWriteService.CreateBox(command);
+                var retVal= result.NewBox.Url;
                 return this.CdJson(new JsonResponse(true, new { Url = retVal }));
 
             }
@@ -103,17 +100,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
             }
         }
-
-
-        [NonAction]
-        private string CreateBox(CreateBoxCommand command)
-        {
-            var result = m_ZboxWriteService.CreateBox(command);
-            return result.NewBox.Url;
-        }
+       
 
         //TODO: check this out
         [HttpGet, Ajax]

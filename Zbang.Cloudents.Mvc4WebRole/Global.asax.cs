@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.App_Start;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 //using Microsoft.AspNet.SignalR.ServiceBus;
@@ -44,6 +49,73 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             TraceLog.WriteInfo("Application ending");
         }
+
+        protected void Application_BeginRequest()
+        {
+
+            try
+            {
+
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    var formsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
+                    var userData = formsAuthenticationService.GetUserData();
+                    if (userData != null)
+                    {
+                        ChangeThreadLanguage(userData.Language);
+                        return;
+                    }
+                }
+                if (Request.QueryString["lang"] != null)
+                {
+                    ChangeThreadLanguage(Request.QueryString["lang"]);
+                    return;
+                }
+                if (Request.Cookies["lang"] != null)
+                {
+                    var value = Server.HtmlEncode(Request.Cookies["lang"].Value);
+                    ChangeThreadLanguage(value);
+                    return;
+                }
+
+                if (Request.UserLanguages == null) return;
+                foreach (var languageWithRating in Request.UserLanguages)
+                {
+                    if (string.IsNullOrEmpty(languageWithRating))
+                    {
+                        continue;
+                    }
+                    var userLanguage = languageWithRating.Split(';')[0];
+                    if (Languages.CheckIfLanguageIsSupported(userLanguage))
+                    {
+                        ChangeThreadLanguage(userLanguage);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("initialize", ex);
+            }
+        }
+
+        protected void ChangeThreadLanguage(string language)
+        {
+            if (!Languages.CheckIfLanguageIsSupported(language))
+            {
+                return;
+            }
+            if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
+            try
+            {
+                var cultureInfo = new CultureInfo(language);
+                Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+            }
+            catch (CultureNotFoundException)
+            {
+            }
+        }
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
             try
@@ -59,7 +131,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                     if (key == CustomCacheKeys.Lang)
                     {
-                        value += System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+                        value += Thread.CurrentThread.CurrentUICulture.Name;
                     }
                     if (key == CustomCacheKeys.IsAjax)
                     {
@@ -67,15 +139,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                     if (key == CustomCacheKeys.Mobile)
                     {
-                        if (string.IsNullOrEmpty(context.Request.UserAgent))
-                        {
-                            continue;
-                        }
-                        if (context.Request.UserAgent != null && context.Request.UserAgent.IndexOf("iPad", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            continue;
-                        }
-                        value += context.Request.Browser.IsMobileDevice ? "mobile" : string.Empty;
+                        var x = DisplayModeProvider.Instance.GetAvailableDisplayModesForContext(
+                             new HttpContextWrapper(HttpContext.Current), null
+                             ).Select(mode => mode.DisplayModeId);
+                        //if (string.IsNullOrEmpty(context.Request.UserAgent))
+                        //{
+                        //    continue;
+                        //}
+                        //if (context.Request.UserAgent != null && context.Request.UserAgent.IndexOf("iPad", StringComparison.OrdinalIgnoreCase) >= 0)
+                        //{
+                        //    continue;
+                        //}
+                        value += string.Join(",", x);//context.Request.Browser.IsMobileDevice ? "mobile" : string.Empty;
                     }
                 }
                 if (string.IsNullOrWhiteSpace(value))
@@ -196,6 +271,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
         }
 
-        
+
     }
 }

@@ -45,8 +45,8 @@
             <li><a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a></li>
             <li><a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a></li>
             <li class="last"><a href="@Url.Action("ContactUs", "Home")">@FooterResources.ContactUs</a></li>
-            <li class="sideBarSignupBtn addRegister" data-university="@ViewBag.universityId">@LogOnResources.SignUp</li>
-            <li class="last addConnect" data-university="@ViewBag.universityId">@SharedResources.SignIn</li>            
+            <li class="sideBarSignupBtn addRegister">@LogOnResources.SignUp</li>
+            <li class="last addConnect">@SharedResources.SignIn</li>            
             <li><a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture" href="@Url.Action("Index", "Account")" title="English site">@Languages.EnglishUsName</a></li>
             <li><a data-language="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture" href="@Url.Action("Index", "Account")" title="English site">@Languages.EnglishGbName</a></li>
             <li><a data-language="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture" href="@Url.Action("Index", "Account")" title="Russian site">@Languages.RussianName</a></li>

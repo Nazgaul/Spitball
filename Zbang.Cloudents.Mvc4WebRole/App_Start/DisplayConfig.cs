@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.WebPages;
 
-namespace Zbang.Cloudents.Mvc4WebRole.App_Start
+namespace Zbang.Cloudents.Mvc4WebRole
 {
     public static class DisplayConfig
     {

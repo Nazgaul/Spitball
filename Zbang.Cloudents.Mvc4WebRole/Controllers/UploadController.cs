@@ -86,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new AddFileToBoxCommand(userId, boxUid, blobAddressUri,
                     fileUploadedDetails.FileName,
                      fileUploadedDetails.FileSize, tabId);
-                var result = m_ZboxWriteService.AddFileToBox(command);
+                var result = ZboxWriteService.AddFileToBox(command);
 
 
                 var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
@@ -220,7 +220,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 var command = new AddLinkToBoxCommand(userid, model.BoxId, model.Url, model.TabId, title);
-                var result = m_ZboxWriteService.AddLinkToBox(command);
+                var result = ZboxWriteService.AddLinkToBox(command);
                 var urlBuilder = new UrlBuilder(HttpContext);
 
                 var item = new LinkDto(result.Link.Id, result.Link.Name,
@@ -272,7 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new AddFileToBoxCommand(userId, boxUid, blobAddressUri,
                fileName,
                 size, tabId);
-            var result = m_ZboxWriteService.AddFileToBox(command);
+            var result = ZboxWriteService.AddFileToBox(command);
             var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                 result.File.Uploader.Url,
                m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
