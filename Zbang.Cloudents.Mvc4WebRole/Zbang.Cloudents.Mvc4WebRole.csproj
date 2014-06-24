@@ -256,6 +256,7 @@
     </Compile>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
+    <Compile Include="Controllers\ShoppingController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\AjaxImageLink.cs" />
@@ -1286,6 +1287,8 @@
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
+    <Content Include="Views\Shopping\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

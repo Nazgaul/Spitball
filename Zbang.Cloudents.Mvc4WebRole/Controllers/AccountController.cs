@@ -63,9 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DevTrends.MvcDonutCaching.DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang + ";"
             + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5, Location = System.Web.UI.OutputCacheLocation.Server, Order = 2)]
-        //[CompressFilter(Order = 1)]
-        //[ETag(Order=1)]
-        [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}")]
+        [Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}", Order = 1)]
         public ActionResult Index(string lang)
         {
             if (User.Identity.IsAuthenticated)
@@ -427,7 +425,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
                 FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
-                return this.CdJson(new JsonResponse(true, new {redirect = Url.Action("Index", "Library")}));
+                return this.CdJson(new JsonResponse(true, new { redirect = Url.Action("Index", "Library") }));
             }
             catch (ArgumentException)
             {
