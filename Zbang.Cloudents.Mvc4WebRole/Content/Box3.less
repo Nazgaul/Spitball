@@ -869,7 +869,7 @@
             font-size: 15px;
             line-height: 30px;
         }
-        .boxItem, .listItem {
+        .thumbItem, .listItem {
             position: relative;
             &:first-child {
                 &:hover {
@@ -898,7 +898,7 @@
                 }
             }
         }
-        .boxItem:first-child {
+        .thumbItem:first-child {
             //position: relative;
 
             .boxLink {
@@ -1216,7 +1216,7 @@
     }
 }
 
-.boxItem {
+.thumbItem {
     float: left; /* rtl */
     background: #fff;
     text-align: left; /* rtl */
@@ -1495,7 +1495,7 @@
 /*#endregion */ 
 
 //.box-layout(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
-.box-layout(boxItemList,boxItem,148px,248px,2,12,20px,310px,411px);
+.box-layout(boxItemList,thumbItem,148px,248px,2,12,20px,310px,411px);
 .stars {
     width: 69px;
     height: 14px;
@@ -1542,7 +1542,7 @@
     border: 1px solid @borderColor;
     border-radius: 3px;
     overflow: hidden;
-    .boxItem:hover &, .listItem:hover &
+    .thumbItem:hover &, .listItem:hover &
     {
         display: block;
     }
