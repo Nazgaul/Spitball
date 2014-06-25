@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return PartialView("Index2", model);
             }
-            return View("Empty", model);
+            return View("Index2", model);
         }
 
 

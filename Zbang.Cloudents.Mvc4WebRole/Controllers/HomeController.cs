@@ -54,6 +54,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Index", "Account", new { universityId });
                 //return RedirectToActionPermanent("Index", "Dashboard");
             }
+            if (DisplayConfig.CheckIfMobileView(HttpContext))
+            {
+                return RedirectToActionPermanent("Index", "Dashboard");
+            }
 
             return View();
         }
