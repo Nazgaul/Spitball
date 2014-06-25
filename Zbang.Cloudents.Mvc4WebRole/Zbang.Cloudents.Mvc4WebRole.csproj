@@ -289,6 +289,7 @@
     <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
+    <Compile Include="Helpers\DesktopConstraint.cs" />
     <Compile Include="Helpers\GuidEncoder.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />

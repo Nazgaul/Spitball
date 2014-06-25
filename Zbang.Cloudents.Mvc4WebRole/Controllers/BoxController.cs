@@ -83,8 +83,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
         [AjaxCache(TimeConsts.Minute * 10)]
-        [Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
-        [Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
+        //[Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
+        //[Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
         public ActionResult Index(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);

@@ -2,6 +2,7 @@
 
 using System.Web.Mvc;
 using System.Web.Routing;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -12,19 +13,48 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.LowercaseUrls = true;
             routes.AppendTrailingSlash = true;
-            
-            routes.MapMvcAttributeRoutes();
 
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute("AccountLanguage",
                 "account/{lang}",
-                new {controller = "Account", action = "Index", lang = UrlParameter.Optional},
-                new {lang = "^[A-Za-z]{2}-[A-Za-z]{2}$"});
-            
+                new { controller = "Account", action = "Index", lang = UrlParameter.Optional },
+                new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
+
+
+            routes.MapRoute("DashboardDesktop",
+                "dashboard",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint() }
+            );
+
+            //[Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
+            //[Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
+            routes.MapRoute("PrivateBoxDesktop",
+              "box/my/{boxId}/{boxName}",
+              new { controller = "Home", action = "Index" },
+              new { isDesktop = new DesktopConstraint(), boxId = @"\d+" }
+          );
+            routes.MapRoute("CourseBoxDesktop",
+              "course/{universityName}/{boxId}/{boxName}",
+              new { controller = "Home", action = "Index" },
+              new { isDesktop = new DesktopConstraint(), boxId = @"\d+" }
+          );
+
+            routes.MapRoute("PrivateBox",
+            "box/my/{boxId}/{boxName}",
+            new { controller = "Box", action = "Index" },
+            new { boxId = @"\d+" }
+        );
+            routes.MapRoute("CourseBox",
+              "course/{universityName}/{boxId}/{boxName}",
+              new { controller = "Box", action = "Index" },
+              new { boxId = @"\d+" }
+          );
 
             routes.MapRoute(
               "Sitemap",
               "sitemap.xml",
-              new { controller = "Home", action = "SiteMap" , index= UrlParameter.Optional }
+              new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
               );
 
             routes.MapRoute(
@@ -38,11 +68,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
                 new { LibId = @"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$" });
 
-            routes.MapRoute(
-              "DashboardSearch",
-              "Dashboard/Search/{query}",
-              new { controller = "Dashboard", action = "Search", query = UrlParameter.Optional }
-              );
+            //routes.MapRoute(
+            //  "DashboardSearch",
+            //  "Dashboard/Search/{query}",
+            //  new { controller = "Dashboard", action = "Search", query = UrlParameter.Optional }
+            //  );
 
             routes.MapRoute(
               "BoxSetting",
@@ -55,7 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
               "invite/{boxid}",
               new { controller = "Share", action = "Index", boxid = UrlParameter.Optional }
               );
-            
+
 
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );

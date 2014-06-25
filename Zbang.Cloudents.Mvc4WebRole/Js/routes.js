@@ -23,7 +23,7 @@
                 params: {
                     type: 'box'
                 },
-                templateUrl: function (params) { return '/box/my/' + +params.boxId + '/' + params.boxName },
+                templateUrl: function (params) { return '/box/my/' + +params.boxId + '/' + encodeURIComponent(params.boxName); },
                 dependencies: [
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
@@ -35,7 +35,7 @@
                 params: {
                     type: 'box'
                 },
-                templateUrl: function (params) { return '/course/' + params.uniName + '/' + +params.boxId + '/' + params.boxName },
+                templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + +params.boxId + '/' + encodeURIComponent(params.boxName); },
                 dependencies: [
                     '/Js/services/box.js',
                     '/Js/services/newUpdates.js',

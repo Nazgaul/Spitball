@@ -47,6 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[ZboxAuthorize]
         [NoUniversityAttribute]
+        [NonAjax]
         public ActionResult Index(long? universityId)
         {
             if (!User.Identity.IsAuthenticated)
@@ -54,6 +55,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Index", "Account", new { universityId });
                 //return RedirectToActionPermanent("Index", "Dashboard");
             }
+            //this is the only place we need
             if (DisplayConfig.CheckIfMobileView(HttpContext))
             {
                 return RedirectToActionPermanent("Index", "Dashboard");

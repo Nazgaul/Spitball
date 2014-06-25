@@ -22,8 +22,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class DashboardController : BaseController
     {
-
-
         public DashboardController(IZboxWriteService zboxWriteService,
             IZboxReadService zboxReadService,
             IFormsAuthenticationService formsAuthenticationService
@@ -123,12 +121,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region search
-        [HttpGet]
-        [NonAjax]
-        public ActionResult Search(string query)
-        {
-            return RedirectToActionPermanent("Index", "Search", new { q = query });
-        }
+        //[HttpGet]
+        //[NonAjax]
+        //public ActionResult Search(string query)
+        //{
+        //    return RedirectToActionPermanent("Index", "Search", new { q = query });
+        //}
 
 
         #endregion search
