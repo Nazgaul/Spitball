@@ -100,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [RequireHttps]
-        public async Task<ActionResult> FacebookLogin(string token, long? universityId)
+        public async Task<ActionResult> FacebookLogin(string token, long? universityId, string returnUrl)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     user.UniversityId,
                     user.UniversityWrapperId));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library") }));
+                return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl) }) }));
             }
             catch (ArgumentException)
             {
@@ -168,7 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [ValidateAntiForgeryToken]
-        public JsonResult LogIn([ModelBinder(typeof(TrimModelBinder))]LogOn model, string returnUrl)
+        public JsonResult LogIn([ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
             if (!ModelState.IsValid)
             {
@@ -215,14 +215,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         //[NonAction]
-        //private ActionResult RedirectToLocal(string returnUrl, bool isNew = false)
-        //{
-        //    if (Url.IsLocalUrl(returnUrl))
-        //    {
-        //        return Redirect(returnUrl);
-        //    }
-        //    return isNew ? RedirectToAction("Index", "Home").AddFragment("Library") : RedirectToAction("Index", "Home");
-        //}
+        private string CheckIfToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return returnUrl;
+            }
+            return string.Empty;
+        }
 
 
         public ActionResult LogOff()
@@ -252,7 +252,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId)
+        public ActionResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, string returnUrl)
         {
 
             if (!ModelState.IsValid)
@@ -282,7 +282,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         new UserDetail(
                             result.User.Culture,
                             result.UniversityId, result.UniversityWrapperId));
-                    return Json(new JsonResponse(true, Url.Action("Index", "Library")));
+                    return Json(new JsonResponse(true, Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl) })));
 
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));

@@ -80,14 +80,19 @@
         }
         var c = 'disabled';
         var d = $form.serializeArray();
+
         $submit.attr(c, c);
         $.ajax({
             url: $form.prop('action'),
-            data: d,
+            data: {
+                model: d,
+                universityId: cd.getParameterByName('universityId'),
+                returnUrl: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)
+            },
             type: 'POST',
             success: function (data) {
                 if (data.Success) {
-                    var returnUrl = cd.getParameterByName('returnUrl', window);
+                    var returnUrl = cd.getParameterByName('returnUrl');
                     if (returnUrl.length) {
                         window.location = returnUrl;
                         return;
@@ -154,10 +159,11 @@
 
         $.ajax({
             type: 'POST',
-            url: "/Account/FacebookLogin",
+            url: "/Account/FacebookLogin/",
             data: {
                 token: accessToken,
-                universityId: cd.getParameterByName('universityId')
+                universityId: cd.getParameterByName('universityId'),
+                returnUrl: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)
             },
             success: function (data) {
                 if (!data.Success) {
