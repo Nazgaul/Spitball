@@ -766,6 +766,7 @@
     <Content Include="Js\controllers\dashboard\showFriendsCtrl.js" />
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\filters\orderBy.js" />
+    <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\GmfcnHandler.js" />
     <Content Include="Js\ItemViewModel4.js" />
@@ -885,6 +886,8 @@
     <Content Include="Scripts\angular-touch.js" />
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bindonce.js" />
+    <Content Include="Scripts\bindonce.min.js" />
     <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\elastic.js" />
     <Content Include="Scripts\elasticTextBox.js" />
@@ -1164,6 +1167,8 @@
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\ng-infinite-scroll.js" />
+    <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />

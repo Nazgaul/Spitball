@@ -1,6 +1,6 @@
 ﻿define([], function () {
     return {
-        defaultRoutePath: '/dashboard/',
+        defaultRoutePath: '/dashboard',
         routes: {
             '/dashboard/': {
                 params: {
@@ -25,8 +25,9 @@
                 },
                 templateUrl: function (params) { return '/box/my/' + +params.boxId + '/' + params.boxName },
                 dependencies: [
+                    '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
-                    '/Js/services/newUpdates.js',                    
+                    '/Js/services/newUpdates.js',
                     '/Js/controllers/box/boxCtrl.js'
                 ]
             },

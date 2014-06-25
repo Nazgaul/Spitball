@@ -1,14 +1,15 @@
 ﻿define(['app'], function (app) {
     app.controller('DashboardCtrl',
-        ['$scope', '$modal',
-         'Dashboard', 'Box',
+        ['$scope', '$modal','$document',
+         '$window','Dashboard', 'Box',
          'User', 'NewUpdates',
 
-         function ($scope, $modal, Dashboard, Box, User, NewUpdates) {
+         function ($scope, $modal, $document,$window, Dashboard, Box, User, NewUpdates) {
              $scope.title = 'Dashboard';
 
              $scope.academicBoxes = [];
              $scope.groupBoxes = [];
+             $scope.options = {};
 
              $scope.partials = {
                  friends: '/Dashboard/FriendsPartial',
@@ -16,6 +17,10 @@
              };
 
              $scope.myCourses = JsResources.CoursesFollow;
+
+             maxVisible();
+
+             $scope.options.maxCoursesVisible = $scope.rows * $scope.cols - 1;//-1 is browse button             
 
              Dashboard.boxList().then(function (data) {
                  $scope.wall = data.payload.wall;
@@ -146,6 +151,27 @@
                  $scope.groupBoxes = group;
 
              }
+             //document.body.scrollHeight > document.body.clientHeight;
+             function maxVisible() {
+                 var height = document.body.clientHeight - 130,//130 is top bar and title
+                     width = document.body.clientWidth - 324, //sidebar + margins
+                     boxWidth = 238, boxHeight = 120; //include margins
+
+                 $scope.cols = Math.floor(width / boxWidth);
+                 $scope.rows = Math.ceil(height / boxHeight);
+                    
+                 console.log($scope.cols, $scope.rows);
+             }
+
+             $scope.calculateGroupsVisible = function() {
+                 if ($scope.academicBoxes.length > $scope.options.maxCoursesVisible) {
+                     return 0;
+                 }
+
+                 return $scope.options.maxCoursesVisible - $scope.academicBoxes.length;
+             }
+
+             $window.onresize = maxVisible;
          }
     ]);
 });

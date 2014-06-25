@@ -1,23 +1,5 @@
-﻿//angular.module('main', ['ngRoute','ui.bootstrap', 'apiService', 'main.directives', 'main.filters', 'mDashboard','mBox', 'custom_scrollbar', 'monospaced.elastic', 'QuizCreate']).
-//    run(['$compile','NewUpdates', function ($compile,NewUpdates) {
-//        NewUpdates.loadUpdates();
-//        cd.$compile = $compile;
-//    }]).
-//    config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-//        $locationProvider.html5Mode(true).hashPrefix('!');   
-//        $routeProvider
-//            .when('/home', { templateUrl: '/home/main', controller: 'mainController' })
-
-//            .otherwise({ redirectTo: '/dashboard' });
-
-//    }]).
-//    controller('MainController', ['$scope', '$compile', function ($scope, $compile) {
-//    //cd.$scope.main = $scope;
-        
-//    }]);
-
-define(['routes', 'services/dependencyResolverFor'], function (config, dependencyResolverFor) {
-    var app = angular.module('app', ['ngRoute','ui.bootstrap']);
+﻿define(['routes', 'services/dependencyResolverFor'], function (config, dependencyResolverFor) {
+    var app = angular.module('app', ['ngRoute', 'ngSanitize','infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap']);
 
     app.config([
         '$routeProvider',
@@ -35,13 +17,9 @@ define(['routes', 'services/dependencyResolverFor'], function (config, dependenc
             app.factory = $provide.factory;
             app.service = $provide.service;
 
-            if (window.history && history.pushState) {
+            if (window.history && window.history.pushState) {
                 $locationProvider.html5Mode(true).hashPrefix('!');
-            } else {
-                $locationProvider.hashPrefix('!');
             }
-            
-
 
             if (config.routes !== undefined) {
                 angular.forEach(config.routes, function (route, path) {
@@ -69,14 +47,27 @@ define(['routes', 'services/dependencyResolverFor'], function (config, dependenc
                 case 'dashboard':
                     $rootScope.previousTitle = 'Dashboard';
                     break;
-            }            
-            console.log(event, current, previous);
+            }                        
         });
 
         $rootScope.$back = function () {
             $window.history.back();
         };
     }]);
+
+    app.directive('postRepeatDirective',
+        ['$timeout',
+        function ($timeout) {
+            return function (scope) {
+                if (scope.$first)
+                    window.a = new Date();   // window.a can be updated anywhere if to reset counter at some action if ng-repeat is not getting started from $first
+                if (scope.$last)
+                    $timeout(function () {
+                        console.log("## DOM rendering list took: " + (new Date() - window.a) + " ms");
+                    });
+            };
+        }
+    ]);
 
     return app;
 });

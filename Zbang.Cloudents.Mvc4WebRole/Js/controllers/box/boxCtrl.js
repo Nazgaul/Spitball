@@ -14,7 +14,9 @@
             $scope.boxName = $routeParams.boxName;
 
             $scope.options = {
-                currentView : 'thumb'
+                currentView: 'thumb',
+                starsLength: 5,
+                starsWidth: 69
             }
             var infoPromise = Box.info({ boxUid: $scope.boxId }), //uid
                 itemsPromise = Box.items({ boxUid: $scope.boxId, pageNumber: 0}), //uid

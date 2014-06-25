@@ -36,7 +36,7 @@
 
 
     <ol id="BoxItemList" class="boxItemList clearfix">
-        <li ng-repeat="item in items" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'quiz' , quizDraft : item.publish }" ng-include="getView(item)">
+        <li ng-repeat="item in items" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , quizDraft : item.publish }" ng-include="getView(item)">
         </li>
     </ol> @*add drag option*@
 </div>
@@ -44,9 +44,9 @@
 <script type="text/ng-template" id="itemThumbView">
     <p class="thumbContent">{{item.description}}</p>
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.itemUrl}}">
-        <img ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnailUrl')'}" alt="" width="479" height="188" />
+        <img ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnail')'}" alt="" width="479" height="188" />
 
-        <img ng-if="!item.sponsored" ng-src="item.thumbnailUrl" alt="{{item.name}} | {{boxName}} | {{uniName}}" width="148" height="188" />
+        <img ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" width="148" height="188" />
 
         <span ng-if="item.isNew" class="tag">@SharedResources.New</span>
         <div class="boxName clamp2">{{item.name}}</div>
@@ -76,9 +76,9 @@
 <script type="text/ng-template" id="itemListView">
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.itemUrl}}">
 
-        <img class="imgBorder" ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnailUrl')'}" alt=" " width=" 236" height="143" />
+        <img class="imgBorder" ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnail')'}" alt=" " width=" 236" height="143" />
 
-        <img class="imgBorder" ng-if="!item.sponsored" ng-src="item.thumbnailUrl" alt="{{item.name}} | {{boxName}} | {{uniName}}" alt="" width="112" height="143" />
+        <img class="imgBorder" ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" alt="" width="112" height="143" />
 
         <div class="boxName semiFont elps">{{item.name}}</div>
 
@@ -103,10 +103,10 @@
 
 
 
-<script type="text/ng-template" id="quizThumbItem">
+<script type="text/ng-template" id="quizThumbView">
     <a class="boxLink" data-click="selectItem(item)" ng-href="{{item.itemUrl}}">
 
-        <div class="boxName" ng-bind-html="item.name"></div>
+        <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
 
         <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
         
@@ -135,10 +135,10 @@
 </script>
 
 
-<script type="text/ng-template" id="quizListItem">
+<script type="text/ng-template" id="quizListView">
     <a class="boxLink" data-click="selectItem(item)" ng-href="{{item.itemUrl}}">
         <div class="imgBorder"></div>
-        <div class="boxName semiFont elps">{{item.name}}</div>
+        <div class="boxName semiFont elps" ng-bind-html="item.name | trustedHtml"></div>
 
         <p class="itemContent">{{item.description}}</p>
         <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
