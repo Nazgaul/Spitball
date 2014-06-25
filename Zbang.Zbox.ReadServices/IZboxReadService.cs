@@ -79,7 +79,8 @@ namespace Zbang.Zbox.ReadServices
 
         Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
 
-        Task<SeoDto> GetSeoBoxesAndItems();
+        Task<IEnumerable<string>> GetSeoItems(int page);
+        Task<int> GetSeoItemCount();
 
         Task<IEnumerable<ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
 

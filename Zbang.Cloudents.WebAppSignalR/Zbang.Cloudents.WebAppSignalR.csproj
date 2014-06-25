@@ -150,9 +150,6 @@
       <DependentUpon>Connect.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Connect.js" />
-    <Content Include="newrelic.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

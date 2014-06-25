@@ -215,10 +215,6 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<SeoDto> GetSeoBoxesAndItems()
-        {
-            return m_ReadService.GetSeoBoxesAndItems();
-        }
 
 
         public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
@@ -277,6 +273,17 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
         {
             return m_ReadService.GetUniversityListByFriendsIds(friendsIds);
+        }
+
+
+        public Task<IEnumerable<string>> GetSeoItems(int page)
+        {
+            return m_ReadService.GetSeoItems(page);
+        }
+
+        public Task<int> GetSeoItemCount()
+        {
+            return m_ReadService.GetSeoItemCount();
         }
     }
 }
