@@ -98,6 +98,59 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { userId = new LongRouteConstraint()});
             #endregion
 
+            //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
+
+            #region item
+            routes.MapRoute("ItemDesktop",
+                "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), itemid = new LongRouteConstraint() }
+            );
+
+            routes.MapRoute("Item",
+                "item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}",
+                new
+                {
+                    controller = "Library",
+                    action = "Index",
+                    LibId = UrlParameter.Optional,
+                    LibName = UrlParameter.Optional
+                },
+                new
+                {
+                    isDesktop = new DesktopConstraint(),
+                    boxId = new LongRouteConstraint(),
+                    itemid = new LongRouteConstraint()
+                }
+                );
+            #endregion
+
+            #region quiz
+            //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
+            routes.MapRoute("QuizDesktop",
+                "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), quizId = new LongRouteConstraint() }
+            );
+
+            routes.MapRoute("Quiz",
+                "Quiz/{universityName}/{boxId}/{boxName}/{quizId/{quizName}",
+                new
+                {
+                    controller = "Library",
+                    action = "Index",
+                    LibId = UrlParameter.Optional,
+                    LibName = UrlParameter.Optional
+                },
+                new
+                {
+                    isDesktop = new DesktopConstraint(),
+                    boxId = new LongRouteConstraint(),
+                    quizId = new LongRouteConstraint()
+                }
+                );
+            #endregion
+
 
             routes.MapRoute(
               "BoxSetting",

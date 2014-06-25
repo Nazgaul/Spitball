@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         //
         // GET: /Quiz/
-        [Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
+        //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NonAjax]
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
