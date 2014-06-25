@@ -157,7 +157,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
+        //[AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
         public async Task<ActionResult> Item(long itemId)
         {
             var userId = GetUserId(false);

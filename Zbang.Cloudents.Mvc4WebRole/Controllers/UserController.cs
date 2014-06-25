@@ -41,7 +41,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
         [UserNavNWelcome]
-        [AjaxCache(TimeConsts.Minute * 10)]
         public async Task<ActionResult> Index(long? userId, string userName)
         {
 
@@ -91,13 +90,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(VaryByParam = "userId", Duration = TimeConsts.Hour)]
         [HttpGet]
         [AllowAnonymous]
-        [AjaxCache(TimeConsts.Minute * 60)]
         public async Task<ActionResult> MinProfile(long userId)
         {
             return this.CdJson(new JsonResponse(true, await GetUserProfile(userId)));
         }
 
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
+        [HttpGet, Ajax]
         public async Task<ActionResult> Friends(long? userId)
         {
             try
@@ -132,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
+        [HttpGet, Ajax]
         public async Task<ActionResult> Boxes(long userId)
         {
             try
@@ -149,7 +147,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region Admin
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
+        [HttpGet, Ajax]
         public async Task<ActionResult> AdminBoxes(long userId)
         {
             try
@@ -172,7 +170,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false));
             }
         }
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
+        [HttpGet, Ajax]
         public async Task<ActionResult> AdminFriends()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
@@ -191,7 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
 
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
+        [HttpGet, Ajax]
         public async Task<ActionResult> OwnedInvites()
         {
             try
@@ -209,7 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Hour)]
+        [HttpGet, Ajax]
         public async Task<ActionResult> Activity(long userId)
         {
             var query = new GetUserWithFriendQuery(GetUserId(), userId);

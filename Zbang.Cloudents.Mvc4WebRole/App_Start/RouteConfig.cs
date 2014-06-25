@@ -1,6 +1,7 @@
 ﻿//using Microsoft.AspNet.SignalR;
 
 using System.Web.Mvc;
+using System.Web.Mvc.Routing;
 using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
@@ -14,7 +15,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.LowercaseUrls = true;
             routes.AppendTrailingSlash = true;
 
-            routes.MapMvcAttributeRoutes();
+            var constraintsResolver = new DefaultInlineConstraintResolver();
+            constraintsResolver.ConstraintMap.Add("desktop", typeof (DesktopConstraint));
+            routes.MapMvcAttributeRoutes(constraintsResolver);
+
+
             routes.MapRoute("AccountLanguage",
                 "account/{lang}",
                 new { controller = "Account", action = "Index", lang = UrlParameter.Optional },
@@ -27,13 +32,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { isDesktop = new DesktopConstraint() }
             );
 
-            //[Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
-            //[Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
+            routes.MapRoute("LibraryDesktop",
+               "library",
+               new { controller = "Home", action = "Index" },
+               new { isDesktop = new DesktopConstraint() }
+           );
+
+            #region Box
             routes.MapRoute("PrivateBoxDesktop",
-              "box/my/{boxId}/{boxName}",
-              new { controller = "Home", action = "Index" },
-              new { isDesktop = new DesktopConstraint(), boxId = @"\d+" }
-          );
+                  "box/my/{boxId}/{boxName}",
+                  new { controller = "Home", action = "Index" },
+                  new { isDesktop = new DesktopConstraint(), boxId = @"\d+" }
+              );
             routes.MapRoute("CourseBoxDesktop",
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Home", action = "Index" },
@@ -49,7 +59,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Box", action = "Index" },
               new { boxId = @"\d+" }
-          );
+          ); 
+            #endregion
 
             routes.MapRoute(
               "Sitemap",

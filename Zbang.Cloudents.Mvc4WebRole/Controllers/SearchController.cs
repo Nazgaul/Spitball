@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
+        [Ajax, HttpGet]
         public async Task<ActionResult> DropDown(string q)
         {
             try
@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
+        [Ajax, HttpGet]
         public async Task<ActionResult> Data(string q, int page)
         {
             try
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
        
 
 
-        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Minute * 10)]
+        [Ajax, HttpGet]
         public async Task<ActionResult> OtherUniversities(string q, int page)
         {
             try
