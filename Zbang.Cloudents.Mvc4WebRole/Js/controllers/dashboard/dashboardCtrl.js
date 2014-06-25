@@ -13,7 +13,7 @@
 
              $scope.options = {
                  maxAcademicVisible: $scope.rows * $scope.cols - 1,//-1 is browse button             
-                 addBoxPerScroll : 3
+                 addBoxPerScroll: $scope.rows
              };
              $scope.partials = {
                  friends: '/Dashboard/FriendsPartial',

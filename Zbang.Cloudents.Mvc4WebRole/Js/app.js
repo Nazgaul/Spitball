@@ -17,9 +17,9 @@
             app.factory = $provide.factory;
             app.service = $provide.service;
 
-            if (window.history && window.history.pushState) {
+            //if (window.history && window.history.pushState) {
                 $locationProvider.html5Mode(true).hashPrefix('!');
-            }
+            //}
 
             if (config.routes !== undefined) {
                 angular.forEach(config.routes, function (route, path) {
