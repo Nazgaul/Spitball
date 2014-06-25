@@ -84,11 +84,7 @@
         $submit.attr(c, c);
         $.ajax({
             url: $form.prop('action'),
-            data: {
-                model: d,
-                universityId: cd.getParameterByName('universityId'),
-                returnUrl: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)
-            },
+            data: d,
             type: 'POST',
             success: function (data) {
                 if (data.Success) {
@@ -122,6 +118,7 @@
 
         var d = $form.serializeArray();
         d.push({ name: 'universityId', value: cd.getParameterByName('universityId') });
+        d.push({ name: 'returnUrl', value: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)})
         $submit.attr('disabled', 'disabled');
         $.ajax({
             url: $form.prop('action'),

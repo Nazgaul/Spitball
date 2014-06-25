@@ -254,7 +254,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, string returnUrl)
         {
-
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
