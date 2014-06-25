@@ -33,7 +33,7 @@
                 },
                 removeUpdates: function (boxId) {
                     boxId = parseInt(boxId, 10);
-                    $http.post('/Box/DeleteUpdates', { boxId: boxId }).success(function () {
+                    $http.post('/Box/DeleteUpdates/', { boxId: boxId }).success(function () {
                         if (updates[boxId]) {
                             updates[boxId] = null;
                         }
@@ -48,7 +48,7 @@
             function loadUpdates() {
                 var update;
                 updates = {};
-                $http.get('/User/Updates').success(function (response) {
+                $http.get('/User/Updates/').success(function (response) {
                     var data = response.payload;
                     for (var i = 0, l = data.length ; i < l; i++) {
                         update = data[i];

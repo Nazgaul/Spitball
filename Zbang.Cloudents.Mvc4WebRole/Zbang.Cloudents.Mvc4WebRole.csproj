@@ -1307,9 +1307,9 @@
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <None Include="Views\Box\Index2.cshtml" />
-    <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Shopping\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

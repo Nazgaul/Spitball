@@ -27,7 +27,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class HomeController : BaseController
     {
-
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly Lazy<ICache> m_CahceProvider;
@@ -50,11 +49,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoUniversityAttribute]
         public ActionResult Index(long? universityId)
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToActionPermanent("Index", "Dashboard");
+                return RedirectToAction("Index", "Account", new { universityId });
+                //return RedirectToActionPermanent("Index", "Dashboard");
             }
-            return RedirectToAction("Index", "Account", new { universityId });
+
+            return View();
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
