@@ -91,8 +91,18 @@
                 },
                 templateUrl: function (params) { return '/library/' + params.libraryId },
                 deps: [
-                    '/Js/services/quiz.js',
+                    '/Js/services/library.js',
                     '/Js/controllers/library/libraryCtrl.js'
+                ]
+            },
+            '/user/:userId/:userName': {
+                params: {
+                    type: 'user'
+                },
+                templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName },
+                deps: [
+                    '/Js/services/user.js',
+                    '/Js/controllers/library/userCtrl.js'
                 ]
             }
 

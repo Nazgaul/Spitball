@@ -753,8 +753,7 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
-    <Content Include="Js\app\directives.js" />
-    <Content Include="Js\app\quizcreatecontroller.js" />
+    <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\bootstrap.js" />
@@ -766,7 +765,12 @@
     <Content Include="Js\controllers\dashboard\dashboardCtrl.js" />
     <Content Include="Js\controllers\dashboard\createBoxCtrl.js" />
     <Content Include="Js\controllers\dashboard\showFriendsCtrl.js" />
+    <Content Include="Js\controllers\item\itemCtrl.js" />
+    <Content Include="Js\controllers\library\libraryCtrl.js" />
+    <Content Include="Js\controllers\quiz\quizCtrl.js" />
+    <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\filters\actionText.js" />
+    <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />
     <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents.js" />
@@ -783,6 +787,8 @@
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\dashboard.js" />
     <Content Include="Js\services\dependencyResolverFor.js" />
+    <Content Include="Js\services\item.js" />
+    <Content Include="Js\services\library.js" />
     <Content Include="Js\services\newUpdates.js" />
     <Content Include="Js\services\quiz.js" />
     <Content Include="Js\services\user.js" />
@@ -1320,8 +1326,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\Factories\" />
-    <Folder Include="Js\controllers\quiz\" />
-    <Folder Include="Js\directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
