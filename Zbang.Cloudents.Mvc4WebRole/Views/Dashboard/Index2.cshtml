@@ -59,7 +59,7 @@
             </div>
 
         </aside>
-        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
+        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}" infinite-scroll="addBoxes()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
             <section class="unionCourses">
                 <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
 
@@ -75,7 +75,7 @@
                            href="@Url.Action("Index","Library")">@SharedResources.BrowseCourses</a>
                     </li>
 
-                    <li ng-repeat="box in academicBoxes track by box.id | limitTo : options.maxCoursesVisible" class="box" ng-include="'dashBoxTemplate'" bindonce post-repeat-directive>
+                    <li ng-repeat="box in academicBoxes | limitTo: options.maxAcademicVisible" class="box" ng-include="'dashBoxTemplate'" bindonce post-repeat-directive>
 
                     </li>
 
@@ -94,7 +94,7 @@
                     <li ng-click="openCreateBox()" class="box">
                         <button ng-click="createBox" class="addBtn">@SharedResources.CreateNew</button>
                     </li>
-                    <li ng-repeat="box in groupBoxes track by box.id | limitTo: calcualteGroupsVisible()" class="box" ng-include="'dashBoxTemplate'" bindonce post-repeat-directive>
+                    <li ng-repeat="box in groupBoxes | limitTo: options.maxGroupVisible" class="box" ng-include="'dashBoxTemplate'" bindonce post-repeat-directive>
 
                     </li>
                 </ol>

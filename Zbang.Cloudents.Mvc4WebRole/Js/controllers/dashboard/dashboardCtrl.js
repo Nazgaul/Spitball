@@ -6,11 +6,15 @@
 
          function ($scope, $modal, $document,$window, Dashboard, Box, User, NewUpdates) {
              $scope.title = 'Dashboard';
-
              $scope.academicBoxes = [];
              $scope.groupBoxes = [];
-             $scope.options = {};
 
+             maxVisible();
+
+             $scope.options = {
+                 maxAcademicVisible: $scope.rows * $scope.cols - 1,//-1 is browse button             
+                 addBoxPerScroll : 3
+             };
              $scope.partials = {
                  friends: '/Dashboard/FriendsPartial',
                  createBox: '/Dashboard/PrivateBoxPartial'
@@ -18,9 +22,7 @@
 
              $scope.myCourses = JsResources.CoursesFollow;
 
-             maxVisible();
-
-             $scope.options.maxCoursesVisible = $scope.rows * $scope.cols - 1;//-1 is browse button             
+             
 
              Dashboard.boxList().then(function (data) {
                  $scope.wall = data.payload.wall;
@@ -35,6 +37,8 @@
                  document.getElementById('mLoading').style.display = 'none';
                  document.getElementById('dashboard').style.display = 'block';
                  document.getElementById('dashboard').style.opacity = 1;
+
+                 calculateGroupsVisible();
 
 
 
@@ -132,6 +136,36 @@
                  return false;
              };
 
+             $scope.addBoxes = function () {
+                 var academicRemain = $scope.academicBoxes.length - $scope.options.maxAcademicVisible,
+                    groupRemain;
+
+                 if (academicRemain >= $scope.options.addBoxPerScroll) {
+                     $scope.options.maxAcademicVisible += $scope.options.addBoxPerScroll;
+
+                     console.log($scope.options.maxAcademicVisible, $scope.options.maxGroupVisible);///
+
+
+                     return;
+                 }
+
+                 if (academicRemain < $scope.options.addBoxPerScroll) {
+                     $scope.options.maxAcademicVisible += academicRemain;
+                     groupRemain = $scope.options.addBoxPerScroll - academicRemain;
+                     $scope.options.maxGroupVisible += groupRemain;
+
+                     console.log($scope.options.maxAcademicVisible, $scope.options.maxGroupVisible);///
+                     return;
+                 }
+                 groupRemain = $scope.groupBoxes.length - $scope.options.maxGroupVisible;
+                 if (groupRemain > 0) {
+                     $scope.options.maxGroupVisible += groupRemain;
+                 }
+                 console.log($scope.options.maxAcademicVisible, $scope.options.maxGroupVisible);///
+
+
+             };
+
              function mapBoxes(boxes) {
                  var academic = [], group = [];
                  for (var i = 0, l = boxes.length; i < l; i++) {
@@ -158,17 +192,16 @@
                      boxWidth = 238, boxHeight = 120; //include margins
 
                  $scope.cols = Math.floor(width / boxWidth);
-                 $scope.rows = Math.ceil(height / boxHeight);
-                    
-                 console.log($scope.cols, $scope.rows);
+                 $scope.rows = Math.ceil(height / boxHeight);                                   
              }
 
-             $scope.calculateGroupsVisible = function() {
-                 if ($scope.academicBoxes.length > $scope.options.maxCoursesVisible) {
-                     return 0;
+             function calculateGroupsVisible() {
+                 if ($scope.academicBoxes.length > $scope.options.maxAcademicVisible) {
+                     $scope.options.maxGroupVisible = 0;
+                     return;
                  }
 
-                 return $scope.options.maxCoursesVisible - $scope.academicBoxes.length;
+                 $scope.options.maxGroupVisible = $scope.options.maxAcademicVisible - $scope.academicBoxes.length;
              }
 
              $window.onresize = maxVisible;
