@@ -28,15 +28,19 @@
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
                     '/Js/services/newUpdates.js',
-                    '/Js/controllers/box/boxCtrl.js'
+                    '/Js/controllers/box/boxCtrl.js',
+                    '/Js/controllers/box/qnaCtrl.js',
+                    '/Js/controllers/box/uploadCtrl.js',
+                    '/Js/controllers/box/manageCtrl.js'
                 ]
             },
             '/course/:uniName/:boxId/:boxName/': {
                 params: {
                     type: 'box'
                 },
-                templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + +params.boxId + '/' + encodeURIComponent(params.boxName); },
+                templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
                 dependencies: [
+                    '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
                     '/Js/services/newUpdates.js',
                     '/Js/controllers/box/boxCtrl.js',
@@ -44,7 +48,54 @@
                     '/Js/controllers/box/uploadCtrl.js',
                     '/Js/controllers/box/manageCtrl.js'
                 ]
+            },
+            '/item/:uniName/:boxId/:boxName/:itemId/:itemName/': {
+                params: {
+                    type: 'item'
+                },
+                templateUrl: function (params) {
+                    return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
+                        + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName)
+                },
+                dependencies: [
+                   '/Js/services/item.js',
+                   '/Js/controllers/item/itemCtrl.js',
+                ]
+            },
+            '/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/': {
+                params: {
+                    type: 'quiz'
+                },
+                templateUrl: function (params) {
+                    return '/quiz/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
+                        + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName)
+                },
+                dependencies: [
+                   '/Js/services/quiz.js',
+                   '/Js/controllers/quiz/quizCtrl.js',
+                ]
+            },
+            '/library/': {
+                params: {
+                    type: 'quiz'
+                },
+                templateUrl: '/library/',
+                deps: [
+                    '/Js/services/library.js',
+                    '/Js/controllers/library/libraryCtrl.js'
+                ]
+            },
+            '/library/:libraryId/:libraryName/': {
+                params: {
+                    type: 'quiz'
+                },
+                templateUrl: function (params) { return '/library/' + params.libraryId },
+                deps: [
+                    '/Js/services/quiz.js',
+                    '/Js/controllers/library/libraryCtrl.js'
+                ]
             }
+
 
         }
     };
