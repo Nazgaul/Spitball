@@ -2,6 +2,7 @@
 
 using System.Web.Mvc;
 using System.Web.Mvc.Routing;
+using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
@@ -32,33 +33,29 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { isDesktop = new DesktopConstraint() }
             );
 
-            routes.MapRoute("LibraryDesktop",
-               "library",
-               new { controller = "Home", action = "Index" },
-               new { isDesktop = new DesktopConstraint() }
-           );
+          
 
             #region Box
             routes.MapRoute("PrivateBoxDesktop",
                   "box/my/{boxId}/{boxName}",
                   new { controller = "Home", action = "Index" },
-                  new { isDesktop = new DesktopConstraint(), boxId = @"\d+" }
+                  new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
               );
             routes.MapRoute("CourseBoxDesktop",
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Home", action = "Index" },
-              new { isDesktop = new DesktopConstraint(), boxId = @"\d+" }
+              new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
           );
 
             routes.MapRoute("PrivateBox",
             "box/my/{boxId}/{boxName}",
             new { controller = "Box", action = "Index" },
-            new { boxId = @"\d+" }
+            new { boxId = new LongRouteConstraint() }
         );
             routes.MapRoute("CourseBox",
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Box", action = "Index" },
-              new { boxId = @"\d+" }
+              new { boxId = new LongRouteConstraint() }
           ); 
             #endregion
 
@@ -74,16 +71,33 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
               );
 
+            #region library
+            routes.MapRoute("LibraryDesktop",
+                "library/{LibId}/{LibName}",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint(), LibId = new GuidRouteConstraint() }
+            );
+
             routes.MapRoute("LibraryNode",
                 "Library/{LibId}/{LibName}",
                 new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
-                new { LibId = @"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$" });
+                new { LibId = new GuidRouteConstraint() }); 
+            #endregion
 
-            //routes.MapRoute(
-            //  "DashboardSearch",
-            //  "Dashboard/Search/{query}",
-            //  new { controller = "Dashboard", action = "Search", query = UrlParameter.Optional }
-            //  );
+            //[Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
+            #region user
+            routes.MapRoute("UserDesktop",
+                "user/{userId}/{userName}",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint() , userId = new LongRouteConstraint() }
+            );
+
+            routes.MapRoute("User",
+                "user/{userId}/{userName}",
+                new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
+                new { userId = new LongRouteConstraint()});
+            #endregion
+
 
             routes.MapRoute(
               "BoxSetting",
