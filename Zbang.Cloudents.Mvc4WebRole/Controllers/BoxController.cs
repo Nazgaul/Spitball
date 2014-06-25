@@ -82,9 +82,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [CacheFilter(Duration = 0)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
-        [AjaxCache(TimeConsts.Minute * 10)]
-        //[Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
-        //[Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
+        //[AjaxCache(TimeConsts.Minute * 10)]
+        //[Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox", Order = 51)]
+        //[Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox", Order = 52)]
         public ActionResult Index(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);
@@ -153,7 +153,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [AjaxCache(TimeConsts.Minute * 10)]
+        //[AjaxCache(TimeConsts.Minute * 10)]
         public ActionResult Data(long boxUid)
         {
             var userId = GetUserId(false);
@@ -179,11 +179,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-//TODO: need to remove uni name and boxname once we got url from db + we want to bring tab id as well so filter will be on client side
+        //TODO: need to remove uni name and boxname once we got url from db + we want to bring tab id as well so filter will be on client side
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [AjaxCache(TimeConsts.Minute * 10)]
+        //[AjaxCache(TimeConsts.Minute * 10)]
         public JsonNetResult Items(long boxUid, int pageNumber, Guid? tab)
         {
             var userId = GetUserId(false); // not really needs it
@@ -199,7 +199,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
                     }
-                   
+
                 }
                 var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
                 return this.CdJson(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
@@ -221,7 +221,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax, HttpGet]
-        [AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
+        //[AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
         public JsonNetResult Members(long boxUid)
         {
             var userId = GetUserId(false);
@@ -272,7 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.Professor, model.CourseCode, model.Picture, model.BoxPrivacy, model.Notification);
                 ZboxWriteService.ChangeBoxInfo(commandBoxName);
                 // ChangeNotification(model.BoxUid, model.Notification);
-                return this.CdJson(new JsonResponse(true, new {queryString = UrlBuilder.NameToQueryString(model.Name)}));
+                return this.CdJson(new JsonResponse(true, new { queryString = UrlBuilder.NameToQueryString(model.Name) }));
             }
             catch (UnauthorizedAccessException)
             {

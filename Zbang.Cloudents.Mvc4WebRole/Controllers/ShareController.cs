@@ -232,7 +232,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
         [HttpGet]
         [Ajax]
-        [AjaxCache(TimeToCache = 0)]
         public async Task<ActionResult> Notifications(int page = 0)
         {
             if (!User.Identity.IsAuthenticated)

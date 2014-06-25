@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
 
         [ActionName("Index"), Ajax]
-        [AjaxCache(TimeConsts.Hour)]
+        //[AjaxCache(TimeConsts.Hour)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         public ActionResult Index2(long boxUid, long itemId, string uniName)
         {
@@ -197,7 +197,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [Ajax]
-        [AjaxCache(TimeConsts.Minute * 15)]
+        //[AjaxCache(TimeConsts.Minute * 15)]
         public ActionResult Load(long boxUid, long itemId, string uniName)
         {
             try
@@ -413,7 +413,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Preview
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [AjaxCache(TimeConsts.Minute * 15)]
+        //[AjaxCache(TimeConsts.Minute * 15)]
         public async Task<ActionResult> Preview(string blobName, int imageNumber, long uid, string boxUid, int width = 0, int height = 0)
         {
             Uri uri;

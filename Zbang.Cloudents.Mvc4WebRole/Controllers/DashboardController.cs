@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [UserNavNWelcome]
-        [AjaxCache(TimeConsts.Day)]
+        //[AjaxCache(TimeConsts.Day)]
         //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public async Task<ActionResult> Index()
         {
@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [HttpGet]
-        [AjaxCache(TimeConsts.Day)]
+        //[AjaxCache(TimeConsts.Day)]
         public async Task<ActionResult> BoxList()
         {
             var userid = GetUserId();

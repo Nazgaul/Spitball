@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -12,7 +11,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Search;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -20,7 +18,6 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -61,9 +58,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [UserNavNWelcome]
         [HttpGet]
-        [AjaxCache(TimeConsts.Minute * 10)]
+        //[AjaxCache(TimeConsts.Minute * 10)]
         [NoUniversity]
-        //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "none")]
         public async Task<ActionResult> Index(Guid? libId)
         {
             var userDetail = FormsAuthenticationService.GetUserData();
@@ -140,14 +136,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
+                var facebookFriendDatas = friendsId as FacebookFriendData[] ?? friendsId.ToArray();
                 var suggestedUniversity =
-                    await ZboxReadService.GetUniversityListByFriendsIds(friendsId.Select(s => s.Id));
+                    await ZboxReadService.GetUniversityListByFriendsIds(facebookFriendDatas.Select(s => s.Id));
 
                 foreach (var university in suggestedUniversity)
                 {
                     university.Friends = university.Friends.Select(s =>
                     {
-                        var facebookData = friendsId.FirstOrDefault(f => f.Id == s.Id);
+                        var facebookData = facebookFriendDatas.FirstOrDefault(f => f.Id == s.Id);
                         if (facebookData != null)
                         {
                             s.Image = facebookData.Image;
@@ -204,7 +201,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [Ajax]
-        [AjaxCache(TimeConsts.Minute * 30)]
+        //[AjaxCache(TimeConsts.Minute * 30)]
         public ActionResult Nodes(Guid? section, int page = 0, OrderBy order = OrderBy.Name)
         {
             var userDetail = FormsAuthenticationService.GetUserData();
@@ -334,36 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-
-        [HttpGet]
-        [Route("library/search/{query}")]
-        public ActionResult Search(string query)
-        {
-            return RedirectToActionPermanent("Index", "Seach", new { q = query });
-        }
-
-
-        //[HttpGet]
-        //[Ajax]
-        //[ActionName("University")]
-        //[AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
-        //[OutputCache(Duration = TimeConsts.Minute * 20, VaryByParam = "term;country;page", Location = OutputCacheLocation.Server)]
-        //public async Task<ActionResult> UniversityList(string term, string country, int page = 0)
-        //{
-        //    if (string.IsNullOrWhiteSpace(country))
-        //    {
-        //        country = GetUserCountryByIP();
-        //    }
-        //    var query = new GetUniversityByPrefixQuery(GetUserId(), page, term, country);
-        //    var result = await m_ZboxCacheReadService.Value.GetUniversityListByPrefix(query);
-        //    //var result = m_ZboxReadService.GetUniversityByPrefix(query);
-        //    return this.CdJson(new JsonResponse(true, result));
-        //}
-
-
-
-
-        [Ajax]
+       [Ajax]
         [HttpGet]
         public ActionResult NewUniversity()
         {
@@ -382,7 +350,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
+        [Ajax, HttpGet]
         public ActionResult InsertCode(long universityId)
         {
             var userData = m_UserProfile.Value.GetUserData(ControllerContext);
@@ -418,9 +386,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     break;
             }
             ViewBag.userName = userData.Name;
-            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University() { UniversityId = universityId }) }));
+            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
         }
-        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
+        [Ajax, HttpGet]
         public ActionResult InsertId(long universityId)
         {
             var userData = m_UserProfile.Value.GetUserData(ControllerContext);
@@ -437,14 +405,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
         }
 
-        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
+        [Ajax, HttpGet]
         public async Task<ActionResult> SelectDepartment(long universityId)
         {
             var retVal = await ZboxReadService.GetDepartmentList(universityId);
             return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
         }
 
-        [Ajax, HttpGet, AjaxCache(TimeToCache = TimeConsts.Second)]
+        [Ajax, HttpGet]
         public async Task<ActionResult> Departments()
         {
 
