@@ -39,12 +39,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
+        //[Route("user/{userId:long:min(0)}/{userName}", Name = "User")]
         [UserNavNWelcome]
-        public async Task<ActionResult> Index(long? userId, string userName)
+        public async Task<ActionResult> Index(long userId, string userName)
         {
 
-            var id = userId.HasValue ? userId.Value : GetUserId();
+            var id = userId;
             ViewBag.Admin = false;
 
             var model = await GetUserProfile(id);
@@ -64,12 +64,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.Admin = true;
                 }
             }
-            if (userId.HasValue)
+            if (UrlBuilder.NameToQueryString(model.Name) != userName)
             {
-                if (UrlBuilder.NameToQueryString(model.Name) != userName)
-                {
-                    return RedirectToAction("Index", "Error");
-                }
+                return RedirectToAction("Index", "Error");
             }
 
             if (Request.IsAjaxRequest())
