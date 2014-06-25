@@ -107,10 +107,9 @@
     $(document).on('click', '[data-navigation]', function (e) {
         /// <summary>Handle the application navigation</summary>
         /// <param name="e" type="Event"></param>
-        //RAM: I remove this because we cant show you tube link
-        //if (this.getAttribute('data-navigation').toLowerCase() === 'link') {
-        //    return true;
-        //}
+        if (this.getAttribute('data-navigation').toLowerCase() === 'link') {
+            return true;
+        }
 
         e.preventDefault();
 
@@ -119,14 +118,13 @@
             window.open(this.href, '_blank');
             return;
         }
-        
+
         privateLocation.url = this.pathname + (this.search || '');
         if (location.hash) {
             location.hash = '';
         }
         //historyNav[historyNav.length - 1].title = document.title === 'Cloudents' ? 'Dashboard' : document.title;
         changeHistoryState();
-        $('#dashboard').remove(); //fix
         locationChanged(privateLocation.url, $(this).data('d'));
 
 
@@ -272,7 +270,7 @@
     }
 
     function quizContext() {
-        
+
         pubsub.publish('quiz', { id: cd.getParameterFromUrl(4) });
     }
 
@@ -388,14 +386,13 @@
                 case 'dashboard':
                     dataContext.dashBoardMp({
                         success: function (html) {
-                            var el = angular.element(html);
-                            var result = cd.$compile(el);
-                            $(main).append(el);
-                            var rootScope = angular.element(main).scope();
-                            result(rootScope);
-                            rootScope.$apply();
-                            //main.insertAdjacentHTML('beforeend', html);
-                            //pubsub.publish('DashboardContext', null, dashboardContext);
+                            //var el = angular.element(html);
+                            //var result = cd.$compile(el);
+                            //$(main).append(el);
+                            //result(cd.$scope.main);
+
+                            main.insertAdjacentHTML('beforeend', html);
+                            pubsub.publish('DashboardContext', null, dashboardContext);
                         },
                         error: function () {
                             location.reload();
@@ -493,10 +490,10 @@
     }
 
 
-    pubsub.subscribe('hidePage', function () {        
+    pubsub.subscribe('hidePage', function () {
         var currentElem = $('#' + getParameterFromUrl(0)),
          elem = $('.page:visible').not(currentElem);
-        if (elem.length || historyNav[historyNav.length-2].url.indexOf('dashboard') > -1) {
+        if (elem.length) {
             elem.fadeOut(200, function () {
                 if (!$('.page:visible').length) { // if the page didnt load we need to put the loading icon
                     $('#mLoading').show();
@@ -554,17 +551,10 @@
         $('.page:visible').finish().hide(); // finish - we want the callback sometime both screen a show - not sure how
         //d.show();
 
-        if (d[0].id === 'dashboard') {
-            return;
-        }
-
-        document.getElementById('mLoading').style.display = 'none';
-
         d[0].style.display = 'block';
         d[0].style.opacity = 1;
         analytics.trackPage(privateLocation.url);
-        
-        
+        document.getElementById('mLoading').style.display = 'none';
         //$('#mLoading').hide();
 
         try {
