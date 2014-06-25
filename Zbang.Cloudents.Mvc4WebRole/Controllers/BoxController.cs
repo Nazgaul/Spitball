@@ -11,7 +11,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -75,6 +74,50 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return HttpNotFound();
                 }
+                return RedirectToAction("Index", "Error");
+            }
+        }
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [UserNavNWelcome]
+        public ActionResult IndexDesktop(string universityName, long boxId, string boxName)
+        {
+            var userId = GetUserId(false);
+            try
+            {
+                
+                var query = new GetBoxQuery(boxId, userId);
+                var box = ZboxReadService.GetBox2(query);
+                if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
+                {
+
+                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, box.Name,
+                        box.OwnerName, BaseControllerResources.Cloudents);
+                    ViewBag.metaDescription = Regex.Replace(string.Format(
+                        BaseControllerResources.MetaDescription, box.Name,
+                        string.IsNullOrWhiteSpace(box.CourseId) ? string.Empty : string.Format(", #{0}", box.CourseId),
+                        string.IsNullOrWhiteSpace(box.ProfessorName)
+                            ? string.Empty
+                            : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, box.ProfessorName)),
+                        @"\s+", " ");
+                }
+                else
+                {
+                    ViewBag.title = string.Format("{0} | {1}", box.Name, BaseControllerResources.Cloudents);
+                }
+                return View("Empty");
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
+            }
+            catch (BoxDoesntExistException)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
                 return RedirectToAction("Index", "Error");
             }
         }
