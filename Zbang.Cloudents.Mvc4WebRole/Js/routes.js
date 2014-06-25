@@ -23,7 +23,7 @@
                 params: {
                     type: 'box'
                 },
-                templateUrl: function (params) { return '/box/my/' + +params.boxId + '/' + encodeURIComponent(params.boxName); },
+                templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
                 dependencies: [
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
@@ -77,20 +77,28 @@
             },
             '/library/': {
                 params: {
-                    type: 'quiz'
+                    type: 'library'
                 },
                 templateUrl: '/library/',
-                deps: [
+                dependencies: [
+                    '/Scripts/externalScriptLoader.js',
+                    '/Js/DataContext.js',
+                    '/Js/Dialog.js',
+                    '/Js/GenericEvents.js',
                     '/Js/services/library.js',
                     '/Js/controllers/library/libraryCtrl.js'
                 ]
             },
             '/library/:libraryId/:libraryName/': {
                 params: {
-                    type: 'quiz'
+                    type: 'library'
                 },
                 templateUrl: function (params) { return '/library/' + params.libraryId },
-                deps: [
+                dependencies: [
+                    '/Scripts/externalScriptLoader.js',
+                    '/Js/DataContext.js',
+                    '/Js/Dialog.js',
+                    '/Js/GenericEvents.js',
                     '/Js/services/library.js',
                     '/Js/controllers/library/libraryCtrl.js'
                 ]
@@ -100,7 +108,7 @@
                     type: 'user'
                 },
                 templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName },
-                deps: [
+                dependencies: [
                     '/Js/services/user.js',
                     '/Js/controllers/library/userCtrl.js'
                 ]

@@ -43,7 +43,7 @@
 
 <script type="text/ng-template" id="itemThumbView">
     <p class="thumbContent">{{item.description}}</p>
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.itemUrl}}">
+    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
         <img ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnail')'}" alt="" width="479" height="188" />
 
         <img ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" width="148" height="188" />
@@ -74,7 +74,7 @@
 
 
 <script type="text/ng-template" id="itemListView">
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.itemUrl}}">
+    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
 
         <img class="imgBorder" ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnail')'}" alt=" " width=" 236" height="143" />
 
@@ -104,7 +104,7 @@
 
 
 <script type="text/ng-template" id="quizThumbView">
-    <a class="boxLink" data-click="selectItem(item)" ng-href="{{item.itemUrl}}">
+    <a class="boxLink" ng-click="selectItem(item)" ng-href="{{item.url}}">
 
         <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
 
@@ -136,7 +136,7 @@
 
 
 <script type="text/ng-template" id="quizListView">
-    <a class="boxLink" data-click="selectItem(item)" ng-href="{{item.itemUrl}}">
+    <a class="boxLink" ng-click="selectItem(item)" ng-href="{{item.url}}">
         <div class="imgBorder"></div>
         <div class="boxName semiFont elps" ng-bind-html="item.name | trustedHtml"></div>
 

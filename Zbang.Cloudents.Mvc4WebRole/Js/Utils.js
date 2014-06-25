@@ -1239,6 +1239,27 @@
         };
     };
 
+
+    function getParameterFromUrl(index) {
+        var location = window.location.href || privateLocation.url;
+        location = removeStartingSlash(location);
+        location = location.split('?')[0];
+
+        var pathArray = location.split('/');
+        if (pathArray[index]) {
+            return decodeURIComponent(pathArray[index]);
+        }
+
+        return '';
+    }
+
+    function removeStartingSlash(param) {
+        if (param.charAt(0) === '/') {
+            return param.substr(1);
+        }
+        return param;
+    }
+
     var conversion = {
         table: {
             'e': 'ק', 'r': 'ר', 't': 'א', 'y': 'ט', 'u': 'ו', 'i': 'ן', 'o': 'ם',
@@ -1310,6 +1331,7 @@
     cd.loaderOn = loaderOn;
     cd.shareFb = shareFb;
     cd.postFb = postFb;
+    cd.getParameterFromUrl = getParameterFromUrl;
     //cd.setTitle = setTitle;
 
     cd.clone = clone;

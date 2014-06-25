@@ -1,11 +1,8 @@
 ﻿/// <reference path="../Views/Library/Index.cshtml" />
 (function (cd, dataContext, ko, jsResources, analytics) {
     "use strict";
-    if (window.scriptLoaded.isLoaded('l')) {
-        return;
-    }
 
-    cd.loadModel('library', 'LibraryContext', registerKOLibrary);
+    registerKOLibrary();
 
     function registerKOLibrary() {
         var $LibraryContent = document.getElementById('libraryContent');
@@ -14,11 +11,15 @@
         }
         ko.applyBindings(new LibraryViewModel(), $LibraryContent);
     }
+
     function LibraryViewModel() {
         var libraryConst = 'library',
         self = this, page = 0,
 
         libraryId = '';
+
+
+
 
         function Node(data) {
             data = data || {};
@@ -57,7 +58,7 @@
         self.elements = ko.observableArray([]);
         var paggingNeed = true;
 
-        self.loaded = ko.observable(false);
+        self.loaded = ko.observable(false);        
         self.displayMode = function (elem) {
             return elem.template;
         };
@@ -133,42 +134,37 @@
 
         //#endregion
 
+        init();
 
-        cd.pubsub.subscribe('lib_nodes', function (data) {
-            refreshScreen(function () {
-                libraryId = data.id;
+        function init(data) {
+            refreshScreen(function () {                
+                libraryId = cd.getParameterFromUrl(1) || '';
                 libraryList();
                 $('#lib_NodeName').addClass('hover');
-                self.title(decodeURIComponent(data.name || ''));
-                var uniName = document.getElementById('univeristyName').textContent;
-                if (self.title()) {
-                    cd.setTitle('{0} | {1} | Cloudents'.format(uniName, self.title()));
-                } else {
-                    cd.setTitle('{0} | Cloudents'.format(uniName));
-                }
-              
+                self.title(decodeURIComponent(cd.getParameterFromUrl(1) || ''));
+                var uniName = document.getElementById('univeristyName').textContent;                
 
             });
-        });
+        }
 
 
         function refreshScreen(action) {
-            clearBoard();
+            //clearBoard();
             action();
         }
 
-        function clearBoard() {
-            try {
-                window.scrollTo(0, 0);
-            }
-            catch(err) {
-                console.log(err.message);
-            }
-            self.elements([]);
-            $('#lib_NodeName').show().next('input').remove();
-            paggingNeed = true;
-            page = 0;
-        }
+        //function clearBoard() {
+        //    try {
+        //        window.scrollTo(0, 0);
+        //    }
+        //    catch(err) {
+        //        console.log(err.message);
+        //    }
+        //    self.elements([]);
+        //    $('#lib_NodeName').show().next('input').remove();
+        //    paggingNeed = true;
+        //    page = 0;
+        //}
 
         function libraryList() {
             self.loaded(false);
@@ -329,13 +325,7 @@
                     //location.href = $('#lib_Back').prop('href');
                 }
             });
-        };
-        //self.deleteNodeVisible = ko.computed(function () {
-        //    if (!self.loaded()) {
-        //        return false;
-        //    }
-        //    return !self.elements().length;
-        //});
+        };     
         //#endregion
 
         //#region renameNode
@@ -402,21 +392,9 @@
             }
         }, $('#library'));
 
-        //cd.loader.registerFacebook();
-        //cd.loader.registerTwitter();
 
         function facebookLikeBox() {
-            //var likeBox = document.getElementById('facebookLikeBox');
-            //if (!likeBox) {
-            //    return;
-            //}
-            //var href = likeBox.getAttribute('data-href'), link = likeBox.getAttribute('data-link');
-            //var height = Math.floor($(window).height() - $(likeBox).offset().top);
 
-            //var src = link.replace(/{{href}}/i, href).replace(/{{height}}/i, height);
-
-            //likeBox.height = height;
-            //likeBox.src = src;
             var likeBox = document.getElementById('facebookLikeBox');
             if (!likeBox) {
                 return;
@@ -442,16 +420,11 @@
             facebookLikeBox();
             innerScrollLetter();
         });
-        //cd.pubsub.subscribe('windowChanged', function () {
-        //    if (document.getElementById('Library').style.display === 'block') {
-        //        innerScrollLib();
-        //    }
-        //});
+      
         function innerScrollLetter() {
             $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 65);
 
-            //    var $libList = $('.libLists');
-            //    //cd.innerScroll($libList, $(window).height() - parseInt($libList.css('padding-top').replace('px', ''),10) - $libList.offset().top);
+          
         }
 
         //analytics

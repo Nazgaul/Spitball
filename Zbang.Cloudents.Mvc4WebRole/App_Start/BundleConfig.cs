@@ -97,11 +97,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //test
             RegisterJs("angular",
                 new JsFileWithCdn("~/Scripts/angular.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"),
-                new JsFileWithCdn("~/Scripts/angular-route.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-route.min.js"),
+                new JsFileWithCdn("~/Scripts/angular-route.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-route.min.js"),
               new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
-              new JsFileWithCdn("~/Scripts/ui-bootstrap-custom-tpls-0.10.0.min.js"),              
+              new JsFileWithCdn("~/Scripts/ui-bootstrap-custom-tpls-0.10.0.min.js"),
                 new JsFileWithCdn("~/Scripts/elastic.js"),
-              new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),            
+              new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
                 new JsFileWithCdn("~/Js/app/services.js"),
                  new JsFileWithCdn("~/Js/app/filters.js"),
                 new JsFileWithCdn("~/Js/app/directives.js"),
@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  new JsFileWithCdn("~/Js/app/boxcontroller.js"),
                 new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
                  new JsFileWithCdn("~/Js/app/app.js")
-             
+
              );
 
 
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             RegisterJs("General",
-                new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js","https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+                new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),// the script is too small
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"), // the script is too small
@@ -240,9 +240,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    new JsFileWithCdn("~/Js/BoxesViewModel.js"),
             //    new JsFileWithCdn("~/Js/DashboardAside.js"));
 
-            //RegisterJs("library",
-            //     new JsFileWithCdn("~/Js/Library.js"),
-            //    new JsFileWithCdn("~/Js/LibraryChoose.js"));
+            RegisterJs("library",
+                new JsFileWithCdn("~/Js/Library.js"),
+                new JsFileWithCdn("~/Js/LibraryChoose.js"));
 
             //RegisterJs("box",
             //     new JsFileWithCdn("~/Js/BoxViewModel2.js"),
@@ -411,7 +411,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             try
             {
-                
+
                 return RoleEnvironment.GetConfigurationSettingValue("CdnEndpoint");
             }
             catch (Exception)

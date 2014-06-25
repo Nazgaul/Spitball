@@ -324,16 +324,6 @@
         }
     }
 
-    function getParameterFromUrl(index) {
-        privateLocation.url = removeStartingSlash(privateLocation.url);
-        privateLocation.url = privateLocation.url.split('?')[0];
-
-        var pathArray = privateLocation.url.split('/');
-        if (pathArray[index]) {
-            return decodeURIComponent(pathArray[index]);
-        }
-        return '';
-    }
 
     function removeStartingSlash(param) {
         if (param.charAt(0) === '/') {
