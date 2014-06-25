@@ -122,6 +122,41 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        public ActionResult IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
+        {
+            var userId = GetUserId(false); // not really needs it
+
+            var query = new GetItemQuery(userId, itemid, boxId);
+            var item = ZboxReadService.GetItem(query);
+            if (item.BoxId != boxId)
+            {
+                throw new ItemNotFoundException();
+            }
+            if (itemName != UrlBuilder.NameToQueryString(item.Name))
+            {
+                throw new ItemNotFoundException();
+            }
+            if (!string.IsNullOrEmpty(item.Country))
+            {
+                var culture = Languages.GetCultureBaseOnCountry(item.Country);
+                BaseControllerResources.Culture = culture;
+                var seoItemName = item.Name;
+                var file = item as FileWithDetailDto;
+                if (file != null)
+                {
+                    seoItemName = file.NameWOExtension;
+                }
+                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, item.BoxName, seoItemName, BaseControllerResources.Cloudents);
+            }
+            if (!string.IsNullOrEmpty(item.Description))
+            {
+                var metaDescription = item.Description.RemoveEndOfString(197);
+                ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
+            }
+            return View("Empty");
+        }
+
+
         [UserNavNWelcome]
         [NonAjax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

@@ -38,12 +38,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #region Box
             routes.MapRoute("PrivateBoxDesktop",
                   "box/my/{boxId}/{boxName}",
-                  new { controller = "Home", action = "Index" },
+                  new { controller = "Box", action = "IndexDesktop" },
                   new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
               );
             routes.MapRoute("CourseBoxDesktop",
               "course/{universityName}/{boxId}/{boxName}",
-              new { controller = "Home", action = "Index" },
+              new { controller = "Box", action = "IndexDesktop" },
               new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
           );
 
@@ -103,7 +103,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #region item
             routes.MapRoute("ItemDesktop",
                 "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
-                new { controller = "Home", action = "Index" },
+                new { controller = "Item", action = "IndexDesktop" },
                 new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), itemid = new LongRouteConstraint() }
             );
 
@@ -129,12 +129,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
             routes.MapRoute("QuizDesktop",
                 "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
-                new { controller = "Home", action = "Index" },
+                new { controller = "Quiz", action = "IndexDesktop" },
                 new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), quizId = new LongRouteConstraint() }
             );
 
             routes.MapRoute("Quiz",
-                "Quiz/{universityName}/{boxId}/{boxName}/{quizId/{quizName}",
+                "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
                 new
                 {
                     controller = "Library",

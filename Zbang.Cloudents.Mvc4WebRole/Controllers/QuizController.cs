@@ -35,8 +35,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             m_IdGenerator = idGenerator;
         }
-        //
-        // GET: /Quiz/
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [NonAjax]
+        [UserNavNWelcome]
+        public async Task<ActionResult> IndexDesktop(long boxId, long quizId, string quizName, string universityName,
+            string boxName)
+        {
+            var model = await GetQuiz(boxId, quizId, quizName, true);
+            if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))
+            {
+                var culture = Languages.GetCultureBaseOnCountry(model.Quiz.Seo.Country);
+                BaseControllerResources.Culture = culture;
+                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName, BaseControllerResources.Cloudents);
+            }
+            ViewBag.metaDescription = model.Quiz.Questions.First().Text;
+
+            return View("Empty");
+        }
+
+
         //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NonAjax]
