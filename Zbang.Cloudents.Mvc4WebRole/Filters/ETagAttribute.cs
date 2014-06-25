@@ -79,9 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             var str = Encoding.UTF8.GetString(buffer);
             var x = new Regex(@"<!--Donut#(.*)#-->", RegexOptions.Multiline | RegexOptions.IgnoreCase);
             str = x.Replace(str, string.Empty);
-
             buffer = Encoding.UTF8.GetBytes(str);
-
             m_Md5.TransformBlock(buffer, 0, buffer.Length, null, 0);
             base.Write(buffer, 0, buffer.Length);
         }

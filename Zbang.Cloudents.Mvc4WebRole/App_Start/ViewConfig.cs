@@ -10,7 +10,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
         {
             ViewEngines.Engines.Clear();
 
-            var razorViewEngine = new System.Web.Mvc.RazorViewEngine
+            var razorViewEngine = new RazorViewEngine
             {
                 ViewLocationCache = new CloudentsViewLocationCache()
             };

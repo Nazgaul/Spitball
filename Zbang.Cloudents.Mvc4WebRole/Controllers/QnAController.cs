@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //  var filesId = model.Files.Select(s => m_ShortToLongCode.ShortCodeToLong(s, ShortCodesType.Item));
             var questionId = m_IdGenerator.Value.GetId();
             var command = new AddCommentCommand(GetUserId(), model.BoxUid, model.Content, questionId, model.Files);
-            m_ZboxWriteService.AddQuestion(command);
+            ZboxWriteService.AddQuestion(command);
             return Json(new JsonResponse(true, questionId));
         }
 
@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var answerId = m_IdGenerator.Value.GetId();
             var command = new AddAnswerToQuestionCommand(GetUserId(), model.BoxUid, model.Content, answerId, model.QuestionId, model.Files);
-            await m_ZboxWriteService.AddAnswer(command);
+            await ZboxWriteService.AddAnswer(command);
             return Json(new JsonResponse(true, answerId));
         }
         [ZboxAuthorize]
@@ -65,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult MarkAnswer(Guid answerId)
         {
             var command = new MarkAsAnswerCommand(answerId, GetUserId());
-            m_ZboxWriteService.MarkCorrectAnswer(command);
+            ZboxWriteService.MarkCorrectAnswer(command);
             return Json(new JsonResponse(true));
         }
         //[ZboxAuthorize]
@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult RemoveFile(long itemId)
         {
             var command = new DeleteFileFromQnACommand(itemId, GetUserId());
-            m_ZboxWriteService.DeleteFileFromQnA(command);
+            ZboxWriteService.DeleteFileFromQnA(command);
             return Json(new JsonResponse(true));
         }
 
@@ -94,7 +94,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new DeleteCommentCommand(questionId, GetUserId());
-                m_ZboxWriteService.DeleteComment(command);
+                ZboxWriteService.DeleteComment(command);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new DeleteReplyCommand(answerId, GetUserId());
-                m_ZboxWriteService.DeleteAnswer(command);
+                ZboxWriteService.DeleteAnswer(command);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Index(long boxId, string uniName, string boxName)
         {
             //this is a test
-            var retVal = m_ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, GetUserId(false)));
+            var retVal = ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, GetUserId(false)));
             return this.CdJson(new JsonResponse(true, retVal));
         }
 

@@ -68,7 +68,6 @@
     <Compile Include="DTOs\ActivityDtos\CommentDto.cs" />
     <Compile Include="DTOs\BoxDtos\BoxMetaDto.cs" />
     <Compile Include="DTOs\BoxDtos\BoxNotificationDto.cs" />
-    <Compile Include="DTOs\BoxDtos\BoxSeoDto.cs" />
     <Compile Include="DTOs\BoxDtos\BoxToFriendDto.cs" />
     <Compile Include="DTOs\BoxSettingsDto.cs" />
     <Compile Include="DTOs\BoxDtos\BoxDto.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="DTOs\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="DTOs\ItemDtos\IItemDto.cs" />
     <Compile Include="DTOs\ItemDtos\ItemDto.cs" />
-    <Compile Include="DTOs\ItemDtos\ItemSeoDto.cs" />
     <Compile Include="DTOs\ItemDtos\ItemToFriendDto.cs" />
     <Compile Include="DTOs\ItemDtos\ItemWithDetailDto.cs" />
     <Compile Include="DTOs\ItemDtos\LinkDto.cs" />

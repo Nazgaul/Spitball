@@ -138,7 +138,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetUserWithFriendQuery(GetUserId(), userId);
-                var model = await m_ZboxReadService.GetUserWithFriendBoxes(query);
+                var model = await ZboxReadService.GetUserWithFriendBoxes(query);
                 return this.CdJson(new JsonResponse(true, model));
             }
             catch (Exception ex)
@@ -154,7 +154,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var userDetail = m_FormsAuthenticationService.GetUserData();
+                var userDetail = FormsAuthenticationService.GetUserData();
 
                 var usermodel = await GetUserProfile(GetUserId());
                 if (usermodel.Score < AdminReputation)
@@ -163,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
-                var model = await m_ZboxReadService.GetUserWithFriendBoxes(query);
+                var model = await ZboxReadService.GetUserWithFriendBoxes(query);
                 return this.CdJson(new JsonResponse(true, model));
             }
             catch (Exception ex)
@@ -175,7 +175,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax, AjaxCache(TimeToCache = TimeConsts.Minute)]
         public async Task<ActionResult> AdminFriends()
         {
-            var userDetail = m_FormsAuthenticationService.GetUserData();
+            var userDetail = FormsAuthenticationService.GetUserData();
 
             var userModel = await GetUserProfile(GetUserId());
             if (userModel.Score < AdminReputation)
@@ -185,7 +185,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
             var query = new GetAdminUsersQuery(universityId);
-            var result = await m_ZboxReadService.GetUniversityUsers(query);
+            var result = await ZboxReadService.GetUniversityUsers(query);
             return this.CdJson(new JsonResponse(true, result));
         }
         #endregion
@@ -197,7 +197,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetInvitesQuery(GetUserId());
-                var model = await m_ZboxReadService.GetUserPersonalInvites(query);
+                var model = await ZboxReadService.GetUserPersonalInvites(query);
 
 
                 return this.CdJson(new JsonResponse(true, model));
@@ -213,7 +213,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Activity(long userId)
         {
             var query = new GetUserWithFriendQuery(GetUserId(), userId);
-            var model = await m_ZboxReadService.GetUserWithFriendActivity(query);
+            var model = await ZboxReadService.GetUserWithFriendActivity(query);
             return this.CdJson(new JsonResponse(true, model));
         }
 
@@ -254,7 +254,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userid = GetUserId();
             var query = new GetUserDetailsQuery(userid);
-            var result = m_ZboxReadService.GetUserBoxesNotification(query);
+            var result = ZboxReadService.GetUserBoxesNotification(query);
             return this.CdJson(new JsonResponse(true, result));
         }
 
@@ -262,7 +262,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         public async Task<ActionResult> Updates()
         {
-            var model = await m_ZboxReadService.GetUpdates(new QueryBase(GetUserId()));
+            var model = await ZboxReadService.GetUpdates(new QueryBase(GetUserId()));
             return this.CdJson(new JsonResponse(true, model));
         }
     }

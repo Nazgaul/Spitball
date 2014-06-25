@@ -23,7 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return UrlConsts.NameToQueryString(name);
         }
 
-        private string BuildBoxUrl(BoxType boxtype, long boxid, string boxName, string uniName)
+        public string BuildBoxUrl(BoxType boxtype, long boxid, string boxName, string uniName)
         {
             if (boxtype == BoxType.Academic)
             {

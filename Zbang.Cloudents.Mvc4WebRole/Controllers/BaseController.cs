@@ -16,26 +16,26 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
-    public class BaseController : AsyncController
+    public class BaseController : Controller
     {
         protected const string SessionUserUploadProfilePicturesKey = "UserUploadProfilePictures";
 
-        protected readonly IZboxWriteService m_ZboxWriteService;
-        protected readonly IZboxReadService m_ZboxReadService;
-        protected readonly IFormsAuthenticationService m_FormsAuthenticationService;
+        protected readonly IZboxWriteService ZboxWriteService;
+        protected readonly IZboxReadService ZboxReadService;
+        protected readonly IFormsAuthenticationService FormsAuthenticationService;
 
         public BaseController()
         {
             //error controller only
-            m_FormsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
+            FormsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
         }
 
         public BaseController(IZboxWriteService zboxWriteService, IZboxReadService zboxReadService,
             IFormsAuthenticationService formsAuthenticationService)
         {
-            m_ZboxWriteService = zboxWriteService;
-            m_ZboxReadService = zboxReadService;
-            m_FormsAuthenticationService = formsAuthenticationService;
+            ZboxWriteService = zboxWriteService;
+            ZboxReadService = zboxReadService;
+            FormsAuthenticationService = formsAuthenticationService;
 
         }
 
@@ -123,10 +123,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             TempDataProvider = new CookieTempDataProvider(HttpContext);
             try
             {
-
                 if (User != null && User.Identity.IsAuthenticated)
                 {
-                    var userData = m_FormsAuthenticationService.GetUserData();
+                    var userData = FormsAuthenticationService.GetUserData();
                     if (userData != null)
                     {
                         ChangeThreadLanguage(userData.Language);
@@ -142,6 +141,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     var value = Server.HtmlEncode(HttpContext.Request.Cookies["lang"].Value);
                     ChangeThreadLanguage(value);
+                    return;
+                }
+                var langFromUrl =  requestContext.RouteData.Values.FirstOrDefault(f => f.Key == "lang");
+                if (langFromUrl.Value != null)
+                {
+                    ChangeThreadLanguage(langFromUrl.Value.ToString());
                     return;
                 }
 

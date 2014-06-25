@@ -23,9 +23,6 @@
       <Certificate name="MyIntermediateCertCloudDents" storeLocation="LocalMachine" storeName="CA" />
       <Certificate name="MyRootCertCloudDents" storeLocation="LocalMachine" storeName="Trust" />
     </Certificates>
-    <Startup>
-      <Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple" />
-    </Startup>
     <ConfigurationSettings>
       <Setting name="WebSiteUrl" />
     </ConfigurationSettings>

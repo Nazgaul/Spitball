@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId(false); // not really needs it
 
                 var query = new GetItemQuery(userId, itemId, boxUid);
-                var item = m_ZboxReadService.GetItem(query);
+                var item = ZboxReadService.GetItem(query);
                 if (item.BoxId != boxUid)
                 {
                     throw new ItemNotFoundException();
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId(false); // not really needs it
 
                 var query = new GetItemQuery(userId, itemid, boxId);
-                var item = m_ZboxReadService.GetItem(query);
+                var item = ZboxReadService.GetItem(query);
                 if (item.BoxId != boxId)
                 {
                     throw new ItemNotFoundException();
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId(false); // not really needs it
 
                 var query = new GetItemQuery(userId, itemId, boxUid);
-                var item = m_ZboxReadService.GetItem(query);
+                var item = ZboxReadService.GetItem(query);
                 if (item.BoxId != boxUid)
                 {
                     throw new ItemNotFoundException();
@@ -242,7 +242,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new GetItemQuery(GetUserId(false), itemId, boxUid);
 
-            var item = m_ZboxReadService.GetItem(query);
+            var item = ZboxReadService.GetItem(query);
 
 
             var filedto = item as FileWithDetailDto;
@@ -282,7 +282,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new ChangeFileNameCommand(itemId, newFileName, userId);
-                var result = m_ZboxWriteService.ChangeFileName(command);
+                var result = ZboxWriteService.ChangeFileName(command);
                 return Json(new JsonResponse(true, new
                 {
                     name = Path.GetFileNameWithoutExtension(result.Name),
@@ -320,7 +320,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new GetItemQuery(GetUserId(false), itemId, boxId);
 
-            var item = m_ZboxReadService.GetItem(query);
+            var item = ZboxReadService.GetItem(query);
 
 
 
@@ -363,7 +363,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userEmailId = GetUserId(false);
 
                 var command = new DeleteItemCommand(itemId, userEmailId, boxUid);
-                m_ZboxWriteService.DeleteItem(command);
+                ZboxWriteService.DeleteItem(command);
 
                 return Json(new JsonResponse(true, itemId));
             }
@@ -385,7 +385,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var id = m_IdGenerator.Value.GetId();
                 var command = new RateItemCommand(itemId, GetUserId(), rate, id);
-                m_ZboxWriteService.RateItem(command);
+                ZboxWriteService.RateItem(command);
 
                 return Json(new JsonResponse(true, itemId));
             }
@@ -402,7 +402,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var query = new GetItemRateQuery(GetUserId(), itemId);
-            var retVal = await m_ZboxReadService.GetRate(query) ?? new Zbox.ViewModel.DTOs.ItemRateDto();
+            var retVal = await ZboxReadService.GetRate(query) ?? new Zbox.ViewModel.DTOs.ItemRateDto();
 
             return Json(new JsonResponse(true, retVal), JsonRequestBehavior.AllowGet);
 

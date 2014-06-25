@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            
             var userId = GetUserId(false);
             var query = new GetBoxCommentsQuery(boxUid, userId);
-            var result = m_ZboxReadService.GetBoxComments(query);
+            var result = ZboxReadService.GetBoxComments(query);
             return this.CdJson(new JsonResponse(true, result));
         }
 
@@ -162,7 +162,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = GetUserId(false);
             var query = new GetItemCommentsQuery(itemId, userId);
-            var result = await m_ZboxReadService.GetItemComments(query);
+            var result = await ZboxReadService.GetItemComments(query);
             return this.CdJson(new JsonResponse(true, result));
         }
 
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new AddAnnotationCommand(model.Comment, model.X, model.Y, model.Width, model.Height, model.ItemId, model.ImageId, GetUserId());
-                m_ZboxWriteService.AddAnnotation(command);
+                ZboxWriteService.AddAnnotation(command);
                 return this.CdJson(new JsonResponse(true, command.AnnotationId));
             }
             catch (UnauthorizedAccessException)
@@ -211,7 +211,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
             var command = new DeleteAnnotationCommand(model.CommentId, GetUserId());
-            m_ZboxWriteService.DeleteAnnotation(command);
+            ZboxWriteService.DeleteAnnotation(command);
             return this.CdJson(new JsonResponse(true));
         }
     }
