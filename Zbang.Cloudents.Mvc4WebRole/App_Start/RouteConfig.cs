@@ -74,8 +74,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #region library
             routes.MapRoute("LibraryDesktop",
                 "library/{LibId}/{LibName}",
-                new { controller = "Home", action = "Index" },
-                new { isDesktop = new DesktopConstraint(), LibId = new GuidRouteConstraint() }
+                new { controller = "Home", action = "Index" , LibId = UrlParameter.Optional, LibName= UrlParameter.Optional },
+                new { isDesktop = new DesktopConstraint() }
             );
 
             routes.MapRoute("LibraryNode",

@@ -241,8 +241,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    new JsFileWithCdn("~/Js/DashboardAside.js"));
 
             RegisterJs("library",
-                new JsFileWithCdn("~/Js/Library.js"),
-                new JsFileWithCdn("~/Js/LibraryChoose.js"));
+                new JsFileWithCdn("~/Js/Library.js"));
+                //new JsFileWithCdn("~/Js/LibraryChoose.js"));
 
             //RegisterJs("box",
             //     new JsFileWithCdn("~/Js/BoxViewModel2.js"),
