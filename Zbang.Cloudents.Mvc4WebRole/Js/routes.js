@@ -27,8 +27,11 @@
                 dependencies: [
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
+                    '/Js/services/item.js',
+                    '/Js/services/qna.js',
                     '/Js/services/newUpdates.js',
                     '/Js/controllers/box/boxCtrl.js',
+                    '/Js/controllers/box/tabCtrl.js',
                     '/Js/controllers/box/qnaCtrl.js',
                     '/Js/controllers/box/uploadCtrl.js',
                     '/Js/controllers/box/manageCtrl.js'
@@ -42,8 +45,11 @@
                 dependencies: [
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
+                    '/Js/services/item.js',
+                    '/Js/services/qna.js',
                     '/Js/services/newUpdates.js',
                     '/Js/controllers/box/boxCtrl.js',
+                    '/Js/controllers/box/tabCtrl.js',
                     '/Js/controllers/box/qnaCtrl.js',
                     '/Js/controllers/box/uploadCtrl.js',
                     '/Js/controllers/box/manageCtrl.js'

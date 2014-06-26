@@ -11,18 +11,18 @@
 
         <div class="lFloat boxManage" ng-if="options.manageTab">
             @MainViewResources.ChooseFiles
-            <button class="btn1" type="button" data-click="manageSave">@MainViewResources.Save</button>
-            <button class="btn2" type="button" data-click="managedecline">@MainViewResources.Cancel</button>
+            <button class="btn1" type="button" ng-click="manageSave()">@MainViewResources.Save</button>
+            <button class="btn2" type="button" ng-click="manageCancel()">@MainViewResources.Cancel</button>
         </div>
 
-        <button type="button" data-click="addItem" class="iconTxt btn1 lFloat" ng-show="items.length > 0 && !options.manageTab">@DialogResources.UploadFiles</button>
-        <button type="button" class="iconTxt btn1 lFloat quizBtn" id="addQuiz" ng-show="!options.manageTab">@QuizResources.CreateQuiz</button>
+        <button type="button" ng-click="addItem(0)" class="iconTxt btn1 lFloat" ng-show="filteredItems.length > 0 && !options.manageTab">@DialogResources.UploadFiles</button>
+        <button type="button" class="iconTxt btn1 lFloat quizBtn" ng-show="!options.manageTab">@QuizResources.CreateQuiz</button>
 
-        <button type="button" class="listViewBtn rFloat boxItemsViewToggle" ng-click="changeView(list)" ng-show="items.length > 0"></button>
-        <button type="button" class="thumbViewBtn rFloat boxItemsViewToggle" ng-click="changeView(thumb)" ng-show="items.length > 0"></button>
+        <button type="button" ng-class="{ currentState : options.currentView === 'list'}" class="listViewBtn rFloat boxItemsViewToggle" ng-click="changeView('list')" ng-show="filteredItems.length > 0"></button>
+        <button type="button" ng-class="{ currentState : options.currentView === 'thumb'}" class="thumbViewBtn rFloat boxItemsViewToggle" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0"></button>
     </div>
 
-    <div class="boxEmpty" ng-if="items.length === 0">
+    <div class="boxEmpty" ng-if="!filteredItems.length">
         <h2>@MainViewResources.BoxEmpty</h2>
         <br />
         <div>@IndexResources.Syllabus</div>
@@ -30,13 +30,14 @@
 
         <div class="emptyBoxDrop">
             <span class="emptyBoxDropText">@DialogResources.DragAndDrop</span>
-            <button ng-click="addItem" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
+            <button ng-click="addItem()" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
         </div>
     </div>
 
 
-    <ol id="BoxItemList" class="boxItemList clearfix">
-        <li ng-repeat="item in items" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , quizDraft : item.publish }" ng-include="getView(item)">
+    <ol id="BoxItemList" class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+        <li ng-repeat="item in filteredItems | limitTo : options.itemsLimit" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , quizDraft : item.publish }"
+            ng-include="getView(item)" post-repeat-directive>
         </li>
     </ol> @*add drag option*@
 </div>
@@ -65,13 +66,12 @@
     }
 
     <span ng-if="options.manageTab">
-        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
+        <input id="{{'item_' + item.id}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
         <div></div>
         @*empty div used for green outline*@
-        <label for="{{'item_' + item.uid}}" class="cbLabel" ng-model="item.isCheck"></label>
+        <label for="{{'item_' + item.id}}" class="cbLabel" ng-model="item.isCheck"></label>
     </span>
 </script>
-
 
 <script type="text/ng-template" id="itemListView">
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
@@ -100,8 +100,6 @@
     </div>
     }
 </script>
-
-
 
 <script type="text/ng-template" id="quizThumbView">
     <a class="boxLink" ng-click="selectItem(item)" ng-href="{{item.url}}">
@@ -133,7 +131,6 @@
         <label for="{{'item_' + item.uid}}" class="cbLabel" ng-model="item.isCheck"></label>
     </span>   
 </script>
-
 
 <script type="text/ng-template" id="quizListView">
     <a class="boxLink" ng-click="selectItem(item)" ng-href="{{item.url}}">

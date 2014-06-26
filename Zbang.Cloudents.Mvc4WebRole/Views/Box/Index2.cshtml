@@ -56,7 +56,7 @@
 
     <div class="boxRight">
         <div class="boxActions topBar barShadow">
-            <section class="shareBtn rFloat">
+            @*<section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="boxShare" data-ddcbox="boxShare" />
                 <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
                 <div class="dropDown shareDD" data-dropdown="boxShare">
@@ -75,7 +75,7 @@
                     <div class="shareTxt">@SharedResources.OrCopyLink</div>
                     <input type="text" id="box_CL" class="linkShare" value="" readonly="readonly" data-bind="value: copyLink" />
                 </div>
-            </section>
+            </section>*@
             <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
                 data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
             <a class="backWpr elps lFloat" data-bind="attr: { href: parent().url },visible: backVisible" data-navigation="Dashboard">

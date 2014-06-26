@@ -10,11 +10,11 @@
         'modernizr': '../Scripts/Modernizr',
         'knockout': '../Scripts/knockout-3.0.0.debug',
         'utils': '../Js/Utils',
-        'pubsub': '../Js/pubsub'
+        'pubsub': '../Js/pubsub',        
     },
     shim: {
         'app': {
-            deps: ['angular', 'angular-route','angular-sanitize', 'infinite-scroll', 'boots','bind-once']
+            deps: ['angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once']
         },
         'angular-route': {
             deps: ['angular']
@@ -24,7 +24,7 @@
         },
         'infinite-scroll': {
             deps: ['angular']
-        },
+        },       
         'angular-sanitize': {
             deps: ['angular']
         },
@@ -32,6 +32,9 @@
             deps: ['jquery']
         },
         'boots': {
+            deps: ['angular']
+        },
+        'user-details': {
             deps: ['angular']
         },
         'knockout': {

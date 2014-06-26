@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="box" class="page boxPage {{info.boxType}}" ng-controller="BoxCtrl">
+<div id="box" class="page boxPage {{info.boxType}}" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
         <div id="BoxTopWpr" class="boxTopWpr">
             <div class="boxTop">
@@ -22,30 +22,32 @@
             <div class="sectionHeader">@IndexResources.Folders</div>
             <ul class="boxFolderList">
                 <li class="current boxFolder" ng-class="{current : !info.currentTab }">
-                    <span class="boxFolderName elps" data-click="selectTab()">@SharedResources.All</span>
+                    <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
                     <span class="tabBorder"></span>
                 </li>
 
-                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-click="switchTab()" ng-class="{ current: tab.id === currentTab.id}">
-                    <span class="boxFolderName elps">{{tab.name}}</span>
-                    <div data-title="Tab menu" class="editFolder rFloat" ng-click="toggleTabMenu(tab)" ng-show="tab.id === currentTab.id">
-                        <ul class="editFolderMenu" ng-show="tab.showMenu">
-                            <li>
-                                <button type="button" ng-click="tabRename(tab)">@SharedResources.Rename</button>
-                            </li>
-                            <li>
-                                <button type="button" ng-click="tabManage(tab)">@MainViewResources.Manage</button>
-                            </li>
-                            <li>
-                                <button type="button" ng-click="tabDelete(tab)">@MainViewResources.Delete</button>
-                            </li>
-                        </ul>
-                    </div>
+                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown>
+
+                    <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
+                    <button class="rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id">
+                        D
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
+                        </li>
+                        <li>
+                            <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
+                        </li>
+                        <li>
+                            <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
+                        </li>
+                    </ul>
                     <span class="tabBorder"></span>
                 </li>
 
                 <li class="createFolder">
-                    <span class="createFolderText elps" ng-click="addTab()">@MainViewResources.CreateTab</span>
+                    <span class="createFolderText elps" ng-click="createTab()">@MainViewResources.CreateTab</span>
                 </li>
             </ul>
         </div>
@@ -56,7 +58,7 @@
             <section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="boxShare" data-ddcbox="boxShare" />
                 <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
-                <div class="dropDown shareDD" data-dropdown="boxShare">
+                <div class="dropDown shareDD">
                     <label class="closeItem rFloat" for="boxShare"></label>
                     <div class="arrow shareArrow"></div>
                     <h4 class="semiFont" data-share-academic="@IndexResources.ShareCourse" data-share-private="@IndexResources.ShareBox"></h4>
@@ -75,13 +77,14 @@
             </section>
             <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
                data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
-            <a class="backWpr elps lFloat" ng-click="$back()">
+            <a class="backWpr elps lFloat" ng-click="$back(back.url)">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont">{{previousTitle}}</h2>
             </a>
         </div>
-        
-        <div ng-if="info.isUserFollowing() "id="joinGrpWpr" class="joinGrpWpr"> @*user is following box*@
+
+        <div ng-if="info.isUserFollowing() " id="joinGrpWpr" class="joinGrpWpr">
+            @*user is following box*@
             <div class="joinGrpBtn">
                 <span class="joinMsg iconTxt">@SharedResources.Member</span>
                 <button type="button" class="joinGrp" ng-click="followBox()" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
@@ -89,16 +92,16 @@
         </div>
 
 
-        <div class="box-content">            
-           @{Html.RenderPartial("_Items2");}
+        <div class="box-content">
+            @{Html.RenderPartial("_Items2");}
             <ul class="boxMembers boxFriendsList">
-                
+
                 <li ng-repeat="member in info.members">
                     <a href="{{member.url}}" class="" data-navigation="user">
                         <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" data-uid={{member.uid}} width="48" height="48" />@*uid*@
                     </a>
                 </li>
-                
+
                 <li class="static">
                     <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
                        data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
@@ -124,14 +127,14 @@
                        data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
                 </li>
                 <li id="showAllMembers"><button ng-click="openBoxManage('members')" class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
-            </ul>            
-            @*@{Html.RenderPartial("_QnA");}*@            
+            </ul>
+            @*@{Html.RenderPartial("_QnA");}*@
         </div>
     </div>
     @*@{
-        Html.RenderPartial("_BoxSettings");
-        Html.RenderPartial("_CreateTab", new Zbang.Cloudents.Mvc4WebRole.Models.Tabs.CreateBoxItemTab());
-    }*@
+            Html.RenderPartial("_BoxSettings");
+            Html.RenderPartial("_CreateTab", new Zbang.Cloudents.Mvc4WebRole.Models.Tabs.CreateBoxItemTab());
+        }*@
 </div>
 @*@{
     Html.RenderPartial("_UploadDialog");

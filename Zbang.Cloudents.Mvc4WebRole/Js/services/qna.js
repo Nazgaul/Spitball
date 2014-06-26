@@ -1,14 +1,14 @@
 ﻿define(['app'], function (app) {
-    var Item = '/Item/';
-    app.factory('Item',
+    var QnA = '/QnA';
+    app.factory('QnA',
         ['$http',
          '$q',
 
         function ($http, $q) {
             return {
-                deleteItem: function (data) {
+                list: function (data) {
                     var dfd = $q.defer();
-                    $http.post(Item + 'Delete/', data).success(function (response) {
+                    $http.get(QnA, { params: data }).success(function (response) {
                         dfd.resolve(response);
                     }).error(function (response) {
                         dfd.reject(response);
@@ -20,4 +20,3 @@
         }
     ]);
 });
-

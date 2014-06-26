@@ -1,5 +1,5 @@
 ﻿define(['routes', 'services/dependencyResolverFor'], function (config, dependencyResolverFor) {
-    var app = angular.module('app', ['ngRoute', 'ngSanitize','infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap']);
+    var app = angular.module('app',['ngRoute', 'ngSanitize','infinite-scroll', 'pasvaz.bindonce','ui.bootstrap']);
 
     app.config([
         '$routeProvider',
@@ -18,7 +18,7 @@
             app.service = $provide.service;
 
             //if (window.history && window.history.pushState) {
-                $locationProvider.html5Mode(true).hashPrefix('!');
+            $locationProvider.html5Mode(true).hashPrefix('!');
             //}
 
             if (config.routes !== undefined) {
@@ -35,8 +35,31 @@
 
         }
     ]);
-    
-    app.run(['$rootScope', '$window', function ($rootScope, $window) {
+
+    app.factory('UserDetails',
+      [
+
+      function () {
+          var userData;
+
+          return {
+              setDetails: function (id, name, image, score, url) {
+                  userData = {
+                      id: id,
+                      name: name,
+                      image: image,
+                      score: score,
+                      url: url
+                  };
+              },
+              getDetails: function () {
+                  return userData;
+              }
+          };
+      }
+      ]);
+
+    app.run(['$rootScope', '$window', 'UserDetails', function ($rootScope, $window, UserDetails) {
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
@@ -47,27 +70,61 @@
                 case 'dashboard':
                     $rootScope.previousTitle = 'Dashboard';
                     break;
-            }                        
+            }
         });
 
-        $rootScope.$back = function () {
+        $rootScope.$back = function (url) {
+            if (!$window.history.length) {
+                $location.path(url);
+                return;
+            }
             $window.history.back();
         };
+
+        $rootScope.initDetails = function (id,name,image, score, url) {
+            UserDetails.setDetails(id, name, image, score, url);
+        };
+        
     }]);
+  
+    app.factory('UserDetails',
+     [
+
+     function () {
+         var userData;
+
+         return {
+             setDetails: function (id, name, image, score, url) {
+                 userData = {
+                     id: parseInt(id,10),
+                     name: name,
+                     image: image,
+                     score: parseInt(score,10),
+                     url: url
+                 };
+             },
+             getDetails: function () {
+                 return userData;
+             }
+         };
+     }
+     ]);
 
     app.directive('postRepeatDirective',
         ['$timeout',
         function ($timeout) {
             return function (scope) {
-                if (scope.$first)
+                if (scope.$first) {
                     window.a = new Date();   // window.a can be updated anywhere if to reset counter at some action if ng-repeat is not getting started from $first
-                if (scope.$last)
+                }
+                if (scope.$last) {
                     $timeout(function () {
                         console.log("## DOM rendering list took: " + (new Date() - window.a) + " ms");
                     });
+                }
             };
         }
-    ]);
+        ]);
 
     return app;
 });

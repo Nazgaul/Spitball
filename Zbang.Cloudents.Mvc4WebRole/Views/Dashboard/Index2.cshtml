@@ -75,7 +75,7 @@
                            href="@Url.Action("Index","Library")">@SharedResources.BrowseCourses</a>
                     </li>
 
-                    <li ng-repeat="box in academicBoxes | limitTo: options.maxAcademicVisible" class="box" ng-include="'dashBoxTemplate'" bindonce post-repeat-directive>
+                    <li ng-repeat="box in academicBoxes | limitTo: options.maxAcademicVisible" class="box" ng-include="'dashBoxTemplate'" bindonce>
 
                     </li>
 
@@ -94,7 +94,7 @@
                     <li ng-click="openCreateBox()" class="box">
                         <button ng-click="createBox" class="addBtn">@SharedResources.CreateNew</button>
                     </li>
-                    <li ng-repeat="box in groupBoxes | limitTo: options.maxGroupVisible" class="box" ng-include="'dashBoxTemplate'" bindonce post-repeat-directive>
+                    <li ng-repeat="box in groupBoxes | limitTo: options.maxGroupVisible" class="box" ng-include="'dashBoxTemplate'" bindonce>
 
                     </li>
                 </ol>
