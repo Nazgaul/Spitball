@@ -532,7 +532,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = GetUserId();
-            var command = new ChangeItemTabNameCommand(model.TabId, model.NewName, userId, model.BoxUid);
+            var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
             ZboxWriteService.RenameBoxItemTab(command);
             return this.CdJson(new JsonResponse(true));
         }
@@ -547,6 +547,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxUid);
             ZboxWriteService.DeleteBoxItemTab(command);
             return Json(new JsonResponse(true));
+        }
+    
+        [HttpGet, Ajax]
+        public ActionResult CreateTabPartial()
+        {
+            try
+            {
+                return PartialView("_CreateTab");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_CreateTab ", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
         }
         #endregion
 

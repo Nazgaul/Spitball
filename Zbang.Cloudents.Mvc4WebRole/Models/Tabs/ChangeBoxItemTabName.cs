@@ -9,9 +9,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Tabs
         public Guid TabId { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public string NewName { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public long BoxUid { get; set; }
+        public long BoxId { get; set; }
     }
 }

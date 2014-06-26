@@ -141,29 +141,20 @@
                     groupRemain;
 
                  if (academicRemain >= $scope.options.addBoxPerScroll) {
-                     $scope.options.maxAcademicVisible += $scope.options.addBoxPerScroll;
-
-                     console.log($scope.options.maxAcademicVisible, $scope.options.maxGroupVisible);///
-
-
+                     $scope.options.maxAcademicVisible += $scope.options.addBoxPerScroll;                     
                      return;
                  }
 
                  if (academicRemain < $scope.options.addBoxPerScroll) {
                      $scope.options.maxAcademicVisible += academicRemain;
                      groupRemain = $scope.options.addBoxPerScroll - academicRemain;
-                     $scope.options.maxGroupVisible += groupRemain;
-
-                     console.log($scope.options.maxAcademicVisible, $scope.options.maxGroupVisible);///
+                     $scope.options.maxGroupVisible += groupRemain;                     
                      return;
                  }
                  groupRemain = $scope.groupBoxes.length - $scope.options.maxGroupVisible;
                  if (groupRemain > 0) {
                      $scope.options.maxGroupVisible += groupRemain;
-                 }
-                 console.log($scope.options.maxAcademicVisible, $scope.options.maxGroupVisible);///
-
-
+                 }                
              };
 
              function mapBoxes(boxes) {
@@ -185,7 +176,6 @@
                  $scope.groupBoxes = group;
 
              }
-             //document.body.scrollHeight > document.body.clientHeight;
              function maxVisible() {
                  var height = document.body.clientHeight - 130,//130 is top bar and title
                      width = document.body.clientWidth - 324, //sidebar + margins

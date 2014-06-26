@@ -1,5 +1,4 @@
 ﻿define(['app'], function (app) {
-
     app.factory('Box',
         ['$http',
          '$q',
@@ -55,17 +54,45 @@
 
                     return dfd.promise;
                 },
-                QnA: {
-                    list: function (data) {
-                        var dfd = $q.defer();
-                        $http.get('/QnA/', { params: data }).success(function (response) {
-                            dfd.resolve(response);
-                        }).error(function (response) {
-                            dfd.reject(response);
-                        });
+                createTab: function(data) {
+                    var dfd = $q.defer();
+                    $http.post('/Box/CreateTab/', data  ).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
 
-                        return dfd.promise;
-                    }
+                    return dfd.promise;
+                },
+                deleteTab: function (data) {
+                    var dfd = $q.defer();
+                    $http.post('/Box/DeleteTab/', data).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
+
+                    return dfd.promise;
+                },
+                renameTab: function (data) {
+                    var dfd = $q.defer();
+                    $http.post('/Box/RenameTab/', data).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
+
+                    return dfd.promise;
+                },
+                addItemsToTab: function (data) {
+                    var dfd = $q.defer();
+                    $http.post('/Box/AddItemToTab/', data).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
+
+                    return dfd.promise;
                 }
             };
         }

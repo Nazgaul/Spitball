@@ -753,6 +753,7 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
+    <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
@@ -790,6 +791,7 @@
     <Content Include="Js\services\item.js" />
     <Content Include="Js\services\library.js" />
     <Content Include="Js\services\newUpdates.js" />
+    <Content Include="Js\services\qna.js" />
     <Content Include="Js\services\quiz.js" />
     <Content Include="Js\services\user.js" />
     <Content Include="Js\Share.js" />
@@ -1206,8 +1208,8 @@
     <Content Include="Scripts\plupload\plupload.silverlight.js" />
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.10.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.11.0.js" />
-    <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="test.html" />
