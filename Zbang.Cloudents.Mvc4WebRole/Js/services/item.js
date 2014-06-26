@@ -6,7 +6,7 @@
 
         function ($http, $q) {
             return {
-                deleteItem: function (data) {
+                'delete': function (data) {
                     var dfd = $q.defer();
                     $http.post(Item + 'Delete/', data).success(function (response) {
                         dfd.resolve(response);

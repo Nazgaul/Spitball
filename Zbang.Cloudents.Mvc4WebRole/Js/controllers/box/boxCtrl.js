@@ -3,10 +3,12 @@
         ['$scope', '$rootScope',
          '$routeParams', '$modal',
          '$filter', '$q','$window',
-         'Box', 'Item', 'QnA',
+         'Box', 'Item', 'Quiz', 'QnA',
          'NewUpdates','UserDetails',
 
-        function ($scope, $rootScope, $routeParams, $modal, $filter, $q, $window, Box, Item, QnA, NewUpdates, UserDetails) {
+        function ($scope, $rootScope, $routeParams, $modal, $filter,
+                  $q, $window, Box, Item, Quiz, QnA, NewUpdates, UserDetails) {
+
             $scope.boxId = $routeParams.boxId;
             $scope.uniName = $routeParams.uniName;
             $scope.boxName = $routeParams.boxName;
@@ -264,11 +266,11 @@
             };
 
             $scope.getView = function (item) {
-                switch (item.type.toLowerCase()) {
-                    case 'file':
-                    case 'link':
+                switch (item.type) {
+                    case 'File':
+                    case 'Link':
                         return $scope.options.currentView === consts.view.thumb ? 'itemThumbView' : 'itemListView';
-                    case 'quiz':
+                    case 'Quiz':
                         return $scope.options.currentView === consts.view.thumb ? 'quizThumbView' : 'quizListView';
                 }
             };
@@ -294,8 +296,43 @@
                 }
             };
 
+            $scope.deleteItem = function (item) {
+                switch (item.type) {                    
+                    case 'File':
+                    case 'Link':
+                        var data = {
+                            itemId: item.id,
+                            boxUid: $scope.boxId //uid
+                        }
+                        Item.delete(data).then(removeItem);
+                        break;
+                    case 'Quiz':
+                        var data = {
+                            id: item.id,                            
+                        }
+                        Quiz.delete(data).then(removeItem);
+                        break;
+         
+                }
+
+                function removeItem(response) {
+                    if (!(response.Success || response.success)) {                        
+                        alert('error deleting ' + item.type.toLowerCase());
+                        return;
+                    }
+                    var index = $scope.items.indexOf(item);
+                    $scope.items.splice(index, 1);
+                    index = $scope.filteredItems.indexOf(item);
+                    if (index > -1) {
+                        index = $scope.filteredItems.splice(index, 1);
+                    }
+
+                }
+            };
+
             $scope.deleteAllow = function (item) {
-                return 
+                return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
+                       ($scope.info.userType === 'owner' || item.ownerId === UserDetails.getDetails().id);               
             };
 
             function filterItems(item) {

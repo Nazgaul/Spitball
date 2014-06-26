@@ -60,7 +60,7 @@
     {
         <div class="actionBtns">
             <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-src="{{item.download}}"></a>
-            <button ng-if="deleteAllow()" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="removeItem(item)"></button>
+            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
             @*<input type="hidden" data-bind="value: linkUrl" />*@ @*needed?????*@
         </div>
     }
@@ -96,7 +96,7 @@
     {
     <div class="actionBtns">
         <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-src="{{item.download}}"></a>
-        <button ng-if="deleteAllow()" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="removeItem(item)"></button>
+        <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
     </div>
     }
 </script>
@@ -118,10 +118,8 @@
     </a>
     @if (User.Identity.IsAuthenticated)
     {
-        <div class="actionBtns">            
-            @*<!--ko if:deleteAllow-->*@
-            <button type="button" class="lFloat deleteBtn" ng-if="deleteAllow()" data-title="@IndexResources.Delete" ng-click="removeItem(item)"></button>
-            @*<!--/ko-->*@
+        <div class="actionBtns">                        
+            <button type="button" class="lFloat deleteBtn" ng-if="deleteAllow(item)" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
         </div>
     }
     <span ng-if="options.manageTab">
@@ -148,10 +146,8 @@
     </a>
     @if (User.Identity.IsAuthenticated)
     {
-        <div class="actionBtns">            
-            @*<!--ko if:deleteAllow-->*@
-            <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-if="deleteAllow()" ng-click="removeItem(item)"></button>
-            @*<!--/ko-->*@
+        <div class="actionBtns">                       
+            <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-if="deleteAllow(item)" ng-click="deleteItem(item)"></button>            
         </div>
     }
     </li>
