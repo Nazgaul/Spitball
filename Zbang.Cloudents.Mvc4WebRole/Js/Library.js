@@ -1,7 +1,7 @@
 ﻿/// <reference path="../Views/Library/Index.cshtml" />
 (function (cd, dataContext, ko, jsResources, analytics) {
     "use strict";
-
+    
     registerKOLibrary();
 
     function registerKOLibrary() {
