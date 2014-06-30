@@ -127,6 +127,11 @@
 /// <reference path="ui-bootstrap-tpls-0.11.0.js" />
 /// <reference path="../js/services/qna.js" />
 /// <reference path="../js/controllers/box/tabctrl.js" />
+/// <reference path="draganddrop.js" />
+/// <reference path="angular-file-upload.js" />
+/// <reference path="../js/services/googledrive.js" />
+/// <reference path="../js/services/dropbox.js" />
+/// <reference path="../js/services/upload.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

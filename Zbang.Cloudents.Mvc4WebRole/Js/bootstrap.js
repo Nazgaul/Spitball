@@ -8,13 +8,12 @@
         'jquery': '../Scripts/jquery-2.1.0',
         'boots': '../Scripts/ui-bootstrap-tpls-0.11.0',
         'modernizr': '../Scripts/Modernizr',
-        'knockout': '../Scripts/knockout-3.0.0.debug',
-        'utils': '../Js/Utils',
-        'pubsub': '../Js/pubsub',        
+        'file-upload': '../Scripts/angular-file-upload'
+
     },
     shim: {
         'app': {
-            deps: ['angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once']
+            deps: ['angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once','file-upload','modernizr']
         },
         'angular-route': {
             deps: ['angular']
@@ -34,23 +33,16 @@
         'boots': {
             deps: ['angular']
         },
-        'user-details': {
+        'file-upload': {
             deps: ['angular']
-        },
-        'knockout': {
-            deps: ['jquery']
-        },
-        'utils': {
-            deps: ['jquery']
         }
     }
 });
 
 require
 (
-    ['app','jquery','knockout','modernizr','utils','pubsub'],
-    function (app, jQuery, ko) {
-        window.ko = ko;
+    ['app'],
+    function (app) {
         angular.bootstrap(document, ['app']);
     }
 );

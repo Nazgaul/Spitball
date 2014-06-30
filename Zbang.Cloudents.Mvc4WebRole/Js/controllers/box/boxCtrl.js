@@ -2,12 +2,12 @@
     app.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal',
-         '$filter', '$q','$window',
-         'Box', 'Item', 'Quiz', 'QnA',
-         'NewUpdates','UserDetails',
+         '$filter', '$q', '$timeout',
+         'Box', 'Item', 'Quiz', 'QnA', 'Upload',
+         'NewUpdates', 'UserDetails',
 
         function ($scope, $rootScope, $routeParams, $modal, $filter,
-                  $q, $window, Box, Item, Quiz, QnA, NewUpdates, UserDetails) {
+                  $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails) {
 
             $scope.boxId = $routeParams.boxId;
             $scope.uniName = $routeParams.uniName;
@@ -19,9 +19,9 @@
                     url: backUrl
                 };
                 if (!$rootScope.previousTitle) {
-                    $scope.previousTitle = backTitle                   
-                }                
-            };            
+                    $scope.previousTitle = backTitle
+                }
+            };
 
             var consts = {
                 view: {
@@ -34,7 +34,9 @@
             };
 
             $scope.partials = {
-                createTab: '/Box/CreateTabPartial'
+                createTab: '/Box/CreateTabPartial',
+                uploader: '/Box/UploadPartial',
+                uploadAddLink: '/Box/UploadLinkPartial'
             };
 
             $scope.options = {
@@ -112,7 +114,95 @@
             });
 
             $scope.openUploadPopup = function () {
+                var modalInstance = $modal.open({
+                    windowClass: "uploader",
+                    templateUrl: $scope.partials.uploader,
+                    controller: 'UploadCtrl',
+                    backdrop: 'static'
+                });
 
+                modalInstance.result.then(function (response) {
+                    if (response.url) {
+                        modalInstance = $modal.open({
+                            windowClass: "uploadLink",
+                            templateUrl: $scope.partials.uploadAddLink,
+                            controller: 'UploadLinkCtrl',
+                            backdrop: 'static'
+                        });
+
+                        modalInstance.result.then(function (url) {
+                            saveItem({url: url,type: 'link',timeout:1000});                            
+                        }); //save url
+                        return;
+                    }
+
+                    if (response.dropbox) {
+                        var files = response.files, uploadData;
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            saveItem({
+                                name: files[i].name, 
+                                size: files[i].bytes,
+                                url: files[i].link,
+                                type: 'dropbox',
+                                timeout:5000
+                            });
+                                               
+                        }
+                        return;
+                    }
+
+                    if (response.googleDrive) {
+
+                    }
+
+                  
+                }, function () {
+                    //dismiss
+                });
+                function saveItem(data) {
+                    var item = {
+                        file: {
+                            name: data.name || data.link,
+                            size: data.size || 1e6
+                        },
+                        progress: 50,
+                        isUploading: true,
+
+                    },
+                    formData = {
+                        boxId: $scope.boxId,
+                        boxUid: $scope.boxId,
+                        boxName: $scope.boxName,
+                        uniName: $scope.uniName,
+                        tabId: $scope.info.currentTab ? $scope.info.currentTab.id : null,
+                        url: data.url,
+                        fileName: data.name,
+                        fileUrl : data.url
+                    }
+                    item.remove = function () {
+                        $scope.uploader.removeFromQueue(this);
+                    };
+                    item.cancel = function () {
+                        $timeout.cancel(saveFile);
+                    };
+                    
+                    $rootScope.uploader.queue.push(item);
+
+                    var saveFile = $timeout(function () {
+                        Upload[data.type](formData).then(function (response) {
+                            if (!response.success) {
+                                alert('error saving link');
+                                return;
+                            }
+                            item.progress = 100;
+                            item.isSuccess = item.isUploaded = true;
+                            item.isUploading = false;
+                            var responseItem = response.payload;
+                            $scope.items.unshift(responseItem);
+                            $scope.filteredItems.unshift(responseItem);
+                        });
+                    }, data.timeout);                    
+                }
             };
 
             //#region tabs
@@ -200,9 +290,12 @@
             };
 
             $scope.manageTab = function (tab) {
+                var filteredItems = $filter('filter')($scope.items, filterManageItems);
+                if (!filteredItems.length) {
+                    return;
+                }
+                $scope.filteredItems = filteredItems;
                 $scope.changeView(consts.view.thumb);
-
-                $scope.filteredItems = $filter('filter')($scope.items, filterManageItems);
 
                 for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
                     $scope.filteredItems[i].isCheck = ($scope.info.currentTab.id === $scope.filteredItems[i].tabId);
@@ -221,12 +314,12 @@
 
             //TODO DRAGANDDROP
 
-            function saveItemsToTab(items) {
+            function saveItemsToTab(items, tabId) {
                 var data = {
                     boxId: $scope.boxId,
-                    tabId: $scope.info.currentTab.id,
+                    tabId: tabId || $scope.info.currentTab.id, //tabId from draganddrop
                     itemId: items,
-                    nDelete: true
+                    nDelete: !tabId //delete is false if only one item added from draganddrop
                 };
 
                 Box.addItemsToTab(data).then(function (response) {
@@ -297,7 +390,7 @@
             };
 
             $scope.deleteItem = function (item) {
-                switch (item.type) {                    
+                switch (item.type) {
                     case 'File':
                     case 'Link':
                         var data = {
@@ -308,15 +401,15 @@
                         break;
                     case 'Quiz':
                         var data = {
-                            id: item.id,                            
+                            id: item.id,
                         }
                         Quiz.delete(data).then(removeItem);
                         break;
-         
-                }
+
+                };
 
                 function removeItem(response) {
-                    if (!(response.Success || response.success)) {                        
+                    if (!(response.Success || response.success)) {
                         alert('error deleting ' + item.type.toLowerCase());
                         return;
                     }
@@ -330,9 +423,21 @@
                 }
             };
 
+            $scope.addDraggedItem = function (item, tabId) {
+                var setTabId = false;
+                for (var i = 0, l = $scope.items.length; i < l && !setTabId; i++) {
+                    if ($scope.items[i].id === item.id) {
+                        $scope.items[i].tabId = tabId;
+                        setTabId = true;
+                    }
+                }
+
+                saveItemsToTab([item.id], tabId);
+            };
+
             $scope.deleteAllow = function (item) {
                 return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
-                       ($scope.info.userType === 'owner' || item.ownerId === UserDetails.getDetails().id);               
+                       ($scope.info.userType === 'owner' || item.ownerId === UserDetails.getDetails().id);
             };
 
             function filterItems(item) {

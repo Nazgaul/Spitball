@@ -1,8 +1,9 @@
 ﻿/// <reference path="../Views/Library/Index.cshtml" />
-(function (cd, dataContext, ko, jsResources, analytics) {
+//(function (cd, dataContext, ko, jsResources, analytics) {
+define(['../Scripts/knockout-3.0.0.js'], function(ko) {
     "use strict";
-    
-    registerKOLibrary();
+
+    window.library = ןregisterKOLibrary();
 
     function registerKOLibrary() {
         var $LibraryContent = document.getElementById('libraryContent');
@@ -58,7 +59,7 @@
         self.elements = ko.observableArray([]);
         var paggingNeed = true;
 
-        self.loaded = ko.observable(false);        
+        self.loaded = ko.observable(false);
         self.displayMode = function (elem) {
             return elem.template;
         };
@@ -137,12 +138,12 @@
         init();
 
         function init(data) {
-            refreshScreen(function () {                
+            refreshScreen(function () {
                 libraryId = cd.getParameterFromUrl(1) || '';
                 libraryList();
                 $('#lib_NodeName').addClass('hover');
                 self.title(decodeURIComponent(cd.getParameterFromUrl(1) || ''));
-                var uniName = document.getElementById('univeristyName').textContent;                
+                var uniName = document.getElementById('univeristyName').textContent;
 
             });
         }
@@ -206,8 +207,8 @@
                 }
                 else {
                     self.backUrl('/' + libraryConst + '/' + result.parent.id + '/' + result.parent.name);
-                }           
-                
+                }
+
                 cd.pubsub.publish('lib_load');
 
             }
@@ -325,7 +326,7 @@
                     //location.href = $('#lib_Back').prop('href');
                 }
             });
-        };     
+        };
         //#endregion
 
         //#region renameNode
@@ -401,9 +402,9 @@
             }
             var href = likeBox.getAttribute('data-href'), link = likeBox.getAttribute('data-link');
             var height = Math.floor($(window).height() - $(likeBox).offset().top - 15);
-            
 
-            var src = link.replace(/href=/i, 'href='+ href).replace(/height=/i,'height='+ height);
+
+            var src = link.replace(/href=/i, 'href=' + href).replace(/height=/i, 'height=' + height);
             height = Math.ceil(height / 10) * 10;
             likeBox.height = height;
             likeBox.src = src;
@@ -420,11 +421,11 @@
             facebookLikeBox();
             innerScrollLetter();
         });
-      
+
         function innerScrollLetter() {
             $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 65);
 
-          
+
         }
 
         //analytics
@@ -438,4 +439,6 @@
 
 
     }
-})(cd, cd.data, ko, JsResources, cd.analytics);
+});
+    
+//})(cd, cd.data, ko, JsResources, cd.analytics);

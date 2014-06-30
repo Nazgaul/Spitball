@@ -15,7 +15,7 @@
             <button class="btn2" type="button" ng-click="manageCancel()">@MainViewResources.Cancel</button>
         </div>
 
-        <button type="button" ng-click="addItem(0)" class="iconTxt btn1 lFloat" ng-show="filteredItems.length > 0 && !options.manageTab">@DialogResources.UploadFiles</button>
+        <button type="button" ng-click="openUploadPopup()" class="iconTxt btn1 lFloat" ng-show="filteredItems.length > 0 && !options.manageTab">@DialogResources.UploadFiles</button>
         <button type="button" class="iconTxt btn1 lFloat quizBtn" ng-show="!options.manageTab">@QuizResources.CreateQuiz</button>
 
         <button type="button" ng-class="{ currentState : options.currentView === 'list'}" class="listViewBtn rFloat boxItemsViewToggle" ng-click="changeView('list')" ng-show="filteredItems.length > 0"></button>
@@ -37,7 +37,7 @@
 
     <ol id="BoxItemList" class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <li ng-repeat="item in filteredItems | limitTo : options.itemsLimit" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , quizDraft : item.publish }"
-            ng-include="getView(item)" post-repeat-directive>
+            ng-include="getView(item)" ui-draggable="{{!options.manageTab && item.type !== 'Quiz'}}" drag="item" drag-channel="boxItem">
         </li>
     </ol> @*add drag option*@
 </div>

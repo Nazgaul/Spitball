@@ -12,6 +12,7 @@
                     '/Js/services/box.js',
                     '/Js/services/user.js',
                     '/Js/services/newUpdates.js',
+                    '/Js/directives/ngPlaceholder.js',
                     '/Js/filters/actionText.js',
                     '/Js/filters/orderBy.js',
                     '/Js/controllers/dashboard/createBoxCtrl.js',
@@ -25,12 +26,15 @@
                 },
                 templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
                 dependencies: [
+                    '/Scripts/draganddrop.js',
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
                     '/Js/services/item.js',
                     '/Js/services/quiz.js',
                     '/Js/services/qna.js',
+                    '/Js/services/upload.js',
                     '/Js/services/newUpdates.js',
+                    '/Js/directives/ngPlaceholder.js',
                     '/Js/controllers/box/boxCtrl.js',
                     '/Js/controllers/box/tabCtrl.js',
                     '/Js/controllers/box/qnaCtrl.js',
@@ -43,13 +47,16 @@
                     type: 'box'
                 },
                 templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
-                dependencies: [
+                dependencies: [                    
+                    '/Scripts/draganddrop.js',
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',
                     '/Js/services/item.js',
                     '/Js/services/quiz.js',
                     '/Js/services/qna.js',
+                    '/Js/services/upload.js',
                     '/Js/services/newUpdates.js',
+                    '/Js/directives/ngPlaceholder.js',
                     '/Js/controllers/box/boxCtrl.js',
                     '/Js/controllers/box/tabCtrl.js',
                     '/Js/controllers/box/qnaCtrl.js',
@@ -67,7 +74,8 @@
                 },
                 dependencies: [
                    '/Js/services/item.js',
-                   '/Js/controllers/item/itemCtrl.js',
+                   '/Js/directives/ngPlaceholder.js',
+                   '/Js/controllers/item/itemCtrl.js'
                 ]
             },
             '/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/': {
@@ -80,7 +88,8 @@
                 },
                 dependencies: [
                    '/Js/services/quiz.js',
-                   '/Js/controllers/quiz/quizCtrl.js',
+                   '/Js/directives/ngPlaceholder.js',
+                   '/Js/controllers/quiz/quizCtrl.js'
                 ]
             },
             '/library/': {
@@ -90,11 +99,15 @@
                 templateUrl: '/library/',
                 dependencies: [
                     '/Scripts/externalScriptLoader.js',
+                    '/Js/Utils.js',
+                    '/Js/pubsub.js',
                     '/Js/DataContext.js',
                     '/Js/Dialog.js',
                     '/Js/GenericEvents.js',
                     '/Js/services/library.js',
-                    '/Js/controllers/library/libraryCtrl.js'
+                    '/Js/directives/ngPlaceholder.js',
+                    '/Js/controllers/library/libraryCtrl.js',
+                    '/Js/Library.js'
                 ]
             },
             '/library/:libraryId/:libraryName/': {
@@ -108,6 +121,7 @@
                     '/Js/Dialog.js',
                     '/Js/GenericEvents.js',
                     '/Js/services/library.js',
+                    '/Js/directives/ngPlaceholder.js',
                     '/Js/controllers/library/libraryCtrl.js'
                 ]
             },
@@ -118,6 +132,7 @@
                 templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName },
                 dependencies: [
                     '/Js/services/user.js',
+                    '/Js/directives/ngPlaceholder.js',
                     '/Js/controllers/library/userCtrl.js'
                 ]
             }

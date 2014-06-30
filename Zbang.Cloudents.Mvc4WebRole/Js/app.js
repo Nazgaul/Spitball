@@ -1,5 +1,5 @@
 ﻿define(['routes', 'services/dependencyResolverFor'], function (config, dependencyResolverFor) {
-    var app = angular.module('app',['ngRoute', 'ngSanitize','infinite-scroll', 'pasvaz.bindonce','ui.bootstrap']);
+    var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'angularFileUpload', 'pasvaz.bindonce', 'ui.bootstrap']);
 
     app.config([
         '$routeProvider',
@@ -59,7 +59,7 @@
       }
       ]);
 
-    app.run(['$rootScope', '$window', 'UserDetails', function ($rootScope, $window, UserDetails) {
+    app.run(['$rootScope', '$window', '$fileUploader', 'UserDetails', function ($rootScope, $fileUploader, $window, UserDetails) {
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
@@ -70,6 +70,9 @@
                 case 'dashboard':
                     $rootScope.previousTitle = 'Dashboard';
                     break;
+                case 'library': {
+                    window.library();
+                }
             }
         });
 
@@ -81,12 +84,35 @@
             $window.history.back();
         };
 
-        $rootScope.initDetails = function (id,name,image, score, url) {
+        $rootScope.initDetails = function (id, name, image, score, url) {
             UserDetails.setDetails(id, name, image, score, url);
         };
-        
+
+
+    
+
     }]);
-  
+
+    app.controller('MainCtrl',
+        ['$scope','$rootScope', '$fileUploader',
+        function ($scope, $rootScope, $fileUploader) {
+
+            $rootScope.uploader = $fileUploader.create({
+                url: '/Upload/File/',
+                autoUpload: true,
+                //formData: [
+                //    { key: 'value' }
+                //],
+                //filters: [
+                //    function (item) {                    // first user filter
+                //        console.info('filter1');
+                //        return true;
+                //    }
+                //]
+            });
+        }
+    ]);
+
     app.factory('UserDetails',
      [
 
@@ -96,10 +122,10 @@
          return {
              setDetails: function (id, name, image, score, url) {
                  userData = {
-                     id: parseInt(id,10),
+                     id: parseInt(id, 10),
                      name: name,
                      image: image,
-                     score: parseInt(score,10),
+                     score: parseInt(score, 10),
                      url: url
                  };
              },

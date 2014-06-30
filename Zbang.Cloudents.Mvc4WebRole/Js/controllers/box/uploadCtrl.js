@@ -1,18 +1,49 @@
-﻿define(['app'], function (app) {
+﻿define(['app','services/dropbox'], function (app,dropboxService) {
     app.controller('UploadCtrl',
-        ['$scope','Box',
+        ['$scope', '$rootScope',          
+         '$modalInstance', 'Dropbox',
+          
+         //'googleDrive','dropbox',
 
-         function ($scope,Box) {
-             $scope.saveLink = function () {
-             };
+        function ($scope, $rootScope, $modalInstance, Dropbox) {
+            //function ($scope, Box, googleDrive, dropbox) {            
+            $scope.saveLink = function () {
+                $modalInstance.close({ url: true });
+            };
 
-             $scope.saveDropbox = function () {
-             };
+            $scope.saveDropbox = function () {
+                Dropbox.choose().then(function (files) {                   
+                    $modalInstance.close({ dropbox: true, files: files });
+                });
+            };
 
-             $scope.saveGoogleDrive = function () {
-             };
+            $scope.saveGoogleDrive = function () {
+                $modalInstance.close();
+            };
 
-             $scope.uploader = null;//upload;
-         }
+            $scope.cancel = function () {
+                $modalInstance.dismiss();
+            };
+
+            $rootScope.uploader.bind('afteraddingall', function (event, items) {
+                $modalInstance.close();
+            });
+        }
+    ]);
+    app.controller('UploadLinkCtrl',
+        ['$scope','$modalInstance',
+         //'googleDrive','dropbox',
+
+        function ($scope, $modalInstance) {
+            $scope.formData = {};
+
+            $scope.add = function (isValid) {
+                $modalInstance.close($scope.formData.url);
+            };
+
+            $scope.cancel = function () {
+                $modalInstance.dismiss();
+            };
+        }
     ]);
 });

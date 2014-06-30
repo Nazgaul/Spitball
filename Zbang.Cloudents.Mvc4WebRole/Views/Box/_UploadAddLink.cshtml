@@ -1,20 +1,29 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.AddLink
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="AddLink" class="addLink" data-diag="link">
-    <div class="popupWrppr uploadUrl">
-        <header class="popupHeader lFloat">@DialogResources.AddLink</header>
-
-        @using (Html.BeginForm("Link","Upload",FormMethod.Post,new { @class = "addUrlHolder", id = "fAddLink" })) 
-        {
-                        @Html.ValidationSummary()   
-    
-           // @Html.AntiForgeryToken()
-            @Html.TextBoxFor(m => m.Url, new { placeholder = DialogResources.AddUrl, @class = "inputText addUrl" })
-            <button id="submitUrl" type="submit" class="btn1">@DialogResources.Add</button>
-
-        }
-        <button type="button" data-closeDiag="close" class="closeDialog"></button>
-    </div>
-    <div class="modal2"></div>
+ <div class="modal-header">
+    <h3 class="modal-title"><span>@DialogResources.AddLink</span></h3>
 </div>
+<div class="modal-body">
+    <form name="addUrlForm" class="addUrlHolder" novalidate role="form" ng-submit="add($isValid)">
+        <input type="text" class="inputText addUrl" ng-placeholder="@DialogResources.AddUrl" ng-model="formData.url" />
+        @*TODO validation*@
+        
+        <button type="submit" class="btn1">@DialogResources.Add</button>
+    </form>
+    <button type="button" class="closeDialog"></button>
+</div>
+
+
+    @*@using (Html.BeginForm("Link", "Upload", FormMethod.Post, new { @class = "addUrlHolder", id = "fAddLink" }))
+    {
+        @Html.ValidationSummary()
+
+        // @Html.AntiForgeryToken()
+        @Html.TextBoxFor(m => m.Url, new { placeholder = DialogResources.AddUrl, @class = "inputText addUrl" })
+        <button id="submitUrl" type="submit" class="btn1">@DialogResources.Add</button>
+
+    }
+    <button type="button" data-closediag="close" class="closeDialog"></button>
+</div>*@
+

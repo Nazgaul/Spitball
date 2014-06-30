@@ -576,5 +576,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true));
         }
 
-    }
+        //TODO: guy added is, maybe change place?
+        [HttpGet, Ajax]
+        public ActionResult UploadPartial()
+        {
+            try
+            {
+                return PartialView("_UploadDialog");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_UploadDialog ", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+
+        //TODO: guy added is, maybe change place?
+        [HttpGet, Ajax]
+        public ActionResult UploadLinkPartial()
+        {
+            try
+            {
+                return PartialView("_UploadAddLink");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_UploadAddLink", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+
+    }       
 }

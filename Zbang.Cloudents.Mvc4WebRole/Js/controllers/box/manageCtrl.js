@@ -17,8 +17,6 @@
              $scope.delete = function () {
              };
 
-
-
              //Members
          }
     ]);

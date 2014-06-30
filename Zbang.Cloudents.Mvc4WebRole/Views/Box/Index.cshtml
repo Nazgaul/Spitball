@@ -17,7 +17,7 @@
 
             </div>
         </div>
-
+        
         <div class="boxFolders">
             <div class="sectionHeader">@IndexResources.Folders</div>
             <ul class="boxFolderList">
@@ -26,12 +26,13 @@
                     <span class="tabBorder"></span>
                 </li>
 
-                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown>
+                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                     <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
                     <button class="rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id">
                         D
                     </button>
+
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>

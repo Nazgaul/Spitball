@@ -788,11 +788,14 @@
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\dashboard.js" />
     <Content Include="Js\services\dependencyResolverFor.js" />
+    <Content Include="Js\services\dropbox.js" />
+    <Content Include="Js\services\googleDrive.js" />
     <Content Include="Js\services\item.js" />
     <Content Include="Js\services\library.js" />
     <Content Include="Js\services\newUpdates.js" />
     <Content Include="Js\services\qna.js" />
     <Content Include="Js\services\quiz.js" />
+    <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
@@ -873,6 +876,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="robots.txt" />
+    <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -899,6 +903,7 @@
     <Content Include="Scripts\bindonce.js" />
     <Content Include="Scripts\bindonce.min.js" />
     <Content Include="Scripts\CountUp.js" />
+    <Content Include="Scripts\draganddrop.js" />
     <Content Include="Scripts\elastic.js" />
     <Content Include="Scripts\elasticTextBox.js" />
     <Content Include="Scripts\externalScriptLoader.js" />
@@ -1320,6 +1325,7 @@
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
+    <Content Include="Views\Box\_QnA2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
