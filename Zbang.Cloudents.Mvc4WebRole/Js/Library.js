@@ -1,9 +1,9 @@
 ﻿/// <reference path="../Views/Library/Index.cshtml" />
 //(function (cd, dataContext, ko, jsResources, analytics) {
-define(['../Scripts/knockout-3.0.0.js'], function(ko) {
+define(['../Scripts/knockout-3.0.0.js'], function(ko,jsResources) {
     "use strict";
 
-    window.library = ןregisterKOLibrary();
+    cd.pubsub.subscribe('initLibrary', registerKOLibrary);
 
     function registerKOLibrary() {
         var $LibraryContent = document.getElementById('libraryContent');
@@ -18,9 +18,6 @@ define(['../Scripts/knockout-3.0.0.js'], function(ko) {
         self = this, page = 0,
 
         libraryId = '';
-
-
-
 
         function Node(data) {
             data = data || {};
@@ -46,7 +43,7 @@ define(['../Scripts/knockout-3.0.0.js'], function(ko) {
                     data: { BoxUid: that.uid }
                 });
                 cd.postFb(that.name,
-                jsResources.IJoined.format(that.name),
+                JsResources.IJoined.format(that.name),
 
                 cd.location());
                 //analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
@@ -124,7 +121,7 @@ define(['../Scripts/knockout-3.0.0.js'], function(ko) {
                 if (self.title()) {
                     return self.title();
                 }
-                return jsResources.TopLevel;
+                return JsResources.TopLevel;
             });
 
         //#region emptystate
@@ -250,7 +247,7 @@ define(['../Scripts/knockout-3.0.0.js'], function(ko) {
                     return i.name === data[0].value;
                 });
                 if (item) {
-                    cd.notification(jsResources.ItemExists);
+                    cd.notification(JsResources.ItemExists);
                     return false;
                 }
                 data.push(pushParentId());
@@ -296,10 +293,10 @@ define(['../Scripts/knockout-3.0.0.js'], function(ko) {
                 isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
 
             if (isDelete) {
-                isok = confirm(jsResources.DeleteCourse);
+                isok = confirm(JsResources.DeleteCourse);
             }
             else {
-                isok = confirm(jsResources.SureYouWantTo + ' ' + jsResources.ToLeaveGroup);
+                isok = confirm(JsResources.SureYouWantTo + ' ' + JsResources.ToLeaveGroup);
             }
             if (!isok) {
                 return;

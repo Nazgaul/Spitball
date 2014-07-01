@@ -1,4 +1,4 @@
-﻿define(['routes', 'services/dependencyResolverFor'], function (config, dependencyResolverFor) {
+﻿define('app',['routes', 'services/dependencyResolverFor'], function (config, dependencyResolverFor) {
     var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'angularFileUpload', 'pasvaz.bindonce', 'ui.bootstrap']);
 
     app.config([
@@ -71,10 +71,10 @@
                     $rootScope.previousTitle = 'Dashboard';
                     break;
                 case 'library': {
-                    window.library();
+                    //cd.pubusub.pubish('libraryclear');
                 }
             }
-        });
+        });     
 
         $rootScope.$back = function (url) {
             if (!$window.history.length) {
