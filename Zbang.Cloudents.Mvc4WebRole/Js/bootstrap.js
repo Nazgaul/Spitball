@@ -1,6 +1,6 @@
 ﻿require.config({    
     paths: {
-        'app' : '/Js/app',
+        'app': '{R_App}',
         'angular': '../Scripts/angular',
         'angular-route': '../Scripts/angular-route',
         'angular-sanitize': '../Scripts/angular-sanitize',
