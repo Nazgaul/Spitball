@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Zbang.Zbox.Infrastructure.Storage;
+using SquishIt.Framework.JavaScript;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -12,6 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         private static readonly Dictionary<string, string> CssBundels = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundels = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> JsRemoteBundles = new Dictionary<string, string>();
         private static readonly string CdnLocation = GetValueFromCloudConfig();
 
         public static string CssLink(string key)
@@ -25,6 +27,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             return JsBundels[key];
         }
+
+        public static string JsRemoteLinks(string key)
+        {
+            return JsRemoteBundles[key];
+            
+        }
+
+
+
 
         public static string CdnEndpointUrl
         {
@@ -95,44 +106,54 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #endregion
 
             //test
-            RegisterJs("angular",
-                new JsFileWithCdn("~/Scripts/angular.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"),
-                new JsFileWithCdn("~/Scripts/angular-route.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-route.min.js"),
-              new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
-              new JsFileWithCdn("~/Scripts/ui-bootstrap-custom-tpls-0.10.0.min.js"),
-                new JsFileWithCdn("~/Scripts/elastic.js"),
-              new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
-                new JsFileWithCdn("~/Js/app/services.js"),
-                 new JsFileWithCdn("~/Js/app/filters.js"),
-                new JsFileWithCdn("~/Js/app/directives.js"),
-                new JsFileWithCdn("~/Scripts/ng-modal.js"),
-                 new JsFileWithCdn("~/Js/app/dashboardcontroller.js"),
-                 new JsFileWithCdn("~/Js/app/boxcontroller.js"),
-                new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
-                 new JsFileWithCdn("~/Js/app/app.js")
+            //RegisterJsRegular("angular",
+            //    new JsFileWithCdn("~/Scripts/angular.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"),
+            //    new JsFileWithCdn("~/Scripts/angular-route.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-route.min.js"),
+            //  new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
+            //  new JsFileWithCdn("~/Scripts/ui-bootstrap-custom-tpls-0.10.0.min.js"),
+            //    new JsFileWithCdn("~/Scripts/elastic.js"),
+            //  new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
+            //    new JsFileWithCdn("~/Js/app/services.js"),
+            //     new JsFileWithCdn("~/Js/app/filters.js"),
+            //    new JsFileWithCdn("~/Js/app/directives.js"),
+            //    new JsFileWithCdn("~/Scripts/ng-modal.js"),
+            //     new JsFileWithCdn("~/Js/app/dashboardcontroller.js"),
+            //     new JsFileWithCdn("~/Js/app/boxcontroller.js"),
+            //    new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
+            //     new JsFileWithCdn("~/Js/app/app.js")
 
-             );
+            // );
+            RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
+                "/Js/services/box.js",
+                "/Js/services/user.js",
+                "/Js/services/newUpdates.js",
+                "/Js/directives/ngPlaceholder.js",
+                "/Js/filters/actionText.js",
+                "/Js/filters/orderBy.js",
+                "/Js/controllers/dashboard/createBoxCtrl.js",
+                "/Js/controllers/dashboard/showFriendsCtrl.js",
+                "/Js/controllers/dashboard/dashboardCtrl.js");
 
 
-            RegisterJs("home",
+            RegisterJsRegular("home",
                 new JsFileWithCdn("~/Js/Logon.js"),
                 new JsFileWithCdn("~/Js/Welcome.js"));
-            RegisterJs("homeMobile",
+            RegisterJsRegular("homeMobile",
                 new JsFileWithCdn("~/Js/Mobile/Logon.js"),
                 new JsFileWithCdn("~/Js/Mobile/Welcome.js"));
 
-            RegisterJs("ChooseLib",
+            RegisterJsRegular("ChooseLib",
                 //new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Js/Cache.js"),
                 new JsFileWithCdn("~/Js/DataContext.js"),
                 new JsFileWithCdn("~/Js/GenericEvents.js"),
                 new JsFileWithCdn("~/Js/LibraryChoose.js"));
 
-            RegisterJs("MChooseLib",
+            RegisterJsRegular("MChooseLib",
                 new JsFileWithCdn("~/Js/Mobile/MLibraryChoose.js"));
 
 
-            RegisterJs("General",
+            RegisterJsRegular("General",
                 new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),// the script is too small
@@ -148,11 +169,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Js/GmfcnHandler.js")
                 //new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                 );
-            RegisterJs("faq", new JsFileWithCdn("~/Js/externalScriptsInitializer.js"));
+            RegisterJsRegular("faq", new JsFileWithCdn("~/Js/externalScriptsInitializer.js"));
 
 
             #region layout3
-            RegisterJs("cd1",
+            RegisterJsRegular("cd1",
                 new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
                 new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
@@ -240,23 +261,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    new JsFileWithCdn("~/Js/BoxesViewModel.js"),
             //    new JsFileWithCdn("~/Js/DashboardAside.js"));
 
-            RegisterJs("library",
+            RegisterJsRegular("library",
                 new JsFileWithCdn("~/Js/Library.js"));
-                //new JsFileWithCdn("~/Js/LibraryChoose.js"));
+            //new JsFileWithCdn("~/Js/LibraryChoose.js"));
 
             //RegisterJs("box",
             //     new JsFileWithCdn("~/Js/BoxViewModel2.js"),
             //    new JsFileWithCdn("~/Js/BoxItemsViewModel2.js"),
             //    new JsFileWithCdn("~/Js/Upload2.js"),
             //    new JsFileWithCdn("~/Js/Invite.js"),
-            RegisterJs("item",
+            RegisterJsRegular("item",
                 //new JsFileWithCdn("~/Scripts/jquery.dotdotdot.min.js"),
                 new JsFileWithCdn("~/Js/ItemViewModel4.js"));
             #endregion layout3
 
 
             #region mobile
-            RegisterJs("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+            RegisterJsRegular("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                                     new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
                                     new JsFileWithCdn("~/Js/Utils.js"),
@@ -264,7 +285,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                     new JsFileWithCdn("~/Js/Cache.js"),
                                     new JsFileWithCdn("~/Js/DataContext.js"),
                                     new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
-            RegisterJs("mobile",
+            RegisterJsRegular("mobile",
                   new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
@@ -362,10 +383,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         }
 
-        private static void RegisterJs(string key, params JsFileWithCdn[] jsFiles)
+        private static void RegisterJsRoutes(string key, params string[] jsFiles)
         {
-            var jsBundle = SquishIt.Framework.Bundle.JavaScript();
+            JsRemoteBundles.Add(key, RegisterJs(jsFiles.Select(s => new JsFileWithCdn(s)), new JavaScriptBundleImp()));
+        }
+
+        private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
+        {
+            var jsBundle = javaScriptBundleImp;
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+           // jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
@@ -386,21 +413,24 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             var cdnUrl = CdnLocation;
 
-            //jsBundle.WithAttribute("Async", string.Empty);
-            //jsBundle.WithoutTypeAttribute();
-            //            jsBundle.WithDeferredLoad();
-
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
 
                 jsBundle.WithOutputBaseHref(cdnUrl);
-                JsBundels.Add(key, jsBundle.Render("~/gzip/j#.js"));
+                return jsBundle.Render("~/gzip/j#.js");
+                //JsBundels.Add(key, jsBundle.Render("~/gzip/j#.js"));
                 CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
             }
             else
             {
-                JsBundels.Add(key, jsBundle.Render("~/cdn/gzip/j#.js"));
+                return jsBundle.Render("~/cdn/gzip/j#.js");
+                //JsBundels.Add(key, jsBundle.Render("~/cdn/gzip/j#.js"));
             }
+        }
+
+        private static void RegisterJsRegular(string key, params JsFileWithCdn[] jsFiles)
+        {
+            JsBundels.Add(key, RegisterJs(jsFiles, SquishIt.Framework.Bundle.JavaScript()));
         }
 
         private static string GetValueFromCloudConfig()
@@ -469,27 +499,4 @@ namespace Zbang.Cloudents.Mvc4WebRole
         }
 
     }
-
-
-
-    public class SquishItRenderer : SquishIt.Framework.Renderers.IRenderer
-    {
-        public void Render(string content, string outputPath)
-        {
-            var compress = new Compress();
-            var bytes = compress.CompressToGzip(Encoding.UTF8.GetBytes(content));
-            var dir = Path.GetDirectoryName(outputPath);
-            if (dir == null)
-            {
-                throw new NullReferenceException("directory");
-            }
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
-            File.WriteAllBytes(outputPath, bytes);
-        }
-    }
-
-
 }

@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define('/js/services/dependencyResolverFor.js', [], function () {
     return function (dependencies) {
         var definition =
         {
