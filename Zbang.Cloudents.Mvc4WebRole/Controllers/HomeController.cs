@@ -386,7 +386,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
             //}
             var minifer = new Minifier();
-            return Content(minifer.MinifyJavaScript(str), "application/javascript");
+            str = minifer.MinifyJavaScript(str);
+            return Content(str, "application/javascript");
         }
     }
 }
