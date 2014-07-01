@@ -12,12 +12,14 @@
         'file-upload': '../Scripts/angular-file-upload',
 
 
+        'box': '{R_Dashboard-/Js/services/box}', // with box
+
 
         'dashboard':  '{R_Dashboard-/Js/services/dashboard}',
-        'box': '{R_Dashboard-/Js/services/box}',
-        'user': '{R_Dashboard-/Js/services/user}',
-        'newUpdates': '{R_Dashboard-/Js/services/newUpdates}',
-        'ngPlaceholder': '{R_Dashboard-/Js/directives/ngPlaceholder}',
+       
+        'user': '{R_Dashboard-/Js/services/user}', // with user
+        'newUpdates': '{R_Dashboard-/Js/services/newUpdates}', // with box
+        'ngPlaceholder': '{R_Dashboard-/Js/directives/ngPlaceholder}', // with all
         'actionText': '{R_Dashboard-/Js/filters/actionText}',
         'orderby': '{R_Dashboard-/Js/filters/orderBy}',
         'createBoxCtrl': '{R_Dashboard-/Js/controllers/dashboard/createBoxCtrl}',
