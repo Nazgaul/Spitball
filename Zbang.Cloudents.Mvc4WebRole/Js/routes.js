@@ -27,13 +27,13 @@
                 dependencies: [
                     '/Scripts/draganddrop.js',
                     '/Js/filters/trustedHtml.js',
-                    '/Js/services/box.js',
+                    'box',
                     '/Js/services/item.js',
                     '/Js/services/quiz.js',
                     '/Js/services/qna.js',
                     '/Js/services/upload.js',
-                    '/Js/services/newUpdates.js',
-                    '/Js/directives/ngPlaceholder.js',
+                    'newUpdates',
+                    'ngPlaceholder',
                     '/Js/controllers/box/boxCtrl.js',
                     '/Js/controllers/box/tabCtrl.js',
                     '/Js/controllers/box/qnaCtrl.js',
@@ -49,13 +49,13 @@
                 dependencies: [
                     '/Scripts/draganddrop.js',
                     '/Js/filters/trustedHtml.js',
-                    '/Js/services/box.js',
+                    'box',
                     '/Js/services/item.js',
                     '/Js/services/quiz.js',
                     '/Js/services/qna.js',
                     '/Js/services/upload.js',
-                    '/Js/services/newUpdates.js',
-                    '/Js/directives/ngPlaceholder.js',
+                    'newUpdates',
+                    'ngPlaceholder',
                     '/Js/controllers/box/boxCtrl.js',
                     '/Js/controllers/box/tabCtrl.js',
                     '/Js/controllers/box/qnaCtrl.js',
@@ -73,7 +73,7 @@
                 },
                 dependencies: [
                    '/Js/services/item.js',
-                   '/Js/directives/ngPlaceholder.js',
+                   'ngPlaceholder',
                    '/Js/controllers/item/itemCtrl.js'
                 ]
             },
@@ -87,7 +87,7 @@
                 },
                 dependencies: [
                    '/Js/services/quiz.js',
-                   '/Js/directives/ngPlaceholder.js',
+                   'ngPlaceholder',
                    '/Js/controllers/quiz/quizCtrl.js'
                 ]
             },
@@ -104,7 +104,7 @@
                     '/Js/Dialog.js',
                     '/Js/GenericEvents.js',
                     '/Js/services/library.js',
-                    '/Js/directives/ngPlaceholder.js',
+                    'ngPlaceholder',
                     '/Js/controllers/library/libraryCtrl.js',
                     '/Js/Library.js'
                 ]
@@ -120,7 +120,7 @@
                     '/Js/Dialog.js',
                     '/Js/GenericEvents.js',
                     '/Js/services/library.js',
-                    '/Js/directives/ngPlaceholder.js',
+                    'ngPlaceholder',
                     '/Js/controllers/library/libraryCtrl.js'
                 ]
             },
@@ -130,8 +130,8 @@
                 },
                 templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName },
                 dependencies: [
-                    '/Js/services/user.js',
-                    '/Js/directives/ngPlaceholder.js',
+                    'user',
+                    'ngPlaceholder',
                     '/Js/controllers/library/userCtrl.js'
                 ]
             }

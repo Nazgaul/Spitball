@@ -10,11 +10,5 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             get { return "{0} {1},"; }
         }
-
-        protected override string AppendFileClosure(string content)
-        {
-            return string.Empty;
-            return base.AppendFileClosure(content);
-        }
     }
 }
