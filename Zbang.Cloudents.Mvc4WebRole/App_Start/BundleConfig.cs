@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -123,6 +122,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //     new JsFileWithCdn("~/Js/app/app.js")
 
             // );
+            RegisterJsRoutes("R_App", "/Js/app.js");
+
             RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
                 "/Js/services/box.js",
                 "/Js/services/user.js",
@@ -418,14 +419,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 jsBundle.WithOutputBaseHref(cdnUrl);
                 return jsBundle.Render("~/gzip/j#.js");
-                //JsBundels.Add(key, jsBundle.Render("~/gzip/j#.js"));
-                CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
             }
-            else
-            {
-                return jsBundle.Render("~/cdn/gzip/j#.js");
-                //JsBundels.Add(key, jsBundle.Render("~/cdn/gzip/j#.js"));
-            }
+            return jsBundle.Render("~/cdn/gzip/j#.js");
         }
 
         private static void RegisterJsRegular(string key, params JsFileWithCdn[] jsFiles)

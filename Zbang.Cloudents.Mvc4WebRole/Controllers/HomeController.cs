@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Microsoft.Ajax.Utilities;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -344,7 +345,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-
+        [OutputCache(Duration = TimeConsts.Day, VaryByParam = "none")]
         public ActionResult Bootstrap()
         {
             var routes = Server.MapPath("~/Js/bootstrap.js");
@@ -359,9 +360,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var jsFileLocation = BundleConfig.JsRemoteLinks(filesToFind[0]);
                 var files = jsFileLocation.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
 
+                var retVal = files[0];
+                if (filesToFind.Length == 2)
+                {
 
-                var retVal = files.FirstOrDefault(f => String.Equals(f.Trim().Replace(".js", string.Empty), filesToFind[1], StringComparison.CurrentCultureIgnoreCase))
-                    ?? files[0];
+                    retVal = files.FirstOrDefault(
+                        f =>
+                            String.Equals(f.Trim().Replace(".js", string.Empty), filesToFind[1],
+                                StringComparison.CurrentCultureIgnoreCase))
+                                 ?? files[0];
+                }
 
                 str = str.Replace(match.Value, retVal.Replace(".js", string.Empty).Trim());
 
@@ -377,7 +385,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
             //}
-            return Content(str, "application/javascript");
+            var minifer = new Minifier();
+            return Content(minifer.MinifyJavaScript(str), "application/javascript");
         }
     }
 }
