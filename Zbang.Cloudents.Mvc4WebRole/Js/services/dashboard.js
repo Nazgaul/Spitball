@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('dashboard',['app'], function (app) {
     app.factory('Dashboard',
         ['$http',
          '$q',

@@ -220,6 +220,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DisplayConfig.cs" />
+    <Compile Include="App_Start\JavaScriptBundleImp.cs" />
+    <Compile Include="App_Start\SquishItRenderer.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\ViewConfig.cs" />
@@ -754,6 +756,9 @@
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
+    <Content Include="Js\controllers\dashboard\dashboardCtrl.min.js">
+      <DependentUpon>dashboardCtrl.js</DependentUpon>
+    </Content>
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />

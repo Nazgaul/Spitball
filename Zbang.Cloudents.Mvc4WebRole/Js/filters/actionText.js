@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('actionText', ['app'], function (app) {
     app.filter('actionText',
     [
         function () {

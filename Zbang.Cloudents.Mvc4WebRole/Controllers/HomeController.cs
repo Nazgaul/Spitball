@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿using System.Text.RegularExpressions;
+using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Microsoft.Ajax.Utilities;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -340,6 +342,51 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             nodes.AddRange(seoItems.Select(box => new SitemapNode(box, requestContext)));
 
             return nodes;
+        }
+
+
+        [OutputCache(Duration = TimeConsts.Day, VaryByParam = "none")]
+        public ActionResult Bootstrap()
+        {
+            var routes = Server.MapPath("~/Js/bootstrap.js");
+            var str = System.IO.File.ReadAllText(routes);
+
+            //var jsFileLocations = BundleConfig.JsRemoteLinks();
+            var matches = Regex.Matches(str, @"\{(.*?)\}");
+            foreach (Match match in matches)
+            {
+                var matchWithoutBrackets = match.Value.Replace("{", string.Empty).Replace("}", string.Empty);
+                var filesToFind = matchWithoutBrackets.Split('-');
+                var jsFileLocation = BundleConfig.JsRemoteLinks(filesToFind[0]);
+                var files = jsFileLocation.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+                var retVal = files[0];
+                if (filesToFind.Length == 2)
+                {
+
+                    retVal = files.FirstOrDefault(
+                        f =>
+                            String.Equals(f.Trim().Replace(".js", string.Empty), filesToFind[1],
+                                StringComparison.CurrentCultureIgnoreCase))
+                                 ?? files[0];
+                }
+
+                str = str.Replace(match.Value, retVal.Replace(".js", string.Empty).Trim());
+
+
+            }
+            //foreach (var jsFileLocation in jsFileLocations)
+            //{
+
+            //    var files = jsFileLocation.Value.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+            //    matches.
+            //    //var jsFiles = jsFileLocation.Value.Trim();
+
+            //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
+            //}
+            var minifer = new Minifier();
+            return Content(minifer.MinifyJavaScript(str), "application/javascript");
         }
     }
 }

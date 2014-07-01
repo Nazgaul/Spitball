@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('ngPlaceholder', ['app'], function (app) {
     app.directive("ngPlaceholder", 
         ['$log','$timeout',        
         

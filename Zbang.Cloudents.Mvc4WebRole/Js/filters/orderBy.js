@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('orderby',['app'], function (app) {
     app.filter('orderByFilter',
     [
         function () {

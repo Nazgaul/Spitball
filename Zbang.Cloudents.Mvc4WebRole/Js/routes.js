@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define('/js/routes.js', [], function () {
     return {
         defaultRoutePath: '/dashboard',
         routes: {
@@ -8,16 +8,15 @@
                 },
                 templateUrl: '/dashboard/',
                 dependencies: [
-                    '/Js/services/dashboard.js',
-                    '/Js/services/box.js',
-                    '/Js/services/user.js',
-                    '/Js/services/newUpdates.js',
-                    '/Js/directives/ngPlaceholder.js',
-                    '/Js/filters/actionText.js',
-                    '/Js/filters/orderBy.js',
-                    '/Js/controllers/dashboard/createBoxCtrl.js',
-                    '/Js/controllers/dashboard/showFriendsCtrl.js',
-                    '/Js/controllers/dashboard/dashboardCtrl.js'
+                   "dashboard",
+                    "box",
+                    "user",
+                    "newUpdates",
+                    "ngPlaceholder",
+                    "actionText",
+                    "orderby",
+                    "createBoxCtrl",
+                    "ShowFriendsCtrl", "DashboardCtrl"
                 ]
             },
             '/box/my/:boxId/:boxName/': {
@@ -47,7 +46,7 @@
                     type: 'box'
                 },
                 templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
-                dependencies: [                    
+                dependencies: [
                     '/Scripts/draganddrop.js',
                     '/Js/filters/trustedHtml.js',
                     '/Js/services/box.js',

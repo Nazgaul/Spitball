@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('createBoxCtrl', ['app'], function (app) {
     app.controller('CreateBoxCtrl',
         ['$scope',
          '$modalInstance',

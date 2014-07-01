@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define("ShowFriendsCtrl", ['app'], function (app) {
     app.controller('ShowFriendsCtrl',
         ['$scope',
          '$modalInstance',         
@@ -16,7 +16,7 @@
                      id: friend.uid, name: friend.name, userImage: friend.image
                  }];
                  cd.pubsub.publish('messageFromPopup', {
-                     id: ''.id, data: friendObj
+                     id: '', data: friendObj
                  });
              };
          }

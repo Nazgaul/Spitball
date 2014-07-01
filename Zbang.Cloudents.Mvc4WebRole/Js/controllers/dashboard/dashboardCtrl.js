@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('DashboardCtrl', ['app'], function (app) {
     app.controller('DashboardCtrl',
         ['$scope', '$modal','$document',
          '$window','Dashboard', 'Box',
@@ -16,8 +16,8 @@
                  addBoxPerScroll: $scope.rows
              };
              $scope.partials = {
-                 friends: '/Dashboard/FriendsPartial',
-                 createBox: '/Dashboard/PrivateBoxPartial'
+                 friends: '/Dashboard/FriendsPartial/',
+                 createBox: '/Dashboard/PrivateBoxPartial/'
              };
 
              $scope.myCourses = JsResources.CoursesFollow;
