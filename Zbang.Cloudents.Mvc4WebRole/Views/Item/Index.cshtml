@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
-<div id="item" class="page itemPage" data-data="@ViewBag.data">
+<div id="item" class="page itemPage" data-data="@ViewBag.data" ng-controller="ItemCtrl">
     <h1>@ViewBag.Description</h1>
     <div class="leftPanel lFloat">
         <div class="itemTop">
@@ -26,7 +26,7 @@
                     <div id="rateBubble" class="bubble">
                         <div class="arrow upArrow"></div>
                         <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
-                        
+
                         <ul class="rateList">
                             <li id="star5" class="star">5</li>
                             <li id="star4" class="star star4">4</li>

@@ -74,7 +74,12 @@
                     $rootScope.previousTitle = 'Dashboard';
                     break;
                 case 'library': {
-                    //cd.pubusub.pubish('libraryclear');
+                    cd.pubusub.pubish('libraryclear');
+                    break;
+                }
+                case 'item': {
+                    cd.pubusub.pubish('itemclear');
+                    break;
                 }
             }
         });

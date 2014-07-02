@@ -46,19 +46,27 @@
         'CreateBoxCtrl': '{R_Dashboard-/js/controllers/dashboard/createBoxCtrl}',
         'ShowFriendsCtrl': '{R_Dashboard-/js/controllers/dashboard/showFriendsCtrl}',
         'DashboardCtrl': '{R_Dashboard-/js/controllers/dashboard/dashboardCtrl}',
+        
+
+        'extScriptLdr': '{R_OldAll-/Scripts/externalScriptLoader}',
+        'Utils': '{R_OldAll-/js/Utils}',
+        'Pubsub': '{R_OldAll-/js/pubsub}',
+        'DataContext': '{R_OldAll-/js/DataContext}',
+        'Dialog': '{R_OldAll-/js/Dialog}',
+        'GenericEvents': '{R_OldAll-/js/GenericEvents}',
+        'Cache': '{R_OldAll-/js/Cache}',
 
         //library
-        'extScriptLdr': '{R_Library-/Scripts/externalScriptLoader}',
-        'Utils': '{R_Library-/js/Utils}',
-        'Pubsub': '{R_Library-/js/pubsub}',
-        'DataContext': '{R_Library-/js/DataContext}',
-        'Dialog': '{R_Library-/js/Dialog}',
-        'GenericEvents': '{R_Library-/js/GenericEvents}',
-        //'library            '/js/services/library.js',           
         'LibraryCtrl': '{R_Library-/js/controllers/library/libraryCtrl}',
         'Library': '{R_Library-/js/Library}',
-        'Cache': '{R_Library-/js/Cache}'
+        
+        //'library            '/js/services/library.js',           
 
+
+        //Item 
+        //'item     '{R_Item-'/js/services/item.js'},
+        'ItemCtrl': '{R_Item-/js/controllers/library/libraryCtrl}',
+        'Item': '{R_Item-/js/ItemViewModel4}',
     },
     shim: {
         'app': {
