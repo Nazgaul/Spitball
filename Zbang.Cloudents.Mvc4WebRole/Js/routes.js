@@ -143,7 +143,7 @@
 
                 ]
             },
-            '/user/:userId/:userName': {
+            '/user/:userId/:userName/': {
                 params: {
                     type: 'user'
                 },
@@ -156,10 +156,9 @@
                     'Pubsub',
                     'DataContext',
                     'GenericEvents',
+                    'Cache',
                     'User',
-                    'UserCtrl',
-                    'Cache'
-                    
+                    'UserCtrl'                    
                 ]
             }
 

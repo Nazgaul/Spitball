@@ -1,4 +1,4 @@
-﻿define('User', ['Pubsub'], function () {
+﻿define('User', ['Knockout', 'Pubsub'], function (ko) {
     (function (cd, pubsub, ko, dataContext, $, analytics) {        
         var eById = document.getElementById.bind(document),
             consts = {
