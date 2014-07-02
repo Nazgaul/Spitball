@@ -15,8 +15,9 @@
                     "ngPlaceholder",
                     "actionText",
                     "orderby",
-                    "createBoxCtrl",
-                    "ShowFriendsCtrl", "DashboardCtrl"
+                    "CreateBoxCtrl",
+                    "ShowFriendsCtrl",
+                    "DashboardCtrl"
                 ]
             },
             '/box/my/:boxId/:boxName/': {
@@ -97,16 +98,18 @@
                 },
                 templateUrl: '/library/',
                 dependencies: [
-                    '/Scripts/externalScriptLoader.js',
-                    '/Js/Utils.js',
-                    '/Js/pubsub.js',
-                    '/Js/DataContext.js',
-                    '/Js/Dialog.js',
-                    '/Js/GenericEvents.js',
-                    '/Js/services/library.js',
+                    'extScriptLdr',
+                    'Utils',
+                    'Pubsub',
+                    'DataContext',
+                    'Dialog',
+                    'GenericEvents',
+                    //'library            '/Js/services/library.js',           
+                    'LibraryCtrl',
+                    'Cache',
                     'ngPlaceholder',
-                    '/Js/controllers/library/libraryCtrl.js',
-                    '/Js/Library.js'
+                    'Library'
+
                 ]
             },
             '/library/:libraryId/:libraryName/': {

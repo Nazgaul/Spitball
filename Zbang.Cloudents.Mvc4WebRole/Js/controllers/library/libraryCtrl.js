@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('LibraryCtrl',['app'], function (app) {
     app.controller('LibraryCtrl',
         ['$scope',
         function ($scope) {
