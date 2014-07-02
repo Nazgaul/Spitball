@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('manageCtrl',['app'], function (app) {
     app.controller('ManageCtrl',
         ['$scope',
          'Box',

@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('upload',['app'], function (app) {
     var Upload = '/Upload/';
     app.factory('Upload',
         ['$http',

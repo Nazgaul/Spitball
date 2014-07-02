@@ -9,7 +9,7 @@ if (window.jQuery && (-1 == window.jQuery.event.props.indexOf("dataTransfer"))) 
     window.jQuery.event.props.push("dataTransfer");
 }
 
-define(['app'], function (app) {
+define('draganddrop',['app'], function (app) {
     app.directive("uiDraggable", [
         '$parse',
         '$rootScope',

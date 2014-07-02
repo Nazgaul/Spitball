@@ -1,0 +1,75 @@
+﻿/*
+@import this file directly into your existing Scss files to use these mixins
+*/
+@mixin sprite-Images-ball() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 0;
+}
+@mixin sprite-Images-chair() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -106px;
+}
+@mixin sprite-Images-computer() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -212px;
+}
+@mixin sprite-Images-covers() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -318px;
+}
+@mixin sprite-Images-dic() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -424px;
+}
+@mixin sprite-Images-eco() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -530px;
+}
+@mixin sprite-Images-house() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -636px;
+}
+@mixin sprite-Images-smartphone() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -742px;
+}
+@mixin sprite-Images-tv() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -848px;
+}
+@mixin sprite-Images-printers() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -954px;
+}
+@mixin sprite-Images-martini() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -1060px;
+}
+@mixin sprite-Images-cal() {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -1166px;
+}

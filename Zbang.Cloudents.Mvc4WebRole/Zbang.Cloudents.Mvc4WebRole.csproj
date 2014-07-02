@@ -634,6 +634,12 @@
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
+    <Content Include="Content\Shopping.css">
+      <DependentUpon>Shopping.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ShoppingRtl.css">
+      <DependentUpon>ShoppingRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
@@ -670,11 +676,20 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\404.png" />
+    <Content Include="Images\ball.png" />
     <Content Include="Images\bg4.jpg" />
     <Content Include="Images\box17-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
+    <Content Include="Images\cal.png" />
     <Content Include="Images\callout-sprite.png" />
+    <Content Include="Images\category.png">
+      <DependentUpon>category.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\category.png.css">
+      <DependentUpon>category.png</DependentUpon>
+    </Content>
     <Content Include="Images\cb1.png" />
+    <Content Include="Images\chair.png" />
     <Content Include="Images\checkbox-sprite1.png" />
     <Content Include="Images\cloudents-share-FB-1.png" />
     <Content Include="Images\cloudents-share-FB.png" />
@@ -687,10 +702,14 @@
     <Content Include="Images\code-icon1.png" />
     <Content Include="Images\comment-sprite.png" />
     <Content Include="Images\common17-sprite.png" />
+    <Content Include="Images\computer.png" />
+    <Content Include="Images\covers.png" />
     <Content Include="Images\cursor.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
     <Content Include="Images\dashLib-sprite.png" />
+    <Content Include="Images\dic.png" />
+    <Content Include="Images\eco.png" />
     <Content Include="Images\EmptyState\my_default.png" />
     <Content Include="Images\EmptyState\my_default2.png" />
     <Content Include="Images\EmptyState\my_default3.png" />
@@ -702,6 +721,7 @@
     <Content Include="Images\firsttime_sprite_heb.png" />
     <Content Include="Images\gray_jean80.png" />
     <Content Include="Images\home-sprite.png" />
+    <Content Include="Images\house.png" />
     <Content Include="Images\hp18-sprite.png" />
     <Content Include="Images\invite-sprite.png" />
     <Content Include="Images\item13-sprite.png" />
@@ -728,23 +748,27 @@
     <Content Include="Images\m-sprite-home%402x.png" />
     <Content Include="Images\m-sprite-home.png" />
     <Content Include="Images\mail-icons.png" />
+    <Content Include="Images\martini.png" />
     <Content Include="Images\members-only.png" />
     <Content Include="Images\misc-sprite.png" />
     <Content Include="Images\multi2.png" />
     <Content Include="Images\national-union-pic.png" />
     <Content Include="Images\no-preview.png" />
     <Content Include="Images\nopreview_empty.png" />
+    <Content Include="Images\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\radio-btn.png" />
     <Content Include="Images\radioBtn.png" />
     <Content Include="Images\request-sent.png" />
     <Content Include="Images\search2.png" />
     <Content Include="Images\share-quiz.png" />
+    <Content Include="Images\smartphone.png" />
     <Content Include="Images\sprite_browsericons.png" />
     <Content Include="Images\students.png" />
     <Content Include="Images\table-bg1.png" />
     <Content Include="Images\trash.png" />
     <Content Include="Images\tt-sprite.png" />
+    <Content Include="Images\tv.png" />
     <Content Include="Images\union3-sprite.png" />
     <Content Include="Images\union4-sprite.png" />
     <Content Include="Images\upload15-sprite.png" />
@@ -878,12 +902,21 @@
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
+    <Content Include="Content\Shopping.less" />
+    <Content Include="Content\ShoppingRtl.less" />
+    <Content Include="Images\category.sprite" />
+    <Content Include="Images\category.png.map">
+      <DependentUpon>category.png</DependentUpon>
+    </Content>
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Js\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="Images\category.png.scss">
+      <DependentUpon>category.png</DependentUpon>
+    </Content>
     <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1335,6 +1368,7 @@
     <None Include="Views\Box\Index2.cshtml" />
     <Content Include="Views\Shopping\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
+    <Content Include="Views\Shopping\Product.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Box\_QnA2.cshtml" />
