@@ -90,7 +90,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ActionName("Index"), Ajax]
         //[AjaxCache(TimeConsts.Hour)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public ActionResult Index2(long boxUid, long itemId, string uniName)
+        public ActionResult Index2(long boxUid, long itemId)
         {
             try
             {

@@ -114,17 +114,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
             );
 
             routes.MapRoute("Item",
-                "item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}",
+                "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
+                new { controller = "Item", action = "Index" },
                 new
                 {
-                    controller = "Library",
-                    action = "Index",
-                    LibId = UrlParameter.Optional,
-                    LibName = UrlParameter.Optional
-                },
-                new
-                {
-                    isDesktop = new DesktopConstraint(),
                     boxId = new LongRouteConstraint(),
                     itemid = new LongRouteConstraint()
                 }
