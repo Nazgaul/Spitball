@@ -141,8 +141,8 @@
                 templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName; },
                 dependencies: [
                     'user',
-                    'ngPlaceholder',
-                    '/Js/controllers/library/userCtrl.js'
+                    'ngPlaceholder'
+                    //'/Js/controllers/library/userCtrl.js'
                 ]
             }
 

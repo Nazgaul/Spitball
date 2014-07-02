@@ -137,10 +137,34 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/directives/ngPlaceholder.js",
                 "/js/directives/mLoader.js");
 
-            RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
-                "/js/services/box.js",
-                "/js/services/user.js",
+            RegisterJsRoutes("R_Box", 
+                "/js/services/dropbox.js",
+                "/Scripts/draganddrop.js",
+                "/js/filters/trustedHtml.js",
+                "/Js/services/qna.js",
+                "/Js/services/upload.js",
+                "/Js/controllers/box/boxCtrl.js",
+                "/Js/controllers/box/tabCtrl.js",
+                "/Js/controllers/box/qnaCtrl.js",
+                "/Js/controllers/box/uploadCtrl.js",
+                "/Js/controllers/box/manageCtrl.js"
+                );
+            RegisterJsRoutes("R_DashboardBox",
                 "/js/services/newUpdates.js",
+                "/js/services/box.js"
+                );
+            RegisterJsRoutes("R_BoxItem",
+                "/Js/services/item.js"
+
+                );
+            RegisterJsRoutes("R_BoxQuiz", 
+                "/Js/services/quiz.js"
+                );
+
+            RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
+                
+                "/js/services/user.js",
+                
                 "/js/filters/actionText.js",
                 "/js/filters/orderBy.js",
                 "/js/controllers/dashboard/createBoxCtrl.js",
