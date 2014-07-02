@@ -1,5 +1,5 @@
 ﻿define('Utils', ['extScriptLdr','Pubsub'], function () {
-    (function (cd, $, analytics, JsResources) {
+    (function (cd, $, analytics, jsResources) {
 
         if (window.scriptLoaded.isLoaded('u')) {
             return;
@@ -163,24 +163,24 @@
             var oneDay = 24 * 60 * 60 * 1000, // hours*minutes*seconds*milliseconds                                         
                 today = new Date(),
                 dateDifference = calculateDayDifference(),
-                months = [JsResources.January, JsResources.February, JsResources.March, JsResources.April,
-                          JsResources.May, JsResources.June, JsResources.July, JsResources.August,
-                          JsResources.September, JsResources.October, JsResources.November, JsResources.December];
+                months = [jsResources.January, jsResources.February, jsResources.March, jsResources.April,
+                          jsResources.May, jsResources.June, jsResources.July, jsResources.August,
+                          jsResources.September, jsResources.October, jsResources.November, jsResources.December];
 
             switch (dateDifference) {
                 case 0:
                     var timeObj = calculateSecondsDifferece();
                     if (timeObj.hours >= 1) {
 
-                        return JsResources.HoursAgo.format(Math.round(timeObj.hours));
+                        return jsResources.HoursAgo.format(Math.round(timeObj.hours));
                     }
                     if (timeObj.minutes >= 1) {
-                        return JsResources.MinAgo.format(Math.round(timeObj.minutes));
+                        return jsResources.MinAgo.format(Math.round(timeObj.minutes));
                     }
 
-                    return JsResources.JustNow;
+                    return jsResources.JustNow;
                 case 1:
-                    return JsResources.Yesterday;
+                    return jsResources.Yesterday;
 
                 default:
                     var dateMonth = date.getMonth() + 1,
@@ -191,7 +191,7 @@
                     } else if (dateMonth > todayMonth) {
                         return date.getDate() + ' ' + months[dateMonth - 1] + ', ' + date.getFullYear();
                     } else {
-                        return JsResources.DaysAgo.format(dateDifference);
+                        return jsResources.DaysAgo.format(dateDifference);
                     }
             }
 
@@ -1145,7 +1145,7 @@
 
 
         function getParameterFromUrl(index) {
-            var location = window.location.href || privateLocation.url;
+            var location = window.location.pathname;
             location = removeStartingSlash(location);
             location = location.split('?')[0];
 
@@ -1388,6 +1388,6 @@
         //});
 
 
-    })(window.cd = window.cd || {}, jQuery, cd.analytics, JsResources);
+    })(window.cd = window.cd || {}, jQuery, cd.analytics, window.JsResources);
 
 });
