@@ -1,4 +1,4 @@
-﻿define('app', ['/js/routes.js', '/js/services/dependencyResolverFor.js'], function (config, dependencyResolverFor) {
+﻿define('app', ['routes', 'dependencyResolverFor'], function (config, dependencyResolverFor) {
     var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'angularFileUpload', 'pasvaz.bindonce', 'ui.bootstrap']);
 
     app.config([
