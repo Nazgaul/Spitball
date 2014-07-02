@@ -1,4 +1,5 @@
 ﻿define('GenericEvents', ['Utils', 'DataContext', 'extScriptLdr'], function () {
+    "use strict";    
     (function (cd, analytics, dataContext) {
         "use strict";
         if (window.scriptLoaded.isLoaded('events')) {

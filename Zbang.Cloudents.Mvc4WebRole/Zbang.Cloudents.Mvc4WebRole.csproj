@@ -775,6 +775,7 @@
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
+    <Content Include="Js\directives\mLoader.js" />
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />

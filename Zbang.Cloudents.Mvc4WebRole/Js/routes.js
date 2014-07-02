@@ -92,17 +92,18 @@
                    '/Js/controllers/quiz/quizCtrl.js'
                 ]
             },
-            '/library/': {
+            '/library/:libraryId/:libraryName/': {
                 params: {
                     type: 'library'
                 },
-                templateUrl: '/library/',
+                templateUrl: function (params) { return '/library/' + params.libraryId + '/' + encodeURIComponent(params.libraryName); },
                 dependencies: [
-                    'extScriptLdr',
+                                'extScriptLdr',
+                    'Dialog',
                     'Utils',
                     'Pubsub',
                     'DataContext',
-                    'Dialog',
+
                     'GenericEvents',
                     //'library            '/Js/services/library.js',           
                     'LibraryCtrl',
@@ -112,19 +113,25 @@
 
                 ]
             },
-            '/library/:libraryId/:libraryName/': {
+            '/library/': {
                 params: {
                     type: 'library'
                 },
-                templateUrl: function (params) { return '/library/' + params.libraryId; },
+                templateUrl: '/library/',
                 dependencies: [
-                    '/Scripts/externalScriptLoader.js',
-                    '/Js/DataContext.js',
-                    '/Js/Dialog.js',
-                    '/Js/GenericEvents.js',
-                    '/Js/services/library.js',
+                    'extScriptLdr',
+                    'Dialog',
+                    'Utils',
+                    'Pubsub',
+                    'DataContext',
+
+                    'GenericEvents',
+                    //'library            '/Js/services/library.js',           
+                    'LibraryCtrl',
+                    'Cache',
                     'ngPlaceholder',
-                    '/Js/controllers/library/libraryCtrl.js'
+                    'Library'
+
                 ]
             },
             '/user/:userId/:userName': {

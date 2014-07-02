@@ -1,4 +1,4 @@
-﻿define('Dialog', ['Pubsub'], function () {
+﻿define('Dialog', ['jquery','Pubsub'], function ($) {
     var methods = {
         init: function (options) {
             var wrapper;

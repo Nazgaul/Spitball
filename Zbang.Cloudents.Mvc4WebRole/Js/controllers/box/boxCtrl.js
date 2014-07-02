@@ -99,10 +99,9 @@
                 //userName: "guy golan"
                 //userUid: 18372 //uid
 
-                document.getElementById('mLoading').style.display = 'none';
-                document.getElementById('box').style.display = 'block';
-                document.getElementById('box').style.opacity = 1;
-
+                $timeout(function () {
+                    $rootScope.$broadcast('viewContentLoaded');
+                });
             });
             $scope.addQuiz = function () {
                 $scope.params.quizOpen = true;

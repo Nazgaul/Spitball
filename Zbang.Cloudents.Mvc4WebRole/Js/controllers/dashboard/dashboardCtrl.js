@@ -1,10 +1,11 @@
 ﻿define('DashboardCtrl', ['app'], function (app) {
     app.controller('DashboardCtrl',
-        ['$scope', '$modal','$document',
+        ['$scope', '$rootScope','$timeout',
+          '$modal', '$document',
          '$window','Dashboard', 'Box',
          'User', 'NewUpdates',
 
-         function ($scope, $modal, $document,$window, Dashboard, Box, User, NewUpdates) {
+         function ($scope, $rootScope, $timeout,$modal, $document, $window, Dashboard, Box, User, NewUpdates) {
              $scope.title = 'Dashboard';
              $scope.academicBoxes = [];
              $scope.groupBoxes = [];
@@ -21,9 +22,7 @@
              };
 
              $scope.myCourses = JsResources.CoursesFollow;
-
              
-
              Dashboard.boxList().then(function (data) {
                  $scope.wall = data.payload.wall;
                  $scope.friends = data.payload.friends;
@@ -34,17 +33,14 @@
 
                  $scope.$broadcast('update-scroll');
 
-                 document.getElementById('mLoading').style.display = 'none';
-                 document.getElementById('dashboard').style.display = 'block';
-                 document.getElementById('dashboard').style.opacity = 1;
+             
 
                  calculateGroupsVisible();
-
-
-
-
+                 $timeout(function () {
+                     $rootScope.$broadcast('viewContentLoaded');
+                 });
+                 
              });
-             //tempfix
 
              $scope.removeBox = function (box) {
                  cd.confirm2($scope.removeConfirm(box)).then(function () {

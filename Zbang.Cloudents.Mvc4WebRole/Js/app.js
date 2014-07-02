@@ -1,5 +1,5 @@
 ﻿define('app', ['routes', 'dependencyResolverFor'], function (config, dependencyResolverFor) {
-    var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'angularFileUpload', 'pasvaz.bindonce', 'ui.bootstrap']);
+    var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap']);
 
     app.config([
         '$routeProvider',
@@ -59,11 +59,14 @@
       }
       ]);
 
-    app.run(['$rootScope', '$window', '$fileUploader', 'UserDetails', function ($rootScope, $fileUploader, $window, UserDetails) {
+    app.run(['$rootScope', '$window', 'UserDetails', function ($rootScope, $window, UserDetails) {
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
             if (!previous) {
+                return;
+            }
+            if (!previous.$$route.params) {
                 return;
             }
             switch (previous.$$route.params.type) {
@@ -74,7 +77,7 @@
                     //cd.pubusub.pubish('libraryclear');
                 }
             }
-        });     
+        });
 
         $rootScope.$back = function (url) {
             if (!$window.history.length) {
@@ -89,29 +92,16 @@
         };
 
 
-    
+
 
     }]);
 
     app.controller('MainCtrl',
-        ['$scope','$rootScope', '$fileUploader',
-        function ($scope, $rootScope, $fileUploader) {
-
-            $rootScope.uploader = $fileUploader.create({
-                url: '/Upload/File/',
-                autoUpload: true,
-                //formData: [
-                //    { key: 'value' }
-                //],
-                //filters: [
-                //    function (item) {                    // first user filter
-                //        console.info('filter1');
-                //        return true;
-                //    }
-                //]
-            });
+        ['$scope', '$rootScope',
+        function ($scope, $rootScope) {
+       
         }
-    ]);
+        ]);
 
     app.factory('UserDetails',
      [
