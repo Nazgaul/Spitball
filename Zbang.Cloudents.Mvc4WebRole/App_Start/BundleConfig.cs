@@ -131,32 +131,33 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //RegisterJsRoutes("R_App", "/Js/app.js");
 
             RegisterJsRoutes("R_All",
-                "/Js/app.js",
+                "/js/app.js",
                 "/js/routes",
                 "/js/services/dependencyResolverFor.js",
-                "/Js/directives/ngPlaceholder.js");
+                "/js/directives/ngPlaceholder.js",
+                "/js/directives/mLoader.js");
 
             RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
-                "/Js/services/box.js",
-                "/Js/services/user.js",
-                "/Js/services/newUpdates.js",
-                "/Js/filters/actionText.js",
-                "/Js/filters/orderBy.js",
-                "/Js/controllers/dashboard/createBoxCtrl.js",
-                "/Js/controllers/dashboard/showFriendsCtrl.js",
-                "/Js/controllers/dashboard/dashboardCtrl.js");
+                "/js/services/box.js",
+                "/js/services/user.js",
+                "/js/services/newUpdates.js",
+                "/js/filters/actionText.js",
+                "/js/filters/orderBy.js",
+                "/js/controllers/dashboard/createBoxCtrl.js",
+                "/js/controllers/dashboard/showFriendsCtrl.js",
+                "/js/controllers/dashboard/dashboardCtrl.js");
 
 
             RegisterJsRoutes("R_Library",
                 "/Scripts/externalScriptLoader.js",
-                "/Js/Utils.js",
-                "/Js/pubsub.js",
-                "/Js/DataContext.js",
-                "/Js/Dialog.js",
-                "/Js/GenericEvents.js",
-                "/Js/controllers/library/libraryCtrl.js",
-                "/Js/Library.js",
-                "/Js/Cache.js");
+                "/js/Utils.js",
+                "/js/pubsub.js",
+                "/js/DataContext.js",
+                "/js/Dialog.js",
+                "/js/GenericEvents.js",
+                "/js/controllers/library/libraryCtrl.js",
+                "/js/Library.js",
+                "/js/Cache.js");
 
 
             RegisterJsRegular("home",

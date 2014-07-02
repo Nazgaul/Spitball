@@ -8,9 +8,9 @@
         'bind-once': '../Scripts/bindonce',
         'jquery': '../Scripts/jquery-2.1.0',
         'boots': '../Scripts/ui-bootstrap-tpls-0.11.0',
-        'modernizr': '../Scripts/Modernizr',
-        'file-upload': '../Scripts/angular-file-upload',
+        'modernizr': '../Scripts/Modernizr',       
         'Knockout': '../Scripts/knockout-3.0.0',
+        'mLoader': '{R_All-/js/directives/mLoader}',
 
         'dropbox': '/js/services/dropbox', //box
         'draganddrop': '/Scripts/draganddrop', //box
@@ -31,38 +31,41 @@
 
         'routes': '{R_All-/js/routes}',
         'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
-        'ngPlaceholder': '{R_All-/Js/directives/ngPlaceholder}',
+        'ngPlaceholder': '{R_All-/js/directives/ngPlaceholder}', 
 
-        'box': '{R_Dashboard-/Js/services/box}', // with box
+        'box': '{R_Dashboard-/js/services/box}', // with box
 
 
-        'dashboard': '{R_Dashboard-/Js/services/dashboard}',
+        'dashboard':  '{R_Dashboard-/js/services/dashboard}',
 
-        'user': '{R_Dashboard-/Js/services/user}', // with user
-        'newUpdates': '{R_Dashboard-/Js/services/newUpdates}', // with box
+        'user': '{R_Dashboard-/js/services/user}', // with user
+        'newUpdates': '{R_Dashboard-/js/services/newUpdates}', // with box
 
-        'actionText': '{R_Dashboard-/Js/filters/actionText}',
-        'orderby': '{R_Dashboard-/Js/filters/orderBy}',
-        'CreateBoxCtrl': '{R_Dashboard-/Js/controllers/dashboard/createBoxCtrl}',
-        'ShowFriendsCtrl': '{R_Dashboard-/Js/controllers/dashboard/showFriendsCtrl}',
-        'DashboardCtrl': '{R_Dashboard-/Js/controllers/dashboard/dashboardCtrl}',
+        'actionText': '{R_Dashboard-/js/filters/actionText}',
+        'orderby': '{R_Dashboard-/js/filters/orderBy}',
+        'CreateBoxCtrl': '{R_Dashboard-/js/controllers/dashboard/createBoxCtrl}',
+        'ShowFriendsCtrl': '{R_Dashboard-/js/controllers/dashboard/showFriendsCtrl}',
+        'DashboardCtrl': '{R_Dashboard-/js/controllers/dashboard/dashboardCtrl}',
 
         //library
         'extScriptLdr': '{R_Library-/Scripts/externalScriptLoader}',
-        'Utils': '{R_Library-/Js/Utils}',
-        'Pubsub': '{R_Library-/Js/pubsub}',
-        'DataContext': '{R_Library-/Js/DataContext}',
-        'Dialog': '{R_Library-/Js/Dialog}',
-        'GenericEvents': '{R_Library-/Js/GenericEvents}',
-        //'library            '/Js/services/library.js',           
-        'LibraryCtrl': '{R_Library-/Js/controllers/library/libraryCtrl}',
-        'Library': '{R_Library-/Js/Library}',
-        'Cache': '{R_Library-/Js/Cache}'
+        'Utils': '{R_Library-/js/Utils}',
+        'Pubsub': '{R_Library-/js/pubsub}',
+        'DataContext': '{R_Library-/js/DataContext}',
+        'Dialog': '{R_Library-/js/Dialog}',
+        'GenericEvents': '{R_Library-/js/GenericEvents}',
+        //'library            '/js/services/library.js',           
+        'LibraryCtrl': '{R_Library-/js/controllers/library/libraryCtrl}',
+        'Library': '{R_Library-/js/Library}',
+        'Cache': '{R_Library-/js/Cache}'
 
     },
     shim: {
         'app': {
-            deps: ['angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once', 'file-upload', 'modernizr']
+            deps: ['angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once', 'modernizr']
+        },
+        'mLoader': {
+            deps : ['app']
         },
         'angular-route': {
             deps: ['angular']
@@ -82,7 +85,7 @@
         'boots': {
             deps: ['angular']
         },
-        'file-upload': {
+        'mLoader': {
             deps: ['angular']
         }
     }
@@ -90,7 +93,7 @@
 
 require
 (
-    ['app'],
+    ['app','mLoader'],
     function () {
         angular.bootstrap(document, ['app']);
     }

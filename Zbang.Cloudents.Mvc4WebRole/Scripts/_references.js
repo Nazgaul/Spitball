@@ -132,6 +132,7 @@
 /// <reference path="../js/user.js" />
 /// <reference path="../js/utils.js" />
 /// <reference path="../js/welcome.js" />
+/// <reference path="../js/directives/mloader.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
