@@ -69,8 +69,9 @@
                     type: 'item'
                 },
                 templateUrl: function (params) {
-                    return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                        + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName) + '/';
+                    //return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
+                    //    + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName) + '/';
+                    return '/item/?boxUid=' + params.boxId + '&itemId=' + params.itemId;
                 },
                 dependencies: [
                 //   'item',
