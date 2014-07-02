@@ -1,17 +1,12 @@
-﻿(function ($, pubsub) {
-    if (window.scriptLoaded.isLoaded('d')) {
-        return;
-    }
-
-    //var settings = {};
+﻿define('Dialog', ['Pubsub'], function () {
     var methods = {
         init: function (options) {
             var wrapper;
             var settings = $.extend({
-                    submitCallBack: function () { },
-                    cancelCallBack: function () { },
-                  //  hideClassBack: function () { },
-                }, options);
+                submitCallBack: function () { },
+                cancelCallBack: function () { },
+                //  hideClassBack: function () { },
+            }, options);
             //the entire dialog
             var extraCss = this.attr('class') || 'confirm';
             var dialog = createDiv().addClass("popupWrppr").addClass(extraCss),
@@ -78,7 +73,6 @@
                 var form = wrapper.find('form');
                 if (form.length) {
                     cd.resetForm(form);
-                    //settings.hideClassBack(form.prop('action'), form.serializeArray(), form);
                 }
             }
 
@@ -88,19 +82,11 @@
             this.find('input[type=text]:first').focus();
         },
         hide: function (elem) {
-            //this.hide();
             this.hide();
             if (this.is('form')) {
                 cd.resetForm(this);
-            }
-            //settings.hideClassBack();
-            //this.find('input').each(function () {
-            //    this.value = '';
-            //});
-        }/*,
-        setHideCallback: function (func) {
-            settings.hideClassBack = func;
-        }*/
+            }            
+        }    
     };
     function createButton() {
         return $('<button></button>');
@@ -118,4 +104,4 @@
             $.error('Method ' + method + ' does not exist on jQuery.tooltip');
         }
     };
-}(jQuery, cd.pubsub));
+});
