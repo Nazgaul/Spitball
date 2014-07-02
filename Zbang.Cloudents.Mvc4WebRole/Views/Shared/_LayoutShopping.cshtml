@@ -4,10 +4,177 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+
+    @Html.Css2("shopping")
+    @Html.CssRtl("shoppingRtl")
+    @Html.CssCulture("lang")
 </head>
 <body>
-    <div>
+    <header role="banner">
+        @*<div class="wpr">*@
+            <div class="rFloat">
+                <button type="button" class="login">Log in</button> /
+                <button type="button" class="signup">Sign up</button>
+                <div class="language">
+                    <a data-language="en-US" href="/account/" title="English (US)" class="currentItem">English‎</a>
+                    <a data-language="ru-RU" href="/account/" title="Russian site">Pусский</a>
+                    <a data-language="he-IL" href="/account/" title="Hebrew site">עברית</a>
+                    <a data-language="ar-AE" href="/account/" title="Arabic site">العربية</a>
+                </div>
+            </div>
+            <h1 class="logo">Product discounts exclusively for students </h1>
+        @*</div>*@
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Hot sales</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact us</a></li>
+        </ul>
+    </nav>
+    <main role="main">
         @RenderBody()
-    </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="wpr">
+            <div>
+                <h3>PC / Tablet</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                    <li><a href="#">three</a></li>
+                    <li><a href="#">four</a></li>
+                    <li><a href="#">five</a></li>
+                    <li><a href="#">six</a></li>
+                </ul>
+                <h3>Calculators</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Electronic dictionaries</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                </ul>
+                <h3>Cell phones</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                </ul>
+                <h3>Computer equipment</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                    <li><a href="#">three</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>PC / Tablet</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                    <li><a href="#">three</a></li>
+                    <li><a href="#">four</a></li>
+                    <li><a href="#">five</a></li>
+                    <li><a href="#">six</a></li>
+                </ul>
+                <h3>Calculators</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Electronic dictionaries</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                </ul>
+                <h3>Cell phones</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                </ul>
+                <h3>Computer equipment</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                    <li><a href="#">three</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>PC / Tablet</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                    <li><a href="#">three</a></li>
+                    <li><a href="#">four</a></li>
+                    <li><a href="#">five</a></li>
+                    <li><a href="#">six</a></li>
+                </ul>
+                <h3>Calculators</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Electronic dictionaries</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                </ul>
+                <h3>Cell phones</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                </ul>
+                <h3>Computer equipment</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                    <li><a href="#">three</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>PC / Tablet</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                    <li><a href="#">two</a></li>
+                    <li><a href="#">three</a></li>
+                    <li><a href="#">four</a></li>
+                    <li><a href="#">five</a></li>
+                    <li><a href="#">six</a></li>
+                </ul>
+                <h3>Calculators</h3>
+                <ul>
+                    <li><a href="#">one</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="wpr logo">
+                <div class="social rFloat">
+                    <button type="button"></button>
+                    <button type="button"></button>
+                    <button type="button"></button>
+                </div>
+                <ul>
+                    <li><a href="#">About Cloudents</a> |</li>
+                    <li><a href="#">Contact us</a> |</li>
+                    <li><a href="#">Terms and services</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+        
+
 </body>
 </html>

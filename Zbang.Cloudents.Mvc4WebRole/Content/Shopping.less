@@ -1,0 +1,553 @@
+﻿@import "varsAndMixins";
+
+@wpr-padding: 42px;
+@shopping-black: #39434A;
+body {
+    min-width: 1024px;
+    color: @shopping-black;
+}
+/*#region header */
+header {
+    height: 75px;
+    background: @color;
+    padding: 0 ~'calc(50% - 470px)';
+    color: #fff;
+    h1 {
+        padding: 20px 0 0 225px;
+        font-size: 16px;
+        width: 215px;
+        position: relative;
+    }
+    .rFloat {
+        padding-top: 30px;
+    }
+}
+.logo:before {
+    .pseudo;
+    display: inline-block;
+    width: 211px;
+    height: 42px;
+    background: @dashboard-sprite 0 0 no-repeat;
+    position: absolute;
+    left:0;
+    top: 20px;
+}
+.login, .signup {
+    color: #fff;
+    font-size: 18px;
+}
+
+.language {
+    display: inline-block;
+    margin-left: 20px;
+    color: @textColor;
+    a {
+        padding: 0 6px;
+        font-size: 15px;
+    }
+}
+
+/*#endregion */
+nav, main {
+    background: #f6f6f6;
+    padding: 0 ~'calc(50% - 470px)';
+    
+}
+nav {
+    height: 100px;
+    padding: 0 ~'calc(50% - 420px)';
+    //border: 1px solid red;
+    padding-top: 35px;
+    .boxSizing;
+    ul {
+        text-align: justify;
+        &:after {
+            content: '';
+            display: inline-block;
+            width: 100%;
+        }
+    }
+    li {
+        display: inline-block;
+        font-weight: bold;
+        font-size: 18px;
+    }
+           
+}
+/*#region main */
+main {
+    width: 940px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    &.product {
+        .searchForm, .productsList {
+            display: none;
+        }
+    }
+}
+
+/*#endregion */
+
+/*#region widget */
+.widget {
+    width: 100%;
+    height: 120px;
+    border: 1px solid @shopping-black;
+    .boxSizing;
+    .lFloat, h2 {
+        display: none;
+    }
+    &:before {
+        .pseudo;
+        width: 400px;
+        height: 100%;
+        background: url(http://lorempixel.com/400/118/food) no-repeat;
+    }
+    button {
+        padding: 14px;
+        border: 2px solid #8AC43E;
+        font-size: 20px;
+        color: #8AC43E;
+        margin: -90px 30px 0 0;
+    }
+    &.big {
+        height: 390px;
+        &:before {
+            background: url(http://lorempixel.com/400/250/food) no-repeat;
+            height: 250px;
+        }
+        .widgetWpr {
+            width: 400px;
+        }
+        .lFloat, h2 {
+            display: block;
+        }
+        .lFloat {
+            text-align: center;
+            margin-top: 5px;
+            padding: 0 10px;
+        }
+        h2 {
+            font-size: 18px;
+            padding: 10px 0 0 35px;
+            overflow: auto;
+        }
+        button {
+            margin: 10px 8px 0 0; //override
+        }
+    }
+}
+/*#endregion */
+
+/*#region search form */
+
+.searchForm {
+    width: 100%;
+    .boxSizing;
+    border: 10px solid @shopping-black;
+    margin: 30px 0 40px;
+    height: 90px;
+    position: relative;
+    &.showResults {
+        ~ .productsList {
+            display: none;
+            &.searchResultsList {
+                display: block;
+            }
+        }
+    }
+}
+.categoryBtn {
+    width: 235px;
+    height: 100%;
+    .boxSizing;
+    border-right: 10px solid @shopping-black;
+    font-size: 18px;
+    
+    &:after {
+        .pseudo;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 12px 10px 0 10px;
+        border-color: @shopping-black transparent transparent transparent;
+        margin: 0 12px;
+    }
+    &.show {
+        color: @color;
+        &:after {
+            border-color: @color transparent transparent transparent;
+        }
+        ~ .categoryDD {
+            display: block;
+        }
+    }
+}
+.inputSearch {
+    width: 535px;
+    height: 100%;
+    padding: 0 8px;
+    .boxSizing;
+    font-size: 18px;
+}
+.searchProducts {
+    width: 150px;
+    height: 100%;
+    color: #fff;
+    background: @color;
+    font-size: 18px;
+}
+/*#endregion */
+
+/*#region products drop down */
+.categoryDD {
+    display: none;
+    width: 940px;
+    height: 390px;
+    position: absolute;
+    top: 108px;
+    left: -10px;
+    background: @shopping-black;
+    padding: 20px;
+    .boxSizing;
+    z-index:2;
+    &:before {
+        .pseudo;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 19px 18px 19px;
+        border-color: transparent transparent @shopping-black transparent;
+        position: absolute;
+        top: -18px;
+        left: 100px;
+    }
+}
+.categoryList {
+    ul {
+        padding-top: 20px;
+        .boxSizing;
+        visibility: hidden;
+        position: absolute;
+        .transition(height 0.3s cubic-bezier(0.7,0,0.3,1));
+        left: 0;
+        //top: 0;
+        top: 174px;
+        width: 150px;
+        //height: 175px;
+        height:0;
+        background: #fff;
+        color: @shopping-black;
+        //opacity:0;
+        //color: #fff;
+        z-index: 1;
+        overflow: hidden;
+        &:after {
+            .pseudo;
+            position: absolute;
+            left: 0;right:0;
+            margin: auto;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-color: @shopping-black transparent transparent transparent;
+            border-width: 13px 15px 0 15px;
+            top:0;
+        }
+        li {
+            &:hover {
+                color: @color;
+            }
+        }
+    }
+    > li {
+        width: 150px;
+        height: 175px;
+        text-align: center;
+        display: inline-block;
+        border-bottom: 1px solid #fff;
+        border-right: 1px solid #fff;
+        padding: 10px 20px 30px 20px;
+        .boxSizing;
+        color: silver;
+        position: relative;
+        vertical-align: top;
+        &:hover {
+            ul {
+                visibility: visible;
+                height: 175px;              
+            }
+            li {
+                margin: 8px 0;
+            }
+        }
+        &:before {
+            .pseudo;
+            width: 108px;
+	        height: 106px;
+            margin: 12px 0;
+            background: url(/Images/category.png) 0 0 no-repeat;
+            opacity: .7;
+        }
+        &:nth-child(6n) {
+            border-right: none;
+        }
+        &:nth-child(n + 7) {
+            border-bottom: none;           
+            ul {
+                top: auto;
+                bottom: 100%;
+                &:after {
+                    border-width: 0 15px 13px 15px;
+                    border-color: transparent transparent @shopping-black transparent;
+                    bottom: 0;
+                    top: auto;
+                }
+            }         
+        }
+        &.spr-ball:before {
+            
+        }
+        &.spr-chair:before {
+	        background-position: 0 -106px;
+        }
+        &.spr-computer:before {
+	        background-position: 0 -212px;
+        }
+        &.spr-covers:before {
+	        background-position: 0 -318px;
+        }
+        &.spr-dic:before {
+	        background-position: 0 -424px;
+        }
+        &.spr-eco:before {
+	        background-position: 0 -530px;
+        }
+        &.spr-house:before {
+	        background-position: 0 -636px;
+        }
+        &.spr-smartphone:before {
+	        background-position: 0 -742px;
+        }
+        &.spr-tv:before {
+	        background-position: 0 -848px;
+        }
+        &.spr-printers:before {
+	        background-position: 0 -954px;
+        }
+        &.spr-martini:before {
+	        background-position: 0 -1060px;
+        }
+        &.spr-cal:before {
+	        background-position: 0 -1166px;
+        }
+    }
+}
+/*#endregion */
+
+/*#region product list with hover */
+
+
+.productsList {
+    font-size:18px;
+    li {
+        position: relative;
+        width: 280px;
+        height: 344px;
+        display: inline-block;
+        margin-bottom: 40px;
+        &:nth-child(3n + 2) {
+            margin: 0 40px 36px 40px;
+        }
+        &:hover {
+            .desc {
+                z-index: 1;
+                position: relative;
+                color: orange;
+                top: -167px;
+                left: 15px;
+            }
+            .hover {
+                display: inline-block;
+                .animation(fadein);
+            }
+        }
+    }
+    
+    a {
+        display: block;
+        background: #fff;
+        width: 100%;
+        height: 180px;
+        .boxSizing;
+        border: 1px solid @color;
+        text-align: center;
+        margin-bottom: 8px;
+        &:before {
+            .pseudo;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -0.25em; /* Adjusts for spacing */
+        }
+    }
+    img {
+        width: 203px;
+        height: 145px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .desc {
+       font-size: 22px; 
+        + .lFloat {
+            
+            color: @color;
+            border-right: 1px solid @shopping-black;
+        } 
+    }
+    .lFloat {
+        margin-top: 5px;
+        .boxSizing;
+        width: 50%;
+        border-top: 1px solid @shopping-black;
+        border-bottom: 1px solid @shopping-black;
+        text-align: center;
+        padding: 4px 0;
+        div {
+            font-size: 30px;
+            + div {
+                font-size: 14px;
+            }
+        }
+    }
+    .rFloat {
+        width: 50%;
+        border-left: 1px solid @shopping-black;
+        background: @color;
+        color: #fff;
+        padding: 7px 0;
+        text-align: center;
+    }
+}
+.hover {
+    display: none;
+    //visibility: hidden;
+    //opacity: .8;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background: @shopping-black;
+    color: #fff;
+    padding: 85px 20px 10px 20px;
+    font-size: 15px;
+    .boxSizing;
+    //.animation(fadein);
+    p {
+        margin-bottom: 15px;
+    }
+    a {
+        width: 100%;
+        height: 50px;
+        display: inline-block;
+        background: #fff;
+        font-size: 35px;
+        color: @shopping-black;
+        border: none;
+    }
+    .lFloat {
+        display: block;
+        //height: 54px;
+        padding: 12px 0;
+        width: 50%;
+        .boxSizing;
+        font-size: 25px;
+        margin: -5px 0 15px;
+    }
+    .numSold {
+
+    }
+    .sale {
+        color: @color;
+        border-left: 1px solid @color;
+    }
+}
+.searchResultsList {
+    display: none;
+}
+
+/*#endregion */
+/*#region footer */
+
+footer {
+    background: @color;
+    > .wpr {
+        text-align: justify; 
+        padding: 35px @wpr-padding;
+        > div {
+            display: inline-block;
+            vertical-align: top;
+            height: 210px;
+        }
+        &:after {
+            content: '';
+            display: inline-block;
+            width: 100%;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+    }
+    
+    h3, a {
+        color: #fff;
+    }
+    h3 {
+        margin-bottom: 10px;
+    }
+    .bottom {
+        height: 70px;
+
+        span {
+
+        }
+    }
+}
+.wpr {
+    width: 1024px;
+    margin: 0 auto;
+    padding: 0 @wpr-padding;
+    .boxSizing;
+}
+.bottom {
+    background: @shopping-black;
+    height: 70px;
+    color: #fff;
+    .wpr {
+        position: relative;
+    }
+    ul {
+        padding-left: 212px;
+    }
+    li, a {
+        display: inline-block;
+    }
+    a {
+        padding: 30px 40px 0 40px;
+
+    }
+}
+.social {
+    margin-top: 14px;
+    button {
+        width: 42px;
+        height: 42px;
+        border-radius: 21px;
+        background: silver;
+        &:nth-child(2) {
+            margin: 0 20px;
+        }
+    }
+}
+
+/*#endregion */
