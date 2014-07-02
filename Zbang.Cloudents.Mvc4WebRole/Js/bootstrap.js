@@ -12,34 +12,34 @@
         'Knockout': '../Scripts/knockout-3.0.0',
         'mLoader': '{R_All-/js/directives/mLoader}',
 
-        'dropbox': '/js/services/dropbox', //box
-        'draganddrop': '/Scripts/draganddrop', //box
-        'trustedHtml': '/js/filters/trustedHtml', //box
+        dropbox: '{R_Box-/js/services/dropbox}', 
+        'draganddrop': '{R_Box-/Scripts/draganddrop}', 
+        'trustedHtml': '{R_Box-/js/filters/trustedHtml}', 
 
-        'item': '/Js/services/item', //box , item
-        'quiz': '/Js/services/quiz', //box, quiz
-        'qna': '/Js/services/qna', // box
-        'upload': '/Js/services/upload', //box
+        'item': '{R_BoxItem-/Js/services/item}',
+        'quiz': '{R_BoxQuiz-/Js/services/quiz}', 
+        'qna': '{R_Box-/Js/services/qna}', 
+        'upload': '{R_Box-/Js/services/upload}',
 
-        'boxCtrl': '/Js/controllers/box/boxCtrl', //box
+        'boxCtrl': '{R_Box-/Js/controllers/box/boxCtrl}', 
 
 
-        tabCtrl: '/Js/controllers/box/tabCtrl', //box
-        qnaCtrl: '/Js/controllers/box/qnaCtrl',//box
-        uploadCtrl: '/Js/controllers/box/uploadCtrl',//box
-        manageCtrl: '/Js/controllers/box/manageCtrl',//box
+        tabCtrl: '{R_Box-/Js/controllers/box/tabCtrl}',
+        qnaCtrl: '{R_Box-/Js/controllers/box/qnaCtrl}',
+        uploadCtrl: '{R_Box-/Js/controllers/box/uploadCtrl}',
+        manageCtrl: '{R_Box-/Js/controllers/box/manageCtrl}',
 
         'routes': '{R_All-/js/routes}',
         'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
         'ngPlaceholder': '{R_All-/js/directives/ngPlaceholder}', 
 
-        'box': '{R_Dashboard-/js/services/box}', // with box
+        'box': '{R_DashboardBox-/js/services/box}', 
 
 
         'dashboard':  '{R_Dashboard-/js/services/dashboard}',
 
-        'user': '{R_Dashboard-/js/services/user}', // with user
-        'newUpdates': '{R_Dashboard-/js/services/newUpdates}', // with box
+        'user': '{R_Dashboard-/js/services/user}', // dashboard user
+        'newUpdates': '{R_DashboardBox-/js/services/newUpdates}', 
 
         'actionText': '{R_Dashboard-/js/filters/actionText}',
         'orderby': '{R_Dashboard-/js/filters/orderBy}',
