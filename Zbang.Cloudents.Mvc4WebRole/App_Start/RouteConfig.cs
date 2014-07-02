@@ -100,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             routes.MapRoute("User",
                 "user/{userId}/{userName}",
-                new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
+                new { controller = "User", action = "Index", userId = UrlParameter.Optional, userName = UrlParameter.Optional },
                 new { userId = new LongRouteConstraint()});
             #endregion
 

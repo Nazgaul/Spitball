@@ -156,10 +156,10 @@
                     'Pubsub',
                     'DataContext',
                     'GenericEvents',
-                    //'User
+                    'User',
                     'UserCtrl',
-                    'Cache',
-                    'ngPlaceholder',
+                    'Cache'
+                    
                 ]
             }
 
