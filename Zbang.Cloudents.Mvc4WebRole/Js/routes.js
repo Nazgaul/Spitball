@@ -26,20 +26,20 @@
                 },
                 templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
                 dependencies: [
-                    '/Scripts/draganddrop.js',
-                    '/Js/filters/trustedHtml.js',
+                    'draganddrop',
+                    'trustedHtml',
                     'box',
-                    '/Js/services/item.js',
-                    '/Js/services/quiz.js',
-                    '/Js/services/qna.js',
-                    '/Js/services/upload.js',
+                    'item',
+                    'quiz',
+                    'qna',
+                    'upload',
                     'newUpdates',
                     'ngPlaceholder',
-                    '/Js/controllers/box/boxCtrl.js',
-                    '/Js/controllers/box/tabCtrl.js',
-                    '/Js/controllers/box/qnaCtrl.js',
-                    '/Js/controllers/box/uploadCtrl.js',
-                    '/Js/controllers/box/manageCtrl.js'
+                    'boxCtrl',
+                    'tabCtrl',
+                    'qnaCtrl',
+                    'uploadCtrl',
+                    'manageCtrl'
                 ]
             },
             '/course/:uniName/:boxId/:boxName/': {
@@ -48,20 +48,20 @@
                 },
                 templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
                 dependencies: [
-                    '/Scripts/draganddrop.js',
-                    '/Js/filters/trustedHtml.js',
+                    'draganddrop',
+                    'trustedHtml',
                     'box',
-                    '/Js/services/item.js',
-                    '/Js/services/quiz.js',
-                    '/Js/services/qna.js',
-                    '/Js/services/upload.js',
+                    'item',
+                    'quiz',
+                    'qna',
+                    'upload',
                     'newUpdates',
                     'ngPlaceholder',
-                    '/Js/controllers/box/boxCtrl.js',
-                    '/Js/controllers/box/tabCtrl.js',
-                    '/Js/controllers/box/qnaCtrl.js',
-                    '/Js/controllers/box/uploadCtrl.js',
-                    '/Js/controllers/box/manageCtrl.js'
+                    'boxCtrl',
+                    'tabCtrl',
+                    'qnaCtrl',
+                    'uploadCtrl',
+                    'manageCtrl'
                 ]
             },
             '/item/:uniName/:boxId/:boxName/:itemId/:itemName/': {
@@ -73,9 +73,9 @@
                         + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName);
                 },
                 dependencies: [
-                   '/Js/services/item.js',
-                   'ngPlaceholder',
-                   '/Js/controllers/item/itemCtrl.js'
+                   'item',
+                   'ngPlaceholder'
+                   //'/Js/controllers/item/itemCtrl.js' - this is empty
                 ]
             },
             '/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/': {
@@ -87,9 +87,9 @@
                         + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName);
                 },
                 dependencies: [
-                   '/Js/services/quiz.js',
-                   'ngPlaceholder',
-                   '/Js/controllers/quiz/quizCtrl.js'
+                   'quiz',
+                   'ngPlaceholder'
+                   //'/Js/controllers/quiz/quizCtrl.js'  - this is empty
                 ]
             },
             '/library/': {

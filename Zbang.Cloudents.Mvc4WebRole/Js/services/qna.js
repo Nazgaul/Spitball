@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('qna', ['app'], function (app) {
     var QnA = '/QnA';
     app.factory('QnA',
         ['$http',
@@ -18,5 +18,5 @@
                 }
             };
         }
-    ]);
+        ]);
 });

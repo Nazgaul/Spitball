@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('boxCtrl',['app'], function (app) {
     app.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal',

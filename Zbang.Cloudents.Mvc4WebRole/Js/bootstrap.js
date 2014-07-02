@@ -1,4 +1,4 @@
-﻿require.config({    
+﻿require.config({
     paths: {
         'app': '{R_All-/js/app}',
         'angular': '../Scripts/angular',
@@ -12,20 +12,35 @@
         'file-upload': '../Scripts/angular-file-upload',
         'Knockout': '../Scripts/knockout-3.0.0',
 
-        'dropbox': '/js/services/dropbox',
+        'dropbox': '/js/services/dropbox', //upload ctrl
+        'draganddrop': '/Scripts/draganddrop', //box
+        'trustedHtml': '/js/filters/trustedHtml', //box
+
+        'item': '/Js/services/item', //box , item
+        'quiz': '/Js/services/quiz', //box, quiz
+        'qna': '/Js/services/qna', // qna
+        'upload': '/Js/services/upload', //box
+
+        'boxCtrl': '/Js/controllers/box/boxCtrl', //box
+
+
+        tabCtrl: '/Js/controllers/box/tabCtrl', //box
+        qnaCtrl: '/Js/controllers/box/qnaCtrl',//box
+        uploadCtrl: '/Js/controllers/box/uploadCtrl',//box
+        manageCtrl: '/Js/controllers/box/manageCtrl',//box
 
         'routes': '{R_All-/js/routes}',
         'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
-        'ngPlaceholder': '{R_All-/Js/directives/ngPlaceholder}', 
+        'ngPlaceholder': '{R_All-/Js/directives/ngPlaceholder}',
 
         'box': '{R_Dashboard-/Js/services/box}', // with box
 
 
-        'dashboard':  '{R_Dashboard-/Js/services/dashboard}',
-       
+        'dashboard': '{R_Dashboard-/Js/services/dashboard}',
+
         'user': '{R_Dashboard-/Js/services/user}', // with user
         'newUpdates': '{R_Dashboard-/Js/services/newUpdates}', // with box
-       
+
         'actionText': '{R_Dashboard-/Js/filters/actionText}',
         'orderby': '{R_Dashboard-/Js/filters/orderBy}',
         'CreateBoxCtrl': '{R_Dashboard-/Js/controllers/dashboard/createBoxCtrl}',
@@ -57,7 +72,7 @@
         },
         'infinite-scroll': {
             deps: ['angular']
-        },       
+        },
         'angular-sanitize': {
             deps: ['angular']
         },

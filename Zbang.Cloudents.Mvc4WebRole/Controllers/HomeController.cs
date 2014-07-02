@@ -346,7 +346,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [OutputCache(Duration = TimeConsts.Day, VaryByParam = "none")]
+        //[OutputCache(Duration = TimeConsts.Day, VaryByParam = "none")]
         public ActionResult Bootstrap()
         {
             var routes = Server.MapPath("~/Js/bootstrap.js");
@@ -386,8 +386,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
             //}
-            var minifer = new Minifier();
-            str = minifer.MinifyJavaScript(str);
+            if (!Request.IsLocal)
+            {
+                var minifer = new Minifier();
+                str = minifer.MinifyJavaScript(str);
+            }
             return Content(str, "application/javascript");
         }
     }

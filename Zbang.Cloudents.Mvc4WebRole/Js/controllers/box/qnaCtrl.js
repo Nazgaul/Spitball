@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('qnaCtrl',['app'], function (app) {
     app.controller('QnACtrl',
     ['$scope',
      'Box',

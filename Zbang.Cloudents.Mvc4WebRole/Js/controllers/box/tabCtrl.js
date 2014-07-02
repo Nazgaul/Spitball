@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿define('tabCtrl',['app'], function (app) {
 	app.controller('createTabCtrl',
 		['$scope',
 		 '$modalInstance',
