@@ -1,4 +1,4 @@
-﻿define('/js/routes.js', [], function () {
+﻿define('routes', [], function () {
     return {
         defaultRoutePath: '/dashboard',
         routes: {
@@ -70,7 +70,7 @@
                 },
                 templateUrl: function (params) {
                     return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                        + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName)
+                        + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName);
                 },
                 dependencies: [
                    '/Js/services/item.js',
@@ -84,7 +84,7 @@
                 },
                 templateUrl: function (params) {
                     return '/quiz/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                        + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName)
+                        + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName);
                 },
                 dependencies: [
                    '/Js/services/quiz.js',
@@ -116,7 +116,7 @@
                 params: {
                     type: 'library'
                 },
-                templateUrl: function (params) { return '/library/' + params.libraryId },
+                templateUrl: function (params) { return '/library/' + params.libraryId; },
                 dependencies: [
                     '/Scripts/externalScriptLoader.js',
                     '/Js/DataContext.js',
@@ -131,7 +131,7 @@
                 params: {
                     type: 'user'
                 },
-                templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName },
+                templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName; },
                 dependencies: [
                     'user',
                     'ngPlaceholder',

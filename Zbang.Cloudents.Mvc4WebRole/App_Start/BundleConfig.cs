@@ -122,13 +122,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //     new JsFileWithCdn("~/Js/app/app.js")
 
             // );
-            RegisterJsRoutes("R_App", "/Js/app.js");
+            //RegisterJsRoutes("R_App", "/Js/app.js");
+
+            RegisterJsRoutes("R_All",
+                "/Js/app.js",
+                "/js/routes",
+                "/js/services/dependencyResolverFor.js",
+                "/Js/directives/ngPlaceholder.js");
 
             RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
                 "/Js/services/box.js",
                 "/Js/services/user.js",
                 "/Js/services/newUpdates.js",
-                "/Js/directives/ngPlaceholder.js",
                 "/Js/filters/actionText.js",
                 "/Js/filters/orderBy.js",
                 "/Js/controllers/dashboard/createBoxCtrl.js",

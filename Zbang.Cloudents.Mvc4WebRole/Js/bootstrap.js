@@ -1,6 +1,6 @@
 ﻿require.config({    
     paths: {
-        'app': '{R_App}',
+        'app': '{R_All-/js/app}',
         'angular': '../Scripts/angular',
         'angular-route': '../Scripts/angular-route',
         'angular-sanitize': '../Scripts/angular-sanitize',
@@ -12,6 +12,9 @@
         'file-upload': '../Scripts/angular-file-upload',
         'Knockout': '../Scripts/knockout-3.0.0',
 
+        'routes': '{R_All-/js/routes}',
+        'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
+        'ngPlaceholder': '{R_All-/Js/directives/ngPlaceholder}', 
 
         'box': '{R_Dashboard-/Js/services/box}', // with box
 
@@ -20,7 +23,7 @@
        
         'user': '{R_Dashboard-/Js/services/user}', // with user
         'newUpdates': '{R_Dashboard-/Js/services/newUpdates}', // with box
-        'ngPlaceholder': '{R_Dashboard-/Js/directives/ngPlaceholder}', // with all
+       
         'actionText': '{R_Dashboard-/Js/filters/actionText}',
         'orderby': '{R_Dashboard-/Js/filters/orderBy}',
         'CreateBoxCtrl': '{R_Dashboard-/Js/controllers/dashboard/createBoxCtrl}',
@@ -71,7 +74,7 @@
 require
 (
     ['app'],
-    function (app) {
+    function () {
         angular.bootstrap(document, ['app']);
     }
 );
