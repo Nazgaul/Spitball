@@ -13,7 +13,7 @@
 
         'routes': '{R_All-/js/routes}',
         'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
-        'ngPlaceholder': '{R_All-/Js/directives/ngPlaceholder}', // with all
+        'ngPlaceholder': '{R_All-/Js/directives/ngPlaceholder}', 
 
         'box': '{R_Dashboard-/Js/services/box}', // with box
 
@@ -60,7 +60,7 @@
 require
 (
     ['app'],
-    function (app) {
+    function () {
         angular.bootstrap(document, ['app']);
     }
 );
