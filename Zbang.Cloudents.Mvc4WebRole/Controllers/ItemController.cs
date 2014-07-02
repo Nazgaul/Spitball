@@ -391,20 +391,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        public ActionResult Delete(long itemId, long boxUid)
+        public ActionResult Delete(long itemId, long boxId)
         {
             try
             {
                 var userEmailId = GetUserId(false);
 
-                var command = new DeleteItemCommand(itemId, userEmailId, boxUid);
+                var command = new DeleteItemCommand(itemId, userEmailId, boxId);
                 ZboxWriteService.DeleteItem(command);
 
                 return Json(new JsonResponse(true, itemId));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", GetUserId(), boxUid, itemId), ex);
+                TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", GetUserId(), boxId, itemId), ex);
                 return Json(new JsonResponse(false));
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -62,18 +63,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //donut output cache doesnt support route
         [DevTrends.MvcDonutCaching.DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang + ";"
-            + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5, Location = System.Web.UI.OutputCacheLocation.Server, Order = 2)]
-        //[Route("Account/{lang:regex(^[A-Za-z]{2}-[A-Za-z]{2}$)?}", Order = 1)]
+            + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,
+            Location = System.Web.UI.OutputCacheLocation.Server
+            )]
         public ActionResult Index(string lang)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-            if (!string.IsNullOrEmpty(lang))
+            if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
             {
-                ChangeThreadLanguage(lang);
+                RouteData.Values.Remove("lang");
+                return RedirectToAction("Index");
             }
+            //if (!string.IsNullOrEmpty(lang))
+            //{
+            //    ChangeThreadLanguage(lang);
+            //}
             return View("Index2");
         }
 

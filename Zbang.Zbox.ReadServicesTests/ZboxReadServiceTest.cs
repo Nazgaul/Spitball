@@ -88,7 +88,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetMyData_Query_ReturnResult()
         {
-            var query = new GetDashboardQuery(1, 1);
+            var query = new GetDashboardQuery(1);
             try
             {
                 m_ZboxReadService.GetMyData(query);

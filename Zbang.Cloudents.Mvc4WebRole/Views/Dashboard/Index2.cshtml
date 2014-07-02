@@ -7,10 +7,9 @@
         <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.GenerateUrl("Index", "Library")">
                 <span class="uniLogo">
-                    <img alt="" width="70" height="70" src="@Model.Img" />
+                    <img alt="University logo" width="70" height="70" src="@Model.Img" />
                 </span>
                 <span class="uniName"><span class="uniText">@Model.Name</span></span>
-
             </a>
             @if (!string.IsNullOrEmpty(Model.AdvertismentUrl))
             {
@@ -101,7 +100,6 @@
             </section>
         </div>
         <script type="text/ng-template" id="dashBoxTemplate">
-
             <a bo-href="box.url">
                 <div bo-if="box.numOfUpdates > 0" class="boxNotify" bo-text="box.numOfUpdates"></div>
                 <div>
@@ -120,6 +118,5 @@
             </a>
             <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" data-title="{{getTitle(box)}}"></button>
         </script>
-
     </div>
 </div>   

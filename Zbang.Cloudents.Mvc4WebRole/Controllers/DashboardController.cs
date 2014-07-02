@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -32,17 +33,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [UserNavNWelcome]
-        //[AjaxCache(TimeConsts.Day)]
-        //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
+        [OutputCache(Duration = 0, VaryByParam = "none", Location = OutputCacheLocation.Server, NoStore = true)]
         public async Task<ActionResult> Index()
         {
-            
-            var userid = GetUserId();
             var userDetail = FormsAuthenticationService.GetUserData();
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no univeristy attribute
             var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
-            var query = new GetDashboardQuery(userid, universityWrapper);
+            var query = new GetDashboardQuery(universityWrapper);
             var model = await ZboxReadService.GetMyData(query);
 
             if (Request.IsAjaxRequest())
@@ -90,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName, model.privacySettings);
                 var result = ZboxWriteService.CreateBox(command);
-                var retVal= result.NewBox.Url;
+                var retVal = result.NewBox.Url;
                 return this.CdJson(new JsonResponse(true, new { Url = retVal }));
 
             }
@@ -101,7 +99,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
             }
         }
-       
+
 
         //TODO: check this out
         [HttpGet, Ajax]
@@ -120,21 +118,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-        #region search
-        //[HttpGet]
-        //[NonAjax]
-        //public ActionResult Search(string query)
-        //{
-        //    return RedirectToActionPermanent("Index", "Search", new { q = query });
-        //}
-
-
-        #endregion search
-
-
-        //TODO: check this out
         #region Friends
         [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
         public ActionResult FriendsPartial()
         {
             try

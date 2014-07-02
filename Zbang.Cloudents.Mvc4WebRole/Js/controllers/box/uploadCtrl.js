@@ -1,4 +1,4 @@
-﻿define(['app','services/dropbox'], function (app,dropboxService) {
+﻿define(['app','dropbox'], function (app,dropboxService) {
     app.controller('UploadCtrl',
         ['$scope', '$rootScope',          
          '$modalInstance', 'Dropbox',

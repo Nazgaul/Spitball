@@ -11,6 +11,8 @@
         'modernizr': '../Scripts/Modernizr',
         'file-upload': '../Scripts/angular-file-upload',
 
+        'dropbox': '/js/services/dropbox',
+
         'routes': '{R_All-/js/routes}',
         'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
         'ngPlaceholder': '{R_All-/Js/directives/ngPlaceholder}', 

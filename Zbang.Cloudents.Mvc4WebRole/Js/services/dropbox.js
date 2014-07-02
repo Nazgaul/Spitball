@@ -1,4 +1,4 @@
-﻿define(['app'], function(app) {    
+﻿define('dropbox', ['app'], function(app) {    
     var dropbox = app.factory('Dropbox', 
         ['$document','$q',
         function($document,$q){

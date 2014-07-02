@@ -45,8 +45,8 @@
                 manageTab: false
             };
 
-            var infoPromise = Box.info({ boxUid: $scope.boxId }), //uid
-                itemsPromise = Box.items({ boxUid: $scope.boxId, pageNumber: 0 }), //uid
+            var infoPromise = Box.info({ id: $scope.boxId }), 
+                itemsPromise = Box.items({ id: $scope.boxId, pageNumber: 0 }),
                 qnaPromise = QnA.list({ boxId: $scope.boxId, uniName: $scope.uniName, boxName: $scope.boxName }),
                 all = $q.all([infoPromise, itemsPromise, qnaPromise]);
 
@@ -87,7 +87,7 @@
                 //type: "Quiz"
                 //userUrl: "/user/1/ram"
 
-                $scope.qna = 'qna'
+                $scope.qna = 'qna';
                 //answers: [{id:233b4bdc-3fb3-4be7-8ec5-a2f400c5063e,…}]
                 //content: "asdsadas"
                 //creationTime: "2014-03-20T09:54:27Z"
@@ -230,7 +230,7 @@
 
             $scope.deleteTab = function (tab) {
                 var data = {
-                    boxUid: $scope.boxId,  //uid
+                    boxId: $scope.boxId,  
                     TabId: tab.id
                 }
                 Box.deleteTab(data).then(function (response) {
@@ -395,7 +395,7 @@
                     case 'Link':
                         var data = {
                             itemId: item.id,
-                            boxUid: $scope.boxId //uid
+                            boxId: $scope.boxId 
                         }
                         Item.delete(data).then(removeItem);
                         break;

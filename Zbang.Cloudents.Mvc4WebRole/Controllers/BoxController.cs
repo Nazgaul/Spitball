@@ -125,9 +125,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [CacheFilter(Duration = 0)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
-        //[AjaxCache(TimeConsts.Minute * 10)]
-        //[Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox", Order = 51)]
-        //[Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox", Order = 52)]
         public ActionResult Index(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);
@@ -196,14 +193,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[AjaxCache(TimeConsts.Minute * 10)]
-        public ActionResult Data(long boxUid)
+        public ActionResult Data(long id)
         {
             var userId = GetUserId(false);
             try
             {
 
-                var query = new GetBoxQuery(boxUid, userId);
+                var query = new GetBoxQuery(id, userId);
                 var result = ZboxReadService.GetBox2(query);
                 return this.CdJson(new JsonResponse(true, result));
             }
@@ -217,22 +213,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Index BoxUid {0} userid {1}", boxUid, userId), ex);
+                TraceLog.WriteError(string.Format("Box Index BoxUid {0} userid {1}", id, userId), ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }
 
-        //TODO: need to remove uni name and boxname once we got url from db + we want to bring tab id as well so filter will be on client side
+        //TODO: need to remove uni name and boxname once we got url from db we want to bring tab id as well so filter will be on client side
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[AjaxCache(TimeConsts.Minute * 10)]
-        public JsonNetResult Items(long boxUid, int pageNumber, Guid? tab)
+        public JsonNetResult Items(long id, int pageNumber, Guid? tab)
         {
             var userId = GetUserId(false); // not really needs it
             try
             {
-                var query = new GetBoxItemsPagedQuery(boxUid, userId, pageNumber, OrderBy.LastModified, tab);
+                var query = new GetBoxItemsPagedQuery(id, userId, pageNumber, OrderBy.LastModified, tab);
                 var result = ZboxReadService.GetBoxItemsPaged2(query);
                 var urlBuilder = new UrlBuilder(HttpContext);
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
@@ -240,7 +236,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     if (item is Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
                     {
-                        item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
+                        item.DownloadUrl = urlBuilder.BuildDownloadUrl(id, item.Id);
                     }
 
                 }
@@ -249,7 +245,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} pageNumber {1} userId {2}", boxUid, pageNumber, userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxUid {0} pageNumber {1} userId {2}", id, pageNumber, userId), ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }
@@ -544,7 +540,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = GetUserId();
-            var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxUid);
+            var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
             ZboxWriteService.DeleteBoxItemTab(command);
             return Json(new JsonResponse(true));
         }
