@@ -12,13 +12,13 @@
         'file-upload': '../Scripts/angular-file-upload',
         'Knockout': '../Scripts/knockout-3.0.0',
 
-        'dropbox': '/js/services/dropbox', //upload ctrl
+        'dropbox': '/js/services/dropbox', //box
         'draganddrop': '/Scripts/draganddrop', //box
         'trustedHtml': '/js/filters/trustedHtml', //box
 
         'item': '/Js/services/item', //box , item
         'quiz': '/Js/services/quiz', //box, quiz
-        'qna': '/Js/services/qna', // qna
+        'qna': '/Js/services/qna', // box
         'upload': '/Js/services/upload', //box
 
         'boxCtrl': '/Js/controllers/box/boxCtrl', //box

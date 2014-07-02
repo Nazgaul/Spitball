@@ -146,6 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/Js/controllers/dashboard/showFriendsCtrl.js",
                 "/Js/controllers/dashboard/dashboardCtrl.js");
 
+
             RegisterJsRoutes("R_Library",
                 "/Scripts/externalScriptLoader.js",
                 "/Js/Utils.js",
