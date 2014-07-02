@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 @model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserMinProfile
 
-<div class="userPage page" id="user" data-firsttime="true" data-bind="delegatedHandler: 'click',css : { myPage : viewSelf() }">
+<div class="userPage page" id="user" ng-controller="User" data-firsttime="true" data-bind="delegatedHandler: 'click',css : { myPage : viewSelf() }">
     <div class="upContentWpr">
         <div class="upTop">
 

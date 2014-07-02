@@ -113,7 +113,7 @@
                     'DataContext',
 
                     'GenericEvents',
-                    //'library            '/Js/services/library.js',           
+                    //'library         library service
                     'LibraryCtrl',
                     'Cache',
                     'ngPlaceholder',
@@ -134,7 +134,7 @@
                     'DataContext',
 
                     'GenericEvents',
-                    //'library            '/Js/services/library.js',           
+                    //'library service
                     'LibraryCtrl',
                     'Cache',
                     'ngPlaceholder',
@@ -146,11 +146,19 @@
                 params: {
                     type: 'user'
                 },
-                templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName; },
-                dependencies: [
-                    'user',
+                templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName + '/'; },
+                dependencies: [                    
+                    'ngPlaceholder',                    
+                    'extScriptLdr',
+                    'Dialog',
+                    'Utils',
+                    'Pubsub',
+                    'DataContext',
+                    'GenericEvents',
+                    //'User
+                    'UserCtrl',
+                    'Cache',
                     'ngPlaceholder',
-                    '/Js/controllers/library/userCtrl.js'
                 ]
             }
 

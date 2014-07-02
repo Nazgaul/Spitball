@@ -77,6 +77,10 @@
                     cd.pubusub.pubish('libraryclear');
                     break;
                 }
+                case 'user': {
+                    cd.pubusub.pubish('userclear');
+                    break;
+                }
                 case 'item': {
                     cd.pubusub.pubish('itemclear');
                     break;

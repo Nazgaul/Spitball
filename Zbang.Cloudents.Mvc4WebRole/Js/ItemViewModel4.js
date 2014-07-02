@@ -326,6 +326,11 @@
                     cd.pubsub.publish(consts.itemLoad, null, function () {
                         cd.innerScroll($itemMoreFiles, $(window).height() - $itemMoreFiles.offset().top);
                         itemPageLoad.resolve();
+
+                        var $rootScope = angular.element(document).scope();
+                        $rootScope.$apply(function () {
+                            $rootScope.$broadcast('viewContentLoaded');
+                        });
                     });
 
                     loaded = true;

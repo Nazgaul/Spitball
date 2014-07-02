@@ -62,10 +62,13 @@
         
         //'library            '/js/services/library.js',           
 
+        //User
+        'UserCtrl': '{R_User-/js/controllers/user/userCtrl}',
+        'User': '{R_User-/js/User}',
 
         //Item 
         //'item     '{R_Item-'/js/services/item.js'},
-        'ItemCtrl': '{R_Item-/js/controllers/library/libraryCtrl}',
+        'ItemCtrl': '{R_Item-/js/controllers/item/itemCtrl}',
         'Item': '{R_Item-/js/ItemViewModel4}',
     },
     shim: {

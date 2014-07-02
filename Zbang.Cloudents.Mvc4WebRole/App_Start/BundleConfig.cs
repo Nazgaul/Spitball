@@ -157,16 +157,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/controllers/dashboard/dashboardCtrl.js");
 
 
-            RegisterJsRoutes("R_Library",
-                "/Scripts/externalScriptLoader.js",
-                "/js/Utils.js",
-                "/js/pubsub.js",
-                "/js/DataContext.js",
-                "/js/Dialog.js",
-                "/js/GenericEvents.js",
+            RegisterJsRoutes("R_Library",             
                 "/js/controllers/library/libraryCtrl.js",
-                "/js/Library.js",
-                "/js/Cache.js");
+                "/js/Library.js"
+                );
+
+            RegisterJsRoutes("R_User",             
+                "/js/controllers/user/userCtrl.js",
+                "/js/User.js"
+                );
 
             RegisterJsRoutes("R_Item",
                 "/js/controllers/item/itemCtrl.js",
