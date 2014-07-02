@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static string JsRemoteLinks(string key)
         {
             return JsRemoteBundles[key];
-            
+
         }
 
 
@@ -127,7 +127,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
             //     new JsFileWithCdn("~/Js/app/app.js")
 
-            // );
+            // );js/ItemViewModel4
             //RegisterJsRoutes("R_App", "/Js/app.js");
 
             RegisterJsRoutes("R_All",
@@ -136,6 +136,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/services/dependencyResolverFor.js",
                 "/js/directives/ngPlaceholder.js",
                 "/js/directives/mLoader.js");
+
+            RegisterJsRoutes("R_OldAll",
+                          "/Scripts/externalScriptLoader.js",
+                "/js/Utils.js",
+                "/js/pubsub.js",
+                "/js/DataContext.js",
+                "/js/Dialog.js",
+                "/js/GenericEvents.js",
+                "/js/Cache.js");
 
             RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
                 "/js/services/box.js",
@@ -159,6 +168,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/Library.js",
                 "/js/Cache.js");
 
+            RegisterJsRoutes("R_Item",
+                "/js/controllers/item/itemCtrl.js",
+                "js/ItemViewModel4"
+                );
 
             RegisterJsRegular("home",
                 new JsFileWithCdn("~/Js/Logon.js"),

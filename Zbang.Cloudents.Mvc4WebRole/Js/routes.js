@@ -24,7 +24,7 @@
                 params: {
                     type: 'box'
                 },
-                templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
+                templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; },
                 dependencies: [
                     'draganddrop',
                     'trustedHtml',
@@ -46,7 +46,7 @@
                 params: {
                     type: 'box'
                 },
-                templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName); },
+                templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; },
                 dependencies: [
                     'draganddrop',
                     'trustedHtml',
@@ -70,12 +70,20 @@
                 },
                 templateUrl: function (params) {
                     return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                        + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName);
+                        + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName) + '/';
                 },
                 dependencies: [
-                   'item',
-                   'ngPlaceholder'
-                   //'/Js/controllers/item/itemCtrl.js' - this is empty
+                //   'item',
+                   'ngPlaceholder',
+                   'ItemCtrl',
+                'extScriptLdr',
+                'Utils',
+                'Pubsub',
+                'DataContext',
+                'GenericEvents',                
+                'Cache',
+                'ngPlaceholder',
+                'Item'
                 ]
             },
             '/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/': {

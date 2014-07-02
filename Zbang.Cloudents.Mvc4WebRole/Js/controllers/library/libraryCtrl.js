@@ -3,6 +3,8 @@
         ['$scope',
         function ($scope) {
             cd.pubsub.publish('initLibrary');
+
+            //todo proper return;
         }
     ]);
 });
