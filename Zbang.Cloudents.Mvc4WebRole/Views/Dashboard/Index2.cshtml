@@ -2,15 +2,14 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="dashboard" class="page dashboard">
-    <div class="dashContent" ng-controller="DashboardController">
+<div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
+    <div class="dashContent">
         <aside class="asideDash lFloat">
-            <a class="dashTop" href="@Url.GenerateUrl("Index", "Library")" data-navigation="Library">
+            <a class="dashTop" href="@Url.GenerateUrl("Index", "Library")">
                 <span class="uniLogo">
-                    <img alt="" width="70" height="70" src="@Model.Img" />
+                    <img alt="University logo" width="70" height="70" src="@Model.Img" />
                 </span>
                 <span class="uniName"><span class="uniText">@Model.Name</span></span>
-
             </a>
             @if (!string.IsNullOrEmpty(Model.AdvertismentUrl))
             {
@@ -26,12 +25,12 @@
                     <ul class="friendsList">
 
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
-                            <a href="{{friend.url}}" data-navigation="user">
+                            <a href="{{friend.url}}">
                                 <img class="friendImg calloutTrgr" ng-src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
                             </a>
                         </li>
                         <li class="friendItem friendBtn" data-action="true">
-                            <a data-navigation="invite" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents"
+                            <a data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents"
                                href="@Url.Action("Index", "Invite", new {boxid = "" })" class="inviteFriendBtn btn3"></a>
                         </li>
                     </ul>
@@ -44,10 +43,10 @@
                                 <li class="activityItem" ng-repeat="activity in wall">
                                     <img class="asideImg calloutTrgr asideImgLink" ng-src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
                                     <div class="latest">
-                                        <a data-navigation="Box" href="{{activity.url}}">
+                                        <a href="{{activity.url}}">
                                             <div class="latestName elps">{{activity.boxName}}</div>
                                             <span class="semiFont">{{activity.userName}}</span>
-                                            <span class="activityAction">{{activity.action | actionText}}</span>
+                                            <span class="activityAction">{{activity.action}}</span>
                                         </a>
                                     </div>
                                 </li>
@@ -59,9 +58,9 @@
             </div>
 
         </aside>
-        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
+        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}" infinite-scroll="addBoxes()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
             <section class="unionCourses">
-                <header class="boxesHeader" ng-show="contentLoaded">{{title}}</header>
+                <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
 
                 <div ng-hide="academicBoxes.length > 0" class="emptyDash">
                     <div class="followEmpty">
@@ -72,10 +71,10 @@
                 <ol class="myAreaList clearfix">
                     <li class="box">
                         <a class="addBtn browse"
-                           href="@Url.Action("Index","Library")" data-navigation="Library">@SharedResources.BrowseCourses</a>
+                           href="@Url.Action("Index","Library")">@SharedResources.BrowseCourses</a>
                     </li>
 
-                    <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'">
+                    <li ng-repeat="box in academicBoxes | limitTo: options.maxAcademicVisible" class="box" ng-include="'dashBoxTemplate'" bindonce>
 
                     </li>
 
@@ -94,32 +93,30 @@
                     <li ng-click="openCreateBox()" class="box">
                         <button ng-click="createBox" class="addBtn">@SharedResources.CreateNew</button>
                     </li>
-                    <li ng-repeat="box in groupBoxes" class="box" ng-include="'dashBoxTemplate'">
+                    <li ng-repeat="box in groupBoxes | limitTo: options.maxGroupVisible" class="box" ng-include="'dashBoxTemplate'" bindonce>
 
                     </li>
                 </ol>
             </section>
         </div>
         <script type="text/ng-template" id="dashBoxTemplate">
-
-            <a data-navigation="Box" ng-href="{{box.url}}">
-                <div ng-show="box.numOfUpdates > 0" class="boxNotify">{{box.numOfUpdates}}</div>
+            <a bo-href="box.url">
+                <div bo-if="box.numOfUpdates > 0" class="boxNotify" bo-text="box.numOfUpdates"></div>
                 <div>
                     <img class="boxImg" ng-src="{{box.boxPicture}}" alt="" width="77" height="98" />
                     <ul class="boxHoverList">
-                        <li class="hoverItem itemImg">{{box.itemCount}}</li>
-                        <li class="hoverItem memberImg">{{box.membersCount}}</li>
-                        <li class="hoverItem commentImg">{{box.commentCount}}</li>
+                        <li class="hoverItem itemImg" bo-text="box.itemCount"></li>
+                        <li class="hoverItem memberImg" bo-text="box.membersCount"></li>
+                        <li class="hoverItem commentImg" bo-text="box.commentCount"></li>
                     </ul>
                 </div>
                 <div class="boxWpr clamp2">
-                    <span class="boxName">{{box.name}}</span>
+                    <span class="boxName" bo-text="box.name"></span>
                 </div>
-                <span class="courseCode elps">{{box.courseCode}}</span>
-                <span class="courseCode propName elps">{{box.professor}}</span>
+                <span class="courseCode elps" bo-text="box.courseCode"></span>
+                <span class="courseCode propName elps" bo-text="box.professor"></span>
             </a>
             <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" data-title="{{getTitle(box)}}"></button>
         </script>
-
     </div>
-</div>
+</div>   

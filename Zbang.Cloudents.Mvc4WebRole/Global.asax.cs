@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using System.Web.Routing;
-using Zbang.Cloudents.Mvc4WebRole.App_Start;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Security;
@@ -50,72 +49,71 @@ namespace Zbang.Cloudents.Mvc4WebRole
             TraceLog.WriteInfo("Application ending");
         }
 
-        //protected void Application_BeginRequest()
-        //{
 
-        //    try
-        //    {
-        //        if (User != null && User.Identity.IsAuthenticated)
-        //        {
-        //            var formsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
-        //            var userData = formsAuthenticationService.GetUserData();
-        //            if (userData != null)
-        //            {
-        //                ChangeThreadLanguage(userData.Language);
-        //                return;
-        //            }
-        //        }
+        //for output cache
+        protected void Application_BeginRequest()
+        {
+            try
+            {
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    var formsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
+                    var userData = formsAuthenticationService.GetUserData();
+                    if (userData != null)
+                    {
+                        ChangeThreadLanguage(userData.Language);
+                        return;
+                    }
+                }
 
-        //        if (Request.QueryString["lang"] != null)
-        //        {
-        //            ChangeThreadLanguage(Request.QueryString["lang"]);
-        //            return;
-        //        }
-        //        if (Request.Cookies["lang"] != null)
-        //        {
-        //            var value = Server.HtmlEncode(Request.Cookies["lang"].Value);
-        //            ChangeThreadLanguage(value);
-        //            return;
-        //        }
+                if (Request.QueryString["lang"] != null)
+                {
+                    ChangeThreadLanguage(Request.QueryString["lang"]);
+                    return;
+                }
+                if (Request.Cookies["lang"] != null)
+                {
+                    var value = Server.HtmlEncode(Request.Cookies["lang"].Value);
+                    ChangeThreadLanguage(value);
+                    return;
+                }
 
-        //        if (Request.UserLanguages == null) return;
-        //        foreach (var languageWithRating in Request.UserLanguages)
-        //        {
-        //            if (string.IsNullOrEmpty(languageWithRating))
-        //            {
-        //                continue;
-        //            }
-        //            var userLanguage = languageWithRating.Split(';')[0];
-        //            if (Languages.CheckIfLanguageIsSupported(userLanguage))
-        //            {
-        //                ChangeThreadLanguage(userLanguage);
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("initialize", ex);
-        //    }
-        //}
+                if (Request.UserLanguages == null) return;
+                foreach (var languageWithRating in Request.UserLanguages)
+                {
+                    if (string.IsNullOrEmpty(languageWithRating))
+                    {
+                        continue;
+                    }
+                    var userLanguage = languageWithRating.Split(';')[0];
+                    if (!Languages.CheckIfLanguageIsSupported(userLanguage)) continue;
+                    ChangeThreadLanguage(userLanguage);
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("initialize", ex);
+            }
+        }
 
-        //protected void ChangeThreadLanguage(string language)
-        //{
-        //    if (!Languages.CheckIfLanguageIsSupported(language))
-        //    {
-        //        return;
-        //    }
-        //    if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
-        //    try
-        //    {
-        //        var cultureInfo = new CultureInfo(language);
-        //        Thread.CurrentThread.CurrentUICulture = cultureInfo;
-        //        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-        //    }
-        //    catch (CultureNotFoundException)
-        //    {
-        //    }
-        //}
+        protected void ChangeThreadLanguage(string language)
+        {
+            if (!Languages.CheckIfLanguageIsSupported(language))
+            {
+                return;
+            }
+            if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
+            try
+            {
+                var cultureInfo = new CultureInfo(language);
+                Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+            }
+            catch (CultureNotFoundException)
+            {
+            }
+        }
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
             try

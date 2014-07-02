@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.WebPages;
 
 namespace Zbang.Cloudents.Mvc4WebRole
@@ -8,16 +9,21 @@ namespace Zbang.Cloudents.Mvc4WebRole
         internal static void RegisterDisplays()
         {
             //Iphone app is not going to mobile site
+            //DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("mobile")
+            //{
+            //    ContextCondition = (
+            //    c => c.GetOverriddenUserAgent() != null &&
+            //        c.GetOverriddenUserAgent().IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0)
+            //});
+            //DisplayModeProvider.Instance.Modes.Insert(2, new DefaultDisplayMode("mobile")
+            //{
+            //    ContextCondition = (c => c.GetOverriddenUserAgent() != null &&
+            //        c.GetOverriddenUserAgent().IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0)
+            //});
+
             DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("mobile")
             {
-                ContextCondition = (
-                c => c.GetOverriddenUserAgent() != null &&
-                    c.GetOverriddenUserAgent().IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0)
-            });
-            DisplayModeProvider.Instance.Modes.Insert(2, new DefaultDisplayMode("mobile")
-            {
-                ContextCondition = (c => c.GetOverriddenUserAgent() != null &&
-                    c.GetOverriddenUserAgent().IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0)
+                ContextCondition = (c => CheckIfMobileView(c))
             });
             // DisplayModeProvider.Instance.Modes.Clear();
             //DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode(string.Empty)
@@ -35,10 +41,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             });
 
+            
+
             //DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("mobile")
             //{
             //    ContextCondition = (context => isAndroid(context))
             //});
+        }
+        internal static bool CheckIfMobileView(HttpContextBase c)
+        {
+            return (c.GetOverriddenUserAgent() != null &&
+                   c.GetOverriddenUserAgent().IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0) || 
+                   (c.GetOverriddenUserAgent() != null &&
+                    c.GetOverriddenUserAgent().IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         //internal static bool isAndroid(HttpContextBase context)

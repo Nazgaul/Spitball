@@ -11,7 +11,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -79,12 +78,53 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [UserNavNWelcome]
+        public ActionResult IndexDesktop(string universityName, long boxId, string boxName)
+        {
+            var userId = GetUserId(false);
+            try
+            {
+                
+                var query = new GetBoxQuery(boxId, userId);
+                var box = ZboxReadService.GetBox2(query);
+                if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
+                {
+
+                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, box.Name,
+                        box.OwnerName, BaseControllerResources.Cloudents);
+                    ViewBag.metaDescription = Regex.Replace(string.Format(
+                        BaseControllerResources.MetaDescription, box.Name,
+                        string.IsNullOrWhiteSpace(box.CourseId) ? string.Empty : string.Format(", #{0}", box.CourseId),
+                        string.IsNullOrWhiteSpace(box.ProfessorName)
+                            ? string.Empty
+                            : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, box.ProfessorName)),
+                        @"\s+", " ");
+                }
+                else
+                {
+                    ViewBag.title = string.Format("{0} | {1}", box.Name, BaseControllerResources.Cloudents);
+                }
+                return View("Empty");
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
+            }
+            catch (BoxDoesntExistException)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
+                return RedirectToAction("Index", "Error");
+            }
+        }
+
         [CacheFilter(Duration = 0)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
-        [AjaxCache(TimeConsts.Minute * 10)]
-        [Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
-        [Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
         public ActionResult Index(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);
@@ -153,14 +193,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [AjaxCache(TimeConsts.Minute * 10)]
-        public ActionResult Data(long boxUid)
+        public ActionResult Data(long id)
         {
             var userId = GetUserId(false);
             try
             {
 
-                var query = new GetBoxQuery(boxUid, userId);
+                var query = new GetBoxQuery(id, userId);
                 var result = ZboxReadService.GetBox2(query);
                 return this.CdJson(new JsonResponse(true, result));
             }
@@ -174,22 +213,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Index BoxUid {0} userid {1}", boxUid, userId), ex);
+                TraceLog.WriteError(string.Format("Box Index BoxUid {0} userid {1}", id, userId), ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }
 
-//TODO: need to remove uni name and boxname once we got url from db + we want to bring tab id as well so filter will be on client side
+        //TODO: need to remove uni name and boxname once we got url from db we want to bring tab id as well so filter will be on client side
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [AjaxCache(TimeConsts.Minute * 10)]
-        public JsonNetResult Items(long boxUid, int pageNumber, Guid? tab)
+        //[AjaxCache(TimeConsts.Minute * 10)]
+        public JsonNetResult Items(long id, int pageNumber, Guid? tab)
         {
             var userId = GetUserId(false); // not really needs it
             try
             {
-                var query = new GetBoxItemsPagedQuery(boxUid, userId, pageNumber, OrderBy.LastModified, tab);
+                var query = new GetBoxItemsPagedQuery(id, userId, pageNumber, OrderBy.LastModified, tab);
                 var result = ZboxReadService.GetBoxItemsPaged2(query);
                 var urlBuilder = new UrlBuilder(HttpContext);
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
@@ -197,16 +236,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     if (item is Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
                     {
-                        item.DownloadUrl = urlBuilder.BuildDownloadUrl(boxUid, item.Id);
+                        item.DownloadUrl = urlBuilder.BuildDownloadUrl(id, item.Id);
                     }
-                   
+
                 }
                 var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
                 return this.CdJson(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} pageNumber {1} userId {2}", boxUid, pageNumber, userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxUid {0} pageNumber {1} userId {2}", id, pageNumber, userId), ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }
@@ -221,7 +260,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax, HttpGet]
-        [AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
+        //[AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
         public JsonNetResult Members(long boxUid)
         {
             var userId = GetUserId(false);
@@ -272,7 +311,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.Professor, model.CourseCode, model.Picture, model.BoxPrivacy, model.Notification);
                 ZboxWriteService.ChangeBoxInfo(commandBoxName);
                 // ChangeNotification(model.BoxUid, model.Notification);
-                return this.CdJson(new JsonResponse(true, new {queryString = UrlBuilder.NameToQueryString(model.Name)}));
+                return this.CdJson(new JsonResponse(true, new { queryString = UrlBuilder.NameToQueryString(model.Name) }));
             }
             catch (UnauthorizedAccessException)
             {
@@ -489,7 +528,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = GetUserId();
-            var command = new ChangeItemTabNameCommand(model.TabId, model.NewName, userId, model.BoxUid);
+            var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
             ZboxWriteService.RenameBoxItemTab(command);
             return this.CdJson(new JsonResponse(true));
         }
@@ -501,9 +540,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = GetUserId();
-            var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxUid);
+            var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
             ZboxWriteService.DeleteBoxItemTab(command);
             return Json(new JsonResponse(true));
+        }
+    
+        //TODO: guy added is
+        [HttpGet, Ajax]
+        public ActionResult CreateTabPartial()
+        {
+            try
+            {
+                return PartialView("_CreateTab");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_CreateTab ", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
         }
         #endregion
 
@@ -518,5 +572,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true));
         }
 
-    }
+        //TODO: guy added is, maybe change place?
+        [HttpGet, Ajax]
+        public ActionResult UploadPartial()
+        {
+            try
+            {
+                return PartialView("_UploadDialog");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_UploadDialog ", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+
+        //TODO: guy added is, maybe change place?
+        [HttpGet, Ajax]
+        public ActionResult UploadLinkPartial()
+        {
+            try
+            {
+                return PartialView("_UploadAddLink");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_UploadAddLink", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+
+    }       
 }

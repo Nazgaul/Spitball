@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿using System.Text.RegularExpressions;
+using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Microsoft.Ajax.Utilities;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -27,7 +29,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class HomeController : BaseController
     {
-
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly Lazy<ICache> m_CahceProvider;
@@ -48,13 +49,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[ZboxAuthorize]
         [NoUniversityAttribute]
+        [NonAjax]
+        [OutputCache(Duration=0, VaryByParam="none", Location=System.Web.UI.OutputCacheLocation.Server)]
+        //[Route("box:desktop/my/{boxId:long}/{boxName}", Name = "PrivateBoxDesktop", Order = 1)]
+        //[Route("course:desktop/{universityName}/{boxId:long}/{boxName}", Name = "CourseBoxDesktop", Order = 2)]
         public ActionResult Index(long? universityId)
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Account", new { universityId });
+                //return RedirectToActionPermanent("Index", "Dashboard");
+            }
+            //this is the only place we need
+            if (DisplayConfig.CheckIfMobileView(HttpContext))
             {
                 return RedirectToActionPermanent("Index", "Dashboard");
             }
-            return RedirectToAction("Index", "Account", new { universityId });
+
+            return View();
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
@@ -153,7 +165,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [DonutOutputCache(Duration = TimeConsts.Hour * 2,
+        [DonutOutputCache(Duration = TimeConsts.Day,
             VaryByParam = "none", Location = OutputCacheLocation.ServerAndClient,
             VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
         public ActionResult JsResources()
@@ -198,24 +210,61 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //    return Content(sb.ToString(), "application/javascript");
             //}
         }
+
+
         [AllowAnonymous]
         [HttpGet]
-        [OutputCache(Duration = 24 * 60 * 60, Location = System.Web.UI.OutputCacheLocation.Any)]
-        public async Task<ActionResult> SiteMap()
+        [OutputCache(Duration = TimeConsts.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
+        public async Task<ActionResult> SiteMap(int? index)
         {
-            var content = await GetSitemapXml();
+            if (!index.HasValue)
+            {
+                var contentIndex = await GetSitemapIndex();
+                return Content(contentIndex, "application/xml", Encoding.UTF8);
+            }
+            var content = await GetSitemapXml(index.Value);
             return Content(content, "application/xml", Encoding.UTF8);
         }
 
+        private async Task<string> GetSitemapIndex()
+        {
+            const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
+            XNamespace xmlns = sitemapsNamespace;
+            var noOfSiteMaps = await ZboxReadService.GetSeoItemCount();
+
+            var root = new XElement(xmlns + "sitemapindex");
+            for (int i = 1; i <= noOfSiteMaps; i++)
+            {
+                root.Add(
+                    new XElement(xmlns + "sitemap",
+                        new XElement(xmlns + "loc", string.Format("https://www.cloudents.com/sitemap-{0}.xml", i))
+                           )
+                        );
+
+            }
+            using (var ms = new MemoryStream())
+            {
+                using (var writer = new StreamWriter(ms, Encoding.UTF8))
+                {
+                    root.Save(writer);
+                }
+
+                return Encoding.UTF8.GetString(ms.ToArray());
+            }
+
+
+        }
+
         [NonAction]
-        private async Task<string> GetSitemapXml()
+        private async Task<string> GetSitemapXml(int index)
         {
             const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XNamespace xmlns = sitemapsNamespace;
 
-            var nodes = await GetSitemapNodes();
+            var nodes = await GetSitemapNodes(index);
 
             var root = new XElement(xmlns + "urlset");
+
 
 
             foreach (var node in nodes)
@@ -240,81 +289,109 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [NonAction]
-        private async Task<IEnumerable<SitemapNode>> GetSitemapNodes()
+        private async Task<IEnumerable<SitemapNode>> GetSitemapNodes(int index)
         {
-            var urlBuilder = new UrlBuilder(HttpContext);
             var requestContext = ControllerContext.RequestContext;
-            var nodes = new List<SitemapNode>
+            var nodes = new List<SitemapNode>();
+            if (index == 1)
             {
+                nodes.Add(
                 new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Index" })
                 {
                     Priority = 1.0,
                     Frequency = SitemapFrequency.Daily
-                },
-                new SitemapNode("/account/he-il/",requestContext)
-                {
-                    Priority = 1.0,
-                    Frequency = SitemapFrequency.Daily
-                },
-                new SitemapNode("/account/ru-ru/",requestContext)
-                {
-                    Priority = 1.0,
-                    Frequency = SitemapFrequency.Daily
-                },
-                 new SitemapNode(requestContext, new { area = "", controller = "Home", action = "AboutUs" })
-                {
-                    Priority = 0.95,
-                    Frequency = SitemapFrequency.Daily
-                },
-                  new SitemapNode(requestContext, new { area = "", controller = "Home", action = "ContactUs" })
-                {
-                    Priority = 0.95,
-                    Frequency = SitemapFrequency.Daily
-                },
-                  new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Privacy" })
-                {
-                    Priority = 0.8,
-                    Frequency = SitemapFrequency.Daily
-                },
-                  new SitemapNode(requestContext, new { area = "", controller = "Home", action = "TermsOfService" })
-                {
-                    Priority = 0.8,
-                    Frequency = SitemapFrequency.Daily
-                }
-            };
+                });
+                nodes.Add(
+                    new SitemapNode("/account/he-il/", requestContext)
+                    {
+                        Priority = 1.0,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                    new SitemapNode("/account/ru-ru/", requestContext)
+                    {
+                        Priority = 1.0,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "AboutUs" })
+                    {
+                        Priority = 0.95,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "ContactUs" })
+                    {
+                        Priority = 0.95,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Privacy" })
+                    {
+                        Priority = 0.8,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "TermsOfService" })
+                    {
+                        Priority = 0.8,
+                        Frequency = SitemapFrequency.Daily
+                    });
+            }
 
-            //nodes.Add(new SitemapNode(this.ControllerContext.RequestContext, new { area = "", controller = "Home", action = "Index" })
-            //{
-            //    Frequency = SitemapFrequency.Always,
-            //    Priority = 0.8
-            //});
-            var seoItems = await ZboxReadService.GetSeoBoxesAndItems();
-            foreach (var box in seoItems.Boxes.Take(9500))
-            {
-                nodes.Add(new SitemapNode(box.Url, requestContext));
-            }
-            var maxElement = 40000;
-            foreach (var item in seoItems.Quizes)
-            {
-                nodes.Add(new SitemapNode(item.Url, requestContext));
-                maxElement--;
-            }
-            foreach (var item in seoItems.Items.Take(maxElement))
-            {
-                nodes.Add(new SitemapNode(item.Url, requestContext));
-            }
-            //var items = Query(new GetSeoContentPages(false));
-            //foreach (var item in items)
-            //{
-            //    nodes.Add(new SitemapNode(this.ControllerContext.RequestContext, new { area = "", controller = "Page", action = "ContentPage", id = item.Slug })
-            //    {
-            //        Frequency = SitemapFrequency.Yearly,
-            //        Priority = 0.5,
-            //        LastModified = item.Modified
-            //    });
-            //}
+            var seoItems = await ZboxReadService.GetSeoItems(index);
+            nodes.AddRange(seoItems.Select(box => new SitemapNode(box, requestContext)));
 
             return nodes;
+        }
+
+
+        //[OutputCache(Duration = TimeConsts.Day, VaryByParam = "none")]
+        public ActionResult Bootstrap()
+        {
+            var routes = Server.MapPath("~/Js/bootstrap.js");
+            var str = System.IO.File.ReadAllText(routes);
+
+            //var jsFileLocations = BundleConfig.JsRemoteLinks();
+            var matches = Regex.Matches(str, @"\{(.*?)\}");
+            foreach (Match match in matches)
+            {
+                var matchWithoutBrackets = match.Value.Replace("{", string.Empty).Replace("}", string.Empty);
+                var filesToFind = matchWithoutBrackets.Split('-');
+                var jsFileLocation = BundleConfig.JsRemoteLinks(filesToFind[0]);
+                var files = jsFileLocation.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+                var retVal = files[0];
+                if (filesToFind.Length == 2)
+                {
+
+                    retVal = files.FirstOrDefault(
+                        f =>
+                            String.Equals(f.Trim().Replace(".js", string.Empty), filesToFind[1],
+                                StringComparison.CurrentCultureIgnoreCase))
+                                 ?? files[0];
+                }
+
+                str = str.Replace(match.Value, retVal.Replace(".js", string.Empty).Trim());
+
+
+            }
+            //foreach (var jsFileLocation in jsFileLocations)
+            //{
+
+            //    var files = jsFileLocation.Value.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+            //    matches.
+            //    //var jsFiles = jsFileLocation.Value.Trim();
+
+            //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
+            //}
+            if (!Request.IsLocal)
+            {
+                var minifer = new Minifier();
+                str = minifer.MinifyJavaScript(str);
+            }
+            return Content(str, "application/javascript");
         }
     }
 }

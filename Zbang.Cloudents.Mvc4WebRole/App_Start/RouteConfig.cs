@@ -1,8 +1,12 @@
 ﻿//using Microsoft.AspNet.SignalR;
-using System.Web.Mvc;
-using System.Web.Routing;
 
-namespace Zbang.Cloudents.Mvc4WebRole.App_Start
+using System.Web.Mvc;
+using System.Web.Mvc.Routing;
+using System.Web.Mvc.Routing.Constraints;
+using System.Web.Routing;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
+
+namespace Zbang.Cloudents.Mvc4WebRole
 {
     public class RouteConfig
     {
@@ -11,48 +15,148 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.LowercaseUrls = true;
             routes.AppendTrailingSlash = true;
-            
-            
-            
-          //  routes.MapRoute(
-          //    "DownloadAll",
-          //    "DownloadBox/{boxid}",
-          //    new { controller = "Storage", action = "DownloadAllBoxItem", boxId = "boxid" }
-          //);
-            routes.MapMvcAttributeRoutes();
-            //routes.MapRoute(
-            //   "FileHandler",
-            //   "D/{BoxUid}/{itemId}",
-            //   new { controller = "Item", action = "Download", BoxUid = UrlParameter.Optional, ItemUid = UrlParameter.Optional });
+
+            var constraintsResolver = new DefaultInlineConstraintResolver();
+            constraintsResolver.ConstraintMap.Add("desktop", typeof (DesktopConstraint));
+            routes.MapMvcAttributeRoutes(constraintsResolver);
+
 
             routes.MapRoute("AccountLanguage",
                 "account/{lang}",
-                new {controller = "Account", action = "Index", lang = UrlParameter.Optional},
-                new {lang = "^[A-Za-z]{2}-[A-Za-z]{2}$"});
-            
+                new { controller = "Account", action = "Index", lang = UrlParameter.Optional },
+                new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
+
+
+            routes.MapRoute("DashboardDesktop",
+                "dashboard",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint() }
+            );
+
+          
+
+            #region Box
+            routes.MapRoute("PrivateBoxDesktop",
+                  "box/my/{boxId}/{boxName}",
+                  new { controller = "Box", action = "IndexDesktop" },
+                  new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
+              );
+            routes.MapRoute("CourseBoxDesktop",
+              "course/{universityName}/{boxId}/{boxName}",
+              new { controller = "Box", action = "IndexDesktop" },
+              new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
+          );
+
+            routes.MapRoute("PrivateBox",
+            "box/my/{boxId}/{boxName}",
+            new { controller = "Box", action = "Index" },
+            new { boxId = new LongRouteConstraint() }
+        );
+            routes.MapRoute("CourseBox",
+              "course/{universityName}/{boxId}/{boxName}",
+              new { controller = "Box", action = "Index" },
+              new { boxId = new LongRouteConstraint() }
+          ); 
+            #endregion
 
             routes.MapRoute(
               "Sitemap",
               "sitemap.xml",
-              new { controller = "Home", action = "SiteMap" }
+              new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
               );
+
+            routes.MapRoute(
+              "Bootstrap",
+              "bootstrap.js",
+              new { controller = "Home", action = "Bootstrap", index = UrlParameter.Optional }
+              );
+
+            routes.MapRoute(
+              "Sitemap1",
+              "sitemap-{index}.xml",
+              new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
+              );
+
+            #region library
+            routes.MapRoute("LibraryDesktop",
+                "library/{LibId}/{LibName}",
+                new { controller = "Home", action = "Index" , LibId = UrlParameter.Optional, LibName= UrlParameter.Optional },
+                new { isDesktop = new DesktopConstraint() }
+            );
 
             routes.MapRoute("LibraryNode",
                 "Library/{LibId}/{LibName}",
                 new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
-                new { LibId = @"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$" });
+                new { LibId = new GuidRouteConstraint() }); 
+            #endregion
 
-            //routes.MapRoute(
-            // "LibrarySearch",
-            // "Library/Search/{query}",
-            // new { controller = "Library", action = "Search", query = UrlParameter.Optional }
-            // );
+            //[Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
+            #region user
+            routes.MapRoute("UserDesktop",
+                "user/{userId}/{userName}",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint() , userId = new LongRouteConstraint() }
+            );
 
-            routes.MapRoute(
-              "DashboardSearch",
-              "Dashboard/Search/{query}",
-              new { controller = "Dashboard", action = "Search", query = UrlParameter.Optional }
-              );
+            routes.MapRoute("User",
+                "user/{userId}/{userName}",
+                new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
+                new { userId = new LongRouteConstraint()});
+            #endregion
+
+            //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
+
+            #region item
+            routes.MapRoute("ItemDesktop",
+                "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
+                new { controller = "Item", action = "IndexDesktop" },
+                new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), itemid = new LongRouteConstraint() }
+            );
+
+            routes.MapRoute("Item",
+                "item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}",
+                new
+                {
+                    controller = "Library",
+                    action = "Index",
+                    LibId = UrlParameter.Optional,
+                    LibName = UrlParameter.Optional
+                },
+                new
+                {
+                    isDesktop = new DesktopConstraint(),
+                    boxId = new LongRouteConstraint(),
+                    itemid = new LongRouteConstraint()
+                }
+                );
+            #endregion
+
+            #region quiz
+            //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
+            routes.MapRoute("QuizDesktop",
+                "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
+                new { controller = "Quiz", action = "IndexDesktop" },
+                new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), quizId = new LongRouteConstraint() }
+            );
+
+            routes.MapRoute("Quiz",
+                "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
+                new
+                {
+                    controller = "Library",
+                    action = "Index",
+                    LibId = UrlParameter.Optional,
+                    LibName = UrlParameter.Optional
+                },
+                new
+                {
+                    isDesktop = new DesktopConstraint(),
+                    boxId = new LongRouteConstraint(),
+                    quizId = new LongRouteConstraint()
+                }
+                );
+            #endregion
+
 
             routes.MapRoute(
               "BoxSetting",
@@ -60,75 +164,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
               new { controller = "Box", action = "Settings", BoxUid = UrlParameter.Optional }
               );
 
-            //routes.MapRoute(
-            //  "Box",
-            //  "Box/{BoxUid}",
-            //  new { controller = "Box", action = "Index", BoxUid = UrlParameter.Optional },
-            //  new { isboxUid = new RouteUidConstraint() }
-            //  );
-
-            //routes.MapRoute(
-            //    "box2",
-            //    "box/{universityName}/{boxid}/{boxname}",
-            //    new { controller = "Box", action = "Index" },
-            //    new { boxid = @"\d+" }
-            //    );
-
             routes.MapRoute(
               "Invite",
               "invite/{boxid}",
               new { controller = "Share", action = "Index", boxid = UrlParameter.Optional }
               );
 
-            //routes.MapRoute(
-            //    "User",
-            //    "user/{userId}",
-            //    new { controller = "User", action = "Index", userId = UrlParameter.Optional }
-            //    );
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
 
         }
-
-        //public static void RegisterApiRoutes(HttpConfiguration config)
-        //{
-        //    config.Routes.MapHttpRoute(
-        //       name: "DefaultApi",
-        //       routeTemplate: "api/{controller}/{action}/{id}",
-        //       defaults: new { action = "Get", id = RouteParameter.Optional }
-        //   );
-        //}
-
-        //public static void RegisterHubs()
-        //{
-        //    string connectionString = "Endpoint=sb://zbangcloudents.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=pwEE7wUSxPY/AkJu4LFXG3eVjZHvv+sKWI16ajW51qE=";
-        //    //if (Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment.IsAvailable)
-        //    //{
-        //        GlobalHost.DependencyResolver.UseServiceBus(connectionString, "Cloudents");
-        //    //}
-
-
-        //    var config = new Microsoft.AspNet.SignalR.HubConfiguration();
-        //    config.EnableJavaScriptProxies = false;
-            
-        //    if (!Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment.IsAvailable)
-        //    {
-        //        config.EnableDetailedErrors = true;
-        //    }
-        //    config.EnableCrossDomain = false;
-            
-            
-        //    RouteTable.Routes.MapHubs("/RT", config);
-
-        //}
-
-
     }
-
-
 }

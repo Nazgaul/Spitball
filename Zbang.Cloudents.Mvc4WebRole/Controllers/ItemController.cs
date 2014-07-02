@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
 
         [ActionName("Index"), Ajax]
-        [AjaxCache(TimeConsts.Hour)]
+        //[AjaxCache(TimeConsts.Hour)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         public ActionResult Index2(long boxUid, long itemId, string uniName)
         {
@@ -122,10 +122,45 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        public ActionResult IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
+        {
+            var userId = GetUserId(false); // not really needs it
+
+            var query = new GetItemQuery(userId, itemid, boxId);
+            var item = ZboxReadService.GetItem(query);
+            if (item.BoxId != boxId)
+            {
+                throw new ItemNotFoundException();
+            }
+            if (itemName != UrlBuilder.NameToQueryString(item.Name))
+            {
+                throw new ItemNotFoundException();
+            }
+            if (!string.IsNullOrEmpty(item.Country))
+            {
+                var culture = Languages.GetCultureBaseOnCountry(item.Country);
+                BaseControllerResources.Culture = culture;
+                var seoItemName = item.Name;
+                var file = item as FileWithDetailDto;
+                if (file != null)
+                {
+                    seoItemName = file.NameWOExtension;
+                }
+                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, item.BoxName, seoItemName, BaseControllerResources.Cloudents);
+            }
+            if (!string.IsNullOrEmpty(item.Description))
+            {
+                var metaDescription = item.Description.RemoveEndOfString(197);
+                ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
+            }
+            return View("Empty");
+        }
+
+
         [UserNavNWelcome]
         [NonAjax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
+        //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
         public ActionResult Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
             try
@@ -197,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [Ajax]
-        [AjaxCache(TimeConsts.Minute * 15)]
+        //[AjaxCache(TimeConsts.Minute * 15)]
         public ActionResult Load(long boxUid, long itemId, string uniName)
         {
             try
@@ -356,20 +391,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        public ActionResult Delete(long itemId, long boxUid)
+        public ActionResult Delete(long itemId, long boxId)
         {
             try
             {
                 var userEmailId = GetUserId(false);
 
-                var command = new DeleteItemCommand(itemId, userEmailId, boxUid);
+                var command = new DeleteItemCommand(itemId, userEmailId, boxId);
                 ZboxWriteService.DeleteItem(command);
 
                 return Json(new JsonResponse(true, itemId));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", GetUserId(), boxUid, itemId), ex);
+                TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", GetUserId(), boxId, itemId), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -413,7 +448,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Preview
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [AjaxCache(TimeConsts.Minute * 15)]
+        //[AjaxCache(TimeConsts.Minute * 15)]
         public async Task<ActionResult> Preview(string blobName, int imageNumber, long uid, string boxUid, int width = 0, int height = 0)
         {
             Uri uri;

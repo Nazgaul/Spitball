@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
-namespace Zbang.Cloudents.Mvc4WebRole.App_Start
+namespace Zbang.Cloudents.Mvc4WebRole
 {
     public class ViewConfig
     {
@@ -12,13 +12,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.App_Start
 
             var razorViewEngine = new RazorViewEngine
             {
-                ViewLocationCache = new CloudentsViewLocationCache()
+                ViewLocationCache = new CloudentsViewLocationCache(),
+                AreaMasterLocationFormats = new string[0],
+                AreaPartialViewLocationFormats = new string[0],
+                AreaViewLocationFormats = new string[0]
             };
 
-          
-            razorViewEngine.AreaMasterLocationFormats = new string[0];
-            razorViewEngine.AreaPartialViewLocationFormats = new string[0];
-            razorViewEngine.AreaViewLocationFormats = new string[0];
 
             var customPartialLocation = new[] {
                    "~/Views/Shared/Partials/{0}.cshtml"

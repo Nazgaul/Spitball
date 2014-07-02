@@ -1,12 +1,12 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<aside class="QA rFloat" id="box_QA" data-bind="visible: state() !== 0">
+<aside class="QA rFloat" data-bind="visible: state() !== 0">
 
     <form class="clearfix QForm" data-bind="submit: postQuestion, visible: state() > 1">
         <div class="textareaWpr">
             <img data-bind="attr: { src: userImg }" class="QAImg lFloat" alt="" width="32" height="32" />
-            <textarea name="Content" class="QTextarea" data-bind="placeholder: ''" placeholder="@IndexResources.OnYourMind"></textarea>
+            <textarea name="Content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind"></textarea>
             <ul class="attachedList"></ul>
         </div>
         <div class="rFloat">

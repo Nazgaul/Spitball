@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
     </form>
-    <script src="Scripts/jquery-2.1.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="Scripts/jquery.signalR-2.0.3.min.js"></script>
     <script src="Scripts/Connect.min.js"></script>
 </body>

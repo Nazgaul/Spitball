@@ -1,54 +1,54 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@{
-    ViewBag.data = ViewBag.data ?? null;
-}
-<div id="box" class="page boxPage" data-data="@ViewBag.data" data-bind="delegatedHandler: 'click', css : boxTypeClass">
+<div id="box" class="page boxPage {{info.boxType}}" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
         <div id="BoxTopWpr" class="boxTopWpr">
             <div class="boxTop">
-                <img class="lFloat" data-bind="attr: { src: image }" alt="" width="74" height="94" />
+                <img class="lFloat" ng-src="info.image" alt="" width="74" height="94" />
                 <div class="boxNameWpr clamp2">
-                    <h1 class="boxName semiFont" id="box_Name" data-bind="text: name, attr: { 'data-title': name, 'data-name': name }"></h1>
+                    <h1 class="boxName semiFont" id="box_Name" data-title="{{info.name}}">{{info.name}}</h1>
                 </div>
-                <div class="courseCode elps" id="box_Course" data-bind="text: courseId, visible: boxtype() === 'academic'"></div>
-                <div class="courseCode elps calloutTrgr" id="box_Owner" data-bind="text: ownerName, visible: boxtype() === 'box',attr: { 'data-uid' : ownerId }"></div>
-                <span class="courseCode propName elps" id="box_Prof" data-bind="text: proffer, visible: boxtype() === 'academic'"></span>
-                <button class="boxRename" data-title="@IndexResources.BoxSettings" id="boxSettings" type="button"></button>
+
+                <div class="courseCode elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
+                <div class="courseCode elps calloutTrgr" ng-if="info.boxType === 'box'" data-uid="{{info.ownerId}}">{{info.ownerName}}</div>
+                <span class="courseCode propName elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
+                <button type="button" class="boxRename" data-title="@IndexResources.BoxSettings" ng-click="openBoxManage('settings')"></button>
 
             </div>
         </div>
-
+        
         <div class="boxFolders">
             <div class="sectionHeader">@IndexResources.Folders</div>
-            <ul class="boxFolderList" id="box_filters">
-                <li class="current boxFolder" data-bind="css: { current: $root.currentTab() == null }">
-                    <span class="boxFolderName elps" data-click="switchTab">@SharedResources.All</span>
-                    <span class="tabBorder"></span>
-                </li>
-                <!--ko foreach :{data: tabs ,afterAdd: myDrag}-->
-                <li class="boxFolder" data-click="switchTab" data-bind="css: { current: isSelected }">
-                    <span class="boxFolderName elps" data-bind="text: name"></span>
-                    <div data-title="menu" class="editFolder rFloat" data-click="tabMenu" data-bind="visible: isAction">
-                        <ul class="editFolderMenu">
-                            <li>
-                                <button type="button" data-bind="click: $root.tabRename">@SharedResources.Rename</button>
-                            </li>
-                            <li>
-                                <button type="button" data-bind="click: $root.tabManage">@MainViewResources.Manage</button>
-                            </li>
-                            <li>
-                                <button type="button" data-bind="click: $root.tabDelete">@MainViewResources.Delete</button>
-                            </li>
-                        </ul>
-                    </div>
+            <ul class="boxFolderList">
+                <li class="current boxFolder" ng-class="{current : !info.currentTab }">
+                    <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
                     <span class="tabBorder"></span>
                 </li>
 
-                <!--/ko-->
+                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
+
+                    <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
+                    <button class="rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id">
+                        D
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
+                        </li>
+                        <li>
+                            <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
+                        </li>
+                        <li>
+                            <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
+                        </li>
+                    </ul>
+                    <span class="tabBorder"></span>
+                </li>
+
                 <li class="createFolder">
-                    <span class="createFolderText elps" data-click="addTab">@MainViewResources.CreateTab</span>
+                    <span class="createFolderText elps" ng-click="createTab()">@MainViewResources.CreateTab</span>
                 </li>
             </ul>
         </div>
@@ -59,7 +59,7 @@
             <section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="boxShare" data-ddcbox="boxShare" />
                 <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
-                <div class="dropDown shareDD" data-dropdown="boxShare">
+                <div class="dropDown shareDD">
                     <label class="closeItem rFloat" for="boxShare"></label>
                     <div class="arrow shareArrow"></div>
                     <h4 class="semiFont" data-share-academic="@IndexResources.ShareCourse" data-share-private="@IndexResources.ShareBox"></h4>
@@ -77,71 +77,68 @@
                 </div>
             </section>
             <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
-                data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
-            <a class="backWpr elps lFloat" data-bind="attr: { href: parent().url },visible: backVisible" data-navigation="Dashboard">
+               data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
+            <a class="backWpr elps lFloat" ng-click="$back(back.url)">
                 <div>@SharedResources.Backto</div>
-                <h2 class="semiFont" data-bind="text: parent().name"></h2>
+                <h2 class="semiFont">{{previousTitle}}</h2>
             </a>
         </div>
 
-        @*<!--ko if:follow-->*@    
-        <div id="joinGrpWpr" class="joinGrpWpr">
+        <div ng-if="info.isUserFollowing() " id="joinGrpWpr" class="joinGrpWpr">
+            @*user is following box*@
             <div class="joinGrpBtn">
                 <span class="joinMsg iconTxt">@SharedResources.Member</span>
-                <button type="button" class="joinGrp" data-bind="click: followbox" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
+                <button type="button" class="joinGrp" ng-click="followBox()" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
             </div>
         </div>
-        @*<!--/ko-->*@
+
+
         <div class="box-content">
-        <!--ko stopBinding:true-->
-        @{Html.RenderPartial("_Items2");}
-        <!--/ko-->            
-        <ul class="boxMembers boxFriendsList">
-            <!--ko foreach:members()-->
-                <li>
-                    <a href="" class="" data-navigation="user" data-bind="attr: {href:url}">
-                        <img class="friendImg calloutTrgr" alt="" data-bind="attr: { src: image, 'data-uid': id }" width="48" height="48" />
+            @{Html.RenderPartial("_Items2");}
+            <ul class="boxMembers boxFriendsList">
+
+                <li ng-repeat="member in info.members">
+                    <a href="{{member.url}}" class="" data-navigation="user">
+                        <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" data-uid={{member.uid}} width="48" height="48" />@*uid*@
                     </a>
                 </li>
-            <!--/ko-->
-            <li class="static">
-                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-            </li>
-            <li class="static">
-                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-            </li>
-            <li class="static">
-                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-            </li>
-            <li class="static">
-                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-            </li>
-            <li class="static">
-                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-            </li>
-            <li class="static">
-                <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                   data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-            </li>
-            <li id="showAllMembers"><button class="showAllMembers" data-bind="attr: { 'data-morefriends-count' : membersLength()-6}" type="button"></button></li>                  
-        </ul>
-        <!--ko stopBinding:true-->
-        @{Html.RenderPartial("_QnA");}
-        <!--/ko-->
+
+                <li class="static">
+                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+                </li>
+                <li class="static">
+                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+                </li>
+                <li class="static">
+                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+                </li>
+                <li class="static">
+                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+                </li>
+                <li class="static">
+                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+                </li>
+                <li class="static">
+                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
+                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+                </li>
+                <li id="showAllMembers"><button ng-click="openBoxManage('members')" class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
+            </ul>
+            @*@{Html.RenderPartial("_QnA");}*@
+        </div>
     </div>
+    @*@{
+            Html.RenderPartial("_BoxSettings");
+            Html.RenderPartial("_CreateTab", new Zbang.Cloudents.Mvc4WebRole.Models.Tabs.CreateBoxItemTab());
+        }*@
 </div>
-@{
-    Html.RenderPartial("_BoxSettings");
-    Html.RenderPartial("_CreateTab", new Zbang.Cloudents.Mvc4WebRole.Models.Tabs.CreateBoxItemTab());
-}
-</div>
-@{
+@*@{
     Html.RenderPartial("_UploadDialog");
     Html.RenderPartial("_UploadAddLink", new Zbang.Cloudents.Mvc4WebRole.Models.AddLink());
-}
+}*@
 

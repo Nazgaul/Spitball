@@ -41,11 +41,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-
         [HttpPost]
         [ZboxAuthorize]
-        public async Task<ActionResult> File(long boxUid, string fileId, string fileName,
-            long fileSize, Guid? tabId, string uniName, string boxName)
+        public async Task<ActionResult> File(long boxId, string fileName,
+            long fileSize, Guid? tabId)
         {
             var userId = GetUserId();
             try
@@ -83,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 await m_BlobProvider.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
 
-                var command = new AddFileToBoxCommand(userId, boxUid, blobAddressUri,
+                var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                     fileUploadedDetails.FileName,
                      fileUploadedDetails.FileSize, tabId);
                 var result = ZboxWriteService.AddFileToBox(command);
@@ -96,13 +95,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.File.Url);
 
                 cookie.RemoveCookie("upload");
-                return this.CdJson(new JsonResponse(true, new { fileDto, boxid = boxUid }));
+                return this.CdJson(new JsonResponse(true, new { fileDto, boxid = boxId }));
 
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxUid {0} fileId {1} fileName {2} fileSize {3} userid {4} HttpContextRequestCount {5} HttpContextRequestKeys {6}",
-                    boxUid, fileId, fileName, fileSize, userId,
+                TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxUid {0} fileName {1} fileSize {2} userid {3} HttpContextRequestCount {4} HttpContextRequestKeys {5}",
+                    boxId, fileName, fileSize, userId,
                     HttpContext.Request.Files.Count, string.Join(",", HttpContext.Request.Files.AllKeys)), ex);
                 return this.CdJson(new JsonResponse(false, "Error"));
             }
@@ -204,22 +203,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userid = GetUserId();
 
                 UrlTitleBringer helper = new UrlTitleBringer();
-                var title = model.Url;
+                var title = model.FileUrl;
                 try
                 {
-                    title = await helper.BringTitle(model.Url);
+                    title = await helper.BringTitle(model.FileUrl);
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("on bringing title of url " + model.Url, ex);
+                    TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
 
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {
-                    title = model.Url;
+                    title = model.FileUrl;
                 }
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.Url, model.TabId, title);
+                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title);
                 var result = ZboxWriteService.AddLinkToBox(command);
                 var urlBuilder = new UrlBuilder(HttpContext);
 
@@ -237,13 +236,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Link user: {0} BoxUid: {1} url: {2}", GetUserId(), model.BoxId, model.Url), ex);
+                TraceLog.WriteError(string.Format("Link user: {0} BoxUid: {1} url: {2}", GetUserId(), model.BoxId, model.FileUrl), ex);
                 return this.CdJson(new JsonResponse(false, "Problem with insert url"));
             }
         }
 
         [HttpPost, ZboxAuthorize]
-        public async Task<ActionResult> DropBox(long boxUid, string fileUrl, string fileName, Guid? tabId, string boxName, string uniName)
+        public async Task<ActionResult> DropBox(long boxId, string fileUrl, string fileName, Guid? tabId)
         {
 
             var userId = GetUserId();
@@ -265,11 +264,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (notUploaded)
             {
                 await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-                    new UrlToDownloadData(fileUrl, fileName, boxUid, tabId, userId));
+                    new UrlToDownloadData(fileUrl, fileName, boxId, tabId, userId));
                 return this.CdJson(new JsonResponse(true));
             }
 
-            var command = new AddFileToBoxCommand(userId, boxUid, blobAddressUri,
+            var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                fileName,
                 size, tabId);
             var result = ZboxWriteService.AddFileToBox(command);

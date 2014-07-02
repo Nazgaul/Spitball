@@ -87,8 +87,8 @@
                 var fdata = $form.serializeArray();
                 fdata.push({ name: 'TabId', value: boxToUpload.tabid });
                 fdata.push({ name: 'BoxId', value: boxToUpload.id });
-                fdata.push({ name: 'UniName', value: cd.getParameterFromUrl(1) });
-                fdata.push({ name: 'BoxName', value: cd.getParameterFromUrl(3) });
+               // fdata.push({ name: 'UniName', value: cd.getParameterFromUrl(1) });
+                //fdata.push({ name: 'BoxName', value: cd.getParameterFromUrl(3) });
                 var guid = fakeUpload($url.val(), null, 0);
                 dataContext.addLink({
                     data: fdata,
@@ -309,15 +309,15 @@
         });
         uploader.bind('BeforeUpload', function (up, file) {
             try {
-                up.settings.multipart_params.fileId = file.id;
+              //  up.settings.multipart_params.fileId = file.id;
                 up.settings.multipart_params.fileName = file.name;
                 up.settings.multipart_params.fileSize = file.size;
 
 
                 up.settings.multipart_params.BoxUid = file.boxid;
                 up.settings.multipart_params.tabId = file.tabid;
-                up.settings.multipart_params.boxName = file.boxName;
-                up.settings.multipart_params.uniName = file.uniName;
+                //up.settings.multipart_params.boxName = file.boxName;
+                //up.settings.multipart_params.uniName = file.uniName;
 
 
                 cd.postFb(file.boxName,

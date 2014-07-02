@@ -1,39 +1,32 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@if (User.Identity.IsAuthenticated)
-{
-    <div id="uploadDialog" style="display: none;" data-diag="upload">
-        <div class="popupWrppr upload">
-            <header class="popupHeader">
-                <span class="uploadHeader lFloat">@DialogResources.UploadFiles</span>
-            </header>
-            <div class="step3">
-                <div class="dragDropBox" id="fileZone">
-                    @* <ul>
-                    </ul>*@
-                    <div class="dragDropTxtE" id="DragDropText">@DialogResources.DragAndDrop</div>
-                    <a href="#" id="AddFiles" class="btn1">@DialogResources.ChooseFile</a>
-                </div>
-            </div>
-            <div class="chooseFrom">
-                <span class="seprtr">@SharedResources.Or</span>
-                <ul class="choices">
-                    <li class="source">
-                        <button id="up_AddLink" type="button" class="btn link">@DialogResources.SiteLink</button>
-                    </li>
-                    <li class="source">
-                        <button data-title="loading" id="up_DropBox" type="button" disabled="disabled" class="btn dropBox">Dropbox</button>
-                    </li>
-                    <li class="source">
-                        <button type="button" id="up_Drive" disabled="disabled" class="btn drive">Google Drive</button>
-                    </li>
-                    <li class="source">
-                        <button type="button" disabled="disabled" id="up_Sky" class="btn sky">Sky Drive</button>
-                    </li>
-                </ul>
-            </div>
-            <button class="closeDialog" data-closeDiag="close"></button>
+
+<div class="modal-header">
+    <h3 class="modal-title"><span>@DialogResources.UploadFiles</span></h3>
+</div>
+<div class="modal-body">
+    <div class="step3">
+        <div class="dragDropBox">
+            <div ng-file-drop class="dragDropTxtE">@DialogResources.DragAndDrop</div>
+            <input ng-file-select class="btn1" type="file" multiple value="@DialogResources.ChooseFile" />
         </div>
-        <div class="modal2"></div>
     </div>
-}
+    <div class="chooseFrom">
+        <span class="seprtr">@SharedResources.Or</span>
+        <ul class="choices">
+            <li class="source">
+                <button type="button" class="btn link" ng-click="saveLink()">@DialogResources.SiteLink</button>
+            </li>
+            <li class="source">
+                <button type="button" class="btn dropBox" ng-click="saveDropbox()">Dropbox</button>
+            </li>
+            <li class="source">
+                <button type="button" class="btn drive" ng-click="saveGoogleDrive()">Google Drive</button>
+            </li>
+            <li class="source">
+                <button type="button" class="btn sky" ng-click="saveSkyDrive()">Sky Drive</button>
+            </li>
+        </ul>
+    </div>
+    <button class="closeDialog" ng-click="cancel()"></button>
+</div>

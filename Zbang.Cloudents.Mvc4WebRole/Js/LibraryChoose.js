@@ -241,7 +241,7 @@
                     ],
                     success: function (d) {
                         if (d.redirect) {
-                            window.location.href = d.redirect;
+                            window.location.href = cd.getParameterByName('returnurl') || d.redirect;
                         }
                         if (d.html) {
                             $(libraryChoose).append(d.html);

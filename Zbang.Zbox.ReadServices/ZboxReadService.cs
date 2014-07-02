@@ -37,7 +37,7 @@ namespace Zbang.Zbox.ReadServices
             : base(contextCacheWrapper)
         {
         }
-       // 
+        // 
 
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
@@ -783,20 +783,30 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
         #region Seo
-        public async Task<SeoDto> GetSeoBoxesAndItems()
+        public async Task<IEnumerable<string>> GetSeoItems(int page)
         {
-            SeoDto retVal = new SeoDto();
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            const int pageSize = 49950;
+            if (page < 1)
             {
-                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Seo.GetBoxes, Sql.Seo.GetItems, Sql.Seo.GetQuizes)))
-                {
-                    retVal.Boxes = grid.Read<Box.BoxSeoDto>();
-                    retVal.Items = grid.Read<Box.BoxSeoDto>();
-                    retVal.Quizes = grid.Read<Box.BoxSeoDto>();
-                }
+                return null;
             }
-            return retVal;
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                return await conn.QueryAsync<string>(String.Format("{0}", Sql.Seo.GetSeoItemsByPage),
+                    new { rowsperpage = pageSize, pageNumber = page });
+            }
         }
+
+        public async Task<int> GetSeoItemCount()
+        {
+            const int pageSize = 49950;
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                var retVal = await conn.QueryAsync<int>(String.Format("{0}", Sql.Seo.GetSeoItemsCount));
+                return (retVal.FirstOrDefault() / pageSize) + 1;
+            }
+        }
+
         #endregion
 
         #region Admin
@@ -854,7 +864,7 @@ namespace Zbang.Zbox.ReadServices
                     {
                         retVal.Sheet.Questions = solvedQuestion;
                     }
-                    
+
                     if (query.NeedCountry)
                     {
                         retVal.Quiz.Seo = grid.Read<Item.QuizSeo>().FirstOrDefault();

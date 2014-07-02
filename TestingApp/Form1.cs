@@ -35,7 +35,7 @@ namespace TestingApp
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
             var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
             lucenewire.BuildUniversityData();
-            textBox2.Text = "Complete";
+           // textBox2.Text = "Complete";
         }
 
         private void button2_Click(object sender, EventArgs e)

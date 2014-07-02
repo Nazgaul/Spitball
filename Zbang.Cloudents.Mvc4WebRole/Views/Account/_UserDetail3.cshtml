@@ -4,12 +4,13 @@
 
 @if (User != null && User.Identity.IsAuthenticated)
 {
-    <li class="navItem navUser">
-        <a @*href="@Model.Url?r=siteheader"*@ href="@Model.Url" data-navigation="User" class="userAnchor">
-            <img id="userImg" src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />
+    <li class="navItem navUser" ng-init="initDetails('@Model.Uid','@Model.Name','@Model.Image','@Model.Score','@Model.Url')">
+        @*//uid*@
+        <a @*href="@Model.Url?r=siteheader"*@ href="@Model.Url" class="userAnchor">
+            <img src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />
             @*<div class="userDtails">*@
-            <div id="userName" data-id="@Model.Uid" data-name="@Model.Name" class="userName elps">@Model.Name.Split(' ')[0]</div>
-            <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts">@Model.Score</div>
+            <div class="userName elps">@Model.Name.Split(' ')[0]</div>
+            <div class="userPts" data-points="&nbsp;@SharedResources.Pts">@Model.Score</div>
             @*</div>*@
         </a>
     </li>

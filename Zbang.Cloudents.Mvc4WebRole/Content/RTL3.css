@@ -769,7 +769,7 @@
   /*rtl*/
   right: auto;
 }
-.boxItem {
+.thumbItem {
   float: right;
   /* rtl */
   margin: 0 0 32px 20px;
@@ -777,31 +777,31 @@
   text-align: right;
   /* rtl */
 }
-.boxItem .boxName {
+.thumbItem .boxName {
   margin: 0 6px 0 0;
   /*rtl*/
 }
-.boxItem .views {
+.thumbItem .views {
   left: 4px;
   /*rtl*/
   right: auto;
 }
-.boxItem .tag {
+.thumbItem .tag {
   right: -6px;
   /*rtl*/
   left: auto;
 }
-.boxItem.quizItem:after {
+.thumbItem.quizItem:after {
   right: 8px;
   /*rtl*/
   left: auto;
 }
-.boxItem.quizItem .stars {
+.thumbItem.quizItem .stars {
   right: 4px;
   /*rtl*/
   left: auto;
 }
-.boxItem.draft .tag {
+.thumbItem.draft .tag {
   margin: 0 15px 0 0;
   /*rtl*/
 }
@@ -844,7 +844,7 @@
   min-width: 316px;
 }
  
-.boxItem {
+.thumbItem {
   height: 248px;
   width: 148px;
   margin: 0 0 32px 20px;
@@ -853,25 +853,25 @@
 @media (max-width: 1036px) {
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     margin: 0 0 32px 0;
     width: 316px;
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(odd) {
+.thumbItem:nth-child(odd) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(odd) {
+.thumbItem:nth-child(odd) {
     margin: 0 0 20px 20px;
     /*rtl*/
   }
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(even) {
+.thumbItem:nth-child(even) {
     margin: 0 0 20px 0;
     /*rtl*/
   }
@@ -882,7 +882,7 @@
     width: 1996px;
   }
    
-.boxItem:nth-child(12n) {
+.thumbItem:nth-child(12n) {
     margin-left: 0;
     /*rtl*/
   }
@@ -890,13 +890,13 @@
 @media (min-width: 1037px) and (max-width: 1204px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(2n) {
+.thumbItem:nth-child(2n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 296px)/ 1 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 296px)/ 1 - 1px + 296px);
@@ -904,12 +904,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(2n + 1) {
+.thumbItem:nth-child(2n + 1) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 296px)/ 1 - 1px);
@@ -921,13 +921,13 @@
 @media (min-width: 1205px) and (max-width: 1372px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(3n) {
+.thumbItem:nth-child(3n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 444px)/ 2 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 444px)/ 2 - 1px + 296px);
@@ -935,12 +935,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(3n + 2) {
+.thumbItem:nth-child(3n + 2) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 444px)/ 2 - 1px);
@@ -952,13 +952,13 @@
 @media (min-width: 1373px) and (max-width: 1540px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(4n) {
+.thumbItem:nth-child(4n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 592px)/ 3 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 592px)/ 3 - 1px + 296px);
@@ -966,12 +966,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(4n + 3) {
+.thumbItem:nth-child(4n + 3) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 592px)/ 3 - 1px);
@@ -983,13 +983,13 @@
 @media (min-width: 1541px) and (max-width: 1708px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(5n) {
+.thumbItem:nth-child(5n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 740px)/ 4 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 740px)/ 4 - 1px + 296px);
@@ -997,12 +997,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(5n + 4) {
+.thumbItem:nth-child(5n + 4) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 740px)/ 4 - 1px);
@@ -1014,13 +1014,13 @@
 @media (min-width: 1709px) and (max-width: 1876px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(6n) {
+.thumbItem:nth-child(6n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 888px)/ 5 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 888px)/ 5 - 1px + 296px);
@@ -1028,12 +1028,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(6n + 5) {
+.thumbItem:nth-child(6n + 5) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 888px)/ 5 - 1px);
@@ -1045,13 +1045,13 @@
 @media (min-width: 1877px) and (max-width: 2044px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(7n) {
+.thumbItem:nth-child(7n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 1036px)/ 6 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 1036px)/ 6 - 1px + 296px);
@@ -1059,12 +1059,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(7n + 6) {
+.thumbItem:nth-child(7n + 6) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 1036px)/ 6 - 1px);
@@ -1076,13 +1076,13 @@
 @media (min-width: 2045px) and (max-width: 2212px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(8n) {
+.thumbItem:nth-child(8n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 1184px)/ 7 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 1184px)/ 7 - 1px + 296px);
@@ -1090,12 +1090,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(8n + 7) {
+.thumbItem:nth-child(8n + 7) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 1184px)/ 7 - 1px);
@@ -1107,13 +1107,13 @@
 @media (min-width: 2213px) and (max-width: 2380px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(9n) {
+.thumbItem:nth-child(9n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 1332px)/ 8 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 1332px)/ 8 - 1px + 296px);
@@ -1121,12 +1121,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(9n + 8) {
+.thumbItem:nth-child(9n + 8) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 1332px)/ 8 - 1px);
@@ -1138,13 +1138,13 @@
 @media (min-width: 2381px) and (max-width: 2548px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(10n) {
+.thumbItem:nth-child(10n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 1480px)/ 9 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 1480px)/ 9 - 1px + 296px);
@@ -1152,12 +1152,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(10n + 9) {
+.thumbItem:nth-child(10n + 9) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 1480px)/ 9 - 1px);
@@ -1169,13 +1169,13 @@
 @media (min-width: 2549px) and (max-width: 2716px) {
    
 .boxItemList:not(.sponsored)  
-.boxItem:nth-child(11n) {
+.thumbItem:nth-child(11n) {
     margin-left: 0;
     /*rtl*/
   }
    
 .boxItemList.sponsored  
-.boxItem:first-child {
+.thumbItem:first-child {
     width: -webkit-calc((100% - 1628px)/ 10 - 1px + 296px);
     /*rtl*/
     width: calc((100% - 1628px)/ 10 - 1px + 296px);
@@ -1183,12 +1183,12 @@
   }
    
 .boxItemList.sponsored  
-.boxItem:nth-child(11n + 10) {
+.thumbItem:nth-child(11n + 10) {
     margin-left: 0;
     /*rtl*/
   }
    
-.boxItem {
+.thumbItem {
     margin: 0 0 32px 20px;
     /*rtl*/
     margin: 0 0 32px -webkit-calc((100% - 1628px)/ 10 - 1px);

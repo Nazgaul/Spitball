@@ -220,6 +220,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DisplayConfig.cs" />
+    <Compile Include="App_Start\JavaScriptBundleImp.cs" />
+    <Compile Include="App_Start\SquishItRenderer.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\ViewConfig.cs" />
@@ -289,6 +291,7 @@
     <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
+    <Compile Include="Helpers\DesktopConstraint.cs" />
     <Compile Include="Helpers\GuidEncoder.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
@@ -775,15 +778,31 @@
     <Content Include="Images\usrPic.png" />
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
-    <Content Include="Js\app\app.js" />
-    <Content Include="Js\app\boxcontroller.js" />
-    <Content Include="Js\app\dashboardcontroller.js" />
-    <Content Include="Js\app\directives.js" />
-    <Content Include="Js\app\filters.js" />
-    <Content Include="Js\app\quizcreatecontroller.js" />
+    <Content Include="Js\app.js" />
+    <Content Include="Js\controllers\box\tabCtrl.js" />
+    <Content Include="Js\controllers\dashboard\dashboardCtrl.min.js">
+      <DependentUpon>dashboardCtrl.js</DependentUpon>
+    </Content>
+    <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
+    <Content Include="Js\bootstrap.js" />
     <Content Include="Js\BoxSettings.js" />
+    <Content Include="Js\controllers\box\boxCtrl.js" />
+    <Content Include="Js\controllers\box\manageCtrl.js" />
+    <Content Include="Js\controllers\box\qnaCtrl.js" />
+    <Content Include="Js\controllers\box\uploadCtrl.js" />
+    <Content Include="Js\controllers\dashboard\dashboardCtrl.js" />
+    <Content Include="Js\controllers\dashboard\createBoxCtrl.js" />
+    <Content Include="Js\controllers\dashboard\showFriendsCtrl.js" />
+    <Content Include="Js\controllers\item\itemCtrl.js" />
+    <Content Include="Js\controllers\library\libraryCtrl.js" />
+    <Content Include="Js\controllers\quiz\quizCtrl.js" />
+    <Content Include="Js\controllers\user\userCtrl.js" />
+    <Content Include="Js\filters\actionText.js" />
+    <Content Include="Js\directives\ngPlaceholder.js" />
+    <Content Include="Js\filters\orderBy.js" />
+    <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\GmfcnHandler.js" />
     <Content Include="Js\ItemViewModel4.js" />
@@ -792,8 +811,21 @@
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\QuizCreate.js" />
     <Content Include="Js\QuizViewModel.js" />
+    <Content Include="Js\routes.js" />
     <Content Include="Js\Search.js" />
     <Content Include="Js\SearchDropDown.js" />
+    <Content Include="Js\services\box.js" />
+    <Content Include="Js\services\dashboard.js" />
+    <Content Include="Js\services\dependencyResolverFor.js" />
+    <Content Include="Js\services\dropbox.js" />
+    <Content Include="Js\services\googleDrive.js" />
+    <Content Include="Js\services\item.js" />
+    <Content Include="Js\services\library.js" />
+    <Content Include="Js\services\newUpdates.js" />
+    <Content Include="Js\services\qna.js" />
+    <Content Include="Js\services\quiz.js" />
+    <Content Include="Js\services\upload.js" />
+    <Content Include="Js\services\user.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\BoxesViewModel.js" />
@@ -875,6 +907,12 @@
     <Content Include="Images\category.png.map">
       <DependentUpon>category.png</DependentUpon>
     </Content>
+    <None Include="Js\Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Js\Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <Content Include="Images\category.png.scss">
       <DependentUpon>category.png</DependentUpon>
     </Content>
@@ -882,6 +920,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="robots.txt" />
+    <Content Include="Scripts\angular-file-upload.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cache-2.3.4.js" />
@@ -903,9 +943,11 @@
     <Content Include="Scripts\angular-scenario.js" />
     <Content Include="Scripts\angular-touch.js" />
     <Content Include="Scripts\angular-touch.min.js" />
-    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bindonce.js" />
+    <Content Include="Scripts\bindonce.min.js" />
     <Content Include="Scripts\CountUp.js" />
+    <Content Include="Scripts\draganddrop.js" />
     <Content Include="Scripts\elastic.js" />
     <Content Include="Scripts\elasticTextBox.js" />
     <Content Include="Scripts\externalScriptLoader.js" />
@@ -1184,8 +1226,9 @@
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\ng-modal.js" />
-    <Content Include="Scripts\ng-scrollbar.js" />
+    <Content Include="Scripts\ng-infinite-scroll.js" />
+    <Content Include="Scripts\ng-infinite-scroll.min.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -1214,9 +1257,11 @@
     <Content Include="Scripts\plupload\plupload.silverlight.js" />
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.10.0.min.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.10.0.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.11.0.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="test.html" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -1264,10 +1309,10 @@
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />
-    <Content Include="Views\Box\Index.cshtml" />
+    <None Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Shared\_Layout3.mobile.cshtml" />
-    <Content Include="Views\Dashboard\Index.mobile.cshtml" />
+    <Content Include="Views\Dashboard\Index2.mobile.cshtml" />
     <Content Include="Views\Error\MembersOnly.mobile.cshtml" />
     <Content Include="Views\Library\Index.mobile.cshtml" />
     <Content Include="Views\Box\Index.mobile.cshtml" />
@@ -1319,9 +1364,13 @@
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
+    <None Include="Views\Box\Index2.cshtml" />
     <Content Include="Views\Shopping\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <Content Include="Views\Shopping\Product.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Empty.cshtml" />
+    <Content Include="Views\Box\_QnA2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
