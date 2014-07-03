@@ -40,7 +40,7 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
         Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query);
 
-        Box.BoxDto GetBox2(GetBoxQuery query);
+        Box.BoxDto GetBox(GetBoxQuery query);
 
         Task<SearchDto> Search(GroupSearchQuery query);
         Task<IEnumerable<User.UserDto>> GetUserFriends(GetUserFriendsQuery query);

@@ -138,7 +138,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/directives/mLoader.js");
 
             RegisterJsRoutes("R_OldAll",
-                          "/Scripts/externalScriptLoader.js",
+                "/Scripts/externalScriptLoader.js",
+                "/Scripts/jquery.slimscroll.js",                
                 "/js/Utils.js",
                 "/js/pubsub.js",
                 "/js/DataContext.js",
@@ -193,8 +194,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterJsRoutes("R_Item",
                 "/js/controllers/item/itemCtrl.js",
-                "js/ItemViewModel4"
+                "/js/ItemViewModel4.js"
                 );
+            RegisterJsRoutes("R_Quiz",
+               "/js/controllers/quiz/quizCtrl.js",
+               "/js/QuizViewModel.js"
+           );
 
             RegisterJsRegular("home",
                 new JsFileWithCdn("~/Js/Logon.js"),
@@ -224,8 +229,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
                 //new JsFileWithCdn("~/Scripts/MutationObserver.js"),
 
-                new JsFileWithCdn("~/Js/Utils.js"),
-                new JsFileWithCdn("~/Js/pubsub.js"),
+                new JsFileWithCdn("~/Js/Utils2.js"),
+                new JsFileWithCdn("~/Js/pubsub2.js"),
 
                 new JsFileWithCdn("~/Js/GmfcnHandler.js")
                 //new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
@@ -341,8 +346,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterJsRegular("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                                     new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
-                                    new JsFileWithCdn("~/Js/Utils.js"),
-                                    new JsFileWithCdn("~/Js/pubsub.js"),
+                                    new JsFileWithCdn("~/Js/Utils2.js"),
+                                    new JsFileWithCdn("~/Js/pubsub2.js"),
                                     new JsFileWithCdn("~/Js/Cache.js"),
                                     new JsFileWithCdn("~/Js/DataContext.js"),
                                     new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
@@ -368,8 +373,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
 
-                new JsFileWithCdn("~/Js/Utils.js"),
-                 new JsFileWithCdn("~/Js/pubsub.js"),
+                new JsFileWithCdn("~/Js/Utils2.js"),
+                 new JsFileWithCdn("~/Js/pubsub2.js"),
                 new JsFileWithCdn("~/Js/Cache.js"),
                 new JsFileWithCdn("~/Js/DataContext.js"),
 

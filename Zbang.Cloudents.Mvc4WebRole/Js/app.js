@@ -74,15 +74,19 @@
                     $rootScope.previousTitle = 'Dashboard';
                     break;
                 case 'library': {
-                    cd.pubusub.pubish('libraryclear');
+                    cd.pubsub.publish('libraryclear');
                     break;
                 }
                 case 'user': {
-                    cd.pubusub.pubish('userclear');
+                    cd.pubsub.publish('userclear');
                     break;
                 }
                 case 'item': {
-                    cd.pubusub.pubish('itemclear');
+                    cd.pubsub.publish('itemclear');
+                    break;
+                }
+                case 'quiz': {
+                    cd.pubsub.publish('quizclear');
                     break;
                 }
             }

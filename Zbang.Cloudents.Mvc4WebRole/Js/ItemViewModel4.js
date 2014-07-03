@@ -1,4 +1,4 @@
-﻿define('Item', ['Knockout','Pubsub'], function () {
+﻿define('ItemViewModel', ['Knockout', 'Pubsub','slimscroll','DataContext'], function (ko) {
     (function ($, dataContext, ko, cd, JsResources, analytics, Modernizr) {
         "use strict";        
 
@@ -16,6 +16,7 @@
 
         function registerKOItem() {
             ko.applyBindings(new ItemViewModel(), document.getElementById(consts.item));
+            cd.pubsub.publish(consts.item);
         }
 
         function ItemViewModel() {
@@ -239,7 +240,7 @@
 
             //#region Get item data
             cd.pubsub.subscribe(consts.item, function (data) {
-                self.itemid(parseInt(data.id, 10));
+                self.itemid(parseInt(cd.getParameterFromUrl(4),10));
 
                 if (cd.register()) {
                     if (!ratedItems) {
@@ -253,10 +254,9 @@
                     }
                 }
 
-                if (boxid !== data.boxid) {
-                    boxid = data.boxid;
-                    initialItems();
-                }
+                boxid = cd.getParameterFromUrl(2);
+                initialItems();
+                
                 if (firstTime) {
                     firstTime = false;
                     registerEvents();
@@ -268,9 +268,7 @@
             function initialItems() {
                 dataContext.getItems({
                     data: {
-                        BoxUid: boxid, pageNumber: 0,
-                        uniName: cd.getParameterFromUrl(1),
-                        boxName: cd.getParameterFromUrl(3)
+                        boxId: boxid, pageNumber: 0                        
                     },
                     success: function (data) {
                         var elems = $.map(data, function (i) {
@@ -321,7 +319,7 @@
 
                     fillVariables();
 
-                    cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
+                    //cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
 
                     cd.pubsub.publish(consts.itemLoad, null, function () {
                         cd.innerScroll($itemMoreFiles, $(window).height() - $itemMoreFiles.offset().top);
@@ -362,7 +360,7 @@
                         .numberOfViews(data.numberOfViews || 1)
                         .extension(cd.getExtension(data.name, data.type))
                         .extensionColor(cd.getExtensionColor(data.name, data.type))
-                        .copyLink(cd.location())
+                        .copyLink(window.location.href)
                         .rate(consts.starWidth * data.rate)
                         .boxurl(data.boxUrl)
                         .boxName(data.boxName)
@@ -1563,5 +1561,5 @@
             //#endregion
         }
 
-    })(jQuery, window.cd.data, window.ko, window.cd, window.JsResources, window.cd.analytics, Modernizr);
+    })(jQuery, window.cd.data, ko, window.cd, window.JsResources, window.cd.analytics, Modernizr);
 });

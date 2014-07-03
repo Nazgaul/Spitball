@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [UserNavNWelcome]
-        [OutputCache(Duration = 0, VaryByParam = "none", Location = OutputCacheLocation.Server, NoStore = true)]
+        [OutputCache(CacheProfile = "NoCache")]
         public async Task<ActionResult> Index()
         {
             var userDetail = FormsAuthenticationService.GetUserData();

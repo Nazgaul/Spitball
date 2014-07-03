@@ -1,4 +1,4 @@
-﻿define('Dialog', ['Utils','Cache', 'Pubsub'], function () {
+﻿define('DataContext', ['Utils','Cache', 'Pubsub'], function () {
     (function (cd, $, cache, pubsub) {
         //this is data definision
         function definitionobj(data) {
@@ -347,7 +347,7 @@
             return $.ajax(ajaxParams);
         };
 
-        cd.data = cd.data || {};
+        window.cd.data = window.cd.data || {};
         var d = cd.data;
         for (prop in definition) {
             (function (p) {

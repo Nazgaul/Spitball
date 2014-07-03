@@ -22,25 +22,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
             try
             {
                 m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version + ConfigurationManager.AppSettings[AppKey];
-                if (IsAppFabricCache())
-                {
-                    // var v = new DataCacheFactoryConfiguration();
 
-                    //m_DataCacheFactory = new DataCacheFactory(new DataCacheFactoryConfiguration
-                    //{
-                    //    RequestTimeout = TimeSpan.FromSeconds(5),
-                        
-                    //});
-                }
-                else
+                if (HttpContext.Current == null)
                 {
-                    if (HttpContext.Current == null)
-                    {
-                        m_IsCacheAvaible = false;
-                        return;
-                    }
-                    m_Cache = HttpContext.Current.Cache;
+                    m_IsCacheAvaible = false;
+                    return;
                 }
+                m_Cache = HttpContext.Current.Cache;
+
                 m_IsCacheAvaible = true;
             }
             catch
@@ -162,7 +151,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             bool shouldUseCacheFromConfig;
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
-            //return true;
             return RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
         }
 

@@ -30,11 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        //public ActionResult NotFound()
-        //{
-        //    return View();
-        //}
-
+        [OutputCache(CacheProfile = "NoCache")]
         public ActionResult MembersOnly(string returnUrl)
         {
             if (string.IsNullOrEmpty(returnUrl))

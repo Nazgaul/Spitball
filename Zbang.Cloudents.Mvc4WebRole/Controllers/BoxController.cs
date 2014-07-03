@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var boxid = m_ShortCodesCache.Value.ShortCodeToLong(boxUid);
                 var query = new GetBoxQuery(boxid, GetUserId(false));
-                var box = ZboxReadService.GetBox2(query);
+                var box = ZboxReadService.GetBox(query);
 
                 var builder = new UrlBuilder(HttpContext);
                 var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
@@ -80,6 +80,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
+        [OutputCache(CacheProfile = "NoCache")]
         public ActionResult IndexDesktop(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);
@@ -87,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 
                 var query = new GetBoxQuery(boxId, userId);
-                var box = ZboxReadService.GetBox2(query);
+                var box = ZboxReadService.GetBox(query);
                 if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
                 {
 
@@ -131,7 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxQuery(boxId, userId);
-                var box = ZboxReadService.GetBox2(query);
+                var box = ZboxReadService.GetBox(query);
 
                 var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
                 BaseControllerResources.Culture = culture;
@@ -200,7 +201,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
 
                 var query = new GetBoxQuery(id, userId);
-                var result = ZboxReadService.GetBox2(query);
+                var result = ZboxReadService.GetBox(query);
                 return this.CdJson(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)
