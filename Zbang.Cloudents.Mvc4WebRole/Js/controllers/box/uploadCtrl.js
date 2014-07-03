@@ -6,7 +6,7 @@
          //'googleDrive','dropbox',
 
         function ($scope, $rootScope, $modalInstance, Dropbox,$timeout) {
-            $timeout(function () {
+            $timeout(function () {                
                 $rootScope.$broadcast('initUpload');
             });
             
@@ -32,6 +32,11 @@
             //$rootScope.uploader.bind('afteraddingall', function (event, items) {
             //    $modalInstance.close();
             //});
+
+            $scope.$on('BeforeUpload', function (event, data) {
+                $modalInstance.dismiss();
+            });
+
         }
     ]);
     app.controller('UploadLinkCtrl',

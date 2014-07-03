@@ -20,23 +20,60 @@
         $rootScope.$on('initUpload', function (e, location) {
             $uploadDialog = $('#uploadDialog');
             $('#up_dropZone').hide();
-            //uploader.destroy();
-            if (!uploader) {
-                uploader = uploadFiles();
-                registerDnd();
-            }
+            
+            if (uploader) {
+                uploader.destroy();
+                uploader = null;                
+            }            
 
-            boxToUpload.question = location.question;
+            uploader = uploadFiles();
+            registerDnd();
+
+            if (location && boxToUpload.question) {
+                boxToUpload.question = location.question;
+            }
+            
         });
 
         $rootScope.$on('uploadBox', function (e, boxid) {
             boxToUpload.id = parseInt(boxid, 10);
-            uploader.refresh();
+            //uploader.refresh();
         });
 
         $rootScope.$on('selectTab', function () {
             boxToUpload.tabid = $.isEmptyObject(d) ? null : d;
         });
+
+        var linkGuid;
+        $rootScope.$on('linkUpload', function (e, url) {
+            linkGuid = fakeUpload(url, null, 0);
+            $uploads.show();
+        });
+
+        $rootScope.$on('linkUploaded', function () {
+
+            finishFakeUpload(linkGuid);
+            //itemUploaded(itemData, boxToUpload.id);
+            trackUpload('upload link', '');
+        });
+        $rootScope.$on('linkError', function () {
+            finishFakeUploadError(guid);
+        });
+
+        var indices = {};
+
+        $rootScope.$on('dropboxUpload', function (e, data) {
+            indices[data.index] = fakeUpload(data.file.link, data.file.name, data.file.size);
+            $uploads.show();
+        });
+
+        $rootScope.$on('dropboxUploaded', function (e, index) {
+            finishFakeUpload(indices[index]);
+            delete indices[index];
+            //itemUploaded(itemData, boxToUpload.id);
+            trackUpload('upload by dropbox', 'Number of uploads by dropbox');
+        });
+
 
         cd.pubsub.subscribe('upload', function (d) {
             //$uploadDialog.show();
@@ -74,34 +111,7 @@
             //}, 50);
 
 
-            var linkGuid;
-            $rootScope.$on('linkUpload', function (e, url) {                
-                linkGuid = fakeUpload($url.val(), null, 0);
-                $uploads.show();
-            });
-
-            $rootScope.$on('linkUploaded', function () {
-                
-                finishFakeUpload(linkGuid);
-                //itemUploaded(itemData, boxToUpload.id);
-                trackUpload('upload link', '');
-            });
-            $rootScope.$on('linkError', function () {
-                finishFakeUploadError(guid);
-            });
-
-            var dropboxGuid;
-            $rootScope.$on('dropBoxUpload', function (e, file) {                
-                dropboxGuid = fakeUpload(file.link, file.name, file.size);
-                $uploads.show();
-            });
-
-            $rootScope.$on('dropBoxUploaded', function () {                
-                finishFakeUpload(dropboxGuid);
-                //itemUploaded(itemData, boxToUpload.id);
-                trackUpload('upload by dropbox', 'Number of uploads by dropbox');
-            });
-
+   
 
             cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
                 if (!$('#uploadDialog').is(':visible')) {
@@ -249,11 +259,11 @@
                     up.settings.multipart_params.tabId = file.tabid;
                     //up.settings.multipart_params.boxName = file.boxName;
                     //up.settings.multipart_params.uniName = file.uniName;
+                    $rootScope.$broadcast('BeforeUpload');
 
-
-                    cd.postFb(file.boxName,
-                    ZboxResources.IUploaded.format(file.name),
-                    cd.location());
+                    //cd.postFb(file.boxName,
+                    //ZboxResources.IUploaded.format(file.name),
+                    //window.location.href);
                 }
                 catch (err) {
                 }
@@ -308,8 +318,6 @@
                 if (uploader.state === plupload.STOPPED) {
                     uploader.start();
                 }
-                closeDialog();
-
             });
 
             var progressBarMaxwidth = 0;
@@ -335,7 +343,7 @@
                 }
                 trackUpload('total upload', 'total number of uploads in the system');
                 fileUploaded(file.id);
-                itemUploaded(itemData.payload.fileDto, itemData.payload.boxid);
+                $rootScope.$broadcast('FileAdded', { item: itemData.payload.fileDto, boxId: itemData.payload.boxid });                
                 cd.pubsub.publish('clear_cache');
             });
 

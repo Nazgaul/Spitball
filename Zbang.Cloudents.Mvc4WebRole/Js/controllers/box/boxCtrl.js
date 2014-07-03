@@ -1,7 +1,7 @@
-﻿define('boxCtrl',['app'], function (app) {
+﻿define('boxCtrl', ['app'], function (app) {
     app.controller('BoxCtrl',
         ['$scope', '$rootScope',
-         '$routeParams', '$modal','$location',
+         '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'Box', 'Item', 'Quiz', 'QnA', 'Upload',
          'NewUpdates', 'UserDetails',
@@ -9,7 +9,7 @@
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails) {
 
-            $scope.boxId = $routeParams.boxId;
+            $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
             $scope.boxName = $routeParams.boxName;
 
@@ -41,7 +41,7 @@
                 uploadAddLink: '/Box/UploadLinkPartial'
             };
 
-     
+
 
             $scope.options = {
                 currentView: consts.view.thumb,
@@ -49,7 +49,7 @@
                 manageTab: false
             };
 
-            var infoPromise = Box.info({ id: $scope.boxId }), 
+            var infoPromise = Box.info({ id: $scope.boxId }),
                 itemsPromise = Box.items({ id: $scope.boxId, pageNumber: 0 }),
                 qnaPromise = QnA.list({ boxId: $scope.boxId, uniName: $scope.uniName, boxName: $scope.boxName }),
                 all = $q.all([infoPromise, itemsPromise, qnaPromise]);
@@ -118,8 +118,19 @@
                 $scope.$emit('initQuiz');
             };
 
-            $scope.$on('addedItem', function (event, item) {
+            $scope.$on('FileAdded', function (event, data) {
+                $scope.$apply(function () {
+                    if (data.boxId !== $scope.boxId) {
+                        return;
+                    }
 
+                    if ($scope.info.currentTab && $scope.info.currentTab.id !== data.item.tabId) {
+                        return;
+                    }
+
+                    $scope.items.unshift(data.item);
+                    $scope.filteredItems.unshift(data.item);
+                });
             });
 
             $scope.openUploadPopup = function () {
@@ -140,22 +151,25 @@
                         });
 
                         modalInstance.result.then(function (url) {
-                            saveItem({url: url,type: 'link',timeout:1000});
+                            saveItem({ url: url, type: 'link', timeout: 1000 });
                         }); //save url
                         return;
                     }
-
+                   
                     if (response.dropbox) {
-                        var files = response.files, uploadData;
-                        for (var i = 0, l = files.length; i < l; i++) {
-                            saveItem({
-                                name: files[i].name, 
-                                size: files[i].bytes,
-                                url: files[i].link,
-                                type: 'dropbox',
-                                timeout:5000
-                            });
-                                               
+                        var files = response.files, file;
+                        for (var i = 0, l = files.length; i < l; i++) {                            
+                            (function (file,index) {
+                              saveItem({
+                                    name: file.name,
+                                    size: file.bytes,
+                                    url: file.link,
+                                    type: 'dropbox',
+                                    timeout: 0,
+                                    index: index
+                                });                               
+
+                            })(files[i],i);
                         }
                         return;
                     }
@@ -164,27 +178,18 @@
 
                     }
 
-                  
+
                 }, function () {
                     //dismiss
                 });
-                function saveItem(data) {
+                function saveItem(data) {                    
                     if (data.type === 'link') {
                         $rootScope.$broadcast('linkUpload', data.url);
-                    } else {
-                        $rootScope.$broadcast('dropboxUpload', { url: data.url, name: data.fileName, size: data.size });
+                    } else if (data.type === 'dropbox') {
+                        $rootScope.$broadcast('dropboxUpload', { file : { url: data.url, name: data.name, size: data.size}, index: data.index });
                     }
 
-                    var item = {
-                        file: {
-                            name: data.name || data.link,
-                            size: data.size || 1e6
-                        },
-                        progress: 50,
-                        isUploading: true,
-
-                    },
-                    formData = {
+                    var formData = {
                         boxId: $scope.boxId,
                         boxUid: $scope.boxId,
                         boxName: $scope.boxName,
@@ -192,16 +197,8 @@
                         tabId: $scope.info.currentTab ? $scope.info.currentTab.id : null,
                         url: data.url,
                         fileName: data.name,
-                        fileUrl : data.url
+                        fileUrl: data.url
                     }
-                    item.remove = function () {
-                        $scope.uploader.removeFromQueue(this);
-                    };
-                    item.cancel = function () {
-                        $timeout.cancel(saveFile);
-                    };
-                    
-                    $rootScope.uploader.queue.push(item);
 
                     var saveFile = $timeout(function () {
                         Upload[data.type](formData).then(function (response) {
@@ -211,17 +208,18 @@
                             }
 
                             if (data.type === 'link') {
-                                $rootScope.$$broadcast('linkUploaded');
+                                $rootScope.$broadcast('linkUploaded');
                             } else if (data.type === 'dropbox') {
-                                $rootScope.$$broadcast('dropBoxUploaded');
+                                $rootScope.$broadcast('dropboxUploaded',data.index);
                             }
-                            
-                            var responseItem = response.payload;
+
+                            var responseItem = response.payload;                            
                             $scope.items.unshift(responseItem);
                             $scope.filteredItems.unshift(responseItem);
                         });
-                    }, data.timeout);                    
+                    }, data.timeout);
                 }
+
             };
 
             //#region tabs
@@ -249,7 +247,7 @@
 
             $scope.deleteTab = function (tab) {
                 var data = {
-                    boxId: $scope.boxId,  
+                    boxId: $scope.boxId,
                     TabId: tab.id
                 }
                 Box.deleteTab(data).then(function (response) {
@@ -365,7 +363,7 @@
             };
 
             $scope.shareEmail = function () {
-            };           
+            };
             //#endregion
 
             //#region view
@@ -415,7 +413,7 @@
                     case 'Link':
                         var data = {
                             itemId: item.id,
-                            boxId: $scope.boxId 
+                            boxId: $scope.boxId
                         }
                         Item.delete(data).then(removeItem);
                         break;
