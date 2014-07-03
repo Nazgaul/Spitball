@@ -29,11 +29,9 @@
                 <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                     <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
-                    <button type="button" class="rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id">
-                        D
-                    </button>
+                    <button type="button" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id"></button>
 
-                    <ul class="dropdown-menu" role="menu">
+                    <ul class="dropdown-menu editFolderMenu" role="menu">
                         <li>
                             <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
                         </li>

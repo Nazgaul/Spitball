@@ -621,36 +621,27 @@
 .createFolder.current {
   font-weight: bold;
   /*rtl*/
+  border-right: none;
+  border-left: none;
 }
 .boxFolder .boxFolderName.editable,
 .createFolder .boxFolderName.editable {
   padding: 8px 8px 0 4px;
   /*rtl*/
 }
-.boxFolder.current,
-.createFolder.current {
-  border-right: none;
-  border-left: none;
-}
 .createFolderText:before {
   margin: 14px 0 0 6px;
   /*rtl*/
 }
 .editFolder {
-  margin: 0 0 0 14px;
+  margin: -2px 0 0 14px;
   /*rtl*/
 }
-.editFolder .editFolderMenu {
-  right: -109px;
+.editFolder ~ .dropdown-menu {
+  left: 8px;
   /*rtl*/
-  left: auto;
+  right: auto;
 }
-/*#region editFolderMenu */
-.editFolderMenu button {
-  text-align: right;
-  /*rtl*/
-}
-/*#endregion */
 /*#endregion */
 /*#region boxItems */
 .boxEmpty > h2 {

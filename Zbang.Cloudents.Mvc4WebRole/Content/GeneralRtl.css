@@ -223,6 +223,12 @@ body {
 .backWpr.noArrow {
   padding-right: 0;
 }
+/*#region  dropdown-menu  (previously: editFolderMenu) */
+.dropdown-menu button {
+  text-align: right;
+  /*rtl*/
+}
+/*#endregion */
 .dropDown {
   text-align: right;
   /*rtl*/

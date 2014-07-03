@@ -595,4 +595,13 @@ Sign up for FREE</value>
   <data name="SureYouWant" xml:space="preserve">
     <value>Are you sure you want</value>
   </data>
+  <data name="FolderCreate" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="FolderRename" xml:space="preserve">
+    <value>Rename folder</value>
+  </data>
+  <data name="RenameError" xml:space="preserve">
+    <value>Error renaming folder</value>
+  </data>
 </root>
