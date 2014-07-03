@@ -38,15 +38,15 @@
             boxToUpload.tabid = $.isEmptyObject(d) ? null : d;
         });
 
-        cd.pubsub.subscribe('upload', function (d) {
-            //$uploadDialog.show();
-            uploader.refresh();
-            //uploader.destroy();
-            //uploader = uploadFiles();
+        //cd.pubsub.subscribe('upload', function (d) {
+        //    //$uploadDialog.show();
+        //    uploader.refresh();
+        //    //uploader.destroy();
+        //    //uploader = uploadFiles();
 
-            uploadVisible();
-            boxToUpload.question = $.isEmptyObject(d) ? false : d.question;
-        });
+        //    uploadVisible();
+        //    boxToUpload.question = $.isEmptyObject(d) ? false : d.question;
+        //});
         function trackUpload(action, label) {
             analytics.trackEvent('Upload', action, label);
         }

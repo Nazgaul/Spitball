@@ -144,13 +144,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/directives/mLoader.js");
 
             RegisterJsRoutes("R_OldAll",
-                "/Scripts/knockout-3.0.0.js",
-                "/Scripts/externalScriptLoader.js",
-                "/Scripts/jquery.slimscroll.js",                
+                //"/Scripts/knockout-3.0.0.js",
+                //"/Scripts/externalScriptLoader.js",
+                //"/Scripts/jquery.slimscroll.js",                
                 "/js/Utils.js",
                 "/js/pubsub.js",
                 "/js/DataContext.js",
-                "/Scripts/elasticTextBox.js",
+               // "/Scripts/elasticTextBox.js",
                 "/js/Dialog.js",
                 "/js/GenericEvents.js",
                 "/js/Cache.js");
@@ -467,6 +467,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var jsBundle = javaScriptBundleImp;
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+            jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
