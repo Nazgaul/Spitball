@@ -1,10 +1,10 @@
-﻿define('QuizViewModel', ['Pubsub'], function () {
+﻿define('QuizViewModel', ['Pubsub','DataContext','stopwatch'], function () {
     (function ($, cd, dataContext, pubsub, JsResources, analytics) {
         "use strict";
 
         var eById = document.getElementById.bind(document);
 
-        cd.loadModel('quiz', 'QuizContext', QuizViewModel);
+        cd.pubsub.subscribe('initQuizView', QuizViewModel);
 
         function QuizViewModel() {
 
@@ -73,9 +73,15 @@
 
 
 
-                quizCL.value = cd.location();
+                quizCL.value = window.location.href;
 
                 registerEvents();
+
+                var $rootScope = angular.element(document).scope();
+                $rootScope.$apply(function () {
+                    $rootScope.$broadcast('viewContentLoaded');
+                });
+
                 //    setRateStorage();
                 function fillUnregisterSheet(savedData) {
 
