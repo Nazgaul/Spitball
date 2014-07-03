@@ -13,7 +13,7 @@
 		 	};
 
 		 	$scope.params = {
-		 		title : data.tabId ? 'Rename folder' : 'Create folder',
+		 	    title : data.tabId ? JsResources.FolderRename : JsResources.FolderCreate,
 		 		action: data.tabId ? 'Rename' : 'Create'
 		 	};
 
@@ -29,7 +29,7 @@
 		 					return;
 		 				}
 
-		 				alert('error renaming tab');
+		 				alert(JsResources.RenameError);
 		 			});
 
 		 			return;

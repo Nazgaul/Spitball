@@ -614,4 +614,16 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Ошибка, пожалуйста попробуйте еще раз позже</value>
   </data>
+  <data name="InviteBox" xml:space="preserve">
+    <value>Пригласить в этот групповой ящик с :</value>
+  </data>
+  <data name="InviteCourse" xml:space="preserve">
+    <value>Пригласить людей на этот курс с помощью:</value>
+  </data>
+  <data name="ShareBox" xml:space="preserve">
+    <value>Поделиться этим  ящиком </value>
+  </data>
+  <data name="ShareCourse" xml:space="preserve">
+    <value>Поделиться этим курсом </value>
+  </data>
 </root>

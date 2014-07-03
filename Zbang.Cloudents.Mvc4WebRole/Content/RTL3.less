@@ -652,17 +652,14 @@
 
     &.current {
         font-weight: bold; /*rtl*/
+        border-right: none;
+        border-left: none;
     }
 
     .boxFolderName {
         &.editable {
             padding: 8px 8px 0 4px; /*rtl*/
         }
-    }
-
-    &.current {
-        border-right: none;
-        border-left: none;
     }
 }
 
@@ -673,19 +670,13 @@
 }
 
 .editFolder {
-    margin: 0 0 0 14px; /*rtl*/
-    .editFolderMenu {
-        right: -109px; /*rtl*/
-        left: auto;
+    margin: -2px 0 0 14px; /*rtl*/
+    ~ .dropdown-menu {
+        left: 8px; /*rtl*/
+        right: auto;
     }
 }
-/*#region editFolderMenu */
-.editFolderMenu {
-    button {
-        text-align: right; /*rtl*/
-    }
-}
-/*#endregion */
+
 /*#endregion */
 
 /*#region boxItems */

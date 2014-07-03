@@ -191,7 +191,7 @@
                     var saveFile = $timeout(function () {
                         Upload[data.type](formData).then(function (response) {
                             if (!response.success) {
-                                alert('error saving link');
+                                alert(JsResources.LinkError);
                                 return;
                             }
                             item.progress = 100;
@@ -235,7 +235,7 @@
                 }
                 Box.deleteTab(data).then(function (response) {
                     if (!response.Success) {
-                        alert('Error deleting tab');
+                        alert(JsResources.DeleteError);
                     }
                 });
 
@@ -324,7 +324,7 @@
 
                 Box.addItemsToTab(data).then(function (response) {
                     if (!response.Success) {
-                        alert('Error saving items to tab');
+                        alert(JsResources.FolderItemError);
                     }
                 });
 
