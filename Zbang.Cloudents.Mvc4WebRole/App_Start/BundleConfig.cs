@@ -131,6 +131,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //RegisterJsRoutes("R_App", "/Js/app.js");
 
             RegisterJsRoutes("R_All",
+                "/Scripts/ng-infinite-scroll.js",
+                "/Scripts/bindonce.js",
+                "/Scripts/ui-bootstrap-tpls-0.11.0.js",
+                "/Scripts/Modernizr.js",
                 "/js/app.js",
                 "/js/routes",
                 "/js/services/dependencyResolverFor.js",
@@ -138,6 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/directives/mLoader.js");
 
             RegisterJsRoutes("R_OldAll",
+                "/Scripts/knockout-3.0.0.js",
                 "/Scripts/externalScriptLoader.js",
                 "/Scripts/jquery.slimscroll.js",                
                 "/js/Utils.js",

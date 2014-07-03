@@ -1,15 +1,16 @@
 ﻿require.config({
     paths: {
-        'app': '{R_All-/js/app}',
-        'angular': '../Scripts/angular',
-        'angular-route': '../Scripts/angular-route',
-        'angular-sanitize': '../Scripts/angular-sanitize',
-        'infinite-scroll': '../Scripts/ng-infinite-scroll',
-        'bind-once': '../Scripts/bindonce',
-        'jquery': '../Scripts/jquery-2.1.0',
-        'boots': '../Scripts/ui-bootstrap-tpls-0.11.0',
-        'modernizr': '../Scripts/Modernizr',       
-        'Knockout': '../Scripts/knockout-3.0.0',
+        app: '{R_All-/js/app}',
+        angular: 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min',
+        'angular-route': 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min',
+        'angular-sanitize': 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min',
+        'infinite-scroll': '{R_All-/Scripts/ng-infinite-scroll}',
+        'bind-once': '{R_All-/Scripts/bindonce}',
+        jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min',
+        boots: '{R_All-/Scripts/ui-bootstrap-tpls-0.11.0}',
+        modernizr: '{R_All-/Scripts/Modernizr}',       
+        Knockout: '{R_OldAll-/Scripts/knockout-3.0.0}',
+
         'mLoader': '{R_All-/js/directives/mLoader}',
 
         dropbox: '{R_Box-/js/services/dropbox}', 
