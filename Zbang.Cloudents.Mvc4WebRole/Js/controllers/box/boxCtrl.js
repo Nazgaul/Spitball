@@ -1,12 +1,12 @@
 ﻿define('boxCtrl',['app'], function (app) {
     app.controller('BoxCtrl',
         ['$scope', '$rootScope',
-         '$routeParams', '$modal',
+         '$routeParams', '$modal','$location',
          '$filter', '$q', '$timeout',
          'Box', 'Item', 'Quiz', 'QnA', 'Upload',
          'NewUpdates', 'UserDetails',
 
-        function ($scope, $rootScope, $routeParams, $modal, $filter,
+        function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails) {
 
             $scope.boxId = $routeParams.boxId;
@@ -68,7 +68,8 @@
                     tabs: info.tabs,
                     userType: info.userType,
                     uniCountry: info.uniCountry,
-                    image: info.image
+                    image: info.image,
+                    url: decodeURI($location.absUrl())
                 };
 
                 $scope.info.currentTab = null;
@@ -343,8 +344,7 @@
             };
 
             $scope.shareEmail = function () {
-            };
-
+            };           
             //#endregion
 
             //#region view

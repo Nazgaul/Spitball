@@ -39,6 +39,7 @@
                     'tabCtrl',
                     'qnaCtrl',
                     'uploadCtrl',
+                    'selectOnClick',
                     'manageCtrl'
                 ]
             },
@@ -61,6 +62,7 @@
                     'tabCtrl',
                     'qnaCtrl',
                     'uploadCtrl',
+                    'selectOnClick',
                     'manageCtrl'
                 ]
             },

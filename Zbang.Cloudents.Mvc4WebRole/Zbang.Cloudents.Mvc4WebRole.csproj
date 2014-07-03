@@ -803,6 +803,7 @@
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\mLoader.js" />
+    <Content Include="Js\directives\selectOnClick.js" />
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />

@@ -163,7 +163,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/Js/controllers/box/tabCtrl.js",
                 "/Js/controllers/box/qnaCtrl.js",
                 "/Js/controllers/box/uploadCtrl.js",
-                "/Js/controllers/box/manageCtrl.js"
+                "/Js/controllers/box/manageCtrl.js",
+                "/Js/directives/selectOnClick.js"
                 );
             RegisterJsRoutes("R_DashboardBox",
                 "/js/services/newUpdates.js",
