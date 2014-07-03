@@ -80,5 +80,5 @@ define('stopwatch',[], function() {
         that.renderTimeDiff = renderTimeDiff;
         that.isRunning = false;
     };
-    return Stopwatch;
+    window.Stopwatch = Stopwatch;
 }())

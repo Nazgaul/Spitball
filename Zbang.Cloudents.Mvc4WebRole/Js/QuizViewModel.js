@@ -1,4 +1,4 @@
-﻿define('QuizViewModel', ['Pubsub','DataContext','stopwatch'], function () {
+﻿define('QuizViewModel', ['stopwatch','Pubsub','DataContext'], function () {
     (function ($, cd, dataContext, pubsub, JsResources, analytics) {
         "use strict";
 
