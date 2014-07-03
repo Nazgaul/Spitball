@@ -781,9 +781,6 @@
     <Content Include="Js\app.js" />
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
-    <Content Include="Js\controllers\dashboard\dashboardCtrl.min.js">
-      <DependentUpon>dashboardCtrl.js</DependentUpon>
-    </Content>
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
