@@ -1,14 +1,14 @@
 ﻿require.config({
     paths: {
-        app: '{R_All-/js/app}',
         angular: 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min',
         'angular-route': 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min',
         'angular-sanitize': 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min',
-        'infinite-scroll': '{R_All-/Scripts/ng-infinite-scroll}',
-        'bind-once': '{R_All-/Scripts/bindonce}',
+        app: '{R_All-/js/app}',
+        'infinite-scroll': '/Scripts/ng-infinite-scroll',
+        'bind-once': '/Scripts/bindonce',
         jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min',
-        boots: '{R_All-/Scripts/uiBootstrapTpls0.11.0}',
-        modernizr: '{R_All-/Scripts/Modernizr}',       
+        boots: '/Scripts/uiBootstrapTpls0.11.0',
+        modernizr: '/Scripts/Modernizr',
         Knockout: '{R_OldAll-/Scripts/knockout-3.0.0}',
 
         'mLoader': '{R_All-/js/directives/mLoader}',
@@ -79,11 +79,12 @@
 
     },
     shim: {
-        'app': {
-            deps: ['angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once', 'modernizr']
+        'angular': {
+            deps: ['jquery'],
+            exports: 'angular'
         },
-        'mLoader': {
-            deps : ['app']
+        'app': {
+            deps: ['angular','angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once', 'modernizr']
         },
         'angular-route': {
             deps: ['angular']
@@ -97,14 +98,12 @@
         'angular-sanitize': {
             deps: ['angular']
         },
-        'angular': {
-            deps: ['jquery']
-        },
+       
         'boots': {
             deps: ['angular']
         },
         'mLoader': {
-            deps: ['angular']
+            deps: ['angular', 'app']
         }
     }
 });

@@ -129,14 +129,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             // );js/ItemViewModel4
             //RegisterJsRoutes("R_App", "/Js/app.js");
-
-            RegisterJsRoutes("R_All",
-                "/Scripts/ng-infinite-scroll.js",
+            RegisterJsRoutes("R_Shim",
+               // "/Scripts/ng-infinite-scroll.js",
                 "/Scripts/bindonce.js",
                 "/Scripts/uiBootstrapTpls0.11.0.js",
-                "/Scripts/Modernizr.js",
+                "/Scripts/Modernizr.js");
+
+            RegisterJsRoutes("R_All",
+                
                 "/js/app.js",
-                "/js/routes",
+                "/js/routes.js",
                 "/js/services/dependencyResolverFor.js",
                 "/js/directives/ngPlaceholder.js",
                 "/js/directives/mLoader.js");
