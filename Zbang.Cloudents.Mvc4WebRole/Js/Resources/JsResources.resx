@@ -610,7 +610,19 @@ Sign up for FREE</value>
   <data name="FolderItemError" xml:space="preserve">
     <value>Error saving items to folder</value>
   </data>
+  <data name="InviteBox" xml:space="preserve">
+    <value>Invite people to this Group Box using:</value>
+  </data>
+  <data name="InviteCourse" xml:space="preserve">
+    <value>Invite people to this course using:</value>
+  </data>
   <data name="LinkError" xml:space="preserve">
     <value>Error saving link</value>
+  </data>
+  <data name="ShareBox" xml:space="preserve">
+    <value>Share this Group Box</value>
+  </data>
+  <data name="ShareCourse" xml:space="preserve">
+    <value>Share this course</value>
   </data>
 </root>

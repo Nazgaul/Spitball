@@ -676,6 +676,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invite people to this Group Box using:.
+        /// </summary>
+        public static string InviteBox {
+            get {
+                return ResourceManager.GetString("InviteBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite people to this course using:.
+        /// </summary>
+        public static string InviteCourse {
+            get {
+                return ResourceManager.GetString("InviteCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invites.
         /// </summary>
         public static string Invites {
@@ -1235,11 +1253,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share this Group Box.
+        /// </summary>
+        public static string ShareBox {
+            get {
+                return ResourceManager.GetString("ShareBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share by name or email.
         /// </summary>
         public static string ShareBy {
             get {
                 return ResourceManager.GetString("ShareBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share this course.
+        /// </summary>
+        public static string ShareCourse {
+            get {
+                return ResourceManager.GetString("ShareCourse", resourceCulture);
             }
         }
         

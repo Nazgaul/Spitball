@@ -604,4 +604,16 @@
   <data name="TryAgain" xml:space="preserve">
     <value>خطأ، يرجى المحاولة مرة أخرى لاحقا</value>
   </data>
+  <data name="InviteBox" xml:space="preserve">
+    <value>دعوة أشخاص إلى صندوق المجموعة هذا باستخدام:</value>
+  </data>
+  <data name="InviteCourse" xml:space="preserve">
+    <value>دعوة أشخاص إلى هذا المسار التعليمي باستخدام:</value>
+  </data>
+  <data name="ShareBox" xml:space="preserve">
+    <value>مشاركة هذا الإطار المجموعة</value>
+  </data>
+  <data name="ShareCourse" xml:space="preserve">
+    <value>مشاركة هذه الدورة</value>
+  </data>
 </root>

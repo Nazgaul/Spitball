@@ -611,4 +611,16 @@
   <data name="TryAgain" xml:space="preserve">
     <value>שגיאה, אנא נסה מאוחר יותר</value>
   </data>
+  <data name="InviteBox" xml:space="preserve">
+    <value>הזמן לקופסא הקבוצתית:</value>
+  </data>
+  <data name="InviteCourse" xml:space="preserve">
+    <value>הזמן לקורס באמצעות:</value>
+  </data>
+  <data name="ShareBox" xml:space="preserve">
+    <value>שתף את הקופסא הקבוצתית:</value>
+  </data>
+  <data name="ShareCourse" xml:space="preserve">
+    <value>שתף את קורס</value>
+  </data>
 </root>
