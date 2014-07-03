@@ -2,10 +2,14 @@
     app.controller('UploadCtrl',
         ['$scope', '$rootScope',          
          '$modalInstance', 'Dropbox',
-          
+          '$timeout',//temp
          //'googleDrive','dropbox',
 
-        function ($scope, $rootScope, $modalInstance, Dropbox) {
+        function ($scope, $rootScope, $modalInstance, Dropbox,$timeout) {
+            $timeout(function () {
+                $rootScope.$broadcast('initUpload');
+            });
+            
             //function ($scope, Box, googleDrive, dropbox) {            
             $scope.saveLink = function () {
                 $modalInstance.close({ url: true });
