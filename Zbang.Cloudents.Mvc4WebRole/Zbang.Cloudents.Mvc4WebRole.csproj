@@ -1316,7 +1316,7 @@
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />
-    <None Include="Views\Box\Index.cshtml" />
+    <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Shared\_Layout3.mobile.cshtml" />
     <Content Include="Views\Dashboard\Index2.mobile.cshtml" />
@@ -1371,7 +1371,7 @@
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
-    <None Include="Views\Box\Index2.cshtml" />
+    <Content Include="Views\Box\Index2.cshtml" />
     <Content Include="Views\Shopping\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <Content Include="Views\Shopping\Product.cshtml" />
