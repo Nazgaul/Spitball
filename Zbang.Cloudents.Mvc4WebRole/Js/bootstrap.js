@@ -63,7 +63,7 @@
 
         //User
         'UserCtrl': '{R_User-/js/controllers/user/userCtrl}',
-        'User': '{R_User-/js/User}',
+        'UserTemp': '{R_User-/js/User}',
 
         //Item         
         'ItemCtrl': '{R_Item-/js/controllers/item/itemCtrl}',

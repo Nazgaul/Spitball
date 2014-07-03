@@ -210,9 +210,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterJsRegular("ChooseLib",
                 //new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
-                new JsFileWithCdn("~/Js/Cache.js"),
-                new JsFileWithCdn("~/Js/DataContext.js"),
-                new JsFileWithCdn("~/Js/GenericEvents.js"),
+                new JsFileWithCdn("~/Js/Cache2.js"),
+                new JsFileWithCdn("~/Js/DataContext2.js"),
+                new JsFileWithCdn("~/Js/GenericEvents2.js"),
                 new JsFileWithCdn("~/Js/LibraryChoose.js"));
 
             RegisterJsRegular("MChooseLib",
@@ -247,25 +247,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
 
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
-                                new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
+                //new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
 
-                                new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
+                //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
 
                 //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
-                //new JsFileWithCdn("~/Scripts/plupload/plupload.silverlight.js"),
-                // new JsFileWithCdn("~/Scripts/ZeroClipboard.js"),
                 new JsFileWithCdn("~/Js/Logon.js"),
-                new JsFileWithCdn("~/Js/Cache.js"),
-                new JsFileWithCdn("~/Js/DataContext.js"),
-                new JsFileWithCdn("~/Js/GenericEvents.js"),
+                new JsFileWithCdn("~/Js/Cache2.js"),
+                new JsFileWithCdn("~/Js/DataContext2.js"),
+                new JsFileWithCdn("~/Js/GenericEvents2.js"),
                 new JsFileWithCdn("~/Js/Navigation.js"),
 
 
-                new JsFileWithCdn("~/Js/Dialog.js"), //dialog message
+                new JsFileWithCdn("~/Js/Dialog2.js"), //dialog message
                 new JsFileWithCdn("~/Js/Autocomplete.js"), //dialog message
                 new JsFileWithCdn("~/Js/Tooltip.js"), //dialog message
 
@@ -283,23 +281,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //new JsFileWithCdn("~/Js/BoxesViewModel.js"),
                 //new JsFileWithCdn("~/Js/DashboardAside.js"),
                 //library page
-                new JsFileWithCdn("~/Js/Library.js"),
+                //new JsFileWithCdn("~/Js/Library.js"),
 
 
                 //box Page
-                new JsFileWithCdn("~/Js/BoxViewModel2.js"),
-                new JsFileWithCdn("~/Js/BoxItemsViewModel2.js"),
-                new JsFileWithCdn("~/Js/BoxSettings.js"),
-                new JsFileWithCdn("~/Js/Upload2.js"),
+                //new JsFileWithCdn("~/Js/BoxViewModel2.js"),
+                //new JsFileWithCdn("~/Js/BoxItemsViewModel2.js"),
+                //new JsFileWithCdn("~/Js/BoxSettings.js"),
+                //new JsFileWithCdn("~/Js/Upload2.js"),
                 new JsFileWithCdn("~/Js/Invite.js"),
-                new JsFileWithCdn("/Js/Share.js"),
-                new JsFileWithCdn("~/Js/QnA.js"),
+                //new JsFileWithCdn("/Js/Share.js"),
+                //new JsFileWithCdn("~/Js/QnA.js"),
 
                 //account settings
                 new JsFileWithCdn("~/Js/AccountSettings.js"),
 
                 //item
-                new JsFileWithCdn("~/Js/ItemViewModel4.js"),
+                //new JsFileWithCdn("~/Js/ItemViewModel4.js"),
 
                 //signalR
                 new JsFileWithCdn("~/Js/RT.js"),
@@ -308,17 +306,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Js/SocialConnect.js"),
 
                 //User Page
-                new JsFileWithCdn("~/Scripts/CountUp.js"),
-                new JsFileWithCdn("~/Js/User.js"),
+                //new JsFileWithCdn("~/Scripts/CountUp.js"),
+                //new JsFileWithCdn("~/Js/User.js"),
 
                 //Search page
                 new JsFileWithCdn("~/Js/SearchDropdown.js"),
-                new JsFileWithCdn("~/Js/Search.js"),
+                new JsFileWithCdn("~/Js/Search.js")
 
                 //Quiz
-                new JsFileWithCdn("~/Js/QuizCreate.js"),
-                new JsFileWithCdn("~/Js/QuizViewModel.js"),
-                new JsFileWithCdn("~/Scripts/stopwatch.js")
+                //new JsFileWithCdn("~/Js/QuizCreate.js"),
+                //new JsFileWithCdn("~/Js/QuizViewModel.js"),
+                //new JsFileWithCdn("~/Scripts/stopwatch.js")
                 );
 
 
@@ -348,8 +346,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                     new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
                                     new JsFileWithCdn("~/Js/Utils2.js"),
                                     new JsFileWithCdn("~/Js/pubsub2.js"),
-                                    new JsFileWithCdn("~/Js/Cache.js"),
-                                    new JsFileWithCdn("~/Js/DataContext.js"),
+                                    new JsFileWithCdn("~/Js/Cache2.js"),
+                                    new JsFileWithCdn("~/Js/DataContext2.js"),
                                     new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
             RegisterJsRegular("mobile",
                   new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
@@ -375,8 +373,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("~/Js/Utils2.js"),
                  new JsFileWithCdn("~/Js/pubsub2.js"),
-                new JsFileWithCdn("~/Js/Cache.js"),
-                new JsFileWithCdn("~/Js/DataContext.js"),
+                new JsFileWithCdn("~/Js/Cache2.js"),
+                new JsFileWithCdn("~/Js/DataContext2.js"),
 
                 new JsFileWithCdn("~/Js/Navigation.js"),
                 new JsFileWithCdn("~/Js/Mobile/MBaseViewModel.js"),

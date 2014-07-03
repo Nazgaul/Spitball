@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToActionPermanent("Index", "Dashboard");
             }
 
-            return View();
+            return View("Empty");
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
