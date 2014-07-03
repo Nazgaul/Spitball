@@ -39,6 +39,8 @@
                 uploadAddLink: '/Box/UploadLinkPartial'
             };
 
+     
+
             $scope.options = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
@@ -71,6 +73,11 @@
                     image: info.image,
                     url: decodeURI($location.absUrl())
                 };
+
+                $scope.strings = {
+                    share: $scope.info.boxType === 'academic' ? JsResources.ShareCourse : JsResources.ShareBox,
+                    invite: $scope.info.boxType === 'academic' ? JsResources.InviteCourse : JsResources.InviteBox
+                }
 
                 $scope.info.currentTab = null;
 
