@@ -376,6 +376,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error deleting folder.
+        /// </summary>
+        public static string DeleteError {
+            get {
+                return ResourceManager.GetString("DeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to delete.
         /// </summary>
         public static string DeleteLowercase {
@@ -573,6 +582,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string FolderCreate {
             get {
                 return ResourceManager.GetString("FolderCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving items to folder.
+        /// </summary>
+        public static string FolderItemError {
+            get {
+                return ResourceManager.GetString("FolderItemError", resourceCulture);
             }
         }
         
@@ -798,6 +816,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string Like {
             get {
                 return ResourceManager.GetString("Like", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving link.
+        /// </summary>
+        public static string LinkError {
+            get {
+                return ResourceManager.GetString("LinkError", resourceCulture);
             }
         }
         

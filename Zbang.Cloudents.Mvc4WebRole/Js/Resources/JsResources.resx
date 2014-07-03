@@ -604,4 +604,13 @@ Sign up for FREE</value>
   <data name="RenameError" xml:space="preserve">
     <value>Error renaming folder</value>
   </data>
+  <data name="DeleteError" xml:space="preserve">
+    <value>Error deleting folder</value>
+  </data>
+  <data name="FolderItemError" xml:space="preserve">
+    <value>Error saving items to folder</value>
+  </data>
+  <data name="LinkError" xml:space="preserve">
+    <value>Error saving link</value>
+  </data>
 </root>
