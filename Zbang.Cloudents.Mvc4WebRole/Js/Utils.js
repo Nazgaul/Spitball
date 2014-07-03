@@ -1145,7 +1145,7 @@
 
 
         function getParameterFromUrl(index) {
-            var location = window.location.pathname;
+            var location = window.location.hash || window.location.pathname;
             location = removeStartingSlash(location);
             location = location.split('?')[0];
 

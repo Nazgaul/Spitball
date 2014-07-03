@@ -157,7 +157,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuery(1, 1);
             try
             {
-                m_ZboxReadService.GetBox2(query);
+                m_ZboxReadService.GetBox(query);
             }
             catch (Exception ex)
             {

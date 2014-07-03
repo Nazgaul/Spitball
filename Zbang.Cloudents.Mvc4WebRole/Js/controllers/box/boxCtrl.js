@@ -19,7 +19,7 @@
                     url: backUrl
                 };
                 if (!$rootScope.previousTitle) {
-                    $scope.previousTitle = backTitle
+                    $scope.previousTitle = backTitle;
                 }
             };
 
@@ -55,7 +55,6 @@
                     items = data[1].success ? data[1].payload : {},
                     qna = data[2].success ? data[2].payload : {};
 
-
                 $scope.info = {
                     name: info.name,
                     comments: info.comments,
@@ -68,7 +67,8 @@
                     privacy: info.privacySetting,
                     tabs: info.tabs,
                     userType: info.userType,
-                    uniCountry: info.uniCountry
+                    uniCountry: info.uniCountry,
+                    image: info.image
                 };
 
                 $scope.info.currentTab = null;

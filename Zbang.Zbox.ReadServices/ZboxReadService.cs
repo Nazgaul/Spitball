@@ -205,7 +205,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public Box.BoxDto GetBox2(GetBoxQuery query)
+        public Box.BoxDto GetBox(GetBoxQuery query)
         {
             using (UnitOfWork.Start())
             {

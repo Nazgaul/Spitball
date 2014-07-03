@@ -54,41 +54,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_IdGenerator = idGenerator;
         }
 
-        /// <summary>
-        /// Item Page
-        /// </summary>
-        /// <returns></returns>
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[UserNavNWelcome]
-        //[Route("Item/{BoxUid:length(11)}/{ItemUid:length(11)}/{itemName?}")]
-        //public ActionResult Index(string boxUid, string itemUid, string itemName)
-        //{
-        //    var itemId = m_ShortToLongCode.Value.ShortCodeToLong(itemUid, ShortCodesType.Item);
-        //    var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
-        //    var query = new GetItemQuery(GetUserId(false), itemId, boxId);
-        //    var item = m_ZboxReadService.GetItem(query);
-
-        //    var builder = new UrlBuilder(HttpContext);
-        //    var url = builder.BuildItemUrl(boxId, item.BoxName, itemId, item.Name, item.UniName);
-        //    return RedirectPermanent(url);
-        //}
-
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[UserNavNWelcome]
-        //[Route("Item/{BoxUid:length(11)}/{itemid:long:min(0)}")]
-        //public ActionResult Index(string boxUid, long itemid)
-        //{
-        //    var boxId = m_ShortToLongCode.Value.ShortCodeToLong(boxUid);
-        //    var query = new GetItemQuery(GetUserId(false), itemid, boxId);
-        //    var item = m_ZboxReadService.GetItem(query);
-
-        //    var builder = new UrlBuilder(HttpContext);
-        //    var url = builder.BuildItemUrl(boxId, item.BoxName, itemid, item.Name, item.UniName);
-        //    return RedirectPermanent(url);
-        //}
 
         [ActionName("Index"), Ajax]
-        //[AjaxCache(TimeConsts.Hour)]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         public ActionResult Index2(long boxUid, long itemId)
         {
@@ -122,6 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [OutputCache(CacheProfile = "NoCache")]
         public ActionResult IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
             var userId = GetUserId(false); // not really needs it
@@ -159,6 +127,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [UserNavNWelcome]
         [NonAjax]
+        [OutputCache(CacheProfile = "NoCache")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
         public ActionResult Index(long boxId, long itemid, string itemName, string universityName, string boxName)
