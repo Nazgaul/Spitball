@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterJsRoutes("R_All",
                 "/Scripts/ng-infinite-scroll.js",
                 "/Scripts/bindonce.js",
-                "/Scripts/ui-bootstrap-tpls-0.11.0.js",
+                "/Scripts/uiBootstrapTpls0.11.0.js",
                 "/Scripts/Modernizr.js",
                 "/js/app.js",
                 "/js/routes",
@@ -195,7 +195,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterJsRoutes("R_User",             
                 "/js/controllers/user/userCtrl.js",
-                "/js/User.js"
+                "/js/User.js",
+                "/scripts/CountUp.js"
                 );
 
             RegisterJsRoutes("R_Item",

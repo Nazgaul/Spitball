@@ -7,7 +7,7 @@
         'infinite-scroll': '{R_All-/Scripts/ng-infinite-scroll}',
         'bind-once': '{R_All-/Scripts/bindonce}',
         jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min',
-        boots: '{R_All-/Scripts/ui-bootstrap-tpls-0.11.0}',
+        boots: '{R_All-/Scripts/uiBootstrapTpls0.11.0}',
         modernizr: '{R_All-/Scripts/Modernizr}',       
         Knockout: '{R_OldAll-/Scripts/knockout-3.0.0}',
 
@@ -66,6 +66,7 @@
         //User
         'UserCtrl': '{R_User-/js/controllers/user/userCtrl}',
         'UserTemp': '{R_User-/js/User}',
+        CountUp: '{R_User-/scripts/CountUp}',
 
         //Item         
         'ItemCtrl': '{R_Item-/js/controllers/item/itemCtrl}',

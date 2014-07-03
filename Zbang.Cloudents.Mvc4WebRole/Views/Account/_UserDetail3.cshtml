@@ -10,7 +10,7 @@
             <img src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />
             @*<div class="userDtails">*@
             <div class="userName elps">@Model.Name.Split(' ')[0]</div>
-            <div class="userPts" data-points="&nbsp;@SharedResources.Pts">@Model.Score</div>
+            <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts">@Model.Score</div>
             @*</div>*@
         </a>
     </li>

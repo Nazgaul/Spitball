@@ -1,4 +1,4 @@
-﻿define('UserTemp', ['Knockout', 'Pubsub','DataContext'], function (ko) {
+﻿define('UserTemp', ['Knockout', 'Pubsub', 'DataContext', 'CountUp'], function (ko) {
     (function (cd, pubsub, ko, dataContext, $, analytics) {        
         var eById = document.getElementById.bind(document),
             consts = {
@@ -448,7 +448,7 @@
                         populateScore(userScore);
                     }
 
-                    cd.setTitle(username + ' | Cloudents');
+                    //cd.setTitle(username + ' | Cloudents');
                     self.score(userScore);
 
                     pubsub.publish('clearTooltip');                                        
