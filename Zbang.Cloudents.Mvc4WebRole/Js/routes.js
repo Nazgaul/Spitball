@@ -81,7 +81,7 @@
                 'Utils',
                 'Pubsub',
                 'DataContext',
-                'GenericEvents',                
+                'GenericEvents',
                 'Cache',
                 'ngPlaceholder',
                 'ItemViewModel'
@@ -112,7 +112,7 @@
                 params: {
                     type: 'library'
                 },
-                templateUrl: function (params) { return '/library/' + params.libraryId + '/' + encodeURIComponent(params.libraryName) +  '/'; },
+                templateUrl: function (params) { return '/library/' + params.libraryId + '/' + encodeURIComponent(params.libraryName) + '/'; },
                 dependencies: [
                                 'extScriptLdr',
                     'Dialog',
@@ -154,9 +154,9 @@
                 params: {
                     type: 'user'
                 },
-                templateUrl: function (params) { return '/user/' + params.userId + '/' + params.userName + '/'; },
-                dependencies: [                    
-                    'ngPlaceholder',                    
+                templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; },
+                dependencies: [
+                    'ngPlaceholder',
                     'extScriptLdr',
                     'Dialog',
                     'Utils',
@@ -164,8 +164,8 @@
                     'DataContext',
                     'GenericEvents',
                     'Cache',
-                    'User',
-                    'UserCtrl'                    
+                    'UserTemp',
+                    'UserCtrl'
                 ]
             }
 

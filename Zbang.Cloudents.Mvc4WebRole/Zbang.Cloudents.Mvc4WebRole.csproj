@@ -779,6 +779,7 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
+    <Content Include="Js\Cache2.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\dashboard\dashboardCtrl.min.js">
       <DependentUpon>dashboardCtrl.js</DependentUpon>
@@ -799,11 +800,14 @@
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
+    <Content Include="Js\DataContext2.js" />
+    <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\mLoader.js" />
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />
     <Content Include="Js\filters\trustedHtml.js" />
+    <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\GmfcnHandler.js" />
     <Content Include="Js\ItemViewModel4.js" />
@@ -1232,6 +1236,9 @@
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\require.min.js">
+      <DependentUpon>require.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -1260,8 +1267,7 @@
     <Content Include="Scripts\plupload\plupload.silverlight.js" />
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
-    <Content Include="Scripts\ui-bootstrap-tpls-0.10.0.js" />
-    <Content Include="Scripts\ui-bootstrap-tpls-0.11.0.js" />
+    <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="test.html" />
@@ -1371,7 +1377,6 @@
     <Content Include="Views\Shopping\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <Content Include="Views\Shopping\Product.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Box\_QnA2.cshtml" />
     <None Include="Views\Web.Debug.config">

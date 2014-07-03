@@ -136,14 +136,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
                 new
                 {
-                    controller = "Library",
-                    action = "Index",
-                    LibId = UrlParameter.Optional,
-                    LibName = UrlParameter.Optional
+                    controller = "Quiz",
+                    action = "Index"
                 },
                 new
                 {
-                    isDesktop = new DesktopConstraint(),
                     boxId = new LongRouteConstraint(),
                     quizId = new LongRouteConstraint()
                 }

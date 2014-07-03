@@ -51,7 +51,7 @@
         </div>
     </noscript>
     <header class="siteHeader">
-        <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()" data-navigation="Dashboard"
+        <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
            href="@Url.Action("Index", "Dashboard")"></a>
         <div class="headerRightWpr rFloat">
             <nav class="userSection rFloat">
@@ -79,7 +79,7 @@
                     <ul class="searchList people"></ul>
                     <h3>@SharedResources.ResultsOther</h3>
                     <ul class="searchList university"></ul>
-                    <a class="showAll" data-navigation="search">@SharedResources.AllResults&nbsp;<q></q></a>
+                    <a class="showAll" target="_self" >@SharedResources.AllResults&nbsp;<q></q></a>
                     <div class="emptySearch">@SharedResources.NoResults</div>
                 </div>
             </form>
@@ -247,11 +247,10 @@
 
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
-    @*@Html.Script2("General")
-    @Html.Script2("cd1")
-    @RenderSection("scripts", false)*@
+    
+    @RenderSection("scripts", false)
 
-    <script data-main="/bootstrap.js" type="text/javascript" src="~/Scripts/require.js"></script>
+   
    
 
 

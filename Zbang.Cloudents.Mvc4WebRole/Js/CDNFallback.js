@@ -16,7 +16,7 @@
 
     window.onload = function () {
         cssFailCallback();
-        javascriptFailCallback();
+       // javascriptFailCallback();
     };
 
     function cssFailCallback() {

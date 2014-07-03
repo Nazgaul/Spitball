@@ -17,7 +17,7 @@
 
             </div>
         </div>
-        
+
         <div class="boxFolders">
             <div class="sectionHeader">@IndexResources.Folders</div>
             <ul class="boxFolderList">
@@ -74,7 +74,7 @@
                     <input type="text" id="box_CL" class="linkShare" value="" readonly="readonly" data-bind="value: copyLink" />
                 </div>
             </section>
-            <a data-navigation="invite" id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
+            <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
                data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
             <a class="backWpr elps lFloat" ng-click="$back(back.url)">
                 <div>@SharedResources.Backto</div>
@@ -100,31 +100,13 @@
                         <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" data-uid={{member.uid}} width="48" height="48" />@*uid*@
                     </a>
                 </li>
-
-                <li class="static">
-                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-                </li>
-                <li class="static">
-                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-                </li>
-                <li class="static">
-                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-                </li>
-                <li class="static">
-                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-                </li>
-                <li class="static">
-                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-                </li>
-                <li class="static">
-                    <a data-navigation="invite" href="@Url.ActionLinkWithParam("Index", "Share", new { boxid = ViewBag.boxid })"
-                       data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
-                </li>
+                @for (int i = 0; i < 6; i++)
+                {
+                    <li class="static">
+                        <a target="_self" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
+                           data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
+                    </li>
+                }
                 <li id="showAllMembers"><button ng-click="openBoxManage('members')" class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
             </ul>
             @*@{Html.RenderPartial("_QnA");}*@
@@ -136,7 +118,7 @@
         }*@
 </div>
 @*@{
-    Html.RenderPartial("_UploadDialog");
-    Html.RenderPartial("_UploadAddLink", new Zbang.Cloudents.Mvc4WebRole.Models.AddLink());
-}*@
+        Html.RenderPartial("_UploadDialog");
+        Html.RenderPartial("_UploadAddLink", new Zbang.Cloudents.Mvc4WebRole.Models.AddLink());
+    }*@
 

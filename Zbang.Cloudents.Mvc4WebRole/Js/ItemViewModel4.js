@@ -268,7 +268,7 @@
             function initialItems() {
                 dataContext.getItems({
                     data: {
-                        boxId: boxid, pageNumber: 0                        
+                        id: boxid, pageNumber: 0                        
                     },
                     success: function (data) {
                         var elems = $.map(data, function (i) {

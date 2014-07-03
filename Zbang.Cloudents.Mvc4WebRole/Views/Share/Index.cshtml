@@ -39,7 +39,7 @@
                 <button type="button" class="invTab gmail"></button>
             </div>
 
-            <a id="inviteBoxName" data-navigation="Box" data-inv-header="@SharedResources.InviteCloudents" data-invbox-header="@DialogResources.InviteTo"
+            <a id="inviteBoxName" data-inv-header="@SharedResources.InviteCloudents" data-invbox-header="@DialogResources.InviteTo"
                href="@Model.Url" class="invHeaderText">
                 <span>@Model.Name</span>
                 <img id="inviteBoxImage" src="@img" alt="" width="26" height="34" class="invboxImg" />
@@ -74,7 +74,7 @@
 </div>
 <script type="text/html" id="inviteFriendTemplate">
     <li class="invItem lFloat">
-        <a href="{{url}}" data-navigation="user">
+        <a href="{{url}}">
             <img alt="{{name}}" class="friendImg calloutTrgr" data-uid="{{id}}" src="{{defaultImage}}" data-src="{{userImage}}" width="34" height="34">
         </a>
         <span class="invName elps">{{name}}</span>
@@ -95,4 +95,7 @@
     </li>
 </script>
 
-@RenderSection 
+@section scripts {
+    @Html.Script2("General")
+    @Html.Script2("cd1")
+}

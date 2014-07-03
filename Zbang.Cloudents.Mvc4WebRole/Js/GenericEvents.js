@@ -1,4 +1,4 @@
-﻿define('GenericEvents', ['Utils', 'DataContext', 'extScriptLdr'], function () {
+﻿define('GenericEvents', ['Utils', 'DataContext', 'extScriptLdr','ElasticTextBox'], function () {
     "use strict";    
     (function (cd, analytics, dataContext) {
         "use strict";

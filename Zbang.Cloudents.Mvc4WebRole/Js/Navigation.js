@@ -209,8 +209,8 @@
     }
 
     function locationChanged(prevLocation, extData) {
-        var firstLevel = getParameterFromUrl(0).toLowerCase(),
-            secondLevel = getParameterFromUrl(1);
+        var firstLevel = cd.getParameterFromUrl(0).toLowerCase(),
+            secondLevel = cd.getParameterFromUrl(1);
         if (firstLevel === 'course') {
             firstLevel = 'box';
         }
@@ -283,10 +283,10 @@
 
     }
     function itemContext() {
-        pubsub.publish('item', { boxid: getParameterFromUrl(2), id: getParameterFromUrl(4) });
+        pubsub.publish('item', { boxid: cd.getParameterFromUrl(2), id: cd.getParameterFromUrl(4) });
     }
     function boxContext(prevLocation) {
-        var secondLevel = getParameterFromUrl(2);
+        var secondLevel = cd.getParameterFromUrl(2);
         if (secondLevel.toLowerCase() === 'settings') { //mobile
             return;
         }
@@ -309,7 +309,7 @@
         pubsub.publish('dash_boxes');
     }
     function libraryContext() {
-        var secondLevel = getParameterFromUrl(1) || '';
+        var secondLevel = cd.getParameterFromUrl(1) || '';
         //, universityExists = $('#LibraryContent').length;
         switch (secondLevel.toLowerCase()) {
             //case 'search':
@@ -319,7 +319,7 @@
                 break;
 
             default:
-                pubsub.publish('lib_nodes', { id: secondLevel, name: getParameterFromUrl(2) });
+                pubsub.publish('lib_nodes', { id: secondLevel, name: cd.getParameterFromUrl(2) });
                 break;
         }
     }
@@ -404,7 +404,7 @@
                     break;
                 case 'item':
                     dataContext.itemMp({
-                        data: { boxUid: getParameterFromUrl(2), itemId: getParameterFromUrl(4), uniName: getParameterFromUrl(1) },
+                        data: { boxUid: cd.getParameterFromUrl(2), itemId: cd.getParameterFromUrl(4), uniName: cd.getParameterFromUrl(1) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('ItemContext', null, itemContext);
@@ -416,7 +416,7 @@
                     break;
                 case 'invite':
                     dataContext.inviteMp({
-                        data: { boxid: getParameterFromUrl(1) },
+                        data: { boxid: cd.getParameterFromUrl(1) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('InviteContext', null, function () {
@@ -430,7 +430,7 @@
                     break;
                 case 'user':
                     dataContext.userMp({
-                        data: { userId: getParameterFromUrl(1), userName: getParameterFromUrl(2) },
+                        data: { userId: cd.getParameterFromUrl(1), userName: cd.getParameterFromUrl(2) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('UserContext', null, function () {
@@ -458,7 +458,7 @@
                     break;
                 case 'quiz':
                     dataContext.quizMp({
-                        data: { boxId: getParameterFromUrl(2), quizId: getParameterFromUrl(4), quizName: getParameterFromUrl(5), universityName: getParameterFromUrl(1), boxName: getParameterFromUrl(3) },
+                        data: { boxId: cd.getParameterFromUrl(2), quizId: cd.getParameterFromUrl(4), quizName: cd.getParameterFromUrl(5), universityName: cd.getParameterFromUrl(1), boxName: cd.getParameterFromUrl(3) },
                         success: function (html) {
                             main.insertAdjacentHTML('beforeend', html);
                             pubsub.publish('QuizContext', null, function () {
@@ -481,7 +481,7 @@
 
 
     pubsub.subscribe('hidePage', function () {
-        var currentElem = $('#' + getParameterFromUrl(0)),
+        var currentElem = $('#' + cd.getParameterFromUrl(0)),
          elem = $('.page:visible').not(currentElem);
         if (elem.length) {
             elem.fadeOut(200, function () {
@@ -614,9 +614,9 @@
 
 
 
-    cd.getParameterFromUrl = function (i) {
-        return getParameterFromUrl(i);
-    };
+    //cd.getParameterFromUrl = function (i) {
+    //    return getParameterFromUrl(i);
+    //};
 
     cd.setTitle = function (title) {
         if (firstLoad) {

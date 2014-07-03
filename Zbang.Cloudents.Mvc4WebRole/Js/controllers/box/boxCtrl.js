@@ -456,7 +456,6 @@
             //#region scroll
             $scope.addItems = function () {
                 $scope.options.itemsLimit += 7;
-                console.log($scope.options.itemsLimit);
             };
             //#endregion            
         }
