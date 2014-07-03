@@ -9,7 +9,7 @@
         jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min',
         boots: '/Scripts/uiBootstrapTpls0.11.0',
         modernizr: '/Scripts/Modernizr',
-        Knockout: '{R_OldAll-/Scripts/knockout-3.0.0}',
+        Knockout: '/Scripts/knockout-3.0.0',
 
         'mLoader': '{R_All-/js/directives/mLoader}',
 
@@ -38,7 +38,7 @@
         selectOnClick: '{R_Box-/js/directives/selectOnClick}',
 
         'routes': '{R_All-/js/routes}',
-        'slimscroll': '{R_OldAll-/Scripts/jquery.slimscroll}',
+        'slimscroll': '/Scripts/jquery.slimscroll',
         'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
         'ngPlaceholder': '{R_All-/js/directives/ngPlaceholder}', 
 
@@ -57,13 +57,13 @@
         'DashboardCtrl': '{R_Dashboard-/js/controllers/dashboard/dashboardCtrl}',
         
 
-        'extScriptLdr': '{R_OldAll-/Scripts/externalScriptLoader}',
+        'extScriptLdr': '/Scripts/externalScriptLoader',
         'Utils': '{R_OldAll-/js/Utils}',
         'Pubsub': '{R_OldAll-/js/pubsub}',
         'DataContext': '{R_OldAll-/js/DataContext}',
         'Dialog': '{R_OldAll-/js/Dialog}',
         'GenericEvents': '{R_OldAll-/js/GenericEvents}',
-        'ElasticTextBox': '{R_OldAll-/Scripts/elasticTextBox}',
+        'ElasticTextBox': '/Scripts/elasticTextBox',
         'Cache': '{R_OldAll-/js/Cache}',
 
         //library

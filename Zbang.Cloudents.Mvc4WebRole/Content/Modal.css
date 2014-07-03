@@ -6,7 +6,6 @@
 .modal {
   width: 600px;
   overflow: auto;
-  overflow-y: scroll;
   position: fixed;
   top: 0;
   right: 0;

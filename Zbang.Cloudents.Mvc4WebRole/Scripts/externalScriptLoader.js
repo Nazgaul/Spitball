@@ -95,7 +95,7 @@ TrackTiming.prototype.endTime = function () {
 TrackTiming.prototype.send = function () {
     var timeSpent = this.endTime - this.startTime;
     try {
-        window._gaq.push(['_trackTiming', this.category, this.variable, timeSpent, this.label]);
+       // window._gaq.push(['_trackTiming', this.category, this.variable, timeSpent, this.label]);
         window.ga('send', 'timing', this.category, this.variable, timeSpent, this.label);
     } catch (e) {
 
