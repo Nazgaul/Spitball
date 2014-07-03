@@ -1038,7 +1038,8 @@
   height: 18px;
   background: url(/Images/box17-sprite.png?v=1) -8px -119px no-repeat;
   position: absolute;
-  right: 0;
+  right: 1px;
+  /*rtl*/
 }
 .listItem {
   padding: 15px 0 15px 138px;
