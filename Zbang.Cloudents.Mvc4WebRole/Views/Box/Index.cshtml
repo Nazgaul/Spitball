@@ -29,11 +29,9 @@
                 <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                     <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
-                    <button type="button" class="rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id">
-                        D
-                    </button>
+                    <button type="button" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id"></button>
 
-                    <ul class="dropdown-menu" role="menu">
+                    <ul class="dropdown-menu editFolderMenu" role="menu">
                         <li>
                             <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
                         </li>
@@ -57,27 +55,27 @@
     <div class="boxRight">
         <div class="boxActions topBar barShadow">
             <section class="shareBtn rFloat">
-                <input class="checkbox" type="checkbox" id="boxShare" data-ddcbox="boxShare" />
+                <input class="checkbox" type="checkbox" id="boxShare" />
                 <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
                 <div class="dropDown shareDD">
                     <label class="closeItem rFloat" for="boxShare"></label>
                     <div class="arrow shareArrow"></div>
-                    <h4 class="semiFont" data-share-academic="@IndexResources.ShareCourse" data-share-private="@IndexResources.ShareBox"></h4>
-                    <div class="shareTxt" data-invite-academic="@IndexResources.InviteCourse" data-invite-private="@IndexResources.InviteBox"></div>
+                    <h4 class="semiFont">{{strings.share}}</h4>
+                    <div class="shareTxt">{{strings.invite}}</div>
                     <ul class="shareList">
-                        <li class="shareItem"><button type="button" id="box_FS" class="fbShare">@SharedResources.Facebook</button></li>
+                        <li class="shareItem"><button type="button" class="fbShare">@SharedResources.Facebook</button></li>
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="shareItem"><button type="button" id="box_msg" class="emailShare">@SharedResources.Email</button></li>
+                            <li class="shareItem"><button type="button" class="emailShare">@SharedResources.Email</button></li>
                         }
                     </ul>
                     <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                    <input type="text" id="box_CL" class="linkShare" value="" readonly="readonly" data-bind="value: copyLink" />
+                    <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
                 </div>
             </section>
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
-               data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
+               target="_self" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
             <a class="backWpr elps lFloat" ng-click="$back(back.url)">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont">{{previousTitle}}</h2>

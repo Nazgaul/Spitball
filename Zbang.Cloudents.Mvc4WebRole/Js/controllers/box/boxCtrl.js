@@ -1,12 +1,12 @@
 ﻿define('boxCtrl',['app'], function (app) {
     app.controller('BoxCtrl',
         ['$scope', '$rootScope',
-         '$routeParams', '$modal',
+         '$routeParams', '$modal','$location',
          '$filter', '$q', '$timeout',
          'Box', 'Item', 'Quiz', 'QnA', 'Upload',
          'NewUpdates', 'UserDetails',
 
-        function ($scope, $rootScope, $routeParams, $modal, $filter,
+        function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails) {
 
             $scope.boxId = $routeParams.boxId;
@@ -39,6 +39,8 @@
                 uploadAddLink: '/Box/UploadLinkPartial'
             };
 
+     
+
             $scope.options = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
@@ -68,8 +70,14 @@
                     tabs: info.tabs,
                     userType: info.userType,
                     uniCountry: info.uniCountry,
-                    image: info.image
+                    image: info.image,
+                    url: decodeURI($location.absUrl())
                 };
+
+                $scope.strings = {
+                    share: $scope.info.boxType === 'academic' ? JsResources.ShareCourse : JsResources.ShareBox,
+                    invite: $scope.info.boxType === 'academic' ? JsResources.InviteCourse : JsResources.InviteBox
+                }
 
                 $scope.info.currentTab = null;
 
@@ -190,7 +198,7 @@
                     var saveFile = $timeout(function () {
                         Upload[data.type](formData).then(function (response) {
                             if (!response.success) {
-                                alert('error saving link');
+                                alert(JsResources.LinkError);
                                 return;
                             }
                             item.progress = 100;
@@ -234,7 +242,7 @@
                 }
                 Box.deleteTab(data).then(function (response) {
                     if (!response.Success) {
-                        alert('Error deleting tab');
+                        alert(JsResources.DeleteError);
                     }
                 });
 
@@ -323,7 +331,7 @@
 
                 Box.addItemsToTab(data).then(function (response) {
                     if (!response.Success) {
-                        alert('Error saving items to tab');
+                        alert(JsResources.FolderItemError);
                     }
                 });
 
@@ -343,8 +351,7 @@
             };
 
             $scope.shareEmail = function () {
-            };
-
+            };           
             //#endregion
 
             //#region view

@@ -595,4 +595,34 @@ Sign up for FREE</value>
   <data name="SureYouWant" xml:space="preserve">
     <value>Are you sure you want</value>
   </data>
+  <data name="FolderCreate" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="FolderRename" xml:space="preserve">
+    <value>Rename folder</value>
+  </data>
+  <data name="RenameError" xml:space="preserve">
+    <value>Error renaming folder</value>
+  </data>
+  <data name="DeleteError" xml:space="preserve">
+    <value>Error deleting folder</value>
+  </data>
+  <data name="FolderItemError" xml:space="preserve">
+    <value>Error saving items to folder</value>
+  </data>
+  <data name="InviteBox" xml:space="preserve">
+    <value>Invite people to this Group Box using:</value>
+  </data>
+  <data name="InviteCourse" xml:space="preserve">
+    <value>Invite people to this course using:</value>
+  </data>
+  <data name="LinkError" xml:space="preserve">
+    <value>Error saving link</value>
+  </data>
+  <data name="ShareBox" xml:space="preserve">
+    <value>Share this Group Box</value>
+  </data>
+  <data name="ShareCourse" xml:space="preserve">
+    <value>Share this course</value>
+  </data>
 </root>

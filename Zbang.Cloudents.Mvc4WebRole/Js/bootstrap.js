@@ -17,18 +17,19 @@
         'draganddrop': '{R_Box-/Scripts/draganddrop}', 
         'trustedHtml': '{R_Box-/js/filters/trustedHtml}', 
 
-        'item': '{R_BoxItem-/Js/services/item}',
-        'quiz': '{R_BoxQuiz-/Js/services/quiz}', 
-        'qna': '{R_Box-/Js/services/qna}', 
-        'upload': '{R_Box-/Js/services/upload}',
+        'item': '{R_BoxItem-/js/services/item}',
+        'quiz': '{R_BoxQuiz-/js/services/quiz}', 
+        'qna': '{R_Box-/js/services/qna}', 
+        'upload': '{R_Box-/js/services/upload}',
 
-        'boxCtrl': '{R_Box-/Js/controllers/box/boxCtrl}', 
+        'boxCtrl': '{R_Box-/js/controllers/box/boxCtrl}', 
 
 
-        tabCtrl: '{R_Box-/Js/controllers/box/tabCtrl}',
-        qnaCtrl: '{R_Box-/Js/controllers/box/qnaCtrl}',
-        uploadCtrl: '{R_Box-/Js/controllers/box/uploadCtrl}',
-        manageCtrl: '{R_Box-/Js/controllers/box/manageCtrl}',
+        tabCtrl: '{R_Box-/js/controllers/box/tabCtrl}',
+        qnaCtrl: '{R_Box-/js/controllers/box/qnaCtrl}',
+        uploadCtrl: '{R_Box-/js/controllers/box/uploadCtrl}',
+        manageCtrl: '{R_Box-/js/controllers/box/manageCtrl}',
+        selectOnClick: '{R_Box-/js/directives/selectOnClick}',
 
         'routes': '{R_All-/js/routes}',
         'slimscroll': '{R_OldAll-/Scripts/jquery.slimscroll}',

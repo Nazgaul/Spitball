@@ -719,10 +719,10 @@
 .editFolder {
   display: none;
   position: relative;
-  margin-right: 14px;
+  margin: -2px 14px 0 0;
   /*rtl*/
   cursor: pointer;
-  margin-top: -2px;
+  height: 100%;
 }
 .editFolder:before {
   content: '';
@@ -733,37 +733,11 @@
   border-width: 5px 4px 0 4px;
   border-color: #383838 transparent transparent transparent;
 }
-.editFolder .editFolderMenu {
-  left: -109px;
-  /*rtl*/
-  top: 28px;
+.editFolder ~ .dropdown-menu {
+  right: 8px;
+  /**/
+  top: 35px;
 }
-/*#region editFolderMenu */
-.editFolderMenu {
-  display: none;
-  position: absolute;
-  z-index: 1;
-  top: 24px;
-  background-color: #fff;
-  color: #676767;
-  width: 120px;
-  border: 1px solid #c2c2c2;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
-}
-.editFolderMenu button {
-  padding: 3px 5px;
-  display: block;
-  width: 100%;
-  text-align: left;
-  /*rtl*/
-  cursor: pointer;
-  font-size: 13px;
-}
-.editFolderMenu button:hover {
-  background: #176cb2;
-  color: #fff;
-}
-/*#endregion */
 /*#endregion */
 .box-content {
   display: table;

@@ -4,6 +4,7 @@
 /*#endregion */
 /*#region BOOTSTRAP CLASSES*/
 .modal {
+  width: 600px;
   overflow: auto;
   overflow-y: scroll;
   position: fixed;
@@ -31,9 +32,6 @@
 }
 .modal.boxSettings .memberName {
   width: 212px;
-}
-.modal.privateBox {
-  width: 600px;
 }
 .fade {
   opacity: 0;
