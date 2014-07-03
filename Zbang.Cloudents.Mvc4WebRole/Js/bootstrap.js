@@ -30,6 +30,7 @@
         manageCtrl: '{R_Box-/Js/controllers/box/manageCtrl}',
 
         'routes': '{R_All-/js/routes}',
+        'slimscroll': '{R_OldAll-/Scripts/jquery.slimscroll}',
         'dependencyResolverFor': '{R_All-/js/services/dependencyResolverFor}',
         'ngPlaceholder': '{R_All-/js/directives/ngPlaceholder}', 
 
@@ -58,18 +59,19 @@
 
         //library
         'LibraryCtrl': '{R_Library-/js/controllers/library/libraryCtrl}',
-        'Library': '{R_Library-/js/Library}',
-        
-        //'library            '/js/services/library.js',           
+        'Library': '{R_Library-/js/Library}',              
 
         //User
         'UserCtrl': '{R_User-/js/controllers/user/userCtrl}',
         'User': '{R_User-/js/User}',
 
-        //Item 
-        //'item     '{R_Item-'/js/services/item.js'},
+        //Item         
         'ItemCtrl': '{R_Item-/js/controllers/item/itemCtrl}',
-        'Item': '{R_Item-/js/ItemViewModel4}',
+        'ItemViewModel': '{R_Item-/js/ItemViewModel4}',
+
+        'QuizCtrl': '{R_Quiz-/js/controllers/quiz/quizCtrl}',
+        'QuizViewModel': '{R_Quiz-/js/QuizViewModel}',
+
     },
     shim: {
         'app': {

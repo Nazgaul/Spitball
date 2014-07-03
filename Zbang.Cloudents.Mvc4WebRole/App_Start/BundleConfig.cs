@@ -138,7 +138,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/directives/mLoader.js");
 
             RegisterJsRoutes("R_OldAll",
-                          "/Scripts/externalScriptLoader.js",
+                "/Scripts/externalScriptLoader.js",
+                "/Scripts/jquery.slimscroll.js",                
                 "/js/Utils.js",
                 "/js/pubsub.js",
                 "/js/DataContext.js",
@@ -193,8 +194,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterJsRoutes("R_Item",
                 "/js/controllers/item/itemCtrl.js",
-                "js/ItemViewModel4"
+                "/js/ItemViewModel4.js"
                 );
+            RegisterJsRoutes("R_Quiz",
+               "/js/controllers/quiz/quizCtrl.js",
+               "/js/QuizViewModel.js"
+           );
 
             RegisterJsRegular("home",
                 new JsFileWithCdn("~/Js/Logon.js"),

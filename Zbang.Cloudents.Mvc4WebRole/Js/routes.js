@@ -84,7 +84,7 @@
                 'GenericEvents',                
                 'Cache',
                 'ngPlaceholder',
-                'Item'
+                'ItemViewModel'
                 ]
             },
             '/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/': {
@@ -93,19 +93,26 @@
                 },
                 templateUrl: function (params) {
                     return '/quiz/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                        + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName);
+                        + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName) + '/';
                 },
                 dependencies: [
-                   'quiz',
-                   'ngPlaceholder'
-                   //'/Js/controllers/quiz/quizCtrl.js'  - this is empty
+                    'ngPlaceholder',
+                    'QuizCtrl',
+                    'extScriptLdr',
+                    'Utils',
+                    'Pubsub',
+                    'DataContext',
+                    'GenericEvents',
+                    'Cache',
+                    'ngPlaceholder',
+                    'QuizViewModel'
                 ]
             },
             '/library/:libraryId/:libraryName/': {
                 params: {
                     type: 'library'
                 },
-                templateUrl: function (params) { return '/library/' + params.libraryId + '/' + encodeURIComponent(params.libraryName); },
+                templateUrl: function (params) { return '/library/' + params.libraryId + '/' + encodeURIComponent(params.libraryName) +  '/'; },
                 dependencies: [
                                 'extScriptLdr',
                     'Dialog',
