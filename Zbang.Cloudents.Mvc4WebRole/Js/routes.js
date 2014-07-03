@@ -40,7 +40,8 @@
                     'qnaCtrl',
                     'uploadCtrl',
                     'selectOnClick',
-                    'manageCtrl'
+                    'manageCtrl',
+                    'Upload2'
                 ]
             },
             '/course/:uniName/:boxId/:boxName/': {
@@ -63,7 +64,8 @@
                     'qnaCtrl',
                     'uploadCtrl',
                     'selectOnClick',
-                    'manageCtrl'
+                    'manageCtrl',
+                    'Upload2'
                 ]
             },
             '/item/:uniName/:boxId/:boxName/:itemId/:itemName/': {

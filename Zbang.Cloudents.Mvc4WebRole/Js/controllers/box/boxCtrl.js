@@ -13,6 +13,8 @@
             $scope.uniName = $routeParams.uniName;
             $scope.boxName = $routeParams.boxName;
 
+            $rootScope.$broadcast('uploadBox', $scope.boxId);
+
             $scope.init = function (backUrl, backTitle) {
                 $scope.back = {
                     title: backTitle,
@@ -138,7 +140,7 @@
                         });
 
                         modalInstance.result.then(function (url) {
-                            saveItem({url: url,type: 'link',timeout:1000});                            
+                            saveItem({url: url,type: 'link',timeout:1000});
                         }); //save url
                         return;
                     }
@@ -167,6 +169,12 @@
                     //dismiss
                 });
                 function saveItem(data) {
+                    if (data.type === 'link') {
+                        $rootScope.$broadcast('linkUpload', data.url);
+                    } else {
+                        $rootScope.$broadcast('dropboxUpload', { url: data.url, name: data.fileName, size: data.size });
+                    }
+
                     var item = {
                         file: {
                             name: data.name || data.link,
@@ -201,9 +209,13 @@
                                 alert(JsResources.LinkError);
                                 return;
                             }
-                            item.progress = 100;
-                            item.isSuccess = item.isUploaded = true;
-                            item.isUploading = false;
+
+                            if (data.type === 'link') {
+                                $rootScope.$$broadcast('linkUploaded');
+                            } else if (data.type === 'dropbox') {
+                                $rootScope.$$broadcast('dropBoxUploaded');
+                            }
+                            
                             var responseItem = response.payload;
                             $scope.items.unshift(responseItem);
                             $scope.filteredItems.unshift(responseItem);
@@ -313,6 +325,8 @@
 
             $scope.selectTab = function (tab) {
                 $scope.info.currentTab = tab;
+
+                $rootScope.$broadcast('selectTab', tab.id);
 
                 $scope.options.itemsLimit = consts.itemsLimit;
 

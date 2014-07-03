@@ -87,7 +87,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             RegisterCss("shoppingRtl", "~/Content/GeneralRtl.css",
-                "~/Content/ShopppingRtl.css");
+                "~/Content/ShoppingRtl.css");
 
             RegisterCss("shopping", "~/Content/General.css",
                 "~/Content/Shopping.css");

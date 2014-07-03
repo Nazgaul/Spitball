@@ -23,6 +23,12 @@
         'upload': '{R_Box-/js/services/upload}',
 
         'boxCtrl': '{R_Box-/js/controllers/box/boxCtrl}', 
+        
+        'Plupload1': '/Scripts/plupload/plupload',
+        'Plupload2': '/Scripts/plupload/plupload.html4',
+        'Plupload3': '/Scripts/plupload/plupload.html5',
+        'Plupload4': '/Scripts/plupload/plupload.flash',
+        'Upload2': '/Js/Upload2',
 
 
         tabCtrl: '{R_Box-/js/controllers/box/tabCtrl}',
@@ -85,7 +91,8 @@
             exports: 'angular'
         },
         'app': {
-            deps: ['angular','angular-route', 'angular-sanitize', 'infinite-scroll', 'boots', 'bind-once', 'modernizr']
+            deps: ['angular', 'angular-route', 'angular-sanitize',
+                'infinite-scroll', 'boots', 'bind-once', 'modernizr']
         },
         'angular-route': {
             deps: ['angular']
@@ -98,14 +105,23 @@
         },
         'angular-sanitize': {
             deps: ['angular']
-        },
-       
+        },       
         'boots': {
             deps: ['angular']
         },
         'mLoader': {
             deps: ['angular', 'app']
+        },
+        'Plupload2' : {
+            deps: ['Plupload1']
+        },
+        'Plupload3': {
+            deps: ['Plupload1']
+        },
+        'Plupload4': {
+            deps: ['Plupload1']
         }
+
     }
 });
 
