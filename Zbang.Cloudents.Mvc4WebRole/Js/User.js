@@ -1,4 +1,4 @@
-﻿define('UserTemp', ['Knockout', 'Pubsub'], function (ko) {
+﻿define('UserTemp', ['Knockout', 'Pubsub','DataContext'], function (ko) {
     (function (cd, pubsub, ko, dataContext, $, analytics) {        
         var eById = document.getElementById.bind(document),
             consts = {

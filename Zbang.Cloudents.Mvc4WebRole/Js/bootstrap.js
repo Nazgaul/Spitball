@@ -55,6 +55,7 @@
         'DataContext': '{R_OldAll-/js/DataContext}',
         'Dialog': '{R_OldAll-/js/Dialog}',
         'GenericEvents': '{R_OldAll-/js/GenericEvents}',
+        'ElasticTextBox': '{R_OldAll-/Scripts/elasticTextBox}',
         'Cache': '{R_OldAll-/js/Cache}',
 
         //library
@@ -69,8 +70,10 @@
         'ItemCtrl': '{R_Item-/js/controllers/item/itemCtrl}',
         'ItemViewModel': '{R_Item-/js/ItemViewModel4}',
 
+        //quiz
         'QuizCtrl': '{R_Quiz-/js/controllers/quiz/quizCtrl}',
         'QuizViewModel': '{R_Quiz-/js/QuizViewModel}',
+        'stopwatch': '{R_Quiz-/Scripts/stopwatch}'
 
     },
     shim: {

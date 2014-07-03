@@ -143,6 +143,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/Utils.js",
                 "/js/pubsub.js",
                 "/js/DataContext.js",
+                "/Scripts/elasticTextBox.js",
                 "/js/Dialog.js",
                 "/js/GenericEvents.js",
                 "/js/Cache.js");
@@ -198,7 +199,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 );
             RegisterJsRoutes("R_Quiz",
                "/js/controllers/quiz/quizCtrl.js",
-               "/js/QuizViewModel.js"
+               "/js/QuizViewModel.js",
+               "/Scripts/stopwatch.js"
            );
 
             RegisterJsRegular("home",
