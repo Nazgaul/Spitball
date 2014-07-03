@@ -245,7 +245,7 @@
                     up.settings.multipart_params.fileSize = file.size;
 
 
-                    up.settings.multipart_params.BoxUid = file.boxid;
+                    up.settings.multipart_params.boxId = file.boxid;
                     up.settings.multipart_params.tabId = file.tabid;
                     //up.settings.multipart_params.boxName = file.boxName;
                     //up.settings.multipart_params.uniName = file.uniName;
