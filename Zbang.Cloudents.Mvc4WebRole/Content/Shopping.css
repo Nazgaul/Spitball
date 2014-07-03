@@ -349,40 +349,62 @@ main.product .productsList {
 /*#region product list with hover */
 .productsList {
   font-size: 18px;
+  /*.lFloat {
+        margin-top: 5px;
+        .boxSizing;
+        width: 50%;
+        border-top: 1px solid @shopping-black;
+        border-bottom: 1px solid @shopping-black;
+        text-align: center;
+        padding: 4px 0;
+        div {
+            font-size: 30px;
+            + div {
+                font-size: 14px;
+            }
+        }
+    }
+    .rFloat {
+        width: 50%;
+        border-left: 1px solid @shopping-black;
+        background: @color;
+        color: #fff;
+        padding: 7px 0;
+        text-align: center;
+    }*/
 }
 .productsList li {
   position: relative;
-  width: 280px;
-  height: 344px;
+  width: 300px;
+  height: 348px;
   display: inline-block;
-  margin-bottom: 40px;
+  background: #fff;
+  margin-bottom: 30px;
+  border: 1px solid #0f9d58;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .productsList li:nth-child(3n + 2) {
-  margin: 0 40px 36px 40px;
+  margin: 0 15px 30px 15px;
 }
 .productsList li:hover .desc {
   z-index: 1;
   position: relative;
   color: orange;
   top: -167px;
-  left: 15px;
+  left: 0;
 }
 .productsList li:hover .hover {
   display: inline-block;
-  -webkit-animation: fadein 0.5s 0 ease;
-  -moz-animation: fadein 0.5s 0 ease;
-  -o-animation: fadein 0.5s 0 ease;
-  animation: fadein 0.5s 0 ease;
 }
 .productsList a {
   display: block;
-  background: #fff;
   width: 100%;
   height: 180px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid #0f9d58;
   text-align: center;
   margin-bottom: 8px;
 }
@@ -395,42 +417,47 @@ main.product .productsList {
   /* Adjusts for spacing */
 }
 .productsList img {
-  width: 203px;
-  height: 145px;
+  max-width: 100%;
+  max-height: 100%;
   display: inline-block;
   vertical-align: middle;
 }
 .productsList .desc {
   font-size: 22px;
+  padding: 0 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .productsList .desc + .lFloat {
   color: #0f9d58;
   border-right: 1px solid #39434a;
 }
-.productsList .lFloat {
-  margin-top: 5px;
+.productsList table {
+  width: 100%;
+  font-size: 18px;
+  table-layout: fixed;
+  padding: 15px 18px 0 18px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 50%;
-  border-top: 1px solid #39434a;
-  border-bottom: 1px solid #39434a;
-  text-align: center;
-  padding: 4px 0;
+  position: relative;
 }
-.productsList .lFloat div {
-  font-size: 30px;
+.productsList table:before {
+  content: '';
+  display: inline-block;
+  width: 265px;
+  height: 1px;
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  background: #999;
 }
-.productsList .lFloat div + div {
-  font-size: 14px;
+.productsList tr:nth-child(1) td {
+  color: #999;
 }
-.productsList .rFloat {
-  width: 50%;
-  border-left: 1px solid #39434a;
-  background: #0f9d58;
-  color: #fff;
-  padding: 7px 0;
-  text-align: center;
+.productsList tr:nth-child(3) td {
+  color: #0f9d58;
 }
 .hover {
   display: none;
@@ -458,9 +485,11 @@ main.product .productsList {
   font-size: 35px;
   color: #39434a;
   border: none;
+  border-radius: 5px;
 }
 .hover .lFloat {
   display: block;
+  text-align: center;
   padding: 12px 0;
   width: 50%;
   -webkit-box-sizing: border-box;
@@ -475,6 +504,71 @@ main.product .productsList {
 }
 .searchResultsList {
   display: none;
+}
+/*#endregion */
+/*#region product page */
+.productWpr {
+  display: table;
+  table-layout: fixed;
+  background: #f6f6f6;
+  margin-top: 20px;
+}
+.productWpr .left,
+.productWpr .right {
+  display: table-cell;
+  width: 50%;
+  vertical-align: top;
+}
+.left h3 {
+  font-size: 18px;
+  font-weight: normal;
+  margin: 8px 0 20px;
+}
+.right {
+  padding-top: 340px;
+  text-align: center;
+  position: relative;
+}
+.thumbsList {
+  display: inline-block;
+  text-align: center;
+}
+.thumbsList li {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #39434a;
+  margin: 10px 12px 10px;
+  background: #fff;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+.thumbsList li:hover {
+  border: 1px solid #0371c8;
+}
+.thumbsList li:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.thumbsList li:last-child {
+  position: absolute;
+  width: 390px;
+  height: 270px;
+  background: url(http://www.hatavot.co.il/uploadimages/170/114545.JPG) center center no-repeat;
+  background-size: contain;
+  top: 50px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: none;
+}
+.thumbsList img {
+  max-width: 100%;
+  max-height: 100%;
+  display: inline-block;
+  vertical-align: middle;
 }
 /*#endregion */
 /*#region footer */
