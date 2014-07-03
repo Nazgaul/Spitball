@@ -721,7 +721,8 @@
   border-radius: 0 3px 3px 0;
 }
 .tag:after {
-  left: 0;
+  left: 1px;
+  /*rtl*/
   right: auto;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);

@@ -758,30 +758,6 @@ ul.ui-autocomplete {
     right: 0; /*rtl*/
 }
 
-.userMenu {
-    display: none;
-    position: absolute;
-    left: 0; /*rtl*/
-    z-index: 10;
-    top: @header-height;
-    border: 1px solid #959595;
-    border-top: none;
-    background: #fff;
-    box-shadow: 0 3px 3px rgba(116,82,32,.5);
-    .boxSizing;
-}
-
-.userMenu {
-    //width: 100%;
-    width: 160px;
-    right: 0; /*rtl*/
-    left: auto;
-
-    span {
-        color: red;
-        cursor: none;
-    }
-}
 
 .menuItem, .notifyList a {
     color: @colorActive;
@@ -1617,26 +1593,8 @@ select.inputText {
     display: none;
     position: absolute;
     z-index: @layer-over;
-    //z-index: 1000;
-    //top: 100%;
-    //left: 0;
-
-    //float: left;
-    //min-width: 160px;
-    //padding: 5px 0;
-    //margin: 2px 0 0;
-    //list-style: none;
-    //font-size: 14px;
-    //background-color: #fff;
-    //border: 1px solid #ccc;
-    //border: 1px solid rgba(0,0,0,.15);
-    //border-radius: 4px;
-    //-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    //box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    //background-clip: padding-box; 
-
     top: 24px;
-    background-color: #fff;
+    background: #fff;
     color: #676767;
     width: 120px;
     border: 1px solid @borderColor;
@@ -1654,7 +1612,20 @@ select.inputText {
             color: #fff;
         }
     }
+    &.userMenu {
+        width: 160px;
+        right: 0; /*rtl*/
+        z-index: 10;
+        top: @header-height;
+        border: 1px solid #959595;
+        border-top: none;
+        /*span {
+            color: red;
+            cursor: none;
+        }*/
+    }
 }
+
 .open {
     > .dropdown-menu {
         display:block;

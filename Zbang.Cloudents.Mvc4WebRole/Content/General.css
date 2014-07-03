@@ -700,31 +700,6 @@ ul.ui-autocomplete li a {
   right: 0;
   /*rtl*/
 }
-.userMenu {
-  display: none;
-  position: absolute;
-  left: 0;
-  /*rtl*/
-  z-index: 10;
-  top: 50px;
-  border: 1px solid #959595;
-  border-top: none;
-  background: #fff;
-  box-shadow: 0 3px 3px rgba(116, 82, 32, 0.5);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.userMenu {
-  width: 160px;
-  right: 0;
-  /*rtl*/
-  left: auto;
-}
-.userMenu span {
-  color: red;
-  cursor: none;
-}
 .menuItem,
 .notifyList a {
   color: #0d864b;
@@ -1536,7 +1511,7 @@ select.inputText {
   position: absolute;
   z-index: 1;
   top: 24px;
-  background-color: #fff;
+  background: #fff;
   color: #676767;
   width: 120px;
   border: 1px solid #c2c2c2;
@@ -1554,6 +1529,19 @@ select.inputText {
 .dropdown-menu button:hover {
   background: #176cb2;
   color: #fff;
+}
+.dropdown-menu.userMenu {
+  width: 160px;
+  right: 0;
+  /*rtl*/
+  z-index: 10;
+  top: 50px;
+  border: 1px solid #959595;
+  border-top: none;
+  /*span {
+            color: red;
+            cursor: none;
+        }*/
 }
 .open > .dropdown-menu {
   display: block;
