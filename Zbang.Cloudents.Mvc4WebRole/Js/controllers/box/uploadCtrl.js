@@ -25,9 +25,9 @@
                 $modalInstance.dismiss();
             };
 
-            $rootScope.uploader.bind('afteraddingall', function (event, items) {
-                $modalInstance.close();
-            });
+            //$rootScope.uploader.bind('afteraddingall', function (event, items) {
+            //    $modalInstance.close();
+            //});
         }
     ]);
     app.controller('UploadLinkCtrl',
