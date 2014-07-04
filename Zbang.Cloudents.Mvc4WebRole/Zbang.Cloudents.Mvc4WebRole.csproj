@@ -822,6 +822,7 @@
     <Content Include="Js\services\dashboard.js" />
     <Content Include="Js\services\dependencyResolverFor.js" />
     <Content Include="Js\services\dropbox.js" />
+    <Content Include="Js\services\facebook.js" />
     <Content Include="Js\services\googleDrive.js" />
     <Content Include="Js\services\item.js" />
     <Content Include="Js\services\library.js" />

@@ -1,28 +1,41 @@
-﻿define('uploadCtrl',['app','dropbox'], function (app,dropboxService) {
+﻿define('uploadCtrl', ['app', 'dropbox', 'googleDrive'], function (app, dropboxService) {
     app.controller('UploadCtrl',
-        ['$scope', '$rootScope',          
-         '$modalInstance', 'Dropbox',
-          '$timeout',//temp
+        ['$scope', '$rootScope', '$modalInstance',
+            'Dropbox', 'GoogleDrive', '$timeout',//temp
          //'googleDrive','dropbox',
 
-        function ($scope, $rootScope, $modalInstance, Dropbox,$timeout) {
-            $timeout(function () {                
+        function ($scope, $rootScope, $modalInstance, Dropbox, GoogleDrive, $timeout) {
+            $timeout(function () {
                 $rootScope.$broadcast('initUpload');
             });
-            
-            //function ($scope, Box, googleDrive, dropbox) {            
+
+            $scope.sources = {
+                dropboxLoaded: false,
+                googleDriveLoaded: false
+            }
+
+            GoogleDrive.init().then(function () {
+                $scope.sources.googleDriveLoaded = true;
+            });
+
+            Dropbox.init().then(function () {
+                $scope.sources.dropboxLoaded = true;
+            });
+
             $scope.saveLink = function () {
                 $modalInstance.close({ url: true });
             };
 
             $scope.saveDropbox = function () {
-                Dropbox.choose().then(function (files) {                   
+                Dropbox.choose().then(function (files) {
                     $modalInstance.close({ dropbox: true, files: files });
                 });
             };
 
             $scope.saveGoogleDrive = function () {
-                $modalInstance.close();
+                GoogleDrive.picker().then(function (files) {
+                    $modalInstance.close({ googleDrive: true, files: files });
+                });
             };
 
             $scope.cancel = function () {
@@ -38,9 +51,9 @@
             });
 
         }
-    ]);
+        ]);
     app.controller('UploadLinkCtrl',
-        ['$scope','$modalInstance',
+        ['$scope', '$modalInstance',
          //'googleDrive','dropbox',
 
         function ($scope, $modalInstance) {
@@ -54,5 +67,5 @@
                 $modalInstance.dismiss();
             };
         }
-    ]);
+        ]);
 });

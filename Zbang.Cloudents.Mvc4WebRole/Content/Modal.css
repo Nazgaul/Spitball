@@ -2,6 +2,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.picker-dialog {
+  z-index: 1060 !important;
+}
 /*#region BOOTSTRAP CLASSES*/
 .modal {
   width: 600px;

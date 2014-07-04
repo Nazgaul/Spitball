@@ -4,10 +4,10 @@
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'Box', 'Item', 'Quiz', 'QnA', 'Upload',
-         'NewUpdates', 'UserDetails',
+         'NewUpdates', 'UserDetails','Facebook',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails) {
+                  $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails,Facebook) {
 
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
@@ -38,7 +38,9 @@
                 uploadAddLink: '/Box/UploadLinkPartial'
             };
 
-
+            $scope.popup = {
+                share: false
+            }
 
             $scope.options = {
                 currentView: consts.view.thumb,
@@ -110,11 +112,15 @@
                     $rootScope.$broadcast('viewContentLoaded');
                 });
             });
+
+            //#region quiz
             $scope.addQuiz = function () {
                 $scope.params.quizOpen = true;
                 $scope.$emit('initQuiz');
             };
+            //#endregion
 
+            //#region upload
             $scope.$on('FileAdded', function (event, data) {
                 $scope.$apply(function () {
                     if (data.boxId !== $scope.boxId) {
@@ -148,7 +154,7 @@
                         });
 
                         modalInstance.result.then(function (url) {
-                            saveItem({ url: url, type: 'link', timeout: 1000 });
+                            saveItem({ url: url, type: 'link', ajax: 'link', timeout: 1000 });
                         }); //save url
                         return;
                     }
@@ -162,6 +168,7 @@
                                     size: file.bytes,
                                     url: file.link,
                                     type: 'dropbox',
+                                    ajax: 'dropbox',
                                     timeout: 0,
                                     index: index
                                 });                               
@@ -172,10 +179,22 @@
                     }
 
                     if (response.googleDrive) {
+                        var files = response.files, file;
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            (function (file, index) {
+                                saveItem({
+                                    name: file.name,
+                                    size: file.size,
+                                    url: file.link,
+                                    type: 'googleLink',
+                                    ajax: 'link',
+                                    timeout: 1000,
+                                    index: index
+                                });
 
+                            })(files[i], i);
+                        }
                     }
-
-
                 }, function () {
                     //dismiss
                 });
@@ -184,6 +203,8 @@
                         $rootScope.$broadcast('linkUpload', data.url);
                     } else if (data.type === 'dropbox') {
                         $rootScope.$broadcast('dropboxUpload', { file : { url: data.url, name: data.name, size: data.size}, index: data.index });
+                    } else if (data.type === 'googleLink') {
+                        $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
                     }
 
                     var formData = {
@@ -198,9 +219,9 @@
                     }
 
                     var saveFile = $timeout(function () {
-                        Upload[data.type](formData).then(function (response) {
+                        Upload[data.ajax](formData).then(function (response) {
                             if (!response.success) {
-                                alert(JsResources.LinkError);
+                                alert(data.name + ' - ' + response.payload);
                                 return;
                             }
 
@@ -208,9 +229,11 @@
                                 $rootScope.$broadcast('linkUploaded');
                             } else if (data.type === 'dropbox') {
                                 $rootScope.$broadcast('dropboxUploaded',data.index);
+                            } else if (data.type === 'googleLink') {
+                                $rootScope.$broadcast('googleUploaded', data.index);
                             }
 
-                            var responseItem = response.payload;                            
+                            var responseItem = response.payload;
                             $scope.items.unshift(responseItem);
                             $scope.filteredItems.unshift(responseItem);
                         });
@@ -218,6 +241,8 @@
                 }
 
             };
+
+            //#endregion
 
             //#region tabs
             $scope.manageSave = function () {
@@ -320,12 +345,15 @@
 
             $scope.selectTab = function (tab) {
                 $scope.info.currentTab = tab;
-
-                $rootScope.$broadcast('selectTab', tab.id);
-
+                
                 $scope.options.itemsLimit = consts.itemsLimit;
 
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+
+                if (!tab) { //all
+                    return;
+                }
+                $rootScope.$broadcast('selectTab', tab.id);
             };
 
             //TODO DRAGANDDROP
@@ -357,9 +385,20 @@
 
             //#region share
             $scope.shareFacebook = function () {
+                $scope.popup.share = false;
+
+                Facebook.share($scope.info.url, //url
+                      $scope.info.name, //title
+                       $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
+                       JsResources.IShared + ' ' + $scope.info.name + ' ' + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                        null //picture
+                   ).then(function () {
+                       //TODO: add points
+                   });
             };
 
             $scope.shareEmail = function () {
+
             };
             //#endregion
 

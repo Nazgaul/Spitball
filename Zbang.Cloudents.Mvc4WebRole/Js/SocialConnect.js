@@ -11,6 +11,7 @@
     access_token, contacts = [],/* isImmediate = true,*/ loaded = false;
 
     function checkAuth(isImmediate) {
+
         if (window.gapi !== undefined && window.gapi.client !== undefined) {
             gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: isImmediate }, function (authResult) {
                 handleResult(authResult, isImmediate);

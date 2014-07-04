@@ -81,7 +81,6 @@
 /// <reference path="../js/services/dashboard.js" />
 /// <reference path="../js/services/dependencyresolverfor.js" />
 /// <reference path="../js/services/dropbox.js" />
-/// <reference path="../js/services/googledrive.js" />
 /// <reference path="../js/services/item.js" />
 /// <reference path="../js/services/library.js" />
 /// <reference path="../js/services/newupdates.js" />
@@ -139,6 +138,8 @@
 /// <reference path="../js/utils2.js" />
 /// <reference path="uibootstraptpls0.11.0.js" />
 /// <reference path="../js/directives/selectonclick.js" />
+/// <reference path="../js/services/facebook.js" />
+/// <reference path="../js/services/googledrive.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

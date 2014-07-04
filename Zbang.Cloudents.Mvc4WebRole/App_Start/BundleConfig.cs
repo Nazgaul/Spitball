@@ -157,6 +157,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterJsRoutes("R_Box", 
                 "/js/services/dropbox.js",
+                "/js/services/googleDrive.js",
                 "/Scripts/draganddrop.js",
                 "/js/filters/trustedHtml.js",
                 "/Js/services/qna.js",
@@ -166,7 +167,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/Js/controllers/box/qnaCtrl.js",
                 "/Js/controllers/box/uploadCtrl.js",
                 "/Js/controllers/box/manageCtrl.js",
-                "/Js/directives/selectOnClick.js"
+                "/Js/directives/selectOnClick.js",
+                "/js/services/facebook.js"
                 );
             RegisterJsRoutes("R_DashboardBox",
                 "/js/services/newUpdates.js",

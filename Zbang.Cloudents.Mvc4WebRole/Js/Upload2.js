@@ -51,7 +51,6 @@
         });
 
         $rootScope.$on('linkUploaded', function () {
-
             finishFakeUpload(linkGuid);
             //itemUploaded(itemData, boxToUpload.id);
             trackUpload('upload link', '');
@@ -60,19 +59,32 @@
             finishFakeUploadError(guid);
         });
 
-        var indices = {};
+        var dropboxIndices = {};
 
         $rootScope.$on('dropboxUpload', function (e, data) {
-            indices[data.index] = fakeUpload(data.file.link, data.file.name, data.file.size);
+            dropboxIndices[data.index] = fakeUpload(data.file.url, data.file.name, data.file.size);
             $uploads.show();
         });
 
         $rootScope.$on('dropboxUploaded', function (e, index) {
-            finishFakeUpload(indices[index]);
-            delete indices[index];
-            //itemUploaded(itemData, boxToUpload.id);
+            finishFakeUpload(dropboxIndices[index]);
+            delete dropboxIndices[index];            
             trackUpload('upload by dropbox', 'Number of uploads by dropbox');
         });
+
+        var driveIndices = {};
+
+        $rootScope.$on('googleUpload', function (e, data) {
+            driveIndices[data.index] = fakeUpload(data.file.url, data.file.name, data.file.size);
+            $uploads.show();
+        });
+
+        $rootScope.$on('googleUploaded', function (e, index) {
+            finishFakeUpload(driveIndices[index]);
+            delete driveIndices[index];
+            trackUpload('upload by google drive', 'Number of uploads by Google drive');
+        });
+
 
 
 
@@ -130,56 +142,7 @@
                 }
             });
         }
-
-        function loadPicker() {
-            var picker = new google.picker.PickerBuilder().
-         addView(google.picker.ViewId.DOCS).
-         enableFeature(google.picker.Feature.NAV_HIDDEN).
-         enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
-         setDeveloperKey('AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg').
-         setOAuthToken(gapi.auth.getToken().access_token).
-         setCallback(pickerCallback).
-         build();
-            picker.setVisible(true);
-
-
-            // A simple callback implementation.
-            function pickerCallback(data) {
-                if (data[google.picker.Response.ACTION] !== google.picker.Action.PICKED) {
-                    return;
-                }
-
-                var doc, url, name,
-                    fdata = [{ name: 'TabId', value: boxToUpload.tabid },
-                        { name: 'BoxId', value: boxToUpload.id },
-                        { name: 'Url', value: '' },
-                        { name: 'UniName', value: cd.getParameterFromUrl(1) },
-                        { name: 'BoxName', value: cd.getParameterFromUrl(3) }];
-                for (var i = 0, l = data[google.picker.Response.DOCUMENTS].length; i < l ; i++) {
-                    doc = data[google.picker.Response.DOCUMENTS][i];
-                    url = doc[google.picker.Document.URL];
-                    name = doc.name;
-                    if (!url) {
-                        continue;
-                    }
-
-                    fdata[2].value = url;
-                    var guid = fakeUpload(url, name, 0);
-                    (function (fileData, name, fGuid) {
-                        dataContext.addLink({
-                            data: fileData,
-                            success: function (itemData) {
-                                finishFakeUpload(fGuid);
-                                itemUploaded(itemData, boxToUpload.id);
-                            }
-                        });
-                    })(fdata, name, guid);
-
-                }
-                closeDialog();
-                trackUpload('upload by google drive', 'Number of uploads by Google drive');
-            }
-        }
+      
         function fakeUpload(url, name, size) {
             var guid = cd.guid(), $progressBarMaxwidth, $fileId;
 

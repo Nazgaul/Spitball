@@ -18,10 +18,10 @@
                 <button type="button" class="btn link" ng-click="saveLink()">@DialogResources.SiteLink</button>
             </li>
             <li class="source">
-                <button type="button" class="btn dropBox" ng-click="saveDropbox()">Dropbox</button>
+                <button type="button" class="btn dropBox" ng-click="saveDropbox()" ng-disabled="!sources.dropboxLoaded">Dropbox</button>
             </li>
             <li class="source">
-                <button type="button" class="btn drive" ng-click="saveGoogleDrive()">Google Drive</button>
+                <button type="button" class="btn drive" ng-click="saveGoogleDrive()" ng-disabled="!sources.googleDriveLoaded">Google Drive</button>
             </li>
             <li class="source">
                 <button type="button" class="btn sky" ng-click="saveSkyDrive()">Sky Drive</button>

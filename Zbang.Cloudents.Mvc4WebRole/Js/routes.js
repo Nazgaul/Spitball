@@ -41,7 +41,8 @@
                     'uploadCtrl',
                     'selectOnClick',
                     'manageCtrl',
-                    'Upload2'
+                    'Upload2',
+                    'facebook'
                 ]
             },
             '/course/:uniName/:boxId/:boxName/': {
@@ -65,7 +66,8 @@
                     'uploadCtrl',
                     'selectOnClick',
                     'manageCtrl',
-                    'Upload2'
+                    'Upload2',
+                    'facebook'
                 ]
             },
             '/item/:uniName/:boxId/:boxName/:itemId/:itemName/': {

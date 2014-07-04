@@ -13,7 +13,9 @@
 
         'mLoader': '{R_All-/js/directives/mLoader}',
 
-        dropbox: '{R_Box-/js/services/dropbox}', 
+        dropbox: '{R_Box-/js/services/dropbox}',
+        googleDrive: '{R_Box-/js/services/googleDrive}',
+
         'draganddrop': '{R_Box-/Scripts/draganddrop}', 
         'trustedHtml': '{R_Box-/js/filters/trustedHtml}', 
 
@@ -21,6 +23,7 @@
         'quiz': '{R_BoxQuiz-/js/services/quiz}', 
         'qna': '{R_Box-/js/services/qna}', 
         'upload': '{R_Box-/js/services/upload}',
+        'facebook': '{R_Box-/js/services/facebook}',
 
         'boxCtrl': '{R_Box-/js/controllers/box/boxCtrl}', 
         
