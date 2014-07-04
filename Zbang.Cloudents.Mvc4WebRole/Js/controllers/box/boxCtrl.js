@@ -15,13 +15,10 @@
 
             $rootScope.$broadcast('uploadBox', $scope.boxId);
 
-            $scope.init = function (backUrl, backTitle) {
-                $scope.back = {
-                    title: backTitle,
-                    url: backUrl
-                };
-                if (!$rootScope.previousTitle) {
-                    $scope.previousTitle = backTitle;
+            $scope.init = function (backUrl,backTitle) {
+                if (angular.equals($rootScope.back, {})) {
+                    $rootScope.back.title = backTitle; 
+                    $rootScope.back.url = backUrl;
                 }
             };
 

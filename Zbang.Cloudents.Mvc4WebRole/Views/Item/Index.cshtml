@@ -44,7 +44,7 @@
         <h3 class="sectionHeader">@ItemsResources.Additional</h3>
         <ul id="item_moreFiles" class="moreFilesList" data-bind="foreach: items">
             <li data-bind="css: { select: select }" class="moreFilesItem">
-                <a data-navigation="item" data-bind="attr: { href: itemUrl }">
+                <a data-bind="attr: { href: itemUrl }">
                     <div class="moreFilesThumb" data-bind="text: extension, css: extensionColor"></div>
                     <div class="moreFilesData">
                         <div class="elps moreFilesName boldFont" data-bind="text: nameNoType"></div>
@@ -126,7 +126,7 @@
                 </div>
             </section>
 
-            <a class="backWpr elps lFloat" data-navigation="Box" data-bind=" attr: { href: boxurl }">
+            <a class="backWpr elps lFloat" data-bind=" attr: { href: boxurl }" >
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps" data-bind="text: boxName"></h2>
             </a>

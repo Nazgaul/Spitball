@@ -60,6 +60,7 @@
       ]);
 
     app.run(['$rootScope', '$window', 'UserDetails', function ($rootScope, $window, UserDetails) {
+        
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
@@ -69,52 +70,71 @@
             if (!previous.$$route.params) {
                 return;
             }
-            switch (previous.$$route.params.type) {
-                case 'dashboard':
-                    $rootScope.previousTitle = 'Dashboard';
-                    break;
-                case 'library': {
-                    cd.pubsub.publish('libraryclear');
-                    break;
-                }
-                case 'user': {
+
+            switch (previous.$$route.params.type) {                
+                case 'library':
+                    cd.pubsub.publish('libraryclear');                    
+                    break;               
+                case 'user':
                     cd.pubsub.publish('userclear');
-                    break;
-                }
-                case 'item': {
+                    break;                
+                case 'item': 
                     cd.pubsub.publish('itemclear');
-                    break;
-                }
-                case 'quiz': {
+                    break;                
+                case 'quiz': 
                     cd.pubsub.publish('quizclear');
-                    break;
-                }
+                    break;       
+            };
+          
+            if (current.$$route.params.type === 'box') {                
+                switch (previous.$$route.params.type) {
+                    case 'library':
+                        $rootScope.back.title = previous.pathParams.libraryName;
+                        $rootScope.back.url = previous.loadedTemplateUrl;
+                        break;
+                    case 'user':                        
+                        previous.pathParams.userName;
+                        $rootScope.back.url = previous.loadedTemplateUrl;
+                        break;                    
+                    default:
+                        $rootScope.back.url = '/dashboard/';
+                        $rootScope.back.title = 'Dashboard';
+                        break;
+                }                
             }
         });
-
-        $rootScope.$back = function (url) {
-            if (!$window.history.length) {
-                $location.path(url);
-                return;
-            }
-            $window.history.back();
-        };
 
         $rootScope.initDetails = function (id, name, image, score, url) {
             UserDetails.setDetails(id, name, image, score, url);
         };
-
-
-
-
     }]);
 
     app.controller('MainCtrl',
-        ['$scope', '$rootScope',
-        function ($scope, $rootScope) {
-       
+        ['$scope', '$rootScope', '$location',
+        function ($scope, $rootScope, $location) {
+            $rootScope.back = {};
+
+            $rootScope.$back = function (url) {
+                if (url && url.length) {
+                    $location.path(url);
+                }
+            };
         }
-        ]);
+    ]);
+
+
+    app.directive('backButton',
+       ['$rootScope',
+
+       function ($rootScope) {            
+           return {
+               restrict: "A",
+               link: function (scope, elem, attrs) {
+                   $location.path($rootScope.previousUrl);
+               }
+           };
+       }
+       ]);
 
     app.factory('UserDetails',
      [

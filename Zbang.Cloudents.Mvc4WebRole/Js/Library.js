@@ -52,7 +52,7 @@ define('Library', ['Knockout','Pubsub','Dialog'], function (ko) {
     };
 
     (function (cd, dataContext, ko, jsResources, analytics) {
-
+        var $rootScope = angular.element(document).scope();
         cd.pubsub.subscribe('initLibrary', registerKOLibrary);
 
         function registerKOLibrary() {
@@ -75,7 +75,7 @@ define('Library', ['Knockout','Pubsub','Dialog'], function (ko) {
                 this.name = data.name;
                 this.template = 'library-node';
 
-                this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name);// + '/?r=library';
+                this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name) + '/';// + '/?r=library';
             }
             function LibraryBox(data) {
                 var that = this;
@@ -249,15 +249,17 @@ define('Library', ['Knockout','Pubsub','Dialog'], function (ko) {
                         generateModel(result.boxes, result.boxes.count, function (data) { return new LibraryBox(data); });
                     }
                     if (!result.parent) {
-                        self.backUrl('/' + libraryConst);
+                        $rootScope.back.url = '/' + libraryConst + '/'                        
                         self.arrowVisible(getLibraryId() === true);
+                        
                     }
                     else {
-                        self.backUrl('/' + libraryConst + '/' + result.parent.id + '/' + result.parent.name);
+                        $rootScope.back.url = '/' + libraryConst + '/' + result.parent.id + '/' + result.parent.name + '/';
                     }
 
-                    cd.pubsub.publish('lib_load');
-                    var $rootScope = angular.element(document).scope();
+                    $rootScope.back.title = decodeURIComponent(cd.getParameterFromUrl(2) || '');
+
+                    cd.pubsub.publish('lib_load');                    
                     $rootScope.$apply(function () {                        
                         $rootScope.$broadcast('viewContentLoaded');                 
                     });

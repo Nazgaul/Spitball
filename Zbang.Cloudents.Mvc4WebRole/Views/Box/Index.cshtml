@@ -76,9 +76,9 @@
             </section>
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
                target="_self" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
-            <a class="backWpr elps lFloat" ng-click="$back(back.url)">
+            <a class="backWpr elps lFloat" ng-href="{{back.url}}">
                 <div>@SharedResources.Backto</div>
-                <h2 class="semiFont">{{previousTitle}}</h2>
+                <h2 class="semiFont">{{back.title}}</h2>
             </a>
         </div>
 
@@ -96,7 +96,7 @@
             <ul class="boxMembers boxFriendsList">
 
                 <li ng-repeat="member in info.members">
-                    <a href="{{member.url}}" class="" data-navigation="user">
+                    <a href="{{member.url}}" class="">
                         <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" data-uid={{member.uid}} width="48" height="48" />@*uid*@
                     </a>
                 </li>

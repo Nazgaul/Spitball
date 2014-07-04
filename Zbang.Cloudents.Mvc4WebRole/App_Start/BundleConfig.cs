@@ -467,7 +467,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var jsBundle = javaScriptBundleImp;
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
-            jsBundle.ForceRelease();
+            //jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))

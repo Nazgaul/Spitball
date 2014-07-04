@@ -82,8 +82,8 @@
         }
         <div class="boxesHeader topBar barShadow">
             <h2 data-bind="visible: !backvisible()" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
-            <a id="lib_Back" class="backWpr elps lFloat" data-navigation="Library" data-bind="visible: backvisible(), attr: { href: backUrl },css: { noArrow: arrowVisible}">
-                <h2 id="lib_NodeName" data-bind="text: titleShow"></h2>
+            <a id="lib_Back" class="backWpr elps lFloat" data-navigation="Library" data-bind="visible: backvisible(),css: { noArrow: arrowVisible}" ng-href="{{back.url}}">
+                <h2 id="lib_NodeName">{{back.title}}</h2>
             </a>
             <button id="lib_NodeRename" class="boxRename" data-title="@SharedResources.Edit" data-bind="visible: renameNodeVisible"></button>
         </div>
@@ -116,31 +116,3 @@
     }
 </div>
 @{Html.RenderPartial("_Template");}
-
-<script type="text/javascript" ng-non-bindable>
-    if (!window.loadScript) {
-        window.loadScript = function (path) {
-            var result = $.Deferred(),
-            script = document.createElement("script");
-            script.async = "async";
-            script.type = "text/javascript";
-            script.src = path;
-            script.onload = script.onreadystatechange = function (_, isAbort) {
-                if (!script.readyState || /loaded|complete/.test(script.readyState)) {
-                    if (isAbort)
-                        result.reject();
-                    else
-                        result.resolve();
-                }
-            };
-            script.onerror = function () { result.reject(); };
-            $("head")[0].appendChild(script);
-            return result.promise();
-        };
-    }
-   
-    $(document).ready(function () {
-        loadScript("/Js/Library.js").done(function () { });
-    });
-
-</script>
