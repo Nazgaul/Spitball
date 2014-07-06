@@ -154,6 +154,7 @@
 
             $scope.showAllQuestion = function () {
 
+                $scope.info.selectedQuestion = null;
                 //refresh sccrooll
 
                 if ($scope.info.questions) {
