@@ -35,7 +35,8 @@
             $scope.partials = {
                 createTab: '/Box/CreateTabPartial',
                 uploader: '/Box/UploadPartial',
-                uploadAddLink: '/Box/UploadLinkPartial'
+                uploadAddLink: '/Box/UploadLinkPartial',
+                shareEmail: '/Share/MessagePartial'
             };
 
             $scope.popup = {
@@ -54,9 +55,9 @@
                 all = $q.all([infoPromise, itemsPromise, qnaPromise]);
 
             all.then(function (data) {
-                var info = data[0].success ? data[0].payload : {},
-                    items = data[1].success ? data[1].payload : {},
-                    qna = data[2].success ? data[2].payload : {};
+                var info = data[0].success ? data[0].payload : null,
+                    items = data[1].success ? data[1].payload : null,
+                    qna = data[2].success ? data[2].payload : null;
 
                 $scope.info = {
                     name: info.name,
@@ -96,7 +97,8 @@
                 //type: "Quiz"
                 //userUrl: "/user/1/ram"
 
-                $scope.qna = 'qna';
+                $scope.$broadcast('qna', qna);
+
                 //answers: [{id:233b4bdc-3fb3-4be7-8ec5-a2f400c5063e,…}]
                 //content: "asdsadas"
                 //creationTime: "2014-03-20T09:54:27Z"
@@ -398,7 +400,24 @@
             };
 
             $scope.shareEmail = function () {
+                $scope.popup.share = false;
 
+                var modalInstance = $modal.open({
+                    windowClass: "invite",
+                    templateUrl: $scope.partials.shareEmail,
+                    controller: 'ShareCtrl',
+                    backdrop: 'static',
+                    resolve: {
+                        data: function () {
+                            return null;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function () {                    
+                }, function () {
+                    //dismiss
+                });
             };
             //#endregion
 
@@ -442,7 +461,7 @@
                     return;
                 }
             };
-
+            
             $scope.deleteItem = function (item) {
                 switch (item.type) {
                     case 'File':
@@ -464,7 +483,7 @@
 
                 function removeItem(response) {
                     if (!(response.Success || response.success)) {
-                        alert('error deleting ' + item.type.toLowerCase());
+                        alert('error deleting ' + item.type.toLowerCase()); //translate
                         return;
                     }
                     var index = $scope.items.indexOf(item);

@@ -1,10 +1,10 @@
-﻿define('uploadCtrl', ['app', 'dropbox', 'googleDrive'], function (app, dropboxService) {
+﻿define('uploadCtrl', ['app', 'dropbox', 'google'], function (app, dropbox,google) {
     app.controller('UploadCtrl',
         ['$scope', '$rootScope', '$modalInstance',
-            'Dropbox', 'GoogleDrive', '$timeout',//temp
+            'Dropbox', 'Google', '$timeout',//temp
          //'googleDrive','dropbox',
 
-        function ($scope, $rootScope, $modalInstance, Dropbox, GoogleDrive, $timeout) {
+        function ($scope, $rootScope, $modalInstance, Dropbox, Google, $timeout) {
             $timeout(function () {
                 $rootScope.$broadcast('initUpload');
             });
@@ -14,7 +14,7 @@
                 googleDriveLoaded: false
             }
 
-            GoogleDrive.init().then(function () {
+            Google.initDrive().then(function () {
                 $scope.sources.googleDriveLoaded = true;
             });
 
@@ -33,7 +33,7 @@
             };
 
             $scope.saveGoogleDrive = function () {
-                GoogleDrive.picker().then(function (files) {
+                Google.picker(true).then(function (files) { //isImmediate is true if it failes it will automatically try with false
                     $modalInstance.close({ googleDrive: true, files: files });
                 });
             };

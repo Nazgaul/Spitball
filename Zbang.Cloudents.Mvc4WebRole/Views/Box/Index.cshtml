@@ -67,7 +67,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="shareItem"><button type="button" class="emailShare">@SharedResources.Email</button></li>
+                            <li class="shareItem"><button type="button" class="emailShare" ng-click="shareEmail()">@SharedResources.Email</button></li>
                         }
                     </ul>
                     <div class="shareTxt">@SharedResources.OrCopyLink</div>
@@ -109,7 +109,7 @@
                 }
                 <li id="showAllMembers"><button ng-click="openBoxManage('members')" class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
             </ul>
-            @*@{Html.RenderPartial("_QnA");}*@
+            @{Html.RenderPartial("_QnA");}
         </div>
     </div>
     @*@{

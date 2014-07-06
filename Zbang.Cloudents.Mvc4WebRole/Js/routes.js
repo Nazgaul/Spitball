@@ -30,6 +30,7 @@
                     'trustedHtml',
                     'box',
                     'item',
+                    'share',
                     'quiz',
                     'qna',
                     'upload',
@@ -42,7 +43,14 @@
                     'selectOnClick',
                     'manageCtrl',
                     'Upload2',
-                    'facebook'
+                    'facebook',
+                    'shareCtrl',
+                    'orderby',
+                    'highlight',
+                    'focus',
+                    'focusOn'
+                    
+
                 ]
             },
             '/course/:uniName/:boxId/:boxName/': {
@@ -55,6 +63,7 @@
                     'trustedHtml',
                     'box',
                     'item',
+                    'share',
                     'quiz',
                     'qna',
                     'upload',
@@ -67,7 +76,13 @@
                     'selectOnClick',
                     'manageCtrl',
                     'Upload2',
-                    'facebook'
+                    'facebook',
+                    'shareCtrl',
+                    'orderby',
+                    'highlight',
+                    'focus',
+                    'focusOn'
+
                 ]
             },
             '/item/:uniName/:boxId/:boxName/:itemId/:itemName/': {

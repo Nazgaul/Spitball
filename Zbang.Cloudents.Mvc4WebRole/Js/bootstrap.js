@@ -10,18 +10,27 @@
         boots: '/Scripts/uiBootstrapTpls0.11.0',
         modernizr: '/Scripts/Modernizr',
         Knockout: '/Scripts/knockout-3.0.0',
-
+        'angular-animate': 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min',
         'mLoader': '{R_All-/js/directives/mLoader}',
 
         dropbox: '{R_Box-/js/services/dropbox}',
-        googleDrive: '{R_Box-/js/services/googleDrive}',
+        google: '{R_Box-/js/services/google}',
+
+        focus: 'js/services/focus',
+        focusOn: 'js/directives/focusOn',
+
+        highlight: '/js/filters/highlight',
+
+        share: '/js/services/share',
+        shareCtrl: '/js/controllers/box/shareCtrl',
 
         'draganddrop': '{R_Box-/Scripts/draganddrop}', 
         'trustedHtml': '{R_Box-/js/filters/trustedHtml}', 
 
         'item': '{R_BoxItem-/js/services/item}',
         'quiz': '{R_BoxQuiz-/js/services/quiz}', 
-        'qna': '{R_Box-/js/services/qna}', 
+        'qna': '{R_Box-/js/services/qna}',
+        
         'upload': '{R_Box-/js/services/upload}',
         'facebook': '{R_Box-/js/services/facebook}',
 
@@ -94,7 +103,7 @@
             exports: 'angular'
         },
         'app': {
-            deps: ['angular', 'angular-route', 'angular-sanitize',
+            deps: ['angular', 'angular-route', 'angular-sanitize','angular-animate',
                 'infinite-scroll', 'boots', 'bind-once', 'modernizr']
         },
         'angular-route': {
@@ -108,7 +117,10 @@
         },
         'angular-sanitize': {
             deps: ['angular']
-        },       
+        },
+        'angular-animate': {
+            deps: ['angular']
+        },
         'boots': {
             deps: ['angular']
         },

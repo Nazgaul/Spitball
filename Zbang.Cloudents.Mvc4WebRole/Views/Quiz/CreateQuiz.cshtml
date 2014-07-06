@@ -11,7 +11,7 @@
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit($event,quizForm.$valid)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
             <m-custom-scrollbar class="quizWpr" bottom="40">
                 <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
-                <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
+                <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
                 <ul class="quizQuestionList">
                     <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index" ng-class="{
                     answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
@@ -70,7 +70,7 @@
     <script type="text/ng-template" id="quizQuestionTemplate">
         <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
         <textarea name="question" quiz-focus data-focus="{{question.focus}}" required class="inputText questionText" msd-elastic 
-                  placeholder="@SharedResources.Question #{{$index + 1}}" ng-placeholder="@SharedResources.Question #{{$index + 1}}" 
+                  ng-placeholder="@SharedResources.Question #{{$index + 1}}" 
                   ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="($index === 0) || (!questionForm.$pristine || params.isDraft)"></textarea>
         <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
         <div class="lFloat answers">@SharedResources.Answers:</div>
@@ -81,7 +81,7 @@
             </li>
 
             <li class="quizAnswer disabled">
-                <textarea class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer" placeholder="@QuizResources.AddAnswer" 
+                <textarea class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"" 
                           readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
                 <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
                 <label></label>
@@ -91,7 +91,7 @@
 
     <script type="text/ng-template" id="quizAnswerTemplate">
         <textarea name="answer" class="inputText questionAnswer" quiz-focus data-focus="{{answer.focus}}" msd-elastic ng-required="!questionForm.$pristine || params.isDraft" ng-keydown="addTabAnswer($event,question,answer)"
-                  ng-placeholder="@SharedResources.Answer {{$index + 1}}" placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-change="toggleRadioBtn(question,answer)" ng-model="answer.text"></textarea>
+                  ng-placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-change="toggleRadioBtn(question,answer)" ng-model="answer.text"></textarea>
 
         <button tabindex="-1" type="button" class="TODO" ng-click="removeAnswer(question,$index)">X</button>
         <input id="quizRadio{{$parent.$parent.$index + '' + $index}}" type="radio" class="correctAnswer" name="quizRadio{{$parent.$parent.$index}}"

@@ -139,7 +139,12 @@
 /// <reference path="uibootstraptpls0.11.0.js" />
 /// <reference path="../js/directives/selectonclick.js" />
 /// <reference path="../js/services/facebook.js" />
-/// <reference path="../js/services/googledrive.js" />
+/// <reference path="../js/controllers/box/sharectrl.js" />
+/// <reference path="../js/services/google.js" />
+/// <reference path="../js/services/share.js" />
+/// <reference path="../js/filters/highlight.js" />
+/// <reference path="../js/services/focus.js" />
+/// <reference path="../js/directives/focuson.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

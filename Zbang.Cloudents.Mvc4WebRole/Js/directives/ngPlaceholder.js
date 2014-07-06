@@ -12,6 +12,8 @@
 
                     //Use HTML5 placeholder attribute.
                     if (placeholderSupport) {
+                        elem.attr('placeholder', elem.attr('ng-placeholder'));
+                        elem.removeAttr('ng-placeholder');
                         return;
                     }
 

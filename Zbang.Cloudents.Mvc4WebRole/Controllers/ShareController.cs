@@ -189,6 +189,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        //TODO: partial
+        [HttpGet, Ajax]
+        public ActionResult MessagePartial()
+        {
+            try
+            {
+                return PartialView("_Message");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_Message ", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+
         [HttpPost]
         [ZboxAuthorize]
         public ActionResult SubscribeToBox(long boxUid)

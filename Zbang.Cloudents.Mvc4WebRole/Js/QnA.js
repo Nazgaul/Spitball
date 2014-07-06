@@ -193,6 +193,7 @@
 //            }
 //            cd.pubsub.publish('clearTooltip');
 //        };
+
 //        self.showAllQuestion = function () {
 //            $('.enterAnswer').removeClass('QAfloatButton');
 //            $('#Answers').css('height', '');
@@ -336,7 +337,7 @@
 //                        id: d,
 //                        userName: cd.userDetail().name,
 //                        userImage: cd.userDetail().img,
-//                        userUid: cd.userDetail().nId,
+//                        userUid: cd.userDetail().
 //                        userUrl: cd.userDetail().url,
 //                        content: extractUrls($.trim(textArea.val())),
 //                        answers: [],

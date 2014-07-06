@@ -157,7 +157,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterJsRoutes("R_Box", 
                 "/js/services/dropbox.js",
-                "/js/services/googleDrive.js",
+                "/js/services/google.js",
                 "/Scripts/draganddrop.js",
                 "/js/filters/trustedHtml.js",
                 "/Js/services/qna.js",

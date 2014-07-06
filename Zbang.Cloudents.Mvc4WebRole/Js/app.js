@@ -1,5 +1,5 @@
 ﻿define('app', ['routes', 'dependencyResolverFor'], function (config, dependencyResolverFor) {
-    var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap']);
+    var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap','ngAnimate']);
 
     app.config([
         '$routeProvider',
@@ -105,7 +105,11 @@
         });
 
         $rootScope.initDetails = function (id, name, image, score, url) {
-            UserDetails.setDetails(id, name, image, score, url);
+            if (id) {
+                UserDetails.setDetails(id, name, image, score, url);
+                return;
+            }
+            
         };
     }]);
 
@@ -140,7 +144,8 @@
      [
 
      function () {
-         var userData;
+         var userData,
+             isAuthenticated = false;
 
          return {
              setDetails: function (id, name, image, score, url) {
@@ -149,11 +154,16 @@
                      name: name,
                      image: image,
                      score: parseInt(score, 10),
-                     url: url
+                     url: url                     
                  };
+                 isAuthenticated = true;
+
              },
              getDetails: function () {
                  return userData;
+             },
+             isAuthenticated: function () {
+                 return isAuthenticated;
              }
          };
      }

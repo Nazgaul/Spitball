@@ -440,7 +440,6 @@ button.fileError {
   /*override height of inputText*/
   overflow-x: hidden;
   overflow-y: auto;
-  position: relative;
   border-radius: 3px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -458,6 +457,7 @@ button.fileError {
 .emailListWpr {
   display: inline-block;
   margin: -2px 0 -6px;
+  width: 100%;
 }
 .inviteEmailListWpr {
   display: inline-block;
@@ -467,7 +467,6 @@ button.fileError {
   display: inline;
 }
 .gConnect {
-  display: none;
   width: 80px;
   vertical-align: top;
   color: #0371c8;
