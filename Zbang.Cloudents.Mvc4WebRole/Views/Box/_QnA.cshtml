@@ -40,7 +40,7 @@
                         <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                         <div class="textareaWpr">
                             <textarea name="content" class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="showCommentBtn(question)"></textarea>
-                            <<ul class="attachedList">
+                            <ul class="attachedList">
                                 <li class="attachedItem" ng-repeat="file in aFormData.files">
                                     <span class="attachName elps">{{file.name}}</span>
                                     <button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>
