@@ -441,23 +441,23 @@
   height: 21px;
   vertical-align: middle;
 }
-.u-Website:before {
+.outbound.u-Website:before {
   width: 23px;
   height: 20px;
   background-position: -1px -1px;
 }
-.u-Email:before {
+.outbound.u-Email:before {
   width: 25px;
   height: 19px;
   background-position: -25px -2px;
 }
-.u-Fb:before {
+.outbound.u-Fb:before {
   background-position: -52px -1px;
 }
-.u-Twitter:before {
+.outbound.u-Twitter:before {
   background-position: -74px -1px;
 }
-.u-Youtube:before {
+.outbound.u-Youtube:before {
   background-position: -96px -1px;
 }
 .libLists {
