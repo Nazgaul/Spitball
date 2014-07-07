@@ -9,7 +9,8 @@ if (window.jQuery && (-1 == window.jQuery.event.props.indexOf("dataTransfer"))) 
     window.jQuery.event.props.push("dataTransfer");
 }
 
-app.directive("uiDraggable", [
+angular.module("ngDragDrop", []).
+   directive("uiDraggable", [
     '$parse',
     '$rootScope',
     function ($parse, $rootScope) {
@@ -86,7 +87,7 @@ app.directive("uiDraggable", [
 
         };
     }
-])
+   ])
 .directive("uiOnDrop", [
     '$parse',
     '$rootScope',

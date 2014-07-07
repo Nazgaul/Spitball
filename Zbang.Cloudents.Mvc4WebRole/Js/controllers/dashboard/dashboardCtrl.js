@@ -3,8 +3,8 @@
    mDashboard.controller('DashboardCtrl',
         ['$scope', '$rootScope','$timeout',
           '$modal', '$document',
-         '$window','Dashboard', 'Box',
-         'User', 'NewUpdates',
+         '$window','sDashboard', 'sBox',
+         'sUser', 'sNewUpdates',
 
          function ($scope, $rootScope, $timeout,$modal, $document, $window, Dashboard, Box, User, NewUpdates) {
              $scope.title = 'Dashboard';

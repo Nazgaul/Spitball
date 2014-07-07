@@ -1,5 +1,5 @@
 ﻿app.factory('sGoogle',
-   ['$document', '$q', '$timeout', 'Share',
+   ['$document', '$q', '$timeout', 'sShare',
    function ($document, $q, $timeout, Share) {
        var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
            apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
@@ -149,8 +149,11 @@
                    }
 
                    Share.googleFriends({ token: access_token }).then(function (data) {
-                       //var feed = JSON.parse(data).feed;
-                       var feed = temp.feed;
+                       if (!data.success) {
+                           defer.resolve([]);
+                           return;
+                       }
+                       var feed = JSON.parse(data).feed;
                        for (var i = 0 ; i < feed.entry.length; i++) {
                            var contact = {}, entry = feed.entry[i];
                            if (entry.gd$email) {

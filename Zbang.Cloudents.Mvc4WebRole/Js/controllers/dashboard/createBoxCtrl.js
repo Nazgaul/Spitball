@@ -2,7 +2,7 @@
 mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          '$modalInstance',
-         'Box',
+         'sBox',
 
          function ($scope, $modalInstance, Box) {
              $scope.formData = {

@@ -36,7 +36,7 @@
 
 
     <ol id="BoxItemList" class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-        <li ng-repeat="item in filteredItems | limitTo : options.itemsLimit" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , quizDraft : item.publish }"
+        <li ng-repeat="item in filteredItems | limitTo : options.itemsLimit" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , draft : !item.publish }"
             ng-include="getView(item)" ui-draggable="{{!options.manageTab && item.type !== 'Quiz'}}" drag="item" drag-channel="boxItem">
         </li>
     </ol> @*add drag option*@

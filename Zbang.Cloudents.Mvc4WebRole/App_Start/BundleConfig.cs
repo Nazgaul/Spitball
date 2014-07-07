@@ -126,12 +126,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/uiBootstrapTpls0.11.0.js"),
                 new JsFileWithCdn("~/Scripts/angular-animate.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
-
+                new JsFileWithCdn("/Scripts/angular-draganddrop.js"),
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
 
                 new JsFileWithCdn("~/Scripts/elastic.js"),
                 new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
                 new JsFileWithCdn("/js/app.js"),
+                new JsFileWithCdn("/Js/controllers/box/shareCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/box/boxCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/box/tabCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/box/qnaCtrl.js"),
@@ -140,36 +141,36 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/dashboard/dashboardCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/createBoxCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
-
                 new JsFileWithCdn("/js/controllers/library/libraryCtrl.js"),
                 new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
                 new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
 
-
-                new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
-                new JsFileWithCdn("/js/directives/mLoader.js"),
-
-
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
-                new JsFileWithCdn("/Scripts/draganddrop.js"),
-                new JsFileWithCdn("/js/filters/trustedHtml.js"),
                 new JsFileWithCdn("/Js/services/qna.js"),
                 new JsFileWithCdn("/Js/services/upload.js"),
-
-                new JsFileWithCdn("/Js/directives/selectOnClick.js"),
-                new JsFileWithCdn("/js/services/facebook.js"),
-
                 new JsFileWithCdn("/js/services/newUpdates.js"),
+                new JsFileWithCdn("/js/services/focus.js"),
                 new JsFileWithCdn("/js/services/box.js"),
-
                 new JsFileWithCdn("/Js/services/item.js"),
+                new JsFileWithCdn("/Js/services/share.js"),
+                new JsFileWithCdn("/Js/services/search.js"),
                 new JsFileWithCdn("/Js/services/quiz.js"),
                 new JsFileWithCdn("/Js/services/dashboard.js"),
                 new JsFileWithCdn("/js/services/user.js"),
+                new JsFileWithCdn("/js/services/facebook.js"),
+
+                new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
+                new JsFileWithCdn("/js/directives/mLoader.js"),
+                new JsFileWithCdn("/js/directives/focusOn.js"),
+                new JsFileWithCdn("/Js/directives/selectOnClick.js"),
+                
+                
+                new JsFileWithCdn("/js/filters/highlight.js"),                                                
+                new JsFileWithCdn("/js/filters/trustedHtml.js"),
                 new JsFileWithCdn("/js/filters/actionText.js"),
-                new JsFileWithCdn("/js/filters/orderBy.js"),
+                new JsFileWithCdn("/js/filters/orderBy.js"),                                              
 
                 new JsFileWithCdn("/Scripts/knockout-3.0.0.js"),
                  new JsFileWithCdn("/js/Utils.js"),
