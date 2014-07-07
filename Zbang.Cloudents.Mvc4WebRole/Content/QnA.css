@@ -43,24 +43,7 @@
   visibility: visible;
   padding-bottom: 10px;
 }
-.QA.flipTransition .QWpr,
-.QA.flipTransition .AWpr {
-  -webkit-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 1s;
-  -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 1s;
-  -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 1s;
-  transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 1s;
-}
-.QA.flipTransition .QForm {
-  -webkit-transition: all, 0.5s ease 0s;
-  -moz-transition: all, 0.5s ease 0s;
-  -o-transition: all, 0.5s ease 0s;
-  transition: all, 0.5s ease 0s;
-}
 .QA.flipTransition .back {
-  -webkit-transition: all, 0.5s ease 0s;
-  -moz-transition: all, 0.5s ease 0s;
-  -o-transition: all, 0.5s ease 0s;
-  transition: all, 0.5s ease 0s;
   /*-webkit-transition: visibility .5s ease 0s,opacity .5s ease 0s;
                 -moz-transition: visibility .5s ease 0s,opacity .5s ease 0s;
                 -o-transition: visibility .5s ease 0s,opacity .5s ease 0s;
@@ -73,18 +56,17 @@
   transition: all, 0.2s ease 1s;
 }
 .QA .back {
-  margin-top: -6px;
   height: 29px;
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: all, 0.5s ease 1.3s;
-  -moz-transition: all, 0.5s ease 1.3s;
-  -o-transition: all, 0.5s ease 1.3s;
-  transition: all, 0.5s ease 1.3s;
   /*-moz-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;
         -o-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s; 
         -webkit-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;
         transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;*/
+  position: relative;
+  top: 5px;
+  left: 7px;
+}
+.QA .back .QForm {
+  margin-top: 40px;
 }
 .QA .userName {
   max-width: 205px;
@@ -93,12 +75,7 @@
   margin-top: 9px;
 }
 .QForm {
-  -webkit-transition: all, 0.5s ease 1.3s;
-  -moz-transition: all, 0.5s ease 1.3s;
-  -o-transition: all, 0.5s ease 1.3s;
-  transition: all, 0.5s ease 1.3s;
-  opacity: 1;
-  margin: 10px 7px -36px 7px;
+  margin: 10px 7px 0 7px;
 }
 .QForm .textareaWpr {
   width: 350px;
@@ -117,11 +94,7 @@
   position: absolute;
   left: 0;
   /*rtl*/
-  margin-top: 45px;
-  -webkit-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
-  -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
-  -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
-  transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
+  margin-top: 8px;
   width: 365px;
   height: -webkit-calc(100vh - 277px);
   height: calc(100vh - 277px);
@@ -129,15 +102,10 @@
   overflow-y: auto;
 }
 .AWpr {
-  margin: 15px 0 0 0;
+  margin: 8px 0 0 0;
   width: 363px;
   position: absolute;
-  left: 376px;
   z-index: 10;
-  -webkit-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
-  -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
-  -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
-  transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
 }
 .AWpr .qaAttach {
   width: 303px;
@@ -396,13 +364,13 @@ textarea:invalid {
   margin-top: 14px;
   max-width: 210px;
 }
-.QItem form {
+.QItem .postAnswer {
   background: #f5f5f5;
   border-radius: 0 0 3px 3px;
   padding-bottom: 3px;
   overflow: hidden;
 }
-.QItem form ~ .QBottom {
+.QItem .postAnswer ~ .QBottom {
   display: none;
 }
 .QItem .upArrow {
