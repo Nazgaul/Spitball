@@ -123,6 +123,10 @@
   -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
   transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9) 0.2s;
   width: 365px;
+  height: -webkit-calc(100vh - 277px);
+  height: calc(100vh - 277px);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .AWpr {
   margin: 15px 0 0 0;
