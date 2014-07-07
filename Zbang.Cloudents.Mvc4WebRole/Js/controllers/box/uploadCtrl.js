@@ -5,7 +5,9 @@
 
     function ($scope, $rootScope, $modalInstance, Dropbox, Google, $timeout) {
         $timeout(function () {
-            $rootScope.$broadcast('initUpload');
+            cd.pubsub.publish('uploadAngular', function () {
+                $rootScope.$broadcast('initUpload');
+            });
         });
 
         $scope.sources = {

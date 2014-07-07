@@ -242,7 +242,7 @@
             }
             if (isDeleteOrUnfollow()) {
                 dataContext.removeBox2({
-                    data: { BoxUid: self.boxid()},
+                    data: { id: self.boxid()},
                     success: function () { cd.pubsub.publish('nav', '/'); }
                 });
                 return;

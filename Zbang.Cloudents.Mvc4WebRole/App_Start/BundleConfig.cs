@@ -130,6 +130,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
 
+                new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
+                new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
+                new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
+                new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
+
                 new JsFileWithCdn("~/Scripts/elastic.js"),
                 new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
                 new JsFileWithCdn("/js/app.js"),
@@ -180,7 +185,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  new JsFileWithCdn("/js/DataContext.js"),
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("/js/GenericEvents.js"),
-
+                 new JsFileWithCdn("/js/Upload2.js"),
                 new JsFileWithCdn("/js/Library.js"),
                 new JsFileWithCdn("/js/User.js"),
                 new JsFileWithCdn("/scripts/CountUp.js"),
