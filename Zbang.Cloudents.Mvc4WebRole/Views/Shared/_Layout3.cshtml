@@ -66,20 +66,36 @@
                 </ul>
             </nav>
 
-            <form class="dashLibSearch" id="g_search">
-                <input id="g_searchQ" autocomplete="off"
-                       type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
-                <button id="searchDropDownBtn" disabled type="submit"></button>
-                <div class="searchDD allResults">
-                    <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
-                    <ul class="searchList boxes"></ul>
-                    <h3>@SharedResources.Materials</h3>
-                    <ul class="searchList items"></ul>
-                    <h3>@SharedResources.People</h3>
-                    <ul class="searchList people"></ul>
-                    <h3>@SharedResources.ResultsOther</h3>
-                    <ul class="searchList university"></ul>
-                    <a class="showAll" target="_self" >@SharedResources.AllResults&nbsp;<q></q></a>
+            <form name="searchHeaderForm" class="dashLibSearch" @*ng-controller="SearchHeaderCtrl"*@ novalidate>
+                <input autocomplete="off"
+                       type="search" name="formData.query" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" />
+                <button id="searchDropDownBtn" ng-disabled="!formData.query.length" type="submit"></button>
+                <div class="searchDD allResults" ng-show="params.showDropdown" ng-class="{noResults : emptyResults()}">
+                    <span ng-if="searchResults.boxes.length">
+                        <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
+                        <ul class="searchList boxes">
+                            <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
+                        </ul>
+                    </span>
+                    <span ng-if="searchResults.items.length">
+                        <h3>@SharedResources.Materials</h3>
+                        <ul class="searchList items">
+                            <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
+                        </ul>
+                    </span>
+                    <span ng-if="searchResults.people.length">
+                        <h3>@SharedResources.People</h3>
+                        <ul class="searchList people">
+                            <li ng-repeat="person in searchResults.people" ng-include="personHeaderSearch"></li>
+                        </ul>
+                    </span>
+                    <span ng-if="searchResults.otherItems.length">
+                        <h3>@SharedResources.ResultsOther</h3>
+                        <ul class="searchList university">
+                            <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
+                        </ul>
+                    </span>
+                    <a class="showAll" ng-href="{{'/search/q=' + formData.query}}" target="_self">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
                     <div class="emptySearch">@SharedResources.NoResults</div>
                 </div>
             </form>
@@ -180,7 +196,7 @@
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
 
     <script type="text/html" id="userToolTipTempalte">
-        <a data-navigation="User" href="{{url}}">
+        <a data-navigation="User" href="{{url}}" target="_self">
             <img class="ttImg" src="{{image}}" width="99" height="99" />
         </a>
         <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
@@ -211,37 +227,31 @@
 
     </script>
     @*@Search*@
-    <script type="text/html" id="boxesSearchTemplate">
-        <li>
-            <a href="{{url}}" data-navigation="box" class="searchItem">
-                <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-                <div class="searchDetails">
-                    <div class="searchTitle semiFont elps">{{name}}</div>
-                    <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
-                    <span class="searchDetail">{{courseCode}}</span>
-                </div>
-            </a>
-        </li>
+    <script type="text/ng-template" id=" boxheadersearch">
+        <a ng-href="{{box.url}}" class="searchItem" target="_self">
+            <img class="lFloat imgBorder" width="40" height="50" src="{{box.image}}" alt="">
+            <div class="searchDetails">
+                <div class="searchTitle semiFont elps">{{box.name}}</div>
+                <span class="searchDetail" ng-style="{allDetails: box.proffessor && box.courseCode}">{{box.proffessor}}</span>
+                <span class="searchDetail">{{box.courseCode}}</span>
+            </div>
+        </a>
     </script>
-    <script type="text/html" id="itemsSearchTemplate">
-        <li>
-            <a href="{{url}}" data-navigation="item" class="searchItem">
-                <div class="otherUni semiFont">{{universityName}}</div>
-                <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-                <div class="searchDetails">
-                    <div class="searchTitle semiFont elps">{{name}}</div>
-                    <div class="boxLoc searchDetail" data-ignore-rtl="true" data-search-in="@SharedResources.In">{{boxName}}</div>
-                </div>
-            </a>
-        </li>
+    <script type="text/ng-template" id="itemHeaderSearch">
+        <a ng-href="{{item.url}}" class="searchItem" target="_self">
+            <div class="otherUni semiFont" ng-if="item.universityName">{{item.universityName}}</div>
+            <img class="lFloat imgBorder" width="40" height="50" ng-src="{{item.image}}" alt="">
+            <div class="searchDetails">
+                <div class="searchTitle semiFont elps">{{item.name}}</div>
+                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{item.boxName}}</div>
+            </div>
+        </a>
     </script>
-    <script type="text/html" id="peopleSearchTemplate">
-        <li>
-            <a href="{{url}}" data-navigation="user" class="searchItem">
-                <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
-                <div class="searchTitle semiFont elps">{{name}}</div>
-            </a>
-        </li>
+    <script type="text/ng-template" id="personHeaderSearch">
+        <a ng-href="{{person.url}}" class="searchItem" target="_self">
+            <img class="lFloat imgBorder userImg" ng-src="{{person.image}}" alt="" width="33" height="33" />
+            <div class="searchTitle semiFont elps">{{person.name}}</div>
+        </a>
     </script>
   
 

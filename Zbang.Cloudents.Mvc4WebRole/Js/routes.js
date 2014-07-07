@@ -17,8 +17,7 @@
                     "orderby",
                     "CreateBoxCtrl",
                     "ShowFriendsCtrl",
-                    "DashboardCtrl"
-                ]
+                    "DashboardCtrl"                ]
             },
             '/box/my/:boxId/:boxName/': {
                 params: {
@@ -48,8 +47,7 @@
                     'orderby',
                     'highlight',
                     'focus',
-                    'focusOn'
-                    
+                    'focusOn'                    
 
                 ]
             },
@@ -147,7 +145,6 @@
                     'Cache',
                     'ngPlaceholder',
                     'Library'
-
                 ]
             },
             '/library/': {
@@ -168,7 +165,6 @@
                     'Cache',
                     'ngPlaceholder',
                     'Library'
-
                 ]
             },
             '/user/:userId/:userName/': {

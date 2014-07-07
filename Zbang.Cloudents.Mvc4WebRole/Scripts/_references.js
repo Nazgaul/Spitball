@@ -145,6 +145,9 @@
 /// <reference path="../js/filters/highlight.js" />
 /// <reference path="../js/services/focus.js" />
 /// <reference path="../js/directives/focuson.js" />
+/// <reference path="angular-debounce.js" />
+/// <reference path="../js/controllers/search/searchheaderctrl.js" />
+/// <reference path="../js/services/search.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
