@@ -12,7 +12,7 @@
         Knockout: '/Scripts/knockout-3.0.0',
         'angular-animate': 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min',
         'mLoader': '{R_All-/js/directives/mLoader}',
-
+        debounce: '/Scripts/angular-debounce',
         dropbox: '{R_Box-/js/services/dropbox}',
         google: '{R_Box-/js/services/google}',
 
@@ -104,12 +104,15 @@
         },
         'app': {
             deps: ['angular', 'angular-route', 'angular-sanitize','angular-animate',
-                'infinite-scroll', 'boots', 'bind-once', 'modernizr']
+                'infinite-scroll', 'boots', 'bind-once', 'modernizr','debounce']
         },
         'angular-route': {
             deps: ['angular']
         },
         'bind-once': {
+            deps: ['angular']
+        },
+        'debounce': {
             deps: ['angular']
         },
         'infinite-scroll': {
