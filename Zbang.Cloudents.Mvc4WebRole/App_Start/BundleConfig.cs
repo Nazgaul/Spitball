@@ -126,7 +126,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/uiBootstrapTpls0.11.0.js"),
                 new JsFileWithCdn("~/Scripts/angular-animate.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
-                new JsFileWithCdn("/Scripts/angular-draganddrop.js"),
+                new JsFileWithCdn("~/Scripts/angular-draganddrop.js"),
+                new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
 
                 new JsFileWithCdn("~/Scripts/elastic.js"),
