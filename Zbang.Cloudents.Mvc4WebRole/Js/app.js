@@ -1,5 +1,6 @@
-﻿define('app', ['routes', 'dependencyResolverFor'], function (config, dependencyResolverFor) {
-    var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap','ngAnimate']);
+﻿//define('app', ['routes', 'dependencyResolverFor'], function (config, dependencyResolverFor) {
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll',
+    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser']);
 
     app.config([
         '$routeProvider',
@@ -36,31 +37,31 @@
         }
     ]);
 
-    app.factory('UserDetails',
-      [
+    //app.factory('UserDetails',
+    //  [
 
-      function () {
-          var userData;
+    //  function () {
+    //      var userData;
 
-          return {
-              setDetails: function (id, name, image, score, url) {
-                  userData = {
-                      id: id,
-                      name: name,
-                      image: image,
-                      score: score,
-                      url: url
-                  };
-              },
-              getDetails: function () {
-                  return userData;
-              }
-          };
-      }
-      ]);
+    //      return {
+    //          setDetails: function (id, name, image, score, url) {
+    //              userData = {
+    //                  id: id,
+    //                  name: name,
+    //                  image: image,
+    //                  score: score,
+    //                  url: url
+    //              };
+    //          },
+    //          getDetails: function () {
+    //              return userData;
+    //          }
+    //      };
+    //  }
+    //  ]);
 
     app.run(['$rootScope', '$window', 'UserDetails', function ($rootScope, $window, UserDetails) {
-        
+
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
@@ -71,36 +72,36 @@
                 return;
             }
 
-            switch (previous.$$route.params.type) {                
+            switch (previous.$$route.params.type) {
                 case 'library':
-                    cd.pubsub.publish('libraryclear');                    
-                    break;               
+                    cd.pubsub.publish('libraryclear');
+                    break;
                 case 'user':
                     cd.pubsub.publish('userclear');
-                    break;                
-                case 'item': 
+                    break;
+                case 'item':
                     cd.pubsub.publish('itemclear');
-                    break;                
-                case 'quiz': 
+                    break;
+                case 'quiz':
                     cd.pubsub.publish('quizclear');
-                    break;       
+                    break;
             };
-          
-            if (current.$$route.params.type === 'box') {                
+
+            if (current.$$route.params.type === 'box') {
                 switch (previous.$$route.params.type) {
                     case 'library':
                         $rootScope.back.title = previous.pathParams.libraryName;
                         $rootScope.back.url = previous.loadedTemplateUrl;
                         break;
-                    case 'user':                        
-                        previous.pathParams.userName;
+                    case 'user':
+                        $rootScope.back.title = previous.pathParams.userName;
                         $rootScope.back.url = previous.loadedTemplateUrl;
-                        break;                    
+                        break;
                     default:
                         $rootScope.back.url = '/dashboard/';
                         $rootScope.back.title = 'Dashboard';
                         break;
-                }                
+                }
             }
         });
 
@@ -109,7 +110,7 @@
                 UserDetails.setDetails(id, name, image, score, url);
                 return;
             }
-            
+
         };
     }]);
 
@@ -124,13 +125,13 @@
                 }
             };
         }
-    ]);
+        ]);
 
 
     app.directive('backButton',
        ['$rootScope',
 
-       function ($rootScope) {            
+       function ($rootScope) {
            return {
                restrict: "A",
                link: function (scope, elem, attrs) {
@@ -140,7 +141,7 @@
        }
        ]);
 
-    app.factory('UserDetails',
+    app.factory('sUserDetails',
      [
 
      function () {
@@ -154,7 +155,7 @@
                      name: name,
                      image: image,
                      score: parseInt(score, 10),
-                     url: url                     
+                     url: url
                  };
                  isAuthenticated = true;
 
@@ -185,5 +186,5 @@
         }
         ]);
 
-    return app;
-});
+    //return app;
+//});

@@ -1,10 +1,11 @@
-﻿define('boxCtrl', ['app'], function (app) {
-    app.controller('BoxCtrl',
+﻿//define('boxCtrl', ['app'], function (app) {
+mBox = angular.module('mBox', []);
+mBox.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
-         'Box', 'Item', 'Quiz', 'QnA', 'Upload',
-         'NewUpdates', 'UserDetails','Facebook',
+         'sBox', 'sItem', 'sQuiz', 'sQnA', 'sUpload',
+         'sNewUpdates', 'sUserDetails','sFacebook',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails,Facebook) {
@@ -33,10 +34,10 @@
             };
 
             $scope.partials = {
-                createTab: '/Box/CreateTabPartial',
-                uploader: '/Box/UploadPartial',
-                uploadAddLink: '/Box/UploadLinkPartial',
-                shareEmail: '/Share/MessagePartial'
+                createTab: '/Box/CreateTabPartial/',
+                uploader: '/Box/UploadPartial/',
+                uploadAddLink: '/Box/UploadLinkPartial/',
+                shareEmail: '/Share/MessagePartial/'
             };
 
             $scope.popup = {
@@ -534,4 +535,3 @@
             //#endregion            
         }
         ]);
-});

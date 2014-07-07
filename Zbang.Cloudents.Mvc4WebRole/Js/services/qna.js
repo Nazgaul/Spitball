@@ -1,10 +1,10 @@
-﻿define('qna', ['app'], function (app) {
-    var QnA = '/QnA';
-    app.factory('QnA',
+﻿    mBox.factory('sQnA',
         ['$http',
          '$q',
 
         function ($http, $q) {
+            var QnA = '/QnA';
+
             return {
                 list: function (data) {
                     var dfd = $q.defer();
@@ -19,4 +19,3 @@
             };
         }
         ]);
-});

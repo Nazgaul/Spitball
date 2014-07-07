@@ -1,5 +1,5 @@
-﻿define('box',['app'], function (app) {
-    app.factory('Box',
+﻿//define('box',['app'], function (app) {
+    mBox.factory('sBox',
         ['$http',
          '$q',
 
@@ -97,4 +97,4 @@
             };
         }
     ]);
-});
+//});

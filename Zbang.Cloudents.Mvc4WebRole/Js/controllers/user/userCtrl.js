@@ -1,5 +1,5 @@
-﻿define('UserCtrl', ['app'], function (app) {
-    app.controller('UserCtrl',
+﻿var mUser = angular.module('mUser', []);
+mUser.controller('UserCtrl',
         ['$scope',
         function ($scope) {
             cd.pubsub.publish('initUser');
@@ -7,4 +7,3 @@
             //todo proper return;
         }
         ]);
-});

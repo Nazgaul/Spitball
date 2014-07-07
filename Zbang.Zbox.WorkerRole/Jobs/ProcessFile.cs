@@ -59,7 +59,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     if (processor == null) return true;
 
                     var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(TimeSpan.FromMinutes(1));
+                    tokenSource.CancelAfter(TimeSpan.FromMinutes(30));
                     using (var t = Task.Factory.StartNew(() => processor.PreProcessFile(msgData.BlobName),
                             tokenSource.Token))
                     {

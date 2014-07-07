@@ -1,6 +1,6 @@
-﻿define('qnaCtrl', ['app'], function (app) {
-    app.controller('QnACtrl',
-    ['$scope', 'UserDetails', 'NewUpdates', 'QnA', 'Box','Focus',
+﻿//define('qnaCtrl', ['app'], function (app) {
+    mBox.controller('QnACtrl',
+    ['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA', 'sBox','sFocus',
 
         function ($scope, UserDetails, NewUpdates, QnA, Box,Focus) {
             function Question(data) {
@@ -336,4 +336,4 @@
             }
         }
     ]);
-});
+//});

@@ -1,23 +1,23 @@
-﻿define('manageCtrl',['app'], function (app) {
-    app.controller('ManageCtrl',
-        ['$scope',
-         'Box',
+﻿//define('manageCtrl',['app'], function (app) {
+mBox.controller('ManageCtrl',
+    ['$scope',
+     'Box',
 
-         function ($scope,Box) {
-             //Settings
+     function ($scope, Box) {
+         //Settings
 
-             $scope.formData = {};
+         $scope.formData = {};
 
-             $scope.save = function () {
-             };
+         $scope.save = function () {
+         };
 
-             $scope.cancel = function () {
-             };
+         $scope.cancel = function () {
+         };
 
-             $scope.delete = function () {
-             };
+         $scope.delete = function () {
+         };
 
-             //Members
-         }
+         //Members
+     }
     ]);
-});
+//});

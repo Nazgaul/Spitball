@@ -823,7 +823,6 @@
     <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\dashboard.js" />
-    <Content Include="Js\services\dependencyResolverFor.js" />
     <Content Include="Js\services\dropbox.js" />
     <Content Include="Js\services\facebook.js" />
     <Content Include="Js\services\focus.js" />

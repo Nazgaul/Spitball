@@ -1,5 +1,4 @@
-﻿define('UserTemp', ['Knockout', 'Pubsub', 'DataContext', 'CountUp'], function (ko) {
-    (function (cd, pubsub, ko, dataContext, $, analytics) {        
+﻿    (function (cd, pubsub, ko, dataContext, $, analytics) {        
         var eById = document.getElementById.bind(document),
             consts = {
                 MAXFILES: 8,
@@ -1146,4 +1145,3 @@
             }
         }
     })(cd, cd.pubsub, ko, cd.data, jQuery, cd.analytics);
-});
