@@ -1,8 +1,8 @@
-﻿define('CreateBoxCtrl', ['app'], function (app) {
-    app.controller('CreateBoxCtrl',
+﻿//define('CreateBoxCtrl', ['app'], function (app) {
+mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          '$modalInstance',
-         'Box',
+         'sBox',
 
          function ($scope, $modalInstance, Box) {
              $scope.formData = {
@@ -24,4 +24,4 @@
              };
          }
     ]);
-});
+//});

@@ -1,9 +1,10 @@
-﻿define('DashboardCtrl', ['app'], function (app) {
-    app.controller('DashboardCtrl',
+﻿//define('DashboardCtrl', ['app'], function (app) {
+   var mDashboard = angular.module('mDashboard',[]);
+   mDashboard.controller('DashboardCtrl',
         ['$scope', '$rootScope','$timeout',
           '$modal', '$document',
-         '$window','Dashboard', 'Box',
-         'User', 'NewUpdates',
+         '$window','sDashboard', 'sBox',
+         'sUser', 'sNewUpdates',
 
          function ($scope, $rootScope, $timeout,$modal, $document, $window, Dashboard, Box, User, NewUpdates) {
              $scope.title = 'Dashboard';
@@ -193,4 +194,4 @@
              $window.onresize = maxVisible;
          }
     ]);
-});
+//});

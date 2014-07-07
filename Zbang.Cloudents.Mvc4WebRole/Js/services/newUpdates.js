@@ -1,6 +1,6 @@
-﻿define('newUpdates', ['app'], function (app) {
+﻿//define('newUpdates', ['app'], function (app) {
     
-    app.factory('NewUpdates', [
+    app.factory('sNewUpdates', [
         '$http',
 
         function ($http) {
@@ -88,4 +88,4 @@
             }
         }
     ]);
-});
+//});

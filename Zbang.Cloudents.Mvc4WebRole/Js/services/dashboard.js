@@ -1,5 +1,5 @@
-﻿define('dashboard',['app'], function (app) {
-    app.factory('Dashboard',
+﻿//define('dashboard',['app'], function (app) {
+    mDashboard.factory('sDashboard',
         ['$http',
          '$q',
 
@@ -17,4 +17,4 @@
              };
          }
     ]);
-});
+//});

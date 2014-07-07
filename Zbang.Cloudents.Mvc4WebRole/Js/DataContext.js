@@ -1,5 +1,4 @@
-﻿define('DataContext', ['Utils','Cache', 'Pubsub'], function () {
-    (function (cd, $, cache, pubsub) {
+﻿    (function (cd, $, cache, pubsub) {
         //this is data definision
         function definitionobj(data) {
             //data.comet = data.comet || false;
@@ -358,4 +357,3 @@
         }
 
     })(window.cd = window.cd || {}, jQuery, cd.cache, cd.pubsub);
-});

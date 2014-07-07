@@ -71,9 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             }
             var stream = await m_BlobProvider.DownloadFileAsync(blobName);
             var uploadFilePath = m_LocalProvider.SaveFileToStorage(stream, blobName);
-            //var uploadFilePath = filePath;
 
-            ////var context = new CloudMediaContext("zboxmediaservices", "S52DSdcZS2Bhgr7Ofg5rGtBKByR4eVZDkpx8fOXmi2I=");
             var uploadAsset = m_Context.Assets.Create(Path.GetFileNameWithoutExtension(blobName), AssetCreationOptions.None);
             var assetFile = uploadAsset.AssetFiles.Create(Path.GetFileName(blobName));
             assetFile.Upload(uploadFilePath);
@@ -146,16 +144,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         private string EncodeToHtml5(string encodeAssetId)
         {
 
-            // Create a .NET console app
-            // Set the project properties to use the full .NET Framework (not Client Profile)
-            // With NuGet Package Manager, install windowsazure.mediaservices
-            // add: using Microsoft.WindowsAzure.MediaServices.Client;
-            // TODO: Uncomment the following if you are not using the previous snippets
-            ////var context = new CloudMediaContext("zboxmediaservices", "S52DSdcZS2Bhgr7Ofg5rGtBKByR4eVZDkpx8fOXmi2I=");
-            // TODO: Replace with an IAsset.Id string if you are not using the previous snippets
-            //var encodeAssetId = assetId; // "YOUR ASSET ID";
-            // Preset reference documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj129582.aspx
-            var encodingPreset = "H264 Broadband 720p";
+            const string encodingPreset = "H264 Broadband 720p";
+// ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - media services doesnt support first or default
             var assetToEncode = m_Context.Assets.Where(a => a.Id == encodeAssetId).FirstOrDefault();
             if (assetToEncode == null)
             {
@@ -164,13 +154,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             IJob job = m_Context.Jobs.Create("Encoding " + assetToEncode.Name + " to " + encodingPreset);
 
-            IMediaProcessor latestWameMediaProcessor = (from p in m_Context.MediaProcessors where p.Name == "Windows Azure Media Encoder" select p).ToList().OrderBy(wame => new Version(wame.Version)).LastOrDefault();
+            IMediaProcessor latestWameMediaProcessor = GetLatestMediaProcessorByName("Windows Azure Media Encoder");
             ITask encodeTask = job.Tasks.AddNew("Encoding", latestWameMediaProcessor, encodingPreset, TaskOptions.None);
             encodeTask.InputAssets.Add(assetToEncode);
             encodeTask.OutputAssets.AddNew(assetToEncode.Name + " as " + encodingPreset, AssetCreationOptions.None);
-
-            //job.StateChanged += new EventHandler<JobStateChangedEventArgs>((sender, jsc) => 
-            //    Console.WriteLine(string.Format("{0}\n  State: {1}\n  Time: {2}\n\n", ((IJob)sender).Name, jsc.CurrentState, DateTime.UtcNow.ToString(@"yyyy_M_d_hhmmss"))));
             job.Submit();
             job.GetExecutionProgressTask(CancellationToken.None).Wait();
 
@@ -249,6 +236,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 //Console.WriteLine("Deleting asset file with id: {0} {1}", file.Id, file.Name);
                 file.Delete();
             }
+        }
+
+        private IMediaProcessor GetLatestMediaProcessorByName(string mediaProcessorName)
+        {
+            // The possible strings that can be passed into the 
+            // method for the mediaProcessor parameter:
+            //   Windows Azure Media Encoder
+            //   Windows Azure Media Packager
+            //   Windows Azure Media Encryptor
+            //   Storage Decryption
+
+            var processor = m_Context.MediaProcessors.Where(p => p.Name == mediaProcessorName).
+                ToList().OrderBy(p => new Version(p.Version)).LastOrDefault();
+
+            if (processor == null)
+                throw new ArgumentException(string.Format("Unknown media processor", mediaProcessorName));
+
+            return processor;
         }
 
         void DeleteAsset(IAsset asset)

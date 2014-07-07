@@ -1,5 +1,5 @@
-﻿define('user', ['app'], function (app) {
-    app.factory('User', [
+﻿//define('user', ['app'], function (app) {
+    mUser.factory('sUser', [
         '$http',
         '$q',
         function ($http, $q) {
@@ -16,4 +16,4 @@
             };
         }
     ]);
-});
+//});

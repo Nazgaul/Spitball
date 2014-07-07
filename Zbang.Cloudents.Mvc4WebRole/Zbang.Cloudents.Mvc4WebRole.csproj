@@ -824,7 +824,6 @@
     <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\dashboard.js" />
-    <Content Include="Js\services\dependencyResolverFor.js" />
     <Content Include="Js\services\dropbox.js" />
     <Content Include="Js\services\facebook.js" />
     <Content Include="Js\services\focus.js" />
@@ -961,7 +960,7 @@
     <Content Include="Scripts\bindonce.min.js" />
     <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\angular-debounce.js" />
-    <Content Include="Scripts\draganddrop.js" />
+    <Content Include="Scripts\angular-draganddrop.js" />
     <Content Include="Scripts\elastic.js" />
     <Content Include="Scripts\elasticTextBox.js" />
     <Content Include="Scripts\externalScriptLoader.js" />

@@ -11,7 +11,7 @@ namespace Zbang.Zbox.WorkerRole
     {
         // UnityContainer unityFactory;
         public const string DeleteCahceBlobContainer = "deleteCacheBlobContainer";
-        public const string GenerateDocumentCache = "generateDocumentCache";
+        public const string PreProcessFiles = "generateDocumentCache";
         public const string MailProcess = "mailProcess";
         public const string MailProcess2 = "mailProcess2";
         public const string ThumbnailProcess = "thumbnailProcess";
@@ -49,7 +49,7 @@ namespace Zbang.Zbox.WorkerRole
         private void RegisterTypes()
         {
             Unity.RegisterType<IJob, DeleteCacheBlobContainer>(DeleteCahceBlobContainer);
-            Unity.RegisterType<IJob, ProcessFile>(GenerateDocumentCache);
+            Unity.RegisterType<IJob, ProcessFile>(PreProcessFiles);
             Unity.RegisterType<IJob, DigestEmail2>(DigestEmail2);
             Unity.RegisterType<IJob, UpdateDataBase>(Dbi);
             Unity.RegisterType<IJob, UpdateDomainProcess>(Transaction);

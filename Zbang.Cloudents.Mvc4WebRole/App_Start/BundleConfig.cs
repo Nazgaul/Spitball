@@ -111,37 +111,101 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #endregion
 
             //test
-            //RegisterJsRegular("angular",
-            //    new JsFileWithCdn("~/Scripts/angular.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"),
-            //    new JsFileWithCdn("~/Scripts/angular-route.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-route.min.js"),
-            //  new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
-            //  new JsFileWithCdn("~/Scripts/ui-bootstrap-custom-tpls-0.10.0.min.js"),
-            //    new JsFileWithCdn("~/Scripts/elastic.js"),
-            //  new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
-            //    new JsFileWithCdn("~/Js/app/services.js"),
-            //     new JsFileWithCdn("~/Js/app/filters.js"),
-            //    new JsFileWithCdn("~/Js/app/directives.js"),
-            //    new JsFileWithCdn("~/Scripts/ng-modal.js"),
-            //     new JsFileWithCdn("~/Js/app/dashboardcontroller.js"),
-            //     new JsFileWithCdn("~/Js/app/boxcontroller.js"),
-            //    new JsFileWithCdn("~/Js/app/quizcreatecontroller.js"),
-            //     new JsFileWithCdn("~/Js/app/app.js")
+            RegisterJsRegular("angular",
+                new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js",
+                    "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+                new JsFileWithCdn("~/Scripts/angular.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"),
+                new JsFileWithCdn("~/Scripts/angular-route.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),
+                new JsFileWithCdn("~/Scripts/angular-sanitize.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min.js"),
+                new JsFileWithCdn("~/Scripts/ng-infinite-scroll.js"),
+                new JsFileWithCdn("~/Scripts/bindonce.js"),
+                //new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
+                new JsFileWithCdn("~/Scripts/uiBootstrapTpls0.11.0.js"),
+                new JsFileWithCdn("~/Scripts/angular-animate.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
+                new JsFileWithCdn("/Scripts/angular-draganddrop.js"),
+                new JsFileWithCdn("~/Scripts/Modernizr.js"),
 
-            // );js/ItemViewModel4
-            //RegisterJsRoutes("R_App", "/Js/app.js");
-            RegisterJsRoutes("R_Shim",
-               // "/Scripts/ng-infinite-scroll.js",
-                "/Scripts/bindonce.js",
-                "/Scripts/uiBootstrapTpls0.11.0.js",
-                "/Scripts/Modernizr.js");
+                new JsFileWithCdn("~/Scripts/elastic.js"),
+                new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
+                new JsFileWithCdn("/js/app.js"),
+                new JsFileWithCdn("/Js/controllers/box/shareCtrl.js"),
+                new JsFileWithCdn("/Js/controllers/box/boxCtrl.js"),
+                new JsFileWithCdn("/Js/controllers/box/tabCtrl.js"),
+                new JsFileWithCdn("/Js/controllers/box/qnaCtrl.js"),
+                new JsFileWithCdn("/Js/controllers/box/uploadCtrl.js"),
+                new JsFileWithCdn("/Js/controllers/box/manageCtrl.js"),
+                new JsFileWithCdn("/js/controllers/dashboard/dashboardCtrl.js"),
+                new JsFileWithCdn("/js/controllers/dashboard/createBoxCtrl.js"),
+                new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
+                new JsFileWithCdn("/js/controllers/library/libraryCtrl.js"),
+                new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
+                new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
+                new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
 
-            RegisterJsRoutes("R_All",
+                new JsFileWithCdn("/js/services/dropbox.js"),
+                new JsFileWithCdn("/js/services/google.js"),
+                new JsFileWithCdn("/Js/services/qna.js"),
+                new JsFileWithCdn("/Js/services/upload.js"),
+                new JsFileWithCdn("/js/services/newUpdates.js"),
+                new JsFileWithCdn("/js/services/focus.js"),
+                new JsFileWithCdn("/js/services/box.js"),
+                new JsFileWithCdn("/Js/services/item.js"),
+                new JsFileWithCdn("/Js/services/share.js"),
+                new JsFileWithCdn("/Js/services/search.js"),
+                new JsFileWithCdn("/Js/services/quiz.js"),
+                new JsFileWithCdn("/Js/services/dashboard.js"),
+                new JsFileWithCdn("/js/services/user.js"),
+                new JsFileWithCdn("/js/services/facebook.js"),
+
+                new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
+                new JsFileWithCdn("/js/directives/mLoader.js"),
+                new JsFileWithCdn("/js/directives/focusOn.js"),
+                new JsFileWithCdn("/Js/directives/selectOnClick.js"),
                 
-                "/js/app.js",
-                "/js/routes.js",
-                "/js/services/dependencyResolverFor.js",
-                "/js/directives/ngPlaceholder.js",
-                "/js/directives/mLoader.js");
+                
+                new JsFileWithCdn("/js/filters/highlight.js"),                                                
+                new JsFileWithCdn("/js/filters/trustedHtml.js"),
+                new JsFileWithCdn("/js/filters/actionText.js"),
+                new JsFileWithCdn("/js/filters/orderBy.js"),                                              
+
+                new JsFileWithCdn("/Scripts/knockout-3.0.0.js"),
+                 new JsFileWithCdn("/js/Utils.js"),
+                 new JsFileWithCdn("/js/pubsub.js"),
+                  new JsFileWithCdn("/js/Cache.js"),
+                 new JsFileWithCdn("/js/DataContext.js"),
+                 new JsFileWithCdn("/js/Dialog.js"),
+                 new JsFileWithCdn("/js/GenericEvents.js"),
+
+                new JsFileWithCdn("/js/Library.js"),
+                new JsFileWithCdn("/js/User.js"),
+                new JsFileWithCdn("/scripts/CountUp.js"),
+                new JsFileWithCdn("/js/ItemViewModel4.js"),
+                new JsFileWithCdn("/Scripts/stopwatch.js"),
+                new JsFileWithCdn("/js/QuizViewModel.js")
+
+
+
+
+
+             );
+            //RegisterJsRoutes("R_App", "/Js/app.js");
+            //RegisterJsRoutes("R_Shim",
+            //   // "/Scripts/ng-infinite-scroll.js",
+            //    "/Scripts/bindonce.js",
+            //    "/Scripts/uiBootstrapTpls0.11.0.js",
+            //    "/Scripts/Modernizr.js");
+
+            //RegisterJsRoutes("R_All",
+
+            //    "/js/app.js",
+            //    "/js/routes.js",
+            //    "/js/services/dependencyResolverFor.js",
+            //    "/js/directives/ngPlaceholder.js",
+            //    "/js/directives/mLoader.js");
 
             RegisterJsRoutes("R_OldAll",
                 //"/Scripts/knockout-3.0.0.js",
@@ -150,69 +214,69 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "/js/Utils.js",
                 "/js/pubsub.js",
                 "/js/DataContext.js",
-               // "/Scripts/elasticTextBox.js",
+                // "/Scripts/elasticTextBox.js",
                 "/js/Dialog.js",
                 "/js/GenericEvents.js",
                 "/js/Cache.js");
 
-            RegisterJsRoutes("R_Box", 
-                "/js/services/dropbox.js",
-                "/js/services/google.js",
-                "/Scripts/draganddrop.js",
-                "/js/filters/trustedHtml.js",
-                "/Js/services/qna.js",
-                "/Js/services/upload.js",
-                "/Js/controllers/box/boxCtrl.js",
-                "/Js/controllers/box/tabCtrl.js",
-                "/Js/controllers/box/qnaCtrl.js",
-                "/Js/controllers/box/uploadCtrl.js",
-                "/Js/controllers/box/manageCtrl.js",
-                "/Js/directives/selectOnClick.js",
-                "/js/services/facebook.js"
-                );
-            RegisterJsRoutes("R_DashboardBox",
-                "/js/services/newUpdates.js",
-                "/js/services/box.js"
-                );
-            RegisterJsRoutes("R_BoxItem",
-                "/Js/services/item.js"
+            //RegisterJsRoutes("R_Box", 
+            //    "/js/services/dropbox.js",
+            //    "/js/services/google.js",
+            //    "/Scripts/draganddrop.js",
+            //    "/js/filters/trustedHtml.js",
+            //    "/Js/services/qna.js",
+            //    "/Js/services/upload.js",
+            //    "/Js/controllers/box/boxCtrl.js",
+            //    "/Js/controllers/box/tabCtrl.js",
+            //    "/Js/controllers/box/qnaCtrl.js",
+            //    "/Js/controllers/box/uploadCtrl.js",
+            //    "/Js/controllers/box/manageCtrl.js",
+            //    "/Js/directives/selectOnClick.js",
+            //    "/js/services/facebook.js"
+            //    );
+            //RegisterJsRoutes("R_DashboardBox",
+            //    "/js/services/newUpdates.js",
+            //    "/js/services/box.js"
+            //    );
+            //RegisterJsRoutes("R_BoxItem",
+            //    "/Js/services/item.js"
+            //    );
+            //RegisterJsRoutes("R_BoxQuiz", 
+            //    "/Js/services/quiz.js"
+            //    );
 
-                );
-            RegisterJsRoutes("R_BoxQuiz", 
-                "/Js/services/quiz.js"
-                );
+            //RegisterJsRoutes("R_Dashboard", 
+            //    "/Js/services/dashboard.js",
 
-            RegisterJsRoutes("R_Dashboard", "/Js/services/dashboard.js",
-                
-                "/js/services/user.js",
-                
-                "/js/filters/actionText.js",
-                "/js/filters/orderBy.js",
-                "/js/controllers/dashboard/createBoxCtrl.js",
-                "/js/controllers/dashboard/showFriendsCtrl.js",
-                "/js/controllers/dashboard/dashboardCtrl.js");
+            //    "/js/services/user.js",
+
+            //    "/js/filters/actionText.js",
+            //    "/js/filters/orderBy.js",
+            //    "/js/controllers/dashboard/createBoxCtrl.js",
+            //    "/js/controllers/dashboard/showFriendsCtrl.js",
+            //    "/js/controllers/dashboard/dashboardCtrl.js");
 
 
-            RegisterJsRoutes("R_Library",             
-                "/js/controllers/library/libraryCtrl.js",
-                "/js/Library.js"
-                );
+            //RegisterJsRoutes("R_Library",             
+            //    "/js/controllers/library/libraryCtrl.js",
+            //    "/js/Library.js"
+            //    );
 
-            RegisterJsRoutes("R_User",             
-                "/js/controllers/user/userCtrl.js",
-                "/js/User.js",
-                "/scripts/CountUp.js"
-                );
+            //RegisterJsRoutes("R_User",             
+            //    "/js/controllers/user/userCtrl.js",
+            //    "/js/User.js",
+            //    "/scripts/CountUp.js"
+            //    );
 
-            RegisterJsRoutes("R_Item",
-                "/js/controllers/item/itemCtrl.js",
-                "/js/ItemViewModel4.js"
-                );
-            RegisterJsRoutes("R_Quiz",
-               "/js/controllers/quiz/quizCtrl.js",
-               "/js/QuizViewModel.js",
-               "/Scripts/stopwatch.js"
-           );
+            //RegisterJsRoutes("R_Item",
+            //    "/js/controllers/item/itemCtrl.js",
+            //    "/js/ItemViewModel4.js"
+            //    );
+            // RegisterJsRoutes("R_Quiz",
+            //    "/js/controllers/quiz/quizCtrl.js",
+            //    "/js/QuizViewModel.js",
+            //    "/Scripts/stopwatch.js"
+            //);
 
             RegisterJsRegular("home",
                 new JsFileWithCdn("~/Js/Logon.js"),

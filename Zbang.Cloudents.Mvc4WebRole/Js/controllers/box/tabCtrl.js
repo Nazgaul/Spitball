@@ -1,8 +1,7 @@
-﻿define('tabCtrl',['app'], function (app) {
-	app.controller('createTabCtrl',
+﻿mBox.controller('createTabCtrl',
 		['$scope',
 		 '$modalInstance',
-		 'Box',
+		 'sBox',
 		 'data',
 
 		 function ($scope, $modalInstance, Box, data) {		 
@@ -50,4 +49,3 @@
 		 	};
 		 }
 	]);
-});
