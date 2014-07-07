@@ -1,9 +1,10 @@
-﻿using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData.QueueDataTransfer;
+﻿using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRole.DomainProcess;
 using Zbang.Zbox.WorkerRole.Jobs;
 using Zbang.Zbox.WorkerRole.Mail;
-using Zbang.Zbox.WorkerRole.OneTimeUpdates;
 
 namespace Zbang.Zbox.WorkerRole
 {
@@ -24,13 +25,13 @@ namespace Zbang.Zbox.WorkerRole
 
         public const string EmailPartners = "EmailPartners";
 
-        public Infrastructure.Ioc.IocFactory Unity { get; private set; }
+        public IocFactory Unity { get; private set; }
         public UnityFactory()
         {
-            Unity = Infrastructure.Ioc.IocFactory.Unity;
+            Unity = IocFactory.Unity;
 
 
-            Infrastructure.RegisterIoc.Register();
+            RegisterIoc.Register();
             Infrastructure.Data.RegisterIoc.Register();
             Infrastructure.File.RegisterIoc.Register();
             Infrastructure.Azure.Ioc.RegisterIoc.Register();
@@ -43,7 +44,7 @@ namespace Zbang.Zbox.WorkerRole
 
             //Unity = new UnityContainer();
             RegisterTypes();
-            Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
+            Unity.Resolve<IBlobProvider>();
         }
 
         private void RegisterTypes()
@@ -66,12 +67,12 @@ namespace Zbang.Zbox.WorkerRole
 
 
             //Unity.RegisterType<IDomainProcess, AddFriend>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.AddAFriendResolver);
-            Unity.RegisterType<IDomainProcess, Statistics>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.StatisticsResolver);
-            Unity.RegisterType<IDomainProcess, FlagBadItem>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.BadItemResolver);
-            Unity.RegisterType<IDomainProcess, UpdatesProcess>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.UpdateResolver);
+            Unity.RegisterType<IDomainProcess, Statistics>(Infrastructure.Transport.DomainProcess.StatisticsResolver);
+            Unity.RegisterType<IDomainProcess, FlagBadItem>(Infrastructure.Transport.DomainProcess.BadItemResolver);
+            Unity.RegisterType<IDomainProcess, UpdatesProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
 
 
-            Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
+            //Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
 
         }
        

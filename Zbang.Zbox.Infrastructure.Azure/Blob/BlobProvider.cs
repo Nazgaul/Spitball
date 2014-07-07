@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         private CloudBlobClient m_BlobClient;
 
-        private CloudBlobClient BlobClient
+        internal CloudBlobClient BlobClient
         {
             get
             {

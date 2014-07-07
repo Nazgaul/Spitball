@@ -224,10 +224,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
+                    var url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=" + token +
+                              "&v=3.0&alt=json&max-results=9999";
+                    httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent",
+                        "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36");
                     var result =
                         await
-                            httpClient.GetStringAsync("https://www.google.com/m8/feeds/contacts/default/full?access_token="
-                                                      + token + "&v=3.0&alt=json&max-results=9999");
+                            httpClient.GetStringAsync(url);
                     //return Content(result, "text/json");
                     return this.CdJson(new JsonResponse(true, result));
                 }
