@@ -32,7 +32,7 @@
                             <div class="attachBtn"></div>
                             <div class="numAttached">{{question.files.length}}</div>
                         </div>
-                        <div class="userName boldFont elps"></div><span class="createTime" data-time="{{question.createTime}}">{{question.userName}}</span>
+                        <div class="userName boldFont elps">{{question.userName}}</div><span class="createTime" data-time="{{question.createTime}}"></span>
                         <div class="QContent" ng-bind-html="question.content"></div>
                     </div>
                     <ng-form name="qnaAform" ng-submit="postAnswer(question)" novalidate ng-if="!question.answers.length">
