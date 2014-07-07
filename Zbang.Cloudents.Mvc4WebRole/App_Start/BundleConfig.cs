@@ -129,11 +129,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/angular-draganddrop.js"),
                 new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
+                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
 
                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
                 new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
+                new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
 
                 new JsFileWithCdn("~/Scripts/elastic.js"),
                 new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),

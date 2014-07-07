@@ -50,7 +50,13 @@ function Box(data) {
 };
 
 (function (cd, dataContext, ko, jsResources, analytics) {
-    var $rootScope = angular.element(document).scope();
+    var $rootScope;
+    var x = window.setInterval(function () {
+        $rootScope = angular.element(document).scope();
+        if ($rootScope) {
+            window.clearInterval(x);
+        }
+    }, 50);
     cd.pubsub.subscribe('initLibrary', registerKOLibrary);
 
     function registerKOLibrary() {
@@ -491,5 +497,5 @@ function Box(data) {
 
     }
 
-})(cd, cd.data, ko, JsResources, cd.analytics);
+})(cd, cd.data, ko, JsResources, cd.analytics || {});
 
