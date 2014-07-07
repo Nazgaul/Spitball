@@ -566,33 +566,6 @@ button.fileError {
   font-weight: 600;
   color: #000;
 }
-.emailMenu {
-  width: 360px;
-  border: 1px solid #c2c2c2;
-  border-radius: 5px;
-  background: #fff;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 100%;
-  top: -webkit-calc(100% + 5px);
-  top: calc(100% + 5px);
-  left: 25px;
-  /*rtl*/
-  display: none;
-  overflow: hidden;
-}
-.emailMenuItem {
-  display: table;
-  border-bottom: 1px solid #e7e7e7;
-  cursor: pointer;
-  padding: 0 10px;
-}
-.emailMenuItem:last-child {
-  border: none;
-}
-.emailMenuItem:hover {
-  background: #f4f4f4;
-}
 .eImg {
   display: table-cell;
   vertical-align: middle;

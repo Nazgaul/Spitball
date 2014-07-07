@@ -37,14 +37,12 @@
     <button class="closeDialog" ng-click="cancel()"></button>
 </div>
 
-<script type="text/ng-template" id="emailMenuItem">        
-    <li class="emailMenuItem">        
-        <img class="eImg" ng-src="{{match.label.image}}" alt="{{match.label.name}}" />
-        <div class="eDetails">
-            <div ng-if="match.label.google" class="eAddress" ng-bind-html="match.label.id | highlight:query:false"></div>
-            <div class="eName" ng-bind-html="match.label.name | highlight:query:false">{</div>           
-        </div>        
-    </li>
+<script type="text/ng-template" id="emailMenuItem">               
+    <img class="eImg" ng-src="{{match.label.image}}" alt="{{match.label.name}}" />
+    <div class="eDetails">
+        <div ng-if="match.label.google" class="eAddress" ng-bind-html="match.label.id | highlight:query:false"></div>
+        <div class="eName" ng-bind-html="match.label.name | highlight:query:false">{</div>           
+    </div>        
 </script>
 
 <script type="text/ng-template" id="emailSelectedItem">

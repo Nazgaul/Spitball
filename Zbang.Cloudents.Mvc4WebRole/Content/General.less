@@ -822,6 +822,19 @@ ul.ui-autocomplete {
         .boxSizing;
         width: 100%;
     }
+    .inviteMsg {
+        width: 100%;
+        max-height: 176px;
+        min-height: 117px;
+        padding: 8px 8px 5px 11px; /*rtl*/
+        font-size: 15px;
+        outline-color: transparent;
+        resize: none;
+        .boxSizing;
+        color: @textColor;
+        border-radius: 3px;
+        .placeholderColor(#676767);
+    }
 }
 .popupWrppr {
     position: fixed;
@@ -837,20 +850,7 @@ ul.ui-autocomplete {
     .boxSizing;
     color: @textColor;
     .animation(fadein);
-    
-    .inviteMsg {
-        width: 100%;
-        max-height: 176px;
-        min-height: 117px;
-        padding: 8px 8px 5px 11px; /*rtl*/
-        font-size: 15px;
-        outline-color: transparent;
-        resize: none;
-        .boxSizing;
-        color: @textColor;
-        border-radius: 3px;
-        .placeholderColor(#676767);
-    }
+
     &.enterCode {
         font-size: 13px;
         background: #faf9fa;
@@ -1623,6 +1623,31 @@ select.inputText {
             color: red;
             cursor: none;
         }*/
+    }
+    .emailListWpr & {
+        width: 360px;
+        border: 1px solid @borderColor;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 3px rgba(0,0,0,.2);
+        position: absolute;
+        top: 100%!important;
+        left: 25px!important; /*rtl*/
+        display: none;
+        overflow: hidden; // clip content to rounded corners
+        margin-top: 5px;
+        li {
+            display: table;
+            border-bottom: 1px solid #e7e7e7;
+            cursor: pointer;
+            padding: 0 10px;
+            &:last-child {
+                border: none;
+            }
+            &:hover {
+                background: #f4f4f4;
+            }
+        }
     }
 }
 

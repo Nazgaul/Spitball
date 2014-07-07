@@ -6,7 +6,7 @@
     <form class="clearfix QForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" ng-if="info.state > 1" novalidate>
         <div class="textareaWpr">
             <img ng-src="info.userImage" class="QAImg lFloat" alt="" width="32" height="32" />
-            <textarea name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="showPostBtn('outer')"></textarea>
+            <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="showPostBtn('outer')"></textarea>
             <ul class="attachedList">
                 <li class="attachedItem" ng-repeat="file in qFormData.files">
                     <span class="attachName elps">{{file.name}}</span>
@@ -39,7 +39,7 @@
                         <div class="arrow upArrow"></div>
                         <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                         <div class="textareaWpr">
-                            <textarea name="content" class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="showCommentBtn(question)"></textarea>
+                            <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="showCommentBtn(question)"></textarea>
                             <ul class="attachedList">
                                 <li class="attachedItem" ng-repeat="file in aFormData.files">
                                     <span class="attachName elps">{{file.name}}</span>
@@ -133,7 +133,7 @@
                 <ng-form class="clearfix" name="qnaAInnerForm" ng-submit="postAnswer(info.selectedQuestion)" novalidate>
                     <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                     <div class="textareaWpr">
-                        <textarea name="content" required class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="showCommentBtn(info.selectedQuestion)"></textarea>
+                        <textarea msd-elastic name="content" required class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="showCommentBtn(info.selectedQuestion)"></textarea>
                         <ul class="attachedList">
                             <li class="attachedItem" ng-repeat="file in info.selectedQuestion.aFormData.files">
                                 <span class="attachName elps">{{file.name}}</span>
@@ -156,7 +156,7 @@
             <form class="clearfix QEmptyForm" name="qnaQInnerForm" ng-submit="postQuestion(qnaQInnerForm.$valid)" novalidate>
                 <div class="textareaWpr">
                     <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
-                    <textarea name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qInnerFormData.content" ng-focus="showPostBtn('inner')"></textarea>
+                    <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qInnerFormData.content" ng-focus="showPostBtn('inner')"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in qFormData.files">
                             <span class="attachName elps">{{file.name}}</span>

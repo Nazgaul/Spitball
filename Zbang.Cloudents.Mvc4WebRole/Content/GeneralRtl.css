@@ -66,7 +66,8 @@ body {
   padding: 0 8px 0 4px;
   /*rtl*/
 }
-.popupWrppr .inviteMsg {
+.popupWrppr .inviteMsg,
+.modal .inviteMsg {
   padding: 8px 11px 5px 8px;
   /*rtl*/
 }
