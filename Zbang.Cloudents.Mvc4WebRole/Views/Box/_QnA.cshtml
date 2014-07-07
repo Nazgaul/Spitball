@@ -3,6 +3,8 @@
 
 <aside class="QA rFloat" ng-if="info.state !== 0" ng-controller="QnACtrl">
 
+    <button type="button" ng-click="showAllQuestion()" ng-if="info.state === 3" class="back">@SharedResources.Back</button>
+
     <form class="clearfix QForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" ng-if="info.state > 1" novalidate>
         <div class="textareaWpr">
             <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
@@ -19,7 +21,7 @@
             <button type="submit" class="askBtn" ng-disabled="!qnaQform.$valid" ng-show="info.postBtnVisible">@SharedResources.Post</button>
         </div>
     </form>
-    <button type="button" ng-click="showAllQuestion()" ng-show="info.state === 3" class="back">@SharedResources.Back</button>
+    
 
     <div class="QWpr" ng-if="info.state === 2">
         <div class="questions">
@@ -35,7 +37,7 @@
                         <div class="userName boldFont elps">{{question.userName}}</div><span class="createTime" data-time="{{question.createTime}}"></span>
                         <div class="QContent" ng-bind-html="question.content"></div>
                     </div>
-                    <ng-form name="qnaAform" ng-submit="postAnswer(question)" novalidate ng-if="!question.answers.length">
+                    <div class="postAnswer" ng-form="qnaAform" ng-submit="postAnswer(question)" novalidate ng-if="!question.answers.length">
                         <div class="arrow upArrow"></div>
                         <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                         <div class="textareaWpr">
@@ -51,7 +53,7 @@
                             <button type="button" class="attachBtn" ng-click="addAnswerAttachment(question)"></button>
                             <button type="submit" class="askBtn" ng-disabled="!qnaAform.$valid" ng-show="question.aFormData.showComment">@SharedResources.Comment</button>
                         </div>
-                    </ng-form>
+                    </div>
                     <div class="QBottom clearfix">
                         <div class="arrow upArrow" ng-if="question.answers.length"></div>
                         <div class="answerBottom" ng-click="showAllAnswers(question)" ng-if="question.answers.length">

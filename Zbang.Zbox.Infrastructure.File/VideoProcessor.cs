@@ -39,6 +39,13 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
+             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            var currentMetaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            string value;
+            if (currentMetaData.TryGetValue(MetaDataConsts.VideoStatus, out value))
+            {
+                return null;
+            }
             var newBlobName = await m_MediaServiceProvider.Value.EncodeVideo(blobUri);
             var metaData = new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "done" } };
             await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData);

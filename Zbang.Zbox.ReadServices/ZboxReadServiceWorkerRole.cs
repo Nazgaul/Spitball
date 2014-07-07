@@ -174,14 +174,21 @@ namespace Zbang.Zbox.ReadServices
 //)
 //and  isdeleted = 0");
 
-                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
-(blobname like '%.jpg'
-or blobname like '%.gif'
-or blobname like '%.png'
-or blobname like '%.jpeg'
-or blobname like '%.bmp')
-and isdeleted = 0 
-");
+//                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
+//(blobname like '%.jpg'
+//or blobname like '%.gif'
+//or blobname like '%.png'
+//or blobname like '%.jpeg'
+//or blobname like '%.bmp')
+//and isdeleted = 0 
+//");
+
+                return await conn.QueryAsync<string>(@"select blobname from zbox.item
+ where isdeleted = 0 and discriminator = 'FILE' 
+
+ and SUBSTRING(blobname, 
+        LEN(blobname)-(CHARINDEX('.', reverse(blobname))-2), 8000) in 
+		('3gp', '3g2', '3gp2', 'asf', 'mts', 'm2ts', 'mod', 'dv', 'ts', 'vob', 'xesc', 'mp4', 'mpeg', 'mpg', 'm2v', 'ismv', 'wmv')");
 
             }
         }

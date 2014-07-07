@@ -44,11 +44,11 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
-                var blobs = new List<string>
-                {
-                     "ee7fe53c-9e75-4a65-8a2e-1f59130a0be7.mp4",
-                };
-                //var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
+                //var blobs = new List<string>
+                //{
+                //     "ee7fe53c-9e75-4a65-8a2e-1f59130a0be7.mp4",
+                //};
+                var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
                 foreach (var blobname in blobs)
                 {
 
@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
             var tokenSource = new CancellationTokenSource();
-            tokenSource.CancelAfter(TimeSpan.FromMinutes(60));
+            tokenSource.CancelAfter(TimeSpan.FromMinutes(240));
             CancellationToken token = tokenSource.Token;
 
           

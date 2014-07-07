@@ -128,7 +128,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
                 new JsFileWithCdn("~/Scripts/angular-draganddrop.js"),
                 new JsFileWithCdn("~/Scripts/angular-debounce.js"),                
+                new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
+                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
+
+                new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
+                new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
+                new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
+                new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
+                new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
 
                 new JsFileWithCdn("~/Scripts/elastic.js"),
                 new JsFileWithCdn("~/Scripts/angular-mcustomscrollbar.js"),
@@ -181,8 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                   new JsFileWithCdn("/Js/Cache.js"),
                  new JsFileWithCdn("/Js/DataContext.js"),
                  new JsFileWithCdn("/Js/Dialog.js"),
-                 new JsFileWithCdn("/Js/GenericEvents.js"),
-
+                 new JsFileWithCdn("/js/Upload2.js"),
                 new JsFileWithCdn("/Js/Library.js"),
                 new JsFileWithCdn("/Js/User.js"),
                 new JsFileWithCdn("/scripts/CountUp.js"),
