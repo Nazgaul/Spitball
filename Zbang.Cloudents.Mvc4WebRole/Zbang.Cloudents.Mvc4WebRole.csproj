@@ -277,6 +277,7 @@
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\FlushHeaderAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
+    <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\NonAjaxAttribute.cs" />
     <Compile Include="Filters\UserNavNWelcomeAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
+    <Compile Include="Helpers\NullGuidConstrait.cs" />
     <Compile Include="Helpers\UrlBuilder.cs" />
     <Compile Include="Helpers\TrimModelBinder.cs" />
     <Compile Include="Helpers\UrlTitleBringer.cs" />

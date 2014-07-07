@@ -81,13 +81,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.MapRoute("LibraryDesktop",
                 "library/{LibId}/{LibName}",
                 new { controller = "Home", action = "Index" , LibId = UrlParameter.Optional, LibName= UrlParameter.Optional },
-                new { isDesktop = new DesktopConstraint() }
+                new { isDesktop = new DesktopConstraint(), LibId = new NullGuidConstrait() }
             );
 
             routes.MapRoute("LibraryNode",
                 "Library/{LibId}/{LibName}",
                 new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
-                new { LibId = new GuidRouteConstraint() }); 
+                new { LibId = new NullGuidConstrait() }); 
             #endregion
 
             //[Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]

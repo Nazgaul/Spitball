@@ -240,6 +240,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <returns>if link redirect to link if file download</returns>
         [ZboxAuthorize]
         [Route("D/{BoxUid:long:min(0)}/{itemid:long:min(0)}", Name = "ItemDownload")]
+        [NoEtag]
         public ActionResult Download(long boxUid, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
