@@ -569,6 +569,117 @@ main {
         vertical-align: middle;
     }
 }
+.productInfoWpr {
+    border: 1px solid @attentionBlue;
+    border-radius: 5px;
+    padding: 20px;
+    width: 450px;
+    margin: 15px auto 0;
+    .boxSizing;
+    
+    
+    .btn3 {
+        font-size: 32px;
+        padding: 6px 0;
+        margin: 30px 0;
+        display: block;
+    }
+}
+.productPrice {
+    width: 100%;
+    font-size: 22px;
+    text-align: left;
+    border-collapse: collapse;
+    &:before {
+        //.pseudo;
+        width: 265px;
+        height: 1px;
+        position: absolute;
+        top:8px;
+        left: 16px;
+        background: #999;
+    }
+    td {
+        padding: 6px 0;
+        margin:0;
+    }
+    td:nth-child(2) {
+        text-align: right;
+    }
+    tr:nth-child(1) td {
+        color: @color;
+    }
+    tr:nth-child(3) td {
+        border-top: 1px solid #999;
+        padding-top: 15px;
+    }
+}
+.productDetails {
+    background: #f6f6f6;
+    table-layout: fixed;
+    text-align: left;
+    td {
+        vertical-align: top;
+        padding-bottom: 8px;
+        &:first-child {
+            font-weight: bold;
+            padding: 0 30px 8px 0;
+        }
+    }
+    small {
+        display: block;
+    }
+}
+.moreProductsList {
+    list-style-type: none;
+    font-size:0;
+    width: 800px;
+    height: 150px;
+    overflow: hidden;
+    margin: 30px auto;
+    padding: 0 20px;
+    .boxSizing;
+    position: relative;
+    li {
+        width: 250px;
+        height: 160px;
+        .boxSizing;
+        border: 1px solid @color;
+        &:first-child {
+            margin-left: -300%;
+        }
+        display: inline-block;
+        padding: 0 10px;
+    }
+    /*li:first-child {
+        //-moz-animation: carousel 60s linear infinite;
+        //-webkit-animation: carousel 60s linear infinite;
+        //animation: carousel 60s linear infinite;
+        margin-left: -300%;
+    }*/
+}
+
+/*ul:before, ul:after {
+    content: "<";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 150px;
+    display: inline-block;
+    background: aqua;
+    z-index:1;
+    font-size: 24px;
+    padding: 65px 3px 0 3px;
+    box-sizing: border-box;
+}
+ul:after {
+    content: '>';
+    right: 0;
+    left: auto
+}*/
+
+
 /*#endregion */
 
 /*#region footer */
