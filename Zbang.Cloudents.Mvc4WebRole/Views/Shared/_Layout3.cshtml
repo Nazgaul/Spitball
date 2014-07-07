@@ -66,11 +66,11 @@
                 </ul>
             </nav>
 
-            <form name="searchHeaderForm" class="dashLibSearch" @*ng-controller="SearchHeaderCtrl"*@ novalidate>
-                <input autocomplete="off"
-                       type="search" name="formData.query" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" />
+            <form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" novalidate>
+                <input autocomplete="off" ng-keyup="search()" ng-blur="searchFocusout()" ng-focus="searchFocus()"
+                       type="search" name="query" ng-model="formData.query" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" />
                 <button id="searchDropDownBtn" ng-disabled="!formData.query.length" type="submit"></button>
-                <div class="searchDD allResults" ng-show="params.showDropdown" ng-class="{noResults : emptyResults()}">
+                <div class="searchDD allResults" ng-show="params.showDropdown" ng-class="{noResults : resultCount() === 0}" bindonce ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
                     <span ng-if="searchResults.boxes.length">
                         <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
                         <ul class="searchList boxes">
@@ -86,7 +86,7 @@
                     <span ng-if="searchResults.people.length">
                         <h3>@SharedResources.People</h3>
                         <ul class="searchList people">
-                            <li ng-repeat="person in searchResults.people" ng-include="personHeaderSearch"></li>
+                            <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
                         </ul>
                     </span>
                     <span ng-if="searchResults.otherItems.length">
@@ -95,13 +95,12 @@
                             <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
                         </ul>
                     </span>
-                    <a class="showAll" ng-href="{{'/search/q=' + formData.query}}" target="_self">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+                    <a class="showAll" ng-href="{{'/search/q=' + formData.query}}" target="_self">@SharedResources.AllResults&nbsp;<q bo-text="formData.query"></q></a>
                     <div class="emptySearch">@SharedResources.NoResults</div>
                 </div>
             </form>
         </div>
     </header>
-
     <div class="bodyContent noQuiz" id="main" ng-controller="MainCtrl">
         @RenderBody()
 
@@ -227,30 +226,30 @@
 
     </script>
     @*@Search*@
-    <script type="text/ng-template" id=" boxheadersearch">
-        <a ng-href="{{box.url}}" class="searchItem" target="_self">
-            <img class="lFloat imgBorder" width="40" height="50" src="{{box.image}}" alt="">
+    <script type="text/ng-template" id="boxHeaderSearch">
+        <a bo-href="box.url" class="searchItem">
+            <img class="lFloat imgBorder" width="40" height="50" bo-src="box.image" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{box.name}}</div>
-                <span class="searchDetail" ng-style="{allDetails: box.proffessor && box.courseCode}">{{box.proffessor}}</span>
-                <span class="searchDetail">{{box.courseCode}}</span>
+                <div class="searchTitle semiFont elps" bo-text="box.name"></div>
+                <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-text="box.proffessor"></span>
+                <span class="searchDetail" bo-text="box.courseCode"></span>
             </div>
         </a>
     </script>
     <script type="text/ng-template" id="itemHeaderSearch">
-        <a ng-href="{{item.url}}" class="searchItem" target="_self">
-            <div class="otherUni semiFont" ng-if="item.universityName">{{item.universityName}}</div>
-            <img class="lFloat imgBorder" width="40" height="50" ng-src="{{item.image}}" alt="">
+        <a bo-href="item.url" class="searchItem">
+            <div class="otherUni semiFont" ng-if="item.universityName" bo-text="item.universityName"></div>
+            <img class="lFloat imgBorder" width="40" height="50" bo-src="item.image" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{item.name}}</div>
-                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{item.boxName}}</div>
-            </div>
+                <div class="searchTitle semiFont elps" bo-text="item.name"></div>
+                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In" bo-text="item.boxName"></div>
+            </div>  
         </a>
     </script>
     <script type="text/ng-template" id="personHeaderSearch">
-        <a ng-href="{{person.url}}" class="searchItem" target="_self">
-            <img class="lFloat imgBorder userImg" ng-src="{{person.image}}" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps">{{person.name}}</div>
+        <a bo-href="person.url" class="searchItem">
+            <img class="lFloat imgBorder userImg" bo-src="person.image" alt="" width="33" height="33" />
+            <div class="searchTitle semiFont elps" bo-text="person.name"></div>
         </a>
     </script>
   
