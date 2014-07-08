@@ -240,7 +240,7 @@ mBox.controller('BoxCtrl',
                     var saveFile = $timeout(function () {
                         Upload[data.ajax](formData).then(function (response) {
                             if (!response.success) {
-                                alert(data.name + ' - ' + response.payload);
+                                alert((data.name || data.url) + ' - ' + response.payload);
                                 return;
                             }
 
