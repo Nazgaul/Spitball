@@ -147,7 +147,10 @@ mBox.controller('QnACtrl',
 
             //analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
             //            cd.pubsub.publish('addPoints', { type: 'question' });
-
+            var fileDisplay = $scope.qFormData.files;
+            $scope.qFormData.files = $scope.qFormData.files.map(function (file) {
+                return file.id;
+            });
 
             QnA.post.question($scope.qFormData).then(function (response) {
                 var questionId;
@@ -163,7 +166,7 @@ mBox.controller('QnACtrl',
                     content: extractUrls($scope.qFormData.content),
                     creationTime: new Date(),
                     answers: [],
-                    files: $scope.qFormData.files || []
+                    files: fileDisplay || []
                 }
 
                 $scope.info.questions.unshift(new Question(obj));
@@ -197,6 +200,10 @@ mBox.controller('QnACtrl',
 
             question.aFormData.questionId = question.id;
             question.aFormData.boxUid = $scope.boxId;
+            var fileDisplay = question.aFormData.files;
+            question.aFormData.files = question.aFormData.files.map(function (file) {
+                return file.id;
+            });
 
             QnA.post.answer(question.aFormData).then(function (answerId) {
                 var obj = {
@@ -210,7 +217,7 @@ mBox.controller('QnACtrl',
                     creationTime: new Date(),
                     iRate: false,
                     answer: false,
-                    files: question.aFormData.files || []
+                    files: fileDisplay || []
                 };
 
                 question.answers.push(new Answer(obj));
@@ -288,6 +295,28 @@ mBox.controller('QnACtrl',
                 }
 
                 $scope.qFormData.files.push(mapped);
+            });
+        };
+
+        $scope.addAnswerAttachment = function (question) {
+            $scope.openUploadPopup(true).then(function (files) {
+
+                var mapped = files.map(function (file) {
+                    file.uid = file.id;
+                    return new File(file)
+                });
+
+                if (!question.aFormData.files) {
+                    question.aFormData.files = mapped;
+                    return;
+                }
+
+                if (mapped.length > 1) {
+                    question.aFormData.files = question.aFormData.files.concat(mapped);
+                    return;
+                }
+
+                question.aFormData.files.push(mapped);
             });
         };
 
