@@ -5,7 +5,6 @@
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {
-                console.log(attrs);
                 var txt = attrs.placeholder || attrs.ngPlaceholder,
                     model = attrs.ngModel,
                     placeholderSupport = Modernizr.input.placeholder;

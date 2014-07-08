@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -51,7 +52,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User is not connected to box");
             }
-            var files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
+            var files = new List<Item>();
+            if (message.FilesIds != null)
+            {
+                files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
+            }
 
             var question = new Comment(user, text, box, message.Id, files);
             m_QuestionRepository.Save(question);
