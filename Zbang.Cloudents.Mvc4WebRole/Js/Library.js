@@ -100,7 +100,7 @@ function Box(data) {
                 JsResources.IJoined.format(that.name),
 
                 cd.location());
-                //analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
+                cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
             };
 
 
@@ -487,12 +487,12 @@ function Box(data) {
 
         //analytics
         $('.u-Website').click(function () {
-            analytics.trackEvent('Library', 'Go to org website', 'number of clicks on the union website icon');
+            cd.analytics.trackEvent('Library', 'Go to org website', 'number of clicks on the union website icon');
         });
         $('.u-Fb').click(function () {
-            analytics.trackEvent('Library', 'Go to org Facebok page', 'number of clicks on the union facebook page icon');
+            cd.analytics.trackEvent('Library', 'Go to org Facebok page', 'number of clicks on the union facebook page icon');
         });
-        analytics.setLibrary($('.unionName').text());
+        cd.analytics.setLibrary($('.unionName').text());
 
 
     }

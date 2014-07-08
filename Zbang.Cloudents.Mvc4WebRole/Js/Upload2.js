@@ -101,7 +101,7 @@
     //    boxToUpload.question = $.isEmptyObject(d) ? false : d.question;
     //});
     function trackUpload(action, label) {
-        //analytics.trackEvent('Upload', action, label);
+        analytics.trackEvent('Upload', action, label);
     }
     function uploadVisible() {
         if (firstTimeFired) {

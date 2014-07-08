@@ -146,7 +146,7 @@ mBox.controller('QnACtrl',
 
             //add points;
 
-            //analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
+            cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
             //            cd.pubsub.publish('addPoints', { type: 'question' });
             var fileDisplay = $scope.qFormData.files;
             if ($scope.qFormData.files && $scope.qFormData.files.length) {
@@ -198,7 +198,7 @@ mBox.controller('QnACtrl',
                 return;
             }
 
-            //            analytics.trackEvent('Answer', 'Give answer', 'Providing answer ');
+            cd.analytics.trackEvent('Answer', 'Give answer', 'Providing answer ');
             //            cd.pubsub.publish('addPoints', { type: 'answer' });
 
             question.aFormData.questionId = question.id;

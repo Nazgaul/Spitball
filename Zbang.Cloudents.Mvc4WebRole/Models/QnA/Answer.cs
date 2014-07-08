@@ -6,9 +6,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.QnA
 {
     public class Answer
     {
-        public Answer()
-        {
-        }
         [Required]
         [AllowHtml]
         public string Content { get; set; }
