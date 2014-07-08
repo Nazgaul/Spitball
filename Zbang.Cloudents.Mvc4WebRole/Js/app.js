@@ -1,5 +1,5 @@
 ﻿//define('app', ['routes', 'dependencyResolverFor'], function (config, dependencyResolverFor) {
-var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar',
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar','monospaced.elastic',
     'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser','debounce']);
 
 app.config([

@@ -5,10 +5,10 @@
 
     <button type="button" ng-click="showAllQuestion()" ng-if="info.state === 3" class="back">@SharedResources.Back</button>
 
-    <form class="clearfix QForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" ng-if="info.state > 1" novalidate>
+    <form class="clearfix QForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" ng-if="info.state > 1 && !info.selectedQuestion" novalidate ng-init="showPost=false">
         <div class="textareaWpr">
             <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
-            <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="showPostBtn('outer')"></textarea>
+            <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="showPost=true"></textarea>
             <ul class="attachedList">
                 <li class="attachedItem" ng-repeat="file in qFormData.files">
                     <span class="attachName elps">{{file.name}}</span>
@@ -16,12 +16,12 @@
                 </li>
             </ul>
         </div>
-        <div class="rFloat">
-            <button type="button" class="attachBtn" ng-click="addQuestionAttachment('outer')"></button>
-            <button type="submit" class="askBtn" ng-disabled="!qnaQform.$valid" ng-show="info.postBtnVisible">@SharedResources.Post</button>
+        <div class="rFloat" ng-show="showPost">
+            <button type="button" class="attachBtn" ng-disabled="!qnaQform.$valid" ng-click="addQuestionAttachment()"></button>
+            <button type="submit" class="askBtn" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
         </div>
     </form>
-    
+
 
     <div class="QWpr" ng-if="info.state === 2">
         <div class="questions">
@@ -37,21 +37,21 @@
                         <div class="userName boldFont elps">{{question.userName}}</div><span class="createTime" data-time="{{question.createTime}}"></span>
                         <div class="QContent" ng-bind-html="question.content"></div>
                     </div>
-                    <div class="postAnswer" ng-form="qnaAform" ng-submit="postAnswer(question)" novalidate ng-if="!question.answers.length">
+                    <div class="postAnswer" ng-form="qnaAform" novalidate ng-if="!question.answers.length" ng-init="showComment=false">
                         <div class="arrow upArrow"></div>
                         <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                         <div class="textareaWpr">
-                            <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="showCommentBtn(question)"></textarea>
+                            <textarea msd-elastic required name="content" class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="showComment=true"></textarea>
                             <ul class="attachedList">
-                                <li class="attachedItem" ng-repeat="file in aFormData.files">
+                                <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                                     <span class="attachName elps">{{file.name}}</span>
                                     <button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>
                                 </li>
                             </ul>
                         </div>
-                        <div class="rFloat">
-                            <button type="button" class="attachBtn" ng-click="addAnswerAttachment(question)"></button>
-                            <button type="submit" class="askBtn" ng-disabled="!qnaAform.$valid" ng-show="question.aFormData.showComment">@SharedResources.Comment</button>
+                        <div class="rFloat" ng-show="showComment">
+                            <button type="button" class="attachBtn" ng-disabled="!qnaAform.$valid" ng-click="addAnswerAttachment(question)"></button>
+                            <button type="submit" class="askBtn" ng-click="postAnswer(question)" ng-disabled="!qnaAform.$valid">@SharedResources.Comment</button>
                         </div>
                     </div>
                     <div class="QBottom clearfix">
@@ -90,7 +90,7 @@
                     <div class="userName boldFont elps">{{info.selectedQuestion.username}}</div><span class="createTime innerSection" data-time="{{info.selectedQuestion.createTime}}"></span>
                     <div class="QContent" ng-bind-html="info.selectedQuestion.content"></div>
                 </div>
-                <button type="button" class="deleteBtn" ng-click="deleteQuestion(question)" ng-if="canDelete(info.selectedQuestion)"></button>
+                <button type="button" class="deleteBtn" ng-click="deleteQuestion(info.selectedQuestion)" ng-if="canDelete(info.selectedQuestion)"></button>
             </div>
             <div class="lFloat" ng-class="{attachLeft : info.selectedQuestion.files.length}">
                 <div class="attachBtn"></div>
@@ -115,7 +115,7 @@
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<button title="@IndexResources.Useful" class="voteBtn rFloat" type="button" data-bind="click:$root.rateAnswer"></button>
                         <span class="aScore rFloat" data-bind="text:rating"></span>*@
-                    <button type="button" class="deleteBtn rFloat" ng-click="deleteAnswer(answer)" ng-if="canDelete(answer)"></button>
+                    <button type="button" class="deleteBtn rFloat" ng-click="deleteAnswer(info.selectedQuestion,answer)" ng-if="canDelete(answer)"></button>
                     <div class="AContent" ng-bind-html="answer.content"></div>
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<button title="@IndexResources.MarkCorrect" type="button" class="markAnswerBtn" data-bind="click: $root.markAnswer, visible: $parent.canMarkAsAnswer"></button>*@
@@ -132,10 +132,10 @@
                 </li>
             </ul>
             <div class="enterAnswer clearfix">
-                <ng-form class="clearfix" name="qnaAInnerForm" ng-submit="postAnswer(info.selectedQuestion)" novalidate>
+                <div ng-form="qnaAform" class="clearfix" novalidate ng-init="showComment=false">
                     <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                     <div class="textareaWpr">
-                        <textarea msd-elastic name="content" required class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="showCommentBtn(info.selectedQuestion)"></textarea>
+                        <textarea msd-elastic name="content" required class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="showComment=true"></textarea>
                         <ul class="attachedList">
                             <li class="attachedItem" ng-repeat="file in info.selectedQuestion.aFormData.files">
                                 <span class="attachName elps">{{file.name}}</span>
@@ -145,20 +145,20 @@
                     </div>
                     <div class="rFloat">
                         <button type="button" class="attachBtn" ng-click="addAnswerAttachment(info.selectedQuestion)"></button>
-                        <button type="submit" class="askBtn" ng-disabled="!qnaAInnerForm.$valid" ng-show="info.selectedQuestion.aFormData.showComment">@SharedResources.Comment</button>
+                        <button type="submit" class="askBtn" ng-click="postAnswer(info.selectedQuestion)" ng-disabled="!qnaAform.$valid" ng-show="showComment">@SharedResources.Comment</button>
                     </div>
-                </ng-form>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="QAContent">
-        <div class="QEmpty" ng-if="info.state === 1">
+    <div class="QAContent" ng-if="info.state === 1">
+        <div class="QEmpty">
             <div class="qaText1">@IndexResources.NotClear</div>
-            <form class="clearfix QEmptyForm" name="qnaQInnerForm" ng-submit="postQuestion(qnaQInnerForm.$valid)" novalidate>
+            <form class="clearfix QEmptyForm" name="qnaQform" novalidate ng-init="showComment=false">
                 <div class="textareaWpr">
                     <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
-                    <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qInnerFormData.content" ng-focus="showPostBtn('inner')"></textarea>
+                    <textarea msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="showComment=true"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in qFormData.files">
                             <span class="attachName elps">{{file.name}}</span>
@@ -166,9 +166,9 @@
                         </li>
                     </ul>
                 </div>
-                <div class="rFloat">
-                    <button type="button" class="attachBtn" ng-click="addQuestionAttachment('inner')"></button>
-                    <button type="submit" class="askBtn" ng-disabled="!qnaQInnerForm.$valid" ng-show="info.postInnerBtnVisible">@SharedResources.Comment</button>
+                <div class="rFloat" ng-show="showComment">
+                    <button type="button" class="attachBtn" ng-disabled="!qnaQform.$valid" ng-click="addQuestionAttachment()" ></button>
+                    <button type="submit" class="askBtn" ng-click="postQuestion(qnaQform.$valid)" >@SharedResources.Comment</button>
                 </div>
             </form>
             <div class="qaText2">@IndexResources.NoQuestions</div>
