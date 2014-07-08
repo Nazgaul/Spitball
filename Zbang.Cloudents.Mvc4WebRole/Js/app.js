@@ -153,10 +153,12 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
     });
 
     $rootScope.initDetails = function (id, name, image, score, url) {
+        
         if (id) {
             UserDetails.setDetails(id, name, image, score, url);
             return;
         }
+        UserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
 }]);
@@ -197,6 +199,9 @@ app.factory('sUserDetails',
 
      return {
          setDetails: function (id, name, image, score, url) {
+             if (id) {
+                 isAuthenticated = true;
+             }
              userData = {
                  id: parseInt(id, 10),
                  name: name,
@@ -204,7 +209,6 @@ app.factory('sUserDetails',
                  score: parseInt(score, 10),
                  url: url
              };
-             isAuthenticated = true;
 
          },
          getDetails: function () {

@@ -90,7 +90,7 @@ mDashboard.controller('DashboardCtrl',
                       }
                   });
 
-                  modalInstance.result.then(function (box) {
+                  modalInstance.result.then(function (/*box*/) {
                   }, function () {
                       //dismiss
                   });
