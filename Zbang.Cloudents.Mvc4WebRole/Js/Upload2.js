@@ -49,7 +49,7 @@
             //uploader.refresh();
         });
 
-        $rootScope.$on('selectTab', function() {
+        $rootScope.$on('selectTab', function(d) {
             boxToUpload.tabid = $.isEmptyObject(d) ? null : d;
         });
 

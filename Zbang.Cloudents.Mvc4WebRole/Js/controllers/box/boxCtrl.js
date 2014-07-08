@@ -5,10 +5,10 @@ mBox.controller('BoxCtrl',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'sBox', 'sItem', 'sQuiz', 'sQnA', 'sUpload',
-         'sNewUpdates', 'sUserDetails','sFacebook',
+         'sNewUpdates', 'sUserDetails', 'sFacebook',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails,Facebook) {
+                  $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails, Facebook) {
 
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
@@ -16,9 +16,9 @@ mBox.controller('BoxCtrl',
 
             $rootScope.$broadcast('uploadBox', $scope.boxId);
 
-            $scope.init = function (backUrl,backTitle) {
+            $scope.init = function (backUrl, backTitle) {
                 if (angular.equals($rootScope.back, {})) {
-                    $rootScope.back.title = backTitle; 
+                    $rootScope.back.title = backTitle;
                     $rootScope.back.url = backUrl;
                 }
             };
@@ -139,7 +139,13 @@ mBox.controller('BoxCtrl',
                 });
             });
 
-            $scope.openUploadPopup = function () {
+            $scope.openUploadPopup = function (qna) {
+                var defer, fileList
+                if (qna) {
+                    defer = $q.defer();
+                    fileList = [];
+                }
+
                 var modalInstance = $modal.open({
                     windowClass: "uploader",
                     templateUrl: $scope.partials.uploader,
@@ -157,26 +163,28 @@ mBox.controller('BoxCtrl',
                         });
 
                         modalInstance.result.then(function (url) {
-                            saveItem({ url: url, type: 'link', ajax: 'link', timeout: 1000 });
+                            saveItem({ url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
                         }); //save url
                         return;
                     }
-                   
+
                     if (response.dropbox) {
                         var files = response.files, file;
-                        for (var i = 0, l = files.length; i < l; i++) {                            
-                            (function (file,index) {
-                              saveItem({
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            (function (file, index) {
+                                saveItem({
                                     name: file.name,
                                     size: file.bytes,
                                     url: file.link,
                                     type: 'dropbox',
                                     ajax: 'dropbox',
                                     timeout: 0,
-                                    index: index
-                                });                               
+                                    index: index,
+                                    length: files.length
 
-                            })(files[i],i);
+                                });
+
+                            })(files[i], i);
                         }
                         return;
                     }
@@ -192,20 +200,28 @@ mBox.controller('BoxCtrl',
                                     type: 'googleLink',
                                     ajax: 'link',
                                     timeout: 1000,
-                                    index: index
+                                    index: index,
+                                    length: files.length
                                 });
 
                             })(files[i], i);
                         }
+                        return;
                     }
                 }, function () {
                     //dismiss
                 });
-                function saveItem(data) {                    
+
+                if (defer) {
+                    return defer.promise;
+                }
+
+
+                function saveItem(data) {
                     if (data.type === 'link') {
                         $rootScope.$broadcast('linkUpload', data.url);
                     } else if (data.type === 'dropbox') {
-                        $rootScope.$broadcast('dropboxUpload', { file : { url: data.url, name: data.name, size: data.size}, index: data.index });
+                        $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
                     } else if (data.type === 'googleLink') {
                         $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
                     }
@@ -231,7 +247,7 @@ mBox.controller('BoxCtrl',
                             if (data.type === 'link') {
                                 $rootScope.$broadcast('linkUploaded');
                             } else if (data.type === 'dropbox') {
-                                $rootScope.$broadcast('dropboxUploaded',data.index);
+                                $rootScope.$broadcast('dropboxUploaded', data.index);
                             } else if (data.type === 'googleLink') {
                                 $rootScope.$broadcast('googleUploaded', data.index);
                             }
@@ -239,6 +255,15 @@ mBox.controller('BoxCtrl',
                             var responseItem = response.payload;
                             $scope.items.unshift(responseItem);
                             $scope.filteredItems.unshift(responseItem);
+                            fileList.push(responseItem);
+                            if (data.type === 'link') {
+                                defer.resolve(fileList);
+                                return;
+                            }
+                            if (fileList.length === data.length) {
+                                defer.resolve(fileList);
+                            }
+
                         });
                     }, data.timeout);
                 }
@@ -348,7 +373,7 @@ mBox.controller('BoxCtrl',
 
             $scope.selectTab = function (tab) {
                 $scope.info.currentTab = tab;
-                
+
                 $scope.options.itemsLimit = consts.itemsLimit;
 
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
@@ -415,7 +440,7 @@ mBox.controller('BoxCtrl',
                     }
                 });
 
-                modalInstance.result.then(function () {                    
+                modalInstance.result.then(function () {
                 }, function () {
                     //dismiss
                 });
@@ -462,7 +487,7 @@ mBox.controller('BoxCtrl',
                     return;
                 }
             };
-            
+
             $scope.deleteItem = function (item) {
                 switch (item.type) {
                     case 'File':

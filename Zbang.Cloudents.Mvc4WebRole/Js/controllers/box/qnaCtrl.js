@@ -24,7 +24,7 @@ mBox.controller('QnACtrl',
             that.id = data.id;
             that.userName = data.userName;
             that.userImage = data.userImage;
-            that.userId = data.userUid; //uid
+            that.userId = data.userId;
             that.content = data.content.replace(/\n/g, '<br/>');
             that.rating = data.rating;
             that.iRate = data.iRate;
@@ -38,6 +38,7 @@ mBox.controller('QnACtrl',
             var that = this;
             data = data || {};
             that.id = data.uid; //uid
+            that.name = data.name;
             that.thumbnail = data.thumbnail;
             that.download = "/d/" + $scope.boxId + "/" + that.id;
 
@@ -63,28 +64,23 @@ mBox.controller('QnACtrl',
             selectedQuestion: null,
         };
 
+        $scope.qFormData = {};
 
         $scope.$on('qna', function (e, questions) {
             $scope.info.questions = questions.map(function (question) {
                 return new Question(question);
             });
             if (!questions) {
-                return states.none;
+                $scope.info.state = states.none;
+                return;
             }
             if (!questions.length) {
-                return states.empty;
+                $scope.info.state = states.empty;
+                return;
             }
 
             $scope.info.state = states.questions;
         });
-
-        $scope.qFormData = {
-            boxId: $scope.boxId
-        };
-
-        $scope.aFormData = {
-            boxId: $scope.boxId
-        };        
 
         $scope.answersLength = function (question) {
             if (question.answers.length === 1) {
@@ -93,15 +89,6 @@ mBox.controller('QnACtrl',
 
             return question.answers.length + ' ' + JsResources.Comments;
         };
-
-        $scope.deleteAnswer = function (question, answer) {
-            var index = question.answers.indexOf(answer);
-            question.answers.splice(index, 1);
-
-            QnA.deleteAnswer({ answerId: answer.id }).then(function () {//TODO
-                //SignalR notify
-            });
-        }
 
         $scope.canDelete = function (obj) { //question || answer
             var userId = UserDetails.getDetails().id;
@@ -143,14 +130,18 @@ mBox.controller('QnACtrl',
         };
 
         $scope.postQuestion = function () {
-            if (UserDetails.isAuthenticated()) {
+            if (!UserDetails.isAuthenticated()) {
                 //register popup
                 cd.pubsub.publish('register', { action: true });
+                return;
             }
 
             if (self.userType === 'none' || self.userType === 'owner') {
                 alert(JsResources.NeedToFollowBox);
+                return;
             }
+
+            $scope.qFormData.boxUid = $scope.boxId;
 
             //add points;
 
@@ -158,22 +149,29 @@ mBox.controller('QnACtrl',
             //            cd.pubsub.publish('addPoints', { type: 'question' });
 
 
-            QnA.post.question($scope.qFormData).then(function (questionId) {
+            QnA.post.question($scope.qFormData).then(function (response) {
+                var questionId;
+                if (response.Success) {
+                    questionId = response.Payload;
+                }
                 var obj = {
                     id: questionId,
                     userName: UserDetails.getDetails().name,
                     userImage: UserDetails.getDetails().image,
                     userUid: UserDetails.getDetails().id, //uid
                     userUrl: UserDetails.getDetails().url,
-                    content: extractUrls($scope.qFormData.cotent),
+                    content: extractUrls($scope.qFormData.content),
                     creationTime: new Date(),
                     answers: [],
-                    files: $scope.formData.files
+                    files: $scope.qFormData.files || []
                 }
 
-                $scope.questions.unshift(new Question(obj));
-                $scope.qFormData.content = $scope.qFormData.files = null;
+                $scope.info.questions.unshift(new Question(obj));
+                $scope.qFormData = {};
 
+                if ($scope.info.state === states.empty) {
+                    $scope.info.state = states.questions;
+                }
             });
 
 
@@ -183,87 +181,74 @@ mBox.controller('QnACtrl',
         };
 
         $scope.postAnswer = function (question) {
-            if (UserDetails.isAuthenticated()) {
+            if (!UserDetails.isAuthenticated()) {
                 //register popup
                 cd.pubsub.publish('register', { action: true });
+                return;
             }
 
-            if (self.userType === 'none' || self.userType === 'owner') {
+            if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'owner') { //parent is box controller
                 alert(JsResources.NeedToFollowBox);
+                return;
             }
 
             //            analytics.trackEvent('Answer', 'Give answer', 'Providing answer ');
             //            cd.pubsub.publish('addPoints', { type: 'answer' });
 
-            $scope.aFormData.questionId = question.id;
+            question.aFormData.questionId = question.id;
+            question.aFormData.boxUid = $scope.boxId;
 
-            QnA.post.answer($scope.aFormData).then(function (answerId) {
+            QnA.post.answer(question.aFormData).then(function (answerId) {
                 var obj = {
                     id: answerId,
                     userName: UserDetails.getDetails().name,
                     userImage: UserDetails.getDetails().image,
                     userUid: UserDetails.getDetails().id, //uid
                     userUrl: UserDetails.getDetails().url,
-                    content: extractUrls($scope.aFormData.content),
+                    content: extractUrls(question.aFormData.content),
                     rating: 0,
                     creationTime: new Date(),
                     iRate: false,
                     answer: false,
-                    files: $scope.aFormData.files
+                    files: question.aFormData.files || []
                 };
 
                 question.answers.push(new Answer(obj));
-
+                question.bestAnswer = findBestAnswer(question.answers);
                 //updatetime
                 //notify
-                $scope.aFormData.content = $scope.aFormData.files = null;
+                question.aFormData = {};
 
             });
         };
 
         $scope.deleteQuestion = function (question) {
-            var index = $scope.questions.indexOf(question);
-            $scope.questions.splice(index, 1);
+            var index = $scope.info.questions.indexOf(question);
+            $scope.info.questions.splice(index, 1);
 
             QnA.delete.question({ questionId: question.id }).then(function () {
                 //notify
             });
 
+            $scope.info.selectedQuestion = null;
+            if (!$scope.info.questions.length) {
+                $scope.info.state = states.empty;
+                return;
+            }
             $scope.info.state = states.questions;
-        };
-        //question 
 
-        //content: "asdsadas"
-        //creationTime: "2014-03-20T09:54:27Z"
-        //files: []
-        //id: "59d599bb-34f5-4692-ac84-a2f400c43b74"
-        //url: "/user/1/ram"
-        //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
-        //userName: "guy golan"
-        //userUid: 18372
-
-        //answer 
-
-        //answer: false
-        //content: "asdasd"
-        //creationTime: "2014-03-20T09:57:20Z"
-        //files: []
-        //iRate: false
-        //id: "233b4bdc-3fb3-4be7-8ec5-a2f400c5063e"
-        //questionId: "59d599bb-34f5-4692-ac84-a2f400c43b74"
-        //rating: 0
-        //url: "/user/1/ram"
-        //userId: 18372
-        //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
-        //userName: "guy golan"
-
-        $scope.addAnswer = function (question) {
 
         };
+
         $scope.deleteAnswer = function (question, answer) {
+            var index = question.answers.indexOf(answer);
+            question.answers.splice(index, 1);
+            question.bestAnswer = findBestAnswer(question.answers);
 
+            QnA.delete.answer({ answerId: answer.id }).then(function () {//TODO
+                //SignalR notify
+            });
         };
-
 
         $scope.addFiles = function (question, answer) {
 
@@ -284,6 +269,29 @@ mBox.controller('QnACtrl',
             }
         };
 
+        $scope.addQuestionAttachment = function () {
+            $scope.openUploadPopup(true).then(function (files) {
+
+                var mapped = files.map(function (file) {
+                    file.uid = file.id;
+                    return new File(file)
+                });
+
+                if (!$scope.qFormData.files) {
+                    $scope.qFormData.files = mapped;
+                    return;
+                }
+
+                if (mapped.length > 1) {
+                    $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
+                    return;
+                }
+
+                $scope.qFormData.files.push(mapped);
+            });
+        };
+
+
         function sortAnswers(a, b) {
             if (a.isAnswer) {
                 return -1;
@@ -300,6 +308,9 @@ mBox.controller('QnACtrl',
         function extractUrls(d) {
             var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
             var matches = ko.utils.arrayGetDistinctValues(d.match(urlex));
+            if (!matches.length) {
+                return d;
+            }
             for (var i = 0; i < matches.length; i++) {
                 var url = matches[i];
                 if (!url) {
@@ -339,4 +350,3 @@ mBox.controller('QnACtrl',
         }
     }
 ]);
-//});
