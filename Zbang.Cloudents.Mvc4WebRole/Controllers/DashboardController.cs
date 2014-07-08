@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -101,8 +102,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //TODO: check this out
         [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
         public ActionResult PrivateBoxPartial()
         {
             try

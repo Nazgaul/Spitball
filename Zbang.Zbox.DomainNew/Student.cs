@@ -2,6 +2,16 @@
 {
     public class Student
     {
+        protected Student()
+        {
+            
+        }
+
+        public Student(University university, string id)
+        {
+            ID = id.PadLeft(9, '0');
+            University = university;
+        }
         public virtual long StudentId { get; set; }
         public virtual University University { get; set; }
 

@@ -6,8 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Consts;

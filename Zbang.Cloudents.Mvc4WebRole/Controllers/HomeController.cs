@@ -15,9 +15,11 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -347,51 +349,81 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         //[OutputCache(Duration = TimeConsts.Day, VaryByParam = "none")]
-        public ActionResult Bootstrap()
+        //public ActionResult Bootstrap()
+        //{
+        //    var routes = Server.MapPath("~/Js/bootstrap.js");
+        //    var str = System.IO.File.ReadAllText(routes);
+
+        //    //var jsFileLocations = BundleConfig.JsRemoteLinks();
+        //    var matches = Regex.Matches(str, @"\{(.*?)\}");
+        //    foreach (Match match in matches)
+        //    {
+        //        var matchWithoutBrackets = match.Value.Replace("{", string.Empty).Replace("}", string.Empty);
+        //        var filesToFind = matchWithoutBrackets.Split('-');
+        //        var jsFileLocation = BundleConfig.JsRemoteLinks(filesToFind[0]);
+        //        var files = jsFileLocation.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+        //        var retVal = files[0];
+        //        if (filesToFind.Length == 2)
+        //        {
+
+        //            retVal = files.FirstOrDefault(
+        //                f =>
+        //                    String.Equals(f.Trim().Replace(".js", string.Empty), filesToFind[1],
+        //                        StringComparison.CurrentCultureIgnoreCase))
+        //                         ?? files[0];
+        //        }
+
+        //        str = str.Replace(match.Value, retVal.Replace(".js", string.Empty).Trim());
+
+
+        //    }
+        //    //foreach (var jsFileLocation in jsFileLocations)
+        //    //{
+
+        //    //    var files = jsFileLocation.Value.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+        //    //    matches.
+        //    //    //var jsFiles = jsFileLocation.Value.Trim();
+
+        //    //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
+        //    //}
+        //    if (!Request.IsLocal)
+        //    {
+        //        var minifer = new Minifier();
+        //        str = minifer.MinifyJavaScript(str);
+        //    }
+        //    return Content(str, "application/javascript");
+        //}
+
+
+        [ZboxAuthorize]
+        public ActionResult InsertUser()
         {
-            var routes = Server.MapPath("~/Js/bootstrap.js");
-            var str = System.IO.File.ReadAllText(routes);
-
-            //var jsFileLocations = BundleConfig.JsRemoteLinks();
-            var matches = Regex.Matches(str, @"\{(.*?)\}");
-            foreach (Match match in matches)
+            var universityId = long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
+            if (GetUserId() != universityId)
             {
-                var matchWithoutBrackets = match.Value.Replace("{", string.Empty).Replace("}", string.Empty);
-                var filesToFind = matchWithoutBrackets.Split('-');
-                var jsFileLocation = BundleConfig.JsRemoteLinks(filesToFind[0]);
-                var files = jsFileLocation.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-                var retVal = files[0];
-                if (filesToFind.Length == 2)
-                {
-
-                    retVal = files.FirstOrDefault(
-                        f =>
-                            String.Equals(f.Trim().Replace(".js", string.Empty), filesToFind[1],
-                                StringComparison.CurrentCultureIgnoreCase))
-                                 ?? files[0];
-                }
-
-                str = str.Replace(match.Value, retVal.Replace(".js", string.Empty).Trim());
-
-
+                return RedirectToAction("index");
             }
-            //foreach (var jsFileLocation in jsFileLocations)
-            //{
+            return View(new InsertUser());
+        }
 
-            //    var files = jsFileLocation.Value.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-            //    matches.
-            //    //var jsFiles = jsFileLocation.Value.Trim();
-
-            //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
-            //}
-            if (!Request.IsLocal)
+        [ZboxAuthorize]
+        [HttpPost]
+        public ActionResult InsertUser(InsertUser model)
+        {
+            var universityId = long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
+            if (!ModelState.IsValid)
             {
-                var minifer = new Minifier();
-                str = minifer.MinifyJavaScript(str);
+                return View(model);
             }
-            return Content(str, "application/javascript");
+            if (GetUserId() != universityId)
+            {
+                return RedirectToAction("index");
+            }
+            var command = new AddStudentCommand(model.Id);
+            ZboxWriteService.AddStudent(command);
+            return RedirectToAction("InsertUser");
         }
     }
 }

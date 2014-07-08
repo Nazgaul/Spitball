@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -11,6 +12,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -546,8 +548,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
     
-        //TODO: guy added is
         [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
         public ActionResult CreateTabPartial()
         {
             try
@@ -573,8 +575,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true));
         }
 
-        //TODO: guy added is, maybe change place?
         [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+
         public ActionResult UploadPartial()
         {
             try
@@ -588,8 +591,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //TODO: guy added is, maybe change place?
         [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+
         public ActionResult UploadLinkPartial()
         {
             try

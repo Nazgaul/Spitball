@@ -64,6 +64,7 @@
     <Compile Include="AddNodeToLibraryCommandHandler.cs" />
     <Compile Include="AddQuestionCommandHandler.cs" />
     <Compile Include="AddReplyToAnnotationCommandHandler.cs" />
+    <Compile Include="AddStudentCommandHandler.cs" />
     <Compile Include="AssignItemToTabCommandHandler.cs" />
     <Compile Include="ChangeBoxInfoCommandHandler.cs" />
     <Compile Include="ChangeBoxPrivacySettingsCommandHandler.cs" />
