@@ -8,7 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.QnA
     {
         public Answer()
         {
-            Files = new long[0];
         }
         [Required]
         [AllowHtml]
