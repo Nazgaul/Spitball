@@ -768,6 +768,7 @@
     <Content Include="Images\smartphone.png" />
     <Content Include="Images\sprite_browsericons.png" />
     <Content Include="Images\students.png" />
+    <Content Include="Images\studentUnion.png" />
     <Content Include="Images\table-bg1.png" />
     <Content Include="Images\trash.png" />
     <Content Include="Images\tt-sprite.png" />
@@ -778,6 +779,7 @@
     <Content Include="Images\user-gmail-pic.jpg" />
     <Content Include="Images\user-pic.png" />
     <Content Include="Images\user13-sprite.png" />
+    <Content Include="Images\userBg.png" />
     <Content Include="Images\usrPic.png" />
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
