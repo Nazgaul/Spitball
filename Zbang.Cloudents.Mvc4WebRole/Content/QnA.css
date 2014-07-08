@@ -92,23 +92,57 @@
 .QWpr {
   display: inline-block;
   position: absolute;
-  left: 0;
-  /*rtl*/
   margin-top: 8px;
+  -webkit-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
+  -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
+  -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
+  transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
   width: 365px;
   height: -webkit-calc(100vh - 277px);
   height: calc(100vh - 277px);
   overflow-x: hidden;
   overflow-y: auto;
+  /*&:not(.ng-animate):not(.ng-enter-active) {
+        //left:0;
+    }
+    &:not(.ng-leave-active) {
+        //left:0;
+    }*/
+}
+.QWpr.ng-leave,
+.QWpr.ng-enter.ng-enter-active {
+  left: 0;
+  margin-top: 8px;
+  opacity: 1;
+  display: inline-block;
+}
+.QWpr.ng-enter,
+.QWpr.ng-leave.ng-leave-active {
+  opacity: 0;
+  left: -344px;
 }
 .AWpr {
   margin: 8px 0 0 0;
   width: 363px;
   position: absolute;
   z-index: 10;
+  -webkit-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
+  -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
+  -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
+  transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
 }
 .AWpr .qaAttach {
   width: 303px;
+}
+.AWpr.ng-leave,
+.AWpr.ng-enter.ng-enter-active {
+  opacity: 1;
+  left: 0;
+}
+.AWpr.ng-enter,
+.AWpr.ng-leave.ng-leave-active {
+  left: 376px;
+  opacity: 0;
 }
 textarea:invalid {
   box-shadow: none;
