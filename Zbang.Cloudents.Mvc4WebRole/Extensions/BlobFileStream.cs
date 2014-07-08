@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
             m_Blob.FetchAttributes();
             response.AddHeader("Content-Length", m_Blob.Properties.Length.ToString(CultureInfo.InvariantCulture));
-
+            //response.AddHeader("Content-Encoding", "gzip");
             m_Blob.DownloadToStream(response.OutputStream);
         }
 

@@ -13,7 +13,7 @@
             </a>
             @if (!string.IsNullOrEmpty(Model.AdvertismentUrl))
             {
-                <button type="button" class="productsBtn" data-url="@Model.AdvertismentUrl">
+                <button type="button" class="productsBtn"  ng-init="options.storeUrl='@Model.AdvertismentUrl'" ng-click="productStore()">
                     <h2 class="productsHeader">חנות האגודה</h2>
                     <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
                     <div class="closeProducts"></div>

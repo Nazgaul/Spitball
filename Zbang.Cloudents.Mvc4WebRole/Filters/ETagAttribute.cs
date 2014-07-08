@@ -15,6 +15,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
             if (filterContext.IsChildAction) return;
 
+            bool skipEtag = filterContext.ActionDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true)
+                                    || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true);
+            if (skipEtag) return;
+
             HttpRequestBase request = filterContext.HttpContext.Request;
             string acceptEncoding = request.Headers["Accept-Encoding"];
             if (string.IsNullOrEmpty(acceptEncoding)) return;
