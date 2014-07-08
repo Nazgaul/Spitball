@@ -26,6 +26,8 @@
 .quizAList li {
   list-style-type: hebrew;
 }
+/*#region insert user */
+/*#endregion */
 /*#region IE 9+ ONLY CODE HERE */
 @media screen and (min-width: 0\0) {
   .quizAnswersList,
