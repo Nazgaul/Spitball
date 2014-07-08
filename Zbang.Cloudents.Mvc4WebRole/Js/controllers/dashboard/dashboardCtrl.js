@@ -26,7 +26,7 @@ mDashboard.controller('DashboardCtrl',
           $scope.myCourses = jsResources.CoursesFollow;
 
           sDashboard.boxList().then(function (data) {
-              $scope.wall = data.payload.wall;
+              $scope.wall =  data.payload.wall;
               $scope.friends = data.payload.friends;
 
               mapBoxes(data.payload.boxes);
