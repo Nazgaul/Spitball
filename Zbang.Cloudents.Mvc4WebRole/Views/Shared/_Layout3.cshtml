@@ -142,7 +142,6 @@
         <ul class="uploadList" id="uploadList"></ul>
     </div>
     @{
-        //Html.RenderPartial("_Message", new Zbang.Cloudents.Mvc4WebRole.Models.Share.Message());
         if (!User.Identity.IsAuthenticated)
         {
             Html.RenderPartial("_Welcome");

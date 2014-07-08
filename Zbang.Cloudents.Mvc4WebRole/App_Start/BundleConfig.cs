@@ -186,6 +186,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/Scripts/jquery.slimscroll.js"),                
                  new JsFileWithCdn("/Js/Utils.js"),
                  new JsFileWithCdn("/Js/pubsub.js"),
+
+                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
+                new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),// the script is too small
+                new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"), // the script is too small
+                 new JsFileWithCdn("~/Js/Logon.js"),
+
                   new JsFileWithCdn("/Js/Cache.js"),
                  new JsFileWithCdn("/Js/DataContext.js"),
                  new JsFileWithCdn("/Js/Dialog.js"),

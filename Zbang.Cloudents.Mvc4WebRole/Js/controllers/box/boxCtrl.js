@@ -9,7 +9,7 @@ mBox.controller('BoxCtrl',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails, Facebook) {
-
+            var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
             $scope.boxName = $routeParams.boxName;
@@ -78,8 +78,8 @@ mBox.controller('BoxCtrl',
                 };
 
                 $scope.strings = {
-                    share: $scope.info.boxType === 'academic' ? JsResources.ShareCourse : JsResources.ShareBox,
-                    invite: $scope.info.boxType === 'academic' ? JsResources.InviteCourse : JsResources.InviteBox
+                    share: $scope.info.boxType === 'academic' ? jsResources.ShareCourse : jsResources.ShareBox,
+                    invite: $scope.info.boxType === 'academic' ? jsResources.InviteCourse : jsResources.InviteBox
                 }
 
                 $scope.info.currentTab = null;
@@ -140,7 +140,11 @@ mBox.controller('BoxCtrl',
             });
 
             $scope.openUploadPopup = function (qna) {
-                var defer, fileList
+                if (!UserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register');
+                    return;
+                }
+                var defer, fileList;
                 if (qna) {
                     defer = $q.defer();
                     fileList = [];
@@ -169,7 +173,7 @@ mBox.controller('BoxCtrl',
                     }
 
                     if (response.dropbox) {
-                        var files = response.files, file;
+                        var files = response.files;
                         for (var i = 0, l = files.length; i < l; i++) {
                             (function (file, index) {
                                 saveItem({
@@ -190,7 +194,7 @@ mBox.controller('BoxCtrl',
                     }
 
                     if (response.googleDrive) {
-                        var files = response.files, file;
+                        var files = response.files;
                         for (var i = 0, l = files.length; i < l; i++) {
                             (function (file, index) {
                                 saveItem({
@@ -237,7 +241,7 @@ mBox.controller('BoxCtrl',
                         fileUrl: data.url
                     }
 
-                    var saveFile = $timeout(function () {
+                    $timeout(function () {
                         Upload[data.ajax](formData).then(function (response) {
                             if (!response.success) {
                                 alert((data.name || data.url) + ' - ' + response.payload);
@@ -302,7 +306,7 @@ mBox.controller('BoxCtrl',
                 }
                 Box.deleteTab(data).then(function (response) {
                     if (!response.Success) {
-                        alert(JsResources.DeleteError);
+                        alert(jsResources.DeleteError);
                     }
                 });
 
@@ -396,7 +400,7 @@ mBox.controller('BoxCtrl',
 
                 Box.addItemsToTab(data).then(function (response) {
                     if (!response.Success) {
-                        alert(JsResources.FolderItemError);
+                        alert(jsResources.FolderItemError);
                     }
                 });
 
@@ -418,7 +422,7 @@ mBox.controller('BoxCtrl',
                 Facebook.share($scope.info.url, //url
                       $scope.info.name, //title
                        $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
-                       JsResources.IShared + ' ' + $scope.info.name + ' ' + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                       jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
                         null //picture
                    ).then(function () {
                        //TODO: add points
