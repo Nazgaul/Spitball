@@ -19,6 +19,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -399,7 +400,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult InsertUser()
         {
-            if (GetUserId() != 1)
+            var universityId = long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
+            if (GetUserId() != universityId)
             {
                 return RedirectToAction("index");
             }
@@ -410,11 +412,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         public ActionResult InsertUser(InsertUser model)
         {
+            var universityId = long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            if (GetUserId() != 1)
+            if (GetUserId() != universityId)
             {
                 return RedirectToAction("index");
             }

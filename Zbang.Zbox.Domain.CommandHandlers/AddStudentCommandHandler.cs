@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zbang.Zbox.Domain.Commands;
+﻿using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -20,7 +16,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(AddStudentCommand message)
         {
-            var university = m_UniversityRepository.Load(64805L);
+           var universityId =  long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
+           var university = m_UniversityRepository.Load(universityId);
 
             var student = new Student(university, message.Id);
 

@@ -1279,7 +1279,6 @@
     <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="test.html" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
