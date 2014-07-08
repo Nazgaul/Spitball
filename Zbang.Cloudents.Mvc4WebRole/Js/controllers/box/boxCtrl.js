@@ -130,7 +130,7 @@ mBox.controller('BoxCtrl',
                         return;
                     }
 
-                    if ($scope.info.currentTab && $scope.info.currentTab.id !== data.item.tabId) {
+                    if ($scope.info.currentTab && ($scope.info.currentTab.id !== data.item.tabId)) {
                         return;
                     }
 
@@ -150,7 +150,7 @@ mBox.controller('BoxCtrl',
                     windowClass: "uploader",
                     templateUrl: $scope.partials.uploader,
                     controller: 'UploadCtrl',
-                    backdrop: 'static'
+                    backdrop: 'static'                    
                 });
 
                 modalInstance.result.then(function (response) {
@@ -240,7 +240,7 @@ mBox.controller('BoxCtrl',
                     var saveFile = $timeout(function () {
                         Upload[data.ajax](formData).then(function (response) {
                             if (!response.success) {
-                                alert(data.name + ' - ' + response.payload);
+                                alert((data.name || data.url) + ' - ' + response.payload);
                                 return;
                             }
 

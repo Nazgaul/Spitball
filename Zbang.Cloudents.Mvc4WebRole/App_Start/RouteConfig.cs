@@ -65,11 +65,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
               );
 
-            routes.MapRoute(
-              "Bootstrap",
-              "bootstrap.js",
-              new { controller = "Home", action = "Bootstrap", index = UrlParameter.Optional }
-              );
+            //routes.MapRoute(
+            //  "Bootstrap",
+            //  "bootstrap.js",
+            //  new { controller = "Home", action = "Bootstrap", index = UrlParameter.Optional }
+            //  );
 
             routes.MapRoute(
               "Sitemap1",

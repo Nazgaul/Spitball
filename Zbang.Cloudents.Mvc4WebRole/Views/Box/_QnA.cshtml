@@ -16,9 +16,9 @@
                 </li>
             </ul>
         </div>
-        <div class="rFloat" ng-show="showPost">
-            <button type="button" class="attachBtn" ng-disabled="!qnaQform.$valid" ng-click="addQuestionAttachment()"></button>
-            <button type="submit" class="askBtn" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
+        <div class="rFloat">
+            <button type="button" ng-show="showPost" class="attachBtn" ng-disabled="!qnaQform.$valid" ng-click="addQuestionAttachment()"></button>
+            <button type="submit" ng-show="showPost"  class="askBtn" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
         </div>
     </form>
 

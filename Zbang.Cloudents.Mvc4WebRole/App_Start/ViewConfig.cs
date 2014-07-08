@@ -15,7 +15,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 ViewLocationCache = new CloudentsViewLocationCache(),
                 AreaMasterLocationFormats = new string[0],
                 AreaPartialViewLocationFormats = new string[0],
-                AreaViewLocationFormats = new string[0]
+                AreaViewLocationFormats = new string[0],
+                FileExtensions = new[]
+                {
+                    "cshtml"
+                }
             };
 
 

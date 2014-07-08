@@ -19,7 +19,7 @@
         <label for="AnyoneWithUrlPrivacy">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
         <div class="labelExplain">@SharedResources.AnyoneWho</div>
 
-        @Html.AntiForgeryToken() @*add ng-model attribute*@
+        @*@Html.AntiForgeryToken() add ng-model attribute*@
 
         <input type="submit" class="btn1 next" value="@DialogResources.Create" />
         <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
