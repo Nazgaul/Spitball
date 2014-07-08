@@ -96,8 +96,9 @@ mBox.controller('QnACtrl',
         };
 
         $scope.showAllAnswers = function (question) {
-            $scope.info.selectedQuestion = question;
+            $scope.qFormData = {};
 
+            $scope.info.selectedQuestion = question;            
             //TODO update time
 
             ////NewUpdates.remove upadte //not sure
@@ -126,7 +127,7 @@ mBox.controller('QnACtrl',
                 return;
             }
 
-            $scope.info.state = states.empty;
+            $scope.info.state = states.empty;            
         };
 
         $scope.postQuestion = function () {
@@ -276,8 +277,42 @@ mBox.controller('QnACtrl',
             }
         };
 
+        var qAttach, aAttach, questionAttach;
+        $scope.$on('FileAdded', function (event, data) {
+            file = new File(data.item);
+            $scope.$apply(function () {
+                if (data.boxId !== $scope.boxId) {
+                    return;
+                }
+
+                if (qAttach) {
+                    if (!($scope.qFormData.files && $scope.qFormData.files.length)) {
+                        $scope.qFormData.files = [];
+                    }
+                    $scope.qFormData.files.push(file);
+                    qAttach = false;
+                    questionAttach = null;
+
+                    return;
+                }
+
+                if (aAttach) {
+                    if (!(questionAttach.aFormData.files && questionAttach.aFormData.files.length)) {
+                        $scope.qFormData.files = [];
+                    }
+                    questionAttach.aFormData.files.push(file);
+                    aAttach = true;
+                    questionAttach = null;
+                    return;
+                }
+
+            });
+        });
+
         $scope.addQuestionAttachment = function () {
+            qAttach = true;
             $scope.openUploadPopup(true).then(function (files) {
+                qAttach = false;
 
                 var mapped = files.map(function (file) {
                     file.uid = file.id;
@@ -289,17 +324,22 @@ mBox.controller('QnACtrl',
                     return;
                 }
 
-                if (mapped.length > 1) {
-                    $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
-                    return;
-                }
-
-                $scope.qFormData.files.push(mapped);
+                $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
             });
         };
+        $scope.removeQuestionAttachment = function (file) {
+            var index = $scope.qFormData.files.indexOf(file);
+            if (index !== -1) {
+                $scope.qFormData.files.splice(index, 1);
+            }
+        }
 
         $scope.addAnswerAttachment = function (question) {
+            aAttach = true;
+            questionAttach = question;
             $scope.openUploadPopup(true).then(function (files) {
+                aAttach = false;
+                questionAttach = null;
 
                 var mapped = files.map(function (file) {
                     file.uid = file.id;
@@ -310,16 +350,16 @@ mBox.controller('QnACtrl',
                     question.aFormData.files = mapped;
                     return;
                 }
+                question.aFormData.files = question.aFormData.files.concat(mapped);
 
-                if (mapped.length > 1) {
-                    question.aFormData.files = question.aFormData.files.concat(mapped);
-                    return;
-                }
-
-                question.aFormData.files.push(mapped);
             });
         };
-
+        $scope.removeAnswerAttachment = function (question, file) {
+            var index = question.aFormData.files.indexOf(file);
+            if (index !== -1) {
+                question.aFormData.files.splice(index, 1);
+            }            
+        }
 
         function sortAnswers(a, b) {
             if (a.isAnswer) {
