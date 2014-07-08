@@ -57,9 +57,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddAnnotationCommand.cs" />
@@ -72,6 +70,7 @@
     <Compile Include="AddNodeToLibraryCommand.cs" />
     <Compile Include="AddCommentCommand.cs" />
     <Compile Include="AddReplyToAnnotationCommand.cs" />
+    <Compile Include="AddStudentCommand.cs" />
     <Compile Include="AssignItemToTabCommand.cs" />
     <Compile Include="ChangeBoxInfoCommand.cs" />
     <Compile Include="ChangeBoxPrivacySettingsCommand.cs" />

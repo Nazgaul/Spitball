@@ -113,6 +113,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<DeleteDiscussionCommand>), typeof(DeleteDiscussionCommandHandler))
             .RegisterType(typeof(ICommandHandler<CreateAnswerCommand>), typeof(CreateAnswerCommandHandler))
             .RegisterType(typeof(ICommandHandler<MarkAnswerCorrectCommand>), typeof(MarkAnswerCorrectCommandHandler));
+
+            ioc.RegisterType(typeof (ICommandHandler<AddStudentCommand>), typeof (AddStudentCommandHandler));
         }
     }
 }

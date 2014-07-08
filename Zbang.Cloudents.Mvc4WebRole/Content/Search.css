@@ -4,7 +4,7 @@
 /*#endregion */
 /*#region search drop down */
 .searchDD {
-  /*display:none;*/
+  display: none;
   margin-top: 5px;
   border: 1px solid #c2c2c2;
   border-radius: 5px;

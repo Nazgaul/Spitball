@@ -352,6 +352,7 @@
     <Compile Include="Models\CreateBox.cs" />
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
+    <Compile Include="Models\InsertUser.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Discussion.cs" />
     <Compile Include="Models\Quiz\MarkAnswer.cs" />
@@ -1387,6 +1388,7 @@
     <Content Include="Views\Shopping\Product.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Box\_QnA2.cshtml" />
+    <Content Include="Views\Home\InsertUser.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

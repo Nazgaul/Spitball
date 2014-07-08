@@ -103,6 +103,8 @@ namespace Zbang.Zbox.Domain.Common
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 
         void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command);
+        void AddStudent(AddStudentCommand command);
+
         #endregion
 
     }

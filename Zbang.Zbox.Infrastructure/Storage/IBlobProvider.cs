@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
        // bool CheckIfFileExists(string blobName);
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
-        Task UploadFileAsync(string blobName, string filePath, string mimeType);
+        //Task UploadFileAsync(string blobName, string filePath, string mimeType);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
 
         //Task<IEnumerable<string>> UploadFileBlockAsync(string blobName, Stream fileContent);

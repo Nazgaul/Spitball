@@ -1,0 +1,30 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.InsertUser
+@{
+    ViewBag.Title = "InsertUser";
+}
+
+<h2>InsertUser</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.LabelFor(m=>m.FirstName)
+    @Html.ValidationMessageFor(m=>m.FirstName)
+    @Html.TextBoxFor(m=>m.FirstName)
+    @Html.LabelFor(m=>m.LastName)
+    @Html.ValidationMessageFor(m => m.LastName)
+    @Html.TextBoxFor(m => m.LastName)
+    @Html.LabelFor(m=>m.Id)
+    @Html.ValidationMessageFor(m => m.Id)
+    @Html.TextBoxFor(m => m.Id)
+    
+    <input type="submit" value="הכנס" />
+}
+@section scripts {
+    @Html.Script2("General")
+    <script>
+        $('#mLoading').hide();
+    </script>
+        
+
+}
