@@ -901,14 +901,16 @@
 .itemPreview {
   text-align: center;
   overflow: auto;
-  height: 90%;
-  height: -webkit-calc(100% - 80px);
-  height: calc(100% - 80px);
-  position: relative;
+  height: -webkit-calc(100% - 130px);
+  height: calc(100% - 130px);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-top: 10px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: 290px;
 }
 .iframeContent {
   position: absolute;
@@ -931,6 +933,8 @@
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
+  min-height: -webkit-calc(100vh - 140px);
+  min-height: calc(100vh - 140px);
 }
 .previewWrapper.annotateState {
   left: calc(400px - 49%);
