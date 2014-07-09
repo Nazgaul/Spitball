@@ -6,8 +6,10 @@
 </div>
 <div class="modal-body">
     <form name="createTabForm" ng-submit="create(createTabForm.$valid)" novalidate>
-        <label for="createTabName">Name</label>
-        <input id="createTabName" name="name" type="text" class="inputText required" ng-model="formData.name" required autofocus />
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText required", autofocus = "autofocus", required="required", ng_model ="formData.name" })
+        @*<label for="createTabName">Name</label>
+        <input id="createTabName" name="name" type="text" class="inputText required" ng-model="formData.name" required autofocus />*@
         @*add ERROR label*@
         <button type="submit" class="btn1 next">{{params.action}}</button>
         <button type="button" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>

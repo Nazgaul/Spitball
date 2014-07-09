@@ -1097,8 +1097,8 @@
         };
 
         if (!userData.id) {
-            var userName = document.getElementById('userName');
-            var userImg = document.getElementById('userImg');
+            var userName = document.getElementsByClassName('userName')[0];
+            var userImg = document.getElementsByClassName('userImg')[0];
             userData.img = userImg ? userImg.getAttribute('src') : $('body').data('pic');
             if (userName) {
                 userData.name = userName.getAttribute('data-name');

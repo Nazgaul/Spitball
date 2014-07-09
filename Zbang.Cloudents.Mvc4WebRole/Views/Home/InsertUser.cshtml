@@ -1,47 +1,51 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.InsertUser
 @{
-    ViewBag.Title = "InsertUser";
+    var x = Request.QueryString["complete"];
 }
 
 <div class="insertUser">
-<h1>
-    טופס משתמש חדש לקלאודנטס
-    <br />
-    אגודת הסטודנטים המכללה למינהל
-</h1>
+    <h1>
+        טופס משתמש חדש לקלאודנטס
+        <br />
+        אגודת הסטודנטים המכללה למינהל
+    </h1>
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-    @Html.ValidationMessageFor(m => m.FirstName)
-    @Html.LabelFor(m=>m.FirstName)
-    @Html.TextBoxFor(m=>m.FirstName)
-    
-    @Html.ValidationMessageFor(m => m.LastName)
-    @Html.LabelFor(m=>m.LastName)
-    
-    @Html.TextBoxFor(m => m.LastName)
-    @Html.ValidationMessageFor(m => m.Id)
-    @Html.LabelFor(m=>m.Id)
-    
-    @Html.TextBoxFor(m => m.Id)
-    
-    <input  type="submit" value="עדכן" class="btn1"  id="insert" />
-    <div class="success">הפרטים שהזנת עודכנו בהצלחה!</div>
-}
-    
+    @using (Html.BeginForm("InsertUser", "home", FormMethod.Post, new { @class = x }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessageFor(m => m.FirstName)
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName)
+
+        @Html.ValidationMessageFor(m => m.LastName)
+        @Html.LabelFor(m => m.LastName)
+
+        @Html.TextBoxFor(m => m.LastName)
+        @Html.ValidationMessageFor(m => m.Id)
+        @Html.LabelFor(m => m.Id)
+
+        @Html.TextBoxFor(m => m.Id)
+
+        <input type="submit" value="עדכן" class="btn1" id="insert" />
+        <div class="success">הפרטים שהזנת עודכנו בהצלחה!</div>
+    }
+
 </div>
 
 @section scripts {
     @Html.Script2("General")
     <script>
         $('#mLoading').hide();
-        $('#insert').click(function () {
-            setTimeout(function () {
-                $('.insertUser form').addClass('complete');
-            }, 3000);
-        });
+        //if (location.search.indexOf('complete') > 0) {
+        //$('.insertUser form').addClass('complete');
+        window.setTimeout(function () {
+            $('.insertUser form').removeClass('complete');
+
+        }, 2000);
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', location.origin + location.pathname);
+        }
     </script>
-        
+
 
 }
