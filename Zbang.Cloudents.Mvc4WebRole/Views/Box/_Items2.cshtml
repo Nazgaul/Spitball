@@ -95,7 +95,7 @@
     @if (User.Identity.IsAuthenticated)
     {
     <div class="actionBtns">
-        <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-src="{{item.download}}"></a>
+        <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
         <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
     </div>
     }
