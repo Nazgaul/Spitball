@@ -451,7 +451,7 @@ mBox.controller('BoxCtrl',
                 }
             };
 
-            $scope.isUserFollowing = function () {                
+            $scope.isUserFollowing = function () {
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
             };
             function resetLastView() {
@@ -476,23 +476,28 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.deleteItem = function (item) {
-                switch (item.type) {
-                    case 'File':
-                    case 'Link':
-                        var data = {
-                            itemId: item.id,
-                            boxId: $scope.boxId
-                        }
-                        Item.delete(data).then(removeItem);
-                        break;
-                    case 'Quiz':
-                        var data = {
-                            id: item.id,
-                        }
-                        Quiz.delete(data).then(removeItem);
-                        break;
+                cd.confirm2(JsResources.SureYouWantToDelete + ' ' + item.name + "?").then(function () {
+                    switch (item.type) {
+                        case 'File':
+                        case 'Link':
+                            var data = {
+                                itemId: item.id,
+                                boxId: $scope.boxId
+                            }
+                            Item.delete(data).then(removeItem);
+                            break;
+                        case 'Quiz':
 
-                };
+                            var data = {
+                                id: item.id,
+                            }
+                            Quiz.delete(data).then(removeItem);
+
+                            break;
+
+
+                    };
+                });
 
                 function removeItem(response) {
                     if (!(response.Success || response.success)) {

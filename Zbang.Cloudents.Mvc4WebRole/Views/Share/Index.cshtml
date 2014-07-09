@@ -99,3 +99,22 @@
     @Html.Script2("General")
     @Html.Script2("cd1")
 }
+@section search {
+<form class="dashLibSearch" id="g_search">
+    <input id="g_searchQ" autocomplete="off"
+           type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
+    <button id="searchDropDownBtn" disabled type="submit"></button>
+    <div class="searchDD allResults">
+        <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
+        <ul class="searchList boxes"></ul>
+        <h3>@SharedResources.Materials</h3>
+        <ul class="searchList items"></ul>
+        <h3>@SharedResources.People</h3>
+        <ul class="searchList people"></ul>
+        <h3>@SharedResources.ResultsOther</h3>
+        <ul class="searchList university"></ul>
+        <a class="showAll" target="_self">@SharedResources.AllResults&nbsp;<q></q></a>
+        <div class="emptySearch">@SharedResources.NoResults</div>
+    </div>
+</form>
+}

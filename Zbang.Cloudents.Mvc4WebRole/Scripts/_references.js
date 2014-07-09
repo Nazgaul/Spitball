@@ -102,6 +102,8 @@
 /// <reference path="../js/services/search.js" />
 /// <reference path="../js/app/services.js" />
 /// <reference path="../js/inviteviewmodel2.js" />
+/// <reference path="../js/controllers/box/settingsctrl.js" />
+/// <reference path="../js/controllers/quiz/quizclosectrl.js" />
 /// <reference path="angular-animate.js" />
 /// <reference path="angular-cache-2.3.4.js" />
 /// <reference path="angular-cookies.js" />
@@ -141,8 +143,6 @@
 /// <reference path="stopwatch.js" />
 /// <reference path="uibootstraptpls0.11.0.js" />
 /// <reference path="zeroclipboard.min.js" />
-/// <reference path="../js/controllers/box/settingsctrl.js" />
-/// <reference path="../js/controllers/quiz/quizclosectrl.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
