@@ -9,7 +9,7 @@
             <!--ko if:viewSelf()-->
             <a id="upAccountSettings" class="rFloat iconTxt" data-navigation="account"
                href="@Url.Action("Settings","Account")"
-               @*href="@Url.Action("Settings","Account")?r=user"*@>@UserResources.EditAccount</a>
+               >@UserResources.EditAccount</a>
             <!--/ko-->
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
             <h1 class="semiFont" id="upUsername">@Model.Name</h1>
