@@ -1,4 +1,5 @@
-﻿<div ng-view></div>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div ng-view></div>
 <div id="quizCreate" ng-controller="QuizCreateCtrl">
     <div ng-if="params.loadCreateQuiz">
         <div ng-show="params.showCreateQuiz" ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
@@ -10,4 +11,40 @@
     @*TODO: put this in bundle*@
     @*<script data-main="/bootstrap.js" type="text/javascript" src="~/Scripts/require.min.js"></script>*@
 
+}
+@section search {
+<form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" novalidate>
+    <input autocomplete="off" ng-keyup="search()" ng-blur="searchFocusout()" ng-focus="searchFocus()"
+           type="search" name="query" ng-model="formData.query" class="dashLibSearchInput"
+           placeholder="@SharedResources.Search" />
+    <button id="searchDropDownBtn" ng-disabled="!formData.query.length" type="submit"></button>
+    <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" bindonce ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
+        <span ng-if="searchResults.boxes.length">
+            <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
+            <ul class="searchList boxes">
+                <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
+            </ul>
+        </span>
+        <span ng-if="searchResults.items.length">
+            <h3>@SharedResources.Materials</h3>
+            <ul class="searchList items">
+                <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
+            </ul>
+        </span>
+        <span ng-if="searchResults.people.length">
+            <h3>@SharedResources.People</h3>
+            <ul class="searchList people">
+                <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
+            </ul>
+        </span>
+        <span ng-if="searchResults.otherItems.length">
+            <h3>@SharedResources.ResultsOther</h3>
+            <ul class="searchList university">
+                <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
+            </ul>
+        </span>
+        <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}" target="_self">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+        <div class="emptySearch">@SharedResources.NoResults</div>
+    </div>
+</form>
 }
