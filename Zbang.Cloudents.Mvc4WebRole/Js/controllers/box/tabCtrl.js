@@ -4,7 +4,8 @@
 		 'sBox',
 		 'data',
 
-		 function ($scope, $modalInstance, Box, data) {		 
+		 function ($scope, $modalInstance, Box, data) {
+		     console.log($scope);
 		 	$scope.formData = {
 		 		boxId: data.boxId,
 		 		tabId: data.tabId,
