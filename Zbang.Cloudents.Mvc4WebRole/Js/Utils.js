@@ -1101,7 +1101,7 @@
             var userImg = document.getElementsByClassName('userImg')[0];
             userData.img = userImg ? userImg.getAttribute('src') : $('body').data('pic');
             if (userName) {
-                userData.name = userName.getAttribute('data-name');
+                userData.name = userName.title;
                 userData.id = userName.getAttribute('data-id'); //TODO: need to because number
                 userData.nId = parseInt(userData.id, 10);
                 var userDataElement = document.querySelector('.navUser a');

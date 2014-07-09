@@ -2,8 +2,8 @@
 
 <!-- ko stopBinding: true -->
 
-<li class="navItem"><a href="@Url.Action("Index", "Dashboard")" data-title="@SharedResources.Home" data-navigation="Dashboard" class="homeLink rFloat"></a></li>
-<li class="navItem"><a data-title="@SharedResources.Help" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a></li>
+<li class="navItem"><a href="@Url.Action("Index", "Dashboard")" data-title="@SharedResources.Home" class="homeLink rFloat"></a></li>
+<li class="navItem"><a data-title="@SharedResources.Help" target="_self" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a></li>
 <li class="navItem headerInvites" id="headerInvites">
     <button class="navLinks newInvites" id="invites" data-title="@SharedResources.Notifications">
         <span id="invitesCounter" class="invitesCounter"></span>
