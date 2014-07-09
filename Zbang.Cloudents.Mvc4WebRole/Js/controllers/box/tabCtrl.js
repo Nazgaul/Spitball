@@ -14,7 +14,7 @@
 
 		 	$scope.params = {
 		 	    title : data.tabId ? JsResources.FolderRename : JsResources.FolderCreate,
-		 		action: data.tabId ? 'Rename' : 'Create'
+		 	    action: data.tabId ? JsResources.Rename : JsResources.Create
 		 	};
 
 		 	$scope.create = function (isValid) {
