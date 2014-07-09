@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
         //for output cache
-        protected void Application_BeginRequest()
+        protected void Application_AcquireRequestState()
         {
             try
             {
