@@ -102,6 +102,7 @@
 /// <reference path="../js/controllers/search/searchheaderctrl.js" />
 /// <reference path="../js/services/search.js" />
 /// <reference path="../js/app/services.js" />
+/// <reference path="../js/inviteviewmodel2.js" />
 /// <reference path="angular-animate.js" />
 /// <reference path="angular-cache-2.3.4.js" />
 /// <reference path="angular-cookies.js" />

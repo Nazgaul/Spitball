@@ -817,6 +817,7 @@
     <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\GmfcnHandler.js" />
+    <Content Include="Js\InviteViewModel2.js" />
     <Content Include="Js\ItemViewModel4.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
