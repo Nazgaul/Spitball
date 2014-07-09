@@ -516,7 +516,7 @@
 //            });
 
 //            cd.pubsub.subscribe('updateBoxUrl', function (boxName) {
-//                var location = self.copyLink().substring(0, self.copyLink().length - 1);
+//                var location = self.copyLink().substring(0, self.copyLink().length - 1);  
 //                    location = location.substring(0, location.lastIndexOf('/') + 1) + boxName + '/';
 //                self.copyLink(location);
 //                if (window.history) {

@@ -3,13 +3,13 @@
 
 
 <div class="modal-header">
-    <h3 class="modal-title"><span id="friendsPopupName">@IndexResources.MyFriends</span></h3>
+    <h3 class="modal-title"><span>@IndexResources.MyFriends</span></h3>
 </div>
-<div class="modal-body">
+<div class="modal-body" bindonce>
     <div class="popupTopBar">
         <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
         <a data-navigation="invite"
-            href="@Url.Action("Index", "Share", new { ViewBag.boxid })" data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
+           href="@Url.Action("Index", "Share", new { ViewBag.boxid })" data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
         <div class="arrow tabArrow"></div>
     </div>
     <div class="membersContent">
@@ -18,16 +18,16 @@
             <div class="searchWpr rFloat">
                 <span class="membersCount lFloat">{{friends.length}}&nbsp;@IndexResources.Members</span>
                 <div class="inputWpr">
-                    <input ng-model="searchInput" class="membersSearch" id="friendsSearch" type="search" placeholder="@IndexResources.SearchMember" />
+                    <input ng-model="params.search" class="membersSearch" type="search" placeholder="@IndexResources.SearchMember" />
                 </div>
             </div>
         </div>
-        <ul class="membersList" id="membersListDashboard" data-pending="@IndexResources.Pending" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited" data-member="@IndexResources.ActiveMember">
-            <li class="memberItem" id="dashfriend{{friend.uid}}" ng-show="([friend] | filter:searchInput).length > 0" ng-repeat="friend in friends | orderByFilter:{field: 'name', input:searchInput}">
-                <a href="{{friend.url}}" data-navigation="friend">
-                    <img class="friendImg calloutTrgr" data-uid="{{friend.uid}}" alt="" src="{{friend.image}}" width="34" height="34" />
+        <ul class="membersList" data-pending="@IndexResources.Pending" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited" data-member="@IndexResources.ActiveMember">
+            <li class="memberItem" ng-controller="FriendCtrl" ng-hide="isExcludedByFilter" ng-repeat="friend in friends | orderByFilter:{field: 'name', input:params.search}">
+                <a bo-href="friend.url">
+                    <img class="friendImg calloutTrgr" alt="" bo-src="friend.image" width="34" height="34" />
                 </a>
-                <span class="memberName elps">{{friend.name}}</span>
+                <span class="memberName elps" bo-text="friend.name"></span>
                 <span class="rFloat memberActions">
                     <button type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendMessage(friend)"></button>
                 </span>

@@ -4,115 +4,109 @@
 
 @model Zbang.Cloudents.Mvc4WebRole.Models.UpdateBoxInfo
 
-
-<div id="box_settings">
-    <div class="popupWrppr boxSettings">
-        <header class="popupHeader"><span id="boxSettingName">Box name here</span></header>
-        <div class="popupTopBar">
-
-            <button data-id="Settings" type="button" class="tabBtn">@DialogResources.Settings</button>
-            <button data-id="Members" type="button" class="tabBtn">@SharedResources.Members</button>
-            <a data-navigation="invite" href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })"
-                @*href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })?r=box&s=members"*@ 
-               data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
-            <div class="arrow tabArrow"></div>
-        </div>
-        <form id="boxSettingsForm" class="boxSettingsForm">
-            <div class="boxSettingsContent">
-                <div class="boxSetting">
-                    <label>@SharedResources.Thumbnail:</label>
-                    <div class="thumbImg">
-                        <img alt="" src="" width="74" height="94" />
-                        @*<button class="changeImg" type="button">@SharedResources.Change</button>*@
-                    </div>
+<div class="modal-header">
+    <h3 class="modal-title"><span>{{info.boxName}}</span></h3>
+</div>
+<div class="modal-body" bindonce>
+    <div class="popupTopBar" ng-class="params.state === 1 ? 'tabSettings' : 'tabMembers'">
+        <button data-id="Settings" type="button" class="tabBtn" ng-click="params.state = 1">@DialogResources.Settings</button>
+        <button data-id="Members" type="button" class="tabBtn" ng-click="params.state = 2">@SharedResources.Members</button>
+        <a href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
+        <div class="arrow tabArrow"></div>
+    </div>
+    <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="submit(boxSettingsForm.$valid)">
+        <div class="boxSettingsContent" bo-class="info.boxType === 'box' ? 'private' : 'academic'">
+            <div class="boxSetting">
+                <label>@SharedResources.Thumbnail:</label>
+                <div class="thumbImg">
+                    <img alt="{{info.name}}" bo-src="info.image" width="74" height="94" />
                 </div>
-                <div class="boxSetting">
-                    @Html.LabelForWithColon(m => m.Name)
-                    @Html.TextBoxFor(m => m.Name, new { @class = "inputText editBoxName", id = "boxSettingsName" })
+            </div>
+            <div class="boxSetting">
+                <label for="boxSettingsName">Name:</label>
+                <input type="text" class="inputText editBoxName" id="boxSettingsName" ng-model="formData.name" />
+            </div>
 
-                </div>
+            <div class="boxSetting academic">
+                <label for="boxSettingsCourse">Number:</label>
+                <input type="text" class="inputText courseNumber" id="boxSettingsCourse" ng-model="formData.courseCode" placeholder="@IndexResources.CourseNumber" />
+            </div>
+            <div class="boxSetting academic">
+                <label for="boxSettingsProfessor">Lecturer:</label>
+                <input type="text" class="inputText editLecturer" id="boxSettingsProfessor" ng-model="formData.professor" placeholder="@IndexResources.LecturerName" />
+            </div>
 
-                <div class="boxSetting academic">
-                    @Html.LabelForWithColon(m => m.CourseCode)
-                    @Html.TextBoxFor(m => m.CourseCode, new { @class = "inputText courseNumber", id = "boxSettingsCourse", placeholder = IndexResources.CourseNumber })
-                </div>
-                <div class="boxSetting academic">
-                    @Html.LabelForWithColon(m => m.Professor)
-                    @Html.TextBoxFor(m => m.Professor, new { @class = "inputText editLecturer", id = "boxSettingsProfessor", placeholder = IndexResources.LecturerName })
-                </div>
+            <div class="boxSetting private">
+                <label>@SharedResources.Owner:</label>
+                <span class="ownerName">{{info.ownerName}}</span>
+            </div>
+            <div id="privacySettings" class="boxSetting private">
+                <label>@MainViewResources.Privacy:</label>
+                <div>
+                    <input type="radio"
+                           id="privacy_membersOnly"
+                           name="BoxPrivacy"
+                           ng-model="formData.boxPrivacy"
+                           value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()"
 
-                <div class="boxSetting private">
-                    <label>@SharedResources.Owner:</label>
-                    <span class="ownerName"></span>
-                </div>
-                <div id="privacySettings" class="boxSetting private">
-                    <label>@MainViewResources.Privacy:</label>
-                    <div>
-                        <input type="radio"
-                               id="privacy_membersOnly"
-                               name="BoxPrivacy"
-                               value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()" />
-                        <label class="privacyLabel" for="privacy_membersOnly">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
-                        <div class="labelExplain">@SharedResources.OnlyPeople</div>
+                            />
+                    <label class="privacyLabel" for="privacy_membersOnly">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
+                    <div class="labelExplain">@SharedResources.OnlyPeople</div>
 
-                        <input type="radio"
-                               id="privacy_anyoneWithUrl"
-                               name="BoxPrivacy"
-                               value="@BoxPrivacySettings.AnyoneWithUrl.GetStringValueLowerCase()" />
+                    <input type="radio"
+                           id="privacy_anyoneWithUrl"
+                           name="BoxPrivacy"
+                           ng-model="formData.boxPrivacy"
+                           value="@BoxPrivacySettings.AnyoneWithUrl.GetStringValueLowerCase()" />
 
-                        <label class="privacyLabel" for="privacy_anyoneWithUrl">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
-                        <div class="labelExplain">@SharedResources.AnyoneWho</div>
-                    </div>
-                </div>
-
-                <div class="boxSetting">
-                    <label>@IndexResources.NotifyMe</label>
-                    <div class="radioBtns">
-                        <input id="noti_OnEveryChange" type="radio" name="Notification" value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()" /><label for="noti_OnEveryChange">@NotificationSettings.OnEveryChange.GetEnumDescription()</label>
-                        <input id="noti_OnceADay" type="radio" name="Notification" value="@NotificationSettings.OnceADay.GetStringValueLowerCase()" /><label for="noti_OnceADay">@NotificationSettings.OnceADay.GetEnumDescription()</label>
-                        <input id="noti_OnceAWeek" type="radio" name="Notification" value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
-                        <input id="noti_Off" type="radio" name="Notification" value="@NotificationSettings.Off.GetStringValueLowerCase()" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
-                    </div>
+                    <label class="privacyLabel" for="privacy_anyoneWithUrl">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+                    <div class="labelExplain">@SharedResources.AnyoneWho</div>
                 </div>
             </div>
 
-            <input id="boxSettingsSave" type="submit" class="btn1 next" value="@SharedResources.Save" />
-            <button id="boxSettingsCancel" type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
-            <button id="boxSettingsDelete" type="button" class="btn2 rFloat">@SharedResources.Delete</button>
-        </form>
-        <div class="membersContent">
-            <div class="membersTop">
-                @*<input id="membersSettings" type="checkbox" class="checkbox" />
-                <label for="membersSettings" class="cbLabel">@SharedResources.All</label>*@
-                @*<button type="button" id="mbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>*@
-                <div class="searchWpr lFloat">
-                    <span class="membersCount lFloat" data-label="@SharedResources.Members"></span>
-                    <div class="inputWpr">
-                        <input class="membersSearch" id="membersSearch" type="search" placeholder="@IndexResources.SearchMember" />
-                    </div>
+            <div class="boxSetting">
+                <label>@IndexResources.NotifyMe</label>
+                <div class="radioBtns">
+                    <input id="noti_OnEveryChange" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnEveryChange" /><label for="noti_OnEveryChange">@NotificationSettings.OnEveryChange.GetEnumDescription()</label>
+                    <input id="noti_OnceADay" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnceADay" /><label for="noti_OnceADay">@NotificationSettings.OnceADay.GetEnumDescription()</label>
+                    <input id="noti_OnceAWeek" type="radio" name="Notification" ng-model="formData.notification"  value="@NotificationSettings.OnceAWeek" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
+                    <input id="noti_Off" type="radio" name="Notification" ng-model="formData.notification"  value="@NotificationSettings.Off" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
                 </div>
-            </div>            
-            <ul class="membersList" id="membersListBox" data-pending="@IndexResources.Pending" data-member="@IndexResources.ActiveMember" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited"></ul>
+            </div>
         </div>
-        <button id="closeBoxSettings" class="closeDialog"></button>
+
+        <input type="submit" class="btn1 next" value="@SharedResources.Save" ng-click="save()" />
+        <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
+        <button type="button" class="btn2 rFloat" ng-click="delete()">@SharedResources.Delete</button>
+    </form>
+    <div class="membersContent">
+        <div class="membersTop">
+            <div class="searchWpr lFloat">
+                <span class="membersCount lFloat" bo-text="info.members.length + ' @SharedResources.Members'"></span>
+                <div class="inputWpr">
+                    <input class="membersSearch" ng-model="params.search" type="search" placeholder="@IndexResources.SearchMember" />
+                </div>
+            </div>
+        </div>
+        <ul class="membersList" data-pending="@IndexResources.Pending" data-member="@IndexResources.ActiveMember" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited">
+            <li class="memberItem" ng-controller="MemberCtrl" ng-hide="isExcludedByFilter" ng-repeat="member in info.members | orderByFilter:{field: 'name', input:params.search}" ng-include="'memberItem'">
+            </li>
+        </ul>
     </div>
-    <div class="modal2"></div>
+
+    <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>
-<script type="text/html" id="memberItemTemplate">    
-    <li class="memberItem" id="boxmember{{id}}">
-        @*<input id="{{identifier}}" type="checkbox" class="checkbox" />
-        <label for="{{identifier}}" class="cbLabel">*@
-            <a data-navigation="user" href="{{url}}"><img class="friendImg{{tooltipClass}}" alt="" data-uid="{{id}}" src="{{image}}" width="34" height="34" /></a>
-            <span class="memberName elps">{{name}}</span>
-        @*</label>*@
-        <span class="memberStatus {{cMemStat}}">
-            {{status}}
-        </span>
-        
-        <span class="rFloat memberActions">
-            <button type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn"></button>
-            <button type="button" data-title="@SharedResources.Remove" class="removeUserBtn"></button>
-            <button type="button" class="reinviteUserBtn btn1">@IndexResources.Reinvite</button>
-        </span>
-    </li>
+@*<div class="modal-footer"> ???
+    </div>*@
+<script type="text/ng-template" id="memberItem">
+    <a bo-href="member.url"><img class="friendImg" alt="" bo-src="member.image" width="34" height="34" /></a>
+    <span class="memberName elps" bo-text="member.name"></span>
+    <span class="memberStatus" bo-class="{memberPending : member.sUserStatus === 'Invite'}" bo-if="member.sUserStatus !== 'Owner'" bo-text="member.sUserStatus">
+    </span>
+
+    <span class="rFloat memberActions">
+        <button bo-if="member.uid !== info.user.id" type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
+        <button bo-if="info.ownerId === info.user.id" type="button" data-title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)"></button>
+        <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)">@IndexResources.Reinvite</button>
+    </span>
 </script>

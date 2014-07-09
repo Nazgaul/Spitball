@@ -6,6 +6,10 @@ mDashboard.controller('ShowFriendsCtrl',
 
     function ($scope, $modalInstance, friends) {
         $scope.formData = {};
+        $scope.params = {
+            search: ''
+        };
+
         $scope.friends = friends;
         $scope.close = function () {
             $modalInstance.dismiss();

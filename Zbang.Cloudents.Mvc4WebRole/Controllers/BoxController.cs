@@ -395,6 +395,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
+
+        [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+
+        public ActionResult SettingsPartial()
+        {
+            try
+            {
+                return PartialView("_BoxSettings");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_BoxSettings", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+
         #region DeleteBox
         [HttpPost]
         [Ajax]
