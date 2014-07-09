@@ -451,9 +451,6 @@ mBox.controller('BoxCtrl',
                 }
             };
 
-            $scope.isUserFollowing = function () {                
-                return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
-            };
             function resetLastView() {
                 if ($scope.options.lastView) {
                     $scope.changeView($scope.options.lastView);
@@ -554,7 +551,7 @@ mBox.controller('BoxCtrl',
 
 
             all.then(function (response) {
-                $scope.members = response[0].success ? response[0].payload : [];
+                $scope.info.allMembers = response[0].success ? response[0].payload : [];
                 notification = response[1].success ? response[1].payload : '';
 
 
@@ -571,7 +568,7 @@ mBox.controller('BoxCtrl',
                                     notification: notification,
                                     boxId: $scope.boxId,
                                     tab: tab,
-                                    members: $scope.members
+                                    members: $scope.info.allMembers
                                 }
                             }
                         }
@@ -586,15 +583,55 @@ mBox.controller('BoxCtrl',
 
                         path = path.replace(boxName, '/' + result.queryString + '/');
                         $location.url(path, '', path).replace();
-                        if ($scope.info.boxType === 'academic') {
 
-                        }
                     }, function () {
                         //dismiss
                     });
                 };
             });
-        }
             //#endregion 
+
+            //#region user
+            $scope.followBox = function () {
+                $scope.action = {                    
+                    userFollow : true
+                }
+                var member = {
+                    uid: UserDetails.getDetails().id,
+                    name: UserDetails.getDetails().name,
+                    image: UserDetails.getDetails().image,
+                    url: UserDetails.getDetails().url
+                };
+
+                if ($scope.info.members.length < 7) {
+                    $scope.info.members.unshift(member);
+                } else {
+                    $scope.info.members.pop();
+                    $scope.info.members.unshift(member);
+                }
+                $scope.info.membersLength++;
+                if ($scope.info.allMembers) {
+                    $scope.info.allMembers.push(member);
+                };
+
+                $timeout(function () {
+                    $scope.info.userType = 'subscribe';
+                }, 3300);
+
+                Box.follow({ BoxUid: $scope.boxId }).then(function () {
+
+                });
+            };
+
+            $scope.isUserLoggedIn = function () {
+                return UserDetails.isAuthenticated();
+            };
+
+            $scope.isUserFollowing = function () {
+                return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
+            };
+            //#endregion
+
+        }
 
         ]);
