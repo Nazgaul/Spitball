@@ -105,8 +105,8 @@
     </span>
 
     <span class="rFloat memberActions">
-        <button bo-if="member.uid !== info.user.id" type="button" data-title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
-        <button bo-if="info.ownerId === info.user.id" type="button" data-title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)"></button>
+        <button bo-if="member.uid !== info.user.id" type="button" tooltip="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
+        <button bo-if="info.ownerId === info.user.id" type="button" tooltip="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)"></button>
         <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)">@IndexResources.Reinvite</button>
     </span>
 </script>
