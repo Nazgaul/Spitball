@@ -376,6 +376,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?.
+        /// </summary>
+        public static string DeleteEmptyCourse {
+            get {
+                return ResourceManager.GetString("DeleteEmptyCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error deleting folder.
         /// </summary>
         public static string DeleteError {
@@ -417,6 +426,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string DeleteUser {
             get {
                 return ResourceManager.GetString("DeleteUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes will be discarded, are you sure you want to cancel?.
+        /// </summary>
+        public static string DiscardChanges {
+            get {
+                return ResourceManager.GetString("DiscardChanges", resourceCulture);
             }
         }
         
