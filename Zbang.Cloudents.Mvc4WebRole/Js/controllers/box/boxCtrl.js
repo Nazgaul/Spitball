@@ -451,6 +451,9 @@ mBox.controller('BoxCtrl',
                 }
             };
 
+            $scope.isUserFollowing = function () {                
+                return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
+            };
             function resetLastView() {
                 if ($scope.options.lastView) {
                     $scope.changeView($scope.options.lastView);

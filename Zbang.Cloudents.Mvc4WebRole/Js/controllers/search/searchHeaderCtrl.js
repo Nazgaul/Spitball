@@ -33,6 +33,8 @@
 
             Search.dropdown({ q: query }).then(function (response) {
                 var data = response.success ? response.payload : {};
+                $scope.params.showDropdown = true;
+
                 parseData(data);
             });
         }, 150);
@@ -72,7 +74,6 @@
             if (!lastResultCount) {
                 lastResultCount = $scope.resultCount();
                 appendData();
-                $scope.params.showDropdown = true;
                 return;
             }
 
@@ -81,7 +82,6 @@
             }
 
             appendData();
-            $scope.params.showDropdown = true;
 
             function appendData() {
                 var maxCategoryItems = 0,
