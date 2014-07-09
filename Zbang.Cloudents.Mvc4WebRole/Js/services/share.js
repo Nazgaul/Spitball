@@ -33,7 +33,9 @@
                 });
 
                 return dfd.promise;
-            }
+            }            
         };
     }
     ]);
+
+

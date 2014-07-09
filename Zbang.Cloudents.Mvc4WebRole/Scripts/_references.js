@@ -8,7 +8,6 @@
 /// <reference path="plupload/plupload.js" />
 /// <reference path="plupload/plupload.silverlight.js" />
 /// <reference path="../js/controllers/box/boxctrl.js" />
-/// <reference path="../js/controllers/box/managectrl.js" />
 /// <reference path="../js/controllers/box/qnactrl.js" />
 /// <reference path="../js/controllers/box/tabctrl.js" />
 /// <reference path="../js/controllers/box/uploadctrl.js" />
@@ -142,6 +141,8 @@
 /// <reference path="stopwatch.js" />
 /// <reference path="uibootstraptpls0.11.0.js" />
 /// <reference path="zeroclipboard.min.js" />
+/// <reference path="../js/controllers/box/settingsctrl.js" />
+/// <reference path="../js/controllers/quiz/quizclosectrl.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
