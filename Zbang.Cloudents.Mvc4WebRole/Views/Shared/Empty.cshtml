@@ -43,7 +43,7 @@
                 <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
             </ul>
         </span>
-        <a class="showAll" ng-href="{{'/search/q=' + formData.query}}" target="_self">@SharedResources.AllResults&nbsp;<q bo-text="formData.query"></q></a>
+        <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}" target="_self">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
         <div class="emptySearch">@SharedResources.NoResults</div>
     </div>
 </form>
