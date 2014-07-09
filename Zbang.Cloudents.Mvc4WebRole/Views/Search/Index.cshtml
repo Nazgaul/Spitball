@@ -81,4 +81,36 @@
             <div class="emptySearch">@SharedResources.NoResults</div>
         </div>
     </form>
+<script type="text/html" id="boxesSearchTemplate">
+    <li>
+        <a href="{{url}}" data-navigation="box" class="searchItem">
+            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
+            <div class="searchDetails">
+                <div class="searchTitle semiFont elps">{{name}}</div>
+                <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
+                <span class="searchDetail">{{courseCode}}</span>
+            </div>
+        </a>
+    </li>
+</script>
+<script type="text/html" id="itemsSearchTemplate">
+    <li>
+        <a href="{{url}}" data-navigation="item" class="searchItem">
+            <div class="otherUni semiFont">{{universityName}}</div>
+            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
+            <div class="searchDetails">
+                <div class="searchTitle semiFont elps">{{name}}</div>
+                <div class="boxLoc searchDetail" data-ignore-rtl="true" data-search-in="@SharedResources.In">{{boxName}}</div>
+            </div>
+        </a>
+    </li>
+</script>
+<script type="text/html" id="peopleSearchTemplate">
+    <li>
+        <a href="{{url}}" data-navigation="user" class="searchItem">
+            <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
+            <div class="searchTitle semiFont elps">{{name}}</div>
+        </a>
+    </li>
+</script>
 }
