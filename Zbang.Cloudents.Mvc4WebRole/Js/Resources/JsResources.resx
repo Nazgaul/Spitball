@@ -625,4 +625,10 @@ Sign up for FREE</value>
   <data name="ShareCourse" xml:space="preserve">
     <value>Share this course</value>
   </data>
+  <data name="DeleteEmptyCourse" xml:space="preserve">
+    <value>You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Changes will be discarded, are you sure you want to cancel?</value>
+  </data>
 </root>

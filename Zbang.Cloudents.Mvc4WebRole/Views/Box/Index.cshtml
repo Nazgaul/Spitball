@@ -82,7 +82,7 @@
             </a>
         </div>
 
-        <div ng-if="info.isUserFollowing() " id="joinGrpWpr" class="joinGrpWpr">
+        <div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !isUserFollowing()}" class="joinGrpWpr">
             @*user is following box*@
             <div class="joinGrpBtn">
                 <span class="joinMsg iconTxt">@SharedResources.Member</span>
@@ -95,7 +95,7 @@
             @{Html.RenderPartial("_Items2");}
             <ul class="boxMembers boxFriendsList">
 
-                <li ng-repeat="member in info.members">
+                <li ng-repeat="member in info.members | limitTo :7">
                     <a href="{{member.url}}" class="">
                         <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" data-uid={{member.uid}} width="48" height="48" />@*uid*@
                     </a>

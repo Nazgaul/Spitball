@@ -163,7 +163,7 @@
                         changeViewBoxSettings(false, true);
                         return;
                 }
-                cd.confirm('Changes will be discarded, are you sure you want to cancel?',
+                    cd.confirm(JsResources.DiscardChanges,
                     function () {
                         changeViewBoxSettings(false, true);
                     },
@@ -177,13 +177,13 @@
                 var sentence = '';
                 switch (boxSettingsData.willDelete()) {
                     case 1:
-                        sentence = jsResources.SureYouWantTo + jsResources.ToDeleteBox;
+                        sentence = JsResources.SureYouWantTo + JsResources.ToDeleteBox;
                         break;
                     case 2:
-                        sentence = 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
+                        sentence = JsResources.DeleteEmptyCourse;
                         break;
                     default:
-                        sentence = jsResources.SureYouWantTo + jsResources.ToLeaveGroup;
+                        sentence = JsResources.SureYouWantTo + JsResources.ToLeaveGroup;
                 }
                 var that = this;
                 cd.confirm(sentence, function () {                
