@@ -551,11 +551,11 @@ mBox.controller('BoxCtrl',
             //#region settings
             var memberPromise = Box.members({ boxUid: $scope.boxId }),
                 notificationPromise = Box.notification({ boxUid: $scope.boxId }),
-                all = $q.all([memberPromise, notificationPromise]),
+                settingsAll = $q.all([memberPromise, notificationPromise]),
                 notification;
 
 
-            all.then(function (response) {
+            settingsAll.then(function (response) {
                 $scope.info.allMembers = response[0].success ? response[0].payload : [];
                 notification = response[1].success ? response[1].payload : '';
 
