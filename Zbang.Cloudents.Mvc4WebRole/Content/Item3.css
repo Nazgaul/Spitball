@@ -911,6 +911,7 @@
   left: 0;
   right: 0;
   margin-left: 290px;
+  /*rtl*/
 }
 .iframeContent {
   position: absolute;
