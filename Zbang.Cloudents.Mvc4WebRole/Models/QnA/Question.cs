@@ -7,7 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.QnA
     {
         public Question()
         {
-            Files = new long[0];
+            //Files = new long[0];
         }
         [Required]
         [AllowHtml]

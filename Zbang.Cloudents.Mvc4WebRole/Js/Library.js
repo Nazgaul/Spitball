@@ -100,7 +100,7 @@ function Box(data) {
                 JsResources.IJoined.format(that.name),
 
                 cd.location());
-                //analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
+                cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
             };
 
 
@@ -468,31 +468,36 @@ function Box(data) {
 
         }
 
-        cd.pubsub.subscribe('windowChanged', function () {
-            if (document.getElementById('library').style.display === 'block') {
-                innerScrollLetter();
-            }
-        });
+        
+        //cd.pubsub.subscribe('windowChanged', function () {
+        //    if (document.getElementById('library').style.display === 'block') {
+        //        innerScrollLetter();
+        //    }
+        //});
 
-        cd.pubsub.subscribe('library_show', function () {
-            facebookLikeBox();
-            innerScrollLetter();
-        });
+        //cd.pubsub.subscribe('library_show', function () {
+        //    facebookLikeBox();
+        //    innerScrollLetter();
+        //});
 
         function innerScrollLetter() {
-            $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 65);
+            $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 155).css('height',$(document).height() - 155);
 
 
         }
+        
+        $(window).resize(innerScrollLetter);
+        innerScrollLetter();
+        facebookLikeBox();
 
         //analytics
         $('.u-Website').click(function () {
-            analytics.trackEvent('Library', 'Go to org website', 'number of clicks on the union website icon');
+            cd.analytics.trackEvent('Library', 'Go to org website', 'number of clicks on the union website icon');
         });
         $('.u-Fb').click(function () {
-            analytics.trackEvent('Library', 'Go to org Facebok page', 'number of clicks on the union facebook page icon');
+            cd.analytics.trackEvent('Library', 'Go to org Facebok page', 'number of clicks on the union facebook page icon');
         });
-        analytics.setLibrary($('.unionName').text());
+        cd.analytics.setLibrary($('.unionName').text());
 
 
     }

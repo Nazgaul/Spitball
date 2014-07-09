@@ -46,7 +46,7 @@
                                         <a href="{{activity.url}}">
                                             <div class="latestName elps">{{activity.boxName}}</div>
                                             <span class="semiFont">{{activity.userName}}</span>
-                                            <span class="activityAction">{{activity.action}}</span>
+                                            <span class="activityAction">{{activity.action | actionText}}</span>
                                         </a>
                                     </div>
                                 </li>
@@ -91,10 +91,9 @@
                 </div>
                 <ol class="myAreaList clearfix">
                     <li ng-click="openCreateBox()" class="box">
-                        <button ng-click="createBox" class="addBtn">@SharedResources.CreateNew</button>
+                        <button class="addBtn">@SharedResources.CreateNew</button>
                     </li>
                     <li ng-repeat="box in groupBoxes | limitTo: options.maxGroupVisible" class="box" ng-include="'dashBoxTemplate'" bindonce>
-
                     </li>
                 </ol>
             </section>

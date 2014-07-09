@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
@@ -55,7 +56,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("User is not connected to box");
             }
-            var files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
+            var files = new List<Item>();
+            if (message.FilesIds != null)
+            {
+                files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
+            }
             var answer = new CommentReplies(user, text, box, message.Id, question, files);
             box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);

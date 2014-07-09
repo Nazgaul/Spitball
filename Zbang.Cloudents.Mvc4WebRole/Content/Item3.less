@@ -926,12 +926,14 @@
 .itemPreview {
     text-align: center;
     overflow: auto;// We need this because want inner scroll and not page scroll
-    height: 90%;
-    height: ~"-webkit-calc(100% - 80px)"; 
-    height: ~"calc(100% - 80px)";
-    position: relative; //For iframe*/TODO check if still need this
+    height: ~"-webkit-calc(100% - 130px)"; 
+    height: ~"calc(100% - 130px)";
     .boxSizing;
-    padding-top: 10px;   
+    padding-top: 10px;  
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin-left: 290px; /*rtl*/
 }
 //used for links
 .iframeContent {
@@ -952,6 +954,8 @@
     left: 0; /*rtl*/
     height: 100%; //used for links
     .transition(all .3s);
+    min-height: ~'-webkit-calc(100vh - 140px)';
+    min-height: ~'calc(100vh - 140px)';
 
     &.annotateState {
         left: ~"calc(400px - 49%)"; /*rtl*/

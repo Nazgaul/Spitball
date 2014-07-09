@@ -768,6 +768,7 @@
     <Content Include="Images\smartphone.png" />
     <Content Include="Images\sprite_browsericons.png" />
     <Content Include="Images\students.png" />
+    <Content Include="Images\studentUnion.png" />
     <Content Include="Images\table-bg1.png" />
     <Content Include="Images\trash.png" />
     <Content Include="Images\tt-sprite.png" />
@@ -778,6 +779,7 @@
     <Content Include="Images\user-gmail-pic.jpg" />
     <Content Include="Images\user-pic.png" />
     <Content Include="Images\user13-sprite.png" />
+    <Content Include="Images\userBg.png" />
     <Content Include="Images\usrPic.png" />
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
@@ -816,12 +818,12 @@
     <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\GmfcnHandler.js" />
+    <Content Include="Js\InviteViewModel2.js" />
     <Content Include="Js\ItemViewModel4.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
-    <Content Include="Js\QuizCreate.js" />
     <Content Include="Js\QuizViewModel.js" />
     <Content Include="Js\routes.js" />
     <Content Include="Js\Search.js" />
@@ -843,15 +845,11 @@
     <Content Include="Js\services\user.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
-    <Content Include="Js\BoxesViewModel.js" />
-    <Content Include="Js\BoxItemsViewModel2.js" />
-    <Content Include="Js\BoxViewModel2.js" />
     <Content Include="Js\Cache.js" />
     <Content Include="Js\CDNFallback.js" />
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\DashboardAside.js" />
     <Content Include="Js\DataContext.js" />
     <Content Include="Js\Dialog.js" />
     <Content Include="Js\externalScriptsInitializer.js" />
@@ -873,7 +871,6 @@
     <Content Include="Js\Mobile\MWallViewModel.js" />
     <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
-    <Content Include="Js\QnA.js" />
     <Content Include="Js\RT.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />

@@ -6,7 +6,6 @@
             dashWallTextComment = dashFeed.getAttribute('data-commenttext');
 
         return function (action) {
-
             switch (action) {
                 case 'item': return dashWallTextItem;
                 case 'question': return dashWallTextComment;

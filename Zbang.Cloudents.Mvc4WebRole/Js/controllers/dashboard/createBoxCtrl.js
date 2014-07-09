@@ -1,5 +1,4 @@
-﻿//define('CreateBoxCtrl', ['app'], function (app) {
-mDashboard.controller('CreateBoxCtrl',
+﻿mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          '$modalInstance',
          'sBox',
@@ -23,5 +22,4 @@ mDashboard.controller('CreateBoxCtrl',
                  $modalInstance.dismiss();
              };
          }
-    ]);
-//});
+        ]);

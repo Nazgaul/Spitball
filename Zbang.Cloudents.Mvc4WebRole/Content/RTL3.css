@@ -1641,6 +1641,10 @@
   box-shadow: -5px 5px 5px rgba(116, 100, 110, 0.3);
   /*rtl*/
 }
+.itemPreview {
+  margin: 0 290px 0 0;
+  /*rtl*/
+}
 /*New Item View*/
 .previewWrapper {
   right: 0;

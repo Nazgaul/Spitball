@@ -464,12 +464,12 @@
                         var y = new $.Deferred();
 
                         $(e).load(y, function (v) {
-                            $.when(defferedItemShow).done(function () {
+                            //$.when(defferedItemShow).done(function () {
                                 //IE issue........
                                 window.setTimeout(function () {
                                     initializeCanvas(v);
                                 }, 10);
-                            });
+                            //});
                         });
 
                         defferedArray.push(y);
@@ -846,13 +846,16 @@
                 $itemNext.click(nextItem);
 
                 $(document).keyup(function (e) {
-                    var keyCode = e.keyCode || e.which;
-                    if (document.getElementById(consts.item).style.display === 'block') {
-                        if (keyCode === 37) {
-                            prevItem();
-                        }
-                        if (keyCode === 39) {
-                            nextItem();
+                    var keyCode = e.keyCode || e.which,
+                     elem = document.getElementById(consts.item);
+                    if (elem) {
+                        if (elem.style.display === 'block') {
+                            if (keyCode === 37) {
+                                prevItem();
+                            }
+                            if (keyCode === 39) {
+                                nextItem();
+                            }
                         }
                     }
                 });
@@ -1196,7 +1199,7 @@
                             width: rect.w,
                             height: rect.h,
                             creationDate: new Date(), // need to do something
-                            userImage: $('#userName').prev().attr('src'),
+                            userImage: cd.userDetail().img,
                             userName: cd.userDetail().name,
                             uid: cd.userDetail().id
                         }));

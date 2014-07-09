@@ -1,4 +1,8 @@
-﻿/*#region home page */
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region home page */
 .homeContent h1 {
   font-weight: normal;
 }

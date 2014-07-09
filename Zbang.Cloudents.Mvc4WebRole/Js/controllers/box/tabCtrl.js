@@ -4,7 +4,8 @@
 		 'sBox',
 		 'data',
 
-		 function ($scope, $modalInstance, Box, data) {		 
+		 function ($scope, $modalInstance, Box, data) {
+		     console.log($scope);
 		 	$scope.formData = {
 		 		boxId: data.boxId,
 		 		tabId: data.tabId,
@@ -13,7 +14,7 @@
 
 		 	$scope.params = {
 		 	    title : data.tabId ? JsResources.FolderRename : JsResources.FolderCreate,
-		 		action: data.tabId ? 'Rename' : 'Create'
+		 	    action: data.tabId ? JsResources.Rename : JsResources.Create
 		 	};
 
 		 	$scope.create = function (isValid) {

@@ -539,7 +539,7 @@
     <value>הקווזים של קלאודנטס - צרו, שתפו, תרגלו והצליחו במבחן!</value>
   </data>
   <data name="CreateShare" xml:space="preserve">
-    <value>חדש בקלאודנטס יצירת קוויזים (שאלון אמריקאי) צורו ושתפו מבחנים שאתם בונים כחלק מהכנה לבחינת הקורס.</value>
+    <value>חדש בקלאודנטס יצירת מבחנים (שאלון אמריקאי) צורו ושתפו מבחנים שאתם בונים כחלק מהכנה לבחינת הקורס.</value>
   </data>
   <data name="DiscussQuiz" xml:space="preserve">
     <value>דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה</value>
@@ -560,7 +560,7 @@
     <value>קודם</value>
   </data>
   <data name="PublishQuiz" xml:space="preserve">
-    <value>שיתוף של הקוויז עם החברים</value>
+    <value>שיתוף של המבחן עם החברים</value>
   </data>
   <data name="SeeScore" xml:space="preserve">
     <value>קבלת ציון וזמן של הבחינה</value>
@@ -572,7 +572,7 @@
     <value>למה אתה מחכים, שיהיה בהצלחה!</value>
   </data>
   <data name="UseMaterial" xml:space="preserve">
-    <value>יצירת הקוויז על גבי מסמכים קיימים בקלאודנטס</value>
+    <value>יצירת המבחן על גבי מסמכים קיימים בקלאודנטס</value>
   </data>
   <data name="Choose" xml:space="preserve">
     <value>בחר</value>

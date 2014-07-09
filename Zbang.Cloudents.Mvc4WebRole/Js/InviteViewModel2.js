@@ -51,7 +51,7 @@
 
 
     function getInvites(appendItems) {
-        cd.data.getInvites({
+        cd.data.getNotifications({
             success: function (data) {
                 mapInvites(data,appendItems);
             }

@@ -30,7 +30,7 @@
 
         <div class="emptyBoxDrop">
             <span class="emptyBoxDropText">@DialogResources.DragAndDrop</span>
-            <button ng-click="addItem()" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
+            <button ng-click="openUploadPopup()" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
         </div>
     </div>
 
@@ -46,9 +46,7 @@
     <p class="thumbContent">{{item.description}}</p>
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
         <img ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnail')'}" alt="" width="479" height="188" />
-
         <img ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" width="148" height="188" />
-
         <span ng-if="item.isNew" class="tag">@SharedResources.New</span>
         <div class="boxName clamp2">{{item.name}}</div>
         <div class="stars">
@@ -75,27 +73,20 @@
 
 <script type="text/ng-template" id="itemListView">
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
-
         <img class="imgBorder" ng-if="item.sponsored" ng-style="{'background-image':'url('item.thumbnail')'}" alt=" " width=" 236" height="143" />
-
         <img class="imgBorder" ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" alt="" width="112" height="143" />
-
         <div class="boxName semiFont elps">{{item.name}}</div>
-
-
         <p class="itemContent">{{item.description}}</p>
-
         <div class="stars">
             <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
         </div>
-
         <div data-title="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
         <span class="tag" ng-if="item.isNew">@SharedResources.New</span>
     </a>
     @if (User.Identity.IsAuthenticated)
     {
     <div class="actionBtns">
-        <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-src="{{item.download}}"></a>
+        <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
         <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
     </div>
     }

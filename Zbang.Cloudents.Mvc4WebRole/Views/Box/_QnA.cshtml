@@ -23,7 +23,7 @@
     </form>
 
 
-    <div class="QWpr" ng-if="info.state === 2">
+    <div class="QWpr" ng-animate="'animate'" ng-if="info.state === 2">
         <div class="questions">
             <ul class="QList">
                 <li class="QItem" ng-repeat="question in info.questions">
@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <div class="AWpr" ng-if="info.state === 3">
+    <div class="AWpr" ng-animate="'animate'" ng-if="info.state === 3">
         <div id="Answers" class="answers" ng-if="info.selectedQuestion">
             <div class="question">
                 <img class="QAImg lFloat calloutTrgr" ng-src="{{info.selectedQuestion.userImage}}" alt="" width="32" height="32" />
@@ -167,8 +167,8 @@
                     </ul>
                 </div>
                 <div class="rFloat" ng-show="showComment">
-                    <button type="button" class="attachBtn" ng-disabled="!qnaQform.$valid" ng-click="addQuestionAttachment()" ></button>
-                    <button type="submit" class="askBtn" ng-click="postQuestion(qnaQform.$valid)" >@SharedResources.Comment</button>
+                    <button type="button" class="attachBtn" ng-disabled="!qnaQform.$valid" ng-click="addQuestionAttachment()"></button>
+                    <button type="submit" class="askBtn" ng-click="postQuestion(qnaQform.$valid)">@SharedResources.Comment</button>
                 </div>
             </form>
             <div class="qaText2">@IndexResources.NoQuestions</div>
