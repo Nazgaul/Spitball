@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="box" class="page boxPage {{info.boxType}}" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
+<div id="box" class="page boxPage" ng-class="{academic : info.boxType === 'academic'}" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
         <div id="BoxTopWpr" class="boxTopWpr">
             <div class="boxTop">
@@ -13,7 +13,7 @@
                 <div class="courseCode elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
                 <div class="courseCode elps calloutTrgr" ng-if="info.boxType === 'box'" data-uid="{{info.ownerId}}">{{info.ownerName}}</div>
                 <span class="courseCode propName elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
-                <button type="button" class="boxRename" data-title="@IndexResources.BoxSettings" ng-click="openBoxManage('settings')"></button>
+                <button type="button" class="boxRename" data-title="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
 
             </div>
         </div>
@@ -107,7 +107,7 @@
                            data-link="@Url.Action("Index", "Share", new { boxid = "" })" class="boxInvite">@IndexResources.Invite</a>
                     </li>
                 }
-                <li id="showAllMembers"><button ng-click="openBoxManage('members')" class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
+                <li ng-click="openBoxSettings('members')"><button class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
             </ul>
             @{Html.RenderPartial("_QnA");}
         </div>

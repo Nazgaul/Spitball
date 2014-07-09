@@ -1,7 +1,6 @@
 ﻿mBox.controller('UploadCtrl',
     ['$scope', '$rootScope', '$modalInstance',
         'sDropbox', 'sGoogle', '$timeout',
-     //'googleDrive','dropbox',
 
     function ($scope, $rootScope, $modalInstance, Dropbox, Google, $timeout) {
         $timeout(function () {

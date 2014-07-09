@@ -37,7 +37,8 @@ mBox.controller('BoxCtrl',
                 createTab: '/Box/CreateTabPartial/',
                 uploader: '/Box/UploadPartial/',
                 uploadAddLink: '/Box/UploadLinkPartial/',
-                shareEmail: '/Share/MessagePartial/'
+                shareEmail: '/Share/MessagePartial/',
+                boxSettings: '/Box/SettingsPartial'
             };
 
             $scope.popup = {
@@ -64,12 +65,14 @@ mBox.controller('BoxCtrl',
                     name: info.name,
                     comments: info.comments,
                     courseId: info.courseId,
+                    boxType: info.boxType,
                     itemsLength: info.items,
                     membersLength: info.members,
                     members: info.subscribers,
                     ownerName: info.ownerName,
                     ownerId: info.ownerUid, //uid
                     privacy: info.privacySetting,
+                    professor: info.professorName,
                     tabs: info.tabs,
                     userType: info.userType,
                     uniCountry: info.uniCountry,
@@ -86,30 +89,7 @@ mBox.controller('BoxCtrl',
 
                 $scope.items = items;
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
-
-                //commentsCount: 0
-                //date: "2014-06-05T14:54:29Z"
-                //id: 2966
-                //numOfViews: 0
-                //owner: "guy golan"
-                //ownerId: 18372
-                //publish: false
-                //rate: 0
-                //type: "Quiz"
-                //userUrl: "/user/1/ram"
-
                 $scope.$broadcast('qna', qna);
-
-                //answers: [{id:233b4bdc-3fb3-4be7-8ec5-a2f400c5063e,…}]
-                //content: "asdsadas"
-                //creationTime: "2014-03-20T09:54:27Z"
-
-                //files: []
-                //id: "59d599bb-34f5-4692-ac84-a2f400c43b74"
-                //url: "/user/1/ram"
-                //userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg"
-                //userName: "guy golan"
-                //userUid: 18372 //uid
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
@@ -118,8 +98,8 @@ mBox.controller('BoxCtrl',
 
             //#region quiz
             $scope.addQuiz = function () {
-                $scope.params.quizOpen = true;
-                $scope.$emit('initQuiz');
+                $scope.options.quizOpen = true;
+                $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
             };
             //#endregion
 
@@ -150,7 +130,7 @@ mBox.controller('BoxCtrl',
                     windowClass: "uploader",
                     templateUrl: $scope.partials.uploader,
                     controller: 'UploadCtrl',
-                    backdrop: 'static'                    
+                    backdrop: 'static'
                 });
 
                 modalInstance.result.then(function (response) {
@@ -558,5 +538,56 @@ mBox.controller('BoxCtrl',
                 $scope.options.itemsLimit += 7;
             };
             //#endregion            
+
+            //#region settings
+            var memberPromise = Box.members({ boxUid: $scope.boxId }),
+                notificationPromise = Box.notification({ boxUid: $scope.boxId }),
+                all = $q.all([memberPromise, notificationPromise]),
+                notification;
+
+
+            all.then(function (response) {
+                $scope.members = response[0].success ? response[0].payload : [];
+                notification = response[1].success ? response[1].payload : '';
+
+
+                $scope.openBoxSettings = function (tab) {
+                    var modalInstance = $modal.open({
+                        windowClass: "boxSettings",
+                        templateUrl: $scope.partials.boxSettings,
+                        controller: 'SettingsCtrl',
+                        backdrop: 'static',
+                        resolve: {
+                            data: function () {
+                                return {
+                                    info: $scope.info,
+                                    notification: notification,
+                                    boxId: $scope.boxId,
+                                    tab: tab,
+                                    members: $scope.members
+                                }
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (result) {
+                        $scope.info.name = result.name;
+
+                        $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
+                        var path = $location.path(),
+                            boxName = '/' + path.split('/')[4] + '/';//boxName
+
+                        path = path.replace(boxName, '/' + result.queryString + '/');
+                        $location.url(path, '', path).replace();
+                        if ($scope.info.boxType === 'academic') {
+
+                        }
+                    }, function () {
+                        //dismiss
+                    });
+                };
+            });
         }
+            //#endregion 
+
         ]);

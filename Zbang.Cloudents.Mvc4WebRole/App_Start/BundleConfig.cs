@@ -147,7 +147,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/Js/controllers/box/tabCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/box/qnaCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/box/uploadCtrl.js"),
-                new JsFileWithCdn("/Js/controllers/box/manageCtrl.js"),                
+                new JsFileWithCdn("/Js/controllers/box/settingsCtrl.js"),                
                 new JsFileWithCdn("/Js/controllers/dashboard/dashboardCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/dashboard/createBoxCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/dashboard/showFriendsCtrl.js"),
@@ -155,7 +155,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/Js/controllers/user/userCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/item/itemCtrl.js"),
                 new JsFileWithCdn("/Js/controllers/quiz/quizCtrl.js"),
-
+                new JsFileWithCdn("/Js/controllers/quiz/quizCreateCtrl.js"),                
+                new JsFileWithCdn("/Js/controllers/quiz/quizCloseCtrl.js"),                
                 new JsFileWithCdn("/Js/services/dropbox.js"),
                 new JsFileWithCdn("/Js/services/google.js"),
                 new JsFileWithCdn("/Js/services/qna.js"),

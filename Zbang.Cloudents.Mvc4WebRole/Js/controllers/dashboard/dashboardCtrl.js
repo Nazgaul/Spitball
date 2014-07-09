@@ -22,7 +22,7 @@ mDashboard.controller('DashboardCtrl',
               friends: '/Dashboard/FriendsPartial/',
               createBox: '/Dashboard/PrivateBoxPartial/'
           };
-
+                  
           $scope.myCourses = jsResources.CoursesFollow;
 
           sDashboard.boxList().then(function (data) {
@@ -206,4 +206,34 @@ mDashboard.controller('DashboardCtrl',
           }
       }
      ]);
+mDashboard.controller('FriendCtrl', ['$scope', function ($scope) {
+    $scope.isExcludedByFilter = applySearchFilter();
+
+    $scope.$watch(
+       "params.search",
+       function (newName, oldName) {
+
+           if (newName === oldName) {
+
+               return;
+
+           }
+
+           applySearchFilter();
+
+
+       }
+   );
+
+    function applySearchFilter() {
+
+        var filter = $scope.params.search.toLowerCase();
+        var name = $scope.friend.name.toLowerCase();
+        var isSubstring = (name.indexOf(filter) !== -1);
+
+        // If the filter value is not a substring of the
+        // name, we have to exclude it from view.
+        $scope.isExcludedByFilter = !isSubstring;
+    };
+}]);
 //});

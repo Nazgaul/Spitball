@@ -1,9 +1,13 @@
 ﻿<div ng-view></div>
-
-@section scripts 
+<div id="quizCreate" ng-controller="QuizCreateCtrl">
+    <div ng-if="params.loadCreateQuiz">
+        <div ng-show="params.showCreateQuiz" ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
+    </div>
+</div>
+@section scripts
 {
     @Html.Script2("angular")
     @*TODO: put this in bundle*@
     @*<script data-main="/bootstrap.js" type="text/javascript" src="~/Scripts/require.min.js"></script>*@
-    
+
 }
