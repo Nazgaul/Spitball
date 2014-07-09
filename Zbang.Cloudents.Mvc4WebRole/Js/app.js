@@ -7,16 +7,24 @@ app.config([
     '$locationProvider',
     '$controllerProvider',
     '$compileProvider',
-    '$filterProvider',
+    '$filterProvider',    
     '$httpProvider',
+    '$tooltipProvider',
     '$provide',
 
-    function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $provide) {
+    function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider, $provide) {
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-        //if (window.history && window.history.pushState) {
+
+        $tooltipProvider.options({
+            placement: 'bottom',
+            animation: true,
+            popupDelay: 500,
+           //appendToBody: true
+        });
+
         $locationProvider.html5Mode(true).hashPrefix('!');
-        //}
+
 
         $routeProvider.
         when('/dashboard/',{

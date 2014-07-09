@@ -52,13 +52,13 @@
         <div class="stars">
             <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div data-title="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
     </a>
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns">
-            <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
-            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
+            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
             @*<input type="hidden" data-bind="value: linkUrl" />*@ @*needed?????*@
         </div>
     }
@@ -80,14 +80,14 @@
         <div class="stars">
             <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div data-title="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
         <span class="tag" ng-if="item.isNew">@SharedResources.New</span>
     </a>
     @if (User.Identity.IsAuthenticated)
     {
     <div class="actionBtns">
-        <a class="lFloat downloadBtn" target="_blank" data-title="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
-        <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+        <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
+        <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
     </div>
     }
 </script>
@@ -105,12 +105,12 @@
         <div class="stars">
             <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div data-title="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
     </a>
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
         </div>
     }
     <span ng-if="options.manageTab">
@@ -131,14 +131,14 @@
         <div class="stars">
             <div class="full" ng-style="{width: options.starsWidth / options.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div data-title="@SharedResources.Views" class="views">{{item.numOfView}}</div>
+        <div tooltip="@SharedResources.Views" class="views">{{item.numOfView}}</div>
         <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>               
         <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>        
     </a>
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" data-title="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
         </div>
     }
     </li>

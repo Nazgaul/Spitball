@@ -82,10 +82,10 @@
         }
         <div class="boxesHeader topBar barShadow">
             <h2 data-bind="visible: !backvisible()" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
-            <a id="lib_Back" class="backWpr elps lFloat" data-navigation="Library" data-bind="visible: backvisible(),css: { noArrow: arrowVisible}" ng-href="{{back.url}}">
+            <a id="lib_Back" class="backWpr elps lFloat" data-bind="visible: backvisible(),css: { noArrow: arrowVisible}" ng-href="{{back.url}}">
                 <h2 id="lib_NodeName">{{back.title}}</h2>
             </a>
-            <button id="lib_NodeRename" class="boxRename" data-title="@SharedResources.Edit" data-bind="visible: renameNodeVisible"></button>
+            <button id="lib_NodeRename" class="boxRename" tooltip="@SharedResources.Edit" data-bind="visible: renameNodeVisible"></button>
         </div>
         <div class="contentWpr @cls">
             

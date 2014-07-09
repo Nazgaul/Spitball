@@ -7,13 +7,13 @@
             <div class="boxTop">
                 <img class="lFloat" ng-src="{{info.image}}" alt="" width="74" height="94" />
                 <div class="boxNameWpr clamp2">
-                    <h1 class="boxName semiFont" id="box_Name" data-title="{{info.name}}">{{info.name}}</h1>
+                    <h1 class="boxName semiFont" id="box_Name" tooltip="{{info.name}}">{{info.name}}</h1>
                 </div>
 
                 <div class="courseCode elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
                 <div class="courseCode elps calloutTrgr" ng-if="info.boxType === 'box'" data-uid="{{info.ownerId}}">{{info.ownerName}}</div>
                 <span class="courseCode propName elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
-                <button type="button" class="boxRename" data-title="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
+                <button type="button" class="boxRename" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
 
             </div>
         </div>

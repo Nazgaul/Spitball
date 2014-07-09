@@ -100,9 +100,9 @@
                 <li class="qaAttachItem" ng-repeat="file in info.selectedQuestion.files">
                     <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
                     <div class="attachActions">
-                        <a data-title="@IndexResources.ShowAttachment" ng-href="{{file.itemUrl}}" class="attachFull"></a>
-                        <button data-title="@IndexResources.RemoveAttachment" class="attachDelete" type="button" ng-if="file.isVisible></button>
-                        <a data-title="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" ng-href={{file.download}}"></a>
+                        <a tooltip="@IndexResources.ShowAttachment" ng-href="{{file.itemUrl}}" class="attachFull"></a>
+                        <button tooltip="@IndexResources.RemoveAttachment" class="attachDelete" type="button" ng-if="file.isVisible></button>
+                        <a tooltip="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" ng-href={{file.download}}"></a>
                     </div>
                 </li>
             </ul>

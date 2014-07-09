@@ -967,6 +967,7 @@ angular.module('ui.bootstrap.position', [])
             targetElPos = {
               top: hostElPos.top - targetElHeight,
               left: shiftWidth[pos1]()
+
             };
             break;
         }
