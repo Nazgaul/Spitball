@@ -184,6 +184,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/filters/orderBy.js"),                                              
 
                 new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
+                new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
                 new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
                  new JsFileWithCdn("/js/Utils.js"),
                  new JsFileWithCdn("/js/pubsub.js"),

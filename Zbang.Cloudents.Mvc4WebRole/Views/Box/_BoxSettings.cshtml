@@ -5,7 +5,7 @@
 @model Zbang.Cloudents.Mvc4WebRole.Models.UpdateBoxInfo
 
 <div class="modal-header">
-    <h3 class="modal-title"><span>{{info.boxName}}</span></h3>
+    <h3 class="modal-title"><span>{{info.name}}</span></h3>
 </div>
 <div class="modal-body" bindonce>
     <div class="popupTopBar" ng-class="params.state === 1 ? 'tabSettings' : 'tabMembers'">
@@ -23,16 +23,16 @@
                 </div>
             </div>
             <div class="boxSetting">
-                <label for="boxSettingsName">Name:</label>
+                <label for="boxSettingsName">@SharedResources.Name:</label>
                 <input type="text" class="inputText editBoxName" id="boxSettingsName" ng-model="formData.name" />
             </div>
 
             <div class="boxSetting academic">
-                <label for="boxSettingsCourse">Number:</label>
+                <label for="boxSettingsCourse">@IndexResources.Number:</label>
                 <input type="text" class="inputText courseNumber" id="boxSettingsCourse" ng-model="formData.courseCode" placeholder="@IndexResources.CourseNumber" />
             </div>
             <div class="boxSetting academic">
-                <label for="boxSettingsProfessor">Lecturer:</label>
+                <label for="boxSettingsProfessor">@IndexResources.Lecturer:</label>
                 <input type="text" class="inputText editLecturer" id="boxSettingsProfessor" ng-model="formData.professor" placeholder="@IndexResources.LecturerName" />
             </div>
 

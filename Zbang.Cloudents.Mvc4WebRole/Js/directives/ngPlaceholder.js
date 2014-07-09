@@ -5,13 +5,13 @@
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {
-                var txt = attrs.placeholder || attrs.ngPlaceholder,
+                var txt = attrs.ngPlaceholder,
                     model = attrs.ngModel,
                     placeholderSupport = Modernizr.input.placeholder;
 
                 //Use HTML5 placeholder attribute.
                 if (placeholderSupport) {
-                    elem.attr('placeholder', elem.attr('ng-placeholder'));
+                    elem.attr('placeholder', txt);
                     elem.removeAttr('ng-placeholder');
                     return;
                 }

@@ -8,7 +8,6 @@ mBox.controller('SettingsCtrl',
              settings: 1,
              members: 2
          };
-
          $scope.info = data.info;
          $scope.info.members = data.members;
          $scope.info.boxId = data.boxId;
