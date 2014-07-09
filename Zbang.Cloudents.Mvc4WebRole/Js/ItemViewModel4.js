@@ -846,13 +846,16 @@
                 $itemNext.click(nextItem);
 
                 $(document).keyup(function (e) {
-                    var keyCode = e.keyCode || e.which;
-                    if (document.getElementById(consts.item).style.display === 'block') {
-                        if (keyCode === 37) {
-                            prevItem();
-                        }
-                        if (keyCode === 39) {
-                            nextItem();
+                    var keyCode = e.keyCode || e.which,
+                     elem = document.getElementById(consts.item);
+                    if (elem) {
+                        if (elem.style.display === 'block') {
+                            if (keyCode === 37) {
+                                prevItem();
+                            }
+                            if (keyCode === 39) {
+                                nextItem();
+                            }
                         }
                     }
                 });

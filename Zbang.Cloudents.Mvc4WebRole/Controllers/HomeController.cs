@@ -421,8 +421,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("index");
             }
-            //var command = new AddStudentCommand(model.Id);
-            //ZboxWriteService.AddStudent(command);
+            var command = new AddStudentCommand(model.Id);
+            ZboxWriteService.AddStudent(command);
             return RedirectToAction("InsertUser", new { complete="complete" });
         }
     }

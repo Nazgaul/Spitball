@@ -15,16 +15,16 @@
         @Html.ValidationSummary(true)
         @Html.ValidationMessageFor(m => m.FirstName)
         @Html.LabelFor(m => m.FirstName)
-        @Html.TextBoxFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, null, new { autocomplete = "off" })
 
         @Html.ValidationMessageFor(m => m.LastName)
         @Html.LabelFor(m => m.LastName)
 
-        @Html.TextBoxFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, null, new { autocomplete = "off" })
         @Html.ValidationMessageFor(m => m.Id)
         @Html.LabelFor(m => m.Id)
 
-        @Html.TextBoxFor(m => m.Id)
+        @Html.TextBoxFor(m => m.Id, null, new { autocomplete = "off" })
 
         <input type="submit" value="עדכן" class="btn1" id="insert" />
         <div class="success">הפרטים שהזנת עודכנו בהצלחה!</div>
