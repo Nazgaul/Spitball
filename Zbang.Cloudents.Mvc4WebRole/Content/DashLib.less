@@ -777,3 +777,94 @@
 }
 /*#endregion */
 
+
+/*#region insert user (Hebrew for the time being) */
+.insertUser {
+    background: url(/Images/userBg.png) right center no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    padding-top: 60px;
+    .boxSizing;
+    position: relative;
+    direction: rtl;
+    &:after {
+        .pseudo;
+        position: absolute;
+        right: 68px;
+        top:68px;
+        background: url(/Images/studentUnion.png);
+        width: 200px;
+        height: 120px;
+    }
+    h1 {
+        font-size: 23px;
+        color: @txtColor;
+        line-height: 26px;
+        margin-bottom: 22px;
+    }
+    form {
+        background:rgba(48,57,62,.9);
+        border-radius: 10px;
+        margin-top: 40px;
+        width: 375px;
+        height: 303px;
+        padding: 30px 60px;
+        .boxSizing;
+        margin:0 auto;
+        text-align: left;
+        overflow: hidden;
+        &.complete {
+            .success {
+                top: -303px;
+            }
+        }
+    }
+    .field-validation-error {
+        float: left;
+        
+    }
+    .input-validation-error {
+        border-width: 2px;
+    }
+    label {
+        display: block;
+        text-align: right;
+        color: #fff;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    input {
+        width: ~'-webkit-calc(100% - 12px)';
+        width: ~'calc(100% - 12px)';
+        //width: 100%;
+        border-radius: 3px;
+        height: 28px;
+        margin-bottom: 15px;
+        padding: 0 6px;
+    }
+    .btn1 {
+        display: inline-block;
+        margin: 20px 0 29px;
+        width: auto; //override;
+        font-size: 18px;
+    }
+    .success {
+        position: relative;
+        width: 375px;
+        height: 303px;
+        font-size: 23px;
+        color: #fff;;
+        line-height: 26px;
+        background: @color;
+        border-radius: 10px;
+        margin: 1px -60px;
+        padding: 125px 114px;
+        .boxSizing;
+        .transition(top, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900) .3s);
+        top:0;
+    }
+}
+
+
+/*#endregion */
