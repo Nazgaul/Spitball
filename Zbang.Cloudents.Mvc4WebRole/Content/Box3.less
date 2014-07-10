@@ -833,7 +833,6 @@
 
 .boxItemList {
     min-width: (@box-width * 2 + @min-margin);
-
     &.sponsored {
         .boxName {
             font-size: 15px;
@@ -1655,6 +1654,15 @@
             font-size: 13px;
         }
     }
+    .manageTxt {
+        display: block;
+    }
+    .boxManage.boxManage {
+        .btn1 , .btn2 {
+            //float: left;
+            margin-top: 10px;
+        }
+    }
 }
 
 .boxManage {
@@ -1664,10 +1672,15 @@
     .btn1 {
         margin: 0 5px 0 10px; /*rtl*/
     }
+
+    ~ .quizBtn {
+        display: none;
+    }
 }
 
     .boxManage + div + .boxItemList {
         /*override .boxItemList > li:first-child*/
+        margin: 2px auto 0;
         > li {
             outline: 1px solid #ebebeb;
             box-shadow: 0 1px 3px rgba(0,0,0,.3);
