@@ -2556,7 +2556,11 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                             } else {
                                 element.after(tooltip);
                             }
-                            scope.$emit('tooltipLoaded',scope.$parent.member.uid);
+
+                            if (scope.$parent.member) {
+                                scope.$emit('tooltipLoaded', scope.$parent.member.uid);
+                            }
+                            
 
                             if (popoverTargetLeave) {
                                 tooltip.off('mouseenter').on('mouseenter', function () {
