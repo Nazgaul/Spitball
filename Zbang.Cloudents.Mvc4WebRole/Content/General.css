@@ -553,16 +553,6 @@ input[type="radio"][disabled] + label:before {
   background: #bbb;
 }
 /*#endregion */
-/*#region jquery tooltip*/
-.ui-tooltip {
-  padding: 8px;
-  position: absolute;
-  z-index: 9999;
-  max-width: 300px;
-  -webkit-box-shadow: 0 0 5px #aaa;
-  box-shadow: 0 0 5px #aaa;
-}
-/*#endregion*/
 /*#region site header classes */
 .userNav {
   font-size: 0;
@@ -1500,7 +1490,7 @@ input[type="radio"][disabled] + label:before {
         }
     }
 }*/
-.tooltip {
+.tooltip1 {
   display: none;
   z-index: 2;
   position: absolute;
@@ -1513,43 +1503,43 @@ input[type="radio"][disabled] + label:before {
   box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3);
   padding-bottom: 70px;
 }
-.tooltip ul {
+.tooltip1 ul {
   list-style-type: disc;
   margin: 5px 0;
 }
-.tooltip li {
+.tooltip1 li {
   margin-left: 15px;
   /*rtl*/
   padding: 3px 0;
 }
-.tooltip:last-child [data-done] {
+.tooltip1:last-child [data-done] {
   display: block;
 }
-.tooltip.lastStep [data-next] {
+.tooltip1.lastStep [data-next] {
   display: none;
 }
-.tooltip.lastStep [data-done] {
+.tooltip1.lastStep [data-done] {
   display: block;
 }
-.tooltip [data-done] {
+.tooltip1 [data-done] {
   display: none;
 }
-.tooltip [data-prev] {
+.tooltip1 [data-prev] {
   border: 1px solid #286ec7;
   background: #ebebeb;
   color: #286ec7;
 }
-.tooltip [data-prev]:hover {
+.tooltip1 [data-prev]:hover {
   background: #fff;
 }
-.tooltip.icon {
+.tooltip1.icon {
   width: 325px;
 }
-.tooltip.icon .stepTip {
+.tooltip1.icon .stepTip {
   padding-left: 90px;
   /*rtl*/
 }
-.tooltip.icon .stepTip:before {
+.tooltip1.icon .stepTip:before {
   content: '';
   display: inline-block;
   position: absolute;
@@ -1560,15 +1550,15 @@ input[type="radio"][disabled] + label:before {
   vertical-align: middle;
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAABVCAMAAAAPK1hoAAAAdVBMVEX///8Dccj7/v3w+PgPnVi44s4/sXmCzKhoqt7E59b2+vxWuonm8frW6Pbo9u99yqUqh9FRndk2rXPD3fJItIA9ktUaol+Jveay1O9uxJsjpWba8OWQ0rKjzOt8teMRecug2L0bfs7P696axumt3sZfvpBureCOreCeAAACYUlEQVR4Xu2Yx7KjMBBFUSDnHJzT/P8nzgM/qg0GRTZTw1mrDlL7dgtj/PPsuD5dxDc1pDZdxcaq0hdl4Ctqj5SJraA83N2Kba3Mg5TRtAswMiliU9AZ+VQG6y4ivVJZ4i2lQMGN/bgys7ilrTLR3WZvpUsgrav4Bh57jwicP8ZCtTjCqpbfTb4xQDq2tCPQ1RnTOojGcLPboDI/Hx6xGmr63LvFiKk7Od+T1VTvAgDPdikKldV+WOKhxnyrHPbcult3a1ifm82tD/RD6m1rPaGBkmxpzdEvSbBi/eMwaBat4QWN3IJl6wUxOC9ZgxsCUi0rzCySoE88Tas1zFevRBPIovX0WKUJvQ9rZ/Z3Ek6n0lIzA8dhV85Uegl1rEcaD+ev0ZRcK6+HVwTpB05KXRCcnfM7kRGkH6iVOjbvk3lpDEj/BEdpuoQ3OCekHxoAq1iDBGL7nX5UDrGTmAN1OLM42MCz9CcElGK95XjzZKYepB/GiqgVflt8mVq+0i9tffQFQCxy8AnPgWEjCUN6Ur4N83VprXHHNmtD0tG6ufNlbYq1rEYItV1Jv9p0KcEG16qu1ZiHH93CLd6IsDNN/zyo0u8Dp2B8+QGaL530zZ2G8yo8DH0rKoPf88BE1LfC3uqv9MvPASAfV+UlSmqDb1Xgv7ZGESaHaGvrNX7a/nX/v8X7QlRIWmOelfQLOixnLegPLvfDkyklPdAe5k7afkVGJKTY51fNpT1FJCz1XiIf33zaU8XuXQTX7mhPxmu/jirg8keBPE+Di5tJOjuhzOBWStpGEh+2LRGK2PSYop2dv6n7QskM3osnAAAAAElFTkSuQmCC') /*/Images/tt-sprite.png*/ no-repeat;
 }
-.tooltip h4 {
+.tooltip1 h4 {
   font-size: 15px;
   margin-bottom: 12px;
 }
-.tooltip .closeDialog {
+.tooltip1 .closeDialog {
   background-position: -68px -14px;
   top: 24px;
 }
-.tooltip:before {
+.tooltip1:before {
   content: "";
   position: absolute;
   top: -8px;
@@ -1581,7 +1571,7 @@ input[type="radio"][disabled] + label:before {
   display: block;
   width: 0;
 }
-.tooltip:after {
+.tooltip1:after {
   content: "";
   position: absolute;
   top: -6px;
@@ -1594,24 +1584,24 @@ input[type="radio"][disabled] + label:before {
   display: block;
   width: 0;
 }
-.tooltip.bottom:before {
+.tooltip1.bottom:before {
   bottom: -8px;
   top: auto;
   border-width: 8px 8px 0;
 }
-.tooltip.bottom:after {
+.tooltip1.bottom:after {
   bottom: -6px;
   top: auto;
   border-width: 7px 7px 0;
 }
-.tooltip.left.tall:before {
+.tooltip1.left.tall:before {
   top: 40px;
   margin: 0;
 }
-.tooltip.left.tall:after {
+.tooltip1.left.tall:after {
   top: 42px;
 }
-.tooltip.left:before {
+.tooltip1.left:before {
   bottom: auto;
   top: 45%;
   left: -10px;
@@ -1621,7 +1611,7 @@ input[type="radio"][disabled] + label:before {
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
   margin: -2px 0 0 0;
 }
-.tooltip.left:after {
+.tooltip1.left:after {
   bottom: auto;
   top: 45%;
   left: -8px;
@@ -1631,14 +1621,14 @@ input[type="radio"][disabled] + label:before {
   border-color: rgba(0, 0, 0, 0) #ffffff;
   margin: 0;
 }
-.tooltip.right.tall:before {
+.tooltip1.right.tall:before {
   top: 40px;
   margin: 0;
 }
-.tooltip.right.tall:after {
+.tooltip1.right.tall:after {
   top: 42px;
 }
-.tooltip.right:before {
+.tooltip1.right:before {
   bottom: auto;
   top: 45%;
   left: auto;
@@ -1649,7 +1639,7 @@ input[type="radio"][disabled] + label:before {
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
   margin: -2px 0 0 0;
 }
-.tooltip.right:after {
+.tooltip1.right:after {
   bottom: auto;
   top: 45%;
   left: auto;
@@ -2114,17 +2104,60 @@ select.inputText {
 .userTooltip.hidePoints .ttPoints {
   display: none;
 }
-.titleTooltip {
-  display: inline-block;
+.tooltip {
   position: absolute;
-  background: #39434A;
-  color: #FFF;
-  border-radius: 2px;
+  display: block;
+  visibility: visible;
+  opacity: 0;
+  background: #39434a;
+  color: #fff;
+  border-radius: 3px;
   max-height: 200px;
   line-height: 22px;
   min-width: 10px;
   max-width: 200px;
   z-index: 12;
+  padding: 2px 0;
+}
+.tooltip.in {
+  opacity: .9;
+}
+.tooltip.in.fade {
+  opacity: 1;
+}
+.tooltip-inner {
+  padding: 0 12px;
+  text-align: center;
+  text-decoration: none;
+  background: #39434a;
+  border-radius: 3px;
+}
+.tooltip-arrow {
+  /*position: absolute;
+    width: 0;
+    height: 0;
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    .tooltip & {
+        bottom: 0;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px 5px 0;
+        border-top-color: @txtColor;
+    }*/
+  position: absolute;
+  top: -4px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: #39434a;
+  width: 9px;
+  height: 9px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .toolTipContent {
   position: relative;
