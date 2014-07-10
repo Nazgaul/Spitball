@@ -13,9 +13,9 @@
 
 }
 @section search {
-<form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" novalidate>
+<form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
     <input autocomplete="off" ng-keyup="search()" ng-blur="searchFocusout()" ng-focus="searchFocus()"
-           type="search" name="query" ng-model="formData.query" class="dashLibSearchInput"
+           type="search" name="query" required ng-model="formData.query" class="dashLibSearchInput"
            placeholder="@SharedResources.Search" />
     <button id="searchDropDownBtn" ng-disabled="!formData.query.length" type="submit"></button>
     <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" bindonce ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">

@@ -37,7 +37,7 @@
 
     <ol id="BoxItemList" class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <li ng-repeat="item in filteredItems | limitTo : options.itemsLimit" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , draft : !item.publish }"
-            ng-include="getView(item)" ui-draggable="{{!options.manageTab && item.type !== 'Quiz'}}" drag="item" drag-channel="boxItem">
+            ng-include="getView(item)" ui-draggable="{{!options.manageTab && item.type !== 'Quiz'}}" drag="item" drag-channel="boxItem" popover-template="boxItemTooltip" popover-append-to-body="true" popover-trigger="mouseenter" popover-placement="top">
         </li>
     </ol> @*add drag option*@
 </div>
@@ -148,46 +148,42 @@
 
 
 
-<script type="text/html" id="boxItemTooltipTemplate">
-    <div class="boxItemTt{{noPreview}}">
-        <div class="itemName">{{name}}</div>
+<script type="text/ng-template" id="boxItemTooltip">
+    <div bo-class="{noPreview : !item.description}" class="boxItemTt" bindonce>
+        <div class="itemName" bo-text="item.name"></div>
         <div class="arrow downArrow"></div>
         <div class="ttTop">
-            <div class="moreFilesThumb {{extensionColor}}">{{extension}}</div>
+            <div class="moreFilesThumb {{item.extensionColor}}" bo-text="item.extension"></div>
             <div class="detailsWpr">
                 <div class="lFloat ttDetail">@SharedResources.Owner</div>
-                <a href="{{ownerUrl}}" data-navigation="user" class="ttLink elps">{{ownerName}}</a>
+                <a bo-href="item.userUrl" class="ttLink elps" bo-text="item.owner"></a>
 
                 <div class="lFloat ttDetail">@SharedResources.Uploaded</div>
-                <div data-time="{{date}}"></div>
+                <div data-time="{{item.date}}"></div>
             </div>
-            <div class="lFloat ttDetail" data-numdownload="{{numOfDownloads}}">@SharedResources.Downloads</div>
-            <div class="rFloat ttDetail" data-numcommment="{{commentsCount}}">@SharedResources.Comments</div>
+            <div class="lFloat ttDetail" data-numdownload="{{item.numOfDownloads}}">@SharedResources.Downloads</div>
+            <div class="rFloat ttDetail" data-numcommment="{{item.commentsCount}}">@SharedResources.Comments</div>
         </div>
-        <div class="ttPreview">
-            {{description}}
-        </div>
+        <div class="ttPreview" bo-text="item.description"></div>
     </div>
 </script>
 
-<script type="text/html" id="boxQuizTooltipTemplate">
+<script type="text/ng-template" id="boxQuizTooltip">
     <div class="boxItemTt">
-        <div class="itemName">{{name}}</div>
+        <div class="itemName" bo-text="item.name"></div>
         <div class="arrow downArrow"></div>
         <div class="ttTop">
             <div class="moreFilesThumb"></div>
             <div class="detailsWpr">
                 <div class="lFloat ttDetail">@SharedResources.Owner</div>
-                <a href="{{ownerUrl}}" data-navigation="user" class="ttLink elps">{{ownerName}}</a>
-
+                <a bo-href="item.userUrl" class="ttLink elps" bo-text="item.owner"></a>
                 <div class="lFloat ttDetail">@SharedResources.Created:</div>
-                <div data-time="{{date}}"></div>
+                <div data-time="{{item.date}}"></div>
             </div>
-            <div class="lFloat ttDetail" data-numdownload="{{numOfViews}}">@SharedResources.Views</div>
-            <div class="rFloat ttDetail" data-numcommment="{{commentsCount}}">@SharedResources.Comments</div>
+            <div class="lFloat ttDetail" data-numdownload="{{item.numOfViews}}">@SharedResources.Views</div>
+            <div class="rFloat ttDetail" data-numcommment="{{item.commentsCount}}">@SharedResources.Comments</div>
         </div>
-        <div class="ttPreview">
-            {{description}}
-        </div>
+        <div class="ttPreview" bo-text="item.description"></div>
+
     </div>
 </script>

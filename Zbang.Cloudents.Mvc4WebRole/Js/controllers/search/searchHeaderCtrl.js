@@ -39,6 +39,15 @@
             });
         }, 150);
 
+        $scope.fullSearch = function (isValid) {
+            if (!isValid) {
+                return;
+            }
+            window.open(window.location.origin + '/search/?q=' + $scope.formData.query + '/', '_self');
+            
+        };
+
+
         $scope.resultCount = function () {
             return $scope.searchResults.boxes.length + $scope.searchResults.items.length +
                     $scope.searchResults.people.length + $scope.searchResults.otherItems.length;

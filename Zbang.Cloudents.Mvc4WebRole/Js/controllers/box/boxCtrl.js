@@ -549,18 +549,17 @@ mBox.controller('BoxCtrl',
             //#endregion            
 
             //#region settings
-            var memberPromise = Box.members({ boxUid: $scope.boxId }),
-                notificationPromise = Box.notification({ boxUid: $scope.boxId }),
-                settingsAll = $q.all([memberPromise, notificationPromise]),
-                notification;
 
+            $scope.openBoxSettings = function (tab) {
+                var memberPromise = Box.members({ boxUid: $scope.boxId }),
+                   notificationPromise = Box.notification({ boxUid: $scope.boxId }),
+                   settingsAll = $q.all([memberPromise, notificationPromise]),
+                   notification;
 
-            settingsAll.then(function (response) {
-                $scope.info.allMembers = response[0].success ? response[0].payload : [];
-                notification = response[1].success ? response[1].payload : '';
+                settingsAll.then(function (response) {
+                    $scope.info.allMembers = response[0].success ? response[0].payload : [];
+                    notification = response[1].success ? response[1].payload : '';
 
-
-                $scope.openBoxSettings = function (tab) {
                     var modalInstance = $modal.open({
                         windowClass: "boxSettings",
                         templateUrl: $scope.partials.boxSettings,
@@ -592,14 +591,15 @@ mBox.controller('BoxCtrl',
                     }, function () {
                         //dismiss
                     });
-                };
-            });
+                });
+            };
+
             //#endregion 
 
             //#region user
             $scope.followBox = function () {
-                $scope.action = {                    
-                    userFollow : true
+                $scope.action = {
+                    userFollow: true
                 }
                 var member = {
                     uid: UserDetails.getDetails().id,
@@ -633,6 +633,9 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.isUserFollowing = function () {
+                if (!$scope.info) {
+                    return false;
+                }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
             };
             //#endregion
