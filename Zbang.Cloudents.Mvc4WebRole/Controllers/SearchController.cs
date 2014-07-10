@@ -18,12 +18,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class SearchController : BaseController
     {
-        public SearchController(IZboxReadService zboxReadService, IZboxWriteService zboxWriteService, IFormsAuthenticationService formAuthService)
-            : base(zboxWriteService, zboxReadService, formAuthService)
-        {
-        }
-        //
-        // GET: /Search/
         [UserNavNWelcome]
         [HttpGet]
         public async Task<ActionResult> Index(string q)

@@ -25,8 +25,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             IZboxReadService zboxReadService,
             IFormsAuthenticationService formsAuthenticationService,
             Lazy<IIdGenerator> idGenerator)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
         {
             m_IdGenerator = idGenerator;
         }

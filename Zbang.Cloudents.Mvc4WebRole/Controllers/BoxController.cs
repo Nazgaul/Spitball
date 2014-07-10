@@ -33,12 +33,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class BoxController : BaseController
     {
         private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
-        public BoxController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
+        public BoxController(
             Lazy<IShortCodesCache> shortToLongCache)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
         {
             m_ShortCodesCache = shortToLongCache;
         }

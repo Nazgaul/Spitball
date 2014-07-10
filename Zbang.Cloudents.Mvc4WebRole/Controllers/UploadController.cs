@@ -26,14 +26,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IProfilePictureProvider m_ProfilePicture;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
 
-        public UploadController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
+        public UploadController(
             IBlobProvider blobProvider,
             Lazy<IQueueProvider> queueProvider,
             IProfilePictureProvider profilePicture)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
         {
             m_BlobProvider = blobProvider;
             m_ProfilePicture = profilePicture;

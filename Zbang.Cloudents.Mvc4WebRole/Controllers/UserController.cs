@@ -28,12 +28,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         public const int AdminReputation = 1000000;
         private readonly Lazy<IZboxCacheReadService> m_ZboxCacheService;
-        public UserController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
+        public UserController(
             Lazy<IZboxCacheReadService> zboxCacheService)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
         {
             m_ZboxCacheService = zboxCacheService;
         }

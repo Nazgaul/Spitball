@@ -41,14 +41,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public AccountController(
             Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
-            IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
             Lazy<IUserProfile> userProfile,
             Lazy<IQueueProvider> queueProvider,
             Lazy<IEncryptObject> encryptObject)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
+           
         {
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
