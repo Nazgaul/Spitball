@@ -785,7 +785,7 @@
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\Cache2.js" />
-    <Content Include="Js\controllers\box\shareCtrl.js" />
+    <Content Include="Js\controllers\general\shareCtrl.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
