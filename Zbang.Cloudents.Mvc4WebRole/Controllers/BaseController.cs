@@ -190,19 +190,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 // RemoveLanguageFromSession();
             }
         }
-
-        //private string GetQueryStringLanguage(System.Collections.Specialized.NameValueCollection nameValueCollection)
-        //{
-        //    //object queryStringLanguage;
-        //    object queryStringLanguage = nameValueCollection["language"];
-        //    //filterContext.ActionParameters.TryGetValue("language", out queryStringLanguage);
-
-        //    if (queryStringLanguage != null && Languages.CheckIfLanguageIsSupported(queryStringLanguage.ToString()))
-        //    {
-        //        return queryStringLanguage.ToString();
-        //    }
-        //    return null;
-        //}
+      
         #endregion
     }
 }

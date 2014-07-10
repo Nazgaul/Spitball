@@ -130,6 +130,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //FileUploadDetails fileReceive;
             CookieHelper cookie = new CookieHelper(HttpContext);
             var fileReceive = cookie.ReadCookie<FileUploadDetails>("upload");
+            if (fileReceive != null && fileReceive.FileSize <= fileReceive.TotalUploadBytes)
+            {
+                fileReceive = null;
+            }
             if (fileReceive == null) // new upload
             {
                 return new FileUploadDetails
@@ -138,9 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                       TotalUploadBytes = uploadedfile.ContentLength,
                                       FileSize = fileSize,
                                       FileName = fileName,
-                                      //Extension = Path.GetExtension(fileName),
                                       MimeType = uploadedfile.ContentType,
-                                      //BlockIds = new List<string>()
                                       CurrentIndex = 0
                                   };
             }
@@ -153,9 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     TotalUploadBytes = uploadedfile.ContentLength,
                     FileSize = fileSize,
                     FileName = fileName,
-                    //Extension = Path.GetExtension(fileName),
                     MimeType = uploadedfile.ContentType,
-                    //BlockIds = new List<string>()
                     CurrentIndex = 0
                 };
             }

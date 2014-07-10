@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public static readonly string[] WordExtenstions = { ".rtf", ".docx", ".doc", ".txt" };
+        public static readonly string[] WordExtenstions = { ".rtf", ".docx", ".doc", ".txt", ".odt" };
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
