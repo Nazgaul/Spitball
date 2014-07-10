@@ -24,15 +24,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class DashboardController : BaseController
     {
-        public DashboardController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService
-            )
-            : base(zboxWriteService, zboxReadService,
-                formsAuthenticationService)
-        {
-        }
-
         [UserNavNWelcome]
         [OutputCache(CacheProfile = "NoCache")]
         public async Task<ActionResult> Index()

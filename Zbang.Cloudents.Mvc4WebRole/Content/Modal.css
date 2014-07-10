@@ -28,12 +28,12 @@
   max-height: none;
   padding-bottom: 0;
 }
-.modal.boxSettings .memberItem {
-  width: 49%;
-  display: inline-block;
-}
 .modal.boxSettings .memberName {
   width: 212px;
+}
+.modal.dashMembers .memberItem {
+  width: 49%;
+  display: inline-block;
 }
 .fade {
   opacity: 0;

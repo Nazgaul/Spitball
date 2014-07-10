@@ -35,17 +35,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
         private readonly Lazy<IFacebookService> m_FacebookService;
 
-        public LibraryController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
+        public LibraryController(
             Lazy<IZboxCacheReadService> zboxCacheReadService,
             Lazy<ITableProvider> tableProvider,
             Lazy<IUserProfile> userProfile,
-            IFormsAuthenticationService formsAuthenticationService,
             Lazy<IIdGenerator> idGenerator,
             Lazy<IUniversityReadSearchProvider> universitySearch,
             Lazy<IFacebookService> facebookService)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
+           
         {
             m_TableProvider = tableProvider;
             m_UserProfile = userProfile;

@@ -607,68 +607,6 @@ input[type="radio"] {
 
 /*#endregion */
 
-/*#region AUTO COMPLETE */
-
-ul.ui-autocomplete {
-    text-align: left; /*rtl*/
-    max-height: 120px;
-    border: solid 1px #cfcece;
-    /*display: block!important;*/
-    overflow-x: hidden;
-    overflow-y: auto;
-    background: #fff;
-    box-shadow: 0 1px 2px rgba(60, 52, 57, .3);
-    position: absolute;
-
-    li {
-        height: 24px;
-        color: #43392b;
-        cursor: pointer;
-        border-bottom: 1px solid #CFCECE;
-        background: #fff;
-        .transition(background, .2s linear);
-    }
-
-        li:last-child {
-            border-bottom: none;
-        }
-
-        li:hover, .ui-state-focus {
-            .transition(background, .2s linear);
-            background: #D9D9D9;
-        }
-
-        li a {
-            overflow: hidden;
-            white-space: nowrap;
-            display: inline-block;
-            height: 24px;
-            line-height: 24px;
-            padding: 0 8px;
-            text-overflow: ellipsis;
-            width: 99%;
-        }
-}
-
-.ui-helper-hidden-accessible {
-    display: none;
-}
-/*#endregion */
-
-/*#region jquery tooltip*/
-.ui-tooltip {
-    padding: 8px;
-    position: absolute;
-    z-index: 9999;
-    max-width: 300px;
-    -webkit-box-shadow: 0 0 5px #aaa;
-    box-shadow: 0 0 5px #aaa;
-}
-
-.ui-tooltip-content {
-}
-/*#endregion*/
-
 /*#region site header classes */
 .userNav {
     font-size: 0; // remove the inline-block space from  navItems
@@ -1454,140 +1392,6 @@ ul.ui-autocomplete {
 }
 /*#endregion */
 
-/*#region general helper classes */
-.lFloat {
-    float: left; /*rtl*/
-}
-
-.rFloat {
-    float: right; /*rtl*/
-}
-
-.regFont {
-    font-weight: normal;
-}
-
-.semiLight {
-    font-weight: 200;
-}
-
-.semiFont, .boldFont {
-    font-weight: 600; /*rtl - because Hebrew doesn't support this*/
-}
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-/* When used on inline elements: need to add display:inline-block and width for it to work*/
-.elps {
-    overflow: hidden;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.editable {
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    height: 25px; // prevents linebreaks even if user pastes formatted text inside
-    border: none;
-    outline: none;
-    cursor: text !important;
-}
-
-select.inputText {
-    padding: 2px 3px 2px 2px;
-    display: inline-block;
-}
-
-.inputText {
-    background: #fff;
-    padding: 0 4px 0 8px; /*rtl*/
-    height: 28px;
-    color: #464646;
-    border: 1px solid @borderColor;
-    border-radius: 3px;
-
-    &:focus {
-        border: 1px solid @textColor;
-    }
-}
-
-.topBar {
-    position: fixed;
-    //z-index: 4;
-    z-index: 3; //changed to 3 because it was overlapping the quiz sidebar
-    height: 80px;
-    font-size: 13px;
-    color: #383838;
-    border-bottom: 1px solid @borderColor;
-    text-align: left; /*rtl*/
-    padding: 0 45px 0 19px; /*rtl*/
-    background: #fff;
-    .boxSizing;
-}
-
-.scrolling {
-    .barShadow {
-        box-shadow: 2px 3px 7px rgba(0,0,0,.15); /*rtl*/
-    }
-
-    #dash_right:before {
-        content: '';
-        display: block;
-        position: fixed;
-        top: 50px;
-        height: 10px;
-        width: 100%;
-        margin: -10px 0 0 -24px; /*rtl*/
-        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-        z-index: 1;
-    }
-}
-
-.backWpr {
-    text-align: left; /*rtl*/
-    padding-left: 40px; /*rtl*/
-    margin-top: 22px;
-    position: relative;
-    display: inline-block;
-    line-height: 16px;
-    height: 35px;
-
-    &:hover:before {
-        background-position: -204px -35px;
-    }
-
-    &:before {
-        .pseudo;
-        position: absolute;
-        left: 0; /*rtl*/
-        width: 35px;
-        height: 35px;
-        background: @common-sprite -204px 0 no-repeat;
-        overflow: hidden;
-        border-radius: 18px;
-    }
-
-    h2 {
-        font-size: 15px;
-        height: 18px;
-    }
-
-    &.noArrow {
-        padding-left: 0;
-
-        &:before {
-            display: none;
-        }
-    }
-}
 /*#region dropdown-menu  (previously: editFolderMenu) */
 .dropdown-menu {
     display: none;
@@ -1658,6 +1462,7 @@ select.inputText {
 }
 /*#endregion */
 
+/*#region dropdown */
 .dropDown {
     position: absolute;
     border: 1px solid @borderColor;
@@ -1745,6 +1550,10 @@ select.inputText {
     height: 7px;
     background: @common-sprite -98px -49px no-repeat;
 }
+
+
+/*#endregion */
+
 /*#region tooltip */
 // tooltip variables:
 @arrowLeft: 135px; //change vertical offset of arrow
@@ -1764,7 +1573,7 @@ select.inputText {
     }
 }*/
 
-.tooltip {
+.tooltip1 {
     display: none;
     z-index: 2; //under the topbar which has a z-index of 3
     position: absolute;
@@ -1968,6 +1777,164 @@ select.inputText {
 }
 /*#endregion */
 
+/*#region Bootstrap classes */
+
+.popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1010;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    text-align: left;
+    background-color: #FFF;
+    //background-clip: padding-box;
+    //border: 1px solid #CCC;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    white-space: normal;
+}
+
+
+/*#endregion */
+
+/*#region general helper classes */
+.lFloat {
+    float: left; /*rtl*/
+}
+
+.rFloat {
+    float: right; /*rtl*/
+}
+
+.regFont {
+    font-weight: normal;
+}
+
+.semiLight {
+    font-weight: 200;
+}
+
+.semiFont, .boldFont {
+    font-weight: 600; /*rtl - because Hebrew doesn't support this*/
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+/* When used on inline elements: need to add display:inline-block and width for it to work*/
+.elps {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.editable {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    height: 25px; // prevents linebreaks even if user pastes formatted text inside
+    border: none;
+    outline: none;
+    cursor: text !important;
+}
+
+select.inputText {
+    padding: 2px 3px 2px 2px;
+    display: inline-block;
+}
+
+.inputText {
+    background: #fff;
+    padding: 0 4px 0 8px; /*rtl*/
+    height: 28px;
+    color: #464646;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+
+    &:focus {
+        border: 1px solid @textColor;
+    }
+}
+
+.topBar {
+    position: fixed;
+    //z-index: 4;
+    z-index: 3; //changed to 3 because it was overlapping the quiz sidebar
+    height: 80px;
+    font-size: 13px;
+    color: #383838;
+    border-bottom: 1px solid @borderColor;
+    text-align: left; /*rtl*/
+    padding: 0 45px 0 19px; /*rtl*/
+    background: #fff;
+    .boxSizing;
+}
+
+.scrolling {
+    .barShadow {
+        box-shadow: 2px 3px 7px rgba(0,0,0,.15); /*rtl*/
+    }
+
+    #dash_right:before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 50px;
+        height: 10px;
+        width: 100%;
+        margin: -10px 0 0 -24px; /*rtl*/
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+}
+
+.backWpr {
+    text-align: left; /*rtl*/
+    padding-left: 40px; /*rtl*/
+    margin-top: 22px;
+    position: relative;
+    display: inline-block;
+    line-height: 16px;
+    height: 35px;
+
+    &:hover:before {
+        background-position: -204px -35px;
+    }
+
+    &:before {
+        .pseudo;
+        position: absolute;
+        left: 0; /*rtl*/
+        width: 35px;
+        height: 35px;
+        background: @common-sprite -204px 0 no-repeat;
+        overflow: hidden;
+        border-radius: 18px;
+    }
+
+    h2 {
+        font-size: 15px;
+        height: 18px;
+    }
+
+    &.noArrow {
+        padding-left: 0;
+
+        &:before {
+            display: none;
+        }
+    }
+}
 .sectionHeader {
     height: 34px;
     line-height: 34px;
@@ -2219,6 +2186,180 @@ select.inputText {
 
 /*#endregion */ 
 
+/*#region User tooltip */
+.userTooltip {
+    width: 379px;
+    height: 101px;
+    .boxSizing;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 10px 10px 6px 110px; /*rtl*/
+    position: fixed;
+    z-index: 13;
+    background: #fff;
+    .transition(opacity .5s);
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0 0 3px rgba(0,0,0,.4);
+
+    &.showTooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .btn3 {
+        color: @attentionBlue;
+        background: #fff;
+        border: 1px solid @attentionBlue;
+        padding: 3px 8px;
+        margin-top: 7px;
+
+        &:hover {
+            background: @attentionBlueHover;
+            color: #fff;
+        }
+    }
+}
+
+.ttImg {
+    position: absolute;
+    top: 0;
+    left: 0; /*rtl*/
+    border-right: 1px solid @borderColor;
+}
+
+.ttUsername {
+    color: @color;
+    font-size: 16px;
+    max-width: 257px;
+    display: block;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.ttSchool {
+    color: #39434a;
+    width: 257px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid @borderColor;
+}
+
+.ttPoints {
+    margin-top: 10px;
+    text-transform: lowercase;
+
+    &:before {
+        content: attr(data-tt-points);
+        display: inline-block;
+    }
+
+    .userTooltip.hidePoints & {
+        display: none;
+    }
+}
+
+.tooltip{
+
+    position: absolute;
+    //z-index: 1030;
+    display: block;
+    visibility: visible;
+    //font-size: 12px;
+    //line-height: 1.4;
+    opacity: 0;
+
+    //display: inline-block;
+    background: @txtColor;
+    color: #fff;
+    border-radius: 3px;
+    //height: 22px;
+    max-height: 200px;
+    line-height: 22px;
+    min-width: 10px;
+    max-width: 200px;
+    z-index: 12;
+    
+    //margin-top: -3px;
+    //padding: 5px 0;
+    padding: 2px 0;
+
+    &.bottom {
+
+    }
+    &.in {
+        opacity: .9;
+        &.fade {
+            opacity: 1;
+        }
+    }
+}
+
+.tooltip-inner {
+    //max-width: 200px;
+    padding: 0 12px;
+    //color: #FFF;
+    text-align: center;
+    text-decoration: none;
+    background: @txtColor;
+    border-radius: 3px;
+}
+.tooltip.top .tooltip-arrow {
+
+}
+.tooltip-arrow {
+    /*position: absolute;
+    width: 0;
+    height: 0;
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    .tooltip & {
+        bottom: 0;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px 5px 0;
+        border-top-color: @txtColor;
+    }*/
+    position: absolute;
+    top: -4px;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background :#39434a;
+    width:9px;
+    height:9px;
+    left:0;right:0;
+    margin: auto;
+    .topBar & {
+
+    }
+}
+
+.toolTipContent {
+    position: relative;
+    padding: 0 12px;
+    .ttArrow{
+        position: absolute;
+        top: -4px;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background :#39434a;
+        width:9px;
+        height:9px;
+        left:0;right:0;
+        margin: auto;
+    }
+}
+
+/*#endregion */
+
 /*#region media queries */
 ////Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
 
@@ -2376,8 +2517,7 @@ select.inputText {
         display: inline-block; 
     }
 }
-
-// IPAD - SPECIFIC CODE
+/*#region IPAD - SPECIFIC CODE */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     /*#region home page */
     .headingTexts.headingTexts {
@@ -2439,121 +2579,15 @@ select.inputText {
         position: absolute;
     }
 }
+
+
 /*#endregion */
+
+/*#endregion */
+
 /*#region cssCheck*/
 #cssCheck {
     position: absolute;
     left: -2000px;
 }
 /*#endregion*/
-
-
-/*#region User tooltip */
-.userTooltip {
-    width: 379px;
-    height: 101px;
-    .boxSizing;
-    border: 1px solid @borderColor;
-    border-radius: 3px;
-    overflow: hidden;
-    padding: 10px 10px 6px 110px; /*rtl*/
-    /*position: fixed;*/
-    /*z-index: 13;*/
-    background: #fff;
-    /*.transition(opacity .5s);
-    opacity: 0;
-    visibility: hidden;*/
-    box-shadow: 0 0 3px rgba(0,0,0,.4);
-
-    &.showTooltip {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .btn3 {
-        color: @attentionBlue;
-        background: #fff;
-        border: 1px solid @attentionBlue;
-        padding: 3px 8px;
-        margin-top: 7px;
-
-        &:hover {
-            background: @attentionBlueHover;
-            color: #fff;
-        }
-    }
-}
-
-.ttImg {
-    position: absolute;
-    top: 0;
-    left: 0; /*rtl*/
-    border-right: 1px solid @borderColor;
-}
-
-.ttUsername {
-    color: @color;
-    font-size: 16px;
-    max-width: 257px;
-    display: block;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
-.ttSchool {
-    color: #39434a;
-    width: 257px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid @borderColor;
-}
-
-.ttPoints {
-    margin-top: 10px;
-    text-transform: lowercase;
-
-    &:before {
-        content: attr(data-tt-points);
-        display: inline-block;
-    }
-
-    .userTooltip.hidePoints & {
-        display: none;
-    }
-}
-.titleTooltip{
-
-    display: inline-block;
-    position: absolute;
-    background: #39434A;
-    color: #FFF;
-    border-radius: 2px;
-    //height: 22px;
-    max-height: 200px;
-    line-height: 22px;
-    min-width: 10px;
-    max-width: 200px;
-    z-index: 12;
-}
-
-.toolTipContent {
-    position: relative;
-    padding: 0 12px;
-    .ttArrow{
-        position: absolute;
-        top: -4px;
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -o-transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
-        background :#39434a;
-        width:9px;
-        height:9px;
-        left:0;right:0;
-        margin: auto;
-    }
-}
-
-/*#endregion */

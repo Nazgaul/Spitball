@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -20,24 +21,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         protected const string SessionUserUploadProfilePicturesKey = "UserUploadProfilePictures";
 
-        protected readonly IZboxWriteService ZboxWriteService;
-        protected readonly IZboxReadService ZboxReadService;
-        protected readonly IFormsAuthenticationService FormsAuthenticationService;
-
-        public BaseController()
-        {
-            //error controller only
-            FormsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
-        }
-
-        public BaseController(IZboxWriteService zboxWriteService, IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService)
-        {
-            ZboxWriteService = zboxWriteService;
-            ZboxReadService = zboxReadService;
-            FormsAuthenticationService = formsAuthenticationService;
-
-        }
+        [Dependency]
+        protected IZboxWriteService ZboxWriteService {get;set;}
+        [Dependency]
+        protected IZboxReadService ZboxReadService { get; set; }
+        [Dependency]
+        protected IFormsAuthenticationService FormsAuthenticationService { get; set; }
 
         protected string RenderRazorViewToString(string viewName, object model)
         {

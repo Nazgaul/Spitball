@@ -35,14 +35,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly Lazy<ICache> m_CahceProvider;
 
-        public HomeController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
+        public HomeController(
             Lazy<IQueueProvider> queueProvider,
             Lazy<IBlobProvider> blobProvider,
-            Lazy<ICache> cacheProvider,
-            IFormsAuthenticationService formsAuthenticationService)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
+            Lazy<ICache> cacheProvider
+            )
+            
         {
             m_QueueProvider = queueProvider;
             m_BlobProvider = blobProvider;

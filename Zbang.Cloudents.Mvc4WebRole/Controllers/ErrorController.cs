@@ -8,16 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ErrorController : BaseController
     {
-        public ErrorController()
-        {
-
-        }
-        public ErrorController(IZboxWriteService zboxWriteService, IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService)
-            : base(zboxWriteService, zboxReadService, 
-            formsAuthenticationService)
-        {
-        }
 
         public ActionResult Index()
         {

@@ -37,16 +37,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IIdGenerator> m_IdGenerator;
 
 
-        public ItemController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
+        public ItemController(
             IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
             IQueueProvider queueProvider,
             Lazy<IIdGenerator> idGenerator
             )
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
+           
         {
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;

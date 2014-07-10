@@ -26,12 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IIdGenerator> m_IdGenerator;
 
-        public QuizController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
-            Lazy<IIdGenerator> idGenerator)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
+        public QuizController(Lazy<IIdGenerator> idGenerator)
         {
             m_IdGenerator = idGenerator;
         }

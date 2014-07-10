@@ -19,12 +19,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class CommentController : BaseController
     {
-        public CommentController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService)
-            : base(zboxWriteService, zboxReadService,
-            formsAuthenticationService)
-        { }
 
         /// <summary>
         /// Ajax for Comment list.

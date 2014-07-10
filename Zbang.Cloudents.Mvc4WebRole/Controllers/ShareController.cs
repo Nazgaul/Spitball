@@ -22,16 +22,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IInviteLinkDecrypt> m_InviteLinkDecrypt;
         private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
 
-        public ShareController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
+        public ShareController(
             Lazy<IShortCodesCache> shortToLongCache,
-            IFormsAuthenticationService formsAuthenticationService,
             Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
-            : base(zboxWriteService, zboxReadService,
-
-            formsAuthenticationService)
         {
-            m_InviteLinkDecrypt = inviteLinkDecrypt;
+           m_InviteLinkDecrypt = inviteLinkDecrypt;
            m_ShortCodesCache = shortToLongCache;
         }
 

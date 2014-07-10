@@ -1407,7 +1407,7 @@
  
 .boxItemList {
   display: block;
-  margin: 0 auto;
+  margin: 2px auto 0;
   min-width: 316px;
 }
  
@@ -1934,6 +1934,13 @@
     padding: 2px 5px;
     font-size: 13px;
   }
+  .manageTxt {
+    display: block;
+  }
+  .boxManage.boxManage .btn1,
+  .boxManage.boxManage .btn2 {
+    margin-top: 10px;
+  }
 }
 .boxManage {
   padding: 2px 0 20px;
@@ -1943,8 +1950,12 @@
   margin: 0 5px 0 10px;
   /*rtl*/
 }
+.boxManage ~ .quizBtn {
+  display: none;
+}
 .boxManage + div + .boxItemList {
   /*override .boxItemList > li:first-child*/
+  margin: 2px auto 0;
 }
 .boxManage + div + .boxItemList > li {
   outline: 1px solid #ebebeb;
