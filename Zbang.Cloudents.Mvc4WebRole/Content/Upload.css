@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -425,7 +425,7 @@ button.fileError {
 }
 .singleEmailUserWpr {
   position: relative;
-  display: none;
+  /*display:none;*/
   margin-top: -8px;
   margin-bottom: 12px;
 }
@@ -598,3 +598,4 @@ button.fileError {
   width: 100%;
 }
 /*#endregion */
+/*# sourceMappingURL=Upload.css.map */

@@ -26,7 +26,7 @@
             <label ng-show="submitted && !formData.emailList.length">No email selected</label> @*//translate*@
         </div>
         <div ng-if="options.singleMessage" class="singleEmailUserWpr">
-            <img class="eSingleImg" ng-src="{{singleUser.userImage}}" alt="{{singleUser.name}}" />
+            <img class="eSingleImg" ng-src="{{singleUser.image}}" alt="{{singleUser.name}}" />
             <div class="eSingleName">{{singleUser.name}}</div>
         </div>
         <textarea name="message" class="inputText inviteMsg" ng-model="formData.message" required ng-placeholder="@SharedResources.WriteMessage"></textarea>

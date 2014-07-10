@@ -787,6 +787,7 @@
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\controllers\box\shareCtrl.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
+    <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
@@ -807,6 +808,7 @@
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
+    <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\focusOn.js" />
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\directives\mLoader.js" />
@@ -843,6 +845,7 @@
     <Content Include="Js\services\share.js" />
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
+    <Content Include="Js\services\userDetails.js" />
     <Content Include="Js\Share.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache.js" />

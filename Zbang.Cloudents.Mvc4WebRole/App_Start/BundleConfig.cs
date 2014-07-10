@@ -141,6 +141,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/elastic.js"),
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
                 new JsFileWithCdn("~/js/app.js"),
+                new JsFileWithCdn("/js/controllers/general/mainCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchHeaderCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/shareCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/boxCtrl.js"),
@@ -171,9 +172,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/dashboard.js"),
                 new JsFileWithCdn("/js/services/user.js"),
                 new JsFileWithCdn("/js/services/facebook.js"),
+                new JsFileWithCdn("/js/services/userDetails.js"),
 
                 new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
                 new JsFileWithCdn("/js/directives/mLoader.js"),
+                new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
                 

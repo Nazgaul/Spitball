@@ -937,7 +937,7 @@ angular.module('ui.bootstrap.position', [])
                       return hostElPos.top + hostElPos.height / 2 - targetElHeight / 2;
                   },
                   top: function () {
-                      return hostElPos.top;
+                      return hostElPos.top - targetElHeight;
                   },
                   bottom: function () {
                       return hostElPos.top + hostElPos.height;
@@ -2477,6 +2477,8 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                         var tooltip;
                         var transitionTimeout;
                         var popupTimeout;
+                        var mouseLeaveTimeout;
+                        var popoverTargetLeave = angular.isDefined(attrs.popoverTargetLeave);
                         var appendToBody = angular.isDefined(options.appendToBody) ? options.appendToBody : false;
                         var triggers = getTriggers(undefined);
                         var hasEnableExp = angular.isDefined(attrs[prefix + 'Enable']);
@@ -2544,7 +2546,6 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                             }
 
                             createTooltip();
-
                             // Set the initial positioning.
                             tooltip.css({ top: 0, left: 0, display: 'block' });
 
@@ -2554,6 +2555,23 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                                 $document.find('body').append(tooltip);
                             } else {
                                 element.after(tooltip);
+                            }
+                            scope.$emit('tooltipLoaded',scope.$parent.member.uid);
+
+                            if (popoverTargetLeave) {
+                                tooltip.off('mouseenter').on('mouseenter', function () {
+                                    if (mouseLeaveTimeout) {
+                                        $timeout.cancel(mouseLeaveTimeout);
+                                    }
+
+                                    tooltip.one('mouseleave', function () {
+                                        mouseLeaveTimeout = $timeout(function () {
+                                            hide();
+                                        }, 250);
+                                    });
+                                }).one('click', function () {
+                                    hide();
+                                });
                             }
 
                             positionTooltip();
@@ -2570,17 +2588,17 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                         // Hide the tooltip popup element.
                         function hide() {
                             // First things first: we don't show it anymore.
+
                             scope.tt_isOpen = false;
 
                             //if tooltip is going to be shown after delay, we must cancel this
                             $timeout.cancel(popupTimeout);
-                            popupTimeout = null;
-
+                            popupTimeout = null;                          
                             // And now we remove it from the DOM. However, if we have animation, we 
                             // need to wait for it to expire beforehand.
                             // FIXME: this is a placeholder for a port of the transitions library.
                             if (scope.tt_animation) {
-                                if (!transitionTimeout) {
+                                if (!transitionTimeout) {                                    
                                     transitionTimeout = $timeout(removeTooltip, 500);
                                 }
                             } else {
@@ -2604,6 +2622,7 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                             if (tooltip) {
                                 if (destroy) {
                                     tooltip.remove();
+                                    scope.$emit('tooltipUnloaded');
                                     tooltip = null;
                                 } else {
                                     // equals to "tooltip.detach();"
@@ -2662,7 +2681,14 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                                 element.bind(triggers.show, toggleTooltipBind);
                             } else {
                                 element.bind(triggers.show, showTooltipBind);
-                                element.bind(triggers.hide, hideTooltipBind);
+                                if (!popoverTargetLeave) {
+                                    element.bind(triggers.hide, hideTooltipBind);
+                                } else {
+                                    element.bind(triggers.hide, function () {
+                                        mouseLeaveTimeout = $timeout(hide, 100);
+                                    });
+                                }
+                                
                             }
                         });
 
@@ -2702,7 +2728,7 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
     return {
         restrict: 'EA',
         replace: true,
-        scope: { content: '@', placement: '@', animation: '&', isOpen: '&' },
+        scope: { content: '@', placement: '@', animation: '&', isOpen: '&', targetLeave: '=' },
         templateUrl: 'template/tooltip/tooltip-popup.html'
     };
 })
@@ -2715,7 +2741,7 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
     return {
         restrict: 'EA',
         replace: true,
-        scope: { content: '@', placement: '@', animation: '&', isOpen: '&' },
+        scope: { content: '@', placement: '@', animation: '&', isOpen: '&', targetLeave: '=' },
         templateUrl: 'template/tooltip/tooltip-html-unsafe-popup.html'
     };
 })
@@ -2735,7 +2761,7 @@ angular.module('ui.bootstrap.popover', ['ui.bootstrap.tooltip'])
     return {
         restrict: 'EA',
         replace: true,
-        scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&' },
+        scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&', targetLeave: '=' },
         templateUrl: 'template/popover/popover.html'
     };
 })
@@ -2748,7 +2774,7 @@ angular.module('ui.bootstrap.popover', ['ui.bootstrap.tooltip'])
     return {
         restrict: 'EA',
         replace: true,
-        scope: { title: '@', template: '=', placement: '@', animation: '&', isOpen: '&' },
+        scope: { title: '@', template: '=', placement: '@', animation: '&', isOpen: '&', targetLeave: '='},
         templateUrl: 'template/popover/popover-template.html',
         link: function (scope, iElement) {
             var contentEl = angular.element(iElement[0].querySelector('.popover-content'));

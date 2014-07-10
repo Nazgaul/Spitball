@@ -1,5 +1,4 @@
-﻿//define('app', ['routes', 'dependencyResolverFor'], function (config, dependencyResolverFor) {
-var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar','monospaced.elastic',
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar','monospaced.elastic',
     'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser','debounce']);
 
 app.config([
@@ -92,29 +91,6 @@ app.config([
     }
 ]);
 
-//app.factory('UserDetails',
-//  [
-
-//  function () {
-//      var userData;
-
-//      return {
-//          setDetails: function (id, name, image, score, url) {
-//              userData = {
-//                  id: id,
-//                  name: name,
-//                  image: image,
-//                  score: score,
-//                  url: url
-//              };
-//          },
-//          getDetails: function () {
-//              return userData;
-//          }
-//      };
-//  }
-//  ]);
-
 app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window, UserDetails) {
 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
@@ -171,64 +147,6 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
     };
 }]);
 
-app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location',
-    function ($scope, $rootScope, $location) {
-        $rootScope.back = {};
-
-        $rootScope.$back = function (url) {
-            if (url && url.length) {
-                $location.path(url);
-            }
-        };
-    }
-    ]);
-
-
-app.directive('backButton',
-   ['$rootScope',
-
-   function ($rootScope) {
-       return {
-           restrict: "A",
-           link: function (scope, elem, attrs) {
-               $location.path($rootScope.previousUrl);
-           }
-       };
-   }
-   ]);
-
-app.factory('sUserDetails',
- [
-
- function () {
-     var userData,
-         isAuthenticated = false;
-
-     return {
-         setDetails: function (id, name, image, score, url) {
-             if (id) {
-                 isAuthenticated = true;
-             }
-             userData = {
-                 id: parseInt(id, 10),
-                 name: name,
-                 image: image,
-                 score: parseInt(score, 10),
-                 url: url
-             };
-
-         },
-         getDetails: function () {
-             return userData;
-         },
-         isAuthenticated: function () {
-             return isAuthenticated;
-         }
-     };
- }
- ]);
-
 app.directive('postRepeatDirective',
     ['$timeout',
     function ($timeout) {
@@ -244,6 +162,3 @@ app.directive('postRepeatDirective',
         };
     }
     ]);
-
-//return app;
-//});

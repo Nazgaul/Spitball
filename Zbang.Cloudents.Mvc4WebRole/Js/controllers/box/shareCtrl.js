@@ -36,6 +36,7 @@
 
         if (data.singleMessage) {
             $scope.singleUser = data.user;
+            $scope.options.singleMessage = true;
             return;
         }
 

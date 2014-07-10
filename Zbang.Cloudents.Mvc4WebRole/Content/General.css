@@ -2261,15 +2261,12 @@ select.inputText {
   overflow: hidden;
   padding: 10px 10px 6px 110px;
   /*rtl*/
-  position: fixed;
-  z-index: 13;
+  /*position: fixed;*/
+  /*z-index: 13;*/
   background: #fff;
-  -webkit-transition: opacity 0.5s;
-  -moz-transition: opacity 0.5s;
-  -o-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-  opacity: 0;
-  visibility: hidden;
+  /*.transition(opacity .5s);
+    opacity: 0;
+    visibility: hidden;*/
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 .userTooltip.showTooltip {
