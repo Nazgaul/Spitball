@@ -445,6 +445,10 @@
                         loaded = true;
                     }
                     previewWrapper.insertAdjacentHTML('beforeend', retVal.preview);
+                    //navigation in full screen
+                    if ($body.hasClass(consts.fullscreen)) {
+                        $itemFulscrn.prepend($previewWrapper);
+                    }
                     //bug 349 scroll issue in iframe in ipad
                     if (/iPhone|iPod|iPad/.test(navigator.userAgent))
                         $('iframe.iframeContent').wrap(function () {
