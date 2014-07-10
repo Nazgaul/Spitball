@@ -79,7 +79,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.openShowFriends = function () {
         sUser.friends().then(function (data) {
             var modalInstance = $modal.open({
-                windowClass: "boxSettings",
+                windowClass: "boxSettings dashMembers",
                 templateUrl: $scope.partials.friends,
                 controller: 'ShowFriendsCtrl',
                 backdrop: 'static',
