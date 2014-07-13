@@ -753,6 +753,10 @@
   /*rtl*/
   left: auto;
 }
+.listItem .itemContent {
+  max-height: 51px;
+  /* diff rtl*/
+}
 .listItem .views {
   margin: 0 20px 0 0;
 }

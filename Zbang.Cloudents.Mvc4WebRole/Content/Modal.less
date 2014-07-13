@@ -41,6 +41,20 @@
 	{
 		//width: 600px;
 	}
+    &.quitQuiz {
+        width: 560px;
+        .btn1 {
+            margin-top: 20px;
+            padding: 4px 15px;
+            + .btn1 {
+                margin: 15px 15px 5px 15px;
+            }
+        }
+        .quitQuizTxt {
+            font-size: 15px;
+            margin: 15px 0;
+        }
+    }
 }
 .fade {
     opacity: 0;
@@ -185,20 +199,7 @@
             .boxSizing;
         }
     }
-    &.quitQuiz {
-        width: 560px;
-        .btn1 {
-            margin-top: 20px;
-            padding: 4px 15px;
-            + .btn1 {
-                margin: 15px 15px 5px 15px;
-            }
-        }
-        .quitQuizTxt {
-            font-size: 15px;
-            margin: 15px 0;
-        }
-    }
+    
 }
 .quitQuizDialog {
     display: none;
@@ -607,7 +608,8 @@
 .membersList{
     max-height: 450px;
     //min-height: 265px;
-    overflow: hidden;
+    //overflow: hidden;
+    overflow: auto;
     margin: 0 -13px 0 -5px; /*rtl*/ // right margin: for the scrollbars and left margin: for item hover
     padding: 0 13px 0 5px; /*rtl*/ // right margin: for the scrollbars and left margin: for item hover
 }

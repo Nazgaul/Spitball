@@ -284,7 +284,7 @@
                             <div class="inviteStatus" data-bind="text: $root.inviteStatus(status)"></div>
                             <div class="invitedToWpr">
                                 <img class="upImg" alt="" width="28" height="36" data-bind="attr : { 'data-src' : inviteImage }" />
-                                <div class="invitedTo clamp2" data-bind="text : name"></div>
+                                <div class="invitedTo" data-bind="text : name"></div>
                             </div>
                             <button type="button" class="btn1" data-bind="visible : inviteType === 'invite'" data-click="reInvite" data-inv-sent="@SharedResources.Sent">@SharedResources.Reinvite</button>
                         </li>

@@ -34,10 +34,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     filterContext.RequestContext.HttpContext.Request
                     );
             }
-            //filterContext.HttpContext.Response.Filter = new ETagFilter(
-            //    response,
-            //    filterContext.RequestContext.HttpContext.Request
-            //    );
+            //ie issue
+            //if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
+            //{
+            //    response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //    response.Cache.SetNoStore();
+            //    response.Cache.AppendCacheExtension("must-revalidate, proxy-revalidate");
+            //}
         }
 
 
@@ -103,8 +106,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             if (token != clientToken)
             {
                 m_Response.Headers["ETag"] = token;
-                //_response.AddHeader("ETag", token);
-                //_filter.Write(data, 0, count);
             }
             else
             {
@@ -112,6 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 m_Response.StatusCode = 304;
                 m_Response.StatusDescription = "Not Modified";
                 m_Response.Headers["Content-Length"] = "0";
+               
             }
             base.Flush();
         }
