@@ -130,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/angular-debounce.js"),                
                 new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/scripts/Modernizr.js"),
-                new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
+                
 
                 new JsFileWithCdn("~/scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/scripts/plupload/plupload.html4.js"),
@@ -190,6 +190,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
                 new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
                  new JsFileWithCdn("/js/Utils.js"),
+                 new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
                  new JsFileWithCdn("/js/pubsub.js"),
 
                  new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
