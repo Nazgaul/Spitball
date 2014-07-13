@@ -16,7 +16,7 @@
 
     window.onload = function () {
         cssFailCallback();
-       // javascriptFailCallback();
+        javascriptFailCallback();
     };
 
     function cssFailCallback() {
@@ -33,7 +33,7 @@
     }
 
     function javascriptFailCallback() {
-        if (window.cd && window.jQuery) {
+        if (window.cd && window.jQuery && window.angular) {
             return;
         }
 
