@@ -753,13 +753,15 @@
 
 
                 $itemFS.click(function () {
-                    cd.shareFb(self.copyLink(), //url
-                      self.itemName() + '.' + self.extension(), //title
-                      self.uniName() ? self.boxName() + ' - ' + self.uniName() : self.boxName(), //caption
-                      JsResources.IShared + ' {0}.{1} '.format(self.itemName(), self.extension()) + JsResources.OnCloudents +
-                      '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
-                      null //picture
-                      );
+                    var obj = {
+                        url: self.copyLink(),
+                        title: self.itemName() + '.' + self.extension(),
+                        caption: self.uniName() ? self.boxName() + ' - ' + self.uniName() : self.boxName(),
+                        description: JsResources.IShared + ' {0}.{1} '.format(self.itemName(), self.extension()) + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
+                        picture: null
+                    };
+
+                    angular.element(document).scope().$broadcast('messageFB',obj);
                 });
 
                 $itemCL.click(function (e) {
@@ -768,7 +770,7 @@
                 });
 
                 $itemMsg.click(function () {
-                    cd.pubsub.publish('message');
+                    angular.element(document).scope().$broadcast('message');
                 });
             }
             function settingsEvents() {

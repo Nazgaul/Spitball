@@ -98,7 +98,7 @@ mBox.controller('BoxCtrl',
 
             //#region quiz
             $scope.addQuiz = function () {
-                $timeout(function () { $rootScope.options.quizOpen = true });
+                $rootScope.options.quizOpen = true;
                 
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
             };
