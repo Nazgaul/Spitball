@@ -533,7 +533,7 @@
 }
 .membersList {
   max-height: 450px;
-  overflow: hidden;
+  overflow: auto;
   margin: 0 -13px 0 -5px;
   /*rtl*/
   padding: 0 13px 0 5px;
