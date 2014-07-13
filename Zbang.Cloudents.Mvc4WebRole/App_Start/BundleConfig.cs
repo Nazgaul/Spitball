@@ -326,10 +326,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"), // the script is too small
                 new JsFileWithCdn("~/Scripts/Modernizr.js"),
 
-                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
                 //new JsFileWithCdn("~/Scripts/MutationObserver.js"),
 
                 new JsFileWithCdn("~/Js/Utils2.js"),
+                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
+
                 new JsFileWithCdn("~/Js/pubsub2.js"),
 
                 new JsFileWithCdn("~/Js/GmfcnHandler.js")
@@ -443,7 +444,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #region mobile
             RegisterJsRegular("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
-                                    new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
                                     new JsFileWithCdn("~/Js/Utils2.js"),
                                     new JsFileWithCdn("~/Js/pubsub2.js"),
                                     new JsFileWithCdn("~/Js/Cache2.js"),

@@ -104,7 +104,7 @@
         modalInstance.result.then(function (response) {
             switch (response) {
                 case 'publish':
-                    $scope.publish();
+                    publish();
                     break;
                 case 'delete':
                     deleteQuiz();
@@ -134,6 +134,7 @@
 
     function publish() {
         $scope.params.focus = false;
+
         $scope.submit(this.quizForm.$valid);
 
     }
