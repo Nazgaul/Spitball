@@ -38,7 +38,7 @@ mBox.controller('BoxCtrl',
                 uploader: '/Box/UploadPartial/',
                 uploadAddLink: '/Box/UploadLinkPartial/',
                 shareEmail: '/Share/MessagePartial/',
-                boxSettings: '/Box/SettingsPartial'
+                boxSettings: '/Box/SettingsPartial/'
             };
 
             $scope.popup = {

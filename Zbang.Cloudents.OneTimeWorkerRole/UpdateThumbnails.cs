@@ -46,7 +46,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
                 //var blobs = new List<string>
                 //{
-                //     "ee7fe53c-9e75-4a65-8a2e-1f59130a0be7.mp4",
+                //     "68e07153-29f3-46e4-af0d-a6ac667eb139.jpg",
                 //};
                 var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
                 foreach (var blobname in blobs)
