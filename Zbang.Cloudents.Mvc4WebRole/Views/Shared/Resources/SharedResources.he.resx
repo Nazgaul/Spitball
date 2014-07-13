@@ -580,4 +580,7 @@
   <data name="Created" xml:space="preserve">
     <value>נוצר</value>
   </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>הכנס כתובת דוא"ל</value>
+  </data>
 </root>
