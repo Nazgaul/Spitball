@@ -900,7 +900,8 @@
   display: none;
 }
 .boxItemList.sponsored .listItem:first-child .itemContent {
-  max-height: 74px;
+  max-height: 58px;
+  /*rtl*/
   margin: 0 15px 5px 0;
   /*rtl*/
   line-height: 18px;
@@ -1066,7 +1067,6 @@
   margin: 48px auto 0;
 }
 .listItem.quizItem .itemContent {
-  max-height: 64px;
   margin: 5px 0;
 }
 .listItem.quizItem .quizOwner {
@@ -1116,7 +1116,8 @@
   max-width: calc(100vw - 880px);
 }
 .listItem .itemContent {
-  max-height: 71px;
+  max-height: 58px;
+  /*diff rtl*/
   margin: 14px 0 17px;
   overflow: hidden;
   max-width: 720px;

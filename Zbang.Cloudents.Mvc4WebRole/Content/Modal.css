@@ -35,6 +35,20 @@
   width: 49%;
   display: inline-block;
 }
+.modal.quitQuiz {
+  width: 560px;
+}
+.modal.quitQuiz .btn1 {
+  margin-top: 20px;
+  padding: 4px 15px;
+}
+.modal.quitQuiz .btn1 + .btn1 {
+  margin: 15px 15px 5px 15px;
+}
+.modal.quitQuiz .quitQuizTxt {
+  font-size: 15px;
+  margin: 15px 0;
+}
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
@@ -182,20 +196,6 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-.popupWrppr.quitQuiz {
-  width: 560px;
-}
-.popupWrppr.quitQuiz .btn1 {
-  margin-top: 20px;
-  padding: 4px 15px;
-}
-.popupWrppr.quitQuiz .btn1 + .btn1 {
-  margin: 15px 15px 5px 15px;
-}
-.popupWrppr.quitQuiz .quitQuizTxt {
-  font-size: 15px;
-  margin: 15px 0;
 }
 .quitQuizDialog {
   display: none;
@@ -533,7 +533,7 @@
 }
 .membersList {
   max-height: 450px;
-  overflow: hidden;
+  overflow: auto;
   margin: 0 -13px 0 -5px;
   /*rtl*/
   padding: 0 13px 0 5px;
