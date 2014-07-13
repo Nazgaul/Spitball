@@ -6,7 +6,7 @@
         }
 
 
-
+        $rootScope.options = {};
         $rootScope.back = {};
 
 

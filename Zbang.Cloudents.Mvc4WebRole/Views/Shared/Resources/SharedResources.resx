@@ -582,4 +582,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="Created" xml:space="preserve">
     <value>Created</value>
   </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Enter email address</value>
+  </data>
 </root>

@@ -98,9 +98,70 @@ mBox.controller('BoxCtrl',
 
             //#region quiz
             $scope.addQuiz = function () {
-                $scope.options.quizOpen = true;
+                $timeout(function () { $rootScope.options.quizOpen = true });
+                
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
             };
+
+            $scope.$on('QuizAdded', function (e, quizItem) {
+                if (quizItem.boxId !== $scope.boxId) {
+                    return;
+                }
+
+                var quiz, index, filteredIndex;
+                for (var i = 0, l = $scope.items.length; i < l && !quiz; i++) {
+                    if ($scope.items[i].id === quizItem.id) {
+                        quiz = $scope.items[i];
+                        index = i;
+                    }
+                }
+
+                if (quiz) {
+                    if (!quizItem.publish) {
+                        quiz.name = quizItem.name;
+                        quiz.publish = quizItem.publish;
+                        return;
+                    }
+
+                    filteredIndex = $scope.filteredItems.indexOf(quiz);
+
+                    $scope.items.splice(index, 1);
+                    $scope.filteredItems.splice(filteredIndex, 1);
+                }
+
+                $scope.items.unshift(quizItem);
+
+                if (!$scope.currentTab) {
+                    $scope.filteredItems.unshift(quizItem);
+                }
+
+            });
+
+            $scope.$on('QuizDeleted', function (e, data) {
+                if (data.boxId !== $scope.boxId) {
+                    return;
+                }
+
+                var quiz, index, filteredIndex;
+                for (var i = 0, l = $scope.items.length; i < l && !quiz; i++) {
+                    if ($scope.items[i].id === data.quizId) {
+                        quiz = $scope.items[i];
+                        index = i;
+                    }
+                }
+
+                if (!quiz) {
+                    return;
+                }
+
+                filteredIndex = $scope.filteredItems.indexOf(quiz);
+
+                $scope.items.splice(index, 1);
+                $scope.filteredItems.splice(filteredIndex, 1);
+
+            });
+
+
             //#endregion
 
             //#region upload
@@ -477,6 +538,11 @@ mBox.controller('BoxCtrl',
                     item.isCheck = !item.isCheck;
                     return;
                 }
+
+                if (item.type === 'Quiz' && !item.publish) {
+                    $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
+                    return;
+                }
             };
 
             $scope.deleteItem = function (item) {
@@ -495,8 +561,7 @@ mBox.controller('BoxCtrl',
                             var data = {
                                 id: item.id,
                             }
-                            Quiz.delete(data).then(removeItem);
-
+                            Quiz.delete(data).then(removeItem);                            
                             break;
 
 
@@ -514,6 +579,11 @@ mBox.controller('BoxCtrl',
                     if (index > -1) {
                         index = $scope.filteredItems.splice(index, 1);
                     }
+
+                    if (item.type === 'Quiz' && !item.publish) {
+                        $rootScope.$broadcast('closeQuizCreate',item.id);
+                    }
+                        
 
                 }
             };
@@ -647,7 +717,7 @@ mBox.controller('BoxCtrl',
             };
 
 
-          
+
             //#endregion
 
         }

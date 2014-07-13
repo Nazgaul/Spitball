@@ -277,4 +277,7 @@
   <data name="UploadingFiles" xml:space="preserve">
     <value>מעלה קבצים</value>
   </data>
+  <data name="MessageRequired" xml:space="preserve">
+    <value>חובה לצרף הודעה</value>
+  </data>
 </root>
