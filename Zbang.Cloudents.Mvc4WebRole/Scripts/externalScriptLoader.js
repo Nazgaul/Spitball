@@ -35,6 +35,7 @@
             window.ga('send', 'pageview', targetUrl);
         },
         setLibrary: function (universityName) {
+            ga('set', 'dimension1', universityName);
             //_gaq.push(['_setCustomVar',
             //             1,                   // This custom var is set to slot #1.  Required parameter.
             //             'Univeristy',     // The name acts as a kind of category for the user activity.  Required parameter.

@@ -959,6 +959,8 @@
   max-width: 800px;
   display: inline-block;
   margin: 10px 0;
+  background: #fff;
+  color: #fff;
 }
 .copyRightWarning {
   background: #fff;
