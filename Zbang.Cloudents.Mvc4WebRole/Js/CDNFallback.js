@@ -10,7 +10,7 @@
 };
 
 (function () {
-    var cdnPath = '/cdn/', scriptsPath = '/Scripts/',
+    var cdnPath = '/cdn/gzip/', scriptsPath = '/Scripts/',
     cdnCdPath = 'vo.msecnd.net/';
     cdnGooglePath = 'ajax.googleapis.com';
 
