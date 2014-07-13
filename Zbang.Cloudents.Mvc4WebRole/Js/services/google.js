@@ -153,7 +153,7 @@
                            defer.resolve([]);
                            return;
                        }
-                       var feed = JSON.parse(data).feed;
+                       var feed = JSON.parse(data.payload).feed;
                        for (var i = 0 ; i < feed.entry.length; i++) {
                            var contact = {}, entry = feed.entry[i];
                            if (entry.gd$email) {

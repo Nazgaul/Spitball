@@ -7,7 +7,7 @@
 </div>
 
 <div class="modal-body">
-    <form ng-class="{submitted : submitted }" name="sendMessageForm" novalidate autocomplete="off" ng-submit="submit()">
+    <form ng-class="{submitted : submitted }" name="sendMessageForm" novalidate autocomplete="off" ng-submit="submit(sendMessageForm.$valid)">
         <div ng-if="!options.singleMessage" class="emailUserWpr">
             <div class="inputText emailUser">
                 <label class="inputLabel">To:</label> @*//translate*@
@@ -26,13 +26,13 @@
             <label ng-show="submitted && !formData.emailList.length">No email selected</label> @*//translate*@
         </div>
         <div ng-if="options.singleMessage" class="singleEmailUserWpr">
-            <img class="eSingleImg" ng-src="{{singleUser.userImage}}" alt="{{singleUser.name}}" />
+            <img class="eSingleImg" ng-src="{{singleUser.image}}" alt="{{singleUser.name}}" />
             <div class="eSingleName">{{singleUser.name}}</div>
         </div>
-        <textarea name="message" class="inputText inviteMsg" ng-model="formData.message" required ng-placeholder="@SharedResources.WriteMessage"></textarea>
+        <textarea name="message" class="inputText inviteMsg" ng-model="formData.note" required ng-placeholder="@SharedResources.WriteMessage"></textarea>
         <label ng-show="submitted && sendMessageForm.message.$error.required">Message Empty</label> @*//translate*@
         <input type="submit" class="btn1 next" value="@DialogResources.Send" ng-click="submitted=true" />
-        <input type="button" class="btn2 cancel" value="@DialogResources.Cancel" ng-click="cancel()"/>
+        <input type="button" class="btn2 cancel" value="@DialogResources.Cancel" ng-click="cancel()" />
     </form>
     <button class="closeDialog" ng-click="cancel()"></button>
 </div>

@@ -638,6 +638,9 @@ mBox.controller('BoxCtrl',
                 }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
             };
+
+
+          
             //#endregion
 
         }

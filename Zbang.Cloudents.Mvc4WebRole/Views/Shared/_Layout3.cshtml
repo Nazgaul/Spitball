@@ -36,6 +36,13 @@
     @Html.CssRtl("newrtl3")
     @Html.CssCulture("lang")
 
+    <style>
+        .popover {
+            position:absolute;
+            z-index:29342904;
+        }
+    </style>
+
 </head>
 <body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")">
     <!--[if IE]>
@@ -154,15 +161,19 @@
     }
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
 
-    <script type="text/html" id="userToolTipTempalte">
-        <a data-navigation="User" href="{{url}}" target="_self">
-            <img class="ttImg" src="{{image}}" width="99" height="99" />
-        </a>
-        <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
-        <div class="ttSchool elps">{{university}}</div>
-        <span class="ttPoints lFloat" data-tt-points="{{score}}">&nbsp;@SharedResources.Points</span>
-        <button type="button" class="btn3 rFloat">@SharedResources.Message</button>
+    <script type="text/ng-template" id="userToolTipPopover">
+        <div class="userTooltip" ng-class="{hidePoints : userTooltip.score <= 0}">
+            <a ng-href="{{userTooltip.url}}">
+                <img class="ttImg" ng-src="{{userTooltip.image}}" width="99" height="99" />
+            </a>
+            <a class="ttUsername elps" ng-href="userTooltip.url">{{userTooltip.name}}</a>
+            <div class="ttSchool elps">{{userTooltip.university}}</div>
+            <span class="ttPoints lFloat" data-tt-points="{{userTooltip.score}}">&nbsp;@SharedResources.Points</span>
+            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(userTooltip)">@SharedResources.Message</button>            
+        </div>
     </script>
+
+
     <script type="text/html" id="templateUpload">
         <li class="uploadItem" id="{{id}}">
             <span class="fileName elps">{{name}}</span>

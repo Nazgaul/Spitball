@@ -30,17 +30,38 @@
             $modalInstance.dismiss();
         };
 
-        $scope.submit = function () {
+        $scope.submit = function (isValid) {
+            if (!isValid) {
+                return;
+            }
+
+            $modalInstance.close();
+
+            if ($scope.singleUser) {
+                $scope.formData.recepients = [$scope.singleUser.id];                
+                return;
+            }
+
+            var ids = $scope.formData.emailList.map(function (item) {
+                return item.id;                
+            });
+
+            $scope.formData.recepients = ids;
+
+            Share.message($scope.formData).then(function () {
+            });
+
+
 
         }
 
         if (data.singleMessage) {
             $scope.singleUser = data.user;
+            $scope.options.singleMessage = true;
             return;
         }
-
         if (data.groupMessage) {
-            var item = data.users
+            var item = data.users;//TO BE CHECKED
             $scope.emailList.push(item);
         }
 
