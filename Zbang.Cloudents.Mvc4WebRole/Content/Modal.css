@@ -699,3 +699,9 @@
   background-position: -164px -1px;
 }
 /*#endregion */
+/*#region Share by email AKA message */
+.validateMsg {
+  color: #d1294d;
+  display: block;
+}
+/*#endregion */

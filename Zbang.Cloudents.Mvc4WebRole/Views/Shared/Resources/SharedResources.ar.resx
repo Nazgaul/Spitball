@@ -593,4 +593,7 @@
   <data name="Created" xml:space="preserve">
     <value>خلق</value>
   </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>ادخل بريدك الالكتروني</value>
+  </data>
 </root>
