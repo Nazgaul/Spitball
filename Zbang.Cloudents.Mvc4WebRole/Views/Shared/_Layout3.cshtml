@@ -75,7 +75,7 @@
             @RenderSection("search")
         </div>
     </header>
-    <div class="bodyContent noQuiz" id="main" ng-controller="MainCtrl">
+    <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
         @RenderBody()
 
         <div id="fb-root"></div>
