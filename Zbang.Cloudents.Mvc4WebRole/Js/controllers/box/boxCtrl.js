@@ -292,6 +292,11 @@ mBox.controller('BoxCtrl',
 
                 var index = $scope.info.tabs.indexOf(tab);
                 $scope.info.tabs.splice(index, 1);
+                $scope.info.currentTab = null;
+                $scope.options.manageTab = false;
+                $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+
+
             };
 
             $scope.renameTab = function (tab) {
@@ -347,6 +352,8 @@ mBox.controller('BoxCtrl',
                 }
                 $scope.filteredItems = filteredItems;
                 $scope.changeView(consts.view.thumb);
+                $scope.options.itemsLimit = consts.itemsLimit;
+
 
                 for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
                     $scope.filteredItems[i].isCheck = ($scope.info.currentTab.id === $scope.filteredItems[i].tabId);

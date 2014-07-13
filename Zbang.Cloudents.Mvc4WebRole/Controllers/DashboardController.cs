@@ -48,7 +48,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [HttpGet]
-        //[AjaxCache(TimeConsts.Day)]
         public async Task<ActionResult> BoxList()
         {
             var userid = GetUserId();
