@@ -221,7 +221,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[AjaxCache(TimeConsts.Minute * 10)]
         public JsonNetResult Items(long id, int pageNumber, Guid? tab)
         {
             var userId = GetUserId(false); // not really needs it

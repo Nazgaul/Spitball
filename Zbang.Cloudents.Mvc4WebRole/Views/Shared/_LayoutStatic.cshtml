@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>Cloudents</title>
+    <title>@ViewBag.title</title>
     <link rel="SHORTCUT ICON" href="@Url.Content("~/favicon.ico")" />
 
 
@@ -18,7 +18,7 @@
     <meta charset="utf-8">
     @*<meta name="viewport" content="width=device-width, maximum-scale=1.0" />*@
 
-    <meta name="title" content="Cloudents" />
+    <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="Join the social studying revolution at Cloudents" />
     @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
     {
