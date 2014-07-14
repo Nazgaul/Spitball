@@ -461,6 +461,9 @@ mBox.controller('BoxCtrl',
             }
 
             function filterManageItems(item) {
+                if (item.sponsored) {
+                    $scope.options.sponsored = true;
+                }
                 if (item.type === 'Quiz') {
                     return false;
                 }
@@ -615,6 +618,9 @@ mBox.controller('BoxCtrl',
             };
 
             function filterItems(item) {
+                if (item.sponsored) {
+                    $scope.options.sponsored = true;
+                }
                 if (!$scope.info.currentTab) {
                     return true;
                 }
