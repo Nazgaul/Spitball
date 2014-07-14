@@ -37,17 +37,17 @@ mBox.controller('QnACtrl',
         function File(data) {
             var that = this;
             data = data || {};
-            that.id = data.uid; //uid
+            that.id = data.uid || data.id; //uid
             that.name = data.name;
             that.thumbnail = data.thumbnail;
             that.download = "/d/" + $scope.boxId + "/" + that.id;
 
             var userId = UserDetails.getDetails().id;
             that.isOwner = data.ownerId === userId;
-            that.isVisible = userId || $scope.info.ownerId === userId;
+            that.isVisible = that.isOwner;
             //anserId ???
 
-            that.itemUrl = data.url;
+            that.itemUrl = data.url || data.itemUrl;
         }
 
         var states = {
@@ -130,13 +130,7 @@ mBox.controller('QnACtrl',
             $scope.info.state = states.empty;            
         };
 
-        $scope.postQuestion = function () {
-            if (!UserDetails.isAuthenticated()) {
-                //register popup
-                cd.pubsub.publish('register', { action: true });
-                return;
-            }
-
+        $scope.postQuestion = function () {            
             if (self.userType === 'none' || self.userType === 'owner') {
                 alert(JsResources.NeedToFollowBox);
                 return;
@@ -186,13 +180,7 @@ mBox.controller('QnACtrl',
 
         };
 
-        $scope.postAnswer = function (question) {
-            if (!UserDetails.isAuthenticated()) {
-                //register popup
-                cd.pubsub.publish('register', { action: true });
-                return;
-            }
-
+        $scope.postAnswer = function (question) {            
             if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'owner') { //parent is box controller
                 alert(JsResources.NeedToFollowBox);
                 return;
@@ -211,12 +199,17 @@ mBox.controller('QnACtrl',
             }
             
 
-            QnA.post.answer(question.aFormData).then(function (answerId) {
+            QnA.post.answer(question.aFormData).then(function (response) {
+                var answerId;
+                if (response.Success) {
+                    answerId = response.Payload;
+                }
+
                 var obj = {
                     id: answerId,
                     userName: UserDetails.getDetails().name,
                     userImage: UserDetails.getDetails().image,
-                    userUid: UserDetails.getDetails().id, //uid
+                    userId: UserDetails.getDetails().id, //uid
                     userUrl: UserDetails.getDetails().url,
                     content: extractUrls(question.aFormData.content),
                     rating: 0,
@@ -263,15 +256,16 @@ mBox.controller('QnACtrl',
             });
         };
 
-        $scope.addFiles = function (question, answer) {
+        $scope.removeAttachment = function (obj,item) {
+            QnA.delete.attachment({ itemId: item.id }).then(function (response) {
+                if (!response.Success) {
+                    alert(response.Payload);
+                    return;
+                }
 
-        };
-
-        $scope.viewItem = function (link) {
-
-        };
-
-        $scope.deleteItem = function (item) {
+                var index = obj.files.indexOf(item);
+                obj.files.splice(index, 1);
+            });
         };
 
         $scope.downloadItem = function (event, item) {
@@ -284,7 +278,7 @@ mBox.controller('QnACtrl',
 
         var qAttach, aAttach, questionAttach;
         $scope.$on('FileAdded', function (event, data) {
-            file = new File(data.item);
+            file = data.item;
             $scope.$apply(function () {
                 if (data.boxId !== $scope.boxId) {
                     return;
@@ -303,7 +297,7 @@ mBox.controller('QnACtrl',
 
                 if (aAttach) {
                     if (!(questionAttach.aFormData.files && questionAttach.aFormData.files.length)) {
-                        $scope.qFormData.files = [];
+                        questionAttach.aFormData.files = [];
                     }
                     questionAttach.aFormData.files.push(file);
                     aAttach = true;
@@ -321,7 +315,7 @@ mBox.controller('QnACtrl',
 
                 var mapped = files.map(function (file) {
                     file.uid = file.id;
-                    return new File(file)
+                    return file;
                 });
 
                 if (!$scope.qFormData.files) {
@@ -348,7 +342,7 @@ mBox.controller('QnACtrl',
 
                 var mapped = files.map(function (file) {
                     file.uid = file.id;
-                    return new File(file)
+                    return file;
                 });
 
                 if (!question.aFormData.files) {

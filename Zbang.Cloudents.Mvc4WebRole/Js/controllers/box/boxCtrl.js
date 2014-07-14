@@ -741,7 +741,7 @@ mBox.controller('BoxCtrl',
                     cd.pubsub.publish('register', { action: true });
                     return false;
                 }
-
+           
                 return true;
             };
 
