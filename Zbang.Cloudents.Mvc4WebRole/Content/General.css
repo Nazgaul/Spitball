@@ -2119,6 +2119,37 @@ select.inputText {
   z-index: 12;
   padding: 2px 0;
 }
+.tooltip.right {
+  margin-left: 3px;
+  padding: 0 5px;
+}
+.tooltip.left {
+  margin-left: -3px;
+  padding: 0 5px;
+}
+.tooltip.top {
+  margin-top: -3px;
+  padding: 5px 0;
+}
+.tooltip.bottom {
+  margin-top: 3px;
+}
+.tooltip.left-bottom {
+  left: 0!important;
+  right: auto!important;
+}
+.tooltip.left-bottom .tooltip-arrow {
+  left: 12px;
+  right: auto;
+}
+.tooltip.right-bottom {
+  right: 0!important;
+  left: auto!important;
+}
+.tooltip.right-bottom .tooltip-arrow {
+  right: 12px;
+  left: auto;
+}
 .tooltip.in {
   opacity: .9;
 }

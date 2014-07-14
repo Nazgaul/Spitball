@@ -2285,9 +2285,37 @@ select.inputText {
     //margin-top: -3px;
     //padding: 5px 0;
     padding: 2px 0;
-
+    &.right {
+        margin-left: 3px;
+        padding: 0 5px;
+    }
+    &.left {
+        margin-left: -3px;
+        padding: 0 5px;
+    }
+    &.top {
+        margin-top: -3px;
+        padding: 5px 0;
+    }
     &.bottom {
-
+        margin-top: 3px;
+        //padding: 5px 0;
+    }
+    &.left-bottom {
+        left: 0!important;
+        right: auto!important;
+        .tooltip-arrow {
+            left: 12px;
+            right: auto;
+        }
+    }
+    &.right-bottom {
+        right: 0!important;
+        left: auto!important;
+        .tooltip-arrow {
+            right: 12px;
+            left: auto;
+        }
     }
     &.in {
         opacity: .9;
