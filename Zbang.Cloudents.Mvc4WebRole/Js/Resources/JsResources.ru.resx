@@ -626,4 +626,28 @@
   <data name="ShareCourse" xml:space="preserve">
     <value>Поделиться этим курсом </value>
   </data>
+  <data name="DeleteError" xml:space="preserve">
+    <value>Ошибка при удалении папки</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Все изменения будут отменены. Вы уверены, что хотите их отменить?</value>
+  </data>
+  <data name="FolderCreate" xml:space="preserve">
+    <value>Создать папку </value>
+  </data>
+  <data name="FolderItemError" xml:space="preserve">
+    <value>Ошибка при сохранении файлов в папке</value>
+  </data>
+  <data name="FolderRename" xml:space="preserve">
+    <value>Переименовать папку</value>
+  </data>
+  <data name="LinkError" xml:space="preserve">
+    <value>Ошибка при сохранении ссылки</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Владелец</value>
+  </data>
+  <data name="RenameError" xml:space="preserve">
+    <value>Ошибка при переименовании папки</value>
+  </data>
 </root>

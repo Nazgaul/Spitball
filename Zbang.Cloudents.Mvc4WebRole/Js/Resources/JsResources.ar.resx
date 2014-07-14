@@ -616,4 +616,28 @@
   <data name="ShareCourse" xml:space="preserve">
     <value>مشاركة هذه الدورة</value>
   </data>
+  <data name="DeleteError" xml:space="preserve">
+    <value>خطأ في حذف المجلد</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>سيتم تجاهل التغييرات، هل أنت متأكد من أنك تريد الإلغاء؟</value>
+  </data>
+  <data name="FolderCreate" xml:space="preserve">
+    <value>إنشاء مجلد</value>
+  </data>
+  <data name="FolderItemError" xml:space="preserve">
+    <value>خطأ في حفظ العناصر إلى مجلد</value>
+  </data>
+  <data name="FolderRename" xml:space="preserve">
+    <value>إعادة تسمية المجلد</value>
+  </data>
+  <data name="LinkError" xml:space="preserve">
+    <value>خطأ في حفظ الرابط</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>بقيمة</value>
+  </data>
+  <data name="RenameError" xml:space="preserve">
+    <value>خطأ في إعادة تسمية المجلد</value>
+  </data>
 </root>

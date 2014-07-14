@@ -1099,6 +1099,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        public static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select files to upload.
         /// </summary>
         public static string PleaseSelectFiles {
