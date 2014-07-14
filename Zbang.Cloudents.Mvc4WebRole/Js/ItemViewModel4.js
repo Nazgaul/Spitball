@@ -238,7 +238,12 @@
         //#endregion
 
         //#region Get item data
+        var oneTime = true;
         cd.pubsub.subscribe(consts.item, function (data) {
+            if (!oneTime) {
+                oneTime = false;
+                return;
+            }
             self.itemid(parseInt(cd.getParameterFromUrl(4), 10));
 
             if (cd.register()) {
@@ -641,6 +646,7 @@
                 $(e).removeClass('rated').text(e.id.slice(-1));
             });
 
+            oneTime = true;
         });
         //#endregion
 

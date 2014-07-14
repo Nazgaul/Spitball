@@ -127,7 +127,7 @@ mBox.factory('sBox',
             },
             removeUser: function (data) {
                 var dfd = $q.defer();
-                $http.post(Box + 'InviteBox/', data).success(function (response) {
+                $http.post(Box + 'RemoveUser/', data).success(function (response) {
                     dfd.resolve(response);
                 }).error(function (response) {
                     dfd.reject(response);

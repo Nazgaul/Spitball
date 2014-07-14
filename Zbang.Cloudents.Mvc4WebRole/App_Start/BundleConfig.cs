@@ -186,13 +186,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/filters/actionText.js"),
                 new JsFileWithCdn("/js/filters/orderBy.js"),
 
+                new JsFileWithCdn("/js/pubsub.js"),
                 new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
                 new JsFileWithCdn("~/js/Bindings.js"),
                 new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
                  new JsFileWithCdn("/js/Utils.js"),
                  new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
-                 new JsFileWithCdn("/js/pubsub.js"),
 
                  new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small

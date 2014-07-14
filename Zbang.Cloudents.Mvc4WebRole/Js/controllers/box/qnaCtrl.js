@@ -29,7 +29,7 @@ mBox.controller('QnACtrl',
             that.rating = data.rating;
             that.iRate = data.iRate;
             that.isAnswer = data.answer;
-            that.createtime = data.creationtime;
+            that.createTime = data.creationTime;
             that.files = data.files.map(function (file) { return new File(file) });
             that.isNew = NewUpdates.isNew($scope.boxId, 'answers', that.id);
         }

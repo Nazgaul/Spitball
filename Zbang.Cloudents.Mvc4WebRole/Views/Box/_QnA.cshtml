@@ -63,7 +63,7 @@
 
                         <span ng-if="question.bestAnswer">
                             <img class="QAImg lFloat calloutTrgr" ng-src="{{question.bestAnswer.userImage}}" alt="" width="32" height="32" />
-                            <div class="AUsername semiFont elps">{{question.bestAnswer.userName}}</div><span class="createTime" data-time="question.bestAnswer.createTime"></span>
+                            <div class="AUsername semiFont elps">{{question.bestAnswer.userName}}</div><span class="createTime" data-time="{{question.bestAnswer.createTime}}"></span>
                             <div class="AContent" ng-bind-html="question.bestAnswer.content"></div>
                             <ul class="qaAttach">
                                 <li class="qaAttachItem" ng-repeat="file in question.bestAnswer.files">

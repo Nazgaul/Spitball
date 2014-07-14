@@ -80,7 +80,7 @@
     <div class="membersContent">
         <div class="membersTop">
             <div class="searchWpr lFloat">
-                <span class="membersCount lFloat" bo-text="info.members.length + ' @SharedResources.Members'"></span>
+                <span class="membersCount lFloat">{{info.members.length + ' @SharedResources.Members'}}</span>
                 <div class="inputWpr">
                     <input class="membersSearch" ng-model="params.search" type="search" placeholder="@IndexResources.SearchMember" />
                 </div>
@@ -104,7 +104,7 @@
 
     <span class="rFloat memberActions">
         <button bo-if="member.uid !== info.user.id" type="button" tooltip="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
-        <button bo-if="info.ownerId === info.user.id" type="button" tooltip="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)"></button>
+        <button bo-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" tooltip="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)"></button>
         <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)">@IndexResources.Reinvite</button>
     </span>
 </script>
