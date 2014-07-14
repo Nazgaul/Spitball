@@ -14,7 +14,7 @@
         <a href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
         <div class="arrow tabArrow"></div>
     </div>
-    <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="submit(boxSettingsForm.$valid)">
+    <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="save(boxSettingsForm.$valid)">
         <div class="boxSettingsContent" bo-class="info.boxType === 'box' ? 'private' : 'academic'">
             <div class="boxSetting">
                 <label>@SharedResources.Thumbnail:</label>
@@ -40,16 +40,14 @@
                 <label>@SharedResources.Owner:</label>
                 <span class="ownerName">{{info.ownerName}}</span>
             </div>
-            <div id="privacySettings" class="boxSetting private">
+            <div id="privacySettings" class="boxSetting private" ng-if="info.userType === 'owner'">
                 <label>@MainViewResources.Privacy:</label>
                 <div>
                     <input type="radio"
                            id="privacy_membersOnly"
                            name="BoxPrivacy"
                            ng-model="formData.boxPrivacy"
-                           value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()"
-
-                            />
+                           value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()" />
                     <label class="privacyLabel" for="privacy_membersOnly">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
                     <div class="labelExplain">@SharedResources.OnlyPeople</div>
 
@@ -69,13 +67,13 @@
                 <div class="radioBtns">
                     <input id="noti_OnEveryChange" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnEveryChange" /><label for="noti_OnEveryChange">@NotificationSettings.OnEveryChange.GetEnumDescription()</label>
                     <input id="noti_OnceADay" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnceADay" /><label for="noti_OnceADay">@NotificationSettings.OnceADay.GetEnumDescription()</label>
-                    <input id="noti_OnceAWeek" type="radio" name="Notification" ng-model="formData.notification"  value="@NotificationSettings.OnceAWeek" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
-                    <input id="noti_Off" type="radio" name="Notification" ng-model="formData.notification"  value="@NotificationSettings.Off" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
+                    <input id="noti_OnceAWeek" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnceAWeek" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
+                    <input id="noti_Off" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.Off" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
                 </div>
             </div>
         </div>
 
-        <input type="submit" class="btn1 next" value="@SharedResources.Save" ng-click="save()" />
+        <input type="submit" class="btn1 next" value="@SharedResources.Save" />
         <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
         <button type="button" class="btn2 rFloat" ng-click="delete()">@SharedResources.Delete</button>
     </form>
