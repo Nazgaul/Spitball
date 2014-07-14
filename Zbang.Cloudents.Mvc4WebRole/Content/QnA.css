@@ -64,6 +64,7 @@
   position: relative;
   top: 5px;
   left: 7px;
+  /*rtl*/
 }
 .QA .back .QForm {
   margin-top: 40px;

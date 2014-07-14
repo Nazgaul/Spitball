@@ -1293,18 +1293,33 @@
   /*rtl*/
   left: auto;
 }
+.QA .back {
+  right: 7px;
+  /*rtl*/
+  left: auto;
+}
 .QForm .QAImg {
   margin: 3px 8px 0 0;
   /*rtl*/
 }
-.QWpr {
+.QWpr.ng-leave,
+.QWpr.ng-enter.ng-enter-active {
   right: 0;
-  /*rtl*/
   left: auto;
 }
-.AWpr {
+.QWpr.ng-enter,
+.QWpr.ng-leave.ng-leave-active {
+  right: -344px;
+  left: auto;
+}
+.AWpr.ng-leave,
+.AWpr.ng-enter.ng-enter-active {
+  right: 0;
+  left: auto;
+}
+.AWpr.ng-enter,
+.AWpr.ng-leave.ng-leave-active {
   right: 376px;
-  /*rtl*/
   left: auto;
 }
 .QTextarea {

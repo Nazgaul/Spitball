@@ -972,6 +972,10 @@
             left: auto;
         }
     }
+    .back {
+        right: 7px; /*rtl*/
+        left: auto;
+    }
 }
 
 .QForm {
@@ -981,13 +985,30 @@
 }
 
 .QWpr {
-    right: 0; /*rtl*/
-    left: auto;
+    &.ng-leave,
+    &.ng-enter.ng-enter-active    {     
+        right: 0; //rtl
+        left: auto;
+    }
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        right: -344px; //rtl
+        left: auto;
+    }
 }
 
 .AWpr {
-    right: 376px; /*rtl*/
-    left: auto;
+    &.ng-leave, 
+    &.ng-enter.ng-enter-active  {
+        right: 0; //rtl
+        left: auto;
+    }
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        right: 376px; //rtl
+        left: auto;
+    }
 }
 
 .QTextarea {
