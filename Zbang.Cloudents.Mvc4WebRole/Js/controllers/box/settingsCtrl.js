@@ -13,6 +13,10 @@ mBox.controller('SettingsCtrl',
          $scope.info.boxId = data.boxId;
          $scope.info.user = UserDetails.getDetails();
 
+         $scope.partials = {
+             shareEmail: '/Share/MessagePartial/',
+         };
+
          $scope.params = {
              state: data.tab === 'settings' ? states.settings : states.members,
              search: ''
@@ -63,7 +67,10 @@ mBox.controller('SettingsCtrl',
                  backdrop: 'static',
                  resolve: {
                      data: function () {
-                         return member;
+                         return {
+                             singleMessage: true,
+                             user: member
+                         };
                      }
                  }
              });
@@ -77,13 +84,13 @@ mBox.controller('SettingsCtrl',
          $scope.removeUser = function (member) {
              var index = $scope.info.members.indexOf(member);
              $scope.info.members.splice(index, 1);
-             Box.removeUser({ boxUid: $scope.info.boxId, userId: member.id }).then(function () { //uid
+             Box.removeUser({ boxUid: $scope.info.boxId, userId: member.uid }).then(function () { //uid
 
              });
          };
 
          $scope.reinviteUser = function (member) {
-             Box.invite({ Recepients: [member.id], boxUid: $scope.info.boxId }).then(function () { //uid
+             Box.invite({ Recepients: [member.uid], boxUid: $scope.info.boxId }).then(function () { //uid
 
              });
          };
