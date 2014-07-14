@@ -1389,6 +1389,7 @@
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Box\_QnA2.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
+    <Content Include="Views\Shopping\CheckOut.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

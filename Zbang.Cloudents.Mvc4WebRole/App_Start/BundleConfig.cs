@@ -127,10 +127,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/angular-animate.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
                 new JsFileWithCdn("~/scripts/angular-draganddrop.js"),
-                new JsFileWithCdn("~/scripts/angular-debounce.js"),                
+                new JsFileWithCdn("~/scripts/angular-debounce.js"),
                 new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.concat.min.js"),
                 new JsFileWithCdn("~/scripts/Modernizr.js"),
-                
+
 
                 new JsFileWithCdn("~/scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/scripts/plupload/plupload.html4.js"),
@@ -148,7 +148,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/box/tabCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/qnaCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/uploadCtrl.js"),
-                new JsFileWithCdn("/Js/controllers/box/settingsCtrl.js"),                
+                new JsFileWithCdn("/Js/controllers/box/settingsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/dashboardCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/createBoxCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
@@ -156,8 +156,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
                 new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
-                new JsFileWithCdn("/Js/controllers/quiz/quizCreateCtrl.js"),                
-                new JsFileWithCdn("/Js/controllers/quiz/quizCloseCtrl.js"),                
+                new JsFileWithCdn("/Js/controllers/quiz/quizCreateCtrl.js"),
+                new JsFileWithCdn("/Js/controllers/quiz/quizCloseCtrl.js"),
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
                 new JsFileWithCdn("/js/services/qna.js"),
@@ -179,15 +179,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
-                
-                
-                new JsFileWithCdn("/js/filters/highlight.js"),                                                
+
+
+                new JsFileWithCdn("/js/filters/highlight.js"),
                 new JsFileWithCdn("/js/filters/trustedHtml.js"),
                 new JsFileWithCdn("/js/filters/actionText.js"),
-                new JsFileWithCdn("/js/filters/orderBy.js"),                                              
+                new JsFileWithCdn("/js/filters/orderBy.js"),
 
                 new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
+                new JsFileWithCdn("~/js/Bindings.js"),
                 new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
                  new JsFileWithCdn("/js/Utils.js"),
                  new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
@@ -511,6 +512,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             CopyFilesToCdn("/Content", "*.jpg");
             CopyFilesToCdn("/Content", "*.gif");
             CopyFilesToCdn("/Images", "*.*");
+            CopyFilesToCdn("/gzip/", "*.*", SearchOption.TopDirectoryOnly);
             //CopyFilesToCdn("/Content/Fonts", "*.eot");
             //CopyFilesToCdn("/Content/Fonts", "*.svg");
             //CopyFilesToCdn("/Content/Fonts", "*.ttf");
@@ -579,8 +581,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
-
                 jsBundle.WithOutputBaseHref(cdnUrl);
+                CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
                 return jsBundle.Render("~/gzip/j#.js");
             }
             return jsBundle.Render("~/cdn/gzip/j#.js");
@@ -616,7 +618,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var appRoot = server.MapPath("~/");
             var cdnRoot = server.MapPath("~/cdn");
 
-            var filesPath = Directory.GetFiles(server.MapPath(directoryRelativePath), fileSearchOption, options);
+            var directoryPath = server.MapPath(directoryRelativePath);
+            if (!Directory.Exists(directoryPath))
+            {
+                return;
+            }
+
+            var filesPath = Directory.GetFiles(directoryPath, fileSearchOption, options);
 
             foreach (var filePath in filesPath)
             {

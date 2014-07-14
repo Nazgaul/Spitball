@@ -250,41 +250,41 @@ body {
         }
     }
 }*/
-.tooltip li {
+.tooltip1 li {
   margin: 0 15px 0 0;
   /*rtl*/
 }
-.tooltip.icon .stepTip {
+.tooltip1.icon .stepTip {
   padding: 0 90px 0 0;
   /*rtl*/
 }
-.tooltip.icon .stepTip:before {
+.tooltip1.icon .stepTip:before {
   right: 15px;
   /*rtl*/
   left: auto;
 }
-.tooltip.left:before {
+.tooltip1.left:before {
   right: -10px;
   /*rtl*/
   left: auto;
   border-width: 8px 0 8px 10px;
   /*rtl*/
 }
-.tooltip.left:after {
+.tooltip1.left:after {
   right: -8px;
   /*rtl*/
   left: auto;
   border-width: 6px 0 6px 8px;
   /*rtl*/
 }
-.tooltip.right:before {
+.tooltip1.right:before {
   left: -10px;
   /*rtl*/
   right: auto;
   border-width: 8px 10px 8px 0;
   /*rtl*/
 }
-.tooltip.right:after {
+.tooltip1.right:after {
   left: -8px;
   /*rtl*/
   right: auto;
@@ -413,5 +413,35 @@ ul.ui-autocomplete {
   right: 0;
   /*rtl*/
   left: auto;
+}
+.tooltip.right {
+  margin: 0 3px 0 0;
+  /*rtl*/
+}
+.tooltip.left {
+  margin: 0 -3px 0 0;
+  /*rtl*/
+}
+.tooltip.left-bottom {
+  right: 0!important;
+  /*rtl*/
+  left: auto!important;
+  /*rtl*/
+}
+.tooltip.left-bottom .tooltip-arrow {
+  right: 12px;
+  /*rtl*/
+  left: auto;
+}
+.tooltip.right-bottom {
+  left: 0!important;
+  /*rtl*/
+  right: auto!important;
+  /*rtl*/
+}
+.tooltip.right-bottom .tooltip-arrow {
+  left: 12px;
+  /*rtl*/
+  right: auto;
 }
 /*#endregion */
