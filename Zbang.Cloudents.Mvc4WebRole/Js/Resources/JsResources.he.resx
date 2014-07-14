@@ -623,4 +623,7 @@
   <data name="ShareCourse" xml:space="preserve">
     <value>שתף את קורס</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>בעלות</value>
+  </data>
 </root>

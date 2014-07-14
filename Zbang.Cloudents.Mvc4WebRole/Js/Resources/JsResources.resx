@@ -631,4 +631,7 @@ Sign up for FREE</value>
   <data name="DiscardChanges" xml:space="preserve">
     <value>Changes will be discarded, are you sure you want to cancel?</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
 </root>
