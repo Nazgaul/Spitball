@@ -387,6 +387,10 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.createTab = function () {
+                if (!UserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                }
+
                 var modalInstance = $modal.open({
                     windowClass: "createTab",
                     templateUrl: $scope.partials.createTab,
@@ -547,7 +551,7 @@ mBox.controller('BoxCtrl',
                         $rootScope.options.quizOpen = true;
                     });
                     return;
-                }
+                }                
             };
 
             $scope.deleteItem = function (item) {
@@ -633,6 +637,11 @@ mBox.controller('BoxCtrl',
             //#region settings
 
             $scope.openBoxSettings = function (tab) {
+
+                if (!UserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                }
+
                 var memberPromise = Box.members({ boxUid: $scope.boxId }),
                    notificationPromise = Box.notification({ boxUid: $scope.boxId }),
                    settingsAll = $q.all([memberPromise, notificationPromise]),
@@ -720,8 +729,15 @@ mBox.controller('BoxCtrl',
                 }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
             };
+                
+            $scope.checkAuth = function () {
+                if (!UserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                    return false;
+                }
 
-
+                return true;
+            };
 
             //#endregion
 
