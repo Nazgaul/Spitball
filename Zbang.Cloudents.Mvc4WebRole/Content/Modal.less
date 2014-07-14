@@ -552,7 +552,7 @@
         display: inline-block;
         //width: 276px;
         width: 271px;
-        padding-left: 4px; /*rtl*/
+        padding: 11px 0 0 4px; /*rtl*/
         vertical-align: top; // to keep the mac happy
     }
 }
@@ -620,7 +620,7 @@
 .memberItem {
     width: 100%;
     height: 36px;
-    line-height: 36px;
+    //line-height: 36px;
     clear: both;
     padding: 5px 0 5px 5px; /*rtl*/
     margin: 0 0 3px -5px; /*rtl*/
@@ -729,6 +729,8 @@
     .transition(color .5s);
     opacity:1; //for uninvited transition
     visibility: visible; //for uninvited transition
+    .boxSizing;
+    padding-top: 11px;
 }
 
 
@@ -737,6 +739,7 @@
 }
 .memberActions{
     clear: both;
+    padding-top: 3px;
 }
 .messageBtn
 {
