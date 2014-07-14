@@ -1160,6 +1160,9 @@
         if (param.charAt(0) === '/') {
             return param.substr(1);
         }
+        if (param.indexOf('#!/') === 0) {
+            return param.substr(3);
+        }
         return param;
     }
 
