@@ -127,7 +127,7 @@
 
 .membersContent {
     .memberName {
-        padding: 0 4px 0 0; /*rtl*/
+        padding: 11px 4px 0 0; /*rtl*/
     }
 }
 
@@ -142,10 +142,6 @@
 }
 
 .memberItem {
-    width: 100%;
-    height: 36px;
-    line-height: 36px;
-    clear: both;
     padding: 5px 5px 5px 0; /*rtl*/
     margin: 0 -5px 3px 0; /*rtl*/
     .btn1 {
@@ -976,6 +972,10 @@
             left: auto;
         }
     }
+    .back {
+        right: 7px; /*rtl*/
+        left: auto;
+    }
 }
 
 .QForm {
@@ -985,13 +985,30 @@
 }
 
 .QWpr {
-    right: 0; /*rtl*/
-    left: auto;
+    &.ng-leave,
+    &.ng-enter.ng-enter-active    {     
+        right: 0; //rtl
+        left: auto;
+    }
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        right: -344px; //rtl
+        left: auto;
+    }
 }
 
 .AWpr {
-    right: 376px; /*rtl*/
-    left: auto;
+    &.ng-leave, 
+    &.ng-enter.ng-enter-active  {
+        right: 0; //rtl
+        left: auto;
+    }
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        right: 376px; //rtl
+        left: auto;
+    }
 }
 
 .QTextarea {

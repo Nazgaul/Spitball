@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -110,7 +110,7 @@
   /*rtl*/
 }
 .membersContent .memberName {
-  padding: 0 4px 0 0;
+  padding: 11px 4px 0 0;
   /*rtl*/
 }
 .membersCount {
@@ -124,10 +124,6 @@
   padding: 0 5px 0 13px;
 }
 .memberItem {
-  width: 100%;
-  height: 36px;
-  line-height: 36px;
-  clear: both;
   padding: 5px 5px 5px 0;
   /*rtl*/
   margin: 0 -5px 3px 0;
@@ -1297,18 +1293,33 @@
   /*rtl*/
   left: auto;
 }
+.QA .back {
+  right: 7px;
+  /*rtl*/
+  left: auto;
+}
 .QForm .QAImg {
   margin: 3px 8px 0 0;
   /*rtl*/
 }
-.QWpr {
+.QWpr.ng-leave,
+.QWpr.ng-enter.ng-enter-active {
   right: 0;
-  /*rtl*/
   left: auto;
 }
-.AWpr {
+.QWpr.ng-enter,
+.QWpr.ng-leave.ng-leave-active {
+  right: -344px;
+  left: auto;
+}
+.AWpr.ng-leave,
+.AWpr.ng-enter.ng-enter-active {
+  right: 0;
+  left: auto;
+}
+.AWpr.ng-enter,
+.AWpr.ng-leave.ng-leave-active {
   right: 376px;
-  /*rtl*/
   left: auto;
 }
 .QTextarea {
@@ -2684,3 +2695,4 @@
 }
 /*#endregion */
 /*#endregion */
+/*# sourceMappingURL=RTL3.css.map */
