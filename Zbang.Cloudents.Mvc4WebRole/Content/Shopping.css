@@ -79,10 +79,11 @@ main {
   width: 940px;
   margin: 0 auto;
   padding-bottom: 30px;
-}
-main.product .searchForm,
-main.product .productsList {
-  display: none;
+  /*&.product {
+        .searchForm, .productsList {
+            display: none;
+        }
+    }*/
 }
 /*#endregion */
 /*#region widget */
@@ -150,6 +151,7 @@ main.product .productsList {
   margin: 30px 0 40px;
   height: 90px;
   position: relative;
+  font-size: 0;
 }
 .searchForm.showResults ~ .productsList {
   display: none;
