@@ -23,7 +23,13 @@
 
             function setScroll() {
                 calcHeight();
-                $elem.mCustomScrollbar({ setHeight: height, theme: "dark" });
+               
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $elem.mCustomScrollbar({ setHeight: height, theme: "dark" });
+                    });
+                }, 50);
+                
             }
 
             function calcHeight() {

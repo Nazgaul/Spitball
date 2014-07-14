@@ -1,15 +1,19 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', 'sUser','sFacebook',
-    function ($scope, $rootScope, $location, $modal, User,Facebook) {
+    ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook',
+    function ($scope, $rootScope, $location, $modal, User, Facebook) {
         $scope.partials = {
             shareEmail: '/Share/MessagePartial/'
         }
 
 
-        $rootScope.options = {};
+        $rootScope.options = {
+            quizOpen: false
+        };
+
         $rootScope.back = {};
 
 
+        
         $rootScope.$back = function (url) {
             if (url && url.length) {
                 $location.path(url);

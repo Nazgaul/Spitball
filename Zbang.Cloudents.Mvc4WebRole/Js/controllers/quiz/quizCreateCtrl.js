@@ -1,4 +1,4 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$modal', 'sQuiz', 'sUserDetails', function ($scope, $rootScope, $modal, Quiz, UserDetails) {
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal', 'sQuiz', 'sUserDetails', function ($scope, $rootScope, $timeout, $modal, Quiz, UserDetails) {
     function Question(data) {
         data = data || {};
         var that = this;
@@ -35,10 +35,10 @@
 
         $scope.params.isDraft = false;
     };
-   
+
     $scope.reset();
 
-    
+
     $scope.$on('initQuiz', function (e, data) {
         $scope.initQuiz(data);
     });
@@ -92,7 +92,7 @@
 
         });
     };
-   
+
     $scope.closeQuiz = function (isValid) {
         var modalInstance = $modal.open({
             windowClass: 'quitQuiz',
@@ -444,7 +444,7 @@
 
         if (event) {
             event.preventDefault();
-        }        
+        }
 
         if ($scope.isEmptyQuiz()) {
             $scope.quiz.empty = true;
@@ -467,7 +467,7 @@
             if (!data.success) {
                 alert(data.payload || data.Payload);
                 return;
-            }            
+            }
             cd.pubsub.publish('addPoints', { type: 'quiz' });
             addItemToBox(true, data.payload.url);
             $scope.params.showCreateQuiz = false;
@@ -483,13 +483,13 @@
     };
 
     $scope.$on('closeQuizCreate', function (e, quizId) {
-        if (quizId === $scope.quiz.id) {            
+        if (quizId === $scope.quiz.id) {
             $scope.params.showCreateQuiz = false;
 
             $rootScope.options.quizOpen = false;
         }
     });
-}]).directive('quizPreview', function () {
+}]).directive('quizPreview', ['$timeout', function ($timeout) {
     return function (scope, element, attrs) {
         scope.$watch(attrs.show,
           function (newValue) {
@@ -505,11 +505,11 @@
 
               function showPreview() {
                   element[0].style.display = 'block';
-                  setTimeout(function () { //fix for animation
+                  $timeout(function () { //fix for animation
                       mainDiv.classList.add('previewQuiz');
-                  }, 0);
+                  });
 
-                  setTimeout(function () { //fix for animationB
+                  $timeout(function () { //fix for animationB
                       mainDiv.classList.add('topBarFix');
                       $('.siteHeader').hide();
                       scope.$broadcast('update-scroll');
@@ -529,8 +529,8 @@
 
           }, true);
     };
-})
-    .directive('quizFocus', function () {
+}]).
+    directive('quizFocus', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -538,13 +538,13 @@
                     return element.attr('data-focus');
                 }, function (newValue) {
                     if (newValue === 'true') {
-                        setTimeout(function () { element.focus(); }, 10);
+                        $timeout(function () { element.focus(); }, 10);
                     }
 
                 });
             }
         };
-    }).
+    }]).
     directive('requiredTwo', function () {
         return {
             restrict: 'A',
