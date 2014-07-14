@@ -98,7 +98,7 @@ mBox.controller('QnACtrl',
         $scope.showAllAnswers = function (question) {
             $scope.qFormData = {};
 
-            $scope.info.selectedQuestion = question;            
+            $scope.info.selectedQuestion = question;
             //TODO update time
 
             ////NewUpdates.remove upadte //not sure
@@ -127,10 +127,10 @@ mBox.controller('QnACtrl',
                 return;
             }
 
-            $scope.info.state = states.empty;            
+            $scope.info.state = states.empty;
         };
 
-        $scope.postQuestion = function () {            
+        $scope.postQuestion = function () {
             if (self.userType === 'none' || self.userType === 'owner') {
                 alert(JsResources.NeedToFollowBox);
                 return;
@@ -138,7 +138,7 @@ mBox.controller('QnACtrl',
 
             $scope.qFormData.boxUid = $scope.boxId;
 
-            //add points;
+            cd.pubsub.publish('addPoints', { type: 'question' });
 
             cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
             //            cd.pubsub.publish('addPoints', { type: 'question' });
@@ -147,7 +147,7 @@ mBox.controller('QnACtrl',
                 $scope.qFormData.files = $scope.qFormData.files.map(function (file) {
                     return file.id;
                 });
-            }            
+            }
 
             QnA.post.question($scope.qFormData).then(function (response) {
                 var questionId;
@@ -180,14 +180,15 @@ mBox.controller('QnACtrl',
 
         };
 
-        $scope.postAnswer = function (question) {            
+        $scope.postAnswer = function (question) {
             if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'owner') { //parent is box controller
                 alert(JsResources.NeedToFollowBox);
                 return;
             }
 
             cd.analytics.trackEvent('Answer', 'Give answer', 'Providing answer ');
-            //            cd.pubsub.publish('addPoints', { type: 'answer' });
+
+            cd.pubsub.publish('addPoints', { type: 'answer' });
 
             question.aFormData.questionId = question.id;
             question.aFormData.boxUid = $scope.boxId;
@@ -197,7 +198,7 @@ mBox.controller('QnACtrl',
                     return file.id;
                 });
             }
-            
+
 
             QnA.post.answer(question.aFormData).then(function (response) {
                 var answerId;
@@ -256,7 +257,7 @@ mBox.controller('QnACtrl',
             });
         };
 
-        $scope.removeAttachment = function (obj,item) {
+        $scope.removeAttachment = function (obj, item) {
             QnA.delete.attachment({ itemId: item.id }).then(function (response) {
                 if (!response.Success) {
                     alert(response.Payload);
@@ -357,7 +358,7 @@ mBox.controller('QnACtrl',
             var index = question.aFormData.files.indexOf(file);
             if (index !== -1) {
                 question.aFormData.files.splice(index, 1);
-            }            
+            }
         }
 
         function sortAnswers(a, b) {

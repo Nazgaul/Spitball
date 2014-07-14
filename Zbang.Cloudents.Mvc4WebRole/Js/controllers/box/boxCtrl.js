@@ -286,8 +286,11 @@ mBox.controller('BoxCtrl',
                         fileUrl: data.url
                     }
 
+                    var uploaded = 0;
                     $timeout(function () {
                         Upload[data.ajax](formData).then(function (response) {
+                            uploaded++;
+
                             if (!response.success) {
                                 alert((data.name || data.url) + ' - ' + response.payload);
                                 return;
@@ -307,12 +310,17 @@ mBox.controller('BoxCtrl',
                             fileList.push(responseItem);
                             if (data.type === 'link') {
                                 defer.resolve(fileList);
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1});
                                 return;
                             }
-                            if (fileList.length === data.length) {
+                            if (uploaded === data.length) {
                                 defer.resolve(fileList);
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
+
                             }
 
+                        }).catch(function () {
+                            uploaded++;
                         });
                     }, data.timeout);
                 }
@@ -478,13 +486,14 @@ mBox.controller('BoxCtrl',
             $scope.shareFacebook = function () {
                 $scope.popup.share = false;
 
+
                 Facebook.share($scope.info.url, //url
                       $scope.info.name, //title
                        $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
                        jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
                         null //picture
                    ).then(function () {
-                       //TODO: add points
+                       cd.pubsub.publish('addPoints', { type: 'shareFb' });
                    });
             };
 
@@ -552,11 +561,11 @@ mBox.controller('BoxCtrl',
 
                 if (item.type === 'Quiz' && !item.publish) {
                     $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
-                    $timeout(function () { 
+                    $timeout(function () {
                         $rootScope.options.quizOpen = true;
                     });
                     return;
-                }                
+                }
             };
 
             $scope.deleteItem = function (item) {
@@ -741,13 +750,13 @@ mBox.controller('BoxCtrl',
                 }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
             };
-                
+
             $scope.checkAuth = function () {
                 if (!UserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
                     return false;
                 }
-           
+
                 return true;
             };
 
