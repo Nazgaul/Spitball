@@ -14,5 +14,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return View();
         }
+
+        public ActionResult Product()
+        {
+            return View();
+        }
+
+        public ActionResult CheckOut()
+        {
+            return View();
+        }
     }
 }

@@ -1,76 +1,8 @@
-﻿(function (ko, $) {
+﻿/*(function (ko, $) {
 
     if (window.scriptLoaded.isLoaded('b')) {
         return;
     }
-
-    /* ---- Begin integration of Underscore template engine with Knockout. Could go in a separate file of course. ---- */
-    //ko.cdTemplateEngine = function () {
-    //    this['allowTemplateRewriting'] = false;
-    //    this['cache'] = {};
-    //    this['string'] = '';
-    //}
-    //ko.cdTemplateEngine.prototype = ko.utils.extend(new ko.templateEngine(), {
-    //    renderTemplateSource: function (templateSource, bindingContext, options) {
-    //        console.log(bindingContext);
-    //       // console.log(templateSource);
-    //       //// console.log(bindingContext, options);
-
-    //        var
-    //    templateNodesFunc = templateSource['nodes'],
-    //    templateNodes = templateNodesFunc ? templateSource['nodes']() : null;
-
-    //        if (templateNodes) {
-    //            var x = ko.utils.makeArray(templateNodes.cloneNode(true).childNodes);
-    //            console.log(x)
-    //            return x;
-    //        } else {
-    //            var templateText = templateSource['text']();
-    //            this.string += templateText;
-    //            if (bindingContext.$index() === 5) {
-    //                var z = ko.utils.parseHtmlFragment(this.string);
-    //                this.string = '';
-    //                return z;
-    //            }
-    //            return ko.utils.parseHtmlFragment('');
-
-    //        }
-
-
-    //        // Precompile and cache the templates for efficiency
-    //        //var precompiled = templateSource['data']('precompiled');
-    //        //if (!precompiled) {
-    //        //    precompiled = _.template("<% with($data) { %> " + templateSource.text() + " <% } %>");
-    //        //    templateSource['data']('precompiled', precompiled);
-    //        //}
-    //        //// Run the template and parse its output into an array of DOM elements
-    //        //var renderedMarkup = precompiled(bindingContext).replace(/\s+/g, " ");
-            
-
-    //    }//,
-    //    //createJavaScriptEvaluatorBlock: function (script) {
-    //    //    //console.log(script);
-    //    //    return "<%= " + script + " %>";
-    //    //}
-    //});
-
-    //ko.setTemplateEngine(new ko.cdTemplateEngine());
-    /* ---- End integration of Underscore template engine with Knockout ---- */
-
-
-    //knockout new binding
-    //ko.bindingHandlers.notvisible = {
-    //    update: function (element, valueAccessor) {
-    //        var value = ko.utils.unwrapObservable(valueAccessor());
-    //        var isCurrentlyNotVisible = (element.style.display === "none");
-    //        if (value && !isCurrentlyNotVisible) {
-    //            element.style.display = "none";
-    //        }
-    //        else if ((!value) && isCurrentlyNotVisible) {
-    //            element.style.display = "";
-    //        }
-    //    }
-    //};
     ko.bindingHandlers.stopBinding = {
         init: function () {
             return { controlsDescendantBindings: true };
@@ -119,36 +51,6 @@
         }
     };
 
-    // Controls whether or not the text in a textbox is selected based on a model property
-    //ko.bindingHandlers.selected = {
-    //    init: function (elem, valueAccessor) {
-    //        $(elem).blur(function () {
-    //            var boundProperty = valueAccessor();
-    //            if (ko.isWriteableObservable(boundProperty)) {
-    //                boundProperty(false);
-    //            }
-    //        });
-    //    },
-    //    update: function (elem, valueAccessor) {
-    //        var shouldBeSelected = ko.utils.unwrapObservable(valueAccessor());
-    //        if (shouldBeSelected) {
-    //            $(elem).select();
-    //        }
-    //    }
-    //};
-
-    // Makes a textbox lose focus if you press "enter"
-    //ko.bindingHandlers.blurOnEnter = {
-    //    init: function (elem, valueAccessor) {
-    //        $(elem).keypress(function (evt) {
-    //            if (evt.keyCode === 13 /* enter */) {
-    //                evt.preventDefault();
-    //                $(elem).triggerHandler("change");
-    //                $(elem).blur();
-    //            }
-    //        });
-    //    }
-    //};
 
     // Simulates HTML5-style placeholders on older browsers
     ko.bindingHandlers.placeholder = {
@@ -160,9 +62,6 @@
             if (!Modernizr.input.placeholder) {
                 var placeholderText = elem.getAttribute('placeholder'),
                     input = $(elem);
-
-                //input.attr('placeholder', placeholderText);
-
                 // For older browsers, manually implement placeholder behaviors
 
                 input.focus(function () {
@@ -187,117 +86,7 @@
             }
         }
     };
-    //sort
-    //ko.observableArray.fn.sortByProperty = function (prop) {
-    //    this.sort(function (obj1, obj2) {
-    //        if (obj1[prop] == obj2[prop])
-    //            return 0;
-    //        else if (obj1[prop] < obj2[prop])
-    //            return -1;
-    //        else
-    //            return 1;
-    //    });
-    //}
-
-    //this is for contenteditable
-    //ko.bindingHandlers.textEditbale = {
-    //    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-    //        ko.utils.registerEventHandler(element, "blur", function () {
-    //            var modelValue = valueAccessor();
-    //            var elementValue = element.innerHTML;
-    //            if (ko.isWriteableObservable(modelValue)) {
-    //                modelValue(elementValue);
-    //            }
-
-    //        })
-    //    },
-    //    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-    //        var value = ko.utils.unwrapObservable(valueAccessor()) || "";
-    //        element.innerHTML = value;
-    //    }
-    //};
-
-
-    //ko.bindingHandlers.cssToTransition = {
-    //    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-    //    },
-    //    update: function (element, valueAccessor) {
-    //        /// <summary></summary>
-    //        /// <param name="element" type="Element"></param>
-    //        /// <param name="valueAccessor" type="Object"></param>
-
-    //        var value = ko.utils.unwrapObservable(valueAccessor());
-    //        console.log(value);
-
-    //        ko.utils.objectForEach(value, function (className, shouldHaveClass) {
-    //            shouldHaveClass = ko.utils.unwrapObservable(shouldHaveClass);
-
-    //            if (shouldHaveClass) {
-    //                if ($(element).hasClass(className)) {
-    //                    return;
-    //                }
-    //                $(element).css('display', '').addClass(className);
-    //            }
-    //            else {
-    //                if (!$(element).hasClass(className)) {
-    //                    return;
-    //                }
-    //                $(element).css('display', '').removeClass(className);
-    //            }
-    //        });
-
-    //    }
-    //};
-    //ko.bindingHandlers.visiblefade = {
-    //    'update': function (element, valueAccessor) {
-    //        var value = ko.utils.unwrapObservable(valueAccessor());
-    //        var isCurrentlyVisible = !(element.style.display == "none");
-    //        if (value && !isCurrentlyVisible)
-    //            $(element).fadeIn();
-    //            //element.style.display = "";
-    //        else if ((!value) && isCurrentlyVisible)
-    //            $(element).fadeOut();
-    //        //element.style.display = "none";
-    //    }
-    //};
-
-    //wrapper to an observable that requires accept/cancel
-    //ko.protectedObservable = function (initialValue) {
-    //    //private variables
-    //    var _actualValue = ko.observable(initialValue),
-    //        _tempValue = initialValue;
-
-    //    function protectedObservable() {
-    //        _actualValue(arguments[0]);
-
-    //    }
-    //    //computed observable that we will return
-    //    var result = ko.computed({
-    //        //always return the actual value
-    //        read: function () {
-    //            return _actualValue();
-    //        },
-    //        //stored in a temporary spot until commit
-    //        write: function (newValue) {
-    //            _tempValue = newValue;
-    //        }
-    //    });
-
-    //    //if different, commit temp value
-    //    result.commit = function () {
-    //        if (_tempValue !== _actualValue()) {
-    //            _actualValue(_tempValue);
-    //        }
-    //    };
-
-    //    //force subscribers to take original
-    //    result.reset = function () {
-    //        _actualValue.valueHasMutated();
-    //        _tempValue = _actualValue();   //reset temp value
-    //    };
-    //    //ko.utils.extend(protectedObservable, ko.protectedObservable['fn']);
-    //    return result;
-    //};
+  
 
     ko.bindingHandlers.fadeVisible = {
         init: function (element, valueAccessor) {
@@ -319,19 +108,14 @@
         init: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
             ko.utils.objectForEach(value, function (attrName, attrValue) {
-                //attrValue = ko.utils.unwrapObservable(attrValue);
-
                 element[attrName] = attrValue;
             });
-            //console.log('init')
-            //console.log(element,valueAccessor,allBindings,viewModel,bindingContext)
-
         },
         update: function () {
         }
     };
 
-})(ko, jQuery);
+})(ko, jQuery);*/
 
 (function () {
 
