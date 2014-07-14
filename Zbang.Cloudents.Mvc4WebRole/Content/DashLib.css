@@ -493,6 +493,7 @@
   margin: 0 18px 24px 0;
   /*rtl*/
   width: 222px;
+  font-size: 13px;
 }
 .box:hover {
   border-color: #c2c2c2;
