@@ -179,6 +179,8 @@ mBox.controller('BoxCtrl',
 
                     $scope.items.unshift(data.item);
                     $scope.filteredItems.unshift(data.item);
+
+                    $scope.followBox(true);
                 });
             });
 
@@ -694,7 +696,7 @@ mBox.controller('BoxCtrl',
             //#endregion 
 
             //#region user
-            $scope.followBox = function () {
+            $scope.followBox = function (nonAjax) {
                 $scope.action = {
                     userFollow: true
                 }
@@ -719,6 +721,10 @@ mBox.controller('BoxCtrl',
                 $timeout(function () {
                     $scope.info.userType = 'subscribe';
                 }, 3300);
+
+                if (nonAjax) {
+                    return;
+                }
 
                 Box.follow({ BoxUid: $scope.boxId }).then(function () {
 
