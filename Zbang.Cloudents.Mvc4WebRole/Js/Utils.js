@@ -149,6 +149,9 @@
     //#region Dates in the system    
     var actionTimeInterval;
 
+    cd.pubsub.subscribe('showTime', function () {
+        updateTimeActions();
+    });
 
     if (!actionTimeInterval) {
         actionTimeInterval = setInterval(updateTimeActions, 60000);
