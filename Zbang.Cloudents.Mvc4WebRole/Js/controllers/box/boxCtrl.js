@@ -98,9 +98,11 @@ mBox.controller('BoxCtrl',
 
             //#region quiz
             $scope.addQuiz = function () {
-                $rootScope.options.quizOpen = true;
-                
+
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
+                $timeout(function () {
+                    $rootScope.options.quizOpen = true;
+                });
             };
 
             $scope.$on('QuizAdded', function (e, quizItem) {
@@ -541,6 +543,9 @@ mBox.controller('BoxCtrl',
 
                 if (item.type === 'Quiz' && !item.publish) {
                     $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
+                    $timeout(function () { 
+                        $rootScope.options.quizOpen = true;
+                    });
                     return;
                 }
             };
@@ -561,7 +566,7 @@ mBox.controller('BoxCtrl',
                             var data = {
                                 id: item.id,
                             }
-                            Quiz.delete(data).then(removeItem);                            
+                            Quiz.delete(data).then(removeItem);
                             break;
 
 
@@ -581,9 +586,9 @@ mBox.controller('BoxCtrl',
                     }
 
                     if (item.type === 'Quiz' && !item.publish) {
-                        $rootScope.$broadcast('closeQuizCreate',item.id);
+                        $rootScope.$broadcast('closeQuizCreate', item.id);
                     }
-                        
+
 
                 }
             };
