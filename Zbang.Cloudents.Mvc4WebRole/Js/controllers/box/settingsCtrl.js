@@ -56,6 +56,18 @@ mBox.controller('SettingsCtrl',
              });
          };
 
+         $scope.userStatus = function (status) {
+             switch (status) {
+                 case 'Subscribe':
+                     return JsResources.Member;
+                 case 'Owner':
+                     return JsResources.Owner;
+                 case 'Invite':
+                     return JsResources.Invite;
+
+             }
+         };
+
          //Members
 
 

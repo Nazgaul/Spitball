@@ -99,7 +99,7 @@
 <script type="text/ng-template" id="memberItem">
     <a bo-href="member.url"><img class="friendImg" alt="" bo-src="member.image" width="34" height="34" /></a>
     <span class="memberName elps" bo-text="member.name"></span>
-    <span class="memberStatus" bo-class="{memberPending : member.sUserStatus === 'Invite'}" bo-if="member.sUserStatus !== 'Owner'" bo-text="member.sUserStatus">
+    <span class="memberStatus" bo-class="{memberPending : member.sUserStatus === 'Invite'}" bo-if="member.sUserStatus !== 'Owner'" bo-text="userStatus(member.sUserStatus)">
     </span>
 
     <span class="rFloat memberActions">
