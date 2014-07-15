@@ -14,11 +14,10 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Extensions;
-using System.Configuration;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
-    public class BlobProvider : IBlobProvider
+    public class BlobProvider : IBlobProvider, IBlobProductProvider
     {
         private const int CacheContainerItemAvaibleInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
@@ -26,6 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public const string BlobMetadataUseridKey = "Userid";
         public const string AzureBlobContainer = "zboxfiles";
         public const string AzureCacheContainer = "zboxCahce";
+        public const string AzureProductContainer = "zboxProductImages";
         public const string AzureProfilePicContainer = "zboxprofilepic";
         public const string AzureThumbnailContainer = "zboxThumbnail";
         public const string AzureFaQContainer = "zboxhelp";
@@ -46,12 +46,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             //CreateBlobStorages(m_BlobClient);
 
             BlobContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).Uri.AbsoluteUri);
-            string storageCdnEndpoint = string.Empty;
-            try
-            {
-                storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
-            }
-            catch (ConfigurationErrorsException) { }
+            string storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+
             if (string.IsNullOrEmpty(storageCdnEndpoint))
             {
                 ThumbnailContainerUrl =
@@ -68,13 +64,36 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                     VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(storageCdnEndpoint) +
                                                            AzureProfilePicContainer.ToLower());
             }
-            
+
+        }
+
+        /// <summary>
+        /// Upload Image of product to product container storage
+        /// </summary>
+        /// <param name="data">image content</param>
+        /// <param name="fileName">image fileName</param>
+        /// <returns>link to that image</returns>
+        public async Task<string> UploadFromLink(byte[] data, string fileName)
+        {
+            var container = BlobClient.GetContainerReference(AzureProductContainer.ToLower());
+            var blob = container.GetBlockBlobReference(fileName);
+            await blob.UploadFromByteArrayAsync(data, 0, data.Length);
+            var uriBuilder = new UriBuilder(blob.Uri);
+            string storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+            if (!string.IsNullOrEmpty(storageCdnEndpoint))
+            {
+                uriBuilder.Host = storageCdnEndpoint;
+            }
+            return uriBuilder.Uri.AbsolutePath;
+
         }
 
         static string ThumbnailContainerUrl { get; set; }
         public string BlobContainerUrl { get; set; }
 
         public string ProfileContainerUrl { get; private set; }
+
+        public string ProductContainerUrl { get; set; }
 
         public string GetBlobUrl(string blobName)
         {

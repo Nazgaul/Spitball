@@ -98,6 +98,10 @@
       <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
       <Name>Zbang.Zbox.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.HatavotApi\Zbang.Zbox.Store.csproj">
+      <Project>{5170a9bb-52e8-4001-8fcc-407caec11d81}</Project>
+      <Name>Zbang.Zbox.Store</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>
       <Name>Zbang.Zbox.Infrastructure.Azure</Name>

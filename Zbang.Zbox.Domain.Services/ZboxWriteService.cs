@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
@@ -609,7 +610,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
+        #endregion
         public void AddStudent(AddStudentCommand command)
         {
             using (UnitOfWork.Start())
@@ -618,6 +619,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        #endregion
+
+        public void AddProducts(AddProductsToStoreCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
     }
 }

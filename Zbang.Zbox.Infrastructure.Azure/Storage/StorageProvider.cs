@@ -11,6 +11,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Zbang.Zbox.Infrastructure.Azure.Table;
+using System;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Storage
 {
@@ -44,29 +45,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             {
                 _cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
             }
-            catch (ConfigurationErrorsException ex)
+            catch (ArgumentNullException ex)
             {
                 TraceLog.WriteError("on ConfigureStorageAccount", ex);
                 _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             }
-            //if (RoleEnvironment.IsAvailable)
-            //{
-            //    StorageCredentials x = new StorageCredentials();
-
-            //    //Microsoft.WindowsAzure.Storage.Auth.StorageCredentials x = new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
-            //    //CloudStorageAccount.SetConfigurationSettingPublisher(
-            //    //    (configName, configSetter) => configSetter(RoleEnvironment.GetConfigurationSettingValue(configName)));
-
-            //    _cloudStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-
-            //}
-            //else
-            //{
-            //    //_cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==");
-            //   _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
-            //}
+            
             // not need every time
-            //CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
+            CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
             //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
             //CreateTables(_cloudStorageAccount.CreateCloudTableClient());
 
@@ -139,6 +125,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 container.SetPermissions(new BlobContainerPermissions
                 {
                     PublicAccess = BlobContainerPublicAccessType.Off
+                });
+            }
+            container = blobClient.GetContainerReference(BlobProvider.AzureProductContainer.ToLower());
+            if (container.CreateIfNotExists())
+            {
+                container.SetPermissions(new BlobContainerPermissions
+                {
+                    PublicAccess = BlobContainerPublicAccessType.Blob
                 });
             }
 

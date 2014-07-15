@@ -235,7 +235,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new SaveQuizCommand(GetUserId(), model.QuizId);
                 var result = ZboxWriteService.SaveQuiz(command);
-                //TODO add url
                 return this.CdJson(new JsonResponse(true, result));
             }
             catch (Exception ex)

@@ -1980,7 +1980,7 @@
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_Message.cshtml" />
+    <Content Include="Views\Share\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\_RegisterPopUp.cshtml">

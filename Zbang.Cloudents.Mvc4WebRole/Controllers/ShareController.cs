@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -186,6 +188,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //TODO: partial
         [HttpGet, Ajax]
+        [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult MessagePartial()
         {
             try

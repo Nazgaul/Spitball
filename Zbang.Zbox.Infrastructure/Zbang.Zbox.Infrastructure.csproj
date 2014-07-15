@@ -199,6 +199,7 @@
     <Compile Include="Storage\Entities\FlagItem.cs" />
     <Compile Include="Storage\Entities\NewUniversity.cs" />
     <Compile Include="Storage\Entities\StemmerWordRemoval.cs" />
+    <Compile Include="Storage\IBlobProductProvider.cs" />
     <Compile Include="Storage\ILocalStorageProvider.cs" />
     <Compile Include="Storage\IQueueProvider.cs" />
     <Compile Include="Storage\ITableProvider.cs" />
