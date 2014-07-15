@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Store.Services;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
@@ -34,9 +35,17 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 var products = new List<ProductStore>();
                 foreach (var item in data)
                 {
-                    var bytes = await DownloadImage(item.Image);
-                    item.Image = await m_BlobProvider.UploadFromLink(bytes, item.Image);
-                    products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails, 0, item.Coupon, item.Saleprice, item.Image));
+
+                    try
+                    {
+                        var bytes = await DownloadImage(item.Image);
+                        item.Image = await m_BlobProvider.UploadFromLink(bytes, item.Image);
+                        products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails, 0, item.Coupon, item.Saleprice, item.Image));
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("On hatavot bring image", ex);
+                    }
                 }
                 var command = new AddProductsToStoreCommand(products);
                 m_ZboxWriteService.AddProducts(command);
