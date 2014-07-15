@@ -54,7 +54,9 @@
         }); //temp
 
         $scope.$on('messageFB', function (e, obj) {
-            Facebook.share(obj.url, obj.name, obj.caption, obj.description, obj.picture);
+            Facebook.share(obj.url, obj.name, obj.caption, obj.description, obj.picture).then(function () {
+                cd.pubsub.publish('addPoints', { type: 'shareFb' });
+            });
         });
 
         $scope.sendUserMessage = function (user) {

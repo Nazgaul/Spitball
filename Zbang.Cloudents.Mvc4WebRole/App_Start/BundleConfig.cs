@@ -202,6 +202,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                   new JsFileWithCdn("/js/Cache.js"),
                  new JsFileWithCdn("/js/DataContext.js"),
                  new JsFileWithCdn("/Js/Dialog.js"),
+                 new JsFileWithCdn("~/Js/GmfcnHandler.js"),
                  new JsFileWithCdn("/js/Upload2.js"),
                 new JsFileWithCdn("/js/Library.js"),
                 new JsFileWithCdn("/js/User.js"),
