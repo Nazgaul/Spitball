@@ -26,7 +26,7 @@
                     <ul class="friendsList" id="dash_Friend">
                         <li class="friendItem friendBtn" data-action="true">
                             <a data-navigation="invite" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents"
-                               href="@Url.Action("Index", "Invite", new {boxid = "" })"
+                               href="@Url.RouteUrl("Invite", new {boxid = "" })"
                                @*href="@Url.Action("Index", "Invite", new {boxid = "" })?r=dashboard&s=sidebar"*@ class="inviteFriendBtn btn3"></a>
                         </li>
                     </ul>
