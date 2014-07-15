@@ -32,6 +32,7 @@ mBox.controller('BoxCtrl',
                 starsLength: 5,
                 starsWidth: 69
             };
+            $scope.action = {};
 
             $scope.partials = {
                 createTab: '/Box/CreateTabPartial/',
@@ -311,18 +312,22 @@ mBox.controller('BoxCtrl',
                             var responseItem = response.payload;
                             $scope.items.unshift(responseItem);
                             $scope.filteredItems.unshift(responseItem);
-                            fileList.push(responseItem);
-                            if (data.type === 'link') {
+
+                            if (qna) {
+                                fileList.push(responseItem);
+                                if (data.type === 'link') {                                    
+                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+                                    return;
+                                }
+                                if (uploaded === data.length) {                                   
+                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
+                                }
                                 defer.resolve(fileList);
-                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1});
-                                return;
-                            }
-                            if (uploaded === data.length) {
-                                defer.resolve(fileList);
-                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
 
                             }
+                            $scope.followBox(true);
 
+                            
                         }).catch(function () {
                             uploaded++;
                         });
@@ -713,6 +718,10 @@ mBox.controller('BoxCtrl',
 
             //#region user
             $scope.followBox = function (nonAjax) {
+                if ($scope.action.userFollow) {
+                    return;
+                }
+
                 $scope.action = {
                     userFollow: true
                 }
