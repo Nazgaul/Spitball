@@ -183,4 +183,7 @@
   <data name="Name" xml:space="preserve">
     <value>الاسم:</value>
   </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>مطلوب الاسم الأخير</value>
+  </data>
 </root>
