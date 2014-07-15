@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Store.Services
         {
             using (var conn = await DapperConnection.OpenConnection("Hatavot"))
             {
-                var sql = @" select  [productid]  as Id -- Product ID 
+                const string sql = @" select  [productid]  as Id -- Product ID 
       ,[name] -- Product Name 
       --,[description] -- Product Description (HTML) -- Product Page
       ,[saleprice] -- Regular Price 
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Store.Services
       --,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       --,[designNum] -- Which University to show --> Can be to all or to one specific  
-  FROM [bizpoin_bizpointDB].[products] where [show] is  null and coupon > 0";
+  FROM [bizpoin_bizpointDB].[products] where [show] is  null";
                 return await conn.QueryAsync<StoreDto>(sql);
             }
         }

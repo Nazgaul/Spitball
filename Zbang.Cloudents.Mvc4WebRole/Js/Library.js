@@ -79,7 +79,7 @@ function Box(data) {
             this.name = data.name;
             this.template = 'library-node';
 
-            this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name) + '/';// + '/?r=library';
+            this.url = '/library/' + this.id + '/' + encodeURIComponent(this.name) + '/';
         }
         function LibraryBox(data) {
             var that = this;
@@ -94,12 +94,9 @@ function Box(data) {
             that.subscribe = function () {
                 that.userType('subscribe');
                 dataContext.subscribeBox({
-                    data: { BoxUid: that.uid }
+                    data: { BoxUid: that.id }
                 });
-                cd.postFb(that.name,
-                JsResources.IJoined.format(that.name),
-
-                cd.location());
+                cd.postFb(that.name, jsResources.IJoined.format(that.name), location.href);
                 cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
             };
 
@@ -175,7 +172,7 @@ function Box(data) {
                 if (self.title()) {
                     return self.title();
                 }
-                return JsResources.TopLevel;
+                return jsResources.TopLevel;
             });
 
         //#region emptystate
@@ -307,7 +304,7 @@ function Box(data) {
                     return i.name === data[0].value;
                 });
                 if (item) {
-                    cd.notification(JsResources.ItemExists);
+                    cd.notification(jsResources.ItemExists);
                     return false;
                 }
                 data.push(pushParentId());
@@ -353,10 +350,10 @@ function Box(data) {
                 isDelete = box.userType() === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
 
             if (isDelete) {
-                isok = confirm(JsResources.DeleteCourse);
+                isok = confirm(jsResources.DeleteCourse);
             }
             else {
-                isok = confirm(JsResources.SureYouWantTo + ' ' + JsResources.ToLeaveGroup);
+                isok = confirm(jsResources.SureYouWantTo + ' ' + jsResources.ToLeaveGroup);
             }
             if (!isok) {
                 return;
