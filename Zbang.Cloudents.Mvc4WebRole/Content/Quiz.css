@@ -25,6 +25,12 @@
 .bodyContent.previewQuiz .quizTitle {
   margin: 20px auto;
 }
+.quizAnswer .removeAnswer {
+  display: none;
+}
+.quizAnswer:hover .removeAnswer {
+  display: inline-block;
+}
 .quizSideBar {
   position: fixed;
   top: 50px;

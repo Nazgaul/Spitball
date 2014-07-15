@@ -191,4 +191,7 @@
   <data name="Name" xml:space="preserve">
     <value>Name:</value>
   </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Last name is required</value>
+  </data>
 </root>

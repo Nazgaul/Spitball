@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         [Display(ResourceType = typeof(AccountSettingsResources), Name = "Name")]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "LastNameRequired")]
         public string LastName { get; set; }
 
         //public long? UniversityCode { get; set; }
