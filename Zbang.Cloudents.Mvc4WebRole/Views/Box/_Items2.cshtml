@@ -64,10 +64,10 @@
     }
 
     <span ng-if="options.manageTab">
-        <input id="{{'item_' + item.id}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
+        <input id="{{'item_' + item.id}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
         <div></div>
         @*empty div used for green outline*@
-        <label for="{{'item_' + item.id}}" class="cbLabel" ng-model="item.isCheck"></label>
+        <label for="{{'item_' + item.id}}" class="cbLabel"></label>
     </span>
 </script>
 
@@ -114,10 +114,10 @@
         </div>
     }
     <span ng-if="options.manageTab">
-        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
+        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
         <div></div>
         @*empty div used for green outline*@
-        <label for="{{'item_' + item.uid}}" class="cbLabel" ng-model="item.isCheck"></label>
+        <label for="{{'item_' + item.uid}}" class="cbLabel"></label>
     </span>   
 </script>
 

@@ -14,12 +14,12 @@ app.config([
     function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider, $provide) {
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-        $provide.factory('requestInterceptor', ['$location', '$q', function ($location, $q) {
+        $provide.factory('requestinterceptor', ['$location', '$q', function ($location, $q) {
             return {
                 // optional method
                 'response': function (response) {
                     // do something on success
-                    switch (response) {
+                    switch (response.status) {
                         case 200:
                             return response;
                         case 401:
@@ -38,7 +38,7 @@ app.config([
             };
         }]);
 
-        $httpProvider.interceptors.push('requestInterceptor');
+        $httpProvider.interceptors.push('requestinterceptor');
 
         $tooltipProvider.options({
             placement: 'bottom',

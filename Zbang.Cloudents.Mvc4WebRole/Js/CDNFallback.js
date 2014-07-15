@@ -11,7 +11,7 @@
 
 (function () {
     var cdnPath = '/cdn/gzip/', scriptsPath = '/Scripts/',
-    cdnCdPath = 'vo.msecnd.net/';
+    cdnCdPath = 'vo.msecnd.net/',
     cdnGooglePath = 'ajax.googleapis.com';
 
     window.onload = function () {
@@ -20,12 +20,10 @@
     };
 
     function cssFailCallback() {
-        var cssLoaded = false, files;
-
-        cssLoaded = document.getElementById('cssCheck').offsetLeft < 0;
+        var cssLoaded = document.getElementById('cssCheck').offsetLeft < 0, files;
 
         if (!cssLoaded) {
-            files = getCDNStylesheets();
+            files = getCdnStylesheets();
             for (var i = 0, l = files.length; i < l; i++) {
                 loadStylesheet(cdnPath + files[i]);
             }
@@ -33,11 +31,12 @@
     }
 
     function javascriptFailCallback() {
-        if (window.cd && window.jQuery && window.angular) {
+        //because of old script we remove angular
+        if (window.cd && window.jQuery /*&& window.angular*/) {
             return;
         }
 
-        files = getCDNScripts();
+      var  files = getCdnScripts();
 
         for (var i = 0, l = files.google.length; i < l; i++) {
             loadScript(scriptsPath + getFilename(files.google[i]));
@@ -49,7 +48,7 @@
      
     }
 
-    function getCDNStylesheets() {
+    function getCdnStylesheets() {
         var link, files = [], cssLinks = document.getElementsByTagName('link');
         for (var i = 0, l = cssLinks.length; i < l; i++) {
             link = cssLinks[i].href;
@@ -60,7 +59,7 @@
         return files;
     }
 
-    function getCDNScripts() {
+    function getCdnScripts() {
         var link, cloudents = [], google= [];
         for (var i = 0, l = document.scripts.length ; i < l; i++) {
             link = document.scripts[i].getAttribute('src');

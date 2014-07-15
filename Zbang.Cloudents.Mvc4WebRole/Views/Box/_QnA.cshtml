@@ -71,7 +71,7 @@
                                     <div class="attachActions">
                                         <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
                                         <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(question.bestAnswer,file)"></button>
-                                        <a class="attachDownload" ng-href={{file.download}}"></a>
+                                        <a class="attachDownload" ng-href="{{file.download}}"></a>
                                     </div>
                                 </li>
                             </ul>
@@ -102,7 +102,7 @@
                     <div class="attachActions">
                         <a tooltip="@IndexResources.ShowAttachment" ng-href="{{file.itemUrl}}" class="attachFull"></a>
                         <button tooltip="@IndexResources.RemoveAttachment" class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(selectedQuestion,file)"></button>
-                        <a tooltip-placement="top" tooltip="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" ng-href={{file.download}}"></a>
+                        <a tooltip-placement="top" tooltip="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
                     </div>
                 </li>
             </ul>
@@ -123,7 +123,7 @@
                         <li class="qaAttachItem" ng-repeat="file in answer.files">
                             <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
                             <div class="attachActions">
-                                <a class="attachFull" ng-href={{file.itemUrl}}"></a>
+                                <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
                                 <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(answer,file)"></button>
                                 <a class="attachDownload" target="_blank" ng-href="{{item.download}}"></a>
                             </div>

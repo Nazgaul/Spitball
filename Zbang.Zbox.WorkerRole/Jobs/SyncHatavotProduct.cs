@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,12 +16,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IReadService m_ReadService;
         private readonly IBlobProductProvider m_BlobProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
-        
 
-        public SyncHatavotProduct(IReadService readService, IBlobProductProvider blobProvider)
+
+        public SyncHatavotProduct(IReadService readService, IBlobProductProvider blobProvider, IZboxWriteService zboxWriteService)
         {
             m_ReadService = readService;
             m_BlobProvider = blobProvider;
+            m_ZboxWriteService = zboxWriteService;
         }
 
         public async void Run()
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 {
                     var bytes = await DownloadImage(item.Image);
                     item.Image = await m_BlobProvider.UploadFromLink(bytes, item.Image);
-                    products.Add(new ProductStore(item.Id,item.Name,item.ExtraDetails,0,item.Coupon,item.Saleprice,item.Image));
+                    products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails, 0, item.Coupon, item.Saleprice, item.Image));
                 }
                 var command = new AddProductsToStoreCommand(products);
                 m_ZboxWriteService.AddProducts(command);
