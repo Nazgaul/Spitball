@@ -9,11 +9,36 @@ app.config([
     '$filterProvider',    
     '$httpProvider',
     '$tooltipProvider',
-    //'$provide',
+    '$provide',
 
-    function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider/*, $provide*/) {
+    function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider, $provide) {
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
+        $provide.factory('requestInterceptor', ['$location', '$q', function ($location, $q) {
+            return {
+                // optional method
+                'response': function (response) {
+                    // do something on success
+                    switch (response) {
+                        case 200:
+                            return response;
+                        case 401:
+                        case 403:
+                            window.open('/account', '_self');
+                            break;
+                        case 500:
+                            window.open('/error', '_self');
+                        default:
+                            window.open('/error', '_self');
+                            break;
+
+                    }
+
+                }                
+            };
+        }]);
+
+        $httpProvider.interceptors.push('requestInterceptor');
 
         $tooltipProvider.options({
             placement: 'bottom',
