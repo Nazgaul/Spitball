@@ -660,12 +660,15 @@
   /*rtl*/
 }
 .boxItemList.sponsored .listItem:first-child .boxLink {
-  margin-left: -260px;
-  padding-left: 260px;
+  margin: 0 -260px 0 0;
+  /*rtl*/
+  padding: 0 260px 0 0;
+  /*rtl*/
 }
 .boxItemList.sponsored .listItem:first-child .boxLink:after {
-  top: 31px;
-  left: 77px;
+  right: 77px;
+  /*rtl*/
+  left: auto;
 }
 .boxItemsHeader {
   position: relative;

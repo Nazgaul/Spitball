@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -917,15 +917,12 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 0 -260px 0 0;
-  /*rtl*/
-  padding: 0 260px 0 0;
-  /*rtl*/
+  margin-left: -260px;
+  padding-left: 260px;
 }
 .boxItemList.sponsored .listItem:first-child .boxLink:after {
-  right: 77px;
+  left: 77px;
   /*rtl*/
-  left: auto;
 }
 .boxItems {
   margin: 20px 20px 0 20px;
@@ -1285,9 +1282,6 @@
 }
 /*#region box item tool tips */
 .boxItemTt {
-  position: absolute;
-  left: -66px;
-  /*rtl*/
   border: 1px solid #c2c2c2;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
   padding: 10px 0;
@@ -1295,8 +1289,6 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  bottom: 100%;
-  display: none;
   z-index: 6;
   background: #fff;
   border-radius: 5px;
@@ -2029,4 +2021,3 @@
   /*rtl*/
 }
 /*#endregion */
-/*# sourceMappingURL=Box3.css.map */
