@@ -86,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                     result.File.Uploader.Url,
-                    m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
+                    result.File.ThumbnailUrl,
                     string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0,
                     result.File.Url);
 
@@ -270,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var result = ZboxWriteService.AddFileToBox(command);
             var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                 result.File.Uploader.Url,
-               m_BlobProvider.GetThumbnailUrl(result.File.ThumbnailBlobName),
+                result.File.ThumbnailUrl,
                 string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result.File.Url);
             return this.CdJson(new JsonResponse(true, fileDto));
 

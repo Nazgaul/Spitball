@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
                     //dbi.ConnectionStringName = "Zbox";
-                    dbi.SchemaAction = SchemaAutoAction.Update;
+                    dbi.SchemaAction = SchemaAutoAction.Validate;
                     
 #if DEBUG
                     dbi.LogSqlInConsole = true;
@@ -65,7 +65,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
                 m_Configuration.AddAssembly("Zbang.Zbox.Domain");
                 m_Configuration.AddAssembly("Zbang.Zbox.ViewModel");
                 //m_Configuration.AddAssembly("Zbang.Zbox.ApiViewModel");
-
 
 
                 SaveConfiguration();

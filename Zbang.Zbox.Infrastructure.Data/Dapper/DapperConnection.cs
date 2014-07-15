@@ -10,9 +10,9 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 {
     public static class DapperConnection
     {
-        public static async Task<IDbConnection> OpenConnection()
+        public static async Task<IDbConnection> OpenConnection(string connectionStringName = "Zbox")
         {
-            var connection = new SqlConnection(ConfigFetcher.Fetch("Zbox"));
+            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
             await connection.OpenAsync();
             return connection;
             

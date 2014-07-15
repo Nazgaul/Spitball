@@ -57,7 +57,7 @@
                     <!--ko foreach:displayMembersFilter-->
                     <li class="memberItem">
                         <input type="checkbox" class="checkbox" data-bind="checked: selected,attr: {id : inputId}" />
-                        <label for="" class="cbLabel memberCol" data-bind="attr: {for: inputId}">
+                        <label class="cbLabel memberCol" data-bind="attr: {for: inputId}">
                             <img class="friendImg calloutTrgr" alt="" data-bind="attr: { 'src': image,'data-uid' : id }" width="34" height="34" />
                             <span class="upMemberName elps" data-bind="text: name"></span>
                         </label>
@@ -269,10 +269,8 @@
             <!--/ko-->
 
             <section class="upInvites" data-bind="visible: viewSelf(), css : invitesEmpty()">
-                @*<button type="button" class="inviteFriendBtn btn3 rFloat" data-navigation="invite" data-click="inviteFriends" data-href="@Url.Action("Index","Invite")">@SharedResources.InviteFriends</button>*@
                 <a data-navigation="invite"
-                   @*href="@Url.Action("Index", "Invite")?r=user"*@
-                   href="@Url.Action("Index", "Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
+                   href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
                 <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : !invitesShowAllVisible()}">
 
@@ -294,7 +292,7 @@
 
                     <div class="emptyInvites">
                         <span>@UserResources.FindFriends</span>
-                        <a data-navigation="invite" href="@Url.Action("Index", "Invite")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
+                        <a data-navigation="invite" href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
                     </div>
 
                 </div>

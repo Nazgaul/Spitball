@@ -276,4 +276,7 @@
   <data name="ViaFacebook" xml:space="preserve">
     <value>دعوة عبر الفيس بوك</value>
   </data>
+  <data name="MessageRequired" xml:space="preserve">
+    <value>مطلوب رسالة</value>
+  </data>
 </root>

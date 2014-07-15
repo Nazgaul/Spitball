@@ -276,4 +276,7 @@
   <data name="UploadingFiles" xml:space="preserve">
     <value>Идет загрузка файлов</value>
   </data>
+  <data name="MessageRequired" xml:space="preserve">
+    <value>Требуется cообщение</value>
+  </data>
 </root>

@@ -58,7 +58,8 @@ namespace Zbang.Zbox.Infrastructure.Extensions
                 return connStr.ConnectionString;
             }
 
-            throw new ConfigurationErrorsException(name);
+            return null;
+            //throw new ConfigurationErrorsException(name);
         }
 
     }

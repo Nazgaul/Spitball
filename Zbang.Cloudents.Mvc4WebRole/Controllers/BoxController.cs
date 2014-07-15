@@ -11,15 +11,12 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
-using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
@@ -392,7 +389,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, 
+            VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
 
         public ActionResult SettingsPartial()
         {
@@ -530,7 +528,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             model.ItemId = model.ItemId ?? new long[0];
             var userId = GetUserId();
-            var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.nDelete);
+            var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.NDelete);
             ZboxWriteService.AssignBoxItemToTab(command);
             return Json(new JsonResponse(true));
         }

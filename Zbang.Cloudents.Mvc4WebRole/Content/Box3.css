@@ -1811,7 +1811,6 @@
   cursor: pointer;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
-  overflow: hidden;
 }
 .thumbItem:hover .actionBtns,
 .listItem:hover .actionBtns {

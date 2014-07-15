@@ -107,6 +107,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
@@ -128,6 +129,7 @@
     <Compile Include="Jobs\ProcessFile.cs" />
     <Compile Include="Jobs\IJob.cs" />
     <Compile Include="Jobs\MailProcess2.cs" />
+    <Compile Include="Jobs\SyncHatavotProduct.cs" />
     <Compile Include="Jobs\UpdateDomainProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\ForgotPassword.cs" />
@@ -183,6 +185,10 @@
     <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
       <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
       <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.HatavotApi\Zbang.Zbox.Store.csproj">
+      <Project>{5170a9bb-52e8-4001-8fcc-407caec11d81}</Project>
+      <Name>Zbang.Zbox.Store</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>
