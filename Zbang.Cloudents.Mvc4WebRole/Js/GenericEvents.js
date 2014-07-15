@@ -142,7 +142,7 @@
     }
     cd.checkRTLDirection = checkRTLDirection;
 
-    $body.on('keyup', 'textarea', function () {
+    $body.on('input', 'input', function () {
         if (!this.value.length) {
             $(this).css('direction', '').css('text-align', '');
             return;
@@ -160,7 +160,7 @@
 
     var setElementDirection = function (element) {
         if (checkRTLDirection(element.textContent)) {
-            $(element).css({ direction: 'rtl', 'text-align': textAlign });
+            $(element).css({ 'direction': 'rtl', 'text-align': textAlign });
         } else {
             $(element).css({ 'direction': 'ltr', 'text-align': textAlign });
         }
