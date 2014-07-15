@@ -1479,7 +1479,7 @@ input[type="radio"][disabled] + label:before {
   background: url(/Images/common17-sprite.png?v=4) -98px -49px no-repeat;
 }
 /*#endregion */
-/*#region tooltip */
+/*#region tooltip1 - "first time" */
 /*.quizGuideTemplate {
     .tooltip {
         top: 119px;
@@ -1668,7 +1668,167 @@ input[type="radio"][disabled] + label:before {
   padding: 4px 12px;
 }
 /*#endregion */
+/*#region User tooltip */
+.userTooltip.showTooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.userTooltip .btn3 {
+  color: #0371c8;
+  background: #fff;
+  border: 1px solid #0371c8;
+  padding: 3px 8px;
+  margin-top: 7px;
+}
+.userTooltip .btn3:hover {
+  background: #0e68af;
+  color: #fff;
+}
+.ttImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*rtl*/
+  border-right: 1px solid #c2c2c2;
+}
+.ttUsername {
+  color: #0f9d58;
+  font-size: 16px;
+  max-width: 257px;
+  display: block;
+}
+.ttUsername:hover {
+  text-decoration: underline;
+}
+.ttSchool {
+  color: #39434a;
+  width: 257px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #c2c2c2;
+}
+.ttPoints {
+  margin-top: 10px;
+  text-transform: lowercase;
+}
+.ttPoints:before {
+  content: attr(data-tt-points);
+  display: inline-block;
+}
+.userTooltip.hidePoints .ttPoints {
+  display: none;
+}
+/*#endregion */
 /*#region Bootstrap classes */
+/*#region tooltip */
+.tooltip {
+  position: absolute;
+  display: block;
+  visibility: visible;
+  opacity: 0;
+  background: #39434a;
+  color: #fff;
+  border-radius: 3px;
+  max-height: 200px;
+  line-height: 22px;
+  min-width: 10px;
+  max-width: 200px;
+  z-index: 12;
+  padding: 2px 0;
+  white-space: nowrap;
+  /*&.in {
+        opacity: .9;
+        &.fade {
+            opacity: 1;
+        }
+    }*/
+}
+.tooltip.right {
+  margin-left: 3px;
+  /*rtl*/
+  padding: 0 5px;
+}
+.tooltip.left {
+  margin-left: -3px;
+  /*rtl*/
+  padding: 0 5px;
+}
+.tooltip.top {
+  margin-top: -8px;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: -5px;
+  top: auto;
+  border-width: 5px 5px 0;
+  border-top-color: #39434a;
+}
+.tooltip.bottom {
+  margin-top: 3px;
+}
+.tooltip.left-bottom {
+  left: 0!important;
+  /*rtl*/
+  right: auto!important;
+  /*rtl*/
+}
+.tooltip.left-bottom .tooltip-arrow {
+  left: 12px;
+  /*rtl*/
+  right: auto;
+}
+.tooltip.right-bottom {
+  right: 0!important;
+  /*rtl*/
+  left: auto!important;
+  /*rtl*/
+}
+.tooltip.right-bottom .tooltip-arrow {
+  right: 12px;
+  /*rtl*/
+  left: auto;
+}
+.tooltip-inner {
+  padding: 0 12px;
+  text-align: center;
+  text-decoration: none;
+  background: #39434a;
+  border-radius: 3px;
+}
+.tooltip-arrow {
+  position: absolute;
+  top: -4px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: #39434a;
+  width: 9px;
+  height: 9px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.toolTipContent {
+  position: relative;
+  padding: 0 12px;
+}
+.toolTipContent .ttArrow {
+  position: absolute;
+  top: -4px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: #39434a;
+  width: 9px;
+  height: 9px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+/*#endregion */
+/*#region popover */
 .popover {
   position: absolute;
   top: 0;
@@ -1790,54 +1950,7 @@ input[type="radio"][disabled] + label:before {
   border-bottom: 1px solid #ebebeb;
   border-radius: 5px 5px 0 0;
 }
-.userTooltip.showTooltip {
-  visibility: visible;
-  opacity: 1;
-}
-.userTooltip .btn3 {
-  color: #0371c8;
-  background: #fff;
-  border: 1px solid #0371c8;
-  padding: 3px 8px;
-  margin-top: 7px;
-}
-.userTooltip .btn3:hover {
-  background: #0e68af;
-  color: #fff;
-}
-.ttImg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  /*rtl*/
-  border-right: 1px solid #c2c2c2;
-}
-.ttUsername {
-  color: #0f9d58;
-  font-size: 16px;
-  max-width: 257px;
-  display: block;
-}
-.ttUsername:hover {
-  text-decoration: underline;
-}
-.ttSchool {
-  color: #39434a;
-  width: 257px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #c2c2c2;
-}
-.ttPoints {
-  margin-top: 10px;
-  text-transform: lowercase;
-}
-.ttPoints:before {
-  content: attr(data-tt-points);
-  display: inline-block;
-}
-.userTooltip.hidePoints .ttPoints {
-  display: none;
-}
+/*#endregion */
 .in {
   opacity: .9;
 }
@@ -2190,115 +2303,6 @@ select.inputText {
 }
 .userItemName .sHighlight {
   padding: 0;
-}
-/*#endregion */
-/*#region User tooltip */
-.tooltip {
-  position: absolute;
-  display: block;
-  visibility: visible;
-  opacity: 0;
-  background: #39434a;
-  color: #fff;
-  border-radius: 3px;
-  max-height: 200px;
-  line-height: 22px;
-  min-width: 10px;
-  max-width: 200px;
-  z-index: 12;
-  padding: 2px 0;
-  white-space: nowrap;
-  /*&.in {
-        opacity: .9;
-        &.fade {
-            opacity: 1;
-        }
-    }*/
-}
-.tooltip.right {
-  margin-left: 3px;
-  /*rtl*/
-  padding: 0 5px;
-}
-.tooltip.left {
-  margin-left: -3px;
-  /*rtl*/
-  padding: 0 5px;
-}
-.tooltip.top {
-  margin-top: -8px;
-}
-.tooltip.top .tooltip-arrow {
-  bottom: -5px;
-  top: auto;
-  border-width: 5px 5px 0;
-  border-top-color: #39434a;
-}
-.tooltip.bottom {
-  margin-top: 3px;
-}
-.tooltip.left-bottom {
-  left: 0!important;
-  /*rtl*/
-  right: auto!important;
-  /*rtl*/
-}
-.tooltip.left-bottom .tooltip-arrow {
-  left: 12px;
-  /*rtl*/
-  right: auto;
-}
-.tooltip.right-bottom {
-  right: 0!important;
-  /*rtl*/
-  left: auto!important;
-  /*rtl*/
-}
-.tooltip.right-bottom .tooltip-arrow {
-  right: 12px;
-  /*rtl*/
-  left: auto;
-}
-.tooltip-inner {
-  padding: 0 12px;
-  text-align: center;
-  text-decoration: none;
-  background: #39434a;
-  border-radius: 3px;
-}
-.tooltip-arrow {
-  position: absolute;
-  top: -4px;
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  background: #39434a;
-  width: 9px;
-  height: 9px;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-.toolTipContent {
-  position: relative;
-  padding: 0 12px;
-}
-.toolTipContent .ttArrow {
-  position: absolute;
-  top: -4px;
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  background: #39434a;
-  width: 9px;
-  height: 9px;
-  left: 0;
-  right: 0;
-  margin: auto;
 }
 /*#endregion */
 /*#region media queries */

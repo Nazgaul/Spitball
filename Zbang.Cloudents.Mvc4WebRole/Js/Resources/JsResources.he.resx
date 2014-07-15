@@ -626,4 +626,25 @@
   <data name="Owner" xml:space="preserve">
     <value>בעלות</value>
   </data>
+  <data name="DeleteError" xml:space="preserve">
+    <value>מחיקת התקייה נכלשה</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>השינויים שעשית ימחקו,  אתה בטוח שאתה רוצה לבטל את הפעולה?</value>
+  </data>
+  <data name="FolderCreate" xml:space="preserve">
+    <value>צור תקייה חדשה</value>
+  </data>
+  <data name="FolderItemError" xml:space="preserve">
+    <value>שמירת הקבצים בתקייה נכשלה</value>
+  </data>
+  <data name="FolderRename" xml:space="preserve">
+    <value>שנה שם תקייה</value>
+  </data>
+  <data name="LinkError" xml:space="preserve">
+    <value>שמירת התקייה נכשלה</value>
+  </data>
+  <data name="RenameError" xml:space="preserve">
+    <value>שינוי השם נכשל</value>
+  </data>
 </root>
