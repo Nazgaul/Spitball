@@ -102,7 +102,7 @@
                     <div class="attachActions">
                         <a tooltip="@IndexResources.ShowAttachment" ng-href="{{file.itemUrl}}" class="attachFull"></a>
                         <button tooltip="@IndexResources.RemoveAttachment" class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(selectedQuestion,file)"></button>
-                        <a tooltip="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" ng-href={{file.download}}"></a>
+                        <a tooltip-placement="top" tooltip="@IndexResources.DownloadAttachment" class="attachDownload" target="_blank" ng-href={{file.download}}"></a>
                     </div>
                 </li>
             </ul>

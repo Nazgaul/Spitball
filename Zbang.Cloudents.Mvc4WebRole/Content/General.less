@@ -1783,19 +1783,41 @@ input[type="radio"] {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1010;
+    //z-index: 1010;
+    z-index: 13;
     display: none;
-    max-width: 276px;
-    padding: 1px;
+    //max-width: 276px;
+    //padding: 1px;
     text-align: left;
-    background-color: #FFF;
+    background: #fff;
     //background-clip: padding-box;
     //border: 1px solid #CCC;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    white-space: normal;
+
+    .boxSizing;
+    border: 1px solid @borderColor;
+    //border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    //-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    //box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    //white-space: normal;
+    box-shadow: 0 0 3px rgba(0,0,0,.4);
+    .userTooltip {
+        width: 379px;
+        height: 100px;
+        
+        //border-radius: 3px;
+        //overflow: hidden;
+        padding: 10px 10px 6px 110px; /*rtl*/
+        .boxSizing;
+        //position: fixed;
+        //z-index: 13;
+        //background: #fff;
+        //.transition(opacity .5s);
+        //opacity: 0;
+        //visibility: hidden;
+        
+    }
+
     &.top {
         margin-top: -10px;
         > .arrow {
@@ -1805,9 +1827,65 @@ input[type="radio"] {
             border-top-color: #999;
             border-top-color: rgba(0, 0, 0, 0.25);
             bottom: -11px;
+            &:after {
+                bottom: 1px;
+                margin-left: -10px;
+                border-bottom-width: 0;
+                border-top-color: #fff;
+            }
         }
     }
-    
+    &.bottom {
+        margin-top: 10px;
+        > .arrow {
+            left: 50%;
+            margin-left: -11px;
+            border-top-width: 0;
+            border-bottom-color: #999;
+            border-bottom-color: rgba(0,0,0,.25);
+            top: -11px;
+            &:after {
+                top: 1px;
+                margin-left: -10px;
+                border-top-width: 0;
+                border-bottom-color: #fff;
+            }
+        }
+    }
+    &.left {
+        margin-left: -10px;
+        > .arrow {
+            top: 50%;
+            right: -11px;
+            margin-top: -11px;
+            border-right-width: 0;
+            border-left-color: #999;
+            border-left-color: rgba(0,0,0,.25);
+            &:after {
+                right: 1px;
+                border-right-width: 0;
+                border-left-color: #fff;
+                bottom: -10px;
+            }
+        }
+    }
+    &.right {
+        margin-left: 10px;
+        > .arrow {
+            top: 50%;
+            left: -11px;
+            margin-top: -11px;
+            border-left-width: 0;
+            border-right-color: #999;
+            border-right-color: rgba(0,0,0,.25);
+            &:after {
+                left: 1px;
+                bottom: -10px;
+                border-left-width: 0;
+                border-right-color: #fff;
+            }
+        }
+    }
     > .arrow, > .arrow:after {
         position: absolute;
         display: block;
@@ -1826,8 +1904,87 @@ input[type="radio"] {
         border-bottom-width: 0;
         border-top-color: #FFF;
     }
-
 }
+
+.popover-title {
+    margin: 0;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+}
+
+.popover-content {
+    //padding: 9px 14px;
+}
+
+
+
+.userTooltip {
+
+    &.showTooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .btn3 {
+        color: @attentionBlue;
+        background: #fff;
+        border: 1px solid @attentionBlue;
+        padding: 3px 8px;
+        margin-top: 7px;
+
+        &:hover {
+            background: @attentionBlueHover;
+            color: #fff;
+        }
+    }
+}
+
+.ttImg {
+    position: absolute;
+    top: 0;
+    left: 0; /*rtl*/
+    border-right: 1px solid @borderColor;
+}
+
+.ttUsername {
+    color: @color;
+    font-size: 16px;
+    max-width: 257px;
+    display: block;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.ttSchool {
+    color: #39434a;
+    width: 257px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid @borderColor;
+}
+
+.ttPoints {
+    margin-top: 10px;
+    text-transform: lowercase;
+
+    &:before {
+        content: attr(data-tt-points);
+        display: inline-block;
+    }
+
+    .userTooltip.hidePoints & {
+        display: none;
+    }
+}
+
+
+
 
 .in {
     opacity: .9;
@@ -2223,79 +2380,6 @@ select.inputText {
 /*#endregion */ 
 
 /*#region User tooltip */
-.userTooltip {
-    width: 379px;
-    height: 101px;
-    .boxSizing;
-    border: 1px solid @borderColor;
-    border-radius: 3px;
-    overflow: hidden;
-    padding: 10px 10px 6px 110px; /*rtl*/
-    position: fixed;
-    z-index: 13;
-    background: #fff;
-    .transition(opacity .5s);
-    opacity: 0;
-    visibility: hidden;
-    box-shadow: 0 0 3px rgba(0,0,0,.4);
-
-    &.showTooltip {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .btn3 {
-        color: @attentionBlue;
-        background: #fff;
-        border: 1px solid @attentionBlue;
-        padding: 3px 8px;
-        margin-top: 7px;
-
-        &:hover {
-            background: @attentionBlueHover;
-            color: #fff;
-        }
-    }
-}
-
-.ttImg {
-    position: absolute;
-    top: 0;
-    left: 0; /*rtl*/
-    border-right: 1px solid @borderColor;
-}
-
-.ttUsername {
-    color: @color;
-    font-size: 16px;
-    max-width: 257px;
-    display: block;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
-.ttSchool {
-    color: #39434a;
-    width: 257px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid @borderColor;
-}
-
-.ttPoints {
-    margin-top: 10px;
-    text-transform: lowercase;
-
-    &:before {
-        content: attr(data-tt-points);
-        display: inline-block;
-    }
-
-    .userTooltip.hidePoints & {
-        display: none;
-    }
-}
 
 .tooltip{
     position: absolute;

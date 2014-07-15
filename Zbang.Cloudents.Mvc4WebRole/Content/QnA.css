@@ -91,7 +91,7 @@
   /*rtl*/
 }
 .QForm .attachBtn {
-  display: block;
+  display: inline-block;
 }
 .QWpr {
   display: inline-block;
@@ -410,6 +410,9 @@ textarea:invalid {
 }
 .QItem .postAnswer ~ .QBottom {
   display: none;
+}
+.QItem .postAnswer .attachBtn {
+  display: inline-block;
 }
 .QItem .upArrow {
   margin-bottom: -9px;
@@ -778,6 +781,9 @@ textarea:invalid {
 .enterAnswer .textareaWpr {
   width: 280px;
   margin: 0 0 0 3px;
+}
+.enterAnswer .attachBtn {
+  display: inline-block;
 }
 .QAfloatButton {
   position: fixed;

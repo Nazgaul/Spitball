@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1673,17 +1673,25 @@ input[type="radio"][disabled] + label:before {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1010;
+  z-index: 13;
   display: none;
-  max-width: 276px;
-  padding: 1px;
   text-align: left;
-  background-color: #FFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  white-space: normal;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+.popover .userTooltip {
+  width: 379px;
+  height: 100px;
+  padding: 10px 10px 6px 110px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .popover.top {
   margin-top: -10px;
@@ -1695,6 +1703,63 @@ input[type="radio"][disabled] + label:before {
   border-top-color: #999;
   border-top-color: rgba(0, 0, 0, 0.25);
   bottom: -11px;
+}
+.popover.top > .arrow:after {
+  bottom: 1px;
+  margin-left: -10px;
+  border-bottom-width: 0;
+  border-top-color: #fff;
+}
+.popover.bottom {
+  margin-top: 10px;
+}
+.popover.bottom > .arrow {
+  left: 50%;
+  margin-left: -11px;
+  border-top-width: 0;
+  border-bottom-color: #999;
+  border-bottom-color: rgba(0, 0, 0, 0.25);
+  top: -11px;
+}
+.popover.bottom > .arrow:after {
+  top: 1px;
+  margin-left: -10px;
+  border-top-width: 0;
+  border-bottom-color: #fff;
+}
+.popover.left {
+  margin-left: -10px;
+}
+.popover.left > .arrow {
+  top: 50%;
+  right: -11px;
+  margin-top: -11px;
+  border-right-width: 0;
+  border-left-color: #999;
+  border-left-color: rgba(0, 0, 0, 0.25);
+}
+.popover.left > .arrow:after {
+  right: 1px;
+  border-right-width: 0;
+  border-left-color: #fff;
+  bottom: -10px;
+}
+.popover.right {
+  margin-left: 10px;
+}
+.popover.right > .arrow {
+  top: 50%;
+  left: -11px;
+  margin-top: -11px;
+  border-left-width: 0;
+  border-right-color: #999;
+  border-right-color: rgba(0, 0, 0, 0.25);
+}
+.popover.right > .arrow:after {
+  left: 1px;
+  bottom: -10px;
+  border-left-width: 0;
+  border-right-color: #fff;
 }
 .popover > .arrow,
 .popover > .arrow:after {
@@ -1714,6 +1779,64 @@ input[type="radio"][disabled] + label:before {
   margin-left: -10px;
   border-bottom-width: 0;
   border-top-color: #FFF;
+}
+.popover-title {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+.userTooltip.showTooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.userTooltip .btn3 {
+  color: #0371c8;
+  background: #fff;
+  border: 1px solid #0371c8;
+  padding: 3px 8px;
+  margin-top: 7px;
+}
+.userTooltip .btn3:hover {
+  background: #0e68af;
+  color: #fff;
+}
+.ttImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*rtl*/
+  border-right: 1px solid #c2c2c2;
+}
+.ttUsername {
+  color: #0f9d58;
+  font-size: 16px;
+  max-width: 257px;
+  display: block;
+}
+.ttUsername:hover {
+  text-decoration: underline;
+}
+.ttSchool {
+  color: #39434a;
+  width: 257px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #c2c2c2;
+}
+.ttPoints {
+  margin-top: 10px;
+  text-transform: lowercase;
+}
+.ttPoints:before {
+  content: attr(data-tt-points);
+  display: inline-block;
+}
+.userTooltip.hidePoints .ttPoints {
+  display: none;
 }
 .in {
   opacity: .9;
@@ -2070,76 +2193,6 @@ select.inputText {
 }
 /*#endregion */
 /*#region User tooltip */
-.userTooltip {
-  width: 379px;
-  height: 101px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
-  overflow: hidden;
-  padding: 10px 10px 6px 110px;
-  /*rtl*/
-  position: fixed;
-  z-index: 13;
-  background: #fff;
-  -webkit-transition: opacity 0.5s;
-  -moz-transition: opacity 0.5s;
-  -o-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-  opacity: 0;
-  visibility: hidden;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-}
-.userTooltip.showTooltip {
-  visibility: visible;
-  opacity: 1;
-}
-.userTooltip .btn3 {
-  color: #0371c8;
-  background: #fff;
-  border: 1px solid #0371c8;
-  padding: 3px 8px;
-  margin-top: 7px;
-}
-.userTooltip .btn3:hover {
-  background: #0e68af;
-  color: #fff;
-}
-.ttImg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  /*rtl*/
-  border-right: 1px solid #c2c2c2;
-}
-.ttUsername {
-  color: #0f9d58;
-  font-size: 16px;
-  max-width: 257px;
-  display: block;
-}
-.ttUsername:hover {
-  text-decoration: underline;
-}
-.ttSchool {
-  color: #39434a;
-  width: 257px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #c2c2c2;
-}
-.ttPoints {
-  margin-top: 10px;
-  text-transform: lowercase;
-}
-.ttPoints:before {
-  content: attr(data-tt-points);
-  display: inline-block;
-}
-.userTooltip.hidePoints .ttPoints {
-  display: none;
-}
 .tooltip {
   position: absolute;
   display: block;
@@ -2427,4 +2480,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */
