@@ -6,7 +6,7 @@
     <section class="quiz">
         <header>
             @QuizResources.CreateQuiz
-            <button type="button" ng-click="closeQuiz(quizForm.$valid)" class="closeDialog"></button>
+            <button type="button"  ng-click="closeQuiz(quizForm.$valid)" class="closeDialog"></button>
         </header>
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
             <m-custom-scrollbar class="quizWpr" bottom="40">
@@ -92,7 +92,7 @@
     <textarea name="answer" class="inputText questionAnswer" quiz-focus data-focus="{{answer.focus}}" msd-elastic ng-required="!questionForm.$pristine || params.isDraft" ng-keydown="addTabAnswer($event,question,answer)"
               ng-placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-change="toggleRadioBtn(question,answer)" ng-model="answer.text"></textarea>
 
-    <button tabindex="-1" type="button" class="TODO" ng-click="removeAnswer(question,$index)">X</button>
+    <button tabindex="-1" type="button" class="removeAnswer" ng-click="removeAnswer(question,$index)">X</button>
     <input id="quizRadio{{$parent.$parent.$index + '' + $index}}" type="radio" class="correctAnswer" name="quizRadio{{$parent.$parent.$index}}"
            ng-disabled="isEmptyText(answer)" value="{{answer.id}}" ng-model="question.correctAnswer" ng-required="!questionForm.$pristine || params.isDraft" />
     <label for="quizRadio{{$parent.$parent.$index + '' + $index}}" ng-click="markCorrect(question,answer)"></label>

@@ -90,6 +90,23 @@
   cursor: pointer;
   margin: -7px 0 25px;
 }
+.lastnameWpr,
+.nameWpr {
+  display: inline-block;
+  position: relative;
+}
+.lastnameWpr .input-validation-error,
+.nameWpr .input-validation-error {
+  border-color: #d1294d;
+}
+.lastnameWpr .field-validation-error,
+.nameWpr .field-validation-error {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  white-space: nowrap;
+  margin: 0;
+}
 .photoBtns button {
   display: block;
   margin-bottom: 15px;

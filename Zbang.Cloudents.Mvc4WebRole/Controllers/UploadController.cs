@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -48,15 +49,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 CookieHelper cookie = new CookieHelper(HttpContext);
                 if (HttpContext.Request.Files == null)
                 {
-                    return this.CdJson(new JsonResponse(false, "No files received"));
+                    return this.CdJson(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
                 }
                 if (HttpContext.Request.Files.Count == 0)
                 {
-                    return this.CdJson(new JsonResponse(false, "No files received"));
+                    return this.CdJson(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
                 }
                 if (string.IsNullOrEmpty(Path.GetExtension(fileName)))
                 {
-                    return this.CdJson(new JsonResponse(false, "No files received"));
+                    return this.CdJson(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
                 }
                 var uploadedfile = HttpContext.Request.Files[0];
 
@@ -99,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxUid {0} fileName {1} fileSize {2} userid {3} HttpContextRequestCount {4} HttpContextRequestKeys {5}",
                     boxId, fileName, fileSize, userId,
                     HttpContext.Request.Files.Count, string.Join(",", HttpContext.Request.Files.AllKeys)), ex);
-                return this.CdJson(new JsonResponse(false, "Error"));
+                return this.CdJson(new JsonResponse(false, BaseControllerResources.Error));
             }
 
         }
@@ -228,12 +229,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (DuplicateNameException)
             {
-                return this.CdJson(new JsonResponse(false, "this link exists"));
+                return this.CdJson(new JsonResponse(false, BaseControllerResources.LinkExists));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Link user: {0} BoxUid: {1} url: {2}", GetUserId(), model.BoxId, model.FileUrl), ex);
-                return this.CdJson(new JsonResponse(false, "Problem with insert url"));
+                return this.CdJson(new JsonResponse(false, BaseControllerResources.ProblemUrl));
             }
         }
 
