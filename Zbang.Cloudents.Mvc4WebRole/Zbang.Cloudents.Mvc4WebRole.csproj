@@ -1310,8 +1310,6 @@
     <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Comment\_Comments.cshtml" />
     <Content Include="Views\Comment\_Template.cshtml" />
-    <Content Include="Views\Shared\Partials\_Invite2.cshtml" />
-    <Content Include="Views\Box\_SettingPopUps.cshtml" />
     <Content Include="Views\Account\Index2.mobile.cshtml" />
     <Content Include="Views\Account\Register.mobile.cshtml" />
     <Content Include="Views\Account\LogOn.mobile.cshtml" />
@@ -1375,14 +1373,12 @@
     <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Quiz\Index.cshtml" />
-    <Content Include="Views\Quiz\CreateQuiz1.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
-    <Content Include="Views\Box\Index2.cshtml" />
     <Content Include="Views\Shopping\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <Content Include="Views\Shopping\Product.cshtml" />
@@ -1930,12 +1926,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Box\_Members.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Box\_Template.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Box\UserPermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AboutUs.cshtml" />

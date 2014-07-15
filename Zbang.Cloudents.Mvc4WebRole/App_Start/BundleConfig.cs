@@ -27,11 +27,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             return JsBundels[key];
         }
 
-        public static string JsRemoteLinks(string key)
-        {
-            return JsRemoteBundles[key];
+        //public static string JsRemoteLinks(string key)
+        //{
+        //    return JsRemoteBundles[key];
 
-        }
+        //}
 
 
 
@@ -148,7 +148,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/box/tabCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/qnaCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/uploadCtrl.js"),
-                new JsFileWithCdn("/Js/controllers/box/settingsCtrl.js"),
+                new JsFileWithCdn("/js/controllers/box/settingsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/dashboardCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/createBoxCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
@@ -156,8 +156,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
                 new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
-                new JsFileWithCdn("/Js/controllers/quiz/quizCreateCtrl.js"),
-                new JsFileWithCdn("/Js/controllers/quiz/quizCloseCtrl.js"),
+                new JsFileWithCdn("/js/controllers/quiz/quizCreateCtrl.js"),
+                new JsFileWithCdn("/js/controllers/quiz/quizCloseCtrl.js"),
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
                 new JsFileWithCdn("/js/services/qna.js"),
