@@ -1554,7 +1554,7 @@ input[type="radio"] {
 
 /*#endregion */
 
-/*#region tooltip */
+/*#region tooltip1 - "first time" */
 // tooltip variables:
 @arrowLeft: 135px; //change vertical offset of arrow
 @arrowTop: 40px;  //change horizontal offset of arrow
@@ -1777,8 +1777,179 @@ input[type="radio"] {
 }
 /*#endregion */
 
+/*#region User tooltip */
+
+.userTooltip {
+
+    &.showTooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .btn3 {
+        color: @attentionBlue;
+        background: #fff;
+        border: 1px solid @attentionBlue;
+        padding: 3px 8px;
+        margin-top: 7px;
+
+        &:hover {
+            background: @attentionBlueHover;
+            color: #fff;
+        }
+    }
+}
+
+.ttImg {
+    position: absolute;
+    top: 0;
+    left: 0; /*rtl*/
+    border-right: 1px solid @borderColor;
+}
+
+.ttUsername {
+    color: @color;
+    font-size: 16px;
+    max-width: 257px;
+    display: block;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.ttSchool {
+    color: #39434a;
+    width: 257px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid @borderColor;
+}
+
+.ttPoints {
+    margin-top: 10px;
+    text-transform: lowercase;
+
+    &:before {
+        content: attr(data-tt-points);
+        display: inline-block;
+    }
+
+    .userTooltip.hidePoints & {
+        display: none;
+    }
+}
+
+/*#endregion */
+
 /*#region Bootstrap classes */
 
+/*#region tooltip */
+.tooltip{
+    position: absolute;
+    display: block;
+    visibility: visible;
+    opacity: 0;
+    background: @txtColor;
+    color: #fff;
+    border-radius: 3px;
+    max-height: 200px;
+    line-height: 22px;
+    min-width: 10px;
+    max-width: 200px;
+    z-index: 12;
+    padding: 2px 0;
+    white-space: nowrap;
+    &.right {
+        margin-left: 3px; /*rtl*/
+        padding: 0 5px;
+    }
+    &.left {
+        margin-left: -3px; /*rtl*/
+        padding: 0 5px;
+    }
+    &.top {
+        margin-top: -8px;
+        .tooltip-arrow {
+            bottom: -5px;
+            top: auto;
+            border-width: 5px 5px 0;
+            border-top-color: @txtColor;
+        }
+    }
+    &.bottom {
+        margin-top: 3px;
+    }
+    &.left-bottom {
+        left: 0!important; /*rtl*/
+        right: auto!important; /*rtl*/
+        .tooltip-arrow {
+            left: 12px; /*rtl*/
+            right: auto;
+        }
+    }
+    &.right-bottom {
+        right: 0!important; /*rtl*/
+        left: auto!important; /*rtl*/
+        .tooltip-arrow {
+            right: 12px; /*rtl*/
+            left: auto;
+        }
+    }
+    /*&.in {
+        opacity: .9;
+        &.fade {
+            opacity: 1;
+        }
+    }*/
+}
+
+.tooltip-inner {
+    padding: 0 12px;
+    text-align: center;
+    text-decoration: none;
+    background: @txtColor;
+    border-radius: 3px;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    top: -4px;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background :#39434a;
+    width:9px;
+    height:9px;
+    left:0;right:0;
+    margin: auto;
+    .topBar & {
+
+    }
+}
+
+.toolTipContent {
+    position: relative;
+    padding: 0 12px;
+    .ttArrow{
+        position: absolute;
+        top: -4px;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background :#39434a;
+        width:9px;
+        height:9px;
+        left:0;right:0;
+        margin: auto;
+    }
+}
+/*#endregion */
+
+/*#region popover */
 .popover {
     position: absolute;
     top: 0;
@@ -1920,71 +2091,7 @@ input[type="radio"] {
 .popover-content {
     //padding: 9px 14px;
 }
-
-
-
-.userTooltip {
-
-    &.showTooltip {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .btn3 {
-        color: @attentionBlue;
-        background: #fff;
-        border: 1px solid @attentionBlue;
-        padding: 3px 8px;
-        margin-top: 7px;
-
-        &:hover {
-            background: @attentionBlueHover;
-            color: #fff;
-        }
-    }
-}
-
-.ttImg {
-    position: absolute;
-    top: 0;
-    left: 0; /*rtl*/
-    border-right: 1px solid @borderColor;
-}
-
-.ttUsername {
-    color: @color;
-    font-size: 16px;
-    max-width: 257px;
-    display: block;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
-.ttSchool {
-    color: #39434a;
-    width: 257px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid @borderColor;
-}
-
-.ttPoints {
-    margin-top: 10px;
-    text-transform: lowercase;
-
-    &:before {
-        content: attr(data-tt-points);
-        display: inline-block;
-    }
-
-    .userTooltip.hidePoints & {
-        display: none;
-    }
-}
-
-
-
+/*#endregion */
 
 .in {
     opacity: .9;
@@ -2379,113 +2486,7 @@ select.inputText {
 
 /*#endregion */ 
 
-/*#region User tooltip */
 
-.tooltip{
-    position: absolute;
-    display: block;
-    visibility: visible;
-    opacity: 0;
-    background: @txtColor;
-    color: #fff;
-    border-radius: 3px;
-    max-height: 200px;
-    line-height: 22px;
-    min-width: 10px;
-    max-width: 200px;
-    z-index: 12;
-    padding: 2px 0;
-    white-space: nowrap;
-    &.right {
-        margin-left: 3px; /*rtl*/
-        padding: 0 5px;
-    }
-    &.left {
-        margin-left: -3px; /*rtl*/
-        padding: 0 5px;
-    }
-    &.top {
-        margin-top: -8px;
-        .tooltip-arrow {
-            bottom: -5px;
-            top: auto;
-            border-width: 5px 5px 0;
-            border-top-color: @txtColor;
-        }
-    }
-    &.bottom {
-        margin-top: 3px;
-    }
-    &.left-bottom {
-        left: 0!important; /*rtl*/
-        right: auto!important; /*rtl*/
-        .tooltip-arrow {
-            left: 12px; /*rtl*/
-            right: auto;
-        }
-    }
-    &.right-bottom {
-        right: 0!important; /*rtl*/
-        left: auto!important; /*rtl*/
-        .tooltip-arrow {
-            right: 12px; /*rtl*/
-            left: auto;
-        }
-    }
-    /*&.in {
-        opacity: .9;
-        &.fade {
-            opacity: 1;
-        }
-    }*/
-}
-
-.tooltip-inner {
-    padding: 0 12px;
-    text-align: center;
-    text-decoration: none;
-    background: @txtColor;
-    border-radius: 3px;
-}
-
-.tooltip-arrow {
-    position: absolute;
-    top: -4px;
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    background :#39434a;
-    width:9px;
-    height:9px;
-    left:0;right:0;
-    margin: auto;
-    .topBar & {
-
-    }
-}
-
-.toolTipContent {
-    position: relative;
-    padding: 0 12px;
-    .ttArrow{
-        position: absolute;
-        top: -4px;
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -o-transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
-        background :#39434a;
-        width:9px;
-        height:9px;
-        left:0;right:0;
-        margin: auto;
-    }
-}
-
-/*#endregion */
 
 /*#region media queries */
 ////Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
