@@ -183,4 +183,7 @@
   <data name="Name" xml:space="preserve">
     <value>שם:</value>
   </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>יש למלא שם משפחה</value>
+  </data>
 </root>
