@@ -152,7 +152,6 @@
             }
             lastInput = input.value;
             
-            hide();
             window.location.href = '/search/?q=' + input.value;
         };
 

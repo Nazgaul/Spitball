@@ -96,7 +96,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
         //title 
-        if (!previous && !previous.$$route && !previous.$$route.params) {
+        if (!previous || (!previous.$$route && !previous.$$route.params)) {
             return;
         }
 
@@ -142,6 +142,61 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
         sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
+
+    
+var rtlChars = '\u0600-\u06FF' + '\u0750-\u077F' + '\u08A0-\u08FF' + '\uFB50-\uFDFF' + '\uFE70-\uFEFF';//arabic
+rtlChars += '\u0590-\u05FF' + '\uFB1D-\uFB4F';//hebrew
+
+var controlChars = '\u0000-\u0020';
+controlChars += '\u2000-\u200D';
+
+//Start Regular Expression magic
+var reRTL = new RegExp('[' + rtlChars + ']', 'g'),
+    reNotRTL = new RegExp('[^' + rtlChars + controlChars + ']', 'g'),
+    textAlign = $('html').css('direction') === 'ltr' ? 'left' : 'right';
+
+function checkRTLDirection(value) {
+
+    if (!value) {
+        return;
+    }
+
+    var rtls = value.match(reRTL);
+    if (rtls !== null)
+        rtls = rtls.length;
+    else
+        rtls = 0;
+
+    var notrtls = value.match(reNotRTL);
+    if (notrtls !== null)
+        notrtls = notrtls.length;
+    else
+        notrtls = 0;
+
+    return rtls > notrtls;
+}
+$(document).on('input', 'input,textarea', function () {
+    if (!this.value.length) {
+        $(this).css('direction', '').css('text-align', '');
+        return;
+    }
+    if (checkRTLDirection(this.value)) {
+        $(this).css('direction', 'rtl').css('text-align', 'right');
+    } else {
+        $(this).css('direction', 'ltr').css('text-align', 'left');
+    }
+});
+
+
+var setElementDirection = function (element) {
+    if (checkRTLDirection(element.textContent)) {
+        $(element).css({ 'direction': 'rtl', 'text-align': textAlign });
+    } else {
+        $(element).css({ 'direction': 'ltr', 'text-align': textAlign });
+    }
+}
+
+//#endregion
 }]);
 
 app.directive('postRepeatDirective',
@@ -159,3 +214,4 @@ app.directive('postRepeatDirective',
         };
     }
     ]);
+
