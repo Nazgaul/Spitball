@@ -45,7 +45,7 @@
 <script type="text/ng-template" id="itemThumbView">
     <p class="thumbContent">{{item.description}}</p>
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
-        <img ng-if="item.sponsored" style="background-image: url('{{item.thumbnail}}' )"  alt="" width="479" height="188" />
+        <span class="sponsoredBg" ng-if="item.sponsored" style="background-image: url('{{item.thumbnail}}' )" ></span>
         <img ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" width="148" height="188" />
         <span ng-if="item.isNew" class="tag">@SharedResources.New</span>
         <div class="boxName clamp2">{{item.name}}</div>
@@ -73,7 +73,7 @@
 
 <script type="text/ng-template" id="itemListView">
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
-        <img class="imgBorder" ng-if="item.sponsored" style="background-image: url('{{item.thumbnail}}' )" alt=" " width=" 236" height="143" />
+        <span class="imgBorder" ng-if="item.sponsored" style="background-image: url('{{item.thumbnail}}' )"></span>
         <img class="imgBorder" ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" alt="" width="112" height="143" />
         <div class="boxName semiFont elps">{{item.name}}</div>
         <p class="itemContent">{{item.description}}</p>

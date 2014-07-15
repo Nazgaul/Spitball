@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -857,10 +857,13 @@
   right: 0;
   top: 50px;
 }
-.boxItemList.sponsored .thumbItem:first-child img {
+.boxItemList.sponsored .thumbItem:first-child .sponsoredBg {
   width: 100%;
   position: absolute;
   top: 0;
+  height: 179px;
+  border: none;
+  border-bottom: 1px solid #c2c2c2;
 }
 .boxItemList.sponsored .thumbItem:first-child .boxItemTt {
   left: 0;
@@ -890,6 +893,7 @@
   -o-background-size: cover;
   -webkit-background-size: cover;
   background-size: cover;
+  height: 143px;
 }
 .boxItemList.sponsored .listItem:first-child .boxName {
   font-size: 17px;
@@ -2025,3 +2029,4 @@
   /*rtl*/
 }
 /*#endregion */
+/*# sourceMappingURL=Box3.css.map */
