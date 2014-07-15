@@ -75,7 +75,7 @@
         }
     }
 
-    cd.historyManager.get();
+    //cd.historyManager.get();
 
     //HTMLElement.prototype.on = function (event, attr, func) {
     //    /// <summary></summary>

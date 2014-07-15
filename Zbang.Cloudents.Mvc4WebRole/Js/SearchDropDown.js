@@ -151,13 +151,9 @@
                 return;
             }
             lastInput = input.value;
-            currentValue = '';
-
+            
             hide();
-            cd.historyManager.remove();
-            formSubmitted = true;
-            pubsub.publish('searchclear');
-            pubsub.publish('nav', '/search/?q=' + input.value);// + '&r=searchdd');
+            window.location.href = '/search/?q=' + input.value;
         };
 
 
