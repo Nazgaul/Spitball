@@ -90,6 +90,9 @@
   margin: 3px 0 0 8px;
   /*rtl*/
 }
+.QForm .attachBtn {
+  display: block;
+}
 .QWpr {
   display: inline-block;
   position: absolute;
@@ -263,7 +266,7 @@ textarea:invalid {
   height: 13px;
   margin: 8px 8px 0 8px;
   background: url(/Images/QnA-sprite.png?v=1) -85px -1px no-repeat;
-  /*display: none;*/
+  display: none;
   vertical-align: top;
 }
 .attachBtn:hover {

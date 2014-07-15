@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1685,6 +1685,42 @@ input[type="radio"][disabled] + label:before {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   white-space: normal;
 }
+.popover.top {
+  margin-top: -10px;
+}
+.popover.top > .arrow {
+  left: 50%;
+  margin-left: -11px;
+  border-bottom-width: 0;
+  border-top-color: #999;
+  border-top-color: rgba(0, 0, 0, 0.25);
+  bottom: -11px;
+}
+.popover > .arrow,
+.popover > .arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: rgba(0, 0, 0, 0);
+  border-style: solid;
+}
+.popover > .arrow {
+  border-width: 11px;
+}
+.popover > .arrow:after {
+  content: " ";
+  bottom: 1px;
+  margin-left: -10px;
+  border-bottom-width: 0;
+  border-top-color: #FFF;
+}
+.in {
+  opacity: .9;
+}
+.in.fade {
+  opacity: 1;
+}
 /*#endregion */
 /*#region general helper classes */
 .lFloat {
@@ -2118,6 +2154,13 @@ select.inputText {
   max-width: 200px;
   z-index: 12;
   padding: 2px 0;
+  white-space: nowrap;
+  /*&.in {
+        opacity: .9;
+        &.fade {
+            opacity: 1;
+        }
+    }*/
 }
 .tooltip.right {
   margin-left: 3px;
@@ -2163,12 +2206,6 @@ select.inputText {
   /*rtl*/
   left: auto;
 }
-.tooltip.in {
-  opacity: .9;
-}
-.tooltip.in.fade {
-  opacity: 1;
-}
 .tooltip-inner {
   padding: 0 12px;
   text-align: center;
@@ -2177,18 +2214,6 @@ select.inputText {
   border-radius: 3px;
 }
 .tooltip-arrow {
-  /*position: absolute;
-    width: 0;
-    height: 0;
-    border-color: rgba(0, 0, 0, 0);
-    border-style: solid;
-    .tooltip & {
-        bottom: 0;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px 5px 0;
-        border-top-color: @txtColor;
-    }*/
   position: absolute;
   top: -4px;
   -moz-transform: rotate(45deg);
@@ -2402,3 +2427,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

@@ -1796,9 +1796,45 @@ input[type="radio"] {
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     white-space: normal;
+    &.top {
+        margin-top: -10px;
+        > .arrow {
+            left: 50%;
+            margin-left: -11px;
+            border-bottom-width: 0;
+            border-top-color: #999;
+            border-top-color: rgba(0, 0, 0, 0.25);
+            bottom: -11px;
+        }
+    }
+    
+    > .arrow, > .arrow:after {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: rgba(0, 0, 0, 0);
+        border-style: solid;
+    }
+    > .arrow {
+        border-width: 11px;
+    }
+    > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -10px;
+        border-bottom-width: 0;
+        border-top-color: #FFF;
+    }
+
 }
 
-
+.in {
+    opacity: .9;
+    &.fade {
+        opacity: 1;
+    }
+}
 /*#endregion */
 
 /*#region general helper classes */
@@ -2275,6 +2311,7 @@ select.inputText {
     max-width: 200px;
     z-index: 12;
     padding: 2px 0;
+    white-space: nowrap;
     &.right {
         margin-left: 3px; /*rtl*/
         padding: 0 5px;
@@ -2285,19 +2322,15 @@ select.inputText {
     }
     &.top {
         margin-top: -8px;
-        //padding: 5px 0;
         .tooltip-arrow {
             bottom: -5px;
             top: auto;
-            //left: 50%;
-            //margin-left: -5px;
             border-width: 5px 5px 0;
             border-top-color: @txtColor;
         }
     }
     &.bottom {
         margin-top: 3px;
-        //padding: 5px 0;
     }
     &.left-bottom {
         left: 0!important; /*rtl*/
@@ -2315,39 +2348,23 @@ select.inputText {
             left: auto;
         }
     }
-    &.in {
+    /*&.in {
         opacity: .9;
         &.fade {
             opacity: 1;
         }
-    }
+    }*/
 }
 
 .tooltip-inner {
-    //max-width: 200px;
     padding: 0 12px;
-    //color: #FFF;
     text-align: center;
     text-decoration: none;
     background: @txtColor;
     border-radius: 3px;
 }
-.tooltip.top .tooltip-arrow {
 
-}
 .tooltip-arrow {
-    /*position: absolute;
-    width: 0;
-    height: 0;
-    border-color: rgba(0, 0, 0, 0);
-    border-style: solid;
-    .tooltip & {
-        bottom: 0;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px 5px 0;
-        border-top-color: @txtColor;
-    }*/
     position: absolute;
     top: -4px;
     -moz-transform: rotate(45deg);
