@@ -64,10 +64,10 @@
     }
 
     <span ng-if="options.manageTab">
-        <input id="{{'item_' + item.id}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
+        <input id="{{'item_' + item.id}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
         <div></div>
         @*empty div used for green outline*@
-        <label for="{{'item_' + item.id}}" class="cbLabel" ng-model="item.isCheck"></label>
+        <label for="{{'item_' + item.id}}" class="cbLabel"></label>
     </span>
 </script>
 
@@ -114,10 +114,10 @@
         </div>
     }
     <span ng-if="options.manageTab">
-        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck">
+        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
         <div></div>
         @*empty div used for green outline*@
-        <label for="{{'item_' + item.uid}}" class="cbLabel" ng-model="item.isCheck"></label>
+        <label for="{{'item_' + item.uid}}" class="cbLabel"></label>
     </span>   
 </script>
 
@@ -139,7 +139,7 @@
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
             <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
-        </div>
+        </div> 
     }
     </li>
 </script>
@@ -151,7 +151,7 @@
 <script type="text/ng-template" id="boxItemTooltip">
     <div bo-class="{noPreview : !item.description}" class="boxItemTt" bindonce>
         <div class="itemName" bo-text="item.name"></div>
-        <div class="arrow downArrow"></div>
+        @*<div class="arrow downArrow"></div>*@
         <div class="ttTop">
             <div class="moreFilesThumb {{item.extensionColor}}" bo-text="item.extension"></div>
             <div class="detailsWpr">
@@ -171,7 +171,7 @@
 <script type="text/ng-template" id="boxQuizTooltip">
     <div class="boxItemTt">
         <div class="itemName" bo-text="item.name"></div>
-        <div class="arrow downArrow"></div>
+        @*<div class="arrow downArrow"></div>*@
         <div class="ttTop">
             <div class="moreFilesThumb"></div>
             <div class="detailsWpr">

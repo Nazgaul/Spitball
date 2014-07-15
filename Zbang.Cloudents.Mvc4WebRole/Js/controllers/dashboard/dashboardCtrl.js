@@ -135,6 +135,10 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     };
 
     $scope.addBoxes = function () {
+        if (!$scope.contentLoaded) {
+            return;
+        }
+
         var academicRemain = $scope.academicBoxes.length - $scope.options.maxAcademicVisible,
            groupRemain;
 
