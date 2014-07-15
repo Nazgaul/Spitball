@@ -87,7 +87,11 @@ mBox.controller('BoxCtrl',
 
                 $scope.info.currentTab = null;
 
-                $scope.items = items;
+                $scope.items = items.map(function (item) {
+                    item.isNew = NewUpdates.isNew($scope.boxId, 'item', item.id);
+                    return item;
+                });
+
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
                 $scope.$broadcast('qna', qna);
 
@@ -471,7 +475,7 @@ mBox.controller('BoxCtrl',
             }
 
             function filterManageItems(item) {
-                if (item.sponsored) {
+                if (item.sponsored && $scope.items.indexOf(item) < $scope.options.itemsLimit) {
                     $scope.options.sponsored = true;
                 }
                 if (item.type === 'Quiz') {
@@ -566,6 +570,9 @@ mBox.controller('BoxCtrl',
                     });
                     return;
                 }
+
+                item.isNew = false;
+                NewUpdates.setOld($scope.boxId, 'item', item.id);
             };
 
             $scope.deleteItem = function (item) {
@@ -629,7 +636,7 @@ mBox.controller('BoxCtrl',
             };
 
             function filterItems(item) {
-                if (item.sponsored) {
+                if (item.sponsored && $scope.items.indexOf(item) < $scope.options.itemsLimit) {
                     $scope.options.sponsored = true;
                 }
                 if (!$scope.info.currentTab) {

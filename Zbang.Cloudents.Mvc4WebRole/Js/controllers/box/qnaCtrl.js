@@ -12,9 +12,15 @@ mBox.controller('QnACtrl',
             that.userId = data.userUid; //uid\
             that.content = data.content.replace(/\n/g, '<br/>');
             that.createTime = data.creationTime;
-            that.answers = data.answers.map(function (answer) { return new Answer(answer) });
-            that.files = data.files.map(function (file) { return new File(file) });
             that.isNew = NewUpdates.isNew($scope.boxId, 'questions', that.id);
+            that.answers = data.answers.map(function (answer) {
+                var answerObj = new Answer(answer);
+                if (answerObj.isNew) {
+                    that.isNew = true;
+                }
+                return answerObj;
+            });
+            that.files = data.files.map(function (file) { return new File(file) });            
             that.bestAnswer = findBestAnswer(that.answers);
         }
 
@@ -101,11 +107,13 @@ mBox.controller('QnACtrl',
             $scope.info.selectedQuestion = question;
             //TODO update time
 
-            ////NewUpdates.remove upadte //not sure
+            
             question.isNew = false;
+            NewUpdates.setOld($scope.boxId, 'questions', question.id);
 
             for (var i = 0, l = question.answers.length; i < l; i++) {
                 question.answers[i].isNew = false;
+                NewUpdates.setOld($scope.boxId, 'answers', answers[i].id);
             }
 
             //cleartooltip ?

@@ -116,7 +116,7 @@ app.config([
     }
 ]);
 
-app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window, sUserDetails) {
+app.run(['$rootScope', '$window', 'sUserDetails','sNewUpdates', function ($rootScope, $window, sUserDetails,sNewUpdates) {
 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
@@ -126,6 +126,9 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
         }
 
         switch (previous.$$route.params.type) {
+            case 'box':
+                sNewUpdates.removeUpdates(previous.params.boxId);
+                break;
             case 'library':
                 cd.pubsub.publish('libraryclear');
                 break;

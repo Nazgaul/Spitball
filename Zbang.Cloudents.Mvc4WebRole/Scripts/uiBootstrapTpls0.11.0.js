@@ -2551,16 +2551,16 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
 
                             // Now we add it to the DOM because need some info about it. But it's not 
                             // visible yet anyway.
+                            if (scope.$parent.member) {
+                                scope.$emit('tooltipLoaded', scope.$parent.member.uid);
+                            }
+                            
                             if (appendToBody) {
                                 $document.find('body').append(tooltip);
                             } else {
                                 element.after(tooltip);
                             }
 
-                            if (scope.$parent.member) {
-                                scope.$emit('tooltipLoaded', scope.$parent.member.uid);
-                            }
-                            
 
                             if (popoverTargetLeave) {
                                 tooltip.off('mouseenter').on('mouseenter', function () {
@@ -2626,7 +2626,6 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                             if (tooltip) {
                                 if (destroy) {
                                     tooltip.remove();
-                                    scope.$emit('tooltipUnloaded');
                                     tooltip = null;
                                 } else {
                                     // equals to "tooltip.detach();"
