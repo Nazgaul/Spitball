@@ -4,8 +4,8 @@
 		 'sBox',
 		 'data',
 
-		 function ($scope, $modalInstance, Box, data) {
-		     console.log($scope);
+		 function ($scope, $modalInstance, sBox, data) {
+		     var jsResources = window.JsResources;
 		 	$scope.formData = {
 		 		boxId: data.boxId,
 		 		tabId: data.tabId,
@@ -13,8 +13,8 @@
 		 	};
 
 		 	$scope.params = {
-		 	    title : data.tabId ? JsResources.FolderRename : JsResources.FolderCreate,
-		 	    action: data.tabId ? JsResources.Rename : JsResources.Create
+		 	    title : data.tabId ? jsResources.FolderRename : jsResources.FolderCreate,
+		 	    action: data.tabId ? jsResources.Rename : jsResources.Create
 		 	};
 
 		 	$scope.create = function (isValid) {
@@ -23,19 +23,19 @@
 		 		}
 
 		 		if ($scope.formData.tabId) {
-		 			Box.renameTab($scope.formData).then(function (response) {
+		 			sBox.renameTab($scope.formData).then(function (response) {
 		 				if (response.success) {
 		 					$modalInstance.close($scope.formData.name);
 		 					return;
 		 				}
 
-		 				alert(JsResources.RenameError);
+		 				alert(jsResources.RenameError);
 		 			});
 
 		 			return;
 		 		}
 
-		 		Box.createTab($scope.formData).then(function (tab) {
+		 		sBox.createTab($scope.formData).then(function (tab) {
 		 			if (!tab.success) {
 		 				alert(tab.payload);
 		 				return;

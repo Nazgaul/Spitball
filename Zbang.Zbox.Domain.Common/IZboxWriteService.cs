@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.Commands.Store;
 
 namespace Zbang.Zbox.Domain.Common
 {
@@ -25,7 +26,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void DeleteItem(DeleteItemCommand command);
         void RateItem(RateItemCommand command);
-        
+
 
         void DeleteUserFromBox(DeleteUserFromBoxCommand command);
         void ChangeNotificationSettings(ChangeNotificationSettingsCommand command);
@@ -40,7 +41,7 @@ namespace Zbang.Zbox.Domain.Common
         //void DeleteComment(DeleteCommentCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
-        
+
 
         void AddNodeToLibrary(AddNodeToLibraryCommand command);
         void RenameNodeLibrary(RenameNodeCommand command);
@@ -106,6 +107,8 @@ namespace Zbang.Zbox.Domain.Common
         void AddStudent(AddStudentCommand command);
 
         #endregion
+
+        void AddProducts(AddProductsToStoreCommand command);
 
     }
 }

@@ -119,6 +119,7 @@
     <Compile Include="SendMessageCommand.cs" />
     <Compile Include="ShareBoxFacebookCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />
+    <Compile Include="Store\AddProductsToStoreCommand.cs" />
     <Compile Include="UnfollowBoxCommand.cs" />
     <Compile Include="UpdateStatisticsCommand.cs" />
     <Compile Include="UpdateThumbnailCommand.cs" />

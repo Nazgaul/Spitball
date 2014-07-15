@@ -1,0 +1,59 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.Share.Message
+
+
+<div class="modal-header">
+    <h3 class="modal-title"><span>@SharedResources.ShareBy</span></h3>
+</div>
+
+<div class="modal-body">
+    <form ng-class="{submitted : submitted }" name="sendMessageForm" novalidate autocomplete="off" ng-submit="submit(sendMessageForm.$valid)">
+        <div ng-if="!options.singleMessage" class="emailUserWpr">
+            <label class="validateMsg" ng-show="submitted && !formData.emailList.length">@SharedResources.EmailRequired</label>
+            <div class="inputText emailUser">
+                @*<label class="inputLabel">@DialogResources.To</label>*@
+                @Html.LabelFor(m => m.Recepients, new { @class = "inputLabel" })
+                <div class="emailListWpr">
+                    <ul class="emailList">
+                        <li class="emailItem" ng-class="{invalidEmail: item.invalid}" ng-click="editItem(item)" ng-repeat="item in formData.emailList" ng-include="getView(item)"></li>
+                    </ul>
+                    <input class="inviteInput" name="recepients" type="text" ng-placeholder="@DialogResources.UsernameOr" focus-on="shareInput" resize-input google-btn="!sources.google"
+                           ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)"
+                           ng-model="formData.searchInput" typeahead="friend for friend in friends | filter: filterBy($viewValue) | orderByFilter:{field: 'name', input:$viewValue} | limitTo: 10" typeahead-min-length="2"
+                           typeahead-on-select="onSelectedItem($item)" typeahead-template-url="{{views.emailMenuItem}}" />
+
+                </div>
+                <button type="button" class="gConnect" ng-if="!sources.google" ng-click="loadGoogleContacts()">@SharedResources.Connect</button>
+            </div>
+            @*<label class="validateMsg" ng-show="submitted && !formData.emailList.length">@SharedResources.EmailRequired</label>*@
+        </div>
+        <div ng-if="options.singleMessage" class="singleEmailUserWpr">
+            <img class="eSingleImg" ng-src="{{singleUser.image}}" alt="{{singleUser.name}}" />
+            <div class="eSingleName">{{singleUser.name}}</div>
+        </div>
+        <label class="validateMsg" ng-show="submitted && sendMessageForm.message.$error.required">@DialogResources.MessageRequired</label>
+        <textarea name="message" class="inputText inviteMsg" ng-model="formData.note" required ng-placeholder="@SharedResources.WriteMessage"></textarea>
+
+        @*<label class="validateMsg" ng-show="submitted && sendMessageForm.message.$error.required">@DialogResources.MessageRequired</label>*@
+        <input type="submit" class="btn1 next" value="@DialogResources.Send" ng-click="submitted=true" />
+        <input type="button" class="btn2 cancel" value="@DialogResources.Cancel" ng-click="cancel()" />
+
+    </form>
+    <button class="closeDialog" ng-click="cancel()"></button>
+</div>
+
+<script type="text/ng-template" id="emailMenuItem">               
+    <img class="eImg" ng-src="{{match.label.image}}" alt="{{match.label.name}}" />
+    <div class="eDetails">
+        <div ng-if="match.label.google" class="eAddress" ng-bind-html="match.label.id | highlight:query:false"></div>
+        <div class="eName" ng-bind-html="match.label.name | highlight:query:false">{</div>           
+    </div>        
+</script>
+
+<script type="text/ng-template" id="emailSelectedItem">
+    <span class="emailText">{{item.name}}</span><button type="button" class="removeItem" ng-click="removeItem(item)"></button>
+</script>
+
+<script type="text/ng-template" id="multiUserEmail">
+    <span class="emailText">{{item.count}}</span><button type="button" class="removeItem" ng-click="removeItems(item)"></button>
+</script>

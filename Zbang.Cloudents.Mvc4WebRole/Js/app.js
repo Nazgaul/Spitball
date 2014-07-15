@@ -9,9 +9,9 @@ app.config([
     '$filterProvider',    
     '$httpProvider',
     '$tooltipProvider',
-    '$provide',
+    //'$provide',
 
-    function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider, $provide) {
+    function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider/*, $provide*/) {
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
 
@@ -91,15 +91,12 @@ app.config([
     }
 ]);
 
-app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window, UserDetails) {
+app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window, sUserDetails) {
 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
         //title 
-        if (!previous) {
-            return;
-        }
-        if (!previous.$$route.params) {
+        if (!previous && !previous.$$route && !previous.$$route.params) {
             return;
         }
 
@@ -139,10 +136,10 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
     $rootScope.initDetails = function (id, name, image, score, url) {
         
         if (id) {
-            UserDetails.setDetails(id, name, image, score, url);
+            sUserDetails.setDetails(id, name, image, score, url);
             return;
         }
-        UserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
+        sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
 }]);

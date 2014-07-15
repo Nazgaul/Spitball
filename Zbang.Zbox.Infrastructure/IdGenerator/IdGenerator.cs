@@ -19,13 +19,12 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
         {
             //TODO temp
             CloudStorageAccount cloudStorageAccount;
-            try
-            {
-                cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
-            }
-            catch (ConfigurationErrorsException)
-            {
+            var storageConnectionString = ConfigFetcher.Fetch("StorageConnectionString");
+            if (string.IsNullOrEmpty(storageConnectionString)) {
                 cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            }
+            else {
+                cloudStorageAccount = CloudStorageAccount.Parse(storageConnectionString);
             }
             var dataStorage = new SnowMaker.BlobOptimisticDataStore(
                  cloudStorageAccount,

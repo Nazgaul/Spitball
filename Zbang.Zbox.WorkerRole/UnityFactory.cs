@@ -23,6 +23,8 @@ namespace Zbang.Zbox.WorkerRole
         public const string Dbi = "Dbi";
         public const string Transaction = "Transaction";
 
+        public const string Product = "Product";
+
         public const string EmailPartners = "EmailPartners";
 
         public IocFactory Unity { get; private set; }
@@ -40,6 +42,7 @@ namespace Zbang.Zbox.WorkerRole
             ReadServices.RegisterIoc.Register();
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
+            Store.RegisterIoc.Register();
            
 
             //Unity = new UnityContainer();
@@ -57,6 +60,7 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IJob, MailProcess2>(MailProcess2);
             Unity.RegisterType<IJob, AddFiles>(AddFiles);
             Unity.RegisterType<IJob, PartnersEmail>(EmailPartners);
+            Unity.RegisterType<IJob, SyncHatavotProduct>(Product);
 
             Unity.RegisterType<Imail2, Welcome>(BaseMailData.WelcomeResolver);
             Unity.RegisterType<Imail2, Invite2>(BaseMailData.InviteResolver);
@@ -70,7 +74,7 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IDomainProcess, Statistics>(Infrastructure.Transport.DomainProcess.StatisticsResolver);
             Unity.RegisterType<IDomainProcess, FlagBadItem>(Infrastructure.Transport.DomainProcess.BadItemResolver);
             Unity.RegisterType<IDomainProcess, UpdatesProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
-
+            
 
             //Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
 

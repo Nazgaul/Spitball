@@ -1,6 +1,8 @@
 ﻿using Zbang.Zbox.Domain.CommandHandlers.Quiz;
+using Zbang.Zbox.Domain.CommandHandlers.Store;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Ioc;
 
@@ -115,6 +117,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<MarkAnswerCorrectCommand>), typeof(MarkAnswerCorrectCommandHandler));
 
             ioc.RegisterType(typeof (ICommandHandler<AddStudentCommand>), typeof (AddStudentCommandHandler));
+
+            //product
+
+            ioc.RegisterType(typeof (ICommandHandler<AddProductsToStoreCommand>),
+                typeof (AddProductsToStoreCommandHandler));
+
         }
     }
 }
