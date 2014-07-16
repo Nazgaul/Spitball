@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             {
                 uriBuilder.Host = storageCdnEndpoint;
             }
-            return uriBuilder.Uri.AbsolutePath;
+            return uriBuilder.Uri.AbsoluteUri;
 
         }
 

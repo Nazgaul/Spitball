@@ -8,11 +8,13 @@ namespace Zbang.Zbox.Store.Services
 {
     public class ReadService : IReadService
     {
-        public async Task<IEnumerable<StoreDto>> ReadData()
+        private const string ConnectionStringName = "Hatavot";
+
+        public async Task<IEnumerable<StoreDto>> ReadData(int category)
         {
-            using (var conn = await DapperConnection.OpenConnection("Hatavot"))
+            using (var conn = await DapperConnection.OpenConnection(ConnectionStringName))
             {
-                const string sql = @" select  [productid]  as Id -- Product ID 
+                const string sql = @"select [productid]  as Id -- Product ID 
       ,[name] -- Product Name 
       --,[description] -- Product Description (HTML) -- Product Page
       ,[saleprice] -- Regular Price 
@@ -43,8 +45,29 @@ namespace Zbang.Zbox.Store.Services
       --,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       --,[designNum] -- Which University to show --> Can be to all or to one specific  
-  FROM [bizpoin_bizpointDB].[products] where [show] is  null";
-                return await conn.QueryAsync<StoreDto>(sql);
+  FROM [bizpoin_bizpointDB].[products] where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
+                return await conn.QueryAsync<StoreDto>(sql, new { catId  = category});
+            }
+        }
+
+        public async Task<IEnumerable<int>> GetCategories()
+        {
+            using (var conn = await DapperConnection.OpenConnection(ConnectionStringName))
+            {
+                return await conn.QueryAsync<int>(@"WITH cte 
+AS
+(
+-- Anchor member definition
+    select catcode,catname,parentid,catorder,1 as level from categories c where parentid = 611
+    UNION ALL
+-- Recursive member definition
+    SELECT e.catcode,e.catname,e.parentid,e.catorder ,Level + 1
+       
+    FROM categories AS e
+    INNER JOIN cte AS d
+        ON e.parentid = d.catcode
+)
+select catcode from cte");
             }
         }
     }

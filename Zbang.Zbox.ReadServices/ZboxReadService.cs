@@ -15,6 +15,7 @@ using Zbang.Zbox.ViewModel.DTOs;
 using Zbang.Zbox.ViewModel.DTOs.Dashboard;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.DTOs.Search;
+using Zbang.Zbox.ViewModel.DTOs.Store;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -902,6 +903,17 @@ namespace Zbang.Zbox.ReadServices
                 }
             }
 
+        }
+        #endregion
+
+        #region Store
+
+        public async Task<IEnumerable<Product>> GetProducts()
+        {
+            using (var conn = await DapperConnection.OpenConnection())
+            {
+                return await conn.QueryAsync<Product>(Sql.Store.GetProducts);
+            }
         }
         #endregion
     }

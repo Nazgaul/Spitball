@@ -387,6 +387,7 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  vertical-align: top;
 }
 .productsList li:nth-child(3n + 2) {
   margin: 0 15px 30px 15px;

@@ -200,7 +200,7 @@
     <EmbeddedResource Include="Mappings\Quiz.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mappings\Product.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Product.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

@@ -5,8 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
@@ -31,16 +33,22 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
-                var data = await m_ReadService.ReadData();
+                var categories = await m_ReadService.GetCategories();
+                var storeDto = new List<StoreDto>();
+                foreach (var category in categories)
+                {
+                    storeDto.AddRange(await m_ReadService.ReadData(category));
+                }
+               
                 var products = new List<ProductStore>();
-                foreach (var item in data)
+                foreach (var item in storeDto)
                 {
 
                     try
                     {
                         var bytes = await DownloadImage(item.Image);
                         item.Image = await m_BlobProvider.UploadFromLink(bytes, item.Image);
-                        products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails, 0, item.Coupon, item.Saleprice, item.Image));
+                        products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails, RandomProvider.GetThreadRandom().Next(15, 50), item.Coupon, item.Saleprice, item.Image));
                     }
                     catch (Exception ex)
                     {
