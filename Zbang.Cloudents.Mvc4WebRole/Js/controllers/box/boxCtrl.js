@@ -768,16 +768,7 @@ mBox.controller('BoxCtrl',
                     return false;
                 }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
-            };
-
-            $scope.checkAuth = function () {
-                if (!UserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
-                    return false;
-                }
-
-                return true;
-            };
+            };          
 
             //#endregion
 
