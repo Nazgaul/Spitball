@@ -818,8 +818,12 @@
   /*rtl*/
   left: auto;
 }
+.boxItemTt .moreFilesThumb {
+  float: right;
+  /*rtl*/
+}
 .boxItemTt .detailsWpr {
-  right: 41px;
+  right: 8px;
   /*rtl*/
   left: auto;
 }
