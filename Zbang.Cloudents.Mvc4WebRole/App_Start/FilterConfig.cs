@@ -3,7 +3,7 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
-    public class FilterConfig
+    public static class FilterConfig
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {

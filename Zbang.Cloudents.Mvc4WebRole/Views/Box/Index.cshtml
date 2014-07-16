@@ -31,7 +31,7 @@
                     <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
                     <button type="button" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
 
-                    <ul class="dropdown-menu editFolderMenu" role="menu">
+                    <ul class="dropdown-menu" role="menu">
                         <li>
                             <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
                         </li>

@@ -1252,9 +1252,6 @@ input[type="radio"][disabled] + label:before {
   left: 0;
   /*rtl*/
 }
-.register span.field-validation-error:last-of-type {
-  /*margin-top: -53px;*/
-}
 .register .cbLabel {
   display: none;
   /*rtl - (HEBREW ONLY)*/

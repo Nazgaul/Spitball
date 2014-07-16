@@ -4,7 +4,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
-    public class ViewConfig
+    public static class ViewConfig
     {
         public static void RegisterEngineAndViews()
         {

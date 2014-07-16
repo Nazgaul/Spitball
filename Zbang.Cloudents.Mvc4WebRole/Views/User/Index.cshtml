@@ -7,7 +7,7 @@
         <div class="upTop">
 
             <!--ko if:viewSelf()-->
-            <a id="upAccountSettings" class="rFloat iconTxt" data-navigation="account"
+            <a id="upAccountSettings" class="rFloat iconTxt" data-navigation="account" target="_self"
                href="@Url.Action("Settings","Account")"
                >@UserResources.EditAccount</a>
             <!--/ko-->
@@ -81,7 +81,7 @@
         </section>
         }
         <aside class="upSidebar rFloat">
-            <section class="upPoints" data-bind="visible: !membersSectionVisible()">
+            <section data-bind="visible: !membersSectionVisible()">
                 <h2>@SharedResources.Points</h2>
                 <div class="pointsWpr" id="pointsWpr">
                     <ul class="pointsList" id="pointsList" data-score="@Model.Score">
@@ -118,7 +118,7 @@
                 </div>
 
                 <div id="filesSection" class="upTabContent filesTab" data-bind="css : filesEmpty">
-                    <ul class="uploadsList">
+                    <ul>
                         <!--ko foreach:files.slice(0,maxFiles())-->
                         <li class="uploadsItem">
                             <a data-navigation="item" data-bind="attr : { href : url }">
