@@ -1,7 +1,6 @@
-﻿angular.module('custom_scrollbar', []).directive('mCustomScrollbar', ['$parse', function ($parse) {
-    var parse = $parse;
+﻿angular.module('custom_scrollbar', []).directive('mCustomScrollbar', ['$timeout', function ($timeout) {    
     return {
-        restrict: 'E',
+        restrict: 'A',
         transclude: true,
         template: '<div><div ng-transclude></div></div>',
         replace: true,
@@ -15,7 +14,7 @@
             $win.resize(updateScroll);
 
             function updateScroll() {
-                setTimeout(function () {
+                $timeout(function () {
                     $elem.mCustomScrollbar('destroy');
                     setScroll();
                 }, 50)
@@ -23,12 +22,8 @@
 
             function setScroll() {
                 calcHeight();
-               
-                setTimeout(function () {
-                    $scope.$apply(function () {
-                        $elem.mCustomScrollbar({ setHeight: height, theme: "dark" });
-                    });
-                }, 50);
+              
+                $elem.mCustomScrollbar({ setHeight: height, theme: "dark" });                
                 
             }
 
