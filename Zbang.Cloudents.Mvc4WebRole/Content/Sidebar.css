@@ -226,7 +226,7 @@
 }
 .asideList .activityItem {
   list-style: none;
-  margin: 0 10px 10px 0;
+  margin: 0 0 10px 0;
   /*rtl*/
   border-bottom: 1px solid #E7E7E7;
   padding-bottom: 7px;
@@ -244,7 +244,7 @@
 }
 .asideImgLink ~ .latest {
   display: inline-block;
-  max-width: 224px;
+  max-width: 221px;
   margin: -1px 0 0 4px;
   /*rtl*/
   -ms-word-wrap: break-word;

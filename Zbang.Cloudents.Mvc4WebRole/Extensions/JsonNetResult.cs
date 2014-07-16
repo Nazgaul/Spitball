@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         }
 
-        public void Serialize(System.IO.TextWriter output, object data)
+        private void Serialize(System.IO.TextWriter output, object data)
         {
             using (var writer = new JsonTextWriter(output)
             {

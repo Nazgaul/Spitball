@@ -1,4 +1,4 @@
-﻿/*(function (ko, $) {
+﻿(function (ko, $) {
 
     if (window.scriptLoaded.isLoaded('b')) {
         return;
@@ -115,7 +115,7 @@
         }
     };
 
-})(ko, jQuery);*/
+})(ko, jQuery);
 
 (function () {
 

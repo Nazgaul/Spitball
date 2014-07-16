@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
         }
 
-        protected void ChangeThreadLanguage(string language)
+        private void ChangeThreadLanguage(string language)
         {
             if (!Languages.CheckIfLanguageIsSupported(language))
             {

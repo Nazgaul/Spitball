@@ -57,9 +57,7 @@
             self.loaded(false);
             dataContext.getItems({
                 data: {
-                    BoxUid: boxid, pageNumber: current, tab: tab,
-                    uniName: cd.getParameterFromUrl(1),
-                    boxName: cd.getParameterFromUrl(3)
+                    id: boxid, pageNumber: current, tab: tab,
                 },
                 success: function (result) {
                     generateModel(result);

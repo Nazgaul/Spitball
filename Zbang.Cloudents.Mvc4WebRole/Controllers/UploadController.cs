@@ -111,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <summary>
         /// Use for cookie wise
         /// </summary>
-        public class FileUploadDetails
+        private class FileUploadDetails
         {
             public Guid BlobGuid { get; set; }
             public long TotalUploadBytes { get; set; }
@@ -247,7 +247,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId();
 
 
-            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(fileName).ToLower(); ;
+            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(fileName).ToLower();
 
             var size = 0L;
             bool notUploaded;

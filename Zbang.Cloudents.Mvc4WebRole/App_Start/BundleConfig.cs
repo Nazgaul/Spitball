@@ -461,8 +461,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"),
-
-                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
+                
 
                 new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
@@ -477,11 +476,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
 
                 new JsFileWithCdn("~/Js/Utils2.js"),
+                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
                  new JsFileWithCdn("~/Js/pubsub2.js"),
                 new JsFileWithCdn("~/Js/Cache2.js"),
                 new JsFileWithCdn("~/Js/DataContext2.js"),
 
-                new JsFileWithCdn("~/Js/Navigation.js"),
+                new JsFileWithCdn("~/Js/Navigation2.js"),
                 new JsFileWithCdn("~/Js/Mobile/MBaseViewModel.js"),
                 new JsFileWithCdn("~/Js/Mobile/MInvite.js"),
                 new JsFileWithCdn("~/Js/Mobile/MUpload.js"),

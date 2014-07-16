@@ -19,10 +19,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     public class BaseController : Controller
     {
-        protected const string SessionUserUploadProfilePicturesKey = "UserUploadProfilePictures";
+
 
         [Dependency]
-        protected IZboxWriteService ZboxWriteService {get;set;}
+        protected IZboxWriteService ZboxWriteService { get; set; }
         [Dependency]
         protected IZboxReadService ZboxReadService { get; set; }
         [Dependency]
@@ -132,7 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ChangeThreadLanguage(value);
                     return;
                 }
-                var langFromUrl =  requestContext.RouteData.Values.FirstOrDefault(f => f.Key == "lang");
+                var langFromUrl = requestContext.RouteData.Values.FirstOrDefault(f => f.Key == "lang");
                 if (langFromUrl.Value != null)
                 {
                     ChangeThreadLanguage(langFromUrl.Value.ToString());
@@ -179,7 +179,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 // RemoveLanguageFromSession();
             }
         }
-      
+
         #endregion
     }
 }

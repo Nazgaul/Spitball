@@ -274,7 +274,6 @@
     <Compile Include="Filters\AntiforgeryHandleErrorAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
-    <Compile Include="Filters\FlushHeaderAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\NonAjaxAttribute.cs" />
@@ -822,6 +821,7 @@
     <Content Include="Js\ItemViewModel4.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
+    <Content Include="Js\Navigation2.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
     <Content Include="Js\QuizViewModel.js" />

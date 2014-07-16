@@ -141,7 +141,9 @@ app.run(['$rootScope', '$window', 'sUserDetails','sNewUpdates', function ($rootS
                 cd.pubsub.publish('quizclear');
                 break;
         };
-
+        if (!current || (!current.$$route && !current.$$route.params)) {
+            return;
+        }
         if (current.$$route.params.type === 'box') {
             switch (previous.$$route.params.type) {
                 case 'library':
