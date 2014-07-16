@@ -10,13 +10,10 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Profile;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -84,12 +81,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                      fileUploadedDetails.FileSize, tabId);
                 var result = ZboxWriteService.AddFileToBox(command);
 
-
+                var urlBuilder = new UrlBuilder(HttpContext);
                 var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                     result.File.Uploader.Url,
                     result.File.ThumbnailUrl,
                     string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0,
-                    result.File.Url);
+                    result.File.Url)
+                {
+                    DownloadUrl = urlBuilder.BuildDownloadUrl(result.File.Box.Id, result.File.Id)
+                };
 
                 cookie.RemoveCookie("upload");
                 return this.CdJson(new JsonResponse(true, new { fileDto, boxid = boxId }));
@@ -146,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (fileName != fileReceive.FileName)
             {
-                return fileReceive = new FileUploadDetails
+                return new FileUploadDetails
                 {
                     BlobGuid = Guid.NewGuid(),
                     TotalUploadBytes = uploadedfile.ContentLength,
@@ -223,8 +223,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.Link.Uploader.Id,
                     result.Link.Uploader.Url,
                     m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
-                    0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow, result.Link.Url);
-
+                    0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow, result.Link.Url)
+                 {
+                     DownloadUrl = urlBuilder.BuildDownloadUrl(result.Link.Box.Id, result.Link.Id)
+                };
                 return this.CdJson(new JsonResponse(true, item));
             }
             catch (DuplicateNameException)
@@ -264,7 +266,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     new UrlToDownloadData(fileUrl, fileName, boxId, tabId, userId));
                 return this.CdJson(new JsonResponse(true));
             }
-
+            var urlBuilder = new UrlBuilder(HttpContext);
             var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                fileName,
                 size, tabId);
@@ -272,7 +274,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                 result.File.Uploader.Url,
                 result.File.ThumbnailUrl,
-                string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result.File.Url);
+                string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result.File.Url)
+            {
+                DownloadUrl = urlBuilder.BuildDownloadUrl(result.File.Box.Id, result.File.Id)
+            };
             return this.CdJson(new JsonResponse(true, fileDto));
 
 

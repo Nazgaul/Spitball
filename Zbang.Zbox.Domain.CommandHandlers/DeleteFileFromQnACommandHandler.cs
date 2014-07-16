@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = m_ItemRepository.Load(message.ItemId);
             var box = item.Box;
 
-            var authorize = item.Uploader.Id != message.UserId || box.Owner.Id != message.UserId;
+            var authorize = item.Uploader.Id == message.UserId || box.Owner.Id == message.UserId;
             if (!authorize)
             {
                 throw new UnauthorizedAccessException("User is unauthorized to unlink file");

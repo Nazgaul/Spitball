@@ -7,10 +7,10 @@
     <li class="navItem navUser" ng-init="initDetails('@Model.Uid','@Model.Name','@Model.Image','@Model.Score','@Model.Url')">
         @*//uid*@
         <a href="@Model.Url" class="userAnchor">
-            <img src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />
+            <img id="userImg" src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />
             
             @*data-id we need for old code*@
-            <div class="userName elps" data-id="@Model.Uid" title="@Model.Name">@Model.Name.Split(' ')[0]</div>
+            <div id="userName" class="userName elps" data-id="@Model.Uid" title="@Model.Name">@Model.Name.Split(' ')[0]</div>
             <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts">@Model.Score</div>
            
         </a>

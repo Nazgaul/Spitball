@@ -30,9 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             if (Duration <= 0)
             {
                 cache.SetCacheability(HttpCacheability.NoCache);
-                cache.SetNoStore();
-                cache.SetExpires(DateTime.UtcNow.AddDays(-1));
-                cache.AppendCacheExtension("must-revalidate, proxy-revalidate");
+                cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
                 return;
             }
 
@@ -41,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             cache.SetCacheability(HttpCacheability.Public);
             cache.SetExpires(DateTime.Now.Add(cacheDuration));
             cache.SetMaxAge(cacheDuration);
-            cache.AppendCacheExtension("must-revalidate, proxy-revalidate");
+            cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
         }
     }
 

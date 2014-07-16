@@ -8,9 +8,7 @@ using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.UserDtos;
@@ -37,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[Route("user/{userId:long:min(0)}/{userName}", Name = "User")]
         [UserNavNWelcome]
-        [OutputCache(CacheProfile = "NoCache")]
+        [CacheFilter]
         public async Task<ActionResult> Index(long userId, string userName)
         {
 
