@@ -458,17 +458,20 @@
                     $rootScope.$apply(function () {
                         $rootScope.$broadcast('viewContentLoaded');
                     });
+
+                    dataContext.minProfile({
+                        data: { userId: self.userId() },
+                        success: function (data) {
+                            var profile = new Profile(data);
+
+                            self.profile(profile);
+                        }
+                    });
+
                     return;
                 }
 
-                dataContext.minProfile({
-                    data: { userId: self.userId() },
-                    success: function (data) {
-                        populateProfile(data);
-                        getOtherData();
-                        registerEvents();
-                    }
-                });
+             
 
                 function populateProfile(data) {
                     data = data || {};
