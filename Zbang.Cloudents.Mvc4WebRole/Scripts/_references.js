@@ -23,7 +23,6 @@
 /// <reference path="../js/app.js" />
 /// <reference path="../js/autocomplete.js" />
 /// <reference path="../js/bindings.js" />
-/// <reference path="../js/bootstrap.js" />
 /// <reference path="../js/boxsettings.js" />
 /// <reference path="../js/cache.js" />
 /// <reference path="../js/cdnfallback.js" />
@@ -146,6 +145,7 @@
 /// <reference path="plupload/plupload.silverlight.js" />
 /// <reference path="jquery.mcustomscrollbar.js" />
 /// <reference path="../js/navigation2.js" />
+/// <reference path="../js/filters/exttoclass.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

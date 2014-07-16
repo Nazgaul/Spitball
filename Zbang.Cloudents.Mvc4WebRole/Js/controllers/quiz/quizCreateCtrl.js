@@ -415,7 +415,7 @@
             boxId: $scope.quiz.courseId,
             name: $scope.quiz.name || '',
             publish: isPublish,
-            description: isPublish || getContent(),
+            description: isPublish && getContent(),
             rate: 0,
             ownerId: UserDetails.getDetails().id,
             owner: UserDetails.getDetails().name,
