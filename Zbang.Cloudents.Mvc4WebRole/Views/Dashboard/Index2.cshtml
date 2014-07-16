@@ -38,7 +38,7 @@
                 <div class="feedList" id="dash_feed" data-itemtext="@IndexResources.AddedItem" data-commenttext="@IndexResources.PostedComment">
                     <h3 class="sectionHeader">@IndexResources.ActivityFeed</h3>
                     <div class="activityWpr">
-                        <m-custom-scrollbar bottom="0">
+                        <div m-custom-scrollbar bottom="0">
                             <ul class="asideList dash">
                                 <li class="activityItem" ng-repeat="activity in wall">
                                     <img class="asideImg calloutTrgr asideImgLink" ng-src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />

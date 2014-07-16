@@ -145,6 +145,7 @@
 /// <reference path="plupload/plupload.js" />
 /// <reference path="plupload/plupload.silverlight.js" />
 /// <reference path="jquery.mcustomscrollbar.js" />
+/// <reference path="../js/navigation2.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
