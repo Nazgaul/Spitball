@@ -1,12 +1,12 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar','monospaced.elastic',
-    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser','debounce']);
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic',
+    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'debounce']);
 
 app.config([
     '$routeProvider',
     '$locationProvider',
     '$controllerProvider',
     '$compileProvider',
-    '$filterProvider',    
+    '$filterProvider',
     '$httpProvider',
     '$tooltipProvider',
     '$provide',
@@ -33,9 +33,11 @@ app.config([
                             break;
 
                     }
-                }                
+                }
             };
         }]);
+
+
 
         $httpProvider.interceptors.push('requestinterceptor');
 
@@ -43,38 +45,38 @@ app.config([
             placement: 'bottom',
             animation: true,
             popupDelay: 500,
-           //appendToBody: true
+            //appendToBody: true
         });
 
         $locationProvider.html5Mode(true).hashPrefix('!');
 
-
+        //#region routes
         $routeProvider.
-        when('/dashboard/',{
+        when('/dashboard/', {
             params: {
                 type: 'dashboard'
             },
             templateUrl: '/dashboard/'
         }).
-        when('/box/my/:boxId/:boxName/',{
+        when('/box/my/:boxId/:boxName/', {
             params: {
                 type: 'box'
             },
             templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
         }).
-        when('/course/:uniName/:boxId/:boxName/',{
+        when('/course/:uniName/:boxId/:boxName/', {
             params: {
                 type: 'box'
             },
             templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
         }).
-        when('/course/:uniName/:boxId/:boxName/',{
+        when('/course/:uniName/:boxId/:boxName/', {
             params: {
                 type: 'box'
             },
             templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
         }).
-        when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/',{
+        when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/', {
             params: {
                 type: 'item'
             },
@@ -84,7 +86,7 @@ app.config([
                 return '/item/?boxUid=' + params.boxId + '&itemId=' + params.itemId;
             }
         }).
-        when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/',{
+        when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
             params: {
                 type: 'quiz'
             },
@@ -105,17 +107,51 @@ app.config([
             },
             templateUrl: '/library/'
         }).
-        when('/user/:userId/:userName/',{
+        when('/user/:userId/:userName/', {
             params: {
                 type: 'user'
             },
             templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
         }).
-        otherwise({redirectTo: '/dashboard/'});               
+        otherwise({ redirectTo: '/dashboard/' });
+
+        //#endregion
+
+
+        //#region log js errors 
+        $provide.decorator('$exceptionHandler', ['$delegate','$log', 'stackTraceService', function ($delegate,$log, stackTraceService) {
+            return function (exception, cause) {
+                $delegate(exception, cause);
+
+                try {
+                    var errorMessage = exception.toString(),
+                        stackTrace = stackTraceService.print({ e: exception });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Error/JsLog',
+                        contentType: 'application/json',
+                        data: angular.toJson({
+                            errorUrl: window.location.href,
+                            errorMessage: errorMessage,
+                            stackTrace: stackTrace,
+                            cause: cause || ''
+                        })
+                    })
+
+                }
+                catch (loggingError) {
+                    $log.warn('Error logging failed');
+                    $log.log(loggingError);
+                };
+            };
+        }]);
+
+        //#endregion
     }
 ]);
 
-app.run(['$rootScope', '$window', 'sUserDetails','sNewUpdates', function ($rootScope, $window, sUserDetails,sNewUpdates) {
+app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, sUserDetails, sNewUpdates) {
 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
@@ -160,72 +196,72 @@ app.run(['$rootScope', '$window', 'sUserDetails','sNewUpdates', function ($rootS
                     break;
             }
         }
+        $rootScope.initDetails = function (id, name, image, score, url) {
+
+            if (id) {
+                sUserDetails.setDetails(id, name, image, score, url);
+                return;
+            }
+            sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
+
+        };
+
     });
 
-    $rootScope.initDetails = function (id, name, image, score, url) {
-        
-        if (id) {
-            sUserDetails.setDetails(id, name, image, score, url);
+
+    var rtlChars = '\u0600-\u06FF' + '\u0750-\u077F' + '\u08A0-\u08FF' + '\uFB50-\uFDFF' + '\uFE70-\uFEFF';//arabic
+    rtlChars += '\u0590-\u05FF' + '\uFB1D-\uFB4F';//hebrew
+
+    var controlChars = '\u0000-\u0020';
+    controlChars += '\u2000-\u200D';
+
+    //Start Regular Expression magic
+    var reRtl = new RegExp('[' + rtlChars + ']', 'g'),
+        reNotRtl = new RegExp('[^' + rtlChars + controlChars + ']', 'g'),
+        textAlign = $('html').css('direction') === 'ltr' ? 'left' : 'right';
+
+    function checkRtlDirection(value) {
+
+        if (!value) {
             return;
         }
-        sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
-    };
+        var rtls = value.match(reRtl);
+        if (rtls !== null)
+            rtls = rtls.length;
+        else
+            rtls = 0;
 
-    
-var rtlChars = '\u0600-\u06FF' + '\u0750-\u077F' + '\u08A0-\u08FF' + '\uFB50-\uFDFF' + '\uFE70-\uFEFF';//arabic
-rtlChars += '\u0590-\u05FF' + '\uFB1D-\uFB4F';//hebrew
+        var notrtls = value.match(reNotRtl);
+        if (notrtls !== null)
+            notrtls = notrtls.length;
+        else
+            notrtls = 0;
 
-var controlChars = '\u0000-\u0020';
-controlChars += '\u2000-\u200D';
+        return rtls > notrtls;
+    }
+    $(document).on('input', 'input,textarea', function () {
+        if (!this.value.length) {
+            $(this).css('direction', '').css('text-align', '');
+            return;
+        }
+        if (checkRtlDirection(this.value)) {
+            $(this).css('direction', 'rtl').css('text-align', 'right');
+        } else {
+            $(this).css('direction', 'ltr').css('text-align', 'left');
+        }
+    });
 
-//Start Regular Expression magic
-var reRtl = new RegExp('[' + rtlChars + ']', 'g'),
-    reNotRtl = new RegExp('[^' + rtlChars + controlChars + ']', 'g'),
-    textAlign = $('html').css('direction') === 'ltr' ? 'left' : 'right';
 
-function checkRtlDirection(value) {
-
-    if (!value) {
-        return;
+    var setElementDirection = function (element) {
+        if (checkRtlDirection(element.textContent)) {
+            $(element).css({ 'direction': 'rtl', 'text-align': textAlign });
+        } else {
+            $(element).css({ 'direction': 'ltr', 'text-align': textAlign });
+        }
     }
 
-    var rtls = value.match(reRtl);
-    if (rtls !== null)
-        rtls = rtls.length;
-    else
-        rtls = 0;
-
-    var notrtls = value.match(reNotRtl);
-    if (notrtls !== null)
-        notrtls = notrtls.length;
-    else
-        notrtls = 0;
-
-    return rtls > notrtls;
-}
-$(document).on('input', 'input,textarea', function () {
-    if (!this.value.length) {
-        $(this).css('direction', '').css('text-align', '');
-        return;
-    }
-    if (checkRtlDirection(this.value)) {
-        $(this).css('direction', 'rtl').css('text-align', 'right');
-    } else {
-        $(this).css('direction', 'ltr').css('text-align', 'left');
-    }
-});
-
-
-var setElementDirection = function (element) {
-    if (checkRtlDirection(element.textContent)) {
-        $(element).css({ 'direction': 'rtl', 'text-align': textAlign });
-    } else {
-        $(element).css({ 'direction': 'ltr', 'text-align': textAlign });
-    }
-}
-
-//#endregion
+    //#endregion
 }]);
 
 app.directive('postRepeatDirective',
