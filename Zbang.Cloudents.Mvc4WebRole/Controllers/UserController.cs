@@ -25,12 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class UserController : BaseController
     {
         public const int AdminReputation = 1000000;
-        private readonly Lazy<IZboxCacheReadService> m_ZboxCacheService;
-        public UserController(
-            Lazy<IZboxCacheReadService> zboxCacheService)
-        {
-            m_ZboxCacheService = zboxCacheService;
-        }
+       
 
 
         //[Route("user/{userId:long:min(0)}/{userName}", Name = "User")]
@@ -75,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private async Task<UserMinProfile> GetUserProfile(long userId)
         {
             var query = new GetUserMinProfileQuery(userId);
-            var result = await m_ZboxCacheService.Value.GetUserMinProfile(query);
+            var result = await ZboxReadService.GetUserMinProfile(query);
             return result;
         }
 
@@ -93,12 +88,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetUserFriendsQuery(GetUserId());
-                var taskUserData = m_ZboxCacheService.Value.GetUserFriends(query);
+                var taskUserData = ZboxReadService.GetUserFriends(query);
                 Task<IEnumerable<UserDto>> taskFriendData = Task.FromResult<IEnumerable<UserDto>>(null);
                 if (userId.HasValue)
                 {
                     var friendQuery = new GetUserFriendsQuery(userId.Value);
-                    taskFriendData = m_ZboxCacheService.Value.GetUserFriends(friendQuery);
+                    taskFriendData = ZboxReadService.GetUserFriends(friendQuery);
                 }
                 await Task.WhenAll(taskUserData, taskFriendData);
 

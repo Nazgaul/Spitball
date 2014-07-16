@@ -7,9 +7,10 @@
 </div>
 
 <div class="modal-body">
-    <form ng-class="{submitted : submitted }" name="sendMessageForm" novalidate autocomplete="off" ng-submit="submit(sendMessageForm.$valid)">
+    <form ng-class="{submitted : submitted }" name="sendMessageForm" novalidate autocomplete="off" ng-submit="submit(sendMessageForm)">
         <div ng-if="!options.singleMessage" class="emailUserWpr">
-            <label class="validateMsg" ng-show="submitted && !formData.emailList.length">@SharedResources.EmailRequired</label>
+            <label class="validateMsg" ng-show="submitted && sendMessageForm.recepients.$error.required">@SharedResources.EmailRequired</label>
+            <label class="validateMsg" ng-show="submitted && sendMessageForm.recepients.$error.invalid">Invalid</label>
             <div class="inputText emailUser">
                 @*<label class="inputLabel">@DialogResources.To</label>*@
                 @Html.LabelFor(m => m.Recepients, new { @class = "inputLabel" })
@@ -18,10 +19,9 @@
                         <li class="emailItem" ng-class="{invalidEmail: item.invalid}" ng-click="editItem(item)" ng-repeat="item in formData.emailList" ng-include="getView(item)"></li>
                     </ul>
                     <input class="inviteInput" name="recepients" type="text" ng-placeholder="@DialogResources.UsernameOr" focus-on="shareInput" resize-input google-btn="!sources.google"
-                           ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)"
+                           ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)" ng-required="!formData.emailList.length"
                            ng-model="formData.searchInput" typeahead="friend for friend in friends | filter: filterBy($viewValue) | orderByFilter:{field: 'name', input:$viewValue} | limitTo: 10" typeahead-min-length="2"
                            typeahead-on-select="onSelectedItem($item)" typeahead-template-url="{{views.emailMenuItem}}" />
-
                 </div>
                 <button type="button" class="gConnect" ng-if="!sources.google" ng-click="loadGoogleContacts()">@SharedResources.Connect</button>
             </div>
@@ -33,11 +33,9 @@
         </div>
         <label class="validateMsg" ng-show="submitted && sendMessageForm.message.$error.required">@DialogResources.MessageRequired</label>
         <textarea name="message" class="inputText inviteMsg" ng-model="formData.note" required ng-placeholder="@SharedResources.WriteMessage"></textarea>
-
         @*<label class="validateMsg" ng-show="submitted && sendMessageForm.message.$error.required">@DialogResources.MessageRequired</label>*@
         <input type="submit" class="btn1 next" value="@DialogResources.Send" ng-click="submitted=true" />
         <input type="button" class="btn2 cancel" value="@DialogResources.Cancel" ng-click="cancel()" />
-
     </form>
     <button class="closeDialog" ng-click="cancel()"></button>
 </div>

@@ -30,8 +30,27 @@
             $modalInstance.dismiss();
         };
 
-        $scope.submit = function (isValid) {
-            if (!isValid) {
+        //$scope.validateRecepients = function () {
+        //    var validRecepients = 0;
+
+        //    console.log(validRecepients);
+        //    return validRecepients;
+        //};
+
+        $scope.submit = function (formScope) {
+            addFriendByEmail();
+
+            for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
+                if ($scope.formData.emailList[i].invalid) {
+                    formScope.recepients.$setValidity('invalid', false);
+                    return;
+                }
+            }
+
+            formScope.recepients.$setValidity('invalid', true);
+
+
+            if (formScope.$invalid) {
                 return;
             }
 
@@ -164,7 +183,7 @@
 
 
         };
-
+        
         function addFriendByEmail() {
             if (!$scope.formData.searchInput) {
                 return;

@@ -89,7 +89,7 @@ namespace Testing
         static void HatavotRead()
         {
             var read = new ReadService();
-            var x = read.ReadData().Result;
+            //var x = read.ReadData().Result;
         }
 
         static void Main(string[] args)

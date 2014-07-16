@@ -375,6 +375,15 @@ mBox.controller('QnACtrl',
             }
         }
 
+        $scope.checkAuth = function () {
+            if (!sUserDetails.isAuthenticated()) {
+                cd.pubsub.publish('register', { action: true });
+                return false;
+            }
+            
+            return true;
+        };
+
         //function sortAnswers(a, b) {
         //    if (a.isAnswer) {
         //        return -1;

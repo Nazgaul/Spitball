@@ -9,6 +9,9 @@ mBox.controller('BoxCtrl',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails, Facebook) {
+
+            cd.pubsub.publish('box');//statistics
+
             var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
@@ -765,16 +768,7 @@ mBox.controller('BoxCtrl',
                     return false;
                 }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
-            };
-
-            $scope.checkAuth = function () {
-                if (!UserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
-                    return false;
-                }
-
-                return true;
-            };
+            };          
 
             //#endregion
 
