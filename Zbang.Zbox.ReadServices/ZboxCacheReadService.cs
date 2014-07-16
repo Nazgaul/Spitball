@@ -285,5 +285,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetSeoItemCount();
         }
+
+
+        public Task<IEnumerable<ViewModel.DTOs.Store.Product>> GetProducts()
+        {
+            return m_ReadService.GetProducts();
+        }
     }
 }

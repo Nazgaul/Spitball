@@ -6,6 +6,7 @@ using Zbang.Zbox.ViewModel.DTOs.Dashboard;
 using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.DTOs.Qna;
 using Zbang.Zbox.ViewModel.DTOs.Search;
+using Zbang.Zbox.ViewModel.DTOs.Store;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -95,5 +96,7 @@ namespace Zbang.Zbox.ReadServices
         Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query);
         Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query);
         Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
+
+        Task<IEnumerable<Product>> GetProducts();
     }
 }

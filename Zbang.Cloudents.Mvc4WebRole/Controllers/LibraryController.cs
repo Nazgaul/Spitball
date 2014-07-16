@@ -30,12 +30,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<ITableProvider> m_TableProvider;
         private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IIdGenerator> m_IdGenerator;
-        private readonly Lazy<IZboxCacheReadService> m_ZboxCacheReadService;
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
         private readonly Lazy<IFacebookService> m_FacebookService;
 
         public LibraryController(
-            Lazy<IZboxCacheReadService> zboxCacheReadService,
             Lazy<ITableProvider> tableProvider,
             Lazy<IUserProfile> userProfile,
             Lazy<IIdGenerator> idGenerator,
@@ -47,7 +45,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_UserProfile = userProfile;
             m_IdGenerator = idGenerator;
             m_UniversitySearch = universitySearch;
-            m_ZboxCacheReadService = zboxCacheReadService;
             m_FacebookService = facebookService;
         }
 
@@ -70,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value,
                 universityWrapper);
 
-            var result = await m_ZboxCacheReadService.Value.GetUniversityDetail(query);
+            var result = await ZboxReadService.GetUniversityDetail(query);
             if (result.Id == 0)
             {
                 return RedirectToAction("Choose");
@@ -414,7 +411,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var query = new GetUserMinProfileQuery(GetUserId());
-            var result = await m_ZboxCacheReadService.Value.GetUserMinProfile(query);
+            var result = await ZboxReadService.GetUserMinProfile(query);
 
 
             if (result.Score < UserController.AdminReputation)

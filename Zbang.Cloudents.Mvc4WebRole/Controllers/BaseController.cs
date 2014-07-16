@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Dependency]
         protected IZboxWriteService ZboxWriteService { get; set; }
         [Dependency]
-        protected IZboxReadService ZboxReadService { get; set; }
+        protected IZboxCacheReadService ZboxReadService { get; set; }
         [Dependency]
         protected IFormsAuthenticationService FormsAuthenticationService { get; set; }
 

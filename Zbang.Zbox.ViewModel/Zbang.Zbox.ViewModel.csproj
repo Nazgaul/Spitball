@@ -119,6 +119,7 @@
     <Compile Include="DTOs\Search\SearchItems.cs" />
     <Compile Include="DTOs\Search\SearchUsers.cs" />
     <Compile Include="DTOs\SeoDto.cs" />
+    <Compile Include="DTOs\Store\Product.cs" />
     <Compile Include="DTOs\TabDto.cs" />
     <Compile Include="DTOs\BoxDto.cs" />
     <Compile Include="DTOs\ItemDto.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Email.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
+    <Compile Include="SqlQueries\Store.cs" />
     <Compile Include="SqlQueries\Quiz.cs" />
     <Compile Include="SqlQueries\Search.cs" />
     <Compile Include="SqlQueries\Security.cs" />
