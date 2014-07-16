@@ -1367,7 +1367,7 @@
 .boxItemTt .moreFilesThumb {
   display: inline-block;
   position: absolute;
-  top: 38px;
+  bottom: 45px;
 }
 .boxItemTt .detailsWpr {
   display: inline-block;
