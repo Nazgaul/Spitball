@@ -910,6 +910,14 @@ angular.module('ui.bootstrap.position', [])
               var positionStrParts = positionStr.split('-');
               var pos0 = positionStrParts[0], pos1 = positionStrParts[1] || 'center';
 
+              if (pos0 === 'left' && $('html').css('direction') === 'rtl') {
+                  pos0 = 'right';
+              }
+              if (pos0 === 'right' && $('html').css('direction') === 'ltr') {
+                  pos0 = 'left';
+              }
+
+
               var hostElPos,
                 targetElWidth,
                 targetElHeight,
