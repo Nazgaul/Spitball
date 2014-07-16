@@ -102,10 +102,6 @@
   -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
   transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
   width: 365px;
-  height: -webkit-calc(100vh - 277px);
-  height: calc(100vh - 277px);
-  overflow-x: hidden;
-  overflow-y: auto;
   /*&:not(.ng-animate):not(.ng-enter-active) {
         //left:0;
     }

@@ -1926,11 +1926,8 @@ input[type="radio"][disabled] + label:before {
 .popover > .arrow:after,
 .popover > .arrow:after:after {
   content: '';
-  bottom: 1px;
-  margin-left: -10px;
 }
-.popover > .arrow:before,
-.popover > .arrow:after:before {
+.popover > .arrow:before {
   display: none;
 }
 .popover-title {
