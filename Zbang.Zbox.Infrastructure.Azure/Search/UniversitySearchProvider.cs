@@ -136,7 +136,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 "college",
                 "university",
                 "אוניברסיטה",
-                "ה"
+                "ה",
+                "מכללת"
             };
 
 
