@@ -113,7 +113,7 @@ mBox.controller('QnACtrl',
 
             for (var i = 0, l = question.answers.length; i < l; i++) {
                 question.answers[i].isNew = false;
-                NewUpdates.setOld($scope.boxId, 'answers', answers[i].id);
+                NewUpdates.setOld($scope.boxId, 'answers', question.answers[i].id);
             }
 
             //cleartooltip ?
