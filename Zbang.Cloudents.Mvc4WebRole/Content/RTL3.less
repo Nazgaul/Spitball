@@ -822,8 +822,6 @@
 
 /*#region box item tool tips */
 .boxItemTt {
-    right: -66px; /*rtl*/
-    left: auto;
 
     &.noPreview {
         .ttPreview {
@@ -854,7 +852,9 @@
         right: 8px; /*rtl*/
         left: auto;
     }
-
+    .ttDetail {
+        width: 40px; /*diff rtl*/
+    }
     .ttPreview {
         max-height: 55px; /* diff rtl - heb has 4 lines*/
     }

@@ -11,6 +11,36 @@ q {
 body {
   font-family: Arial;
 }
+/*#region radio input */
+input[type="radio"] + label:before {
+  margin: -2px 0 0 4px;
+  /*rtl*/
+}
+/*#endregion */
+/*#region checkbox */
+.checkbox ~ .cbLabel:before {
+  margin: 0 0 0 5px;
+}
+/*#endregion */
+/*#region validation errors */
+.field-validation-error,
+.validation-summary-errors {
+  margin: 0 5px 0 0;
+  /*rtl*/
+}
+/*#endregion */
+/*#region delete email 'x' */
+.removeItem,
+.closeItem {
+  left: 5px;
+  /*rtl*/
+  right: auto;
+}
+.emailText {
+  margin: 0 0 0 6px;
+  /*rtl*/
+}
+/*#endregion */
 /*#region site header classes */
 .navUser {
   margin: 0 30px 0 0;
@@ -167,58 +197,6 @@ body {
   /*rtl*/
 }
 /*#endregion */
-.lFloat {
-  float: right;
-  /*rtl*/
-}
-.rFloat {
-  float: left;
-  /*rtl*/
-}
-.semiFont {
-  font-weight: normal;
-}
-.boldFont {
-  font-weight: bold;
-  /*rtl (In english semi-bold font-weight is used)*/
-}
-.inputText {
-  padding: 0 8px 0 4px;
-  /* rtl */
-}
-.topBar {
-  text-align: right;
-  /*rtl*/
-  padding: 0 19px 0 45px;
-  /*rtl*/
-}
-.scrolling .barShadow {
-  box-shadow: -2px 3px 7px rgba(0, 0, 0, 0.15);
-  /*rtl*/
-}
-.scrolling #dash_right:before {
-  margin: -10px -24px 0 0;
-  /*rtl*/
-}
-.backWpr {
-  text-align: right;
-  /*rtl*/
-  padding: 0 40px 0 0;
-  /*rtl*/
-}
-.backWpr:before {
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-  right: 0;
-  /*rtl*/
-  left: auto;
-}
-.backWpr.noArrow {
-  padding-right: 0;
-}
 /*#region  dropdown-menu  (previously: editFolderMenu) */
 .dropdown-menu button {
   text-align: right;
@@ -230,6 +208,7 @@ body {
   right: auto;
 }
 /*#endregion */
+/*#region dropdown */
 .dropDown {
   text-align: right;
   /*rtl*/
@@ -239,7 +218,8 @@ body {
   /*rtl*/
   left: auto;
 }
-/*#region tooltip */
+/*#endregion */
+/*#region tooltip1 - "first time" */
 /*.quizGuideTemplate {
     .tooltip {
         right: 566px; 
@@ -297,6 +277,172 @@ body {
   left: auto;
 }
 /*#endregion */
+/*#region User tooltip */
+.userTooltip {
+  padding: 17px 110px 6px 10px;
+  /*rtl*/
+}
+.ttImg {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */
+/*#region Bootstrap classes */
+/*#region tooltip */
+.tooltip.right {
+  margin: 0 3px 0 0;
+  /*rtl*/
+}
+.tooltip.left {
+  margin: 0 -3px 0 0;
+  /*rtl*/
+}
+.tooltip.left-bottom {
+  right: 0!important;
+  /*rtl*/
+  left: auto!important;
+  /*rtl*/
+}
+.tooltip.left-bottom .tooltip-arrow {
+  right: 12px;
+  /*rtl*/
+  left: auto;
+}
+.tooltip.right-bottom {
+  left: 0!important;
+  /*rtl*/
+  right: auto!important;
+  /*rtl*/
+}
+.tooltip.right-bottom .tooltip-arrow {
+  left: 12px;
+  /*rtl*/
+  right: auto;
+}
+/*#endregion */
+/*#region popover */
+.popover {
+  text-align: right;
+  /*rtl*/
+  /*.userTooltip {
+        padding: 10px 110px 6px 10px; 
+    }
+
+    &.top {
+        > .arrow {
+            right: 50%; 
+            left: auto;
+            margin: 0 -11px 0 0; 
+            
+            &:after {
+                margin: 0 -10px 0 0;
+            }
+        }
+    }
+    &.bottom {
+        > .arrow {
+            right: 50%;
+            left: auto;
+            margin: 0 -11px 0 0; 
+            &:after {
+                margin: 0 -10px 0 0; 
+            }
+        }
+    }
+    &.left {
+        margin: 0 -10px 0 0; 
+        > .arrow {
+            left: -12px; 
+            right: auto;
+            border-width: 12px 12px 12px 0; 
+            border-right-color: @borderColor; 
+            border-left-color: transparent;
+            &:after {
+                left: 2px; 
+                right: auto;
+                border-width: 10px 10px 10px 0; 
+                border-right-color: #f5f5f5; 
+                border-left-color: transparent;
+            }
+        }
+        .boxItemTt {
+            //margin-right: -146px - 379px; //rtl only
+        }
+    }
+    &.right {
+        margin: 0 10px 0 0; 
+        > .arrow {
+            right: -12px; 
+            left: auto;
+            border-width: 12px 0 12px 12px; 
+            border-left-color: @borderColor; 
+            border-right-color: transparent;
+            &:after {
+                right: 2px; 
+                left: auto;
+                border-width: 10px 0 10px 10px; 
+                border-left-color: #f5f5f5; 
+                border-right-color: transparent;
+            }
+        }
+    }*/
+}
+/*#endregion */
+/*#endregion */
+/*#region general helper classes */
+.lFloat {
+  float: right;
+  /*rtl*/
+}
+.rFloat {
+  float: left;
+  /*rtl*/
+}
+.semiFont {
+  font-weight: normal;
+}
+.boldFont {
+  font-weight: bold;
+  /*rtl (In english semi-bold font-weight is used)*/
+}
+.inputText {
+  padding: 0 8px 0 4px;
+  /* rtl */
+}
+.topBar {
+  text-align: right;
+  /*rtl*/
+  padding: 0 19px 0 45px;
+  /*rtl*/
+}
+.scrolling .barShadow {
+  box-shadow: -2px 3px 7px rgba(0, 0, 0, 0.15);
+  /*rtl*/
+}
+.scrolling #dash_right:before {
+  margin: -10px -24px 0 0;
+  /*rtl*/
+}
+.backWpr {
+  text-align: right;
+  /*rtl*/
+  padding: 0 40px 0 0;
+  /*rtl*/
+}
+.backWpr:before {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.backWpr.noArrow {
+  padding-right: 0;
+}
 .sectionHeader {
   font-weight: normal;
   /*diff rtl*/
@@ -329,51 +475,14 @@ body {
   margin: 0;
   /* diff rtl*/
 }
+/*#endregion */
 /*#region user items (used in search page and user page) */
 .userItem {
   margin: 0 0 20px 31px;
   /*rtl*/
 }
 /*#endregion */
-/*#region radio input */
-input[type="radio"] + label:before {
-  margin: -2px 0 0 4px;
-  /*rtl*/
-}
-/*#endregion */
-/*#region checkbox */
-.checkbox ~ .cbLabel:before {
-  margin: 0 0 0 5px;
-}
-/*#endregion */
-/*#region validation errors */
-.field-validation-error,
-.validation-summary-errors {
-  margin: 0 5px 0 0;
-  /*rtl*/
-}
-/*#endregion */
-.removeItem,
-.closeItem {
-  left: 5px;
-  /*rtl*/
-  right: auto;
-}
-.emailText {
-  margin: 0 0 0 6px;
-  /*rtl*/
-}
-/*#region AUTO COMPLETE */
-ul.ui-autocomplete {
-  text-align: right;
-  /*rtl*/
-}
-#Library .ui-autocomplete .btn1 {
-  left: 10px;
-  /*rtl*/
-  right: auto;
-}
-/*#endregion */
+/*#region media queries */
 @media (max-width: 1024px) {
   .quizTitle.quizTitle,
   .quizPrevWpr.quizPrevWpr {
@@ -381,6 +490,7 @@ ul.ui-autocomplete {
     /*rtl*/
   }
 }
+/*#region IPAD - SPECIFIC CODE */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   .headingTexts.headingTexts {
     padding: 0 40px 0 0;
@@ -404,44 +514,5 @@ ul.ui-autocomplete {
     /*rtl*/
   }
 }
-/*#region User tooltip */
-.userTooltip {
-  padding: 17px 110px 6px 10px;
-  /*rtl*/
-}
-.ttImg {
-  right: 0;
-  /*rtl*/
-  left: auto;
-}
-.tooltip.right {
-  margin: 0 3px 0 0;
-  /*rtl*/
-}
-.tooltip.left {
-  margin: 0 -3px 0 0;
-  /*rtl*/
-}
-.tooltip.left-bottom {
-  right: 0!important;
-  /*rtl*/
-  left: auto!important;
-  /*rtl*/
-}
-.tooltip.left-bottom .tooltip-arrow {
-  right: 12px;
-  /*rtl*/
-  left: auto;
-}
-.tooltip.right-bottom {
-  left: 0!important;
-  /*rtl*/
-  right: auto!important;
-  /*rtl*/
-}
-.tooltip.right-bottom .tooltip-arrow {
-  left: 12px;
-  /*rtl*/
-  right: auto;
-}
+/*#endregion */
 /*#endregion */

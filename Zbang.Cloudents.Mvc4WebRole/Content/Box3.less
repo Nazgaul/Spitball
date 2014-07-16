@@ -856,10 +856,6 @@
                     &:after {
                         .pseudo;
                         position: absolute;
-                        /*margin: auto;
-                        left: 0;
-                        right: 0;
-                        top: 50px;*/
                         width: 81px;
                         height: 81px;
                         background: @boxSprite -75px 0 no-repeat;
@@ -868,34 +864,17 @@
             }
         }
         .thumbItem:first-child {
-            //position: relative;
-
             .boxLink {
                 padding-top: 192px; //sponsored link img absolute
                 .boxSizing;
 
                 &:after {
-                    //.pseudo;
-                    //position: absolute;
                     margin: auto;
                     left: 0;
                     right: 0;
                     top: 50px;
-                    //width: 81px;
-                    //height: 81px;
-                    //background: @boxSprite -75px 0 no-repeat;
                 }
             }
-
-            /*&:hover {
-                .actionBtns {
-                    display: none;
-                }
-
-                .boxLink:after {
-                    background-position: -75px -82px;
-                }
-            }*/
 
             .sponsoredBg {
                 width: 100%;
@@ -952,10 +931,6 @@
             .views {
                 font-size: 13px;
             }
-
-            /*&:hover .actionBtns {
-                display: none;
-            }*/
             .boxLink {
                 .boxSizing;
                 margin-left: -260px;
@@ -978,7 +953,6 @@
 .boxItemsHeader {
     height: 68px;
     margin-top: -28px;
-    //margin: -28px 1px 0 0; /*rtl*/
     padding-top: 20px;
     .boxSizing;
     .iconTxt{
@@ -1045,9 +1019,7 @@
 }
 .tag {
     position: relative;
-    color: #FFF;
-    //background: #0F9D58;
-    //overflow: hidden;
+    color: #fff;
     display: inline-block;
     padding: 1px 12px 2px 6px; /*rtl*/
     border-radius: 3px 0 3px 3px; /*rtl*/
@@ -1326,23 +1298,11 @@
 }
 /*#region box item tool tips */
 .boxItemTt {
-    //position: absolute;
-    //left: -66px; /*rtl*/  
-    //border: 1px solid #c2c2c2;
-    //box-shadow: 0 3px 7px rgba(0,0,0,.15);
     padding: 10px 0;
     width: 276px;
-    //height: 183px;
     .boxSizing;
-    //bottom: 100%;
-    //display: none;  
-    //z-index:11;
-    //z-index:4;  //TODO - need to fix this: over topBar and site header and under general tooltip?? - maybe with js? 
-    //z-index: 1; //place underneath general tooltip
     z-index: 6; // over leftPanel and siteheader - (both with 5)
-    //background: #fff;
     border-radius: 5px;
-    //margin-bottom: 8px;
     .itemName {
         padding: 10px 20px 0 20px;
         margin: -10px 0 18px;
@@ -1352,14 +1312,6 @@
         font-size: 15px;
         -ms-word-wrap: break-word;
         word-wrap: break-word;
-    }
-    .downArrow {
-        
-        //bottom: auto;
-        //margin-top: 10px; /*diff rtl*/
-        width: 274px;
-        position: absolute;
-        top: 100%;
     }
     &.noPreview
     {
@@ -1431,8 +1383,6 @@
     }
     .moreFilesThumb {
         display: inline-block;
-        //position: absolute;
-        //bottom: 45px;
         float: left; /*rtl*/
         margin-top: -12px;
     }
@@ -1447,7 +1397,7 @@
     }
     
     .ttDetail {
-        width: 75px;
+        width: 75px; /*diff rtl*/
         color: #9c9c9c;
     }
 
