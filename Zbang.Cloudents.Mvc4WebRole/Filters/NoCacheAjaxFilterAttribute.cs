@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
@@ -15,8 +16,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             {
                 HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
                 cache.SetCacheability(HttpCacheability.NoCache);
-                cache.SetNoStore();
-                cache.AppendCacheExtension("must-revalidate, proxy-revalidate");
+                cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
             }
             base.OnActionExecuting(filterContext);
         }

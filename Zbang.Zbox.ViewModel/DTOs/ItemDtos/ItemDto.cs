@@ -24,8 +24,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.ItemDtos
             TabId = tabid;
             NumOfViews = numOfViews;
             Rate = rate;
-            //var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-            Thumbnail = thumbnail;// blobProvider.GetThumbnailUrl(thumbnail);
+            Thumbnail = thumbnail;
             Owner = owner;
             Sponsored = sponsored;
             Date = DateTime.SpecifyKind(date, DateTimeKind.Utc);

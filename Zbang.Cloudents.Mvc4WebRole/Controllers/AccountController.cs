@@ -12,7 +12,6 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -22,7 +21,6 @@ using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -299,7 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region AccountSettings
         [ZboxAuthorize, UserNavNWelcome, NoUniversity]
-        [OutputCache(CacheProfile = "NoCache")]
+        [CacheFilter]
         public ActionResult Settings()
         {
             var userId = GetUserId();
@@ -362,7 +360,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Code = generatedCode;
                 Session[SessionKey] = model;
 
-                m_QueueProvider.Value.InsertMessageToMailNew(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture), model.Email, System.Threading.Thread.CurrentThread.CurrentCulture.Name));
+                m_QueueProvider.Value.InsertMessageToMailNew(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture), 
+                    model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return Json(new JsonResponse(true, new { code = true }));
             }
             catch (ArgumentException ex)

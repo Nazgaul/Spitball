@@ -271,7 +271,6 @@
     <Compile Include="Extensions\RedirectToRouteResult.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
     <Compile Include="Filters\AjaxAttribute.cs" />
-    <Compile Include="Filters\AjaxCacheAttribute.cs" />
     <Compile Include="Filters\AntiforgeryHandleErrorAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
@@ -792,7 +791,6 @@
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
-    <Content Include="Js\bootstrap.js" />
     <Content Include="Js\BoxSettings.js" />
     <Content Include="Js\controllers\box\boxCtrl.js" />
     <Content Include="Js\controllers\box\settingsCtrl.js" />

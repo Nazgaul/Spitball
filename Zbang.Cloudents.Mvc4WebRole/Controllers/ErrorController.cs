@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
@@ -20,7 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [OutputCache(CacheProfile = "NoCache")]
+        [CacheFilter]
         public ActionResult MembersOnly(string returnUrl)
         {
             if (string.IsNullOrEmpty(returnUrl))
