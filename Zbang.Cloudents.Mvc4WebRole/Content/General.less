@@ -1895,12 +1895,6 @@ input[type="radio"] {
             left: auto;
         }
     }
-    /*&.in {
-        opacity: .9;
-        &.fade {
-            opacity: 1;
-        }
-    }*/
 }
 
 .tooltip-inner {
@@ -1956,7 +1950,7 @@ input[type="radio"] {
     left: 0;
     z-index: 13;
     display: none;
-    text-align: left;
+    text-align: left; /*rtl*/
     background: #fff;
     .boxSizing;
     border: 1px solid @borderColor;
@@ -1972,15 +1966,15 @@ input[type="radio"] {
     &.top {
         margin-top: -10px;
         > .arrow {
-            left: 50%;
-            margin-left: -11px;
+            left: 50%; /*rtl*/
+            margin-left: -11px; /*rtl*/
             bottom: -12px;
             border-width: 12px 12px 0 12px;
             border-top-color: @borderColor;
             
             &:after {
                 bottom: 2px;
-                margin-left: -10px;
+                margin-left: -10px; /*rtl*/
                 border-width: 10px 10px 0 10px;
                 border-top-color: #f5f5f5;
             }
@@ -1990,13 +1984,13 @@ input[type="radio"] {
         margin-top: 10px;
         > .arrow {
             left: 50%;
-            margin-left: -11px;
+            margin-left: -11px; /*rtl*/
             border-width: 0 12px 12px 12px;
             border-bottom-color: @borderColor;
             top: -12px;
             &:after {
                 top: 2px;
-                margin-left: -10px;
+                margin-left: -10px; /*rtl*/
                 border-width: 0 10px 10px 10px;
                 border-bottom-color: #f5f5f5;
             }
@@ -2006,14 +2000,14 @@ input[type="radio"] {
         margin-left: -10px;
         > .arrow {
             top: 50%;
-            right: -12px;
+            right: -12px; /*rtl*/
             margin-top: -11px;
-            border-width: 12px 0 12px 12px;
-            border-left-color: @borderColor;
+            border-width: 12px 0 12px 12px; /*rtl*/
+            border-left-color: @borderColor; /*rtl*/
             &:after {
-                right: 2px;
-                border-width: 10px 0 10px 10px;
-                border-left-color: #f5f5f5;
+                right: 2px; /*rtl*/
+                border-width: 10px 0 10px 10px; /*rtl*/
+                border-left-color: #f5f5f5; /*rtl*/
                 bottom: -10px;
             }
         }
@@ -2022,15 +2016,15 @@ input[type="radio"] {
         margin-left: 10px;
         > .arrow {
             top: 50%;
-            left: -12px;
+            left: -12px; /*rtl*/
             margin-top: -11px;
-            border-width: 12px 12px 12px 0;
-            border-right-color: @borderColor;
+            border-width: 12px 12px 12px 0; /*rtl*/
+            border-right-color: @borderColor; /*rtl*/
             &:after {
-                left: 2px;
+                left: 2px; /*rtl*/
                 bottom: -10px;
-                border-width: 10px 10px 10px 0;
-                border-right-color: #f5f5f5;
+                border-width: 10px 10px 10px 0; /*rtl*/
+                border-right-color: #f5f5f5; /*rtl*/
             }
         }
     }
@@ -2462,8 +2456,6 @@ select.inputText {
 
 
 /*#endregion */ 
-
-
 
 /*#region media queries */
 ////Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)

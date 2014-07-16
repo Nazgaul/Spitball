@@ -826,24 +826,9 @@
   content: '';
   display: inline-block;
   position: absolute;
-  /*margin: auto;
-                        left: 0;
-                        right: 0;
-                        top: 50px;*/
   width: 81px;
   height: 81px;
   background: url(/Images/box17-sprite.png?v=1) -75px 0 no-repeat;
-}
-.boxItemList.sponsored .thumbItem:first-child {
-  /*&:hover {
-                .actionBtns {
-                    display: none;
-                }
-
-                .boxLink:after {
-                    background-position: -75px -82px;
-                }
-            }*/
 }
 .boxItemList.sponsored .thumbItem:first-child .boxLink {
   padding-top: 192px;
@@ -878,9 +863,6 @@
   padding: 0 0 0 260px;
   /*rtl*/
   margin-bottom: 14px;
-  /*&:hover .actionBtns {
-                display: none;
-            }*/
 }
 .boxItemList.sponsored .listItem:first-child .imgBorder {
   top: 0;
@@ -1000,7 +982,7 @@
 }
 .tag {
   position: relative;
-  color: #FFF;
+  color: #fff;
   display: inline-block;
   padding: 1px 12px 2px 6px;
   /*rtl*/

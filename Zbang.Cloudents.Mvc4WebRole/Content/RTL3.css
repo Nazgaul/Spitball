@@ -797,11 +797,6 @@
   /*rtl*/
 }
 /*#region box item tool tips */
-.boxItemTt {
-  right: -66px;
-  /*rtl*/
-  left: auto;
-}
 .boxItemTt.noPreview .ttPreview {
   display: none;
 }

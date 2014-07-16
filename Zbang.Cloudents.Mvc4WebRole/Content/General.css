@@ -1732,12 +1732,6 @@ input[type="radio"][disabled] + label:before {
   z-index: 12;
   padding: 2px 0;
   white-space: nowrap;
-  /*&.in {
-        opacity: .9;
-        &.fade {
-            opacity: 1;
-        }
-    }*/
 }
 .tooltip.right {
   margin-left: 3px;
@@ -1833,6 +1827,7 @@ input[type="radio"][disabled] + label:before {
   z-index: 13;
   display: none;
   text-align: left;
+  /*rtl*/
   background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1855,7 +1850,9 @@ input[type="radio"][disabled] + label:before {
 }
 .popover.top > .arrow {
   left: 50%;
+  /*rtl*/
   margin-left: -11px;
+  /*rtl*/
   bottom: -12px;
   border-width: 12px 12px 0 12px;
   border-top-color: #c2c2c2;
@@ -1863,6 +1860,7 @@ input[type="radio"][disabled] + label:before {
 .popover.top > .arrow:after {
   bottom: 2px;
   margin-left: -10px;
+  /*rtl*/
   border-width: 10px 10px 0 10px;
   border-top-color: #f5f5f5;
 }
@@ -1872,6 +1870,7 @@ input[type="radio"][disabled] + label:before {
 .popover.bottom > .arrow {
   left: 50%;
   margin-left: -11px;
+  /*rtl*/
   border-width: 0 12px 12px 12px;
   border-bottom-color: #c2c2c2;
   top: -12px;
@@ -1879,6 +1878,7 @@ input[type="radio"][disabled] + label:before {
 .popover.bottom > .arrow:after {
   top: 2px;
   margin-left: -10px;
+  /*rtl*/
   border-width: 0 10px 10px 10px;
   border-bottom-color: #f5f5f5;
 }
@@ -1888,14 +1888,20 @@ input[type="radio"][disabled] + label:before {
 .popover.left > .arrow {
   top: 50%;
   right: -12px;
+  /*rtl*/
   margin-top: -11px;
   border-width: 12px 0 12px 12px;
+  /*rtl*/
   border-left-color: #c2c2c2;
+  /*rtl*/
 }
 .popover.left > .arrow:after {
   right: 2px;
+  /*rtl*/
   border-width: 10px 0 10px 10px;
+  /*rtl*/
   border-left-color: #f5f5f5;
+  /*rtl*/
   bottom: -10px;
 }
 .popover.right {
@@ -1904,15 +1910,21 @@ input[type="radio"][disabled] + label:before {
 .popover.right > .arrow {
   top: 50%;
   left: -12px;
+  /*rtl*/
   margin-top: -11px;
   border-width: 12px 12px 12px 0;
+  /*rtl*/
   border-right-color: #c2c2c2;
+  /*rtl*/
 }
 .popover.right > .arrow:after {
   left: 2px;
+  /*rtl*/
   bottom: -10px;
   border-width: 10px 10px 10px 0;
+  /*rtl*/
   border-right-color: #f5f5f5;
+  /*rtl*/
 }
 .popover > .arrow,
 .popover > .arrow:after {
