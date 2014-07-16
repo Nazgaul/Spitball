@@ -158,6 +158,7 @@
             self.name = ko.observable();
             self.userId = ko.observable();
             self.score = ko.observable();
+            self.profile = ko.observable();
 
             self.viewSelf = ko.computed(function () {
                 return self.userId() === cd.userDetail().nId;
@@ -473,6 +474,8 @@
                     data = data || {};
                     var profile = new Profile(data);
 
+                    self.profile(profile);
+
                     cd.setTitle(profile.name + ' | Cloudents');
 
                     self.name(profile.name);
@@ -503,6 +506,16 @@
                     }
 
                     sendMessageBtn.onclick = function () {
+
+                        angular.element(document).scope().$broadcast('message', {
+                            id: self.profile().id,
+                            name: self.profile().name,
+                            image: self.profile().image,
+                            score: self.profile().score,
+                            univeristy: self.profile().universityName
+
+                        });
+
                         cd.pubsub.publish('message', { id: '', data: [{ name: userName, id: self.userId(), userImage: userImage }] });
                         analytics.trackEvent('User Page', 'Edit Account', 'User clicked send a message');
                     };
