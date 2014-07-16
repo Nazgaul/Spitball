@@ -297,7 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region AccountSettings
         [ZboxAuthorize, UserNavNWelcome, NoUniversity]
-        [OutputCache(CacheProfile = "NoCache")]
+        [CacheFilter]
         public ActionResult Settings()
         {
             var userId = GetUserId();

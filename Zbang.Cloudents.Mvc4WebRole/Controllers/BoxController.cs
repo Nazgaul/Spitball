@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [UserNavNWelcome]
-        [OutputCache(CacheProfile = "NoCache")]
+        [CacheFilter]
         public ActionResult IndexDesktop(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);

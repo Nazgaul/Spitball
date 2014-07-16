@@ -22,15 +22,15 @@ app.config([
                     switch (response.status) {
                         case 200:
                             return response;
-                        //case 401:
-                        //case 403:
-                        //    window.open('/account', '_self');
-                        //    break;
-                        //case 500:
-                        //    window.open('/error', '_self');
-                        //default:
-                        //    window.open('/error', '_self');
-                        //    break;
+                        case 401:
+                        case 403:
+                            window.open('/account', '_self');
+                            break;
+                        case 500:
+                            window.open('/error', '_self');
+                        default:
+                            window.open('/error', '_self');
+                            break;
 
                     }
                 }                

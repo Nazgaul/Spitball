@@ -791,7 +791,6 @@
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\app\services.js" />
     <Content Include="Js\Autocomplete.js" />
-    <Content Include="Js\bootstrap.js" />
     <Content Include="Js\BoxSettings.js" />
     <Content Include="Js\controllers\box\boxCtrl.js" />
     <Content Include="Js\controllers\box\settingsCtrl.js" />

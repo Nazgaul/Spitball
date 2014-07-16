@@ -86,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [OutputCache(CacheProfile = "NoCache")]
+        [CacheFilter]
         public ActionResult IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
             var userId = GetUserId(false); // not really needs it
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [UserNavNWelcome]
         [NonAjax]
-        [OutputCache(CacheProfile = "NoCache")]
+        [CacheFilter]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
         public ActionResult Index(long boxId, long itemid, string itemName, string universityName, string boxName)
