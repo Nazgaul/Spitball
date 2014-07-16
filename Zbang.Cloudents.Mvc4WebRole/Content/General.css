@@ -1822,8 +1822,6 @@ input[type="radio"][disabled] + label:before {
 /*#region popover */
 .popover {
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: 13;
   display: none;
   text-align: left;

@@ -822,6 +822,10 @@
   /*rtl*/
   left: auto;
 }
+.boxItemTt .ttDetail {
+  width: 40px;
+  /*diff rtl*/
+}
 .boxItemTt .ttPreview {
   max-height: 55px;
   /* diff rtl - heb has 4 lines*/
