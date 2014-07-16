@@ -419,13 +419,11 @@ function Box(data) {
                 dataContext.renameNode({
                     data: { Id: getLibraryId(), NewName: val },
                     success: function () {
-                        if (window.history) {
+                        var $rootScope = angular.element(document).scope();
+                        $rootScope.$apply(function () {
                             var elements = ['library', getLibraryId(), x.input.val()];
-                            history.pushState(null, '', '/' + elements.join('/'));
-                        }
-
-                        //$this.show();
-
+                            $rootScope.setUrl('/' + elements.join('/'));
+                        });
                         x.show();
                         $('#lib_NodeName').text(val);
                     },

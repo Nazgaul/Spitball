@@ -274,7 +274,6 @@
     <Compile Include="Filters\AntiforgeryHandleErrorAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
-    <Compile Include="Filters\FlushHeaderAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\NonAjaxAttribute.cs" />

@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
         }
 
-        public string SerializeData<T>(T data) where T : class
+        private string SerializeData<T>(T data) where T : class
         {
             var pformatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
             
@@ -65,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             // }
         }
 
-        public object Desialize<T>(string data) where T : class
+        private object Desialize<T>(string data) where T : class
         {
             var pformatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
             var bytes = HttpServerUtility.UrlTokenDecode(data);

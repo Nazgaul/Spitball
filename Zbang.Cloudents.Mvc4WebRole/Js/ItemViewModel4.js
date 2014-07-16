@@ -835,10 +835,14 @@
                         });
                     }
                     function fixHistory(location) {
-                        if (window.history && window.history.replaceState) {
-                            cd.historyManager.remove();
-                            window.history.replaceState(location, '', location);
-                        }
+                        var $rootScope = angular.element(document).scope();
+                        $rootScope.$apply(function () {
+                            $rootScope.setUrl(location);
+                        });
+                        
+                        //if (window.history && window.history.replaceState) {
+                        //    window.history.replaceState(location, '', location);
+                        //}
                     }
                 });
 

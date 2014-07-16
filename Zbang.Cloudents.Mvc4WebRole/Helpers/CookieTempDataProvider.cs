@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class CookieTempDataProvider : ITempDataProvider
     {
-        internal const string TempDataCookieKey = "_temp";
+        private const string TempDataCookieKey = "_temp";
         private readonly HttpContextBase m_HttpContext;
         private readonly Compress m_Compress;
 
@@ -25,11 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             m_HttpContext = httpContext;
             m_Compress = new Compress();
         }
-
-        public HttpContextBase HttpContext
-        {
-            get { return m_HttpContext; }
-        }
+       
 
         protected virtual IDictionary<string, object> LoadTempData(ControllerContext controllerContext)
         {
@@ -70,37 +65,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             m_HttpContext.Response.Cookies.Add(cookie);
         }
 
-        public IDictionary<string, object> Base64StringToDictionary(string base64EncodedSerializedTempData)
-        {
-            //var pformatter = new Zbang.Zbox.Infrastructure.Transport.ProtobufSerializer<IDictionary<string, object>>();
-            //var bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
-            //return pformatter.DeserializeData(bytes);
+        //public IDictionary<string, object> Base64StringToDictionary(string base64EncodedSerializedTempData)
+        //{
 
+        //    byte[] bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
+        //    var decompressBytes = m_Compress.DecompressFromGzip(bytes);
+        //    using (var memStream = new MemoryStream(decompressBytes))
+        //    {
+        //        var binFormatter = new BinaryFormatter();
+        //        return binFormatter.Deserialize(memStream, null) as IDictionary<string, object>;
+        //    }
+        //}
 
-            byte[] bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
-            var decompressBytes = m_Compress.DecompressFromGzip(bytes);
-            using (var memStream = new MemoryStream(decompressBytes))
-            {
-                var binFormatter = new BinaryFormatter();
-                return binFormatter.Deserialize(memStream, null) as IDictionary<string, object>;
-            }
-        }
+        //public string DictionaryToBase64String(IDictionary<string, object> values)
+        //{
+        //    using (var memStream = new MemoryStream())
+        //    {
+        //        memStream.Seek(0, SeekOrigin.Begin);
+        //        var binFormatter = new BinaryFormatter();
+        //        binFormatter.Serialize(memStream, values);
+        //        memStream.Seek(0, SeekOrigin.Begin);
+        //        byte[] bytes = memStream.ToArray();
+        //        var compressBytes = m_Compress.CompressToGzip(bytes);
 
-        public string DictionaryToBase64String(IDictionary<string, object> values)
-        {
-            using (var memStream = new MemoryStream())
-            {
-                memStream.Seek(0, SeekOrigin.Begin);
-                var binFormatter = new BinaryFormatter();
-                binFormatter.Serialize(memStream, values);
-                memStream.Seek(0, SeekOrigin.Begin);
-                byte[] bytes = memStream.ToArray();
-                var compressBytes = m_Compress.CompressToGzip(bytes);
-
-                var y = Convert.ToBase64String(compressBytes);
-                return y;
-            }
-        }
+        //        var y = Convert.ToBase64String(compressBytes);
+        //        return y;
+        //    }
+        //}
 
         public string DictionaryToBase64String2(IDictionary<string, object> values)
         {

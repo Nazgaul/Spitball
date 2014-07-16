@@ -11,17 +11,13 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -43,7 +39,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             IQueueProvider queueProvider,
             Lazy<IIdGenerator> idGenerator
             )
-           
         {
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
@@ -68,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 var serializer = new JsonNetSerializer();
                 ViewBag.data = serializer.Serialize(item);
-                
+
                 return PartialView();
             }
             catch (BoxAccessDeniedException)
@@ -91,34 +86,42 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = GetUserId(false); // not really needs it
 
-            var query = new GetItemQuery(userId, itemid, boxId);
-            var item = ZboxReadService.GetItem(query);
-            if (item.BoxId != boxId)
+            try
             {
-                throw new ItemNotFoundException();
-            }
-            if (itemName != UrlBuilder.NameToQueryString(item.Name))
-            {
-                throw new ItemNotFoundException();
-            }
-            if (!string.IsNullOrEmpty(item.Country))
-            {
-                var culture = Languages.GetCultureBaseOnCountry(item.Country);
-                BaseControllerResources.Culture = culture;
-                var seoItemName = item.Name;
-                var file = item as FileWithDetailDto;
-                if (file != null)
+                var query = new GetItemQuery(userId, itemid, boxId);
+                var item = ZboxReadService.GetItem(query);
+                if (item.BoxId != boxId)
                 {
-                    seoItemName = file.NameWOExtension;
+                    throw new ItemNotFoundException();
                 }
-                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, item.BoxName, seoItemName, BaseControllerResources.Cloudents);
+                if (itemName != UrlBuilder.NameToQueryString(item.Name))
+                {
+                    throw new ItemNotFoundException();
+                }
+                if (!string.IsNullOrEmpty(item.Country))
+                {
+                    var culture = Languages.GetCultureBaseOnCountry(item.Country);
+                    BaseControllerResources.Culture = culture;
+                    var seoItemName = item.Name;
+                    var file = item as FileWithDetailDto;
+                    if (file != null)
+                    {
+                        seoItemName = file.NameWOExtension;
+                    }
+                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix,
+                        item.BoxName, seoItemName, BaseControllerResources.Cloudents);
+                }
+                if (!string.IsNullOrEmpty(item.Description))
+                {
+                    var metaDescription = item.Description.RemoveEndOfString(197);
+                    ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
+                }
+                return View("Empty");
             }
-            if (!string.IsNullOrEmpty(item.Description))
+            catch (ItemNotFoundException)
             {
-                var metaDescription = item.Description.RemoveEndOfString(197);
-                ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
+                return RedirectToAction("Index", "Error");
             }
-            return View("Empty");
         }
 
 
@@ -193,13 +196,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// </summary>
         /// <param name="boxUid"></param>
         /// <param name="itemId"></param>
-        /// <param name="uniName"></param>
         /// <returns></returns>
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [Ajax]
         //[AjaxCache(TimeConsts.Minute * 15)]
-        public ActionResult Load(long boxUid, long itemId, string uniName)
+        public ActionResult Load(long boxUid, long itemId)
         {
             try
             {
@@ -441,7 +443,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             {
                                 preview =
                                     RenderRazorViewToString("_PreviewFailed",
-                                        Url.ActionLinkWithParam("Download", new {BoxUid = boxUid, ItemId = uid}))
+                                        Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid }))
                             }),
                         JsonRequestBehavior.AllowGet);
             try
