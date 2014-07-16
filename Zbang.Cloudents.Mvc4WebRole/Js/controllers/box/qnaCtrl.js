@@ -115,7 +115,7 @@ mBox.controller('QnACtrl',
 
             for (var i = 0, l = question.answers.length; i < l; i++) {
                 question.answers[i].isNew = false;
-                NewUpdates.setOld($scope.boxId, 'answers', question.answers[i].id);
+                sNewUpdates.setOld($scope.boxId, 'answers', question.answers[i].id);
             }
 
             //cleartooltip ?
@@ -374,6 +374,15 @@ mBox.controller('QnACtrl',
                 question.aFormData.files.splice(index, 1);
             }
         }
+
+        $scope.checkAuth = function () {
+            if (!sUserDetails.isAuthenticated()) {
+                cd.pubsub.publish('register', { action: true });
+                return false;
+            }
+            
+            return true;
+        };
 
         //function sortAnswers(a, b) {
         //    if (a.isAnswer) {

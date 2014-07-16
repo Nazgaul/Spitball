@@ -28,7 +28,7 @@
     function initialItems() {
         //we can get the data from box before
         dataContext.getItems({
-            data: { BoxUid: boxid, pageNumber: 0 },
+            data: { id: boxid, pageNumber: 0 },
             success: function (data) {
                 for (var i = 0, length = data.length; i < length; i++) {
                     itemsinBox.push(data[i].id);

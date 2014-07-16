@@ -1366,14 +1366,15 @@
 }
 .boxItemTt .moreFilesThumb {
   display: inline-block;
-  position: absolute;
-  top: 38px;
+  float: left;
+  /*rtl*/
+  margin-top: -12px;
 }
 .boxItemTt .detailsWpr {
   display: inline-block;
   position: relative;
   top: -13px;
-  left: 41px;
+  left: 8px;
   /*rtl*/
   width: 196px;
   margin-bottom: 6px;

@@ -8,72 +8,72 @@
     var privateLocation = {
         title: document.title,
         url: location.pathname.replace(/[\/\/]+/, '/') + location.search
-    },
-    historyNav;
-    cd.historyManager = {
-        save: function () {
-            var data = {}
-            this.remove();
-            data.history = historyNav;
-            var now = new Date(),
-            later = now.setHours(now.getHours() + 1);
-            data.lastpage = location.pathname + location.search; //remove querystring
-            data.ttl = later;
-            cd.localStorageWrapper.setItem('history', JSON.stringify(data));
-        },
-        get: function () {
-            var data = JSON.parse(cd.localStorageWrapper.getItem('history')) || { ttl: 0, lastpage: '' };
-            var now = new Date();
-            privateLocation.url = this.removeQueryString(privateLocation.url);
-            if (data.ttl < now.getTime()) {
-                this.remove();
-                historyNav = [cd.clone(privateLocation)];
-                if (history.replaceState) {
-                    history.replaceState(privateLocation.url, '', privateLocation.url);
-                }
-                return;
-            }
+    };
+    //historyNav;
+    //cd.historyManager = {
+    //    save: function () {
+    //        var data = {}
+    //        this.remove();
+    //        data.history = historyNav;
+    //        var now = new Date(),
+    //        later = now.setHours(now.getHours() + 1);
+    //        data.lastpage = location.pathname + location.search; //remove querystring
+    //        data.ttl = later;
+    //        cd.localStorageWrapper.setItem('history', JSON.stringify(data));
+    //    },
+    //    get: function () {
+    //        var data = JSON.parse(cd.localStorageWrapper.getItem('history')) || { ttl: 0, lastpage: '' };
+    //        var now = new Date();
+    //        privateLocation.url = this.removeQueryString(privateLocation.url);
+    //        if (data.ttl < now.getTime()) {
+    //            this.remove();
+    //            historyNav = [cd.clone(privateLocation)];
+    //            if (history.replaceState) {
+    //                history.replaceState(privateLocation.url, '', privateLocation.url);
+    //            }
+    //            return;
+    //        }
 
-            if (data.lastpage !== location.pathname + location.search) { //remove querystring) {
-                this.remove();
-                historyNav = [cd.clone(privateLocation)];
-                return;
-            }
+    //        if (data.lastpage !== location.pathname + location.search) { //remove querystring) {
+    //            this.remove();
+    //            historyNav = [cd.clone(privateLocation)];
+    //            return;
+    //        }
 
-            if (!data.history) {
-                return;
-            }
+    //        if (!data.history) {
+    //            return;
+    //        }
 
-            historyNav = data.history;
+    //        historyNav = data.history;
 
-            var lastPage = historyNav.pop();
-            if (lastPage.url === "") {
-                this.remove();
-                return;
-            }
-            if (privateLocation.url.indexOf('search') === -1) {
-                privateLocation.url = lastPage.url;
-            } else {
-                privateLocation.url = this.removeQueryString(lastPage.url);
-            }
+    //        var lastPage = historyNav.pop();
+    //        if (lastPage.url === "") {
+    //            this.remove();
+    //            return;
+    //        }
+    //        if (privateLocation.url.indexOf('search') === -1) {
+    //            privateLocation.url = lastPage.url;
+    //        } else {
+    //            privateLocation.url = this.removeQueryString(lastPage.url);
+    //        }
 
-            if (window.history.replaceState) {
-                history.replaceState(lastPage.url, '', lastPage.url);
-            }
-            historyNav.push(lastPage);
+    //        if (window.history.replaceState) {
+    //            history.replaceState(lastPage.url, '', lastPage.url);
+    //        }
+    //        historyNav.push(lastPage);
 
-        },
-        remove: function () {
-            cd.localStorageWrapper.removeItem('history');
-        },
-        removeQueryString: function (path) {
-            if (path.indexOf('?') === -1) {
-                return path;
-            }
+    //    },
+    //    remove: function () {
+    //        cd.localStorageWrapper.removeItem('history');
+    //    },
+    //    removeQueryString: function (path) {
+    //        if (path.indexOf('?') === -1) {
+    //            return path;
+    //        }
 
-            return path.split('?')[0];
-        }
-    }
+    //        return path.split('?')[0];
+    //    }
+    //}
 
     //cd.historyManager.get();
 
@@ -155,31 +155,31 @@
         locationChanged();
     });
 
-    window.onhashchange = function () {
-        try {
-            window.scrollTo(0, 1);
-        }
-        catch (err) {
-            console.log(err.message);
-        }
-        //using to put pop up dialog to with css target
-        var hash = location.hash.toLowerCase();
-        if (hash.charAt(0) === '#') {
-            hash = hash.substr(1);
-        }
-        pubsub.publish('nav_hash', hash); //mobile
-        pubsub.publish('nav_hash_' + hash);
-    };
-    window.onpopstate = function (e) {
-        if (e.state) {
-            if (privateLocation.url === removeStartingSlash(location.pathname)) {
-                return;
-            }
-            if (historyNav[historyNav.length - 2] && historyNav[historyNav.length - 2].url) {
-                pubsub.publish('nav', historyNav[historyNav.length - 2].url);
-            }
-        }
-    };
+    //window.onhashchange = function () {
+    //    try {
+    //        window.scrollTo(0, 1);
+    //    }
+    //    catch (err) {
+    //        console.log(err.message);
+    //    }
+    //    //using to put pop up dialog to with css target
+    //    var hash = location.hash.toLowerCase();
+    //    if (hash.charAt(0) === '#') {
+    //        hash = hash.substr(1);
+    //    }
+    //    pubsub.publish('nav_hash', hash); //mobile
+    //    pubsub.publish('nav_hash_' + hash);
+    //};
+    //window.onpopstate = function (e) {
+    //    if (e.state) {
+    //        if (privateLocation.url === removeStartingSlash(location.pathname)) {
+    //            return;
+    //        }
+    //        if (historyNav[historyNav.length - 2] && historyNav[historyNav.length - 2].url) {
+    //            pubsub.publish('nav', historyNav[historyNav.length - 2].url);
+    //        }
+    //    }
+    //};
 
     function changeHistoryState() {
         firstLoad = false;
@@ -202,7 +202,7 @@
             }
         }
 
-        historyNav.push(clonedLocation);
+        //historyNav.push(clonedLocation);
         //save history to local storage
         cd.historyManager.save();
 

@@ -268,8 +268,8 @@
 
 
 
-            var tt = new TrackTiming('ajax', buildKey(options.url, options.data));
-            tt.startTime();
+            //var tt = new TrackTiming('ajax', buildKey(options.url, options.data));
+            //tt.startTime();
             var isjson = isJson || false;
             var ajaxParams = {
                 url: options.url,
@@ -336,7 +336,7 @@
                     if ($.isFunction(options.always)) {
                         options.always();
                     }
-                    tt.endTime().send();
+                    //endTime().send();
 
                 }
             };
