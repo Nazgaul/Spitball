@@ -1923,8 +1923,7 @@ input[type="radio"][disabled] + label:before {
   border-color: rgba(0, 0, 0, 0);
   border-style: solid;
 }
-.popover > .arrow:after,
-.popover > .arrow:after:after {
+.popover > .arrow:after {
   content: '';
 }
 .popover > .arrow:before {
