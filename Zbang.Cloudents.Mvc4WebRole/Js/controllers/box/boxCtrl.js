@@ -9,6 +9,9 @@ mBox.controller('BoxCtrl',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, Box, Item, Quiz, QnA, Upload, NewUpdates, UserDetails, Facebook) {
+
+            cd.pubsub.publish('box');//statistics
+
             var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;

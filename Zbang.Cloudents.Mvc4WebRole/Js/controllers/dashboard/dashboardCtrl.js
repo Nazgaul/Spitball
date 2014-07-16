@@ -11,6 +11,9 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];
 
+    cd.pubsub.publish('dash_boxes');//statistics
+    
+
     maxVisible();
 
     $scope.options = {
