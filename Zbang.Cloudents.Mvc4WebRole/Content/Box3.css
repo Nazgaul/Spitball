@@ -1282,17 +1282,13 @@
 }
 /*#region box item tool tips */
 .boxItemTt {
-  border: 1px solid #c2c2c2;
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
   padding: 10px 0;
   width: 276px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   z-index: 6;
-  background: #fff;
   border-radius: 5px;
-  margin-bottom: 8px;
 }
 .boxItemTt .itemName {
   padding: 10px 20px 0 20px;
