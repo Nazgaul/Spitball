@@ -1801,12 +1801,25 @@
   width: 29px;
   height: 29px;
 }
+.actionBtns .downloadBtn:only-child,
+.actionBtns .deleteBtn:only-child,
+.actionBtns .editBtn:only-child {
+  border-radius: 3px;
+}
+.actionBtns .downloadBtn,
+.actionBtns .editBtn {
+  border-radius: 3px 0 0 3px;
+  /*rtl*/
+}
 .actionBtns .downloadBtn:before,
 .actionBtns .editBtn:before {
   margin-top: 6px;
 }
 .actionBtns .deleteBtn {
+  border-radius: 0 3px 3px 0;
+  /*rtl*/
   border-left: 1px solid #c2c2c2;
+  /*rtl*/
 }
 .actionBtns .deleteBtn:before {
   margin-top: 2px;

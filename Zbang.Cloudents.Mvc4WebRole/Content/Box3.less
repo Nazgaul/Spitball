@@ -1479,16 +1479,22 @@
         background: #fff;
         width: 29px;
         height: 29px;
-    }
-
-    .downloadBtn, .editBtn {
-        &:before {
-            margin-top: 6px; // specific to this .downloadBtn class
+        &:only-child {
+            border-radius: 3px;
         }
     }
 
+    .downloadBtn, .editBtn {
+        border-radius: 3px 0 0 3px; /*rtl*/
+        &:before {
+            margin-top: 6px; // specific to this .downloadBtn class
+        }
+        
+    }
+
     .deleteBtn {
-        border-left: 1px solid @borderColor; // specific to this .deleteBtn class
+        border-radius: 0 3px 3px 0; /*rtl*/
+        border-left: 1px solid @borderColor; /*rtl*/ // specific to this .deleteBtn class
         &:before {
             margin-top: 2px; // specific to this .deleteBtn class
         }

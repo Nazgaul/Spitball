@@ -29,7 +29,7 @@
                 <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                     <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
-                    <button type="button" tooltip="Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                    <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
 
                     <ul class="dropdown-menu" role="menu">
                         <li>

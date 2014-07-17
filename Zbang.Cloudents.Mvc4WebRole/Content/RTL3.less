@@ -889,8 +889,11 @@
 .actionBtns {
     left: 8px; /*rtl*/
     right: auto;
-
+    .downloadBtn, .editBtn {
+        border-radius: 0 3px 3px 0; /*rtl*/
+    }
     .deleteBtn {
+        border-radius: 3px 0 0 3px; /*rtl*/
         border-right: 1px solid @borderColor; /*rtl*/
         border-left: none;
     }
