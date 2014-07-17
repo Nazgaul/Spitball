@@ -30,7 +30,8 @@
                     <div class="QTop clearfix " ng-click="showAllAnswers(question)" ng-class="{hasAttached: question.files.length}">
                         <span class="tag" ng-if="question.isNew">@SharedResources.New</span>
                         <div class="lFloat QTopLeft">
-                            <img class="QAImg calloutTrgr" ng-src="{{question.userImage}}" alt="" width="32" height="32" />
+                            <img class="QAImg" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
+                                 popover-popup-delay="500" popover-target-leave="true" ng-src="{{question.userImage}}" alt="" width="32" height="32" />
                             <div class="attachBtn"></div>
                             <div class="numAttached">{{question.files.length}}</div>
                         </div>
@@ -62,7 +63,8 @@
                         </div>
 
                         <span ng-if="question.bestAnswer">
-                            <img class="QAImg lFloat calloutTrgr" ng-src="{{question.bestAnswer.userImage}}" alt="" width="32" height="32" />
+                            <img class="QAImg lFloat" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
+                                 popover-popup-delay="500" popover-target-leave="true" ng-src="{{question.bestAnswer.userImage}}" alt="" width="32" height="32" />
                             <div class="AUsername semiFont elps">{{question.bestAnswer.userName}}</div><span class="createTime" data-time="{{question.bestAnswer.createTime}}"></span>
                             <div class="AContent" ng-bind-html="question.bestAnswer.content"></div>
                             <ul class="qaAttach">
@@ -85,7 +87,8 @@
     <div class="AWpr" m-custom-scrollbar top="277" ng-animate="'animate'" ng-if="info.state === 3">
         <div id="Answers" class="answers" ng-if="info.selectedQuestion">
             <div class="question">
-                <img class="QAImg lFloat calloutTrgr" ng-src="{{info.selectedQuestion.userImage}}" alt="" width="32" height="32" />
+                <img class="QAImg lFloat" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
+                     popover-popup-delay="500" popover-target-leave="true" ng-src="{{info.selectedQuestion.userImage}}" alt="" width="32" height="32" />
                 <div class="questionRhs">
                     <div class="userName boldFont elps">{{info.selectedQuestion.userName}}</div><span class="createTime innerSection" data-time="{{info.selectedQuestion.createTime}}"></span>
                     <div class="QContent" ng-bind-html="info.selectedQuestion.content"></div>
@@ -110,7 +113,8 @@
                 <li class="AItem" ng-repeat="answer in info.selectedQuestion.answers" ng-class="{best : answer.isAnswer}">
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<div class="bestAnswer splitHR"><span class="splitHRText">@IndexResources.BestAnswer</span></div>*@
-                    <img class="QAImg lFloat calloutTrgr" ng-src="{{answer.userImage}}" alt="" width="32" height="32" />
+                    <img class="QAImg lFloat" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
+                         popover-popup-delay="500" popover-target-leave="true" ng-src="{{answer.userImage}}" alt="" width="32" height="32" />
                     <div class="userName boldFont elps">{{answer.userName}}</div><span class="createTime innerSection" data-time="{{answer.createTime}}"></span>
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<button title="@IndexResources.Useful" class="voteBtn rFloat" type="button" data-bind="click:$root.rateAnswer"></button>
