@@ -2,24 +2,22 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
-<div class="emptyLib" data-bind="css: { admin: $('#univeristyName').data('id') === parseInt(cd.userDetail().id, 10) }">
+<div class="emptyLib" ng-if="!info.items.length" ng-class="{admin : isAdmin()}">
     <h2 class="semiFont">@MainViewResources.SomethingMissing</h2>
     <div class="libEmptyWpr">
         <div class="libEmpty union-sprite">
             <h2 class="semiFont">@MainViewResources.FillGap</h2>
             <h2 class="semiFont">@MainViewResources.CreateCourse</h2>
-            <form data-bind="submit: createAcademicBox">
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(false)
-                @Html.LabelFor(m => m.CourseName)
-                @Html.ValidationMessageFor(m => m.CourseName)
-                @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText" })
+            <form name="createAcademicBoxForm" ng-submit="submit(createAcademicBoxForm.$valid)" ng-class="{submitted : submitted }" novalidate>                                                
+                <label for="createAcademicBoxCourseName">res_Name</label>
+                <span id="createAcademicBoxCourseName" class="validateMsg" ng-show="submitted && createAcademicBoxForm.courseName.$error.required">res_Invalid</span>
+                <input type="text" name="courseName" class="inputText" ng-model="formData.courseName" required/>
 
-                @Html.LabelFor(m => m.CourseId)
-                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText" })
+                <label for="createAcademicBoxCourseId">res_Course_Id</label>
+                <input id="createAcademicBoxCourseId" type="text" name="courseId" class="inputText" ng-model="formData.courseId" />
 
-                @Html.LabelFor(m => m.Professor)
-                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText" })
+                <label for="createAcademicBoxCourseProf">res_Proffesor</label>
+                <input id="createAcademicBoxCourseProf" type="text" name="courseId" class="inputText" ng-model="formData.professor" />                
 
 
                 <input type="submit" class="btn1" value="@DialogResources.Create" />

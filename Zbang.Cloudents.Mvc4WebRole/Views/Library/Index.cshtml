@@ -3,9 +3,8 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using System.Threading
 
-<div id="library" class="page union" data-section="Library" ng-controller="LibraryCtrl">
-    <div class="libraryContent" id="libraryContent">
-        <!--ko stopBinding:true-->
+<div id="library" class="page union" ng-controller="LibraryCtrl">
+    <div class="libraryContent" bindonce>
         <aside class="asideDash lFloat">
             <div class="libTopWpr">
             <div class="libTop">
@@ -13,8 +12,7 @@
                 <div class="uniLogo">
                     <img src="@Model.Image" alt="" width="68" height="68" />
                 </div>
-                <div id="univeristyName" data-id="@Model.Id" class="unionName boldFont">@Model.Name</div>
-                @*<a class="changeUni" href="@Url.Action("Choose", "Library")">@Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources.AccountSettingsResources.ChangeUni</a>*@
+                <div id="univeristyName" class="unionName boldFont" ng-init="info.universityId = '@Model.Id'">@Model.Name</div>
                 <div class="unionStats">
                     <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
                     <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
@@ -48,44 +46,25 @@
             </div>
             <div class="libLists">
                 @if (!string.IsNullOrEmpty(Model.FacebookUrl))
-                {
-                   @* <div class="libFb">
-                        <div class="fb-like-box fbContent"
-                        data-href="@Model.FacebookUrl"
-                        data-width="274" 
-                        data-height="389"
-                        data-show-faces="false" 
-                        data-header="false" 
-                        data-stream="true" 
-                        data-show-border="false">
-                        </div>
-                    </div>*@
-                    
+                {                  
                     <iframe id="facebookLikeBox" data-href="@Model.FacebookUrl"
                        data-link ="//www.facebook.com/plugins/likebox.php?href=&amp;width=274&amp;height=&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false&amp;appId=450314258355338"                        
                         scrolling="no" frameborder="0"
                         style="border:none; overflow:hidden;"
                         allowTransparency="true" width="274"></iframe>
-                }
-              @*  @if (Model.TwitterWidgetId.HasValue)
-                {
-                    <div class="libTwitter">
-                        <a class="twitter-timeline twitterContent" width="274" height="286"
-                        data-widget-id="@Model.TwitterWidgetId"></a>
-                    </div>
-                }*@
+                }              
             </div>
-        </aside>
-        <!--/ko-->
+        </aside>        
         @{
             var cls = string.IsNullOrEmpty(Model.LetterUrl) ? "" : "featured";
         }
+
         <div class="boxesHeader topBar barShadow">
-            <h2 data-bind="visible: !backvisible()" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
-            <a id="lib_Back" class="backWpr elps lFloat" data-bind="visible: backvisible(),css: { noArrow: arrowVisible}" ng-href="{{back.url}}">
+            <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
+            <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="!info.libraryId" ng-href="{{back.url}}">
                 <h2 id="lib_NodeName">{{back.title}}</h2>
             </a>
-            <button id="lib_NodeRename" class="boxRename" tooltip="@SharedResources.Edit" data-bind="visible: renameNodeVisible"></button>
+            <button id="lib_NodeRename" class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId"></button>
         </div>
         <div class="contentWpr @cls">
             
@@ -94,25 +73,25 @@
                 <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="290" src="@Model.LetterUrl"></iframe>
             }
 
-            <ul id="libraryList" class="libraryList clearfix" data-data="@ViewBag.data">
-                <!--ko template:{name:displayMode,foreach:elements}-->
-                <!--/ko-->
-                <li class="libraryItem deptItem addDep" data-bind="visible: nodevisible">
-                    <button class="addBtn" data-bind="click: addnode, style: { height: nodevisible() && boxvisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
+            <ul id="libraryList" class="libraryList clearfix">
+                <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'">
+
+                </li>                
+                <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
+                    <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
                 </li>
-                <li class="libraryItem box addCourse" data-bind="visible: boxvisible">
-                    <button class="addBtn" data-bind="click: addBox">@MainViewResources.AddCourse</button>
+                <li class="libraryItem box addCourse" ng-if="createBoxVisible()">
+                    <button class="addBtn" ng-click="createBox()">@MainViewResources.AddCourse</button>
                 </li>
             </ul>
-            <!--ko if:emptyState-->
+            
             @{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}
-            <!--/ko-->
         </div>
 
     </div>
-    @{
+    @*@{
         Html.RenderPartial("_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
         Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
-    }
+    }*@
 </div>
 @{Html.RenderPartial("_Template");}

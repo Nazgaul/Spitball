@@ -147,6 +147,8 @@
 /// <reference path="../js/filters/exttoclass.js" />
 /// <reference path="stacktrace.js" />
 /// <reference path="../js/services/stacktrace.js" />
+/// <reference path="../js/controllers/library/createboxlibctrl.js" />
+/// <reference path="../js/controllers/library/createdepartmentctrl.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
