@@ -8,7 +8,7 @@
 <div class="modal-body">
     <form name="createBoxForm" ng-submit="create(createBoxForm.$valid)" novalidate>
         @Html.LabelFor(m => m.BoxName)
-        <div class="validation" ng-show="createBoxForm.boxName.$invalid && !createBoxForm.boxName.$pristine">Name Error</div>
+        
         <input type="text" name="boxName" class="inputText boxName" ng-model="formData.boxName" required />
 
         <input type="radio" id="membersOnlyPrivacy" name="privacySettings" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
@@ -21,7 +21,7 @@
 
         @*@Html.AntiForgeryToken() add ng-model attribute*@
 
-        <input type="submit" class="btn1 next" value="@DialogResources.Create" />
+        <input type="submit" class="btn1 next" ng-disabled="createBoxForm.$invalid" value="@DialogResources.Create" />
         <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
 
     </form>
