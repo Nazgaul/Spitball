@@ -25,7 +25,8 @@
         <ul class="membersList" data-pending="@IndexResources.Pending" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited" data-member="@IndexResources.ActiveMember">
             <li class="memberItem" ng-controller="FriendCtrl" ng-hide="isExcludedByFilter" ng-repeat="friend in friends | orderByFilter:{field: 'name', input:params.search}">
                 <a bo-href="friend.url">
-                    <img class="friendImg calloutTrgr" alt="" bo-src="friend.image" width="34" height="34" />
+                    <img class="friendImg" alt="" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="right-top"
+                         popover-popup-delay="500" popover-target-leave="true" ng-init="userId = friend.uid" bo-src="friend.image" width="34" height="34" />
                 </a>
                 <span class="memberName elps" bo-text="friend.name"></span>
                 <span class="rFloat memberActions">

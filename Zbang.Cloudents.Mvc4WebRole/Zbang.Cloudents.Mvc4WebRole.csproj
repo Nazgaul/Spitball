@@ -1322,7 +1322,6 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />
     <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />

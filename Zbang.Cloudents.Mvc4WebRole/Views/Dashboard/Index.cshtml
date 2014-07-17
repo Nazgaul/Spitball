@@ -113,7 +113,8 @@
         <script type="text/html" id="activityFeedTemplate">
             <li class="activityItem">
                 <a class="asideImgLink" href="{{userUrl}}" data-navigation="user">
-                    <img class="asideImg calloutTrgr" src="{{userImg}}" data-uid="{{userUid}}" alt="" width="32" height="32" />
+                    <img class="asideImg"popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
+                                 popover-popup-delay="500" popover-target-leave="true" ng-init="userId = question.userId" src="{{userImg}}" data-uid="{{userUid}}" alt="" width="32" height="32" />
                 </a>
                 <div class="latest">
                     <a data-navigation="Box" href="{{boxurl}}">

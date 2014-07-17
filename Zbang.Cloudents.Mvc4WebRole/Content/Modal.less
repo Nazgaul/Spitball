@@ -609,9 +609,11 @@
     max-height: 450px;
     //min-height: 265px;
     //overflow: hidden;
+    position: relative;
     overflow: auto;
     overflow-x: hidden;
     margin: 0 -13px 0 -5px; /*rtl*/ // right margin: for the scrollbars and left margin: for item hover
+
     padding: 0 13px 0 5px; /*rtl*/ // right margin: for the scrollbars and left margin: for item hover
 }
 .memberItem:first-child {
@@ -626,6 +628,7 @@
     margin: 0 0 3px -5px; /*rtl*/
     opacity: 1; //for uninvited transition
     visibility: visible; //for uninvited transition
+    
 
     &.memberItem .cbLabel:before
     {
