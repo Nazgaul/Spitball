@@ -160,11 +160,13 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
         if (id) {
             sUserDetails.setDetails(id, name, image, score, url);
+            sNewUpdates.loadUpdates();
             return;
         }
         sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
+
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
         //title 

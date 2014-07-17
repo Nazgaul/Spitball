@@ -46,11 +46,8 @@ function ($http, sUserDetails) {
             $http.post('/Box/DeleteUpdates/', { boxId: boxId }).success(function () {                
             });
         },
+        loadUpdates: loadUpdates
     };
-    if (sUserDetails.isAuthenticated()) {
-        loadUpdates();
-    }
-
 
     return response;
 
