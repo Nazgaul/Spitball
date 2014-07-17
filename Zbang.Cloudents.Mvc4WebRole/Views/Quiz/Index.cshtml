@@ -11,9 +11,7 @@
             <div class="itemNameWpr">
                 <div class="item-name semiFont"><span role="textbox" class="itemNameText">@Model.Name</span></div>
             </div>
-            <div class="itemOwner elps">
-                <span class="calloutTrgr" data-uid="@Model.OwnerId">@Model.Owner</span>
-            </div>
+            <div class="itemOwner elps calloutTrgr" data-uid="@Model.OwnerId">@Model.Owner</div>
             <span class="lFloat">@Model.Date.ToString("d/M/yy")</span>
             @*<button type="button" class="itemFlag rFloat">@ItemsResources.Flag</button>*@
             <div class="actions">
