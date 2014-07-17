@@ -488,6 +488,7 @@
   -ms-word-break: break-word;
   word-break: break-word;
   max-width: 189px;
+  display: inline-block;
 }
 .boxNotification,
 .boxPrivacy {
@@ -1347,6 +1348,11 @@
   float: left;
   /*rtl*/
   margin-top: -12px;
+  padding-top: 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .boxItemTt .detailsWpr {
   display: inline-block;
