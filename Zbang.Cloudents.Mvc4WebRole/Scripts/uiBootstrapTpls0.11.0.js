@@ -2559,8 +2559,8 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
 
                             // Now we add it to the DOM because need some info about it. But it's not 
                             // visible yet anyway.
-                            if (scope.$parent.member) {
-                                scope.$emit('tooltipLoaded', scope.$parent.member.uid);
+                            if (scope.userId) {
+                                scope.$emit('tooltipLoaded', scope.userId);
                             }
                             
                             if (appendToBody) {
