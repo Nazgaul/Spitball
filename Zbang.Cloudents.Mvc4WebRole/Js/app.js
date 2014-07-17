@@ -12,7 +12,11 @@ app.config([
     '$provide',
 
     function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider, $provide) {
+
+   
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+
 
         $provide.factory('requestinterceptor', ['$location', '$q', function ($location, $q) {
             return {
@@ -152,7 +156,15 @@ app.config([
 ]);
 
 app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, sUserDetails, sNewUpdates) {
+    $rootScope.initDetails = function (id, name, image, score, url) {
 
+        if (id) {
+            sUserDetails.setDetails(id, name, image, score, url);
+            return;
+        }
+        sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
+
+    };
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
         //title 
@@ -196,15 +208,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
                     break;
             }
         }
-        $rootScope.initDetails = function (id, name, image, score, url) {
-
-            if (id) {
-                sUserDetails.setDetails(id, name, image, score, url);
-                return;
-            }
-            sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
-
-        };
+       
 
     });
 
