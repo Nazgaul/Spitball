@@ -366,7 +366,7 @@ textarea:invalid {
 }
 .QItem .tag {
   position: absolute;
-  right: -3px;
+  right: 0;
   top: 11px;
   color: #F0F8FF;
   z-index: 1;
@@ -755,7 +755,7 @@ textarea:invalid {
   left: 9px;
   /*rtl*/
   top: 45px;
-  background: url(/Images/box17-sprite.png?v=1) -57px -47px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -57px -47px no-repeat;
 }
 .markAnswerBtn:hover {
   background-position: -57px -66px;

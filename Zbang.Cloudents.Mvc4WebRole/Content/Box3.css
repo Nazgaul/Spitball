@@ -710,7 +710,7 @@
   display: inline-block;
   width: 11px;
   height: 11px;
-  background: url(/Images/box17-sprite.png?v=1) -58px 0 no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -58px 0 no-repeat;
   vertical-align: top;
   margin: 14px 6px 0 0;
   /*rtl*/
@@ -794,7 +794,7 @@
   margin: 0 auto 16px;
   width: 50px;
   height: 43px;
-  background: url(/Images/box17-sprite.png?v=1) 0 -56px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) 0 -56px no-repeat;
 }
 .boxEmpty .uploadFilesBtn {
   display: block;
@@ -830,7 +830,7 @@
   position: absolute;
   width: 81px;
   height: 81px;
-  background: url(/Images/box17-sprite.png?v=1) -75px 0 no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -75px 0 no-repeat;
 }
 .boxItemList.sponsored .thumbItem:first-child .boxLink {
   padding-top: 192px;
@@ -930,7 +930,7 @@
 .boxItemsHeader .iconTxt:before {
   width: 14px;
   height: 16px;
-  background: url(/Images/box17-sprite.png?v=1) -54px -106px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -54px -106px no-repeat;
 }
 .boxItemsHeader .iconTxt.quizBtn:before {
   width: 22px;
@@ -966,7 +966,7 @@
   display: inline-block;
   width: 16px;
   height: 11px;
-  background: url(/Images/box17-sprite.png?v=1) -45px -123px;
+  background: url(/Images/box18-sprite.png?v=1) -45px -123px;
 }
 .listViewBtn.currentState,
 .thumbViewBtn.currentState {
@@ -1010,7 +1010,7 @@
   content: '';
   position: absolute;
   display: block;
-  background: #0f9d58;
+  background: #d1294d;
   width: 38px;
   left: 0;
   z-index: -1;
@@ -1022,7 +1022,7 @@
   display: inline-block;
   width: 9px;
   height: 18px;
-  background: url(/Images/box17-sprite.png?v=1) -8px -119px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -8px -119px no-repeat;
   position: absolute;
   right: 1px;
   /*rtl*/
@@ -1047,7 +1047,7 @@
   display: block;
   width: 39px;
   height: 35px;
-  background: url(/Images/box17-sprite.png?v=1) -4px -144px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -4px -144px no-repeat;
   vertical-align: middle;
   margin: 48px auto 0;
 }
@@ -1071,7 +1071,7 @@
   display: inline-block;
   width: 21px;
   height: 16px;
-  background: url(/Images/box17-sprite.png?v=1) -105px -165px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -105px -165px no-repeat;
   vertical-align: middle;
   margin-top: 2px;
 }
@@ -1196,7 +1196,7 @@
   position: absolute;
   width: 153px;
   height: 220px;
-  background: url(/Images/box17-sprite.png?v=1) -159px -1px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -159px -1px no-repeat;
   z-index: -1;
 }
 .thumbItem.quizItem:after {
@@ -1204,7 +1204,7 @@
   display: inline-block;
   width: 28px;
   height: 24px;
-  background: url(/Images/box17-sprite.png?v=1) -47px -168px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -47px -168px no-repeat;
   position: absolute;
   top: 28px;
   left: 8px;
@@ -1237,7 +1237,7 @@
 .thumbItem.quizItem .moreFilesThumb {
   width: 36px;
   height: 31px;
-  background: url(/Images/box17-sprite.png?v=1) -4px -146px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -4px -146px no-repeat;
   border-radius: 0;
   border: none;
 }
@@ -1247,7 +1247,7 @@
 .thumbItem.draft .tag {
   width: 21px;
   height: 16px;
-  background: url(/Images/box17-sprite.png?v=1) -105px -165px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -105px -165px no-repeat;
   display: block;
   padding: 0;
   border-radius: 0;
@@ -1777,7 +1777,7 @@
   margin: -8px auto 33px;
   width: 56px;
   height: 55px;
-  background: url(/Images/box17-sprite.png?v=1) 0 0 no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) 0 0 no-repeat;
 }
 .actionBtns {
   display: none;
@@ -1832,7 +1832,7 @@
   display: inline-block;
   width: 14px;
   height: 16px;
-  background: url(/Images/box17-sprite.png?v=1) -57px -12px no-repeat;
+  background: url(/Images/box18-sprite.png?v=1) -57px -12px no-repeat;
 }
 .downloadBtn:hover:before {
   background-position: -57px -29px;

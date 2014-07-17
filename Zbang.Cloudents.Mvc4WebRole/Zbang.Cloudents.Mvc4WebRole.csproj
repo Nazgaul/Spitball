@@ -680,6 +680,7 @@
     <Content Include="Images\ball.png" />
     <Content Include="Images\bg4.jpg" />
     <Content Include="Images\box17-sprite.png" />
+    <Content Include="Images\box18-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
     <Content Include="Images\cal.png" />
     <Content Include="Images\callout-sprite.png" />

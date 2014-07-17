@@ -1373,7 +1373,7 @@
   /*rtl*/
 }
 .QItem .tag {
-  left: -3px;
+  left: 0;
   right: auto;
 }
 .QBottom .seeMore {
