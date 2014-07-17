@@ -325,32 +325,7 @@ input[type="radio"] + label:before {
 .popover {
   text-align: right;
   /*rtl*/
-  /*.userTooltip {
-        padding: 10px 110px 6px 10px; 
-    }
-
-    &.top {
-        > .arrow {
-            right: 50%; 
-            left: auto;
-            margin: 0 -11px 0 0; 
-            
-            &:after {
-                margin: 0 -10px 0 0;
-            }
-        }
-    }
-    &.bottom {
-        > .arrow {
-            right: 50%;
-            left: auto;
-            margin: 0 -11px 0 0; 
-            &:after {
-                margin: 0 -10px 0 0; 
-            }
-        }
-    }
-    &.left {
+  /*&.left {
         margin: 0 -10px 0 0; 
         > .arrow {
             left: -12px; 
@@ -369,8 +344,8 @@ input[type="radio"] + label:before {
         .boxItemTt {
             //margin-right: -146px - 379px; //rtl only
         }
-    }
-    &.right {
+    }*/
+  /*&.right {
         margin: 0 10px 0 0; 
         > .arrow {
             right: -12px; 
@@ -387,6 +362,32 @@ input[type="radio"] + label:before {
             }
         }
     }*/
+}
+.popover .userTooltip {
+  padding: 10px 110px 6px 10px;
+  /*rtl*/
+}
+.popover.top > .arrow {
+  right: 50%;
+  /*rtl*/
+  left: auto;
+  margin: 0 -11px 0 0;
+  /*rtl*/
+}
+.popover.top > .arrow:after {
+  margin: 0 -10px 0 0;
+  /*rtl*/
+}
+.popover.bottom > .arrow {
+  right: 50%;
+  /*rtl*/
+  left: auto;
+  margin: 0 -11px 0 0;
+  /*rtl*/
+}
+.popover.bottom > .arrow:after {
+  margin: 0 -10px 0 0;
+  /*rtl*/
 }
 /*#endregion */
 /*#endregion */
