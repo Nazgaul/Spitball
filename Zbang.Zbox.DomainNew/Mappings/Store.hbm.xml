@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="StoreProduct">
+    <id name="Id" column="Id">
+      <generator class="assigned"/>
+    </id>
+    <property name="Name"  not-null="true"/>
+    <property name="ExtraDetails" not-null="true" />
+    <property name="NumberOfSales" not-null="true" />
+    <property name="Coupon" not-null="true" />
+    <property name="SalePrice"  not-null="true"/>
+    <property name="PictureUrl" not-null="true" />
+    <set name="Categories" table="ProductCategory">
+      <key column="Id"/>
+      <many-to-many column="Id"
+          class="StoreCategory"/>
+    </set>
+  </class>
+
+  <class name="StoreCategory">
+    <id name="Id" column="Id">
+      <generator class="assigned"/>
+    </id>
+    <property name="ParentId" not-null="true" />
+    <property name="Name" not-null="true"  />
+    <property name="Order" not-null="true" />
+    
+  </class>
+  
+</hibernate-mapping>

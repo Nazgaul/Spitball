@@ -11,7 +11,7 @@
     <div class="popupTopBar" ng-class="params.state === 1 ? 'tabSettings' : 'tabMembers'">
         <button data-id="Settings" type="button" class="tabBtn" ng-click="params.state = 1">@DialogResources.Settings</button>
         <button data-id="Members" type="button" class="tabBtn" ng-click="params.state = 2">@SharedResources.Members</button>
-        <a href="@Url.Action("Index", "Share", new { boxid = ViewBag.boxid })" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
+        <a href="@Url.Action("Index", "Share", new { ViewBag.boxid })" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
         <div class="arrow tabArrow"></div>
     </div>
     <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="save(boxSettingsForm.$valid)">
