@@ -875,6 +875,11 @@
     <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
+    <Content Include="Js\shopping\app.js" />
+    <Content Include="Js\shopping\controllers\categoryCtrl.js" />
+    <Content Include="Js\shopping\controllers\homeCtrl.js" />
+    <Content Include="Js\shopping\controllers\searchCtrl.js" />
+    <Content Include="Js\shopping\services\shopping.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
@@ -923,6 +928,7 @@
     <Content Include="Images\category.png.map">
       <DependentUpon>category.png</DependentUpon>
     </Content>
+    <Content Include="Js\shopping\controllers\productCtrl.js" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

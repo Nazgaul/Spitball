@@ -35,9 +35,7 @@
     {
         <li>
             <a><img src="@item.PictureUrl" alt="" /></a>
-            <div class="desc">@item.Name</div>
-            @*<div class="desc">Dell Inspiron 15.6" 3537</div>*@
-
+            <div class="desc">@item.Name</div>            
             <table>
                 <tr>
                     <td>Reg. price:</td>
@@ -53,19 +51,7 @@
                 </tr>
             </table>
 
-            @*<div>
-                    <div>Reg. price:</div>
-                    <div>$800</div>
-                    <div>Coupon:</div>
-                    <div>$100</div>
-                    <div>Student Price:</div>
-                    <div>$500</div>
-                </div>*@
-
-            <div class="hover">
-                @*<p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
-                <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
-                <p>Hard Disk: 320 GB</p>*@
+            <div class="hover">                
                 <p>@item.ExtraDetails</p>
                 <span class="lFloat">@item.NumberOfSales sold</span>
                 <span class="lFloat sale">10% off</span>
@@ -74,6 +60,33 @@
         </li>
     }
     
+    @*<li ng-repeat="product in products">
+        <a><img bo-src="product.pictureUrl" alt="" /></a>
+        <div class="desc" bo-text="item.name"></div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td bo-text="product.salePrice"></td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td bo-text="product.coupon"></td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td bo-text="product.salePrice"></td>
+            </tr>
+        </table>
+
+        <div class="hover">
+            <p bo-text="product.extraDetails"></p>
+            <span class="lFloat" bo-text="product.numberOfSales + 'sold'"></span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>*@   
+
+
     @*<li>
         <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
         <div class="desc">Laptop</div>

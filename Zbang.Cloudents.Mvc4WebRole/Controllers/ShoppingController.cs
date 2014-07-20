@@ -14,6 +14,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index()
         {
             var products = await ZboxReadService.GetProducts();
+            var serializer = new Zbang.Cloudents.Mvc4WebRole.Extensions.JsonNetSerializer();
+            ViewBag.products = serializer.Serialize(products);
             return View(products);
         }
 

@@ -110,26 +110,27 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterCss("itemMobileRtl", "~/Content/ItemMobileRtl.css");
             #endregion
 
-            //test
-            RegisterJsRegular("angular",
-                new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js",
+            RegisterJsRegular("angular-general",
+                                new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js",
                     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
                 new JsFileWithCdn("~/scripts/angular.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"),
                 new JsFileWithCdn("~/scripts/angular-route.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),
-                new JsFileWithCdn("~/scripts/angular-sanitize.js",
+                    new JsFileWithCdn("~/scripts/angular-sanitize.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min.js"),
+                    new JsFileWithCdn("~/scripts/angular-animate.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js")
+                );            
+
+            RegisterJsRegular("angular-layout3",
+                
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 //new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
-                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
-                new JsFileWithCdn("~/scripts/angular-animate.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
+                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),                
                 new JsFileWithCdn("~/scripts/angular-draganddrop.js"),
-                new JsFileWithCdn("~/scripts/angular-debounce.js"),
-
-                //new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.concat.min.js"),
+                new JsFileWithCdn("~/scripts/angular-debounce.js"),                
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.js"),                
                 new JsFileWithCdn("~/scripts/Modernizr.js"),
@@ -219,12 +220,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/ItemViewModel4.js"),
                 new JsFileWithCdn("/Scripts/stopwatch.js"),
                 new JsFileWithCdn("/js/QuizViewModel.js")
-
-
-
-
-
              );
+
+            RegisterJsRegular("angular-shopping",
+                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),                
+                new JsFileWithCdn("~/scripts/bindonce.js"),
+                new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
+                new JsFileWithCdn("~/js/shopping/app.js")
+                //new JsFileWithCdn("~/js/shopping/controllers/category.js"),
+                //new JsFileWithCdn("~/js/shopping/controllers/product.js")
+                );
+
             //RegisterJsRoutes("R_App", "/Js/app.js");
             //RegisterJsRoutes("R_Shim",
             //   // "/Scripts/ng-infinite-scroll.js",

@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html ng-app="app">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
@@ -297,6 +297,11 @@
             </div>
         </div>
     </footer>
+    @section scripts
+{
+        @Html.Script2("angular-general")
+        @Html.Script2("angular-shopping")
 
+    }
 </body>
 </html>
