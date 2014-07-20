@@ -120,21 +120,21 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/scripts/angular-sanitize.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min.js"),
                     new JsFileWithCdn("~/scripts/angular-animate.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js")
-                );            
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
+                                    new JsFileWithCdn("~/scripts/stacktrace.js")
+                                    );
 
             RegisterJsRegular("angular-layout3",
-                
+
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 //new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
-                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),                
+                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
                 new JsFileWithCdn("~/scripts/angular-draganddrop.js"),
-                new JsFileWithCdn("~/scripts/angular-debounce.js"),                
+                new JsFileWithCdn("~/scripts/angular-debounce.js"),
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
-                new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.js"),                
+                new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.js"),
                 new JsFileWithCdn("~/scripts/Modernizr.js"),
-                new JsFileWithCdn("~/scripts/stacktrace.js"),
 
                 new JsFileWithCdn("~/scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/scripts/plupload/plupload.html4.js"),
@@ -143,8 +143,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/jquery.slimscroll.js"),
 
                 new JsFileWithCdn("~/scripts/elastic.js"),
-                new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"), 
-                
+                new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
+
 
                 new JsFileWithCdn("~/js/app.js"),
                 new JsFileWithCdn("/js/controllers/general/mainCtrl.js"),
@@ -164,7 +164,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCreateCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCloseCtrl.js"),
-                new JsFileWithCdn("/js/services/stacktrace.js"),
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
                 new JsFileWithCdn("/js/services/qna.js"),
@@ -222,11 +221,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/QuizViewModel.js")
              );
 
-            RegisterJsRegular("angular-shopping",
-                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),                
+            RegisterJsRegular("angular-shopping",               
+                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
-                new JsFileWithCdn("~/js/shopping/app.js")
+                new JsFileWithCdn("~/js/shopping/app.js"),                
+                new JsFileWithCdn("~/js/shopping/controllers/homeCtrl.js"),
+                new JsFileWithCdn("/js/services/stacktrace.js"),
+                new JsFileWithCdn("/js/services/userDetails.js"),
+                new JsFileWithCdn("~/js/shopping/services/store.js")
                 //new JsFileWithCdn("~/js/shopping/controllers/category.js"),
                 //new JsFileWithCdn("~/js/shopping/controllers/product.js")
                 );
@@ -472,7 +475,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"),
-                
+
 
                 new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
                 new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings

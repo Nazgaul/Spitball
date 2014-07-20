@@ -900,7 +900,7 @@
     <Content Include="Js\shopping\controllers\categoryCtrl.js" />
     <Content Include="Js\shopping\controllers\homeCtrl.js" />
     <Content Include="Js\shopping\controllers\searchCtrl.js" />
-    <Content Include="Js\shopping\services\shopping.js" />
+    <Content Include="Js\shopping\services\store.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />

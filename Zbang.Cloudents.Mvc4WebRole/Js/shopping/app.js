@@ -4,7 +4,6 @@ app.config([
     '$routeProvider',
     '$locationProvider',
     '$httpProvider',
-    '$tooltipProvider',
     '$provide',
 
     function ($routeProvider, $locationProvider,$httpProvider, $provide) {
@@ -42,9 +41,9 @@ app.config([
 
         //#region routes
         $routeProvider.
-        when('/shopping/', {            
-            templateUrl: '/shopping/',
-            controller: 'homeCtrl'
+        when('/Store/', {            
+            templateUrl: '/Store/',
+            controller: 'HomeCtrl'
         }).
         //when('/box/my/:boxId/:boxName/', {
         //    params: {
@@ -52,7 +51,7 @@ app.config([
         //    },
         //    templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
         //}).
-        otherwise({ redirectTo: '/shopping/' });
+        otherwise({ redirectTo: '/Store/' });
 
         //#endregion
 
@@ -90,12 +89,11 @@ app.config([
     }
 ]);
 
-app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, sUserDetails, sNewUpdates) {
+app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window, sUserDetails) {
     $rootScope.initDetails = function (id, name, image, score, url) {
 
         if (id) {
             sUserDetails.setDetails(id, name, image, score, url);
-            sNewUpdates.loadUpdates();
             return;
         }
         sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);

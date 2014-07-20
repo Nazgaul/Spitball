@@ -305,11 +305,6 @@
             </div>
         </div>
     </footer>
-    @section scripts
-{
-        @Html.Script2("angular-general")
-        @Html.Script2("angular-shopping")
-
-    }
+    @RenderSection("scripts", false)
 </body>
 </html>

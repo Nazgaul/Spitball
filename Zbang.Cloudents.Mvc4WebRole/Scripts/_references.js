@@ -152,7 +152,7 @@
 /// <reference path="../js/shopping/controllers/categoryctrl.js" />
 /// <reference path="../js/shopping/controllers/searchctrl.js" />
 /// <reference path="../js/shopping/controllers/homectrl.js" />
-/// <reference path="../js/shopping/services/shopping.js" />
+/// <reference path="../js/shopping/services/store.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
