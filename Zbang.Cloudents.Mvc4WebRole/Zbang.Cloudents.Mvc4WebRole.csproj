@@ -552,6 +552,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InviteResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shopping\Resources\StoreResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -766,6 +771,21 @@
     <Content Include="Images\share-quiz.png" />
     <Content Include="Images\smartphone.png" />
     <Content Include="Images\sprite_browsericons.png" />
+    <Content Include="Images\Store\fb-off.png" />
+    <Content Include="Images\Store\fb-on.png" />
+    <Content Include="Images\Store\logo.png" />
+    <Content Include="Images\Store\pop up_image.png" />
+    <Content Include="Images\Store\purchase_confirmation.png" />
+    <Content Include="Images\Store\social.png">
+      <DependentUpon>social.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\Store\social.png.css">
+      <DependentUpon>social.png</DependentUpon>
+    </Content>
+    <Content Include="Images\Store\tw-off.png" />
+    <Content Include="Images\Store\tw-on.png" />
+    <Content Include="Images\Store\yt-off.png" />
+    <Content Include="Images\Store\yt-on.png" />
     <Content Include="Images\students.png" />
     <Content Include="Images\studentUnion.png" />
     <Content Include="Images\table-bg1.png" />
@@ -922,6 +942,16 @@
     <Content Include="Images\category.sprite" />
     <Content Include="Images\category.png.map">
       <DependentUpon>category.png</DependentUpon>
+    </Content>
+    <Content Include="Images\Store\social.sprite" />
+    <Content Include="Images\Store\social.png.map">
+      <DependentUpon>social.png</DependentUpon>
+    </Content>
+    <Content Include="Images\Store\social.png.less">
+      <DependentUpon>social.png</DependentUpon>
+    </Content>
+    <Content Include="Images\Store\social.png.scss">
+      <DependentUpon>social.png</DependentUpon>
     </Content>
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1886,6 +1916,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.ru.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.zh.resx" />
+    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.ar.resx" />
+    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.he.resx" />
+    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StoreResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.ru.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
