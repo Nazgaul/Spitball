@@ -12,14 +12,14 @@
     <property name="Coupon" not-null="true" />
     <property name="SalePrice"  not-null="true"/>
     <property name="PictureUrl" not-null="true" />
-    <set name="Categories" table="ProductCategory">
+    <!--<set name="Categories" table="ProductCategory">
       <key column="Id"/>
       <many-to-many column="Id"
           class="StoreCategory"/>
-    </set>
+    </set>-->
   </class>
 
-  <class name="StoreCategory">
+  <!--<class name="StoreCategory">
     <id name="Id" column="Id">
       <generator class="assigned"/>
     </id>
@@ -27,6 +27,6 @@
     <property name="Name" not-null="true"  />
     <property name="Order" not-null="true" />
     
-  </class>
+  </class>-->
   
 </hibernate-mapping>
