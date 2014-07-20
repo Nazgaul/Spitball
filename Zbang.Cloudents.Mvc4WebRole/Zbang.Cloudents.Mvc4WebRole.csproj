@@ -1385,6 +1385,9 @@
     <Content Include="Views\Box\_QnA2.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Shopping\CheckOut.cshtml" />
+    <Content Include="Views\Shopping\About.cshtml" />
+    <Content Include="Views\Shopping\Contact.cshtml" />
+    <Content Include="Views\Shopping\Sales.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

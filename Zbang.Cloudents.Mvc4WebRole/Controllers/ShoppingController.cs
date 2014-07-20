@@ -26,5 +26,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return View();
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        public ActionResult Sales()
+        {
+            return View();
+        }
     }
 }
