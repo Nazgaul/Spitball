@@ -1,0 +1,53 @@
+{
+  "images": [
+    {
+      "name": "/Images/Store/fb-off.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "name": "/Images/Store/fb-on.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 0,
+      "offsetY": 42
+    },
+    {
+      "name": "/Images/Store/tw-off.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 0,
+      "offsetY": 84
+    },
+    {
+      "name": "/Images/Store/tw-on.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 0,
+      "offsetY": 126
+    },
+    {
+      "name": "/Images/Store/yt-off.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 0,
+      "offsetY": 168
+    },
+    {
+      "name": "/Images/Store/yt-on.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 0,
+      "offsetY": 210
+    },
+    {
+      "name": "/Images/Store/logo.png",
+      "width": 210,
+      "height": 40,
+      "offsetX": 0,
+      "offsetY": 252
+    }
+  ]
+}

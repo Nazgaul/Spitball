@@ -26,9 +26,9 @@ header {
 .logo:before {
     .pseudo;
     display: inline-block;
-    width: 211px;
-    height: 42px;
-    background: @dashboard-sprite 0 0 no-repeat;
+    width: 210px;
+    height: 40px;
+    background: url(/Images/Store/social.png) 0 -252px no-repeat;
     position: absolute;
     left:0;
     top: 20px;
@@ -764,10 +764,27 @@ footer {
     button {
         width: 42px;
         height: 42px;
-        border-radius: 21px;
-        background: silver;
+        background: url(/Images/Store/social.png) no-repeat;
         &:nth-child(2) {
             margin: 0 20px;
+        }
+    }
+    .fb {
+        background-position: 0 0;
+        &:hover {
+            background-position: 0 -42px;
+        }
+    }
+    .twtr {
+        background-position: 0 -84px;
+        &:hover {
+            background-position: 0 -126px;
+        }
+    }
+    .ytube {
+        background-position: 0 -168px;
+        &:hover {
+            background-position: 0 -210px;
         }
     }
 }

@@ -26,9 +26,9 @@ header .rFloat {
 .logo:before {
   content: '';
   display: inline-block;
-  width: 211px;
-  height: 42px;
-  background: url(/Images/dash13-sprite.png?v=1) 0 0 no-repeat;
+  width: 210px;
+  height: 40px;
+  background: url(/Images/Store/social.png) 0 -252px no-repeat;
   position: absolute;
   left: 0;
   top: 20px;
@@ -756,10 +756,27 @@ footer .bottom {
 .social button {
   width: 42px;
   height: 42px;
-  border-radius: 21px;
-  background: silver;
+  background: url(/Images/Store/social.png) no-repeat;
 }
 .social button:nth-child(2) {
   margin: 0 20px;
+}
+.social .fb {
+  background-position: 0 0;
+}
+.social .fb:hover {
+  background-position: 0 -42px;
+}
+.social .twtr {
+  background-position: 0 -84px;
+}
+.social .twtr:hover {
+  background-position: 0 -126px;
+}
+.social .ytube {
+  background-position: 0 -168px;
+}
+.social .ytube:hover {
+  background-position: 0 -210px;
 }
 /*#endregion */
