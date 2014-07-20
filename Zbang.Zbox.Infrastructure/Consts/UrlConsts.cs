@@ -4,9 +4,9 @@ using System.Web;
 
 namespace Zbang.Zbox.Infrastructure.Consts
 {
-    public class UrlConsts
+    public static class UrlConsts
     {
-        public const string CloudentsUrl = "https://www.cloudents.com";
+        private const string CloudentsUrl = "https://www.cloudents.com";
         private const string ItemUrl = "/item/{0}/{1}/{2}/{3}/{4}/";
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/box/my/{0}/{1}/";
@@ -130,6 +130,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
                     case ']':
                     case '`':
                     case '"':
+                    case '#':
                     case '\'':
                         continue;
                     case ' ':

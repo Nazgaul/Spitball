@@ -209,10 +209,9 @@ option {
   line-height: 25px;
   background-color: #3b5998;
 }
-.register .inputText,
-.connect0 .inputText {
-  margin: 5px 0 5px 0;
-}
+/*.register .inputText,.connect0 .inputText{
+    //margin:5px 0 5px 0; 
+}*/
 .connect0,
 .register0 {
   display: none;

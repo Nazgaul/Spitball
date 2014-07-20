@@ -6,6 +6,7 @@ using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 
 namespace Zbang.Zbox.Domain.Services
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public partial class ZboxWriteService
     {
 
@@ -19,7 +20,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public bool Dbi()
+        public bool Dbi(int index)
         {
             var retVal = false;
             using (UnitOfWork.Start())
@@ -32,7 +33,7 @@ namespace Zbang.Zbox.Domain.Services
 
                     //box members
                     var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
-                                         .Where(w => w.IsDeleted == false && w.Url == null).Take(100)
+                                         .Where(w => w.IsDeleted == false).Skip(100 * index).Take(100)
                                          .List();
                     foreach (var box in boxes)
                     {
@@ -45,7 +46,7 @@ namespace Zbang.Zbox.Domain.Services
                 }
                 var files =
                           UnitOfWork.CurrentSession.QueryOver<Item>()
-                              .Where(w => w.IsDeleted == false && w.Url == null)
+                              .Where(w => w.IsDeleted == false).Skip(100 * index)
                               .Take(100).List();
 
 
@@ -59,7 +60,7 @@ namespace Zbang.Zbox.Domain.Services
                 }
 
                 var quizes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
-                              .Where(w =>  w.Url == null && w.Publish)
+                              .Where(w => w.Publish).Skip(100 * index)
                               .Take(100).List();
 
                 foreach (var quiz in quizes)
