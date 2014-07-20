@@ -13,11 +13,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [AllowAnonymous]
     public class StoreController : BaseController
     {
+
+
         // GET: Shopping
-        [HttpGet]
+        [HttpGet, NonAjax]
         public ActionResult Index()
         {
-            return View();
+            return View("Empty");
+        }
+
+        [HttpGet, Ajax, ActionName("Index")]
+        public ActionResult IndexAjax()
+        {
+            return PartialView();
         }
 
         [HttpGet, Ajax]

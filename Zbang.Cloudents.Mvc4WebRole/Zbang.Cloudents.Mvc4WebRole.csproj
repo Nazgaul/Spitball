@@ -1424,6 +1424,7 @@
     <Content Include="Views\Store\About.cshtml" />
     <Content Include="Views\Store\Contact.cshtml" />
     <Content Include="Views\Store\Sales.cshtml" />
+    <Content Include="Views\Store\Empty.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
