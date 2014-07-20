@@ -277,6 +277,7 @@
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\NonAjaxAttribute.cs" />
+    <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\UserNavNWelcomeAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />

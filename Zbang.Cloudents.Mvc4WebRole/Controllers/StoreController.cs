@@ -16,7 +16,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         // GET: Shopping
-        [HttpGet, NonAjax]
+        [HttpGet, NonAjax, StoreCategories]
         public ActionResult Index()
         {
             return View("Empty");

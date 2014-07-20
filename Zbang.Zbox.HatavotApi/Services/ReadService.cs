@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Store.Services
 
         public async Task<IEnumerable<ProductDto>> ReadData(int category)
         {
-            using (var conn = await DapperConnection.OpenConnection(ConnectionStringName))
+            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
             {
                 const string sql = @"select [productid]  as Id -- Product ID 
       ,[name] -- Product Name 
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Store.Services
 
         public async Task<IEnumerable<CategoryDto>> GetCategories()
         {
-            using (var conn = await DapperConnection.OpenConnection(ConnectionStringName))
+            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
             {
                 return await conn.QueryAsync<CategoryDto>(@"WITH cte 
 AS

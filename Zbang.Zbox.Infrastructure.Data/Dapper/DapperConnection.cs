@@ -10,13 +10,18 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 {
     public static class DapperConnection
     {
-        public static async Task<IDbConnection> OpenConnection(string connectionStringName = "Zbox")
+        public static async Task<IDbConnection> OpenConnectionAsync(string connectionStringName = "Zbox")
         {
             var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
             await connection.OpenAsync();
             return connection;
-            
-            
+        }
+
+        public static IDbConnection OpenConnection(string connectionStringName = "Zbox")
+        {
+            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
+            connection.Open();
+            return connection;
         }
     }
     //public class DapperParameters
