@@ -7,13 +7,13 @@
             <div class="boxTop">
                 <img class="lFloat" ng-src="{{info.image}}" alt="" width="74" height="94" />
                 <div class="boxNameWpr clamp2">
-                    <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip="{{info.name}}">{{info.name}}</h1>
+                    <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
                 </div>
 
                 <div class="courseCode elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
                 <div class="courseCode elps" ng-if="info.boxType === 'box'" data-uid="{{info.ownerId}}">{{info.ownerName}}</div>
                 <span class="courseCode propName elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
-                <button type="button" class="boxRename"  tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
+                <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
 
             </div>
         </div>
@@ -29,7 +29,7 @@
                 <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                     <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
-                    <button type="button" tooltip="Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                    <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
 
                     <ul class="dropdown-menu" role="menu">
                         <li>

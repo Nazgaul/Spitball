@@ -92,7 +92,8 @@ mBox.controller('BoxCtrl',
                 $scope.info.currentTab = null;
 
                 $scope.items = items.map(function (item) {
-                    item.isNew = NewUpdates.isNew($scope.boxId, 'item', item.id);
+                    var type = item.type === 'Quiz' ? 'quizzes' : 'items';                    
+                    item.isNew = NewUpdates.isNew($scope.boxId, type, item.id);
                     return item;
                 });
 
@@ -580,7 +581,8 @@ mBox.controller('BoxCtrl',
                 }
 
                 item.isNew = false;
-                NewUpdates.setOld($scope.boxId, 'item', item.id);
+                var type = item.type === 'Quiz' ? 'quizzes' : 'items';
+                NewUpdates.setOld($scope.boxId, type, item.id);
             };
 
             $scope.deleteItem = function (item) {

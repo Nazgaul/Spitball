@@ -17,15 +17,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         public void Run()
         {
+            int index = 0;
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
                 try
                 {
-                    if (!m_ZboxService.Dbi())
+                    if (!m_ZboxService.Dbi(index))
                     {
+                        index = 0;
                         Thread.Sleep(TimeSpan.FromDays(1));
                     }
+                    index++;
                 }
                 catch (Exception ex)
                 {

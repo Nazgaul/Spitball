@@ -23,7 +23,7 @@
             url = url.replace(location.origin, '');
             $location.url(url, '', url).replace();
         }
-        $scope.$on('tooltipLoaded', function (e, userId) {
+        $rootScope.$on('tooltipLoaded', function (e, userId) {
             $rootScope.userTooltip = {};
             User.minProfile({ userId: userId }).then(function (response) {
                 $rootScope.userTooltip = response.payload;

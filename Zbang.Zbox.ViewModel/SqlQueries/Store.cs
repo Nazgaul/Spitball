@@ -15,7 +15,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[Coupon]
       ,[SalePrice]
       ,[PictureUrl]
-        FROM [Zbox].[Product]";
+        FROM [Zbox].[StoreProduct]";
 
        
    }

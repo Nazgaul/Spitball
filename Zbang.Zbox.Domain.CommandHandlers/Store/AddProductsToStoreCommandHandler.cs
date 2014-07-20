@@ -6,9 +6,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
 {
     public class AddProductsToStoreCommandHandler : ICommandHandler<AddProductsToStoreCommand>
     {
-        private readonly IRepository<Product> m_ProductRepository;
+        private readonly IRepository<StoreProduct> m_ProductRepository;
 
-        public AddProductsToStoreCommandHandler(IRepository<Product> productRepository)
+        public AddProductsToStoreCommandHandler(IRepository<StoreProduct> productRepository)
         {
             m_ProductRepository = productRepository;
         }
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                 var product = m_ProductRepository.Get(productStore.Id); //use get to get existance in db
                 if (product == null)
                 {
-                    product = new Product(productStore.Id,
+                    product = new StoreProduct(productStore.Id,
                         productStore.Name,
                         productStore.ExtraDetails,
                         productStore.NumberOfSales,

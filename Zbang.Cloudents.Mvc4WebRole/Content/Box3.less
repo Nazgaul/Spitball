@@ -444,6 +444,7 @@
     .courseCode {
         left: 93px; /*rtl*/
         top: 71px;
+        width: 189px;
         position:absolute;
     }
 
@@ -504,6 +505,7 @@
         -ms-word-break: break-word;
         word-break: break-word;
         max-width: 189px; //needed for IE when name has no spaces
+        display: inline-block;
     }
 }
 
@@ -1042,7 +1044,7 @@
         content: '';
         position: absolute;
         display: block;
-        background: @color;
+        background: @errorColor;
         width: 38px;
         left: 0; //rtl
         z-index: -1;
@@ -1385,6 +1387,9 @@
         display: inline-block;
         float: left; /*rtl*/
         margin-top: -12px;
+        padding-top: 8px;
+        .boxSizing;
+        overflow: hidden;
     }
 
     .detailsWpr {
@@ -1474,16 +1479,22 @@
         background: #fff;
         width: 29px;
         height: 29px;
-    }
-
-    .downloadBtn, .editBtn {
-        &:before {
-            margin-top: 6px; // specific to this .downloadBtn class
+        &:only-child {
+            border-radius: 3px;
         }
     }
 
+    .downloadBtn, .editBtn {
+        border-radius: 3px 0 0 3px; /*rtl*/
+        &:before {
+            margin-top: 6px; // specific to this .downloadBtn class
+        }
+        
+    }
+
     .deleteBtn {
-        border-left: 1px solid @borderColor; // specific to this .deleteBtn class
+        border-radius: 0 3px 3px 0; /*rtl*/
+        border-left: 1px solid @borderColor; /*rtl*/ // specific to this .deleteBtn class
         &:before {
             margin-top: 2px; // specific to this .deleteBtn class
         }

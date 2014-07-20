@@ -114,7 +114,7 @@
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<div class="bestAnswer splitHR"><span class="splitHRText">@IndexResources.BestAnswer</span></div>*@
                     <img class="QAImg lFloat" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
-                         popover-popup-delay="500" popover-target-leave="true" ng-src="{{answer.userImage}}" alt="" width="32" height="32" />
+                         popover-popup-delay="500" popover-target-leave="true" ng-init="userId = question.userId" ng-src="{{answer.userImage}}" alt="" width="32" height="32" />
                     <div class="userName boldFont elps">{{answer.userName}}</div><span class="createTime innerSection" data-time="{{answer.createTime}}"></span>
                     @*Temporarily Removed vote btn... DO NOT DELETE!*@
                     @*<button title="@IndexResources.Useful" class="voteBtn rFloat" type="button" data-bind="click:$root.rateAnswer"></button>

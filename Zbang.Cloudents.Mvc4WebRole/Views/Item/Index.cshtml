@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
-<div id="item" class="page itemPage" @*data-data="@ViewBag.data"*@ ng-controller="ItemCtrl">
+<div id="item" class="page itemPage" ng-controller="ItemCtrl">
     <h1>@ViewBag.Description</h1>
     <div class="leftPanel lFloat">
         <div class="itemTop">
@@ -10,9 +10,7 @@
             <div class="itemNameWpr">
                 <h2 class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'tooltip': itemName, 'data-name': itemName }"></span></h2>
             </div>
-            <div class="itemOwner elps">
-                <span class="calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></span>
-            </div>
+            <div class="itemOwner elps calloutTrgr"  data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
             <span class="lFloat" data-bind="text: update"></span>
             <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>
             <div class="actions">

@@ -913,7 +913,7 @@ angular.module('ui.bootstrap.position', [])
               if (pos0 === 'left' && $('html').css('direction') === 'rtl') {
                   pos0 = 'right';
               }
-              if (pos0 === 'right' && $('html').css('direction') === 'ltr') {
+              if (pos0 === 'right' && $('html').css('direction') === 'rtl') {
                   pos0 = 'left';
               }
 

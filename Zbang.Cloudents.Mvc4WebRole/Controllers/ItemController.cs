@@ -61,8 +61,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                var serializer = new JsonNetSerializer();
-                ViewBag.data = serializer.Serialize(item);
+                //var serializer = new JsonNetSerializer();
+                //ViewBag.data = serializer.Serialize(item);
 
                 return PartialView();
             }
@@ -165,8 +165,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
                 }
 
-                var serializer = new JsonNetSerializer();
-                ViewBag.data = serializer.Serialize(item);
+                //var serializer = new JsonNetSerializer();
+                //ViewBag.data = serializer.Serialize(item);
                 //ViewBag.title = item.Name;
                 ViewBag.Description = item.Description;
                 if (Request.IsAjaxRequest())

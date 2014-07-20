@@ -1297,8 +1297,12 @@ input[type="radio"] {
     {
         width: 100%;
     }
+    .field-validation-valid {
+        //visibility: hidden;
+    }
     .field-validation-error, .validation-summary-errors {
         position: absolute;
+        //visibility: visible;
         margin: 2px 0 0 0; //override
     }
     .validation-summary-errors {
@@ -1846,19 +1850,21 @@ input[type="radio"] {
 /*#region tooltip */
 .tooltip{
     position: absolute;
-    display: block;
+    display: table;
     visibility: visible;
     opacity: 0;
     background: @txtColor;
     color: #fff;
     border-radius: 3px;
     max-height: 200px;
-    line-height: 22px;
+    line-height: 18px;
     min-width: 10px;
-    max-width: 200px;
+    max-width: 250px;
     z-index: 12;
     padding: 2px 0;
-    white-space: nowrap;
+    font-size: 13px;
+    font-weight: normal;
+
     &.right {
         margin-left: 3px; /*rtl*/
         padding: 0 5px;

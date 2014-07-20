@@ -2,11 +2,11 @@
 
 namespace Zbang.Zbox.Domain
 {
-    public class Product
+    public class StoreProduct
     {
-        protected Product() { }
+        protected StoreProduct() { }
 
-        public Product(long id, string name, string extraDetails, int numberOfSales, float coupon, float salePrice, string pictureUrl)
+        public StoreProduct(long id, string name, string extraDetails, int numberOfSales, float coupon, float salePrice, string pictureUrl)
         {
             UpdateProduct(id, name, extraDetails, numberOfSales, coupon, salePrice, pictureUrl);
         }

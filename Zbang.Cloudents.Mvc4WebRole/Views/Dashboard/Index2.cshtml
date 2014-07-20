@@ -26,7 +26,8 @@
 
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
                             <a href="{{friend.url}}">
-                                <img class="friendImg calloutTrgr" ng-src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
+                                <img class="friendImg" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="right-top"
+                                     popover-popup-delay="500" popover-target-leave="true" ng-init="userId = friend.uid" ng-src="{{friend.image}}" alt="" data-uid="{{friend.uid}}" width="31" height="31" />
                             </a>
                         </li>
                         <li class="friendItem friendBtn" data-action="true">
@@ -41,7 +42,8 @@
                         <div m-custom-scrollbar bottom="0">
                             <ul class="asideList dash">
                                 <li class="activityItem" ng-repeat="activity in wall">
-                                    <img class="asideImg calloutTrgr asideImgLink" ng-src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
+                                    <img class="asideImg asideImgLink" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="right-top"
+                                         popover-popup-delay="500" popover-target-leave="true" ng-init="userId = activity.userId" ng-src="{{activity.userImage}}" data-uid="{{activity.userId}}" alt="" width="32" height="32" />
                                     <div class="latest">
                                         <a href="{{activity.url}}">
                                             <div class="latestName elps">{{activity.boxName}}</div>
