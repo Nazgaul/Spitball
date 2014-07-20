@@ -15,7 +15,7 @@
 
     function registerKOItem() {
         ko.applyBindings(new ItemViewModel(), document.getElementById(consts.item));
-        cd.pubsub.publish(consts.item);
+        //cd.pubsub.publish(consts.item);
     }
 
     function ItemViewModel() {
