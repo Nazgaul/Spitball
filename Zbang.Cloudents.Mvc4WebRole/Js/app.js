@@ -4,14 +4,11 @@
 app.config([
     '$routeProvider',
     '$locationProvider',
-    '$controllerProvider',
-    '$compileProvider',
-    '$filterProvider',
     '$httpProvider',
     '$tooltipProvider',
     '$provide',
 
-    function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $httpProvider, $tooltipProvider, $provide) {
+    function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide) {
 
    
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -170,7 +167,10 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
         //title 
-        if (!previous || (!previous.$$route && !previous.$$route.params)) {
+        if (!previous) {
+            return;
+        }
+        if (!previous.$$route) {
             return;
         }
 
@@ -191,9 +191,13 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
                 cd.pubsub.publish('quizclear');
                 break;
         };
-        if (!current || (!current.$$route && !current.$$route.params)) {
+        if (!current){
             return;
         }
+        if (!current.$$route) {
+            return;
+        }
+
         if (current.$$route.params.type === 'box') {
             switch (previous.$$route.params.type) {
                 case 'library':

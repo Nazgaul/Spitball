@@ -1,6 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<html>
+<!DOCTYPE html>
+
+<html ng-app="app">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
@@ -11,29 +13,153 @@
 </head>
 <body>
     <header role="banner">
-        @*<div class="wpr">*@
-            <div class="rFloat">
-                <button type="button" class="login">Log in</button> /
-                <button type="button" class="signup">Sign up</button>
-                <div class="language">
-                    <a data-language="en-US" href="/account/" title="English (US)" class="currentItem">English‎</a>
-                    <a data-language="ru-RU" href="/account/" title="Russian site">Pусский</a>
-                    <a data-language="he-IL" href="/account/" title="Hebrew site">עברית</a>
-                    <a data-language="ar-AE" href="/account/" title="Arabic site">العربية</a>
-                </div>
+        <div class="rFloat">
+            <button type="button" class="login">Log in</button> /
+            <button type="button" class="signup">Sign up</button>
+            <div class="language">
+                <a data-language="en-US" href="/account/" title="English (US)" class="currentItem">English‎</a>
+                <a data-language="ru-RU" href="/account/" title="Russian site">Pусский</a>
+                <a data-language="he-IL" href="/account/" title="Hebrew site">עברית</a>
+                <a data-language="ar-AE" href="/account/" title="Arabic site">العربية</a>
             </div>
-            <h1 class="logo">Product discounts exclusively for students </h1>
-        @*</div>*@
+        </div>
+        <h1 class="logo">Product discounts exclusively for students </h1>
     </header>
+    @*Ram: When click on products button - add class "showProducts" to nav*@
     <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Hot sales</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact us</a></li>
+        <ul class="navLinks">
+            <li><a href="~/Shopping">Home</a></li>
+            <li><button type="button" class="">Products</button></li>
+            <li><a href="~/Shopping/Sales">Hot sales</a></li>
+            <li><a href="~/Shopping/About">About</a></li>
+            <li><a href="~/Shopping/Contact">Contact us</a></li>
         </ul>
+        <div class="categoryDD">
+            <ul class="categoryList">
+                <li class="spr-computer">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+               --><li class="spr-cal">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-dic">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-smartphone">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-printers">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-covers">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-chair">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-martini">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-tv">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-eco">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li>
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li><!--
+                --><li class="spr-house">
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">sub category1</a></li>
+                        <li><a href="#">sub category2</a></li>
+                        <li><a href="#">sub category3</a></li>
+                        <li><a href="#">sub category4</a></li>
+                        <li><a href="#">sub category5</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
+    
     <main role="main">
         @RenderBody()
     </main>
@@ -161,9 +287,9 @@
         <div class="bottom">
             <div class="wpr logo">
                 <div class="social rFloat">
-                    <button type="button"></button>
-                    <button type="button"></button>
-                    <button type="button"></button>
+                    <button class="fb" type="button"></button>
+                    <button class="twtr" type="button"></button>
+                    <button class="ytube" type="button"></button>
                 </div>
                 <ul>
                     <li><a href="#">About Cloudents</a> |</li>
@@ -173,6 +299,11 @@
             </div>
         </div>
     </footer>
+    @section scripts
+{
+        @Html.Script2("angular-general")
+        @Html.Script2("angular-shopping")
 
+    }
 </body>
 </html>
