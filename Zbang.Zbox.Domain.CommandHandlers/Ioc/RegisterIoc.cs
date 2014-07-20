@@ -121,7 +121,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //product
 
             ioc.RegisterType(typeof (ICommandHandler<AddProductsToStoreCommand>),
-                typeof (AddProductsToStoreCommandHandler));
+                typeof (AddProductsToStoreCommandHandler))
+                .RegisterType(typeof(ICommandHandler<AddCategoriesCommand>),
+                    typeof(AddCategoriesCommandHandler));
 
         }
     }

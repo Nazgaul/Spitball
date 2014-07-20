@@ -77,19 +77,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var container = BlobClient.GetContainerReference(AzureProductContainer.ToLower());
             var blob = container.GetBlockBlobReference(fileName);
 
-            
-            await blob.UploadFromByteArrayAsync(data, 0, data.Length);
-            blob.Properties.ContentType = "image/jpeg";
-            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
-            await blob.SetPropertiesAsync();
             var uriBuilder = new UriBuilder(blob.Uri);
             string storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
             if (!string.IsNullOrEmpty(storageCdnEndpoint))
             {
                 uriBuilder.Host = storageCdnEndpoint;
             }
-            return uriBuilder.Uri.AbsoluteUri;
 
+
+            if (blob.Exists())
+            {
+                return uriBuilder.Uri.AbsoluteUri;
+            }
+
+            await blob.UploadFromByteArrayAsync(data, 0, data.Length);
+            blob.Properties.ContentType = "image/jpeg";
+            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            await blob.SetPropertiesAsync();
+
+            return uriBuilder.Uri.AbsoluteUri;
         }
 
         static string ThumbnailContainerUrl { get; set; }
@@ -322,8 +328,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         //    //others
         //    {".ai","application/postscript"}
 
-            
-           
+
+
 
         //};
         #endregion

@@ -114,6 +114,7 @@
     <Compile Include="SendMessageCommandHandler.cs" />
     <Compile Include="ShareBoxFacebookCommandHandler.cs" />
     <Compile Include="AddReputationCommandHandler.cs" />
+    <Compile Include="Store\AddCategoriesCommandHandler.cs" />
     <Compile Include="Store\AddProductsToStoreCommandHandler.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />

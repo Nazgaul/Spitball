@@ -620,13 +620,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void AddProducts(AddProductsToStoreCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+       
     }
 }
