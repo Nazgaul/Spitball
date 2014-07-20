@@ -1,0 +1,552 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutShopping.cshtml";
+}
+@*Add class big to show the bigger version of the widget*@
+<div class="widget">
+    <div class="widgetWpr">
+        <div class="lFloat">
+            <img alt="university name" src="http://lorempixel.com/98/96/food" />
+            <h3>University name here</h3>
+        </div>
+        <h2>Exclusive benefits to our students</h2>
+        <button type="button" class="rFloat">Get coupon code</button>
+    </div>
+</div>
+@*Add class "showResults" to show the results of the search query (and hide original product list)*@
+<form class="searchForm" id="">
+    @*add class "show"" to show the products dropdown*@
+    <button type="button" class="categoryBtn">Products</button>
+    <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="What product are you looking for? Search here...">   
+    <button type="submit" class="searchProducts">Search</button>
+    
+</form>
+
+@*<nav role="navigation">
+    <ol id="breadcrumb">
+        <li><a href="index.html" title="Home">Home</a></li>
+        <li><a href="products.html" title="Products">Products</a></li>
+        <li><a href="shoes.html">PC / Tablet</a></li>
+    </ol>
+</nav>*@
+
+<ul class="productsList">
+    @*@foreach (var item in Model)
+    {
+        <li>
+            <a><img src="@item.PictureUrl" alt="" /></a>
+            <div class="desc">@item.Name</div>            
+            <table>
+                <tr>
+                    <td>Reg. price:</td>
+                    <td>@item.SalePrice</td>
+                </tr>
+                <tr>
+                    <td>Coupon:</td>
+                    <td>@item.Coupon</td>
+                </tr>
+                <tr>
+                    <td>Student Price:</td>
+                    <td>@item.SalePrice</td>
+                </tr>
+            </table>
+
+            <div class="hover">                
+                <p>@item.ExtraDetails</p>
+                <span class="lFloat">@item.NumberOfSales sold</span>
+                <span class="lFloat sale">10% off</span>
+                <a href="#">Purchase</a>
+            </div>
+        </li>
+    }*@
+    
+    @*<li ng-repeat="product in products">
+        <a><img bo-src="product.pictureUrl" alt="" /></a>
+        <div class="desc" bo-text="item.name"></div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td bo-text="product.salePrice"></td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td bo-text="product.coupon"></td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td bo-text="product.salePrice"></td>
+            </tr>
+        </table>
+
+        <div class="hover">
+            <p bo-text="product.extraDetails"></p>
+            <span class="lFloat" bo-text="product.numberOfSales + 'sold'"></span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>*@   
+
+
+    @*<li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>*@
+</ul>
+
+@*<ul class="productsList searchResultsList">
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+    <li>
+        <a><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></a>
+        <div class="desc">Laptop</div>
+        <div class="desc">Dell Inspiron 15.6" 3537</div>
+        <table>
+            <tr>
+                <td>Reg. price:</td>
+                <td>$800</td>
+            </tr>
+            <tr>
+                <td>Coupon:</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Student Price:</td>
+                <td>$500</td>
+            </tr>
+        </table>
+        <div class="hover">
+            <p>Intel 2955u processor, 4Gb RAM, Windows 8 included</p>
+            <p>4Gb RAM<br /><small>(Upgrade to 8Gb for only 200 NIS)</small></p>
+            <p>Hard Disk: 320 GB</p>
+            <span class="lFloat">20 sold</span>
+            <span class="lFloat sale">10% off</span>
+            <a href="#">Purchase</a>
+        </div>
+    </li>
+</ul>*@
+

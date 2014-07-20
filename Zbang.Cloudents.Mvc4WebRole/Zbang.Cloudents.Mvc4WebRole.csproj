@@ -258,7 +258,7 @@
     </Compile>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
-    <Compile Include="Controllers\ShoppingController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\AjaxImageLink.cs" />
@@ -552,7 +552,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InviteResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shopping\Resources\StoreResources.Designer.cs">
+    <Compile Include="Views\Store\Resources\StoreResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreResources.resx</DependentUpon>
@@ -1414,16 +1414,16 @@
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
-    <Content Include="Views\Shopping\Index.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
-    <Content Include="Views\Shopping\Product.cshtml" />
+    <Content Include="Views\Store\Product.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Box\_QnA2.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
-    <Content Include="Views\Shopping\CheckOut.cshtml" />
-    <Content Include="Views\Shopping\About.cshtml" />
-    <Content Include="Views\Shopping\Contact.cshtml" />
-    <Content Include="Views\Shopping\Sales.cshtml" />
+    <Content Include="Views\Store\CheckOut.cshtml" />
+    <Content Include="Views\Store\About.cshtml" />
+    <Content Include="Views\Store\Contact.cshtml" />
+    <Content Include="Views\Store\Sales.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1922,13 +1922,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.ru.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.he.resx" />
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.resx">
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.ar.resx" />
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.he.resx" />
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StoreResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.ru.resx" />
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.ru.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
