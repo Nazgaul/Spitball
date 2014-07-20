@@ -808,6 +808,7 @@
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
+    <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\directives\focusOn.js" />
     <Content Include="Js\filters\extToClass.js" />
     <Content Include="Js\filters\highlight.js" />

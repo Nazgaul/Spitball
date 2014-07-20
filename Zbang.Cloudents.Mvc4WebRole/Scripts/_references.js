@@ -149,6 +149,7 @@
 /// <reference path="../js/services/stacktrace.js" />
 /// <reference path="../js/controllers/library/createboxlibctrl.js" />
 /// <reference path="../js/controllers/library/createdepartmentctrl.js" />
+/// <reference path="../js/directives/facebookfeed.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
