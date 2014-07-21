@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //we need that for blob getting the blob container url
             iocContainer.Resolve<IBlobProvider>();
-            iocContainer.Resolve<IThumbnailProvider>();
+            iocContainer.Resolve<IAcademicBoxThumbnailProvider>();
 
             iocContainer.Resolve<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
         }

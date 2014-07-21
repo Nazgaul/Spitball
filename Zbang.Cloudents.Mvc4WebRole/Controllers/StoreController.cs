@@ -11,12 +11,15 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [AllowAnonymous]
+    [RoutePrefix("store")]
+    [Route("{action=index}")]
     public class StoreController : BaseController
     {
 
 
-        // GET: Shopping
         [HttpGet, NonAjax, StoreCategories]
+        [Route("Category/{categoryid:int}/{categoryname}")]
+        
         public ActionResult Index()
         {
             return View("Empty");

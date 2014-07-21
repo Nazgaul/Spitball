@@ -27,8 +27,6 @@ namespace Zbang.Zbox.Domain
             SalePrice = salePrice;
             PictureUrl = pictureUrl;
 
-            FinalPrice = SalePrice - Coupon;
-            Discount = (int)(FinalPrice / SalePrice * 100);
             Categories = categories;
         }
         public virtual long Id { get; set; }
@@ -40,10 +38,6 @@ namespace Zbang.Zbox.Domain
         public virtual float Coupon { get; set; }
 
         public virtual float SalePrice { get; set; }
-
-        public virtual float FinalPrice { get; set; }
-
-        public virtual int Discount { get; set; }
 
         public virtual string PictureUrl { get; set; }
 

@@ -22,8 +22,6 @@
     <property name="Coupon" not-null="true" />
     <property name="SalePrice"  not-null="true"/>
     <property name="PictureUrl" not-null="true" />
-    <property name="FinalPrice" not-null="true" />
-    <property name="Discount" not-null="true" />
     
     <set name="Categories" table="StoreProductCategory">
       <key column="ProductId"/>

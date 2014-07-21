@@ -404,21 +404,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             ICloudBlob destinationBlob = destinationContainer.GetBlockBlobReference(sourceBlob.Name);
 
-            if (destinationBlob.Exists())
+            if (!destinationBlob.Exists())
             {
-                //Console.WriteLine(string.Format("Destination blob '{0}' already exists. Skipping.", destinationBlob.Uri));
-            }
-            else
-            {
-                try
-                {
-                    //Console.WriteLine(string.Format("Copy blob '{0}' to '{1}'", sourceBlob.Uri, destinationBlob.Uri));
-                    destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
-                }
-                catch (Exception ex)
-                {
-                   // Console.WriteLine("Error copying blob '{0}': {1}", sourceBlob.Name, ex.Message);
-                }
+                destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
+
             }
         }
 
