@@ -31,10 +31,10 @@
             <button type="button" class="login">Log in</button> /
             <button type="button" class="signup">Sign up</button>
             <div class="language">
-                <button type="button" title="English (US)" ng-class="{currentItem === info.currentLanguage}" ng-click="'en-US'">English‎</button>
-                <button type="button" title="Russian site" ng-class="{currentItem === info.currentLanguage}" ng-click="'ru-RU'">Pусский</button>
-                <button type="button" title="Hebrew site" ng-class="{currentItem === info.currentLanguage}" ng-click="'he-IL'">עברית</button>
-                <button type="button" title="Arabic site" ng-class="{currentItem === info.currentLanguage}" ng-click="'ar-AE'">العربية</button>
+                <button type="button" title="English (US)" ng-class="{currentItem : 'en-US' === info.currentLanguage}" ng-click="setLanguage('en-US')">English‎</button>
+                <button type="button" title="Russian site" ng-class="{currentItem : 'ru-RU' === info.currentLanguage}" ng-click="setLanguage('ru-RU')">Pусский</button>
+                <button type="button" title="Hebrew site" ng-class="{currentItem : 'he-IL' === info.currentLanguage}" ng-click="setLanguage('he-IL')">עברית</button>
+                <button type="button" title="Arabic site" ng-class="{currentItem : 'ar-AE' === info.currentLanguage}" ng-click="setLanguage('ar-AE')">العربية</button>
             </div>
         </div>
         <h1 class="logo">Product discounts exclusively for students </h1>

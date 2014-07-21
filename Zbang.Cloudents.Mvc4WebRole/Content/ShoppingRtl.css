@@ -1,0 +1,129 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region header */
+header h1 {
+  padding: 20px 225px 0 0;
+  /*rtl*/
+}
+.logo:before {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.language {
+  margin: 0 20px 0 0;
+  /*rtl*/
+}
+/*#endregion */
+/*#region widget */
+.widget button {
+  margin: -90px 0 0 30px;
+  /*rtl*/
+}
+.widget.big h2 {
+  padding: 10px 35px 0 0;
+  /*rtl*/
+}
+.widget.big button {
+  margin: 10px 0 0 8px;
+  /*rtl*/
+}
+/*#endregion */
+/*#region products drop down */
+.categoryDD {
+  right: -50px;
+  /*rtl*/
+  left: auto;
+}
+.categoryDD:before {
+  right: 240px;
+  /*rtl*/
+  left: auto;
+}
+.categoryList ul {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.categoryList > li {
+  border-left: 1px solid #fff;
+  /*rtl*/
+  border-right: none;
+}
+.categoryList > li:hover ul {
+  margin: 0 -2px 0 0;
+  /*rtl*/
+}
+.categoryList > li:nth-child(6n) {
+  border-left: none;
+  /*rtl*/
+  border-right: 1px solid #fff;
+}
+/*#endregion */
+/*#region product list with hover */
+.productsList li:hover .desc {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.productsList a:before {
+  margin: 0 0 0 -0.25em;
+  /*rtl*/
+  /* Adjusts for spacing */
+}
+.productsList .desc + .lFloat {
+  border-left: 1px solid #39434a;
+  /*rtl*/
+  border-right: none;
+}
+.productsList table:before {
+  right: 16px;
+  /*rtl*/
+  left: auto;
+}
+.hover {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.hover .sale {
+  border-right: 1px solid #0f9d58;
+  /*rtl*/
+  border-left: none;
+}
+/*#endregion */
+/*#region product page */
+.productPrice {
+  text-align: right;
+  /*rtl*/
+}
+.productPrice:before {
+  right: 16px;
+  /*rtl*/
+  left: auto;
+}
+.productPrice td:nth-child(2) {
+  text-align: left;
+  /*rtl*/
+}
+.productDetails {
+  text-align: right;
+  /*rtl*/
+}
+.productDetails td:first-child {
+  padding: 0 0 8px 30px;
+  /*rtl*/
+}
+.moreProductsList li:first-child {
+  margin: 0 -300% 0 0;
+  /*rtl*/
+}
+/*#endregion */
+/*#region footer */
+.bottom ul {
+  padding: 0 212px 0 0;
+  /*rtl*/
+}
+/*#endregion */

@@ -14,7 +14,7 @@ header {
     padding: 0 ~'calc(50% - 470px)';
     color: #fff;
     h1 {
-        padding: 20px 0 0 225px;
+        padding: 20px 0 0 225px; /*rtl*/
         font-size: 16px;
         width: 215px;
         position: relative;
@@ -30,7 +30,7 @@ header {
     height: 40px;
     background: url(/Images/Store/social.png) 0 -252px no-repeat;
     position: absolute;
-    left:0;
+    left:0; /*rtl*/
     top: 20px;
 }
 .login, .signup {
@@ -40,7 +40,7 @@ header {
 
 .language {
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 20px; /*rtl*/
     color: @textColor;
     a {
         padding: 0 6px;
@@ -97,11 +97,6 @@ main {
     width: 940px;
     margin: 0 auto;
     padding-bottom: 30px;
-    /*&.product {
-        .searchForm, .productsList {
-            display: none;
-        }
-    }*/
 }
 
 /*#endregion */
@@ -126,7 +121,7 @@ main {
         border: 2px solid #8AC43E;
         font-size: 20px;
         color: #8AC43E;
-        margin: -90px 30px 0 0;
+        margin: -90px 30px 0 0; /*rtl*/
     }
     &.big {
         height: 390px;
@@ -147,11 +142,11 @@ main {
         }
         h2 {
             font-size: 18px;
-            padding: 10px 0 0 35px;
+            padding: 10px 0 0 35px; /*rtl*/
             overflow: auto;
         }
         button {
-            margin: 10px 8px 0 0; //override
+            margin: 10px 8px 0 0;  /*rtl*/ //override
         }
     }
 }
@@ -176,24 +171,7 @@ main {
         }
     }
 }
-/*.categoryBtn {
-    width: 235px;
-    height: 100%;
-    .boxSizing;
-    border-right: 10px solid @shopping-black;
-    font-size: 18px;
-    
-    &:after {
-        .pseudo;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 12px 10px 0 10px;
-        border-color: @shopping-black transparent transparent transparent;
-        margin: 0 12px;
-    }
-    
-}*/
+
 .inputSearch {
     width: 770px;
     height: 100%;
@@ -217,7 +195,7 @@ main {
     height: 390px;
     position: absolute;
     top: 80px;
-    left: -50px;
+    left: -50px; /*rtl*/
     background: @shopping-black;
     padding: 20px;
     .boxSizing;
@@ -231,7 +209,7 @@ main {
         border-color: transparent transparent @shopping-black transparent;
         position: absolute;
         top: -18px;
-        left: 240px;
+        left: 240px; /*rtl*/
     }
 }
 .categoryList {
@@ -241,7 +219,7 @@ main {
         visibility: hidden;
         position: absolute;
         .transition(height 0.3s cubic-bezier(0.7,0,0.3,1));
-        left: 0;
+        left: 0; /*rtl*/
         //top: 0;
         top: 174px;
         width: 150px;
@@ -277,7 +255,7 @@ main {
         text-align: center;
         display: inline-block;
         border-bottom: 1px solid #fff;
-        border-right: 1px solid #fff;
+        border-right: 1px solid #fff; /*rtl*/
         padding: 10px 20px 30px 20px;
         .boxSizing;
         color: silver;
@@ -289,7 +267,7 @@ main {
                 height: 176px;  
                 border-left: 1px solid #fff;    
                 border-right: 1px solid #fff;    
-                margin-left: -2px;    
+                margin-left: -2px; /*rtl*/    
             }
             li {
                 margin: 8px 0;
@@ -304,7 +282,7 @@ main {
             opacity: .7;
         }
         &:nth-child(6n) {
-            border-right: none;
+            border-right: none; /*rtl*/
         }
         &:nth-child(n + 7) {
             border-bottom: none;           
@@ -383,7 +361,7 @@ main {
                 position: relative;
                 color: orange;
                 top: -167px;
-                left: 0;
+                left: 0; /*rtl*/
             }
             .hover {
                 display: inline-block;
@@ -418,9 +396,8 @@ main {
        padding: 0 18px;
        .boxSizing;
         + .lFloat {
-            
             color: @color;
-            border-right: 1px solid @shopping-black;
+            border-right: 1px solid @shopping-black; /*rtl*/
         } 
     }
     table {
@@ -436,7 +413,7 @@ main {
             height: 1px;
             position: absolute;
             top:8px;
-            left: 16px;
+            left: 16px; /*rtl*/
             background: #999;
         }
     }
@@ -447,39 +424,14 @@ main {
     tr:nth-child(3) td {
         color: @color;
     }
-    /*.lFloat {
-        margin-top: 5px;
-        .boxSizing;
-        width: 50%;
-        border-top: 1px solid @shopping-black;
-        border-bottom: 1px solid @shopping-black;
-        text-align: center;
-        padding: 4px 0;
-        div {
-            font-size: 30px;
-            + div {
-                font-size: 14px;
-            }
-        }
-    }
-    .rFloat {
-        width: 50%;
-        border-left: 1px solid @shopping-black;
-        background: @color;
-        color: #fff;
-        padding: 7px 0;
-        text-align: center;
-    }*/
 }
 .hover {
     display: none;
-    //visibility: hidden;
-    //opacity: .8;
     position: absolute;
     width: 100%;
     height: 100%;
     top:0;
-    left:0;
+    left:0; /*rtl*/
     background: @shopping-black;
     color: #fff;
     padding: 85px 20px 10px 20px;
@@ -513,7 +465,7 @@ main {
     }
     .sale {
         color: @color;
-        border-left: 1px solid @color;
+        border-left: 1px solid @color; /*rtl*/
     }
 }
 .searchResultsList {
@@ -535,7 +487,6 @@ main {
     }
 }
 .left {
-    //background: aqua;
     h3 {
         font-size: 18px;
         font-weight: normal;
@@ -548,7 +499,6 @@ main {
     position: relative;
 }
 .thumbsList {
-    
     display:inline-block;
     text-align: center;
     li {
@@ -572,7 +522,7 @@ main {
             position: absolute;
             width: 390px;
             height: 270px;
-            background: url(http://www.hatavot.co.il/uploadimages/170/114545.JPG) center center no-repeat;
+            // CHECK THIS !!!!!!!!!!! //background: url(http://www.hatavot.co.il/uploadimages/170/114545.JPG) center center no-repeat;
             background-size: contain;
             top: 50px;
             left:0;right:0;margin: auto;
@@ -593,8 +543,7 @@ main {
     width: 450px;
     margin: 15px auto 0;
     .boxSizing;
-    
-    
+
     .btn3 {
         font-size: 32px;
         padding: 6px 0;
@@ -605,7 +554,7 @@ main {
 .productPrice {
     width: 100%;
     font-size: 22px;
-    text-align: left;
+    text-align: left; /*rtl*/
     border-collapse: collapse;
     &:before {
         //.pseudo;
@@ -613,7 +562,7 @@ main {
         height: 1px;
         position: absolute;
         top:8px;
-        left: 16px;
+        left: 16px; /*rtl*/
         background: #999;
     }
     td {
@@ -621,7 +570,7 @@ main {
         margin:0;
     }
     td:nth-child(2) {
-        text-align: right;
+        text-align: right; /*rtl*/
     }
     tr:nth-child(1) td {
         color: @color;
@@ -634,13 +583,13 @@ main {
 .productDetails {
     background: #f6f6f6;
     table-layout: fixed;
-    text-align: left;
+    text-align: left; /*rtl*/
     td {
         vertical-align: top;
         padding-bottom: 8px;
         &:first-child {
             font-weight: bold;
-            padding: 0 30px 8px 0;
+            padding: 0 30px 8px 0; /*rtl*/
         }
     }
     small {
@@ -663,7 +612,7 @@ main {
         .boxSizing;
         border: 1px solid @color;
         &:first-child {
-            margin-left: -300%;
+            margin-left: -300%; /*rtl*/
         }
         display: inline-block;
         padding: 0 10px;
@@ -729,10 +678,6 @@ footer {
     }
     .bottom {
         height: 70px;
-
-        span {
-
-        }
     }
 }
 .wpr {
@@ -749,7 +694,7 @@ footer {
         position: relative;
     }
     ul {
-        padding-left: 212px;
+        padding-left: 212px; /*rtl*/
     }
     li, a {
         display: inline-block;
