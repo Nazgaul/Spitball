@@ -23,6 +23,11 @@ app.config([
                     switch (response.status) {
                         case 200:
                             return response;
+                    }
+                },
+                'responseError': function (response) {
+                    // do something on success
+                    switch (response.status) {
                         case 401:
                         case 403:
                             window.open('/account', '_self');
