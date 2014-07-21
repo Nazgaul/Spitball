@@ -10,7 +10,7 @@
     <ul>
         @foreach (var sub in categories)
         {
-            <li><a href="@Url.RouteUrl("storeCategory", new { categoryid = sub.Id, categoryname="ram"})">@sub.Name</a></li>
+            <li><a href="@sub.Url">@sub.Name</a></li>
         }
     </ul>
 }
@@ -44,7 +44,7 @@
         <ul class="navLinks">
             <li ng-class="{active : info.currentTab === 'home'}"><a href="~/store/">Home</a></li>
             <li ng-class="{active : info.currentTab === 'products'}"><button type="button" products-menu>Products</button></li>
-            <li ng-class="{active : info.currentTab === 'sales'}"><a href="~/store/sales/">Hot sales</a></li>
+            <li ng-class="{active : info.currentTab === 'sales'}"><a href="@Url.RouteUrl("storeCategory", new  { categoryid = 646, categoryname = "מבצעים-חמים" })">Hot sales</a></li>
             <li ng-class="{active : info.currentTab === 'about'}"><a href="~/store/about/">About</a></li>
             <li ng-class="{active : info.currentTab === 'contact'}"><a href="~/store/contact/">Contact us</a></li>
         </ul>

@@ -36,9 +36,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        public async Task<ActionResult> Products(int? category)
+        public async Task<ActionResult> Products(int? categoryId)
         {
-            var products = await ZboxReadService.GetProducts(new GetStoreProductByCategoryQuery(category));
+            var products = await ZboxReadService.GetProducts(new GetStoreProductByCategoryQuery(categoryId));
             return this.CdJson(new JsonResponse(true, products));
         }
 
