@@ -97,7 +97,8 @@ namespace Zbang.Zbox.ReadServices
         Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query);
         Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
 
-        Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductByCategoryQuery query);
+        Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query);
         IEnumerable<CategoryDto> GetCategories();
+        Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query);
     }
 }

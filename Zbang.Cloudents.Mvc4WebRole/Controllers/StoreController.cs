@@ -38,15 +38,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         public async Task<ActionResult> Products(int? categoryId)
         {
-            var products = await ZboxReadService.GetProducts(new GetStoreProductByCategoryQuery(categoryId));
+            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId));
             return this.CdJson(new JsonResponse(true, products));
         }
 
         //store/product?id=xxx
         [HttpGet, Ajax]
-        public ActionResult Product(int id)
+        public async Task<ActionResult> Product(int id)
         {
-            return PartialView();
+            var query = new GetStoreProductQuery(id);
+            var model = await ZboxReadService.GetProduct(query);
+            model.TotalPrice = model.Price + model.DeliveryPrice;
+            return PartialView(model);
         }
 
         public ActionResult CheckOut()

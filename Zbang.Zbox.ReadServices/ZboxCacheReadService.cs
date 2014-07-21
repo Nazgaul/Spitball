@@ -287,7 +287,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.Store.ProductDto>> GetProducts(GetStoreProductByCategoryQuery query)
+        public Task<IEnumerable<ViewModel.DTOs.Store.ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
         {
             return m_ReadService.GetProducts(query);
         }
@@ -296,6 +296,12 @@ namespace Zbang.Zbox.ReadServices
         public IEnumerable<ViewModel.DTOs.Store.CategoryDto> GetCategories()
         {
             return m_ReadService.GetCategories();
+        }
+
+
+        public Task<ViewModel.DTOs.Store.ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
+        {
+            return m_ReadService.GetProduct(query);
         }
     }
 }

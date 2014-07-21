@@ -121,6 +121,7 @@
     <Compile Include="DTOs\SeoDto.cs" />
     <Compile Include="DTOs\Store\CategoryDto.cs" />
     <Compile Include="DTOs\Store\ProductDto.cs" />
+    <Compile Include="DTOs\Store\ProductWithDetailDto.cs" />
     <Compile Include="DTOs\TabDto.cs" />
     <Compile Include="DTOs\BoxDto.cs" />
     <Compile Include="DTOs\ItemDto.cs" />
@@ -153,7 +154,8 @@
     <Compile Include="Queries\GetBoxCommentsQuery.cs" />
     <Compile Include="Queries\GetItemRateQuery.cs" />
     <Compile Include="Queries\GetQuizQuery.cs" />
-    <Compile Include="Queries\GetStoreProductByCategoryQuery.cs" />
+    <Compile Include="Queries\GetStoreProductsByCategoryQuery.cs" />
+    <Compile Include="Queries\GetStoreProductQuery.cs" />
     <Compile Include="Queries\GetUserByEmailQuery.cs" />
     <Compile Include="Queries\GetUserByFacebookQuery.cs" />
     <Compile Include="Queries\GetUserByMembershipQuery.cs" />
