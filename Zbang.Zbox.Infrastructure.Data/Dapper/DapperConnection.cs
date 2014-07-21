@@ -19,11 +19,10 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 
         public static IDbConnection OpenConnection(string connectionStringName = "Zbox")
         {
-            using (var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName)))
-            {
-                connection.Open();
-                return connection;
-            }
+            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
+            connection.Open();
+            return connection;
+
         }
     }
     //public class DapperParameters
@@ -71,8 +70,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
     //    //get return something
     //    //excecute
 
-        
-        
+
+
 
     //}
 
