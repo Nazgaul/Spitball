@@ -7,5 +7,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Store
 
         public int ParentId { get; set; }
         public string Name { get; set; }
+
+        public string Url { get; set; }
     }
 }

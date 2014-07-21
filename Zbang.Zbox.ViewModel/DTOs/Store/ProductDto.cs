@@ -9,5 +9,7 @@
         public string Coupon { get; set; }
         public string SalePrice { get; set; }
         public string PictureUrl { get; set; }
+
+       public string Url { get; set; }
     }
 }

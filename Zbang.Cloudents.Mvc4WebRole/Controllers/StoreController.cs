@@ -17,7 +17,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, NonAjax, StoreCategories]
         [Route("store/category/{categoryid:int}/{categoryname}",Name="storeCategory")]
+        [Route("store/product/{productid:int}/{productname}")]
         [Route("store")]
+
         public ActionResult Index()
         {
             return View("Empty");
@@ -39,9 +41,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true, products));
         }
 
-        public ActionResult Product()
+        //store/product?id=xxx
+        [HttpGet,Ajax]
+        public ActionResult Product(int id)
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult CheckOut()

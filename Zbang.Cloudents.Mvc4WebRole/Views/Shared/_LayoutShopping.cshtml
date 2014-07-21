@@ -10,7 +10,7 @@
     <ul>
         @foreach (var sub in categories)
         {
-        <li><a href="@Url.RouteUrl("storeCategory", new { categoryid = sub.Id, categoryname="ram"})">@sub.Name</a></li>
+            <li><a href="@sub.Url">@sub.Name</a></li>
         }
     </ul>
 }

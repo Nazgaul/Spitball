@@ -9,6 +9,7 @@
     </id>
     <property name="ParentId" not-null="true" />
     <property name="Name" not-null="true"  />
+    <property name="Url" not-null="true"/>
     <property name="Order" not-null="true" column="CatOrder" />
   </class>
   
@@ -22,7 +23,8 @@
     <property name="Coupon" not-null="true" />
     <property name="SalePrice"  not-null="true"/>
     <property name="PictureUrl" not-null="true" />
-    
+    <property name="Url" not-null="true"/>
+
     <set name="Categories" table="StoreProductCategory">
       <key column="ProductId"/>
       <many-to-many column="CatId" class="StoreCategory"/>

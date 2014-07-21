@@ -10,9 +10,10 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[Coupon]
       ,[SalePrice]
       ,[PictureUrl]
+      ,[Url]
         FROM [Zbox].[StoreProduct]";
 
-       public const string GetCategories = @"SELECT  catid as id, parentid, name
+       public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
   FROM [Zbox].[Zbox].[StoreCat]
   order by catorder";
    }
