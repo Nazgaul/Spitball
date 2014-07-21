@@ -12,6 +12,12 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}";
+
+        private const string StoreCategoryUrl = "/store/category/{0}/{1}/";
+        private const string StoreProductUrl = "/store/product/{0}/{1}/";
+
+
+
         public const string PasswordUpdate = CloudentsUrl + "/account/passwordupdate?key={0}";
         public const string BoxUrlInvite = CloudentsUrl + "/Share/FromEmail?key={0}&email={1}";
 
@@ -91,6 +97,19 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             return relativeUrl;
         }
+
+
+        public static string BuildStoreCatergoryUrl(int categoryId, string categoryName)
+        {
+            if (categoryName == null) throw new ArgumentNullException("categoryName");
+            return VirtualPathUtility.AppendTrailingSlash(string.Format(StoreCategoryUrl, categoryId, NameToQueryString(categoryName)));
+        }
+        public static string BuildStoreProductUrl(long productId, string productName)
+        {
+            if (productName == null) throw new ArgumentNullException("productName");
+            return VirtualPathUtility.AppendTrailingSlash(string.Format(StoreProductUrl, productId, NameToQueryString(productName)));
+        }
+
 
         public static string NameToQueryString(string name)
         {

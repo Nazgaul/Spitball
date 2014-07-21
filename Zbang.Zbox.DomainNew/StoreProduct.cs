@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Zbox.Domain
 {
@@ -26,7 +27,7 @@ namespace Zbang.Zbox.Domain
             Coupon = coupon;
             SalePrice = salePrice;
             PictureUrl = pictureUrl;
-
+            Url = UrlConsts.BuildStoreProductUrl(Id, Name);
             Categories = categories;
         }
         public virtual long Id { get; set; }
@@ -40,6 +41,8 @@ namespace Zbang.Zbox.Domain
         public virtual float SalePrice { get; set; }
 
         public virtual string PictureUrl { get; set; }
+
+        public virtual string Url { get; set; }
 
         public ICollection<StoreCategory> Categories { get; set; }
 

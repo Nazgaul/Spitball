@@ -153,6 +153,7 @@
     <Compile Include="Queries\GetBoxCommentsQuery.cs" />
     <Compile Include="Queries\GetItemRateQuery.cs" />
     <Compile Include="Queries\GetQuizQuery.cs" />
+    <Compile Include="Queries\GetStoreProductByCategoryQuery.cs" />
     <Compile Include="Queries\GetUserByEmailQuery.cs" />
     <Compile Include="Queries\GetUserByFacebookQuery.cs" />
     <Compile Include="Queries\GetUserByMembershipQuery.cs" />
