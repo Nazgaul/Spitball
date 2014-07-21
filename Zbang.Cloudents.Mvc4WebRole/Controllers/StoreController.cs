@@ -16,7 +16,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, NonAjax, StoreCategories]
-        [Route("store/category/{categoryid:int}",Name="storeCategory")]
+        [Route("store/category/{categoryid:int}/{categoryname}",Name="storeCategory")]
         [Route("store")]
         public ActionResult Index()
         {
