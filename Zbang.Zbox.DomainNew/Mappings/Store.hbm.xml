@@ -24,6 +24,13 @@
     <property name="SalePrice"  not-null="true"/>
     <property name="PictureUrl" not-null="true" />
     <property name="Url" not-null="true"/>
+    
+    <property name="Description" not-null="true" length="8000"/>
+    <property name="SupplyTime" not-null="true" length="3"/>
+    <property name="NumberOfPayments" not-null="true"/>
+    <property name="CatalogNumber" not-null="true" length="50"/>
+    <property name="DeliveryPrice" not-null="true"/>
+    <property name="HomePage" not-null="true"/>
 
     <set name="Categories" table="StoreProductCategory">
       <key column="ProductId"/>

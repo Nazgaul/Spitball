@@ -10,5 +10,15 @@
         public float Coupon { get; set; }
 
         public string CategoryCode { get; set; }
+
+        public string Featured { get; set; } 
+
+        public string Description { get; set; } 
+        public string SupplyTime { get; set; } 
+
+        public int ProductPayment { get; set; } 
+
+        public string CatalogNumber { get; set; } 
+        public float DeliveryPrice { get; set; }
     }
 }

@@ -35,7 +35,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.Coupon,
                         productStore.SalePrice,
                         productStore.PictureUrl,
-                        GetProductCategory(productStore.Categories));
+                        GetProductCategory(productStore.Categories),
+                        productStore.Description,
+                        productStore.Featured,
+                        productStore.SupplyTime,
+                        productStore.ProductPayment,
+                        productStore.CatalogNumber,
+                        productStore.DeliveryPrice);
 
                 }
                 else
@@ -47,7 +53,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.Coupon,
                         productStore.SalePrice,
                         productStore.PictureUrl,
-                        GetProductCategory(productStore.Categories));
+                        GetProductCategory(productStore.Categories),
+                        productStore.Description,
+                        productStore.Featured,
+                        productStore.SupplyTime,
+                        productStore.ProductPayment,
+                        productStore.CatalogNumber,
+                        productStore.DeliveryPrice);
                 }
                 m_ProductRepository.Save(product);
             }

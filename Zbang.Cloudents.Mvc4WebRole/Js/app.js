@@ -27,6 +27,8 @@ app.config([
                         case 403:
                             window.open('/account', '_self');
                             break;
+                        case 404:
+                            window.open('/error', '_self');
                         case 500:
                             window.open('/error', '_self');
                         default:
