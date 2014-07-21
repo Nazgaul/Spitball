@@ -2,6 +2,17 @@
 @using Zbang.Zbox.ViewModel.DTOs.Store
 @{
     var model = ViewBag.categories as IList<CategoryDto> ?? new List<CategoryDto>();
+
+    
+}
+@helper Category(IEnumerable<CategoryDto> categories)
+{
+    <ul>
+        @foreach (var sub in categories)
+        {
+        <li><a href="@Url.RouteUrl("storeCategory", new { categoryid = sub.Id, categoryname="ram"})">@sub.Name</a></li>
+        }
+    </ul>
 }
 <!DOCTYPE html>
 
@@ -41,133 +52,85 @@
             <ul class="categoryList">
                 <li class="spr-computer">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 613))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 613))
+                       
                 </li>
                 <!--
                 -->
                 <li class="spr-cal">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 697))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 697))
+                       
                 </li>
                 <!--
                 -->
                 <li class="spr-dic">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 699))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 699))
+                       
                 </li>
                 <!--
                 -->
                 <li class="spr-smartphone">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 675))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 675))
+                        
                 </li>
                 <!--
                 -->
                 <li class="spr-printers">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 612))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 612))
+                       
                 </li>
                 <!--
                 -->
                 <li class="spr-covers">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 703))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 703))
+                       
                 </li>
                 <!--
                 -->
                 <li class="spr-chair">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 690))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 690))
+                        
                 </li>
                 <!--
                 -->
                 <li class="spr-martini">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 622))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 622))
+                       
                 </li>
                 <!--
                 -->
                 <li class="spr-tv">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 629))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 629))
+                       
                 </li>
                 <!--
                 -->
                 <li class="spr-eco">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 669))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 669))
+                        
                 </li>
                 <!--
                 -->
                 <li>
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 631))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 631))
+                        
                 </li>
                 <!--
                 -->
                 <li class="spr-house">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        @foreach (var sub in model.Where(w => w.ParentId == 633))
-                        {
-                            <li><a href="#">@sub.Name</a></li>
-                        }
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 633))
+                       
                 </li>
             </ul>
         </div>
@@ -181,101 +144,44 @@
         <div class="wpr">
             <div>
                 <h3>PC / Tablet</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 613))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 613))
+                   
                 <h3>Calculators</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 697))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 697))
             </div>
 
             <div>
                 <h3>Electronic dictionaries</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 699))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 699))
+                    
                 <h3>Cell phones</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 675))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 675))
+                   
                 <h3>Computer equipment</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 612))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 612))
             </div>
 
             <div>
                 <h3>PC / Tablet</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 703))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 703))
                 <h3>Calculators</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 690))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 690))
             </div>
 
             <div>
                 <h3>Electronic dictionaries</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 622))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 622))
                 <h3>Cell phones</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 629))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 629))
                 <h3>Computer equipment</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 669))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 669))
             </div>
 
             <div>
                 <h3>PC / Tablet</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 631))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 631))
                 <h3>Calculators</h3>
-                <ul>
-                    @foreach (var sub in model.Where(w => w.ParentId == 633))
-                    {
-                        <li><a href="#">@sub.Name</a></li>
-                    }
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 633))
             </div>
 
             @*<div>
