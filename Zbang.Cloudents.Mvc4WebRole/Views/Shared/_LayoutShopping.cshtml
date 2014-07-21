@@ -31,11 +31,23 @@
         <div class="rFloat">
             <button type="button" class="login">@StoreResources.Login</button> /
             <button type="button" class="signup">@StoreResources.Signup</button>
-            <div class="language">
-                <button type="button" title="English (US)" ng-class="{currentItem : 'en-US' === info.currentLanguage}" ng-click="setLanguage('en-US')">English‎</button>
-                <button type="button" title="Russian site" ng-class="{currentItem : 'ru-RU' === info.currentLanguage}" ng-click="setLanguage('ru-RU')">Pусский</button>
-                <button type="button" title="Hebrew site" ng-class="{currentItem : 'he-IL' === info.currentLanguage}" ng-click="setLanguage('he-IL')">עברית</button>
-                <button type="button" title="Arabic site" ng-class="{currentItem : 'ar-AE' === info.currentLanguage}" ng-click="setLanguage('ar-AE')">العربية</button>
+
+            <div dropdown class="language">
+                <button type="button" class="currentLang" dropdown-toggle>{{info.currentLanguage}}</button>
+                <ul class="langMenu dropdown-menu" role="menu">
+                    <li class="menuItem">
+                        <button type="button" title="English (US)" ng-if="'en-US' !== info.currentLanguage" ng-click="setLanguage('en-US')">English‎</button>
+                    </li>
+                    <li class="menuItem">
+                        <button type="button" title="Russian site" ng-if="'ru-RU' !== info.currentLanguage" ng-click="setLanguage('ru-RU')">Pусский</button>
+                    </li>
+                    <li class="menuItem">
+                        <button type="button" title="Hebrew site" ng-if="'he-IL' !== info.currentLanguage" ng-click="setLanguage('he-IL')">עברית</button>
+                    </li>
+                    <li class="menuItem">
+                        <button type="button" title="Arabic site" ng-if="'ar-AE' !== info.currentLanguage" ng-click="setLanguage('ar-AE')">العربية</button>
+                    </li>
+                </ul>
             </div>
         </div>
         <h1 class="logo">@StoreResources.ProductDiscounts</h1>
@@ -52,7 +64,7 @@
         <div class="categoryDD">
             <ul class="categoryList">
                 <li class="spr-computer">
-                    <h3>מחשבים\טאבלטים</h3>
+                    <h3>מחשבים \ טאבלטים</h3>
                     @Category(model.Where(w => w.ParentId == 613))
 
                 </li><!--

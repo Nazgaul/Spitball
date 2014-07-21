@@ -44,12 +44,28 @@ header .rFloat {
   display: inline-block;
   margin-left: 20px;
   /*rtl*/
-  color: #383838;
+  color: #fff;
+  background: #fff;
+  padding: 2px 10px;
+  border-radius: 5px;
+}
+.language:after {
+  content: '';
+  display: inline-block;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 10px 6px 0 6px;
+  border-color: #39434a transparent transparent transparent;
 }
 .language a {
   padding: 0 6px;
   font-size: 15px;
   display: inline;
+}
+.currentLang {
+  color: #0f9d58;
+  font-size: 15px;
 }
 /*#endregion */
 nav,
@@ -234,7 +250,6 @@ main {
   left: 0;
   /*rtl*/
   top: 174px;
-  width: 150px;
   height: 0;
   background: #fff;
   color: #39434a;
@@ -284,6 +299,20 @@ main {
 }
 .categoryList > li:hover li {
   margin: 8px 0;
+}
+.categoryList > li:hover li:nth-child(6n) {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 170px;
+  margin-right: -20px;
+}
+.categoryList > li:hover li:nth-child(6n + 1) {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 170px;
+  margin-right: -20px;
 }
 .categoryList > li:before {
   content: '';
@@ -742,20 +771,26 @@ footer .bottom {
 }
 .social .fb {
   background-position: 0 0;
+  opacity: .5;
 }
 .social .fb:hover {
   background-position: 0 -42px;
+  opacity: 1;
 }
 .social .twtr {
   background-position: 0 -84px;
+  opacity: .5;
 }
 .social .twtr:hover {
   background-position: 0 -126px;
+  opacity: 1;
 }
 .social .ytube {
   background-position: 0 -168px;
+  opacity: .5;
 }
 .social .ytube:hover {
   background-position: 0 -210px;
+  opacity: 1;
 }
 /*#endregion */
