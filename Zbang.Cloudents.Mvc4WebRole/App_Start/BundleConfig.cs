@@ -119,7 +119,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("~/scripts/angular-route.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),                   
-                    new JsFileWithCdn("~/scripts/angular-cookies.js",
+                    new JsFileWithCdn("~/js/services/cookies.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-cookies.min.js"),
                     
             new JsFileWithCdn("~/scripts/angular-sanitize.js",

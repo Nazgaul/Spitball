@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'ngCookies']);
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'Cookie']);
 
 app.config([
     '$routeProvider',
@@ -37,7 +37,6 @@ app.config([
                         default:
                             window.open('/error', '_self');
                             break;
-
                     }
                 }
             };

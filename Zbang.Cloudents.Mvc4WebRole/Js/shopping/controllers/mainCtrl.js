@@ -1,16 +1,16 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$window', '$cookies', '$rootScope',
-    function ($scope, $window, $cookies, $rootScope) {
+    ['$scope', '$window', 'cookieService', '$rootScope',
+    function ($scope, $window, cookieService, $rootScope) {
 
         $scope.info = {
-            currentLanguage: $cookies.lang || 'en-US',            
+            currentLanguage: cookieService('lang') || cookieService('lang', 'en-US', { path: '/' }),
         };
 
         $scope.setLanguage = function (val) {
-            if ($cookies.lang === val) {
+            if ($scope.info.currentLanguage === val) {
                 return;
             }
-            $cookies.lang = val;
+            cookieService('lang', val, { path: '/' });
             $window.location.reload();
         };
 
