@@ -54,6 +54,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
         public static T FromMessageProto<T>(this CloudQueueMessage cloudQueueMessage) where T : class
         {
+            if (cloudQueueMessage == null) throw new ArgumentNullException("cloudQueueMessage");
             using (var ms = new MemoryStream(cloudQueueMessage.AsBytes))
             {
                 try
@@ -71,6 +72,5 @@ namespace Zbang.Zbox.Infrastructure.Storage
                 //return data;
             }
         }
-
     }
 }

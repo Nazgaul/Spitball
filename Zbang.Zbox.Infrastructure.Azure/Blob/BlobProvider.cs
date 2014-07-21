@@ -505,6 +505,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public Uri UploadProfilePicture(string blobName, byte[] fileContent)
         {
             if (blobName == null) throw new ArgumentNullException("blobName");
+            if (fileContent == null) throw new ArgumentNullException("fileContent");
             var blob = ProfilePictureFile(blobName);
             if (blob.Exists())
             {

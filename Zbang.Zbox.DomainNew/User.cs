@@ -246,7 +246,7 @@ namespace Zbang.Zbox.Domain
             var user = other as User;
             if (user == null) return false;
 
-            return Email.Trim().ToLower() == user.Email.Trim().ToLower();
+            return String.Equals(Email.Trim(), user.Email.Trim(), StringComparison.CurrentCultureIgnoreCase);
         }
 
         public override int GetHashCode()

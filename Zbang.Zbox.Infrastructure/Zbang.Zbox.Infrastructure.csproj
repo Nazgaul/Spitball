@@ -234,7 +234,6 @@
     <Compile Include="Security\FormsAuthenticationService.cs" />
     <Compile Include="Security\IFormsAuthenticationService.cs" />
     <Compile Include="Security\IMembershipService.cs" />
-    <Compile Include="Thumbnail\IThumbnailProvider.cs" />
     <Compile Include="Thumbnail\ThumbnailProvider.cs" />
     <Compile Include="UnitsOfWork\IGenericTransaction.cs" />
     <Compile Include="UnitsOfWork\ILocalData.cs" />

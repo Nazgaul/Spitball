@@ -154,7 +154,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         }
     }
 
-    public class MetaDataConsts
+    public static class MetaDataConsts
     {
         public const string VideoStatus = "VideoStatus";
     }

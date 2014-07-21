@@ -8,8 +8,9 @@ using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 {
-    public class RegisterIoc
+    public static class RegisterIoc
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         public static void Register()
         {
             var ioc = IocFactory.Unity;
