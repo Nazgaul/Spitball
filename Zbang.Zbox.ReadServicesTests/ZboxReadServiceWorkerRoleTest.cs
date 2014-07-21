@@ -1,5 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rhino.Mocks;
+using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries.Emails;
@@ -14,16 +17,16 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestInitialize]
         public void Setup()
         {
-            var m_LocalStorageProvider = Rhino.Mocks.MockRepository.GenerateStub<ILocalStorageProvider>();
-            var m_BlobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
-            Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
+            var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
+            var m_BlobProvider = MockRepository.GenerateStub<IBlobProvider>();
+            IocFactory.Unity.RegisterInstance(m_LocalStorageProvider);
             m_ZboxReadService = new ZboxReadServiceWorkerRole(m_BlobProvider);
         }
 
         [TestMethod]
         public void GetUsersByNotificationSettings_Query_ReturnResult()
         {
-            var query = new GetUserByNotificationQuery(Infrastructure.Enums.NotificationSettings.OnceADay);
+            var query = new GetUserByNotificationQuery(NotificationSettings.OnceADay);
             try
             {
                 m_ZboxReadService.GetUsersByNotificationSettings(query);
@@ -38,7 +41,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetBoxesLastUpdates_Query_ReturnResult()
         {
-            var query = new GetBoxesLastUpdateQuery(Infrastructure.Enums.NotificationSettings.OnceADay,1);
+            var query = new GetBoxesLastUpdateQuery(NotificationSettings.OnceADay,1);
             try
             {
                 m_ZboxReadService.GetBoxesLastUpdates(query);
@@ -53,7 +56,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetItemsLastUpdates_Query_ReturnResult()
         {
-            var query = new GetItemsLastUpdateQuery(Infrastructure.Enums.NotificationSettings.OnceADay, 1);
+            var query = new GetItemsLastUpdateQuery(NotificationSettings.OnceADay, 1);
             try
             {
                 m_ZboxReadService.GetItemsLastUpdates(query);

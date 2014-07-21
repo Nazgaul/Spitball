@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteReplyCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var answer = m_AnswerRepository.Load(message.AnswerId);
             var box = answer.Box;
 

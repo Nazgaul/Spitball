@@ -46,6 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(ShareBoxCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             User sender;
             Box box;
 

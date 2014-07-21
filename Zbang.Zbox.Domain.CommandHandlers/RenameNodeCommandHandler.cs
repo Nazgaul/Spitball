@@ -1,7 +1,6 @@
 ﻿using System;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -15,15 +14,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(RenameNodeCommand message)
         {
-            Throw.OnNull(message, "message");
-
+            if (message == null) throw new ArgumentNullException("message");
+            
             if (string.IsNullOrWhiteSpace(message.NewName))
             {
                 throw new NullReferenceException("new name cannot be empty");
             }
 
             var node = m_LibraryRepository.Get(message.NodeId);
-            Throw.OnNull(node, "node");
+            if (node == null)
+            {
+                throw new NullReferenceException("node");
+            }
 
             if (node.University.Id != message.UniversityId)
             {

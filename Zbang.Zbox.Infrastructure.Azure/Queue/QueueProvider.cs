@@ -90,6 +90,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         public bool RunQueue(QueueName queueName, Func<CloudQueueMessage, bool> func,
            TimeSpan invisibleTimeinQueue, int dequeCount = 100)
         {
+            if (queueName == null) throw new ArgumentNullException("queueName");
+            if (func == null) throw new ArgumentNullException("func");
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
             var messages = queue.GetMessages(MaxQueuePopLimit, invisibleTimeinQueue);
             if (messages == null)

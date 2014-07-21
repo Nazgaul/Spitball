@@ -25,6 +25,14 @@ namespace Zbang.Zbox.Domain
         public Box(string boxName, User user, BoxPrivacySettings privacySettings)
             : this()
         {
+            if (boxName == null)
+            {
+                throw new ArgumentNullException("boxName");
+            }
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
             Name = boxName.Trim();
             PrivacySettings.PrivacySetting = privacySettings;
             UserTime = new UserTimeDetails(user.Email);
@@ -64,6 +72,10 @@ namespace Zbang.Zbox.Domain
 
         public void ChangeBoxName(string newBoxName)
         {
+            if (newBoxName == null)
+            {
+                throw new ArgumentNullException("newBoxName");
+            }
             Name = newBoxName.Trim();
             GenerateUrl();
         }
@@ -105,7 +117,7 @@ namespace Zbang.Zbox.Domain
         {
             //Find exact macth
             var foundMatch = (from file in Items
-                              where file.Name.ToLower() == fileName.ToLower() && !file.IsDeleted
+                              where String.Equals(file.Name, fileName, StringComparison.CurrentCultureIgnoreCase) && !file.IsDeleted
                               select file).Count();
             if (foundMatch > 0)
             {
@@ -115,8 +127,10 @@ namespace Zbang.Zbox.Domain
                 {
                     index++;
                     foundMatch = (from file in Items
-                                  where file.Name.ToLower() == string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index, Path.GetExtension(fileName)).ToLower()
-                                  select file).Count();
+                                  where
+                                      String.Equals(file.Name, string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index,
+                                          Path.GetExtension(fileName)), StringComparison.CurrentCultureIgnoreCase)
+                        select file).Count();
                 } while (foundMatch > 0);
                 fileName = string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index, Path.GetExtension(fileName));
             }
@@ -232,7 +246,7 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentException("cannot change academic box privacy settings");
             }
-            if (Owner != user)
+            if (!Equals(Owner, user))
             {
                 throw new UnauthorizedAccessException("only owner can change privacy settings");
             }

@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(DeleteBoxCommand command)
         {
-            //Get Box
+            if (command == null) throw new ArgumentNullException("command");
             Box box = m_BoxRepository.Get(command.BoxId);
             if (box == null || box.IsDeleted)
             {

@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(UpdateUserEmailCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             User user = m_UserRepository.Get(command.Id);
             if (user == null)
             {

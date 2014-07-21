@@ -35,6 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(AddNewUpdatesCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var box = m_BoxRepository.Load(message.BoxId);
             foreach (var userBoxRel in box.UserBoxRel.Where(w => w.User.Id != message.UserId))
             {

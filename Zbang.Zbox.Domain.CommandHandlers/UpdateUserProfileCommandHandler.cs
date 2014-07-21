@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.CommandHandlers;
+﻿using System;
+using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 
@@ -15,6 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateUserProfileCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             User user = m_UserRepository.Get(command.Id);
             if (user == null)
             {

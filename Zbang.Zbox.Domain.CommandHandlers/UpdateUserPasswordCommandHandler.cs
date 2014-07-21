@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public UpdateUserCommandResult Execute(UpdateUserPasswordCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             User user = m_UserRepository.Get(command.Id);
             if (user == null)
                 throw new NullReferenceException("user doesnt not exists");

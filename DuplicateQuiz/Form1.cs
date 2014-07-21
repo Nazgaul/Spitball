@@ -75,7 +75,7 @@ namespace DuplicateQuiz
 
 
             var retVal = new QuizWithDetailSolvedDto();
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = conn.QueryMultiple(string.Format("{0} {1} {2}",
                    Quiz.QuizQuery,

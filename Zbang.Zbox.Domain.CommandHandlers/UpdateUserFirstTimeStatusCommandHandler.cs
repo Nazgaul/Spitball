@@ -3,7 +3,6 @@
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -16,8 +15,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateUserFirstTimeStatusCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var user = m_UserReposiory.Get(message.UserId);
-            Throw.OnNull(user, "user");
+            if (user == null)
+            {
+                throw new NullReferenceException("user");
+            }
 
             switch (message.FirstTimeStage)
             {

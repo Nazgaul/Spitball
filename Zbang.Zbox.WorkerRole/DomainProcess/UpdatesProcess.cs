@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -21,7 +22,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             if (parameters == null) return true;
             try
             {
-                m_ZboxWriteService.AddNewUpdate(new Domain.Commands.AddNewUpdatesCommand(
+                m_ZboxWriteService.AddNewUpdate(new AddNewUpdatesCommand(
                     parameters.BoxId,
                     parameters.UserWhoMadeActionId,
                     parameters.QuestionId,

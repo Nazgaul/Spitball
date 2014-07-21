@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
 
         public string RemoveWords(string phrase)
         {
+            if (phrase == null) throw new ArgumentNullException("phrase");
             phrase = phrase.Trim();
             if (string.IsNullOrWhiteSpace(phrase))
             {

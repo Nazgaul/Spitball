@@ -28,6 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteCommentCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var question = m_QuestionRepository.Load(message.QuestionId);
             var box = question.Box;
 

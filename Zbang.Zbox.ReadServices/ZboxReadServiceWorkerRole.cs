@@ -151,7 +151,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<string>> GetMissingThumbnailBlobs()
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
 //                return await conn.QueryAsync<string>(@"select blobname from zbox.item
 // where content is null and isdeleted = 0 and discriminator = 'FILE' 
@@ -199,7 +199,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<UniversityLuceneDto>> GetUniversityDetail()
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = conn.Query<UniversityLuceneDto>(LibraryChoose.GetUniversityDetail);
                 return retVal;
@@ -209,7 +209,7 @@ namespace Zbang.Zbox.ReadServices
         public async Task<PartnersDto> GetPartnersEmail(long userid)
         {
             var retVal = new PartnersDto();
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync(Email.Partners, new { userid }))
                 {

@@ -1,12 +1,11 @@
 ﻿using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 
 namespace Zbang.Zbox.Infrastructure.Ioc
 {
-    public class IocFactory
+    public class IocFactory : IDisposable
     {
         private static readonly Lazy<IocFactory> Instance
            = new Lazy<IocFactory>(() => new IocFactory());
@@ -15,10 +14,10 @@ namespace Zbang.Zbox.Infrastructure.Ioc
         private static readonly List<Type> RegisteredTypes = new List<Type>();
 
 
-        internal static ReadOnlyCollection<Type> RegisterTypes
-        {
-            get { return RegisteredTypes.AsReadOnly(); }
-        }
+        //internal static ReadOnlyCollection<Type> RegisterTypes
+        //{
+        //    get { return RegisteredTypes.AsReadOnly(); }
+        //}
         //private IocFactory()
         //{
         //    //this cause issue with register with name
@@ -61,13 +60,13 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             RegisteredTypes.Add(typeof(TFrom));
             m_Container.RegisterType<TFrom, TTo>(name);
         }
-        public void RegisterType<TFrom, TTo>(params string[] names) where TTo : TFrom
-        {
-            foreach (var name in names)
-            {
-                RegisterType<TFrom, TTo>(name);
-            }
-        }
+        //public void RegisterType<TFrom, TTo>(params string[] names) where TTo : TFrom
+        //{
+        //    foreach (var name in names)
+        //    {
+        //        RegisterType<TFrom, TTo>(name);
+        //    }
+        //}
 
 
 
@@ -124,7 +123,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
 
         public T Resolve<T>(string name, IocParameterOverride parameters)
         {
-            ParameterOverride parms = new ParameterOverride(parameters.Name, parameters.Value);
+            var parms = new ParameterOverride(parameters.Name, parameters.Value);
             return m_Container.Resolve<T>(name, parms);
         }
 
@@ -160,5 +159,10 @@ namespace Zbang.Zbox.Infrastructure.Ioc
         }
 
 
+
+        public void Dispose()
+        {
+            m_Container.Dispose();
+        }
     }
 }

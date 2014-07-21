@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Zbang.Zbox.ViewModel.SqlQueries
 {
    public class Store
    {
-       public const string GetProducts = @"SELECT [Id]
+       public const string GetProducts = @"SELECT [ProductId] as Id
       ,[Name]
       ,[ExtraDetails]
       ,[NumberOfSales]
@@ -17,6 +12,8 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[PictureUrl]
         FROM [Zbox].[StoreProduct]";
 
-       
+       public const string GetCategories = @"SELECT  catid as id, parentid, name
+  FROM [Zbox].[Zbox].[StoreCat]
+  order by catorder";
    }
 }

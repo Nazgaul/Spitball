@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
-//using Microsoft.WindowsAzure.StorageClient;
 using Microsoft.WindowsAzure.Storage.Queue;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Storage;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.WorkerRole
 {
@@ -19,7 +15,6 @@ namespace Zbang.Zbox.WorkerRole
 
             m_QueueProvider = queueProvider;
         }
-        const int MaxQueuePopLimit = 32;
         private const int Exponent = 2;
         private const int MaxInterval = 60;
         readonly int m_MinInterval;

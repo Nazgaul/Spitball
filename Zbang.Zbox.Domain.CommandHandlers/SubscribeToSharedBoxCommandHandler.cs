@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Domain.Commands;
+﻿using System;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -28,6 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(SubscribeToSharedBoxCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             bool isSubscribed = false;
             User user = m_UserRepository.Load(command.Id);
             Box box = m_BoxRepository.Load(command.BoxId);

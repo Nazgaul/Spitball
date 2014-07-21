@@ -11,8 +11,10 @@ namespace Zbang.Zbox.Domain
         }
         public Answer(Guid id, string text, Question question)
         {
-            Throw.OnNull(text, "text", false);
-
+            if (question == null)
+            {
+                throw new ArgumentNullException("question");
+            }
             Id = id;
             Quiz = question.Quiz;
             if (string.IsNullOrWhiteSpace(text))
@@ -25,8 +27,8 @@ namespace Zbang.Zbox.Domain
             }
             Text = text;
             Question = question;
-           
-// ReSharper disable once DoNotCallOverridableMethodsInConstructor Resharper
+
+            // ReSharper disable once DoNotCallOverridableMethodsInConstructor Resharper
             DateTimeUser = new UserTimeDetails(Quiz.Owner.Email);
         }
         public virtual Guid Id { get; private set; }
@@ -42,10 +44,14 @@ namespace Zbang.Zbox.Domain
             Question.UpdateCorrectAnswer(this);
         }
 
-        
+
         public virtual void UpdateText(string newText)
         {
-            Throw.OnNull(newText, "newText", false);
+            //Throw.OnNull(newText, "newText", false);
+            if (newText == null)
+            {
+                throw new ArgumentNullException("newText");
+            }
             Text = newText.Trim();
         }
     }

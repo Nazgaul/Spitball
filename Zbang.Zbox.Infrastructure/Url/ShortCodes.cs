@@ -5,15 +5,11 @@ namespace Zbang.Zbox.Infrastructure.Url
 {
     internal static class ShortCodes
     {
-        static readonly Dictionary<ShortCodesType, ShortCodeConst> ShortCodeConstsDictionary;
-        static ShortCodes()
-        {
-            ShortCodeConstsDictionary = new Dictionary<ShortCodesType, ShortCodeConst> {
+        static readonly Dictionary<ShortCodesType, ShortCodeConst> ShortCodeConstsDictionary = new Dictionary<ShortCodesType, ShortCodeConst> {
                 {ShortCodesType.Box,new BoxshortCodeConst()},
                 {ShortCodesType.Item,new ItemshortCodeConst()}
                 //{ShortCodesType.User,new UserShortCodeConst()}
             };
-        }
 
         public static string LongToShortCode(long number, ShortCodesType code = ShortCodesType.Box)
         {            

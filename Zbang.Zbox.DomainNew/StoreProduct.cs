@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Collections.Generic;
 
 namespace Zbang.Zbox.Domain
@@ -17,6 +18,7 @@ namespace Zbang.Zbox.Domain
         public void UpdateProduct(long id, string name, string extraDetails, int numberOfSales, float coupon,
             float salePrice, string pictureUrl, IList<StoreCategory> categories)
         {
+            if (name == null) throw new ArgumentNullException("name");
             Id = id;
             Name = name.Trim();
             ExtraDetails = string.IsNullOrEmpty(extraDetails) ? null : extraDetails.Trim();

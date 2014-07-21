@@ -56,7 +56,10 @@ namespace Zbang.Zbox.Infrastructure.Security
        
         public void ChangeLanguage(string newLanguage)
         {
-            Throw.OnNull(newLanguage, "newLanguage");
+            if (string.IsNullOrEmpty(newLanguage))
+            {
+                throw new ArgumentNullException("newLanguage");
+            }
             var ident = (FormsIdentity)HttpContext.Current.User.Identity;
             var ticket = ident.Ticket;
             var userDetail = UserDetail.Deserialize(ticket.UserData);

@@ -28,6 +28,7 @@ namespace Zbang.Zbox.Domain
         protected User(string email, string userName, string smallImage, string largeImage)
             : this()
         {
+            if (userName == null) throw new ArgumentNullException("userName");
             Email = email;
             Name = userName.Trim();
             IsRegisterUser = false;
@@ -37,6 +38,7 @@ namespace Zbang.Zbox.Domain
         public User(string email, string smallImage, string largeImage)
             : this()
         {
+            if (email == null) throw new ArgumentNullException("email");
             Name = Email = email.Trim();
             IsRegisterUser = false;
             Image = smallImage;
@@ -47,6 +49,8 @@ namespace Zbang.Zbox.Domain
             string firstName, string middleName, string lastName, bool sex, bool marketEmail)
             : this()
         {
+            if (firstName == null) throw new ArgumentNullException("firstName");
+            if (lastName == null) throw new ArgumentNullException("lastName");
             Email = email;
             Image = smallImage;
             ImageLarge = largeImage;
@@ -177,6 +181,8 @@ namespace Zbang.Zbox.Domain
 
         public void UpdateUserProfile(string firstName, string middleName, string lastName, Uri picture, Uri largePicture)
         {
+            if (firstName == null) throw new ArgumentNullException("firstName");
+            if (lastName == null) throw new ArgumentNullException("lastName");
             // Name = userName.Trim();
             if (picture != null)
             {
