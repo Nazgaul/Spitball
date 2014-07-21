@@ -243,7 +243,7 @@
             if (!oneTime) {                
                 return;
             }
-            oneTime = false;s
+            oneTime = false;
             self.itemid(parseInt(cd.getParameterFromUrl(4), 10));
 
             if (cd.register()) {

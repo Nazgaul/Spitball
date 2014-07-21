@@ -8,7 +8,7 @@
 
     pubsub.subscribe('item', function (data) {
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
-        if (items.indexOf(data) == -1 ) {
+        if (!findById(items,data)) {
             items.push({Uid: data, Action: 1});
             cd.localStorageWrapper.setItem(key, JSON.stringify(items));
         }
@@ -16,23 +16,30 @@
     });
     pubsub.subscribe('item_Download', function (data) {
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
-        if (items.indexOf(data) == -1) {
+        if (!findById(items, data)) {
             items.push({ Uid: data, Action: 2 });
-            cd.localStorageWrapper.setItem(key, JSON.stringify(items));
-            
+            cd.localStorageWrapper.setItem(key, JSON.stringify(items));            
         }
     });
 
     pubsub.subscribe('quiz', function (data) {
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
-        if (items.indexOf(data) == -1) {
+        if (!findById(items, data)) {
             items.push({ Uid: data, Action: 3 });
             cd.localStorageWrapper.setItem(key, JSON.stringify(items));
         }
     });
 
+    function findById(arr, id) {
+        for (var i = 0, l = arr.length; i < l; i++) {
+            if (arr[i].Uid === id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     window.setInterval(sendData, 300000); // 5 minutes
-    window.setTimeout(sendData, 60000);
     //sendData();
 
     function sendData() {
