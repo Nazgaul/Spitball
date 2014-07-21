@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @using Zbang.Zbox.ViewModel.DTOs.Store
 @{
     var model = ViewBag.categories as IList<CategoryDto> ?? new List<CategoryDto>();
@@ -28,8 +29,8 @@
 <body ng-controller="MainCtrl">
     <header role="banner">
         <div class="rFloat">
-            <button type="button" class="login">Log in</button> /
-            <button type="button" class="signup">Sign up</button>
+            <button type="button" class="login">@StoreResources.Login</button> /
+            <button type="button" class="signup">@StoreResources.Signup</button>
             <div class="language">
                 <button type="button" title="English (US)" ng-class="{currentItem : 'en-US' === info.currentLanguage}" ng-click="setLanguage('en-US')">English‎</button>
                 <button type="button" title="Russian site" ng-class="{currentItem : 'ru-RU' === info.currentLanguage}" ng-click="setLanguage('ru-RU')">Pусский</button>
@@ -37,100 +38,75 @@
                 <button type="button" title="Arabic site" ng-class="{currentItem : 'ar-AE' === info.currentLanguage}" ng-click="setLanguage('ar-AE')">العربية</button>
             </div>
         </div>
-        <h1 class="logo">Product discounts exclusively for students </h1>
+        <h1 class="logo">@StoreResources.ProductDiscounts</h1>
     </header>
     @*Ram: When click on products button - add class "showProducts" to nav*@
     <nav>
         <ul class="navLinks">
-            <li><a href="~/Shopping">Home</a></li>
-            <li><button type="button" class="">Products</button></li>
-            <li><a href="~/Shopping/Sales">Hot sales</a></li>
-            <li><a href="~/Shopping/About">About</a></li>
-            <li><a href="~/Shopping/Contact">Contact us</a></li>
+            <li><a href="~/Store">@StoreResources.Home</a></li>
+            <li><button type="button" class="">@StoreResources.Products</button></li>
+            <li><a href="~/Store/Sales">@StoreResources.HotSales</a></li>
+            <li><a href="~/Store/About">@StoreResources.About</a></li>
+            <li><a href="~/Store/Contact">@StoreResources.ContactUs</a></li>
         </ul>
         <div class="categoryDD">
             <ul class="categoryList">
                 <li class="spr-computer">
-                    <h3>PC / Tablet</h3>
+                    <h3>מחשבים\טאבלטים</h3>
                         @Category(model.Where(w => w.ParentId == 613))
                        
-                </li>
-                <!--
-                -->
-                <li class="spr-cal">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                --><li class="spr-cal">
+                    <h3>מחשבונים</h3>
                         @Category(model.Where(w => w.ParentId == 697))
                        
-                </li>
-                <!--
-                -->
-                <li class="spr-dic">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                
+                --><li class="spr-dic">
+                    <h3>מילונים \ אנגלית</h3>
                         @Category(model.Where(w => w.ParentId == 699))
-                       
-                </li>
-                <!--
-                -->
-                <li class="spr-smartphone">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                
+                
+                --><li class="spr-smartphone">
+                    <h3>סלולר</h3>
                         @Category(model.Where(w => w.ParentId == 675))
                         
-                </li>
-                <!--
-                -->
-                <li class="spr-printers">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                --><li class="spr-printers">
+                    <h3>ציוד היקפי מחשב</h3>
                         @Category(model.Where(w => w.ParentId == 612))
-                       
-                </li>
-                <!--
-                -->
-                <li class="spr-covers">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                --><li class="spr-covers">
+                    <h3>כריכת חוברות</h3>
                         @Category(model.Where(w => w.ParentId == 703))
                        
-                </li>
-                <!--
-                -->
-                <li class="spr-chair">
-                    <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 690))
-                        
-                </li>
-                <!--
-                -->
-                <li class="spr-martini">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                --><li class="spr-chair">
+                    <h3>ריהוט משרדי</h3>
+                        @Category(model.Where(w => w.ParentId == 690))  
+                </li><!--
+                
+                
+                --><li class="spr-martini">
+                    <h3>פנאי ובילויים</h3>
                         @Category(model.Where(w => w.ParentId == 622))
-                       
-                </li>
-                <!--
-                -->
-                <li class="spr-tv">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                --><li class="spr-tv">
+                    <h3>מוצרי חשמל</h3>
                         @Category(model.Where(w => w.ParentId == 629))
-                       
-                </li>
-                <!--
-                -->
-                <li class="spr-eco">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                --><li class="spr-eco">
+                    <h3>מערכות שמע</h3>
                         @Category(model.Where(w => w.ParentId == 669))
-                        
-                </li>
-                <!--
-                -->
-                <li>
-                    <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 631))
-                        
-                </li>
-                <!--
-                -->
-                <li class="spr-house">
-                    <h3>PC / Tablet</h3>
+                </li><!--
+                 --><li>
+                    <h3>ספורט</h3>
+                        @Category(model.Where(w => w.ParentId == 631)) 
+                </li><!--
+                --><li class="spr-house">
+                    <h3>מוצרים לבית</h3>
                         @Category(model.Where(w => w.ParentId == 633))
-                       
                 </li>
             </ul>
         </div>

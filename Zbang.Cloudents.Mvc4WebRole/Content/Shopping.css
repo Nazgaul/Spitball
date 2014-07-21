@@ -363,7 +363,7 @@ main {
   vertical-align: top;
 }
 .productsList li:nth-child(3n + 2) {
-  margin: 0 15px 30px 15px;
+  margin: 0 20px 30px 20px;
 }
 .productsList li:hover .desc {
   z-index: 1;
