@@ -52,7 +52,7 @@ app.config([
             type: 'products'
         }).
         when('/store/product/:productId/:productName/', {
-            templateUrl: function (params) { return '/store/product/' + params.productId + '/' + encodeURIComponent(params.productName) + '/'; },
+            templateUrl: function (params) { return '/store/product/?id=' + params.productId ; },
             controller: 'ProductCtrl',
             type: 'product'
         }).        
