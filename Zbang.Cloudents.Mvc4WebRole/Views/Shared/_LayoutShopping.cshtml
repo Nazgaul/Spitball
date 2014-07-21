@@ -3,14 +3,14 @@
 @{
     var model = ViewBag.categories as IList<CategoryDto> ?? new List<CategoryDto>();
 
-    
+
 }
 @helper Category(IEnumerable<CategoryDto> categories)
 {
     <ul>
         @foreach (var sub in categories)
         {
-        <li><a href="@Url.RouteUrl("storeCategory", new { categoryid = sub.Id, categoryname="ram"})">@sub.Name</a></li>
+            <li><a href="@Url.RouteUrl("storeCategory", new { categoryid = sub.Id, categoryname="ram"})">@sub.Name</a></li>
         }
     </ul>
 }
@@ -42,95 +42,95 @@
     @*Ram: When click on products button - add class "showProducts" to nav*@
     <nav>
         <ul class="navLinks">
-            <li><a href="~/Shopping">Home</a></li>
-            <li><button type="button" class="">Products</button></li>
-            <li><a href="~/Shopping/Sales">Hot sales</a></li>
-            <li><a href="~/Shopping/About">About</a></li>
-            <li><a href="~/Shopping/Contact">Contact us</a></li>
+            <li ng-class="{active : info.currentTab === 'home'}"><a href="~/store/">Home</a></li>
+            <li ng-class="{active : info.currentTab === 'products'}"><button type="button" products-menu>Products</button></li>
+            <li ng-class="{active : info.currentTab === 'sales'}"><a href="~/store/sales/">Hot sales</a></li>
+            <li ng-class="{active : info.currentTab === 'about'}"><a href="~/store/about/">About</a></li>
+            <li ng-class="{active : info.currentTab === 'contact'}"><a href="~/store/contact/">Contact us</a></li>
         </ul>
         <div class="categoryDD">
             <ul class="categoryList">
                 <li class="spr-computer">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 613))
-                       
+                    @Category(model.Where(w => w.ParentId == 613))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-cal">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 697))
-                       
+                    @Category(model.Where(w => w.ParentId == 697))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-dic">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 699))
-                       
+                    @Category(model.Where(w => w.ParentId == 699))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-smartphone">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 675))
-                        
+                    @Category(model.Where(w => w.ParentId == 675))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-printers">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 612))
-                       
+                    @Category(model.Where(w => w.ParentId == 612))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-covers">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 703))
-                       
+                    @Category(model.Where(w => w.ParentId == 703))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-chair">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 690))
-                        
+                    @Category(model.Where(w => w.ParentId == 690))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-martini">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 622))
-                       
+                    @Category(model.Where(w => w.ParentId == 622))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-tv">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 629))
-                       
+                    @Category(model.Where(w => w.ParentId == 629))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-eco">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 669))
-                        
+                    @Category(model.Where(w => w.ParentId == 669))
+
                 </li>
                 <!--
                 -->
                 <li>
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 631))
-                        
+                    @Category(model.Where(w => w.ParentId == 631))
+
                 </li>
                 <!--
                 -->
                 <li class="spr-house">
                     <h3>PC / Tablet</h3>
-                        @Category(model.Where(w => w.ParentId == 633))
-                       
+                    @Category(model.Where(w => w.ParentId == 633))
+
                 </li>
             </ul>
         </div>
@@ -144,44 +144,44 @@
         <div class="wpr">
             <div>
                 <h3>PC / Tablet</h3>
-                    @Category(model.Where(w => w.ParentId == 613))
-                   
+                @Category(model.Where(w => w.ParentId == 613))
+
                 <h3>Calculators</h3>
-                    @Category(model.Where(w => w.ParentId == 697))
+                @Category(model.Where(w => w.ParentId == 697))
             </div>
 
             <div>
                 <h3>Electronic dictionaries</h3>
-                    @Category(model.Where(w => w.ParentId == 699))
-                    
+                @Category(model.Where(w => w.ParentId == 699))
+
                 <h3>Cell phones</h3>
-                    @Category(model.Where(w => w.ParentId == 675))
-                   
+                @Category(model.Where(w => w.ParentId == 675))
+
                 <h3>Computer equipment</h3>
-                    @Category(model.Where(w => w.ParentId == 612))
+                @Category(model.Where(w => w.ParentId == 612))
             </div>
 
             <div>
                 <h3>PC / Tablet</h3>
-                    @Category(model.Where(w => w.ParentId == 703))
+                @Category(model.Where(w => w.ParentId == 703))
                 <h3>Calculators</h3>
-                    @Category(model.Where(w => w.ParentId == 690))
+                @Category(model.Where(w => w.ParentId == 690))
             </div>
 
             <div>
                 <h3>Electronic dictionaries</h3>
-                    @Category(model.Where(w => w.ParentId == 622))
+                @Category(model.Where(w => w.ParentId == 622))
                 <h3>Cell phones</h3>
-                    @Category(model.Where(w => w.ParentId == 629))
+                @Category(model.Where(w => w.ParentId == 629))
                 <h3>Computer equipment</h3>
-                    @Category(model.Where(w => w.ParentId == 669))
+                @Category(model.Where(w => w.ParentId == 669))
             </div>
 
             <div>
                 <h3>PC / Tablet</h3>
-                    @Category(model.Where(w => w.ParentId == 631))
+                @Category(model.Where(w => w.ParentId == 631))
                 <h3>Calculators</h3>
-                    @Category(model.Where(w => w.ParentId == 633))
+                @Category(model.Where(w => w.ParentId == 633))
             </div>
 
             @*<div>

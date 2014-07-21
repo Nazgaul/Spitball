@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate','ngCookies']);
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'ngCookies']);
 
 app.config([
     '$routeProvider',
@@ -6,9 +6,9 @@ app.config([
     '$httpProvider',
     '$provide',
 
-    function ($routeProvider, $locationProvider,$httpProvider, $provide) {
+    function ($routeProvider, $locationProvider, $httpProvider, $provide) {
 
-   
+
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
 
@@ -36,28 +36,48 @@ app.config([
             };
         }]);
         $httpProvider.interceptors.push('requestinterceptor');
-     
+
         $locationProvider.html5Mode(true).hashPrefix('!');
 
         //#region routes
         $routeProvider.
-        when('/Store/', {            
+        when('/store/', {
             templateUrl: '/Store/',
-            controller: 'HomeCtrl'
+            controller: 'HomeCtrl',
+            type: 'home'
         }).
-        //when('/box/my/:boxId/:boxName/', {
-        //    params: {
-        //        type: 'box'
-        //    },
-        //    templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
-        //}).
-        otherwise({ redirectTo: '/Store/' });
+        when('/store/category/:categoryId/:categoryName/', {
+            templateUrl: '/Store/',
+            controller: 'CategoryCtrl',
+            type: 'products'
+        }).
+        when('/store/product/:productId/:productName/', {
+            templateUrl: function (params) { return '/store/product/' + params.productId + '/' + encodeURIComponent(params.productName) + '/'; },
+            controller: 'ProductCtrl',
+            type: 'product'
+        }).
+        when('/store/sales/', {
+            templateUrl: '/Store/Sales',
+            controller: 'SalesCtrl',
+            type: 'sales'
+        }).
+        when('/store/about/', {
+            templateUrl: '/Store/About',
+            controller: 'AboutCtrl',
+            type: 'about'
+        }).
+        when('/store/contact/', {
+            templateUrl: '/Store/Contact',
+            controller: 'ContactCtrl',
+            type: 'contact'
+        }).
+        otherwise({ redirectTo: '/store/' });
 
         //#endregion
 
 
         //#region log js errors 
-        $provide.decorator('$exceptionHandler', ['$delegate','$log', 'stackTraceService', function ($delegate,$log, stackTraceService) {
+        $provide.decorator('$exceptionHandler', ['$delegate', '$log', 'stackTraceService', function ($delegate, $log, stackTraceService) {
             return function (exception, cause) {
                 $delegate(exception, cause);
 
@@ -99,9 +119,5 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
         sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
-
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-    });
-
 }]);
 

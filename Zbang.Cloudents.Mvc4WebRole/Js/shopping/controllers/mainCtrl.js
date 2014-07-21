@@ -1,11 +1,9 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$window', '$cookies',
-    function ($scope, $window, $cookies) {
-
-        console.log($cookies.lang);
+    ['$scope', '$window', '$cookies', '$rootScope',
+    function ($scope, $window, $cookies, $rootScope) {
 
         $scope.info = {
-            currentLanguage: $cookies.lang || 'en-US'
+            currentLanguage: $cookies.lang || 'en-US',            
         };
 
         $scope.setLanguage = function (val) {
@@ -15,6 +13,14 @@
             $cookies.lang = val;
             $window.location.reload();
         };
+
+        $scope.$on('$routeChangeSuccess', function (event, current, previous) {
+            if (!current.$$route) {
+                return;
+            }
+            $scope.info.currentTab = current.$$route.type;
+            //return $routeParams.tabName === $routeParams;
+        });
 
     }]
 );
