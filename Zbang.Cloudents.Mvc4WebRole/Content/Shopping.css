@@ -16,6 +16,7 @@ header {
 }
 header h1 {
   padding: 20px 0 0 225px;
+  /*rtl*/
   font-size: 16px;
   width: 215px;
   position: relative;
@@ -31,6 +32,7 @@ header .rFloat {
   background: url(/Images/Store/social.png) 0 -252px no-repeat;
   position: absolute;
   left: 0;
+  /*rtl*/
   top: 20px;
 }
 .login,
@@ -41,6 +43,7 @@ header .rFloat {
 .language {
   display: inline-block;
   margin-left: 20px;
+  /*rtl*/
   color: #383838;
 }
 .language a {
@@ -96,11 +99,6 @@ main {
   width: 940px;
   margin: 0 auto;
   padding-bottom: 30px;
-  /*&.product {
-        .searchForm, .productsList {
-            display: none;
-        }
-    }*/
 }
 /*#endregion */
 /*#region widget */
@@ -129,6 +127,7 @@ main {
   font-size: 20px;
   color: #8AC43E;
   margin: -90px 30px 0 0;
+  /*rtl*/
 }
 .widget.big {
   height: 390px;
@@ -152,10 +151,12 @@ main {
 .widget.big h2 {
   font-size: 18px;
   padding: 10px 0 0 35px;
+  /*rtl*/
   overflow: auto;
 }
 .widget.big button {
   margin: 10px 8px 0 0;
+  /*rtl*/
 }
 /*#endregion */
 /*#region search form */
@@ -176,24 +177,6 @@ main {
 .searchForm.showResults ~ .productsList.searchResultsList {
   display: block;
 }
-/*.categoryBtn {
-    width: 235px;
-    height: 100%;
-    .boxSizing;
-    border-right: 10px solid @shopping-black;
-    font-size: 18px;
-    
-    &:after {
-        .pseudo;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 12px 10px 0 10px;
-        border-color: @shopping-black transparent transparent transparent;
-        margin: 0 12px;
-    }
-    
-}*/
 .inputSearch {
   width: 770px;
   height: 100%;
@@ -219,6 +202,7 @@ main {
   position: absolute;
   top: 80px;
   left: -50px;
+  /*rtl*/
   background: #39434a;
   padding: 20px;
   -webkit-box-sizing: border-box;
@@ -237,6 +221,7 @@ main {
   position: absolute;
   top: -18px;
   left: 240px;
+  /*rtl*/
 }
 .categoryList ul {
   padding-top: 20px;
@@ -247,6 +232,7 @@ main {
   -o-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
   transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
   left: 0;
+  /*rtl*/
   top: 174px;
   width: 150px;
   height: 0;
@@ -279,6 +265,7 @@ main {
   display: inline-block;
   border-bottom: 1px solid #fff;
   border-right: 1px solid #fff;
+  /*rtl*/
   padding: 10px 20px 30px 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -293,6 +280,7 @@ main {
   border-left: 1px solid #fff;
   border-right: 1px solid #fff;
   margin-left: -2px;
+  /*rtl*/
 }
 .categoryList > li:hover li {
   margin: 8px 0;
@@ -308,6 +296,7 @@ main {
 }
 .categoryList > li:nth-child(6n) {
   border-right: none;
+  /*rtl*/
 }
 .categoryList > li:nth-child(n + 7) {
   border-bottom: none;
@@ -359,29 +348,6 @@ main {
 /*#region product list with hover */
 .productsList {
   font-size: 18px;
-  /*.lFloat {
-        margin-top: 5px;
-        .boxSizing;
-        width: 50%;
-        border-top: 1px solid @shopping-black;
-        border-bottom: 1px solid @shopping-black;
-        text-align: center;
-        padding: 4px 0;
-        div {
-            font-size: 30px;
-            + div {
-                font-size: 14px;
-            }
-        }
-    }
-    .rFloat {
-        width: 50%;
-        border-left: 1px solid @shopping-black;
-        background: @color;
-        color: #fff;
-        padding: 7px 0;
-        text-align: center;
-    }*/
 }
 .productsList li {
   position: relative;
@@ -405,6 +371,7 @@ main {
   color: orange;
   top: -167px;
   left: 0;
+  /*rtl*/
 }
 .productsList li:hover .hover {
   display: inline-block;
@@ -443,6 +410,7 @@ main {
 .productsList .desc + .lFloat {
   color: #0f9d58;
   border-right: 1px solid #39434a;
+  /*rtl*/
 }
 .productsList table {
   width: 100%;
@@ -462,6 +430,7 @@ main {
   position: absolute;
   top: 8px;
   left: 16px;
+  /*rtl*/
   background: #999;
 }
 .productsList tr:nth-child(1) td {
@@ -477,6 +446,7 @@ main {
   height: 100%;
   top: 0;
   left: 0;
+  /*rtl*/
   background: #39434a;
   color: #fff;
   padding: 85px 20px 10px 20px;
@@ -512,6 +482,7 @@ main {
 .hover .sale {
   color: #0f9d58;
   border-left: 1px solid #0f9d58;
+  /*rtl*/
 }
 .searchResultsList {
   display: none;
@@ -567,7 +538,6 @@ main {
   position: absolute;
   width: 390px;
   height: 270px;
-  background: url(http://www.hatavot.co.il/uploadimages/170/114545.JPG) center center no-repeat;
   background-size: contain;
   top: 50px;
   left: 0;
@@ -601,6 +571,7 @@ main {
   width: 100%;
   font-size: 22px;
   text-align: left;
+  /*rtl*/
   border-collapse: collapse;
 }
 .productPrice:before {
@@ -609,6 +580,7 @@ main {
   position: absolute;
   top: 8px;
   left: 16px;
+  /*rtl*/
   background: #999;
 }
 .productPrice td {
@@ -617,6 +589,7 @@ main {
 }
 .productPrice td:nth-child(2) {
   text-align: right;
+  /*rtl*/
 }
 .productPrice tr:nth-child(1) td {
   color: #0f9d58;
@@ -629,6 +602,7 @@ main {
   background: #f6f6f6;
   table-layout: fixed;
   text-align: left;
+  /*rtl*/
 }
 .productDetails td {
   vertical-align: top;
@@ -637,6 +611,7 @@ main {
 .productDetails td:first-child {
   font-weight: bold;
   padding: 0 30px 8px 0;
+  /*rtl*/
 }
 .productDetails small {
   display: block;
@@ -672,6 +647,7 @@ main {
 }
 .moreProductsList li:first-child {
   margin-left: -300%;
+  /*rtl*/
 }
 /*ul:before, ul:after {
     content: "<";
@@ -742,6 +718,7 @@ footer .bottom {
 }
 .bottom ul {
   padding-left: 212px;
+  /*rtl*/
 }
 .bottom li,
 .bottom a {
