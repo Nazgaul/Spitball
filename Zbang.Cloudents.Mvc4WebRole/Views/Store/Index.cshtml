@@ -42,13 +42,13 @@
             </tr>
             <tr>
                 <td>Student Price:</td>
-                <td bo-text="product.salePrice"></td>
+                <td bo-text="product.salePrice - product.coupon"></td>
             </tr>
         </table>
         <div class="hover">
             <p bo-text="product.extraDetails"></p>
             <span class="lFloat" bo-text="product.numberOfSales + ' sold'"></span>
-            <span class="lFloat sale">10% off</span>
+            <span class="lFloat sale" bo-text="product.coupon / product.salePrice | percentage:0:'off'"></span> @*0 is the digits after the dot, % off is suffix*@
             <a href="#">Purchase</a>
         </div>
     </li>

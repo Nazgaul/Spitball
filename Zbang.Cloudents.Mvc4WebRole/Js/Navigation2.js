@@ -282,9 +282,9 @@
         pubsub.publish('invite', data);
 
     }
-    function itemContext() {
-        pubsub.publish('item', { boxid: cd.getParameterFromUrl(2), id: cd.getParameterFromUrl(4) });
-    }
+    //function itemContext() {
+    //    pubsub.publish('item', { boxid: cd.getParameterFromUrl(2), id: cd.getParameterFromUrl(4) });
+    //}
     function boxContext(prevLocation) {
         var secondLevel = cd.getParameterFromUrl(2);
         if (secondLevel.toLowerCase() === 'settings') { //mobile
