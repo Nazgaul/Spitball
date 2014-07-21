@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Domain.Commands.Store;
+﻿using System.Collections.Generic;
+using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -7,14 +8,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
     public class AddProductsToStoreCommandHandler : ICommandHandler<AddProductsToStoreCommand>
     {
         private readonly IRepository<StoreProduct> m_ProductRepository;
+        private readonly IRepository<StoreCategory> m_CategoryRepository;
 
-        public AddProductsToStoreCommandHandler(IRepository<StoreProduct> productRepository)
+        public AddProductsToStoreCommandHandler(IRepository<StoreProduct> productRepository,
+            IRepository<StoreCategory> categoryRepository)
         {
             m_ProductRepository = productRepository;
+            m_CategoryRepository = categoryRepository;
         }
 
         public void Handle(AddProductsToStoreCommand message)
         {
+            if (message == null)
+            {
+                throw new System.ArgumentNullException("message");
+            }
             foreach (var productStore in message.ProductStores)
             {
                 var product = m_ProductRepository.Get(productStore.Id); //use get to get existance in db
@@ -26,7 +34,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.NumberOfSales,
                         productStore.Coupon,
                         productStore.SalePrice,
-                        productStore.PictureUrl);
+                        productStore.PictureUrl,
+                        GetProductCategory(productStore.Categories));
 
                 }
                 else
@@ -37,10 +46,31 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.NumberOfSales,
                         productStore.Coupon,
                         productStore.SalePrice,
-                        productStore.PictureUrl);
+                        productStore.PictureUrl,
+                        GetProductCategory(productStore.Categories));
                 }
                 m_ProductRepository.Save(product);
             }
+        }
+
+        private IList<StoreCategory> GetProductCategory(string categoryString)
+        {
+            var categories = categoryString.Split(new[] { '-' }, System.StringSplitOptions.RemoveEmptyEntries);
+            var retVal = new List<StoreCategory>();
+            foreach (string category in categories)
+            {
+                int id;
+                if (!int.TryParse(category, out id)) continue;
+                var categoryElement = m_CategoryRepository.Get(id);
+                if (categoryElement == null)
+                {
+                    continue;
+                }
+                retVal.Add(categoryElement);
+            }
+
+            return retVal;
+
         }
     }
 }

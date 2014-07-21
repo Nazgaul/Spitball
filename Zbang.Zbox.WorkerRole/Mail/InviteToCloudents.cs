@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Transport;
 
@@ -18,11 +13,14 @@ namespace Zbang.Zbox.WorkerRole.Mail
             m_MailComponent = mailComponent;
         }
 
-        public bool Excecute(Infrastructure.Transport.BaseMailData data)
+        public bool Excecute(BaseMailData data)
         {
             var parameters = data as InviteToCloudentsData;
-            Throw.OnNull(parameters, "InviteToCloudents");
 
+            if (parameters == null)
+            {
+                throw new NullReferenceException("parameters");
+            }
 
             //obselete
             if (string.IsNullOrEmpty(parameters.SenderEmail))

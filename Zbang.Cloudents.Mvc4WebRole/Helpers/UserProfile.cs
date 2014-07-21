@@ -18,7 +18,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             IHttpContextCacheWrapper contextCacheService)
         {
 
-            Throw.OnNull(zboxReadService, "zboxreadservice");
             m_ZboxReadService = zboxReadService;
             m_ContextCacheService = contextCacheService;
         }

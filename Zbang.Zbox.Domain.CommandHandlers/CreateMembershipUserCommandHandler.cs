@@ -1,6 +1,5 @@
 ﻿using System;
 using Zbang.Zbox.Domain.DataAccess;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Profile;
@@ -29,7 +28,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new InvalidCastException("cant cast user to membership user");
             }
-            Throw.OnNull(command.Email, "Email");
+            if (string.IsNullOrEmpty(command.Email))
+            {
+                throw new NullReferenceException("command.Email");
+            }
 
 
             User user = UserRepository.GetUserByEmail(command.Email);

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public abstract class SearchQueryBase : QueryPagedBase
@@ -6,6 +8,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
         protected SearchQueryBase(long id, string searchText, int pageNumber)
             : base(id, pageNumber)
         {
+            if (searchText == null) throw new ArgumentNullException("searchText");
             SearchText = searchText.Replace(' ' , '%');
         }
 

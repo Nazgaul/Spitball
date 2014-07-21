@@ -119,7 +119,8 @@
     <Compile Include="DTOs\Search\SearchItems.cs" />
     <Compile Include="DTOs\Search\SearchUsers.cs" />
     <Compile Include="DTOs\SeoDto.cs" />
-    <Compile Include="DTOs\Store\Product.cs" />
+    <Compile Include="DTOs\Store\CategoryDto.cs" />
+    <Compile Include="DTOs\Store\ProductDto.cs" />
     <Compile Include="DTOs\TabDto.cs" />
     <Compile Include="DTOs\BoxDto.cs" />
     <Compile Include="DTOs\ItemDto.cs" />
@@ -135,8 +136,8 @@
     <Compile Include="DTOs\UserDtos\UserMemberDto.cs" />
     <Compile Include="DTOs\UserDtos\UserToFriendActivity.cs" />
     <Compile Include="DTOs\UserPublicDto.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\Boxes\GetBoxesQueryBase.cs" />
     <Compile Include="Queries\Boxes\GetUserWithFriendQuery.cs" />
     <Compile Include="Queries\Emails\BaseDigestLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetBoxesLastUpdateQuery.cs" />

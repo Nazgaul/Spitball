@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
         public void Handle(DeleteDiscussionCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var disucssionItem = m_DiscussionRepsitory.Load(message.DiscussionId);
 
             if (disucssionItem.Owner.Id != message.UserId)

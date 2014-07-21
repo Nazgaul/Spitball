@@ -36,6 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public static UserDetail Deserialize(string data)
         {
+            if (data == null) throw new ArgumentNullException("data");
             var array = data.Split(new[] { Delimiter }, StringSplitOptions.None);
             if (array.Length != 3)
             {

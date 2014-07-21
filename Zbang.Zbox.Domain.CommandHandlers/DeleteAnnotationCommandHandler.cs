@@ -2,7 +2,6 @@
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -23,8 +22,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteAnnotationCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
 
-            Throw.OnNull(message, "message");
             var user = m_UserRepository.Load(message.UserId);
 
             var itemComment = m_ItemCommentRepository.Load(message.AnnotationId);

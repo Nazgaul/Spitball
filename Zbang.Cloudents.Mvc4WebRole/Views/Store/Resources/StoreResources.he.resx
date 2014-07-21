@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>אודות</value>
+  </data>
+  <data name="AboutCloudents" xml:space="preserve">
+    <value>אודות קלאודנטס</value>
+  </data>
+  <data name="ActivateCoupon" xml:space="preserve">
+    <value>הפעל את הקופון</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>רחוב ומספר</value>
+  </data>
+  <data name="BeforeYouBuy" xml:space="preserve">
+    <value>כדאי לדעת לפני הקניה:</value>
+  </data>
+  <data name="BillMe" xml:space="preserve">
+    <value>נא לחייב אותי ב</value>
+  </data>
+  <data name="CardOwnerName" xml:space="preserve">
+    <value>שם בעל הכרטיס</value>
+  </data>
+  <data name="CardOwnerNo" xml:space="preserve">
+    <value>ת.ז. בעל הכרטיס</value>
+  </data>
+  <data name="Cell Phone" xml:space="preserve">
+    <value>טלפון נייד</value>
+  </data>
+  <data name="CheapPrices" xml:space="preserve">
+    <value>אספקת המוצר תהא ישירות מהספק/יבואן וכפועל יוצא מחירי המוצרים הנמכרים באתר מוזלים במיוחד. </value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>ישוב</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>הערות</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
+  <data name="CostWithShipping" xml:space="preserve">
+    <value>מחיר כולל משלוח</value>
+  </data>
+  <data name="Coupon" xml:space="preserve">
+    <value>קופון</value>
+  </data>
+  <data name="CouponActivated" xml:space="preserve">
+    <value>קוד הקופון נקלט בהצלחה</value>
+  </data>
+  <data name="CreditCardNo" xml:space="preserve">
+    <value>מספר כרטיס אשראי</value>
+  </data>
+  <data name="DiscountsForYou" xml:space="preserve">
+    <value>אתר שלפניכם מציע הטבות המיועדות עבורכם בלבד.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>דואר אלקטרוני</value>
+  </data>
+  <data name="GetDiscounts" xml:space="preserve">
+    <value>הזכאות למחירים מיוחדים, כולל הנחת קופון, הנה לסטודנטים רשומים בלבד. כל שעליכם לעשות הוא להירשם לאתר או להשתמש בקוד הקופון אשר ברשותכם בשילוב מספר תעודת סטודנט\ ת.ז.
+תהנו!</value>
+  </data>
+  <data name="GetHelp" xml:space="preserve">
+    <value>בכל שאלה או בעיה בה נתקלת לגבי השימוש באתר או המוצרים הנמכרים בו, אנא מלא טופס זה, ונציגנו יחזור אליך בהקדם, או צור קשר בטלפון 09-8989819</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>עמוד הבית</value>
+  </data>
+  <data name="HotSales" xml:space="preserve">
+    <value>מבצעים חמים</value>
+  </data>
+  <data name="IdentityNo" xml:space="preserve">
+    <value>מספר תעודת סטודנט/ת.ז.</value>
+  </data>
+  <data name="Installments" xml:space="preserve">
+    <value>תשלומים.</value>
+  </data>
+  <data name="IReadIt" xml:space="preserve">
+    <value>קראתי את התקנון ואני מסכים לתנאי השימוש.</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="MoreDetails" xml:space="preserve">
+    <value>לפרטים</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>הנחה</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>הזמן</value>
+  </data>
+  <data name="PriceWithVat" xml:space="preserve">
+    <value>מחיר כולל מע''מ</value>
+  </data>
+  <data name="ProceedTo" xml:space="preserve">
+    <value>המשך לתשלום</value>
+  </data>
+  <data name="ProductDiscounts" xml:space="preserve">
+    <value>המאגר האקדמי הרשמי של מוצרים לסטודנטים</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>שם המוצר</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>מוצרים</value>
+  </data>
+  <data name="PurchaseNow" xml:space="preserve">
+    <value>רכוש עכשיו</value>
+  </data>
+  <data name="RegPrice" xml:space="preserve">
+    <value>מחיר רגיל</value>
+  </data>
+  <data name="RelatedProducts" xml:space="preserve">
+    <value>מצאנו עבורך מוצרים נוספים שיכולים לעניין אותך</value>
+  </data>
+  <data name="SafeDelivery" xml:space="preserve">
+    <value>אספקה בטוחה:</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>חפש</value>
+  </data>
+  <data name="SecuredPage" xml:space="preserve">
+    <value>הנתונים בעמוד זה מאובטחים בטכנולוגיית SSL</value>
+  </data>
+  <data name="SecurePurchase" xml:space="preserve">
+    <value>בטחון בקניה:</value>
+  </data>
+  <data name="SecureSite" xml:space="preserve">
+    <value>מתוך רצון לספק את הביטחון המקסימאלי בקניה, השקענו משאבים רבים באבטחת מידע ושמירת הפרטיות. העסקאות המתבצעות באתר מאובטחות בטכנולוגית SSL המאושרת ע"י חברות האשראי, וכל המידע המועבר בדבר פרטי האשראי שלך מוצפן.</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>אבטחת מידע:</value>
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>משלוח</value>
+  </data>
+  <data name="ShippingCost" xml:space="preserve">
+    <value>דמי משלוח</value>
+  </data>
+  <data name="Signup" xml:space="preserve">
+    <value>הרשמה</value>
+  </data>
+  <data name="SitePoweredBy" xml:space="preserve">
+    <value>האתר מופעל ע"י חברת ביזפוינט בע"מ ח.פ 512900473 בשיתוף עם אגודות הסטודנטים. החברה נוסדה בשנת 2000 ומתמחה בשיווק ישיר וסחר אלקטרוני באינטרנט והנה אחת מהמובילות בתחומה בארץ. בין השותפים בחברה קבוצת מרחב בע"מ, חברת אל-רוב (ישראל) בע"מ ,חברת שרידב בע"מ. אספקת המוצרים הנה ישירות ממחסני הספקים/יבואני המוצרים השונים ובאחריותם. ספקי המוצרים מהמובילים בארץ בתחומם, נבחרו בקפידה, עם מתן דגש על רמת המוצרים ומתן השירות. </value>
+  </data>
+  <data name="Sold" xml:space="preserve">
+    <value>נרכשו</value>
+  </data>
+  <data name="StudentDiscounts" xml:space="preserve">
+    <value>אתר ההטבות לסטודנטים</value>
+  </data>
+  <data name="StudentPrice" xml:space="preserve">
+    <value>לסטודנט</value>
+  </data>
+  <data name="StudentPrice2" xml:space="preserve">
+    <value>מחיר לסטודנט</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>טלפון</value>
+  </data>
+  <data name="ThreeDigits" xml:space="preserve">
+    <value>3 ספרות בגב הכרטיס</value>
+  </data>
+  <data name="ToGetACoupon" xml:space="preserve">
+    <value>לקבלת קוד קופון עליך להירשם לאתר או פנה לאגודת הסטודנטים בה אתה חבר</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>סה''כ לתשלום</value>
+  </data>
+  <data name="Upgrades" xml:space="preserve">
+    <value>שדרוגים ותוספות</value>
+  </data>
+  <data name="Vaildity" xml:space="preserve">
+    <value>תוקף</value>
+  </data>
+  <data name="WeCommit" xml:space="preserve">
+    <value>אנו מתחייבים כי בכל רכישה שלך באמצעות האתר תקבל את המוצר שהזמנת. במידה ולא - אנו מתחייבים להחזר כספי מלא. </value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>ברוכים הבאים לחנות האגודה</value>
+  </data>
+  <data name="WhatIsThis" xml:space="preserve">
+    <value>מה זה?</value>
+  </data>
+  <data name="WhatProduct" xml:space="preserve">
+    <value>חפש מוצר: טאבלט, מדפסת, מילון...</value>
+  </data>
+  <data name="WholeToRetail" xml:space="preserve">
+    <value>מחירים מהיבואן לצרכן:</value>
+  </data>
+  <data name="WrongCode" xml:space="preserve">
+    <value>קוד הקופון אינו תקין</value>
+  </data>
+  <data name="YourOrder" xml:space="preserve">
+    <value>ההזמנה שלך</value>
+  </data>
+</root>

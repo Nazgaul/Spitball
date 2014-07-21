@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public ChangeBoxPrivacySettingsCommandResult Execute(ChangeBoxPrivacySettingsCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             Box box = m_BoxRepository.Get(command.BoxId);
             
             if (command.NewSettings == box.PrivacySettings.PrivacySetting)

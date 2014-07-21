@@ -39,21 +39,27 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new InvalidCastException("can't cast CreateBox to CreateAcademicBox");
             }
-            ValidateCommand(command);
+            if (command.BoxName.Length > Box.NameLength)
+            {
+                throw new OverflowException("Box Name exceed" + Box.NameLength);
+            }
 
             User user = UserRepository.Get(command.UserId);
             ValidateUser(user);
 
             Library library = m_LibraryRepository.Get(academicCommand.NodeId);
 
-            Throw.OnNull(library, "library");
+            if (library == null)
+            {
+                throw new NullReferenceException("library");
+            }
 
             if (library.AmountOfNodes > 0)
             {
                 throw new ArgumentException("cannot add box to library with nodes");
             }
             var universityUser = user.University.DataUnversity ?? user.University;
-            if (universityUser != library.University)
+            if (!Equals(universityUser, library.University))
             {
                 throw new ArgumentException("library user is not user university");
             }

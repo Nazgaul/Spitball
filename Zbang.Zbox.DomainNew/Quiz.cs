@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Domain
                 name = name.Trim();
                
             }
+            if (owner == null) throw new ArgumentNullException("owner");
             Name = name;
             Owner = owner;
             Box = box;

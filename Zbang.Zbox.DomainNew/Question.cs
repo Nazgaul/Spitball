@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain
         }
         public Question(Guid id, Quiz quiz, string text)
         {
+            if (quiz == null) throw new ArgumentNullException("quiz");
             Id = id;
             if (string.IsNullOrWhiteSpace(text))
             {

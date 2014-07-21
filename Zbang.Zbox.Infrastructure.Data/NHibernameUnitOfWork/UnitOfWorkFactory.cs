@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
                     //dbi.ConnectionStringName = "Zbox";
-                    dbi.SchemaAction = SchemaAutoAction.Validate;
+                    dbi.SchemaAction = SchemaAutoAction.Update;
                     
 #if DEBUG
                     dbi.LogSqlInConsole = true;

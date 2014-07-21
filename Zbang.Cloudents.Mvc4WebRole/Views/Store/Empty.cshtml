@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Empty";
+    Layout = "~/Views/Shared/_LayoutShopping.cshtml";
+}
+
+<div ng-view></div>
+
+@section scripts
+{
+    @Html.Script2("angular-general")
+    @Html.Script2("angular-shopping")
+
+}

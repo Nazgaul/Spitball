@@ -5,6 +5,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
    public  class UserInviteDto
     {
        public string UserImage { get; set; }
+       //TODO: fix that to user Name
        public string Username { get; set; }
        public long Userid { get; set; }
        public MessageType InviteType { get; set; }

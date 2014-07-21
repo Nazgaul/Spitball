@@ -3,6 +3,8 @@ using Rhino.Mocks;
 using System;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
@@ -23,20 +25,20 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestInitialize]
         public void Setup()
         {
-            var m_LocalStorageProvider = Rhino.Mocks.MockRepository.GenerateStub<ILocalStorageProvider>();
-            var m_EnglishStemmer = Rhino.Mocks.MockRepository.GenerateStub<IEnglishToHebrewChars>();
-            var m_HebrewStemmer = Rhino.Mocks.MockRepository.GenerateStub<IHebrewStemmer>();
-            var m_BlobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
-            var m_FilterWords = MockRepository.GenerateStub<IFilterWords>();
-            m_FilterWords.Stub(x => x.RemoveWords(phrase)).Return(phrase);
-            m_EnglishStemmer.Stub(x => x.TransferEnglishCharsToHebrew(phrase)).Return(phrase);
-            m_HebrewStemmer.Stub(x => x.StemAHebrewWord(phrase)).Return(phrase);
-            var m_HttpCacheProvider = Rhino.Mocks.MockRepository.GenerateStub<IHttpContextCacheWrapper>();
+            var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
+           // var m_EnglishStemmer = Rhino.Mocks.MockRepository.GenerateStub<IEnglishToHebrewChars>();
+            var hebrewStemmer = MockRepository.GenerateStub<IHebrewStemmer>();
+          //  var m_BlobProvider = MockRepository.GenerateStub<IBlobProvider>();
+            var filterWords = MockRepository.GenerateStub<IFilterWords>();
+            filterWords.Stub(x => x.RemoveWords(phrase)).Return(phrase);
+            //m_EnglishStemmer.Stub(x => x.TransferEnglishCharsToHebrew(phrase)).Return(phrase);
+            hebrewStemmer.Stub(x => x.StemAHebrewWord(phrase)).Return(phrase);
+            var m_HttpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
 
-            Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
-            Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<IEnglishToHebrewChars>(m_EnglishStemmer);
-            Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<IHebrewStemmer>(m_HebrewStemmer);
-            Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<IFilterWords>(m_FilterWords);
+            IocFactory.Unity.RegisterInstance(localStorageProvider);
+           // Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<IEnglishToHebrewChars>(m_EnglishStemmer);
+            IocFactory.Unity.RegisterInstance(hebrewStemmer);
+            IocFactory.Unity.RegisterInstance(filterWords);
 
             m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider);
         }
@@ -102,7 +104,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetLibraryNode_Query_ReturnResult()
         {
-            var query = new GetLibraryNodeQuery(1, null, 1, 1, Infrastructure.Enums.OrderBy.LastModified);
+            var query = new GetLibraryNodeQuery(1, null, 1, 1, OrderBy.LastModified);
             try
             {
                 m_ZboxReadService.GetLibraryNode(query);
@@ -115,7 +117,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetLibraryNode_QueryWithNode_ReturnResult()
         {
-            var query = new GetLibraryNodeQuery(14, Guid.Parse("3d49e348-33e2-4281-b763-d981b9bd0000"), 1, 0, Infrastructure.Enums.OrderBy.LastModified);
+            var query = new GetLibraryNodeQuery(14, Guid.Parse("3d49e348-33e2-4281-b763-d981b9bd0000"), 1, 0, OrderBy.LastModified);
             try
             {
                 m_ZboxReadService.GetLibraryNode(query);

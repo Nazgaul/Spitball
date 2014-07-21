@@ -1,8 +1,22 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.ViewModel.DTOs.Store
+@{
+    var model = ViewBag.categories as IList<CategoryDto> ?? new List<CategoryDto>();
 
+    
+}
+@helper Category(IEnumerable<CategoryDto> categories)
+{
+    <ul>
+        @foreach (var sub in categories)
+        {
+        <li><a href="@Url.RouteUrl("storeCategory", new { categoryid = sub.Id, categoryname="ram"})">@sub.Name</a></li>
+        }
+    </ul>
+}
 <!DOCTYPE html>
 
-<html>
+<html ng-app="app">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
@@ -11,16 +25,16 @@
     @Html.CssRtl("shoppingRtl")
     @Html.CssCulture("lang")
 </head>
-<body>
+<body ng-controller="MainCtrl">
     <header role="banner">
         <div class="rFloat">
             <button type="button" class="login">Log in</button> /
             <button type="button" class="signup">Sign up</button>
             <div class="language">
-                <a data-language="en-US" href="/account/" title="English (US)" class="currentItem">English‎</a>
-                <a data-language="ru-RU" href="/account/" title="Russian site">Pусский</a>
-                <a data-language="he-IL" href="/account/" title="Hebrew site">עברית</a>
-                <a data-language="ar-AE" href="/account/" title="Arabic site">العربية</a>
+                <button type="button" title="English (US)" ng-class="{currentItem : 'en-US' === info.currentLanguage}" ng-click="setLanguage('en-US')">English‎</button>
+                <button type="button" title="Russian site" ng-class="{currentItem : 'ru-RU' === info.currentLanguage}" ng-click="setLanguage('ru-RU')">Pусский</button>
+                <button type="button" title="Hebrew site" ng-class="{currentItem : 'he-IL' === info.currentLanguage}" ng-click="setLanguage('he-IL')">עברית</button>
+                <button type="button" title="Arabic site" ng-class="{currentItem : 'ar-AE' === info.currentLanguage}" ng-click="setLanguage('ar-AE')">العربية</button>
             </div>
         </div>
         <h1 class="logo">Product discounts exclusively for students </h1>
@@ -38,128 +52,90 @@
             <ul class="categoryList">
                 <li class="spr-computer">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-               --><li class="spr-cal">
+                        @Category(model.Where(w => w.ParentId == 613))
+                       
+                </li>
+                <!--
+                -->
+                <li class="spr-cal">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-dic">
+                        @Category(model.Where(w => w.ParentId == 697))
+                       
+                </li>
+                <!--
+                -->
+                <li class="spr-dic">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-smartphone">
+                        @Category(model.Where(w => w.ParentId == 699))
+                       
+                </li>
+                <!--
+                -->
+                <li class="spr-smartphone">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-printers">
+                        @Category(model.Where(w => w.ParentId == 675))
+                        
+                </li>
+                <!--
+                -->
+                <li class="spr-printers">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-covers">
+                        @Category(model.Where(w => w.ParentId == 612))
+                       
+                </li>
+                <!--
+                -->
+                <li class="spr-covers">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-chair">
+                        @Category(model.Where(w => w.ParentId == 703))
+                       
+                </li>
+                <!--
+                -->
+                <li class="spr-chair">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-martini">
+                        @Category(model.Where(w => w.ParentId == 690))
+                        
+                </li>
+                <!--
+                -->
+                <li class="spr-martini">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-tv">
+                        @Category(model.Where(w => w.ParentId == 622))
+                       
+                </li>
+                <!--
+                -->
+                <li class="spr-tv">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-eco">
+                        @Category(model.Where(w => w.ParentId == 629))
+                       
+                </li>
+                <!--
+                -->
+                <li class="spr-eco">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li>
+                        @Category(model.Where(w => w.ParentId == 669))
+                        
+                </li>
+                <!--
+                -->
+                <li>
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
-                </li><!--
-                --><li class="spr-house">
+                        @Category(model.Where(w => w.ParentId == 631))
+                        
+                </li>
+                <!--
+                -->
+                <li class="spr-house">
                     <h3>PC / Tablet</h3>
-                    <ul>
-                        <li><a href="#">sub category1</a></li>
-                        <li><a href="#">sub category2</a></li>
-                        <li><a href="#">sub category3</a></li>
-                        <li><a href="#">sub category4</a></li>
-                        <li><a href="#">sub category5</a></li>
-                    </ul>
+                        @Category(model.Where(w => w.ParentId == 633))
+                       
                 </li>
             </ul>
         </div>
     </nav>
-    
+
     <main role="main">
         @RenderBody()
     </main>
@@ -168,121 +144,79 @@
         <div class="wpr">
             <div>
                 <h3>PC / Tablet</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                    <li><a href="#">four</a></li>
-                    <li><a href="#">five</a></li>
-                    <li><a href="#">six</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 613))
+                   
                 <h3>Calculators</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 697))
             </div>
 
             <div>
                 <h3>Electronic dictionaries</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 699))
+                    
                 <h3>Cell phones</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 675))
+                   
                 <h3>Computer equipment</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 612))
             </div>
 
             <div>
                 <h3>PC / Tablet</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                    <li><a href="#">four</a></li>
-                    <li><a href="#">five</a></li>
-                    <li><a href="#">six</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 703))
                 <h3>Calculators</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 690))
             </div>
 
             <div>
                 <h3>Electronic dictionaries</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 622))
                 <h3>Cell phones</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 629))
                 <h3>Computer equipment</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 669))
             </div>
 
             <div>
                 <h3>PC / Tablet</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                    <li><a href="#">four</a></li>
-                    <li><a href="#">five</a></li>
-                    <li><a href="#">six</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 631))
                 <h3>Calculators</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                </ul>
+                    @Category(model.Where(w => w.ParentId == 633))
             </div>
 
-            <div>
-                <h3>Electronic dictionaries</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                </ul>
-                <h3>Cell phones</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                </ul>
-                <h3>Computer equipment</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                </ul>
-            </div>
+            @*<div>
+                    <h3>Electronic dictionaries</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                        <li><a href="#">two</a></li>
+                    </ul>
+                    <h3>Cell phones</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                    </ul>
+                    <h3>Computer equipment</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                        <li><a href="#">two</a></li>
+                        <li><a href="#">three</a></li>
+                    </ul>
+                </div>
 
-            <div>
-                <h3>PC / Tablet</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                    <li><a href="#">four</a></li>
-                    <li><a href="#">five</a></li>
-                    <li><a href="#">six</a></li>
-                </ul>
-                <h3>Calculators</h3>
-                <ul>
-                    <li><a href="#">one</a></li>
-                </ul>
-            </div>
+                <div>
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                        <li><a href="#">two</a></li>
+                        <li><a href="#">three</a></li>
+                        <li><a href="#">four</a></li>
+                        <li><a href="#">five</a></li>
+                        <li><a href="#">six</a></li>
+                    </ul>
+                    <h3>Calculators</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                    </ul>
+                </div>*@
         </div>
         <div class="bottom">
             <div class="wpr logo">
@@ -299,6 +233,6 @@
             </div>
         </div>
     </footer>
-
+    @RenderSection("scripts", false)
 </body>
 </html>

@@ -44,8 +44,11 @@ namespace Zbang.Zbox.Domain
 
         public Library CreateSubLibrary(Guid id, string nodeName)
         {
+            if (nodeName == null)
+            {
+                throw new ArgumentNullException("nodeName");
+            }
             nodeName = nodeName.Trim();
-            Throw.OnNull(nodeName, "nodeName");
             if (CheckIfBoxesExists())
             {
                 throw new ArgumentException("Cannot add library to box node");
@@ -63,12 +66,15 @@ namespace Zbang.Zbox.Domain
 
         public void ChangeName(string newName)
         {
+            if (newName == null)
+            {
+                throw new ArgumentNullException("newName");
+            }
             if (newName.Contains('.'))
             {
-                throw new ArgumentException("name cannot contain dot", "name");
+                throw new ArgumentException(@"name cannot contain dot", "newName");
             }
             newName = newName.Trim();
-            Throw.OnNull(newName, "nodeName");
 
             if (Parent == null && University.Libraries.Any(a => a.Name == newName))
             {

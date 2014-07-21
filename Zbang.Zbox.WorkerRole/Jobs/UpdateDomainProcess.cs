@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.WorkerRole.DomainProcess;
@@ -51,7 +51,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess msgid:" + msg.Id);
                         return true;
                     }
-                    var process = Infrastructure.Ioc.IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
+                    var process = IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
                     if (process == null)
                     {
                         TraceLog.WriteError("UpdateDomainProcess run - process is null msgid:" + msg.Id + " msgData.ProcessResolver:" + msgData.ProcessResolver);

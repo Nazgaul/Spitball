@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(SendMessageCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             var sender = m_UserRepository.Load(command.Sender);
 
             foreach (var recepient in command.Recepients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())

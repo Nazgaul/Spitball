@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteFileFromQnACommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var item = m_ItemRepository.Load(message.ItemId);
             var box = item.Box;
 

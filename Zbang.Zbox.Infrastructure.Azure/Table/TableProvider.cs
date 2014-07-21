@@ -9,7 +9,7 @@ using Zbang.Zbox.Infrastructure.Storage.Entities;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Table
 {
-    class TableProvider : ITableProvider
+    public class TableProvider : ITableProvider
     {
         internal const string UserRequests = "userrequests";
         internal const string FilterWords = "filterwords";

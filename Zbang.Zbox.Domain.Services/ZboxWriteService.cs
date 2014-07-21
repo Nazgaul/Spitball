@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Commands.Store;
@@ -31,6 +32,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public CreateUserCommandResult CreateUser(CreateUserCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
 
             using (UnitOfWork.Start())
             {
@@ -73,6 +75,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public CreateBoxCommandResult CreateBox(CreateBoxCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             using (UnitOfWork.Start())
             {
                 CreateBoxCommandResult result = m_CommandBus.Dispatch<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name);
@@ -620,13 +623,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void AddProducts(AddProductsToStoreCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+       
     }
 }

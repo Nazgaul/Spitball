@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain.Commands
     {
         public AddCommentCommand(long userId, long boxId, string text, Guid id, IEnumerable<long> filesIds)
         {
+            if (text == null) throw new ArgumentNullException("text");
             UserId = userId;
             BoxId = boxId;
             Text = text.Trim();

@@ -258,7 +258,7 @@
     </Compile>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
-    <Compile Include="Controllers\ShoppingController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\AjaxImageLink.cs" />
@@ -277,6 +277,7 @@
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\NonAjaxAttribute.cs" />
+    <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\UserNavNWelcomeAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />
@@ -552,7 +553,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InviteResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shopping\Resources\StoreResources.Designer.cs">
+    <Compile Include="Views\Store\Resources\StoreResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreResources.resx</DependentUpon>
@@ -895,6 +896,13 @@
     <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
+    <Content Include="Js\shopping\app.js" />
+    <Content Include="Js\shopping\controllers\categoryCtrl.js" />
+    <Content Include="Js\shopping\controllers\homeCtrl.js" />
+    <Content Include="Js\shopping\controllers\mainCtrl.js" />
+    <Content Include="Js\shopping\controllers\searchCtrl.js" />
+    <Content Include="Js\shopping\filters\percentage.js" />
+    <Content Include="Js\shopping\services\store.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
@@ -944,6 +952,7 @@
       <DependentUpon>category.png</DependentUpon>
     </Content>
     <Content Include="Images\Store\social.sprite" />
+    <Content Include="Js\shopping\controllers\productCtrl.js" />
     <Content Include="Images\Store\social.png.map">
       <DependentUpon>social.png</DependentUpon>
     </Content>
@@ -1408,16 +1417,17 @@
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
-    <Content Include="Views\Shopping\Index.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
-    <Content Include="Views\Shopping\Product.cshtml" />
+    <Content Include="Views\Store\Product.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Box\_QnA2.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
-    <Content Include="Views\Shopping\CheckOut.cshtml" />
-    <Content Include="Views\Shopping\About.cshtml" />
-    <Content Include="Views\Shopping\Contact.cshtml" />
-    <Content Include="Views\Shopping\Sales.cshtml" />
+    <Content Include="Views\Store\CheckOut.cshtml" />
+    <Content Include="Views\Store\About.cshtml" />
+    <Content Include="Views\Store\Contact.cshtml" />
+    <Content Include="Views\Store\Sales.cshtml" />
+    <Content Include="Views\Store\Empty.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1916,13 +1926,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.ru.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.he.resx" />
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.resx">
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.ar.resx" />
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.he.resx" />
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StoreResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shopping\Resources\StoreResources.ru.resx" />
+    <EmbeddedResource Include="Views\Store\Resources\StoreResources.ru.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />

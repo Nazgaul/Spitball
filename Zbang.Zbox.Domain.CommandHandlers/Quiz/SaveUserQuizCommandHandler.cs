@@ -38,6 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
         public void Handle(SaveUserQuizCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var user = m_UserRepository.Load(message.UserId);
             var quiz = m_QuizRepository.Load(message.QuizId);
 
@@ -48,7 +49,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 quiz.Box.CalculateMembers();
                 m_UserRepository.Save(user);
             }
-            var answerSheet = m_SolvedQuizRepository.GetQuerable().FirstOrDefault(w => w.User == user && w.Quiz == quiz);
+            var answerSheet = m_SolvedQuizRepository.GetQuerable().FirstOrDefault(w =>
+                Equals(w.User, user) && w.Quiz == quiz);
             if (answerSheet != null)
             {
                 DeleteAnswers(answerSheet);

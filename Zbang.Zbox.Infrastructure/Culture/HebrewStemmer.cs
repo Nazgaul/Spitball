@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.Culture
@@ -7,6 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
     {
         public string StemAHebrewWord(string phrase)
         {
+            if (phrase == null) throw new ArgumentNullException("phrase");
             var sb = new StringBuilder();
 
             var words = phrase.Split(' ');

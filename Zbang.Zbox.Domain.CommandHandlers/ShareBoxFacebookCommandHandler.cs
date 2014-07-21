@@ -3,7 +3,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Security;
@@ -33,8 +32,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(ShareBoxFacebookCommand message)
         {
-            Throw.OnNull(message, "message");
-
+            if (message == null) throw new ArgumentNullException("message");
+           
             var sender = m_UserRepository.Load(message.SenderId);
             var box = m_BoxRepository.Load(message.BoxId);
 

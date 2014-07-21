@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(CreateUniversityCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var windowsIdentity = System.Security.Principal.WindowsIdentity.GetCurrent();
             if (windowsIdentity == null)
             {

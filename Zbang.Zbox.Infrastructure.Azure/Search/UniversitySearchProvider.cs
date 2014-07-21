@@ -125,6 +125,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public IEnumerable<UniversityByPrefixDto> SearchUniversity(string term)
         {
+            if (term == null) throw new ArgumentNullException("term");
 
             // validation
             if (string.IsNullOrEmpty(term.Replace("*", "").Replace("?", "")))
@@ -284,6 +285,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_AzureUniversiesSpellerDirectory.Dispose();
             m_Timer.Dispose();
         }
+        
     }
 
 

@@ -1,9 +1,12 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rhino.Mocks;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Zbox.ReadServicesTests
 {
@@ -15,9 +18,9 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestInitialize]
         public void Setup()
         {
-            var m_LocalStorageProvider = Rhino.Mocks.MockRepository.GenerateStub<ILocalStorageProvider>();
-            var m_HttpCacheProvider = Rhino.Mocks.MockRepository.GenerateStub<IHttpContextCacheWrapper>();
-            Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
+            var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
+            var m_HttpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
+            IocFactory.Unity.RegisterInstance(m_LocalStorageProvider);
 
           //  var blobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
             m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider);
@@ -26,7 +29,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUserDetailsByFacebookId_Query_ReturnResult()
         {
-            var query = new ViewModel.Queries.GetUserByFacebookQuery(1);
+            var query = new GetUserByFacebookQuery(1);
             try
             {
                 m_ZboxReadService.GetUserDetailsByFacebookId(query);
@@ -44,7 +47,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUserDetailsByMembershipId_Query_RetrurnResult()
         {
-            var query = new ViewModel.Queries.GetUserByMembershipQuery(Guid.NewGuid());
+            var query = new GetUserByMembershipQuery(Guid.NewGuid());
             try
             {
                 m_ZboxReadService.GetUserDetailsByMembershipId(query);

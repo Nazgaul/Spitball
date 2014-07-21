@@ -33,13 +33,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
-                var categories = await m_ReadService.GetCategories();
-                var storeDto = new List<StoreDto>();
-                foreach (var category in categories)
-                {
-                    storeDto.AddRange(await m_ReadService.ReadData(category));
-                }
+                var categorieDto = await m_ReadService.GetCategories();
                
+
+                var categories = new List<Category>();
+                var storeDto = new List<ProductDto>();
+                foreach (var category in categorieDto)
+                {
+                    categories.Add(new Category(category.Id, category.ParentId, category.Name, category.Order));
+                    var items = await m_ReadService.ReadData(category.Id);
+                    storeDto.AddRange(items);
+                }
+
                 var products = new List<ProductStore>();
                 foreach (var item in storeDto)
                 {
@@ -48,13 +53,17 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     {
                         var bytes = await DownloadImage(item.Image);
                         item.Image = await m_BlobProvider.UploadFromLink(bytes, item.Image);
-                        products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails, RandomProvider.GetThreadRandom().Next(15, 50), item.Coupon, item.Saleprice, item.Image));
+                        products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails,
+                            RandomProvider.GetThreadRandom().Next(15, 50), item.Coupon, item.Saleprice, item.Image,
+                            item.CategoryCode));
                     }
                     catch (Exception ex)
                     {
                         TraceLog.WriteError("On hatavot bring image", ex);
                     }
                 }
+                var categoriesCommand = new AddCategoriesCommand(categories);
+                m_ZboxWriteService.AddCatories(categoriesCommand);
                 var command = new AddProductsToStoreCommand(products);
                 m_ZboxWriteService.AddProducts(command);
                 Thread.Sleep(TimeSpan.FromDays(1));

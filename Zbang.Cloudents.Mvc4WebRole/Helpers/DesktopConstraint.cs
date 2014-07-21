@@ -11,4 +11,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return !DisplayConfig.CheckIfMobileView(httpContext) && !httpContext.Request.IsAjaxRequest();
         }
     }
+
+
+   
+
 }

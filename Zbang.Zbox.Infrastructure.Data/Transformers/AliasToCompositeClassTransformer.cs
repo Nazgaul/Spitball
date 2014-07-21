@@ -11,6 +11,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
     {
         public object TransformTuple(object[] tuple, string[] aliases)
         {
+            if (tuple == null) throw new ArgumentNullException("tuple");
+            if (aliases == null) throw new ArgumentNullException("aliases");
             var dic = new Dictionary<string, object>();
             for (var i = 0; i < aliases.Length; i++)
             {
@@ -32,6 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
 
         public IList TransformList(IList collection)
         {
+            if (collection == null) throw new ArgumentNullException("collection");
             var parents2 = (IList)Activator.CreateInstance(collection.GetType());
             var parentsDictionary = new Dictionary<long, T>();
 

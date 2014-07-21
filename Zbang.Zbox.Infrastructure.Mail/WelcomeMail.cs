@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SendGrid;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -13,7 +13,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
             var welcomeParams = parameters as WelcomeMailParams;
-            Throw.OnNull(welcomeParams, "welcomeParams");
+            if (welcomeParams == null)
+            {
+                throw new NullReferenceException("welcomeParams");
+            }
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Welcome");

@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Store.Services
 {
     public interface IReadService
     {
-        Task<IEnumerable<StoreDto>> ReadData(int category);
-        Task<IEnumerable<int>> GetCategories();
+        Task<IEnumerable<ProductDto>> ReadData(int category);
+        Task<IEnumerable<CategoryDto>> GetCategories();
     }
 }
