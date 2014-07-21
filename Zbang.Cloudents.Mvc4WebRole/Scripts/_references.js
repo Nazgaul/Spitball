@@ -155,6 +155,7 @@
 /// <reference path="../js/shopping/services/store.js" />
 /// <reference path="../js/shopping/filters/percentage.js" />
 /// <reference path="../js/shopping/controllers/mainctrl.js" />
+/// <reference path="../js/shopping/directives/productsmenu.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

@@ -908,11 +908,12 @@ namespace Zbang.Zbox.ReadServices
 
         #region Store
 
-        public async Task<IEnumerable<ProductDto>> GetProducts()
+        public async Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductByCategoryQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<ProductDto>(Sql.Store.GetProducts);
+                var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
+                return await conn.QueryAsync<ProductDto>(sql, new { CatId  = query.CategoryId});
             }
         }
         public IEnumerable<CategoryDto> GetCategories()

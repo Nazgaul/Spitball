@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.Domain
+﻿using Zbang.Zbox.Infrastructure.Consts;
+
+namespace Zbang.Zbox.Domain
 {
    public  class StoreCategory
     {
@@ -18,6 +20,7 @@
            ParentId = parentId;
            Order = order;
            Name = name;
+           Url = UrlConsts.BuildStoreCatergoryUrl(Id, name);
        }
 
 
@@ -25,5 +28,7 @@
        public virtual int ParentId { get; set; }
        public virtual string Name { get; set; }
        public virtual int Order { get; set; }
+
+       public virtual string  Url { get; set; }
     }
 }
