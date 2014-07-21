@@ -313,4 +313,7 @@
   <data name="YourOrder" xml:space="preserve">
     <value>ההזמנה שלך</value>
   </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>תנאי שימוש</value>
+  </data>
 </root>

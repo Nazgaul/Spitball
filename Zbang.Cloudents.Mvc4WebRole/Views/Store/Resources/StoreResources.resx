@@ -165,6 +165,9 @@
   <data name="StudentPrice" xml:space="preserve">
     <value>Student Price</value>
   </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Terms of service</value>
+  </data>
   <data name="WhatProduct" xml:space="preserve">
     <value>What product are you looking for? Seach here...</value>
   </data>
