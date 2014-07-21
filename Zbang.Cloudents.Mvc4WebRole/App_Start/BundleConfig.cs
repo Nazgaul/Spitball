@@ -135,7 +135,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.js"),
                 new JsFileWithCdn("~/scripts/Modernizr.js"),
-
                 new JsFileWithCdn("~/scripts/plupload/plupload.js"),
                 new JsFileWithCdn("~/scripts/plupload/plupload.html4.js"),
                 new JsFileWithCdn("~/scripts/plupload/plupload.html5.js"),
@@ -179,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/user.js"),
                 new JsFileWithCdn("/js/services/facebook.js"),
                 new JsFileWithCdn("/js/services/userDetails.js"),
-
+                new JsFileWithCdn("/js/services/stacktrace.js"),
                 new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
