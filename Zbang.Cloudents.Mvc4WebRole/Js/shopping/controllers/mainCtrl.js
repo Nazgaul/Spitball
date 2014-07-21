@@ -1,16 +1,20 @@
 ﻿app.controller('MainCtrl',
-    ['$scope','$window','$cookies',
-    function ($scope, $window,$cookies) {
+    ['$scope', '$window', '$cookies',
+    function ($scope, $window, $cookies) {
 
-        $scope.params = {
-            maxProducts: 9,
-            maxProductsIncrement: 9
+        console.log($cookies.lang);
+
+        $scope.info = {
+            currentLanguage: $cookies.lang || 'en-US'
         };
 
         $scope.setLanguage = function (val) {
+            if ($cookies.lang === val) {
+                return;
+            }
             $cookies.lang = val;
-            $window.reload();
-        }
+            $window.location.reload();
+        };
 
     }]
 );
