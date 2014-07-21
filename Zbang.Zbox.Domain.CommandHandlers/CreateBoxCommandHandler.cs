@@ -23,7 +23,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public virtual CreateBoxCommandResult Execute(CreateBoxCommand command)
         {
-            ValidateCommand(command);
+            if (command == null) throw new ArgumentNullException("command");
+            if (command.BoxName.Length > Box.NameLength)
+            {
+                throw new OverflowException("Box Name exceed" + Box.NameLength);
+            }
 
             User user = UserRepository.Get(command.UserId);
             Box box = m_BoxRepository.GetBoxWithSameName(command.BoxName.Trim().ToLower(), user);
@@ -51,13 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UserRepository.Save(user);
             m_BoxRepository.Save(box, true);
         }
-
-        protected void ValidateCommand(CreateBoxCommand command)
-        {
-            if (command.BoxName.Length > Box.NameLength)
-            {
-                throw new OverflowException("Box Name exceed" + Box.NameLength);
-            }
-        }
+      
+        
     }
 }

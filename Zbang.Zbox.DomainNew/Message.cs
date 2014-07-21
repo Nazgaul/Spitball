@@ -70,7 +70,11 @@ namespace Zbang.Zbox.Domain
         public Message(Guid id, User sender, User recepient, string text)
             : base(id, sender, recepient)
         {
-            Throw.OnNull(text, "text");
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentNullException("text");
+            }
+            //Throw.OnNull(text, "text");
             Text = text;
 
         }

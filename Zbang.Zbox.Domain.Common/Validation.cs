@@ -48,20 +48,20 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         // we need to get those extension from FileConvertFactory.cs dictionary
-        public static readonly string[] Extension = { "xls", "xlsx", "xlsm", "xltx", "ods", "csv", "rtf", "docx", "doc", "ppt", "pot", "pps", "pptx", "potx", "ppxs", "ppsx" };
+        //public static readonly string[] Extension = { "xls", "xlsx", "xlsm", "xltx", "ods", "csv", "rtf", "docx", "doc", "ppt", "pot", "pps", "pptx", "potx", "ppxs", "ppsx" };
 
-        public static readonly string DocumentRegex = @"\.(" + string.Join("|", Extension) + @")(?:\?([^#]*))?(?:#(\.*))?$";
-        public static bool IsDocument(string file)
-        {
-            return Regex.IsMatch(file, DocumentRegex, RegexOptions.IgnoreCase);
-        }
+        //public static readonly string DocumentRegex = @"\.(" + string.Join("|", Extension) + @")(?:\?([^#]*))?(?:#(\.*))?$";
+        //public static bool IsDocument(string file)
+        //{
+        //    return Regex.IsMatch(file, DocumentRegex, RegexOptions.IgnoreCase);
+        //}
 
-        public const string WindowFileRegex = @"^(?!^(PRN|AUX|CLOCK\$|NUL|CON|COM\d|LPT\d|\..*)(\..+)?$)[^\x00-\x1f\\?*:\"";|<>/]+$";
+        //public const string WindowFileRegex = @"^(?!^(PRN|AUX|CLOCK\$|NUL|CON|COM\d|LPT\d|\..*)(\..+)?$)[^\x00-\x1f\\?*:\"";|<>/]+$";
 
-        public static bool IsValidFileName(string fileName)
-        {
-            return Regex.IsMatch(fileName, WindowFileRegex, RegexOptions.IgnoreCase);
-        }
+        //public static bool IsValidFileName(string fileName)
+        //{
+        //    return Regex.IsMatch(fileName, WindowFileRegex, RegexOptions.IgnoreCase);
+        //}
 
         //#region Tags
 

@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
-    public class RegisterIoc
+    public static class RegisterIoc
     {
         public static void Register()
         {

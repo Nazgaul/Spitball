@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Domain.Commands;
+﻿using System;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -28,6 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(RateItemCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var userRate = m_ItemRateRepositoy.GetRateOfUser(message.UserId, message.ItemId);
             var rateCount = m_ItemRateRepositoy.GetRateCount(message.ItemId);
 

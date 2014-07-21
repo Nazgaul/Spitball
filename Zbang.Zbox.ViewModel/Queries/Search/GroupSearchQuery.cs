@@ -1,9 +1,17 @@
-﻿namespace Zbang.Zbox.ViewModel.Queries.Search
+﻿using System;
+
+namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class GroupSearchQuery
     {
-        public GroupSearchQuery(string query, long universityId, long userId, bool allResult, int page = 0)
+        public GroupSearchQuery(string query, long universityId, long userId, bool allResult) :
+            this(query,universityId,userId,allResult,0)
         {
+            
+        }
+        public GroupSearchQuery(string query, long universityId, long userId, bool allResult, int page)
+        {
+            if (query == null) throw new ArgumentNullException("query");
             Query = query.Replace(' ', '%');
             UniversityId = universityId;
             UserId = userId;

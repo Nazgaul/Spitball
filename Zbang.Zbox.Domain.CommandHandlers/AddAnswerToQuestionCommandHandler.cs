@@ -7,7 +7,6 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -43,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public async Task HandleAsync(AddAnswerToQuestionCommand message)
         {
-            Throw.OnNull(message, "message");
+            if (message == null) throw new ArgumentNullException("message");
 
             var user = m_UserRepository.Load(message.UserId);
             var box = m_BoxRepository.Load(message.BoxId);

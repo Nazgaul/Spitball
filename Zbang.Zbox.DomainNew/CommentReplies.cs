@@ -13,10 +13,22 @@ namespace Zbang.Zbox.Domain
 
         public CommentReplies(User user, string text, Box box, Guid id, Comment question, IList<Item> items)
         {
-            Throw.OnNull(user, "User");
-            Throw.OnNull(box, "box");
-            Throw.OnNull(question, "question");
-            Throw.OnNull(text, "text", false);
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            if (box == null)
+            {
+                throw new ArgumentNullException("box");
+            }
+            if (question == null)
+            {
+                throw new ArgumentNullException("question");
+            }
+            if (text == null)
+            {
+                throw new ArgumentNullException("text");
+            }
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
 

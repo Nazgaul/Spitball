@@ -5,7 +5,6 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -26,19 +25,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(AddAnnotationCommand message)
         {
-            Throw.OnNull(message, "message");
-            Throw.OnNegative(message.ImageId, "imageId");
-            Throw.OnNegative(message.X, "cordX");
-            Throw.OnNegative(message.Y, "cordY");
-            Throw.OnNegative(message.Width, "width");
-            Throw.OnNegative(message.Height, "height");
-            Throw.OnNull(message.Comment, "comment", false);
-
+            if (message == null) throw new ArgumentNullException("message");
 
             var user = m_UserRepository.Load(message.UserId);
-            Throw.OnNull(user, "user");
             var item = m_ItemRepository.Load(message.ItemId);
-            Throw.OnNull(item, "item");
 
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, item.Box.Id); //user.GetUserType(box.Id);
             if (userType == UserRelationshipType.None || userType == UserRelationshipType.Invite)

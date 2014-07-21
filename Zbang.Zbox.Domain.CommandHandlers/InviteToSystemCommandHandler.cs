@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -36,6 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(InviteToSystemCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             User sender = m_UserRepository.Load(command.SenderId);
 
 

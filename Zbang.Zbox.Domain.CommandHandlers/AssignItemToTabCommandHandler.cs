@@ -2,7 +2,6 @@
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -24,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(AssignItemToTabCommand message)
         {
-            Throw.OnNull(message, "message");
+            if (message == null) throw new ArgumentNullException("message");
 
 
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
@@ -36,7 +35,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var itemTab = m_ItemTabRepository.Get(message.TabId);
 
-            Throw.OnNull(itemTab, "itemTab");
+            if (itemTab == null)
+            {
+                throw new System.NullReferenceException("itemTab");
+            }
             if (message.NeedDelete)
             {
                 itemTab.DeleteReferenceToItems();
@@ -44,7 +46,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             foreach (var itemid in message.ItemsId)
             {
                 var item = m_ItemRepository.Get(itemid);
-                Throw.OnNull(item, "item");
+                if (item == null)
+                {
+                    throw new System.NullReferenceException("item");
+                }
 
 
                 itemTab.AddItemToTab(item);

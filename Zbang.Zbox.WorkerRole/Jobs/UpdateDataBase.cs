@@ -33,7 +33,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("Update Dbi", ex);
-                    Thread.Sleep(TimeSpan.FromHours(1));
+                    //Thread.Sleep(TimeSpan.FromHours(1));
                 }
             }
         }

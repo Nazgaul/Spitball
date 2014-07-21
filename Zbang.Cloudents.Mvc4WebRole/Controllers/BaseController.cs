@@ -57,6 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (Request.IsAjaxRequest())
             {
                 HttpNotFound().ExecuteResult(ControllerContext);
+                return;
             }
             View("Error").ExecuteResult(ControllerContext);
             //base.HandleUnknownAction(actionName);

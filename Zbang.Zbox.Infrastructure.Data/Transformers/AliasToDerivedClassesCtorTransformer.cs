@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
 {
     public class AliasToDerivedClassesCtorTransformer : IResultTransformer
     {
-        protected readonly Type[] m_ResultClasses;
+        private readonly Type[] m_ResultClasses;
 
         public AliasToDerivedClassesCtorTransformer(params Type[] types)
         {
@@ -34,6 +34,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
 
         public object TransformTuple(object[] tuple, string[] aliases)
         {
+            if (tuple == null) throw new ArgumentNullException("tuple");
+            if (aliases == null) throw new ArgumentNullException("aliases");
             var dic = new Dictionary<string, object>();
 
             for (var i = 0; i < aliases.Length; i++)

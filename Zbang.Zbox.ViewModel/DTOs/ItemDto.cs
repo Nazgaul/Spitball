@@ -24,6 +24,6 @@ namespace Zbang.Zbox.ViewModel.DTOs
         public string BoxUid { get; set; }
         public DateTime UpdateTime { get; set; }
 
-        public bool Deleted { get; private set; }
+        public bool Deleted { get; set; }
     }
 }

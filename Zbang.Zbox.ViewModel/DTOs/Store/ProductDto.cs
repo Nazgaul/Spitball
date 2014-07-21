@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zbang.Zbox.ViewModel.DTOs.Store
+﻿namespace Zbang.Zbox.ViewModel.DTOs.Store
 {
-   public class Product
+   public class ProductDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -15,5 +9,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.Store
         public string Coupon { get; set; }
         public string SalePrice { get; set; }
         public string PictureUrl { get; set; }
+
+       public string Url { get; set; }
     }
 }

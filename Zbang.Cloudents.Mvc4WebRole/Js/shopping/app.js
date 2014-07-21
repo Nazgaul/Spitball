@@ -1,15 +1,14 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate']);
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'Cookie']);
 
 app.config([
     '$routeProvider',
     '$locationProvider',
     '$httpProvider',
-    '$tooltipProvider',
     '$provide',
 
-    function ($routeProvider, $locationProvider,$httpProvider, $provide) {
+    function ($routeProvider, $locationProvider, $httpProvider, $provide) {
 
-   
+
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
 
@@ -22,43 +21,64 @@ app.config([
                     switch (response.status) {
                         case 200:
                             return response;
+                    }
+                },
+                'responseError': function (response) {
+                    // do something on success
+                    switch (response.status) {          
                         case 401:
                         case 403:
                             window.open('/account', '_self');
                             break;
+                        case 404:
+                            window.open('/error', '_self');
                         case 500:
                             window.open('/error', '_self');
                         default:
                             window.open('/error', '_self');
                             break;
-
                     }
                 }
             };
         }]);
         $httpProvider.interceptors.push('requestinterceptor');
-     
+
         $locationProvider.html5Mode(true).hashPrefix('!');
 
         //#region routes
         $routeProvider.
-        when('/shopping/', {            
-            templateUrl: '/shopping/',
-            controller: 'homeCtrl'
+        when('/store/', {
+            templateUrl: '/Store/',
+            controller: 'HomeCtrl',
+            type: 'home'
         }).
-        //when('/box/my/:boxId/:boxName/', {
-        //    params: {
-        //        type: 'box'
-        //    },
-        //    templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
-        //}).
-        otherwise({ redirectTo: '/shopping/' });
+        when('/store/category/:categoryId/:categoryName/', {
+            templateUrl: '/Store/',
+            controller: 'CategoryCtrl',
+            type: 'products'
+        }).
+        when('/store/product/:productId/:productName/', {
+            templateUrl: function (params) { return '/store/product/?id=' + params.productId ; },
+            controller: 'ProductCtrl',
+            type: 'product'
+        }).        
+        when('/store/about/', {
+            templateUrl: '/Store/About',
+            controller: 'AboutCtrl',
+            type: 'about'
+        }).
+        when('/store/contact/', {
+            templateUrl: '/Store/Contact',
+            controller: 'ContactCtrl',
+            type: 'contact'
+        }).
+        otherwise({ redirectTo: '/store/' });
 
         //#endregion
 
 
         //#region log js errors 
-        $provide.decorator('$exceptionHandler', ['$delegate','$log', 'stackTraceService', function ($delegate,$log, stackTraceService) {
+        $provide.decorator('$exceptionHandler', ['$delegate', '$log', 'stackTraceService', function ($delegate, $log, stackTraceService) {
             return function (exception, cause) {
                 $delegate(exception, cause);
 
@@ -90,20 +110,15 @@ app.config([
     }
 ]);
 
-app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, sUserDetails, sNewUpdates) {
+app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window, sUserDetails) {
     $rootScope.initDetails = function (id, name, image, score, url) {
 
         if (id) {
             sUserDetails.setDetails(id, name, image, score, url);
-            sNewUpdates.loadUpdates();
             return;
         }
         sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
-
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-    });
-
 }]);
 

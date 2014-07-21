@@ -77,19 +77,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var container = BlobClient.GetContainerReference(AzureProductContainer.ToLower());
             var blob = container.GetBlockBlobReference(fileName);
 
-            
-            await blob.UploadFromByteArrayAsync(data, 0, data.Length);
-            blob.Properties.ContentType = "image/jpeg";
-            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
-            await blob.SetPropertiesAsync();
             var uriBuilder = new UriBuilder(blob.Uri);
             string storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
             if (!string.IsNullOrEmpty(storageCdnEndpoint))
             {
                 uriBuilder.Host = storageCdnEndpoint;
             }
-            return uriBuilder.Uri.AbsoluteUri;
 
+
+            if (blob.Exists())
+            {
+                return uriBuilder.Uri.AbsoluteUri;
+            }
+
+            await blob.UploadFromByteArrayAsync(data, 0, data.Length);
+            blob.Properties.ContentType = "image/jpeg";
+            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            await blob.SetPropertiesAsync();
+
+            return uriBuilder.Uri.AbsoluteUri;
         }
 
         static string ThumbnailContainerUrl { get; set; }
@@ -165,6 +171,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)
         {
+            if (metaData == null) throw new ArgumentNullException("metaData");
             var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
@@ -203,6 +210,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes)
         {
+            if (blobUri == null) throw new ArgumentNullException("blobUri");
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
 
@@ -322,8 +330,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         //    //others
         //    {".ai","application/postscript"}
 
-            
-           
+
+
 
         //};
         #endregion
@@ -364,10 +372,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
         public Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
         {
-            var ms = new MemoryStream(fileContent);
-            //using (var ms = new MemoryStream(fileContent))
-            //{
-            return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+            using (var ms = new MemoryStream(fileContent))
+            {
+                //using (var ms = new MemoryStream(fileContent))
+                //{
+                return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+            }
             //}
         }
 
@@ -494,6 +504,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Uri UploadProfilePicture(string blobName, byte[] fileContent)
         {
+            if (blobName == null) throw new ArgumentNullException("blobName");
+            if (fileContent == null) throw new ArgumentNullException("fileContent");
             var blob = ProfilePictureFile(blobName);
             if (blob.Exists())
             {
@@ -520,6 +532,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         #region Thumbnail
         public void UploadFileThumbnail(string fileName, Stream ms, string mimeType)
         {
+            if (ms == null) throw new ArgumentNullException("ms");
             ms.Seek(0, SeekOrigin.Begin);
             var thumbnailBlob = ThumbnailFile(fileName);
             thumbnailBlob.Properties.ContentType = mimeType;
@@ -531,6 +544,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType)
         {
+            if (ms == null) throw new ArgumentNullException("ms");
             ms.Seek(0, SeekOrigin.Begin);
             var thumbnailBlob = ThumbnailFile(fileName);
             thumbnailBlob.Properties.ContentType = mimeType;
@@ -594,10 +608,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             CloudBlockBlob blob = GetFile(fileName);
 
-            var ms = new MemoryStream();
-            blob.DownloadToStream(ms);
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
+            using (var ms = new MemoryStream())
+            {
+                blob.DownloadToStream(ms);
+                ms.Seek(0, SeekOrigin.Begin);
+                return ms;
+            }
         }
 
         public async Task<Stream> DownloadFileAsync(string fileName)

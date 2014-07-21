@@ -6,6 +6,7 @@ public static class StringExtensions
 {
     public static string RemoveEndOfString(this String word, int length)
     {
+        if (word == null) throw new ArgumentNullException("word");
         return word.Substring(0, Math.Min(word.Length, length));
     }
 

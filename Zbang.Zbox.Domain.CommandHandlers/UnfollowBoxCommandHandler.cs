@@ -24,6 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(UnfollowBoxCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var box = m_BoxRepository.Get(message.BoxId);
             var user = m_UserRepository.Load(message.UserId);
             if (box == null || box.IsDeleted)

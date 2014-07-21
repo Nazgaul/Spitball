@@ -47,7 +47,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<DashboardDto> GetDashboard(GetBoxesQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = new DashboardDto();
                 using (var grid = await conn.QueryMultipleAsync(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList, new { query.UserId }))
@@ -69,7 +69,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sqlQuery = @"select uWrap.userName as Name, uWrap.UserImageLarge as Img  , uWrap.AdvertismentUrl as AdvertismentUrl
                   from zbox.users uWrap  
@@ -145,7 +145,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<UniversityInfoDto> GetUniversityDetail(GetUniversityDetailQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { query.UserId, UniversityWrapper = query.UniversityWrapperId });
                 return retVal.FirstOrDefault();
@@ -173,7 +173,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<InviteDto>(Sql.Sql.UserInvites, new { query.UserId });
             }
@@ -323,7 +323,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<ItemRateDto> GetRate(GetItemRateQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 //IEnumerable<Activity.AnnotationDto> retVal;
                 const string sql = @"select Rate from zbox.itemRate where itemid = @itemId and ownerid = @userid";
@@ -406,7 +406,7 @@ namespace Zbang.Zbox.ReadServices
         public async Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
         {
 
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 //IEnumerable<Activity.AnnotationDto> retVal;
                 const string sql = @"SELECT [ItemCommentId] as Id
@@ -439,7 +439,7 @@ namespace Zbang.Zbox.ReadServices
         public async Task<SearchDto> Search(GroupSearchQuery query)
         {
             SearchDto retVal = new SearchDto();
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
 
                 using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
@@ -482,7 +482,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,
                        new
@@ -504,7 +504,7 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<IEnumerable<User.UserDto>> GetUserFriends(GetUserFriendsQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<User.UserDto>(Sql.Sql.FriendList, new { query.UserId });
             }
@@ -512,7 +512,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<User.UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image,
                             u.userReputation as score, uu.universityname as universityName, u.url as Url
@@ -541,7 +541,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<DepartmentDto>(Sql.LibraryChoose.GetDepartments, new
                 {
@@ -552,7 +552,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<bool> GetUniversityNeedId(long universityId)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<int>(Sql.LibraryChoose.GetNeedId, new
                 {
@@ -564,7 +564,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<bool> GetUniversityNeedCode(long universityId)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<bool>(Sql.LibraryChoose.GetNeedCode, new
                 {
@@ -576,7 +576,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 //we can only use 2100 in statement
                 using (var grid = await conn.QueryMultipleAsync(
@@ -699,7 +699,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<bool> GetInvite(GetInviteDetailQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sqlQuery = @"select count(*) from   zbox.Message 
                                 where TypeOfMsg = 2
@@ -714,7 +714,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<UpdatesDto>(Sql.Updates.GetUserUpdates, new { userid = query.UserId });
             }
@@ -723,7 +723,7 @@ namespace Zbang.Zbox.ReadServices
         #region UserPage
         public async Task<IEnumerable<Box.BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<Box.BoxToFriendDto>(Sql.Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
                 return retVal;
@@ -731,7 +731,7 @@ namespace Zbang.Zbox.ReadServices
         }
         public async Task<IEnumerable<Item.ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<Item.ItemToFriendDto>(Sql.Sql.UserWithFriendFiles, new { Me = query.UserId, Myfriend = query.FriendId });
                 return retVal;
@@ -740,7 +740,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<Qna.QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<Qna.QuestionToFriendDto>(Sql.Sql.UserWithFriendQuestion, new { Me = query.UserId, Myfriend = query.FriendId });
                 return retVal;
@@ -749,7 +749,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<Qna.AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<Qna.AnswerToFriendDto>(Sql.Sql.UserWithFriendAnswer, new { Me = query.UserId, Myfriend = query.FriendId });
                 return retVal;
@@ -758,7 +758,7 @@ namespace Zbang.Zbox.ReadServices
 
         public async Task<IEnumerable<User.UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<User.UserInviteDto>(Sql.Sql.UserPersonalInvites, new { Me = query.UserId });
                 return retVal;
@@ -767,7 +767,7 @@ namespace Zbang.Zbox.ReadServices
         public async Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
         {
             var retVal = new User.UserToFriendActivity();
-            using (IDbConnection conn = await DapperConnection.OpenConnection())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles,
                     Sql.Sql.UserWithFriendQuestion,
@@ -791,7 +791,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 return null;
             }
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<string>(String.Format("{0}", Sql.Seo.GetSeoItemsByPage),
                     new { rowsperpage = pageSize, pageNumber = page });
@@ -801,7 +801,7 @@ namespace Zbang.Zbox.ReadServices
         public async Task<int> GetSeoItemCount()
         {
             const int pageSize = 49950;
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<int>(String.Format("{0}", Sql.Seo.GetSeoItemsCount));
                 return (retVal.FirstOrDefault() / pageSize) + 1;
@@ -813,7 +813,7 @@ namespace Zbang.Zbox.ReadServices
         #region Admin
         public async Task<IEnumerable<ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<ViewModel.DTOs.UserDtos.AdminUserDto>(Sql.Admin.UsersInUniversity,
                     new
@@ -828,7 +828,7 @@ namespace Zbang.Zbox.ReadServices
         public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
             var retVal = new Item.QuizWithDetailSolvedDto();
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = string.Format("{0} {1} {2} {3} {4} {5} {6}",
                     Sql.Quiz.QuizQuery,
@@ -876,7 +876,7 @@ namespace Zbang.Zbox.ReadServices
         }
         public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, new { query.QuizId });
             }
@@ -885,7 +885,7 @@ namespace Zbang.Zbox.ReadServices
         public async Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
         {
 
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { query.QuizId }))
                 {
@@ -908,11 +908,19 @@ namespace Zbang.Zbox.ReadServices
 
         #region Store
 
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductByCategoryQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnection())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Product>(Sql.Store.GetProducts);
+                var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
+                return await conn.QueryAsync<ProductDto>(sql, new { CatId  = query.CategoryId});
+            }
+        }
+        public IEnumerable<CategoryDto> GetCategories()
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                return conn.Query<CategoryDto>(Sql.Store.GetCategories);
             }
         }
         #endregion

@@ -80,6 +80,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         public string DownloadEncodedVideoToStorage(Uri originalBlob, string encodeAssetId)
         {
+            if (originalBlob == null) throw new ArgumentNullException("originalBlob");
             if (originalBlob.Host == "127.0.0.1")
             {
                 return DownloadToLocalStorage(originalBlob, encodeAssetId);
@@ -230,6 +231,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         public void DeleteAssetFilesForAsset(IAsset asset)
         {
+            if (asset == null) throw new ArgumentNullException("asset");
             foreach (IAssetFile file in asset.AssetFiles)
             {
                 //Console.WriteLine("Deleting asset file with id: {0} {1}", file.Id, file.Name);
@@ -269,6 +271,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         public void DeleteLocatorsForAsset(IAsset asset)
         {
+            if (asset == null) throw new ArgumentNullException("asset");
             string assetId = asset.Id;
             var locators = from a in m_Context.Locators
                            where a.AssetId == assetId
@@ -352,6 +355,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         public IAsset CreateAssetFromExistingBlobs(Uri blobUri)
         {
+            if (blobUri == null) throw new ArgumentNullException("blobUri");
             // Create a new asset. 
             IAsset asset = m_Context.Assets.Create("NewAsset_" + Guid.NewGuid(), AssetCreationOptions.None);
 
@@ -400,21 +404,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             ICloudBlob destinationBlob = destinationContainer.GetBlockBlobReference(sourceBlob.Name);
 
-            if (destinationBlob.Exists())
+            if (!destinationBlob.Exists())
             {
-                Console.WriteLine(string.Format("Destination blob '{0}' already exists. Skipping.", destinationBlob.Uri));
-            }
-            else
-            {
-                try
-                {
-                    Console.WriteLine(string.Format("Copy blob '{0}' to '{1}'", sourceBlob.Uri, destinationBlob.Uri));
-                    destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(string.Format("Error copying blob '{0}': {1}", sourceBlob.Name, ex.Message));
-                }
+                destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
+
             }
         }
 

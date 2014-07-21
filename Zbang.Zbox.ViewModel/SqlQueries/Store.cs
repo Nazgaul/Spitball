@@ -1,22 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Zbang.Zbox.ViewModel.SqlQueries
 {
-   public class Store
+   public static class Store
    {
-       public const string GetProducts = @"SELECT [Id]
+       public const string GetProducts = @"SELECT [ProductId] as Id
       ,[Name]
       ,[ExtraDetails]
       ,[NumberOfSales]
       ,[Coupon]
       ,[SalePrice]
       ,[PictureUrl]
-        FROM [Zbox].[StoreProduct]";
+      ,[Url]
+        FROM [Zbox].[StoreProduct] where homepage = 1";
 
-       
+       public const string GetProductsWithCategory = @"SELECT s.[ProductId] as Id
+      ,[Name]
+      ,[ExtraDetails]
+      ,[NumberOfSales]
+      ,[Coupon]
+      ,[SalePrice]
+      ,[PictureUrl]
+      ,[Url]
+  FROM [Zbox].[StoreProduct] s inner join zbox.StoreProductCategory sp on s.ProductId = sp.ProductId
+  where sp.CatId = @CatId";
+
+       public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
+  FROM [Zbox].[Zbox].[StoreCat]
+  order by catorder";
    }
 }

@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using NHibernate;
+using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 
 
@@ -33,7 +35,8 @@ namespace Zbang.Zbox.Domain.Services
 
                     //box members
                     var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
-                                         .Where(w => w.IsDeleted == false).Skip(100 * index).Take(100)
+                                         .Where(w => w.IsDeleted == false ).Where(Restrictions.On<Box>(x=>x.Name).IsLike("#",MatchMode.Anywhere))
+                                         .Skip(100 * index).Take(100)
                                          .List();
                     foreach (var box in boxes)
                     {
@@ -46,7 +49,9 @@ namespace Zbang.Zbox.Domain.Services
                 }
                 var files =
                           UnitOfWork.CurrentSession.QueryOver<Item>()
-                              .Where(w => w.IsDeleted == false).Skip(100 * index)
+                              .Where(w => w.IsDeleted == false)
+                              .Where(Restrictions.On<Item>(x => x.Name).IsLike("#", MatchMode.Anywhere))
+                              .Skip(100 * index)
                               .Take(100).List();
 
 
@@ -60,7 +65,9 @@ namespace Zbang.Zbox.Domain.Services
                 }
 
                 var quizes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
-                              .Where(w => w.Publish).Skip(100 * index)
+                              .Where(w => w.Publish)
+                              .Where(Restrictions.On<Quiz>(x => x.Name).IsLike("#", MatchMode.Anywhere))
+                              .Skip(100 * index)
                               .Take(100).List();
 
                 foreach (var quiz in quizes)
@@ -72,6 +79,25 @@ namespace Zbang.Zbox.Domain.Services
                     retVal = true;
                 }
                 return retVal;
+            }
+        }
+
+
+        public void AddProducts(AddProductsToStoreCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+        public void AddCatories(AddCategoriesCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
             }
         }
 

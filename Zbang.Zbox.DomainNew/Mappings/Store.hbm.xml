@@ -2,31 +2,39 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <class name="StoreProduct">
-    <id name="Id" column="Id">
-      <generator class="assigned"/>
-    </id>
-    <property name="Name"  not-null="true"/>
-    <property name="ExtraDetails" not-null="true" />
-    <property name="NumberOfSales" not-null="true" />
-    <property name="Coupon" not-null="true" />
-    <property name="SalePrice"  not-null="true"/>
-    <property name="PictureUrl" not-null="true" />
-    <!--<set name="Categories" table="ProductCategory">
-      <key column="Id"/>
-      <many-to-many column="Id"
-          class="StoreCategory"/>
-    </set>-->
-  </class>
 
-  <!--<class name="StoreCategory">
-    <id name="Id" column="Id">
+  <class name="StoreCategory" table="StoreCat">
+    <id name="Id" column="CatId">
       <generator class="assigned"/>
     </id>
     <property name="ParentId" not-null="true" />
     <property name="Name" not-null="true"  />
-    <property name="Order" not-null="true" />
-    
-  </class>-->
+    <property name="Url" not-null="true"/>
+    <property name="Order" not-null="true" column="CatOrder" />
+  </class>
   
+  <class name="StoreProduct" table="StoreProduct">
+    <id name="Id" column="ProductId">
+      <generator class="assigned"/>
+    </id>
+    <property name="Name"  not-null="true"/>
+    <property name="ExtraDetails" />
+    <property name="NumberOfSales" not-null="true" />
+    <property name="Coupon" not-null="true" />
+    <property name="SalePrice"  not-null="true"/>
+    <property name="PictureUrl" not-null="true" />
+    <property name="Url" not-null="true"/>
+    
+    <property name="Description" not-null="true" length="8000"/>
+    <property name="SupplyTime" not-null="true" length="3"/>
+    <property name="NumberOfPayments" not-null="true"/>
+    <property name="CatalogNumber" not-null="true" length="50"/>
+    <property name="DeliveryPrice" not-null="true"/>
+    <property name="HomePage" not-null="true"/>
+
+    <set name="Categories" table="StoreProductCategory">
+      <key column="ProductId"/>
+      <many-to-many column="CatId" class="StoreCategory"/>
+    </set>
+  </class>
 </hibernate-mapping>

@@ -18,6 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             where TD : class
             where TQ : IQueryCache
         {
+            if (getItemCallback == null) throw new ArgumentNullException("getItemCallback");
             string cacheKey = queryParam.CacheKey;
 
             var item = m_Cache.GetFromCache(cacheKey, queryParam.CacheRegion) as TD;
@@ -44,6 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             where TCr : ICommandResult
             where TC : ICommandCache
         {
+            if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
 
             TCr retval = invokeFunction(command);
             m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
@@ -61,6 +63,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
         public void Command<TC>(Action<TC> invokeFunction, TC command)
             where TC : ICommandCache
         {
+            if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
             invokeFunction(command);
             m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
         }

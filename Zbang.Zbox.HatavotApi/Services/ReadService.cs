@@ -10,21 +10,21 @@ namespace Zbang.Zbox.Store.Services
     {
         private const string ConnectionStringName = "Hatavot";
 
-        public async Task<IEnumerable<StoreDto>> ReadData(int category)
+        public async Task<IEnumerable<ProductDto>> ReadData(int category)
         {
-            using (var conn = await DapperConnection.OpenConnection(ConnectionStringName))
+            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
             {
                 const string sql = @"select [productid]  as Id -- Product ID 
       ,[name] -- Product Name 
-      --,[description] -- Product Description (HTML) -- Product Page
+      ,[description] -- Product Description (HTML) -- Product Page
       ,[saleprice] -- Regular Price 
       ,[image]-- Main Image (http://www.hatavot.co.il/uploadimages/250/XXX)
-      --,[catcode] -- Categories (list to  CatCode in [bizpoin_bizpointDB].[categories])
-      --,[featured] -- Show on main page 
+      ,[catcode] as CategoryCode -- Categories (list to  CatCode in [bizpoin_bizpointDB].[categories])
+      ,[featured] -- Show on main page 
       --,[show] -- Active if NOT 'ON'
-      --,[CatalogNumber] -- part of Product Description 
+      ,[CatalogNumber] -- part of Product Description 
       ,[SubName] as ExtraDetails-- 2nd title of the Product Description 
-      --,[SupplyTime]-- part of Product description 
+      ,[SupplyTime]-- part of Product description 
       --,[IndexProdOrder] -- the rank of the product on the page (lower is higher on the page_)
       --,[SalesProdOrder] -- sales page product order 
       --,[ProdOrder] -- Category Page  product order
@@ -41,33 +41,31 @@ namespace Zbang.Zbox.Store.Services
       --,[v5]-- Upgrades
       --,[p6]-- Upgrades
       --,[v6]-- Upgrades
-      --,[DeliveryPrice] -- Delivery charge 
-      --,[ProductPayment]-- Number of payments 
+      ,[DeliveryPrice] -- Delivery charge 
+      ,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       --,[designNum] -- Which University to show --> Can be to all or to one specific  
   FROM [bizpoin_bizpointDB].[products] where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
-                return await conn.QueryAsync<StoreDto>(sql, new { catId  = category});
+                return await conn.QueryAsync<ProductDto>(sql, new { catId  = category});
             }
         }
 
-        public async Task<IEnumerable<int>> GetCategories()
+        public async Task<IEnumerable<CategoryDto>> GetCategories()
         {
-            using (var conn = await DapperConnection.OpenConnection(ConnectionStringName))
+            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
             {
-                return await conn.QueryAsync<int>(@"WITH cte 
+                return await conn.QueryAsync<CategoryDto>(@"WITH cte 
 AS
 (
--- Anchor member definition
     select catcode,catname,parentid,catorder,1 as level from categories c where parentid = 611
     UNION ALL
--- Recursive member definition
     SELECT e.catcode,e.catname,e.parentid,e.catorder ,Level + 1
        
     FROM categories AS e
     INNER JOIN cte AS d
         ON e.parentid = d.catcode
 )
-select catcode from cte");
+select catcode as Id, catname as name, parentid, catorder as [order] from cte where level = 2");
             }
         }
     }

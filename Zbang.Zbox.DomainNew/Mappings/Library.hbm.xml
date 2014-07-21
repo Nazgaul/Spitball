@@ -7,7 +7,6 @@
       <generator class="assigned"/>
     </id>
     <property name="Name" not-null="true"/>
-    <!--<property name="Color" not-null="true" length="10"/>-->
     <property name="AmountOfNodes" column="AmountOfChildren" not-null="true"/>
 
     <many-to-one name="Parent" class="Library" column="ParentId" foreign-key="LibraryParent"  />

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -54,21 +55,25 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
         }
         public MemoryStream SaveImage(Image thumb)
         {
-            var ms = new MemoryStream();
+            if (thumb == null) throw new ArgumentNullException("thumb");
+            using (var ms = new MemoryStream())
+            {
 
-            ImageCodecInfo[] info = ImageCodecInfo.GetImageEncoders(); // info 1 is jpg encoder
-            var encoderParameters = new EncoderParameters(2);
-            encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, 85L);
-            encoderParameters.Param[1] = new EncoderParameter(Encoder.RenderMethod, EncoderValue.RenderProgressive.ToString());
+                ImageCodecInfo[] info = ImageCodecInfo.GetImageEncoders(); // info 1 is jpg encoder
+                using (var encoderParameters = new EncoderParameters(2))
+                {
+                    encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, 85L);
+                    encoderParameters.Param[1] = new EncoderParameter(Encoder.RenderMethod,
+                        EncoderValue.RenderProgressive.ToString());
 
 
-            thumb.Save(ms, info[1], encoderParameters);
+                    thumb.Save(ms, info[1], encoderParameters);
+                }
 
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
+                ms.Seek(0, SeekOrigin.Begin);
+                return ms;
+            }
         }
-
-
 
 
         private MemoryStream ResizeImage(Image img, int height, int width, bool shouldCrop)
@@ -106,9 +111,6 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
                     var cropArea = new Rectangle(leftTopCorner, new Size(width, height));
                     thumb = thumb.Clone(cropArea, thumb.PixelFormat);
                 }
-
-                //graphic.FillRectangle(Brushes.White, cropArea);
-                //graphic.DrawImage(img, cropArea);
             }
             return SaveImage(thumb);
 

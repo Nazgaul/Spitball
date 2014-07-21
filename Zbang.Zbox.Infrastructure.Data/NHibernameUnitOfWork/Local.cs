@@ -7,12 +7,12 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork
 {
     public static class Local
     {
-        static readonly ILocalData m_data = new LocalData();
+        static readonly ILocalData DataObject = new LocalData();
 
         public static ILocalData Data
         {
             get
-            { return m_data; }
+            { return DataObject; }
         }
 
         private class LocalData : ILocalData

@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure
             ioc.RegisterType<CommandHandlers.ICommandBus, CommandHandlers.CommandBus>(LifeTimeManager.PerHttpRequest);
 
 
-            ioc.RegisterType<Thumbnail.IThumbnailProvider, Thumbnail.ThumbnailProvider>();
+            //ioc.RegisterType<Thumbnail.IThumbnailProvider, Thumbnail.ThumbnailProvider>();
             ioc.RegisterType<Thumbnail.IAcademicBoxThumbnailProvider, Thumbnail.ThumbnailProvider>(LifeTimeManager.Singleton);
 
 
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure
 
             ioc.RegisterType<Security.IFormsAuthenticationService, Security.FormsAuthenticationService>();
 
-            ioc.RegisterType<Culture.IEnglishToHebrewChars, Culture.EnglishToHebrewChars>();
+            //ioc.RegisterType<Culture.IEnglishToHebrewChars, Culture.EnglishToHebrewChars>();
             ioc.RegisterType<Culture.IFilterWords, Culture.FilterWords>();
             ioc.RegisterType<Culture.IHebrewStemmer, Culture.HebrewStemmer>();
 

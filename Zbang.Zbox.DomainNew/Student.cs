@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.Domain
+﻿using System;
+
+namespace Zbang.Zbox.Domain
 {
     public class Student
     {
@@ -9,6 +11,7 @@
 
         public Student(University university, string id)
         {
+            if (id == null) throw new ArgumentNullException("id");
             ID = id.PadLeft(9, '0');
             University = university;
         }

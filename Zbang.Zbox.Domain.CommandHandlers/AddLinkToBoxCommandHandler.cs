@@ -41,6 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public AddLinkToBoxCommandResult Execute(AddLinkToBoxCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             Uri u = CheckUrl(command);
             //Get Box
             var box = m_BoxRepository.Get(command.BoxId);

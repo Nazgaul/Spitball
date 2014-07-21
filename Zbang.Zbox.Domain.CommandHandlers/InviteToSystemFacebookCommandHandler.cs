@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -30,6 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(InviteToSystemFacebookCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             User sender = m_UserRepository.Load(message.SenderId);
 
 

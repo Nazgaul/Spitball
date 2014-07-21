@@ -10,6 +10,7 @@
         firstChild: ':first-child', lastChild: ':last-child', annotation: 'annotation', video: 'video'
     },
     eById = document.getElementById.bind(document);
+    var oneTime = true;
 
     cd.pubsub.subscribe('initItem', registerKOItem);
 
@@ -238,12 +239,11 @@
         //#endregion
 
         //#region Get item data
-        var oneTime = true;
         cd.pubsub.subscribe(consts.item, function (data) {
-            if (!oneTime) {
-                oneTime = false;
+            if (!oneTime) {                
                 return;
             }
+            oneTime = false;
             self.itemid(parseInt(cd.getParameterFromUrl(4), 10));
 
             if (cd.register()) {

@@ -26,26 +26,26 @@ namespace Zbang.Zbox.Infrastructure.WebWorkerRoleJoinData
         //}
        
 
-        public T DeserializeBinary(byte[] msg)
-        {
-            using (var ms = new MemoryStream())
-            {
-                var d = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                ms.Write(msg, 0, msg.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-                return d.Deserialize(ms) as T;
-            }
-        }
+        //public T DeserializeBinary(byte[] msg)
+        //{
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        var d = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+        //        ms.Write(msg, 0, msg.Length);
+        //        ms.Seek(0, SeekOrigin.Begin);
+        //        return d.Deserialize(ms) as T;
+        //    }
+        //}
 
-        public byte[] SerializeBinary(T data)
-        {
-            using (var ms = new MemoryStream())
-            {
-                var d = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                d.Serialize(ms, data);
-                return ms.ToArray();
-            }
-        }
+        //public byte[] SerializeBinary(T data)
+        //{
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        var d = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+        //        d.Serialize(ms, data);
+        //        return ms.ToArray();
+        //    }
+        //}
 
         
     }
