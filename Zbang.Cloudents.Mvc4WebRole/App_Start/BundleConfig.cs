@@ -113,15 +113,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterJsRegular("angular-general",
                                 new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js",
                     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+
                 new JsFileWithCdn("~/scripts/angular.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"),
+
                 new JsFileWithCdn("~/scripts/angular-route.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),
-                    new JsFileWithCdn("~/scripts/angular-sanitize.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),                   
+                    new JsFileWithCdn("~/scripts/angular-cookies.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-cookies.min.js"),
+                    
+            new JsFileWithCdn("~/scripts/angular-sanitize.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min.js"),
+
                     new JsFileWithCdn("~/scripts/angular-animate.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
+
                                     new JsFileWithCdn("~/scripts/stacktrace.js")
+
                                     );
 
             RegisterJsRegular("angular-layout3",
@@ -224,7 +232,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
-                new JsFileWithCdn("~/js/shopping/app.js"),                
+                new JsFileWithCdn("~/js/shopping/app.js"),
+                new JsFileWithCdn("~/js/shopping/controllers/mainCtrl.js"),
                 new JsFileWithCdn("~/js/shopping/controllers/homeCtrl.js"),
                 new JsFileWithCdn("/js/services/stacktrace.js"),
                 new JsFileWithCdn("/js/services/userDetails.js"),

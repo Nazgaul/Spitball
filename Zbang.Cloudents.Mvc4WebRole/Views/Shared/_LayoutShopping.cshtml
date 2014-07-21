@@ -14,16 +14,16 @@
     @Html.CssRtl("shoppingRtl")
     @Html.CssCulture("lang")
 </head>
-<body>
+<body ng-controller="MainCtrl">
     <header role="banner">
         <div class="rFloat">
             <button type="button" class="login">Log in</button> /
             <button type="button" class="signup">Sign up</button>
             <div class="language">
-                <a data-language="en-US" href="/account/" title="English (US)" class="currentItem">English‎</a>
-                <a data-language="ru-RU" href="/account/" title="Russian site">Pусский</a>
-                <a data-language="he-IL" href="/account/" title="Hebrew site">עברית</a>
-                <a data-language="ar-AE" href="/account/" title="Arabic site">العربية</a>
+                <button type="button" title="English (US)" ng-class="{currentItem === info.currentLanguage}" ng-click="'en-US'">English‎</button>
+                <button type="button" title="Russian site" ng-class="{currentItem === info.currentLanguage}" ng-click="'ru-RU'">Pусский</button>
+                <button type="button" title="Hebrew site" ng-class="{currentItem === info.currentLanguage}" ng-click="'he-IL'">עברית</button>
+                <button type="button" title="Arabic site" ng-class="{currentItem === info.currentLanguage}" ng-click="'ar-AE'">العربية</button>
             </div>
         </div>
         <h1 class="logo">Product discounts exclusively for students </h1>
@@ -47,8 +47,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-               --><li class="spr-cal">
+                </li>
+                <!--
+                -->
+                <li class="spr-cal">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 697))
@@ -56,8 +58,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-dic">
+                </li>
+                <!--
+                -->
+                <li class="spr-dic">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 699))
@@ -65,8 +69,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-smartphone">
+                </li>
+                <!--
+                -->
+                <li class="spr-smartphone">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 675))
@@ -74,8 +80,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-printers">
+                </li>
+                <!--
+                -->
+                <li class="spr-printers">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 612))
@@ -83,8 +91,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-covers">
+                </li>
+                <!--
+                -->
+                <li class="spr-covers">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 703))
@@ -92,8 +102,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-chair">
+                </li>
+                <!--
+                -->
+                <li class="spr-chair">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 690))
@@ -101,8 +113,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-martini">
+                </li>
+                <!--
+                -->
+                <li class="spr-martini">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 622))
@@ -110,8 +124,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-tv">
+                </li>
+                <!--
+                -->
+                <li class="spr-tv">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 629))
@@ -119,8 +135,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-eco">
+                </li>
+                <!--
+                -->
+                <li class="spr-eco">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 669))
@@ -128,8 +146,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li>
+                </li>
+                <!--
+                -->
+                <li>
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 631))
@@ -137,8 +157,10 @@
                             <li><a href="#">@sub.Name</a></li>
                         }
                     </ul>
-                </li><!--
-                --><li class="spr-house">
+                </li>
+                <!--
+                -->
+                <li class="spr-house">
                     <h3>PC / Tablet</h3>
                     <ul>
                         @foreach (var sub in model.Where(w => w.ParentId == 633))
@@ -150,7 +172,7 @@
             </ul>
         </div>
     </nav>
-    
+
     <main role="main">
         @RenderBody()
     </main>
@@ -257,38 +279,38 @@
             </div>
 
             @*<div>
-        <h3>Electronic dictionaries</h3>
-        <ul>
-            <li><a href="#">one</a></li>
-            <li><a href="#">two</a></li>
-        </ul>
-        <h3>Cell phones</h3>
-        <ul>
-            <li><a href="#">one</a></li>
-        </ul>
-        <h3>Computer equipment</h3>
-        <ul>
-            <li><a href="#">one</a></li>
-            <li><a href="#">two</a></li>
-            <li><a href="#">three</a></li>
-        </ul>
-    </div>
+                    <h3>Electronic dictionaries</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                        <li><a href="#">two</a></li>
+                    </ul>
+                    <h3>Cell phones</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                    </ul>
+                    <h3>Computer equipment</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                        <li><a href="#">two</a></li>
+                        <li><a href="#">three</a></li>
+                    </ul>
+                </div>
 
-    <div>
-        <h3>PC / Tablet</h3>
-        <ul>
-            <li><a href="#">one</a></li>
-            <li><a href="#">two</a></li>
-            <li><a href="#">three</a></li>
-            <li><a href="#">four</a></li>
-            <li><a href="#">five</a></li>
-            <li><a href="#">six</a></li>
-        </ul>
-        <h3>Calculators</h3>
-        <ul>
-            <li><a href="#">one</a></li>
-        </ul>
-    </div>*@
+                <div>
+                    <h3>PC / Tablet</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                        <li><a href="#">two</a></li>
+                        <li><a href="#">three</a></li>
+                        <li><a href="#">four</a></li>
+                        <li><a href="#">five</a></li>
+                        <li><a href="#">six</a></li>
+                    </ul>
+                    <h3>Calculators</h3>
+                    <ul>
+                        <li><a href="#">one</a></li>
+                    </ul>
+                </div>*@
         </div>
         <div class="bottom">
             <div class="wpr logo">
