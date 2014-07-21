@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateUserFirstTimeStatusCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var user = m_UserReposiory.Get(message.UserId);
             if (user == null)
             {

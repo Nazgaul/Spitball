@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(MarkMessagesAsReadCommand commandMessage)
         {
+            if (commandMessage == null) throw new ArgumentNullException("commandMessage");
             var message =  m_MessageRepositoy.Load(commandMessage.MessageId);
             if (message.Recepient.Id != commandMessage.UserId)
             {

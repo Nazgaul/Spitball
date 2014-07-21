@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -32,6 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public virtual CreateUserCommandResult Execute(CreateUserCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             User user = UserRepository.GetUserByEmail(command.Email);
             var result = new CreateUserCommandResult(user);
             return result;
@@ -39,6 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected void TriggerWelcomeMail(User user)
         {
+            if (user == null) throw new ArgumentNullException("user");
             QueueRepository.InsertMessageToMailNew(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
@@ -61,6 +64,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
         {
+            if (result == null) throw new ArgumentNullException("result");
+            if (user == null) throw new ArgumentNullException("user");
             University university = UniversityRepository.Get(universityId);
             if (university == null)
             {

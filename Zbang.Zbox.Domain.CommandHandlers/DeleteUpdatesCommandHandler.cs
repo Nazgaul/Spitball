@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Domain.Commands;
+﻿using System;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 
@@ -13,6 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteUpdatesCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var updates = m_UpdatesRepository.GetUserBoxUpdates(message.UserId, message.BoxId);
 
             foreach (var update in updates)

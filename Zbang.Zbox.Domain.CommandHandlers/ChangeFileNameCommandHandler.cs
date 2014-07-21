@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Domain.Commands;
+﻿using System;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Domain.DataAccess;
@@ -16,6 +17,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public ChangeFileNameCommandResult Execute(ChangeFileNameCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
             var user = m_UserRepository.Load(command.UserId);
             var item = m_ItemRepository.Get(command.FileId);
 

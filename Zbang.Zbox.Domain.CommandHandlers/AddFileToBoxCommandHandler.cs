@@ -48,6 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public AddFileToBoxCommandResult Execute(AddFileToBoxCommand command)
         {
+            if (command == null) throw new ArgumentNullException("command");
 
             var box = m_BoxRepository.Get(command.BoxId);
             var user = m_UserRepository.Get(command.UserId);

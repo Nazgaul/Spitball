@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         }
         public void Handle(UpdateQuestionCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var question = m_QuestionRepository.Load(message.QuestionId);
             if (question.Quiz.Owner.Id != message.UserId)
             {

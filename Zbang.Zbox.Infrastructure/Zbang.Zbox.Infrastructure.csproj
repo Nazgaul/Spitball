@@ -137,10 +137,8 @@
     <Compile Include="Commands\ICommandResolver.cs" />
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
-    <Compile Include="Culture\EnglishToHebrewChars.cs" />
     <Compile Include="Culture\FilterWords.cs" />
     <Compile Include="Culture\HebrewStemmer.cs" />
-    <Compile Include="Culture\IEnglishToHebrewChars.cs" />
     <Compile Include="Culture\IFilterWords.cs" />
     <Compile Include="Culture\IHebrewStemmer.cs" />
     <Compile Include="Culture\Languages.cs" />
@@ -245,9 +243,6 @@
     <Compile Include="UnitsOfWork\IUnitOfWorkImplementor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="WebWorkerRoleJoinData\SerializeData.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Enums\Resources\EnumResources.ar.resx" />

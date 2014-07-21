@@ -25,7 +25,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(ChangeBoxInfoCommand command)
         {
-           // 
+            if (command == null) throw new ArgumentNullException("command");
+            // 
 
             Box box = m_BoxRepository.Get(command.BoxId); // need to get not to get proxy
 

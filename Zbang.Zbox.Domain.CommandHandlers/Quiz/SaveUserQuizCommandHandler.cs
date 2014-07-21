@@ -38,6 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
         public void Handle(SaveUserQuizCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var user = m_UserRepository.Load(message.UserId);
             var quiz = m_QuizRepository.Load(message.QuizId);
 

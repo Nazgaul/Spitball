@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         public byte[] CompressToGzip(byte[] stream)
         {
+            if (stream == null) throw new ArgumentNullException("stream");
             using (var ms = new MemoryStream())
             {
                 using (var gz = new GZipStream(ms, CompressionMode.Compress))
@@ -16,10 +18,11 @@ namespace Zbang.Zbox.Infrastructure.Storage
                 }
                 return ms.ToArray();
             }
-
         }
+
         public byte[] CompressToGzip(Stream stream)
         {
+            if (stream == null) throw new ArgumentNullException("stream");
             stream.Seek(0, SeekOrigin.Begin);
             using (var ms = new MemoryStream())
             {

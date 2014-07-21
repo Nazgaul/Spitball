@@ -39,7 +39,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new InvalidCastException("can't cast CreateBox to CreateAcademicBox");
             }
-            ValidateCommand(command);
+            if (command.BoxName.Length > Box.NameLength)
+            {
+                throw new OverflowException("Box Name exceed" + Box.NameLength);
+            }
 
             User user = UserRepository.Get(command.UserId);
             ValidateUser(user);

@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         public string SaveFileToStorage(Stream streamArray, string fileName)
         {
+            if (streamArray == null) throw new ArgumentNullException("streamArray");
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
 
             if (File.Exists(fileNameWithPath))

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -54,6 +55,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
         }
         public MemoryStream SaveImage(Image thumb)
         {
+            if (thumb == null) throw new ArgumentNullException("thumb");
             using (var ms = new MemoryStream())
             {
 
@@ -72,8 +74,6 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
                 return ms;
             }
         }
-
-
 
 
         private MemoryStream ResizeImage(Image img, int height, int width, bool shouldCrop)

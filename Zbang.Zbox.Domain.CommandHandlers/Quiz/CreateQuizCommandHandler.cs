@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Domain.Commands.Quiz;
+﻿using System;
+using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -26,6 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         }
         public void Handle(CreateQuizCommand message)
         {
+            if (message == null) throw new ArgumentNullException("message");
             var user = m_UserRepository.Load(message.UserId);
             var box = m_BoxRepository.Load(message.BoxId);
 

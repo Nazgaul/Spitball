@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Zbang.Zbox.Infrastructure.Consts;
 namespace Zbang.Zbox.Domain
 {
@@ -15,6 +16,7 @@ namespace Zbang.Zbox.Domain
             string thumbnailBlobName, string thumbmailUrl)
             : this()
         {
+            if (uploader == null) throw new ArgumentNullException("uploader");
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             DateTimeUser = new UserTimeDetails(uploader.Email);
 
