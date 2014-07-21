@@ -45,6 +45,7 @@ namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
         }
         public UserDetailDto(UserDetailDto t)
         {
+            if (t == null) throw new ArgumentNullException("t");
 
             FirstTimeDashboard = t.FirstTimeDashboard;
             FirstTimeLibrary = t.FirstTimeLibrary;

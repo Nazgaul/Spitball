@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Domain
             :
             base(boxName, user, BoxPrivacySettings.AnyoneWithUrl)
         {
+            if (creator == null) throw new ArgumentNullException("creator");
             InitializeAcademicBox();
             CourseCode = courseCode;
 // ReSharper disable DoNotCallOverridableMethodsInConstructor

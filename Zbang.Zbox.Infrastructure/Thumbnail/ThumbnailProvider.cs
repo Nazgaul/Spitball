@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.Thumbnail
 {
-    public class ThumbnailProvider : IThumbnailProvider, IAcademicBoxThumbnailProvider
+    public class ThumbnailProvider : IAcademicBoxThumbnailProvider
     {
         //const string UnknownFile = "unknown";
         //const string DefaultImageTypePicture = "imagev1.jpg";

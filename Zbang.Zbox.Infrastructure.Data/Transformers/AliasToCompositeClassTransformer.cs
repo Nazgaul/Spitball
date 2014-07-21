@@ -34,6 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
 
         public IList TransformList(IList collection)
         {
+            if (collection == null) throw new ArgumentNullException("collection");
             var parents2 = (IList)Activator.CreateInstance(collection.GetType());
             var parentsDictionary = new Dictionary<long, T>();
 

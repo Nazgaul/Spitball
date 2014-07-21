@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 {
     public static class DapperConnection
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public static async Task<IDbConnection> OpenConnectionAsync(string connectionStringName = "Zbox")
         {
             var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
@@ -17,6 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
             return connection;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public static IDbConnection OpenConnection(string connectionStringName = "Zbox")
         {
             var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));

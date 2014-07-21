@@ -285,6 +285,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_AzureUniversiesSpellerDirectory.Dispose();
             m_Timer.Dispose();
         }
+        
     }
 
 

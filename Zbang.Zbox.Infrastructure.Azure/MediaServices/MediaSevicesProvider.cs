@@ -417,7 +417,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(string.Format("Error copying blob '{0}': {1}", sourceBlob.Name, ex.Message));
+                   // Console.WriteLine("Error copying blob '{0}': {1}", sourceBlob.Name, ex.Message);
                 }
             }
         }

@@ -13,10 +13,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
 
         protected readonly IUserRepository UserRepository;
-        protected readonly IQueueProvider QueueRepository;
-        protected readonly IRepository<University> UniversityRepository;
-        protected readonly IInviteToCloudentsRepository InviteToCloudentsRepository;
-        protected readonly IRepository<Reputation> ReputationRepository;
+        private readonly IQueueProvider m_QueueRepository;
+        private readonly IRepository<University> m_UniversityRepository;
+        private readonly IInviteToCloudentsRepository m_InviteToCloudentsRepository;
+        private readonly IRepository<Reputation> m_ReputationRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
@@ -25,10 +25,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Reputation> reputationRepository)
         {
             UserRepository = userRepository;
-            QueueRepository = queueRepository;
-            UniversityRepository = universityRepository;
-            InviteToCloudentsRepository = inviteToCloudentsRepository;
-            ReputationRepository = reputationRepository;
+            m_QueueRepository = queueRepository;
+            m_UniversityRepository = universityRepository;
+            m_InviteToCloudentsRepository = inviteToCloudentsRepository;
+            m_ReputationRepository = reputationRepository;
         }
 
         public virtual CreateUserCommandResult Execute(CreateUserCommand command)
@@ -42,31 +42,28 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         protected void TriggerWelcomeMail(User user)
         {
             if (user == null) throw new ArgumentNullException("user");
-            QueueRepository.InsertMessageToMailNew(new WelcomeMailData(user.Email, user.Name, user.Culture));
+            m_QueueRepository.InsertMessageToMailNew(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
         protected void AddReputation(User user)
         {
-            var invite = InviteToCloudentsRepository.GetInviteToCloudents(user);
+            var invite = m_InviteToCloudentsRepository.GetInviteToCloudents(user);
             if (invite == null)
             {
                 return;
             }
             var reputation = invite.Sender.AddReputation(Infrastructure.Enums.ReputationAction.Invite);
-            ReputationRepository.Save(reputation);
+            m_ReputationRepository.Save(reputation);
             UserRepository.Save(invite.Sender);
         }
 
 
-        protected void AddReputaion()
-        {
-
-        }
+        
         protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
         {
             if (result == null) throw new ArgumentNullException("result");
             if (user == null) throw new ArgumentNullException("user");
-            University university = UniversityRepository.Get(universityId);
+            University university = m_UniversityRepository.Get(universityId);
             if (university == null)
             {
                 return;

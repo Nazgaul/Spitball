@@ -162,6 +162,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
 
         public void Dispose()
         {
+            
             m_Container.Dispose();
         }
     }

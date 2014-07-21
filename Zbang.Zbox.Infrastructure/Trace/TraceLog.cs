@@ -7,8 +7,10 @@ namespace Zbang.Zbox.Infrastructure.Trace
     {
         public static void WriteError(Exception ex)
         {
+            if (ex == null) throw new ArgumentNullException("ex");
             t.Trace.TraceError(ex.ToString());
         }
+
         public static void WriteInfo(Exception ex)
         {
             if (ex == null) throw new ArgumentNullException("ex");

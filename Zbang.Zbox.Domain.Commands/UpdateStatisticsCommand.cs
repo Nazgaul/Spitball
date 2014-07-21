@@ -19,10 +19,11 @@ namespace Zbang.Zbox.Domain.Commands
         public DateTime StatTime { get; private set; }
 
 
-        public class StatisticItemData
-        {
-            public long ItemId { get; set; }
-            public StatisticsAction Action { get; set; }
-        }
+       
+    }
+    public class StatisticItemData
+    {
+        public long ItemId { get; set; }
+        public StatisticsAction Action { get; set; }
     }
 }

@@ -63,6 +63,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
         public void Command<TC>(Action<TC> invokeFunction, TC command)
             where TC : ICommandCache
         {
+            if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
             invokeFunction(command);
             m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
         }

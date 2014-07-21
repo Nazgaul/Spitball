@@ -10,8 +10,6 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         void Save(TEntity item, object id);
         void Delete(TEntity item);
 
-        TEntity UnProxyObjectAs(TEntity obj);
-
         IQueryable<TEntity> GetQuerable();
         
     }
