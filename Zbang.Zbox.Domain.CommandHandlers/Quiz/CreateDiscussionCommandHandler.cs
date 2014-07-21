@@ -1,8 +1,8 @@
-﻿using Zbang.Zbox.Domain.Commands.Quiz;
+﻿using System;
+using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
@@ -27,8 +27,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         }
         public void Handle(CreateDiscussionCommand message)
         {
-            Throw.OnNull(message, "message");
-            Throw.OnNull(message.Text, "text", false);
+            if (message == null) throw new ArgumentNullException("message");
+
+            if (string.IsNullOrEmpty(message.Text))
+            {
+                throw new NullReferenceException("message.Text");
+            }
 
             var user = m_UserRepository.Load(message.UserId);
             var question = m_QuestionRepository.Load(message.QuestionId);

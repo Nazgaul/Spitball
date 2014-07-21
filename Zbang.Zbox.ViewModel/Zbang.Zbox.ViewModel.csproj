@@ -136,6 +136,7 @@
     <Compile Include="DTOs\UserDtos\UserMemberDto.cs" />
     <Compile Include="DTOs\UserDtos\UserToFriendActivity.cs" />
     <Compile Include="DTOs\UserPublicDto.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQueryBase.cs" />
     <Compile Include="Queries\Boxes\GetUserWithFriendQuery.cs" />

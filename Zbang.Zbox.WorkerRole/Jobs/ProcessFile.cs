@@ -7,6 +7,7 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -46,7 +47,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             m_QueueProcess.RunQueue(new CacheQueueName(), msg =>
             {
-                var msgData = msg.FromMessageProto<Infrastructure.Transport.FileProcessData>();
+                var msgData = msg.FromMessageProto<FileProcessData>();
                 if (msgData == null)
                 {
                     TraceLog.WriteInfo("GenerateDocumentCache - message is not in the currect format " + msg.Id);

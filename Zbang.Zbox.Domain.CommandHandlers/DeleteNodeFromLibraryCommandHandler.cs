@@ -1,7 +1,6 @@
 ﻿using System;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -15,9 +14,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteNodeFromLibraryCommand message)
         {
-            Throw.OnNull(message,"message");
+            if (message == null) throw new ArgumentNullException("message");
             var node = m_LibraryRepository.Get(message.NodeId);
-            Throw.OnNull(node, "node");
+            if (node == null)
+            {
+                throw new NullReferenceException("node");
+            }
 
             if (node.University.Id != message.UniversityId)
             {

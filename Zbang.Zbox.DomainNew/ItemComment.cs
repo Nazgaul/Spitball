@@ -1,5 +1,4 @@
-﻿
-using Zbang.Zbox.Infrastructure.Exceptions;
+﻿using System;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
@@ -24,14 +23,38 @@ namespace Zbang.Zbox.Domain
         }
         public ItemComment(User author, Item item, int imageId, string comment, int cordX, int cordY, int width, int height)
         {
-            Throw.OnNull(author, "author");
-            Throw.OnNull(item, "item");
-            Throw.OnNegative(imageId, "imageId");
-            Throw.OnNegative(cordX, "cordX");
-            Throw.OnNegative(cordY, "cordY");
-            Throw.OnNegative(width, "width");
-            Throw.OnNegative(height, "height");
-            Throw.OnNull(comment, "comment", false);
+            if (author == null)
+            {
+                throw new ArgumentNullException("author");
+            }
+            if (item == null)
+            {
+                throw new ArgumentNullException("item");
+            }
+            if (imageId < 0 )
+            {
+                throw new ArgumentException("imageId");
+            }
+            if (cordX < 0)
+            {
+                throw new ArgumentException("cordX");
+            }
+            if (cordY < 0)
+            {
+                throw new ArgumentException("cordY");
+            }
+            if (width < 0)
+            {
+                throw new ArgumentException("width");
+            }
+            if (height < 0)
+            {
+                throw new ArgumentException("height");
+            }
+            if (comment == null)
+            {
+                throw new ArgumentNullException("comment");
+            }
 
 
             var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
@@ -66,11 +89,27 @@ namespace Zbang.Zbox.Domain
         }
         public ItemCommentReply(User author, Item item, int imageId, string comment, ItemComment parent)
         {
-            Throw.OnNull(author, "author");
-            Throw.OnNull(item, "item");
-            Throw.OnNegative(imageId, "imageId");
-            Throw.OnNull(comment, "comment", false);
-            Throw.OnNull(parent, "parent");
+            if (author == null)
+            {
+                throw new ArgumentNullException("author");
+            }
+            if (item == null)
+            {
+                throw new ArgumentNullException("item");
+            }
+            if (imageId < 0)
+            {
+                throw new ArgumentException("imageId");
+            }
+            if (parent == null)
+            {
+                throw new ArgumentNullException("parent");
+            }
+           
+            if (comment == null)
+            {
+                throw new ArgumentNullException("comment");
+            }
 
 
             var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();

@@ -370,10 +370,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
         public Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
         {
-            var ms = new MemoryStream(fileContent);
-            //using (var ms = new MemoryStream(fileContent))
-            //{
-            return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+            using (var ms = new MemoryStream(fileContent))
+            {
+                //using (var ms = new MemoryStream(fileContent))
+                //{
+                return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+            }
             //}
         }
 
@@ -600,10 +602,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             CloudBlockBlob blob = GetFile(fileName);
 
-            var ms = new MemoryStream();
-            blob.DownloadToStream(ms);
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
+            using (var ms = new MemoryStream())
+            {
+                blob.DownloadToStream(ms);
+                ms.Seek(0, SeekOrigin.Begin);
+                return ms;
+            }
         }
 
         public async Task<Stream> DownloadFileAsync(string fileName)

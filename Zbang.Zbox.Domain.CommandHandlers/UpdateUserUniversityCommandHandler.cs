@@ -3,7 +3,6 @@ using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -28,14 +27,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateUserUniversityCommand message)
         {
-            University university = m_UniversityRepository.Get(message.UniversityId);
+            if (message == null) throw new ArgumentNullException("message");
+            var university = m_UniversityRepository.Get(message.UniversityId);
 
-            Throw.OnNull(university, "University");
+            if (university == null)
+            {
+                throw new NullReferenceException("university");
+            }
 
 
             Department deparment = m_DepartmentRepository.Get(message.DepartmentId); // load cause error if its empty
             User user = m_UserRepository.Get(message.UserId);
-            Throw.OnNull(user, "user");
+            if (user == null)
+            {
+                throw new NullReferenceException("user");
+            }
 
             var userCode = user.Code ?? message.Code;
 
@@ -45,7 +51,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            var studentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => w.University == university);
+            var studentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => Equals(w.University, university));
             bool needId = studentsIdsInUniversity.Any();
             if (needId && string.IsNullOrEmpty(message.StudentId))
             {

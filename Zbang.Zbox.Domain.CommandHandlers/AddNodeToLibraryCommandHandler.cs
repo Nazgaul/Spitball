@@ -1,6 +1,6 @@
-﻿using Zbang.Zbox.Domain.Commands;
+﻿using System;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -17,11 +17,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(AddNodeToLibraryCommand message)
         {
-            Throw.OnNull(message, "message");
+            if (message == null) throw new ArgumentNullException("message");
 
             var university = m_UniversityRepository.Load(message.UniversityId);
 
-            Throw.OnNull(university, "university");
 
 
             if (message.ParetnId.HasValue)

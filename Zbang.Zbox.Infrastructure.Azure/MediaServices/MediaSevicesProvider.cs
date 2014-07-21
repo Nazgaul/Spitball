@@ -402,13 +402,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             if (destinationBlob.Exists())
             {
-                Console.WriteLine(string.Format("Destination blob '{0}' already exists. Skipping.", destinationBlob.Uri));
+                //Console.WriteLine(string.Format("Destination blob '{0}' already exists. Skipping.", destinationBlob.Uri));
             }
             else
             {
                 try
                 {
-                    Console.WriteLine(string.Format("Copy blob '{0}' to '{1}'", sourceBlob.Uri, destinationBlob.Uri));
+                    //Console.WriteLine(string.Format("Copy blob '{0}' to '{1}'", sourceBlob.Uri, destinationBlob.Uri));
                     destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
                 }
                 catch (Exception ex)

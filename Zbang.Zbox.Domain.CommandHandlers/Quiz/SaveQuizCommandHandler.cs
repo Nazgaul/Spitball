@@ -4,7 +4,6 @@ using System.Text;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -30,7 +29,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         public SaveQuizCommandResult Execute(SaveQuizCommand message)
         {
             var quiz = m_QuizRepository.Load(message.QuizId);
-            Throw.OnNull(quiz, "quiz");
             if (quiz.Owner.Id != message.UserId)
             {
                 throw new UnauthorizedAccessException("user is not owner of quiz");

@@ -19,8 +19,14 @@ namespace Zbang.Zbox.Infrastructure.Security
         public LogInStatus ValidateUser(string email, string password, out Guid membershipId)
         {
             membershipId = Guid.Empty;
-            Throw.OnNull(email, "email");
-            Throw.OnNull(password, "password");
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException("email");
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentNullException("password");
+            }
 
             var userName = Membership.GetUserNameByEmail(email);
             if (string.IsNullOrEmpty(userName))
@@ -51,9 +57,18 @@ namespace Zbang.Zbox.Infrastructure.Security
             string email, out Guid memberShipUserId)
         {
             memberShipUserId = Guid.NewGuid();
-            Throw.OnNull(userName, "userName");
-            Throw.OnNull(password, "password");
-            Throw.OnNull(email, "email");
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException("email");
+            }
+            if (string.IsNullOrEmpty(userName))
+            {
+                throw new ArgumentNullException("userName");
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentNullException("password");
+            }
 
             MembershipCreateStatus status;
             var user = Membership.CreateUser(userName, password, email, null, null, true, out status);
@@ -73,16 +88,19 @@ namespace Zbang.Zbox.Infrastructure.Security
         {
             try
             {
-                Throw.OnNull(oldPassword, "oldPassword");
-                Throw.OnNull(newPassword, "newPassword");
+                if (string.IsNullOrEmpty(oldPassword))
+                {
+                    throw new ArgumentNullException("oldPassword");
+                }
+                if (string.IsNullOrEmpty(newPassword))
+                {
+                    throw new ArgumentNullException("newPassword");
+                }
 
                 MembershipUser currentUser = Membership.GetUser(membershipId);
-                if (currentUser == null)
-                {
-                    TraceLog.WriteInfo("ChangePassword " + membershipId + " cannot find user in membership");
-                    return false;
-                }
-                return currentUser.ChangePassword(oldPassword, newPassword);
+                if (currentUser != null) return currentUser.ChangePassword(oldPassword, newPassword);
+                TraceLog.WriteInfo("ChangePassword " + membershipId + " cannot find user in membership");
+                return false;
             }
             catch (ArgumentException ex)
             {
@@ -106,7 +124,10 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public bool EmailExists(string email, out Guid membershipId)
         {
-            Throw.OnNull(email, "userEmail");
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException("email");
+            }
 
             membershipId = Guid.Empty;
             var userName = Membership.GetUserNameByEmail(email);
@@ -122,8 +143,10 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public bool ResetPassword(Guid membershipId, string newPassword)
         {
-            Throw.OnNull(membershipId, "membershipId");
-            Throw.OnNull(newPassword, "newPassword");
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                throw new ArgumentNullException("newPassword");
+            }
 
 
             MembershipUser currentUser = Membership.GetUser(membershipId);

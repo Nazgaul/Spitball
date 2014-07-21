@@ -2,7 +2,6 @@
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -21,8 +20,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(CreateItemTabCommand message)
         {
-            Throw.OnNull(message, "message");
-            Throw.OnNull(message.Name, "ItemTab");
+            if (message == null) throw new ArgumentNullException("message");
+            if (string.IsNullOrEmpty(message.Name))
+            {
+                throw new NullReferenceException("message.Name");
+            }
+
 
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == Infrastructure.Enums.UserRelationshipType.None || userType == Infrastructure.Enums.UserRelationshipType.Invite)
@@ -32,7 +35,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             var box = m_BoxRepository.Get(message.BoxId);
-            Throw.OnNull(box, "Box");
+            if (box == null)
+            {
+                throw new NullReferenceException("box");
+            }
 
             var existsBoxTab = m_ItemTabRepository.GetTabWithTheSameName(message.Name, box.Id);
             if (existsBoxTab != null)

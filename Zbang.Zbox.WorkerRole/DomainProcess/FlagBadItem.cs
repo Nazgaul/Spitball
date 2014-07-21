@@ -1,8 +1,10 @@
-﻿using Zbang.Zbox.Infrastructure.Exceptions;
+﻿using System;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Storage.Entities;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.WorkerRole.DomainProcess
 {
@@ -24,12 +26,12 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             var parameters = data as BadItemData;
             if (parameters == null)
             {
-                throw new System.NullReferenceException("parameters");
+                throw new NullReferenceException("parameters");
             }
             m_TableProvider.InsertUserRequestAsync(
-                new Infrastructure.Storage.Entities.FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
+                new FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
 
-            var flagItemDetail = m_ZboxReadService.GetFlagItemUserDetail(new ViewModel.Queries.Emails.GetBadItemFlagQuery(parameters.UserId, parameters.ItemId));
+            var flagItemDetail = m_ZboxReadService.GetFlagItemUserDetail(new GetBadItemFlagQuery(parameters.UserId, parameters.ItemId));
 
             m_MailComponent.GenerateAndSendEmail("eidan@cloudents.com",
                 new FlagItemMailParams(flagItemDetail.ItemName,

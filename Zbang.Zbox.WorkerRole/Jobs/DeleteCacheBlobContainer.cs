@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -26,7 +27,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             catch (Exception ex)
             {
-                Zbang.Zbox.Infrastructure.Trace.TraceLog.WriteError("On Run DeleteCacheBlobContainer", ex);
+                TraceLog.WriteError("On Run DeleteCacheBlobContainer", ex);
                 throw;
             }
 

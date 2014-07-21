@@ -51,14 +51,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var box = m_BoxRepository.Get(command.BoxId);
             var user = m_UserRepository.Get(command.UserId);
-
-            Throw.OnNull(user, "user");
-            Throw.OnNull(box, "box");
+            
             if (user.Quota.FreeSpace < command.Length)
             {
                 throw new FileQuotaExceedException();
             }
-            UserRelationshipType type = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);
+            var type = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);
             if (type == UserRelationshipType.Invite || type == UserRelationshipType.None)
             {
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);

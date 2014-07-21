@@ -4,6 +4,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -44,7 +45,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             m_QueueProcess.RunQueue(new DownloadQueueName(), msg =>
             {
-                var msgData = msg.FromMessageProto<Infrastructure.Transport.UrlToDownloadData>();
+                var msgData = msg.FromMessageProto<UrlToDownloadData>();
                 if (msgData == null)
                 {
                     TraceLog.WriteInfo("AddFiles - message is not in the currect format " + msg.Id);

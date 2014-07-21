@@ -13,9 +13,18 @@ namespace Zbang.Zbox.Domain
         }
         public Comment(User user, string text, Box box, Guid id, IList<Item> items)
         {
-            Throw.OnNull(user, "User");
-            Throw.OnNull(box, "box");
-            Throw.OnNull(text, "text", false);
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            if (box == null)
+            {
+                throw new ArgumentNullException("box");
+            }
+            if (text == null)
+            {
+                throw new ArgumentNullException("text");
+            }
             Id = id;
             Items = items;
             User = user;

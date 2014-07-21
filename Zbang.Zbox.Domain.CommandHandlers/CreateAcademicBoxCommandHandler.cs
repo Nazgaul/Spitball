@@ -46,14 +46,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             Library library = m_LibraryRepository.Get(academicCommand.NodeId);
 
-            Throw.OnNull(library, "library");
+            if (library == null)
+            {
+                throw new NullReferenceException("library");
+            }
 
             if (library.AmountOfNodes > 0)
             {
                 throw new ArgumentException("cannot add box to library with nodes");
             }
             var universityUser = user.University.DataUnversity ?? user.University;
-            if (universityUser != library.University)
+            if (!Equals(universityUser, library.University))
             {
                 throw new ArgumentException("library user is not user university");
             }

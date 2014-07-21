@@ -4,7 +4,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -50,7 +49,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Item item = m_ItemRepository.Get(command.ItemId);
             User user = m_UserRepository.Load(command.UserId);
 
-            bool isAuthorize = userType == UserRelationshipType.Owner || item.Uploader == user;
+            bool isAuthorize = userType == UserRelationshipType.Owner || Equals(item.Uploader, user);
 
             if (!isAuthorize)
             {
@@ -66,7 +65,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var file = item as File;
 
             Box box = m_BoxRepository.Get(command.BoxId);
-            Throw.OnNull(box, "box");
+            if (box == null)
+            {
+                throw new NullReferenceException("box");
+            }
             box.UpdateItemCount();
             if (file != null)
             {

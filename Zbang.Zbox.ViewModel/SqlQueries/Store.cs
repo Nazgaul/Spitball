@@ -3,7 +3,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
    public class Store
    {
-       public const string GetProducts = @"SELECT [Id]
+       public const string GetProducts = @"SELECT [ProductId] as Id
       ,[Name]
       ,[ExtraDetails]
       ,[NumberOfSales]

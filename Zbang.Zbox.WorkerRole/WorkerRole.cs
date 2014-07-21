@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using log4net.Config;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -27,7 +28,7 @@ namespace Zbang.Zbox.WorkerRole
             {
                 m_Unity = new UnityFactory();
 #if DEBUG
-                log4net.Config.XmlConfigurator.Configure();
+                XmlConfigurator.Configure();
 #endif
                 m_Tasks = new List<Task>();
                 m_Jobs = CreateJobProcessors();

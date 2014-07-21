@@ -167,7 +167,6 @@
     <Compile Include="Exceptions\BoxNameAlreadyExistsException.cs" />
     <Compile Include="Exceptions\FileQuotaExceedException.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
-    <Compile Include="Exceptions\Throw.cs" />
     <Compile Include="Extensions\ConfigFetcher.cs">
       <SubType>Code</SubType>
     </Compile>

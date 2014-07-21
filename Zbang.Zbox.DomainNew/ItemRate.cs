@@ -1,5 +1,4 @@
 ﻿using System;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -11,8 +10,14 @@ namespace Zbang.Zbox.Domain
         }
         public ItemRate(User user, Item item, Guid id, int rate)
         {
-            Throw.OnNull(user, "User");
-            Throw.OnNull(item, "Item");
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            if (item == null)
+            {
+                throw new ArgumentNullException("item");
+            }
             Id = id;
             User = user;
             Rate = rate;
