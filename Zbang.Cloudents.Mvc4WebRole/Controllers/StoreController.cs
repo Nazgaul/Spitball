@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -16,7 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, NonAjax, StoreCategories]
-        [Route("store/category/{categoryid:int}/{categoryname}",Name="storeCategory")]
+        [Route("store/category/{categoryid:int}/{categoryname}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
         [Route("store")]
 
@@ -25,7 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        
+
 
         [HttpGet, Ajax, ActionName("Index")]
         [Route("store")]
@@ -37,12 +38,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         public async Task<ActionResult> Products(int? category)
         {
-            var products = await ZboxReadService.GetProducts();
+            var products = await ZboxReadService.GetProducts(new GetStoreProductByCategoryQuery(category));
             return this.CdJson(new JsonResponse(true, products));
         }
 
         //store/product?id=xxx
-        [HttpGet,Ajax]
+        [HttpGet, Ajax]
         public ActionResult Product(int id)
         {
             return PartialView();
