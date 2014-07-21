@@ -55,12 +55,7 @@ app.config([
             templateUrl: function (params) { return '/store/product/' + params.productId + '/' + encodeURIComponent(params.productName) + '/'; },
             controller: 'ProductCtrl',
             type: 'product'
-        }).
-        when('/store/sales/', {
-            templateUrl: '/Store/Sales',
-            controller: 'SalesCtrl',
-            type: 'sales'
-        }).
+        }).        
         when('/store/about/', {
             templateUrl: '/Store/About',
             controller: 'AboutCtrl',
