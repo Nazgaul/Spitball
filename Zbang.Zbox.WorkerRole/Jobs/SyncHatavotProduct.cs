@@ -53,9 +53,22 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     {
                         var bytes = await DownloadImage(item.Image);
                         item.Image = await m_BlobProvider.UploadFromLink(bytes, item.Image);
-                        products.Add(new ProductStore(item.Id, item.Name, item.ExtraDetails,
-                            RandomProvider.GetThreadRandom().Next(15, 50), item.Coupon, item.Saleprice, item.Image,
-                            item.CategoryCode));
+                        products.Add(new ProductStore(
+                            item.CatalogNumber,
+                            item.CategoryCode,
+                            item.Coupon,
+                            item.DeliveryPrice,
+                            item.Description,
+                            item.ExtraDetails,
+                            item.Featured == "ON",
+                            item.Id,
+                            item.Name,
+                            RandomProvider.GetThreadRandom().Next(15, 50),
+                             item.Image,
+                             item.ProductPayment,
+                             item.Saleprice,
+                             item.SupplyTime
+                            ));
                     }
                     catch (Exception ex)
                     {

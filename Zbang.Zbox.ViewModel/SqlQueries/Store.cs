@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[SalePrice]
       ,[PictureUrl]
       ,[Url]
-        FROM [Zbox].[StoreProduct]";
+        FROM [Zbox].[StoreProduct] where homepage = 1";
 
        public const string GetProductsWithCategory = @"SELECT s.[ProductId] as Id
       ,[Name]
