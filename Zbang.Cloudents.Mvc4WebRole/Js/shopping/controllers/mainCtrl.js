@@ -18,8 +18,12 @@
             if (!current.$$route) {
                 return;
             }
+
+            if (current.$$route.type === 'products' && current.params.categoryId === '646') {
+                $scope.info.currentTab = 'sales';
+                return;
+            }
             $scope.info.currentTab = current.$$route.type;
-            //return $routeParams.tabName === $routeParams;
         });
 
     }]
