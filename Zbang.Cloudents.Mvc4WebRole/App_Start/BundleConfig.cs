@@ -228,7 +228,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/shopping/controllers/homeCtrl.js"),
                 new JsFileWithCdn("/js/services/stacktrace.js"),
                 new JsFileWithCdn("/js/services/userDetails.js"),
-                new JsFileWithCdn("~/js/shopping/services/store.js")
+                new JsFileWithCdn("/js/services/userDetails.js"),
+                new JsFileWithCdn("~/js/shopping/services/store.js"),
+
+                new JsFileWithCdn("/js/shopping/filters/percentage.js")
+
                 //new JsFileWithCdn("~/js/shopping/controllers/category.js"),
                 //new JsFileWithCdn("~/js/shopping/controllers/product.js")
                 );

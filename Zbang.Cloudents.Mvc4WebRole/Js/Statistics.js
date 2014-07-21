@@ -8,16 +8,16 @@
 
     pubsub.subscribe('item', function (data) {
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
-        if (items.indexOf(data.id) == -1 ) {
-            items.push({Uid: data.id, Action: 1});
+        if (items.indexOf(data) == -1 ) {
+            items.push({Uid: data, Action: 1});
             cd.localStorageWrapper.setItem(key, JSON.stringify(items));
         }
 
     });
     pubsub.subscribe('item_Download', function (data) {
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
-        if (items.indexOf(data.id) == -1) {
-            items.push({ Uid: data.id, Action: 2 });
+        if (items.indexOf(data) == -1) {
+            items.push({ Uid: data, Action: 2 });
             cd.localStorageWrapper.setItem(key, JSON.stringify(items));
             
         }
@@ -25,8 +25,8 @@
 
     pubsub.subscribe('quiz', function (data) {
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
-        if (items.indexOf(data.id) == -1) {
-            items.push({ Uid: data.id, Action: 3 });
+        if (items.indexOf(data) == -1) {
+            items.push({ Uid: data, Action: 3 });
             cd.localStorageWrapper.setItem(key, JSON.stringify(items));
         }
     });
