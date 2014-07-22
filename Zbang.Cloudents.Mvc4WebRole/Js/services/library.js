@@ -49,6 +49,16 @@
 
                     return dfd.promise;
                 }
+            },
+            departments: function (data) {
+                var dfd = $q.defer();
+                $http.get(Lib + 'Departments/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             }
         };
     }

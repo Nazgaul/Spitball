@@ -1322,6 +1322,8 @@
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
     <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
+    <Content Include="Scripts\underscore-min.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
@@ -1433,6 +1435,7 @@
     <Content Include="Views\Store\Contact.cshtml" />
     <Content Include="Views\Store\Sales.cshtml" />
     <Content Include="Views\Store\Empty.cshtml" />
+    <Content Include="Views\User\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

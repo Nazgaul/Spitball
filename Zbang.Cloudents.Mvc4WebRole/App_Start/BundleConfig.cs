@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterJsRegular("angular-general",
                                 new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js",
                     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
-
+                    new JsFileWithCdn("~/scripts/underscore.js"),
                 new JsFileWithCdn("~/scripts/angular.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"),
 

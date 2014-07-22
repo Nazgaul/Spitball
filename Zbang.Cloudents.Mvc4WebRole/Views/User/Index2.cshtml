@@ -1,30 +1,39 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
+@model Zbang.Zbox.ViewModel.DTOs.UserDtos.UserMinProfile
 
-<div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }">
+<div class="userPage page" id="user" ng-controller="UserCtrl" data-firsttime="true" data-bind="delegatedHandler: 'click',css : { myPage : viewSelf() }">
     <div class="upContentWpr">
         <div class="upTop">
-            <a class="rFloat iconTxt" target="_self" ng-if="profile.isSelf"
+
+            <!--ko if:viewSelf()-->
+            <a id="upAccountSettings" class="rFloat iconTxt" data-navigation="account" target="_self"
                href="@Url.Action("Settings","Account")">@UserResources.EditAccount</a>
+            <!--/ko-->
+
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
             <h1 class="semiFont" id="upUsername">@Model.Name</h1>
             <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
-            <button id="upSendMessage" type="button" class="btn3" ng-if="!profile.isSelf">@SharedResources.Message</button>
+
+            <!--ko ifnot:viewSelf()-->
+            <button id="upSendMessage" type="button" class="btn3">@SharedResources.Message</button>
+            <!--/ko-->
+
         </div>
 
         @if (ViewBag.Admin)
         {
-            <section class="upMembers" ng-if="admin.visible">
+            <section class="upMembers" data-bind="visible: membersSectionVisible()">
                 <h2>@UserResources.UniMembers</h2>
-                <div class="membersContent" ng-class="{noResults : !admin.members.length}">
+                <div class="membersContent" data-bind="css: { noResults : membersLoaded() && !displayMembersFilter().length} ">
                     <div class="membersTop">
-                        <input id="upMemberSettings" type="checkbox" class="checkbox" />
+                        <input id="upMemberSettings" type="checkbox" class="checkbox" data-click="unSelected" />
                         <label for="upMemberSettings" class="cbLabel">@SharedResources.All</label>
-                        <button type="button" class="btn3 messageBtn" ng-click="sendMembersMessage()">@SharedResources.Message</button>
+                        <button type="button" id="upMbrSetingsSndMsg" class="btn3 messageBtn">@SharedResources.Message</button>
                         <div class="searchWpr rFloat">
-                            <span class="membersCount lFloat">{{admin.members.length + ' @SharedResources.Members'}}</span>
+                            <span class="membersCount lFloat" data-label="@SharedResources.Members" data-bind="text: membersLength() "></span>
                             <div class="inputWpr">
-                                <input class="membersSearch" type="search" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
+                                <input class="membersSearch" id="upMembersSearch" type="search" placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
                             </div>
                         </div>
                     </div>
@@ -38,31 +47,37 @@
                         <div id="deptPopup" class="deptPopup">
                             <ul>
 
-                                <li ng-repeat="department in admin.departments">
-                                    <input id="{{'dep_' + department.id}}" ng-class="{selected : department.isChecked}" type="checkbox" class="checkbox" ng-model="department.isChecked" />
-                                    <label for="{{'dep_' + department.id}}" class="cbLabel">{{department.name + ' ' + department.year}}</label>
+                                <!--ko foreach:departments-->
+                                <li>
+                                    <input type="checkbox" class="checkbox" data-bind="attr: { id: 'dep_' + id},checked: selected" />
+                                    <label class="cbLabel" data-bind="attr: { for: 'dep_' + id},text:fullname"></label>
                                 </li>
+                                <!--/ko-->
+
+
 
                             </ul>
                         </div>
                     </div>
-                    <ul class="upMembersList">
-                        <li class="memberItem" ng-repeat="member in admin.members | limitTo : consts.admin.membersLimit">
-                            <input id="{{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-class="{selected : member.isChecked}" />
-                            <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
-                                <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" width="34" height="34" />
-                                <span class="upMemberName elps">{{member.name}}</span>
+                    <ul id="upMembersList" class="upMembersList">
+                        <!--ko foreach:displayMembersFilter-->
+                        <li class="memberItem">
+                            <input type="checkbox" class="checkbox" data-bind="checked: selected,attr: {id : inputId}" />
+                            <label class="cbLabel memberCol" data-bind="attr: {for: inputId}">
+                                <img class="friendImg calloutTrgr" alt="" data-bind="attr: { 'src': image,'data-uid' : id }" width="34" height="34" />
+                                <span class="upMemberName elps" data-bind="text: name"></span>
                             </label>
 
-                            <span class="dateCol">{{member.joinDate | date:'dd/MM/yyyy'}}</span>
+                            <span class="dateCol" data-bind="text: joinDate"></span>
                             <span class="courseCol"><span class="courseList"></span></span>
-                            <span class="deptCol elps">{{member.department}}</span>
+                            <span class="deptCol elps" data-bind="text: department"></span>
 
                         </li>
+                        <!--/ko-->
                         <li class="upMemberBoxesWpr">
                             <div class="upMemberBoxes">
                                 <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
-                                <ul class="upMemberBoxList" id="upMemberBoxList"></ul> @*//TODO*@
+                                <ul class="upMemberBoxList" id="upMemberBoxList"></ul>
                                 <div class="arrow downArrow"></div>
                             </div>
                         </li>
