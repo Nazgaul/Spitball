@@ -7,6 +7,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
+// ReSharper disable once UnusedMember.Global
     public class WebRole : RoleEntryPoint
     {
         //const string webApplicationProjectName = "Web";

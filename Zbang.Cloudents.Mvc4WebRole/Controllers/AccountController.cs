@@ -21,7 +21,7 @@ using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ViewModel.DTOs.UserDtos;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -524,7 +524,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var code = RandomString(10);
 
 
-                ForgotPasswordLinkData data = new ForgotPasswordLinkData(membershipUserId, 1);
+                var data = new ForgotPasswordLinkData(membershipUserId, 1);
 
                 var linkData = CrypticElement(data);
                 Session[SessionResetPassword] = data;

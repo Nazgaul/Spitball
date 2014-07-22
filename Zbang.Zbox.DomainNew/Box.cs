@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain
         public const int NameLength = 120;
         protected Box()
         {
-            UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
+            UserBoxRelationship = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Items = new List<Item>();
 
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain
             PrivacySettings.PrivacySetting = privacySettings;
             UserTime = new UserTimeDetails(user.Email);
             Owner = user;
-            UserBoxRel.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
+            UserBoxRelationship.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
             RemovePicture();
             CalculateMembers();
         }
@@ -51,19 +51,21 @@ namespace Zbang.Zbox.Domain
         public virtual User Owner { get; private set; }
         public virtual string Picture { get; protected set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string PictureUrl { get; private set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; protected set; }
 
-        public virtual ICollection<UserBoxRel> UserBoxRel { get; private set; }
-        public virtual ICollection<Item> Items { get; protected set; }
-        public virtual ICollection<Quiz> Quizes { get; protected set; }
+        public virtual ICollection<UserBoxRel> UserBoxRelationship { get; private set; }
+        public virtual ICollection<Item> Items { get; private set; }
+        protected virtual ICollection<Quiz> Quizzes { get; private set; }
 
-        public IQueryable<Item> Items2 { get; set; }
+       // public IQueryable<Item> Items2 { get; set; }
 
 
         //protected virtual ICollection<Comment> Comments { get; set; }
-        protected virtual ICollection<Comment> Questions { get; set; }
+        protected virtual ICollection<Comment> Questions { get; private set; }
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
@@ -80,10 +82,11 @@ namespace Zbang.Zbox.Domain
             GenerateUrl();
         }
 
-        public void AddPicture(string boxPicture, string picutreUrl)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "Db call will save as string")]
+        public void AddPicture(string boxPicture, string pictureUrl)
         {
             Picture = boxPicture;
-            PictureUrl = picutreUrl;
+            PictureUrl = pictureUrl;
         }
         public void RemovePicture()
         {
@@ -157,11 +160,11 @@ namespace Zbang.Zbox.Domain
             return item;
         }
 
-        public Item GetItem(long itemId)
-        {
-            var item = Items.SingleOrDefault(w => w.Id == itemId);
-            return item;
-        }
+        //public Item GetItem(long itemId)
+        //{
+        //    var item = Items.SingleOrDefault(w => w.Id == itemId);
+        //    return item;
+        //}
 
 
         #region dbiTemp
@@ -186,7 +189,7 @@ namespace Zbang.Zbox.Domain
         #region membersCount
         public virtual void CalculateMembers()
         {
-            MembersCount = UserBoxRel.Count();
+            MembersCount = UserBoxRelationship.Count();
         }
 
         #endregion
@@ -194,12 +197,12 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateItemCount()
         {
-            ItemCount = Items.Count(file => !file.IsDeleted) + Quizes.Count(quiz => quiz.Publish);
+            ItemCount = Items.Count(file => !file.IsDeleted) + Quizzes.Count(quiz => quiz.Publish);
 
         }
         #endregion
         #region commentCount
-        public virtual void UpdateQnACount(int number)
+        public virtual void UpdateCommentsCount(int number)
         {
             CommentCount = number;
         }
@@ -207,11 +210,11 @@ namespace Zbang.Zbox.Domain
         #endregion
 
         #region Nhibernate
-        public override bool Equals(object other)
+        public override bool Equals(object obj)
         {
-            if (this == other) return true;
+            if (this == obj) return true;
 
-            var box = other as Box;
+            var box = obj as Box;
             if (box == null) return false;
 
             if (Name != box.Name) return false;

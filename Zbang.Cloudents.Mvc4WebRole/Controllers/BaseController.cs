@@ -63,6 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //base.HandleUnknownAction(actionName);
         }
 
+/*
         protected void DeleteCookies()
         {
             var cookiesToDelete = Request.Cookies.AllKeys.Where(w => w.StartsWith("cdAuth") || w.StartsWith("cdA"));
@@ -78,6 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
         }
+*/
 
         protected IEnumerable<KeyValuePair<string, string[]>> GetModelStateErrors()
         {

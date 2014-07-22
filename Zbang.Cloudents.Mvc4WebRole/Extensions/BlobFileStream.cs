@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -88,12 +89,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             {
                 // If fileName contains any Unicode characters, encode according
                 // to RFC 2231 (with clarifications from RFC 5987)
-                foreach (char c in fileName)
+                if (fileName.Any(c => (int)c > 127))
                 {
-                    if ((int)c > 127)
-                    {
-                        return CreateRfc2231HeaderValue(fileName);
-                    }
+                    return CreateRfc2231HeaderValue(fileName);
                 }
 
                 // Knowing there are no Unicode characters in this fileName, rely on

@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rhino.Mocks;
-using Zbang.Zbox.Infrastructure.UnitsOfWork;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate;
+using Rhino.Mocks;
+using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
-namespace Zbang.Zbox.Infrastructure.DataTests
+namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
 {
     [TestClass]
     public class UnitOfWorkTest

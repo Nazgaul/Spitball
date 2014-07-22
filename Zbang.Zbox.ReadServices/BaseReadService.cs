@@ -5,28 +5,28 @@ using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
-using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 
 namespace Zbang.Zbox.ReadServices
 {
     public abstract class BaseReadService : IBaseReadService
     {
-        protected readonly IHttpContextCacheWrapper m_ContextCacheWrapper;
+        protected readonly IHttpContextCacheWrapper ContextCacheWrapper;
         public BaseReadService(IHttpContextCacheWrapper contextCacheWrapper)
         {
-            m_ContextCacheWrapper = contextCacheWrapper;
+            ContextCacheWrapper = contextCacheWrapper;
         }
         #region login
-        public User.LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
+        public LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByFacebookId");
                 dbQuery.SetInt64("FacebookId", query.FacebookId);
-                dbQuery.SetResultTransformer(Transformers.AliasToBean<User.LogInUserDto>());
-                var t = dbQuery.UniqueResult<User.LogInUserDto>();
+                dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
+                var t = dbQuery.UniqueResult<LogInUserDto>();
                 if (t == null)
                 {
                     throw new UserNotFoundException();
@@ -35,14 +35,14 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public User.LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
+        public LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByMembershipId");
-                dbQuery.SetResultTransformer(Transformers.AliasToBean<User.LogInUserDto>());
+                dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
                 dbQuery.SetGuid("MembershipUserId", query.MembershipId);
-                var t = dbQuery.UniqueResult<User.LogInUserDto>();
+                var t = dbQuery.UniqueResult<LogInUserDto>();
                 if (t == null)
                 {
                     throw new UserNotFoundException();
@@ -51,14 +51,14 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public User.LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query)
+        public LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByEmail");
-                dbQuery.SetResultTransformer(Transformers.AliasToBean<User.LogInUserDto>());
+                dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
                 dbQuery.SetString("Email", query.Email);
-                var t = dbQuery.UniqueResult<User.LogInUserDto>();
+                var t = dbQuery.UniqueResult<LogInUserDto>();
                 if (t == null)
                 {
                     throw new UserNotFoundException();
@@ -105,7 +105,7 @@ namespace Zbang.Zbox.ReadServices
         public UserRelationshipType CheckIfUserAllowedToSee(long boxId, long userId)
         {
             const string key = "AllowedToSee";
-            var cacheElem = m_ContextCacheWrapper.GetObject(key);
+            var cacheElem = ContextCacheWrapper.GetObject(key);
             if (cacheElem != null)
             {
                 return (UserRelationshipType)cacheElem;
@@ -132,12 +132,12 @@ namespace Zbang.Zbox.ReadServices
             const string key = "AllowedToSee";
             if (userRelationShipType == UserRelationshipType.Owner)
             {
-                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
             if (privacySettings == BoxPrivacySettings.AnyoneWithUrl)
             {
-                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
 
@@ -145,7 +145,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 if (userRelationShipType == UserRelationshipType.Subscribe || userRelationShipType == UserRelationshipType.Invite)
                 {
-                    m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                    ContextCacheWrapper.AddObject(key, userRelationShipType);
                     return userRelationShipType;
                 }
             }

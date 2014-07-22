@@ -134,16 +134,18 @@ namespace Zbang.Zbox.Infrastructure.File
                 using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                 {
 
-                    var settings = new ResizeSettings();
-                    settings.Scale = ScaleMode.UpscaleCanvas;
-                    settings.Anchor = ContentAlignment.MiddleCenter;
-                    settings.BackgroundColor = Color.White;
-                    settings.Mode = FitMode.Crop;
-                    settings.Width = ThumbnailWidth;
-                    settings.Height = ThumbnailHeight;
+                    var settings = new ResizeSettings
+                    {
+                        Scale = ScaleMode.UpscaleCanvas,
+                        Anchor = ContentAlignment.MiddleCenter,
+                        BackgroundColor = Color.White,
+                        Mode = FitMode.Crop,
+                        Width = ThumbnailWidth,
+                        Height = ThumbnailHeight,
+                        Quality = 80,
+                        Format = "jpg"
+                    };
 
-                    settings.Quality = 80;
-                    settings.Format = "jpg";
                     // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
 
                     using (var output = new MemoryStream())
@@ -175,10 +177,8 @@ namespace Zbang.Zbox.Infrastructure.File
                 var textFramesSlideOne = SlideUtil.GetAllTextFrames(ppt, false);
 
                 //Loop through the Array of TextFrames
-                for (var i = 0; i < textFramesSlideOne.Length; i++)
-
-                    //Loop through paragraphs in current TextFrame
-                    foreach (var para in textFramesSlideOne[i].Paragraphs)
+                foreach (ITextFrame t in textFramesSlideOne)
+                    foreach (var para in t.Paragraphs)
 
                         //Loop through portions in the current Paragraph
                         foreach (var port in para.Portions)

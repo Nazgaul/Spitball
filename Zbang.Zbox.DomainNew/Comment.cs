@@ -37,17 +37,17 @@ namespace Zbang.Zbox.Domain
         public virtual User User { get; set; }
         public virtual string Text { get; set; }
         public virtual Box Box { get; set; }
-        protected virtual ICollection<Item> Items { get; set; }
-        protected virtual ICollection<CommentReplies> Answers { get; set; }
+        protected virtual ICollection<Item> Items { get; private set; }
+        protected virtual ICollection<CommentReplies> Answers { get; private set; }
 
         public ICollection<CommentReplies> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
 
-        
+
         public virtual UserTimeDetails DateTimeUser { get; set; }
 
         public void RemoveItem(Item item)
         {
             Items.Remove(item);
-        }    
+        }
     }
 }

@@ -17,12 +17,12 @@ namespace Zbang.Zbox.Domain.DataAccess
             return query.SingleOrDefault<Box>();
         }
 
-        public Box Get2(object id)
-        {
-            var box = Session.Get<Box>(id);
-            box.Items2 = UnitOfWork.CurrentSession.Query<Item>();
-            return box;
-        }
+        //public Box Get2(object id)
+        //{
+        //    var box = Session.Get<Box>(id);
+        //    box.Items2 = UnitOfWork.CurrentSession.Query<Item>();
+        //    return box;
+        //}
 
         public int QnACount(long id)
         {

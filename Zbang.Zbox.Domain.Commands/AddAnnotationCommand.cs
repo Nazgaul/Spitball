@@ -4,11 +4,11 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class AddAnnotationCommand : ICommand
     {
-        public AddAnnotationCommand(string comment, int x, int y, int width,int height, long itemId, int imageId, long userId)
+        public AddAnnotationCommand(string comment, int xCord, int yCord, int width,int height, long itemId, int imageId, long userId)
         {
             Comment = comment;
-            X = x;
-            Y = y;
+            X = xCord;
+            Y = yCord;
             Width = width;
             Height = height;
             ItemId = itemId;

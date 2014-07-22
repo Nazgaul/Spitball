@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException("command");
             var sender = m_UserRepository.Load(command.Sender);
 
-            foreach (var recepient in command.Recepients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
+            foreach (var recepient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
                 var recepientUser = GetUser(recepient);
                 if (recepientUser == null)

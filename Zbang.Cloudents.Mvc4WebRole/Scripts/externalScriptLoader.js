@@ -38,7 +38,7 @@
             ga('set', 'dimension1', universityName);
             //_gaq.push(['_setCustomVar',
             //             1,                   // This custom var is set to slot #1.  Required parameter.
-            //             'Univeristy',     // The name acts as a kind of category for the user activity.  Required parameter.
+            //             'University',     // The name acts as a kind of category for the user activity.  Required parameter.
             //             universityName,    // This value of the custom variable.  Required parameter.
             //             2                   // Sets the scope to session-level.  Optional parameter.
             //]);

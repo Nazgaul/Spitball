@@ -67,7 +67,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                              item.Image,
                              item.ProductPayment,
                              item.Saleprice,
-                             item.SupplyTime
+                             item.SupplyTime,
+                             item.ProducerName
                             ));
                     }
                     catch (Exception ex)
@@ -76,7 +77,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     }
                 }
                 var categoriesCommand = new AddCategoriesCommand(categories);
-                m_ZboxWriteService.AddCatories(categoriesCommand);
+                m_ZboxWriteService.AddCategories(categoriesCommand);
                 var command = new AddProductsToStoreCommand(products);
                 m_ZboxWriteService.AddProducts(command);
                 Thread.Sleep(TimeSpan.FromDays(1));

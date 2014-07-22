@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             User sender = m_UserRepository.Load(command.SenderId);
 
 
-            foreach (var recepient in command.Recepients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
+            foreach (var recepient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
                 var recepientUser = m_UserRepository.GetUserByEmail(recepient);
                 if (recepientUser != null && recepientUser.IsRegisterUser)

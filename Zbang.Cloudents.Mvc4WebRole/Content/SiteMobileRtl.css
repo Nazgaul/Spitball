@@ -188,7 +188,7 @@
   text-align: right;
 }
 .selectWpr:after {
-  left: 0px;
+  left: 0;
   /*rtl*/
   right: auto;
 }

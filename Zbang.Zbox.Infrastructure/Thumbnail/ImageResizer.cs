@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
         private MemoryStream ResizeImage(Image img, int height, int width, bool shouldCrop)
         {
             Size newDimentions = ScaleProportionally(new Size(width, height), new Size(img.Width, img.Height), shouldCrop);
-            Bitmap thumb = new Bitmap(newDimentions.Width, newDimentions.Height);
+            var thumb = new Bitmap(newDimentions.Width, newDimentions.Height);
 
             using (Graphics graphic = Graphics.FromImage(thumb))
             {
@@ -93,7 +93,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
 
             if (shouldCrop)
             {
-                Point leftTopCorner = new Point(0, 0);
+                var leftTopCorner = new Point(0, 0);
                 var cropNeeded = false;
                 if (thumb.Width > width)
                 {

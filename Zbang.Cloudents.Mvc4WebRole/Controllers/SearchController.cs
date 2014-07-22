@@ -10,6 +10,7 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -77,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [NonAction]
-        private async Task<Zbox.ViewModel.DTOs.Search.SearchDto> PerformSearch(string q, bool allResult, int page)
+        private async Task<SearchDto> PerformSearch(string q, bool allResult, int page)
         {
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId != null)

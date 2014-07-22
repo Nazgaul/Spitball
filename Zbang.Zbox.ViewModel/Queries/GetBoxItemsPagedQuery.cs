@@ -5,16 +5,6 @@ namespace Zbang.Zbox.ViewModel.Queries
     public class GetBoxItemsPagedQuery : QueryPagedBase
     {
         /// <summary>
-        /// Query ctor without paging
-        /// </summary>
-        /// <param name="boxId"></param>
-        /// <param name="id"></param>
-        public GetBoxItemsPagedQuery(long boxId, long id)
-            : this(boxId, id, 0, OrderBy.LastModified, null)
-        {
-        }
-
-        /// <summary>
         /// Query ctor with paging
         /// </summary>
         /// <param name="boxId"></param>
@@ -22,7 +12,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         /// <param name="pageNumber"></param>
         /// <param name="order"></param>
         /// <param name="tabId"></param>
-        public GetBoxItemsPagedQuery(long boxId, long id, int pageNumber, OrderBy order, Guid? tabId)
+        public GetBoxItemsPagedQuery(long boxId, long id, int pageNumber = 0, OrderBy order = OrderBy.LastModified, Guid? tabId = null)
             : base(id, pageNumber)
         {
             BoxId = boxId;

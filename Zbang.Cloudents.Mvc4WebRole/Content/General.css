@@ -1384,6 +1384,9 @@ input[type="radio"][disabled] + label:before {
 .emailListWpr .dropdown-menu li:hover {
   background: #f4f4f4;
 }
+.open {
+  position: relative;
+}
 .open > .dropdown-menu {
   display: block;
 }

@@ -25,15 +25,11 @@
     <div class="changeLang">
         @Html.LabelFor(m => m.Language)&nbsp;
         @Html.DropDownListFor(m => m.Language.Language,
-    Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s =>
+    Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s => new SelectListItem
     {
-        return new SelectListItem
-        {
-            Selected = s.Culture == Model.Language.Language,
-            Text = s.Name,
-            Value = s.Culture
-        };
-    }
-    ), new { id = "language" })
+        Selected = s.Culture == Model.Language.Language,
+        Text = s.Name,
+        Value = s.Culture
+    }), new { id = "language" })
     </div>
 </div>

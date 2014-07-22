@@ -162,7 +162,7 @@ namespace Zbang.Zbox.Domain
             {
                 userType = new UserBoxRel(this, box, UserRelationshipType.Subscribe);
                 UserBoxRel.Add(userType);
-                box.UserBoxRel.Add(userType);
+                box.UserBoxRelationship.Add(userType);
                 //throw new ArgumentException("user is not connected to box");
             }
             userType.UserRelationshipType = newUserType;

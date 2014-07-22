@@ -4,6 +4,7 @@ using System.Web.WebPages.Razor;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
 {
+// ReSharper disable once UnusedMember.Global
     public sealed class MinifyHtmlWebRazorHostFactory : WebRazorHostFactory
     {
         public override WebPageRazorHost CreateHost(string virtualPath, string physicalPath)

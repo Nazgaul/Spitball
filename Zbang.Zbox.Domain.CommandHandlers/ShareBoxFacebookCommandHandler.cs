@@ -57,11 +57,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UserRepository.Save(recepient, true);
             }
 
-            var currentInvite = m_InviteRepository.GetCurrentInvite(recepient, box);
-            if (currentInvite == null)
-            {
-                currentInvite = new Invite(m_IdGenerator.GetId(), sender, recepient, box);
-            }
+            var currentInvite = m_InviteRepository.GetCurrentInvite(recepient, box) ??
+                                new Invite(m_IdGenerator.GetId(), sender, recepient, box);
             currentInvite.UpdateSendTime();
             m_InviteRepository.Save(currentInvite);
 

@@ -27,5 +27,9 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
        public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
   FROM [Zbox].[Zbox].[StoreCat]
   order by catorder";
+
+       public const string GetProduct = @"SELECT Name,ExtraDetails,description, SalePrice - Coupon as price, 
+deliveryprice,catalognumber,numberofpayments,supplytime
+  FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
    }
 }

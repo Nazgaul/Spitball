@@ -77,10 +77,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                   picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath));
 
             m_LibraryRepository.Save(library);
-            box.UserBoxRel.Add(new UserBoxRel(universityUser, box, UserRelationshipType.Owner));
+            box.UserBoxRelationship.Add(new UserBoxRel(universityUser, box, UserRelationshipType.Owner));
             if (universityUser.Id != user.Id)
             {
-                box.UserBoxRel.Add(new UserBoxRel(user, box, UserRelationshipType.Subscribe));
+                box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Subscribe));
                 SaveRepositories(user, box);
 
             }
