@@ -73,8 +73,6 @@
     <Compile Include="AddStudentCommand.cs" />
     <Compile Include="AssignItemToTabCommand.cs" />
     <Compile Include="ChangeBoxInfoCommand.cs" />
-    <Compile Include="ChangeBoxPrivacySettingsCommand.cs" />
-    <Compile Include="ChangeBoxPrivacySettingsCommandResult.cs" />
     <Compile Include="ChangeFileNameCommand.cs" />
     <Compile Include="ChangeFileNameCommandResult.cs" />
     <Compile Include="ChangeItemTabNameCommand.cs" />

@@ -912,7 +912,14 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
-                return await conn.QueryAsync<ProductDto>(sql, new { CatId  = query.CategoryId});
+                return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId });
+            }
+        }
+        public async Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<ProductDto>(Sql.Store.SearchProduct, new { term = query.Term });
             }
         }
         public IEnumerable<CategoryDto> GetCategories()
@@ -926,7 +933,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<ProductWithDetailDto>(Sql.Store.GetProduct, new { ProdId  = query.ProductId});
+                var retVal = await conn.QueryAsync<ProductWithDetailDto>(Sql.Store.GetProduct, new { ProdId = query.ProductId });
                 return retVal.FirstOrDefault();
             }
         }

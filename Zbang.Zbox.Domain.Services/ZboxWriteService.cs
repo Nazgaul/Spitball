@@ -91,16 +91,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
-        public ChangeBoxPrivacySettingsCommandResult ChangeBoxPrivacySettings(ChangeBoxPrivacySettingsCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                ChangeBoxPrivacySettingsCommandResult result = m_CommandBus.Dispatch<ChangeBoxPrivacySettingsCommand, ChangeBoxPrivacySettingsCommandResult>(command);
-                UnitOfWork.Current.TransactionalFlush();
-                return result;
-            }
-        }
+       
 
         public void ChangeNotificationSettings(ChangeNotificationSettingsCommand command)
         {

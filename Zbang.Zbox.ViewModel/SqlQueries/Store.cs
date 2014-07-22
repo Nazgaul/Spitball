@@ -31,5 +31,15 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
        public const string GetProduct = @"SELECT Name,ExtraDetails,description, SalePrice - Coupon as price, 
 deliveryprice,catalognumber,numberofpayments,supplytime
   FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
+
+       public const string SearchProduct = @"select [ProductId] as Id
+      ,[Name]
+      ,[ExtraDetails]
+      ,[NumberOfSales]
+      ,[Coupon]
+      ,[SalePrice]
+      ,[PictureUrl]
+      ,[Url] from zbox.StoreProduct 
+where name like '%' + @term + '%' ";
    }
 }

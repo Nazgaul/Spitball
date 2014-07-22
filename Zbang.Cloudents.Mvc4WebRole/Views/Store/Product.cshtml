@@ -1,23 +1,25 @@
-﻿@model Zbang.Zbox.ViewModel.Dto.Store.ProductWithDetailDto
-<div class="productWpr">
-    <div class="left">
-        <h1>@Model.Name</h1>
-        <h3>@Model.ExtraDetails</h3>
-        <p>
-            @Html.Raw(Model.Description)
-        </p>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+
+@model Zbang.Zbox.ViewModel.Dto.Store.ProductWithDetailDto
+
+@*Add class big to show the bigger version of the widget*@
+<div class="widget">
+    <div class="widgetWpr">
+        <div class="lFloat">
+            <img alt="university name" src="http://lorempixel.com/98/96/food" />
+            <h3>University name here</h3>
+        </div>
+        <h2>Exclusive benefits to our students</h2>
+        <button type="button" class="rFloat">Get coupon code</button>
     </div>
-    <div class="right">
-        <ul class="thumbsList">
-            <li><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></li>
-            <li><img src="https://dl.dropboxusercontent.com/u/51558405/pc.png" alt="" /></li>
-            <li><img src="http://www.hatavot.co.il/uploadimages/170/109876.JPG" alt="" /></li>
-            <li></li>
-        </ul>
+</div>
+
+<div class="productWpr">    
+    <div class="left">
         <div class="productInfoWpr">
             <table class="productPrice">
                 <tr>
-                    <td>Student price:</td>
+                    <td>@StoreResources.StudentPrice:</td>
                     <td>@Model.Price</td>
                 </tr>
                 <tr>
@@ -57,6 +59,13 @@
                 </tr>
             </table>
         </div>
+    </div>
+    <div class="right">
+        <h1>@Model.Name</h1>
+        <h3>@Model.ExtraDetails</h3>
+        <p>
+            @Html.Raw(Model.Description)
+        </p>
     </div>
 </div>
 

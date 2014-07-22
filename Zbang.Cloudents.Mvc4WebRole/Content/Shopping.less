@@ -552,69 +552,41 @@ main {
 .productWpr {
     display: table;
     table-layout: fixed;
-    background: #f6f6f6;
-    margin-top: 20px;
+    //background: #f6f6f6;
+    margin-top: 55px;
+    width: 940px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    .boxSizing;
     .left, .right {
         display: table-cell;
         width: 50%;
         vertical-align: top;
     }
 }
-.left {
+.right {
+    padding-left: 15px; /*rtl*/
     h3 {
         font-size: 18px;
         font-weight: normal;
         margin: 8px 0 20px;
     }
+    img {
+        max-width: 450px;
+        height: auto !important;
+    }
 }
-.right {
-    padding-top: 340px;
+.left {
     text-align: center;
     position: relative;
-}
-.thumbsList {
-    display:inline-block;
-    text-align: center;
-    li {
-        width: 80px;
-        height: 80px;
-        border: 1px solid @shopping-black;
-        margin: 10px 12px 10px;
-        background: #fff;
-        display: inline-block;
-        vertical-align: top;
-        text-align: center;
-        &:hover {
-            border: 1px solid @attentionBlue;
-        }
-        &:before {
-            .pseudo;
-            height: 100%;
-            vertical-align: middle;
-        }
-        &:last-child {
-            position: absolute;
-            width: 390px;
-            height: 270px;
-            background-size: contain;
-            top: 50px;
-            left:0;right:0;margin: auto;
-            border:none;
-        }
-    }
-    img {
-        max-width: 100%;
-        max-height: 100%;
-        display: inline-block;
-        vertical-align: middle;
-    }
+    padding-right: 15px; /*rtl*/
 }
 .productInfoWpr {
     border: 1px solid @attentionBlue;
     border-radius: 5px;
     padding: 20px;
     width: 450px;
-    margin: 15px auto 0;
     .boxSizing;
 
     .btn3 {
@@ -654,9 +626,11 @@ main {
     }
 }
 .productDetails {
-    background: #f6f6f6;
+    background: #DBEBF7;
     table-layout: fixed;
+    padding: 10px 18px;
     text-align: left; /*rtl*/
+    width: 100%;
     td {
         vertical-align: top;
         padding-bottom: 8px;
