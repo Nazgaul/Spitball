@@ -109,7 +109,7 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         void AddProducts(AddProductsToStoreCommand command);
-        void AddCatories(AddCategoriesCommand command);
+        void AddCategories(AddCategoriesCommand command);
 
 
     }
