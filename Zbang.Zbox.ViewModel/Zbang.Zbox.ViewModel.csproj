@@ -166,6 +166,7 @@
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
     <Compile Include="Queries\QueryPrefixBase.cs" />
+    <Compile Include="Queries\SearchProductQuery.cs" />
     <Compile Include="Queries\Search\GroupSearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
