@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void ShareBox(ShareBoxCommand command);
         void InviteSystem(InviteToSystemCommand command);
-        void ShareBoxFacebbok(ShareBoxFacebookCommand command);
+        void ShareBoxFacebook(ShareBoxFacebookCommand command);
         void InviteSystemFromFacebook(InviteToSystemFacebookCommand inviteCommand);
 
         void SendMessage(SendMessageCommand command);
@@ -109,7 +109,7 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         void AddProducts(AddProductsToStoreCommand command);
-        void AddCatories(AddCategoriesCommand command);
+        void AddCategories(AddCategoriesCommand command);
 
 
     }

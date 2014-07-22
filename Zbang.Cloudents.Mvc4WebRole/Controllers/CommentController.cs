@@ -55,31 +55,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
-
-
-
-
-
-
-
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult Reply(NewReply model)
-        //{
-        //    var userId = GetUserId();
-        //    var boxid = m_ShortToLongCode.ShortCodeToLong(model.BoxUId);
-        //    var command = new AddReplyToCommentCommand(userId, model.CommentToReplyId, model.CommentText, boxid);
-        //    var result = m_ZboxWriteService.AddReplyToComment(command);
-
-        //    var commentDto = new Zbox.ViewModel.DTOs.ActivityDtos.CommentDto(result.NewComment.Id, result.NewComment.Parent.Id,
-        //        result.User.Name, result.User.Image, result.User.Id,
-        //        DateTime.SpecifyKind(result.NewComment.DateTimeUser.CreationTime, DateTimeKind.Unspecified),
-        //        null, null, null, null, result.NewComment.CommentText);
-
-        //    return Json(new JsonResponse(true, commentDto));
-
-        //}
-
         #region AddComment
 
         [HttpPost]
@@ -176,19 +151,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //[Ajax]
-        //public ActionResult ReplyAnnotation(ReplyAnnotation model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-        //    }
-        //    var command = new AddReplyToAnnotationCommand(GetUserId(), model.ItemId, model.ImageId, model.Comment, model.CommentId);
-        //    m_ZboxWriteService.AddReplyAnnotation(command);
-        //    return Json(new JsonResponse(true, command.ReplyId));
-        //}
 
         [HttpPost]
         [ZboxAuthorize]

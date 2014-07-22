@@ -18,7 +18,8 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -406,7 +407,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
 
             var query = new GetItemRateQuery(GetUserId(), itemId);
-            var retVal = await ZboxReadService.GetRate(query) ?? new Zbox.ViewModel.DTOs.ItemRateDto();
+            var retVal = await ZboxReadService.GetRate(query) ?? new ItemRateDto();
 
             return Json(new JsonResponse(true, retVal), JsonRequestBehavior.AllowGet);
 

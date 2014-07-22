@@ -35,6 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         public string Fragment { get; set; }
     }
 
+/*
     public static class RedirectToRouteResultExtensions
     {
         public static RedirectToRouteResult AddFragment(this RedirectToRouteResult result, string fragment)
@@ -45,4 +46,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             };
         }
     }
+*/
 }

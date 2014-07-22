@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.ViewModel.DTOs.Emails;
-using Zbang.Zbox.ViewModel.DTOs.Library;
+using Zbang.Zbox.ViewModel.Dto.Emails;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 using Zbang.Zbox.ViewModel.SqlQueries;
 
@@ -225,7 +225,7 @@ namespace Zbang.Zbox.ReadServices
                     retVal.LastWeekQnA = grid.Read<int>().First();
                     retVal.AllQnA = grid.Read<int>().First();
 
-                    retVal.Univeristies = grid.Read<Univeristy>();
+                    retVal.Univeristies = grid.Read<University>();
 
                 }
 

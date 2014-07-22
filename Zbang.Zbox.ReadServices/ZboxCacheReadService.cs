@@ -2,23 +2,24 @@
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.ActivityDtos;
-using Zbang.Zbox.ViewModel.DTOs.BoxDtos;
-using Zbang.Zbox.ViewModel.DTOs.Dashboard;
-using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
-using Zbang.Zbox.ViewModel.DTOs.Library;
-using Zbang.Zbox.ViewModel.DTOs.Qna;
-using Zbang.Zbox.ViewModel.DTOs.Search;
-using Zbang.Zbox.ViewModel.DTOs.UserDtos;
+using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
+using Zbang.Zbox.ViewModel.Dto.Dashboard;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Dto.Qna;
+using Zbang.Zbox.ViewModel.Dto.Search;
+using Zbang.Zbox.ViewModel.Dto.Store;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
-using BoxDto = Zbang.Zbox.ViewModel.DTOs.BoxDtos.BoxDto;
-using UserDto = Zbang.Zbox.ViewModel.DTOs.UserDtos.UserDto;
+using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDtos.BoxDto;
+using UserDto = Zbang.Zbox.ViewModel.Dto.UserDtos.UserDto;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -287,19 +288,19 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ViewModel.DTOs.Store.ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
+        public Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
         {
             return m_ReadService.GetProducts(query);
         }
 
 
-        public IEnumerable<ViewModel.DTOs.Store.CategoryDto> GetCategories()
+        public IEnumerable<CategoryDto> GetCategories()
         {
             return m_ReadService.GetCategories();
         }
 
 
-        public Task<ViewModel.DTOs.Store.ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
+        public Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
         {
             return m_ReadService.GetProduct(query);
         }

@@ -37,6 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return MvcHtmlString.Empty;
         }
 
+/*
         public static System.Web.HtmlString GetAntiForgeryKey2()
         {
             var x = System.Web.Helpers.AntiForgery.GetHtml();
@@ -44,6 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return x;
 
         }
+*/
 
 
 

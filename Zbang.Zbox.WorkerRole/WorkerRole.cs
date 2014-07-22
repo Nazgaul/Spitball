@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.WorkerRole
 {
+// ReSharper disable once UnusedMember.Global
     public class WorkerRole : RoleEntryPoint
     {
 

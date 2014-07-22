@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Ioc;
-using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace DuplicateQuiz

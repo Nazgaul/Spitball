@@ -1,5 +1,5 @@
-﻿using Zbang.Zbox.ViewModel.Queries;
-using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
+﻿using Zbang.Zbox.ViewModel.Dto.UserDtos;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -12,9 +12,9 @@ namespace Zbang.Zbox.ReadServices
 
         #region UserBasedData
 
-        User.LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query);
-        User.LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query);
-        User.LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query);
+        LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query);
+        LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query);
+        LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query);
        
         
         

@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.DTOs.UserDtos;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers

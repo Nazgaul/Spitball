@@ -17,9 +17,10 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
-using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
+using ItemDto = Zbang.Zbox.ViewModel.Dto.ItemDtos.ItemDto;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -229,7 +230,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
                 {
-                    if (item is Zbox.ViewModel.DTOs.ItemDtos.ItemDto)
+                    if (item is ItemDto)
                     {
                         item.DownloadUrl = urlBuilder.BuildDownloadUrl(id, item.Id);
                     }
