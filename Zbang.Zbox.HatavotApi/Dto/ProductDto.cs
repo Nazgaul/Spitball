@@ -20,5 +20,7 @@
 
         public string CatalogNumber { get; set; } 
         public float DeliveryPrice { get; set; }
+
+        public string ProducerName { get; set; }
     }
 }

@@ -2,15 +2,10 @@
 {
     public abstract class QueryPrefixBase : QueryPagedBase
     {
-        protected QueryPrefixBase(string prefix, long userid, int pageNumber)
+        protected QueryPrefixBase(string prefix, long userid, int pageNumber = 0)
             : base(userid, pageNumber)
         {
             ChangePrefixForQuery(prefix);
-        }
-
-        protected QueryPrefixBase(string prefix, long userid)
-            : this(prefix, userid, 0)
-        {
         }
 
         private void ChangePrefixForQuery(string prefix)

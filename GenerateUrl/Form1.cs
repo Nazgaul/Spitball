@@ -47,7 +47,7 @@ namespace GenerateUrl
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 

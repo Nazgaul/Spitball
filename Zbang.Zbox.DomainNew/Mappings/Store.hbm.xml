@@ -12,7 +12,7 @@
     <property name="Url" not-null="true"/>
     <property name="Order" not-null="true" column="CatOrder" />
   </class>
-  
+
   <class name="StoreProduct" table="StoreProduct">
     <id name="Id" column="ProductId">
       <generator class="assigned"/>
@@ -24,13 +24,14 @@
     <property name="SalePrice"  not-null="true"/>
     <property name="PictureUrl" not-null="true" />
     <property name="Url" not-null="true"/>
-    
-    <property name="Description" not-null="true" length="8000"/>
-    <property name="SupplyTime" not-null="true" length="3"/>
-    <property name="NumberOfPayments" not-null="true"/>
-    <property name="CatalogNumber" not-null="true" length="50"/>
-    <property name="DeliveryPrice" not-null="true"/>
+
+    <property name="Description" length="8000"/>
+    <property name="SupplyTime"  length="3"/>
+    <property name="NumberOfPayments" />
+    <property name="CatalogNumber"  length="50"/>
+    <property name="DeliveryPrice" />
     <property name="HomePage" not-null="true"/>
+    <property name="ProducerName" />
 
     <set name="Categories" table="StoreProductCategory">
       <key column="ProductId"/>

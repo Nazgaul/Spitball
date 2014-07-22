@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DecoratorContainerExtension.cs" />
     <Compile Include="IocFactory.cs" />
     <Compile Include="IocParameterOverride.cs" />
     <Compile Include="LifeTimeManager.cs" />

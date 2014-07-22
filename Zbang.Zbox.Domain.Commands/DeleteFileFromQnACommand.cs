@@ -11,8 +11,8 @@ namespace Zbang.Zbox.Domain.Commands
         }
 
 
-        public long ItemId { get; set; }
+        public long ItemId { get; private set; }
 
-        public long UserId { get; set; }
+        public long UserId { get; private set; }
     }
 }

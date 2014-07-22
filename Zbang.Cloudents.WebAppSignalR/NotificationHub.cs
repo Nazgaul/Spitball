@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
-using System.Collections.Concurrent;
 
 namespace Zbang.Cloudents.WebAppSignalR
 {
@@ -54,78 +53,74 @@ namespace Zbang.Cloudents.WebAppSignalR
         public void InviteUser(long userUid)
         {
             //var userId = m_ShortToLongCache.Value.ShortCodeToLong(userUid, ShortCodesType.User);
-            Clients.User(userUid.ToString()).inviteUser();
+            Clients.User(userUid.ToString(CultureInfo.InvariantCulture)).inviteUser();
         }
 
 
         public async Task JoinBox(IList<string> boxids)
         {
-           var tasks = new List<Task>();
-           foreach (var boxid in boxids)
-           {
-               tasks.Add(Groups.Add(Context.ConnectionId, Box + boxid));
-           }
-           await Task.WhenAll(tasks);
+           var tasks = boxids.Select(boxid => Groups.Add(Context.ConnectionId, Box + boxid)).ToList();
+            await Task.WhenAll(tasks);
         }
 
-        public override Task OnConnected()
-        {
+        //public override Task OnConnected()
+        //{
 
-            //string userName = Context.User.Identity.Name;
-            //string connectionId = Context.ConnectionId;
+        //    //string userName = Context.User.Identity.Name;
+        //    //string connectionId = Context.ConnectionId;
 
-            //var user = Users.GetOrAdd(userName, _ => new User
-            //{
-            //    Name = userName,
-            //    ConnectionIds = new HashSet<string>()
-            //});
+        //    //var user = Users.GetOrAdd(userName, _ => new User
+        //    //{
+        //    //    Name = userName,
+        //    //    ConnectionIds = new HashSet<string>()
+        //    //});
 
-            //lock (user.ConnectionIds)
-            //{
+        //    //lock (user.ConnectionIds)
+        //    //{
 
-            //    user.ConnectionIds.Add(connectionId);
+        //    //    user.ConnectionIds.Add(connectionId);
 
-            //    if (user.ConnectionIds.Count == 1)
-            //    {
-            //        // Clients.Others.userConnected(userName);
-            //    }
-            //}
+        //    //    if (user.ConnectionIds.Count == 1)
+        //    //    {
+        //    //        // Clients.Others.userConnected(userName);
+        //    //    }
+        //    //}
 
-            return base.OnConnected();
-        }
+        //    return base.OnConnected();
+        //}
 
-        public override Task OnDisconnected()
-        {
-            //string userName = Context.User.Identity.Name;
-            //string connectionId = Context.ConnectionId;
+        //public override Task OnDisconnected()
+        //{
+        //    //string userName = Context.User.Identity.Name;
+        //    //string connectionId = Context.ConnectionId;
 
-            //User user;
-            //Users.TryGetValue(userName, out user);
+        //    //User user;
+        //    //Users.TryGetValue(userName, out user);
 
-            //if (user != null)
-            //{
+        //    //if (user != null)
+        //    //{
 
-            //    lock (user.ConnectionIds)
-            //    {
+        //    //    lock (user.ConnectionIds)
+        //    //    {
 
-            //        user.ConnectionIds.RemoveWhere(cid => cid.Equals(connectionId));
+        //    //        user.ConnectionIds.RemoveWhere(cid => cid.Equals(connectionId));
 
-            //        if (!user.ConnectionIds.Any())
-            //        {
+        //    //        if (!user.ConnectionIds.Any())
+        //    //        {
 
-            //            User removedUser;
-            //            Users.TryRemove(userName, out removedUser);
+        //    //            User removedUser;
+        //    //            Users.TryRemove(userName, out removedUser);
 
-            //            // You might want to only broadcast this info if this 
-            //            // is the last connection of the user and the user actual is 
-            //            // now disconnected from all connections.
-            //            //Clients.Others.userDisconnected(userName);
-            //        }
-            //    }
-            //}
+        //    //            // You might want to only broadcast this info if this 
+        //    //            // is the last connection of the user and the user actual is 
+        //    //            // now disconnected from all connections.
+        //    //            //Clients.Others.userDisconnected(userName);
+        //    //        }
+        //    //    }
+        //    //}
 
-            return base.OnDisconnected();
-        }
+        //    return base.OnDisconnected();
+        //}
 
 
     }

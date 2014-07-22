@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var item in Recepients)
             {
                 sb.AppendLine(" recepient : " + item);

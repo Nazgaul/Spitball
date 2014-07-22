@@ -43,14 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
                 throw new ArgumentException("name");
             }
             string relativeUrl;
-            if (string.IsNullOrEmpty(universityName))
-            {
-                relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(BoxUrl, id, NameToQueryString(name)));
-            }
-            else
-            {
-                relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(CourseUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
-            }
+            relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.IsNullOrEmpty(universityName) ? string.Format(BoxUrl, id, NameToQueryString(name)) : string.Format(CourseUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
             if (fullUrl)
             {
                 return CloudentsUrl + relativeUrl;

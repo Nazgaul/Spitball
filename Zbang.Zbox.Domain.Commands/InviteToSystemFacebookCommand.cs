@@ -5,12 +5,12 @@ namespace Zbang.Zbox.Domain.Commands
     public class InviteToSystemFacebookCommand : ICommand
     {
 
-        public InviteToSystemFacebookCommand(long senderId, long recepientFacebookUserId,
-            string recepientFacebookUserName, string firstName, string middleName, string lastName, bool sex)
+        public InviteToSystemFacebookCommand(long senderId, long recipientFacebookUserId,
+            string recipientFacebookUserName, string firstName, string middleName, string lastName, bool sex)
         {
             SenderId = senderId;
-            FacebookUserId = recepientFacebookUserId;
-            FacebookUserName = recepientFacebookUserName;
+            FacebookUserId = recipientFacebookUserId;
+            FacebookUserName = recipientFacebookUserName;
             //FacebookName = recepientFacebookName;
 
             FirstName = firstName;

@@ -13,10 +13,10 @@ namespace Zbang.Zbox.ReadServices
 {
     public abstract class BaseReadService : IBaseReadService
     {
-        protected readonly IHttpContextCacheWrapper m_ContextCacheWrapper;
+        protected readonly IHttpContextCacheWrapper ContextCacheWrapper;
         public BaseReadService(IHttpContextCacheWrapper contextCacheWrapper)
         {
-            m_ContextCacheWrapper = contextCacheWrapper;
+            ContextCacheWrapper = contextCacheWrapper;
         }
         #region login
         public User.LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
@@ -105,7 +105,7 @@ namespace Zbang.Zbox.ReadServices
         public UserRelationshipType CheckIfUserAllowedToSee(long boxId, long userId)
         {
             const string key = "AllowedToSee";
-            var cacheElem = m_ContextCacheWrapper.GetObject(key);
+            var cacheElem = ContextCacheWrapper.GetObject(key);
             if (cacheElem != null)
             {
                 return (UserRelationshipType)cacheElem;
@@ -132,12 +132,12 @@ namespace Zbang.Zbox.ReadServices
             const string key = "AllowedToSee";
             if (userRelationShipType == UserRelationshipType.Owner)
             {
-                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
             if (privacySettings == BoxPrivacySettings.AnyoneWithUrl)
             {
-                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
 
@@ -145,7 +145,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 if (userRelationShipType == UserRelationshipType.Subscribe || userRelationShipType == UserRelationshipType.Invite)
                 {
-                    m_ContextCacheWrapper.AddObject(key, userRelationShipType);
+                    ContextCacheWrapper.AddObject(key, userRelationShipType);
                     return userRelationShipType;
                 }
             }

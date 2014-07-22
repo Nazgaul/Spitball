@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             m_ReputationRepository.Save(question.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteQuestion));
-            box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) - substract);
+            box.UpdateCommentsCount(m_BoxRepository.QnACount(box.Id) - substract);
 
             m_BoxRepository.Save(box);
 

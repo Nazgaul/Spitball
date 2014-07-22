@@ -5,11 +5,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 {
     public static class ImageLinkExtension
     {
-        public static MvcHtmlString ImageLink(this  HtmlHelper helper, string imgUrl, string alt, string actionName)
-        {
-            return ImageLink(helper, imgUrl, alt, actionName, null, null, null, null);
-        }
-
         public static MvcHtmlString ImageLink(this HtmlHelper helper, string imgUrl, string alt, string actionName, object routeValues)
         {
             return ImageLink(helper, imgUrl, alt, actionName, null, routeValues, null, null);
@@ -20,7 +15,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         }
 
 
-        public static MvcHtmlString ImageLink(this HtmlHelper helper, string imgUrl, string alt, string actionName, string controllerName, object routeValues, object linkHtmlAttributes, object imageHtmlAttributes)
+        public static MvcHtmlString ImageLink(this HtmlHelper helper, string imgUrl, string alt, string actionName, string controllerName = null, object routeValues = null, object linkHtmlAttributes = null, object imageHtmlAttributes = null)
         {
             var urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
 

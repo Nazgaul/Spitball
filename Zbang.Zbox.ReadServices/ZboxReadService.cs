@@ -438,7 +438,7 @@ namespace Zbang.Zbox.ReadServices
         #region Search
         public async Task<SearchDto> Search(GroupSearchQuery query)
         {
-            SearchDto retVal = new SearchDto();
+            var retVal = new SearchDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
 

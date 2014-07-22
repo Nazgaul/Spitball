@@ -19,13 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         internal const string DefaultEmail = "no-reply@cloudents.com";
         internal const string DefaultSenderName = "Cloudents";
 
-        protected MailParameters(CultureInfo culture)
-            : this(culture, DefaultEmail, DefaultSenderName)
-        {
-
-        }
-
-        protected MailParameters(CultureInfo culture, string senderEmail, string senderName)
+        protected MailParameters(CultureInfo culture, string senderEmail = DefaultEmail, string senderName = DefaultSenderName)
         {
             UserCulture = culture;
             SenderEmail = senderEmail;

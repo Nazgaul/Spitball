@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual string CourseCode { get; private set; }
         public virtual string Professor { get; private set; }
-        public virtual ICollection<Library> Library { get; set; }
+        public virtual ICollection<Library> Library { get; private set; }
 
         public void UpdateBoxInfo(string courseCode, string professorName)
         {

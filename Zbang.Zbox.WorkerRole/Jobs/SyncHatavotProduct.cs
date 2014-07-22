@@ -67,7 +67,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                              item.Image,
                              item.ProductPayment,
                              item.Saleprice,
-                             item.SupplyTime
+                             item.SupplyTime,
+                             item.ProducerName
                             ));
                     }
                     catch (Exception ex)

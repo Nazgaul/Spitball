@@ -89,7 +89,6 @@
     <Compile Include="StoreCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
-    <Compile Include="AnswerRating.cs" />
     <Compile Include="Quiz.cs" />
     <Compile Include="Quota.cs" />
     <Compile Include="Reputation.cs" />

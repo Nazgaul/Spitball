@@ -32,7 +32,7 @@
     <!--<property name="Description" length="400" />-->
     <many-to-one name="Owner" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdBoxes"/>
 
-    <set name="UserBoxRel"  cascade="all-delete-orphan" inverse="true" batch-size="20">
+    <set name="UserBoxRelationship"  cascade="all-delete-orphan" inverse="true" batch-size="20">
       <key column="BoxId"/>
       <one-to-many class="UserBoxRel"/>
     </set>
@@ -41,7 +41,7 @@
       <key column="BoxId"/>
       <one-to-many class="Item"/>
     </bag>
-    <bag name="Quizes"  cascade="all-delete-orphan" inverse="true" lazy="true">
+    <bag name="Quizzes"  cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="BoxId"/>
       <one-to-many class="Quiz"/>
     </bag>

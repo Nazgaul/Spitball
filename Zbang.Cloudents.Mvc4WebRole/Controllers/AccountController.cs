@@ -524,7 +524,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var code = RandomString(10);
 
 
-                ForgotPasswordLinkData data = new ForgotPasswordLinkData(membershipUserId, 1);
+                var data = new ForgotPasswordLinkData(membershipUserId, 1);
 
                 var linkData = CrypticElement(data);
                 Session[SessionResetPassword] = data;

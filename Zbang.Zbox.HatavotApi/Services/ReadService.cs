@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Store.Services
       --,[IndexProdOrder] -- the rank of the product on the page (lower is higher on the page_)
       --,[SalesProdOrder] -- sales page product order 
       --,[ProdOrder] -- Category Page  product order
-      --,[ProducerId] -- Producer ID 
+      ,(select producerName from tblproducers s where s.producerid = p.[ProducerId]) as producerName -- Producer ID 
       --,[p1] -- Upgrades
       --,[v1]-- Upgrades
       --,[p2]-- Upgrades
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Store.Services
       ,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       --,[designNum] -- Which University to show --> Can be to all or to one specific  
-  FROM [bizpoin_bizpointDB].[products] where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
+  FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
                 return await conn.QueryAsync<ProductDto>(sql, new { catId  = category});
             }
         }

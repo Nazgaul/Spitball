@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             }
             userRate = new ItemRate(user, item, message.Id, message.Rate);
-            item.CalcalateRate(message.Rate, rateCount);
+            item.CalculateRate(message.Rate, rateCount);
             m_ReputationRepository.Save(item.Uploader.AddReputation(GetReputaionByPoistion(message.Rate)));
 
             m_ItemRateRepositoy.Save(userRate);

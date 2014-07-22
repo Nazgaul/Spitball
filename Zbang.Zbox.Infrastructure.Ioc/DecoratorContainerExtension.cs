@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
                 return;
             }
 
-            Stack<Type> stack = new Stack<Type>(
+            var stack = new Stack<Type>(
                 _typeStacks[key.Type]
             );
 

@@ -994,15 +994,15 @@ header {
 .selectWpr:after {
   content: '';
   display: inline-block;
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
   border-style: solid;
   border-width: 4px 4px 0 4px;
   border-color: #3b3b3b transparent transparent transparent;
   pointer-events: none;
   position: absolute;
   top: 12px;
-  right: 0px;
+  right: 0;
   /*rtl*/
 }
 .uploadItemsBox {
@@ -1014,15 +1014,15 @@ header {
 .uploadItemsBox:after {
   content: '';
   display: inline-block;
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
   border-style: solid;
   border-width: 4px 4px 0 4px;
   border-color: #000 transparent transparent transparent;
   pointer-events: none;
   position: absolute;
   top: 12px;
-  right: 0px;
+  right: 0;
 }
 .boxHeader {
   font-size: 18px;

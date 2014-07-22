@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId();
             try
             {
-                CookieHelper cookie = new CookieHelper(HttpContext);
+                var cookie = new CookieHelper(HttpContext);
                 if (HttpContext.Request.Files == null)
                 {
                     return this.CdJson(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
@@ -125,7 +125,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private FileUploadDetails GetCookieUpload(long fileSize, string fileName, HttpPostedFileBase uploadedfile)
         {
             //FileUploadDetails fileReceive;
-            CookieHelper cookie = new CookieHelper(HttpContext);
+            var cookie = new CookieHelper(HttpContext);
             var fileReceive = cookie.ReadCookie<FileUploadDetails>("upload");
             if (fileReceive != null && fileReceive.FileSize <= fileReceive.TotalUploadBytes)
             {
@@ -199,7 +199,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userid = GetUserId();
 
-                UrlTitleBringer helper = new UrlTitleBringer();
+                var helper = new UrlTitleBringer();
                 var title = model.FileUrl;
                 try
                 {
