@@ -60,6 +60,48 @@ header {
         display: inline;
     }
 }
+.langMenu {
+    padding: 6px;
+    .boxSizing;
+    &.dropdown-menu {
+        top: 42px;
+        left: -10px;
+        width: 100px;
+        background: @txtColor;
+        border: none; //override
+
+        &:hover {
+            background: @txtColor; //override
+        }
+        button {
+            color: #fff;
+            text-align: center;
+            height: 44px;
+            border-bottom: 1px solid silver;
+            &:hover {
+                background: @txtColor; //override - check with Shlomi
+            }
+        }
+    }
+    
+    &:before {
+        .pseudo;
+        position: absolute;
+        left:0;right:0;
+        top: -13px;
+        margin: auto;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 8px 13px 8px;
+        border-color: transparent transparent @txtColor transparent;
+    }
+    .menuItem {
+        &:last-child button {
+            border: none;
+        }
+    }
+}
 .currentLang {
     color: @color;
     font-size: 15px;
