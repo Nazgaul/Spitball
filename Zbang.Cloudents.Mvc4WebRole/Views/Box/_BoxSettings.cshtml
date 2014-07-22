@@ -24,7 +24,7 @@
             </div>
             <div class="boxSetting">
                 <label for="boxSettingsName">@SharedResources.Name:</label>
-                <input type="text" class="inputText editBoxName" id="boxSettingsName" ng-model="formData.name" autocomplete="off"  />
+                <input type="text" class="inputText editBoxName" id="boxSettingsName" ng-model="formData.name" ng-readonly="info.boxType === 'box' && info.userType !== 'owner'" autocomplete="off"  />
             </div>
 
             <div class="boxSetting academic">
