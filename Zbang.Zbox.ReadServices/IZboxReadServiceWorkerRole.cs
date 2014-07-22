@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zbang.Zbox.ViewModel.DTOs.Emails;
-using Zbang.Zbox.ViewModel.DTOs.Library;
+using Zbang.Zbox.ViewModel.Dto.Emails;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.ReadServices

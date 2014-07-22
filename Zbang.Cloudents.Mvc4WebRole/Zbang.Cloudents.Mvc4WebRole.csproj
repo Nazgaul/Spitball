@@ -261,17 +261,12 @@
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Extensions\AjaxImageLink.cs" />
     <Compile Include="Extensions\ControllerExtension.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
-    <Compile Include="Extensions\LabelExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
-    <Compile Include="Extensions\ImageLink.cs" />
-    <Compile Include="Extensions\RedirectToRouteResult.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
     <Compile Include="Filters\AjaxAttribute.cs" />
-    <Compile Include="Filters\AntiforgeryHandleErrorAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
@@ -369,11 +364,9 @@
     <Compile Include="Models\Share\Message.cs" />
     <Compile Include="Models\NewAnnotation.cs" />
     <Compile Include="Models\NewComment.cs" />
-    <Compile Include="Models\NewReply.cs" />
     <Compile Include="Models\QnA\Answer.cs" />
     <Compile Include="Models\QnA\Question.cs" />
     <Compile Include="Models\RenameLibraryNode.cs" />
-    <Compile Include="Models\ReplyAnnotation.cs" />
     <Compile Include="Models\Resources\AddLinkResources.Designer.cs">
       <DependentUpon>AddLinkResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

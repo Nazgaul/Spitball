@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
+using Zbang.Zbox.ViewModel.Dto.Dashboard;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.Dashboard;
-using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.DTOs.Qna;
 using Zbang.Zbox.ViewModel.DTOs.Search;
 using Zbang.Zbox.ViewModel.DTOs.Store;
@@ -13,9 +17,7 @@ using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
-using Activity = Zbang.Zbox.ViewModel.DTOs.ActivityDtos;
-using Box = Zbang.Zbox.ViewModel.DTOs.BoxDtos;
-using Item = Zbang.Zbox.ViewModel.DTOs.ItemDtos;
+using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDtos.BoxDto;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 
 namespace Zbang.Zbox.ReadServices
@@ -34,21 +36,21 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query);
 
         //PagedDto<ItemDto> GetBoxItemsPaged(GetBoxItemsPagedQuery query);
-        IEnumerable<Item.IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
-        Item.ItemWithDetailDto GetItem(GetItemQuery query);
+        IEnumerable<IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
+        ItemWithDetailDto GetItem(GetItemQuery query);
         Task<ItemRateDto> GetRate(GetItemRateQuery query);
 
-        IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
-        Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query);
+        IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
+        Task<IEnumerable<AnnotationDto>> GetItemComments(GetItemCommentsQuery query);
 
-        Box.BoxDto GetBox(GetBoxQuery query);
+        BoxDto GetBox(GetBoxQuery query);
 
         Task<SearchDto> Search(GroupSearchQuery query);
         Task<IEnumerable<User.UserDto>> GetUserFriends(GetUserFriendsQuery query);
 
         User.UserDetailDto GetUserData(GetUserDetailsQuery query);
         User.UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query);
-        IEnumerable<Box.BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query);
+        IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query);
         NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query);
 
         //Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query);
@@ -67,12 +69,12 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<QuestionDto> GetQuestions(GetBoxQuestionsQuery query);
         Task<bool> GetInvite(GetInviteDetailQuery query);
 
-        Box.BoxMetaDto GetBoxMeta(GetBoxQuery query);
+        BoxMetaDto GetBoxMeta(GetBoxQuery query);
 
 
         //user page
-        Task<IEnumerable<Box.BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query);
-        Task<IEnumerable<Item.ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query);
+        Task<IEnumerable<BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query);
+        Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query);
         Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query);
         Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query);
         Task<IEnumerable<User.UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query);
@@ -93,9 +95,9 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);
 
         //Quiz
-        Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query);
-        Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query);
-        Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
+        Task<QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query);
+        Task<QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query);
+        Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
 
         Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query);
         IEnumerable<CategoryDto> GetCategories();

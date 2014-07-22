@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
+using Zbang.Zbox.ViewModel.Dto.Dashboard;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.ActivityDtos;
-using Zbang.Zbox.ViewModel.DTOs.BoxDtos;
-using Zbang.Zbox.ViewModel.DTOs.Dashboard;
-using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
-using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.DTOs.Qna;
 using Zbang.Zbox.ViewModel.DTOs.Search;
 using Zbang.Zbox.ViewModel.DTOs.UserDtos;
@@ -17,7 +18,7 @@ using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
-using BoxDto = Zbang.Zbox.ViewModel.DTOs.BoxDtos.BoxDto;
+using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDtos.BoxDto;
 using UserDto = Zbang.Zbox.ViewModel.DTOs.UserDtos.UserDto;
 
 namespace Zbang.Zbox.ReadServices

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Zbang.Cloudents.WebAppSignalR
 {
     [Authorize]
+// ReSharper disable once UnusedMember.Global
     public class NotificationHub : Hub
     {
         private const string Box = "Box";

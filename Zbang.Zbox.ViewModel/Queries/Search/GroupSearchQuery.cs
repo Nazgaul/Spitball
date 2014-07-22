@@ -20,6 +20,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
         public long UniversityId { get; private set; }
         public long UserId { get; private set; }
         public int Offset { get; private set; }
-        public int PageSize { get; set; }
+        public int PageSize { get; private set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Zbang.Zbox.ViewModel.DTOs.Library;
+using Zbang.Zbox.ViewModel.Dto.Library;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {

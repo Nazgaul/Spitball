@@ -11,6 +11,7 @@ q.Publish
  from zbox.Quiz q 
 where id = @QuizId;";
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
         public const string QuizSeoQuery = @"
 select u.country as Country,b.boxname as BoxName, u.universityname as UniversityName, b.url as BoxUrl from 
 		zbox.quiz q

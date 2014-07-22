@@ -9,7 +9,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.DTOs.Emails;
+using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.WorkerRole.Jobs

@@ -11,9 +11,13 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
+using Zbang.Zbox.ViewModel.Dto.Dashboard;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.Dashboard;
-using Zbang.Zbox.ViewModel.DTOs.Library;
 using Zbang.Zbox.ViewModel.DTOs.Search;
 using Zbang.Zbox.ViewModel.DTOs.Store;
 using Zbang.Zbox.ViewModel.Queries;
@@ -22,10 +26,9 @@ using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
-using Activity = Zbang.Zbox.ViewModel.DTOs.ActivityDtos;
-using Box = Zbang.Zbox.ViewModel.DTOs.BoxDtos;
+using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
-using Item = Zbang.Zbox.ViewModel.DTOs.ItemDtos;
+using ItemDto = Zbang.Zbox.ViewModel.Dto.ItemDtos.ItemDto;
 using Qna = Zbang.Zbox.ViewModel.DTOs.Qna;
 using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 using Sql = Zbang.Zbox.ViewModel.SqlQueries;
@@ -183,15 +186,15 @@ namespace Zbang.Zbox.ReadServices
         /// Get box meta data for invite page
         /// </summary>
         /// <param name="query"></param>
-        public Box.BoxMetaDto GetBoxMeta(GetBoxQuery query)
+        public BoxMetaDto GetBoxMeta(GetBoxQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery boxQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxMetaForInvite");
                 boxQuery.SetInt64("BoxId", query.BoxId);
-                boxQuery.SetResultTransformer(Transformers.AliasToBean<Box.BoxMetaDto>());
+                boxQuery.SetResultTransformer(Transformers.AliasToBean<BoxMetaDto>());
 
-                var fbox = boxQuery.FutureValue<Box.BoxMetaDto>();
+                var fbox = boxQuery.FutureValue<BoxMetaDto>();
                 CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
                 var retVal = fbox.Value;
@@ -206,13 +209,13 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public Box.BoxDto GetBox(GetBoxQuery query)
+        public ViewModel.Dto.BoxDtos.BoxDto GetBox(GetBoxQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery boxQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBox");
                 boxQuery.SetInt64("BoxId", query.BoxId);
-                boxQuery.SetResultTransformer(Transformers.AliasToBean<Box.BoxDto>());
+                boxQuery.SetResultTransformer(Transformers.AliasToBean<ViewModel.Dto.BoxDtos.BoxDto>());
 
 
                 IQuery membersQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxSubscribers");
@@ -224,7 +227,7 @@ namespace Zbang.Zbox.ReadServices
                 tabsQuery.SetInt64("BoxId", query.BoxId);
                 tabsQuery.SetResultTransformer(Transformers.AliasToBean<TabDto>());
 
-                var fbox = boxQuery.FutureValue<Box.BoxDto>();
+                var fbox = boxQuery.FutureValue<ViewModel.Dto.BoxDtos.BoxDto>();
                 var fmembers = membersQuery.Future<User.UserDto>();
                 var fTab = tabsQuery.Future<TabDto>();
                 //var fParent = boxLibQuery.FutureValue<NodeDto>();
@@ -265,7 +268,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public IEnumerable<Item.IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query)
+        public IEnumerable<IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query)
         {
             using (UnitOfWork.Start())
             {
@@ -273,18 +276,18 @@ namespace Zbang.Zbox.ReadServices
                 var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
                 queryBoxItem.SetInt64("BoxId", query.BoxId);
                 queryBoxItem.SetParameter("TabId", query.TabId);
-                queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileDto), typeof(Item.LinkDto)));
+                queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(FileDto), typeof(LinkDto)));
 
 
                 var queryQuiz = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuiz");
                 queryQuiz.SetInt64("BoxId", query.BoxId)
-                    .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
+                    .SetResultTransformer(Transformers.AliasToBean<QuizDto>());
 
 
-                var fitems = queryBoxItem.Future<Item.ItemDto>();
-                var fQuiz = queryQuiz.Future<Item.QuizDto>();
+                var fitems = queryBoxItem.Future<ItemDto>();
+                var fQuiz = queryQuiz.Future<QuizDto>();
 
-                IEnumerable<Item.IItemDto> items = fitems.ToList();
+                IEnumerable<IItemDto> items = fitems.ToList();
                 var quizes = fQuiz.ToList();
                 var retVal = items.Union(quizes);
 
@@ -300,15 +303,15 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public Item.ItemWithDetailDto GetItem(GetItemQuery query)
+        public ItemWithDetailDto GetItem(GetItemQuery query)
         {
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetItem");
                 dbQuery.SetInt64("ItemId", query.ItemId);
-                dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileWithDetailDto), typeof(Item.LinkWithDetailDto)));
+                dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(FileWithDetailDto), typeof(LinkWithDetailDto)));
 
-                var item = dbQuery.FutureValue<Item.ItemWithDetailDto>();
+                var item = dbQuery.FutureValue<ItemWithDetailDto>();
                 var type = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
                 if (item.Value == null)
@@ -336,14 +339,14 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
+        public IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
         {
             using (UnitOfWork.Start())
             {
                 var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxComments");
                 dbQuery.SetParameter("boxid", query.BoxId);
-                dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToCompositeClasses<Activity.CommentDto>());
-                var comments = dbQuery.Future<Activity.BaseActivityDto>();
+                dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToCompositeClasses<CommentDto>());
+                var comments = dbQuery.Future<BaseActivityDto>();
 
                 CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
@@ -403,7 +406,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
+        public async Task<IEnumerable<AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
         {
 
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
@@ -425,7 +428,7 @@ namespace Zbang.Zbox.ReadServices
                       where itemid = @itemId
                       order by imageid, Y ";
 
-                return await conn.QueryAsync<Activity.AnnotationDto>(sql, new { itemId = query.ItemId });
+                return await conn.QueryAsync<AnnotationDto>(sql, new { itemId = query.ItemId });
             }
         }
 
@@ -663,15 +666,15 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public IEnumerable<Box.BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query)
+        public IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query)
         {
             using (UnitOfWork.Start())
             {
                 var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserBoxesNotification");
                 dbQuery.SetInt64("UserId", query.UserId);
                 dbQuery.SetReadOnly(true);
-                dbQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(Box.BoxNotificationDto).GetConstructors()[0]));
-                return dbQuery.List<Box.BoxNotificationDto>();
+                dbQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxNotificationDto).GetConstructors()[0]));
+                return dbQuery.List<BoxNotificationDto>();
 
             }
         }
@@ -721,19 +724,19 @@ namespace Zbang.Zbox.ReadServices
         }
 
         #region UserPage
-        public async Task<IEnumerable<Box.BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Box.BoxToFriendDto>(Sql.Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
+                var retVal = await conn.QueryAsync<BoxToFriendDto>(Sql.Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
                 return retVal;
             }
         }
-        public async Task<IEnumerable<Item.ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Item.ItemToFriendDto>(Sql.Sql.UserWithFriendFiles, new { Me = query.UserId, Myfriend = query.FriendId });
+                var retVal = await conn.QueryAsync<ItemToFriendDto>(Sql.Sql.UserWithFriendFiles, new { Me = query.UserId, Myfriend = query.FriendId });
                 return retVal;
             }
         }
@@ -773,7 +776,7 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Sql.UserWithFriendQuestion,
                     Sql.Sql.UserWithFriendAnswer), new { Me = query.UserId, Myfriend = query.FriendId }))
                 {
-                    retVal.Items = grid.Read<Item.ItemToFriendDto>();
+                    retVal.Items = grid.Read<ItemToFriendDto>();
                     retVal.Questions = grid.Read<Qna.QuestionToFriendDto>();
                     retVal.Answers = grid.Read<Qna.AnswerToFriendDto>();
                 }
@@ -825,9 +828,9 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
         #region Quiz
-        public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
+        public async Task<QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
-            var retVal = new Item.QuizWithDetailSolvedDto();
+            var retVal = new QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = string.Format("{0} {1} {2} {3} {4} {5} {6}",
@@ -835,7 +838,7 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Quiz.Question,
                     Sql.Quiz.Answer,
                     Sql.Security.GetBoxPrivacySettings,
-                    Sql.Security.GetUserToBoxRelationShip,
+                    Sql.Security.GetUserToBoxRelationship,
                     Sql.Quiz.UserQuiz,
                     Sql.Quiz.UserAnswer);
 
@@ -845,10 +848,10 @@ namespace Zbang.Zbox.ReadServices
                 }
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId }))
                 {
-                    retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
-                    retVal.Quiz.Questions = grid.Read<Item.QuestionWithDetailDto>();
+                    retVal.Quiz = grid.Read<QuizWithDetailDto>().First();
+                    retVal.Quiz.Questions = grid.Read<QuestionWithDetailDto>();
 
-                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
+                    var answers = grid.Read<AnswerWithDetailDto>().ToList();
 
                     foreach (var question in retVal.Quiz.Questions)
                     {
@@ -859,8 +862,8 @@ namespace Zbang.Zbox.ReadServices
                     var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
                     GetUserStatusToBox(privacySettings, userRelationShip);
 
-                    retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
-                    var solvedQuestion = grid.Read<Item.SolveQuestion>();
+                    retVal.Sheet = grid.Read<SolveSheet>().FirstOrDefault();
+                    var solvedQuestion = grid.Read<SolveQuestion>();
                     if (retVal.Sheet != null)
                     {
                         retVal.Sheet.Questions = solvedQuestion;
@@ -868,31 +871,31 @@ namespace Zbang.Zbox.ReadServices
 
                     if (query.NeedCountry)
                     {
-                        retVal.Quiz.Seo = grid.Read<Item.QuizSeo>().FirstOrDefault();
+                        retVal.Quiz.Seo = grid.Read<QuizSeo>().FirstOrDefault();
                     }
                 }
             }
             return retVal;
         }
-        public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
+        public async Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Item.DiscussionDto>(Sql.Quiz.Discussion, new { query.QuizId });
+                return await conn.QueryAsync<DiscussionDto>(Sql.Quiz.Discussion, new { query.QuizId });
             }
         }
 
-        public async Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
+        public async Task<QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
         {
 
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { query.QuizId }))
                 {
-                    Item.QuizWithDetailDto retVal = grid.Read<Item.QuizWithDetailDto>().First();
-                    retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
+                    QuizWithDetailDto retVal = grid.Read<QuizWithDetailDto>().First();
+                    retVal.Questions = grid.Read<QuestionWithDetailDto>();
 
-                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
+                    var answers = grid.Read<AnswerWithDetailDto>().ToList();
 
                     foreach (var question in retVal.Questions)
                     {

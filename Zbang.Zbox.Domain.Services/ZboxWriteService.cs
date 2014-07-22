@@ -213,7 +213,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void ShareBoxFacebbok(ShareBoxFacebookCommand command)
+        public void ShareBoxFacebook(ShareBoxFacebookCommand command)
         {
             using (UnitOfWork.Start())
             {

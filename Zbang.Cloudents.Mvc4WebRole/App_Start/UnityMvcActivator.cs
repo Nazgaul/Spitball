@@ -11,6 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     public static class UnityWebActivator
     {
         /// <summary>Integrates Unity when the application starts.</summary>
+// ReSharper disable once UnusedMember.Global
         public static void Start() 
         {
             var container = UnityConfig.GetConfiguredContainer();

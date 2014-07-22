@@ -12,6 +12,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -111,7 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [NonAction]
-        private async Task<Zbox.ViewModel.DTOs.ItemDtos.QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName, bool isNonAjax)
+        private async Task<QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName, bool isNonAjax)
         {
             var query = new GetQuizQuery(quizId, GetUserId(false), boxId, isNonAjax);
             var model = await ZboxReadService.GetQuiz(query);

@@ -14,7 +14,7 @@ using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ViewModel.DTOs.ItemDtos;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
