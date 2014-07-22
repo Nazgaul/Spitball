@@ -79,6 +79,96 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ActivateCoupon {
+            get {
+                return ResourceManager.GetString("ActivateCoupon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BeforeYouBuy {
+            get {
+                return ResourceManager.GetString("BeforeYouBuy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BillMe {
+            get {
+                return ResourceManager.GetString("BillMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CardOwnerName {
+            get {
+                return ResourceManager.GetString("CardOwnerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CardOwnerNo {
+            get {
+                return ResourceManager.GetString("CardOwnerNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CellPhone {
+            get {
+                return ResourceManager.GetString("CellPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CheapPrices {
+            get {
+                return ResourceManager.GetString("CheapPrices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact Us.
         /// </summary>
         public static string ContactUs {
@@ -88,11 +178,74 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CostWithShipping {
+            get {
+                return ResourceManager.GetString("CostWithShipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coupon.
         /// </summary>
         public static string Coupon {
             get {
                 return ResourceManager.GetString("Coupon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CouponActivated {
+            get {
+                return ResourceManager.GetString("CouponActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CreditCardNo {
+            get {
+                return ResourceManager.GetString("CreditCardNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DiscountsForYou {
+            get {
+                return ResourceManager.GetString("DiscountsForYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string GetDiscounts {
+            get {
+                return ResourceManager.GetString("GetDiscounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string GetHelp {
+            get {
+                return ResourceManager.GetString("GetHelp", resourceCulture);
             }
         }
         
@@ -111,6 +264,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         public static string HotSales {
             get {
                 return ResourceManager.GetString("HotSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IdentityNo {
+            get {
+                return ResourceManager.GetString("IdentityNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Installments {
+            get {
+                return ResourceManager.GetString("Installments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IReadIt {
+            get {
+                return ResourceManager.GetString("IReadIt", resourceCulture);
             }
         }
         
@@ -142,11 +322,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PriceWithVat {
+            get {
+                return ResourceManager.GetString("PriceWithVat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProceedTo {
+            get {
+                return ResourceManager.GetString("ProceedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product discounts exclusively for students.
         /// </summary>
         public static string ProductDiscounts {
             get {
                 return ResourceManager.GetString("ProductDiscounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProductName {
+            get {
+                return ResourceManager.GetString("ProductName", resourceCulture);
             }
         }
         
@@ -160,11 +376,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PurchaseNow {
+            get {
+                return ResourceManager.GetString("PurchaseNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reg. Price.
         /// </summary>
         public static string RegPrice {
             get {
                 return ResourceManager.GetString("RegPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string RelatedProducts {
+            get {
+                return ResourceManager.GetString("RelatedProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SafeDelivery {
+            get {
+                return ResourceManager.GetString("SafeDelivery", resourceCulture);
             }
         }
         
@@ -178,11 +421,74 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SecuredPage {
+            get {
+                return ResourceManager.GetString("SecuredPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SecurePurchase {
+            get {
+                return ResourceManager.GetString("SecurePurchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SecureSite {
+            get {
+                return ResourceManager.GetString("SecureSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Security {
+            get {
+                return ResourceManager.GetString("Security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Shipping {
+            get {
+                return ResourceManager.GetString("Shipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ShippingCost {
+            get {
+                return ResourceManager.GetString("ShippingCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string Signup {
             get {
                 return ResourceManager.GetString("Signup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SitePoweredBy {
+            get {
+                return ResourceManager.GetString("SitePoweredBy", resourceCulture);
             }
         }
         
@@ -196,11 +502,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string StudentDiscounts {
+            get {
+                return ResourceManager.GetString("StudentDiscounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Student Price.
         /// </summary>
         public static string StudentPrice {
             get {
                 return ResourceManager.GetString("StudentPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string StudentPrice2 {
+            get {
+                return ResourceManager.GetString("StudentPrice2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Telephone {
+            get {
+                return ResourceManager.GetString("Telephone", resourceCulture);
             }
         }
         
@@ -214,11 +547,110 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ThreeDigits {
+            get {
+                return ResourceManager.GetString("ThreeDigits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ToGetACoupon {
+            get {
+                return ResourceManager.GetString("ToGetACoupon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TotalPrice {
+            get {
+                return ResourceManager.GetString("TotalPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Upgrades {
+            get {
+                return ResourceManager.GetString("Upgrades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Vaildity {
+            get {
+                return ResourceManager.GetString("Vaildity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WeCommit {
+            get {
+                return ResourceManager.GetString("WeCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WhatIsThis {
+            get {
+                return ResourceManager.GetString("WhatIsThis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What product are you looking for? Seach here....
         /// </summary>
         public static string WhatProduct {
             get {
                 return ResourceManager.GetString("WhatProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WholeToRetail {
+            get {
+                return ResourceManager.GetString("WholeToRetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WrongCode {
+            get {
+                return ResourceManager.GetString("WrongCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string YourOrder {
+            get {
+                return ResourceManager.GetString("YourOrder", resourceCulture);
             }
         }
     }

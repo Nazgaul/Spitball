@@ -141,7 +141,7 @@
   <data name="CardOwnerNo" xml:space="preserve">
     <value>ת.ז. בעל הכרטיס</value>
   </data>
-  <data name="Cell Phone" xml:space="preserve">
+  <data name="CellPhone" xml:space="preserve">
     <value>טלפון נייד</value>
   </data>
   <data name="CheapPrices" xml:space="preserve">
