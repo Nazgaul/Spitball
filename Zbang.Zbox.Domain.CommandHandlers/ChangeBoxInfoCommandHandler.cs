@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 ChangeAcademicBoxInfo(command, academicBox);
                 m_AcademicBoxRepository.Save(academicBox);
             }
-            
+
             if (command.BoxName.Length > Box.NameLength)
             {
                 throw new OverflowException("Box Name exceed " + Box.NameLength);
@@ -47,13 +47,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException("box with that name already exists");
 
             box.ChangeBoxName(command.BoxName);
-            if (command.Privacy.HasValue)
-            {
-                User user = m_UserRepository.Load(command.UserId);
-                box.ChangePrivacySettings(command.Privacy.Value, user);
-            }
+            User user = m_UserRepository.Load(command.UserId);
+            box.ChangePrivacySettings(command.Privacy, user);
             ChangeNotificationSettings(command.UserId, command.BoxId, command.Notification);
-          
+
             m_BoxRepository.Save(box);
         }
 
