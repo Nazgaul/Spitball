@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain.Commands
             string professorName,
             string courseCode,
             string image,
-            BoxPrivacySettings privacy,
+            BoxPrivacySettings? privacy,
             NotificationSettings notification)
         {
             BoxId = boxId;
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.Commands
         public string CourseCode { get; private set; }
 
         public string Image { get; set; }
-        public BoxPrivacySettings Privacy { get; private set; }
+        public BoxPrivacySettings? Privacy { get; private set; }
         public NotificationSettings Notification { get; private set; }
 
     }
