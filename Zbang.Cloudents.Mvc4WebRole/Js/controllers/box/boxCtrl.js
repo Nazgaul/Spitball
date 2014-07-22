@@ -100,6 +100,8 @@ mBox.controller('BoxCtrl',
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
                 $scope.$broadcast('qna', qna);
 
+                $scope.info.showJoinGroup = $scope.isUserFollowing();
+
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
                 });
@@ -414,6 +416,10 @@ mBox.controller('BoxCtrl',
                     cd.pubsub.publish('register', { action: true });
                 }
 
+                if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
+                    alert(jsResources.NeedToFollowBox)
+                    return;
+                }
                 var modalInstance = $modal.open({
                     windowClass: "createTab",
                     templateUrl: $scope.partials.createTab,
@@ -529,6 +535,14 @@ mBox.controller('BoxCtrl',
                 }, function () {
                     //dismiss
                 });
+            };
+
+            $scope.inviteFriends = function (e) {
+                if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
+                    e.preventDefault();
+                    alert(jsResources.NeedToFollowBox)
+                    return;
+                }
             };
             //#endregion
 
@@ -676,6 +690,11 @@ mBox.controller('BoxCtrl',
                     cd.pubsub.publish('register', { action: true });
                 }
 
+                if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
+                    alert(jsResources.NeedToFollowBox)
+                    return;
+                }
+
                 var memberPromise = Box.members({ boxUid: $scope.boxId }),
                    notificationPromise = Box.notification({ boxUid: $scope.boxId }),
                    settingsAll = $q.all([memberPromise, notificationPromise]),
@@ -730,6 +749,8 @@ mBox.controller('BoxCtrl',
                 $scope.action = {
                     userFollow: true
                 }
+                $scope.info.userType = 'subscrie';
+
                 var member = {
                     uid: UserDetails.getDetails().id,
                     name: UserDetails.getDetails().name,
@@ -748,8 +769,8 @@ mBox.controller('BoxCtrl',
                     $scope.info.allMembers.push(member);
                 };
 
-                $timeout(function () {
-                    $scope.info.userType = 'subscribe';
+                $timeout(function () { 
+                    $scope.info.showJoinGroup = false;
                 }, 3300);
 
                 if (nonAjax) {
