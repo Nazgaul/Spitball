@@ -326,47 +326,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        /// <summary>
-        /// Change box privacy settings - happen when user press on copy link
-        /// </summary>
-        /// <param name="boxUid"></param>
-        /// <param name="privacy"></param>
-        /// <returns></returns>
-        [HttpPost, Ajax]
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public JsonNetResult ChangePrivacySettings(long boxUid, BoxPrivacySettings privacy = BoxPrivacySettings.AnyoneWithUrl)
-        {
-            try
-            {
-                if (!User.Identity.IsAuthenticated)
-                {
-                    return this.CdJson(new JsonResponse(false));
-                }
-
-                var userId = GetUserId();
-                var result = ChangePrivacySettings(privacy, boxUid, userId);
-
-                return this.CdJson(new JsonResponse(true, result.PrivacyChanged));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return this.CdJson(new JsonResponse(false));
-            }
-
-        }
-
-        [NonAction]
-        private ChangeBoxPrivacySettingsCommandResult ChangePrivacySettings(BoxPrivacySettings privacy, long boxUid, long userId)
-        {
-
-            var privacyCommand = new ChangeBoxPrivacySettingsCommand(userId, boxUid, privacy, string.Empty);
-            var privacyResult = ZboxWriteService.ChangeBoxPrivacySettings(privacyCommand);
-            return privacyResult;
-        }
-
-
-
-
         [ZboxAuthorize]
         [HttpGet]
         [Ajax]

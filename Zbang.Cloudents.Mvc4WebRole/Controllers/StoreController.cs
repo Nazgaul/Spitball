@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -42,7 +38,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true, products));
         }
 
-        //store/product?id=xxx
         [HttpGet, Ajax]
         public async Task<ActionResult> Product(int id)
         {
@@ -50,6 +45,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await ZboxReadService.GetProduct(query);
             model.TotalPrice = model.Price + model.DeliveryPrice;
             return PartialView(model);
+        }
+
+        [HttpGet, Ajax]
+        public async Task<ActionResult> Search(string term)
+        {
+            if (string.IsNullOrEmpty(term))
+            {
+                return this.CdJson(new JsonResponse(false, "Provide a term"));
+            }
+            var query = new SearchProductQuery(term);
+            var products = await ZboxReadService.SearchProducts(query);
+            return this.CdJson(new JsonResponse(true, products));
+
         }
 
         public ActionResult CheckOut()

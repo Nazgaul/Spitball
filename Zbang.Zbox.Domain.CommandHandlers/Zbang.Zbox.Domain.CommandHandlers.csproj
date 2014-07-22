@@ -67,7 +67,6 @@
     <Compile Include="AddStudentCommandHandler.cs" />
     <Compile Include="AssignItemToTabCommandHandler.cs" />
     <Compile Include="ChangeBoxInfoCommandHandler.cs" />
-    <Compile Include="ChangeBoxPrivacySettingsCommandHandler.cs" />
     <Compile Include="ChangeFileNameCommandHandler.cs" />
     <Compile Include="ChangeItemTabNameCommandHandler.cs" />
     <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />

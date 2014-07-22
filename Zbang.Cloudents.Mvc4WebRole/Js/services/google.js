@@ -32,7 +32,7 @@
 
                return defer.promise;
            },
-           register: function (isImmediate) {
+           initGApi: function () {
                if (clientLoaded) {
                    return;
                }
@@ -41,21 +41,31 @@
                js.id = "jsGoogleContact";
                js.src = " https://apis.google.com/js/client.js";
                document.getElementsByTagName('head')[0].appendChild(js);
+               var breakLoop = 0;
                var interval = window.setInterval(function () {
                    if (window.gapi !== undefined && window.gapi.client !== undefined) {
                        window.clearInterval(interval);
                        gapi.client.setApiKey(apiKey);
-                       checkAuth();
+                       defer.resolve(true);                       
+                   }
+                   breakLoop ++;
+                   if (breakLoop > 500) {
+                       window.clearInterval(interval);
+                       defer.reject(false);
                    }
                }, 20);
 
                return defer.promise;
 
-               function checkAuth() {
-                   gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: isImmediate }, function (authResult) {
-                       handleResult(authResult);
-                   });
-               }
+           },
+           checkAuth: function (isImmediate) {
+               var defer = $q.defer();
+
+               gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: isImmediate }, function (authResult) {
+                   handleResult(authResult);
+               });
+
+               return defer.promise;
 
                function handleResult(authResult) {
                    if (authResult && !authResult.error) {
@@ -66,61 +76,45 @@
 
                    defer.reject();
                }
-
            },
-           picker: function (isImmediate) {
+           picker: function () {
+               var picker = new google.picker.PickerBuilder().
+               addView(google.picker.ViewId.DOCS).
+               enableFeature(google.picker.Feature.NAV_HIDDEN).
+               enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
+               setDeveloperKey('AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg').
+               setOAuthToken(access_token).
+               setCallback(pickerCallback).
+               build();
 
-               if (!api.isAuthenticated()) {
-                   api.register(isImmediate).then(load, function () {
-                       api.picker(false); //we run the loop again witrh isImmediate to popup google login 
-                   });
-                   return pickerDefer.promise;
-               }
-
-               load();
-               return pickerDefer.promise;
-
-
-               function load() {
-
-                   var picker = new google.picker.PickerBuilder().
-                   addView(google.picker.ViewId.DOCS).
-                   enableFeature(google.picker.Feature.NAV_HIDDEN).
-                   enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
-                   setDeveloperKey('AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg').
-                   setOAuthToken(access_token).
-                   setCallback(pickerCallback).
-                   build();
-
-                   picker.setVisible(true);
+               picker.setVisible(true);
 
 
-                   // A simple callback implementation.
-                   function pickerCallback(data) {
-                       var files = [];
-                       if (data[google.picker.Response.ACTION] !== google.picker.Action.PICKED) {
-                           return;
-                       }
-
-                       var doc, url, name;
-
-                       for (var i = 0, l = data[google.picker.Response.DOCUMENTS].length; i < l ; i++) {
-                           doc = data[google.picker.Response.DOCUMENTS][i];
-                           url = doc[google.picker.Document.URL];
-                           name = doc.name;
-                           if (!url) {
-                               continue;
-                           }
-
-                           files.push({
-                               name: name,
-                               link: url,
-                               size: '??'
-                           });
-                       }
-
-                       pickerDefer.resolve(files);
+               // A simple callback implementation.
+               function pickerCallback(data) {
+                   var files = [];
+                   if (data[google.picker.Response.ACTION] !== google.picker.Action.PICKED) {
+                       return;
                    }
+
+                   var doc, url, name;
+
+                   for (var i = 0, l = data[google.picker.Response.DOCUMENTS].length; i < l ; i++) {
+                       doc = data[google.picker.Response.DOCUMENTS][i];
+                       url = doc[google.picker.Document.URL];
+                       name = doc.name;
+                       if (!url) {
+                           continue;
+                       }
+
+                       files.push({
+                           name: name,
+                           link: url,
+                           size: '??'
+                       });
+                   }
+
+                   pickerDefer.resolve(files);
                }
 
 
@@ -129,8 +123,8 @@
                if (access_token) {
                    return true;
                }
-
                return false;
+
            },
            contacts: function (isImmediate) {
                var defer = $q.defer();
