@@ -17,7 +17,7 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.DTOs.Library;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
 
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 userIp = "81.218.135.73";
             }
-            var ipNumber = IP2Long(userIp);
+            var ipNumber = Ip2Long(userIp);
             //var ipAddress = IPAddress.Parse(userIp);
 
             //var ipNumber2 = BitConverter.ToInt64(ipAddress.GetAddressBytes().Reverse().ToArray(), 0);
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
         [NonAction]
-        private long IP2Long(string ip)
+        private long Ip2Long(string ip)
         {
             string[] ipBytes;
             double num = 0;

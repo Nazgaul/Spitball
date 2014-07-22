@@ -20,14 +20,13 @@ namespace Zbang.Zbox.Infrastructure.Data.Transformers
         {
             foreach (var resultClass in m_ResultClasses)
             {
-                if (resultClass.GetInterfaces().Any(a => a.IsGenericType && a.GetGenericTypeDefinition() == typeof(IComposite<>)))
-                {
-                    var typeToConstruct = typeof(AliasToCompositeClassTransformer<>);
-                    var constructed = typeToConstruct.MakeGenericType(resultClass);
-                    var o = (IResultTransformer)Activator.CreateInstance(constructed);
-                    collection = o.TransformList(collection);
-                }
-
+                if (
+                    !resultClass.GetInterfaces()
+                        .Any(a => a.IsGenericType && a.GetGenericTypeDefinition() == typeof (IComposite<>))) continue;
+                var typeToConstruct = typeof(AliasToCompositeClassTransformer<>);
+                var constructed = typeToConstruct.MakeGenericType(resultClass);
+                var o = (IResultTransformer)Activator.CreateInstance(constructed);
+                collection = o.TransformList(collection);
             }
             return collection;
         }

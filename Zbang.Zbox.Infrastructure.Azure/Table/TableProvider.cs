@@ -17,14 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Table
         private CloudTableClient m_TableClient;
         private CloudTableClient TableClient
         {
-            get
-            {
-                if (m_TableClient == null)
-                {
-                    m_TableClient = StorageProvider.ZboxCloudStorage.CreateCloudTableClient();
-                }
-                return m_TableClient;
-            }
+            get { return m_TableClient ?? (m_TableClient = StorageProvider.ZboxCloudStorage.CreateCloudTableClient()); }
         }
 
         private CloudTable UserRequestTable()

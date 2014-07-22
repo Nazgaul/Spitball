@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             ValidateSenderInput(command, out sender, out box);
 
-            foreach (var recepient in command.Recepients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
+            foreach (var recepient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
                 var recepientUser = GetUser(recepient);
                 if (recepientUser == null)
@@ -72,11 +72,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     continue;
                 }
 
-                var currentInvite = m_InviteRepository.GetCurrentInvite(recepientUser, box);
-                if (currentInvite == null)
-                {
-                    currentInvite = new Invite(m_IdGenerator.GetId(), sender, recepientUser, box);
-                }
+                var currentInvite = m_InviteRepository.GetCurrentInvite(recepientUser, box) ??
+                                    new Invite(m_IdGenerator.GetId(), sender, recepientUser, box);
                 //dont want to spam to email
                 if (currentInvite.SendTime.HasValue && currentInvite.SendTime.Value.AddHours(1) > DateTime.UtcNow)
                 {

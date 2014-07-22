@@ -13,7 +13,7 @@ namespace Zbang.Zbox.InfrastructureTests.Culture
         {
             var word = "המכללה";
 
-            HebrewStemmer stemmer = new HebrewStemmer();
+            var stemmer = new HebrewStemmer();
            var result =stemmer.StemAHebrewWord(word);
 
            Assert.AreEqual(result, "מכללה" + "%");
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.InfrastructureTests.Culture
         {
             var word = "המכללה האקדמית";
 
-            HebrewStemmer stemmer = new HebrewStemmer();
+            var stemmer = new HebrewStemmer();
             var result = stemmer.StemAHebrewWord(word);
 
             Assert.AreEqual(result, "מכללה אקדמית" + "%");

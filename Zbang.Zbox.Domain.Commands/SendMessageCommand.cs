@@ -12,13 +12,13 @@ namespace Zbang.Zbox.Domain.Commands
         {
           //  Url = url;
             Sender = sender;
-            Recepients = inviteEmailList;
+            Recipients = inviteEmailList;
             PersonalNote = personalNote;
         }
 
         //public string Url { get; private set; }
         public long Sender { get; private set; }
-        public IList<string> Recepients { get; private set; }
+        public IList<string> Recipients { get; private set; }
         public string PersonalNote { get; private set; }
     }
 }

@@ -126,6 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 return null;
             }
         }
+/*
         /// <summary>
         /// Converts the byte array to a string.
         /// </summary>
@@ -148,6 +149,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             // UTF-16 LE decoding
             return Encoding.Unicode.GetString(ms.ToArray());
         }
+*/
 
         byte[] GetBytes(string str)
         {
@@ -163,6 +165,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return new string(chars);
         }
 
+/*
         /// <summary>
         /// Converts the string to a byte array.
         /// </summary>
@@ -190,6 +193,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
             return ms.ToArray();
         }
+*/
 
 
 

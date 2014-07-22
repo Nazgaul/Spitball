@@ -13,11 +13,11 @@ namespace Zbang.Zbox.Domain.Commands
             Name = name;
             NewId = newId;
             UniversityId = universityId;
-            ParetnId = parentId;
+            ParentId = parentId;
         }
         public string Name { get; private set; }
         public Guid NewId { get; private set; }
         public long UniversityId { get; private set; }
-        public Guid? ParetnId { get; private set; }
+        public Guid? ParentId { get; private set; }
     }
 }

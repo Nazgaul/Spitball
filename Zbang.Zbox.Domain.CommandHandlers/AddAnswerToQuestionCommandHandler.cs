@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
             var answer = new CommentReplies(user, text, box, message.Id, question, files);
-            box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
+            box.UpdateCommentsCount(m_BoxRepository.QnACount(box.Id) + 1);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
 
             await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, null, answer.Id));

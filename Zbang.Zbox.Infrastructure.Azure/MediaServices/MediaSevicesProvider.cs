@@ -318,7 +318,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             ILocator destinationLocator = m_Context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
             // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-            Uri uploadUri = new Uri(destinationLocator.Path);
+            var uploadUri = new Uri(destinationLocator.Path);
             string assetContainerName = uploadUri.Segments[1];
             CloudBlobContainer assetContainer =
                 cloudBlobClient.GetContainerReference(assetContainerName);

@@ -11,6 +11,7 @@ using Microsoft.WindowsAzure.Storage;
 
 namespace Zbang.Cloudents.OneTimeWorkerRole
 {
+// ReSharper disable once UnusedMember.Global
     public class WorkerRole : RoleEntryPoint
     {
        private  readonly UnityFactory m_Unity;

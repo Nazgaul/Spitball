@@ -39,16 +39,12 @@
     <div class="section">
         @Html.LabelFor(m => m.Language)
         @Html.DropDownListFor(m => m.Language.Language,
-            Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s =>
-                {
-                    return new SelectListItem
-                    {
-                        Selected = s.Culture == Model.Language.Language,
-                        Text = s.Name,
-                        Value = s.Culture
-                    };
-                }
-         ), new { @class = "inputText", id = "language" })
+            Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s => new SelectListItem
+            {
+                Selected = s.Culture == Model.Language.Language,
+                Text = s.Name,
+                Value = s.Culture
+            }), new { @class = "inputText", id = "language" })
     </div>
 
     <input id="ChangeLanguage" type="button" class="btn1" value="@AccountSettingsResources.Save" />

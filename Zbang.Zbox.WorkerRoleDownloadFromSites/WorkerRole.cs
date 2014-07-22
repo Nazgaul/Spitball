@@ -18,6 +18,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Zbang.Zbox.WorkerRoleDownloadFromSites
 {
+// ReSharper disable once UnusedMember.Global
     public class WorkerRole : RoleEntryPoint
     {
         private readonly UnityFactory m_Unity;

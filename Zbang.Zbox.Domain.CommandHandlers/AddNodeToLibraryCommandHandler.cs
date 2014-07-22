@@ -23,9 +23,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
 
-            if (message.ParetnId.HasValue)
+            if (message.ParentId.HasValue)
             {
-                var libraryNode = m_LibraryRepository.Get(message.ParetnId);
+                var libraryNode = m_LibraryRepository.Get(message.ParentId);
                 var childNode = libraryNode.CreateSubLibrary(message.NewId, message.Name);
                 m_LibraryRepository.Save(childNode);
             }

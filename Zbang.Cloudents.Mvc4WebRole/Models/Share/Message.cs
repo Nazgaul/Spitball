@@ -18,7 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
 
         public override string ToString()
         {
-            return string.Format("Recepients {0} PersonalNote {1}  ", 
+            return string.Format("recipients {0} PersonalNote {1}  ", 
                 string.Join(";", Recepients), Note);
 
         }

@@ -20,14 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
         private CloudQueueClient QueueClient
         {
-            get
-            {
-                if (m_QueueClient == null)
-                {
-                    m_QueueClient = StorageProvider.ZboxCloudStorage.CreateCloudQueueClient();
-                }
-                return m_QueueClient;
-            }
+            get { return m_QueueClient ?? (m_QueueClient = StorageProvider.ZboxCloudStorage.CreateCloudQueueClient()); }
         }
 
 

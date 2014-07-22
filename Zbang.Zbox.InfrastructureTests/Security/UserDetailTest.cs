@@ -28,7 +28,7 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var universityId = 4;
             var universityDataId = 3;
 
-            UserDetail userDetail = new UserDetail(language, universityId, universityDataId);
+            var userDetail = new UserDetail(language, universityId, universityDataId);
 
             var result = UserDetail.Serialize(userDetail);
 
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var data = language + "@" + universityId + "@" + universityDataId;
 
             var userDetail = UserDetail.Deserialize(data);
-            UserDetail userExpectedResult = new UserDetail(language, universityId, universityDataId);
+            var userExpectedResult = new UserDetail(language, universityId, universityDataId);
 
             //Assert.AreEqual(userExpectedResult.Name, userDetail.Name, "Name should be the same");
             Assert.AreEqual(userExpectedResult.UniversityId, userDetail.UniversityId, "university should be the same");
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.InfrastructureTests.Security
         [TestMethod]
         public void Deserialize_UserWithMoreDelimiters_ReturnNull()
         {
-            string name = "ram";
+            var name = "ram";
             var data = name + "@@@" + "true";
             var userDetail = UserDetail.Deserialize(data);
             Assert.IsNull(userDetail, "Should be null");

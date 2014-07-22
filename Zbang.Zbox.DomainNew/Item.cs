@@ -41,13 +41,16 @@ namespace Zbang.Zbox.Domain
         public virtual Box Box { get; set; }
         public virtual int NumberOfViews { get; private set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; set; }
 
         public virtual Comment Question { get; set; }
         public virtual CommentReplies Answer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string ItemContentUrl { get; set; }
         public virtual string ThumbnailBlobName { get; private set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string ThumbnailUrl { get; private set; }
 
         public virtual void UpdateThumbnail(string blobName, string url)
@@ -85,19 +88,19 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public virtual void CalcalateRate(int rate, int count)
+        public virtual void CalculateRate(int rate, int count)
         {
             Rate += (rate - Rate) / ++count;
         }
 
-        public void RevertRate(int prevRate, int count)
+        public void RevertRate(int previousRate, int count)
         {
             if (count == 1)
             {
                 Rate = 0;
                 return;
             }
-            Rate -= (prevRate - Rate) / --count;
+            Rate -= (previousRate - Rate) / --count;
         }
 
         public abstract string ChangeName(string newName);
@@ -109,9 +112,9 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Link(string itemName, User iUploaderUser, long iSized, Box box,
+        public Link(string itemName, User uploaderUser, long sized, Box box,
             string linkTitle, string thumbnailBlobName, string thumbnailUrl)
-            : base(linkTitle, iUploaderUser, iSized, box, itemName, thumbnailBlobName, thumbnailUrl)
+            : base(linkTitle, uploaderUser, sized, box, itemName, thumbnailBlobName, thumbnailUrl)
         { }
 
 

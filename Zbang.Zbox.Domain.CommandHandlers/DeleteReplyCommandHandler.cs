@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 m_Updates.Delete(quizUpdate);
             }
-            box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) - 1);
+            box.UpdateCommentsCount(m_BoxRepository.QnACount(box.Id) - 1);
 
             m_ReputationRepository.Save(answer.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteAnswer));
             m_BoxRepository.Save(box);

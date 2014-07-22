@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Text;
 using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.DTOs.Library;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using System.Timers;
 using Zbang.Zbox.Infrastructure.Trace;
 using Lucene.Net.Analysis;

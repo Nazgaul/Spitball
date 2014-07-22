@@ -41,7 +41,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.SupplyTime,
                         productStore.ProductPayment,
                         productStore.CatalogNumber,
-                        productStore.DeliveryPrice);
+                        productStore.DeliveryPrice, 
+                        productStore.ProducerName);
 
                 }
                 else
@@ -59,7 +60,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.SupplyTime,
                         productStore.ProductPayment,
                         productStore.CatalogNumber,
-                        productStore.DeliveryPrice);
+                        productStore.DeliveryPrice, 
+                        productStore.ProducerName);
                 }
                 m_ProductRepository.Save(product);
             }

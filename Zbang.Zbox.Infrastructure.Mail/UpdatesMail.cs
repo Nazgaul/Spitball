@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var sb = new StringBuilder();
             foreach (var boxUpdate in updateParams.Updates)
             {
-                sb.Append(generateBoxCube(boxUpdate, parameters.UserCulture, cube));
+                sb.Append(GenerateBoxCube(boxUpdate, parameters.UserCulture, cube));
             }
 
 
@@ -81,7 +81,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             return string.Format("{0} {1},", number, many);
         }
 
-        private string generateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, CultureInfo culture, string cube)
+        private string GenerateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, CultureInfo culture, string cube)
         {
             cube = cube.Replace("{BOX-NAME}", boxUpdate.BoxName);
 

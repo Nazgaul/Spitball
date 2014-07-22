@@ -61,27 +61,27 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 }
             }
-            var users = box.UserBoxRel.Select(s => s.User);
+            var users = box.UserBoxRelationship.Select(s => s.User);
             foreach (var userInBox in users)
             {
                 //userInBox.ReCalculateSpace();
                 userInBox.Quota.UsedSpace = m_UserRepository.GetItemsByUser(userInBox.Id).Sum(s => s.Size);
                 m_UserRepository.Save(userInBox);
             }
-            box.UserBoxRel.Clear();
+            box.UserBoxRelationship.Clear();
             box.IsDeleted = true;
             box.UserTime.UpdateUserTime(box.Owner.Email);
             m_BoxRepository.Save(box);
         }
         private void UnfollowBox(Box box, long userId)
         {
-            var userBoxRel = box.UserBoxRel.FirstOrDefault(w => w.User.Id == userId);
+            var userBoxRel = box.UserBoxRelationship.FirstOrDefault(w => w.User.Id == userId);
             if (userBoxRel == null) //TODO: this happen when user decline invite of a box that is public
             {
                 throw new InvalidOperationException("User does not have an active invite");
             }
 
-            box.UserBoxRel.Remove(userBoxRel);
+            box.UserBoxRelationship.Remove(userBoxRel);
 
             // var box = m_BoxRepository.Get(command.BoxId);
             box.CalculateMembers();

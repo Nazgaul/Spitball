@@ -13,10 +13,7 @@ namespace Zbang.Zbox.WorkerRole
         // UnityContainer unityFactory;
         public const string DeleteCahceBlobContainer = "deleteCacheBlobContainer";
         public const string PreProcessFiles = "generateDocumentCache";
-        public const string MailProcess = "mailProcess";
         public const string MailProcess2 = "mailProcess2";
-        public const string ThumbnailProcess = "thumbnailProcess";
-        public const string DigestEmail = "digestEmail";
         public const string DigestEmail2 = "digestEmail2";
         public const string AddFiles = "addFiles";
 

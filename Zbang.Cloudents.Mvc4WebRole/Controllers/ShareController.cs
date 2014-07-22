@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -35,7 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize, HttpGet]
         public ActionResult Index(long? boxid)
         {
-            var model = new Zbox.ViewModel.DTOs.BoxDtos.BoxMetaDto();
+            var model = new BoxMetaDto();
             try
             {
                 if (boxid.HasValue)
@@ -159,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var userId = GetUserId();
             var command = new ShareBoxFacebookCommand(userId, model.Id, model.UserName, model.BoxId, model.FirstName, model.MiddleName, model.LastName, model.Sex);
-            ZboxWriteService.ShareBoxFacebbok(command);
+            ZboxWriteService.ShareBoxFacebook(command);
             return Json(new JsonResponse(true));
         }
 

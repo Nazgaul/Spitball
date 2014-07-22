@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //    //TODO: We need to delete blob thumbnail as well
             //}
             
-            var users = box.UserBoxRel.Select(s => s.User);
+            var users = box.UserBoxRelationship.Select(s => s.User);
             foreach (var userInBox in users)
             {
                 //userInBox.ReCalculateSpace();

@@ -23,7 +23,7 @@
   </resultset>
  
   
-  <sql-query name="ZboxGetAcademibBoxesByNode" resultset-ref="BoxDto">
+  <sql-query name="ZboxGetAcademicBoxesByNode" resultset-ref="BoxDto">
     <![CDATA[
     select b.boxid as Id,
     b.BoxName as BoxName,

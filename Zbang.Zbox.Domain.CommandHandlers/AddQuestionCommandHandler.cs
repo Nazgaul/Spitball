@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var reputation = user.AddReputation(ReputationAction.AddQuestion);
             m_ReputationRepository.Save(reputation);
-            box.UpdateQnACount(m_BoxRepository.QnACount(box.Id) + 1);
+            box.UpdateCommentsCount(m_BoxRepository.QnACount(box.Id) + 1);
             m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, null, question.Id));
             m_BoxRepository.Save(box);
 

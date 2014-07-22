@@ -5,15 +5,15 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class ShareBoxCommand : ICommand
     {
-        public ShareBoxCommand(long boxId, long inviteeId, IList<string> recepients)
+        public ShareBoxCommand(long boxId, long inviteeId, IList<string> recipients)
         {
             InviteeId = inviteeId;
             BoxId = boxId;
-            Recepients = recepients;
+            Recipients = recipients;
         }
 
         public long BoxId { get; private set; }
         public long InviteeId { get; private set; }
-        public IList<string> Recepients { get; private set; }
+        public IList<string> Recipients { get; private set; }
     }
 }

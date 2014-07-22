@@ -5,12 +5,12 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
 {
     public class CreateDiscussionCommand : ICommand
     {
-        public CreateDiscussionCommand(long userId, string text, Guid questionId, Guid disucssionId)
+        public CreateDiscussionCommand(long userId, string text, Guid questionId, Guid discussionId)
         {
             UserId = userId;
             Text = text;
             QuestionId = questionId;
-            DiscussionId = disucssionId;
+            DiscussionId = discussionId;
         }
 
         public long UserId { get; private set; }
