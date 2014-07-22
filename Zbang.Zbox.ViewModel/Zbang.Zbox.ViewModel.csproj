@@ -122,7 +122,6 @@
     <Compile Include="Dto\Store\ProductWithDetailDto.cs" />
     <Compile Include="Dto\TabDto.cs" />
     <Compile Include="Dto\BoxDto.cs" />
-    <Compile Include="Dto\ItemDto.cs" />
     <Compile Include="Dto\UpdatesDto.cs" />
     <Compile Include="Dto\UserDtos\AdminUserDto.cs" />
     <Compile Include="Dto\UserDtos\LogInUserDto.cs" />
