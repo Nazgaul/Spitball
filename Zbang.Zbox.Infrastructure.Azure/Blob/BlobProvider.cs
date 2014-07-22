@@ -342,8 +342,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var cacheblob = CacheFile(blobName);
             fileContent.Seek(0, SeekOrigin.Begin);
-
-
             //fileContent.Position = 0;
 
             cacheblob.Properties.ContentType = mimeType;
@@ -372,13 +370,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
         public Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
         {
-            using (var ms = new MemoryStream(fileContent))
-            {
-                //using (var ms = new MemoryStream(fileContent))
-                //{
-                return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
-            }
-            //}
+            //we don't need to dispose because we dispose it later in the function
+            var ms = new MemoryStream(fileContent);
+            return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
         }
 
         //public bool CheckIfFileExistsInCache(string blobName)
@@ -608,12 +602,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             CloudBlockBlob blob = GetFile(fileName);
 
-            using (var ms = new MemoryStream())
-            {
-                blob.DownloadToStream(ms);
-                ms.Seek(0, SeekOrigin.Begin);
-                return ms;
-            }
+            var ms = new MemoryStream();
+            blob.DownloadToStream(ms);
+            ms.Seek(0, SeekOrigin.Begin);
+            return ms;
         }
 
         public async Task<Stream> DownloadFileAsync(string fileName)
