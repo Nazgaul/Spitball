@@ -52,8 +52,8 @@ header .rFloat {
 .language:after {
   content: '';
   display: inline-block;
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
   border-style: solid;
   border-width: 10px 6px 0 6px;
   border-color: #39434a transparent transparent transparent;
@@ -62,6 +62,48 @@ header .rFloat {
   padding: 0 6px;
   font-size: 15px;
   display: inline;
+}
+.langMenu {
+  padding: 6px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.langMenu.dropdown-menu {
+  top: 42px;
+  left: -10px;
+  width: 100px;
+  background: #39434a;
+  border: none;
+}
+.langMenu.dropdown-menu:hover {
+  background: #39434a;
+}
+.langMenu.dropdown-menu button {
+  color: #fff;
+  text-align: center;
+  height: 44px;
+  border-bottom: 1px solid silver;
+}
+.langMenu.dropdown-menu button:hover {
+  background: #39434a;
+}
+.langMenu:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -13px;
+  margin: auto;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 8px 13px 8px;
+  border-color: transparent transparent #39434a transparent;
+}
+.langMenu .menuItem:last-child button {
+  border: none;
 }
 .currentLang {
   color: #0f9d58;
