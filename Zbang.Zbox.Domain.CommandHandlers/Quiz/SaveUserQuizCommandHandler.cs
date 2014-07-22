@@ -50,7 +50,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 m_UserRepository.Save(user);
             }
             var answerSheet = m_SolvedQuizRepository.GetQuerable().FirstOrDefault(w =>
-                Equals(w.User, user) && w.Quiz == quiz);
+// ReSharper disable once PossibleUnintendedReferenceComparison nHibernate doesn't support equals
+                w.User == user && w.Quiz == quiz);
             if (answerSheet != null)
             {
                 DeleteAnswers(answerSheet);

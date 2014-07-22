@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <License>
   <Data>
-    <LicensedTo>Zbang it</LicensedTo>
+    <LicensedTo>Cloudents</LicensedTo>
+    <EmailTo>apelbaum@gmail.com</EmailTo>
     <LicenseType>Developer OEM</LicenseType>
     <LicenseNote>Limited to 1 developer.</LicenseNote>
-    <OrderID>130530030530</OrderID>
+    <OrderID>140722025530</OrderID>
+    <UserID>166638</UserID>
     <OEM>This is a redistributable license</OEM>
     <Products>
-      <Product>Aspose.Total</Product>
+      <Product>Aspose.Total for .NET</Product>
     </Products>
     <EditionType>Enterprise</EditionType>
-    <SerialNumber>7475a5a3-66da-48f1-aa8c-acf25a028f5f</SerialNumber>
-    <SubscriptionExpiry>20140610</SubscriptionExpiry>
-    <LicenseVersion>2.2</LicenseVersion>
+    <SerialNumber>f1dd8707-4ab2-4729-a330-8235ca8ba212</SerialNumber>
+    <SubscriptionExpiry>20150722</SubscriptionExpiry>
+    <LicenseVersion>3.0</LicenseVersion>
+    <LicenseInstructions>http://www.aspose.com/corporate/purchase/license-instructions.aspx</LicenseInstructions>
   </Data>
-  <Signature>CnGS1miP5VpRASuxfr+8kInBcvxvomBn/JXfxyAumeStE3lmJ8UwJ20aiQsZCt4VS7FOBlWIk8eSAakgPJ1M1p7i9o0zfjlknrSuMMGIF77zJfqEDB5Sag/vFYs75/N4b6kG21iSLZSHWWNn13QNgaspOYF4+v8VpXVwHp66Cvc=</Signature>
+  <Signature>p78ko7/WIEvKh2vac5u/ygwmvxivwdysCqDB5W8VtqA2WNi6W2Jbk/k/QNGmomtXZ5QDqujrG5BrIvtgH4zdCH2vaW1mVl1oMpn4fwVhzKQgviIub5uP7i0N1VIDYoCJu8ye0QZJK5OgfmX9/F7yhkF/McuqRhF5/4ZBC1t1Yh0=</Signature>
 </License>

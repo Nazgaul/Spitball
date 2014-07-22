@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId(false);
             try
             {
-                
+
                 var query = new GetBoxQuery(boxId, userId);
                 var box = ZboxReadService.GetBox(query);
                 if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
@@ -106,7 +106,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxAccessDeniedException)
             {
-                return RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
+                return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
+                    : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
             catch (BoxDoesntExistException)
             {
@@ -151,8 +152,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     throw new BoxDoesntExistException();
                 }
 
-                var serializer = new JsonNetSerializer();
-                ViewBag.data = serializer.Serialize(box);
+                var serialize = new JsonNetSerializer();
+                ViewBag.data = serialize.Serialize(box);
 
                 ViewBag.boxid = boxId;
                 if (Request.IsAjaxRequest())
@@ -167,7 +168,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
                 }
-                return RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
+                return Request.Url == null ? RedirectToAction("MembersOnly", "Error") 
+                    : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
             catch (BoxDoesntExistException)
             {
@@ -390,7 +392,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, 
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any,
             VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
 
         public ActionResult SettingsPartial()
@@ -558,7 +560,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.DeleteBoxItemTab(command);
             return Json(new JsonResponse(true));
         }
-    
+
         [HttpGet, Ajax]
         [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
         public ActionResult CreateTabPartial()
@@ -618,5 +620,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-    }       
+    }
 }

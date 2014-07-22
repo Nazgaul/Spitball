@@ -15,7 +15,8 @@
             @Html.ValidationSummary(true)
 
             @Html.LabelFor(m => m.BoxName)@Html.ValidationMessageFor(m=>m.BoxName)
-            @Html.TextBoxFor(m => m.BoxName, new { @class = "inputText boxName" })
+            @*Mozilla have issue with autocomplete position*@
+            @Html.TextBoxFor(m => m.BoxName, new { @class = "inputText boxName", autocomplete = "off" })
 
             <input type="radio"
                 id="sizeSmall"
