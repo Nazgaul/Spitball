@@ -23,7 +23,7 @@
 <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
     <li ng-repeat="product in products | limitTo: params.maxProducts">
         <img bo-src="product.pictureUrl" alt="" />
-        <div class="desc" bo-text="item.name"></div>
+        <div class="desc" bo-text="product.name"></div>
         <table>
             <tr>
                 <td>@StoreResources.RegPrice:</td>
@@ -42,7 +42,9 @@
             <p bo-text="product.extraDetails"></p>
             <span class="lFloat" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
             <span class="lFloat sale" bo-text="product.coupon / product.salePrice | percentage:0:'@StoreResources.Off'"></span> @*0 is the digits after the dot, % off is suffix*@
-            <a bo-href="product.url">@StoreResources.MoreDetails</a>
+            <div class="moreDetailsWpr">
+                <a bo-href="product.url">@StoreResources.MoreDetails</a>
+            </div>
         </div>
     </li>
 </ul>

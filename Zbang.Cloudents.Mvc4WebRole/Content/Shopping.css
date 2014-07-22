@@ -49,15 +49,6 @@ header .rFloat {
   padding: 2px 10px;
   border-radius: 5px;
 }
-.language:after {
-  content: '';
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 10px 6px 0 6px;
-  border-color: #39434a transparent transparent transparent;
-}
 .language a {
   padding: 0 6px;
   font-size: 15px;
@@ -108,6 +99,17 @@ header .rFloat {
 .currentLang {
   color: #0f9d58;
   font-size: 15px;
+}
+.currentLang:after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 6px 0 6px;
+  border-color: #39434a transparent transparent transparent;
+  margin-left: 6px;
+  /*rtl*/
 }
 /*#endregion */
 nav,
@@ -242,14 +244,14 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  font-size: 18px;
+  font-size: 21px;
 }
 .searchProducts {
   width: 150px;
   height: 100%;
   color: #fff;
   background: #0f9d58;
-  font-size: 18px;
+  font-size: 21px;
 }
 /*#endregion */
 /*#region products drop down */
@@ -282,7 +284,9 @@ main {
   /*rtl*/
 }
 .categoryList ul {
-  padding-top: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   visibility: hidden;
   position: absolute;
   -webkit-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
@@ -297,6 +301,12 @@ main {
   color: #39434a;
   z-index: 1;
   overflow: hidden;
+  height: 196px;
+  width: 151px;
+  margin-left: -1px;
+  /*rtl*/
+  padding: 8px 0 0 12px;
+  /*rtl*/
 }
 .categoryList ul:after {
   content: '';
@@ -323,7 +333,7 @@ main {
   border-bottom: 1px solid #fff;
   border-right: 1px solid #fff;
   /*rtl*/
-  padding: 10px 20px 30px 20px;
+  padding: 10px 0 30px 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -333,28 +343,9 @@ main {
 }
 .categoryList > li:hover ul {
   visibility: visible;
-  height: 176px;
-  border-left: 1px solid #fff;
-  border-right: 1px solid #fff;
-  margin-left: -2px;
-  /*rtl*/
 }
 .categoryList > li:hover li {
   margin: 8px 0;
-}
-.categoryList > li:hover li:nth-child(6n) {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 170px;
-  margin-right: -20px;
-}
-.categoryList > li:hover li:nth-child(6n + 1) {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 170px;
-  margin-right: -20px;
 }
 .categoryList > li:before {
   content: '';
@@ -365,8 +356,18 @@ main {
   background: url(/Images/category.png) 0 0 no-repeat;
   opacity: .7;
 }
+.categoryList > li:nth-child(6n + 1) ul {
+  width: 172px;
+  margin-left: -20px;
+  /*rtl*/
+}
 .categoryList > li:nth-child(6n) {
   border-right: none;
+  /*rtl*/
+}
+.categoryList > li:nth-child(6n) ul {
+  width: 172px;
+  margin-right: -20px;
   /*rtl*/
 }
 .categoryList > li:nth-child(n + 7) {
@@ -431,6 +432,7 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  text-align: center;
   vertical-align: top;
 }
 .productsList li:nth-child(3n + 2) {
@@ -445,7 +447,7 @@ main {
   /*rtl*/
 }
 .productsList li:hover .hover {
-  display: inline-block;
+  display: table;
 }
 .productsList a {
   display: block;
@@ -454,7 +456,6 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  text-align: center;
   margin-bottom: 8px;
 }
 .productsList a:before {
@@ -467,13 +468,15 @@ main {
 }
 .productsList img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 185px;
   display: inline-block;
   vertical-align: middle;
 }
 .productsList .desc {
   font-size: 22px;
   padding: 0 18px;
+  text-align: left;
+  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -492,6 +495,8 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
+  text-align: left;
+  /*rtl*/
 }
 .productsList table:before {
   content: '';
@@ -534,10 +539,11 @@ main {
   height: 50px;
   display: inline-block;
   background: #fff;
-  font-size: 35px;
+  font-size: 30px;
   color: #39434a;
   border: none;
   border-radius: 5px;
+  padding-top: 3px;
 }
 .hover .lFloat {
   display: block;
@@ -555,11 +561,14 @@ main {
   border-left: 1px solid #0f9d58;
   /*rtl*/
 }
+.moreDetailsWpr {
+  display: table-footer-group;
+}
 .searchResultsList {
   display: none;
 }
 /*#endregion */
-/*#region product page */
+/*#region product popup */
 .productWpr {
   display: table;
   table-layout: fixed;

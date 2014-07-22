@@ -16,6 +16,10 @@ header h1 {
   margin: 0 20px 0 0;
   /*rtl*/
 }
+.currentLang:after {
+  margin: 0 6px 0 0;
+  /*rtl*/
+}
 /*#endregion */
 /*#region widget */
 .widget button {
@@ -46,18 +50,26 @@ header h1 {
   right: 0;
   /*rtl*/
   left: auto;
+  margin: 0 -1px 0 0;
+  /*rtl*/
+  padding: 8px 12px 0 0;
+  /*rtl*/
 }
 .categoryList > li {
   border-left: 1px solid #fff;
   /*rtl*/
   border-right: none;
 }
-.categoryList > li:hover ul {
-  margin: 0 -2px 0 0;
+.categoryList > li:nth-child(6n + 1) ul {
+  margin: 0 -20px 0 0;
   /*rtl*/
 }
 .categoryList > li:nth-child(6n) {
   border-left: none;
+  /*rtl*/
+}
+.categoryList > li:nth-child(6n) ul {
+  margin: 0 0 0 -20px;
   /*rtl*/
 }
 /*#endregion */
@@ -72,10 +84,18 @@ header h1 {
   /*rtl*/
   /* Adjusts for spacing */
 }
+.productsList .desc {
+  text-align: right;
+  /*rtl*/
+}
 .productsList .desc + .lFloat {
   border-left: 1px solid #39434a;
   /*rtl*/
   border-right: none;
+}
+.productsList table {
+  text-align: right;
+  /*rtl*/
 }
 .productsList table:before {
   right: 16px;
