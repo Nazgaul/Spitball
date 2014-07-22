@@ -107,7 +107,9 @@
     }
 
     .QTextarea {
-        width: 308px;
+        //width: 308px; - causes problems with zoom
+        width: ~'-webkit-calc(100% - 44px)';
+        width: ~'calc(100% - 44px)';
         margin-top: 6px;
     }
 
