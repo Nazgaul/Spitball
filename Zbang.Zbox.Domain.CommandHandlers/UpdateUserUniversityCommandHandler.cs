@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            Department deparment = m_DepartmentRepository.Get(message.DepartmentId); // load cause error if its empty
+            Department department = m_DepartmentRepository.Get(message.DepartmentId); // load cause error if its empty
             User user = m_UserRepository.Get(message.UserId);
             if (user == null)
             {
@@ -51,11 +51,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            var studentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => Equals(w.University, university));
+// ReSharper disable once PossibleUnintendedReferenceComparison NHibernate doesn't support equals
+            var studentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => w.University == university);
             bool needId = studentsIdsInUniversity.Any();
             if (needId && string.IsNullOrEmpty(message.StudentId))
             {
-                throw new ArgumentException("need id for this univerisity");
+                throw new ArgumentException("need id for this university");
             }
             if (needId)
             {
@@ -63,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 if (student == null)
                 {
-                    throw new ArgumentException("need id for this univerisity");
+                    throw new ArgumentException("need id for this university");
                 }
                 userCode = student.ID;
             }
@@ -72,7 +73,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 message.UniversityId = university.DataUnversity.Id;
                 message.UniversityWrapperId = university.Id;
             }
-            user.UpdateUserUniversity(university, userCode, deparment, message.GroupNumber, message.RegisterNumber);
+            user.UpdateUserUniversity(university, userCode, department, message.GroupNumber, message.RegisterNumber);
 
             m_UserRepository.Save(user);
         }
