@@ -83,7 +83,8 @@
   min-height: 40px;
 }
 .QForm .QTextarea {
-  width: 308px;
+  width: -webkit-calc(100% - 44px);
+  width: calc(100% - 44px);
   margin-top: 6px;
 }
 .QForm .QAImg {

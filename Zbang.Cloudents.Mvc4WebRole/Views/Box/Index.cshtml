@@ -75,14 +75,14 @@
                 </div>
             </section>
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
-               target="_self" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
+               target="_self" class="rFloat inviteFriendsBtn" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
             <a class="backWpr elps lFloat" ng-href="{{back.url}}">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont">{{back.title}}</h2>
             </a>
         </div>
 
-        <div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !isUserFollowing()}" class="joinGrpWpr">
+        <div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
             @*user is following box*@
             <div class="joinGrpBtn">
                 <span class="joinMsg iconTxt">@SharedResources.Member</span>
