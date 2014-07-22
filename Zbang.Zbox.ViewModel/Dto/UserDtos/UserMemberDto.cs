@@ -1,6 +1,6 @@
 ﻿using Zbang.Zbox.Infrastructure.Enums;
 
-namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
+namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserMemberDto : UserDto
     {

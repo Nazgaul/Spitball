@@ -1,5 +1,5 @@
 ﻿
-namespace Zbang.Zbox.ViewModel.DTOs.Notification
+namespace Zbang.Zbox.ViewModel.Dto.Notification
 {
     public class UserMailDataDto
     {

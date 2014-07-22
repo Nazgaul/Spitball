@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
-using Zbang.Zbox.ViewModel.DTOs.Qna;
+using Zbang.Zbox.ViewModel.Dto.Qna;
 
-namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
+namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserToFriendActivity
     {

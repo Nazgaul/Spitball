@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Zbang.Zbox.ViewModel.DTOs.Qna
+namespace Zbang.Zbox.ViewModel.Dto.Qna
 {
     public class AnswerDto
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Zbang.Zbox.ViewModel.DTOs.UserDtos;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 
 namespace Zbang.Zbox.ViewModel.Dto.Dashboard
 {

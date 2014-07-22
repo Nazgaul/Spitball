@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zbang.Zbox.ViewModel.DTOs.Qna
+namespace Zbang.Zbox.ViewModel.Dto.Qna
 {
     public abstract class ItemDto
     {

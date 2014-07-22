@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zbang.Zbox.ViewModel.DTOs.UserDtos
+namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     [Serializable]
     public class UserDto

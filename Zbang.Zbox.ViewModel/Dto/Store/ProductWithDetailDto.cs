@@ -1,5 +1,5 @@
 ﻿
-namespace Zbang.Zbox.ViewModel.DTOs.Store
+namespace Zbang.Zbox.ViewModel.Dto.Store
 {
     public class ProductWithDetailDto
     {

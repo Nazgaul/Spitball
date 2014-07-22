@@ -7,10 +7,10 @@ using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
-using Zbang.Zbox.ViewModel.DTOs;
-using Zbang.Zbox.ViewModel.DTOs.Qna;
-using Zbang.Zbox.ViewModel.DTOs.Search;
-using Zbang.Zbox.ViewModel.DTOs.Store;
+using Zbang.Zbox.ViewModel.Dto.Qna;
+using Zbang.Zbox.ViewModel.Dto.Search;
+using Zbang.Zbox.ViewModel.Dto.Store;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -18,7 +18,6 @@ using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
 using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDtos.BoxDto;
-using User = Zbang.Zbox.ViewModel.DTOs.UserDtos;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -46,10 +45,10 @@ namespace Zbang.Zbox.ReadServices
         BoxDto GetBox(GetBoxQuery query);
 
         Task<SearchDto> Search(GroupSearchQuery query);
-        Task<IEnumerable<User.UserDto>> GetUserFriends(GetUserFriendsQuery query);
+        Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query);
 
-        User.UserDetailDto GetUserData(GetUserDetailsQuery query);
-        User.UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query);
+        UserDetailDto GetUserData(GetUserDetailsQuery query);
+        UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query);
         IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query);
         NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query);
 
@@ -58,9 +57,9 @@ namespace Zbang.Zbox.ReadServices
         
 
         BoxSettingsDto GetBoxSetting(GetBoxQuery query);
-        IEnumerable<User.UserMemberDto> GetBoxMembers(GetBoxQuery query);
+        IEnumerable<UserMemberDto> GetBoxMembers(GetBoxQuery query);
 
-        Task<User.UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query);
+        Task<UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query);
 
         string GetLocationByIp(long ipNumber);
         Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds);
@@ -77,15 +76,15 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query);
         Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query);
         Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query);
-        Task<IEnumerable<User.UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query);
+        Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query);
 
 
-        Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
+        Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
 
         Task<IEnumerable<string>> GetSeoItems(int page);
         Task<int> GetSeoItemCount();
 
-        Task<IEnumerable<ViewModel.DTOs.UserDtos.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
+        Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
 
         Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId);
         Task<bool> GetUniversityNeedId(long universityId);

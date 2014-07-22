@@ -1,4 +1,4 @@
-﻿namespace Zbang.Zbox.ViewModel.DTOs.Search
+﻿namespace Zbang.Zbox.ViewModel.Dto.Search
 {
     public class SearchItems
     {

@@ -1,4 +1,4 @@
-﻿namespace Zbang.Zbox.ViewModel.DTOs.Qna
+﻿namespace Zbang.Zbox.ViewModel.Dto.Qna
 {
     public class AnswerToFriendDto
     {
