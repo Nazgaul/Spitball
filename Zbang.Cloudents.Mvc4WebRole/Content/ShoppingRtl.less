@@ -17,7 +17,12 @@ header {
 .language {
     margin: 0 20px 0 0; /*rtl*/
 }
+.currentLang {
+    &:after {
+        margin: 0 6px 0 0; /*rtl*/
 
+    }
+}
 /*#endregion */
 
 /*#region widget */
@@ -49,21 +54,26 @@ header {
     ul {
         right: 0; /*rtl*/
         left: auto;
+        margin: 0 -1px 0 0; /*rtl*/  
+        padding: 8px 12px 0 0; /*rtl*/
     }
     > li {
         border-left: 1px solid #fff; /*rtl*/ 
         border-right: none;
-        &:hover {
-            ul {   
-                margin: 0 -2px 0 0; /*rtl*/    
+        &:nth-child(6n + 1) {
+            ul {
+                margin: 0 -20px 0 0; /*rtl*/
             }
         }
         &:nth-child(6n) {
             border-left: none; /*rtl*/
-            //border-right: 1px solid #fff;
+            ul {
+                margin: 0 0 0 -20px; /*rtl*/
+            }
         }
     }
 }
+
 /*#endregion */
 
 /*#region product list with hover */
@@ -85,12 +95,14 @@ header {
     }
 
     .desc {
+        text-align: right; /*rtl*/
         + .lFloat {
             border-left: 1px solid @shopping-black; /*rtl*/
             border-right: none;
         } 
     }
     table {
+        text-align: right; /*rtl*/
         &:before {
             right: 16px; /*rtl*/
             left: auto;
