@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [Display(ResourceType = typeof(IndexResources), Name = "Lecturer")]
         public string Professor { get; set; }
 
-        public Zbox.Infrastructure.Enums.BoxPrivacySettings? BoxPrivacy { get; set; }
+        public Zbox.Infrastructure.Enums.BoxPrivacySettings BoxPrivacy { get; set; }
 
         public Zbox.Infrastructure.Enums.NotificationSettings Notification { get; set; }
 

@@ -245,6 +245,10 @@ namespace Zbang.Zbox.Domain
 
         public void ChangePrivacySettings(BoxPrivacySettings boxPrivacySettings, User user)
         {
+            if (PrivacySettings.PrivacySetting == boxPrivacySettings)
+            {
+                return;
+            }
             if (this is AcademicBox)
             {
                 throw new ArgumentException("cannot change academic box privacy settings");
@@ -253,6 +257,7 @@ namespace Zbang.Zbox.Domain
             {
                 throw new UnauthorizedAccessException("only owner can change privacy settings");
             }
+            
             PrivacySettings.PrivacySetting = boxPrivacySettings;
 
         }
