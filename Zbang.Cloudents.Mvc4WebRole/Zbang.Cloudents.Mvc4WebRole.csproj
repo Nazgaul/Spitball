@@ -347,6 +347,7 @@
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\InsertUser.cs" />
+    <Compile Include="Models\JavaScriptError.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Discussion.cs" />
     <Compile Include="Models\Quiz\MarkAnswer.cs" />
