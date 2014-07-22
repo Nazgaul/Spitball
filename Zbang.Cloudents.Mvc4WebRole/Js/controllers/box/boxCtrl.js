@@ -724,6 +724,7 @@ mBox.controller('BoxCtrl',
 
                     modalInstance.result.then(function (result) {
                         $scope.info.name = result.name;
+                        $scope.info.privacy = result.boxPrivacy;
 
                         $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
                         var path = $location.path(),
