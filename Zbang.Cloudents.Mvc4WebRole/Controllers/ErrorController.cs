@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -34,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax, HttpPost]
-        public ActionResult JsLog(string log)
+        public ActionResult JsLog(JavaScriptError log)
         {
             TraceLog.WriteError("js error: " + log);
             return this.CdJson(true);
