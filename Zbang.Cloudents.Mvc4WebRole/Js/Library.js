@@ -419,11 +419,12 @@ function Box(data) {
                 dataContext.renameNode({
                     data: { Id: getLibraryId(), NewName: val },
                     success: function () {
-                        var $rootScope = angular.element(document).scope();
-                        $rootScope.$apply(function () {
-                            var elements = ['library', getLibraryId(), x.input.val()];
-                            $rootScope.setUrl('/' + elements.join('/'));
-                        });
+
+                        var elements = ['library', getLibraryId(), x.input.val()];
+                        if (window.history && window.history.replaceState) {
+                            window.history.replaceState('/' + elements.join('/'), '', '/' + elements.join('/'));
+                            window.location.reload();
+                        }
                         x.show();
                         $('#lib_NodeName').text(val);
                     },
@@ -463,7 +464,7 @@ function Box(data) {
 
         }
 
-        
+
         //cd.pubsub.subscribe('windowChanged', function () {
         //    if (document.getElementById('library').style.display === 'block') {
         //        innerScrollLetter();
@@ -476,11 +477,11 @@ function Box(data) {
         //});
 
         function innerScrollLetter() {
-            $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 155).css('height',$(document).height() - 155);
+            $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 155).css('height', $(document).height() - 155);
 
 
         }
-        
+
         $(window).resize(innerScrollLetter);
         innerScrollLetter();
         facebookLikeBox();

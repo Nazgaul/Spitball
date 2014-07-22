@@ -726,6 +726,9 @@ mBox.controller('BoxCtrl',
                         $scope.info.name = result.name;
                         $scope.info.privacy = result.boxPrivacy;
 
+                        if (!result.queryString) {
+                            return;
+                        }
                         $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
                         var path = $location.path(),
                             boxName = '/' + path.split('/')[4] + '/';//boxName
