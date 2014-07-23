@@ -183,7 +183,6 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
         switch (previous.$$route.params.type) {
             case 'box':
-                sNewUpdates.removeUpdates(previous.params.boxId);
                 break;
             case 'library':
                 cd.pubsub.publish('libraryclear');
@@ -206,6 +205,8 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
         }
 
         if (current.$$route.params.type === 'box') {
+            sNewUpdates.removeUpdates(current.params.boxId);
+
             switch (previous.$$route.params.type) {
                 case 'library':
                     $rootScope.back.title = previous.pathParams.libraryName;
