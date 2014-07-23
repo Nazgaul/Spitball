@@ -97,7 +97,15 @@
 
         });
 
-        getGoogleContacts(true);
+        Google.initGApi().then(function () {
+            if (Google.isAuthenticated()) {
+                getGoogleContacts();
+                return;
+            }
+            Google.checkAuth(true).then(function () {
+                getGoogleContacts();                
+            });
+        })        
 
         $scope.onSelectedItem = function ($item) {
             $scope.formData.searchInput = null;
@@ -121,7 +129,10 @@
         };
 
         $scope.loadGoogleContacts = function () {
-            getGoogleContacts(false);
+            Google.checkAuth(false).then(function () {
+                getGoogleContacts();
+            });
+            
         };
 
 
@@ -210,8 +221,8 @@
             $scope.onSelectedItem(item);
         }
 
-        function getGoogleContacts(isImmediate) {
-            Google.contacts(isImmediate).then(function (contacts) {
+        function getGoogleContacts() {
+            Google.contacts().then(function (contacts) {
                 $scope.friends = $scope.friends.concat(contacts);
                 $scope.sources.google = true;
             });
