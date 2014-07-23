@@ -10,9 +10,9 @@ namespace Zbang.Zbox.Store.Services
     {
         private const string ConnectionStringName = "Hatavot";
 
-        public async Task<IEnumerable<ProductDto>> ReadData(int category)
+        public IEnumerable<ProductDto> ReadData(int category)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
+            using (var conn =  DapperConnection.OpenConnection(ConnectionStringName))
             {
                 const string sql = @"select [productid]  as Id -- Product ID 
       ,[name] -- Product Name 
@@ -46,15 +46,15 @@ namespace Zbang.Zbox.Store.Services
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       --,[designNum] -- Which University to show --> Can be to all or to one specific  
   FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
-                return await conn.QueryAsync<ProductDto>(sql, new { catId  = category});
+                return  conn.Query<ProductDto>(sql, new { catId  = category});
             }
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategories()
+        public IEnumerable<CategoryDto> GetCategories()
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
+            using (var conn =  DapperConnection.OpenConnection(ConnectionStringName))
             {
-                return await conn.QueryAsync<CategoryDto>(@"WITH cte 
+                return conn.Query<CategoryDto>(@"WITH cte 
 AS
 (
     select catcode,catname,parentid,catorder,1 as level from categories c where parentid = 611
