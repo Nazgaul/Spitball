@@ -586,6 +586,7 @@ main {
   display: table-cell;
   width: 50%;
   vertical-align: top;
+  padding-bottom: 30px;
 }
 .right {
   padding-left: 15px;
@@ -597,8 +598,18 @@ main {
   margin: 8px 0 20px;
 }
 .right img {
-  max-width: 450px;
   height: auto !important;
+  border: 1px solid #0f9d58;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.pDesc {
+  display: table-row;
+}
+.pNameWpr {
+  padding: 14px 10px;
+  background: #f6f6f6;
+  border-radius: 5px;
 }
 .left {
   text-align: center;
@@ -724,6 +735,27 @@ ul:after {
     right: 0;
     left: auto
 }*/
+/*#endregion */
+/*#region About Page */
+.txt1 {
+  font-size: 24px;
+  margin-top: 45px;
+}
+.about {
+  line-height: 30px;
+  font-size: 15px;
+  width: 600px;
+  margin-bottom: 200px;
+}
+.about h2 {
+  border-top: 2px solid #0f9d58;
+  border-bottom: 1px solid #0f9d58;
+  margin-top: 40px;
+  font-size: 15px;
+}
+.about p {
+  margin-top: 10px;
+}
 /*#endregion */
 /*#region footer */
 footer {

@@ -61,11 +61,14 @@
         </div>
     </div>
     <div class="right">
-        <h1>@Model.Name</h1>
-        <h3>@Model.ExtraDetails</h3>
-        <p>
-            @Html.Raw(Model.Description)
-        </p>
+        <img alt="" src="http://placehold.it/425x275" />
+        <div class="pNameWpr">
+            <h1>@Model.Name</h1>
+            <h3>@Model.ExtraDetails</h3>
+        </div>
+    </div>
+    <div class="pDesc">
+        @Html.Raw(Model.Description)
     </div>
 </div>
 

@@ -123,17 +123,77 @@
   <data name="AboutCloudents" xml:space="preserve">
     <value>About Cloudents</value>
   </data>
+  <data name="ActivateCoupon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BeforeYouBuy" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillMe" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CardOwnerName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CardOwnerNo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CellPhone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CheapPrices" xml:space="preserve">
+    <value />
+  </data>
+  <data name="City" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value />
+  </data>
   <data name="ContactUs" xml:space="preserve">
     <value>Contact Us</value>
   </data>
+  <data name="CostWithShipping" xml:space="preserve">
+    <value />
+  </data>
   <data name="Coupon" xml:space="preserve">
     <value>Coupon</value>
+  </data>
+  <data name="CouponActivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreditCardNo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DiscountsForYou" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetDiscounts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetHelp" xml:space="preserve">
+    <value />
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="HotSales" xml:space="preserve">
     <value>Hot Sales</value>
+  </data>
+  <data name="IdentityNo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Installments" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IReadIt" xml:space="preserve">
+    <value />
   </data>
   <data name="Login" xml:space="preserve">
     <value>Log in</value>
@@ -144,31 +204,115 @@
   <data name="Off" xml:space="preserve">
     <value>off</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceWithVat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProceedTo" xml:space="preserve">
+    <value />
+  </data>
   <data name="ProductDiscounts" xml:space="preserve">
     <value>Product discounts exclusively for students</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value />
   </data>
   <data name="Products" xml:space="preserve">
     <value>Products</value>
   </data>
+  <data name="PurchaseNow" xml:space="preserve">
+    <value />
+  </data>
   <data name="RegPrice" xml:space="preserve">
     <value>Reg. Price</value>
+  </data>
+  <data name="RelatedProducts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SafeDelivery" xml:space="preserve">
+    <value />
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="SecuredPage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurePurchase" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecureSite" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ShippingCost" xml:space="preserve">
+    <value />
+  </data>
   <data name="Signup" xml:space="preserve">
     <value>Sign up</value>
+  </data>
+  <data name="SitePoweredBy" xml:space="preserve">
+    <value />
   </data>
   <data name="Sold" xml:space="preserve">
     <value>sold</value>
   </data>
+  <data name="StudentDiscounts" xml:space="preserve">
+    <value />
+  </data>
   <data name="StudentPrice" xml:space="preserve">
     <value>Student Price</value>
+  </data>
+  <data name="StudentPrice2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value />
   </data>
   <data name="TermsOfService" xml:space="preserve">
     <value>Terms of service</value>
   </data>
+  <data name="ThreeDigits" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ToGetACoupon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Upgrades" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Vaildity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WeCommit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WhatIsThis" xml:space="preserve">
+    <value />
+  </data>
   <data name="WhatProduct" xml:space="preserve">
     <value>What product are you looking for? Seach here...</value>
+  </data>
+  <data name="WholeToRetail" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongCode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YourOrder" xml:space="preserve">
+    <value />
   </data>
 </root>
