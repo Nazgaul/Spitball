@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationServer.Caching;
+﻿using System.Diagnostics;
+using Microsoft.ApplicationServer.Caching;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
             try
             {
                 m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version + ConfigurationManager.AppSettings[AppKey];
-
+                DataCacheClientLogManager.ChangeLogLevel(TraceLevel.Off);
+                DataCacheClientLogManager.SetSink(DataCacheTraceSink.DiagnosticSink, TraceLevel.Off);
                 if (HttpContext.Current == null)
                 {
                     m_IsCacheAvaible = false;
