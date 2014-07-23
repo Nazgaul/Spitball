@@ -13,6 +13,7 @@
     }
 
     if (!isDnDsSupported()) {
+        angular.module("ngDragDrop", []);
         return;
     }
 

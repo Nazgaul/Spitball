@@ -197,7 +197,7 @@ mBox.controller('BoxCtrl',
 
             $scope.openUploadPopup = function (qna) {
                 if (!UserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register');
+                    cd.pubsub.publish('register', { action: true });
                     return;
                 }
                 var defer, fileList;
