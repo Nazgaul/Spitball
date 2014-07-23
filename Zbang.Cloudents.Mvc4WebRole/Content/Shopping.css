@@ -760,29 +760,80 @@ ul:after {
 /*#region Contact Us */
 /*#endregion */
 /*#region Checkout */
-.userOrder h2 {
+.userOrder {
+  width: 940px;
+  border: 1px solid #39434a;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 30px;
+  background: #fff;
+  padding: 0 20px;
   font-size: 18px;
+}
+.userOrder h2 {
+  font-size: 21px;
   background: #39434a;
   color: #fff;
+  padding: 0 30px;
+  margin: 0 -20px;
+  line-height: 60px;
+  vertical-align: middle;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  top: -1px;
 }
 .orderTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.orderTable tr:nth-of-type(2):after,
+.orderTable tr:nth-of-type(4):after {
+  content: '';
+  display: inline-block;
+  height: 6px;
   width: 900px;
+  background: silver;
+  border-radius: 3px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+.orderTable th {
+  color: #0f9d58;
+  font-weight: bold;
+  border-bottom: 1px solid silver;
 }
 .orderTable td,
 .orderTable th {
   text-align: left;
+  padding: 15px 0;
 }
 .orderTable td:first-child,
 .orderTable th:first-child {
   width: 215px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-right: 25px;
+  text-align: center;
 }
 .orderTable td:nth-child(2),
 .orderTable th:nth-child(2) {
   width: 350px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-right: 60px;
 }
 .orderTable td:nth-child(3),
 .orderTable th:nth-child(3) {
   width: 335px;
+}
+.pName {
+  font-size: 21px;
 }
 /*#endregion */
 /*#region footer */
