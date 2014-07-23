@@ -157,6 +157,13 @@ header {
 /*#region Checkout */
 
 .orderTable {
+    tr {
+        &:nth-of-type(5) {
+            .rFloat {
+                padding: 0 0 0 35px; /*rtl*/
+            }
+        }     
+    }
     td, th {
         text-align: right; /*rtl*/
         &:first-child {

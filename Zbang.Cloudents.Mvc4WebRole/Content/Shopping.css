@@ -760,6 +760,29 @@ ul:after {
 /*#region Contact Us */
 /*#endregion */
 /*#region Checkout */
+.userOrder,
+.userDetails {
+  width: 940px;
+  border: 1px solid #39434a;
+  border-radius: 5px;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.userOrder h2,
+.userDetails h2 {
+  font-size: 21px;
+  background: #39434a;
+  color: #fff;
+  padding: 0 30px;
+  margin: 0 -20px;
+  line-height: 60px;
+  vertical-align: middle;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  top: -1px;
+}
 .userOrder {
   width: 940px;
   border: 1px solid #39434a;
@@ -771,18 +794,6 @@ ul:after {
   background: #fff;
   padding: 0 20px;
   font-size: 18px;
-}
-.userOrder h2 {
-  font-size: 21px;
-  background: #39434a;
-  color: #fff;
-  padding: 0 30px;
-  margin: 0 -20px;
-  line-height: 60px;
-  vertical-align: middle;
-  border-radius: 5px 5px 0 0;
-  position: relative;
-  top: -1px;
 }
 .orderTable {
   width: 100%;
@@ -843,6 +854,14 @@ ul:after {
 }
 .orderTable tr:nth-of-type(5) td div:last-of-type {
   border: none;
+  color: #0f9d58;
+}
+.orderTable tr:nth-of-type(5) .rFloat {
+  padding-right: 35px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .orderTable th {
   color: #0f9d58;
@@ -886,6 +905,10 @@ ul:after {
 }
 .pName {
   font-size: 21px;
+}
+.userDetails {
+  font-size: 15px;
+  padding: 60px 75px;
 }
 /*#endregion */
 /*#region footer */

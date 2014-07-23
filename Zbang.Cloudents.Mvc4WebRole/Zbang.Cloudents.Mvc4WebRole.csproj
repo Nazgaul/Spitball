@@ -830,6 +830,7 @@
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />
+    <Content Include="Js\directives\scrollToTop.js" />
     <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GenericEvents.js" />
@@ -1314,6 +1315,7 @@
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
     <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">

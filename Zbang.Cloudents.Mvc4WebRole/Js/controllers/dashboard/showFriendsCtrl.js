@@ -1,16 +1,20 @@
-﻿//define("ShowFriendsCtrl", ['app'], function (app) {
-mDashboard.controller('ShowFriendsCtrl',
+﻿mDashboard.controller('ShowFriendsCtrl',
    ['$scope',
     '$modalInstance',
+    '$filter',
+    '$location',
+    '$anchorScroll',
     'friends',
 
-    function ($scope, $modalInstance, friends) {
+    function ($scope, $modalInstance, $filter, $location, $anchorScroll,friends) {
         $scope.formData = {};
         $scope.params = {
-            search: ''
+            search: '',
+            maxFriends: 30,
+            scrollToTop: true
         };
 
-        $scope.friends = friends;
+        $scope.friends = $filter('orderByFilter')(friends, { field: 'name', input:''});
         $scope.close = function () {
             $modalInstance.dismiss();
         };
@@ -23,6 +27,24 @@ mDashboard.controller('ShowFriendsCtrl',
                 id: '', data: friendObj
             });
         };
+
+        $scope.toggleLimit = function (e) {
+
+            $scope.params.scrollToTop = true;
+
+            if (!$scope.params.search.length) {
+                $scope.friends = friends;
+                
+                $scope.params.maxFriends = 30;
+                
+               return;
+            }
+
+            $scope.friends = $filter('orderByFilter')(friends, { field: 'name', input: $scope.params.search });
+        };
+
+        $scope.addFriendsLimit = function () {            
+            $scope.params.maxFriends += 30;
+        };
     }
    ]);
-//});

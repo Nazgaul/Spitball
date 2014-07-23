@@ -128,7 +128,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/scripts/angular-animate.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
 
-                                    new JsFileWithCdn("~/scripts/stacktrace.js")
+                                    new JsFileWithCdn("~/scripts/stacktrace.js"),
+                                    new JsFileWithCdn("~/scripts/underscore.js")
 
                                     );
 
@@ -188,6 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/userDetails.js"),
                 new JsFileWithCdn("/js/services/stacktrace.js"),
                 new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
+                new JsFileWithCdn("/js/directives/scrollToTop.js"),
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),

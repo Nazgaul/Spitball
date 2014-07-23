@@ -71,7 +71,7 @@
                     dataContext.follow({
                         data: { BoxUid: box.id },
                         success: function () {
-                            cd.pubsub.publish('nav', box.url);
+                            window.location.href = box.url;
                         }
                     });
                 };
