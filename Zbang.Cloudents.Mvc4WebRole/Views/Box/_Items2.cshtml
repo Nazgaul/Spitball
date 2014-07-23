@@ -36,8 +36,11 @@
 
 
     <ol id="BoxItemList" class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false" ng-class="{ sponsored: options.sponsored }">
-        <li ng-repeat="item in filteredItems | limitTo : options.itemsLimit" class="{{options.currentView + 'Item'}}" ng-class="{quizItem : item.type === 'Quiz' , draft : item.type === 'Quiz' && !item.publish }"
-            ng-include="getView(item)" draggable="true" drag="item" drag-channel="boxItem" popover-template="{{item.type === 'Quiz' ? 'boxQuizTooltip' : 'boxItemTooltip'}}" popover-append-to-body="true" popover-trigger="{{item.type === 'Quiz' && !item.publish ? 'none' : 'mouseenter'}}" popover-placement="top">
+        <li ng-repeat="item in filteredItems | limitTo : options.itemsLimit" class="{{options.currentView + 'Item'}}"
+             ng-class="{quizItem : item.type === 'Quiz' , draft : item.type === 'Quiz' && !item.publish }"
+            ng-include="getView(item)" ui-draggable="{{item.type !== 'Quiz'}}" drag="item" drag-channel="boxItem"
+             popover-template="{{item.type === 'Quiz' ? 'boxQuizTooltip' : 'boxItemTooltip'}}" popover-append-to-body="true" 
+            popover-trigger="{{item.type === 'Quiz' && !item.publish ? 'none' : 'mouseenter'}}" popover-placement="top">
         </li>
     </ol> @*add drag option*@
 </div>

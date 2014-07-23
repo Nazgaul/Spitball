@@ -835,26 +835,30 @@
 
 .boxItemList {
     min-width: (@box-width * 2 + @min-margin);
+
     &.sponsored {
         .boxName {
             font-size: 15px;
             line-height: 30px;
         }
+
         .thumbItem, .listItem {
             position: relative;
+
             &:first-child {
                 &:hover {
                     .actionBtns {
                         display: none;
                     }
+
                     .boxLink:after {
                         background-position: -75px -82px;
                     }
                 }
+
                 .boxLink {
                     //padding-top: 192px; //sponsored link img absolute
                     //.boxSizing;
-
                     &:after {
                         .pseudo;
                         position: absolute;
@@ -863,8 +867,9 @@
                         background: @boxSprite -75px 0 no-repeat;
                     }
                 }
-            }
+            }        
         }
+
         .thumbItem:first-child {
             .boxLink {
                 padding-top: 192px; //sponsored link img absolute
@@ -933,11 +938,12 @@
             .views {
                 font-size: 13px;
             }
+
             .boxLink {
                 .boxSizing;
                 margin-left: -260px;
                 padding-left: 260px;
-                
+
                 &:after {
                     left: 77px; /*rtl*/
                 }
@@ -1190,11 +1196,16 @@
         -webkit-background-size: cover;
         background-size: cover;
         background-repeat: no-repeat;
-
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;        
+        -moz-user-drag: none;        
         //NB Maybe increase dimensions of thumbnail in markup, then can use
         //background-size: 100%;
     }
-    
+
     .boxName {
         margin-left: 6px; /*rtl*/
         overflow: hidden;
@@ -1211,22 +1222,30 @@
         margin: 0; // override .views class
         // before img from .views class.
     }
-    .tag{
+
+    .tag {
         position: absolute;
         left: -6px; /*rtl*/
         top: 165px;
         color: #F0F8FF;
         z-index: 1;
     }
-    &.quizItem
-    {
-        position:relative;
+
+    &.quizItem {
+        position: relative;
         border: none;
         background: none;
         box-shadow: none;
+        -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
         .actionBtns {
             top: 24px;
         }
+
         &:before {
             .pseudo;
             position: absolute;
@@ -1235,8 +1254,8 @@
             background: @boxSprite -159px -1px no-repeat;
             z-index: -1;
         }
-        &:after
-        {
+
+        &:after {
             .pseudo;
             width: 28px;
             height: 24px;
@@ -1245,10 +1264,18 @@
             top: 28px;
             left: 8px; /*rtl*/
         }
-        .boxLink{
+
+        .boxLink {
             padding: 11px 9px;
             .boxSizing;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
         }
+
         .boxName {
             color: #517e9e;
             font-size: 17px;
@@ -1256,16 +1283,27 @@
             overflow: hidden;
             clear: both;
             line-height: 25px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+
+            
             margin: 55px 0 16px; //override
         }
-        .quizOwner{
+
+        .quizOwner {
             display: none;
         }
+
         .stars {
             position: absolute;
-            left:4px; /*rtl*/
+            left: 4px; /*rtl*/
             bottom: 4px;
         }
+
         .moreFilesThumb {
             width: 36px;
             height: 31px;
@@ -1273,20 +1311,23 @@
             border-radius: 0;
             border: none;
         }
+
         .detailsWpr {
             width: 191px;
         }
     }
+
     &.draft .tag {
         width: 21px;
         height: 16px;
         background: @boxSprite -105px -165px no-repeat;
         display: block;
         padding: 0;
-        border-radius: 0; 
+        border-radius: 0;
         color: transparent; //override
         margin-left: 15px; /*rtl*/
         top: 180px;
+
         &:before, &:after {
             display: none;
         }

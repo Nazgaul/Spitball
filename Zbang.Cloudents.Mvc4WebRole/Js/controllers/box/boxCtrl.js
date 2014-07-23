@@ -643,6 +643,10 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.addDraggedItem = function (item, tabId) {
+                if (item.type === 'Quiz') {
+                    return;
+                }
+
                 var setTabId = false;
                 for (var i = 0, l = $scope.items.length; i < l && !setTabId; i++) {
                     if ($scope.items[i].id === item.id) {

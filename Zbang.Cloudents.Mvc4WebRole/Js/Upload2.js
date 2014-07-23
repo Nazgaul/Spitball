@@ -399,23 +399,23 @@
             }
         });
 
-        function containsFiles(event) {
+        function containsFiles(event) {            
             if (event.dataTransfer.types) {
-                for (var i = 0; i < event.dataTransfer.types.length; i++) {
+                for (var i = 0; i < 3; i++) {
                     if (event.dataTransfer.types[i] == "Files") {
                         return true;
                     }
                 }
             }
             return false;
-        }
+        } 
         $.fn.draghover = function () {
             return this.each(function () {
 
                 var collection = $(),
                     self = $(this);
 
-                self.on('dragenter', function (e) {
+                self.on('dragenter', function (e) {                   
                     if (!containsFiles(e.originalEvent)) {
                         return;
                     }

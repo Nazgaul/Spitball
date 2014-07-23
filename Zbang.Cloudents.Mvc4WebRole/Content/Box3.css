@@ -1156,6 +1156,12 @@
   -webkit-background-size: cover;
   background-size: cover;
   background-repeat: no-repeat;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
 }
 .thumbItem .boxName {
   margin-left: 6px;
@@ -1186,6 +1192,12 @@
   border: none;
   background: none;
   box-shadow: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
 }
 .thumbItem.quizItem .actionBtns {
   top: 24px;
@@ -1215,6 +1227,12 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
 }
 .thumbItem.quizItem .boxName {
   color: #517e9e;
@@ -1223,6 +1241,12 @@
   overflow: hidden;
   clear: both;
   line-height: 25px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
   margin: 55px 0 16px;
 }
 .thumbItem.quizItem .quizOwner {

@@ -10,18 +10,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteCommentCommandHandler : ICommandHandler<DeleteCommentCommand>
     {
-        private readonly IRepository<Comment> m_QuestionRepository;
+        private readonly IRepository<Comment> m_BoxCommentRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Updates> m_Updates;
 
         public DeleteCommentCommandHandler(
-            IRepository<Comment> questionRepository,
+            IRepository<Comment> boxCommentRepository,
             IBoxRepository boxRepository,
             IRepository<Reputation> reputationRepository,
             IRepository<Updates> updates)
         {
-            m_QuestionRepository = questionRepository;
+            m_BoxCommentRepository = boxCommentRepository;
             m_BoxRepository = boxRepository;
             m_Updates = updates;
             m_ReputationRepository = reputationRepository;
@@ -29,18 +29,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(DeleteCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var question = m_QuestionRepository.Load(message.QuestionId);
+            var question = m_BoxCommentRepository.Load(message.QuestionId);
             var box = question.Box;
 
 
             bool isAuthorize = question.User.Id == message.UserId || box.Owner.Id == message.UserId;
             if (!isAuthorize)
             {
-                throw new UnauthorizedAccessException("User didnt ask the question");
+                throw new UnauthorizedAccessException("User didn't ask the question");
             }
 
 
-            var substract = question.AnswersReadOnly.Count + 1;
+            
 
             foreach (var item in question.AnswersReadOnly)
             {
@@ -55,11 +55,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             m_ReputationRepository.Save(question.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteQuestion));
+
+            var substract = question.AnswersReadOnly.Count + 1;
             box.UpdateCommentsCount(m_BoxRepository.QnACount(box.Id) - substract);
 
             m_BoxRepository.Save(box);
 
-            m_QuestionRepository.Delete(question);
+            m_BoxCommentRepository.Delete(question);
 
         }
     }

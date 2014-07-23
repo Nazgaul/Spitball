@@ -26,14 +26,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     if (!m_ZboxService.Dbi(index))
                     {
                         index = 0;
-                        Thread.Sleep(TimeSpan.FromDays(1));
+                        Thread.Sleep(TimeSpan.FromHours(3));
                     }
                     index++;
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("Update Dbi", ex);
-                    //Thread.Sleep(TimeSpan.FromHours(1));
+                    Thread.Sleep(TimeSpan.FromHours(1));
                 }
             }
         }
@@ -43,8 +43,4 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = false;
         }
     }
-    //public interface IUpdateDataBase
-    //{
-    //    void UpdateDb();
-    //}
 }
