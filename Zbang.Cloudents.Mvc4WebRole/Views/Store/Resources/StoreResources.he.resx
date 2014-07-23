@@ -316,4 +316,13 @@
   <data name="TermsOfService" xml:space="preserve">
     <value>תנאי שימוש</value>
   </data>
+  <data name="AddToPurchase" xml:space="preserve">
+    <value>הוסף לרכישה</value>
+  </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value>מחיר המוצר</value>
+  </data>
+  <data name="Vat" xml:space="preserve">
+    <value>מע''מ</value>
+  </data>
 </root>

@@ -197,7 +197,7 @@ mBox.controller('BoxCtrl',
 
             $scope.openUploadPopup = function (qna) {
                 if (!UserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register');
+                    cd.pubsub.publish('register', { action: true });
                     return;
                 }
                 var defer, fileList;
@@ -414,10 +414,11 @@ mBox.controller('BoxCtrl',
             $scope.createTab = function () {
                 if (!UserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
+                    return;
                 }
 
                 if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
-                    alert(jsResources.NeedToFollowBox)
+                    alert(jsResources.NeedToFollowBox);
                     return;
                 }
                 var modalInstance = $modal.open({
@@ -441,7 +442,7 @@ mBox.controller('BoxCtrl',
                 });
             };
 
-            $scope.manageTab = function (tab) {
+            $scope.manageTab = function () {
                 var filteredItems = $filter('filter')($scope.items, filterManageItems);
                 if (!filteredItems.length) {
                     return;
@@ -540,7 +541,7 @@ mBox.controller('BoxCtrl',
             $scope.inviteFriends = function (e) {
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
                     e.preventDefault();
-                    alert(jsResources.NeedToFollowBox)
+                    alert(jsResources.NeedToFollowBox);
                     return;
                 }
             };
@@ -600,7 +601,7 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.deleteItem = function (item) {
-                cd.confirm2(JsResources.SureYouWantToDelete + ' ' + item.name + "?").then(function () {
+                cd.confirm2(jsResources.SureYouWantToDelete + ' ' + item.name + "?").then(function () {
                     switch (item.type) {
                         case 'File':
                         case 'Link':
@@ -631,7 +632,7 @@ mBox.controller('BoxCtrl',
                     $scope.items.splice(index, 1);
                     index = $scope.filteredItems.indexOf(item);
                     if (index > -1) {
-                        index = $scope.filteredItems.splice(index, 1);
+                        $scope.filteredItems.splice(index, 1);
                     }
 
                     if (item.type === 'Quiz' && !item.publish) {
@@ -692,10 +693,11 @@ mBox.controller('BoxCtrl',
 
                 if (!UserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
+                    return;
                 }
 
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-                    alert(jsResources.NeedToFollowBox)
+                    alert(jsResources.NeedToFollowBox);
                     return;
                 }
 

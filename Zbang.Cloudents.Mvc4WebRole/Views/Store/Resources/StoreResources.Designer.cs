@@ -99,6 +99,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AddToPurchase {
+            get {
+                return ResourceManager.GetString("AddToPurchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string BeforeYouBuy {
             get {
                 return ResourceManager.GetString("BeforeYouBuy", resourceCulture);
@@ -367,6 +376,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProductPrice {
+            get {
+                return ResourceManager.GetString("ProductPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Products.
         /// </summary>
         public static string Products {
@@ -588,6 +606,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         public static string Vaildity {
             get {
                 return ResourceManager.GetString("Vaildity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Vat {
+            get {
+                return ResourceManager.GetString("Vat", resourceCulture);
             }
         }
         
