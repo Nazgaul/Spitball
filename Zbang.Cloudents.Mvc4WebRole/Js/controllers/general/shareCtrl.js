@@ -40,14 +40,17 @@
         $scope.submit = function (formScope) {
             addFriendByEmail();
 
-            for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
-                if ($scope.formData.emailList[i].invalid) {
-                    formScope.recepients.$setValidity('invalid', false);
-                    return;
-                }
-            }
 
-            formScope.recepients.$setValidity('invalid', true);
+            if (!data.singleMessage) {
+                for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
+                    if ($scope.formData.emailList[i].invalid) {
+                        formScope.recepients.$setValidity('invalid', false);
+                        return;
+                    }
+                }
+
+                formScope.recepients.$setValidity('invalid', true);
+            }
 
 
             if (formScope.$invalid) {
