@@ -315,4 +315,13 @@
   <data name="YourOrder" xml:space="preserve">
     <value />
   </data>
+  <data name="AddToPurchase" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Vat" xml:space="preserve">
+    <value />
+  </data>
 </root>
