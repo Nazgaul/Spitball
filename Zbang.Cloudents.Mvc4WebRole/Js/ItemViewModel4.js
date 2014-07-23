@@ -189,7 +189,7 @@
             cd.confirm(JsResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
                 cd.sessionStorageWrapper.clear();
                 dataContext.removeItem({
-                    data: { itemId: self.itemid(), BoxUid: boxid },
+                    data: { itemId: self.itemid(), BoxId: boxid },
                     success: function () {
                         cd.pubsub.publish('nav', self.boxurl());
                     }
