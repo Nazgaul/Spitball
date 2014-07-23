@@ -39,13 +39,18 @@
             if (location && boxToUpload.question) {
                 boxToUpload.question = location.question;
             }
-
+            uploader.refresh();
         });
 
         $rootScope.$on('uploadBox', function(e, boxid) {
             boxToUpload.id = parseInt(boxid, 10);
+            if (uploader) {
+                uploader.destroy();
+                uploader = null;
+            }
             uploader = uploadFiles();
             registerDnd();
+            uploader.refresh();
             //uploader.refresh();
         });
 
@@ -198,10 +203,10 @@
 
     function uploadFiles() {
         var uploader = new plupload.Uploader({
-            runtimes: 'html5,flash,silverlight,html4',
+            runtimes: 'flash,silverlight,html4,html5',
             browse_button: 'AddFiles',
             drop_element: 'fileZone',
-
+            container : 'uploadModal',
             chunk_size: '3mb',
             url: '/Upload/File/',
             unique_names: true,
@@ -313,7 +318,7 @@
             $rootScope.$broadcast('FileAdded', { item: itemData.payload.fileDto, boxId: itemData.payload.boxid });
             cd.pubsub.publish('clear_cache');
         });
-
+        window.x = uploader;
         return uploader;
 
     }
@@ -349,9 +354,13 @@
         elem.find('.progress').hide();
     }
 
+    var singleton = false;
     function registerDnd() {
         //var dndAvailable = true;
-
+        if (singleton) {
+            return;
+        }
+        singleton = true;
         if (!'draggable' in document.createElement('span')) {
             return;
         }
