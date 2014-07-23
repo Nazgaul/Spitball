@@ -26,13 +26,13 @@ namespace Zbang.Zbox.Domain
         }
        
         public virtual Guid Id { get; set; }
-        public virtual User User { get; set; }
-        public virtual Box Box { get; set; }
-        public virtual Comment Comment { get; set; }
-        public virtual CommentReplies Reply { get; set; }
-        public virtual Item Item { get; set; }
-        public virtual Quiz Quiz { get; set; }
-      
-        public virtual DateTime CreationTime { get; set; }
+        public virtual User User { get; protected set; }
+        public virtual Box Box { get; protected set; }
+        public virtual Comment Comment { get; protected set; }
+        public virtual CommentReplies Reply { get; protected set; }
+        public virtual Item Item { get; protected set; }
+        public virtual Quiz Quiz { get; protected set; }
+
+        protected virtual DateTime CreationTime { get; set; }
     }
 }
