@@ -21,7 +21,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             m_TableProvider = tableProvider;
             m_ZboxReadService = zboxReadService;
         }
-        public bool Excecute(Infrastructure.Transport.DomainProcess data)
+        public bool Execute(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as BadItemData;
             if (parameters == null)

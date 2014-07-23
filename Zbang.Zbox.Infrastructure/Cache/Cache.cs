@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
         private const string AppKey = "DataCache";
         private readonly string m_CachePrefix;
         private readonly System.Web.Caching.Cache m_Cache;
-        private readonly bool m_IsCacheAvaible;
+        private readonly bool m_IsCacheAvailable;
         public Cache()
         {
             try
@@ -27,33 +27,33 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 DataCacheClientLogManager.SetSink(DataCacheTraceSink.DiagnosticSink, TraceLevel.Off);
                 if (HttpContext.Current == null)
                 {
-                    m_IsCacheAvaible = false;
+                    m_IsCacheAvailable = false;
                     return;
                 }
                 m_Cache = HttpContext.Current.Cache;
 
-                m_IsCacheAvaible = true;
+                m_IsCacheAvailable = true;
             }
             catch
             {
-                m_IsCacheAvaible = false;
+                m_IsCacheAvailable = false;
             }
 
         }
-        public bool AddToCache(string key, object value, TimeSpan experation, string region)
+        public bool AddToCache(string key, object value, TimeSpan expiration, string region)
         {
-            return AddToCache(key, value, experation, region, null);
+            return AddToCache(key, value, expiration, region, null);
         }
 
-        public bool AddToCache(string key, object value, TimeSpan experation, string region, List<string> tags)
+        public bool AddToCache(string key, object value, TimeSpan expiration, string region, List<string> tags)
         {
-            if (!m_IsCacheAvaible)
+            if (!m_IsCacheAvailable)
             {
                 return false;
             }
             if (!IsAppFabricCache())
             {
-                m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration, experation);
+                m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration, expiration);
                 return true;
             }
             try
@@ -64,15 +64,15 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 dataCache.CreateRegion(region);
                 if (tags == null)
                 {
-                    dataCache.Put(keyWithPrefix, value, experation, region);
+                    dataCache.Put(keyWithPrefix, value, expiration, region);
                     return true;
                 }
                 if (tags.Count == 0)
                 {
-                    dataCache.Put(keyWithPrefix, value, experation, region);
+                    dataCache.Put(keyWithPrefix, value, expiration, region);
                     return true;
                 }
-                dataCache.Put(keyWithPrefix, value, experation, tags.Select(s => new DataCacheTag(s)), region);
+                dataCache.Put(keyWithPrefix, value, expiration, tags.Select(s => new DataCacheTag(s)), region);
 
                 return true;
             }
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public bool RemoveFromCache(string region, List<string> tags)
         {
-            if (!m_IsCacheAvaible)
+            if (!m_IsCacheAvailable)
             {
                 return false;
             }
@@ -126,7 +126,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public object GetFromCache(string key, string region)
         {
-            if (!m_IsCacheAvaible)
+            if (!m_IsCacheAvailable)
             {
                 return null;
             }
