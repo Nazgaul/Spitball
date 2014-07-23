@@ -965,7 +965,10 @@
 
                     toggleStarClass($rated, currentRate);
 
-
+                    if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
+                        ratedItems[cd.userDetail().nId].push(self.itemid());
+                        cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                    }
 
                     initialRate = currentRate;
                     self.rate();

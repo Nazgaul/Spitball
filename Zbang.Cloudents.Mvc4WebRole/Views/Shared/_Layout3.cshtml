@@ -208,7 +208,15 @@
         </a>
     </script>
   
-
+    <script type="text/html" id="userToolTipTempalte">
+        <a data-navigation="User" href="{{url}}">
+            <img class="ttImg" src="{{image}}" width="99" height="99" />
+        </a>
+        <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
+        <div class="ttSchool elps">{{university}}</div>
+        <span class="ttPoints lFloat" data-tt-points="{{score}}">&nbsp;Points</span>
+        <button type="button" class="btn3 rFloat">Message</button>
+    </script>
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
     
