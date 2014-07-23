@@ -3,10 +3,10 @@
     function () {
         return function (items, filterData, reverse) {
             var filtered = [],
-                searchValue = filterData.input ? filterData.input.toLowerCase() : filterData.input;
+                searchValue = filterData.input ? filterData.input.toLowerCase() : '';
 
-            angular.forEach(items, function (item) {
-                filtered.push(item);
+            filtered = _.filter(items, function (item) {
+                return item[filterData.field].toLowerCase().indexOf(searchValue) > -1;
             });
             filtered.sort(function (a, b) {
                 var aName = a.name.toLowerCase(),

@@ -204,7 +204,7 @@
 
         //historyNav.push(clonedLocation);
         //save history to local storage
-        cd.historyManager.save();
+        //cd.historyManager.save();
 
     }
 
