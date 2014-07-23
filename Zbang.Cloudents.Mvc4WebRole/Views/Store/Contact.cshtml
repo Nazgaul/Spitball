@@ -1,1 +1,40 @@
-﻿<h2>Contact Us</h2>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_LayoutShopping.cshtml";
+}
+@*Add class big to show the bigger version of the widget*@
+<div class="widget">
+    <div class="widgetWpr">
+        <div class="lFloat">
+            <img alt="university name" src="http://lorempixel.com/98/96/food" />
+            <h3>University name here</h3>
+        </div>
+        <h2>Exclusive benefits to our students</h2>
+        <button type="button" class="rFloat">Get coupon code</button>
+    </div>
+</div>
+
+<form>
+    <div class="top">@StoreResources.GetHelp</div>
+    <div>
+        <label>@SharedResources.Name</label>
+        <input type="text" class="inputText" />
+    </div>
+    <div>
+        <label>@StoreResources.Telephone</label>
+        <input type="text" class="inputText" />
+    </div>
+    <div>
+        <label>@SharedResources.School</label>
+        <input type="text" class="inputText" />
+    </div>
+    <div>
+        <label>@SharedResources.Email</label>
+        <input type="text" class="inputText" />
+    </div>
+    <label>@SharedResources.Message</label>
+    <textarea class="inputText" />
+    <button type="submit" class="btn1">@DialogResources.Send</button>
+</form>

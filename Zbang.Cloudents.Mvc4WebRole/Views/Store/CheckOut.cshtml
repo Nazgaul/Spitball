@@ -6,43 +6,58 @@
     Layout = "~/Views/Shared/_LayoutShopping.cshtml";
 }
 
-@*Add class big to show the bigger version of the widget*@
-<div class="widget">
-    <div class="widgetWpr">
-        <div class="lFloat">
-            <img alt="university name" src="http://lorempixel.com/98/96/food" />
-            <h3>University name here</h3>
-        </div>
-        <h2>Exclusive benefits to our students</h2>
-        <button type="button" class="rFloat">Get coupon code</button>
-    </div>
-</div>
 
-<form>
-    <div class="top">@StoreResources.GetHelp</div>
-    <div>
-        <label>@SharedResources.Name</label>
-        <input type="text" class="inputText" />
-    </div>
+<form class="userOrder">
+    <h2>@StoreResources.YourOrder</h2>
+    <table class="orderTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@StoreResources.ProductName</th>
+                <th>@StoreResources.RegPrice</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>@StoreResources.Coupon 40</td>
+            <td><input type="text" class="inputText" /></td>
+            <td>
+                <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
+                <span class="userHelp"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>@StoreResources.Upgrades</td>
+            <td>
+                <select>
+                    <option selected>None</option>
+                    <option selected>1</option>
+                    <option selected>2</option>
+                    <option selected>3</option>
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn3">@StoreResources.AddToPurchase</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div>@StoreResources.ProductPrice:<span class="rFloat">00</span></div>
+                <div>@StoreResources.Coupon:<span class="rFloat">00</span></div>
+                <div>@StoreResources.Upgrades:<span class="rFloat">00</span></div>
+                <div>@StoreResources.Vat:<span class="rFloat">00</span></div>
+                <div>@StoreResources.ShippingCost:<span class="rFloat">00</span></div>
+                <div>@StoreResources.TotalPrice:<span class="rFloat">00</span></div>
+                <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
+            </td>
+        </tr>
+    </table>
 
-    <div>
-        <label>@StoreResources.Telephone</label>
-        <input type="text" class="inputText" />
-    </div>
-
-    <div>
-        <label>@SharedResources.School</label>
-        <input type="text" class="inputText" />
-    </div>
-
-    <div>
-        <label>@SharedResources.Email</label>
-        <input type="text" class="inputText" />
-    </div>
-
-    <label>@SharedResources.Message</label>
-    <textarea class="inputText" />
-
-    <button type="submit" class="btn1">@DialogResources.Send</button>
 </form>
 

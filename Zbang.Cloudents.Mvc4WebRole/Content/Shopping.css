@@ -757,7 +757,33 @@ ul:after {
   margin-top: 10px;
 }
 /*#endregion */
+/*#region Contact Us */
+/*#endregion */
 /*#region Checkout */
+.userOrder h2 {
+  font-size: 18px;
+  background: #39434a;
+  color: #fff;
+}
+.orderTable {
+  width: 900px;
+}
+.orderTable td,
+.orderTable th {
+  text-align: left;
+}
+.orderTable td:first-child,
+.orderTable th:first-child {
+  width: 215px;
+}
+.orderTable td:nth-child(2),
+.orderTable th:nth-child(2) {
+  width: 350px;
+}
+.orderTable td:nth-child(3),
+.orderTable th:nth-child(3) {
+  width: 335px;
+}
 /*#endregion */
 /*#region footer */
 footer {
