@@ -40,9 +40,15 @@
                 boxToUpload.question = location.question;
             }
             uploader.refresh();
+            window.setTimeout(function () {
+                var x = $('#AddFiles').offset();
+                if (x) {
+                    $('.plupload.flash').css({ top: x.top });
+                }
+            }, 1000);
         });
 
-        $rootScope.$on('uploadBox', function(e, boxid) {
+        $rootScope.$on('uploadBox', function (e, boxid) {
             boxToUpload.id = parseInt(boxid, 10);
             if (uploader) {
                 uploader.destroy();
@@ -51,6 +57,12 @@
             uploader = uploadFiles();
             registerDnd();
             uploader.refresh();
+            window.setTimeout(function () {
+                var x = $('#AddFiles').offset();
+                if (x) {
+                    $('.plupload.flash').css({ top: x.top });
+                }
+            }, 1000);
             //uploader.refresh();
         });
 
@@ -108,13 +120,13 @@
     function trackUpload(action, label) {
         analytics.trackEvent('Upload', action, label);
     }
-    function uploadVisible() {
-        if (firstTimeFired) {
-            firstTimeFired = false;
-            registerEvents();
-        }
+    //function uploadVisible() {
+    //    if (firstTimeFired) {
+    //        firstTimeFired = false;
+    //        registerEvents();
+    //    }
 
-    }
+    //}
     function registerEvents() {
         //cd.loader.registerDropBox();
         //var d = cd.loader.registerGoogleDrive();//, s = cd.loader.registerSkyDrive();
@@ -202,11 +214,15 @@
     }
 
     function uploadFiles() {
+        var container = null;
+        if (document.getElementById('uploadModal')) {
+           // container = 'uploadModal';
+        }
         var uploader = new plupload.Uploader({
-            runtimes: 'flash,silverlight,html4,html5',
+            runtimes: 'html5,flash,silverlight,html4',
             browse_button: 'AddFiles',
             drop_element: 'fileZone',
-            container : 'uploadModal',
+            container: container,
             chunk_size: '3mb',
             url: '/Upload/File/',
             unique_names: true,
@@ -225,7 +241,6 @@
                 //  up.settings.multipart_params.fileId = file.id;
                 up.settings.multipart_params.fileName = file.name;
                 up.settings.multipart_params.fileSize = file.size;
-
 
                 up.settings.multipart_params.boxId = file.boxid;
                 up.settings.multipart_params.tabId = file.tabid;
@@ -261,7 +276,9 @@
         uploader.bind('FilesAdded', function (up, files) {
             $(window).trigger('dragreset');
             var filesobj = [];
+            boxToUpload.id = boxToUpload.id || parseInt(cd.getParameterFromUrl(2), 10);
             var cloneBoxToUpload = cd.clone(boxToUpload);
+            
             for (var i = 0; i < files.length; i++) {
                 if (files[i].name.indexOf('.') === -1 && files[i].size === 4096) {
                     cd.notification(ZboxResources.CantUploadDirectory);
