@@ -46,9 +46,9 @@
                    if (window.gapi !== undefined && window.gapi.client !== undefined) {
                        window.clearInterval(interval);
                        gapi.client.setApiKey(apiKey);
-                       defer.resolve(true);                       
+                       defer.resolve(true);
                    }
-                   breakLoop ++;
+                   breakLoop++;
                    if (breakLoop > 500) {
                        window.clearInterval(interval);
                        defer.reject(false);
@@ -129,54 +129,48 @@
            contacts: function (isImmediate) {
                var defer = $q.defer();
 
-               if (!api.isAuthenticated()) {
-                   api.register(isImmediate).then(getContacts);
-                   return defer.promise;
+
+
+               if (contacts.length) {
+                   defer.resolve(contacts);
+                   return;
                }
 
-               getContacts();
-
-               function getContacts() {
-                   if (contacts.length) {
-                       defer.resolve(contacts);
+               Share.googleFriends({ token: access_token }).then(function (data) {
+                   if (!data.success) {
+                       defer.resolve([]);
                        return;
                    }
+                   var feed = JSON.parse(data.payload).feed;
+                   for (var i = 0 ; i < feed.entry.length; i++) {
+                       var contact = {}, entry = feed.entry[i];
+                       if (entry.gd$email) {
+                           contact.id = entry.gd$email[0].address;
 
-                   Share.googleFriends({ token: access_token }).then(function (data) {
-                       if (!data.success) {
-                           defer.resolve([]);
-                           return;
-                       }
-                       var feed = JSON.parse(data.payload).feed;
-                       for (var i = 0 ; i < feed.entry.length; i++) {
-                           var contact = {}, entry = feed.entry[i];
-                           if (entry.gd$email) {
-                               contact.id = entry.gd$email[0].address;
-
-                               if (entry.title.$t !== '') {
-                                   contact.name = cd.escapeHtmlChars(entry.title.$t);
-                               } else {
-                                   contact.name = entry.gd$email[0].address;
-                               }
-
-                               if (entry.link[0].gd$etag) {
-                                   contact.image = decodeURIComponent(entry.link[0].href) + '&access_token=' + access_token;
-                               } else {
-                                   contact.image = '/Images/user-gmail-pic.jpg';
-                               }
-
-                               contact.google = true;
-
-                               contacts.push(contact);
+                           if (entry.title.$t !== '') {
+                               contact.name = cd.escapeHtmlChars(entry.title.$t);
+                           } else {
+                               contact.name = entry.gd$email[0].address;
                            }
+
+                           if (entry.link[0].gd$etag) {
+                               contact.image = decodeURIComponent(entry.link[0].href) + '&access_token=' + access_token;
+                           } else {
+                               contact.image = '/Images/user-gmail-pic.jpg';
+                           }
+
+                           contact.google = true;
+
+                           contacts.push(contact);
                        }
+                   }
 
-                       defer.resolve(contacts);
+                   defer.resolve(contacts);
 
-                   });
-               }
+               });
 
                return defer.promise;
+               
            }
 
        }
