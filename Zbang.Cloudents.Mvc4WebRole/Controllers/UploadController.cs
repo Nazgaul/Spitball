@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                     fileUploadedDetails.FileName,
-                     fileUploadedDetails.FileSize, tabId);
+                     fileUploadedDetails.TotalUploadBytes, tabId);
                 var result = ZboxWriteService.AddFileToBox(command);
 
                 var urlBuilder = new UrlBuilder(HttpContext);

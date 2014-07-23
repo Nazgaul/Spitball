@@ -1436,7 +1436,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\Factories\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

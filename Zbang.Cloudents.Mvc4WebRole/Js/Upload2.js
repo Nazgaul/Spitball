@@ -120,13 +120,13 @@
     function trackUpload(action, label) {
         analytics.trackEvent('Upload', action, label);
     }
-    function uploadVisible() {
-        if (firstTimeFired) {
-            firstTimeFired = false;
-            registerEvents();
-        }
+    //function uploadVisible() {
+    //    if (firstTimeFired) {
+    //        firstTimeFired = false;
+    //        registerEvents();
+    //    }
 
-    }
+    //}
     function registerEvents() {
         //cd.loader.registerDropBox();
         //var d = cd.loader.registerGoogleDrive();//, s = cd.loader.registerSkyDrive();
