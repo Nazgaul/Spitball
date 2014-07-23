@@ -763,6 +763,23 @@ ul:after {
 .orderTable {
     width: 100%;
     border-collapse: collapse;
+    .btn3 {
+        font-size: 18px;
+        width: 230px;
+        height: 38px;
+        .boxSizing;
+    }
+    .btn1 {
+        font-size: 28px;
+        display: block;
+        width: 100%;
+    }
+    input,  select {
+        width: 100%;
+        padding: 3px 10px;
+        height: 38px;
+        .boxSizing;
+    }
     tr {
         &:nth-of-type(2), &:nth-of-type(4) {
             &:after {
@@ -775,32 +792,68 @@ ul:after {
                 right: 0;left: 0;
                 margin: auto;
             } 
-        }       
+        }
+        &:nth-of-type(1) {
+            td:last-child {
+                text-align: center;
+            }
+        }  
+        &:nth-of-type(2) {
+            td {
+                padding-top: 26px; // take into account the absolute hr
+                border-bottom: 1px solid silver;
+            }
+        } 
+        &:nth-of-type(5) {
+            td {
+                padding-top: 0;
+                vertical-align: middle;
+                div {
+                    border-bottom: 1px solid silver;
+                    line-height: 45px;
+                    &:first-child {
+                        margin-top: -30px;
+                    }
+                    &:last-of-type {
+                        border: none;
+                    }
+                }
+            }
+        }     
     }
     th {
         //font-size: 18px;
         color: @color;
         font-weight: bold;
         border-bottom: 1px solid silver;
+        &:last-child {
+            text-align: center;
+        }
     }
     
     td, th {
-        text-align: left;
-        padding: 15px 0;
+        text-align: left; /*rtl*/
+        padding: 20px 0;
         &:first-child {
             width: 215px;
             .boxSizing;
-            padding-right: 25px;
+            padding-right: 25px; /*rtl*/
             text-align: center;
+            //background: pink;
         }
         &:nth-child(2) {
             width: 350px;
             .boxSizing;
-            padding-right: 60px;
+            padding-right: 60px; /*rtl*/
+            //background: aqua;
         }
         &:nth-child(3) {
             width: 335px;
+            //background: yellow;
         }
+    }
+    td {
+        margin: 30px 0;
     }
 }
 .pName {
