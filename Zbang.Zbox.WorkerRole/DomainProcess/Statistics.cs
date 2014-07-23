@@ -15,7 +15,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             m_ZboxWriteService = zboxService;
 
         }
-        public bool Excecute(Infrastructure.Transport.DomainProcess data)
+        public bool Execute(Infrastructure.Transport.DomainProcess data)
         {
             var parameters4 = data as StatisticsData4;
             if (parameters4 == null) return true;

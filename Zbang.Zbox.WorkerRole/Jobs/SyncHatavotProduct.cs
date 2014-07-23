@@ -28,31 +28,32 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_ZboxWriteService = zboxWriteService;
         }
 
-        public async void Run()
+        public void Run()
         {
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
-                var categorieDto = await m_ReadService.GetCategories();
+                TraceLog.WriteInfo("Starting to bring data from Hatavot");
+                var categoriesDto = m_ReadService.GetCategories();
                
 
                 var categories = new List<Category>();
                 var storeDto = new List<ProductDto>();
-                foreach (var category in categorieDto)
+                foreach (var category in categoriesDto)
                 {
                     categories.Add(new Category(category.Id, category.ParentId, category.Name, category.Order));
-                    var items = await m_ReadService.ReadData(category.Id);
+                    var items = m_ReadService.ReadData(category.Id);
                     storeDto.AddRange(items);
                 }
-
+                TraceLog.WriteInfo("build command and download images");
                 var products = new List<ProductStore>();
                 foreach (var item in storeDto)
                 {
 
                     try
                     {
-                        var bytes = await DownloadImage(item.Image);
-                        item.Image = await m_BlobProvider.UploadFromLink(bytes, item.Image);
+                        var bytes = DownloadImage(item.Image).Result;
+                        item.Image = m_BlobProvider.UploadFromLink(bytes, item.Image).Result;
                         products.Add(new ProductStore(
                             item.CatalogNumber,
                             item.CategoryCode,

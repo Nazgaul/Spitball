@@ -16,7 +16,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         }
 
 
-        public bool Excecute(Infrastructure.Transport.DomainProcess data)
+        public bool Execute(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as UpdateData;
             if (parameters == null) return true;
@@ -35,9 +35,6 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             {
                 TraceLog.WriteError("On new update model:" + parameters, ex);
             }
-            //var command = new UpdateStatisticsCommand(parameters4.ItemsIds.Select(s => new Zbang.Zbox.Domain.Commands.UpdateStatisticsCommand.StatisticItemData { ItemId = s.Id, Action = (StatisticsAction)s.Action }), parameters4.UserId, parameters4.StatTime);
-            //m_ZboxWriteService.Statistics(command);
-
             return true;
         }
     }
