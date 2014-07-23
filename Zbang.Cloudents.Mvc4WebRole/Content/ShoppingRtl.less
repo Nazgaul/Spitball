@@ -154,6 +154,29 @@ header {
 
 /*#endregion */
 
+/*#region Checkout */
+
+.orderTable {
+    tr {
+        &:nth-of-type(5) {
+            .rFloat {
+                padding: 0 0 0 35px; /*rtl*/
+            }
+        }     
+    }
+    td, th {
+        text-align: right; /*rtl*/
+        &:first-child {
+            padding: 15px 0 15px 25px; /*rtl*/
+        }
+        &:nth-child(2) {
+            padding: 15px 0 15px 60px; /*rtl*/
+        }
+    }
+}
+/*#endregion */
+
+
 /*#region footer */
 .bottom {
     ul {

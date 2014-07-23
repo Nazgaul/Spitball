@@ -148,6 +148,27 @@ header h1 {
   /*rtl*/
 }
 /*#endregion */
+/*#region Checkout */
+.orderTable tr:nth-of-type(5) .rFloat {
+  padding: 0 0 0 35px;
+  /*rtl*/
+}
+.orderTable td,
+.orderTable th {
+  text-align: right;
+  /*rtl*/
+}
+.orderTable td:first-child,
+.orderTable th:first-child {
+  padding: 15px 0 15px 25px;
+  /*rtl*/
+}
+.orderTable td:nth-child(2),
+.orderTable th:nth-child(2) {
+  padding: 15px 0 15px 60px;
+  /*rtl*/
+}
+/*#endregion */
 /*#region footer */
 .bottom ul {
   padding: 0 212px 0 0;
