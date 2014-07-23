@@ -4,7 +4,7 @@
 <div class="modal-header">
     <h3 class="modal-title"><span>@DialogResources.UploadFiles</span></h3>
 </div>
-<div class="modal-body">
+<div id="uploadModal" class="modal-body" ng-init="$root.$broadcast('uploadBox')">
     <div class="step3">
         <div class="dragDropBox">
             <div class="dragDropTxtE">@DialogResources.DragAndDrop</div>
