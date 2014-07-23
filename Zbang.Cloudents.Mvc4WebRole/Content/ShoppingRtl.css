@@ -149,6 +149,10 @@ header h1 {
 }
 /*#endregion */
 /*#region Checkout */
+.orderTable tr:nth-of-type(5) .rFloat {
+  padding: 0 0 0 35px;
+  /*rtl*/
+}
 .orderTable td,
 .orderTable th {
   text-align: right;
