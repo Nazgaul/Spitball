@@ -232,9 +232,7 @@
             return;
         }
         var time = element.getAttribute('data-time');
-        if ($.isNumeric(time)) {
-            time = parseInt(time, 10);
-        }
+        time = time.replace(/"/g, '');
         element.textContent = parseActionTime(new Date(time));;
     }
     //#endregion
