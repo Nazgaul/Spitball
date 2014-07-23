@@ -25,7 +25,7 @@
         <ul scroll-to-top="{{params.scrollToTop}}" class="membersList" data-pending="@IndexResources.Pending" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited"
             data-member="@IndexResources.ActiveMember" infinite-scroll="addFriendsLimit()"
             infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
-            <li class="memberItem" ng-controller="FriendCtrl" @*ng-hide="isExcludedByFilter"*@ ng-repeat="friend in friends | limitTo: params.maxFriends">
+            <li class="memberItem" ng-repeat="friend in friends | limitTo: params.maxFriends">
                 <a bo-href="friend.url">
                     <img class="friendImg" alt="" popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="right-top"
                          popover-popup-delay="500" popover-target-leave="true" ng-init="userId = friend.uid" bo-src="friend.image" width="34" height="34" />
