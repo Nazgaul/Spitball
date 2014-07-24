@@ -12,17 +12,18 @@ namespace Zbang.Zbox.Domain
 
         public StoreProduct(long id, string name, string extraDetails, int numberOfSales, float coupon, float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName)
         {
-            UpdateProduct(id, name, extraDetails, numberOfSales, coupon, salePrice, pictureUrl, categories, description, homePage,
+            NumberOfSales = numberOfSales;
+            UpdateProduct(id, name, extraDetails, coupon, salePrice, pictureUrl, categories, description, homePage,
                 supplyTime, numberOfPayments, catalogNumber, deliveryPrice, producerName);
         }
 
-        public void UpdateProduct(long id, string name, string extraDetails, int numberOfSales, float coupon, float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName)
+        public void UpdateProduct(long id, string name, string extraDetails,  float coupon, float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName)
         {
             if (name == null) throw new ArgumentNullException("name");
             Id = id;
             Name = name.Trim();
             ExtraDetails = string.IsNullOrEmpty(extraDetails) ? null : extraDetails.Trim();
-            NumberOfSales = numberOfSales;
+            
             Coupon = coupon;
             SalePrice = salePrice;
             PictureUrl = pictureUrl;

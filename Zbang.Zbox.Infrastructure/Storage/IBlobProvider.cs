@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+
 namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IBlobProvider
@@ -20,10 +21,14 @@ namespace Zbang.Zbox.Infrastructure.Storage
         /// <param name="mimeType">mimetype of the file</param>
         /// <param name="fileGziped"></param>
         /// <returns>The url of the file with shared access signature</returns>
-        Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false);
-        Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType, bool fileGziped = false);
-       // bool CheckIfFileExistsInCache(string blobName);
-       // string GetFileUrlInCahce(string blobName);
+        Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType,
+            bool fileGziped = false);
+
+        Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType,
+            bool fileGziped = false);
+
+        // bool CheckIfFileExistsInCache(string blobName);
+        // string GetFileUrlInCahce(string blobName);
         //void DeleteCahceContent();
 
         //TODO:maybe we want this to be internal
@@ -44,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<Stream> DownloadFileAsync(string fileName);
 
         //byte[] DownloadFileToBytes(string fileName);
-       // bool CheckIfFileExists(string blobName);
+        // bool CheckIfFileExists(string blobName);
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
         //Task UploadFileAsync(string blobName, string filePath, string mimeType);
@@ -73,5 +78,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         string GetThumbnailUrl(string blobName);
         string GetThumbnailLinkUrl();
         string GetBlobUrl(string blobName);
+
+        void RenameBlob(string blobName, string newName, string newMimeType = null);
     }
 }
