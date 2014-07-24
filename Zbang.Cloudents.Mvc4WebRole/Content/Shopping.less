@@ -748,14 +748,54 @@ ul:after {
 /*#endregion */
 
 /*#region Contact Us */
-
+.contact.contact {
+    font-size: 18px;
+    overflow: hidden;
+    .boxSizing;
+    background: #fff;
+    margin-top: 56px;
+    padding: 0 80px 30px;
+    h2 {
+        font-weight: normal;       
+        background: @color;
+        line-height: 30px;
+        padding: 20px 30px;
+        margin: 0 -80px;
+        text-align: center;
+    }
+        > .lFloat, > .rFloat {
+        width: 340px;
+        margin-top: 25px;
+    }
+    > .lFloat {
+        clear: both;
+        &.wideInput {
+            width: 100%;
+        }
+    }
+    .inputText {
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+    }
+    textarea {
+        min-height: 190px;
+    }
+    .btn1 {
+        font-size: 24px;
+        padding: 0 56px;
+        height: 60px; 
+        width: auto; //override
+        .boxSizing;
+    }
+}
 
 
 /*#endregion */
 
 /*#region Checkout */
 
-.userOrder, .userDetails {
+.userOrder, .userDetails, .contact {
     width: 940px;
     border: 1px solid @txtColor;
     border-radius: 5px;

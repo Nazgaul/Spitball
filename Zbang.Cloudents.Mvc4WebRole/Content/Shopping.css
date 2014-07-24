@@ -775,10 +775,57 @@ ul:after {
 }
 /*#endregion */
 /*#region Contact Us */
+.contact.contact {
+  font-size: 18px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #fff;
+  margin-top: 56px;
+  padding: 0 80px 30px;
+}
+.contact.contact h2 {
+  font-weight: normal;
+  background: #0f9d58;
+  line-height: 30px;
+  padding: 20px 30px;
+  margin: 0 -80px;
+  text-align: center;
+}
+.contact.contact > .lFloat,
+.contact.contact > .rFloat {
+  width: 340px;
+  margin-top: 25px;
+}
+.contact.contact > .lFloat {
+  clear: both;
+}
+.contact.contact > .lFloat.wideInput {
+  width: 100%;
+}
+.contact.contact .inputText {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+}
+.contact.contact textarea {
+  min-height: 190px;
+}
+.contact.contact .btn1 {
+  font-size: 24px;
+  padding: 0 56px;
+  height: 60px;
+  width: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /*#endregion */
 /*#region Checkout */
 .userOrder,
-.userDetails {
+.userDetails,
+.contact {
   width: 940px;
   border: 1px solid #39434a;
   border-radius: 5px;
@@ -788,7 +835,8 @@ ul:after {
   box-sizing: border-box;
 }
 .userOrder h2,
-.userDetails h2 {
+.userDetails h2,
+.contact h2 {
   font-size: 21px;
   background: #39434a;
   color: #fff;
