@@ -97,9 +97,7 @@
 
                 <li ng-repeat="member in info.members | limitTo :7">
                     <a href="{{member.url}}" class="">
-                        <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" @*ng-init="userId = member.uid"
-     popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
-     popover-popup-delay="500" popover-target-leave="true"*@ />@*uid*@
+                        <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" />@*uid*@
                     </a>
                 </li>
                 @for (int i = 0; i < 6; i++)
