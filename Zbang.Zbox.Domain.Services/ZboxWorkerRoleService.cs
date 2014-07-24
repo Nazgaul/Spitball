@@ -1,8 +1,11 @@
-﻿using Dapper;
+﻿using System.IO;
+using System.Threading.Tasks;
+using Dapper;
 using NHibernate;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Storage;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -19,6 +22,37 @@ namespace Zbang.Zbox.Domain.Services
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
+        }
+
+        public void OneTimeDbi()
+        {
+            using (UnitOfWork.Start())
+            {
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    var blobProvider = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBlobProvider>();
+                    var files = UnitOfWork.CurrentSession.QueryOver<File>()
+                        .Where(w => w.IsDeleted == false)
+                        .Where(w => w.Size == -1).List();
+                   
+                    foreach (var file in files)
+                    {
+                        var blob = blobProvider.GetFile(file.ItemContentUrl);
+                        blob.FetchAttributes();
+                        file.Size = blob.Properties.Length;
+                        var extension = Path.GetExtension(file.ItemContentUrl);
+                        if (string.IsNullOrEmpty(extension))
+                        {
+                            extension = Path.GetExtension(file.Name);
+                            blobProvider.RenameBlob(file.ItemContentUrl, file.ItemContentUrl + extension);
+                            file.ItemContentUrl = file.ItemContentUrl + extension;
+                        }
+                        UnitOfWork.CurrentSession.Save(file);
+                    }
+                    tx.Commit();
+                }
+            }
+
         }
 
         public bool Dbi(int index)

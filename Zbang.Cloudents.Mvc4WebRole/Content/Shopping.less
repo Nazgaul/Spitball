@@ -879,14 +879,44 @@ ul:after {
     font-size: 15px;
     padding: 60px 75px;
     margin-top: 50px; //TEMP!!!!!
+    overflow: hidden;
     h2 {
         margin: -60px -75px 0;
     }
-    .lFloat, .rFLoat {
-        width: 375px;
+    .lFloat, .rFloat {
+        width: 360px;
+        margin-top: 25px;
     }
     .lFloat {
         clear: both;
+        &.wideInput {
+            width: 100%;
+        }
+    }
+    .inputText {
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+    }
+    textarea {
+        min-height: 94px;
+        //padding: 10px;
+        //.boxSizing;
+    }
+    .btn1 {
+        font-size: 24px;
+        padding: 0 70px;
+        height: 60px; 
+        width: auto; //override
+        .boxSizing;
+    }
+    .detailsTxt {
+        margin-top: 30px;
+    }
+    .secureTxt {
+        font-size: 24px;
+        width: auto; //override
+        margin-top: 42px;
     }
 }
 

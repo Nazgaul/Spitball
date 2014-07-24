@@ -9,17 +9,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
     internal class UnityFactory
     {
         // UnityContainer unityFactory;
-        public const string DeleteCahceBlobContainer = "deleteCacheBlobContainer";
-        public const string GenerateDocumentCache = "generateDocumentCache";
-        public const string MailProcess = "mailProcess";
-        public const string MailProcess2 = "mailProcess2";
-        public const string ThumbnailProcess = "thumbnailProcess";
-        public const string DigestEmail = "digestEmail";
-        public const string DigestEmail2 = "digestEmail2";
-        public const string AddFiles = "addFiles";
-
-        public const string Dbi = "Dbi";
-        public const string Transaction = "Transaction";
+     
 
         public IocFactory Unity { get; private set; }
         public UnityFactory()
@@ -46,6 +36,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         {
 
             Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
+            Unity.RegisterType<IOneTimeDbi, OneTimeDbi>();
 
         }
        

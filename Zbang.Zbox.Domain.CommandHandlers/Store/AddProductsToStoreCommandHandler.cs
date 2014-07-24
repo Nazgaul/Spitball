@@ -50,7 +50,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                     product.UpdateProduct(productStore.Id,
                         productStore.Name,
                         productStore.ExtraDetails,
-                        productStore.NumberOfSales,
                         productStore.Coupon,
                         productStore.SalePrice,
                         productStore.PictureUrl,
