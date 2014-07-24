@@ -1,5 +1,4 @@
-﻿
-@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 
 @*Add class big to show the bigger version of the widget*@
 <div class="widget">
@@ -20,6 +19,9 @@
 <div class="productsListWpr">
     <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <li ng-repeat="product in products | limitTo: params.maxProducts">
+            <a bo-href="product.url" href="">
+                
+
             <img bo-src="product.pictureUrl" alt="" />
             <div class="desc" bo-text="product.name"></div>
             <table>
@@ -37,16 +39,17 @@
                 </tr>
             </table>
             <div class="hover">
-                <p bo-text="product.extraDetails"></p>
+                <p class="hoverDesc" bo-text="product.extraDetails"></p>
                 <span class="lFloat" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
                 <span class="lFloat sale" bo-text="product.coupon / product.salePrice | percentage:0:'@StoreResources.Off'"></span> @*0 is the digits after the dot, % off is suffix*@
                 <div class="moreDetailsWpr">
-                    <a bo-href="product.url">@StoreResources.MoreDetails</a>
+                    @StoreResources.MoreDetails
                 </div>
             </div>
-        </li>
-    </ul>
-    <div class="placeholder"></div>
-    <div class="placeholder"></div>
+        </a>
+    </li>
+</ul>
+<div class="placeholder"></div>
+<div class="placeholder"></div>
 </div>
 @*<ul class="productsList searchResultsList"></ul>*@
