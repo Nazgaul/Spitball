@@ -154,7 +154,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                 new JsFileWithCdn("~/js/app.js"),
-                new JsFileWithCdn("~/js/modules/userTooltip.js"),
+                
                 new JsFileWithCdn("/js/controllers/general/mainCtrl.js"),
                 new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchHeaderCtrl.js"),
@@ -193,6 +193,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
+                new JsFileWithCdn("~/js/directives/userTooltip.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
 
 
@@ -216,8 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  new JsFileWithCdn("~/js/Logon.js"),
                 
                   new JsFileWithCdn("/js/Cache.js"),
-                 new JsFileWithCdn("/js/DataContext.js"),
-                  new JsFileWithCdn("~/Js/Tooltip.js"),  
+                 new JsFileWithCdn("/js/DataContext.js"),                  
                  new JsFileWithCdn("~/Js/Statistics.js"),
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
