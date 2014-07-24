@@ -328,4 +328,9 @@
   <data name="YourOrder" xml:space="preserve">
     <value>ההזמנה שלך</value>
   </data>
+  <data name="SecurityCode" xml:space="preserve">
+    <value>קוד ביטחון
+הוא שלשת הספרות האחרונות
+בצד האחורי של הכרטיס</value>
+  </data>
 </root>

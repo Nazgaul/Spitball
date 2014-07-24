@@ -485,6 +485,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to קוד ביטחון
+        ///הוא שלשת הספרות האחרונות
+        ///בצד האחורי של הכרטיס.
+        /// </summary>
+        public static string SecurityCode {
+            get {
+                return ResourceManager.GetString("SecurityCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to משלוח.
         /// </summary>
         public static string Shipping {

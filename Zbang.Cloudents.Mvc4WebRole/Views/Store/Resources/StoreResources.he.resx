@@ -328,4 +328,9 @@
   <data name="FillDetails" xml:space="preserve">
     <value>אנא מלא את פרטיך לצורך השלמת הרכישה.</value>
   </data>
+  <data name="SecurityCode" xml:space="preserve">
+    <value>קוד ביטחון
+הוא שלשת הספרות האחרונות
+בצד האחורי של הכרטיס</value>
+  </data>
 </root>

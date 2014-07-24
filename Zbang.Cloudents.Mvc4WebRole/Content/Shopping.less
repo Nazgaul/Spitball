@@ -893,11 +893,6 @@ ul:after {
             width: 100%;
         }
     }
-    span.lFloat {
-        &:hover {
-
-        }
-    }
     .inputText {
         display: block;
         margin-top: 5px;
@@ -925,8 +920,52 @@ ul:after {
     }
 }
 
+.secureCode {
+    position: relative;
+    .rFloat {
+        &:hover {
+            ~ .cardHover {
+                display: block;
+            }
+        }
+    }
+}
+.cardHover {
+    width: 270px;
+    height: 220px;
+    color: #fff;
+    background: @color;
+    border-radius: 10px;
+    font-size: 15px;
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    right: 0; /*rtl*/
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    &:before {
+        .pseudo;
+        position: absolute;
+        top: 40px;
+        width: 272px;
+        height: 179px;
+        margin: auto;
+        left:0;right:0;
+        background: url(/Images/Store/cardback.png);
+    }
+    &:after {
+        .pseudo;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 15px 8.5px 0 8.5px;
+        border-color: @color transparent transparent transparent;
+        position: absolute;
+        bottom: -15px;
+        right: 20px; /*rtl*/
+    }
 
-
+}
 /*#endregion */
 
 /*#region footer */
