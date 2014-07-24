@@ -910,16 +910,46 @@ ul:after {
   font-size: 15px;
   padding: 60px 75px;
   margin-top: 50px;
+  overflow: hidden;
 }
 .userDetails h2 {
   margin: -60px -75px 0;
 }
 .userDetails .lFloat,
-.userDetails .rFLoat {
-  width: 375px;
+.userDetails .rFloat {
+  width: 360px;
+  margin-top: 25px;
 }
 .userDetails .lFloat {
   clear: both;
+}
+.userDetails .lFloat.wideInput {
+  width: 100%;
+}
+.userDetails .inputText {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+}
+.userDetails textarea {
+  min-height: 94px;
+}
+.userDetails .btn1 {
+  font-size: 24px;
+  padding: 0 70px;
+  height: 60px;
+  width: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.userDetails .detailsTxt {
+  margin-top: 30px;
+}
+.userDetails .secureTxt {
+  font-size: 24px;
+  width: auto;
+  margin-top: 42px;
 }
 /*#endregion */
 /*#region footer */
