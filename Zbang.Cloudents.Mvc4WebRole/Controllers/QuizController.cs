@@ -8,9 +8,6 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
@@ -88,8 +85,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> IndexAjax(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
             var model = await GetQuiz(boxId, quizId, quizName, false);
-            var serializer = new JsonNetSerializer();
-            ViewBag.userD = serializer.Serialize(model.Sheet);
+            var serialize = new JsonNetSerializer();
+            ViewBag.userD = serialize.Serialize(model.Sheet);
 
             var builder = new UrlBuilder(HttpContext);
             var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);

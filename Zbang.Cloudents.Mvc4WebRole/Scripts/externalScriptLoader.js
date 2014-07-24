@@ -10,12 +10,10 @@
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-9850006-3', {
-        // 'userId': cd.userDetail().id,
+        'userId': cd.userDetail().id,
         'siteSpeedSampleRate': 70,
         'cookieDomain': 'cloudents.com'
     });
-
-    ga('set', '&uid', cd.userDetail().id); 
 
     
     ga('require', 'displayfeatures');

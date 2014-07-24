@@ -29,7 +29,7 @@
         }
 
 
-        var self = this, boxid, current = 0, countOfItems = 0, tab;
+        var self = this, boxid, current = 0, tab;
         self.items = ko.observableArray([]);
       
         self.itemsCount = ko.computed(function () {
