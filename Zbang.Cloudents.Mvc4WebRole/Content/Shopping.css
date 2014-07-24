@@ -909,6 +909,17 @@ ul:after {
 .userDetails {
   font-size: 15px;
   padding: 60px 75px;
+  margin-top: 50px;
+}
+.userDetails h2 {
+  margin: -60px -75px 0;
+}
+.userDetails .lFloat,
+.userDetails .rFLoat {
+  width: 375px;
+}
+.userDetails .lFloat {
+  clear: both;
 }
 /*#endregion */
 /*#region footer */

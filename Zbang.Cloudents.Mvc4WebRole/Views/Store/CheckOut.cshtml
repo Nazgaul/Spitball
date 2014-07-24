@@ -73,21 +73,21 @@
 
 <form class="userDetails">
     <h2>@StoreResources.YourOrder</h2>
-    <div>fill in details</div>
+    <div>@StoreResources.FillDetails</div>
 
-    <div>
+    <div class="lFloat">
         <label>@SharedResources.FirstName</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="rFloat">
         <label>@SharedResources.LastName</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@StoreResources.Telephone 1</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="rFloat">
         <label>@StoreResources.Telephone 2</label>
         <input type="text" class="inputText" />
     </div>
@@ -95,53 +95,55 @@
         <label>@SharedResources.Email</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@StoreResources.City</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@StoreResources.Address</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@StoreResources.IdentityNo</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@StoreResources.CreditCardNo</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@StoreResources.Vaildity</label>
         <select></select>
         <select></select>
     </div>
-    <div>
+    <div class="rFloat">
         <label>@StoreResources.ThreeDigits</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@StoreResources.CardOwnerName</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="rFloat">
         <label>@StoreResources.CardOwnerNo</label>
         <input type="text" class="inputText" />
     </div>
-    <label>@SharedResources.Comments</label>
-    <textarea class="inputText" />
-    <div>
+    <div class="lFloat">
+        <label>@SharedResources.Comments</label>
+        <textarea class="inputText" />
+    </div>
+    <div class="lFloat">
         <label class="cbLabel">@StoreResources.IReadIt</label>
         <input type="checkbox" class="cb" />
     </div>
-
-    <div>
+     
+    <div class="rFloat">
         <span>@StoreResources.BillMe</span>
         <select></select>
         <span>@StoreResources.Installments</span>
     </div>
 
-    <div>@StoreResources.SecuredPage</div>
-    <button type="submit">@StoreResources.Order</button>
+    <div class="lFloat">@StoreResources.SecuredPage</div>
+    <button class="rFloat" type="submit">@StoreResources.Order</button>
 </form>
 

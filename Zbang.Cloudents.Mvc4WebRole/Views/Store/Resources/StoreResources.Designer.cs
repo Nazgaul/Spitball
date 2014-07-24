@@ -243,6 +243,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string FillDetails {
+            get {
+                return ResourceManager.GetString("FillDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string GetDiscounts {
             get {
                 return ResourceManager.GetString("GetDiscounts", resourceCulture);
