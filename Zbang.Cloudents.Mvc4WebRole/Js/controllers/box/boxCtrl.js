@@ -109,6 +109,15 @@ mBox.controller('BoxCtrl',
 
             //#region quiz
             $scope.addQuiz = function () {
+                if (!UserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+
+                if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
+                    alert(jsResources.NeedToFollowBox);
+                    return;
+                }
 
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
                 $timeout(function () {
@@ -421,6 +430,7 @@ mBox.controller('BoxCtrl',
                     alert(jsResources.NeedToFollowBox);
                     return;
                 }
+
                 var modalInstance = $modal.open({
                     windowClass: "createTab",
                     templateUrl: $scope.partials.createTab,

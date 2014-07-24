@@ -53,20 +53,28 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
 
 
                 function setPosition() {
-                    var mouseX = event.clientX,
-                        mouseY = event.clientY,
-                        offsetX = offsetY = 5,
-                        positionX, positionY;
+                    var positionX, positionY,pos,offset,
+                    isLtr = $('html').css('direction') === 'ltr';
 
-                    var pos = element[0].getBoundingClientRect();
+                    pos = element[0].getBoundingClientRect();
                     positionY = pos.top - tooltipElement.outerHeight(true) - 5;
 
-                    var offset = $(window).width() - (pos.left + tooltipElement.outerWidth(true));
-                    if (offset < 0) {
-                        positionX = pos.left + offset;
+                    if (isLtr) {
+                        offset = $(window).width() - (pos.left + tooltipElement.outerWidth(true));
+                        if (offset < 0) {
+                            positionX = pos.left + offset;
+                        } else {
+                            positionX = pos.left;
+                        }
                     } else {
-                        positionX = pos.left;
+                        offset = pos.left - tooltipElement.outerWidth(true);
+                        if (offset < 0) {
+                            positionX = 0;
+                        } else {
+                            positionX = pos.left - tooltipElement.outerWidth(true) + pos.width;
+                        }
                     }
+                    
 
 
                     tooltipElement.css({ top: positionY, left: positionX });
