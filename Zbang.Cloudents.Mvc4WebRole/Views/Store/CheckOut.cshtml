@@ -73,7 +73,7 @@
 
 <form class="userDetails">
     <h2>@StoreResources.YourOrder</h2>
-    <div>@StoreResources.FillDetails</div>
+    <div class="detailsTxt">@StoreResources.FillDetails</div>
 
     <div class="lFloat">
         <label>@SharedResources.FirstName</label>
@@ -91,7 +91,7 @@
         <label>@StoreResources.Telephone 2</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat wideInput">
         <label>@SharedResources.Email</label>
         <input type="text" class="inputText" />
     </div>
@@ -128,13 +128,13 @@
         <label>@StoreResources.CardOwnerNo</label>
         <input type="text" class="inputText" />
     </div>
-    <div class="lFloat">
+    <div class="lFloat wideInput">
         <label>@SharedResources.Comments</label>
-        <textarea class="inputText" />
+        <textarea class="inputText"></textarea>
     </div>
     <div class="lFloat">
-        <label class="cbLabel">@StoreResources.IReadIt</label>
         <input type="checkbox" class="cb" />
+        <label class="cbLabel">@StoreResources.IReadIt</label>
     </div>
      
     <div class="rFloat">
@@ -143,7 +143,7 @@
         <span>@StoreResources.Installments</span>
     </div>
 
-    <div class="lFloat">@StoreResources.SecuredPage</div>
-    <button class="rFloat" type="submit">@StoreResources.Order</button>
+    <div class="lFloat secureTxt">@StoreResources.SecuredPage</div>
+    <button class="rFloat btn1" type="submit">@StoreResources.Order</button>
 </form>
 
