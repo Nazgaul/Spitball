@@ -418,6 +418,20 @@ main {
 }
 /*#endregion */
 /*#region product list with hover */
+.placeholder {
+  width: 460px;
+  height: 120px;
+  position: absolute;
+  top: 377px;
+  border: 1px solid #39434a;
+  left: 0;
+}
+.placeholder + .placeholder {
+  right: 0;
+}
+.productsListWpr {
+  position: relative;
+}
 .productsList {
   font-size: 18px;
 }
@@ -434,6 +448,9 @@ main {
   box-sizing: border-box;
   text-align: center;
   vertical-align: top;
+}
+.productsList li:nth-child(3) {
+  margin-bottom: 180px;
 }
 .productsList li:nth-child(3n + 2) {
   margin: 0 20px 30px 20px;
@@ -758,10 +775,57 @@ ul:after {
 }
 /*#endregion */
 /*#region Contact Us */
+.contact.contact {
+  font-size: 18px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #fff;
+  margin-top: 56px;
+  padding: 0 80px 30px;
+}
+.contact.contact h2 {
+  font-weight: normal;
+  background: #0f9d58;
+  line-height: 30px;
+  padding: 20px 30px;
+  margin: 0 -80px;
+  text-align: center;
+}
+.contact.contact > .lFloat,
+.contact.contact > .rFloat {
+  width: 340px;
+  margin-top: 25px;
+}
+.contact.contact > .lFloat {
+  clear: both;
+}
+.contact.contact > .lFloat.wideInput {
+  width: 100%;
+}
+.contact.contact .inputText {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+}
+.contact.contact textarea {
+  min-height: 190px;
+}
+.contact.contact .btn1 {
+  font-size: 24px;
+  padding: 0 56px;
+  height: 60px;
+  width: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /*#endregion */
 /*#region Checkout */
 .userOrder,
-.userDetails {
+.userDetails,
+.contact {
   width: 940px;
   border: 1px solid #39434a;
   border-radius: 5px;
@@ -771,7 +835,8 @@ ul:after {
   box-sizing: border-box;
 }
 .userOrder h2,
-.userDetails h2 {
+.userDetails h2,
+.contact h2 {
   font-size: 21px;
   background: #39434a;
   color: #fff;
@@ -950,6 +1015,52 @@ ul:after {
   font-size: 24px;
   width: auto;
   margin-top: 42px;
+}
+.secureCode {
+  position: relative;
+}
+.secureCode .rFloat:hover ~ .cardHover {
+  display: block;
+}
+.cardHover {
+  width: 270px;
+  height: 220px;
+  color: #fff;
+  background: #0f9d58;
+  border-radius: 10px;
+  font-size: 15px;
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  /*rtl*/
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
+.cardHover:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 40px;
+  width: 272px;
+  height: 179px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  background: url(/Images/Store/cardback.png);
+}
+.cardHover:after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 8.5px 0 8.5px;
+  border-color: #0f9d58 transparent transparent transparent;
+  position: absolute;
+  bottom: -15px;
+  right: 20px;
+  /*rtl*/
 }
 /*#endregion */
 /*#region footer */

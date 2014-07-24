@@ -16,25 +16,27 @@
     </div>
 </div>
 
-<form>
-    <div class="top">@StoreResources.GetHelp</div>
-    <div>
+<form class="contact">
+    <h2 class="top">@StoreResources.GetHelp</h2>
+    <div class="lFloat">
         <label>@SharedResources.Name</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="rFloat">
         <label>@StoreResources.Telephone</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="lFloat">
         <label>@SharedResources.School</label>
         <input type="text" class="inputText" />
     </div>
-    <div>
+    <div class="rFloat">
         <label>@SharedResources.Email</label>
         <input type="text" class="inputText" />
     </div>
-    <label>@SharedResources.Message</label>
-    <textarea class="inputText" />
-    <button type="submit" class="btn1">@DialogResources.Send</button>
+    <div class="lFloat wideInput">
+        <label>@SharedResources.Message</label>
+        <textarea class="inputText"></textarea>
+    </div>
+    <button type="submit" class="lFloat btn1">@DialogResources.Send</button>
 </form>

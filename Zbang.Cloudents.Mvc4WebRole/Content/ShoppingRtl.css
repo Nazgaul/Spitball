@@ -168,6 +168,16 @@ header h1 {
   padding: 15px 0 15px 60px;
   /*rtl*/
 }
+.cardHover {
+  left: 0;
+  /*rtl*/
+  right: auto;
+}
+.cardHover:after {
+  left: 20px;
+  /*rtl*/
+  right: auto;
+}
 /*#endregion */
 /*#region footer */
 .bottom ul {
