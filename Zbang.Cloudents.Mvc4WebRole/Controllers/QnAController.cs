@@ -21,9 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class QnAController : BaseController
     {
         private readonly Lazy<IIdGenerator> m_IdGenerator;
-        public QnAController(IZboxWriteService zboxWriteService,
-            IZboxReadService zboxReadService,
-            IFormsAuthenticationService formsAuthenticationService,
+        public QnAController(
             Lazy<IIdGenerator> idGenerator)
         {
             m_IdGenerator = idGenerator;

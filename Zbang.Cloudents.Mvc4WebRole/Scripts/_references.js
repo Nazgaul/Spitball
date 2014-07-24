@@ -159,6 +159,7 @@
 /// <reference path="../js/shopping/services/store.js" />
 /// <reference path="underscore.js" />
 /// <reference path="../js/directives/scrolltotop.js" />
+/// <reference path="../js/directives/usertooltip.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
