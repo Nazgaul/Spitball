@@ -10,12 +10,11 @@
     boxToUpload = {
         id: '',
         tabid: null,
-        question: false,
+        question: false
     },
-    firstTimeFired = true;
 
-    var $rootScope;
-    var x = window.setInterval(function () {
+     $rootScope,
+     x = window.setInterval(function () {
         $rootScope = angular.element(document).scope();
         if ($rootScope) {
             window.clearInterval(x);
@@ -28,44 +27,48 @@
             $uploadDialog = $('#uploadDialog');
             $('#up_dropZone').hide();
 
-            if (uploader) {
-                uploader.destroy();
-                uploader = null;
-            }
-
-            uploader = uploadFiles();
+            destroyAndRecreatePlupload();
             
-
+            //TODO: check if nessasary 
             if (location && boxToUpload.question) {
                 boxToUpload.question = location.question;
             }
             uploader.refresh();
+            
             window.setTimeout(function () {
                 var x = $('#AddFiles').offset();
                 if (x) {
-                    $('.plupload.flash').css({ top: x.top });
+                    $('.plupload').css({ top: x.top });
                 }
             }, 1000);
         });
 
         $rootScope.$on('uploadBox', function (e, boxid) {
             boxToUpload.id = parseInt(boxid, 10);
-            if (uploader) {
-                uploader.destroy();
-                uploader = null;
-            }
-            uploader = uploadFiles();
+            destroyAndRecreatePlupload();
             registerDnd();
+            
             uploader.refresh();
             window.setTimeout(function () {
                 var x = $('#AddFiles').offset();
                 if (x) {
-                    $('.plupload.flash').css({ top: x.top });
+                    $('.plupload').css({ top: x.top });
                 }
             }, 1000);
             //uploader.refresh();
         });
-
+        function destroyAndRecreatePlupload(frombox) {
+            if (uploader) {
+                if (uploader.state === plupload.UPLOADING ) {
+                    uploader.init();
+                    uploader.refresh();
+                    return;
+                }
+                uploader.destroy();
+                uploader = null;
+            }
+            uploader = uploadFiles();
+        }
         $rootScope.$on('selectTab', function(d) {
             boxToUpload.tabid = $.isEmptyObject(d) ? null : d;
         });
@@ -127,47 +130,47 @@
     //    }
 
     //}
-    function registerEvents() {
-        //cd.loader.registerDropBox();
-        //var d = cd.loader.registerGoogleDrive();//, s = cd.loader.registerSkyDrive();
-        //$.when(d).done(function () {
-        //    $('#up_Drive').removeAttr('disabled title');
-        //});
-        //$.when(s).done(function () {
-        //    $('#up_Sky').removeAttr('disabled').removeAttr('title');
-        //})
-        //var interval = window.setInterval(function () {
-        //    if (window.Dropbox !== undefined) {
-        //        $('#up_DropBox').removeAttr('disabled title');
-        //        window.clearInterval(interval);
-        //    }
-        //}, 50);
+    //function registerEvents() {
+    //    //cd.loader.registerDropBox();
+    //    //var d = cd.loader.registerGoogleDrive();//, s = cd.loader.registerSkyDrive();
+    //    //$.when(d).done(function () {
+    //    //    $('#up_Drive').removeAttr('disabled title');
+    //    //});
+    //    //$.when(s).done(function () {
+    //    //    $('#up_Sky').removeAttr('disabled').removeAttr('title');
+    //    //})
+    //    //var interval = window.setInterval(function () {
+    //    //    if (window.Dropbox !== undefined) {
+    //    //        $('#up_DropBox').removeAttr('disabled title');
+    //    //        window.clearInterval(interval);
+    //    //    }
+    //    //}, 50);
 
 
 
 
-        cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
-            if (!$('#uploadDialog').is(':visible')) {
-                return;
-            }
+    //    cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
+    //        if (!$('#uploadDialog').is(':visible')) {
+    //            return;
+    //        }
 
-            if (!isAuto) {
-                loadPicker();
-                return;
-            }
+    //        if (!isAuto) {
+    //            loadPicker();
+    //            return;
+    //        }
 
-            document.getElementById('up_Drive').onclick = function () {
-                loadPicker();
-            }
+    //        document.getElementById('up_Drive').onclick = function () {
+    //            loadPicker();
+    //        }
 
-        });
-        cd.pubsub.subscribe('gAuthFail', function () {
-            document.getElementById('up_Drive').onclick = function () {
-                cd.google.register(false);
+    //    });
+    //    cd.pubsub.subscribe('gAuthFail', function () {
+    //        document.getElementById('up_Drive').onclick = function () {
+    //            cd.google.register(false);
 
-            }
-        });
-    }
+    //        }
+    //    });
+    //}
 
     function fakeUpload(url, name, size) {
         var guid = cd.guid(), $progressBarMaxwidth, $fileId;
@@ -298,12 +301,6 @@
             }
             addItemToUploadList(cd.attachTemplateToData('templateUpload', filesobj));
 
-            //try {
-            //    up.settings.multipart_params.BoxUid = cloneBoxToUpload.id;
-            //    up.settings.multipart_params.tabId = cloneBoxToUpload.tabid;
-            //}
-            //catch (err) {
-            //}
             if (uploader.state === plupload.STOPPED) {
                 uploader.start();
             }
@@ -320,11 +317,6 @@
             updateTitle(file.id, file.percent);
         });
 
-
-
-        //uploader.bind('Error', function (up, err) {
-        //});
-
         uploader.bind('FileUploaded', function (up, file, data) {
             var itemData = JSON.parse(data.response);
             if (!itemData.success) {
@@ -335,7 +327,6 @@
             $rootScope.$broadcast('FileAdded', { item: itemData.payload.fileDto, boxId: itemData.payload.boxid });
             cd.pubsub.publish('clear_cache');
         });
-        window.x = uploader;
         return uploader;
 
     }

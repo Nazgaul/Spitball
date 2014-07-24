@@ -17,6 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [ZboxAuthorize]
     [NoUniversity]
+    [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class SearchController : BaseController
     {
         [UserNavNWelcome]

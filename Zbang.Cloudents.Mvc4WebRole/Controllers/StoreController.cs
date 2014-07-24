@@ -8,6 +8,7 @@ using Zbang.Zbox.ViewModel.Queries;
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [AllowAnonymous]
+    [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class StoreController : BaseController
     {
 

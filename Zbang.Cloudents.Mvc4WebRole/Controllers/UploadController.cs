@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -18,6 +19,7 @@ using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
+    [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class UploadController : BaseController
     {
         private readonly IBlobProvider m_BlobProvider;
@@ -40,6 +42,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> File(long boxId, string fileName,
             long fileSize, Guid? tabId)
         {
+            if (Request.IsLocal)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(10));
+            }
             var userId = GetUserId();
             try
             {
@@ -226,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow, result.Link.Url)
                  {
                      DownloadUrl = urlBuilder.BuildDownloadUrl(result.Link.Box.Id, result.Link.Id)
-                };
+                 };
                 return this.CdJson(new JsonResponse(true, item));
             }
             catch (DuplicateNameException)
