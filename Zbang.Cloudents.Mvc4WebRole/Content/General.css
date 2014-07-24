@@ -1669,6 +1669,27 @@ input[type="radio"][disabled] + label:before {
 }
 /*#endregion */
 /*#region User tooltip */
+.userTooltip {
+  width: 379px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 10px 10px 6px 110px;
+  /*rtl*/
+  position: fixed;
+  z-index: 13;
+  background: #fff;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
 .userTooltip.showTooltip {
   visibility: visible;
   opacity: 1;
@@ -1837,15 +1858,12 @@ input[type="radio"][disabled] + label:before {
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-}
-.popover .userTooltip {
-  width: 379px;
-  height: 100px;
-  padding: 10px 10px 6px 110px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  /*.userTooltip {
+        width: 379px;
+        height: 100px;
+        padding: 10px 10px 6px 110px; 
+        .boxSizing;
+    }*/
 }
 .popover.top {
   margin-top: -10px;

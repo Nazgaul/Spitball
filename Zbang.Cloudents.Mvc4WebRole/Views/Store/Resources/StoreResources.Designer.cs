@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized string similar to אודות.
         /// </summary>
         public static string About {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About Cloudents.
+        ///   Looks up a localized string similar to אודות קלאודנטס.
         /// </summary>
         public static string AboutCloudents {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to הפעל את הקופון.
         /// </summary>
         public static string ActivateCoupon {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to רחוב ומספר.
         /// </summary>
         public static string Address {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to הוסף לרכישה.
         /// </summary>
         public static string AddToPurchase {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to כדאי לדעת לפני הקניה:.
         /// </summary>
         public static string BeforeYouBuy {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to נא לחייב אותי ב.
         /// </summary>
         public static string BillMe {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to שם בעל הכרטיס.
         /// </summary>
         public static string CardOwnerName {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ת.ז. בעל הכרטיס.
         /// </summary>
         public static string CardOwnerNo {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to טלפון נייד.
         /// </summary>
         public static string CellPhone {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to אספקת המוצר תהא ישירות מהספק/יבואן וכפועל יוצא מחירי המוצרים הנמכרים באתר מוזלים במיוחד. .
         /// </summary>
         public static string CheapPrices {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ישוב.
         /// </summary>
         public static string City {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to הערות.
         /// </summary>
         public static string Comments {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact Us.
+        ///   Looks up a localized string similar to צור קשר.
         /// </summary>
         public static string ContactUs {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מחיר כולל משלוח.
         /// </summary>
         public static string CostWithShipping {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coupon.
+        ///   Looks up a localized string similar to קופון.
         /// </summary>
         public static string Coupon {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to קוד הקופון נקלט בהצלחה.
         /// </summary>
         public static string CouponActivated {
             get {
@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מספר כרטיס אשראי.
         /// </summary>
         public static string CreditCardNo {
             get {
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to אתר שלפניכם מציע הטבות המיועדות עבורכם בלבד..
         /// </summary>
         public static string DiscountsForYou {
             get {
@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to דואר אלקטרוני.
         /// </summary>
         public static string Email {
             get {
@@ -241,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to אנא מלא את פרטיך לצורך השלמת הרכישה..
         /// </summary>
         public static string FillDetails {
             get {
@@ -250,7 +250,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to הזכאות למחירים מיוחדים, כולל הנחת קופון, הנה לסטודנטים רשומים בלבד. כל שעליכם לעשות הוא להירשם לאתר או להשתמש בקוד הקופון אשר ברשותכם בשילוב מספר תעודת סטודנט\ ת.ז.
+        ///תהנו!.
         /// </summary>
         public static string GetDiscounts {
             get {
@@ -259,7 +260,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to בכל שאלה או בעיה בה נתקלת לגבי השימוש באתר או המוצרים הנמכרים בו, אנא מלא טופס זה, ונציגנו יחזור אליך בהקדם, או צור קשר בטלפון 09-8989819.
         /// </summary>
         public static string GetHelp {
             get {
@@ -268,7 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to עמוד הבית.
         /// </summary>
         public static string Home {
             get {
@@ -277,7 +278,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hot Sales.
+        ///   Looks up a localized string similar to מבצעים חמים.
         /// </summary>
         public static string HotSales {
             get {
@@ -286,7 +287,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מספר תעודת סטודנט/ת.ז..
         /// </summary>
         public static string IdentityNo {
             get {
@@ -295,7 +296,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to תשלומים..
         /// </summary>
         public static string Installments {
             get {
@@ -304,7 +305,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to קראתי את התקנון ואני מסכים לתנאי השימוש..
         /// </summary>
         public static string IReadIt {
             get {
@@ -313,7 +314,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in.
+        ///   Looks up a localized string similar to כניסה.
         /// </summary>
         public static string Login {
             get {
@@ -322,7 +323,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product Details.
+        ///   Looks up a localized string similar to לפרטים.
         /// </summary>
         public static string MoreDetails {
             get {
@@ -331,7 +332,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to off.
+        ///   Looks up a localized string similar to הנחה.
         /// </summary>
         public static string Off {
             get {
@@ -340,7 +341,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to הזמן.
         /// </summary>
         public static string Order {
             get {
@@ -349,7 +350,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מחיר כולל מע&apos;&apos;מ.
         /// </summary>
         public static string PriceWithVat {
             get {
@@ -358,7 +359,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to המשך לתשלום.
         /// </summary>
         public static string ProceedTo {
             get {
@@ -367,7 +368,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product discounts exclusively for students.
+        ///   Looks up a localized string similar to המאגר האקדמי הרשמי של מוצרים לסטודנטים.
         /// </summary>
         public static string ProductDiscounts {
             get {
@@ -376,7 +377,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to שם המוצר.
         /// </summary>
         public static string ProductName {
             get {
@@ -385,7 +386,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מחיר המוצר.
         /// </summary>
         public static string ProductPrice {
             get {
@@ -394,7 +395,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Products.
+        ///   Looks up a localized string similar to מוצרים.
         /// </summary>
         public static string Products {
             get {
@@ -403,7 +404,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to רכוש עכשיו.
         /// </summary>
         public static string PurchaseNow {
             get {
@@ -412,7 +413,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reg. Price.
+        ///   Looks up a localized string similar to מחיר רגיל.
         /// </summary>
         public static string RegPrice {
             get {
@@ -421,7 +422,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מצאנו עבורך מוצרים נוספים שיכולים לעניין אותך.
         /// </summary>
         public static string RelatedProducts {
             get {
@@ -430,7 +431,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to אספקה בטוחה:.
         /// </summary>
         public static string SafeDelivery {
             get {
@@ -439,7 +440,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized string similar to חפש.
         /// </summary>
         public static string Search {
             get {
@@ -448,7 +449,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to הנתונים בעמוד זה מאובטחים בטכנולוגיית SSL.
         /// </summary>
         public static string SecuredPage {
             get {
@@ -457,7 +458,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to בטחון בקניה:.
         /// </summary>
         public static string SecurePurchase {
             get {
@@ -466,7 +467,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מתוך רצון לספק את הביטחון המקסימאלי בקניה, השקענו משאבים רבים באבטחת מידע ושמירת הפרטיות. העסקאות המתבצעות באתר מאובטחות בטכנולוגית SSL המאושרת ע&quot;י חברות האשראי, וכל המידע המועבר בדבר פרטי האשראי שלך מוצפן..
         /// </summary>
         public static string SecureSite {
             get {
@@ -475,7 +476,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to אבטחת מידע:.
         /// </summary>
         public static string Security {
             get {
@@ -484,7 +485,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to משלוח.
         /// </summary>
         public static string Shipping {
             get {
@@ -493,7 +494,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to דמי משלוח.
         /// </summary>
         public static string ShippingCost {
             get {
@@ -502,7 +503,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign up.
+        ///   Looks up a localized string similar to הרשמה.
         /// </summary>
         public static string Signup {
             get {
@@ -511,7 +512,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to האתר מופעל ע&quot;י חברת ביזפוינט בע&quot;מ ח.פ 512900473 בשיתוף עם אגודות הסטודנטים. החברה נוסדה בשנת 2000 ומתמחה בשיווק ישיר וסחר אלקטרוני באינטרנט והנה אחת מהמובילות בתחומה בארץ. בין השותפים בחברה קבוצת מרחב בע&quot;מ, חברת אל-רוב (ישראל) בע&quot;מ ,חברת שרידב בע&quot;מ. אספקת המוצרים הנה ישירות ממחסני הספקים/יבואני המוצרים השונים ובאחריותם. ספקי המוצרים מהמובילים בארץ בתחומם, נבחרו בקפידה, עם מתן דגש על רמת המוצרים ומתן השירות. .
         /// </summary>
         public static string SitePoweredBy {
             get {
@@ -520,7 +521,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sold.
+        ///   Looks up a localized string similar to נרכשו.
         /// </summary>
         public static string Sold {
             get {
@@ -529,7 +530,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to אתר ההטבות לסטודנטים.
         /// </summary>
         public static string StudentDiscounts {
             get {
@@ -538,7 +539,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Student Price.
+        ///   Looks up a localized string similar to לסטודנט.
         /// </summary>
         public static string StudentPrice {
             get {
@@ -547,7 +548,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מחיר לסטודנט.
         /// </summary>
         public static string StudentPrice2 {
             get {
@@ -556,7 +557,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to טלפון.
         /// </summary>
         public static string Telephone {
             get {
@@ -565,7 +566,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Terms of service.
+        ///   Looks up a localized string similar to תנאי שימוש.
         /// </summary>
         public static string TermsOfService {
             get {
@@ -574,7 +575,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 3 ספרות בגב הכרטיס.
         /// </summary>
         public static string ThreeDigits {
             get {
@@ -583,7 +584,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to לקבלת קוד קופון עליך להירשם לאתר או פנה לאגודת הסטודנטים בה אתה חבר.
         /// </summary>
         public static string ToGetACoupon {
             get {
@@ -592,7 +593,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to סה&apos;&apos;כ לתשלום.
         /// </summary>
         public static string TotalPrice {
             get {
@@ -601,7 +602,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to שדרוגים ותוספות.
         /// </summary>
         public static string Upgrades {
             get {
@@ -610,7 +611,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to תוקף.
         /// </summary>
         public static string Vaildity {
             get {
@@ -619,7 +620,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מע&apos;&apos;מ.
         /// </summary>
         public static string Vat {
             get {
@@ -628,7 +629,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to אנו מתחייבים כי בכל רכישה שלך באמצעות האתר תקבל את המוצר שהזמנת. במידה ולא - אנו מתחייבים להחזר כספי מלא. .
         /// </summary>
         public static string WeCommit {
             get {
@@ -637,7 +638,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ברוכים הבאים לחנות האגודה.
         /// </summary>
         public static string Welcome {
             get {
@@ -646,7 +647,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מה זה?.
         /// </summary>
         public static string WhatIsThis {
             get {
@@ -655,7 +656,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What product are you looking for? Seach here....
+        ///   Looks up a localized string similar to חפש מוצר: טאבלט, מדפסת, מילון....
         /// </summary>
         public static string WhatProduct {
             get {
@@ -664,7 +665,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to מחירים מהיבואן לצרכן:.
         /// </summary>
         public static string WholeToRetail {
             get {
@@ -673,7 +674,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to קוד הקופון אינו תקין.
         /// </summary>
         public static string WrongCode {
             get {
@@ -682,7 +683,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ההזמנה שלך.
         /// </summary>
         public static string YourOrder {
             get {

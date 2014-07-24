@@ -915,15 +915,15 @@ ul:after {
 .userDetails h2 {
   margin: -60px -75px 0;
 }
-.userDetails .lFloat,
-.userDetails .rFloat {
+.userDetails > .lFloat,
+.userDetails > .rFloat {
   width: 360px;
   margin-top: 25px;
 }
-.userDetails .lFloat {
+.userDetails > .lFloat {
   clear: both;
 }
-.userDetails .lFloat.wideInput {
+.userDetails > .lFloat.wideInput {
   width: 100%;
 }
 .userDetails .inputText {

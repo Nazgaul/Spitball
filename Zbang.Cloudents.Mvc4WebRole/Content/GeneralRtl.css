@@ -279,7 +279,7 @@ input[type="radio"] + label:before {
 /*#endregion */
 /*#region User tooltip */
 .userTooltip {
-  padding: 17px 110px 6px 10px;
+  padding: 10px 110px 6px 10px;
   /*rtl*/
 }
 .ttImg {
@@ -325,6 +325,9 @@ input[type="radio"] + label:before {
 .popover {
   text-align: right;
   /*rtl*/
+  /*.userTooltip {
+        padding: 10px 110px 6px 10px;
+    }*/
   /*&.left {
         margin: 0 -10px 0 0; 
         > .arrow {
@@ -362,10 +365,6 @@ input[type="radio"] + label:before {
             }
         }
     }*/
-}
-.popover .userTooltip {
-  padding: 10px 110px 6px 10px;
-  /*rtl*/
 }
 .popover.top > .arrow {
   right: 50%;

@@ -883,14 +883,19 @@ ul:after {
     h2 {
         margin: -60px -75px 0;
     }
-    .lFloat, .rFloat {
+    > .lFloat, > .rFloat {
         width: 360px;
         margin-top: 25px;
     }
-    .lFloat {
+    > .lFloat {
         clear: both;
         &.wideInput {
             width: 100%;
+        }
+    }
+    span.lFloat {
+        &:hover {
+
         }
     }
     .inputText {

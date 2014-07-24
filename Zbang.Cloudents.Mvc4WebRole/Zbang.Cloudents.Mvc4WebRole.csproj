@@ -685,6 +685,7 @@
     <Content Include="Images\browsers-sprite.png" />
     <Content Include="Images\cal.png" />
     <Content Include="Images\callout-sprite.png" />
+    <Content Include="Images\cardback.png" />
     <Content Include="Images\category.png">
       <DependentUpon>category.sprite</DependentUpon>
     </Content>

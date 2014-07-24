@@ -1785,7 +1785,19 @@ input[type="radio"] {
 /*#region User tooltip */
 
 .userTooltip {
-
+    width: 379px;
+    .boxSizing;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 10px 10px 6px 110px; /*rtl*/
+    position: fixed;
+    z-index: 13;
+    background: #fff;
+    .transition(opacity .5s);
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0 0 3px rgba(0,0,0,.4);
     &.showTooltip {
         visibility: visible;
         opacity: 1;
@@ -1962,12 +1974,12 @@ input[type="radio"] {
     border: 1px solid @borderColor;
     border-radius: 3px;
     box-shadow: 0 0 3px rgba(0,0,0,.4);
-    .userTooltip {
+    /*.userTooltip {
         width: 379px;
         height: 100px;
-        padding: 10px 10px 6px 110px; /*rtl*/
+        padding: 10px 10px 6px 110px; 
         .boxSizing;
-    }
+    }*/
 
     &.top {
         margin-top: -10px;
