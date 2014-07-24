@@ -154,15 +154,15 @@
     }
     <script type="text/javascript" src="~/js/CDNFallback.js"></script>
 
-    <script type="text/ng-template" id="userToolTipPopover">
-        <div class="userTooltip" ng-class="{hidePoints : userTooltip.score <= 0}">
-            <a ng-href="{{userTooltip.url}}">
-                <img class="ttImg" ng-src="{{userTooltip.image}}" width="99" height="99" />
+    <script type="text/ng-template" id="userToolTip.html">
+        <div class="userTooltip" ng-class="{hidePoints : user.score <= 0}">
+            <a ng-href="{{user.url}}">
+                <img class="ttImg" ng-src="{{user.image}}" width="99" height="99" />
             </a>
-            <a class="ttUsername elps" ng-href="{{userTooltip.url}}">{{userTooltip.name}}</a>
-            <div class="ttSchool elps">{{userTooltip.university}}</div>
-            <span class="ttPoints lFloat" data-tt-points="{{userTooltip.score}}">&nbsp;@SharedResources.Points</span>
-            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(userTooltip)">@SharedResources.Message</button>            
+            <a class="ttUsername elps" ng-href="{{user.url}}">{{user.name}}</a>
+            <div class="ttSchool elps">{{user.university}}</div>
+            <span class="ttPoints lFloat" data-tt-points="{{user.score}}">&nbsp;@SharedResources.Points</span>
+            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(user)">@SharedResources.Message</button>                
         </div>
     </script>
 
