@@ -549,6 +549,12 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.inviteFriends = function (e) {
+                if (!UserDetails.isAuthenticated()) {
+                    e.preventDefault();
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
                     e.preventDefault();
                     alert(jsResources.NeedToFollowBox);

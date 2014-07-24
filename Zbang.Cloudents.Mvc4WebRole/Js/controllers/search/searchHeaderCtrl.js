@@ -1,6 +1,6 @@
 ﻿app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', 'debounce', 'sSearch',
-    function ($scope, $timeout, debounce, Search) {
+    ['$scope', '$timeout', 'debounce', 'sSearch','sUserDetails',
+    function ($scope, $timeout, debounce, Search, sUserDetails) {
         $scope.params = {
             maxItems: 6,
             minItems: 3,
@@ -54,6 +54,11 @@
         };
 
         $scope.searchFocus = function () {
+            if (!sUserDetails.isAuthenticated()) {                
+                cd.pubsub.publish('register', { action: true });
+                return;
+            }
+
             if ($scope.formData.query && $scope.formData.query.length) {
                 $scope.params.showDropdown = true;
             }
