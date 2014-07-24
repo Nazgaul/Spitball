@@ -88,7 +88,7 @@
                 return;
             }
             dataContext.getBox({
-                data: { boxuid: self.boxid() },
+                data: { id: self.boxid() },
                 success: function (result) {
                     populateData(result);
                 }

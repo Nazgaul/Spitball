@@ -325,4 +325,7 @@
   <data name="Vat" xml:space="preserve">
     <value>מע''מ</value>
   </data>
+  <data name="FillDetails" xml:space="preserve">
+    <value>אנא מלא את פרטיך לצורך השלמת הרכישה.</value>
+  </data>
 </root>
