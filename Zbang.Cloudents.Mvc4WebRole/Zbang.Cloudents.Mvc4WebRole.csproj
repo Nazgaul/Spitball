@@ -823,6 +823,7 @@
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\focusOn.js" />
+    <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\directives\mLoader.js" />
