@@ -7,8 +7,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IBlobProvider
     {
-        string GenerateSharedAccressReadPermissionInCache(string blobName, double experationTimeInMinutes);
-        //string GenerateSharedAccessWritePermissionBlobFiles(CloudBlockBlob blob, double experationTimeInMinutes);
+        string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes);
+        //string GenerateSharedAccessWritePermissionBlobFiles(CloudBlockBlob blob, double expirationTimeInMinutes);
 
         //string FetchBlobMimeType(string fileName);
 
@@ -58,12 +58,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData);
         Task<IDictionary<string, string>> FetechBlobMetaDataAsync(string blobName);
 
-        string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes);
+        string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes);
 
 
         Task<Stream> GetFaqQeustion();
 
-        string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double experationTimeInMinutes);
+        string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes);
 
 
         string ProfileContainerUrl { get; }

@@ -78,10 +78,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = container.GetBlockBlobReference(fileName);
 
             var uriBuilder = new UriBuilder(blob.Uri);
-            string storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+            var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
             if (!string.IsNullOrEmpty(storageCdnEndpoint))
             {
-                uriBuilder.Host = storageCdnEndpoint;
+                var storeCdnUri = new Uri(storageCdnEndpoint);
+                uriBuilder.Host = storeCdnUri.Host;
             }
 
 
@@ -182,7 +183,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        public string GenerateSharedAccressReadPermissionInCache(string blobName, double experationTimeInMinutes)
+        public string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes)
         {
             var blob = CacheFile(blobName);
             try
@@ -197,40 +198,40 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                     return null;
                 }
             }
-            return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
+            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 
-        public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double experationTimeInMinutes)
+        public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes)
         {
             var blob = CacheFile(blobName);
-            return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
+            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 
 
 
-        public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes)
+        public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
             if (blobUri == null) throw new ArgumentNullException("blobUri");
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
 
             var blob = GetFile(blobName);
-            return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
+            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 
 
 
-        private string GenerateSharedAccessPermission(CloudBlockBlob blob, double experationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
+        private string GenerateSharedAccessPermission(CloudBlockBlob blob, double expirationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
         {
 
-            var signedurl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
                 Permissions = accessPermission,
-                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(experationTimeInMinutes)
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
             });
 
-            var url = new Uri(blob.Uri, signedurl);
+            var url = new Uri(blob.Uri, signedUrl);
             return url.AbsoluteUri;
         }
 
