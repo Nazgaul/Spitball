@@ -324,4 +324,7 @@
   <data name="Vat" xml:space="preserve">
     <value />
   </data>
+  <data name="FillDetails" xml:space="preserve">
+    <value />
+  </data>
 </root>
