@@ -448,6 +448,7 @@ main {
   box-sizing: border-box;
   text-align: center;
   vertical-align: top;
+  overflow: hidden;
 }
 .productsList li:nth-child(3) {
   margin-bottom: 180px;
@@ -464,7 +465,8 @@ main {
   /*rtl*/
 }
 .productsList li:hover .hover {
-  display: table;
+  top: 0;
+  opacity: 1;
 }
 .productsList a {
   display: block;
@@ -490,10 +492,15 @@ main {
   vertical-align: middle;
 }
 .productsList .desc {
+  -webkit-transition: all 0.01s 0.218s ease-out;
+  -moz-transition: all 0.01s 0.218s ease-out;
+  -o-transition: all 0.01s 0.218s ease-out;
+  transition: all 0.01s 0.218s ease-out;
   font-size: 22px;
   padding: 0 18px;
   text-align: left;
   /*rtl*/
+  top: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -533,11 +540,12 @@ main {
   color: #0f9d58;
 }
 .hover {
-  display: none;
+  display: table;
+  opacity: .5;
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 350px;
   left: 0;
   /*rtl*/
   background: #39434a;
@@ -547,6 +555,10 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-transition: all 0.218s ease-out;
+  -moz-transition: all 0.218s ease-out;
+  -o-transition: all 0.218s ease-out;
+  transition: all 0.218s ease-out;
 }
 .hover p {
   margin-bottom: 15px;

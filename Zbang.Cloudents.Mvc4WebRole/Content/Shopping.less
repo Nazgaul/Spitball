@@ -432,6 +432,7 @@ main {
         .boxSizing;
         text-align: center;
         vertical-align:top;
+        overflow: hidden;
         &:nth-child(3) {
             margin-bottom: 180px;
         }
@@ -449,7 +450,10 @@ main {
             .hover {
                 //display: inline-block;
                 //.animation(fadein);
-                display: table;
+
+                //display: table;
+                top:0;
+                opacity: 1;
             }
         }
     }
@@ -477,9 +481,11 @@ main {
         vertical-align: middle;
     }
     .desc {
+        .transition(all 0.01s .218s ease-out);
        font-size: 22px;
        padding: 0 18px;
        text-align: left; /*rtl*/
+       top:0;
        .boxSizing;
         + .lFloat {
             color: @color;
@@ -513,17 +519,21 @@ main {
     }
 }
 .hover {
-    display: none;
+    //display: none;
+    display: table;
+    opacity: .5;
     position: absolute;
     width: 100%;
     height: 100%;
-    top:0;
+    //top:0;
+    top: 350px;
     left:0; /*rtl*/
     background: @shopping-black;
     color: #fff;
     padding: 85px 20px 10px 20px;
     font-size: 15px;
     .boxSizing;
+    .transition(all 0.218s ease-out);
     //.animation(fadein);
     p {
         margin-bottom: 15px;
