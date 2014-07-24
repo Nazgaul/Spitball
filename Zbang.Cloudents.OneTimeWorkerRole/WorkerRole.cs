@@ -23,8 +23,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         {
             // This is a sample worker implementation. Replace with your logic.
             Trace.TraceInformation("Zbang.Cloudents.OneTimeWorkerRole entry point called", "Information");
-            var updateThumbnail = m_Unity.Resolve<IUpdateThumbnails>();
-            updateThumbnail.UpdateThumbnailPicture();
+            //var updateThumbnail = m_Unity.Resolve<IUpdateThumbnails>();
+            //updateThumbnail.UpdateThumbnailPicture();
+            var updateThumbnail = m_Unity.Resolve<IOneTimeDbi>();
+            updateThumbnail.Run();
             Trace.TraceInformation("Finish Processing", "Information");
             while (true)
             {

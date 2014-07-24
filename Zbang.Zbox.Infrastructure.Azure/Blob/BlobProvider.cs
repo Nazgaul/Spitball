@@ -443,6 +443,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         //    var t2 = blob.DeleteAsync();
         //    await Task.WhenAll(t1, t2);
         //}
+        public void RenameBlob(string blobName, string newName, string newMimeType = null)
+        {
+            var blob = GetFile(blobName);
+            var newBlob = GetFile(newName);
+            newBlob.StartCopyFromBlob(blob);
+            newBlob.Properties.ContentType = newMimeType ?? blob.Properties.ContentType;
+            newBlob.SetProperties();
+            blob.Delete();
+        }
         private string ToBase64(int blockIndex)
         {
             var blockId = blockIndex.ToString("D10");
