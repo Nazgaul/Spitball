@@ -10,7 +10,7 @@ app.config([
 
     function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide) {
 
-   
+
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
 
@@ -127,7 +127,7 @@ app.config([
 
 
         //#region log js errors 
-        $provide.decorator('$exceptionHandler', ['$delegate','$log', 'stackTraceService', function ($delegate,$log, stackTraceService) {
+        $provide.decorator('$exceptionHandler', ['$delegate', '$log', 'stackTraceService', function ($delegate, $log, stackTraceService) {
             return function (exception, cause) {
                 $delegate(exception, cause);
 
@@ -175,6 +175,18 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
         //title 
         if (!previous) {
+            if (!current) {
+                return;
+            }
+            if (!current.$$route) {
+                return;
+            }
+
+            if (current.$$route.params.type === 'box') {
+                if (sUserDetails.isAuthenticated()) {
+                    sNewUpdates.removeUpdates(current.params.boxId);
+                }
+            }
             return;
         }
         if (!previous.$$route) {
@@ -197,7 +209,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
                 cd.pubsub.publish('quizclear');
                 break;
         };
-        if (!current){
+        if (!current) {
             return;
         }
         if (!current.$$route) {
@@ -205,7 +217,10 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
         }
 
         if (current.$$route.params.type === 'box') {
-            sNewUpdates.removeUpdates(current.params.boxId);
+            if (sUserDetails.isAuthenticated()) {
+                sNewUpdates.removeUpdates(current.params.boxId);
+            }
+
 
             switch (previous.$$route.params.type) {
                 case 'library':
@@ -222,7 +237,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
                     break;
             }
         }
-       
+
 
     });
 
