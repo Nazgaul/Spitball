@@ -191,7 +191,7 @@
                 dataContext.removeItem({
                     data: { itemId: self.itemid(), BoxId: boxid },
                     success: function () {
-                        cd.pubsub.publish('nav', self.boxurl());
+                        window.location.href = self.boxurl();
                     }
                 });
             }, null);
