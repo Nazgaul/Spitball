@@ -1,20 +1,64 @@
 ﻿app.controller('HomeCtrl',
-    ['$scope', 'Shopping',
-    function ($scope, Shopping) {
+    ['$scope', /*'debounce',*/'Store',
+    function ($scope, /*debounce,*/ Store) {
+
+        var consts = {
+            defaultMaxProducts: 9,
+            productsIncrement: 9
+        },
+        allProducts;
 
         $scope.params = {
-            maxProducts: 9,
-            maxProductsIncrement : 9
+            maxProducts: consts.defaultMaxProducts,            
         };
 
-        Shopping.products().then(function (response) {
-            $scope.products = response.payload;
+        Store.products().then(function (response) {
+            allProducts = response.payload;
+            $scope.products = allProducts;
+            
         });
 
         $scope.addProducts = function () {
-            $scope.params.maxProducts += $scope.params.maxProductsIncrement;
+            $scope.params.maxProducts += consts.productsIncrement;
         };
 
 
+        //var lastQuery;
+        //$scope.search = debounce(function () {
+        //    var query = $scope.params.search;
+
+        //    if (!query) {
+        //        $scope.products = allProducts;
+        //        $scope.params.maxProducts = consts.productsIncrement;
+        //        return;
+        //    }
+
+        //    if (query === lastQuery) {
+        //        return;
+        //    }
+
+        //    lastQuery = query;
+
+        //    Store.search({ term : query }).then(function (response) {
+        //        var data = response.success ? response.payload : {};
+        //        $scope.products = data;
+        //        $scope.params.maxProducts = consts.productsIncrement;
+        //    });
+        //}, 150);
+        $scope.search = function (e) {
+            e.preventDefault();
+
+            var query = $scope.params.search;
+            $scope.params.isSearching = true;
+
+            Store.search({ term: query }).then(function (response) {
+                var data = response.success ? response.payload : {};
+                $scope.params.isSearching = false;
+                $scope.products = data;
+                $scope.params.maxProducts = consts.productsIncrement;
+            }, function () {
+                $scope.params.isSearching = false;
+            });
+        };
     }]
 );

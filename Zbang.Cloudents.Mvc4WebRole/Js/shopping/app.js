@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'Cookie']);
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'Cookie','debounce']);
 
 app.config([
     '$routeProvider',
@@ -120,5 +120,9 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
         sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
+
+    $rootScope.$on('$routeChangeStart', function () {
+        $window.scrollTo(0,0);      
+    });
 }]);
 
