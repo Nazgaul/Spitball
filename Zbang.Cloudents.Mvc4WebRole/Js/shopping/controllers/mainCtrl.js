@@ -1,10 +1,31 @@
 ﻿app.controller('MainCtrl',
     ['$scope', '$window', 'cookieService', '$rootScope',
     function ($scope, $window, cookieService, $rootScope) {
-
         $scope.info = {
-            currentLanguage: cookieService('lang') || cookieService('lang', 'en-US', { path: '/' }),
+            currentLanguage: (function () {
+                var language = cookieService('lang');
+                if (language) {
+                    return language;
+                }
+
+                cookieService('lang', 'he-IL', { path: '/' });
+                return 'he-IL'
+
+            })()
         };
+
+        $scope.info.currentLanguageDisplay = (function () {
+            switch ($scope.info.currentLanguage) {
+                case 'en-US':
+                    return 'English';
+                case 'ru-RU':
+                    return 'Pусский';
+                case 'ar-AE':
+                    return 'العربية';
+                default:
+                    return 'עברית';
+            }
+        })();
 
         $scope.setLanguage = function (val) {
             if ($scope.info.currentLanguage === val) {

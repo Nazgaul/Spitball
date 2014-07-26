@@ -49,7 +49,7 @@ app.config([
         $routeProvider.
         when('/store/', {
             templateUrl: '/Store/',
-            controller: 'HomeCtrl',
+            controller: 'CategoryCtrl',
             type: 'home'
         }).
         when('/store/category/:categoryId/:categoryName/', {

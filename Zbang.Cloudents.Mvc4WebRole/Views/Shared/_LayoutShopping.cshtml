@@ -35,7 +35,7 @@
             <button type="button" class="signup">@StoreResources.Signup</button>
 
             <div dropdown class="language">
-                <button type="button" class="currentLang" dropdown-toggle>{{info.currentLanguage}}</button>
+                <button type="button" class="currentLang" dropdown-toggle>{{info.currentLanguageDisplay}}</button>
                 <ul class="langMenu dropdown-menu" role="menu">
                     <li class="menuItem">
                         <button type="button" title="English (US)" ng-if="'en-US' !== info.currentLanguage" ng-click="setLanguage('en-US')">English‎</button>
