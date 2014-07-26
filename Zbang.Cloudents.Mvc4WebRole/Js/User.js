@@ -71,7 +71,13 @@
                     dataContext.follow({
                         data: { BoxUid: box.id },
                         success: function () {
-                            window.location.href = box.url;
+                            var $injector = angular.element(document).injector();
+                            var $scope = angular.element(document).scope();
+                            var $location = $injector.get('$location');
+
+                            $location.path(box.url);
+                            $scope.$apply();
+                            
                         }
                     });
                 };

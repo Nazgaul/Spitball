@@ -322,7 +322,13 @@ function Box(data) {
                     var librarybox = new LibraryBox(data);
                     academicBoxDialog.dialog('hide');
                     cd.resetForm(f);
-                    window.location.href = librarybox.boxUrl;                    
+                    
+                    var $injector = angular.element(document).injector();
+                    var $scope = angular.element(document).scope();
+                    var $location = $injector.get('$location');
+                    
+                    $location.path(librarybox.boxUrl);
+                    $scope.$apply();
                 },
                 error: function (msg) {
                     cd.displayErrors(f, msg);

@@ -191,7 +191,12 @@
                 dataContext.removeItem({
                     data: { itemId: self.itemid(), BoxId: boxid },
                     success: function () {
-                        window.location.href = self.boxurl();
+                        var $injector = angular.element(document).injector();
+                        var $scope = angular.element(document).scope();
+                        var $location = $injector.get('$location');
+
+                        $location.path(self.boxurl());
+                        $scope.$apply();                        
                     }
                 });
             }, null);
