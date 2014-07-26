@@ -237,6 +237,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (DuplicateNameException)
             {
+                //TODO: remove that
+                BaseControllerResources.Culture = Thread.CurrentThread.CurrentCulture;
                 return this.CdJson(new JsonResponse(false, BaseControllerResources.LinkExists));
             }
             catch (Exception ex)
