@@ -85,6 +85,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetBoxQuery(boxId, userId);
                 var box = ZboxReadService.GetBox(query);
+                var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
+                BaseControllerResources.Culture = culture;
                 if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
                 {
 
