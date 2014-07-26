@@ -322,7 +322,7 @@ function Box(data) {
                     var librarybox = new LibraryBox(data);
                     academicBoxDialog.dialog('hide');
                     cd.resetForm(f);
-                    cd.pubsub.publish('nav', librarybox.boxUrl);
+                    window.location.href = librarybox.boxUrl;                    
                 },
                 error: function (msg) {
                     cd.displayErrors(f, msg);
