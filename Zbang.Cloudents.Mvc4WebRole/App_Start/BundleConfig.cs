@@ -235,6 +235,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
+                new JsFileWithCdn("~/scripts/angular-debounce.js"),                
                 new JsFileWithCdn("~/js/shopping/app.js"),
                 new JsFileWithCdn("~/js/shopping/controllers/mainCtrl.js"),
                 new JsFileWithCdn("~/js/shopping/controllers/homeCtrl.js"),
