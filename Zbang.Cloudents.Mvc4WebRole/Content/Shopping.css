@@ -428,6 +428,7 @@ main {
 }
 .placeholder + .placeholder {
   right: 0;
+  left: auto;
 }
 .productsListWpr {
   position: relative;
