@@ -128,7 +128,8 @@
         font-weight: normal;
         line-height: 48px; /* diff rtl*/
         display: inline-block;
-        max-width: 600px;
+        //max-width: 600px; //sometimes causes ellipsis on zoom down
+        width: 600px;
         overflow: hidden;
         -ms-text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
@@ -143,7 +144,7 @@
     &.invBox
     {
         .invHeaderText{
-            max-width: 520px;
+            width: 520px;
             padding-left:34px;/*rtl*/
         }
         .invHeaderText:before

@@ -134,7 +134,7 @@
   line-height: 48px;
   /* diff rtl*/
   display: inline-block;
-  max-width: 600px;
+  width: 600px;
   overflow: hidden;
   -ms-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
@@ -146,7 +146,7 @@
   display: inline-block;
 }
 .invMain.invBox .invHeaderText {
-  max-width: 520px;
+  width: 520px;
   padding-left: 34px;
   /*rtl*/
 }
