@@ -92,12 +92,14 @@ mBox.controller('BoxCtrl',
                 $scope.info.currentTab = null;
 
                 $scope.items = items.map(function (item) {
-                    var type = item.type === 'Quiz' ? 'quizzes' : 'items';                    
+                    var type = item.type === 'Quiz' ? 'quizzes' : 'items';
                     item.isNew = NewUpdates.isNew($scope.boxId, type, item.id);
                     return item;
                 });
 
+                $scope.items.sort(sortItems);
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+
                 $scope.$broadcast('qna', qna);
 
                 $scope.info.showJoinGroup = $scope.isUserFollowing();
@@ -330,11 +332,11 @@ mBox.controller('BoxCtrl',
 
                             if (qna) {
                                 fileList.push(responseItem);
-                                if (data.type === 'link') {                                    
+                                if (data.type === 'link') {
                                     cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
                                     return;
                                 }
-                                if (uploaded === data.length) {                                   
+                                if (uploaded === data.length) {
                                     cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
                                 }
                                 defer.resolve(fileList);
@@ -342,7 +344,7 @@ mBox.controller('BoxCtrl',
                             }
                             $scope.followBox(true);
 
-                            
+
                         }).catch(function () {
                             uploaded++;
                         });
@@ -501,7 +503,7 @@ mBox.controller('BoxCtrl',
             }
 
             function filterManageItems(item) {
-                if (item.sponsored && $scope.items.indexOf(item) < $scope.options.itemsLimit) {
+                if (item.sponsored) {
                     $scope.options.sponsored = true;
                 }
                 if (item.type === 'Quiz') {
@@ -681,9 +683,10 @@ mBox.controller('BoxCtrl',
             };
 
             function filterItems(item) {
-                if (item.sponsored && $scope.items.indexOf(item) < $scope.options.itemsLimit) {
+                if (item.sponsored) {
                     $scope.options.sponsored = true;
                 }
+
                 if (!$scope.info.currentTab) {
                     return true;
                 }
@@ -694,6 +697,27 @@ mBox.controller('BoxCtrl',
 
                 return false;
 
+            }
+
+            function sortItems(a, b) {
+                if (a.sponsored) {
+                    return -1;
+                }
+                if (b.sponsored) {
+                    return 1;
+                }
+                if (a.date > b.date) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return 1;
+                }
+                else {
+                    return -1;
+                }
+                return 0;
             }
             //#endregion
 
@@ -799,7 +823,7 @@ mBox.controller('BoxCtrl',
                     $scope.info.allMembers.push(member);
                 };
 
-                $timeout(function () { 
+                $timeout(function () {
                     $scope.info.showJoinGroup = false;
                 }, 3300);
 
@@ -821,7 +845,7 @@ mBox.controller('BoxCtrl',
                     return false;
                 }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
-            };          
+            };
 
             //#endregion
 
