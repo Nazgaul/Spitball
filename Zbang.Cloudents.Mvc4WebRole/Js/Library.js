@@ -382,7 +382,12 @@ function Box(data) {
             dataContext.deleteNode({
                 data: { id: id },
                 success: function () {
-                    cd.pubsub.publish('nav', $('#lib_Back').attr('href'));
+                    var $injector = angular.element(document).injector();
+                    var $scope = angular.element(document).scope();
+                    var $location = $injector.get('$location');
+
+                    $location.path($('#lib_Back').attr('href'));
+                    $scope.$apply();                    
                     //location.href = $('#lib_Back').prop('href');
                 }
             });

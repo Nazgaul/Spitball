@@ -161,7 +161,7 @@
     function hideTooltip(e) {
         var target;
 
-        target = e.target;
+        target = e.relatedTarget;
 
         var $target = $(target),
             isTooltip = target.className.indexOf('userTooltip') > -1,
@@ -242,8 +242,9 @@
         e.preventDefault();
         
         
-        removeTooltip();
-        cd.pubsub.publish('message', { id: '', data: [{ name: tooltip.name, id: tooltip.id, userImage: tooltip.image }] });
+        removeTooltip();                            
+        window.location.href = tooltip.url;
+        
     })
 
     cd.pubsub.subscribe('clearTooltip', removeTooltip);

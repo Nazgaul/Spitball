@@ -43,7 +43,7 @@
             if (!isValid) {
                 return;
             }
-            window.open(window.location.origin + '/search/?q=' + $scope.formData.query + '/', '_self');
+            window.open(window.location.origin + '/search/?q=' + $scope.formData.query, '_self');
             
         };
 
