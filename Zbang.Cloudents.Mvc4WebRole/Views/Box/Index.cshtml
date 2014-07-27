@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="courseCode elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
-                <div class="courseCode elps" ng-if="info.boxType === 'box'" data-uid="{{info.ownerId}}">{{info.ownerName}}</div>
+                <div class="courseCode elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
                 <span class="courseCode propName elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
                 <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
 

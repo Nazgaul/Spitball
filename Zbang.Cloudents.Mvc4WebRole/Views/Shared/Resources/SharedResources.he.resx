@@ -583,4 +583,7 @@
   <data name="EmailRequired" xml:space="preserve">
     <value>הכנס כתובת דוא"ל</value>
   </data>
+  <data name="PersonalMsg" xml:space="preserve">
+    <value>הודעה אישית</value>
+  </data>
 </root>
