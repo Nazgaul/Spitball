@@ -9,29 +9,33 @@ body {
 }
 /*#region header */
 header {
-    height: 75px;
+    height: @header-height;
     background: @color;
     padding: 0 ~'calc(50% - 470px)';
     color: #fff;
     h1 {
-        padding: 20px 0 0 225px; /*rtl*/
+        padding: 4px 0 0 219px; /*rtl*/
         font-size: 16px;
         width: 215px;
         position: relative;
     }
     .rFloat {
-        padding-top: 30px;
+        padding-top: 14px;
     }
 }
-.logo:before {
-    .pseudo;
-    display: inline-block;
-    width: 210px;
-    height: 40px;
-    background: url(/Images/Store/social.png) 0 -252px no-repeat;
-    position: absolute;
-    left:0; /*rtl*/
-    top: 20px;
+.logo {
+    font-size: 33px;
+    font-weight: normal;
+    &:before {
+        .pseudo;
+        display: inline-block;
+        width: 210px;
+        height: 40px;
+        background: url(/Images/Store/social.png) 0 -252px no-repeat;
+        position: absolute;
+        left:0; /*rtl*/
+        top: 5px;
+    }
 }
 .login, .signup {
     color: #fff;
@@ -139,7 +143,7 @@ nav {
     li {
         display: inline-block;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 23px;
         &:hover, &.current {
             color: @color;
             button {
@@ -268,7 +272,8 @@ main {
         border-color: transparent transparent @shopping-black transparent;
         position: absolute;
         top: -18px;
-        left: 240px; /*rtl*/
+        //left: 240px; /*rtl*/
+        left: 269px; /*diff rtl*/
     }
 }
 .categoryList {
@@ -279,12 +284,11 @@ main {
         .transition(height 0.3s cubic-bezier(0.7,0,0.3,1));
         left: 0; /*rtl*/
         top: 174px;
-        height:0;
         background: #fff;
         color: @shopping-black;
         z-index: 1;
         overflow: hidden;
-        height: 196px;
+        height: 194px;
         width: 151px;
         margin-left: -1px; /*rtl*/
         padding: 8px 0 0 12px; /*rtl*/
@@ -338,15 +342,15 @@ main {
         }
         &:nth-child(6n + 1) {
             ul {
-                width: 172px;
-                margin-left: -20px; /*rtl*/
+                width: 168px;
+                margin-left: -18px; /*rtl*/
             }
         }
         &:nth-child(6n) {
             border-right: none; /*rtl*/
             ul {
-                width: 172px;
-                margin-right: -20px; /*rtl*/
+                width: 168px;
+                margin-right: -18px; /*rtl*/
             }
         }
         &:nth-child(n + 7) {
@@ -354,6 +358,7 @@ main {
             ul {
                 top: auto;
                 bottom: 100%;
+                height: 193px;
                 &:after {
                     border-width: 0 15px 13px 15px;
                     border-color: transparent transparent @shopping-black transparent;

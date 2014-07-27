@@ -4,7 +4,7 @@
 /*#endregion */
 /*#region header */
 header h1 {
-  padding: 20px 225px 0 0;
+  padding: 5px 219px 0 0;
   /*rtl*/
 }
 .logo:before {
@@ -42,7 +42,7 @@ header h1 {
   left: auto;
 }
 .categoryDD:before {
-  right: 260px;
+  right: 269px;
   /* diff rtl*/
   left: auto;
 }
@@ -61,7 +61,7 @@ header h1 {
   border-right: none;
 }
 .categoryList > li:nth-child(6n + 1) ul {
-  margin: 0 -20px 0 0;
+  margin: 0 -18px 0 0;
   /*rtl*/
 }
 .categoryList > li:nth-child(6n) {
@@ -69,7 +69,7 @@ header h1 {
   /*rtl*/
 }
 .categoryList > li:nth-child(6n) ul {
-  margin: 0 0 0 -20px;
+  margin: 0 0 0 -18px;
   /*rtl*/
 }
 /*#endregion */
