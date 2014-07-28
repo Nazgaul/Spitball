@@ -117,6 +117,7 @@
     <Compile Include="Dto\Search\SearchDto.cs" />
     <Compile Include="Dto\Search\SearchItems.cs" />
     <Compile Include="Dto\Search\SearchUsers.cs" />
+    <Compile Include="Dto\Store\BannerDto.cs" />
     <Compile Include="Dto\Store\CategoryDto.cs" />
     <Compile Include="Dto\Store\ProductDto.cs" />
     <Compile Include="Dto\Store\ProductWithDetailDto.cs" />

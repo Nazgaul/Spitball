@@ -38,9 +38,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommand>), typeof(DeleteItemCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<SubscribeToSharedBoxCommand>), typeof(SubscribeToSharedBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteUserFromBoxCommand>), typeof(DeleteUserFromBoxCommandHandler));
-            //ioc.RegisterType(typeof(ICommandHandler<AddBoxCommentCommand, AddBoxCommentCommandResult>), typeof(AddBoxCommentCommandHandler));
-            //ioc.RegisterType(typeof(ICommandHandler<AddReplyToCommentCommand, AddReplyToCommentCommandResult>), typeof(AddReplyToCommentCommandHandler));
-            //ioc.RegisterType(typeof(ICommandHandler<DeleteCommentCommand>), typeof(DeleteCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserLanguageCommand>), typeof(UpdateUserLanguageCommandHandler));
 
             ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>), typeof(AddNodeToLibraryCommandHandler));
@@ -123,7 +120,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof (ICommandHandler<AddProductsToStoreCommand>),
                 typeof (AddProductsToStoreCommandHandler))
                 .RegisterType(typeof(ICommandHandler<AddCategoriesCommand>),
-                    typeof(AddCategoriesCommandHandler));
+                    typeof(AddCategoriesCommandHandler))
+                .RegisterType(typeof(ICommandHandler<AddBannersCommand>),
+                    typeof(AddBannersCommandHandler));
 
         }
     }

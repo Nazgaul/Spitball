@@ -937,6 +937,14 @@ namespace Zbang.Zbox.ReadServices
                 return retVal.FirstOrDefault();
             }
         }
+
+        public async Task<IEnumerable<BannerDto>> GetBanners()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<BannerDto>(Sql.Store.GetBanners);
+            }
+        }
         #endregion
     }
 }

@@ -333,4 +333,10 @@
 הוא שלשת הספרות האחרונות
 בצד האחורי של הכרטיס</value>
   </data>
+  <data name="CouponCode" xml:space="preserve">
+    <value>קוד קופון</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>חנות האגודה</value>
+  </data>
 </root>

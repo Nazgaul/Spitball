@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
@@ -12,7 +13,7 @@ namespace Zbang.Zbox.Store.Services
 
         public IEnumerable<ProductDto> ReadData(int category)
         {
-            using (var conn =  DapperConnection.OpenConnection(ConnectionStringName))
+            using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
                 const string sql = @"select [productid]  as Id -- Product ID 
       ,[name] -- Product Name 
@@ -46,13 +47,13 @@ namespace Zbang.Zbox.Store.Services
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       --,[designNum] -- Which University to show --> Can be to all or to one specific  
   FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
-                return  conn.Query<ProductDto>(sql, new { catId  = category});
+                return conn.Query<ProductDto>(sql, new { catId = category });
             }
         }
 
         public IEnumerable<CategoryDto> GetCategories()
         {
-            using (var conn =  DapperConnection.OpenConnection(ConnectionStringName))
+            using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
                 return conn.Query<CategoryDto>(@"WITH cte 
 AS
@@ -66,6 +67,54 @@ AS
         ON e.parentid = d.catcode
 )
 select catcode as Id, catname as name, parentid, catorder as [order] from cte where level = 2");
+            }
+        }
+
+
+        public IEnumerable<BannerDto> GetBanners()
+        {
+            using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
+            {
+
+                var sql = @"SELECT top 1 [AdvID] as Id -- ID 
+      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
+      ,[AdvLink] as Url -- URL to point the banner if NULL static image
+      --,[AdvOrder] -- University ID
+      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
+  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 1 and 9
+  order by banorder
+
+  SELECT [AdvID] as Id -- ID 
+      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
+      ,[AdvLink] as Url -- URL to point the banner if NULL static image
+      --,[AdvOrder] -- University ID
+      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
+  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 10 and 19
+
+  SELECT top 2 [AdvID] as Id -- ID 
+      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
+      ,[AdvLink] as Url -- URL to point the banner if NULL static image
+      --,[AdvOrder] -- University ID
+      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
+  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 20 and 29
+  order by banorder
+
+  SELECT top 1 [AdvID] as Id -- ID 
+      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
+      ,[AdvLink] as Url -- URL to point the banner if NULL static image
+      --,[AdvOrder] -- University ID
+      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
+  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 30 and 39
+  order by banorder";
+                using (var grid = conn.QueryMultiple(sql))
+                {
+                    var retVal = grid.Read<BannerDto>();
+                    retVal = retVal.Union(grid.Read<BannerDto>());
+                    retVal = retVal.Union(grid.Read<BannerDto>());
+                    retVal = retVal.Union(grid.Read<BannerDto>());
+                    return retVal;
+                }
+
             }
         }
     }

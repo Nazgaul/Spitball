@@ -9,29 +9,33 @@ body {
 }
 /*#region header */
 header {
-    height: 75px;
+    height: @header-height;
     background: @color;
     padding: 0 ~'calc(50% - 470px)';
     color: #fff;
     h1 {
-        padding: 20px 0 0 225px; /*rtl*/
+        padding: 4px 0 0 219px; /*rtl*/
         font-size: 16px;
         width: 215px;
         position: relative;
     }
     .rFloat {
-        padding-top: 30px;
+        padding-top: 14px;
     }
 }
-.logo:before {
-    .pseudo;
-    display: inline-block;
-    width: 210px;
-    height: 40px;
-    background: url(/Images/Store/social.png) 0 -252px no-repeat;
-    position: absolute;
-    left:0; /*rtl*/
-    top: 20px;
+.logo {
+    font-size: 33px;
+    font-weight: normal;
+    &:before {
+        .pseudo;
+        display: inline-block;
+        width: 210px;
+        height: 40px;
+        background: url(/Images/Store/social.png) 0 -252px no-repeat;
+        position: absolute;
+        left:0; /*rtl*/
+        top: 5px;
+    }
 }
 .login, .signup {
     color: #fff;
@@ -115,10 +119,10 @@ nav, main {
     
 }
 nav {
-    height: 100px;
+    height: 78px;
     margin: 0 auto;
     width: 840px;
-    padding-top: 35px;
+    padding-top: 25px;
     position: relative;
     .boxSizing;
     ul {
@@ -139,7 +143,7 @@ nav {
     li {
         display: inline-block;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 23px;
         &:hover, &.current {
             color: @color;
             button {
@@ -166,30 +170,39 @@ main {
     height: 120px;
     border: 1px solid @shopping-black;
     .boxSizing;
-    .lFloat, h2 {
+    .banner {
+        width: 320px;
+        height: 390px;
+        border-right: 1px solid @txtColor; /*rtl*/
+    }
+    .carosel {
+        width: 617px;
+        height: 390px;
+    }
+    /*.lFloat, h2 {
         display: none;
     }
     &:before {
         .pseudo;
-        width: 400px;
+        width: 320px;
         height: 100%;
-        background: url(http://lorempixel.com/400/118/food) no-repeat;
+        background: url(http://lorempixel.com/320/118/food) no-repeat;
     }
     button {
         padding: 14px;
         border: 2px solid #8AC43E;
         font-size: 20px;
         color: #8AC43E;
-        margin: -90px 30px 0 0; /*rtl*/
-    }
+        margin: -90px 30px 0 0; //rtl
+    }*/
     &.big {
         height: 390px;
-        &:before {
-            background: url(http://lorempixel.com/400/250/food) no-repeat;
+        /*&:before {
+            background: url(http://lorempixel.com/320/250/food) no-repeat;
             height: 250px;
         }
         .widgetWpr {
-            width: 400px;
+            width: 320px;
         }
         .lFloat, h2 {
             display: block;
@@ -201,12 +214,13 @@ main {
         }
         h2 {
             font-size: 18px;
-            padding: 10px 0 0 35px; /*rtl*/
+            padding: 10px 0 0 35px; //rtl/
             overflow: auto;
         }
         button {
-            margin: 10px 8px 0 0;  /*rtl*/ //override
-        }
+            margin: 10px 8px 0 0;  //rtl/ //override
+            font-size: 9px;
+        }*/
     }
 }
 /*#endregion */
@@ -217,8 +231,8 @@ main {
     width: 100%;
     .boxSizing;
     border: 10px solid @shopping-black;
-    margin: 30px 0 40px;
-    height: 90px;
+    margin: 25px 0;
+    height: 80px;
     position: relative;
     font-size: 0;
     &.showResults {
@@ -253,7 +267,7 @@ main {
     width: 940px;
     height: 390px;
     position: absolute;
-    top: 80px;
+    top: 79px;
     left: -50px; /*rtl*/
     background: @shopping-black;
     padding: 20px;
@@ -268,7 +282,8 @@ main {
         border-color: transparent transparent @shopping-black transparent;
         position: absolute;
         top: -18px;
-        left: 240px; /*rtl*/
+        //left: 240px; /*rtl*/
+        left: 269px; /*diff rtl*/
     }
 }
 .categoryList {
@@ -279,12 +294,11 @@ main {
         .transition(height 0.3s cubic-bezier(0.7,0,0.3,1));
         left: 0; /*rtl*/
         top: 174px;
-        height:0;
         background: #fff;
         color: @shopping-black;
         z-index: 1;
         overflow: hidden;
-        height: 196px;
+        height: 194px;
         width: 151px;
         margin-left: -1px; /*rtl*/
         padding: 8px 0 0 12px; /*rtl*/
@@ -304,6 +318,7 @@ main {
         li {
             &:hover {
                 color: @color;
+                font-weight: bold;
             }
         }
     }
@@ -319,6 +334,7 @@ main {
         color: silver;
         position: relative;
         vertical-align: top;
+        line-height: 13px;
         &:hover {
             ul {
                 visibility: visible;
@@ -338,15 +354,15 @@ main {
         }
         &:nth-child(6n + 1) {
             ul {
-                width: 172px;
-                margin-left: -20px; /*rtl*/
+                width: 168px;
+                margin-left: -18px; /*rtl*/
             }
         }
         &:nth-child(6n) {
             border-right: none; /*rtl*/
             ul {
-                width: 172px;
-                margin-right: -20px; /*rtl*/
+                width: 168px;
+                margin-right: -18px; /*rtl*/
             }
         }
         &:nth-child(n + 7) {
@@ -354,6 +370,7 @@ main {
             ul {
                 top: auto;
                 bottom: 100%;
+                //height: 193px;
                 &:after {
                     border-width: 0 15px 13px 15px;
                     border-color: transparent transparent @shopping-black transparent;
@@ -408,11 +425,12 @@ main {
     width: 460px;
     height: 120px;
     position: absolute;
-    top: 377px;
+    top: 372px;
     border: 1px solid @txtColor;
     left:0;
     + .placeholder {
         right:0;
+        left: auto;
     }
 }
 .productsListWpr {
@@ -427,33 +445,42 @@ main {
         height: 348px;
         display: inline-block;
         background: #fff;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         border: 1px solid @color;
         .boxSizing;
         text-align: center;
         vertical-align:top;
         overflow: hidden;
+        &:before {
+            .pseudo;
+            position: absolute;
+            height: 1px;
+            background: aqua;
+            width: 300px;
+            top: 198px;
+            left:0;
+        }
         &:nth-child(3) {
-            margin-bottom: 180px;
+            margin-bottom: 170px;
         }
         &:nth-child(3n + 2) {
-            margin: 0 20px 30px 20px;
+            margin: 0 20px 20px 20px;
         }
         &:hover {
             .desc {
                 z-index: 1;
                 position: relative;
                 color: orange;
-                top: -167px;
+                top: -188px;
                 left: 0; /*rtl*/
+                height: auto;
             }
             .hover {
-                //display: inline-block;
-                //.animation(fadein);
-
-                //display: table;
                 top:0;
                 opacity: 1;
+            }
+            .hoverDesc {
+                display: block;
             }
         }
     }
@@ -476,16 +503,19 @@ main {
     img {
         max-width: 100%;
         //max-height: 100%;
-        max-height: 185px;
+        max-height: 198px;
         display: inline-block;
         vertical-align: middle;
     }
     .desc {
-        .transition(all 0.01s .218s ease-out);
+        .transition(all 0.01s .3s ease-out);
        font-size: 22px;
-       padding: 0 18px;
+       padding: 6px 18px 0;
        text-align: left; /*rtl*/
        top:0;
+       line-height: 25px;
+       height: 56px;
+       overflow: hidden;
        .boxSizing;
         + .lFloat {
             color: @color;
@@ -495,8 +525,8 @@ main {
     table {
         width: 100%;
         font-size: 18px;
-        table-layout: fixed;
-        padding: 15px 18px 0 18px;
+        //table-layout: fixed;
+        padding: 13px 18px 0 18px;
         .boxSizing;
         position: relative;
         text-align: left; /*rtl*/
@@ -505,7 +535,7 @@ main {
             width: 265px;
             height: 1px;
             position: absolute;
-            top:8px;
+            top:7px;
             left: 16px; /*rtl*/
             background: #999;
         }
@@ -517,9 +547,17 @@ main {
     tr:nth-child(3) td {
         color: @color;
     }
+    td {
+        line-height: 20px;
+        &:nth-child(1) {
+            width: 85px;
+        }
+        &:nth-child(2) {
+            width: 1px;
+        }
+    }     
 }
 .hover {
-    //display: none;
     display: table;
     opacity: .5;
     position: absolute;
@@ -533,30 +571,33 @@ main {
     padding: 85px 20px 10px 20px;
     font-size: 15px;
     .boxSizing;
-    .transition(all 0.218s ease-out);
+    .transition(all 0.3s ease-out);
     //.animation(fadein);
     p {
         margin-bottom: 15px;        
     }
     .moreDetailsWpr {
-        width: 100%;
+        width: 90%;
         height: 50px;
         display: inline-block;
-        line-height:50px;
+        line-height:48px;
         background: #fff;
         font-size: 35px;
         color: @shopping-black;
         border: none;
         border-radius: 5px;
+        position: absolute;
+        left: 15px; /*rtl*/
+        bottom: 14px;
     }
     .lFloat {
         display: block;
         text-align: center;
-        padding: 12px 0;
+        padding: 2px 0;
         width: 50%;
         .boxSizing;
         font-size: 22px;
-        margin: -5px 0 15px;
+        margin: 154px 0 15px;
     }
     .numSold {
 
@@ -565,10 +606,16 @@ main {
         color: @color;
         border-left: 1px solid @color; /*rtl*/
     }
-    .hoverDesc {
-        text-align: right;
-        height: 115px;
-    }
+    
+}
+.hoverDesc {
+    text-align: right;
+    height: 115px;
+    display: none;
+    color: #fff;
+    font-size: 15px;
+    margin-top: 5px;
+    line-height: 18px;
 }
 .moreDetailsWpr {
     display: table-footer-group;
@@ -581,8 +628,8 @@ main {
 
 /*#region product popup */
 .productWpr {
-    display: table;
-    table-layout: fixed;
+    //display: table;
+    //table-layout: fixed;
     //background: #f6f6f6;
     margin-top: 55px;
     width: 940px;
@@ -763,7 +810,6 @@ ul:after {
 
 /*#region Contact Us */
 .contact.contact {
-    font-size: 18px;
     overflow: hidden;
     .boxSizing;
     background: #fff;
@@ -771,11 +817,9 @@ ul:after {
     padding: 0 80px 30px;
     h2 {
         font-weight: normal;       
-        background: @color;
         line-height: 30px;
-        padding: 20px 30px;
+        padding: 20px 80px;
         margin: 0 -80px;
-        text-align: center;
     }
         > .lFloat, > .rFloat {
         width: 340px;
@@ -787,10 +831,15 @@ ul:after {
             width: 100%;
         }
     }
+    /*label {
+        font-size: 22px;
+    }*/
     .inputText {
         display: block;
         margin-top: 5px;
         width: 100%;
+        //height: 32px;
+        .boxSizing;
     }
     textarea {
         min-height: 190px;
@@ -798,7 +847,7 @@ ul:after {
     .btn1 {
         font-size: 24px;
         padding: 0 56px;
-        height: 60px; 
+        //height: 45px; 
         width: auto; //override
         .boxSizing;
     }
@@ -814,6 +863,7 @@ ul:after {
     border: 1px solid @txtColor;
     border-radius: 5px;
     background: #fff;
+    font-size: 18px;
     .boxSizing;
     h2 {
         font-size: 21px;
@@ -827,6 +877,15 @@ ul:after {
         position: relative;
         top: -1px;
     }
+    .inputText {
+        height: 32px;
+    }
+    label {
+        font-size:18px;
+    }
+    .btn1 {
+        height: 45px;
+    }
 }
 
 .userOrder {
@@ -838,6 +897,20 @@ ul:after {
     background: #fff;
     padding: 0 20px;
     font-size: 18px;
+}
+
+.userHelp {
+    border: 1px solid @txtColor;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    text-align: center;
+    font-size: 20px;
+    .boxSizing;
+    padding-top: 5px;
+    margin: 2px 0 0 7px; /*rtl*/
+    vertical-align: top;
 }
 .orderTable {
     width: 100%;
@@ -883,27 +956,7 @@ ul:after {
                 border-bottom: 1px solid silver;
             }
         } 
-        &:nth-of-type(5) {
-            td {
-                padding-top: 0;
-                vertical-align: middle;
-                div {
-                    border-bottom: 1px solid silver;
-                    line-height: 45px;
-                    &:first-child {
-                        margin-top: -30px;
-                    }
-                    &:last-of-type {
-                        border: none;
-                        color: @color;
-                    }
-                }
-            }
-            .rFloat {
-                padding-right: 35px; /*rtl*/
-                .boxSizing;
-            }
-        }     
+           
     }
     th {
         //font-size: 18px;
@@ -921,12 +974,12 @@ ul:after {
         &:first-child {
             width: 215px;
             .boxSizing;
-            padding-right: 25px; /*rtl*/
-            text-align: center;
+            padding-right: 15px 25px 15px 10px; /*rtl*/
+            //text-align: center;
             //background: pink;
         }
         &:nth-child(2) {
-            width: 350px;
+            width: 550px;
             .boxSizing;
             padding-right: 60px; /*rtl*/
             //background: aqua;
@@ -940,6 +993,39 @@ ul:after {
         margin: 30px 0;
     }
 }
+.invoice {
+    padding-top: 0;
+    vertical-align: middle;
+    li {
+        display: table;
+        width: 100%;
+        border-bottom: 1px solid silver;
+        line-height: 45px;
+        &:first-child {
+            margin-top: -30px;
+        }
+        &:last-of-type {
+            border: none;
+            color: @color;
+        }
+        span {
+            display: table-cell;
+            &:nth-child(1) {
+                width: 100%;
+                padding-left: 10px; /*rtl*/
+                .boxSizing;
+            }
+            &:nth-child(2) {
+                min-width: 45px;
+            }
+            &:nth-child(3) {
+                padding-right: 10px; /*rtl*/
+                .boxSizing;
+            }
+        }
+    }
+}
+
 .pName {
     font-size: 21px;
 }
@@ -977,17 +1063,21 @@ ul:after {
     .btn1 {
         font-size: 24px;
         padding: 0 70px;
-        height: 60px; 
+        //height: 45px; 
         width: auto; //override
         .boxSizing;
     }
     .detailsTxt {
         margin-top: 30px;
+        font-size: 18px;
     }
     .secureTxt {
         font-size: 24px;
         width: auto; //override
         margin-top: 42px;
+    }
+    .cbLabel {
+        font-size: 15px;
     }
 }
 
@@ -1061,10 +1151,16 @@ footer {
             line-height: 23px;
             font-size: 15px;
         }
+        
     }
     
     h3, a {
         color: #fff;
+    }
+    a {
+        &:hover {
+            color: @txtColor;
+        }
     }
     h3 {
         margin-bottom: 5px;

@@ -29,7 +29,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
   order by catorder";
 
        public const string GetProduct = @"SELECT Name,ExtraDetails,description, SalePrice - Coupon as price, 
-deliveryprice,catalognumber,numberofpayments,supplytime
+deliveryprice,catalognumber,numberofpayments,supplytime, [PictureUrl] as picture
   FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
 
        public const string SearchProduct = @"select [ProductId] as Id
@@ -41,5 +41,11 @@ deliveryprice,catalognumber,numberofpayments,supplytime
       ,[PictureUrl]
       ,[Url] from zbox.StoreProduct 
 where name like '%' + @term + '%' ";
+
+       public const string GetBanners = @"SELECT [Url]
+      ,[ImageUrl]
+      ,[Location]
+      ,[BannerOrder]
+  FROM [Zbox].[StoreBanner]";
    }
 }

@@ -13,6 +13,16 @@
     <property name="Order" not-null="true" column="CatOrder" />
   </class>
 
+  <class name="StoreBanner" >
+    <id name="Id">
+      <generator class="assigned"/>
+    </id>
+    <property name="Url" not-null="false" />
+    <property name="ImageUrl" not-null="true"  />
+    <property name="Location" not-null="true"/>
+    <property name="Order" not-null="false" column="BannerOrder" />
+  </class>
+
   <class name="StoreProduct" table="StoreProduct">
     <id name="Id" column="ProductId">
       <generator class="assigned"/>

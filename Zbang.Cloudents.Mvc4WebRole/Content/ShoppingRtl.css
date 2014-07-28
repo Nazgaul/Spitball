@@ -4,7 +4,7 @@
 /*#endregion */
 /*#region header */
 header h1 {
-  padding: 20px 225px 0 0;
+  padding: 5px 219px 0 0;
   /*rtl*/
 }
 .logo:before {
@@ -22,16 +22,22 @@ header h1 {
 }
 /*#endregion */
 /*#region widget */
-.widget button {
-  margin: -90px 0 0 30px;
-  /*rtl*/
+.widget {
+  /*button {
+        margin: -90px 0 0 30px; //rtl/
+    }
+    &.big {
+        h2 {
+            padding: 10px 35px 0 0; //rtl/
+        }
+        button {
+            margin: 10px 0 0 8px;  //rtl/ //override
+        }
+    }*/
 }
-.widget.big h2 {
-  padding: 10px 35px 0 0;
-  /*rtl*/
-}
-.widget.big button {
-  margin: 10px 0 0 8px;
+.widget .banner {
+  border: none;
+  border-left: 1px solid #39434a;
   /*rtl*/
 }
 /*#endregion */
@@ -42,7 +48,7 @@ header h1 {
   left: auto;
 }
 .categoryDD:before {
-  right: 260px;
+  right: 269px;
   /* diff rtl*/
   left: auto;
 }
@@ -61,7 +67,7 @@ header h1 {
   border-right: none;
 }
 .categoryList > li:nth-child(6n + 1) ul {
-  margin: 0 -20px 0 0;
+  margin: 0 -18px 0 0;
   /*rtl*/
 }
 .categoryList > li:nth-child(6n) {
@@ -69,7 +75,7 @@ header h1 {
   /*rtl*/
 }
 .categoryList > li:nth-child(6n) ul {
-  margin: 0 0 0 -20px;
+  margin: 0 0 0 -18px;
   /*rtl*/
 }
 /*#endregion */
@@ -104,6 +110,11 @@ header h1 {
 }
 .hover {
   right: 0;
+  /*rtl*/
+  left: auto;
+}
+.hover .moreDetailsWpr {
+  right: 15px;
   /*rtl*/
   left: auto;
 }
@@ -149,6 +160,10 @@ header h1 {
 }
 /*#endregion */
 /*#region Checkout */
+.userHelp {
+  margin: 2px 7px 0 0;
+  /*rtl*/
+}
 .orderTable tr:nth-of-type(5) .rFloat {
   padding: 0 0 0 35px;
   /*rtl*/
@@ -160,12 +175,20 @@ header h1 {
 }
 .orderTable td:first-child,
 .orderTable th:first-child {
-  padding: 15px 0 15px 25px;
+  padding: 15px 10px 15px 25px;
   /*rtl*/
 }
 .orderTable td:nth-child(2),
 .orderTable th:nth-child(2) {
   padding: 15px 0 15px 60px;
+  /*rtl*/
+}
+.invoice li span:nth-child(1) {
+  padding: 0 10px 0 0;
+  /*rtl*/
+}
+.invoice li span:nth-child(3) {
+  padding: 0 0 0 10px;
   /*rtl*/
 }
 .cardHover {

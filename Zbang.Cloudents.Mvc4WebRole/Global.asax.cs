@@ -138,9 +138,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                     if (key == CustomCacheKeys.Mobile)
                     {
-                        var x = DisplayModeProvider.Instance.GetAvailableDisplayModesForContext(
-                             new HttpContextWrapper(HttpContext.Current), null
-                             ).Select(mode => mode.DisplayModeId);
+                        //var x = DisplayModeProvider.Instance.GetAvailableDisplayModesForContext(
+                        //     new HttpContextWrapper(HttpContext.Current), null
+                        //     ).Select(mode => mode.DisplayModeId);
                         //if (string.IsNullOrEmpty(context.Request.UserAgent))
                         //{
                         //    continue;
@@ -149,7 +149,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //{
                         //    continue;
                         //}
-                        value += string.Join(",", x);//context.Request.Browser.IsMobileDevice ? "mobile" : string.Empty;
+                        var ipad = DisplayConfig.CheckIfIpadView(new HttpContextWrapper(HttpContext.Current)) ? "ipad": string.Empty;
+                        var mobile = DisplayConfig.CheckIfMobileView(new HttpContextWrapper(HttpContext.Current))
+                            ? "mobile"
+                            : string.Empty;
+
+
+                        value += ipad + mobile; //context.Request.Browser.IsMobileDevice ? "mobile" : string.Empty;
                     }
                 }
                 if (string.IsNullOrWhiteSpace(value))
