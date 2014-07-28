@@ -11,6 +11,8 @@ mBox.controller('SettingsCtrl',
          $scope.info = data.info;
          $scope.info.members = data.members;
          $scope.info.boxId = data.boxId;
+         //TODO: this is a temp solution
+         $scope.info.inviteUrl = '/invite/' + data.boxId + "/";
          $scope.info.user = UserDetails.getDetails();
 
          $scope.partials = {

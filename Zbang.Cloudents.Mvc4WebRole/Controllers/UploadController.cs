@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                     result.File.Uploader.Url,
                     result.File.ThumbnailUrl,
-                    string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0,
+                    string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), 0,
                     result.File.Url)
                 {
                     DownloadUrl = urlBuilder.BuildDownloadUrl(result.File.Box.Id, result.File.Id)
