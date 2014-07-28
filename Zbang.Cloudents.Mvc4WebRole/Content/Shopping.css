@@ -173,55 +173,59 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  /*.lFloat, h2 {
+        display: none;
+    }
+    &:before {
+        .pseudo;
+        width: 320px;
+        height: 100%;
+        background: url(http://lorempixel.com/320/118/food) no-repeat;
+    }
+    button {
+        padding: 14px;
+        border: 2px solid #8AC43E;
+        font-size: 20px;
+        color: #8AC43E;
+        margin: -90px 30px 0 0; //rtl
+    }*/
 }
-.widget .lFloat,
-.widget h2 {
-  display: none;
-}
-.widget:before {
-  content: '';
-  display: inline-block;
+.widget .banner {
   width: 320px;
-  height: 100%;
-  background: url(http://lorempixel.com/320/118/food) no-repeat;
-}
-.widget button {
-  padding: 14px;
-  border: 2px solid #8AC43E;
-  font-size: 20px;
-  color: #8AC43E;
-  margin: -90px 30px 0 0;
+  height: 390px;
+  border-right: 1px solid #39434a;
   /*rtl*/
+}
+.widget .carosel {
+  width: 617px;
+  height: 390px;
 }
 .widget.big {
   height: 390px;
-}
-.widget.big:before {
-  background: url(http://lorempixel.com/320/250/food) no-repeat;
-  height: 250px;
-}
-.widget.big .widgetWpr {
-  width: 320px;
-}
-.widget.big .lFloat,
-.widget.big h2 {
-  display: block;
-}
-.widget.big .lFloat {
-  text-align: center;
-  margin-top: 5px;
-  padding: 0 10px;
-}
-.widget.big h2 {
-  font-size: 18px;
-  padding: 10px 0 0 35px;
-  /*rtl*/
-  overflow: auto;
-}
-.widget.big button {
-  margin: 10px 8px 0 0;
-  /*rtl*/
-  font-size: 9px;
+  /*&:before {
+            background: url(http://lorempixel.com/320/250/food) no-repeat;
+            height: 250px;
+        }
+        .widgetWpr {
+            width: 320px;
+        }
+        .lFloat, h2 {
+            display: block;
+        }
+        .lFloat {
+            text-align: center;
+            margin-top: 5px;
+            padding: 0 10px;
+        }
+        h2 {
+            font-size: 18px;
+            padding: 10px 0 0 35px; //rtl/
+            overflow: auto;
+        }
+        button {
+            margin: 10px 8px 0 0;  //rtl/ //override
+            font-size: 9px;
+        }*/
 }
 /*#endregion */
 /*#region search form */
@@ -524,6 +528,7 @@ main {
   top: 0;
   line-height: 25px;
   height: 56px;
+  overflow: hidden;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -630,7 +635,7 @@ main {
   height: 115px;
   display: none;
   color: #fff;
-  font-size: 13px;
+  font-size: 15px;
   margin-top: 5px;
   line-height: 18px;
 }
@@ -643,8 +648,6 @@ main {
 /*#endregion */
 /*#region product popup */
 .productWpr {
-  display: table;
-  table-layout: fixed;
   margin-top: 55px;
   width: 940px;
   background: #fff;
@@ -832,7 +835,6 @@ ul:after {
 /*#endregion */
 /*#region Contact Us */
 .contact.contact {
-  font-size: 18px;
   overflow: hidden;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -840,14 +842,15 @@ ul:after {
   background: #fff;
   margin-top: 56px;
   padding: 0 80px 30px;
+  /*label {
+        font-size: 22px;
+    }*/
 }
 .contact.contact h2 {
   font-weight: normal;
-  background: #0f9d58;
   line-height: 30px;
-  padding: 20px 30px;
+  padding: 20px 80px;
   margin: 0 -80px;
-  text-align: center;
 }
 .contact.contact > .lFloat,
 .contact.contact > .rFloat {
@@ -864,6 +867,9 @@ ul:after {
   display: block;
   margin-top: 5px;
   width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .contact.contact textarea {
   min-height: 190px;
@@ -871,7 +877,6 @@ ul:after {
 .contact.contact .btn1 {
   font-size: 24px;
   padding: 0 56px;
-  height: 60px;
   width: auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -886,6 +891,7 @@ ul:after {
   border: 1px solid #39434a;
   border-radius: 5px;
   background: #fff;
+  font-size: 18px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -904,6 +910,21 @@ ul:after {
   position: relative;
   top: -1px;
 }
+.userOrder .inputText,
+.userDetails .inputText,
+.contact .inputText {
+  height: 32px;
+}
+.userOrder label,
+.userDetails label,
+.contact label {
+  font-size: 18px;
+}
+.userOrder .btn1,
+.userDetails .btn1,
+.contact .btn1 {
+  height: 45px;
+}
 .userOrder {
   width: 940px;
   border: 1px solid #39434a;
@@ -915,6 +936,22 @@ ul:after {
   background: #fff;
   padding: 0 20px;
   font-size: 18px;
+}
+.userHelp {
+  border: 1px solid #39434a;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  text-align: center;
+  font-size: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 5px;
+  margin: 2px 0 0 7px;
+  /*rtl*/
+  vertical-align: top;
 }
 .orderTable {
   width: 100%;
@@ -962,28 +999,6 @@ ul:after {
   padding-top: 26px;
   border-bottom: 1px solid silver;
 }
-.orderTable tr:nth-of-type(5) td {
-  padding-top: 0;
-  vertical-align: middle;
-}
-.orderTable tr:nth-of-type(5) td div {
-  border-bottom: 1px solid silver;
-  line-height: 45px;
-}
-.orderTable tr:nth-of-type(5) td div:first-child {
-  margin-top: -30px;
-}
-.orderTable tr:nth-of-type(5) td div:last-of-type {
-  border: none;
-  color: #0f9d58;
-}
-.orderTable tr:nth-of-type(5) .rFloat {
-  padding-right: 35px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 .orderTable th {
   color: #0f9d58;
   font-weight: bold;
@@ -1004,13 +1019,12 @@ ul:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-right: 25px;
+  padding-right: 15px 25px 15px 10px;
   /*rtl*/
-  text-align: center;
 }
 .orderTable td:nth-child(2),
 .orderTable th:nth-child(2) {
-  width: 350px;
+  width: 550px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1023,6 +1037,44 @@ ul:after {
 }
 .orderTable td {
   margin: 30px 0;
+}
+.invoice {
+  padding-top: 0;
+  vertical-align: middle;
+}
+.invoice li {
+  display: table;
+  width: 100%;
+  border-bottom: 1px solid silver;
+  line-height: 45px;
+}
+.invoice li:first-child {
+  margin-top: -30px;
+}
+.invoice li:last-of-type {
+  border: none;
+  color: #0f9d58;
+}
+.invoice li span {
+  display: table-cell;
+}
+.invoice li span:nth-child(1) {
+  width: 100%;
+  padding-left: 10px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.invoice li span:nth-child(2) {
+  min-width: 45px;
+}
+.invoice li span:nth-child(3) {
+  padding-right: 10px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .pName {
   font-size: 21px;
@@ -1058,7 +1110,6 @@ ul:after {
 .userDetails .btn1 {
   font-size: 24px;
   padding: 0 70px;
-  height: 60px;
   width: auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1066,11 +1117,15 @@ ul:after {
 }
 .userDetails .detailsTxt {
   margin-top: 30px;
+  font-size: 18px;
 }
 .userDetails .secureTxt {
   font-size: 24px;
   width: auto;
   margin-top: 42px;
+}
+.userDetails .cbLabel {
+  font-size: 15px;
 }
 .secureCode {
   position: relative;
@@ -1145,6 +1200,9 @@ footer > .wpr ul {
 footer h3,
 footer a {
   color: #fff;
+}
+footer a:hover {
+  color: #39434a;
 }
 footer h3 {
   margin-bottom: 5px;

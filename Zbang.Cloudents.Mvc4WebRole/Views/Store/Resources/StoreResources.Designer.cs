@@ -214,6 +214,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to קוד קופון.
+        /// </summary>
+        public static string CouponCode {
+            get {
+                return ResourceManager.GetString("CouponCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to מספר כרטיס אשראי.
         /// </summary>
         public static string CreditCardNo {
