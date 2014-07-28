@@ -160,6 +160,8 @@
 /// <reference path="underscore.js" />
 /// <reference path="../js/directives/scrolltotop.js" />
 /// <reference path="../js/directives/usertooltip.js" />
+/// <reference path="../js/filters/stringformat.js" />
+/// <reference path="../js/modules/displaytime.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

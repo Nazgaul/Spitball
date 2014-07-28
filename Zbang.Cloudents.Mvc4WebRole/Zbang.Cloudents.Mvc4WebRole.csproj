@@ -824,6 +824,7 @@
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\focusOn.js" />
+    <Content Include="Js\modules\displayTime.js" />
     <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
     <Content Include="Js\filters\highlight.js" />
@@ -902,6 +903,7 @@
     <Content Include="Js\shopping\controllers\searchCtrl.js" />
     <Content Include="Js\shopping\filters\percentage.js" />
     <Content Include="Js\shopping\directives\productsMenu.js" />
+    <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\shopping\services\store.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
