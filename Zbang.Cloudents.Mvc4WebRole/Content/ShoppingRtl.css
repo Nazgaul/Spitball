@@ -154,6 +154,10 @@ header h1 {
 }
 /*#endregion */
 /*#region Checkout */
+.userHelp {
+  margin: 2px 7px 0 0;
+  /*rtl*/
+}
 .orderTable tr:nth-of-type(5) .rFloat {
   padding: 0 0 0 35px;
   /*rtl*/
@@ -165,12 +169,20 @@ header h1 {
 }
 .orderTable td:first-child,
 .orderTable th:first-child {
-  padding: 15px 0 15px 25px;
+  padding: 15px 10px 15px 25px;
   /*rtl*/
 }
 .orderTable td:nth-child(2),
 .orderTable th:nth-child(2) {
   padding: 15px 0 15px 60px;
+  /*rtl*/
+}
+.invoice li span:nth-child(1) {
+  padding: 0 10px 0 0;
+  /*rtl*/
+}
+.invoice li span:nth-child(3) {
+  padding: 0 0 0 10px;
   /*rtl*/
 }
 .cardHover {

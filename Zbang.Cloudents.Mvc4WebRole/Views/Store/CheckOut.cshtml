@@ -28,11 +28,11 @@
             </td>
         </tr>
         <tr>
-            <td>@StoreResources.Coupon 40</td>
+            <td>@StoreResources.CouponCode</td>
             <td><input type="text" class="inputText" /></td>
             <td>
                 <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
-                <span class="userHelp"></span>
+                <span class="userHelp">?</span>
             </td>
         </tr>
         <tr>
@@ -57,13 +57,16 @@
         <tr>
             <td></td>
             <td></td>
-            <td>
-                <div>@StoreResources.ProductPrice:<span class="rFloat">00</span></div>
-                <div>@StoreResources.Coupon:<span class="rFloat">00</span></div>
-                <div>@StoreResources.Upgrades:<span class="rFloat">00</span></div>
-                <div>@StoreResources.Vat:<span class="rFloat">00</span></div>
-                <div>@StoreResources.ShippingCost:<span class="rFloat">00</span></div>
-                <div>@StoreResources.TotalPrice:<span class="rFloat">00</span></div>
+            <td class="invoice">
+                <ul>
+                    <li><span>@StoreResources.ProductPrice:</span><span>14</span><span>₪</span></li>
+                    <li><span>@StoreResources.Coupon:</span><span class="">2525</span><span>₪</span></li>
+                    <li><span>@StoreResources.Upgrades:</span><span class="">235</span><span>₪</span></li>
+                    <li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>
+                    <li><span>@StoreResources.ShippingCost:</span><span class="">2352</span><span>₪</span></li>
+                    <li><span>@StoreResources.TotalPrice:</span><span class="">4365</span><span>₪</span></li>
+                </ul>
+                
                 <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
             </td>
         </tr>

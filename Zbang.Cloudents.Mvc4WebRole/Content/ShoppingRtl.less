@@ -160,7 +160,9 @@ header {
 /*#endregion */
 
 /*#region Checkout */
-
+.userHelp {
+    margin: 2px 7px 0 0; /*rtl*/
+}
 .orderTable {
     tr {
         &:nth-of-type(5) {
@@ -172,10 +174,22 @@ header {
     td, th {
         text-align: right; /*rtl*/
         &:first-child {
-            padding: 15px 0 15px 25px; /*rtl*/
+            padding: 15px 10px 15px 25px; /*rtl*/
         }
         &:nth-child(2) {
             padding: 15px 0 15px 60px; /*rtl*/
+        }
+    }
+}
+.invoice {
+    li {
+        span {
+            &:nth-child(1) {
+                padding: 0 10px 0 0; /*rtl*/
+            }
+            &:nth-child(3) {
+                padding: 0 0 0 10px; /*rtl*/
+            }
         }
     }
 }
