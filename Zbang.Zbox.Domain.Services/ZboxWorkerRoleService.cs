@@ -126,6 +126,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public void AddBanners(AddBannersCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
 
     }
 }

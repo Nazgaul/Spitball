@@ -41,5 +41,11 @@ deliveryprice,catalognumber,numberofpayments,supplytime
       ,[PictureUrl]
       ,[Url] from zbox.StoreProduct 
 where name like '%' + @term + '%' ";
+
+       public const string GetBanners = @"SELECT [Url]
+      ,[ImageUrl]
+      ,[Location]
+      ,[BannerOrder]
+  FROM [Zbox].[StoreBanner]";
    }
 }

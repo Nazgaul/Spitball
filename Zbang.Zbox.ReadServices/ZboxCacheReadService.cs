@@ -310,5 +310,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.SearchProducts(query);
         }
+
+
+        public Task<IEnumerable<BannerDto>> GetBanners()
+        {
+            return m_ReadService.GetBanners();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+@model IEnumerable<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
 
 @*Add class big to show the bigger version of the widget*@
 <div class="widget">
@@ -49,7 +50,19 @@
             </a>
         </li>
     </ul>
-<div class="placeholder"></div>
-<div class="placeholder"></div>
-</div>
+    @foreach (var banner in Model.Where(w=>w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
+    {
+        <div class="placeholder">
+            @if (string.IsNullOrEmpty(banner.Url))
+            {
+                <img src="@banner.ImageUrl" alt="Banner" />
+            }
+            else
+            {
+                <a href="@banner.Url">
+                    <img src="@banner.ImageUrl" alt="Banner" />
+                </a>
+            }
+        </div>
+    }
 @*<ul class="productsList searchResultsList"></ul>*@

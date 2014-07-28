@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
@@ -35,7 +36,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 TraceLog.WriteInfo("Starting to bring data from Hatavot");
                 var categoriesDto = m_ReadService.GetCategories();
-               
+
 
                 var categories = new List<Category>();
                 var storeDto = new List<ProductDto>();
@@ -45,6 +46,10 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     var items = m_ReadService.ReadData(category.Id);
                     storeDto.AddRange(items);
                 }
+
+                var categoriesCommand = new AddCategoriesCommand(categories);
+                m_ZboxWriteService.AddCategories(categoriesCommand);
+
                 TraceLog.WriteInfo("build command and download images");
                 var products = new List<ProductStore>();
                 foreach (var item in storeDto)
@@ -52,7 +57,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                     try
                     {
-                        var bytes = DownloadImage(item.Image).Result;
+                        var bytes = DownloadImage("http://www.hatavot.co.il/uploadimages/250/" + item.Image).Result;
                         item.Image = m_BlobProvider.UploadFromLink(bytes, item.Image).Result;
                         products.Add(new ProductStore(
                             item.CatalogNumber,
@@ -77,10 +82,22 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         TraceLog.WriteError("On hatavot bring image", ex);
                     }
                 }
-                var categoriesCommand = new AddCategoriesCommand(categories);
-                m_ZboxWriteService.AddCategories(categoriesCommand);
+
                 var command = new AddProductsToStoreCommand(products);
                 m_ZboxWriteService.AddProducts(command);
+
+                TraceLog.WriteInfo("Bringing banners");
+                var banners = m_ReadService.GetBanners();
+
+                var bannerCommand = new AddBannersCommand(banners.Select(s =>
+                {
+                    var bytes = DownloadImage("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
+                    var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
+                    return new Banner(s.Id, s.Url, image, s.Order);
+                }));
+                m_ZboxWriteService.AddBanners(bannerCommand);
+
+
                 Thread.Sleep(TimeSpan.FromDays(1));
             }
         }
@@ -90,15 +107,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = false;
         }
 
-        private async Task<byte[]> DownloadImage(string imageName)
+        private async Task<byte[]> DownloadImage(string imageUrl)
         {
-            if (string.IsNullOrEmpty(imageName))
+            if (string.IsNullOrEmpty(imageUrl))
             {
                 throw new ArgumentNullException("imageName");
             }
             using (var httpClient = new HttpClient())
             {
-                return await httpClient.GetByteArrayAsync("http://www.hatavot.co.il/uploadimages/250/" + imageName);
+                return await httpClient.GetByteArrayAsync(imageUrl);
             }
         }
     }

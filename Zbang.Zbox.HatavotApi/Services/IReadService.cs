@@ -7,5 +7,7 @@ namespace Zbang.Zbox.Store.Services
     {
         IEnumerable<ProductDto> ReadData(int category);
         IEnumerable<CategoryDto> GetCategories();
+
+        IEnumerable<BannerDto> GetBanners();
     }
 }
