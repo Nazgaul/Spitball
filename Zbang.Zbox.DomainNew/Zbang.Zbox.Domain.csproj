@@ -85,6 +85,7 @@
     <Compile Include="Library.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="PrivacySettings.cs" />
+    <Compile Include="StoreBanner.cs" />
     <Compile Include="StoreProduct.cs" />
     <Compile Include="StoreCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

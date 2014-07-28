@@ -353,8 +353,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any,
-            VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        // TODO: we need to put output cache with boxid
+        //[OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any,
+        //    VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
 
         public ActionResult SettingsPartial()
         {

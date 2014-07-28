@@ -21,7 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //        c.GetOverriddenUserAgent().IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0)
             //});
 
-            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("mobile")
+            DisplayModeProvider.Instance.Modes.Insert(1, new DefaultDisplayMode("mobile")
             {
                 ContextCondition = (c => CheckIfMobileView(c))
             });
@@ -32,13 +32,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //});
 
             //Ipad should go to regular site
-            DisplayModeProvider.Instance.Modes.Insert(1, new DefaultDisplayMode(string.Empty)
+            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode(string.Empty)
             {
-                ContextCondition = (context =>
-                    context.GetOverriddenUserAgent() != null &&
-                    context.GetOverriddenUserAgent().IndexOf
-                    ("iPad", StringComparison.OrdinalIgnoreCase) >= 0)
-
+                ContextCondition = (context => CheckIfIpadView(context))
             });
 
             
@@ -48,6 +44,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    ContextCondition = (context => isAndroid(context))
             //});
         }
+
+        internal static bool CheckIfIpadView(HttpContextBase context)
+        {
+            var value =  context.GetOverriddenUserAgent() != null &&
+                   context.GetOverriddenUserAgent().IndexOf
+                       ("iPad", StringComparison.OrdinalIgnoreCase) >= 0;
+            return value;
+        }
+
         internal static bool CheckIfMobileView(HttpContextBase c)
         {
             return (c.GetOverriddenUserAgent() != null &&

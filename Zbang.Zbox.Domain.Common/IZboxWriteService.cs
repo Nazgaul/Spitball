@@ -110,6 +110,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void AddProducts(AddProductsToStoreCommand command);
         void AddCategories(AddCategoriesCommand command);
+        void AddBanners(AddBannersCommand command);
 
 
     }
