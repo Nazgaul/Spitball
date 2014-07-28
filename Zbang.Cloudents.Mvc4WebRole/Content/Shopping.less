@@ -170,7 +170,16 @@ main {
     height: 120px;
     border: 1px solid @shopping-black;
     .boxSizing;
-    .lFloat, h2 {
+    .banner {
+        width: 320px;
+        height: 390px;
+        border-right: 1px solid @txtColor; /*rtl*/
+    }
+    .carosel {
+        width: 617px;
+        height: 390px;
+    }
+    /*.lFloat, h2 {
         display: none;
     }
     &:before {
@@ -184,11 +193,11 @@ main {
         border: 2px solid #8AC43E;
         font-size: 20px;
         color: #8AC43E;
-        margin: -90px 30px 0 0; /*rtl*/
-    }
+        margin: -90px 30px 0 0; //rtl
+    }*/
     &.big {
         height: 390px;
-        &:before {
+        /*&:before {
             background: url(http://lorempixel.com/320/250/food) no-repeat;
             height: 250px;
         }
@@ -205,13 +214,13 @@ main {
         }
         h2 {
             font-size: 18px;
-            padding: 10px 0 0 35px; /*rtl*/
+            padding: 10px 0 0 35px; //rtl/
             overflow: auto;
         }
         button {
-            margin: 10px 8px 0 0;  /*rtl*/ //override
+            margin: 10px 8px 0 0;  //rtl/ //override
             font-size: 9px;
-        }
+        }*/
     }
 }
 /*#endregion */
