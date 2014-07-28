@@ -175,9 +175,9 @@ main {
     }
     &:before {
         .pseudo;
-        width: 400px;
+        width: 320px;
         height: 100%;
-        background: url(http://lorempixel.com/400/118/food) no-repeat;
+        background: url(http://lorempixel.com/320/118/food) no-repeat;
     }
     button {
         padding: 14px;
@@ -189,11 +189,11 @@ main {
     &.big {
         height: 390px;
         &:before {
-            background: url(http://lorempixel.com/400/250/food) no-repeat;
+            background: url(http://lorempixel.com/320/250/food) no-repeat;
             height: 250px;
         }
         .widgetWpr {
-            width: 400px;
+            width: 320px;
         }
         .lFloat, h2 {
             display: block;
@@ -210,6 +210,7 @@ main {
         }
         button {
             margin: 10px 8px 0 0;  /*rtl*/ //override
+            font-size: 9px;
         }
     }
 }
@@ -257,7 +258,7 @@ main {
     width: 940px;
     height: 390px;
     position: absolute;
-    top: 80px;
+    top: 79px;
     left: -50px; /*rtl*/
     background: @shopping-black;
     padding: 20px;
@@ -308,6 +309,7 @@ main {
         li {
             &:hover {
                 color: @color;
+                font-weight: bold;
             }
         }
     }
@@ -323,6 +325,7 @@ main {
         color: silver;
         position: relative;
         vertical-align: top;
+        line-height: 13px;
         &:hover {
             ul {
                 visibility: visible;
@@ -358,7 +361,7 @@ main {
             ul {
                 top: auto;
                 bottom: 100%;
-                height: 193px;
+                //height: 193px;
                 &:after {
                     border-width: 0 15px 13px 15px;
                     border-color: transparent transparent @shopping-black transparent;
@@ -433,33 +436,42 @@ main {
         height: 348px;
         display: inline-block;
         background: #fff;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         border: 1px solid @color;
         .boxSizing;
         text-align: center;
         vertical-align:top;
         overflow: hidden;
+        &:before {
+            .pseudo;
+            position: absolute;
+            height: 1px;
+            background: aqua;
+            width: 300px;
+            top: 198px;
+            left:0;
+        }
         &:nth-child(3) {
             margin-bottom: 170px;
         }
         &:nth-child(3n + 2) {
-            margin: 0 20px 25px 20px;
+            margin: 0 20px 20px 20px;
         }
         &:hover {
             .desc {
                 z-index: 1;
                 position: relative;
                 color: orange;
-                top: -167px;
+                top: -188px;
                 left: 0; /*rtl*/
+                height: auto;
             }
             .hover {
-                //display: inline-block;
-                //.animation(fadein);
-
-                //display: table;
                 top:0;
                 opacity: 1;
+            }
+            .hoverDesc {
+                display: block;
             }
         }
     }
@@ -482,16 +494,18 @@ main {
     img {
         max-width: 100%;
         //max-height: 100%;
-        max-height: 185px;
+        max-height: 198px;
         display: inline-block;
         vertical-align: middle;
     }
     .desc {
         .transition(all 0.01s .3s ease-out);
        font-size: 22px;
-       padding: 0 18px;
+       padding: 6px 18px 0;
        text-align: left; /*rtl*/
        top:0;
+       line-height: 25px;
+       height: 56px;
        .boxSizing;
         + .lFloat {
             color: @color;
@@ -501,8 +515,8 @@ main {
     table {
         width: 100%;
         font-size: 18px;
-        table-layout: fixed;
-        padding: 15px 18px 0 18px;
+        //table-layout: fixed;
+        padding: 13px 18px 0 18px;
         .boxSizing;
         position: relative;
         text-align: left; /*rtl*/
@@ -511,7 +525,7 @@ main {
             width: 265px;
             height: 1px;
             position: absolute;
-            top:8px;
+            top:7px;
             left: 16px; /*rtl*/
             background: #999;
         }
@@ -523,9 +537,17 @@ main {
     tr:nth-child(3) td {
         color: @color;
     }
+    td {
+        line-height: 20px;
+        &:nth-child(1) {
+            width: 85px;
+        }
+        &:nth-child(2) {
+            width: 1px;
+        }
+    }     
 }
 .hover {
-    //display: none;
     display: table;
     opacity: .5;
     position: absolute;
@@ -545,24 +567,27 @@ main {
         margin-bottom: 15px;        
     }
     .moreDetailsWpr {
-        width: 100%;
+        width: 90%;
         height: 50px;
         display: inline-block;
-        line-height:50px;
+        line-height:48px;
         background: #fff;
         font-size: 35px;
         color: @shopping-black;
         border: none;
         border-radius: 5px;
+        position: absolute;
+        left: 15px; /*rtl*/
+        bottom: 14px;
     }
     .lFloat {
         display: block;
         text-align: center;
-        padding: 12px 0;
+        padding: 2px 0;
         width: 50%;
         .boxSizing;
         font-size: 22px;
-        margin: -5px 0 15px;
+        margin: 154px 0 15px;
     }
     .numSold {
 
@@ -571,10 +596,16 @@ main {
         color: @color;
         border-left: 1px solid @color; /*rtl*/
     }
-    .hoverDesc {
-        text-align: right;
-        height: 115px;
-    }
+    
+}
+.hoverDesc {
+    text-align: right;
+    height: 115px;
+    display: none;
+    color: #fff;
+    font-size: 13px;
+    margin-top: 5px;
+    line-height: 18px;
 }
 .moreDetailsWpr {
     display: table-footer-group;

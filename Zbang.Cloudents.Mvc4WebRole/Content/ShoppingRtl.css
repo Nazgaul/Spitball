@@ -107,6 +107,11 @@ header h1 {
   /*rtl*/
   left: auto;
 }
+.hover .moreDetailsWpr {
+  right: 15px;
+  /*rtl*/
+  left: auto;
+}
 .hover .sale {
   border-right: 1px solid #0f9d58;
   /*rtl*/
