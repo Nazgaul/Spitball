@@ -333,10 +333,8 @@ mBox.controller('BoxCtrl',
                             if (qna) {
                                 fileList.push(responseItem);
                                 if (data.type === 'link') {
-                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
-                                    return;
-                                }
-                                if (uploaded === data.length) {
+                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });                                    
+                                } else if (uploaded === data.length) {
                                     cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
                                 }
                                 defer.resolve(fileList);
