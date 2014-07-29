@@ -161,8 +161,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var answers = m_ZboxReadService.GetAnswersLastUpdates(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var answersUpdate = answers.Select(s => new UpdateMailParams.AnswerUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
-            var disucssion = m_ZboxReadService.GetQuizDiscussion(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var discussionUpdate = disucssion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture,
+            var discussion = m_ZboxReadService.GetQuizDiscussion(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+            var discussionUpdate = discussion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture,
                  UrlConsts.BuildQuizUrl(box.BoxId, box.BoxName, s.QuizId, s.QuizName, box.UniversityName ?? "my", true),
                 s.UserId));
 
