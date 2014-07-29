@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Zbox.Domain
@@ -11,9 +12,9 @@ namespace Zbang.Zbox.Domain
         protected StoreProduct() { }
 
         public StoreProduct(long id, string name, string extraDetails, int numberOfSales, float coupon,
-            float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage, 
+            float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage,
             string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName,
-            IList<StoreProductFeatures> features)
+            IEnumerable<KeyValuePair<string, string>> features)
         {
             NumberOfSales = numberOfSales;
             UpdateProduct(id, name, extraDetails, coupon, salePrice, pictureUrl, categories, description, homePage,
@@ -21,22 +22,30 @@ namespace Zbang.Zbox.Domain
                 features);
         }
 
-        public void UpdateProduct(long id, string name, string extraDetails,  float coupon, 
+        public void UpdateProduct(long id, string name, string extraDetails, float coupon,
             float salePrice, string pictureUrl, IList<StoreCategory> categories, string description,
             bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName,
-            IList<StoreProductFeatures> features)
+            IEnumerable<KeyValuePair<string, string>> features)
         {
             if (name == null) throw new ArgumentNullException("name");
             Id = id;
             Name = name.Trim();
             ExtraDetails = string.IsNullOrEmpty(extraDetails) ? null : extraDetails.Trim();
-            
+
             Coupon = coupon;
             SalePrice = salePrice;
             PictureUrl = pictureUrl;
             Url = UrlConsts.BuildStoreProductUrl(Id, Name);
             Categories = categories;
-            Features = features;
+
+            foreach (var feature in features)
+            {
+                var x = new Regex("(\\*)+([^.*?$]+)+(\\*)");
+                var sPrice = x.Match(feature.Value);
+                var price = float.Parse(sPrice.Value);
+
+                Features.Add(new StoreProductFeatures(feature.Key, feature.Value.Replace("*" + sPrice + "*", string.Empty), price, this));
+            }
 
             Description = description;
             HomePage = homePage;
