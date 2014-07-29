@@ -38,14 +38,14 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildStoreProductUrl(Id, Name);
             Categories = categories;
 
-            foreach (var feature in features)
-            {
-                var x = new Regex("(\\*)+([^.*?$]+)+(\\*)");
-                var sPrice = x.Match(feature.Value);
-                var price = float.Parse(sPrice.Value);
+            //foreach (var feature in features)
+            //{
+            //    var x = new Regex("(\\*)+([^.*?$]+)+(\\*)");
+            //    var sPrice = x.Match(feature.Value);
+            //    var price = float.Parse(sPrice.Value);
 
-                Features.Add(new StoreProductFeatures(feature.Key, feature.Value.Replace("*" + sPrice + "*", string.Empty), price, this));
-            }
+            //    Features.Add(new StoreProductFeatures(feature.Key, feature.Value.Replace("*" + sPrice + "*", string.Empty), price, this));
+            //}
 
             Description = description;
             HomePage = homePage;

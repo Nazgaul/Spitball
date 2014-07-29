@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                             item.DeliveryPrice,
                             item.Description,
                             item.ExtraDetails,
-                            item.Featured.ToUpper() == "ON",
+                            item.Featured == "ON",
                             item.Id,
                             item.Name,
                             RandomProvider.GetThreadRandom().Next(15, 50),

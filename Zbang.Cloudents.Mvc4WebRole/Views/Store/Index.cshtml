@@ -3,14 +3,6 @@
 
 @*Add class big to show the bigger version of the widget*@
 <div class="widget big">
-    @*<div class="widgetWpr">
-            <div class="lFloat">
-                <img alt="university name" src="http://lorempixel.com/98/96/food" />
-                <h3>University name here</h3>
-            </div>
-            <h2>Exclusive benefits to our students</h2>
-            <button type="button" class="rFloat">Get coupon code</button>
-        </div>*@
     <div class="lFloat banner">
         @{
             var topRightBanner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopRight);

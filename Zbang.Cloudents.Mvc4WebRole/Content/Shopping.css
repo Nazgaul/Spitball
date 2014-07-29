@@ -451,16 +451,15 @@ main {
   text-align: center;
   vertical-align: top;
   overflow: hidden;
-}
-.productsList li:before {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  height: 1px;
-  background: aqua;
-  width: 300px;
-  top: 198px;
-  left: 0;
+  /*&:before {
+            .pseudo;
+            position: absolute;
+            height: 1px;
+            background: aqua;
+            width: 300px;
+            top: 198px;
+            left:0;
+        }*/
 }
 .productsList li:nth-child(3) {
   margin-bottom: 170px;

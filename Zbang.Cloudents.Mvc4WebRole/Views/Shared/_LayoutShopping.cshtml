@@ -29,32 +29,7 @@
     @Html.CssCulture("lang")
 </head>
 <body ng-controller="MainCtrl">
-    @*<header role="banner">
-        <div class="rFloat">
-            <button type="button" class="login">@StoreResources.Login</button> /
-            <button type="button" class="signup">@StoreResources.Signup</button>
-
-            <div dropdown class="language">
-                <button type="button" class="currentLang" dropdown-toggle>{{info.currentLanguageDisplay}}</button>
-                <ul class="langMenu dropdown-menu" role="menu">
-                    <li class="menuItem">
-                        <button type="button" title="English (US)" ng-if="'en-US' !== info.currentLanguage" ng-click="setLanguage('en-US')">English‎</button>
-                    </li>
-                    <li class="menuItem">
-                        <button type="button" title="Russian site" ng-if="'ru-RU' !== info.currentLanguage" ng-click="setLanguage('ru-RU')">Pусский</button>
-                    </li>
-                    <li class="menuItem">
-                        <button type="button" title="Hebrew site" ng-if="'he-IL' !== info.currentLanguage" ng-click="setLanguage('he-IL')">עברית</button>
-                    </li>
-                    <li class="menuItem">
-                        <button type="button" title="Arabic site" ng-if="'ar-AE' !== info.currentLanguage" ng-click="setLanguage('ar-AE')">العربية</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <h1 class="logo">@StoreResources.Description</h1>
-    </header>*@
-    <header class="siteHeader">
+    <header class="siteHeader" role="banner">
         <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
            href="@Url.Action("Index", "Dashboard")"></a>
         <div class="headerRightWpr rFloat">
