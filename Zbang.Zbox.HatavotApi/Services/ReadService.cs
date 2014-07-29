@@ -30,18 +30,18 @@ namespace Zbang.Zbox.Store.Services
       --,[SalesProdOrder] -- sales page product order 
       --,[ProdOrder] -- Category Page  product order
       ,(select producerName from tblproducers s where s.producerid = p.[ProducerId]) as producerName -- Producer ID 
-      --,[p1] -- Upgrades
-      --,[v1]-- Upgrades
-      --,[p2]-- Upgrades
-      --,[v2]-- Upgrades
-      --,[p3]-- Upgrades
-      --,[v3]-- Upgrades
-      --,[p4]-- Upgrades
-      --,[v4]-- Upgrades
-      --,[p5]-- Upgrades
-      --,[v5]-- Upgrades
-      --,[p6]-- Upgrades
-      --,[v6]-- Upgrades
+      ,[p1] as upgrade1  -- Upgrades
+      ,[v1] as upgradeValue1 -- Upgrades
+      ,[p2] as upgrade2 -- Upgrades
+      ,[v2] as upgradeValue2-- Upgrades
+      ,[p3] as upgrade3 -- Upgrades
+      ,[v3] as upgradeValue3-- Upgrades
+      ,[p4] as upgrade4 -- Upgrades
+      ,[v4] as upgradeValue4-- Upgrades
+      ,[p5] as upgrade5 -- Upgrades
+      ,[v5] as upgradeValue5-- Upgrades
+      ,[p6] as upgrade6 -- Upgrades
+      ,[v6] as upgradeValue6-- Upgrades
       ,[DeliveryPrice] -- Delivery charge 
       ,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 

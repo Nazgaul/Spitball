@@ -59,6 +59,19 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     {
                         var bytes = DownloadImage("http://www.hatavot.co.il/uploadimages/250/" + item.Image).Result;
                         item.Image = m_BlobProvider.UploadFromLink(bytes, item.Image).Result;
+
+                        var upgrades = new List<KeyValuePair<string, string>>
+                        {
+                            new KeyValuePair<string, string>(item.Upgrade1, item.UpgradeValue1),
+                            new KeyValuePair<string, string>(item.Upgrade2, item.UpgradeValue2),
+                            new KeyValuePair<string, string>(item.Upgrade3, item.UpgradeValue3),
+                            new KeyValuePair<string, string>(item.Upgrade4, item.UpgradeValue4),
+                            new KeyValuePair<string, string>(item.Upgrade5, item.UpgradeValue5),
+                            new KeyValuePair<string, string>(item.Upgrade6, item.UpgradeValue6)
+                        };
+                        
+                           
+
                         products.Add(new ProductStore(
                             item.CatalogNumber,
                             item.CategoryCode,
@@ -66,7 +79,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                             item.DeliveryPrice,
                             item.Description,
                             item.ExtraDetails,
-                            item.Featured == "ON",
+                            item.Featured.ToUpper() == "ON",
                             item.Id,
                             item.Name,
                             RandomProvider.GetThreadRandom().Next(15, 50),
@@ -74,8 +87,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                              item.ProductPayment,
                              item.Saleprice,
                              item.SupplyTime,
-                             item.ProducerName
-                            ));
+                             item.ProducerName,
+                             upgrades
+                             ));
                     }
                     catch (Exception ex)
                     {

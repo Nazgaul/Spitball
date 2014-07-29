@@ -185,9 +185,9 @@
         <a bo-href="box.url" class="searchItem">
             <img class="lFloat imgBorder" width="40" height="50" bo-src="box.image" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" bo-html="box.name | highlight:formData.query:false"></div>
-                <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-html="box.proffessor | highlight:formData.query:false"></span>
-                <span class="searchDetail" bo-html="box.courseCode | highlight:formData.query:false"></span>
+                <div class="searchTitle semiFont elps" bo-html="box.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
+                <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-html="box.proffessor | highlight:formData.query:false" dir="{{params.textDirection}}"></span>
+                <span class="searchDetail" bo-html="box.courseCode | highlight:formData.query:false" dir="{{params.textDirection}}"></span>
             </div>
         </a>
     </script>
@@ -196,7 +196,7 @@
             <div class="otherUni semiFont" ng-if="item.universityName" bo-text="item.universityName"></div>
             <img class="lFloat imgBorder" width="40" height="50" bo-src="item.image" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" bo-html="item.name | highlight:formData.query:false"></div>
+                <div class="searchTitle semiFont elps" bo-html="item.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
                 <div class="boxLoc searchDetail" data-search-in="@SharedResources.In" bo-text="item.boxname"></div>
             </div>  
         </a>
@@ -204,7 +204,7 @@
     <script type="text/ng-template" id="personHeaderSearch">
         <a bo-href="person.url" class="searchItem">
             <img class="lFloat imgBorder userImg" bo-src="person.image" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps" bo-html="person.name | highlight:formData.query:false"></div>
+            <div class="searchTitle semiFont elps" bo-html="person.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
         </a>
     </script>
   

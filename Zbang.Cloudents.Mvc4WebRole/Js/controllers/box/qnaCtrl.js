@@ -181,6 +181,7 @@ mBox.controller('QnACtrl',
                 }
 
                 $scope.info.questions.unshift(new Question(obj));
+                $scope.$broadcast('update-scroll');
                 $scope.qFormData = {};
 
                 if ($scope.info.state === states.empty) {

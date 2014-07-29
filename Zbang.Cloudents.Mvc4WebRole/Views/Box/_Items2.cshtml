@@ -40,7 +40,7 @@
             ng-class="{quizItem : item.type === 'Quiz' , draft : item.type === 'Quiz' && !item.publish }"
             ng-include="getView(item)" ui-draggable="{{item.type !== 'Quiz'}}" drag="item" drag-channel="boxItem"
             popover-template="{{item.type === 'Quiz' ? 'boxQuizTooltip' : 'boxItemTooltip'}}" popover-append-to-body="true"
-            popover-trigger="{{item.type === 'Quiz' && !item.publish ? 'none' : 'mouseenter'}}" popover-placement="top">
+            popover-trigger="{{item.type === 'Quiz' && !item.publish ? 'none' : 'mouseenter'}}" popover-placement="right">
         </li>
     </ol> @*add drag option*@
 </div>

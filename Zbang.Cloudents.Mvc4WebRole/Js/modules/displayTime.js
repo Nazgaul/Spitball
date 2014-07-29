@@ -1,4 +1,4 @@
-﻿angular.module('DisplayTime', []).
+﻿angular.module('displayTime', []).
     factory('displayTimeService', ['$timeout', '$rootScope',
         function ($timeout, $rootScope) {
             $timeout(function () {

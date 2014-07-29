@@ -7,7 +7,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Store
         public string ExtraDetails { get; set; }
         //public string Description { get; set; }
         //public float Price { get; set; }
-        //public float DeliveryPrice { get; set; }
+        public float DeliveryPrice { get; set; }
         //public string CatalogNumber { get; set; }
         //public int NumberofPayments { get; set; }
         //public string SupplyTime { get; set; }
