@@ -32,6 +32,14 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 deliveryprice,catalognumber,numberofpayments,supplytime, [PictureUrl] as picture
   FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
 
+       public const string GetProductCheckOut = @"SELECT 
+Name,
+ExtraDetails,
+SalePrice,
+Coupon,
+[PictureUrl] as picture
+  FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
+
        public const string SearchProduct = @"select [ProductId] as Id
       ,[Name]
       ,[ExtraDetails]

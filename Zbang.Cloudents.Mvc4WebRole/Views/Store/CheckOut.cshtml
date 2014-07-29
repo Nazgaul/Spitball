@@ -1,6 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
+@model Zbang.Zbox.ViewModel.Dto.Store.ProductCheckOutDto
+
 @{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/_LayoutShopping.cshtml";
@@ -18,13 +20,13 @@
             </tr>
         </thead>
         <tr>
-            <td><img src="http://lorempixel.com/98/96/food" alt="" height="48" /></td>
+            <td><img src="@Model.Picture" alt="" height="48" width="48" /></td>
             <td>
-                <div class="pType">Product Type</div>
-                <div class="pName">Product name and short description</div>
+                <div class="pType">@Model.Name</div>
+                <div class="pName">@Model.ExtraDetails</div>
             </td>
             <td>
-                1540
+                @Model.SalePrice
             </td>
         </tr>
         <tr>
@@ -59,10 +61,10 @@
             <td></td>
             <td class="invoice">
                 <ul>
-                    <li><span>@StoreResources.ProductPrice:</span><span>14</span><span>₪</span></li>
-                    <li><span>@StoreResources.Coupon:</span><span class="">2525</span><span>₪</span></li>
+                    <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
+                    <li><span>@StoreResources.Coupon:</span><span class="">- @Model.Coupon</span><span>₪</span></li>
                     <li><span>@StoreResources.Upgrades:</span><span class="">235</span><span>₪</span></li>
-                    <li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>
+                    @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
                     <li><span>@StoreResources.ShippingCost:</span><span class="">2352</span><span>₪</span></li>
                     <li><span>@StoreResources.TotalPrice:</span><span class="">4365</span><span>₪</span></li>
                 </ul>
