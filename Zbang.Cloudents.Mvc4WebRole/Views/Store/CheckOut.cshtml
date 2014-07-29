@@ -47,22 +47,35 @@
                 <button type="button" class="btn3">@StoreResources.AddToPurchase</button>
             </td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+
+        @*Ram: You can add More rows here:*@
+
+        @*<tr>
+            <td>@StoreResources.Upgrades</td>
+            <td>
+                <select>
+                    <option selected>None</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn3">@StoreResources.AddToPurchase</button>
+            </td>
+        </tr>*@
+
         <tr>
             <td></td>
             <td></td>
             <td class="invoice">
                 <ul>
                     <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
-                    <li><span>@StoreResources.Coupon:</span><span class="">- @Model.Coupon</span><span>₪</span></li>
-                    <li><span>@StoreResources.Upgrades:</span><span class="">235</span><span>₪</span></li>
+                    <li><span>@StoreResources.Coupon:</span><span class="minus">@Model.Coupon</span><span>₪</span></li>
+                    <li><span>@StoreResources.Upgrades:</span><span>235</span><span>₪</span></li>
                     @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
-                    <li><span>@StoreResources.ShippingCost:</span><span class="">@Model.DeliveryPrice</span><span>₪</span></li>
-                    <li><span>@StoreResources.TotalPrice:</span><span class="">4365</span><span>₪</span></li>
+                    <li><span>@StoreResources.ShippingCost:</span><span>@Model.DeliveryPrice</span><span>₪</span></li>
+                    <li><span>@StoreResources.TotalPrice:</span><span>4365</span><span>₪</span></li>
                 </ul>
                 
                 <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
