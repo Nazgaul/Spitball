@@ -9,12 +9,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
     {
         private readonly IRepository<StoreProduct> m_ProductRepository;
         private readonly IRepository<StoreCategory> m_CategoryRepository;
+        private readonly IRepository<StoreProductFeatures> m_FeaturesRepository;
 
         public AddProductsToStoreCommandHandler(IRepository<StoreProduct> productRepository,
-            IRepository<StoreCategory> categoryRepository)
+            IRepository<StoreCategory> categoryRepository,
+            IRepository<StoreProductFeatures> featuresRepository)
         {
             m_ProductRepository = productRepository;
             m_CategoryRepository = categoryRepository;
+            m_FeaturesRepository = featuresRepository;
         }
 
         public void Handle(AddProductsToStoreCommand message)
@@ -42,7 +45,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.ProductPayment,
                         productStore.CatalogNumber,
                         productStore.DeliveryPrice, 
-                        productStore.ProducerName);
+                        productStore.ProducerName,
+                        null);
 
                 }
                 else
@@ -60,10 +64,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.ProductPayment,
                         productStore.CatalogNumber,
                         productStore.DeliveryPrice, 
-                        productStore.ProducerName);
+                        productStore.ProducerName,
+                        null);
                 }
                 m_ProductRepository.Save(product);
             }
+        }
+
+        private IList<StoreProductFeatures> GetFeatures(IList<KeyValuePair<string, string>> features)
+        {
+            return null;
         }
 
         private IList<StoreCategory> GetProductCategory(string categoryString)

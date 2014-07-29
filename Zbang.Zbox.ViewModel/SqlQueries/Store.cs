@@ -37,7 +37,8 @@ Name,
 ExtraDetails,
 SalePrice,
 Coupon,
-[PictureUrl] as picture
+[PictureUrl] as picture,
+s.DeliveryPrice
   FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
 
        public const string SearchProduct = @"select [ProductId] as Id

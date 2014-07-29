@@ -22,5 +22,24 @@
         public float DeliveryPrice { get; set; }
 
         public string ProducerName { get; set; }
+
+        public string Upgrade1 { get; set; }
+
+        public string UpgradeValue1 { get; set; }
+        public string Upgrade2 { get; set; }
+        public string UpgradeValue2 { get; set; }
+
+        public string Upgrade3 { get; set; }
+        public string UpgradeValue3 { get; set; }
+
+        public string Upgrade4 { get; set; }
+        public string UpgradeValue4 { get; set; }
+
+        public string Upgrade5 { get; set; }
+        public string UpgradeValue5 { get; set; }
+
+        public string Upgrade6 { get; set; }
+        public string UpgradeValue6 { get; set; }
+
     }
 }
