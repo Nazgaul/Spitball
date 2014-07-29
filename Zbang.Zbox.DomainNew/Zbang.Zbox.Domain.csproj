@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="SolvedQuestion.cs" />
     <Compile Include="SolvedQuiz.cs" />
+    <Compile Include="StoreProductFeatures.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="University.cs" />
     <Compile Include="Updates.cs" />

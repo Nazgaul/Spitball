@@ -47,5 +47,19 @@
       <key column="ProductId"/>
       <many-to-many column="CatId" class="StoreCategory"/>
     </set>
+    <set name="Features"  cascade="all-delete-orphan" inverse="true">
+      <key column="Product"/>
+      <one-to-many class="StoreProductFeatures"/>
+    </set>
+  </class>
+
+  <class name="StoreProductFeatures" >
+    <id name="Id">
+      <generator class="native"/>
+    </id>
+    <property name="Category" not-null="true" />
+    <property name="Description" not-null="true"  />
+    <property name="Price" not-null="true"/>
+    <many-to-one class="StoreProduct" name="Product" not-null="true" foreign-key="StoreProductFeaturesProduct" />
   </class>
 </hibernate-mapping>
