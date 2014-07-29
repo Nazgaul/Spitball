@@ -23,12 +23,12 @@
             function setScroll() {
                 calcHeight();
               
-                $elem.mCustomScrollbar({ setHeight: height, theme: "dark", advanded: { updateOnContentResize: false } });
+                $elem.mCustomScrollbar({ setHeight: height, theme: "dark", /*advanded: { updateOnContentResize: false }*/ });
                 
             }
 
             function calcHeight() {
-                top = $attr.top ? parseInt($attr.top) : cd.getElementPosition($elem[0]).top;
+                top = $attr.top ? parseInt($attr.top) : $elem[0].getBoundingClientRect().top;
                 bottom = $attr.bottom ? parseInt($attr.bottom) : 0;
                 height = $win.height() - (top + bottom);
             }
