@@ -219,13 +219,6 @@ function Box(data) {
             self.loaded(false);
             var $libraryList = $('#libraryList'), initData = $libraryList.data('data');
             var $libraryContentWrpr = $('#libraryContent .contentWpr');
-            if (initData) {
-                processData(initData);
-                $libraryList.data('data', null).removeAttr('data-data');
-                self.loaded(true);
-                return;
-            }
-
 
             var loader = cd.renderLoading($libraryContentWrpr);
 
@@ -366,7 +359,7 @@ function Box(data) {
             }
 
             dataContext.removeBox2({
-                data: { boxUid: box.uid }
+                data: { id: box.id }
             });
             if (isDelete) {
                 self.elements.remove(box);
@@ -506,8 +499,10 @@ function Box(data) {
         });
         cd.analytics.setLibrary($('.unionName').text());
 
-
+        
     }
+
+    
 
 })(cd, cd.data, ko, JsResources, cd.analytics || {});
 

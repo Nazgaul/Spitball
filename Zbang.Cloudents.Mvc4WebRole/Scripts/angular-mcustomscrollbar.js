@@ -7,7 +7,7 @@
         link: function ($scope, $elem, $attr) {
             var $win = $(window), height, top, bottom;
 
-            setScroll();
+            $timeout(setScroll, 100);
 
             $scope.$on('update-scroll', updateScroll);
 
@@ -23,7 +23,7 @@
             function setScroll() {
                 calcHeight();
               
-                $elem.mCustomScrollbar({ setHeight: height, theme: "dark" });                
+                $elem.mCustomScrollbar({ setHeight: height, theme: "dark", advanded: { updateOnContentResize: false } });
                 
             }
 
@@ -33,6 +33,9 @@
                 height = $win.height() - (top + bottom);
             }
 
+            $scope.$on('$destroy', function () {
+                $elem.mCustomScrollbar('destroy');
+            });
             $scope.$on('$routeChangeStart', function () {
                 $elem.mCustomScrollbar('destroy');
             });
