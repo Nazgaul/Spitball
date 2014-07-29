@@ -7,7 +7,7 @@
         link: function ($scope, $elem, $attr) {
             var $win = $(window), height, top, bottom;
 
-            $timeout(setScroll, 100);
+            setScroll();
 
             $scope.$on('update-scroll', updateScroll);
 
