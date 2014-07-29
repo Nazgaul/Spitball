@@ -652,10 +652,13 @@ main {
   width: 940px;
   background: #fff;
   border-radius: 8px;
-  padding: 16px;
+  padding: 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.productWpr h1 {
+  margin: 10px 0 20px;
 }
 .productWpr .left,
 .productWpr .right {
@@ -665,7 +668,7 @@ main {
   padding-bottom: 30px;
 }
 .right {
-  padding-left: 15px;
+  padding-left: 10px;
   /*rtl*/
 }
 .right h3 {
@@ -674,7 +677,8 @@ main {
   margin: 8px 0 20px;
 }
 .right img {
-  height: auto !important;
+  max-width: 425px;
+  max-height: 281px;
   border: 1px solid #0f9d58;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -690,7 +694,7 @@ main {
 .left {
   text-align: center;
   position: relative;
-  padding-right: 15px;
+  padding-right: 10px;
   /*rtl*/
 }
 .productInfoWpr {
@@ -704,8 +708,8 @@ main {
 }
 .productInfoWpr .btn3 {
   font-size: 32px;
-  padding: 6px 0;
-  margin: 30px 0;
+  padding: 4px 0;
+  margin: 20px 0 25px;
   display: block;
 }
 .productPrice {
