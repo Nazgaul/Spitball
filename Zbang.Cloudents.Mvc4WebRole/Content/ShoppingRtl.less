@@ -133,17 +133,14 @@ header {
         right: 16px; /*rtl*/
         left: auto;
     }
-    td:nth-child(2) {
-        text-align: left; /*rtl*/
+    td {
+        &:nth-child(3) {
+            padding: 0 4px 0 0; /*rtl*/
+        }
     }
 }
 .productDetails {
     text-align: right; /*rtl*/
-    td {
-        &:first-child {
-            padding: 0 0 8px 30px; /*rtl*/
-        }
-    }
 }
 .moreProductsList {
     li {
