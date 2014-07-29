@@ -22,20 +22,7 @@ header h1 {
 }
 /*#endregion */
 /*#region widget */
-.widget {
-  /*button {
-        margin: -90px 0 0 30px; //rtl/
-    }
-    &.big {
-        h2 {
-            padding: 10px 35px 0 0; //rtl/
-        }
-        button {
-            margin: 10px 0 0 8px;  //rtl/ //override
-        }
-    }*/
-}
-.widget .banner {
+.widget.big .banner {
   border: none;
   border-left: 1px solid #39434a;
   /*rtl*/

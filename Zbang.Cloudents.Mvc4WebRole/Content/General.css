@@ -2183,6 +2183,19 @@ select.inputText {
 .splitHRText:after {
   left: 100%;
 }
+.ghost {
+  text-align: center;
+}
+.ghost:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.ghost .vCentered {
+  display: inline-block;
+  vertical-align: middle;
+}
 .iconTxt:before {
   content: '';
   display: inline-block;
