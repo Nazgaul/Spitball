@@ -60,7 +60,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns">
-            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
+            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(item)"></a>
             <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
             @*<input type="hidden" data-bind="value: linkUrl" />*@ @*needed?????*@
         </div>
@@ -89,7 +89,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns">
-            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
+            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(item)"></a>
             <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
         </div>
     }

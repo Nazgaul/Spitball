@@ -20,35 +20,38 @@
 
         <div class="boxFolders">
             <div class="sectionHeader">@IndexResources.Folders</div>
-            <ul class="boxFolderList">
-                <li class="current boxFolder" ng-class="{current : !info.currentTab }">
-                    <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
-                    <span class="tabBorder"></span>
-                </li>
+            <div m-custom-scrollbar bottom="0">
 
-                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
+                <ul class="boxFolderList">
+                    <li class="current boxFolder" ng-class="{current : !info.currentTab }">
+                        <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
+                        <span class="tabBorder"></span>
+                    </li>
 
-                    <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
-                    <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                    <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
-                        </li>
-                        <li>
-                            <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
-                        </li>
-                        <li>
-                            <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
-                        </li>
-                    </ul>
-                    <span class="tabBorder"></span>
-                </li>
+                        <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
+                        <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
 
-                <li class="createFolder">
-                    <span class="createFolderText elps" ng-click="createTab()">@MainViewResources.CreateTab</span>
-                </li>
-            </ul>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
+                            </li>
+                            <li>
+                                <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
+                            </li>
+                            <li>
+                                <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
+                            </li>
+                        </ul>
+                        <span class="tabBorder"></span>
+                    </li>
+
+                    <li class="createFolder">
+                        <span class="createFolderText elps" ng-click="createTab()">@MainViewResources.CreateTab</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 

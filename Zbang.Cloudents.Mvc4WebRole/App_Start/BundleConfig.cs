@@ -194,6 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
                 new JsFileWithCdn("~/js/directives/userTooltip.js"),
+                new JsFileWithCdn("~/js/directives/setDirection.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
 
 

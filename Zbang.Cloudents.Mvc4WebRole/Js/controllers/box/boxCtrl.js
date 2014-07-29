@@ -682,6 +682,10 @@ mBox.controller('BoxCtrl',
                        ($scope.info.userType === 'owner' || item.ownerId === UserDetails.getDetails().id);
             };
 
+            $scope.downloadItem = function (item) {
+                cd.pubsub.publish('item_Download', { id: item.id });
+            };
+
             function filterItems(item) {
                 if (item.sponsored) {
                     $scope.options.sponsored = true;
