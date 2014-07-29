@@ -17,13 +17,14 @@ namespace Zbang.Zbox.Domain
             IEnumerable<KeyValuePair<string, string>> features)
         {
             NumberOfSales = numberOfSales;
-            UpdateProduct(id, name, extraDetails, coupon, salePrice, pictureUrl, categories, description, homePage,
+            PictureUrl = pictureUrl;
+            UpdateProduct(id, name, extraDetails, coupon, salePrice, categories, description, homePage,
                 supplyTime, numberOfPayments, catalogNumber, deliveryPrice, producerName,
                 features);
         }
 
         public void UpdateProduct(long id, string name, string extraDetails, float coupon,
-            float salePrice, string pictureUrl, IList<StoreCategory> categories, string description,
+            float salePrice,  IList<StoreCategory> categories, string description,
             bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName,
             IEnumerable<KeyValuePair<string, string>> features)
         {
@@ -34,7 +35,7 @@ namespace Zbang.Zbox.Domain
 
             Coupon = coupon;
             SalePrice = salePrice;
-            PictureUrl = pictureUrl;
+            
             Url = UrlConsts.BuildStoreProductUrl(Id, Name);
             Categories = categories;
 

@@ -56,7 +56,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.ExtraDetails,
                         productStore.Coupon,
                         productStore.SalePrice,
-                        productStore.PictureUrl,
                         GetProductCategory(productStore.Categories),
                         productStore.Description,
                         productStore.Featured,
