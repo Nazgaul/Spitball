@@ -8,13 +8,42 @@ body {
     background: #f6f6f6;
 }
 /*#region header */
+.siteHeader {
+
+    height: @header-height;
+    background-color: @color;
+    top: 0;
+    width: 100%;
+    //z-index: 11;
+    z-index:5; //changed to accomodate for new ng popups. TODO: CHeck that this doesn't ruin anything.
+    position: fixed; /*so that I can use z-index*/
+    min-width: 1024px;
+    .siteLogo {
+        display: inline-block;
+        width: 211px;
+        height: 40px;
+        background: @dashboard-sprite -1px -1px no-repeat; /*rtl*/
+        margin: 10px 0 0 30px; /*rtl*/
+        position: relative;
+        z-index: 1;
+    }
+}
 header {
+    h1 {
+        text-align: center;
+        position: relative;
+        top: -42px;
+        z-index: -1;
+        color: #fff;
+    }
+}
+/*header {
     height: @header-height;
     background: @color;
     padding: 0 ~'calc(50% - 470px)';
     color: #fff;
     h1 {
-        padding: 4px 0 0 219px; /*rtl*/
+        padding: 4px 0 0 219px; //rtl/
         font-size: 16px;
         width: 215px;
         position: relative;
@@ -33,7 +62,7 @@ header {
         height: 40px;
         background: url(/Images/Store/social.png) 0 -252px no-repeat;
         position: absolute;
-        left:0; /*rtl*/
+        left:0; //rtl
         top: 5px;
     }
 }
@@ -44,7 +73,7 @@ header {
 
 .language {
     display: inline-block;
-    margin-left: 20px; /*rtl*/
+    margin-left: 20px; //rtl
     color: #fff;
     background: #fff;
     padding: 2px 10px;
@@ -108,19 +137,19 @@ header {
         border-style: solid;
         border-width: 10px 6px 0 6px;
         border-color: @txtColor transparent transparent transparent;
-        margin-left: 6px; /*rtl*/
+        margin-left: 6px; //rtl
 
     }
-}
+}*/
 /*#endregion */
-nav, main {
+.storeNav, main {
     margin: 0 auto;
     width: 940px;
     
 }
-nav {
+.storeNav {
     height: 78px;
-    margin: 0 auto;
+    margin: @header-height auto 0;
     width: 840px;
     padding-top: 25px;
     position: relative;
@@ -1148,7 +1177,7 @@ footer {
     }
     a {
         &:hover {
-            color: @txtColor;
+            color: silver;
         }
     }
     h3 {

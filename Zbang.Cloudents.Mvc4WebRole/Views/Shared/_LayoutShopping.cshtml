@@ -29,7 +29,7 @@
     @Html.CssCulture("lang")
 </head>
 <body ng-controller="MainCtrl">
-    <header role="banner">
+    @*<header role="banner">
         <div class="rFloat">
             <button type="button" class="login">@StoreResources.Login</button> /
             <button type="button" class="signup">@StoreResources.Signup</button>
@@ -53,9 +53,27 @@
             </div>
         </div>
         <h1 class="logo">@StoreResources.Description</h1>
+    </header>*@
+    <header class="siteHeader">
+        <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
+           href="@Url.Action("Index", "Dashboard")"></a>
+        <div class="headerRightWpr rFloat">
+            <nav class="userSection rFloat">
+                <ul class="userNav">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            Html.RenderPartial("TopMenu/_Actions");
+                        }
+                        Html.RenderAction("GetUserDetail3", "Account", true);
+                    }
+                </ul>
+            </nav>
+        </div>
+        <h1>@StoreResources.Description</h1>
     </header>
     @*Ram: When click on products button - add class "showProducts" to nav*@
-    <nav>
+    <nav class="storeNav">
         <ul class="navLinks">
             <li ng-class="{current : info.currentTab === 'home'}"><a href="~/store/">@StoreResources.Home</a></li>
             <li ng-class="{current : info.currentTab === 'products'}"><button type="button" products-menu>@StoreResources.Products</button></li>
@@ -184,8 +202,8 @@
                     <button class="ytube" type="button"></button>
                 </div>
                 <ul>
-                    <li><a href="#">@StoreResources.AboutCloudents</a> |</li>
-                    <li><a href="#">@StoreResources.ContactUs</a> |</li>
+                    <li><a href="~/store/about/">@StoreResources.AboutCloudents</a> |</li>
+                    <li><a href="~/store/contact/">@StoreResources.ContactUs</a> |</li>
                     <li><a href="#">@StoreResources.TermsOfService</a></li>
                 </ul>
             </div>
