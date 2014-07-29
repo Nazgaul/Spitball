@@ -23,7 +23,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly ICache m_Cache;
 
         private bool m_KeepRunning;
-        private readonly TimeSpan m_TimeToSleepAfterExcecuting;
+        private readonly TimeSpan m_TimeToSleepAfterExecuting;
 
         private readonly string m_CacheRegionName;
 
@@ -39,11 +39,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_CacheRegionName = "DigestEmails" + m_DigestEmailHourBack;
             if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
             {
-                m_TimeToSleepAfterExcecuting = TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes);
+                m_TimeToSleepAfterExecuting = TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes);
             }
             else
             {
-                m_TimeToSleepAfterExcecuting = TimeSpan.FromHours(1);
+                m_TimeToSleepAfterExecuting = TimeSpan.FromHours(1);
             }
 
         }
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             m_Cache.RemoveFromCache(m_CacheRegionName, null);
             // m_Cache.Clear();
-            Thread.Sleep(m_TimeToSleepAfterExcecuting);
+            Thread.Sleep(m_TimeToSleepAfterExecuting);
         }
 
         private void BuildUserReport(long userid, string email, string culture, string userName)
