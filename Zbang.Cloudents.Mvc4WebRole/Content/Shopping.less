@@ -170,57 +170,21 @@ main {
     height: 120px;
     border: 1px solid @shopping-black;
     .boxSizing;
-    .banner {
-        width: 320px;
-        height: 390px;
-        border-right: 1px solid @txtColor; /*rtl*/
-    }
-    .carosel {
+    
+    .carousel {
         width: 617px;
-        height: 390px;
-    }
-    /*.lFloat, h2 {
-        display: none;
-    }
-    &:before {
-        .pseudo;
-        width: 320px;
         height: 100%;
-        background: url(http://lorempixel.com/320/118/food) no-repeat;
+        .boxSizing;
     }
-    button {
-        padding: 14px;
-        border: 2px solid #8AC43E;
-        font-size: 20px;
-        color: #8AC43E;
-        margin: -90px 30px 0 0; //rtl
-    }*/
+
     &.big {
         height: 390px;
-        /*&:before {
-            background: url(http://lorempixel.com/320/250/food) no-repeat;
-            height: 250px;
-        }
-        .widgetWpr {
+        .banner {
             width: 320px;
+            height: 100%;
+            border-right: 1px solid @txtColor; /*rtl*/
+            .boxSizing;
         }
-        .lFloat, h2 {
-            display: block;
-        }
-        .lFloat {
-            text-align: center;
-            margin-top: 5px;
-            padding: 0 10px;
-        }
-        h2 {
-            font-size: 18px;
-            padding: 10px 0 0 35px; //rtl/
-            overflow: auto;
-        }
-        button {
-            margin: 10px 8px 0 0;  //rtl/ //override
-            font-size: 9px;
-        }*/
     }
 }
 /*#endregion */
@@ -654,17 +618,34 @@ main {
         font-weight: normal;
         margin: 8px 0 20px;
     }
-    img {
-        max-width: 425px;
-        max-height: 281px;
-        //height: auto !important;
+    .imgWpr {
+        width: 425px;
+        height: 281px;
         border: 1px solid @color;
         border-radius: 5px;
         margin-bottom: 15px;
     }
+    img {
+        max-width: 425px;
+        max-height: 281px;
+        line-height: 281px;
+        vertical-align: middle;
+    }
 }
 .pDesc {
-    display:table-row;
+    //display:table-row;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    columns: 2;
+    .boxSizing;
+    padding: 0 20px;
+    -webkit-column-gap: 40px;
+    -moz-column-gap: 40px;
+    column-gap: 40px;
+    span {
+        display: block;
+        text-align: justify;
+    }
 }
 .pNameWpr {
     padding: 14px 10px;
