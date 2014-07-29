@@ -147,7 +147,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 UrlConsts.BuildItemUrl(box.BoxId, box.BoxName, s.Id, s.Name, box.UniversityName ?? "my", true)
                 , s.UserId));
 
-            var quizes = m_ZboxReadService.GetQuizLastpdates(new GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+            var quizes = m_ZboxReadService.GetQuizLastUpdates(new GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var quizUpdate = quizes.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                 s.Picture
                 , s.UserName,
