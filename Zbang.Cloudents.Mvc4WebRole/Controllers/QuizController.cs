@@ -220,7 +220,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Delete quiz id:" + id, ex);
+                TraceLog.WriteError("Delete quiz id:" + id + " userid: " + GetUserId(), ex);
                 return this.CdJson(new JsonResponse(false));
             }
         }

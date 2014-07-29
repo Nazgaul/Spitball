@@ -32,7 +32,7 @@
                     <td>@Model.TotalPrice</td>
                 </tr>
             </table>
-            <a href="#" class="btn3">Purchase now</a>
+            <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id})" target="_self" class="btn3">Purchase now</a>
             <table class="productDetails">
                 <tr>
                     <td>Item No:</td>

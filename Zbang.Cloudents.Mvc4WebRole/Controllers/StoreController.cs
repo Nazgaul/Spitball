@@ -41,11 +41,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        public async Task<ActionResult> Product(int id)
+        public async Task<ActionResult> Product(long id)
         {
             var query = new GetStoreProductQuery(id);
             var model = await ZboxReadService.GetProduct(query);
             model.TotalPrice = model.Price + model.DeliveryPrice;
+            model.Id = id;
             return PartialView(model);
         }
 
@@ -62,9 +63,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        public ActionResult CheckOut()
+        [Route("store/checkout/{id:int}",Name="StoreCheckout")]
+        public async Task<ActionResult> CheckOut(long id)
         {
-            return View();
+            var query = new GetStoreProductQuery(id);
+            var model = await ZboxReadService.GetProductCheckOut(query);
+            return View(model);
         }
 
         public ActionResult About()
