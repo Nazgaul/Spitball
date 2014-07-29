@@ -68,7 +68,7 @@
 </script>
 <script type="text/ng-template" id="quizQuestionTemplate">
     <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
-    <textarea name="question" quiz-focus data-focus="{{question.focus}}" required class="inputText questionText" msd-elastic
+    <textarea set-direction name="question" quiz-focus data-focus="{{question.focus}}" required class="inputText questionText" msd-elastic
               ng-placeholder="@SharedResources.Question #{{$index + 1}}"
               ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="($index === 0) || (!questionForm.$pristine || params.isDraft)"></textarea>
     <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
@@ -80,8 +80,8 @@
         </li>
 
         <li class="quizAnswer disabled">
-            <textarea class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
-                          readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
+            <textarea set-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
+                      readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
             <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
             <label></label>
         </li>
@@ -89,7 +89,7 @@
 </script>
 
 <script type="text/ng-template" id="quizAnswerTemplate">
-    <textarea name="answer" class="inputText questionAnswer" quiz-focus data-focus="{{answer.focus}}" msd-elastic ng-required="!questionForm.$pristine || params.isDraft" ng-keydown="addTabAnswer($event,question,answer)"
+    <textarea set-direction name="answer" class="inputText questionAnswer" quiz-focus data-focus="{{answer.focus}}" msd-elastic ng-required="!questionForm.$pristine || params.isDraft" ng-keydown="addTabAnswer($event,question,answer)"
               ng-placeholder="@SharedResources.Answer {{$index + 1}}" ng-blur="saveAnswer(question,answer)" ng-change="toggleRadioBtn(question,answer)" ng-model="answer.text"></textarea>
 
     <button tabindex="-1" type="button" class="removeAnswer" ng-click="removeAnswer(question,$index)">X</button>

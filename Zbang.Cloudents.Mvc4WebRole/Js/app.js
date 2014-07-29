@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop','DisplayTime',
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'DisplayTime',
     'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'debounce']);
 
 app.config([
@@ -240,61 +240,6 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
 
     });
-
-
-    var rtlChars = '\u0600-\u06FF' + '\u0750-\u077F' + '\u08A0-\u08FF' + '\uFB50-\uFDFF' + '\uFE70-\uFEFF';//arabic
-    rtlChars += '\u0590-\u05FF' + '\uFB1D-\uFB4F';//hebrew
-
-    var controlChars = '\u0000-\u0020';
-    controlChars += '\u2000-\u200D';
-
-    //Start Regular Expression magic
-    var reRtl = new RegExp('[' + rtlChars + ']', 'g'),
-        reNotRtl = new RegExp('[^' + rtlChars + controlChars + ']', 'g'),
-        textAlign = $('html').css('direction') === 'ltr' ? 'left' : 'right';
-
-    function checkRtlDirection(value) {
-
-        if (!value) {
-            return;
-        }
-
-        var rtls = value.match(reRtl);
-        if (rtls !== null)
-            rtls = rtls.length;
-        else
-            rtls = 0;
-
-        var notrtls = value.match(reNotRtl);
-        if (notrtls !== null)
-            notrtls = notrtls.length;
-        else
-            notrtls = 0;
-
-        return rtls > notrtls;
-    }
-    $(document).on('input', 'input,textarea', function () {
-        if (!this.value.length) {
-            $(this).css('direction', '').css('text-align', '');
-            return;
-        }
-        if (checkRtlDirection(this.value)) {
-            $(this).css('direction', 'rtl').css('text-align', 'right');
-        } else {
-            $(this).css('direction', 'ltr').css('text-align', 'left');
-        }
-    });
-
-
-    var setElementDirection = function (element) {
-        if (checkRtlDirection(element.textContent)) {
-            $(element).css({ 'direction': 'rtl', 'text-align': textAlign });
-        } else {
-            $(element).css({ 'direction': 'ltr', 'text-align': textAlign });
-        }
-    }
-
-    //#endregion
 }]);
 
 app.directive('postRepeatDirective',

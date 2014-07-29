@@ -162,6 +162,7 @@
 /// <reference path="../js/directives/usertooltip.js" />
 /// <reference path="../js/filters/stringformat.js" />
 /// <reference path="../js/modules/displaytime.js" />
+/// <reference path="../js/directives/setdirection.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
