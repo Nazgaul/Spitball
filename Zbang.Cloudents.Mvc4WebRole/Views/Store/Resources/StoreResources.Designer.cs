@@ -88,6 +88,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to פרטים נוספים.
+        /// </summary>
+        public static string AdditionalInfo {
+            get {
+                return ResourceManager.GetString("AdditionalInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to רחוב ומספר.
         /// </summary>
         public static string Address {
@@ -232,6 +241,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to זמן אספקה.
+        /// </summary>
+        public static string DeliveryTime {
+            get {
+                return ResourceManager.GetString("DeliveryTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to חנות האגודה.
         /// </summary>
         public static string Description {
@@ -350,6 +368,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to תשלומים ללא ריבית.
+        /// </summary>
+        public static string NoInterestInstall {
+            get {
+                return ResourceManager.GetString("NoInterestInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to הנחה.
         /// </summary>
         public static string Off {
@@ -364,6 +391,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         public static string Order {
             get {
                 return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to תנאי תשלום.
+        /// </summary>
+        public static string PaymentCond {
+            get {
+                return ResourceManager.GetString("PaymentCond", resourceCulture);
             }
         }
         
@@ -514,6 +550,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to מק&quot;ט.
+        /// </summary>
+        public static string SerialNo {
+            get {
+                return ResourceManager.GetString("SerialNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to משלוח.
         /// </summary>
         public static string Shipping {
@@ -586,6 +631,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to שם הספק.
+        /// </summary>
+        public static string Supplier {
+            get {
+                return ResourceManager.GetString("Supplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to טלפון.
         /// </summary>
         public static string Telephone {
@@ -640,6 +694,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to עד.
+        /// </summary>
+        public static string UpTo {
+            get {
+                return ResourceManager.GetString("UpTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to תוקף.
         /// </summary>
         public static string Vaildity {
@@ -654,6 +717,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         public static string Vat {
             get {
                 return ResourceManager.GetString("Vat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to אחריות.
+        /// </summary>
+        public static string Warranty {
+            get {
+                return ResourceManager.GetString("Warranty", resourceCulture);
             }
         }
         
@@ -699,6 +771,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         public static string WholeToRetail {
             get {
                 return ResourceManager.GetString("WholeToRetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ימי עסקים ממועד אישור כרטיס האשראי.
+        /// </summary>
+        public static string WorkDays {
+            get {
+                return ResourceManager.GetString("WorkDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (בימים א&apos; - ה&apos; בין השעות 9:00 ל 16:00).
+        /// </summary>
+        public static string WorkHours {
+            get {
+                return ResourceManager.GetString("WorkHours", resourceCulture);
             }
         }
         

@@ -129,16 +129,12 @@ header h1 {
   /*rtl*/
   left: auto;
 }
-.productPrice td:nth-child(2) {
-  text-align: left;
+.productPrice td:nth-child(3) {
+  padding: 0 4px 0 0;
   /*rtl*/
 }
 .productDetails {
   text-align: right;
-  /*rtl*/
-}
-.productDetails td:first-child {
-  padding: 0 0 8px 30px;
   /*rtl*/
 }
 .moreProductsList li:first-child {

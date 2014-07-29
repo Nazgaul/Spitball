@@ -17,41 +17,44 @@
                 <tr>
                     <td>@StoreResources.StudentPrice:</td>
                     <td>@Model.Price</td>
+                    <td>₪</td>
                 </tr>
                 <tr>
-                    <td>Shipping:</td>
+                    <td>@StoreResources.Shipping:</td>
                     <td>@Model.DeliveryPrice</td>
+                    <td>₪</td>
                 </tr>
                 <tr>
-                    <td>Total (Including shipping):</td>
+                    <td>@StoreResources.CostWithShipping:</td>
                     <td>@Model.TotalPrice</td>
+                    <td>₪</td>
                 </tr>
             </table>
-            <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id})" class="btn3">Purchase now</a>
+            <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id})" class="btn3">@StoreResources.PurchaseNow</a>
             <table class="productDetails">
                 <tr>
-                    <td>Item No:</td>
+                    <td>@StoreResources.SerialNo:</td>
                     <td>@Model.CatalogNumber</td>
                 </tr>
                 <tr>
-                    <td>Payment conditions:</td>
-                    <td>Up to @Model.NumberofPayments installments no interest</td>
+                    <td>@StoreResources.PaymentCond:</td>
+                    <td>@StoreResources.UpTo @Model.NumberofPayments @StoreResources.NoInterestInstall</td>
                 </tr>
-                <tr>
-                    <td>Warranty:</td>
+                @*<tr>
+                    <td>@StoreResources.Warranty:</td>
                     <td>1 year - by the official importer</td>
+                </tr>*@
+                <tr>
+                    <td>@StoreResources.DeliveryTime:</td>
+                    <td>@StoreResources.UpTo @Model.SupplyTime @StoreResources.WorkDays</td>
                 </tr>
                 <tr>
-                    <td>Delivery time:</td>
-                    <td>Up to @Model.SupplyTime working days</td>
-                </tr>
-                <tr>
-                    <td>Name of supplier:</td>
+                    <td>@StoreResources.Supplier:</td>
                     <td>New Vision Digital LTD</td>
                 </tr>
                 <tr>
-                    <td>Further details:</td>
-                    <td>09-8989567 <small>Mon-Thurs between 9:00AM and 4:00PM</small></td>
+                    <td>@StoreResources.AdditionalInfo:</td>
+                    <td>09-8989567 <small>@StoreResources.WorkHours</small></td>
                 </tr>
             </table>
         </div>

@@ -339,4 +339,34 @@
   <data name="Description" xml:space="preserve">
     <value>חנות האגודה</value>
   </data>
+  <data name="AdditionalInfo" xml:space="preserve">
+    <value>פרטים נוספים</value>
+  </data>
+  <data name="DeliveryTime" xml:space="preserve">
+    <value>זמן אספקה</value>
+  </data>
+  <data name="NoInterestInstall" xml:space="preserve">
+    <value>תשלומים ללא ריבית</value>
+  </data>
+  <data name="PaymentCond" xml:space="preserve">
+    <value>תנאי תשלום</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>מק"ט</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>שם הספק</value>
+  </data>
+  <data name="UpTo" xml:space="preserve">
+    <value>עד</value>
+  </data>
+  <data name="Warranty" xml:space="preserve">
+    <value>אחריות</value>
+  </data>
+  <data name="WorkDays" xml:space="preserve">
+    <value>ימי עסקים ממועד אישור כרטיס האשראי</value>
+  </data>
+  <data name="WorkHours" xml:space="preserve">
+    <value>(בימים א' - ה' בין השעות 9:00 ל 16:00)</value>
+  </data>
 </root>
