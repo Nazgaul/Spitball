@@ -14,8 +14,9 @@ namespace Zbang.Zbox.Domain
 
         public StoreProductFeatures(string category, string description, float price, StoreProduct product)
         {
+            if (description == null) throw new ArgumentNullException("description");
             Category = category;
-            Description = description;
+            Description = description.Trim();
             Price = price;
             Product = product;
         }
