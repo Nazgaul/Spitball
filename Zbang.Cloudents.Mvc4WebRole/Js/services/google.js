@@ -4,7 +4,7 @@
        var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
            apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
            scopes = ['https://www.google.com/m8/feeds/contacts/default/full', 'https://www.googleapis.com/auth/drive.readonly'],
-           access_token, contacts = [], clientLoaded = false, driveLoaded = false, pickerDefer;
+           access_token, contacts = [], clientLoaded = false, driveLoaded = false, pickerDefer = $q.defer();
        var api = {
            initDrive: function () {
                var defer = $q.defer();
@@ -93,7 +93,7 @@
                // A simple callback implementation.
                function pickerCallback(data) {
                    var files = [];
-                   if (data[google.picker.Response.ACTION] !== google.picker.Action.PICKED) {
+                   if (data[google.picker.Response.ACTION] !== google.picker.Action.PICKED) {                       
                        return;
                    }
 
@@ -116,6 +116,8 @@
 
                    pickerDefer.resolve(files);
                }
+
+               return pickerDefer.promise;
 
 
            },
