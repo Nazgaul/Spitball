@@ -90,6 +90,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/ShoppingRtl.css");
 
             RegisterCss("shopping", "~/Content/General.css",
+                "~/Content/AccountInfo.css",
                 "~/Content/Shopping.css");
 
 
@@ -234,8 +235,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/QuizViewModel.js")
              );
 
-            RegisterJsRegular("angular-shopping",               
+            RegisterJsRegular("angular-shopping",
                 new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
+                new JsFileWithCdn("~/scripts/Modernizr.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/angular-debounce.js"),                

@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'Cookie','debounce']);
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'Cookie', 'debounce']);
 
 app.config([
     '$routeProvider',
@@ -25,7 +25,7 @@ app.config([
                 },
                 'responseError': function (response) {
                     // do something on success
-                    switch (response.status) {          
+                    switch (response.status) {
                         case 401:
                         case 403:
                             window.open('/account', '_self');
@@ -58,10 +58,10 @@ app.config([
             type: 'products'
         }).
         when('/store/product/:productId/:productName/', {
-            templateUrl: function (params) { return '/store/product/?id=' + params.productId ; },
+            templateUrl: function (params) { return '/store/product/?id=' + params.productId; },
             //controller: 'ProductCtrl',
             type: 'product'
-        }).        
+        }).
         when('/store/about/', {
             templateUrl: '/Store/About',
             controller: 'AboutCtrl',
@@ -71,6 +71,11 @@ app.config([
             templateUrl: '/Store/Contact',
             controller: 'ContactCtrl',
             type: 'contact'
+        }).
+        when('/store/checkout/:productId', {
+            templateUrl: '/Store/Checkout',
+            controller: 'CheckoutCtrl',
+            type: 'checkout'
         }).
         otherwise({ redirectTo: '/store/' });
 
@@ -122,7 +127,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', function ($rootScope, $window,
     };
 
     $rootScope.$on('$routeChangeStart', function () {
-        $window.scrollTo(0,0);      
+        $window.scrollTo(0, 0);
     });
 }]);
 
