@@ -175,7 +175,7 @@ mBox.controller('QnACtrl',
                     userUid: sUserDetails.getDetails().id, //uid
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls($scope.qFormData.content),
-                    creationTime: new Date(),
+                    creationTime: new Date().toISOString(),
                     answers: [],
                     files: fileDisplay || []
                 }
@@ -229,7 +229,7 @@ mBox.controller('QnACtrl',
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls(question.aFormData.content),
                     rating: 0,
-                    creationTime: new Date(),
+                    creationTime: new Date().toISOString(),
                     iRate: false,
                     answer: false,
                     files: fileDisplay || []
