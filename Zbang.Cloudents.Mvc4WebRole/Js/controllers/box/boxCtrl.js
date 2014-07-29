@@ -31,9 +31,7 @@ mBox.controller('BoxCtrl',
                     thumb: 'thumb',
                     list: 'list'
                 },
-                itemsLimit: 21,
-                starsLength: 5,
-                starsWidth: 69
+                itemsLimit: 21                
             };
             $scope.action = {};
 
@@ -52,7 +50,9 @@ mBox.controller('BoxCtrl',
             $scope.options = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
-                manageTab: false
+                manageTab: false,
+                starsLength: 5,
+                starsWidth: 69
             };
 
             var infoPromise = Box.info({ id: $scope.boxId }),

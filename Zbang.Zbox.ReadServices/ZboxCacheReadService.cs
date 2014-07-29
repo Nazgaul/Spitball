@@ -304,6 +304,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetProduct(query);
         }
+        public Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
+        {
+            return m_ReadService.GetProductCheckOut(query);
+        }
 
 
         public Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)

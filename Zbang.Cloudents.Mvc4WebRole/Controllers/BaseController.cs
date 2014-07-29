@@ -42,7 +42,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             var parameters = filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n");
-            var info = string.Format("url {0} user {1} params {2} ", filterContext.HttpContext.Request.RawUrl, User.Identity.Name, parameters);
+            var info = string.Format("url {0} user {1} params {2} ", 
+                filterContext.HttpContext.Request.RawUrl, User.Identity.Name, parameters);
             TraceLog.WriteError(info, filterContext.Exception);
             base.OnException(filterContext);
         }

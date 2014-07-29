@@ -162,7 +162,7 @@
                 <a bo-href="item.userUrl" class="ttLink elps" bo-text="item.owner"></a>
 
                 <div class="lFloat ttDetail">@SharedResources.Uploaded</div>
-                <div data-time="{{item.date}}"></div>
+                <div>{{item.date | displayTimeFilter}}</div>
             </div>
             <div class="lFloat ttDetail" data-numdownload="{{item.numOfDownloads}}">@SharedResources.Downloads</div>
             <div class="rFloat ttDetail" data-numcommment="{{item.commentsCount}}">@SharedResources.Comments</div>
@@ -181,7 +181,7 @@
                 <div class="lFloat ttDetail">@SharedResources.Owner</div>
                 <a bo-href="item.userUrl" class="ttLink elps" bo-text="item.owner"></a>
                 <div class="lFloat ttDetail">@SharedResources.Created:</div>
-                <div data-time="{{item.date}}"></div>
+                <div>{{item.date | displayTimeFilter}}</div>
             </div>
             <div class="lFloat ttDetail" data-numdownload="{{item.numOfViews}}">@SharedResources.Views</div>
             <div class="rFloat ttDetail" data-numcommment="{{item.commentsCount}}">@SharedResources.Comments</div>

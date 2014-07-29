@@ -75,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(quizName))
             {
-                throw new ArgumentException("itemName");
+                throw new ArgumentException("quizName");
             }
             if (string.IsNullOrEmpty(boxName))
             {

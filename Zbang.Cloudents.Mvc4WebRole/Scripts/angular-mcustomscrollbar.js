@@ -32,6 +32,10 @@
                 bottom = $attr.bottom ? parseInt($attr.bottom) : 0;
                 height = $win.height() - (top + bottom);
             }
+
+            $scope.$on('$routeChangeStart', function () {
+                $elem.mCustomScrollbar('destroy');
+            });
         }
     };
 }]);

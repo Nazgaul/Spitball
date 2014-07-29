@@ -32,7 +32,7 @@
                     <td>@Model.TotalPrice</td>
                 </tr>
             </table>
-            <a href="#" class="btn3">Purchase now</a>
+            <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id})" target="_self" class="btn3">Purchase now</a>
             <table class="productDetails">
                 <tr>
                     <td>Item No:</td>
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="right">
-        <img alt="" src="http://placehold.it/425x281" />
+        <img alt="" src="@Model.Picture" />
         <div class="pNameWpr">
             <h3>@Model.ExtraDetails</h3>
         </div>

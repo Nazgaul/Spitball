@@ -234,7 +234,7 @@
             });
 
             $(quizMsg).off('click').click(function () {
-                cd.pubsub.publish('message');
+                angular.element(document).scope().$broadcast('message');
             });
 
             $(quizFS).off('click').click(function () {
@@ -245,12 +245,17 @@
                 if (uniName === 'my') {
                     uniName = null;
                 }
-                cd.shareFb(cd.location(), //url
-                  itemName, //title
-                  uniName ? boxName + ' - ' + uniName : boxName, //caption
-                  JsResources.FbShareQuiz.format(itemName),
-                  '/Images/cloudents-share-Quiz.png' //picture
-                  );
+
+                var obj = {
+                    url: window.location.href,
+                    title: itemName,
+                    caption: uniName ? boxName + ' - ' + uniName : boxName,
+                    description: JsResources.FbShareQuiz.format(itemName),
+                    picture: '/Images/cloudents-share-Quiz.png'
+                };
+
+                angular.element(document).scope().$broadcast('messageFB', obj);
+                
             });
 
             pubsub.subscribe('quizclear', function () {

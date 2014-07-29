@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Domain.Services
                     var files = UnitOfWork.CurrentSession.QueryOver<File>()
                         .Where(w => w.IsDeleted == false)
                         .Where(w => w.Size == -1).List();
-                   
+
                     foreach (var file in files)
                     {
                         var blob = blobProvider.GetFile(file.ItemContentUrl);
@@ -98,8 +98,9 @@ namespace Zbang.Zbox.Domain.Services
                 foreach (var quiz in quizes)
                 {
                     quiz.GenerateUrl();
-                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Quiz set Url = @Url where Id = @Id"
-                        , new { quiz.Url, quiz.Id });
+                    var noOfDiscussion = UnitOfWork.CurrentSession.QueryOver<Discussion>().Where(w => w.Quiz == quiz).RowCount();
+                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Quiz set Url = @Url, NumberOfComments = @NCount where Id = @Id"
+                        , new { quiz.Url, quiz.Id, NCount = noOfDiscussion });
 
                     retVal = true;
                 }

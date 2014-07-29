@@ -13,5 +13,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Store
         public string SupplyTime { get; set; }
 
         public float TotalPrice { get; set; }
+
+        public string Picture { get; set; }
+
+        public long Id { get; set; }
     }
 }

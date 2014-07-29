@@ -111,11 +111,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             if (string.IsNullOrEmpty(imageUrl))
             {
-                throw new ArgumentNullException("imageName");
+                throw new ArgumentNullException("imageUrl");
             }
             using (var httpClient = new HttpClient())
             {
-                return await httpClient.GetByteArrayAsync(imageUrl);
+                    return await httpClient.GetByteArrayAsync(imageUrl);
             }
         }
     }

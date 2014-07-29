@@ -120,6 +120,7 @@
     <Compile Include="Dto\Store\BannerDto.cs" />
     <Compile Include="Dto\Store\CategoryDto.cs" />
     <Compile Include="Dto\Store\ProductDto.cs" />
+    <Compile Include="Dto\Store\ProductCheckOutDto.cs" />
     <Compile Include="Dto\Store\ProductWithDetailDto.cs" />
     <Compile Include="Dto\TabDto.cs" />
     <Compile Include="Dto\BoxDto.cs" />

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -31,7 +31,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
-                    Execute();
+                    try
+                    {
+                        Execute();
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("On Run AddFiles", ex);
+                        Thread.Sleep(TimeSpan.FromSeconds(10));
+                    }
                 }
             }
             catch (Exception ex)
@@ -48,7 +56,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 var msgData = msg.FromMessageProto<UrlToDownloadData>();
                 if (msgData == null)
                 {
-                    TraceLog.WriteInfo("AddFiles - message is not in the currect format " + msg.Id);
+                    TraceLog.WriteInfo("AddFiles - message is not in the correct format " + msg.Id);
                     return false;
                 }
                 try

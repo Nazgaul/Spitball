@@ -938,6 +938,15 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<ProductCheckOutDto>(Sql.Store.GetProductCheckOut, new { ProdId = query.ProductId });
+                return retVal.FirstOrDefault();
+            }
+        }
+
         public async Task<IEnumerable<BannerDto>> GetBanners()
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())

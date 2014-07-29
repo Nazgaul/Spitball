@@ -101,6 +101,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query);
         IEnumerable<CategoryDto> GetCategories();
         Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query);
+        Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query);
         Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query);
         Task<IEnumerable<BannerDto>> GetBanners();
     }
