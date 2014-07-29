@@ -1,10 +1,10 @@
 ﻿app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', 'debounce', 'sSearch','sUserDetails',
-    function ($scope, $timeout, debounce, Search, sUserDetails) {
+    ['$scope', '$timeout', 'debounce', 'sSearch','sUserDetails','textDirectionService',
+    function ($scope, $timeout, debounce, Search, sUserDetails, textDirectionService) {
         $scope.params = {
             maxItems: 6,
             minItems: 3,
-            showDropdown: false
+            showDropdown: false            
         };
 
         $scope.searchResults = {
@@ -72,6 +72,12 @@
             $scope.params.showDropdown = false;
         };
 
+        $scope.$watch('formData.query', function (v) {
+            if (!v) {
+                return;
+            }
+            $scope.params.textDirection = textDirectionService.isRTL(v) ? 'rtl' : 'ltr';
+        });
 
         $scope.$on('$routeChangeStart', function () {
             $scope.params.showDropdown = false;

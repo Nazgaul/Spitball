@@ -8,7 +8,7 @@
     <form class="clearfix QForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" ng-if="info.state > 1 && !info.selectedQuestion" novalidate ng-init="showPost=false">
         <div class="textareaWpr">
             <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
-            <textarea set-direction msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
+            <textarea text-direction msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
             <ul class="attachedList">
                 <li class="attachedItem" ng-repeat="file in qFormData.files">
                     <span class="attachName elps">{{file.name}}</span>
@@ -41,7 +41,7 @@
                         <div class="arrow upArrow"></div>
                         <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                         <div class="textareaWpr">
-                            <textarea set-direction msd-elastic required name="content" class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
+                            <textarea text-direction msd-elastic required name="content" class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
                             <ul class="attachedList">
                                 <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                                     <span class="attachName elps">{{file.name}}</span>
@@ -135,7 +135,7 @@
                 <div ng-form="qnaAform" class="clearfix" novalidate ng-init="showComment=false">
                     <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
                     <div class="textareaWpr">
-                        <textarea set-direction msd-elastic name="content" required class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
+                        <textarea text-direction msd-elastic name="content" required class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
                         <ul class="attachedList">
                             <li class="attachedItem" ng-repeat="file in info.selectedQuestion.aFormData.files">
                                 <span class="attachName elps">{{file.name}}</span>
@@ -158,7 +158,7 @@
             <form class="clearfix QEmptyForm" name="qnaQform" novalidate ng-init="showComment=false">
                 <div class="textareaWpr">
                     <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
-                    <textarea set-direction msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
+                    <textarea text-direction msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in qFormData.files">
                             <span class="attachName elps">{{file.name}}</span>
