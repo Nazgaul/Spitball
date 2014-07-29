@@ -824,6 +824,7 @@
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\focusOn.js" />
+    <Content Include="Js\directives\setDirection.js" />
     <Content Include="Js\modules\displayTime.js" />
     <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
