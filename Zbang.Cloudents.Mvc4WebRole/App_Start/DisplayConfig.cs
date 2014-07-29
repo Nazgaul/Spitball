@@ -55,7 +55,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         internal static bool CheckIfMobileView(HttpContextBase c)
         {
-            return (c.GetOverriddenUserAgent() != null &&
+            if (CheckIfIpadView(c))
+            {
+                return false;
+            }
+            return (
+                   c.GetOverriddenUserAgent() != null &&
                    c.GetOverriddenUserAgent().IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0) || 
                    (c.GetOverriddenUserAgent() != null &&
                     c.GetOverriddenUserAgent().IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0);
