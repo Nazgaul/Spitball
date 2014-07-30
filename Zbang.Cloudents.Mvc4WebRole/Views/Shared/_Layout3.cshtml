@@ -65,7 +65,7 @@
                     }
                 </ul>
             </nav>
-            @RenderSection("search")
+            @RenderSection("search", false)
         </div>
     </header>
     <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
@@ -162,7 +162,7 @@
             <a class="ttUsername elps" ng-href="{{user.url}}" ng-click="$root.checkReg($event)">{{user.name}}</a>
             <div class="ttSchool elps">{{user.universityName}}</div>
             <span class="ttPoints lFloat" data-tt-points="{{user.score}}">&nbsp;@SharedResources.Points</span>
-            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(user)">@SharedResources.Message</button>                
+            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(user)">@SharedResources.Message</button>
         </div>
     </script>
 
@@ -198,7 +198,7 @@
             <div class="searchDetails">
                 <div class="searchTitle semiFont elps" bo-html="item.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
                 <div class="boxLoc searchDetail" data-search-in="@SharedResources.In" bo-text="item.boxname"></div>
-            </div>  
+            </div>
         </a>
     </script>
     <script type="text/ng-template" id="personHeaderSearch">
@@ -207,7 +207,7 @@
             <div class="searchTitle semiFont elps" bo-html="person.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
         </a>
     </script>
-  
+
     <script type="text/html" id="userToolTipTempalte">
         <a data-navigation="User" href="{{url}}">
             <img class="ttImg" src="{{image}}" width="99" height="99" />
@@ -219,16 +219,16 @@
     </script>
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
-    
+
     @RenderSection("scripts", false)
 
-   
-   
+
+
 
 
     @if (User.Identity.IsAuthenticated)
     {
-        <iframe  id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
+        <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
     }
 </body>
 </html>

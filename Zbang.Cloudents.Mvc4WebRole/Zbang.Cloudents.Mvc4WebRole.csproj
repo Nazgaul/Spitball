@@ -1430,7 +1430,6 @@
     <Content Include="Views\Store\About.cshtml" />
     <Content Include="Views\Store\Contact.cshtml" />
     <Content Include="Views\Store\Sales.cshtml" />
-    <Content Include="Views\Store\Empty.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <None Include="Views\Web.Debug.config">
