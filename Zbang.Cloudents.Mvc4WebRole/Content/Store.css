@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1061,6 +1061,9 @@ ul:after {
 .userDetails .cbLabel:before {
   border: none;
 }
+.userDetails .termsLink {
+  text-decoration: underline;
+}
 .secureCode {
   position: relative;
 }
@@ -1198,3 +1201,4 @@ ul:after {
   opacity: 1;
 }
 /*#endregion */
+/*# sourceMappingURL=Store.css.map */
