@@ -820,6 +820,7 @@
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
+    <Content Include="Js\controllers\store\checkoutCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
@@ -898,10 +899,9 @@
     <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
-    <Content Include="Js\shopping\app.js" />
     <Content Include="Js\controllers\store\categoryCtrl.js" />
     <Content Include="Js\controllers\store\homeCtrl.js" />
-    <Content Include="Js\controllers\store\searchCtrl.js" />
+    <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\filters\store\percentage.js" />
     <Content Include="Js\directives\store\productsMenu.js" />
     <Content Include="Js\filters\stringFormat.js" />
