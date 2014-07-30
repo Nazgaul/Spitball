@@ -93,5 +93,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return View();
         }
+
+        public ActionResult Terms()
+        {
+            return View();
+        }
     }
 }

@@ -729,19 +729,22 @@ ul:after {
   font-size: 24px;
   margin-top: 45px;
 }
-.about {
+.about,
+.terms {
   line-height: 30px;
   font-size: 15px;
   width: 600px;
   margin-bottom: 200px;
 }
-.about h2 {
+.about h2,
+.terms h2 {
   border-top: 2px solid #0f9d58;
   border-bottom: 1px solid #0f9d58;
   margin-top: 40px;
   font-size: 15px;
 }
-.about p {
+.about p,
+.terms p {
   margin-top: 10px;
 }
 /*#endregion */
@@ -1061,6 +1064,7 @@ ul:after {
   display: block;
 }
 .cardHover {
+  display: none;
   width: 270px;
   height: 220px;
   color: #fff;
