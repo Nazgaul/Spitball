@@ -166,7 +166,7 @@ app.config([
                     type: 'checkout'
                 }
             }).
-            when('/store/terms', {
+            when('/store/terms/', {
                 templateUrl: '/store/Terms/',
                 controller: 'ViewCtrl',
                 params: {
