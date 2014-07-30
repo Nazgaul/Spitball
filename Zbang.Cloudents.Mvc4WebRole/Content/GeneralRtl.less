@@ -371,8 +371,8 @@ input[type="radio"] {
             }
         }
     }
-    /*&.left {
-        margin: 0 -10px 0 0; 
+    &.left {
+        margin: 0 0 0 10px;  /*diff rtl*/
         > .arrow {
             left: -12px; 
             right: auto;
@@ -390,9 +390,9 @@ input[type="radio"] {
         .boxItemTt {
             //margin-right: -146px - 379px; //rtl only
         }
-    }*/
-    /*&.right {
-        margin: 0 10px 0 0; 
+    }
+    &.right {
+        margin: 0 0 0 -10px; /* diff rtl*/
         > .arrow {
             right: -12px; 
             left: auto;
@@ -407,7 +407,7 @@ input[type="radio"] {
                 border-right-color: transparent;
             }
         }
-    }*/
+    }
 }
 /*#endregion */
              
