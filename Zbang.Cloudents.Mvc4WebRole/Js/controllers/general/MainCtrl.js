@@ -103,8 +103,8 @@
                     return;
                 }
 
-                $scope.params.isStore = $current.$$route.originalPath.indexOf('store') > -1;
-                $scope.params.store.currentTab = current.$$route.type;
+                $scope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
+                $scope.params.store.currentTab = current.$$route.params.type;
 
             });
             

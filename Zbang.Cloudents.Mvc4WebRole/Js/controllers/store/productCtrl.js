@@ -1,5 +1,10 @@
 ﻿app.controller('ProductCtrl',
-    ['$scope',
-    function ($scope) {
+    ['$scope','$timeout',
+    function ($scope, $timeout) {
+        $timeout(function () {
+            $scope.$emit('viewContentLoaded');
+        });
+        
+
     }]
 );

@@ -1,6 +1,6 @@
 ﻿app.controller('CategoryCtrl',
-    ['$scope', '$routeParams', /*'debounce',*/ 'Store',
-    function ($scope, $routeParams,/* debounce,*/ Store) {
+    ['$scope', '$routeParams', '$timeout','Store',
+    function ($scope, $routeParams,$timeout, Store) {
         var consts = {
             defaultMaxProducts: 9,
             productsIncrement: 9
@@ -14,7 +14,12 @@
         Store.products({ categoryId: $routeParams.categoryId }).then(function (response) {
             allProducts = response.payload;
             $scope.products = allProducts;
+
+            $timeout(function () {
+                $scope.$emit('viewContentLoaded');
+            });
         });
+
 
         $scope.addProducts = function () {
             $scope.params.maxProducts += consts.productsIncrement;

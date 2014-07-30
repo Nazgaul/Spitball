@@ -16,6 +16,7 @@
             allProducts = response.payload;
             $scope.products = allProducts;
             
+
         });
 
         $scope.addProducts = function () {

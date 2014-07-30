@@ -127,32 +127,44 @@ app.config([
              when('/store/', {
                  templateUrl: '/Store/',
                  controller: 'CategoryCtrl',
-                 type: 'home'
+                 params: {
+                     type: 'home'
+                 }
              }).
             when('/store/category/:categoryId/:categoryName/', {
                 templateUrl: '/Store/',
                 controller: 'CategoryCtrl',
-                type: 'products'
+                params: {
+                    type: 'products'
+                }
             }).
             when('/store/product/:productId/:productName/', {
                 templateUrl: function (params) { return '/store/product/?id=' + params.productId; },
                 //controller: 'ProductCtrl',
-                type: 'product'
+                params: {
+                    type: 'product'
+                }
             }).
             when('/store/about/', {
                 templateUrl: '/Store/About',
                 controller: 'AboutCtrl',
-                type: 'about'
+                params: {
+                    type: 'about'
+                }
             }).
             when('/store/contact/', {
                 templateUrl: '/Store/Contact',
                 controller: 'ContactCtrl',
-                type: 'contact'
+                params: {
+                    type: 'contact'
+                }
             }).
             when('/store/checkout/:productId', {
                 templateUrl: function (params) { return '/Store/Checkout/?id=' + params.productId; },
                 controller: 'CheckoutCtrl',
-                type: 'checkout'
+                params: {
+                    type: 'checkout'
+                }
             }).
           //#endregion
         otherwise({ redirectTo: '/dashboard/' });
