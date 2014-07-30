@@ -898,14 +898,13 @@
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
     <Content Include="Js\shopping\app.js" />
-    <Content Include="Js\shopping\controllers\categoryCtrl.js" />
-    <Content Include="Js\shopping\controllers\homeCtrl.js" />
-    <Content Include="Js\shopping\controllers\mainCtrl.js" />
-    <Content Include="Js\shopping\controllers\searchCtrl.js" />
-    <Content Include="Js\shopping\filters\percentage.js" />
-    <Content Include="Js\shopping\directives\productsMenu.js" />
+    <Content Include="Js\controllers\store\categoryCtrl.js" />
+    <Content Include="Js\controllers\store\homeCtrl.js" />
+    <Content Include="Js\controllers\store\searchCtrl.js" />
+    <Content Include="Js\filters\store\percentage.js" />
+    <Content Include="Js\directives\store\productsMenu.js" />
     <Content Include="Js\filters\stringFormat.js" />
-    <Content Include="Js\shopping\services\store.js" />
+    <Content Include="Js\services\store.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
@@ -955,7 +954,7 @@
       <DependentUpon>category.png</DependentUpon>
     </Content>
     <Content Include="Images\Store\social.sprite" />
-    <Content Include="Js\shopping\controllers\productCtrl.js" />
+    <Content Include="Js\controllers\store\productCtrl.js" />
     <Content Include="Images\Store\social.png.map">
       <DependentUpon>social.png</DependentUpon>
     </Content>

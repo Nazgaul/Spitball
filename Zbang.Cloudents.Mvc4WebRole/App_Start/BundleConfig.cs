@@ -90,7 +90,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/ShoppingRtl.css");
 
             RegisterCss("shopping", "~/Content/General.css",
-                "~/Content/AccountInfo.css",
                 "~/Content/Shopping.css");
 
 
@@ -235,24 +234,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/QuizViewModel.js")
              );
 
-            RegisterJsRegular("angular-shopping",
-                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
-                new JsFileWithCdn("~/scripts/Modernizr.js"),
-                new JsFileWithCdn("~/scripts/bindonce.js"),
-                new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
-                new JsFileWithCdn("~/scripts/angular-debounce.js"),                
-                new JsFileWithCdn("~/js/shopping/app.js"),
-                new JsFileWithCdn("~/js/shopping/controllers/mainCtrl.js"),
-                new JsFileWithCdn("~/js/shopping/controllers/homeCtrl.js"),
-                new JsFileWithCdn("~/js/shopping/controllers/categoryCtrl.js"),
-                new JsFileWithCdn("/js/services/stacktrace.js"),
-                new JsFileWithCdn("/js/services/userDetails.js"),
-                new JsFileWithCdn("/js/services/userDetails.js"),
-                new JsFileWithCdn("~/js/shopping/services/store.js"),
+            RegisterJsRegular("angular-store",
+                new JsFileWithCdn("/js/controllers/store/mainCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/homeCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/categoryCtrl.js"),                                                
+                new JsFileWithCdn("/js/store/store.js"),
                 
-                new JsFileWithCdn("/js/shopping/directives/productsMenu.js"),
+                new JsFileWithCdn("/js/directives/store/productsMenu.js"),
 
-                new JsFileWithCdn("/js/shopping/filters/percentage.js")
+                new JsFileWithCdn("/js/filters/store/percentage.js")
 
                 //new JsFileWithCdn("~/js/shopping/controllers/category.js"),
                 //new JsFileWithCdn("~/js/shopping/controllers/product.js")

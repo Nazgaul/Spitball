@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime','textDirection',
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection',
     'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'debounce']);
 
 app.config([
@@ -60,6 +60,7 @@ app.config([
 
         //#region routes
         $routeProvider.
+        //#region cloudents
         when('/dashboard/', {
             params: {
                 type: 'dashboard'
@@ -121,6 +122,39 @@ app.config([
             },
             templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
         }).
+        //#endregion
+        //#region store
+             when('/store/', {
+                 templateUrl: '/Store/',
+                 controller: 'CategoryCtrl',
+                 type: 'home'
+             }).
+            when('/store/category/:categoryId/:categoryName/', {
+                templateUrl: '/Store/',
+                controller: 'CategoryCtrl',
+                type: 'products'
+            }).
+            when('/store/product/:productId/:productName/', {
+                templateUrl: function (params) { return '/store/product/?id=' + params.productId; },
+                //controller: 'ProductCtrl',
+                type: 'product'
+            }).
+            when('/store/about/', {
+                templateUrl: '/Store/About',
+                controller: 'AboutCtrl',
+                type: 'about'
+            }).
+            when('/store/contact/', {
+                templateUrl: '/Store/Contact',
+                controller: 'ContactCtrl',
+                type: 'contact'
+            }).
+            when('/store/checkout/:productId', {
+                templateUrl: function (params) { return '/Store/Checkout/?id=' + params.productId; },
+                controller: 'CheckoutCtrl',
+                type: 'checkout'
+            }).
+          //#endregion
         otherwise({ redirectTo: '/dashboard/' });
 
         //#endregion
@@ -170,6 +204,10 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
         sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
 
     };
+
+    $rootScope.$on('$routeChangeStart', function () {
+        $window.scrollTo(0, 0);
+    });
 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
@@ -241,20 +279,3 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
     });
 }]);
-
-app.directive('postRepeatDirective',
-    ['$timeout',
-    function ($timeout) {
-        return function (scope) {
-            if (scope.$first) {
-                window.a = new Date();   // window.a can be updated anywhere if to reset counter at some action if ng-repeat is not getting started from $first
-            }
-            if (scope.$last) {
-                $timeout(function () {
-                    console.log("## DOM rendering list took: " + (new Date() - window.a) + " ms");
-                });
-            }
-        };
-    }
-    ]);
-

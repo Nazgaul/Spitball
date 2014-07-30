@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook','sUserDetails',
-        function ($scope, $rootScope, $location, $modal, User, Facebook,sUserDetails) {
+    ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook', 'sUserDetails',
+        function ($scope, $rootScope, $location, $routeParams, $modal, User, Facebook, sUserDetails) {
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/'
             }
@@ -9,11 +9,12 @@
             $rootScope.options = {
                 quizOpen: false
             };
+            $scope.params = {
+                store: {}
+            }
 
             $rootScope.back = {};
 
-
-        
             $rootScope.$back = function (url) {
                 if (url && url.length) {
                     $location.path(url);
@@ -23,7 +24,7 @@
                 url = url.replace(location.origin, '');
                 $location.url(url, '', url).replace();
             }
-     
+
 
             $scope.$on('message', function (e, user) {
                 if (user) {
@@ -90,6 +91,46 @@
 
             };
 
-     
+
+            $scope.$on('$routeChangeSuccess', function (event, current, previous) {
+                if (!current.$$route) {
+                    return;
+                }
+
+
+                if (current.$$route.type === 'products' && current.params.categoryId === '646') {
+                    $scope.params.currentTab = 'sales';
+                    return;
+                }
+
+                $scope.params.isStore = $current.$$route.originalPath.indexOf('store') > -1;
+                $scope.params.store.currentTab = current.$$route.type;
+
+            });
+            
+
+            //$scope.info = {
+            //    currentLanguage: (function () {
+            //        var language = cookieService('lang');
+            //        if (language) {
+            //            return language;
+            //        }
+
+            //        cookieService('lang', 'he-IL', { path: '/' });
+            //        return 'he-IL'
+
+            //    })()
+            //};
+
+            //$scope.setLanguage = function (val) {
+            //    if ($scope.info.currentLanguage === val) {
+            //        return;
+            //    }
+            //    cookieService('lang', val, { path: '/' });
+            //    $window.location.reload();
+            //};
+
+
+
         }
     ]);

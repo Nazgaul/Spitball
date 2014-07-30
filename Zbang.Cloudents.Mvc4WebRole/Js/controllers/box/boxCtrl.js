@@ -106,6 +106,7 @@ mBox.controller('BoxCtrl',
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
+                    $rootScope.$broadcast('update_scroll');
                 });
             });
 
