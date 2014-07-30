@@ -2,6 +2,9 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model Zbang.Zbox.ViewModel.Dto.Store.ProductCheckOutDto
 
+@{Html.RenderPartial("_Navigation");}
+
+
 <form class="userOrder">
     <h2>@StoreResources.YourOrder</h2>
     <table class="orderTable">
@@ -111,15 +114,44 @@
     </div>
     <div class="lFloat">
         <label>@StoreResources.Vaildity</label>
-        <select></select>
-        <select></select>
+        <select>
+            <option selected>שנה</option>
+            <option value="08">2008</option>
+            <option value="09">2009</option>
+            <option value="10">2010</option>
+            <option value="11">2011</option>
+            <option value="12">2012</option>
+            <option value="13">2013</option>
+            <option value="14">2014</option>
+            <option value="15">2015</option>
+            <option value="16">2016</option>
+            <option value="17">2017</option>
+            <option value="18">2018</option>
+            <option value="19">2019</option>
+            <option value="20">2020</option>
+        </select>
+        <select>
+            <option selected>חודש</option>
+            <option value="01">1</option>
+            <option value="02">2</option>
+            <option value="03">3</option>
+            <option value="04">4</option>
+            <option value="05">5</option>
+            <option value="06">6</option>
+            <option value="07">7</option>
+            <option value="08">8</option>
+            <option value="09">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
     </div>
     <div class="rFloat secureCode">
         <label>@StoreResources.ThreeDigits</label>
         <span class="rFloat">@StoreResources.WhatIsThis</span>
         <input type="text" class="inputText" />
         <div class="cardHover">
-            <div>@StoreResources.SecurityCode</div>
+            <div class="cardHoverTxt">@StoreResources.SecurityCode</div>
         </div>
     </div>
     <div class="lFloat">
@@ -141,7 +173,12 @@
 
     <div class="rFloat">
         <span>@StoreResources.BillMe</span>
-        <select></select>
+
+        @*Ram: Should this be hard-coded?*@
+        <select>
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+        </select>
         <span>@StoreResources.Installments</span>
     </div>
 
@@ -149,3 +186,4 @@
     <button class="rFloat btn1" type="submit">@StoreResources.Order</button>
 </form>
 
+@{Html.RenderPartial("_Footer");}

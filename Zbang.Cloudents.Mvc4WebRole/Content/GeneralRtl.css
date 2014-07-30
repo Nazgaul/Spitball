@@ -328,43 +328,6 @@ input[type="radio"] + label:before {
   /*.userTooltip {
         padding: 10px 110px 6px 10px;
     }*/
-  /*&.left {
-        margin: 0 -10px 0 0; 
-        > .arrow {
-            left: -12px; 
-            right: auto;
-            border-width: 12px 12px 12px 0; 
-            border-right-color: @borderColor; 
-            border-left-color: transparent;
-            &:after {
-                left: 2px; 
-                right: auto;
-                border-width: 10px 10px 10px 0; 
-                border-right-color: #f5f5f5; 
-                border-left-color: transparent;
-            }
-        }
-        .boxItemTt {
-            //margin-right: -146px - 379px; //rtl only
-        }
-    }*/
-  /*&.right {
-        margin: 0 10px 0 0; 
-        > .arrow {
-            right: -12px; 
-            left: auto;
-            border-width: 12px 0 12px 12px; 
-            border-left-color: @borderColor; 
-            border-right-color: transparent;
-            &:after {
-                right: 2px; 
-                left: auto;
-                border-width: 10px 0 10px 10px; 
-                border-left-color: #f5f5f5; 
-                border-right-color: transparent;
-            }
-        }
-    }*/
 }
 .popover.top > .arrow {
   right: 50%;
@@ -387,6 +350,42 @@ input[type="radio"] + label:before {
 .popover.bottom > .arrow:after {
   margin: 0 -10px 0 0;
   /*rtl*/
+}
+.popover.left {
+  margin: 0 0 0 10px;
+  /*diff rtl*/
+}
+.popover.left > .arrow {
+  left: -12px;
+  right: auto;
+  border-width: 12px 12px 12px 0;
+  border-right-color: #c2c2c2;
+  border-left-color: transparent;
+}
+.popover.left > .arrow:after {
+  left: 2px;
+  right: auto;
+  border-width: 10px 10px 10px 0;
+  border-right-color: #f5f5f5;
+  border-left-color: transparent;
+}
+.popover.right {
+  margin: 0 0 0 -10px;
+  /* diff rtl*/
+}
+.popover.right > .arrow {
+  right: -12px;
+  left: auto;
+  border-width: 12px 0 12px 12px;
+  border-left-color: #c2c2c2;
+  border-right-color: transparent;
+}
+.popover.right > .arrow:after {
+  right: 2px;
+  left: auto;
+  border-width: 10px 0 10px 10px;
+  border-left-color: #f5f5f5;
+  border-right-color: transparent;
 }
 /*#endregion */
 /*#endregion */

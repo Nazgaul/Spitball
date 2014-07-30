@@ -1171,7 +1171,6 @@ ul:after {
   background: #0f9d58;
   border-radius: 10px;
   font-size: 15px;
-  display: none;
   position: absolute;
   bottom: 100%;
   right: 0;
@@ -1203,6 +1202,12 @@ ul:after {
   bottom: -15px;
   right: 20px;
   /*rtl*/
+}
+.cardHoverTxt {
+  margin-top: -32px;
+  /* white-space: pre-wrap; */
+  text-align: center;
+  line-height: 16px;
 }
 /*#endregion */
 /*#region footer */
