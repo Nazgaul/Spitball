@@ -121,7 +121,6 @@
 /// <reference path="../js/services/upload.js" />
 /// <reference path="../js/services/user.js" />
 /// <reference path="../js/services/userdetails.js" />
-/// <reference path="../js/shopping/app.js" />
 /// <reference path="plupload/plupload.browserplus.js" />
 /// <reference path="plupload/plupload.flash.js" />
 /// <reference path="plupload/plupload.full.js" />
