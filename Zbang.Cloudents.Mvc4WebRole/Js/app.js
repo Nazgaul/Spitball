@@ -167,7 +167,7 @@ app.config([
                 }
             }).
             when('/store/terms', {
-                templateUrl: '/Terms/',
+                templateUrl: '/store/Terms/',
                 controller: 'ViewCtrl',
                 params: {
                     type: 'terms'
