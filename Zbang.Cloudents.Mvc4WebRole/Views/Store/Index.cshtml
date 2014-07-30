@@ -1,92 +1,95 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @model IEnumerable<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
 
-@{Html.RenderPartial("_Navigation");}
+
+<div class="storeWpr">
+    @{Html.RenderPartial("_Navigation");}
 
 
-@*Add class big to show the bigger version of the widget*@
-<div class="widget big">
-    <div class="lFloat banner">
-        @{
-            var topRightBanner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopRight);
-            if (topRightBanner != null)
-            {
-                if (string.IsNullOrEmpty(topRightBanner.Url))
+    @*Add class big to show the bigger version of the widget*@
+    <div class="widget big">
+        <div class="lFloat banner">
+            @{
+                var topRightBanner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopRight);
+                if (topRightBanner != null)
                 {
-                    <img src="@topRightBanner.ImageUrl" alt="" />
+                    if (string.IsNullOrEmpty(topRightBanner.Url))
+                    {
+                        <img src="@topRightBanner.ImageUrl" alt="" />
+                    }
+                    else
+                    {
+                        <a href="@topRightBanner.Url" target="_blank">
+                            <img src="@topRightBanner.ImageUrl" alt="" />
+                        </a>
+                    }
+                }
+            }
+
+        </div>
+        <div class="lFloat carousel"></div>
+
+    </div>
+    @*Add class "showResults" to show the results of the search query (and hide original product list)*@
+    <form class="searchForm" id="">
+        <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
+        <button type="submit" class="searchProducts" ng-click="search($event)" ng-disabled="params.isSearching || !params.search.length">@StoreResources.Search</button>
+    </form>
+    <div class="productsListWpr">
+        <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
+            <li ng-repeat="product in products | limitTo: params.maxProducts">
+                <a bo-href="product.url" href="">
+                    <img bo-src="product.pictureUrl" alt="" />
+                    <div class="desc">
+                        <div class="" bo-text="product.name"></div>
+                        <p class="hoverDesc" bo-text="product.extraDetails"></p>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>@StoreResources.RegPrice:</td>
+                            <td bo-text="product.salePrice"></td>
+                            <td>₪</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.Coupon:</td>
+                            <td bo-text="product.coupon"></td>
+                            <td>₪</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.StudentPrice:</td>
+                            <td bo-text="product.salePrice - product.coupon"></td>
+                            <td>₪</td>
+                        </tr>
+                    </table>
+
+                    <div class="hover">
+
+                        <span class="lFloat" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
+                        <span class="lFloat sale" bo-text="product.coupon / product.salePrice | percentage:0:'@StoreResources.Off'"></span> @*0 is the digits after the dot, % off is suffix*@
+                        <div class="moreDetailsWpr">
+                            @StoreResources.MoreDetails
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        @foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
+        {
+            <div class="placeholder">
+                @if (string.IsNullOrEmpty(banner.Url))
+                {
+                    <img src="@banner.ImageUrl" alt="Banner" />
                 }
                 else
                 {
-                    <a href="@topRightBanner.Url" target="_blank">
-                        <img src="@topRightBanner.ImageUrl" alt="" />
+                    <a href="@banner.Url" target="_blank">
+                        <img src="@banner.ImageUrl" alt="Banner" />
                     </a>
                 }
-            }
+            </div>
         }
-        
     </div>
-    <div class="lFloat carousel"></div>
-    
+    @{Html.RenderPartial("_Footer");}
 </div>
-@*Add class "showResults" to show the results of the search query (and hide original product list)*@
-<form class="searchForm" id="">
-    <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
-    <button type="submit" class="searchProducts" ng-click="search($event)" ng-disabled="params.isSearching || !params.search.length">@StoreResources.Search</button>
-</form>
-<div class="productsListWpr">
-    <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
-        <li ng-repeat="product in products | limitTo: params.maxProducts">
-            <a bo-href="product.url" href="">
-                <img bo-src="product.pictureUrl" alt="" />
-                <div class="desc">
-                    <div class="" bo-text="product.name"></div>
-                    <p class="hoverDesc" bo-text="product.extraDetails"></p>
-                </div>
-                <table>
-                    <tr>
-                        <td>@StoreResources.RegPrice:</td>
-                        <td bo-text="product.salePrice"></td>
-                        <td>₪</td>
-                    </tr>
-                    <tr>
-                        <td>@StoreResources.Coupon:</td>
-                        <td bo-text="product.coupon"></td>
-                        <td>₪</td>
-                    </tr>
-                    <tr>
-                        <td>@StoreResources.StudentPrice:</td>
-                        <td bo-text="product.salePrice - product.coupon"></td>
-                        <td>₪</td>
-                    </tr>
-                </table>
-
-                <div class="hover">
-
-                    <span class="lFloat" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
-                    <span class="lFloat sale" bo-text="product.coupon / product.salePrice | percentage:0:'@StoreResources.Off'"></span> @*0 is the digits after the dot, % off is suffix*@
-                    <div class="moreDetailsWpr">
-                        @StoreResources.MoreDetails
-                    </div>
-                </div>
-            </a>
-        </li>
-    </ul>
-    @foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
-    {
-        <div class="placeholder">
-            @if (string.IsNullOrEmpty(banner.Url))
-            {
-                <img src="@banner.ImageUrl" alt="Banner" />
-            }
-            else
-            {
-                <a href="@banner.Url" target="_blank">
-                    <img src="@banner.ImageUrl" alt="Banner" />
-                </a>
-            }
-        </div>
-    }
-</div>
-@{Html.RenderPartial("_Footer");}
 
 @*<ul class="productsList searchResultsList"></ul>*@
