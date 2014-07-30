@@ -636,11 +636,11 @@
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
-    <Content Include="Content\Shopping.css">
-      <DependentUpon>Shopping.less</DependentUpon>
+    <Content Include="Content\Store.css">
+      <DependentUpon>Store.less</DependentUpon>
     </Content>
-    <Content Include="Content\ShoppingRtl.css">
-      <DependentUpon>ShoppingRtl.less</DependentUpon>
+    <Content Include="Content\StoreRtl.css">
+      <DependentUpon>StoreRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
@@ -948,8 +948,8 @@
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Content\Shopping.less" />
-    <Content Include="Content\ShoppingRtl.less" />
+    <Content Include="Content\Store.less" />
+    <Content Include="Content\StoreRtl.less" />
     <Content Include="Images\category.sprite" />
     <Content Include="Images\category.png.map">
       <DependentUpon>category.png</DependentUpon>
@@ -1432,6 +1432,8 @@
     <Content Include="Views\Store\Contact.cshtml" />
     <Content Include="Views\Store\Sales.cshtml" />
     <Content Include="Views\Store\Empty.cshtml" />
+    <Content Include="Views\Store\_Navigation.cshtml" />
+    <Content Include="Views\Store\_Footer.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

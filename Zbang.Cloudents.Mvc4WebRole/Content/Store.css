@@ -1203,6 +1203,12 @@ ul:after {
   right: 20px;
   /*rtl*/
 }
+.cardHoverTxt {
+  margin-top: -32px;
+  /* white-space: pre-wrap; */
+  text-align: center;
+  line-height: 16px;
+}
 /*#endregion */
 /*#region footer */
 footer {

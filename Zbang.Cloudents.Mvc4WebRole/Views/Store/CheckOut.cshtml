@@ -2,6 +2,9 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model Zbang.Zbox.ViewModel.Dto.Store.ProductCheckOutDto
 
+@{Html.RenderPartial("_Navigation");}
+
+
 <form class="userOrder">
     <h2>@StoreResources.YourOrder</h2>
     <table class="orderTable">
@@ -148,7 +151,7 @@
         <span class="rFloat">@StoreResources.WhatIsThis</span>
         <input type="text" class="inputText" />
         <div class="cardHover">
-            <div>@StoreResources.SecurityCode</div>
+            <div class="cardHoverTxt">@StoreResources.SecurityCode</div>
         </div>
     </div>
     <div class="lFloat">
@@ -183,3 +186,4 @@
     <button class="rFloat btn1" type="submit">@StoreResources.Order</button>
 </form>
 
+@{Html.RenderPartial("_Footer");}

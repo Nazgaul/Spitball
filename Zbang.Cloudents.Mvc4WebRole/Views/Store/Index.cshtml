@@ -1,6 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @model IEnumerable<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
 
+@{Html.RenderPartial("_Navigation");}
+
+
 @*Add class big to show the bigger version of the widget*@
 <div class="widget big">
     <div class="lFloat banner">
@@ -84,5 +87,6 @@
         </div>
     }
 </div>
+@{Html.RenderPartial("_Footer");}
 
 @*<ul class="productsList searchResultsList"></ul>*@
