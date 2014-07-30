@@ -4,38 +4,38 @@
     ViewBag.Title = "Contact Us";
     //Layout = "~/Views/Shared/_LayoutShopping.cshtml";
 }
+<div class="storeWpr page">
+    @{Html.RenderPartial("_Navigation");}
 
-@{Html.RenderPartial("_Navigation");}
+    <div class="widget">
+        <div class="lFloat banner">
 
-<div class="widget">
-    <div class="lFloat banner">
-
+        </div>
     </div>
+
+    <form class="contact">
+        <h2 class="top">@StoreResources.GetHelp</h2>
+        <div class="lFloat">
+            <label>@SharedResources.Name:</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="rFloat">
+            <label>@StoreResources.Telephone:</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat">
+            <label>@SharedResources.School:</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="rFloat">
+            <label>@SharedResources.Email:</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat wideInput">
+            <label>@SharedResources.Message:</label>
+            <textarea class="inputText"></textarea>
+        </div>
+        <button type="submit" class="rFloat btn1">@DialogResources.Send</button>
+    </form>
 </div>
-
-<form class="contact">
-    <h2 class="top">@StoreResources.GetHelp</h2>
-    <div class="lFloat">
-        <label>@SharedResources.Name:</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="rFloat">
-        <label>@StoreResources.Telephone:</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat">
-        <label>@SharedResources.School:</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="rFloat">
-        <label>@SharedResources.Email:</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat wideInput">
-        <label>@SharedResources.Message:</label>
-        <textarea class="inputText"></textarea>
-    </div>
-    <button type="submit" class="rFloat btn1">@DialogResources.Send</button>
-</form>
-
-@{Html.RenderPartial("_Footer");}
+    @{Html.RenderPartial("_Footer");}

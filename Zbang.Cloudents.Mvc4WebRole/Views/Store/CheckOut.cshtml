@@ -2,188 +2,190 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model Zbang.Zbox.ViewModel.Dto.Store.ProductCheckOutDto
 
-@{Html.RenderPartial("_Navigation");}
+<div class="storeWpr page">
+    @{Html.RenderPartial("_Navigation");}
 
 
-<form class="userOrder">
-    <h2>@StoreResources.YourOrder</h2>
-    <table class="orderTable">
-        <thead>
+    <form class="userOrder">
+        <h2>@StoreResources.YourOrder</h2>
+        <table class="orderTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>@StoreResources.ProductName</th>
+                    <th>@StoreResources.RegPrice</th>
+                </tr>
+            </thead>
             <tr>
-                <th></th>
-                <th>@StoreResources.ProductName</th>
-                <th>@StoreResources.RegPrice</th>
-            </tr>
-        </thead>
-        <tr>
-            <td><img src="@Model.Picture" alt="" height="48" width="48" /></td>
-            <td>
-                <div class="pType">@Model.Name</div>
-                <div class="pName">@Model.ExtraDetails</div>
-            </td>
-            <td>
-                @Model.SalePrice
-            </td>
-        </tr>
-        <tr>
-            <td>@StoreResources.CouponCode</td>
-            <td><input type="text" class="inputText" /></td>
-            <td>
-                <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
-                <span class="userHelp">?</span>
-            </td>
-        </tr>
-        @*<div>@ViewBag.data</div>*@
-        @foreach (var categories in Model.Features.GroupBy(s => s.Category))
-        {
-            <tr>
-                <td>@categories.FirstOrDefault().Category</td>
+                <td><img src="@Model.Picture" alt="" height="48" width="48" /></td>
                 <td>
-                    <select>
-                        <option selected>None</option>
-                        @foreach (var feature in categories)
-                        {
-                            <option data-price="@feature.Price" value="@feature.Id">@feature.Description</option>
-                        }
-                    </select>
+                    <div class="pType">@Model.Name</div>
+                    <div class="pName">@Model.ExtraDetails</div>
                 </td>
                 <td>
-                    @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>*@
+                    @Model.SalePrice
                 </td>
             </tr>
-        }
-        <tr>
-            <td></td>
-            <td></td>
-            <td class="invoice">
-                <ul>
-                    <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
-                    <li><span>@StoreResources.Coupon:</span><span class="minus">@Model.Coupon</span><span>₪</span></li>
-                    <li><span>@StoreResources.Upgrades:</span><span>0</span><span>₪</span></li>
-                    @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
-                    <li><span>@StoreResources.ShippingCost:</span><span>@Model.DeliveryPrice</span><span>₪</span></li>
-                    <li><span>@StoreResources.TotalPrice:</span><span>4365</span><span>₪</span></li>
-                </ul>
+            <tr>
+                <td>@StoreResources.CouponCode</td>
+                <td><input type="text" class="inputText" /></td>
+                <td>
+                    <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
+                    <span class="userHelp">?</span>
+                </td>
+            </tr>
+            @*<div>@ViewBag.data</div>*@
+            @foreach (var categories in Model.Features.GroupBy(s => s.Category))
+            {
+                <tr>
+                    <td>@categories.FirstOrDefault().Category</td>
+                    <td>
+                        <select>
+                            <option selected>None</option>
+                            @foreach (var feature in categories)
+                            {
+                                <option data-price="@feature.Price" value="@feature.Id">@feature.Description</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>*@
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="invoice">
+                    <ul>
+                        <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
+                        <li><span>@StoreResources.Coupon:</span><span class="minus">@Model.Coupon</span><span>₪</span></li>
+                        <li><span>@StoreResources.Upgrades:</span><span>0</span><span>₪</span></li>
+                        @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
+                        <li><span>@StoreResources.ShippingCost:</span><span>@Model.DeliveryPrice</span><span>₪</span></li>
+                        <li><span>@StoreResources.TotalPrice:</span><span>4365</span><span>₪</span></li>
+                    </ul>
 
-                <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
-            </td>
-        </tr>
-    </table>
+                    <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
+                </td>
+            </tr>
+        </table>
 
-</form>
+    </form>
 
-<form class="userDetails">
-    <h2>@StoreResources.YourOrder</h2>
-    <div class="detailsTxt">@StoreResources.FillDetails</div>
+    <form class="userDetails">
+        <h2>@StoreResources.YourOrder</h2>
+        <div class="detailsTxt">@StoreResources.FillDetails</div>
 
-    <div class="lFloat">
-        <label>@SharedResources.FirstName</label>
-        <input type="text" class="inputText" required />
-    </div>
-    <div class="rFloat">
-        <label>@SharedResources.LastName</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat">
-        <label>@StoreResources.Telephone 1</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="rFloat">
-        <label>@StoreResources.Telephone 2</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat wideInput">
-        <label>@SharedResources.Email</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat">
-        <label>@StoreResources.City</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat">
-        <label>@StoreResources.Address</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat">
-        <label>@StoreResources.IdentityNo</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat">
-        <label>@StoreResources.CreditCardNo</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat">
-        <label>@StoreResources.Vaildity</label>
-        <select>
-            <option selected>שנה</option>
-            <option value="08">2008</option>
-            <option value="09">2009</option>
-            <option value="10">2010</option>
-            <option value="11">2011</option>
-            <option value="12">2012</option>
-            <option value="13">2013</option>
-            <option value="14">2014</option>
-            <option value="15">2015</option>
-            <option value="16">2016</option>
-            <option value="17">2017</option>
-            <option value="18">2018</option>
-            <option value="19">2019</option>
-            <option value="20">2020</option>
-        </select>
-        <select>
-            <option selected>חודש</option>
-            <option value="01">1</option>
-            <option value="02">2</option>
-            <option value="03">3</option>
-            <option value="04">4</option>
-            <option value="05">5</option>
-            <option value="06">6</option>
-            <option value="07">7</option>
-            <option value="08">8</option>
-            <option value="09">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-        </select>
-    </div>
-    <div class="rFloat secureCode">
-        <label>@StoreResources.ThreeDigits</label>
-        <span class="rFloat">@StoreResources.WhatIsThis</span>
-        <input type="text" class="inputText" />
-        <div class="cardHover">
-            <div class="cardHoverTxt">@StoreResources.SecurityCode</div>
+        <div class="lFloat">
+            <label>@SharedResources.FirstName</label>
+            <input type="text" class="inputText" required />
         </div>
-    </div>
-    <div class="lFloat">
-        <label>@StoreResources.CardOwnerName</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="rFloat">
-        <label>@StoreResources.CardOwnerNo</label>
-        <input type="text" class="inputText" />
-    </div>
-    <div class="lFloat wideInput">
-        <label>@SharedResources.Comments</label>
-        <textarea class="inputText"></textarea>
-    </div>
-    <div class="lFloat">
-        <input type="checkbox" class="checkbox" id="storeCb" />
-        <label class="cbLabel" for="storeCb">@StoreResources.IReadIt</label>
-    </div>
+        <div class="rFloat">
+            <label>@SharedResources.LastName</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat">
+            <label>@StoreResources.Telephone 1</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="rFloat">
+            <label>@StoreResources.Telephone 2</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat wideInput">
+            <label>@SharedResources.Email</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat">
+            <label>@StoreResources.City</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat">
+            <label>@StoreResources.Address</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat">
+            <label>@StoreResources.IdentityNo</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat">
+            <label>@StoreResources.CreditCardNo</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat">
+            <label>@StoreResources.Vaildity</label>
+            <select>
+                <option selected>שנה</option>
+                <option value="08">2008</option>
+                <option value="09">2009</option>
+                <option value="10">2010</option>
+                <option value="11">2011</option>
+                <option value="12">2012</option>
+                <option value="13">2013</option>
+                <option value="14">2014</option>
+                <option value="15">2015</option>
+                <option value="16">2016</option>
+                <option value="17">2017</option>
+                <option value="18">2018</option>
+                <option value="19">2019</option>
+                <option value="20">2020</option>
+            </select>
+            <select>
+                <option selected>חודש</option>
+                <option value="01">1</option>
+                <option value="02">2</option>
+                <option value="03">3</option>
+                <option value="04">4</option>
+                <option value="05">5</option>
+                <option value="06">6</option>
+                <option value="07">7</option>
+                <option value="08">8</option>
+                <option value="09">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <div class="rFloat secureCode">
+            <label>@StoreResources.ThreeDigits</label>
+            <span class="rFloat">@StoreResources.WhatIsThis</span>
+            <input type="text" class="inputText" />
+            <div class="cardHover">
+                <div class="cardHoverTxt">@StoreResources.SecurityCode</div>
+            </div>
+        </div>
+        <div class="lFloat">
+            <label>@StoreResources.CardOwnerName</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="rFloat">
+            <label>@StoreResources.CardOwnerNo</label>
+            <input type="text" class="inputText" />
+        </div>
+        <div class="lFloat wideInput">
+            <label>@SharedResources.Comments</label>
+            <textarea class="inputText"></textarea>
+        </div>
+        <div class="lFloat">
+            <input type="checkbox" class="checkbox" id="storeCb" />
+            <label class="cbLabel" for="storeCb">@StoreResources.IReadIt</label>
+        </div>
 
-    <div class="rFloat">
-        <span>@StoreResources.BillMe</span>
+        <div class="rFloat">
+            <span>@StoreResources.BillMe</span>
 
-        @*Ram: Should this be hard-coded?*@
-        <select>
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-        </select>
-        <span>@StoreResources.Installments</span>
-    </div>
+            @*Ram: Should this be hard-coded?*@
+            <select>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+            </select>
+            <span>@StoreResources.Installments</span>
+        </div>
 
-    <div class="lFloat secureTxt">@StoreResources.SecuredPage</div>
-    <button class="rFloat btn1" type="submit">@StoreResources.Order</button>
-</form>
+        <div class="lFloat secureTxt">@StoreResources.SecuredPage</div>
+        <button class="rFloat btn1" type="submit">@StoreResources.Order</button>
+    </form>
 
-@{Html.RenderPartial("_Footer");}
+    @{Html.RenderPartial("_Footer");}
+</div>

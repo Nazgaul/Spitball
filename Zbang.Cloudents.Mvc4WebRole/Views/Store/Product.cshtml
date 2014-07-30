@@ -2,159 +2,160 @@
 
 @model Zbang.Zbox.ViewModel.Dto.Store.ProductWithDetailDto
 
-@{Html.RenderPartial("_Navigation");}
+<div class="storeWpr page">
+    @{Html.RenderPartial("_Navigation");}
 
 
-@*Add class big to show the bigger version of the widget*@
-<div class="widget">
-    <div class="lFloat banner">
-        @{
-            var banner = ViewBag.banner as Zbang.Zbox.ViewModel.Dto.Store.BannerDto;
-            if (banner != null)
-            {
-                if (string.IsNullOrEmpty(banner.Url))
+    @*Add class big to show the bigger version of the widget*@
+    <div class="widget">
+        <div class="lFloat banner">
+            @{
+                var banner = ViewBag.banner as Zbang.Zbox.ViewModel.Dto.Store.BannerDto;
+                if (banner != null)
                 {
-                    <img src="@banner.ImageUrl" alt="" />
-                }
-                else
-                {
-                    <a href="@banner.Url" target="_blank">
+                    if (string.IsNullOrEmpty(banner.Url))
+                    {
                         <img src="@banner.ImageUrl" alt="" />
-                    </a>
+                    }
+                    else
+                    {
+                        <a href="@banner.Url" target="_blank">
+                            <img src="@banner.ImageUrl" alt="" />
+                        </a>
+                    }
                 }
             }
-        }
+        </div>
     </div>
+
+    <div class="productWpr">
+        <h1>@Model.Name</h1>
+        <div class="left">
+            <div class="productInfoWpr">
+                <table class="productPrice">
+                    <tr>
+                        <td>@StoreResources.StudentPrice:</td>
+                        <td>@Model.Price</td>
+                        <td>₪</td>
+                    </tr>
+                    <tr>
+                        <td>@StoreResources.Shipping:</td>
+                        <td>@Model.DeliveryPrice</td>
+                        <td>₪</td>
+                    </tr>
+                    <tr>
+                        <td>@StoreResources.CostWithShipping:</td>
+                        <td>@Model.TotalPrice</td>
+                        <td>₪</td>
+                    </tr>
+                </table>
+                <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id})" class="btn3">@StoreResources.PurchaseNow</a>
+                <table class="productDetails">
+                    <tr>
+                        <td>@StoreResources.SerialNo:</td>
+                        <td>@Model.CatalogNumber</td>
+                    </tr>
+                    <tr>
+                        <td>@StoreResources.PaymentCond:</td>
+                        <td>@StoreResources.UpTo @Model.NumberofPayments @StoreResources.NoInterestInstall</td>
+                    </tr>
+                    @*<tr>
+                            <td>@StoreResources.Warranty:</td>
+                            <td>1 year - by the official importer</td>
+                        </tr>*@
+                    <tr>
+                        <td>@StoreResources.DeliveryTime:</td>
+                        <td>@StoreResources.UpTo @Model.SupplyTime @StoreResources.WorkDays</td>
+                    </tr>
+                    <tr>
+                        <td>@StoreResources.Supplier:</td>
+                        <td>New Vision Digital LTD</td>
+                    </tr>
+                    <tr>
+                        <td>@StoreResources.AdditionalInfo:</td>
+                        <td>09-8989567 <small>@StoreResources.WorkHours</small></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="right">
+            <div class="imgWpr ghost">
+                <img class="vCentered" alt="" src="@Model.Picture" />
+            </div>
+            <div class="pNameWpr">
+                <h3>@Model.ExtraDetails</h3>
+            </div>
+        </div>
+        <div class="pDesc">
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
+
+    @{Html.RenderPartial("_Footer");}
 </div>
-
-<div class="productWpr">
-    <h1>@Model.Name</h1>
-    <div class="left">
-        <div class="productInfoWpr">
-            <table class="productPrice">
-                <tr>
-                    <td>@StoreResources.StudentPrice:</td>
-                    <td>@Model.Price</td>
-                    <td>₪</td>
-                </tr>
-                <tr>
-                    <td>@StoreResources.Shipping:</td>
-                    <td>@Model.DeliveryPrice</td>
-                    <td>₪</td>
-                </tr>
-                <tr>
-                    <td>@StoreResources.CostWithShipping:</td>
-                    <td>@Model.TotalPrice</td>
-                    <td>₪</td>
-                </tr>
-            </table>
-            <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id})" class="btn3">@StoreResources.PurchaseNow</a>
-            <table class="productDetails">
-                <tr>
-                    <td>@StoreResources.SerialNo:</td>
-                    <td>@Model.CatalogNumber</td>
-                </tr>
-                <tr>
-                    <td>@StoreResources.PaymentCond:</td>
-                    <td>@StoreResources.UpTo @Model.NumberofPayments @StoreResources.NoInterestInstall</td>
-                </tr>
-                @*<tr>
-                        <td>@StoreResources.Warranty:</td>
-                        <td>1 year - by the official importer</td>
-                    </tr>*@
-                <tr>
-                    <td>@StoreResources.DeliveryTime:</td>
-                    <td>@StoreResources.UpTo @Model.SupplyTime @StoreResources.WorkDays</td>
-                </tr>
-                <tr>
-                    <td>@StoreResources.Supplier:</td>
-                    <td>New Vision Digital LTD</td>
-                </tr>
-                <tr>
-                    <td>@StoreResources.AdditionalInfo:</td>
-                    <td>09-8989567 <small>@StoreResources.WorkHours</small></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="right">
-        <div class="imgWpr ghost">
-            <img class="vCentered" alt="" src="@Model.Picture" />
-        </div>
-        <div class="pNameWpr">
-            <h3>@Model.ExtraDetails</h3>
-        </div>
-    </div>
-    <div class="pDesc">
-        @Html.Raw(Model.Description)
-    </div>
-</div>
-
-@{Html.RenderPartial("_Footer");}
-
-@*<section>
-        <header>Similar products of interest</header>
-        <button type="button" class="prev"></button>
-        <ul class="moreProductsList">
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=one" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=two" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=three" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=four" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=five" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=six" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=seven" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=eight" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="http://placehold.it/150x150&text=nine" alt="" /></a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=ten" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=eleven" alt="" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="http://placehold.it/150x150&text=twelve" alt="" />
-                </a>
-            </li>
-        </ul>
-        <button type="button" class="next"></button>
-    </section>*@
+    @*<section>
+            <header>Similar products of interest</header>
+            <button type="button" class="prev"></button>
+            <ul class="moreProductsList">
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=one" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=two" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=three" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=four" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=five" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=six" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=seven" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=eight" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#"><img src="http://placehold.it/150x150&text=nine" alt="" /></a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=ten" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=eleven" alt="" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="http://placehold.it/150x150&text=twelve" alt="" />
+                    </a>
+                </li>
+            </ul>
+            <button type="button" class="next"></button>
+        </section>*@
 
