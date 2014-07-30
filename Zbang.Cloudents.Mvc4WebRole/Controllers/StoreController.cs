@@ -64,11 +64,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [Ajax,HttpGet]
+        [Ajax, HttpGet]
         public async Task<ActionResult> CheckOut(long id)
         {
             var query = new GetStoreProductQuery(id);
             var model = await ZboxReadService.GetProductCheckOut(query);
+            var serializer = new JsonNetSerializer();
+            ViewBag.data = serializer.Serialize(model);
             return PartialView(model);
         }
 
