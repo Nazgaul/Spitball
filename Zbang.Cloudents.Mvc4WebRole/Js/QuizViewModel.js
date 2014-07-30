@@ -680,6 +680,47 @@
         function trackEvent(action, label) {
             analytics.trackEvent('Quiz', action, label);
         }
+        var rtlChars = '\u0600-\u06FF' + '\u0750-\u077F' + '\u08A0-\u08FF' + '\uFB50-\uFDFF' + '\uFE70-\uFEFF';//arabic
+        rtlChars += '\u0590-\u05FF' + '\uFB1D-\uFB4F';//hebrew
+
+        var controlChars = '\u0000-\u0020';
+        controlChars += '\u2000-\u200D';
+
+        //Start Regular Expression magic
+        var reRTL = new RegExp('[' + rtlChars + ']', 'g'),
+            reNotRTL = new RegExp('[^' + rtlChars + controlChars + ']', 'g'),
+            textAlign = $('html').css('direction') === 'ltr' ? 'left' : 'right';
+        function checkRTLDirection(value) {
+
+            if (!value) {
+                return;
+            }
+
+            var rtls = value.match(reRTL);
+            if (rtls !== null)
+                rtls = rtls.length;
+            else
+                rtls = 0;
+
+            var notrtls = value.match(reNotRTL);
+            if (notrtls !== null)
+                notrtls = notrtls.length;
+            else
+                notrtls = 0;
+
+            return rtls > notrtls;
+        }
+        $('body').on('input', '#quiz .cTextArea', function () {
+            if (!this.value.length) {
+                $(this).css('direction', '').css('text-align', '');
+                return;
+            }
+            if (checkRTLDirection(this.value)) {
+                $(this).css('direction', 'rtl').css('text-align', 'right');
+            } else {
+                $(this).css('direction', 'ltr').css('text-align', 'left');
+            }
+        });
 
     }
 

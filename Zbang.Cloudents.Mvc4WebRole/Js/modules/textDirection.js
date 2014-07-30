@@ -16,7 +16,6 @@
                 return checkRtlDirection(value);
 
                 function checkRtlDirection(value) {
-
                     var rtls = value.match(reRtl);
                     if (rtls !== null)
                         rtls = rtls.length;
@@ -45,7 +44,11 @@
 
                 scope.$watch(attrs.ngModel, function (v) {
                     if (!v) {
-                        v = attrs.ngPlaceholder;
+                        if (attrs.ngPlaceholder) {
+                            v = attrs.ngPlaceholder;
+                        } else {
+                            v = '';
+                        }                       
                     }
 
                     $(element[0]).css(getTextDirection.isRTL(v) ? { direction: 'rtl', textAlign: 'right' } : { direction: 'ltr', textAlign: 'left' });
