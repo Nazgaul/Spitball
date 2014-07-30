@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -18,25 +18,6 @@ header h1 {
 .storeWpr {
   width: 940px;
   margin: 0 auto;
-}
-.storeWpr .bottom {
-  background: #39434a;
-  height: 70px;
-  color: #fff;
-}
-.storeWpr .bottom .wpr {
-  position: relative;
-}
-.storeWpr .bottom ul {
-  padding-left: 212px;
-  /*rtl*/
-}
-.storeWpr .bottom li,
-.storeWpr .bottom a {
-  display: inline-block;
-}
-.storeWpr .bottom a {
-  padding: 30px 40px 0 40px;
 }
 .storeNav,
 main {
@@ -1144,6 +1125,25 @@ ul:after {
   line-height: 23px;
   font-size: 15px;
 }
+.storeWpr footer .bottom {
+  background: #39434a;
+  height: 70px;
+  color: #fff;
+}
+.storeWpr footer .bottom .wpr {
+  position: relative;
+}
+.storeWpr footer .bottom ul {
+  padding-left: 212px;
+  /*rtl*/
+}
+.storeWpr footer .bottom li,
+.storeWpr footer .bottom a {
+  display: inline-block;
+}
+.storeWpr footer .bottom a {
+  padding: 30px 40px 0 40px;
+}
 .storeWpr footer h3,
 .storeWpr footer a {
   color: #fff;
@@ -1201,4 +1201,3 @@ ul:after {
   opacity: 1;
 }
 /*#endregion */
-/*# sourceMappingURL=Store.css.map */
