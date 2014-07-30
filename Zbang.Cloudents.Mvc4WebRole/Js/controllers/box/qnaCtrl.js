@@ -237,6 +237,8 @@ mBox.controller('QnACtrl',
                 };
 
                 question.answers.push(new Answer(obj));
+                $scope.$broadcast('update-scroll');
+
                 question.bestAnswer = findBestAnswer(question.answers);
                 //updatetime
                 //notify

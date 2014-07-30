@@ -106,7 +106,7 @@ mBox.controller('BoxCtrl',
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
-                    $rootScope.$broadcast('update_scroll');
+                    $rootScope.$broadcast('update-scroll');
                 });
             });
 
@@ -393,6 +393,7 @@ mBox.controller('BoxCtrl',
                 $scope.info.currentTab = null;
                 $scope.options.manageTab = false;
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+                $rootScope.$broadcast('update_scroll');
 
 
             };
@@ -448,6 +449,8 @@ mBox.controller('BoxCtrl',
 
                 modalInstance.result.then(function (tab) {
                     $scope.info.tabs.push(tab);
+                    $rootScope.$broadcast('update_scroll');
+
                 }, function () {
                     //dismiss
                 });
