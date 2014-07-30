@@ -140,7 +140,7 @@ app.config([
             }).
             when('/store/product/:productId/:productName/', {
                 templateUrl: function (params) { return '/store/product/?id=' + params.productId; },
-                //controller: 'ProductCtrl',
+                controller: 'ProductCtrl',
                 params: {
                     type: 'product'
                 }

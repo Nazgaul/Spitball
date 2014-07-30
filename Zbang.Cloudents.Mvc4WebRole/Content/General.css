@@ -2447,7 +2447,8 @@ select.inputText {
 }
 .mtouch .boxRename.boxRename,
 .mtouch .itemRenameBtn.itemRenameBtn,
-.mtouch .ratePopup.ratePopup .closeDialog {
+.mtouch .ratePopup.ratePopup .closeDialog,
+.mtouch .removeItem.removeItem {
   display: inline-block;
 }
 /*#region IPAD - SPECIFIC CODE */

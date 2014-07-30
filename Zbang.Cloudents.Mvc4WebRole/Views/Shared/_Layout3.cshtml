@@ -55,7 +55,7 @@
         <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
            href="@Url.Action("Index", "Dashboard")"></a>
 
-        <div class="headerRightWpr rFloat" ng-if="!$root.params.isStore">
+        <div class="headerRightWpr rFloat">
             <nav class="userSection rFloat">
                 <ul class="userNav">
                     @{
@@ -67,7 +67,9 @@
                     }
                 </ul>
             </nav>
-            @RenderSection("search", false)
+            <div ng-if="!$root.params.isStore">
+                @RenderSection("search", false)
+            </div>
         </div>
         <h1 ng-if="$root.params.isStore">@StoreResources.Description</h1>
     </header>
