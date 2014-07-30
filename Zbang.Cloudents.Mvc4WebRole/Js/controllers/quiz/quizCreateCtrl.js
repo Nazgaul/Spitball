@@ -511,11 +511,10 @@
 
                   $timeout(function () { //fix for animationB
                       mainDiv.classList.add('topBarFix');
-                      $('.siteHeader').hide();
-                      scope.$broadcast('update-scroll');
-                      scope.$emit('update-scroll');
+                      $('.siteHeader').hide();                      
                       mainDiv.classList.add('topBarFix');
                       $('.siteHeader').hide();
+                      scope.$emit('update-scroll');
                       scope.$broadcast('update-scroll');
                   }, 700);
               }
