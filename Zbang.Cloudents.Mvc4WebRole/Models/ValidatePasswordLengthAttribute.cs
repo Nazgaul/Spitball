@@ -14,7 +14,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public override string FormatErrorMessage(string name)
         {
             ValidatePasswordResources.Culture = System.Threading.Thread.CurrentThread.CurrentCulture;
-            var resource = ValidatePasswordResources.MustBeAtLeast;
 
             //Resources.ValidatePasswordResources.MustBeAtLeast
             return String.Format(ErrorMessageString,

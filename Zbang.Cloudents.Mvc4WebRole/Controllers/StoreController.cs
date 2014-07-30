@@ -19,7 +19,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/product/{productid:int}/{productname}")]
         [Route("store")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
-
         public ActionResult Index()
         {
             return View("Empty");
