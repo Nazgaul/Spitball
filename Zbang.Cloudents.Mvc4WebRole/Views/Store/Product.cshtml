@@ -8,11 +8,26 @@
 @*Add class big to show the bigger version of the widget*@
 <div class="widget">
     <div class="lFloat banner">
-
+        @{
+            var banner = ViewBag.banner as Zbang.Zbox.ViewModel.Dto.Store.BannerDto;
+            if (banner != null)
+            {
+                if (string.IsNullOrEmpty(banner.Url))
+                {
+                    <img src="@banner.ImageUrl" alt="" />
+                }
+                else
+                {
+                    <a href="@banner.Url" target="_blank">
+                        <img src="@banner.ImageUrl" alt="" />
+                    </a>
+                }
+            }
+        }
     </div>
 </div>
 
-<div class="productWpr">    
+<div class="productWpr">
     <h1>@Model.Name</h1>
     <div class="left">
         <div class="productInfoWpr">
@@ -44,9 +59,9 @@
                     <td>@StoreResources.UpTo @Model.NumberofPayments @StoreResources.NoInterestInstall</td>
                 </tr>
                 @*<tr>
-                    <td>@StoreResources.Warranty:</td>
-                    <td>1 year - by the official importer</td>
-                </tr>*@
+                        <td>@StoreResources.Warranty:</td>
+                        <td>1 year - by the official importer</td>
+                    </tr>*@
                 <tr>
                     <td>@StoreResources.DeliveryTime:</td>
                     <td>@StoreResources.UpTo @Model.SupplyTime @StoreResources.WorkDays</td>
@@ -78,68 +93,68 @@
 @{Html.RenderPartial("_Footer");}
 
 @*<section>
-    <header>Similar products of interest</header>
-    <button type="button" class="prev"></button>
-    <ul class="moreProductsList">
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=one" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=two" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=three" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=four" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=five" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=six" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=seven" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=eight" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#"><img src="http://placehold.it/150x150&text=nine" alt="" /></a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=ten" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=eleven" alt="" />
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="http://placehold.it/150x150&text=twelve" alt="" />
-            </a>
-        </li>
-    </ul>
-    <button type="button" class="next"></button>
-</section>*@
+        <header>Similar products of interest</header>
+        <button type="button" class="prev"></button>
+        <ul class="moreProductsList">
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=one" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=two" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=three" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=four" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=five" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=six" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=seven" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=eight" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#"><img src="http://placehold.it/150x150&text=nine" alt="" /></a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=ten" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=eleven" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=twelve" alt="" />
+                </a>
+            </li>
+        </ul>
+        <button type="button" class="next"></button>
+    </section>*@
 
