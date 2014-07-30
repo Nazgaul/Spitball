@@ -96,15 +96,15 @@
                 if (!current.$$route) {
                     return;
                 }
-
+                $scope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
+                $scope.params.store.currentTab = current.$$route.params.type;
 
                 if (current.$$route.type === 'products' && current.params.categoryId === '646') {
                     $scope.params.currentTab = 'sales';
                     return;
                 }
 
-                $scope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
-                $scope.params.store.currentTab = current.$$route.params.type;
+               
 
             });
             
