@@ -32,7 +32,7 @@
 
     function findById(arr, id) {
         for (var i = 0, l = arr.length; i < l; i++) {
-            if (arr[i].Uid === id) {
+            if (arr[i].Uid == id) {
                 return true;
             }
         }
