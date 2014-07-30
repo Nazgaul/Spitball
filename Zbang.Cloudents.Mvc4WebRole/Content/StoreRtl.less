@@ -15,13 +15,9 @@
 
 /*#region widget */
 .widget {
-    &.big {
-        .banner {
-            border: none; //override
-            border-left: 1px solid @txtColor; /*rtl*/
-        }
+    img {
+        margin: 0 -1px 0 0; /*rtl*/
     }
-    
 }
 /*#endregion */
 
@@ -192,6 +188,9 @@
 
 
 /*#region footer */
+.storeWpr footer {
+    text-align: right; /*rtl*/ //override
+}
 .bottom {
     ul {
         padding: 0 212px 0 0; /*rtl*/

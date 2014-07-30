@@ -92,13 +92,14 @@ main {
     }
 
     &.big {
-        height: 390px;
+        height: 391px;
         .banner {
             width: 320px;
             height: 100%;
-            border-right: 1px solid @txtColor; /*rtl*/
-            .boxSizing;
         }
+    }
+    img {
+        margin-left: -1px; /*rtl*/
     }
 }
 /*#endregion */
@@ -1058,8 +1059,11 @@ ul:after {
 
 /*#region footer */
 
-footer {
+.storeWpr footer {
     background: @color;
+    height: auto; //override
+    line-height: normal; //override
+    text-align: left; /*rtl*/ //override
     > .wpr {
         text-align: justify; 
         padding: 35px @wpr-padding;

@@ -85,16 +85,15 @@ main {
   box-sizing: border-box;
 }
 .widget.big {
-  height: 390px;
+  height: 391px;
 }
 .widget.big .banner {
   width: 320px;
   height: 100%;
-  border-right: 1px solid #39434a;
+}
+.widget img {
+  margin-left: -1px;
   /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 /*#endregion */
 /*#region search form */
@@ -1089,39 +1088,43 @@ ul:after {
 }
 /*#endregion */
 /*#region footer */
-footer {
+.storeWpr footer {
   background: #0f9d58;
+  height: auto;
+  line-height: normal;
+  text-align: left;
+  /*rtl*/
 }
-footer > .wpr {
+.storeWpr footer > .wpr {
   text-align: justify;
   padding: 35px 42px;
 }
-footer > .wpr > div {
+.storeWpr footer > .wpr > div {
   display: inline-block;
   vertical-align: top;
   height: 210px;
 }
-footer > .wpr:after {
+.storeWpr footer > .wpr:after {
   content: '';
   display: inline-block;
   width: 100%;
 }
-footer > .wpr ul {
+.storeWpr footer > .wpr ul {
   margin-bottom: 20px;
   line-height: 23px;
   font-size: 15px;
 }
-footer h3,
-footer a {
+.storeWpr footer h3,
+.storeWpr footer a {
   color: #fff;
 }
-footer a:hover {
+.storeWpr footer a:hover {
   color: silver;
 }
-footer h3 {
+.storeWpr footer h3 {
   margin-bottom: 5px;
 }
-footer .bottom {
+.storeWpr footer .bottom {
   height: 70px;
 }
 .wpr {

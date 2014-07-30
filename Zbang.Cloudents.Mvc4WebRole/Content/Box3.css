@@ -611,6 +611,10 @@
   height: 100%;
   display: table-row;
 }
+.boxFolders .mCSB_container,
+.boxFolders [ng-transclude] {
+  height: 100%;
+}
 .boxFolderList {
   width: 100%;
   height: 100%;

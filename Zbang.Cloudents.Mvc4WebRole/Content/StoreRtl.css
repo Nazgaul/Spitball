@@ -11,9 +11,8 @@
 }
 /*#endregion */
 /*#region widget */
-.widget.big .banner {
-  border: none;
-  border-left: 1px solid #39434a;
+.widget img {
+  margin: 0 -1px 0 0;
   /*rtl*/
 }
 /*#endregion */
@@ -179,6 +178,10 @@
 }
 /*#endregion */
 /*#region footer */
+.storeWpr footer {
+  text-align: right;
+  /*rtl*/
+}
 .bottom ul {
   padding: 0 212px 0 0;
   /*rtl*/
