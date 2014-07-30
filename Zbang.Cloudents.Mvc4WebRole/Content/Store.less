@@ -1019,6 +1019,10 @@ ul:after {
     }
     .cbLabel {
         font-size: 15px;
+        position: static; //override;
+        &:before {
+            border: none; //override;
+        }
     }
 }
 
