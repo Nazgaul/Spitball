@@ -369,4 +369,7 @@
   <data name="WorkHours" xml:space="preserve">
     <value>(בימים א' - ה' בין השעות 9:00 ל 16:00)</value>
   </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>תקנון</value>
+  </data>
 </root>

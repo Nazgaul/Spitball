@@ -712,7 +712,7 @@ ul:after {
     font-size: 24px;
     margin-top: 45px;
 }
-.about {
+.about, .terms {
     line-height: 30px;
     font-size: 15px;
     width: 600px;
@@ -1019,6 +1019,10 @@ ul:after {
     }
     .cbLabel {
         font-size: 15px;
+        position: static; //override;
+        &:before {
+            border: none; //override;
+        }
     }
 }
 
@@ -1033,13 +1037,13 @@ ul:after {
     }
 }
 .cardHover {
+    display: none;
     width: 270px;
     height: 220px;
     color: #fff;
     background: @color;
     border-radius: 10px;
     font-size: 15px;
-    //display: none;
     position: absolute;
     bottom: 100%;
     right: 0; /*rtl*/

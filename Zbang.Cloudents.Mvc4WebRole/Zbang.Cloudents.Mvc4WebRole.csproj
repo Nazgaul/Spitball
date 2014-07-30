@@ -1436,6 +1436,7 @@
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_CheckOutStep1.cshtml" />
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
+    <Content Include="Views\Store\Terms.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

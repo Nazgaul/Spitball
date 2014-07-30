@@ -96,8 +96,8 @@
         @Html.TextBoxFor(f => f.Comments, new { @class = "inputText" })
     </div>
     <div class="lFloat">
-        @Html.CheckBoxFor(f => f.AcceptTermOfService)
-        @Html.LabelFor(f => f.AcceptTermOfService)
+        @Html.CheckBoxFor(f => f.AcceptTermOfService, new { @class = "checkbox"})
+        @Html.LabelFor(f => f.AcceptTermOfService, new { @class = "cbLabel" })
         @*<input type="checkbox" class="checkbox" id="storeCb" />
         <label class="cbLabel" for="storeCb">@StoreResources.IReadIt</label>*@
     </div>
