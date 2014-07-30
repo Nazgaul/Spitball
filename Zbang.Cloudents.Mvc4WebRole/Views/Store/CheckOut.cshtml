@@ -1,8 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@{
-    Layout = "~/Views/Shared/_LayoutShopping.cshtml";
-}
 @model Zbang.Zbox.ViewModel.Dto.Store.ProductCheckOutDto
 
 <form class="userOrder">
@@ -33,38 +30,24 @@
                 <span class="userHelp">?</span>
             </td>
         </tr>
-        <tr>
-            <td>@StoreResources.Upgrades</td>
-            <td>
-                <select>
-                    <option selected>None</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </td>
-            <td>
-                <button type="button" class="btn3">@StoreResources.AddToPurchase</button>
-            </td>
-        </tr>
-
-        @*Ram: You can add More rows here:*@
-
-        @*<tr>
-            <td>@StoreResources.Upgrades</td>
-            <td>
-                <select>
-                    <option selected>None</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </td>
-            <td>
-                <button type="button" class="btn3">@StoreResources.AddToPurchase</button>
-            </td>
-        </tr>*@
-
+        @foreach (var categories in Model.Features.GroupBy(s => s.Category))
+        {
+            <tr>
+                <td>@categories.FirstOrDefault().Category</td>
+                <td>
+                    <select>
+                        <option selected>None</option>
+                        @foreach (var feature in categories)
+                        {
+                            <option data-price="@feature.Price" value="@feature.Id">@feature.Description</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>*@
+                </td>
+            </tr>
+        }
         <tr>
             <td></td>
             <td></td>
@@ -72,12 +55,12 @@
                 <ul>
                     <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
                     <li><span>@StoreResources.Coupon:</span><span class="minus">@Model.Coupon</span><span>₪</span></li>
-                    <li><span>@StoreResources.Upgrades:</span><span>235</span><span>₪</span></li>
+                    <li><span>@StoreResources.Upgrades:</span><span>0</span><span>₪</span></li>
                     @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
                     <li><span>@StoreResources.ShippingCost:</span><span>@Model.DeliveryPrice</span><span>₪</span></li>
                     <li><span>@StoreResources.TotalPrice:</span><span>4365</span><span>₪</span></li>
                 </ul>
-                
+
                 <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
             </td>
         </tr>
@@ -154,7 +137,7 @@
         <input type="checkbox" class="checkbox" id="storeCb" />
         <label class="cbLabel" for="storeCb">@StoreResources.IReadIt</label>
     </div>
-     
+
     <div class="rFloat">
         <span>@StoreResources.BillMe</span>
         <select></select>

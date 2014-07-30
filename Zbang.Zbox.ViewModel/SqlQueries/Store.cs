@@ -39,7 +39,7 @@ SalePrice,
 Coupon,
 [PictureUrl] as picture,
 s.DeliveryPrice
-  FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
+  FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId;";
 
        public const string SearchProduct = @"select [ProductId] as Id
       ,[Name]
@@ -50,6 +50,12 @@ s.DeliveryPrice
       ,[PictureUrl]
       ,[Url] from zbox.StoreProduct 
 where name like '%' + @term + '%' ";
+
+       public const string GetProductFeatures = @"select Id, 
+Category,
+Description,
+Price 
+from zbox.StoreProductFeatures where Product = @ProdId;";
 
        public const string GetBanners = @"SELECT [Url]
       ,[ImageUrl]

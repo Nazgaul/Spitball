@@ -942,8 +942,13 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<ProductCheckOutDto>(Sql.Store.GetProductCheckOut, new { ProdId = query.ProductId });
-                return retVal.FirstOrDefault();
+                using (var grid = await conn.QueryMultipleAsync(Sql.Store.GetProductCheckOut + Sql.Store.GetProductFeatures,
+                    new { ProdId = query.ProductId }))
+                {
+                    var product = grid.Read<ProductCheckOutDto>().FirstOrDefault();
+                    if (product != null) product.Features = grid.Read<ProductFeatures>();
+                    return product;
+                }
             }
         }
 

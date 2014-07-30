@@ -47,36 +47,36 @@ app.config([
 
         //#region routes
         $routeProvider.
-        when('/store/', {
-            templateUrl: '/Store/',
-            controller: 'CategoryCtrl',
-            type: 'home'
-        }).
-        when('/store/category/:categoryId/:categoryName/', {
-            templateUrl: '/Store/',
-            controller: 'CategoryCtrl',
-            type: 'products'
-        }).
-        when('/store/product/:productId/:productName/', {
-            templateUrl: function (params) { return '/store/product/?id=' + params.productId; },
-            //controller: 'ProductCtrl',
-            type: 'product'
-        }).
-        when('/store/about/', {
-            templateUrl: '/Store/About',
-            controller: 'AboutCtrl',
-            type: 'about'
-        }).
-        when('/store/contact/', {
-            templateUrl: '/Store/Contact',
-            controller: 'ContactCtrl',
-            type: 'contact'
-        }).
-        when('/store/checkout/:productId', {
-            templateUrl: '/Store/Checkout',
-            controller: 'CheckoutCtrl',
-            type: 'checkout'
-        }).
+            when('/store/', {
+                templateUrl: '/Store/',
+                controller: 'CategoryCtrl',
+                type: 'home'
+            }).
+            when('/store/category/:categoryId/:categoryName/', {
+                templateUrl: '/Store/',
+                controller: 'CategoryCtrl',
+                type: 'products'
+            }).
+            when('/store/product/:productId/:productName/', {
+                templateUrl: function (params) { return '/store/product/?id=' + params.productId; },
+                //controller: 'ProductCtrl',
+                type: 'product'
+            }).
+            when('/store/about/', {
+                templateUrl: '/Store/About',
+                controller: 'AboutCtrl',
+                type: 'about'
+            }).
+            when('/store/contact/', {
+                templateUrl: '/Store/Contact',
+                controller: 'ContactCtrl',
+                type: 'contact'
+            }).
+            when('/store/checkout/:productId', {
+                templateUrl: function (params) { return '/Store/Checkout/?id=' + params.productId; },
+                controller: 'CheckoutCtrl',
+                type: 'checkout'
+            }).
         otherwise({ redirectTo: '/store/' });
 
         //#endregion

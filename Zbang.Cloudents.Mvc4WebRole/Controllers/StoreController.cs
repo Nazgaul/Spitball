@@ -17,6 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/category/{categoryid:int}/{categoryname}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
         [Route("store")]
+        [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
 
         public ActionResult Index()
         {
@@ -63,12 +64,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [Route("store/checkout/{id:int}",Name="StoreCheckout")]
+        [Ajax,HttpGet]
         public async Task<ActionResult> CheckOut(long id)
         {
             var query = new GetStoreProductQuery(id);
             var model = await ZboxReadService.GetProductCheckOut(query);
-            return View(model);
+            return PartialView(model);
         }
 
         public ActionResult About()
