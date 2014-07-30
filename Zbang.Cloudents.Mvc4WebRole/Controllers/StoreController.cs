@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -45,7 +46,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Product(long id)
         {
             var query = new GetStoreProductQuery(id);
-            var model = await ZboxReadService.GetProduct(query);
+            var tModel =  ZboxReadService.GetProduct(query);
+            var tBanners =  ZboxReadService.GetBanners();
+
+            await Task.WhenAll(tModel, tBanners);
+            var model = tModel.Result;
+            ViewBag.banner =
+                tBanners.Result.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
             model.TotalPrice = model.Price + model.DeliveryPrice;
             model.Id = id;
             return PartialView(model);
