@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 using NHibernate;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using System.Data;
 
 namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork

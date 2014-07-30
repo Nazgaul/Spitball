@@ -59,7 +59,7 @@
     </id>
     <property name="Category" not-null="true" />
     <property name="Description" not-null="true"  />
-    <property name="Price" not-null="true"/>
+    <property name="Price" not-null="false"/>
     <many-to-one class="StoreProduct" name="Product" not-null="true" foreign-key="StoreProductFeaturesProduct" />
   </class>
 </hibernate-mapping>

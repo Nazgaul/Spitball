@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ViewModel.Dto;

@@ -67,5 +67,11 @@ namespace Zbang.Zbox.Domain.Commands.Store
         public string ProducerName { get; private set; }
 
         public List<KeyValuePair<string, string>> Upgrades { get; private set; }
+
+        public override string ToString()
+        {
+            return "id:" + Id + " upgrades: " + Upgrades;
+            return base.ToString();
+        }
     }
 }

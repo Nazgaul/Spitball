@@ -1,5 +1,5 @@
 ﻿using NHibernate.Criterion;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess

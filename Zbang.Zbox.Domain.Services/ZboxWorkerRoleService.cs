@@ -4,7 +4,7 @@ using Dapper;
 using NHibernate;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Storage;
 
 

@@ -65,7 +65,8 @@ namespace Zbang.Zbox.Domain
                 {
                     var x = new Regex("\\*([^*]*)\\*");
                     var sPrice = x.Match(categoryOption).Value.Replace("*", string.Empty);
-                    var price = float.Parse(sPrice);
+
+                    float? price = TryParseNullableFloat(sPrice);
 
                     Features.Add(new StoreProductFeatures(feature.Key, categoryOption.Replace("*" + sPrice + "*", string.Empty),
                         price, this));
@@ -73,6 +74,13 @@ namespace Zbang.Zbox.Domain
 
 
             }
+        }
+
+        private static float? TryParseNullableFloat(string s)
+        {
+            float f;
+            if (float.TryParse(s, out f)) return f;
+            return null;
         }
 
         public long Id { get; set; }

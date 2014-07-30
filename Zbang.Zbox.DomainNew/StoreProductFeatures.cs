@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain
         {
         }
 
-        public StoreProductFeatures(string category, string description, float price, StoreProduct product)
+        public StoreProductFeatures(string category, string description, float? price, StoreProduct product)
         {
             if (description == null) throw new ArgumentNullException("description");
             Category = category;
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain
 
         public string Description { get; set; }
 
-        public float Price { get; set; }
+        public float? Price { get; set; }
 
         public StoreProduct Product { get; set; }
     }

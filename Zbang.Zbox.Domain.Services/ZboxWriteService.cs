@@ -4,7 +4,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 namespace Zbang.Zbox.Domain.Services
 {

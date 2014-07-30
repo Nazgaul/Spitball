@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using NHibernate;
 using Rhino.Mocks;
 using Zbang.Zbox.Infrastructure.Storage;

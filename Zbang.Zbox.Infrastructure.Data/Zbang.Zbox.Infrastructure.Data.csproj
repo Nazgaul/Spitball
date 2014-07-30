@@ -78,11 +78,11 @@
     <Compile Include="Dapper\DapperConnection.cs" />
     <Compile Include="Dialect\ZboxDialect.cs" />
     <Compile Include="Driver\ZboxDriver.cs" />
-    <Compile Include="NHibernameUnitOfWork\GenericTransaction.cs" />
-    <Compile Include="NHibernameUnitOfWork\Local.cs" />
-    <Compile Include="NHibernameUnitOfWork\UnitOfWork.cs" />
-    <Compile Include="NHibernameUnitOfWork\UnitOfWorkFactory.cs" />
-    <Compile Include="NHibernameUnitOfWork\UnitOfWorkImplementor.cs" />
+    <Compile Include="NHibernateUnitOfWork\GenericTransaction.cs" />
+    <Compile Include="NHibernateUnitOfWork\Local.cs" />
+    <Compile Include="NHibernateUnitOfWork\UnitOfWork.cs" />
+    <Compile Include="NHibernateUnitOfWork\UnitOfWorkFactory.cs" />
+    <Compile Include="NHibernateUnitOfWork\UnitOfWorkImplementor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Repositories\NHibernateRepository.cs" />

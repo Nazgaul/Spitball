@@ -1,5 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+﻿using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Repositories;
 using NHibernate;
 using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Trace;

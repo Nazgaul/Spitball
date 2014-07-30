@@ -1,6 +1,6 @@
-﻿using Zbang.Zbox.Infrastructure.Data.Repositories;
+﻿using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.Repositories;
 using NHibernate.Criterion;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using NHibernate.Linq;
 using System.Linq;
 

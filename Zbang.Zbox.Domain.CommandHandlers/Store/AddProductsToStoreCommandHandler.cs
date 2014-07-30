@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.CatalogNumber,
                         productStore.DeliveryPrice, 
                         productStore.ProducerName,
-                        null);
+                        productStore.Upgrades);
 
                 }
                 else
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.CatalogNumber,
                         productStore.DeliveryPrice, 
                         productStore.ProducerName,
-                        null);
+                        productStore.Upgrades);
                 }
                 m_ProductRepository.Save(product);
             }
