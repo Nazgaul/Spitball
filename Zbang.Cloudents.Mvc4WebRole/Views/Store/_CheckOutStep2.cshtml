@@ -97,9 +97,8 @@
     </div>
     <div class="lFloat">
         @Html.CheckBoxFor(f => f.AcceptTermOfService, new { @class = "checkbox"})
-        @Html.LabelFor(f => f.AcceptTermOfService, new { @class = "cbLabel" })
-        @*<input type="checkbox" class="checkbox" id="storeCb" />
-        <label class="cbLabel" for="storeCb">@StoreResources.IReadIt</label>*@
+        @*@Html.LabelFor(f => f.AcceptTermOfService, new { @class = "cbLabel" })*@
+        <label class="cbLabel" for="AcceptTermOfService">קראתי את <a class="termsLink" href="~/store/terms">התקנון</a> ואני מסכים לתנאי השימוש.</label>
     </div>
     <div class="rFloat">
         <span>@StoreResources.BillMe</span>
