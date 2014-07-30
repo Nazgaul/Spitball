@@ -55,7 +55,7 @@
         <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
            href="@Url.Action("Index", "Dashboard")"></a>
 
-        <div class="headerRightWpr rFloat" ng-if="!params.isStore">
+        <div class="headerRightWpr rFloat" ng-if="!$root.params.isStore">
             <nav class="userSection rFloat">
                 <ul class="userNav">
                     @{
@@ -69,7 +69,7 @@
             </nav>
             @RenderSection("search", false)
         </div>
-        <h1 ng-if="params.isStore">@StoreResources.Description</h1>
+        <h1 ng-if="$root.params.isStore">@StoreResources.Description</h1>
     </header>
     <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
         @RenderBody()
