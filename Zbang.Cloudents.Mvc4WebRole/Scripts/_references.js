@@ -163,6 +163,7 @@
 /// <reference path="../js/controllers/store/הןק'ctrl.js" />
 /// <reference path="../js/controllers/store/viewctrl.js" />
 /// <reference path="../js/controllers/store/checkoutctrl.js" />
+/// <reference path="../js/modules/carousel.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
