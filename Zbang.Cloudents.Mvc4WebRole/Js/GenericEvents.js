@@ -142,7 +142,7 @@
     }
     cd.checkRTLDirection = checkRTLDirection;
 
-    $body.on('input', 'input', function () {
+    $body.on('input', 'input, #quiz .cTextArea', function () {
         if (!this.value.length) {
             $(this).css('direction', '').css('text-align', '');
             return;
