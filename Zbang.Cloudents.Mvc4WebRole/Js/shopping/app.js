@@ -64,12 +64,12 @@ app.config([
             }).
             when('/store/about/', {
                 templateUrl: '/Store/About',
-                controller: 'AboutCtrl',
+                controller: 'ViewCtrl',
                 type: 'about'
             }).
             when('/store/contact/', {
                 templateUrl: '/Store/Contact',
-                controller: 'ContactCtrl',
+                controller: 'ViewCtrl',
                 type: 'contact'
             }).
             when('/store/checkout/:productId', {

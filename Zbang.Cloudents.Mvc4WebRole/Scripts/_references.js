@@ -155,13 +155,15 @@
 /// <reference path="../js/filters/stringformat.js" />
 /// <reference path="../js/modules/displaytime.js" />
 /// <reference path="../js/modules/textdirection.js" />
-/// <reference path="../js/controllers/store/searchctrl.js" />
 /// <reference path="../js/controllers/store/productctrl.js" />
 /// <reference path="../js/controllers/store/homectrl.js" />
 /// <reference path="../js/controllers/store/categoryctrl.js" />
 /// <reference path="../js/directives/store/productsmenu.js" />
 /// <reference path="../js/filters/store/percentage.js" />
 /// <reference path="../js/services/store.js" />
+/// <reference path="../js/controllers/store/הןק'ctrl.js" />
+/// <reference path="../js/controllers/store/viewctrl.js" />
+/// <reference path="../js/controllers/store/checkoutctrl.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
