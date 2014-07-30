@@ -14,10 +14,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
 
 
-        [HttpGet, NonAjax, StoreCategories]
+        [HttpGet, NonAjax]
         [Route("store/category/{categoryid:int}/{categoryname}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
+        [Route("store/terms")]
         [Route("store")]
+        [Route("store/about")]
+        [Route("store/contact")]
+        [Route("store/sales")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
         public ActionResult Index()
         {
@@ -26,7 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet, Ajax, ActionName("Index")]
+        [HttpGet, Ajax, ActionName("Index"), StoreCategories]
         [Route("store")]
         public async Task<ActionResult> IndexAjax()
         {
@@ -41,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return this.CdJson(new JsonResponse(true, products));
         }
 
-        [HttpGet, Ajax]
+        [HttpGet, Ajax, StoreCategories]
         public async Task<ActionResult> Product(long id)
         {
             var query = new GetStoreProductQuery(id);
@@ -70,7 +74,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [Ajax, HttpGet]
+        [Ajax, HttpGet, StoreCategories]
         public async Task<ActionResult> CheckOut(long id)
         {
             var query = new GetStoreProductQuery(id);
@@ -80,23 +84,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView(model);
         }
 
+        [Ajax, HttpGet, StoreCategories]
+
         public ActionResult About()
         {
-            return View();
+            return PartialView();
         }
+        [Ajax, HttpGet, StoreCategories]
 
         public ActionResult Contact()
         {
-            return View();
+            return PartialView();
         }
+        [Ajax, HttpGet, StoreCategories]
         public ActionResult Sales()
         {
-            return View();
+            return PartialView();
         }
 
+        [Ajax, HttpGet, StoreCategories]
         public ActionResult Terms()
         {
-            return View();
+            return PartialView();
         }
     }
 }

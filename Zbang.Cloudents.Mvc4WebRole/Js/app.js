@@ -166,6 +166,13 @@ app.config([
                     type: 'checkout'
                 }
             }).
+            when('/store/terms', {
+                templateUrl: '/Terms/',
+                controller: 'ViewCtrl',
+                params: {
+                    type: 'terms'
+                }
+            }).
           //#endregion
         otherwise({ redirectTo: '/dashboard/' });
 
