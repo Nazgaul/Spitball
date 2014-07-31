@@ -241,7 +241,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/store/productCtrl.js"),
                 new JsFileWithCdn("/js/controllers/store/viewCtrl.js"),
                 new JsFileWithCdn("/js/controllers/store/checkoutCtrl.js"),
-                new JsFileWithCdn("/js/controllers/store/categoryCtrl.js"),                                                
+                new JsFileWithCdn("/js/controllers/store/categoryCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/carouselCtrl.js"),
                 new JsFileWithCdn("/js/services/store.js"),
                 
                 new JsFileWithCdn("/js/directives/store/productsMenu.js"),
@@ -267,17 +268,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    "/js/directives/ngPlaceholder.js",
             //    "/js/directives/mLoader.js");
 
-            RegisterJsRoutes("R_OldAll",
-                //"/Scripts/knockout-3.0.0.js",
-                //"/Scripts/externalScriptLoader.js",
-                //"/Scripts/jquery.slimscroll.js",                
-                "/js/Utils.js",
-                "/js/pubsub.js",
-                "/js/DataContext.js",
-                // "/Scripts/elasticTextBox.js",
-                "/js/Dialog.js",
-                "/js/GenericEvents.js",
-                "/js/Cache.js");
+            //RegisterJsRoutes("R_OldAll",
+            //    //"/Scripts/knockout-3.0.0.js",
+            //    //"/Scripts/externalScriptLoader.js",
+            //    //"/Scripts/jquery.slimscroll.js",                
+            //    "/js/Utils.js",
+            //    "/js/pubsub.js",
+            //    "/js/DataContext.js",
+            //    // "/Scripts/elasticTextBox.js",
+            //    "/js/Dialog.js",
+            //    "/js/GenericEvents.js",
+            //    "/js/Cache.js");
 
             //RegisterJsRoutes("R_Box", 
             //    "/js/services/dropbox.js",

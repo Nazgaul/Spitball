@@ -93,7 +93,7 @@
 
     //    }, false);
     //}
-
+    $('.siteHeader h1').remove(); //fix for hanugt hagoda title
     //replace animation if ie9
     if (!Modernizr.cssanimations) {
         var loader = document.getElementById('mLoading');

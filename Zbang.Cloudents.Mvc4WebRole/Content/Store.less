@@ -88,7 +88,30 @@ main {
     .carousel {
         width: 617px;
         height: 100%;
+        overflow: hidden;
+        position: relative;
         .boxSizing;
+
+        .slide {
+            position: absolute;
+            left: 0;
+
+            &.ng-hide {
+                left: -100%;
+            }
+
+            &.ng-hide-add,&.ng-hide-remove {
+                -webkit-transition: all linear 0.7s;
+                -moz-transition: all linear 0.7s;
+                -o-transition: all linear 0.7s;
+                transition: all linear 0.7s;
+                display: block;
+            }
+
+            &.ng-hide-add-active {
+                    left: 100%;
+            }
+        }
     }
 
     &.big {
