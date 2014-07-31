@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -368,14 +368,6 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin-bottom: 8px;
-}
-.productsList a:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-  margin-right: -0.25em;
-  /* Adjusts for spacing */
 }
 .productsList img {
   max-width: 100%;
@@ -1253,3 +1245,4 @@ ul:after {
   opacity: 1;
 }
 /*#endregion */
+/*# sourceMappingURL=Store.css.map */
