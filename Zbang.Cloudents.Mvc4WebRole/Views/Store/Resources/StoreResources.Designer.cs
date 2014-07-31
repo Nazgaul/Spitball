@@ -676,7 +676,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to לקבלת קוד קופון עליך להירשם לאתר או פנה לאגודת הסטודנטים בה אתה חבר.
+        ///   Looks up a localized string similar to לקבלת קוד קופון עליך להירשם לאתר
+        ///או פנה לאגודת הסטודנטים בה אתה חבר.
         /// </summary>
         public static string ToGetACoupon {
             get {

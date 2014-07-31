@@ -849,17 +849,71 @@ ul:after {
   /*rtl*/
   vertical-align: top;
 }
-.orderTable {
-  width: 100%;
-  border-collapse: collapse;
+.userHelp:hover ~ .helpPopup {
+  display: block;
 }
-.orderTable .btn3 {
+.helpPopup {
+  display: none;
+  background: #0371c8;
+  padding: 10px 20px;
+  position: absolute;
+  margin: 12px 0 0 -28px;
+  /*rtl*/
+  color: #fff;
   font-size: 18px;
-  width: 230px;
-  height: 38px;
+  white-space: pre-line;
+  text-align: center;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  border-radius: 5px;
+  z-index: 1;
+}
+.helpPopup:before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 9px 16px 9px;
+  border-color: transparent transparent #0371c8 transparent;
+  position: absolute;
+  right: 24px;
+  /*rtl*/
+  top: -16px;
+}
+.couponBtn {
+  width: 230px;
+  height: 38px;
+  overflow: hidden;
+  display: inline-block;
+  text-align: center;
+}
+.couponBtn.activated .btn3:nth-child(2) {
+  opacity: 1;
+}
+.couponBtn .btn3 {
+  width: 230px;
+  height: 38px;
+  font-size: 18px;
+  padding-top: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.couponBtn .btn3:nth-child(2) {
+  background: #0f9d58;
+  -webkit-transition: opacity 0.3s ease-in;
+  -moz-transition: opacity 0.3s ease-in;
+  -o-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+  position: absolute;
+  opacity: 0;
+  margin-top: -38px;
+}
+.orderTable {
+  width: 100%;
+  border-collapse: collapse;
 }
 .orderTable .btn1 {
   font-size: 28px;
@@ -877,6 +931,7 @@ ul:after {
 }
 .orderTable td {
   border-bottom: 1px solid silver;
+  margin: 30px 0;
 }
 .orderTable tbody tr:nth-child(2):after,
 .orderTable tbody tr:last-child:after {
@@ -938,9 +993,6 @@ ul:after {
 .orderTable td:nth-child(3),
 .orderTable th:nth-child(3) {
   width: 335px;
-}
-.orderTable td {
-  margin: 30px 0;
 }
 .invoice {
   padding-top: 0;

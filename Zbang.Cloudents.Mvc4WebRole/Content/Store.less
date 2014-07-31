@@ -815,16 +815,65 @@ ul:after {
     padding-top: 5px;
     margin: 2px 0 0 7px; /*rtl*/
     vertical-align: top;
+    &:hover ~ .helpPopup {
+        display: block;
+    }
+}
+.helpPopup {
+    display: none;
+    background: @attentionBlue;
+    padding: 10px 20px;
+    position: absolute;
+    margin: 12px 0 0 -28px; /*rtl*/
+    color: #fff;
+    font-size: 18px;
+    white-space: pre-line;
+    text-align: center;
+    .boxSizing;
+    border-radius: 5px;
+    z-index: 1;
+
+    &:before {
+        .pseudo;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 9px 16px 9px;
+        border-color: transparent transparent @attentionBlue transparent;
+        position: absolute;
+        right: 24px; /*rtl*/
+        top: -16px;
+    }
+}
+.couponBtn {
+    width: 230px;
+    height: 38px;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+    &.activated {
+        .btn3:nth-child(2) {
+            opacity:1;
+        }
+    }
+    .btn3 {
+        width: 230px;
+        height: 38px;
+        font-size: 18px;
+        padding-top: 5px;
+        .boxSizing;
+    }
+    .btn3:nth-child(2) {
+        background: @color;
+        .transition(opacity .3s ease-in);
+        position: absolute;
+        opacity:0;
+        margin-top: -38px;
+    }
 }
 .orderTable {
     width: 100%;
     border-collapse: collapse;
-    .btn3 {
-        font-size: 18px;
-        width: 230px;
-        height: 38px;
-        .boxSizing;
-    }
     .btn1 {
         font-size: 28px;
         display: block;
@@ -838,6 +887,7 @@ ul:after {
     }
     td {
         border-bottom: 1px solid silver;
+        margin: 30px 0;
     }
     tbody tr {
         &:nth-child(2), &:last-child {
@@ -904,9 +954,6 @@ ul:after {
             width: 335px;
             //background: yellow;
         }
-    }
-    td {
-        margin: 30px 0;
     }
 }
 .invoice {

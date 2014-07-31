@@ -293,7 +293,8 @@
     <value>3 ספרות בגב הכרטיס</value>
   </data>
   <data name="ToGetACoupon" xml:space="preserve">
-    <value>לקבלת קוד קופון עליך להירשם לאתר או פנה לאגודת הסטודנטים בה אתה חבר</value>
+    <value>לקבלת קוד קופון עליך להירשם לאתר
+או פנה לאגודת הסטודנטים בה אתה חבר</value>
   </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>סה''כ לתשלום</value>

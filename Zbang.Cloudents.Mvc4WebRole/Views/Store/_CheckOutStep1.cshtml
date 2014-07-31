@@ -24,8 +24,14 @@
             <td>@StoreResources.CouponCode</td>
             <td><input type="text" class="inputText" /></td>
             <td>
-                <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
+                @*Guy: Please add class 'activated' here if user enters code successfully*@ 
+                <div class="couponBtn">
+                    <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
+                    <div class="btn3">@StoreResources.CouponActivated</div>
+                </div>
+               
                 <span class="userHelp">?</span>
+                <div class="helpPopup">@StoreResources.ToGetACoupon</div>
             </td>
         </tr>
         @*<div>@ViewBag.data</div>*@
