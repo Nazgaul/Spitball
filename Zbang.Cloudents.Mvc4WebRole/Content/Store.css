@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -529,24 +529,23 @@ main {
 .right {
   padding-left: 10px;
   /*rtl*/
+  /*.imgWpr {
+        width: 425px;
+        height: 281px;
+        border: 1px solid @color;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }*/
 }
 .right h3 {
   font-size: 18px;
   font-weight: normal;
   margin: 8px 0 20px;
 }
-.right .imgWpr {
-  width: 425px;
-  height: 281px;
+.right img {
   border: 1px solid #0f9d58;
   border-radius: 5px;
   margin-bottom: 15px;
-}
-.right img {
-  max-width: 425px;
-  max-height: 281px;
-  line-height: 281px;
-  vertical-align: middle;
 }
 .pDesc {
   -webkit-columns: 2;
@@ -1245,4 +1244,3 @@ ul:after {
   opacity: 1;
 }
 /*#endregion */
-/*# sourceMappingURL=Store.css.map */

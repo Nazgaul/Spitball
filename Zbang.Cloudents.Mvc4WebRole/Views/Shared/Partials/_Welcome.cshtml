@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 
 <div class="staticWpr popupWrppr" id="connect">
     <div class="enterTitle">@SharedResources.SignIn</div>
@@ -11,6 +12,12 @@
     <button class="closeDialog" data-closelogin="close"></button>    
 </div>
 <div class="staticWpr popupWrppr" id="register">
+    <div class="welcomeStore">
+        <div class="storeTxt1">@StoreResources.Welcome</div>
+        <div class="storeTxt2">@StoreResources.StudentDiscounts</div>
+        <div class="storeTxt3">@StoreResources.DiscountsForYou</div>
+        <div class="storeTxt4">@StoreResources.GetDiscounts</div>
+    </div>
     <div class="regFirstTxt">
         <div>@SharedResources.RegisterFirst</div>
         <div>@SharedResources.RegisterFree</div>
