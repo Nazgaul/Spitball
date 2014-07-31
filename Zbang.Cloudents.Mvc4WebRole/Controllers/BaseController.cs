@@ -114,7 +114,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             TempDataProvider = new CookieTempDataProvider(HttpContext);
             try
             {
-                if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+                if (User != null && User.Identity != null && User.Identity.IsAuthenticated &&
+                    FormsAuthenticationService != null)
                 {
                     var userData = FormsAuthenticationService.GetUserData();
                     if (userData != null)

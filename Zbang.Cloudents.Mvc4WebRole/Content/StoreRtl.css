@@ -135,6 +135,15 @@
   margin: 2px 7px 0 0;
   /*rtl*/
 }
+.helpPopup {
+  margin: 12px -28px 0 0;
+  /*rtl*/
+}
+.helpPopup:before {
+  left: 24px;
+  /*rtl*/
+  right: auto;
+}
 .orderTable tr:nth-of-type(5) .rFloat {
   padding: 0 0 0 35px;
   /*rtl*/

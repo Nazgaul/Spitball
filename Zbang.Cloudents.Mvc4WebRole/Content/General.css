@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1067,6 +1067,48 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.registerFirst.step2 .registerContent {
   pointer-events: auto;
 }
+/*#region Welcome Store */
+.registerFirst.store {
+  width: 546px;
+}
+.registerFirst.store .welcomeStore {
+  display: block;
+}
+.registerFirst.store .regFirstTxt {
+  display: none;
+}
+.registerFirst.store:before {
+  content: '';
+  display: inline-block;
+  background: url(/Images/Store/welcome.png) no-repeat;
+  width: 546px;
+  height: 264px;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+}
+.welcomeStore {
+  display: none;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  margin-top: 179px;
+  position: relative;
+}
+.storeTxt1 {
+  font-size: 28px;
+}
+.storeTxt2 {
+  font-size: 20px;
+}
+.storeTxt3 {
+  color: #0f9d58;
+  margin-top: 20px;
+}
+.storeTxt4 {
+  color: #39434a;
+}
+/*#endregion */
 .regFirstTxt {
   display: none;
   font-size: 22px;
@@ -2519,3 +2561,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

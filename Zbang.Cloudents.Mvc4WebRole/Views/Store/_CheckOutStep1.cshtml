@@ -24,8 +24,14 @@
             <td>@StoreResources.CouponCode</td>
             <td><input type="text" class="inputText" /></td>
             <td>
-                <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
+                @*Guy: Please add class 'activated' here if user enters code successfully*@ 
+                <div class="couponBtn">
+                    <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
+                    <div class="btn3">@StoreResources.CouponActivated</div>
+                </div>
+               
                 <span class="userHelp">?</span>
+                <div class="helpPopup">@StoreResources.ToGetACoupon</div>
             </td>
         </tr>
         @*<div>@ViewBag.data</div>*@
@@ -54,10 +60,10 @@
                 <ul>
                     <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
                     <li><span>@StoreResources.Coupon:</span><span class="minus">@Model.Coupon</span><span>₪</span></li>
-                    <li><span>@StoreResources.Upgrades:</span><span>0</span><span>₪</span></li>
+                    <li><span>@StoreResources.Upgrades:</span><span>{UpgradeCostHere}</span><span>₪</span></li>
                     @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
                     <li><span>@StoreResources.ShippingCost:</span><span>@Model.DeliveryPrice</span><span>₪</span></li>
-                    <li><span>@StoreResources.TotalPrice:</span><span>4365</span><span>₪</span></li>
+                    <li><span>@StoreResources.TotalPrice:</span><span>{TotalPriceHere}</span><span>₪</span></li>
                 </ul>
                 <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
             </td>

@@ -772,7 +772,7 @@
     <Content Include="Images\Store\fb-off.png" />
     <Content Include="Images\Store\fb-on.png" />
     <Content Include="Images\Store\logo.png" />
-    <Content Include="Images\Store\pop up_image.png" />
+    <Content Include="Images\Store\welcome.png" />
     <Content Include="Images\Store\purchase_confirmation.png" />
     <Content Include="Images\Store\social.png">
       <DependentUpon>social.sprite</DependentUpon>
