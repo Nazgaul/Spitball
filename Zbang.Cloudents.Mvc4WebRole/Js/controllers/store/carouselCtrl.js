@@ -3,7 +3,7 @@
     function ($scope, $timeout) {
         var currentTimeout,
             transition,
-            interval = 3000;
+            interval = 3500;
 
         $scope.params = {
             currentIndex: 0
