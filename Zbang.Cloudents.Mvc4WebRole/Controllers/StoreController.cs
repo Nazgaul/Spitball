@@ -20,6 +20,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/about")]
         [Route("store/contact")]
         [Route("store/sales")]
+        [Route("store/thankyou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
         public ActionResult Index()
         {
@@ -103,6 +104,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet, StoreCategories]
         [Route("store/terms")]
         public ActionResult Terms()
+        {
+            return PartialView();
+        }
+
+        [Ajax, HttpGet, StoreCategories]
+        public ActionResult Thankyou()
         {
             return PartialView();
         }

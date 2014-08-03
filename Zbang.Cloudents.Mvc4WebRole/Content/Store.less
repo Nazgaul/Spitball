@@ -423,7 +423,6 @@ main {
     table {
         width: 100%;
         font-size: 18px;
-        //table-layout: fixed;
         padding: 13px 18px 0 18px;
         .boxSizing;
         position: relative;
@@ -680,35 +679,7 @@ main {
         display: inline-block;
         padding: 0 10px;
     }
-    /*li:first-child {
-        //-moz-animation: carousel 60s linear infinite;
-        //-webkit-animation: carousel 60s linear infinite;
-        //animation: carousel 60s linear infinite;
-        margin-left: -300%;
-    }*/
 }
-
-/*ul:before, ul:after {
-    content: "<";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 150px;
-    display: inline-block;
-    background: aqua;
-    z-index:1;
-    font-size: 24px;
-    padding: 65px 3px 0 3px;
-    box-sizing: border-box;
-}
-ul:after {
-    content: '>';
-    right: 0;
-    left: auto
-}*/
-
-
 /*#endregion */
 
 /*#region About Page */
@@ -1133,6 +1104,40 @@ ul:after {
 }
 /*#endregion */
 
+/*#region Thankyou page */
+.thanksTxt1 {
+    color: @color;
+    font-size: 40px;
+    margin: 95px 0 15px;
+    white-space: pre-wrap;
+}
+.thanksTxt2 {
+    color: @txtColor;
+    font-size: 30px;
+    white-space: pre-wrap;
+    &:after {
+        content: '';
+        display: block;
+        margin: 35px auto 45px;
+        width: 289px;
+        height: 299px;
+        background: url(/Images/Store/thank.png) no-repeat;
+    }
+    ~ footer {
+        &:before {
+            content: '';
+            display: block;
+            //margin: 35px auto 45px;
+            width: 618px;
+            height: 345px;
+            background: url(/Images/Store/thank-students.png) no-repeat;
+        }
+    }
+}
+
+/*#endregion */
+
+
 /*#region footer */
 
 .storeWpr footer {
@@ -1189,12 +1194,9 @@ ul:after {
     h3 {
         margin-bottom: 5px;
     }
-    .bottom {
-        height: 70px;
-    }
 }
 .wpr {
-    width: 1024px;
+    width: 940px;
     margin: 0 auto;
     padding: 0 @wpr-padding;
     .boxSizing;
@@ -1237,3 +1239,4 @@ ul:after {
 }
 
 /*#endregion */
+
