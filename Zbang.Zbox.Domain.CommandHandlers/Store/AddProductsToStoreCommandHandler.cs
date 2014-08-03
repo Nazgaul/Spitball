@@ -9,15 +9,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
     {
         private readonly IRepository<StoreProduct> m_ProductRepository;
         private readonly IRepository<StoreCategory> m_CategoryRepository;
-        private readonly IRepository<StoreProductFeatures> m_FeaturesRepository;
 
         public AddProductsToStoreCommandHandler(IRepository<StoreProduct> productRepository,
-            IRepository<StoreCategory> categoryRepository,
-            IRepository<StoreProductFeatures> featuresRepository)
+            IRepository<StoreCategory> categoryRepository
+            )
         {
             m_ProductRepository = productRepository;
             m_CategoryRepository = categoryRepository;
-            m_FeaturesRepository = featuresRepository;
         }
 
         public void Handle(AddProductsToStoreCommand message)
@@ -28,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
             }
             foreach (var productStore in message.ProductStores)
             {
-                var product = m_ProductRepository.Get(productStore.Id); //use get to get existance in db
+                var product = m_ProductRepository.Get(productStore.Id); //use get to get existence in db
                 if (product == null)
                 {
                     product = new StoreProduct(productStore.Id,
@@ -57,7 +55,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.Coupon,
                         productStore.SalePrice,
                         GetProductCategory(productStore.Categories),
-                        productStore.Description,
                         productStore.Featured,
                         productStore.SupplyTime,
                         productStore.ProductPayment,
@@ -68,11 +65,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                 }
                 m_ProductRepository.Save(product);
             }
-        }
-
-        private IList<StoreProductFeatures> GetFeatures(IList<KeyValuePair<string, string>> features)
-        {
-            return null;
         }
 
         private IList<StoreCategory> GetProductCategory(string categoryString)
