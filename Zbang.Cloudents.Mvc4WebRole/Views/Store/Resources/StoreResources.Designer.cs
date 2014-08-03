@@ -286,7 +286,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to הזכאות למחירים מיוחדים, כולל הנחת קופון, הנה לסטודנטים רשומים בלבד. כל שעליכם לעשות הוא להירשם לאתר או להשתמש בקוד הקופון אשר ברשותכם בשילוב מספר תעודת סטודנט\ ת.ז.
+        ///   Looks up a localized string similar to הזכאות למחירים מיוחדים, כולל הנחת קופון,
+        ///הנה לסטודנטים רשומים בלבד. כל שעליכם לעשות הוא
+        ///להירשם לאתר או להשתמש בקוד הקופון אשר ברשותכם
+        ///בשילוב מספר תעודת סטודנט\ ת.ז.
         ///תהנו!.
         /// </summary>
         public static string GetDiscounts {

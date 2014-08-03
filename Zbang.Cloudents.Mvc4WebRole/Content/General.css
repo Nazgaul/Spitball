@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1070,6 +1070,9 @@ input[type="radio"][disabled] + label:before {
 /*#region Welcome Store */
 .registerFirst.store {
   width: 546px;
+  padding: 20px 40px;
+  top: 4%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 .registerFirst.store .welcomeStore {
   display: block;
@@ -1086,27 +1089,37 @@ input[type="radio"][disabled] + label:before {
   position: absolute;
   top: -1px;
   left: -1px;
+  border-radius: 5px 5px 0 0;
+}
+.registerFirst.store .facebook,
+.registerFirst.store .emailBtnWpr {
+  width: 330px;
+  margin: 0 auto;
+  display: block;
 }
 .welcomeStore {
   display: none;
   text-align: center;
   color: #fff;
-  font-size: 18px;
-  margin-top: 179px;
+  font-size: 20px;
+  margin: 157px 0 15px;
   position: relative;
 }
 .storeTxt1 {
-  font-size: 28px;
+  font-size: 38px;
+  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.8);
 }
 .storeTxt2 {
-  font-size: 20px;
+  font-size: 26px;
+  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.8);
 }
 .storeTxt3 {
   color: #0f9d58;
-  margin-top: 20px;
+  margin: 18px 0 8px;
 }
 .storeTxt4 {
   color: #39434a;
+  white-space: pre-wrap;
 }
 /*#endregion */
 .regFirstTxt {
@@ -2561,4 +2574,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */
