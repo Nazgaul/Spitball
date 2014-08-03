@@ -67,7 +67,7 @@
                     }
                 </ul>
             </nav>
-            <div>
+            <div ng-if="!$root.isStore()">
                 @RenderSection("search", false)
             </div>
         </div>
