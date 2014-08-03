@@ -18,7 +18,7 @@
                     }
                     else
                     {
-                        <a href="@topRightBanner.Url" target="_blank">
+                           <a href="@topRightBanner.Url" target="_blank">
                             <img src="@topRightBanner.ImageUrl" alt="" />
                         </a>
                     }
@@ -34,12 +34,12 @@
             {
                 if (string.IsNullOrEmpty(image.Url))
                 {
-                    <img src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                    <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
                 }
                 else
                 {
                         <a href="@image.Url" target="_blank">
-                            <img src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                            <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
                         </a>
                     }
                 imageIndex++;
@@ -48,7 +48,7 @@
             <div style="position:absolute">
             @for (int i = 0; i < imageIndex; i++)
             {
-                <button style="z-index:10000;color:white;display:inline-block;" class="" type="button" ng-click="select(@i)">(XXX)</button>
+                <button style="z-index:10000;color:white;display:inline-block;top:0" class="" type="button" ng-click="select(@i)">(XXX)</button>
             }
             </div>
 

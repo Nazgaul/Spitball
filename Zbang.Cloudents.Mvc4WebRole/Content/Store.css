@@ -90,24 +90,6 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.widget .carousel .slide {
-  position: absolute;
-  left: 0;
-}
-.widget .carousel .slide.ng-hide {
-  left: -100%;
-}
-.widget .carousel .slide.ng-hide-add,
-.widget .carousel .slide.ng-hide-remove {
-  -webkit-transition: all linear 0.7s;
-  -moz-transition: all linear 0.7s;
-  -o-transition: all linear 0.7s;
-  transition: all linear 0.7s;
-  display: block;
-}
-.widget .carousel .slide.ng-hide-add-active {
-  left: 100%;
-}
 .widget.big {
   height: 391px;
 }
@@ -120,6 +102,21 @@ main {
   /*rtl*/
 }
 /*#endregion */
+.slide {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+.slide.ng-hide {
+  opacity: 0;
+}
+.slide.ng-hide-add,
+.slide.ng-hide-remove {
+  /* this needs to be here to make it visible during the animation
+     since the .ng-hide class is already on the element rendering
+     it as hidden. */
+  display: block!important;
+}
 /*#region search form */
 .searchForm {
   width: 100%;

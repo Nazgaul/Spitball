@@ -146,14 +146,14 @@ app.config([
                 }
             }).
             when('/store/about/', {
-                templateUrl: '/Store/About',
+                templateUrl: '/Store/About/',
                 controller: 'ViewCtrl',
                 params: {
                     type: 'about'
                 }
             }).
             when('/store/contact/', {
-                templateUrl: '/Store/Contact',
+                templateUrl: '/Store/Contact/',
                 controller: 'ViewCtrl',
                 params: {
                     type: 'contact'

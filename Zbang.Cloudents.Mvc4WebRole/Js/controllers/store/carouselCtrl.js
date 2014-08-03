@@ -26,6 +26,7 @@
         $scope.isActive = function (index) {
             return $scope.params.currentIndex === index;
         }
+
         restartTimer();
 
         function restartTimer() {

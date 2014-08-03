@@ -2,11 +2,11 @@
 
 @wpr-padding: 42px;
 @shopping-black: #39434A;
+
 body {
     //min-width: 1024px;
     color: @shopping-black;
     background: #f6f6f6;
-
     //width: 1024px;
     //margin: 0 auto;
 }
@@ -20,6 +20,7 @@ header {
         top: -42px;
         z-index: -1;
         color: #fff;
+
         &.showStore {
             display: block;
         }
@@ -31,11 +32,12 @@ header {
     width: 940px;
     margin: 0 auto;
 }
+
 .storeNav, main {
     margin: 0 auto;
     width: 940px;
-    
 }
+
 .storeNav {
     height: 78px;
     margin: 0 auto;
@@ -43,32 +45,39 @@ header {
     padding-top: 25px;
     position: relative;
     .boxSizing;
+
     ul {
         text-align: justify;
+
         &:after {
             content: '';
             display: inline-block;
             width: 100%;
         }
     }
+
     &.showProducts {
         .categoryDD {
             display: block;
         }
-    }      
+    }
 }
+
 .navLinks {
     li {
         display: inline-block;
         font-weight: bold;
         font-size: 23px;
+
         &:hover, &.current {
             color: @color;
+
             button {
                 color: @color;
             }
         }
     }
+
     button {
         font-weight: bold;
     }
@@ -88,48 +97,46 @@ main {
     height: 120px;
     border: 1px solid @shopping-black;
     .boxSizing;
-    
+
     .carousel {
         width: 617px;
         height: 100%;
         overflow: hidden;
         position: relative;
-        .boxSizing;
-
-        .slide {
-            position: absolute;
-            left: 0;
-
-            &.ng-hide {
-                left: -100%;
-            }
-
-            &.ng-hide-add,&.ng-hide-remove {
-                -webkit-transition: all linear 0.7s;
-                -moz-transition: all linear 0.7s;
-                -o-transition: all linear 0.7s;
-                transition: all linear 0.7s;
-                display: block;
-            }
-
-            &.ng-hide-add-active {
-                    left: 100%;
-            }
-        }
+        .boxSizing;     
     }
 
     &.big {
         height: 391px;
+
         .banner {
             width: 320px;
             height: 100%;
         }
     }
+
     img {
         margin-left: -1px; /*rtl*/
     }
 }
 /*#endregion */
+
+   .slide {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:1;
+}
+
+.slide.ng-hide {
+  opacity:0;
+}
+
+.slide.ng-hide-add, .slide.ng-hide-remove {
+  /* this needs to be here to make it visible during the animation
+     since the .ng-hide class is already on the element rendering
+     it as hidden. */
+  display:block!important;
+}
 
 /*#region search form */
 
@@ -141,9 +148,11 @@ main {
     height: 80px;
     position: relative;
     font-size: 0;
+
     &.showResults {
         ~ .productsList {
             display: none;
+
             &.searchResultsList {
                 display: block;
             }
@@ -158,6 +167,7 @@ main {
     .boxSizing;
     font-size: 21px;
 }
+
 .searchProducts {
     width: 150px;
     height: 100%;
@@ -178,7 +188,8 @@ main {
     background: @shopping-black;
     padding: 20px;
     .boxSizing;
-    z-index:2;
+    z-index: 2;
+
     &:before {
         .pseudo;
         width: 0;
@@ -192,6 +203,7 @@ main {
         left: 269px; /*diff rtl*/
     }
 }
+
 .categoryList {
     ul {
         .boxSizing;
@@ -208,19 +220,20 @@ main {
         width: 151px;
         margin-left: -1px; /*rtl*/
         padding: 8px 0 0 12px; /*rtl*/
-
         &:after {
             .pseudo;
             position: absolute;
-            left: 0;right:0;
+            left: 0;
+            right: 0;
             margin: auto;
             width: 0;
             height: 0;
             border-style: solid;
             border-color: @shopping-black transparent transparent transparent;
             border-width: 13px 15px 0 15px;
-            top:0;
+            top: 0;
         }
+
         li {
             &:hover {
                 color: @color;
@@ -228,6 +241,7 @@ main {
             }
         }
     }
+
     > li {
         width: 150px;
         height: 175px;
@@ -241,29 +255,33 @@ main {
         position: relative;
         vertical-align: top;
         line-height: 13px;
+
         &:hover {
             ul {
                 visibility: visible;
             }
+
             li {
                 margin: 8px 0;
             }
-
         }
+
         &:before {
             .pseudo;
             width: 108px;
-	        height: 106px;
+            height: 106px;
             margin: 12px 0;
             background: url(/Images/category.png) 0 0 no-repeat;
             opacity: .7;
         }
+
         &:nth-child(6n + 1) {
             ul {
                 width: 168px;
                 margin-left: -18px; /*rtl*/
             }
         }
+
         &:nth-child(6n) {
             border-right: none; /*rtl*/
             ul {
@@ -271,8 +289,10 @@ main {
                 margin-right: -18px; /*rtl*/
             }
         }
+
         &:nth-child(n + 7) {
-            border-bottom: none;           
+            border-bottom: none;
+
             ul {
                 top: auto;
                 bottom: 100%;
@@ -283,44 +303,54 @@ main {
                     bottom: 0;
                     top: auto;
                 }
-            }         
+            }
         }
-                
+
         &.spr-ball:before {
-            
         }
+
         &.spr-chair:before {
-	        background-position: 0 -106px;
+            background-position: 0 -106px;
         }
+
         &.spr-computer:before {
-	        background-position: 0 -212px;
+            background-position: 0 -212px;
         }
+
         &.spr-covers:before {
-	        background-position: 0 -318px;
+            background-position: 0 -318px;
         }
+
         &.spr-dic:before {
-	        background-position: 0 -424px;
+            background-position: 0 -424px;
         }
+
         &.spr-eco:before {
-	        background-position: 0 -530px;
+            background-position: 0 -530px;
         }
+
         &.spr-house:before {
-	        background-position: 0 -636px;
+            background-position: 0 -636px;
         }
+
         &.spr-smartphone:before {
-	        background-position: 0 -742px;
+            background-position: 0 -742px;
         }
+
         &.spr-tv:before {
-	        background-position: 0 -848px;
+            background-position: 0 -848px;
         }
+
         &.spr-printers:before {
-	        background-position: 0 -954px;
+            background-position: 0 -954px;
         }
+
         &.spr-martini:before {
-	        background-position: 0 -1060px;
+            background-position: 0 -1060px;
         }
+
         &.spr-cal:before {
-	        background-position: 0 -1166px;
+            background-position: 0 -1166px;
         }
     }
 }
@@ -333,18 +363,21 @@ main {
     position: absolute;
     top: 372px;
     border: 1px solid @txtColor;
-    left:0;
+    left: 0;
+
     + .placeholder {
-        right:0;
+        right: 0;
         left: auto;
     }
 }
+
 .productsListWpr {
     position: relative;
 }
+
 .productsList {
-    font-size:18px;
-    
+    font-size: 18px;
+
     li {
         position: relative;
         width: 300px;
@@ -355,7 +388,7 @@ main {
         border: 1px solid @color;
         .boxSizing;
         text-align: center;
-        vertical-align:top;
+        vertical-align: top;
         overflow: hidden;
         /*&:before {
             .pseudo;
@@ -369,9 +402,11 @@ main {
         &:nth-child(3) {
             margin-bottom: 170px;
         }
+
         &:nth-child(3n + 2) {
             margin: 0 20px 20px 20px;
         }
+
         &:hover {
             .desc {
                 z-index: 1;
@@ -381,45 +416,50 @@ main {
                 left: 0; /*rtl*/
                 height: auto;
             }
+
             .productHover {
-                top:0;
+                top: 0;
                 opacity: 1;
             }
+
             .hoverDesc {
                 display: block;
             }
         }
     }
-    
+
     a {
         display: block;
         width: 100%;
         height: 180px;
         .boxSizing;
         margin-bottom: 8px;
-
     }
+
     img {
         max-width: 100%;
         max-height: 198px;
         display: inline-block;
         vertical-align: middle;
     }
+
     .desc {
         .transition(all 0.01s .3s ease-out);
-       font-size: 22px;
-       padding: 6px 18px 0;
-       text-align: left; /*rtl*/
-       top:0;
-       line-height: 25px;
-       height: 56px;
-       overflow: hidden;
-       .boxSizing;
+        font-size: 22px;
+        padding: 6px 18px 0;
+        text-align: left; /*rtl*/
+        top: 0;
+        line-height: 25px;
+        height: 56px;
+        overflow: hidden;
+        .boxSizing;
+
         + .lFloat {
             color: @color;
             border-right: 1px solid @shopping-black; /*rtl*/
-        } 
+        }
     }
+
     table {
         width: 100%;
         font-size: 18px;
@@ -433,7 +473,7 @@ main {
             width: 265px;
             height: 1px;
             position: absolute;
-            top:7px;
+            top: 7px;
             left: 16px; /*rtl*/
             background: #999;
         }
@@ -442,19 +482,24 @@ main {
     tr:nth-child(1) td {
         color: #999;
     }
+
     tr:nth-child(3) td {
         color: @color;
     }
+
     td {
         line-height: 20px;
+
         &:nth-child(1) {
             width: 85px;
         }
+
         &:nth-child(2) {
             width: 1px;
         }
-    }     
+    }
 }
+
 .productHover {
     display: table;
     opacity: .5;
@@ -463,7 +508,7 @@ main {
     height: 100%;
     //top:0;
     top: 350px;
-    left:0; /*rtl*/
+    left: 0; /*rtl*/
     background: @shopping-black;
     color: #fff;
     padding: 85px 20px 10px 20px;
@@ -472,13 +517,14 @@ main {
     .transition(all 0.3s ease-out);
     //.animation(fadein);
     p {
-        margin-bottom: 15px;        
+        margin-bottom: 15px;
     }
+
     .moreDetailsWpr {
         width: 90%;
         height: 50px;
         display: inline-block;
-        line-height:48px;
+        line-height: 48px;
         background: #fff;
         font-size: 35px;
         color: @shopping-black;
@@ -488,6 +534,7 @@ main {
         left: 15px; /*rtl*/
         bottom: 14px;
     }
+
     .lFloat {
         display: block;
         text-align: center;
@@ -497,15 +544,16 @@ main {
         font-size: 22px;
         margin: 154px 0 15px;
     }
-    .numSold {
 
+    .numSold {
     }
+
     .sale {
         color: @color;
         border-left: 1px solid @color; /*rtl*/
     }
-    
 }
+
 .hoverDesc {
     text-align: right;
     height: 115px;
@@ -515,9 +563,11 @@ main {
     margin-top: 5px;
     line-height: 18px;
 }
+
 .moreDetailsWpr {
     display: table-footer-group;
 }
+
 .searchResultsList {
     display: none;
 }
@@ -535,9 +585,11 @@ main {
     border-radius: 8px;
     padding: 20px;
     .boxSizing;
+
     h1 {
         margin: 10px 20px 20px;
     }
+
     .left, .right {
         display: table-cell;
         width: 50%;
@@ -545,6 +597,7 @@ main {
         padding-bottom: 30px;
     }
 }
+
 .right {
     padding-left: 10px; /*rtl*/
     h3 {
@@ -569,6 +622,7 @@ main {
         margin-bottom: 15px;
     }
 }
+
 .pDesc {
     //display:table-row;
     -webkit-columns: 2;
@@ -579,21 +633,25 @@ main {
     -webkit-column-gap: 40px;
     -moz-column-gap: 40px;
     column-gap: 40px;
+
     span {
         display: block;
         text-align: justify;
     }
 }
+
 .pNameWpr {
     padding: 14px 10px;
     background: #f6f6f6;
     border-radius: 5px;
 }
+
 .left {
     text-align: center;
     position: relative;
     padding-right: 10px; /*rtl*/
 }
+
 .productInfoWpr {
     border: 1px solid @attentionBlue;
     border-radius: 5px;
@@ -608,60 +666,72 @@ main {
         display: block;
     }
 }
+
 .productPrice {
     width: 100%;
     font-size: 22px;
     text-align: left; /*rtl*/
     border-collapse: collapse;
+
     &:before {
         //.pseudo;
         width: 265px;
         height: 1px;
         position: absolute;
-        top:8px;
+        top: 8px;
         left: 16px; /*rtl*/
         background: #999;
     }
+
     td {
         padding: 6px 0;
-        margin:0;
+        margin: 0;
+
         &:nth-child(1) {
             width: 100%;
         }
+
         &:nth-child(3) {
             padding-left: 4px; /*rtl*/
         }
     }
+
     tr:nth-child(1) td {
         color: @color;
     }
+
     tr:nth-child(3) td {
         border-top: 1px solid #999;
         padding-top: 15px;
         vertical-align: top;
     }
 }
+
 .productDetails {
     background: #DBEBF7;
     //table-layout: fixed;
     padding: 10px 18px;
     text-align: left; /*rtl*/
     width: 100%;
+
     td {
         vertical-align: top;
         padding-bottom: 8px;
+
         &:first-child {
             font-weight: bold;
             padding-bottom: 8px; /*rtl*/
         }
     }
+
     small {
         display: block;
     }
 }
+
 .moreProductsList {
     list-style-type: none;
-    font-size:0;
+    font-size: 0;
     width: 800px;
     height: 150px;
     overflow: hidden;
@@ -669,14 +739,17 @@ main {
     padding: 0 20px;
     .boxSizing;
     position: relative;
+
     li {
         width: 250px;
         height: 160px;
         .boxSizing;
         border: 1px solid @color;
+
         &:first-child {
             margin-left: -300%; /*rtl*/
         }
+
         display: inline-block;
         padding: 0 10px;
     }
@@ -716,17 +789,20 @@ ul:after {
     font-size: 24px;
     margin-top: 45px;
 }
+
 .about, .terms {
     line-height: 30px;
     font-size: 15px;
     width: 600px;
-    margin-bottom:200px;
+    margin-bottom: 200px;
+
     h2 {
         border-top: 2px solid @color;
         border-bottom: 1px solid @color;
-        margin-top: 40px; 
+        margin-top: 40px;
         font-size: 15px;
     }
+
     p {
         margin-top: 10px;
     }
@@ -741,18 +817,22 @@ ul:after {
     background: #fff;
     margin-top: 56px;
     padding: 0 80px 30px;
+
     h2 {
-        font-weight: normal;       
+        font-weight: normal;
         line-height: 30px;
         padding: 20px 80px;
         margin: 0 -80px;
     }
-        > .lFloat, > .rFloat {
+
+    > .lFloat, > .rFloat {
         width: 340px;
         margin-top: 25px;
     }
+
     > .lFloat {
         clear: both;
+
         &.wideInput {
             width: 100%;
         }
@@ -767,13 +847,15 @@ ul:after {
         //height: 32px;
         .boxSizing;
     }
+
     textarea {
         min-height: 190px;
     }
+
     .btn1 {
         font-size: 24px;
         padding: 0 56px;
-        //height: 45px; 
+        //height: 45px;
         width: auto; //override
         .boxSizing;
     }
@@ -791,6 +873,7 @@ ul:after {
     background: #fff;
     font-size: 18px;
     .boxSizing;
+
     h2 {
         font-size: 21px;
         background: @txtColor;
@@ -803,12 +886,15 @@ ul:after {
         position: relative;
         top: -1px;
     }
+
     .inputText {
         height: 32px;
     }
+
     label {
-        font-size:18px;
+        font-size: 18px;
     }
+
     .btn1 {
         height: 45px;
     }
@@ -837,10 +923,12 @@ ul:after {
     padding-top: 5px;
     margin: 2px 0 0 7px; /*rtl*/
     vertical-align: top;
+
     &:hover ~ .helpPopup {
         display: block;
     }
 }
+
 .helpPopup {
     display: none;
     background: @attentionBlue;
@@ -867,17 +955,20 @@ ul:after {
         top: -16px;
     }
 }
+
 .couponBtn {
     width: 230px;
     height: 38px;
     overflow: hidden;
     display: inline-block;
     text-align: center;
+
     &.activated {
         .btn3:nth-child(2) {
-            opacity:1;
+            opacity: 1;
         }
     }
+
     .btn3 {
         width: 230px;
         height: 38px;
@@ -885,32 +976,38 @@ ul:after {
         padding-top: 5px;
         .boxSizing;
     }
+
     .btn3:nth-child(2) {
         background: @color;
         .transition(opacity .3s ease-in);
         position: absolute;
-        opacity:0;
+        opacity: 0;
         margin-top: -38px;
     }
 }
+
 .orderTable {
     width: 100%;
     border-collapse: collapse;
+
     .btn1 {
         font-size: 28px;
         display: block;
         width: 100%;
     }
-    input,  select {
+
+    input, select {
         width: 100%;
         padding: 3px 10px;
         height: 38px;
         .boxSizing;
     }
+
     td {
         border-bottom: 1px solid silver;
         margin: 30px 0;
     }
+
     tbody tr {
         &:nth-child(2), &:last-child {
             &:after {
@@ -920,45 +1017,52 @@ ul:after {
                 background: silver;
                 border-radius: 3px;
                 position: absolute;
-                right: 0;left: 0;
+                right: 0;
+                left: 0;
                 margin: auto;
-            } 
+            }
         }
+
         &:nth-child(1) {
             td:last-child {
                 text-align: center;
             }
-        }  
+        }
+
         &:nth-child(2) {
             td {
                 padding-top: 26px; // take into account the absolute hr
             }
         }
+
         &:nth-last-child(2) {
             td {
                 border: none; //override;
             }
-        } 
+        }
+
         &:last-child {
             td {
                 padding-top: 43px; // take into account the absolute hr
             }
-        } 
-           
+        }
     }
+
     th {
         //font-size: 18px;
         color: @color;
         font-weight: bold;
         border-bottom: 1px solid silver;
+
         &:last-child {
             text-align: center;
         }
     }
-    
+
     td, th {
         text-align: left; /*rtl*/
         padding: 20px 0;
+
         &:first-child {
             width: 215px;
             .boxSizing;
@@ -966,43 +1070,53 @@ ul:after {
             //text-align: center;
             //background: pink;
         }
+
         &:nth-child(2) {
             width: 550px;
             .boxSizing;
             padding-right: 60px; /*rtl*/
             //background: aqua;
         }
+
         &:nth-child(3) {
             width: 335px;
             //background: yellow;
         }
     }
 }
+
 .invoice {
     padding-top: 0;
     vertical-align: middle;
+
     li {
         display: table;
         width: 100%;
         border-bottom: 1px solid silver;
         line-height: 45px;
+
         &:first-child {
             margin-top: -30px;
         }
+
         &:last-of-type {
             border: none;
             color: @color;
         }
+
         span {
             display: table-cell;
+
             &:nth-child(1) {
                 width: 100%;
                 padding-left: 10px; /*rtl*/
                 .boxSizing;
             }
+
             &:nth-child(2) {
                 min-width: 45px;
             }
+
             &:nth-child(3) {
                 padding-right: 10px; /*rtl*/
                 .boxSizing;
@@ -1010,6 +1124,7 @@ ul:after {
         }
     }
 }
+
 .minus {
     &:before {
         content: '-';
@@ -1018,6 +1133,7 @@ ul:after {
         margin-left: -10px; /*rtl*/
     }
 }
+
 .pName {
     font-size: 21px;
 }
@@ -1029,45 +1145,55 @@ ul:after {
     padding: 60px 75px;
     margin-top: 50px; //TEMP!!!!!
     overflow: hidden;
+
     h2 {
         margin: -60px -75px 0;
     }
+
     > .lFloat, > .rFloat {
         width: 360px;
         margin-top: 25px;
     }
+
     > .lFloat {
         clear: both;
+
         &.wideInput {
             width: 100%;
         }
     }
+
     .inputText {
         display: block;
         margin-top: 5px;
         width: 100%;
     }
+
     textarea {
         min-height: 94px;
         //padding: 10px;
         //.boxSizing;
     }
+
     .btn1 {
         font-size: 24px;
         padding: 0 70px;
-        //height: 45px; 
+        //height: 45px;
         width: auto; //override
         .boxSizing;
     }
+
     .detailsTxt {
         margin-top: 30px;
         font-size: 18px;
     }
+
     .secureTxt {
         font-size: 24px;
         width: auto; //override
         margin-top: 42px;
     }
+
     .cbLabel {
         font-size: 15px;
         position: static; //override;
@@ -1075,6 +1201,7 @@ ul:after {
             border: none; //override;
         }
     }
+
     .termsLink {
         text-decoration: underline;
     }
@@ -1082,6 +1209,7 @@ ul:after {
 
 .secureCode {
     position: relative;
+
     .rFloat {
         &:hover {
             ~ .cardHover {
@@ -1090,6 +1218,7 @@ ul:after {
         }
     }
 }
+
 .cardHover {
     display: none;
     width: 270px;
@@ -1103,6 +1232,7 @@ ul:after {
     right: 0; /*rtl*/
     margin-bottom: 20px;
     white-space: pre-wrap;
+
     &:before {
         .pseudo;
         position: absolute;
@@ -1110,9 +1240,11 @@ ul:after {
         width: 272px;
         height: 179px;
         margin: auto;
-        left:0;right:0;
+        left: 0;
+        right: 0;
         background: url(/Images/Store/cardback.png);
     }
+
     &:after {
         .pseudo;
         width: 0;
@@ -1125,6 +1257,7 @@ ul:after {
         right: 20px; /*rtl*/
     }
 }
+
 .cardHoverTxt {
     margin-top: -32px;
     /* white-space: pre-wrap; */
@@ -1141,58 +1274,69 @@ ul:after {
     line-height: normal; //override
     text-align: left; /*rtl*/ //override
     > .wpr {
-        text-align: justify; 
+        text-align: justify;
         padding: 35px @wpr-padding;
+
         > div {
             display: inline-block;
             vertical-align: top;
             height: 210px;
         }
+
         &:after {
             content: '';
             display: inline-block;
             width: 100%;
         }
+
         ul {
             margin-bottom: 20px;
             line-height: 23px;
             font-size: 15px;
         }
-        
     }
+
     .bottom {
         background: @shopping-black;
         height: 70px;
         color: #fff;
+
         .wpr {
             position: relative;
         }
+
         ul {
             padding-left: 212px; /*rtl*/
         }
+
         li, a {
             display: inline-block;
         }
+
         a {
             padding: 30px 40px 0 40px;
-
         }
     }
+
     h3, a {
         color: #fff;
     }
+
     a {
         &:hover {
             color: silver;
         }
     }
+
     h3 {
         margin-bottom: 5px;
     }
+
     .bottom {
         height: 70px;
     }
 }
+
 .wpr {
     width: 1024px;
     margin: 0 auto;
@@ -1202,33 +1346,41 @@ ul:after {
 
 .social {
     margin-top: 14px;
+
     button {
         width: 42px;
         height: 42px;
         background: url(/Images/Store/social.png) no-repeat;
+
         &:nth-child(2) {
             margin: 0 20px;
         }
     }
+
     .fb {
         background-position: 0 0;
         opacity: .5;
+
         &:hover {
             background-position: 0 -42px;
             opacity: 1;
         }
     }
+
     .twtr {
         background-position: 0 -84px;
         opacity: .5;
+
         &:hover {
             background-position: 0 -126px;
             opacity: 1;
         }
     }
+
     .ytube {
         background-position: 0 -168px;
         opacity: .5;
+
         &:hover {
             background-position: 0 -210px;
             opacity: 1;
