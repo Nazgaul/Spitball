@@ -43,7 +43,7 @@
         return false;
     }
 
-    window.setInterval(sendData, 60000); // 5 minutes
+    window.setInterval(sendData, 300000); // 5 minutes
     //sendData();
 
     function sendData() {

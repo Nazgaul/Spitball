@@ -115,6 +115,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to חזרה לעמוד הבית.
+        /// </summary>
+        public static string BackTo {
+            get {
+                return ResourceManager.GetString("BackTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to כדאי לדעת לפני הקניה:.
         /// </summary>
         public static string BeforeYouBuy {
@@ -425,6 +434,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to הזמנתך בטיפול.
+        /// אישור על ביצוע הרכישה נשלח אליך במייל..
+        /// </summary>
+        public static string ProcessingOrder {
+            get {
+                return ResourceManager.GetString("ProcessingOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to המאגר האקדמי הרשמי של מוצרים לסטודנטים.
         /// </summary>
         public static string ProductDiscounts {
@@ -666,6 +685,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         public static string TermsOfUse {
             get {
                 return ResourceManager.GetString("TermsOfUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to תודה שרכשת
+        ///בחנות האגודה.
+        /// </summary>
+        public static string ThankyouFor {
+            get {
+                return ResourceManager.GetString("ThankyouFor", resourceCulture);
             }
         }
         

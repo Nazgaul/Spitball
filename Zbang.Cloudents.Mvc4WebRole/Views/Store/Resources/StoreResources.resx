@@ -376,4 +376,15 @@
   <data name="TermsOfUse" xml:space="preserve">
     <value>תקנון</value>
   </data>
+  <data name="BackTo" xml:space="preserve">
+    <value>חזרה לעמוד הבית</value>
+  </data>
+  <data name="ProcessingOrder" xml:space="preserve">
+    <value>הזמנתך בטיפול.
+ אישור על ביצוע הרכישה נשלח אליך במייל.</value>
+  </data>
+  <data name="ThankyouFor" xml:space="preserve">
+    <value>תודה שרכשת
+בחנות האגודה</value>
+  </data>
 </root>

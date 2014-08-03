@@ -1237,6 +1237,40 @@ main {
 }
 /*#endregion */
 
+/*#region Thankyou page */
+.thanksTxt1 {
+    color: @color;
+    font-size: 40px;
+    margin: 95px 0 15px;
+    white-space: pre-wrap;
+}
+.thanksTxt2 {
+    color: @txtColor;
+    font-size: 30px;
+    white-space: pre-wrap;
+    &:after {
+        content: '';
+        display: block;
+        margin: 35px auto 45px;
+        width: 289px;
+        height: 299px;
+        background: url(/Images/Store/thank.png) no-repeat;
+    }
+    ~ footer {
+        &:before {
+            content: '';
+            display: block;
+            //margin: 35px auto 45px;
+            width: 618px;
+            height: 345px;
+            background: url(/Images/Store/thank-students.png) no-repeat;
+        }
+    }
+}
+
+/*#endregion */
+
+
 /*#region footer */
 
 .storeWpr footer {
@@ -1357,3 +1391,4 @@ main {
 }
 
 /*#endregion */
+

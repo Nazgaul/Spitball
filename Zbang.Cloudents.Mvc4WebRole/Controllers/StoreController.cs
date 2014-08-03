@@ -12,8 +12,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class StoreController : BaseController
     {
-
-
         [HttpGet, NonAjax]
         [Route("store/category/{categoryid:int}/{categoryname}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
@@ -28,8 +26,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return View("Empty");
         }
-
-
 
         [HttpGet, Ajax, ActionName("Index"), StoreCategories]
         [Route("store")]
@@ -86,24 +82,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax, HttpGet, StoreCategories]
-
+        [Route("store/about")]
         public ActionResult About()
         {
             return PartialView();
         }
         [Ajax, HttpGet, StoreCategories]
+        [Route("store/contact")]
 
         public ActionResult Contact()
         {
             return PartialView();
         }
         [Ajax, HttpGet, StoreCategories]
+        [Route("store/sales")]
         public ActionResult Sales()
         {
             return PartialView();
         }
 
         [Ajax, HttpGet, StoreCategories]
+        [Route("store/terms")]
         public ActionResult Terms()
         {
             return PartialView();
