@@ -10,6 +10,9 @@
 
         $scope.select = function (index) {
             $scope.params.currentIndex = index;
+            if (index < $scope.params.index) {
+                $scope.params.reverse = true;
+            }
             restartTimer();
         };
 
@@ -43,6 +46,7 @@
 
         function timerFn() {
             //if (isPlaying) {
+                $scope.params.reverse = false;
                 $scope.next();
                 restartTimer();
             //} else {
