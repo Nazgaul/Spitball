@@ -23,13 +23,15 @@ namespace Zbang.Zbox.Domain
         {
             NumberOfSales = numberOfSales;
             PictureUrl = pictureUrl;
-            UpdateProduct(id, name, extraDetails, coupon, salePrice, categories, description, homePage,
+            Description = description;
+
+            UpdateProduct(id, name, extraDetails, coupon, salePrice, categories,  homePage,
                 supplyTime, numberOfPayments, catalogNumber, deliveryPrice, producerName,
                 features);
         }
 
         public void UpdateProduct(long id, string name, string extraDetails, float coupon,
-            float salePrice, IList<StoreCategory> categories, string description,
+            float salePrice, IList<StoreCategory> categories, 
             bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName,
             IEnumerable<KeyValuePair<string, string>> features)
         {
@@ -47,7 +49,6 @@ namespace Zbang.Zbox.Domain
             if (features != null)
                 AddFeatures(features);
 
-            Description = description;
             HomePage = homePage;
             SupplyTime = supplyTime;
             NumberOfPayments = numberOfPayments;
