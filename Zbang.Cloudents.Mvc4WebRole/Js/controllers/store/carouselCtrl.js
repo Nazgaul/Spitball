@@ -2,7 +2,7 @@
     ['$scope', '$timeout',
     function ($scope, $timeout) {
         var currentTimeout,
-            interval = 7000;
+            interval = 3000;
 
         $scope.params= {
             currentIndex : 0
