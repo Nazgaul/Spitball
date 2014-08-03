@@ -8,11 +8,15 @@ body {
 }
 /*#region header */
 header h1 {
+  display: none;
   text-align: center;
   position: relative;
   top: -42px;
   z-index: -1;
   color: #fff;
+}
+header h1.showStore {
+  display: block;
 }
 /*#endregion */
 .storeWpr {
