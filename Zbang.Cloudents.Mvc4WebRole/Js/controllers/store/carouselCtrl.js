@@ -2,23 +2,37 @@
     ['$scope', '$timeout',
     function ($scope, $timeout) {
         var currentTimeout,
+            transition,
             interval = 3000;
 
-        $scope.params= {
-            currentIndex : 0
+        $scope.params = {
+            currentIndex: 0
         };
 
         $scope.select = function (index) {
-            $scope.params.currentIndex = index;
-            if (index < $scope.params.index) {
-                $scope.params.reverse = true;
+            if (transition) {
+                return;
             }
+            transition = true;
+            if (index < $scope.params.currentIndex) {
+                $scope.params.reverse = true;
+            } else {
+                $scope.params.reverse = false;
+            }
+            $scope.params.currentIndex = index;
+
             restartTimer();
+
+            $timeout(function () {
+                transition = false;
+            }, 500);
         };
 
         $scope.next = function () {
             var newIndex = ($scope.params.currentIndex + 1) % $scope.params.slidesLength;
             $scope.select(newIndex);
+            $scope.params.reverse = false;
+
         };
 
         $scope.prev = function () {
@@ -34,7 +48,7 @@
 
         function restartTimer() {
             resetTimer();
-            currentTimeout = $timeout(timerFn, interval);            
+            currentTimeout = $timeout(timerFn, interval);
         }
 
         function resetTimer() {
@@ -46,9 +60,10 @@
 
         function timerFn() {
             //if (isPlaying) {
-                $scope.params.reverse = false;
-                $scope.next();
-                restartTimer();
+            $scope.params.reverse = false;
+
+            $scope.next();
+            restartTimer();
             //} else {
             //    $scope.pause();
             //}
