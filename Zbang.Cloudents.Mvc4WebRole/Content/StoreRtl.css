@@ -83,17 +83,17 @@
   /*rtl*/
   left: auto;
 }
-.hover {
+.productHover {
   right: 0;
   /*rtl*/
   left: auto;
 }
-.hover .moreDetailsWpr {
+.productHover .moreDetailsWpr {
   right: 15px;
   /*rtl*/
   left: auto;
 }
-.hover .sale {
+.productHover .sale {
   border-right: 1px solid #0f9d58;
   /*rtl*/
   border-left: none;

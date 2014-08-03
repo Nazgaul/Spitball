@@ -373,7 +373,7 @@ main {
   /*rtl*/
   height: auto;
 }
-.productsList li:hover .hover {
+.productsList li:hover .productHover {
   top: 0;
   opacity: 1;
 }
@@ -454,7 +454,7 @@ main {
 .productsList td:nth-child(2) {
   width: 1px;
 }
-.hover {
+.productHover {
   display: table;
   opacity: .5;
   position: absolute;
@@ -475,10 +475,10 @@ main {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-.hover p {
+.productHover p {
   margin-bottom: 15px;
 }
-.hover .moreDetailsWpr {
+.productHover .moreDetailsWpr {
   width: 90%;
   height: 50px;
   display: inline-block;
@@ -493,7 +493,7 @@ main {
   /*rtl*/
   bottom: 14px;
 }
-.hover .lFloat {
+.productHover .lFloat {
   display: block;
   text-align: center;
   padding: 2px 0;
@@ -504,7 +504,7 @@ main {
   font-size: 22px;
   margin: 154px 0 15px;
 }
-.hover .sale {
+.productHover .sale {
   color: #0f9d58;
   border-left: 1px solid #0f9d58;
   /*rtl*/
