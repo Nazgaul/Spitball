@@ -1140,6 +1140,34 @@ main {
   line-height: 16px;
 }
 /*#endregion */
+/*#region Thankyou page */
+.thanksTxt1 {
+  color: #0f9d58;
+  font-size: 40px;
+  margin: 95px 0 15px;
+  white-space: pre-wrap;
+}
+.thanksTxt2 {
+  color: #39434a;
+  font-size: 30px;
+  white-space: pre-wrap;
+}
+.thanksTxt2:after {
+  content: '';
+  display: block;
+  margin: 35px auto 45px;
+  width: 289px;
+  height: 299px;
+  background: url(/Images/Store/thank.png) no-repeat;
+}
+.thanksTxt2 ~ footer:before {
+  content: '';
+  display: block;
+  width: 618px;
+  height: 345px;
+  background: url(/Images/Store/thank-students.png) no-repeat;
+}
+/*#endregion */
 /*#region footer */
 .storeWpr footer {
   background: #0f9d58;
