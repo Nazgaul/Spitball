@@ -676,12 +676,6 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
-  /*li:first-child {
-        //-moz-animation: carousel 60s linear infinite;
-        //-webkit-animation: carousel 60s linear infinite;
-        //animation: carousel 60s linear infinite;
-        margin-left: -300%;
-    }*/
 }
 .moreProductsList li {
   width: 250px;
@@ -697,25 +691,6 @@ main {
   margin-left: -300%;
   /*rtl*/
 }
-/*ul:before, ul:after {
-    content: "<";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 150px;
-    display: inline-block;
-    background: aqua;
-    z-index:1;
-    font-size: 24px;
-    padding: 65px 3px 0 3px;
-    box-sizing: border-box;
-}
-ul:after {
-    content: '>';
-    right: 0;
-    left: auto
-}*/
 /*#endregion */
 /*#region About Page */
 .txt1 {
@@ -1218,11 +1193,8 @@ ul:after {
 .storeWpr footer h3 {
   margin-bottom: 5px;
 }
-.storeWpr footer .bottom {
-  height: 70px;
-}
 .wpr {
-  width: 1024px;
+  width: 940px;
   margin: 0 auto;
   padding: 0 42px;
   -webkit-box-sizing: border-box;

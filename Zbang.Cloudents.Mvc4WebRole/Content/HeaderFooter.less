@@ -61,7 +61,7 @@ body {
 }
 
 .dashLibSearch {
-    display: none;
+    display: block;
     width: 340px;
     height: 32px;
     line-height: 32px;
@@ -73,9 +73,9 @@ body {
     position: relative;
     overflow: hidden; // create new bfc for search to take up remaining width
     padding: 0 5px 5px 5px; // add bottom and side padding to allow for dropdown box shadow. (otherwise overflow hidden - hides it) 
-    &.showSearch {
-        display: inline-block;
-    }
+    /*&.showSearch {
+        display: block;
+    }*/
     button
     {
         width: 19px;

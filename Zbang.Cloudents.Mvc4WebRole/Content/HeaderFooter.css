@@ -52,7 +52,7 @@ body {
   z-index: 1;
 }
 .dashLibSearch {
-  display: none;
+  display: block;
   width: 340px;
   height: 32px;
   line-height: 32px;
@@ -65,9 +65,9 @@ body {
   position: relative;
   overflow: hidden;
   padding: 0 5px 5px 5px;
-}
-.dashLibSearch.showSearch {
-  display: inline-block;
+  /*&.showSearch {
+        display: block;
+    }*/
 }
 .dashLibSearch button {
   width: 19px;
