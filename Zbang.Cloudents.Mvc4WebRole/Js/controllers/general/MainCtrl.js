@@ -91,7 +91,6 @@
 
             };
 
-
             $scope.$on('$routeChangeSuccess', function (event, current, previous) {
                 if (!current.$$route) {
                     return;
@@ -107,10 +106,35 @@
                     return;
                 }
 
-               
+
 
             });
-            
+
+            $rootScope.isStore = function () {
+                if (!$rootScope.params) {
+                    return false;
+                }
+                if (!angular.isDefined($rootScope.params.isStore)) {
+                    return false;
+                }
+
+                return $rootScope.params.isStore;
+            }
+
+            $rootScope.isSearch = function () {
+                if (!$rootScope.params) {
+                    return false;
+                }
+                if (!angular.isDefined($rootScope.params.isStore)) {
+                    return false;
+                }
+
+
+                return !$rootScope.params.isStore;
+            }
+
+
+
 
             //$scope.info = {
             //    currentLanguage: (function () {
