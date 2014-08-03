@@ -67,11 +67,11 @@
                     }
                 </ul>
             </nav>
-            <div ng-if="!$root.params.isStore">
+            <div>
                 @RenderSection("search", false)
             </div>
         </div>
-        <h1 ng-if="$root.params.isStore">@StoreResources.Description</h1>
+        <h1 ng-class="{$root.params.isStore" : 'showStore' }>@StoreResources.Description</h1>
     </header>
     <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
         @RenderBody()

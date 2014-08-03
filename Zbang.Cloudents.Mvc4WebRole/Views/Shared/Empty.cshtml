@@ -12,7 +12,7 @@
 @Html.Script2("angular-store")
 }
 @section search {
-<form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
+<form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate ng-class="{!$root.params.isStore" : 'showSearch'}>
     <input autocomplete="off" ng-keyup="search()" ng-blur="searchFocusout()" ng-focus="searchFocus()"
            type="search" name="query" required ng-model="formData.query" class="dashLibSearchInput"
            ng-placeholder="@SharedResources.Search" />
