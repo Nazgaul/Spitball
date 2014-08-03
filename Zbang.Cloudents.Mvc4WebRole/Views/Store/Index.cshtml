@@ -1,16 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
-@model IEnumerable<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
-@{
-    var images = new String[] {
-      "http://lorempixel.com/620/388",
-      "http://lorempixel.com/620/387",
-      "http://lorempixel.com/620/386",
-      "http://lorempixel.com/620/385",
-      "http://lorempixel.com/620/384",
-      "http://lorempixel.com/620/383",
-      "http://lorempixel.com/620/382"
-    };
-}
+@model IList<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
+
 <div class="storeWpr page">
     @{Html.RenderPartial("_Navigation");}
 
@@ -39,15 +29,24 @@
         @{
             var imageIndex = 0;
         }
-        <div class="lFloat carousel" ng-controller="CarouselCtrl" ng-init="params.slidesLength = @images.Length">
-            @foreach (var image in images)
+        <div class="lFloat carousel" ng-controller="CarouselCtrl" ng-init="params.slidesLength = @Model.Count(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopLeft)">
+            @foreach (var image in Model.Where(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopLeft))
             {
-                <img class="slide" ng-src="@image" ng-show="isActive(@imageIndex)" />
+                if (string.IsNullOrEmpty(image.Url))
+                {
+                    <img src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                }
+                else
+                {
+                        <a href="@image.Url" target="_blank">
+                            <img src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                        </a>
+                    }
                 imageIndex++;
             }
 
             <div style="position:absolute">
-            @for (int i = 0; i < images.Length; i++)
+            @for (int i = 0; i < imageIndex; i++)
             {
                 <button style="z-index:10000;color:white;display:inline-block;" class="" type="button" ng-click="select(@i)">(XXX)</button>
             }

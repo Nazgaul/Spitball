@@ -46,10 +46,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     var items = m_ReadService.ReadData(category.Id);
                     storeDto.AddRange(items);
                 }
-
-                var categoriesCommand = new AddCategoriesCommand(categories);
-                m_ZboxWriteService.AddCategories(categoriesCommand);
-
+                try
+                {
+                    var categoriesCommand = new AddCategoriesCommand(categories);
+                    m_ZboxWriteService.AddCategories(categoriesCommand);
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("On update categories", ex);
+                }
                 TraceLog.WriteInfo("build command and download images");
                 var products = new List<ProductStore>();
                 foreach (var item in storeDto)
@@ -96,9 +101,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         TraceLog.WriteError("On hatavot bring image", ex);
                     }
                 }
-
-                var command = new AddProductsToStoreCommand(products);
-                m_ZboxWriteService.AddProducts(command);
+                try
+                {
+                    var command = new AddProductsToStoreCommand(products);
+                    m_ZboxWriteService.AddProducts(command);
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("On update products", ex);
+                }
 
                 TraceLog.WriteInfo("Bringing banners");
                 var banners = m_ReadService.GetBanners();
