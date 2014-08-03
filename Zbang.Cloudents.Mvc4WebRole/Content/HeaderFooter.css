@@ -67,7 +67,7 @@ body {
   padding: 0 5px 5px 5px;
 }
 .dashLibSearch.showSearch {
-  display: inline-block;
+  display: block;
 }
 .dashLibSearch button {
   width: 19px;
