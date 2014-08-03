@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> IndexAjax()
         {
             var model = await ZboxReadService.GetBanners();
-            return PartialView(model);
+            return PartialView(model.ToList());
         }
 
         [HttpGet, Ajax]
