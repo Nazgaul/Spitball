@@ -128,13 +128,10 @@ main {
             left: -100%; /*rtl*/
         }
     }
-    button.selected {
-        color:#ff6a00;
-    }
 }
 
 .slide {
-    .transition(0.5s linear all);
+    .transition(all 0.5s linear);
     left:0; /*rtl*/
     &.ng-hide-add.ng-hide-add-active {
         left: -100%; /*rtl*/
@@ -1254,16 +1251,28 @@ main {
 /*#endregion */
 
 /*#region Thankyou page */
+.thankyou {
+    text-align: center;
+    .btn1 {
+        font-size: 24px;
+        padding: 6px 12px;
+        border-radius: 12px;
+    }
+}
 .thanksTxt1 {
     color: @color;
-    font-size: 40px;
-    margin: 95px 0 15px;
+    font-size: 53px;
+    margin: 95px 0 20px;
     white-space: pre-wrap;
+    font-weight: normal;
+    line-height: 43px;
 }
 .thanksTxt2 {
     color: @txtColor;
     font-size: 30px;
     white-space: pre-wrap;
+    font-weight: normal;
+    line-height: 30px;
     &:after {
         content: '';
         display: block;
@@ -1276,10 +1285,10 @@ main {
         &:before {
             content: '';
             display: block;
-            //margin: 35px auto 45px;
-            width: 618px;
-            height: 345px;
-            background: url(/Images/Store/thank-students.png) no-repeat;
+            height: 226px;
+            background: url(/Images/Store/thank-students.png) center top no-repeat #f6f6f6;
+            margin: 155px auto 0;
+            width: 940px;
         }
     }
 }
