@@ -10,21 +10,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
 {
     public static class BundleConfig
     {
-        private static readonly Dictionary<string, string> CssBundels = new Dictionary<string, string>();
-        private static readonly Dictionary<string, string> JsBundels = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
+/*
         private static readonly Dictionary<string, string> JsRemoteBundles = new Dictionary<string, string>();
+*/
         private static readonly string CdnLocation = GetValueFromCloudConfig();
 
         public static string CssLink(string key)
         {
             string retVal;
-            CssBundels.TryGetValue(key, out retVal);
+            CssBundles.TryGetValue(key, out retVal);
 
             return retVal;
         }
         public static string JsLink(string key)
         {
-            return JsBundels[key];
+            return JsBundles[key];
         }
 
         //public static string JsRemoteLinks(string key)
@@ -575,21 +577,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
                 cssbundle.WithOutputBaseHref(cdnUrl);
-                CssBundels.Add(key, cssbundle.Render("~/gzip/c#.css"));
+                CssBundles.Add(key, cssbundle.Render("~/gzip/c#.css"));
                 CopyFilesToCdn("~/gzip/", "*.css", SearchOption.TopDirectoryOnly);
             }
             else
             {
-                CssBundels.Add(key, cssbundle.Render("~/cdn/gzip/c#.css"));
+                CssBundles.Add(key, cssbundle.Render("~/cdn/gzip/c#.css"));
             }
 
 
         }
 
+/*
         private static void RegisterJsRoutes(string key, params string[] jsFiles)
         {
             JsRemoteBundles.Add(key, RegisterJs(jsFiles.Select(s => new JsFileWithCdn(s)), new JavaScriptBundleImp()));
         }
+*/
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
         {
@@ -627,7 +631,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         private static void RegisterJsRegular(string key, params JsFileWithCdn[] jsFiles)
         {
-            JsBundels.Add(key, RegisterJs(jsFiles, SquishIt.Framework.Bundle.JavaScript()));
+            JsBundles.Add(key, RegisterJs(jsFiles, SquishIt.Framework.Bundle.JavaScript()));
         }
 
         private static string GetValueFromCloudConfig()
