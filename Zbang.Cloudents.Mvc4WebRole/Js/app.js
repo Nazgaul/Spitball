@@ -173,6 +173,13 @@ app.config([
                     type: 'terms'
                 }
             }).
+            when('/store/thankyou/', {
+                templateUrl: '/store/Thankyou/',
+                controller: 'ViewCtrl',
+                params: {
+                    type: 'thankyou'
+                }
+            }).
           //#endregion
         otherwise({ redirectTo: '/dashboard/' });
 
