@@ -35,14 +35,14 @@
             </td>
         </tr>
         @*<div>@ViewBag.data</div>*@
-        @foreach (var categories in Model.Features.GroupBy(s => s.Category))
+        @foreach (var category in Model.Features.GroupBy(s => s.Category))
         {
             <tr>
-                <td>@categories.FirstOrDefault().Category</td>
+                <td>@category.FirstOrDefault().Category</td>
                 <td>
                     <select>
                         <option selected>None</option>
-                        @foreach (var feature in categories)
+                        @foreach (var feature in category)
                         {
                             <option data-price="@feature.Price" value="@feature.Id">@feature.Description</option>
                         }
