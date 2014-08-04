@@ -232,10 +232,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
         //title 
         if (!previous) {
-            if (!current) {
-                return;
-            }
-            if (!current.$$route) {
+            if (!current && !current.$$route && !current.$$route.params && !current.$$route.params.type) {
                 return;
             }
 
@@ -247,6 +244,12 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
             return;
         }
         if (!previous.$$route) {
+            return;
+        }
+        if (!previous.$$route.params) {
+            return;
+        }
+        if (!previous.$$route.params.type) {
             return;
         }
 
@@ -272,6 +275,13 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
         if (!current.$$route) {
             return;
         }
+        if (!current.$$route.params) {
+            return;
+        }
+        if (!current.$$route.params.type) {
+            return;
+        }
+                    
 
         if (current.$$route.params.type === 'box') {
             if (sUserDetails.isAuthenticated()) {

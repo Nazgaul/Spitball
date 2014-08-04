@@ -99,6 +99,19 @@
                     isStore: current.$$route.originalPath.indexOf('store') > -1
                 };
 
+                if (!current) {
+                    return;
+                }
+                if (!current.$$route) {
+                    return;
+                }
+                if (!current.$$route.params) {
+                    return;
+                }
+                if (!current.$$route.params.type) {
+                    return;
+                }
+
                 $scope.params.store.currentTab = current.$$route.params.type;
 
                 if (current.$$route.type === 'products' && current.params.categoryId === '646') {
