@@ -7,42 +7,51 @@
     <div class="detailsTxt">@StoreResources.FillDetails</div>
     <div class="lFloat">
         @Html.LabelFor(f=>f.FirstName)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.FirstName, new { @class = "inputText", required = "required" })
     </div>
     <div class="rFloat">
         @Html.LabelFor(f => f.LastName)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.LastName, new { @class = "inputText" })
     </div>
     <div class="lFloat">
         @Html.LabelFor(f => f.Phone1) 1
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.Phone1, new { @class = "inputText" })
     </div>
     <div class="rFloat">
-        @Html.LabelFor(f => f.Phone2) 2
+        @Html.LabelFor(f => f.Phone2, new { @class = "optional" }) 2
         @Html.TextBoxFor(f => f.Phone2, new { @class = "inputText" })
     </div>
     <div class="lFloat wideInput">
         @Html.LabelFor(f => f.Email)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.Email, new { @class = "inputText" })
     </div>
     <div class="lFloat">
         @Html.LabelFor(f => f.City)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.City, new { @class = "inputText" })
     </div>
     <div class="lFloat">
         @Html.LabelFor(f => f.Address)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.Address, new { @class = "inputText" })
     </div>
     <div class="lFloat">
         @Html.LabelFor(f => f.IdentityNumber)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.IdentityNumber, new { @class = "inputText" })
     </div>
     <div class="lFloat">
         @Html.LabelFor(f => f.CreditCardNumber)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.CreditCardNumber, new { @class = "inputText" })
     </div>
     <div class="lFloat">
         <label>@StoreResources.Vaildity</label>
+        <span class="required">@DialogResources.RequiredField</span>
         <select>
             <option selected>שנה</option>
             <option value="08">2008</option>
@@ -77,6 +86,7 @@
     </div>
     <div class="rFloat secureCode">
         @Html.LabelFor(f => f.SecurityCode)
+        <span class="required">@DialogResources.RequiredField</span>
         <span class="rFloat">@StoreResources.WhatIsThis</span>
         @Html.TextBoxFor(f => f.SecurityCode, new { @class = "inputText" })
         <div class="cardHover">
@@ -85,19 +95,22 @@
     </div>
     <div class="lFloat">
         @Html.LabelFor(f => f.CreditCardOwnerName)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.CreditCardOwnerName, new { @class = "inputText" })
     </div>
     <div class="rFloat">
         @Html.LabelFor(f => f.CreditCardOwnerId)
+        <span class="required">@DialogResources.RequiredField</span>
         @Html.TextBoxFor(f => f.CreditCardOwnerId, new { @class = "inputText" })
     </div>
     <div class="lFloat wideInput">
-        @Html.LabelFor(f => f.Comments)
+        @Html.LabelFor(f => f.Comments, new { @class = "optional" })
         @Html.TextBoxFor(f => f.Comments, new { @class = "inputText" })
     </div>
-    <div class="lFloat">
+    <div class="lFloat cbWpr">
         @Html.CheckBoxFor(f => f.AcceptTermOfService, new { @class = "checkbox"})
         @*@Html.LabelFor(f => f.AcceptTermOfService, new { @class = "cbLabel" })*@
+        <div class="required">@DialogResources.RequiredField</div>
         <label class="cbLabel" for="AcceptTermOfService">קראתי את <a class="termsLink" href="~/store/terms">התקנון</a> ואני מסכים לתנאי השימוש.</label>
     </div>
     <div class="rFloat">

@@ -1122,8 +1122,6 @@ main {
     font-size: 21px;
 }
 
-
-
 .userDetails {
     font-size: 15px;
     padding: 60px 75px;
@@ -1134,11 +1132,32 @@ main {
         margin: -60px -75px 0;
     }
 
+    label:not(.optional) {
+        &:after {
+            content: '*';
+            display: inline-block;
+            color: @errorColor;
+        }
+    }
     > .lFloat, > .rFloat {
         width: 360px;
         margin-top: 25px;
+        &.error {
+            .inputText , .cbLabel{
+                border-color: @errorColor;
+            }
+            .cbLabel {
+                display: block;
+            }
+            .required {
+                visibility: visible;
+            }
+        }
     }
-
+    .required {
+        visibility: hidden;
+        color: @errorColor;
+    }
     > .lFloat {
         clear: both;
 
@@ -1190,7 +1209,13 @@ main {
         text-decoration: underline;
     }
 }
-
+.cbWpr {
+    position: relative;
+    .required {
+        position: absolute;
+        top: -16px;
+    }
+}
 .secureCode {
     position: relative;
 
