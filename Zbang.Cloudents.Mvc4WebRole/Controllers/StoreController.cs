@@ -29,12 +29,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, NonAjax]
-        [Route("store/category/{categoryid:int}/{categoryname}", Name = "storeCategory")]
+        [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
-        [Route("store/terms")]
-        [Route("store")]
-        [Route("store/about")]
-        [Route("store/contact")]
+        [Route("store/terms",Name="StoreTerms")]
+        [Route("store" , Name="StoreRoot")]
+        [Route("store/about", Name="StoreAbout")]
+        [Route("store/contact", Name="StoreContact")]
         [Route("store/sales")]
         [Route("store/thankyou", Name = "StoreThanksYou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]

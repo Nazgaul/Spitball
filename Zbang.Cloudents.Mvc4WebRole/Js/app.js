@@ -131,7 +131,7 @@ app.config([
                      type: 'home'
                  }
              }).
-            when('/store/category/:categoryId/:categoryName/', {
+            when('/store/category/:categoryId/', {
                 templateUrl: '/Store/',
                 controller: 'CategoryCtrl',
                 params: {

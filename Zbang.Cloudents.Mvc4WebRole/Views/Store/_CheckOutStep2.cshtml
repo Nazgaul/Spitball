@@ -110,7 +110,7 @@
     <div class="lFloat cbWpr" ng-class="{error : submitted && detailsForm.TermsOfService.$error.required}">
         <input id="AcceptTermOfService" type="checkbox" class="checkbox" name="TermsOfService" required ng-model="formData.tos" />
         <div class="required">@DialogResources.RequiredField</div>
-        <label class="cbLabel" for="AcceptTermOfService">קראתי את <a class="termsLink" href="~/store/terms" target="_blank">התקנון</a> ואני מסכים לתנאי השימוש.</label>
+        <label class="cbLabel" for="AcceptTermOfService">קראתי את <a class="termsLink" href="@Url.RouteUrl("StoreTerms")" target="_blank">התקנון</a> ואני מסכים לתנאי השימוש.</label>
     </div>
     <div class="rFloat" ng-class="{error : submitted && detailsForm.NumberOfPayments.$error.required}">
         <span>@StoreResources.BillMe</span>
