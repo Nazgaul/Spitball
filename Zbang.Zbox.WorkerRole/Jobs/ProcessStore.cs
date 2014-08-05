@@ -69,7 +69,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     {
                         features[i] = new KeyValuePair<string, string>(string.Empty, string.Empty);
                     }
-
+                    //TODO: need to add email
 
 
                     m_WriteService.InsertOrder(new OrderSubmitDto(

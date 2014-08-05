@@ -64,8 +64,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [Display(ResourceType = typeof(SharedResources), Name = "Comments")]
         public string Comments { get; set; }
 
-        [Display(ResourceType = typeof(StoreResources), Name = "IReadIt")]
-        public bool AcceptTermOfService { get; set; }
+        //[Display(ResourceType = typeof(StoreResources), Name = "IReadIt")]
+        //public bool AcceptTermOfService { get; set; }
 
         [Required]
         
