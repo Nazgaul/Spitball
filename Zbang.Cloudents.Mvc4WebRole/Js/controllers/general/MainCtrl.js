@@ -118,7 +118,7 @@
                     $scope.params.currentTab = 'sales';                    
                 }
 
-                if (current.$$route.templateUrl.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated()) {                    
+                if (current.$$route.originalPath.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated()) {                    
                     cd.pubsub.publish('register', { action: true });                 
                 }
 

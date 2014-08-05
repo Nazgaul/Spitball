@@ -1,11 +1,11 @@
 ﻿app.controller('CategoryCtrl',
-    ['$scope', '$routeParams', '$timeout','Store',
-    function ($scope, $routeParams,$timeout, Store) {
+    ['$scope', '$routeParams', '$timeout', '$location', 'Store',
+    function ($scope, $routeParams, $timeout, $location, Store) {
         var consts = {
             defaultMaxProducts: 9,
             productsIncrement: 9
         },
-        allProducts;
+        allProducts;     
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
@@ -50,20 +50,38 @@
         //}, 150);
         $scope.search = function (e) {
             e.preventDefault();
+            search();
+        
+        };
 
+        $scope.$on('$routeUpdate', function () {
+            var query = $location.search()['q'];
+            if (query) {
+                $scope.params.search = query;
+                search();
+                return;
+            }
+
+            $scope.params.search = null;
+            $scope.products = allProducts;
+            $scope.params.isSearching = false;
+            $scope.params.maxProducts = consts.defaultMaxProducts;
+
+        });
+
+        function search() {
             var query = $scope.params.search;
 
             $scope.params.isSearching = true;
-
+            $location.search({ q: $scope.params.search });
             Store.search({ term: query }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 $scope.params.isSearching = false;
                 $scope.products = data;
-                $scope.params.maxProducts = consts.productsIncrement;
+                $scope.params.maxProducts = consts.defaultMaxProducts;
             }, function () {
                 $scope.params.isSearching = false;
             });
-        };
-
+        }
     }]
 );
