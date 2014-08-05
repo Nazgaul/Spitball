@@ -1,9 +1,7 @@
-﻿using Dapper;
+﻿using System.Threading.Tasks;
+using Dapper;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Store.Dto;
 
@@ -24,14 +22,15 @@ namespace Zbang.Zbox.Store.Services
                     "SELECT MAX(ProductId)+1 AS max_ProductId FROM BackUpProducts",
                     "SELECT * FROM products WHERE products.productid = @ProductId" 
                 };
-                long curr_orderId, curr_CustId, curr_orderitemsid, curr_ProductId;
+                long curr_orderId, curr_CustId, curr_orderitemsid;
+                int curr_ProductId;
                 OrderProductDto product;
                 using (var grid = await conn.QueryMultipleAsync(string.Join(";", initSqls), new { ProductId = order.ProdcutId }))
                 {
                     curr_orderId = grid.Read<long>().FirstOrDefault();
                     curr_CustId = grid.Read<long>().FirstOrDefault();
                     curr_orderitemsid = grid.Read<long>().FirstOrDefault();
-                    curr_ProductId = grid.Read<long>().FirstOrDefault();
+                    curr_ProductId = grid.Read<int>().FirstOrDefault();
                     product = grid.Read<OrderProductDto>().FirstOrDefault();
                 }
 
@@ -64,7 +63,7 @@ VALUES ( @curr_ProductId, @products_name,@products_price,@products_saleprice,@pr
                 var tmpOrgProductId = t.FirstOrDefault();
 
 
-                await conn.ExecuteAsync(
+                var t3 =  conn.ExecuteAsync(
                     @"INSERT INTO orders (orderId,custid, StudentId, [date],dfname,dlname,daddress1,dstate,dcity,dzip,ccname, coupon, ids,ccnumber,
 ccexpire,ccBehind,isphone,notes,Adminstatus,shopType,totalprice,delivery,SelfDeliver,NumOfPayment,referer, mosadName) 
 VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dstate,@dcity,@dzip,@ccname,@coupon,@ids,
@@ -82,26 +81,26 @@ VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dsta
                         dcity = order.City,
                         dzip = string.Empty,
                         ccname = order.CreditCardNameHolder,
-                        coupon = order.CouponValue,
-                        ids = order.CardHolderIdentificationNumber, // to hash
-                        ccnumber = order.CreditCardNumber, // to hash
+                        coupon = product.Coupon,
+                        ids = VbExternalUtils.Utils.Base64encode(order.CardHolderIdentificationNumber), // to hash
+                        ccnumber = VbExternalUtils.Utils.Base64encode(order.CreditCardNumber), // to hash
                         ccexpire = order.CreditCardExpiration.ToString("MMyy"),
                         ccBehind = order.Cvv,
                         isphone = 0,
                         notes = order.Notes,
                         Adminstatus = 1,
-                        shopType = 1, 
-                        totalprice = order.TotalPrice,
+                        shopType = 1,
+                        totalprice = product.Price + product.DeliveryPrice,
                         delivery = 0,
                         SelfDeliver = 0,
                         NumOfPayment = 1,
                         referer = order.UniversityId,
                         mosadName = string.Empty
                     });
-  
 
 
-                await conn.ExecuteAsync(@"INSERT INTO orderitems (orderitemsid,orderid,productid,qty,priceperunit,p1,v1,p2,v2,p3,v3,p4,v4,p5,v5,p6,v6,
+
+                var t1 =  conn.ExecuteAsync(@"INSERT INTO orderitems (orderitemsid,orderid,productid,qty,priceperunit,p1,v1,p2,v2,p3,v3,p4,v4,p5,v5,p6,v6,
 DeliveryPrice,AdditionPrice,productPayment,orderType) 
 VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3,@v3,@p4,@v4,@p5,@v5,@p6,@v6,@DeliveryPrice,@AdditionPrice,
 @productPayment,@orderType)",
@@ -111,7 +110,7 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
                         orderid = curr_orderId,
                         productid = tmpOrgProductId,
                         qty = 1,
-                        priceperunit = order.TotalPrice,
+                        priceperunit = product.Price + product.DeliveryPrice,
                         p1 = order.P1,
                         v1 = order.V1,
                         p2 = order.P2,
@@ -124,14 +123,14 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
                         v5 = order.V5,
                         p6 = order.P6,
                         v6 = order.V6,
-                        DeliveryPrice = order.DeliveryPrice,
-                        AdditionPrice =order.ExtraFeaturePrice,
-                        productPayment = order.NumberOfPayment, //TODO: what is that
+                        DeliveryPrice = product.DeliveryPrice,
+                        AdditionPrice = order.ExtraFeaturePrice,
+                        productPayment = order.NumberOfPayment,
                         orderType = 1
 
                     });
 
-                await conn.ExecuteAsync(@"INSERT INTO customers (CustId, StudentId, fname,lname,email,address1,state,city,country,pass,phone,
+                var t2 =  conn.ExecuteAsync(@"INSERT INTO customers (CustId, StudentId, fname,lname,email,address1,state,city,country,pass,phone,
 Cphone1,fax, coupon, ids,OrgName,OrgNumber,isMailingList) 
 VALUES (@CustId,@StudentCode,@fname,@lname,@email,@address1,@state,@city,@country,@pass,@phone,@Cphone1,@fax,@coupon,@cust_ids,@OrgName,@OrgNumber,
 @isMailingList)", new
@@ -140,21 +139,22 @@ VALUES (@CustId,@StudentCode,@fname,@lname,@email,@address1,@state,@city,@countr
                     StudentCode = order.IdentificationNumber,
                     fname = order.FirstName,
                     lname = order.LastName,
-                    email= order.Email,
-                    address1= order.Address,
-                    state =  string.Empty,
-                    city = order.City ,
+                    email = order.Email,
+                    address1 = order.Address,
+                    state = string.Empty,
+                    city = order.City,
                     country = "ישראל ישראל",
                     pass = 1234567,
                     phone = order.Phone,
-                    Cphone1= order.Phone2,
-                    fax= string.Empty,
-                    coupon=order.CouponValue,
-                    cust_ids= string.Empty,
-                    OrgName= string.Empty,
-                    OrgNumber= string.Empty,
-                    isMailingList= 0
+                    Cphone1 = order.Phone2,
+                    fax = string.Empty,
+                    coupon = product.Coupon,
+                    cust_ids = string.Empty,
+                    OrgName = string.Empty,
+                    OrgNumber = string.Empty,
+                    isMailingList = 0
                 });
+                await Task.WhenAll(t1, t2, t3);
 
             }
         }

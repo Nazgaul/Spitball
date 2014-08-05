@@ -73,6 +73,10 @@
       <Project>{3e0f1fbf-60d1-40b2-b649-933142c27cb7}</Project>
       <Name>Zbang.Zbox.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.VbExternalUtils\Zbang.Zbox.VbExternalUtils.vbproj">
+      <Project>{c4fb3423-ce73-4b44-a7fb-afcd71f947d2}</Project>
+      <Name>Zbang.Zbox.VbExternalUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

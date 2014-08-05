@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -12,6 +15,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class StoreController : BaseController
     {
+        private readonly Lazy<IQueueProvider> m_QueueProvider;
+        public StoreController(Lazy<IQueueProvider> queueProvider)
+        {
+            m_QueueProvider = queueProvider;
+        }
+
         [HttpGet, NonAjax]
         [Route("store/category/{categoryid:int}/{categoryname}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
@@ -20,7 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/about")]
         [Route("store/contact")]
         [Route("store/sales")]
-       // [Route("store/thankyou")]
+        [Route("store/thankyou", Name = "StoreThanksYou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
         public ActionResult Index()
         {
@@ -46,8 +55,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Product(long id)
         {
             var query = new GetStoreProductQuery(id);
-            var tModel =  ZboxReadService.GetProduct(query);
-            var tBanners =  ZboxReadService.GetBanners();
+            var tModel = ZboxReadService.GetProduct(query);
+            var tBanners = ZboxReadService.GetBanners();
 
             await Task.WhenAll(tModel, tBanners);
             var model = tModel.Result;
@@ -81,6 +90,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView(model);
         }
 
+        [Ajax, HttpPost]
+        public ActionResult Order(StoreOrder model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+            }
+            return this.CdJson(new JsonResponse(true, new { url = Url.RouteUrl("StoreThanksYou") }));
+        }
+
         [Ajax, HttpGet, StoreCategories]
         [Route("store/about")]
         public ActionResult About()
@@ -107,6 +126,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView();
         }
+
+
 
         [HttpGet, StoreCategories]
         public ActionResult Thankyou()

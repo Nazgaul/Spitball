@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Store.Dto
 
         public int ProdOrder { get; set; }
 
-        public long ProductId { get; set; }
 
         public float ProfitPercent { get; set; }
 
@@ -30,5 +29,9 @@ namespace Zbang.Zbox.Store.Dto
         public int Vat { get; set; }
 
         public int ProducerId { get; set; }
+
+        public float Coupon { get; set; }
+
+        public float DeliveryPrice { get; set; }
     }
 }
