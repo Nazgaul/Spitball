@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
     ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook', 'sUserDetails',
-        function ($scope, $rootScope, $location, $routeParams, $modal, User, Facebook, sUserDetails) {
+        function ($scope, $rootScope, $location, $modal, User, Facebook, sUserDetails) {
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/'
             }

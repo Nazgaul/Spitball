@@ -1,6 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @model Zbang.Zbox.ViewModel.Dto.Store.ProductCheckOutDto
-<form class="userOrder">
+           
+<form class="userOrder" bag-data="@ViewBag.data">
+    {{product.name}}
     <h2>@StoreResources.YourOrder</h2>
     <table class="orderTable">
         <thead>
@@ -22,7 +24,7 @@
         </tr>
         <tr>
             <td>@StoreResources.CouponCode</td>
-            <td><input type="text" class="inputText" /></td>
+            <td><input ng-model="formData.couponCode" type="text" class="inputText" /></td>
             <td>
                 @*Guy: Please add class 'activated' here if user enters code successfully*@ 
                 <div class="couponBtn">
@@ -34,8 +36,17 @@
                 <div class="helpPopup">@StoreResources.ToGetACoupon</div>
             </td>
         </tr>
-        @*<div>@ViewBag.data</div>*@
-        @foreach (var categories in Model.Features.GroupBy(s => s.Category))
+        <tr ng-repeat="category in product.categories">
+            <td>{{category}}</td>
+            <td>
+                <select>
+                    <option selected>None</option>
+                
+                </select>
+            </td>
+
+        </tr>
+        @*@foreach (var categories in Model.Features.GroupBy(s => s.Category))
         {
             <tr>
                 <td>@categories.FirstOrDefault().Category</td>
@@ -49,10 +60,10 @@
                     </select>
                 </td>
                 <td>
-                    @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>*@
+                    @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>
                 </td>
             </tr>
-        }
+        }*@
         <tr>
             <td></td>
             <td></td>
