@@ -105,7 +105,7 @@
     </div>
     <div class="lFloat wideInput">
         @Html.LabelFor(f => f.Comments, new { @class = "optional" })
-        @Html.TextBoxFor(f => f.Comments, new { @class = "inputText", ng_model = "formData.comments", required = "required" })
+        @Html.TextBoxFor(f => f.Comments, new { @class = "inputText", ng_model = "formData.comments" })
     </div>
     <div class="lFloat cbWpr" ng-class="{error : submitted && detailsForm.TermsOfService.$error.required}">
         <input id="AcceptTermOfService" type="checkbox" class="checkbox" name="TermsOfService" required ng-model="formData.tos" />
