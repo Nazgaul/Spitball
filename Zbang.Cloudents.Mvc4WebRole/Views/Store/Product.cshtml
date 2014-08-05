@@ -32,23 +32,26 @@
         <h1>@Model.Name</h1>
         <div class="left">
             <div class="productInfoWpr">
-                <table class="productPrice">
-                    <tr>
-                        <td>@StoreResources.StudentPrice:</td>
-                        <td>@Model.Price</td>
-                        <td>₪</td>
-                    </tr>
-                    <tr>
-                        <td>@StoreResources.Shipping:</td>
-                        <td>@Model.DeliveryPrice</td>
-                        <td>₪</td>
-                    </tr>
-                    <tr>
-                        <td>@StoreResources.CostWithShipping:</td>
-                        <td>@Model.TotalPrice</td>
-                        <td>₪</td>
-                    </tr>
-                </table>
+                @if (Model.Price > 0)
+                {
+                    <table class="productPrice">
+                        <tr>
+                            <td>@StoreResources.StudentPrice:</td>
+                            <td>@Model.Price</td>
+                            <td>₪</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.Shipping:</td>
+                            <td>@Model.DeliveryPrice</td>
+                            <td>₪</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.CostWithShipping:</td>
+                            <td>@Model.TotalPrice</td>
+                            <td>₪</td>
+                        </tr>
+                    </table>
+                }
                 <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id})" class="btn3">@StoreResources.PurchaseNow</a>
                 <table class="productDetails">
                     <tr>
@@ -80,8 +83,8 @@
         </div>
         <div class="right">
             @*<div class="imgWpr ghost">
-                <img class="vCentered" alt="" src="@Model.Picture" />
-            </div>*@
+                    <img class="vCentered" alt="" src="@Model.Picture" />
+                </div>*@
             <img alt="" src="@Model.Picture" width="425" height="281" />
             <div class="pNameWpr">
                 <h3>@Model.ExtraDetails</h3>
@@ -94,69 +97,69 @@
 
     @{Html.RenderPartial("_Footer");}
 </div>
-    @*<section>
-            <header>Similar products of interest</header>
-            <button type="button" class="prev"></button>
-            <ul class="moreProductsList">
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=one" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=two" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=three" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=four" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=five" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=six" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=seven" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=eight" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#"><img src="http://placehold.it/150x150&text=nine" alt="" /></a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=ten" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=eleven" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://placehold.it/150x150&text=twelve" alt="" />
-                    </a>
-                </li>
-            </ul>
-            <button type="button" class="next"></button>
-        </section>*@
+@*<section>
+        <header>Similar products of interest</header>
+        <button type="button" class="prev"></button>
+        <ul class="moreProductsList">
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=one" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=two" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=three" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=four" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=five" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=six" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=seven" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=eight" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#"><img src="http://placehold.it/150x150&text=nine" alt="" /></a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=ten" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=eleven" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://placehold.it/150x150&text=twelve" alt="" />
+                </a>
+            </li>
+        </ul>
+        <button type="button" class="next"></button>
+    </section>*@
 
