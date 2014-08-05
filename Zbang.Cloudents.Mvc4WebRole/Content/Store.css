@@ -1053,10 +1053,33 @@ main {
 .userDetails h2 {
   margin: -60px -75px 0;
 }
+.userDetails label:not(.optional):after {
+  content: '*';
+  display: inline-block;
+  color: #d1294d;
+}
 .userDetails > .lFloat,
 .userDetails > .rFloat {
   width: 360px;
   margin-top: 25px;
+}
+.userDetails > .lFloat.error .inputText,
+.userDetails > .rFloat.error .inputText,
+.userDetails > .lFloat.error .cbLabel,
+.userDetails > .rFloat.error .cbLabel {
+  border-color: #d1294d;
+}
+.userDetails > .lFloat.error .cbLabel,
+.userDetails > .rFloat.error .cbLabel {
+  display: block;
+}
+.userDetails > .lFloat.error .required,
+.userDetails > .rFloat.error .required {
+  visibility: visible;
+}
+.userDetails .required {
+  visibility: hidden;
+  color: #d1294d;
 }
 .userDetails > .lFloat {
   clear: both;
@@ -1098,6 +1121,13 @@ main {
 }
 .userDetails .termsLink {
   text-decoration: underline;
+}
+.cbWpr {
+  position: relative;
+}
+.cbWpr .required {
+  position: absolute;
+  top: -16px;
 }
 .secureCode {
   position: relative;
