@@ -147,10 +147,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet, StoreCategories]
+        [Ajax, HttpGet, StoreCategories]
+        [Route("store/thankyou")]
         public ActionResult Thankyou()
         {
-            return View();
+            return PartialView();
         }
     }
 }
