@@ -11,7 +11,7 @@
     <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
     <button class="closeDialog" data-closelogin="close"></button>    
 </div>
-<div class="staticWpr popupWrppr" id="register">
+<div class="staticWpr popupWrppr" id="register" ng-class="{store: $root.isStore()}">
     <div class="welcomeStore">
         <div class="storeTxt1">@StoreResources.Welcome</div>
         <div class="storeTxt2">@StoreResources.StudentDiscounts</div>

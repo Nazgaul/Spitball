@@ -115,10 +115,14 @@
                 $scope.params.store.currentTab = current.$$route.params.type;
 
                 if (current.$$route.type === 'products' && current.params.categoryId === '646') {
-                    $scope.params.currentTab = 'sales';
-                    return;
+                    $scope.params.currentTab = 'sales';                    
                 }
 
+                if (current.$$route.templateUrl.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated()) {                    
+                    cd.pubsub.publish('register', { action: true });                 
+                }
+
+              
 
 
             });
