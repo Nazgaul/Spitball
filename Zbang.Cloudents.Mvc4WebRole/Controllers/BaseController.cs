@@ -17,8 +17,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     public class BaseController : Controller
     {
-
-
         [Dependency]
         protected IZboxWriteService ZboxWriteService { get; set; }
         [Dependency]

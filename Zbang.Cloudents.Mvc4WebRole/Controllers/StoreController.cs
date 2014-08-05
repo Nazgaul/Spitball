@@ -19,15 +19,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public StoreController(Lazy<IQueueProvider> queueProvider)
         {
             m_QueueProvider = queueProvider;
+           
+
+        }
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            ChangeThreadLanguage("he-IL");
         }
 
         [HttpGet, NonAjax]
-        [Route("store/category/{categoryid:int}/{categoryname}", Name = "storeCategory")]
+        [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
-        [Route("store/terms")]
-        [Route("store")]
-        [Route("store/about")]
-        [Route("store/contact")]
+        [Route("store/terms",Name="StoreTerms")]
+        [Route("store" , Name="StoreRoot")]
+        [Route("store/about", Name="StoreAbout")]
+        [Route("store/contact", Name="StoreContact")]
         [Route("store/sales")]
         [Route("store/thankyou", Name = "StoreThanksYou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
