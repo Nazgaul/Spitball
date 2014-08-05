@@ -49,8 +49,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 if (!m_BringData)
                 {
-                    Task.Factory.StartNew(BringData);
+                 //   Task.Factory.StartNew(BringData);
                 }
+                //Thread.Sleep(TimeSpan.FromMinutes(1));
                 m_QueueProcess.RunQueue(new OrderQueueName(), msg =>
                 {
                     var order = msg.FromMessageProto<StoreOrderData>();
@@ -59,12 +60,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     var features = new KeyValuePair<string, string>[6];
                     int index = 0;
                     //order.Features
-                    foreach (var feature in productDetail.Features.Where(w => order.Features.Contains(w.Id)))
-                    {
-                        features[index] = new KeyValuePair<string, string>(feature.Category,
-                            feature.Description + "*" + feature.Price + "*");
-                        index++;
-                    }
+                    if (productDetail.Features != null)
+                        foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
+                        {
+                            features[index] = new KeyValuePair<string, string>(feature.Category,
+                                feature.Description + "*" + feature.Price + "*");
+                            index++;
+                        }
                     for (int i = index; i < 6; i++)
                     {
                         features[i] = new KeyValuePair<string, string>(string.Empty, string.Empty);

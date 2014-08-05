@@ -23,7 +23,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [Display(ResourceType = typeof(StoreResources), Name = "Telephone")]
         public string Phone1 { get; set; }
 
-        [Required]
         [Display(ResourceType = typeof(StoreResources), Name = "Telephone")]
         public string Phone2 { get; set; }
         [Required]
