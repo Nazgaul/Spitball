@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account

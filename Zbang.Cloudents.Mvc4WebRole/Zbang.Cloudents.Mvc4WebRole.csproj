@@ -412,7 +412,7 @@
     <Compile Include="Models\Tabs\CreateBoxItemTab.cs" />
     <Compile Include="Models\Tabs\DeleteBoxItemTab.cs" />
     <Compile Include="Models\UpdateBoxInfo.cs" />
-    <Compile Include="Models\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
       <DependentUpon>AccountSettingsResources.resx</DependentUpon>
