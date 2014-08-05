@@ -57,7 +57,7 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IJob, MailProcess2>(MailProcess2);
             Unity.RegisterType<IJob, AddFiles>(AddFiles);
             Unity.RegisterType<IJob, PartnersEmail>(EmailPartners);
-            Unity.RegisterType<IJob, SyncHatavotProduct>(Product);
+            Unity.RegisterType<IJob, ProcessStore>(Product);
 
             Unity.RegisterType<Imail2, Welcome>(BaseMailData.WelcomeResolver);
             Unity.RegisterType<Imail2, Invite2>(BaseMailData.InviteResolver);

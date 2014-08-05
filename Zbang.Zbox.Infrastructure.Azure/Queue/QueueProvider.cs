@@ -81,7 +81,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         }
 
         public bool RunQueue(QueueName queueName, Func<CloudQueueMessage, bool> func,
-           TimeSpan invisibleTimeinQueue, int dequeCount = 100)
+           TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
         {
             if (queueName == null) throw new ArgumentNullException("queueName");
             if (func == null) throw new ArgumentNullException("func");
@@ -99,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                 {
                     //m_Interval = m_MinInterval;
 
-                    if (msg.DequeueCount < dequeCount)
+                    if (msg.DequeueCount < deQueueCount)
                     {
                         if (func.Invoke(msg))
                         {
@@ -128,6 +128,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         }
 
 
+
+        public async Task InsertMessageToStoreAsync(StoreOrderData message)
+        {
+            await QueueClient.GetQueueReference(QueueName.OrderQueueName.ToLower()).InsertToQueueProtoAsync(message);
+        }
     }
 
 

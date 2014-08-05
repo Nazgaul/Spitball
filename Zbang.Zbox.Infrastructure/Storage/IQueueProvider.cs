@@ -7,6 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IQueueProvider
     {
+        Task InsertMessageToStoreAsync(StoreOrderData message);
         void InsertMessageToCache(FileProcessData message);
         void InsertMessageToMailNew(BaseMailData message);
 
@@ -17,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
 
         bool RunQueue(QueueName queueName, Func<CloudQueueMessage, bool> func,
-           TimeSpan invisibleTimeinQueue, int dequeCount = 100);
+           TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
 
        
     }

@@ -5,14 +5,23 @@ namespace Zbang.Zbox.Infrastructure.Storage
     public abstract class QueueName
     {
         public const string QueueName2 = "zboxCacheQueue";
-        public const string ThumbnailQueueName = "zboxThumbnailQueue";
         public const string NewMailQueueName = "zboxMailQueue2";
+        public const string OrderQueueName = "zboxQueueName";
         public const string UpdateDomainQueueName = "transactionQueueName";
         public const string DownloadContentFromUrl = "downloadcontentfromurl";
-        public const string DownloadContentFromUrlPahse2 = "downloadcontentfromurlphase2";
+        public const string DownloadContentFromUrlPhase2 = "downloadcontentfromurlphase2";
         public abstract string Name
         {
             get;
+        }
+    }
+
+    public class OrderQueueName : QueueName
+    {
+
+        public override string Name
+        {
+            get { return OrderQueueName; }
         }
     }
 
@@ -33,15 +42,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
     }
 
-
-    public class ThumbnailQueueName : QueueName
-    {
-        public override string Name
-        {
-            get { return ThumbnailQueueName; }
-        }
-    }
-
     public class UpdateDomainQueueName : QueueName
     {
         public override string Name
@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         public override string Name
         {
-            get { return DownloadContentFromUrlPahse2; }
+            get { return DownloadContentFromUrlPhase2; }
         }
 
     }

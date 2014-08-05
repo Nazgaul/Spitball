@@ -162,7 +162,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         {
             var queue = queueClient.GetQueueReference(QueueName.QueueName2.ToLower());
             var downloadContentFromUrlQueue = queueClient.GetQueueReference(QueueName.DownloadContentFromUrl.ToLower());
-            var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPahse2.ToLower());
+            var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPhase2.ToLower());
             var mailQueue2 = queueClient.GetQueueReference(QueueName.NewMailQueueName.ToLower());
             var transactionQueue = queueClient.GetQueueReference(QueueName.UpdateDomainQueueName.ToLower());
 

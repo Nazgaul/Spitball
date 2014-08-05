@@ -52,6 +52,7 @@
     <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Services\IReadService.cs" />
+    <Compile Include="Services\IWriteService.cs" />
     <Compile Include="Services\ReadService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WriteService.cs" />
