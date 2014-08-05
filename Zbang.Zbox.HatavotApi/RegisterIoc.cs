@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Store
            var ioc = IocFactory.Unity;
 
            ioc.RegisterType<IReadService, ReadService>();
+           ioc.RegisterType<IWriteService, WriteService>();
        }
     }
 }

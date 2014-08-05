@@ -7,7 +7,7 @@ using Zbang.Zbox.Store.Dto;
 
 namespace Zbang.Zbox.Store.Services
 {
-    public class WriteService
+    public class WriteService : IWriteService
     {
         private const string ConnectionStringName = "Hatavot";
         public async void InsertOrder(OrderSubmitDto order)
@@ -63,7 +63,7 @@ VALUES ( @curr_ProductId, @products_name,@products_price,@products_saleprice,@pr
                 var tmpOrgProductId = t.FirstOrDefault();
 
 
-                var t3 =  conn.ExecuteAsync(
+                var t3 = conn.ExecuteAsync(
                     @"INSERT INTO orders (orderId,custid, StudentId, [date],dfname,dlname,daddress1,dstate,dcity,dzip,ccname, coupon, ids,ccnumber,
 ccexpire,ccBehind,isphone,notes,Adminstatus,shopType,totalprice,delivery,SelfDeliver,NumOfPayment,referer, mosadName) 
 VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dstate,@dcity,@dzip,@ccname,@coupon,@ids,
@@ -100,7 +100,7 @@ VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dsta
 
 
 
-                var t1 =  conn.ExecuteAsync(@"INSERT INTO orderitems (orderitemsid,orderid,productid,qty,priceperunit,p1,v1,p2,v2,p3,v3,p4,v4,p5,v5,p6,v6,
+                var t1 = conn.ExecuteAsync(@"INSERT INTO orderitems (orderitemsid,orderid,productid,qty,priceperunit,p1,v1,p2,v2,p3,v3,p4,v4,p5,v5,p6,v6,
 DeliveryPrice,AdditionPrice,productPayment,orderType) 
 VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3,@v3,@p4,@v4,@p5,@v5,@p6,@v6,@DeliveryPrice,@AdditionPrice,
 @productPayment,@orderType)",
@@ -130,7 +130,7 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
 
                     });
 
-                var t2 =  conn.ExecuteAsync(@"INSERT INTO customers (CustId, StudentId, fname,lname,email,address1,state,city,country,pass,phone,
+                var t2 = conn.ExecuteAsync(@"INSERT INTO customers (CustId, StudentId, fname,lname,email,address1,state,city,country,pass,phone,
 Cphone1,fax, coupon, ids,OrgName,OrgNumber,isMailingList) 
 VALUES (@CustId,@StudentCode,@fname,@lname,@email,@address1,@state,@city,@country,@pass,@phone,@Cphone1,@fax,@coupon,@cust_ids,@OrgName,@OrgNumber,
 @isMailingList)", new

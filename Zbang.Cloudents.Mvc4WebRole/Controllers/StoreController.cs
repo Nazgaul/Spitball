@@ -91,12 +91,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax, HttpPost]
-        public ActionResult Order(StoreOrder model)
+        public async Task<ActionResult> Order(StoreOrder model)
         {
             if (!ModelState.IsValid)
             {
                 return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
             }
+            await m_QueueProvider.Value.InsertMessageToStoreAsync(new Zbox.Infrastructure.Transport.StoreOrderData(
+                model.ProductId,
+                model.IdentityNumber,
+                model.FirstName,
+                model.LastName,
+                model.Address,
+                model.CreditCardOwnerId,
+                model.Comments,
+                model.City,
+                model.CreditCardOwnerName,
+                model.CreditCardNumber,
+                new DateTime(model.ExpirationYear, model.ExpirationMonth, 1),
+                model.SecurityCode,
+                15, //need to put university id
+                model.Email,
+                model.Phone1, model.Phone2,
+                model.Features,
+                model.NumberOfPayments));
             return this.CdJson(new JsonResponse(true, new { url = Url.RouteUrl("StoreThanksYou") }));
         }
 
