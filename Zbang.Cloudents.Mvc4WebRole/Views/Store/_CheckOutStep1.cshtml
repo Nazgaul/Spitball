@@ -2,7 +2,6 @@
 @model Zbang.Zbox.ViewModel.Dto.Store.ProductCheckOutDto
            
 <form class="userOrder" bag-data="@ViewBag.data">
-    {{product.name}}
     <h2>@StoreResources.YourOrder</h2>
     <table class="orderTable">
         <thead>
@@ -27,7 +26,7 @@
             <td><input ng-model="formData.couponCode" type="text" class="inputText" /></td>
             <td>
                 @*Guy: Please add class 'activated' here if user enters code successfully*@ 
-                <div class="couponBtn">
+                <div class="couponBtn" ng-class="{activated: coupon.valid}">
                     <button type="button" class="btn3">@StoreResources.ActivateCoupon</button>
                     <div class="btn3">@StoreResources.CouponActivated</div>
                 </div>
@@ -36,45 +35,29 @@
                 <div class="helpPopup">@StoreResources.ToGetACoupon</div>
             </td>
         </tr>
-        <tr ng-repeat="category in product.categories">
-            <td>{{category}}</td>
+        <tr ng-repeat="(categoryName,category) in product.categories">
+            <td>{{categoryName}}</td>
             <td>
                 <select>
-                    <option selected>None</option>
-                
+                    <option selected>None</option>                    
+                    <option ng-repeat="feature in category">{{feature.description}}</option>
                 </select>
             </td>
-
-        </tr>
-        @*@foreach (var categories in Model.Features.GroupBy(s => s.Category))
-        {
-            <tr>
-                <td>@category.FirstOrDefault().Category</td>
-                <td>
-                    <select>
-                        <option selected>None</option>
-                        @foreach (var feature in category)
-                        {
-                            <option data-price="@feature.Price" value="@feature.Id">@feature.Description</option>
-                        }
-                    </select>
-                </td>
-                <td>
-                    @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>
-                </td>
-            </tr>
-        }*@
+            <td>
+                @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>*@
+            </td>
+        </tr>        
         <tr>
             <td></td>
             <td></td>
             <td class="invoice">
                 <ul>
                     <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
-                    <li><span>@StoreResources.Coupon:</span><span class="minus">@Model.Coupon</span><span>₪</span></li>
-                    <li><span>@StoreResources.Upgrades:</span><span>{UpgradeCostHere}</span><span>₪</span></li>
+                    <li><span>@StoreResources.Coupon:</span><span class="minus">{{product.coupon}}</span><span>₪</span></li>
+                    <li><span>@StoreResources.Upgrades:</span><span>{{invoice.upgradeCost}}</span><span>₪</span></li>
                     @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
-                    <li><span>@StoreResources.ShippingCost:</span><span>@Model.DeliveryPrice</span><span>₪</span></li>
-                    <li><span>@StoreResources.TotalPrice:</span><span>{TotalPriceHere}</span><span>₪</span></li>
+                    <li><span>@StoreResources.ShippingCost:</span><span>{{invoice.deliveryPrice}}</span><span>₪</span></li>
+                    <li><span>@StoreResources.TotalPrice:</span><span>{{invoice.totalPrice}}</span><span>₪</span></li>
                 </ul>
                 <button type="submit" class="btn1">@StoreResources.ProceedTo</button>
             </td>
