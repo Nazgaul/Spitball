@@ -9,7 +9,7 @@
     <form name="createBoxForm" ng-submit="create(createBoxForm.$valid)" novalidate>
         @Html.LabelFor(m => m.BoxName)
         
-        <input type="text" name="boxName" class="inputText boxName" ng-model="formData.boxName" required />
+        <input type="text" name="boxName" class="inputText boxName" ng-model="formData.boxName" required autocomplete="off" />
 
         <input type="radio" id="membersOnlyPrivacy" name="privacySettings" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
         <label for="membersOnlyPrivacy">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
