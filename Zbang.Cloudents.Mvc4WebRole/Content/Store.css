@@ -120,23 +120,27 @@ main {
 }
 .carouselBtns button {
   display: inline-block;
-  width: 13px;
-  height: 13px;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAPCAMAAAAvUzStAAAAV1BMVEUAAAD////o6Oienp79/v76+vqhoaGnp6fAwMADccjOzs7k5OTIyMiWxOi9vb3R0dHW1tYyi9Orq6vExMSkzOtpq9/t7e3s7OyKveXw9ftBlNVxr+BfpdyL9e8MAAAAAXRSTlMAQObYZgAAAKNJREFUeF6FkEcOAyEMRd0pU0tquf85AxZhFWne7vENNoZzbnPgMN+aLcbMtkDXQVGHdrCzG+/gjKtiRdexWOgWakhRUKfrJCiRYCzmFKvFkfC5pZS2J1IEI/xBVp9SfKTKhBqAtafKJTXBj6dvFAOWngqf3o2EWvu+5F9fiohyuV4E0Wfuqc8MR//hUcy6GTi5bSe7hWYBGnff871Z9j1nOOULVRwG/fUEbDQAAAAASUVORK5CYII=') /*/Images/radioBtn.png*/ -15px -1px no-repeat;
+  width: 18px;
+  height: 18px;
   vertical-align: middle;
   margin: -2px 4px 0 0;
   /*rtl*/
-  border: none;
-  outline: none;
-  box-shadow: none;
+  border: 1px solid #39434a;
+  padding: 2px;
+  border-radius: 100%;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-.carouselBtns button.selected {
-  background-position: -1px -1px;
-}
-.carouselBtns button:focus {
-  border: none;
-  outline: none;
-  box-shadow: none;
+.carouselBtns button.selected:before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: #39434a;
+  vertical-align: top;
 }
 .slide {
   -webkit-transition: all 0.5s linear;
