@@ -44,10 +44,10 @@
                 imageIndex++;
             }
 
-            <div style="position:absolute">
+            <div class="carouselBtns">
                 @for (int i = 0; i < imageIndex; i++)
                 {
-                    <button style="z-index:10000;display:inline-block;top:0" type="button" ng-click="select(@i)" ng-class="{selected: isActive(@i)}">(XXX)</button>
+                    <button type="button" ng-click="select(@i)" ng-class="{selected: isActive(@i)}"></button>
                 }
             </div>
 
