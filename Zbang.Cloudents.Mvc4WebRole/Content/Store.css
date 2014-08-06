@@ -82,7 +82,7 @@ main {
   box-sizing: border-box;
 }
 .widget .carousel {
-  width: 617px;
+  width: 619px;
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -99,6 +99,10 @@ main {
 }
 .widget img {
   position: absolute;
+}
+.widget .banner {
+  margin-left: -1px;
+  /*rtl*/
 }
 .carousel {
   text-align: center;
@@ -126,7 +130,7 @@ main {
   margin: -2px 4px 0 0;
   /*rtl*/
   border: 1px solid #39434a;
-  padding: 2px;
+  padding: 3px;
   border-radius: 100%;
   background: #fff;
   -webkit-box-sizing: border-box;
