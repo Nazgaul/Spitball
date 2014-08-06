@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain
         public StoreProduct(long id, string name, string extraDetails, int numberOfSales, float coupon,
             float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage,
             string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName,
-            IEnumerable<KeyValuePair<string, string>> features)
+            IEnumerable<KeyValuePair<string, string>> features,int? universityId)
             : this()
         {
             NumberOfSales = numberOfSales;
@@ -27,13 +27,10 @@ namespace Zbang.Zbox.Domain
 
             UpdateProduct(id, name, extraDetails, coupon, salePrice, categories,  homePage,
                 supplyTime, numberOfPayments, catalogNumber, deliveryPrice, producerName,
-                features);
+                features, universityId);
         }
 
-        public void UpdateProduct(long id, string name, string extraDetails, float coupon,
-            float salePrice, IList<StoreCategory> categories, 
-            bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName,
-            IEnumerable<KeyValuePair<string, string>> features)
+        public void UpdateProduct(long id, string name, string extraDetails, float coupon, float salePrice, IList<StoreCategory> categories, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId)
         {
             if (name == null) throw new ArgumentNullException("name");
             Id = id;
@@ -55,6 +52,7 @@ namespace Zbang.Zbox.Domain
             CatalogNumber = catalogNumber;
             DeliveryPrice = deliveryPrice;
             ProducerName = producerName;
+            UniversityId = universityId;
         }
 
         private void AddFeatures(IEnumerable<KeyValuePair<string, string>> features)
@@ -116,6 +114,8 @@ namespace Zbang.Zbox.Domain
         public float DeliveryPrice { get; set; }
 
         public string ProducerName { get; set; }
+
+        public int? UniversityId { get; set; }
 
     }
 }
