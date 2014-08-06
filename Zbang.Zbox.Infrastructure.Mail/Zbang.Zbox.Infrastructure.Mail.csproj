@@ -134,6 +134,8 @@
     <EmbeddedResource Include="MailTemplate\ResetPwdHe.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdRu.html" />
     <EmbeddedResource Include="MailTemplate\Partners\WeeklyUpdate.html" />
+    <Content Include="MailTemplate\Store\OrderConfirmation.html" />
+    <Content Include="MailTemplate\Store\OrderConfirmationHe.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseAr.html" />
