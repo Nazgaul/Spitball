@@ -655,21 +655,25 @@ main {
         font-weight: normal;
         margin: 8px 0 20px;
     }
-    /*.imgWpr {
+    .imgWpr {
         width: 425px;
         height: 281px;
         border: 1px solid @color;
         border-radius: 5px;
         margin-bottom: 15px;
-    }*/
+        text-align: center;
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center; /* align vertical */ 
+        overflow: hidden; // hide edges ouside rounded corners
+    }
     img {
-        //max-width: 425px;
-        //max-height: 281px;
-        //line-height: 281px;
-        //vertical-align: middle;
-        border: 1px solid @color;
-        border-radius: 5px;
-        margin-bottom: 15px;
+        max-width: 425px;
+        max-height: 281px;
+
+        //border: 1px solid @color;
+        //border-radius: 5px;
+        //margin-bottom: 15px;
     }
 }
 
