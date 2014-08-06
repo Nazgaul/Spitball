@@ -1,9 +1,10 @@
-﻿using Zbang.Zbox.Store.Dto;
+﻿using System.Threading.Tasks;
+using Zbang.Zbox.Store.Dto;
 
 namespace Zbang.Zbox.Store.Services
 {
     public interface IWriteService
     {
-        void InsertOrder(OrderSubmitDto order);
+        Task<OrderDto> InsertOrder(OrderSubmitDto order);
     }
 }
