@@ -93,7 +93,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetStoreProductQuery(id);
             var model = await ZboxReadService.GetProductCheckOut(query);
             var serializer = new JsonNetSerializer();
+            
             ViewBag.data = serializer.Serialize(model);
+            ViewBag.NumberOfPayments = model.NumberOfPayments;
             return PartialView(model);
         }
 
