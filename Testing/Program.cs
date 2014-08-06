@@ -6,6 +6,7 @@ using System.IO;
 using System.Configuration;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
 using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
 using Zbang.Zbox.ViewModel.Queries;
@@ -107,7 +108,7 @@ namespace Testing
         static void Main(string[] args)
         {
 
-            HatavotWrite();
+            //HatavotWrite();
             //UniversitySearchProvider x = new UniversitySearchProvider();
             //x.BuildUniversityData();
             //            var x2 = @". עיקרי תוכנית בוורידג*. 
@@ -556,6 +557,9 @@ namespace Testing
 
 
             var mail = new Zbang.Zbox.Infrastructure.Mail.MailManager2();
+            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
+
+
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("en-Us")));
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("he-IL")));
 

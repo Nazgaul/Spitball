@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Dto\BannerDto.cs" />
     <Compile Include="Dto\CategoryDto.cs" />
+    <Compile Include="Dto\OrderDto.cs" />
     <Compile Include="Dto\OrderProductDto.cs" />
     <Compile Include="Dto\OrderSubmitDto.cs" />
     <Compile Include="Dto\ProductDto.cs" />

@@ -56,7 +56,7 @@
             <option value="">שנה</option>
             @for (var i = DateTime.UtcNow; i < DateTime.UtcNow.AddYears(5); i = i.AddYears(1))
             {
-                <option value="@i.ToString("yy")">@i.ToString("yyyy")</option>    
+                <option value="@i.ToString("yy")">@i.ToString("yyyy")</option>
             }
         </select>
         <select ng-model="formData.expirationMonth" name="ExpirationMonth" required>
@@ -105,11 +105,12 @@
     </div>
     <div class="rFloat" ng-class="{error : submitted && detailsForm.NumberOfPayments.$error.required}">
         <span>@StoreResources.BillMe</span>
-        @*Ram: Should this be hard-coded?*@
         <select ng-model="formData.numberOfPayments" name="NumberOfPayments" required>
             <option value=""></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
+            @for (int i = 1; i < (int)ViewBag.NumberOfPayments; i++)
+            {
+                <option value="@i">@i</option>
+            }
         </select>
         <span>@StoreResources.Installments</span>
     </div>
