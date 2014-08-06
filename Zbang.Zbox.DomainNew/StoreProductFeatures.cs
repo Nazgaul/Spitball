@@ -29,5 +29,29 @@ namespace Zbang.Zbox.Domain
         public float? Price { get; set; }
 
         public StoreProduct Product { get; set; }
+
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var result = 11 * Category.GetHashCode();
+                result += 13 * Description.GetHashCode();
+                return result;
+            }
+        }
+        public override bool Equals(object other)
+        {
+            if (this == other) return true;
+
+            var feature = other as StoreProductFeatures;
+            if (feature == null) return false;
+
+            return String.Equals(Category.Trim(), feature.Category.Trim(), StringComparison.InvariantCultureIgnoreCase)
+                   &&
+                   String.Equals(Description.Trim(), feature.Description.Trim(),
+                       StringComparison.InvariantCultureIgnoreCase);
+
+        }
     }
 }
