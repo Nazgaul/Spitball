@@ -104,5 +104,6 @@ namespace Zbang.Zbox.ReadServices
         Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query);
         Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query);
         Task<IEnumerable<BannerDto>> GetBanners();
+        Task<bool> ValidateCoupon(int coupon);
     }
 }

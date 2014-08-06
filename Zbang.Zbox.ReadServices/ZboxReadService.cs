@@ -959,6 +959,15 @@ namespace Zbang.Zbox.ReadServices
                 return await conn.QueryAsync<BannerDto>(Sql.Store.GetBanners);
             }
         }
+
+        public async Task<bool> ValidateCoupon(int coupon)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<int>(Sql.Store.ValidateCouponCode, new { Coupun = coupon });
+                return retVal.FirstOrDefault() > 0;
+            }
+        }
         #endregion
     }
 }

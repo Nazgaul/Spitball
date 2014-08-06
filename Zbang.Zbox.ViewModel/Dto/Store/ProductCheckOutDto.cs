@@ -14,6 +14,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Store
         public float SalePrice { get; set; }
         public float Coupon { get; set; }
 
+        public int NumberOfPayments { get; set; }
+
         public IEnumerable<ProductFeatures> Features { get; set; }
     }
 }

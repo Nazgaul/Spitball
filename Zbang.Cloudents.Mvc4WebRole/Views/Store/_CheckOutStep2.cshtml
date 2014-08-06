@@ -54,19 +54,10 @@
         <span class="required">@DialogResources.RequiredField</span>
         <select ng-model="formData.expirationYear" name="ExpirationYear" required>
             <option value="">שנה</option>
-            <option value="08">2008</option>
-            <option value="09">2009</option>
-            <option value="10">2010</option>
-            <option value="11">2011</option>
-            <option value="12">2012</option>
-            <option value="13">2013</option>
-            <option value="14">2014</option>
-            <option value="15">2015</option>
-            <option value="16">2016</option>
-            <option value="17">2017</option>
-            <option value="18">2018</option>
-            <option value="19">2019</option>
-            <option value="20">2020</option>
+            @for (var i = DateTime.UtcNow; i < DateTime.UtcNow.AddYears(5); i = i.AddYears(1))
+            {
+                <option value="@i.ToString("yy")">@i.ToString("yyyy")</option>
+            }
         </select>
         <select ng-model="formData.expirationMonth" name="ExpirationMonth" required>
             <option value="">חודש</option>
@@ -114,11 +105,12 @@
     </div>
     <div class="rFloat" ng-class="{error : submitted && detailsForm.NumberOfPayments.$error.required}">
         <span>@StoreResources.BillMe</span>
-        @*Ram: Should this be hard-coded?*@
         <select ng-model="formData.numberOfPayments" name="NumberOfPayments" required>
             <option value=""></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
+            @for (int i = 1; i < (int)ViewBag.NumberOfPayments; i++)
+            {
+                <option value="@i">@i</option>
+            }
         </select>
         <span>@StoreResources.Installments</span>
     </div>

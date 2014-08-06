@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Store.Services
       ,[image]-- Main Image (http://www.hatavot.co.il/uploadimages/250/XXX)
       ,[catcode] as CategoryCode -- Categories (list to  CatCode in [bizpoin_bizpointDB].[categories])
       ,[featured] -- Show on main page 
-      --,[show] -- Active if NOT 'ON'
+      ,[show] as NotActive -- Active if NOT 'ON'
       ,[CatalogNumber] -- part of Product Description 
       ,[SubName] as ExtraDetails-- 2nd title of the Product Description 
       ,[SupplyTime]-- part of Product description 
@@ -45,8 +45,8 @@ namespace Zbang.Zbox.Store.Services
       ,[DeliveryPrice] -- Delivery charge 
       ,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
-      --,[designNum] -- Which University to show --> Can be to all or to one specific  
-  FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%' and p1 <>  ''";
+      ,[designNum] as UniversityId -- Which University to show --> Can be to all or to one specific  
+  FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
                 return conn.Query<ProductDto>(sql, new { catId = category });
             }
         }

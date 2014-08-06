@@ -38,7 +38,8 @@ ExtraDetails,
 SalePrice,
 Coupon,
 [PictureUrl] as picture,
-s.DeliveryPrice
+s.DeliveryPrice,
+s.numberofpayments as NumberOfPayments
   FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId;";
 
        public const string SearchProduct = @"select [ProductId] as Id
@@ -62,5 +63,8 @@ from zbox.StoreProductFeatures where Product = @ProdId;";
       ,[Location]
       ,[BannerOrder]
   FROM [Zbox].[StoreBanner]";
+
+
+       public const string ValidateCouponCode = "select 1 from zbox.StoreUniversityMapper where CouponCode = @Coupun";
    }
 }

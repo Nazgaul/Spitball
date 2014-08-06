@@ -6,14 +6,19 @@ body {
   color: #39434a;
   background: #f6f6f6;
 }
+body.store,
+.store .siteHeader {
+  min-width: 940px;
+}
 /*#region header */
 header h1 {
   display: none;
-  text-align: center;
   position: relative;
-  top: -42px;
+  top: -40px;
   z-index: -1;
   color: #fff;
+  margin-left: 265px;
+  /*rtl*/
 }
 header h1.showStore {
   display: block;
@@ -72,7 +77,7 @@ main {
   padding-bottom: 30px;
 }
 /*#endregion */
-/*#region widget */
+/*#region carousel */
 .widget {
   width: 100%;
   height: 120px;
@@ -82,7 +87,7 @@ main {
   box-sizing: border-box;
 }
 .widget .carousel {
-  width: 617px;
+  width: 619px;
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -100,6 +105,13 @@ main {
 .widget img {
   position: absolute;
 }
+.widget .banner {
+  margin-left: -1px;
+  /*rtl*/
+}
+.carousel {
+  text-align: center;
+}
 .carousel.reverse .ng-hide-add.ng-hide-add-active {
   left: 100%;
   /*rtl*/
@@ -107,6 +119,37 @@ main {
 .carousel.reverse .ng-hide {
   left: -100%;
   /*rtl*/
+}
+.carouselBtns {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.carouselBtns button {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin: -2px 4px 0 0;
+  /*rtl*/
+  border: 1px solid #39434a;
+  padding: 3px;
+  border-radius: 100%;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.carouselBtns button.selected:before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: #39434a;
+  vertical-align: top;
 }
 .slide {
   -webkit-transition: all 0.5s linear;
@@ -565,23 +608,29 @@ main {
 .right {
   padding-left: 10px;
   /*rtl*/
-  /*.imgWpr {
-        width: 425px;
-        height: 281px;
-        border: 1px solid @color;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }*/
 }
 .right h3 {
   font-size: 18px;
   font-weight: normal;
   margin: 8px 0 20px;
 }
-.right img {
+.right .imgWpr {
+  width: 425px;
+  height: 281px;
   border: 1px solid #0f9d58;
   border-radius: 5px;
   margin-bottom: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  /* align horizontal */
+  align-items: center;
+  /* align vertical */
+  overflow: hidden;
+}
+.right img {
+  max-width: 425px;
+  max-height: 281px;
 }
 .pDesc {
   -webkit-columns: 2;
@@ -594,10 +643,6 @@ main {
   -webkit-column-gap: 40px;
   -moz-column-gap: 40px;
   column-gap: 40px;
-}
-.pDesc span {
-  display: block;
-  text-align: justify;
 }
 .pNameWpr {
   padding: 14px 10px;

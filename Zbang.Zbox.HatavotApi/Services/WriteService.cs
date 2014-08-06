@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Store.Services
     public class WriteService : IWriteService
     {
         private const string ConnectionStringName = "Hatavot";
-        public async void InsertOrder(OrderSubmitDto order)
+        public async Task<OrderDto> InsertOrder(OrderSubmitDto order)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
             {
@@ -22,18 +22,21 @@ namespace Zbang.Zbox.Store.Services
                     "SELECT MAX(ProductId)+1 AS max_ProductId FROM BackUpProducts",
                     "SELECT * FROM products WHERE products.productid = @ProductId" 
                 };
-                long curr_orderId, curr_CustId, curr_orderitemsid;
-                int curr_ProductId;
+                long currentOrderId, currentCustomerId, currentOrderItemId;
+                int currentProductId;
                 OrderProductDto product;
                 using (var grid = await conn.QueryMultipleAsync(string.Join(";", initSqls), new { ProductId = order.ProdcutId }))
                 {
-                    curr_orderId = grid.Read<long>().FirstOrDefault();
-                    curr_CustId = grid.Read<long>().FirstOrDefault();
-                    curr_orderitemsid = grid.Read<long>().FirstOrDefault();
-                    curr_ProductId = grid.Read<int>().FirstOrDefault();
+                    currentOrderId = grid.Read<long>().FirstOrDefault();
+                    currentCustomerId = grid.Read<long>().FirstOrDefault();
+                    currentOrderItemId = grid.Read<long>().FirstOrDefault();
+                    currentProductId = grid.Read<int>().FirstOrDefault();
                     product = grid.Read<OrderProductDto>().FirstOrDefault();
                 }
-
+                if (product == null)
+                {
+                    throw new NullReferenceException("product");
+                }
                 //insert values to BackUpProducts 
                 await conn.ExecuteAsync(
                     @"INSERT INTO BackUpProducts (ProductId,name,price,saleprice,image,catcode,CatalogNumber,SupplyTime,ProdOrder,OrgProductId,
@@ -42,7 +45,7 @@ VALUES ( @curr_ProductId, @products_name,@products_price,@products_saleprice,@pr
 @products_ProdOrder,@products_productid,@products_ProfitPercent,@products_CurrencyType,@products_Vat,@products_ProducerId,@referer)"
                     , new
                     {
-                        curr_ProductId = curr_ProductId,
+                        curr_ProductId = currentProductId,
                         products_name = product.Name,
                         products_price = product.Price,
                         products_saleprice = product.Saleprice,
@@ -70,8 +73,8 @@ VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dsta
 @ccnumber,@ccexpire,@ccBehind,@isphone,@notes,@Adminstatus,@shopType,@totalprice,@delivery,@SelfDeliver,@NumOfPayment,@referer,@mosadName)",
                     new
                     {
-                        orderId = curr_orderId,
-                        custid = curr_CustId,
+                        orderId = currentOrderId,
+                        custid = currentCustomerId,
                         StudentCode = order.IdentificationNumber,
                         the_date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
                         dfname = order.FirstName,
@@ -106,8 +109,8 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
 @productPayment,@orderType)",
                     new
                     {
-                        orderitemsid = curr_orderitemsid,
-                        orderid = curr_orderId,
+                        orderitemsid = currentOrderItemId,
+                        orderid = currentOrderId,
                         productid = tmpOrgProductId,
                         qty = 1,
                         priceperunit = product.Price + product.DeliveryPrice,
@@ -123,7 +126,7 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
                         v5 = order.V5,
                         p6 = order.P6,
                         v6 = order.V6,
-                        DeliveryPrice = product.DeliveryPrice,
+                        product.DeliveryPrice,
                         AdditionPrice = order.ExtraFeaturePrice,
                         productPayment = order.NumberOfPayment,
                         orderType = 1
@@ -135,7 +138,7 @@ Cphone1,fax, coupon, ids,OrgName,OrgNumber,isMailingList)
 VALUES (@CustId,@StudentCode,@fname,@lname,@email,@address1,@state,@city,@country,@pass,@phone,@Cphone1,@fax,@coupon,@cust_ids,@OrgName,@OrgNumber,
 @isMailingList)", new
                 {
-                    CustId = curr_CustId,
+                    CustId = currentCustomerId,
                     StudentCode = order.IdentificationNumber,
                     fname = order.FirstName,
                     lname = order.LastName,
@@ -154,8 +157,9 @@ VALUES (@CustId,@StudentCode,@fname,@lname,@email,@address1,@state,@city,@countr
                     OrgNumber = string.Empty,
                     isMailingList = 0
                 });
-
+                return new OrderDto(currentOrderId, product.Name);
             }
+
         }
     }
 }

@@ -4,23 +4,28 @@
 @shopping-black: #39434A;
 
 body {
-    //min-width: 1024px;
     color: @shopping-black;
     background: #f6f6f6;
-    //width: 1024px;
-    //margin: 0 auto;
+}
+
+// The width of the store is 940px  - so we need to adapt the site header to this on store pages
+// This also enables iframes of the store to render correctly
+
+.store {
+    body&, .siteHeader {
+        min-width: 940px;
+    }
 }
 /*#region header */
 
 header {
     h1 {
         display: none;
-        text-align: center;
         position: relative;
-        top: -42px;
+        top: -40px;
         z-index: -1;
         color: #fff;
-
+        margin-left: 265px; /*rtl*/
         &.showStore {
             display: block;
         }
@@ -91,7 +96,7 @@ main {
 
 /*#endregion */
 
-/*#region widget */
+/*#region carousel */
 .widget {
     width: 100%;
     height: 120px;
@@ -99,7 +104,7 @@ main {
     .boxSizing;
 
     .carousel {
-        width: 617px;
+        width: 619px;
         height: 100%;
         overflow: hidden;
         position: relative;
@@ -118,14 +123,47 @@ main {
     img {
         position: absolute;
     }
+    .banner {
+        margin-left: -1px; /*rtl*/
+    }
 }
 .carousel {
+    text-align: center;
     &.reverse {
         .ng-hide-add.ng-hide-add-active {
         left: 100%; /*rtl*/
         }
         .ng-hide {
             left: -100%; /*rtl*/
+        }
+    }
+}
+.carouselBtns {
+    position: absolute;
+    bottom: 10px;
+    left:0;right:0;
+    margin: auto;
+
+    button {
+        display:inline-block;
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        margin: -2px 4px 0 0; /*rtl*/
+        border: 1px solid @txtColor;
+        padding: 3px;
+        border-radius: 100%;
+        background: #fff;
+        .boxSizing;
+        &.selected {
+            &:before {
+                .pseudo;
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+                background: @txtColor;
+                vertical-align: top;
+            }
         }
     }
 }
@@ -617,21 +655,25 @@ main {
         font-weight: normal;
         margin: 8px 0 20px;
     }
-    /*.imgWpr {
+    .imgWpr {
         width: 425px;
         height: 281px;
         border: 1px solid @color;
         border-radius: 5px;
         margin-bottom: 15px;
-    }*/
+        text-align: center;
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center; /* align vertical */ 
+        overflow: hidden; // hide edges ouside rounded corners
+    }
     img {
-        //max-width: 425px;
-        //max-height: 281px;
-        //line-height: 281px;
-        //vertical-align: middle;
-        border: 1px solid @color;
-        border-radius: 5px;
-        margin-bottom: 15px;
+        max-width: 425px;
+        max-height: 281px;
+
+        //border: 1px solid @color;
+        //border-radius: 5px;
+        //margin-bottom: 15px;
     }
 }
 
@@ -645,11 +687,6 @@ main {
     -webkit-column-gap: 40px;
     -moz-column-gap: 40px;
     column-gap: 40px;
-
-    span {
-        display: block;
-        text-align: justify;
-    }
 }
 
 .pNameWpr {

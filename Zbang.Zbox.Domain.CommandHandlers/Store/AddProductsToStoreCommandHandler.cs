@@ -27,6 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
             foreach (var productStore in message.ProductStores)
             {
                 var product = m_ProductRepository.Get(productStore.Id); //use get to get existence in db
+
                 if (product == null)
                 {
                     product = new StoreProduct(productStore.Id,
@@ -42,26 +43,34 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.SupplyTime,
                         productStore.ProductPayment,
                         productStore.CatalogNumber,
-                        productStore.DeliveryPrice, 
+                        productStore.DeliveryPrice,
                         productStore.ProducerName,
-                        productStore.Upgrades);
+                        productStore.Upgrades, productStore.UniversityId);
 
                 }
                 else
                 {
-                    product.UpdateProduct(productStore.Id,
-                        productStore.Name,
-                        productStore.ExtraDetails,
-                        productStore.Coupon,
-                        productStore.SalePrice,
-                        GetProductCategory(productStore.Categories),
-                        productStore.Featured,
-                        productStore.SupplyTime,
-                        productStore.ProductPayment,
-                        productStore.CatalogNumber,
-                        productStore.DeliveryPrice, 
-                        productStore.ProducerName,
-                        productStore.Upgrades);
+                    if (productStore.IsActive)
+                    {
+                        product.UpdateProduct(productStore.Id,
+                            productStore.Name,
+                            productStore.ExtraDetails,
+                            productStore.Coupon,
+                            productStore.SalePrice,
+                            GetProductCategory(productStore.Categories),
+                            productStore.Featured,
+                            productStore.SupplyTime,
+                            productStore.ProductPayment,
+                            productStore.CatalogNumber,
+                            productStore.DeliveryPrice,
+                            productStore.ProducerName,
+                            productStore.Upgrades, productStore.UniversityId);
+                    }
+                    else
+                    {
+                        m_ProductRepository.Delete(product);
+                        continue;
+                    }
                 }
                 m_ProductRepository.Save(product);
             }

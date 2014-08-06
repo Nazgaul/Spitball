@@ -14,8 +14,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class MailManager2 : IMailComponent
     {
-        internal const string SendGridUserName = "cloudents";
-        internal const string SendGridPassword = "zbangitnow";
+        private const string SendGridUserName = "cloudents";
+        private const string SendGridPassword = "zbangitnow";
         private readonly IocFactory m_Container = IocFactory.Unity;
 
         private void Send(ISendGrid message)
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
 
 
-        public void GenerateAndSendEmail(string recepient, MailParameters parameters)
+        public void GenerateAndSendEmail(string recipient, MailParameters parameters)
         {
             Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sendGridMail.EnableClickTracking();
             mail.GenerateMail(sendGridMail, parameters);
 
-            sendGridMail.AddTo(recepient);
+            sendGridMail.AddTo(recipient);
             var embarkeData = new Dictionary<string, string>
             {
                { "embarkeAppId" , "3f61a514-0610-412e-9024-b4eb5670eb9d"},
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sendGridMail.AddUniqueArgs(embarkeData);
 
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-            sendGridMail.AddSubstitution("{email}", new List<string> { recepient });
+            sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
 
             sendGridMail.EnableOpenTracking();
             sendGridMail.DisableGoogleAnalytics();
