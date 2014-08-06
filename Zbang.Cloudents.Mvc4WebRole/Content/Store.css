@@ -608,23 +608,29 @@ main {
 .right {
   padding-left: 10px;
   /*rtl*/
-  /*.imgWpr {
-        width: 425px;
-        height: 281px;
-        border: 1px solid @color;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }*/
 }
 .right h3 {
   font-size: 18px;
   font-weight: normal;
   margin: 8px 0 20px;
 }
-.right img {
+.right .imgWpr {
+  width: 425px;
+  height: 281px;
   border: 1px solid #0f9d58;
   border-radius: 5px;
   margin-bottom: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  /* align horizontal */
+  align-items: center;
+  /* align vertical */
+  overflow: hidden;
+}
+.right img {
+  max-width: 425px;
+  max-height: 281px;
 }
 .pDesc {
   -webkit-columns: 2;
@@ -637,10 +643,6 @@ main {
   -webkit-column-gap: 40px;
   -moz-column-gap: 40px;
   column-gap: 40px;
-}
-.pDesc span {
-  display: block;
-  text-align: justify;
 }
 .pNameWpr {
   padding: 14px 10px;
