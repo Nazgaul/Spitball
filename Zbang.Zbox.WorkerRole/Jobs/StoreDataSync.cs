@@ -16,30 +16,20 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
-    public class ProcessStore : IJob
+    public class StoreDataSync : IJob
     {
         private bool m_KeepRunning;
-        private bool m_BringData;
         private readonly IReadService m_ReadService;
-        private readonly IWriteService m_WriteService;
         private readonly IBlobProductProvider m_BlobProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
-        private readonly IZboxReadService m_ZboxReadService;
-        private readonly QueueProcess m_QueueProcess;
 
 
-        public ProcessStore(IReadService readService, IBlobProductProvider blobProvider,
-            IZboxWriteService zboxWriteService,
-            IQueueProvider queueProvider,
-            IWriteService writeService,
-            IZboxReadService zboxReadService)
+        public StoreDataSync(IReadService readService, IBlobProductProvider blobProvider,
+            IZboxWriteService zboxWriteService)
         {
             m_ReadService = readService;
             m_BlobProvider = blobProvider;
             m_ZboxWriteService = zboxWriteService;
-            m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(60));
-            m_WriteService = writeService;
-            m_ZboxReadService = zboxReadService;
         }
 
         public void Run()
@@ -47,66 +37,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
-                if (!m_BringData)
-                {
-                 //   Task.Factory.StartNew(BringData);
-                }
-                //Thread.Sleep(TimeSpan.FromMinutes(1));
-                m_QueueProcess.RunQueue(new OrderQueueName(), msg =>
-                {
-                    var order = msg.FromMessageProto<StoreOrderData>();
-                    var productDetail = m_ZboxReadService.GetProductCheckOut(new ViewModel.Queries.GetStoreProductQuery(order.ProdcutId)).Result;
-
-                    var features = new KeyValuePair<string, string>[6];
-                    int index = 0;
-                    //order.Features
-                    if (productDetail.Features != null)
-                        foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
-                        {
-                            features[index] = new KeyValuePair<string, string>(feature.Category,
-                                feature.Description + "*" + feature.Price + "*");
-                            index++;
-                        }
-                    for (int i = index; i < 6; i++)
-                    {
-                        features[i] = new KeyValuePair<string, string>(string.Empty, string.Empty);
-                    }
-                    //TODO: need to add email
-
-
-                    m_WriteService.InsertOrder(new OrderSubmitDto(
-                        order.ProdcutId,
-                        order.IdentificationNumber,
-                        order.FirstName,
-                        order.LastName,
-                        order.Address,
-                        order.CardHolderIdentificationNumber,
-                        order.Notes,
-                        order.City,
-                        order.CreditCardNameHolder,
-                        order.CreditCardNumber,
-                        order.CreditCardExpiration,
-                        order.Cvv,
-                        order.UniversityId,
-                        features[0].Key, features[0].Value,
-                        features[1].Key, features[1].Value,
-                        features[2].Key, features[2].Value,
-                        features[3].Key, features[3].Value,
-                        features[4].Key, features[4].Value,
-                        features[5].Key, features[5].Value,
-                        order.Email,
-                        order.Phone,
-                        order.Phone2,
-                        0,
-                        order.NumberOfPayment));
-                    return true;
-                }, TimeSpan.FromMinutes(1), int.MaxValue);
+                BringData();
             }
         }
 
         private void BringData()
         {
-            m_BringData = true;
             TraceLog.WriteInfo("Starting to bring data from Hatavot");
             var categoriesDto = m_ReadService.GetCategories();
 
@@ -196,8 +132,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_ZboxWriteService.AddBanners(bannerCommand);
 
 
-            Thread.Sleep(TimeSpan.FromDays(1));
-            m_BringData = false;
+            Thread.Sleep(TimeSpan.FromHours(6));
         }
 
         public void Stop()
