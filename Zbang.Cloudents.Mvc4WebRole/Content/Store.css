@@ -644,10 +644,6 @@ main {
   -moz-column-gap: 40px;
   column-gap: 40px;
 }
-.pDesc span {
-  display: block;
-  text-align: justify;
-}
 .pNameWpr {
   padding: 14px 10px;
   background: #f6f6f6;
