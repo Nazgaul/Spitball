@@ -9,11 +9,12 @@ body {
 /*#region header */
 header h1 {
   display: none;
-  text-align: center;
   position: relative;
-  top: -42px;
+  top: -40px;
   z-index: -1;
   color: #fff;
+  margin-left: 265px;
+  /*rtl*/
 }
 header h1.showStore {
   display: block;
