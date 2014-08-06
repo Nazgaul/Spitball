@@ -41,5 +41,9 @@
         public string Upgrade6 { get; set; }
         public string UpgradeValue6 { get; set; }
 
+
+        public string NotActive { get; set; }
+
+        public string UniversityId { get; set; }
     }
 }

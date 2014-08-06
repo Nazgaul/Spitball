@@ -84,7 +84,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                             new KeyValuePair<string, string>(item.Upgrade6, item.UpgradeValue6)
                         };
 
-
+                    int universityId;
+                    int.TryParse(item.UniversityId, out universityId);
+                    
 
                     products.Add(new ProductStore(
                         item.CatalogNumber,
@@ -102,7 +104,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                          item.Saleprice,
                          item.SupplyTime,
                          item.ProducerName,
-                         upgrades
+                         upgrades,
+                         item.NotActive != "ON",
+                         TryParseNullableInt(item.UniversityId)
                          ));
                 }
                 catch (Exception ex)
@@ -133,6 +137,16 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
 
             Thread.Sleep(TimeSpan.FromHours(6));
+        }
+
+        private static int? TryParseNullableInt(string s)
+        {
+            int f;
+            if (int.TryParse(s, out f))
+            {
+                if (f >= 0) return f;
+            }
+            return null;
         }
 
         public void Stop()
