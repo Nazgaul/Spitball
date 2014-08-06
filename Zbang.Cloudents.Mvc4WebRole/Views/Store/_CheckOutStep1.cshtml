@@ -20,7 +20,7 @@
             <td>
                 @Model.SalePrice ₪
             </td>
-        </tr>
+        </tr>class="invoice"
         <tr>
             <td>@StoreResources.CouponCode</td>
             <td><input ng-model="coupon.code" type="text" class="inputText" /></td>
@@ -49,7 +49,7 @@
             <td></td>
             <td></td>
             <td class="invoice">
-                <ul>
+                <ul ng-if="product.salePrice > 0">
                     <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice</span><span>₪</span></li>
                     <li><span>@StoreResources.Coupon:</span><span ng-class="{minus: coupon.valid}" ng-bind="couponDiscount()"></span><span>₪</span></li>
                     <li><span>@StoreResources.Upgrades:</span><span ng-bind="upgradeCost()"></span><span>₪</span></li>

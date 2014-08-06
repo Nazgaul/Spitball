@@ -127,6 +127,7 @@ app.config([
              when('/store/', {
                  templateUrl: '/Store/',
                  controller: 'CategoryCtrl',
+                 reloadOnSearch:false,
                  params: {
                      type: 'home'
                  }
