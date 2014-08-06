@@ -6,6 +6,10 @@ body {
   color: #39434a;
   background: #f6f6f6;
 }
+body.store,
+.store .siteHeader {
+  min-width: 940px;
+}
 /*#region header */
 header h1 {
   display: none;
