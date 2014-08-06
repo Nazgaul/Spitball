@@ -7,6 +7,15 @@ body {
     color: @shopping-black;
     background: #f6f6f6;
 }
+
+// The width of the store is 940px  - so we need to adapt the site header to this on store pages
+// This also enables iframes of the store to render correctly
+
+.store {
+    body&, .siteHeader {
+        min-width: 940px;
+    }
+}
 /*#region header */
 
 header {
