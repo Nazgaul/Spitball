@@ -32,6 +32,15 @@
                     dfd.reject(response);
                 });
                 return dfd.promise;
+            },
+            validateCoupon: function(data) {
+                var dfd = $q.defer(0);
+                $http.get(Store + 'ValidCodeCoupon/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+                return dfd.promise;
             }
         };
     }

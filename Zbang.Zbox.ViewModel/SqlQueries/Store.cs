@@ -63,5 +63,8 @@ from zbox.StoreProductFeatures where Product = @ProdId;";
       ,[Location]
       ,[BannerOrder]
   FROM [Zbox].[StoreBanner]";
+
+
+       public const string ValidateCouponCode = "select 1 from zbox.StoreUniversityMapper where CouponCode = @Coupun";
    }
 }

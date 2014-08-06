@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public StoreController(Lazy<IQueueProvider> queueProvider)
         {
             m_QueueProvider = queueProvider;
-           
+
 
         }
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
@@ -31,10 +31,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, NonAjax]
         [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
-        [Route("store/terms",Name="StoreTerms")]
-        [Route("store" , Name="StoreRoot")]
-        [Route("store/about", Name="StoreAbout")]
-        [Route("store/contact", Name="StoreContact")]
+        [Route("store/terms", Name = "StoreTerms")]
+        [Route("store", Name = "StoreRoot")]
+        [Route("store/about", Name = "StoreAbout")]
+        [Route("store/contact", Name = "StoreContact")]
         [Route("store/sales")]
         [Route("store/thankyou", Name = "StoreThanksYou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
@@ -56,6 +56,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId));
             return this.CdJson(new JsonResponse(true, products));
+        }
+
+        [HttpGet, Ajax]
+        public async Task<ActionResult> ValidCodeCoupon(int code)
+        {
+            var retVal = await ZboxReadService.ValidateCoupon(code);
+            return this.CdJson(new JsonResponse(true, new { isValid = retVal }));
         }
 
         [HttpGet, Ajax, StoreCategories]
@@ -93,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetStoreProductQuery(id);
             var model = await ZboxReadService.GetProductCheckOut(query);
             var serializer = new JsonNetSerializer();
-            
+
             ViewBag.data = serializer.Serialize(model);
             ViewBag.NumberOfPayments = model.NumberOfPayments;
             return PartialView(model);

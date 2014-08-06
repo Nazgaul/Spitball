@@ -13,7 +13,7 @@
         };
 
         $scope.formData = {
-            features: {}            
+            features: {}
         };
 
         $scope.coupon = {
@@ -53,20 +53,31 @@
 
         $scope.validateCoupon = function () {
             $scope.coupon.buttonDisabled = true;
-            var code = '1234';
+            Store.validateCoupon({ code: $scope.coupon.code }).then(function (response) {
+                if (!response.success) {
+                    return;
+                }
+                if (response.payload.isValid) {
+                    $scope.coupon.valid = true;
+                    return;
+                }
+            });
+            //var code = '1234';
 
-            if ($scope.coupon.code === code) {
-                $scope.coupon.valid = true;
-                return;
-            }
+            //if ($scope.coupon.code === code) {
+            //    $scope.coupon.valid = true;
+            //    return;
+            //}
 
             $scope.coupon.buttonDisabled = false;
 
         };
 
         $scope.nextStep = function () {
-            $scope.page.step = 2;
-            $window.scrollTo(0, 0);
+            if ($scope.coupon.valid) {
+                $scope.page.step = 2;
+                $window.scrollTo(0, 0);
+            }
         };
 
         $scope.order = function (isValid) {
@@ -87,6 +98,6 @@
 
                 $location.path(response.payload.url);
             });
-        }; 
+        };
     }]
 );

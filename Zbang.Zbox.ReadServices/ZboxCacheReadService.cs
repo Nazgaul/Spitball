@@ -320,5 +320,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBanners();
         }
+
+
+        public Task<bool> ValidateCoupon(int coupon)
+        {
+            return m_ReadService.ValidateCoupon(coupon);
+        }
     }
 }
