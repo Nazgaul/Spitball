@@ -443,7 +443,8 @@ header {
 }
 .popup.boxSettings,
 .popup.boxInvite {
-  margin: 0 -2%;
+  /*margin: 0 -2%;*/
+  /*width: 104%;*/
   width: 100%;
 }
 .popup.boxSettings.selected ~ .boxContent,
@@ -901,7 +902,7 @@ header {
   width: 15px;
   height: 15px;
   vertical-align: middle;
-  background-position: -53px -36px;
+  background-position: -51px -35px;
   position: absolute;
   right: 8px;
   /*rtl*/
@@ -1209,7 +1210,7 @@ header {
     top: 600px;
 }*/
 .settingsForm {
-  overflow: auto;
+  /*overflow: auto;*/
   padding-bottom: 15px;
 }
 .accountSettings {
