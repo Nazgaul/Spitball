@@ -13,7 +13,8 @@
         };
 
         $scope.formData = {
-            features: {}
+            features: {},
+            universityId: $routeParams.universityId || null
         };
 
         $scope.coupon = {
@@ -54,6 +55,7 @@
         $scope.validateCoupon = function () {
             $scope.coupon.buttonDisabled = true;
             Store.validateCoupon({ code: $scope.coupon.code }).then(function (response) {
+                $scope.coupon.buttonDisabled = false;
                 if (!response.success) {
                     return;
                 }
@@ -61,6 +63,8 @@
                     $scope.coupon.valid = true;
                     return;
                 }
+            }, function () {
+                $scope.coupon.buttonDisabled = false;
             });
             //var code = '1234';
 
@@ -69,7 +73,7 @@
             //    return;
             //}
 
-            $scope.coupon.buttonDisabled = false;
+
 
         };
 

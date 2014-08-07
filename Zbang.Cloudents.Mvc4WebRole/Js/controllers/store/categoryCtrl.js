@@ -9,9 +9,10 @@
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
+            universityId: $routeParams.universityId || null
         };
 
-        Store.products({ categoryId: $routeParams.categoryId }).then(function (response) {
+        Store.products({ categoryId: $routeParams.categoryId,universityId: $scope.params.universityId}).then(function (response) {
             allProducts = response.payload;
             $scope.products = allProducts;
 
@@ -48,6 +49,12 @@
         //        $scope.params.maxProducts = consts.productsIncrement;
         //    });
         //}, 150);
+        if ($location.search()['q']) {
+            var query = $location.search()['q'];
+            $scope.params.search = query;
+            search();
+        }
+
         $scope.search = function (e) {
             e.preventDefault();
             search();
@@ -73,8 +80,8 @@
             var query = $scope.params.search;
 
             $scope.params.isSearching = true;
-            $location.search({ q: $scope.params.search });
-            Store.search({ term: query }).then(function (response) {
+            $location.search({ q: $scope.params.search});
+            Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 $scope.params.isSearching = false;
                 $scope.products = data;
