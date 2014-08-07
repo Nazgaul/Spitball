@@ -125,7 +125,7 @@ app.config([
         //#endregion
         //#region store
              when('/store/', {
-                 templateUrl: function (params) { var url = '/Store/'; if (params.universityId) { url += '?universityId=' + params.universityId; } return url; },
+                 templateUrl: function (params) { var url = '/Store/', universityId = params.universityId || params.universityid; if (universityId) { url += '?universityid=' + universityId; } return url; },
                  controller: 'CategoryCtrl',
                  reloadOnSearch: false,
                  params: {
@@ -140,7 +140,7 @@ app.config([
                 }
             }).
             when('/store/product/:productId/:productName/', {
-                templateUrl: function (params) { var url = '/store/product/?id=' + params.productId; if (params.universityId) { url += '&universityId=' + params.universityId; } return url; },
+                templateUrl: function (params) { var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid; if (universityId) { url += '&universityid=' + universityId; } return url; },
                 controller: 'ProductCtrl',
                 params: {
                     type: 'product'
