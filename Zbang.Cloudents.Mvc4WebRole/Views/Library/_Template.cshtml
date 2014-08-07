@@ -1,44 +1,33 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
-<script type="text/html" id="library-node">
-    <li class="libraryItem deptItem">
-        <a class="navigation deptLink union-sprite" data-navigation="Library" data-bind="attr: { href: url }">
-            <div class="deptNameWpr clamp2">
-                <div class="deptName" data-bind="text: name"></div>
-            </div>
-        </a>
-    </li>
+<script type="text/ng-template" id="library-department">
+    <a class="navigation deptLink union-sprite" bo-href="item.url">
+        <div class="deptNameWpr clamp2">
+            <div class="deptName" bo-text="item.name"></div>
+        </div>
+    </a>
 </script>
-<script type="text/html" id="library-box">
-    <li class="box">
-        <a data-navigation="Box" data-bind="attr: { href: boxUrl, title: name }">
-            @*<div class="boxNotify">3</div>*@
-            <div>
-                <img class="boxImg" data-bind="attr: { src: boxPicture }" alt="" width="77" height="98" />
-                <ul class="boxHoverList">
-                    <li class="hoverItem itemImg" data-bind="text: itemCount"></li>
-                    <li class="hoverItem memberImg" data-bind="text: membersCount"></li>
-                    <li class="hoverItem commentImg" data-bind="text: commentCount"></li>
-                </ul>
-            </div>
-            <div class="boxWpr clamp2">
-                <span class="boxName" data-bind="text: name"></span>
-            </div>
+<script type="text/ng-template" id="library-box">
 
-            <div data-bind="text: courseCode" class="courseCode elps"></div>
-            <span data-bind="text: professor" class="courseCode propName elps"></span>
+    <a bo-href="item.boxUrl">
+        <div>
+            <img class="boxImg" bo-src="item.boxPicture" alt="" width="77" height="98" />
+            <ul class="boxHoverList">
+                <li class="hoverItem itemImg" bo-text="itemcount"></li>
+                <li class="hoverItem memberImg" bo-text="memberscount"></li>
+                <li class="hoverItem commentImg" bo-text="commentCount"></li>
+            </ul>
+        </div>
+        <div class="boxWpr clamp2">
+            <span class="boxName" bo-text="item.name"></span>
+        </div>
 
-        </a>
-        @*<div class="dropToBox boldFont">Drop files here</div>*@
-        <!--ko if:boxSubscribed()-->
-        <span class="subscriber union-sprite">@MainViewResources.Following</span>
-        <!-- /ko -->
-        <!--ko if:boxFollow()-->
-        <button class="follow" data-bind="click: subscribe">@MainViewResources.Follow</button>
-        <!--/ko--> 
-        <!-- ko if:boxSubscribed()-->
-        <button type="button" class="removeItem" data-bind="click:$root.unsubscribe"></button>
-        <!--/ko-->
-    </li>
+        <div class="courseCode elps" bo-text="item.courseCode"></div>
+        <span class="courseCode propName elps" bo-text="item.professor"></span>
+
+    </a>
+    <span class="subscriber union-sprite" ng-if="item.userType === 'owner' || item.userType === 'subscribe'">@MainViewResources.Following</span>
+    <button class="follow" ng-click="subscribe(item)" ng-if="item.userType === 'invite' || item.userType === 'none'">@MainViewResources.Follow</button>
+    <button type="button" class="removeItem" ng-click="unsubscribe(item)" ng-if="item.userType === 'owner' || item.userType === 'subscribe'"></button>
+
 </script>
-
 

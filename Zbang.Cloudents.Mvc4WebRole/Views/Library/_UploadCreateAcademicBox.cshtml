@@ -2,29 +2,28 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div id="createAcademicBoxDialog" title="@DialogResources.CreateCourse">
-    @using (Html.BeginForm("CreateBox", "Library", FormMethod.Post, new { @class = "type current", id = "Academic" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+    <form name="createAcademicBox" novalidate ng-submit="createBox(createAcademicBox.$valid)" ng-class="{submitted: submitted}">
+        @*@Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)*@
         <div class="section">
             <div class="courseName">
-                @*@Html.LabelFor(m => m.CourseName, new { @class = "required" })*@
                 @Html.LabelFor(m => m.CourseName)
-                @Html.ValidationMessageFor(m => m.CourseName)
-                @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", id = "academicBoxName" })
+                @*@Html.ValidationMessageFor(m => m.CourseName)*@
+                <span class="error">CourseName required</span>
+                @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.courseName", required = "required" })
             </div>
             <div>
                 @Html.LabelFor(m => m.CourseId)
-                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText" })
+                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText", ng_model = "formData.courseId" })
             </div>
         </div>
 
         <div class="section">
             <div class="professor">
                 @Html.LabelFor(m => m.Professor)
-                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText" })
+                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.profesor" })
             </div>
         </div>
-        <input type="submit" class="btn1 next" value="@DialogResources.Create" />
-    }
+        <input type="submit" class="btn1 next" value="@DialogResources.Create" ng-click="submitted=true" />
+    </form>
 </div>

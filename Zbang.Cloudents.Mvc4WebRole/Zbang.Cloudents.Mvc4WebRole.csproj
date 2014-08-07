@@ -807,6 +807,8 @@
     <Content Include="Js\controllers\general\shareCtrl.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
+    <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
+    <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\Autocomplete.js" />
@@ -829,6 +831,7 @@
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\dataBag.js" />
     <Content Include="Js\directives\focusOn.js" />
+    <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\textDirection.js" />
     <Content Include="Js\modules\displayTime.js" />

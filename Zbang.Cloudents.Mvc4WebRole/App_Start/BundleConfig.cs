@@ -185,7 +185,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/focus.js"),
                 new JsFileWithCdn("/js/services/box.js"),
                 new JsFileWithCdn("/js/services/item.js"),
-                new JsFileWithCdn("/js/services/share.js"),
+                new JsFileWithCdn("/js/services/share.js"),                
+                new JsFileWithCdn("/js/services/library.js"),
                 new JsFileWithCdn("/js/services/search.js"),
                 new JsFileWithCdn("/js/services/quiz.js"),
                 new JsFileWithCdn("/js/services/dashboard.js"),
@@ -199,7 +200,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
                 new JsFileWithCdn("~/js/directives/userTooltip.js"),
-                
+                new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
 
 
