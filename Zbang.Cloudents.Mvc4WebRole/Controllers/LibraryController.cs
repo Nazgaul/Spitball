@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
+using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -10,6 +11,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Azure.Search;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -285,6 +287,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+
+
         [HttpPost]
         [Ajax]
         [ValidateAntiForgeryToken]
@@ -320,6 +324,36 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("CreateAcademic user: {0} model: {1}", GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, LibraryControllerResources.Problem_with_create_a_course);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
+            }
+        }
+
+        [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        public ActionResult CreateDepartmentPartial()
+        {
+            try
+            {
+                return PartialView("_CreateLibraryItem");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_CreateLibraryItem", ex);
+                return this.CdJson(new JsonResponse(false));
+            }
+        }
+
+        [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        public ActionResult CreateAcademicBoxPartial()
+        {
+            try
+            {
+                return PartialView("_UploadCreateAcademicBox");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_UploadCreateAcademicBox", ex);
+                return this.CdJson(new JsonResponse(false));
             }
         }
         #endregion

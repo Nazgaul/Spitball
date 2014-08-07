@@ -1,5 +1,4 @@
-﻿/// <reference path="C:\Users\Guy\Source\Repos\Zbox\Zbang.Cloudents.Mvc4WebRole\Views/Library/_SelectUni.mobile.cshtml" />
-mLibrary.controller('CreateBoxLibCtrl',
+﻿mLibrary.controller('CreateBoxLibCtrl',
         ['$scope',
          '$modalInstance',
          'sBox',
