@@ -1034,7 +1034,7 @@ input[type="radio"] {
     font-size: 24px;
     color: @textColor;
     text-align: center;
-    margin-bottom: 23px;
+    margin-bottom: 23px; 
 }
 
 .staticWpr {
@@ -1132,9 +1132,14 @@ input[type="radio"] {
 .registerFirst {
     &.store {
         width: 546px;
+        height: 559px; // height needed in order to vertically center
         padding: 20px 40px; // override
-        top: 4%; //override
         box-shadow: 0 0 8px rgba(0,0,0,.8);
+        top:0;bottom:0;
+        margin: auto;
+        &.step2 {
+            height: 942px; // height needed in order to vertically center
+        }
         .welcomeStore {
             display: block;
         }
