@@ -912,14 +912,14 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
-                return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId });
+                return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId, query.UniversityId });
             }
         }
         public async Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<ProductDto>(Sql.Store.SearchProduct, new { term = query.Term });
+                return await conn.QueryAsync<ProductDto>(Sql.Store.SearchProduct, new { term = query.Term, universityId = query.UniversityId });
             }
         }
         public IEnumerable<CategoryDto> GetCategories()
@@ -952,11 +952,20 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<BannerDto>> GetBanners()
+        public async Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<BannerDto>(Sql.Store.GetBanners);
+                return await conn.QueryAsync<BannerDto>(Sql.Store.GetBanners, new { universityId });
+            }
+        }
+
+        public async Task<bool> ValidateCoupon(int coupon)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<int>(Sql.Store.ValidateCouponCode, new { Coupun = coupon });
+                return retVal.FirstOrDefault() > 0;
             }
         }
         #endregion

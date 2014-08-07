@@ -94,7 +94,6 @@
 /// <reference path="../js/mobile/mbaseviewmodel.js" />
 /// <reference path="../js/mobile/mboxesviewmodel.js" />
 /// <reference path="../js/mobile/mboxitemsviewmodel.js" />
-/// <reference path="../js/mobile/mboxviewmodel.js" />
 /// <reference path="../js/mobile/mcommentsviewmodel.js" />
 /// <reference path="../js/mobile/minvite.js" />
 /// <reference path="../js/mobile/minviteviewmodel.js" />

@@ -58,9 +58,9 @@
             that.id = data.uid;
             that.isOwner = data.uid === self.ownerId();
         }
-      
 
-        function parentElem(data) {            
+
+        function parentElem(data) {
             var that = this;
             that.name = 'Dashboard';
             that.url = '/dashboard';
@@ -106,7 +106,7 @@
                 self.boxtype(result.sboxType);
                 self.parent(new parentElem(result));
                 var mapped = $.map(result.subscribers, function (d) { return new member(d); });
-                
+
                 //self.members(mapped.slice(0, 4));
                 self.members(mapped);
                 self.noOfItems(result.Items);
@@ -123,11 +123,11 @@
                 cd.pubsub.publish('perm', self.userType());
 
                 populateTabs(result.tabs);
-                
-                
-                
 
-               
+
+
+
+
             }
         }
 
@@ -240,17 +240,11 @@
             if (!confirm(JsResources.SureYouWant0ThisBox.format(self.removeB()))) {
                 return;
             }
-            if (isDeleteOrUnfollow()) {
-                dataContext.removeBox2({
-                    data: { id: self.boxid()},
-                    success: function () { cd.pubsub.publish('nav', '/'); }
-                });
-                return;
-            }
-            dataContext.unfollowBox({
-                data: { BoxUid: self.boxid(), userType: self.userType() },
+            dataContext.removeBox2({
+                data: { id: self.boxid() },
                 success: function () { cd.pubsub.publish('nav', '/'); }
             });
+
         };
         //#endregion
 
@@ -267,7 +261,7 @@
                 e.stopPropagation();
                 return;
             }
-            cd.pubsub.publish('invite', { id: self.boxid(), name: self.name(), privacy: self.privacySetting() === 'AnyoneWithUrl'});
+            cd.pubsub.publish('invite', { id: self.boxid(), name: self.name(), privacy: self.privacySetting() === 'AnyoneWithUrl' });
             return true; // to continue propgration
         };
         //#endregion

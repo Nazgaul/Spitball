@@ -316,9 +316,15 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<BannerDto>> GetBanners()
+        public Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
         {
-            return m_ReadService.GetBanners();
+            return m_ReadService.GetBanners(universityId);
+        }
+
+
+        public Task<bool> ValidateCoupon(int coupon)
+        {
+            return m_ReadService.ValidateCoupon(coupon);
         }
     }
 }

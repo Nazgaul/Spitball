@@ -62,7 +62,7 @@
     <div class="productsListWpr">
         <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
             <li ng-repeat="product in products | limitTo: params.maxProducts">
-                <a bo-href="product.url" href="">
+                <a bo-href="product.url + (params.universityId ? '?universityId=' + params.universityId : '')" href="">
                     <img bo-src="product.pictureUrl" alt="" />
                     <div class="desc">
                         <div class="" bo-text="product.name"></div>

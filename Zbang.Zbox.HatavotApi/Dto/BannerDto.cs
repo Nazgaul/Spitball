@@ -8,5 +8,7 @@ namespace Zbang.Zbox.Store.Dto
         public string Url { get; set; }
         public int Order { get; set; }
 
+        public int UniversityId { get; set; }
+
     }
 }

@@ -21,6 +21,7 @@
     <property name="ImageUrl" not-null="true"  />
     <property name="Location" not-null="true"/>
     <property name="Order" not-null="false" column="BannerOrder" />
+    <property name="UniversityId" not-null="false" />
   </class>
 
   <class name="StoreProduct" table="StoreProduct">
