@@ -18,7 +18,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("start time:{0} end time: {1} quizId {2} answers {3}", StartTime, EndTime, QuizId, String.Join("\n",Answers));
+            sb.AppendLine("start time: " + StartTime);
+            sb.AppendLine("end time: " + EndTime);
+            sb.AppendLine("quizId: " + QuizId);
+            if (Answers != null) sb.AppendLine("answers: " + String.Join("\n", Answers));
 
             return sb.ToString();
         }
@@ -33,9 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            sb.AppendFormat("QuestionId: {0} AnswerId: {1}", QuestionId, AnswerId);
-            return sb.ToString();
+            return string.Format("QuestionId: {0} AnswerId: {1}", QuestionId, AnswerId);
         }
     }
 }

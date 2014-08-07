@@ -119,8 +119,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 return View("Empty");
             }
+            catch (BoxAccessDeniedException)
+            {
+                return RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
+            }
             catch (ItemNotFoundException)
             {
+                return RedirectToAction("Index", "Error");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemid, ex);
                 return RedirectToAction("Index", "Error");
             }
         }

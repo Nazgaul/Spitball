@@ -4,7 +4,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 namespace Zbang.Zbox.Domain.Services
 {
@@ -91,16 +91,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
-        public ChangeBoxPrivacySettingsCommandResult ChangeBoxPrivacySettings(ChangeBoxPrivacySettingsCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                ChangeBoxPrivacySettingsCommandResult result = m_CommandBus.Dispatch<ChangeBoxPrivacySettingsCommand, ChangeBoxPrivacySettingsCommandResult>(command);
-                UnitOfWork.Current.TransactionalFlush();
-                return result;
-            }
-        }
+       
 
         public void ChangeNotificationSettings(ChangeNotificationSettingsCommand command)
         {

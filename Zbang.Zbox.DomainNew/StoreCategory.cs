@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain
            ParentId = parentId;
            Order = order;
            Name = name;
-           Url = UrlConsts.BuildStoreCatergoryUrl(Id, name);
+           Url = UrlConsts.BuildStoreCatergoryUrl(Id);
        }
 
 

@@ -1,0 +1,119 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.StoreOrder
+
+<form class="userDetails" ng-show="page.step === 2" novalidate name="detailsForm" ng-submit="order(detailsForm.$valid)">
+    <h2>@StoreResources.YourOrder</h2>
+    <div class="detailsTxt">@StoreResources.FillDetails</div>
+    <div class="lFloat" ng-class="{error : submitted && detailsForm.FirstName.$error.required}">
+        @Html.LabelFor(f => f.FirstName)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.FirstName, new { @class = "inputText", required = "required", ng_model = "formData.firstName" })
+    </div>
+    <div class="rFloat" ng-class="{error : submitted && detailsForm.LastName.$error.required}">
+        @Html.LabelFor(f => f.LastName)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.LastName, new { @class = "inputText", ng_model = "formData.lastName", required = "required" })
+    </div>
+    <div class="lFloat" ng-class="{error : submitted && detailsForm.Phone1.$error.required}">
+        @Html.LabelFor(f => f.Phone1) 1
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.Phone1, new { @class = "inputText", ng_model = "formData.phone1", required = "required" })
+    </div>
+    <div class="rFloat">
+        @Html.LabelFor(f => f.Phone2, new { @class = "optional" }) 2
+        @Html.TextBoxFor(f => f.Phone2, new { @class = "inputText", ng_model = "formData.phone2" })
+    </div>
+    <div class="lFloat wideInput" ng-class="{error : submitted && detailsForm.Email.$error.required}">
+        @Html.LabelFor(f => f.Email)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.Email, new { @class = "inputText", ng_model = "formData.email", required = "required" })
+    </div>
+    <div class="lFloat" ng-class="{error : submitted && detailsForm.City.$error.required}">
+        @Html.LabelFor(f => f.City)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.City, new { @class = "inputText", ng_model = "formData.city", required = "required" })
+    </div>
+    <div class="lFloat" ng-class="{error : submitted && detailsForm.Address.$error.required}">
+        @Html.LabelFor(f => f.Address)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.Address, new { @class = "inputText", ng_model = "formData.address", required = "required" })
+    </div>
+    <div class="lFloat" ng-class="{error : submitted && detailsForm.IdentityNumber.$error.required}">
+        @Html.LabelFor(f => f.IdentityNumber)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.IdentityNumber, new { @class = "inputText", ng_model = "formData.identityNumber", required = "required" })
+    </div>
+    <div class="lFloat" ng-class="{error : submitted && detailsForm.CreditCardNumber.$error.required}">
+        @Html.LabelFor(f => f.CreditCardNumber)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.CreditCardNumber, new { @class = "inputText", ng_model = "formData.creditCardNumber", required = "required" })
+    </div>
+    <div class="lFloat" ng-class="{error : submitted && (detailsForm.ExpirationYear.$error.required || detailsForm.ExpirationMonth.$error.required)}">
+        <label>@StoreResources.Vaildity</label>
+        <span class="required">@DialogResources.RequiredField</span>
+        <select ng-model="formData.expirationYear" name="ExpirationYear" required>
+            <option value="">שנה</option>
+            @for (var i = DateTime.UtcNow; i < DateTime.UtcNow.AddYears(5); i = i.AddYears(1))
+            {
+                <option value="@i.ToString("yy")">@i.ToString("yyyy")</option>
+            }
+        </select>
+        <select ng-model="formData.expirationMonth" name="ExpirationMonth" required>
+            <option value="">חודש</option>
+            <option value="01">1</option>
+            <option value="02">2</option>
+            <option value="03">3</option>
+            <option value="04">4</option>
+            <option value="05">5</option>
+            <option value="06">6</option>
+            <option value="07">7</option>
+            <option value="08">8</option>
+            <option value="09">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+    </div>
+    <div class="rFloat secureCode" ng-class="{error : submitted && detailsForm.SecurityCode.$error.required}">
+        @Html.LabelFor(f => f.SecurityCode)
+        <span class="required">@DialogResources.RequiredField</span>
+        <span class="rFloat">@StoreResources.WhatIsThis</span>
+        @Html.TextBoxFor(f => f.SecurityCode, new { @class = "inputText", ng_model = "formData.securityCode", required = "required" })
+        <div class="cardHover">
+            <div class="cardHoverTxt">@StoreResources.SecurityCode</div>
+        </div>
+    </div>
+    <div class="lFloat" ng-class="{error : submitted && detailsForm.CreditCardOwnerName.$error.required}">
+        @Html.LabelFor(f => f.CreditCardOwnerName)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.CreditCardOwnerName, new { @class = "inputText", ng_model = "formData.creditCardOwnerName", required = "required" })
+    </div>
+    <div class="rFloat" ng-class="{error : submitted && detailsForm.CreditCardOwnerId.$error.required}">
+        @Html.LabelFor(f => f.CreditCardOwnerId)
+        <span class="required">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(f => f.CreditCardOwnerId, new { @class = "inputText", ng_model = "formData.creditCardOwnerId", required = "required" })
+    </div>
+    <div class="lFloat wideInput">
+        @Html.LabelFor(f => f.Comments, new { @class = "optional" })
+        @Html.TextBoxFor(f => f.Comments, new { @class = "inputText", ng_model = "formData.comments" })
+    </div>
+    <div class="lFloat cbWpr" ng-class="{error : submitted && detailsForm.TermsOfService.$error.required}">
+        <input id="AcceptTermOfService" type="checkbox" class="checkbox" name="TermsOfService" required ng-model="formData.tos" />
+        <div class="required">@DialogResources.RequiredField</div>
+        <label class="cbLabel" for="AcceptTermOfService">קראתי את <a class="termsLink" href="@Url.RouteUrl("StoreTerms")" target="_blank">התקנון</a> ואני מסכים לתנאי השימוש.</label>
+    </div>
+    <div class="rFloat" ng-class="{error : submitted && detailsForm.NumberOfPayments.$error.required}">
+        <span>@StoreResources.BillMe</span>
+        <select ng-model="formData.numberOfPayments" name="NumberOfPayments" required>
+            <option value=""></option>
+            @for (int i = 1; i < (int)ViewBag.NumberOfPayments; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+        <span>@StoreResources.Installments</span>
+    </div>
+    <div class="lFloat secureTxt">@StoreResources.SecuredPage</div>
+    <button class="rFloat btn1" type="submit" ng-click="submitted=true">@StoreResources.Order</button>
+</form>

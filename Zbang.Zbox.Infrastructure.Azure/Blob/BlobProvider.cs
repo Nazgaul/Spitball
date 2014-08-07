@@ -78,14 +78,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = container.GetBlockBlobReference(fileName);
 
             var uriBuilder = new UriBuilder(blob.Uri);
-            string storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+            var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
             if (!string.IsNullOrEmpty(storageCdnEndpoint))
             {
-                uriBuilder.Host = storageCdnEndpoint;
+                var storeCdnUri = new Uri(storageCdnEndpoint);
+                uriBuilder.Host = storeCdnUri.Host;
             }
 
 
-            if (blob.Exists())
+            if (blob.Exists() && blob.Properties.Length == data.LongLength)
             {
                 return uriBuilder.Uri.AbsoluteUri;
             }
@@ -182,7 +183,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        public string GenerateSharedAccressReadPermissionInCache(string blobName, double experationTimeInMinutes)
+        public string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes)
         {
             var blob = CacheFile(blobName);
             try
@@ -197,40 +198,40 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                     return null;
                 }
             }
-            return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
+            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 
-        public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double experationTimeInMinutes)
+        public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes)
         {
             var blob = CacheFile(blobName);
-            return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
+            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 
 
 
-        public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double experationTimeInMinutes)
+        public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
             if (blobUri == null) throw new ArgumentNullException("blobUri");
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
 
             var blob = GetFile(blobName);
-            return GenerateSharedAccessPermission(blob, experationTimeInMinutes, SharedAccessBlobPermissions.Read);
+            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 
 
 
-        private string GenerateSharedAccessPermission(CloudBlockBlob blob, double experationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
+        private string GenerateSharedAccessPermission(CloudBlockBlob blob, double expirationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
         {
 
-            var signedurl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
                 Permissions = accessPermission,
-                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(experationTimeInMinutes)
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
             });
 
-            var url = new Uri(blob.Uri, signedurl);
+            var url = new Uri(blob.Uri, signedUrl);
             return url.AbsoluteUri;
         }
 
@@ -342,8 +343,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var cacheblob = CacheFile(blobName);
             fileContent.Seek(0, SeekOrigin.Begin);
-
-
             //fileContent.Position = 0;
 
             cacheblob.Properties.ContentType = mimeType;
@@ -372,13 +371,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
         public Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
         {
-            using (var ms = new MemoryStream(fileContent))
-            {
-                //using (var ms = new MemoryStream(fileContent))
-                //{
-                return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
-            }
-            //}
+            //we don't need to dispose because we dispose it later in the function
+            var ms = new MemoryStream(fileContent);
+            return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
         }
 
         //public bool CheckIfFileExistsInCache(string blobName)
@@ -448,6 +443,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         //    var t2 = blob.DeleteAsync();
         //    await Task.WhenAll(t1, t2);
         //}
+        public void RenameBlob(string blobName, string newName, string newMimeType = null)
+        {
+            var blob = GetFile(blobName);
+            var newBlob = GetFile(newName);
+            newBlob.StartCopyFromBlob(blob);
+            newBlob.Properties.ContentType = newMimeType ?? blob.Properties.ContentType;
+            newBlob.SetProperties();
+            blob.Delete();
+        }
         private string ToBase64(int blockIndex)
         {
             var blockId = blockIndex.ToString("D10");
@@ -608,12 +612,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             CloudBlockBlob blob = GetFile(fileName);
 
-            using (var ms = new MemoryStream())
-            {
-                blob.DownloadToStream(ms);
-                ms.Seek(0, SeekOrigin.Begin);
-                return ms;
-            }
+            var ms = new MemoryStream();
+            blob.DownloadToStream(ms);
+            ms.Seek(0, SeekOrigin.Begin);
+            return ms;
         }
 
         public async Task<Stream> DownloadFileAsync(string fileName)

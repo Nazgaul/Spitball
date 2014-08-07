@@ -1067,6 +1067,71 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.registerFirst.step2 .registerContent {
   pointer-events: auto;
 }
+/*#region Welcome Store */
+.registerFirst.store {
+  width: 546px;
+  height: 559px;
+  padding: 20px 40px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.registerFirst.store.step2 {
+  height: 942px;
+  max-height: 98%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.registerFirst.store .welcomeStore {
+  display: block;
+}
+.registerFirst.store .regFirstTxt {
+  display: none;
+}
+.registerFirst.store:before {
+  content: '';
+  display: inline-block;
+  background: url(/Images/Store/welcome.png) no-repeat;
+  width: 546px;
+  height: 264px;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  /*rtl*/
+  border-radius: 5px 5px 0 0;
+}
+.registerFirst.store .facebook,
+.registerFirst.store .emailBtnWpr {
+  width: 330px;
+  margin: 0 auto;
+  display: block;
+}
+.welcomeStore {
+  display: none;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  margin: 157px 0 15px;
+  position: relative;
+}
+.storeTxt1 {
+  font-size: 38px;
+  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.8);
+}
+.storeTxt2 {
+  font-size: 26px;
+  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.8);
+}
+.storeTxt3 {
+  color: #0f9d58;
+  margin: 18px 0 8px;
+}
+.storeTxt4 {
+  color: #39434a;
+  white-space: pre-wrap;
+}
+/*#endregion */
 .regFirstTxt {
   display: none;
   font-size: 22px;
@@ -1669,6 +1734,27 @@ input[type="radio"][disabled] + label:before {
 }
 /*#endregion */
 /*#region User tooltip */
+.userTooltip {
+  width: 379px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 10px 10px 6px 110px;
+  /*rtl*/
+  position: fixed;
+  z-index: 13;
+  background: #fff;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
 .userTooltip.showTooltip {
   visibility: visible;
   opacity: 1;
@@ -1837,15 +1923,12 @@ input[type="radio"][disabled] + label:before {
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-}
-.popover .userTooltip {
-  width: 379px;
-  height: 100px;
-  padding: 10px 10px 6px 110px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  /*.userTooltip {
+        width: 379px;
+        height: 100px;
+        padding: 10px 10px 6px 110px; 
+        .boxSizing;
+    }*/
 }
 .popover.top {
   margin-top: -10px;
@@ -2165,6 +2248,19 @@ select.inputText {
 .splitHRText:after {
   left: 100%;
 }
+.ghost {
+  text-align: center;
+}
+.ghost:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.ghost .vCentered {
+  display: inline-block;
+  vertical-align: middle;
+}
 .iconTxt:before {
   content: '';
   display: inline-block;
@@ -2416,7 +2512,8 @@ select.inputText {
 }
 .mtouch .boxRename.boxRename,
 .mtouch .itemRenameBtn.itemRenameBtn,
-.mtouch .ratePopup.ratePopup .closeDialog {
+.mtouch .ratePopup.ratePopup .closeDialog,
+.mtouch .removeItem.removeItem {
   display: inline-block;
 }
 /*#region IPAD - SPECIFIC CODE */

@@ -1,4 +1,4 @@
-﻿(function (cd, dataContext,pubsub, $, ko, analytics) {
+﻿(function (cd, dataContext, pubsub, $, ko, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('ntfvm')) {
         return;
@@ -29,7 +29,7 @@
         that.senderName = data.userName;
         that.senderImg = data.userPic;
         that.isRead = !data.isRead ? ' new' : '';
-        that.isNew = data.isNew ;
+        that.isNew = data.isNew;
         that.date = data.date;
         that.url = data.url;// + '?r=siteheader&s=invite';
     }
@@ -66,9 +66,9 @@
             currentPageItems = notificationsData.slice((page - 1) * consts.pageSize, page * consts.pageSize);
         for (var i = 0, l = currentPageItems.length ; i < l; i++) {
             if (!currentPageItems[i].message) {
-            //    item = new Message(currentPageItems[i]);
-            //    html = cd.attachTemplateToData(consts.messageTemplate, item);
-            //} else {
+                //    item = new Message(currentPageItems[i]);
+                //    html = cd.attachTemplateToData(consts.messageTemplate, item);
+                //} else {
                 item = new Invite(currentPageItems[i]);
                 html = cd.attachTemplateToData(consts.inviteTemplate, item);
                 result += html;
@@ -79,8 +79,12 @@
 
         notificationsList.insertAdjacentHTML('beforeend', result);
 
-        cd.updateTimeActions(document.getElementById(notificationsList));
-       
+        cd.updateTimeActions(notificationsList);
+        setTimeout(function () {
+            cd.updateTimeActions(notificationsList);
+        }, 60000);
+
+
     }
 
     function showNewNotifications() {
@@ -92,11 +96,11 @@
 
         }
         if (!count) {
-            notificationsCounter.classList.remove('invitesCounterShow');            
+            notificationsCounter.classList.remove('invitesCounterShow');
             notificationsCounter.textContent = '';
             return;
         }
-        
+
         notificationsCounter.classList.add('invitesCounterShow');
         notificationsCounter.textContent = count;
     }
@@ -155,8 +159,8 @@
         });
 
         pubsub.subscribe('removeNotification', function (data) {
-            $notificationsList.find('[data-boxid="' + data + '"]').remove();                
+            $notificationsList.find('[data-boxid="' + data + '"]').remove();
         });
     }
 
-})(cd, cd.data, cd.pubsub,jQuery, ko, cd.analytics);
+})(cd, cd.data, cd.pubsub, jQuery, ko, cd.analytics);

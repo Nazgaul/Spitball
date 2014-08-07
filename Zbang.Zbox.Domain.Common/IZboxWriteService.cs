@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
-        ChangeBoxPrivacySettingsCommandResult ChangeBoxPrivacySettings(ChangeBoxPrivacySettingsCommand command);
         void DeleteBox(DeleteBoxCommand command);
         void UnfollowBox(UnfollowBoxCommand command);
 
@@ -64,6 +63,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command);
 
         bool Dbi(int index);
+        void OneTimeDbi();
         void Statistics(UpdateStatisticsCommand command);
 
         #region annotation
@@ -110,6 +110,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void AddProducts(AddProductsToStoreCommand command);
         void AddCategories(AddCategoriesCommand command);
+        void AddBanners(AddBannersCommand command);
 
 
     }

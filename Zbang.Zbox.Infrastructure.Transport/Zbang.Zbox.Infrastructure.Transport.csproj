@@ -60,6 +60,7 @@
     <Compile Include="MessageMailData.cs" />
     <Compile Include="ProtobufSerializer.cs" />
     <Compile Include="StatisticsData.cs" />
+    <Compile Include="StoreOrderData.cs" />
     <Compile Include="UpdateData.cs" />
     <Compile Include="UrlToDownloadData.cs" />
     <Compile Include="WelcomeMailData.cs" />

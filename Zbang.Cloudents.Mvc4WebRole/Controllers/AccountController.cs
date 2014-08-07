@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        //donut output cache doesnt support route
+        //donut output cache doesn't support route
         [DevTrends.MvcDonutCaching.DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang + ";"
             + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,

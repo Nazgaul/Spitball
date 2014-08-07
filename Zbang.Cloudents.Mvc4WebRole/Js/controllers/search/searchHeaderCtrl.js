@@ -1,6 +1,6 @@
 ﻿app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', 'debounce', 'sSearch',
-    function ($scope, $timeout, debounce, Search) {
+    ['$scope', '$timeout', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService',
+    function ($scope, $timeout, debounce, Search, sUserDetails, textDirectionService) {
         $scope.params = {
             maxItems: 6,
             minItems: 3,
@@ -43,8 +43,8 @@
             if (!isValid) {
                 return;
             }
-            window.open(window.location.origin + '/search/?q=' + $scope.formData.query + '/', '_self');
-            
+            window.open(window.location.origin + '/search/?q=' + $scope.formData.query, '_self');
+
         };
 
 
@@ -54,6 +54,11 @@
         };
 
         $scope.searchFocus = function () {
+            if (!sUserDetails.isAuthenticated()) {
+                cd.pubsub.publish('register', { action: true });
+                return;
+            }
+
             if ($scope.formData.query && $scope.formData.query.length) {
                 $scope.params.showDropdown = true;
             }
@@ -67,6 +72,12 @@
             $scope.params.showDropdown = false;
         };
 
+        $scope.$watch('formData.query', function (v) {
+            if (!v) {
+                return;
+            }
+            $scope.params.textDirection = textDirectionService.isRTL(v) ? 'rtl' : 'ltr';
+        });
 
         $scope.$on('$routeChangeStart', function () {
             $scope.params.showDropdown = false;
@@ -95,7 +106,7 @@
             function appendData() {
                 var maxCategoryItems = 0,
                     maxOtherItems = 0,
-                    emptyCategories = data.items.length + data.boxes.length + data.users.length;
+                    emptyCategories = (data.items.length === 0) + (data.boxes.length === 0) + (data.users.length === 0);
 
                 switch (emptyCategories) {
                     case 0:
@@ -114,10 +125,17 @@
                         break;
                 };
 
-                $scope.searchResults.boxes = (data.boxes || []).slice(maxCategoryItems);
-                $scope.searchResults.items = (data.items || []).slice(maxCategoryItems);
-                $scope.searchResults.people = (data.users || []).slice(maxCategoryItems);
-                $scope.searchResults.otherItems = (data.otherItems || []).slice(maxOtherItems);
+
+                $scope.searchResults.boxes = minmizeItems(data.boxes, maxCategoryItems);
+                $scope.searchResults.items = minmizeItems(data.items, maxCategoryItems);
+                $scope.searchResults.people = minmizeItems(data.people, maxCategoryItems);
+                $scope.searchResults.otherItems = minmizeItems(data.otherItems,maxOtherItems);
+
+                function minmizeItems(array,maxItems) {
+                    array = array || [];
+                    return array.slice(0,maxItems);
+
+                }
             }
 
         };

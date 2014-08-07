@@ -101,7 +101,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -129,7 +129,8 @@
     <Compile Include="Jobs\ProcessFile.cs" />
     <Compile Include="Jobs\IJob.cs" />
     <Compile Include="Jobs\MailProcess2.cs" />
-    <Compile Include="Jobs\SyncHatavotProduct.cs" />
+    <Compile Include="Jobs\ProcessStoreOrder.cs" />
+    <Compile Include="Jobs\StoreDataSync.cs" />
     <Compile Include="Jobs\UpdateDomainProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\ForgotPassword.cs" />

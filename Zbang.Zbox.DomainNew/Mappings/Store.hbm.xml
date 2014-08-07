@@ -13,6 +13,17 @@
     <property name="Order" not-null="true" column="CatOrder" />
   </class>
 
+  <class name="StoreBanner" >
+    <id name="Id">
+      <generator class="assigned"/>
+    </id>
+    <property name="Url" not-null="false" />
+    <property name="ImageUrl" not-null="true"  />
+    <property name="Location" not-null="true"/>
+    <property name="Order" not-null="false" column="BannerOrder" />
+    <property name="UniversityId" not-null="false" />
+  </class>
+
   <class name="StoreProduct" table="StoreProduct">
     <id name="Id" column="ProductId">
       <generator class="assigned"/>
@@ -32,10 +43,34 @@
     <property name="DeliveryPrice" />
     <property name="HomePage" not-null="true"/>
     <property name="ProducerName" />
+    <property name="UniversityId" not-null="false" />
 
     <set name="Categories" table="StoreProductCategory">
       <key column="ProductId"/>
       <many-to-many column="CatId" class="StoreCategory"/>
     </set>
+    <set name="Features"  cascade="all-delete-orphan" inverse="true">
+      <key column="Product"/>
+      <one-to-many class="StoreProductFeatures"/>
+    </set>
+  </class>
+
+  <class name="StoreProductFeatures" >
+    <id name="Id">
+      <generator class="native"/>
+    </id>
+    <property name="Category" not-null="true" />
+    <property name="Description" not-null="true"  />
+    <property name="Price" not-null="false"/>
+    <many-to-one class="StoreProduct" name="Product" not-null="true" foreign-key="StoreProductFeaturesProduct" />
+  </class>
+
+  <class name="StoreUniversityMapper">
+    <id name="Id">
+      <generator class="native"/>
+    </id>
+    <property name="StoreUniversityId" not-null="false" />
+    <many-to-one class="University" name="University" column="UniversityId" not-null="false"/>
+    <property name="CouponCode" not-null="false"/>
   </class>
 </hibernate-mapping>

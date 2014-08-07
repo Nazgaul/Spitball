@@ -23,7 +23,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly ICache m_Cache;
 
         private bool m_KeepRunning;
-        private readonly TimeSpan m_TimeToSleepAfterExcecuting;
+        private readonly TimeSpan m_TimeToSleepAfterExecuting;
 
         private readonly string m_CacheRegionName;
 
@@ -39,11 +39,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_CacheRegionName = "DigestEmails" + m_DigestEmailHourBack;
             if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
             {
-                m_TimeToSleepAfterExcecuting = TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes);
+                m_TimeToSleepAfterExecuting = TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes);
             }
             else
             {
-                m_TimeToSleepAfterExcecuting = TimeSpan.FromHours(1);
+                m_TimeToSleepAfterExecuting = TimeSpan.FromHours(1);
             }
 
         }
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             m_Cache.RemoveFromCache(m_CacheRegionName, null);
             // m_Cache.Clear();
-            Thread.Sleep(m_TimeToSleepAfterExcecuting);
+            Thread.Sleep(m_TimeToSleepAfterExecuting);
         }
 
         private void BuildUserReport(long userid, string email, string culture, string userName)
@@ -147,7 +147,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 UrlConsts.BuildItemUrl(box.BoxId, box.BoxName, s.Id, s.Name, box.UniversityName ?? "my", true)
                 , s.UserId));
 
-            var quizes = m_ZboxReadService.GetQuizLastpdates(new GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+            var quizes = m_ZboxReadService.GetQuizLastUpdates(new GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var quizUpdate = quizes.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                 s.Picture
                 , s.UserName,
@@ -161,8 +161,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var answers = m_ZboxReadService.GetAnswersLastUpdates(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
             var answersUpdate = answers.Select(s => new UpdateMailParams.AnswerUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
-            var disucssion = m_ZboxReadService.GetQuizDiscussion(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var discussionUpdate = disucssion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture,
+            var discussion = m_ZboxReadService.GetQuizDiscussion(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+            var discussionUpdate = discussion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture,
                  UrlConsts.BuildQuizUrl(box.BoxId, box.BoxName, s.QuizId, s.QuizName, box.UniversityName ?? "my", true),
                 s.UserId));
 

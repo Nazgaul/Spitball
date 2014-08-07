@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
             if (name != null)
             {
                 name = name.Trim();
-               
+
             }
             if (owner == null) throw new ArgumentNullException("owner");
             Name = name;
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual string Content { get; set; }
 
-// ReSharper disable UnusedAutoPropertyAccessor.Local
+        // ReSharper disable UnusedAutoPropertyAccessor.Local
         public virtual float Rate { get; private set; }
 
         public virtual int NumberOfViews { get; private set; }
@@ -70,11 +70,16 @@ namespace Zbang.Zbox.Domain
             Name = newText;
             DateTimeUser.UpdateTime = DateTime.UtcNow;
         }
+
+        public virtual void UpdateNumberOfComments(int count)
+        {
+            NumberOfComments = count;
+        }
         public virtual void UpdateNumberOfViews()
         {
             NumberOfViews++;
         }
 
-        
+
     }
 }

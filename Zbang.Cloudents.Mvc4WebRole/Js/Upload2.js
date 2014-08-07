@@ -10,12 +10,11 @@
     boxToUpload = {
         id: '',
         tabid: null,
-        question: false,
+        question: false
     },
-    firstTimeFired = true;
 
-    var $rootScope;
-    var x = window.setInterval(function () {
+     $rootScope,
+     x = window.setInterval(function () {
         $rootScope = angular.element(document).scope();
         if ($rootScope) {
             window.clearInterval(x);
@@ -28,27 +27,48 @@
             $uploadDialog = $('#uploadDialog');
             $('#up_dropZone').hide();
 
-            if (uploader) {
-                uploader.destroy();
-                uploader = null;
-            }
-
-            uploader = uploadFiles();
+            destroyAndRecreatePlupload();
             
-
+            //TODO: check if nessasary 
             if (location && boxToUpload.question) {
                 boxToUpload.question = location.question;
             }
-
+            uploader.refresh();
+            
+            window.setTimeout(function () {
+                var x = $('#AddFiles').offset();
+                if (x) {
+                    $('.plupload').css({ top: x.top });
+                }
+            }, 1000);
         });
 
-        $rootScope.$on('uploadBox', function(e, boxid) {
+        $rootScope.$on('uploadBox', function (e, boxid) {
             boxToUpload.id = parseInt(boxid, 10);
-            uploader = uploadFiles();
+            destroyAndRecreatePlupload();
             registerDnd();
+            
+            uploader.refresh();
+            window.setTimeout(function () {
+                var x = $('#AddFiles').offset();
+                if (x) {
+                    $('.plupload').css({ top: x.top });
+                }
+            }, 1000);
             //uploader.refresh();
         });
-
+        function destroyAndRecreatePlupload(frombox) {
+            if (uploader) {
+                if (uploader.state === plupload.UPLOADING ) {
+                    uploader.init();
+                    uploader.refresh();
+                    return;
+                }
+                uploader.destroy();
+                uploader = null;
+            }
+            uploader = uploadFiles();
+        }
         $rootScope.$on('selectTab', function(d) {
             boxToUpload.tabid = $.isEmptyObject(d) ? null : d;
         });
@@ -103,54 +123,54 @@
     function trackUpload(action, label) {
         analytics.trackEvent('Upload', action, label);
     }
-    function uploadVisible() {
-        if (firstTimeFired) {
-            firstTimeFired = false;
-            registerEvents();
-        }
+    //function uploadVisible() {
+    //    if (firstTimeFired) {
+    //        firstTimeFired = false;
+    //        registerEvents();
+    //    }
 
-    }
-    function registerEvents() {
-        //cd.loader.registerDropBox();
-        //var d = cd.loader.registerGoogleDrive();//, s = cd.loader.registerSkyDrive();
-        //$.when(d).done(function () {
-        //    $('#up_Drive').removeAttr('disabled title');
-        //});
-        //$.when(s).done(function () {
-        //    $('#up_Sky').removeAttr('disabled').removeAttr('title');
-        //})
-        //var interval = window.setInterval(function () {
-        //    if (window.Dropbox !== undefined) {
-        //        $('#up_DropBox').removeAttr('disabled title');
-        //        window.clearInterval(interval);
-        //    }
-        //}, 50);
-
-
+    //}
+    //function registerEvents() {
+    //    //cd.loader.registerDropBox();
+    //    //var d = cd.loader.registerGoogleDrive();//, s = cd.loader.registerSkyDrive();
+    //    //$.when(d).done(function () {
+    //    //    $('#up_Drive').removeAttr('disabled title');
+    //    //});
+    //    //$.when(s).done(function () {
+    //    //    $('#up_Sky').removeAttr('disabled').removeAttr('title');
+    //    //})
+    //    //var interval = window.setInterval(function () {
+    //    //    if (window.Dropbox !== undefined) {
+    //    //        $('#up_DropBox').removeAttr('disabled title');
+    //    //        window.clearInterval(interval);
+    //    //    }
+    //    //}, 50);
 
 
-        cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
-            if (!$('#uploadDialog').is(':visible')) {
-                return;
-            }
 
-            if (!isAuto) {
-                loadPicker();
-                return;
-            }
 
-            document.getElementById('up_Drive').onclick = function () {
-                loadPicker();
-            }
+    //    cd.pubsub.subscribe('gAuthSuccess', function (isAuto) {
+    //        if (!$('#uploadDialog').is(':visible')) {
+    //            return;
+    //        }
 
-        });
-        cd.pubsub.subscribe('gAuthFail', function () {
-            document.getElementById('up_Drive').onclick = function () {
-                cd.google.register(false);
+    //        if (!isAuto) {
+    //            loadPicker();
+    //            return;
+    //        }
 
-            }
-        });
-    }
+    //        document.getElementById('up_Drive').onclick = function () {
+    //            loadPicker();
+    //        }
+
+    //    });
+    //    cd.pubsub.subscribe('gAuthFail', function () {
+    //        document.getElementById('up_Drive').onclick = function () {
+    //            cd.google.register(false);
+
+    //        }
+    //    });
+    //}
 
     function fakeUpload(url, name, size) {
         var guid = cd.guid(), $progressBarMaxwidth, $fileId;
@@ -197,11 +217,15 @@
     }
 
     function uploadFiles() {
+        var container = null;
+        if (document.getElementById('uploadModal')) {
+           // container = 'uploadModal';
+        }
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: 'AddFiles',
             drop_element: 'fileZone',
-
+            container: container,
             chunk_size: '3mb',
             url: '/Upload/File/',
             unique_names: true,
@@ -220,7 +244,6 @@
                 //  up.settings.multipart_params.fileId = file.id;
                 up.settings.multipart_params.fileName = file.name;
                 up.settings.multipart_params.fileSize = file.size;
-
 
                 up.settings.multipart_params.boxId = file.boxid;
                 up.settings.multipart_params.tabId = file.tabid;
@@ -256,7 +279,9 @@
         uploader.bind('FilesAdded', function (up, files) {
             $(window).trigger('dragreset');
             var filesobj = [];
+            boxToUpload.id = boxToUpload.id || parseInt(cd.getParameterFromUrl(2), 10);
             var cloneBoxToUpload = cd.clone(boxToUpload);
+            
             for (var i = 0; i < files.length; i++) {
                 if (files[i].name.indexOf('.') === -1 && files[i].size === 4096) {
                     cd.notification(ZboxResources.CantUploadDirectory);
@@ -276,12 +301,6 @@
             }
             addItemToUploadList(cd.attachTemplateToData('templateUpload', filesobj));
 
-            //try {
-            //    up.settings.multipart_params.BoxUid = cloneBoxToUpload.id;
-            //    up.settings.multipart_params.tabId = cloneBoxToUpload.tabid;
-            //}
-            //catch (err) {
-            //}
             if (uploader.state === plupload.STOPPED) {
                 uploader.start();
             }
@@ -298,11 +317,6 @@
             updateTitle(file.id, file.percent);
         });
 
-
-
-        //uploader.bind('Error', function (up, err) {
-        //});
-
         uploader.bind('FileUploaded', function (up, file, data) {
             var itemData = JSON.parse(data.response);
             if (!itemData.success) {
@@ -313,7 +327,6 @@
             $rootScope.$broadcast('FileAdded', { item: itemData.payload.fileDto, boxId: itemData.payload.boxid });
             cd.pubsub.publish('clear_cache');
         });
-
         return uploader;
 
     }
@@ -349,9 +362,13 @@
         elem.find('.progress').hide();
     }
 
+    var singleton = false;
     function registerDnd() {
         //var dndAvailable = true;
-
+        if (singleton) {
+            return;
+        }
+        singleton = true;
         if (!'draggable' in document.createElement('span')) {
             return;
         }
@@ -399,23 +416,23 @@
             }
         });
 
-        function containsFiles(event) {
+        function containsFiles(event) {            
             if (event.dataTransfer.types) {
-                for (var i = 0; i < event.dataTransfer.types.length; i++) {
+                for (var i = 0; i < 3; i++) {
                     if (event.dataTransfer.types[i] == "Files") {
                         return true;
                     }
                 }
             }
             return false;
-        }
+        } 
         $.fn.draghover = function () {
             return this.each(function () {
 
                 var collection = $(),
                     self = $(this);
 
-                self.on('dragenter', function (e) {
+                self.on('dragenter', function (e) {                   
                     if (!containsFiles(e.originalEvent)) {
                         return;
                     }

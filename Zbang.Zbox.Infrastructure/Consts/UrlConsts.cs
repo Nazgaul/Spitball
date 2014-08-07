@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}";
 
-        private const string StoreCategoryUrl = "/store/category/{0}/{1}/";
+        private const string StoreCategoryUrl = "/store/category/{0}/";
         private const string StoreProductUrl = "/store/product/{0}/{1}/";
 
 
@@ -75,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(quizName))
             {
-                throw new ArgumentException("itemName");
+                throw new ArgumentException("quizName");
             }
             if (string.IsNullOrEmpty(boxName))
             {
@@ -92,10 +92,9 @@ namespace Zbang.Zbox.Infrastructure.Consts
         }
 
 
-        public static string BuildStoreCatergoryUrl(int categoryId, string categoryName)
+        public static string BuildStoreCatergoryUrl(int categoryId)
         {
-            if (categoryName == null) throw new ArgumentNullException("categoryName");
-            return VirtualPathUtility.AppendTrailingSlash(string.Format(StoreCategoryUrl, categoryId, NameToQueryString(categoryName)));
+            return VirtualPathUtility.AppendTrailingSlash(string.Format(StoreCategoryUrl, categoryId));
         }
         public static string BuildStoreProductUrl(long productId, string productName)
         {

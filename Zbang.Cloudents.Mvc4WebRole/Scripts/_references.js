@@ -79,7 +79,6 @@
 /// <reference path="stopwatch.js" />
 /// <reference path="uibootstraptpls0.11.0.js" />
 /// <reference path="zeroclipboard.min.js" />
-/// <reference path="../js/app/services.js" />
 /// <reference path="../js/directives/backbutton.js" />
 /// <reference path="../js/directives/focuson.js" />
 /// <reference path="../js/directives/mloader.js" />
@@ -95,7 +94,6 @@
 /// <reference path="../js/mobile/mbaseviewmodel.js" />
 /// <reference path="../js/mobile/mboxesviewmodel.js" />
 /// <reference path="../js/mobile/mboxitemsviewmodel.js" />
-/// <reference path="../js/mobile/mboxviewmodel.js" />
 /// <reference path="../js/mobile/mcommentsviewmodel.js" />
 /// <reference path="../js/mobile/minvite.js" />
 /// <reference path="../js/mobile/minviteviewmodel.js" />
@@ -122,7 +120,6 @@
 /// <reference path="../js/services/upload.js" />
 /// <reference path="../js/services/user.js" />
 /// <reference path="../js/services/userdetails.js" />
-/// <reference path="../js/shopping/app.js" />
 /// <reference path="plupload/plupload.browserplus.js" />
 /// <reference path="plupload/plupload.flash.js" />
 /// <reference path="plupload/plupload.full.js" />
@@ -162,6 +159,7 @@
 /// <reference path="../js/controllers/quiz/quizctrl.js" />
 /// <reference path="../js/controllers/search/searchheaderctrl.js" />
 /// <reference path="../js/controllers/user/userctrl.js" />
+<<<<<<< HEAD
 >>>>>>> 451774f379122c618870c0004c560aab5dff7c76
 /// <reference path="../js/shopping/controllers/categoryctrl.js" />
 /// <reference path="../js/shopping/controllers/homectrl.js" />
@@ -177,6 +175,28 @@
 /// <reference path="../js/shopping/directives/productsmenu.js" />
 /// <reference path="../js/services/cookies.js" />
 >>>>>>> 451774f379122c618870c0004c560aab5dff7c76
+=======
+/// <reference path="../js/services/cookies.js" />
+/// <reference path="../js/app/services.js" />
+/// <reference path="underscore.js" />
+/// <reference path="../js/directives/scrolltotop.js" />
+/// <reference path="../js/directives/usertooltip.js" />
+/// <reference path="../js/filters/stringformat.js" />
+/// <reference path="../js/modules/displaytime.js" />
+/// <reference path="../js/modules/textdirection.js" />
+/// <reference path="../js/controllers/store/productctrl.js" />
+/// <reference path="../js/controllers/store/homectrl.js" />
+/// <reference path="../js/controllers/store/categoryctrl.js" />
+/// <reference path="../js/directives/store/productsmenu.js" />
+/// <reference path="../js/filters/store/percentage.js" />
+/// <reference path="../js/services/store.js" />
+/// <reference path="../js/controllers/store/הןק'ctrl.js" />
+/// <reference path="../js/controllers/store/viewctrl.js" />
+/// <reference path="../js/controllers/store/checkoutctrl.js" />
+/// <reference path="../js/modules/carousel.js" />
+/// <reference path="../js/controllers/store/carouselctrl.js" />
+/// <reference path="../js/directives/databag.js" />
+>>>>>>> 4748755602eacb60686bf861310dc8401281740d
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

@@ -141,7 +141,7 @@
   <data name="CardOwnerNo" xml:space="preserve">
     <value>ת.ז. בעל הכרטיס</value>
   </data>
-  <data name="Cell Phone" xml:space="preserve">
+  <data name="CellPhone" xml:space="preserve">
     <value>טלפון נייד</value>
   </data>
   <data name="CheapPrices" xml:space="preserve">
@@ -175,7 +175,10 @@
     <value>דואר אלקטרוני</value>
   </data>
   <data name="GetDiscounts" xml:space="preserve">
-    <value>הזכאות למחירים מיוחדים, כולל הנחת קופון, הנה לסטודנטים רשומים בלבד. כל שעליכם לעשות הוא להירשם לאתר או להשתמש בקוד הקופון אשר ברשותכם בשילוב מספר תעודת סטודנט\ ת.ז.
+    <value>הזכאות למחירים מיוחדים, כולל הנחת קופון,
+הנה לסטודנטים רשומים בלבד. כל שעליכם לעשות הוא
+להירשם לאתר או להשתמש בקוד הקופון אשר ברשותכם
+בשילוב מספר תעודת סטודנט\ ת.ז.
 תהנו!</value>
   </data>
   <data name="GetHelp" xml:space="preserve">
@@ -281,7 +284,8 @@
     <value>3 ספרות בגב הכרטיס</value>
   </data>
   <data name="ToGetACoupon" xml:space="preserve">
-    <value>לקבלת קוד קופון עליך להירשם לאתר או פנה לאגודת הסטודנטים בה אתה חבר</value>
+    <value>לקבלת קוד קופון עליך להירשם לאתר
+או פנה לאגודת הסטודנטים בה אתה חבר</value>
   </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>סה''כ לתשלום</value>
@@ -315,5 +319,72 @@
   </data>
   <data name="TermsOfService" xml:space="preserve">
     <value>תנאי שימוש</value>
+  </data>
+  <data name="AddToPurchase" xml:space="preserve">
+    <value>הוסף לרכישה</value>
+  </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value>מחיר המוצר</value>
+  </data>
+  <data name="Vat" xml:space="preserve">
+    <value>מע''מ</value>
+  </data>
+  <data name="FillDetails" xml:space="preserve">
+    <value>אנא מלא את פרטיך לצורך השלמת הרכישה.</value>
+  </data>
+  <data name="SecurityCode" xml:space="preserve">
+    <value>קוד ביטחון
+הוא שלשת הספרות האחרונות
+בצד האחורי של הכרטיס</value>
+  </data>
+  <data name="CouponCode" xml:space="preserve">
+    <value>קוד קופון</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>חנות האגודה</value>
+  </data>
+  <data name="AdditionalInfo" xml:space="preserve">
+    <value>פרטים נוספים</value>
+  </data>
+  <data name="DeliveryTime" xml:space="preserve">
+    <value>זמן אספקה</value>
+  </data>
+  <data name="NoInterestInstall" xml:space="preserve">
+    <value>תשלומים ללא ריבית</value>
+  </data>
+  <data name="PaymentCond" xml:space="preserve">
+    <value>תנאי תשלום</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>מק"ט</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>שם הספק</value>
+  </data>
+  <data name="UpTo" xml:space="preserve">
+    <value>עד</value>
+  </data>
+  <data name="Warranty" xml:space="preserve">
+    <value>אחריות</value>
+  </data>
+  <data name="WorkDays" xml:space="preserve">
+    <value>ימי עסקים ממועד אישור כרטיס האשראי</value>
+  </data>
+  <data name="WorkHours" xml:space="preserve">
+    <value>(בימים א' - ה' בין השעות 9:00 ל 16:00)</value>
+  </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>תקנון</value>
+  </data>
+  <data name="BackTo" xml:space="preserve">
+    <value>חזרה לעמוד הבית</value>
+  </data>
+  <data name="ProcessingOrder" xml:space="preserve">
+    <value>הזמנתך בטיפול.
+ אישור על ביצוע הרכישה נשלח אליך במייל.</value>
+  </data>
+  <data name="ThankyouFor" xml:space="preserve">
+    <value>תודה שרכשת
+בחנות האגודה</value>
   </data>
 </root>

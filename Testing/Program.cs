@@ -6,6 +6,8 @@ using System.IO;
 using System.Configuration;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
+using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -90,10 +92,23 @@ namespace Testing
             //var x = read.ReadData().Result;
         }
 
+        static void HatavotWrite()
+        {
+            var write = new WriteService();
+            var order = new OrderSubmitDto(6912, "111111111", "111111", "111111", "ASDAS", "111111111", "some notes",
+                "ASDAS",
+                "111111", "1111111111111111", new DateTime(2015, 5, 1), "028", 15, "משלוח", " שליח עד הבית *20*",
+                "מידות", " 42 *0*",
+                string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+                string.Empty,
+                "דשדג@ASDAS.COM", "072-86965", "052-454564564", 1, 1);
+            write.InsertOrder(order);
+        }
+
         static void Main(string[] args)
         {
 
-            HatavotRead();
+            //HatavotWrite();
             //UniversitySearchProvider x = new UniversitySearchProvider();
             //x.BuildUniversityData();
             //            var x2 = @". עיקרי תוכנית בוורידג*. 
@@ -542,6 +557,9 @@ namespace Testing
 
 
             var mail = new Zbang.Zbox.Infrastructure.Mail.MailManager2();
+            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
+
+
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("en-Us")));
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("he-IL")));
 

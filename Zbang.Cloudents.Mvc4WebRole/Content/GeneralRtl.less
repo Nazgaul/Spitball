@@ -170,6 +170,18 @@ input[type="radio"] {
         left: auto;
     }
 }
+
+/*#region Welcome Store */
+.registerFirst {
+    &.store {
+        &:before {
+            right:-1px; /*rtl*/
+            left: auto;
+        }
+}
+
+/*#endregion */
+
 .emailBtn {
     padding: 7px 53px 8px 15px; /*rtl*/
     text-align: right; /*rtl*/
@@ -302,7 +314,8 @@ input[type="radio"] {
 /*#region User tooltip */
 .userTooltip
 {
-    padding: 17px 110px 6px 10px; /*rtl*/
+    padding: 10px 110px 6px 10px; /*rtl*/
+    //padding: 17px 110px 6px 10px; /*rtl*/
 }
 
 .ttImg
@@ -345,9 +358,9 @@ input[type="radio"] {
 /*#region popover */
 .popover {
     text-align: right; /*rtl*/
-    .userTooltip {
-        padding: 10px 110px 6px 10px; /*rtl*/
-    }
+    /*.userTooltip {
+        padding: 10px 110px 6px 10px;
+    }*/
 
     &.top {
         > .arrow {
@@ -370,8 +383,8 @@ input[type="radio"] {
             }
         }
     }
-    /*&.left {
-        margin: 0 -10px 0 0; 
+    &.left {
+        margin: 0 0 0 10px;  /*diff rtl*/
         > .arrow {
             left: -12px; 
             right: auto;
@@ -389,9 +402,9 @@ input[type="radio"] {
         .boxItemTt {
             //margin-right: -146px - 379px; //rtl only
         }
-    }*/
-    /*&.right {
-        margin: 0 10px 0 0; 
+    }
+    &.right {
+        margin: 0 0 0 -10px; /* diff rtl*/
         > .arrow {
             right: -12px; 
             left: auto;
@@ -406,7 +419,7 @@ input[type="radio"] {
                 border-right-color: transparent;
             }
         }
-    }*/
+    }
 }
 /*#endregion */
              
@@ -534,7 +547,15 @@ input[type="radio"] {
 
 /*#endregion */
 
-
+/*#region IE only CSS */
+@media screen and (~'min-width:0\0') { 
+    .boxItemTt.boxItemTt {
+        .ttPreview {
+            max-height: 52px; /* diff rtl - heb has 4 lines*/
+        }
+    }
+}
+/*#endregion */
 
 /*#endregion */
 

@@ -83,7 +83,8 @@
   min-height: 40px;
 }
 .QForm .QTextarea {
-  width: 308px;
+  width: -webkit-calc(100% - 44px);
+  width: calc(100% - 44px);
   margin-top: 6px;
 }
 .QForm .QAImg {
@@ -169,7 +170,6 @@ textarea:invalid {
 }
 .textareaWpr {
   background: #fff;
-  display: inline-block;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   overflow: hidden;
@@ -309,7 +309,8 @@ textarea:invalid {
 }
 .QEmptyForm .QTextarea {
   min-height: 29px;
-  width: 298px;
+  width: -webkit-calc(100% - 44px);
+  width: calc(100% - 44px);
 }
 .QEmptyForm .QTextarea::-webkit-input-placeholder {
   color: #0371c8;

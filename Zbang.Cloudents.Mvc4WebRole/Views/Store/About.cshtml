@@ -1,2 +1,25 @@
-﻿
-<h2>About</h2>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+<div class="storeWpr page">
+    @{Html.RenderPartial("_Navigation");}
+    <div class="widget">
+        <div class="lFloat banner">
+
+        </div>
+    </div>
+
+    <div class="about">
+        <div class="txt1">@StoreResources.BeforeYouBuy</div>
+        <h2>@StoreResources.SecurePurchase</h2>
+        <p>@StoreResources.SitePoweredBy</p>
+        <h2>@StoreResources.WholeToRetail</h2>
+        <p>@StoreResources.CheapPrices</p>
+
+        <h2>@StoreResources.SafeDelivery</h2>
+        <p>@StoreResources.WeCommit</p>
+
+        <h2>@StoreResources.Security</h2>
+        <p>@StoreResources.SecureSite</p>
+    </div>
+
+    @{Html.RenderPartial("_Footer");}
+</div>

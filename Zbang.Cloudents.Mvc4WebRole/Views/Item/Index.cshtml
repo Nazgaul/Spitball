@@ -10,7 +10,7 @@
             <div class="itemNameWpr">
                 <h2 class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'tooltip': itemName, 'data-name': itemName }"></span></h2>
             </div>
-            <div class="itemOwner elps calloutTrgr"  data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
+            <div class="itemOwner elps calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
             <span class="lFloat" data-bind="text: update"></span>
             <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>
             <div class="actions">
@@ -137,7 +137,7 @@
             <img class="lFloat" width="32" height="32" alt="" />
             <div class="annotateContent">
                 <div id="annotator" class="annotator semiFont elps"></div>
-                <textarea class="inputText" name="comment"></textarea>
+                <textarea class="inputText" name="comment" text-direction></textarea>
                 <div class="rFloat btnWpr">
                     <button type="button" class="btn1 btnCancel">@SharedResources.Cancel</button>
                     <button type="submit" class="btn1">@SharedResources.Submit</button>
@@ -158,7 +158,7 @@
             <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
             <div class="annotateContent">
                 <span class="annotator semiFont elps">{{userName}}</span>
-                <span data-time="{{date}}" class="annotateDate"></span>
+                <span display-time="{{date}}" class="annotateDate"></span>
                 <div class="annotationTextWpr">
                     <div class="annotationText">{{comment}}</div>
                     <button type="button" class="show-more">@SharedResources.ContinueReading ...</button>

@@ -11,7 +11,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
         private readonly IRepository<StoreCategory> m_CategoryRepository;
 
         public AddProductsToStoreCommandHandler(IRepository<StoreProduct> productRepository,
-            IRepository<StoreCategory> categoryRepository)
+            IRepository<StoreCategory> categoryRepository
+            )
         {
             m_ProductRepository = productRepository;
             m_CategoryRepository = categoryRepository;
@@ -25,7 +26,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
             }
             foreach (var productStore in message.ProductStores)
             {
-                var product = m_ProductRepository.Get(productStore.Id); //use get to get existance in db
+                var product = m_ProductRepository.Get(productStore.Id); //use get to get existence in db
+
                 if (product == null)
                 {
                     product = new StoreProduct(productStore.Id,
@@ -41,27 +43,34 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.SupplyTime,
                         productStore.ProductPayment,
                         productStore.CatalogNumber,
-                        productStore.DeliveryPrice, 
-                        productStore.ProducerName);
+                        productStore.DeliveryPrice,
+                        productStore.ProducerName,
+                        productStore.Upgrades, productStore.UniversityId);
 
                 }
                 else
                 {
-                    product.UpdateProduct(productStore.Id,
-                        productStore.Name,
-                        productStore.ExtraDetails,
-                        productStore.NumberOfSales,
-                        productStore.Coupon,
-                        productStore.SalePrice,
-                        productStore.PictureUrl,
-                        GetProductCategory(productStore.Categories),
-                        productStore.Description,
-                        productStore.Featured,
-                        productStore.SupplyTime,
-                        productStore.ProductPayment,
-                        productStore.CatalogNumber,
-                        productStore.DeliveryPrice, 
-                        productStore.ProducerName);
+                    if (productStore.IsActive)
+                    {
+                        product.UpdateProduct(productStore.Id,
+                            productStore.Name,
+                            productStore.ExtraDetails,
+                            productStore.Coupon,
+                            productStore.SalePrice,
+                            GetProductCategory(productStore.Categories),
+                            productStore.Featured,
+                            productStore.SupplyTime,
+                            productStore.ProductPayment,
+                            productStore.CatalogNumber,
+                            productStore.DeliveryPrice,
+                            productStore.ProducerName,
+                            productStore.Upgrades, productStore.UniversityId);
+                    }
+                    else
+                    {
+                        m_ProductRepository.Delete(product);
+                        continue;
+                    }
                 }
                 m_ProductRepository.Save(product);
             }

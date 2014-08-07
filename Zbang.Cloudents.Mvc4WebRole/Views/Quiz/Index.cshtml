@@ -132,7 +132,7 @@
                             
                             <div class="cTextAreaWpr">
                                 <img class="quizUserCommentImg imgBorder lFloat" src=""  alt="" width="32" height="32" />
-                                <textarea class="cTextArea" placeholder="@SharedResources.WriteComment"></textarea>
+                                <textarea text-direction class="cTextArea" placeholder="@SharedResources.WriteComment"></textarea>
                                 <button type="submit" disabled class="askBtn rFloat">@SharedResources.Comment</button>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
         <button type="button" class="closeDialog"></button>
         <img class="imgBorder calloutTrgr" data-uid="{{userId}}" width=" 32" height="32" alt="" src="{{userPicture}}" />
         <span class="semiFont">{{userName}}</span>
-        <span class="createTime" data-time="{{date}}"></span>
+        <span class="createTime" display-time="{{date}}"></span>
         <div class="commentTxt">{{text}}</div>      
     </li>
 </script>

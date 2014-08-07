@@ -149,9 +149,9 @@
     //#region Dates in the system    
     var actionTimeInterval;
 
-    cd.pubsub.subscribe('showTime', function () {
-        updateTimeActions();
-    });
+    //cd.pubsub.subscribe('showTime', function () {
+    //    updateTimeActions();
+    //});
 
     if (!actionTimeInterval) {
         actionTimeInterval = setInterval(updateTimeActions, 60000);
@@ -232,9 +232,7 @@
             return;
         }
         var time = element.getAttribute('data-time');
-        if ($.isNumeric(time)) {
-            time = parseInt(time, 10);
-        }
+        time = time.replace(/"/g, '');
         element.textContent = parseActionTime(new Date(time));;
     }
     //#endregion

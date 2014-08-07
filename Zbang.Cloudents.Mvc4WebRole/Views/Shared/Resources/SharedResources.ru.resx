@@ -586,4 +586,8 @@
   <data name="EmailRequired" xml:space="preserve">
     <value>введите адрес электронной почты</value>
   </data>
+  <data name="PersonalMsg" xml:space="preserve">
+    <value>Личное сообщение
+</value>
+  </data>
 </root>

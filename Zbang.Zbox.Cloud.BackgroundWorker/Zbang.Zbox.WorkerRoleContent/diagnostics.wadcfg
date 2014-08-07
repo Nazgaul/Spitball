@@ -5,7 +5,7 @@
     <IISLogs container="wad-iis-logfiles" />
     <CrashDumps container="wad-crash-dumps" />
   </Directories>
-  <Logs bufferQuotaInMB="1024" scheduledTransferPeriod="PT1M" scheduledTransferLogLevelFilter="Error" />
+  <Logs bufferQuotaInMB="1024" scheduledTransferPeriod="PT1M" scheduledTransferLogLevelFilter="Information" />
   <PerformanceCounters bufferQuotaInMB="512" scheduledTransferPeriod="PT5M">
     <PerformanceCounterConfiguration counterSpecifier="\Memory\Available MBytes" sampleRate="PT3M" />
     <PerformanceCounterConfiguration counterSpecifier="\Processor(_Total)\% Processor Time" sampleRate="PT1S" />

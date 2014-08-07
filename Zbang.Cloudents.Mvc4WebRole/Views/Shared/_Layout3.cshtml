@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 
 @{
     ViewBag.title = ViewBag.title ?? "Cloudents";
@@ -37,7 +38,7 @@
     @Html.CssCulture("lang")
 
 </head>
-<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")">
+<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore()}">
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {
@@ -53,6 +54,7 @@
     <header class="siteHeader">
         <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
            href="@Url.Action("Index", "Dashboard")"></a>
+
         <div class="headerRightWpr rFloat">
             <nav class="userSection rFloat">
                 <ul class="userNav">
@@ -65,8 +67,11 @@
                     }
                 </ul>
             </nav>
-            @RenderSection("search")
+            <div ng-if="!$root.isStore()">
+                @RenderSection("search", false)
+            </div>
         </div>
+        <h1 ng-class="{showStore : $root.isStore()}">@StoreResources.Description</h1>
     </header>
     <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
         @RenderBody()
@@ -154,15 +159,15 @@
     }
     <script type="text/javascript" src="~/js/CDNFallback.js"></script>
 
-    <script type="text/ng-template" id="userToolTipPopover">
-        <div class="userTooltip" ng-class="{hidePoints : userTooltip.score <= 0}">
-            <a ng-href="{{userTooltip.url}}">
-                <img class="ttImg" ng-src="{{userTooltip.image}}" width="99" height="99" />
+    <script type="text/ng-template" id="userToolTip.html">
+        <div class="userTooltip" ng-class="{hidePoints : user.score <= 0}">
+            <a ng-href="{{user.url}}" ng-click="$root.checkReg($event)">
+                <img class="ttImg" ng-src="{{user.image}}" width="99" height="99" />
             </a>
-            <a class="ttUsername elps" ng-href="{{userTooltip.url}}">{{userTooltip.name}}</a>
-            <div class="ttSchool elps">{{userTooltip.university}}</div>
-            <span class="ttPoints lFloat" data-tt-points="{{userTooltip.score}}">&nbsp;@SharedResources.Points</span>
-            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(userTooltip)">@SharedResources.Message</button>            
+            <a class="ttUsername elps" ng-href="{{user.url}}" ng-click="$root.checkReg($event)">{{user.name}}</a>
+            <div class="ttSchool elps">{{user.universityName}}</div>
+            <span class="ttPoints lFloat" data-tt-points="{{user.score}}">&nbsp;@SharedResources.Points</span>
+            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(user)">@SharedResources.Message</button>
         </div>
     </script>
 
@@ -185,9 +190,9 @@
         <a bo-href="box.url" class="searchItem">
             <img class="lFloat imgBorder" width="40" height="50" bo-src="box.image" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" bo-html="box.name | highlight:formData.query:false"></div>
-                <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-html="box.proffessor | highlight:formData.query:false"></span>
-                <span class="searchDetail" bo-html="box.courseCode | highlight:formData.query:false"></span>
+                <div class="searchTitle semiFont elps" bo-html="box.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
+                <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-html="box.proffessor | highlight:formData.query:false" dir="{{params.textDirection}}"></span>
+                <span class="searchDetail" bo-html="box.courseCode | highlight:formData.query:false" dir="{{params.textDirection}}"></span>
             </div>
         </a>
     </script>
@@ -196,31 +201,39 @@
             <div class="otherUni semiFont" ng-if="item.universityName" bo-text="item.universityName"></div>
             <img class="lFloat imgBorder" width="40" height="50" bo-src="item.image" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" bo-html="item.name | highlight:formData.query:false"></div>
+                <div class="searchTitle semiFont elps" bo-html="item.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
                 <div class="boxLoc searchDetail" data-search-in="@SharedResources.In" bo-text="item.boxname"></div>
-            </div>  
+            </div>
         </a>
     </script>
     <script type="text/ng-template" id="personHeaderSearch">
         <a bo-href="person.url" class="searchItem">
             <img class="lFloat imgBorder userImg" bo-src="person.image" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps" bo-html="person.name | highlight:formData.query:false"></div>
+            <div class="searchTitle semiFont elps" bo-html="person.name | highlight:formData.query:false" dir="{{params.textDirection}}"></div>
         </a>
     </script>
-  
 
+    <script type="text/html" id="userToolTipTempalte">
+        <a data-navigation="User" href="{{url}}">
+            <img class="ttImg" src="{{image}}" width="99" height="99" />
+        </a>
+        <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
+        <div class="ttSchool elps">{{university}}</div>
+        <span class="ttPoints lFloat" data-tt-points="{{score}}">&nbsp;Points</span>
+        <button type="button" class="btn3 rFloat">Message</button>
+    </script>
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
-    
+
     @RenderSection("scripts", false)
 
-   
-   
+
+
 
 
     @if (User.Identity.IsAuthenticated)
     {
-        <iframe  id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
+        <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
     }
 </body>
 </html>

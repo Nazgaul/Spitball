@@ -175,12 +175,13 @@ mBox.controller('QnACtrl',
                     userUid: sUserDetails.getDetails().id, //uid
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls($scope.qFormData.content),
-                    creationTime: new Date(),
+                    creationTime: new Date().toISOString(),
                     answers: [],
                     files: fileDisplay || []
                 }
 
                 $scope.info.questions.unshift(new Question(obj));
+                $scope.$broadcast('update-scroll');
                 $scope.qFormData = {};
 
                 if ($scope.info.state === states.empty) {
@@ -229,13 +230,15 @@ mBox.controller('QnACtrl',
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls(question.aFormData.content),
                     rating: 0,
-                    creationTime: new Date(),
+                    creationTime: new Date().toISOString(),
                     iRate: false,
                     answer: false,
                     files: fileDisplay || []
                 };
 
                 question.answers.push(new Answer(obj));
+                $scope.$broadcast('update-scroll');
+
                 question.bestAnswer = findBestAnswer(question.answers);
                 //updatetime
                 //notify

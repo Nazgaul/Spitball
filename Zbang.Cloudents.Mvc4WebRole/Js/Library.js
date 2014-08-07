@@ -219,13 +219,6 @@ function Box(data) {
             self.loaded(false);
             var $libraryList = $('#libraryList'), initData = $libraryList.data('data');
             var $libraryContentWrpr = $('#libraryContent .contentWpr');
-            if (initData) {
-                processData(initData);
-                $libraryList.data('data', null).removeAttr('data-data');
-                self.loaded(true);
-                return;
-            }
-
 
             var loader = cd.renderLoading($libraryContentWrpr);
 
@@ -322,7 +315,13 @@ function Box(data) {
                     var librarybox = new LibraryBox(data);
                     academicBoxDialog.dialog('hide');
                     cd.resetForm(f);
-                    cd.pubsub.publish('nav', librarybox.boxUrl);
+                    
+                    var $injector = angular.element(document).injector();
+                    var $scope = angular.element(document).scope();
+                    var $location = $injector.get('$location');
+                    
+                    $location.path(librarybox.boxUrl);
+                    $scope.$apply();
                 },
                 error: function (msg) {
                     cd.displayErrors(f, msg);
@@ -360,7 +359,7 @@ function Box(data) {
             }
 
             dataContext.removeBox2({
-                data: { boxUid: box.uid }
+                data: { id: box.id }
             });
             if (isDelete) {
                 self.elements.remove(box);
@@ -376,7 +375,12 @@ function Box(data) {
             dataContext.deleteNode({
                 data: { id: id },
                 success: function () {
-                    cd.pubsub.publish('nav', $('#lib_Back').attr('href'));
+                    var $injector = angular.element(document).injector();
+                    var $scope = angular.element(document).scope();
+                    var $location = $injector.get('$location');
+
+                    $location.path($('#lib_Back').attr('href'));
+                    $scope.$apply();                    
                     //location.href = $('#lib_Back').prop('href');
                 }
             });
@@ -419,11 +423,12 @@ function Box(data) {
                 dataContext.renameNode({
                     data: { Id: getLibraryId(), NewName: val },
                     success: function () {
-                        var $rootScope = angular.element(document).scope();
-                        $rootScope.$apply(function () {
-                            var elements = ['library', getLibraryId(), x.input.val()];
-                            $rootScope.setUrl('/' + elements.join('/'));
-                        });
+
+                        var elements = ['library', getLibraryId(), x.input.val()];
+                        if (window.history && window.history.replaceState) {
+                            window.history.replaceState('/' + elements.join('/'), '', '/' + elements.join('/'));
+                            window.location.reload();
+                        }
                         x.show();
                         $('#lib_NodeName').text(val);
                     },
@@ -463,7 +468,7 @@ function Box(data) {
 
         }
 
-        
+
         //cd.pubsub.subscribe('windowChanged', function () {
         //    if (document.getElementById('library').style.display === 'block') {
         //        innerScrollLetter();
@@ -476,11 +481,11 @@ function Box(data) {
         //});
 
         function innerScrollLetter() {
-            $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 155).css('height',$(document).height() - 155);
+            $('#uniLetter').removeClass('unionFeaturedHeight').attr('height', $(document).height() - 155).css('height', $(document).height() - 155);
 
 
         }
-        
+
         $(window).resize(innerScrollLetter);
         innerScrollLetter();
         facebookLikeBox();
@@ -494,8 +499,10 @@ function Box(data) {
         });
         cd.analytics.setLibrary($('.unionName').text());
 
-
+        
     }
+
+    
 
 })(cd, cd.data, ko, JsResources, cd.analytics || {});
 

@@ -31,9 +31,7 @@ mBox.controller('BoxCtrl',
                     thumb: 'thumb',
                     list: 'list'
                 },
-                itemsLimit: 21,
-                starsLength: 5,
-                starsWidth: 69
+                itemsLimit: 21                
             };
             $scope.action = {};
 
@@ -52,7 +50,9 @@ mBox.controller('BoxCtrl',
             $scope.options = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
-                manageTab: false
+                manageTab: false,
+                starsLength: 5,
+                starsWidth: 69
             };
 
             var infoPromise = Box.info({ id: $scope.boxId }),
@@ -92,21 +92,35 @@ mBox.controller('BoxCtrl',
                 $scope.info.currentTab = null;
 
                 $scope.items = items.map(function (item) {
-                    var type = item.type === 'Quiz' ? 'quizzes' : 'items';                    
+                    var type = item.type === 'Quiz' ? 'quizzes' : 'items';
                     item.isNew = NewUpdates.isNew($scope.boxId, type, item.id);
                     return item;
                 });
 
+                $scope.items.sort(sortItems);
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+
                 $scope.$broadcast('qna', qna);
+
+                $scope.info.showJoinGroup = $scope.isUserFollowing();
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
+                    $rootScope.$broadcast('update-scroll');
                 });
             });
 
             //#region quiz
             $scope.addQuiz = function () {
+                if (!UserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+
+                if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
+                    alert(jsResources.NeedToFollowBox);
+                    return;
+                }
 
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
                 $timeout(function () {
@@ -195,7 +209,7 @@ mBox.controller('BoxCtrl',
 
             $scope.openUploadPopup = function (qna) {
                 if (!UserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register');
+                    cd.pubsub.publish('register', { action: true });
                     return;
                 }
                 var defer, fileList;
@@ -319,11 +333,9 @@ mBox.controller('BoxCtrl',
 
                             if (qna) {
                                 fileList.push(responseItem);
-                                if (data.type === 'link') {                                    
-                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
-                                    return;
-                                }
-                                if (uploaded === data.length) {                                   
+                                if (data.type === 'link') {
+                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });                                    
+                                } else if (uploaded === data.length) {
                                     cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
                                 }
                                 defer.resolve(fileList);
@@ -331,7 +343,7 @@ mBox.controller('BoxCtrl',
                             }
                             $scope.followBox(true);
 
-                            
+
                         }).catch(function () {
                             uploaded++;
                         });
@@ -381,6 +393,7 @@ mBox.controller('BoxCtrl',
                 $scope.info.currentTab = null;
                 $scope.options.manageTab = false;
                 $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+                $rootScope.$broadcast('update_scroll');
 
 
             };
@@ -412,6 +425,12 @@ mBox.controller('BoxCtrl',
             $scope.createTab = function () {
                 if (!UserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+
+                if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
+                    alert(jsResources.NeedToFollowBox);
+                    return;
                 }
 
                 var modalInstance = $modal.open({
@@ -430,12 +449,14 @@ mBox.controller('BoxCtrl',
 
                 modalInstance.result.then(function (tab) {
                     $scope.info.tabs.push(tab);
+                    $rootScope.$broadcast('update_scroll');
+
                 }, function () {
                     //dismiss
                 });
             };
 
-            $scope.manageTab = function (tab) {
+            $scope.manageTab = function () {
                 var filteredItems = $filter('filter')($scope.items, filterManageItems);
                 if (!filteredItems.length) {
                     return;
@@ -484,7 +505,7 @@ mBox.controller('BoxCtrl',
             }
 
             function filterManageItems(item) {
-                if (item.sponsored && $scope.items.indexOf(item) < $scope.options.itemsLimit) {
+                if (item.sponsored) {
                     $scope.options.sponsored = true;
                 }
                 if (item.type === 'Quiz') {
@@ -529,6 +550,20 @@ mBox.controller('BoxCtrl',
                 }, function () {
                     //dismiss
                 });
+            };
+
+            $scope.inviteFriends = function (e) {
+                if (!UserDetails.isAuthenticated()) {
+                    e.preventDefault();
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+
+                if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
+                    e.preventDefault();
+                    alert(jsResources.NeedToFollowBox);
+                    return;
+                }
             };
             //#endregion
 
@@ -586,7 +621,7 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.deleteItem = function (item) {
-                cd.confirm2(JsResources.SureYouWantToDelete + ' ' + item.name + "?").then(function () {
+                cd.confirm2(jsResources.SureYouWantToDelete + ' ' + item.name + "?").then(function () {
                     switch (item.type) {
                         case 'File':
                         case 'Link':
@@ -617,7 +652,7 @@ mBox.controller('BoxCtrl',
                     $scope.items.splice(index, 1);
                     index = $scope.filteredItems.indexOf(item);
                     if (index > -1) {
-                        index = $scope.filteredItems.splice(index, 1);
+                        $scope.filteredItems.splice(index, 1);
                     }
 
                     if (item.type === 'Quiz' && !item.publish) {
@@ -629,6 +664,10 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.addDraggedItem = function (item, tabId) {
+                if (item.type === 'Quiz') {
+                    return;
+                }
+
                 var setTabId = false;
                 for (var i = 0, l = $scope.items.length; i < l && !setTabId; i++) {
                     if ($scope.items[i].id === item.id) {
@@ -645,10 +684,15 @@ mBox.controller('BoxCtrl',
                        ($scope.info.userType === 'owner' || item.ownerId === UserDetails.getDetails().id);
             };
 
+            $scope.downloadItem = function (item) {
+                cd.pubsub.publish('item_Download', { id: item.id });
+            };
+
             function filterItems(item) {
-                if (item.sponsored && $scope.items.indexOf(item) < $scope.options.itemsLimit) {
+                if (item.sponsored) {
                     $scope.options.sponsored = true;
                 }
+
                 if (!$scope.info.currentTab) {
                     return true;
                 }
@@ -659,6 +703,27 @@ mBox.controller('BoxCtrl',
 
                 return false;
 
+            }
+
+            function sortItems(a, b) {
+                if (a.sponsored) {
+                    return -1;
+                }
+                if (b.sponsored) {
+                    return 1;
+                }
+                if (a.date > b.date) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return 1;
+                }
+                else {
+                    return -1;
+                }
+                return 0;
             }
             //#endregion
 
@@ -674,6 +739,12 @@ mBox.controller('BoxCtrl',
 
                 if (!UserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+
+                if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
+                    alert(jsResources.NeedToFollowBox);
+                    return;
                 }
 
                 var memberPromise = Box.members({ boxUid: $scope.boxId }),
@@ -705,7 +776,11 @@ mBox.controller('BoxCtrl',
 
                     modalInstance.result.then(function (result) {
                         $scope.info.name = result.name;
+                        $scope.info.privacy = result.boxPrivacy;
 
+                        if (!result.queryString) {
+                            return;
+                        }
                         $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
                         var path = $location.path(),
                             boxName = '/' + path.split('/')[4] + '/';//boxName
@@ -723,6 +798,10 @@ mBox.controller('BoxCtrl',
 
             //#region user
             $scope.followBox = function (nonAjax) {
+                if ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe') {
+                    return;
+                }
+
                 if ($scope.action.userFollow) {
                     return;
                 }
@@ -730,6 +809,8 @@ mBox.controller('BoxCtrl',
                 $scope.action = {
                     userFollow: true
                 }
+                $scope.info.userType = 'subscrie';
+
                 var member = {
                     uid: UserDetails.getDetails().id,
                     name: UserDetails.getDetails().name,
@@ -749,7 +830,7 @@ mBox.controller('BoxCtrl',
                 };
 
                 $timeout(function () {
-                    $scope.info.userType = 'subscribe';
+                    $scope.info.showJoinGroup = false;
                 }, 3300);
 
                 if (nonAjax) {
@@ -770,7 +851,7 @@ mBox.controller('BoxCtrl',
                     return false;
                 }
                 return ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe');
-            };          
+            };
 
             //#endregion
 

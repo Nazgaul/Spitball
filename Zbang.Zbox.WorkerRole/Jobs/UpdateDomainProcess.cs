@@ -27,7 +27,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 try
                 {
-                    Excecute();
+                    Execute();
                 }
                 catch (Exception ex)
                 {
@@ -38,7 +38,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         }
 
-        private void Excecute()
+        private void Execute()
         {
 
             m_QueueProcess.RunQueue(new UpdateDomainQueueName(), msg =>
@@ -48,16 +48,16 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                     if (msgData == null)
                     {
-                        TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess msgid:" + msg.Id);
+                        TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess msgId:" + msg.Id);
                         return true;
                     }
                     var process = IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
                     if (process == null)
                     {
-                        TraceLog.WriteError("UpdateDomainProcess run - process is null msgid:" + msg.Id + " msgData.ProcessResolver:" + msgData.ProcessResolver);
+                        TraceLog.WriteError("UpdateDomainProcess run - process is null msgId:" + msg.Id + " msgData.ProcessResolver:" + msgData.ProcessResolver);
                         return true;
                     }
-                    return process.Excecute(msgData);
+                    return process.Execute(msgData);
                 }
                 catch (Exception ex)
                 {

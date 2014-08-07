@@ -107,7 +107,9 @@
     }
 
     .QTextarea {
-        width: 308px;
+        //width: 308px; - causes problems with zoom
+        width: ~'-webkit-calc(100% - 44px)';
+        width: ~'calc(100% - 44px)';
         margin-top: 6px;
     }
 
@@ -216,7 +218,7 @@ textarea:invalid {
 
 .textareaWpr {
     background: #fff;
-    display: inline-block;
+    //display: inline-block;
     border: 1px solid #c2c2c2;
     border-radius: 3px;
     overflow: hidden;
@@ -369,7 +371,9 @@ textarea:invalid {
 
     .QTextarea {
         min-height: 29px;
-        width: 298px;
+        //width: 298px; - causes problems with zoom
+        width: ~'-webkit-calc(100% - 44px)';
+        width: ~'calc(100% - 44px)';
         .placeholderColor(@attentionBlue);
     }
 

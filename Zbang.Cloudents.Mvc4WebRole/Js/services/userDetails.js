@@ -2,7 +2,7 @@
  [
 
  function () {
-     var userData,
+     var userData = {};
          isAuthenticated = false;
 
      return {

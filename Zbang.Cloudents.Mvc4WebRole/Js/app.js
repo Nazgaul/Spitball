@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic',
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection',
     'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'debounce']);
 
 app.config([
@@ -10,7 +10,7 @@ app.config([
 
     function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide) {
 
-   
+
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
 
@@ -60,6 +60,7 @@ app.config([
 
         //#region routes
         $routeProvider.
+        //#region cloudents
         when('/dashboard/', {
             params: {
                 type: 'dashboard'
@@ -121,13 +122,73 @@ app.config([
             },
             templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
         }).
+        //#endregion
+        //#region store
+             when('/store/', {
+                 templateUrl: function (params) { var url = '/Store/', universityId = params.universityId || params.universityid; if (universityId) { url += '?universityid=' + universityId; } return url; },
+                 controller: 'CategoryCtrl',
+                 reloadOnSearch: false,
+                 params: {
+                     type: 'products'
+                 }
+             }).
+            when('/store/category/:categoryId/', {
+                templateUrl: '/Store/',
+                controller: 'CategoryCtrl',
+                params: {
+                    type: 'products'
+                }
+            }).
+            when('/store/product/:productId/:productName/', {
+                templateUrl: function (params) { var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid; if (universityId) { url += '&universityid=' + universityId; } return url; },
+                controller: 'ProductCtrl',
+                params: {
+                    type: 'product'
+                }
+            }).
+            when('/store/about/', {
+                templateUrl: '/Store/About/',
+                controller: 'ViewCtrl',
+                params: {
+                    type: 'about'
+                }
+            }).
+            when('/store/contact/', {
+                templateUrl: '/Store/Contact/',
+                controller: 'ViewCtrl',
+                params: {
+                    type: 'contact'
+                }
+            }).
+            when('/store/checkout/:productId/', {
+                templateUrl: function (params) { return '/Store/Checkout/?id=' + params.productId; },
+                controller: 'CheckoutCtrl',
+                params: {
+                    type: 'checkout'
+                }
+            }).
+            when('/store/terms/', {
+                templateUrl: '/store/Terms/',
+                controller: 'ViewCtrl',
+                params: {
+                    type: 'terms'
+                }
+            }).
+            when('/store/thankyou/', {
+                templateUrl: '/store/Thankyou/',
+                controller: 'ViewCtrl',
+                params: {
+                    type: 'thankyou'
+                }
+            }).
+          //#endregion
         otherwise({ redirectTo: '/dashboard/' });
 
         //#endregion
 
 
         //#region log js errors 
-        $provide.decorator('$exceptionHandler', ['$delegate','$log', 'stackTraceService', function ($delegate,$log, stackTraceService) {
+        $provide.decorator('$exceptionHandler', ['$delegate', '$log', 'stackTraceService', function ($delegate, $log, stackTraceService) {
             return function (exception, cause) {
                 $delegate(exception, cause);
 
@@ -171,19 +232,38 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
     };
 
+    $rootScope.$on('$routeChangeStart', function () {
+        $window.scrollTo(0, 0);
+    });
+
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
         //title 
         if (!previous) {
+
+            if (!isCurrentRoute(current)) {
+                return;
+            }
+
+            if (current.$$route.params.type === 'box') {
+                if (sUserDetails.isAuthenticated()) {
+                    sNewUpdates.removeUpdates(current.params.boxId);
+                }
+            }
             return;
         }
         if (!previous.$$route) {
             return;
         }
+        if (!previous.$$route.params) {
+            return;
+        }
+        if (!previous.$$route.params.type) {
+            return;
+        }
 
         switch (previous.$$route.params.type) {
             case 'box':
-                sNewUpdates.removeUpdates(previous.params.boxId);
                 break;
             case 'library':
                 cd.pubsub.publish('libraryclear');
@@ -198,14 +278,17 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
                 cd.pubsub.publish('quizclear');
                 break;
         };
-        if (!current){
-            return;
-        }
-        if (!current.$$route) {
+
+        if (!isCurrentRoute(current)) {
             return;
         }
 
         if (current.$$route.params.type === 'box') {
+            if (sUserDetails.isAuthenticated()) {
+                sNewUpdates.removeUpdates(current.params.boxId);
+            }
+
+
             switch (previous.$$route.params.type) {
                 case 'library':
                     $rootScope.back.title = previous.pathParams.libraryName;
@@ -221,79 +304,24 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
                     break;
             }
         }
-       
+
 
     });
 
-
-    var rtlChars = '\u0600-\u06FF' + '\u0750-\u077F' + '\u08A0-\u08FF' + '\uFB50-\uFDFF' + '\uFE70-\uFEFF';//arabic
-    rtlChars += '\u0590-\u05FF' + '\uFB1D-\uFB4F';//hebrew
-
-    var controlChars = '\u0000-\u0020';
-    controlChars += '\u2000-\u200D';
-
-    //Start Regular Expression magic
-    var reRtl = new RegExp('[' + rtlChars + ']', 'g'),
-        reNotRtl = new RegExp('[^' + rtlChars + controlChars + ']', 'g'),
-        textAlign = $('html').css('direction') === 'ltr' ? 'left' : 'right';
-
-    function checkRtlDirection(value) {
-
-        if (!value) {
-            return;
+    function isCurrentRoute(current) {
+        if (!current) {
+            return false;
+        }
+        if (!current.$$route) {
+            return false;
+        }
+        if (!current.$$route.params) {
+            return false;
+        }
+        if (!current.$$route.params.type) {
+            return false;
         }
 
-        var rtls = value.match(reRtl);
-        if (rtls !== null)
-            rtls = rtls.length;
-        else
-            rtls = 0;
-
-        var notrtls = value.match(reNotRtl);
-        if (notrtls !== null)
-            notrtls = notrtls.length;
-        else
-            notrtls = 0;
-
-        return rtls > notrtls;
+        return true;
     }
-    $(document).on('input', 'input,textarea', function () {
-        if (!this.value.length) {
-            $(this).css('direction', '').css('text-align', '');
-            return;
-        }
-        if (checkRtlDirection(this.value)) {
-            $(this).css('direction', 'rtl').css('text-align', 'right');
-        } else {
-            $(this).css('direction', 'ltr').css('text-align', 'left');
-        }
-    });
-
-
-    var setElementDirection = function (element) {
-        if (checkRtlDirection(element.textContent)) {
-            $(element).css({ 'direction': 'rtl', 'text-align': textAlign });
-        } else {
-            $(element).css({ 'direction': 'ltr', 'text-align': textAlign });
-        }
-    }
-
-    //#endregion
 }]);
-
-app.directive('postRepeatDirective',
-    ['$timeout',
-    function ($timeout) {
-        return function (scope) {
-            if (scope.$first) {
-                window.a = new Date();   // window.a can be updated anywhere if to reset counter at some action if ng-repeat is not getting started from $first
-            }
-            if (scope.$last) {
-                $timeout(function () {
-                    console.log("## DOM rendering list took: " + (new Date() - window.a) + " ms");
-                });
-            }
-        };
-    }
-    ]);
-

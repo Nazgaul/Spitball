@@ -304,5 +304,27 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetProduct(query);
         }
+        public Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
+        {
+            return m_ReadService.GetProductCheckOut(query);
+        }
+
+
+        public Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
+        {
+            return m_ReadService.SearchProducts(query);
+        }
+
+
+        public Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
+        {
+            return m_ReadService.GetBanners(universityId);
+        }
+
+
+        public Task<bool> ValidateCoupon(int coupon)
+        {
+            return m_ReadService.ValidateCoupon(coupon);
+        }
     }
 }

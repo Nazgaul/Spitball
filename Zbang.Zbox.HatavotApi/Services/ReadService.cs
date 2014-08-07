@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
@@ -10,9 +11,9 @@ namespace Zbang.Zbox.Store.Services
     {
         private const string ConnectionStringName = "Hatavot";
 
-        public async Task<IEnumerable<ProductDto>> ReadData(int category)
+        public IEnumerable<ProductDto> ReadData(int category)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
+            using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
                 const string sql = @"select [productid]  as Id -- Product ID 
       ,[name] -- Product Name 
@@ -21,7 +22,7 @@ namespace Zbang.Zbox.Store.Services
       ,[image]-- Main Image (http://www.hatavot.co.il/uploadimages/250/XXX)
       ,[catcode] as CategoryCode -- Categories (list to  CatCode in [bizpoin_bizpointDB].[categories])
       ,[featured] -- Show on main page 
-      --,[show] -- Active if NOT 'ON'
+      ,[show] as NotActive -- Active if NOT 'ON'
       ,[CatalogNumber] -- part of Product Description 
       ,[SubName] as ExtraDetails-- 2nd title of the Product Description 
       ,[SupplyTime]-- part of Product description 
@@ -29,32 +30,32 @@ namespace Zbang.Zbox.Store.Services
       --,[SalesProdOrder] -- sales page product order 
       --,[ProdOrder] -- Category Page  product order
       ,(select producerName from tblproducers s where s.producerid = p.[ProducerId]) as producerName -- Producer ID 
-      --,[p1] -- Upgrades
-      --,[v1]-- Upgrades
-      --,[p2]-- Upgrades
-      --,[v2]-- Upgrades
-      --,[p3]-- Upgrades
-      --,[v3]-- Upgrades
-      --,[p4]-- Upgrades
-      --,[v4]-- Upgrades
-      --,[p5]-- Upgrades
-      --,[v5]-- Upgrades
-      --,[p6]-- Upgrades
-      --,[v6]-- Upgrades
+      ,[p1] as upgrade1  -- Upgrades
+      ,[v1] as upgradeValue1 -- Upgrades
+      ,[p2] as upgrade2 -- Upgrades
+      ,[v2] as upgradeValue2-- Upgrades
+      ,[p3] as upgrade3 -- Upgrades
+      ,[v3] as upgradeValue3-- Upgrades
+      ,[p4] as upgrade4 -- Upgrades
+      ,[v4] as upgradeValue4-- Upgrades
+      ,[p5] as upgrade5 -- Upgrades
+      ,[v5] as upgradeValue5-- Upgrades
+      ,[p6] as upgrade6 -- Upgrades
+      ,[v6] as upgradeValue6-- Upgrades
       ,[DeliveryPrice] -- Delivery charge 
       ,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
-      --,[designNum] -- Which University to show --> Can be to all or to one specific  
+      ,[designNum] as UniversityId -- Which University to show --> Can be to all or to one specific  
   FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
-                return await conn.QueryAsync<ProductDto>(sql, new { catId  = category});
+                return conn.Query<ProductDto>(sql, new { catId = category });
             }
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategories()
+        public IEnumerable<CategoryDto> GetCategories()
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
+            using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
-                return await conn.QueryAsync<CategoryDto>(@"WITH cte 
+                return conn.Query<CategoryDto>(@"WITH cte 
 AS
 (
     select catcode,catname,parentid,catorder,1 as level from categories c where parentid = 611
@@ -66,6 +67,24 @@ AS
         ON e.parentid = d.catcode
 )
 select catcode as Id, catname as name, parentid, catorder as [order] from cte where level = 2");
+            }
+        }
+
+
+        public IEnumerable<BannerDto> GetBanners()
+        {
+            using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
+            {
+
+                var sql = @"SELECT [AdvID] as Id -- ID 
+      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
+      ,[AdvLink] as Url -- URL to point the banner if NULL static image
+      ,[AdvOrder] as UniversityId -- University ID
+      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
+  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 --and banorder between 1 and 9
+  order by banorder";
+                return conn.Query<BannerDto>(sql);
+
             }
         }
     }

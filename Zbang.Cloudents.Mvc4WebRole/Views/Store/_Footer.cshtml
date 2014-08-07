@@ -1,0 +1,77 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+@using Zbang.Zbox.ViewModel.Dto.Store
+@{
+    var model = ViewBag.categories as IList<CategoryDto> ?? new List<CategoryDto>();
+}
+@helper Category(IEnumerable<CategoryDto> categories)
+{
+    <ul>
+        @foreach (var sub in categories)
+        {
+            var url = sub.Url + Request.Url.Query;
+            <li><a href="@url">@sub.Name</a></li>
+        }
+    </ul>
+}
+<footer role="contentinfo">
+    <div class="wpr">
+        <div>
+            <h3>מחשבים \ טאבלטים</h3>
+            @Category(model.Where(w => w.ParentId == 613))
+
+            <h3>מחשבונים</h3>
+            @Category(model.Where(w => w.ParentId == 697))
+        </div>
+        <div>
+            <h3>מילונים \ אנגלית</h3>
+            @Category(model.Where(w => w.ParentId == 699))
+
+            <h3>סלולר</h3>
+            @Category(model.Where(w => w.ParentId == 675))
+
+            <h3>כריכת חוברות</h3>
+            @Category(model.Where(w => w.ParentId == 703))
+        </div>
+
+        <div>
+            <h3>ציוד היקפי מחשב</h3>
+            @Category(model.Where(w => w.ParentId == 612))
+        </div>
+        <div>
+            <h3>פנאי ובילויים</h3>
+            @Category(model.Where(w => w.ParentId == 622))
+
+            <h3>מוצרי חשמל</h3>
+            @Category(model.Where(w => w.ParentId == 629))
+        </div>
+
+        <div>
+            <h3>מערכות שמע</h3>
+            @Category(model.Where(w => w.ParentId == 669))
+            <h3>ריהוט משרדי</h3>
+            @Category(model.Where(w => w.ParentId == 690))
+        </div>
+        <div>
+            <h3>ספורט</h3>
+            @Category(model.Where(w => w.ParentId == 631))
+        </div>
+        <div>
+            <h3>מוצרים לבית</h3>
+            @Category(model.Where(w => w.ParentId == 633))
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="wpr logo">
+            <div class="social rFloat">
+                <button class="fb" type="button"></button>
+                <button class="twtr" type="button"></button>
+                <button class="ytube" type="button"></button>
+            </div>
+            <ul>
+                <li><a href="@Url.RouteUrl("StoreAbout", new { universityId = Request.QueryString["universityId"] })">@StoreResources.AboutCloudents</a> |</li>
+                <li><a href="@Url.RouteUrl("StoreContact", new { universityId = Request.QueryString["universityId"] })">@StoreResources.ContactUs</a> |</li>
+                <li><a href="@Url.RouteUrl("StoreTerms", new { universityId = Request.QueryString["universityId"] })">@StoreResources.TermsOfUse</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>

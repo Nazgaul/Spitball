@@ -1034,7 +1034,7 @@ input[type="radio"] {
     font-size: 24px;
     color: @textColor;
     text-align: center;
-    margin-bottom: 23px;
+    margin-bottom: 23px; 
 }
 
 .staticWpr {
@@ -1121,17 +1121,85 @@ input[type="radio"] {
                 display:none;
             }
             .registerContent {
-                pointer-events: auto;
+                pointer-events: auto; //TODO: check what this is for?!? 
             }
         }
     }
 }
+
+
+/*#region Welcome Store */
+.registerFirst {
+    &.store {
+        width: 546px;
+        height: 559px; // height needed in order to vertically center
+        padding: 20px 40px; // override
+        box-shadow: 0 0 8px rgba(0,0,0,.8);
+        top:0;bottom:0;
+        margin: auto;
+        &.step2 {
+            height: 942px; // height needed in order to vertically center
+            max-height: 98%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .welcomeStore {
+            display: block;
+        }
+        .regFirstTxt {
+            display: none;
+        }
+        &:before {
+            .pseudo;
+            background: url(/Images/Store/welcome.png) no-repeat;
+            width: 546px;
+            height: 264px;
+            position: absolute;
+            top:-1px;
+            left:-1px; /*rtl*/
+            border-radius: 5px 5px 0 0;
+        }
+        .facebook, .emailBtnWpr {
+            width: 330px;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+}
+.welcomeStore {
+    display: none;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    margin: 157px 0 15px;
+    position: relative;
+}
+
+.storeTxt1 {
+    font-size: 38px;
+    text-shadow: 0 3px 3px rgba(0,0,0,.8);
+}
+.storeTxt2 {
+    font-size: 26px;
+    text-shadow: 0 3px 3px rgba(0,0,0,.8);
+}
+.storeTxt3 {
+    color: @color;
+    margin: 18px 0 8px;   
+}
+.storeTxt4 {
+    color: @txtColor;
+    white-space: pre-wrap;
+}
+
+/*#endregion */
 
 .regFirstTxt {
     display: none;
     font-size: 22px;
     text-align: center;
 }
+
 
 .emailBtn {
     display: none;
@@ -1785,7 +1853,19 @@ input[type="radio"] {
 /*#region User tooltip */
 
 .userTooltip {
-
+    width: 379px;
+    .boxSizing;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 10px 10px 6px 110px; /*rtl*/
+    position: fixed;
+    z-index: 13;
+    background: #fff;
+    .transition(opacity .5s);
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0 0 3px rgba(0,0,0,.4);
     &.showTooltip {
         visibility: visible;
         opacity: 1;
@@ -1962,12 +2042,12 @@ input[type="radio"] {
     border: 1px solid @borderColor;
     border-radius: 3px;
     box-shadow: 0 0 3px rgba(0,0,0,.4);
-    .userTooltip {
+    /*.userTooltip {
         width: 379px;
         height: 100px;
-        padding: 10px 10px 6px 110px; /*rtl*/
+        padding: 10px 10px 6px 110px; 
         .boxSizing;
-    }
+    }*/
 
     &.top {
         margin-top: -10px;
@@ -2299,6 +2379,19 @@ select.inputText {
     }
 }
 
+.ghost {
+    text-align: center;
+    &:before {
+        .pseudo;
+        height: 100%;
+        vertical-align: middle;
+    }
+    .vCentered {
+        display: inline-block;
+         vertical-align: middle;
+    }
+}
+
 .iconTxt:before {
     .pseudo;
     vertical-align: middle;
@@ -2615,7 +2708,7 @@ select.inputText {
     // this applies to rename btn in library,box and item pages
     //NB: display:block broke layout in library page.
     .boxRename.boxRename, .itemRenameBtn.itemRenameBtn,
-    .ratePopup.ratePopup .closeDialog 
+    .ratePopup.ratePopup .closeDialog, .removeItem.removeItem 
     {
         display: inline-block; 
     }

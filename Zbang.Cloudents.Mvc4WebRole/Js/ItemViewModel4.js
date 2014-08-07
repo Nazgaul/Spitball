@@ -189,9 +189,14 @@
             cd.confirm(JsResources.SureYouWantToDelete + ' ' + self.itemName() + "?", function () {
                 cd.sessionStorageWrapper.clear();
                 dataContext.removeItem({
-                    data: { itemId: self.itemid(), BoxUid: boxid },
+                    data: { itemId: self.itemid(), BoxId: boxid },
                     success: function () {
-                        cd.pubsub.publish('nav', self.boxurl());
+                        var $injector = angular.element(document).injector();
+                        var $scope = angular.element(document).scope();
+                        var $location = $injector.get('$location');
+
+                        $location.path(self.boxurl());
+                        $scope.$apply();                        
                     }
                 });
             }, null);
@@ -836,13 +841,11 @@
                     }
                     function fixHistory(location) {
                         var $rootScope = angular.element(document).scope();
-                        $rootScope.$apply(function () {
-                            $rootScope.setUrl(location);
-                        });
                         
-                        //if (window.history && window.history.replaceState) {
-                        //    window.history.replaceState(location, '', location);
-                        //}
+                        if (window.history && window.history.replaceState) {
+                            window.history.replaceState(location, '', location);
+                            window.location.reload();
+                        }
                     }
                 });
 
@@ -967,7 +970,10 @@
 
                     toggleStarClass($rated, currentRate);
 
-
+                    if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
+                        ratedItems[cd.userDetail().nId].push(self.itemid());
+                        cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                    }
 
                     initialRate = currentRate;
                     self.rate();

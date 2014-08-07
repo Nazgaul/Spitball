@@ -85,6 +85,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetBoxQuery(boxId, userId);
                 var box = ZboxReadService.GetBox(query);
+                var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
+                BaseControllerResources.Culture = culture;
                 if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
                 {
 
@@ -326,47 +328,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        /// <summary>
-        /// Change box privacy settings - happen when user press on copy link
-        /// </summary>
-        /// <param name="boxUid"></param>
-        /// <param name="privacy"></param>
-        /// <returns></returns>
-        [HttpPost, Ajax]
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public JsonNetResult ChangePrivacySettings(long boxUid, BoxPrivacySettings privacy = BoxPrivacySettings.AnyoneWithUrl)
-        {
-            try
-            {
-                if (!User.Identity.IsAuthenticated)
-                {
-                    return this.CdJson(new JsonResponse(false));
-                }
-
-                var userId = GetUserId();
-                var result = ChangePrivacySettings(privacy, boxUid, userId);
-
-                return this.CdJson(new JsonResponse(true, result.PrivacyChanged));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return this.CdJson(new JsonResponse(false));
-            }
-
-        }
-
-        [NonAction]
-        private ChangeBoxPrivacySettingsCommandResult ChangePrivacySettings(BoxPrivacySettings privacy, long boxUid, long userId)
-        {
-
-            var privacyCommand = new ChangeBoxPrivacySettingsCommand(userId, boxUid, privacy, string.Empty);
-            var privacyResult = ZboxWriteService.ChangeBoxPrivacySettings(privacyCommand);
-            return privacyResult;
-        }
-
-
-
-
         [ZboxAuthorize]
         [HttpGet]
         [Ajax]
@@ -392,8 +353,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any,
-            VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        // TODO: we need to put output cache with boxid
+        //[OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any,
+        //    VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
 
         public ActionResult SettingsPartial()
         {

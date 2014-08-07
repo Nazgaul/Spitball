@@ -585,4 +585,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="EmailRequired" xml:space="preserve">
     <value>Enter email address</value>
   </data>
+  <data name="PersonalMsg" xml:space="preserve">
+    <value>Personal message</value>
+  </data>
 </root>

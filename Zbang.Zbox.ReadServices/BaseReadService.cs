@@ -2,7 +2,7 @@
 using NHibernate.Transform;
 using System;
 using Zbang.Zbox.Infrastructure.Cache;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
@@ -13,10 +13,10 @@ namespace Zbang.Zbox.ReadServices
 {
     public abstract class BaseReadService : IBaseReadService
     {
-        protected readonly IHttpContextCacheWrapper ContextCacheWrapper;
+        private readonly IHttpContextCacheWrapper m_ContextCacheWrapper;
         public BaseReadService(IHttpContextCacheWrapper contextCacheWrapper)
         {
-            ContextCacheWrapper = contextCacheWrapper;
+            m_ContextCacheWrapper = contextCacheWrapper;
         }
         #region login
         public LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
@@ -68,44 +68,16 @@ namespace Zbang.Zbox.ReadServices
         }
         #endregion
 
-
-
-
-
-        //public UserPermissionPerBoxDto GetUserPermission(GetBoxQuery query)
-        //{
-        //    var result = new UserPermissionPerBoxDto();
-        //    using (UnitOfWork.Start())
-        //    {
-        //        IQuery queryGetUserPermission = UnitOfWork.CurrentSession.GetNamedQuery("GetUserRelationToBox");
-        //        queryGetUserPermission.SetInt64("UserId", query.UserId);
-        //        queryGetUserPermission.SetInt64("BoxId", query.BoxId);
-        //        queryGetUserPermission.SetResultTransformer(Transformers.AliasToBean<UserPermissionPerBoxDto>());
-
-        //        var dbResult = queryGetUserPermission.FutureValue<UserPermissionPerBoxDto>();
-        //        CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-        //        if (dbResult.Value != null)
-        //        {
-        //            result = dbResult.Value;
-        //        }
-        //        result.CanUserSeeData = true;
-        //    }
-
-        //    return result;
-
-        //}
-
-
         /// <summary>
         /// Check if user have rights in dto model only
         /// </summary>
         /// <param name="boxId">The Box the user requested to view</param>
         /// <param name="userId">The user</param>
         /// <returns>If the user authorize to view return the type of the user otherwise throw exception that the box is denied</returns>
-        public UserRelationshipType CheckIfUserAllowedToSee(long boxId, long userId)
+        protected UserRelationshipType CheckIfUserAllowedToSee(long boxId, long userId)
         {
             const string key = "AllowedToSee";
-            var cacheElem = ContextCacheWrapper.GetObject(key);
+            var cacheElem = m_ContextCacheWrapper.GetObject(key);
             if (cacheElem != null)
             {
                 return (UserRelationshipType)cacheElem;
@@ -132,12 +104,12 @@ namespace Zbang.Zbox.ReadServices
             const string key = "AllowedToSee";
             if (userRelationShipType == UserRelationshipType.Owner)
             {
-                ContextCacheWrapper.AddObject(key, userRelationShipType);
+                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
             if (privacySettings == BoxPrivacySettings.AnyoneWithUrl)
             {
-                ContextCacheWrapper.AddObject(key, userRelationShipType);
+                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
 
@@ -145,32 +117,13 @@ namespace Zbang.Zbox.ReadServices
             {
                 if (userRelationShipType == UserRelationshipType.Subscribe || userRelationShipType == UserRelationshipType.Invite)
                 {
-                    ContextCacheWrapper.AddObject(key, userRelationShipType);
+                    m_ContextCacheWrapper.AddObject(key, userRelationShipType);
                     return userRelationShipType;
                 }
             }
 
             throw new BoxAccessDeniedException();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public long GetItemIdByBlobId(string blobId)
         {
@@ -182,9 +135,6 @@ namespace Zbang.Zbox.ReadServices
                 return Convert.ToInt64(x);
             }
         }
-
-        
-
 
     }
 }

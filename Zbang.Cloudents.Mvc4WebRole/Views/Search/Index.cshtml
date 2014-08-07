@@ -27,7 +27,7 @@
 
 <script type="text/html" id="sCourseItemTemplate">
     <li class="box sCourseItem">
-        <a data-navigation="box" href="{{url}}" title="">
+        <a href="{{url}}" title="">
             <img class="lFloat boxImg" alt="" width="77" height="98" src="{{image}}">
             <div class="sTitle elps">{{name}}</div>
             <span class="sDetail {{allDetails}}">{{proffessor}}</span>
@@ -39,7 +39,7 @@
 <script type="text/html" id="sMaterialItemTemplate">
 
     <li class="sMaterialsItem clearfix">
-        <a class="sMaterialLink" data-navigation="item" href="{{url}}">
+        <a class="sMaterialLink" href="{{url}}">
             <div class="sOtherUni semiFont {{dotted}}">{{universityName}}</div>
             <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" src="{{image}}">
             <div class="sTitle elps">{{name}}</div>
@@ -54,7 +54,7 @@
 
 <script type="text/html" id="sMemberItemTemplate">
     <li class="userItem calloutTrgr" data-uid="{{id}}">
-        <a href="{{url}}" data-navigation="user">
+        <a href="{{url}}">
             <img class="userItemImg" src="{{image}}" width="74" height="74" /></a>
         <div class="userItemName" data-ignore-rtl="true">{{name}}</div>
     </li>
@@ -83,7 +83,7 @@
     </form>
 <script type="text/html" id="boxesSearchTemplate">
     <li>
-        <a href="{{url}}" data-navigation="box" class="searchItem">
+        <a href="{{url}}"  class="searchItem">
             <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
             <div class="searchDetails">
                 <div class="searchTitle semiFont elps">{{name}}</div>
@@ -95,7 +95,7 @@
 </script>
 <script type="text/html" id="itemsSearchTemplate">
     <li>
-        <a href="{{url}}" data-navigation="item" class="searchItem">
+        <a href="{{url}}" class="searchItem">
             <div class="otherUni semiFont">{{universityName}}</div>
             <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
             <div class="searchDetails">
@@ -107,7 +107,7 @@
 </script>
 <script type="text/html" id="peopleSearchTemplate">
     <li>
-        <a href="{{url}}" data-navigation="user" class="searchItem">
+        <a href="{{url}}" class="searchItem">
             <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
             <div class="searchTitle semiFont elps">{{name}}</div>
         </a>

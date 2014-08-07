@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="courseCode elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
-                <div class="courseCode elps" ng-if="info.boxType === 'box'" data-uid="{{info.ownerId}}">{{info.ownerName}}</div>
+                <div class="courseCode elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
                 <span class="courseCode propName elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
                 <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
 
@@ -20,35 +20,38 @@
 
         <div class="boxFolders">
             <div class="sectionHeader">@IndexResources.Folders</div>
-            <ul class="boxFolderList">
-                <li class="current boxFolder" ng-class="{current : !info.currentTab }">
-                    <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
-                    <span class="tabBorder"></span>
-                </li>
+            <div m-custom-scrollbar bottom="0">
 
-                <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
+                <ul class="boxFolderList">
+                    <li class="current boxFolder" ng-class="{current : !info.currentTab }">
+                        <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
+                        <span class="tabBorder"></span>
+                    </li>
 
-                    <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
-                    <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                    <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
-                        </li>
-                        <li>
-                            <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
-                        </li>
-                        <li>
-                            <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
-                        </li>
-                    </ul>
-                    <span class="tabBorder"></span>
-                </li>
+                        <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                        <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
 
-                <li class="createFolder">
-                    <span class="createFolderText elps" ng-click="createTab()">@MainViewResources.CreateTab</span>
-                </li>
-            </ul>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
+                            </li>
+                            <li>
+                                <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
+                            </li>
+                            <li>
+                                <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
+                            </li>
+                        </ul>
+                        <span class="tabBorder"></span>
+                    </li>
+
+                    <li class="createFolder">
+                        <span class="createFolderText elps" ng-click="createTab()">@MainViewResources.CreateTab</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -75,14 +78,14 @@
                 </div>
             </section>
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
-               target="_self" class="rFloat inviteFriendsBtn">@IndexResources.Invite</a>
+               target="_self" class="rFloat inviteFriendsBtn" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
             <a class="backWpr elps lFloat" ng-href="{{back.url}}">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont">{{back.title}}</h2>
             </a>
         </div>
 
-        <div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !isUserFollowing()}" class="joinGrpWpr">
+        <div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
             @*user is following box*@
             <div class="joinGrpBtn">
                 <span class="joinMsg iconTxt">@SharedResources.Member</span>
@@ -97,9 +100,7 @@
 
                 <li ng-repeat="member in info.members | limitTo :7">
                     <a href="{{member.url}}" class="">
-                        <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" ng-init="userId = member.uid"
-     popover-template="userToolTipPopover" popover-trigger="mouseenter" popover-append-to-body="true" popover-placement="left-top"
-     popover-popup-delay="500" popover-target-leave="true" />@*uid*@
+                        <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" ng-click="$root.checkReg($event)" />@*uid*@
                     </a>
                 </li>
                 @for (int i = 0; i < 6; i++)

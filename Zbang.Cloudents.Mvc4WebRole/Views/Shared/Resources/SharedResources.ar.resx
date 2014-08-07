@@ -596,4 +596,8 @@
   <data name="EmailRequired" xml:space="preserve">
     <value>ادخل بريدك الالكتروني</value>
   </data>
+  <data name="PersonalMsg" xml:space="preserve">
+    <value>رسالة شخصية
+</value>
+  </data>
 </root>

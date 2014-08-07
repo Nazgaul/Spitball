@@ -166,8 +166,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [DonutOutputCache(Duration = TimeConsts.Day,
-            VaryByParam = "none", Location = OutputCacheLocation.ServerAndClient,
+            VaryByParam = "none", Location = OutputCacheLocation.Server,
             VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
+        [CacheFilter(Duration=TimeConsts.Day)]
         public ActionResult JsResources()
         {
             //var rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());

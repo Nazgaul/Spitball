@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.ReadServices
             }
 
         }
-        public IEnumerable<QuizDigestDto> GetQuizLastpdates(GetItemsLastUpdateQuery query)
+        public IEnumerable<QuizDigestDto> GetQuizLastUpdates(GetItemsLastUpdateQuery query)
         {
             using (UnitOfWork.Start())
             {
@@ -110,17 +110,17 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public IEnumerable<MembersDigestDto> GetNewMembersLastUpdates(GetMembersLastUpdateQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetMembersUpdateByBox");
-                dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
-                dbQuery.SetInt64("BoxId", query.BoxId);
-                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<MembersDigestDto>());
-                return dbQuery.List<MembersDigestDto>();
-            }
-        }
+        //public IEnumerable<MembersDigestDto> GetNewMembersLastUpdates(GetMembersLastUpdateQuery query)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetMembersUpdateByBox");
+        //        dbQuery.SetInt32("Notification", query.MinutesPerNotificationSettings);
+        //        dbQuery.SetInt64("BoxId", query.BoxId);
+        //        dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<MembersDigestDto>());
+        //        return dbQuery.List<MembersDigestDto>();
+        //    }
+        //}
 
 
         public BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query)

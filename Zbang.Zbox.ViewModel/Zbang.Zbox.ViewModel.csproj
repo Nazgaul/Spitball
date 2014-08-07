@@ -117,8 +117,11 @@
     <Compile Include="Dto\Search\SearchDto.cs" />
     <Compile Include="Dto\Search\SearchItems.cs" />
     <Compile Include="Dto\Search\SearchUsers.cs" />
+    <Compile Include="Dto\Store\BannerDto.cs" />
     <Compile Include="Dto\Store\CategoryDto.cs" />
     <Compile Include="Dto\Store\ProductDto.cs" />
+    <Compile Include="Dto\Store\ProductCheckOutDto.cs" />
+    <Compile Include="Dto\Store\ProductFeatures.cs" />
     <Compile Include="Dto\Store\ProductWithDetailDto.cs" />
     <Compile Include="Dto\TabDto.cs" />
     <Compile Include="Dto\BoxDto.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
     <Compile Include="Queries\QueryPrefixBase.cs" />
+    <Compile Include="Queries\SearchProductQuery.cs" />
     <Compile Include="Queries\Search\GroupSearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />

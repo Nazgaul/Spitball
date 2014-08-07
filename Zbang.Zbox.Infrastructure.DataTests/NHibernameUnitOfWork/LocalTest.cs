@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
 using System.Threading;
 using Zbang.Zbox.Domain;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
 {

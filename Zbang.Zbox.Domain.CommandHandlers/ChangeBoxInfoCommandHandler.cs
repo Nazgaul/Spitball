@@ -33,8 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var academicBox = box as AcademicBox;
             if (academicBox != null)
             {
-
-                ChangeAcademicBoxInfo(command, academicBox);
+                academicBox.UpdateBoxInfo(command.CourseCode, command.ProfessorName);
                 m_AcademicBoxRepository.Save(academicBox);
             }
             
@@ -57,10 +56,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box);
         }
 
-        private void ChangeAcademicBoxInfo(ChangeBoxInfoCommand command, AcademicBox academicBox)
-        {
-            academicBox.UpdateBoxInfo(command.CourseCode, command.ProfessorName);
-        }
 
         private void ChangeNotificationSettings(long userId, long boxId, NotificationSettings notificationSettings)
         {

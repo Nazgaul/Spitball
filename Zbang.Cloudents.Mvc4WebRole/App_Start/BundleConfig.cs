@@ -10,21 +10,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
 {
     public static class BundleConfig
     {
-        private static readonly Dictionary<string, string> CssBundels = new Dictionary<string, string>();
-        private static readonly Dictionary<string, string> JsBundels = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
+/*
         private static readonly Dictionary<string, string> JsRemoteBundles = new Dictionary<string, string>();
+*/
         private static readonly string CdnLocation = GetValueFromCloudConfig();
 
         public static string CssLink(string key)
         {
             string retVal;
-            CssBundels.TryGetValue(key, out retVal);
+            CssBundles.TryGetValue(key, out retVal);
 
             return retVal;
         }
         public static string JsLink(string key)
         {
-            return JsBundels[key];
+            return JsBundles[key];
         }
 
         //public static string JsRemoteLinks(string key)
@@ -52,6 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterCss("newrtl3", "~/Content/GeneralRtl.css",
                 "~/Content/rtl3.css",
+                "~/Content/StoreRtl.css",
                 "~/Content/HeaderFooterRtl.css");
 
             RegisterCss("newcore3", "~/Content/General.css",
@@ -71,6 +74,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/Item3.css",
                 "~/Content/Settings.css",
                 "~/Content/DashLib.css",
+                "~/Content/Store.css",
                 "~/Content/jquery.mCustomScrollbar.css");
 
             RegisterCss("staticRtl", "~/Content/GeneralRtl.css",
@@ -86,11 +90,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //RegisterCss("welcomeRtl", "~/Content/WelcomeRtl.css");
 
 
-            RegisterCss("shoppingRtl", "~/Content/GeneralRtl.css",
-                "~/Content/ShoppingRtl.css");
+            //RegisterCss("shoppingRtl", "~/Content/GeneralRtl.css",
+            //    "~/Content/StoreRtl.css");
 
-            RegisterCss("shopping", "~/Content/General.css",
-                "~/Content/Shopping.css");
+            //RegisterCss("shopping", "~/Content/General.css",
+            //    "~/Content/Shopping.css");
 
 
             RegisterCss("home", "~/Content/General.css",
@@ -119,8 +123,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("~/scripts/angular-route.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),                   
-                    new JsFileWithCdn("~/js/services/cookies.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-cookies.min.js"),
+                new JsFileWithCdn("~/js/services/cookies.js"),
                     
             new JsFileWithCdn("~/scripts/angular-sanitize.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min.js"),
@@ -128,7 +131,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/scripts/angular-animate.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
 
-                                    new JsFileWithCdn("~/scripts/stacktrace.js")
+                                    new JsFileWithCdn("~/scripts/stacktrace.js"),
+                                    new JsFileWithCdn("~/scripts/underscore.js")
 
                                     );
 
@@ -151,9 +155,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("~/scripts/elastic.js"),
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
-
+                new JsFileWithCdn("/js/modules/displayTime.js"),
+                new JsFileWithCdn("~/js/modules/textDirection.js"),
 
                 new JsFileWithCdn("~/js/app.js"),
+                
                 new JsFileWithCdn("/js/controllers/general/mainCtrl.js"),
                 new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchHeaderCtrl.js"),
@@ -190,10 +196,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/facebook.js"),
                 new JsFileWithCdn("/js/services/userDetails.js"),
                 new JsFileWithCdn("/js/services/stacktrace.js"),
-                new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
+                new JsFileWithCdn("/js/directives/ngPlaceholder.js"),                
+                new JsFileWithCdn("/js/directives/scrollToTop.js"),
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
+                new JsFileWithCdn("~/js/directives/userTooltip.js"),
+                
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 
@@ -203,6 +212,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/filters/trustedHtml.js"),
                 new JsFileWithCdn("/js/filters/actionText.js"),
                 new JsFileWithCdn("/js/filters/orderBy.js"),
+                new JsFileWithCdn("/js/filters/stringFormat.js"),
 
                 new JsFileWithCdn("/js/pubsub.js"),
                 new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
@@ -216,9 +226,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
                 new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
                  new JsFileWithCdn("~/js/Logon.js"),
-
+                
                   new JsFileWithCdn("/js/Cache.js"),
-                 new JsFileWithCdn("/js/DataContext.js"),
+                 new JsFileWithCdn("/js/DataContext.js"),                  
                  new JsFileWithCdn("~/Js/Statistics.js"),
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
@@ -232,22 +242,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/QuizViewModel.js")
              );
 
-            RegisterJsRegular("angular-shopping",               
-                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
-                new JsFileWithCdn("~/scripts/bindonce.js"),
-                new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
-                new JsFileWithCdn("~/js/shopping/app.js"),
-                new JsFileWithCdn("~/js/shopping/controllers/mainCtrl.js"),
-                new JsFileWithCdn("~/js/shopping/controllers/homeCtrl.js"),
-                new JsFileWithCdn("~/js/shopping/controllers/categoryCtrl.js"),
-                new JsFileWithCdn("/js/services/stacktrace.js"),
-                new JsFileWithCdn("/js/services/userDetails.js"),
-                new JsFileWithCdn("/js/services/userDetails.js"),
-                new JsFileWithCdn("~/js/shopping/services/store.js"),
+            RegisterJsRegular("angular-store",
+                new JsFileWithCdn("/js/controllers/store/homeCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/productCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/viewCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/checkoutCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/categoryCtrl.js"),
+                new JsFileWithCdn("/js/controllers/store/carouselCtrl.js"),
+                new JsFileWithCdn("/js/services/store.js"),
                 
-                new JsFileWithCdn("/js/shopping/directives/productsMenu.js"),
+                new JsFileWithCdn("/js/directives/store/productsMenu.js"),
+                new JsFileWithCdn("/js/directives/dataBag.js"),
 
-                new JsFileWithCdn("/js/shopping/filters/percentage.js")
+
+                new JsFileWithCdn("/js/filters/store/percentage.js")
 
                 //new JsFileWithCdn("~/js/shopping/controllers/category.js"),
                 //new JsFileWithCdn("~/js/shopping/controllers/product.js")
@@ -268,17 +276,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    "/js/directives/ngPlaceholder.js",
             //    "/js/directives/mLoader.js");
 
-            RegisterJsRoutes("R_OldAll",
-                //"/Scripts/knockout-3.0.0.js",
-                //"/Scripts/externalScriptLoader.js",
-                //"/Scripts/jquery.slimscroll.js",                
-                "/js/Utils.js",
-                "/js/pubsub.js",
-                "/js/DataContext.js",
-                // "/Scripts/elasticTextBox.js",
-                "/js/Dialog.js",
-                "/js/GenericEvents.js",
-                "/js/Cache.js");
+            //RegisterJsRoutes("R_OldAll",
+            //    //"/Scripts/knockout-3.0.0.js",
+            //    //"/Scripts/externalScriptLoader.js",
+            //    //"/Scripts/jquery.slimscroll.js",                
+            //    "/js/Utils.js",
+            //    "/js/pubsub.js",
+            //    "/js/DataContext.js",
+            //    // "/Scripts/elasticTextBox.js",
+            //    "/js/Dialog.js",
+            //    "/js/GenericEvents.js",
+            //    "/js/Cache.js");
 
             //RegisterJsRoutes("R_Box", 
             //    "/js/services/dropbox.js",
@@ -575,27 +583,29 @@ namespace Zbang.Cloudents.Mvc4WebRole
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
                 cssbundle.WithOutputBaseHref(cdnUrl);
-                CssBundels.Add(key, cssbundle.Render("~/gzip/c#.css"));
+                CssBundles.Add(key, cssbundle.Render("~/gzip/c#.css"));
                 CopyFilesToCdn("~/gzip/", "*.css", SearchOption.TopDirectoryOnly);
             }
             else
             {
-                CssBundels.Add(key, cssbundle.Render("~/cdn/gzip/c#.css"));
+                CssBundles.Add(key, cssbundle.Render("~/cdn/gzip/c#.css"));
             }
 
 
         }
 
+/*
         private static void RegisterJsRoutes(string key, params string[] jsFiles)
         {
             JsRemoteBundles.Add(key, RegisterJs(jsFiles.Select(s => new JsFileWithCdn(s)), new JavaScriptBundleImp()));
         }
+*/
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
         {
             var jsBundle = javaScriptBundleImp;
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
-            //jsBundle.ForceRelease();
+           // jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
@@ -627,7 +637,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         private static void RegisterJsRegular(string key, params JsFileWithCdn[] jsFiles)
         {
-            JsBundels.Add(key, RegisterJs(jsFiles, SquishIt.Framework.Bundle.JavaScript()));
+            JsBundles.Add(key, RegisterJs(jsFiles, SquishIt.Framework.Bundle.JavaScript()));
         }
 
         private static string GetValueFromCloudConfig()

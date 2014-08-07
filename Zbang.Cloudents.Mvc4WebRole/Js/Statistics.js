@@ -7,6 +7,7 @@
     items = [];
 
     pubsub.subscribe('item', function (data) {
+        console.log(data);
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (!findById(items,data)) {
             items.push({Uid: data, Action: 1});
@@ -17,12 +18,15 @@
     pubsub.subscribe('item_Download', function (data) {
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (!findById(items, data)) {
-            items.push({ Uid: data, Action: 2 });
+            items.push({ Uid: data.id, Action: 2 });
             cd.localStorageWrapper.setItem(key, JSON.stringify(items));            
         }
     });
 
     pubsub.subscribe('quiz', function (data) {
+        if ($.isEmptyObject(data)) {
+            return;
+        }
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (!findById(items, data)) {
             items.push({ Uid: data, Action: 3 });
@@ -32,7 +36,7 @@
 
     function findById(arr, id) {
         for (var i = 0, l = arr.length; i < l; i++) {
-            if (arr[i].Uid === id) {
+            if (arr[i].Uid == id) {
                 return true;
             }
         }
