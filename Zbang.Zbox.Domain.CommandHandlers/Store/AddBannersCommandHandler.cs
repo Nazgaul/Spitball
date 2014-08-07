@@ -27,7 +27,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         bannerStore.Url,
                         bannerStore.ImageUrl,
                         GetBannerLocation(bannerStore.Order),
-                        bannerStore.Order);
+                        bannerStore.Order,
+                        bannerStore.UniversityId);
                 }
                 else
                 {
@@ -35,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                        bannerStore.Url,
                        bannerStore.ImageUrl,
                        GetBannerLocation(bannerStore.Order),
-                       bannerStore.Order);
+                       bannerStore.Order, bannerStore.UniversityId);
                 }
                 m_StoreRepository.Save(banner);
 

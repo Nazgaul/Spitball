@@ -11,12 +11,12 @@ namespace Zbang.Zbox.Domain
     {
         protected StoreBanner() { }
 
-        public StoreBanner(int id, string url, string imageUrl, StoreBannerLocation location, int order)
+        public StoreBanner(int id, string url, string imageUrl, StoreBannerLocation location, int order, int universityId)
         {
-            Update(id, url, imageUrl, location, order);
+            Update(id, url, imageUrl, location, order, universityId);
         }
 
-        public void Update(int id, string url, string imageUrl, StoreBannerLocation location, int order)
+        public void Update(int id, string url, string imageUrl, StoreBannerLocation location, int order, int universityId)
         {
             Id = id;
             Url = url;
@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Domain
             {
                 Order = order;
             }
+            UniversityId = universityId;
         }
 
         public int Id { get; private set; }
@@ -37,6 +38,8 @@ namespace Zbang.Zbox.Domain
         public StoreBannerLocation Location { get; private set; }
 
         public int? Order { get; private set; }
+
+        public int UniversityId { get; set; }
 
     }
 }

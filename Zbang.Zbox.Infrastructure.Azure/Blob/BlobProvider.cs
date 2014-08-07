@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
 
 
-            if (blob.Exists())
+            if (blob.Exists() && blob.Properties.Length == data.LongLength)
             {
                 return uriBuilder.Uri.AbsoluteUri;
             }

@@ -11,7 +11,8 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[SalePrice]
       ,[PictureUrl]
       ,[Url]
-        FROM [Zbox].[StoreProduct] where homepage = 1";
+        FROM [Zbox].[StoreProduct] where homepage = 1
+        and (universityid is null or universityid = @universityId)";
 
        public const string GetProductsWithCategory = @"SELECT s.[ProductId] as Id
       ,[Name]
@@ -22,7 +23,8 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[PictureUrl]
       ,[Url]
   FROM [Zbox].[StoreProduct] s inner join zbox.StoreProductCategory sp on s.ProductId = sp.ProductId
-  where sp.CatId = @CatId";
+  where sp.CatId = @CatId
+        and (universityid is null or universityid = @universityId)";
 
        public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
   FROM [Zbox].[StoreCat]
@@ -50,7 +52,8 @@ s.numberofpayments as NumberOfPayments
       ,[SalePrice]
       ,[PictureUrl]
       ,[Url] from zbox.StoreProduct 
-where name like '%' + @term + '%' ";
+where name like '%' + @term + '%' 
+and (universityid is null or universityid = @universityId)";
 
        public const string GetProductFeatures = @"select Id, 
 Category,
@@ -62,7 +65,7 @@ from zbox.StoreProductFeatures where Product = @ProdId;";
       ,[ImageUrl]
       ,[Location]
       ,[BannerOrder]
-  FROM [Zbox].[StoreBanner]";
+  FROM [Zbox].[StoreBanner] where universityid in (210,@universityId) order by universityId";
 
 
        public const string ValidateCouponCode = "select 1 from zbox.StoreUniversityMapper where CouponCode = @Coupun";
