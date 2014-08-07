@@ -1070,9 +1070,15 @@ input[type="radio"][disabled] + label:before {
 /*#region Welcome Store */
 .registerFirst.store {
   width: 546px;
+  height: 559px;
   padding: 20px 40px;
-  top: 4%;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.registerFirst.store.step2 {
+  height: 942px;
 }
 .registerFirst.store .welcomeStore {
   display: block;
