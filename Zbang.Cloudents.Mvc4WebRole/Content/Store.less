@@ -551,6 +551,35 @@ main {
             width: 1px;
         }
     }
+
+    .noResults {
+        display: none;
+        &:first-child {
+            display: block !important;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+        .emptySearch {
+            margin-top: 80px;
+            font-size: 24px;
+            &:before {
+                content: '';
+                display: block;
+                width: 64px;
+                height: 64px;
+                border-radius: 32px;
+                margin: 38px auto 12px;
+            }
+            &:after {
+                width: 32px;
+                height: 37px;
+                left: 0; right: 0;
+                top: 52px;
+                margin: 0 auto;
+                background-position: -283px -51px;
+            }
+        }
+    }
 }
 
 .productHover {
