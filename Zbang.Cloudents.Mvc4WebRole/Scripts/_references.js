@@ -177,7 +177,6 @@
 >>>>>>> 451774f379122c618870c0004c560aab5dff7c76
 =======
 /// <reference path="../js/services/cookies.js" />
-/// <reference path="../js/app/services.js" />
 /// <reference path="underscore.js" />
 /// <reference path="../js/directives/scrolltotop.js" />
 /// <reference path="../js/directives/usertooltip.js" />
@@ -196,7 +195,11 @@
 /// <reference path="../js/modules/carousel.js" />
 /// <reference path="../js/controllers/store/carouselctrl.js" />
 /// <reference path="../js/directives/databag.js" />
+<<<<<<< HEAD
 >>>>>>> 4748755602eacb60686bf861310dc8401281740d
+=======
+/// <reference path="../js/mobile/mboxviewmodel.js" />
+>>>>>>> 620b7fe5e92b1c40933dca9f2c0c4a8ed8678035
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
