@@ -129,7 +129,7 @@ app.config([
                  controller: 'CategoryCtrl',
                  reloadOnSearch: false,
                  params: {
-                     type: 'home'
+                     type: 'products'
                  }
              }).
             when('/store/category/:categoryId/', {
