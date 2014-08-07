@@ -124,6 +124,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 TraceLog.WriteError("On update products", ex);
             }
 
+            ProcessBanners();
+
+
+          Thread.Sleep(TimeSpan.FromHours(6));
+        }
+
+        private void ProcessBanners()
+        {
             TraceLog.WriteInfo("Bringing banners");
             var banners = m_ReadService.GetBanners();
 
@@ -131,12 +139,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 var bytes = DownloadImage("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
                 var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
-                return new Banner(s.Id, s.Url, image, s.Order);
+                return new Banner(s.Id, s.Url, image, s.Order, s.UniversityId);
             }));
             m_ZboxWriteService.AddBanners(bannerCommand);
-
-
-            Thread.Sleep(TimeSpan.FromHours(6));
         }
 
         private static int? TryParseNullableInt(string s)

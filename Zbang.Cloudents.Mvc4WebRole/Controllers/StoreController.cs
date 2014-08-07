@@ -45,16 +45,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, Ajax, ActionName("Index"), StoreCategories]
         [Route("store")]
-        public async Task<ActionResult> IndexAjax()
+        public async Task<ActionResult> IndexAjax(int? universityId)
         {
-            var model = await ZboxReadService.GetBanners();
+            var model = await ZboxReadService.GetBanners(universityId);
             return PartialView(model.ToList());
         }
 
         [HttpGet, Ajax]
-        public async Task<ActionResult> Products(int? categoryId)
+        public async Task<ActionResult> Products(int? categoryId, int? universityId)
         {
-            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId));
+            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId));
             return this.CdJson(new JsonResponse(true, products));
         }
 
@@ -66,11 +66,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax, StoreCategories]
-        public async Task<ActionResult> Product(long id)
+        public async Task<ActionResult> Product(long id, int? universityId)
         {
             var query = new GetStoreProductQuery(id);
             var tModel = ZboxReadService.GetProduct(query);
-            var tBanners = ZboxReadService.GetBanners();
+            var tBanners = ZboxReadService.GetBanners(universityId);
 
             await Task.WhenAll(tModel, tBanners);
             var model = tModel.Result;
@@ -82,13 +82,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        public async Task<ActionResult> Search(string term)
+        public async Task<ActionResult> Search(string term, int? universityId)
         {
             if (string.IsNullOrEmpty(term))
             {
                 return this.CdJson(new JsonResponse(false, "Provide a term"));
             }
-            var query = new SearchProductQuery(term);
+            var query = new SearchProductQuery(term, universityId);
             var products = await ZboxReadService.SearchProducts(query);
             return this.CdJson(new JsonResponse(true, products));
 

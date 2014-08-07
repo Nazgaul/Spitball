@@ -76,44 +76,14 @@ select catcode as Id, catname as name, parentid, catorder as [order] from cte wh
             using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
 
-                var sql = @"SELECT top 1 [AdvID] as Id -- ID 
+                var sql = @"SELECT [AdvID] as Id -- ID 
       ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
       ,[AdvLink] as Url -- URL to point the banner if NULL static image
-      --,[AdvOrder] -- University ID
+      ,[AdvOrder] as UniversityId -- University ID
       ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
-  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 1 and 9
-  order by banorder
-
-  SELECT [AdvID] as Id -- ID 
-      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
-      ,[AdvLink] as Url -- URL to point the banner if NULL static image
-      --,[AdvOrder] -- University ID
-      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
-  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 10 and 19
-
-  SELECT top 2 [AdvID] as Id -- ID 
-      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
-      ,[AdvLink] as Url -- URL to point the banner if NULL static image
-      --,[AdvOrder] -- University ID
-      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
-  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 20 and 29
-  order by banorder
-
-  SELECT top 1 [AdvID] as Id -- ID 
-      ,[Image] -- URL http://hatavot.co.il/uploadimages/banners2/XXXX
-      ,[AdvLink] as Url -- URL to point the banner if NULL static image
-      --,[AdvOrder] -- University ID
-      ,[BanOrder] as [Order] -- 1-9 Top-Right - 1, 10-19 Top-left (rotating), 20-29 Center - 2, 30-39 Top Product Page -1
-  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 and banorder between 30 and 39
+  FROM [bizpoin_bizpointDB].[TblBanners]   where [PosID] = 2 --and banorder between 1 and 9
   order by banorder";
-                using (var grid = conn.QueryMultiple(sql))
-                {
-                    var retVal = grid.Read<BannerDto>();
-                    retVal = retVal.Union(grid.Read<BannerDto>());
-                    retVal = retVal.Union(grid.Read<BannerDto>());
-                    retVal = retVal.Union(grid.Read<BannerDto>());
-                    return retVal;
-                }
+                return conn.Query<BannerDto>(sql);
 
             }
         }
