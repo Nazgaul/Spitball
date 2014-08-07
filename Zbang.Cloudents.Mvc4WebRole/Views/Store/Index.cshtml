@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model IList<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
 
 <div class="storeWpr page">
@@ -96,6 +97,7 @@
                     </div>
                 </a>
             </li>
+            <li class="noResults"><div class="emptySearch">@SharedResources.NoResults</div></li>
         </ul>
         @foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
         {

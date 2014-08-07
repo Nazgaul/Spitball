@@ -146,7 +146,6 @@
 /// <reference path="../js/controllers/search/searchheaderctrl.js" />
 /// <reference path="../js/controllers/user/userctrl.js" />
 /// <reference path="../js/services/cookies.js" />
-/// <reference path="../js/app/services.js" />
 /// <reference path="underscore.js" />
 /// <reference path="../js/directives/scrolltotop.js" />
 /// <reference path="../js/directives/usertooltip.js" />
@@ -165,6 +164,7 @@
 /// <reference path="../js/modules/carousel.js" />
 /// <reference path="../js/controllers/store/carouselctrl.js" />
 /// <reference path="../js/directives/databag.js" />
+/// <reference path="../js/mobile/mboxviewmodel.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
