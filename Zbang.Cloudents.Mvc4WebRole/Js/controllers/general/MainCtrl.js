@@ -123,10 +123,6 @@
                     $scope.params.store.showRegisterPopup = true;
                     cd.pubsub.publish('register', { action: true });                 
                 }
-
-              
-
-
             });
 
             $rootScope.isStore = function () {
