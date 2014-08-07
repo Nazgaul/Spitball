@@ -14,7 +14,7 @@
 
         $scope.formData = {
             features: {},
-            universityId: $routeParams.universityId || null
+            universityId: $location.search()['universityId'] || null
         };
 
         $scope.coupon = {
