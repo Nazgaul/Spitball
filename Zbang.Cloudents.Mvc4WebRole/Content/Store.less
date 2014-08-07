@@ -122,9 +122,12 @@ main {
 
     img {
         position: absolute;
+        z-index: -1; // under the border
     }
     .banner {
         margin-left: -1px; /*rtl*/
+        border-right: 1px solid @txtColor; /*rtl*/
+        .boxSizing;
     }
 }
 .carousel {
@@ -988,7 +991,6 @@ main {
     &.activated {
         .btn3:nth-child(2) {
             opacity: 1;
-            //margin-top: -38px;
             top:0;
         }
     }

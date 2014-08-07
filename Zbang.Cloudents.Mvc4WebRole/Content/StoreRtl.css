@@ -12,6 +12,9 @@ header h1 {
 .widget .banner {
   margin: 0 -1px 0 0;
   /*rtl*/
+  border: none;
+  border-left: 1px solid #39434a;
+  /*rtl*/
 }
 .carousel.reverse .ng-hide-add.ng-hide-add-active {
   right: 100%;

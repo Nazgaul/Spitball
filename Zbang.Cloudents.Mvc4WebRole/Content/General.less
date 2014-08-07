@@ -1121,7 +1121,7 @@ input[type="radio"] {
                 display:none;
             }
             .registerContent {
-                pointer-events: auto;
+                pointer-events: auto; //TODO: check what this is for?!? 
             }
         }
     }
@@ -1139,6 +1139,9 @@ input[type="radio"] {
         margin: auto;
         &.step2 {
             height: 942px; // height needed in order to vertically center
+            max-height: 98%;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
         .welcomeStore {
             display: block;
