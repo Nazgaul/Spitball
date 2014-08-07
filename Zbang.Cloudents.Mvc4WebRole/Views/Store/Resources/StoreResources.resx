@@ -387,4 +387,7 @@
     <value>תודה שרכשת
 בחנות האגודה</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>ללא</value>
+  </data>
 </root>
