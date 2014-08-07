@@ -201,10 +201,6 @@ header h1 {
   padding: 0 0 0 10px;
   /*rtl*/
 }
-.minus:before {
-  margin: 0 -10px 0 0;
-  /*rtl*/
-}
 .cardHover {
   left: 0;
   /*rtl*/

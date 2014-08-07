@@ -1117,12 +1117,9 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.minus:before {
+.minus:after {
   content: '-';
   display: inline-block;
-  position: absolute;
-  margin-left: -10px;
-  /*rtl*/
 }
 .pName {
   font-size: 21px;
