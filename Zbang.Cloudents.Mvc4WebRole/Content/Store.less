@@ -983,10 +983,13 @@ main {
     overflow: hidden;
     display: inline-block;
     text-align: center;
+    position: relative;
 
     &.activated {
         .btn3:nth-child(2) {
             opacity: 1;
+            //margin-top: -38px;
+            top:0;
         }
     }
 
@@ -1000,10 +1003,12 @@ main {
 
     .btn3:nth-child(2) {
         background: @color;
-        .transition(opacity .3s ease-in);
+        .transition(all .3s ease-in);
         position: absolute;
         opacity: 0;
-        margin-top: -38px;
+        //margin-top: 0;
+        left:0;
+        top: 38px;
     }
 }
 
