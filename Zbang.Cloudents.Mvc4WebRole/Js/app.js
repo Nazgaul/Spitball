@@ -160,7 +160,7 @@ app.config([
                     type: 'contact'
                 }
             }).
-            when('/store/checkout/:productId', {
+            when('/store/checkout/:productId/', {
                 templateUrl: function (params) { return '/Store/Checkout/?id=' + params.productId; },
                 controller: 'CheckoutCtrl',
                 params: {
@@ -240,7 +240,8 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
         //title 
         if (!previous) {
-            if (!current && !current.$$route && !current.$$route.params && !current.$$route.params.type) {
+         
+            if (!isCurrentRoute(current)) {
                 return;
             }
 
@@ -277,20 +278,11 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
                 cd.pubsub.publish('quizclear');
                 break;
         };
-        if (!current) {
-            return;
-        }
-        if (!current.$$route) {
-            return;
-        }
-        if (!current.$$route.params) {
-            return;
-        }
-        if (!current.$$route.params.type) {
-            return;
-        }
-                    
 
+        if (!isCurrentRoute(current)) {
+            return;
+        }
+        
         if (current.$$route.params.type === 'box') {
             if (sUserDetails.isAuthenticated()) {
                 sNewUpdates.removeUpdates(current.params.boxId);
@@ -315,4 +307,21 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
 
     });
+
+    function isCurrentRoute(current) {
+        if (!current) {
+            return false;
+        }
+        if (!current.$$route) {
+            return false;
+        }
+        if (!current.$$route.params) {
+            return false;
+        }
+        if (!current.$$route.params.type) {
+            return false;
+        }
+
+        return true;
+    }
 }]);
