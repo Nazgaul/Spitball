@@ -117,7 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterJsRegular("angular-general",
                                 new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js",
                     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
-
+                    new JsFileWithCdn("~/scripts/underscore.js"),
                 new JsFileWithCdn("~/scripts/angular.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"),
 
@@ -172,6 +172,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/dashboard/createBoxCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libraryCtrl.js"),
+                new JsFileWithCdn("/js/controllers/library/createBoxLibCtrl.js"),
+                new JsFileWithCdn("/js/controllers/library/createDepartmentCtrl.js"),
                 new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
                 new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
@@ -185,6 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/focus.js"),
                 new JsFileWithCdn("/js/services/box.js"),
                 new JsFileWithCdn("/js/services/item.js"),
+                new JsFileWithCdn("/js/services/library.js"),
                 new JsFileWithCdn("/js/services/share.js"),                
                 new JsFileWithCdn("/js/services/library.js"),
                 new JsFileWithCdn("/js/services/search.js"),
@@ -202,7 +205,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/directives/userTooltip.js"),
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
-
+                new JsFileWithCdn("/js/directives/facebookFeed.js"),
+                
 
                 new JsFileWithCdn("/js/filters/highlight.js"),
                 new JsFileWithCdn("/js/filters/extToClass.js"),

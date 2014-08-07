@@ -1,50 +1,65 @@
-﻿mLibrary.factory('sLibrary', [
-    '$http',
-    '$q',
+﻿mLibrary.factory('sLibrary',
+    ['$http',
+     '$q',
+
     function ($http, $q) {
-        var Library = '/Library/';
+        var Lib = '/Library/';
         return {
-            items: function (data) {
+
+            'items': function (data) {
                 var dfd = $q.defer();
-                $http.get(Library + 'Nodes/', { params: data }).success(function (response) {
+                $http.get(Lib + 'Nodes/', { params: data }).success(function (response) {
                     dfd.resolve(response);
                 }).error(function (response) {
                     dfd.reject(response);
                 });
+
                 return dfd.promise;
             },
             box: {
                 create: function (data) {
                     var dfd = $q.defer();
-                    $http.post(Library + '/CreateBox', data).success(function (response) {
+                    $http.post(Lib + 'CreateBox/', data).success(function (response) {
                         dfd.resolve(response);
                     }).error(function (response) {
                         dfd.reject(response);
                     });
+
                     return dfd.promise;
-                },                
+                }
             },
             department: {
                 create: function (data) {
                     var dfd = $q.defer();
-                    $http.post(Library + '/Create', data).success(function (response) {
+                    $http.post(Lib + 'Create/', data).success(function (response) {
                         dfd.resolve(response);
                     }).error(function (response) {
                         dfd.reject(response);
                     });
+
                     return dfd.promise;
                 },
                 'delete': function (data) {
                     var dfd = $q.defer();
-                    $http.post(Library + 'DeleteNode/', data).success(function (response) {
+                    $http.post(Lib + 'DeleteNode/', data).success(function (response) {
                         dfd.resolve(response);
                     }).error(function (response) {
                         dfd.reject(response);
                     });
+
                     return dfd.promise;
                 }
+            },
+            departments: function (data) {
+                var dfd = $q.defer();
+                $http.get(Lib + 'Departments/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             }
         };
     }
-]);
-//});
+    ]);

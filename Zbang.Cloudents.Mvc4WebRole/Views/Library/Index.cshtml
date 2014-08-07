@@ -12,7 +12,7 @@
                     <div class="uniLogo">
                         <img src="@Model.Image" alt="" width="68" height="68" />
                     </div>
-                    <div id="univeristyName" class="unionName boldFont" ng-init="info.universityId = '@Model.Id'">@Model.Name</div>
+                <div id="univeristyName" class="unionName boldFont" ng-init="info.universityId = '@Model.Id'">@Model.Name</div>
                     <div class="unionStats">
                         <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
                         <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
@@ -46,15 +46,15 @@
             </div>
             <div class="libLists">
                 @if (!string.IsNullOrEmpty(Model.FacebookUrl))
-                {
+                {                  
                     <iframe id="facebookLikeBox" data-href="@Model.FacebookUrl" facebook-feed
                             data-link="//www.facebook.com/plugins/likebox.php?href=&amp;width=274&amp;height=&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false&amp;appId=450314258355338"
                             scrolling="no" frameborder="0"
                             style="border:none; overflow:hidden;"
                             allowtransparency="true" width="274"></iframe>
-                }
+                }              
             </div>
-        </aside>
+        </aside>        
         @{
             var cls = string.IsNullOrEmpty(Model.LetterUrl) ? "" : "featured";
         }
@@ -76,7 +76,7 @@
             <ul id="libraryList" class="libraryList clearfix">
                 <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'">
 
-                </li>
+                </li>                
                 <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
                     <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
                 </li>

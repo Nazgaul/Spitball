@@ -42,7 +42,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxMin, Version=4.97.4951.28478, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
@@ -149,7 +148,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SquishIt.Framework">
       <HintPath>..\packages\SquishIt.0.9.5.4\lib\SquishIt.Framework.dll</HintPath>
@@ -174,32 +173,32 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing">
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -406,13 +405,12 @@
     </Compile>
     <Compile Include="Models\SitemapNode.cs" />
     <Compile Include="Models\Statistics.cs" />
-    <Compile Include="Models\StoreOrder.cs" />
     <Compile Include="Models\Tabs\AssignItemToTab.cs" />
     <Compile Include="Models\Tabs\ChangeBoxItemTabName.cs" />
     <Compile Include="Models\Tabs\CreateBoxItemTab.cs" />
     <Compile Include="Models\Tabs\DeleteBoxItemTab.cs" />
     <Compile Include="Models\UpdateBoxInfo.cs" />
-    <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="Models\ValidatePasswordLengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
       <DependentUpon>AccountSettingsResources.resx</DependentUpon>
@@ -637,11 +635,11 @@
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
-    <Content Include="Content\Store.css">
-      <DependentUpon>Store.less</DependentUpon>
+    <Content Include="Content\Shopping.css">
+      <DependentUpon>Shopping.less</DependentUpon>
     </Content>
-    <Content Include="Content\StoreRtl.css">
-      <DependentUpon>StoreRtl.less</DependentUpon>
+    <Content Include="Content\ShoppingRtl.css">
+      <DependentUpon>ShoppingRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
@@ -686,7 +684,6 @@
     <Content Include="Images\browsers-sprite.png" />
     <Content Include="Images\cal.png" />
     <Content Include="Images\callout-sprite.png" />
-    <Content Include="Images\Store\cardback.png" />
     <Content Include="Images\category.png">
       <DependentUpon>category.sprite</DependentUpon>
     </Content>
@@ -772,9 +769,7 @@
     <Content Include="Images\Store\fb-off.png" />
     <Content Include="Images\Store\fb-on.png" />
     <Content Include="Images\Store\logo.png" />
-    <Content Include="Images\Store\thank-students.png" />
-    <Content Include="Images\Store\thank.png" />
-    <Content Include="Images\Store\welcome.png" />
+    <Content Include="Images\Store\pop up_image.png" />
     <Content Include="Images\Store\purchase_confirmation.png" />
     <Content Include="Images\Store\social.png">
       <DependentUpon>social.sprite</DependentUpon>
@@ -807,8 +802,8 @@
     <Content Include="Js\controllers\general\shareCtrl.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
-    <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
+    <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
     <Content Include="Js\Autocomplete.js" />
@@ -823,19 +818,13 @@
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
-    <Content Include="Js\controllers\store\carouselCtrl.js" />
-    <Content Include="Js\controllers\store\checkoutCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
-    <Content Include="Js\directives\dataBag.js" />
+    <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\directives\focusOn.js" />
     <Content Include="Js\directives\facebookFeed.js" />
-    <Content Include="Js\modules\carousel.js" />
-    <Content Include="Js\modules\textDirection.js" />
-    <Content Include="Js\modules\displayTime.js" />
-    <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\directives\mLoader.js" />
@@ -843,7 +832,6 @@
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />
-    <Content Include="Js\directives\scrollToTop.js" />
     <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GenericEvents.js" />
@@ -906,13 +894,14 @@
     <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
-    <Content Include="Js\controllers\store\categoryCtrl.js" />
-    <Content Include="Js\controllers\store\homeCtrl.js" />
-    <Content Include="Js\controllers\store\viewCtrl.js" />
-    <Content Include="Js\filters\store\percentage.js" />
-    <Content Include="Js\directives\store\productsMenu.js" />
-    <Content Include="Js\filters\stringFormat.js" />
-    <Content Include="Js\services\store.js" />
+    <Content Include="Js\shopping\app.js" />
+    <Content Include="Js\shopping\controllers\categoryCtrl.js" />
+    <Content Include="Js\shopping\controllers\homeCtrl.js" />
+    <Content Include="Js\shopping\controllers\mainCtrl.js" />
+    <Content Include="Js\shopping\controllers\searchCtrl.js" />
+    <Content Include="Js\shopping\filters\percentage.js" />
+    <Content Include="Js\shopping\directives\productsMenu.js" />
+    <Content Include="Js\shopping\services\store.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
@@ -955,14 +944,14 @@
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Content\Store.less" />
-    <Content Include="Content\StoreRtl.less" />
+    <Content Include="Content\Shopping.less" />
+    <Content Include="Content\ShoppingRtl.less" />
     <Content Include="Images\category.sprite" />
     <Content Include="Images\category.png.map">
       <DependentUpon>category.png</DependentUpon>
     </Content>
     <Content Include="Images\Store\social.sprite" />
-    <Content Include="Js\controllers\store\productCtrl.js" />
+    <Content Include="Js\shopping\controllers\productCtrl.js" />
     <Content Include="Images\Store\social.png.map">
       <DependentUpon>social.png</DependentUpon>
     </Content>
@@ -1327,6 +1316,7 @@
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
     <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
+    <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -1438,12 +1428,8 @@
     <Content Include="Views\Store\About.cshtml" />
     <Content Include="Views\Store\Contact.cshtml" />
     <Content Include="Views\Store\Sales.cshtml" />
-    <Content Include="Views\Store\_Navigation.cshtml" />
-    <Content Include="Views\Store\_Footer.cshtml" />
-    <Content Include="Views\Store\_CheckOutStep1.cshtml" />
-    <Content Include="Views\Store\_CheckOutStep2.cshtml" />
-    <Content Include="Views\Store\Terms.cshtml" />
-    <Content Include="Views\Store\Thankyou.cshtml" />
+    <Content Include="Views\Store\Empty.cshtml" />
+    <Content Include="Views\User\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
