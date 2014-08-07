@@ -23,14 +23,14 @@ namespace Zbang.Zbox.Domain
         {
             NumberOfSales = numberOfSales;
             PictureUrl = pictureUrl;
-            Description = description;
+           
 
             UpdateProduct(id, name, extraDetails, coupon, salePrice, categories,  homePage,
                 supplyTime, numberOfPayments, catalogNumber, deliveryPrice, producerName,
-                features, universityId);
+                features, universityId, description);
         }
 
-        public void UpdateProduct(long id, string name, string extraDetails, float coupon, float salePrice, IList<StoreCategory> categories, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId)
+        public void UpdateProduct(long id, string name, string extraDetails, float coupon, float salePrice, IList<StoreCategory> categories, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, string description)
         {
             if (name == null) throw new ArgumentNullException("name");
             Id = id;
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain
 
             Coupon = coupon;
             SalePrice = salePrice;
-
+            Description = description;
             Url = UrlConsts.BuildStoreProductUrl(Id, Name);
             Categories = categories;
 
