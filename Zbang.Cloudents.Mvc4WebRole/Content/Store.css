@@ -519,6 +519,34 @@ main {
 .productsList td:nth-child(2) {
   width: 1px;
 }
+.productsList .noResults {
+  display: none;
+}
+.productsList .noResults:first-child {
+  display: block !important;
+  width: 100%;
+}
+.productsList .noResults .emptySearch {
+  margin-top: 85px;
+  font-size: 24px;
+}
+.productsList .noResults .emptySearch:before {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  margin: 38px auto 12px;
+}
+.productsList .noResults .emptySearch:after {
+  width: 32px;
+  height: 37px;
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin: 0 auto;
+  background-position: -283px -51px;
+}
 .productHover {
   display: table;
   opacity: .5;
