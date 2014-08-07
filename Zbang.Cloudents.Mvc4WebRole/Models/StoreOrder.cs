@@ -70,5 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         
         //TODO: add to form
         public int NumberOfPayments { get; set; }
+
+        public int? UniversityId { get; set; }
     }
 }

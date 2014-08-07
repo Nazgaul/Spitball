@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.CreditCardNumber,
                 new DateTime(model.ExpirationYear, model.ExpirationMonth, 1),
                 model.SecurityCode,
-                15, //need to put university id
+                model.UniversityId.HasValue ? model.UniversityId.Value : 15,
                 model.Email,
                 model.Phone1, model.Phone2,
                 model.Features,

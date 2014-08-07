@@ -8,7 +8,8 @@
     <ul>
         @foreach (var sub in categories)
         {
-            <li><a href="@sub.Url">@sub.Name</a></li>
+            var url = sub.Url + Request.Url.Query;
+            <li><a href="@url">@sub.Name</a></li>
         }
     </ul>
 }
@@ -67,9 +68,9 @@
                 <button class="ytube" type="button"></button>
             </div>
             <ul>
-                <li><a href="@Url.RouteUrl("StoreAbout")">@StoreResources.AboutCloudents</a> |</li>
-                <li><a href="@Url.RouteUrl("StoreContact")">@StoreResources.ContactUs</a> |</li>
-                <li><a href="@Url.RouteUrl("StoreTerms")">@StoreResources.TermsOfUse</a></li>
+                <li><a href="@Url.RouteUrl("StoreAbout", new { universityId = Request.QueryString["universityId"] })">@StoreResources.AboutCloudents</a> |</li>
+                <li><a href="@Url.RouteUrl("StoreContact", new { universityId = Request.QueryString["universityId"] })">@StoreResources.ContactUs</a> |</li>
+                <li><a href="@Url.RouteUrl("StoreTerms", new { universityId = Request.QueryString["universityId"] })">@StoreResources.TermsOfUse</a></li>
             </ul>
         </div>
     </div>
