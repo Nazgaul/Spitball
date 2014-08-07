@@ -9,7 +9,7 @@
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
-            universityId: $location.search()['universityid'] || null
+            universityId: $routeParams.universityId || null
         };
 
         Store.products({ categoryId: $routeParams.categoryId,universityId: $scope.params.universityId}).then(function (response) {

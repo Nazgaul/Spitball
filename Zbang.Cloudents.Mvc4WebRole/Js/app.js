@@ -125,9 +125,9 @@ app.config([
         //#endregion
         //#region store
              when('/store/', {
-                 templateUrl: '/Store/',
+                 templateUrl: function (params) { var url = '/Store/'; if (params.universityId) { url += '?universityId=' + params.universityId; } return url; },
                  controller: 'CategoryCtrl',
-                 reloadOnSearch:false,
+                 reloadOnSearch: false,
                  params: {
                      type: 'home'
                  }
@@ -140,7 +140,7 @@ app.config([
                 }
             }).
             when('/store/product/:productId/:productName/', {
-                templateUrl: function (params) { return '/store/product/?id=' + params.productId; },
+                templateUrl: function (params) { var url = '/store/product/?id=' + params.productId; if (params.universityId) { url += '&universityId=' + params.universityId; } return url; },
                 controller: 'ProductCtrl',
                 params: {
                     type: 'product'
@@ -240,7 +240,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
 
         //title 
         if (!previous) {
-         
+
             if (!isCurrentRoute(current)) {
                 return;
             }
@@ -282,7 +282,7 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
         if (!isCurrentRoute(current)) {
             return;
         }
-        
+
         if (current.$$route.params.type === 'box') {
             if (sUserDetails.isAuthenticated()) {
                 sNewUpdates.removeUpdates(current.params.boxId);
