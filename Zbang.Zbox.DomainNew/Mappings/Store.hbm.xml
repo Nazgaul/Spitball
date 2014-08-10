@@ -44,6 +44,8 @@
     <property name="HomePage" not-null="true"/>
     <property name="ProducerName" />
     <property name="UniversityId" not-null="false" />
+    <property name="CategoryOrder" not-null="false" />
+    <property name="ProductOrder" not-null="false" />
 
     <set name="Categories" table="StoreProductCategory">
       <key column="ProductId"/>

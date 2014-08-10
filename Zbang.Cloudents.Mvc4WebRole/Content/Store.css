@@ -258,10 +258,10 @@ main {
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  -webkit-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
-  -moz-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
-  -o-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
-  transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
+  -moz-transition-delay: 0;
+  -o-transition-delay: 0;
+  -webkit-transition-delay: 0;
+  transition-delay: 0;
   left: 0;
   /*rtl*/
   top: 174px;
@@ -269,7 +269,7 @@ main {
   color: #39434a;
   z-index: 1;
   overflow: hidden;
-  height: 0;
+  height: 194px;
   width: 151px;
   margin-left: -1px;
   /*rtl*/
@@ -290,9 +290,11 @@ main {
   border-width: 13px 15px 0 15px;
   top: 0;
 }
+.categoryList ul li {
+  font-size: 15px;
+}
 .categoryList ul li:hover {
   color: #0f9d58;
-  font-weight: bold;
 }
 .categoryList > li {
   width: 150px;
@@ -314,7 +316,6 @@ main {
 .categoryList > li:hover ul {
   visibility: visible;
   opacity: 1;
-  height: 194px;
   -webkit-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
   -moz-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
   -o-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
@@ -358,6 +359,9 @@ main {
   border-color: transparent transparent #39434a transparent;
   bottom: 0;
   top: auto;
+}
+.categoryList > li:nth-child(-n + 6):hover li:first-child {
+  padding-top: 10px;
 }
 .categoryList > li.spr-chair:before {
   background-position: 0 -106px;
@@ -1113,7 +1117,7 @@ main {
   min-width: 45px;
 }
 .invoice li span:nth-child(3) {
-  padding-right: 10px;
+  padding: 0 10px 0 3px;
   /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

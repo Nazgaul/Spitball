@@ -12,7 +12,8 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[PictureUrl]
       ,[Url]
         FROM [Zbox].[StoreProduct] where homepage = 1
-        and (universityid is null or universityid = @universityId)";
+        and (universityid is null or universityid = @universityId)
+        order by ProductOrder, SalePrice";
 
        public const string GetProductsWithCategory = @"SELECT s.[ProductId] as Id
       ,[Name]
@@ -24,7 +25,8 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[Url]
   FROM [Zbox].[StoreProduct] s inner join zbox.StoreProductCategory sp on s.ProductId = sp.ProductId
   where sp.CatId = @CatId
-        and (universityid is null or universityid = @universityId)";
+        and (universityid is null or universityid = @universityId)
+        order by categoryorder, SalePrice";
 
        public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
   FROM [Zbox].[StoreCat]
@@ -53,7 +55,8 @@ s.numberofpayments as NumberOfPayments
       ,[PictureUrl]
       ,[Url] from zbox.StoreProduct 
 where name like '%' + @term + '%' 
-and (universityid is null or universityid = @universityId)";
+and (universityid is null or universityid = @universityId)
+order by ProductOrder, SalePrice";
 
        public const string GetProductFeatures = @"select Id, 
 Category,
