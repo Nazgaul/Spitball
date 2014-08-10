@@ -1239,12 +1239,17 @@ main {
 .userDetails .termsLink {
   text-decoration: underline;
 }
-.cbWpr {
+.cbWpr,
+.paymentWpr {
   position: relative;
 }
-.cbWpr .required {
+.cbWpr .required,
+.paymentWpr .required {
   position: absolute;
   top: -16px;
+}
+.paymentWpr.error select {
+  border-color: #d1294d;
 }
 .secureCode {
   position: relative;
