@@ -326,5 +326,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.ValidateCoupon(coupon);
         }
+
+
+        public Task<int> CloudentsUniversityToStoreUniversity(long universityId)
+        {
+            return m_ReadService.CloudentsUniversityToStoreUniversity(universityId);
+        }
     }
 }
