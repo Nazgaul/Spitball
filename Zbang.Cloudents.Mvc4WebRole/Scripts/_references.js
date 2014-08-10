@@ -165,6 +165,7 @@
 /// <reference path="../js/controllers/store/carouselctrl.js" />
 /// <reference path="../js/directives/databag.js" />
 /// <reference path="../js/mobile/mboxviewmodel.js" />
+/// <reference path="../js/controllers/store/contactctrl.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

@@ -37,17 +37,17 @@
                     <table class="productPrice">
                         <tr>
                             <td>@StoreResources.StudentPrice:</td>
-                            <td>@Model.Price.ToString("c")</td>
+                            <td>{{'@Model.Price' | currency:''}}</td>
                             <td>₪</td>
                         </tr>
                         <tr>
                             <td>@StoreResources.Shipping:</td>
-                            <td>@Model.DeliveryPrice</td>
+                            <td>{{'@Model.DeliveryPrice' | currency:''}}</td>
                             <td>₪</td>
                         </tr>
                         <tr>
                             <td>@StoreResources.CostWithShipping:</td>
-                            <td>@Model.TotalPrice</td>
+                            <td>{{'@Model.TotalPrice' | currency:''}}</td>
                             <td>₪</td>
                         </tr>
                     </table>

@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public string Phone { get; set; }
         public string University { get; set; }
         [Required]
-        public String Email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         public string Text { get; set; }

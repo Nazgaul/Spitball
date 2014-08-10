@@ -170,7 +170,7 @@ app.config([
                     }
                     return url;
                 },
-                controller: 'ViewCtrl',
+                controller: 'ContactCtrl',
                 params: {
                     type: 'contact'
                 }
