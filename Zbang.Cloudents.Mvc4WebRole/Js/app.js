@@ -125,7 +125,11 @@ app.config([
         //#endregion
         //#region store
              when('/store/', {
-                 templateUrl: function (params) { var url = '/Store/', universityId = params.universityId || params.universityid; if (universityId) { url += '?universityid=' + universityId; } return url; },
+                 templateUrl: function(params) {
+                     var url = '/Store/', universityId = params.universityId || params.universityid;
+                     if (universityId) { url += '?universityid=' + universityId; }
+                     return url;
+                 },
                  controller: 'CategoryCtrl',
                  reloadOnSearch: false,
                  params: {

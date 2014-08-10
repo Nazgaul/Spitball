@@ -53,7 +53,11 @@
         };
 
         $scope.validateCoupon = function () {
+            if (!$scope.coupon.code) {
+                return;
+            }
             $scope.coupon.buttonDisabled = true;
+            
             Store.validateCoupon({ code: $scope.coupon.code }).then(function (response) {
                 $scope.coupon.buttonDisabled = false;
                 if (!response.success) {
