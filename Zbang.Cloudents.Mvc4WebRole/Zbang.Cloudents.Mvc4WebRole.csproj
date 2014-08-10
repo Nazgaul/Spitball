@@ -359,6 +359,11 @@
     <Compile Include="Models\Quiz\UpdateAnswer.cs" />
     <Compile Include="Models\Quiz\UpdateQuestion.cs" />
     <Compile Include="Models\Quiz\UpdateQuiz.cs" />
+    <Compile Include="Models\Resources\StoreResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Share\Invite.cs" />
     <Compile Include="Models\Share\InviteSystemFromFacebook.cs" />
     <Compile Include="Models\Share\InviteToBoxFromFacebook.cs" />
@@ -1650,6 +1655,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\InvitationResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\InvitationResources.zh.resx" />
+    <EmbeddedResource Include="Models\Resources\StoreResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\StoreResources.he.resx" />
+    <EmbeddedResource Include="Models\Resources\StoreResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StoreResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Resources\StoreResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.resx">

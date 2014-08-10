@@ -32,12 +32,14 @@
     <form class="contact">
         <h2 class="top">@StoreResources.GetHelp</h2>
         <div class="lFloat">
-            @Html.LabelFor(l=>l.Name)
+            @Html.LabelFor(l=>l.Name):
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Name:</label>*@
             @Html.TextBoxFor(f => f.Name, new { @class = "inputText" })
         </div>
         <div class="rFloat">
             @Html.LabelFor(l => l.Phone)
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@StoreResources.Telephone:</label>*@
             @Html.TextBoxFor(f => f.Phone, new { @class = "inputText" })
         </div>
@@ -48,11 +50,13 @@
         </div>
         <div class="rFloat">
             @Html.LabelFor(l => l.Email)
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Email:</label>*@
             @Html.TextBoxFor(f => f.Email, new { @class = "inputText" , type="Email" })
         </div>
         <div class="lFloat wideInput">
             @Html.LabelFor(l => l.Text)
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Message:</label>*@
             @Html.TextAreaFor(f => f.Text, new { @class = "inputText" })
         </div>

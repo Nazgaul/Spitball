@@ -820,8 +820,25 @@ main {
   background: #fff;
   margin-top: 56px;
   padding: 0 80px 30px;
-  /*label {
-        font-size: 22px;
+  /*> .lFloat, > .rFloat {
+        width: 340px;
+        margin-top: 25px;
+    }
+
+    > .lFloat {
+        clear: both;
+
+        &.wideInput {
+            width: 100%;
+        }
+    }
+
+    .inputText {
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+        //height: 32px;
+        .boxSizing;
     }*/
 }
 .contact.contact h2 {
@@ -829,25 +846,6 @@ main {
   line-height: 30px;
   padding: 20px 80px;
   margin: 0 -80px;
-}
-.contact.contact > .lFloat,
-.contact.contact > .rFloat {
-  width: 340px;
-  margin-top: 25px;
-}
-.contact.contact > .lFloat {
-  clear: both;
-}
-.contact.contact > .lFloat.wideInput {
-  width: 100%;
-}
-.contact.contact .inputText {
-  display: block;
-  margin-top: 5px;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .contact.contact textarea {
   min-height: 190px;
@@ -1124,11 +1122,69 @@ main {
 .pName {
   font-size: 21px;
 }
+.userDetails > .lFloat,
+.contact.contact > .lFloat,
+.userDetails > .rFloat,
+.contact.contact > .rFloat {
+  width: 340px;
+  margin-top: 25px;
+}
+.userDetails > .lFloat.error .inputText,
+.contact.contact > .lFloat.error .inputText,
+.userDetails > .rFloat.error .inputText,
+.contact.contact > .rFloat.error .inputText {
+  border-color: #d1294d;
+}
+.userDetails > .lFloat.error .required,
+.contact.contact > .lFloat.error .required,
+.userDetails > .rFloat.error .required,
+.contact.contact > .rFloat.error .required {
+  visibility: visible;
+}
+.userDetails > .lFloat,
+.contact.contact > .lFloat {
+  clear: both;
+}
+.userDetails > .lFloat.wideInput,
+.contact.contact > .lFloat.wideInput {
+  width: 100%;
+}
+.userDetails .required,
+.contact.contact .required {
+  visibility: hidden;
+  color: #d1294d;
+}
+.userDetails .inputText,
+.contact.contact .inputText {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 .userDetails {
   font-size: 15px;
   padding: 60px 75px;
   margin-top: 50px;
   overflow: hidden;
+  /*.required {
+        visibility: hidden;
+        color: @errorColor;
+    }
+    > .lFloat {
+        clear: both;
+
+        &.wideInput {
+            width: 100%;
+        }
+    }
+
+    .inputText {
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+    }*/
 }
 .userDetails h2 {
   margin: -60px -75px 0;
@@ -1141,36 +1197,20 @@ main {
 .userDetails > .lFloat,
 .userDetails > .rFloat {
   width: 360px;
-  margin-top: 25px;
 }
-.userDetails > .lFloat.error .inputText,
-.userDetails > .rFloat.error .inputText,
+.userDetails > .lFloat.error,
+.userDetails > .rFloat.error {
+  /*.inputText , .cbLabel{
+                border-color: @errorColor;
+            }*/
+  /*.required {
+                visibility: visible;
+            }*/
+}
 .userDetails > .lFloat.error .cbLabel,
 .userDetails > .rFloat.error .cbLabel {
+  display: block;
   border-color: #d1294d;
-}
-.userDetails > .lFloat.error .cbLabel,
-.userDetails > .rFloat.error .cbLabel {
-  display: block;
-}
-.userDetails > .lFloat.error .required,
-.userDetails > .rFloat.error .required {
-  visibility: visible;
-}
-.userDetails .required {
-  visibility: hidden;
-  color: #d1294d;
-}
-.userDetails > .lFloat {
-  clear: both;
-}
-.userDetails > .lFloat.wideInput {
-  width: 100%;
-}
-.userDetails .inputText {
-  display: block;
-  margin-top: 5px;
-  width: 100%;
 }
 .userDetails textarea {
   min-height: 94px;
