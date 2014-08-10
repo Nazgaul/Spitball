@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources; //TODO: move localization to Model
 using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources;
 namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
@@ -22,7 +22,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         [Required(ErrorMessageResourceType = typeof(DialogResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(SharedResources), Name = "Email")]
-        public String Email { get; set; }
+        public string Email { get; set; }
+        
 
         [Required(ErrorMessageResourceType = typeof(DialogResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(SharedResources), Name = "Message")]

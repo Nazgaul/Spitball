@@ -152,6 +152,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax, HttpPost]
+        [Route("store/contact")]
         public ActionResult Contact(StoreContact model)
         {
             if (!ModelState.IsValid)

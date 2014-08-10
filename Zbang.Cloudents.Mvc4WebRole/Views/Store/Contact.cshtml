@@ -29,38 +29,38 @@
         </div>
     </div>
 
-    <form class="contact">
+    <form class="contact" name="contactForm" novalidate ng-submit="submit(contactForm.$valid)">
         <h2 class="top">@StoreResources.GetHelp</h2>
-        <div class="lFloat">
-            @Html.LabelFor(l=>l.Name):
+        <div class="lFloat" ng-class="{error : submitted && contactForm.Name.$error.required}">
+            @Html.LabelFor(l => l.Name)
             <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Name:</label>*@
-            @Html.TextBoxFor(f => f.Name, new { @class = "inputText" })
+            @Html.TextBoxFor(f => f.Name, new { @class = "inputText" , required="required", ng_model = "formData.name"})
         </div>
-        <div class="rFloat">
+        <div class="rFloat" ng-class="{error : submitted && contactForm.Phone.$error.required}">
             @Html.LabelFor(l => l.Phone)
             <span class="required">@DialogResources.RequiredField</span>
             @*<label>@StoreResources.Telephone:</label>*@
-            @Html.TextBoxFor(f => f.Phone, new { @class = "inputText" })
+            @Html.TextBoxFor(f => f.Phone, new { @class = "inputText", required = "required", ng_model = "formData.phone" })
         </div>
         <div class="lFloat">
             @Html.LabelFor(l => l.University)
             @*<label>@SharedResources.School:</label>*@
-            @Html.TextBoxFor(f => f.University, new { @class = "inputText" })
+            @Html.TextBoxFor(f => f.University, new { @class = "inputText", required = "required", ng_model = "formData.university" })
         </div>
-        <div class="rFloat">
+        <div class="rFloat" ng-class="{error : submitted && contactForm.Email.$error.required || contactForm.Email.$error.email}">
             @Html.LabelFor(l => l.Email)
             <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Email:</label>*@
-            @Html.TextBoxFor(f => f.Email, new { @class = "inputText" , type="Email" })
+            @Html.TextBoxFor(f => f.Email, new { @class = "inputText", type = "Email", required = "required", ng_model = "formData.email" })
         </div>
-        <div class="lFloat wideInput">
+        <div class="lFloat wideInput" ng-class="{error : submitted && contactForm.Text.$error.required}">
             @Html.LabelFor(l => l.Text)
             <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Message:</label>*@
-            @Html.TextAreaFor(f => f.Text, new { @class = "inputText" })
+            @Html.TextAreaFor(f => f.Text, new { @class = "inputText", required="required", ng_model = "formData.text" })
         </div>
-        <button type="submit" class="rFloat btn1">@DialogResources.Send</button>
+        <button type="submit" class="rFloat btn1" ng-click="submitted = true">@DialogResources.Send</button>
     </form>
 
     @{Html.RenderPartial("_Footer");}

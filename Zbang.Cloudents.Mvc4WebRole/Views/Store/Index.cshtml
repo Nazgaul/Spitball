@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model IList<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
 
-<div class="storeWpr page">
+<div class="storeWpr page" ng-class="{noBanners : hideBanners()}">
     @{Html.RenderPartial("_Navigation");}
 
     @*Add class big to show the bigger version of the widget*@

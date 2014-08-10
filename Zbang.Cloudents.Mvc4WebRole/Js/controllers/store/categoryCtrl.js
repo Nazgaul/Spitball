@@ -5,7 +5,8 @@
             defaultMaxProducts: 9,
             productsIncrement: 9
         },
-        allProducts;     
+        allProducts,
+        hideBanners = $routeParams.categoryId;
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
@@ -26,6 +27,9 @@
             $scope.params.maxProducts += consts.productsIncrement;
         };
 
+        $scope.hideBanners = function () {
+            return hideBanners;
+        };
 
         //var lastQuery;
         //$scope.search = debounce(function () {
@@ -70,6 +74,7 @@
             }
 
             $scope.params.search = null;
+            hideBanners = false;
             $scope.products = allProducts;
             $scope.params.isSearching = false;
             $scope.params.maxProducts = consts.defaultMaxProducts;
@@ -78,8 +83,8 @@
 
         function search() {
             var query = $scope.params.search;
-
             $scope.params.isSearching = true;
+            hideBanners = true;
             $location.search({ q: $scope.params.search});
             Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
                 var data = response.success ? response.payload : {};
