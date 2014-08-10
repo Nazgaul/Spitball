@@ -18,9 +18,10 @@ namespace Zbang.Zbox.Domain.Commands.Store
         public ProductStore(string catalogNumber, string categories, float coupon, float deliveryPrice, string description,
             string extraDetails, bool featured, long id, string name, int numberOfSales, string pictureUrl, int productPayment,
             float salePrice, string supplyTime, string producerName,
-            List<KeyValuePair<string, string>> upgrades, bool isActive, int? universityId
-           )
+            List<KeyValuePair<string, string>> upgrades, bool isActive, int? universityId, int order, int categoryOrder)
         {
+            CategoryOrder = categoryOrder;
+            Order = order;
             CatalogNumber = catalogNumber;
             Categories = categories;
             Coupon = coupon;
@@ -75,9 +76,9 @@ namespace Zbang.Zbox.Domain.Commands.Store
 
         public int? UniversityId { get; private set; }
 
-        public override string ToString()
-        {
-            return "id:" + Id + " upgrades: " + Upgrades;
-        }
+
+        public int Order { get; private set; }
+
+        public int CategoryOrder { get; private set; }
     }
 }

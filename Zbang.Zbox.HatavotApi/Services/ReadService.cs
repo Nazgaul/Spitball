@@ -26,9 +26,9 @@ namespace Zbang.Zbox.Store.Services
       ,[CatalogNumber] -- part of Product Description 
       ,[SubName] as ExtraDetails-- 2nd title of the Product Description 
       ,[SupplyTime]-- part of Product description 
-      --,[IndexProdOrder] -- the rank of the product on the page (lower is higher on the page_)
+      ,[IndexProdOrder] as [Order] -- the rank of the product on the page (lower is higher on the page_)
       --,[SalesProdOrder] -- sales page product order 
-      --,[ProdOrder] -- Category Page  product order
+      ,[ProdOrder] as [CategoryOrder] -- Category Page  product order
       ,(select producerName from tblproducers s where s.producerid = p.[ProducerId]) as producerName -- Producer ID 
       ,[p1] as upgrade1  -- Upgrades
       ,[v1] as upgradeValue1 -- Upgrades
