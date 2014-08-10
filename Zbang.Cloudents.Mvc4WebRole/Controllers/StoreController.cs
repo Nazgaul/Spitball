@@ -38,8 +38,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/sales")]
         [Route("store/thankyou", Name = "StoreThanksYou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int? universityId)
         {
+            if (User.Identity.IsAuthenticated && !universityId.HasValue)
+            {
+                var userDetail = FormsAuthenticationService.GetUserData();
+                var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+                var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
+                return RedirectToAction("Index", new { universityId = storeUniversityId });
+            }
             return View("Empty");
         }
 

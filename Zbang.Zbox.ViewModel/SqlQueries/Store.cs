@@ -69,5 +69,8 @@ from zbox.StoreProductFeatures where Product = @ProdId;";
 
 
        public const string ValidateCouponCode = "select 1 from zbox.StoreUniversityMapper where CouponCode = @Coupun";
+
+       public const string MapCloudentsUniversityToStoreUniversity =
+           "select StoreUniversityId from zbox.StoreUniversityMapper where UniversityId = @UniversityId";
    }
 }
