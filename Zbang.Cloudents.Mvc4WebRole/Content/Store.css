@@ -1366,12 +1366,12 @@ main {
 }
 .storeWpr footer > .wpr {
   text-align: justify;
-  padding: 35px 42px;
+  padding: 35px 42px 5px;
 }
 .storeWpr footer > .wpr > div {
   display: inline-block;
   vertical-align: top;
-  height: 210px;
+  height: 250px;
 }
 .storeWpr footer > .wpr:after {
   content: '';
