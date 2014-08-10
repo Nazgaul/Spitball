@@ -829,6 +829,7 @@
     <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
     <Content Include="Js\controllers\store\carouselCtrl.js" />
     <Content Include="Js\controllers\store\checkoutCtrl.js" />
+    <Content Include="Js\controllers\store\contactCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
