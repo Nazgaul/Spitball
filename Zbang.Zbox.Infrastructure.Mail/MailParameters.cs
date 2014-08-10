@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         internal const string FlagBadItemResolver = "FlagBadItem";
         internal const string PartnersResolver = "Partners";
         internal const string OrderResolver = "Order";
+        internal const string StoreContactResolver = "StoreContact";
 
         internal const string DefaultEmail = "no-reply@cloudents.com";
 

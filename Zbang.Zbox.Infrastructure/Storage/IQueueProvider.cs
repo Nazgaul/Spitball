@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IQueueProvider
     {
-        Task InsertMessageToStoreAsync(StoreOrderData message);
+        Task InsertMessageToStoreAsync(StoreData message);
         void InsertMessageToCache(FileProcessData message);
         void InsertMessageToMailNew(BaseMailData message);
 
