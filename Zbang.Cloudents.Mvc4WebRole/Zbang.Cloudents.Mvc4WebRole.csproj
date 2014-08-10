@@ -827,6 +827,7 @@
     <Content Include="Js\controllers\store\carouselCtrl.js" />
     <Content Include="Js\controllers\store\categoryCtrl.js" />
     <Content Include="Js\controllers\store\checkoutCtrl.js" />
+    <Content Include="Js\controllers\store\contactCtrl.js" />
     <Content Include="Js\controllers\store\homeCtrl.js" />
     <Content Include="Js\controllers\store\productCtrl.js" />
     <Content Include="Js\controllers\store\viewCtrl.js" />

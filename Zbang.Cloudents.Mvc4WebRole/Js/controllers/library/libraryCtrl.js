@@ -2,7 +2,7 @@
 mLibrary.controller('LibraryCtrl',
     ['$scope', '$location', '$routeParams', '$timeout', '$modal', 'sUserDetails', 'sLibrary', 'sBox',
         function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibrary, sBox) {
-      
+
             var jsResources = window.JsResources;
 
             var types = {
@@ -17,6 +17,9 @@ mLibrary.controller('LibraryCtrl',
                 items: [],
                 currentPage: 0, pageSize: 50, paggingnNeeded: false
             };
+
+            $scope.back.title = $scope.info.libraryName;
+
 
             var partials = {
                 createAcademicBox: '/Library/CreateAcademicBoxPartial/',
@@ -80,7 +83,7 @@ mLibrary.controller('LibraryCtrl',
                 });
 
                 modalInstance.result.then(function (box) {
-                        $location.path(box.url);
+                    $location.path(box.url);
                 }, function () {
                     //dismiss
                 });
@@ -148,8 +151,6 @@ mLibrary.controller('LibraryCtrl',
                     }
                     return;
                 }
-
-
             };
 
 
@@ -198,7 +199,20 @@ mLibrary.controller('LibraryCtrl',
                 return false;
             };
 
+            $scope.renameBox = function (newName) {
+                if (!(newName && newName.length)) {
+                    return;
+                }
 
+                $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
+
+                sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
+                    if (!(response.success || response.Success)) {
+                        alert(response.Payload);
+                        return;
+                    }
+                });
+            };
 
 
             //#endregion
