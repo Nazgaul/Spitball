@@ -51,7 +51,7 @@
             <td></td>
             <td class="invoice">
                 <ul ng-if="product.salePrice > 0">
-                    <li><span>@StoreResources.ProductPrice:</span><span>{{'@Model.SalePrice' | currency:''}}</span><span>₪</span></li>
+                    <li><span>@StoreResources.ProductPrice:</span><span>@Model.SalePrice.ToString("n0")</span><span>₪</span></li>
                     <li><span>@StoreResources.Coupon:</span><span ng-class="{minus: coupon.valid}" ng-bind="(couponDiscount() | currency:'').slice(0,-3)"></span><span>₪</span></li>
                     <li><span>@StoreResources.Upgrades:</span><span ng-bind="(upgradeCost() | currency:'').slice(0,-3)"></span><span>₪</span></li>
                     @*<li><span>@StoreResources.Vat:</span><span class="">252</span><span>₪</span></li>*@
