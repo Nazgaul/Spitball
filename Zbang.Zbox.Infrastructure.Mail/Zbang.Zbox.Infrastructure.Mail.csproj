@@ -57,6 +57,7 @@
     <Compile Include="ChangeEmailMail.cs" />
     <Compile Include="ChangeEmailMailParams.cs" />
     <Compile Include="EmailParameters\Partners.cs" />
+    <Compile Include="EmailParameters\StoreContactUs.cs" />
     <Compile Include="EmailParameters\StoreOrder.cs" />
     <Compile Include="FlagItemMail.cs" />
     <Compile Include="FlagItemMailParams.cs" />
@@ -82,6 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmailResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="StoreContactUsMail.cs" />
     <Compile Include="UpdateMailParams.cs" />
     <Compile Include="UpdatesMail.cs" />
     <Compile Include="WelcomeMail.cs" />
