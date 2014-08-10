@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             ioc.RegisterType<IMailBuilder, InvitationToCloudentsMail>(MailParameters.InvitationToCloudentsResolver, LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, PartnersMail>(MailParameters.PartnersResolver, LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, OrderConfirmMail>(MailParameters.OrderResolver, LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IMailBuilder, StoreContactUsMail>(MailParameters.StoreContactResolver, LifeTimeManager.PerHttpRequest);
 
         }
     }

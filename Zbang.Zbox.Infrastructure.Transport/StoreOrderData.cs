@@ -5,7 +5,7 @@ using ProtoBuf;
 namespace Zbang.Zbox.Infrastructure.Transport
 {
     [ProtoContract]
-    public class StoreOrderData
+    public class StoreOrderData : StoreData
     {
         protected StoreOrderData()
         {

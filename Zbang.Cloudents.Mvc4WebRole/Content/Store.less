@@ -845,7 +845,7 @@ main {
     line-height: 30px;
     font-size: 15px;
     width: 600px;
-    margin-bottom: 200px;
+    margin: 0 auto 200px;
 
     h2 {
         border-top: 2px solid @color;
@@ -1302,11 +1302,18 @@ main {
         text-decoration: underline;
     }
 }
-.cbWpr {
+.cbWpr , .paymentWpr {
     position: relative;
     .required {
         position: absolute;
         top: -16px;
+    }
+}
+.paymentWpr {
+    &.error {
+        select {
+            border-color: @errorColor;
+        }
     }
 }
 .secureCode {

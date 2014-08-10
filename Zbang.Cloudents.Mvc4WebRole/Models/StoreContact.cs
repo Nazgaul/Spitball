@@ -19,10 +19,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         [Display(ResourceType = typeof(SharedResources), Name = "School")]
         public string University { get; set; }
-        
+
         [Required(ErrorMessageResourceType = typeof(DialogResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(SharedResources), Name = "Email")]
         public string Email { get; set; }
+        
 
         [Required(ErrorMessageResourceType = typeof(DialogResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(SharedResources), Name = "Message")]

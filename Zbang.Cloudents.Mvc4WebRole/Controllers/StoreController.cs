@@ -155,6 +155,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/contact")]
         public ActionResult Contact(StoreContact model)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+            }
+            m_QueueProvider.Value.InsertMessageToStoreAsync(
+                new Zbox.Infrastructure.Transport.StoreContactData(model.Name, model.Phone, model.University,
+                    model.Email, model.Text));
             return this.CdJson(new JsonResponse(true));
         }
 

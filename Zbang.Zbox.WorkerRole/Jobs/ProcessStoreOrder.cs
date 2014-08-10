@@ -38,57 +38,79 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 m_QueueProcess.RunQueue(new OrderQueueName(), msg =>
                 {
-                    var order = msg.FromMessageProto<StoreOrderData>();
-                    var productDetail = m_ZboxReadService.GetProductCheckOut(new ViewModel.Queries.GetStoreProductQuery(order.ProdcutId)).Result;
-
-                    var features = new KeyValuePair<string, string>[6];
-                    int index = 0;
-                    //order.Features
-                    if (productDetail.Features != null)
-                        foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
-                        {
-                            features[index] = new KeyValuePair<string, string>(feature.Category,
-                                feature.Description + "*" + feature.Price + "*");
-                            index++;
-                        }
-                    for (int i = index; i < 6; i++)
+                    var storeData = msg.FromMessageProto<StoreData>();
+                    var order = storeData as StoreOrderData;
+                    if (order != null)
                     {
-                        features[i] = new KeyValuePair<string, string>(string.Empty, string.Empty);
+                        ProcessOrder(order);
+                        return true;
                     }
-                    //TODO: need to add email
-
-
-                  var retVal = m_WriteService.InsertOrder(new OrderSubmitDto(
-                        order.ProdcutId,
-                        order.IdentificationNumber,
-                        order.FirstName,
-                        order.LastName,
-                        order.Address,
-                        order.CardHolderIdentificationNumber,
-                        order.Notes,
-                        order.City,
-                        order.CreditCardNameHolder,
-                        order.CreditCardNumber,
-                        order.CreditCardExpiration,
-                        order.Cvv,
-                        order.UniversityId,
-                        features[0].Key, features[0].Value,
-                        features[1].Key, features[1].Value,
-                        features[2].Key, features[2].Value,
-                        features[3].Key, features[3].Value,
-                        features[4].Key, features[4].Value,
-                        features[5].Key, features[5].Value,
-                        order.Email,
-                        order.Phone,
-                        order.Phone2,
-                        0,
-                        order.NumberOfPayment)).Result;
-
-                    m_MailComponent.GenerateAndSendEmail(order.Email,
-                        new StoreOrder(order.FirstName + " " + order.LastName, retVal.ProductName, retVal.OrderId));
-                    return true;
+                    var contactUs = storeData as StoreContactData;
+                    if (contactUs != null)
+                    {
+                        ProcessContactUs(contactUs);
+                        return true;
+                    }
+                    return false;
                 }, TimeSpan.FromMinutes(1), int.MaxValue);
             }
+        }
+
+        private void ProcessContactUs(StoreContactData contactUs)
+        {
+            m_MailComponent.GenerateAndSendEmail("yaari.ram@gmail.com",
+                new StoreContactUs(contactUs.Name, contactUs.Phone, contactUs.University, contactUs.Email,
+                    contactUs.Text));
+        }
+
+        private void ProcessOrder(StoreOrderData order)
+        {
+            var productDetail = m_ZboxReadService.GetProductCheckOut(new ViewModel.Queries.GetStoreProductQuery(order.ProdcutId)).Result;
+
+            var features = new KeyValuePair<string, string>[6];
+            int index = 0;
+            //order.Features
+            if (productDetail.Features != null)
+                foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
+                {
+                    features[index] = new KeyValuePair<string, string>(feature.Category,
+                        feature.Description + "*" + feature.Price + "*");
+                    index++;
+                }
+            for (int i = index; i < 6; i++)
+            {
+                features[i] = new KeyValuePair<string, string>(string.Empty, string.Empty);
+            }
+
+
+            var retVal = m_WriteService.InsertOrder(new OrderSubmitDto(
+                  order.ProdcutId,
+                  order.IdentificationNumber,
+                  order.FirstName,
+                  order.LastName,
+                  order.Address,
+                  order.CardHolderIdentificationNumber,
+                  order.Notes,
+                  order.City,
+                  order.CreditCardNameHolder,
+                  order.CreditCardNumber,
+                  order.CreditCardExpiration,
+                  order.Cvv,
+                  order.UniversityId,
+                  features[0].Key, features[0].Value,
+                  features[1].Key, features[1].Value,
+                  features[2].Key, features[2].Value,
+                  features[3].Key, features[3].Value,
+                  features[4].Key, features[4].Value,
+                  features[5].Key, features[5].Value,
+                  order.Email,
+                  order.Phone,
+                  order.Phone2,
+                  0,
+                  order.NumberOfPayment)).Result;
+
+            m_MailComponent.GenerateAndSendEmail(order.Email,
+                new StoreOrder(order.FirstName + " " + order.LastName, retVal.ProductName, retVal.OrderId));
         }
 
 
