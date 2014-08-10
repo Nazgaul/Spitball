@@ -291,7 +291,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [Ajax]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult CreateBox(CreateAcademicBox model)
         {
             if (!ModelState.IsValid)

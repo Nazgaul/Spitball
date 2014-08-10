@@ -8,13 +8,13 @@
 </script>
 <script type="text/ng-template" id="library-box">
 
-    <a bo-href="item.boxUrl">
+    <a bo-href="item.url">
         <div>
             <img class="boxImg" bo-src="item.boxPicture" alt="" width="77" height="98" />
             <ul class="boxHoverList">
-                <li class="hoverItem itemImg" bo-text="itemcount"></li>
-                <li class="hoverItem memberImg" bo-text="memberscount"></li>
-                <li class="hoverItem commentImg" bo-text="commentCount"></li>
+                <li class="hoverItem itemImg" bo-text="item.itemCount"></li>
+                <li class="hoverItem memberImg" bo-text="item.membersCount"></li>
+                <li class="hoverItem commentImg" bo-text="item.commentCount"></li>
             </ul>
         </div>
         <div class="boxWpr clamp2">

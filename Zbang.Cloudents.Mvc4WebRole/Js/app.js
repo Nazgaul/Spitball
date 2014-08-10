@@ -263,14 +263,6 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
         }
 
         switch (previous.$$route.params.type) {
-            case 'box':
-                break;
-            case 'library':
-                cd.pubsub.publish('libraryclear');
-                break;
-            case 'user':
-                cd.pubsub.publish('userclear');
-                break;
             case 'item':
                 cd.pubsub.publish('itemclear');
                 break;
@@ -305,7 +297,11 @@ app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($root
             }
         }
 
+        if (current.$$route.params.type === 'library') {
+            $rootScope.back.title = previous.pathParams.libraryName;
 
+            $rootScope.back.url = previous.loadedTemplateUrl;
+        }
     });
 
     function isCurrentRoute(current) {

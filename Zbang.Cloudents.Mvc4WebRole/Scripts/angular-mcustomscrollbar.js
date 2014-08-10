@@ -23,7 +23,7 @@
             function setScroll() {
                 calcHeight();
               
-                $elem.mCustomScrollbar({ setHeight: height, theme: "dark", /*advanded: { updateOnContentResize: false }*/ });
+                $elem.mCustomScrollbar({ setHeight: height, theme: "dark", advanced: { updateOnContentResize: false } });
                 
             }
 

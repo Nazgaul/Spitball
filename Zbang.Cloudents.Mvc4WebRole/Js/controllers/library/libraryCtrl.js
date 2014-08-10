@@ -16,6 +16,11 @@ mLibrary.controller('LibraryCtrl',
                 libraryName: $routeParams.libraryName,
                 items: [],
                 currentPage: 0, pageSize: 50, paggingnNeeded: false
+            };
+
+            var partials = {
+                createAcademicBox: '/Library/CreateAcademicBoxPartial/',
+                createDepartment: '/Library/CreateDepartmentPartial/'
             }
 
             addItems();
@@ -64,23 +69,18 @@ mLibrary.controller('LibraryCtrl',
             $scope.createBox = function () {
                 var modalInstance = $modal.open({
                     //windowClass: "boxSettings dashMembers",
-                    templateUrl: $scope.partials.createBox,
+                    templateUrl: partials.createAcademicBox,
                     controller: 'CreateBoxLibCtrl',
                     backdrop: 'static',
+                    resolve: {
+                        parentId: function () {
+                            return $scope.info.libraryId;
+                        }
+                    }
                 });
 
-                modalInstance.result.then(function (result) {
-
-                    result.parentId = $scope.info.libraryId;
-
-                    sLibrary.box.create(result).then(function (response) {
-                        if (!response.success) {
-                            alert('error creating box');
-                            return;
-                        }
-
-                        $location.path(response.payload);
-                    });
+                modalInstance.result.then(function (box) {
+                        $location.path(box.url);
                 }, function () {
                     //dismiss
                 });
@@ -89,7 +89,7 @@ mLibrary.controller('LibraryCtrl',
             $scope.createDepartment = function () {
                 var modalInstance = $modal.open({
                     //windowClass: "boxSettings dashMembers",
-                    templateUrl: $scope.partials.createDepartment,
+                    templateUrl: partials.createDepartment,
                     controller: 'CreateDepartmentCtrl',
                     backdrop: 'static',
                 });
@@ -142,9 +142,9 @@ mLibrary.controller('LibraryCtrl',
                 box.userType = 'none';
 
                 if (isDelete) {
-                    var index = self.info.boxes.indexOf(box);
+                    var index = $scope.info.items.indexOf(box);
                     if (index > -1) {
-                        self.info.boxes.splice(index, 1);
+                        $scope.info.items.splice(index, 1);
                     }
                     return;
                 }

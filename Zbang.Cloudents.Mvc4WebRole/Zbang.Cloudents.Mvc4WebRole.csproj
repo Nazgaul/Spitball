@@ -148,7 +148,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SquishIt.Framework">
       <HintPath>..\packages\SquishIt.0.9.5.4\lib\SquishIt.Framework.dll</HintPath>
@@ -173,32 +173,31 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing">
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -275,6 +274,7 @@
     <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\UserNavNWelcomeAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
+    <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
     <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />
     <Compile Include="Filters\ZboxHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -405,12 +405,12 @@
     </Compile>
     <Compile Include="Models\SitemapNode.cs" />
     <Compile Include="Models\Statistics.cs" />
+    <Compile Include="Models\StoreOrder.cs" />
     <Compile Include="Models\Tabs\AssignItemToTab.cs" />
     <Compile Include="Models\Tabs\ChangeBoxItemTabName.cs" />
     <Compile Include="Models\Tabs\CreateBoxItemTab.cs" />
     <Compile Include="Models\Tabs\DeleteBoxItemTab.cs" />
     <Compile Include="Models\UpdateBoxInfo.cs" />
-    <Compile Include="Models\ValidatePasswordLengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
       <DependentUpon>AccountSettingsResources.resx</DependentUpon>
@@ -818,10 +818,17 @@
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
+    <Content Include="Js\controllers\store\carouselCtrl.js" />
+    <Content Include="Js\controllers\store\categoryCtrl.js" />
+    <Content Include="Js\controllers\store\checkoutCtrl.js" />
+    <Content Include="Js\controllers\store\homeCtrl.js" />
+    <Content Include="Js\controllers\store\productCtrl.js" />
+    <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
+    <Content Include="Js\directives\contentEditable.js" />
     <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\directives\focusOn.js" />
     <Content Include="Js\directives\facebookFeed.js" />
@@ -840,6 +847,9 @@
     <Content Include="Js\ItemViewModel4.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
+    <Content Include="Js\modules\carousel.js" />
+    <Content Include="Js\modules\displayTime.js" />
+    <Content Include="Js\modules\textDirection.js" />
     <Content Include="Js\Navigation2.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
@@ -1430,6 +1440,12 @@
     <Content Include="Views\Store\Sales.cshtml" />
     <Content Include="Views\Store\Empty.cshtml" />
     <Content Include="Views\User\Index2.cshtml" />
+    <Content Include="Views\Store\Terms.cshtml" />
+    <Content Include="Views\Store\Thankyou.cshtml" />
+    <Content Include="Views\Store\_CheckOutStep1.cshtml" />
+    <Content Include="Views\Store\_CheckOutStep2.cshtml" />
+    <Content Include="Views\Store\_Footer.cshtml" />
+    <Content Include="Views\Store\_Navigation.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1441,7 +1457,9 @@
     <Folder Include="Helpers\Factories\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">

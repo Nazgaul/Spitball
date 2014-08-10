@@ -1,11 +1,12 @@
 ﻿mLibrary.controller('CreateBoxLibCtrl',
         ['$scope',
          '$modalInstance',
-         'sBox',
+         'sLibrary',
+         'parentId',
 
-         function ($scope, $modalInstance, Box) {
+         function ($scope, $modalInstance, sLibrary, parentId) {
              $scope.formData = {
-                 privacySettings: 'AnyoneWithUrl'
+                 parentId: parentId
              };
 
              $scope.create = function (isValid) {
@@ -13,9 +14,17 @@
                      return;
                  }
 
-                 Box.create($scope.formData).then(function (box) {
-                     $modalInstance.close(box.payload || box.Payload);
-                 });
+                 sLibrary.box.create($scope.formData).then(function (response) {
+                     if (!response.success) {
+                         alert(response.payload || response.Payload);
+                         return;
+                     }
+                     $modalInstance.close(response.payload || response.Payload);
+                 },
+                 function () {
+                     alert('error creating box');
+                 }
+                 );
              };
 
              $scope.cancel = function () {
