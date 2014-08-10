@@ -256,11 +256,12 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   visibility: hidden;
+  opacity: 0;
   position: absolute;
-  -webkit-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  -moz-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  -o-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+  -webkit-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
+  -moz-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
+  -o-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
+  transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.01s;
   left: 0;
   /*rtl*/
   top: 174px;
@@ -268,7 +269,7 @@ main {
   color: #39434a;
   z-index: 1;
   overflow: hidden;
-  height: 194px;
+  height: 0;
   width: 151px;
   margin-left: -1px;
   /*rtl*/
@@ -312,6 +313,12 @@ main {
 }
 .categoryList > li:hover ul {
   visibility: visible;
+  opacity: 1;
+  height: 194px;
+  -webkit-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+  -moz-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+  -o-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+  transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
 }
 .categoryList > li:hover li {
   margin: 8px 0;
