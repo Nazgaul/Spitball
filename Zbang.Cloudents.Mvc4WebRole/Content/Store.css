@@ -28,6 +28,12 @@ header h1.showStore {
   width: 940px;
   margin: 0 auto;
 }
+.storeWpr.noBanners .placeholder {
+  display: none;
+}
+.storeWpr.noBanners .productsList li:nth-child(3) {
+  margin-bottom: 20px;
+}
 .storeNav,
 main {
   margin: 0 auto;
@@ -250,11 +256,12 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   visibility: hidden;
+  opacity: 0;
   position: absolute;
-  -webkit-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  -moz-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  -o-transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  transition: height 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+  -moz-transition-delay: 0;
+  -o-transition-delay: 0;
+  -webkit-transition-delay: 0;
+  transition-delay: 0;
   left: 0;
   /*rtl*/
   top: 174px;
@@ -283,9 +290,11 @@ main {
   border-width: 13px 15px 0 15px;
   top: 0;
 }
+.categoryList ul li {
+  font-size: 15px;
+}
 .categoryList ul li:hover {
   color: #0f9d58;
-  font-weight: bold;
 }
 .categoryList > li {
   width: 150px;
@@ -306,6 +315,11 @@ main {
 }
 .categoryList > li:hover ul {
   visibility: visible;
+  opacity: 1;
+  -webkit-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+  -moz-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+  -o-transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+  transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
 }
 .categoryList > li:hover li {
   margin: 8px 0;
@@ -345,6 +359,9 @@ main {
   border-color: transparent transparent #39434a transparent;
   bottom: 0;
   top: auto;
+}
+.categoryList > li:nth-child(-n + 6):hover li:first-child {
+  padding-top: 10px;
 }
 .categoryList > li.spr-chair:before {
   background-position: 0 -106px;
@@ -413,15 +430,6 @@ main {
   text-align: center;
   vertical-align: top;
   overflow: hidden;
-  /*&:before {
-            .pseudo;
-            position: absolute;
-            height: 1px;
-            background: aqua;
-            width: 300px;
-            top: 198px;
-            left:0;
-        }*/
 }
 .productsList li:nth-child(3) {
   margin-bottom: 170px;
@@ -797,7 +805,7 @@ main {
   line-height: 30px;
   font-size: 15px;
   width: 600px;
-  margin-bottom: 200px;
+  margin: 0 auto 200px;
 }
 .about h2,
 .terms h2 {
@@ -820,8 +828,25 @@ main {
   background: #fff;
   margin-top: 56px;
   padding: 0 80px 30px;
-  /*label {
-        font-size: 22px;
+  /*> .lFloat, > .rFloat {
+        width: 340px;
+        margin-top: 25px;
+    }
+
+    > .lFloat {
+        clear: both;
+
+        &.wideInput {
+            width: 100%;
+        }
+    }
+
+    .inputText {
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+        //height: 32px;
+        .boxSizing;
     }*/
 }
 .contact.contact h2 {
@@ -829,25 +854,6 @@ main {
   line-height: 30px;
   padding: 20px 80px;
   margin: 0 -80px;
-}
-.contact.contact > .lFloat,
-.contact.contact > .rFloat {
-  width: 340px;
-  margin-top: 25px;
-}
-.contact.contact > .lFloat {
-  clear: both;
-}
-.contact.contact > .lFloat.wideInput {
-  width: 100%;
-}
-.contact.contact .inputText {
-  display: block;
-  margin-top: 5px;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .contact.contact textarea {
   min-height: 190px;
@@ -1111,27 +1117,82 @@ main {
   min-width: 45px;
 }
 .invoice li span:nth-child(3) {
-  padding-right: 10px;
+  padding: 0 10px 0 3px;
   /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.minus:before {
+.minus:after {
   content: '-';
   display: inline-block;
-  position: absolute;
-  margin-left: -10px;
-  /*rtl*/
 }
 .pName {
   font-size: 21px;
+}
+.userDetails > .lFloat,
+.contact.contact > .lFloat,
+.userDetails > .rFloat,
+.contact.contact > .rFloat {
+  width: 340px;
+  margin-top: 25px;
+}
+.userDetails > .lFloat.error .inputText,
+.contact.contact > .lFloat.error .inputText,
+.userDetails > .rFloat.error .inputText,
+.contact.contact > .rFloat.error .inputText {
+  border-color: #d1294d;
+}
+.userDetails > .lFloat.error .required,
+.contact.contact > .lFloat.error .required,
+.userDetails > .rFloat.error .required,
+.contact.contact > .rFloat.error .required {
+  visibility: visible;
+}
+.userDetails > .lFloat,
+.contact.contact > .lFloat {
+  clear: both;
+}
+.userDetails > .lFloat.wideInput,
+.contact.contact > .lFloat.wideInput {
+  width: 100%;
+}
+.userDetails .required,
+.contact.contact .required {
+  visibility: hidden;
+  color: #d1294d;
+}
+.userDetails .inputText,
+.contact.contact .inputText {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .userDetails {
   font-size: 15px;
   padding: 60px 75px;
   margin-top: 50px;
   overflow: hidden;
+  /*.required {
+        visibility: hidden;
+        color: @errorColor;
+    }
+    > .lFloat {
+        clear: both;
+
+        &.wideInput {
+            width: 100%;
+        }
+    }
+
+    .inputText {
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+    }*/
 }
 .userDetails h2 {
   margin: -60px -75px 0;
@@ -1144,36 +1205,20 @@ main {
 .userDetails > .lFloat,
 .userDetails > .rFloat {
   width: 360px;
-  margin-top: 25px;
 }
-.userDetails > .lFloat.error .inputText,
-.userDetails > .rFloat.error .inputText,
+.userDetails > .lFloat.error,
+.userDetails > .rFloat.error {
+  /*.inputText , .cbLabel{
+                border-color: @errorColor;
+            }*/
+  /*.required {
+                visibility: visible;
+            }*/
+}
 .userDetails > .lFloat.error .cbLabel,
 .userDetails > .rFloat.error .cbLabel {
+  display: block;
   border-color: #d1294d;
-}
-.userDetails > .lFloat.error .cbLabel,
-.userDetails > .rFloat.error .cbLabel {
-  display: block;
-}
-.userDetails > .lFloat.error .required,
-.userDetails > .rFloat.error .required {
-  visibility: visible;
-}
-.userDetails .required {
-  visibility: hidden;
-  color: #d1294d;
-}
-.userDetails > .lFloat {
-  clear: both;
-}
-.userDetails > .lFloat.wideInput {
-  width: 100%;
-}
-.userDetails .inputText {
-  display: block;
-  margin-top: 5px;
-  width: 100%;
 }
 .userDetails textarea {
   min-height: 94px;
@@ -1205,12 +1250,17 @@ main {
 .userDetails .termsLink {
   text-decoration: underline;
 }
-.cbWpr {
+.cbWpr,
+.paymentWpr {
   position: relative;
 }
-.cbWpr .required {
+.cbWpr .required,
+.paymentWpr .required {
   position: absolute;
   top: -16px;
+}
+.paymentWpr.error select {
+  border-color: #d1294d;
 }
 .secureCode {
   position: relative;

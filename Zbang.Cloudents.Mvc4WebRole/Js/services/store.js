@@ -41,6 +41,15 @@
                     dfd.reject(response);
                 });
                 return dfd.promise;
+            },
+            contact: function (data) {
+                var dfd = $q.defer(0);
+                $http.post(Store + 'Contact/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+                return dfd.promise;
             }
         };
     }

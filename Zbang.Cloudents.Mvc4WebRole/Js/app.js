@@ -125,7 +125,11 @@ app.config([
         //#endregion
         //#region store
              when('/store/', {
-                 templateUrl: function (params) { var url = '/Store/', universityId = params.universityId || params.universityid; if (universityId) { url += '?universityid=' + universityId; } return url; },
+                 templateUrl: function(params) {
+                     var url = '/Store/', universityId = params.universityId || params.universityid;
+                     if (universityId) { url += '?universityid=' + universityId; }
+                     return url;
+                 },
                  controller: 'CategoryCtrl',
                  reloadOnSearch: false,
                  params: {
@@ -133,14 +137,22 @@ app.config([
                  }
              }).
             when('/store/category/:categoryId/', {
-                templateUrl: '/Store/',
+                templateUrl:  function(params) {
+                     var url = '/Store/', universityId = params.universityId || params.universityid;
+                     if (universityId) { url += '?universityid=' + universityId; }
+                     return url;
+                 },
                 controller: 'CategoryCtrl',
                 params: {
                     type: 'products'
                 }
             }).
             when('/store/product/:productId/:productName/', {
-                templateUrl: function (params) { var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid; if (universityId) { url += '&universityid=' + universityId; } return url; },
+                templateUrl: function(params) {
+                    var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid;
+                    if (universityId) { url += '&universityid=' + universityId; }
+                    return url;
+                },
                 controller: 'ProductCtrl',
                 params: {
                     type: 'product'
@@ -154,8 +166,15 @@ app.config([
                 }
             }).
             when('/store/contact/', {
-                templateUrl: '/Store/Contact/',
-                controller: 'ViewCtrl',
+                //templateUrl: '/Store/Contact/',
+                templateUrl: function (params) {
+                    var url = '/Store/Contact/', universityId = params.universityId || params.universityid;
+                    if (universityId) {
+                        return url + '?universityid=' + universityId;
+                    }
+                    return url;
+                },
+                controller: 'ContactCtrl',
                 params: {
                     type: 'contact'
                 }

@@ -103,7 +103,8 @@
         <div class="required">@DialogResources.RequiredField</div>
         <label class="cbLabel" for="AcceptTermOfService">קראתי את <a class="termsLink" href="@Url.RouteUrl("StoreTerms")" target="_blank">התקנון</a> ואני מסכים לתנאי השימוש.</label>
     </div>
-    <div class="rFloat" ng-class="{error : submitted && detailsForm.NumberOfPayments.$error.required}">
+    <div class="rFloat paymentWpr" ng-class="{error : submitted && detailsForm.NumberOfPayments.$error.required}">
+        <span class="required">@DialogResources.RequiredField</span>
         <span>@StoreResources.BillMe</span>
         <select ng-model="formData.numberOfPayments" name="NumberOfPayments" required>
             <option value=""></option>

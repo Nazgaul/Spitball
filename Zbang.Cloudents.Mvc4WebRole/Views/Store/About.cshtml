@@ -1,9 +1,24 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+@model Zbang.Zbox.ViewModel.Dto.Store.BannerDto
 <div class="storeWpr page">
     @{Html.RenderPartial("_Navigation");}
     <div class="widget">
         <div class="lFloat banner">
-
+            @{
+                if (Model != null)
+                {
+                    if (string.IsNullOrEmpty(Model.Url))
+                    {
+                        <img src="@Model.ImageUrl" alt="" />
+                    }
+                    else
+                    {
+                        <a href="@Model.Url" target="_blank">
+                            <img src="@Model.ImageUrl" alt="" />
+                        </a>
+                    }
+                }
+            }
         </div>
     </div>
 

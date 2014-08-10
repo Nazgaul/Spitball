@@ -38,8 +38,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/sales")]
         [Route("store/thankyou", Name = "StoreThanksYou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int? universityId)
         {
+            if (User.Identity.IsAuthenticated && !universityId.HasValue)
+            {
+                var userDetail = FormsAuthenticationService.GetUserData();
+                var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+                var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
+                return RedirectToAction("Index", new { universityId = storeUniversityId });
+            }
             return View("Empty");
         }
 
@@ -136,17 +143,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet, StoreCategories]
         [Route("store/about")]
-        public ActionResult About()
+        public async Task<PartialViewResult> About(int? universityId)
         {
-            return PartialView();
+            var banner = await ZboxReadService.GetBanners(universityId);
+            return PartialView(banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product));
         }
         [Ajax, HttpGet, StoreCategories]
         [Route("store/contact")]
 
-        public ActionResult Contact()
+        public async Task<PartialViewResult> Contact(int? universityId)
         {
-            return PartialView();
+            var banner = await ZboxReadService.GetBanners(universityId);
+            ViewBag.banner = banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
+            return PartialView(new StoreContact());
         }
+
+        [Ajax, HttpPost]
+        [Route("store/contact")]
+        public ActionResult Contact(StoreContact model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+            }
+            m_QueueProvider.Value.InsertMessageToStoreAsync(
+                new Zbox.Infrastructure.Transport.StoreContactData(model.Name, model.Phone, model.University,
+                    model.Email, model.Text));
+            return this.CdJson(new JsonResponse(true));
+        }
+
         [Ajax, HttpGet, StoreCategories]
         [Route("store/sales")]
         public ActionResult Sales()
@@ -160,6 +185,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView();
         }
+
+
 
 
 

@@ -1,24 +1,32 @@
 ﻿app.controller('CategoryCtrl',
-    ['$scope', '$routeParams', '$timeout', '$location', 'Store',
-    function ($scope, $routeParams, $timeout, $location, Store) {
+    ['$scope', '$routeParams', '$timeout', '$location', '$window', 'Store',
+    function ($scope, $routeParams, $timeout, $location, $window, Store) {
         var consts = {
             defaultMaxProducts: 9,
             productsIncrement: 9
         },
-        allProducts;     
+        allProducts,
+        hideBanners = $routeParams.categoryId && $routeParams.categoryId.length > 0;
+
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
             universityId: $routeParams.universityId || $routeParams.universityid || null
         };
 
-        Store.products({ categoryId: $routeParams.categoryId,universityId: $scope.params.universityId}).then(function (response) {
+        Store.products({ categoryId: $routeParams.categoryId, universityId: $scope.params.universityId }).then(function (response) {
             allProducts = response.payload;
             $scope.products = allProducts;
 
             $timeout(function () {
                 $scope.$emit('viewContentLoaded');
-            });
+                if ($routeParams.categoryId) {
+                    if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
+                        $window.scrollTo(0, 400);
+                    }
+
+                }
+            }, 300);
         });
 
 
@@ -26,6 +34,9 @@
             $scope.params.maxProducts += consts.productsIncrement;
         };
 
+        $scope.hideBanners = function () {
+            return hideBanners;
+        };
 
         //var lastQuery;
         //$scope.search = debounce(function () {
@@ -58,7 +69,7 @@
         $scope.search = function (e) {
             e.preventDefault();
             search();
-        
+
         };
 
         $scope.$on('$routeUpdate', function () {
@@ -69,7 +80,9 @@
                 return;
             }
 
+
             $scope.params.search = null;
+            hideBanners = false;
             $scope.products = allProducts;
             $scope.params.isSearching = false;
             $scope.params.maxProducts = consts.defaultMaxProducts;
@@ -78,9 +91,9 @@
 
         function search() {
             var query = $scope.params.search;
-
             $scope.params.isSearching = true;
-            $location.search({ q: $scope.params.search});
+            hideBanners = true;
+            $location.search({ q: $scope.params.search });
             Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 $scope.params.isSearching = false;

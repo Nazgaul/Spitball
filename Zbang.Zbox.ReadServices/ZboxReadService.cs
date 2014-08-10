@@ -968,6 +968,15 @@ namespace Zbang.Zbox.ReadServices
                 return retVal.FirstOrDefault() > 0;
             }
         }
+
+        public async Task<int> CloudentsUniversityToStoreUniversity(long universityId)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<int>(Sql.Store.MapCloudentsUniversityToStoreUniversity, new { UniversityId = universityId });
+                return retVal.FirstOrDefault();
+            }
+        }
         #endregion
     }
 }

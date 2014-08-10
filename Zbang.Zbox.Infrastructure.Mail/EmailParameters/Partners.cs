@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.EmailParameters
             int allItems,
             int weekQnA,
             int allQnA,
-            IEnumerable<University> univeristies
+            IEnumerable<University> universities
             )
             :base(culture)
         {
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.EmailParameters
             AllItems = allItems;
             WeekQnA = weekQnA;
             AllQnA = allQnA;
-            Universities = univeristies;
+            Universities = universities;
         }
 
         public string SchoolName { get; private set; }

@@ -233,7 +233,11 @@
 >>>>>>> 4748755602eacb60686bf861310dc8401281740d
 =======
 /// <reference path="../js/mobile/mboxviewmodel.js" />
+<<<<<<< HEAD
 >>>>>>> 620b7fe5e92b1c40933dca9f2c0c4a8ed8678035
+=======
+/// <reference path="../js/controllers/store/contactctrl.js" />
+>>>>>>> 1712ff22621bc53ae95b8e391462c37da176503d
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

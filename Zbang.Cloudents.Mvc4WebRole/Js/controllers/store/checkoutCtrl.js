@@ -1,11 +1,17 @@
 ﻿app.controller('CheckoutCtrl',
-    ['$scope', '$timeout', '$window', '$routeParams', '$location', 'Store',
-    function ($scope, $timeout, $window, $routeParams, $location, Store) {
+    ['$scope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails',
+    function ($scope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails) {
 
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
         $timeout(function () {
             $scope.product.categories = _.groupBy($scope.product.features, 'category');
             $scope.$emit('viewContentLoaded');
+            if (sUserDetails.isAuthenticated()) {
+                $scope.coupon.code = '100100';
+                $scope.coupon.valid = true;
+                $scope.validateCoupon();
+            }
+
         });
 
         $scope.page = {
@@ -21,10 +27,17 @@
             valid: false
         };
 
+
         $scope.upgradeCost = function () {
-            var cost = 0;
+            var cost = 0, cValue = 0;
             _.forEach($scope.formData.features, function (value, key, list) {
-                cost += value.price;
+                if (value && angular.isNumber(value.price)) {
+                    cValue = value.price;
+                } else {
+                    cValue = 0;
+                }
+
+                cost += cValue;
             });
 
             return cost;
@@ -45,16 +58,32 @@
         };
 
         $scope.couponDiscount = function () {
+            var value;
             if (!$scope.coupon.valid) {
-                return 0;
+                value = 0;
+            } else {
+                value = $scope.product.coupon;
             }
 
-            return $scope.product.coupon;
+
+            return value;
         };
 
         $scope.validateCoupon = function () {
+            if (!$scope.coupon.code) {
+                return;
+            }
+
+            var isNumber = /^\d+$/.test($scope.coupon.code);
+
+            if (!isNumber) {
+                alert('Invalid coupon');
+                return;
+            }
+
             $scope.coupon.buttonDisabled = true;
-            Store.validateCoupon({ code: $scope.coupon.code }).then(function (response) {
+
+            Store.validateCoupon({ code: parseInt($scope.coupon.code, 10) }).then(function (response) {
                 $scope.coupon.buttonDisabled = false;
                 if (!response.success) {
                     return;

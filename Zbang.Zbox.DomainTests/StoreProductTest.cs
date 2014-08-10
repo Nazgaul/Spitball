@@ -31,7 +31,7 @@ namespace Zbang.Zbox.DomainTests
                 "catalog",
                 0,
                 "producer",
-                features, 0);
+                features, 0, 0, 1);
 
             Assert.AreEqual(29, storeProduct.FeaturesReadOnly.FirstOrDefault().Price);
         }
@@ -59,7 +59,7 @@ namespace Zbang.Zbox.DomainTests
                 "catalog",
                 0,
                 "producer",
-                features, 0);
+                features, 0, 0, 1);
 
             Assert.AreEqual("8GB SDHC CLASS10", storeProduct.FeaturesReadOnly.FirstOrDefault().Description);
         }

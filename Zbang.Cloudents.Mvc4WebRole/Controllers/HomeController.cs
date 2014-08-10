@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using System.Web.UI;
+﻿using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using System;
 using System.Collections.Generic;
@@ -10,21 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Microsoft.Ajax.Utilities;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -33,7 +28,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IBlobProvider> m_BlobProvider;
-        private readonly Lazy<ICache> m_CahceProvider;
+        private readonly Lazy<ICache> m_CacheProvider;
 
         public HomeController(
             Lazy<IQueueProvider> queueProvider,
@@ -44,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             m_QueueProvider = queueProvider;
             m_BlobProvider = blobProvider;
-            m_CahceProvider = cacheProvider;
+            m_CacheProvider = cacheProvider;
         }
 
         //[ZboxAuthorize]
@@ -93,11 +88,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Help()
         {
             const string faqQuestionCacheName = "faqQuestionCacheName";
-            var model = m_CahceProvider.Value.GetFromCache(faqQuestionCacheName, faqQuestionCacheName) as IEnumerable<Category>;
+            var model = m_CacheProvider.Value.GetFromCache(faqQuestionCacheName, faqQuestionCacheName) as IEnumerable<Category>;
 
             if (model != null)
             {
-                return View(model.Where(w => w.Language.ToLower() == System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower()));
+                return View(model.Where(w => String.Equals(w.Language, 
+                    System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
             }
             using (var stream = await m_BlobProvider.Value.GetFaqQeustion())
@@ -112,17 +108,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Name = category.Attribute("name").Value,
                             Order = int.Parse(category.Attribute("order").Value),
                             QuestionNAnswers = faqs.Select(s =>
-
                                 new QnA
                                 {
                                     Answer = s.Element("answer").Value,
                                     Question = s.Element("question").Value,
                                     Order = int.Parse(s.Attribute("order").Value)
+
                                 }).OrderBy(s => s.Order).ToList()
                         };
-                m_CahceProvider.Value.AddToCache(faqQuestionCacheName, model.ToList(), TimeSpan.FromHours(1), faqQuestionCacheName);
+                model = model.ToList();
+                m_CacheProvider.Value.AddToCache(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
             }
-            return View(model.Where(w => w.Language.ToLower() == System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower()));
+            return View(model.Where(w => String.Equals(w.Language, 
+                System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
         }
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
