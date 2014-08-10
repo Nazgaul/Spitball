@@ -89,7 +89,7 @@
 
                     <div class="productHover">
 
-                        <span class="lFloat" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
+                        <span class="lFloat" bo-if="product.salePrice > 0" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
                         <span class="lFloat sale" bo-if="product.salePrice > 0" bo-text="product.coupon / product.salePrice | percentage:0:'@StoreResources.Off'"></span> @*0 is the digits after the dot, % off is suffix*@
                         <div class="moreDetailsWpr">
                             @StoreResources.MoreDetails
