@@ -21,7 +21,7 @@
             $timeout(function () {
                 $scope.$emit('viewContentLoaded');
                 if ($routeParams.categoryId) {
-                    if ($window.pageYOffset === 0) {
+                    if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
                         $window.scrollTo(0, 400);
                     }
 
