@@ -406,6 +406,7 @@
     </Compile>
     <Compile Include="Models\SitemapNode.cs" />
     <Compile Include="Models\Statistics.cs" />
+    <Compile Include="Models\StoreContact.cs" />
     <Compile Include="Models\StoreOrder.cs" />
     <Compile Include="Models\Tabs\AssignItemToTab.cs" />
     <Compile Include="Models\Tabs\ChangeBoxItemTabName.cs" />

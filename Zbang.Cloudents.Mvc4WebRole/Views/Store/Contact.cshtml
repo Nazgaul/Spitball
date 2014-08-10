@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.StoreContact
 @{
     ViewBag.Title = "Contact Us";
     //Layout = "~/Views/Shared/_LayoutShopping.cshtml";
@@ -9,31 +10,51 @@
 
     <div class="widget">
         <div class="lFloat banner">
-
+           @{
+               var banner = ViewBag.banner as Zbang.Zbox.ViewModel.Dto.Store.BannerDto;
+               if (banner != null)
+               {
+                   if (string.IsNullOrEmpty(banner.Url))
+                   {
+                    <img src="@banner.ImageUrl" alt="" />
+                   }
+                   else
+                   {
+                    <a href="@banner.Url" target="_blank">
+                        <img src="@banner.ImageUrl" alt="" />
+                    </a>
+                   }
+               }
+        }
         </div>
     </div>
 
     <form class="contact">
         <h2 class="top">@StoreResources.GetHelp</h2>
         <div class="lFloat">
-            <label>@SharedResources.Name:</label>
-            <input type="text" class="inputText" />
+            @Html.LabelFor(l=>l.Name)
+            @*<label>@SharedResources.Name:</label>*@
+            @Html.TextBoxFor(f => f.Name, new { @class = "inputText" })
         </div>
         <div class="rFloat">
-            <label>@StoreResources.Telephone:</label>
-            <input type="text" class="inputText" />
+            @Html.LabelFor(l => l.Phone)
+            @*<label>@StoreResources.Telephone:</label>*@
+            @Html.TextBoxFor(f => f.Phone, new { @class = "inputText" })
         </div>
         <div class="lFloat">
-            <label>@SharedResources.School:</label>
-            <input type="text" class="inputText" />
+            @Html.LabelFor(l => l.University)
+            @*<label>@SharedResources.School:</label>*@
+            @Html.TextBoxFor(f => f.University, new { @class = "inputText" })
         </div>
         <div class="rFloat">
-            <label>@SharedResources.Email:</label>
-            <input type="text" class="inputText" />
+            @Html.LabelFor(l => l.Email)
+            @*<label>@SharedResources.Email:</label>*@
+            @Html.TextBoxFor(f => f.Email, new { @class = "inputText" , type="Email" })
         </div>
         <div class="lFloat wideInput">
-            <label>@SharedResources.Message:</label>
-            <textarea class="inputText"></textarea>
+            @Html.LabelFor(l => l.Text)
+            @*<label>@SharedResources.Message:</label>*@
+            @Html.TextAreaFor(f => f.Text, new { @class = "inputText" })
         </div>
         <button type="submit" class="rFloat btn1">@DialogResources.Send</button>
     </form>

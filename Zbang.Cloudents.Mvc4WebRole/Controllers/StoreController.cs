@@ -136,17 +136,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet, StoreCategories]
         [Route("store/about")]
-        public ActionResult About()
+        public async Task<PartialViewResult> About(int? universityId)
         {
-            return PartialView();
+            var banner = await ZboxReadService.GetBanners(universityId);
+            return PartialView(banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product));
         }
         [Ajax, HttpGet, StoreCategories]
         [Route("store/contact")]
 
-        public ActionResult Contact()
+        public async Task<PartialViewResult> Contact(int? universityId)
         {
-            return PartialView();
+            var banner = await ZboxReadService.GetBanners(universityId);
+            ViewBag.banner = banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
+            return PartialView(new StoreContact());
         }
+
+        [Ajax, HttpPost]
+        public ActionResult Contact(StoreContact model)
+        {
+            return this.CdJson(new JsonResponse(true));
+        }
+
         [Ajax, HttpGet, StoreCategories]
         [Route("store/sales")]
         public ActionResult Sales()
@@ -160,6 +170,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView();
         }
+
+
 
 
 

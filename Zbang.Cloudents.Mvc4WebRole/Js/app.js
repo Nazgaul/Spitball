@@ -144,7 +144,11 @@ app.config([
                 }
             }).
             when('/store/product/:productId/:productName/', {
-                templateUrl: function (params) { var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid; if (universityId) { url += '&universityid=' + universityId; } return url; },
+                templateUrl: function(params) {
+                    var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid;
+                    if (universityId) { url += '&universityid=' + universityId; }
+                    return url;
+                },
                 controller: 'ProductCtrl',
                 params: {
                     type: 'product'
@@ -158,7 +162,14 @@ app.config([
                 }
             }).
             when('/store/contact/', {
-                templateUrl: '/Store/Contact/',
+                //templateUrl: '/Store/Contact/',
+                templateUrl: function (params) {
+                    var url = '/Store/Contact/', universityId = params.universityId || params.universityid;
+                    if (universityId) {
+                        return url + '?universityid=' + universityId;
+                    }
+                    return url;
+                },
                 controller: 'ViewCtrl',
                 params: {
                     type: 'contact'
