@@ -45,5 +45,9 @@
         public string NotActive { get; set; }
 
         public string UniversityId { get; set; }
+
+        public int Order { get; set; }
+
+        public int CategoryOrder { get; set; }
     }
 }
