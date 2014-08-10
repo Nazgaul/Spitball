@@ -33,11 +33,13 @@
         <h2 class="top">@StoreResources.GetHelp</h2>
         <div class="lFloat" ng-class="{error : submitted && contactForm.Name.$error.required}">
             @Html.LabelFor(l => l.Name)
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Name:</label>*@
             @Html.TextBoxFor(f => f.Name, new { @class = "inputText" , required="required", ng_model = "formData.name"})
         </div>
         <div class="rFloat" ng-class="{error : submitted && contactForm.Phone.$error.required}">
             @Html.LabelFor(l => l.Phone)
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@StoreResources.Telephone:</label>*@
             @Html.TextBoxFor(f => f.Phone, new { @class = "inputText", required = "required", ng_model = "formData.phone" })
         </div>
@@ -48,11 +50,13 @@
         </div>
         <div class="rFloat" ng-class="{error : submitted && contactForm.Email.$error.required || contactForm.Email.$error.email}">
             @Html.LabelFor(l => l.Email)
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Email:</label>*@
             @Html.TextBoxFor(f => f.Email, new { @class = "inputText", type = "Email", required = "required", ng_model = "formData.email" })
         </div>
         <div class="lFloat wideInput" ng-class="{error : submitted && contactForm.Text.$error.required}">
             @Html.LabelFor(l => l.Text)
+            <span class="required">@DialogResources.RequiredField</span>
             @*<label>@SharedResources.Message:</label>*@
             @Html.TextAreaFor(f => f.Text, new { @class = "inputText", required="required", ng_model = "formData.text" })
         </div>

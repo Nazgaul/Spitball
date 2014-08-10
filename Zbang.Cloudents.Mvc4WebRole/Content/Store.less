@@ -36,6 +36,14 @@ header {
 .storeWpr {
     width: 940px;
     margin: 0 auto;
+    &.noBanners {
+        .placeholder {
+            display: none;
+        }
+        .productsList li:nth-child(3) {
+            margin-bottom: 20px;
+        }
+    }
 }
 
 .storeNav, main {
@@ -189,8 +197,6 @@ main {
   display:block!important;
 }
 /*#endregion */
-
-
 
 /*#region search form */
 
@@ -444,15 +450,7 @@ main {
         text-align: center;
         vertical-align: top;
         overflow: hidden;
-        /*&:before {
-            .pseudo;
-            position: absolute;
-            height: 1px;
-            background: aqua;
-            width: 300px;
-            top: 198px;
-            left:0;
-        }*/
+
         &:nth-child(3) {
             margin-bottom: 170px;
         }
@@ -878,7 +876,7 @@ main {
         margin: 0 -80px;
     }
 
-    > .lFloat, > .rFloat {
+    /*> .lFloat, > .rFloat {
         width: 340px;
         margin-top: 25px;
     }
@@ -890,16 +888,14 @@ main {
             width: 100%;
         }
     }
-    /*label {
-        font-size: 22px;
-    }*/
+
     .inputText {
         display: block;
         margin-top: 5px;
         width: 100%;
         //height: 32px;
         .boxSizing;
-    }
+    }*/
 
     textarea {
         min-height: 190px;
@@ -1124,20 +1120,16 @@ main {
             width: 215px;
             .boxSizing;
             padding-right: 15px 25px 15px 10px; /*rtl*/
-            //text-align: center;
-            //background: pink;
         }
 
         &:nth-child(2) {
             width: 550px;
             .boxSizing;
             padding-right: 60px; /*rtl*/
-            //background: aqua;
         }
 
         &:nth-child(3) {
             width: 335px;
-            //background: yellow;
         }
     }
 }
@@ -1192,6 +1184,38 @@ main {
 .pName {
     font-size: 21px;
 }
+.userDetails, .contact.contact {
+    > .lFloat, > .rFloat {
+        width: 340px;
+        margin-top: 25px;
+        &.error {
+            .inputText {
+                border-color: @errorColor;
+            }
+            .required {
+                visibility: visible;
+            }
+        }
+    }
+    > .lFloat {
+        clear: both;
+
+        &.wideInput {
+            width: 100%;
+        }
+    }
+    .required {
+        visibility: hidden;
+        color: @errorColor;
+    }
+    .inputText {
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+        .boxSizing; //CHECK THIS
+    }
+}
+
 
 .userDetails {
     font-size: 15px;
@@ -1212,20 +1236,21 @@ main {
     }
     > .lFloat, > .rFloat {
         width: 360px;
-        margin-top: 25px;
+        //margin-top: 25px;
         &.error {
-            .inputText , .cbLabel{
+            /*.inputText , .cbLabel{
                 border-color: @errorColor;
-            }
+            }*/
             .cbLabel {
                 display: block;
+                border-color: @errorColor;
             }
-            .required {
+            /*.required {
                 visibility: visible;
-            }
+            }*/
         }
     }
-    .required {
+    /*.required {
         visibility: hidden;
         color: @errorColor;
     }
@@ -1241,18 +1266,15 @@ main {
         display: block;
         margin-top: 5px;
         width: 100%;
-    }
+    }*/
 
     textarea {
         min-height: 94px;
-        //padding: 10px;
-        //.boxSizing;
     }
 
     .btn1 {
         font-size: 24px;
         padding: 0 70px;
-        //height: 45px;
         width: auto; //override
         .boxSizing;
     }
