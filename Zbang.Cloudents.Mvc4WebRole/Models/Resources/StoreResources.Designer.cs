@@ -59,5 +59,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to שדה ריק או לא חוקי.
+        /// </summary>
+        public static string EmptyOrInvalid {
+            get {
+                return ResourceManager.GetString("EmptyOrInvalid", resourceCulture);
+            }
+        }
     }
 }
