@@ -138,6 +138,7 @@ app.config([
             when('/store/category/:categoryId/', {
                 templateUrl: function (params) {
                     var url = '/Store/';
+                    return buildQueryString(url, params);
                 },
                 controller: 'CategoryCtrl',
                 params: {

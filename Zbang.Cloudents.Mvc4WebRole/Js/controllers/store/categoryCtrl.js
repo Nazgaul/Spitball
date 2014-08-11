@@ -11,9 +11,10 @@
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
+
         };
 
-        Store.products({ categoryId: $routeParams.categoryId, universityId: $scope.params.universityId, producerId: $routeParams.producerId }).then(function (response) {
+        Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
             allProducts = response.payload;
             $scope.products = allProducts;
 

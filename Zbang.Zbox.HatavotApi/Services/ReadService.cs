@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Store.Services
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       ,[designNum] as UniversityId -- Which University to show --> Can be to all or to one specific
       ,[wideImage] as WideImage
-  FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
+  FROM [bizpoin_bizpointDB].[products] p where catcode like '%' + cast( @catId as varchar) + '%'";
                 return conn.Query<ProductDto>(sql, new { catId = category });
             }
         }

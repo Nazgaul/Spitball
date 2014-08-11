@@ -125,11 +125,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 TraceLog.WriteError("On update products", ex);
             }
-
             ProcessBanners();
 
-
-            Thread.Sleep(TimeSpan.FromMinutes(10));
+            Thread.Sleep(TimeSpan.FromMinutes(3));
         }
 
         private async Task<string> ProcessImage(string wideImage, string image)

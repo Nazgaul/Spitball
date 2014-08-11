@@ -58,7 +58,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private void ProcessContactUs(StoreContactData contactUs)
         {
-            m_MailComponent.GenerateAndSendEmail("yaari.ram@gmail.com",
+            m_MailComponent.GenerateAndSendEmail("yuval@bizpoint.co.il",
                 new StoreContactUs(contactUs.Name, contactUs.Phone, contactUs.University, contactUs.Email,
                     contactUs.Text));
         }
