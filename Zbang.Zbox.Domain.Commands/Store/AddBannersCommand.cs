@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain.Commands.Store
             UniversityId = universityId;
         }
 
-        public int Id { get;private set; }
+        public int Id { get; private set; }
         public string Url { get; private set; }
         public string ImageUrl { get; private set; }
         public int Order { get; private set; }

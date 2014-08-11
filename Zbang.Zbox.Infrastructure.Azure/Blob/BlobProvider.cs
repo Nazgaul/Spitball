@@ -75,29 +75,62 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public async Task<string> UploadFromLink(byte[] data, string fileName)
         {
             var container = BlobClient.GetContainerReference(AzureProductContainer.ToLower());
-            var blob = container.GetBlockBlobReference(fileName);
-
-            var uriBuilder = new UriBuilder(blob.Uri);
+            var directory = container.GetDirectoryReference(Path.GetFileNameWithoutExtension(fileName));
             var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
-            if (!string.IsNullOrEmpty(storageCdnEndpoint))
+            int index = 0;
+            foreach (var blobInDirectory in directory.ListBlobs(blobListingDetails: BlobListingDetails.Metadata))
             {
-                var storeCdnUri = new Uri(storageCdnEndpoint);
-                uriBuilder.Host = storeCdnUri.Host;
+                var x = blobInDirectory as CloudBlockBlob;
+                if (x == null)
+                {
+                    continue;
+                }
+                if (x.Properties.Length == data.LongLength)
+                {
+                    var uriBuilder2 = new UriBuilder(x.Uri);
+                    if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder2.Uri.AbsoluteUri;
+                    var storeCdnUri2 = new Uri(storageCdnEndpoint);
+                    uriBuilder2.Host = storeCdnUri2.Host;
+                    return uriBuilder2.Uri.AbsoluteUri;
+                }
+                index++;
             }
-
-
-            if (blob.Exists() && blob.Properties.Length == data.LongLength)
-            {
-                return uriBuilder.Uri.AbsoluteUri;
-            }
-
+            var blob = directory.GetBlockBlobReference(index.ToString(CultureInfo.InvariantCulture) + Path.GetExtension(fileName));
             await blob.UploadFromByteArrayAsync(data, 0, data.Length);
             blob.Properties.ContentType = "image/jpeg";
             blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
             await blob.SetPropertiesAsync();
 
+             var uriBuilder = new UriBuilder(blob.Uri);
+            if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder.Uri.AbsoluteUri;
+            var storeCdnUri = new Uri(storageCdnEndpoint);
+            uriBuilder.Host = storeCdnUri.Host;
+
             return uriBuilder.Uri.AbsoluteUri;
+
+            //var blob = container.GetBlockBlobReference(fileName);
+
+
+           
+
+
+            //if (blob.Exists())
+            //{
+            //    if (blob.Properties.Length == data.LongLength)
+            //    {
+            //        return uriBuilder.Uri.AbsoluteUri;
+            //    }
+
+            //}
+
+            //await blob.UploadFromByteArrayAsync(data, 0, data.Length);
+            //blob.Properties.ContentType = "image/jpeg";
+            //blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            //await blob.SetPropertiesAsync();
+
+            //return uriBuilder.Uri.AbsoluteUri;
         }
+
 
         static string ThumbnailContainerUrl { get; set; }
         public string BlobContainerUrl { get; private set; }

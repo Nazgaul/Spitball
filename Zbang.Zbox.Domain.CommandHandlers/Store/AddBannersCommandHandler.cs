@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -18,13 +19,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
         public void Handle(AddBannersCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            foreach (var bannerStore in message.Banners)
+            var newStoreBanners = message.Banners.ToList();
+            foreach (var bannerStore in newStoreBanners)
             {
                 var banner = m_StoreRepository.Get(bannerStore.Id);
+
+                Uri u;
+                string url = null;
+
+                if (Uri.TryCreate(bannerStore.Url, UriKind.Absolute, out u))
+                {
+                    url = u.AbsoluteUri;
+                }
+
                 if (banner == null)
                 {
+
                     banner = new StoreBanner(bannerStore.Id,
-                        bannerStore.Url,
+                       url,
                         bannerStore.ImageUrl,
                         GetBannerLocation(bannerStore.Order),
                         bannerStore.Order,
@@ -33,10 +45,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                 else
                 {
                     banner.Update(bannerStore.Id,
-                       bannerStore.Url,
+                       url,
                        bannerStore.ImageUrl,
                        GetBannerLocation(bannerStore.Order),
                        bannerStore.Order, bannerStore.UniversityId);
+                }
+                var x = m_StoreRepository.GetQuerable();
+                foreach (var storeBanner in  x.ToList())
+                {
+                    if (newStoreBanners.All(a => a.Id != storeBanner.Id))
+                    {
+                        m_StoreRepository.Delete(storeBanner);
+                    }
                 }
                 m_StoreRepository.Save(banner);
 

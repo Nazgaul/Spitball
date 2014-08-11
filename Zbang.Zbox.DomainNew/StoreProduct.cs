@@ -19,21 +19,21 @@ namespace Zbang.Zbox.Domain
             : this()
         {
             NumberOfSales = numberOfSales;
-            PictureUrl = pictureUrl;
+           
            
 
             UpdateProduct(id, name, extraDetails, coupon, salePrice, categories,  homePage,
                 supplyTime, numberOfPayments, catalogNumber, deliveryPrice, producerName,
-                features, universityId, description, categoryOrder, productOrder);
+                features, universityId, description, categoryOrder, productOrder, pictureUrl);
         }
 
-        public void UpdateProduct(long id, string name, string extraDetails, float coupon, float salePrice, IList<StoreCategory> categories, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, string description, int categoryOrder, int productOrder)
+        public void UpdateProduct(long id, string name, string extraDetails, float coupon, float salePrice, IList<StoreCategory> categories, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, string description, int categoryOrder, int productOrder, string pictureUrl)
         {
             if (name == null) throw new ArgumentNullException("name");
             Id = id;
             Name = name.Trim();
             ExtraDetails = string.IsNullOrEmpty(extraDetails) ? null : extraDetails.Trim();
-
+            PictureUrl = pictureUrl;
             Coupon = coupon;
             SalePrice = salePrice;
             Description = description;

@@ -328,7 +328,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<int> CloudentsUniversityToStoreUniversity(long universityId)
+        public Task<int?> CloudentsUniversityToStoreUniversity(long universityId)
         {
             return m_ReadService.CloudentsUniversityToStoreUniversity(universityId);
         }

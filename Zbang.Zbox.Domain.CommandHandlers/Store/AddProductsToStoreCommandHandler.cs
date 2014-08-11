@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                             productStore.CatalogNumber,
                             productStore.DeliveryPrice,
                             productStore.ProducerName,
-                            productStore.Upgrades, productStore.UniversityId, productStore.Description, productStore.CategoryOrder, productStore.Order);
+                            productStore.Upgrades, productStore.UniversityId, productStore.Description, productStore.CategoryOrder, productStore.Order, productStore.PictureUrl);
                     }
                     else
                     {
