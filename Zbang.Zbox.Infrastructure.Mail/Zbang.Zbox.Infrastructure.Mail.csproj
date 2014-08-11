@@ -148,7 +148,7 @@
     <EmbeddedResource Include="MailTemplate\Partners\WeeklyUpdate.html" />
     <EmbeddedResource Include="MailTemplate\Store\OrderConfirmation.html" />
     <EmbeddedResource Include="MailTemplate\Store\OrderConfirmationHe.html" />
-    <Content Include="MailTemplate\Store\ContactUsSubmission.html" />
+    <EmbeddedResource Include="MailTemplate\Store\ContactUsSubmission.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerAr.html" />
     <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseAr.html" />
