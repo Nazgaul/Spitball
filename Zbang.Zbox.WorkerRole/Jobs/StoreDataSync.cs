@@ -71,8 +71,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 try
                 {
-                    var bytes = DownloadImage("http://www.hatavot.co.il/uploadimages/250/" + item.Image).Result;
-                    item.Image = m_BlobProvider.UploadFromLink(bytes, item.Image).Result;
+                    item.Image = ProcessImage(item.WideImage, item.Image).Result;
 
                     var upgrades = new List<KeyValuePair<string, string>>
                         {
@@ -86,7 +85,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                     int universityId;
                     int.TryParse(item.UniversityId, out universityId);
-                    
+
 
                     products.Add(new ProductStore(
                         item.CatalogNumber,
@@ -129,7 +128,31 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             ProcessBanners();
 
 
-          Thread.Sleep(TimeSpan.FromHours(6));
+            Thread.Sleep(TimeSpan.FromMinutes(10));
+        }
+
+        private async Task<string> ProcessImage(string wideImage, string image)
+        {
+            var bytes = await DownloadImage(wideImage, image);
+            return await m_BlobProvider.UploadFromLink(bytes, image);
+        }
+
+        private async Task<byte[]> DownloadImage(string wideImage, string image)
+        {
+            if (!string.IsNullOrEmpty(wideImage))
+            {
+                var wideImagebytes = await DownloadContent("http://www.hatavot.co.il/uploadimages/" + wideImage);
+                if (wideImagebytes != null)
+                {
+                    return wideImagebytes;
+                }
+            }
+            var bytes = await DownloadContent("http://www.hatavot.co.il/uploadimages/250/" + image);
+            if (bytes == null)
+            {
+                throw new NullReferenceException("Couldn't find image for " + image);
+            }
+            return bytes;
         }
 
         private void ProcessBanners()
@@ -139,7 +162,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             var bannerCommand = new AddBannersCommand(banners.Select(s =>
             {
-                var bytes = DownloadImage("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
+                var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
                 var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
                 return new Banner(s.Id, s.Url, image, s.Order, s.UniversityId);
             }));
@@ -161,7 +184,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = false;
         }
 
-        private async Task<byte[]> DownloadImage(string imageUrl)
+        private async Task<byte[]> DownloadContent(string imageUrl)
         {
             if (string.IsNullOrEmpty(imageUrl))
             {
@@ -169,7 +192,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             using (var httpClient = new HttpClient())
             {
-                return await httpClient.GetByteArrayAsync(imageUrl);
+                var response = await httpClient.GetAsync(imageUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsByteArrayAsync();
+                }
+                return null;
             }
         }
     }

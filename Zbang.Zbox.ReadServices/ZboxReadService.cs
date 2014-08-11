@@ -969,12 +969,17 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<int> CloudentsUniversityToStoreUniversity(long universityId)
+        public async Task<int?> CloudentsUniversityToStoreUniversity(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<int>(Sql.Store.MapCloudentsUniversityToStoreUniversity, new { UniversityId = universityId });
-                return retVal.FirstOrDefault();
+                var enumerable = retVal as IList<int> ?? retVal.ToList();
+                if (!enumerable.Any())
+                {
+                    return null;
+                }
+                return enumerable.FirstOrDefault();
             }
         }
         #endregion
