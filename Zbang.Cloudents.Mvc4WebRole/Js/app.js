@@ -147,6 +147,17 @@ app.config([
                     type: 'products'
                 }
             }).
+            when('/store/producer/:producerId/', {
+                templateUrl: function (params) {
+                    var url = '/Store/', universityId = params.universityId || params.universityid;
+                    if (universityId) { url += '?universityid=' + universityId; }
+                    return url;
+                },
+                controller: 'CategoryCtrl',
+                params: {
+                    type: 'products'
+                }
+            }).
             when('/store/product/:productId/:productName/', {
                 templateUrl: function(params) {
                     var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid;

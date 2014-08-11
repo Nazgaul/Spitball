@@ -107,7 +107,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                          item.NotActive != "ON",
                          TryParseNullableInt(item.UniversityId),
                          item.Order,
-                         item.CategoryOrder
+                         item.CategoryOrder,
+                         item.ProducerId
                          ));
                 }
                 catch (Exception ex)

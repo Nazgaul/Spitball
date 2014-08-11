@@ -50,5 +50,8 @@
         public int Order { get; set; }
 
         public int CategoryOrder { get; set; }
+
+
+        public int? ProducerId { get; set; }
     }
 }

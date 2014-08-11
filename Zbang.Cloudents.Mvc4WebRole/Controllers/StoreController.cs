@@ -31,6 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, NonAjax]
         [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
+        [Route("store/producer/{producerid:int}")]
         [Route("store/terms", Name = "StoreTerms")]
         [Route("store", Name = "StoreRoot")]
         [Route("store/about", Name = "StoreAbout")]
@@ -62,9 +63,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        public async Task<ActionResult> Products(int? categoryId, int? universityId)
+        public async Task<ActionResult> Products(int? categoryId, int? universityId, int? producerId)
         {
-            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId));
+            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId,producerId));
             return this.CdJson(new JsonResponse(true, products));
         }
 
