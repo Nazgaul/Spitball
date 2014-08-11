@@ -24,6 +24,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
       ,[PictureUrl]
       ,[Url]
         FROM [Zbox].[StoreProduct] where producerid = @producerId
+        and (universityid is null or universityid = @universityId)
         order by ProductOrder, SalePrice";
 
        public const string GetProductsWithCategory = @"SELECT s.[ProductId] as Id
@@ -38,6 +39,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
   where sp.CatId = @CatId
         and (universityid is null or universityid = @universityId)
         order by categoryorder, SalePrice";
+
 
        public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
   FROM [Zbox].[StoreCat]

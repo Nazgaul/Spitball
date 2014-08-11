@@ -11,7 +11,6 @@
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
-            universityId: $routeParams.universityId || $routeParams.universityid || null
         };
 
         Store.products({ categoryId: $routeParams.categoryId, universityId: $scope.params.universityId, producerId: $routeParams.producerId }).then(function (response) {
@@ -20,12 +19,12 @@
 
             $timeout(function () {
                 $scope.$emit('viewContentLoaded');
-            //    if ($routeParams.categoryId) {
-            //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
-            //            $window.scrollTo(0, 400);
-            //        }
+                //    if ($routeParams.categoryId) {
+                //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
+                //            $window.scrollTo(0, 400);
+                //        }
 
-            //    }
+                //    }
             }, 0);
         });
 
@@ -88,6 +87,19 @@
             $scope.params.maxProducts = consts.defaultMaxProducts;
 
         });
+
+        $scope.urlQueryString = function () {
+            var first = true, qs = '';
+            for (var key in $routeParams) {
+                if (first) {                    
+                    qs = '?' + key.toLowerCase() + '=' + $routeParams[key];
+                    first = false;
+                    continue;
+                }
+                qs += '&' + key.toLowerCase() + '=' + $routeParams[key];
+            }            
+            return qs;
+        };
 
         function search() {
             var query = $scope.params.search;
