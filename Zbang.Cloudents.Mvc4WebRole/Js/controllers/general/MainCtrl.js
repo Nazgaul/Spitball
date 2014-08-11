@@ -96,7 +96,8 @@
                     return;
                 }
                 $rootScope.params = {
-                    isStore: current.$$route.originalPath.indexOf('store') > -1
+                    isStore: current.$$route.originalPath.indexOf('store') > -1,
+                    isQuiz: current.$$route.originalPath.indexOf('quiz') > -1
                 };
 
                 if (!current) {
@@ -134,6 +135,17 @@
                 }
 
                 return $rootScope.params.isStore;
+            }
+
+            $rootScope.isQuiz = function () {
+                if (!$rootScope.params) {
+                    return false;
+                }
+                if (!angular.isDefined($rootScope.params.isQuiz)) {
+                    return false;
+                }
+
+                return $rootScope.params.isQuiz;
             }
 
             $rootScope.isSearch = function () {

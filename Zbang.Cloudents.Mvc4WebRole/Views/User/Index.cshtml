@@ -14,7 +14,7 @@
 
         @if (ViewBag.Admin)
         {
-            <section class="upMembers" ng-if="admin.visible">
+            <section class="upMembers" ng-if="admin.visible()">
                 <h2>@UserResources.UniMembers</h2>
                 <div class="membersContent" ng-class="{noResults : !admin.members.length}">
                     <div class="membersTop">
@@ -46,8 +46,8 @@
                             </ul>
                         </div>
                     </div>
-                    <ul class="upMembersList">
-                        <li class="memberItem" ng-repeat="member in admin.members | limitTo : consts.admin.membersLimit">
+                    <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+                        <li class="memberItem" ng-repeat="member in admin.members | limitTo : admin.membersLimit">
                             <input id="{{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-class="{selected : member.isChecked}" />
                             <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
                                 <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" width="34" height="34" />
@@ -72,10 +72,10 @@
             </section>
         }
         <aside class="upSidebar rFloat">
-            <section data-bind="visible: !membersSectionVisible()">
+            <section ng-if="!admin.visible()">
                 <h2>@SharedResources.Points</h2>
                 <div class="pointsWpr" id="pointsWpr">
-                    <ul class="pointsList" id="pointsList" data-score="@Model.Score">
+                    <ul class="pointsList" data-score="@Model.Score">
                         <li class="point"></li>
                         <li class="point"></li>
                         <li class="point"></li>

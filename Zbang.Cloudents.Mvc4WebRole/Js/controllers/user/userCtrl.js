@@ -1,25 +1,53 @@
-﻿var mUser = angular.module('mUser', []);
-mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$routeParams', '$q', 'sUserDetails', 'sUser', 'sLibrary',
-    function ($scope, $rootScope, $routeParams, $q, sUserDetails, sUser, sLibrary) {
-
-        $scope.consts = {
-            admin: {
-                score: 1000000,
-                membersLimit: 50
-            },
-            activity: {
-                tabs: {
-                    files: 'f',
-                    questions: 'q',
-                    answers: 'a'
-                },
-                limit: 8
+﻿var mUser = angular.module('mUser', [])
+    .constant('constants', {
+        activity: {
+            files: {
+                init: 8,
+                more: 8
+            }, questions: {
+                init: 3,
+                more: 3
+            }, answers: {
+                init: 3,
+                more: 3
+            }, tabs: {
+                files: 'f',
+                questions: 'q',
+                answers: 'a'
             }
-
+        },
+        boxes: {
+            common: {
+                init: 3
+            }, following: {
+                init: 6
+            }
+        },
+        friends: {
+            common: {
+                init: 7
+            }, all: {
+                init: 6
+            }
+        },
+        invites: {
+            list: {
+                init: 6
+            }
+        },
+        admin: {
+            score: 1000000,
+            membersLimit: 50
         }
+    });
+mUser.controller('UserCtrl',
+    ['$scope', '$rootScope', '$routeParams', '$q', 'sUserDetails', 'sUser', 'sLibrary','constants',
+    function ($scope, $rootScope, $routeParams, $q, sUserDetails, sUser, sLibrary, constants) {
+
 
         //#region profile
+        $scope.profile = {};
+
         sUser.minProfile({ userId: $routeParams.userId }).then(function (response) {
             $scope.profile = response.payload;
             $scope.profile.isSelf = $scope.profile.id === sUserDetails.getDetails().id
@@ -39,8 +67,13 @@ mUser.controller('UserCtrl',
         //#region admin
         $scope.admin = {
             visible: function () {
-                return $scope.profile.score >= $scope.consts.admin.score && $scope.profile.isSelf;
-            }
+                return $scope.profile.score >= constants.admin.score && $scope.profile.isSelf
+            },
+            membersLimit : constants.admin.membersLimit
+        };
+
+        $scope.addMembersLimit = function () {
+            $scope.membersLimit += constants.membersLimit;
         };
 
         $scope.sendMembersMessage = function () {
@@ -54,7 +87,7 @@ mUser.controller('UserCtrl',
 
         //#region activity
         $scope.activity = {
-            currentTab: $scope.consts.activity.tabs.files
+            currentTab: constants.activity.tabs.files
         }
 
         //#endregion
@@ -76,7 +109,7 @@ mUser.controller('UserCtrl',
                 $scope.promises.invites = sUser.invites().then(invitesResponse);
             }
 
-            if (!$scope.admin.visible) {  //dont show members list for non admins
+            if (!$scope.admin.visible()) {  //dont show members list for non admins
                 $scope.promises.friends = sUser.friends({ userId: $scope.profile.id }).then(friendsResponse);
                 return;
             }
