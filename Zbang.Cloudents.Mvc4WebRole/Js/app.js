@@ -185,7 +185,11 @@ app.config([
                 }
             }).
             when('/store/terms/', {
-                templateUrl: '/store/Terms/',
+                templateUrl:function (params) {
+                    var url = '/store/Terms/';
+                    return buildQueryString(url, params);
+
+                },
                 controller: 'ViewCtrl',
                 params: {
                     type: 'terms'

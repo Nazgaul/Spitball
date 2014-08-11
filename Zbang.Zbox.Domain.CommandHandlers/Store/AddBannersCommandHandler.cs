@@ -50,16 +50,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                        GetBannerLocation(bannerStore.Order),
                        bannerStore.Order, bannerStore.UniversityId);
                 }
-                var x = m_StoreRepository.GetQuerable();
-                foreach (var storeBanner in  x.ToList())
-                {
-                    if (newStoreBanners.All(a => a.Id != storeBanner.Id))
-                    {
-                        m_StoreRepository.Delete(storeBanner);
-                    }
-                }
+               
+               
                 m_StoreRepository.Save(banner);
 
+            }
+            var x = m_StoreRepository.GetQuerable();
+            foreach (var storeBanner in x.ToList())
+            {
+                if (newStoreBanners.All(a => a.Id != storeBanner.Id))
+                {
+                    m_StoreRepository.Delete(storeBanner);
+                }
             }
         }
 
@@ -77,9 +79,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
             {
                 return StoreBannerLocation.Center;
             }
-            if (order >= 30 && order <= 99)
+            if (order >= 30 && order <= 39)
             {
                 return StoreBannerLocation.Product;
+            }
+            if (order >= 40 && order <= 49)
+            {
+                return StoreBannerLocation.Top;
             }
             throw new ArgumentException("order not in range", "order");
         }

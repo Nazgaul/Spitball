@@ -8,8 +8,8 @@
 
     <div class="widget">
         <div class="lFloat banner">
-            @*@{
-                var banner = ViewBag.banner as Zbang.Zbox.ViewModel.Dto.Store.BannerDto;
+            @{
+                var banner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Top);
                 if (banner != null)
                 {
                     if (string.IsNullOrEmpty(banner.Url))
@@ -23,7 +23,7 @@
                         </a>
                     }
                 }
-            }*@
+            }
         </div>
     </div>
 
@@ -96,7 +96,7 @@
                         <table bo-if="product.salePrice > 0">
                             <tr>
                                 <td>@StoreResources.RegPrice:</td>
-                                <td bo-text="product.salePrice"></td>
+                                <td bo-text="(product.salePrice | currency:'').slice(0,-3)"></td>
                                 <td>₪</td>
                             </tr>
                             @*V19.0.2*@
@@ -107,7 +107,7 @@
                     </tr>*@
                             <tr>
                                 <td>@StoreResources.StudentPrice:</td>
-                                <td bo-text="product.salePrice - product.coupon"></td>
+                                <td bo-text="(product.salePrice - product.coupon | currency:'').slice(0,-3)"></td>
                                 <td>₪</td>
                             </tr>
                         </table>
@@ -124,7 +124,7 @@
             </li>
             <li class="noResults"><div class="emptySearch">@SharedResources.NoResults</div></li>
         </ul>
-        @foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
+        @*@foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
         {
             <div class="placeholder">
                 @if (string.IsNullOrEmpty(banner.Url))
@@ -138,7 +138,7 @@
                     </a>
                 }
             </div>
-        }
+        }*@
     </div>
     @{Html.RenderPartial("_Footer");}
 </div>

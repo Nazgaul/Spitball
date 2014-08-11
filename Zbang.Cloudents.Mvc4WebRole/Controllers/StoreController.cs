@@ -187,8 +187,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet, StoreCategories]
         [Route("store/terms")]
-        public ActionResult Terms()
+        public async Task<PartialViewResult> Terms(int? universityId)
         {
+            var banner = await ZboxReadService.GetBanners(universityId);
+            ViewBag.banner = banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
             return PartialView();
         }
 

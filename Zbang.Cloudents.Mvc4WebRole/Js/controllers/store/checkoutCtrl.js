@@ -20,7 +20,8 @@
 
         $scope.formData = {
             features: {},
-            universityId: $routeParams.universityId || $routeParams.universityid || null
+            universityId: $routeParams.universityId || $routeParams.universityid || null,
+            numberOfPayments:1
         };
 
         $scope.coupon = {
@@ -114,9 +115,11 @@
         };
 
         $scope.order = function (isValid) {
+           
             if (!isValid) {
                 return;
             }
+            $scope.order.buttonDisabled = true;
             $scope.formData.productId = $routeParams.productId;
 
             $scope.formData.features = _.map($scope.formData.features, function (feature, key) {
@@ -128,7 +131,7 @@
                     alert(response.payload);
                     return;
                 }
-
+                $scope.order.buttonDisabled = false;
                 $location.path(response.payload.url);
             });
         };

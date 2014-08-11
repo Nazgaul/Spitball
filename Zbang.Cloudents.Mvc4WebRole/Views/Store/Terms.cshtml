@@ -2,7 +2,22 @@
     @{Html.RenderPartial("_Navigation");}
     <div class="widget">
         <div class="lFloat banner">
-
+            @{
+                var banner = ViewBag.banner as Zbang.Zbox.ViewModel.Dto.Store.BannerDto;
+                if (banner != null)
+                {
+                    if (string.IsNullOrEmpty(banner.Url))
+                    {
+                        <img src="@banner.ImageUrl" alt="" />
+                    }
+                    else
+                    {
+                        <a href="@banner.Url" target="_blank">
+                            <img src="@banner.ImageUrl" alt="" />
+                        </a>
+                    }
+                }
+            }
         </div>
     </div>
 
