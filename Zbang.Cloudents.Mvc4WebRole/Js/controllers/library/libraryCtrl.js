@@ -98,10 +98,18 @@ mLibrary.controller('LibraryCtrl',
                 });
 
                 modalInstance.result.then(function (result) {
-
                     result.parentId = $scope.info.libraryId;
 
-                    sLibrary.department.create({}).then(function (response) {
+                    var item = _.find($scope.info.items, function (item) {
+                        return item.name === result.name;
+                    });
+
+                    if (item) {
+                        alert('already exists')                        
+                        return;
+                    }
+
+                    sLibrary.department.create(result).then(function (response) {
                         $scope.info.items.push(response.payload);
                     });
                 }, function () {

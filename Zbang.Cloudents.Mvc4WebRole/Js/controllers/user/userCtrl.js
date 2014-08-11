@@ -76,7 +76,7 @@ mUser.controller('UserCtrl',
                 $scope.promises.invites = sUser.invites().then(invitesResponse);
             }
 
-            if (!$scope.admin.visible) {  //no need to show member list for non admins
+            if (!$scope.admin.visible) {  //dont show members list for non admins
                 $scope.promises.friends = sUser.friends({ userId: $scope.profile.id }).then(friendsResponse);
                 return;
             }
