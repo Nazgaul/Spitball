@@ -5,8 +5,30 @@
 <div class="storeWpr page" ng-class="{noBanners : hideBanners()}">
     @{Html.RenderPartial("_Navigation");}
 
+
+    <div class="widget">
+        <div class="lFloat banner">
+            @*@{
+                var banner = ViewBag.banner as Zbang.Zbox.ViewModel.Dto.Store.BannerDto;
+                if (banner != null)
+                {
+                    if (string.IsNullOrEmpty(banner.Url))
+                    {
+                        <img src="@banner.ImageUrl" alt="" />
+                    }
+                    else
+                    {
+                        <a href="@banner.Url" target="_blank">
+                            <img src="@banner.ImageUrl" alt="" />
+                        </a>
+                    }
+                }
+            }*@
+        </div>
+    </div>
+
     @*Add class big to show the bigger version of the widget*@
-    <div class="widget big">
+    @*<div class="widget big">
         <div class="lFloat banner">
             @{
                 var topRightBanner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopRight);
@@ -54,7 +76,8 @@
 
         </div>
 
-    </div>
+    </div>*@
+
     @*Add class "showResults" to show the results of the search query (and hide original product list)*@
     <form class="searchForm" id="">
         <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
@@ -65,28 +88,30 @@
             <li ng-repeat="product in products | limitTo: params.maxProducts">
                 <a bo-href="product.url + (params.universityId ? '?universityId=' + params.universityId : '')" href="">
                     <img bo-src="product.pictureUrl" alt="" />
-                    <div class="desc">
-                        <div class="" bo-text="product.name"></div>
-                        <p class="hoverDesc" bo-text="product.extraDetails"></p>
+                    <div class="pContent">
+                        <div class="desc">
+                            <div class="" bo-text="product.name"></div>
+                            <p class="hoverDesc" bo-text="product.extraDetails"></p>
+                        </div>
+                        <table bo-if="product.salePrice > 0">
+                            <tr>
+                                <td>@StoreResources.RegPrice:</td>
+                                <td bo-text="product.salePrice"></td>
+                                <td>₪</td>
+                            </tr>
+                            @*V19.0.2*@
+                            @*<tr>
+                                <td>@StoreResources.Coupon:</td>
+                                <td bo-text="product.coupon"></td>
+                                <td>₪</td>
+                            </tr>*@
+                            <tr>
+                                <td>@StoreResources.StudentPrice:</td>
+                                <td bo-text="product.salePrice - product.coupon"></td>
+                                <td>₪</td>
+                            </tr>
+                        </table>
                     </div>
-                    <table bo-if="product.salePrice > 0">
-                        <tr>
-                            <td>@StoreResources.RegPrice:</td>
-                            <td bo-text="product.salePrice"></td>
-                            <td>₪</td>
-                        </tr>
-                        <tr>
-                            <td>@StoreResources.Coupon:</td>
-                            <td bo-text="product.coupon"></td>
-                            <td>₪</td>
-                        </tr>
-                        <tr>
-                            <td>@StoreResources.StudentPrice:</td>
-                            <td bo-text="product.salePrice - product.coupon"></td>
-                            <td>₪</td>
-                        </tr>
-                    </table>
-
                     <div class="productHover">
 
                         <span class="lFloat" bo-if="product.salePrice > 0" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
