@@ -13,41 +13,49 @@ header {
 
 /*#region carousel */
 .widget {
+    /*&.big {
+        .banner {
+            img {
+                right: 1px; //rtl
+                left: auto;
+            }
+        }
+    }*/
     .banner {
-        margin: 0 -1px 0 0; /*rtl*/
+        margin: 0 -1px 0 0; //rtl/
         border: none;
-        border-left: 1px solid @txtColor; /*rtl*/
+        border-left: 1px solid @txtColor; //rtl
     }
 }
-.carousel {
+/*.carousel {
     &.reverse {
         .ng-hide-add.ng-hide-add-active {
-            right: 100%; /*rtl*/
+            right: 100%; //rtl
             left: auto;
         }
         .ng-hide {
-            right: -100%; /*rtl*/
+            right: -100%; //rtl
             left: auto;
         }
     }
 }
 .carouselBtns {
     button {
-        margin: -2px 0 0 4px; /*rtl*/
+        margin: -2px 0 0 4px; //rtl
     }
 }
 .slide {
-    right:0; /*rtl*/
+    right:0; //rtl
     left: auto;
     &.ng-hide-add.ng-hide-add-active {
-        right: -100%; /*rtl*/
+        right: -100%; //rtl
         left: auto;
     }
     &.ng-hide {
-        right: 100%; /*rtl*/
+        right: 100%; //rtl
         left: auto;
     }
-}
+}*/
 /*#endregion */
 
 /*#region products drop down */
@@ -113,10 +121,11 @@ header {
     }
     table {
         text-align: right; /*rtl*/
-        &:before {
-            right: 16px; /*rtl*/
+        //V19.0.2
+        /*&:before {
+            right: 16px; 
             left: auto;
-        }
+        }*/
     }
 }
 .productHover {
