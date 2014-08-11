@@ -905,6 +905,7 @@ namespace Zbang.Zbox.ReadServices
         }
         #endregion
 
+
         #region Store
 
         public async Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
@@ -912,7 +913,8 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
-                return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId, query.UniversityId });
+                sql = query.ProducerId.HasValue ? Sql.Store.GetProductsBySupplier : sql;
+                return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId, query.UniversityId, producerId = query.ProducerId });
             }
         }
         public async Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)

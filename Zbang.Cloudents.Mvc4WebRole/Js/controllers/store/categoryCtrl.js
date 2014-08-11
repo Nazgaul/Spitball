@@ -14,19 +14,19 @@
             universityId: $routeParams.universityId || $routeParams.universityid || null
         };
 
-        Store.products({ categoryId: $routeParams.categoryId, universityId: $scope.params.universityId }).then(function (response) {
+        Store.products({ categoryId: $routeParams.categoryId, universityId: $scope.params.universityId, producerId: $routeParams.producerId }).then(function (response) {
             allProducts = response.payload;
             $scope.products = allProducts;
 
             $timeout(function () {
                 $scope.$emit('viewContentLoaded');
-                if ($routeParams.categoryId) {
-                    if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
-                        $window.scrollTo(0, 400);
-                    }
+            //    if ($routeParams.categoryId) {
+            //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
+            //            $window.scrollTo(0, 400);
+            //        }
 
-                }
-            }, 300);
+            //    }
+            }, 0);
         });
 
 

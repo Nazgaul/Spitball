@@ -30,6 +30,7 @@ namespace Zbang.Zbox.Store.Services
       --,[SalesProdOrder] -- sales page product order 
       ,[ProdOrder] as [CategoryOrder] -- Category Page  product order
       ,(select producerName from tblproducers s where s.producerid = p.[ProducerId]) as producerName -- Producer ID 
+      ,p.[ProducerId] as ProducerId
       ,[p1] as upgrade1  -- Upgrades
       ,[v1] as upgradeValue1 -- Upgrades
       ,[p2] as upgrade2 -- Upgrades

@@ -15,6 +15,17 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         and (universityid is null or universityid = @universityId)
         order by ProductOrder, SalePrice";
 
+       public const string GetProductsBySupplier = @"SELECT [ProductId] as Id
+      ,[Name]
+      ,[ExtraDetails]
+      ,[NumberOfSales]
+      ,[Coupon]
+      ,[SalePrice]
+      ,[PictureUrl]
+      ,[Url]
+        FROM [Zbox].[StoreProduct] where producerid = @producerId
+        order by ProductOrder, SalePrice";
+
        public const string GetProductsWithCategory = @"SELECT s.[ProductId] as Id
       ,[Name]
       ,[ExtraDetails]

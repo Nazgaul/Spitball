@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain
             Features = new Iesi.Collections.Generic.HashedSet<StoreProductFeatures>();
         }
 
-        public StoreProduct(long id, string name, string extraDetails, int numberOfSales, float coupon, float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, int categoryOrder, int productOrder)
+        public StoreProduct(long id, string name, string extraDetails, int numberOfSales, float coupon, float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, int categoryOrder, int productOrder, int? producerId)
             : this()
         {
             NumberOfSales = numberOfSales;
@@ -24,10 +24,10 @@ namespace Zbang.Zbox.Domain
 
             UpdateProduct(id, name, extraDetails, coupon, salePrice, categories,  homePage,
                 supplyTime, numberOfPayments, catalogNumber, deliveryPrice, producerName,
-                features, universityId, description, categoryOrder, productOrder, pictureUrl);
+                features, universityId, description, categoryOrder, productOrder, pictureUrl, producerId);
         }
 
-        public void UpdateProduct(long id, string name, string extraDetails, float coupon, float salePrice, IList<StoreCategory> categories, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, string description, int categoryOrder, int productOrder, string pictureUrl)
+        public void UpdateProduct(long id, string name, string extraDetails, float coupon, float salePrice, IList<StoreCategory> categories, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, string description, int categoryOrder, int productOrder, string pictureUrl, int? producerId)
         {
             if (name == null) throw new ArgumentNullException("name");
             Id = id;
@@ -53,6 +53,7 @@ namespace Zbang.Zbox.Domain
 
             CategoryOrder = categoryOrder;
             ProductOrder = productOrder;
+            ProducerId = producerId;
         }
 
         private void AddFeatures(IEnumerable<KeyValuePair<string, string>> features)
@@ -119,6 +120,8 @@ namespace Zbang.Zbox.Domain
 
         public int CategoryOrder { get; set; }
         public int ProductOrder { get; set; }
+
+        public int? ProducerId { get; set; }
 
     }
 }
