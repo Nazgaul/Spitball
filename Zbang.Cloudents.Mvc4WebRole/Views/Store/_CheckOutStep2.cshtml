@@ -107,7 +107,7 @@
         <span class="required">@DialogResources.RequiredField</span>
         <span>@StoreResources.BillMe</span>
         <select ng-model="formData.numberOfPayments" name="NumberOfPayments" required>
-            @for (int i = 1; i < (int)ViewBag.NumberOfPayments; i++)
+            @for (int i = 1; i <= (int)ViewBag.NumberOfPayments; i++)
             {
                 <option value="@i">@i</option>
             }
