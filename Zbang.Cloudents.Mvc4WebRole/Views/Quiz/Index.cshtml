@@ -5,37 +5,82 @@
 @model Zbang.Zbox.ViewModel.Dto.ItemDtos.QuizWithDetailDto
 
 <div id="quiz" class="page itemPage quizPage" data-data="@ViewBag.userD" ng-controller="QuizCtrl">
+
+    <div class="itemActions topBar barShadow">
+        <div class="quizActionsWpr">
+            <section class="shareBtn rFloat">
+                <input class="checkbox" type="checkbox" id="quizShare" data-ddcbox="quizShare" />
+                <label for="quizShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
+                <div class="dropDown shareDD" data-dropdown="quizShare">
+                    <label class="closeItem rFloat" for="quizShare"></label>
+                    <div class="arrow shareArrow"></div>
+                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
+                    <div class="shareTxt">@SharedResources.ShareUsing</div>
+                    <ul class="shareList">
+                        <li class="shareItem">
+                            <button type="button" id="quiz_FS" class="fbShare">@SharedResources.Facebook</button>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                    {
+                            <li class="shareItem">
+                                <button type="button" id="quiz_msg" class="emailShare">@SharedResources.Email</button>
+                            </li>
+                    }
+                    </ul>
+                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                    <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
+                </div>
+            </section>
+
+            <a id="quizBackBtn" href="@ViewBag.boxUrl" class="backWpr elps lFloat" data-navigation="Box">
+                <div>@SharedResources.Backto</div>
+                <h2 class="semiFont elps">@ViewBag.boxName</h2>
+            </a>
+            @*<button type="button" class="itemPrint iconTop" id="quiz_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
+        </div>
+    </div>
+
     <div class="leftPanel lFloat">
         <div class="itemTop">
-            <div class="moreFilesThumb lFloat"></div>
-            <div class="itemNameWpr">
-                <div class="item-name semiFont"><span role="textbox" class="itemNameText">@Model.Name</span></div>
+            <div tooltip="@SharedResources.Views" class="rFloat quizViews quizSprite">@Model.NumberOfViews</div>
+            <div class="itemNameWpr quizSprite">
+                <div class="item-name semiFont elps">@Model.Name</div>
+                <div class="itemOwner elps calloutTrgr lFloat " data-uid="@Model.OwnerId">@Model.Owner</div>
+                <div class="rFloat">@Model.Date.ToString("d/M/yy")</div>
             </div>
-            <div class="itemOwner elps calloutTrgr" data-uid="@Model.OwnerId">@Model.Owner</div>
-            <span class="lFloat">@Model.Date.ToString("d/M/yy")</span>
-            @*<button type="button" class="itemFlag rFloat">@ItemsResources.Flag</button>*@
-            <div class="actions">
-                <span tooltip="@SharedResources.Views" class="lFloat views">@Model.NumberOfViews</span>
+            @*<div class="moreFilesThumb lFloat"></div>
+        <div class="itemNameWpr">
+            <div class="item-name semiFont"><span role="textbox" class="itemNameText">@Model.Name</span></div>
+        </div>
+        <div class="itemOwner elps calloutTrgr" data-uid="@Model.OwnerId">@Model.Owner</div>
+        <span class="lFloat">@Model.Date.ToString("d/M/yy")</span>*@
 
-                @*<div id="quizRateContainer" class="rFloat rateContainer">
-                    <span class="stars">
-                        <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
-                    </span>
-                    <button type="button" id="quizRateBtn" class="rateBtn"></button>
-                    <div id="quizRateBubble" class="bubble">
-                        <div class="arrow upArrow"></div>
-                        <div data-step2="ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
+            @* old- <button type="button" class="itemFlag rFloat">@ItemsResources.Flag</button>*@
 
-                        <ul class="rateList">
-                            <li id="star5" class="star">5</li>
-                            <li id="star4" class="star star4">4</li>
-                            <li id="star3" class="star star3">3</li>
-                            <li id="star2" class="star star2">2</li>
-                            <li id="star1" class="star star1">1</li>
-                        </ul>
-                    </div>
-                </div>*@
+            @*<div class="actions">
+        <span tooltip="@SharedResources.Views" class="lFloat views">@Model.NumberOfViews</span>*@
+
+            @* old -<div id="quizRateContainer" class="rFloat rateContainer">
+            <span class="stars">
+                <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
+            </span>
+            <button type="button" id="quizRateBtn" class="rateBtn"></button>
+            <div id="quizRateBubble" class="bubble">
+                <div class="arrow upArrow"></div>
+                <div data-step2="ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
+
+                <ul class="rateList">
+                    <li id="star5" class="star">5</li>
+                    <li id="star4" class="star star4">4</li>
+                    <li id="star3" class="star star3">3</li>
+                    <li id="star2" class="star star2">2</li>
+                    <li id="star1" class="star star1">1</li>
+                </ul>
             </div>
+        </div>*@
+            @*</div>*@
+
         </div>
         <h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
         <div class="timeWpr0">
@@ -71,38 +116,7 @@
             </div>
             <button type="button" class="closeDialog" data-closediag="close"></button>
         </div>
-        <div class="itemActions topBar barShadow">
-            <section class="shareBtn rFloat">
-                <input class="checkbox" type="checkbox" id="quizShare" data-ddcbox="quizShare" />
-                <label for="quizShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
-                <div class="dropDown shareDD" data-dropdown="quizShare">
-                    <label class="closeItem rFloat" for="quizShare"></label>
-                    <div class="arrow shareArrow"></div>
-                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
-                    <div class="shareTxt">@SharedResources.ShareUsing</div>
-                    <ul class="shareList">
-                        <li class="shareItem">
-                            <button type="button" id="quiz_FS" class="fbShare">@SharedResources.Facebook</button>
-                        </li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="shareItem">
-                                <button type="button" id="quiz_msg" class="emailShare">@SharedResources.Email</button>
-                            </li>
-                        }
-                    </ul>
-                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                    <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
-                </div>
-            </section>
-
-            <a id="quizBackBtn" href="@ViewBag.boxUrl"class="backWpr elps lFloat" data-navigation="Box">
-                <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps">@ViewBag.boxName</h2>
-            </a>
-            @*<button type="button" class="itemPrint iconTop" id="quiz_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
-        </div>
+        
         <div class="quizTitle">@Html.Raw(Model.Name)</div>
         <div class="quizPrevWpr">
             @{

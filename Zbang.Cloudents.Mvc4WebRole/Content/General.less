@@ -30,10 +30,16 @@ html {
  * Address `outline` inconsistency between Chrome and other browsers.
  */
 
-a:focus {
-    //outline: thin dotted;
+a{
+    
+    &:focus {
+        //outline: thin dotted;
     outline: none;
     //box-shadow: 0 2px 2px rgba(0,0,0,.2); //TODO: Ask Itsik: how about this for a focus alternative??
+    }
+    &:visited {
+        text-decoration: none;
+    }
 }
 
 button:focus {
