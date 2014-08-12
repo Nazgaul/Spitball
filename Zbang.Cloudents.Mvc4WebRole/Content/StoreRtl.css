@@ -21,6 +21,8 @@ header h1 {
 }
 .widget .banner {
   margin: 0 -1px 0 0;
+  border: none;
+  border-left: 1px solid #39434a;
 }
 /*.carousel {
     &.reverse {
@@ -84,10 +86,9 @@ header h1 {
 .categoryList > li:nth-child(6n) {
   border-left: none;
   /*rtl*/
-}
-.categoryList > li:nth-child(6n) ul {
-  margin: 0 0 0 -18px;
-  /*rtl*/
+  /*ul {
+                margin: 0 0 0 -18px; //rtl
+            }*/
 }
 /*#endregion */
 /*#region product list with hover */

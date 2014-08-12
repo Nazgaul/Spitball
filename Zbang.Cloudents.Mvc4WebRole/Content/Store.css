@@ -53,10 +53,10 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.storeNav ul {
+.storeNav .navLinks {
   text-align: justify;
 }
-.storeNav ul:after {
+.storeNav .navLinks:after {
   content: '';
   display: inline-block;
   width: 100%;
@@ -91,6 +91,7 @@ main {
 .widget {
   width: 100%;
   height: 120px;
+  border: 1px solid #39434a;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -121,10 +122,11 @@ main {
 }
 .widget img {
   position: absolute;
-  border: 1px solid #39434a;
 }
 .widget .banner {
   margin-left: -1px;
+  /*rtl*/
+  border-right: 1px solid #39434a;
   /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -345,9 +347,7 @@ main {
   /*rtl*/
 }
 .categoryList > li:nth-child(6n) ul {
-  width: 168px;
-  margin-right: -18px;
-  /*rtl*/
+  width: 169px;
 }
 .categoryList > li:nth-child(n + 7) {
   border-bottom: none;
@@ -435,6 +435,7 @@ main {
   text-align: center;
   vertical-align: top;
   overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   /*&:nth-child(3) {
             margin-bottom: 170px;
         }*/
@@ -905,11 +906,6 @@ main {
   position: relative;
   top: -1px;
 }
-.userOrder .inputText,
-.userDetails .inputText,
-.contact .inputText {
-  height: 32px;
-}
 .userOrder label,
 .userDetails label,
 .contact label {
@@ -923,13 +919,13 @@ main {
 .userOrder {
   width: 940px;
   border: 1px solid #39434a;
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-bottom: 30px;
   background: #fff;
-  padding: 0 20px;
+  padding: 0 20px 485px 20px;
   font-size: 18px;
 }
 .userHelp {
@@ -1016,6 +1012,37 @@ main {
 .orderTable {
   width: 100%;
   border-collapse: collapse;
+  /*.orderRow2, .orderRow4 {
+        &:after {
+            .pseudo;
+            height: 6px;
+            width: 900px;
+            background: silver;
+            border-radius: 3px;
+            position: absolute;
+            right: 0;
+            left: 0;
+            margin: auto;
+        }
+    }
+    .orderRow1 {
+        td:last-child {
+            text-align: center;
+        }
+    }
+    .orderRow2 {
+        td {
+            &:nth-child(1) {
+                padding-top: 26px; // take into account the absolute hr
+            }
+        }
+    }
+    .orderRow3 {
+
+    }
+    .orderRow4 {
+
+    }*/
 }
 .orderTable .btn1 {
   font-size: 28px;
@@ -1056,13 +1083,18 @@ main {
   text-align: center;
 }
 .orderTable tbody tr:nth-child(2) td {
-  padding-top: 26px;
+  vertical-align: top;
+  padding-top: 29px;
+}
+.orderTable tbody tr:nth-child(2) td:nth-child(1) {
+  padding-top: 35px;
 }
 .orderTable tbody tr:nth-last-child(2) td {
   border: none;
 }
 .orderTable tbody tr:last-child td {
   padding-top: 43px;
+  border: none;
 }
 .orderTable th {
   color: #0f9d58;
@@ -1129,7 +1161,7 @@ main {
   box-sizing: border-box;
 }
 .invoice li span:nth-child(2) {
-  min-width: 45px;
+  min-width: 47px;
 }
 .invoice li span:nth-child(3) {
   padding: 0 10px 0 3px;
@@ -1142,8 +1174,10 @@ main {
   content: '-';
   display: inline-block;
 }
-.pName {
-  font-size: 21px;
+.pName,
+.pType {
+  font-size: 18px;
+  display: inline;
 }
 .userDetails > .lFloat,
 .contact.contact > .lFloat,
@@ -1181,6 +1215,7 @@ main {
 .contact.contact .inputText {
   display: block;
   margin-top: 5px;
+  height: 32px;
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1191,6 +1226,7 @@ main {
   padding: 60px 75px;
   margin-top: 50px;
   overflow: hidden;
+  border-radius: 5px 5px 0 0;
   /*.required {
         visibility: hidden;
         color: @errorColor;
@@ -1378,6 +1414,7 @@ main {
   line-height: normal;
   text-align: left;
   /*rtl*/
+  margin-bottom: 20px;
 }
 .storeWpr footer > .wpr {
   text-align: justify;
@@ -1400,7 +1437,7 @@ main {
 }
 .storeWpr footer .bottom {
   background: #39434a;
-  height: 70px;
+  height: 40px;
   color: #fff;
 }
 .storeWpr footer .bottom .wpr {
@@ -1415,7 +1452,7 @@ main {
   display: inline-block;
 }
 .storeWpr footer .bottom a {
-  padding: 30px 40px 0 40px;
+  padding: 12px 40px 0 40px;
 }
 .storeWpr footer h3,
 .storeWpr footer a {
@@ -1435,39 +1472,47 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.social {
-  margin-top: 14px;
-}
-.social button {
-  width: 42px;
-  height: 42px;
-  background: url(/Images/Store/social.png) no-repeat;
-}
-.social button:nth-child(2) {
-  margin: 0 20px;
-}
-.social .fb {
-  background-position: 0 0;
-  opacity: .5;
-}
-.social .fb:hover {
-  background-position: 0 -42px;
-  opacity: 1;
-}
-.social .twtr {
-  background-position: 0 -84px;
-  opacity: .5;
-}
-.social .twtr:hover {
-  background-position: 0 -126px;
-  opacity: 1;
-}
-.social .ytube {
-  background-position: 0 -168px;
-  opacity: .5;
-}
-.social .ytube:hover {
-  background-position: 0 -210px;
-  opacity: 1;
-}
+/*.social {
+    margin-top: 14px;
+
+    button {
+        width: 42px;
+        height: 42px;
+        background: url(/Images/Store/social.png) no-repeat;
+
+        &:nth-child(2) {
+            margin: 0 20px;
+        }
+    }
+
+    .fb {
+        background-position: 0 0;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -42px;
+            opacity: 1;
+        }
+    }
+
+    .twtr {
+        background-position: 0 -84px;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -126px;
+            opacity: 1;
+        }
+    }
+
+    .ytube {
+        background-position: 0 -168px;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -210px;
+            opacity: 1;
+        }
+    }
+}*/
 /*#endregion */
