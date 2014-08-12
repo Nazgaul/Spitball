@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -44,21 +45,31 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private void BringData()
         {
             TraceLog.WriteInfo("Starting to bring data from Hatavot");
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             var categoriesDto = m_ReadService.GetCategories();
-
+            stopWatch.Stop();
+            TraceLog.WriteInfo("Bring categories took: " + stopWatch.Elapsed.TotalSeconds);
 
             var categories = new List<Category>();
             var storeDto = new List<ProductDto>();
+            stopWatch.Restart();
             foreach (var category in categoriesDto)
             {
                 categories.Add(new Category(category.Id, category.ParentId, category.Name, category.Order));
                 var items = m_ReadService.ReadData(category.Id, m_DateDiff);
                 storeDto.AddRange(items);
             }
+            stopWatch.Stop();
+            TraceLog.WriteInfo("Bring products took: " + stopWatch.Elapsed.TotalSeconds);
+
             try
             {
+                stopWatch.Restart();
                 var categoriesCommand = new AddCategoriesCommand(categories);
                 m_ZboxWriteService.AddCategories(categoriesCommand);
+                stopWatch.Stop();
+                TraceLog.WriteInfo("update categories took: " + stopWatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {
@@ -66,6 +77,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             TraceLog.WriteInfo("build command and download images");
             var products = new List<ProductStore>();
+            stopWatch.Restart();
             foreach (var item in storeDto)
             {
 
@@ -116,12 +128,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     TraceLog.WriteError("On hatavot bring image", ex);
                 }
             }
+            stopWatch.Stop();
+            TraceLog.WriteInfo("bring images took: " + stopWatch.Elapsed.TotalSeconds);
             try
             {
                 if (products.Count > 0)
                 {
+                    stopWatch.Restart();
                     var command = new AddProductsToStoreCommand(products);
                     m_ZboxWriteService.AddProducts(command);
+
+                    stopWatch.Stop();
+                    TraceLog.WriteInfo("update products took: " + stopWatch.Elapsed.TotalSeconds);
                 }
             }
             catch (Exception ex)
@@ -160,15 +178,21 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private void ProcessBanners()
         {
             TraceLog.WriteInfo("Bringing banners");
+            var sw = new Stopwatch();
+            sw.Start();
             var banners = m_ReadService.GetBanners();
-
+            sw.Stop();
+            TraceLog.WriteInfo("get banners took: " + sw.Elapsed.TotalSeconds);
             var bannerCommand = new AddBannersCommand(banners.Select(s =>
             {
                 var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
                 var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
                 return new Banner(s.Id, s.Url, image, s.Order, s.UniversityId);
             }));
+            sw.Restart();
             m_ZboxWriteService.AddBanners(bannerCommand);
+            sw.Stop();
+            TraceLog.WriteInfo("update banners took: " + sw.Elapsed.TotalSeconds);
         }
 
         private static int? TryParseNullableInt(string s)

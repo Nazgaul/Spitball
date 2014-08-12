@@ -8,8 +8,7 @@
     <ul>
         @foreach (var sub in categories)
         {
-            var url = sub.Url + Request.Url.Query;
-            <li><a href="@url">@sub.Name</a></li>
+            <li><a href="@Url.RouteUrl("storeCategory",new {categoryid = sub.Id,universityId = Request.QueryString["universityId"], producerId = Request.QueryString["producerId"] })">@sub.Name</a></li>
         }
     </ul>
 }

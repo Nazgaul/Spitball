@@ -60,6 +60,7 @@ namespace Zbang.Zbox.Domain
         {
             foreach (var feature in features)
             {
+                Features.Clear();
                 var categoryOptions = feature.Value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var categoryOption in categoryOptions)
                 {

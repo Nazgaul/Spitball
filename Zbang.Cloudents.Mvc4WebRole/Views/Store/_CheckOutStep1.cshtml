@@ -36,14 +36,13 @@
         </tr>
         <tr ng-repeat="(categoryName,category) in product.categories">
             <td>{{categoryName}}</td>            
-            <td>
-                <select ng-model="formData.features[categoryName]" ng-options="feature.description for feature in category">
+            <td colspan="2"> 
+                <select ng-model="formData.features[categoryName]" ng-options="(feature.description + ' בתוספת של ' + feature.price + '₪') for feature in category">
                     <option value="">@StoreResources.None</option>
                 </select>
             </td>
-            <td>
-                @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>*@
-            </td>
+            @*<td>
+            </td>*@
         </tr>        
         <tr>
             <td></td>
