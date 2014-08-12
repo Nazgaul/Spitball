@@ -49,7 +49,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        universityId = storeUniversityId
+                        universityId = storeUniversityId,
+                        producerId = producerId
                     });
                 }
             }

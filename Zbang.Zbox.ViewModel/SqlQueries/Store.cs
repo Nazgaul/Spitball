@@ -41,7 +41,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         order by categoryorder, SalePrice";
 
 
-       public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
+       public const string GetCategories = @"SELECT  catid as id, parentid, name
   FROM [Zbox].[StoreCat]
   order by catorder";
 

@@ -9,7 +9,6 @@
     </id>
     <property name="ParentId" not-null="true" />
     <property name="Name" not-null="true"  />
-    <property name="Url" not-null="true"/>
     <property name="Order" not-null="true" column="CatOrder" />
   </class>
 

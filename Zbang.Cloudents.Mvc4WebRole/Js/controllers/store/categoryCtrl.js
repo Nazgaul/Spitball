@@ -71,7 +71,11 @@
             search();
 
         };
-
+        $scope.$watch('params.search', function (newValue) {
+            if (newValue === '') {
+                $location.search('q', newValue || null);
+            }
+        });
         $scope.$on('$routeUpdate', function () {
             var query = $location.search()['q'];
             if (query) {
@@ -106,7 +110,9 @@
             var query = $scope.params.search;
             $scope.params.isSearching = true;
             hideBanners = true;
-            $location.search({ q: $scope.params.search });
+            $location.search('q', $scope.params.search);
+
+            //$location.search({ q: $scope.params.search });
             Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 $scope.params.isSearching = false;

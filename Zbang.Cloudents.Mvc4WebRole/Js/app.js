@@ -177,6 +177,7 @@ app.config([
             when('/store/checkout/:productId/', {
                 templateUrl: function (params) {
                     var url = '/Store/Checkout/';
+                    console.log(params)
                     return buildQueryString(url, params);
                 },
 
@@ -186,7 +187,7 @@ app.config([
                 }
             }).
             when('/store/terms/', {
-                templateUrl:function (params) {
+                templateUrl: function (params) {
                     var url = '/store/Terms/';
                     return buildQueryString(url, params);
 
@@ -217,7 +218,7 @@ app.config([
                 }
                 url += '&' + key.toLowerCase() + '=' + params[key];
 
-            }            
+            }
             return url;
         }
 

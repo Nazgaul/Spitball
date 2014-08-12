@@ -71,6 +71,7 @@
         };
 
         $scope.validateCoupon = function () {
+            var invalidCouponMessage = 'קופון שגוי';
             if (!$scope.coupon.code) {
                 return;
             }
@@ -78,7 +79,7 @@
             var isNumber = /^\d+$/.test($scope.coupon.code);
 
             if (!isNumber) {
-                alert('Invalid coupon');
+                alert(invalidCouponMessage);
                 return;
             }
 
@@ -93,6 +94,7 @@
                     $scope.coupon.valid = true;
                     return;
                 }
+                alert(invalidCouponMessage);
             }, function () {
                 $scope.coupon.buttonDisabled = false;
             });

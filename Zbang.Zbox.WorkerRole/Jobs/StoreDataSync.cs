@@ -9,10 +9,8 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
-using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -22,6 +20,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IReadService m_ReadService;
         private readonly IBlobProductProvider m_BlobProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
+
+        private DateTime m_DateDiff = DateTime.UtcNow.AddYears(-1);
 
 
         public StoreDataSync(IReadService readService, IBlobProductProvider blobProvider,
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             foreach (var category in categoriesDto)
             {
                 categories.Add(new Category(category.Id, category.ParentId, category.Name, category.Order));
-                var items = m_ReadService.ReadData(category.Id);
+                var items = m_ReadService.ReadData(category.Id, m_DateDiff);
                 storeDto.AddRange(items);
             }
             try
@@ -118,15 +118,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             try
             {
-                var command = new AddProductsToStoreCommand(products);
-                m_ZboxWriteService.AddProducts(command);
+                if (products.Count > 0)
+                {
+                    var command = new AddProductsToStoreCommand(products);
+                    m_ZboxWriteService.AddProducts(command);
+                }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On update products", ex);
             }
             ProcessBanners();
-
+            m_DateDiff = DateTime.UtcNow;
             Thread.Sleep(TimeSpan.FromMinutes(3));
         }
 

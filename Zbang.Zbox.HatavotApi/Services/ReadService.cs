@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -11,7 +12,7 @@ namespace Zbang.Zbox.Store.Services
     {
         private const string ConnectionStringName = "Hatavot";
 
-        public IEnumerable<ProductDto> ReadData(int category)
+        public IEnumerable<ProductDto> ReadData(int category, DateTime diffTime)
         {
             using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
@@ -48,8 +49,10 @@ namespace Zbang.Zbox.Store.Services
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
       ,[designNum] as UniversityId -- Which University to show --> Can be to all or to one specific
       ,[wideImage] as WideImage
-  FROM [bizpoin_bizpointDB].[products] p where catcode like '%' + cast( @catId as varchar) + '%'";
-                return conn.Query<ProductDto>(sql, new { catId = category });
+  FROM [bizpoin_bizpointDB].[products] p where catcode like '%' + cast( @catId as varchar) + '%'
+  and updatetime > @diffTime
+  and productid = 6841";
+                return conn.Query<ProductDto>(sql, new { catId = category, diffTime });
             }
         }
 
