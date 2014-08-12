@@ -2,6 +2,27 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+body.quiz {
+  background: #282828;
+}
+body.quiz .siteHeader {
+  background: #0f0f0f;
+}
+body.quiz .topBar {
+  background: #1e1e1e;
+  border: none;
+}
+body.quiz .backWpr {
+  color: #fff;
+  left: 0;
+}
+body.quiz .shareBtn {
+  right: 0;
+}
+.quizSprite:before {
+  content: '';
+  background: url(/Images/quizSprite.png) no-repeat;
+}
 /*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
@@ -435,6 +456,7 @@
   font-size: 22px;
   width: 800px;
   margin: 100px auto 20px;
+  color: #fff;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";
@@ -598,6 +620,36 @@
 }
 /*#endregion */
 /*#region Quiz item page */
+.quizPage {
+  /*<div class="itemTop">
+            <div tooltip="@SharedResources.Views" class="rFloat views">@Model.NumberOfViews</div>
+            <div class="itemNameWpr">
+                <div class="item-name semiFont">@Model.Name</div>
+                <div class="itemOwner elps calloutTrgr lFloat " data-uid="@Model.OwnerId">@Model.Owner</div>
+                <div class="rFloat">@Model.Date.ToString("d/M/yy")</div>
+            </div>*/
+  /*.moreFilesThumb {
+        background: @attentionBlue;
+
+        &:after {
+            .pseudo;
+            width: 22px;
+            height: 19px;
+            vertical-align: middle;
+            background: @boxSprite -48px -142px no-repeat;
+        }
+    }
+
+    .btn1 {
+        padding: 5px 20px;
+        margin: 20px 0;
+    }*/
+}
+.quizPage .quizActionsWpr {
+  width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
 .quizPage .sectionHeader {
   color: transparent;
 }
@@ -605,11 +657,10 @@
   position: fixed;
   left: 0;
   /*rtl*/
-  top: 50px;
+  top: 130px;
   height: 100%;
-}
-.quizPage .itemTop {
-  background: #fff;
+  background: none;
+  border: none;
 }
 .quizPage .itemPrint.iconTop {
   margin-top: 11px;
@@ -620,24 +671,54 @@
 }
 .quizPage .topBar {
   position: fixed;
-  width: -webkit-calc(100% - 290px);
-  width: calc(100% - 290px);
+  padding-left: 290px;
   top: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
 }
-.quizPage .moreFilesThumb {
-  background: #0371c8;
+.quizPage .itemTop {
+  color: #fff;
+  font-size: 15px;
+  margin: 0;
+  height: 95px;
+  border-bottom: 1px solid silver;
 }
-.quizPage .moreFilesThumb:after {
-  content: '';
+.quizPage .itemNameWpr {
+  position: relative;
+  padding: 15px 0 15px 90px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: auto;
+}
+.quizPage .itemNameWpr:before {
   display: inline-block;
-  width: 22px;
-  height: 19px;
-  vertical-align: middle;
-  background: url(/Images/box18-sprite.png?v=1) -48px -142px no-repeat;
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  width: 66px;
+  height: 64px;
+  background-position: 0 -72px;
 }
-.quizPage .btn1 {
-  padding: 5px 20px;
-  margin: 20px 0;
+.quizPage .quizViews:before {
+  display: block;
+  width: 38px;
+  height: 23px;
+  background-position: 0 -49px;
+  margin-bottom: 5px;
+}
+.quizPage .item-name {
+  font-weight: bold;
+  color: #fff;
+}
+.quizPage .itemOwner {
+  font-size: 12px;
+  max-width: 90px;
+}
+.quizPage .itemOwner + .rFloat {
+  font-size: 12px;
 }
 .checkQuiz .userScore,
 .checkQuiz .resultsWpr,
@@ -677,6 +758,7 @@
 }
 .checkQuiz .sectionHeader {
   color: #383838;
+  display: none;
 }
 .checkQuiz .quizPrevWpr .btn1 {
   display: none;
@@ -684,6 +766,7 @@
 .checkQuiz .timeWpr0 {
   margin-top: -95px;
   z-index: -1;
+  display: none;
 }
 .checkQuiz .quizQList .noAnswer:after {
   content: attr(data-no-answer);
@@ -755,6 +838,7 @@
   text-align: center;
   margin: 7px;
   overflow: hidden;
+  display: none;
 }
 .userScore {
   background: #f5f5f5;
@@ -836,47 +920,3 @@
   margin: 0 auto;
 }
 /*#endregion */
-/*.validated {
-    .quizName {
-        &.ng-invalid {
-               border-color:@errorColor;
-        }
-    }
-    .questionText {
-     &.ng-invalid {
-            
-      }
-    } 
-    .questionAnswer {
-        &.ng-invalid {
-            border-color:@errorColor;
-        }
-    }*
-}
-/*.emptyQuiz {
-    .quizName {
-        &.ng-invalid {
-               border-color:@errorColor;
-        }
-    }
-
-    .questionHolder:first-child {
-        .questionText {
-            &.ng-invalid {
-                border-color:@errorColor;
-            }
-        }
-        .questionAnswer:first-child {
-            &.ng-invalid {
-                border-color:@errorColor;
-            }
-
-            +.questionAnswer {
-                &.ng-invalid {
-                border-color:@errorColor;
-                }
-
-            }
-        }
-    }
-}*/

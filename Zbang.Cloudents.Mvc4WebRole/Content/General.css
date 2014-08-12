@@ -26,6 +26,9 @@ html {
 a:focus {
   outline: none;
 }
+a:visited {
+  text-decoration: none;
+}
 button:focus {
   outline: none;
 }

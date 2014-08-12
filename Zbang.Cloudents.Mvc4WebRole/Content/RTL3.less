@@ -2023,6 +2023,16 @@
 /*#region Quiz.css */
 
 /*#region Create Quiz */
+body.quiz {
+    .backWpr {
+        right: 0; //rtl
+        left: auto
+    }
+    .shareBtn {
+        left: 0; //rtl
+        right: auto;
+    }
+}
 .bodyContent {
     &.noQuiz {
         .quizSideBar {
@@ -2230,6 +2240,9 @@
 
     .itemRight {
         text-align: right; /*rtl*/
+    }
+    .topBar {
+        padding: 0 290px 0 0; // leftPanel = 290px //rtl
     }
 }
 

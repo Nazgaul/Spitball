@@ -765,6 +765,20 @@
     <Content Include="Images\nopreview_empty.png" />
     <Content Include="Images\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
+    <Content Include="Images\quiz-correct.png" />
+    <Content Include="Images\quiz-eye.png" />
+    <Content Include="Images\quiz-icon.png" />
+    <Content Include="Images\quiz-star.png" />
+    <Content Include="Images\quiz-stopwatch.png" />
+    <Content Include="Images\quiz-time.png" />
+    <Content Include="Images\quiz-user.png" />
+    <Content Include="Images\quiz-wrong.png" />
+    <Content Include="Images\quizSprite.png">
+      <DependentUpon>quizSprite.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\quizSprite.png.css">
+      <DependentUpon>quizSprite.png</DependentUpon>
+    </Content>
     <Content Include="Images\radio-btn.png" />
     <Content Include="Images\radioBtn.png" />
     <Content Include="Images\request-sent.png" />
@@ -982,6 +996,16 @@
     </Content>
     <Content Include="Images\Store\social.png.scss">
       <DependentUpon>social.png</DependentUpon>
+    </Content>
+    <Content Include="Images\quizSprite.sprite" />
+    <Content Include="Images\quizSprite.png.map">
+      <DependentUpon>quizSprite.png</DependentUpon>
+    </Content>
+    <Content Include="Images\quizSprite.png.less">
+      <DependentUpon>quizSprite.png</DependentUpon>
+    </Content>
+    <Content Include="Images\quizSprite.png.scss">
+      <DependentUpon>quizSprite.png</DependentUpon>
     </Content>
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

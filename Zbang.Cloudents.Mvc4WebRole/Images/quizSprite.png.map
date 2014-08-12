@@ -1,0 +1,60 @@
+{
+  "images": [
+    {
+      "name": "/Images/quiz-correct.png",
+      "width": 51,
+      "height": 49,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "name": "/Images/quiz-eye.png",
+      "width": 38,
+      "height": 23,
+      "offsetX": 0,
+      "offsetY": 49
+    },
+    {
+      "name": "/Images/quiz-icon.png",
+      "width": 66,
+      "height": 64,
+      "offsetX": 0,
+      "offsetY": 72
+    },
+    {
+      "name": "/Images/quiz-star.png",
+      "width": 25,
+      "height": 25,
+      "offsetX": 0,
+      "offsetY": 136
+    },
+    {
+      "name": "/Images/quiz-stopwatch.png",
+      "width": 233,
+      "height": 264,
+      "offsetX": 0,
+      "offsetY": 161
+    },
+    {
+      "name": "/Images/quiz-time.png",
+      "width": 39,
+      "height": 43,
+      "offsetX": 0,
+      "offsetY": 425
+    },
+    {
+      "name": "/Images/quiz-user.png",
+      "width": 47,
+      "height": 47,
+      "offsetX": 0,
+      "offsetY": 468
+    },
+    {
+      "name": "/Images/quiz-wrong.png",
+      "width": 56,
+      "height": 47,
+      "offsetX": 0,
+      "offsetY": 515
+    }
+  ]
+}
