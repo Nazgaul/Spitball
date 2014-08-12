@@ -16,15 +16,15 @@
         {
             <section class="upMembers" ng-if="admin.visible()">
                 <h2>@UserResources.UniMembers</h2>
-                <div class="membersContent" ng-class="{noResults : !admin.members.length}">
+                <div class="membersContent" ng-class="{noResults : admin.members.list && !admin.members.list.length}">
                     <div class="membersTop">
-                        <input id="upMemberSettings" type="checkbox" class="checkbox" />
+                        <input id="upMemberSettings" ng-checked="admin.members.selectAll" ng-click="toggleSelectAll()" type="checkbox" class="checkbox" />
                         <label for="upMemberSettings" class="cbLabel">@SharedResources.All</label>
-                        <button type="button" class="btn3 messageBtn" ng-click="sendMembersMessage()">@SharedResources.Message</button>
+                        <button type="button" class="btn3 messageBtn" ng-click="sendMembersMessage()" ng-show="admin.members.selected > 0">@SharedResources.Message</button>
                         <div class="searchWpr rFloat">
-                            <span class="membersCount lFloat">{{admin.members.length + ' @SharedResources.Members'}}</span>
+                            <span class="membersCount lFloat">{{admin.members.fullList.length + ' @SharedResources.Members'}}</span>
                             <div class="inputWpr">
-                                <input class="membersSearch" type="search" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" />
+                                <input class="membersSearch" type="search" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" ng-keyup="filterMembers()" ng-model="admin.members.search" />
                             </div>
                         </div>
                     </div>
@@ -46,9 +46,9 @@
                             </ul>
                         </div>
                     </div>
-                    <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
-                        <li class="memberItem" ng-repeat="member in admin.members | limitTo : admin.membersLimit">
-                            <input id="{{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-class="{selected : member.isChecked}" />
+                    <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" load-spinner="admin.members.loading">
+                        <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
+                            <input id="{{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
                             <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
                                 <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" width="34" height="34" />
                                 <span class="upMemberName elps">{{member.name}}</span>

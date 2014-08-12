@@ -20,7 +20,6 @@
                elm.bind('scroll', function () {
                    if (elm[0].scrollTop !== 0 && isTop) {
                        scope.$apply(function () {
-                           //we should use $parse service here
                            scope.$parent.params.scrollToTop = false;
                            isTop = false;
                        });

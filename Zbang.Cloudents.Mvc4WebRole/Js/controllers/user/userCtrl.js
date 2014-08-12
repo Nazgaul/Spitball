@@ -38,11 +38,14 @@
         admin: {
             score: 1000000,
             membersLimit: 50
+        },
+        partials: {
+            message: '/Share/MessagePartial/',
         }
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$routeParams', '$q', 'sUserDetails', 'sUser', 'sLibrary','constants',
-    function ($scope, $rootScope, $routeParams, $q, sUserDetails, sUser, sLibrary, constants) {
+    ['$scope', '$rootScope', '$routeParams', '$q', '$filter', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sLibrary', 'constants',
+    function ($scope, $rootScope, $routeParams, $q, $filter, $modal, debounce, sUserDetails, sUser, sLibrary, constants) {
 
 
         //#region profile
@@ -69,14 +72,83 @@ mUser.controller('UserCtrl',
             visible: function () {
                 return $scope.profile.score >= constants.admin.score && $scope.profile.isSelf
             },
-            membersLimit : constants.admin.membersLimit
+            members: {
+                limit: constants.admin.membersLimit,
+                selectAll: false,
+                loading: true,
+                selected: 0
+            }
         };
 
         $scope.addMembersLimit = function () {
-            $scope.membersLimit += constants.membersLimit;
+            $scope.admin.members.limit += constants.admin.membersLimit;
         };
 
+        $scope.toggleSelectMember = function (member) {
+            if (member.isChecked) {
+                $scope.admin.members.selected++;
+                return;
+            }
+
+            $scope.admin.members.selected--;
+
+        };
+        $scope.toggleSelectAll = function () {
+            $scope.admin.members.selectAll = !$scope.admin.members.selectAll;
+
+            _.forEach($scope.admin.members.fullList, function (member) {
+                member.isChecked = $scope.admin.members.selectAll;
+            });
+
+            if ($scope.admin.members.selectAll) {
+                $scope.admin.members.selected = $scope.admin.members.fullList.length;
+            } else {
+                $scope.admin.members.selected = 0;
+            }
+        };
+
+        var lastQuery;
+        $scope.filterMembers = debounce(function () {
+            if ($scope.admin.members.search === lastQuery) {
+                return;
+            }
+            lastQuery = $scope.admin.members.search;
+            $scope.admin.members.limit = constants.admin.membersLimit;
+            $scope.admin.members.list = $filter('orderByFilter')($scope.admin.members.fullList, { field: 'name', input: $scope.admin.members.search });
+
+        }, 150);
+
         $scope.sendMembersMessage = function () {
+            var sendData = {
+                users: _.filter($scope.admin.members.fullList, function (member) {
+                    return member.isChecked;
+                })
+            }
+            if (sendData.users.length === 0) {
+                return;
+            }
+            if (sendData.users.length === 1) {
+                sendData.singleMessage = true;
+            } else {
+                sendData.groupMessage = true;
+            }
+
+            var modalInstance = $modal.open({
+                templateUrl: constants.partials.message,
+                controller: 'ShareCtrl',
+                backdrop: 'static',
+                resolve: {
+                    data: function () {
+                        return sendData;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+            }, function () {
+                //dismiss
+            });
+
         };
 
         //#endregion
@@ -164,8 +236,9 @@ mUser.controller('UserCtrl',
             }
 
             function adminRespose(response) {
-                $scope.admin.members = response[0].payload,
-                $scope.admin.departmemnts = response[1].payload;
+                $scope.admin.members.fullList = $scope.admin.members.list = $filter('orderByFilter')(response[0].payload, { field: 'name', input: '' });
+                $scope.admin.members.departmemnts = response[1].payload;
+                $scope.admin.members.loading = false;
             }
         }
     }

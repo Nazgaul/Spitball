@@ -134,8 +134,10 @@
 
 
                if (contacts.length) {
-                   defer.resolve(contacts);
-                   return;
+                   $timeout(function () {
+                       defer.resolve(contacts);
+                   });
+                   return defer.promise;                                
                }
 
                Share.googleFriends({ token: access_token }).then(function (data) {

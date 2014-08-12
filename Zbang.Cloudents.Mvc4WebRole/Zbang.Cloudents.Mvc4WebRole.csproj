@@ -836,9 +836,13 @@
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
+    <Content Include="Js\directives\dataBag.js" />
     <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\directives\focusOn.js" />
-    <Content Include="Js\directives\facebookFeed.js" />
+    <Content Include="Js\directives\scrollToTop.js" />
+    <Content Include="Js\directives\loadSpinner.js" />
+    <Content Include="Js\directives\store\productsMenu.js" />
+    <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\directives\mLoader.js" />
@@ -879,6 +883,7 @@
     <Content Include="Js\services\quiz.js" />
     <Content Include="Js\services\search.js" />
     <Content Include="Js\services\share.js" />
+    <Content Include="Js\services\store.js" />
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
     <Content Include="Js\services\userDetails.js" />

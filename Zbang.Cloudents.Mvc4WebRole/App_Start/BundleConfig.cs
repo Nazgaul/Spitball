@@ -197,7 +197,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/facebook.js"),
                 new JsFileWithCdn("/js/services/userDetails.js"),
                 new JsFileWithCdn("/js/services/stacktrace.js"),
-                new JsFileWithCdn("/js/directives/ngPlaceholder.js"),                
+                new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
+                new JsFileWithCdn("/js/directives/loadSpinner.js"),
+
                 new JsFileWithCdn("/js/directives/scrollToTop.js"),
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
