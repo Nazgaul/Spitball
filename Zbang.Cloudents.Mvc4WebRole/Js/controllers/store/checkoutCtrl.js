@@ -9,7 +9,13 @@
             if (sUserDetails.isAuthenticated()) {
                 $scope.coupon.code = '100100';
                 $scope.coupon.valid = true;
-                $scope.validateCoupon();
+                $scope.coupon.buttonDisabled = true;
+            }
+
+            if ($scope.params.store.coupon.valid) {
+                $scope.coupon.code = $scope.params.store.coupon.code;
+                $scope.coupon.valid = true;
+                $scope.coupon.buttonDisabled = true;
             }
 
         });
@@ -21,7 +27,7 @@
         $scope.formData = {
             features: {},
             universityId: $routeParams.universityId || $routeParams.universityid || null,
-            numberOfPayments:1
+            numberOfPayments: 1
         };
 
         $scope.coupon = {
@@ -98,26 +104,19 @@
             }, function () {
                 $scope.coupon.buttonDisabled = false;
             });
-            //var code = '1234';
-
-            //if ($scope.coupon.code === code) {
-            //    $scope.coupon.valid = true;
-            //    return;
-            //}
-
-
-
         };
 
         $scope.nextStep = function () {
-            if ($scope.coupon.valid) {
-                $scope.page.step = 2;
-                $window.scrollTo(0, 0);
+            if (!$scope.coupon.valid) {
+                alert('אנא הכנס הפעל קוד קופון');
+                return;
             }
+            $scope.page.step = 2;
+            $window.scrollTo(0, 0);
         };
 
         $scope.order = function (isValid) {
-           
+
             if (!isValid) {
                 return;
             }

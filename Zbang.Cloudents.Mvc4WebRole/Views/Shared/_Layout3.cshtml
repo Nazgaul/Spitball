@@ -10,7 +10,6 @@
     ViewBag.fItem = ViewBag.fItem ?? false;
 }
 <!DOCTYPE html>
-
 <html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
 <head>
     <title>@ViewBag.title</title>
@@ -53,7 +52,7 @@
     </noscript>
     <header class="siteHeader">
         <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
-           href="@Url.Action("Index", "Dashboard")"></a>
+           href="@Url.Action("Index", "Dashboard")" target="{{$root.isStore() ? '_self': '' }}"></a>
 
         <div class="headerRightWpr rFloat">
             <nav class="userSection rFloat">

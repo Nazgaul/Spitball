@@ -166,7 +166,7 @@
             self.score = ko.observable();
             self.profile = ko.observable();
 
-            self.viewSelf = ko.computed(function () {
+            self.viewSelf = ko.computed(function () { 
                 return self.userId() === cd.userDetail().nId;
             });
 
