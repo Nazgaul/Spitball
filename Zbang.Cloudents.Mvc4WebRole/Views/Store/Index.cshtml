@@ -30,18 +30,19 @@
     @*Add class big to show the bigger version of the widget*@
     <div class="widget big">
         <div class="lFloat banner">
+            @*<img alt="" width="320" height="210" src="http://placehold.it/320x210" />*@
             @{
                 var topRightBanner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopRight);
                 if (topRightBanner != null)
                 {
                     if (string.IsNullOrEmpty(topRightBanner.Url))
                     {
-                        <img src="@topRightBanner.ImageUrl" alt="" />
+                        <img src="@topRightBanner.ImageUrl" alt="" width="320" height="210" />
                     }
                     else
                     {
                         <a href="@topRightBanner.Url" target="_blank">
-                            <img src="@topRightBanner.ImageUrl" alt="" />
+                            <img src="@topRightBanner.ImageUrl" alt="" width="320" height="210" />
                         </a>
                     }
                 }
@@ -56,12 +57,12 @@
             {
                 if (string.IsNullOrEmpty(image.Url))
                 {
-                    <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                    <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)"  />
                 }
                 else
                 {
                     <a href="@image.Url" target="_blank">
-                        <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                        <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)"  />
                     </a>
                 }
                 imageIndex++;
