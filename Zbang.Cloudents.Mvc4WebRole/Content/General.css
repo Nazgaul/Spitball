@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1076,12 +1076,6 @@ input[type="radio"][disabled] + label:before {
   margin: auto;
   background-color: transparent;
   border: none;
-  /*&.step2 {
-            height: 942px; // height needed in order to vertically center
-            max-height: 98%;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }*/
 }
 .registerFirst.store .welcomeStore {
   display: block;
@@ -1107,12 +1101,34 @@ input[type="radio"][disabled] + label:before {
   margin: 0 30px;
   min-width: 0;
   display: inline-block;
+  vertical-align: top;
 }
 .registerFirst.store .closeDialog {
   right: 120px;
   top: 215px;
 }
 .registerFirst.store .registerContent {
+  display: none;
+}
+.registerFirst.store .emailBtn {
+  margin: 0;
+}
+.registerFirst.store .signupBtns {
+  text-align: center;
+  position: relative;
+  left: 27px;
+}
+.registerFirst.step2 {
+  /*height: 942px; // height needed in order to vertically center
+            max-height: 98%;
+            overflow-x: hidden;
+            overflow-y: auto;*/
+  background: #fff;
+}
+.registerFirst.step2 .registerContent {
+  display: block;
+}
+.registerFirst.step2:before {
   display: none;
 }
 .welcomeStore {
@@ -2631,3 +2647,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */
