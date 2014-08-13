@@ -9,6 +9,10 @@ header h1 {
 }
 /*#endregion */
 /*#region carousel */
+.widget.big .banner {
+  border: none;
+  border-left: 1px solid #39434a;
+}
 .widget.big .banner img {
   right: 1px;
   left: auto;

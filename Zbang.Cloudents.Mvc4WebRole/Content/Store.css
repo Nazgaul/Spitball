@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -100,6 +100,7 @@ main {
 .widget {
   width: 100%;
   height: 120px;
+  border: 1px solid #39434a;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -112,6 +113,8 @@ main {
   height: 100%;
   position: relative;
   overflow: hidden;
+  border-right: 1px solid #39434a;
+  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -120,7 +123,10 @@ main {
   left: 1px;
   top: -1px;
   width: 320px;
-  height: 390px;
+  height: 210px;
+}
+.widget.big img {
+  border: none;
 }
 .widget .carousel {
   width: 619px;
@@ -1524,4 +1530,3 @@ main {
     }
 }*/
 /*#endregion */
-/*# sourceMappingURL=Store.css.map */
