@@ -410,7 +410,7 @@
   box-sizing: border-box;
 }
 .upSectionWpr.truncated.truncated {
-  border-radius: 0 0 8px 8px;
+  border-radius: 8px 8px 8px 8px;
   border-bottom: 1px solid #c2c2c2;
 }
 .upSectionWpr h4 {
@@ -858,6 +858,7 @@
 }
 .upMemberBoxesWpr {
   padding: 0 5px 5px 5px;
+  position: absolute;
 }
 .upMemberBoxes {
   width: 240px;
@@ -865,8 +866,8 @@
   background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
-  display: none;
-  position: absolute;
+  /*display: none;*/
+  /*position: absolute;*/
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 .upMemberBoxesTitle {

@@ -169,6 +169,8 @@
 /// <reference path="../js/filters/trustedhtml.js" />
 /// <reference path="../js/services/store.js" />
 /// <reference path="../js/directives/loadspinner.js" />
+/// <reference path="../js/directives/countto.js" />
+/// <reference path="../js/directives/departmentstooltip.js" />
 <<<<<<< HEAD
 /// <reference path="jquery.mcustomscrollbar.js" />
 /// <reference path="../js/navigation2.js" />

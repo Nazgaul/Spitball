@@ -1,9 +1,11 @@
 ﻿var mUser = angular.module('mUser', [])
     .constant('constants', {
         activity: {
-            files: {
+            items: {
                 init: 8,
-                more: 8
+                more: 8,
+                starsWidth: 67,
+                stars: 5
             }, questions: {
                 init: 3,
                 more: 3
@@ -11,9 +13,9 @@
                 init: 3,
                 more: 3
             }, tabs: {
-                files: 'f',
-                questions: 'q',
-                answers: 'a'
+                items: 'upTab1',
+                questions: 'upTab2',
+                answers: 'upTab3'
             }
         },
         boxes: {
@@ -44,8 +46,8 @@
         }
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$routeParams', '$q', '$filter', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sLibrary', 'constants',
-    function ($scope, $rootScope, $routeParams, $q, $filter, $modal, debounce, sUserDetails, sUser, sLibrary, constants) {
+    ['$scope', '$rootScope', '$routeParams', '$q', '$filter', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sLibrary', 'constants',
+    function ($scope, $rootScope, $routeParams, $q, $filter, $modal, debounce, sUserDetails, sUser, sShare, sLibrary, constants) {
 
 
         //#region profile
@@ -56,12 +58,31 @@ mUser.controller('UserCtrl',
             $scope.profile.isSelf = $scope.profile.id === sUserDetails.getDetails().id
 
             $rootScope.$broadcast('viewContentLoaded');
-
+            //$scope.profile.score = 100;
             getData();
         });
 
         $scope.sendUserMessage = function () {
-            //TODO: send message
+
+            var modalInstance = $modal.open({
+                templateUrl: constants.partials.message,
+                controller: 'ShareCtrl',
+                backdrop: 'static',
+                resolve: {
+                    data: function () {
+                        return {
+                            users: [$scope.profile],
+                            singleMessage: true
+                        }
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+            }, function () {
+                //dismiss
+            });
+
         };
         //#endregion
 
@@ -153,20 +174,128 @@ mUser.controller('UserCtrl',
 
         //#endregion
 
-        //#region friends
-        $scope.friends = {};
-        //#endregion
-
         //#region activity
         $scope.activity = {
-            currentTab: constants.activity.tabs.files
+            currentTab: constants.activity.tabs.items,
+            items: {
+                limit: constants.activity.items.init,
+                list: []
+
+            },
+            questions: {
+                limit: constants.activity.questions.init,
+                list: []
+
+            },
+            answers: {
+                limit: constants.activity.answers.init,
+                list: []
+            }
+        }
+
+        $scope.itemRating = function (rating) {
+            return constants.activity.items.starsWidth / constants.activity.items.stars * rating;
+        };
+        $scope.addMoreActivity = function (type) {            
+            $scope.activity[type].limit += constants.activity[type].init;
+        };
+
+        $scope.setActivityTab = function (type) {
+            $scope.activity.items.limit = constants.activity.items.init;
+            $scope.activity.questions.limit = constants.activity.questions.init;
+            $scope.activity.answers.limit = constants.activity.answers.init;
+
+            $scope.activity.currentTab = type;
         }
 
         //#endregion
 
-        //cd.pubsub.publish('initUser');
-        //cd.pubsub.publish('user');
-        //todo proper return;
+        //#region boxes
+        $scope.boxes = {
+            showAll: false,
+            common: {
+                init: constants.boxes.common.init,
+                limit: constants.boxes.common.init,
+                list: []
+            },
+            following: {
+                init: constants.boxes.following.init,
+                limit: constants.boxes.following.init,
+                list: []
+            },
+            toggleShowAll: function () {
+                if (!$scope.boxes.showAll) {
+                    $scope.boxes.showAll = true;
+                    $scope.boxes.common.limit = $scope.boxes.common.list.length;
+                    $scope.boxes.following.limit = $scope.boxes.following.list.length;
+                    return;
+                }
+                $scope.boxes.showAll = false;
+                $scope.boxes.common.limit = constants.boxes.common.init;
+                $scope.boxes.following.limit = constants.boxes.following.init
+            },
+            followBox: function (box) {
+                //TODO
+            }
+        }
+        //#endregion
+
+        //#region friends
+        $scope.friends = {
+            showAll: false,
+            all: {
+                init: constants.friends.all.init,
+                limit: constants.friends.all.init,
+                list: []
+            },
+            common: {
+                init: constants.friends.common.init,
+                limit: constants.friends.common.init,
+                list: []
+            },
+            toggleShowAll: function () {
+                if (!$scope.friends.showAll) {
+                    $scope.friends.showAll = true;
+                    $scope.friends.common.limit = $scope.friends.common.list.length;
+                    $scope.friends.all.limit = $scope.friends.all.list.length;
+                    return;
+                }
+                $scope.friends.showAll = false;
+                $scope.friends.common.limit = constants.friends.common.init;
+                $scope.friends.all.limit = constants.friends.all.init;
+            }
+        };
+        //#endregion
+
+
+
+        //#region invites
+        $scope.invites = {
+            showAll: false,
+            init: constants.invites.list.init,
+            limit: constants.invites.list.init,
+            list: [],
+            toggleShowAll: function () {
+                if (!$scope.invites.showAll) {
+                    $scope.invites.showAll = true;
+                    $scope.invites.limit = $scope.invites.list.length;
+                    return;
+                }
+                $scope.invites.showAll = false;
+                $scope.invites.limit = constants.invites.list.init;
+            },
+            reInvite: function (invite) {
+                if (invite.inviteType === 'inviteToCloudents') {
+                    sShare.invite.cloudents({recepients : [invite.userid ]}).then(function () { });
+                    return;
+                }
+
+                sShare.invite.box({boxUid: invite.boxid, recepients: [invite.userid] }).then(function () { }); //uid
+            
+                invite.submitted = true;
+            }
+        }
+        //#endregion 
 
         function getData() {
             $scope.promises = {};
@@ -195,44 +324,38 @@ mUser.controller('UserCtrl',
 
 
             function invitesResponse(response) {
-                $scope.invites = response.payload;
+                $scope.invites.list = response.payload;
             }
 
             function friendsResponse(response) {
-                $scope.friends.list = {
-                    all: [],
-                    common: []
-                }
+
                 var commonFriend;
                 _.each(response.payload.user, function (userFriend) {
                     commonFriend = _.find(response.payload.my, function (myFriend) {
                         return userFriend.uid === myFriend.uid; //uid
                     });
 
-                    commonFriend ? $scope.friends.list.common.push(commonFriend) : $scope.friends.list.all.push(userFriend);
+                    commonFriend ? $scope.friends.common.list.push(commonFriend) : $scope.friends.all.list.push(userFriend);
                 });
             }
 
             function boxesResponse(response) {
-                $scope.boxes = {
-                    following: [],
-                    common: []
-                };
-
                 var box;
                 for (var i = 0, l = response.payload.length; i < l; i++) {
                     box = response.payload[i];
                     if (box.userType === 'subscribe' || box.userType === 'owner') {
-                        $scope.boxes.common.push(box);
+                        $scope.boxes.common.list.push(box);
                     }
                     else {
-                        $scope.boxes.following.push(box);
+                        $scope.boxes.following.list.push(box);
                     }
                 }
             }
 
             function activityResponse(response) {
-                $scope.activity = response.payload;
+                $scope.activity.items.list = response.payload.items;
+                $scope.activity.questions.list = response.payload.questions;
+                $scope.activity.answers.list = response.payload.answers;
             }
 
             function adminRespose(response) {

@@ -1,6 +1,21 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
+
+<script type="text/ng-template" id="memberDepartmentToolTip.html">
+    <div class="upMemberBoxesWpr" bindonce>
+        <div class="upMemberBoxes">
+            <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
+            <ul class="upMemberBoxList">
+                <li ng-repeat="department in departments" bo-text="department.name"></li>
+                <li bo-if="!departments.length>Member did not join any courses</li>
+            </ul>
+            <div class="arrow downArrow"></div>
+        </div>
+    </div>
+</script>
+
+
 <div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }">
     <div class="upContentWpr">
         <div class="upTop">
@@ -9,7 +24,7 @@
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
             <h1 class="semiFont" id="upUsername">@Model.Name</h1>
             <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
-            <button id="upSendMessage" type="button" class="btn3" ng-if="!profile.isSelf">@SharedResources.Message</button>
+            <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage()">@SharedResources.Message</button>
         </div>
 
         @if (ViewBag.Admin)
@@ -48,23 +63,16 @@
                     </div>
                     <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" load-spinner="admin.members.loading">
                         <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
-                            <input id="{{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
+                            <input id=" {{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
                             <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
                                 <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" width="34" height="34" />
                                 <span class="upMemberName elps">{{member.name}}</span>
                             </label>
 
                             <span class="dateCol">{{member.joinDate | date:'dd/MM/yyyy'}}</span>
-                            <span class="courseCol"><span class="courseList"></span></span>
+                            <span class="courseCol"><span class="courseList" department-tooltip-popup department-user-id="{{member.id}}" department-append-to-body="true"></span></span>
                             <span class="deptCol elps">{{member.department}}</span>
 
-                        </li>
-                        <li class="upMemberBoxesWpr">
-                            <div class="upMemberBoxes">
-                                <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
-                                <ul class="upMemberBoxList" id="upMemberBoxList"></ul> @*//TODO*@
-                                <div class="arrow downArrow"></div>
-                            </div>
                         </li>
                     </ul>
                     <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>
@@ -75,7 +83,7 @@
             <section ng-if="!admin.visible()">
                 <h2>@SharedResources.Points</h2>
                 <div class="pointsWpr" id="pointsWpr">
-                    <ul class="pointsList" data-score="@Model.Score">
+                    <ul class="pointsList" data-counter counter-target="{{profile.score}}">
                         <li class="point"></li>
                         <li class="point"></li>
                         <li class="point"></li>
@@ -99,77 +107,67 @@
                 </div>
             </section>
 
-            <section class="upUploads">
+            <section class="upUploads" bindonce>
                 <h2>@SharedResources.Activity</h2>
-                @*Guy: please add class upTab1/uptab2/upTab3 to the upTabs element according to which tab is clicked*@
-                <div class="upTabs upTab1">
-                    <button type="button" id="filesCount" class="fileCount" data-label="@SharedResources.Files"></button><span> | </span>
-                    <button type="button" id="questionsCount" class="qCount" data-label="@SharedResources.Questions"></button><span> | </span>
-                    <button type="button" id="answersCount" class="aCount" data-label="@SharedResources.Answers"></button>
+                <div class="upTabs" ng-class="activity.currentTab">
+                    <button type="button" class="fileCount" ng-click="setActivityTab('upTab1')"><span>{{activity.items.list.length  + ' @SharedResources.Files | '}}</span></button>
+                    <button type="button" class="qCount" ng-click="setActivityTab('upTab2')"><span>{{activity.questions.list.length + ' @SharedResources.Questions | ' }}</span></button>
+                    <button type="button" class="aCount" ng-click="setActivityTab('upTab3')"><span>{{activity.answers.list.length + ' @SharedResources.Answers'}}</span></button>
                 </div>
 
-                <div id="filesSection" class="upTabContent filesTab" data-bind="css : filesEmpty">
+                <div class="upTabContent filesTab" ng-class="{empty: !activity.items.list.length}">
                     <ul>
-                        <!--ko foreach:files.slice(0,maxFiles())-->
-                        <li class="uploadsItem">
-                            <a data-navigation="item" data-bind="attr : { href : url }">
-                                <img class="upImg" alt="" width="55" height="67" data-bind="attr : { src : image }" />
-                                <div class="boxName clamp2" data-bind="text: name"></div>
+                        <li class="uploadsItem" ng-repeat="item in activity.items.list | limitTo: activity.items.limit">
+                            <a bo-href="item.url">
+                                <img class="upImg" alt="" width="55" height="67" bo-src="item.image" />
+                                <div class="boxName clamp2" bo-text="item.name"></div>
                                 <div class="stars">
-                                    <div class="full" data-bind="style: { width : $root.fileRating(rating) }"></div>
+                                    <div class="full" bo-style="{width : itemRating(item.rating) }"></div>
                                 </div>
-                                <div tooltip="@SharedResources.Views" class="views" data-bind="text: views"></div>
+                                <div tooltip="@SharedResources.Views" class="views" bo-text="item.views"></div>
                             </a>
                         </li>
-                        <!--/ko-->
                     </ul>
-                    <!--ko if:filesShowMoreVisible()-->
-                    <button class="qaMore" type="button" data-click="showMoreFiles">@SharedResources.ShowMore</button>
-                    <!--/ko-->
+
+                    <button class="qaMore" type="button" ng-if="activity.items.list.length - activity.items.limit > 0" ng-click="addMoreActivity('items')">@SharedResources.ShowMore</button>
+
                     <div class="emptyUploads emptyTab">@UserResources.NoFiles</div>
                 </div>
 
-                <div id="questionsSection" class="upTabContent qTab" data-bind="css : questionsEmpty">
+                <div id="questionsSection" class="upTabContent qTab" ng-class="{empty: !activity.questions.list.length}">
                     <ul>
-                        <!--ko foreach:questions.slice(0,maxQuestions())-->
-                        <li class="qaItem">
-                            <img class="lFloat imgBorder" src="" alt="" width="28" height="36" data-bind="attr : { src : boxImage }" />
-                            <span class="qaBoxname elps" data-bind="text: boxName"></span>
+                        <li class="qaItem" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit"">
+                            <img class="lFloat imgBorder" src="" alt="" width="28" height="36" bo-src="question.boxImage" />
+                            <span class="qaBoxname elps" bo-text="question.boxName"></span>
                             <div class="qaWpr">
-                                <div class="qaQuestion" data-bind="html: content"></div>
-                                <a class="qLink rFloat" href="" data-navigation="box" data-bind="attr : { href : url }">@UserResources.GotoQuestion</a>
-                                <span class="qAnswerCount" data-bind="attr : { 'data-up-qacount' : answersCount}">&nbsp;@SharedResources.Answers</span>
+                                <div class="qaQuestion" bo-html="question.content"></div>
+                                <a class="qLink rFloat" href="" bo-href="question.url">@UserResources.GotoQuestion</a>
+                                <span class="qAnswerCount" data-up-qacount="{{qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
                             </div>
                         </li>
-                        <!--/ko-->
                     </ul>
-                    <!--ko if:questionsShowMoreVisible()-->
-                    <button class="qaMore" type="button" data-click="showMoreQuestions">@SharedResources.ShowMore</button>
-                    <!--/ko-->
+
+                    <button class="qaMore" type="button" ng-if="activity.questions.list.length - activity.questions.limit > 0" ng-click="addMoreActivity('questions')">@SharedResources.ShowMore</button>
                     <div class="emptyQuestions emptyTab">@UserResources.NoQuestions</div>
                 </div>
 
-                <div id="answersSection" class="upTabContent aTab" data-bind="css: answersEmpty">
+                <div id="answersSection" class="upTabContent aTab" ng-class="{empty: !activity.answers.list.length}">
                     <ul>
-                        <!--ko foreach:answers.slice(0,maxAnswers())-->
-                        <li class="qaItem">
-                            <img class="lFloat imgBorder" src="" alt="" width="28" height="36" data-bind="attr : { src : boxImage }" />
-                            <span class="qaBoxname elps" data-bind="text: boxName"></span>
+                        <li class="qaItem" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
+                            <img class="lFloat imgBorder" src="" alt="" width="28" height="36" bo-src="answer.boxImage" />
+                            <span class="qaBoxname elps" bo-text="answer.boxName"></span>
                             <div class="qaWpr">
-                                <img class="lFloat imgBorder" src="" alt="" width="33" height="33" data-bind="attr : { src : qUserImage }" />
-                                <span class="qaUsername semiFont elps" data-bind="text: qUserName"></span>
-                                <div class="qaQuestion" data-bind="html: qContent"></div>
-                                <div class="answeredBy elps" data-bind="text: $root.name"></div>
-                                <div data-bind="html: content"></div>
-                                <a class="qLink rFloat" href="" data-navigation="box" data-bind="attr : { href : url }">@UserResources.GotoQuestion</a>
-                                <span class="qAnswerCount" data-bind="attr : { 'data-up-qacount' : answersCount}">&nbsp;@SharedResources.Answers</span>
+                                <img class="lFloat imgBorder" src="" alt="" width="33" height="33" bo-src="answer.qUserImage" />
+                                <span class="qaUsername semiFont elps" bo-text="answer.qUserName"></span>
+                                <div class="qaQuestion" bo-html="answer.qContent"></div>
+                                <div class="answeredBy elps" bo-text="profile.name"></div>
+                                <div bo-html="answer.content"></div>
+                                <a class="qLink rFloat" href="" bo-href="answer.url">@UserResources.GotoQuestion</a>
+                                <span class="qAnswerCount" data-up-qacount="{{answer.answersCount}}">&nbsp;@SharedResources.Answers</span>
                             </div>
                         </li>
-                        <!--/ko-->
                     </ul>
-                    <!--ko if:answersShowMoreVisible()-->
-                    <button class="qaMore" type="button" data-click="showMoreAnswers">@SharedResources.ShowMore</button>
-                    <!--/ko-->
+                    <button class="qaMore" type="button" ng-if="activity.answers.list.length - activity.answers.limit > 0" ng-click="addMoreActivity('answers')">@SharedResources.ShowMore</button>
                     <div class="emptyAnswers emptyTab">@UserResources.NoAnswers</div>
                 </div>
 
@@ -177,128 +175,113 @@
             </section>
         </aside>
 
-        <div class="upContent">
-            <section class="upCourses" data-bind="visible: CoursesSectionVisible() , css: { noCourses : emptyBoxes()}">
+        <div class="upContent" bindonce>
+            <section class="upCourses" ng-if="!profile.isSelf" ng-class="{noCourses : !(boxes.following.list.length || boxes.common.list.length) }">
                 <h2>@UserResources.CoursesGroups</h2>
-                <div id="upCoursesSection" class="upSectionWpr" data-bind="css: { truncated : !CoursesShowAllVisible()}">
-                    <!--ko if:commonBoxesVisible()-->
-                    <h4 class="semiFont">@UserResources.InCommon</h4>
-                    <ul class="inCommonList clearfix">
-                        <!--ko foreach:commonBoxes.slice(0,maxCommonBoxes())-->
-                        <li class="box">
-                            <a data-bind="attr: { href : url }" data-navigation="box">
-                                <img class="boxImg" alt="" width="74" height="98" src="" data-bind="attr:{ 'data-src':image }">
-                                <div class="boxWpr clamp2">
-                                    <span data-bind="text: name" class="boxName"></span>
-                                </div>
-                            </a>
-                        </li>
-                        <!--/ko-->
-                    </ul>
-                    <!--/ko-->
-                    <!--ko if:followingBoxesVisible() -->
-                    <!--ko if:commonBoxes().length > 0-->
-                    <h4 class="semiFont">@SharedResources.Following</h4>
-                    <!--/ko-->
-                    <ul class="followingList">
-                        <!--ko foreach:followingBoxes.slice(0,maxFollowingBoxes())-->
-                        <li class="box">
-                            <a data-bind="attr: { href: url }" data-navigation="box">
-                                <img class="boxImg" alt="" width="74" height="98" src="" data-bind="attr:{ 'data-src':image }">
-                                <div class="boxWpr clamp2">
-                                    <span class="boxName" data-bind="text: name"></span>
-                                </div>
-                            </a>
-                            <button type="button" class="btn3" data-click="followBox">@SharedResources.Join</button>
-                        </li>
-                        <!--/ko-->
-                    </ul>
-                    <!--/ko-->
+                <div class="upSectionWpr" ng-class="{truncated : !((boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf)}">
+                    <span ng-if="boxes.common.list.length">
+                        <h4 class="semiFont">@UserResources.InCommon</h4>
+                        <ul class="inCommonList clearfix">
+                            <li class="box" ng-repeat="box in boxes.common.list | limitTo: boxes.common.limit">
+                                <a bo-href="box.url">
+                                    <img class="boxImg" alt="" width="74" height="98" src="" bo-src="box.image">
+                                    <div class="boxWpr clamp2">
+                                        <span class="boxName" bo-text="box.name"></span>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </span>
+                    <span ng-if="boxes.common.list.length">
+                        <h4 class="semiFont">@SharedResources.Following</h4>
+                        <ul class="followingList">
+                            <li class="box" ng-repeat="box in boxes.following.list | limitTo: boxes.following.limit">
+                                <a bo-href="box.url">
+                                    <img class="boxImg" alt="" width="74" height="98" src="" bo-src="box.image">
+                                    <div class="boxWpr clamp2">
+                                        <span class="boxName" bo-text="box.name"></span>
+                                    </div>
+                                </a>
+                                <button type="button" class="btn3" ng-click="boxes.followBox(box)">@SharedResources.Join</button>
+                            </li>
+                        </ul>
+                    </span>
                     <div class="coursesEmpty">@UserResources.NotFollowing</div>
                 </div>
             </section>
-            <!--ko if:CoursesShowAllVisible()-->
-            <input type="checkbox" class="upCb" id="coursesShow" />
-            <label id="coursesShowLabel" for="coursesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
-            <!--/ko-->
-            <section data-bind="visible: friendSectionVisible()" class="upFriends">
+            <span ng-if="(boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf">
+                <input type="checkbox" class="upCb" id="coursesShow" ng-click="boxes.toggleShowAll()" />
+                <label id="coursesShowLabel" for="coursesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            </span>
+            <section ng-if="(friends.all.list.length || friends.common.list.length) && !admin.visible()" class="upFriends">
                 <h2>@SharedResources.Friends</h2>
-                <div id="upFriendsSection" class="upSectionWpr" data-bind="css: { truncated : !friendsShowAllVisible()}">
+                <div class="upSectionWpr" ng-class="{truncated : !((friends.all.list.length > friends.all.init || friends.common.list.length > friends.common.init) && !admin.visible())}">
 
-                    <!--ko if:commonFriendsVisible()-->
-                    <!--ko ifnot:viewSelf()-->
-                    <h4 class="semiFont">@UserResources.InCommon</h4>
-                    <!--/ko-->
-                    <ul class="inCommonList">
-                        <!--ko foreach:commonFriends.slice(0,maxCommonFriends())-->
-                        <li class="userItem calloutTrgr" data-bind="attr: { 'data-uid' : id }">
-                            <a data-navigation="user" data-bind="attr : { href : url}"><img class="userItemImg" data-bind="attr: {'data-src' : image}" src="" width="74" height="74" /></a>
-                            <div class="userItemName" data-bind="text: name"></div>
-                        </li>
-                        <!--/ko-->
-                    </ul>
-                    <!--/ko-->
-                    <!--ko if:allFriendsVisible()-->
-                    <!--ko:ifcommonFriends().length > 0-->
-                    <h4 class="semiFont">@UserResources.AllFriends</h4>
-                    <!--/ko-->
-                    <ul class="inAllFriendList">
-                        <!--ko foreach:allFriends.slice(0,maxAllFriends())-->
-                        <li class="userItem calloutTrgr" data-bind="attr: { 'data-uid' : id }">
-                            <a href="" data-navigation="user" data-bind="attr : { href : url } "><img class="userItemImg" data-bind="attr: {'data-src' : image }" src="" width="74" height="74" /></a>
-                            <div class="userItemName" data-bind="text: name"></div>
-                        </li>
-                        <!--/ko-->
-                    </ul>
-                    <!--/ko-->
+                    <span ng-if="friends.common.list.length">
+                        <span ng-if="!profile.isSelf">
+                            <h4 class=" semifont">
+                                @UserResources.InCommon
+                            </h4>
+                        </span>
+                        <ul class="inCommonList">
+                            <li class="userItem" ng-repeat="friend in friends.common.list | limitTo:friends.common.limit" user-tooltip-popup="{{friend.uid}}">
+                                @*uid*@
+                                <a bo-href="friend.url"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
+                                <div class="userItemName" bo-text="friend.name"></div>
+                            </li>
+                        </ul>
+                    </span>
+                    <span ng-if="friends.all.list.length">
+                        <span ng-if="friends.common.list.length">
+                            <h4 class="semiFont">@UserResources.AllFriends</h4>
+                        </span>
+                        <ul class="inAllFriendList">
+                            <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{friend.uid}}">
+                                @*uid*@
+                                <a href="" bo-href="friend.url"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
+                                <div class="userItemName" bo-text="friend.name"></div>
+                            </li>
+                        </ul>
+                    </span>
                 </div>
-
             </section>
-            <!--ko if:friendsShowAllVisible()-->
-            <input type="checkbox" class="upCb" id="friendsShow">
-            <label id="friendsShowLabel" for="friendsShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
-            <!--/ko-->
+            <span ng-if="(friends.all.list.length > friends.all.init || friends.common.list.length > friends.common.init) && !admin.visible()">
+                <input type="checkbox" class="upCb" id="friendsShow" ng-click="friends.toggleShowAll()">
+                <label id="friendsShowLabel" for="friendsShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            </span>
 
-            <section class="upInvites" data-bind="visible: viewSelf(), css : invitesEmpty()">
-                <a data-navigation="invite"
-                   href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
+            <section class="upInvites" ng-if="profile.isSelf" ng-class="{empty: !invites.list.length}">
+                <a href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
-                <div id="upInvitesSection" class="upSectionWpr" data-bind="css: { truncated : !invitesShowAllVisible()}">
+                <div class="upSectionWpr" ng-class="{ truncated : !((invites.list.length > invites.init) && profile.isSelf)}">
 
-                    <ul id="upInviteList" class="upInviteList" data-up-pending="@SharedResources.Pending" data-up-joined="@SharedResources.ActiveMember">
-                        <!--ko foreach:invites.slice(0,maxInvites())-->
-                        <li class="upInviteItem" data-bind="css : $root.invitePending(status)">
-                            <img class="userItemImg" width="74" height="74" data-bind="attr : { 'data-src' : userImage }" />
-                            <div class="usrName semiFont elps" data-bind="text : userName"></div>
-                            <div class="inviteStatus" data-bind="text: $root.inviteStatus(status)"></div>
+                    <ul class="upInviteList">
+                        <li class="upInviteItem" ng-repeat="invite in invites.list | limitTo: invites.limit" ng-class="{ upPending: !invite.status}">
+                            <img class="userItemImg" width="74" height="74" bo-src="invite.userImage" />
+                            <div class="usrName semiFont elps" bo-text="invite.username"></div>
+                            <div class="inviteStatus" bo-text="invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'"></div>
                             <div class="invitedToWpr">
-                                <img class="upImg" alt="" width="28" height="36" data-bind="attr : { 'data-src' : inviteImage }" />
-                                <div class="invitedTo" data-bind="text : name"></div>
+                                <img class="upImg" alt="" width="28" height="36" bo-src="invite.boxPicture" />
+                                <div class="invitedTo" bo-text="invite.boxName || 'Cloudents'"></div>
                             </div>
-                            <button type="button" class="btn1" data-bind="visible : inviteType === 'invite'" data-click="reInvite" data-inv-sent="@SharedResources.Sent">@SharedResources.Reinvite</button>
+                            <button type="button" class="btn1" ng-if="invite.inviteType==='invite'" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
                         </li>
-                        <!--/ko-->
-
                     </ul>
 
                     <div class="emptyInvites">
                         <span>@UserResources.FindFriends</span>
-                        <a data-navigation="invite" href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
+                        <a href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
                     </div>
 
                 </div>
             </section>
-            <!--ko if:invitesShowAllVisible()-->
-            <input type="checkbox" class="upCb" id="invitesShow">
-            <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
-            <!--/ko-->
-
+            <span ng-if="(invites.list.length > invites.init) && profile.isSelf">
+                <input type="checkbox" class="upCb" id="invitesShow" ng-click="invites.toggleShowAll()">
+                <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            </span>
         </div>
 
 
     </div>
 </div>
-
-<script type="text/html" id="upMemberBoxItemTemplate">
-    <li class="elps">{{name}}</li>
-</script>

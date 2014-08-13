@@ -641,12 +641,6 @@
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
-    <Content Include="Content\Shopping.css">
-      <DependentUpon>Shopping.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ShoppingRtl.css">
-      <DependentUpon>ShoppingRtl.less</DependentUpon>
-    </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
@@ -850,12 +844,14 @@
     <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
+    <Content Include="Js\directives\countTo.js" />
     <Content Include="Js\directives\dataBag.js" />
     <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\directives\focusOn.js" />
     <Content Include="Js\directives\scrollToTop.js" />
     <Content Include="Js\directives\loadSpinner.js" />
     <Content Include="Js\directives\store\productsMenu.js" />
+    <Content Include="Js\directives\departmentsTooltip.js" />
     <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
     <Content Include="Js\filters\highlight.js" />
@@ -980,8 +976,6 @@
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Content\Shopping.less" />
-    <Content Include="Content\ShoppingRtl.less" />
     <Content Include="Images\category.sprite" />
     <Content Include="Images\category.png.map">
       <DependentUpon>category.png</DependentUpon>
