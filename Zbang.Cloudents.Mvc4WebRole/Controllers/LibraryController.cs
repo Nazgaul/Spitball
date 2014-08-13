@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         //[AjaxCache(TimeConsts.Minute * 10)]
         [NoUniversity]
-        [CacheFilter]
+        [NoCache]
         public async Task<ActionResult> Index(Guid? libId)
         {
             var userDetail = FormsAuthenticationService.GetUserData();

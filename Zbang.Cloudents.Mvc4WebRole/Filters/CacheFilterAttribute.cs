@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
-
+            
             if (Duration <= 0)
             {
                 cache.SetCacheability(HttpCacheability.NoCache);
@@ -42,6 +42,4 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
         }
     }
-
-
 }
