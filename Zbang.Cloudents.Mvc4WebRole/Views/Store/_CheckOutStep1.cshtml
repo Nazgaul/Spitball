@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <td>@StoreResources.CouponCode</td>
-            <td><input ng-model="coupon.code" type="text" class="inputText"/></td>
+            <td><input ng-model="coupon.code" type="text" class="inputText" ng-disabled="coupon.valid"/></td>
             <td>
                 <div class="couponBtn" ng-class="{activated: coupon.valid}">
                     <button type="button" class="btn3" ng-disabled="coupon.buttonDisabled" ng-click="validateCoupon()">@StoreResources.ActivateCoupon</button>
