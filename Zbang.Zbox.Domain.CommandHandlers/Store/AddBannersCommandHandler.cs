@@ -21,8 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
         {
             if (message == null) throw new ArgumentNullException("message");
             var newStoreBanners = message.Banners.ToList();
-            var sw = new Stopwatch();
-            sw.Start();
             foreach (var bannerStore in newStoreBanners)
             {
                 var banner = m_StoreRepository.Get(bannerStore.Id);
@@ -57,8 +55,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                 m_StoreRepository.Save(banner);
 
             }
-            sw.Stop();
-            sw.Restart();
             var x = m_StoreRepository.GetQuerable();
             foreach (var storeBanner in x.ToList())
             {
@@ -67,7 +63,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                     m_StoreRepository.Delete(storeBanner);
                 }
             }
-            sw.Stop();
         }
 
         private StoreBannerLocation GetBannerLocation(int order)

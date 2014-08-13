@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             TempDataProvider = new CookieTempDataProvider(HttpContext);
             try
             {
-                if (requestContext.HttpContext.Request.Url.AbsolutePath.StartsWith("/store"))
+                if (Request.Url != null && Request.Url.AbsolutePath.StartsWith("/store"))
                 {
                     ChangeThreadLanguage("he-IL");
                     return;
