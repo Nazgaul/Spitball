@@ -293,6 +293,7 @@ main {
   /*rtl*/
   padding: 8px 0 0 12px;
   /*rtl*/
+  text-align: left;
 }
 .categoryList ul:after {
   content: '';
@@ -1175,7 +1176,7 @@ main {
   box-sizing: border-box;
 }
 .invoice li span:nth-child(2) {
-  min-width: 47px;
+  min-width: 52px;
 }
 .invoice li span:nth-child(3) {
   padding: 0 10px 0 3px;

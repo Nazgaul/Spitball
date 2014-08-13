@@ -272,6 +272,7 @@ main {
     top: 79px;
     left: -50px; /*rtl*/
     background: @shopping-black;
+    //border-radius: 5px 5px 0 0;
     padding: 20px;
     .boxSizing;
     z-index: 2;
@@ -312,6 +313,7 @@ main {
         width: 151px;
         margin-left: -1px; /*rtl*/
         padding: 8px 0 0 12px; /*rtl*/
+        text-align: left; //rtl
         &:after {
             .pseudo;
             position: absolute;
@@ -1265,7 +1267,7 @@ main {
             }
 
             &:nth-child(2) {
-                min-width: 47px;
+                min-width: 52px; //enough width for 4 digits with minus sign and comma eg: -3,333
             }
 
             &:nth-child(3) {

@@ -63,6 +63,7 @@ header h1 {
   /*rtl*/
   padding: 8px 12px 0 0;
   /*rtl*/
+  text-align: right;
 }
 .categoryList > li {
   border-left: 1px solid #fff;
