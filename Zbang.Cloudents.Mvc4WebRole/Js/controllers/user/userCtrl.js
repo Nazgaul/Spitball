@@ -46,8 +46,8 @@
         }
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$routeParams', '$q', '$filter', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sLibrary', 'constants',
-    function ($scope, $rootScope, $routeParams, $q, $filter, $modal, debounce, sUserDetails, sUser, sShare, sLibrary, constants) {
+    ['$scope', '$rootScope', '$routeParams', '$q', '$filter', '$location', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'constants',
+    function ($scope, $rootScope, $routeParams, $q, $filter, $location, $modal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, constants) {
 
 
         //#region profile
@@ -196,7 +196,7 @@ mUser.controller('UserCtrl',
         $scope.itemRating = function (rating) {
             return constants.activity.items.starsWidth / constants.activity.items.stars * rating;
         };
-        $scope.addMoreActivity = function (type) {            
+        $scope.addMoreActivity = function (type) {
             $scope.activity[type].limit += constants.activity[type].init;
         };
 
@@ -235,7 +235,9 @@ mUser.controller('UserCtrl',
                 $scope.boxes.following.limit = constants.boxes.following.init
             },
             followBox: function (box) {
-                //TODO
+                sBox.follow({ boxUid: box.id }).then(function () {
+                    $location.path(box.url);
+                });
             }
         }
         //#endregion
@@ -286,12 +288,12 @@ mUser.controller('UserCtrl',
             },
             reInvite: function (invite) {
                 if (invite.inviteType === 'inviteToCloudents') {
-                    sShare.invite.cloudents({recepients : [invite.userid ]}).then(function () { });
+                    sShare.invite.cloudents({ recepients: [invite.userid] }).then(function () { });
                     return;
                 }
 
-                sShare.invite.box({boxUid: invite.boxid, recepients: [invite.userid] }).then(function () { }); //uid
-            
+                sShare.invite.box({ boxUid: invite.boxid, recepients: [invite.userid] }).then(function () { }); //uid
+
                 invite.submitted = true;
             }
         }
