@@ -15,10 +15,10 @@
 @*Ram: When click on products button - add class "showProducts" to nav*@
     <nav class="storeNav">
         <ul class="navLinks">
-            <li ng-class="{current : info.currentTab === 'home'}"><a href="@Url.RouteUrl("StoreRoot", new { universityId = Request.QueryString["universityId"] })">@StoreResources.Home</a></li>&nbsp;
-            <li ng-class="{current : info.currentTab === 'products'}"><button type="button" products-menu>@StoreResources.Products</button></li>&nbsp;
-            <li ng-class="{current : info.currentTab === 'sales'}"><a href="@Url.RouteUrl("storeCategory", new { categoryid = 646, universityId = Request.QueryString["universityId"] })">@StoreResources.HotSales</a></li>&nbsp;
-            <li ng-class="{current : info.currentTab === 'about'}"><a href="@Url.RouteUrl("StoreAbout", new { universityId = Request.QueryString["universityId"] })">@StoreResources.About</a></li>&nbsp;
+            <li ng-class="{current : info.currentTab === 'home'}"><a href="@Url.RouteUrl("StoreRoot", new { universityId = Request.QueryString["universityId"] })">@StoreResources.Home</a></li>
+            <li ng-class="{current : info.currentTab === 'products'}"><button type="button" products-menu>@StoreResources.Products</button></li>
+            <li ng-class="{current : info.currentTab === 'sales'}"><a href="@Url.RouteUrl("storeCategory", new { categoryid = 646, universityId = Request.QueryString["universityId"] })">@StoreResources.HotSales</a></li>
+            <li ng-class="{current : info.currentTab === 'about'}"><a href="@Url.RouteUrl("StoreAbout", new { universityId = Request.QueryString["universityId"] })">@StoreResources.About</a></li>
             <li ng-class="{current : info.currentTab === 'contact'}"><a href="@Url.RouteUrl("StoreContact", new { universityId = Request.QueryString["universityId"] })">@StoreResources.ContactUs</a></li>
         </ul>
         <div class="categoryDD">

@@ -72,6 +72,16 @@ header {
             display: inline-block;
             width: 100%;
         }
+        li {
+            display: inline;
+            &:after {
+                content: ' ';
+            }
+        }
+        
+        a {
+            display: inline-block;
+        }
     }
 
     &.showProducts {
@@ -116,8 +126,8 @@ main {
     //border: 1px solid @shopping-black;
     .boxSizing;
 
-    /*&.big {
-        height: 391px;
+    &.big {
+        height: 210px;
         .banner {
             width: 320px;
             height: 100%;
@@ -139,7 +149,7 @@ main {
         overflow: hidden;
         position: relative;
         .boxSizing;     
-    }*/
+    }
 
     img {
         position: absolute;
@@ -151,7 +161,7 @@ main {
         .boxSizing;
     }
 }
-/*.carousel {
+.carousel {
     text-align: center;
     &.reverse {
         .ng-hide-add.ng-hide-add-active {
@@ -208,7 +218,7 @@ main {
   //   since the .ng-hide class is already on the element rendering
   //   it as hidden. 
   display:block!important;
-}*/
+}
 /*#endregion */
 
 /*#region search form */

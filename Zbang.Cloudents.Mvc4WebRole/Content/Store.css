@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -61,6 +61,15 @@ main {
   display: inline-block;
   width: 100%;
 }
+.storeNav .navLinks li {
+  display: inline;
+}
+.storeNav .navLinks li:after {
+  content: ' ';
+}
+.storeNav .navLinks a {
+  display: inline-block;
+}
 .storeNav.showProducts .categoryDD {
   display: block;
 }
@@ -94,30 +103,33 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /*&.big {
-        height: 391px;
-        .banner {
-            width: 320px;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            .boxSizing;
-            img {
-                left: 1px; //rtl
-                top: -1px;
-                width: 320px;
-                height: 390px;
-            }
-        }
-    }
-
-    .carousel {
-        width: 619px;
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-        .boxSizing;     
-    }*/
+}
+.widget.big {
+  height: 210px;
+}
+.widget.big .banner {
+  width: 320px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.widget.big .banner img {
+  left: 1px;
+  top: -1px;
+  width: 320px;
+  height: 390px;
+}
+.widget .carousel {
+  width: 619px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .widget img {
   position: absolute;
@@ -130,64 +142,62 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/*.carousel {
-    text-align: center;
-    &.reverse {
-        .ng-hide-add.ng-hide-add-active {
-        left: 100%; //rtl
-        }
-        .ng-hide {
-            left: -100%; //rtl
-        }
-    }
+.carousel {
+  text-align: center;
+}
+.carousel.reverse .ng-hide-add.ng-hide-add-active {
+  left: 100%;
+}
+.carousel.reverse .ng-hide {
+  left: -100%;
 }
 .carouselBtns {
-    position: absolute;
-    bottom: 10px;
-    left:0;right:0;
-    margin: auto;
-
-    button {
-        display:inline-block;
-        width: 18px;
-        height: 18px;
-        vertical-align: middle;
-        margin: -2px 4px 0 0; //rtl
-        border: 1px solid @txtColor;
-        padding: 3px;
-        border-radius: 100%;
-        background: #fff;
-        .boxSizing;
-        &.selected {
-            &:before {
-                .pseudo;
-                width: 100%;
-                height: 100%;
-                border-radius: 100%;
-                background: @txtColor;
-                vertical-align: top;
-            }
-        }
-    }
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
-
+.carouselBtns button {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin: -2px 4px 0 0;
+  border: 1px solid #39434a;
+  padding: 3px;
+  border-radius: 100%;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.carouselBtns button.selected:before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: #39434a;
+  vertical-align: top;
+}
 .slide {
-    .transition(all 0.5s linear);
-    left:0; //rtl
-    &.ng-hide-add.ng-hide-add-active {
-        left: -100%; //rtl
-    }
-    &.ng-hide {
-        left: 100%; //rtl
-    }
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  left: 0;
 }
-
-.slide.ng-hide-add, .slide.ng-hide-remove {
-  // this needs to be here to make it visible during the animation
-  //   since the .ng-hide class is already on the element rendering
-  //   it as hidden. 
-  display:block!important;
-}*/
+.slide.ng-hide-add.ng-hide-add-active {
+  left: -100%;
+}
+.slide.ng-hide {
+  left: 100%;
+}
+.slide.ng-hide-add,
+.slide.ng-hide-remove {
+  display: block!important;
+}
 /*#endregion */
 /*#region search form */
 .searchForm {
@@ -1514,3 +1524,4 @@ main {
     }
 }*/
 /*#endregion */
+/*# sourceMappingURL=Store.css.map */

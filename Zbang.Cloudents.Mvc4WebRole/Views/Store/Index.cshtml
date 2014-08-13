@@ -6,7 +6,7 @@
     @{Html.RenderPartial("_Navigation");}
 
 
-    <div class="widget">
+    @*<div class="widget">
         <div class="lFloat banner">
             @{
                 var banner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Top);
@@ -25,10 +25,10 @@
                 }
             }
         </div>
-    </div>
+    </div>*@
 
     @*Add class big to show the bigger version of the widget*@
-    @*<div class="widget big">
+    <div class="widget big">
         <div class="lFloat banner">
             @{
                 var topRightBanner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopRight);
@@ -76,7 +76,7 @@
 
         </div>
 
-    </div>*@
+    </div>
 
     @*Add class "showResults" to show the results of the search query (and hide original product list)*@
     <form class="searchForm" id="">
