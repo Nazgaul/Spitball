@@ -13,6 +13,8 @@
                 store: {}
             }
 
+            $rootScope.params = {};
+
             $rootScope.back = {};
 
             $rootScope.$back = function (url) {
@@ -95,9 +97,8 @@
                 if (!current.$$route) {
                     return;
                 }
-                $rootScope.params = {
-                    isStore: current.$$route.originalPath.indexOf('store') > -1
-                };
+                
+                $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;                
 
                 if (!current) {
                     return;
@@ -148,8 +149,7 @@
                 return !$rootScope.params.isStore;
             }
 
-            $rootScope.validateCoupon = function () {
-
+           $rootScope.validateCoupon = function () {
                 var invalidCouponMessage = 'קופון שגוי';
                 if (!$rootScope.params.store.coupon.code) {
                     return;
@@ -164,28 +164,27 @@
 
                 $rootScope.params.store.coupon.buttonDisabled = true;
 
+              
+
+                
                 Store.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                     if (!response.success) {
                         return;
                     }
                     if (response.payload.isValid) {
-                        $rootScope.params.store.coupon.valid =  true;
+                        $rootScope.params.store.coupon.valid = true;
+                        $rootScope.params.store.coupon.code = $rootScope.params.store.coupon.code;
+                        cd.pubsub.publish('resetLoginPopup');
                         return;
                     }
                     alert(invalidCouponMessage);
                 }, function () {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                 });
-            };
 
-            $rootScope.registerFacebook = function () {
-            };
-
-            $rootScope.register = function () {
 
             };
-
 
 
             //$scope.info = {

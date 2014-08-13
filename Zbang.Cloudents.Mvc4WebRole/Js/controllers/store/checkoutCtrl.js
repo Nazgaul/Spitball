@@ -1,6 +1,6 @@
 ﻿app.controller('CheckoutCtrl',
-    ['$scope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus',
-    function ($scope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
+    ['$scope','$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus',
+    function ($scope,$rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
 
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
         $timeout(function () {
@@ -11,9 +11,9 @@
                 $scope.coupon.valid = true;
                 $scope.coupon.buttonDisabled = true;
             }
-
-            if ($scope.params.store.coupon.valid) {
-                $scope.coupon.code = $scope.params.store.coupon.code;
+            
+            if ($rootScope.params.store.coupon && $rootScope.params.store.coupon.valid) {
+                $scope.coupon.code = $rootScope.params.store.coupon.code;
                 $scope.coupon.valid = true;
                 $scope.coupon.buttonDisabled = true;
             }

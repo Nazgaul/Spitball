@@ -48,6 +48,7 @@
         $popup.find('.inputText').first().focus();
     }
 
+    cd.pubsub.subscribe('resetLoginPopup',resetPopupView);
     function resetPopupView() {
         $registerPopup.removeClass('register registerFirst step2');
         $connectPopup.removeClass('connect');
