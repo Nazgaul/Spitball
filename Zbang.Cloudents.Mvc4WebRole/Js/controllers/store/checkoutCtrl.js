@@ -109,6 +109,7 @@
         $scope.nextStep = function () {
             if (!$scope.coupon.valid) {
                 alert('אנא הכנס הפעל קוד קופון');
+                return;
             }
             $scope.page.step = 2;
             $window.scrollTo(0, 0);
