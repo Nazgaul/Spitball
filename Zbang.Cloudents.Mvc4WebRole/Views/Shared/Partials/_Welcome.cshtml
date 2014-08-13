@@ -37,7 +37,7 @@
     <button class="closeDialog" data-closelogin="close"></button>
     <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
     <div class="emailBtnWpr">
-        <button class="emailBtn" type="button"><span class="emailImg"></span>@SharedResources.EmailSignUp</button>
+        <button class="emailBtn" type="button"><span class="emailImg" ng-click="$root.params.isStore = false"></span>@SharedResources.EmailSignUp</button>
         <div class="registerContent">
             <div class="enterForm" id="joinForm">
                 @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
