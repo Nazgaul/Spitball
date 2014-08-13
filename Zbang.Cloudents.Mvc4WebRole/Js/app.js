@@ -156,7 +156,11 @@ app.config([
                 }
             }).
             when('/store/about/', {
-                templateUrl: '/Store/About/',
+                templateUrl: function (params) {
+                    var url = '/Store/About/';
+                    return buildQueryString(url, params);
+
+                },
                 controller: 'ViewCtrl',
                 params: {
                     type: 'about'
