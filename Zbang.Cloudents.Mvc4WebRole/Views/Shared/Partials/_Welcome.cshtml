@@ -13,18 +13,30 @@
 </div>
 <div class="staticWpr popupWrppr" id="register" ng-class="{store: $root.isStore()}">
     <div class="welcomeStore">
-        <div class="storeTxt1">@StoreResources.Welcome</div>
-        <div class="storeTxt2">@StoreResources.StudentDiscounts</div>
-        <div class="storeTxt3">@StoreResources.DiscountsForYou</div>
-        <div class="storeTxt4">@StoreResources.GetDiscounts</div>
+        <div class="storeTxt1">@StoreResources.Description</div>
+        <div class="storeTxt2">@StoreResources.PayLess</div>
+        <div class="storeTxt3">@StoreResources.OnlyRegistered</div>
+        <div class="storeTxt4">@StoreResources.HowToBuy</div>
+        <div class="couponWpr">
+            <span class="userHelp">?</span>
+            <div class="helpPopup">@StoreResources.ToGetACoupon</div>
+            <input ng-model="coupon.code" type="text" class="inputText" />
+            <button type="button" disabled class="btn1">@StoreResources.Enter</button>
+            
+        </div>
+        <span>@StoreResources.Or</span>
     </div>
-    <div class="regFirstTxt">
-        <div>@SharedResources.RegisterFirst</div>
-        <div>@SharedResources.RegisterFree</div>
+
+    <div class="signInUp">
+        <div class="regFirstTxt">
+            <div>@SharedResources.RegisterFirst</div>
+            <div>@SharedResources.RegisterFree</div>
+        </div>
+        <div class="enterTitle">@LogOnResources.CreateAccount</div>
+        <button class="closeDialog" data-closelogin="close"></button>
     </div>
-    <div class="enterTitle">@LogOnResources.CreateAccount</div>
+
     <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
-    <button class="closeDialog" data-closelogin="close"></button>
     <div class="emailBtnWpr">
         <button class="emailBtn" type="button"><span class="emailImg"></span>@SharedResources.EmailSignUp</button>
         <div class="registerContent">
@@ -34,4 +46,6 @@
             <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
         </div>
     </div>
-</div><div class="modal2"></div>
+</div>
+
+<div class="modal2"></div>

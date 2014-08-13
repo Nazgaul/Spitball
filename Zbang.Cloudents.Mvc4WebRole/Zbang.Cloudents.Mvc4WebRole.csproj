@@ -779,6 +779,7 @@
     <Content Include="Images\Store\fb-off.png" />
     <Content Include="Images\Store\fb-on.png" />
     <Content Include="Images\Store\logo.png" />
+    <Content Include="Images\Store\store-popup.png" />
     <Content Include="Images\Store\thank-students.png" />
     <Content Include="Images\Store\thank.png" />
     <Content Include="Images\Store\welcome.png" />

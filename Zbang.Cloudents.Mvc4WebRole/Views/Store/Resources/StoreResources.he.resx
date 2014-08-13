@@ -390,4 +390,19 @@
   <data name="None" xml:space="preserve">
     <value>ללא</value>
   </data>
+  <data name="Enter" xml:space="preserve">
+    <value>כנסו</value>
+  </data>
+  <data name="HowToBuy" xml:space="preserve">
+    <value>איך רוכשים?</value>
+  </data>
+  <data name="OnlyRegistered" xml:space="preserve">
+    <value>חנות לסטודנטים רשומים בלבד!</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>או</value>
+  </data>
+  <data name="PayLess" xml:space="preserve">
+    <value>כי סטודנטים משלמים פחות</value>
+  </data>
 </root>
