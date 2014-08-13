@@ -20,8 +20,8 @@
         <div class="couponWpr">
             <span class="userHelp">?</span>
             <div class="helpPopup">@StoreResources.ToGetACoupon</div>
-            <input ng-model="coupon.code" type="text" class="inputText" />
-            <button type="button" disabled class="btn1">@StoreResources.Enter</button>
+            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" />
+            <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
             
         </div>
         <span class="or">@StoreResources.Or</span>
