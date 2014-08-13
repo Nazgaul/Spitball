@@ -104,18 +104,12 @@
             }, function () {
                 $scope.coupon.buttonDisabled = false;
             });
-            //var code = '1234';
-
-            //if ($scope.coupon.code === code) {
-            //    $scope.coupon.valid = true;
-            //    return;
-            //}
-
-
-
         };
 
         $scope.nextStep = function () {
+            if (!$scope.coupon.valid) {
+                alert('אנא הכנס הפעל קוד קופון');
+            }
             $scope.page.step = 2;
             $window.scrollTo(0, 0);
         };
