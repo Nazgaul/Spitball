@@ -5,6 +5,6 @@ namespace Zbang.Zbox.Store.Services
 {
     public interface IWriteService
     {
-        Task<OrderDto> InsertOrder(OrderSubmitDto order);
+        OrderDto InsertOrder(OrderSubmitDto order);
     }
 }

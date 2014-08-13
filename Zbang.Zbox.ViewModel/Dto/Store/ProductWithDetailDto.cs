@@ -17,5 +17,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Store
         public string Picture { get; set; }
 
         public long Id { get; set; }
+
+        public string ProducerName { get; set; }
     }
 }

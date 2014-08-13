@@ -70,6 +70,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             var features = new KeyValuePair<string, string>[6];
             int index = 0;
+            float totalFeaturePrice = 0;
             //order.Features
             if (productDetail.Features != null)
                 foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
@@ -77,6 +78,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     features[index] = new KeyValuePair<string, string>(feature.Category,
                         feature.Description + "*" + feature.Price + "*");
                     index++;
+                    totalFeaturePrice += feature.Price.HasValue ? feature.Price.Value : 0;
                 }
             for (int i = index; i < 6; i++)
             {
@@ -107,8 +109,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                   order.Email,
                   order.Phone,
                   order.Phone2,
-                  0,
-                  order.NumberOfPayment)).Result;
+                  totalFeaturePrice,
+                  order.NumberOfPayment));
             try
             {
                 m_MailComponent.GenerateAndSendEmail(order.Email,

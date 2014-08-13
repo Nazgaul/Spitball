@@ -9,9 +9,8 @@ namespace Zbang.Zbox.Store.Dto
     class OrderProductDto
     {
         public string Name { get; set; }
-        public float Price { get; set; }
+        public float SalePrice { get; set; }
 
-        public float Saleprice { get; set; }
         public string Image { get; set; }
 
         public string Catcode { get; set; }

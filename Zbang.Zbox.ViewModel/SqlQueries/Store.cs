@@ -46,7 +46,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
   order by catorder";
 
        public const string GetProduct = @"SELECT Name,ExtraDetails,description, SalePrice - Coupon as price, 
-deliveryprice,catalognumber,numberofpayments,supplytime, [PictureUrl] as picture
+deliveryprice,catalognumber,numberofpayments,supplytime, [PictureUrl] as picture, ProducerName
   FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
 
        public const string GetProductCheckOut = @"SELECT 
