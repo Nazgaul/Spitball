@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -185,4 +185,3 @@ input[type="radio"]:checked + label:before {
 .btn2:active {
   background: #c687a9;
 }
-/*# sourceMappingURL=Welcome.css.map */

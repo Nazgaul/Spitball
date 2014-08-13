@@ -157,6 +157,12 @@ input[type="radio"] + label:before {
   /*rtl*/
   left: auto;
 }
+/*#region Welcome Store */
+.welcomeStore {
+  right: 26px;
+  left: auto;
+}
+/*#endregion */
 .emailBtn {
   padding: 7px 53px 8px 15px;
   /*rtl*/
