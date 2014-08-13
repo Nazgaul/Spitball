@@ -13,14 +13,14 @@ namespace Zbang.Zbox.Domain
 
         public StoreBanner(int id, string url, string imageUrl, StoreBannerLocation location, int order, int universityId)
         {
-            Update(id, url, imageUrl, location, order, universityId);
+            ImageUrl = imageUrl;
+            Update(id, url, location, order, universityId);
         }
 
-        public void Update(int id, string url, string imageUrl, StoreBannerLocation location, int order, int universityId)
+        public void Update(int id, string url, StoreBannerLocation location, int order, int universityId)
         {
             Id = id;
             Url = url;
-            ImageUrl = imageUrl;
             Location = location;
             if (location == StoreBannerLocation.TopLeft)
             {
