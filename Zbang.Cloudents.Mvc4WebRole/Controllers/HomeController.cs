@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[ZboxAuthorize]
         [NoUniversityAttribute]
         [NonAjax]
-        [CacheFilter]
+        [NoCache]
         //[Route("box:desktop/my/{boxId:long}/{boxName}", Name = "PrivateBoxDesktop", Order = 1)]
         //[Route("course:desktop/{universityName}/{boxId:long}/{boxName}", Name = "CourseBoxDesktop", Order = 2)]
         public ActionResult Index(long? universityId)

@@ -21,7 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class DashboardController : BaseController
     {
         [UserNavNWelcome]
-        [CacheFilter]
+        [NoCache]
         public async Task<ActionResult> Index()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
