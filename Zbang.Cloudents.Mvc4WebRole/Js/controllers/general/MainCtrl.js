@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook', 'sUserDetails',
-        function ($scope, $rootScope, $location, $modal, User, Facebook, sUserDetails) {
+    ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook', 'sUserDetails', 'Store',
+        function ($scope, $rootScope, $location, $modal, User, Facebook, sUserDetails, Store) {
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/'
             }
@@ -115,13 +115,13 @@
                 $scope.params.store.currentTab = current.$$route.params.type;
 
                 if (current.$$route.type === 'products' && current.params.categoryId === '646') {
-                    $scope.params.currentTab = 'sales';                    
+                    $scope.params.currentTab = 'sales';
                 }
 
                 if (current.$$route.originalPath.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated() &&
-                    current.$$route.params.type === 'products' &&   !$scope.params.store.showRegisterPopup) {
+                    current.$$route.params.type === 'products' && !$scope.params.store.showRegisterPopup) {
                     $scope.params.store.showRegisterPopup = true;
-                    cd.pubsub.publish('register', { action: true });                 
+                    cd.pubsub.publish('register', { action: true });
                 }
             });
 
@@ -148,6 +148,43 @@
                 return !$rootScope.params.isStore;
             }
 
+            $rootScope.validateCoupon = function () {
+
+                var invalidCouponMessage = 'קופון שגוי';
+                if (!$rootScope.params.store.coupon.code) {
+                    return;
+                }
+
+                var isNumber = /^\d+$/.test($rootScope.params.store.coupon.code);
+
+                if (!isNumber) {
+                    alert(invalidCouponMessage);
+                    return;
+                }
+
+                $rootScope.params.store.coupon.buttonDisabled = true;
+
+                Store.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
+                    $rootScope.params.store.coupon.buttonDisabled = false;
+                    if (!response.success) {
+                        return;
+                    }
+                    if (response.payload.isValid) {
+                        $rootScope.params.store.coupon.valid =  true;
+                        return;
+                    }
+                    alert(invalidCouponMessage);
+                }, function () {
+                    $rootScope.params.store.coupon.buttonDisabled = false;
+                });
+            };
+
+            $rootScope.registerFacebook = function () {
+            };
+
+            $rootScope.register = function () {
+
+            };
 
 
 
