@@ -1,6 +1,6 @@
 ﻿app.controller('CheckoutCtrl',
-    ['$scope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails',
-    function ($scope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails) {
+    ['$scope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus',
+    function ($scope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
 
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
         $timeout(function () {
@@ -109,6 +109,7 @@
         $scope.nextStep = function () {
             if (!$scope.coupon.valid) {
                 alert('אנא הכנס הפעל קוד קופון');
+                sFocus('storeCoupon');
                 return;
             }
             $scope.page.step = 2;
