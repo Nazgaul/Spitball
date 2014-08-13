@@ -1139,12 +1139,7 @@ input[type="radio"] {
         margin: auto;
         background-color: transparent; //override
         border: none; //override
-        /*&.step2 {
-            height: 942px; // height needed in order to vertically center
-            max-height: 98%;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }*/
+        
         .welcomeStore {
             display: block;
         }
@@ -1171,6 +1166,7 @@ input[type="radio"] {
             margin: 0 30px;
             min-width: 0;
             display: inline-block;
+            vertical-align: top;
         }
         .closeDialog {
             right: 120px; //rtl
@@ -1179,7 +1175,28 @@ input[type="radio"] {
         .registerContent {
             display: none;
         }
+        .emailBtn {
+            margin:0;
+        }
+        .signupBtns {
+            text-align: center;
+            position: relative;
+            left: 27px; //rtl
+        }
     }
+    &.step2 {
+            /*height: 942px; // height needed in order to vertically center
+            max-height: 98%;
+            overflow-x: hidden;
+            overflow-y: auto;*/
+            background: #fff;
+            .registerContent {
+                display: block;
+            }
+            &:before {
+                display: none;
+            }
+        }
 }
 .welcomeStore {
     display: none;

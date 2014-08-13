@@ -162,6 +162,10 @@ input[type="radio"] + label:before {
   left: 120px;
   right: auto;
 }
+.registerFirst.store .signupBtns {
+  right: 27px;
+  left: auto;
+}
 .welcomeStore {
   right: 26px;
   left: auto;
