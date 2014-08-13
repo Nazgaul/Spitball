@@ -188,7 +188,15 @@ input[type="radio"] {
     right: 26px; //rtl
     left: auto;
 }
+.couponWpr.couponWpr { //for more specificity
+    .helpPopup {
+        &:before {
+            right: 20px; //rtl
+            left: auto;
+        }
+    }
 
+}
 /*#endregion */
 
 .emailBtn {

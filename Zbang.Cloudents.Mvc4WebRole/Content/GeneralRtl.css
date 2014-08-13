@@ -170,6 +170,10 @@ input[type="radio"] + label:before {
   right: 26px;
   left: auto;
 }
+.couponWpr.couponWpr .helpPopup:before {
+  right: 20px;
+  left: auto;
+}
 /*#endregion */
 .emailBtn {
   padding: 7px 53px 8px 15px;
