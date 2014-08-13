@@ -1065,7 +1065,7 @@ input[type="radio"][disabled] + label:before {
   display: none;
 }
 .staticWpr.registerFirst.step2 .registerContent {
-  pointer-events: auto;
+  pointer-events: all;
 }
 /*#region Welcome Store */
 .registerFirst.store {
@@ -1086,7 +1086,7 @@ input[type="radio"][disabled] + label:before {
 .registerFirst.store .welcomeStore {
   display: block;
 }
-.registerFirst.store .regFirstTxt {
+.registerFirst.store .signInUp {
   display: none;
 }
 .registerFirst.store:before {
@@ -1103,19 +1103,31 @@ input[type="radio"][disabled] + label:before {
 }
 .registerFirst.store .facebook,
 .registerFirst.store .emailBtnWpr {
-  width: 330px;
-  margin: 0 auto;
-  display: block;
+  width: 195px;
+  margin: 0 30px;
+  min-width: 0;
+  display: inline-block;
+}
+.registerFirst.store .closeDialog {
+  right: 120px;
+  top: 215px;
+}
+.registerFirst.store .registerContent {
+  display: none;
 }
 .welcomeStore {
   display: none;
   text-align: center;
-  color: #fff;
   font-size: 20px;
   margin: 200px auto 0;
   position: relative;
   width: 328px;
   left: 26px;
+}
+.welcomeStore .or {
+  color: #383838;
+  display: inline-block;
+  margin: 10px;
 }
 .storeTxt1 {
   font-size: 60px;
@@ -1149,6 +1161,7 @@ input[type="radio"][disabled] + label:before {
   margin: 0;
   width: auto;
   height: 34px;
+  font-size: 18px;
 }
 .couponWpr.couponWpr .userHelp {
   padding: 5px 0 0 0;

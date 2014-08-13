@@ -159,17 +159,17 @@ main {
 }
 .carouselBtns {
   position: absolute;
-  bottom: 10px;
+  bottom: 4px;
   left: 0;
   right: 0;
   margin: auto;
 }
 .carouselBtns button {
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   vertical-align: middle;
-  margin: -2px 4px 0 0;
+  margin: 0 4px 0 0;
   border: 1px solid #39434a;
   padding: 3px;
   border-radius: 100%;

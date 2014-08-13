@@ -1,4 +1,4 @@
-.welcome > .btnPrev {
+﻿.welcome > .btnPrev {
   right: 15px;
   /*rtl*/
   left: auto;
@@ -79,4 +79,3 @@ input[type="radio"]:checked + label:before {
   /*rtl*/
   right: auto;
 }
-/*# sourceMappingURL=WelcomeRtl.css.map */

@@ -158,6 +158,10 @@ input[type="radio"] + label:before {
   left: auto;
 }
 /*#region Welcome Store */
+.registerFirst.store .closeDialog {
+  left: 120px;
+  right: auto;
+}
 .welcomeStore {
   right: 26px;
   left: auto;

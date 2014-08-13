@@ -1121,7 +1121,7 @@ input[type="radio"] {
                 display:none;
             }
             .registerContent {
-                pointer-events: auto; //TODO: check what this is for?!? 
+                pointer-events: all;
             }
         }
     }
@@ -1148,7 +1148,7 @@ input[type="radio"] {
         .welcomeStore {
             display: block;
         }
-        .regFirstTxt {
+        .signInUp {
             display: none;
         }
         &:before {
@@ -1166,21 +1166,34 @@ input[type="radio"] {
             margin: auto;
         }
         .facebook, .emailBtnWpr {
-            width: 330px;
-            margin: 0 auto;
-            display: block;
+            width: 195px;
+            //margin: 0 auto;
+            margin: 0 30px;
+            min-width: 0;
+            display: inline-block;
+        }
+        .closeDialog {
+            right: 120px; //rtl
+            top: 215px;
+        }
+        .registerContent {
+            display: none;
         }
     }
 }
 .welcomeStore {
     display: none;
     text-align: center;
-    color: #fff;
     font-size: 20px;
     margin: 200px auto 0;
     position: relative;
     width: 328px;
     left: 26px; //rtl
+    .or {
+        color: @textColor;
+        display: inline-block;
+        margin: 10px;
+    }
 }
 
 .storeTxt1 {
@@ -1219,6 +1232,7 @@ input[type="radio"] {
         margin:0;
         width: auto;
         height: 34px;
+        font-size: 18px;
     }
     .userHelp {
         padding:5px 0 0 0;
