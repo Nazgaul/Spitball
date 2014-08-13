@@ -47,7 +47,7 @@
     <div class="lFloat" ng-class="{error : submitted && detailsForm.CreditCardNumber.$error.required}">
         @Html.LabelFor(f => f.CreditCardNumber)
         <span class="required">@DialogResources.RequiredField</span>
-        @Html.TextBoxFor(f => f.CreditCardNumber, new { @class = "inputText", ng_model = "formData.creditCardNumber", required = "required" })
+        @Html.TextBoxFor(f => f.CreditCardNumber, new { @class = "inputText", ng_model = "formData.creditCardNumber", required = "required", maxlength = "16" })
     </div>
     <div class="lFloat" ng-class="{error : submitted && (detailsForm.ExpirationYear.$error.required || detailsForm.ExpirationMonth.$error.required)}">
         <label>@StoreResources.Vaildity</label>

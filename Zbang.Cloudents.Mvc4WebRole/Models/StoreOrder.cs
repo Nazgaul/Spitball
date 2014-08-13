@@ -39,6 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public string IdentityNumber { get; set; }
         [Required]
         [Display(ResourceType = typeof(StoreResources), Name = "CreditCardNo")]
+        [StringLength(16)]
         public string CreditCardNumber { get; set; }
 
         [Required]
