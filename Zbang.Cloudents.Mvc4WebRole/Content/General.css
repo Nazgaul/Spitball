@@ -1197,10 +1197,11 @@ input[type="radio"][disabled] + label:before {
   cursor: pointer;
 }
 .couponWpr.couponWpr .helpPopup {
-  margin: 0;
+  margin: auto;
   top: -77px;
-  left: 5px;
   width: 315px;
+  left: 0;
+  right: 0;
 }
 .couponWpr.couponWpr .helpPopup:before {
   border-color: #0371c8 transparent transparent transparent;

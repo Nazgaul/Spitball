@@ -173,10 +173,6 @@ input[type="radio"] + label:before {
   right: -5px;
   left: auto;
 }
-.couponWpr.couponWpr .helpPopup {
-  right: 5px ;
-  left: auto;
-}
 .couponWpr.couponWpr .helpPopup:before {
   right: 20px;
   left: auto;
