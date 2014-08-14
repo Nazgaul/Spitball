@@ -60,7 +60,7 @@
             @*<label>@SharedResources.Message:</label>*@
             @Html.TextAreaFor(f => f.Text, new { @class = "inputText", required="required", ng_model = "formData.text" })
         </div>
-        <button type="submit" class="rFloat btn1" ng-click="submitted = true">@DialogResources.Send</button>
+        <button type="submit" class="rFloat btn1 btn3" ng-click="submitted = true">@DialogResources.Send</button>
     </form>
 
     @{Html.RenderPartial("_Footer");}
