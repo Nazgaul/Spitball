@@ -33,6 +33,8 @@ header {
         margin-left: 265px; /*rtl*/
         &.showStore {
             display: block;
+            position: relative;
+            z-index: 1;
         }
     }
 }
@@ -951,27 +953,6 @@ main {
         margin: 0 -80px;
     }
 
-    /*> .lFloat, > .rFloat {
-        width: 340px;
-        margin-top: 25px;
-    }
-
-    > .lFloat {
-        clear: both;
-
-        &.wideInput {
-            width: 100%;
-        }
-    }
-
-    .inputText {
-        display: block;
-        margin-top: 5px;
-        width: 100%;
-        //height: 32px;
-        .boxSizing;
-    }*/
-
     textarea {
         min-height: 190px;
     }
@@ -979,9 +960,9 @@ main {
     .btn1 {
         font-size: 24px;
         padding: 0 56px;
-        //height: 45px;
         width: auto; //override
         .boxSizing;
+        border: none;
     }
 }
 
@@ -1336,7 +1317,6 @@ main {
 .userDetails {
     font-size: 15px;
     padding: 60px 75px;
-    margin-top: 50px; //TEMP!!!!!
     overflow: hidden;
     border-radius: 5px 5px 0 0;
 
@@ -1367,23 +1347,6 @@ main {
             }*/
         }
     }
-    /*.required {
-        visibility: hidden;
-        color: @errorColor;
-    }
-    > .lFloat {
-        clear: both;
-
-        &.wideInput {
-            width: 100%;
-        }
-    }
-
-    .inputText {
-        display: block;
-        margin-top: 5px;
-        width: 100%;
-    }*/
 
     textarea {
         min-height: 94px;
@@ -1394,6 +1357,7 @@ main {
         padding: 0 70px;
         width: auto; //override
         .boxSizing;
+        border: none; //override
     }
 
     .detailsTxt {
@@ -1485,10 +1449,11 @@ main {
 }
 
 .cardHoverTxt {
-    margin-top: -32px;
-    /* white-space: pre-wrap; */
     text-align: center;
     line-height: 16px;
+    position: absolute;
+    top: 3px;
+    left: 0;right: 0;
 }
 /*#endregion */
 
