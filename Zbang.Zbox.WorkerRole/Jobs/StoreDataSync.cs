@@ -49,8 +49,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private void BringData()
         {
-            var sw = new Stopwatch();
-            sw.Start();
             var categoriesDto = m_ReadService.GetCategories().ToList();
 
             var categories = new List<Category>();
@@ -131,9 +129,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 TraceLog.WriteError("On update products", ex);
             }
             ProcessBanners();
-            m_DateDiff = DateTime.UtcNow.AddMinutes(-10);
-            sw.Stop();
-            TraceLog.WriteInfo("sync from hatavot took " + sw.ElapsedMilliseconds + " milliseconds");
+            m_DateDiff = DateTime.UtcNow.AddMinutes(-30);
 
             Thread.Sleep(TimeSpan.FromSeconds(m_TimeToSyncInSeconds));
         }
