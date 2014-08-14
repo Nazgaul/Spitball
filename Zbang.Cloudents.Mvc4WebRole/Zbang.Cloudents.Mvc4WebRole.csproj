@@ -839,6 +839,7 @@
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\dataBag.js" />
     <Content Include="Js\directives\focusOn.js" />
+    <Content Include="Js\directives\store\categoryLink.js" />
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\textDirection.js" />
     <Content Include="Js\modules\displayTime.js" />

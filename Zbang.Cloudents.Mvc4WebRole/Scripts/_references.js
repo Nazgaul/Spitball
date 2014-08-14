@@ -166,6 +166,7 @@
 /// <reference path="../js/controllers/user/userctrl.js" />
 /// <reference path="../js/directives/store/productsmenu.js" />
 /// <reference path="../js/filters/store/percentage.js" />
+/// <reference path="../js/directives/store/categorylink.js" />
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />
