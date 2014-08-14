@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1098,7 +1098,7 @@ input[type="radio"][disabled] + label:before {
 }
 .registerFirst.store .facebook,
 .registerFirst.store .emailBtnWpr {
-  width: 195px;
+  width: 210px;
   margin: 0 30px;
   min-width: 0;
   display: inline-block;
@@ -1142,7 +1142,6 @@ input[type="radio"][disabled] + label:before {
   font-size: 20px;
   margin: 200px auto 0;
   position: relative;
-  width: 328px;
   left: -5px;
 }
 .welcomeStore .or {
@@ -1169,7 +1168,8 @@ input[type="radio"][disabled] + label:before {
   border-top: 1px solid #0f9d58;
   border-bottom: 1px solid #0f9d58;
   padding: 3px 0 4px;
-  margin: 5px 0 42px;
+  display: inline-block;
+  margin: 5px auto 42px;
 }
 .storeTxt4 {
   font-size: 20px;
@@ -2671,4 +2671,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */
