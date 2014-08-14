@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -11,7 +12,7 @@ namespace Zbang.Zbox.Store.Services
     {
         private const string ConnectionStringName = "Hatavot";
 
-        public IEnumerable<ProductDto> ReadData(int category)
+        public IEnumerable<ProductDto> ReadData(int category, DateTime diffTime)
         {
             using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
@@ -30,6 +31,7 @@ namespace Zbang.Zbox.Store.Services
       --,[SalesProdOrder] -- sales page product order 
       ,[ProdOrder] as [CategoryOrder] -- Category Page  product order
       ,(select producerName from tblproducers s where s.producerid = p.[ProducerId]) as producerName -- Producer ID 
+      ,p.[ProducerId] as ProducerId
       ,[p1] as upgrade1  -- Upgrades
       ,[v1] as upgradeValue1 -- Upgrades
       ,[p2] as upgrade2 -- Upgrades
@@ -45,9 +47,12 @@ namespace Zbang.Zbox.Store.Services
       ,[DeliveryPrice] -- Delivery charge 
       ,[ProductPayment]-- Number of payments 
       ,[coupon]-- Discount amount --> Student Price = [SalePrice] - [Coupon] 
-      ,[designNum] as UniversityId -- Which University to show --> Can be to all or to one specific  
-  FROM [bizpoin_bizpointDB].[products] p where [show] is  null and catcode like '%' + cast( @catId as varchar) + '%'";
-                return conn.Query<ProductDto>(sql, new { catId = category });
+      ,[designNum] as UniversityId -- Which University to show --> Can be to all or to one specific
+      ,[wideImage] as WideImage
+  FROM [bizpoin_bizpointDB].[products] p where catcode like '%' + cast( @catId as varchar) + '%' 
+  and  productid = 6529
+  and updatetime > @diffTime ";
+                return conn.Query<ProductDto>(sql, new { catId = category, diffTime });
             }
         }
 

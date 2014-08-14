@@ -12,19 +12,18 @@
             </tr>
         </thead>
         <tr>
-            <td><img src="@Model.Picture" alt="" height="48" width="48" /></td>
+            <td><img src="@Model.Picture" alt="" /></td>
             <td>
                 <div class="pType">@Model.Name</div>
                 <div class="pName">@Model.ExtraDetails</div>
             </td>
             <td>
-                @Model.SalePrice ₪
+                @Model.SalePrice.ToString("n0") ₪
             </td>
         </tr>
-
         <tr>
             <td>@StoreResources.CouponCode</td>
-            <td><input ng-model="coupon.code" type="text" class="inputText"/></td>
+            <td><input ng-model="coupon.code" type="text" class="inputText" ng-disabled="coupon.valid" focus-on="storeCoupon"/></td>
             <td>
                 <div class="couponBtn" ng-class="{activated: coupon.valid}">
                     <button type="button" class="btn3" ng-disabled="coupon.buttonDisabled" ng-click="validateCoupon()">@StoreResources.ActivateCoupon</button>
@@ -37,14 +36,13 @@
         </tr>
         <tr ng-repeat="(categoryName,category) in product.categories">
             <td>{{categoryName}}</td>            
-            <td>
-                <select ng-model="formData.features[categoryName]" ng-options="feature.description for feature in category">
+            <td colspan="2"> 
+                <select ng-model="formData.features[categoryName]" ng-options="(feature.description + ' בתוספת של ' + feature.price + '₪') for feature in category">
                     <option value="">@StoreResources.None</option>
                 </select>
             </td>
-            <td>
-                @*<button type="button" style="vis" class="btn3">@StoreResources.AddToPurchase</button>*@
-            </td>
+            @*<td>
+            </td>*@
         </tr>        
         <tr>
             <td></td>
@@ -58,7 +56,7 @@
                     <li><span>@StoreResources.ShippingCost:</span><span>{{(product.deliveryPrice | currency:'').slice(0,-3)}}</span><span>₪</span></li>
                     <li><span>@StoreResources.TotalPrice:</span><span ng-bind="(totalPrice() | currency:'').slice(0,-3)"></span><span>₪</span></li>
                 </ul>
-                <button type="submit" class="btn1" ng-click="nextStep()">@StoreResources.ProceedTo</button>
+                <button type="submit" class="btn3" ng-click="nextStep()">@StoreResources.ProceedTo</button>
             </td>
         </tr>
     </table>

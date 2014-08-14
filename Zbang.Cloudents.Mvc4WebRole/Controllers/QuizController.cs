@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NonAjax]
         [UserNavNWelcome]
-        [CacheFilter]
+        [NoCache]
         public async Task<ActionResult> IndexDesktop(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [ActionName("Index")]
-        [CacheFilter]
+        [NoCache]
         public async Task<ActionResult> IndexAjax(long boxId, long quizId, string quizName, string universityName, string boxName)
         {
             var model = await GetQuiz(boxId, quizId, quizName, false);

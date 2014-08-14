@@ -1,7 +1,7 @@
 ﻿app.controller('ShareCtrl',
-    ['$scope', '$modalInstance', 'sShare', 'sGoogle', 'sFocus', 'data',
+    ['$scope', '$rootScope', '$modalInstance', 'sShare', 'sGoogle', 'sFocus', 'data',
 
-    function ($scope, $modalInstance, Share, Google, Focus, data) {
+    function ($scope, $rootScope, $modalInstance, Share, Google, Focus, data) {
 
         data = data || {};
 
@@ -57,34 +57,46 @@
                 return;
             }
 
-            $modalInstance.close();
 
             if ($scope.singleUser) {
-                $scope.formData.recepients = [$scope.singleUser.id];                
+                $scope.formData.recepients = [$scope.singleUser.id];
+                send();
                 return;
             }
 
-            var ids = $scope.formData.emailList.map(function (item) {
-                return item.id;                
+            var users = _.flatten($scope.formData.emailList);
+            var ids = users.map(function (item) {
+                return item.id;
             });
 
             $scope.formData.recepients = ids;
 
-            Share.message($scope.formData).then(function () {
-            });
+            send();
 
-
+            function send() {
+                Share.message($scope.formData).then(function () {
+                });
+                $modalInstance.close();
+            }            
 
         }
 
         if (data.singleMessage) {
-            $scope.singleUser = data.user;
+            $scope.singleUser = data.users[0];
             $scope.options.singleMessage = true;
             return;
         }
+
         if (data.groupMessage) {
             var item = data.users;//TO BE CHECKED
-            $scope.emailList.push(item);
+            if (item.length > 300) {
+                $scope.formData.emailList.push(item);
+            } else {
+                angular.forEach(item, function (user) {
+                    $scope.formData.emailList.push(user);
+                });
+            }
+            $rootScope.$broadcast('itemChange');
         }
 
         Share.cloudentsFriends().then(function (contacts) {
@@ -106,9 +118,9 @@
                 return;
             }
             Google.checkAuth(true).then(function () {
-                getGoogleContacts();                
+                getGoogleContacts();
             });
-        })        
+        })
 
         $scope.onSelectedItem = function ($item) {
             $scope.formData.searchInput = null;
@@ -135,7 +147,8 @@
             Google.checkAuth(false).then(function () {
                 getGoogleContacts();
             });
-            
+            $scope.$broadcast('itemChange');
+
         };
 
 
@@ -197,7 +210,7 @@
 
 
         };
-        
+
         function addFriendByEmail() {
             if (!$scope.formData.searchInput) {
                 return;
@@ -228,6 +241,8 @@
             Google.contacts().then(function (contacts) {
                 $scope.friends = $scope.friends.concat(contacts);
                 $scope.sources.google = true;
+                $scope.$broadcast('itemChange');
+
             });
         }
     }
@@ -243,7 +258,7 @@ app.directive('resizeInput',
                 },
                 link: function (scope, elem, attrs) {
                     var maxWidth = 430,
-                        minWidth = 100,
+                        minWidth = 200,
                         container = $('.emailUser')[0],
                         $emailListWpr = $('.emailListWpr');
 
@@ -254,8 +269,8 @@ app.directive('resizeInput',
                         elem.css('max-width', maxWidth);
                     });
 
-                    scope.$on('itemChange', function () {
-                        $timeout(setWidth);
+                    scope.$on('itemChange', function (e, timeout) {
+                        $timeout(setWidth, timeout || 0);
                     });
 
                     elem.on('keyup', function () {

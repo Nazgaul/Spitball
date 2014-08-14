@@ -2,11 +2,9 @@
    ['$scope',
     '$modalInstance',
     '$filter',
-    '$location',
-    '$anchorScroll',
     'friends',
 
-    function ($scope, $modalInstance, $filter, $location, $anchorScroll,friends) {
+    function ($scope, $modalInstance, $filter,friends) {
         $scope.formData = {};
         $scope.params = {
             search: '',

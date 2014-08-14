@@ -8,6 +8,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -51,14 +52,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         ProcessContactUs(contactUs);
                         return true;
                     }
-                    return false;
+                    return true;
                 }, TimeSpan.FromMinutes(1), int.MaxValue);
             }
         }
 
         private void ProcessContactUs(StoreContactData contactUs)
         {
-            m_MailComponent.GenerateAndSendEmail("yaari.ram@gmail.com",
+            m_MailComponent.GenerateAndSendEmail("yuval@bizpoint.co.il",
                 new StoreContactUs(contactUs.Name, contactUs.Phone, contactUs.University, contactUs.Email,
                     contactUs.Text));
         }
@@ -69,6 +70,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             var features = new KeyValuePair<string, string>[6];
             int index = 0;
+            float totalFeaturePrice = 0;
             //order.Features
             if (productDetail.Features != null)
                 foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
@@ -76,6 +78,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     features[index] = new KeyValuePair<string, string>(feature.Category,
                         feature.Description + "*" + feature.Price + "*");
                     index++;
+                    totalFeaturePrice += feature.Price.HasValue ? feature.Price.Value : 0;
                 }
             for (int i = index; i < 6; i++)
             {
@@ -106,11 +109,17 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                   order.Email,
                   order.Phone,
                   order.Phone2,
-                  0,
-                  order.NumberOfPayment)).Result;
-
-            m_MailComponent.GenerateAndSendEmail(order.Email,
-                new StoreOrder(order.FirstName + " " + order.LastName, retVal.ProductName, retVal.OrderId));
+                  totalFeaturePrice,
+                  order.NumberOfPayment));
+            try
+            {
+                m_MailComponent.GenerateAndSendEmail(order.Email,
+                    new StoreOrder(order.FirstName + " " + order.LastName, retVal.ProductName, retVal.OrderId));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("On sending email store order orderid: " + retVal.OrderId + " email: " + order.Email, ex);
+            }
         }
 
 

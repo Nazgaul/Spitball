@@ -38,14 +38,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/sales")]
         [Route("store/thankyou", Name = "StoreThanksYou")]
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
-        public async Task<ActionResult> Index(int? universityId)
+        public async Task<ActionResult> Index(int? universityId, int? producerId)
         {
             if (User.Identity.IsAuthenticated && !universityId.HasValue)
             {
                 var userDetail = FormsAuthenticationService.GetUserData();
                 var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
                 var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
-                return RedirectToAction("Index", new { universityId = storeUniversityId });
+                if (storeUniversityId.HasValue)
+                {
+                    return RedirectToAction("Index", new
+                    {
+                        universityId = storeUniversityId,
+                        producerId = producerId
+                    });
+                }
             }
             return View("Empty");
         }
@@ -59,9 +66,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        public async Task<ActionResult> Products(int? categoryId, int? universityId)
+        public async Task<ActionResult> Products(int? categoryId, int? universityId, int? producerId)
         {
-            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId));
+            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId,producerId));
             return this.CdJson(new JsonResponse(true, products));
         }
 
@@ -73,9 +80,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax, StoreCategories]
-        public async Task<ActionResult> Product(long id, int? universityId)
+        public async Task<ActionResult> Product(long productId, int? universityId)
         {
-            var query = new GetStoreProductQuery(id);
+            var query = new GetStoreProductQuery(productId);
             var tModel = ZboxReadService.GetProduct(query);
             var tBanners = ZboxReadService.GetBanners(universityId);
 
@@ -84,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.banner =
                 tBanners.Result.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
             model.TotalPrice = model.Price + model.DeliveryPrice;
-            model.Id = id;
+            model.Id = productId;
             return PartialView(model);
         }
 
@@ -102,9 +109,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax, HttpGet, StoreCategories]
-        public async Task<ActionResult> CheckOut(long id)
+        public async Task<ActionResult> CheckOut(long productId)
         {
-            var query = new GetStoreProductQuery(id);
+            var query = new GetStoreProductQuery(productId);
             var model = await ZboxReadService.GetProductCheckOut(query);
             var serializer = new JsonNetSerializer();
 
@@ -181,8 +188,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet, StoreCategories]
         [Route("store/terms")]
-        public ActionResult Terms()
+        public async Task<PartialViewResult> Terms(int? universityId)
         {
+            var banner = await ZboxReadService.GetBanners(universityId);
+            ViewBag.banner = banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
             return PartialView();
         }
 

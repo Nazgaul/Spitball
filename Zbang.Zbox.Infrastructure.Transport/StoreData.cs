@@ -7,6 +7,9 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoInclude(11, typeof (StoreContactData))]
     public abstract class StoreData
     {
-        
+        public StoreData()
+        {
+            
+        }
     }
 }

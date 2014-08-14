@@ -125,10 +125,9 @@ app.config([
         //#endregion
         //#region store
              when('/store/', {
-                 templateUrl: function(params) {
-                     var url = '/Store/', universityId = params.universityId || params.universityid;
-                     if (universityId) { url += '?universityid=' + universityId; }
-                     return url;
+                 templateUrl: function (params) {
+                     var url = '/Store/';
+                     return buildQueryString(url, params);
                  },
                  controller: 'CategoryCtrl',
                  reloadOnSearch: false,
@@ -137,21 +136,19 @@ app.config([
                  }
              }).
             when('/store/category/:categoryId/', {
-                templateUrl:  function(params) {
-                     var url = '/Store/', universityId = params.universityId || params.universityid;
-                     if (universityId) { url += '?universityid=' + universityId; }
-                     return url;
-                 },
+                templateUrl: function (params) {
+                    var url = '/Store/';
+                    return buildQueryString(url, params);
+                },
                 controller: 'CategoryCtrl',
                 params: {
                     type: 'products'
                 }
             }).
             when('/store/product/:productId/:productName/', {
-                templateUrl: function(params) {
-                    var url = '/store/product/?id=' + params.productId, universityId = params.universityId || params.universityid;
-                    if (universityId) { url += '&universityid=' + universityId; }
-                    return url;
+                templateUrl: function (params) {
+                    var url = '/store/product/';
+                    return buildQueryString(url, params);
                 },
                 controller: 'ProductCtrl',
                 params: {
@@ -159,7 +156,11 @@ app.config([
                 }
             }).
             when('/store/about/', {
-                templateUrl: '/Store/About/',
+                templateUrl: function (params) {
+                    var url = '/Store/About/';
+                    return buildQueryString(url, params);
+
+                },
                 controller: 'ViewCtrl',
                 params: {
                     type: 'about'
@@ -168,11 +169,9 @@ app.config([
             when('/store/contact/', {
                 //templateUrl: '/Store/Contact/',
                 templateUrl: function (params) {
-                    var url = '/Store/Contact/', universityId = params.universityId || params.universityid;
-                    if (universityId) {
-                        return url + '?universityid=' + universityId;
-                    }
-                    return url;
+                    var url = '/Store/Contact/';
+                    return buildQueryString(url, params);
+
                 },
                 controller: 'ContactCtrl',
                 params: {
@@ -180,14 +179,22 @@ app.config([
                 }
             }).
             when('/store/checkout/:productId/', {
-                templateUrl: function (params) { return '/Store/Checkout/?id=' + params.productId; },
+                templateUrl: function (params) {
+                    var url = '/Store/Checkout/';
+                    return buildQueryString(url, params);
+                },
+
                 controller: 'CheckoutCtrl',
                 params: {
                     type: 'checkout'
                 }
             }).
             when('/store/terms/', {
-                templateUrl: '/store/Terms/',
+                templateUrl: function (params) {
+                    var url = '/store/Terms/';
+                    return buildQueryString(url, params);
+
+                },
                 controller: 'ViewCtrl',
                 params: {
                     type: 'terms'
@@ -202,6 +209,21 @@ app.config([
             }).
           //#endregion
         otherwise({ redirectTo: '/dashboard/' });
+
+
+        function buildQueryString(url, params) {
+            var first = true;
+            for (var key in params) {
+                if (first) {
+                    url += '?' + key.toLowerCase() + '=' + params[key];
+                    first = false;
+                    continue;
+                }
+                url += '&' + key.toLowerCase() + '=' + params[key];
+
+            }
+            return url;
+        }
 
         //#endregion
 
@@ -225,7 +247,7 @@ app.config([
                             stackTrace: stackTrace,
                             cause: cause || ''
                         })
-                    })
+                    });
 
                 }
                 catch (loggingError) {

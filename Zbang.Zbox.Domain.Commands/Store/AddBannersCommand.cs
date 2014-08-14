@@ -19,19 +19,22 @@ namespace Zbang.Zbox.Domain.Commands.Store
 
     public class Banner
     {
-        public Banner(int id, string url, string imageUrl, int order, int universityId)
+        public Banner(int id, string url, int order, int universityId, Func<string> getImageUrl)
         {
+            GetImageUrl = getImageUrl;
             Id = id;
             Url = url;
-            ImageUrl = imageUrl;
+          //  ImageUrl = imageUrl;
             Order = order;
             UniversityId = universityId;
         }
 
-        public int Id { get;private set; }
+        public int Id { get; private set; }
         public string Url { get; private set; }
-        public string ImageUrl { get; private set; }
+        //public string ImageUrl { get; private set; }
         public int Order { get; private set; }
+
+        public Func<string> GetImageUrl { get; private set; }
 
         public int UniversityId { get; private set; }
     }

@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
                 icommentstart = content.IndexOf("<!--", icommentstart, StringComparison.Ordinal);
             }
             // Minify white space while keeping the HTML compatible with the given one
-            var lines = content.Split(WhiteSpaceSepartors, StringSplitOptions.RemoveEmptyEntries);
+            var lines = content.Split(WhiteSpaceSeparators, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < lines.Length; i++)
             {
                 var line = lines[i];
@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
                 {
                     builder.Append(' ');
                 }
-                if ((i < lines.Length - 1) || (WhiteSpaceSepartors.Any(s => s == content[content.Length - 1])))
+                if ((i < lines.Length - 1) || (WhiteSpaceSeparators.Any(s => s == content[content.Length - 1])))
                 {
                     builder.Append('\n');
                 }
@@ -89,7 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
             return builder.ToString();
         }
 
-        private static readonly char[] WhiteSpaceSepartors = { '\n', '\r' };
+        private static readonly char[] WhiteSpaceSeparators = { '\n', '\r' };
         private static readonly string[] CommentsMarkers = { "{", "}", "function", "var", "[if", "ko" };
     }
 

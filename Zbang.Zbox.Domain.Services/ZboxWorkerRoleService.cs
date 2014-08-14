@@ -131,8 +131,8 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                UnitOfWork.CurrentSession.Delete("from StoreBanner e");
-                UnitOfWork.CurrentSession.Flush();
+                //UnitOfWork.CurrentSession.Delete("from StoreBanner e");
+                //UnitOfWork.CurrentSession.Flush();
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }

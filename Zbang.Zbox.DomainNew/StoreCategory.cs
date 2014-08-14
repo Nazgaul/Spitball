@@ -20,7 +20,6 @@ namespace Zbang.Zbox.Domain
            ParentId = parentId;
            Order = order;
            Name = name;
-           Url = UrlConsts.BuildStoreCatergoryUrl(Id);
        }
 
 
@@ -29,6 +28,5 @@ namespace Zbang.Zbox.Domain
        public virtual string Name { get; set; }
        public virtual int Order { get; set; }
 
-       public virtual string  Url { get; set; }
     }
 }

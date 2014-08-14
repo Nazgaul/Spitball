@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Dapper;
 using System;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Zbang.Zbox.Store.Services
     public class WriteService : IWriteService
     {
         private const string ConnectionStringName = "Hatavot";
-        public async Task<OrderDto> InsertOrder(OrderSubmitDto order)
+        public OrderDto InsertOrder(OrderSubmitDto order)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(ConnectionStringName))
+            using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
                 var initSqls = new[]
                 {
@@ -25,7 +26,7 @@ namespace Zbang.Zbox.Store.Services
                 long currentOrderId, currentCustomerId, currentOrderItemId;
                 int currentProductId;
                 OrderProductDto product;
-                using (var grid = await conn.QueryMultipleAsync(string.Join(";", initSqls), new { ProductId = order.ProdcutId }))
+                using (var grid = conn.QueryMultiple(string.Join(";", initSqls), new { ProductId = order.ProdcutId }))
                 {
                     currentOrderId = grid.Read<long>().FirstOrDefault();
                     currentCustomerId = grid.Read<long>().FirstOrDefault();
@@ -38,7 +39,7 @@ namespace Zbang.Zbox.Store.Services
                     throw new NullReferenceException("product");
                 }
                 //insert values to BackUpProducts 
-                await conn.ExecuteAsync(
+                conn.Execute(
                     @"INSERT INTO BackUpProducts (ProductId,name,price,saleprice,image,catcode,CatalogNumber,SupplyTime,ProdOrder,OrgProductId,
 profitPercent,CurrencyType,Vat,ProducerId, referer)
 VALUES ( @curr_ProductId, @products_name,@products_price,@products_saleprice,@products_image,@products_catcode,@products_CatalogNumber,@products_SupplyTime,
@@ -47,8 +48,8 @@ VALUES ( @curr_ProductId, @products_name,@products_price,@products_saleprice,@pr
                     {
                         curr_ProductId = currentProductId,
                         products_name = product.Name,
-                        products_price = product.Price,
-                        products_saleprice = product.Saleprice,
+                        products_price = product.SalePrice,
+                        products_saleprice = product.SalePrice,
                         products_image = product.Image,
                         products_catcode = product.Catcode,
                         products_CatalogNumber = product.CatalogNumber,
@@ -62,11 +63,12 @@ VALUES ( @curr_ProductId, @products_name,@products_price,@products_saleprice,@pr
                         referer = order.UniversityId
                     });
 
-                var t = await conn.QueryAsync<int>("SELECT MAX(ProductId) AS max_BackUpProducts_ProductId FROM BackUpProducts");
+                var t = conn.Query<int>("SELECT MAX(ProductId) AS max_BackUpProducts_ProductId FROM BackUpProducts");
                 var tmpOrgProductId = t.FirstOrDefault();
-
-
-                await conn.ExecuteAsync(
+                var hashedCardHolderIdentificationNumber =
+                    VbExternalUtils.Utils.Base64encode(order.CardHolderIdentificationNumber);
+                var hashedCreditCardNumber = VbExternalUtils.Utils.Base64encode(order.CreditCardNumber);
+                conn.Execute(
                     @"INSERT INTO orders (orderId,custid, StudentId, [date],dfname,dlname,daddress1,dstate,dcity,dzip,ccname, coupon, ids,ccnumber,
 ccexpire,ccBehind,isphone,notes,Adminstatus,shopType,totalprice,delivery,SelfDeliver,NumOfPayment,referer, mosadName) 
 VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dstate,@dcity,@dzip,@ccname,@coupon,@ids,
@@ -85,15 +87,15 @@ VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dsta
                         dzip = string.Empty,
                         ccname = order.CreditCardNameHolder,
                         coupon = product.Coupon,
-                        ids = VbExternalUtils.Utils.Base64encode(order.CardHolderIdentificationNumber), // to hash
-                        ccnumber = VbExternalUtils.Utils.Base64encode(order.CreditCardNumber), // to hash
+                        ids = hashedCardHolderIdentificationNumber, // to hash
+                        ccnumber = hashedCreditCardNumber, // to hash
                         ccexpire = order.CreditCardExpiration.ToString("MMyy"),
                         ccBehind = order.Cvv,
                         isphone = 0,
                         notes = order.Notes,
                         Adminstatus = 1,
                         shopType = 1,
-                        totalprice = product.Price + product.DeliveryPrice,
+                        totalprice = (product.SalePrice + product.DeliveryPrice) *10,
                         delivery = 0,
                         SelfDeliver = 0,
                         NumOfPayment = 1,
@@ -103,7 +105,8 @@ VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dsta
 
 
 
-                await conn.ExecuteAsync(@"INSERT INTO orderitems (orderitemsid,orderid,productid,qty,priceperunit,p1,v1,p2,v2,p3,v3,p4,v4,p5,v5,p6,v6,
+
+                conn.Execute(@"INSERT INTO orderitems (orderitemsid,orderid,productid,qty,priceperunit,p1,v1,p2,v2,p3,v3,p4,v4,p5,v5,p6,v6,
 DeliveryPrice,AdditionPrice,productPayment,orderType) 
 VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3,@v3,@p4,@v4,@p5,@v5,@p6,@v6,@DeliveryPrice,@AdditionPrice,
 @productPayment,@orderType)",
@@ -113,7 +116,7 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
                         orderid = currentOrderId,
                         productid = tmpOrgProductId,
                         qty = 1,
-                        priceperunit = product.Price + product.DeliveryPrice,
+                        priceperunit = product.SalePrice + product.DeliveryPrice,
                         p1 = order.P1,
                         v1 = order.V1,
                         p2 = order.P2,
@@ -133,7 +136,7 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
 
                     });
 
-                await conn.ExecuteAsync(@"INSERT INTO customers (CustId, StudentId, fname,lname,email,address1,state,city,country,pass,phone,
+                conn.Execute(@"INSERT INTO customers (CustId, StudentId, fname,lname,email,address1,state,city,country,pass,phone,
 Cphone1,fax, coupon, ids,OrgName,OrgNumber,isMailingList) 
 VALUES (@CustId,@StudentCode,@fname,@lname,@email,@address1,@state,@city,@country,@pass,@phone,@Cphone1,@fax,@coupon,@cust_ids,@OrgName,@OrgNumber,
 @isMailingList)", new

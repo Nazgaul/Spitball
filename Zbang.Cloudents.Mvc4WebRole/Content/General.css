@@ -1068,71 +1068,146 @@ input[type="radio"][disabled] + label:before {
   display: none;
 }
 .staticWpr.registerFirst.step2 .registerContent {
-  pointer-events: auto;
+  pointer-events: all;
 }
 /*#region Welcome Store */
 .registerFirst.store {
-  width: 546px;
-  height: 559px;
-  padding: 20px 40px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  width: 860px;
+  height: 613px;
   top: 0;
   bottom: 0;
   margin: auto;
-}
-.registerFirst.store.step2 {
-  height: 942px;
-  max-height: 98%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  background-color: transparent;
+  border: none;
 }
 .registerFirst.store .welcomeStore {
   display: block;
 }
-.registerFirst.store .regFirstTxt {
+.registerFirst.store .signInUp {
   display: none;
 }
 .registerFirst.store:before {
   content: '';
   display: inline-block;
-  background: url(/Images/Store/welcome.png) no-repeat;
-  width: 546px;
-  height: 264px;
+  background: url(/Images/Store/store-popup.png) no-repeat;
+  width: 860px;
+  height: 613px;
   position: absolute;
-  top: -1px;
-  left: -1px;
-  /*rtl*/
-  border-radius: 5px 5px 0 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .registerFirst.store .facebook,
 .registerFirst.store .emailBtnWpr {
-  width: 330px;
-  margin: 0 auto;
+  width: 195px;
+  margin: 0 30px;
+  min-width: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+.registerFirst.store .closeDialog {
+  right: 120px;
+  top: 215px;
+}
+.registerFirst.store .registerContent {
+  display: none;
+}
+.registerFirst.store .emailBtn {
+  margin: 0;
+}
+.registerFirst.store .signupBtns {
+  text-align: center;
+  position: relative;
+  left: 27px;
+}
+.registerFirst.step2 {
+  /*height: 942px; // height needed in order to vertically center
+            max-height: 98%;
+            overflow-x: hidden;
+            overflow-y: auto;*/
+  background: #fff;
+}
+.registerFirst.step2 .registerContent {
   display: block;
+}
+.registerFirst.step2:before {
+  display: none;
 }
 .welcomeStore {
   display: none;
   text-align: center;
-  color: #fff;
   font-size: 20px;
-  margin: 157px 0 15px;
+  margin: 200px auto 0;
   position: relative;
+  width: 328px;
+  left: 26px;
+}
+.welcomeStore .or {
+  color: #383838;
+  display: inline-block;
+  margin: 10px;
 }
 .storeTxt1 {
-  font-size: 38px;
-  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.8);
+  font-size: 60px;
+  color: #0f9d58;
+  font-weight: bold;
 }
 .storeTxt2 {
-  font-size: 26px;
-  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.8);
+  font-size: 28px;
+  color: #0f9d58;
+  font-weight: bold;
+  margin-top: -18px;
 }
 .storeTxt3 {
-  color: #0f9d58;
-  margin: 18px 0 8px;
+  font-size: 26px;
+  color: #39434a;
+  border-top: 1px solid #0f9d58;
+  border-bottom: 1px solid #0f9d58;
+  padding: 3px 0 4px;
+  margin: 5px 0 42px;
 }
 .storeTxt4 {
+  font-size: 20px;
   color: #39434a;
-  white-space: pre-wrap;
+  margin-bottom: 20px;
+}
+.couponWpr.couponWpr {
+  text-align: center;
+  position: relative;
+}
+.couponWpr.couponWpr .btn1 {
+  display: inline-block;
+  margin: 0;
+  width: auto;
+  height: 34px;
+  font-size: 18px;
+}
+.couponWpr.couponWpr .userHelp {
+  color: #39434a;
+  margin: 7px 0 0 0;
+  padding: 1px 0 0 0;
+  height: 20px;
+  width: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.couponWpr.couponWpr .helpPopup {
+  margin: 0;
+  top: -74px;
+}
+.couponWpr.couponWpr .helpPopup:before {
+  border-color: #0371c8 transparent transparent transparent;
+  top: auto;
+  bottom: -16px;
+  left: 20px;
+  right: auto;
+}
+.couponWpr.couponWpr .inputText {
+  width: 185px;
+  margin: 0;
+  display: inline-block;
+  vertical-align: top;
 }
 /*#endregion */
 .regFirstTxt {

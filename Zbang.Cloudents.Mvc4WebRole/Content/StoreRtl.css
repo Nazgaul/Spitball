@@ -9,40 +9,38 @@ header h1 {
 }
 /*#endregion */
 /*#region carousel */
-.widget .banner {
-  margin: 0 -1px 0 0;
-  /*rtl*/
+.widget.big .banner {
   border: none;
   border-left: 1px solid #39434a;
-  /*rtl*/
+}
+.widget.big .banner img {
+  right: 1px;
+  left: auto;
+}
+.widget .banner {
+  margin: 0 -1px 0 0;
 }
 .carousel.reverse .ng-hide-add.ng-hide-add-active {
   right: 100%;
-  /*rtl*/
   left: auto;
 }
 .carousel.reverse .ng-hide {
   right: -100%;
-  /*rtl*/
   left: auto;
 }
 .carouselBtns button {
-  margin: -2px 0 0 4px;
-  /*rtl*/
+  margin: 0 0 0 4px;
 }
 .slide {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 .slide.ng-hide-add.ng-hide-add-active {
   right: -100%;
-  /*rtl*/
   left: auto;
 }
 .slide.ng-hide {
   right: 100%;
-  /*rtl*/
   left: auto;
 }
 /*#endregion */
@@ -65,6 +63,7 @@ header h1 {
   /*rtl*/
   padding: 8px 12px 0 0;
   /*rtl*/
+  text-align: right;
 }
 .categoryList > li {
   border-left: 1px solid #fff;
@@ -78,10 +77,9 @@ header h1 {
 .categoryList > li:nth-child(6n) {
   border-left: none;
   /*rtl*/
-}
-.categoryList > li:nth-child(6n) ul {
-  margin: 0 0 0 -18px;
-  /*rtl*/
+  /*ul {
+                margin: 0 0 0 -18px; //rtl
+            }*/
 }
 /*#endregion */
 /*#region product list with hover */
@@ -107,11 +105,10 @@ header h1 {
 .productsList table {
   text-align: right;
   /*rtl*/
-}
-.productsList table:before {
-  right: 16px;
-  /*rtl*/
-  left: auto;
+  /*&:before {
+            right: 16px; 
+            left: auto;
+        }*/
 }
 .productHover {
   right: 0;

@@ -5,8 +5,6 @@
 <div class="storeWpr page">
     @{Html.RenderPartial("_Navigation");}
 
-
-    @*Add class big to show the bigger version of the widget*@
     <div class="widget">
         <div class="lFloat banner">
             @{
@@ -30,10 +28,11 @@
 
     <div class="productWpr">
         <h1>@Model.Name</h1>
-        <div class="left">
-            <div class="productInfoWpr">
-                @if (Model.Price > 0)
-                {
+        @if (Model.Price > 0)
+        {
+            <div class="left">
+                <div class="productInfoWpr">
+
                     <table class="productPrice">
                         <tr>
                             <td>@StoreResources.StudentPrice:</td>
@@ -51,48 +50,51 @@
                             <td>₪</td>
                         </tr>
                     </table>
-                }
-                <a href="@Url.RouteUrl("StoreCheckout",new {id=Model.Id, universityId = Request.QueryString["universityId"]})" class="btn3">@StoreResources.PurchaseNow</a>
-                <table class="productDetails">
-                    <tr>
-                        <td>@StoreResources.SerialNo:</td>
-                        <td>@Model.CatalogNumber</td>
-                    </tr>
-                    <tr>
-                        <td>@StoreResources.PaymentCond:</td>
-                        <td>@StoreResources.UpTo&nbsp;@Model.NumberofPayments @StoreResources.NoInterestInstall</td>
-                    </tr>
-                    @*<tr>
-                            <td>@StoreResources.Warranty:</td>
-                            <td>1 year - by the official importer</td>
-                        </tr>*@
-                    <tr>
-                        <td>@StoreResources.DeliveryTime:</td>
-                        <td>@StoreResources.UpTo&nbsp;@Model.SupplyTime @StoreResources.WorkDays</td>
-                    </tr>
-                    <tr>
-                        <td>@StoreResources.Supplier:</td>
-                        <td>New Vision Digital LTD</td>
-                    </tr>
-                    <tr>
-                        <td>@StoreResources.AdditionalInfo:</td>
-                        <td>09-8989567 <small>@StoreResources.WorkHours</small></td>
-                    </tr>
-                </table>
+
+                    <a href="@Url.RouteUrl("StoreCheckout", new {id = Model.Id, universityId = Request.QueryString["universityId"], producerId = Request.QueryString["producerId"]})" class="btn3">@StoreResources.PurchaseNow</a>
+                    <table class="productDetails">
+                        <tr>
+                            <td>@StoreResources.SerialNo:</td>
+                            <td>@Model.CatalogNumber</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.PaymentCond:</td>
+                            <td>@StoreResources.UpTo&nbsp;@Model.NumberofPayments @StoreResources.NoInterestInstall</td>
+                        </tr>
+                        @*<tr>
+                                <td>@StoreResources.Warranty:</td>
+                                <td>1 year - by the official importer</td>
+                            </tr>*@
+                        <tr>
+                            <td>@StoreResources.DeliveryTime:</td>
+                            <td>@StoreResources.UpTo&nbsp;@Model.SupplyTime @StoreResources.WorkDays</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.Supplier:</td>
+                            <td>@Model.ProducerName</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.AdditionalInfo:</td>
+                            <td>09-8989567 <small>@StoreResources.WorkHours</small></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
-        <div class="right">
-            <div class="imgWpr">
-                <img alt="" src="@Model.Picture" />
+       
+            <div class="right">
+                <div class="imgWpr">
+                    <img alt="" src="@Model.Picture" />
+                </div>
+                @*<img alt="" src="@Model.Picture" width="425" height="281" />*@
+                <div class="pNameWpr">
+                    <h3>@Model.ExtraDetails</h3>
+                </div>
             </div>
-            @*<img alt="" src="@Model.Picture" width="425" height="281" />*@
-            <div class="pNameWpr">
-                <h3>@Model.ExtraDetails</h3>
+        }
+            <div class="pDesc">
+                @Html.Raw(Model.Description)
             </div>
-        </div>
-        <div class="pDesc">
-            @Html.Raw(Model.Description)
-        </div>
+        
     </div>
 
     @{Html.RenderPartial("_Footer");}

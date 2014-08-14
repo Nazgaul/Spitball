@@ -13,25 +13,40 @@
 </div>
 <div class="staticWpr popupWrppr" id="register" ng-class="{store: $root.isStore()}">
     <div class="welcomeStore">
-        <div class="storeTxt1">@StoreResources.Welcome</div>
-        <div class="storeTxt2">@StoreResources.StudentDiscounts</div>
-        <div class="storeTxt3">@StoreResources.DiscountsForYou</div>
-        <div class="storeTxt4">@StoreResources.GetDiscounts</div>
-    </div>
-    <div class="regFirstTxt">
-        <div>@SharedResources.RegisterFirst</div>
-        <div>@SharedResources.RegisterFree</div>
-    </div>
-    <div class="enterTitle">@LogOnResources.CreateAccount</div>
-    <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
-    <button class="closeDialog" data-closelogin="close"></button>
-    <div class="emailBtnWpr">
-        <button class="emailBtn" type="button"><span class="emailImg"></span>@SharedResources.EmailSignUp</button>
-        <div class="registerContent">
-            <div class="enterForm" id="joinForm">
-                @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
-            </div>
-            <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
+        <div class="storeTxt1">@StoreResources.Description</div>
+        <div class="storeTxt2">@StoreResources.PayLess</div>
+        <div class="storeTxt3">@StoreResources.OnlyRegistered</div>
+        <div class="storeTxt4">@StoreResources.HowToBuy</div>
+        <div class="couponWpr">
+            <span class="userHelp">?</span>
+            <div class="helpPopup">@StoreResources.ToGetACoupon</div>
+            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון"  />
+            <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
+            
         </div>
+        <span class="or">@StoreResources.Or</span>
     </div>
-</div><div class="modal2"></div>
+
+    <div class="signInUp">
+        <div class="regFirstTxt">
+            <div>@SharedResources.RegisterFirst</div>
+            <div>@SharedResources.RegisterFree</div>
+        </div>
+        <div class="enterTitle">@LogOnResources.CreateAccount</div>
+    </div>
+    <button class="closeDialog" data-closelogin="close"></button>
+    <div class="signupBtns">
+        <div class="emailBtnWpr">
+            <button ng-click="$root.params.isStore = false" class="emailBtn" type="button"><span class="emailImg"></span>@SharedResources.EmailSignUp</button>
+            <div class="registerContent">
+                <div class="enterForm" id="joinForm">
+                    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
+                </div>
+                <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
+            </div>
+        </div>
+        <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
+    </div>
+</div>
+
+<div class="modal2"></div>

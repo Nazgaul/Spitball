@@ -1,6 +1,7 @@
 ﻿app.directive('userTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser', 'sUserDetails',
 function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
-    var tooltipTemplate = $templateCache.get('userToolTip.html');
+    var tooltipTemplate = $templateCache.get('userToolTip.html'),
+        showTooltip = 'showTooltip'
     return {
         restrict: 'A',
         link: function (scope, element, attributes) {
@@ -32,18 +33,18 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
 
                 hoverIntentPromise = $timeout(function () {
                     setPosition();
-                    tooltipElement.addClass('showTooltip');
+                    tooltipElement.addClass(showTooltip);
 
                     tooltipElement.on({
                         mouseenter: function () {
                             $timeout.cancel(leaveIntentPromise);
                         },
                         mouseleave: function () {
-                            tooltipElement.removeClass('showTooltip');
+                            tooltipElement.removeClass(showTooltip);
                         },
                         click: function () {
                             $timeout(function () {
-                                tooltipElement.removeClass('showTooltip')
+                                tooltipElement.removeClass(showTooltip);
                             });
                         }
 
@@ -53,7 +54,7 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
 
 
                 function setPosition() {
-                    var positionX, positionY,pos,offset,
+                    var positionX, positionY, pos, offset,
                     isLtr = $('html').css('direction') === 'ltr';
 
                     pos = element[0].getBoundingClientRect();
@@ -74,19 +75,18 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
                             positionX = pos.left - tooltipElement.outerWidth(true) + pos.width;
                         }
                     }
-                    
-
 
                     tooltipElement.css({ top: positionY, left: positionX });
                 }
 
 
             });
+
             element.on('mouseleave', function () {
                 $timeout.cancel(hoverIntentPromise);
 
                 leaveIntentPromise = $timeout(function () {
-                    tooltipElement.removeClass('showTooltip');
+                    tooltipElement.removeClass(showTooltip);
                 }, 250);
 
             });

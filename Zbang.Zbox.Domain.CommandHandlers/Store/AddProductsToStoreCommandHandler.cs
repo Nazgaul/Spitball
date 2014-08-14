@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.CatalogNumber,
                         productStore.DeliveryPrice,
                         productStore.ProducerName,
-                        productStore.Upgrades, productStore.UniversityId, productStore.CategoryOrder, productStore.Order);
+                        productStore.Upgrades, productStore.UniversityId, productStore.CategoryOrder, productStore.Order, productStore.ProducerId);
 
                 }
                 else
@@ -64,7 +64,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                             productStore.CatalogNumber,
                             productStore.DeliveryPrice,
                             productStore.ProducerName,
-                            productStore.Upgrades, productStore.UniversityId, productStore.Description, productStore.CategoryOrder, productStore.Order);
+                            productStore.Upgrades, productStore.UniversityId, productStore.Description, productStore.CategoryOrder,
+                            productStore.Order, productStore.PictureUrl, productStore.ProducerId);
                     }
                     else
                     {

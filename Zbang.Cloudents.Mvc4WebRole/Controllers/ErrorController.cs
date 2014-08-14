@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [CacheFilter]
+        [NoCache]
         public ActionResult MembersOnly(string returnUrl)
         {
             if (string.IsNullOrEmpty(returnUrl))

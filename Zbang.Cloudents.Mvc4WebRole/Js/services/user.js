@@ -67,6 +67,15 @@ mUser.factory('sUser', [
                     dfd.reject(response);
                 });
                 return dfd.promise;
+            },
+            departments: function (data) {
+                var dfd = $q.defer();
+                $http.get(User + 'AdminBoxes/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+                return dfd.promise;
             }
     };
 }

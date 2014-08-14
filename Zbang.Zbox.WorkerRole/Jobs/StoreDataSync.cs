@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -9,10 +10,8 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
-using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -22,6 +21,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IReadService m_ReadService;
         private readonly IBlobProductProvider m_BlobProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
+
+        private DateTime m_DateDiff = DateTime.UtcNow.AddYears(-1);
 
 
         public StoreDataSync(IReadService readService, IBlobProductProvider blobProvider,
@@ -46,15 +47,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             TraceLog.WriteInfo("Starting to bring data from Hatavot");
             var categoriesDto = m_ReadService.GetCategories();
 
-
             var categories = new List<Category>();
             var storeDto = new List<ProductDto>();
             foreach (var category in categoriesDto)
             {
                 categories.Add(new Category(category.Id, category.ParentId, category.Name, category.Order));
-                var items = m_ReadService.ReadData(category.Id);
+                var items = m_ReadService.ReadData(category.Id, m_DateDiff);
                 storeDto.AddRange(items);
             }
+
             try
             {
                 var categoriesCommand = new AddCategoriesCommand(categories);
@@ -71,8 +72,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 try
                 {
-                    var bytes = DownloadImage("http://www.hatavot.co.il/uploadimages/250/" + item.Image).Result;
-                    item.Image = m_BlobProvider.UploadFromLink(bytes, item.Image).Result;
+                    item.Image = ProcessImage(item.WideImage, item.Image).Result;
 
                     var upgrades = new List<KeyValuePair<string, string>>
                         {
@@ -86,7 +86,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                     int universityId;
                     int.TryParse(item.UniversityId, out universityId);
-                    
+
 
                     products.Add(new ProductStore(
                         item.CatalogNumber,
@@ -108,7 +108,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                          item.NotActive != "ON",
                          TryParseNullableInt(item.UniversityId),
                          item.Order,
-                         item.CategoryOrder
+                         item.CategoryOrder,
+                         item.ProducerId
                          ));
                 }
                 catch (Exception ex)
@@ -118,30 +119,62 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             try
             {
-                var command = new AddProductsToStoreCommand(products);
-                m_ZboxWriteService.AddProducts(command);
+                if (products.Count > 0)
+                {
+                    var command = new AddProductsToStoreCommand(products);
+                    m_ZboxWriteService.AddProducts(command);
+                }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On update products", ex);
             }
-
             ProcessBanners();
+            m_DateDiff = DateTime.UtcNow;
+            Thread.Sleep(TimeSpan.FromMinutes(3));
+        }
 
+        private async Task<string> ProcessImage(string wideImage, string image)
+        {
+            var bytes = await DownloadImage(wideImage, image);
+            return await m_BlobProvider.UploadFromLink(bytes, image);
+        }
 
-          Thread.Sleep(TimeSpan.FromHours(6));
+        private async Task<byte[]> DownloadImage(string wideImage, string image)
+        {
+            if (!string.IsNullOrEmpty(wideImage))
+            {
+                var wideImagebytes = await DownloadContent("http://www.hatavot.co.il/uploadimages/" + wideImage);
+                if (wideImagebytes != null)
+                {
+                    return wideImagebytes;
+                }
+            }
+            var bytes = await DownloadContent("http://www.hatavot.co.il/uploadimages/250/" + image);
+            if (bytes == null)
+            {
+                throw new NullReferenceException("Couldn't find image for " + image);
+            }
+            return bytes;
         }
 
         private void ProcessBanners()
         {
             TraceLog.WriteInfo("Bringing banners");
+           
             var banners = m_ReadService.GetBanners();
-
+           
+            
             var bannerCommand = new AddBannersCommand(banners.Select(s =>
             {
-                var bytes = DownloadImage("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
-                var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
-                return new Banner(s.Id, s.Url, image, s.Order, s.UniversityId);
+                //var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
+                //var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
+                return new Banner(s.Id, s.Url, s.Order, s.UniversityId, () =>
+                {
+                    var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
+                    var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
+                    return image;
+                });
             }));
             m_ZboxWriteService.AddBanners(bannerCommand);
         }
@@ -161,7 +194,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = false;
         }
 
-        private async Task<byte[]> DownloadImage(string imageUrl)
+        private async Task<byte[]> DownloadContent(string imageUrl)
         {
             if (string.IsNullOrEmpty(imageUrl))
             {
@@ -169,7 +202,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             using (var httpClient = new HttpClient())
             {
-                return await httpClient.GetByteArrayAsync(imageUrl);
+                var response = await httpClient.GetAsync(imageUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsByteArrayAsync();
+                }
+                return null;
             }
         }
     }
