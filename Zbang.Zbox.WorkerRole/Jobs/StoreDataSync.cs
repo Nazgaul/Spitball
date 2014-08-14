@@ -19,7 +19,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     public class StoreDataSync : IJob
     {
         private bool m_KeepRunning;
-        private int m_TimeToSyncInSeconds = 60;
+        private readonly int m_TimeToSyncInSeconds = 60;
         private readonly IReadService m_ReadService;
         private readonly IBlobProductProvider m_BlobProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
@@ -139,7 +139,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             sw.Stop();
             TraceLog.WriteInfo("sync from hatavot took " + sw.ElapsedMilliseconds + " milliseconds");
 
-            Thread.Sleep(TimeSpan.FromMinutes(m_TimeToSyncInSeconds));
+            Thread.Sleep(TimeSpan.FromSeconds(m_TimeToSyncInSeconds));
         }
 
         private async Task<string> ProcessImage(string wideImage, string image)
