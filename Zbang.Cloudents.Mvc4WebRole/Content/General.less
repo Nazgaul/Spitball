@@ -1169,8 +1169,11 @@ input[type="radio"] {
             vertical-align: top;
         }
         .closeDialog {
-            right: 120px; //rtl
-            top: 215px;
+            right: 112px; //rtl
+            top: 208px;
+            background: url(/Images/Store/social.png) 0 -292px no-repeat;
+            width: 25px;
+	        height: 25px;
         }
         .registerContent {
             display: none;
@@ -1263,13 +1266,15 @@ input[type="radio"] {
     }
     .helpPopup {
         margin:0;
-        top: -74px;
+        top: -77px;
+        right:0; //rtl
         &:before {
             border-color: @attentionBlue transparent transparent transparent;
             top: auto;
             bottom: -16px;
             left: 20px; //rtl
             right: auto;
+            border-width: 16px 9px 0 9px;
         }
     }
     .inputText { 
@@ -1277,6 +1282,7 @@ input[type="radio"] {
         margin:0;
         display: inline-block;
         vertical-align: top;
+        font-size: 18px;
     }
 }
 /*#endregion */

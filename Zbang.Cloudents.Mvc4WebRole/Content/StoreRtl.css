@@ -55,6 +55,10 @@ header h1 {
   /* diff rtl*/
   left: auto;
 }
+.categoryDD:after {
+  left: 0;
+  right: auto;
+}
 .categoryList ul {
   right: 0;
   /*rtl*/

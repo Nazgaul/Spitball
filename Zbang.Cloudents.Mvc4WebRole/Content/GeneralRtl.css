@@ -159,7 +159,7 @@ input[type="radio"] + label:before {
 }
 /*#region Welcome Store */
 .registerFirst.store .closeDialog {
-  left: 120px;
+  left: 112px;
   right: auto;
 }
 .registerFirst.store .signupBtns {
@@ -169,6 +169,10 @@ input[type="radio"] + label:before {
 .welcomeStore {
   right: 26px;
   left: auto;
+}
+.couponWpr.couponWpr .helpPopup {
+  left: 0 ;
+  right: auto;
 }
 .couponWpr.couponWpr .helpPopup:before {
   right: 20px;

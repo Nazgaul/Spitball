@@ -776,6 +776,7 @@
     <Content Include="Images\share-quiz.png" />
     <Content Include="Images\smartphone.png" />
     <Content Include="Images\sprite_browsericons.png" />
+    <Content Include="Images\Store\close.png" />
     <Content Include="Images\Store\fb-off.png" />
     <Content Include="Images\Store\fb-on.png" />
     <Content Include="Images\Store\logo.png" />

@@ -1104,8 +1104,11 @@ input[type="radio"][disabled] + label:before {
   vertical-align: top;
 }
 .registerFirst.store .closeDialog {
-  right: 120px;
-  top: 215px;
+  right: 112px;
+  top: 208px;
+  background: url(/Images/Store/social.png) 0 -292px no-repeat;
+  width: 25px;
+  height: 25px;
 }
 .registerFirst.store .registerContent {
   display: none;
@@ -1191,7 +1194,8 @@ input[type="radio"][disabled] + label:before {
 }
 .couponWpr.couponWpr .helpPopup {
   margin: 0;
-  top: -74px;
+  top: -77px;
+  right: 0;
 }
 .couponWpr.couponWpr .helpPopup:before {
   border-color: #0371c8 transparent transparent transparent;
@@ -1199,12 +1203,14 @@ input[type="radio"][disabled] + label:before {
   bottom: -16px;
   left: 20px;
   right: auto;
+  border-width: 16px 9px 0 9px;
 }
 .couponWpr.couponWpr .inputText {
   width: 185px;
   margin: 0;
   display: inline-block;
   vertical-align: top;
+  font-size: 18px;
 }
 /*#endregion */
 .regFirstTxt {
