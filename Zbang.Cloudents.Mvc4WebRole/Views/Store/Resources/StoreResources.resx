@@ -297,7 +297,7 @@
   </data>
   <data name="ToGetACoupon" xml:space="preserve">
     <value>לקבלת קוד קופון עליך להירשם לאתר
-או פנה לאגודת הסטודנטים בה אתה חבר</value>
+או פנה לאגודת הסטודנטים</value>
   </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>סה''כ לתשלום</value>
@@ -392,6 +392,9 @@
   </data>
   <data name="Enter" xml:space="preserve">
     <value>כנסו</value>
+  </data>
+  <data name="ExclusiveBenefits" xml:space="preserve">
+    <value>השגנו עבורכם הטבות בלעדיות!</value>
   </data>
   <data name="HowToBuy" xml:space="preserve">
     <value>איך רוכשים?</value>

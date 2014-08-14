@@ -163,10 +163,10 @@ input[type="radio"] {
     }
 }
 .emailImg {
-    right: 8px;
+    right: 4px;
     left: auto;
     &:after {
-        right: 31px; /*rtl*/
+        right: 35px; /*rtl*/
         left: auto;
     }
 }
@@ -174,18 +174,22 @@ input[type="radio"] {
 /*#region Welcome Store */
 .registerFirst {
     &.store {
+        
+        &:before {
+           margin: 0 auto 0 32px; //rtl (because image is not symmetrical)
+        }
         .closeDialog {
-            left: 120px; //rtl
+            left: 144px; //rtl
             right: auto;
         }
         .signupBtns {
-            right: 27px; //rtl
+            right: -6px; //rtl
             left: auto;
         }
     }
 }
 .welcomeStore {
-    right: 26px; //rtl
+    right: -5px; //rtl
     left: auto;
 }
 .couponWpr.couponWpr { //for more specificity

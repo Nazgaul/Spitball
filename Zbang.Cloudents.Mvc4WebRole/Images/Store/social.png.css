@@ -43,3 +43,18 @@ This is an example of how to use the image sprite in your own CSS files
 	height: 40px;
 	background: url('social.png') 0 -252px;
 }
+<<<<<<< HEAD
+=======
+.Images-Store-close {
+/* You may have to set 'display: block' */
+	width: 25px;
+	height: 25px;
+	background: url('social.png') 0 -292px;
+}
+.Images-Store-envelop {
+/* You may have to set 'display: block' */
+	width: 31px;
+	height: 26px;
+	background: url('social.png') 0 -317px;
+}
+>>>>>>> 78a02fcaf8b4864a43e3720d1355634db9b14054

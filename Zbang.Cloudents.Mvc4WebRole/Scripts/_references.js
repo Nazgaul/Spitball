@@ -320,7 +320,11 @@
 /// <reference path="../js/controllers/user/userctrl.js" />
 /// <reference path="../js/directives/store/productsmenu.js" />
 /// <reference path="../js/filters/store/percentage.js" />
+<<<<<<< HEAD
 >>>>>>> 31ffa60f03c6d66b9a2f9d8bceea757954944db5
+=======
+/// <reference path="../js/directives/store/categorylink.js" />
+>>>>>>> 78a02fcaf8b4864a43e3720d1355634db9b14054
 <<<<<<< HEAD
 /// <reference path="ng-scrollbar.js" />
 /// <reference path="stopwatch.js" />

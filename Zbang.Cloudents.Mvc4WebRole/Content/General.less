@@ -1146,6 +1146,7 @@ input[type="radio"] {
         background-color: transparent; //override
         border: none; //override
         
+        
         .welcomeStore {
             display: block;
         }
@@ -1165,9 +1166,10 @@ input[type="radio"] {
             top:0;
             left:0;right:0;
             margin: auto;
+            margin-right: 32px; //rtl (because image is not symmetrical)
         }
         .facebook, .emailBtnWpr {
-            width: 195px;
+            width: 210px;
             //margin: 0 auto;
             margin: 0 30px;
             min-width: 0;
@@ -1175,8 +1177,11 @@ input[type="radio"] {
             vertical-align: top;
         }
         .closeDialog {
-            right: 120px; //rtl
-            top: 215px;
+            right: 144px; //rtl
+            top: 208px;
+            background: url(/Images/Store/social.png) 0 -292px no-repeat;
+            width: 25px;
+	        height: 25px;
         }
         .registerContent {
             display: none;
@@ -1187,7 +1192,8 @@ input[type="radio"] {
         .signupBtns {
             text-align: center;
             position: relative;
-            left: 27px; //rtl
+            left: -6px; //rtl
+            top: 3px;
         }
     }
     &.step2 {
@@ -1210,8 +1216,8 @@ input[type="radio"] {
     font-size: 20px;
     margin: 200px auto 0;
     position: relative;
-    width: 328px;
-    left: 26px; //rtl
+    //width: 328px;
+    left: -5px; //rtl
     .or {
         color: @textColor;
         display: inline-block;
@@ -1223,6 +1229,8 @@ input[type="radio"] {
     font-size: 60px;
     color: @color;
     font-weight: bold;
+    position: relative;
+    top: -3px;
     //text-shadow: 0 3px 3px rgba(0,0,0,.8);
 }
 .storeTxt2 {
@@ -1238,8 +1246,11 @@ input[type="radio"] {
     border-top: 1px solid @color;
     border-bottom: 1px solid @color;
     padding: 3px 0 4px;
-    margin: 5px 0 42px;
-    //margin: 18px 0 8px;   
+    //margin: 5px 0 42px;
+    //margin: 18px 0 8px;  
+    //width: 363px;
+    display: inline-block;
+    margin: 5px auto 42px; 
 }
 .storeTxt4 {
     font-size: 20px;
@@ -1268,14 +1279,18 @@ input[type="radio"] {
         cursor: pointer;
     }
     .helpPopup {
-        margin:0;
-        top: -74px;
+        margin:auto;
+        top: -77px;
+        width: 315px;
+        left: 0;
+        right: 0;
         &:before {
             border-color: @attentionBlue transparent transparent transparent;
             top: auto;
             bottom: -16px;
             left: 20px; //rtl
             right: auto;
+            border-width: 16px 9px 0 9px;
         }
     }
     .inputText { 
@@ -1283,6 +1298,7 @@ input[type="radio"] {
         margin:0;
         display: inline-block;
         vertical-align: top;
+        font-size: 18px;
     }
 }
 /*#endregion */
@@ -1419,14 +1435,17 @@ input[type="radio"] {
     }
 }
 .emailImg {
-    width: 22px;
-    height: 17px;
+    //width: 22px;
+    //height: 17px;
     background-position: -131px -24px;
-    left: 8px; /*rtl*/
+    width: 31px;
+	height: 26px;
+    background: url(/Images/Store/social.png) 0 -317px no-repeat;
+    left: 4px; /*rtl*/
     &:after {
         background: #676767;
-        top: -6px;
-        left: 31px; /*rtl*/
+        top: -2px;
+        left: 35px; /*rtl*/
     }
 }
 .signIn, .register {

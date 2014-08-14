@@ -149,25 +149,28 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .emailImg {
-  right: 8px;
+  right: 4px;
   left: auto;
 }
 .emailImg:after {
-  right: 31px;
+  right: 35px;
   /*rtl*/
   left: auto;
 }
 /*#region Welcome Store */
+.registerFirst.store:before {
+  margin: 0 auto 0 32px;
+}
 .registerFirst.store .closeDialog {
-  left: 120px;
+  left: 144px;
   right: auto;
 }
 .registerFirst.store .signupBtns {
-  right: 27px;
+  right: -6px;
   left: auto;
 }
 .welcomeStore {
-  right: 26px;
+  right: -5px;
   left: auto;
 }
 .couponWpr.couponWpr .helpPopup:before {

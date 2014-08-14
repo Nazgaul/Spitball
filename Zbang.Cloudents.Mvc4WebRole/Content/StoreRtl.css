@@ -55,6 +55,10 @@ header h1 {
   /* diff rtl*/
   left: auto;
 }
+.categoryDD:after {
+  left: 0;
+  right: auto;
+}
 .categoryList ul {
   right: 0;
   /*rtl*/
@@ -160,10 +164,6 @@ header h1 {
 /*#region Checkout */
 .userHelp {
   margin: 2px 7px 0 0;
-  /*rtl*/
-}
-.helpPopup {
-  margin: 12px -28px 0 0;
   /*rtl*/
 }
 .helpPopup:before {

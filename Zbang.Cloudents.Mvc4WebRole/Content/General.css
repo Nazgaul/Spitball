@@ -1097,18 +1097,22 @@ input[type="radio"][disabled] + label:before {
   left: 0;
   right: 0;
   margin: auto;
+  margin-right: 32px;
 }
 .registerFirst.store .facebook,
 .registerFirst.store .emailBtnWpr {
-  width: 195px;
+  width: 210px;
   margin: 0 30px;
   min-width: 0;
   display: inline-block;
   vertical-align: top;
 }
 .registerFirst.store .closeDialog {
-  right: 120px;
-  top: 215px;
+  right: 144px;
+  top: 208px;
+  background: url(/Images/Store/social.png) 0 -292px no-repeat;
+  width: 25px;
+  height: 25px;
 }
 .registerFirst.store .registerContent {
   display: none;
@@ -1119,7 +1123,8 @@ input[type="radio"][disabled] + label:before {
 .registerFirst.store .signupBtns {
   text-align: center;
   position: relative;
-  left: 27px;
+  left: -6px;
+  top: 3px;
 }
 .registerFirst.step2 {
   /*height: 942px; // height needed in order to vertically center
@@ -1140,8 +1145,7 @@ input[type="radio"][disabled] + label:before {
   font-size: 20px;
   margin: 200px auto 0;
   position: relative;
-  width: 328px;
-  left: 26px;
+  left: -5px;
 }
 .welcomeStore .or {
   color: #383838;
@@ -1152,6 +1156,8 @@ input[type="radio"][disabled] + label:before {
   font-size: 60px;
   color: #0f9d58;
   font-weight: bold;
+  position: relative;
+  top: -3px;
 }
 .storeTxt2 {
   font-size: 28px;
@@ -1165,7 +1171,8 @@ input[type="radio"][disabled] + label:before {
   border-top: 1px solid #0f9d58;
   border-bottom: 1px solid #0f9d58;
   padding: 3px 0 4px;
-  margin: 5px 0 42px;
+  display: inline-block;
+  margin: 5px auto 42px;
 }
 .storeTxt4 {
   font-size: 20px;
@@ -1193,8 +1200,11 @@ input[type="radio"][disabled] + label:before {
   cursor: pointer;
 }
 .couponWpr.couponWpr .helpPopup {
-  margin: 0;
-  top: -74px;
+  margin: auto;
+  top: -77px;
+  width: 315px;
+  left: 0;
+  right: 0;
 }
 .couponWpr.couponWpr .helpPopup:before {
   border-color: #0371c8 transparent transparent transparent;
@@ -1202,12 +1212,14 @@ input[type="radio"][disabled] + label:before {
   bottom: -16px;
   left: 20px;
   right: auto;
+  border-width: 16px 9px 0 9px;
 }
 .couponWpr.couponWpr .inputText {
   width: 185px;
   margin: 0;
   display: inline-block;
   vertical-align: top;
+  font-size: 18px;
 }
 /*#endregion */
 .regFirstTxt {
@@ -1344,16 +1356,17 @@ input[type="radio"][disabled] + label:before {
   top: -3px;
 }
 .emailImg {
-  width: 22px;
-  height: 17px;
   background-position: -131px -24px;
-  left: 8px;
+  width: 31px;
+  height: 26px;
+  background: url(/Images/Store/social.png) 0 -317px no-repeat;
+  left: 4px;
   /*rtl*/
 }
 .emailImg:after {
   background: #676767;
-  top: -6px;
-  left: 31px;
+  top: -2px;
+  left: 35px;
   /*rtl*/
 }
 .signIn,

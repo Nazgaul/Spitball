@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -18,6 +19,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     public class StoreDataSync : IJob
     {
         private bool m_KeepRunning;
+        private readonly int m_TimeToSyncInSeconds = 60;
         private readonly IReadService m_ReadService;
         private readonly IBlobProductProvider m_BlobProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
@@ -31,6 +33,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_ReadService = readService;
             m_BlobProvider = blobProvider;
             m_ZboxWriteService = zboxWriteService;
+            var configurationValueOfHatavot = RoleEnvironment.GetConfigurationSettingValue("SyncHatavotTimeInSeconds");
+            int.TryParse(configurationValueOfHatavot, out m_TimeToSyncInSeconds);
+
         }
 
         public void Run()
@@ -44,17 +49,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private void BringData()
         {
-            TraceLog.WriteInfo("Starting to bring data from Hatavot");
-            var categoriesDto = m_ReadService.GetCategories();
+            var categoriesDto = m_ReadService.GetCategories().ToList();
 
             var categories = new List<Category>();
-            var storeDto = new List<ProductDto>();
-            foreach (var category in categoriesDto)
-            {
-                categories.Add(new Category(category.Id, category.ParentId, category.Name, category.Order));
-                var items = m_ReadService.ReadData(category.Id, m_DateDiff);
-                storeDto.AddRange(items);
-            }
+            var storeDto = m_ReadService.ReadData(categoriesDto.Select(s => s.Id), m_DateDiff);
+            //var storeDto = new List<ProductDto>();
+            categories.AddRange(categoriesDto.Select(category => new Category(category.Id, category.ParentId, category.Name, category.Order)));
 
             try
             {
@@ -65,7 +65,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 TraceLog.WriteError("On update categories", ex);
             }
-            TraceLog.WriteInfo("build command and download images");
             var products = new List<ProductStore>();
             foreach (var item in storeDto)
             {
@@ -130,8 +129,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 TraceLog.WriteError("On update products", ex);
             }
             ProcessBanners();
-            m_DateDiff = DateTime.UtcNow;
-            Thread.Sleep(TimeSpan.FromMinutes(3));
+            m_DateDiff = DateTime.UtcNow.AddMinutes(-30);
+
+            Thread.Sleep(TimeSpan.FromSeconds(m_TimeToSyncInSeconds));
         }
 
         private async Task<string> ProcessImage(string wideImage, string image)
@@ -160,11 +160,10 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private void ProcessBanners()
         {
-            TraceLog.WriteInfo("Bringing banners");
-           
+
             var banners = m_ReadService.GetBanners();
-           
-            
+
+
             var bannerCommand = new AddBannersCommand(banners.Select(s =>
             {
                 //var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;

@@ -70,7 +70,7 @@
                 @RenderSection("search", false)
             </div>
         </div>
-        <h1 ng-class="{showStore : $root.isStore()}">@StoreResources.Description</h1>
+        <h1 ng-class="{showStore : $root.isStore()}"><a href="@Url.RouteUrl("StoreRoot")">@StoreResources.Description</a></h1>
     </header>
     <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
         @RenderBody()

@@ -28,6 +28,8 @@
     <file>/Images/Store/tw-on.png</file>
     <file>/Images/Store/yt-off.png</file>
     <file>/Images/Store/yt-on.png</file>
-  <file>/Images/Store/logo.png</file>
+    <file>/Images/Store/logo.png</file>
+    <file>/Images/Store/close.png</file>
+    <file>/Images/Store/envelop.png</file>
   </files>
 </sprite>

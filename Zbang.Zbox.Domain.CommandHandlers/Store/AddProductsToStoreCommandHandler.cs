@@ -2,6 +2,7 @@
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Store
 {
@@ -26,6 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
             }
             foreach (var productStore in message.ProductStores)
             {
+                TraceLog.WriteInfo("Process product id: " + productStore.Id);
                 var product = m_ProductRepository.Get(productStore.Id); //use get to get existence in db
 
                 if (product == null)

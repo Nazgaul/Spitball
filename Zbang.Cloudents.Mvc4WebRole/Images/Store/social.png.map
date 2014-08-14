@@ -48,6 +48,20 @@
       "height": 40,
       "offsetX": 0,
       "offsetY": 252
+    },
+    {
+      "name": "/Images/Store/close.png",
+      "width": 25,
+      "height": 25,
+      "offsetX": 0,
+      "offsetY": 292
+    },
+    {
+      "name": "/Images/Store/envelop.png",
+      "width": 31,
+      "height": 26,
+      "offsetX": 0,
+      "offsetY": 317
     }
   ]
 }

@@ -295,6 +295,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to השגנו עבורכם הטבות בלעדיות!.
+        /// </summary>
+        public static string ExclusiveBenefits {
+            get {
+                return ResourceManager.GetString("ExclusiveBenefits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to אנא מלא את פרטיך לצורך השלמת הרכישה..
         /// </summary>
         public static string FillDetails {
@@ -763,7 +772,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to לקבלת קוד קופון עליך להירשם לאתר
-        ///או פנה לאגודת הסטודנטים בה אתה חבר.
+        ///או פנה לאגודת הסטודנטים.
         /// </summary>
         public static string ToGetACoupon {
             get {

@@ -13,7 +13,9 @@
                 store: {}
             }
 
-            $rootScope.params = {};
+            $rootScope.params = {
+                store: {}
+            };
 
             $rootScope.back = {};
 
