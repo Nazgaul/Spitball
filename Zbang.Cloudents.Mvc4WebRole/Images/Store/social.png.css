@@ -1,3 +1,45 @@
 ﻿/*
-@import this file directly into your existing Less files to use these mixins
+This is an example of how to use the image sprite in your own CSS files
 */
+.Images-Store-fb-off {
+/* You may have to set 'display: block' */
+	width: 42px;
+	height: 42px;
+	background: url('social.png') 0 0;
+}
+.Images-Store-fb-on {
+/* You may have to set 'display: block' */
+	width: 42px;
+	height: 42px;
+	background: url('social.png') 0 -42px;
+}
+.Images-Store-tw-off {
+/* You may have to set 'display: block' */
+	width: 42px;
+	height: 42px;
+	background: url('social.png') 0 -84px;
+}
+.Images-Store-tw-on {
+/* You may have to set 'display: block' */
+	width: 42px;
+	height: 42px;
+	background: url('social.png') 0 -126px;
+}
+.Images-Store-yt-off {
+/* You may have to set 'display: block' */
+	width: 42px;
+	height: 42px;
+	background: url('social.png') 0 -168px;
+}
+.Images-Store-yt-on {
+/* You may have to set 'display: block' */
+	width: 42px;
+	height: 42px;
+	background: url('social.png') 0 -210px;
+}
+.Images-Store-logo {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 40px;
+	background: url('social.png') 0 -252px;
+}
