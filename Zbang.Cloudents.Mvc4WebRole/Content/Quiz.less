@@ -649,6 +649,7 @@ body.quiz {
         height: 100%;
         background: none;
         border: none;
+        width: 343px;
     }
 
     .itemPrint.iconTop {
@@ -683,7 +684,7 @@ body.quiz {
     }
     .itemNameWpr {
         position: relative;
-        padding: 15px 0 15px 90px;
+        padding: 28px 0 15px 90px; //rtl
         .boxSizing;
         height: auto; //override
         //width: 174px;
@@ -699,9 +700,18 @@ body.quiz {
         }
     }
     .quizViews {
+        margin-top: 29px;
+        text-align: center;
+        line-height: 11px;
+        width: 80px;
+        position: relative;
+        border-left: 1px solid #fff;
         &:before {
+            //position: absolute;
+            margin: auto;
+            //left:0;right:0;
             display: block;
-            width: 38px;
+            width: 80px;
 	        height: 23px;
 	        background-position: 0 -49px;
             margin-bottom: 5px;
@@ -710,12 +720,15 @@ body.quiz {
     .item-name {
         font-weight: bold;
         color: #fff;
+        font-size: 16px;
+        display: block; // for ellipsis
     }
     .itemOwner {
         font-size: 12px;
         max-width: 90px;
         + .rFloat {
             font-size: 12px;
+            margin-top: 6px;
         }
     }
     

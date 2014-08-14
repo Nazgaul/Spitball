@@ -661,6 +661,7 @@ body.quiz .shareBtn {
   height: 100%;
   background: none;
   border: none;
+  width: 343px;
 }
 .quizPage .itemPrint.iconTop {
   margin-top: 11px;
@@ -687,7 +688,7 @@ body.quiz .shareBtn {
 }
 .quizPage .itemNameWpr {
   position: relative;
-  padding: 15px 0 15px 90px;
+  padding: 28px 0 15px 90px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -702,9 +703,18 @@ body.quiz .shareBtn {
   height: 64px;
   background-position: 0 -72px;
 }
+.quizPage .quizViews {
+  margin-top: 29px;
+  text-align: center;
+  line-height: 11px;
+  width: 80px;
+  position: relative;
+  border-left: 1px solid #fff;
+}
 .quizPage .quizViews:before {
+  margin: auto;
   display: block;
-  width: 38px;
+  width: 80px;
   height: 23px;
   background-position: 0 -49px;
   margin-bottom: 5px;
@@ -712,6 +722,8 @@ body.quiz .shareBtn {
 .quizPage .item-name {
   font-weight: bold;
   color: #fff;
+  font-size: 16px;
+  display: block;
 }
 .quizPage .itemOwner {
   font-size: 12px;
@@ -719,6 +731,7 @@ body.quiz .shareBtn {
 }
 .quizPage .itemOwner + .rFloat {
   font-size: 12px;
+  margin-top: 6px;
 }
 .checkQuiz .userScore,
 .checkQuiz .resultsWpr,
