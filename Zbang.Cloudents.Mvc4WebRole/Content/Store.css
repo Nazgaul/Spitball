@@ -25,7 +25,7 @@ header h1 {
   /*rtl*/
 }
 header h1.showStore {
-  display: block;
+  display: inline-block;
   position: relative;
   z-index: 1;
 }

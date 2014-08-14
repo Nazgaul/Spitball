@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1352,16 +1352,17 @@ input[type="radio"][disabled] + label:before {
   top: -3px;
 }
 .emailImg {
-  width: 22px;
-  height: 17px;
   background-position: -131px -24px;
-  left: 8px;
+  width: 31px;
+  height: 26px;
+  background: url(/Images/Store/social.png) 0 -317px no-repeat;
+  left: 4px;
   /*rtl*/
 }
 .emailImg:after {
   background: #676767;
-  top: -6px;
-  left: 31px;
+  top: -2px;
+  left: 35px;
   /*rtl*/
 }
 .signIn,
@@ -2670,3 +2671,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

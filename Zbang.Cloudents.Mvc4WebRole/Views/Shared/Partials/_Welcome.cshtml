@@ -15,7 +15,7 @@
     <div class="welcomeStore">
         <div class="storeTxt1">@StoreResources.Description</div>
         <div class="storeTxt2">@StoreResources.PayLess</div>
-        <div class="storeTxt3">@StoreResources.OnlyRegistered</div>
+        <div class="storeTxt3">@StoreResources.ExclusiveBenefits</div>
         <div class="storeTxt4">@StoreResources.HowToBuy</div>
         <div class="couponWpr">
             <span class="userHelp">?</span>
@@ -36,6 +36,7 @@
     </div>
     <button class="closeDialog" data-closelogin="close"></button>
     <div class="signupBtns">
+        <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
         <div class="emailBtnWpr">
             <button ng-click="$root.params.isStore = false" class="emailBtn" type="button"><span class="emailImg"></span>@SharedResources.EmailSignUp</button>
             <div class="registerContent">
@@ -45,7 +46,7 @@
                 <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
             </div>
         </div>
-        <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
+        
     </div>
 </div>
 

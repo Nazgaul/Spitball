@@ -149,11 +149,11 @@ input[type="radio"] + label:before {
   left: auto;
 }
 .emailImg {
-  right: 8px;
+  right: 4px;
   left: auto;
 }
 .emailImg:after {
-  right: 31px;
+  right: 35px;
   /*rtl*/
   left: auto;
 }
