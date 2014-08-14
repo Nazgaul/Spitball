@@ -51,10 +51,10 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             var sw = new Stopwatch();
             sw.Start();
-            var categoriesDto = m_ReadService.GetCategories();
+            var categoriesDto = m_ReadService.GetCategories().ToList();
 
             var categories = new List<Category>();
-            var storeDto = m_ReadService.ReadData(categories.Select(s => s.Id), m_DateDiff);
+            var storeDto = m_ReadService.ReadData(categoriesDto.Select(s => s.Id), m_DateDiff);
             //var storeDto = new List<ProductDto>();
             categories.AddRange(categoriesDto.Select(category => new Category(category.Id, category.ParentId, category.Name, category.Order)));
 
