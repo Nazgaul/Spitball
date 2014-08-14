@@ -10,6 +10,7 @@
       <Setting name="StorageConnectionString" />
       <Setting name="StorageCdnEndpoint" />
       <Setting name="ZBox" />
+      <Setting name="SyncHatavotTimeInSeconds" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="500" />
