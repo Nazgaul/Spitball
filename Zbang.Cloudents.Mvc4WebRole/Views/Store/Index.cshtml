@@ -5,26 +5,48 @@
 <div class="storeWpr page" ng-class="{noBanners : hideBanners()}">
     @{Html.RenderPartial("_Navigation");}
 
+
+    @*<div class="widget">
+        <div class="lFloat banner">
+            @{
+                var banner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Top);
+                if (banner != null)
+                {
+                    if (string.IsNullOrEmpty(banner.Url))
+                    {
+                        <img src="@banner.ImageUrl" alt="" />
+                    }
+                    else
+                    {
+                        <a href="@banner.Url" target="_blank">
+                            <img src="@banner.ImageUrl" alt="" />
+                        </a>
+                    }
+                }
+            }
+        </div>
+    </div>*@
+
     @*Add class big to show the bigger version of the widget*@
     <div class="widget big">
         <div class="lFloat banner">
+            @*<img alt="" width="320" height="210" src="http://placehold.it/320x210" />*@
             @{
                 var topRightBanner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopRight);
                 if (topRightBanner != null)
                 {
                     if (string.IsNullOrEmpty(topRightBanner.Url))
                     {
-                        <img src="@topRightBanner.ImageUrl" alt="" />
+                        <img src="@topRightBanner.ImageUrl" alt="" width="320" height="210" />
                     }
                     else
                     {
                         <a href="@topRightBanner.Url" target="_blank">
-                            <img src="@topRightBanner.ImageUrl" alt="" />
+                            <img src="@topRightBanner.ImageUrl" alt="" width="320" height="210" />
                         </a>
                     }
                 }
             }
-
         </div>
         @{
             var imageIndex = 0;
@@ -34,12 +56,12 @@
             {
                 if (string.IsNullOrEmpty(image.Url))
                 {
-                    <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                    <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)"  />
                 }
                 else
                 {
                     <a href="@image.Url" target="_blank">
-                        <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
+                        <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)"  />
                     </a>
                 }
                 imageIndex++;
@@ -55,6 +77,7 @@
         </div>
 
     </div>
+
     @*Add class "showResults" to show the results of the search query (and hide original product list)*@
     <form class="searchForm" id="">
         <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
@@ -63,33 +86,35 @@
     <div class="productsListWpr">
         <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
             <li ng-repeat="product in products | limitTo: params.maxProducts">
-                <a bo-href="product.url + (params.universityId ? '?universityId=' + params.universityId : '')" href="">
+                <a bo-href="product.url + urlQueryString()" href="">
                     <img bo-src="product.pictureUrl" alt="" />
-                    <div class="desc">
-                        <div class="" bo-text="product.name"></div>
-                        <p class="hoverDesc" bo-text="product.extraDetails"></p>
+                    <div class="pContent">
+                        <div class="desc">
+                            <div class="" bo-text="product.name"></div>
+                            <p class="hoverDesc" bo-text="product.extraDetails"></p>
+                        </div>
+                        <table bo-if="product.salePrice > 0">
+                            <tr>
+                                <td>@StoreResources.RegPrice:</td>
+                                <td bo-text="(product.salePrice | currency:'').slice(0,-3)"></td>
+                                <td>₪</td>
+                            </tr>
+                            @*V19.0.2*@
+                            @*<tr>
+                        <td>@StoreResources.Coupon:</td>
+                        <td bo-text="product.coupon"></td>
+                        <td>₪</td>
+                    </tr>*@
+                            <tr>
+                                <td>@StoreResources.StudentPrice:</td>
+                                <td bo-text="(product.salePrice - product.coupon | currency:'').slice(0,-3)"></td>
+                                <td>₪</td>
+                            </tr>
+                        </table>
                     </div>
-                    <table bo-if="product.salePrice > 0">
-                        <tr>
-                            <td>@StoreResources.RegPrice:</td>
-                            <td bo-text="product.salePrice"></td>
-                            <td>₪</td>
-                        </tr>
-                        <tr>
-                            <td>@StoreResources.Coupon:</td>
-                            <td bo-text="product.coupon"></td>
-                            <td>₪</td>
-                        </tr>
-                        <tr>
-                            <td>@StoreResources.StudentPrice:</td>
-                            <td bo-text="product.salePrice - product.coupon"></td>
-                            <td>₪</td>
-                        </tr>
-                    </table>
-
                     <div class="productHover">
 
-                        <span class="lFloat" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
+                        <span class="lFloat" bo-if="product.salePrice > 0" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
                         <span class="lFloat sale" bo-if="product.salePrice > 0" bo-text="product.coupon / product.salePrice | percentage:0:'@StoreResources.Off'"></span> @*0 is the digits after the dot, % off is suffix*@
                         <div class="moreDetailsWpr">
                             @StoreResources.MoreDetails
@@ -99,7 +124,7 @@
             </li>
             <li class="noResults"><div class="emptySearch">@SharedResources.NoResults</div></li>
         </ul>
-        @foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
+        @*@foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
         {
             <div class="placeholder">
                 @if (string.IsNullOrEmpty(banner.Url))
@@ -113,7 +138,7 @@
                     </a>
                 }
             </div>
-        }
+        }*@
     </div>
     @{Html.RenderPartial("_Footer");}
 </div>

@@ -297,7 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region AccountSettings
         [ZboxAuthorize, UserNavNWelcome, NoUniversity]
-        [CacheFilter]
+        [NoCache]
         public ActionResult Settings()
         {
             var userId = GetUserId();
@@ -548,7 +548,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [NonAjax]
-        [HttpGet, CacheFilter(Duration = 0)]
+        [HttpGet, NoCache]
         public ActionResult Confirmation()
         {
             if (User.Identity.IsAuthenticated)

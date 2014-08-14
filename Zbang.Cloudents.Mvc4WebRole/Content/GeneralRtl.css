@@ -157,6 +157,24 @@ input[type="radio"] + label:before {
   /*rtl*/
   left: auto;
 }
+/*#region Welcome Store */
+.registerFirst.store .closeDialog {
+  left: 120px;
+  right: auto;
+}
+.registerFirst.store .signupBtns {
+  right: 27px;
+  left: auto;
+}
+.welcomeStore {
+  right: 26px;
+  left: auto;
+}
+.couponWpr.couponWpr .helpPopup:before {
+  right: 20px;
+  left: auto;
+}
+/*#endregion */
 .emailBtn {
   padding: 7px 53px 8px 15px;
   /*rtl*/

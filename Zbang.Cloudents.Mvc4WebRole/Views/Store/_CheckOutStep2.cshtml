@@ -47,7 +47,7 @@
     <div class="lFloat" ng-class="{error : submitted && detailsForm.CreditCardNumber.$error.required}">
         @Html.LabelFor(f => f.CreditCardNumber)
         <span class="required">@DialogResources.RequiredField</span>
-        @Html.TextBoxFor(f => f.CreditCardNumber, new { @class = "inputText", ng_model = "formData.creditCardNumber", required = "required" })
+        @Html.TextBoxFor(f => f.CreditCardNumber, new { @class = "inputText", ng_model = "formData.creditCardNumber", required = "required", maxlength = "16" })
     </div>
     <div class="lFloat" ng-class="{error : submitted && (detailsForm.ExpirationYear.$error.required || detailsForm.ExpirationMonth.$error.required)}">
         <label>@StoreResources.Vaildity</label>
@@ -107,8 +107,7 @@
         <span class="required">@DialogResources.RequiredField</span>
         <span>@StoreResources.BillMe</span>
         <select ng-model="formData.numberOfPayments" name="NumberOfPayments" required>
-            <option value=""></option>
-            @for (int i = 1; i < (int)ViewBag.NumberOfPayments; i++)
+            @for (int i = 1; i <= (int)ViewBag.NumberOfPayments; i++)
             {
                 <option value="@i">@i</option>
             }
@@ -116,5 +115,5 @@
         <span>@StoreResources.Installments</span>
     </div>
     <div class="lFloat secureTxt">@StoreResources.SecuredPage</div>
-    <button class="rFloat btn1" type="submit" ng-click="submitted=true">@StoreResources.Order</button>
+    <button class="rFloat btn1" ng-disabled="order.buttonDisabled" type="submit" ng-click="submitted=true">@StoreResources.Order</button>
 </form>

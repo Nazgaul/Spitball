@@ -28,7 +28,11 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 {
                     if (!RunningInWeb)
                     {
-                        return _localData ?? (_localData = new Hashtable());
+                        if (_localData == null)
+                        {
+                            _localData = new Hashtable();
+                        }
+                        return _localData;
                     }
                     var webHashtable = HttpContext.Current.Items[LocalDataHashtableKey] as Hashtable;
                     if (webHashtable == null)
@@ -42,8 +46,16 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
             public object this[object key]
             {
-                get { return LocalHashtable[key]; }
-                set { LocalHashtable[key] = value; }
+                get
+                {
+                    if (key == null) throw new ArgumentNullException("key");
+                    return LocalHashtable[key];
+                }
+                set
+                {
+                    if (key == null) throw new ArgumentNullException("key");
+                    LocalHashtable[key] = value;
+                }
             }
 
             public int Count

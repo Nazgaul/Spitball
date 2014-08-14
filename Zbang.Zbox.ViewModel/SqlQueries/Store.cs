@@ -15,6 +15,18 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         and (universityid is null or universityid = @universityId)
         order by ProductOrder, SalePrice";
 
+       public const string GetProductsBySupplier = @"SELECT [ProductId] as Id
+      ,[Name]
+      ,[ExtraDetails]
+      ,[NumberOfSales]
+      ,[Coupon]
+      ,[SalePrice]
+      ,[PictureUrl]
+      ,[Url]
+        FROM [Zbox].[StoreProduct] where producerid = @producerId
+        and (universityid is null or universityid = @universityId)
+        order by ProductOrder, SalePrice";
+
        public const string GetProductsWithCategory = @"SELECT s.[ProductId] as Id
       ,[Name]
       ,[ExtraDetails]
@@ -28,12 +40,13 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         and (universityid is null or universityid = @universityId)
         order by categoryorder, SalePrice";
 
-       public const string GetCategories = @"SELECT  catid as id, parentid, name, url as Url
+
+       public const string GetCategories = @"SELECT  catid as id, parentid, name
   FROM [Zbox].[StoreCat]
   order by catorder";
 
        public const string GetProduct = @"SELECT Name,ExtraDetails,description, SalePrice - Coupon as price, 
-deliveryprice,catalognumber,numberofpayments,supplytime, [PictureUrl] as picture
+deliveryprice,catalognumber,numberofpayments,supplytime, [PictureUrl] as picture, ProducerName
   FROM [Zbox].[StoreProduct] s where s.ProductId = @ProdId";
 
        public const string GetProductCheckOut = @"SELECT 

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Store.Dto;
 
 namespace Zbang.Zbox.Store.Services
 {
     public interface IReadService
     {
-        IEnumerable<ProductDto> ReadData(int category);
+        IEnumerable<ProductDto> ReadData(int category, DateTime diffTime);
         IEnumerable<CategoryDto> GetCategories();
 
         IEnumerable<BannerDto> GetBanners();

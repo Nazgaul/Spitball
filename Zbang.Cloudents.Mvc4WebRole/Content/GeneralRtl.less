@@ -174,12 +174,29 @@ input[type="radio"] {
 /*#region Welcome Store */
 .registerFirst {
     &.store {
-        &:before {
-            right:-1px; /*rtl*/
+        .closeDialog {
+            left: 120px; //rtl
+            right: auto;
+        }
+        .signupBtns {
+            right: 27px; //rtl
             left: auto;
         }
+    }
 }
+.welcomeStore {
+    right: 26px; //rtl
+    left: auto;
+}
+.couponWpr.couponWpr { //for more specificity
+    .helpPopup {
+        &:before {
+            right: 20px; //rtl
+            left: auto;
+        }
+    }
 
+}
 /*#endregion */
 
 .emailBtn {

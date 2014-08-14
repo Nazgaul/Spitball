@@ -2,13 +2,17 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-body {
-  color: #39434a;
-  background: #f6f6f6;
-}
 body.store,
 .store .siteHeader {
   min-width: 940px;
+}
+body.store {
+  color: #39434a;
+}
+.store .bodyContent {
+  background: #fff;
+  min-height: 100%;
+  height: auto;
 }
 /*#region header */
 header h1 {
@@ -49,13 +53,22 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.storeNav ul {
+.storeNav .navLinks {
   text-align: justify;
 }
-.storeNav ul:after {
+.storeNav .navLinks:after {
   content: '';
   display: inline-block;
   width: 100%;
+}
+.storeNav .navLinks li {
+  display: inline;
+}
+.storeNav .navLinks li:after {
+  content: ' ';
+}
+.storeNav .navLinks a {
+  display: inline-block;
 }
 .storeNav.showProducts .categoryDD {
   display: block;
@@ -92,6 +105,29 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.widget.big {
+  height: 210px;
+}
+.widget.big .banner {
+  width: 320px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid #39434a;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.widget.big .banner img {
+  left: 1px;
+  top: -1px;
+  width: 320px;
+  height: 210px;
+}
+.widget.big img {
+  border: none;
+}
 .widget .carousel {
   width: 619px;
   height: 100%;
@@ -101,21 +137,12 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.widget.big {
-  height: 391px;
-}
-.widget.big .banner {
-  width: 320px;
-  height: 100%;
-}
 .widget img {
   position: absolute;
-  z-index: -1;
+  border: 1px solid #39434a;
 }
 .widget .banner {
   margin-left: -1px;
-  /*rtl*/
-  border-right: 1px solid #39434a;
   /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -126,26 +153,23 @@ main {
 }
 .carousel.reverse .ng-hide-add.ng-hide-add-active {
   left: 100%;
-  /*rtl*/
 }
 .carousel.reverse .ng-hide {
   left: -100%;
-  /*rtl*/
 }
 .carouselBtns {
   position: absolute;
-  bottom: 10px;
+  bottom: 4px;
   left: 0;
   right: 0;
   margin: auto;
 }
 .carouselBtns button {
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   vertical-align: middle;
-  margin: -2px 4px 0 0;
-  /*rtl*/
+  margin: 0 4px 0 0;
   border: 1px solid #39434a;
   padding: 3px;
   border-radius: 100%;
@@ -169,21 +193,15 @@ main {
   -o-transition: all 0.5s linear;
   transition: all 0.5s linear;
   left: 0;
-  /*rtl*/
 }
 .slide.ng-hide-add.ng-hide-add-active {
   left: -100%;
-  /*rtl*/
 }
 .slide.ng-hide {
   left: 100%;
-  /*rtl*/
 }
 .slide.ng-hide-add,
 .slide.ng-hide-remove {
-  /* this needs to be here to make it visible during the animation
-     since the .ng-hide class is already on the element rendering
-     it as hidden. */
   display: block!important;
 }
 /*#endregion */
@@ -275,6 +293,7 @@ main {
   /*rtl*/
   padding: 8px 0 0 12px;
   /*rtl*/
+  text-align: left;
 }
 .categoryList ul:after {
   content: '';
@@ -343,9 +362,7 @@ main {
   /*rtl*/
 }
 .categoryList > li:nth-child(6n) ul {
-  width: 168px;
-  margin-right: -18px;
-  /*rtl*/
+  width: 169px;
 }
 .categoryList > li:nth-child(n + 7) {
   border-bottom: none;
@@ -399,6 +416,7 @@ main {
 /*#endregion */
 /*#region product list with hover */
 .placeholder {
+  display: none;
   width: 460px;
   height: 120px;
   position: absolute;
@@ -415,6 +433,9 @@ main {
 }
 .productsList {
   font-size: 18px;
+  /*tr:nth-child(3) td {
+        color: @color;
+    }*/
 }
 .productsList li {
   position: relative;
@@ -423,16 +444,16 @@ main {
   display: inline-block;
   background: #fff;
   margin-bottom: 20px;
-  border: 1px solid #0f9d58;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   text-align: center;
   vertical-align: top;
   overflow: hidden;
-}
-.productsList li:nth-child(3) {
-  margin-bottom: 170px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  /*&:nth-child(3) {
+            margin-bottom: 170px;
+        }*/
 }
 .productsList li:nth-child(3n + 2) {
   margin: 0 20px 20px 20px;
@@ -468,19 +489,23 @@ main {
   display: inline-block;
   vertical-align: middle;
 }
+.productsList .pContent {
+  background: #f2f2f2;
+  width: 300px;
+  height: 151px;
+}
 .productsList .desc {
   -webkit-transition: all 0.01s 0.3s ease-out;
   -moz-transition: all 0.01s 0.3s ease-out;
   -o-transition: all 0.01s 0.3s ease-out;
   transition: all 0.01s 0.3s ease-out;
-  font-size: 22px;
-  padding: 6px 18px 0;
+  font-size: 18px;
+  padding: 16px 18px 0;
   text-align: left;
   /*rtl*/
   top: 0;
   line-height: 25px;
-  height: 56px;
-  overflow: hidden;
+  height: 66px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -500,22 +525,24 @@ main {
   position: relative;
   text-align: left;
   /*rtl*/
-}
-.productsList table:before {
-  content: '';
-  display: inline-block;
-  width: 265px;
-  height: 1px;
-  position: absolute;
-  top: 7px;
-  left: 16px;
-  /*rtl*/
-  background: #999;
+  margin-top: 4px;
+  /*&:before {
+            .pseudo;
+            width: 265px;
+            height: 1px;
+            position: absolute;
+            top: 7px;
+            left: 16px; 
+            background: #999;
+        }*/
 }
 .productsList tr:nth-child(1) td {
   color: #999;
 }
-.productsList tr:nth-child(3) td {
+.productsList tr:nth-child(1) td:nth-child(2) {
+  text-decoration: line-through;
+}
+.productsList tr:nth-child(2) td {
   color: #0f9d58;
 }
 .productsList td {
@@ -894,11 +921,6 @@ main {
   position: relative;
   top: -1px;
 }
-.userOrder .inputText,
-.userDetails .inputText,
-.contact .inputText {
-  height: 32px;
-}
 .userOrder label,
 .userDetails label,
 .contact label {
@@ -912,13 +934,13 @@ main {
 .userOrder {
   width: 940px;
   border: 1px solid #39434a;
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-bottom: 30px;
   background: #fff;
-  padding: 0 20px;
+  padding: 0 20px 485px 20px;
   font-size: 18px;
 }
 .userHelp {
@@ -1005,11 +1027,37 @@ main {
 .orderTable {
   width: 100%;
   border-collapse: collapse;
-}
-.orderTable .btn1 {
-  font-size: 28px;
-  display: block;
-  width: 100%;
+  /*.orderRow2, .orderRow4 {
+        &:after {
+            .pseudo;
+            height: 6px;
+            width: 900px;
+            background: silver;
+            border-radius: 3px;
+            position: absolute;
+            right: 0;
+            left: 0;
+            margin: auto;
+        }
+    }
+    .orderRow1 {
+        td:last-child {
+            text-align: center;
+        }
+    }
+    .orderRow2 {
+        td {
+            &:nth-child(1) {
+                padding-top: 26px; // take into account the absolute hr
+            }
+        }
+    }
+    .orderRow3 {
+
+    }
+    .orderRow4 {
+
+    }*/
 }
 .orderTable input,
 .orderTable select {
@@ -1023,6 +1071,10 @@ main {
 .orderTable td {
   border-bottom: 1px solid silver;
   margin: 30px 0;
+}
+.orderTable td:first-child img {
+  max-width: 106px;
+  height: 70px;
 }
 .orderTable tbody tr:nth-child(2):after,
 .orderTable tbody tr:last-child:after {
@@ -1041,13 +1093,18 @@ main {
   text-align: center;
 }
 .orderTable tbody tr:nth-child(2) td {
-  padding-top: 26px;
+  vertical-align: top;
+  padding-top: 29px;
+}
+.orderTable tbody tr:nth-child(2) td:nth-child(1) {
+  padding-top: 35px;
 }
 .orderTable tbody tr:nth-last-child(2) td {
   border: none;
 }
 .orderTable tbody tr:last-child td {
   padding-top: 43px;
+  border: none;
 }
 .orderTable th {
   color: #0f9d58;
@@ -1114,7 +1171,7 @@ main {
   box-sizing: border-box;
 }
 .invoice li span:nth-child(2) {
-  min-width: 45px;
+  min-width: 52px;
 }
 .invoice li span:nth-child(3) {
   padding: 0 10px 0 3px;
@@ -1123,12 +1180,20 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.invoice .btn3 {
+  font-size: 28px;
+  display: block;
+  width: 100%;
+  height: 45px;
+}
 .minus:after {
   content: '-';
   display: inline-block;
 }
-.pName {
-  font-size: 21px;
+.pName,
+.pType {
+  font-size: 18px;
+  display: inline;
 }
 .userDetails > .lFloat,
 .contact.contact > .lFloat,
@@ -1166,6 +1231,7 @@ main {
 .contact.contact .inputText {
   display: block;
   margin-top: 5px;
+  height: 32px;
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1176,6 +1242,7 @@ main {
   padding: 60px 75px;
   margin-top: 50px;
   overflow: hidden;
+  border-radius: 5px 5px 0 0;
   /*.required {
         visibility: hidden;
         color: @errorColor;
@@ -1363,15 +1430,16 @@ main {
   line-height: normal;
   text-align: left;
   /*rtl*/
+  margin-bottom: 20px;
 }
 .storeWpr footer > .wpr {
   text-align: justify;
-  padding: 35px 42px;
+  padding: 35px 42px 5px;
 }
 .storeWpr footer > .wpr > div {
   display: inline-block;
   vertical-align: top;
-  height: 210px;
+  height: 250px;
 }
 .storeWpr footer > .wpr:after {
   content: '';
@@ -1385,7 +1453,7 @@ main {
 }
 .storeWpr footer .bottom {
   background: #39434a;
-  height: 70px;
+  height: 40px;
   color: #fff;
 }
 .storeWpr footer .bottom .wpr {
@@ -1400,7 +1468,7 @@ main {
   display: inline-block;
 }
 .storeWpr footer .bottom a {
-  padding: 30px 40px 0 40px;
+  padding: 12px 40px 0 40px;
 }
 .storeWpr footer h3,
 .storeWpr footer a {
@@ -1420,39 +1488,47 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.social {
-  margin-top: 14px;
-}
-.social button {
-  width: 42px;
-  height: 42px;
-  background: url(/Images/Store/social.png) no-repeat;
-}
-.social button:nth-child(2) {
-  margin: 0 20px;
-}
-.social .fb {
-  background-position: 0 0;
-  opacity: .5;
-}
-.social .fb:hover {
-  background-position: 0 -42px;
-  opacity: 1;
-}
-.social .twtr {
-  background-position: 0 -84px;
-  opacity: .5;
-}
-.social .twtr:hover {
-  background-position: 0 -126px;
-  opacity: 1;
-}
-.social .ytube {
-  background-position: 0 -168px;
-  opacity: .5;
-}
-.social .ytube:hover {
-  background-position: 0 -210px;
-  opacity: 1;
-}
+/*.social {
+    margin-top: 14px;
+
+    button {
+        width: 42px;
+        height: 42px;
+        background: url(/Images/Store/social.png) no-repeat;
+
+        &:nth-child(2) {
+            margin: 0 20px;
+        }
+    }
+
+    .fb {
+        background-position: 0 0;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -42px;
+            opacity: 1;
+        }
+    }
+
+    .twtr {
+        background-position: 0 -84px;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -126px;
+            opacity: 1;
+        }
+    }
+
+    .ytube {
+        background-position: 0 -168px;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -210px;
+            opacity: 1;
+        }
+    }
+}*/
 /*#endregion */

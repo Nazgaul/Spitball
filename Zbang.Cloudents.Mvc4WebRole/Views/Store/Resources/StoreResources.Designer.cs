@@ -286,6 +286,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to כנסו.
+        /// </summary>
+        public static string Enter {
+            get {
+                return ResourceManager.GetString("Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to אנא מלא את פרטיך לצורך השלמת הרכישה..
         /// </summary>
         public static string FillDetails {
@@ -331,6 +340,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         public static string HotSales {
             get {
                 return ResourceManager.GetString("HotSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to איך רוכשים?.
+        /// </summary>
+        public static string HowToBuy {
+            get {
+                return ResourceManager.GetString("HowToBuy", resourceCulture);
             }
         }
         
@@ -407,11 +425,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to חנות לסטודנטים רשומים בלבד!.
+        /// </summary>
+        public static string OnlyRegistered {
+            get {
+                return ResourceManager.GetString("OnlyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to או.
+        /// </summary>
+        public static string Or {
+            get {
+                return ResourceManager.GetString("Or", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to הזמן.
         /// </summary>
         public static string Order {
             get {
                 return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to כי סטודנטים משלמים פחות.
+        /// </summary>
+        public static string PayLess {
+            get {
+                return ResourceManager.GetString("PayLess", resourceCulture);
             }
         }
         

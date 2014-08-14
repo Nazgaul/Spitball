@@ -46,8 +46,8 @@
         }
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$routeParams', '$q', '$filter', '$location', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'constants',
-    function ($scope, $rootScope, $routeParams, $q, $filter, $location, $modal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, constants) {
+    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'constants',
+    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, $modal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, constants) {
 
 
         //#region profile
@@ -57,9 +57,10 @@ mUser.controller('UserCtrl',
             $scope.profile = response.payload;
             $scope.profile.isSelf = $scope.profile.id === sUserDetails.getDetails().id
 
-            $rootScope.$broadcast('viewContentLoaded');
-            //$scope.profile.score = 100;
             getData();
+            //$timeout(function () {
+            $rootScope.$broadcast('viewContentLoaded');
+            //});
         });
 
         $scope.sendUserMessage = function () {
@@ -176,6 +177,7 @@ mUser.controller('UserCtrl',
 
         //#region activity
         $scope.activity = {
+            loading: true,
             currentTab: constants.activity.tabs.items,
             items: {
                 limit: constants.activity.items.init,
@@ -213,6 +215,7 @@ mUser.controller('UserCtrl',
         //#region boxes
         $scope.boxes = {
             showAll: false,
+            loading: true,
             common: {
                 init: constants.boxes.common.init,
                 limit: constants.boxes.common.init,
@@ -245,6 +248,7 @@ mUser.controller('UserCtrl',
         //#region friends
         $scope.friends = {
             showAll: false,
+            loading: true,
             all: {
                 init: constants.friends.all.init,
                 limit: constants.friends.all.init,
@@ -277,6 +281,7 @@ mUser.controller('UserCtrl',
             init: constants.invites.list.init,
             limit: constants.invites.list.init,
             list: [],
+            loading: true,
             toggleShowAll: function () {
                 if (!$scope.invites.showAll) {
                     $scope.invites.showAll = true;
@@ -327,10 +332,10 @@ mUser.controller('UserCtrl',
 
             function invitesResponse(response) {
                 $scope.invites.list = response.payload;
+                $scope.invites.loading = false;
             }
 
             function friendsResponse(response) {
-
                 var commonFriend;
                 _.each(response.payload.user, function (userFriend) {
                     commonFriend = _.find(response.payload.my, function (myFriend) {
@@ -339,6 +344,9 @@ mUser.controller('UserCtrl',
 
                     commonFriend ? $scope.friends.common.list.push(commonFriend) : $scope.friends.all.list.push(userFriend);
                 });
+
+                $scope.friends.loading = false;                
+
             }
 
             function boxesResponse(response) {
@@ -352,12 +360,17 @@ mUser.controller('UserCtrl',
                         $scope.boxes.following.list.push(box);
                     }
                 }
+                $scope.boxes.loading = false;                
             }
 
             function activityResponse(response) {
-                $scope.activity.items.list = response.payload.items;
-                $scope.activity.questions.list = response.payload.questions;
-                $scope.activity.answers.list = response.payload.answers;
+                $timeout(function () {
+                    $scope.activity.items.list = response.payload.items;
+                    $scope.activity.questions.list = response.payload.questions;
+                    $scope.activity.answers.list = response.payload.answers;
+
+                    $scope.activity.loading = false;
+                }, 10000);
             }
 
             function adminRespose(response) {

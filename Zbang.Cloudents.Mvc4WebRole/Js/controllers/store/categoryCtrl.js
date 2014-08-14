@@ -11,22 +11,22 @@
 
         $scope.params = {
             maxProducts: consts.defaultMaxProducts,
-            universityId: $routeParams.universityId || $routeParams.universityid || null
+
         };
 
-        Store.products({ categoryId: $routeParams.categoryId, universityId: $scope.params.universityId }).then(function (response) {
+        Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
             allProducts = response.payload;
             $scope.products = allProducts;
 
             $timeout(function () {
                 $scope.$emit('viewContentLoaded');
-                if ($routeParams.categoryId) {
-                    if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
-                        $window.scrollTo(0, 400);
-                    }
+                //    if ($routeParams.categoryId) {
+                //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
+                //            $window.scrollTo(0, 400);
+                //        }
 
-                }
-            }, 300);
+                //    }
+            }, 0);
         });
 
 
@@ -71,7 +71,11 @@
             search();
 
         };
-
+        $scope.$watch('params.search', function (newValue) {
+            if (newValue === '') {
+                $location.search('q', newValue || null);
+            }
+        });
         $scope.$on('$routeUpdate', function () {
             var query = $location.search()['q'];
             if (query) {
@@ -89,11 +93,26 @@
 
         });
 
+        $scope.urlQueryString = function () {
+            var first = true, qs = '';
+            for (var key in $routeParams) {
+                if (first) {                    
+                    qs = '?' + key.toLowerCase() + '=' + $routeParams[key];
+                    first = false;
+                    continue;
+                }
+                qs += '&' + key.toLowerCase() + '=' + $routeParams[key];
+            }            
+            return qs;
+        };
+
         function search() {
             var query = $scope.params.search;
             $scope.params.isSearching = true;
             hideBanners = true;
-            $location.search({ q: $scope.params.search });
+            $location.search('q', $scope.params.search);
+
+            //$location.search({ q: $scope.params.search });
             Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 $scope.params.isSearching = false;

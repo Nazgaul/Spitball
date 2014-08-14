@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         TopRight,
         TopLeft,
         Center,
-        Product
+        Product,
+        Top
     }
 }

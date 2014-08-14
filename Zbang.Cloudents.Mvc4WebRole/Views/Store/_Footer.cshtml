@@ -8,8 +8,7 @@
     <ul>
         @foreach (var sub in categories)
         {
-            var url = sub.Url + Request.Url.Query;
-            <li><a href="@url">@sub.Name</a></li>
+            <li><a href="@Url.RouteUrl("storeCategory",new {categoryid = sub.Id,universityId = Request.QueryString["universityId"], producerId = Request.QueryString["producerId"] })">@sub.Name</a></li>
         }
     </ul>
 }
@@ -69,9 +68,9 @@
                 <button class="ytube" type="button"></button>
             </div>*@
             <ul>
-                <li><a href="@Url.RouteUrl("StoreAbout", new { universityId = Request.QueryString["universityId"] })">@StoreResources.AboutCloudents</a> |</li>
-                <li><a href="@Url.RouteUrl("StoreContact", new { universityId = Request.QueryString["universityId"] })">@StoreResources.ContactUs</a> |</li>
-                <li><a href="@Url.RouteUrl("StoreTerms", new { universityId = Request.QueryString["universityId"] })">@StoreResources.TermsOfUse</a></li>
+                <li><a href="@Url.RouteUrl("StoreAbout", new { universityId = Request.QueryString["universityId"] , producerId = Request.QueryString["producerId"] })">@StoreResources.AboutCloudents</a> |</li>
+                <li><a href="@Url.RouteUrl("StoreContact", new { universityId = Request.QueryString["universityId"], producerId = Request.QueryString["producerId"] })">@StoreResources.ContactUs</a> |</li>
+                <li><a href="@Url.RouteUrl("StoreTerms", new { universityId = Request.QueryString["universityId"], producerId = Request.QueryString["producerId"] })">@StoreResources.TermsOfUse</a></li>
             </ul>
         </div>
     </div>

@@ -1,6 +1,6 @@
 ﻿app.controller('CheckoutCtrl',
-    ['$scope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails',
-    function ($scope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails) {
+    ['$scope','$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus',
+    function ($scope,$rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
 
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
         $timeout(function () {
@@ -9,7 +9,13 @@
             if (sUserDetails.isAuthenticated()) {
                 $scope.coupon.code = '100100';
                 $scope.coupon.valid = true;
-                $scope.validateCoupon();
+                $scope.coupon.buttonDisabled = true;
+            }
+            
+            if ($rootScope.params.store.coupon && $rootScope.params.store.coupon.valid) {
+                $scope.coupon.code = $rootScope.params.store.coupon.code;
+                $scope.coupon.valid = true;
+                $scope.coupon.buttonDisabled = true;
             }
 
         });
@@ -20,7 +26,8 @@
 
         $scope.formData = {
             features: {},
-            universityId: $routeParams.universityId || $routeParams.universityid || null
+            universityId: $routeParams.universityId || $routeParams.universityid || null,
+            numberOfPayments: 1
         };
 
         $scope.coupon = {
@@ -70,6 +77,7 @@
         };
 
         $scope.validateCoupon = function () {
+            var invalidCouponMessage = 'קופון שגוי';
             if (!$scope.coupon.code) {
                 return;
             }
@@ -77,7 +85,7 @@
             var isNumber = /^\d+$/.test($scope.coupon.code);
 
             if (!isNumber) {
-                alert('Invalid coupon');
+                alert(invalidCouponMessage);
                 return;
             }
 
@@ -92,31 +100,28 @@
                     $scope.coupon.valid = true;
                     return;
                 }
+                alert(invalidCouponMessage);
             }, function () {
                 $scope.coupon.buttonDisabled = false;
             });
-            //var code = '1234';
-
-            //if ($scope.coupon.code === code) {
-            //    $scope.coupon.valid = true;
-            //    return;
-            //}
-
-
-
         };
 
         $scope.nextStep = function () {
-            if ($scope.coupon.valid) {
-                $scope.page.step = 2;
-                $window.scrollTo(0, 0);
+            if (!$scope.coupon.valid) {
+                alert('אנא הכנס הפעל קוד קופון');
+                sFocus('storeCoupon');
+                return;
             }
+            $scope.page.step = 2;
+            $window.scrollTo(0, 0);
         };
 
         $scope.order = function (isValid) {
+
             if (!isValid) {
                 return;
             }
+            $scope.order.buttonDisabled = true;
             $scope.formData.productId = $routeParams.productId;
 
             $scope.formData.features = _.map($scope.formData.features, function (feature, key) {
@@ -128,7 +133,7 @@
                     alert(response.payload);
                     return;
                 }
-
+                $scope.order.buttonDisabled = false;
                 $location.path(response.payload.url);
             });
         };
