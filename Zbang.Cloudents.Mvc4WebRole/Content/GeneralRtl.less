@@ -174,24 +174,28 @@ input[type="radio"] {
 /*#region Welcome Store */
 .registerFirst {
     &.store {
+        
+        &:before {
+           margin: 0 auto 0 32px; //rtl (because image is not symmetrical)
+        }
         .closeDialog {
-            left: 112px; //rtl
+            left: 144px; //rtl
             right: auto;
         }
         .signupBtns {
-            right: 27px; //rtl
+            right: -6px; //rtl
             left: auto;
         }
     }
 }
 .welcomeStore {
-    right: 26px; //rtl
+    right: -5px; //rtl
     left: auto;
 }
 .couponWpr.couponWpr { //for more specificity
     .helpPopup {
-        left:0 ; //rtl
-        right: auto;
+        right: 5px ; //rtl
+        left: auto;
         &:before {
             right: 20px; //rtl
             left: auto;

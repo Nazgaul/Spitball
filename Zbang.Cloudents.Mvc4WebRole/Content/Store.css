@@ -960,8 +960,7 @@ main {
   background: #0371c8;
   padding: 10px 20px;
   position: absolute;
-  margin: 12px 0 0 -28px;
-  /*rtl*/
+  margin-top: 12px;
   color: #fff;
   font-size: 18px;
   white-space: pre-line;
