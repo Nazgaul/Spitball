@@ -166,10 +166,6 @@ header h1 {
   margin: 2px 7px 0 0;
   /*rtl*/
 }
-.helpPopup {
-  margin: 12px -28px 0 0;
-  /*rtl*/
-}
 .helpPopup:before {
   left: 24px;
   /*rtl*/

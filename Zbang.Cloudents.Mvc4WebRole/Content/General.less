@@ -1140,6 +1140,7 @@ input[type="radio"] {
         background-color: transparent; //override
         border: none; //override
         
+        
         .welcomeStore {
             display: block;
         }
@@ -1159,6 +1160,7 @@ input[type="radio"] {
             top:0;
             left:0;right:0;
             margin: auto;
+            margin-right: 32px; //rtl (because image is not symmetrical)
         }
         .facebook, .emailBtnWpr {
             width: 195px;
@@ -1169,7 +1171,7 @@ input[type="radio"] {
             vertical-align: top;
         }
         .closeDialog {
-            right: 112px; //rtl
+            right: 144px; //rtl
             top: 208px;
             background: url(/Images/Store/social.png) 0 -292px no-repeat;
             width: 25px;
@@ -1184,7 +1186,8 @@ input[type="radio"] {
         .signupBtns {
             text-align: center;
             position: relative;
-            left: 27px; //rtl
+            left: -6px; //rtl
+            top: 3px;
         }
     }
     &.step2 {
@@ -1208,7 +1211,7 @@ input[type="radio"] {
     margin: 200px auto 0;
     position: relative;
     width: 328px;
-    left: 26px; //rtl
+    left: -5px; //rtl
     .or {
         color: @textColor;
         display: inline-block;
@@ -1220,6 +1223,8 @@ input[type="radio"] {
     font-size: 60px;
     color: @color;
     font-weight: bold;
+    position: relative;
+    top: -3px;
     //text-shadow: 0 3px 3px rgba(0,0,0,.8);
 }
 .storeTxt2 {
@@ -1267,7 +1272,8 @@ input[type="radio"] {
     .helpPopup {
         margin:0;
         top: -77px;
-        right:0; //rtl
+        left: 5px; //rtl
+        width: 315px;
         &:before {
             border-color: @attentionBlue transparent transparent transparent;
             top: auto;

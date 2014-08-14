@@ -54,13 +54,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var categoriesDto = m_ReadService.GetCategories();
 
             var categories = new List<Category>();
-            var storeDto = new List<ProductDto>();
-            foreach (var category in categoriesDto)
-            {
-                categories.Add(new Category(category.Id, category.ParentId, category.Name, category.Order));
-                var items = m_ReadService.ReadData(category.Id, m_DateDiff);
-                storeDto.AddRange(items);
-            }
+            var storeDto = m_ReadService.ReadData(categories.Select(s => s.Id), m_DateDiff);
+            //var storeDto = new List<ProductDto>();
+            categories.AddRange(categoriesDto.Select(category => new Category(category.Id, category.ParentId, category.Name, category.Order)));
 
             try
             {
@@ -135,7 +131,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 TraceLog.WriteError("On update products", ex);
             }
             ProcessBanners();
-            m_DateDiff = DateTime.UtcNow;
+            m_DateDiff = DateTime.UtcNow.AddMinutes(-10);
             sw.Stop();
             TraceLog.WriteInfo("sync from hatavot took " + sw.ElapsedMilliseconds + " milliseconds");
 

@@ -12,7 +12,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-03-28T23:59:59.0000000+03:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
-      <Setting name="SyncHatavotTimeInSeconds" value="60" />
+      <Setting name="SyncHatavotTimeInSeconds" value="30" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="22AB7900B6532317002534C71E26E16395290FE6" thumbprintAlgorithm="sha1" />

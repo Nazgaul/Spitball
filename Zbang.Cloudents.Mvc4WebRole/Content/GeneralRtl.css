@@ -158,21 +158,24 @@ input[type="radio"] + label:before {
   left: auto;
 }
 /*#region Welcome Store */
+.registerFirst.store:before {
+  margin: 0 auto 0 32px;
+}
 .registerFirst.store .closeDialog {
-  left: 112px;
+  left: 144px;
   right: auto;
 }
 .registerFirst.store .signupBtns {
-  right: 27px;
+  right: -6px;
   left: auto;
 }
 .welcomeStore {
-  right: 26px;
+  right: -5px;
   left: auto;
 }
 .couponWpr.couponWpr .helpPopup {
-  left: 0 ;
-  right: auto;
+  right: 5px ;
+  left: auto;
 }
 .couponWpr.couponWpr .helpPopup:before {
   right: 20px;

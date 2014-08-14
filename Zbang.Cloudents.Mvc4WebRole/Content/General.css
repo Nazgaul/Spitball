@@ -1094,6 +1094,7 @@ input[type="radio"][disabled] + label:before {
   left: 0;
   right: 0;
   margin: auto;
+  margin-right: 32px;
 }
 .registerFirst.store .facebook,
 .registerFirst.store .emailBtnWpr {
@@ -1104,7 +1105,7 @@ input[type="radio"][disabled] + label:before {
   vertical-align: top;
 }
 .registerFirst.store .closeDialog {
-  right: 112px;
+  right: 144px;
   top: 208px;
   background: url(/Images/Store/social.png) 0 -292px no-repeat;
   width: 25px;
@@ -1119,7 +1120,8 @@ input[type="radio"][disabled] + label:before {
 .registerFirst.store .signupBtns {
   text-align: center;
   position: relative;
-  left: 27px;
+  left: -6px;
+  top: 3px;
 }
 .registerFirst.step2 {
   /*height: 942px; // height needed in order to vertically center
@@ -1141,7 +1143,7 @@ input[type="radio"][disabled] + label:before {
   margin: 200px auto 0;
   position: relative;
   width: 328px;
-  left: 26px;
+  left: -5px;
 }
 .welcomeStore .or {
   color: #383838;
@@ -1152,6 +1154,8 @@ input[type="radio"][disabled] + label:before {
   font-size: 60px;
   color: #0f9d58;
   font-weight: bold;
+  position: relative;
+  top: -3px;
 }
 .storeTxt2 {
   font-size: 28px;
@@ -1195,7 +1199,8 @@ input[type="radio"][disabled] + label:before {
 .couponWpr.couponWpr .helpPopup {
   margin: 0;
   top: -77px;
-  right: 0;
+  left: 5px;
+  width: 315px;
 }
 .couponWpr.couponWpr .helpPopup:before {
   border-color: #0371c8 transparent transparent transparent;
