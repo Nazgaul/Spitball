@@ -12,8 +12,9 @@ namespace Zbang.Zbox.Store.Services
     {
         private const string ConnectionStringName = "Hatavot";
 
-        public IEnumerable<ProductDto> ReadData(int category, DateTime diffTime)
+        public IEnumerable<ProductDto> ReadData(IEnumerable<int> categories, DateTime diffTime)
         {
+            var retVal = new List<ProductDto>();
             using (var conn = DapperConnection.OpenConnection(ConnectionStringName))
             {
                 const string sql = @"select [productid]  as Id -- Product ID 
@@ -51,7 +52,13 @@ namespace Zbang.Zbox.Store.Services
       ,[wideImage] as WideImage
   FROM [bizpoin_bizpointDB].[products] p where catcode like '%' + cast( @catId as varchar) + '%' 
   and updatetime > @diffTime ";
-                return conn.Query<ProductDto>(sql, new { catId = category, diffTime });
+                foreach (var category in categories)
+                {
+                    retVal.AddRange(conn.Query<ProductDto>(sql, new {catId = category, diffTime}));
+                }
+
+                return retVal;
+
             }
         }
 
