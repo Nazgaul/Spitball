@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1027,6 +1027,10 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.connect ~ .modal2,
 .staticWpr.register ~ .modal2 {
   display: block;
+}
+.staticWpr.connect.popupWrppr,
+.staticWpr.register.popupWrppr {
+  max-height: none;
 }
 .staticWpr.registerFirst .facebook {
   margin-top: 15px;
@@ -2683,4 +2687,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */
