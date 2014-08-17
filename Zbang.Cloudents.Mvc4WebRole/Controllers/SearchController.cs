@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return PartialView();
             }
 
-            return View();
+            return View("Empty");
         }
 
         [Ajax, HttpGet]
