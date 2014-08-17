@@ -13,7 +13,28 @@
                 });
 
                 return dfd.promise;
+            },
+            searchByPage: function (data) {
+                var dfd = $q.defer();
+                $http.get(Search + 'Data', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
+            searchOtherUnis: function (data) {
+                var dfd = $q.defer();
+                $http.get(Search + 'OtherUniversities', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             }
+            
         };
     }
     ]);

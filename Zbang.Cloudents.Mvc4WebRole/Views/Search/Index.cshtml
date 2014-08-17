@@ -1,116 +1,57 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div class="searchPage page" id="search" data-data="@ViewBag.data">
+<div class="searchPage page" ng-controller="SearchCtrl" bindonce>
     <div id="sTabsMenu" class="sTabs sTab1">
-        <button id="sTabCourses" type="button">@SharedResources.Courses</button>
-        <button id="sTabMaterials" type="button">@SharedResources.Materials</button>
-        <button id="sTabMembers" type="button">@SharedResources.Members</button>
+        <button type="button" ng-click="setCurrentTab('sTab1')">@SharedResources.Courses</button>
+        <button type="button" ng-click="setCurrentTab('sTab2')">@SharedResources.Materials</button>
+        <button type="button" ng-click="setCurrentTab('sTab3')">@SharedResources.Members</button>
     </div>
     <div class="arrow upArrow"></div>
-    <h2 id="sTabResults" class="semiFont"><span class="sResult">@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q id="sSearchTerm"></q></h2>
-    <div id="sTabContent" class="sTabContent">
+    <h2 class="semiFont"><span class="sResult">@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q>{{params.search}}</q></h2>
+    <div class="sTabContent" ng-style="{noResults : params.noResults}">
         <section class="sCourses" data-list="@SharedResources.Courses">
-            <ul id="sCourseList" class="sCourseList"></ul>
+            <ul class="sCourseList">
+                <li class="box sCourseItem" ng-repeat="box in data.boxes">
+                    <a bo-href="box.url">
+                        <img class="lFloat boxImg" alt="" width="77" height="98" bo-src="box.image">
+                        <div class="sTitle elps" bo-html="box.name | highlight:params.query:false"></div>
+                        <span class="sDetail" bo-class="{allDetails: box..proffessor && box.courseCode}" bo-html="box.proffessor | highlight:params.query:false"></span>
+                        <span class="sDetail" bo-html="box.courseCode | highlight:params.query:false"></span>
+                    </a>
+                </li>
+            </ul>
         </section>
         <section class="sMaterials" data-list="@SharedResources.Materials">
-            <ul id="sMaterialsList" class="sMaterialsList"></ul>
+            <ul class="sMaterialsList">
+                <li class="sMaterialsItem clearfix" ng-repeat="item in data.items" ng-include="'sMaterialItemTemplate'">               
+                </li>
+            </ul>
             <div class="splitHR"><span class="splitHRText">@SharedResources.ResultsOther</span></div>
             <ul id="sOtherMaterialsList" class="sMaterialsList" data-list="@SharedResources.Materials"></ul>
             <button id="sOtherMaterialsBtn" class="sOtherMaterialsBtn">@SharedResources.ResultsOther</button>
         </section>
         <section class="sMembers" data-list="@SharedResources.Members">
-            <ul id="sMembersList" class="sMembersList"></ul>
+            <ul class="sMembersList">
+                <li class="userItem" user-tooltip-popup="{{user.id}}">
+                    <a bo-href="item.url">
+                        <img class="userItemImg" bo-src="user.image" width="74" height="74" />
+                    </a>
+                    <div class="userItemName" bo-html="user.name | highlight:params.query:false"></div>
+                </li>
+            </ul>
         </section>
         <div class="emptySearch">@SharedResources.NoResults</div>
     </div>
 </div>
 
-
-<script type="text/html" id="sCourseItemTemplate">
-    <li class="box sCourseItem">
-        <a href="{{url}}" title="">
-            <img class="lFloat boxImg" alt="" width="77" height="98" src="{{image}}">
-            <div class="sTitle elps">{{name}}</div>
-            <span class="sDetail {{allDetails}}">{{proffessor}}</span>
-            <span class="sDetail">{{courseCode}}</span>
-        </a>
-    </li>
-</script>
-
-<script type="text/html" id="sMaterialItemTemplate">
-
-    <li class="sMaterialsItem clearfix">
-        <a class="sMaterialLink" href="{{url}}">
-            <div class="sOtherUni semiFont {{dotted}}">{{universityName}}</div>
-            <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" src="{{image}}">
-            <div class="sTitle elps">{{name}}</div>
-            <div class="sSnippet">{{content}}</div>
-            <div class="stars">
-                <div class="full" style="width:{{width}}px;"></div>
-            </div>
-            <div data-title="@SharedResources.Views" class="views">{{views}}</div>
-        </a>
-    </li>
-</script>
-
-<script type="text/html" id="sMemberItemTemplate">
-    <li class="userItem calloutTrgr" data-uid="{{id}}">
-        <a href="{{url}}">
-            <img class="userItemImg" src="{{image}}" width="74" height="74" /></a>
-        <div class="userItemName" data-ignore-rtl="true">{{name}}</div>
-    </li>
-</script>
-@section scripts {
-    @Html.Script2("General")
-    @Html.Script2("cd1")
-}
-@section search {
-    <form class="dashLibSearch" id="g_search">
-        <input id="g_searchQ" autocomplete="off"
-               type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
-        <button id="searchDropDownBtn" disabled type="submit"></button>
-        <div class="searchDD allResults">
-            <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
-            <ul class="searchList boxes"></ul>
-            <h3>@SharedResources.Materials</h3>
-            <ul class="searchList items"></ul>
-            <h3>@SharedResources.People</h3>
-            <ul class="searchList people"></ul>
-            <h3>@SharedResources.ResultsOther</h3>
-            <ul class="searchList university"></ul>
-            <a class="showAll" target="_self">@SharedResources.AllResults&nbsp;<q></q></a>
-            <div class="emptySearch">@SharedResources.NoResults</div>
+<script type="text/ng-template" id="sMaterialItemTemplate">
+    <a class="sMaterialLink" bo-href="item.url">
+        <div class="sOtherUni semiFont" bo-class="{dot: item.uniName}" bo-text="item.uniName"></div>
+        <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" bo-src="item.image">
+        <div class="sTitle elps" bo-html="item.name | highlight:params.query:false"></div>
+        <div class="sSnippet" bo-html="item.content | highlight:params.query:false"></div>
+        <div class="stars">
+            <div class="full" bo-style="{width: itemRating(item.rate)}"></div>
         </div>
-    </form>
-<script type="text/html" id="boxesSearchTemplate">
-    <li>
-        <a href="{{url}}"  class="searchItem">
-            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-            <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{name}}</div>
-                <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
-                <span class="searchDetail">{{courseCode}}</span>
-            </div>
-        </a>
-    </li>
+        <div data-title="@SharedResources.Views" class="views" bo-text="item.views || 0"></div>
+    </a>
 </script>
-<script type="text/html" id="itemsSearchTemplate">
-    <li>
-        <a href="{{url}}" class="searchItem">
-            <div class="otherUni semiFont">{{universityName}}</div>
-            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-            <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{name}}</div>
-                <div class="boxLoc searchDetail" data-ignore-rtl="true" data-search-in="@SharedResources.In">{{boxName}}</div>
-            </div>
-        </a>
-    </li>
-</script>
-<script type="text/html" id="peopleSearchTemplate">
-    <li>
-        <a href="{{url}}" class="searchItem">
-            <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps">{{name}}</div>
-        </a>
-    </li>
-</script>
-}

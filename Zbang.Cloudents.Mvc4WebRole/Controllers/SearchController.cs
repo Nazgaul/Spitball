@@ -22,21 +22,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         [UserNavNWelcome]
         [HttpGet]
-        public async Task<ActionResult> Index(string q)
+        public /*async Task<ActionResult>*/ ActionResult Index(string q)
         {
             if (string.IsNullOrWhiteSpace(q))
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-            var result = await PerformSearch(q, true, 0);
-            var serializer = new JsonNetSerializer();
-            ViewBag.data = serializer.Serialize(result);
+            //var result = await PerformSearch(q, true, 0);
+            //var serializer = new JsonNetSerializer();
+            //ViewBag.data = serializer.Serialize(result);
             if (Request.IsAjaxRequest())
             {
                 return PartialView();
             }
 
-            return View();
+            return View("Empty");
         }
 
         [Ajax, HttpGet]
