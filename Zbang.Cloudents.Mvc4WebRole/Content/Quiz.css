@@ -688,7 +688,7 @@ body.quiz .shareBtn {
 }
 .quizPage .itemNameWpr {
   position: relative;
-  padding: 28px 0 15px 90px;
+  padding: 28px 20px 15px 90px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -708,13 +708,14 @@ body.quiz .shareBtn {
   text-align: center;
   line-height: 11px;
   width: 80px;
+  height: 45px;
   position: relative;
   border-left: 1px solid #fff;
 }
 .quizPage .quizViews:before {
   margin: auto;
   display: block;
-  width: 80px;
+  width: 37px;
   height: 23px;
   background-position: 0 -49px;
   margin-bottom: 5px;
@@ -777,9 +778,7 @@ body.quiz .shareBtn {
   display: none;
 }
 .checkQuiz .timeWpr0 {
-  margin-top: -95px;
   z-index: -1;
-  display: none;
 }
 .checkQuiz .quizQList .noAnswer:after {
   content: attr(data-no-answer);
@@ -820,32 +819,41 @@ body.quiz .shareBtn {
 }
 .timeWpr0 {
   position: relative;
-  height: 95px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 26px 10px;
-  border-bottom: 1px solid #c2c2c2;
-  -webkit-transition: margin 0.5s ease-in;
-  -moz-transition: margin 0.5s ease-in;
-  -o-transition: margin 0.5s ease-in;
-  transition: margin 0.5s ease-in;
 }
-.timeWpr0 .quizTime {
-  margin: 0;
-  font-weight: 100;
-  color: #383838;
-}
-.timeWpr0 .quizTime:before {
-  content: attr(data-timer-label);
-  display: block;
-  font-size: 13px;
+.timeWpr0:before {
+  background: url(/Images/quizSprite.png) 0 -161px no-repeat;
+  width: 233px;
+  height: 264px;
   position: absolute;
-  top: -12px;
-  font-weight: normal;
+  left: 0;
+  right: 0;
+  margin: 20px auto 0;
 }
 .timeWpr0 .btn1 {
   margin: 11px 0;
+}
+.quizTime {
+  font-weight: 100;
+  color: #fff;
+  font-size: 55px;
+  margin-top: 133px;
+  text-align: center;
+}
+.quizTime:before {
+  content: '';
+  display: inline-block;
+  background: url(/Images/quizSprite.png) 0 -161px no-repeat;
+  width: 233px;
+  height: 264px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100px;
+  margin: 20px auto 0;
+}
+.quizTime ~ .btn1 {
+  margin: 5px auto 0;
+  display: block;
 }
 .userResults {
   text-align: center;
@@ -925,11 +933,5 @@ body.quiz .shareBtn {
   -moz-transition: all 0.8s ease-in 2.6s;
   -o-transition: all 0.8s ease-in 2.6s;
   transition: all 0.8s ease-in 2.6s;
-}
-.quizTime {
-  width: 156px;
-  position: relative;
-  font-size: 38px;
-  margin: 0 auto;
 }
 /*#endregion */
