@@ -116,6 +116,13 @@ app.config([
             },
             templateUrl: '/library/'
         }).
+        when('/search/', {
+            params: {
+                type: 'search'
+            },
+            templateUrl: '/search/',
+            reloadOnSearch: false
+        }).
         when('/user/:userId/:userName/', {
             params: {
                 type: 'user'
