@@ -226,7 +226,7 @@ main {
   display: block;
 }
 .inputSearch {
-  width: 770px;
+  width: 84%;
   height: 100%;
   padding: 0 8px;
   -webkit-box-sizing: border-box;
@@ -235,7 +235,8 @@ main {
   font-size: 21px;
 }
 .searchProducts {
-  width: 150px;
+  width: 16%;
+  overflow: hidden;
   height: 100%;
   color: #fff;
   background: #0f9d58;

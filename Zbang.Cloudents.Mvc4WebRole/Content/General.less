@@ -2662,6 +2662,23 @@ select.inputText {
 
 /*#endregion */ 
 
+
+/*#region IE only CSS */
+@media screen and (~'min-width:0\0') { 
+    .boxItemTt.boxItemTt {
+        .ttPreview {
+            max-height: 52px; /* diff rtl - heb has 4 lines*/
+        }
+    }
+    .welcomeStore {
+        .or {
+            padding-top: 8px;
+        }
+    }
+
+}
+/*#endregion */
+
 /*#region media queries */
 ////Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
 
@@ -2677,7 +2694,8 @@ select.inputText {
             position: relative;
             display: table;
         }
-
+    }
+    body {
         .siteHeader,
         .boxPage .leftPanel,
         .QA,
@@ -2893,3 +2911,16 @@ select.inputText {
     left: -2000px;
 }
 /*#endregion*/
+
+//Temporarily hide store popop on mobile devices smaller than Ipad
+@media only screen and (max-device-width : 1023px) {
+    .registerFirst.registerFirst {
+        ~ .modal2 {
+            //display: none;
+        }
+        &.store {
+            //width: 100%;
+            //margin:0;
+        }
+    }
+}
