@@ -1107,7 +1107,7 @@ input[type="radio"][disabled] + label:before {
 .registerFirst.store .closeDialog {
   right: 144px;
   top: 208px;
-  background: url(/Images/Store/social.png) 0 -292px no-repeat;
+  background: url(/Images/Store/social.png?v=1) 0 -292px no-repeat;
   width: 25px;
   height: 25px;
 }
@@ -1356,7 +1356,7 @@ input[type="radio"][disabled] + label:before {
   background-position: -131px -24px;
   width: 31px;
   height: 26px;
-  background: url(/Images/Store/social.png) 0 -317px no-repeat;
+  background: url(/Images/Store/social.png?v=1) 0 -317px no-repeat;
   left: 4px;
   /*rtl*/
 }

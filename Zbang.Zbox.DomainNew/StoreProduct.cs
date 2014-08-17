@@ -40,6 +40,7 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildStoreProductUrl(Id, Name);
             Categories = categories;
 
+            Features.Clear();
             if (features != null)
                 AddFeatures(features);
 
@@ -60,7 +61,6 @@ namespace Zbang.Zbox.Domain
         {
             foreach (var feature in features)
             {
-                Features.Clear();
                 var categoryOptions = feature.Value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var categoryOption in categoryOptions)
                 {

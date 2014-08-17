@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Account", new { universityId });
+               // return RedirectToAction("Index", "Account", new { universityId });
                 //return RedirectToActionPermanent("Index", "Dashboard");
             }
             //this is the only place we need
