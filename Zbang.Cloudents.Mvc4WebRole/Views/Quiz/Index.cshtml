@@ -82,23 +82,54 @@
             @*</div>*@
 
         </div>
-        <h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
+        @*<h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
         <div class="timeWpr0">
             <button type="button" class="btn1 rFloat" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
-            <div data-timer-label="@QuizResources.Timer" class="quizTime" id="quizTimer">00:00:00</div>
+            <div class="quizTime" id="quizTimer">00:00:00</div>data-timer-label="@QuizResources.Timer"
+        </div>*@
+        <div class="timeWpr">
+            <div class="quizTime" id="quizTimer">0:00:00</div>
+            <button type="button" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
         </div>
+
+
         <div class="userResults">
-            <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+            @*<div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>*@
             <div class="resultsWpr">
-                <div>@QuizResources.YouGot:</div>
+                @*<div>@QuizResources.YouGot:</div>*@
                 <div id="quizUserRight" class="results" data-results="7">@QuizResources.Correct</div>
                 <div id="quizUserWrong" class="results wrong" data-results="3">@QuizResources.Wrong</div>
+
+                
             </div>
-            <div class="timeWpr">
+            <div class="userScoreWpr">
+                <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+            </div>
+
+            @*<div class="timeWpr">
                 <div>@QuizResources.TimeWas:</div>
                 <div id="quizTimerResult" class="quizTime">00:00:00</div>
                 <button type="button" id="quizRetake" class="btn1">@QuizResources.RetakeQuiz</button>
+            </div>*@
+            <div class="timeRetakeWpr clearfix">
+                <div id="quizTimerResult" class="quizTimerResult lFloat iconTxt">00:00</div>
+                <button type="button" id="quizRetake" class="btn1 rFloat">@QuizResources.RetakeQuiz</button>
             </div>
+
+            <div class="topUsersWpr">
+                <div class="topUsersTxt">@QuizResources.TopThree</div>
+                <ol>
+                    <li class="topUser star"></li>
+                    <li class="topUser"></li>
+                    <li class="topUser"></li>
+                </ol>
+            </div>
+
+            <div class="distributionWpr">
+                <div class="distributionTxt">@QuizResources.ScoreDistribution</div>
+                <canvas width="308" height="164"></canvas>
+            </div>
+
         </div>
     </div>
     <div class="itemRight">
