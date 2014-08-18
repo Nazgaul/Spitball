@@ -100,13 +100,20 @@
                 <div id="quizUserRight" class="results" data-results="7">@QuizResources.Correct</div>
                 <div id="quizUserWrong" class="results wrong" data-results="3">@QuizResources.Wrong</div>
 
-                <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+                
             </div>
-            <div class="timeWpr">
+
+            <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+
+            @*<div class="timeWpr">
                 <div>@QuizResources.TimeWas:</div>
                 <div id="quizTimerResult" class="quizTime">00:00:00</div>
                 <button type="button" id="quizRetake" class="btn1">@QuizResources.RetakeQuiz</button>
-            </div>
+            </div>*@
+
+            <div id="quizTimerResult" class="quizTimerResult lFloat">00:00</div>
+            <button type="button" id="quizRetake" class="btn1 rFloat">@QuizResources.RetakeQuiz</button>
+
         </div>
     </div>
     <div class="itemRight">

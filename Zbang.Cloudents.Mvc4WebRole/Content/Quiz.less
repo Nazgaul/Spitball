@@ -755,7 +755,7 @@ body.quiz {
 }
 .checkQuiz {
     .userScore, .resultsWpr, .timeWpr {
-        margin-top: 0;
+        //margin-top: 0;
         opacity: 1;
     }
 
@@ -966,12 +966,13 @@ body.quiz {
 }
 
 .userScore {
-    background: gray;
-    //text-align: center;
+    background: #666;
+    border-radius: 12px;
     height: 120px;
-    //padding-top: 18px;
-    margin: 0 8px;
-    //margin-bottom: 15px;
+    font-size: 22px;
+    margin: 20px 15px 0;
+    padding-top: 5px;
+    .boxSizing;
     position: relative;
     //top: -90px;
     //margin-top: -90px;
@@ -979,15 +980,16 @@ body.quiz {
     z-index: 2;
     //.transition(all .8s ease-in 1s);
     color:#fff;
-    //font-weight: 100;
     &:after {
         content: attr(data-user-score);
         display: block;
         font-size: 90px;
-        margin-top: -5px;
+        margin-top: -25px;
     }
 }
 
-
+.quizTimerResult {
+    color: #9AC6E9;
+}
 
 /*#endregion */

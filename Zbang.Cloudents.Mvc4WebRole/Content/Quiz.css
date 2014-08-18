@@ -737,7 +737,6 @@ body.quiz .shareBtn {
 .checkQuiz .userScore,
 .checkQuiz .resultsWpr,
 .checkQuiz .timeWpr {
-  margin-top: 0;
   opacity: 1;
 }
 .checkQuiz .userCorrect .quizQuestion,
@@ -913,9 +912,15 @@ body.quiz .shareBtn {
   top: 20px;
 }
 .userScore {
-  background: gray;
+  background: #666;
+  border-radius: 12px;
   height: 120px;
-  margin: 0 8px;
+  font-size: 22px;
+  margin: 20px 15px 0;
+  padding-top: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   position: relative;
   z-index: 2;
   color: #fff;
@@ -924,6 +929,9 @@ body.quiz .shareBtn {
   content: attr(data-user-score);
   display: block;
   font-size: 90px;
-  margin-top: -5px;
+  margin-top: -25px;
+}
+.quizTimerResult {
+  color: #9AC6E9;
 }
 /*#endregion */
