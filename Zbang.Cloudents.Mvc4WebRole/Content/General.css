@@ -2513,6 +2513,8 @@ select.inputText {
     position: relative;
     display: table;
   }
+}
+@media (max-width: 900px) {
   body .siteHeader,
   body .boxPage .leftPanel,
   body .QA,

@@ -23,6 +23,11 @@
   /*rtl*/
   right: auto;
 }
+.modal2 {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
 .popupForm .field-validation-error,
 .popupForm .validation-summary-errors {
   margin: 0 15px 0 0;
