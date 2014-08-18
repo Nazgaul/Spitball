@@ -82,8 +82,8 @@
             @*</div>*@
 
         </div>
-        <h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
-        @*<div class="timeWpr0">
+        @*<h3 class="sectionHeader">@QuizResources.QuizSummary</h3>
+        <div class="timeWpr0">
             <button type="button" class="btn1 rFloat" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
             <div class="quizTime" id="quizTimer">00:00:00</div>data-timer-label="@QuizResources.Timer"
         </div>*@
@@ -102,8 +102,9 @@
 
                 
             </div>
-
-            <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+            <div class="userScoreWpr">
+                <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+            </div>
 
             @*<div class="timeWpr">
                 <div>@QuizResources.TimeWas:</div>

@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -493,6 +493,9 @@ body.quiz .shareBtn {
   height: 15px;
   background-position: -55px -121px;
 }
+.quizQList ~ .btn1 {
+  margin-top: 30px;
+}
 /*.quizQuestion {
     padding-right: 80px;
 }*/
@@ -620,31 +623,6 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz item page */
-.quizPage {
-  /*<div class="itemTop">
-            <div tooltip="@SharedResources.Views" class="rFloat views">@Model.NumberOfViews</div>
-            <div class="itemNameWpr">
-                <div class="item-name semiFont">@Model.Name</div>
-                <div class="itemOwner elps calloutTrgr lFloat " data-uid="@Model.OwnerId">@Model.Owner</div>
-                <div class="rFloat">@Model.Date.ToString("d/M/yy")</div>
-            </div>*/
-  /*.moreFilesThumb {
-        background: @attentionBlue;
-
-        &:after {
-            .pseudo;
-            width: 22px;
-            height: 19px;
-            vertical-align: middle;
-            background: @boxSprite -48px -142px no-repeat;
-        }
-    }
-
-    .btn1 {
-        padding: 5px 20px;
-        margin: 20px 0;
-    }*/
-}
 .quizPage .quizActionsWpr {
   width: 800px;
   margin: 0 auto;
@@ -684,7 +662,7 @@ body.quiz .shareBtn {
   font-size: 15px;
   margin: 0;
   height: 95px;
-  border-bottom: 1px solid silver;
+  border-bottom: 1px solid #797979;
 }
 .quizPage .itemNameWpr {
   position: relative;
@@ -734,10 +712,17 @@ body.quiz .shareBtn {
   font-size: 12px;
   margin-top: 6px;
 }
-.checkQuiz .userScore,
 .checkQuiz .resultsWpr,
-.checkQuiz .timeWpr {
+.checkQuiz .userScoreWpr,
+.checkQuiz .timeRetakeWpr,
+.checkQuiz .topUsersWpr,
+.checkQuiz .distributionWpr {
   opacity: 1;
+  top: 0;
+  visibility: visible;
+}
+.checkQuiz .timeWpr {
+  display: none;
 }
 .checkQuiz .userCorrect .quizQuestion,
 .checkQuiz .userWrong .quizQuestion,
@@ -769,15 +754,8 @@ body.quiz .shareBtn {
 .checkQuiz .wrong.wrong label:before {
   background-position: -36px -121px;
 }
-.checkQuiz .sectionHeader {
-  color: #383838;
-  display: none;
-}
 .checkQuiz .quizPrevWpr .btn1 {
   display: none;
-}
-.checkQuiz .timeWpr0 {
-  z-index: -1;
 }
 .checkQuiz .quizQList .noAnswer:after {
   content: attr(data-no-answer);
@@ -816,23 +794,7 @@ body.quiz .shareBtn {
 .userWrong .quizAList:before {
   background: #d1294d;
 }
-.timeWpr0 {
-  position: relative;
-}
-.timeWpr0:before {
-  background: url(/Images/quizSprite.png) 0 -161px no-repeat;
-  width: 233px;
-  height: 264px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: 20px auto 0;
-}
-.timeWpr0 .btn1 {
-  margin: 11px 0;
-}
 .quizTime {
-  font-weight: 100;
   color: #fff;
   font-size: 55px;
   margin-top: 133px;
@@ -860,17 +822,27 @@ body.quiz .shareBtn {
   padding: 2px 25px;
   position: relative;
 }
+.quizTime + .pause {
+  color: #d1294d;
+}
 .userResults {
   text-align: center;
   color: #fff;
-}
-.timeWpr {
-  display: none;
+  overflow: hidden;
+  background: #282828;
 }
 .resultsWpr {
-  z-index: 1;
-  color: #fff;
+  background: #282828;
   padding: 20px 8px 0;
+  position: relative;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+  opacity: 0;
+  visibility: hidden;
+  top: -113px;
+  z-index: 5;
 }
 .results {
   width: 48%;
@@ -911,18 +883,28 @@ body.quiz .shareBtn {
   left: 0;
   top: 20px;
 }
-.userScore {
-  background: #666;
-  border-radius: 12px;
+.userScoreWpr {
+  margin: 20px 15px 0;
   height: 120px;
   font-size: 22px;
-  margin: 20px 15px 0;
+  background: #282828;
+  position: relative;
+  z-index: 4;
+  top: -153px;
+  -webkit-transition: all 0.5s ease-in 0.8s;
+  -moz-transition: all 0.5s ease-in 0.8s;
+  -o-transition: all 0.5s ease-in 0.8s;
+  transition: all 0.5s ease-in 0.8s;
+  opacity: 0;
+  visibility: hidden;
+}
+.userScore {
+  background: #797979;
+  border-radius: 12px;
   padding-top: 5px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  position: relative;
-  z-index: 2;
   color: #fff;
 }
 .userScore:after {
@@ -936,9 +918,18 @@ body.quiz .shareBtn {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-bottom: 1px solid #eee;
-  position: relative;
+  border-bottom: 1px solid #797979;
+  background: #282828;
   height: 84px;
+  position: relative;
+  top: -73px;
+  z-index: 3;
+  -webkit-transition: all 0.5s ease-in 1.6s;
+  -moz-transition: all 0.5s ease-in 1.6s;
+  -o-transition: all 0.5s ease-in 1.6s;
+  transition: all 0.5s ease-in 1.6s;
+  opacity: 0;
+  visibility: hidden;
 }
 .timeRetakeWpr .btn1 {
   margin-top: 10px;
@@ -956,7 +947,17 @@ body.quiz .shareBtn {
   top: -4px;
 }
 .topUsersWpr {
-  border-bottom: 1px solid #eee;
+  position: relative;
+  z-index: 2;
+  top: -137px;
+  -webkit-transition: all 0.5s ease-in 2.4s;
+  -moz-transition: all 0.5s ease-in 2.4s;
+  -o-transition: all 0.5s ease-in 2.4s;
+  transition: all 0.5s ease-in 2.4s;
+  background: #282828;
+  border-bottom: 1px solid #797979;
+  opacity: 0;
+  visibility: hidden;
 }
 .topUsersWpr ol {
   margin-bottom: 20px;
@@ -986,5 +987,16 @@ body.quiz .shareBtn {
   top: -9px;
   right: -12px;
 }
+.distributionWpr {
+  position: relative;
+  z-index: 1;
+  top: -230px;
+  -webkit-transition: all 0.5s ease-in 3.2s;
+  -moz-transition: all 0.5s ease-in 3.2s;
+  -o-transition: all 0.5s ease-in 3.2s;
+  transition: all 0.5s ease-in 3.2s;
+  opacity: 0;
+  visibility: hidden;
+  background: #282828;
+}
 /*#endregion */
-/*# sourceMappingURL=Quiz.css.map */

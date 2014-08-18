@@ -505,6 +505,9 @@ body.quiz {
             background-position: -55px -121px;
         }
     }
+    ~ .btn1 {
+        margin-top: 30px;
+    }
 }
 /*.quizQuestion {
     padding-right: 80px;
@@ -630,9 +633,6 @@ body.quiz {
 
 /*#region Quiz item page */
 .quizPage {
-    .page {
-        //display: block; //TEMPORARY!!
-    }
     .quizActionsWpr {
         width: 800px;
         margin: 0 auto;
@@ -666,28 +666,19 @@ body.quiz {
         .boxSizing;
         width: 100%;
     }
-    /*<div class="itemTop">
-            <div tooltip="@SharedResources.Views" class="rFloat views">@Model.NumberOfViews</div>
-            <div class="itemNameWpr">
-                <div class="item-name semiFont">@Model.Name</div>
-                <div class="itemOwner elps calloutTrgr lFloat " data-uid="@Model.OwnerId">@Model.Owner</div>
-                <div class="rFloat">@Model.Date.ToString("d/M/yy")</div>
-            </div>*/
 
     .itemTop {
         color: #fff;
         font-size: 15px;
-        //height: auto;
         margin: 0;
         height: 95px;
-        border-bottom: 1px solid silver;
+        border-bottom: 1px solid #797979;
     }
     .itemNameWpr {
         position: relative;
         padding: 28px 20px 15px 90px; //rtl
         .boxSizing;
         height: auto; //override
-        //width: 174px;
 
         &:before {
             display: inline-block;
@@ -708,9 +699,7 @@ body.quiz {
         position: relative;
         border-left: 1px solid #fff;
         &:before {
-            //position: absolute;
             margin: auto;
-            //left:0;right:0;
             display: block;
             width: 37px;
 	        height: 23px;
@@ -732,33 +721,16 @@ body.quiz {
             margin-top: 6px;
         }
     }
-    
-
-    /*.moreFilesThumb {
-        background: @attentionBlue;
-
-        &:after {
-            .pseudo;
-            width: 22px;
-            height: 19px;
-            vertical-align: middle;
-            background: @boxSprite -48px -142px no-repeat;
-        }
-    }
-
-    .btn1 {
-        padding: 5px 20px;
-        margin: 20px 0;
-    }*/
-
-    
 }
 .checkQuiz {
-    .userScore, .resultsWpr, .timeWpr {
-        //margin-top: 0;
+    .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
         opacity: 1;
+        top: 0;
+        visibility: visible;
     }
-
+    .timeWpr {
+        display: none;
+    }
     .userCorrect, .userWrong {
         .quizQuestion, .quizAList {
             padding-right: 80px; ////
@@ -787,20 +759,8 @@ body.quiz {
         background-position: -36px -121px;
     }
 
-    .sectionHeader {
-        color: @textColor;
-        display: none; //TEMPORARY
-    }
-
     .quizPrevWpr .btn1 {
         display: none;
-    }
-
-    .timeWpr0 {
-        //margin-top: -95px;
-        z-index:-1;
-
-        //display: none; //TEMPORARY
     }
 
     .quizQList .noAnswer:after {
@@ -840,34 +800,7 @@ body.quiz {
    }   
 }
 
-.timeWpr0 {
-    position: relative;
-    //z-index: -1;
-    //height: 95px;
-    //.boxSizing;
-    //padding: 26px 10px;
-    //border-bottom: 1px solid @borderColor;
-    //.transition(margin .5s ease-in);
-    //text-align: center;
-    &:before {
-        //.pseudo;
-        background: url(/Images/quizSprite.png) 0 -161px no-repeat;
-        width: 233px;
-	    height: 264px;
-        position: absolute;
-        left:0;right:0;
-        margin: 20px auto 0;
-        //margin-top: 60px;
-    }
-    
-    
-
-    .btn1 {
-        margin: 11px 0;
-    }
-}
 .quizTime {
-    font-weight:100;
     color: #fff;
     font-size: 55px;
     margin-top: 133px;
@@ -881,7 +814,6 @@ body.quiz {
         left:0;right:0;
         top: 100px;
         margin: 20px auto 0;
-        //margin-top: 60px;
     }
     ~ button {
         margin: 5px auto 0;
@@ -893,36 +825,31 @@ body.quiz {
         padding: 2px 25px;
         position: relative;
     }
+    + .pause {
+        color: @errorColor;
+    }
 }
 .userResults {
     text-align: center;
     color: #fff;
-    //margin: 8px;
-    //overflow: hidden;
-    //display: none; //TEMPORARY
+    overflow: hidden; //for animation
+    background: #282828;
 }
 .timeWpr {
-    //position: relative;
-    //top:-341px;
-    //margin-top: -142px;
-    //margin-top: -122px;
-    //opacity: 0;
-    //background: #fff;
-    //.transition(all .8s ease-in 2.6s);
-    display: none;
+    //opacity: 1;
+    //visibility: visible;
+    //.transition(all .3s ease-in);
 }
 
 .resultsWpr {
-    //position: relative;
-    //top:-210px;
-    //margin-top: -114px;
-    //margin-top: -100px;
-    //opacity: 0;
-    //background: #fff;
-    //.transition(all .8s ease-in 1.8s);
-    z-index: 1;
-    color: #fff;
+    background: #282828;
     padding: 20px 8px 0;
+    position: relative; //for animation
+    .transition(all .5s ease-in);
+    opacity:0;
+    visibility: hidden;
+    top: -113px;
+    z-index: 5;
 }
 
 .results {
@@ -964,20 +891,31 @@ body.quiz {
         top: 20px;
     }
 }
-
-.userScore {
-    background: #666;
-    border-radius: 12px;
+.userScoreWpr {
+    margin: 20px 15px 0;
     height: 120px;
     font-size: 22px;
-    margin: 20px 15px 0;
+    background: #282828;
+    position: relative;
+    z-index: 4;
+    top: -153px; //for animation
+    .transition(all .5s ease-in .8s);
+    opacity:0;
+    visibility: hidden;
+}
+.userScore {
+    background: #797979;
+    border-radius: 12px;
+    //height: 120px;
+    //font-size: 22px;
+    //margin: 20px 15px 0;
     padding-top: 5px;
     .boxSizing;
-    position: relative;
+    
     //top: -90px;
     //margin-top: -90px;
     //opacity: 0;
-    z-index: 2;
+    
     //.transition(all .8s ease-in 1s);
     color:#fff;
     &:after {
@@ -991,9 +929,15 @@ body.quiz {
 .timeRetakeWpr {
     padding: 20px 25px 0;
     .boxSizing;
-    border-bottom: 1px solid #eee;
-    position: relative;
+    border-bottom: 1px solid #797979;
+    background: #282828;
     height: 84px;
+    position: relative;
+    top: -73px;
+    z-index: 3;
+    .transition(all .5s ease-in 1.6s);
+    opacity:0;
+    visibility: hidden;
     .btn1 {
         margin-top: 10px;
     }
@@ -1011,7 +955,14 @@ body.quiz {
     }
 }
 .topUsersWpr {
-    border-bottom: 1px solid #eee;
+    position: relative;
+    z-index: 2;
+    top: -137px;
+    .transition(all .5s ease-in 2.4s);
+    background: #282828;
+    border-bottom: 1px solid #797979;
+    opacity:0;
+    visibility: hidden;
     ol {
         margin-bottom: 20px;
     }
@@ -1040,5 +991,14 @@ body.quiz {
             right: -12px;
         }
     }
+}
+.distributionWpr {
+    position: relative;
+    z-index:1;
+    top: -230px;
+    .transition(all .5s ease-in 3.2s);
+    opacity:0;
+    visibility: hidden;
+    background: #282828;
 }
 /*#endregion */

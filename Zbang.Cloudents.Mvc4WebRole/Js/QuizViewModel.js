@@ -368,6 +368,7 @@
                     stopWatch.reset();
                 }
                 quizTimerToggle.textContent = quizTimerToggle.getAttribute('data-quiz-play');
+                quizTimerToggle.classList.remove('pause');
                 return;
             }
 
@@ -377,6 +378,7 @@
 
             stopWatch.start();
             quizTimerToggle.textContent = quizTimerToggle.getAttribute('data-quiz-pause');
+            quizTimerToggle.classList.add('pause');
         }
 
         function checkAnswers() {
