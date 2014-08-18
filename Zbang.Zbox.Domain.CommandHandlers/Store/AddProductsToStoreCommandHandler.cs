@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -25,13 +26,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
             {
                 throw new System.ArgumentNullException("message");
             }
-            foreach (var productStore in message.ProductStores)
+            foreach (var productStore in message.ProductStores.Distinct())
             {
                 TraceLog.WriteInfo("Process product id: " + productStore.Id);
                 var product = m_ProductRepository.Get(productStore.Id); //use get to get existence in db
 
                 if (product == null)
                 {
+                    if (productStore.IsActive)
                     product = new StoreProduct(productStore.Id,
                         productStore.Name,
                         productStore.ExtraDetails,
