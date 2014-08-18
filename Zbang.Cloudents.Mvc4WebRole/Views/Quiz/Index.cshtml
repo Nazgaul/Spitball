@@ -87,18 +87,20 @@
             <button type="button" class="btn1 rFloat" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
             <div class="quizTime" id="quizTimer">00:00:00</div>data-timer-label="@QuizResources.Timer"
         </div>*@
-
-        <div class="quizTime" id="quizTimer">0:00:00</div>
-        <button type="button" class="btn1" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
-        
+        <div class="timeWpr">
+            <div class="quizTime" id="quizTimer">0:00:00</div>
+            <button type="button" id="quizTimerToggle" data-quiz-play="@QuizResources.Play" data-quiz-pause="@QuizResources.Pause">@QuizResources.Play</button>
+        </div>
 
 
         <div class="userResults">
-            <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
+            @*<div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>*@
             <div class="resultsWpr">
-                <div>@QuizResources.YouGot:</div>
+                @*<div>@QuizResources.YouGot:</div>*@
                 <div id="quizUserRight" class="results" data-results="7">@QuizResources.Correct</div>
                 <div id="quizUserWrong" class="results wrong" data-results="3">@QuizResources.Wrong</div>
+
+                <div id="quizUserScore" class="userScore" data-user-score="70">@QuizResources.YourScore:</div>
             </div>
             <div class="timeWpr">
                 <div>@QuizResources.TimeWas:</div>
