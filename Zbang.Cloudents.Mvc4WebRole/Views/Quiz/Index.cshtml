@@ -110,9 +110,24 @@
                 <div id="quizTimerResult" class="quizTime">00:00:00</div>
                 <button type="button" id="quizRetake" class="btn1">@QuizResources.RetakeQuiz</button>
             </div>*@
+            <div class="timeRetakeWpr clearfix">
+                <div id="quizTimerResult" class="quizTimerResult lFloat iconTxt">00:00</div>
+                <button type="button" id="quizRetake" class="btn1 rFloat">@QuizResources.RetakeQuiz</button>
+            </div>
 
-            <div id="quizTimerResult" class="quizTimerResult lFloat">00:00</div>
-            <button type="button" id="quizRetake" class="btn1 rFloat">@QuizResources.RetakeQuiz</button>
+            <div class="topUsersWpr">
+                <div class="topUsersTxt">@QuizResources.TopThree</div>
+                <ol>
+                    <li class="topUser star"></li>
+                    <li class="topUser"></li>
+                    <li class="topUser"></li>
+                </ol>
+            </div>
+
+            <div class="distributionWpr">
+                <div class="distributionTxt">@QuizResources.ScoreDistribution</div>
+                <canvas width="308" height="164"></canvas>
+            </div>
 
         </div>
     </div>

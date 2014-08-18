@@ -204,4 +204,10 @@
   <data name="EditQuiz" xml:space="preserve">
     <value>ערוך מבחן</value>
   </data>
+  <data name="ScoreDistribution" xml:space="preserve">
+    <value>התפלגות הציונים ביחס אליך:</value>
+  </data>
+  <data name="TopThree" xml:space="preserve">
+    <value>שלשת המובילים במבחן זה:</value>
+  </data>
 </root>

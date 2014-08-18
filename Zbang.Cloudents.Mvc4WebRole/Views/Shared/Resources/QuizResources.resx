@@ -204,4 +204,10 @@
   <data name="EditQuiz" xml:space="preserve">
     <value>Edit Quiz</value>
   </data>
+  <data name="ScoreDistribution" xml:space="preserve">
+    <value>Score distribution:</value>
+  </data>
+  <data name="TopThree" xml:space="preserve">
+    <value>Top three for this quiz:</value>
+  </data>
 </root>

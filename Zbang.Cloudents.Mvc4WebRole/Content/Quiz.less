@@ -896,6 +896,7 @@ body.quiz {
 }
 .userResults {
     text-align: center;
+    color: #fff;
     //margin: 8px;
     //overflow: hidden;
     //display: none; //TEMPORARY
@@ -921,8 +922,7 @@ body.quiz {
     //.transition(all .8s ease-in 1.8s);
     z-index: 1;
     color: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 20px 8px;
+    padding: 20px 8px 0;
 }
 
 .results {
@@ -988,8 +988,57 @@ body.quiz {
     }
 }
 
+.timeRetakeWpr {
+    padding: 20px 25px 0;
+    .boxSizing;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    height: 84px;
+    .btn1 {
+        margin-top: 10px;
+    }
+}
 .quizTimerResult {
     color: #9AC6E9;
+    font-size: 24px;
+    margin-top: 4px;
+    &:before {
+        background: url(/Images/quizSprite.png) 0 -425px no-repeat;
+        width: 39px;
+	    height: 43px;
+        position: relative;
+        top: -4px;
+    }
 }
-
+.topUsersWpr {
+    border-bottom: 1px solid #eee;
+    ol {
+        margin-bottom: 20px;
+    }
+}
+.topUsersTxt, .distributionTxt {
+    font-size: 18px;
+    margin: 20px 0;
+}
+.topUser {
+    width: 47px;
+	height: 47px;
+	background: url(/Images/quizSprite.png) 0 -468px no-repeat;
+    display: inline-block;
+    position: relative;
+    &:nth-child(2) {
+        margin: 0 40px;
+    }
+    &.star {
+        &:after {
+            .pseudo;
+            position: absolute;
+            width: 25px;
+	        height: 25px;
+	        background: url(/Images/quizSprite.png) 0 -136px no-repeat;
+            top: -9px;
+            right: -12px;
+        }
+    }
+}
 /*#endregion */
