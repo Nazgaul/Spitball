@@ -1,5 +1,5 @@
 ﻿var mUser = angular.module('mUser', [])
-    .constant('constants', {
+    .constant('userConstants', {
         activity: {
             items: {
                 init: 8,
@@ -46,8 +46,8 @@
         }
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'constants',
-    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, $modal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, constants) {
+    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants',
+    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, $modal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants) {
 
 
         //#region profile
@@ -66,7 +66,7 @@ mUser.controller('UserCtrl',
         $scope.sendUserMessage = function () {
 
             var modalInstance = $modal.open({
-                templateUrl: constants.partials.message,
+                templateUrl: userConstants.partials.message,
                 controller: 'ShareCtrl',
                 backdrop: 'static',
                 resolve: {
@@ -92,10 +92,10 @@ mUser.controller('UserCtrl',
         //#region admin
         $scope.admin = {
             visible: function () {
-                return $scope.profile.score >= constants.admin.score && $scope.profile.isSelf
+                return $scope.profile.score >= userConstants.admin.score && $scope.profile.isSelf
             },
             members: {
-                limit: constants.admin.membersLimit,
+                limit: userConstants.admin.membersLimit,
                 selectAll: false,
                 loading: true,
                 selected: 0
@@ -103,7 +103,7 @@ mUser.controller('UserCtrl',
         };
 
         $scope.addMembersLimit = function () {
-            $scope.admin.members.limit += constants.admin.membersLimit;
+            $scope.admin.members.limit += userConstants.admin.membersLimit;
         };
 
         $scope.toggleSelectMember = function (member) {
@@ -135,7 +135,7 @@ mUser.controller('UserCtrl',
                 return;
             }
             lastQuery = $scope.admin.members.search;
-            $scope.admin.members.limit = constants.admin.membersLimit;
+            $scope.admin.members.limit = userConstants.admin.membersLimit;
             $scope.admin.members.list = $filter('orderByFilter')($scope.admin.members.fullList, { field: 'name', input: $scope.admin.members.search });
 
         }, 150);
@@ -156,7 +156,7 @@ mUser.controller('UserCtrl',
             }
 
             var modalInstance = $modal.open({
-                templateUrl: constants.partials.message,
+                templateUrl: userConstants.partials.message,
                 controller: 'ShareCtrl',
                 backdrop: 'static',
                 resolve: {
@@ -178,34 +178,34 @@ mUser.controller('UserCtrl',
         //#region activity
         $scope.activity = {
             loading: true,
-            currentTab: constants.activity.tabs.items,
+            currentTab: userConstants.activity.tabs.items,
             items: {
-                limit: constants.activity.items.init,
+                limit: userConstants.activity.items.init,
                 list: []
 
             },
             questions: {
-                limit: constants.activity.questions.init,
+                limit: userConstants.activity.questions.init,
                 list: []
 
             },
             answers: {
-                limit: constants.activity.answers.init,
+                limit: userConstants.activity.answers.init,
                 list: []
             }
         }
 
         $scope.itemRating = function (rating) {
-            return constants.activity.items.starsWidth / constants.activity.items.stars * rating;
+            return userConstants.activity.items.starsWidth / userConstants.activity.items.stars * rating;
         };
         $scope.addMoreActivity = function (type) {
-            $scope.activity[type].limit += constants.activity[type].init;
+            $scope.activity[type].limit += userConstants.activity[type].init;
         };
 
         $scope.setActivityTab = function (type) {
-            $scope.activity.items.limit = constants.activity.items.init;
-            $scope.activity.questions.limit = constants.activity.questions.init;
-            $scope.activity.answers.limit = constants.activity.answers.init;
+            $scope.activity.items.limit = userConstants.activity.items.init;
+            $scope.activity.questions.limit = userConstants.activity.questions.init;
+            $scope.activity.answers.limit = userConstants.activity.answers.init;
 
             $scope.activity.currentTab = type;
         }
@@ -217,13 +217,13 @@ mUser.controller('UserCtrl',
             showAll: false,
             loading: true,
             common: {
-                init: constants.boxes.common.init,
-                limit: constants.boxes.common.init,
+                init: userConstants.boxes.common.init,
+                limit: userConstants.boxes.common.init,
                 list: []
             },
             following: {
-                init: constants.boxes.following.init,
-                limit: constants.boxes.following.init,
+                init: userConstants.boxes.following.init,
+                limit: userConstants.boxes.following.init,
                 list: []
             },
             toggleShowAll: function () {
@@ -234,8 +234,8 @@ mUser.controller('UserCtrl',
                     return;
                 }
                 $scope.boxes.showAll = false;
-                $scope.boxes.common.limit = constants.boxes.common.init;
-                $scope.boxes.following.limit = constants.boxes.following.init
+                $scope.boxes.common.limit = userConstants.boxes.common.init;
+                $scope.boxes.following.limit = userConstants.boxes.following.init
             },
             followBox: function (box) {
                 sBox.follow({ boxUid: box.id }).then(function () {
@@ -250,13 +250,13 @@ mUser.controller('UserCtrl',
             showAll: false,
             loading: true,
             all: {
-                init: constants.friends.all.init,
-                limit: constants.friends.all.init,
+                init: userConstants.friends.all.init,
+                limit: userConstants.friends.all.init,
                 list: []
             },
             common: {
-                init: constants.friends.common.init,
-                limit: constants.friends.common.init,
+                init: userConstants.friends.common.init,
+                limit: userConstants.friends.common.init,
                 list: []
             },
             toggleShowAll: function () {
@@ -267,8 +267,8 @@ mUser.controller('UserCtrl',
                     return;
                 }
                 $scope.friends.showAll = false;
-                $scope.friends.common.limit = constants.friends.common.init;
-                $scope.friends.all.limit = constants.friends.all.init;
+                $scope.friends.common.limit = userConstants.friends.common.init;
+                $scope.friends.all.limit = userConstants.friends.all.init;
             }
         };
         //#endregion
@@ -278,8 +278,8 @@ mUser.controller('UserCtrl',
         //#region invites
         $scope.invites = {
             showAll: false,
-            init: constants.invites.list.init,
-            limit: constants.invites.list.init,
+            init: userConstants.invites.list.init,
+            limit: userConstants.invites.list.init,
             list: [],
             loading: true,
             toggleShowAll: function () {
@@ -289,7 +289,7 @@ mUser.controller('UserCtrl',
                     return;
                 }
                 $scope.invites.showAll = false;
-                $scope.invites.limit = constants.invites.list.init;
+                $scope.invites.limit = userConstants.invites.list.init;
             },
             reInvite: function (invite) {
                 if (invite.inviteType === 'inviteToCloudents') {
@@ -363,14 +363,12 @@ mUser.controller('UserCtrl',
                 $scope.boxes.loading = false;                
             }
 
-            function activityResponse(response) {
-                $timeout(function () {
+            function activityResponse(response) {                
                     $scope.activity.items.list = response.payload.items;
                     $scope.activity.questions.list = response.payload.questions;
                     $scope.activity.answers.list = response.payload.answers;
 
-                    $scope.activity.loading = false;
-                }, 10000);
+                    $scope.activity.loading = false;                
             }
 
             function adminRespose(response) {

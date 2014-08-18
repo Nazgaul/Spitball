@@ -1,41 +1,42 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="searchPage page" ng-controller="SearchCtrl" bindonce>
-    <div id="sTabsMenu" class="sTabs sTab1">
+    <div id="sTabsMenu" class="sTabs" ng-class="params.currentTab">
         <button type="button" ng-click="setCurrentTab('sTab1')">@SharedResources.Courses</button>
         <button type="button" ng-click="setCurrentTab('sTab2')">@SharedResources.Materials</button>
         <button type="button" ng-click="setCurrentTab('sTab3')">@SharedResources.Members</button>
     </div>
     <div class="arrow upArrow"></div>
-    <h2 class="semiFont"><span class="sResult">@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q>{{params.search}}</q></h2>
-    <div class="sTabContent" ng-style="{noResults : params.noResults}">
-        <section class="sCourses" data-list="@SharedResources.Courses">
-            <ul class="sCourseList">
+    <h2 ng-class="{searching: data.loading}" class="semiFont"><span class="sResult">@SharedResources.ResultsFor&nbsp;</span><span class="sResult">@SharedResources.SearchingFor&nbsp;</span><q>{{params.query}}</q></h2>
+    <div class="sTabContent" ng-class="{noResults : params.noResults}" infinite-scroll="addToList()" load-spinner="data.loading" infinite-scroll-immediate-check="false">
+        <section class="sCourses">
+            <ul class="sCourseList" load-spinner="params.boxesLoading" load-spinner-type="page">
                 <li class="box sCourseItem" ng-repeat="box in data.boxes">
                     <a bo-href="box.url">
                         <img class="lFloat boxImg" alt="" width="77" height="98" bo-src="box.image">
-                        <div class="sTitle elps" bo-html="box.name | highlight:params.query:false"></div>
-                        <span class="sDetail" bo-class="{allDetails: box..proffessor && box.courseCode}" bo-html="box.proffessor | highlight:params.query:false"></span>
-                        <span class="sDetail" bo-html="box.courseCode | highlight:params.query:false"></span>
+                        <div class="sTitle elps" bo-html="box.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
+                        <span class="sDetail" bo-class="{allDetails: box..proffessor && box.courseCode}" bo-html="box.proffessor | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
+                        <span class="sDetail" bo-html="box.courseCode | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
                     </a>
                 </li>
             </ul>
         </section>
-        <section class="sMaterials" data-list="@SharedResources.Materials">
+        <section class="sMaterials" load-spinner="params.itemsLoading" load-spinner-type="page">
             <ul class="sMaterialsList">
-                <li class="sMaterialsItem clearfix" ng-repeat="item in data.items" ng-include="'sMaterialItemTemplate'">               
-                </li>
+                <li class="sMaterialsItem clearfix" ng-repeat="item in data.items" ng-include="'sMaterialItemTemplate'"></li>
             </ul>
-            <div class="splitHR"><span class="splitHRText">@SharedResources.ResultsOther</span></div>
-            <ul id="sOtherMaterialsList" class="sMaterialsList" data-list="@SharedResources.Materials"></ul>
-            <button id="sOtherMaterialsBtn" class="sOtherMaterialsBtn">@SharedResources.ResultsOther</button>
+            <div class="splitHR" ng-show="data.otherItems.length > 0"><span class="splitHRText">@SharedResources.ResultsOther</span></div>
+            <ul class="sMaterialsList">
+                <li class="sMaterialsItem clearfix" ng-repeat="item in data.otherItems" ng-include="'sMaterialItemTemplate'"></li>
+            </ul>
+            <button class="sOtherMaterialsBtn" ng-click="showOtherUnisItems()" ng-show="params.showOtherUnis">@SharedResources.ResultsOther</button>
         </section>
-        <section class="sMembers" data-list="@SharedResources.Members">
+        <section class="sMembers" load-spinner="params.usersLoading" load-spinner-type="page">
             <ul class="sMembersList">
-                <li class="userItem" user-tooltip-popup="{{user.id}}">
-                    <a bo-href="item.url">
+                <li class="userItem" ng-repeat="user in data.users" user-tooltip-popup="{{user.id}}">
+                    <a bo-href="user.url">
                         <img class="userItemImg" bo-src="user.image" width="74" height="74" />
                     </a>
-                    <div class="userItemName" bo-html="user.name | highlight:params.query:false"></div>
+                    <div class="userItemName" bo-html="user.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
                 </li>
             </ul>
         </section>
@@ -47,8 +48,8 @@
     <a class="sMaterialLink" bo-href="item.url">
         <div class="sOtherUni semiFont" bo-class="{dot: item.uniName}" bo-text="item.uniName"></div>
         <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" bo-src="item.image">
-        <div class="sTitle elps" bo-html="item.name | highlight:params.query:false"></div>
-        <div class="sSnippet" bo-html="item.content | highlight:params.query:false"></div>
+        <div class="sTitle elps" bo-html="item.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
+        <div class="sSnippet" bo-html="item.content | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
         <div class="stars">
             <div class="full" bo-style="{width: itemRating(item.rate)}"></div>
         </div>

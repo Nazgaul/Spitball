@@ -1473,7 +1473,6 @@
     <Content Include="Views\Store\About.cshtml" />
     <Content Include="Views\Store\Contact.cshtml" />
     <Content Include="Views\Store\Sales.cshtml" />
-    <Content Include="Views\Store\Empty.cshtml" />
     <Content Include="Views\User\Index2.cshtml" />
     <Content Include="Views\Store\Terms.cshtml" />
     <Content Include="Views\Store\Thankyou.cshtml" />

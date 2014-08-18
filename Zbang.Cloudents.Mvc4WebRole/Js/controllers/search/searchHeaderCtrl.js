@@ -1,6 +1,6 @@
 ﻿app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService',
-    function ($scope, $timeout, debounce, Search, sUserDetails, textDirectionService) {
+    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService',
+    function ($scope, $timeout, $location, debounce, Search, sUserDetails, textDirectionService) {
         $scope.params = {
             maxItems: 6,
             minItems: 3,
@@ -15,6 +15,17 @@
         };
 
         $scope.formData = {};
+
+
+        $timeout(function () {
+            if ($location.search()['q']) {
+                var query = $location.search()['q'];
+                if (query) {
+                    $scope.formData.query = query;
+                }
+            }
+        });
+
 
         var lastQuery, lastResultCount;
         $scope.search = debounce(function () {
@@ -32,10 +43,15 @@
             lastQuery = query;
 
             Search.dropdown({ q: query }).then(function (response) {
-                var data = response.success ? response.payload : {};
-                $scope.params.showDropdown = true;
-
+                var data = response.success ? response.payload : {};                
                 parseData(data);
+                if ($scope.params.preventDropDown) {
+                    $scope.params.preventDropDown = false;
+                    return;
+                }
+
+                $scope.params.showDropdown = true;
+                
             });
         }, 150);
 
@@ -43,7 +59,7 @@
             if (!isValid) {
                 return;
             }
-            window.open(window.location.origin + '/search/?q=' + $scope.formData.query, '_self');
+            $location.url('/search/?q=' + $scope.formData.query);
 
         };
 
@@ -90,6 +106,17 @@
             };
         });
 
+        $scope.$on('$routeUpdate', function () {
+            $scope.params.showDropdown = false;
+            $scope.params.preventDropDown = true;
+            $scope.searchResults = {
+                boxes: [],
+                items: [],
+                people: [],
+                otherItems: []
+            };
+        });
+
         function parseData(data) {
             if (!lastResultCount) {
                 lastResultCount = $scope.resultCount();
@@ -128,12 +155,12 @@
 
                 $scope.searchResults.boxes = minmizeItems(data.boxes, maxCategoryItems);
                 $scope.searchResults.items = minmizeItems(data.items, maxCategoryItems);
-                $scope.searchResults.people = minmizeItems(data.people, maxCategoryItems);
-                $scope.searchResults.otherItems = minmizeItems(data.otherItems,maxOtherItems);
+                $scope.searchResults.people = minmizeItems(data.users, maxCategoryItems);
+                $scope.searchResults.otherItems = minmizeItems(data.otherItems, maxOtherItems);
 
-                function minmizeItems(array,maxItems) {
+                function minmizeItems(array, maxItems) {
                     array = array || [];
-                    return array.slice(0,maxItems);
+                    return array.slice(0, maxItems);
 
                 }
             }

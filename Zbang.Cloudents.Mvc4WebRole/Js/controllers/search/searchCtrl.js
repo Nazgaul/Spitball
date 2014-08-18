@@ -22,9 +22,13 @@ controller('SearchCtrl',
 function ($scope, $timeout, $location, Search, textDirectionService, constants) {
     $scope.params = {
         currentPage: 0,
+        currentTab: constants.tabs.boxes,
         otherItemsPage: 0,
-        isSearching: false,
-        showOtherUnis: false
+        showOtherUnis: false,
+        isOtherItems: false,
+        itemsLoading: false,
+        boxesLoading: false,
+        usersLoading: false
     };
 
     $scope.data = {};
@@ -35,12 +39,17 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
         $scope.params.query = query;
         search();
     }
-
+    
     $scope.$on('$routeUpdate', function () {
         var query = $location.search()['q'];
+        $scope.params.currentPage = $scope.params.otherItemsPage = 0;        
+        $scope.params.showOtherUnis = false;
+        $scope.params.isOtherItems = false;
+        $scope.data.boxes = $scope.data.items = $scope.data.otherItems = $scope.data.users = [];        
         if (query) {
             $scope.params.query = query;
-            search();
+            $scope.params.textDirection = textDirectionService.isRTL(query) ? 'rtl' : 'ltr';                     
+            $timeout(search, 500);
             return;
         }
 
@@ -49,6 +58,8 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
 
     $scope.showOtherUnisItems = function () {
         getOtherUnisItems();
+        $scope.params.showOtherUnis = false;
+
     };
 
     $scope.setCurrentTab = function (tab) {
@@ -59,14 +70,13 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
                 length = $scope.data.boxes.length;
                 break;
             case constants.tabs.items:
-                length = $scope.data.items.length;
+                length = $scope.data.items.length || $scope.data.otherItems.length;
                 break;
             case constants.tabs.users:
                 length = $scope.data.users.length;
                 break;
         }
         $scope.params.noResults = (length === 0);
-
     };
 
     $scope.itemRating = function (rate) {
@@ -77,6 +87,73 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
         return 0;
     };
 
+    $scope.addToList = function () {
+        if ($scope.data.loading) {
+            return;
+        }
+
+        var showMore;
+        switch ($scope.params.currentTab) {
+            case constants.tabs.boxes:
+                if ($scope.data.boxes.length % 50 === 0) {
+                    $scope.params.currentPage++;
+                    $scope.params.boxesLoading = true;
+                    showMore = true;
+                }
+
+                break;
+            case constants.tabs.items:
+                if ($scope.params.isOtherItems) {
+                    if ($scope.data.otherItems.length % 50 === 0) {
+                        $scope.params.otherItemsPage++;
+                        $scope.params.itemsLoading = true;
+                        getOtherUnisItems();
+                        return;
+                    }
+
+                    break;
+                }
+
+
+                if ($scope.data.items.length % 50 === 0) {
+                    $scope.params.itemsLoading = true;
+                    $scope.params.currentPage++;
+                    showMore = true;
+
+                }
+                break;
+            case constants.tabs.users:
+                if ($scope.data.users.length % 50 === 0) {
+                    $scope.params.usersLoading = true;
+                    $scope.params.currentPage++;
+                    showMore = true;
+
+                }
+
+                break;
+        }
+
+        if (!showMore) {
+            return;
+        }
+
+        
+        Search.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (response) {
+            var data = response.success ? response.payload : {};
+            parseData(data);
+            $scope.params.itemsLoading = false;
+            $scope.params.boxesLoading = false;
+            $scope.params.usersLoading = false;
+
+
+        }, function () {
+            $scope.params.itemsLoading = false;
+            $scope.params.boxesLoading = false;
+            $scope.params.usersLoading = false;
+        });
+    };
+
+
     $timeout(function () {
         $scope.$emit('viewContentLoaded');
     });
@@ -84,41 +161,43 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
     function search() {
         var query = $scope.params.query;
 
-        $scope.params.isSearching = true;
+        $scope.data.loading = true;
+        $scope.params.noResults = false;
 
         Search.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (response) {
             var data = response.success ? response.payload : {};
             parseData(data);
             setInitTab();
-            $scope.params.currentPage++;
-
+            $scope.data.loading = false;
         }, function () {
-            $scope.params.isSearching = false;
+            $scope.data.loading = false;
         });
     }
 
     function getOtherUnisItems() {
         var query = $scope.params.query;
 
-        $scope.params.isSearching = true;
+        $scope.params.isOtherItems = true;
 
-        Search.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (response) {
+        Search.searchOtherUnis({ q: query, page: $scope.params.currentPage }).then(function (response) {
             var data = response.success ? response.payload : {};
-            parseData(data);
-            $scope.params.otherItemsPage++;
+            $scope.data.otherItems = $scope.data.otherItems ? $scope.data.otherItems.concat(data) : data;
+            $scope.params.itemsLoading = false;
         }, function () {
-            $scope.params.isSearching = false;
+            $scope.params.itemsLoading = false;
         });
     }
 
     function parseData(data) {
-        $scope.data.boxes = data.boxes;
-        $scope.data.items = data.items;
-        $scope.data.users = data.users;
+        console.log('1');
+        $scope.data.boxes = $scope.data.boxes ? $scope.data.boxes.concat(data.boxes) : data.boxes;
+        $scope.data.items = $scope.data.items ? $scope.data.items.concat(data.items) : data.items;
+        $scope.data.users = $scope.data.users ? $scope.data.users.concat(data.users) : data.users;
 
-        if (data.items.length < 50) {
-            if (data.items.length === 0 && $scope.params.currentPage === 0) {
+        if ($scope.params.currentPage === 0 && data.items.length < 50) {
+            if (data.items.length === 0) {
                 getOtherUnisItems();
+                return;
             }
 
             $scope.params.showOtherUnis = true;
@@ -127,6 +206,11 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
 
     function setInitTab() {
         var tab;
+
+        if ($scope.params.currentTab !== constants.tabs.boxes) {
+            return;
+        }
+
         if ($scope.data.boxes.length === 0) {
             if ($scope.data.items.length) {
                 tab = constants.tabs.items;
