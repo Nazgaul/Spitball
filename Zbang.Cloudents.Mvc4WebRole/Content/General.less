@@ -412,9 +412,10 @@ input[type="radio"] {
 .btn1, .btn2 {
     border-radius: 5px;
     text-align: center;
-    padding: 1px 10px 3px 10px;
+    padding: 3px 10px 3px 10px;
     min-width: 64px;
     font-size: 15px;
+    .boxSizing;
 
     &:disabled, &:disabled:hover {
         background: #a5a5a5;
@@ -2428,35 +2429,12 @@ select.inputText {
 
 .emptySearch {
     display: none;
-    //display: none !important;
     position: relative;
     text-align: center;
-    //margin-top: 38px;
-    //height: 72px;
-    //margin-top: 43px;
-    //height: 67px;
     font-size: 15px;
     margin: 50px 0;
     color: #464646;
-    //&:before {
-        //.pseudo;
-        //background: @borderColor;
-        //width: 28px;
-        //height: 28px;
-        //border-radius: 14px;
-        //margin: -1px 6px 0 0; /*rtl*/
-        //vertical-align: middle;
-    //}
 
-    //&:after {
-        //.pseudo;
-        //width: 14px;
-        //height: 16px;
-        //position: absolute;
-        //top: 9px;
-        //left: 7px; /*rtl*/
-        //background: @common-sprite -294px -33px no-repeat;
-    //}
     &:before {
         content: '';
         display: block;

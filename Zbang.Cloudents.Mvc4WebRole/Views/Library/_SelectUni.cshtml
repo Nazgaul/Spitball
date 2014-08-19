@@ -39,8 +39,29 @@
                 <span>@MainViewResources.CantFind</span>
                 <a href="#" class="createUni">@SharedResources.CreateNew</a>
             </li>
-            
         </ul>
+
+        <ul class="uniList" id="uniList">
+            <li class="emptySearch">@SharedResources.NoResults</li>
+            <li class="newUni">
+                <span>@MainViewResources.CantFind</span>
+                <a href="#" class="createUni">@SharedResources.CreateNew</a>
+            </li>
+        </ul>
+
+        <div class="completeRegistration">
+            <div class="top">
+                <img class="uniImg" src="http://placehold.it/66x66" alt="" width="66" height="66" />
+                <div class="uniRegTxt1">You study at {UNINAME}</div>
+                <div class="uniRegTxt2" data-regfriends-count="23">of your friends are registered</div>
+            </div>
+            <div class="bottom">
+                <label for="deptInput">Choose department</label>
+                <input type="text" class="inputText" id="deptInput" />
+                <button type="submit" class="btn1 rFloat">@SharedResources.Choose</button>
+                <button type="button" class="btn2 rFloat cancel" ng-click="cancel()">@SharedResources.Back</button>
+            </div>
+        </div>
     </div>
 </div>
 
