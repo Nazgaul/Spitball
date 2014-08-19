@@ -243,7 +243,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Link user: {0} BoxUid: {1} url: {2}", GetUserId(), model.BoxId, model.FileUrl), ex);
+                TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", GetUserId(), model.BoxId, model.FileUrl), ex);
                 return Json(new JsonResponse(false, BaseControllerResources.ProblemUrl));
             }
         }

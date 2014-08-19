@@ -261,10 +261,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax, HttpGet]
         //[AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
-        public JsonResult Members(long boxUid)
+        public JsonResult Members(long boxId)
         {
             var userId = GetUserId(false);
-            var result = ZboxReadService.GetBoxMembers(new GetBoxQuery(boxUid, userId));
+            var result = ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
             return Json(new JsonResponse(true, result));
         }
 
@@ -331,11 +331,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [HttpGet]
         [Ajax]
-        public JsonResult GetNotification(long boxUid)
+        public JsonResult GetNotification(long boxId)
         {
             var userId = GetUserId();
 
-            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxUid, userId));
+            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId, userId));
             return Json(new JsonResponse(true, result.ToString("g")));
         }
 

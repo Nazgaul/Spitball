@@ -50,15 +50,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ActionName("Index"), Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public ActionResult Index2(long boxUid, long itemId)
+        public ActionResult Index2(long boxId, long itemId)
         {
             try
             {
                 var userId = GetUserId(false); // not really needs it
 
-                var query = new GetItemQuery(userId, itemId, boxUid);
+                var query = new GetItemQuery(userId, itemId, boxId);
                 var item = ZboxReadService.GetItem(query);
-                if (item.BoxId != boxUid)
+                if (item.BoxId != boxId)
                 {
                     throw new ItemNotFoundException();
                 }
@@ -77,7 +77,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On item load boxid = " + boxUid + " ,itemid = " + itemId, ex);
+                TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemId, ex);
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.InternalServerError);
             }
         }

@@ -205,19 +205,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult SubscribeToBox(long boxUid)
+        public ActionResult SubscribeToBox(long boxId)
         {
             var userid = GetUserId();
             try
             {
 
-                var command = new SubscribeToSharedBoxCommand(userid, boxUid);
+                var command = new SubscribeToSharedBoxCommand(userid, boxId);
                 ZboxWriteService.SubscribeToSharedBox(command);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxUid), ex);
+                TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxId), ex);
                 return Json(new JsonResponse(false));
             }
 
