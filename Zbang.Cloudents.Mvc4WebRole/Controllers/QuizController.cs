@@ -99,6 +99,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
+        [HttpGet]
+        [Ajax]
+        public async Task<ActionResult> Data(long boxId, long quizId, string quizName)
+        {
+            var model = await GetQuiz(boxId, quizId, quizName, false);
+            return Json(model);
+        }
+
         [Ajax]
         [ZboxAuthorize]
         public async Task<ActionResult> Discussion(long quizId)
