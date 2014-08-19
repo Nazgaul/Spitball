@@ -1088,6 +1088,9 @@ input[type="radio"] {
         ~ .modal2 {
             display: block;
         }
+        &.popupWrppr {
+            max-height: none; //override rule from modal
+        }
     }
 
     &.registerFirst {
@@ -1179,7 +1182,7 @@ input[type="radio"] {
         .closeDialog {
             right: 144px; //rtl
             top: 208px;
-            background: url(/Images/Store/social.png) 0 -292px no-repeat;
+            background: url(/Images/Store/social.png?v=1) 0 -292px no-repeat;
             width: 25px;
 	        height: 25px;
         }
@@ -1440,7 +1443,7 @@ input[type="radio"] {
     background-position: -131px -24px;
     width: 31px;
 	height: 26px;
-    background: url(/Images/Store/social.png) 0 -317px no-repeat;
+    background: url(/Images/Store/social.png?v=1) 0 -317px no-repeat;
     left: 4px; /*rtl*/
     &:after {
         background: #676767;
@@ -2668,6 +2671,23 @@ select.inputText {
 
 /*#endregion */ 
 
+
+/*#region IE only CSS */
+@media screen and (~'min-width:0\0') { 
+    .boxItemTt.boxItemTt {
+        .ttPreview {
+            max-height: 52px; /* diff rtl - heb has 4 lines*/
+        }
+    }
+    .welcomeStore {
+        .or {
+            padding-top: 8px;
+        }
+    }
+
+}
+/*#endregion */
+
 /*#region media queries */
 ////Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
 
@@ -2683,7 +2703,8 @@ select.inputText {
             position: relative;
             display: table;
         }
-
+    }
+    body {
         .siteHeader,
         .boxPage .leftPanel,
         .QA,
@@ -2815,6 +2836,10 @@ select.inputText {
         }
     }
 }
+@media (max-width: 960px) {
+
+    
+}
 
 .mtouch{   
     // this applies to rename btn in library,box and item pages
@@ -2899,3 +2924,16 @@ select.inputText {
     left: -2000px;
 }
 /*#endregion*/
+
+//Temporarily hide store popop on mobile devices smaller than Ipad
+@media only screen and (max-device-width : 1023px) {
+    .registerFirst.registerFirst {
+        ~ .modal2 {
+            //display: none;
+        }
+        &.store {
+            //width: 100%;
+            //margin:0;
+        }
+    }
+}

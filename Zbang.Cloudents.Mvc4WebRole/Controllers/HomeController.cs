@@ -35,7 +35,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IBlobProvider> blobProvider,
             Lazy<ICache> cacheProvider
             )
-            
         {
             m_QueueProvider = queueProvider;
             m_BlobProvider = blobProvider;
@@ -50,7 +49,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[Route("course:desktop/{universityName}/{boxId:long}/{boxName}", Name = "CourseBoxDesktop", Order = 2)]
         public ActionResult Index(long? universityId)
         {
-            if (!User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated && Request.UserAgent != null &&
+                !Request.UserAgent.ToUpper().Contains("MSIE 9.0"))
             {
                 return RedirectToAction("Index", "Account", new { universityId });
                 //return RedirectToActionPermanent("Index", "Dashboard");
@@ -92,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (model != null)
             {
-                return View(model.Where(w => String.Equals(w.Language, 
+                return View(model.Where(w => String.Equals(w.Language,
                     System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
             }
@@ -119,7 +119,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model = model.ToList();
                 m_CacheProvider.Value.AddToCache(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
             }
-            return View(model.Where(w => String.Equals(w.Language, 
+            return View(model.Where(w => String.Equals(w.Language,
                 System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
         }
@@ -166,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(Duration = TimeConsts.Day,
             VaryByParam = "none", Location = OutputCacheLocation.Server,
             VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
-        [CacheFilter(Duration=TimeConsts.Day)]
+        [CacheFilter(Duration = TimeConsts.Day)]
         public ActionResult JsResources()
         {
             //var rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());
@@ -420,7 +420,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var command = new AddStudentCommand(model.Id);
             ZboxWriteService.AddStudent(command);
-            return RedirectToAction("InsertUser", new { complete="complete" });
+            return RedirectToAction("InsertUser", new { complete = "complete" });
         }
     }
 }
