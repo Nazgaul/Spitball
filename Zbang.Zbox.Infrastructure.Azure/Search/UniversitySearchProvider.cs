@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                         var extraDetail = universitiesExtra.FirstOrDefault(f => f.Id == university.Id);
                         //var searchQuery = new TermQuery(new Term("id", university.Id.ToString(CultureInfo.InvariantCulture)));
                         //indexWriter.DeleteDocuments(searchQuery);
-                       
+
 
                         var doc = new Document();
                         doc.Add(new Field(IdField, university.Id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
@@ -135,8 +135,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 "college",
                 "university",
                 "אוניברסיטה",
-                "ה",
-                "מכללת"
+                "מכללת",
+                "האקדמית",
+                "המכללה",
+                "מכללה",
+                "אקדמית"
             };
 
 
@@ -159,9 +162,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 };
 
                 //term = term.Replace(" ", "* *");
-                var searchTerm = term + "*";
-                var query = parseQuery(searchTerm, parser);
+                //var searchTerm = term + "*";
+                var splitWords = term.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var terms = new List<string>();
+                foreach (var splitWord in splitWords)
+                {
+                    if (extraWords.Any(x => x == splitWord))
+                    {
+                        terms.Add(splitWord);
+                        continue;
+                    }
+                    terms.Add(splitWord.Trim() + "*");
+                }
+                var query = parseQuery(string.Join(" ", terms) + "*", parser);
                 var values = ProcessHits(query);
+                if (values.Count > 0)
+                {
+                    return values;
+                }
                 //var hits = m_IndexService.Search(query, 50).ScoreDocs;
                 //var retVal = new List<UniversityByPrefixDto>();
                 //for (int i = 0; i < hits.Length; i++)
@@ -180,10 +198,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
 
                 //}
-                if (values.Count != 0) return values;
-                var similarSearchTerm = term.Replace(" ", "* *");
-                similarSearchTerm = "*" + similarSearchTerm + "*";
-                var extendQuery = parseQuery(similarSearchTerm, parser);
+                // if (values.Count != 0) return values;
+                //var splitWords = term.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                terms.Clear();
+                foreach (var splitWord in splitWords)
+                {
+                    if (extraWords.Any(x => x == splitWord))
+                    {
+                        terms.Add(splitWord);
+                        continue;
+                    }
+                    terms.Add( "*" + splitWord.Trim() + "*");
+                }
+                //var terms = splitWords
+                //    .Where(x => extraWords.All(a => a != x)).Select(x => "*" + x.Trim() + "*");
+                // var similarSearchTerm = term.Replace(" ", "* *");
+                //similarSearchTerm = "*" + similarSearchTerm + "*";
+                var extendQuery = parseQuery(string.Join(" ", terms) + "*", parser);
                 values = ProcessHits(extendQuery);
                 return values;
             }
@@ -197,7 +228,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 m_IndexService = new IndexSearcher(m_AzureUniversitiesDirectory, false);
             }
-            var hits = m_IndexService.Search(query, 20).ScoreDocs;
+            var hits = m_IndexService.Search(query, 50).ScoreDocs;
             var retVal = new List<UniversityByPrefixDto>();
             for (int i = 0; i < hits.Length; i++)
             {
@@ -218,6 +249,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         }
         private Lucene.Net.Search.Query parseQuery(string searchQuery, QueryParser parser)
         {
+
             Lucene.Net.Search.Query query;
             try
             {
@@ -282,7 +314,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_AzureUniversitiesSpellerDirectory.Dispose();
             m_Timer.Dispose();
         }
-        
+
     }
 
 
