@@ -31,7 +31,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 
         public string UniCountry { get; set; }
 
-        public long OwnerUid { get; private set; }
+        public long OwnerId { get; private set; }
         public string CourseId { get; private set; }
         public string ProfessorName { get; set; }
 

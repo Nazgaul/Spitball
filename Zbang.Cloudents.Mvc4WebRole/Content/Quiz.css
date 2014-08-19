@@ -641,6 +641,23 @@ body.quiz .shareBtn {
   border: none;
   width: 343px;
 }
+.quizPage .backWpr:before {
+  background: url(/Images/site.png) 0 0 no-repeat;
+}
+.quizPage .backWpr:hover:before {
+  background-position: 0 0;
+}
+.quizPage .shareBtnTxt {
+  color: #fff;
+}
+.quizPage .shareBtnTxt:before {
+  width: 22px;
+  height: 18px;
+  background: url(/Images/site.png) 0 -1124px;
+}
+.quizPage .shareBtnTxt:hover:before {
+  background-position: 0 -1124px;
+}
 .quizPage .itemPrint.iconTop {
   margin-top: 11px;
 }
@@ -648,9 +665,9 @@ body.quiz .shareBtn {
   text-align: left;
   /*rtl*/
 }
-.quizPage .topBar {
+.quizPage .topBar.topBar {
   position: fixed;
-  padding-left: 290px;
+  padding-left: 340px;
   top: 50px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

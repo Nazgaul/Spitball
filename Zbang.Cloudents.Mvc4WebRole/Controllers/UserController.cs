@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> MinProfile(long userId)
         {
-            return this.CdJson(new JsonResponse(true, await GetUserProfile(userId)));
+            return Json(new JsonResponse(true, await GetUserProfile(userId)));
         }
 
         [HttpGet, Ajax]
@@ -101,7 +101,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     friendFriends = taskFriendData.Result.Where(w => w.Uid != GetUserId());
                 }
-                return this.CdJson(new JsonResponse(true, new
+                return Json(new JsonResponse(true, new
                 {
                     my = taskUserData.Result,
                     user = friendFriends
@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("GetUserFriends user {0}", User.Identity.Name), ex);
-                return this.CdJson(new JsonResponse(false, "Problem with get user friends"));
+                return Json(new JsonResponse(false, "Problem with get user friends"));
             }
         }
 
@@ -123,12 +123,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetUserWithFriendQuery(GetUserId(), userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
-                return this.CdJson(new JsonResponse(true, model));
+                return Json(new JsonResponse(true, model));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, userId), ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -143,17 +143,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var usermodel = await GetUserProfile(GetUserId());
                 if (usermodel.Score < AdminReputation)
                 {
-                    return this.CdJson(new JsonResponse(false));
+                    return Json(new JsonResponse(false));
                 }
                 var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
-                return this.CdJson(new JsonResponse(true, model));
+                return Json(new JsonResponse(true, model));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, userId), ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
         [HttpGet, Ajax]
@@ -164,13 +164,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userModel = await GetUserProfile(GetUserId());
             if (userModel.Score < AdminReputation)
             {
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
 
             var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
             var query = new GetAdminUsersQuery(universityId);
             var result = await ZboxReadService.GetUniversityUsers(query);
-            return this.CdJson(new JsonResponse(true, result));
+            return Json(new JsonResponse(true, result));
         }
         #endregion
 
@@ -184,12 +184,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var model = await ZboxReadService.GetUserPersonalInvites(query);
 
 
-                return this.CdJson(new JsonResponse(true, model));
+                return Json(new JsonResponse(true, model));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("User/OwnedInvites user {0}", User.Identity.Name), ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -198,7 +198,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetUserWithFriendQuery(GetUserId(), userId);
             var model = await ZboxReadService.GetUserWithFriendActivity(query);
-            return this.CdJson(new JsonResponse(true, model));
+            return Json(new JsonResponse(true, model));
         }
 
         [HttpPost, Ajax]
@@ -221,13 +221,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         await
                             httpClient.GetStringAsync(url);
                     //return Content(result, "text/json");
-                    return this.CdJson(new JsonResponse(true, result));
+                    return Json(new JsonResponse(true, result));
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("on google contact token" + token, ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
 
 
@@ -243,7 +243,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = GetUserId();
             var query = new GetUserDetailsQuery(userid);
             var result = ZboxReadService.GetUserBoxesNotification(query);
-            return this.CdJson(new JsonResponse(true, result));
+            return Json(new JsonResponse(true, result));
         }
 
 
@@ -251,7 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Updates()
         {
             var model = await ZboxReadService.GetUpdates(new QueryBase(GetUserId()));
-            return this.CdJson(new JsonResponse(true, model));
+            return Json(new JsonResponse(true, model));
         }
     }
 }

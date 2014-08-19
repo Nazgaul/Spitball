@@ -74,7 +74,7 @@ mBox.controller('BoxCtrl',
                     membersLength: info.members,
                     members: info.subscribers,
                     ownerName: info.ownerName,
-                    ownerId: info.ownerUid, //uid
+                    ownerId: info.ownerId, 
                     privacy: info.privacySetting,
                     professor: info.professorName,
                     tabs: info.tabs,
@@ -297,16 +297,16 @@ mBox.controller('BoxCtrl',
                     } else if (data.type === 'googleLink') {
                         $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
                     }
-
+                    //TODO: what is that
                     var formData = {
-                        boxId: $scope.boxId,
+                        boxId: $scope.boxId, //
                         boxUid: $scope.boxId,
                         boxName: $scope.boxName,
                         uniName: $scope.uniName,
-                        tabId: $scope.info.currentTab ? $scope.info.currentTab.id : null,
+                        tabId: $scope.info.currentTab ? $scope.info.currentTab.id : null, //
                         url: data.url,
-                        fileName: data.name,
-                        fileUrl: data.url
+                        fileName: data.name, //
+                        fileUrl: data.url //
                     }
 
                     var uploaded = 0;
@@ -747,8 +747,8 @@ mBox.controller('BoxCtrl',
                     return;
                 }
 
-                var memberPromise = Box.members({ boxUid: $scope.boxId }),
-                   notificationPromise = Box.notification({ boxUid: $scope.boxId }),
+                var memberPromise = Box.members({ boxId: $scope.boxId }),
+                   notificationPromise = Box.notification({ boxId: $scope.boxId }),
                    settingsAll = $q.all([memberPromise, notificationPromise]),
                    notification;
 
@@ -837,7 +837,7 @@ mBox.controller('BoxCtrl',
                     return;
                 }
 
-                Box.follow({ BoxUid: $scope.boxId }).then(function () {
+                Box.follow({ BoxId: $scope.boxId }).then(function () {
 
                 });
             };

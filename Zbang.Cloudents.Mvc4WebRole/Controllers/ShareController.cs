@@ -199,25 +199,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_Message ", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult SubscribeToBox(long boxUid)
+        public ActionResult SubscribeToBox(long boxId)
         {
             var userid = GetUserId();
             try
             {
 
-                var command = new SubscribeToSharedBoxCommand(userid, boxUid);
+                var command = new SubscribeToSharedBoxCommand(userid, boxId);
                 ZboxWriteService.SubscribeToSharedBox(command);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxUid), ex);
+                TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxId), ex);
                 return Json(new JsonResponse(false));
             }
 
@@ -250,19 +250,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return this.CdJson(new JsonResponse(true, new string[0]));
+                return Json(new JsonResponse(true, new string[0]));
             }
             var userid = GetUserId();
             try
             {
                 var query = new GetInvitesQuery(userid, page);
                 var invites = await ZboxReadService.GetInvites(query);
-                return this.CdJson(new JsonResponse(true, invites));
+                return Json(new JsonResponse(true, invites));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Share Notifications userid " + userid, ex);
-                return this.CdJson(new JsonResponse(true, new string[0]));
+                return Json(new JsonResponse(true, new string[0]));
             }
         }
 
@@ -333,7 +333,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var command = new MarkMessagesAsReadCommand(GetUserId(), messageId);
             ZboxWriteService.MarkMessageAsRead(command);
-            return this.CdJson(new JsonResponse(true));
+            return Json(new JsonResponse(true));
         }
 
         [HttpPost, Ajax, ZboxAuthorize]
@@ -341,7 +341,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var command = new MarkMessagesAsOldCommand(GetUserId());
             ZboxWriteService.MarkMessagesAsOld(command);
-            return this.CdJson(new JsonResponse(true));
+            return Json(new JsonResponse(true));
         }
     }
 }

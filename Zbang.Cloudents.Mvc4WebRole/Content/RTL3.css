@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2680,8 +2680,12 @@ body.quiz .shareBtn {
   text-align: right;
   /*rtl*/
 }
-.quizPage .topBar {
+.quizPage .topBar.topBar {
   padding: 0 290px 0 0;
+}
+.quizPage .quizViews {
+  border: none;
+  border-right: 1px solid #fff;
 }
 .quizPage .itemNameWpr {
   padding: 28px 90px 15px 20px;
@@ -2715,11 +2719,32 @@ body.quiz .shareBtn {
   /*rtl*/
   right: auto;
 }
-.results.wrong:before {
+.results {
+  padding: 0 45px 0 0;
+}
+.results.wrong {
+  padding: 0 0 0 45px;
+  border: none;
+  border-right: 1px solid #fff;
+}
+.results.wrong:after {
+  left: 0;
+  right: auto;
+}
+.results:before {
+  margin: -10px 0 -20px;
+}
+.results:after {
   right: 0;
-  /*rtl*/
   left: auto;
+}
+.userScore:after {
+  position: relative;
+  top: 10px;
+}
+.topUser.star:after {
+  left: -12px;
+  right: auto;
 }
 /*#endregion */
 /*#endregion */
-/*# sourceMappingURL=RTL3.css.map */
