@@ -677,12 +677,15 @@ body.quiz {
     .itemRight {
         text-align: left; /*rtl*/
     }
-    .topBar.topBar {
+    .topBar{
         position:fixed;
-        padding-left: 340px; // leftPanel = 340px //rtl
+        
         top: @header-height;
         .boxSizing;
         width: 100%;
+        &.topBar {
+            padding-left: 340px; // leftPanel = 340px //rtl
+        }
     }
 
     .itemTop {

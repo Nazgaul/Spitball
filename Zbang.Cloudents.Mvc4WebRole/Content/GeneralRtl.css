@@ -467,15 +467,18 @@ input[type="radio"] + label:before {
   font-weight: normal;
   /*diff rtl*/
 }
-.emptySearch:before {
-  margin: -1px 0 0 6px;
-  /*rtl*/
-}
-.emptySearch:after {
-  right: 7px;
-  /*rtl*/
-  left: auto;
-}
+/*.emptySearch
+{
+    &:before
+    {
+        margin: -1px 0 0 6px; //rtl/
+    }
+    &:after
+    {
+        right: 7px; //rtl
+        left: auto;
+    }
+}*/
 .iconTxt:before {
   margin: 0 0 0 6px;
   /*rtl*/
