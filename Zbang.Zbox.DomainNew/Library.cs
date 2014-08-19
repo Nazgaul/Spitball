@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -12,7 +11,7 @@ namespace Zbang.Zbox.Domain
         protected Library()
         {
             Children = new List<Library>();
-            Boxes = new Iesi.Collections.Generic.HashedSet<Box>();
+            Boxes = new HashSet<Box>();
             AmountOfNodes = 0;
         }
         public Library(Guid id, string name, Library parent, University university)

@@ -190,9 +190,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\CommandHandlerResources.ar.resx" />
     <EmbeddedResource Include="Resources\CommandHandlerResources.he.resx" />
     <EmbeddedResource Include="Resources\CommandHandlerResources.resx">
@@ -200,6 +197,9 @@
       <LastGenOutput>CommandHandlerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommandHandlerResources.ru.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

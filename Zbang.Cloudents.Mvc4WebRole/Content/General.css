@@ -2281,40 +2281,26 @@ select.inputText {
 }
 .noResults {
   text-align: center !important;
-  background: #fff !important;
+  background: #fff;
 }
 .noResults .emptySearch {
-  display: inline-block !important;
+  display: inline-block;
 }
 .emptySearch {
-  display: none !important;
+  display: none;
   position: relative;
   text-align: center;
-  margin-top: 43px;
-  height: 67px;
-  font-size: 13px;
+  font-size: 15px;
+  margin: 50px 0;
+  color: #464646;
 }
 .emptySearch:before {
   content: '';
-  display: inline-block;
-  background: #c2c2c2;
-  width: 28px;
-  height: 28px;
-  border-radius: 14px;
-  margin: -1px 6px 0 0;
-  /*rtl*/
-  vertical-align: middle;
-}
-.emptySearch:after {
-  content: '';
-  display: inline-block;
-  width: 14px;
-  height: 16px;
-  position: absolute;
-  top: 9px;
-  left: 7px;
-  /*rtl*/
-  background: url(/Images/common17-sprite.png?v=4) -294px -33px no-repeat;
+  display: block;
+  width: 108px;
+  height: 98px;
+  background: url(/Images/site.png) 0 -1418px no-repeat;
+  margin: 0 auto;
 }
 .emptySearchAdmin:after {
   top: 5px;

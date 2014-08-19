@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain
     {
         protected StoreProduct()
         {
-            Features = new Iesi.Collections.Generic.HashedSet<StoreProductFeatures>();
+            Features = new HashSet<StoreProductFeatures>();
         }
 
         public StoreProduct(long id, string name, string extraDetails, int numberOfSales, float coupon, float salePrice, string pictureUrl, IList<StoreCategory> categories, string description, bool homePage, string supplyTime, int numberOfPayments, string catalogNumber, float deliveryPrice, string producerName, IEnumerable<KeyValuePair<string, string>> features, int? universityId, int categoryOrder, int productOrder, int? producerId)

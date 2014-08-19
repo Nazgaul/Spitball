@@ -118,7 +118,6 @@
     <EmbeddedResource Include="MailTemplate\FlaggedItemRu.html" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -24,8 +24,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     public class UniversitySearchProvider : IUniversityWriteSearchProvider, IUniversityReadSearchProvider, IDisposable
     {
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
-        private readonly AzureDirectory m_AzureUniversiesDirectory;
-        private readonly AzureDirectory m_AzureUniversiesSpellerDirectory;
+        private readonly AzureDirectory m_AzureUniversitiesDirectory;
+        private readonly AzureDirectory m_AzureUniversitiesSpellerDirectory;
 
         const string UniversityCatalog = "UniversityCatalog";
         const string UniversitySuggestionCatalog = "UniversitySuggestionCatalog";
@@ -41,17 +41,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public UniversitySearchProvider(IZboxReadServiceWorkerRole dbReadService)
         {
-            m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversityCatalog);
-            m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
+            m_AzureUniversitiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversityCatalog);
+            m_AzureUniversitiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
             m_DbReadService = dbReadService;
-            //m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
 
             m_Timer = new Timer(TimeSpan.FromHours(1).TotalMilliseconds);
             m_Timer.Elapsed += (s, e) =>
             {
                 m_IndexService.Dispose();
                 m_IndexService = null;
-            //    m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
             };
             m_Timer.Enabled = true;
 
@@ -69,7 +67,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
                 universitiesExtra = universitiesExtra.ToList();
-                using (var indexWriter = new IndexWriter(m_AzureUniversiesDirectory,
+                using (var indexWriter = new IndexWriter(m_AzureUniversitiesDirectory,
                         analyzer,
                         new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
                 {
@@ -104,11 +102,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     {
                         using (
                             var speller =
-                                new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
+                                new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversitiesSpellerDirectory))
                         {
                             speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), NameField));
                             speller.Close();
-                            //m_AzureUniversiesSpellerDirectory.speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra1"));
+                            //m_AzureUniversitiesSpellerDirectory.speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra1"));
                             //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra2"));
                             //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra3"));
 
@@ -142,12 +140,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             };
 
 
-            //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
+            //using (var searcher = new IndexSearcher(m_AzureUniversitiesDirectory, false))
             //{
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30, extraWords))
             {
 
-                //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
+                //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversitiesSpellerDirectory))
                 //{
                 //    string[] suggestions = speller.SuggestSimilar(term, 5);
                 //    Debug.WriteLine(string.Join(",", suggestions));
@@ -197,7 +195,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         {
             if (m_IndexService == null)
             {
-                m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+                m_IndexService = new IndexSearcher(m_AzureUniversitiesDirectory, false);
             }
             var hits = m_IndexService.Search(query, 20).ScoreDocs;
             var retVal = new List<UniversityByPrefixDto>();
@@ -213,7 +211,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     );
 
                 retVal.Add(university);
-                //Console.WriteLine(doc2.GetField("University").StringValue);
 
 
             }
@@ -281,8 +278,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 m_IndexService.Dispose();
             }
-            m_AzureUniversiesDirectory.Dispose();
-            m_AzureUniversiesSpellerDirectory.Dispose();
+            m_AzureUniversitiesDirectory.Dispose();
+            m_AzureUniversitiesSpellerDirectory.Dispose();
             m_Timer.Dispose();
         }
         
