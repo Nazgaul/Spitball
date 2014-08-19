@@ -22,6 +22,8 @@
                 var query = $location.search()['q'];
                 if (query) {
                     $scope.formData.query = query;
+                    $scope.params.preventDropDown = true;
+                    $scope.search();
                 }
             }
         });
@@ -97,13 +99,7 @@
 
         $scope.$on('$routeChangeStart', function () {
             $scope.params.showDropdown = false;
-            $scope.formData.query = null;
-            $scope.searchResults = {
-                boxes: [],
-                items: [],
-                people: [],
-                otherItems: []
-            };
+            $scope.formData.query = null;          
         });
 
         $scope.$on('$routeUpdate', function () {

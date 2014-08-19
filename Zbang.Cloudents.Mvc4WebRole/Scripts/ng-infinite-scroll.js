@@ -34,7 +34,7 @@ mod.directive('infiniteScroll', [
 
                       remaining = $scrollElem[0].scrollHeight - $scrollElem.scrollTop();
                   } else {
-                      remaining = document.body.offsetHeight - ($scrollElem.scrollTop() +  $scrollElem.height());
+                      remaining = $(document).height() - ($scrollElem.scrollTop() +  $scrollElem.height());
                   }
 
                   //if (($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {

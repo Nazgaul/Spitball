@@ -26,7 +26,7 @@
 
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
                             <a href="{{friend.url}}">
-                                <img class="friendImg" user-tooltip-popup="{{friend.uid}}" user-tooltip-popup="{{friend.uid}}" ng-src="{{friend.image}}" width="31" height="31" />
+                                <img class="friendImg" user-tooltip-popup="{{friend.uid}}" ng-src="{{friend.image}}" width="31" height="31" />
                             </a>
                         </li>
                         <li class="friendItem friendBtn" data-action="true">
@@ -60,7 +60,7 @@
 
 
         </aside>
-        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}" infinite-scroll="addBoxes()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <section class="unionCourses">
                 <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
 
@@ -76,7 +76,7 @@
                            href="@Url.Action("Index","Library")">@SharedResources.BrowseCourses</a>
                     </li>
 
-                    <li ng-repeat="box in academicBoxes | limitTo: options.maxAcademicVisible" class="box" ng-include="'dashBoxTemplate'" bindonce>
+                    <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
 
                     </li>
 
@@ -95,7 +95,7 @@
                     <li ng-click="openCreateBox()" class="box">
                         <button class="addBtn">@SharedResources.CreateNew</button>
                     </li>
-                    <li ng-repeat="box in groupBoxes | limitTo: options.maxGroupVisible" class="box" ng-include="'dashBoxTemplate'" bindonce>
+                    <li ng-repeat="box in groupBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
                     </li>
                 </ol>
             </section>
