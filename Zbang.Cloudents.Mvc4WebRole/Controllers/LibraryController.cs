@@ -112,12 +112,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var retVal = m_UniversitySearch.Value.SearchUniversity(term);
-                return this.CdJson(new JsonResponse(true, retVal));
+                return Json(new JsonResponse(true, retVal));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("SeachUniversity term:  " + term, ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(authToken))
             {
-                return this.CdJson(null);
+                return Json(null);
             }
             try
             {
@@ -149,12 +149,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     });
                 }
 
-                return this.CdJson(new JsonResponse(true, suggestedUniversity));
+                return Json(new JsonResponse(true, suggestedUniversity));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Library Get friends authkey=" + authToken, ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -207,7 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, section, GetUserId(), page, order);
             var result = ZboxReadService.GetLibraryNode(query);
-            return this.CdJson(new JsonResponse(true, result));
+            return Json(new JsonResponse(true, result));
 
         }
 
@@ -261,17 +261,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
-                return this.CdJson(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
             }
             if (userDetail.UniversityId.Value != GetUserId())
             {
-                return this.CdJson(new JsonResponse(false, "you unauthorized to add departments"));
+                return Json(new JsonResponse(false, "you unauthorized to add departments"));
             }
             try
             {
@@ -279,11 +279,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new AddNodeToLibraryCommand(model.Name, id, userDetail.UniversityId.Value, model.ParentId);
                 ZboxWriteService.AddNodeToLibrary(command);
                 var result = new NodeDto { Id = id, Name = model.Name };
-                return this.CdJson(new JsonResponse(true, result));
+                return Json(new JsonResponse(true, result));
             }
             catch (ArgumentException)
             {
-                return this.CdJson(new JsonResponse(false, "unspecified error"));
+                return Json(new JsonResponse(false, "unspecified error"));
             }
         }
 
@@ -311,7 +311,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, model.ParentId);
                 var result = ZboxWriteService.CreateBox(command);
-                return this.CdJson(new JsonResponse(true, new { result.NewBox.Url}));
+                return Json(new JsonResponse(true, new { result.NewBox.Url}));
             }
             catch (BoxNameAlreadyExistsException)
             {
@@ -338,7 +338,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_CreateLibraryItem", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -353,7 +353,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_UploadCreateAcademicBox", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
         #endregion
@@ -413,7 +413,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     break;
             }
             ViewBag.userName = userData.Name;
-            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
+            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
         }
         [Ajax, HttpGet]
         public ActionResult InsertId(long universityId)
@@ -429,14 +429,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     break;
             }
             ViewBag.userName = userData.Name;
-            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
+            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
         }
 
         [Ajax, HttpGet]
         public async Task<ActionResult> SelectDepartment(long universityId)
         {
             var retVal = await ZboxReadService.GetDepartmentList(universityId);
-            return this.CdJson(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
+            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
         }
 
         [Ajax, HttpGet]
@@ -449,20 +449,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (result.Score < UserController.AdminReputation)
             {
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
             var userDetail = FormsAuthenticationService.GetUserData();
             var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
 
             var retVal = await ZboxReadService.GetDepartmentList(universityId);
-            return this.CdJson(new JsonResponse(true, retVal));
+            return Json(new JsonResponse(true, retVal));
         }
 
         [HttpPost, Ajax]
         public ActionResult Verify(string code)
         {
             var isValid = code == "cloudvivt";
-            return this.CdJson(new JsonResponse(true, isValid));
+            return Json(new JsonResponse(true, isValid));
         }
     }
 }

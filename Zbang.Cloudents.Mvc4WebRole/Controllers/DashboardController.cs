@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -51,12 +50,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetBoxesQuery(userid);
                 var data = await ZboxReadService.GetDashboard(query);
-                return this.CdJson(new JsonResponse(true, data));
+                return this.Json(new JsonResponse(true, data));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("BoxList user: {0}", userid), ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -68,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             try
             {
@@ -76,14 +75,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateBoxCommand(userId, model.BoxName, model.privacySettings);
                 var result = ZboxWriteService.CreateBox(command);
                 var retVal = result.NewBox.Url;
-                return this.CdJson(new JsonResponse(true, new { Url = retVal }));
+                return Json(new JsonResponse(true, new { Url = retVal }));
 
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
         }
 
@@ -99,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("PrivateBoxPartial ", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -117,7 +116,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("FriendsPartial", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
         #endregion

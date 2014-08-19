@@ -69,14 +69,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Products(int? categoryId, int? universityId, int? producerId)
         {
             var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId,producerId));
-            return this.CdJson(new JsonResponse(true, products));
+            return Json(new JsonResponse(true, products));
         }
 
         [HttpGet, Ajax]
         public async Task<ActionResult> ValidCodeCoupon(int code)
         {
             var retVal = await ZboxReadService.ValidateCoupon(code);
-            return this.CdJson(new JsonResponse(true, new { isValid = retVal }));
+            return Json(new JsonResponse(true, new { isValid = retVal }));
         }
 
         [HttpGet, Ajax, StoreCategories]
@@ -100,11 +100,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(term))
             {
-                return this.CdJson(new JsonResponse(false, "Provide a term"));
+                return Json(new JsonResponse(false, "Provide a term"));
             }
             var query = new SearchProductQuery(term, universityId);
             var products = await ZboxReadService.SearchProducts(query);
-            return this.CdJson(new JsonResponse(true, products));
+            return Json(new JsonResponse(true, products));
 
         }
 
@@ -129,7 +129,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             await m_QueueProvider.Value.InsertMessageToStoreAsync(new Zbox.Infrastructure.Transport.StoreOrderData(
                 model.ProductId,
@@ -149,7 +149,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Phone1, model.Phone2,
                 model.Features,
                 model.NumberOfPayments));
-            return this.CdJson(new JsonResponse(true, new { url = Url.RouteUrl("StoreThanksYou") }));
+            return Json(new JsonResponse(true, new { url = Url.RouteUrl("StoreThanksYou") }));
         }
 
         [Ajax, HttpGet, StoreCategories]
@@ -175,12 +175,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             m_QueueProvider.Value.InsertMessageToStoreAsync(
                 new Zbox.Infrastructure.Transport.StoreContactData(model.Name, model.Phone, model.University,
                     model.Email, model.Text));
-            return this.CdJson(new JsonResponse(true));
+            return Json(new JsonResponse(true));
         }
 
         [Ajax, HttpGet, StoreCategories]

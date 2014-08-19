@@ -9,7 +9,7 @@
     <return-scalar type="string" column="Name"/>
     <return-scalar type="string" column="OwnerName"/>
     <return-scalar type="string" column="UniCountry"/>
-    <return-scalar type="long" column="OwnerUid"/>
+    <return-scalar type="long" column="OwnerId"/>
     <return-scalar type="string" column="CourseId"/>
     <return-scalar type="string" column="ProfessorName"/>
     <return-scalar type="Zbang.Zbox.Infrastructure.Enums.BoxType,Zbang.Zbox.Infrastructure" column="BoxType"/>
@@ -69,7 +69,7 @@
 								                    else u.UserName
 								                    end as OwnerName,
     u.country as UniCountry,
-    u.userid as OwnerUid,
+    u.userid as OwnerId,
     b.Discriminator as BoxType,
     b.MembersCount as Members,
     b.ItemCount as Items,

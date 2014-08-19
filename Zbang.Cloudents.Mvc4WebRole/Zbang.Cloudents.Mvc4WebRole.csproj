@@ -260,8 +260,8 @@
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Extensions\ControllerExtension.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
+    <Compile Include="Extensions\JsonNetSerializer.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />

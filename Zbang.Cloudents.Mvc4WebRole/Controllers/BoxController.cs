@@ -202,7 +202,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetBoxQuery(id, userId);
                 var result = ZboxReadService.GetBox(query);
-                return this.CdJson(new JsonResponse(true, result));
+                return Json(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)
             {
@@ -215,7 +215,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Box Index BoxUid {0} userid {1}", id, userId), ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public JsonNetResult Items(long id, int pageNumber, Guid? tab)
+        public JsonResult Items(long id, int pageNumber, Guid? tab)
         {
             var userId = GetUserId(false); // not really needs it
             try
@@ -241,12 +241,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 }
                 var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
-                return this.CdJson(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
+                return Json(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Box Items BoxUid {0} pageNumber {1} userId {2}", id, pageNumber, userId), ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -261,11 +261,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax, HttpGet]
         //[AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
-        public JsonNetResult Members(long boxUid)
+        public JsonResult Members(long boxId)
         {
             var userId = GetUserId(false);
-            var result = ZboxReadService.GetBoxMembers(new GetBoxQuery(boxUid, userId));
-            return this.CdJson(new JsonResponse(true, result));
+            var result = ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
+            return Json(new JsonResponse(true, result));
         }
 
 
@@ -298,11 +298,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [Ajax]
-        public JsonNetResult UpdateInfo(UpdateBoxInfo model)
+        public JsonResult UpdateInfo(UpdateBoxInfo model)
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = GetUserId();
             try
@@ -311,43 +311,43 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.Professor, model.CourseCode, model.Picture, model.BoxPrivacy, model.Notification);
                 ZboxWriteService.ChangeBoxInfo(commandBoxName);
                 // ChangeNotification(model.BoxUid, model.Notification);
-                return this.CdJson(new JsonResponse(true, new { queryString = UrlBuilder.NameToQueryString(model.Name) }));
+                return Json(new JsonResponse(true, new { queryString = UrlBuilder.NameToQueryString(model.Name) }));
             }
             catch (UnauthorizedAccessException)
             {
-                return this.CdJson(new JsonResponse(false, "You don't have permission"));
+                return Json(new JsonResponse(false, "You don't have permission"));
             }
             catch (ArgumentException)
             {
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("on UpdateBox info model: {0} userid {1}", model, GetUserId()), ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
         [ZboxAuthorize]
         [HttpGet]
         [Ajax]
-        public JsonNetResult GetNotification(long boxUid)
+        public JsonResult GetNotification(long boxId)
         {
             var userId = GetUserId();
 
-            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxUid, userId));
-            return this.CdJson(new JsonResponse(true, result.ToString("g")));
+            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId, userId));
+            return Json(new JsonResponse(true, result.ToString("g")));
         }
 
         [ZboxAuthorize]
         [HttpPost]
         [Ajax]
-        public JsonNetResult ChangeNotification(long boxUid, NotificationSettings notification)
+        public JsonResult ChangeNotification(long boxUid, NotificationSettings notification)
         {
             var userId = GetUserId();
             var command = new ChangeNotificationSettingsCommand(boxUid, userId, notification);
             ZboxWriteService.ChangeNotificationSettings(command);
-            return this.CdJson(new JsonResponse(true));
+            return Json(new JsonResponse(true));
 
         }
 
@@ -366,7 +366,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_BoxSettings", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -466,7 +466,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             try
             {
@@ -475,11 +475,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
                 ZboxWriteService.CreateBoxItemTab(command);
                 var result = new TabDto { Id = guid, Name = model.Name };
-                return this.CdJson(new JsonResponse(true, result));
+                return Json(new JsonResponse(true, result));
             }
             catch (ArgumentException ex)
             {
-                return this.CdJson(new JsonResponse(false, ex.Message));
+                return Json(new JsonResponse(false, ex.Message));
             }
 
         }
@@ -503,12 +503,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = GetUserId();
             var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
             ZboxWriteService.RenameBoxItemTab(command);
-            return this.CdJson(new JsonResponse(true));
+            return Json(new JsonResponse(true));
         }
         [HttpPost, Ajax, ZboxAuthorize]
         public JsonResult DeleteTab(DeleteBoxItemTab model)
@@ -534,7 +534,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_CreateTab ", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
         #endregion
@@ -542,12 +542,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [HttpPost]
         [Ajax]
-        public JsonNetResult DeleteUpdates(long boxId)
+        public JsonResult DeleteUpdates(long boxId)
         {
             var userId = GetUserId();
             var command = new DeleteUpdatesCommand(userId, boxId);
             ZboxWriteService.DeleteUpdates(command);
-            return this.CdJson(new JsonResponse(true));
+            return Json(new JsonResponse(true));
         }
 
         [HttpGet, Ajax]
@@ -562,7 +562,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_UploadDialog ", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 
@@ -578,7 +578,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_UploadAddLink", ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
 

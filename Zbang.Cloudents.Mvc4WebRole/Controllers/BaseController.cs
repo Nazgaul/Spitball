@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Culture;
@@ -89,7 +90,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
 
-
+        protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
+        {
+            return new JsonNetResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding
+            };
+        }
+        protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new JsonNetResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
+        }
 
         protected long GetUserId(bool isAuthorize = true)
         {
