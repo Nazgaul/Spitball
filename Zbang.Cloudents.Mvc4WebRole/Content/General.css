@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -363,9 +363,12 @@ input[type="radio"][disabled] + label:before {
 .btn2 {
   border-radius: 5px;
   text-align: center;
-  padding: 1px 10px 3px 10px;
+  padding: 3px 10px 3px 10px;
   min-width: 64px;
   font-size: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .btn1:disabled,
 .btn2:disabled,
@@ -2661,3 +2664,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

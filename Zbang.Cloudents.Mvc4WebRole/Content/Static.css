@@ -532,6 +532,74 @@ footer {
 .newUni.newUni .createUni:hover {
   text-decoration: underline;
 }
+/*<div class="completeRegistration">
+            <div class="top">
+                <img class="uniImg" src="" alt="" width="66" height="66" />
+                <div>You study at {UNINAME}</div>
+                <div data-regfriends-count="23">of your friends are registered</div>
+            </div>
+            <label for="deptInput">Choose department</label>
+            <input type="text" id="deptInput" />
+            
+            <button type="submit" class="btn1 next">@SharedResources.Choose</button>
+            <button type="button" class="btn2 cancel" ng-click="cancel()">@SharedResources.Back</button>
+        </div>*/
+.completeRegistration {
+  width: 646px;
+  height: 250px;
+  border-radius: 3px;
+  border: 1px solid #c2c2c2;
+  position: absolute;
+  font-size: 13px;
+  top: 240px;
+  margin: 0 auto;
+  left: 0;
+  right: 450px;
+  background: #fff;
+}
+.completeRegistration .top {
+  height: 80px;
+  background: #EBECED;
+  padding: 6px 15px 6px 95px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #c2c2c2;
+}
+.completeRegistration .uniImg {
+  position: absolute;
+  top: 6px;
+  left: 15px;
+}
+.completeRegistration .bottom {
+  margin: 20px 15px;
+}
+.completeRegistration label {
+  display: block;
+  margin-bottom: 5px;
+}
+.completeRegistration .inputText {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.completeRegistration button {
+  margin-top: 20px;
+}
+.completeRegistration .btn1 {
+  margin-left: 15px;
+}
+.uniRegTxt1 {
+  font-size: 16px;
+  margin-top: 8px;
+}
+.uniRegTxt2 {
+  font-size: 11px;
+}
+.uniRegTxt2:before {
+  content: attr(data-regfriends-count) '\00a0';
+}
 .fbUniList {
   margin-top: 55px;
 }
