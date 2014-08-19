@@ -678,8 +678,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\404.png" />
+    <Content Include="Images\back_back.png" />
     <Content Include="Images\ball.png" />
     <Content Include="Images\bg4.jpg" />
+    <Content Include="Images\books.png" />
     <Content Include="Images\box17-sprite.png" />
     <Content Include="Images\box18-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
@@ -694,6 +696,7 @@
     <Content Include="Images\cb1.png" />
     <Content Include="Images\chair.png" />
     <Content Include="Images\checkbox-sprite1.png" />
+    <Content Include="Images\close.png" />
     <Content Include="Images\cloudents-share-FB-1.png" />
     <Content Include="Images\cloudents-share-FB.png" />
     <Content Include="Images\cloudents-share-Quiz.png" />
@@ -706,12 +709,16 @@
     <Content Include="Images\comment-sprite.png" />
     <Content Include="Images\common17-sprite.png" />
     <Content Include="Images\computer.png" />
+    <Content Include="Images\course.png" />
     <Content Include="Images\covers.png" />
     <Content Include="Images\cursor.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
     <Content Include="Images\dashLib-sprite.png" />
+    <Content Include="Images\department.png" />
     <Content Include="Images\dic.png" />
+    <Content Include="Images\document.png" />
+    <Content Include="Images\drive_upload.png" />
     <Content Include="Images\eco.png" />
     <Content Include="Images\EmptyState\my_default.png" />
     <Content Include="Images\EmptyState\my_default2.png" />
@@ -722,6 +729,12 @@
     <Content Include="Images\fb-mob.png" />
     <Content Include="Images\firsttime_sprite.png" />
     <Content Include="Images\firsttime_sprite_heb.png" />
+    <Content Include="Images\friends_cloudents_black.png" />
+    <Content Include="Images\friends_cloudents_green.png" />
+    <Content Include="Images\friends_facebook_black.png" />
+    <Content Include="Images\friends_facebook_blue.png" />
+    <Content Include="Images\friends_gmail_black.png" />
+    <Content Include="Images\friends_gmail_red.png" />
     <Content Include="Images\gray_jean80.png" />
     <Content Include="Images\home-sprite.png" />
     <Content Include="Images\house.png" />
@@ -758,6 +771,8 @@
     <Content Include="Images\national-union-pic.png" />
     <Content Include="Images\no-preview.png" />
     <Content Include="Images\nopreview_empty.png" />
+    <Content Include="Images\no_results_icon.png" />
+    <Content Include="Images\placeholder_user_img.png" />
     <Content Include="Images\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\quiz-correct.png" />
@@ -768,6 +783,7 @@
     <Content Include="Images\quiz-time.png" />
     <Content Include="Images\quiz-user.png" />
     <Content Include="Images\quiz-wrong.png" />
+    <Content Include="Images\quiz.png" />
     <Content Include="Images\quizSprite.png">
       <DependentUpon>quizSprite.sprite</DependentUpon>
     </Content>
@@ -779,6 +795,13 @@
     <Content Include="Images\request-sent.png" />
     <Content Include="Images\search2.png" />
     <Content Include="Images\share-quiz.png" />
+    <Content Include="Images\share_white.png" />
+    <Content Include="Images\site.png">
+      <DependentUpon>site.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\site.png.css">
+      <DependentUpon>site.png</DependentUpon>
+    </Content>
     <Content Include="Images\smartphone.png" />
     <Content Include="Images\sprite_browsericons.png" />
     <Content Include="Images\Store\close.png" />
@@ -806,12 +829,15 @@
     <Content Include="Images\tv.png" />
     <Content Include="Images\union3-sprite.png" />
     <Content Include="Images\union4-sprite.png" />
+    <Content Include="Images\uni_logo.png" />
+    <Content Include="Images\upload.png" />
     <Content Include="Images\upload15-sprite.png" />
     <Content Include="Images\user-gmail-pic.jpg" />
     <Content Include="Images\user-pic.png" />
     <Content Include="Images\user13-sprite.png" />
     <Content Include="Images\userBg.png" />
     <Content Include="Images\usrPic.png" />
+    <Content Include="Images\web_upload.png" />
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
@@ -1005,6 +1031,16 @@
     </Content>
     <Content Include="Images\quizSprite.png.scss">
       <DependentUpon>quizSprite.png</DependentUpon>
+    </Content>
+    <Content Include="Images\site.sprite" />
+    <Content Include="Images\site.png.map">
+      <DependentUpon>site.png</DependentUpon>
+    </Content>
+    <Content Include="Images\site.png.less">
+      <DependentUpon>site.png</DependentUpon>
+    </Content>
+    <Content Include="Images\site.png.scss">
+      <DependentUpon>site.png</DependentUpon>
     </Content>
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

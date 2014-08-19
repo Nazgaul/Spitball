@@ -2241,8 +2241,12 @@ body.quiz {
     .itemRight {
         text-align: right; /*rtl*/
     }
-    .topBar {
-        padding: 0 290px 0 0; // leftPanel = 290px //rtl
+    .topBar.topBar {
+        padding: 0 290px 0 0; //diff rtl!!
+    }
+    .quizViews {
+        border: none;
+        border-right: 1px solid #fff; //rtl
     }
     .itemNameWpr {
         padding: 28px 90px 15px 20px; //rtl
@@ -2281,10 +2285,35 @@ body.quiz {
 }
 
 .results {
+    padding: 0 45px 0 0; //rtl
     &.wrong {
-        &:before {
-            right: 0; /*rtl*/
-            left: auto;
+        padding: 0 0 0 45px; //???
+        border: none;
+        border-right: 1px solid #fff;//???
+        &:after {
+            left: 0; //rtl
+            right: auto; //override
+        } 
+    }
+    &:before {
+        margin: -10px 0 -20px; //diff rtl
+    }
+    &:after {
+        right: 0; //rtl
+        left: auto;
+    }
+}
+.userScore {
+    &:after {
+        position: relative;//diff rtl
+        top: 10px;//diff rtl
+    }
+}
+.topUser {
+    &.star {
+        &:after {
+            left: -12px; //rtl
+            right: auto;
         }
     }
 }
