@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult JsLog(JavaScriptError log)
         {
             TraceLog.WriteError("js error: " + log);
-            return this.CdJson(true);
+            return Json(true);
         }
     }
 }

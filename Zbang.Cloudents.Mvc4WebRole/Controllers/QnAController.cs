@@ -123,7 +123,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             //this is a test
             var retVal = ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, GetUserId(false)));
-            return this.CdJson(new JsonResponse(true, retVal));
+            return Json(new JsonResponse(true, retVal));
         }
 
 

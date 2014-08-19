@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                return this.CdJson(new JsonResponse(true, item));
+                return Json(new JsonResponse(true, item));
             }
             catch (BoxAccessDeniedException)
             {
@@ -236,7 +236,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("On item load boxid = " + boxUid + " ,itemid = " + itemId, ex);
-                return this.CdJson(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
 
         }

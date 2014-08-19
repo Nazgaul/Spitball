@@ -52,15 +52,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var cookie = new CookieHelper(HttpContext);
                 if (HttpContext.Request.Files == null)
                 {
-                    return this.CdJson(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
+                    return Json(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
                 }
                 if (HttpContext.Request.Files.Count == 0)
                 {
-                    return this.CdJson(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
+                    return Json(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
                 }
                 if (string.IsNullOrEmpty(Path.GetExtension(fileName)))
                 {
-                    return this.CdJson(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
+                    return Json(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
                 }
                 var uploadedfile = HttpContext.Request.Files[0];
 
@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (!FileFinishToUpload(fileUploadedDetails))
                 {
 
-                    return this.CdJson(new JsonResponse(true));
+                    return Json(new JsonResponse(true));
                 }
                 await m_BlobProvider.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
 
@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 };
 
                 cookie.RemoveCookie("upload");
-                return this.CdJson(new JsonResponse(true, new { fileDto, boxid = boxId }));
+                return Json(new JsonResponse(true, new { fileDto, boxid = boxId }));
 
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxUid {0} fileName {1} fileSize {2} userid {3} HttpContextRequestCount {4} HttpContextRequestKeys {5}",
                     boxId, fileName, fileSize, userId,
                     HttpContext.Request.Files.Count, string.Join(",", HttpContext.Request.Files.AllKeys)), ex);
-                return this.CdJson(new JsonResponse(false, BaseControllerResources.Error));
+                return Json(new JsonResponse(false, BaseControllerResources.Error));
             }
 
         }
@@ -199,7 +199,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.CdJson(new JsonResponse(false, GetModelStateErrors()));
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             try
             {
@@ -233,18 +233,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                  {
                      DownloadUrl = urlBuilder.BuildDownloadUrl(result.Link.Box.Id, result.Link.Id)
                  };
-                return this.CdJson(new JsonResponse(true, item));
+                return Json(new JsonResponse(true, item));
             }
             catch (DuplicateNameException)
             {
                 //TODO: remove that
                 BaseControllerResources.Culture = Thread.CurrentThread.CurrentCulture;
-                return this.CdJson(new JsonResponse(false, BaseControllerResources.LinkExists));
+                return Json(new JsonResponse(false, BaseControllerResources.LinkExists));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Link user: {0} BoxUid: {1} url: {2}", GetUserId(), model.BoxId, model.FileUrl), ex);
-                return this.CdJson(new JsonResponse(false, BaseControllerResources.ProblemUrl));
+                return Json(new JsonResponse(false, BaseControllerResources.ProblemUrl));
             }
         }
 
@@ -272,7 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 await m_QueueProvider.Value.InsertMessageToDownloadAsync(
                     new UrlToDownloadData(fileUrl, fileName, boxId, tabId, userId));
-                return this.CdJson(new JsonResponse(true));
+                return Json(new JsonResponse(true));
             }
             var urlBuilder = new UrlBuilder(HttpContext);
             var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
@@ -286,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 DownloadUrl = urlBuilder.BuildDownloadUrl(result.File.Box.Id, result.File.Id)
             };
-            return this.CdJson(new JsonResponse(true, fileDto));
+            return Json(new JsonResponse(true, fileDto));
 
 
         }
