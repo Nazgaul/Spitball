@@ -13,13 +13,13 @@ namespace Zbang.Zbox.Domain
             : base()
         {
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            Libraries = new HashedSet<Library>();
+            Libraries = new HashSet<Library>();
             NeedCode = false;
         }
         public University(string email, string universityName, string image, string largeImage, string creatingUserName)
             : base(email, universityName, image, largeImage)
         {
-            Libraries = new HashedSet<Library>();
+            Libraries = new HashSet<Library>();
             UserTime.CreatedUser = creatingUserName;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
