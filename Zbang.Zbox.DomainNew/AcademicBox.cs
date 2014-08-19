@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Domain
 
         private void InitializeAcademicBox()
         {
-            Library = new Iesi.Collections.Generic.HashedSet<Library>();
+            Library = new HashSet<Library>();
         }
 
         public virtual string CourseCode { get; private set; }

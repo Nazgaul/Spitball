@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain
         public const int NameLength = 120;
         protected Box()
         {
-            UserBoxRelationship = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
+            UserBoxRelationship = new HashSet<UserBoxRel>(); //new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Items = new List<Item>();
 

@@ -14,9 +14,9 @@ namespace Zbang.Zbox.Domain
         protected User()
         {
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            UserBoxRel = new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
+            UserBoxRel = new HashSet<UserBoxRel>();
 
-            Invites = new Iesi.Collections.Generic.HashedSet<Invite>();
+            Invites = new HashSet<Invite>();
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             FirstTime = new UserFirstTime();
