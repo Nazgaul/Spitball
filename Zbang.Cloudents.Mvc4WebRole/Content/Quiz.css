@@ -665,14 +665,16 @@ body.quiz .shareBtn {
   text-align: left;
   /*rtl*/
 }
-.quizPage .topBar.topBar {
+.quizPage .topBar {
   position: fixed;
-  padding-left: 340px;
   top: 50px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
+}
+.quizPage .topBar.topBar {
+  padding-left: 340px;
 }
 .quizPage .itemTop {
   color: #fff;
