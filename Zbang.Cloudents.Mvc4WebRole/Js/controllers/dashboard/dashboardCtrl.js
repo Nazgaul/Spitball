@@ -13,13 +13,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     cd.pubsub.publish('dash_boxes');//statistics
     cd.analytics.setLibrary($('.uniText').text());
-
-    maxVisible();
-
-    $scope.options = {
-        maxAcademicVisible: $scope.rows * $scope.cols - 1,//-1 is browse button             
-        addBoxPerScroll: $scope.rows
-    };
+        
     $scope.partials = {
         friends: '/Dashboard/FriendsPartial/',
         createBox: '/Dashboard/PrivateBoxPartial/'
@@ -37,9 +31,6 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
         $scope.$broadcast('update-scroll');
 
-
-
-        calculateGroupsVisible();
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
         });
@@ -71,11 +62,8 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         });
 
         modalInstance.result.then(function (box) {
-            //cd.pubsub.publish('nav', box.url);
-            $location.url(box.url);
-            //location.path();
+            $location.path(box.url);
         }, function () {
-            //dismiss
         });
     };
 
@@ -137,31 +125,6 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         return false;
     };
 
-    $scope.addBoxes = function () {
-        if (!$scope.contentLoaded) {
-            return;
-        }
-
-        var academicRemain = $scope.academicBoxes.length - $scope.options.maxAcademicVisible,
-           groupRemain;
-
-        if (academicRemain >= $scope.options.addBoxPerScroll) {
-            $scope.options.maxAcademicVisible += $scope.options.addBoxPerScroll;
-            return;
-        }
-
-        if (academicRemain < $scope.options.addBoxPerScroll) {
-            $scope.options.maxAcademicVisible += academicRemain;
-            groupRemain = $scope.options.addBoxPerScroll - academicRemain;
-            $scope.options.maxGroupVisible += groupRemain;
-            return;
-        }
-        groupRemain = $scope.groupBoxes.length - $scope.options.maxGroupVisible;
-        if (groupRemain > 0) {
-            $scope.options.maxGroupVisible += groupRemain;
-        }
-    };
-
     function mapBoxes(boxes) {
         var academic = [], group = [];
         for (var i = 0, l = boxes.length; i < l; i++) {
@@ -180,26 +143,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         $scope.academicBoxes = academic;
         $scope.groupBoxes = group;
 
-    }
-    function maxVisible() {
-        var height = document.body.clientHeight - 130,//130 is top bar and title
-            width = document.body.clientWidth - 324, //sidebar + margins
-            boxWidth = 238, boxHeight = 120; //include margins
-
-        $scope.cols = Math.floor(width / boxWidth);
-        $scope.rows = Math.ceil(height / boxHeight);
-    }
-
-    function calculateGroupsVisible() {
-        if ($scope.academicBoxes.length > $scope.options.maxAcademicVisible) {
-            $scope.options.maxGroupVisible = 0;
-            return;
-        }
-
-        $scope.options.maxGroupVisible = $scope.options.maxAcademicVisible - $scope.academicBoxes.length;
-    }
-
-    $window.onresize = maxVisible;
+    }    
 
     $scope.productStore = function () {
         var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;

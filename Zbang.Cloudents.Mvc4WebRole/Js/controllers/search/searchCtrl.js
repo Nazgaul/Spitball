@@ -49,7 +49,7 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
         if (query) {
             $scope.params.query = query;
             $scope.params.textDirection = textDirectionService.isRTL(query) ? 'rtl' : 'ltr';                     
-            $timeout(search, 500);
+            $timeout(search, 300);
             return;
         }
 
@@ -137,20 +137,22 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
             return;
         }
 
+        $timeout(function () {
+            Search.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (response) {
+                var data = response.success ? response.payload : {};
+                parseData(data);
+                $scope.params.itemsLoading = false;
+                $scope.params.boxesLoading = false;
+                $scope.params.usersLoading = false;
+
+
+            }, function () {
+                $scope.params.itemsLoading = false;
+                $scope.params.boxesLoading = false;
+                $scope.params.usersLoading = false;
+            });
+        }, 500);
         
-        Search.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (response) {
-            var data = response.success ? response.payload : {};
-            parseData(data);
-            $scope.params.itemsLoading = false;
-            $scope.params.boxesLoading = false;
-            $scope.params.usersLoading = false;
-
-
-        }, function () {
-            $scope.params.itemsLoading = false;
-            $scope.params.boxesLoading = false;
-            $scope.params.usersLoading = false;
-        });
     };
 
 
@@ -164,14 +166,17 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
         $scope.data.loading = true;
         $scope.params.noResults = false;
 
-        Search.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (response) {
-            var data = response.success ? response.payload : {};
-            parseData(data);
-            setInitTab();
-            $scope.data.loading = false;
-        }, function () {
-            $scope.data.loading = false;
-        });
+        $timeout(function () {
+
+            Search.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (response) {
+                var data = response.success ? response.payload : {};
+                parseData(data);
+                setInitTab();
+                $scope.data.loading = false;
+            }, function () {
+                $scope.data.loading = false;
+            });
+        }, 500);
     }
 
     function getOtherUnisItems() {
@@ -189,7 +194,6 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
     }
 
     function parseData(data) {
-        console.log('1');
         $scope.data.boxes = $scope.data.boxes ? $scope.data.boxes.concat(data.boxes) : data.boxes;
         $scope.data.items = $scope.data.items ? $scope.data.items.concat(data.items) : data.items;
         $scope.data.users = $scope.data.users ? $scope.data.users.concat(data.users) : data.users;
