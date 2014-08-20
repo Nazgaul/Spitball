@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Web;
+using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Zbox.Infrastructure.Consts
 {
@@ -11,7 +12,9 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
-        private const string UserUrl = "/user/{0}/{1}";
+        private const string UserUrl = "/user/{0}/{1}/";
+
+        private const string LibraryUrl = "/library/{0}/{1}/";
 
         private const string StoreCategoryUrl = "/store/category/{0}/";
         private const string StoreProductUrl = "/store/product/{0}/{1}/";
@@ -102,6 +105,14 @@ namespace Zbang.Zbox.Infrastructure.Consts
             return VirtualPathUtility.AppendTrailingSlash(string.Format(StoreProductUrl, productId, NameToQueryString(productName)));
         }
 
+        public static string BuildLibraryUrl(Guid id, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("name");
+            }
+            return VirtualPathUtility.AppendTrailingSlash(string.Format(LibraryUrl, GuidEncoder.Encode(id), NameToQueryString(name)));
+        }
 
         public static string NameToQueryString(string name)
         {

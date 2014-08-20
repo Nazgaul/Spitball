@@ -89,25 +89,17 @@ namespace Zbang.Zbox.ReadServices
         {
             using (UnitOfWork.Start())
             {
-                const int defaultPageSize = 50;
-
-                var dbNode = UnitOfWork.CurrentSession.GetNamedQuery(query.libraryQuery);
+                var dbNode = UnitOfWork.CurrentSession.GetNamedQuery(query.LibraryQuery);
                 dbNode.SetProperties(query);
                 dbNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
-                dbNode.SetMaxResults(defaultPageSize);
-                dbNode.SetFirstResult(query.PageNumber * defaultPageSize);
                 var fNodeResult = dbNode.Future<NodeDto>();
 
                 IEnumerable<BoxDto> fBoxesResult = new List<BoxDto>();
                 if (query.ParentNode.HasValue)
                 {
                     var boxesQuery = UnitOfWork.CurrentSession.GetNamedQuery("ZboxGetAcademicBoxesByNode");
-                    boxesQuery.SetReadOnly(true);
                     boxesQuery.SetParameter("ParentNode", query.ParentNode);
-                    boxesQuery.SetEnum("Sort", query.Sort);
                     boxesQuery.SetParameter("UserId", query.UserId);
-                    boxesQuery.SetMaxResults(defaultPageSize);
-                    boxesQuery.SetFirstResult(query.PageNumber * defaultPageSize);
                     boxesQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
                     fBoxesResult = boxesQuery.Future<BoxDto>();
                 }
@@ -116,7 +108,6 @@ namespace Zbang.Zbox.ReadServices
                 if (query.ParentNode.HasValue)
                 {
                     var dbQueryParentNode = UnitOfWork.CurrentSession.GetNamedQuery("GetParentNode");
-                    dbQueryParentNode.SetReadOnly(true);
                     dbQueryParentNode.SetParameter("ParentNode", query.ParentNode);
                     dbQueryParentNode.SetParameter("UserId", query.UniversityId);
                     dbQueryParentNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
@@ -130,7 +121,7 @@ namespace Zbang.Zbox.ReadServices
                 {
                     throw new InvalidOperationException("cannot have boxes and subnodes in the same node");
                 }
-                var result = new NodeBoxesDto(nodes, nodes.Count, boxes, 0, parent);
+                var result = new NodeBoxesDto(nodes, boxes, parent);
                 return result;
 
             }

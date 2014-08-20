@@ -108,7 +108,7 @@ app.config([
             params: {
                 type: 'library'
             },
-            templateUrl: function (params) { return '/library/' + params.libraryId + '/' + encodeURIComponent(params.libraryName) + '/'; }
+            templateUrl: '/library/' 
         }).
         when('/library/', {
             params: {

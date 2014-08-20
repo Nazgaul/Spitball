@@ -18,6 +18,7 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -40,7 +41,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IIdGenerator> idGenerator,
             Lazy<IUniversityReadSearchProvider> universitySearch,
             Lazy<IFacebookService> facebookService)
-           
         {
             m_TableProvider = tableProvider;
             m_UserProfile = userProfile;
@@ -52,7 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [UserNavNWelcome]
         [HttpGet]
-        //[AjaxCache(TimeConsts.Minute * 10)]
         [NoUniversity]
         [NoCache]
         public async Task<ActionResult> Index(Guid? libId)
@@ -73,13 +72,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("Choose");
             }
-            //TODO: bring with one roundtrip
-            var queryNodes = new GetLibraryNodeQuery(userDetail.UniversityId.Value, libId, GetUserId(), 0, OrderBy.LastModified);
-            var data = ZboxReadService.GetLibraryNode(queryNodes);
-            var serializer = new JsonNetSerializer();
-
-            ViewBag.data = serializer.Serialize(data);
-
             if (Request.IsAjaxRequest())
             {
                 return PartialView(result);
@@ -88,7 +80,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        
+
 
         [HttpGet]
         public ActionResult Choose()
@@ -100,10 +92,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 haveUniversity = true;
             }
-           
+
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
-           
+
             return View("_SelectUni");
         }
         [HttpGet, Ajax]
@@ -197,17 +189,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         //[AjaxCache(TimeConsts.Minute * 30)]
-        public ActionResult Nodes(Guid? section, int page = 0, OrderBy order = OrderBy.Name)
+        public ActionResult Nodes(string section)
         {
+            var guid = TryParseNullableGuid(section);
             var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
-            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, section, GetUserId(), page, order);
+            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, guid, GetUserId());
             var result = ZboxReadService.GetLibraryNode(query);
             return Json(new JsonResponse(true, result));
+
+        }
+
+        private Guid? TryParseNullableGuid(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return null;
+            }
+            Guid guid;
+            if (Guid.TryParse(str, out guid))
+            {
+                return guid;
+            }
+            return GuidEncoder.Decode(str);
 
         }
 
@@ -311,7 +319,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, model.ParentId);
                 var result = ZboxWriteService.CreateBox(command);
-                return Json(new JsonResponse(true, new { result.NewBox.Url}));
+                return Json(new JsonResponse(true, new { result.NewBox.Url }));
             }
             catch (BoxNameAlreadyExistsException)
             {
@@ -358,7 +366,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-       [Ajax]
+        [Ajax]
         [HttpGet]
         public ActionResult NewUniversity()
         {

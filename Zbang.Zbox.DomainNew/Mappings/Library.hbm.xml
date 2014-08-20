@@ -8,6 +8,7 @@
     </id>
     <property name="Name" not-null="true"/>
     <property name="AmountOfNodes" column="AmountOfChildren" not-null="true"/>
+    <property name="Url" column="Url" not-null="true"/>
 
     <many-to-one name="Parent" class="Library" column="ParentId" foreign-key="LibraryParent"  />
     <many-to-one name="University" class="University" column="UserId" not-null="true" foreign-key="LibraryUniversity"/>

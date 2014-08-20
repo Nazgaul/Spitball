@@ -7,7 +7,6 @@
     </a>
 </script>
 <script type="text/ng-template" id="library-box">
-
     <a bo-href="item.url">
         <div>
             <img class="boxImg" bo-src="item.boxPicture" alt="" width="77" height="98" />
@@ -20,15 +19,11 @@
         <div class="boxWpr clamp2">
             <span class="boxName" bo-text="item.name"></span>
         </div>
-
         <div class="courseCode elps" bo-text="item.courseCode"></div>
         <span class="courseCode propName elps" bo-text="item.professor"></span>
-
     </a>
     <span class="subscriber union-sprite" ng-if="item.userType === 'owner' || item.userType === 'subscribe'">@MainViewResources.Following</span>
     <button class="follow" ng-click="subscribe(item)" ng-if="item.userType === 'invite' || item.userType === 'none'">@MainViewResources.Follow</button>
     <button type="button" class="removeItem" ng-click="unsubscribe(item)" ng-if="item.userType === 'owner' || item.userType === 'subscribe'"></button>
-
-
 </script>
 

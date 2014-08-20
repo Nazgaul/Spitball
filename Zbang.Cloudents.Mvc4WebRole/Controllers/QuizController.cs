@@ -49,7 +49,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NonAjax]
         [OutputCache(CacheProfile = "NoCache")]
@@ -60,10 +59,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
-
-            // var builder = new UrlBuilder(HttpContext);
-            // var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
-
             ViewBag.boxName = boxName;
             ViewBag.boxUrl = model.Quiz.Seo.BoxUrl;
 

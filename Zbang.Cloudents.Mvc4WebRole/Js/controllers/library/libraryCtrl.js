@@ -14,8 +14,8 @@ mLibrary.controller('LibraryCtrl',
             $scope.info = {
                 libraryId: $routeParams.libraryId,
                 libraryName: $routeParams.libraryName,
-                items: [],
-                currentPage: 0, pageSize: 50, paggingnNeeded: false
+                items: []
+                
             };
 
             $scope.back.title = $scope.info.libraryName;
@@ -29,19 +29,19 @@ mLibrary.controller('LibraryCtrl',
             addItems();
 
             function addItems() {
-                sLibrary.items({ section: $scope.info.libraryId, page: $scope.info.currentPage }).then(function (response) {
+                sLibrary.items({ section: $scope.info.libraryId }).then(function (response) {
                     processData(response.payload);
                 });
             }
 
             function processData(data) {
                 var pageData;
-                if (data.nodes.elem.length) {
-                    pageData = data.nodes.elem;
+                if (data.nodes.length) {
+                    pageData = data.nodes;
                     $scope.info.type = types.department;
                 }
-                else if (data.boxes.elem.length) {
-                    pageData = data.boxes.elem;
+                else if (data.boxes.length) {
+                    pageData = data.boxes;
                     $scope.info.type = types.box;
                 }
 
@@ -53,16 +53,12 @@ mLibrary.controller('LibraryCtrl',
                     $scope.$emit('viewContentLoaded');
                 });
 
-                if (pageData.length === $scope.info.pageSize) {
-                    $scope.info.paggingnNeeded = true
-                    return;
-                }
+                //if (pageData.length === $scope.info.pageSize) {
+                //    //$scope.info.paggingnNeeded = true;
+                //    return;
+                //}
 
-                $scope.info.paggingnNeeded = false;
-            }
-
-            function pageUp() {
-                $scope.info.currentPage++;
+                //$scope.info.paggingnNeeded = false;
             }
 
             //#endregion
@@ -105,7 +101,7 @@ mLibrary.controller('LibraryCtrl',
                     });
 
                     if (item) {
-                        alert('already exists')                        
+                        alert('already exists');                      
                         return;
                     }
 
@@ -127,7 +123,7 @@ mLibrary.controller('LibraryCtrl',
 
             $scope.subscribe = function (box) {
                 box.userType = 'subscribe';
-                sBox.follow({ boxUid: box.id }).then(function (response) { }); //uid
+                sBox.follow({ boxId: box.id }).then(function (response) { });
 
                 cd.postFb(box.name, jsResources.IJoined.format(box.name), location.href);
                 cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');

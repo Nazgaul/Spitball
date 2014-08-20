@@ -288,7 +288,6 @@
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
     <Compile Include="Helpers\DesktopConstraint.cs" />
-    <Compile Include="Helpers\GuidEncoder.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
@@ -897,6 +896,8 @@
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />
+    <Content Include="Js\filters\store\percentage.js" />
+    <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GenericEvents.js" />
@@ -1047,7 +1048,6 @@
     <Content Include="Content\StoreRtl.css">
       <DependentUpon>StoreRtl.less</DependentUpon>
     </Content>
-   
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -160,13 +160,6 @@ namespace Zbang.Zbox.Domain
             return item;
         }
 
-        //public Item GetItem(long itemId)
-        //{
-        //    var item = Items.SingleOrDefault(w => w.Id == itemId);
-        //    return item;
-        //}
-
-
         #region dbiTemp
 
         //public void UpdateMembersDbi(int count)
