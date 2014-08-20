@@ -45,22 +45,36 @@
             <li class="emptySearch">@SharedResources.NoResults</li>
             <li class="newUni">
                 <span>@MainViewResources.CantFind</span>
-                <a href="#" class="createUni">@SharedResources.CreateNew</a>
+                @*<a href="#" class="createUni">@SharedResources.CreateNew</a>*@
+                <button type="button" class="createUni">@SharedResources.CreateNew</button>
             </li>
         </ul>
 
         <div class="completeRegistration">
             <div class="top">
                 <img class="uniImg" src="http://placehold.it/66x66" alt="" width="66" height="66" />
-                <div class="uniRegTxt1">You study at {UNINAME}</div>
-                <div class="uniRegTxt2" data-regfriends-count="23">of your friends are registered</div>
+                <div class="uniRegTxt1" data-school="{UNINAME}">@MainViewResources.YouStudyAt</div>
+                <div class="uniRegTxt2" data-regfriends-count="23">@MainViewResources.OfYourFriends</div>
             </div>
             <div class="bottom">
-                <label for="deptInput">Choose department</label>
+                <label for="deptInput">@MainViewResources.ChooseDepartment</label>
                 <input type="text" class="inputText" id="deptInput" />
                 <button type="submit" class="btn1 rFloat">@SharedResources.Choose</button>
                 <button type="button" class="btn2 rFloat cancel" ng-click="cancel()">@SharedResources.Back</button>
             </div>
+            <ul class="chooseDeptList">
+                <li class="emptySearch">@SharedResources.NoResults</li>
+                <li class="chooseDeptItem"><span class="mark">rregr</span></li>
+                <li class="chooseDeptItem"><span class="mark">rregr</span>efbh</li>
+                <li class="chooseDeptItem"><span class="mark">rregr</span>nbrngt</li>
+                <li class="chooseDeptItem"><span class="mark">rregr</span>gtnwretnrtwn</li>
+                <li class="chooseDeptItem"><span class="mark">rregr</span>bfgw ngwfn wrn wgren</li>
+                <li class="newDept">
+                    <span class="newDeptTxt">@MainViewResources.CantFindDept</span>
+                    @*<a href="#" class="createUni">@MainViewResources.CreateNewDept</a>*@
+                    <button type="button" class="createDept">@MainViewResources.CreateNewDept</button>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

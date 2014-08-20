@@ -207,4 +207,22 @@
   <data name="FriendsRegistered" xml:space="preserve">
     <value>מחבריך כבר רשומים למערכת</value>
   </data>
+  <data name="ChooseDepartment" xml:space="preserve">
+    <value>בחר מחלקה</value>
+  </data>
+  <data name="OfYourFriends" xml:space="preserve">
+    <value>מהחברים שלך רשומים</value>
+  </data>
+  <data name="YouStudyAt" xml:space="preserve">
+    <value>הנך לומד ב</value>
+  </data>
+  <data name="CantFindDept" xml:space="preserve">
+    <value>לא מצאת את המחלקה שלך?</value>
+  </data>
+  <data name="CreateDept" xml:space="preserve">
+    <value>צור מחלקה</value>
+  </data>
+  <data name="CreateNewDept" xml:space="preserve">
+    <value>צור מחלקה חדשה</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2158,6 +2158,9 @@ input[type="radio"][disabled] + label:before {
   font-weight: 600;
   /*rtl - because Hebrew doesn't support this*/
 }
+.mark {
+  color: #0f9d58;
+}
 .clearfix:after {
   content: ".";
   display: block;
@@ -2664,4 +2667,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */

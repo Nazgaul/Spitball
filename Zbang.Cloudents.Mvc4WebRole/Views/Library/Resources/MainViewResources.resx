@@ -209,4 +209,22 @@
   <data name="FriendsRegistered" xml:space="preserve">
     <value>of your friends are registered</value>
   </data>
+  <data name="CantFindDept" xml:space="preserve">
+    <value>Can't find your department?</value>
+  </data>
+  <data name="ChooseDepartment" xml:space="preserve">
+    <value>Choose a department</value>
+  </data>
+  <data name="CreateDept" xml:space="preserve">
+    <value>Create department</value>
+  </data>
+  <data name="CreateNewDept" xml:space="preserve">
+    <value>Create a new department</value>
+  </data>
+  <data name="OfYourFriends" xml:space="preserve">
+    <value>of your friends are registered</value>
+  </data>
+  <data name="YouStudyAt" xml:space="preserve">
+    <value>You study at </value>
+  </data>
 </root>
