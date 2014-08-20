@@ -434,7 +434,11 @@ footer {
         margin-top: 5px;
     }
 }
-
+.libraryChoose {
+    form {
+        margin: 20px 15px;
+    }
+}
 
 .libEmptyTitle {
     font-size: 32px;
@@ -574,9 +578,27 @@ footer {
         }
     }
 }
-
-.completeRegistration {
+.createSchool {
     //display: none;
+    .top {
+        &:before {
+            .pseudo;
+            .boxSizing;
+            position: absolute;
+            top: 6px;
+            left: 15px;
+            width: 66px;
+            height: 66px;
+            border: 1px solid @borderColor;
+            border-radius: 3px;
+            background: #fff;
+            //width: 41px;
+	        //height: 34px;
+	        background: url(/Images/site.png) 0 -1142px #fff;
+        }
+    }
+}
+.createSchool, .completeRegistration {
     width: 646px;
     height: 250px;
     border-radius: 3px;
@@ -595,14 +617,6 @@ footer {
         .boxSizing;
         border-bottom: 1px solid @borderColor;
     }
-    .uniImg {
-        position: absolute;
-        top: 6px;
-        left: 15px;
-    }
-    .bottom {
-        margin: 20px 15px;
-    }
     label {
         display: block;
         margin-bottom: 5px;
@@ -618,7 +632,27 @@ footer {
     .btn1 {
         margin-left: 15px;
     }
+}
+.completeRegistration {
+    display: none;
+    height: 250px;
+    width: 646px;
+    height: 250px;
+    border-radius: 3px;
+    border: 1px solid @borderColor;
+    position: absolute;
+    font-size: 15px;
+    top: 234px;
+    margin: 0 auto;
+    left: 0;
+    right: 450px;
+    background: #fff;
     
+    .uniImg {
+        position: absolute;
+        top: 6px;
+        left: 15px;
+    }
 }
 .uniRegTxt1 {
     font-size: 18px;
@@ -635,8 +669,11 @@ footer {
     }
 }
 
-
+.chooseDept {
+    display: none;
+}
 .chooseDeptList {
+    display: none;
     position: absolute;
     top: 175px;
     max-height: 300px;
@@ -672,11 +709,14 @@ footer {
     padding-top: 10px;
     display: inline-block;
 }
-.createDept {
+.createDeptBtn {
     color: @color;
     &:hover {
         text-decoration: underline;
     }
+}
+.createDept {
+    display: none;
 }
 
 .fbUniList {

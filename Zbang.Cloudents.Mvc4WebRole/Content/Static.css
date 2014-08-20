@@ -391,6 +391,9 @@ footer {
   text-align: center;
   margin-top: 5px;
 }
+.libraryChoose form {
+  margin: 20px 15px;
+}
 .libEmptyTitle {
   font-size: 32px;
   text-align: center;
@@ -532,6 +535,23 @@ footer {
 .newUni.newUni .createUni:hover {
   text-decoration: underline;
 }
+.createSchool .top:before {
+  content: '';
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  top: 6px;
+  left: 15px;
+  width: 66px;
+  height: 66px;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  background: #fff;
+  background: url(/Images/site.png) 0 -1142px #ffffff;
+}
+.createSchool,
 .completeRegistration {
   width: 646px;
   height: 250px;
@@ -545,6 +565,7 @@ footer {
   right: 450px;
   background: #fff;
 }
+.createSchool .top,
 .completeRegistration .top {
   height: 80px;
   background: #EBECED;
@@ -554,18 +575,12 @@ footer {
   box-sizing: border-box;
   border-bottom: 1px solid #c2c2c2;
 }
-.completeRegistration .uniImg {
-  position: absolute;
-  top: 6px;
-  left: 15px;
-}
-.completeRegistration .bottom {
-  margin: 20px 15px;
-}
+.createSchool label,
 .completeRegistration label {
   display: block;
   margin-bottom: 5px;
 }
+.createSchool .inputText,
 .completeRegistration .inputText {
   width: 100%;
   height: 37px;
@@ -573,12 +588,34 @@ footer {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.createSchool .btn1,
 .completeRegistration .btn1,
+.createSchool .btn2,
 .completeRegistration .btn2 {
   margin-top: 28px;
 }
+.createSchool .btn1,
 .completeRegistration .btn1 {
   margin-left: 15px;
+}
+.completeRegistration {
+  display: none;
+  width: 646px;
+  height: 250px;
+  border-radius: 3px;
+  border: 1px solid #c2c2c2;
+  position: absolute;
+  font-size: 15px;
+  top: 234px;
+  margin: 0 auto;
+  left: 0;
+  right: 450px;
+  background: #fff;
+}
+.completeRegistration .uniImg {
+  position: absolute;
+  top: 6px;
+  left: 15px;
 }
 .uniRegTxt1 {
   font-size: 18px;
@@ -594,7 +631,11 @@ footer {
 .uniRegTxt2:before {
   content: attr(data-regfriends-count) '\00a0';
 }
+.chooseDept {
+  display: none;
+}
 .chooseDeptList {
+  display: none;
   position: absolute;
   top: 175px;
   max-height: 300px;
@@ -631,11 +672,14 @@ footer {
   padding-top: 10px;
   display: inline-block;
 }
-.createDept {
+.createDeptBtn {
   color: #0f9d58;
 }
-.createDept:hover {
+.createDeptBtn:hover {
   text-decoration: underline;
+}
+.createDept {
+  display: none;
 }
 .fbUniList {
   margin-top: 55px;

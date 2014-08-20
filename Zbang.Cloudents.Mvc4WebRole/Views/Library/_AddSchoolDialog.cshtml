@@ -1,8 +1,43 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 @using Zbang.Zbox.Infrastructure.Enums
 
-<div id="addSchoolDialog">
+
+<div id="addSchoolDialog" class="createSchool">
+    <div class="top">
+        <button type="button">@MainViewResources.UploadLogo</button>
+    </div>
+    <form>
+        @{Html.RenderAction("AntiForgeryToken", "Home", true);}
+        @Html.ValidationSummary(true)
+
+
+        @Html.LabelFor(m => m.Name)
+        @*@Html.ValidationMessageFor(m => m.Name)*@
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText schoolName" })
+
+
+        <div class="lFloat">
+            @Html.LabelFor(m => m.Country)
+            @Html.ValidationMessageFor(m => m.Country)
+            @Html.TextBoxFor(m => m.Country, new { @class = "inputText country" })
+        </div>
+        <div class="rFloat">
+            @Html.LabelFor(m => m.SchoolType)
+            <select class="inputText schoolType" name="SchoolType">
+                <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
+                <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>
+                <option value="@SchoolType.College.ToString("g")">@SchoolType.College.GetEnumDescription()</option>
+                <option value="@SchoolType.HighSchool.ToString("g")">@SchoolType.HighSchool.GetEnumDescription()</option>
+            </select>
+        </div>
+        <input type="submit" class="btn1 next" value="@DialogResources.Create" />
+        <button type="reset" class="btn2 cancel">@SharedResources.Back</button>
+    </form>
+</div>
+
+@*<div id="addSchoolDialog">
     <div class="popupWrppr confirm addSchool">
         <header class="popupHeader">@DialogResources.AddSchool</header>
         <button class="closeDialog"></button>
@@ -11,11 +46,11 @@
             @{Html.RenderAction("AntiForgeryToken", "Home", true);}
             @Html.ValidationSummary(true)
 
-            
+
             @Html.LabelFor(m => m.Name)
             @Html.ValidationMessageFor(m => m.Name)
             @Html.TextBoxFor(m => m.Name, new { @class = "inputText schoolName" })
-        
+
 
             <div class="lFloat">
                 @Html.LabelFor(m => m.Country)
@@ -23,19 +58,19 @@
                 @Html.TextBoxFor(m => m.Country, new { @class = "inputText country" })
             </div>
             <div class="rFloat">
-                @Html.LabelFor(m => m.SchoolType)
-                @*@Html.EnumDropDownListFor(m => m.SchoolType, DialogResources.SelectFromList)*@
-                <select class="inputText schoolType" name="SchoolType">
-                    <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
-                    <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>
-                    <option value="@SchoolType.College.ToString("g")">@SchoolType.College.GetEnumDescription()</option>
-                    <option value="@SchoolType.HighSchool.ToString("g")">@SchoolType.HighSchool.GetEnumDescription()</option>
-                </select>
-            </div>
-            <input type="submit" class="btn1 next" value="@DialogResources.SendRequest" />
-            <button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
-            @*}*@
-        </form>
+                @Html.LabelFor(m => m.SchoolType)*@
+@*@Html.EnumDropDownListFor(m => m.SchoolType, DialogResources.SelectFromList)*@
+@*<select class="inputText schoolType" name="SchoolType">
+        <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
+        <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>
+        <option value="@SchoolType.College.ToString("g")">@SchoolType.College.GetEnumDescription()</option>
+        <option value="@SchoolType.HighSchool.ToString("g")">@SchoolType.HighSchool.GetEnumDescription()</option>
+    </select>
+</div>
+<input type="submit" class="btn1 next" value="@DialogResources.SendRequest" />
+<button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>*@
+@*}*@
+@*</form>
 
     </div>
     <div class="popupWrppr requestSent addSchool">
@@ -44,4 +79,4 @@
         <div class="requestSentDiv">@DialogResources.GetBackToYou</div>
     </div>
     <div class="modal2"></div>
-</div>
+</div>*@
