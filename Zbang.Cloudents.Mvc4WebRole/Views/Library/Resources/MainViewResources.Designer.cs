@@ -360,6 +360,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload school logo.
+        /// </summary>
+        public static string UploadLogo {
+            get {
+                return ResourceManager.GetString("UploadLogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose your school.
         /// </summary>
         public static string WelcomeAcademic {

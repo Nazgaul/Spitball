@@ -225,4 +225,7 @@
   <data name="CreateNewDept" xml:space="preserve">
     <value>צור מחלקה חדשה</value>
   </data>
+  <data name="UploadLogo" xml:space="preserve">
+    <value>העלה סמל מוסד</value>
+  </data>
 </root>

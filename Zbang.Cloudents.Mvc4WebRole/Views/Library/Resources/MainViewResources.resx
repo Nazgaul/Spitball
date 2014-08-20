@@ -224,6 +224,9 @@
   <data name="OfYourFriends" xml:space="preserve">
     <value>of your friends are registered</value>
   </data>
+  <data name="UploadLogo" xml:space="preserve">
+    <value>Upload school logo</value>
+  </data>
   <data name="YouStudyAt" xml:space="preserve">
     <value>You study at </value>
   </data>
