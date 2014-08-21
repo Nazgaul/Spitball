@@ -1534,6 +1534,7 @@
     <Content Include="Views\Store\_Navigation.cshtml" />
     <Content Include="Views\Library\_CreateDepartment.cshtml" />
     <Content Include="Views\Library\_ChooseDepartment.cshtml" />
+    <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

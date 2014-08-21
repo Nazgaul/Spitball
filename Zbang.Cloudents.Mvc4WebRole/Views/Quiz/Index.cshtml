@@ -191,7 +191,9 @@
     </div>
 </div>
 
-
+@{
+    Html.RenderPartial("_QuizDialog");
+}
 <script type="text/html" id="quizCommentTemplate">
     <li data-id="{{id}}">
         <button type="button" class="closeDialog"></button>
