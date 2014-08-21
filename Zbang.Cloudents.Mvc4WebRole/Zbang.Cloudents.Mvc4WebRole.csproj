@@ -337,6 +337,8 @@
     <Compile Include="Models\Account\Settings\University.cs" />
     <Compile Include="Models\Account\Settings\UserLanguage.cs" />
     <Compile Include="Models\AddLink.cs" />
+    <Compile Include="Models\ChooseDepartment.cs" />
+    <Compile Include="Models\CreateDepartment.cs" />
     <Compile Include="Models\DeleteAnnotation.cs" />
     <Compile Include="Models\FAQ\Category.cs" />
     <Compile Include="Models\FAQ\QnA.cs" />
@@ -640,6 +642,12 @@
     </Content>
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SetupSchool.css">
+      <DependentUpon>SetupSchool.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SetupSchoolRtl.css">
+      <DependentUpon>SetupSchoolRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Store.css">
       <DependentUpon>Store.less</DependentUpon>
@@ -1048,6 +1056,8 @@
     <Content Include="Content\StoreRtl.css">
       <DependentUpon>StoreRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\SetupSchool.less" />
+    <Content Include="Content\SetupSchoolRtl.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1522,6 +1532,8 @@
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
+    <Content Include="Views\Library\_CreateDepartment.cshtml" />
+    <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

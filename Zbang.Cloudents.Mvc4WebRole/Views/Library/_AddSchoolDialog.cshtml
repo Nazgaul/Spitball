@@ -8,7 +8,7 @@
     <div class="top">
         <button type="button">@MainViewResources.UploadLogo</button>
     </div>
-    <form>
+    <form class="clearfix">
         @{Html.RenderAction("AntiForgeryToken", "Home", true);}
         @Html.ValidationSummary(true)
 
@@ -18,12 +18,12 @@
         @Html.TextBoxFor(m => m.Name, new { @class = "inputText schoolName" })
 
 
-        <div class="lFloat">
+        <div class="lFloat countryWpr">
             @Html.LabelFor(m => m.Country)
             @Html.ValidationMessageFor(m => m.Country)
             @Html.TextBoxFor(m => m.Country, new { @class = "inputText country" })
         </div>
-        <div class="rFloat">
+        <div class="rFloat schoolTypeWpr">
             @Html.LabelFor(m => m.SchoolType)
             <select class="inputText schoolType" name="SchoolType">
                 <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
@@ -32,8 +32,8 @@
                 <option value="@SchoolType.HighSchool.ToString("g")">@SchoolType.HighSchool.GetEnumDescription()</option>
             </select>
         </div>
-        <input type="submit" class="btn1 next" value="@DialogResources.Create" />
-        <button type="reset" class="btn2 cancel">@SharedResources.Back</button>
+        <input type="submit" class="rFloat btn1 next" value="@DialogResources.Create" />
+        <button type="reset" class="rFloat btn2 cancel">@SharedResources.Back</button>
     </form>
 </div>
 

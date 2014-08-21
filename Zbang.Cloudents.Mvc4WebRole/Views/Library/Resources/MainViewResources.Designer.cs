@@ -124,15 +124,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a department.
-        /// </summary>
-        public static string ChooseDepartment {
-            get {
-                return ResourceManager.GetString("ChooseDepartment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please complete registration by choosing your current school.
         /// </summary>
         public static string ChooseSchool {
@@ -165,15 +156,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static string CreateCourse {
             get {
                 return ResourceManager.GetString("CreateCourse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create department.
-        /// </summary>
-        public static string CreateDept {
-            get {
-                return ResourceManager.GetString("CreateDept", resourceCulture);
             }
         }
         
