@@ -7,6 +7,9 @@
   text-align: right;
   /*rtl*/
 }
+.libEmpty.libraryChoose {
+  margin-top: 138px;
+}
 .uniWpr .inputText {
   padding: 0 25px 0 0;
   /*rtl*/
@@ -44,6 +47,10 @@
 }
 /*#endregion */
 /*#region Create new school */
+.createSchool {
+  right: -49px;
+  left: auto;
+}
 .createSchool .top:before {
   right: 15px;
   left: auto;
@@ -52,25 +59,16 @@
   right: 28px;
   left: auto;
 }
-.createSchool,
-.completeRegistration {
-  right: 0;
-  left: 450px;
-}
 .createSchool .top,
 .completeRegistration .top {
   padding: 6px 95px 6px 15px;
 }
 .createSchool .btn1,
 .completeRegistration .btn1 {
-  margin: 0 15px 0 0;
+  margin: 28px 15px 0 0;
 }
 /*#endregion */
 /*#region Choose/Create Department */
-.completeRegistration {
-  right: 0;
-  left: 450px;
-}
 .completeRegistration .uniImg {
   right: 15px;
   left: auto;
@@ -87,4 +85,12 @@
 }
 /*#endregion */
 /*#region chairman - only displayed for hebrew */
+/*#endregion */
+/*#region media queries */
+@media (max-width: 1165px) {
+  .createSchool,
+  .completeRegistration {
+    right: auto;
+  }
+}
 /*#endregion */

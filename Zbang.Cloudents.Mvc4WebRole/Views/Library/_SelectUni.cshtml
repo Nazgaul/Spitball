@@ -5,7 +5,7 @@
 }
 @if (ViewBag.country == "IL")
 {
-    <aside class="chairman rFloat">
+    <aside class="chairman">
         <h2>דבר יו"ר ההתאחדות</h2>
         <p>סטודנטים וסטודנטיות יקרים/ות, שותפים/ות  לדרך,</p>
         <p>אני גאה בפלטפורמה שיתופית זו שתאפשר לכולנו, ציבור הסטודנטים והסטודנטיות, לחלוק ידע זו עם זה. יכולתינו לנצל את כלל המשאבים והכישורים העומדים לרשותינו באופן יעיל ונוח היא מה שמאפשרת לנו להוביל שינויים והישגים בכל התחומים. אני סמוך ובטוח שתעשו שימוש נכון בפלטפורמה זו לא רק לצרכים אקדמיים אלא גם כדי לקדם מטרות חשובות נוספות.</p>
@@ -21,7 +21,7 @@
         </p>
     </aside>
 }
-<div id="library"  >@*class="page"*@
+<div id="library"  class="library">@*class="page"*@
     <div class="libEmpty libraryChoose" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country">
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>

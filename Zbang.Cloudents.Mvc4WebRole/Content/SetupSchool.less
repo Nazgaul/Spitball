@@ -1,6 +1,10 @@
 ﻿@import "varsAndMixins";
 
 /*#region library empty state */
+
+/*.library {
+    padding-right: 450px;
+}*/
 .libEmpty {
     color: @textColor;
     font-size: 18px;
@@ -8,9 +12,8 @@
     margin: 70px auto 0;
     text-align: left; /*rtl*/
     &.libraryChoose {
-        width: 640px;
-        margin-top: 132px;
-        padding-right: 450px;
+        margin-top: 132px; //diff rtl
+        //padding-right: 450px;// diff rtl
     }
     h2 {
         font-size: 18px;
@@ -156,6 +159,7 @@
 /*#region Create new school */
 .createSchool {
     //display: none;
+    height: 340px;
     .top {
         &:before {
             .pseudo;
@@ -182,29 +186,34 @@
             margin-top: 23px;
         }
     }
-    .btn1 {
+    /*.btn1 {
         clear: both;
-    }
+    }*/
     label {
         margin-top: 28px;
     }
     .countryWpr {
-        width: 350px;
+        width: 54%;
     }
     .schoolTypeWpr {
-        width: 250px;
+        width: 38%;
     }
 }
 .createSchool, .completeRegistration {
     width: 646px;
+    //width: 100%;
+    overflow: hidden; //this fixes the issue where width:100% on inputText breaks the layout at certain viewport widths
     border-radius: 3px;
     border: 1px solid @borderColor;
-    position: absolute;
+    position: relative;
+    top: -110px;
+    left: -49px; //rtl
+    //margin-top: -110px;
     font-size: 15px;
-    top: 234px;
+    //top: 234px;
     margin: 0 auto;
-    left: 0; //rtl
-    right: 450px; //rtl
+    //left: 0; //rtl
+    //right: 450px; //rtl
     background: #fff;
     .top {
         height: 80px;
@@ -218,6 +227,7 @@
         margin-bottom: 5px;
     }
     .inputText {
+        //width: 99%; //100% breaks the layout at certain viewport widths for some reason
         width: 100%;
         height: 37px;
         .boxSizing;
@@ -237,15 +247,17 @@
 .completeRegistration {
     display: none;
     height: 250px;
-    width: 646px;
+    //width: 646px;
     border-radius: 3px;
     border: 1px solid @borderColor;
-    position: absolute;
+    //position: absolute;
+    //position: relative;
+    //top: -110px;
     font-size: 15px;
-    top: 234px;
+    //top: 234px;
     margin: 0 auto;
-    left: 0; //rtl
-    right: 450px; //rtl
+    //left: 0; //rtl
+    //right: 450px; //rtl
     background: #fff;
     
     .uniImg {
@@ -380,8 +392,11 @@
     width: 450px;
     min-height: 100vh;
     margin-top: -@header-height; 
-    position: absolute;
-    top: @header-height;
+    float: right; //NO rtl!!
+    //position: absolute;
+    //top: @header-height;
+    position: relative;
+    top:0;
     right:0;
     direction: rtl; /* no rtl !!!*/
     text-align: right; /*no rtl!!!*/
@@ -408,7 +423,7 @@
     a {
         color: @attentionBlue;
     }
-    ~ .page {
+    ~ .library {
         padding-right: 450px; /*rtl*/
         .libraryChoose {
             width: 555px;
@@ -419,10 +434,14 @@
 
 /*#region media queries */
 
-@media (max-width: 1024px) {
+@media (max-width: 1165px) {
 
     .libEmpty.libraryChoose {
-        margin: 138px 20px 0 20px;
+        //margin: 138px 20px 0 20px;
+    }
+    .createSchool, .completeRegistration {
+        width: auto;
+        left: auto; //rtl
     }
 }
 

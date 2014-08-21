@@ -3,6 +3,9 @@
 /*#region mixins */
 /*#endregion */
 /*#region library empty state */
+/*.library {
+    padding-right: 450px;
+}*/
 .libEmpty {
   color: #383838;
   font-size: 18px;
@@ -12,9 +15,7 @@
   /*rtl*/
 }
 .libEmpty.libraryChoose {
-  width: 640px;
   margin-top: 132px;
-  padding-right: 450px;
 }
 .libEmpty h2 {
   font-size: 18px;
@@ -160,6 +161,12 @@
 }
 /*#endregion */
 /*#region Create new school */
+.createSchool {
+  height: 340px;
+  /*.btn1 {
+        clear: both;
+    }*/
+}
 .createSchool .top:before {
   content: '';
   display: inline-block;
@@ -188,29 +195,26 @@
 .createSchool .top button {
   margin-top: 23px;
 }
-.createSchool .btn1 {
-  clear: both;
-}
 .createSchool label {
   margin-top: 28px;
 }
 .createSchool .countryWpr {
-  width: 350px;
+  width: 54%;
 }
 .createSchool .schoolTypeWpr {
-  width: 250px;
+  width: 38%;
 }
 .createSchool,
 .completeRegistration {
   width: 646px;
+  overflow: hidden;
   border-radius: 3px;
   border: 1px solid #c2c2c2;
-  position: absolute;
+  position: relative;
+  top: -110px;
+  left: -49px;
   font-size: 15px;
-  top: 234px;
   margin: 0 auto;
-  left: 0;
-  right: 450px;
   background: #fff;
 }
 .createSchool .top,
@@ -251,15 +255,10 @@
 .completeRegistration {
   display: none;
   height: 250px;
-  width: 646px;
   border-radius: 3px;
   border: 1px solid #c2c2c2;
-  position: absolute;
   font-size: 15px;
-  top: 234px;
   margin: 0 auto;
-  left: 0;
-  right: 450px;
   background: #fff;
 }
 .completeRegistration .uniImg {
@@ -394,8 +393,9 @@
   width: 450px;
   min-height: 100vh;
   margin-top: -50px;
-  position: absolute;
-  top: 50px;
+  float: right;
+  position: relative;
+  top: 0;
   right: 0;
   direction: rtl;
   /* no rtl !!!*/
@@ -429,18 +429,20 @@
 .chairman a {
   color: #0371c8;
 }
-.chairman ~ .page {
+.chairman ~ .library {
   padding-right: 450px;
   /*rtl*/
 }
-.chairman ~ .page .libraryChoose {
+.chairman ~ .library .libraryChoose {
   width: 555px;
 }
 /*#endregion */
 /*#region media queries */
-@media (max-width: 1024px) {
-  .libEmpty.libraryChoose {
-    margin: 138px 20px 0 20px;
+@media (max-width: 1165px) {
+  .createSchool,
+  .completeRegistration {
+    width: auto;
+    left: auto;
   }
 }
 /*#endregion */
