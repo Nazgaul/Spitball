@@ -2,9 +2,6 @@
 
 /*#region library empty state */
 
-/*.library {
-    padding-right: 450px;
-}*/
 .libEmpty {
     color: @textColor;
     font-size: 18px;
@@ -13,7 +10,6 @@
     text-align: left; /*rtl*/
     &.libraryChoose {
         margin-top: 132px; //diff rtl
-        //padding-right: 450px;// diff rtl
     }
     h2 {
         font-size: 18px;
@@ -30,7 +26,6 @@
 
 .libEmptyTitle {
     font-size: 32px;
-    //color: @textColor;
     text-align: center;
     font-weight: normal;
 }
@@ -158,7 +153,6 @@
 
 /*#region Create new school */
 .createSchool {
-    //display: none;
     height: 340px;
     .top {
         &:before {
@@ -186,9 +180,6 @@
             margin-top: 23px;
         }
     }
-    /*.btn1 {
-        clear: both;
-    }*/
     label {
         margin-top: 28px;
     }
@@ -201,19 +192,14 @@
 }
 .createSchool, .completeRegistration {
     width: 646px;
-    //width: 100%;
     overflow: hidden; //this fixes the issue where width:100% on inputText breaks the layout at certain viewport widths
     border-radius: 3px;
     border: 1px solid @borderColor;
     position: relative;
     top: -110px;
     left: -49px; //rtl
-    //margin-top: -110px;
     font-size: 15px;
-    //top: 234px;
     margin: 0 auto;
-    //left: 0; //rtl
-    //right: 450px; //rtl
     background: #fff;
     .top {
         height: 80px;
@@ -227,7 +213,6 @@
         margin-bottom: 5px;
     }
     .inputText {
-        //width: 99%; //100% breaks the layout at certain viewport widths for some reason
         width: 100%;
         height: 37px;
         .boxSizing;
@@ -240,24 +225,16 @@
     }
 }
 
-
 /*#endregion */
 
 /*#region Choose/Create Department */
 .completeRegistration {
     display: none;
     height: 250px;
-    //width: 646px;
     border-radius: 3px;
     border: 1px solid @borderColor;
-    //position: absolute;
-    //position: relative;
-    //top: -110px;
     font-size: 15px;
-    //top: 234px;
     margin: 0 auto;
-    //left: 0; //rtl
-    //right: 450px; //rtl
     background: #fff;
     
     .uniImg {
@@ -393,8 +370,6 @@
     min-height: 100vh;
     margin-top: -@header-height; 
     float: right; //NO rtl!!
-    //position: absolute;
-    //top: @header-height;
     position: relative;
     top:0;
     right:0;
@@ -433,16 +408,10 @@
 /*#endregion */
 
 /*#region media queries */
-
 @media (max-width: 1165px) {
-
-    .libEmpty.libraryChoose {
-        //margin: 138px 20px 0 20px;
-    }
     .createSchool, .completeRegistration {
         width: auto;
         left: auto; //rtl
     }
 }
-
 /*#endregion */

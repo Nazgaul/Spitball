@@ -10,10 +10,8 @@
         @Html.LabelFor(m => m.Name)
         @Html.ValidationMessageFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, new { @class = "inputText" })
-        @*<label for="chooseDeptInput">@MainViewResources.ChooseDepartment</label>
-        <input type="text" class="inputText" id="chooseDeptInput" />*@
         <button type="submit" class="btn1 rFloat">@SharedResources.Choose</button>
-        <button type="button" class="btn2 rFloat cancel" ng-click="cancel()">@SharedResources.Back</button>
+        <button type="button" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
     </form>
     <ul class="chooseDeptList">
         <li class="emptySearch">@SharedResources.NoResults</li>

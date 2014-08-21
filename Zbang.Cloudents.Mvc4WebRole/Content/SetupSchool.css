@@ -3,9 +3,6 @@
 /*#region mixins */
 /*#endregion */
 /*#region library empty state */
-/*.library {
-    padding-right: 450px;
-}*/
 .libEmpty {
   color: #383838;
   font-size: 18px;
@@ -163,9 +160,6 @@
 /*#region Create new school */
 .createSchool {
   height: 340px;
-  /*.btn1 {
-        clear: both;
-    }*/
 }
 .createSchool .top:before {
   content: '';
