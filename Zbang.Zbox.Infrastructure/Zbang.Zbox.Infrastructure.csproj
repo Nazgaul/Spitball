@@ -206,6 +206,7 @@
     <Compile Include="Storage\QueueName.cs" />
     <Compile Include="Thumbnail\IAcademicBoxThumbnailProvider.cs" />
     <Compile Include="Thumbnail\ImageResizer.cs" />
+    <Compile Include="Url\Base62.cs" />
     <Compile Include="Url\EncryptObject.cs" />
     <Compile Include="Url\GuidEncoder.cs" />
     <Compile Include="Url\IBoxUrlBuilder.cs" />
