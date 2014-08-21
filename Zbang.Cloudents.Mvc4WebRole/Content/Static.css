@@ -549,7 +549,16 @@ footer {
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   background: #fff;
+}
+.createSchool .top:after {
+  content: '';
+  display: inline-block;
+  width: 41px;
+  height: 34px;
   background: url(/Images/site.png) 0 -1142px #ffffff;
+  position: absolute;
+  top: 23px;
+  left: 28px;
 }
 .createSchool,
 .completeRegistration {
