@@ -337,6 +337,8 @@
     <Compile Include="Models\Account\Settings\University.cs" />
     <Compile Include="Models\Account\Settings\UserLanguage.cs" />
     <Compile Include="Models\AddLink.cs" />
+    <Compile Include="Models\ChooseDepartment.cs" />
+    <Compile Include="Models\CreateDepartment.cs" />
     <Compile Include="Models\DeleteAnnotation.cs" />
     <Compile Include="Models\FAQ\Category.cs" />
     <Compile Include="Models\FAQ\QnA.cs" />
@@ -1522,6 +1524,8 @@
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
+    <Content Include="Views\Library\_CreateDepartment.cshtml" />
+    <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

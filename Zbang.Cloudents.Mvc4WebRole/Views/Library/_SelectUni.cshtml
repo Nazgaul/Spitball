@@ -45,18 +45,6 @@
         @{
             Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity());
         }
-        @*<div class="createSchool">
-            <div class="top">
-                <button type="button">@MainViewResources.UploadLogo</button>
-            </div>
-            <form>
-                <label for="chooseDeptInput">@MainViewResources.ChooseDepartment</label>
-                <input type="text" class="inputText" id="createSchoolInput" />
-                <button type="submit" class="btn1 rFloat">@SharedResources.Choose</button>
-                <button type="button" class="btn2 rFloat cancel" ng-click="cancel()">@SharedResources.Back</button>
-            </form>
-        </div>*@
-
 
         <div class="completeRegistration">
             <div class="top">
@@ -64,35 +52,10 @@
                 <div class="uniRegTxt1" data-school="{UNINAME}">@MainViewResources.YouStudyAt</div>
                 <div class="uniRegTxt2" data-regfriends-count="23">@MainViewResources.OfYourFriends</div>
             </div>
-            <div class="chooseDept">
-                <form>
-                    <label for="chooseDeptInput">@MainViewResources.ChooseDepartment</label>
-                    <input type="text" class="inputText" id="chooseDeptInput" />
-                    <button type="submit" class="btn1 rFloat">@SharedResources.Choose</button>
-                    <button type="button" class="btn2 rFloat cancel" ng-click="cancel()">@SharedResources.Back</button>
-                </form>
-                <ul class="chooseDeptList">
-                    <li class="emptySearch">@SharedResources.NoResults</li>
-                    <li class="chooseDeptItem"><span class="mark">rregr</span></li>
-                    <li class="chooseDeptItem"><span class="mark">rregr</span>efbh</li>
-                    <li class="chooseDeptItem"><span class="mark">rregr</span>nbrngt</li>
-                    <li class="chooseDeptItem"><span class="mark">rregr</span>gtnwretnrtwn</li>
-                    <li class="chooseDeptItem"><span class="mark">rregr</span>bfgw ngwfn wrn wgren</li>
-                    <li class="newDept">
-                        <span class="newDeptTxt">@MainViewResources.CantFindDept</span>
-                        @*<a href="#" class="createUni">@MainViewResources.CreateNewDept</a>*@
-                        <button type="button" class="createDeptBtn">@MainViewResources.CreateNewDept</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="createDept">
-                <form>
-                    <label for="createDeptInput">@MainViewResources.CreateDept</label>
-                    <input type="text" class="inputText" id="createDeptInput" />
-                    <button type="submit" class="btn1 rFloat">@DialogResources.Create</button>
-                    <button type="button" class="btn2 rFloat cancel" ng-click="cancel()">@SharedResources.Back</button>
-                </form>
-            </div>
+            @{
+                Html.RenderPartial("_ChooseDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.ChooseDepartment());
+                Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+            }
         </div>
     </div>
 </div>

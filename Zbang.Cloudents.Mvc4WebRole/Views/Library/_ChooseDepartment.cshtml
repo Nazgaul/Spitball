@@ -1,0 +1,31 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.ChooseDepartment
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+
+<div class="chooseDept">
+    <form>
+        @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
+        @Html.ValidationSummary(true)
+
+        @Html.LabelFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText" })
+        @*<label for="chooseDeptInput">@MainViewResources.ChooseDepartment</label>
+        <input type="text" class="inputText" id="chooseDeptInput" />*@
+        <button type="submit" class="btn1 rFloat">@SharedResources.Choose</button>
+        <button type="button" class="btn2 rFloat cancel" ng-click="cancel()">@SharedResources.Back</button>
+    </form>
+    <ul class="chooseDeptList">
+        <li class="emptySearch">@SharedResources.NoResults</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span></li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>efbh</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>nbrngt</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>gtnwretnrtwn</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>bfgw ngwfn wrn wgren</li>
+        <li class="newDept">
+            <span class="newDeptTxt">@MainViewResources.CantFindDept</span>
+            @*<a href="#" class="createUni">@MainViewResources.CreateNewDept</a>*@
+            <button type="button" class="createDeptBtn">@MainViewResources.CreateNewDept</button>
+        </li>
+    </ul>
+</div>
