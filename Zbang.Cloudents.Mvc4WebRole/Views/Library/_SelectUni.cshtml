@@ -2,7 +2,6 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
     ViewBag.data = ViewBag.data ?? null;
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
 }
 @if (ViewBag.country == "IL")
 {
@@ -22,7 +21,7 @@
         </p>
     </aside>
 }
-<div id="library" class="page" >
+<div id="library"  >@*class="page"*@
     <div class="libEmpty libraryChoose" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country">
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
