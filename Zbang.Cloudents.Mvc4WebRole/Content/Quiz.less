@@ -1010,6 +1010,118 @@ body.quiz {
 /*#endregion */
 /*#region Quiz Dialog */
 
+.modal-dialog {
+    &.quizPopup {
+        width: 700px;
+        height: 350px;
+        background: #f6f6f6;
+        padding: 0 20px 15px;
+        border-radius: 6px;
+        -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+        .boxSizing;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        z-index: 1052;
+        text-align: center;
+        border: none;
+    }
+}
 
+.quizPopupHeader {
+    color: @color;
+    font-size: 36px;
+    border-top: 2px solid @txtColor;
+    border-bottom: 2px solid @txtColor;
+    position: relative;
+    padding: 0 20px 0 30px;
+    margin: 40px 0 0 80px;
+    display: inline-block;
+    &:before {
+        .pseudo;
+        position: absolute;
+        left: -100px;
+        top: -30px;
+        width: 111px;
+	    height: 111px;
+	    background: url(/Images/quizSprite.png) 0 -562px no-repeat;
+    }
+    &:after { //needed to trigger new block
+        content: '';
+        display: block;
+    }
 
+}
+.classmatesWpr {
+    margin-top: 35px;
+}
+.friendsPics {
+    width: 108px;
+    margin-right: 12px;
+    position: relative;
+    display: inline-block;
+
+    &.plus:after {
+        content: '+' attr(data-plus-count);
+        display: inline-block;
+        position: absolute;
+        width: 51px;
+        height: 51px;
+        border: 1px solid @txtColor;
+        font-size: 27px;
+        .boxSizing;
+        padding-top: 5px;
+        background: #fff;
+        color: @color;
+        left: 56px;
+        top: 0;
+    }
+    img {
+        display: inline-block;
+        &.defaultImg {
+            padding: 1px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+        }
+    }
+}
+.quizPopupTxtWpr {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+    text-align: left;
+    font-size: 20px;
+    line-height: 24px;
+}
+.quizPopupTxt1 {
+    color: @color;
+    margin-bottom: 10px;
+}
+.quizPopupTxt2 {
+    
+    color: @txtColor;
+}
+.quizPopupBtnWpr {
+    
+    margin-top: 30px;
+    .btn1 {
+        width: 220px;
+        height: 40px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        display: inline-block;
+        margin: 0 15px;
+        &:nth-child(2) {
+            background: @txtColor;
+            &:hover {
+                background: lighten(@txtColor, 10%);
+            }
+        }
+    }
+}
 /*#endregion */

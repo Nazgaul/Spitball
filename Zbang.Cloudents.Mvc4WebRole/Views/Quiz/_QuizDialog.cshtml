@@ -1,4 +1,6 @@
-﻿@*THIS IS THE ANGULAR/BOOTSTRAP DIALOG STRUCTURE*@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@*THIS IS THE ANGULAR/BOOTSTRAP DIALOG STRUCTURE*@
 @*<div class="modal-backdrop fade in"  style="z-index: 1051;"></div> <- TO REMOVE
 
     <div class="modal-dialog"><- TO REMOVE
@@ -11,22 +13,31 @@
 
 <div class="modal-backdrop fade in" style="z-index: 1051;"></div>
 
-<div class="modal-dialog">
+@*Guy: please add the class 'quizPopup' on the modal-dialog*@
+
+<div class="modal-dialog quizPopup">
     <div class="modal-content">
         <div class="modal-body">
-            <div class="quizPopupHeader"></div>
+            <div class="quizPopupHeader">@QuizResources.QuizTime</div>
             <div class="classmatesWpr">
-                <img alt="" src="http://placehold.it/51x51" />
-                <img alt="" src="http://placehold.it/51x51" />
-                @*<span></span>*@
-                <img alt="" src="http://placehold.it/51x51" />
-                <img alt="" src="http://placehold.it/51x51" />
+
+                @*Guy:  (1) please add the class 'plus' to friendsPics are > 3 classmates who took the quiz
+                        (2) set a value to the data-plus-count attribute
+                        (3) add the class 'defaultImg' to respective img elements if there are < 3 classmates who took the quiz*@
+                <div class="friendsPics plus" data-plus-count="32">
+                    <img alt="" src="http://placehold.it/51x51" />
+                    <img alt="" src="http://placehold.it/51x51" />
+                    <img alt="" src="http://placehold.it/51x51" />
+                    <img class="defaultImg" alt="" src="~/Images/quiz-user.png" width="47" height="47" />
+                </div>
+                <div class="quizPopupTxtWpr">
+                    <div class="quizPopupTxt1">@QuizResources.OfYourMates</div>
+                    <div class="quizPopupTxt2">@QuizResources.YouReady</div>
+                </div>
             </div>
-            <div class="quizPopupTxt1"></div>
-            <div class="quizPopupTxt2"></div>
             <div class="quizPopupBtnWpr">
-                <button class="btn1"></button>
-                <button class="btn1"></button>
+                <button class="btn1">@QuizResources.TakeChance</button>
+                <button class="btn1">@QuizResources.Afraid</button>
             </div>
         </div>
     </div>
