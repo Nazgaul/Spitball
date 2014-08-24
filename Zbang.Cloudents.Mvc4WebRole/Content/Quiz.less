@@ -1041,6 +1041,7 @@ body.quiz {
     padding: 0 20px 0 30px;
     margin: 40px 0 0 80px;
     display: inline-block;
+    font-weight: bold;
     &:before {
         .pseudo;
         position: absolute;
@@ -1068,7 +1069,10 @@ body.quiz {
     &.plus:after {
         content: '+' attr(data-plus-count);
         display: inline-block;
+        font-weight: bold;
         position: absolute;
+        left: 56px;
+        top: 0;
         width: 51px;
         height: 51px;
         border: 1px solid @txtColor;
@@ -1077,8 +1081,6 @@ body.quiz {
         padding-top: 5px;
         background: #fff;
         color: @color;
-        left: 56px;
-        top: 0;
     }
     img {
         display: inline-block;
@@ -1099,6 +1101,7 @@ body.quiz {
 }
 .quizPopupTxt1 {
     color: @color;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 .quizPopupTxt2 {

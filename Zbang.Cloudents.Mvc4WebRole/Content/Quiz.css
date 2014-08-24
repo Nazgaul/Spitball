@@ -1050,6 +1050,7 @@ body.quiz .shareBtn {
   padding: 0 20px 0 30px;
   margin: 40px 0 0 80px;
   display: inline-block;
+  font-weight: bold;
 }
 .quizPopupHeader:before {
   content: '';
@@ -1077,7 +1078,10 @@ body.quiz .shareBtn {
 .friendsPics.plus:after {
   content: '+' attr(data-plus-count);
   display: inline-block;
+  font-weight: bold;
   position: absolute;
+  left: 56px;
+  top: 0;
   width: 51px;
   height: 51px;
   border: 1px solid #39434a;
@@ -1088,8 +1092,6 @@ body.quiz .shareBtn {
   padding-top: 5px;
   background: #fff;
   color: #0f9d58;
-  left: 56px;
-  top: 0;
 }
 .friendsPics img {
   display: inline-block;
@@ -1109,6 +1111,7 @@ body.quiz .shareBtn {
 }
 .quizPopupTxt1 {
   color: #0f9d58;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 .quizPopupTxt2 {
