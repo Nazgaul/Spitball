@@ -847,6 +847,7 @@
     <Content Include="Images\upload.png" />
     <Content Include="Images\upload15-sprite.png" />
     <Content Include="Images\user-gmail-pic.jpg" />
+    <Content Include="Images\user-img.png" />
     <Content Include="Images\user-pic.png" />
     <Content Include="Images\user13-sprite.png" />
     <Content Include="Images\userBg.png" />

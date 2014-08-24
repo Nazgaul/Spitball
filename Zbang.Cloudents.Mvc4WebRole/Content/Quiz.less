@@ -21,7 +21,7 @@ body.quiz {
 .quizSprite {
     &:before {
         content: '';
-        background: url(/Images/quizSprite.png) no-repeat;
+        background: @quiz-sprite no-repeat;
     }   
 }
 /*#region Create Quiz */
@@ -742,6 +742,9 @@ body.quiz {
             margin-top: 6px;
         }
     }
+    ~ .modal-backdrop.in {
+        opacity: 0.8;
+    }
 }
 .checkQuiz {
     .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
@@ -828,7 +831,7 @@ body.quiz {
     text-align: center;
     &:before {
         .pseudo;
-        background: url(/Images/quizSprite.png) 0 -161px no-repeat;
+        background: @quiz-sprite 0 -161px no-repeat;
         width: 233px;
 	    height: 264px;
         position: absolute;
@@ -898,7 +901,7 @@ body.quiz {
     &:after {
         .pseudo;
         position: absolute;
-        background: url(/Images/quizSprite.png) 0 0 no-repeat;
+        background: @quiz-sprite 0 0 no-repeat;
         width: 51px;
 	    height: 49px;
         left: 0; //rtl
@@ -953,7 +956,7 @@ body.quiz {
     font-size: 24px;
     margin-top: 4px;
     &:before {
-        background: url(/Images/quizSprite.png) 0 -425px no-repeat;
+        background: @quiz-sprite 0 -425px no-repeat;
         width: 39px;
 	    height: 43px;
         position: relative;
@@ -980,7 +983,7 @@ body.quiz {
 .topUser {
     width: 47px;
 	height: 47px;
-	background: url(/Images/quizSprite.png) 0 -468px no-repeat;
+	background: @quiz-sprite 0 -468px no-repeat;
     display: inline-block;
     position: relative;
     &:nth-child(2) {
@@ -992,7 +995,7 @@ body.quiz {
             position: absolute;
             width: 25px;
 	        height: 25px;
-	        background: url(/Images/quizSprite.png) 0 -136px no-repeat;
+	        background: @quiz-sprite 0 -136px no-repeat;
             top: -9px;
             right: -12px; //rtl
         }
@@ -1014,19 +1017,17 @@ body.quiz {
     &.quizPopup {
         width: 700px;
         height: 350px;
-        background: #f6f6f6;
+        background: #fff;
         padding: 0 20px 15px;
         border-radius: 6px;
         -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
         box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
         .boxSizing;
         position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        top: 0; bottom: 0;
+        left: 0; right: 0;
         margin: auto;
-        z-index: 1052;
+        z-index: 1052; //TODO: CHECK THIS
         text-align: center;
         border: none;
     }
@@ -1038,18 +1039,18 @@ body.quiz {
     border-top: 2px solid @txtColor;
     border-bottom: 2px solid @txtColor;
     position: relative;
-    padding: 0 20px 0 30px;
-    margin: 40px 0 0 80px;
+    padding: 0 20px 3px 30px; //rtl
+    margin: 50px 0 0 80px; //rtl
     display: inline-block;
     font-weight: bold;
     &:before {
         .pseudo;
         position: absolute;
-        left: -100px;
+        left: -100px; //rtl
         top: -30px;
         width: 111px;
 	    height: 111px;
-	    background: url(/Images/quizSprite.png) 0 -562px no-repeat;
+	    background: @quiz-sprite 0 -562px no-repeat;
     }
     &:after { //needed to trigger new block
         content: '';
@@ -1058,11 +1059,11 @@ body.quiz {
 
 }
 .classmatesWpr {
-    margin-top: 35px;
+    margin-top: 40px;
 }
 .friendsPics {
     width: 108px;
-    margin-right: 12px;
+    margin-right: 12px; //rtl
     position: relative;
     display: inline-block;
 
@@ -1071,7 +1072,7 @@ body.quiz {
         display: inline-block;
         font-weight: bold;
         position: absolute;
-        left: 56px;
+        left: 56px; //rtl
         top: 0;
         width: 51px;
         height: 51px;
@@ -1084,18 +1085,13 @@ body.quiz {
     }
     img {
         display: inline-block;
-        &.defaultImg {
-            padding: 1px;
-            border: 1px solid #aaa;
-            border-radius: 3px;
-        }
     }
 }
 .quizPopupTxtWpr {
     display: inline-block;
-    width: 200px;
+    width: 178px;
     vertical-align: top;
-    text-align: left;
+    text-align: left; //rtl
     font-size: 20px;
     line-height: 24px;
 }
