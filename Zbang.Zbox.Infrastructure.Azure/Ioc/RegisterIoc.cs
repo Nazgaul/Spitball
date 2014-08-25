@@ -24,6 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IQueueProvider, QueueProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<ILocalStorageProvider, LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IUniversityWriteSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IUniversityWriteSearchProvider, SearchUniversityProvider>("azureSearch");
             ioc.RegisterType<IUniversityReadSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
 
         }

@@ -820,14 +820,15 @@ namespace Zbang.Zbox.ReadServices
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1} {2} {3} {4} {5} {6}",
+                var sql = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
                     Sql.Quiz.QuizQuery,
                     Sql.Quiz.Question,
                     Sql.Quiz.Answer,
                     Sql.Security.GetBoxPrivacySettings,
                     Sql.Security.GetUserToBoxRelationship,
                     Sql.Quiz.UserQuiz,
-                    Sql.Quiz.UserAnswer);
+                    Sql.Quiz.UserAnswer,
+                    Sql.Quiz.QuizStats);
 
                 if (query.NeedCountry)
                 {
@@ -836,7 +837,7 @@ namespace Zbang.Zbox.ReadServices
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId }))
                 {
                     retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
-                    retVal.Quiz.Questions = grid.Read<Item.QuestionWithDetailDto>();
+                    retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
 
                     var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
 
@@ -854,7 +855,10 @@ namespace Zbang.Zbox.ReadServices
                     if (retVal.Sheet != null)
                     {
                         retVal.Sheet.Questions = solvedQuestion;
+                        retVal.Sheet.Stats = grid.Read<Item.QuizUserStats>().FirstOrDefault();
                     }
+
+                    
 
                     if (query.NeedCountry)
                     {

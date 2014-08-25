@@ -33,7 +33,7 @@ namespace TestingApp
         private void button1_Click(object sender, EventArgs e)
         {
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
+            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>("azureSearch");
             lucenewire.BuildUniversityData();
            // textBox2.Text = "Complete";
         }

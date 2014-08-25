@@ -89,7 +89,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.boxName = boxName;
             ViewBag.boxUrl = url;
 
-
             return PartialView(model.Quiz);
 
         }
@@ -127,6 +126,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!model.Quiz.Publish)
             {
                 throw new ArgumentException("Quiz not published");
+            }
+            if (model.Sheet != null)
+            {
+                if (model.Sheet.Stats != null && model.Sheet.Stats.Stdevp != 0)
+                {
+                    model.Sheet.Stats.UserPosition = (model.Sheet.Score - model.Sheet.Stats.Avg) / model.Sheet.Stats.Stdevp;
+                }
             }
             return model;
         }

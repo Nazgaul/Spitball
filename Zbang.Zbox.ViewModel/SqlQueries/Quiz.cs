@@ -8,8 +8,9 @@ q.CreationTime as date,
 q.NumberOfViews,
 q.Rate,
 q.Publish
+
  from zbox.Quiz q 
-where id = @QuizId;";
+where q.id = @QuizId;";
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
         public const string QuizSeoQuery = @"
@@ -23,7 +24,13 @@ select u.country as Country,b.boxname as BoxName, u.universityname as University
 
         public const string Answer = @"select a.id, a.text,a.QuestionId from zbox.QuizAnswer a where QuizId = @QuizId;";
 
-        public const string UserQuiz = @"select q.TimeTaken,q.Score from zbox.SolvedQuiz q where QuizId = @QuizId and UserId = @UserId ;";
+        public const string UserQuiz = @"
+select q.TimeTaken,q.Score from zbox.SolvedQuiz q where QuizId = @QuizId and UserId = @UserId;";
+
+        public const string QuizStats = @"select stdevp(score) as Stdevp, avg(score) as Avg from zbox.solvedquiz
+where quizid = @QuizId
+";
+
         public const string UserAnswer = @"select q.AnswerId,q.QuestionId from zbox.SolvedQuestion q where QuizId = @QuizId and UserId = @UserId;";
 
         public const string Discussion = @"select qd.Id,

@@ -94,6 +94,7 @@
     <Compile Include="Dto\ItemDtos\LinkWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\QuizDto.cs" />
     <Compile Include="Dto\ItemDtos\QuizWithDetailDto.cs" />
+    <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
     <Compile Include="Dto\Library\DepartmentDto.cs" />
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />
