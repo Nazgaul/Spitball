@@ -4,6 +4,56 @@
     function ($http, $q) {
         var Quiz = '/Quiz/';
         return {
+            data: function (data) {
+                var dfd = $q.defer();
+                $http.get(Quiz + 'Data/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
+            saveAnswers: function (data) {
+                var dfd = $q.defer();
+                $http.post(Quiz + 'SaveAnswers/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+                return dfd.promise;                
+            },
+            discussion: {
+                getDiscussion: function (data) {
+                    var dfd = $q.defer();
+                    $http.get(Quiz + 'Discussion/', { params: data }).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
+                    return dfd.promise;
+                },
+                createDiscussion: function (data) {
+                    var dfd = $q.defer();
+                    $http.post(Quiz + 'CreateDiscussion/', data).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
+                    return dfd.promise;
+
+                },
+                deleteDiscussion: function (data) {
+                    var dfd = $q.defer();
+                    $http.post(Quiz + 'DeleteDiscussion/', data).success(function (response) {
+                        dfd.resolve(response);
+                    }).error(function (response) {
+                        dfd.reject(response);
+                    });
+                    return dfd.promise;
+
+                }
+            },
             create: function (data) {
                 var dfd = $q.defer();
                 $http.post(Quiz + 'Create/', data).success(function (response) {
@@ -127,29 +177,7 @@
                     return dfd.promise;
 
                 }
-            },
-            discussion: {
-                createDiscussion: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'CreateDiscussion/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
-                },
-                deleteDiscussion: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'DeleteDiscussion/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
-                }
-            }
+            }          
 
         };
     }

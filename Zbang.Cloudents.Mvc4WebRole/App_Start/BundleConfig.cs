@@ -156,6 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/elastic.js"),
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
                 new JsFileWithCdn("/js/modules/displayTime.js"),
+                new JsFileWithCdn("/js/modules/angular-timer.js"),
                 new JsFileWithCdn("~/js/modules/textDirection.js"),
 
                 new JsFileWithCdn("~/js/app.js"),
@@ -204,6 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/scrollToTop.js"),
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
+                new JsFileWithCdn("/js/directives/quizGraph.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
                 new JsFileWithCdn("~/js/directives/countTo.js"),
                 new JsFileWithCdn("~/js/directives/userTooltip.js"),

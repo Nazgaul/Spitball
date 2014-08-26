@@ -872,6 +872,8 @@
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
+    <Content Include="Js\directives\quizGraph.js" />
+    <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
     <Content Include="Js\directives\countTo.js" />
@@ -957,14 +959,6 @@
     <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
-    <Content Include="Js\shopping\app.js" />
-    <Content Include="Js\shopping\controllers\categoryCtrl.js" />
-    <Content Include="Js\shopping\controllers\homeCtrl.js" />
-    <Content Include="Js\shopping\controllers\mainCtrl.js" />
-    <Content Include="Js\shopping\controllers\searchCtrl.js" />
-    <Content Include="Js\shopping\filters\percentage.js" />
-    <Content Include="Js\shopping\directives\productsMenu.js" />
-    <Content Include="Js\shopping\services\store.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
@@ -1012,7 +1006,6 @@
       <DependentUpon>category.png</DependentUpon>
     </Content>
     <Content Include="Images\Store\social.sprite" />
-    <Content Include="Js\shopping\controllers\productCtrl.js" />
     <Content Include="Images\Store\social.png.map">
       <DependentUpon>social.png</DependentUpon>
     </Content>
