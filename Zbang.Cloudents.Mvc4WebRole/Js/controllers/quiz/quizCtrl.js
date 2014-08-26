@@ -17,9 +17,6 @@ mQuiz.controller('QuizCtrl',
 
 
             sQuiz.data({ quizId: $routeParams.quizId, quizName: $routeParams.quizName, boxId: $routeParams.boxId }).then(function (response) {
-
-
-
                 $scope.quiz = response.payload.quiz;
                 questions = angular.copy(response.payload.quiz.questions, questions);
 
@@ -36,14 +33,13 @@ mQuiz.controller('QuizCtrl',
                             $scope.$emit('viewContentLoaded');
                         });
                         return;
-                    }
-
-                  
-
+                    }                
                 }
-                if (response.sheet) {
-                    response.sheet.answerSheet = response.sheet.questions;
-                    $scope.formData = response.sheet;
+
+
+                if (response.payload.sheet) {
+                    response.payload.sheet.answerSheet = response.payload.sheet.questions;
+                    $scope.formData = response.payload.sheet;
                     $scope.formData.quizId = $routeParams.quizId;
 
                     if ($scope.formData) {
@@ -137,6 +133,7 @@ mQuiz.controller('QuizCtrl',
 
                 $scope.quiz.timeTaken = $scope.formData.timeTaken;
                 $scope.quiz.userDone = true;
+                setResults();
                 getDiscussion();
                 submitResult();
             });
@@ -256,10 +253,6 @@ mQuiz.controller('QuizCtrl',
 
             $scope.getCommentsLength = function (comments) {
                 if (!comments) {
-                    return;
-                }
-
-                if (!comments.length) {
                     return JsResources.AddComment;
                 }
 
@@ -281,6 +274,10 @@ mQuiz.controller('QuizCtrl',
                     userPicture: sUserDetails.getDetails().image,
                     isDelete: true
                 }
+                if (!question.comments) {
+                    question.comments = [];
+                }
+
                 question.comments.push(comment)
                 question.newComment = '';
                 sQuiz.discussion.createDiscussion({ questionId: question.id, text: comment.text }).then(
@@ -300,29 +297,27 @@ mQuiz.controller('QuizCtrl',
                     function (response) { }
                    );
             };
-            function getDiscussion() {
-                console.log($scope.quiz);
-                //sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (response) {
-                //    var data = response.success ? response.payload : {};
-                //    _.forEach(data, function (comment) {
-
-                //        var question = _.find($scope.quiz.questions, function (question) {
-                //            return comment.questionId === question.id;
-                //        });
+            function getDiscussion() {                
+                sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (response) {
+                    var data = response.success ? response.payload : {};
+                    _.forEach(data, function (comment) {
+                        var question = _.find($scope.quiz.questions, function (question) {
+                            return comment.questionId === question.id;
+                        });
 
 
-                //        if (!question.comments) {
-                //            question.comments = [];
-                //        }
+                        if (!question.comments) {
+                            question.comments = [];
+                        }
 
 
-                //        comment.isDelete = sUserDetails.getDetails().id === comment.userId;
-                //        question.comments.push(comment);
-                //        question.newComment = ''; // fix for disable send button                        
+                        comment.isDelete = sUserDetails.getDetails().id === comment.userId;
+                        question.comments.push(comment);
+                        question.newComment = ''; // fix for disable send button                        
 
-                //    });
+                    });
 
-                //});
+                });
             }
 
             //#endregion
