@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Zbox.Domain
 {
     public class Library
     {
 
-        //private readonly string[] colorSchema = { "#62328F", "#464646", "#146EB5", "#111", "#17A099", "#83B641", "#E5A13D", "#DC552A", "#952262", "#D91C7A" };
         protected Library()
         {
             Children = new List<Library>();
@@ -25,12 +25,11 @@ namespace Zbang.Zbox.Domain
             Name = name;
             Parent = parent;
             University = university;
-            //Color = color;
+            GenerateUrl();
         }
 
         public virtual Guid Id { get; protected set; }
         public virtual string Name { get; protected set; }
-        //public virtual string Color { get; protected set; }
         public virtual int AmountOfNodes { get; set; } //TODO: do we need this
         public virtual Library Parent { get; protected set; }
 
@@ -39,6 +38,15 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<Library> Children { get; protected set; }
 
         public virtual ICollection<Box> Boxes { get; protected set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        public virtual string Url { get; protected set; }
+
+
+        public virtual void GenerateUrl()
+        {
+            Url = UrlConsts.BuildLibraryUrl(Id, Name);
+        }
 
 
         public Library CreateSubLibrary(Guid id, string nodeName)
@@ -85,6 +93,7 @@ namespace Zbang.Zbox.Domain
             }
 
             Name = newName;
+            GenerateUrl();
         }
 
         private bool CheckIfBoxesExists()

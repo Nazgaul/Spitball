@@ -23,7 +23,7 @@
   </resultset>
  
   
-  <sql-query name="ZboxGetAcademicBoxesByNode" resultset-ref="BoxDto">
+  <sql-query name="ZboxGetAcademicBoxesByNode" resultset-ref="BoxDto" read-only="1">
     <![CDATA[
     select b.boxid as Id,
     b.BoxName as BoxName,
@@ -39,9 +39,8 @@
     from zbox.LibraryBox l
     join zbox.box b on b.BoxId = l.BoxId and b.IsDeleted = 0  and b.discriminator = 2
     where LibraryId = :ParentNode
-    ORDER BY    
-          case WHEN :Sort = 0 Then UpdateTime END desc,
-          case WHEN :Sort = 1 Then BoxName END asc
+    ORDER BY  
+          BoxName asc
     ]]>
   </sql-query>
 </hibernate-mapping>

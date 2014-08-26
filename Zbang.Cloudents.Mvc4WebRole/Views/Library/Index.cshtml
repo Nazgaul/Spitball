@@ -84,14 +84,8 @@
                     <button class="addBtn" ng-click="createBox()">@MainViewResources.AddCourse</button>
                 </li>
             </ul>
-
             @{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}
         </div>
-
     </div>
-    @*@{
-            Html.RenderPartial("_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
-            Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
-        }*@
 </div>
 @{Html.RenderPartial("_Template");}

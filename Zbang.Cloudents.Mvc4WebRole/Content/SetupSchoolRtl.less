@@ -1,0 +1,115 @@
+﻿@import "varsAndMixins";
+
+/*#region library empty state */
+.libEmpty {
+    text-align: right; /*rtl*/  
+    &.libraryChoose {
+        margin-top: 138px; //diff rtl
+    }
+}
+.uniWpr .inputText 
+{
+    padding: 0 25px 0 0; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region School List */
+.uniWpr
+{
+    &:after
+    {
+        left: 9px; /*rtl*/
+        right: auto;
+        .flipH(-1); /*rtl*/
+    }
+    .inputText 
+    {
+        padding: 0 10px 0 30px; /*rtl*/
+    }
+}
+
+.uniList {
+    text-align: right; /*rtl*/       
+}
+
+.schoolItem {
+    padding: 5px 8px 8px 0; /*rtl*/
+    margin: 0 8px 8px 3px; /*rtl*/
+} 
+.uniDetails{
+    padding: 10px 8px 0 5px; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region Create new school */
+.createSchool {
+    right: -49px; //rtl
+    left: auto;
+    .top {
+        &:before {
+            right: 15px; //rtl
+            left: auto;
+        }
+        &:after {
+            right: 28px; //rtl
+            left: auto;
+        }
+    }
+}
+.createSchool, .completeRegistration {
+    .top {
+        padding: 6px 95px 6px 15px; //rtl;
+    }
+
+    .btn1 {
+        margin: 28px 15px 0 0; //rtl
+    }
+}
+
+
+/*#endregion */
+
+/*#region Choose/Create Department */
+.completeRegistration {
+    .uniImg {
+        right: 15px; //rtl
+        left: auto;
+    }
+}
+/*#endregion */
+
+/*#region FB friends List */
+.fbUniList {
+    .uniDetails {
+        padding: 10px 8px 0 0; /*rtl*/
+    }
+}
+.fbFriendsList {
+    .imgBorder {
+        margin: 0 0 5px 5px; /*rtl*/
+    }
+}
+
+
+/*#endregion */
+
+/*#region chairman - only displayed for hebrew */
+.chairman {
+    //box-shadow: 4px 0 4px rgba(0,0,0,.15); /*rtl*/
+    ~ .page {
+        //padding: 0 0 0 450px; /*rtl*/
+    }
+}
+/*#endregion */
+
+/*#region media queries */
+
+@media (max-width: 1165px) {
+    .createSchool, .completeRegistration {
+        right: auto; //rtl
+    }
+}
+
+/*#endregion */

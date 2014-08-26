@@ -82,11 +82,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId(false);
             try
             {
-
                 var query = new GetBoxQuery(boxId, userId);
                 var box = ZboxReadService.GetBox(query);
-                var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
-                BaseControllerResources.Culture = culture;
+                BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
                 if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
                 {
 
@@ -199,7 +197,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId(false);
             try
             {
-
                 var query = new GetBoxQuery(id, userId);
                 var result = ZboxReadService.GetBox(query);
                 return Json(new JsonResponse(true, result));

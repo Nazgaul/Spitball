@@ -34,6 +34,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
 
         public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
+
+       
         
 
     }
@@ -68,17 +70,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public Guid QuestionId { get; set; }
     }
 
-    public class SolveSheet
-    {
-        public SolveSheet(long timeTaken, int score)
-        {
-            TimeTaken = TimeSpan.FromTicks(timeTaken);
-            Score = score;
-        }
-        public TimeSpan TimeTaken { get; set; }
-        public int Score { get; set; }
-        public IEnumerable<SolveQuestion> Questions { get; set; }
-    }
     public class SolveQuestion
     {
         public Guid AnswerId { get; set; }

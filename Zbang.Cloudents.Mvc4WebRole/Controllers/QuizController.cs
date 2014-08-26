@@ -49,7 +49,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NonAjax]
         [OutputCache(CacheProfile = "NoCache")]
@@ -60,10 +59,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var serializer = new JsonNetSerializer();
             ViewBag.userD = serializer.Serialize(model.Sheet);
-
-            // var builder = new UrlBuilder(HttpContext);
-            // var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
-
             ViewBag.boxName = boxName;
             ViewBag.boxUrl = model.Quiz.Seo.BoxUrl;
 
@@ -93,7 +88,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             ViewBag.boxName = boxName;
             ViewBag.boxUrl = url;
-
 
             return PartialView(model.Quiz);
 
@@ -132,6 +126,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!model.Quiz.Publish)
             {
                 throw new ArgumentException("Quiz not published");
+            }
+            if (model.Sheet != null)
+            {
+                if (model.Sheet.Stats != null && model.Sheet.Stats.Stdevp != 0)
+                {
+                    model.Sheet.Stats.UserPosition = (model.Sheet.Score - model.Sheet.Stats.Avg) / model.Sheet.Stats.Stdevp;
+                }
             }
             return model;
         }

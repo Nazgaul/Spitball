@@ -115,6 +115,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t find your department?.
+        /// </summary>
+        public static string CantFindDept {
+            get {
+                return ResourceManager.GetString("CantFindDept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please complete registration by choosing your current school.
         /// </summary>
         public static string ChooseSchool {
@@ -147,6 +156,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static string CreateCourse {
             get {
                 return ResourceManager.GetString("CreateCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new department.
+        /// </summary>
+        public static string CreateNewDept {
+            get {
+                return ResourceManager.GetString("CreateNewDept", resourceCulture);
             }
         }
         
@@ -234,6 +252,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to of your friends are registered.
+        /// </summary>
+        public static string OfYourFriends {
+            get {
+                return ResourceManager.GetString("OfYourFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To see the material relevant to you.
         /// </summary>
         public static string RelevantMaterial {
@@ -315,6 +342,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload school logo.
+        /// </summary>
+        public static string UploadLogo {
+            get {
+                return ResourceManager.GetString("UploadLogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose your school.
         /// </summary>
         public static string WelcomeAcademic {
@@ -329,6 +365,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static string WelcomeTo {
             get {
                 return ResourceManager.GetString("WelcomeTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You study at .
+        /// </summary>
+        public static string YouStudyAt {
+            get {
+                return ResourceManager.GetString("YouStudyAt", resourceCulture);
             }
         }
     }

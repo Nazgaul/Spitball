@@ -1,0 +1,17 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+
+
+<div class="createDept">
+    <form>
+        @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
+        @Html.ValidationSummary(true)
+
+        @Html.LabelFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText" })
+        <button type="submit" class="btn1 rFloat">@DialogResources.Create</button>
+        <button type="button" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
+    </form>
+</div>

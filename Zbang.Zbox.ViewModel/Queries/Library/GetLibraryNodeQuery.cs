@@ -1,22 +1,19 @@
 ﻿using System;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Queries.Library
 {
-    public class GetLibraryNodeQuery : QueryPagedBase
+    public class GetLibraryNodeQuery : QueryBase
     {
-        public GetLibraryNodeQuery(long universityId, Guid? parentNode, long userId, int pageNumber, OrderBy sort)
-            : base(userId, pageNumber)
+        public GetLibraryNodeQuery(long universityId, Guid? parentNode, long userId)
+            : base(userId)
         {
             UniversityId = universityId;
             ParentNode = parentNode;
-            Sort = sort;
         }
         public long UniversityId { get; private set; }
         public Guid? ParentNode { get; private set; }
-        public OrderBy Sort { get; private set; }
 
-        public string libraryQuery
+        public string LibraryQuery
         {
             get
             {

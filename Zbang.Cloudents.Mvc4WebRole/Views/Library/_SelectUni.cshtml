@@ -2,11 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
     ViewBag.data = ViewBag.data ?? null;
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
 }
 @if (ViewBag.country == "IL")
 {
-    <aside class="chairman rFloat">
+    <aside class="chairman">
         <h2>דבר יו"ר ההתאחדות</h2>
         <p>סטודנטים וסטודנטיות יקרים/ות, שותפים/ות  לדרך,</p>
         <p>אני גאה בפלטפורמה שיתופית זו שתאפשר לכולנו, ציבור הסטודנטים והסטודנטיות, לחלוק ידע זו עם זה. יכולתינו לנצל את כלל המשאבים והכישורים העומדים לרשותינו באופן יעיל ונוח היא מה שמאפשרת לנו להוביל שינויים והישגים בכל התחומים. אני סמוך ובטוח שתעשו שימוש נכון בפלטפורמה זו לא רק לצרכים אקדמיים אלא גם כדי לקדם מטרות חשובות נוספות.</p>
@@ -22,7 +21,7 @@
         </p>
     </aside>
 }
-<div id="library" class="page" >
+<div id="library"  class="library">@*class="page"*@
     <div class="libEmpty libraryChoose" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country">
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
@@ -37,10 +36,26 @@
             <li class="emptySearch">@SharedResources.NoResults</li>
             <li class="newUni">
                 <span>@MainViewResources.CantFind</span>
-                <a href="#" class="createUni">@SharedResources.CreateNew</a>
+                @*<a href="#" class="createUni">@SharedResources.CreateNew</a>*@
+                <button type="button" class="createUni">@SharedResources.CreateNew</button>
             </li>
-            
         </ul>
+
+        @{
+            Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity());
+        }
+
+        <div class="completeRegistration">
+            <div class="top">
+                <img class="uniImg" src="http://placehold.it/66x66" alt="" width="66" height="66" />
+                <div class="uniRegTxt1" data-school="{UNINAME}">@MainViewResources.YouStudyAt</div>
+                <div class="uniRegTxt2" data-regfriends-count="23">@MainViewResources.OfYourFriends</div>
+            </div>
+            @{
+                Html.RenderPartial("_ChooseDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.ChooseDepartment());
+                Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+            }
+        </div>
     </div>
 </div>
 

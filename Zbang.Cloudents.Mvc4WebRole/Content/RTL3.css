@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2747,4 +2747,25 @@ body.quiz .shareBtn {
   right: auto;
 }
 /*#endregion */
+/*#region Quiz Dialog */
+.quizPopupHeader {
+  padding: 0 30px 3px 20px;
+  margin: 50px 80px 0 0;
+}
+.quizPopupHeader:before {
+  right: -100px;
+  left: auto;
+}
+.friendsPics {
+  margin: 0 0 0 12px;
+}
+.friendsPics.plus:after {
+  right: 56px;
+  left: auto;
+}
+.quizPopupTxtWpr {
+  text-align: right;
+}
 /*#endregion */
+/*#endregion */
+/*# sourceMappingURL=RTL3.css.map */

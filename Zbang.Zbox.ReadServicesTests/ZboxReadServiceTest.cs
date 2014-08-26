@@ -104,7 +104,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetLibraryNode_Query_ReturnResult()
         {
-            var query = new GetLibraryNodeQuery(1, null, 1, 1, OrderBy.LastModified);
+            var query = new GetLibraryNodeQuery(1, null, 1);
             try
             {
                 m_ZboxReadService.GetLibraryNode(query);
@@ -117,7 +117,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetLibraryNode_QueryWithNode_ReturnResult()
         {
-            var query = new GetLibraryNodeQuery(14, Guid.Parse("3d49e348-33e2-4281-b763-d981b9bd0000"), 1, 0, OrderBy.LastModified);
+            var query = new GetLibraryNodeQuery(14, Guid.Parse("3d49e348-33e2-4281-b763-d981b9bd0000"), 1);
             try
             {
                 m_ZboxReadService.GetLibraryNode(query);

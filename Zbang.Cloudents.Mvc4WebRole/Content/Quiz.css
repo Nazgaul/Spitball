@@ -21,7 +21,7 @@ body.quiz .shareBtn {
 }
 .quizSprite:before {
   content: '';
-  background: url(/Images/quizSprite.png) no-repeat;
+  background: url(/Images/quizSprite.png?v=1) no-repeat;
 }
 /*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
@@ -731,6 +731,9 @@ body.quiz .shareBtn {
   font-size: 12px;
   margin-top: 6px;
 }
+.quizPage ~ .modal-backdrop.in {
+  opacity: 0.8;
+}
 .checkQuiz .resultsWpr,
 .checkQuiz .userScoreWpr,
 .checkQuiz .timeRetakeWpr,
@@ -822,7 +825,7 @@ body.quiz .shareBtn {
 .quizTime:before {
   content: '';
   display: inline-block;
-  background: url(/Images/quizSprite.png) 0 -161px no-repeat;
+  background: url(/Images/quizSprite.png?v=1) 0 -161px no-repeat;
   width: 233px;
   height: 264px;
   position: absolute;
@@ -896,7 +899,7 @@ body.quiz .shareBtn {
   content: '';
   display: inline-block;
   position: absolute;
-  background: url(/Images/quizSprite.png) 0 0 no-repeat;
+  background: url(/Images/quizSprite.png?v=1) 0 0 no-repeat;
   width: 51px;
   height: 49px;
   left: 0;
@@ -959,7 +962,7 @@ body.quiz .shareBtn {
   margin-top: 4px;
 }
 .quizTimerResult:before {
-  background: url(/Images/quizSprite.png) 0 -425px no-repeat;
+  background: url(/Images/quizSprite.png?v=1) 0 -425px no-repeat;
   width: 39px;
   height: 43px;
   position: relative;
@@ -989,7 +992,7 @@ body.quiz .shareBtn {
 .topUser {
   width: 47px;
   height: 47px;
-  background: url(/Images/quizSprite.png) 0 -468px no-repeat;
+  background: url(/Images/quizSprite.png?v=1) 0 -468px no-repeat;
   display: inline-block;
   position: relative;
 }
@@ -1002,7 +1005,7 @@ body.quiz .shareBtn {
   position: absolute;
   width: 25px;
   height: 25px;
-  background: url(/Images/quizSprite.png) 0 -136px no-repeat;
+  background: url(/Images/quizSprite.png?v=1) 0 -136px no-repeat;
   top: -9px;
   right: -12px;
 }
@@ -1017,5 +1020,117 @@ body.quiz .shareBtn {
   opacity: 0;
   visibility: hidden;
   background: #282828;
+}
+/*#endregion */
+/*#region Quiz Dialog */
+.modal-dialog.quizPopup {
+  width: 700px;
+  height: 350px;
+  background: #fff;
+  padding: 0 20px 15px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1052;
+  text-align: center;
+  border: none;
+}
+.quizPopupHeader {
+  color: #0f9d58;
+  font-size: 36px;
+  border-top: 2px solid #39434a;
+  border-bottom: 2px solid #39434a;
+  position: relative;
+  padding: 0 20px 3px 30px;
+  margin: 50px 0 0 80px;
+  display: inline-block;
+  font-weight: bold;
+}
+.quizPopupHeader:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: -100px;
+  top: -30px;
+  width: 111px;
+  height: 111px;
+  background: url(/Images/quizSprite.png?v=1) 0 -562px no-repeat;
+}
+.quizPopupHeader:after {
+  content: '';
+  display: block;
+}
+.classmatesWpr {
+  margin-top: 40px;
+}
+.friendsPics {
+  width: 108px;
+  margin-right: 12px;
+  position: relative;
+  display: inline-block;
+}
+.friendsPics.plus:after {
+  content: '+' attr(data-plus-count);
+  display: inline-block;
+  font-weight: bold;
+  position: absolute;
+  left: 56px;
+  top: 0;
+  width: 51px;
+  height: 51px;
+  border: 1px solid #39434a;
+  font-size: 27px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 5px;
+  background: #fff;
+  color: #0f9d58;
+}
+.friendsPics img {
+  display: inline-block;
+}
+.quizPopupTxtWpr {
+  display: inline-block;
+  width: 178px;
+  vertical-align: top;
+  text-align: left;
+  font-size: 20px;
+  line-height: 24px;
+}
+.quizPopupTxt1 {
+  color: #0f9d58;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.quizPopupTxt2 {
+  color: #39434a;
+}
+.quizPopupBtnWpr {
+  margin-top: 30px;
+}
+.quizPopupBtnWpr .btn1 {
+  width: 220px;
+  height: 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  display: inline-block;
+  margin: 0 15px;
+}
+.quizPopupBtnWpr .btn1:nth-child(2) {
+  background: #39434a;
+}
+.quizPopupBtnWpr .btn1:nth-child(2):hover {
+  background: #4f5d67;
 }
 /*#endregion */

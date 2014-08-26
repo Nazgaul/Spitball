@@ -1,0 +1,443 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region library empty state */
+.libEmpty {
+  color: #383838;
+  font-size: 18px;
+  width: 460px;
+  margin: 70px auto 0;
+  text-align: left;
+  /*rtl*/
+}
+.libEmpty.libraryChoose {
+  margin-top: 132px;
+}
+.libEmpty h2 {
+  font-size: 18px;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 5px;
+}
+.libraryChoose form {
+  margin: 20px 15px;
+}
+.libEmptyTitle {
+  font-size: 32px;
+  text-align: center;
+  font-weight: normal;
+}
+/*#endregion */
+/*#region School List */
+.uniWpr {
+  position: relative;
+  margin: 32px 0 8px;
+}
+.uniWpr:after {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 20px;
+  background: url(/Images/dash13-sprite.png?v=1) -214px -2px no-repeat;
+  position: absolute;
+  right: 9px;
+  /*rtl*/
+  top: 8px;
+}
+.uniWpr .inputText {
+  width: 100%;
+  height: 35px;
+  border: 1px solid #c2c2c2;
+  font-size: 17px;
+  padding: 0 30px 0 10px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.uniList {
+  display: none;
+  text-align: left;
+  /*rtl*/
+  max-height: 500px;
+  width: 100%;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(17, 17, 17, 0.5);
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.uniList .emptySearch:after {
+  top: 6px;
+}
+.schoolItem {
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-transition: background, 0.2s linear;
+  -moz-transition: background, 0.2s linear;
+  -o-transition: background, 0.2s linear;
+  transition: background, 0.2s linear;
+  color: #43392b;
+  cursor: pointer;
+  padding: 5px 0 8px 8px;
+  /*rtl*/
+  margin: 0 3px 8px 8px;
+  /*rtl*/
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  height: 80px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #F9F9F9;
+  display: block !important;
+}
+.schoolItem:first-child {
+  margin-top: 8px;
+}
+.schoolItem:hover {
+  -webkit-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  transition: background 0.2s;
+  background: #ebeced;
+}
+.schoolItem:active {
+  background: #ebebeb;
+}
+.uniImg {
+  display: inline-block;
+  width: 66px;
+  height: 66px;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+}
+.uniDetails {
+  overflow: hidden;
+  display: block;
+  padding: 10px 5px 0 8px;
+  /*rtl*/
+}
+.uniName {
+  color: #383838;
+  font-size: 20px;
+  display: block;
+  font-weight: normal;
+}
+.uniCount {
+  font-size: 13px;
+  position: relative;
+  top: -5px;
+}
+.uniCount:after {
+  content: '\00a0' attr(data-students);
+  display: inline-block;
+}
+.newUni.newUni {
+  font-size: 13px;
+  height: 40px;
+  color: #fff;
+  background: #282828;
+  border-top: 1px solid #c2c2c2;
+  text-align: center;
+  padding-top: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.newUni.newUni .createUni {
+  color: #0f9d58;
+}
+.newUni.newUni .createUni:hover {
+  text-decoration: underline;
+}
+/*#endregion */
+/*#region Create new school */
+.createSchool {
+  height: 340px;
+}
+.createSchool .top:before {
+  content: '';
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  top: 7px;
+  left: 15px;
+  width: 66px;
+  height: 66px;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  background: #fff;
+}
+.createSchool .top:after {
+  content: '';
+  display: inline-block;
+  width: 41px;
+  height: 34px;
+  background: url(/Images/site.png) 0 -1142px #ffffff;
+  position: absolute;
+  top: 23px;
+  left: 28px;
+}
+.createSchool .top button {
+  margin-top: 23px;
+}
+.createSchool label {
+  margin-top: 28px;
+}
+.createSchool .countryWpr {
+  width: 54%;
+}
+.createSchool .schoolTypeWpr {
+  width: 38%;
+}
+.createSchool,
+.completeRegistration {
+  width: 646px;
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid #c2c2c2;
+  position: relative;
+  top: -110px;
+  left: -49px;
+  font-size: 15px;
+  margin: 0 auto;
+  background: #fff;
+}
+.createSchool .top,
+.completeRegistration .top {
+  height: 80px;
+  background: #EBECED;
+  padding: 6px 15px 6px 95px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #c2c2c2;
+}
+.createSchool label,
+.completeRegistration label {
+  display: block;
+  margin-bottom: 5px;
+}
+.createSchool .inputText,
+.completeRegistration .inputText {
+  width: 100%;
+  height: 37px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.createSchool .btn1,
+.completeRegistration .btn1,
+.createSchool .btn2,
+.completeRegistration .btn2 {
+  margin-top: 28px;
+}
+.createSchool .btn1,
+.completeRegistration .btn1 {
+  margin-left: 15px;
+}
+/*#endregion */
+/*#region Choose/Create Department */
+.completeRegistration {
+  display: none;
+  height: 250px;
+  border-radius: 3px;
+  border: 1px solid #c2c2c2;
+  font-size: 15px;
+  margin: 0 auto;
+  background: #fff;
+}
+.completeRegistration .uniImg {
+  position: absolute;
+  top: 6px;
+  left: 15px;
+}
+.uniRegTxt1 {
+  font-size: 18px;
+  margin-top: 12px;
+}
+.uniRegTxt1:after {
+  content: attr(data-school);
+  display: inline;
+}
+.uniRegTxt2 {
+  font-size: 13px;
+}
+.uniRegTxt2:before {
+  content: attr(data-regfriends-count) '\00a0';
+}
+.chooseDept {
+  display: none;
+}
+.chooseDeptList {
+  display: none;
+  position: absolute;
+  top: 175px;
+  max-height: 300px;
+  width: 616px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(17, 17, 17, 0.5);
+  margin: 0 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+}
+.chooseDeptItem {
+  padding: 12px 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #c2c2c2;
+  cursor: pointer;
+}
+.chooseDeptItem:last-child {
+  border: none;
+}
+.chooseDeptItem:hover {
+  background: #ebeced;
+}
+.newDept {
+  font-size: 15px;
+  height: 40px;
+  color: #fff;
+  background: #282828;
+  text-align: center;
+}
+.newDeptTxt {
+  padding-top: 10px;
+  display: inline-block;
+}
+.createDeptBtn {
+  color: #0f9d58;
+}
+.createDeptBtn:hover {
+  text-decoration: underline;
+}
+.createDept {
+  display: none;
+}
+/*#endregion */
+/*#region FB friends List */
+.fbUniList {
+  margin-top: 55px;
+  display: none;
+}
+.fbUniList > li {
+  margin-bottom: 20px;
+}
+.fbUniList .schoolItem {
+  background: #ebeced;
+  border-radius: 3px 3px 0 0;
+  margin: 0;
+  padding: 5px 15px;
+  position: relative;
+}
+.fbUniList .uniDetails {
+  padding: 10px 0 0 8px;
+  /*rtl*/
+}
+.fbUniList .uniDetails .btn3 {
+  margin-top: 10px;
+  padding: 5px 20px;
+}
+.fbUniList .uniDetails .btn3:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fbFriendsList {
+  background: #fff;
+  padding: 7px 15px 2px 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #c2c2c2;
+  min-height: 48px;
+  border-radius: 0 0 3px 3px;
+  border-top: none;
+  overflow: auto;
+}
+.fbFriendsList .imgBorder {
+  margin: 0 5px 5px 0;
+  /*rtl*/
+}
+.fbFriendsList li:nth-child(17) .imgBorder {
+  margin-right: 0;
+}
+.friendsCount {
+  font-size: 15px;
+}
+.friendsCount:before {
+  content: attr(data-friendscount) '\00a0';
+  display: inline-block;
+}
+/*#endregion */
+/*#region chairman - only displayed for hebrew */
+.chairman {
+  width: 450px;
+  min-height: 100vh;
+  margin-top: -50px;
+  float: right;
+  position: relative;
+  top: 0;
+  right: 0;
+  direction: rtl;
+  /* no rtl !!!*/
+  text-align: right;
+  /*no rtl!!!*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #ebeced;
+  box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
+  /*rtl*/
+  padding: 100px 33px 50px 33px;
+}
+.chairman:before {
+  content: '';
+  display: inline-block;
+  background: url(/Images/national-union-pic.png?v=1) no-repeat;
+  margin-bottom: 15px;
+  width: 385px;
+  height: 150px;
+  border-radius: 3px;
+  border: 1px solid #c2c2c2;
+}
+.chairman h2 {
+  font-size: 24px;
+  font-weight: normal;
+}
+.chairman p {
+  margin: 12px 0;
+}
+.chairman a {
+  color: #0371c8;
+}
+.chairman ~ .library {
+  padding-right: 450px;
+  /*rtl*/
+}
+.chairman ~ .library .libraryChoose {
+  width: 555px;
+}
+/*#endregion */
+/*#region media queries */
+@media (max-width: 1165px) {
+  .createSchool,
+  .completeRegistration {
+    width: auto;
+    left: auto;
+  }
+}
+/*#endregion */

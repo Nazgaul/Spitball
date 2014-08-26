@@ -55,6 +55,13 @@
       "height": 47,
       "offsetX": 0,
       "offsetY": 515
+    },
+    {
+      "name": "/Images/big-quiz.png",
+      "width": 111,
+      "height": 111,
+      "offsetX": 0,
+      "offsetY": 562
     }
   ]
 }

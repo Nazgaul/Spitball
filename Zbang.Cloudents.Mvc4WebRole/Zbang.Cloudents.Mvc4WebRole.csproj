@@ -288,7 +288,6 @@
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
     <Compile Include="Helpers\DesktopConstraint.cs" />
-    <Compile Include="Helpers\GuidEncoder.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
@@ -338,6 +337,8 @@
     <Compile Include="Models\Account\Settings\University.cs" />
     <Compile Include="Models\Account\Settings\UserLanguage.cs" />
     <Compile Include="Models\AddLink.cs" />
+    <Compile Include="Models\ChooseDepartment.cs" />
+    <Compile Include="Models\CreateDepartment.cs" />
     <Compile Include="Models\DeleteAnnotation.cs" />
     <Compile Include="Models\FAQ\Category.cs" />
     <Compile Include="Models\FAQ\QnA.cs" />
@@ -642,6 +643,18 @@
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
     </Content>
+    <Content Include="Content\SetupSchool.css">
+      <DependentUpon>SetupSchool.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SetupSchoolRtl.css">
+      <DependentUpon>SetupSchoolRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Store.css">
+      <DependentUpon>Store.less</DependentUpon>
+    </Content>
+    <Content Include="Content\StoreRtl.css">
+      <DependentUpon>StoreRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
@@ -681,6 +694,7 @@
     <Content Include="Images\back_back.png" />
     <Content Include="Images\ball.png" />
     <Content Include="Images\bg4.jpg" />
+    <Content Include="Images\big-quiz.png" />
     <Content Include="Images\books.png" />
     <Content Include="Images\box17-sprite.png" />
     <Content Include="Images\box18-sprite.png" />
@@ -833,6 +847,7 @@
     <Content Include="Images\upload.png" />
     <Content Include="Images\upload15-sprite.png" />
     <Content Include="Images\user-gmail-pic.jpg" />
+    <Content Include="Images\user-img.png" />
     <Content Include="Images\user-pic.png" />
     <Content Include="Images\user13-sprite.png" />
     <Content Include="Images\userBg.png" />
@@ -893,6 +908,8 @@
     <Content Include="Js\filters\actionText.js" />
     <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />
+    <Content Include="Js\filters\store\percentage.js" />
+    <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GenericEvents.js" />
@@ -1001,6 +1018,8 @@
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
+    <Content Include="Content\Store.less" />
+    <Content Include="Content\StoreRtl.less" />
     <Content Include="Images\category.sprite" />
     <Content Include="Images\category.png.map">
       <DependentUpon>category.png</DependentUpon>
@@ -1035,6 +1054,14 @@
     <Content Include="Images\site.png.scss">
       <DependentUpon>site.png</DependentUpon>
     </Content>
+    <Content Include="Content\Store.css">
+      <DependentUpon>Store.less</DependentUpon>
+    </Content>
+    <Content Include="Content\StoreRtl.css">
+      <DependentUpon>StoreRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SetupSchool.less" />
+    <Content Include="Content\SetupSchoolRtl.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1509,6 +1536,9 @@
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
+    <Content Include="Views\Library\_CreateDepartment.cshtml" />
+    <Content Include="Views\Library\_ChooseDepartment.cshtml" />
+    <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

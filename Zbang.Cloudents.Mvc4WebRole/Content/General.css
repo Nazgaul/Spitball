@@ -363,9 +363,12 @@ input[type="radio"][disabled] + label:before {
 .btn2 {
   border-radius: 5px;
   text-align: center;
-  padding: 1px 10px 3px 10px;
+  padding: 3px 10px 3px 10px;
   min-width: 64px;
   font-size: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .btn1:disabled,
 .btn2:disabled,
@@ -1078,8 +1081,7 @@ input[type="radio"][disabled] + label:before {
 .registerFirst.store {
   width: 860px;
   height: 613px;
-  top: 0;
-  bottom: 0;
+  top: 310px;
   margin: auto;
   background-color: transparent;
   border: none;
@@ -2158,6 +2160,9 @@ input[type="radio"][disabled] + label:before {
 .boldFont {
   font-weight: 600;
   /*rtl - because Hebrew doesn't support this*/
+}
+.mark {
+  color: #0f9d58;
 }
 .clearfix:after {
   content: ".";

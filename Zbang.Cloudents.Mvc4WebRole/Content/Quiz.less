@@ -21,7 +21,7 @@ body.quiz {
 .quizSprite {
     &:before {
         content: '';
-        background: url(/Images/quizSprite.png) no-repeat;
+        background: @quiz-sprite no-repeat;
     }   
 }
 /*#region Create Quiz */
@@ -742,6 +742,9 @@ body.quiz {
             margin-top: 6px;
         }
     }
+    ~ .modal-backdrop.in {
+        opacity: 0.8;
+    }
 }
 .checkQuiz {
     .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
@@ -828,7 +831,7 @@ body.quiz {
     text-align: center;
     &:before {
         .pseudo;
-        background: url(/Images/quizSprite.png) 0 -161px no-repeat;
+        background: @quiz-sprite 0 -161px no-repeat;
         width: 233px;
 	    height: 264px;
         position: absolute;
@@ -898,7 +901,7 @@ body.quiz {
     &:after {
         .pseudo;
         position: absolute;
-        background: url(/Images/quizSprite.png) 0 0 no-repeat;
+        background: @quiz-sprite 0 0 no-repeat;
         width: 51px;
 	    height: 49px;
         left: 0; //rtl
@@ -953,7 +956,7 @@ body.quiz {
     font-size: 24px;
     margin-top: 4px;
     &:before {
-        background: url(/Images/quizSprite.png) 0 -425px no-repeat;
+        background: @quiz-sprite 0 -425px no-repeat;
         width: 39px;
 	    height: 43px;
         position: relative;
@@ -980,7 +983,7 @@ body.quiz {
 .topUser {
     width: 47px;
 	height: 47px;
-	background: url(/Images/quizSprite.png) 0 -468px no-repeat;
+	background: @quiz-sprite 0 -468px no-repeat;
     display: inline-block;
     position: relative;
     &:nth-child(2) {
@@ -992,7 +995,7 @@ body.quiz {
             position: absolute;
             width: 25px;
 	        height: 25px;
-	        background: url(/Images/quizSprite.png) 0 -136px no-repeat;
+	        background: @quiz-sprite 0 -136px no-repeat;
             top: -9px;
             right: -12px; //rtl
         }
@@ -1006,5 +1009,118 @@ body.quiz {
     opacity:0;
     visibility: hidden;
     background: #282828;
+}
+/*#endregion */
+/*#region Quiz Dialog */
+
+.modal-dialog {
+    &.quizPopup {
+        width: 700px;
+        height: 350px;
+        background: #fff;
+        padding: 0 20px 15px;
+        border-radius: 6px;
+        -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+        .boxSizing;
+        position: absolute;
+        top: 0; bottom: 0;
+        left: 0; right: 0;
+        margin: auto;
+        z-index: 1052; //TODO: CHECK THIS
+        text-align: center;
+        border: none;
+    }
+}
+
+.quizPopupHeader {
+    color: @color;
+    font-size: 36px;
+    border-top: 2px solid @txtColor;
+    border-bottom: 2px solid @txtColor;
+    position: relative;
+    padding: 0 20px 3px 30px; //rtl
+    margin: 50px 0 0 80px; //rtl
+    display: inline-block;
+    font-weight: bold;
+    &:before {
+        .pseudo;
+        position: absolute;
+        left: -100px; //rtl
+        top: -30px;
+        width: 111px;
+	    height: 111px;
+	    background: @quiz-sprite 0 -562px no-repeat;
+    }
+    &:after { //needed to trigger new block
+        content: '';
+        display: block;
+    }
+
+}
+.classmatesWpr {
+    margin-top: 40px;
+}
+.friendsPics {
+    width: 108px;
+    margin-right: 12px; //rtl
+    position: relative;
+    display: inline-block;
+
+    &.plus:after {
+        content: '+' attr(data-plus-count);
+        display: inline-block;
+        font-weight: bold;
+        position: absolute;
+        left: 56px; //rtl
+        top: 0;
+        width: 51px;
+        height: 51px;
+        border: 1px solid @txtColor;
+        font-size: 27px;
+        .boxSizing;
+        padding-top: 5px;
+        background: #fff;
+        color: @color;
+    }
+    img {
+        display: inline-block;
+    }
+}
+.quizPopupTxtWpr {
+    display: inline-block;
+    width: 178px;
+    vertical-align: top;
+    text-align: left; //rtl
+    font-size: 20px;
+    line-height: 24px;
+}
+.quizPopupTxt1 {
+    color: @color;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.quizPopupTxt2 {
+    
+    color: @txtColor;
+}
+.quizPopupBtnWpr {
+    
+    margin-top: 30px;
+    .btn1 {
+        width: 220px;
+        height: 40px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        display: inline-block;
+        margin: 0 15px;
+        &:nth-child(2) {
+            background: @txtColor;
+            &:hover {
+                background: lighten(@txtColor, 10%);
+            }
+        }
+    }
 }
 /*#endregion */

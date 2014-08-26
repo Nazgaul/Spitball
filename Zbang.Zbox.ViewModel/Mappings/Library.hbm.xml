@@ -82,9 +82,9 @@
   
 
   <!--Get the parent of a specific node-->
-  <query name="GetParentNode">
+  <query name="GetParentNode" read-only="true">
     <![CDATA[
-    select l.Parent.Id as Id, l.Parent.Name as Name
+    select l.Parent.Id as Id, l.Parent.Name as Name, l.Parent.Url as Url
     from University uu join uu.Libraries l
     where uu.Id = :UserId
     and l.Id = :ParentNode
@@ -95,7 +95,7 @@
   <!--Get children of root-->
   <query name="GetLibraryNode" read-only="1">
     <![CDATA[
-   select l.Id as Id, l.Name as Name
+   select l.Id as Id, l.Name as Name, l.Url as Url
     from Library l
     where l.University.Id = :UniversityId
     and l.Parent.Id IS NULL
@@ -106,7 +106,7 @@
   <!--Get children of specific node-->
   <query name="GetLibraryNodeWithId" read-only="1">
     <![CDATA[
-   select l.Id as Id, l.Name as Name
+   select l.Id as Id, l.Name as Name, l.Url as Url
     from Library l
     where l.University.Id = :UniversityId
     and l.Parent.Id = :ParentNode 
