@@ -116,7 +116,7 @@ VALUES (@orderitemsid,@orderid,@productid,@qty,@priceperunit,@p1,@v1,@p2,@v2,@p3
                         orderid = currentOrderId,
                         productid = tmpOrgProductId,
                         qty = 1,
-                        priceperunit = product.SalePrice + product.DeliveryPrice,
+                        priceperunit = product.SalePrice,
                         p1 = order.P1,
                         v1 = order.V1,
                         p2 = order.P2,
