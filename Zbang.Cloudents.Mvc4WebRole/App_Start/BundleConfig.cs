@@ -250,8 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/NotificationsViewModel.js"),
                 new JsFileWithCdn("/scripts/CountUp.js"),
                 new JsFileWithCdn("/js/ItemViewModel4.js"),
-                new JsFileWithCdn("/Scripts/stopwatch.js"),
-                new JsFileWithCdn("/js/QuizViewModel.js")
+                new JsFileWithCdn("/Scripts/stopwatch.js")
              );
 
             RegisterJsRegular("angular-store",
@@ -357,7 +356,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    );
             // RegisterJsRoutes("R_Quiz",
             //    "/js/controllers/quiz/quizCtrl.js",
-            //    "/js/QuizViewModel.js",
             //    "/Scripts/stopwatch.js"
             //);
 
@@ -476,7 +474,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 //Quiz
                 //new JsFileWithCdn("~/Js/QuizCreate.js"),
-                //new JsFileWithCdn("~/Js/QuizViewModel.js"),
                 //new JsFileWithCdn("~/Scripts/stopwatch.js")
                 );
 

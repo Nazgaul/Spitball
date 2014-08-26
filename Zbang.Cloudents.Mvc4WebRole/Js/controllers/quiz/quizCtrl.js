@@ -20,8 +20,8 @@ mQuiz.controller('QuizCtrl',
 
 
 
-                $scope.quiz = response.quiz;
-                questions = angular.copy(response.quiz.questions, questions);
+                $scope.quiz = response.payload.quiz;
+                questions = angular.copy(response.payload.quiz.questions, questions);
 
 
                 if (sUserDetails.isAuthenticated()) {
@@ -301,27 +301,28 @@ mQuiz.controller('QuizCtrl',
                    );
             };
             function getDiscussion() {
-                sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (response) {
-                    var data = response.success ? response.payload : {};
-                    _.forEach(data, function (comment) {
+                console.log($scope.quiz);
+                //sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (response) {
+                //    var data = response.success ? response.payload : {};
+                //    _.forEach(data, function (comment) {
 
-                        var question = _.find($scope.quiz.questions, function (question) {
-                            return comment.questionId === question.id;
-                        });
-
-
-                        if (!question.comments) {
-                            question.comments = [];
-                        }
+                //        var question = _.find($scope.quiz.questions, function (question) {
+                //            return comment.questionId === question.id;
+                //        });
 
 
-                        comment.isDelete = sUserDetails.getDetails().id === comment.userId;
-                        question.comments.push(comment);
-                        question.newComment = ''; // fix for disable send button                        
+                //        if (!question.comments) {
+                //            question.comments = [];
+                //        }
 
-                    });
 
-                });
+                //        comment.isDelete = sUserDetails.getDetails().id === comment.userId;
+                //        question.comments.push(comment);
+                //        question.newComment = ''; // fix for disable send button                        
+
+                //    });
+
+                //});
             }
 
             //#endregion

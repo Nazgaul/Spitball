@@ -36,69 +36,73 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> IndexDesktop(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
-            var model = await GetQuiz(boxId, quizId, quizName, true);
-            if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))
-            {
-                var culture = Languages.GetCultureBaseOnCountry(model.Quiz.Seo.Country);
-                BaseControllerResources.Culture = culture;
-                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName, BaseControllerResources.Cloudents);
-            }
-            ViewBag.metaDescription = model.Quiz.Questions.First().Text;
+            var query = new GetQuizSeoQuery(quizId);
 
+            var model = await ZboxReadService.GetQuizSeo(query);
+
+            if (Request.Url != null && model.Url != Request.Url.AbsolutePath)
+            {
+                throw new ItemNotFoundException();
+            }
+
+            if (model == null || string.IsNullOrEmpty(model.Country)) return View("Empty");
+
+            var culture = Languages.GetCultureBaseOnCountry(model.Country);
+            BaseControllerResources.Culture = culture;
+            ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix,
+                model.Name,
+                BaseControllerResources.QuizTitleText,
+                model.BoxName,
+                model.UniversityName,
+                BaseControllerResources.Cloudents);
+            ViewBag.metaDescription = model.FirstQuestion;
             return View("Empty");
         }
 
 
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [NonAjax]
-        [OutputCache(CacheProfile = "NoCache")]
-        public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
-        {
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[NonAjax]
+        //[OutputCache(CacheProfile = "NoCache")]
+        //public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
+        //{
 
-            var model = await GetQuiz(boxId, quizId, quizName, true);
+        //    var model = await GetQuiz(boxId, quizId, quizName, true);
 
-            var serializer = new JsonNetSerializer();
-            ViewBag.userD = serializer.Serialize(model.Sheet);
-            ViewBag.boxName = boxName;
-            ViewBag.boxUrl = model.Quiz.Seo.BoxUrl;
+        //    var serializer = new JsonNetSerializer();
+        //    ViewBag.userD = serializer.Serialize(model.Sheet);
+        //    ViewBag.boxName = boxName;
+        //    ViewBag.boxUrl = model.Quiz.Seo.BoxUrl;
 
 
-            if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))
-            {
-                var culture = Languages.GetCultureBaseOnCountry(model.Quiz.Seo.Country);
-                BaseControllerResources.Culture = culture;
-                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName, BaseControllerResources.Cloudents);
-            }
-            ViewBag.metaDescription = model.Quiz.Questions.First().Text;
+        //    if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))
+        //    {
+        //        var culture = Languages.GetCultureBaseOnCountry(model.Quiz.Seo.Country);
+        //        BaseControllerResources.Culture = culture;
+        //        ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName, BaseControllerResources.Cloudents);
+        //    }
+        //    ViewBag.metaDescription = model.Quiz.Questions.First().Text;
 
-            return View(model.Quiz);
-        }
+        //    return View(model.Quiz);
+        //}
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [ActionName("Index")]
         [NoCache]
-        public async Task<ActionResult> IndexAjax(long boxId, long quizId, string quizName, string universityName, string boxName)
+        //TODO: put cache
+        public ActionResult IndexAjax()
         {
-            var model = await GetQuiz(boxId, quizId, quizName, false);
-            var serialize = new JsonNetSerializer();
-            ViewBag.userD = serialize.Serialize(model.Sheet);
-
-            var builder = new UrlBuilder(HttpContext);
-            var url = builder.BuildBoxUrl(model.Quiz.BoxId, boxName, universityName);
-
-            ViewBag.boxName = boxName;
-            ViewBag.boxUrl = url;
-
-            return PartialView(model.Quiz);
+            return PartialView();
 
         }
 
         [HttpGet]
         [Ajax]
-        public async Task<ActionResult> Data(long boxId, long quizId, string quizName)
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        public async Task<ActionResult> Data(long boxId, long quizId)
         {
-            var model = await GetQuiz(boxId, quizId, quizName, false);
-            return Json(model);
+            var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
+            var model = await ZboxReadService.GetQuiz(query);
+            return Json(new JsonResponse(true, model));
         }
 
         [Ajax]
@@ -110,32 +114,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, model));
         }
 
-        [NonAction]
-        private async Task<QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName, bool isNonAjax)
-        {
-            var query = new GetQuizQuery(quizId, GetUserId(false), boxId, isNonAjax);
-            var model = await ZboxReadService.GetQuiz(query);
-            if (model.Quiz.BoxId != boxId)
-            {
-                throw new ItemNotFoundException();
-            }
-            if (quizName != UrlBuilder.NameToQueryString(model.Quiz.Name))
-            {
-                throw new ItemNotFoundException();
-            }
-            if (!model.Quiz.Publish)
-            {
-                throw new ArgumentException("Quiz not published");
-            }
-            if (model.Sheet != null)
-            {
-                if (model.Sheet.Stats != null && model.Sheet.Stats.Stdevp != 0)
-                {
-                    model.Sheet.Stats.UserPosition = (model.Sheet.Score - model.Sheet.Stats.Avg) / model.Sheet.Stats.Stdevp;
-                }
-            }
-            return model;
-        }
+        //[NonAction]
+        //private async Task<QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName)
+        //{
+        //    var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
+        //    var model = await ZboxReadService.GetQuiz(query);
+        //    if (model.Quiz.BoxId != boxId)
+        //    {
+        //        throw new ItemNotFoundException();
+        //    }
+        //    if (quizName != UrlBuilder.NameToQueryString(model.Quiz.Name))
+        //    {
+        //        throw new ItemNotFoundException();
+        //    }
+        //    if (!model.Quiz.Publish)
+        //    {
+        //        throw new ArgumentException("Quiz not published");
+        //    }
+        //    if (model.Sheet != null)
+        //    {
+        //        if (model.Sheet.Stats != null && model.Sheet.Stats.Stdevp != 0)
+        //        {
+        //            model.Sheet.Stats.UserPosition = (model.Sheet.Score - model.Sheet.Stats.Avg) / model.Sheet.Stats.Stdevp;
+        //        }
+        //    }
+        //    return model;
+        //}
 
         [Ajax, HttpGet]
         [ZboxAuthorize]

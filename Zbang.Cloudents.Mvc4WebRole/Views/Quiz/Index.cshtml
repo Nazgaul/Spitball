@@ -1,15 +1,11 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
-
-@model Zbang.Zbox.ViewModel.Dto.ItemDtos.QuizWithDetailDto
 
 <div class="page itemPage quizPage" ng-controller="QuizCtrl" ng-class="{checkQuiz : quiz.userDone}">
 
     <div class="itemActions topBar barShadow">
         <div class="quizActionsWpr">
             <section class="shareBtn rFloat">
-                <input class="checkbox" type="checkbox" data-ddcbox="quizShare" />
+                <input class="checkbox" type="checkbox" id="quizShare" />
                 <label for="quizShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
                 <div class="dropDown shareDD" data-dropdown="quizShare">
                     <label class="closeItem rFloat" for="quizShare"></label>
@@ -32,10 +28,10 @@
                     <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
                 </div>
             </section>
-
-            <a id="quizBackBtn" href="@ViewBag.boxUrl" class="backWpr elps lFloat" data-navigation="Box">
+            @*@ViewBag.boxUrl*@
+            <a  href="" class="backWpr elps lFloat" >
                 <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps">@ViewBag.boxName</h2>
+                <h2 class="semiFont elps">@*@ViewBag.boxName*@</h2>
             </a>
             @*<button type="button" class="itemPrint iconTop" id="quiz_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
         </div>
@@ -43,11 +39,11 @@
 
     <div class="leftPanel lFloat">
         <div class="itemTop">
-            <div tooltip="@SharedResources.Views" class="rFloat quizViews quizSprite">@Model.NumberOfViews</div>
+            <div tooltip="@SharedResources.Views" class="rFloat quizViews quizSprite">@*@Model.NumberOfViews*@</div>
             <div class="itemNameWpr quizSprite">
-                <div class="item-name semiFont elps">@Model.Name</div>
-                <div class="itemOwner elps lFloat" user-tooltip-popup="@Model.OwnerId">@Model.Owner</div>
-                <div class="rFloat">@Model.Date.ToString("d/M/yy")</div>
+                <div class="item-name semiFont elps">@*@Model.Name*@</div>
+                <div class="itemOwner elps lFloat" user-tooltip-popup="@*@Model.OwnerId*@">@*@Model.Owner*@</div>
+                <div class="rFloat">@*@Model.Date.ToString("d/M/yy")*@</div>
             </div>
         </div>
 
@@ -106,7 +102,7 @@
                         </li>
                     </ul>
                     <div class="commentWpr">
-                        <div class="splitHR"><button class="splitHRText" type="button"><span class="qNumOfCmnts iconTxt" ng-bind="getCommentsLength(question.comments)"></span></button></div>
+                        <div class="splitHR"><button class="splitHRText" type="button"><span class="iconTxt" ng-bind="getCommentsLength(question.comments)"></span></button></div>
 
                         <ul class="quizComments">
                             <li ng-repeat="comment in question.comments">
@@ -119,7 +115,7 @@
                         </ul>
 
                         <div class="cTextAreaWpr">
-                            <img class="quizUserCommentImg imgBorder lFloat" src="" alt="" width="32" height="32" bo-src="profile.userImage"/>
+                            <img class="imgBorder lFloat" src="" alt="" width="32" height="32" bo-src="profile.userImage"/>
                             <textarea text-direction msd-elastic class="cTextArea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.newComment"></textarea>
                             <button type="submit" ng-disabled="!question.newComment && question.newComment.length === 0" class="askBtn rFloat" ng-click="createComment(question)">@SharedResources.Comment</button>
                         </div>
@@ -131,5 +127,5 @@
     </div>
 </div>
 @{
-    Html.RenderPartial("_QuizDialog");
+ //   Html.RenderPartial("_QuizDialog");
 }
