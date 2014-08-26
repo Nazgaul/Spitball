@@ -12,7 +12,7 @@
         if (!findById(items,data)) {
             items.push({Uid: data, Action: 1});
             cd.localStorageWrapper.setItem(key, JSON.stringify(items));
-        }
+        } 
 
     });
     pubsub.subscribe('item_Download', function (data) {
@@ -30,7 +30,7 @@
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (!findById(items, data)) {
             items.push({ Uid: data, Action: 3 });
-            cd.localStorageWrapper.setItem(key, JSON.stringify(items));
+            cd.localStorageWrapper.setItem(key, JSON.stringify(items)); 
         }
     });
 

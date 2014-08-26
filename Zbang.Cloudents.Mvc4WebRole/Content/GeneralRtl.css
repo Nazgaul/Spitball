@@ -538,12 +538,4 @@ input[type="radio"] + label:before {
   }
 }
 /*#endregion */
-/*#region IE only CSS */
-@media screen and (min-width:0\0) {
-  .boxItemTt.boxItemTt .ttPreview {
-    max-height: 52px;
-    /* diff rtl - heb has 4 lines*/
-  }
-}
-/*#endregion */
 /*#endregion */

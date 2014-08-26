@@ -887,6 +887,8 @@
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
+    <Content Include="Js\directives\quizGraph.js" />
+    <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
     <Content Include="Js\directives\countTo.js" />
@@ -922,7 +924,6 @@
     <Content Include="Js\Navigation2.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
-    <Content Include="Js\QuizViewModel.js" />
     <Content Include="Js\routes.js" />
     <Content Include="Js\Search.js" />
     <Content Include="Js\SearchDropDown.js" />

@@ -1,14 +1,32 @@
 ﻿angular.module('displayTime', []).
-    factory('displayTimeService', ['$timeout', '$rootScope',
-        function ($timeout, $rootScope) {
-            $timeout(function () {
-                $rootScope.$broadcast('updateTime');
-            }, 60000);                      
+    factory('displayTimeService', ['$interval', '$rootScope',
+        function ($interval, $rootScope) {
+
+            var updateTime = 'updateTime';
+
+
+            var timeAgoTick = function () {
+                $rootScope.$broadcast(updateTime);
+            };
+
+            $interval(function () {
+                timeAgoTick();
+            }, 60000);
+
+            return {
+                timeAgoTick: timeAgoTick,
+
+                onTimeAgo: function ($scope, handler) {
+                    $scope.$on(updateTime, function () {
+                        handler();
+                    });
+                }
+            }
         }
     ]).
     directive('displayTime',
-    ['$log', '$filter', '$rootScope',
-    function ($log, $filter, $rootScope) {
+    ['$log', '$filter', 'displayTimeService',
+    function ($log, $filter, displayTimeService) {
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {
@@ -20,14 +38,12 @@
                     return;
                 }
 
-                scope.$on('updateTime', function () {
+                var updateTime = function () {
                     elem[0].textContent = $filter('displayTimeFilter')(attrs.displayTime);
-                });
+                };
 
-                elem[0].textContent = $filter('displayTimeFilter')(attrs.displayTime);
-
-
-
+                displayTimeService.onTimeAgo(scope, updateTime);
+                updateTime();
             }
 
         };

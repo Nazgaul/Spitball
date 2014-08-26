@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands.Store
@@ -13,7 +14,7 @@ namespace Zbang.Zbox.Domain.Commands.Store
         public IEnumerable<ProductStore> ProductStores { get; private set; }
     }
 
-    public class ProductStore
+    public class ProductStore : IEquatable<ProductStore>
     {
         public ProductStore(string catalogNumber, string categories, float coupon, float deliveryPrice, string description,
             string extraDetails, bool featured, long id, string name, int numberOfSales, string pictureUrl, int productPayment,
@@ -83,5 +84,23 @@ namespace Zbang.Zbox.Domain.Commands.Store
         public int CategoryOrder { get; private set; }
 
         public int? ProducerId { get; private set; }
+        
+        public bool Equals(ProductStore other)
+        {
+            //Check whether the compared object is null.
+            if (Object.ReferenceEquals(other, null)) return false;
+
+            //Check whether the compared object references the same data.
+            if (Object.ReferenceEquals(this, other)) return true;
+
+            //Check whether the products' properties are equal.
+            return Id.Equals(other.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            //Get hash code for the Code field.
+            return Id.GetHashCode();
+        }
     }
 }

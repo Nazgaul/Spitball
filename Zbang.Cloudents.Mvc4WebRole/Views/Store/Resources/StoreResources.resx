@@ -368,7 +368,7 @@
     <value>אחריות</value>
   </data>
   <data name="WorkDays" xml:space="preserve">
-    <value>ימי עסקים ממועד אישור כרטיס האשראי</value>
+    <value>ימי עסקים</value>
   </data>
   <data name="WorkHours" xml:space="preserve">
     <value>(בימים א' - ה' בין השעות 9:00 ל 16:00)</value>

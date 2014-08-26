@@ -47,6 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
                 if (storeUniversityId.HasValue)
                 {
+
                     return RedirectToAction("Index", new
                     {
                         universityId = storeUniversityId,

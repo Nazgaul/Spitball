@@ -1034,6 +1034,10 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.register ~ .modal2 {
   display: block;
 }
+.staticWpr.connect.popupWrppr,
+.staticWpr.register.popupWrppr {
+  max-height: none;
+}
 .staticWpr.registerFirst .facebook {
   margin-top: 15px;
 }
@@ -1112,7 +1116,7 @@ input[type="radio"][disabled] + label:before {
 .registerFirst.store .closeDialog {
   right: 144px;
   top: 208px;
-  background: url(/Images/Store/social.png) 0 -292px no-repeat;
+  background: url(/Images/Store/social.png?v=1) 0 -292px no-repeat;
   width: 25px;
   height: 25px;
 }
@@ -1361,7 +1365,7 @@ input[type="radio"][disabled] + label:before {
   background-position: -131px -24px;
   width: 31px;
   height: 26px;
-  background: url(/Images/Store/social.png) 0 -317px no-repeat;
+  background: url(/Images/Store/social.png?v=1) 0 -317px no-repeat;
   left: 4px;
   /*rtl*/
 }
@@ -2486,76 +2490,87 @@ select.inputText {
   padding: 0;
 }
 /*#endregion */
+/*#region IE only CSS */
+@media screen and (min-width:0\0) {
+  .boxItemTt.boxItemTt .ttPreview {
+    max-height: 52px;
+    /* diff rtl - heb has 4 lines*/
+  }
+  .welcomeStore .or {
+    padding-top: 8px;
+  }
+}
+/*#endregion */
 /*#region media queries */
 @media (max-width: 1024px) {
   .mno-touch body {
     position: relative;
     display: table;
   }
-  .mno-touch .siteHeader,
-  .mno-touch .boxPage .leftPanel,
-  .mno-touch .QA,
-  .mno-touch .boxFriendsList,
-  .mno-touch .boxPage .boxActions,
-  .mno-touch .asideLib,
-  .mno-touch .asideDash,
-  .mno-touch .settingsMenu,
-  .mno-touch .quizPage .leftPanel,
-  .mno-touch .quizPage .topBar,
-  .mno-touch .joinGrpBtn {
+  body .siteHeader,
+  body .boxPage .leftPanel,
+  body .QA,
+  body .boxFriendsList,
+  body .boxPage .boxActions,
+  body .asideLib,
+  body .asideDash,
+  body .settingsMenu,
+  body .quizPage .leftPanel,
+  body .quizPage .topBar,
+  body .joinGrpBtn {
     position: absolute;
   }
-  .mno-touch .boxPage .leftPanel {
+  body .boxPage .leftPanel {
     height: auto;
   }
-  .mno-touch .quizTitle,
-  .mno-touch .quizPrevWpr {
+  body .quizTitle,
+  body .quizPrevWpr {
     margin-left: 20px;
     /*rtl*/
   }
-  .mno-touch .contentWpr {
+  body .contentWpr {
     background: url(/Images/gray_jean80.png?v=1) repeat #ffffff;
   }
-  .mno-touch .contentWpr.featured .unionFeatured {
+  body .contentWpr.featured .unionFeatured {
     height: -webkit-calc(100% - 25px);
     height: calc(100% - 25px);
     top: 25px;
   }
-  .mno-touch .libraryContent .contentWpr {
+  body .libraryContent .contentWpr {
     padding-top: 25px;
   }
-  .mno-touch .boxPage .boxActions,
-  .mno-touch .boxesHeader.topBar {
+  body .boxPage .boxActions,
+  body .boxesHeader.topBar {
     z-index: 1;
     position: relative;
     top: 0;
     width: 100%;
   }
-  .mno-touch .boxFriendsList {
+  body .boxFriendsList {
     top: 12px;
   }
-  .mno-touch .QA {
+  body .QA {
     margin-top: -139px;
     height: 100vh;
   }
-  .mno-touch .box-content {
+  body .box-content {
     padding: 0;
   }
-  .mno-touch .joinGrpWpr .joinGrpBtn {
+  body .joinGrpWpr .joinGrpBtn {
     padding: 0;
     margin: 0;
     top: -51px;
   }
-  .mno-touch .joinGrpWpr:after {
+  body .joinGrpWpr:after {
     height: 0;
   }
-  .mno-touch .joinGrpWpr.show {
+  body .joinGrpWpr.show {
     z-index: 0;
   }
-  .mno-touch .joinGrpWpr.show:after {
+  body .joinGrpWpr.show:after {
     height: 51px;
   }
-  .mno-touch .joinGrpWpr.show .joinGrpBtn {
+  body .joinGrpWpr.show .joinGrpBtn {
     margin: 0;
     -moz-animation: joinWprNarrowSlide 1s ease-in;
     -o-animation: joinWprNarrowSlide 1s ease-in;
@@ -2563,32 +2578,32 @@ select.inputText {
     animation: joinWprNarrowSlide 1s ease-in;
     top: 0;
   }
-  .mno-touch .joinGrpWpr.show ~ .box-content .QA {
+  body .joinGrpWpr.show ~ .box-content .QA {
     top: 223px;
   }
-  .mno-touch .joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
+  body .joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
     top: 20px;
   }
-  .mno-touch .joinGrpWpr.followed {
+  body .joinGrpWpr.followed {
     padding: 0;
   }
-  .mno-touch .joinGrpWpr.followed:after {
+  body .joinGrpWpr.followed:after {
     height: 0;
   }
-  .mno-touch .joinGrpWpr.followed .joinGrpBtn {
+  body .joinGrpWpr.followed .joinGrpBtn {
     top: -51px;
   }
-  .mno-touch .joinGrpWpr.followed .joinGrp {
+  body .joinGrpWpr.followed .joinGrp {
     top: -20px;
     opacity: 0;
   }
-  .mno-touch .joinGrpWpr.followed ~ .box-content .QA {
+  body .joinGrpWpr.followed ~ .box-content .QA {
     top: 204px;
   }
-  .mno-touch .joinGrpWpr.followed ~ .box-content .boxFriendsList {
+  body .joinGrpWpr.followed ~ .box-content .boxFriendsList {
     top: 12px;
   }
-  .mno-touch .scrolling #dash_right:before {
+  body .scrolling #dash_right:before {
     display: none;
   }
 }

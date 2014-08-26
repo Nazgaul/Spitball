@@ -97,6 +97,7 @@
         .translate(0,0);
     }
     .modal.fade & {
+        .translate(0,20%);
         .translate(0,20vh);
         .transition(all .3s ease-out);
     }
@@ -138,7 +139,7 @@
 }
 .popupWrppr
 {  
-    max-height: 396px;
+    max-height: 396px; //TODO: Why is this necessary? It can potentially cause problems cutting height of popup without defined height. Consider removing this.
     .closeDialog
     {
         background-position: -79px -25px;

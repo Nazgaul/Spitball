@@ -14,6 +14,7 @@
         cd.pubsub.subscribe('accountSettings_load', function () {
             //changetab();
         });
+        $('.siteLogo').removeAttr('target');
     });
     //}
     function accountSettings() {

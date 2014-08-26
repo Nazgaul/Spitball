@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             var parameters = filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n");
-            var info = string.Format("url {0} user {1} params {2} ", 
+            var info = string.Format("url {0} user {1} params {2} ",
                 filterContext.HttpContext.Request.RawUrl, User.Identity.Name, parameters);
             TraceLog.WriteError(info, filterContext.Exception);
             base.OnException(filterContext);
@@ -132,6 +132,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 if (Request.Url != null && Request.Url.AbsolutePath.StartsWith("/store"))
+                {
+                    ChangeThreadLanguage("he-IL");
+                    return;
+                }
+                //ie 9 issue with store
+                if (Request.UrlReferrer != null && Request.Url != null && Request.Url.AbsolutePath == "/" && Request.UrlReferrer.AbsolutePath.StartsWith("/store"))
                 {
                     ChangeThreadLanguage("he-IL");
                     return;

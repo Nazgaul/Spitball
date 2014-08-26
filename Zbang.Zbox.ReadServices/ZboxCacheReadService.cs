@@ -247,6 +247,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetQuiz(query);
         }
 
+        public Task<QuizSeo> GetQuizSeo(GetQuizSeoQuery query)
+        {
+            return m_ReadService.GetQuizSeo(query);
+        }
+
 
         public Task<QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
         {

@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Diagnostics;
+using Dapper;
 using NHibernate;
 using NHibernate.Transform;
 using System;
@@ -50,14 +51,17 @@ namespace Zbang.Zbox.ReadServices
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = new DashboardDto();
-                using (var grid = await conn.QueryMultipleAsync(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList, new { query.UserId }))
+                using (var grid = await conn.QueryMultipleAsync(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList,
+                    new { query.UserId }))
                 {
-                    retVal.Boxes = grid.Read<BoxDto>();
-                    retVal.Friends = grid.Read<User.UserDto>();
-                    retVal.Wall = grid.Read<WallDto>();
+                    retVal.Boxes = await grid.ReadAsync<BoxDto>();
+                    retVal.Friends = await grid.ReadAsync<User.UserDto>();
+                    retVal.Wall = await grid.ReadAsync<WallDto>();
+
                 }
                 return retVal;
             }
+
         }
 
 
@@ -814,7 +818,19 @@ namespace Zbang.Zbox.ReadServices
         }
         #endregion
 
+
+
         #region Quiz
+
+        public async Task<Item.QuizSeo> GetQuizSeo(GetQuizSeoQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, new { query.QuizId });
+                return retVal.FirstOrDefault();
+            }
+        }
+
         public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
             var retVal = new Item.QuizWithDetailSolvedDto();
@@ -828,17 +844,12 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Security.GetUserToBoxRelationship,
                     Sql.Quiz.UserQuiz,
                     Sql.Quiz.UserAnswer,
-                    Sql.Quiz.QuizStats);
-
-                if (query.NeedCountry)
-                {
-                    sql = sql + " " + Sql.Quiz.QuizSeoQuery;
-                }
+                    Sql.Quiz.TopUsers
+                    );
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId }))
                 {
                     retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
-
                     var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
 
                     foreach (var question in retVal.Quiz.Questions)
@@ -846,28 +857,22 @@ namespace Zbang.Zbox.ReadServices
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
 
+
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
                     var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
                     GetUserStatusToBox(privacySettings, userRelationShip);
-
                     retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
-                    var solvedQuestion = grid.Read<Item.SolveQuestion>();
+                    var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>();
                     if (retVal.Sheet != null)
                     {
                         retVal.Sheet.Questions = solvedQuestion;
-                        retVal.Sheet.Stats = grid.Read<Item.QuizUserStats>().FirstOrDefault();
                     }
-
-                    
-
-                    if (query.NeedCountry)
-                    {
-                        retVal.Quiz.Seo = grid.Read<Item.QuizSeo>().FirstOrDefault();
-                    }
+                    retVal.Quiz.TopUsers = await grid.ReadAsync<Item.QuizBestUsers>();
+                    return retVal;
                 }
             }
-            return retVal;
         }
+       
         public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -881,7 +886,10 @@ namespace Zbang.Zbox.ReadServices
 
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}", Sql.Quiz.QuizQuery, Sql.Quiz.Question, Sql.Quiz.Answer), new { query.QuizId }))
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                    Sql.Quiz.QuizQuery,
+                    Sql.Quiz.Question,
+                    Sql.Quiz.Answer), new { query.QuizId }))
                 {
                     var retVal = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();

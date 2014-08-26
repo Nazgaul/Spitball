@@ -7,25 +7,25 @@
 
 
     @*<div class="widget">
-        <div class="lFloat banner">
-            @{
-                var banner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Top);
-                if (banner != null)
-                {
-                    if (string.IsNullOrEmpty(banner.Url))
+            <div class="lFloat banner">
+                @{
+                    var banner = Model.FirstOrDefault(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Top);
+                    if (banner != null)
                     {
-                        <img src="@banner.ImageUrl" alt="" />
-                    }
-                    else
-                    {
-                        <a href="@banner.Url" target="_blank">
+                        if (string.IsNullOrEmpty(banner.Url))
+                        {
                             <img src="@banner.ImageUrl" alt="" />
-                        </a>
+                        }
+                        else
+                        {
+                            <a href="@banner.Url" target="_blank">
+                                <img src="@banner.ImageUrl" alt="" />
+                            </a>
+                        }
                     }
                 }
-            }
-        </div>
-    </div>*@
+            </div>
+        </div>*@
 
     @*Add class big to show the bigger version of the widget*@
     <div class="widget big">
@@ -51,17 +51,18 @@
         @{
             var imageIndex = 0;
         }
-        <div class="lFloat carousel" ng-controller="CarouselCtrl" ng-init="params.slidesLength = @Model.Count(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopLeft)" ng-class="{reverse: params.reverse}">
+        <div category-link class="lFloat carousel" ng-controller="CarouselCtrl" ng-init="params.slidesLength = @Model.Count(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopLeft)" ng-class="{reverse: params.reverse}">
             @foreach (var image in Model.Where(f => f.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.TopLeft))
             {
                 if (string.IsNullOrEmpty(image.Url))
                 {
-                    <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)"  />
+                    <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
                 }
                 else
                 {
-                    <a href="@image.Url" target="_blank">
-                        <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)"  />
+
+                    <a href="@image.Url" rel="cat" target="_blank">
+                        <img class="slide" src="@image.ImageUrl" alt="" ng-show="isActive(@imageIndex)" />
                     </a>
                 }
                 imageIndex++;
@@ -101,10 +102,10 @@
                             </tr>
                             @*V19.0.2*@
                             @*<tr>
-                        <td>@StoreResources.Coupon:</td>
-                        <td bo-text="product.coupon"></td>
-                        <td>₪</td>
-                    </tr>*@
+                                    <td>@StoreResources.Coupon:</td>
+                                    <td bo-text="product.coupon"></td>
+                                    <td>₪</td>
+                                </tr>*@
                             <tr>
                                 <td>@StoreResources.StudentPrice:</td>
                                 <td bo-text="(product.salePrice - product.coupon | currency:'').slice(0,-3)"></td>
@@ -125,20 +126,20 @@
             <li class="noResults"><div class="emptySearch">@SharedResources.NoResults</div></li>
         </ul>
         @*@foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
-        {
-            <div class="placeholder">
-                @if (string.IsNullOrEmpty(banner.Url))
-                {
-                    <img src="@banner.ImageUrl" alt="Banner" />
-                }
-                else
-                {
-                    <a href="@banner.Url" target="_blank">
+            {
+                <div class="placeholder">
+                    @if (string.IsNullOrEmpty(banner.Url))
+                    {
                         <img src="@banner.ImageUrl" alt="Banner" />
-                    </a>
-                }
-            </div>
-        }*@
+                    }
+                    else
+                    {
+                        <a href="@banner.Url" target="_blank">
+                            <img src="@banner.ImageUrl" alt="Banner" />
+                        </a>
+                    }
+                </div>
+            }*@
     </div>
     @{Html.RenderPartial("_Footer");}
 </div>

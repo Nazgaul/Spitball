@@ -12,21 +12,17 @@ namespace Zbang.Zbox.Domain.DataAccess
 
             //this cant be done with query over
             return UnitOfWork.CurrentSession.Query<CommentReplies>().Where(c => c.Question == question);
-
-            //.QueryOver<University>();
-            //query.Where(w => w.AliasName.Coalesce(string.Empty) ==  name.Trim().Lower());
-            //query.Where()
-            //query.OrderBy()
-            //      .SqlFunction("coalesce",
-            //                            NHibernateUtil.String,
-            //                            Projections.Property<University>(x => x.AliasName),
-            //                            Projections.Property<University>(x => x.Name)));
-
-            // return query.SingleOrDefault<University>();
         }
 
-        
+
+        public float ComputeAverage(long quizId)
+        {
+            var query = UnitOfWork.CurrentSession.CreateSQLQuery("select avg(score) from zbox.SolvedQuiz where quizid = :quizId ");
+            query.SetInt64("quizId", quizId);
+           return query.UniqueResult<float>();
+        }
+
     }
 
-    
+
 }

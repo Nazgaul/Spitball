@@ -7,47 +7,58 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
     {
         public QuizWithDetailDto Quiz { get; set; }
         public SolveSheet Sheet { get; set; }
-        
+       
     }
+
+    
+
     public class QuizWithDetailDto
     {
-        public QuizWithDetailDto()
-        {
-            Questions = new List<QuestionWithDetailDto>();
-            
-        }
-        public long Id { get; set; }
+        private DateTime m_Date;
         public string Name { get; set; }
         public long OwnerId { get; set; }
+
         public string Owner { get; set; }
-        public DateTime Date { get; set; }
+        //public QuizWithDetailDto()
+        //{
+        //    Questions = new List<QuestionWithDetailDto>();
+            
+        //}
+        public long Id { get; set; }
+        //public string Name { get; set; }
+        //public long OwnerId { get; set; }
+        //public string Owner { get; set; }
+        public DateTime Date
+        {
+            get { return m_Date; }
+            set { m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc); }
+        }
+
         public int NumberOfViews { get; set; }
-        public float Rate { get; set; }
 
-        public long BoxId { get; set; }
+        public string BoxName { get; set; }
+        public string BoxUrl { get; set; }
+        //public float Rate { get; set; }
 
+        //public long BoxId { get; set; }
+        public double Stdevp { get; set; }
+
+        public int Average { get; set; }
 
 
         public bool Publish { get; set; }
 
-        public QuizSeo Seo { get; set; }
-
-
         public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
 
-       
-        
+
+        public IEnumerable<QuizBestUsers> TopUsers { get; set; }
 
     }
 
-    public class QuizSeo
+    public class QuizBestUsers
     {
-        public string Country { get; set; }
-        public string BoxName { get; set; }
-        public string UniversityName { get; set; }
-
-        public string BoxUrl { get; set; }
-
+        public string Name { get; set; }
+        public string Image { get; set; }
     }
 
     public class QuestionWithDetailDto

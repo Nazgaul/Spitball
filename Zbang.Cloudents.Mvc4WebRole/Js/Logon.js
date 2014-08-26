@@ -88,7 +88,7 @@
             data: d,
             type: 'POST',
             success: function (data) {
-                if (data.Success) {
+                if (data.success) {
                     var returnUrl = cd.getParameterByName('returnUrl');
                     if (returnUrl.length) {
                         window.location = returnUrl;
