@@ -30,16 +30,16 @@
                    rangeY = maxY - minY,
                    centerY = Math.round(Math.abs(minY / rangeY) * elem[0].height-20),
                    centerX = Math.round(Math.abs(minX / rangeX) * elem[0].width),
-                   iteration = (maxX - minX) / 308,
+                   iteration = (maxX - minX) / elem[0].width,
                    scaleX = elem[0].width / rangeX,
                    scaleY = elem[0].height / rangeY;
-
 
                drawEquation(function (x) {
 
                    return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(x, 2) / 2));
                }, 'green', 2);
 
+               
 
                //draw data
                context.save();
@@ -76,7 +76,7 @@
                }
                context.beginPath();
                context.fillStyle = '#e6ad20';
-               context.fillRect(flagTopLeft.x, flagTopLeft.y, 0.8, 0.1);
+               context.fillRect(flagTopLeft.x-0.03, flagTopLeft.y, 1, 0.1);
                context.closePath();
                context.restore();
 
@@ -87,11 +87,15 @@
 
                context.save();
                context.fillStyle = 'white';
-               //context.textBaseline = 'top';
+               context.translate(centerX, centerY);
+               ////context.scale(scaleX, scaleY);
+               context.font = '14pt arial';
+               context.textBaseline = 'middle';
+               context.textAlign = 'center';
 
-               context.font = 'arial';
-               context.scale(0.05, 0.05);
-               context.fillText("100", -2,2);
+
+               //context.scale(0.01, 0.01);
+               context.fillText("100", userscore * scaleX + 23,-y * scaleY- 15.5);
                
 
                context.restore();
@@ -103,7 +107,7 @@
                context.textBaseline = 'bottom';
                context.fillStyle = '#e6ad20';
                context.font = '12pt arial';
-               context.fillText('average: ' + 0, 154, elem[0].height);
+               context.fillText('average: ' + 0, elem[0].width / 2, elem[0].height);
 
 
                //draw average score
