@@ -284,12 +284,137 @@
 /*#endregion */
 
 /*#region new dashboard */
+/*<section class="setupCourse">
+    <header class="setupCourseTxt1">@IndexResources.WelcomeCloudents</header>
+    <div class="setupCourseTxt2">@HomeResources.StudyPlatform</div>
+    <span class="featureTxt1">@IndexResources.ShareFiles</span>
+    <span class="featureTxt2">@IndexResources.CreateQuizzes</span>
+    <span class="featureTxt3">@IndexResources.SwapBooks</span>
+    <div class="chooseActionWpr">
+        <button type="button" class="createCourse"></button>
+        <button type="button" class="createCourse"></button>
+        <div class="recommendedWpr">
+
+        </div>
+    </div>
+    <button type="button" class="closeBtn"></button>
+</section>*/
+.js-newDash {
+    .unionCourses, .groupBoxes {
+        display: none;
+    }
+    
+}
+
+.setupCourse {
+    color: #fff;
+    .topWpr {
+        height:350px;
+        background: #282828;
+        margin: 0 -10px 0 -24px;
+        padding: 0 60px;
+    }
+    .setupCourseTxt1 {
+        padding: 27px 0 0 0; //override
+        font-size: 45px;
+    }
+    .setupCourseTxt2 {
+        font-size: 20px;
+        color: @color;
+        padding:0; //override
+    }
+}
+
+.featureTxt1, .featureTxt2, .featureTxt3 {
+    width: 80px;
+    font-size: 13px;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    &:before {
+        content: '';
+        display: block;
+        width: 108px;
+        height: 108px;
+        background: #fff;
+        border-radius: 100%;
+        margin: 40px 0 10px -15px;
+    }
+    &:after {
+        .pseudo;
+        position: absolute;
+        width: 65px;
+	    height: 59px;
+        background: @site-sprite 0 -35px no-repeat;
+        top: 63px;
+        left: 7px;
+    }
+}
+.featureTxt1 {
+    margin-left: 15px;
+}
+.featureTxt2 {
+    margin: 0 50px;
+    &:after {
+        width: 55px;
+	    height: 65px;
+	    background-position: 0 -1353px;
+        left: 12px;
+    }
+}
+.featureTxt3 {
+    &:after {
+        width: 56px;
+	    height: 62px;
+	    background-position: 0 -403px;
+        left: 12px;
+    }
+}
+
+.chooseActionWpr {
+    padding: 12px;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 300px;
+    .boxSizing;
+}
+.browseCourses, .createCourse, .recommendedWpr {
+    display: table-cell;
+    //border: 1px solid @borderColor;
+    //background: pink;
+    .boxSizing;
+    button {
+        width: 100%;
+        height: 100%;
+        //background: aqua;
+        border: 1px solid @borderColor;
+    }
+}
+.browseCourses {
+    padding-right: 8px;
+}
+.createCourse {
+    margin: 0 8px;
+    &:first-of-type {
+        padding:0;
+    }
+    &:last-of-type {
+        padding:0 0 0 8px;
+    }
+}
+.recommendedWpr {
+    padding-left: 8px;
+}
+/////////////////////////////////////
 .unionCourses {
     .emptyDash ~ .myAreaList {
         min-height: 200px;
         border-bottom: 1px solid rgb(194, 194, 194);
     }
 }
+
 
 .emptyDash{
     color: #383838;
