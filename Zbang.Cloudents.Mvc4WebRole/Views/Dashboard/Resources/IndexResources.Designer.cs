@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -94,6 +97,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to כל אחד שברשותו הקישור יכול לקבל גישה. אין צורך בהרשמה למערכת..
+        /// </summary>
+        public static string AnyoneUrl {
+            get {
+                return ResourceManager.GetString("AnyoneUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to asked a question.
         /// </summary>
         public static string AskedQuestion {
@@ -121,6 +133,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to עיון בקורסים.
+        /// </summary>
+        public static string BrowseCourses {
+            get {
+                return ResourceManager.GetString("BrowseCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By union departments.
         /// </summary>
         public static string ByUnion {
@@ -130,11 +151,65 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to שנה מחלקה.
+        /// </summary>
+        public static string ChangeDept {
+            get {
+                return ResourceManager.GetString("ChangeDept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to הוסף שמות מופרדים בפסיק.
+        /// </summary>
+        public static string CommaSeparate {
+            get {
+                return ResourceManager.GetString("CommaSeparate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to צור קורס.
+        /// </summary>
+        public static string CreateCourse {
+            get {
+                return ResourceManager.GetString("CreateCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to יצירת מבחנים לשיפור הלמידה.
+        /// </summary>
+        public static string CreateQuizzes {
+            get {
+                return ResourceManager.GetString("CreateQuizzes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search or browse Cloudents to find the courses you study.
         /// </summary>
         public static string FindCourses {
             get {
                 return ResourceManager.GetString("FindCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to מצא חברים מחשבון הפייסבוק שלך.
+        /// </summary>
+        public static string FindFb {
+            get {
+                return ResourceManager.GetString("FindFb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to מצא חברים מחשבון ה-Gmail שלך.
+        /// </summary>
+        public static string FindGmail {
+            get {
+                return ResourceManager.GetString("FindGmail", resourceCulture);
             }
         }
         
@@ -181,6 +256,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         public static string InlineSearch {
             get {
                 return ResourceManager.GetString("InlineSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to הזמן חברים לקורס.
+        /// </summary>
+        public static string InviteFriends {
+            get {
+                return ResourceManager.GetString("InviteFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to רק אנשים שקיבלו הזמנה מפושת יכולים לקבל גישה. חובה להיכנס למערכת..
+        /// </summary>
+        public static string InviteOnly {
+            get {
+                return ResourceManager.GetString("InviteOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to הזמן חבר באימייל.
+        /// </summary>
+        public static string InviteViaEmail {
+            get {
+                return ResourceManager.GetString("InviteViaEmail", resourceCulture);
             }
         }
         
@@ -239,6 +341,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to קורס פתוח.
+        /// </summary>
+        public static string OpenCourse {
+            get {
+                return ResourceManager.GetString("OpenCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owned by me.
         /// </summary>
         public static string OwnedByMe {
@@ -266,6 +377,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to קורס פרטי.
+        /// </summary>
+        public static string PrivateCourse {
+            get {
+                return ResourceManager.GetString("PrivateCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Result for.
         /// </summary>
         public static string ResultFor {
@@ -280,6 +400,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         public static string SearchBy {
             get {
                 return ResourceManager.GetString("SearchBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to חפש חברים מקלאודנטס.
+        /// </summary>
+        public static string SearchCloudents {
+            get {
+                return ResourceManager.GetString("SearchCloudents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to חפש חברים מפייסבוק.
+        /// </summary>
+        public static string SearchFb {
+            get {
+                return ResourceManager.GetString("SearchFb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to חפש חברים מ-Gmail.
+        /// </summary>
+        public static string SearchGmail {
+            get {
+                return ResourceManager.GetString("SearchGmail", resourceCulture);
             }
         }
         
@@ -338,6 +485,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to שיתוף קבצים עם החברים באוניברסיטה.
+        /// </summary>
+        public static string ShareFiles {
+            get {
+                return ResourceManager.GetString("ShareFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Starred.
         /// </summary>
         public static string Starred {
@@ -356,6 +512,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to החלפה ומסירה של ספרי לימוד.
+        /// </summary>
+        public static string SwapBooks {
+            get {
+                return ResourceManager.GetString("SwapBooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload.
         /// </summary>
         public static string Upload {
@@ -370,6 +535,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         public static string UploadContent {
             get {
                 return ResourceManager.GetString("UploadContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ברוכים הבאים לקלאודנטס.
+        /// </summary>
+        public static string WelcomeCloudents {
+            get {
+                return ResourceManager.GetString("WelcomeCloudents", resourceCulture);
             }
         }
         

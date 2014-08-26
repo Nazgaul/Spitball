@@ -279,4 +279,7 @@
   <data name="MessageRequired" xml:space="preserve">
     <value>Требуется cообщение</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
 </root>
