@@ -924,7 +924,6 @@
     <Content Include="Js\Navigation2.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
-    <Content Include="Js\QuizViewModel.js" />
     <Content Include="Js\routes.js" />
     <Content Include="Js\Search.js" />
     <Content Include="Js\SearchDropDown.js" />

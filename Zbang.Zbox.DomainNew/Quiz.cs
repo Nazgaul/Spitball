@@ -49,6 +49,10 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<Question> Questions { get; private set; }
 
         public virtual string Url { get; set; }
+
+        public virtual int Average { get; set; }
+        public virtual double Stdevp { get; set; }
+
         public virtual void GenerateUrl()
         {
             if (Id == 0)
@@ -80,6 +84,10 @@ namespace Zbang.Zbox.Domain
             NumberOfViews++;
         }
 
-
+        public virtual void UpdateQuizStats(int average, double stdevp)
+        {
+            Average = average;
+            Stdevp = stdevp;
+        }
     }
 }

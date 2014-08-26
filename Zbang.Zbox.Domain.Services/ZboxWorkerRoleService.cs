@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Dapper;
 using NHibernate;
 using Zbang.Zbox.Domain.Commands;
@@ -114,8 +115,22 @@ namespace Zbang.Zbox.Domain.Services
                 {
                     quiz.GenerateUrl();
                     var noOfDiscussion = UnitOfWork.CurrentSession.QueryOver<Discussion>().Where(w => w.Quiz == quiz).RowCount();
-                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Quiz set Url = @Url, NumberOfComments = @NCount where Id = @Id"
-                        , new { quiz.Url, quiz.Id, NCount = noOfDiscussion });
+                    double? std;
+                    int? avg;
+                    using (var grid = UnitOfWork.CurrentSession.Connection.QueryMultiple(
+                        "select STDEVP(score) from zbox.SolvedQuiz where quizid = @id;" +
+                        "select AVG(score) from zbox.SolvedQuiz where quizid = @id;", new { id = quiz.Id }))
+                    {
+                        std = grid.Read<double?>().FirstOrDefault();
+                        avg = grid.Read<int?>().FirstOrDefault();
+                    }
+
+
+
+                    UnitOfWork.CurrentSession.Connection.Execute(@"update zbox.Quiz
+                        set Url = @Url, NumberOfComments = @NCount , [Stdevp] = @std, Average = @average
+                        where Id = @Id"
+                        , new { quiz.Url, quiz.Id, NCount = noOfDiscussion, std = std, average = avg });
 
                     retVal = true;
                 }

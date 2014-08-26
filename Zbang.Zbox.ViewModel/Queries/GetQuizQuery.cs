@@ -2,17 +2,25 @@
 {
     public class GetQuizQuery : QueryBase
     {
-        public GetQuizQuery(long quizId, long userId, long boxId, bool needCountry)
+        public GetQuizQuery(long quizId, long userId, long boxId)
             : base(userId)
         {
             QuizId = quizId;
             BoxId = boxId;
-            NeedCountry = needCountry;
         }
         public long QuizId { get; private set; }
         public long BoxId { get; private set; }
 
-        public bool NeedCountry { get; private set; }
+    }
+
+    public class GetQuizSeoQuery
+    {
+        public GetQuizSeoQuery(long quizId)
+        {
+            QuizId = quizId;
+        }
+
+        public long QuizId { get; private set; }
     }
 
     public class GetQuizDraftQuery

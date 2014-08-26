@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
     public class SaveUserQuizCommandHandler : ICommandHandler<SaveUserQuizCommand>
     {
-        private readonly IRepository<Domain.Quiz> m_QuizRepository;
+        private readonly IQuizRepository m_QuizRepository;
         private readonly IRepository<SolvedQuiz> m_SolvedQuizRepository;
         private readonly IRepository<SolvedQuestion> m_SolvedQuestionRepository;
         private readonly IRepository<Answer> m_AnswerRepository;
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IUserRepository m_UserRepository;
 
         public SaveUserQuizCommandHandler(
-            IRepository<Domain.Quiz> quizRepository,
+            IQuizRepository quizRepository,
             IUserRepository userRepository,
             IRepository<SolvedQuiz> solvedQuizRepository,
             IRepository<SolvedQuestion> solvedQuestionRepository,
@@ -50,14 +50,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 m_UserRepository.Save(user);
             }
             var answerSheet = m_SolvedQuizRepository.GetQuerable().FirstOrDefault(w =>
-// ReSharper disable once PossibleUnintendedReferenceComparison nHibernate doesn't support equals
+                // ReSharper disable once PossibleUnintendedReferenceComparison nHibernate doesn't support equals
                 w.User == user && w.Quiz == quiz);
             if (answerSheet != null)
             {
                 DeleteAnswers(answerSheet);
             }
             var solvedQuiz = new SolvedQuiz(m_IdGenerator.GetId(), quiz, user, message.TimeTaken);
-            m_SolvedQuizRepository.Save(solvedQuiz);
+            m_SolvedQuizRepository.Save(solvedQuiz, true);
             foreach (var question in quiz.Questions)
             {
                 var userAnswer = message.Answers.FirstOrDefault(w => w.QuestionId == question.Id);
@@ -72,9 +72,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 m_SolvedQuestionRepository.Save(solvedAnswer);
 
             }
-            var score =  (decimal)solvedQuiz.SolvedQuestions.Count(w => w.Correct) / quiz.Questions.Count();
+            var score = (decimal)solvedQuiz.SolvedQuestions.Count(w => w.Correct) / quiz.Questions.Count();
             solvedQuiz.Score = (int)Math.Round(score * 100);
-            m_SolvedQuizRepository.Save(solvedQuiz);
+            m_SolvedQuizRepository.Save(solvedQuiz, true);
+
+            var avg = m_QuizRepository.ComputeAverage(quiz.Id);
+            var stdevp = m_QuizRepository.ComputeStdevp(quiz.Id);
+
+            quiz.UpdateQuizStats(avg, stdevp);
+            m_QuizRepository.Save(quiz);
         }
 
         private void DeleteAnswers(SolvedQuiz answerSheet)

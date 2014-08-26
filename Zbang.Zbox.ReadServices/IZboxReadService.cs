@@ -95,6 +95,7 @@ namespace Zbang.Zbox.ReadServices
 
         //Quiz
         Task<QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query);
+        Task<QuizSeo> GetQuizSeo(GetQuizSeoQuery query);
         Task<QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query);
         Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
 
