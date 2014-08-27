@@ -386,6 +386,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to קורסים מומלצים.
+        /// </summary>
+        public static string RecommendedCourses {
+            get {
+                return ResourceManager.GetString("RecommendedCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Result for.
         /// </summary>
         public static string ResultFor {

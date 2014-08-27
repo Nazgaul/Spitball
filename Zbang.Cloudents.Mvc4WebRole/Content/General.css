@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1078,10 +1078,15 @@ input[type="radio"][disabled] + label:before {
   pointer-events: all;
 }
 /*#region Welcome Store */
+iframe .registerFirst.store {
+  bottom: auto;
+  top: 310px;
+}
 .registerFirst.store {
   width: 860px;
   height: 613px;
-  top: 310px;
+  top: 0;
+  bottom: 0;
   margin: auto;
   background-color: transparent;
   border: none;
@@ -2304,7 +2309,7 @@ select.inputText {
   display: block;
   width: 108px;
   height: 98px;
-  background: url(/Images/site.png) 0 -1418px no-repeat;
+  background: url(/Images/site.png) 0 -1384px no-repeat;
   margin: 0 auto;
 }
 .emptySearchAdmin:after {
@@ -2681,3 +2686,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

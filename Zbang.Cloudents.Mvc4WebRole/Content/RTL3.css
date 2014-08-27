@@ -196,6 +196,62 @@
   left: auto;
 }
 /*#endregion */
+/*#region new dashboard */
+.setupCourse {
+  margin: 0 -14px 0 0;
+}
+.setupCourse .topWpr {
+  margin: 0 -24px 0 -10px;
+}
+.featureTxt1:before,
+.featureTxt2:before,
+.featureTxt3:before {
+  margin: 40px -15px 10px 0;
+}
+.featureTxt1:after,
+.featureTxt2:after,
+.featureTxt3:after {
+  right: 7px;
+  left: auto;
+}
+.featureTxt1 {
+  margin: 0 15px 0 0;
+}
+.featureTxt2:after,
+.featureTxt3:after {
+  right: 12px;
+  left: auto;
+}
+.browseCourses {
+  padding: 0 0 0 8px;
+}
+.createCourse {
+  padding: 0 8px 0 16px;
+}
+.createCourse:last-child {
+  padding: 0 8px 0 0;
+}
+.recommendedWpr {
+  padding: 8px 28px 12px 20px;
+}
+.recommended {
+  padding: 0 80px 0 0;
+}
+.recommended img {
+  right: 0;
+  left: auto;
+}
+.recommended .rFloat {
+  border: none;
+  border-right: 1px solid #c2c2c2;
+  padding: 0 35px 0 0;
+}
+.recommended .friends:after,
+.recommended .files:after {
+  right: -25px;
+  left: auto;
+}
+/*#endregion */
 .contentWpr {
   margin: 0 290px 0 0;
   /*rtl*/

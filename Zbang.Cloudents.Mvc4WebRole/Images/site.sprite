@@ -41,6 +41,7 @@
     <file>/Images/upload.png</file>
     <file>/Images/web_upload.png</file>
     <file>/Images/quiz.png</file>
-    <file>/Images/no_results_icon.png</file>
+    <file>/Images/icon_doc.png</file>
+    <file>/Images/icon_man.png</file>
   </files>
 </sprite>

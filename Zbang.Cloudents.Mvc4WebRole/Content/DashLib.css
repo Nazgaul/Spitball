@@ -266,33 +266,19 @@
 }
 /*#endregion */
 /*#region new dashboard */
-/*<section class="setupCourse">
-    <header class="setupCourseTxt1">@IndexResources.WelcomeCloudents</header>
-    <div class="setupCourseTxt2">@HomeResources.StudyPlatform</div>
-    <span class="featureTxt1">@IndexResources.ShareFiles</span>
-    <span class="featureTxt2">@IndexResources.CreateQuizzes</span>
-    <span class="featureTxt3">@IndexResources.SwapBooks</span>
-    <div class="chooseActionWpr">
-        <button type="button" class="createCourse"></button>
-        <button type="button" class="createCourse"></button>
-        <div class="recommendedWpr">
-
-        </div>
-    </div>
-    <button type="button" class="closeBtn"></button>
-</section>*/
 .js-newDash .unionCourses,
 .js-newDash .groupBoxes {
   display: none;
 }
 .setupCourse {
   color: #fff;
+  margin-left: -14px;
 }
 .setupCourse .topWpr {
   height: 350px;
   background: #282828;
   margin: 0 -10px 0 -24px;
-  padding: 0 60px;
+  padding: 0 74px;
 }
 .setupCourse .setupCourseTxt1 {
   padding: 27px 0 0 0;
@@ -302,6 +288,12 @@
   font-size: 20px;
   color: #0f9d58;
   padding: 0;
+  margin-bottom: 12px;
+}
+.setupCourse .closeDialog {
+  background: url(/Images/site.png) 0 -94px no-repeat;
+  width: 19px;
+  height: 19px;
 }
 .featureTxt1,
 .featureTxt2,
@@ -312,6 +304,7 @@
   display: inline-block;
   text-align: center;
   vertical-align: top;
+  line-height: 14px;
 }
 .featureTxt1:before,
 .featureTxt2:before,
@@ -340,22 +333,22 @@
   margin-left: 15px;
 }
 .featureTxt2 {
-  margin: 0 50px;
+  margin: 0 75px;
 }
 .featureTxt2:after {
   width: 55px;
   height: 65px;
-  background-position: 0 -1353px;
+  background-position: 0 -1319px;
   left: 12px;
 }
 .featureTxt3:after {
   width: 56px;
   height: 62px;
-  background-position: 0 -403px;
+  background-position: 0 -369px;
   left: 12px;
 }
 .chooseActionWpr {
-  padding: 12px;
+  padding: 12px 2px;
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -371,28 +364,127 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  position: relative;
+  vertical-align: top;
 }
 .browseCourses button,
 .createCourse button,
 .recommendedWpr button {
   width: 100%;
-  height: 100%;
+  height: 294px;
   border: 1px solid #c2c2c2;
+}
+.browseCourses .actionTxt,
+.createCourse .actionTxt,
+.recommendedWpr .actionTxt {
+  font-size: 22px;
+  color: #383838;
+}
+.browseCourses .actionTxt:before,
+.createCourse .actionTxt:before,
+.recommendedWpr .actionTxt:before {
+  content: '';
+  display: block;
+  width: 130px;
+  height: 128px;
+  background: url(/Images/site.png) 0 -113px no-repeat;
+  margin: 0 auto;
 }
 .browseCourses {
   padding-right: 8px;
 }
+.browseCourses .actionTxt:before {
+  background-position: 0 -241px;
+}
 .createCourse {
-  margin: 0 8px;
+  padding: 0 16px 0 8px;
 }
-.createCourse:first-of-type {
-  padding: 0;
-}
-.createCourse:last-of-type {
+.createCourse:last-child {
   padding: 0 0 0 8px;
 }
+.createCourse:only-child {
+  padding: 0;
+}
 .recommendedWpr {
-  padding-left: 8px;
+  border: 1px solid #c2c2c2;
+  padding: 8px 20px 12px 28px;
+  color: #383838;
+  vertical-align: top;
+}
+.recommendedWpr header {
+  font-size: 20px;
+  border-bottom: 1px solid #c2c2c2;
+  margin: 3px 0 10px;
+  padding: 0 0 10px 0;
+}
+.recommended {
+  padding-left: 80px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 15px;
+  height: 68px;
+}
+.recommended .courseLink {
+  display: block;
+  height: 100%;
+}
+.recommended img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+}
+.recommended .rFloat {
+  border-left: 1px solid #c2c2c2;
+  width: 100px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-left: 35px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.recommended:nth-child(2) {
+  margin: 10px 0;
+}
+.recommended .courseName {
+  padding-top: 4px;
+  color: #0f9d58;
+  font-weight: bold;
+}
+.recommended .prof {
+  font-size: 13px;
+}
+.recommended .friends,
+.recommended .files {
+  position: relative;
+}
+.recommended .friends:before,
+.recommended .files:before {
+  content: attr(data-friends-count) '\00a0';
+  display: inline-block;
+}
+.recommended .friends:after,
+.recommended .files:after {
+  content: '';
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  background: url(/Images/site.png) 0 -1405px no-repeat;
+  position: absolute;
+  left: -25px;
+  top: 0;
+}
+.recommended .files {
+  margin-top: 10px;
+}
+.recommended .files:before {
+  content: attr(data-files-count) '\00a0';
+}
+.recommended .files:after {
+  background-position: 0 -1384px;
 }
 .unionCourses .emptyDash ~ .myAreaList {
   min-height: 200px;

@@ -653,7 +653,7 @@ body.quiz .shareBtn {
 .quizPage .shareBtnTxt:before {
   width: 22px;
   height: 18px;
-  background: url(/Images/site.png) 0 -1124px;
+  background: url(/Images/site.png) 0 -1090px;
 }
 .quizPage .shareBtnTxt:hover:before {
   background-position: 0 -1124px;

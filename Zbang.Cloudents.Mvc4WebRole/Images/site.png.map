@@ -23,8 +23,8 @@
     },
     {
       "name": "/Images/course.png",
-      "width": 161,
-      "height": 162,
+      "width": 130,
+      "height": 128,
       "offsetX": 0,
       "offsetY": 113
     },
@@ -33,112 +33,119 @@
       "width": 130,
       "height": 128,
       "offsetX": 0,
-      "offsetY": 275
+      "offsetY": 241
     },
     {
       "name": "/Images/document.png",
       "width": 56,
       "height": 62,
       "offsetX": 0,
-      "offsetY": 403
+      "offsetY": 369
     },
     {
       "name": "/Images/drive_upload.png",
       "width": 86,
       "height": 76,
       "offsetX": 0,
-      "offsetY": 465
+      "offsetY": 431
     },
     {
       "name": "/Images/friends_cloudents_black.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
-      "offsetY": 541
+      "offsetY": 507
     },
     {
       "name": "/Images/friends_cloudents_green.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
-      "offsetY": 632
+      "offsetY": 598
     },
     {
       "name": "/Images/friends_facebook_black.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
-      "offsetY": 723
+      "offsetY": 689
     },
     {
       "name": "/Images/friends_facebook_blue.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
-      "offsetY": 814
+      "offsetY": 780
     },
     {
       "name": "/Images/friends_gmail_black.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
-      "offsetY": 905
+      "offsetY": 871
     },
     {
       "name": "/Images/friends_gmail_red.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
-      "offsetY": 996
+      "offsetY": 962
     },
     {
       "name": "/Images/placeholder_user_img.png",
       "width": 46,
       "height": 37,
       "offsetX": 0,
-      "offsetY": 1087
+      "offsetY": 1053
     },
     {
       "name": "/Images/share_white.png",
       "width": 22,
       "height": 18,
       "offsetX": 0,
-      "offsetY": 1124
+      "offsetY": 1090
     },
     {
       "name": "/Images/uni_logo.png",
       "width": 41,
       "height": 34,
       "offsetX": 0,
-      "offsetY": 1142
+      "offsetY": 1108
     },
     {
       "name": "/Images/upload.png",
       "width": 126,
       "height": 98,
       "offsetX": 0,
-      "offsetY": 1176
+      "offsetY": 1142
     },
     {
       "name": "/Images/web_upload.png",
       "width": 82,
       "height": 79,
       "offsetX": 0,
-      "offsetY": 1274
+      "offsetY": 1240
     },
     {
       "name": "/Images/quiz.png",
       "width": 55,
       "height": 65,
       "offsetX": 0,
-      "offsetY": 1353
+      "offsetY": 1319
     },
     {
-      "name": "/Images/no_results_icon.png",
-      "width": 108,
-      "height": 98,
+      "name": "/Images/icon_doc.png",
+      "width": 21,
+      "height": 21,
       "offsetX": 0,
-      "offsetY": 1418
+      "offsetY": 1384
+    },
+    {
+      "name": "/Images/icon_man.png",
+      "width": 21,
+      "height": 21,
+      "offsetX": 0,
+      "offsetY": 1405
     }
   ]
 }
