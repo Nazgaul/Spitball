@@ -28,22 +28,21 @@
                     <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
                 </div>
             </section>
-            @*@ViewBag.boxUrl*@
-            <a  href="" class="backWpr elps lFloat" >
+            <a ng-href="{{quiz.boxUrl}}" class="backWpr elps lFloat">
                 <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps">@*@ViewBag.boxName*@</h2>
+                <h2 class="semiFont elps">{{quiz.boxName}}</h2>
             </a>
             @*<button type="button" class="itemPrint iconTop" id="quiz_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
         </div>
     </div>
 
-    <div class="leftPanel lFloat">
+    <div class="leftPanel lFloat" bindonce>
         <div class="itemTop">
-            <div tooltip="@SharedResources.Views" class="rFloat quizViews quizSprite">@*@Model.NumberOfViews*@</div>
+            <div tooltip="@SharedResources.Views" class="rFloat quizViews quizSprite">{{quiz.numberOfViews}}</div>
             <div class="itemNameWpr quizSprite">
-                <div class="item-name semiFont elps">@*@Model.Name*@</div>
-                <div class="itemOwner elps lFloat" user-tooltip-popup="@*@Model.OwnerId*@">@*@Model.Owner*@</div>
-                <div class="rFloat">@*@Model.Date.ToString("d/M/yy")*@</div>
+                <div class="item-name semiFont elps">{{quiz.name}}</div>
+                <div class="itemOwner elps lFloat" user-tooltip-popup="{{quiz.ownerId}}">{{quiz.name}}</div>
+                <div class="rFloat">{{quiz.date | date: 'dd/MM/yy'}}</div>
             </div>
         </div>
 
@@ -83,7 +82,7 @@
 
             <div class="distributionWpr">
                 <div class="distributionTxt">@QuizResources.ScoreDistribution</div>
-                <canvas width="308" height="202" quiz-graph></canvas>
+                <canvas width="308" height="202" quiz-graph user-done="{{quiz.userDone}}"></canvas>
             </div>
 
         </div>
@@ -93,7 +92,7 @@
         <div class="quizTitle">{{quiz.name}}</div>
         <div class="quizPrevWpr">
             <ul class="quizQList">
-                <li ng-repeat="question in quiz.questions" ng-class="{userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">
+                <li ng-repeat="question in quiz.questions" ng-class="{userCorrect: question.correct, userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">
                     <div class="quizQuestion" bo-text="question.text"></div>
                     <ul class="quizAList">
                         <li ng-repeat="answer in question.answers" ng-class="{correct: answer.correct, wrong : answer.wrong}">
@@ -115,7 +114,7 @@
                         </ul>
 
                         <div class="cTextAreaWpr">
-                            <img class="imgBorder lFloat" src="" alt="" width="32" height="32" bo-src="profile.userImage"/>
+                            <img class="imgBorder lFloat" src="" alt="" width="32" height="32" bo-src="profile.userImage" />
                             <textarea text-direction msd-elastic class="cTextArea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.newComment"></textarea>
                             <button type="submit" ng-disabled="!question.newComment && question.newComment.length === 0" class="askBtn rFloat" ng-click="createComment(question)">@SharedResources.Comment</button>
                         </div>

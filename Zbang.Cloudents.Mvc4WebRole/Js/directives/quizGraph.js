@@ -1,134 +1,140 @@
 ﻿app.directive('quizGraph',
-   [function () {
+   ['$timeout', function ($timeout) {
        return {
            scope: false,
            restrict: "A",
+       
            link: function (scope, elem, attrs) {
 
 
-               var context = elem[0].getContext('2d');
+               var context = elem[0].getContext('2d'),
+                   canvasWidth = elem[0].width,
+                   canvasHeight = elem[0].height,
+                    minX = -3,
+                    maxX = 3,
+                    minY = -0.6,
+                    maxY = 0,
+                    rangeX = maxX - minX,
+                    rangeY = maxY - minY,
+                    centerY = Math.round(Math.abs(minY / rangeY) * canvasHeight - 20),
+                    centerX = Math.round(Math.abs(minX / rangeX) * canvasWidth),
+                    iteration = (maxX - minX) / canvasWidth,
+                    scaleX = canvasWidth / rangeX,
+                    scaleY = canvasHeight / rangeY;
 
-               //draw grid
-               context.beginPath();
-               context.moveTo(0, 0);
-               context.lineTo(0, elem[0].height-20);
-               context.lineTo(elem[0].width, elem[0].height-20);
-               context.strokeStyle = '#797979';
-               context.lineWidth = 1
-               context.stroke();
+
+
+
+                  drawGrid();
+                  drawGraph();
 
 
 
 
-               //draw equation
 
-               var minX = -3,
-                   maxX = 3,
-                   minY = -0.6,
-                   maxY = 0,
-                   rangeX = maxX - minX,
-                   rangeY = maxY - minY,
-                   centerY = Math.round(Math.abs(minY / rangeY) * elem[0].height-20),
-                   centerX = Math.round(Math.abs(minX / rangeX) * elem[0].width),
-                   iteration = (maxX - minX) / elem[0].width,
-                   scaleX = elem[0].width / rangeX,
-                   scaleY = elem[0].height / rangeY;
+               function drawGrid() {
+                   context.beginPath();
+                   context.moveTo(2, 0);
 
-               drawEquation(function (x) {
+                   context.lineTo(2, canvasHeight - 20);
+                   context.lineTo(canvasWidth, canvasHeight - 20);                   
+                   context.strokeStyle = '#797979';
+                   context.lineWidth = 1;
+                   context.stroke();
+               }
 
-                   return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(x, 2) / 2));
-               }, 'green', 2);
 
-               
+               function drawGraph() {
 
-               //draw data
-               context.save();
-               transformContext();
-               context.beginPath();
 
-               var userscore = 0;
+                   drawEquation(function (x) {
+                       return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(x, 2) / 2));
+                   }, 'green', 2);
 
-               var y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(userscore, 2) / 2));
-               context.moveTo(userscore, 0);
-               context.lineTo(userscore, y);
+                   function drawEquation(equation, color, thickness) {
+                       context.save();
+                       transformContext();
 
-               context.closePath();
+                       context.beginPath();
+                       context.moveTo(minX, equation(minX));
 
-         
+                       for (var x = minX + iteration; x <= maxX; x += iteration) {
+                           context.lineTo(x, equation(x));
+                       }
 
-               context.restore();               
-               context.strokeStyle = '#e6ad20';
-               context.lineWidth = 3;
-               context.setLineDash([10]);
-
-        
-
-               context.stroke();
-
-               context.save();
-
-               transformContext();
-
-               var flagTopLeft = {
-                   x: userscore,
-                   y: y
+                       context.restore();
+                       context.lineJoin = 'round';
+                       context.lineWidth = 3;
+                       context.strokeStyle = color;
+                       context.stroke();
+                   };
 
                }
-               context.beginPath();
-               context.fillStyle = '#e6ad20';
-               context.fillRect(flagTopLeft.x-0.03, flagTopLeft.y, 1, 0.1);
-               context.closePath();
-               context.restore();
-
-               context.stroke();
-               
-        
-               context.setLineDash([]);
-
-               context.save();
-               context.fillStyle = 'white';
-               context.translate(centerX, centerY);
-               ////context.scale(scaleX, scaleY);
-               context.font = '14pt arial';
-               context.textBaseline = 'middle';
-               context.textAlign = 'center';
 
 
-               //context.scale(0.01, 0.01);
-               context.fillText("100", userscore * scaleX + 23,-y * scaleY- 15.5);
-               
+               function drawData() {
+                 
 
-               context.restore();
+                   var userAverage = scope.quiz.stdevp ? 
+                                        (scope.quiz.result - scope.quiz.average) / scope.quiz.stdevp : 0,
+                       averageHeight = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(userAverage, 2) / 2));
 
+                   drawFlag();
+                   drawScore();
+                   drawAverage();
 
+                   function drawFlag() {
+                       context.save();
+                       transformContext();
+                       context.beginPath();
+                       context.moveTo(userAverage, 0);
+                       context.lineTo(userAverage, averageHeight);
+                       context.fillStyle = '#e6ad20';
+                       context.fillRect(userAverage - 0.03, averageHeight, 1, 0.1);
+                       context.closePath();
+                       context.restore();
+                       context.strokeStyle = '#e6ad20';
+                       context.lineWidth = 3;
+                       context.setLineDash([10]);
+                       context.stroke();
+                       context.setLineDash([]);
 
-
-               context.textAlign = 'center';
-               context.textBaseline = 'bottom';
-               context.fillStyle = '#e6ad20';
-               context.font = '12pt arial';
-               context.fillText('average: ' + 0, elem[0].width / 2, elem[0].height);
-
-
-               //draw average score
-
-               function drawEquation(equation, color, thickness) {
-                   context.save();
-                   transformContext();
-
-                   context.beginPath();
-                   context.moveTo(minX, equation(minX));
-
-                   for (var x = minX + iteration; x <= maxX; x += iteration) {
-                       context.lineTo(x, equation(x));
                    }
 
-                   context.restore();
-                   context.lineJoin = 'round';
-                   context.lineWidth = 3;
-                   context.strokeStyle = color;
-                   context.stroke();
+                   function drawScore() {
+                       context.save();
+                       context.fillStyle = 'white';
+                       context.translate(centerX, centerY);
+                       context.font = '14pt arial';
+                       context.textBaseline = 'middle';
+                       context.textAlign = 'center';
+                       context.fillText(scope.quiz.result, userAverage * scaleX + 23, -averageHeight * scaleY - 15.5); //23 half flag width, 15.5 half flag height
+                       context.restore();
+                   }
+
+                   function drawAverage() {
+                       context.textAlign = 'center';
+                       context.textBaseline = 'bottom';
+                       context.fillStyle = '#e6ad20';
+                       context.font = '12pt arial';
+                       context.fillText('average: ' + scope.quiz.average, canvasWidth / 2, canvasHeight);
+                   }
+              }                                      
+
+               attrs.$observe('userDone', function () {
+                   if (attrs.userDone === 'true') {
+                       drawData();
+                   } else {
+                       clearCanvas(); drawGrid(); drawGraph();
+                   }
+               });
+
+
+               function clearCanvas () {
+                   context.clearRect(0, 0, canvasWidth, canvasHeight);
                };
+
+           
 
                function transformContext() {
                    // move context to center of canvas
