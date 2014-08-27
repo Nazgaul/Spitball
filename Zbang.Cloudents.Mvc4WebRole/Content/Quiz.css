@@ -2,10 +2,12 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-body.quiz {
+body.quiz,
+body.js-dark {
   background: #282828;
 }
-body.quiz .siteHeader {
+body.quiz .siteHeader,
+body.js-dark .siteHeader {
   background: #0f0f0f;
 }
 body.quiz .topBar {

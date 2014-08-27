@@ -1,20 +1,26 @@
 ﻿@import "varsAndMixins";
 
-body.quiz {
-    background: #282828;
-    .siteHeader {
-        background: #0f0f0f;
+body {
+    &.quiz, &.js-dark {
+        background: #282828;
+        .siteHeader {
+            background: #0f0f0f;
+        }
+        
     }
-    .topBar {
-        background: #1e1e1e;
-        border: none; //override
-    }
-    .backWpr {
-        color: #fff;
-        left: 0; //rtl
-    }
-    .shareBtn {
-        right: 0; //rtl
+    &.quiz {
+        .topBar {
+            background: #1e1e1e;
+            border: none; //override
+        }
+
+        .backWpr {
+            color: #fff;
+            left: 0; //rtl
+        }
+        .shareBtn {
+            right: 0; //rtl
+        }
     }
 }
 
