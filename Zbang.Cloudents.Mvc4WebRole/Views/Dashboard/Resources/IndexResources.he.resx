@@ -285,4 +285,7 @@
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>ברוכים הבאים לקלאודנטס</value>
   </data>
+  <data name="RecommendedCourses" xml:space="preserve">
+    <value>קורסים מומלצים</value>
+  </data>
 </root>

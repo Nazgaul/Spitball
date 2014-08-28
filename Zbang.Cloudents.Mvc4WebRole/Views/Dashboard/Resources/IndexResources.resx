@@ -287,4 +287,7 @@ dashboard</value>
   <data name="WhereStudy" xml:space="preserve">
     <value>Where study groups come together</value>
   </data>
+  <data name="RecommendedCourses" xml:space="preserve">
+    <value>קורסים מומלצים</value>
+  </data>
 </root>

@@ -284,35 +284,25 @@
 /*#endregion */
 
 /*#region new dashboard */
-/*<section class="setupCourse">
-    <header class="setupCourseTxt1">@IndexResources.WelcomeCloudents</header>
-    <div class="setupCourseTxt2">@HomeResources.StudyPlatform</div>
-    <span class="featureTxt1">@IndexResources.ShareFiles</span>
-    <span class="featureTxt2">@IndexResources.CreateQuizzes</span>
-    <span class="featureTxt3">@IndexResources.SwapBooks</span>
-    <div class="chooseActionWpr">
-        <button type="button" class="createCourse"></button>
-        <button type="button" class="createCourse"></button>
-        <div class="recommendedWpr">
 
-        </div>
-    </div>
-    <button type="button" class="closeBtn"></button>
-</section>*/
 .js-newDash {
     .unionCourses, .groupBoxes {
         display: none;
     }
-    
 }
-
+.js-dark {
+    .dashboard{
+        display: none!important; //override js
+    }
+}
 .setupCourse {
     color: #fff;
+    margin-left: -14px; //rtl
     .topWpr {
         height:350px;
         background: #282828;
-        margin: 0 -10px 0 -24px;
-        padding: 0 60px;
+        margin: 0 -10px 0 -24px; //rtl
+        padding: 0 74px;//14px + 60px (because of the left margin of -14px)
     }
     .setupCourseTxt1 {
         padding: 27px 0 0 0; //override
@@ -322,6 +312,12 @@
         font-size: 20px;
         color: @color;
         padding:0; //override
+        margin-bottom: 12px;
+    }
+    .closeDialog {
+        background: @site-sprite 0 -94px no-repeat; 
+        width: 19px;
+	    height: 19px;
     }
 }
 
@@ -332,6 +328,7 @@
     display: inline-block;
     text-align: center;
     vertical-align: top;
+    line-height: 14px;
     &:before {
         content: '';
         display: block;
@@ -339,7 +336,7 @@
         height: 108px;
         background: #fff;
         border-radius: 100%;
-        margin: 40px 0 10px -15px;
+        margin: 40px 0 10px -15px; //rtl
     }
     &:after {
         .pseudo;
@@ -348,32 +345,32 @@
 	    height: 59px;
         background: @site-sprite 0 -35px no-repeat;
         top: 63px;
-        left: 7px;
+        left: 7px; //rtl
     }
 }
 .featureTxt1 {
-    margin-left: 15px;
+    margin-left: 15px; //rtl
 }
 .featureTxt2 {
-    margin: 0 50px;
+    margin: 0 75px;
     &:after {
         width: 55px;
 	    height: 65px;
-	    background-position: 0 -1353px;
-        left: 12px;
+	    background-position: 0 -1319px;
+        left: 12px; //rtl
     }
 }
 .featureTxt3 {
     &:after {
         width: 56px;
 	    height: 62px;
-	    background-position: 0 -403px;
-        left: 12px;
+	    background-position: 0 -369px;
+        left: 12px; //rtl
     }
 }
 
 .chooseActionWpr {
-    padding: 12px;
+    padding: 12px 2px;
     display: table;
     table-layout: fixed;
     width: 100%;
@@ -382,31 +379,117 @@
 }
 .browseCourses, .createCourse, .recommendedWpr {
     display: table-cell;
-    //border: 1px solid @borderColor;
-    //background: pink;
     .boxSizing;
+    position: relative;
+    vertical-align: top;
     button {
         width: 100%;
-        height: 100%;
-        //background: aqua;
+        height: 294px;
         border: 1px solid @borderColor;
+    }
+    
+}
+.actionTxt {
+    font-size: 22px;
+    color: #383838;
+    &:before {
+        content: '';
+        display: block;
+        width: 130px;
+	    height: 128px;
+	    background: @site-sprite 0 -113px no-repeat;
+        margin: 0 auto;
     }
 }
 .browseCourses {
-    padding-right: 8px;
+    padding-right: 8px; //rtl
+    .actionTxt:before {
+	    background-position: 0 -241px;
+    }
 }
 .createCourse {
-    margin: 0 8px;
-    &:first-of-type {
-        padding:0;
+    padding: 0 16px 0 8px;
+    &:last-child {
+        padding:0 0 0 8px; //rtl
     }
-    &:last-of-type {
-        padding:0 0 0 8px;
+    &:only-child {
+        padding:0;
     }
 }
 .recommendedWpr {
-    padding-left: 8px;
+    border: 1px solid @borderColor;
+    padding: 8px 20px 12px 28px; //rtl
+    color: @textColor;
+    vertical-align: top;
+    header {
+        font-size: 20px;
+        border-bottom: 1px solid @borderColor;
+        margin: 3px 0 10px;
+        padding: 0 0 10px 0; //override
+    }
 }
+.recommended {
+    .courseLink {
+        display: block;
+        height: 100%;
+    }
+    padding-left: 80px; //rtl
+    .boxSizing;
+    position: relative;
+    font-size: 15px;
+    height: 68px;
+    img {
+        position: absolute;
+        top:0;
+        left:0; //rtl
+        border-radius: 10px;
+    }
+    .rFloat {
+        border-left: 1px solid @borderColor; //rtl
+        width: 100px;
+        .boxSizing;
+        padding-left: 35px; //rtl
+        font-size: 13px;
+        margin-top: 10px;
+    }
+    &:nth-child(2) {
+        margin: 10px 0; 
+    }
+    .courseName {
+        padding-top: 4px;
+        color: @color;
+        font-weight: bold;
+    }
+    .prof {
+        font-size: 13px;
+    }
+    .friends, .files {
+        position: relative;
+        &:before {
+            content: attr(data-friends-count) '\00a0';
+            display: inline-block;
+        }
+        &:after {
+            .pseudo;
+            width: 21px;
+	        height: 21px;
+	        background: @site-sprite 0 -1405px no-repeat;
+            position: absolute;
+            left: -25px; //rtl
+            top:0;
+        }
+    }
+    .files {
+        margin-top: 10px;
+        &:before {
+            content: attr(data-files-count) '\00a0';
+        }
+        &:after {
+	        background-position: 0 -1384px;
+        }
+    }
+}
+
 /////////////////////////////////////
 .unionCourses {
     .emptyDash ~ .myAreaList {
@@ -449,6 +532,40 @@
 }
 
 /*#endregion */
+
+/*#region setup course 'popups' */
+.formWpr {
+    width: 650px;
+    margin: 115px auto 0;
+    padding: 25px;
+    .boxSizing;
+    border-radius: 3px;
+    background: #fff;
+    position: relative;
+    min-height: 150px;
+    &:after {
+        .pseudo;
+        position: absolute;
+        right: -26px;
+        top: 12px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 24.5px 0 24.5px 26px;
+        border-color: transparent transparent transparent #fff;
+    }
+    .actionTxt {
+        color: #fff;
+        position: absolute;
+        right: -176px;
+        top: -30px;
+        text-align: center;
+    }
+}
+
+
+/*#endregion */
+
 
 /*#region IframeProducts*/
 .products {
