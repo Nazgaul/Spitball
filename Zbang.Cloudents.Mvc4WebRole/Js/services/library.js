@@ -70,6 +70,26 @@
 
                 return dfd.promise;
             },
+            searchUniversities : function(data){
+                var dfd = $q.defer();
+                $http.get(Lib + 'SearchUniversity/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
+            facebookFriends: function(data){
+            var dfd = $q.defer();
+                $http.get(Lib + 'GetFriends/', { params: data }).success(function (response) {
+                dfd.resolve(response);
+            }).error(function (response) {
+                dfd.reject(response);
+            });
+
+            return dfd.promise;
+        }
         };
     }
     ]);
