@@ -2759,18 +2759,25 @@ body.quiz .shareBtn {
   left: auto;
 }
 .checkQuiz .userCorrect .quizQuestion,
+.afraid .userCorrect .quizQuestion,
 .checkQuiz .userWrong .quizQuestion,
+.afraid .userWrong .quizQuestion,
 .checkQuiz .userCorrect .quizAList,
-.checkQuiz .userWrong .quizAList {
+.afraid .userCorrect .quizAList,
+.checkQuiz .userWrong .quizAList,
+.afraid .userWrong .quizAList {
   padding: 0 0 0 80px;
   /*rtl*/
 }
 .checkQuiz .correct.correct label:before,
-.checkQuiz .wrong.wrong label:before {
+.afraid .correct.correct label:before,
+.checkQuiz .wrong.wrong label:before,
+.afraid .wrong.wrong label:before {
   margin: -3px -3px 0 0;
   /*rtl*/
 }
-.checkQuiz .quizQList .noAnswer:after {
+.checkQuiz .quizQList .noAnswer:after,
+.afraid .quizQList .noAnswer:after {
   left: -30px;
   /*rtl*/
   right: auto;

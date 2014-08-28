@@ -736,35 +736,34 @@ body.quiz .shareBtn {
 .quizPage ~ .modal-backdrop.in {
   opacity: 0.8;
 }
-.checkQuiz .resultsWpr,
-.checkQuiz .userScoreWpr,
-.checkQuiz .timeRetakeWpr,
-.checkQuiz .topUsersWpr,
-.checkQuiz .distributionWpr {
-  opacity: 1;
-  top: 0;
-  visibility: visible;
-}
-.checkQuiz .timeWpr {
-  display: none;
-}
 .checkQuiz .userCorrect .quizQuestion,
+.afraid .userCorrect .quizQuestion,
 .checkQuiz .userWrong .quizQuestion,
+.afraid .userWrong .quizQuestion,
 .checkQuiz .userCorrect .quizAList,
-.checkQuiz .userWrong .quizAList {
+.afraid .userCorrect .quizAList,
+.checkQuiz .userWrong .quizAList,
+.afraid .userWrong .quizAList {
   padding-right: 80px;
 }
 .checkQuiz .userCorrect .quizQuestion:before,
+.afraid .userCorrect .quizQuestion:before,
 .checkQuiz .userWrong .quizQuestion:before,
+.afraid .userWrong .quizQuestion:before,
 .checkQuiz .userCorrect .quizAList:before,
-.checkQuiz .userWrong .quizAList:before {
+.afraid .userCorrect .quizAList:before,
+.checkQuiz .userWrong .quizAList:before,
+.afraid .userWrong .quizAList:before {
   display: inline-block;
 }
-.checkQuiz .commentWpr {
+.checkQuiz .commentWpr,
+.afraid .commentWpr {
   display: block;
 }
 .checkQuiz .correct.correct label:before,
-.checkQuiz .wrong.wrong label:before {
+.afraid .correct.correct label:before,
+.checkQuiz .wrong.wrong label:before,
+.afraid .wrong.wrong label:before {
   content: '';
   display: inline-block;
   width: 17px;
@@ -775,13 +774,16 @@ body.quiz .shareBtn {
   margin: -3px 0 0 -3px;
   /*rtl*/
 }
-.checkQuiz .wrong.wrong label:before {
+.checkQuiz .wrong.wrong label:before,
+.afraid .wrong.wrong label:before {
   background-position: -36px -121px;
 }
-.checkQuiz .quizPrevWpr .btn1 {
+.checkQuiz .quizPrevWpr .btn1,
+.afraid .quizPrevWpr .btn1 {
   display: none;
 }
-.checkQuiz .quizQList .noAnswer:after {
+.checkQuiz .quizQList .noAnswer:after,
+.afraid .quizQList .noAnswer:after {
   content: attr(data-no-answer);
   display: inline-block;
   position: absolute;
@@ -793,6 +795,18 @@ body.quiz .shareBtn {
   padding: 3px 8px;
   border-radius: 8px;
   font-size: 13px;
+}
+.checkQuiz .resultsWpr,
+.checkQuiz .userScoreWpr,
+.checkQuiz .timeRetakeWpr,
+.checkQuiz .topUsersWpr,
+.checkQuiz .distributionWpr {
+  opacity: 1;
+  top: 0;
+  visibility: visible;
+}
+.checkQuiz .timeWpr {
+  display: none;
 }
 .userCorrect .quizQuestion,
 .userWrong .quizQuestion,
@@ -997,6 +1011,7 @@ body.quiz .shareBtn {
   background: url(/Images/quizSprite.png?v=1) 0 -468px no-repeat;
   display: inline-block;
   position: relative;
+  vertical-align: top;
 }
 .topUser:nth-child(2) {
   margin: 0 40px;
