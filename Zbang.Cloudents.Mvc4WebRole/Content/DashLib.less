@@ -546,24 +546,85 @@
     &:after {
         .pseudo;
         position: absolute;
-        right: -26px;
+        left: -26px;
         top: 12px;
         width: 0;
         height: 0;
         border-style: solid;
-        border-width: 24.5px 0 24.5px 26px;
-        border-color: transparent transparent transparent #fff;
+        border-width: 24.5px 26px 24.5px 0;
+        border-color: transparent #fff transparent transparent;
     }
     .actionTxt {
         color: #fff;
         position: absolute;
-        right: -176px;
+        left: -176px;
         top: -30px;
         text-align: center;
     }
+    .radio {
+        &:checked {
+
+        }
+    }
+    label {
+        margin-bottom: 5px;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .inputText {
+        width: 100%;
+        height: 37px;
+        display: block;
+        .boxSizing;
+        margin-bottom: 20px;
+        &:disabled {
+            background: @borderColor;
+        }
+        
+    }
+    .btn1 {
+        margin-right: 10px;
+    }
+    .courseId, .professor {
+        width: 290px;
+    }
+    .department {
+        position: relative; //for change department name
+    }
+    &.js-private {
+        .newPrivate {
+            display: block;
+        }
+    }
+    &.js-academic {
+        .newAcademic {
+            display: block;
+        }
+    }
+}
+.courseType {
+    display: inline-block;
+    margin-bottom: 25px;
+    + .courseType {
+        margin-left: 70px;
+    }
+}
+.labelExplain {
+    width: 140px;
+    padding-left: 30px;
 }
 
-
+.newPrivate, .newAcademic {
+    display: none;
+}
+.changeDeptBtn {
+    position: absolute;
+    right: 8px;
+    top: 2px;
+    color: @attentionBlue;
+    font-size: 13px;
+}
 /*#endregion */
 
 

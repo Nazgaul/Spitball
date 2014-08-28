@@ -2,6 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
 
 @*Guy: when user has just come from select uni - add class js-newDash*@
 
@@ -190,8 +191,42 @@
     </div>
 </div> 
 
-<div class="formWpr">
+<div class="formWpr js-academic">
     <div class="actionTxt">@IndexResources.CreateCourse</div>
+
+    <div class="courseType">
+        <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
+        @*<label for="PrivateCourse">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>*@
+        @*<div class="labelExplain explain1">@SharedResources.OnlyPeople</div>*@
+        <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
+        <div class="labelExplain explain1">@IndexResources.InviteOnly</div>
+    </div>
+
+    <div class="courseType">
+        <input class="radio" type="radio" id="OpenCourse" name="courseType" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
+        @*<label for="OpenCourse">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+            <div class="labelExplain">@SharedResources.AnyoneWho</div>*@
+        <label for="OpenCourse">@IndexResources.OpenCourse</label>
+        <div class="labelExplain">@IndexResources.AnyoneUrl</div>
+    </div>
+
+    <div class="newAcademic">
+        @{
+            Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
+        }
+    </div>
+
+    <div class="newPrivate">
+        @{
+            Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl });
+        }
+    </div>
+
+    @*<div class="newDepartment">
+            @{
+                Html.RenderPartial("~/Library/_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
+            }
+        </div>*@
 
 </div>
 
