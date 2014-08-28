@@ -74,7 +74,7 @@
                         data: function () {
                             return {
                                 singleMessage: true,
-                                user: user
+                                users: [user]
                             };
                         }
                     }
