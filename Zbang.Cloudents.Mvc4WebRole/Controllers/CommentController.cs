@@ -7,7 +7,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
