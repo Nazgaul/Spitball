@@ -5,14 +5,12 @@ using System.Web.Mvc;
 using System.Web.SessionState;
 using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Security;
@@ -81,9 +79,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-
-        [HttpGet]
+        [HttpGet, NonAjax]
         public ActionResult Choose()
+        {
+            return View("Empty");
+        }
+
+        [HttpGet,Ajax]
+        [ActionName("Choose")]
+        public ActionResult ChooseIndex()
         {
             var country = GetUserCountryByIp();
             var haveUniversity = false;
@@ -96,14 +100,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
 
-            return View("_SelectUni");
+            return PartialView("_SelectUni");
         }
         [HttpGet, Ajax]
-        public ActionResult SearchUniversity(string term)
+        public async Task<JsonResult> SearchUniversity(string term)
         {
             try
             {
-                var retVal = m_UniversitySearch.Value.SearchUniversity(term);
+                var retVal = await m_UniversitySearch.Value.SearchUniversity(term);
                 return Json(new JsonResponse(true, retVal));
             }
             catch (Exception ex)

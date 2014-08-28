@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,20 +31,25 @@ namespace TestingApp
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>("azureSearch");
-            lucenewire.BuildUniversityData();
-           // textBox2.Text = "Complete";
+            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
+            await lucenewire.BuildUniversityData();
+             textBox2.Text = "Complete";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
+
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
             var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
-            var retVal = luceneRead.SearchUniversity(textBox1.Text);
+            var sw = new Stopwatch();
+            sw.Start();
+            var retVal = await luceneRead.SearchUniversity(textBox1.Text);
+            sw.Stop();
             textBox2.Text = string.Empty;
+            textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
             foreach (var item in retVal)
             {
                 textBox2.Text += string.Format("id: {0} name: {1} ", item.Id, item.Name);
@@ -51,5 +57,6 @@ namespace TestingApp
             }
             //textBox2.Text  = string .Format("",)
         }
+        
     }
 }

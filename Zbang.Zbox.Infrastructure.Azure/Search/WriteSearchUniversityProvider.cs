@@ -13,14 +13,17 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
-    public class SearchUniversityProvider : IUniversityWriteSearchProvider
+    public class WriteSearchUniversityProvider : IUniversityWriteSearchProvider
     {
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
-        public SearchUniversityProvider(IZboxReadServiceWorkerRole dbReadService)
+        const string CloudentssearchSearchWindowsNet = "cloudentssearch.search.windows.net";
+        const string ApiKey = "3631C973B9E89471C33C9BA7CD98475B";
+
+        public WriteSearchUniversityProvider(IZboxReadServiceWorkerRole dbReadService)
         {
             m_DbReadService = dbReadService;
         }
-        public async void BuildUniversityData()
+        public async Task BuildUniversityData()
         {
             var indexExists = await CheckIndexExits("universities");
             if (!indexExists)
@@ -29,10 +32,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
             var resource = LoadResource("UniversityData.txt");
             var universities = ConvertToObject(resource);
-            BuildData(universities);
+           await BuildData(universities);
         }
 
-        private async void BuildData(IEnumerable<University> universitiesExtra)
+        private async Task BuildData(IEnumerable<University> universitiesExtra)
         {
             universitiesExtra = universitiesExtra.ToList();
             var universities = await m_DbReadService.GetUniversityDetail();
@@ -59,25 +62,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 list.Add(item);
 
-                /* doc.Add(new Field(IdField, university.Id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
-                  doc.Add(new Field(NameField, university.Name, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-                  if (extraDetail != null)
-                  {
-                      doc.Add(new Field("extra1", extraDetail.Extra1, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-                      doc.Add(new Field("extra2", extraDetail.Extra2, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-                      doc.Add(new Field("extra3", extraDetail.Extra3, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
-                  }
-                  doc.Add(new Field(ImageField, university.Image, Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
-                  doc.Add(new Field(MembersCountField, university.MemberCount.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));*/
-                // list.Add(new SearchField)
 
 
             }
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Add("Host", "cloudentssearch.search.windows.net");
-                httpClient.DefaultRequestHeaders.Add("api-key", "3631C973B9E89471C33C9BA7CD98475B");
+
+                httpClient.DefaultRequestHeaders.Add("Host", CloudentssearchSearchWindowsNet);
+
+                httpClient.DefaultRequestHeaders.Add("api-key", ApiKey);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 string output = JsonConvert.SerializeObject(new { value = list }, new JsonSerializerSettings
@@ -103,8 +97,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         {
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Add("Host", "cloudentssearch.search.windows.net");
-                httpClient.DefaultRequestHeaders.Add("api-key", "3631C973B9E89471C33C9BA7CD98475B");
+                httpClient.DefaultRequestHeaders.Add("Host", CloudentssearchSearchWindowsNet);
+                httpClient.DefaultRequestHeaders.Add("api-key", "ApiKey");
 
                 using (var retVal = await httpClient.GetAsync(
                     "https://cloudentssearch.search.windows.net/indexes/universities?api-version=2014-07-31-Preview"))
@@ -131,8 +125,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Add("Host", "cloudentssearch.search.windows.net");
-                httpClient.DefaultRequestHeaders.Add("api-key", "3631C973B9E89471C33C9BA7CD98475B");
+                httpClient.DefaultRequestHeaders.Add("Host", CloudentssearchSearchWindowsNet);
+                httpClient.DefaultRequestHeaders.Add("api-key", ApiKey);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 

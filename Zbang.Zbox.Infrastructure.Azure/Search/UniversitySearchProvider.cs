@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading.Tasks;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
@@ -54,14 +55,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_Timer.Enabled = true;
 
         }
-        public void BuildUniversityData()
+        public async Task BuildUniversityData()
         {
             var resource = LoadResource("UniversityData.txt");
             var universities = ConvertToObject(resource);
-            BuildLucene(universities);
+            await BuildLucene(universities);
         }
 
-        private async void BuildLucene(IEnumerable<University> universitiesExtra)
+        private async Task BuildLucene(IEnumerable<University> universitiesExtra)
         {
 
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
@@ -121,7 +122,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
         }
 
-        public IEnumerable<UniversityByPrefixDto> SearchUniversity(string term)
+        public Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(string term)
         {
             if (term == null) throw new ArgumentNullException("term");
 
@@ -156,12 +157,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 // search by multiple fields (ordered by RELEVANCE)
                 var parser = new MultiFieldQueryParser
-                    (Version.LUCENE_30, new[] {"name", "extra1", "extra2", "extra3"}, analyzer);
+                    (Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer);
                 //{
                 //    AllowLeadingWildcard = true
                 //};
 
-               
+
                 var splitWords = term.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 var terms = new List<string>();
                 foreach (var splitWord in splitWords)
@@ -175,7 +176,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 }
                 var query = ParseQuery(string.Join(" ", terms) + "*", parser);
                 var values = ProcessHits(query);
-                
+
                 terms.Clear();
                 foreach (var splitWord in splitWords)
                 {
@@ -189,11 +190,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 parser.AllowLeadingWildcard = true;
                 var extendQuery = ParseQuery(string.Join(" ", terms) + "*", parser);
                 values = values.Union(ProcessHits(extendQuery));
-                return values;
+                return Task.FromResult(values);
             }
             // }
             //return new List<SampleData>();
         }
+
+
 
         private IEnumerable<UniversityByPrefixDto> ProcessHits(Lucene.Net.Search.Query query)
         {

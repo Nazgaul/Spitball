@@ -1,12 +1,13 @@
 ﻿var mQuiz = angular.module('mQuiz', ['timer']);
 mQuiz.controller('QuizCtrl',
-        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sQuiz', 'sUserDetails',
-        function ($scope, $window, $timeout, $fliter, $routeParams, sQuiz, sUserDetails) {
+        ['$scope', '$window', '$timeout', '$filter', '$routeParams', '$modal', 'sQuiz', 'sUserDetails',
+        function ($scope, $window, $timeout, $fliter, $routeParams, $modal, sQuiz, sUserDetails) {
             cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 
-            var questions;
+            var questions,
+                challengeTimeout;
 
-            $scope.profile = {                
+            $scope.profile = {
                 userImage: sUserDetails.getDetails().image
             };
 
@@ -24,7 +25,7 @@ mQuiz.controller('QuizCtrl',
                 if (sUserDetails.isAuthenticated()) {
                     var savedSheet = $window.localStorage.getItem($scope.quiz.id);
                     if (savedSheet) {
-                    
+
                         $scope.formData = JSON.parse(savedSheet);
                         submitResult();
                         setResults();
@@ -33,7 +34,7 @@ mQuiz.controller('QuizCtrl',
                             $scope.$emit('viewContentLoaded');
                         });
                         return;
-                    }                
+                    }
                 }
 
 
@@ -61,14 +62,45 @@ mQuiz.controller('QuizCtrl',
                 $timeout(function () {
                     $scope.$emit('viewContentLoaded');
                 });
-            });
 
+                challengeTimeout = $timeout(function () {
+                    if ($scope.quiz.testInProgress) {
+                        return;
+                    }
+                    if ($scope.quiz.userDone) {
+                        return;
+                    }
+
+                    var modalInstance = $modal.open({
+                        windowClass: 'quizPopup',
+                        templateUrl: '/Quiz/ChallengePartial/',
+                        controller: 'ChallengeCtrl',
+                        backdrop: 'static'
+                    });
+
+                    modalInstance.result.then(function (response) {                        
+                        solveQuiz();
+                        getDiscussion();
+                        $scope.quiz.afraid = true;
+                    }); //cancel doesn't do anything
+
+                    return;
+                }, 5000);
+            });
             $scope.timer = {
                 state: 'Play'
             };
 
             //#region quiz
             $scope.takeQuiz = function () {
+                if ($scope.quiz.afraid) {
+                    $scope.quiz.afraid = false;
+                    $scope.quiz.questions = _.clone(questions); //reset the data
+                }
+                
+                $timeout.cancel(challengeTimeout);
+
+
                 startResumeQuiz();
             };
 
@@ -78,10 +110,12 @@ mQuiz.controller('QuizCtrl',
             };
 
             $scope.retakeQuiz = function () {
+                $timeout.cancel(challengeTimeout);
                 resetQuiz();
             };
 
             $scope.markCorrect = function (question, answer) {
+                //add the answer delete the old one if exists and start/resume test if needed
                 var oldAnswer = _.find($scope.formData.answerSheet, function (item) {
                     return item.question.id === question.id;
                 });
@@ -101,6 +135,15 @@ mQuiz.controller('QuizCtrl',
                 if ($scope.quiz.testInProgress) {
                     return;
                 }
+
+
+                $timeout.cancel(challengeTimeout);
+
+                if ($scope.quiz.afraid) {
+                    $scope.quiz.afraid = false;
+                    $scope.quiz.questions = _.clone(questions); //reset the data
+                }
+
 
                 if ($scope.quiz.paused) {
                     resumeTimer();
@@ -134,9 +177,22 @@ mQuiz.controller('QuizCtrl',
                 $scope.quiz.timeTaken = $scope.formData.timeTaken;
                 $scope.quiz.userDone = true;
                 setResults();
-                getDiscussion();
+                //getDiscussion();
                 submitResult();
             });
+
+            function solveQuiz() {
+                for (var i = 0; i < $scope.quiz.questions.length; i++) {
+                    question = $scope.quiz.questions[i];
+                    question.correct = true;
+                    var correctAnswer = _.find(question.answers, function (answer) {
+                        return question.correctAnswer === answer.id;
+                    });
+
+                    correctAnswer.correct = true;                    
+                    correctAnswer.isChecked = true;
+                }
+            }
 
             function checkAnswers() {
                 $scope.quiz.correctAnswers = $scope.quiz.wrongAnswers = 0;
@@ -168,7 +224,7 @@ mQuiz.controller('QuizCtrl',
                     markCorrect();
                 }
 
-
+                 
                 function markCorrect() {
                     var correctAnswer = _.find(question.answers, function (answer) {
                         return question.correctAnswer === answer.id;
@@ -297,7 +353,7 @@ mQuiz.controller('QuizCtrl',
                     function (response) { }
                    );
             };
-            function getDiscussion() {                
+            function getDiscussion() {
                 sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (response) {
                     var data = response.success ? response.payload : {};
                     _.forEach(data, function (comment) {

@@ -22,7 +22,7 @@
                            ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)" ng-required="!formData.emailList.length"
                            ng-model="formData.searchInput" typeahead="friend for friend in friends | filter: filterBy($viewValue) | orderByFilter:{field: 'name', input:$viewValue} | limitTo: 10" typeahead-min-length="2"
                            typeahead-on-select="onSelectedItem($item)" typeahead-template-url="{{views.emailMenuItem}}" />
-                </div>
+                </div> 
                 <button type="button" class="gConnect" ng-if="!sources.google" ng-click="loadGoogleContacts()">@SharedResources.Connect</button>
             </div>
             @*<label class="validateMsg" ng-show="submitted && !formData.emailList.length">@SharedResources.EmailRequired</label>*@

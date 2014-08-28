@@ -11,35 +11,30 @@
         </div>
     </div>*@
 
-<div class="modal-backdrop fade in" style="z-index: 1051;"></div>
+@*<div class="modal-backdrop fade in" style="z-index: 1051;"></div>*@
 
 @*Guy: please add the class 'quizPopup' on the modal-dialog*@
 
-<div class="modal-dialog quizPopup">
-    <div class="modal-content">
-        <div class="modal-body">
-            <div class="quizPopupHeader">@QuizResources.QuizTime</div>
-            <div class="classmatesWpr">
+<div class="modal-body">
+    <div class="quizPopupHeader">@QuizResources.QuizTime</div>
+    <div class="classmatesWpr">
 
-                @*Guy:  (1) please add the class 'plus' to friendsPics are > 3 classmates who took the quiz
-                        (2) set a value to the data-plus-count attribute
-                        (3) Set the img src to /Images/user-img.png if there are < 3 classmates who took the quiz*@
-                <div class="friendsPics plus" data-plus-count="32">
-                    <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
-                    <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
-                    <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
-                    <img class="defaultImg" alt="" src="~/Images/user-img.png" width="51" height="51" />
-                </div>
-                <div class="quizPopupTxtWpr">
-                    <div class="quizPopupTxt1">@QuizResources.OfYourMates</div>
-                    <div class="quizPopupTxt2">@QuizResources.YouReady</div>
-                </div>
-            </div>
-            <div class="quizPopupBtnWpr">
-                <button class="btn1">@QuizResources.TakeChance</button>
-                <button class="btn1">@QuizResources.Afraid</button>
-            </div>
+        @*Guy:  (1) please add the class 'plus' to friendsPics are > 3 classmates who took the quiz
+            (2) set a value to the data-plus-count attribute
+            (3) Set the img src to /Images/user-img.png if there are < 3 classmates who took the quiz*@
+        <div class="friendsPics plus" data-plus-count="32">
+            <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
+            <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
+            <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
+            <img class="defaultImg" alt="" src="~/Images/user-img.png" width="51" height="51" />
+        </div>
+        <div class="quizPopupTxtWpr">
+            <div class="quizPopupTxt1">@QuizResources.OfYourMates</div>
+            <div class="quizPopupTxt2">@QuizResources.YouReady</div>
         </div>
     </div>
+    <div class="quizPopupBtnWpr">
+        <button class="btn1" ng-click="takeChance()">@QuizResources.TakeChance</button>
+        <button class="btn1" ng-click="afraidTry()">@QuizResources.Afraid</button>
+    </div>
 </div>
-

@@ -36,9 +36,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 13);
+            this.button1.Location = new System.Drawing.Point(10, 11);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(241, 23);
+            this.button1.Size = new System.Drawing.Size(181, 19);
             this.button1.TabIndex = 0;
             this.button1.Text = "Build Lucene University Index";
             this.button1.UseVisualStyleBackColor = true;
@@ -46,9 +47,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(13, 93);
+            this.button2.Location = new System.Drawing.Point(10, 76);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(241, 23);
+            this.button2.Size = new System.Drawing.Size(181, 19);
             this.button2.TabIndex = 1;
             this.button2.Text = "Search University";
             this.button2.UseVisualStyleBackColor = true;
@@ -56,28 +58,31 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 53);
+            this.textBox1.Location = new System.Drawing.Point(10, 43);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(241, 22);
+            this.textBox1.Size = new System.Drawing.Size(182, 20);
             this.textBox1.TabIndex = 2;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(13, 134);
+            this.textBox2.Location = new System.Drawing.Point(10, 109);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(749, 501);
+            this.textBox2.Size = new System.Drawing.Size(563, 408);
             this.textBox2.TabIndex = 3;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 647);
+            this.ClientSize = new System.Drawing.Size(580, 526);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);

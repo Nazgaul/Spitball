@@ -110,6 +110,12 @@ app.config([
             },
             templateUrl: '/library/' 
         }).
+        when('/library/choose/', {
+            params: {
+                type: 'libraryChoose'
+            },
+            templateUrl: '/library/choose/'
+        }).
         when('/library/', {
             params: {
                 type: 'library'

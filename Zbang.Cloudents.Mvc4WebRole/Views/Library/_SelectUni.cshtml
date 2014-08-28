@@ -21,31 +21,54 @@
         </p>
     </aside>
 }
-<div id="library"  class="library">@*class="page"*@
-    <div class="libEmpty libraryChoose" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country">
+<div id="library" class="library page" ng-controller="LibChooseCtrl">
+    <div class="libEmpty libraryChoose" id="libraryChoose" @*data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country"*@>
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
 
-        <div class="uniWpr">
-            <input type="text" id="uni_search" class="inputText uniSearch" placeholder="@MainViewResources.SearchFor" autocomplete="off" />
-        </div>        
-        <ul class="fbUniList" id="fbUniList">           
-        </ul>
-
-        <ul class="uniList" id="uniList">
-            <li class="emptySearch">@SharedResources.NoResults</li>
-            <li class="newUni">
-                <span>@MainViewResources.CantFind</span>
-                @*<a href="#" class="createUni">@SharedResources.CreateNew</a>*@
-                <button type="button" class="createUni">@SharedResources.CreateNew</button>
+        <div class="uniWpr" bindonce>
+            <input type="text" class="inputText uniSearch" ng-placeholder="@MainViewResources.SearchFor" autocomplete="off"
+                   ng-model="formData.searchInput" ng-keyup="search()"/>
+        </div>
+        <ul class="fbUniList" bindonce ng-style="{display: display.facebook ? 'block' : 'none'}">
+            <li ng-repeat="university in FBUniversities">
+                <div class="schoolItem">
+                    <img bo-src="university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
+                    <div class="uniDetails">
+                        <button type="button" class="btn3 rFloat" ng-click="chooseUniversity(university)">@SharedResources.Choose</button>
+                        <div class="uniName elps boldFont" bo-text="university.name"></div>
+                        <div class="friendsCount" bo-attr bo-attr-data-friendscount="university.friendsCount">@MainViewResources.FriendsRegistered</div>
+                    </div>
+                </div>
+                <ul class="fbFriendsList">
+                    <li ng-repeat="friend in university.friends">
+                        <img bo-src="friend.image" class="lFloat imgBorder" width="32" height="32" bo-attr-tooltip="friend.name" bo-attr bo-attr-alt="friend.name" />
+                    </li>
+                </ul>
             </li>
         </ul>
 
-        @{
-            Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity());
-        }
+        <ul class="uniList" ng-class="{noResults : universities.length === 0 }" bindonce ng-style="{display: display.search ? 'block' : 'none'}">
+            <li class="schoolItem" ng-repeat="university in universities">
+                <img bo-src="university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
+                <span class="uniDetails">
+                    <span class="uniName elps boldFont" bo-text="university.name"></span>
+                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@ bo-text="university.membersCount"></span>
+                </span>
+            </li>
 
-        <div class="completeRegistration">
+            <li class="emptySearch">@SharedResources.NoResults</li>
+            <li class="newUni">
+                <span>@MainViewResources.CantFind</span>
+                <button type="button" class="createUni" ng-click="createNew()">@SharedResources.CreateNew</button>
+            </li>
+        </ul>
+
+        @*@{
+            Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity());
+        }*@
+
+        @*<div class="completeRegistration">
             <div class="top">
                 <img class="uniImg" src="http://placehold.it/66x66" alt="" width="66" height="66" />
                 <div class="uniRegTxt1" data-school="{UNINAME}">@MainViewResources.YouStudyAt</div>
@@ -55,12 +78,12 @@
                 Html.RenderPartial("_ChooseDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.ChooseDepartment());
                 Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
             }
-        </div>
+        </div>*@
     </div>
 </div>
 
 
-<script>
+@*<script>
     window.fbAsyncInit = function () {
         FB.init({
             appId: '450314258355338',
@@ -75,39 +98,20 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-</script>
+</script>*@
 
-@section scripts{
+@*@section scripts{
 
     @Html.Script2("ChooseLib")
-}
+}*@
 
-<script type="text/html" id="universityItemTemplate">
-    <li class="schoolItem" data-id="{{id}}">
-        <img src="{{image}}" class="lFloat uniImg" width="66" height="66" alt="{{name}}" />
-        <span class="uniDetails">
-            <span class="uniName elps boldFont">{{name}}</span>
-            <span class="uniCount" data-students="@MainViewResources.Students" data-student="@MainViewResources.Student">{{membersCount}}</span>
-        </span>    
-    </li>
+<script type="text/ng-template" id="universityItemTemplate">    
 </script>
 
 
-<script type="text/html" id="universityItemFbTemplate">
-    <li>
-        <div class="schoolItem">
-            <img src="{{image}}" class="lFloat uniImg" width="66" height="66" alt="uni" />
-            <div class="uniDetails">
-                <button type="button" class="btn3 rFloat" data-id="{{id}}">@SharedResources.Choose</button>
-                <div class="uniName elps boldFont">{{name}}</div>
-                <div class="friendsCount" data-friendscount="{{friendsCount}}">@MainViewResources.FriendsRegistered</div>
-            </div>
-        </div>
-        <ul class="fbFriendsList">
-            {{friendsList}}
-        </ul>
-    </li>     
+<script type="text/ng-template" id="universityItemFbTemplate">    
+        
 </script>
-<script type="text/html" id="fBFriendTemplate">
-    <li><img src="{{image}}" class="lFloat imgBorder" width="32" height="32" data-title="{{name}}" alt="{{name}}" /></li>
+<script type="text/ng-template" id="fBFriendTemplate">
+    
 </script>
