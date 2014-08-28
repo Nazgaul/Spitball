@@ -55,14 +55,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_Timer.Enabled = true;
 
         }
-        public void BuildUniversityData()
+        public async Task BuildUniversityData()
         {
             var resource = LoadResource("UniversityData.txt");
             var universities = ConvertToObject(resource);
-            BuildLucene(universities);
+            await BuildLucene(universities);
         }
 
-        private async void BuildLucene(IEnumerable<University> universitiesExtra)
+        private async Task BuildLucene(IEnumerable<University> universitiesExtra)
         {
 
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
@@ -196,7 +196,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             //return new List<SampleData>();
         }
 
-       
+
 
         private IEnumerable<UniversityByPrefixDto> ProcessHits(Lucene.Net.Search.Query query)
         {
@@ -290,7 +290,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_AzureUniversitiesSpellerDirectory.Dispose();
             m_Timer.Dispose();
         }
-     
+
     }
 
 

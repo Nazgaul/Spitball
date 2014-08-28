@@ -81,9 +81,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        [HttpGet, NonAjax]
+        public ActionResult Choose()
+        {
+            return View("Empty");
+        }
 
         [HttpGet,Ajax]
-        public ActionResult Choose()
+        [ActionName("Choose")]
+        public ActionResult ChooseIndex()
         {
             var country = GetUserCountryByIp();
             var haveUniversity = false;

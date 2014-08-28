@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         {
             m_DbReadService = dbReadService;
         }
-        public async void BuildUniversityData()
+        public async Task BuildUniversityData()
         {
             var indexExists = await CheckIndexExits("universities");
             if (!indexExists)
@@ -32,10 +32,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
             var resource = LoadResource("UniversityData.txt");
             var universities = ConvertToObject(resource);
-            BuildData(universities);
+           await BuildData(universities);
         }
 
-        private async void BuildData(IEnumerable<University> universitiesExtra)
+        private async Task BuildData(IEnumerable<University> universitiesExtra)
         {
             universitiesExtra = universitiesExtra.ToList();
             var universities = await m_DbReadService.GetUniversityDetail();

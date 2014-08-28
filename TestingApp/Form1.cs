@@ -31,19 +31,19 @@ namespace TestingApp
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>("azureSearch");
-            lucenewire.BuildUniversityData();
-            // textBox2.Text = "Complete";
+            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
+            await lucenewire.BuildUniversityData();
+             textBox2.Text = "Complete";
         }
 
         private async void button2_Click(object sender, EventArgs e)
         {
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-            var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>("azureSearch");
+            var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
             var retVal = await luceneRead.SearchUniversity(textBox1.Text);

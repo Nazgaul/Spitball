@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
     public interface IUniversityWriteSearchProvider
     {
-        void BuildUniversityData();
+        Task BuildUniversityData();
     }
 
 }
