@@ -752,15 +752,7 @@ body {
         opacity: 0.8;
     }
 }
-.checkQuiz {
-    .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
-        opacity: 1;
-        top: 0;
-        visibility: visible;
-    }
-    .timeWpr {
-        display: none;
-    }
+.checkQuiz, .afraid {
     .userCorrect, .userWrong {
         .quizQuestion, .quizAList {
             padding-right: 80px; ////
@@ -804,6 +796,16 @@ body {
         padding: 3px 8px;
         border-radius: 8px;
         font-size: 13px;
+    }
+}
+.checkQuiz {
+    .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
+        opacity: 1;
+        top: 0;
+        visibility: visible;
+    }
+    .timeWpr {
+        display: none;
     }
 }
 
@@ -992,6 +994,7 @@ body {
 	background: @quiz-sprite 0 -468px no-repeat;
     display: inline-block;
     position: relative;
+    vertical-align: top;
     &:nth-child(2) {
         margin: 0 40px;
     }

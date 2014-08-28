@@ -377,15 +377,11 @@
   height: 294px;
   border: 1px solid #c2c2c2;
 }
-.browseCourses .actionTxt,
-.createCourse .actionTxt,
-.recommendedWpr .actionTxt {
+.actionTxt {
   font-size: 22px;
   color: #383838;
 }
-.browseCourses .actionTxt:before,
-.createCourse .actionTxt:before,
-.recommendedWpr .actionTxt:before {
+.actionTxt:before {
   content: '';
   display: block;
   width: 130px;
@@ -518,6 +514,39 @@
 }
 .groupEmpty:before {
   background-position: -106px -1px;
+}
+/*#endregion */
+/*#region setup course 'popups' */
+.formWpr {
+  width: 650px;
+  margin: 115px auto 0;
+  padding: 25px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
+  background: #fff;
+  position: relative;
+  min-height: 150px;
+}
+.formWpr:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  right: -26px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 24.5px 0 24.5px 26px;
+  border-color: transparent transparent transparent #fff;
+}
+.formWpr .actionTxt {
+  color: #fff;
+  position: absolute;
+  right: -176px;
+  top: -30px;
+  text-align: center;
 }
 /*#endregion */
 /*#region IframeProducts*/

@@ -11,7 +11,7 @@
         </div>
     </div>*@
 
-<div class="modal-backdrop fade in" style="z-index: 1051;"></div>
+@*<div class="modal-backdrop fade in" style="z-index: 1051;"></div>*@
 
 @*Guy: please add the class 'quizPopup' on the modal-dialog*@
 
@@ -36,8 +36,8 @@
                 </div>
             </div>
             <div class="quizPopupBtnWpr">
-                <button class="btn1">@QuizResources.TakeChance</button>
-                <button class="btn1">@QuizResources.Afraid</button>
+                <button class="btn1" ng-click="takeChance()">@QuizResources.TakeChance</button>
+                <button class="btn1" ng-click="afraidTry()">@QuizResources.Afraid</button>
             </div>
         </div>
     </div>

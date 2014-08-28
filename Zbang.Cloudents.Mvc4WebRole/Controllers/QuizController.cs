@@ -16,6 +16,7 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using System.Web.UI;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -114,6 +115,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, model));
         }
 
+
+        [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        public ActionResult ChallengePartial()
+        {
+            try
+            {
+                return PartialView("_QuizDialog");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_QuizDialog", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
         //[NonAction]
         //private async Task<QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName)
         //{
