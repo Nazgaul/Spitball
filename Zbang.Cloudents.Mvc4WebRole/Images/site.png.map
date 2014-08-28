@@ -1,147 +1,147 @@
 {
   "images": [
     {
-      "name": "/Images/back_back.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/back_back.png",
       "width": 35,
       "height": 35,
       "offsetX": 0,
       "offsetY": 0
     },
     {
-      "name": "/Images/books.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/books.png",
       "width": 65,
       "height": 59,
       "offsetX": 0,
       "offsetY": 35
     },
     {
-      "name": "/Images/close.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/close.png",
       "width": 19,
       "height": 19,
       "offsetX": 0,
       "offsetY": 94
     },
     {
-      "name": "/Images/course.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/course.png",
       "width": 130,
       "height": 128,
       "offsetX": 0,
       "offsetY": 113
     },
     {
-      "name": "/Images/department.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/department.png",
       "width": 130,
       "height": 128,
       "offsetX": 0,
       "offsetY": 241
     },
     {
-      "name": "/Images/document.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/document.png",
       "width": 56,
       "height": 62,
       "offsetX": 0,
       "offsetY": 369
     },
     {
-      "name": "/Images/drive_upload.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/drive_upload.png",
       "width": 86,
       "height": 76,
       "offsetX": 0,
       "offsetY": 431
     },
     {
-      "name": "/Images/friends_cloudents_black.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/friends_cloudents_black.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
       "offsetY": 507
     },
     {
-      "name": "/Images/friends_cloudents_green.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/friends_cloudents_green.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
       "offsetY": 598
     },
     {
-      "name": "/Images/friends_facebook_black.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/friends_facebook_black.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
       "offsetY": 689
     },
     {
-      "name": "/Images/friends_facebook_blue.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/friends_facebook_blue.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
       "offsetY": 780
     },
     {
-      "name": "/Images/friends_gmail_black.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/friends_gmail_black.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
       "offsetY": 871
     },
     {
-      "name": "/Images/friends_gmail_red.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/friends_gmail_red.png",
       "width": 91,
       "height": 91,
       "offsetX": 0,
       "offsetY": 962
     },
     {
-      "name": "/Images/placeholder_user_img.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/placeholder_user_img.png",
       "width": 46,
       "height": 37,
       "offsetX": 0,
       "offsetY": 1053
     },
     {
-      "name": "/Images/share_white.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/share_white.png",
       "width": 22,
       "height": 18,
       "offsetX": 0,
       "offsetY": 1090
     },
     {
-      "name": "/Images/uni_logo.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/uni_logo.png",
       "width": 41,
       "height": 34,
       "offsetX": 0,
       "offsetY": 1108
     },
     {
-      "name": "/Images/upload.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/upload.png",
       "width": 126,
       "height": 98,
       "offsetX": 0,
       "offsetY": 1142
     },
     {
-      "name": "/Images/web_upload.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/web_upload.png",
       "width": 82,
       "height": 79,
       "offsetX": 0,
       "offsetY": 1240
     },
     {
-      "name": "/Images/quiz.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz.png",
       "width": 55,
       "height": 65,
       "offsetX": 0,
       "offsetY": 1319
     },
     {
-      "name": "/Images/icon_doc.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/icon_doc.png",
       "width": 21,
       "height": 21,
       "offsetX": 0,
       "offsetY": 1384
     },
     {
-      "name": "/Images/icon_man.png",
+      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/icon_man.png",
       "width": 21,
       "height": 21,
       "offsetX": 0,

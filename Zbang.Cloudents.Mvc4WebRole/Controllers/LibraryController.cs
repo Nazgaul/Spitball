@@ -99,11 +99,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("_SelectUni");
         }
         [HttpGet, Ajax]
-        public ActionResult SearchUniversity(string term)
+        public async Task<JsonResult> SearchUniversity(string term)
         {
             try
             {
-                var retVal = m_UniversitySearch.Value.SearchUniversity(term);
+                var retVal = await m_UniversitySearch.Value.SearchUniversity(term);
                 return Json(new JsonResponse(true, retVal));
             }
             catch (Exception ex)
