@@ -154,8 +154,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue\QueueProvider.cs" />
     <Compile Include="Search\IUniversityReadSearchProvider.cs" />
+    <Compile Include="Search\ReadSearchUniversityProvider.cs" />
     <Compile Include="Search\SearchIndex.cs" />
-    <Compile Include="Search\SearchUniversityProvider.cs" />
+    <Compile Include="Search\WriteSearchUniversityProvider.cs" />
     <Compile Include="Search\University.cs" />
     <Compile Include="Search\UniversitySearchProvider.cs" />
     <Compile Include="Storage\LocalStorageProvider.cs" />
