@@ -21,7 +21,7 @@
         </p>
     </aside>
 }
-<div id="library"  class="library">@*class="page"*@
+<div id="library"  class="library page" ng-controller="LibChooseCtrl">
     <div class="libEmpty libraryChoose" id="libraryChoose" data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country">
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
@@ -29,7 +29,7 @@
         <div class="uniWpr">
             <input type="text" id="uni_search" class="inputText uniSearch" placeholder="@MainViewResources.SearchFor" autocomplete="off" />
         </div>        
-        <ul class="fbUniList" id="fbUniList">           
+        <ul class="fbUniList">
         </ul>
 
         <ul class="uniList" id="uniList">

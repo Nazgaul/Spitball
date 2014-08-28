@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet]
+        [HttpGet,Ajax]
         public ActionResult Choose()
         {
             var country = GetUserCountryByIp();
@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.country = country;
             ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
 
-            return View("_SelectUni");
+            return PartialView("_SelectUni");
         }
         [HttpGet, Ajax]
         public ActionResult SearchUniversity(string term)

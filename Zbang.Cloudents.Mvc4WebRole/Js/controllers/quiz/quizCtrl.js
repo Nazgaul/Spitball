@@ -4,7 +4,8 @@ mQuiz.controller('QuizCtrl',
         function ($scope, $window, $timeout, $fliter, $routeParams, $modal, sQuiz, sUserDetails) {
             cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 
-            var questions;
+            var questions,
+                challengeTimeout;
 
             $scope.profile = {
                 userImage: sUserDetails.getDetails().image
@@ -62,7 +63,7 @@ mQuiz.controller('QuizCtrl',
                     $scope.$emit('viewContentLoaded');
                 });
 
-                $timeout(function () {
+                challengeTimeout = $timeout(function () {
                     if ($scope.quiz.testInProgress) {
                         return;
                     }
@@ -70,7 +71,8 @@ mQuiz.controller('QuizCtrl',
                         return;
                     }
 
-                    var modalInstance = $modal.open({                       
+                    var modalInstance = $modal.open({
+                        windowClass: 'quizPopup',
                         templateUrl: '/Quiz/ChallengePartial/',
                         controller: 'ChallengeCtrl',
                         backdrop: 'static'
@@ -78,6 +80,7 @@ mQuiz.controller('QuizCtrl',
 
                     modalInstance.result.then(function (response) {                        
                         solveQuiz();
+                        getDiscussion();
                         $scope.quiz.afraid = true;
                     }); //cancel doesn't do anything
 
@@ -90,7 +93,14 @@ mQuiz.controller('QuizCtrl',
 
             //#region quiz
             $scope.takeQuiz = function () {
-                $scope.quiz.afraid = true;
+                if ($scope.quiz.afraid) {
+                    $scope.quiz.afraid = false;
+                    $scope.quiz.questions = _.clone(questions); //reset the data
+                }
+                
+                $timeout.cancel(challengeTimeout);
+
+
                 startResumeQuiz();
             };
 
@@ -100,10 +110,12 @@ mQuiz.controller('QuizCtrl',
             };
 
             $scope.retakeQuiz = function () {
+                $timeout.cancel(challengeTimeout);
                 resetQuiz();
             };
 
             $scope.markCorrect = function (question, answer) {
+                //add the answer delete the old one if exists and start/resume test if needed
                 var oldAnswer = _.find($scope.formData.answerSheet, function (item) {
                     return item.question.id === question.id;
                 });
@@ -123,6 +135,15 @@ mQuiz.controller('QuizCtrl',
                 if ($scope.quiz.testInProgress) {
                     return;
                 }
+
+
+                $timeout.cancel(challengeTimeout);
+
+                if ($scope.quiz.afraid) {
+                    $scope.quiz.afraid = false;
+                    $scope.quiz.questions = _.clone(questions); //reset the data
+                }
+
 
                 if ($scope.quiz.paused) {
                     resumeTimer();
@@ -156,7 +177,7 @@ mQuiz.controller('QuizCtrl',
                 $scope.quiz.timeTaken = $scope.formData.timeTaken;
                 $scope.quiz.userDone = true;
                 setResults();
-                getDiscussion();
+                //getDiscussion();
                 submitResult();
             });
 
@@ -168,7 +189,7 @@ mQuiz.controller('QuizCtrl',
                         return question.correctAnswer === answer.id;
                     });
 
-                    correctAnswer.correct = true;
+                    correctAnswer.correct = true;                    
                     correctAnswer.isChecked = true;
                 }
             }
