@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -625,6 +625,16 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz item page */
+.quizPage:not(.checkQuiz) .resultsWpr,
+.quizPage:not(.checkQuiz) .userScoreWpr,
+.quizPage:not(.checkQuiz) .timeRetakeWpr,
+.quizPage:not(.checkQuiz) .topUsersWpr,
+.quizPage:not(.checkQuiz) .distributionWpr {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
 .quizPage .quizActionsWpr {
   width: 800px;
   margin: 0 auto;
@@ -1151,3 +1161,4 @@ body.quiz .shareBtn {
   background: #4f5d67;
 }
 /*#endregion */
+/*# sourceMappingURL=Quiz.css.map */

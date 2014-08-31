@@ -123,6 +123,10 @@
   <data name="CourseName" xml:space="preserve">
     <value>Course name</value>
   </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+    <comment>Department</comment>
+  </data>
   <data name="Instructor" xml:space="preserve">
     <value>Instructor</value>
   </data>

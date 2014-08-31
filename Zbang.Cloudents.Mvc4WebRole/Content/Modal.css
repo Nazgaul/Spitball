@@ -257,24 +257,30 @@
 .extraText {
   display: none;
 }
-.privateBox label {
-  font-size: 15px;
-  display: block;
-}
-.privateBox .inputText {
-  margin: 5px 0 25px;
-}
-.privateBox input[type="radio"] + label:before {
-  margin-top: -3px;
+/*.privateBox {
+
+    label {
+        font-size: 15px;
+        display: block;
+    }
+    .inputText {
+        margin: 5px 0 25px;
+    }
+
+    input[type="radio"] {
+        + label:before {
+            margin-top: -3px;
+        }
+    }
 }
 .labelExplain {
-  color: rgba(56, 56, 56, 0.75);
-  margin-left: 17px;
-  /*rtl*/
-}
-.labelExplain.explain1 {
-  margin-bottom: 15px;
-}
+    color: rgba(56,56,56,.75);
+    margin-left: 17px; //rtl
+    &.explain1
+    {
+        margin-bottom: 15px;
+    }
+}*/
 .join.next {
   right: 120px;
   /*rtl*/

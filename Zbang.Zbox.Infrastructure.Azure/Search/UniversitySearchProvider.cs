@@ -62,6 +62,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             await BuildLucene(universities);
         }
 
+        public Task UpdateData(UniversitySearchDto university)
+        {
+            throw new NotImplementedException();
+        }
+
         private async Task BuildLucene(IEnumerable<University> universitiesExtra)
         {
 
@@ -92,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             doc.Add(new Field("extra3", extraDetail.Extra3, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO));
                         }
                         doc.Add(new Field(ImageField, university.Image, Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
-                        doc.Add(new Field(MembersCountField, university.MemberCount.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
+                        //doc.Add(new Field(MembersCountField, university.MemberCount.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
 
 
                         indexWriter.AddDocument(doc);
@@ -213,8 +218,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 var university = new UniversityByPrefixDto(
                     doc2.GetField(NameField).StringValue,
                     doc2.GetField(ImageField).StringValue,
-                   Convert.ToInt64(doc2.GetField(IdField).StringValue),
-                  Convert.ToInt64(doc2.GetField(MembersCountField).StringValue)
+                   Convert.ToInt64(doc2.GetField(IdField).StringValue)
+                 
                     );
 
                 retVal.Add(university);

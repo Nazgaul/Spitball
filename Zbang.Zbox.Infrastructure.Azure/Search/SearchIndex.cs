@@ -48,8 +48,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         [DataMember]
         public string Extra3 { get; set; }
         [DataMember]
-        public string ImageField { get; set; }
+        public string Extra4 { get; set; }
+
         [DataMember]
-        public int MembersCount { get; set; }
+        public string ImageField { get; set; }
     }
 }

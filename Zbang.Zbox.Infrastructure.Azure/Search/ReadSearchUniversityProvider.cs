@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         public ReadSearchUniversityProvider()
         {
             m_HttpClient = new HttpClient();
-            m_HttpClient.DefaultRequestHeaders.Add("Host", CloudentssearchSearchWindowsNet);
+            m_HttpClient.DefaultRequestHeaders.Host = CloudentssearchSearchWindowsNet;
             m_HttpClient.DefaultRequestHeaders.Add("api-key", ApiKey);
             m_HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -39,15 +39,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 string.Format("https://cloudentssearch.search.windows.net/indexes/universities/docs?search={0}&api-version=2014-07-31-Preview&$select=id,name,imageField,membersCount", BuildQuery(term))))
             {
                 var str = await httpResponse.Content.ReadAsStringAsync();
-                dynamic o = JObject.Parse(str);
-                foreach (dynamic university in o.value)
-                {
-                    retVal.Add(new UniversityByPrefixDto(
-                        Convert.ToString(university.name),
-                        Convert.ToString(university.imageField),
-                        Convert.ToInt64(university.id),
-                        Convert.ToInt64(university.membersCount)));
-                }
+                ConvertToDto(retVal, str);
             }
             if (retVal.Count == 0)
             {
@@ -56,6 +48,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             return retVal;
 
             // }
+        }
+
+        private void ConvertToDto(List<UniversityByPrefixDto> retVal, string str)
+        {
+            dynamic o = JObject.Parse(str);
+            foreach (dynamic university in o.value)
+            {
+                retVal.Add(new UniversityByPrefixDto(
+                    Convert.ToString(university.name),
+                    Convert.ToString(university.imageField),
+                    Convert.ToInt64(university.id)
+                    ));
+            }
         }
 
         public async Task<IEnumerable<UniversityByPrefixDto>> Suggest(string term)
@@ -70,15 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 string.Format("https://cloudentssearch.search.windows.net/indexes/universities/docs/suggest?search={0}&fuzzy=true&api-version=2014-07-31-Preview&$select=id,name,imageField,membersCount", term)))
             {
                 var str = await httpResponse.Content.ReadAsStringAsync();
-                dynamic o = JObject.Parse(str);
-                foreach (dynamic suggest in o.value)
-                {
-                    retVal.Add(new UniversityByPrefixDto(
-                       Convert.ToString(suggest.name),
-                       Convert.ToString(suggest.imageField),
-                       Convert.ToInt64(suggest.id),
-                       Convert.ToInt64(suggest.membersCount)));
-                }
+                ConvertToDto(retVal, str);
             }
             return retVal;
 

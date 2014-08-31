@@ -533,20 +533,92 @@
   content: '';
   display: inline-block;
   position: absolute;
-  right: -26px;
+  left: -26px;
   top: 12px;
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 24.5px 0 24.5px 26px;
-  border-color: transparent transparent transparent #fff;
+  border-width: 24.5px 26px 24.5px 0;
+  border-color: transparent #fff transparent transparent;
 }
 .formWpr .actionTxt {
   color: #fff;
   position: absolute;
-  right: -176px;
+  left: -176px;
   top: -30px;
   text-align: center;
+}
+.formWpr label {
+  margin-bottom: 5px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+}
+.formWpr .inputText {
+  width: 100%;
+  height: 37px;
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.formWpr .inputText:disabled {
+  background: #c2c2c2;
+}
+.formWpr .btn1 {
+  margin-left: 10px;
+}
+.formWpr .courseId,
+.formWpr .professor {
+  width: 290px;
+}
+.formWpr .department {
+  position: relative;
+}
+.formWpr.js-private .newPrivate {
+  display: block;
+}
+.formWpr.js-academic .newAcademic {
+  display: block;
+}
+.formWpr.js-addDept .courseType {
+  display: none;
+}
+.formWpr.js-addDept .createDept {
+  display: block;
+}
+.courseType {
+  display: inline-block;
+  margin-bottom: 25px;
+}
+.courseType + .courseType {
+  margin-left: 70px;
+}
+.labelExplain {
+  width: 140px;
+  padding-left: 30px;
+}
+.newPrivate,
+.newAcademic {
+  display: none;
+}
+.changeDeptBtn {
+  position: absolute;
+  right: 8px;
+  top: 2px;
+  color: #0371c8;
+  font-size: 13px;
+}
+.newAcademic.editDept .chooseDeptList {
+  display: block;
+}
+.newAcademic .chooseDeptList {
+  width: 600px;
+  position: relative;
+  top: -200px;
+  margin: 0 0 -200px 0;
+  min-height: 200px;
 }
 /*#endregion */
 /*#region IframeProducts*/

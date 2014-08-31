@@ -25,6 +25,6 @@ namespace Zbang.Zbox.ReadServices
 
         Task<PartnersDto> GetPartnersEmail(long userid);
 
-        Task<IEnumerable<UniversityLuceneDto>> GetUniversityDetail();
+        Task<IEnumerable<UniversitySearchDto>> GetUniversityDetail();
     }
 }

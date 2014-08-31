@@ -2,6 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
 
 @*Guy: when user has just come from select uni - add class js-newDash*@
 
@@ -190,8 +191,56 @@
     </div>
 </div> 
 
-<div class="formWpr">
+@*Guy: When user clicks the 'private course' radio btn - add class 'js-private' here 
+     When user clicks the 'open course' radio btn - add class 'js-academic' here
+    When user clicks the 'Create a new Department' btn - add class 'js-addDept' here
+    *@
+
+@*js-academic | js-private | js-addDept*@
+<div class="formWpr js-addDept"> 
     <div class="actionTxt">@IndexResources.CreateCourse</div>
+
+    <div class="courseType">
+        <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
+        @*<label for="PrivateCourse">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>*@
+        @*<div class="labelExplain explain1">@SharedResources.OnlyPeople</div>*@
+        <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
+        <div class="labelExplain explain1">@IndexResources.InviteOnly</div>
+    </div>
+
+    <div class="courseType">
+        <input class="radio" type="radio" id="OpenCourse" name="courseType" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
+        @*<label for="OpenCourse">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+            <div class="labelExplain">@SharedResources.AnyoneWho</div>*@
+        <label for="OpenCourse">@IndexResources.OpenCourse</label>
+        <div class="labelExplain">@IndexResources.AnyoneUrl</div>
+    </div>
+
+
+    @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
+    <div class="newAcademic clearfix">
+        @{
+            Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
+        }
+    </div>
+
+    <div class="newPrivate clearfix">
+        @{
+            Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl });
+        }
+    </div>
+
+
+    @{
+        Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+    }
+
+
+    @*<div class="newDepartment">
+            @{
+                Html.RenderPartial("~/Library/_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
+            }
+        </div>*@
 
 </div>
 

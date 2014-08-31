@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -291,6 +291,33 @@ input[type="radio"] + .field-validation-error + label:before {
   vertical-align: middle;
   margin: -2px 4px 0 0;
   /*rtl*/
+}
+input[type="radio"].radio + label {
+  margin: 0;
+  position: relative;
+}
+input[type="radio"].radio + label:before {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #39434a;
+  margin: -2px 8px 0 0;
+  /*rtl*/
+  border-radius: 100%;
+  background: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+input[type="radio"].radio:checked + label:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #39434a;
+  border-radius: 100%;
+  top: 5px;
+  left: 4px;
 }
 input[type="radio"]:checked + label:before,
 input[type="radio"]:checked + .field-validation-error + label:before {
@@ -2309,7 +2336,7 @@ select.inputText {
   display: block;
   width: 108px;
   height: 98px;
-  background: url(/Images/site.png) 0 -1384px no-repeat;
+  background: url(/Images/site.png) 0 -1426px no-repeat;
   margin: 0 auto;
 }
 .emptySearchAdmin:after {
@@ -2686,4 +2713,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */

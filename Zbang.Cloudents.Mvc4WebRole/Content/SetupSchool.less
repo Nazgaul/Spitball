@@ -9,7 +9,8 @@
     margin: 70px auto 0;
     text-align: left; /*rtl*/
     &.libraryChoose {
-        margin-top: 132px; //diff rtl
+        //margin-top: 132px; //diff rtl
+        margin-top: @header-height;
     }
     h2 {
         font-size: 18px;
@@ -119,6 +120,10 @@
     font-size: 20px;
     display: block;
     font-weight: normal;
+    width: auto; //override
+    height: auto;
+    margin: 0;
+    border: none;
 }
 
 .uniCount {

@@ -6,6 +6,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
     public class CreateAcademicBox //: CreateBox
     {
+
+        [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
+        [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "Department")]
+        public string Department { get; set; }
+
         [DataType(DataType.Text)]
         [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "CourseName")]
