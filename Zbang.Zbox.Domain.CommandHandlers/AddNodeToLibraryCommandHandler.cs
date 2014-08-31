@@ -7,10 +7,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     class AddNodeToLibraryCommandHandler : ICommandHandler<AddNodeToLibraryCommand>
     {
-        private readonly IRepository<University> m_UniversityRepository;
+        private readonly IRepository<University2> m_UniversityRepository;
         private readonly IRepository<Library> m_LibraryRepository;
 
-        public AddNodeToLibraryCommandHandler(IRepository<University> universityRepository, IRepository<Library> libraryRepository)
+        public AddNodeToLibraryCommandHandler(IRepository<University2> universityRepository, IRepository<Library> libraryRepository)
         {
             m_LibraryRepository = libraryRepository;
             m_UniversityRepository = universityRepository;

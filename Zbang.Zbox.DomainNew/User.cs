@@ -117,7 +117,9 @@ namespace Zbang.Zbox.Domain
         public virtual long? FacebookId { get; set; }
         public virtual string Image { get; set; }
         public virtual string ImageLarge { get; set; }
-        public virtual University University { get; protected set; }
+        public virtual University2 University { get; protected set; }
+
+        public virtual University University2 { get; protected set; }
         public virtual string Code { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 
@@ -207,7 +209,7 @@ namespace Zbang.Zbox.Domain
             Culture = culture;
         }
 
-        public void UpdateUserUniversity(University university,
+        public void UpdateUserUniversity(University2 university,
             string userCode, Department department, string groupNumber,
             string registerNumber)
         {

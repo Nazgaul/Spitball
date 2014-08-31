@@ -6,7 +6,7 @@
     <id name="Id" column="Id" type="long">
       <generator class="native"></generator>
     </id>
-    <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityUser"/>
+    <many-to-one column="UniversityId" class="University2" name="University" foreign-key="UniversityUser"/>
 
     <property name="Name" />
     <property name="Year" />
@@ -16,7 +16,7 @@
     <id name="StudentId" column="StudentId" type="long">
       <generator class="native"></generator>
     </id>
-    <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityStudent"/>
+    <many-to-one column="UniversityId" class="University2" name="University" foreign-key="UniversityStudent"/>
     <property name="ID" />
   </class>
 

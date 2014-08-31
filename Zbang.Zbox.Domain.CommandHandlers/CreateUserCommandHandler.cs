@@ -14,13 +14,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected readonly IUserRepository UserRepository;
         private readonly IQueueProvider m_QueueRepository;
-        private readonly IRepository<University> m_UniversityRepository;
+        private readonly IRepository<University2> m_UniversityRepository;
         private readonly IInviteToCloudentsRepository m_InviteToCloudentsRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
-            IRepository<University> universityRepository,
+            IRepository<University2> universityRepository,
             IInviteToCloudentsRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
         {
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (result == null) throw new ArgumentNullException("result");
             if (user == null) throw new ArgumentNullException("user");
-            University university = m_UniversityRepository.Get(universityId);
+            University2 university = m_UniversityRepository.Get(universityId);
             if (university == null)
             {
                 return;

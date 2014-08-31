@@ -8,8 +8,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateUniversityCommandHandler : ICommandHandler<CreateUniversityCommand>
     {
-        private readonly IRepository<University> m_UniversityRepository;
-        public CreateUniversityCommandHandler(IRepository<University> universityRepository)
+        private readonly IRepository<University2> m_UniversityRepository;
+        public CreateUniversityCommandHandler(IRepository<University2> universityRepository)
         {
             m_UniversityRepository = universityRepository;
         }
@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new NullReferenceException("windowsIdentity");
             }
 
-            var university = new University(message.Email, message.Name,
+            var university = new University2(message.Email, message.Name,
                 "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
                 "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg",
                 windowsIdentity.Name)

@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public CreateMembershipUserCommandHandler(IUserRepository userRepository,
             IProfilePictureProvider profileProvider,
-            IRepository<University> universityRepository,
+            IRepository<University2> universityRepository,
             IQueueProvider queueRepository,
             IInviteToCloudentsRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)

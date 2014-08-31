@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
     public class UpdateUserUniversityCommandHandlerTests
     {
         private IUserRepository m_StubUserRepository;
-        private IRepository<University> m_StubUniversityRepository;
+        private IRepository<University2> m_StubUniversityRepository;
         private IRepository<Department> m_StubDepartmentRepository;
         private IRepository<Student> m_StubStudentRepository;
 
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         public void Setup()
         {
             m_StubUserRepository = MockRepository.GenerateStub<IUserRepository>();
-            m_StubUniversityRepository = MockRepository.GenerateStub<IRepository<University>>();
+            m_StubUniversityRepository = MockRepository.GenerateStub<IRepository<University2>>();
 
             m_StubDepartmentRepository = MockRepository.GenerateStub<IRepository<Department>>();
             m_StubStudentRepository = MockRepository.GenerateStub<IRepository<Student>>();
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); ;
-            var someUniversity = new University("some university", "some img", "some l img", "test");
+            var someUniversity = new University2("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
 
@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
-            var someUniversity = new University("some university", "some img", "some l img", "test");
+            var someUniversity = new University2("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
 
@@ -80,7 +80,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
-            var someUniversity = new University("some university", "some img", "some l img", "test");
+            var someUniversity = new University2("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
 
@@ -102,7 +102,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
             var someOtherUser = new User("some email2", " some small image2", "some largeImage2", "some first name2", "some middle name2", "some last name2", true, false);
-            var someUniversity = new University("some university", "some img", "some l img", "test");
+            var someUniversity = new University2("some university", "some img", "some l img", "test");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
 
@@ -126,7 +126,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
-            var someUniversity = new University("some university", "some img", "some l img", "test");
+            var someUniversity = new University2("some university", "some img", "some l img", "test");
 
             someUser.Code = "N10028";
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -150,7 +150,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
-            var someUniversity = new University("some university", "some img", "some l img", "test");
+            var someUniversity = new University2("some university", "some img", "some l img", "test");
 
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);

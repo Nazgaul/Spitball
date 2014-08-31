@@ -85,7 +85,7 @@
   <query name="GetParentNode" read-only="true">
     <![CDATA[
     select l.Parent.Id as Id, l.Parent.Name as Name, l.Parent.Url as Url
-    from University uu join uu.Libraries l
+    from University2 uu join uu.Libraries l
     where uu.Id = :UserId
     and l.Id = :ParentNode
     ]]>

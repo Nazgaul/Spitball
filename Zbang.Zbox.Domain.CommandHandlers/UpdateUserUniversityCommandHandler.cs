@@ -10,12 +10,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateUserUniversityCommandHandler : ICommandHandler<UpdateUserUniversityCommand>
     {
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<University> m_UniversityRepository;
+        private readonly IRepository<University2> m_UniversityRepository;
         private readonly IRepository<Department> m_DepartmentRepository;
         private readonly IRepository<Student> m_StudentRepository;
 
         public UpdateUserUniversityCommandHandler(IUserRepository userRepository,
-            IRepository<University> universityRepository,
+            IRepository<University2> universityRepository,
             IRepository<Department> departmentRepository,
             IRepository<Student> studentRepository
             )
