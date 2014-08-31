@@ -1065,6 +1065,7 @@
     </Content>
     <Content Include="Content\SetupSchool.less" />
     <Content Include="Content\SetupSchoolRtl.less" />
+    <Content Include="App_Code\_test.cshtml" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
