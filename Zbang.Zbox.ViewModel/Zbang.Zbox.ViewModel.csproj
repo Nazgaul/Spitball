@@ -104,6 +104,7 @@
     <Compile Include="Dto\Library\UniversityByFriendDto.cs" />
     <Compile Include="Dto\Library\UniversityByPrefixDto.cs" />
     <Compile Include="Dto\Library\UniversityInfoDto.cs" />
+    <Compile Include="Dto\Library\UniversitySearchDto.cs" />
     <Compile Include="Dto\Notification\BoxIDDto.cs" />
     <Compile Include="Dto\Notification\InviteBoxDataDto.cs" />
     <Compile Include="Dto\Notification\UserMailDataDto.cs" />

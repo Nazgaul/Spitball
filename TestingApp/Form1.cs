@@ -36,7 +36,7 @@ namespace TestingApp
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
             var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
             await lucenewire.BuildUniversityData();
-             textBox2.Text = "Complete";
+            textBox2.Text = "Complete";
         }
 
         private async void button2_Click(object sender, EventArgs e)
@@ -57,6 +57,18 @@ namespace TestingApp
             }
             //textBox2.Text  = string .Format("",)
         }
-        
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
+
+            await lucenewire.UpdateData(new Zbang.Zbox.ViewModel.Dto.Library.UniversitySearchDto()
+             {
+                 Id = 322,
+                 Name = "בית ברל טסט"
+             });
+        }
+
     }
 }

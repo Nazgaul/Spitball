@@ -13,8 +13,7 @@
         public const string GetUniversityDetail = @"select
                          u.Userid as Id,  
                          u.UniversityName as Name,
-                         u.userimagelarge as Image,
-                         (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
+                         u.userimagelarge as Image
                          from zbox.users u 
                          where u.usertype = 1";
 

@@ -8,10 +8,4 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
         Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(string term);
     }
-
-    public interface IUniversityWriteSearchProvider
-    {
-        Task BuildUniversityData();
-    }
-
 }

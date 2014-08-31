@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.Library;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -25,14 +26,31 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         }
         public async Task BuildUniversityData()
         {
-            var indexExists = await CheckIndexExits("universities");
+            var indexExists = await CheckIndexExits();
             if (!indexExists)
             {
                 await BuildIndex();
             }
             var resource = LoadResource("UniversityData.txt");
             var universities = ConvertToObject(resource);
-           await BuildData(universities);
+            await BuildData(universities);
+        }
+
+        public async Task UpdateData(UniversitySearchDto university)
+        {
+            var item = new SearchUniversity
+            {
+                Id = university.Id.ToString(CultureInfo.InvariantCulture),
+                Name = university.Name,
+                @SearchAction = "upload",
+                ImageField = university.Image,
+                Extra4 = String.Join(
+                " ",
+                university.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                .Where(w => w.StartsWith("ה"))
+                .Select(s => s.Remove(0, 1)))
+            };
+            await UpdateDocuments(new[] { item });
         }
 
         private async Task BuildData(IEnumerable<University> universitiesExtra)
@@ -51,7 +69,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Name = university.Name,
                     @SearchAction = "upload",
                     ImageField = university.Image,
-                    MembersCount = (int)university.MemberCount
+                    Extra4 = String.Join(
+                    " ",
+                    university.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                    .Where(w => w.StartsWith("ה"))
+                    .Select(s => s.Remove(0, 1)))
                 };
                 if (extraDetail != null)
                 {
@@ -60,12 +82,18 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     item.Extra3 = extraDetail.Extra3;
                 }
 
+
                 list.Add(item);
 
 
 
             }
 
+            await UpdateDocuments(list);
+        }
+
+        private static async Task UpdateDocuments(IEnumerable<SearchUniversity> list)
+        {
             using (var httpClient = new HttpClient())
             {
 
@@ -83,17 +111,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 using (var bodyContent = new StringContent(output, Encoding.UTF8, "application/json"))
                 {
-                    using (var retVal = await httpClient.PostAsync(
+                    using (await httpClient.PostAsync(
                         "https://cloudentssearch.search.windows.net/indexes/universities/docs/index?api-version=2014-07-31-Preview",
                         bodyContent))
                     {
-                        var x = await retVal.Content.ReadAsStringAsync();
+                        // var x = await retVal.Content.ReadAsStringAsync();
                     }
                 }
             }
         }
 
-        private async Task<bool> CheckIndexExits(string indexName)
+        private async Task<bool> CheckIndexExits()
         {
             using (var httpClient = new HttpClient())
             {
@@ -119,8 +147,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 new SearchField {Name = "extra1", Type = "Edm.String", Searchable = true},
                 new SearchField {Name = "extra2", Type = "Edm.String", Searchable = true},
                 new SearchField {Name = "extra3", Type = "Edm.String", Searchable = true},
+                new SearchField {Name = "extra4", Type = "Edm.String", Searchable = true},
                 new SearchField {Name = "imageField", Type = "Edm.String", Searchable = false},
-                new SearchField {Name = "membersCount", Type = "Edm.Int32"}
             };
 
             using (var httpClient = new HttpClient())
@@ -139,11 +167,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 using (var bodyContent = new StringContent(output, Encoding.UTF8, "application/json"))
                 {
-                    using (var retVal = await httpClient.PutAsync(
+                    using (await httpClient.PutAsync(
                         "https://cloudentssearch.search.windows.net/indexes/universities?api-version=2014-07-31-Preview",
                         bodyContent))
                     {
-                        var x = await retVal.Content.ReadAsStringAsync();
                     }
                 }
             }
