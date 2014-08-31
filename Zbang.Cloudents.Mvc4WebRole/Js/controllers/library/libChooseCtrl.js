@@ -19,28 +19,42 @@
                  sLibrary.facebookFriends({ authToken: token }).then(function (response) {
                      var data = response.success ? response.payload : {};
                      $scope.FBUniversities = data;
-                     $scope.display.facebook = true;
+                     if (!$scope.display.search || $scope.formData.searchInput) {
+                         $scope.display.facebook = true;
+                     }
+                     
                  });
 
              });
              //#endregion
 
              //#region search
+             var lastQuery;
              $scope.search = debounce(function () {
-                 var term = $scope.formData.searchInput;
+                 var query = $scope.formData.searchInput;
 
-                 if (term == '') {
+                 if (query.length < 2) {
                      $scope.display.search = false;
                      $scope.display.facebook = true;
+                     $scope.universities = null;
+                     lastQuery = null;
+                     return;
                  }
 
-                 sLibrary.searchUniversities({ term: term }).then(function (response) {
-                     var data = response.success ? response.payload : {};
+
+                 if (query === lastQuery) {
+                     return;
+                 }
+
+                 lastQuery = query;
+
+                 sLibrary.searchUniversities({ term: query }).then(function (response) {
+                     var data = response.success ? response.payload : [];
                      $scope.display.search = true;
                      $scope.display.facebook = false;
                      $scope.universities = data;
                  });             
-             },150);
+             },200);
              
              //#endregion
 

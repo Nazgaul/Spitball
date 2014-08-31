@@ -56,7 +56,7 @@
            getToken: function () {
                var dfd = $q.defer();
 
-               if (!FB) {
+               if (!window.FB) {
                    setTimeout(getLoginStatus, 50);
                    return dfd.promise;
                }

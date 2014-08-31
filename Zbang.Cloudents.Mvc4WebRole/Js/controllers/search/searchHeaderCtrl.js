@@ -45,7 +45,7 @@
             lastQuery = query;
 
             Search.dropdown({ q: query }).then(function (response) {
-                var data = response.success ? response.payload : {};                
+                var data = response.success ? response.payload : {};
                 parseData(data);
                 if ($scope.params.preventDropDown) {
                     $scope.params.preventDropDown = false;
