@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to כל אחד שברשותו הקישור יכול לקבל גישה. אין צורך בהרשמה למערכת..
+        ///   Looks up a localized string similar to Anyone who has the link can access. No sign-in required..
         /// </summary>
         public static string AnyoneUrl {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to עיון בקורסים.
+        ///   Looks up a localized string similar to Browse courses.
         /// </summary>
         public static string BrowseCourses {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to שנה מחלקה.
+        ///   Looks up a localized string similar to Change department.
         /// </summary>
         public static string ChangeDept {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to הוסף שמות מופרדים בפסיק.
+        ///   Looks up a localized string similar to Add emails separated by commas.
         /// </summary>
         public static string CommaSeparate {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to צור קורס.
+        ///   Looks up a localized string similar to Create a course.
         /// </summary>
         public static string CreateCourse {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to יצירת מבחנים לשיפור הלמידה.
+        ///   Looks up a localized string similar to Create your own quizzes.
         /// </summary>
         public static string CreateQuizzes {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to מצא חברים מחשבון הפייסבוק שלך.
+        ///   Looks up a localized string similar to Find friends from your Facebook account.
         /// </summary>
         public static string FindFb {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to מצא חברים מחשבון ה-Gmail שלך.
+        ///   Looks up a localized string similar to Find friends from your Gmail account.
         /// </summary>
         public static string FindGmail {
             get {
@@ -260,7 +260,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to הזמן חברים לקורס.
+        ///   Looks up a localized string similar to Invite friends.
         /// </summary>
         public static string InviteFriends {
             get {
@@ -269,7 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to רק אנשים שקיבלו הזמנה מפושת יכולים לקבל גישה. חובה להיכנס למערכת..
+        ///   Looks up a localized string similar to To view this content you need to be a member or invited.
         /// </summary>
         public static string InviteOnly {
             get {
@@ -278,7 +278,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to הזמן חבר באימייל.
+        ///   Looks up a localized string similar to Invite by email.
         /// </summary>
         public static string InviteViaEmail {
             get {
@@ -341,7 +341,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to קורס פתוח.
+        ///   Looks up a localized string similar to Course.
         /// </summary>
         public static string OpenCourse {
             get {
@@ -377,7 +377,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to קורס פרטי.
+        ///   Looks up a localized string similar to Study group.
         /// </summary>
         public static string PrivateCourse {
             get {
@@ -386,7 +386,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to קורסים מומלצים.
+        ///   Looks up a localized string similar to Recommended courses.
         /// </summary>
         public static string RecommendedCourses {
             get {
@@ -413,7 +413,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to חפש חברים מקלאודנטס.
+        ///   Looks up a localized string similar to Search your friends on Cloudents.
         /// </summary>
         public static string SearchCloudents {
             get {
@@ -422,7 +422,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to חפש חברים מפייסבוק.
+        ///   Looks up a localized string similar to Search Facebook friends .
         /// </summary>
         public static string SearchFb {
             get {
@@ -431,7 +431,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to חפש חברים מ-Gmail.
+        ///   Looks up a localized string similar to Search Gmail contacts.
         /// </summary>
         public static string SearchGmail {
             get {
@@ -494,7 +494,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to שיתוף קבצים עם החברים באוניברסיטה.
+        ///   Looks up a localized string similar to Share files with your classmates.
         /// </summary>
         public static string ShareFiles {
             get {
@@ -521,7 +521,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to החלפה ומסירה של ספרי לימוד.
+        ///   Looks up a localized string similar to Swap textbooks.
         /// </summary>
         public static string SwapBooks {
             get {
@@ -548,7 +548,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ברוכים הבאים לקלאודנטס.
+        ///   Looks up a localized string similar to Welcome to Cloudents.
         /// </summary>
         public static string WelcomeCloudents {
             get {

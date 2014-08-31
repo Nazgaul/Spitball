@@ -129,9 +129,6 @@
   <data name="AnsweredQuestion" xml:space="preserve">
     <value>answered a question</value>
   </data>
-  <data name="AnyoneUrl" xml:space="preserve">
-    <value>כל אחד שברשותו הקישור יכול לקבל גישה. אין צורך בהרשמה למערכת.</value>
-  </data>
   <data name="AskedQuestion" xml:space="preserve">
     <value>asked a question</value>
   </data>
@@ -141,32 +138,11 @@
   <data name="Browse" xml:space="preserve">
     <value>Browse</value>
   </data>
-  <data name="BrowseCourses" xml:space="preserve">
-    <value>עיון בקורסים</value>
-  </data>
   <data name="ByUnion" xml:space="preserve">
     <value>By union departments</value>
   </data>
-  <data name="ChangeDept" xml:space="preserve">
-    <value>שנה מחלקה</value>
-  </data>
-  <data name="CommaSeparate" xml:space="preserve">
-    <value>הוסף שמות מופרדים בפסיק</value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>צור קורס</value>
-  </data>
-  <data name="CreateQuizzes" xml:space="preserve">
-    <value>יצירת מבחנים לשיפור הלמידה</value>
-  </data>
   <data name="FindCourses" xml:space="preserve">
     <value>Search or browse Cloudents to find the courses you study</value>
-  </data>
-  <data name="FindFb" xml:space="preserve">
-    <value>מצא חברים מחשבון הפייסבוק שלך</value>
-  </data>
-  <data name="FindGmail" xml:space="preserve">
-    <value>מצא חברים מחשבון ה-Gmail שלך</value>
   </data>
   <data name="FindingCourses" xml:space="preserve">
     <value>Finding your courses of
@@ -183,15 +159,6 @@ interest with the:</value>
   </data>
   <data name="InlineSearch" xml:space="preserve">
     <value>Search course name or instructor</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>הזמן חברים לקורס</value>
-  </data>
-  <data name="InviteOnly" xml:space="preserve">
-    <value>רק אנשים שקיבלו הזמנה מפושת יכולים לקבל גישה. חובה להיכנס למערכת.</value>
-  </data>
-  <data name="InviteViaEmail" xml:space="preserve">
-    <value>הזמן חבר באימייל</value>
   </data>
   <data name="Items" xml:space="preserve">
     <value>Items</value>
@@ -211,9 +178,6 @@ interest with the:</value>
   <data name="MyPrivate" xml:space="preserve">
     <value>My private</value>
   </data>
-  <data name="OpenCourse" xml:space="preserve">
-    <value>קורס פתוח</value>
-  </data>
   <data name="OwnedByMe" xml:space="preserve">
     <value>Owned by me</value>
   </data>
@@ -223,23 +187,11 @@ interest with the:</value>
   <data name="PostedComment" xml:space="preserve">
     <value>posted a comment</value>
   </data>
-  <data name="PrivateCourse" xml:space="preserve">
-    <value>קורס פרטי</value>
-  </data>
   <data name="ResultFor" xml:space="preserve">
     <value>Result for</value>
   </data>
   <data name="SearchBy" xml:space="preserve">
     <value>By name, number or by lecture name</value>
-  </data>
-  <data name="SearchCloudents" xml:space="preserve">
-    <value>חפש חברים מקלאודנטס</value>
-  </data>
-  <data name="SearchFb" xml:space="preserve">
-    <value>חפש חברים מפייסבוק</value>
-  </data>
-  <data name="SearchGmail" xml:space="preserve">
-    <value>חפש חברים מ-Gmail</value>
   </data>
   <data name="SearchMyBoxes" xml:space="preserve">
     <value>My boxes</value>
@@ -259,26 +211,17 @@ interest with the:</value>
   <data name="SharedByOthers" xml:space="preserve">
     <value>Shared by others</value>
   </data>
-  <data name="ShareFiles" xml:space="preserve">
-    <value>שיתוף קבצים עם החברים באוניברסיטה</value>
-  </data>
   <data name="Starred" xml:space="preserve">
     <value>Starred</value>
   </data>
   <data name="StartBy" xml:space="preserve">
     <value>You can start by</value>
   </data>
-  <data name="SwapBooks" xml:space="preserve">
-    <value>החלפה ומסירה של ספרי לימוד</value>
-  </data>
   <data name="Upload" xml:space="preserve">
     <value>Upload</value>
   </data>
   <data name="UploadContent" xml:space="preserve">
     <value>Upload content and choose who you invite to start collaborating</value>
-  </data>
-  <data name="WelcomeCloudents" xml:space="preserve">
-    <value>ברוכים הבאים לקלאודנטס</value>
   </data>
   <data name="WelcomeDash" xml:space="preserve">
     <value>Welcome to your new
@@ -287,7 +230,64 @@ dashboard</value>
   <data name="WhereStudy" xml:space="preserve">
     <value>Where study groups come together</value>
   </data>
+  <data name="AnyoneUrl" xml:space="preserve">
+    <value>Anyone who has the link can access. No sign-in required.</value>
+  </data>
+  <data name="BrowseCourses" xml:space="preserve">
+    <value>Browse courses</value>
+  </data>
+  <data name="ChangeDept" xml:space="preserve">
+    <value>Change department</value>
+  </data>
+  <data name="CommaSeparate" xml:space="preserve">
+    <value>Add emails separated by commas</value>
+  </data>
+  <data name="CreateCourse" xml:space="preserve">
+    <value>Create a course</value>
+  </data>
+  <data name="CreateQuizzes" xml:space="preserve">
+    <value>Create your own quizzes</value>
+  </data>
+  <data name="FindFb" xml:space="preserve">
+    <value>Find friends from your Facebook account</value>
+  </data>
+  <data name="FindGmail" xml:space="preserve">
+    <value>Find friends from your Gmail account</value>
+  </data>
+  <data name="InviteFriends" xml:space="preserve">
+    <value>Invite friends</value>
+  </data>
+  <data name="InviteOnly" xml:space="preserve">
+    <value>To view this content you need to be a member or invited</value>
+  </data>
+  <data name="InviteViaEmail" xml:space="preserve">
+    <value>Invite by email</value>
+  </data>
+  <data name="OpenCourse" xml:space="preserve">
+    <value>Course</value>
+  </data>
+  <data name="PrivateCourse" xml:space="preserve">
+    <value>Study group</value>
+  </data>
   <data name="RecommendedCourses" xml:space="preserve">
-    <value>קורסים מומלצים</value>
+    <value>Recommended courses</value>
+  </data>
+  <data name="SearchCloudents" xml:space="preserve">
+    <value>Search your friends on Cloudents</value>
+  </data>
+  <data name="SearchFb" xml:space="preserve">
+    <value>Search Facebook friends </value>
+  </data>
+  <data name="SearchGmail" xml:space="preserve">
+    <value>Search Gmail contacts</value>
+  </data>
+  <data name="ShareFiles" xml:space="preserve">
+    <value>Share files with your classmates</value>
+  </data>
+  <data name="SwapBooks" xml:space="preserve">
+    <value>Swap textbooks</value>
+  </data>
+  <data name="WelcomeCloudents" xml:space="preserve">
+    <value>Welcome to Cloudents</value>
   </data>
 </root>
