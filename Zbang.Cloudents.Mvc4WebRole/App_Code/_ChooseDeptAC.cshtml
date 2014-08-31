@@ -1,0 +1,18 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@helper deptList()
+{
+    <ul class="chooseDeptList">
+        <li class="emptySearch">@SharedResources.NoResults</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span></li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>efbh</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>nbrngt</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>gtnwretnrtwn</li>
+        <li class="chooseDeptItem"><span class="mark">rregr</span>bfgw ngwfn wrn wgren</li>
+        <li class="newDept">
+            <span class="newDeptTxt">@MainViewResources.CantFindDept</span>
+            @*<a href="#" class="createUni">@MainViewResources.CreateNewDept</a>*@
+            <button type="button" class="createDeptBtn">@MainViewResources.CreateNewDept</button>
+        </li>
+    </ul>
+}

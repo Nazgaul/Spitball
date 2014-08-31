@@ -55,6 +55,8 @@
         @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.professor" })
     </div>
 
-    <input type="submit" class="btn1 next" value="@DialogResources.Create" ng-click="submitted=true" />
-    <button type="reset" class="btn2 cancel" ng-click="cancel()">@SharedResources.Back</button>
+    <input type="submit" class="btn1 next rFloat" value="@DialogResources.Create" ng-click="submitted=true" />
+    <button type="reset" class="btn2 cancel rFloat" ng-click="cancel()">@SharedResources.Back</button>
+
+    @_ChooseDeptAC.deptList()
 </form>

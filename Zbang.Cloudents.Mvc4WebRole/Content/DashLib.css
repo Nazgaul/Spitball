@@ -567,7 +567,7 @@
   background: #c2c2c2;
 }
 .formWpr .btn1 {
-  margin-right: 10px;
+  margin-left: 10px;
 }
 .formWpr .courseId,
 .formWpr .professor {
@@ -580,6 +580,12 @@
   display: block;
 }
 .formWpr.js-academic .newAcademic {
+  display: block;
+}
+.formWpr.js-addDept .courseType {
+  display: none;
+}
+.formWpr.js-addDept .createDept {
   display: block;
 }
 .courseType {
@@ -603,6 +609,16 @@
   top: 2px;
   color: #0371c8;
   font-size: 13px;
+}
+.newAcademic.editDept .chooseDeptList {
+  display: block;
+}
+.newAcademic .chooseDeptList {
+  width: 600px;
+  position: relative;
+  top: -200px;
+  margin: 0 0 -200px 0;
+  min-height: 200px;
 }
 /*#endregion */
 /*#region IframeProducts*/

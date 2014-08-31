@@ -1065,7 +1065,7 @@
     </Content>
     <Content Include="Content\SetupSchool.less" />
     <Content Include="Content\SetupSchoolRtl.less" />
-    <Content Include="App_Code\_test.cshtml" />
+    <Content Include="App_Code\_ChooseDeptAC.cshtml" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1540,7 +1540,7 @@
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
-    <Content Include="Views\Library\_CreateDepartment.cshtml" />
+    <Content Include="Views\Shared\_CreateDepartment.cshtml" />
     <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <None Include="Views\Web.Debug.config">

@@ -254,12 +254,26 @@
 /*#region setup course 'popups' */
 .formWpr:after {
   right: -26px;
+  left: auto;
   border-width: 24.5px 0 24.5px 26px;
   border-color: transparent transparent transparent #fff;
 }
 .formWpr .actionTxt {
   right: -176px;
   left: auto;
+}
+.formWpr .btn1 {
+  margin: 0 10px 0 0;
+}
+.courseType + .courseType {
+  margin: 0 70px 0 0;
+}
+.labelExplain {
+  padding: 0 30px 0 0;
+}
+.changeDeptBtn {
+  left: 8px;
+  right: auto;
 }
 /*#endregion */
 .contentWpr {

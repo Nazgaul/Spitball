@@ -192,9 +192,12 @@
 </div> 
 
 @*Guy: When user clicks the 'private course' radio btn - add class 'js-private' here 
-     When user clicks the 'open course' radio btn - add class 'js-academic' here*@
+     When user clicks the 'open course' radio btn - add class 'js-academic' here
+    When user clicks the 'Create a new Department' btn - add class 'js-addDept' here
+    *@
 
-<div class="formWpr js-academic">
+@*js-academic | js-private | js-addDept*@
+<div class="formWpr js-addDept"> 
     <div class="actionTxt">@IndexResources.CreateCourse</div>
 
     <div class="courseType">
@@ -213,17 +216,25 @@
         <div class="labelExplain">@IndexResources.AnyoneUrl</div>
     </div>
 
-    <div class="newAcademic">
+
+    @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
+    <div class="newAcademic clearfix">
         @{
             Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
         }
     </div>
 
-    <div class="newPrivate">
+    <div class="newPrivate clearfix">
         @{
             Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl });
         }
     </div>
+
+
+    @{
+        Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+    }
+
 
     @*<div class="newDepartment">
             @{
