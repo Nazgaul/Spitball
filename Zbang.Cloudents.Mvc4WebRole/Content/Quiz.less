@@ -639,6 +639,11 @@ body {
 
 /*#region Quiz item page */
 .quizPage {
+    &:not(.checkQuiz) {
+        .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
+            .transition(none);
+        }
+    }
     .quizActionsWpr {
         width: 800px;
         margin: 0 auto;
