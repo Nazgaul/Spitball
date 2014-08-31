@@ -44,17 +44,6 @@
     width: 38px;
     position: relative;
 
-    &:before {
-        .pseudo;
-        width: 1px;
-        height: 18px;
-        background: @colorDarken2;
-        vertical-align: top;
-        position: absolute;
-        right: -1px; /*rtl*/
-        top: 16px;
-    }
-
     &:after {
         .pseudo;
         width: 19px;
@@ -70,9 +59,6 @@
 
 .feedBack {
     text-align: center;
-    &:hover + .homeLink:before {
-        display: none;
-    }
     &:after
     {
         margin-top: 16px;
@@ -89,10 +75,6 @@
         vertical-align: middle;
         margin-top: -2px;
     }
-}
-
-.feedBack:hover + .headerInvites:before {
-    display: none;
 }
 
 .signUp {

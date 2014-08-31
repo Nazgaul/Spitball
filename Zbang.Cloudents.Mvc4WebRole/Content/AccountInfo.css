@@ -48,19 +48,6 @@
   width: 38px;
   position: relative;
 }
-.feedBack:before,
-.homeLink:before {
-  content: '';
-  display: inline-block;
-  width: 1px;
-  height: 18px;
-  background: #0b7843;
-  vertical-align: top;
-  position: absolute;
-  right: -1px;
-  /*rtl*/
-  top: 16px;
-}
 .feedBack:after,
 .homeLink:after {
   content: '';
@@ -77,9 +64,6 @@
 .feedBack {
   text-align: center;
 }
-.feedBack:hover + .homeLink:before {
-  display: none;
-}
 .feedBack:after {
   margin-top: 16px;
 }
@@ -92,9 +76,6 @@
   background-position: -215px -24px;
   vertical-align: middle;
   margin-top: -2px;
-}
-.feedBack:hover + .headerInvites:before {
-  display: none;
 }
 .signUp {
   display: inline-block;
