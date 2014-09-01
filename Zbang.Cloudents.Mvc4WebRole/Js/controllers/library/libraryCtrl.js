@@ -36,11 +36,11 @@ mLibrary.controller('LibraryCtrl',
 
             function processData(data) {
                 var pageData;
-                if (data.nodes.length) {
+                if (data.nodes && data.nodes.length) {
                     pageData = data.nodes;
                     $scope.info.type = types.department;
                 }
-                else if (data.boxes.length) {
+                else if (data.boxes && data.boxes.length) {
                     pageData = data.boxes;
                     $scope.info.type = types.box;
                 }

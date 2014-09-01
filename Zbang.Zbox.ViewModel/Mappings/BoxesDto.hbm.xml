@@ -36,9 +36,9 @@
     b.ProfessorName as ProfessorName,
     b.Discriminator as boxType,
     b.Url as Url
-    from zbox.LibraryBox l
-    join zbox.box b on b.BoxId = l.BoxId and b.IsDeleted = 0  and b.discriminator = 2
-    where LibraryId = :ParentNode
+    from zbox.box b 
+    where b.IsDeleted = 0  and b.discriminator = 2
+    and  b.department = :ParentNode
     ORDER BY  
           BoxName asc
     ]]>
