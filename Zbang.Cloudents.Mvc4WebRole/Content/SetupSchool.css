@@ -385,7 +385,8 @@
 /*#region chairman - only displayed for hebrew */
 .chairman {
   width: 450px;
-  min-height: 100vh;
+  min-height: -webkit-calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
   margin-top: -50px;
   float: right;
   position: relative;
@@ -401,7 +402,7 @@
   background: #ebeced;
   box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
   /*rtl*/
-  padding: 100px 33px 50px 33px;
+  padding: 50px 33px;
 }
 .chairman:before {
   content: '';
