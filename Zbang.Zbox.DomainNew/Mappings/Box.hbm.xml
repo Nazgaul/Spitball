@@ -74,6 +74,12 @@
       <property name="CourseCode"/>
       <property name="Professor" column="ProfessorName"/>
       <many-to-one name="Department" class="Department" not-null="false" foreign-key="DepartmentBoxes"/>
+      <many-to-one name="University" class="University" not-null="false" foreign-key="UniversityBoxes"/>
+      <set name="Library" table="LibraryBox">
+        <key column="BoxId"/>
+        <many-to-many column="LibraryId" foreign-key="BoxesLibraries"
+            class="Library"/>
+      </set>
     </subclass>
   </class>
 </hibernate-mapping>

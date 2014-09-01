@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
+        private const string DepartmentUrl = "/department/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}/";
 
         private const string LibraryUrl = "/library/{0}/{1}/";
@@ -53,6 +54,21 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             return relativeUrl;
         }
+
+        public static string BuildDepartmentUrl(long id, string name, string universityName)
+        {
+            if (name == null) throw new ArgumentNullException("name");
+            if (universityName == null) throw new ArgumentNullException("universityName");
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("name");
+            }
+            string relativeUrl;
+            relativeUrl = VirtualPathUtility.AppendTrailingSlash(
+                 string.Format(DepartmentUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
+            return relativeUrl;
+        }
+        
 
 
         public static string BuildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName, bool fullUrl = false)

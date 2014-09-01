@@ -109,13 +109,17 @@ namespace Zbang.Zbox.ReadServices
                 }
 
                 IFutureValue<NodeDto> fParent = null;
+                //todo: THIS IS NOT WORKING
                 if (query.ParentNode.HasValue)
                 {
-                    var dbQueryParentNode = UnitOfWork.CurrentSession.GetNamedQuery("GetParentNode");
-                    dbQueryParentNode.SetParameter("ParentNode", query.ParentNode);
-                    dbQueryParentNode.SetParameter("UserId", query.UniversityId);
-                    dbQueryParentNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
-                    fParent = dbQueryParentNode.FutureValue<NodeDto>();
+                   // var dbQueryParentNode = UnitOfWork.CurrentSession.GetNamedQuery("GetParentNode");
+                   //// dbQueryParentNode.SetParameter("ParentNode", query.ParentNode);
+                   // //dbQueryParentNode.SetParameter("UserId", query.UniversityId);
+                   // dbQueryParentNode.SetParameter(0, query.UniversityId);
+                   // dbQueryParentNode.SetParameter(1, query.ParentNode);
+
+                   // dbQueryParentNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
+                   // fParent = dbQueryParentNode.FutureValue<NodeDto>();
                 }
                 var nodes = fNodeResult.ToList();
                 var boxes = fBoxesResult.ToList();

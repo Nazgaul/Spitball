@@ -25,6 +25,10 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         public static Guid Decode(string encoded)
         {
+            if (encoded.Length != 22)
+            {
+                return Guid.Empty;
+            }
             encoded = encoded.Replace("_", "/");
             encoded = encoded.Replace("-", "+");
             var buffer = Convert.FromBase64String(encoded + "==");
