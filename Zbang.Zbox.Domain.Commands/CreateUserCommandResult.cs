@@ -11,7 +11,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public User User { get; set; }
 
-        public long? UniversityWrapperId { get; set; }
         public long? UniversityId { get; set; }
     }
 }

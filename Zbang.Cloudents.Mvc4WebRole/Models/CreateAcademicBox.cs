@@ -7,10 +7,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
     public class CreateAcademicBox //: CreateBox
     {
 
-        [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
-        [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "Department")]
-        public string Department { get; set; }
-
         [DataType(DataType.Text)]
         [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "CourseName")]
@@ -28,13 +24,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         //[Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "Department")]
         //public string Department { get; set; }
 
-        [Required]
-        public Guid ParentId { get; set; }
+        [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
+        [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "Department")]
+        public long DepartmentId { get; set; }
 
         public override string ToString()
         {
             var baseString = base.ToString();
-            return string.Format("{0} CourseName {1} CourseId {2} Professor {3} ParentId {4}", baseString, CourseName, CourseId, Professor, ParentId);
+            return string.Format("{0} CourseName {1} CourseId {2} Professor {3} DepartmentId {4}", baseString, CourseName, CourseId, Professor, DepartmentId);
 
         }
     }

@@ -9,8 +9,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class AddStudentCommandHandler : ICommandHandler<AddStudentCommand>
     {
         private readonly IRepository<Student> m_StudentRepository;
-        private readonly IRepository<University2> m_UniversityRepository;
-        public AddStudentCommandHandler(IRepository<Student> studentRepository, IRepository<University2> universityRepository)
+        private readonly IRepository<University> m_UniversityRepository;
+        public AddStudentCommandHandler(IRepository<Student> studentRepository, IRepository<University> universityRepository)
         {
             m_StudentRepository = studentRepository;
             m_UniversityRepository = universityRepository;

@@ -9,14 +9,14 @@ namespace Zbang.Zbox.Domain
             
         }
 
-        public Student(University2 university, string id)
+        public Student(University university, string id)
         {
             if (id == null) throw new ArgumentNullException("id");
             ID = id.PadLeft(9, '0');
             University = university;
         }
         public virtual long StudentId { get; set; }
-        public virtual University2 University { get; set; }
+        public virtual University University { get; set; }
 
 // ReSharper disable once InconsistentNaming - nhibernate
         public virtual string ID { get; set; }

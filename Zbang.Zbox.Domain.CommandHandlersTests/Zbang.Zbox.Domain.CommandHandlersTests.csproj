@@ -54,8 +54,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenameNodeCommandHandlerTests.cs" />
-    <Compile Include="DeleteNodeFromLibraryCommandHandlerTests.cs" />
     <Compile Include="CreateItemTabCommandHandlerTests.cs" />
     <Compile Include="AssignItemToTabCommandHandlerTests.cs.cs" />
     <Compile Include="ChangeItemTabNameCommandHandlerTests.cs" />

@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (User.Identity.IsAuthenticated && !universityId.HasValue)
             {
                 var userDetail = FormsAuthenticationService.GetUserData();
-                var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+                var universityWrapper = userDetail.UniversityId.Value;
                 var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
                 if (storeUniversityId.HasValue)
                 {

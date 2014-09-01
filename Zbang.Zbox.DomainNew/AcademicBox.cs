@@ -8,16 +8,14 @@ namespace Zbang.Zbox.Domain
 {
     public class AcademicBox : Box
     {
-        public AcademicBox(string boxName, User user,
-            string courseCode, string professor, Library library, string picture, User creator, string pictureUrl)
+        public AcademicBox(string boxName, Department department,
+            string courseCode, string professor,  string picture, User creator, string pictureUrl)
             :
-            base(boxName, user, BoxPrivacySettings.AnyoneWithUrl)
+            base(boxName, creator, BoxPrivacySettings.AnyoneWithUrl)
         {
             if (creator == null) throw new ArgumentNullException("creator");
-            InitializeAcademicBox();
             CourseCode = courseCode;
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            Library.Add(library);
 
             Professor = professor;
            // Picture = picture;
@@ -26,6 +24,8 @@ namespace Zbang.Zbox.Domain
             var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
             Questions.Add(new Comment(creator, Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));
             CommentCount = 1;
+
+            Department = department;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
@@ -33,17 +33,14 @@ namespace Zbang.Zbox.Domain
 // ReSharper disable once RedundantBaseConstructorCall nhibernate
             : base()
         {
-            InitializeAcademicBox();
         }
 
-        private void InitializeAcademicBox()
-        {
-            Library = new HashSet<Library>();
-        }
+       
 
         public virtual string CourseCode { get; private set; }
         public virtual string Professor { get; private set; }
-        public virtual ICollection<Library> Library { get; private set; }
+
+        public virtual Department Department { get; private set; }
 
         public void UpdateBoxInfo(string courseCode, string professorName)
         {

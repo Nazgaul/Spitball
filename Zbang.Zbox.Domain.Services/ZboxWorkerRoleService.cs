@@ -103,7 +103,8 @@ namespace Zbang.Zbox.Domain.Services
                             oldUniversity.UniversityName,
                             oldUniversity.Country,
                             oldUniversity.Image,
-                            oldUniversity.ImageLarge)
+                            oldUniversity.ImageLarge,
+                            "sys")
                         {
                             LetterUrl = oldUniversity.LetterUrl,
                             MailAddress = oldUniversity.MailAddress,
@@ -134,20 +135,20 @@ namespace Zbang.Zbox.Domain.Services
 
 
 
-                var libraryNodes =
-                          UnitOfWork.CurrentSession.QueryOver<Library>()
-                              .Skip(100 * index)
-                              .Take(100).List();
+                //var libraryNodes =
+                //          UnitOfWork.CurrentSession.QueryOver<Library>()
+                //              .Skip(100 * index)
+                //              .Take(100).List();
 
 
-                foreach (var node in libraryNodes)
-                {
-                    node.GenerateUrl();
-                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Library set Url = @Url where libraryid = @Id"
-                        , new { node.Url, node.Id });
+                //foreach (var node in libraryNodes)
+                //{
+                //    node.GenerateUrl();
+                //    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Library set Url = @Url where libraryid = @Id"
+                //        , new { node.Url, node.Id });
 
-                    retVal = true;
-                }
+                //    retVal = true;
+                //}
 
                 var quizes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                               .Where(w => w.Publish).Skip(100 * index)

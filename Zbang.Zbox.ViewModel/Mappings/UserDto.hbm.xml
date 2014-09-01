@@ -42,10 +42,9 @@
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
-    uu.Id as UniversityWrapperId,
     uu.Name as LibName,
     uu.Image as LibImage,
-    coalesce(uu.DataUnversity.Id,uu.Id) as UniversityId
+    uu.Id as UniversityId
     from User u left join u.University uu
     where u.MembershipId= :MembershipUserId
     ]]>
@@ -60,10 +59,9 @@
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
-    uu.Id as UniversityWrapperId,
     uu.Name as LibName,
     uu.Image as LibImage,
-    coalesce(uu.DataUnversity.Id,uu.Id) as UniversityId
+    uu.Id as UniversityId
     from User u left join u.University uu
     where u.FacebookId = :FacebookId
     and u.IsRegisterUser =1
@@ -79,10 +77,9 @@
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
-    uu.Id as UniversityWrapperId,
     uu.Name as LibName,
     uu.Image as LibImage,
-    coalesce(uu.DataUnversity.Id,uu.Id) as UniversityId
+    uu.Id as UniversityId
     from User u left join u.University uu
     where u.Email= :Email
     and (MembershipId is not null or FacebookId is not null)

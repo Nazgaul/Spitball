@@ -4,14 +4,23 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class CreateUniversityCommand : ICommand
     {
-        public CreateUniversityCommand(string name, string email, string country)
+        public CreateUniversityCommand(long id, string name, string country, string smallImage, string largeImage, long userId)
         {
+            UserId = userId;
+            LargeImage = largeImage;
+            SmallImage = smallImage;
+            Id = id;
             Name = name;
-            Email = email;
             Country = country;
         }
         public string Name { get; private set; }
-        public string Email { get; private set; }
         public string Country { get; private set; }
+
+        public long Id { get; private set; }
+
+        public string SmallImage { get; private set; }
+        public string LargeImage { get; private set; }
+        public long UserId { get; private set; }
+
     }
 }

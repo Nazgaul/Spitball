@@ -1,7 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using NHibernate.Id;
 using System;
-using System.Configuration;
+using SnowMaker;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.IdGenerator
@@ -11,22 +11,23 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
         public const string ItemLikeScope = "ItemLike";
         public const string ItemAnnotationScope = "ItemAnnotation";
         public const string ItemAnnotationReplyScope = "ItemReply";
-
         public const string QuizScope = "Quiz";
+        public const string DepartmentScope = "Department";
+
+
         // private readonly SnowMaker.BlobOptimisticDataStore m_DataStorage;
-        private readonly SnowMaker.UniqueIdGenerator m_Generator;
+        private readonly UniqueIdGenerator m_Generator;
         public IdGenerator()
         {
             //TODO temp
             CloudStorageAccount cloudStorageAccount;
             var storageConnectionString = ConfigFetcher.Fetch("StorageConnectionString");
             cloudStorageAccount = string.IsNullOrEmpty(storageConnectionString) ? CloudStorageAccount.DevelopmentStorageAccount : CloudStorageAccount.Parse(storageConnectionString);
-            var dataStorage = new SnowMaker.BlobOptimisticDataStore(
+            var dataStorage = new BlobOptimisticDataStore(
                  cloudStorageAccount,
-                //BlobProvider.AzureIdGeneratorContainer.ToLower()
                  "zboxIdGenerator"
                  );
-            m_Generator = new SnowMaker.UniqueIdGenerator(dataStorage) { BatchSize = 20 };
+            m_Generator = new UniqueIdGenerator(dataStorage) { BatchSize = 20 };
         }
 
         public long GetId(string scopeName)

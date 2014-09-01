@@ -8,27 +8,26 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateUniversityCommandHandler : ICommandHandler<CreateUniversityCommand>
     {
-        private readonly IRepository<University2> m_UniversityRepository;
-        public CreateUniversityCommandHandler(IRepository<University2> universityRepository)
+        private readonly IRepository<University> m_UniversityRepository;
+        private readonly IRepository<User> m_UserRepository;
+
+        public CreateUniversityCommandHandler(IRepository<University> universityRepository, IRepository<User> userRepository)
         {
             m_UniversityRepository = universityRepository;
+            m_UserRepository = userRepository;
         }
+
         public void Handle(CreateUniversityCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var windowsIdentity = System.Security.Principal.WindowsIdentity.GetCurrent();
-            if (windowsIdentity == null)
-            {
-                throw new NullReferenceException("windowsIdentity");
-            }
 
-            var university = new University2(message.Email, message.Name,
-                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
-                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg",
-                windowsIdentity.Name)
-            {
-                Country = message.Country
-            };
+
+            var user = m_UserRepository.Load(message.UserId);
+            var university = new University(message.Id, message.Name, message.Country,
+                message.SmallImage, message.LargeImage, user.Email
+                //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
+                //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg"
+                );
             m_UniversityRepository.Save(university);
 
 

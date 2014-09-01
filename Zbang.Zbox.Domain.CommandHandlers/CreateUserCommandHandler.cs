@@ -14,13 +14,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected readonly IUserRepository UserRepository;
         private readonly IQueueProvider m_QueueRepository;
-        private readonly IRepository<University2> m_UniversityRepository;
+        private readonly IRepository<University> m_UniversityRepository;
         private readonly IInviteToCloudentsRepository m_InviteToCloudentsRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
-            IRepository<University2> universityRepository,
+            IRepository<University> universityRepository,
             IInviteToCloudentsRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
         {
@@ -58,26 +58,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
 
 
-        
+
         protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
         {
             if (result == null) throw new ArgumentNullException("result");
             if (user == null) throw new ArgumentNullException("user");
-            University2 university = m_UniversityRepository.Get(universityId);
+            var university = m_UniversityRepository.Get(universityId);
             if (university == null)
             {
                 return;
             }
-            if (university.DataUnversity != null)
-            {
-
-                result.UniversityId = university.DataUnversity.Id;
-                result.UniversityWrapperId = university.Id;
-            }
-            else
-            {
-                result.UniversityId = university.Id;
-            }
+            result.UniversityId = university.Id;
             user.UpdateUserUniversity(university, string.Empty, null, null, null);
         }
 

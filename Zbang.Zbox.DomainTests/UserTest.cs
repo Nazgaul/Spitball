@@ -15,13 +15,13 @@ namespace Zbang.Zbox.DomainTests
             m_SomeUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
         }
 
-        [TestMethod]
-        public void UpdateUserUniversity_NullUniversity_ThrowException()
-        {
-            m_SomeUser.UpdateUserUniversity(null, string.Empty, null, null, null);
-            Assert.AreEqual(m_SomeUser.University, null);
-            // Assert.AreEqual(m_SomeUser.UniversityAlias, null);
-        }
+        //[TestMethod]
+        //public void UpdateUserUniversity_NullUniversity_ThrowException()
+        //{
+        //    m_SomeUser.UpdateUserUniversity(null, string.Empty, null, null, null);
+        //    Assert.AreEqual(m_SomeUser.University, null);
+        //    // Assert.AreEqual(m_SomeUser.UniversityAlias, null);
+        //}
 
 
         [TestMethod]

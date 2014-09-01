@@ -12,13 +12,11 @@ namespace Zbang.Zbox.Domain
             : base()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            Libraries = new HashSet<Library>();
             NeedCode = false;
         }
         public University2(string email, string universityName, string image, string largeImage, string creatingUserName)
             : base(email, universityName, image, largeImage)
         {
-            Libraries = new HashSet<Library>();
             UserTime.CreatedUser = creatingUserName;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
@@ -32,7 +30,6 @@ namespace Zbang.Zbox.Domain
         {
         }
 
-        public virtual ICollection<Library> Libraries { get; set; }
         public virtual bool NeedCode { get; private set; }
         // ReSharper disable UnusedAutoPropertyAccessor.Local
         public virtual University2 DataUnversity { get; private set; }
@@ -56,40 +53,7 @@ namespace Zbang.Zbox.Domain
         {
             return UniversityName;
         }
-        public virtual Library CreateNewLibraryRoot(Guid id, string nodeName)
-        {
-            if (Libraries.Any(f => f.Name == nodeName))
-            {
-                throw new ArgumentException("cannot have node with the same name");
-            }
-            var library = new Library(id, nodeName, null, this);
-            Libraries.Add(library);
-            return library;
-        }
-
-
-        #region Nhibernate
-        //public override bool Equals(object obj)
-        //{
-        //    if (this == obj) return true;
-
-        //    var university = obj as University;
-        //    if (university == null) return false;
-
-        //    if (UniversityName != university.UniversityName) return false;
-        //    return true;
-        //}
-        //public override int GetHashCode()
-        //{
-        //    unchecked
-        //    {
-        //        int result;
-        //        result = 11 * UniversityName.GetHashCode();
-
-        //        return result;
-        //    }
-        //}
-        #endregion
+      
     }
 
 
@@ -99,14 +63,14 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public University(long id, string name, string country, string image, string largeImage)
+        public University(long id, string name, string country, string image, string largeImage, string userEmail)
         {
             Id = id;
             UniversityName = name;
             Country = country;
             Image = image;
             LargeImage = largeImage;
-            UserTime = new UserTimeDetails("sys");
+            UserTime = new UserTimeDetails(userEmail);
         }
 
         public long Id { get; set; }
