@@ -370,13 +370,6 @@
   position: relative;
   vertical-align: top;
 }
-.browseCourses button,
-.createCourse button,
-.recommendedWpr button {
-  width: 100%;
-  height: 294px;
-  border: 1px solid #c2c2c2;
-}
 .actionTxt {
   font-size: 22px;
   color: #383838;
@@ -391,6 +384,10 @@
 }
 .browseCourses {
   padding-right: 8px;
+  vertical-align: middle;
+  text-align: center;
+  height: 294px;
+  border: 1px solid #c2c2c2;
 }
 .browseCourses .actionTxt:before {
   background-position: 0 -241px;
@@ -403,6 +400,11 @@
 }
 .createCourse:only-child {
   padding: 0;
+}
+.createCourse button {
+  width: 100%;
+  height: 294px;
+  border: 1px solid #c2c2c2;
 }
 .recommendedWpr {
   border: 1px solid #c2c2c2;
@@ -518,6 +520,7 @@
 /*#endregion */
 /*#region setup course 'popups' */
 .formWpr {
+  display: none;
   width: 650px;
   margin: 115px auto 0;
   padding: 25px;
@@ -576,10 +579,19 @@
 .formWpr .department {
   position: relative;
 }
+.formWpr.js-private {
+  display: block;
+}
 .formWpr.js-private .newPrivate {
   display: block;
 }
+.formWpr.js-academic {
+  display: block;
+}
 .formWpr.js-academic .newAcademic {
+  display: block;
+}
+.formWpr.js-addDept {
   display: block;
 }
 .formWpr.js-addDept .courseType {

@@ -23,6 +23,12 @@
     form {
         margin: 20px 15px;
     }
+    .uniName {
+        color: @textColor;
+        font-size: 20px;
+        display: block;
+        font-weight: normal;
+    }
 }
 
 .libEmptyTitle {
@@ -115,17 +121,6 @@
     padding: 10px 5px 0 8px; /*rtl*/
 }
 
-.uniName {
-    color: @textColor;
-    font-size: 20px;
-    display: block;
-    font-weight: normal;
-    width: auto; //override
-    height: auto;
-    margin: 0;
-    border: none;
-}
-
 .uniCount {
     font-size: 13px;
     position: relative;
@@ -197,7 +192,8 @@
 }
 .createSchool, .completeRegistration {
     width: 646px;
-    overflow: hidden; //this fixes the issue where width:100% on inputText breaks the layout at certain viewport widths
+    //overflow: hidden; //this fixes the issue where width:100% on inputText breaks the layout at certain viewport widths
+    //....problem is, that it hides the autocomplete popup. 
     border-radius: 3px;
     border: 1px solid @borderColor;
     position: relative;
@@ -218,7 +214,8 @@
         margin-bottom: 5px;
     }
     .inputText {
-        width: 100%;
+        //width: 100%;
+        width: 98%;
         height: 37px;
         .boxSizing;
     }
@@ -373,8 +370,8 @@
 /*#region chairman - only displayed for hebrew */
 .chairman {
     width: 450px;
-    min-height: 100vh;
-    margin-top: -@header-height; 
+    min-height: ~'-webkit-calc(100vh - 50px)';
+    min-height: ~'calc(100vh - 50px)';
     float: right; //NO rtl!!
     position: relative;
     top:0;
@@ -384,7 +381,7 @@
     .boxSizing;
     background: #ebeced;
     box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
-    padding: 100px 33px 50px 33px;
+    padding: 50px 33px;
     &:before {
         .pseudo;
         background: url(/Images/national-union-pic.png?v=1) no-repeat;

@@ -23,6 +23,12 @@
 .libraryChoose form {
   margin: 20px 15px;
 }
+.libraryChoose .uniName {
+  color: #383838;
+  font-size: 20px;
+  display: block;
+  font-weight: normal;
+}
 .libEmptyTitle {
   font-size: 32px;
   text-align: center;
@@ -123,16 +129,6 @@
   padding: 10px 5px 0 8px;
   /*rtl*/
 }
-.uniName {
-  color: #383838;
-  font-size: 20px;
-  display: block;
-  font-weight: normal;
-  width: auto;
-  height: auto;
-  margin: 0;
-  border: none;
-}
 .uniCount {
   font-size: 13px;
   position: relative;
@@ -205,7 +201,6 @@
 .createSchool,
 .completeRegistration {
   width: 646px;
-  overflow: hidden;
   border-radius: 3px;
   border: 1px solid #c2c2c2;
   position: relative;
@@ -232,7 +227,7 @@
 }
 .createSchool .inputText,
 .completeRegistration .inputText {
-  width: 100%;
+  width: 98%;
   height: 37px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -390,8 +385,8 @@
 /*#region chairman - only displayed for hebrew */
 .chairman {
   width: 450px;
-  min-height: 100vh;
-  margin-top: -50px;
+  min-height: -webkit-calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
   float: right;
   position: relative;
   top: 0;
@@ -406,7 +401,7 @@
   background: #ebeced;
   box-shadow: -4px 0 4px rgba(0, 0, 0, 0.15);
   /*rtl*/
-  padding: 100px 33px 50px 33px;
+  padding: 50px 33px;
 }
 .chairman:before {
   content: '';
