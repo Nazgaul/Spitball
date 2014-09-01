@@ -23,6 +23,12 @@
 .libraryChoose form {
   margin: 20px 15px;
 }
+.libraryChoose .uniName {
+  color: #383838;
+  font-size: 20px;
+  display: block;
+  font-weight: normal;
+}
 .libEmptyTitle {
   font-size: 32px;
   text-align: center;
@@ -122,16 +128,6 @@
   display: block;
   padding: 10px 5px 0 8px;
   /*rtl*/
-}
-.uniName {
-  color: #383838;
-  font-size: 20px;
-  display: block;
-  font-weight: normal;
-  width: auto;
-  height: auto;
-  margin: 0;
-  border: none;
 }
 .uniCount {
   font-size: 13px;
