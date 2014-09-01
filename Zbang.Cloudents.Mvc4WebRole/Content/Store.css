@@ -208,22 +208,37 @@ main {
 }
 /*#endregion */
 /*#region search form */
-.searchForm {
+.searchCategoriesWpr {
+  height: 60px;
   width: 100%;
+  margin: 25px 0;
+}
+.searchCategoriesWpr > button {
+  width: 220px;
+  height: 60px;
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+  background: #39434a;
+}
+.searchForm {
+  width: 710px;
+  height: 60px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border: 10px solid #39434a;
-  margin: 25px 0;
-  height: 80px;
+  border: 5px solid #39434a;
   position: relative;
   font-size: 0;
-}
-.searchForm.showResults ~ .productsList {
-  display: none;
-}
-.searchForm.showResults ~ .productsList.searchResultsList {
-  display: block;
+  /*&.showResults {
+        ~ .productsList {
+            display: none;
+
+            &.searchResultsList {
+                display: block;
+            }
+        }
+    }*/
 }
 .inputSearch {
   width: 84%;

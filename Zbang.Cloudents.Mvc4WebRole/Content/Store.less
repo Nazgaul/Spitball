@@ -227,17 +227,30 @@ main {
 /*#endregion */
 
 /*#region search form */
+.searchCategoriesWpr {
+    height: 60px;
+    width: 100%;
+    margin: 25px 0;
+    > button {
+        width: 220px;
+        height: 60px;
+        font-size: 22px;
+        text-align: center;
+        color: #fff;
+        background: @txtColor;
+    }
+}
 
 .searchForm {
-    width: 100%;
+    //width: 100%;
+    width: 710px;
+    height: 60px;
     .boxSizing;
-    border: 10px solid @shopping-black;
-    margin: 25px 0;
-    height: 80px;
+    border: 5px solid @shopping-black;
     position: relative;
     font-size: 0;
 
-    &.showResults {
+    /*&.showResults {
         ~ .productsList {
             display: none;
 
@@ -245,7 +258,7 @@ main {
                 display: block;
             }
         }
-    }
+    }*/
 }
 
 .inputSearch {

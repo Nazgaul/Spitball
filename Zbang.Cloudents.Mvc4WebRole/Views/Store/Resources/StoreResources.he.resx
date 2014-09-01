@@ -408,4 +408,7 @@
   <data name="PayLess" xml:space="preserve">
     <value>כי סטודנטים משלמים פחות</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>קטגוריות</value>
+  </data>
 </root>

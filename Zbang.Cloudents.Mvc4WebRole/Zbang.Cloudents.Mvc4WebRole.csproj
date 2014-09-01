@@ -981,6 +981,7 @@
     <Content Include="Images\Store\social.png.scss">
       <DependentUpon>social.png</DependentUpon>
     </Content>
+    <Content Include="App_Code\_Categories.cshtml" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
