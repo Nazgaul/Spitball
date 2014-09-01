@@ -285,17 +285,21 @@
 
 /*#region new dashboard */
 
-.js-newDash {
+.jsNewDash {
+    .setupCourse {
+        display: block;
+    }
     .unionCourses, .groupBoxes {
         display: none;
     }
 }
-.js-dark {
+.jsDark {
     .dashboard{
         display: none!important; //override js
     }
 }
 .setupCourse {
+    display: none;
     color: #fff;
     margin-left: -14px; //rtl
     .topWpr {
@@ -658,18 +662,6 @@
     }
 }
 
-/*<div class="socialWpr">
-    <button class="cloudentsBtn"></button>
-    <button class="fbBtn"></button>
-    <button class="gmailBtn"></button>
-</div>
-
-<div class="socialContentWpr">
-    <label class="input" data-cloud-txt="@IndexResources.SearchCloudents" data-fb-txt="@IndexResources.SearchFb" data-gm-txt="@IndexResources.SearchGmail">
-        <input type="search" />
-    </label>
-
-</div>*/
 .socialInvite {
     display: none;
     text-align: center;

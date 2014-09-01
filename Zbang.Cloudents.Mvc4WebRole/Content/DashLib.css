@@ -266,14 +266,18 @@
 }
 /*#endregion */
 /*#region new dashboard */
-.js-newDash .unionCourses,
-.js-newDash .groupBoxes {
+.jsNewDash .setupCourse {
+  display: block;
+}
+.jsNewDash .unionCourses,
+.jsNewDash .groupBoxes {
   display: none;
 }
-.js-dark .dashboard {
+.jsDark .dashboard {
   display: none!important;
 }
 .setupCourse {
+  display: none;
   color: #fff;
   margin-left: -14px;
 }
@@ -637,18 +641,6 @@
   margin: 0 0 -200px 0;
   min-height: 200px;
 }
-/*<div class="socialWpr">
-    <button class="cloudentsBtn"></button>
-    <button class="fbBtn"></button>
-    <button class="gmailBtn"></button>
-</div>
-
-<div class="socialContentWpr">
-    <label class="input" data-cloud-txt="@IndexResources.SearchCloudents" data-fb-txt="@IndexResources.SearchFb" data-gm-txt="@IndexResources.SearchGmail">
-        <input type="search" />
-    </label>
-
-</div>*/
 .socialInvite {
   display: none;
   text-align: center;
