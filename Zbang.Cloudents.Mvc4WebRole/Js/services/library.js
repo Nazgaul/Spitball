@@ -80,16 +80,26 @@
 
                 return dfd.promise;
             },
-            facebookFriends: function(data){
-            var dfd = $q.defer();
+            facebookFriends: function (data) {
+                var dfd = $q.defer();
                 $http.get(Lib + 'GetFriends/', { params: data }).success(function (response) {
-                dfd.resolve(response);
-            }).error(function (response) {
-                dfd.reject(response);
-            });
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
 
-            return dfd.promise;
-        }
+                return dfd.promise;
+            },
+            searchDepartment: function (data) {
+                var dfd = $q.defer();
+                $http.get(Lib + 'SearchDepartment/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            }
         };
     }
     ]);
