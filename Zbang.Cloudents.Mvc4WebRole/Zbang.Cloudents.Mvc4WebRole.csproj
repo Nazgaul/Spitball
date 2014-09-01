@@ -926,6 +926,7 @@
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\displayTime.js" />
     <Content Include="Js\modules\textDirection.js" />
+    <Content Include="Js\modules\wizard.js" />
     <Content Include="Js\Navigation2.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
@@ -1426,6 +1427,7 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>

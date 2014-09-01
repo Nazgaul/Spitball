@@ -179,6 +179,8 @@
 /// <reference path="../js/modules/angular-timer.js" />
 /// <reference path="../js/controllers/library/libchoosectrl.js" />
 /// <reference path="../js/directives/lazysrc.js" />
+/// <reference path="../js/modules/wizard.js" />
+/// <reference path="../js/controllers/dashboard/createboxwizardctrl.js" />
 <<<<<<< HEAD
 /// <reference path="../js/directives/backbutton.js" />
 /// <reference path="../js/directives/focuson.js" />

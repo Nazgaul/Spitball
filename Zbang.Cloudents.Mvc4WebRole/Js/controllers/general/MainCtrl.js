@@ -6,6 +6,9 @@
             }
 
 
+            $scope.firstTime = $scope.viewBag;
+            
+
             $rootScope.options = {
                 quizOpen: false
             };
@@ -28,6 +31,8 @@
                 url = url.replace(location.origin, '');
                 $location.url(url, '', url).replace();
             }
+
+            
 
 
             $scope.$on('message', function (e, user) {

@@ -6,7 +6,7 @@
 
 @*Guy: when user has just come from select uni - add class js-newDash*@
 
-<div id="dashboard" class="page dashboard js-newDash" ng-controller="DashboardCtrl">
+<div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl" ng-class="{'js-newDash': firstTime.dashboard}">
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.GenerateUrl("Index", "Library")">
@@ -17,11 +17,11 @@
             </a>
             @if (!string.IsNullOrEmpty(Model.AdvertismentUrl))
             {
-            <button type="button" class="productsBtn" ng-init="options.storeUrl='@Model.AdvertismentUrl'" ng-click="productStore()">
-                <h2 class="productsHeader">חנות האגודה</h2>
-                <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
-                <div class="closeProducts"></div>
-            </button>
+                <button type="button" class="productsBtn" ng-init="options.storeUrl='@Model.AdvertismentUrl'" ng-click="productStore()">
+                    <h2 class="productsHeader">חנות האגודה</h2>
+                    <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
+                    <div class="closeProducts"></div>
+                </button>
             }
             <div class="dashLists">
                 <div class="dashFriends">
@@ -68,8 +68,7 @@
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
 
             @*NEW COURSE SECTION*@
-
-            <section class="setupCourse">
+            <section class="setupCourse" ng-if="firstTime.dashboard">
                 <div class="topWpr">
                     <header class="setupCourseTxt1">@IndexResources.WelcomeCloudents</header>
                     <div class="setupCourseTxt2">@HomeResources.StudyPlatform</div>
@@ -78,55 +77,30 @@
                     <span class="featureTxt3">@IndexResources.SwapBooks</span>
                 </div>
                 <div class="chooseActionWpr">
-                    <a href="#" class="browseCourses">
+                    <a href="@Url.GenerateUrl("Index", "Library")" class="browseCourses">
                         <div class="actionTxt">@IndexResources.BrowseCourses</div>
                     </a>
                     <div class="createCourse">
-                        <button type="button"><div class="actionTxt">@IndexResources.CreateCourse</div></button>
+                        <button type="button" ng-click="openCreateBoxWizard()"><div class="actionTxt">@IndexResources.CreateCourse</div></button>
                     </div>
                     <section class="recommendedWpr">
                         <header>@IndexResources.RecommendedCourses</header>
                         <ul>
-                            <li class="recommended">
-                                <a href="#1" class="courseLink">
+                            <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
+                                <a bo-href="course.url" class="courseLink">
                                     <div class="rFloat">
-                                        <div class="friends" data-friends-count="25">@SharedResources.Friends</div>
-                                        <div class="files" data-files-count="50">@SharedResources.Files</div>
+                                        <div class="friends" bo-attr bo-attr-data-friends-count="course.friends">@SharedResources.Friends</div>
+                                        <div class="files" bo-attr bo-attr-data-files-count="course.files">@SharedResources.Files</div>
                                     </div>
-                                    <img src="http://placehold.it/68x68" alt="" width="68" height="68" />
-                                    <div class="elps courseName">Course name here</div>
-                                    <div class="elps">20109 - course id</div>
-                                    <div class="prof elps">Profressor name here</div>
+                                    <img bo-src="course.image" alt="" width="68" height="68" />
+                                    <div class="elps courseName" bo-text="course.name"></div>
+                                    <div class="elps" bo-text="course.id"></div>
+                                    <div class="prof elps" bo-text="course.professor"></div>
                                 </a>
-                            </li>
-                            <li class="recommended">
-                                <a href="#2" class="courseLink">
-                                    <div class="rFloat">
-                                        <div class="friends" data-friends-count="25">@SharedResources.Friends</div>
-                                        <div class="files" data-files-count="50">@SharedResources.Files</div>
-                                    </div>
-                                    <img src="http://placehold.it/68x68" alt="" width="68" height="68" />
-                                    <div class="elps courseName">Course name here</div>
-                                    <div class="elps">20109 - course id</div>
-                                    <div class="prof elps">Profressor name here</div>
-                                </a>
-                            </li>
-                            <li class="recommended">
-                                <a href="#3" class="courseLink">
-                                    <div class="rFloat">
-                                        <div class="friends" data-friends-count="25">@SharedResources.Friends</div>
-                                        <div class="files" data-files-count="50">@SharedResources.Files</div>
-                                    </div>
-                                    <img src="http://placehold.it/68x68" alt="" width="68" height="68" />
-                                    <div class="elps courseName">Course name here</div>
-                                    <div class="elps">20109 - course id</div>
-                                    <div class="prof elps">Profressor name here</div>
-                                </a>
-                            </li>
+                            </li>                            
                         </ul>
                     </section>
-                </div>
-                <button type="button" class="closeDialog"></button>
+                </div>                
             </section>
 
             <section class="unionCourses">
@@ -188,60 +162,68 @@
             </a>
             <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" tooltip-placement="top" tooltip="{{getTitle(box)}}"></button>
         </script>
-    </div>
-</div> 
 
-@*Guy: When user clicks the 'private course' radio btn - add class 'js-private' here 
-     When user clicks the 'open course' radio btn - add class 'js-academic' here
-    When user clicks the 'Create a new Department' btn - add class 'js-addDept' here
-    *@
-
-@*js-academic | js-private | js-addDept*@
-<div class="formWpr js--addDept js--academic js--private"> 
-    <div class="actionTxt">@IndexResources.CreateCourse</div>
-
-    <div class="courseType">
-        <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
-        @*<label for="PrivateCourse">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>*@
-        @*<div class="labelExplain explain1">@SharedResources.OnlyPeople</div>*@
-        <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
-        <div class="labelExplain explain1">@IndexResources.InviteOnly</div>
-    </div>
-
-    <div class="courseType">
-        <input class="radio" type="radio" id="OpenCourse" name="courseType" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
-        @*<label for="OpenCourse">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
-            <div class="labelExplain">@SharedResources.AnyoneWho</div>*@
-        <label for="OpenCourse">@IndexResources.OpenCourse</label>
-        <div class="labelExplain">@IndexResources.AnyoneUrl</div>
-    </div>
-
-
-    @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
-    <div class="newAcademic clearfix">
-        @{
-            Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
-        }
-    </div>
-
-    <div class="newPrivate clearfix">
-        @{
-            Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl });
-        }
-    </div>
-
-
-    @{
-        Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
-    }
-
-
-    @*<div class="newDepartment">
-            @{
-                Html.RenderPartial("~/Library/_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
-            }
-        </div>*@
+        <script type="text/ng-template" id="wizard.html">
+            <div>
+                <div class="steps" ng-transclude></div>
+                <ul class="steps-indicator steps-{{steps.length}}" ng-if="!hideIndicators">
+                    <li ng-class="{default: !step.completed && !step.selected, current: step.selected && !step.completed, done: step.completed && !step.selected, editing: step.selected && step.completed}" ng-repeat="step in steps">
+                        <a ng-click="goTo(step)">{{step.title || step.wzTitle}}</a>
+                    </li>
+                </ul>
+            </div>
+        </script>
+        <script type="text/ng-template" id="step.html">
+            <section ng-show="selected" ng-class="{current: selected, done: completed}" class="step" ng-transclude></section>
+        </script>
 
 </div>
+</div>
 
-  
+<span ng-if="$root.params.createBoxWizard">
+    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl">
+        <div class="formWpr"
+              ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
+             wizard on-finish=" completewizard()" template="'wizard.html'">
+            <div wz-step template="'step.html'">
+                <div class="actionTxt">@IndexResources.CreateCourse</div>
+                <div class="courseType">
+                    <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
+                    <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
+                    <div class="labelExplain explain1">@IndexResources.InviteOnly</div>
+                </div>
+
+                <div class="courseType">
+                    <input class="radio" type="radio" id="OpenCourse" name="courseType" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
+                    <label for="OpenCourse">@IndexResources.OpenCourse</label>
+                    <div class="labelExplain">@IndexResources.AnyoneUrl</div>
+                </div>
+
+                @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
+                <div class="newAcademic clearfix">
+                    @{
+                        Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
+                    }
+                </div>
+
+                <div class="newPrivate clearfix">
+                    @{
+                        Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl });
+                    }
+                </div>
+
+                @{
+                    Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+                }
+            </div>
+
+        </div>
+    </div>
+</span>
+@*Guy: When user clicks the 'private course' radio btn - add class 'js-private' here
+     When user clicks the 'open course' radio btn - add class 'js-academic' here
+    When user clicks the 'Create a new Department' btn - add class 'js-addDept' here
+*@
+
+@*js-academic | js-private | js-addDept*@
+

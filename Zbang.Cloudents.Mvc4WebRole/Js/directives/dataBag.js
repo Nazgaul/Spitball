@@ -6,7 +6,7 @@
             scope: false,
             link: function (scope, elem, attrs) {
 
-                scope.product = JSON.parse(elem.attr('bag-data'));
+                scope[attrs.bagDataProperty] = JSON.parse(elem.attr('bag-data'));
             }
         };
     }
